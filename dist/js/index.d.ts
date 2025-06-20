@@ -1,27 +1,26 @@
 /**
  * Exports all javascript content, including types.
- * 
+ *
  * @module .
  * @category Exports
- * 
+ *
  * @mergeModuleWith <project>
- * 
- * @since ___PKG_VERSION___
- * 
+ *
+ * @since 0.1.0-alpha.draft
+ *
  * @example
  * ```ts
  * import type { ... } from '@maddimathon/design-system-utilities';
  * import { ... } from '@maddimathon/design-system-utilities';
  * ```
- * 
+ *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@___CURRENT_VERSION___
+ * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
-
 export type * from './types/index.d.ts';
-
 export * from './classes/index.js';
 export * from './functions/index.js';
+//# sourceMappingURL=index.d.ts.map

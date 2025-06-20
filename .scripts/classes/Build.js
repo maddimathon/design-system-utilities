@@ -2,14 +2,14 @@
 'use strict';
 // @ts-check
 /*
- * @package @maddimathon/template-npm-library
+ * @package @maddimathon/design-system-utilities
  * @author Maddi Mathon (www.maddimathon.com)
  * 
  * @license MIT
  */
 
 /**
- * @import { AbstractStage, Stage } from "@maddimathon/build-utilities"
+ * @import { Stage } from "@maddimathon/build-utilities"
  */
 
 import {
@@ -22,17 +22,7 @@ import {
 } from '@maddimathon/build-utilities';
 
 /**
- * @typedef {Stage.Args.Build} Build_Args
- */
-
-/**
- * @typedef {Stage.SubStage.Build | "readme"} Build_SubStage
- */
-
-/**
  * Extension of the built-in one.
- * 
- * @implements {AbstractStage<Build_Args, Build_SubStage>}
  */
 export class Build extends BuildStage {
 
@@ -118,9 +108,9 @@ export class Build extends BuildStage {
             readmeContent = readmeContent.replace(
                 /(<!--README_INSTALL-->).*?(<!--\/README_INSTALL-->)/gs,
                 '$1\n' + escRegExpReplace( [
-                    '```sh',
-                    // 'npm i -D @maddimathon/build-utilities@' + this.pkg.version,
-                    'npm i -D github:maddimathon/build-utilities#' + this.pkg.version,
+                    '```bash',
+                    'npm i -D @maddimathon/design-system-utilities@' + this.pkg.version,
+                    'npm i -D github:maddimathon/design-system-utilities#' + this.pkg.version,
                     '```',
                 ].join( '\n' ) ) + '\n$2'
             );

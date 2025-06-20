@@ -1,7 +1,7 @@
 ---
 title: Sass Exports
 ---
-<!-- @since 1.3.0+tmpl -->
+<!-- @since ___PKG_VERSION___ -->
 
 # Sass
 
@@ -10,20 +10,21 @@ however, documented in the code itself.
 
 ## How to Use
 
-It’s best to `@forward` the library’s sass into a partial that is then `@use`d in other files.
+It’s best to `@forward` the library’s sass into a partial that is then `@use`d
+in other files.
 
 ```scss
-// ./_imports.scss
-@forward 'pkg:@maddimathon/template-npm-library' with (
+// ./_utils.scss
+@forward 'pkg:@maddimathon/design-system-utilities' with (
     // $example: value,
 );
 ```
 
 ```scss
 // ./main.scss
-@use 'imports' as utils;
+@use 'utils';
 
 body {
-    --test: #{tmpl.example-function( 'hello' )};
+    --test: #{utils.example-function( 'hello' )};
 }
 ```
