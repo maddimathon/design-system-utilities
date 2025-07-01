@@ -23,5 +23,6 @@
 
 export type * from './types/index.d.ts';
 
-export * from './classes/index.js';
 export * from './functions/index.js';
+
+export * as BuildUtils from './build-utils/index.js';

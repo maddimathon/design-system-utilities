@@ -1,0 +1,118 @@
+---
+/**
+ * @since ___PKG_VERSION___
+ * 
+ * @packageDocumentation
+ */
+
+/* import - types */
+import type { Props as LibPageProps } from '@maddimathon/utility-astro/layouts/Page';
+
+/* import - functions */
+import {
+    arrayUnique,
+    mergeArgs,
+} from '@maddimathon/utility-typescript/functions';
+import { relativeURL } from '../functions/relativeURL.js';
+
+/* import - values */
+// import {
+//     base as config_base,
+//     build as config_build,
+// } from 'astro:config/client';
+import '../css/main.css';
+import { SITE_TITLE } from '../constants.js';
+
+/* import - components */
+
+/* import - layouts */
+import LibPage from '@maddimathon/utility-astro/layouts/Page';
+
+
+/* TYPES ===================================== */
+
+
+/* PROPS ===================================== */
+
+export interface Props extends Partial<LibPageProps> {}
+
+const inputs: Props = Astro.props.frontmatter ?? Astro.props;
+
+const props: Props & LibPageProps = mergeArgs( {
+
+    title: SITE_TITLE,
+
+    footer: {
+
+        copyright: {
+            html: (
+                '<a href="https://www.maddimathon.com">Maddi Mathon</a>'
+                + ' | '
+                + '<a href="' + relativeURL( Astro.url, 'license' ) + '">MIT license</a>'
+            ),
+            // owner: 'Maddi Mathon',
+            year: 2025,
+        },
+    },
+    
+    meta: {
+
+        title: arrayUnique( [
+            ...(
+                inputs.title?.length
+                ? ( Array.isArray( inputs.title ) ? inputs.title : [ inputs.title ] )
+                : []
+            ),
+            SITE_TITLE,
+        ] ).join( ' — ' ),
+    },
+
+    // skipLinks: [
+    // ],
+
+    support: {
+        settings: false,
+    },
+    
+} as Props & LibPageProps, inputs, true );
+
+
+/* CONSTANTS ===================================== */
+
+props.primaryMenu = [
+    { label: 'Home', href: '' },
+    { label: 'Test Example', href: 'test/example' },
+].map( ( _obj ) => {
+    _obj.href = relativeURL( Astro.url, _obj.href );
+    return _obj;
+} );
+
+---
+
+<LibPage { ...props }>
+
+    <slot name="head-open" slot="head-open" />
+
+    <meta slot="head-close" name="color-scheme" content="dark light" />
+    
+    <slot name="head-close" slot="head-close" />
+    
+    <slot name="body-open" slot="body-open" />
+
+    <p slot="settings-menu-open" class="website-settings__disclaimer">These settings are saved using browser cookies, which may not work as expected in offline copies.</p>
+    
+    <slot name="before-header" slot="before-header" />
+    <slot name="header" slot="header" />
+    <slot name="after-header" slot="after-header" />
+    
+    <slot />
+    
+    <slot name="before-footer" slot="before-footer" />
+    <slot name="footer" slot="footer" />
+    <slot name="after-footer" slot="after-footer" />
+    
+    <slot name="body-close" slot="body-close" />
+
+    <slot name="footer-scripts" />
+
+</LibPage>

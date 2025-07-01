@@ -8,4 +8,4 @@
  * @license MIT
  */
 
-export { };
+export * from './makeRelativeURL.js';

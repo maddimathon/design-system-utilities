@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-// @ts-check
 'use strict';
 
 /**
@@ -12,6 +11,7 @@ import {
 
 import { Build } from './classes/Build.js';
 import { Compile } from './classes/Compile.js';
+import { Document } from './classes/Document.js';
 
 const _defaults = {
     build: BuildStage.prototype.ARGS_DEFAULT,
@@ -57,24 +57,7 @@ const config = {
 
         compile: Compile,
 
-        document: {
-
-            entryPoints: [
-                'src/ts/index.ts',
-            ],
-
-            typeDoc: {
-
-                categorizeByGroup: false,
-
-                projectDocuments: [
-                    'README.md',
-                    // 'CHANGELOG.md',
-                    // 'LICENSE.md',
-                    'src/docs/*.md',
-                ],
-            },
-        },
+        document: Document,
 
         test: false,
     },

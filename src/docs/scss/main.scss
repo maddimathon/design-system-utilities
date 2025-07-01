@@ -1,0 +1,31 @@
+/// 
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+/// 
+
+@forward '_header';
+
+@forward 'utils';
+
+@use 'utils';
+
+test {
+    /* this is a test of utils.$scale_multiplier */
+    --content: #{utils.$scale_multiplier}; /* expecting: 1.25 */
+}
+
+test {
+    /* this is a test of utils.$margin_softener */
+    --content: #{utils.$margin_softener}; /* expecting: 0.75 */
+}
+
+// test {
+//     /* this is a test of utility-astro-test-function() */
+//     --content: #{utils.utility-astro-test-function()};
+// }
+
+@include utils.min-width(tablet) { /* expecting: 20 or 60 */
+    test {
+        /* I am inside a min-width( tablet ) mixin from utility-sass */
+    }
+}

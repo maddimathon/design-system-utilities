@@ -20,6 +20,6 @@
  * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
-export * from './classes/index.js';
-export * from './functions/index.js';
+export * as Astro from './astro/index.js';
+export * as BuildUtils from './build-utils/index.js';
 //# sourceMappingURL=index.js.map

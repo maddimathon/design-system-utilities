@@ -21,6 +21,6 @@
  * @license MIT
  */
 export type * from './types/index.d.ts';
-export * from './classes/index.js';
-export * from './functions/index.js';
+export * as Astro from './astro/index.js';
+export * as BuildUtils from './build-utils/index.js';
 //# sourceMappingURL=index.d.ts.map

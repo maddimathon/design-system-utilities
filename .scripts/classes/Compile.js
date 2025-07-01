@@ -7,6 +7,10 @@
  * @license MIT
  */
 
+/**
+ * @import { Stage } from "@maddimathon/build-utilities"
+ */
+
 import {
     CompileStage,
 } from '@maddimathon/build-utilities';
@@ -17,26 +21,40 @@ import {
 export class Compile extends CompileStage {
 
     /**
+     * @type {Stage.SubStage.Compile[]}
+     * 
+     * @override
+     * @readonly
+     */
+    subStages = [
+        // @ts-expect-error
+        'astro',
+        // @ts-expect-error
+        'schemas',
+        'scss',
+        'ts',
+        'files',
+    ];
+
+    /**
+     * @protected
+     */
+    async astro() {
+        await this.runCustomDirCopySubStage( 'astro' );
+    }
+
+    /**
+     * @protected
+     */
+    async schemas() {
+        await this.runCustomDirCopySubStage( 'schemas' );
+    }
+
+    /**
      * @protected
      * @override
      */
     async scss() {
-        this.console.progress( 'copying scss to dist...', 1 );
-
-        const distDir = this.getDistDir().trim().replace( /\/$/g, '' );
-
-        const srcDir = this.getSrcDir().trim().replace( /\/$/g, '' );
-
-        this.fs.copy(
-            'scss',
-            2,
-            distDir,
-            srcDir,
-            {
-                force: true,
-                rename: true,
-                recursive: true,
-            },
-        );
+        await this.runCustomDirCopySubStage( 'scss' );
     }
 }

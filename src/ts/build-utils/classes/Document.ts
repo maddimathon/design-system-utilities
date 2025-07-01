@@ -1,0 +1,69 @@
+/**
+ * @since ___PKG_VERSION___
+ * 
+ * @packageDocumentation
+ */
+/*!
+ * @maddimathon/design-system-utilities@___CURRENT_VERSION___
+ * @license MIT
+ */
+
+import type {
+    Stage,
+} from '@maddimathon/build-utilities';
+
+import {
+    DocumentStage,
+} from '@maddimathon/build-utilities';
+
+import {
+} from '@maddimathon/utility-typescript/functions';
+
+/**
+ * Extension of the built-in one.
+ * 
+ * @since ___PKG_VERSION___
+ */
+export class Document extends DocumentStage {
+
+    override readonly subStages: Stage.SubStage.Document[] = [
+        'scss' as Stage.SubStage.Document,
+        'astro' as Stage.SubStage.Document,
+        'replace',
+    ];
+
+    protected async scss() {
+
+        const outDir = (
+            this.getSrcDir( 'docs', 'css' )[ 0 ]
+            ?? this.getSrcDir( undefined, 'docs/css' )
+        ).replace( /\/$/g, '' );
+
+        await this.runCustomScssDirSubStage( 'docs/scss', outDir );
+    }
+
+    protected async astro() {
+        this.console.progress( 'building astro docs...', 1 );
+
+        const distDir = this.getDistDir( 'docs' ).trim().replace( /\/$/g, '' );
+
+        if ( this.fs.exists( distDir ) ) {
+            this.console.verbose( 'deleting existing files...', 2 );
+            this.fs.delete( distDir, this.params.verbose ? 3 : 2 );
+        }
+
+        this.console.verbose( 'checking astro types...', 2 );
+        this.try(
+            this.console.nc.cmd,
+            this.params.verbose ? 3 : 2,
+            [ 'astro check' ]
+        );
+
+        this.console.verbose( 'compiling to ' + distDir + '...', 2 );
+        this.try(
+            this.console.nc.cmd,
+            this.params.verbose ? 3 : 2,
+            [ 'astro build' ]
+        );
+    }
+}
