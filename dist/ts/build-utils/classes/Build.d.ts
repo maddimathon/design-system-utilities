@@ -15,6 +15,13 @@ import { BuildStage } from '@maddimathon/build-utilities';
  * @since 0.1.0-alpha.draft
  */
 export declare class Build extends BuildStage {
+    /**
+     * All sub-stages to run in this stage (in order).
+     *
+     * @category Running
+     *
+     * @source
+     */
     readonly subStages: Stage.SubStage.Build[];
     protected template(): Promise<void>;
 }

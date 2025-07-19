@@ -1,16 +1,25 @@
-/// 
+///
 /// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
 /// @since ___PKG_VERSION___
-/// 
+///
 
-@forward 'functions';
-@forward 'mixins';
-@forward 'templates';
+@forward 'config';
+@forward 'utils';
 
-/*!
- * This stylesheet includes css generated using 
- * @maddimathon/design-system-utilities@___CURRENT_VERSION___
- * 
- * Author: Maddi Mathon (www.maddimathon.com)
- * License: MIT
- */
+@forward '_header';
+
+@forward '01-functions';
+@forward '02-mixins';
+
+@use 'utils';
+
+test.design-system-utilities {
+    /* this is a test of utils.$scale_multiplier */
+    --content: #{utils.$scale_multiplier};
+}
+
+@include utils.min-width(tablet) {
+    test.design-system-utilities {
+        /* I am inside a min-width( tablet ) mixin from utility-sass */
+    }
+}

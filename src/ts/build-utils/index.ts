@@ -1,5 +1,5 @@
 /**
- * Utiities to use with the @maddimathon/npm-build-utilities package.
+ * Utilities to use with the @maddimathon/npm-build-utilities package.
  * 
  * @since ___PKG_VERSION___
  * 

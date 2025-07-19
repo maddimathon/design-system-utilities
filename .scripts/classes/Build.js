@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-'use strict';
 // @ts-check
 /*
  * @package @maddimathon/design-system-utilities
@@ -9,7 +8,7 @@
  */
 
 /**
- * @import { Stage } from "@maddimathon/build-utilities"
+ * @import { Stage } from '@maddimathon/build-utilities';
  */
 
 import {

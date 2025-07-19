@@ -26,6 +26,13 @@ import {
  */
 export class Document extends DocumentStage {
 
+    /**
+     * All sub-stages to run in this stage (in order).
+     *
+     * @category Running
+     *
+     * @source
+     */
     override readonly subStages: Stage.SubStage.Document[] = [
         'scss' as Stage.SubStage.Document,
         'astro' as Stage.SubStage.Document,

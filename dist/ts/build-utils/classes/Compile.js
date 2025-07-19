@@ -14,6 +14,13 @@ import { CompileStage, } from '@maddimathon/build-utilities';
  * @since 0.1.0-alpha.draft
  */
 export class Compile extends CompileStage {
+    /**
+     * All sub-stages to run in this stage (in order).
+     *
+     * @category Running
+     *
+     * @source
+     */
     subStages = [
         'scss',
         'css',

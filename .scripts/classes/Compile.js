@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-'use strict';
+// @ts-check
 /*
  * @package @maddimathon/design-system-utilities
  * @author Maddi Mathon (www.maddimathon.com)
@@ -8,7 +8,7 @@
  */
 
 /**
- * @import { Stage } from "@maddimathon/build-utilities"
+ * @import { Stage } from '@maddimathon/build-utilities';
  */
 
 import {
@@ -28,9 +28,9 @@ export class Compile extends CompileStage {
      */
     subStages = [
         // @ts-expect-error
-        'astro',
+        'schemata',
         // @ts-expect-error
-        'schemas',
+        'astro',
         'scss',
         'ts',
         'files',
@@ -46,8 +46,12 @@ export class Compile extends CompileStage {
     /**
      * @protected
      */
-    async schemas() {
-        await this.runCustomDirCopySubStage( 'schemas' );
+    async schemata() {
+        this.console.progress( 'compiling schemata...', 1 );
+
+        await this.compiler.typescript( 'src/schemata/tsconfig.json', 2 );
+
+        await this.runCustomDirCopySubStage( 'schemata', undefined );
     }
 
     /**

@@ -1,0 +1,85 @@
+---
+/**
+ * @since ___PKG_VERSION___
+ * 
+ * @packageDocumentation
+ */
+
+/* import - types */
+
+/* import - functions */
+import {
+    getCollection,
+    // render,
+} from 'astro:content';
+import * as YAML from 'yaml';
+
+// import { VariableInspector } from '@maddimathon/utility-typescript/classes';
+
+/* import - values */
+
+/* import - components */
+import Toggle from '@maddimathon/utility-astro/components/Toggle';
+// import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
+
+/* import - layouts */
+import DocsPage from '../../layouts/DocsPage.astro';
+import CodeBlock from '@maddimathon/utility-astro/components/CodeBlock';
+
+
+/* TYPES ===================================== */
+
+
+/* EXPORT PATHS ===================================== */
+
+export async function getStaticPaths() {
+    
+    const posts = await getCollection( 'api' );
+
+    return posts.map( _post => {
+
+        const html = _post.rendered?.html?.replace( /(?<= href="[^"]+)\.md"/g, '.html"' );
+        
+        return {
+            params: { id: _post.id },
+            props: {
+                ..._post,
+                title: _post.data.title,
+                html,
+            },
+        };
+    } );
+}
+
+
+/* CONSTANTS ===================================== */
+
+const props = Astro.props;
+
+// const { Content } = await render( props );
+
+const title = props.title;
+
+const varDump = { 
+    id: props.id,
+    title: props.title,
+    filePath: props.filePath,
+    data: props.data,
+    collection: props.collection,
+};
+
+const yamlDump = YAML.stringify( varDump );
+
+---
+
+<DocsPage title={title}>
+
+    <Fragment set:html={props.html} />
+
+    <Toggle id="page-props-vardump" heading={2}>
+        <Fragment slot="button" set:text="Page Properties" />
+        <!-- <VariableDump var={varDump} name="props" /> -->
+        <CodeBlock lang="yaml"><Fragment set:html={yamlDump} /></CodeBlock>
+    </Toggle>
+
+</Doc>

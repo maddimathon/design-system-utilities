@@ -30,6 +30,13 @@ import {
  */
 export class Build extends BuildStage {
 
+    /**
+     * All sub-stages to run in this stage (in order).
+     *
+     * @category Running
+     *
+     * @source
+     */
     override readonly subStages: Stage.SubStage.Build[] = [
         'compile',
         'replace',

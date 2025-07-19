@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-'use strict';
+// @ts-check
 /*
  * @package @maddimathon/design-system-utilities
  * @author Maddi Mathon (www.maddimathon.com)
@@ -8,7 +8,7 @@
  */
 
 /**
- * @import { Stage } from "@maddimathon/build-utilities"
+ * @import { Stage } from '@maddimathon/build-utilities';
  */
 
 import {
@@ -21,18 +21,67 @@ import {
 export class Document extends DocumentStage {
 
     /**
+     * Paths to typedoc outputs.
+     * 
+     * @readonly
+     */
+    get typeDoc_paths() {
+
+        return {
+            json: './src/docs/typedoc.json',
+            markdown: './src/docs/content/api',
+        };
+    }
+
+    /**
      * @type {Stage.SubStage.Document[]}
      * 
      * @override
      * @readonly
      */
     subStages = [
+        'typeDoc',
         // @ts-expect-error
         'scss',
         // @ts-expect-error
         'astro',
         'replace',
     ];
+
+    /**
+     * @protected
+     * @override
+     */
+    async typeDoc() {
+        this.fs.delete( [
+            this.typeDoc_paths.json,
+            this.typeDoc_paths.markdown,
+        ], 1 );
+
+        await super.typeDoc();
+
+
+        this.console.verbose( 'making replacements in markdown...', 2 );
+        const replacePaths = [
+            this.typeDoc_paths.json,
+            this.typeDoc_paths.markdown + '/**/*',
+        ];
+
+        this.replaceInFiles( replacePaths, 'current', this.params.verbose ? 3 : 2 );
+        this.replaceInFiles( replacePaths, 'package', this.params.verbose ? 3 : 2 );
+
+        this.console.verbose( 'replacing markdown paths...', 2 );
+        this.fs.replaceInFiles( replacePaths, [
+            [ /(?<=\[[^\]]+\]\([^\)]+)\.md\)/gi, '.html)' ],
+        ], this.params.verbose ? 3 : 2 );
+
+
+        this.console.verbose( 'tidying up...', 2 );
+        this.fs.delete( [
+            this.typeDoc_paths.markdown + '/.nojekyll',
+            this.typeDoc_paths.markdown + '/index.md',
+        ], 1 );
+    }
 
     /**
      * @protected

@@ -81,7 +81,8 @@ const props: Props & LibPageProps = mergeArgs( {
 
 props.primaryMenu = [
     { label: 'Home', href: '' },
-    { label: 'Test Example', href: 'test/example' },
+    { label: 'API Documentation', href: 'api' },
+    { label: 'MIT License', href: 'license' },
 ].map( ( _obj ) => {
     _obj.href = relativeURL( Astro.url, _obj.href );
     return _obj;
@@ -105,6 +106,7 @@ props.primaryMenu = [
     <slot name="header" slot="header" />
     <slot name="after-header" slot="after-header" />
     
+    <h1 set:text={props.title} />
     <slot />
     
     <slot name="before-footer" slot="before-footer" />

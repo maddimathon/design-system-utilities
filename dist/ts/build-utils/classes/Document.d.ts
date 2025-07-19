@@ -15,6 +15,13 @@ import { DocumentStage } from '@maddimathon/build-utilities';
  * @since 0.1.0-alpha.draft
  */
 export declare class Document extends DocumentStage {
+    /**
+     * All sub-stages to run in this stage (in order).
+     *
+     * @category Running
+     *
+     * @source
+     */
     readonly subStages: Stage.SubStage.Document[];
     protected scss(): Promise<void>;
     protected astro(): Promise<void>;

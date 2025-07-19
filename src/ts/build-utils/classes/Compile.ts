@@ -23,6 +23,13 @@ import {
  */
 export class Compile extends CompileStage {
 
+    /**
+     * All sub-stages to run in this stage (in order).
+     *
+     * @category Running
+     *
+     * @source
+     */
     override readonly subStages: Stage.SubStage.Compile[] = [
         'scss',
         'css' as Stage.SubStage.Compile,

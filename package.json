@@ -75,6 +75,25 @@
             "./dist/astro/*"
         ],
 
+        "./schemata/*": {
+
+            "types": [
+                "./dist/schemata/*",
+                "./dist/schemata/*.ts",
+                "./dist/schemata/*/index.ts",
+                "./dist/schemata/*.d.ts",
+                "./dist/schemata/*/index.d.ts"
+            ],
+
+            "default": [
+                "./dist/schemata/*.ts",
+                "./dist/schemata/*/index.ts",
+                "./dist/schemata/*.js",
+                "./dist/schemata/*/index.js",
+                "./dist/schemata/*"
+            ]
+        },
+
         "./types": "./dist/ts/types/index.d.ts",
         "./types/*": [
             "./dist/ts/types/*.d.ts",
@@ -142,10 +161,10 @@
         "prewatch": "build-utils compile --starting",
         
         "watch": "run-p --silent watch:*",
-            "watch:schemas": "watch -p 'src/scss/**/*' -c 'npm run --silent quick-build -- --only-compile schemas --watchedWatcher \"watch:schemas\"  --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
-            "watch:css":     "watch -p 'src/scss/**/*' -c 'npm run --silent quick-build -- --only-compile scss    --watchedWatcher \"watch:scss\"     --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
-            "watch:js":      "watch -p 'src/ts/**/*'   -c 'npm run --silent quick-build -- --only-compile ts      --watchedWatcher \"watch:js\"       --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
-            "watch:docs":    "watch -p 'src/docs/**/*' -c 'build-utils document         --                        --watchedWatcher \"watch:docs\"     --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:schemata": "watch -p 'src/schemata/**/*' -c 'npm run --silent quick-build -- --only-compile schemata --watchedWatcher \"watch:schemata\"  --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:css":      "watch -p 'src/scss/**/*'     -c 'npm run --silent quick-build -- --only-compile scss     --watchedWatcher \"watch:scss\"      --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:js":       "watch -p 'src/ts/**/*'       -c 'npm run --silent quick-build -- --only-compile ts       --watchedWatcher \"watch:js\"        --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:docs":     "watch -p 'src/docs/**/*'     -c 'build-utils document         --                         --watchedWatcher \"watch:docs\"      --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
         
         
         "prestart": "build-utils build -- --without minimize,prettify,template --only-document scss",
@@ -164,24 +183,27 @@
     
     "dependencies": {
         "@astrojs/check": "^0.9.4",
-        "@maddimathon/build-utilities": "file:../npm-build-utilities",
+        "@maddimathon/build-utilities": "^0.2.0-alpha.1",
         "@maddimathon/utility-astro": "file:../utility-astro",
         "@maddimathon/utility-sass": "file:../utility-sass",
         "@maddimathon/utility-typescript": "^2.0.0-beta",
+        "@types/jest": "^30.0.0",
         "astro": "^5.10.1",
-        "minimist": "^1.2.8"
+        "minimist": "^1.2.8",
+        "typedoc": "^0.28.7",
+        "typedoc-plugin-markdown": "^4.7.0",
+        "yaml": "^2.8.0"
     },
     "devDependencies": {
-        "@types/jest": "30.0.0",
         "@types/minimist": "1.2.5",
         "@types/node": "22.15.30",
         "jest": "30.0.3",
         "npm-run-all": "4.1.5",
         "sass": "1.89.2",
         "tsx": "4.20.3",
-        "typedoc": "0.28.7",
         "typescript": "5.8.3",
-        "watch-cli": "0.2.3"
+        "watch-cli": "0.2.3",
+        "zod": "3.25.67"
     },
 
     "browserslist": [

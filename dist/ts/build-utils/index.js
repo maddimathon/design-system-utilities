@@ -1,5 +1,5 @@
 /**
- * Utiities to use with the @maddimathon/npm-build-utilities package.
+ * Utilities to use with the @maddimathon/npm-build-utilities package.
  *
  * @since 0.1.0-alpha.draft
  *

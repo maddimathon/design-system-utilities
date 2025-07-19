@@ -1,0 +1,28 @@
+///
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+
+@forward 'config';
+@forward 'utils';
+
+@forward 'pkg:@maddimathon/utility-astro/templates/html';
+
+@use '../../index' as utils;
+
+test.design-system-utilities.templates.base {
+    /* this is a test of utils.$scale_multiplier */
+    --content: #{utils.$scale_multiplier};
+}
+
+@include utils.min-width(mobile) {
+    test.design-system-utilities.templates.base {
+        /* I am inside a min-width( mobile ) mixin from utility-sass */
+    }
+}
+
+@include utils.min-width(tablet) {
+    test.design-system-utilities.templates.base {
+        /* I am inside a min-width( tablet ) mixin from utility-sass */
+    }
+}
