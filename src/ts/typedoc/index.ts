@@ -10,7 +10,7 @@
  * @license MIT
  */
 
-export * as ts from 'typedoc';
+// export * as td from 'typedoc';
 
 export * from './lib/parseKind.js';
 

@@ -4,17 +4,8 @@
     "api": {
       "type": "object",
       "properties": {
-        "title": {
+        "name": {
           "type": "string"
-        },
-        "customSlug": {
-          "type": "string"
-        },
-        "fullName": {
-          "type": "string"
-        },
-        "typeDocID": {
-          "type": "number"
         },
         "kind": {
           "type": "string",
@@ -45,101 +36,39 @@
             "Variable"
           ]
         },
-        "pageSections": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "title": {
-                "type": "string"
-              },
-              "headings": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "link": {
-                      "type": "string"
-                    },
-                    "text": {
-                      "type": "string"
-                    },
-                    "level": {
-                      "type": "number"
-                    },
-                    "kind": {
-                      "$ref": "#/definitions/api/properties/kind"
-                    },
-                    "classes": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "link",
-                    "text"
-                  ],
-                  "additionalProperties": false
-                }
-              }
-            },
-            "required": [
-              "title",
-              "headings"
-            ],
-            "additionalProperties": false
-          }
+        "typeDocId": {
+          "type": "number"
         },
-        "blockTags": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "tag": {
-                "type": "string"
-              },
-              "content": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "kind": {
-                      "type": "string"
-                    },
-                    "text": {
-                      "type": "string"
-                    },
-                    "tag": {
-                      "type": "string"
-                    },
-                    "target": {
-                      "type": "string"
-                    },
-                    "targetAnchor": {
-                      "type": "string"
-                    },
-                    "tsLinkText": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "kind",
-                    "text"
-                  ],
-                  "additionalProperties": false
-                }
-              },
-              "name": {
-                "type": "string"
-              }
+        "parent": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "$ref": "#/definitions/api/properties/name"
             },
-            "required": [
-              "tag",
-              "content"
-            ],
-            "additionalProperties": false
-          }
+            "kind": {
+              "$ref": "#/definitions/api/properties/kind"
+            },
+            "typeDocId": {
+              "$ref": "#/definitions/api/properties/typeDocId"
+            },
+            "parent": {
+              "$ref": "#/definitions/api/properties/parent"
+            }
+          },
+          "required": [
+            "name",
+            "kind",
+            "typeDocId"
+          ],
+          "additionalProperties": false
         },
-        "modifierTags": {
+        "fullName": {
+          "type": "string"
+        },
+        "customSlug": {
+          "type": "string"
+        },
+        "splitName": {
           "type": "array",
           "items": {
             "type": "string"
@@ -199,18 +128,114 @@
           },
           "additionalProperties": false
         },
-        "$schema": {
-          "type": "string"
+        "modifierTags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "blockTags": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "tag": {
+                "type": "string"
+              },
+              "content": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "type": "string"
+                    },
+                    "text": {
+                      "type": "string"
+                    },
+                    "tag": {
+                      "type": "string"
+                    },
+                    "target": {
+                      "type": "string"
+                    },
+                    "targetAnchor": {
+                      "type": "string"
+                    },
+                    "tsLinkText": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "text"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "tag",
+              "content"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "pageSections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "headings": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "link": {
+                      "type": "string"
+                    },
+                    "text": {
+                      "type": "string"
+                    },
+                    "level": {
+                      "type": "number"
+                    },
+                    "kind": {
+                      "$ref": "#/definitions/api/properties/kind"
+                    },
+                    "classes": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "link",
+                    "text"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "title",
+              "headings"
+            ],
+            "additionalProperties": false
+          }
         }
       },
       "required": [
-        "title",
-        "fullName",
-        "typeDocID",
+        "name",
         "kind",
-        "pageSections",
-        "blockTags",
-        "modifierTags"
+        "typeDocId",
+        "fullName",
+        "splitName",
+        "pageSections"
       ],
       "additionalProperties": false
     }

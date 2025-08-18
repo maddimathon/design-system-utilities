@@ -75,30 +75,17 @@
             "./dist/astro/*"
         ],
 
-        "./schemata/*": {
-
-            "types": [
-                "./dist/schemata/*",
-                "./dist/schemata/*.ts",
-                "./dist/schemata/*/index.ts",
-                "./dist/schemata/*.d.ts",
-                "./dist/schemata/*/index.d.ts"
-            ],
-
-            "default": [
-                "./dist/schemata/*.ts",
-                "./dist/schemata/*/index.ts",
-                "./dist/schemata/*.js",
-                "./dist/schemata/*/index.js",
-                "./dist/schemata/*"
-            ]
-        },
-
-        "./types": "./dist/ts/types/index.d.ts",
-        "./types/*": [
-            "./dist/ts/types/*.d.ts",
-            "./dist/ts/types/*/index.d.ts",
-            "./dist/ts/types/*"
+        "./schema/*": [
+            "./dist/schemata/*.json",
+            "./dist/schemata/*.js",
+            "./dist/schemata/*/index.js",
+            "./dist/schemata/*"
+        ],
+        "./schemata/*": [
+            "./dist/schemata/*.json",
+            "./dist/schemata/*.js",
+            "./dist/schemata/*/index.js",
+            "./dist/schemata/*"
         ],
 
         "./*.scss": [
@@ -123,7 +110,8 @@
 
             "types": [
                 "./dist/ts/*.d.ts",
-                "./dist/ts/*/index.d.ts"
+                "./dist/ts/*/index.d.ts",
+                "./dist/ts/*"
             ],
 
             "default": [
@@ -192,7 +180,8 @@
         "minimist": "^1.2.8",
         "typedoc": "^0.28.7",
         "typedoc-plugin-markdown": "^4.7.0",
-        "yaml": "^2.8.0"
+        "yaml": "^2.8.0",
+        "zod": "^3.24.4"
     },
     "devDependencies": {
         "@types/minimist": "1.2.5",
@@ -202,8 +191,12 @@
         "sass": "1.89.2",
         "tsx": "4.20.3",
         "typescript": "5.8.3",
-        "watch-cli": "0.2.3",
-        "zod": "3.25.67"
+        "watch-cli": "0.2.3"
+    },
+
+    "peerDependencies": {
+        "typedoc": "^0.28.7",
+        "typedoc-plugin-markdown": "^4.7.0"
     },
 
     "browserslist": [

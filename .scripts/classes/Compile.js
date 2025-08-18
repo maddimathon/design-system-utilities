@@ -47,11 +47,8 @@ export class Compile extends CompileStage {
      * @protected
      */
     async schemata() {
-        this.console.progress( 'compiling schemata...', 1 );
-
-        await this.compiler.typescript( 'src/schemata/tsconfig.json', 2 );
-
-        await this.runCustomDirCopySubStage( 'schemata', undefined );
+        // this.console.progress( 'compiling schemata...', 1 );
+        // await this.compiler.typescript( 'src/schemata/tsconfig.json', 2 );
     }
 
     /**

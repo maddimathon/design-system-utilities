@@ -1,71 +1,107 @@
 ---
 /**
  * @since ___PKG_VERSION___
- * 
+ *
  * @packageDocumentation
  */
 
 /* import - types */
+import type { ArrayItem } from '@maddimathon/utility-typescript/types';
 
 /* import - functions */
-import { 
-    getCollection,
-    // getEntry,
-    // render,
-} from 'astro:content';
-import * as z from 'zod';
+import { getCollection } from 'astro:content';
+import * as YAML from 'yaml';
 
+import * as UA from '@maddimathon/utility-astro';
 import { relativeURL } from '../functions/relativeURL.js';
 
 /* import - values */
-import { astroCollectionSchema } from '../../ts/typedoc/index.js';
 
 /* import - components */
+import CodeBlock from '@maddimathon/utility-astro/components/CodeBlock';
+import NestedList from '@maddimathon/utility-astro/components/NestedList';
+import Toggle from '@maddimathon/utility-astro/components/Toggle';
 
 /* import - layouts */
 import DocsPage from '../layouts/DocsPage.astro';
 
-
 /* TYPES ===================================== */
 
-type CollectionTree = {
-    href: string;
-    title: string;
-    children: CollectionTree[];
-
-    data: z.infer<typeof astroCollectionSchema>;
-};
-
+/* FUNCTIONS ===================================== */
 
 /* CONSTANTS ===================================== */
 
-function makeCollectionTree( collection: Awaited<ReturnType<typeof getCollection>> ): CollectionTree[] {
+const rawCollection = await getCollection('api');
 
-    return collection.map( _page => ( {
-
-        href: relativeURL( Astro.url, `api/${_page.id}` ),
-        title: _page.data.title,
-
-        children: [],
-
-        data: _page.data,
-        
-    } ) );
-}
-
-
-/* CONSTANTS ===================================== */
-
-const pages = makeCollectionTree( await getCollection( 'api' ) );
-
+const collectionTree = new UA.typedoc.CollectionTree(
+    rawCollection.map(
+        (_page) =>
+            ({
+                ..._page,
+                href: relativeURL(Astro.url, `api/${_page.id}`),
+            }) as const satisfies ArrayItem<typeof rawCollection> & {
+                href: string;
+            }
+    )
+);
 ---
 
-<DocsPage title="Exports">
-    <ul>
-        { pages.map( page => (
-            <li><a href={page.href} set:text={page.title} /></li>
-        ) ) }
-    </ul>
+<DocsPage title='Exports'>
+    <Toggle
+        id='page-props-collectionTree-exportList'
+        heading={2}
+    >
+        <Fragment
+            slot='button'
+            set:text='collectionTree.exportList()'
+        />
+        <NestedList list={Object.values(collectionTree.exportList())} />
+    </Toggle>
+
     <hr />
-    <!-- { Content && <Content /> } -->
-</Doc>
+
+    <Toggle
+        id='page-props-collectionTree-exportMap'
+        heading={2}
+    >
+        <Fragment
+            slot='button'
+            set:text='collectionTree.exportMap()'
+        />
+        <CodeBlock lang='yaml'>
+            <Fragment set:html={YAML.stringify(collectionTree.exportMap())} />
+        </CodeBlock>
+    </Toggle>
+
+    <hr />
+
+    <Toggle
+        id='page-props-collectionTree-pages'
+        heading={2}
+    >
+        <Fragment
+            slot='button'
+            set:text='collectionTree.pages'
+        />
+        <CodeBlock lang='yaml'>
+            <Fragment set:html={YAML.stringify(collectionTree.pages)} />
+        </CodeBlock>
+    </Toggle>
+
+    <hr />
+
+    <Toggle
+        id='page-props-collectionTree-map'
+        heading={2}
+    >
+        <Fragment
+            slot='button'
+            set:text='collectionTree.map'
+        />
+        <CodeBlock lang='yaml'>
+            <Fragment set:html={YAML.stringify(collectionTree.map)} />
+        </CodeBlock>
+    </Toggle>
+
+    <hr />
+</DocsPage>

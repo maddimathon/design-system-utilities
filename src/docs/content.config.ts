@@ -12,11 +12,11 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-import { astroCollectionSchema } from '../ts/typedoc/index.js';
+import { typeDocSchemata } from '../ts/typedoc/index.js';
 
 const api = defineCollection( {
     loader: glob( { pattern: "**/*.md", base: "./src/docs/content/api" } ),
-    schema: astroCollectionSchema,
+    schema: typeDocSchemata.metadata.page,
 } );
 
 export const collections = { api };

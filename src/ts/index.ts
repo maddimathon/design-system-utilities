@@ -13,12 +13,10 @@
  * @license MIT
  */
 
-// /**
-//  * @external
-//  */
-// export type * from './types/index.d.ts';
+export * as Schemata from './00-schemata/index.js';
 
-export * from './functions/index.js';
+export * from './01-functions/index.js';
+export * from './02-classes/index.js';
 
 export * as BuildUtils from './build-utils/index.js';
 export * as TypeDoc from './typedoc/index.js';

@@ -11,6 +11,8 @@
  * @import { Config, Stage } from '@maddimathon/build-utilities';
  */
 
+import * as UA from '@maddimathon/utility-astro';
+
 import { Build } from './classes/Build.js';
 import { Compile } from './classes/Compile.js';
 import { Document } from './classes/Document.js';
@@ -67,13 +69,9 @@ const config = {
                 entryPoints: [
                     'src/ts/index.ts',
                     'src/astro/index.docs.ts',
-                    'src/schemata/index.ts',
                 ],
 
-                typeDoc: {
-
-                    categorizeByGroup: false,
-                    excludeExternals: true,
+                typeDoc: UA.typedoc.typeDocConfig( {
 
                     // json: Document.prototype.typeDoc_paths.json,
                     out: Document.prototype.typeDoc_paths.markdown,
@@ -83,42 +81,9 @@ const config = {
                         './dist/ts/typedoc/customMarkdownOutput.js',
                     ],
 
-                    projectDocuments: [],
-
-                    // router: 'member',
-
                     basePath: './',
                     tsconfig: 'tsconfig.json',
-
-                    // @ts-expect-error - this is a typedoc-plugin-markdown prop
-                    entryFileName: 'index',
-                    hideBreadcrumbs: true,
-                    hidePageHeader: true,
-                    hidePageTitle: true,
-
-                    // indexFormat: 'table',
-                    // classPropertiesFormat: 'table',
-                    // interfacePropertiesFormat: 'table',
-                    // parametersFormat: 'table',
-                    // typeAliasPropertiesFormat: 'table',
-                    // enumMembersFormat: 'table',
-                    // typeDeclarationFormat: 'table',
-                    // propertyMembersFormat: 'table',
-
-                    // tableColumnSettings: {
-                    //     hideDefaults: true,
-                    //     hideInherited: true,
-                    //     hideModifiers: true,
-                    //     hideOverrides: true,
-                    //     hideSources: true,
-                    //     hideValues: true,
-                    //     leftAlignHeaders: true,
-                    // },
-
-                    sanitizeComments: true,
-                    useCodeBlocks: true,
-                    useHTMLEncodedBrackets: true,
-                },
+                } ),
             }
         ],
 
