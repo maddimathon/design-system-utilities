@@ -19,4 +19,3 @@ export * from './01-functions/index.js';
 export * from './02-classes/index.js';
 
 export * as BuildUtils from './build-utils/index.js';
-export * as TypeDoc from './typedoc/index.js';

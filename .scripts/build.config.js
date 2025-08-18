@@ -11,8 +11,6 @@
  * @import { Config, Stage } from '@maddimathon/build-utilities';
  */
 
-import * as UA from '@maddimathon/utility-astro';
-
 import { Build } from './classes/Build.js';
 import { Compile } from './classes/Compile.js';
 import { Document } from './classes/Document.js';
@@ -62,30 +60,7 @@ const config = {
 
         compile: Compile,
 
-        document: [
-            Document,
-            {
-
-                entryPoints: [
-                    'src/ts/index.ts',
-                    'src/astro/index.docs.ts',
-                ],
-
-                typeDoc: UA.typedoc.typeDocConfig( {
-
-                    // json: Document.prototype.typeDoc_paths.json,
-                    out: Document.prototype.typeDoc_paths.markdown,
-
-                    plugin: [
-                        'typedoc-plugin-markdown',
-                        './dist/ts/typedoc/customMarkdownOutput.js',
-                    ],
-
-                    basePath: './',
-                    tsconfig: 'tsconfig.json',
-                } ),
-            }
-        ],
+        document: Document,
 
         test: false,
     },
