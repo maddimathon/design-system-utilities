@@ -1,0 +1,16 @@
+///
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+
+@forward '../../global/config' with (
+    $internal_supressCredit: true
+);
+
+@use '../../../config/_utility-sass' as utils;
+
+$internal_supressCredit: false !default;
+$internal_supressCredit: utils.config-valid-bool(
+    $internal_supressCredit,
+    'internal_supressCredit'
+);

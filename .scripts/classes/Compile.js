@@ -27,12 +27,14 @@ export class Compile extends CompileStage {
      * @readonly
      */
     subStages = [
+        'ts',
         // @ts-expect-error
         'schemata',
         // @ts-expect-error
         'astro',
         'scss',
-        'ts',
+        // @ts-expect-error
+        'templates',
         'files',
     ];
 
@@ -47,8 +49,46 @@ export class Compile extends CompileStage {
      * @protected
      */
     async schemata() {
-        // this.console.progress( 'compiling schemata...', 1 );
-        // await this.compiler.typescript( 'src/schemata/tsconfig.json', 2 );
+        this.console.progress( 'compiling schemata...', 1 );
+
+        const Tokens = ( await import( /* @vite-ignore */ this.fs.pathResolve( 'dist/ts/02-classes/Tokens.js' ) ) ).Tokens;
+
+        const defaultTokens = new Tokens();
+
+        this.console.verbose( 'writing default json tokens...', 2 );
+        this.try(
+            this.fs.write,
+            ( this.params.verbose ? 2 : 3 ),
+            [
+                this.getDistDir( undefined, 'default-tokens.json' ),
+                JSON.stringify( defaultTokens.export(), null, 4 ),
+                { force: true }
+            ]
+        );
+
+        this.console.verbose( 'writing default scss tokens...', 2 );
+
+        const tokenScss = defaultTokens.toSCSS();
+
+        this.try(
+            this.fs.write,
+            ( this.params.verbose ? 2 : 3 ),
+            [
+                this.getDistDir( undefined, 'default-tokens.scss' ),
+                tokenScss,
+                { force: true }
+            ]
+        );
+
+        this.try(
+            this.fs.write,
+            ( this.params.verbose ? 2 : 3 ),
+            [
+                'src/scss/tokens/_default.scss',
+                tokenScss,
+                { force: true }
+            ]
+        );
     }
 
     /**
@@ -57,5 +97,30 @@ export class Compile extends CompileStage {
      */
     async scss() {
         await this.runCustomDirCopySubStage( 'scss' );
+    }
+
+    /**
+     * @protected
+     */
+    async templates() {
+
+        await this.runCustomScssDirSubStage(
+            'scss/templates',
+            this.getDistDir( undefined, 'css/templates' ),
+            { postCSS: true },
+        );
+
+        if ( this.params.packaging || this.params.releasing ) {
+
+            this.console.verbose( 'tidying up compiled files...', 2 );
+            this.try(
+                this.fs.delete,
+                ( this.params.verbose ? 3 : 2 ),
+                [ [
+                    'dist/css/templates/@template.css',
+                    'dist/css/templates/@template.css.map'
+                ], ( this.params.verbose ? 3 : 2 ) ]
+            );
+        }
     }
 }

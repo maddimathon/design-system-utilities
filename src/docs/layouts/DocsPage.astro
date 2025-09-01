@@ -75,7 +75,6 @@ const props: Props & UtilPageTypes.Props = mergeArgs(
 
 props.primaryMenu = [
     { label: 'Home', href: '' },
-    { label: 'API Documentation', href: 'api' },
     { label: 'MIT License', href: 'license' },
 ].map((_obj) => {
     _obj.href = relativeURL(Astro.url, _obj.href);
@@ -126,7 +125,6 @@ props.primaryMenu = [
         slot='after-header'
     />
 
-    <h1 set:text={props.title} />
     <slot />
 
     <slot

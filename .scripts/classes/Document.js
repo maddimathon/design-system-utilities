@@ -40,7 +40,7 @@ export class Document extends DocumentStage {
      * @readonly
      */
     subStages = [
-        // 'typeDoc',
+        'typeDoc',
         // @ts-expect-error
         'scss',
         // @ts-expect-error

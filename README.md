@@ -52,6 +52,7 @@ change without being considered a breaking change). The root entry point exports
 the other entry points as modules.
 
 ```ts
+// typescript
 import {
     type ...,
     ...,
@@ -59,6 +60,7 @@ import {
 ```
 
 ```scss
+// scss
 @forward 'pkg:@maddimathon/design-system-utilities' with ( ... );
 ```
 

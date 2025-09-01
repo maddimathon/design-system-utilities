@@ -60,7 +60,18 @@ const config = {
 
         compile: Compile,
 
-        document: Document,
+        document: [
+            Document,
+            {
+                entryPoints: [
+                    'src/ts/index.ts',
+                ],
+
+                typeDoc: {
+                    out: 'docs-typedoc',
+                },
+            }
+        ],
 
         test: false,
     },
