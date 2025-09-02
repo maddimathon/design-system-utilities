@@ -17,6 +17,9 @@ import { AbstractTokens } from '../abstracts/AbstractTokens.js';
  */
 export class Tokens_Typography extends AbstractTokens {
     tokens_spacing;
+    get schema() {
+        return Schemata.Tokens.shape.typography;
+    }
     lineHeight;
     size;
     constructor(tokens_spacing, input) {
@@ -37,6 +40,9 @@ export class Tokens_Typography extends AbstractTokens {
             lineHeight: this.lineHeight,
             size: this.size,
         };
+    }
+    toScssVars() {
+        return this.export();
     }
     toJSON() {
         const size_mapper = (base, _opts) => {

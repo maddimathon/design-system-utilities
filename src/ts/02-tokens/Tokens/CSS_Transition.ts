@@ -20,9 +20,14 @@ import { AbstractTokens } from '../abstracts/AbstractTokens.js';
  * @since ___PKG_VERSION___
  */
 export class Tokens_CSS_Transition extends AbstractTokens<
+    typeof Schemata.Tokens.shape.CSS.shape.transition,
     Tokens_CSS_Transition.Export,
     Schemata.PartialTokens.CSS.Transition
 > {
+
+    get schema() {
+        return Schemata.Tokens.shape.CSS.shape.transition;
+    }
 
     public readonly time: Tokens_CSS_Transition.Export[ 'time' ];
 
@@ -42,6 +47,10 @@ export class Tokens_CSS_Transition extends AbstractTokens<
     }
 
     public toJSON() {
+        return this.export();
+    }
+
+    public toScssVars() {
         return this.export();
     }
 }

@@ -37,10 +37,16 @@ export {
  * @since ___PKG_VERSION___
  */
 export class Tokens extends AbstractTokens<
+    typeof Schemata.Tokens,
     Tokens.Export,
     Schemata.PartialTokens,
-    Tokens.JSON
+    Tokens.JSON,
+    Tokens.ScssVars
 > {
+
+    get schema() {
+        return Schemata.Tokens;
+    }
 
     public readonly spacing: Tokens_Spacing;
     public readonly typography: Tokens_Typography;
@@ -71,7 +77,7 @@ export class Tokens extends AbstractTokens<
             input?.typography ?? {}
         );
 
-        const zIndex = Schemata.Tokens.shape.CSS.shape.zIndex.parse( input?.css?.zIndex ?? {} );
+        const zIndex = this.schema.shape.CSS.shape.zIndex.parse( input?.css?.zIndex ?? {} );
 
         this.CSS = {
             border: new Tokens_CSS_Border( input?.css?.border ?? {} ),
@@ -94,6 +100,31 @@ export class Tokens extends AbstractTokens<
         };
     }
 
+    public override toScssVars(): Tokens.ScssVars {
+
+        const exp = this.export();
+
+        const spacing = this.spacing.toScssVars();
+
+        const line_height = exp.typography.lineHeight;
+
+        return {
+
+            spacing_multiplier: spacing.multiplier,
+            margin: spacing.margin,
+
+            font: {
+                size: exp.typography.size,
+            },
+
+            line_height,
+
+            border: exp.CSS.border,
+            transition: exp.CSS.transition,
+            z_index: exp.CSS.zIndex,
+        };
+    }
+
     public toJSON() {
 
         return {
@@ -108,27 +139,22 @@ export class Tokens extends AbstractTokens<
         };
     }
 
-    public override toSCSS(): string {
+    public override toScss(): string {
 
-        const exp = this.export();
-
-        const line_height = exp.typography.lineHeight;
+        const _vars = this.toScssVars();
 
         const vars: { [ K in keyof Tokens.ScssVars ]: string; } = {
 
-            spacing_multiplier: JsonToScss.convert( exp.spacing.multiplier ) || String( Schemata.Tokens.shape.spacing.shape.multiplier.parse( '' ) ),
-            margin: JsonToScss.convert( exp.spacing.margin ) || '()',
+            spacing_multiplier: JsonToScss.convert( _vars.spacing_multiplier ) || String( this.schema.shape.spacing.shape.multiplier.parse( '' ) ),
+            margin: JsonToScss.convert( _vars.margin ) || '()',
 
-            font: JsonToScss.convert( {
-                ...exp.typography,
-                lineHeight: undefined,
-            } ) || '()',
+            font: JsonToScss.convert( _vars.font ) || '()',
 
-            line_height: JsonToScss.convert( line_height ) || '()',
+            line_height: JsonToScss.convert( _vars.line_height ) || '()',
 
-            border: JsonToScss.convert( exp.CSS.border ) || '()',
-            transition: JsonToScss.convert( exp.CSS.transition ) || '()',
-            z_index: JsonToScss.convert( exp.CSS.zIndex ) || '()',
+            border: JsonToScss.convert( _vars.border ) || '()',
+            transition: JsonToScss.convert( _vars.transition ) || '()',
+            z_index: JsonToScss.convert( _vars.z_index ) || '()',
         };
 
         const scss: string[] = [
@@ -168,7 +194,8 @@ export namespace Tokens {
         typography: Tokens_Typography.Export;
     }
 
-    export interface JSON extends Omit<z.infer<typeof Schemata.Tokens>, "typography"> {
+    export interface JSON extends Omit<z.infer<typeof Schemata.Tokens>, "spacing" | "typography"> {
+        spacing: Tokens_Spacing.JSON;
         typography: Tokens_Typography.JSON;
     }
 

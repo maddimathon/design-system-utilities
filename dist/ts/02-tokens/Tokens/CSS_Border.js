@@ -16,6 +16,9 @@ import { AbstractTokens } from '../abstracts/AbstractTokens.js';
  * @since 0.1.0-alpha.draft
  */
 export class Tokens_CSS_Border extends AbstractTokens {
+    get schema() {
+        return Schemata.Tokens.shape.CSS.shape.border;
+    }
     radius;
     stroke;
     width;
@@ -33,6 +36,9 @@ export class Tokens_CSS_Border extends AbstractTokens {
         };
     }
     toJSON() {
+        return this.export();
+    }
+    toScssVars() {
         return this.export();
     }
 }

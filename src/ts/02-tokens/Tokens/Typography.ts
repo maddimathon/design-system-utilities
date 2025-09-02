@@ -21,10 +21,15 @@ import type { Tokens_Spacing } from './Spacing.js';
  * @since ___PKG_VERSION___
  */
 export class Tokens_Typography extends AbstractTokens<
+    typeof Schemata.Tokens.shape.typography,
     Tokens_Typography.Export,
     Schemata.PartialTokens.Typography,
     Tokens_Typography.JSON
 > {
+
+    get schema() {
+        return Schemata.Tokens.shape.typography;
+    }
 
     public readonly lineHeight: Tokens_Typography.Export[ 'lineHeight' ];
     public readonly size: z.infer<typeof Schemata.Tokens.shape.typography.shape.size>;
@@ -54,6 +59,10 @@ export class Tokens_Typography extends AbstractTokens<
             lineHeight: this.lineHeight,
             size: this.size,
         };
+    }
+
+    public toScssVars() {
+        return this.export();
     }
 
     public override toJSON(): Tokens_Typography.JSON {

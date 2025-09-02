@@ -21,9 +21,14 @@ import { AbstractTokens } from '../abstracts/AbstractTokens.js';
  * @since ___PKG_VERSION___
  */
 export class Tokens_CSS_Border extends AbstractTokens<
+    typeof Schemata.Tokens.shape.CSS.shape.border,
     Tokens_CSS_Border.Export,
     Schemata.PartialTokens.CSS.Border
 > {
+
+    get schema() {
+        return Schemata.Tokens.shape.CSS.shape.border;
+    }
 
     public readonly radius: Tokens_CSS_Border.Export[ 'radius' ];
     public readonly stroke: Tokens_CSS_Border.Export[ 'stroke' ];
@@ -60,6 +65,10 @@ export class Tokens_CSS_Border extends AbstractTokens<
     }
 
     public toJSON() {
+        return this.export();
+    }
+
+    public toScssVars() {
         return this.export();
     }
 }

@@ -16,6 +16,9 @@ import { AbstractTokens } from '../abstracts/AbstractTokens.js';
  * @since 0.1.0-alpha.draft
  */
 export class Tokens_Spacing extends AbstractTokens {
+    get schema() {
+        return Schemata.Tokens.shape.spacing;
+    }
     margin;
     multiplier;
     constructor(input) {
@@ -30,6 +33,38 @@ export class Tokens_Spacing extends AbstractTokens {
         };
     }
     toJSON() {
+        const _converter = (_val, _opts) => {
+            const opts = {
+                base: 1,
+                multiplier: this.multiplier,
+                roundToPixel: true,
+                ..._opts,
+            };
+            let _rem = Math.pow(opts.multiplier, _val) * opts.base;
+            if (opts.roundToPixel) {
+                _rem = this.roundToPixel(_rem, opts.roundToPixel_factor);
+            }
+            return _rem;
+        };
+        const exp = this.export();
+        return {
+            ...exp,
+            margin: {
+                rem: this.objectMap(exp.margin, (key, value) => key && _converter(value ?? 0)),
+                pt: this.objectMap(exp.margin, (key, value) => key && _converter(value ?? 0, {
+                    base: 11,
+                    roundToPixel: true,
+                    roundToPixel_factor: 2,
+                })),
+                px: this.objectMap(exp.margin, (key, value) => key && _converter(value ?? 0, {
+                    base: 16,
+                    roundToPixel: true,
+                    roundToPixel_factor: 1,
+                })),
+            },
+        };
+    }
+    toScssVars() {
         return this.export();
     }
 }
@@ -39,6 +74,7 @@ export class Tokens_Spacing extends AbstractTokens {
  * @since 0.1.0-alpha.draft
  */
 (function (Tokens_Spacing) {
+    ;
     ;
 })(Tokens_Spacing || (Tokens_Spacing = {}));
 //# sourceMappingURL=Spacing.js.map

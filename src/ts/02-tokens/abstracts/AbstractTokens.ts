@@ -8,6 +8,8 @@
  * @license MIT
  */
 
+import * as z from 'zod';
+
 import { JsonToScss } from '@maddimathon/utility-sass';
 
 type RecursiveRecord<
@@ -23,10 +25,14 @@ type RecursiveRecord<
  * @since ___PKG_VERSION___
  */
 export abstract class AbstractTokens<
-    T_ExportType extends object,
-    T_InputType extends object,
+    T_SystemSchema extends z.ZodTypeAny,
+    T_ExportType extends object = z.infer<T_SystemSchema>,
+    T_InputType extends object = Partial<z.infer<T_SystemSchema>>,
     T_JsonType extends object = T_ExportType,
+    T_ScssType extends object = T_ExportType,
 > {
+
+    public abstract get schema(): T_SystemSchema;
 
     constructor (
         protected readonly input: T_InputType,
@@ -133,8 +139,10 @@ export abstract class AbstractTokens<
 
     public abstract toJSON(): T_JsonType;
 
-    public toSCSS(): string {
-        return JsonToScss.convert( this.export() ) || '()';
+    public abstract toScssVars(): T_ScssType;
+
+    public toScss(): string {
+        return JsonToScss.convert( this.toScssVars() ) || '()';
     }
 
     public valueOf(): T_ExportType {

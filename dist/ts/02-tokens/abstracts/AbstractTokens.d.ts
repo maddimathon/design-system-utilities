@@ -7,6 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
+import * as z from 'zod';
 type RecursiveRecord<T_Keys extends number | string | symbol = number | string | symbol, T_Values extends any = any> = {
     [K in T_Keys]: T_Values | RecursiveRecord<T_Keys, T_Values>;
 };
@@ -15,8 +16,9 @@ type RecursiveRecord<T_Keys extends number | string | symbol = number | string |
  *
  * @since 0.1.0-alpha.draft
  */
-export declare abstract class AbstractTokens<T_ExportType extends object, T_InputType extends object, T_JsonType extends object = T_ExportType> {
+export declare abstract class AbstractTokens<T_SystemSchema extends z.ZodTypeAny, T_ExportType extends object = z.infer<T_SystemSchema>, T_InputType extends object = Partial<z.infer<T_SystemSchema>>, T_JsonType extends object = T_ExportType, T_ScssType extends object = T_ExportType> {
     protected readonly input: T_InputType;
+    abstract get schema(): T_SystemSchema;
     constructor(input: T_InputType);
     protected objectMap<T_Object extends object, T_Return extends unknown>(obj: T_Object, mapper: (key: keyof T_Object, value: T_Object[keyof T_Object]) => T_Return): {
         [K in keyof T_Object]: T_Return;
@@ -31,7 +33,8 @@ export declare abstract class AbstractTokens<T_ExportType extends object, T_Inpu
     protected roundToPixel(num: number, factor?: number): number;
     abstract export(): T_ExportType;
     abstract toJSON(): T_JsonType;
-    toSCSS(): string;
+    abstract toScssVars(): T_ScssType;
+    toScss(): string;
     valueOf(): T_ExportType;
 }
 export {};

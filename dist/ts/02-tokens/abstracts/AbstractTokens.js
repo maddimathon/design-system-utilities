@@ -7,6 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
+import * as z from 'zod';
 import { JsonToScss } from '@maddimathon/utility-sass';
 /**
  * Base class for the classes used to construct tokens.
@@ -73,8 +74,8 @@ export class AbstractTokens {
     roundToPixel(num, factor = 16) {
         return (Math.round(num * factor) / factor);
     }
-    toSCSS() {
-        return JsonToScss.convert(this.export()) || '()';
+    toScss() {
+        return JsonToScss.convert(this.toScssVars()) || '()';
     }
     valueOf() {
         return this.export();

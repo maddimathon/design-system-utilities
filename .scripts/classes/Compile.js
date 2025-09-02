@@ -68,7 +68,7 @@ export class Compile extends CompileStage {
 
         this.console.verbose( 'writing default scss tokens...', 2 );
 
-        const tokenScss = defaultTokens.toSCSS();
+        const tokenScss = defaultTokens.toScss();
 
         this.try(
             this.fs.write,

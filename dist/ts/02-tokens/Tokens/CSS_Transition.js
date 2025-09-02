@@ -16,6 +16,9 @@ import { AbstractTokens } from '../abstracts/AbstractTokens.js';
  * @since 0.1.0-alpha.draft
  */
 export class Tokens_CSS_Transition extends AbstractTokens {
+    get schema() {
+        return Schemata.Tokens.shape.CSS.shape.transition;
+    }
     time;
     constructor(input) {
         super(input ?? {});
@@ -27,6 +30,9 @@ export class Tokens_CSS_Transition extends AbstractTokens {
         };
     }
     toJSON() {
+        return this.export();
+    }
+    toScssVars() {
         return this.export();
     }
 }
