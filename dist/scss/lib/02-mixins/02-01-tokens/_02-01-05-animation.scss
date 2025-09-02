@@ -1,0 +1,33 @@
+///
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+
+// @use 'pkg:@maddimathon/utility-sass/color';
+// @use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/map';
+// @use 'pkg:@maddimathon/utility-sass/math';
+// @use 'pkg:@maddimathon/utility-sass/meta';
+@use 'pkg:@maddimathon/utility-sass/selector';
+// @use 'pkg:@maddimathon/utility-sass/string';
+
+// @use 'pkg:@maddimathon/utility-sass' as lib;
+
+@use '../../../tokens';
+
+@use '../../01-functions' as *;
+
+///
+/// Prints out the border width custom property tokens based on config.
+///
+/// @since 0.1.0-alpha.draft
+///
+@mixin tokens-tr-time {
+    /* #region Tokens - Transition Time */
+    #{selector.parent-or-root()} {
+        @each $slug, $_value in map.get(tokens.$transition, time) {
+            --tr-time-#{$slug}: #{transition-time-value($slug)};
+        }
+    }
+    /* #endregion Tokens - Transition Time */
+}

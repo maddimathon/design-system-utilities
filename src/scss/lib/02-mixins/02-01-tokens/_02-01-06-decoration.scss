@@ -1,0 +1,78 @@
+///
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+// @use 'pkg:@maddimathon/utility-sass/color';
+// @use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/map';
+// @use 'pkg:@maddimathon/utility-sass/math';
+// @use 'pkg:@maddimathon/utility-sass/meta';
+@use 'pkg:@maddimathon/utility-sass/selector';
+// @use 'pkg:@maddimathon/utility-sass/string';
+
+// @use 'pkg:@maddimathon/utility-sass' as lib;
+
+@use '../../../tokens';
+
+@use '../../01-functions' as *;
+
+///
+/// Prints out the border width custom property tokens based on config.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin tokens-border-radius {
+    /* #region Tokens - Border Radius */
+    #{selector.parent-or-root()} {
+        @each $slug, $_value in map.get(tokens.$border, radius) {
+            --border-radius-#{$slug}: #{border-radius-value($slug)}rem;
+        }
+    }
+    /* #endregion Tokens - Border Radius */
+}
+
+///
+/// Prints out the border width custom property tokens based on config.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin tokens-border-width {
+    /* #region Tokens - Border Width */
+    #{selector.parent-or-root()} {
+        @each $slug, $_value in map.get(tokens.$border, width) {
+            --border-width-#{$slug}: #{border-width-value($slug)}rem;
+        }
+    }
+    /* #endregion Tokens - Border Width */
+}
+
+///
+/// Prints out the border width custom property tokens based on config.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin tokens-stroke-relative {
+    /* #region Tokens - Stroke Relative */
+    #{selector.parent-or-root()} {
+        @each $slug, $_value in map.get(tokens.$border, stroke) {
+            --stroke-relative-#{$slug}: #{stroke-relative-value($slug)}em;
+        }
+    }
+    /* #endregion Tokens - Stroke Relative */
+}
+
+///
+/// Prints out the border width custom property tokens based on config.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin tokens-z-index {
+    /* #region Tokens - Z Index */
+    #{selector.parent-or-root()} {
+        @each $slug, $_value in tokens.$z_index {
+            --z-index-#{$slug}: #{z-index-value($slug)};
+        }
+    }
+    /* #endregion Tokens - Z Index */
+}

@@ -1,0 +1,124 @@
+///
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+
+// @use 'pkg:@maddimathon/utility-sass/color';
+// @use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/map';
+// @use 'pkg:@maddimathon/utility-sass/math';
+// @use 'pkg:@maddimathon/utility-sass/meta';
+// @use 'pkg:@maddimathon/utility-sass/selector';
+// @use 'pkg:@maddimathon/utility-sass/string';
+
+@use '../../tokens';
+
+///
+/// Uses the border radius tokens to prepare the appropriate numerical value (rem).
+///
+/// @since 0.1.0-alpha.draft
+///
+@function border-radius-value($level) {
+    $value: map.get(tokens.$border, radius, '200');
+
+    @if not map.has-key(tokens.$border, radius, '#{$level}') {
+        @warn "$level '#{$level}' was not a key in tokens.$border['radius']";
+    } @else {
+        $value: map.get(tokens.$border, radius, '#{$level}');
+    }
+
+    @return $value;
+}
+
+///
+/// Uses the border-radius config tokens to print the appropriate var(...) with
+/// a fallback.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function var-border-radius($level) {
+    @return var(--border-radius-#{$level}, #{border-radius-value($level)}rem);
+}
+
+///
+/// Uses the border width tokens to prepare the appropriate numerical value (rem).
+///
+/// @since 0.1.0-alpha.draft
+///
+@function border-width-value($level) {
+    $value: map.get(tokens.$border, width, '200');
+
+    @if not map.has-key(tokens.$border, width, '#{$level}') {
+        @warn "$level '#{$level}' was not a key in tokens.$border['width']";
+    } @else {
+        $value: map.get(tokens.$border, width, '#{$level}');
+    }
+
+    @return $value;
+}
+
+///
+/// Uses the border-width config tokens to print the appropriate var(...) with a
+/// fallback.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function var-border-width($level) {
+    @return var(--border-width-#{$level}, #{border-width-value($level)}rem);
+}
+
+///
+/// Uses the stroke relative tokens to prepare the appropriate numerical value (rem).
+///
+/// @since 0.1.0-alpha.draft
+///
+@function stroke-relative-value($level) {
+    $value: map.get(tokens.$border, stroke, '200');
+
+    @if not map.has-key(tokens.$border, stroke, '#{$level}') {
+        @warn "$level '#{$level}' was not a key in tokens.$border['stroke']";
+    } @else {
+        $value: map.get(tokens.$border, stroke, '#{$level}');
+    }
+
+    @return $value;
+}
+
+///
+/// Uses the stroke-relative tokens to print the appropriate var(...) with a
+/// fallback.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function var-stroke-relative($level) {
+    @return var(
+        --stroke-relative-#{$level},
+        #{stroke-relative-value($level)}em
+    );
+}
+
+///
+/// Uses the transition time tokens to prepare the appropriate numerical value
+/// (rem).
+///
+/// @since 0.1.0-alpha.draft
+///
+@function z-index-value($level) {
+    // returns
+    @if not map.has-key(tokens.$z_index, '#{$level}') {
+        @warn "$level '#{$level}' was not a key in tokens.$z_index";
+        @return $level;
+    }
+
+    @return map.get(tokens.$z_index, '#{$level}');
+}
+
+///
+/// Uses the border radius config tokens to print the appropriate var(...) with
+/// a fallback.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function var-z-index($level) {
+    @return var(--z-index-#{$level}, #{z-index-value($level)});
+}

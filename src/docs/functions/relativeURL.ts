@@ -15,7 +15,7 @@ import {
 
 import {
     makeRelativeURL,
-} from '../../ts/01-functions/makeRelativeURL.js';
+} from '../../ts/01-utilities/makeRelativeURL.js';
 
 export function relativeURL(
     currentURL: URL,

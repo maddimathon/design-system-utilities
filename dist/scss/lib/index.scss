@@ -3,22 +3,11 @@
 /// @since 0.1.0-alpha.draft
 ///
 
-@forward '../config';
-@forward '../_notice';
+@forward '../notice';
+
+@forward 'pkg:@maddimathon/utility-sass' hide snippet-input, tokens-all,
+    $font_sizes, $line_heights, $margins, $scale_multiplier;
 
 @forward '01-functions';
 @forward '02-mixins';
-
-// TODO: remove testing
-// @use 'utils';
-
-// test.design-system-utilities {
-//     /* this is a test of utils.$scale_multiplier */
-//     --content: #{utils.$scale_multiplier};
-// }
-
-// @include utils.min-width(tablet) {
-//     test.design-system-utilities {
-//         /* I am inside a min-width( tablet ) mixin from utility-sass */
-//     }
-// }
+@forward '03-snippets';

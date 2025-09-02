@@ -3,4 +3,13 @@
 /// @since 0.1.0-alpha.draft
 ///
 
-@forward 'pkg:@maddimathon/utility-sass/tokens';
+@use 'sass:map';
+
+@use 'default';
+
+@forward 'pkg:@maddimathon/utility-sass/tokens' with (
+    $font_sizes: map.get(default.$font, size),
+    $line_heights: default.$line_height,
+    $margins: default.$margin,
+    $scale_multiplier: default.$spacing_multiplier
+);

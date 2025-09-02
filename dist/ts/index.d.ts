@@ -13,7 +13,7 @@
  * @license MIT
  */
 export * as Schemata from './00-schemata/index.js';
-export * from './01-functions/index.js';
-export * from './02-classes/index.js';
+export * from './01-utilities/index.js';
+export * from './02-tokens/index.js';
 export * as BuildUtils from './build-utils/index.js';
 //# sourceMappingURL=index.d.ts.map

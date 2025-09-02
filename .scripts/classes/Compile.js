@@ -51,9 +51,9 @@ export class Compile extends CompileStage {
     async schemata() {
         this.console.progress( 'compiling schemata...', 1 );
 
-        const Tokens = ( await import( /* @vite-ignore */ this.fs.pathResolve( 'dist/ts/02-classes/Tokens.js' ) ) ).Tokens;
+        const Tokens = ( await import( /* @vite-ignore */ this.fs.pathResolve( 'dist/ts/02-tokens/Tokens.js' ) ) ).Tokens;
 
-        const defaultTokens = new Tokens();
+        const defaultTokens = new Tokens( {}, { tokensAsDefault: true } );
 
         this.console.verbose( 'writing default json tokens...', 2 );
         this.try(
@@ -61,7 +61,7 @@ export class Compile extends CompileStage {
             ( this.params.verbose ? 2 : 3 ),
             [
                 this.getDistDir( undefined, 'default-tokens.json' ),
-                JSON.stringify( defaultTokens.export(), null, 4 ),
+                JSON.stringify( defaultTokens, null, 4 ),
                 { force: true }
             ]
         );

@@ -1,0 +1,44 @@
+///
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+
+// @use 'pkg:@maddimathon/utility-sass/color';
+// @use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/map';
+// @use 'pkg:@maddimathon/utility-sass/math';
+// @use 'pkg:@maddimathon/utility-sass/meta';
+// @use 'pkg:@maddimathon/utility-sass/selector';
+// @use 'pkg:@maddimathon/utility-sass/string';
+
+// @use 'pkg:@maddimathon/utility-sass' as lib;
+
+@use '../../tokens';
+
+///
+/// Uses the transition time tokens to prepare the appropriate numerical value
+/// (in unitless rem).
+///
+/// @since 0.1.0-alpha.draft
+///
+@function transition-time-value($level) {
+    $value: map.get(tokens.$transition, time, '200');
+
+    @if not map.has-key(tokens.$transition, time, '#{$level}') {
+        @warn "$level '#{$level}' was not a key in tokens.$transition['time']";
+    } @else {
+        $value: map.get(tokens.$transition, time, '#{$level}');
+    }
+
+    @return $value;
+}
+
+///
+/// Uses the transition time tokens to print the appropriate var(...) with
+/// a fallback.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function var-tr-time($level) {
+    @return var(--tr-time-#{$level}, #{transition-time-value($level)});
+}
