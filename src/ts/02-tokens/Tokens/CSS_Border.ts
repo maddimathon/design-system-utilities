@@ -23,15 +23,39 @@ import { AbstractTokens } from '../abstracts/AbstractTokens.js';
 export class Tokens_CSS_Border extends AbstractTokens<
     typeof Tokens_CSS_Border.Schema,
     Tokens_CSS_Border.Export,
-    Tokens_CSS_Border.Part
+    Tokens_CSS_Border.Part,
+    Tokens_CSS_Border.JSON,
+    Tokens_CSS_Border.ScssVars
 > {
 
     get schema() {
         return Tokens_CSS_Border.Schema;
     }
 
+    /**
+     * Border radii for CSS.
+     *
+     * Default keys are '100', '200', '400'. After merging, values are
+     * rounded with {@link AbstractTokens.roundToPixel} (factor = 32).
+     */
     public readonly radius: Tokens_CSS_Border.Export[ 'radius' ];
+
+    /**
+     * Relative stroke widths for CSS. Meant to be used for underlines and
+     * spacing. Written in css as em units.
+     *
+     * Default keys are '100', '200', '400', '600', '800', '900'. After
+     * merging, values are rounded with {@link AbstractTokens.roundToPixel}
+     * (factor = 32).
+     */
     public readonly stroke: Tokens_CSS_Border.Export[ 'stroke' ];
+
+    /**
+     * Border widths for CSS.
+     *
+     * Default keys are '100', '200', '300', '400'. After merging, values
+     * are rounded with {@link AbstractTokens.roundToPixel} (factor = 32).
+     */
     public readonly width: Tokens_CSS_Border.Export[ 'width' ];
 
     public constructor (
@@ -82,24 +106,12 @@ export namespace Tokens_CSS_Border {
 
     export const Schema = z.object( {
 
-        /**
-         * Border radii for CSS.
-         *
-         * Default keys are '100', '200', '400'. After merging, values are
-         * rounded with {@link AbstractTokens.roundToPixel} (factor = 32).
-         */
         radius: z.object( {
             '100': z.number().default( 0.25 ),
             '200': z.number().default( 0.375 ),
             '400': z.number().default( 0.625 ),
         } ).and( z.record( tokenLevels_extended, z.number() ) ),
 
-        /**
-         * Border widths for CSS.
-         *
-         * Default keys are '100', '200', '300', '400'. After merging, values
-         * are rounded with {@link AbstractTokens.roundToPixel} (factor = 32).
-         */
         width: z.object( {
             '100': z.number().default( 0.0625 ),
             '200': z.number().default( 0.125 ),
@@ -107,14 +119,6 @@ export namespace Tokens_CSS_Border {
             '400': z.number().default( 0.25 ),
         } ).and( z.record( tokenLevels_extended, z.number() ) ),
 
-        /**
-         * Relative stroke widths for CSS. Meant to be used for underlines and
-         * spacing. Written in css as em units.
-         *
-         * Default keys are '100', '200', '400', '600', '800', '900'. After
-         * merging, values are rounded with {@link AbstractTokens.roundToPixel}
-         * (factor = 32).
-         */
         stroke: z.object( {
             '100': z.number().default( 0.5 / 16 ),
             '200': z.number().default( 1 / 16 ),
@@ -127,6 +131,8 @@ export namespace Tokens_CSS_Border {
 
     export interface Export extends z.infer<typeof Schema> { };
 
+    export interface JSON extends z.infer<typeof Schema> { };
+
     /**
      * The partialized version of the {@link Tokens_CSS_Border.Schema} accepted
      * as input.
@@ -138,4 +144,6 @@ export namespace Tokens_CSS_Border {
         stroke?: Partial<z.infer<typeof Schema.shape.stroke>>;
         width?: Partial<z.infer<typeof Schema.shape.width>>;
     }
+
+    export interface ScssVars extends z.infer<typeof Schema> { };
 }

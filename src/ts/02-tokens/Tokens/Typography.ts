@@ -25,14 +25,28 @@ export class Tokens_Typography extends AbstractTokens<
     typeof Tokens_Typography.Schema,
     Tokens_Typography.Export,
     Tokens_Typography.Part,
-    Tokens_Typography.JSON
+    Tokens_Typography.JSON,
+    Tokens_Typography.ScssVars
 > {
 
     get schema() {
         return Tokens_Typography.Schema;
     }
 
+    /**
+     * Line heights for the design system.
+     *
+     * Passed to utility-sass and used to compile a font size scale with
+     * {@link Tokens_Spacing.multiplier}.
+     */
     public readonly lineHeight: Tokens_Typography.Export[ 'lineHeight' ];
+
+    /**
+     * Font sizes for the design system.
+     *
+     * Passed to utility-sass and used to compile a font size scale with
+     * {@link Tokens_Spacing.multiplier}.
+     */
     public readonly size: Tokens_Typography.Export[ 'size' ];
 
     public constructor (
@@ -61,7 +75,14 @@ export class Tokens_Typography extends AbstractTokens<
     }
 
     public toScssVars() {
-        return this.export();
+
+        return {
+            font: {
+                size: this.size,
+            },
+
+            line_height: this.lineHeight,
+        };
     }
 
     public override toJSON(): Tokens_Typography.JSON {
@@ -146,9 +167,6 @@ export namespace Tokens_Typography {
             '600': z.number().default( 2 ),
         } ).and( z.record( tokenLevels_extended, z.number() ) ),
 
-        /**
-         * Font sizes for the design system.
-         */
         size: z.object( {
 
             title: z.number().default( 7 ),
@@ -186,8 +204,7 @@ export namespace Tokens_Typography {
         } ),
     } );
 
-    export interface Export extends z.infer<typeof Schema> {
-    };
+    export interface Export extends z.infer<typeof Schema> { };
 
     export interface JSON extends Omit<z.infer<typeof Schema>, "size"> {
 
@@ -205,4 +222,9 @@ export namespace Tokens_Typography {
      * @since ___PKG_VERSION___
      */
     export interface Part extends Partial<z.infer<typeof Schema>> { }
+
+    export interface ScssVars {
+        font: Omit<z.infer<typeof Schema>, "lineHeight">;
+        line_height: z.infer<typeof Schema.shape.lineHeight>;
+    };
 }

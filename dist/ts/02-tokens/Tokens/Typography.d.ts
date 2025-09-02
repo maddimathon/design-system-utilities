@@ -16,7 +16,7 @@ import type { Tokens_Spacing } from './Spacing.js';
  * @since 0.1.0-alpha.draft
  * @internal
  */
-export declare class Tokens_Typography extends AbstractTokens<typeof Tokens_Typography.Schema, Tokens_Typography.Export, Tokens_Typography.Part, Tokens_Typography.JSON> {
+export declare class Tokens_Typography extends AbstractTokens<typeof Tokens_Typography.Schema, Tokens_Typography.Export, Tokens_Typography.Part, Tokens_Typography.JSON, Tokens_Typography.ScssVars> {
     protected tokens_spacing: Tokens_Spacing;
     get schema(): z.ZodObject<{
         lineHeight: z.ZodIntersection<z.ZodObject<{
@@ -41,9 +41,6 @@ export declare class Tokens_Typography extends AbstractTokens<typeof Tokens_Typo
             '500'?: number | undefined;
             '600'?: number | undefined;
         }>, z.ZodRecord<z.ZodUnion<[z.ZodLiteral<"000">, z.ZodLiteral<"050">, z.ZodLiteral<"100">, z.ZodLiteral<"150">, z.ZodLiteral<"200">, z.ZodLiteral<"250">, z.ZodLiteral<"300">, z.ZodLiteral<"350">, z.ZodLiteral<"400">, z.ZodLiteral<"450">, z.ZodLiteral<"500">, z.ZodLiteral<"550">, z.ZodLiteral<"600">, z.ZodLiteral<"650">, z.ZodLiteral<"700">, z.ZodLiteral<"750">, z.ZodLiteral<"800">, z.ZodLiteral<"850">, z.ZodLiteral<"900">, z.ZodLiteral<"950">]>, z.ZodNumber>>;
-        /**
-         * Font sizes for the design system.
-         */
         size: z.ZodObject<{
             title: z.ZodDefault<z.ZodNumber>;
             heading: z.ZodIntersection<z.ZodObject<{
@@ -215,11 +212,58 @@ export declare class Tokens_Typography extends AbstractTokens<typeof Tokens_Typo
             normal?: number | undefined;
         };
     }>;
+    /**
+     * Line heights for the design system.
+     *
+     * Passed to utility-sass and used to compile a font size scale with
+     * {@link Tokens_Spacing.multiplier}.
+     */
     readonly lineHeight: Tokens_Typography.Export['lineHeight'];
+    /**
+     * Font sizes for the design system.
+     *
+     * Passed to utility-sass and used to compile a font size scale with
+     * {@link Tokens_Spacing.multiplier}.
+     */
     readonly size: Tokens_Typography.Export['size'];
     constructor(tokens_spacing: Tokens_Spacing, input?: Tokens_Typography.Part);
     export(): Tokens_Typography.Export;
-    toScssVars(): Tokens_Typography.Export;
+    toScssVars(): {
+        font: {
+            size: {
+                title: number;
+                heading: {
+                    '1': number;
+                    '2': number;
+                    '3': number;
+                    '4': number;
+                    '5': number;
+                    '6': number;
+                } & Record<number, number>;
+                smaller: {
+                    '1': number;
+                    '2': number;
+                } & Record<number, number>;
+                normal: number;
+                bigger: {
+                    '1': number;
+                    '2': number;
+                    '3': number;
+                    '4': number;
+                    '5': number;
+                    '6': number;
+                } & Record<number, number>;
+            };
+        };
+        line_height: {
+            '100': number;
+            '200': number;
+            '300': number;
+            '400': number;
+            '500': number;
+            '600': number;
+        } & Partial<Record<"100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900" | "000" | "050" | "150" | "250" | "350" | "450" | "550" | "650" | "750" | "850" | "950", number>>;
+    };
     toJSON(): Tokens_Typography.JSON;
 }
 /**
@@ -252,9 +296,6 @@ export declare namespace Tokens_Typography {
             '500'?: number | undefined;
             '600'?: number | undefined;
         }>, z.ZodRecord<z.ZodUnion<[z.ZodLiteral<"000">, z.ZodLiteral<"050">, z.ZodLiteral<"100">, z.ZodLiteral<"150">, z.ZodLiteral<"200">, z.ZodLiteral<"250">, z.ZodLiteral<"300">, z.ZodLiteral<"350">, z.ZodLiteral<"400">, z.ZodLiteral<"450">, z.ZodLiteral<"500">, z.ZodLiteral<"550">, z.ZodLiteral<"600">, z.ZodLiteral<"650">, z.ZodLiteral<"700">, z.ZodLiteral<"750">, z.ZodLiteral<"800">, z.ZodLiteral<"850">, z.ZodLiteral<"900">, z.ZodLiteral<"950">]>, z.ZodNumber>>;
-        /**
-         * Font sizes for the design system.
-         */
         size: z.ZodObject<{
             title: z.ZodDefault<z.ZodNumber>;
             heading: z.ZodIntersection<z.ZodObject<{
@@ -442,6 +483,10 @@ export declare namespace Tokens_Typography {
      * @since 0.1.0-alpha.draft
      */
     interface Part extends Partial<z.infer<typeof Schema>> {
+    }
+    interface ScssVars {
+        font: Omit<z.infer<typeof Schema>, "lineHeight">;
+        line_height: z.infer<typeof Schema.shape.lineHeight>;
     }
 }
 //# sourceMappingURL=Typography.d.ts.map

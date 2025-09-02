@@ -380,11 +380,6 @@ export declare class Tokens extends AbstractTokens<typeof Tokens.Schema, Tokens.
                     slow?: string | undefined;
                 } & Record<string, string>;
             }>;
-            /**
-             * Z-index values for CSS.
-             *
-             * Default keys are 'nav', 'settings', 'skipLink'.
-             */
             zIndex: z.ZodObject<{
                 nav: z.ZodDefault<z.ZodNumber>;
                 settings: z.ZodDefault<z.ZodNumber>;
@@ -635,6 +630,11 @@ export declare class Tokens extends AbstractTokens<typeof Tokens.Schema, Tokens.
     readonly CSS: {
         border: Tokens_CSS_Border;
         transition: Tokens_CSS_Transition;
+        /**
+         * Z-index values for CSS.
+         *
+         * Default keys are 'nav', 'settings', 'skipLink'.
+         */
         zIndex: z.infer<typeof Tokens.Schema.shape.CSS.shape.zIndex>;
     };
     readonly opts: Tokens.Opts;
@@ -1105,11 +1105,6 @@ export declare namespace Tokens {
                     slow?: string | undefined;
                 } & Record<string, string>;
             }>;
-            /**
-             * Z-index values for CSS.
-             *
-             * Default keys are 'nav', 'settings', 'skipLink'.
-             */
             zIndex: z.ZodObject<{
                 nav: z.ZodDefault<z.ZodNumber>;
                 settings: z.ZodDefault<z.ZodNumber>;
@@ -1385,10 +1380,12 @@ export declare namespace Tokens {
             zIndex?: Partial<z.infer<typeof Schema.shape.CSS.shape.zIndex>>;
         };
     }
-    type ScssVars = Omit<z.infer<typeof Schema>, "CSS" | "spacing" | "typography"> & Omit<z.infer<typeof Schema.shape.CSS>, "zIndex"> & Omit<z.infer<typeof Schema.shape.spacing>, "multiplier"> & {
-        font: Omit<z.infer<typeof Schema.shape.typography>, "lineHeight">;
-        line_height: z.infer<typeof Schema.shape.typography.shape.lineHeight>;
-        spacing_multiplier: number;
+    /**
+     * @interface
+     */
+    type ScssVars = Omit<z.infer<typeof Schema>, "CSS" | "spacing" | "typography"> & Tokens_Spacing.ScssVars & Tokens_Typography.ScssVars & {
+        border: Tokens_CSS_Border.ScssVars;
+        transition: Tokens_CSS_Transition.ScssVars;
         z_index: z.infer<typeof Schema.shape.CSS.shape.zIndex>;
     };
 }

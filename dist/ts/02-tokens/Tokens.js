@@ -65,19 +65,12 @@ export class Tokens extends AbstractTokens {
         };
     }
     toScssVars() {
-        const exp = this.export();
-        const spacing = this.spacing.toScssVars();
-        const line_height = exp.typography.lineHeight;
         return {
-            spacing_multiplier: spacing.multiplier,
-            margin: spacing.margin,
-            font: {
-                size: exp.typography.size,
-            },
-            line_height,
-            border: exp.CSS.border,
-            transition: exp.CSS.transition,
-            z_index: exp.CSS.zIndex,
+            ...this.spacing.toScssVars(),
+            ...this.typography.toScssVars(),
+            border: this.CSS.border.toScssVars(),
+            transition: this.CSS.transition.toScssVars(),
+            z_index: this.CSS.zIndex,
         };
     }
     toScss() {
@@ -114,11 +107,6 @@ export class Tokens extends AbstractTokens {
         CSS: z.object({
             border: Tokens_CSS_Border.Schema,
             transition: Tokens_CSS_Transition.Schema,
-            /**
-             * Z-index values for CSS.
-             *
-             * Default keys are 'nav', 'settings', 'skipLink'.
-             */
             zIndex: z.object({
                 nav: z.number().default(1000),
                 settings: z.number().default(9999),

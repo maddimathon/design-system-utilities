@@ -20,13 +20,20 @@ import { AbstractTokens } from '../abstracts/AbstractTokens.js';
 export class Tokens_CSS_Transition extends AbstractTokens<
     typeof Tokens_CSS_Transition.Schema,
     Tokens_CSS_Transition.Export,
-    Tokens_CSS_Transition.Part
+    Tokens_CSS_Transition.Part,
+    Tokens_CSS_Transition.JSON,
+    Tokens_CSS_Transition.ScssVars
 > {
 
     get schema() {
         return Tokens_CSS_Transition.Schema;
     }
 
+    /**
+     * Transition time values for CSS.
+     * 
+     * Default keys are 'fast', 'normal', 'slow'.
+     */
     public readonly time: Tokens_CSS_Transition.Export[ 'time' ];
 
     public constructor (
@@ -64,11 +71,6 @@ export namespace Tokens_CSS_Transition {
 
     export const Schema = z.object( {
 
-        /**
-         * Transition time values for CSS.
-         * 
-         * Default keys are 'fast', 'normal', 'slow'.
-         */
         time: z.object( {
             fast: transitionTime.default( '250ms' ),
             normal: transitionTime.default( '500ms' ),
@@ -76,7 +78,9 @@ export namespace Tokens_CSS_Transition {
         } ).and( z.record( z.string(), transitionTime ) ),
     } );
 
-    export interface Export extends z.infer<typeof Schema> { }
+    export interface Export extends z.infer<typeof Schema> { };
+
+    export interface JSON extends z.infer<typeof Schema> { };
 
     /**
      * The partialized version of the {@link Tokens_CSS_Transition.Schema}
@@ -87,4 +91,6 @@ export namespace Tokens_CSS_Transition {
     export interface Part {
         time?: Partial<z.infer<typeof Schema.shape.time>>,
     }
+
+    export interface ScssVars extends z.infer<typeof Schema> { };
 }

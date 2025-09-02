@@ -20,7 +20,29 @@ export class Tokens_Spacing extends AbstractTokens {
     get schema() {
         return Tokens_Spacing.Schema;
     }
+    /**
+     * Passed to the $margins token in the utility-sass base template.
+     *
+     * To get these into usable values, put the
+     * {@link Tokens.spacing.multiplier} to the power of the value and
+     * multiply it by your base value.
+     *
+     * For example, to make rems in scss this looks like:
+     * ```scss
+     * @each $key, $size in tokens.$margin {
+     *     $margin: map.set(
+     *         $margin,
+     *         $key,
+     *         math.round-to-pixel(math.pow(tokens.$scale_multiplier, $size) * 1.25)
+     *     );
+     * }
+     * ```
+     */
     margin;
+    /**
+     * Used for scaling various size sets relative to each other - e.g.,
+     * margins, font sizes, line heights.
+     */
     multiplier;
     constructor(input) {
         super(input ?? {});
@@ -66,7 +88,11 @@ export class Tokens_Spacing extends AbstractTokens {
         };
     }
     toScssVars() {
-        return this.export();
+        const exp = this.export();
+        return {
+            margin: exp.margin,
+            spacing_multiplier: this.multiplier,
+        };
     }
 }
 /**
@@ -77,29 +103,7 @@ export class Tokens_Spacing extends AbstractTokens {
  */
 (function (Tokens_Spacing) {
     Tokens_Spacing.Schema = z.object({
-        /**
-         * Used for scaling various size sets relative to each other - e.g.,
-         * margins, font sizes, line heights.
-         */
         multiplier: z.number().default(1.15625),
-        /**
-         * Passed to the $margins token in the utility-sass base template.
-         *
-         * To get these into usable values, put the
-         * {@link Tokens.spacing.multiplier} to the power of the value and
-         * multiply it by your base value.
-         *
-         * For example, to make rems in scss this looks like:
-         * ```scss
-         * @each $key, $size in tokens.$margin {
-         *     $margin: map.set(
-         *         $margin,
-         *         $key,
-         *         math.round-to-pixel(math.pow(tokens.$scale_multiplier, $size) * 1.25)
-         *     );
-         * }
-         * ```
-         */
         margin: z.object({
             '100': z.number().default(-9),
             '200': z.number().default(-6),
@@ -109,6 +113,7 @@ export class Tokens_Spacing extends AbstractTokens {
             '800': z.number().default(8),
         }).and(z.record(tokenLevels_extended, z.number())),
     });
+    ;
     ;
     ;
 })(Tokens_Spacing || (Tokens_Spacing = {}));

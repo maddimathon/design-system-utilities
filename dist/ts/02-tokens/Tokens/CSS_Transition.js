@@ -18,6 +18,11 @@ export class Tokens_CSS_Transition extends AbstractTokens {
     get schema() {
         return Tokens_CSS_Transition.Schema;
     }
+    /**
+     * Transition time values for CSS.
+     *
+     * Default keys are 'fast', 'normal', 'slow'.
+     */
     time;
     constructor(input) {
         super(input ?? {});
@@ -43,16 +48,14 @@ export class Tokens_CSS_Transition extends AbstractTokens {
 (function (Tokens_CSS_Transition) {
     const transitionTime = z.string().regex(/^\d+m?s$/);
     Tokens_CSS_Transition.Schema = z.object({
-        /**
-         * Transition time values for CSS.
-         *
-         * Default keys are 'fast', 'normal', 'slow'.
-         */
         time: z.object({
             fast: transitionTime.default('250ms'),
             normal: transitionTime.default('500ms'),
             slow: transitionTime.default('750ms'),
         }).and(z.record(z.string(), transitionTime)),
     });
+    ;
+    ;
+    ;
 })(Tokens_CSS_Transition || (Tokens_CSS_Transition = {}));
 //# sourceMappingURL=CSS_Transition.js.map

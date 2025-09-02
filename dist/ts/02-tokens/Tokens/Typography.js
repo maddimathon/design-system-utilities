@@ -21,7 +21,19 @@ export class Tokens_Typography extends AbstractTokens {
     get schema() {
         return Tokens_Typography.Schema;
     }
+    /**
+     * Line heights for the design system.
+     *
+     * Passed to utility-sass and used to compile a font size scale with
+     * {@link Tokens_Spacing.multiplier}.
+     */
     lineHeight;
+    /**
+     * Font sizes for the design system.
+     *
+     * Passed to utility-sass and used to compile a font size scale with
+     * {@link Tokens_Spacing.multiplier}.
+     */
     size;
     constructor(tokens_spacing, input) {
         super(input ?? {});
@@ -42,7 +54,12 @@ export class Tokens_Typography extends AbstractTokens {
         };
     }
     toScssVars() {
-        return this.export();
+        return {
+            font: {
+                size: this.size,
+            },
+            line_height: this.lineHeight,
+        };
     }
     toJSON() {
         const size_mapper = (base, _opts) => {
@@ -92,9 +109,6 @@ export class Tokens_Typography extends AbstractTokens {
             '500': z.number().default(1),
             '600': z.number().default(2),
         }).and(z.record(tokenLevels_extended, z.number())),
-        /**
-         * Font sizes for the design system.
-         */
         size: z.object({
             title: z.number().default(7),
             heading: z.object({
@@ -126,6 +140,7 @@ export class Tokens_Typography extends AbstractTokens {
             }).and(z.record(z.number(), z.number())),
         }),
     });
+    ;
     ;
     ;
 })(Tokens_Typography || (Tokens_Typography = {}));

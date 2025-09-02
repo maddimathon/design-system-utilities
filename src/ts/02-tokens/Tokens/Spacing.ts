@@ -24,14 +24,38 @@ export class Tokens_Spacing extends AbstractTokens<
     typeof Tokens_Spacing.Schema,
     Tokens_Spacing.Export,
     Tokens_Spacing.Part,
-    Tokens_Spacing.JSON
+    Tokens_Spacing.JSON,
+    Tokens_Spacing.ScssVars
 > {
 
     get schema() {
         return Tokens_Spacing.Schema;
     }
 
+    /**
+     * Passed to the $margins token in the utility-sass base template.
+     * 
+     * To get these into usable values, put the 
+     * {@link Tokens.spacing.multiplier} to the power of the value and 
+     * multiply it by your base value.
+     * 
+     * For example, to make rems in scss this looks like:
+     * ```scss
+     * @each $key, $size in tokens.$margin {
+     *     $margin: map.set(
+     *         $margin,
+     *         $key,
+     *         math.round-to-pixel(math.pow(tokens.$scale_multiplier, $size) * 1.25)
+     *     );
+     * }
+     * ```
+     */
     public readonly margin: Tokens_Spacing.Export[ 'margin' ];
+
+    /**
+     * Used for scaling various size sets relative to each other - e.g.,
+     * margins, font sizes, line heights.
+     */
     public readonly multiplier: Tokens_Spacing.Export[ 'multiplier' ];
 
     public constructor (
@@ -116,7 +140,12 @@ export class Tokens_Spacing extends AbstractTokens<
     }
 
     public toScssVars() {
-        return this.export();
+
+        const exp = this.export();
+        return {
+            margin: exp.margin,
+            spacing_multiplier: this.multiplier,
+        };
     }
 }
 
@@ -130,30 +159,8 @@ export namespace Tokens_Spacing {
 
     export const Schema = z.object( {
 
-        /**
-         * Used for scaling various size sets relative to each other - e.g.,
-         * margins, font sizes, line heights.
-         */
         multiplier: z.number().default( 1.15625 ),
 
-        /**
-         * Passed to the $margins token in the utility-sass base template.
-         * 
-         * To get these into usable values, put the 
-         * {@link Tokens.spacing.multiplier} to the power of the value and 
-         * multiply it by your base value.
-         * 
-         * For example, to make rems in scss this looks like:
-         * ```scss
-         * @each $key, $size in tokens.$margin {
-         *     $margin: map.set(
-         *         $margin,
-         *         $key,
-         *         math.round-to-pixel(math.pow(tokens.$scale_multiplier, $size) * 1.25)
-         *     );
-         * }
-         * ```
-         */
         margin: z.object( {
             '100': z.number().default( -9 ),
             '200': z.number().default( -6 ),
@@ -181,4 +188,8 @@ export namespace Tokens_Spacing {
      * @since ___PKG_VERSION___
      */
     export interface Part extends Partial<z.infer<typeof Schema>> { }
+
+    export interface ScssVars extends Omit<z.infer<typeof Schema>, "multiplier"> {
+        spacing_multiplier: number;
+    };
 }

@@ -14,14 +14,8 @@ import { AbstractTokens } from '../abstracts/AbstractTokens.js';
  *
  * @since 0.1.0-alpha.draft
  */
-export declare class Tokens_CSS_Border extends AbstractTokens<typeof Tokens_CSS_Border.Schema, Tokens_CSS_Border.Export, Tokens_CSS_Border.Part> {
+export declare class Tokens_CSS_Border extends AbstractTokens<typeof Tokens_CSS_Border.Schema, Tokens_CSS_Border.Export, Tokens_CSS_Border.Part, Tokens_CSS_Border.JSON, Tokens_CSS_Border.ScssVars> {
     get schema(): z.ZodObject<{
-        /**
-         * Border radii for CSS.
-         *
-         * Default keys are '100', '200', '400'. After merging, values are
-         * rounded with {@link AbstractTokens.roundToPixel} (factor = 32).
-         */
         radius: z.ZodIntersection<z.ZodObject<{
             '100': z.ZodDefault<z.ZodNumber>;
             '200': z.ZodDefault<z.ZodNumber>;
@@ -35,12 +29,6 @@ export declare class Tokens_CSS_Border extends AbstractTokens<typeof Tokens_CSS_
             '200'?: number | undefined;
             '400'?: number | undefined;
         }>, z.ZodRecord<z.ZodUnion<[z.ZodLiteral<"000">, z.ZodLiteral<"050">, z.ZodLiteral<"100">, z.ZodLiteral<"150">, z.ZodLiteral<"200">, z.ZodLiteral<"250">, z.ZodLiteral<"300">, z.ZodLiteral<"350">, z.ZodLiteral<"400">, z.ZodLiteral<"450">, z.ZodLiteral<"500">, z.ZodLiteral<"550">, z.ZodLiteral<"600">, z.ZodLiteral<"650">, z.ZodLiteral<"700">, z.ZodLiteral<"750">, z.ZodLiteral<"800">, z.ZodLiteral<"850">, z.ZodLiteral<"900">, z.ZodLiteral<"950">]>, z.ZodNumber>>;
-        /**
-         * Border widths for CSS.
-         *
-         * Default keys are '100', '200', '300', '400'. After merging, values
-         * are rounded with {@link AbstractTokens.roundToPixel} (factor = 32).
-         */
         width: z.ZodIntersection<z.ZodObject<{
             '100': z.ZodDefault<z.ZodNumber>;
             '200': z.ZodDefault<z.ZodNumber>;
@@ -57,14 +45,6 @@ export declare class Tokens_CSS_Border extends AbstractTokens<typeof Tokens_CSS_
             '300'?: number | undefined;
             '400'?: number | undefined;
         }>, z.ZodRecord<z.ZodUnion<[z.ZodLiteral<"000">, z.ZodLiteral<"050">, z.ZodLiteral<"100">, z.ZodLiteral<"150">, z.ZodLiteral<"200">, z.ZodLiteral<"250">, z.ZodLiteral<"300">, z.ZodLiteral<"350">, z.ZodLiteral<"400">, z.ZodLiteral<"450">, z.ZodLiteral<"500">, z.ZodLiteral<"550">, z.ZodLiteral<"600">, z.ZodLiteral<"650">, z.ZodLiteral<"700">, z.ZodLiteral<"750">, z.ZodLiteral<"800">, z.ZodLiteral<"850">, z.ZodLiteral<"900">, z.ZodLiteral<"950">]>, z.ZodNumber>>;
-        /**
-         * Relative stroke widths for CSS. Meant to be used for underlines and
-         * spacing. Written in css as em units.
-         *
-         * Default keys are '100', '200', '400', '600', '800', '900'. After
-         * merging, values are rounded with {@link AbstractTokens.roundToPixel}
-         * (factor = 32).
-         */
         stroke: z.ZodIntersection<z.ZodObject<{
             '100': z.ZodDefault<z.ZodNumber>;
             '200': z.ZodDefault<z.ZodNumber>;
@@ -128,8 +108,28 @@ export declare class Tokens_CSS_Border extends AbstractTokens<typeof Tokens_CSS_
             '900'?: number | undefined;
         } & Partial<Record<"100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900" | "000" | "050" | "150" | "250" | "350" | "450" | "550" | "650" | "750" | "850" | "950", number>>;
     }>;
+    /**
+     * Border radii for CSS.
+     *
+     * Default keys are '100', '200', '400'. After merging, values are
+     * rounded with {@link AbstractTokens.roundToPixel} (factor = 32).
+     */
     readonly radius: Tokens_CSS_Border.Export['radius'];
+    /**
+     * Relative stroke widths for CSS. Meant to be used for underlines and
+     * spacing. Written in css as em units.
+     *
+     * Default keys are '100', '200', '400', '600', '800', '900'. After
+     * merging, values are rounded with {@link AbstractTokens.roundToPixel}
+     * (factor = 32).
+     */
     readonly stroke: Tokens_CSS_Border.Export['stroke'];
+    /**
+     * Border widths for CSS.
+     *
+     * Default keys are '100', '200', '300', '400'. After merging, values
+     * are rounded with {@link AbstractTokens.roundToPixel} (factor = 32).
+     */
     readonly width: Tokens_CSS_Border.Export['width'];
     constructor(input?: Tokens_CSS_Border.Part);
     export(): Tokens_CSS_Border.Export;
@@ -143,12 +143,6 @@ export declare class Tokens_CSS_Border extends AbstractTokens<typeof Tokens_CSS_
  */
 export declare namespace Tokens_CSS_Border {
     const Schema: z.ZodObject<{
-        /**
-         * Border radii for CSS.
-         *
-         * Default keys are '100', '200', '400'. After merging, values are
-         * rounded with {@link AbstractTokens.roundToPixel} (factor = 32).
-         */
         radius: z.ZodIntersection<z.ZodObject<{
             '100': z.ZodDefault<z.ZodNumber>;
             '200': z.ZodDefault<z.ZodNumber>;
@@ -162,12 +156,6 @@ export declare namespace Tokens_CSS_Border {
             '200'?: number | undefined;
             '400'?: number | undefined;
         }>, z.ZodRecord<z.ZodUnion<[z.ZodLiteral<"000">, z.ZodLiteral<"050">, z.ZodLiteral<"100">, z.ZodLiteral<"150">, z.ZodLiteral<"200">, z.ZodLiteral<"250">, z.ZodLiteral<"300">, z.ZodLiteral<"350">, z.ZodLiteral<"400">, z.ZodLiteral<"450">, z.ZodLiteral<"500">, z.ZodLiteral<"550">, z.ZodLiteral<"600">, z.ZodLiteral<"650">, z.ZodLiteral<"700">, z.ZodLiteral<"750">, z.ZodLiteral<"800">, z.ZodLiteral<"850">, z.ZodLiteral<"900">, z.ZodLiteral<"950">]>, z.ZodNumber>>;
-        /**
-         * Border widths for CSS.
-         *
-         * Default keys are '100', '200', '300', '400'. After merging, values
-         * are rounded with {@link AbstractTokens.roundToPixel} (factor = 32).
-         */
         width: z.ZodIntersection<z.ZodObject<{
             '100': z.ZodDefault<z.ZodNumber>;
             '200': z.ZodDefault<z.ZodNumber>;
@@ -184,14 +172,6 @@ export declare namespace Tokens_CSS_Border {
             '300'?: number | undefined;
             '400'?: number | undefined;
         }>, z.ZodRecord<z.ZodUnion<[z.ZodLiteral<"000">, z.ZodLiteral<"050">, z.ZodLiteral<"100">, z.ZodLiteral<"150">, z.ZodLiteral<"200">, z.ZodLiteral<"250">, z.ZodLiteral<"300">, z.ZodLiteral<"350">, z.ZodLiteral<"400">, z.ZodLiteral<"450">, z.ZodLiteral<"500">, z.ZodLiteral<"550">, z.ZodLiteral<"600">, z.ZodLiteral<"650">, z.ZodLiteral<"700">, z.ZodLiteral<"750">, z.ZodLiteral<"800">, z.ZodLiteral<"850">, z.ZodLiteral<"900">, z.ZodLiteral<"950">]>, z.ZodNumber>>;
-        /**
-         * Relative stroke widths for CSS. Meant to be used for underlines and
-         * spacing. Written in css as em units.
-         *
-         * Default keys are '100', '200', '400', '600', '800', '900'. After
-         * merging, values are rounded with {@link AbstractTokens.roundToPixel}
-         * (factor = 32).
-         */
         stroke: z.ZodIntersection<z.ZodObject<{
             '100': z.ZodDefault<z.ZodNumber>;
             '200': z.ZodDefault<z.ZodNumber>;
@@ -257,6 +237,8 @@ export declare namespace Tokens_CSS_Border {
     }>;
     interface Export extends z.infer<typeof Schema> {
     }
+    interface JSON extends z.infer<typeof Schema> {
+    }
     /**
      * The partialized version of the {@link Tokens_CSS_Border.Schema} accepted
      * as input.
@@ -267,6 +249,8 @@ export declare namespace Tokens_CSS_Border {
         radius?: Partial<z.infer<typeof Schema.shape.radius>>;
         stroke?: Partial<z.infer<typeof Schema.shape.stroke>>;
         width?: Partial<z.infer<typeof Schema.shape.width>>;
+    }
+    interface ScssVars extends z.infer<typeof Schema> {
     }
 }
 //# sourceMappingURL=CSS_Border.d.ts.map
