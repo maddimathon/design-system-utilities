@@ -9,7 +9,11 @@
 
 /**
  * @import { Config, Stage } from '@maddimathon/build-utilities';
- */
+*/
+
+import {
+    DocumentStage,
+} from '@maddimathon/build-utilities';
 
 import { Build } from './classes/Build.js';
 import { Compile } from './classes/Compile.js';
@@ -65,10 +69,23 @@ const config = {
             {
                 entryPoints: [
                     'src/ts/index.ts',
+                    'src/ts/internal.docs.ts',
                 ],
 
-                typeDoc: {
-                    out: 'docs-typedoc',
+                typeDoc: ( _stage ) => {
+
+                    const def = DocumentStage.typeDocConfig( _stage );
+
+                    return {
+                        ...def,
+
+                        out: 'docs-typedoc',
+
+                        // kindSortOrder: [
+                        //     ...def.kindSortOrder.filter( _str => _str !== 'Module' ),
+                        //     'Module',
+                        // ],
+                    };
                 },
             }
         ],

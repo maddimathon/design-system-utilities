@@ -8,31 +8,31 @@
  * @license MIT
  */
 import * as z from 'zod';
-import * as Schemata from '../../00-schemata/index.js';
+import { tokenLevels_extended } from '../../00-schemata/@utils.js';
 import { AbstractTokens } from '../abstracts/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *
  * @since 0.1.0-alpha.draft
+ * @internal
  */
 export class Tokens_Typography extends AbstractTokens {
     tokens_spacing;
     get schema() {
-        return Schemata.Tokens.shape.typography;
+        return Tokens_Typography.Schema;
     }
     lineHeight;
     size;
     constructor(tokens_spacing, input) {
         super(input ?? {});
         this.tokens_spacing = tokens_spacing;
-        const schemata = Schemata.Tokens.shape.typography.shape;
-        this.lineHeight = schemata.lineHeight.parse(input?.lineHeight ?? {});
+        this.lineHeight = this.schema.shape.lineHeight.parse(input?.lineHeight ?? {});
         this.size = {
-            title: schemata.size.shape.title.parse(input?.size?.title),
-            heading: schemata.size.shape.heading.parse(input?.size?.heading ?? {}),
-            smaller: schemata.size.shape.smaller.parse(input?.size?.smaller ?? {}),
-            normal: schemata.size.shape.normal.parse(input?.size?.normal),
-            bigger: schemata.size.shape.bigger.parse(input?.size?.bigger ?? {}),
+            title: this.schema.shape.size.shape.title.parse(input?.size?.title),
+            heading: this.schema.shape.size.shape.heading.parse(input?.size?.heading ?? {}),
+            smaller: this.schema.shape.size.shape.smaller.parse(input?.size?.smaller ?? {}),
+            normal: this.schema.shape.size.shape.normal.parse(input?.size?.normal),
+            bigger: this.schema.shape.size.shape.bigger.parse(input?.size?.bigger ?? {}),
         };
     }
     export() {
@@ -80,8 +80,52 @@ export class Tokens_Typography extends AbstractTokens {
  * Utilities for the {@link Tokens} class.
  *
  * @since 0.1.0-alpha.draft
+ * @internal
  */
 (function (Tokens_Typography) {
+    Tokens_Typography.Schema = z.object({
+        lineHeight: z.object({
+            '100': z.number().default(-2.75),
+            '200': z.number().default(-2),
+            '300': z.number().default(-1.25),
+            '400': z.number().default(0),
+            '500': z.number().default(1),
+            '600': z.number().default(2),
+        }).and(z.record(tokenLevels_extended, z.number())),
+        /**
+         * Font sizes for the design system.
+         */
+        size: z.object({
+            title: z.number().default(7),
+            heading: z.object({
+                '1': z.number().default(6),
+                '2': z.number().default(5),
+                '3': z.number().default(4),
+                '4': z.number().default(3),
+                '5': z.number().default(2),
+                '6': z.number().default(1),
+            }).and(z.record(z.number(), z.number())),
+            smaller: z.object({
+                // '5': z.number().default(-3.0),
+                // '4': z.number().default(-2.5),
+                // '3': z.number().default(-2.0),
+                '2': z.number().default(-1.25),
+                '1': z.number().default(-0.5),
+            }).and(z.record(z.number(), z.number())),
+            normal: z.number().default(0),
+            bigger: z.object({
+                '1': z.number().default(1),
+                '2': z.number().default(2),
+                '3': z.number().default(3),
+                '4': z.number().default(4),
+                '5': z.number().default(5),
+                '6': z.number().default(6),
+                // '7': z.number().default( 7 ),
+                // '8': z.number().default( 8 ),
+                // '9': z.number().default( 9 ),
+            }).and(z.record(z.number(), z.number())),
+        }),
+    });
     ;
     ;
 })(Tokens_Typography || (Tokens_Typography = {}));

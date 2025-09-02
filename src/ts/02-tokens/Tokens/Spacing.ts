@@ -10,7 +10,7 @@
 
 import * as z from 'zod';
 
-import * as Schemata from '../../00-schemata/index.js';
+import { tokenLevels_extended } from '../../00-schemata/@utils.js';
 
 import { AbstractTokens } from '../abstracts/AbstractTokens.js';
 
@@ -18,29 +18,30 @@ import { AbstractTokens } from '../abstracts/AbstractTokens.js';
  * Generates a complete token object for the design system.
  * 
  * @since ___PKG_VERSION___
+ * @internal
  */
 export class Tokens_Spacing extends AbstractTokens<
-    typeof Schemata.Tokens.shape.spacing,
+    typeof Tokens_Spacing.Schema,
     Tokens_Spacing.Export,
-    Schemata.PartialTokens.Spacing,
+    Tokens_Spacing.Part,
     Tokens_Spacing.JSON
 > {
 
     get schema() {
-        return Schemata.Tokens.shape.spacing;
+        return Tokens_Spacing.Schema;
     }
 
     public readonly margin: Tokens_Spacing.Export[ 'margin' ];
     public readonly multiplier: Tokens_Spacing.Export[ 'multiplier' ];
 
     public constructor (
-        input?: Schemata.PartialTokens.Spacing,
+        input?: Tokens_Spacing.Part,
     ) {
         super( input ?? {} );
 
-        this.margin = Schemata.Tokens.shape.spacing.shape.margin.parse( input?.margin ?? {} );
+        this.margin = this.schema.shape.margin.parse( input?.margin ?? {} );
 
-        this.multiplier = Schemata.Tokens.shape.spacing.shape.multiplier.parse( input?.multiplier );
+        this.multiplier = this.schema.shape.multiplier.parse( input?.multiplier );
     }
 
     public export(): Tokens_Spacing.Export {
@@ -123,16 +124,61 @@ export class Tokens_Spacing extends AbstractTokens<
  * Utilities for the {@link Tokens} class.
  * 
  * @since ___PKG_VERSION___
+ * @internal
  */
 export namespace Tokens_Spacing {
 
-    export interface Export extends z.infer<typeof Schemata.Tokens.shape.spacing> { };
+    export const Schema = z.object( {
 
-    export interface JSON extends Omit<z.infer<typeof Schemata.Tokens.shape.spacing>, "margin"> {
+        /**
+         * Used for scaling various size sets relative to each other - e.g.,
+         * margins, font sizes, line heights.
+         */
+        multiplier: z.number().default( 1.15625 ),
+
+        /**
+         * Passed to the $margins token in the utility-sass base template.
+         * 
+         * To get these into usable values, put the 
+         * {@link Tokens.spacing.multiplier} to the power of the value and 
+         * multiply it by your base value.
+         * 
+         * For example, to make rems in scss this looks like:
+         * ```scss
+         * @each $key, $size in tokens.$margin {
+         *     $margin: map.set(
+         *         $margin,
+         *         $key,
+         *         math.round-to-pixel(math.pow(tokens.$scale_multiplier, $size) * 1.25)
+         *     );
+         * }
+         * ```
+         */
+        margin: z.object( {
+            '100': z.number().default( -9 ),
+            '200': z.number().default( -6 ),
+            '300': z.number().default( -3 ),
+            '400': z.number().default( 0 ),
+            '600': z.number().default( 4 ),
+            '800': z.number().default( 8 ),
+        } ).and( z.record( tokenLevels_extended, z.number() ) ),
+    } );
+
+    export interface Export extends z.infer<typeof Schema> { };
+
+    export interface JSON extends Omit<z.infer<typeof Schema>, "margin"> {
         margin: {
-            rem: z.infer<typeof Schemata.Tokens.shape.spacing.shape.margin>;
-            pt: z.infer<typeof Schemata.Tokens.shape.spacing.shape.margin>;
-            px: z.infer<typeof Schemata.Tokens.shape.spacing.shape.margin>;
+            rem: z.infer<typeof Schema.shape.margin>;
+            pt: z.infer<typeof Schema.shape.margin>;
+            px: z.infer<typeof Schema.shape.margin>;
         };
     };
+
+    /**
+     * The partialized version of the {@link Tokens_Spacing.Schema} accepted as
+     * input.
+     *
+     * @since ___PKG_VERSION___
+     */
+    export interface Part extends Partial<z.infer<typeof Schema>> { }
 }

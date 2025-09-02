@@ -9,13 +9,11 @@
  */
 import { JsonToScss } from '@maddimathon/utility-sass';
 import * as z from 'zod';
-import * as Schemata from '../00-schemata/index.js';
 import { AbstractTokens } from './abstracts/AbstractTokens.js';
 import { Tokens_Spacing } from './Tokens/Spacing.js';
 import { Tokens_Typography } from './Tokens/Typography.js';
 import { Tokens_CSS_Border } from './Tokens/CSS_Border.js';
 import { Tokens_CSS_Transition } from './Tokens/CSS_Transition.js';
-export { AbstractTokens, Tokens_Spacing, Tokens_Typography, Tokens_CSS_Border, Tokens_CSS_Transition, };
 /**
  * Generates a complete token object for the design system.
  *
@@ -23,7 +21,7 @@ export { AbstractTokens, Tokens_Spacing, Tokens_Typography, Tokens_CSS_Border, T
  */
 export class Tokens extends AbstractTokens {
     get schema() {
-        return Schemata.Tokens;
+        return Tokens.Schema;
     }
     spacing;
     typography;
@@ -55,6 +53,17 @@ export class Tokens extends AbstractTokens {
             },
         };
     }
+    toJSON() {
+        return {
+            spacing: this.spacing.toJSON(),
+            typography: this.typography.toJSON(),
+            CSS: {
+                border: this.CSS.border.toJSON(),
+                transition: this.CSS.transition.toJSON(),
+                zIndex: this.CSS.zIndex,
+            },
+        };
+    }
     toScssVars() {
         const exp = this.export();
         const spacing = this.spacing.toScssVars();
@@ -69,17 +78,6 @@ export class Tokens extends AbstractTokens {
             border: exp.CSS.border,
             transition: exp.CSS.transition,
             z_index: exp.CSS.zIndex,
-        };
-    }
-    toJSON() {
-        return {
-            spacing: this.spacing.toJSON(),
-            typography: this.typography.toJSON(),
-            CSS: {
-                border: this.CSS.border.toJSON(),
-                transition: this.CSS.transition.toJSON(),
-                zIndex: this.CSS.zIndex,
-            },
         };
     }
     toScss() {
@@ -110,6 +108,25 @@ export class Tokens extends AbstractTokens {
  * @since 0.1.0-alpha.draft
  */
 (function (Tokens) {
+    Tokens.Schema = z.object({
+        spacing: Tokens_Spacing.Schema,
+        typography: Tokens_Typography.Schema,
+        CSS: z.object({
+            border: Tokens_CSS_Border.Schema,
+            transition: Tokens_CSS_Transition.Schema,
+            /**
+             * Z-index values for CSS.
+             *
+             * Default keys are 'nav', 'settings', 'skipLink'.
+             */
+            zIndex: z.object({
+                nav: z.number().default(1000),
+                settings: z.number().default(9999),
+                skipLink: z.number().default(99999),
+            }),
+        }),
+    });
+    ;
     ;
 })(Tokens || (Tokens = {}));
 //# sourceMappingURL=Tokens.js.map

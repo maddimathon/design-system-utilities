@@ -10,7 +10,7 @@
 
 import * as z from 'zod';
 
-import * as Schemata from '../../00-schemata/index.js';
+import { tokenLevels_extended } from '../../00-schemata/@utils.js';
 
 import { AbstractTokens } from '../abstracts/AbstractTokens.js';
 import type { Tokens_Spacing } from './Spacing.js';
@@ -19,37 +19,36 @@ import type { Tokens_Spacing } from './Spacing.js';
  * Generates a complete token object for the design system.
  * 
  * @since ___PKG_VERSION___
+ * @internal
  */
 export class Tokens_Typography extends AbstractTokens<
-    typeof Schemata.Tokens.shape.typography,
+    typeof Tokens_Typography.Schema,
     Tokens_Typography.Export,
-    Schemata.PartialTokens.Typography,
+    Tokens_Typography.Part,
     Tokens_Typography.JSON
 > {
 
     get schema() {
-        return Schemata.Tokens.shape.typography;
+        return Tokens_Typography.Schema;
     }
 
     public readonly lineHeight: Tokens_Typography.Export[ 'lineHeight' ];
-    public readonly size: z.infer<typeof Schemata.Tokens.shape.typography.shape.size>;
+    public readonly size: Tokens_Typography.Export[ 'size' ];
 
     public constructor (
         protected tokens_spacing: Tokens_Spacing,
-        input?: Schemata.PartialTokens.Typography,
+        input?: Tokens_Typography.Part,
     ) {
         super( input ?? {} );
 
-        const schemata = Schemata.Tokens.shape.typography.shape;
-
-        this.lineHeight = schemata.lineHeight.parse( input?.lineHeight ?? {} );
+        this.lineHeight = this.schema.shape.lineHeight.parse( input?.lineHeight ?? {} );
 
         this.size = {
-            title: schemata.size.shape.title.parse( input?.size?.title ),
-            heading: schemata.size.shape.heading.parse( input?.size?.heading ?? {} ),
-            smaller: schemata.size.shape.smaller.parse( input?.size?.smaller ?? {} ),
-            normal: schemata.size.shape.normal.parse( input?.size?.normal ),
-            bigger: schemata.size.shape.bigger.parse( input?.size?.bigger ?? {} ),
+            title: this.schema.shape.size.shape.title.parse( input?.size?.title ),
+            heading: this.schema.shape.size.shape.heading.parse( input?.size?.heading ?? {} ),
+            smaller: this.schema.shape.size.shape.smaller.parse( input?.size?.smaller ?? {} ),
+            normal: this.schema.shape.size.shape.normal.parse( input?.size?.normal ),
+            bigger: this.schema.shape.size.shape.bigger.parse( input?.size?.bigger ?? {} ),
         };
     }
 
@@ -132,18 +131,78 @@ export class Tokens_Typography extends AbstractTokens<
  * Utilities for the {@link Tokens} class.
  * 
  * @since ___PKG_VERSION___
+ * @internal
  */
 export namespace Tokens_Typography {
 
-    export interface Export extends z.infer<typeof Schemata.Tokens.shape.typography> {
+    export const Schema = z.object( {
+
+        lineHeight: z.object( {
+            '100': z.number().default( -2.75 ),
+            '200': z.number().default( -2 ),
+            '300': z.number().default( -1.25 ),
+            '400': z.number().default( 0 ),
+            '500': z.number().default( 1 ),
+            '600': z.number().default( 2 ),
+        } ).and( z.record( tokenLevels_extended, z.number() ) ),
+
+        /**
+         * Font sizes for the design system.
+         */
+        size: z.object( {
+
+            title: z.number().default( 7 ),
+
+            heading: z.object( {
+                '1': z.number().default( 6 ),
+                '2': z.number().default( 5 ),
+                '3': z.number().default( 4 ),
+                '4': z.number().default( 3 ),
+                '5': z.number().default( 2 ),
+                '6': z.number().default( 1 ),
+            } ).and( z.record( z.number(), z.number() ) ),
+
+            smaller: z.object( {
+                // '5': z.number().default(-3.0),
+                // '4': z.number().default(-2.5),
+                // '3': z.number().default(-2.0),
+                '2': z.number().default( -1.25 ),
+                '1': z.number().default( -0.5 ),
+            } ).and( z.record( z.number(), z.number() ) ),
+
+            normal: z.number().default( 0 ),
+
+            bigger: z.object( {
+                '1': z.number().default( 1 ),
+                '2': z.number().default( 2 ),
+                '3': z.number().default( 3 ),
+                '4': z.number().default( 4 ),
+                '5': z.number().default( 5 ),
+                '6': z.number().default( 6 ),
+                // '7': z.number().default( 7 ),
+                // '8': z.number().default( 8 ),
+                // '9': z.number().default( 9 ),
+            } ).and( z.record( z.number(), z.number() ) ),
+        } ),
+    } );
+
+    export interface Export extends z.infer<typeof Schema> {
     };
 
-    export interface JSON extends Omit<z.infer<typeof Schemata.Tokens.shape.typography>, "size"> {
+    export interface JSON extends Omit<z.infer<typeof Schema>, "size"> {
 
         size: {
-            rem: z.infer<typeof Schemata.Tokens.shape.typography.shape.size>;
-            pt: z.infer<typeof Schemata.Tokens.shape.typography.shape.size>;
-            px: z.infer<typeof Schemata.Tokens.shape.typography.shape.size>;
+            rem: z.infer<typeof Schema.shape.size>;
+            pt: z.infer<typeof Schema.shape.size>;
+            px: z.infer<typeof Schema.shape.size>;
         };
     };
+
+    /**
+     * The partialized version of the {@link Tokens_Typography.Schema} accepted
+     * as input.
+     *
+     * @since ___PKG_VERSION___
+     */
+    export interface Part extends Partial<z.infer<typeof Schema>> { }
 }

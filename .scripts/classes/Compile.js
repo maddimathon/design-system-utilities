@@ -101,6 +101,29 @@ export class Compile extends CompileStage {
 
     /**
      * @protected
+     * @override
+     */
+    async ts() {
+        await super.ts();
+
+        this.console.verbose( 'tidying up compiled files...', 2 );
+
+        this.try(
+            this.fs.delete,
+            ( this.params.verbose ? 3 : 2 ),
+            [ [
+                'dist/ts/**/*.docs.js',
+                'dist/ts/**/*.docs.js.map',
+
+                'dist/ts/**/*.docs.ts',
+                'dist/ts/**/*.docs.d.ts',
+                'dist/ts/**/*.docs.d.ts.map',
+            ], ( this.params.verbose ? 3 : 2 ) ]
+        );
+    }
+
+    /**
+     * @protected
      */
     async templates() {
 

@@ -8,43 +8,47 @@
  * @license MIT
  */
 import * as z from 'zod';
-import * as Schemata from '../../00-schemata/index.js';
 import { AbstractTokens } from '../abstracts/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *
  * @since 0.1.0-alpha.draft
  */
-export declare class Tokens_CSS_Transition extends AbstractTokens<typeof Schemata.Tokens.shape.CSS.shape.transition, Tokens_CSS_Transition.Export, Schemata.PartialTokens.CSS.Transition> {
+export declare class Tokens_CSS_Transition extends AbstractTokens<typeof Tokens_CSS_Transition.Schema, Tokens_CSS_Transition.Export, Tokens_CSS_Transition.Part> {
     get schema(): z.ZodObject<{
+        /**
+         * Transition time values for CSS.
+         *
+         * Default keys are 'fast', 'normal', 'slow'.
+         */
         time: z.ZodIntersection<z.ZodObject<{
             fast: z.ZodDefault<z.ZodString>;
             normal: z.ZodDefault<z.ZodString>;
             slow: z.ZodDefault<z.ZodString>;
         }, "strip", z.ZodTypeAny, {
-            fast: string;
             normal: string;
+            fast: string;
             slow: string;
         }, {
-            fast?: string | undefined;
             normal?: string | undefined;
+            fast?: string | undefined;
             slow?: string | undefined;
         }>, z.ZodRecord<z.ZodString, z.ZodString>>;
     }, "strip", z.ZodTypeAny, {
         time: {
-            fast: string;
             normal: string;
+            fast: string;
             slow: string;
         } & Record<string, string>;
     }, {
         time: {
-            fast?: string | undefined;
             normal?: string | undefined;
+            fast?: string | undefined;
             slow?: string | undefined;
         } & Record<string, string>;
     }>;
     readonly time: Tokens_CSS_Transition.Export['time'];
-    constructor(input?: Schemata.PartialTokens.CSS.Transition);
+    constructor(input?: Tokens_CSS_Transition.Part);
     export(): Tokens_CSS_Transition.Export;
     toJSON(): Tokens_CSS_Transition.Export;
     toScssVars(): Tokens_CSS_Transition.Export;
@@ -55,7 +59,48 @@ export declare class Tokens_CSS_Transition extends AbstractTokens<typeof Schemat
  * @since 0.1.0-alpha.draft
  */
 export declare namespace Tokens_CSS_Transition {
-    interface Export extends z.infer<typeof Schemata.Tokens.shape.CSS.shape.transition> {
+    const Schema: z.ZodObject<{
+        /**
+         * Transition time values for CSS.
+         *
+         * Default keys are 'fast', 'normal', 'slow'.
+         */
+        time: z.ZodIntersection<z.ZodObject<{
+            fast: z.ZodDefault<z.ZodString>;
+            normal: z.ZodDefault<z.ZodString>;
+            slow: z.ZodDefault<z.ZodString>;
+        }, "strip", z.ZodTypeAny, {
+            normal: string;
+            fast: string;
+            slow: string;
+        }, {
+            normal?: string | undefined;
+            fast?: string | undefined;
+            slow?: string | undefined;
+        }>, z.ZodRecord<z.ZodString, z.ZodString>>;
+    }, "strip", z.ZodTypeAny, {
+        time: {
+            normal: string;
+            fast: string;
+            slow: string;
+        } & Record<string, string>;
+    }, {
+        time: {
+            normal?: string | undefined;
+            fast?: string | undefined;
+            slow?: string | undefined;
+        } & Record<string, string>;
+    }>;
+    interface Export extends z.infer<typeof Schema> {
+    }
+    /**
+     * The partialized version of the {@link Tokens_CSS_Transition.Schema}
+     * accepted as input.
+     *
+     * @since 0.1.0-alpha.draft
+     */
+    interface Part {
+        time?: Partial<z.infer<typeof Schema.shape.time>>;
     }
 }
 //# sourceMappingURL=CSS_Transition.d.ts.map

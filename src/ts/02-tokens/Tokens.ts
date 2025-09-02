@@ -11,8 +11,6 @@
 import { JsonToScss } from '@maddimathon/utility-sass';
 import * as z from 'zod';
 
-import * as Schemata from '../00-schemata/index.js';
-
 import { AbstractTokens } from './abstracts/AbstractTokens.js';
 
 import { Tokens_Spacing } from './Tokens/Spacing.js';
@@ -21,31 +19,21 @@ import { Tokens_Typography } from './Tokens/Typography.js';
 import { Tokens_CSS_Border } from './Tokens/CSS_Border.js';
 import { Tokens_CSS_Transition } from './Tokens/CSS_Transition.js';
 
-export {
-    AbstractTokens,
-
-    Tokens_Spacing,
-    Tokens_Typography,
-
-    Tokens_CSS_Border,
-    Tokens_CSS_Transition,
-};
-
 /**
  * Generates a complete token object for the design system.
  * 
  * @since ___PKG_VERSION___
  */
 export class Tokens extends AbstractTokens<
-    typeof Schemata.Tokens,
+    typeof Tokens.Schema,
     Tokens.Export,
-    Schemata.PartialTokens,
+    Tokens.Part,
     Tokens.JSON,
     Tokens.ScssVars
 > {
 
     get schema() {
-        return Schemata.Tokens;
+        return Tokens.Schema;
     }
 
     public readonly spacing: Tokens_Spacing;
@@ -54,13 +42,13 @@ export class Tokens extends AbstractTokens<
     public readonly CSS: {
         border: Tokens_CSS_Border;
         transition: Tokens_CSS_Transition;
-        zIndex: z.infer<typeof Schemata.Tokens.shape.CSS.shape.zIndex>;
+        zIndex: z.infer<typeof Tokens.Schema.shape.CSS.shape.zIndex>;
     };
 
     public readonly opts: Tokens.Opts;
 
     public constructor (
-        input?: Schemata.PartialTokens,
+        input?: Tokens.Part,
         opts?: Partial<Tokens.Opts>,
     ) {
         super( input ?? {} );
@@ -100,6 +88,20 @@ export class Tokens extends AbstractTokens<
         };
     }
 
+    public toJSON() {
+
+        return {
+            spacing: this.spacing.toJSON(),
+            typography: this.typography.toJSON(),
+
+            CSS: {
+                border: this.CSS.border.toJSON(),
+                transition: this.CSS.transition.toJSON(),
+                zIndex: this.CSS.zIndex,
+            },
+        };
+    }
+
     public override toScssVars(): Tokens.ScssVars {
 
         const exp = this.export();
@@ -122,20 +124,6 @@ export class Tokens extends AbstractTokens<
             border: exp.CSS.border,
             transition: exp.CSS.transition,
             z_index: exp.CSS.zIndex,
-        };
-    }
-
-    public toJSON() {
-
-        return {
-            spacing: this.spacing.toJSON(),
-            typography: this.typography.toJSON(),
-
-            CSS: {
-                border: this.CSS.border.toJSON(),
-                transition: this.CSS.transition.toJSON(),
-                zIndex: this.CSS.zIndex,
-            },
         };
     }
 
@@ -180,21 +168,35 @@ export class Tokens extends AbstractTokens<
  */
 export namespace Tokens {
 
-    export type ScssVars = Omit<z.infer<typeof Schemata.Tokens>, "CSS" | "spacing" | "typography">
-        & Omit<z.infer<typeof Schemata.Tokens.shape.CSS>, "zIndex">
-        & Omit<z.infer<typeof Schemata.Tokens.shape.spacing>, "multiplier">
-        & {
-            font: Omit<z.infer<typeof Schemata.Tokens.shape.typography>, "lineHeight">;
-            line_height: z.infer<typeof Schemata.Tokens.shape.typography.shape.lineHeight>;
-            spacing_multiplier: number;
-            z_index: z.infer<typeof Schemata.Tokens.shape.CSS.shape.zIndex>;
-        };
+    export const Schema = z.object( {
 
-    export interface Export extends Omit<z.infer<typeof Schemata.Tokens>, "typography"> {
+        spacing: Tokens_Spacing.Schema,
+        typography: Tokens_Typography.Schema,
+
+        CSS: z.object( {
+
+            border: Tokens_CSS_Border.Schema,
+            transition: Tokens_CSS_Transition.Schema,
+
+            /**
+             * Z-index values for CSS.
+             * 
+             * Default keys are 'nav', 'settings', 'skipLink'.
+             */
+            zIndex: z.object( {
+                nav: z.number().default( 1000 ),
+                settings: z.number().default( 9999 ),
+                skipLink: z.number().default( 99999 ),
+            } ),
+        } ),
+    } );
+
+    export interface Export extends Omit<z.infer<typeof Schema>, "spacing" | "typography"> {
+        spacing: Tokens_Spacing.Export;
         typography: Tokens_Typography.Export;
     }
 
-    export interface JSON extends Omit<z.infer<typeof Schemata.Tokens>, "spacing" | "typography"> {
+    export interface JSON extends Omit<z.infer<typeof Schema>, "spacing" | "typography"> {
         spacing: Tokens_Spacing.JSON;
         typography: Tokens_Typography.JSON;
     }
@@ -207,4 +209,31 @@ export namespace Tokens {
     export interface Opts {
         tokensAsDefault: boolean;
     };
+
+    /**
+     * The partialized version of the {@link Tokens.Schema} accepted as input.
+     *
+     * @since ___PKG_VERSION___
+     */
+    export interface Part {
+        spacing?: Partial<Tokens_Spacing.Export>;
+        typography?: Partial<Tokens_Typography.Export>;
+
+        css?: {
+            border?: Tokens_CSS_Border.Part;
+            transition?: Tokens_CSS_Transition.Part;
+
+            zIndex?: Partial<z.infer<typeof Schema.shape.CSS.shape.zIndex>>;
+        };
+    };
+
+    export type ScssVars = Omit<z.infer<typeof Schema>, "CSS" | "spacing" | "typography">
+        & Omit<z.infer<typeof Schema.shape.CSS>, "zIndex">
+        & Omit<z.infer<typeof Schema.shape.spacing>, "multiplier">
+        & {
+            font: Omit<z.infer<typeof Schema.shape.typography>, "lineHeight">;
+            line_height: z.infer<typeof Schema.shape.typography.shape.lineHeight>;
+            spacing_multiplier: number;
+            z_index: z.infer<typeof Schema.shape.CSS.shape.zIndex>;
+        };
 }

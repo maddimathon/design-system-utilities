@@ -14,10 +14,11 @@ import { AbstractTokens } from '../abstracts/AbstractTokens.js';
  * Generates a complete token object for the design system.
  *
  * @since 0.1.0-alpha.draft
+ * @internal
  */
 export class Tokens_TEMPLATE extends AbstractTokens {
     get schema() {
-        return Schemata.Tokens;
+        return Tokens_TEMPLATE.Schema;
     }
     // public readonly time: Tokens_CSS_Transition.Export[ 'time' ];
     constructor(input) {
@@ -38,8 +39,11 @@ export class Tokens_TEMPLATE extends AbstractTokens {
  * Utilities for the {@link Tokens} class.
  *
  * @since 0.1.0-alpha.draft
+ * @internal
  */
 (function (Tokens_TEMPLATE) {
+    Tokens_TEMPLATE.Schema = z.object({});
+    ;
     ;
 })(Tokens_TEMPLATE || (Tokens_TEMPLATE = {}));
 //# sourceMappingURL=@TEMPLATE.js.map

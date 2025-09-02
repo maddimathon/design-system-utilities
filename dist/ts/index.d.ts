@@ -12,7 +12,6 @@
  * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
-export * as Schemata from './00-schemata/index.js';
 export * from './01-utilities/index.js';
 export * from './02-tokens/index.js';
 export * as BuildUtils from './build-utils/index.js';

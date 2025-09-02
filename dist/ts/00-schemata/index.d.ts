@@ -11,5 +11,5 @@
  * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
-export * from './@tokens/index.js';
+export {};
 //# sourceMappingURL=index.d.ts.map

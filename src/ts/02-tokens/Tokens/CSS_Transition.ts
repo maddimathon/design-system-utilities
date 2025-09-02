@@ -10,8 +10,6 @@
 
 import * as z from 'zod';
 
-import * as Schemata from '../../00-schemata/index.js';
-
 import { AbstractTokens } from '../abstracts/AbstractTokens.js';
 
 /**
@@ -20,23 +18,23 @@ import { AbstractTokens } from '../abstracts/AbstractTokens.js';
  * @since ___PKG_VERSION___
  */
 export class Tokens_CSS_Transition extends AbstractTokens<
-    typeof Schemata.Tokens.shape.CSS.shape.transition,
+    typeof Tokens_CSS_Transition.Schema,
     Tokens_CSS_Transition.Export,
-    Schemata.PartialTokens.CSS.Transition
+    Tokens_CSS_Transition.Part
 > {
 
     get schema() {
-        return Schemata.Tokens.shape.CSS.shape.transition;
+        return Tokens_CSS_Transition.Schema;
     }
 
     public readonly time: Tokens_CSS_Transition.Export[ 'time' ];
 
     public constructor (
-        input?: Schemata.PartialTokens.CSS.Transition,
+        input?: Tokens_CSS_Transition.Part,
     ) {
         super( input ?? {} );
 
-        this.time = Schemata.Tokens.shape.CSS.shape.transition.shape.time.parse( input?.time ?? {} );
+        this.time = this.schema.shape.time.parse( input?.time ?? {} );
     }
 
     public export(): Tokens_CSS_Transition.Export {
@@ -62,5 +60,31 @@ export class Tokens_CSS_Transition extends AbstractTokens<
  */
 export namespace Tokens_CSS_Transition {
 
-    export interface Export extends z.infer<typeof Schemata.Tokens.shape.CSS.shape.transition> { }
+    const transitionTime = z.string().regex( /^\d+m?s$/ );
+
+    export const Schema = z.object( {
+
+        /**
+         * Transition time values for CSS.
+         * 
+         * Default keys are 'fast', 'normal', 'slow'.
+         */
+        time: z.object( {
+            fast: transitionTime.default( '250ms' ),
+            normal: transitionTime.default( '500ms' ),
+            slow: transitionTime.default( '750ms' ),
+        } ).and( z.record( z.string(), transitionTime ) ),
+    } );
+
+    export interface Export extends z.infer<typeof Schema> { }
+
+    /**
+     * The partialized version of the {@link Tokens_CSS_Transition.Schema}
+     * accepted as input.
+     *
+     * @since ___PKG_VERSION___
+     */
+    export interface Part {
+        time?: Partial<z.infer<typeof Schema.shape.time>>,
+    }
 }
