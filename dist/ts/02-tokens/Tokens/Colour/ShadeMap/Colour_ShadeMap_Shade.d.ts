@@ -81,7 +81,7 @@ export declare class Tokens_Colour_ShadeMap_Shade extends AbstractTokens<typeof 
             g: number;
             b: number;
         }>;
-        oklch: z.ZodObject<{
+        lch: z.ZodObject<{
             l: z.ZodNumber;
             c: z.ZodNumber;
             h: z.ZodNumber;
@@ -106,7 +106,7 @@ export declare class Tokens_Colour_ShadeMap_Shade extends AbstractTokens<typeof 
             g: number;
             b: number;
         };
-        oklch: {
+        lch: {
             h: number;
             l: number;
             c: number;
@@ -123,7 +123,7 @@ export declare class Tokens_Colour_ShadeMap_Shade extends AbstractTokens<typeof 
             g: number;
             b: number;
         };
-        oklch: {
+        lch: {
             h: number;
             l: number;
             c: number;
@@ -132,7 +132,7 @@ export declare class Tokens_Colour_ShadeMap_Shade extends AbstractTokens<typeof 
         hex: z.infer<typeof Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
         hsl: z.infer<typeof Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
         rgb: z.infer<typeof Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-        oklch: z.infer<typeof Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+        lch: z.infer<typeof Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
     }, string | {
         h: number;
         s: number;
@@ -157,7 +157,7 @@ export declare class Tokens_Colour_ShadeMap_Shade extends AbstractTokens<typeof 
             g: number;
             b: number;
         };
-        oklch: {
+        lch: {
             h: number;
             l: number;
             c: number;
@@ -166,7 +166,7 @@ export declare class Tokens_Colour_ShadeMap_Shade extends AbstractTokens<typeof 
     readonly hex: Tokens_Colour_ShadeMap_Shade.Parsed['hex'];
     readonly hsl: Tokens_Colour_ShadeMap_Shade.Parsed['hsl'];
     readonly rgb: Tokens_Colour_ShadeMap_Shade.Parsed['rgb'];
-    readonly oklch: Tokens_Colour_ShadeMap_Shade.Parsed['oklch'];
+    readonly lch: Tokens_Colour_ShadeMap_Shade.Parsed['lch'];
     constructor(name: string, input: z.input<typeof Tokens_Colour_ShadeMap_Shade.Schema> | z.output<typeof Tokens_Colour_ShadeMap_Shade.Schema>);
     valueOf(): Tokens_Colour_ShadeMap_Shade.Parsed;
     toJSON(): Tokens_Colour_ShadeMap_Shade.JSON;
@@ -206,7 +206,7 @@ export declare namespace Tokens_Colour_ShadeMap_Shade {
         g: number;
         b: number;
     }>;
-    const Schema_OKLCH: z.ZodObject<{
+    const Schema_LCH: z.ZodObject<{
         l: z.ZodNumber;
         c: z.ZodNumber;
         h: z.ZodNumber;
@@ -283,7 +283,7 @@ export declare namespace Tokens_Colour_ShadeMap_Shade {
             g: number;
             b: number;
         }>;
-        oklch: z.ZodObject<{
+        lch: z.ZodObject<{
             l: z.ZodNumber;
             c: z.ZodNumber;
             h: z.ZodNumber;
@@ -308,7 +308,7 @@ export declare namespace Tokens_Colour_ShadeMap_Shade {
             g: number;
             b: number;
         };
-        oklch: {
+        lch: {
             h: number;
             l: number;
             c: number;
@@ -325,7 +325,7 @@ export declare namespace Tokens_Colour_ShadeMap_Shade {
             g: number;
             b: number;
         };
-        oklch: {
+        lch: {
             h: number;
             l: number;
             c: number;
@@ -334,7 +334,7 @@ export declare namespace Tokens_Colour_ShadeMap_Shade {
         hex: z.infer<typeof Schema_Hex>;
         hsl: z.infer<typeof Schema_HSL>;
         rgb: z.infer<typeof Schema_RGB>;
-        oklch: z.infer<typeof Schema_OKLCH>;
+        lch: z.infer<typeof Schema_LCH>;
     }, string | {
         h: number;
         s: number;
@@ -359,7 +359,7 @@ export declare namespace Tokens_Colour_ShadeMap_Shade {
             g: number;
             b: number;
         };
-        oklch: {
+        lch: {
             h: number;
             l: number;
             c: number;
@@ -376,7 +376,7 @@ export declare namespace Tokens_Colour_ShadeMap_Shade {
     type ScssVars = string;
     function toHex(clr: Tokens_Colour_ShadeMap_Shade | z.input<typeof Schema>): z.infer<typeof Schema_Hex>;
     function toHSL(clr: Tokens_Colour_ShadeMap_Shade | z.input<typeof Schema>): z.infer<typeof Schema_HSL>;
-    function toOKLCH(clr: Tokens_Colour_ShadeMap_Shade | z.input<typeof Schema>): z.infer<typeof Schema_OKLCH>;
+    function toLCH(clr: Tokens_Colour_ShadeMap_Shade | z.input<typeof Schema>): z.infer<typeof Schema_LCH>;
     function toRGB(clr: Tokens_Colour_ShadeMap_Shade | z.input<typeof Schema>): z.infer<typeof Schema_RGB>;
 }
 //# sourceMappingURL=Colour_ShadeMap_Shade.d.ts.map

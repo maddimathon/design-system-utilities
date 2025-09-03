@@ -5,7 +5,7 @@
 
 // @forward '02-01-01-spacing';
 // @forward '02-01-02-modes';
-// @forward '02-01-03-colours';
+@forward '02-01-03-colours';
 // @forward '02-01-04-typography';
 @forward '02-01-05-animation';
 @forward '02-01-06-decoration';
@@ -14,7 +14,7 @@
 
 // @use '02-01-01-spacing' as *;
 // @use '02-01-02-modes' as *;
-// @use '02-01-03-colours' as *;
+@use '02-01-03-colours' as *;
 // @use '02-01-04-typography' as *;
 @use '02-01-05-animation' as *;
 @use '02-01-06-decoration' as *;
@@ -31,6 +31,7 @@
 @mixin tokens-all(
     $borderRadius: true,
     $borderWidth: true,
+    $colour: true,
     $fontSize: true,
     $lineHeight: true,
     $margin: true,
@@ -63,5 +64,9 @@
     // animation
     @if $trTime {
         @include tokens-tr-time;
+    }
+
+    @if $colour {
+        @include tokens-colour;
     }
 }

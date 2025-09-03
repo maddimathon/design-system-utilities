@@ -191,6 +191,7 @@ export namespace Tokens_Colour {
             '500': { l: 50, c: 49, h: 15 },
             '900': { l: 2, c: 3, h: 15 },
         } ),
+
     } ).transform( ( part ): {
         [ K in keyof typeof part ]-?: Tokens_Colour_ShadeMap;
     } => AbstractTokens.objectMap(

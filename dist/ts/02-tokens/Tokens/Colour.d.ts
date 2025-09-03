@@ -83,7 +83,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -108,7 +108,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -125,7 +125,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -134,7 +134,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -159,7 +159,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -229,7 +229,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -254,7 +254,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -271,7 +271,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -280,7 +280,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -305,7 +305,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -375,7 +375,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -400,7 +400,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -417,7 +417,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -426,7 +426,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -451,7 +451,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -521,7 +521,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -546,7 +546,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -563,7 +563,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -572,7 +572,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -597,7 +597,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -667,7 +667,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -692,7 +692,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -709,7 +709,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -718,7 +718,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -743,7 +743,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -813,7 +813,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -838,7 +838,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -855,7 +855,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -864,7 +864,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -889,7 +889,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -959,7 +959,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -984,7 +984,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -1001,7 +1001,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -1010,7 +1010,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -1035,7 +1035,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -1105,7 +1105,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -1130,7 +1130,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -1147,7 +1147,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -1156,7 +1156,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -1181,7 +1181,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -1251,7 +1251,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -1276,7 +1276,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -1293,7 +1293,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -1302,7 +1302,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -1327,7 +1327,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -1338,55 +1338,55 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '200'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '300'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '400'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '500'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '600'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '700'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '800'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '900'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
         }, {
             '100'?: string | {
@@ -1413,7 +1413,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -1443,7 +1443,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -1473,7 +1473,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -1503,7 +1503,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -1533,7 +1533,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -1563,7 +1563,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -1593,7 +1593,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -1623,7 +1623,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -1653,7 +1653,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -1694,7 +1694,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -1724,7 +1724,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -1754,7 +1754,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -1784,7 +1784,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -1814,7 +1814,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -1844,7 +1844,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -1874,7 +1874,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -1904,7 +1904,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -1934,7 +1934,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -2006,7 +2006,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -2031,7 +2031,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -2048,7 +2048,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -2057,7 +2057,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -2082,7 +2082,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -2152,7 +2152,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -2177,7 +2177,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -2194,7 +2194,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -2203,7 +2203,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -2228,7 +2228,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -2298,7 +2298,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -2323,7 +2323,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -2340,7 +2340,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -2349,7 +2349,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -2374,7 +2374,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -2444,7 +2444,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -2469,7 +2469,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -2486,7 +2486,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -2495,7 +2495,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -2520,7 +2520,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -2590,7 +2590,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -2615,7 +2615,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -2632,7 +2632,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -2641,7 +2641,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -2666,7 +2666,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -2736,7 +2736,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -2761,7 +2761,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -2778,7 +2778,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -2787,7 +2787,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -2812,7 +2812,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -2882,7 +2882,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -2907,7 +2907,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -2924,7 +2924,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -2933,7 +2933,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -2958,7 +2958,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -3028,7 +3028,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -3053,7 +3053,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -3070,7 +3070,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -3079,7 +3079,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -3104,7 +3104,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -3174,7 +3174,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -3199,7 +3199,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -3216,7 +3216,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -3225,7 +3225,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -3250,7 +3250,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -3261,55 +3261,55 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '200'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '300'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '400'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '500'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '600'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '700'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '800'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '900'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
         }, {
             '100'?: string | {
@@ -3336,7 +3336,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -3366,7 +3366,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -3396,7 +3396,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -3426,7 +3426,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -3456,7 +3456,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -3486,7 +3486,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -3516,7 +3516,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -3546,7 +3546,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -3576,7 +3576,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -3617,7 +3617,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -3647,7 +3647,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -3677,7 +3677,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -3707,7 +3707,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -3737,7 +3737,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -3767,7 +3767,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -3797,7 +3797,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -3827,7 +3827,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -3857,7 +3857,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -3929,7 +3929,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -3954,7 +3954,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -3971,7 +3971,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -3980,7 +3980,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -4005,7 +4005,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -4075,7 +4075,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -4100,7 +4100,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -4117,7 +4117,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -4126,7 +4126,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -4151,7 +4151,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -4221,7 +4221,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -4246,7 +4246,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -4263,7 +4263,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -4272,7 +4272,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -4297,7 +4297,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -4367,7 +4367,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -4392,7 +4392,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -4409,7 +4409,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -4418,7 +4418,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -4443,7 +4443,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -4513,7 +4513,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -4538,7 +4538,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -4555,7 +4555,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -4564,7 +4564,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -4589,7 +4589,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -4659,7 +4659,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -4684,7 +4684,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -4701,7 +4701,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -4710,7 +4710,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -4735,7 +4735,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -4805,7 +4805,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -4830,7 +4830,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -4847,7 +4847,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -4856,7 +4856,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -4881,7 +4881,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -4951,7 +4951,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -4976,7 +4976,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -4993,7 +4993,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -5002,7 +5002,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -5027,7 +5027,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -5097,7 +5097,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -5122,7 +5122,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -5139,7 +5139,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -5148,7 +5148,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -5173,7 +5173,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -5184,55 +5184,55 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '200'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '300'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '400'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '500'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '600'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '700'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '800'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '900'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
         }, {
             '100'?: string | {
@@ -5259,7 +5259,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -5289,7 +5289,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -5319,7 +5319,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -5349,7 +5349,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -5379,7 +5379,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -5409,7 +5409,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -5439,7 +5439,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -5469,7 +5469,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -5499,7 +5499,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -5540,7 +5540,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -5570,7 +5570,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -5600,7 +5600,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -5630,7 +5630,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -5660,7 +5660,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -5690,7 +5690,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -5720,7 +5720,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -5750,7 +5750,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -5780,7 +5780,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -5852,7 +5852,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -5877,7 +5877,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -5894,7 +5894,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -5903,7 +5903,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -5928,7 +5928,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -5998,7 +5998,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -6023,7 +6023,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -6040,7 +6040,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -6049,7 +6049,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -6074,7 +6074,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -6144,7 +6144,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -6169,7 +6169,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -6186,7 +6186,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -6195,7 +6195,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -6220,7 +6220,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -6290,7 +6290,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -6315,7 +6315,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -6332,7 +6332,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -6341,7 +6341,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -6366,7 +6366,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -6436,7 +6436,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -6461,7 +6461,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -6478,7 +6478,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -6487,7 +6487,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -6512,7 +6512,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -6582,7 +6582,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -6607,7 +6607,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -6624,7 +6624,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -6633,7 +6633,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -6658,7 +6658,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -6728,7 +6728,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -6753,7 +6753,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -6770,7 +6770,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -6779,7 +6779,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -6804,7 +6804,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -6874,7 +6874,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -6899,7 +6899,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -6916,7 +6916,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -6925,7 +6925,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -6950,7 +6950,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -7020,7 +7020,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -7045,7 +7045,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -7062,7 +7062,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -7071,7 +7071,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -7096,7 +7096,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -7107,55 +7107,55 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '200'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '300'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '400'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '500'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '600'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '700'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '800'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '900'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
         }, {
             '100'?: string | {
@@ -7182,7 +7182,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -7212,7 +7212,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -7242,7 +7242,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -7272,7 +7272,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -7302,7 +7302,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -7332,7 +7332,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -7362,7 +7362,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -7392,7 +7392,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -7422,7 +7422,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -7463,7 +7463,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -7493,7 +7493,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -7523,7 +7523,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -7553,7 +7553,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -7583,7 +7583,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -7613,7 +7613,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -7643,7 +7643,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -7673,7 +7673,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -7703,7 +7703,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -7781,7 +7781,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -7811,7 +7811,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -7841,7 +7841,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -7871,7 +7871,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -7901,7 +7901,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -7931,7 +7931,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -7961,7 +7961,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -7991,7 +7991,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8021,7 +8021,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8053,7 +8053,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8083,7 +8083,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8113,7 +8113,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8143,7 +8143,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8173,7 +8173,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8203,7 +8203,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8233,7 +8233,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8263,7 +8263,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8293,7 +8293,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8325,7 +8325,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8355,7 +8355,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8385,7 +8385,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8415,7 +8415,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8445,7 +8445,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8475,7 +8475,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8505,7 +8505,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8535,7 +8535,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8565,7 +8565,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8597,7 +8597,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8627,7 +8627,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8657,7 +8657,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8687,7 +8687,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8717,7 +8717,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8747,7 +8747,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8777,7 +8777,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8807,7 +8807,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8837,7 +8837,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8875,7 +8875,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8905,7 +8905,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8935,7 +8935,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8965,7 +8965,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -8995,7 +8995,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -9025,7 +9025,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -9055,7 +9055,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -9085,7 +9085,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -9115,7 +9115,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -9147,7 +9147,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -9177,7 +9177,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -9207,7 +9207,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -9237,7 +9237,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -9267,7 +9267,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -9297,7 +9297,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -9327,7 +9327,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -9357,7 +9357,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -9387,7 +9387,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -9419,7 +9419,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -9449,7 +9449,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -9479,7 +9479,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -9509,7 +9509,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -9539,7 +9539,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -9569,7 +9569,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -9599,7 +9599,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -9629,7 +9629,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -9659,7 +9659,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -9691,7 +9691,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -9721,7 +9721,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -9751,7 +9751,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -9781,7 +9781,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -9811,7 +9811,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -9841,7 +9841,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -9871,7 +9871,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -9901,7 +9901,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -9931,7 +9931,7 @@ export declare class Tokens_Colour extends AbstractTokens<typeof Tokens_Colour.S
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -10021,7 +10021,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -10046,7 +10046,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -10063,7 +10063,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -10072,7 +10072,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -10097,7 +10097,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -10167,7 +10167,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -10192,7 +10192,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -10209,7 +10209,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -10218,7 +10218,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -10243,7 +10243,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -10313,7 +10313,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -10338,7 +10338,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -10355,7 +10355,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -10364,7 +10364,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -10389,7 +10389,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -10459,7 +10459,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -10484,7 +10484,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -10501,7 +10501,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -10510,7 +10510,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -10535,7 +10535,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -10605,7 +10605,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -10630,7 +10630,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -10647,7 +10647,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -10656,7 +10656,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -10681,7 +10681,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -10751,7 +10751,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -10776,7 +10776,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -10793,7 +10793,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -10802,7 +10802,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -10827,7 +10827,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -10897,7 +10897,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -10922,7 +10922,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -10939,7 +10939,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -10948,7 +10948,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -10973,7 +10973,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -11043,7 +11043,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -11068,7 +11068,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -11085,7 +11085,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -11094,7 +11094,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -11119,7 +11119,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -11189,7 +11189,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -11214,7 +11214,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -11231,7 +11231,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -11240,7 +11240,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -11265,7 +11265,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -11276,55 +11276,55 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '200'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '300'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '400'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '500'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '600'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '700'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '800'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '900'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
         }, {
             '100'?: string | {
@@ -11351,7 +11351,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -11381,7 +11381,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -11411,7 +11411,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -11441,7 +11441,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -11471,7 +11471,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -11501,7 +11501,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -11531,7 +11531,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -11561,7 +11561,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -11591,7 +11591,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -11632,7 +11632,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -11662,7 +11662,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -11692,7 +11692,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -11722,7 +11722,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -11752,7 +11752,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -11782,7 +11782,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -11812,7 +11812,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -11842,7 +11842,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -11872,7 +11872,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -11944,7 +11944,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -11969,7 +11969,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -11986,7 +11986,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -11995,7 +11995,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -12020,7 +12020,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -12090,7 +12090,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -12115,7 +12115,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -12132,7 +12132,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -12141,7 +12141,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -12166,7 +12166,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -12236,7 +12236,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -12261,7 +12261,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -12278,7 +12278,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -12287,7 +12287,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -12312,7 +12312,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -12382,7 +12382,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -12407,7 +12407,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -12424,7 +12424,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -12433,7 +12433,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -12458,7 +12458,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -12528,7 +12528,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -12553,7 +12553,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -12570,7 +12570,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -12579,7 +12579,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -12604,7 +12604,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -12674,7 +12674,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -12699,7 +12699,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -12716,7 +12716,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -12725,7 +12725,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -12750,7 +12750,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -12820,7 +12820,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -12845,7 +12845,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -12862,7 +12862,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -12871,7 +12871,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -12896,7 +12896,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -12966,7 +12966,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -12991,7 +12991,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -13008,7 +13008,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -13017,7 +13017,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -13042,7 +13042,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -13112,7 +13112,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -13137,7 +13137,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -13154,7 +13154,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -13163,7 +13163,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -13188,7 +13188,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -13199,55 +13199,55 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '200'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '300'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '400'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '500'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '600'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '700'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '800'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '900'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
         }, {
             '100'?: string | {
@@ -13274,7 +13274,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -13304,7 +13304,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -13334,7 +13334,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -13364,7 +13364,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -13394,7 +13394,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -13424,7 +13424,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -13454,7 +13454,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -13484,7 +13484,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -13514,7 +13514,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -13555,7 +13555,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -13585,7 +13585,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -13615,7 +13615,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -13645,7 +13645,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -13675,7 +13675,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -13705,7 +13705,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -13735,7 +13735,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -13765,7 +13765,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -13795,7 +13795,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -13867,7 +13867,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -13892,7 +13892,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -13909,7 +13909,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -13918,7 +13918,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -13943,7 +13943,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -14013,7 +14013,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -14038,7 +14038,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -14055,7 +14055,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -14064,7 +14064,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -14089,7 +14089,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -14159,7 +14159,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -14184,7 +14184,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -14201,7 +14201,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -14210,7 +14210,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -14235,7 +14235,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -14305,7 +14305,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -14330,7 +14330,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -14347,7 +14347,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -14356,7 +14356,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -14381,7 +14381,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -14451,7 +14451,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -14476,7 +14476,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -14493,7 +14493,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -14502,7 +14502,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -14527,7 +14527,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -14597,7 +14597,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -14622,7 +14622,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -14639,7 +14639,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -14648,7 +14648,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -14673,7 +14673,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -14743,7 +14743,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -14768,7 +14768,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -14785,7 +14785,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -14794,7 +14794,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -14819,7 +14819,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -14889,7 +14889,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -14914,7 +14914,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -14931,7 +14931,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -14940,7 +14940,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -14965,7 +14965,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -15035,7 +15035,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -15060,7 +15060,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -15077,7 +15077,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -15086,7 +15086,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -15111,7 +15111,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -15122,55 +15122,55 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '200'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '300'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '400'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '500'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '600'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '700'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '800'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '900'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
         }, {
             '100'?: string | {
@@ -15197,7 +15197,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -15227,7 +15227,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -15257,7 +15257,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -15287,7 +15287,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -15317,7 +15317,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -15347,7 +15347,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -15377,7 +15377,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -15407,7 +15407,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -15437,7 +15437,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -15478,7 +15478,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -15508,7 +15508,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -15538,7 +15538,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -15568,7 +15568,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -15598,7 +15598,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -15628,7 +15628,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -15658,7 +15658,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -15688,7 +15688,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -15718,7 +15718,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -15790,7 +15790,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -15815,7 +15815,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -15832,7 +15832,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -15841,7 +15841,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -15866,7 +15866,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -15936,7 +15936,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -15961,7 +15961,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -15978,7 +15978,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -15987,7 +15987,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -16012,7 +16012,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -16082,7 +16082,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -16107,7 +16107,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -16124,7 +16124,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -16133,7 +16133,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -16158,7 +16158,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -16228,7 +16228,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -16253,7 +16253,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -16270,7 +16270,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -16279,7 +16279,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -16304,7 +16304,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -16374,7 +16374,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -16399,7 +16399,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -16416,7 +16416,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -16425,7 +16425,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -16450,7 +16450,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -16520,7 +16520,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -16545,7 +16545,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -16562,7 +16562,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -16571,7 +16571,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -16596,7 +16596,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -16666,7 +16666,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -16691,7 +16691,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -16708,7 +16708,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -16717,7 +16717,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -16742,7 +16742,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -16812,7 +16812,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -16837,7 +16837,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -16854,7 +16854,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -16863,7 +16863,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -16888,7 +16888,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -16958,7 +16958,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 }>;
-                oklch: z.ZodObject<{
+                lch: z.ZodObject<{
                     l: z.ZodNumber;
                     c: z.ZodNumber;
                     h: z.ZodNumber;
@@ -16983,7 +16983,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -17000,7 +17000,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -17009,7 +17009,7 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             }, string | {
                 h: number;
                 s: number;
@@ -17034,7 +17034,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -17045,55 +17045,55 @@ export declare namespace Tokens_Colour {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '200'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '300'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '400'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '500'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '600'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '700'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '800'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
             '900'?: {
                 hex: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
                 hsl: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
                 rgb: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
-                oklch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+                lch: z.TypeOf<typeof import("./Colour/ShadeMap/Colour_ShadeMap_Shade.js").Tokens_Colour_ShadeMap_Shade.Schema_LCH>;
             } | undefined;
         }, {
             '100'?: string | {
@@ -17120,7 +17120,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -17150,7 +17150,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -17180,7 +17180,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -17210,7 +17210,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -17240,7 +17240,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -17270,7 +17270,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -17300,7 +17300,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -17330,7 +17330,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -17360,7 +17360,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -17401,7 +17401,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -17431,7 +17431,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -17461,7 +17461,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -17491,7 +17491,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -17521,7 +17521,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -17551,7 +17551,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -17581,7 +17581,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -17611,7 +17611,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -17641,7 +17641,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -17719,7 +17719,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -17749,7 +17749,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -17779,7 +17779,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -17809,7 +17809,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -17839,7 +17839,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -17869,7 +17869,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -17899,7 +17899,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -17929,7 +17929,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -17959,7 +17959,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -17991,7 +17991,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18021,7 +18021,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18051,7 +18051,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18081,7 +18081,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18111,7 +18111,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18141,7 +18141,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18171,7 +18171,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18201,7 +18201,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18231,7 +18231,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18263,7 +18263,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18293,7 +18293,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18323,7 +18323,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18353,7 +18353,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18383,7 +18383,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18413,7 +18413,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18443,7 +18443,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18473,7 +18473,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18503,7 +18503,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18535,7 +18535,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18565,7 +18565,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18595,7 +18595,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18625,7 +18625,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18655,7 +18655,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18685,7 +18685,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18715,7 +18715,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18745,7 +18745,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18775,7 +18775,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18813,7 +18813,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18843,7 +18843,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18873,7 +18873,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18903,7 +18903,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18933,7 +18933,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18963,7 +18963,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -18993,7 +18993,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -19023,7 +19023,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -19053,7 +19053,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -19085,7 +19085,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -19115,7 +19115,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -19145,7 +19145,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -19175,7 +19175,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -19205,7 +19205,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -19235,7 +19235,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -19265,7 +19265,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -19295,7 +19295,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -19325,7 +19325,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -19357,7 +19357,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -19387,7 +19387,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -19417,7 +19417,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -19447,7 +19447,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -19477,7 +19477,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -19507,7 +19507,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -19537,7 +19537,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -19567,7 +19567,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -19597,7 +19597,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -19629,7 +19629,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -19659,7 +19659,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -19689,7 +19689,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -19719,7 +19719,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -19749,7 +19749,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -19779,7 +19779,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -19809,7 +19809,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -19839,7 +19839,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;
@@ -19869,7 +19869,7 @@ export declare namespace Tokens_Colour {
                     g: number;
                     b: number;
                 };
-                oklch: {
+                lch: {
                     h: number;
                     l: number;
                     c: number;

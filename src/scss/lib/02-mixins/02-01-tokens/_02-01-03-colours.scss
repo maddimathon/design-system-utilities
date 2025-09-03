@@ -1,0 +1,56 @@
+///
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'pkg:@maddimathon/utility-sass/colour';
+// @use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/map';
+// @use 'pkg:@maddimathon/utility-sass/math';
+// @use 'pkg:@maddimathon/utility-sass/meta';
+@use 'pkg:@maddimathon/utility-sass/selector';
+// @use 'pkg:@maddimathon/utility-sass/string';
+
+@use '../../../tokens';
+
+// @use '../../01-functions' as *;
+
+///
+/// Prints out the border width custom property tokens based on config.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin tokens-colour {
+    /* #region Tokens - Colours */
+    #{selector.parent-or-root()} {
+        @each $slug, $map in tokens.$colour {
+            @each $level, $clr in $map {
+                --clr-#{$slug}-#{$level}: #{colour.to-hsl(
+                        map.get($map, $level),
+                        $round: false
+                    )};
+            }
+        }
+    }
+    // @each $mode in tokens.$brightnessMode_all {
+    //     @include colour-mode($mode, $includeDefault: true) {
+    //         @each $slug, $map in tokens.$colour {
+    //             @each $level, $clr in $map {
+    //                 --clr-#{$slug}-#{$level}: #{if(
+    //                         $mode == dark,
+    //                         map.get(
+    //                             $map,
+    //                             colour.shade-map-reverse-key(
+    //                                 $level,
+    //                                 $map,
+    //                                 $sort: true
+    //                             )
+    //                         ),
+    //                         $clr
+    //                     )};
+    //             }
+    //         }
+    //     }
+    // }
+    /* #endregion Tokens - Colours */
+}

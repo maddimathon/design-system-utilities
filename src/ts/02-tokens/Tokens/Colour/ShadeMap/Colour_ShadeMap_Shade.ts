@@ -34,7 +34,7 @@ export class Tokens_Colour_ShadeMap_Shade extends AbstractTokens<
     public readonly hex: Tokens_Colour_ShadeMap_Shade.Parsed[ 'hex' ];
     public readonly hsl: Tokens_Colour_ShadeMap_Shade.Parsed[ 'hsl' ];
     public readonly rgb: Tokens_Colour_ShadeMap_Shade.Parsed[ 'rgb' ];
-    public readonly oklch: Tokens_Colour_ShadeMap_Shade.Parsed[ 'oklch' ];
+    public readonly lch: Tokens_Colour_ShadeMap_Shade.Parsed[ 'lch' ];
 
     public constructor (
         public readonly name: string,
@@ -54,7 +54,7 @@ export class Tokens_Colour_ShadeMap_Shade extends AbstractTokens<
         this.hex = parsed.hex;
         this.hsl = parsed.hsl;
         this.rgb = parsed.rgb;
-        this.oklch = parsed.oklch;
+        this.lch = parsed.lch;
     }
 
     public valueOf(): Tokens_Colour_ShadeMap_Shade.Parsed {
@@ -63,7 +63,7 @@ export class Tokens_Colour_ShadeMap_Shade extends AbstractTokens<
             hex: this.hex,
             hsl: this.hsl,
             rgb: this.rgb,
-            oklch: this.oklch,
+            lch: this.lch,
         };
     }
 
@@ -72,7 +72,7 @@ export class Tokens_Colour_ShadeMap_Shade extends AbstractTokens<
     }
 
     public toScssVars(): Tokens_Colour_ShadeMap_Shade.ScssVars {
-        return `oklch( ${ this.oklch.l / 100 } ${ this.oklch.c } ${ this.oklch.h } )`;
+        return `lch( ${ this.lch.l } ${ this.lch.c } ${ this.lch.h } )`;
     }
 }
 
@@ -103,7 +103,7 @@ export namespace Tokens_Colour_ShadeMap_Shade {
         b: z.number().nonnegative().lte( 255 ),
     } );
 
-    export const Schema_OKLCH = z.object( {
+    export const Schema_LCH = z.object( {
         l: z.number().nonnegative().lte( 100 ),
         c: z.number().safe(),
         h: z.number().safe(),
@@ -113,19 +113,19 @@ export namespace Tokens_Colour_ShadeMap_Shade {
         Schema_Hex,
         Schema_HSL,
         Schema_RGB,
-        Schema_OKLCH,
+        Schema_LCH,
 
         z.object( {
             hex: Schema_Hex,
             hsl: Schema_HSL,
             rgb: Schema_RGB,
-            oklch: Schema_OKLCH,
+            lch: Schema_LCH,
         } ),
     ] ).transform( ( input ): {
         hex: z.infer<typeof Schema_Hex>,
         hsl: z.infer<typeof Schema_HSL>,
         rgb: z.infer<typeof Schema_RGB>,
-        oklch: z.infer<typeof Schema_OKLCH>,
+        lch: z.infer<typeof Schema_LCH>,
     } => {
 
         // returns - is already converted
@@ -137,7 +137,7 @@ export namespace Tokens_Colour_ShadeMap_Shade {
             hex: toHex( input ),
             hsl: toHSL( input ),
             rgb: toRGB( input ),
-            oklch: toOKLCH( input ),
+            lch: toLCH( input ),
         };
     } );
 
@@ -234,20 +234,20 @@ export namespace Tokens_Colour_ShadeMap_Shade {
         return _arrayToObject( hsl );
     }
 
-    export function toOKLCH(
+    export function toLCH(
         clr: Tokens_Colour_ShadeMap_Shade | z.input<typeof Schema>,
-    ): z.infer<typeof Schema_OKLCH> {
+    ): z.infer<typeof Schema_LCH> {
 
-        const _arrayToObject = ( oklch: [ number, number, number ] ) => ( {
+        const _arrayToObject = ( lch: [ number, number, number ] ) => ( {
             l: Math.max(
                 0,
                 Math.min(
                     100,
-                    Math.round( oklch[ 0 ] * 1000 ) / 1000
+                    Math.round( lch[ 0 ] * 1000 ) / 1000
                 )
             ),
-            c: Math.round( oklch[ 1 ] * 10000 ) / 10000,
-            h: Math.round( oklch[ 2 ] * 1000 ) / 1000,
+            c: Math.round( lch[ 1 ] * 10000 ) / 10000,
+            h: Math.round( lch[ 2 ] * 1000 ) / 1000,
         } );
 
         // returns - converts
@@ -257,8 +257,8 @@ export namespace Tokens_Colour_ShadeMap_Shade {
         }
 
         // returns - plain
-        if ( 'oklch' in clr ) {
-            return _arrayToObject( [ clr.oklch.l, clr.oklch.c, clr.oklch.h ] );
+        if ( 'lch' in clr ) {
+            return _arrayToObject( [ clr.lch.l, clr.lch.c, clr.lch.h ] );
         }
 
         // returns - plain

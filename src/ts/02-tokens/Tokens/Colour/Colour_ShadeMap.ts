@@ -90,10 +90,10 @@ export namespace Tokens_Colour_ShadeMap {
         _clrB: Tokens_Colour_ShadeMap_Shade | z.input<typeof Tokens_Colour_ShadeMap_Shade.Schema>,
     ): z.input<typeof Tokens_Colour_ShadeMap_Shade.Schema> {
 
-        const clrA = Tokens_Colour_ShadeMap_Shade.toOKLCH( _clrA );
-        const clrB = Tokens_Colour_ShadeMap_Shade.toOKLCH( _clrB );
+        const clrA = Tokens_Colour_ShadeMap_Shade.toLCH( _clrA );
+        const clrB = Tokens_Colour_ShadeMap_Shade.toLCH( _clrB );
 
-        return Tokens_Colour_ShadeMap_Shade.toOKLCH( {
+        return Tokens_Colour_ShadeMap_Shade.toLCH( {
             l: ( clrA.l + clrB.l ) / 2,
             c: ( clrA.c + clrB.c ) / 2,
             h: ( clrA.h + clrB.h ) / 2,
@@ -111,15 +111,16 @@ export namespace Tokens_Colour_ShadeMap {
         },
 
         cfx: Partial<{ path: string | ( number | string )[]; }>,
+
     ): { [ K in keyof typeof part ]-?: Tokens_Colour_ShadeMap_Shade; } {
 
         const inputKeys = Object.keys( part ) as TokenLevels[];
         const name = Array.isArray( cfx.path ) ? cfx.path.join( ' ' ) : cfx.path;
 
         const bases = {
-            '100': { l: 98, c: 0, h: 85 },
-            '500': { l: 53, c: 0.005, h: 55 },
-            '900': { l: 10, c: 0.02, h: 38 },
+            '100': { l: 98, c: 0.05, h: 75 },
+            '500': { l: 50, c: 2, h: 55 },
+            '900': { l: 3, c: 7, h: 38 },
         };
 
         let _l_100: Tokens_Colour_ShadeMap_Shade;
