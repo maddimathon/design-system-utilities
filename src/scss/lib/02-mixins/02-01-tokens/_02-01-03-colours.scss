@@ -9,48 +9,91 @@
 // @use 'pkg:@maddimathon/utility-sass/math';
 // @use 'pkg:@maddimathon/utility-sass/meta';
 @use 'pkg:@maddimathon/utility-sass/selector';
-// @use 'pkg:@maddimathon/utility-sass/string';
+@use 'pkg:@maddimathon/utility-sass/string';
+
+@use 'pkg:@maddimathon/utility-sass' as lib;
 
 @use '../../../tokens';
 
-// @use '../../01-functions' as *;
+@use '../../01-functions' as *;
 
 ///
-/// Prints out the border width custom property tokens based on config.
+/// Prints out the colour custom property tokens based on config.
 ///
 /// @since ___PKG_VERSION___
 ///
 @mixin tokens-colour {
-    /* #region Tokens - Colours */
-    #{selector.parent-or-root()} {
-        @each $slug, $map in tokens.$colour {
-            @each $level, $clr in $map {
-                --clr-#{$slug}-#{$level}: #{colour.to-hsl(
-                        map.get($map, $level),
-                        $round: false
-                    )};
+    /* #region Tokens - Colour */
+    @each $mode in tokens.$brightnessMode_all {
+        @include lib.colour-mode($mode, $includeDefault: true) {
+            @each $slug, $map in tokens.$colour {
+                @each $level, $clr in $map {
+                    --clr-#{$slug}-#{$level}: #{colour.to-hsl(
+                            if(
+                                $mode == dark,
+                                map.get(
+                                    $map,
+                                    colour.shade-map-reverse-key(
+                                        $level,
+                                        $map,
+                                        $sort: true
+                                    )
+                                ),
+                                $clr
+                            ),
+                            $round: false
+                        )};
+                    // /* #{var-clr($slug, $level)} */
+                }
             }
         }
     }
-    // @each $mode in tokens.$brightnessMode_all {
-    //     @include colour-mode($mode, $includeDefault: true) {
-    //         @each $slug, $map in tokens.$colour {
-    //             @each $level, $clr in $map {
-    //                 --clr-#{$slug}-#{$level}: #{if(
-    //                         $mode == dark,
-    //                         map.get(
-    //                             $map,
-    //                             colour.shade-map-reverse-key(
-    //                                 $level,
-    //                                 $map,
-    //                                 $sort: true
-    //                             )
-    //                         ),
-    //                         $clr
-    //                     )};
-    //             }
-    //         }
-    //     }
-    // }
-    /* #endregion Tokens - Colours */
+    /* #endregion Tokens - Colour */
+}
+
+///
+/// Prints out the theme custom property tokens based on config.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin tokens-theme {
+    //
+    @include lib.token-mode-each($includeRegions_heading: 'Tokens - Theme - ')
+        using ($brightness, $contrast) {
+        //
+        @if $contrast != forced-colors {
+            //
+            @if map.has-key(tokens.$theme, $contrast) {
+                //
+                @if map.has-key(map.get(tokens.$theme, $contrast), $brightness)
+                {
+                    $flattened: map.flatten(
+                        map.get(tokens.$theme, $contrast, $brightness)
+                    );
+
+                    @each $prop, $value in $flattened {
+                        --theme-#{$prop}: #{if(
+                                string.index($value, '-'),
+                                var-clr(
+                                    string.slice($value, 1, -5),
+                                    string.slice($value, -3, -1),
+                                    $brightness
+                                ),
+                                $value
+                            )};
+                    }
+                }
+            }
+        }
+    }
+
+    /*#region contrast forced-colors */
+    @include lib.forced-colors {
+        @each $prop,
+            $value in map.flatten(map.get(tokens.$theme, forced-colors))
+        {
+            --theme-#{$prop}: #{$value} !important;
+        }
+    }
+    /*#endregion contrast forced-colors */
 }

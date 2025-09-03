@@ -19,26 +19,22 @@ export class Tokens_TEMPLATE extends AbstractTokens {
     get schema() {
         return Tokens_TEMPLATE.Schema;
     }
-    // public readonly time: Tokens_TEMPLATE.Export[ 'time' ];
+    parsed;
     constructor(input) {
         super(input ?? {});
-        // this.time = this.parseSchema(
-        //     this.schema.shape.time,
-        //     input?.time ?? {},
-        //     {
-        //         name: 'Tokens_TEMPLATE',
-        //         location: 'src/ts/02-tokens/Tokens/Tokens_TEMPLATE.ts:49',
-        //     },
-        // );
-    }
-    valueOf() {
-        return {};
+        this.parsed = this.parseSchema(this.schema, input ?? {}, {
+            name: 'Tokens_TEMPLATE',
+            location: 'src/ts/02-tokens/Tokens_TEMPLATE.ts:49',
+        });
     }
     toJSON() {
         return this.valueOf();
     }
     toScssVars() {
         return this.valueOf();
+    }
+    valueOf() {
+        return this.parsed;
     }
 }
 /**

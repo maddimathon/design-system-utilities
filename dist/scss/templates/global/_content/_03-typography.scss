@@ -13,16 +13,54 @@
 
 @use '../lib' as *;
 
+// @use '../config';
+// @use '../tokens';
+
 /* # TYPOGRAPHY
  * ======================================================================== */
+
+::selection {
+    background-color: #{var-theme(selection-bg)};
+    color: #{var-theme(selection-text)};
+}
 
 /* ## Typography - Inline ==================================== */
 
 a {
+    display: inline;
+    border: none;
     text-decoration: underline #{var-stroke-relative('200')};
+    color: #{var-theme(link)};
+
+    /// STATES ///
+
+    @include hover-focus-visible() {
+        --focus-ring-outline-color: #{var-theme(link-hover)};
+        color: #{var-theme(link-hover)};
+        text-decoration-color: transparent;
+    }
+
+    &:active {
+        --focus-ring-outline-color: #{var-theme(link-active)};
+        color: #{var-theme(link-active)};
+    }
 }
 
 abbr[title] {
     text-decoration: dotted underline #{var-stroke-relative('400')};
     cursor: help;
+}
+
+/* ## Typography - Block ==================================== */
+
+pre,
+code {
+    --focus-ring-outline-color: #{var-theme(text-secondary)};
+    position: relative;
+}
+
+code {
+}
+
+pre {
 }

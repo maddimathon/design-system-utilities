@@ -17,10 +17,11 @@ import { AbstractTokens } from '../abstracts/AbstractTokens.js';
  */
 export declare class Tokens_TEMPLATE extends AbstractTokens<typeof Tokens_TEMPLATE.Schema, Tokens_TEMPLATE.Parsed, Tokens_TEMPLATE.Part, Tokens_TEMPLATE.JSON, Tokens_TEMPLATE.ScssVars> {
     get schema(): z.ZodObject<{}, "strip", z.ZodTypeAny, {}, {}>;
+    readonly parsed: Tokens_TEMPLATE.Parsed;
     constructor(input?: Tokens_TEMPLATE.Part);
-    valueOf(): Tokens_TEMPLATE.Parsed;
     toJSON(): Tokens_TEMPLATE.JSON;
     toScssVars(): Tokens_TEMPLATE.ScssVars;
+    valueOf(): Tokens_TEMPLATE.Parsed;
 }
 /**
  * Utilities for the {@link Tokens} class.

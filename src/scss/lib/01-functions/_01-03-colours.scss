@@ -4,15 +4,16 @@
 ///
 
 @use 'pkg:@maddimathon/utility-sass/colour';
-// @use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/map';
 // @use 'pkg:@maddimathon/utility-sass/math';
 @use 'pkg:@maddimathon/utility-sass/meta';
 // @use 'pkg:@maddimathon/utility-sass/selector';
-// @use 'pkg:@maddimathon/utility-sass/string';
+@use 'pkg:@maddimathon/utility-sass/string';
 
 // @use 'pkg:@maddimathon/utility-sass' as lib;
 
+@use '../../config';
 @use '../../tokens';
 
 ///
@@ -42,7 +43,7 @@
         $dark_level: colour.shade-map-reverse-key(
             $level,
             $slugMap,
-            $sort: if(config.$tokens_expandClrMaps, false, true)
+            $sort: true
         );
     }
 
@@ -54,6 +55,87 @@
                     if($mode == dark, '#{$dark_level}', '#{$level}')
                 ),
                 $round: false
+            )}
+    );
+}
+
+/// THEME
+/// ======================================================================== ///
+
+$_flattenedThemes: map.flatten(tokens.$theme);
+
+///
+/// Gets the value for the given token slug.
+///
+/// @since ___PKG_VERSION___
+///
+@function theme-token-value($slug, $brightness, $contrast) {
+    // returns
+    @if $contrast == forced-colors {
+        @if not map.has-key($_flattenedThemes, '#{$contrast}-#{$slug}') {
+            @warn "$slug '#{$slug}' was not a key in flattened tokens.$theme";
+            @debug #{meta.var-dump($_flattenedThemes)};
+            @return ();
+        }
+
+        @return map.get($_flattenedThemes, '#{$contrast}-#{$slug}');
+    }
+
+    // returns - no fallback
+    @if not map.has-key(tokens.$theme, $contrast) {
+        @warn "$contrast '#{$contrast}' was not a key in tokens.$theme";
+        @return ();
+    }
+
+    // returns - no fallback
+    @if not map.has-key(map.get(tokens.$theme, $contrast), $brightness) {
+        @warn "$brightness '#{$brightness}' was not a key in tokens.$theme.#{$contrast}";
+        @return ();
+    }
+
+    // returns - no fallback
+    @if not
+        map.has-key($_flattenedThemes, '#{$contrast}-#{$brightness}-#{$slug}')
+    {
+        @warn "$slug '#{$slug}' was not a key in flattened tokens.$theme";
+        @return ();
+    }
+
+    @return map.get($_flattenedThemes, '#{$contrast}-#{$brightness}-#{$slug}');
+}
+
+///
+/// Returns the appropriate var (with fallback).
+///
+/// @since ___PKG_VERSION___
+///
+@function var-theme(
+    $slug,
+    $brightness: tokens.$brightnessMode_default,
+    $contrast: tokens.$contrastMode_default
+) {
+    $clrSlug: theme-token-value($slug, $brightness, $contrast);
+
+    // returns
+    @if list.length($clrSlug) < 1 {
+        @return var(--theme-#{$slug});
+    }
+
+    // returns
+    @if $contrast == forced-colors {
+        @return $clrSlug;
+    }
+
+    @return var(
+        --theme-#{$slug},
+        #{if(
+                string.index($clrSlug, '-'),
+                var-clr(
+                    string.slice($clrSlug, 1, -5),
+                    string.slice($clrSlug, -3, -1),
+                    $brightness
+                ),
+                $clrSlug
             )}
     );
 }

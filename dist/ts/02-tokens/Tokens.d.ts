@@ -14,6 +14,7 @@ import { Tokens_Spacing } from './Tokens/Spacing.js';
 import { Tokens_Typography } from './Tokens/Typography.js';
 import { Tokens_CSS_Border } from './Tokens/CSS/CSS_Border.js';
 import { Tokens_CSS_Transition } from './Tokens/CSS/CSS_Transition.js';
+import { Tokens_Theme } from './Tokens/Theme.js';
 /**
  * Generates a complete token object for the design system.
  *
@@ -9988,6 +9989,4281 @@ export declare class Tokens extends AbstractTokens<typeof Tokens.Schema, Tokens.
             } & Partial<Record<"100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900" | "000" | "050" | "150" | "250" | "350" | "450" | "550" | "650" | "750" | "850" | "950", number>>;
             multiplier?: number | undefined;
         }>;
+        theme: z.ZodEffects<z.ZodObject<{
+            average: z.ZodDefault<z.ZodEffects<z.ZodObject<{
+                light: z.ZodDefault<z.ZodObject<{
+                    background: z.ZodDefault<z.ZodString>;
+                    text: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        primary: z.ZodDefault<z.ZodString>;
+                        secondary: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    }, {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    }>>;
+                    ui: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        primary: z.ZodDefault<z.ZodString>;
+                        secondary: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    }, {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    }>>;
+                    selection: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodString>;
+                        text: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: string;
+                        bg: string;
+                    }, {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    }>>;
+                    link: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        hover: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    }, {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    }>>;
+                    button: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        border: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        text: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    }, {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    }>>;
+                    field: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        border: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        text: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        placeholder: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    }, {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    }>>;
+                }, "strip", z.ZodTypeAny, {
+                    link: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    background: string;
+                    text: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    ui: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    selection: {
+                        text: string;
+                        bg: string;
+                    };
+                    button: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    };
+                    field: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    };
+                }, {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                }>>;
+                dark: z.ZodOptional<z.ZodObject<{
+                    background: z.ZodDefault<z.ZodString>;
+                    text: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        primary: z.ZodDefault<z.ZodString>;
+                        secondary: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    }, {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    }>>;
+                    ui: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        primary: z.ZodDefault<z.ZodString>;
+                        secondary: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    }, {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    }>>;
+                    selection: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodString>;
+                        text: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: string;
+                        bg: string;
+                    }, {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    }>>;
+                    link: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        hover: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    }, {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    }>>;
+                    button: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        border: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        text: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    }, {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    }>>;
+                    field: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        border: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        text: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        placeholder: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    }, {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    }>>;
+                }, "strip", z.ZodTypeAny, {
+                    link: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    background: string;
+                    text: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    ui: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    selection: {
+                        text: string;
+                        bg: string;
+                    };
+                    button: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    };
+                    field: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    };
+                }, {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                }>>;
+            }, "strip", z.ZodTypeAny, {
+                light: {
+                    link: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    background: string;
+                    text: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    ui: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    selection: {
+                        text: string;
+                        bg: string;
+                    };
+                    button: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    };
+                    field: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    };
+                };
+                dark?: {
+                    link: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    background: string;
+                    text: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    ui: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    selection: {
+                        text: string;
+                        bg: string;
+                    };
+                    button: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    };
+                    field: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    };
+                } | undefined;
+            }, {
+                light?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                dark?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+            }>, {
+                light: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+                dark: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+            }, {
+                light?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                dark?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+            }>>;
+            low: z.ZodDefault<z.ZodEffects<z.ZodObject<{
+                light: z.ZodDefault<z.ZodObject<{
+                    background: z.ZodDefault<z.ZodString>;
+                    text: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        primary: z.ZodDefault<z.ZodString>;
+                        secondary: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    }, {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    }>>;
+                    ui: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        primary: z.ZodDefault<z.ZodString>;
+                        secondary: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    }, {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    }>>;
+                    selection: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodString>;
+                        text: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: string;
+                        bg: string;
+                    }, {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    }>>;
+                    link: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        hover: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    }, {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    }>>;
+                    button: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        border: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        text: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    }, {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    }>>;
+                    field: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        border: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        text: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        placeholder: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    }, {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    }>>;
+                }, "strip", z.ZodTypeAny, {
+                    link: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    background: string;
+                    text: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    ui: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    selection: {
+                        text: string;
+                        bg: string;
+                    };
+                    button: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    };
+                    field: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    };
+                }, {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                }>>;
+                dark: z.ZodOptional<z.ZodObject<{
+                    background: z.ZodDefault<z.ZodString>;
+                    text: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        primary: z.ZodDefault<z.ZodString>;
+                        secondary: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    }, {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    }>>;
+                    ui: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        primary: z.ZodDefault<z.ZodString>;
+                        secondary: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    }, {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    }>>;
+                    selection: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodString>;
+                        text: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: string;
+                        bg: string;
+                    }, {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    }>>;
+                    link: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        hover: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    }, {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    }>>;
+                    button: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        border: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        text: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    }, {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    }>>;
+                    field: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        border: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        text: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        placeholder: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    }, {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    }>>;
+                }, "strip", z.ZodTypeAny, {
+                    link: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    background: string;
+                    text: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    ui: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    selection: {
+                        text: string;
+                        bg: string;
+                    };
+                    button: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    };
+                    field: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    };
+                }, {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                }>>;
+            }, "strip", z.ZodTypeAny, {
+                light: {
+                    link: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    background: string;
+                    text: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    ui: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    selection: {
+                        text: string;
+                        bg: string;
+                    };
+                    button: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    };
+                    field: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    };
+                };
+                dark?: {
+                    link: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    background: string;
+                    text: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    ui: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    selection: {
+                        text: string;
+                        bg: string;
+                    };
+                    button: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    };
+                    field: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    };
+                } | undefined;
+            }, {
+                light?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                dark?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+            }>, {
+                light: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+                dark: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+            }, {
+                light?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                dark?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+            }>>;
+            high: z.ZodDefault<z.ZodEffects<z.ZodObject<{
+                light: z.ZodDefault<z.ZodObject<{
+                    background: z.ZodDefault<z.ZodString>;
+                    text: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        primary: z.ZodDefault<z.ZodString>;
+                        secondary: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    }, {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    }>>;
+                    ui: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        primary: z.ZodDefault<z.ZodString>;
+                        secondary: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    }, {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    }>>;
+                    selection: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodString>;
+                        text: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: string;
+                        bg: string;
+                    }, {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    }>>;
+                    link: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        hover: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    }, {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    }>>;
+                    button: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        border: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        text: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    }, {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    }>>;
+                    field: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        border: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        text: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        placeholder: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    }, {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    }>>;
+                }, "strip", z.ZodTypeAny, {
+                    link: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    background: string;
+                    text: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    ui: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    selection: {
+                        text: string;
+                        bg: string;
+                    };
+                    button: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    };
+                    field: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    };
+                }, {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                }>>;
+                dark: z.ZodOptional<z.ZodObject<{
+                    background: z.ZodDefault<z.ZodString>;
+                    text: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        primary: z.ZodDefault<z.ZodString>;
+                        secondary: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    }, {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    }>>;
+                    ui: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        primary: z.ZodDefault<z.ZodString>;
+                        secondary: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    }, {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    }>>;
+                    selection: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodString>;
+                        text: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: string;
+                        bg: string;
+                    }, {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    }>>;
+                    link: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        hover: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    }, {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    }>>;
+                    button: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        border: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        text: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    }, {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    }>>;
+                    field: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        border: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        text: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        placeholder: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    }, {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    }>>;
+                }, "strip", z.ZodTypeAny, {
+                    link: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    background: string;
+                    text: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    ui: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    selection: {
+                        text: string;
+                        bg: string;
+                    };
+                    button: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    };
+                    field: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    };
+                }, {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                }>>;
+            }, "strip", z.ZodTypeAny, {
+                light: {
+                    link: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    background: string;
+                    text: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    ui: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    selection: {
+                        text: string;
+                        bg: string;
+                    };
+                    button: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    };
+                    field: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    };
+                };
+                dark?: {
+                    link: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    background: string;
+                    text: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    ui: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    selection: {
+                        text: string;
+                        bg: string;
+                    };
+                    button: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    };
+                    field: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    };
+                } | undefined;
+            }, {
+                light?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                dark?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+            }>, {
+                light: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+                dark: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+            }, {
+                light?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                dark?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+            }>>;
+            forcedColors: z.ZodDefault<z.ZodObject<{
+                background: z.ZodDefault<z.ZodString>;
+                text: z.ZodDefault<z.ZodObject<{
+                    $: z.ZodDefault<z.ZodString>;
+                    primary: z.ZodDefault<z.ZodString>;
+                    secondary: z.ZodDefault<z.ZodString>;
+                    active: z.ZodDefault<z.ZodString>;
+                }, "strip", z.ZodTypeAny, {
+                    primary: string;
+                    secondary: string;
+                    active: string;
+                    $: string;
+                }, {
+                    primary?: string | undefined;
+                    secondary?: string | undefined;
+                    active?: string | undefined;
+                    $?: string | undefined;
+                }>>;
+                ui: z.ZodDefault<z.ZodObject<{
+                    $: z.ZodDefault<z.ZodString>;
+                    primary: z.ZodDefault<z.ZodString>;
+                    secondary: z.ZodDefault<z.ZodString>;
+                    active: z.ZodDefault<z.ZodString>;
+                }, "strip", z.ZodTypeAny, {
+                    primary: string;
+                    secondary: string;
+                    active: string;
+                    $: string;
+                }, {
+                    primary?: string | undefined;
+                    secondary?: string | undefined;
+                    active?: string | undefined;
+                    $?: string | undefined;
+                }>>;
+                selection: z.ZodDefault<z.ZodObject<{
+                    bg: z.ZodDefault<z.ZodString>;
+                    text: z.ZodDefault<z.ZodString>;
+                }, "strip", z.ZodTypeAny, {
+                    text: string;
+                    bg: string;
+                }, {
+                    text?: string | undefined;
+                    bg?: string | undefined;
+                }>>;
+                link: z.ZodDefault<z.ZodObject<{
+                    $: z.ZodDefault<z.ZodString>;
+                    hover: z.ZodDefault<z.ZodString>;
+                    active: z.ZodDefault<z.ZodString>;
+                }, "strip", z.ZodTypeAny, {
+                    active: string;
+                    $: string;
+                    hover: string;
+                }, {
+                    active?: string | undefined;
+                    $?: string | undefined;
+                    hover?: string | undefined;
+                }>>;
+                button: z.ZodDefault<z.ZodObject<{
+                    bg: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        hover: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    }, {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    }>>;
+                    border: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        hover: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    }, {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    }>>;
+                    text: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        hover: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    }, {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    }>>;
+                }, "strip", z.ZodTypeAny, {
+                    text: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    bg: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    border: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                }, {
+                    text?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    bg?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    border?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                }>>;
+                field: z.ZodDefault<z.ZodObject<{
+                    bg: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        hover: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    }, {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    }>>;
+                    border: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        hover: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    }, {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    }>>;
+                    text: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        hover: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    }, {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    }>>;
+                    placeholder: z.ZodDefault<z.ZodString>;
+                }, "strip", z.ZodTypeAny, {
+                    text: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    bg: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    border: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    placeholder: string;
+                }, {
+                    text?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    bg?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    border?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    placeholder?: string | undefined;
+                }>>;
+            }, "strip", z.ZodTypeAny, {
+                link: {
+                    active: string;
+                    $: string;
+                    hover: string;
+                };
+                background: string;
+                text: {
+                    primary: string;
+                    secondary: string;
+                    active: string;
+                    $: string;
+                };
+                ui: {
+                    primary: string;
+                    secondary: string;
+                    active: string;
+                    $: string;
+                };
+                selection: {
+                    text: string;
+                    bg: string;
+                };
+                button: {
+                    text: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    bg: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    border: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                };
+                field: {
+                    text: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    bg: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    border: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    placeholder: string;
+                };
+            }, {
+                link?: {
+                    active?: string | undefined;
+                    $?: string | undefined;
+                    hover?: string | undefined;
+                } | undefined;
+                background?: string | undefined;
+                text?: {
+                    primary?: string | undefined;
+                    secondary?: string | undefined;
+                    active?: string | undefined;
+                    $?: string | undefined;
+                } | undefined;
+                ui?: {
+                    primary?: string | undefined;
+                    secondary?: string | undefined;
+                    active?: string | undefined;
+                    $?: string | undefined;
+                } | undefined;
+                selection?: {
+                    text?: string | undefined;
+                    bg?: string | undefined;
+                } | undefined;
+                button?: {
+                    text?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    bg?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    border?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                field?: {
+                    text?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    bg?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    border?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    placeholder?: string | undefined;
+                } | undefined;
+            }>>;
+        }, "strip", z.ZodTypeAny, {
+            average: {
+                light: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+                dark: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+            };
+            low: {
+                light: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+                dark: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+            };
+            high: {
+                light: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+                dark: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+            };
+            forcedColors: {
+                link: {
+                    active: string;
+                    $: string;
+                    hover: string;
+                };
+                background: string;
+                text: {
+                    primary: string;
+                    secondary: string;
+                    active: string;
+                    $: string;
+                };
+                ui: {
+                    primary: string;
+                    secondary: string;
+                    active: string;
+                    $: string;
+                };
+                selection: {
+                    text: string;
+                    bg: string;
+                };
+                button: {
+                    text: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    bg: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    border: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                };
+                field: {
+                    text: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    bg: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    border: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    placeholder: string;
+                };
+            };
+        }, {
+            average?: {
+                light?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                dark?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+            } | undefined;
+            low?: {
+                light?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                dark?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+            } | undefined;
+            high?: {
+                light?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                dark?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+            } | undefined;
+            forcedColors?: {
+                link?: {
+                    active?: string | undefined;
+                    $?: string | undefined;
+                    hover?: string | undefined;
+                } | undefined;
+                background?: string | undefined;
+                text?: {
+                    primary?: string | undefined;
+                    secondary?: string | undefined;
+                    active?: string | undefined;
+                    $?: string | undefined;
+                } | undefined;
+                ui?: {
+                    primary?: string | undefined;
+                    secondary?: string | undefined;
+                    active?: string | undefined;
+                    $?: string | undefined;
+                } | undefined;
+                selection?: {
+                    text?: string | undefined;
+                    bg?: string | undefined;
+                } | undefined;
+                button?: {
+                    text?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    bg?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    border?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                field?: {
+                    text?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    bg?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    border?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    placeholder?: string | undefined;
+                } | undefined;
+            } | undefined;
+        }>, {
+            forcedColors: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+            average: {
+                light: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+                dark: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+            };
+            low: {
+                light: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+                dark: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+            };
+            high: {
+                light: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+                dark: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+            };
+        }, {
+            average?: {
+                light?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                dark?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+            } | undefined;
+            low?: {
+                light?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                dark?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+            } | undefined;
+            high?: {
+                light?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                dark?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+            } | undefined;
+            forcedColors?: {
+                link?: {
+                    active?: string | undefined;
+                    $?: string | undefined;
+                    hover?: string | undefined;
+                } | undefined;
+                background?: string | undefined;
+                text?: {
+                    primary?: string | undefined;
+                    secondary?: string | undefined;
+                    active?: string | undefined;
+                    $?: string | undefined;
+                } | undefined;
+                ui?: {
+                    primary?: string | undefined;
+                    secondary?: string | undefined;
+                    active?: string | undefined;
+                    $?: string | undefined;
+                } | undefined;
+                selection?: {
+                    text?: string | undefined;
+                    bg?: string | undefined;
+                } | undefined;
+                button?: {
+                    text?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    bg?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    border?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                field?: {
+                    text?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    bg?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    border?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    placeholder?: string | undefined;
+                } | undefined;
+            } | undefined;
+        }>;
         typography: z.ZodObject<{
             lineHeight: z.ZodIntersection<z.ZodObject<{
                 '100': z.ZodDefault<z.ZodNumber>;
@@ -10575,6 +14851,21 @@ export declare class Tokens extends AbstractTokens<typeof Tokens.Schema, Tokens.
                 '600': number;
                 '800': number;
             } & Partial<Record<"100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900" | "000" | "050" | "150" | "250" | "350" | "450" | "550" | "650" | "750" | "850" | "950", number>>;
+        };
+        theme: {
+            forcedColors: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+            average: {
+                light: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+                dark: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+            };
+            low: {
+                light: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+                dark: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+            };
+            high: {
+                light: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+                dark: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+            };
         };
         typography: {
             lineHeight: {
@@ -11794,6 +16085,427 @@ export declare class Tokens extends AbstractTokens<typeof Tokens.Schema, Tokens.
             } & Partial<Record<"100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900" | "000" | "050" | "150" | "250" | "350" | "450" | "550" | "650" | "750" | "850" | "950", number>>;
             multiplier?: number | undefined;
         };
+        theme: {
+            average?: {
+                light?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                dark?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+            } | undefined;
+            low?: {
+                light?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                dark?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+            } | undefined;
+            high?: {
+                light?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                dark?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+            } | undefined;
+            forcedColors?: {
+                link?: {
+                    active?: string | undefined;
+                    $?: string | undefined;
+                    hover?: string | undefined;
+                } | undefined;
+                background?: string | undefined;
+                text?: {
+                    primary?: string | undefined;
+                    secondary?: string | undefined;
+                    active?: string | undefined;
+                    $?: string | undefined;
+                } | undefined;
+                ui?: {
+                    primary?: string | undefined;
+                    secondary?: string | undefined;
+                    active?: string | undefined;
+                    $?: string | undefined;
+                } | undefined;
+                selection?: {
+                    text?: string | undefined;
+                    bg?: string | undefined;
+                } | undefined;
+                button?: {
+                    text?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    bg?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    border?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                field?: {
+                    text?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    bg?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    border?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    placeholder?: string | undefined;
+                } | undefined;
+            } | undefined;
+        };
         typography: {
             lineHeight: {
                 '100'?: number | undefined;
@@ -11866,6 +16578,7 @@ export declare class Tokens extends AbstractTokens<typeof Tokens.Schema, Tokens.
     }>;
     readonly colour: Tokens_Colour;
     readonly spacing: Tokens_Spacing;
+    readonly theme: Tokens_Theme;
     readonly typography: Tokens_Typography;
     readonly CSS: {
         border: Tokens_CSS_Border;
@@ -11879,10 +16592,10 @@ export declare class Tokens extends AbstractTokens<typeof Tokens.Schema, Tokens.
     };
     readonly opts: Tokens.Opts;
     constructor(input?: Tokens.Part, opts?: Partial<Tokens.Opts>);
-    valueOf(): Tokens.Parsed;
     toJSON(): Tokens.JSON;
     toScssVars(): Tokens.ScssVars;
     toScss(): string;
+    valueOf(): Tokens.Parsed;
 }
 /**
  * Utilities for the {@link Tokens} class.
@@ -21866,6 +26579,4281 @@ export declare namespace Tokens {
             } & Partial<Record<"100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900" | "000" | "050" | "150" | "250" | "350" | "450" | "550" | "650" | "750" | "850" | "950", number>>;
             multiplier?: number | undefined;
         }>;
+        theme: z.ZodEffects<z.ZodObject<{
+            average: z.ZodDefault<z.ZodEffects<z.ZodObject<{
+                light: z.ZodDefault<z.ZodObject<{
+                    background: z.ZodDefault<z.ZodString>;
+                    text: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        primary: z.ZodDefault<z.ZodString>;
+                        secondary: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    }, {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    }>>;
+                    ui: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        primary: z.ZodDefault<z.ZodString>;
+                        secondary: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    }, {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    }>>;
+                    selection: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodString>;
+                        text: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: string;
+                        bg: string;
+                    }, {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    }>>;
+                    link: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        hover: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    }, {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    }>>;
+                    button: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        border: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        text: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    }, {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    }>>;
+                    field: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        border: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        text: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        placeholder: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    }, {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    }>>;
+                }, "strip", z.ZodTypeAny, {
+                    link: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    background: string;
+                    text: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    ui: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    selection: {
+                        text: string;
+                        bg: string;
+                    };
+                    button: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    };
+                    field: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    };
+                }, {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                }>>;
+                dark: z.ZodOptional<z.ZodObject<{
+                    background: z.ZodDefault<z.ZodString>;
+                    text: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        primary: z.ZodDefault<z.ZodString>;
+                        secondary: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    }, {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    }>>;
+                    ui: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        primary: z.ZodDefault<z.ZodString>;
+                        secondary: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    }, {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    }>>;
+                    selection: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodString>;
+                        text: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: string;
+                        bg: string;
+                    }, {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    }>>;
+                    link: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        hover: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    }, {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    }>>;
+                    button: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        border: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        text: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    }, {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    }>>;
+                    field: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        border: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        text: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        placeholder: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    }, {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    }>>;
+                }, "strip", z.ZodTypeAny, {
+                    link: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    background: string;
+                    text: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    ui: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    selection: {
+                        text: string;
+                        bg: string;
+                    };
+                    button: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    };
+                    field: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    };
+                }, {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                }>>;
+            }, "strip", z.ZodTypeAny, {
+                light: {
+                    link: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    background: string;
+                    text: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    ui: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    selection: {
+                        text: string;
+                        bg: string;
+                    };
+                    button: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    };
+                    field: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    };
+                };
+                dark?: {
+                    link: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    background: string;
+                    text: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    ui: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    selection: {
+                        text: string;
+                        bg: string;
+                    };
+                    button: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    };
+                    field: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    };
+                } | undefined;
+            }, {
+                light?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                dark?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+            }>, {
+                light: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+                dark: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+            }, {
+                light?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                dark?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+            }>>;
+            low: z.ZodDefault<z.ZodEffects<z.ZodObject<{
+                light: z.ZodDefault<z.ZodObject<{
+                    background: z.ZodDefault<z.ZodString>;
+                    text: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        primary: z.ZodDefault<z.ZodString>;
+                        secondary: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    }, {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    }>>;
+                    ui: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        primary: z.ZodDefault<z.ZodString>;
+                        secondary: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    }, {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    }>>;
+                    selection: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodString>;
+                        text: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: string;
+                        bg: string;
+                    }, {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    }>>;
+                    link: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        hover: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    }, {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    }>>;
+                    button: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        border: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        text: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    }, {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    }>>;
+                    field: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        border: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        text: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        placeholder: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    }, {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    }>>;
+                }, "strip", z.ZodTypeAny, {
+                    link: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    background: string;
+                    text: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    ui: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    selection: {
+                        text: string;
+                        bg: string;
+                    };
+                    button: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    };
+                    field: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    };
+                }, {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                }>>;
+                dark: z.ZodOptional<z.ZodObject<{
+                    background: z.ZodDefault<z.ZodString>;
+                    text: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        primary: z.ZodDefault<z.ZodString>;
+                        secondary: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    }, {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    }>>;
+                    ui: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        primary: z.ZodDefault<z.ZodString>;
+                        secondary: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    }, {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    }>>;
+                    selection: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodString>;
+                        text: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: string;
+                        bg: string;
+                    }, {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    }>>;
+                    link: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        hover: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    }, {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    }>>;
+                    button: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        border: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        text: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    }, {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    }>>;
+                    field: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        border: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        text: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        placeholder: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    }, {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    }>>;
+                }, "strip", z.ZodTypeAny, {
+                    link: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    background: string;
+                    text: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    ui: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    selection: {
+                        text: string;
+                        bg: string;
+                    };
+                    button: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    };
+                    field: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    };
+                }, {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                }>>;
+            }, "strip", z.ZodTypeAny, {
+                light: {
+                    link: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    background: string;
+                    text: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    ui: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    selection: {
+                        text: string;
+                        bg: string;
+                    };
+                    button: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    };
+                    field: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    };
+                };
+                dark?: {
+                    link: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    background: string;
+                    text: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    ui: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    selection: {
+                        text: string;
+                        bg: string;
+                    };
+                    button: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    };
+                    field: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    };
+                } | undefined;
+            }, {
+                light?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                dark?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+            }>, {
+                light: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+                dark: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+            }, {
+                light?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                dark?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+            }>>;
+            high: z.ZodDefault<z.ZodEffects<z.ZodObject<{
+                light: z.ZodDefault<z.ZodObject<{
+                    background: z.ZodDefault<z.ZodString>;
+                    text: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        primary: z.ZodDefault<z.ZodString>;
+                        secondary: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    }, {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    }>>;
+                    ui: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        primary: z.ZodDefault<z.ZodString>;
+                        secondary: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    }, {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    }>>;
+                    selection: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodString>;
+                        text: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: string;
+                        bg: string;
+                    }, {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    }>>;
+                    link: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        hover: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    }, {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    }>>;
+                    button: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        border: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        text: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    }, {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    }>>;
+                    field: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        border: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        text: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        placeholder: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    }, {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    }>>;
+                }, "strip", z.ZodTypeAny, {
+                    link: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    background: string;
+                    text: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    ui: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    selection: {
+                        text: string;
+                        bg: string;
+                    };
+                    button: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    };
+                    field: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    };
+                }, {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                }>>;
+                dark: z.ZodOptional<z.ZodObject<{
+                    background: z.ZodDefault<z.ZodString>;
+                    text: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        primary: z.ZodDefault<z.ZodString>;
+                        secondary: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    }, {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    }>>;
+                    ui: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        primary: z.ZodDefault<z.ZodString>;
+                        secondary: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    }, {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    }>>;
+                    selection: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodString>;
+                        text: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: string;
+                        bg: string;
+                    }, {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    }>>;
+                    link: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        hover: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    }, {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    }>>;
+                    button: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        border: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        text: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    }, {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    }>>;
+                    field: z.ZodDefault<z.ZodObject<{
+                        bg: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        border: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        text: z.ZodDefault<z.ZodObject<{
+                            $: z.ZodDefault<z.ZodString>;
+                            hover: z.ZodDefault<z.ZodString>;
+                            active: z.ZodDefault<z.ZodString>;
+                        }, "strip", z.ZodTypeAny, {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        }, {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        }>>;
+                        placeholder: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    }, {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    }>>;
+                }, "strip", z.ZodTypeAny, {
+                    link: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    background: string;
+                    text: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    ui: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    selection: {
+                        text: string;
+                        bg: string;
+                    };
+                    button: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    };
+                    field: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    };
+                }, {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                }>>;
+            }, "strip", z.ZodTypeAny, {
+                light: {
+                    link: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    background: string;
+                    text: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    ui: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    selection: {
+                        text: string;
+                        bg: string;
+                    };
+                    button: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    };
+                    field: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    };
+                };
+                dark?: {
+                    link: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    background: string;
+                    text: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    ui: {
+                        primary: string;
+                        secondary: string;
+                        active: string;
+                        $: string;
+                    };
+                    selection: {
+                        text: string;
+                        bg: string;
+                    };
+                    button: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                    };
+                    field: {
+                        text: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        bg: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        border: {
+                            active: string;
+                            $: string;
+                            hover: string;
+                        };
+                        placeholder: string;
+                    };
+                } | undefined;
+            }, {
+                light?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                dark?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+            }>, {
+                light: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+                dark: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+            }, {
+                light?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                dark?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+            }>>;
+            forcedColors: z.ZodDefault<z.ZodObject<{
+                background: z.ZodDefault<z.ZodString>;
+                text: z.ZodDefault<z.ZodObject<{
+                    $: z.ZodDefault<z.ZodString>;
+                    primary: z.ZodDefault<z.ZodString>;
+                    secondary: z.ZodDefault<z.ZodString>;
+                    active: z.ZodDefault<z.ZodString>;
+                }, "strip", z.ZodTypeAny, {
+                    primary: string;
+                    secondary: string;
+                    active: string;
+                    $: string;
+                }, {
+                    primary?: string | undefined;
+                    secondary?: string | undefined;
+                    active?: string | undefined;
+                    $?: string | undefined;
+                }>>;
+                ui: z.ZodDefault<z.ZodObject<{
+                    $: z.ZodDefault<z.ZodString>;
+                    primary: z.ZodDefault<z.ZodString>;
+                    secondary: z.ZodDefault<z.ZodString>;
+                    active: z.ZodDefault<z.ZodString>;
+                }, "strip", z.ZodTypeAny, {
+                    primary: string;
+                    secondary: string;
+                    active: string;
+                    $: string;
+                }, {
+                    primary?: string | undefined;
+                    secondary?: string | undefined;
+                    active?: string | undefined;
+                    $?: string | undefined;
+                }>>;
+                selection: z.ZodDefault<z.ZodObject<{
+                    bg: z.ZodDefault<z.ZodString>;
+                    text: z.ZodDefault<z.ZodString>;
+                }, "strip", z.ZodTypeAny, {
+                    text: string;
+                    bg: string;
+                }, {
+                    text?: string | undefined;
+                    bg?: string | undefined;
+                }>>;
+                link: z.ZodDefault<z.ZodObject<{
+                    $: z.ZodDefault<z.ZodString>;
+                    hover: z.ZodDefault<z.ZodString>;
+                    active: z.ZodDefault<z.ZodString>;
+                }, "strip", z.ZodTypeAny, {
+                    active: string;
+                    $: string;
+                    hover: string;
+                }, {
+                    active?: string | undefined;
+                    $?: string | undefined;
+                    hover?: string | undefined;
+                }>>;
+                button: z.ZodDefault<z.ZodObject<{
+                    bg: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        hover: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    }, {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    }>>;
+                    border: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        hover: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    }, {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    }>>;
+                    text: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        hover: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    }, {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    }>>;
+                }, "strip", z.ZodTypeAny, {
+                    text: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    bg: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    border: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                }, {
+                    text?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    bg?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    border?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                }>>;
+                field: z.ZodDefault<z.ZodObject<{
+                    bg: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        hover: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    }, {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    }>>;
+                    border: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        hover: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    }, {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    }>>;
+                    text: z.ZodDefault<z.ZodObject<{
+                        $: z.ZodDefault<z.ZodString>;
+                        hover: z.ZodDefault<z.ZodString>;
+                        active: z.ZodDefault<z.ZodString>;
+                    }, "strip", z.ZodTypeAny, {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    }, {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    }>>;
+                    placeholder: z.ZodDefault<z.ZodString>;
+                }, "strip", z.ZodTypeAny, {
+                    text: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    bg: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    border: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    placeholder: string;
+                }, {
+                    text?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    bg?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    border?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    placeholder?: string | undefined;
+                }>>;
+            }, "strip", z.ZodTypeAny, {
+                link: {
+                    active: string;
+                    $: string;
+                    hover: string;
+                };
+                background: string;
+                text: {
+                    primary: string;
+                    secondary: string;
+                    active: string;
+                    $: string;
+                };
+                ui: {
+                    primary: string;
+                    secondary: string;
+                    active: string;
+                    $: string;
+                };
+                selection: {
+                    text: string;
+                    bg: string;
+                };
+                button: {
+                    text: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    bg: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    border: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                };
+                field: {
+                    text: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    bg: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    border: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    placeholder: string;
+                };
+            }, {
+                link?: {
+                    active?: string | undefined;
+                    $?: string | undefined;
+                    hover?: string | undefined;
+                } | undefined;
+                background?: string | undefined;
+                text?: {
+                    primary?: string | undefined;
+                    secondary?: string | undefined;
+                    active?: string | undefined;
+                    $?: string | undefined;
+                } | undefined;
+                ui?: {
+                    primary?: string | undefined;
+                    secondary?: string | undefined;
+                    active?: string | undefined;
+                    $?: string | undefined;
+                } | undefined;
+                selection?: {
+                    text?: string | undefined;
+                    bg?: string | undefined;
+                } | undefined;
+                button?: {
+                    text?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    bg?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    border?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                field?: {
+                    text?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    bg?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    border?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    placeholder?: string | undefined;
+                } | undefined;
+            }>>;
+        }, "strip", z.ZodTypeAny, {
+            average: {
+                light: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+                dark: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+            };
+            low: {
+                light: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+                dark: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+            };
+            high: {
+                light: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+                dark: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+            };
+            forcedColors: {
+                link: {
+                    active: string;
+                    $: string;
+                    hover: string;
+                };
+                background: string;
+                text: {
+                    primary: string;
+                    secondary: string;
+                    active: string;
+                    $: string;
+                };
+                ui: {
+                    primary: string;
+                    secondary: string;
+                    active: string;
+                    $: string;
+                };
+                selection: {
+                    text: string;
+                    bg: string;
+                };
+                button: {
+                    text: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    bg: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    border: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                };
+                field: {
+                    text: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    bg: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    border: {
+                        active: string;
+                        $: string;
+                        hover: string;
+                    };
+                    placeholder: string;
+                };
+            };
+        }, {
+            average?: {
+                light?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                dark?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+            } | undefined;
+            low?: {
+                light?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                dark?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+            } | undefined;
+            high?: {
+                light?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                dark?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+            } | undefined;
+            forcedColors?: {
+                link?: {
+                    active?: string | undefined;
+                    $?: string | undefined;
+                    hover?: string | undefined;
+                } | undefined;
+                background?: string | undefined;
+                text?: {
+                    primary?: string | undefined;
+                    secondary?: string | undefined;
+                    active?: string | undefined;
+                    $?: string | undefined;
+                } | undefined;
+                ui?: {
+                    primary?: string | undefined;
+                    secondary?: string | undefined;
+                    active?: string | undefined;
+                    $?: string | undefined;
+                } | undefined;
+                selection?: {
+                    text?: string | undefined;
+                    bg?: string | undefined;
+                } | undefined;
+                button?: {
+                    text?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    bg?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    border?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                field?: {
+                    text?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    bg?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    border?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    placeholder?: string | undefined;
+                } | undefined;
+            } | undefined;
+        }>, {
+            forcedColors: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+            average: {
+                light: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+                dark: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+            };
+            low: {
+                light: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+                dark: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+            };
+            high: {
+                light: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+                dark: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+            };
+        }, {
+            average?: {
+                light?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                dark?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+            } | undefined;
+            low?: {
+                light?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                dark?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+            } | undefined;
+            high?: {
+                light?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                dark?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+            } | undefined;
+            forcedColors?: {
+                link?: {
+                    active?: string | undefined;
+                    $?: string | undefined;
+                    hover?: string | undefined;
+                } | undefined;
+                background?: string | undefined;
+                text?: {
+                    primary?: string | undefined;
+                    secondary?: string | undefined;
+                    active?: string | undefined;
+                    $?: string | undefined;
+                } | undefined;
+                ui?: {
+                    primary?: string | undefined;
+                    secondary?: string | undefined;
+                    active?: string | undefined;
+                    $?: string | undefined;
+                } | undefined;
+                selection?: {
+                    text?: string | undefined;
+                    bg?: string | undefined;
+                } | undefined;
+                button?: {
+                    text?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    bg?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    border?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                field?: {
+                    text?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    bg?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    border?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    placeholder?: string | undefined;
+                } | undefined;
+            } | undefined;
+        }>;
         typography: z.ZodObject<{
             lineHeight: z.ZodIntersection<z.ZodObject<{
                 '100': z.ZodDefault<z.ZodNumber>;
@@ -22453,6 +31441,21 @@ export declare namespace Tokens {
                 '600': number;
                 '800': number;
             } & Partial<Record<"100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900" | "000" | "050" | "150" | "250" | "350" | "450" | "550" | "650" | "750" | "850" | "950", number>>;
+        };
+        theme: {
+            forcedColors: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+            average: {
+                light: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+                dark: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+            };
+            low: {
+                light: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+                dark: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+            };
+            high: {
+                light: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+                dark: import("./Tokens/Theme/Theme_Set.js").Tokens_Theme_Set;
+            };
         };
         typography: {
             lineHeight: {
@@ -23672,6 +32675,427 @@ export declare namespace Tokens {
             } & Partial<Record<"100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900" | "000" | "050" | "150" | "250" | "350" | "450" | "550" | "650" | "750" | "850" | "950", number>>;
             multiplier?: number | undefined;
         };
+        theme: {
+            average?: {
+                light?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                dark?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+            } | undefined;
+            low?: {
+                light?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                dark?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+            } | undefined;
+            high?: {
+                light?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                dark?: {
+                    link?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    background?: string | undefined;
+                    text?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    ui?: {
+                        primary?: string | undefined;
+                        secondary?: string | undefined;
+                        active?: string | undefined;
+                        $?: string | undefined;
+                    } | undefined;
+                    selection?: {
+                        text?: string | undefined;
+                        bg?: string | undefined;
+                    } | undefined;
+                    button?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                    } | undefined;
+                    field?: {
+                        text?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        bg?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        border?: {
+                            active?: string | undefined;
+                            $?: string | undefined;
+                            hover?: string | undefined;
+                        } | undefined;
+                        placeholder?: string | undefined;
+                    } | undefined;
+                } | undefined;
+            } | undefined;
+            forcedColors?: {
+                link?: {
+                    active?: string | undefined;
+                    $?: string | undefined;
+                    hover?: string | undefined;
+                } | undefined;
+                background?: string | undefined;
+                text?: {
+                    primary?: string | undefined;
+                    secondary?: string | undefined;
+                    active?: string | undefined;
+                    $?: string | undefined;
+                } | undefined;
+                ui?: {
+                    primary?: string | undefined;
+                    secondary?: string | undefined;
+                    active?: string | undefined;
+                    $?: string | undefined;
+                } | undefined;
+                selection?: {
+                    text?: string | undefined;
+                    bg?: string | undefined;
+                } | undefined;
+                button?: {
+                    text?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    bg?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    border?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                field?: {
+                    text?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    bg?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    border?: {
+                        active?: string | undefined;
+                        $?: string | undefined;
+                        hover?: string | undefined;
+                    } | undefined;
+                    placeholder?: string | undefined;
+                } | undefined;
+            } | undefined;
+        };
         typography: {
             lineHeight: {
                 '100'?: number | undefined;
@@ -23745,6 +33169,7 @@ export declare namespace Tokens {
     type Parsed = {
         colour: Tokens_Colour.Parsed;
         spacing: Tokens_Spacing.Parsed;
+        theme: Tokens_Theme.Parsed;
         typography: Tokens_Typography.Parsed;
         CSS: {
             border: Tokens_CSS_Border.Parsed;
@@ -23760,6 +33185,7 @@ export declare namespace Tokens {
     interface Part {
         colour?: Tokens_Colour.Part;
         spacing?: Tokens_Spacing.Part;
+        theme?: Tokens_Theme.Part;
         typography?: Tokens_Typography.Part;
         css?: {
             border?: Tokens_CSS_Border.Part;
@@ -23770,6 +33196,7 @@ export declare namespace Tokens {
     type JSON = {
         colour: Tokens_Colour.JSON;
         spacing: Tokens_Spacing.JSON;
+        theme: Tokens_Theme.JSON;
         typography: Tokens_Typography.JSON;
         CSS: {
             border: Tokens_CSS_Border.JSON;
@@ -23780,9 +33207,10 @@ export declare namespace Tokens {
     /**
      * @interface
      */
-    type ScssVars = Omit<Parsed, "colour" | "CSS" | "spacing" | "typography"> & Tokens_Spacing.ScssVars & Tokens_Typography.ScssVars & {
-        colour: Tokens_Colour.ScssVars;
+    type ScssVars = Omit<Parsed, "colour" | "CSS" | "spacing" | "theme" | "typography"> & Tokens_Spacing.ScssVars & Tokens_Typography.ScssVars & {
         border: Tokens_CSS_Border.ScssVars;
+        colour: Tokens_Colour.ScssVars;
+        theme: Tokens_Theme.ScssVars;
         transition: Tokens_CSS_Transition.ScssVars;
         z_index: Parsed['CSS']['zIndex'];
     };

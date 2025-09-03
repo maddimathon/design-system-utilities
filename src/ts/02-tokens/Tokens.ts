@@ -19,6 +19,7 @@ import { Tokens_Typography } from './Tokens/Typography.js';
 
 import { Tokens_CSS_Border } from './Tokens/CSS/CSS_Border.js';
 import { Tokens_CSS_Transition } from './Tokens/CSS/CSS_Transition.js';
+import { Tokens_Theme } from './Tokens/Theme.js';
 
 /**
  * Generates a complete token object for the design system.
@@ -39,6 +40,7 @@ export class Tokens extends AbstractTokens<
 
     public readonly colour: Tokens_Colour;
     public readonly spacing: Tokens_Spacing;
+    public readonly theme: Tokens_Theme;
     public readonly typography: Tokens_Typography;
 
     public readonly CSS: {
@@ -68,6 +70,7 @@ export class Tokens extends AbstractTokens<
 
         this.colour = new Tokens_Colour( input?.colour ?? {} );
         this.spacing = new Tokens_Spacing( input?.spacing ?? {} );
+        this.theme = new Tokens_Theme( input?.theme ?? {} );
 
         this.typography = new Tokens_Typography(
             this.spacing,
@@ -83,27 +86,14 @@ export class Tokens extends AbstractTokens<
         };
     }
 
-    public valueOf(): Tokens.Parsed {
-
-        return {
-            colour: this.colour.valueOf(),
-            spacing: this.spacing.valueOf(),
-            typography: this.typography.valueOf(),
-
-            CSS: {
-                border: this.CSS.border.valueOf(),
-                transition: this.CSS.transition.valueOf(),
-                zIndex: this.CSS.zIndex,
-            },
-        };
-    }
-
     public toJSON(): Tokens.JSON {
 
         return {
-            colour: this.colour.toJSON(),
             spacing: this.spacing.toJSON(),
             typography: this.typography.toJSON(),
+
+            colour: this.colour.toJSON(),
+            theme: this.theme.toJSON(),
 
             CSS: {
                 border: this.CSS.border.toJSON(),
@@ -116,14 +106,15 @@ export class Tokens extends AbstractTokens<
     public override toScssVars(): Tokens.ScssVars {
 
         return {
-            colour: this.colour.toScssVars(),
-
             ...this.spacing.toScssVars(),
             ...this.typography.toScssVars(),
 
             border: this.CSS.border.toScssVars(),
             transition: this.CSS.transition.toScssVars(),
             z_index: this.CSS.zIndex,
+
+            colour: this.colour.toScssVars(),
+            theme: this.theme.toScssVars(),
         };
     }
 
@@ -132,8 +123,6 @@ export class Tokens extends AbstractTokens<
         const _vars = this.toScssVars();
 
         const vars: { [ K in keyof Tokens.ScssVars ]: string; } = {
-
-            colour: JsonToScss.convert( _vars.colour ) || '()',
 
             spacing_multiplier: JsonToScss.convert( _vars.spacing_multiplier ) || String( this.schema.shape.spacing.shape.multiplier.parse( '' ) ),
             margin: JsonToScss.convert( _vars.margin ) || '()',
@@ -145,6 +134,9 @@ export class Tokens extends AbstractTokens<
             border: JsonToScss.convert( _vars.border ) || '()',
             transition: JsonToScss.convert( _vars.transition ) || '()',
             z_index: JsonToScss.convert( _vars.z_index ) || '()',
+
+            colour: JsonToScss.convert( _vars.colour ) || '()',
+            theme: JsonToScss.convert( _vars.theme ) || '()',
         };
 
         const scss: string[] = [
@@ -160,6 +152,23 @@ export class Tokens extends AbstractTokens<
         }
 
         return scss.join( '\n\n' );
+    }
+
+    public valueOf(): Tokens.Parsed {
+
+        return {
+            spacing: this.spacing.valueOf(),
+            typography: this.typography.valueOf(),
+
+            colour: this.colour.valueOf(),
+            theme: this.theme.valueOf(),
+
+            CSS: {
+                border: this.CSS.border.valueOf(),
+                transition: this.CSS.transition.valueOf(),
+                zIndex: this.CSS.zIndex,
+            },
+        };
     }
 }
 
@@ -188,6 +197,7 @@ export namespace Tokens {
 
         colour: Tokens_Colour.Schema,
         spacing: Tokens_Spacing.Schema,
+        theme: Tokens_Theme.Schema,
         typography: Tokens_Typography.Schema,
 
         CSS: z.object( {
@@ -211,6 +221,7 @@ export namespace Tokens {
     export type Parsed = {
         colour: Tokens_Colour.Parsed;
         spacing: Tokens_Spacing.Parsed;
+        theme: Tokens_Theme.Parsed;
         typography: Tokens_Typography.Parsed;
 
         CSS: {
@@ -228,6 +239,7 @@ export namespace Tokens {
     export interface Part {
         colour?: Tokens_Colour.Part;
         spacing?: Tokens_Spacing.Part;
+        theme?: Tokens_Theme.Part;
         typography?: Tokens_Typography.Part;
 
         css?: {
@@ -241,6 +253,7 @@ export namespace Tokens {
     export type JSON = {
         colour: Tokens_Colour.JSON;
         spacing: Tokens_Spacing.JSON;
+        theme: Tokens_Theme.JSON;
         typography: Tokens_Typography.JSON;
 
         CSS: {
@@ -253,12 +266,13 @@ export namespace Tokens {
     /**
      * @interface
      */
-    export type ScssVars = Omit<Parsed, "colour" | "CSS" | "spacing" | "typography">
+    export type ScssVars = Omit<Parsed, "colour" | "CSS" | "spacing" | "theme" | "typography">
         & Tokens_Spacing.ScssVars
         & Tokens_Typography.ScssVars
         & {
-            colour: Tokens_Colour.ScssVars;
             border: Tokens_CSS_Border.ScssVars;
+            colour: Tokens_Colour.ScssVars;
+            theme: Tokens_Theme.ScssVars;
             transition: Tokens_CSS_Transition.ScssVars;
             z_index: Parsed[ 'CSS' ][ 'zIndex' ];
         };

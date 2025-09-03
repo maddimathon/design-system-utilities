@@ -118,9 +118,12 @@ export namespace Tokens_Colour_ShadeMap {
         const name = Array.isArray( cfx.path ) ? cfx.path.join( ' ' ) : cfx.path;
 
         const bases = {
-            '100': { l: 98, c: 0.05, h: 75 },
-            '500': { l: 50, c: 2, h: 55 },
-            '900': { l: 3, c: 7, h: 38 },
+            // '100': { l: 98, c: 0.05, h: 75 },
+            // '500': { l: 50, c: 1, h: 55 },
+            // '900': { l: 2, c: 2.5, h: 38 },
+            '100': { l: 98, c: 0, h: 0 },
+            '500': { l: 50, c: 0, h: 0 },
+            '900': { l: 2, c: 0, h: 0 },
         };
 
         let _l_100: Tokens_Colour_ShadeMap_Shade;

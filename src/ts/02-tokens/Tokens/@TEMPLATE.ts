@@ -30,27 +30,21 @@ export class Tokens_TEMPLATE extends AbstractTokens<
         return Tokens_TEMPLATE.Schema;
     }
 
-    // public readonly time: Tokens_TEMPLATE.Export[ 'time' ];
+    public readonly parsed: Tokens_TEMPLATE.Parsed;
 
     public constructor (
         input?: Tokens_TEMPLATE.Part,
     ) {
         super( input ?? {} );
 
-        // this.time = this.parseSchema(
-        //     this.schema.shape.time,
-        //     input?.time ?? {},
-        //     {
-        //         name: 'Tokens_TEMPLATE',
-        //         location: 'src/ts/02-tokens/Tokens/Tokens_TEMPLATE.ts:49',
-        //     },
-        // );
-    }
-
-    public valueOf(): Tokens_TEMPLATE.Parsed {
-
-        return {
-        };
+        this.parsed = this.parseSchema(
+            this.schema,
+            input ?? {},
+            {
+                name: 'Tokens_TEMPLATE',
+                location: 'src/ts/02-tokens/Tokens_TEMPLATE.ts:49',
+            },
+        );
     }
 
     public toJSON(): Tokens_TEMPLATE.JSON {
@@ -59,6 +53,10 @@ export class Tokens_TEMPLATE extends AbstractTokens<
 
     public toScssVars(): Tokens_TEMPLATE.ScssVars {
         return this.valueOf();
+    }
+
+    public valueOf(): Tokens_TEMPLATE.Parsed {
+        return this.parsed;
     }
 }
 

@@ -5,10 +5,16 @@
 
 @use 'sass:map';
 
+@use 'custom';
 @use 'default';
 
+// TODO - figure out why custom props aren't printing
 @forward 'pkg:@maddimathon/utility-sass/tokens' with (
+    $brightnessMode_all: map.keys(map.get(default.$theme, average)),
+    $contrastMode_all: map.keys(default.$theme),
+    $customTokens: custom.$customTokens,
     $font_sizes: map.get(default.$font, size),
+    $internal_customTokensDefault: custom.$internal_customTokensDefault,
     $line_heights: default.$line_height,
     $margins: default.$margin,
     $scale_multiplier: default.$spacing_multiplier

@@ -11,6 +11,7 @@
 @forward '02-01-06-decoration';
 
 @use 'pkg:@maddimathon/utility-sass' as lib;
+@use 'pkg:@maddimathon/utility-sass/meta';
 
 // @use '02-01-01-spacing' as *;
 // @use '02-01-02-modes' as *;
@@ -32,15 +33,17 @@
     $borderRadius: true,
     $borderWidth: true,
     $colour: true,
+    $custom: true,
     $fontSize: true,
     $lineHeight: true,
     $margin: true,
     $strokeRelative: true,
+    $theme: true,
     $trTime: true,
     $zIndex: true
 ) {
     @include lib.tokens-all(
-        $custom: false,
+        $custom: $custom,
         $fontSize: $fontSize,
         $lineHeight: $lineHeight,
         $margin: $margin,
@@ -69,4 +72,11 @@
     @if $colour {
         @include tokens-colour;
     }
+    @if $theme {
+        @include tokens-theme;
+    }
+
+    /* 
+        tokens.$customTokens = #{meta.var-dump( tokens.$customTokens )}
+     */
 }
