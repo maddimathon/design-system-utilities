@@ -10,9 +10,11 @@
 
 import * as z from 'zod';
 
-import { tokenLevels_extended } from '../../00-schemata/@utils.js';
+import {
+    tokenLevels_extended,
+} from '../../../00-schemata/@utils.js';
 
-import { AbstractTokens } from '../abstracts/AbstractTokens.js';
+import { AbstractTokens } from '../../abstracts/AbstractTokens.js';
 
 
 /**
@@ -64,22 +66,43 @@ export class Tokens_CSS_Border extends AbstractTokens<
         super( input ?? {} );
 
         this.radius = this.objectMap(
-            this.schema.shape.radius.parse( input?.radius ?? {} ),
+            this.parseSchema(
+                this.schema.shape.radius,
+                input?.radius ?? {},
+                {
+                    name: 'Tokens_CSS_Border.radius',
+                    location: 'src/ts/02-tokens/Tokens/CSS/CSS_Border.ts:74',
+                },
+            ),
             ( key, value ) => key && this.roundToPixel( value as number, 32 )
         );
 
         this.stroke = this.objectMap(
-            this.schema.shape.stroke.parse( input?.stroke ?? {} ),
+            this.parseSchema(
+                this.schema.shape.stroke,
+                input?.stroke ?? {},
+                {
+                    name: 'Tokens_CSS_Border.stroke',
+                    location: 'src/ts/02-tokens/Tokens/CSS/CSS_Border.ts:86',
+                },
+            ),
             ( key, value ) => key && this.roundToPixel( value as number, 32 )
         );
 
         this.width = this.objectMap(
-            this.schema.shape.width.parse( input?.width ?? {} ),
+            this.parseSchema(
+                this.schema.shape.width,
+                input?.width ?? {},
+                {
+                    name: 'Tokens_CSS_Border.width',
+                    location: 'src/ts/02-tokens/Tokens/CSS/CSS_Border.ts:98',
+                },
+            ),
             ( key, value ) => key && this.roundToPixel( value as number, 32 )
         );
     }
 
-    public export(): Tokens_CSS_Border.Export {
+    public valueOf(): Tokens_CSS_Border.Export {
 
         return {
             radius: this.radius,
@@ -89,11 +112,11 @@ export class Tokens_CSS_Border extends AbstractTokens<
     }
 
     public toJSON() {
-        return this.export();
+        return this.valueOf();
     }
 
     public toScssVars() {
-        return this.export();
+        return this.valueOf();
     }
 }
 

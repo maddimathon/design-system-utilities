@@ -21,5 +21,5 @@ export * from './02-tokens/abstracts/AbstractTokens.js';
 export * from './02-tokens/Tokens/Spacing.js';
 export * from './02-tokens/Tokens/Typography.js';
 
-export * from './02-tokens/Tokens/CSS_Border.js';
-export * from './02-tokens/Tokens/CSS_Transition.js';
+export * from './02-tokens/Tokens/CSS/CSS_Border.js';
+export * from './02-tokens/Tokens/CSS/CSS_Transition.js';

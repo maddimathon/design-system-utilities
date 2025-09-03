@@ -11,8 +11,9 @@ import * as z from 'zod';
 import { AbstractTokens } from './abstracts/AbstractTokens.js';
 import { Tokens_Spacing } from './Tokens/Spacing.js';
 import { Tokens_Typography } from './Tokens/Typography.js';
-import { Tokens_CSS_Border } from './Tokens/CSS_Border.js';
-import { Tokens_CSS_Transition } from './Tokens/CSS_Transition.js';
+import { Tokens_CSS_Border } from './Tokens/CSS/CSS_Border.js';
+import { Tokens_CSS_Transition } from './Tokens/CSS/CSS_Transition.js';
+import { Tokens_Colour_ShadeMap_Shade } from './Tokens/Colour/ShadeMap/Colour_ShadeMap_Shade.js';
 /**
  * Generates a complete token object for the design system.
  *
@@ -20,6 +21,152 @@ import { Tokens_CSS_Transition } from './Tokens/CSS_Transition.js';
  */
 export declare class Tokens extends AbstractTokens<typeof Tokens.Schema, Tokens.Export, Tokens.Part, Tokens.JSON, Tokens.ScssVars> {
     get schema(): z.ZodObject<{
+        shadeTest: z.ZodEffects<z.ZodUnion<[z.ZodString, z.ZodObject<{
+            h: z.ZodNumber;
+            s: z.ZodNumber;
+            l: z.ZodNumber;
+        }, "strip", z.ZodTypeAny, {
+            h: number;
+            s: number;
+            l: number;
+        }, {
+            h: number;
+            s: number;
+            l: number;
+        }>, z.ZodObject<{
+            r: z.ZodNumber;
+            g: z.ZodNumber;
+            b: z.ZodNumber;
+        }, "strip", z.ZodTypeAny, {
+            r: number;
+            g: number;
+            b: number;
+        }, {
+            r: number;
+            g: number;
+            b: number;
+        }>, z.ZodObject<{
+            l: z.ZodNumber;
+            c: z.ZodNumber;
+            h: z.ZodNumber;
+        }, "strip", z.ZodTypeAny, {
+            h: number;
+            l: number;
+            c: number;
+        }, {
+            h: number;
+            l: number;
+            c: number;
+        }>, z.ZodObject<{
+            hex: z.ZodString;
+            hsl: z.ZodObject<{
+                h: z.ZodNumber;
+                s: z.ZodNumber;
+                l: z.ZodNumber;
+            }, "strip", z.ZodTypeAny, {
+                h: number;
+                s: number;
+                l: number;
+            }, {
+                h: number;
+                s: number;
+                l: number;
+            }>;
+            rgb: z.ZodObject<{
+                r: z.ZodNumber;
+                g: z.ZodNumber;
+                b: z.ZodNumber;
+            }, "strip", z.ZodTypeAny, {
+                r: number;
+                g: number;
+                b: number;
+            }, {
+                r: number;
+                g: number;
+                b: number;
+            }>;
+            oklch: z.ZodObject<{
+                l: z.ZodNumber;
+                c: z.ZodNumber;
+                h: z.ZodNumber;
+            }, "strip", z.ZodTypeAny, {
+                h: number;
+                l: number;
+                c: number;
+            }, {
+                h: number;
+                l: number;
+                c: number;
+            }>;
+        }, "strip", z.ZodTypeAny, {
+            hex: string;
+            hsl: {
+                h: number;
+                s: number;
+                l: number;
+            };
+            rgb: {
+                r: number;
+                g: number;
+                b: number;
+            };
+            oklch: {
+                h: number;
+                l: number;
+                c: number;
+            };
+        }, {
+            hex: string;
+            hsl: {
+                h: number;
+                s: number;
+                l: number;
+            };
+            rgb: {
+                r: number;
+                g: number;
+                b: number;
+            };
+            oklch: {
+                h: number;
+                l: number;
+                c: number;
+            };
+        }>]>, {
+            hex: z.TypeOf<typeof Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
+            hsl: z.TypeOf<typeof Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
+            rgb: z.TypeOf<typeof Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
+            oklch: z.TypeOf<typeof Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+        }, string | {
+            h: number;
+            s: number;
+            l: number;
+        } | {
+            r: number;
+            g: number;
+            b: number;
+        } | {
+            h: number;
+            l: number;
+            c: number;
+        } | {
+            hex: string;
+            hsl: {
+                h: number;
+                s: number;
+                l: number;
+            };
+            rgb: {
+                r: number;
+                g: number;
+                b: number;
+            };
+            oklch: {
+                h: number;
+                l: number;
+                c: number;
+            };
+        }>;
         spacing: z.ZodObject<{
             multiplier: z.ZodDefault<z.ZodNumber>;
             margin: z.ZodIntersection<z.ZodObject<{
@@ -463,6 +610,12 @@ export declare class Tokens extends AbstractTokens<typeof Tokens.Schema, Tokens.
             };
         }>;
     }, "strip", z.ZodTypeAny, {
+        shadeTest: {
+            hex: z.TypeOf<typeof Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
+            hsl: z.TypeOf<typeof Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
+            rgb: z.TypeOf<typeof Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
+            oklch: z.TypeOf<typeof Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+        };
         spacing: {
             multiplier: number;
             margin: {
@@ -544,6 +697,36 @@ export declare class Tokens extends AbstractTokens<typeof Tokens.Schema, Tokens.
             };
         };
     }, {
+        shadeTest: string | {
+            h: number;
+            s: number;
+            l: number;
+        } | {
+            r: number;
+            g: number;
+            b: number;
+        } | {
+            h: number;
+            l: number;
+            c: number;
+        } | {
+            hex: string;
+            hsl: {
+                h: number;
+                s: number;
+                l: number;
+            };
+            rgb: {
+                r: number;
+                g: number;
+                b: number;
+            };
+            oklch: {
+                h: number;
+                l: number;
+                c: number;
+            };
+        };
         spacing: {
             margin: {
                 '100'?: number | undefined;
@@ -625,6 +808,7 @@ export declare class Tokens extends AbstractTokens<typeof Tokens.Schema, Tokens.
             };
         };
     }>;
+    readonly shadeTest: Tokens_Colour_ShadeMap_Shade;
     readonly spacing: Tokens_Spacing;
     readonly typography: Tokens_Typography;
     readonly CSS: {
@@ -639,102 +823,8 @@ export declare class Tokens extends AbstractTokens<typeof Tokens.Schema, Tokens.
     };
     readonly opts: Tokens.Opts;
     constructor(input?: Tokens.Part, opts?: Partial<Tokens.Opts>);
-    export(): {
-        spacing: Tokens_Spacing.Export;
-        typography: Tokens_Typography.Export;
-        CSS: {
-            border: Tokens_CSS_Border.Export;
-            transition: Tokens_CSS_Transition.Export;
-            zIndex: {
-                nav: number;
-                settings: number;
-                skipLink: number;
-            };
-        };
-    };
-    toJSON(): {
-        spacing: {
-            margin: {
-                rem: {
-                    '100': number;
-                    '200': number;
-                    '300': number;
-                    '400': number;
-                    '600': number;
-                    '800': number;
-                    500?: number | undefined;
-                    700?: number | undefined;
-                    900?: number | undefined;
-                    "000"?: number | undefined;
-                    "050"?: number | undefined;
-                    150?: number | undefined;
-                    250?: number | undefined;
-                    350?: number | undefined;
-                    450?: number | undefined;
-                    550?: number | undefined;
-                    650?: number | undefined;
-                    750?: number | undefined;
-                    850?: number | undefined;
-                    950?: number | undefined;
-                };
-                pt: {
-                    '100': number;
-                    '200': number;
-                    '300': number;
-                    '400': number;
-                    '600': number;
-                    '800': number;
-                    500?: number | undefined;
-                    700?: number | undefined;
-                    900?: number | undefined;
-                    "000"?: number | undefined;
-                    "050"?: number | undefined;
-                    150?: number | undefined;
-                    250?: number | undefined;
-                    350?: number | undefined;
-                    450?: number | undefined;
-                    550?: number | undefined;
-                    650?: number | undefined;
-                    750?: number | undefined;
-                    850?: number | undefined;
-                    950?: number | undefined;
-                };
-                px: {
-                    '100': number;
-                    '200': number;
-                    '300': number;
-                    '400': number;
-                    '600': number;
-                    '800': number;
-                    500?: number | undefined;
-                    700?: number | undefined;
-                    900?: number | undefined;
-                    "000"?: number | undefined;
-                    "050"?: number | undefined;
-                    150?: number | undefined;
-                    250?: number | undefined;
-                    350?: number | undefined;
-                    450?: number | undefined;
-                    550?: number | undefined;
-                    650?: number | undefined;
-                    750?: number | undefined;
-                    850?: number | undefined;
-                    950?: number | undefined;
-                };
-            };
-            multiplier: number;
-        };
-        typography: Tokens_Typography.JSON;
-        CSS: {
-            border: Tokens_CSS_Border.Export;
-            transition: Tokens_CSS_Transition.Export;
-            zIndex: {
-                nav: number;
-                settings: number;
-                skipLink: number;
-            };
-        };
-    };
+    valueOf(): Tokens.Export;
+    toJSON(): Tokens.JSON;
     toScssVars(): Tokens.ScssVars;
     toScss(): string;
 }
@@ -745,6 +835,152 @@ export declare class Tokens extends AbstractTokens<typeof Tokens.Schema, Tokens.
  */
 export declare namespace Tokens {
     const Schema: z.ZodObject<{
+        shadeTest: z.ZodEffects<z.ZodUnion<[z.ZodString, z.ZodObject<{
+            h: z.ZodNumber;
+            s: z.ZodNumber;
+            l: z.ZodNumber;
+        }, "strip", z.ZodTypeAny, {
+            h: number;
+            s: number;
+            l: number;
+        }, {
+            h: number;
+            s: number;
+            l: number;
+        }>, z.ZodObject<{
+            r: z.ZodNumber;
+            g: z.ZodNumber;
+            b: z.ZodNumber;
+        }, "strip", z.ZodTypeAny, {
+            r: number;
+            g: number;
+            b: number;
+        }, {
+            r: number;
+            g: number;
+            b: number;
+        }>, z.ZodObject<{
+            l: z.ZodNumber;
+            c: z.ZodNumber;
+            h: z.ZodNumber;
+        }, "strip", z.ZodTypeAny, {
+            h: number;
+            l: number;
+            c: number;
+        }, {
+            h: number;
+            l: number;
+            c: number;
+        }>, z.ZodObject<{
+            hex: z.ZodString;
+            hsl: z.ZodObject<{
+                h: z.ZodNumber;
+                s: z.ZodNumber;
+                l: z.ZodNumber;
+            }, "strip", z.ZodTypeAny, {
+                h: number;
+                s: number;
+                l: number;
+            }, {
+                h: number;
+                s: number;
+                l: number;
+            }>;
+            rgb: z.ZodObject<{
+                r: z.ZodNumber;
+                g: z.ZodNumber;
+                b: z.ZodNumber;
+            }, "strip", z.ZodTypeAny, {
+                r: number;
+                g: number;
+                b: number;
+            }, {
+                r: number;
+                g: number;
+                b: number;
+            }>;
+            oklch: z.ZodObject<{
+                l: z.ZodNumber;
+                c: z.ZodNumber;
+                h: z.ZodNumber;
+            }, "strip", z.ZodTypeAny, {
+                h: number;
+                l: number;
+                c: number;
+            }, {
+                h: number;
+                l: number;
+                c: number;
+            }>;
+        }, "strip", z.ZodTypeAny, {
+            hex: string;
+            hsl: {
+                h: number;
+                s: number;
+                l: number;
+            };
+            rgb: {
+                r: number;
+                g: number;
+                b: number;
+            };
+            oklch: {
+                h: number;
+                l: number;
+                c: number;
+            };
+        }, {
+            hex: string;
+            hsl: {
+                h: number;
+                s: number;
+                l: number;
+            };
+            rgb: {
+                r: number;
+                g: number;
+                b: number;
+            };
+            oklch: {
+                h: number;
+                l: number;
+                c: number;
+            };
+        }>]>, {
+            hex: z.TypeOf<typeof Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
+            hsl: z.TypeOf<typeof Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
+            rgb: z.TypeOf<typeof Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
+            oklch: z.TypeOf<typeof Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+        }, string | {
+            h: number;
+            s: number;
+            l: number;
+        } | {
+            r: number;
+            g: number;
+            b: number;
+        } | {
+            h: number;
+            l: number;
+            c: number;
+        } | {
+            hex: string;
+            hsl: {
+                h: number;
+                s: number;
+                l: number;
+            };
+            rgb: {
+                r: number;
+                g: number;
+                b: number;
+            };
+            oklch: {
+                h: number;
+                l: number;
+                c: number;
+            };
+        }>;
         spacing: z.ZodObject<{
             multiplier: z.ZodDefault<z.ZodNumber>;
             margin: z.ZodIntersection<z.ZodObject<{
@@ -1188,6 +1424,12 @@ export declare namespace Tokens {
             };
         }>;
     }, "strip", z.ZodTypeAny, {
+        shadeTest: {
+            hex: z.TypeOf<typeof Tokens_Colour_ShadeMap_Shade.Schema_Hex>;
+            hsl: z.TypeOf<typeof Tokens_Colour_ShadeMap_Shade.Schema_HSL>;
+            rgb: z.TypeOf<typeof Tokens_Colour_ShadeMap_Shade.Schema_RGB>;
+            oklch: z.TypeOf<typeof Tokens_Colour_ShadeMap_Shade.Schema_OKLCH>;
+        };
         spacing: {
             multiplier: number;
             margin: {
@@ -1269,6 +1511,36 @@ export declare namespace Tokens {
             };
         };
     }, {
+        shadeTest: string | {
+            h: number;
+            s: number;
+            l: number;
+        } | {
+            r: number;
+            g: number;
+            b: number;
+        } | {
+            h: number;
+            l: number;
+            c: number;
+        } | {
+            hex: string;
+            hsl: {
+                h: number;
+                s: number;
+                l: number;
+            };
+            rgb: {
+                r: number;
+                g: number;
+                b: number;
+            };
+            oklch: {
+                h: number;
+                l: number;
+                c: number;
+            };
+        };
         spacing: {
             margin: {
                 '100'?: number | undefined;
@@ -1351,10 +1623,12 @@ export declare namespace Tokens {
         };
     }>;
     interface Export extends Omit<z.infer<typeof Schema>, "spacing" | "typography"> {
+        shadeTest: Tokens_Colour_ShadeMap_Shade.Export;
         spacing: Tokens_Spacing.Export;
         typography: Tokens_Typography.Export;
     }
     interface JSON extends Omit<z.infer<typeof Schema>, "spacing" | "typography"> {
+        shadeTest: Tokens_Colour_ShadeMap_Shade.JSON;
         spacing: Tokens_Spacing.JSON;
         typography: Tokens_Typography.JSON;
     }
@@ -1372,8 +1646,9 @@ export declare namespace Tokens {
      * @since 0.1.0-alpha.draft
      */
     interface Part {
-        spacing?: Partial<Tokens_Spacing.Export>;
-        typography?: Partial<Tokens_Typography.Export>;
+        shadeTest?: z.input<typeof Tokens_Colour_ShadeMap_Shade.Schema>;
+        spacing?: Tokens_Spacing.Part;
+        typography?: Tokens_Typography.Part;
         css?: {
             border?: Tokens_CSS_Border.Part;
             transition?: Tokens_CSS_Transition.Part;
@@ -1383,7 +1658,8 @@ export declare namespace Tokens {
     /**
      * @interface
      */
-    type ScssVars = Omit<z.infer<typeof Schema>, "CSS" | "spacing" | "typography"> & Tokens_Spacing.ScssVars & Tokens_Typography.ScssVars & {
+    type ScssVars = Omit<z.infer<typeof Schema>, "shadeTest" | "colour" | "CSS" | "spacing" | "typography"> & Tokens_Spacing.ScssVars & Tokens_Typography.ScssVars & {
+        shadeTest: Tokens_Colour_ShadeMap_Shade.ScssVars;
         border: Tokens_CSS_Border.ScssVars;
         transition: Tokens_CSS_Transition.ScssVars;
         z_index: z.infer<typeof Schema.shape.CSS.shape.zIndex>;

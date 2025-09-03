@@ -8,8 +8,8 @@
  * @license MIT
  */
 import * as z from 'zod';
-import { tokenLevels_extended } from '../../00-schemata/@utils.js';
-import { AbstractTokens } from '../abstracts/AbstractTokens.js';
+import { tokenLevels_extended, } from '../../../00-schemata/@utils.js';
+import { AbstractTokens } from '../../abstracts/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *
@@ -44,11 +44,20 @@ export class Tokens_CSS_Border extends AbstractTokens {
     width;
     constructor(input) {
         super(input ?? {});
-        this.radius = this.objectMap(this.schema.shape.radius.parse(input?.radius ?? {}), (key, value) => key && this.roundToPixel(value, 32));
-        this.stroke = this.objectMap(this.schema.shape.stroke.parse(input?.stroke ?? {}), (key, value) => key && this.roundToPixel(value, 32));
-        this.width = this.objectMap(this.schema.shape.width.parse(input?.width ?? {}), (key, value) => key && this.roundToPixel(value, 32));
+        this.radius = this.objectMap(this.parseSchema(this.schema.shape.radius, input?.radius ?? {}, {
+            name: 'Tokens_CSS_Border.radius',
+            location: 'src/ts/02-tokens/Tokens/CSS/CSS_Border.ts:74',
+        }), (key, value) => key && this.roundToPixel(value, 32));
+        this.stroke = this.objectMap(this.parseSchema(this.schema.shape.stroke, input?.stroke ?? {}, {
+            name: 'Tokens_CSS_Border.stroke',
+            location: 'src/ts/02-tokens/Tokens/CSS/CSS_Border.ts:86',
+        }), (key, value) => key && this.roundToPixel(value, 32));
+        this.width = this.objectMap(this.parseSchema(this.schema.shape.width, input?.width ?? {}, {
+            name: 'Tokens_CSS_Border.width',
+            location: 'src/ts/02-tokens/Tokens/CSS/CSS_Border.ts:98',
+        }), (key, value) => key && this.roundToPixel(value, 32));
     }
-    export() {
+    valueOf() {
         return {
             radius: this.radius,
             stroke: this.stroke,
@@ -56,10 +65,10 @@ export class Tokens_CSS_Border extends AbstractTokens {
         };
     }
     toJSON() {
-        return this.export();
+        return this.valueOf();
     }
     toScssVars() {
-        return this.export();
+        return this.valueOf();
     }
 }
 /**

@@ -8,7 +8,7 @@
  * @license MIT
  */
 import * as z from 'zod';
-import { AbstractTokens } from '../abstracts/AbstractTokens.js';
+import { AbstractTokens } from '../../abstracts/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *
@@ -132,7 +132,7 @@ export declare class Tokens_CSS_Border extends AbstractTokens<typeof Tokens_CSS_
      */
     readonly width: Tokens_CSS_Border.Export['width'];
     constructor(input?: Tokens_CSS_Border.Part);
-    export(): Tokens_CSS_Border.Export;
+    valueOf(): Tokens_CSS_Border.Export;
     toJSON(): Tokens_CSS_Border.Export;
     toScssVars(): Tokens_CSS_Border.Export;
 }

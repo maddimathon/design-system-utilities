@@ -86,7 +86,7 @@ export declare class Tokens_Spacing extends AbstractTokens<typeof Tokens_Spacing
      */
     readonly multiplier: Tokens_Spacing.Export['multiplier'];
     constructor(input?: Tokens_Spacing.Part);
-    export(): Tokens_Spacing.Export;
+    valueOf(): Tokens_Spacing.Export;
     toJSON(): {
         margin: {
             rem: {

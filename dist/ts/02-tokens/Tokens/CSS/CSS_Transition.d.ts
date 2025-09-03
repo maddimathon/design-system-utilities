@@ -8,7 +8,7 @@
  * @license MIT
  */
 import * as z from 'zod';
-import { AbstractTokens } from '../abstracts/AbstractTokens.js';
+import { AbstractTokens } from '../../abstracts/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *
@@ -49,7 +49,7 @@ export declare class Tokens_CSS_Transition extends AbstractTokens<typeof Tokens_
      */
     readonly time: Tokens_CSS_Transition.Export['time'];
     constructor(input?: Tokens_CSS_Transition.Part);
-    export(): Tokens_CSS_Transition.Export;
+    valueOf(): Tokens_CSS_Transition.Export;
     toJSON(): Tokens_CSS_Transition.Export;
     toScssVars(): Tokens_CSS_Transition.Export;
 }

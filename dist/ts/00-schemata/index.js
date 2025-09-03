@@ -13,5 +13,5 @@
  */
 // export * from './@tokens/index.js';
 export {};
-// export * as W3C from './W3C/index.js';
+export * as W3C from './W3C/index.js';
 //# sourceMappingURL=index.js.map

@@ -12,4 +12,5 @@
  * @license MIT
  */
 export {};
+export * as W3C from './W3C/index.js';
 //# sourceMappingURL=index.d.ts.map

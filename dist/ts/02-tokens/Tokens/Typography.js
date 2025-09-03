@@ -38,16 +38,34 @@ export class Tokens_Typography extends AbstractTokens {
     constructor(tokens_spacing, input) {
         super(input ?? {});
         this.tokens_spacing = tokens_spacing;
-        this.lineHeight = this.schema.shape.lineHeight.parse(input?.lineHeight ?? {});
+        this.lineHeight = this.parseSchema(this.schema.shape.lineHeight, input?.lineHeight ?? {}, {
+            name: 'Tokens_Spacing.lineHeight',
+            location: 'src/ts/02-tokens/Tokens/Spacing.ts:63',
+        });
         this.size = {
-            title: this.schema.shape.size.shape.title.parse(input?.size?.title),
-            heading: this.schema.shape.size.shape.heading.parse(input?.size?.heading ?? {}),
-            smaller: this.schema.shape.size.shape.smaller.parse(input?.size?.smaller ?? {}),
-            normal: this.schema.shape.size.shape.normal.parse(input?.size?.normal),
-            bigger: this.schema.shape.size.shape.bigger.parse(input?.size?.bigger ?? {}),
+            title: this.parseSchema(this.schema.shape.size.shape.title, input?.size?.title, {
+                name: 'Tokens_Spacing.size.title',
+                location: 'src/ts/02-tokens/Tokens/Spacing.ts:74',
+            }),
+            heading: this.parseSchema(this.schema.shape.size.shape.heading, input?.size?.heading ?? {}, {
+                name: 'Tokens_Spacing.size.heading',
+                location: 'src/ts/02-tokens/Tokens/Spacing.ts:83',
+            }),
+            smaller: this.parseSchema(this.schema.shape.size.shape.smaller, input?.size?.smaller ?? {}, {
+                name: 'Tokens_Spacing.size.smaller',
+                location: 'src/ts/02-tokens/Tokens/Spacing.ts',
+            }),
+            normal: this.parseSchema(this.schema.shape.size.shape.normal, input?.size?.normal, {
+                name: 'Tokens_Spacing.size.normal',
+                location: 'src/ts/02-tokens/Tokens/Spacing.ts:101',
+            }),
+            bigger: this.parseSchema(this.schema.shape.size.shape.bigger, input?.size?.bigger ?? {}, {
+                name: 'Tokens_Spacing.size.bigger',
+                location: 'src/ts/02-tokens/Tokens/Spacing.ts:110',
+            }),
         };
     }
-    export() {
+    valueOf() {
         return {
             lineHeight: this.lineHeight,
             size: this.size,
@@ -84,7 +102,7 @@ export class Tokens_Typography extends AbstractTokens {
             };
         };
         return {
-            ...this.export(),
+            ...this.valueOf(),
             size: {
                 rem: size_mapper(1, { roundToPixel: true }),
                 pt: size_mapper(11, { roundToPixel: true, roundToPixel_factor: 2 }),

@@ -89,10 +89,10 @@ declare namespace Value {
             unit: z.ZodUnion<[z.ZodLiteral<"ms">, z.ZodLiteral<"s">]>;
         }, "strip", z.ZodTypeAny, {
             value: number;
-            unit: "ms" | "s";
+            unit: "s" | "ms";
         }, {
             value: number;
-            unit: "ms" | "s";
+            unit: "s" | "ms";
         }>;
         $type: z.ZodNever | z.ZodLiteral<"duration">;
         $deprecated: z.ZodOptional<z.ZodUnion<[z.ZodBoolean, z.ZodString]>>;
@@ -101,7 +101,7 @@ declare namespace Value {
     }, "strip", z.ZodTypeAny, {
         $value: {
             value: number;
-            unit: "ms" | "s";
+            unit: "s" | "ms";
         };
         $type: "duration";
         $deprecated?: string | boolean | undefined;
@@ -110,7 +110,7 @@ declare namespace Value {
     }, {
         $value: {
             value: number;
-            unit: "ms" | "s";
+            unit: "s" | "ms";
         };
         $type: "duration";
         $deprecated?: string | boolean | undefined;

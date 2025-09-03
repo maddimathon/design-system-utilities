@@ -8,10 +8,9 @@
  * @license MIT
  */
 import * as z from 'zod';
-import * as Schemata from '../../00-schemata/index.js';
 import { AbstractTokens } from '../abstracts/AbstractTokens.js';
 /**
- * Generates a complete token object for the design system.
+ * Generates a token object for the design system.
  *
  * @since 0.1.0-alpha.draft
  * @internal
@@ -20,19 +19,26 @@ export class Tokens_TEMPLATE extends AbstractTokens {
     get schema() {
         return Tokens_TEMPLATE.Schema;
     }
-    // public readonly time: Tokens_CSS_Transition.Export[ 'time' ];
+    // public readonly time: Tokens_TEMPLATE.Export[ 'time' ];
     constructor(input) {
         super(input ?? {});
-        // this.time = Schemata.Tokens.parse( input ?? {} );
+        // this.time = this.parseSchema(
+        //     this.schema.shape.time,
+        //     input?.time ?? {},
+        //     {
+        //         name: 'Tokens_TEMPLATE',
+        //         location: 'src/ts/02-tokens/Tokens/Tokens_TEMPLATE.ts:49',
+        //     },
+        // );
     }
-    export() {
+    valueOf() {
         return {};
     }
     toJSON() {
-        return this.export();
+        return this.valueOf();
     }
     toScssVars() {
-        return this.export();
+        return this.valueOf();
     }
 }
 /**
@@ -43,6 +49,7 @@ export class Tokens_TEMPLATE extends AbstractTokens {
  */
 (function (Tokens_TEMPLATE) {
     Tokens_TEMPLATE.Schema = z.object({});
+    ;
     ;
     ;
 })(Tokens_TEMPLATE || (Tokens_TEMPLATE = {}));

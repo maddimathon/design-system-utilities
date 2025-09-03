@@ -10,12 +10,10 @@
 
 import * as z from 'zod';
 
-import * as Schemata from '../../00-schemata/index.js';
-
 import { AbstractTokens } from '../abstracts/AbstractTokens.js';
 
 /**
- * Generates a complete token object for the design system.
+ * Generates a token object for the design system.
  * 
  * @since ___PKG_VERSION___
  * @internal
@@ -24,35 +22,43 @@ export class Tokens_TEMPLATE extends AbstractTokens<
     typeof Tokens_TEMPLATE.Schema,
     Tokens_TEMPLATE.Export,
     Tokens_TEMPLATE.Part,
-    Tokens_TEMPLATE.JSON
+    Tokens_TEMPLATE.JSON,
+    Tokens_TEMPLATE.ScssVars
 > {
 
     get schema() {
         return Tokens_TEMPLATE.Schema;
     }
 
-    // public readonly time: Tokens_CSS_Transition.Export[ 'time' ];
+    // public readonly time: Tokens_TEMPLATE.Export[ 'time' ];
 
     public constructor (
         input?: Tokens_TEMPLATE.Part,
     ) {
         super( input ?? {} );
 
-        // this.time = Schemata.Tokens.parse( input ?? {} );
+        // this.time = this.parseSchema(
+        //     this.schema.shape.time,
+        //     input?.time ?? {},
+        //     {
+        //         name: 'Tokens_TEMPLATE',
+        //         location: 'src/ts/02-tokens/Tokens/Tokens_TEMPLATE.ts:49',
+        //     },
+        // );
     }
 
-    public export(): Tokens_TEMPLATE.Export {
+    public valueOf(): Tokens_TEMPLATE.Export {
 
         return {
         };
     }
 
-    public toJSON() {
-        return this.export();
+    public toJSON(): Tokens_TEMPLATE.JSON {
+        return this.valueOf();
     }
 
-    public toScssVars() {
-        return this.export();
+    public toScssVars(): Tokens_TEMPLATE.ScssVars {
+        return this.valueOf();
     }
 }
 
@@ -67,11 +73,11 @@ export namespace Tokens_TEMPLATE {
     export const Schema = z.object( {
     } );
 
-    // @ts-expect-error
-    export interface Export extends z.infer<typeof Schemata.Tokens.shape> { };
+    export interface Export extends z.infer<typeof Schema> {
+    };
 
-    // @ts-expect-error
-    export interface JSON extends z.infer<typeof Schemata.Tokens.shape> { };
+    export interface JSON extends Export {
+    };
 
     /**
      * The partialized version of the {@link Tokens_TEMPLATE.Schema} accepted as input.
@@ -79,4 +85,7 @@ export namespace Tokens_TEMPLATE {
      * @since ___PKG_VERSION___
      */
     export interface Part extends Partial<Export> { }
+
+    export interface ScssVars extends Export {
+    };
 }

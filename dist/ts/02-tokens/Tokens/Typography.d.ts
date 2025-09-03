@@ -227,7 +227,7 @@ export declare class Tokens_Typography extends AbstractTokens<typeof Tokens_Typo
      */
     readonly size: Tokens_Typography.Export['size'];
     constructor(tokens_spacing: Tokens_Spacing, input?: Tokens_Typography.Part);
-    export(): Tokens_Typography.Export;
+    valueOf(): Tokens_Typography.Export;
     toScssVars(): {
         font: {
             size: {

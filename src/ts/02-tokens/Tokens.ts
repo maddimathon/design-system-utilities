@@ -13,11 +13,13 @@ import * as z from 'zod';
 
 import { AbstractTokens } from './abstracts/AbstractTokens.js';
 
+// import { Tokens_Colour } from './Tokens/Colour.js';
 import { Tokens_Spacing } from './Tokens/Spacing.js';
 import { Tokens_Typography } from './Tokens/Typography.js';
 
-import { Tokens_CSS_Border } from './Tokens/CSS_Border.js';
-import { Tokens_CSS_Transition } from './Tokens/CSS_Transition.js';
+import { Tokens_CSS_Border } from './Tokens/CSS/CSS_Border.js';
+import { Tokens_CSS_Transition } from './Tokens/CSS/CSS_Transition.js';
+import { Tokens_Colour_ShadeMap_Shade } from './Tokens/Colour/ShadeMap/Colour_ShadeMap_Shade.js';
 
 /**
  * Generates a complete token object for the design system.
@@ -36,6 +38,8 @@ export class Tokens extends AbstractTokens<
         return Tokens.Schema;
     }
 
+    // public readonly colour: Tokens_Colour;
+    public readonly shadeTest: Tokens_Colour_ShadeMap_Shade;
     public readonly spacing: Tokens_Spacing;
     public readonly typography: Tokens_Typography;
 
@@ -64,6 +68,8 @@ export class Tokens extends AbstractTokens<
             ...opts,
         };
 
+        // this.colour = new Tokens_Colour( input?.colour ?? {} );
+        this.shadeTest = new Tokens_Colour_ShadeMap_Shade( 'test-shade', input?.shadeTest ?? { h: 0, s: 0, l: 50 } );
         this.spacing = new Tokens_Spacing( input?.spacing ?? {} );
 
         this.typography = new Tokens_Typography(
@@ -80,23 +86,27 @@ export class Tokens extends AbstractTokens<
         };
     }
 
-    public export() {
+    public valueOf(): Tokens.Export {
 
         return {
-            spacing: this.spacing.export(),
-            typography: this.typography.export(),
+            // colour: this.colour.valueOf(),
+            shadeTest: this.shadeTest.valueOf(),
+            spacing: this.spacing.valueOf(),
+            typography: this.typography.valueOf(),
 
             CSS: {
-                border: this.CSS.border.export(),
-                transition: this.CSS.transition.export(),
+                border: this.CSS.border.valueOf(),
+                transition: this.CSS.transition.valueOf(),
                 zIndex: this.CSS.zIndex,
             },
         };
     }
 
-    public toJSON() {
+    public toJSON(): Tokens.JSON {
 
         return {
+            // colour: this.colour.toJSON(),
+            shadeTest: this.shadeTest.toJSON(),
             spacing: this.spacing.toJSON(),
             typography: this.typography.toJSON(),
 
@@ -111,6 +121,9 @@ export class Tokens extends AbstractTokens<
     public override toScssVars(): Tokens.ScssVars {
 
         return {
+            // colour: this.colour.toScssVars(),
+            shadeTest: this.shadeTest.toScssVars(),
+
             ...this.spacing.toScssVars(),
             ...this.typography.toScssVars(),
 
@@ -125,6 +138,9 @@ export class Tokens extends AbstractTokens<
         const _vars = this.toScssVars();
 
         const vars: { [ K in keyof Tokens.ScssVars ]: string; } = {
+
+            // colour: JsonToScss.convert( _vars.colour ) || '()',
+            shadeTest: JsonToScss.convert( _vars.shadeTest ) || '()',
 
             spacing_multiplier: JsonToScss.convert( _vars.spacing_multiplier ) || String( this.schema.shape.spacing.shape.multiplier.parse( '' ) ),
             margin: JsonToScss.convert( _vars.margin ) || '()',
@@ -163,6 +179,8 @@ export namespace Tokens {
 
     export const Schema = z.object( {
 
+        // colour: Tokens_Colour.Schema,
+        shadeTest: Tokens_Colour_ShadeMap_Shade.Schema,
         spacing: Tokens_Spacing.Schema,
         typography: Tokens_Typography.Schema,
 
@@ -180,11 +198,15 @@ export namespace Tokens {
     } );
 
     export interface Export extends Omit<z.infer<typeof Schema>, "spacing" | "typography"> {
+        // colour: Tokens_Colour.Export;
+        shadeTest: Tokens_Colour_ShadeMap_Shade.Export;
         spacing: Tokens_Spacing.Export;
         typography: Tokens_Typography.Export;
     }
 
     export interface JSON extends Omit<z.infer<typeof Schema>, "spacing" | "typography"> {
+        // colour: Tokens_Colour.JSON;
+        shadeTest: Tokens_Colour_ShadeMap_Shade.JSON;
         spacing: Tokens_Spacing.JSON;
         typography: Tokens_Typography.JSON;
     }
@@ -204,8 +226,10 @@ export namespace Tokens {
      * @since ___PKG_VERSION___
      */
     export interface Part {
-        spacing?: Partial<Tokens_Spacing.Export>;
-        typography?: Partial<Tokens_Typography.Export>;
+        // colour?: Tokens_Colour.Part;
+        shadeTest?: z.input<typeof Tokens_Colour_ShadeMap_Shade.Schema>;
+        spacing?: Tokens_Spacing.Part;
+        typography?: Tokens_Typography.Part;
 
         css?: {
             border?: Tokens_CSS_Border.Part;
@@ -218,10 +242,12 @@ export namespace Tokens {
     /**
      * @interface
      */
-    export type ScssVars = Omit<z.infer<typeof Schema>, "CSS" | "spacing" | "typography">
+    export type ScssVars = Omit<z.infer<typeof Schema>, "shadeTest" | "colour" | "CSS" | "spacing" | "typography">
         & Tokens_Spacing.ScssVars
         & Tokens_Typography.ScssVars
         & {
+            // colour: Tokens_Colour.ScssVars;
+            shadeTest: Tokens_Colour_ShadeMap_Shade.ScssVars;
             border: Tokens_CSS_Border.ScssVars;
             transition: Tokens_CSS_Transition.ScssVars;
             z_index: z.infer<typeof Schema.shape.CSS.shape.zIndex>;

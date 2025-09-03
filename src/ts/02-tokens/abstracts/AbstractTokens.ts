@@ -10,7 +10,11 @@
 
 import * as z from 'zod';
 
+import { VariableInspector, type MessageMaker } from '@maddimathon/utility-typescript/classes';
+
+import { internal as internalUtils } from '@maddimathon/build-utilities';
 import { JsonToScss } from '@maddimathon/utility-sass';
+import type { ArrayItem } from '@maddimathon/utility-typescript/types';
 
 type RecursiveRecord<
     T_Keys extends number | string | symbol = number | string | symbol,
@@ -29,19 +33,84 @@ export abstract class AbstractTokens<
     T_ExportType extends object = z.infer<T_SystemSchema>,
     T_InputType extends object = Partial<z.infer<T_SystemSchema>>,
     T_JsonType extends object = T_ExportType,
-    T_ScssType extends object = T_ExportType,
+    T_ScssType extends number | object | string = T_ExportType,
 > {
+
+    static #zodErrorMapSet: boolean = false;
+
+    public static customErrorMap( ...params: Parameters<z.ZodErrorMap> ): ReturnType<z.ZodErrorMap> {
+
+        const [ issue, ctx ] = params;
+
+        switch ( issue.code ) {
+
+            case z.ZodIssueCode.invalid_type:
+                return { message: `expected ${ issue.expected }, but received ${ issue.received }` + '\n' + VariableInspector.stringify( { received: ctx.data } ) };
+
+            case z.ZodIssueCode.custom:
+            case z.ZodIssueCode.invalid_arguments:
+            case z.ZodIssueCode.invalid_date:
+            case z.ZodIssueCode.invalid_enum_value:
+            case z.ZodIssueCode.invalid_return_type:
+            case z.ZodIssueCode.invalid_string:
+            case z.ZodIssueCode.invalid_union:
+            case z.ZodIssueCode.not_multiple_of:
+            case z.ZodIssueCode.too_big:
+            case z.ZodIssueCode.too_small:
+            case z.ZodIssueCode.unrecognized_keys:
+                break;
+        }
+
+        return { message: ctx.defaultError + '\n' + VariableInspector.stringify( { received: ctx.data } ) };
+    }
 
     public abstract get schema(): T_SystemSchema;
 
     constructor (
         protected readonly input: T_InputType,
-    ) { }
+    ) {
+
+        if ( !AbstractTokens.#zodErrorMapSet ) {
+            z.setErrorMap( AbstractTokens.customErrorMap );
+        }
+    }
 
 
 
     /* # UTILITIES
      * ====================================================================== */
+
+    protected parseSchema<
+        T_Schema extends z.ZodTypeAny,
+        T_ValueToTest extends Parameters<T_Schema[ 'safeParse' ]>[ 0 ],
+    >(
+        schema: T_Schema,
+        value: T_ValueToTest,
+
+        context: ConstructorParameters<typeof AbstractTokens.Tokens_Error>[ 1 ],
+
+        errorMessage: string = 'Error parsing Zod schema',
+
+        params?: Parameters<T_Schema[ 'safeParse' ]>[ 1 ],
+    ) {
+
+        const result = schema.safeParse( value, params ) as z.SafeParseReturnType<typeof value, z.infer<T_Schema>>;
+
+        // throws
+        if ( !result.success ) {
+
+            throw new AbstractTokens.Tokens_Error(
+                errorMessage,
+                context,
+                {
+                    cause: result.error,
+                    isZodError: true,
+                },
+            );
+        }
+
+        return result.data satisfies z.infer<T_Schema>;
+    }
 
     protected objectMap<
         T_Object extends object,
@@ -135,8 +204,6 @@ export abstract class AbstractTokens<
     /* # EXPORTS
      * ====================================================================== */
 
-    public abstract export(): T_ExportType;
-
     public abstract toJSON(): T_JsonType;
 
     public abstract toScssVars(): T_ScssType;
@@ -145,7 +212,184 @@ export abstract class AbstractTokens<
         return JsonToScss.convert( this.toScssVars() ) || '()';
     }
 
-    public valueOf(): T_ExportType {
-        return this.export();
+    public abstract valueOf(): T_ExportType;
+}
+
+/**
+ * Utilities for the {@link AbstractTokens} class.
+ * 
+ * @since ___PKG_VERSION___
+ */
+export namespace AbstractTokens {
+
+    export class Tokens_Error<
+        T_CauseType extends unknown | undefined = never,
+        T_IsZodError extends T_CauseType extends z.ZodError ? true : false = T_CauseType extends z.ZodError ? true : false,
+    > extends internalUtils.AbstractError<never, Tokens_Error.Context> {
+
+        public override readonly name: string;
+
+        public constructor (
+            message: string,
+            public override readonly context: Tokens_Error.Context,
+            protected readonly opts: {
+                cause: T_CauseType;
+                isZodError: T_IsZodError;
+            },
+        ) {
+            super(
+                message,
+                null,
+                (
+                    opts.isZodError
+                        ? undefined
+                        : opts.cause as internalUtils.AbstractError.Input
+                ),
+            );
+
+            this.name = 'Tokens_Error' + ( this.opts.isZodError ? ' (ZodError)' : '' );
+        }
+
+        /**
+         * Gets a detailed output message for error handlers.
+         */
+        public override getOutput(): MessageMaker.BulkMsgs {
+
+            const issues = ( this.opts.cause as z.ZodError )?.issues;
+
+            if (
+                !this.opts.isZodError
+                || !issues.length
+                || !( this.opts.cause instanceof z.ZodError )
+            ) {
+                return super.getOutput();
+            }
+
+            const msgs: MessageMaker.BulkMsgs = [];
+
+            // msgs.push( [ [ VariableInspector.stringify( { formatted: this.opts.cause.format() } ) ] ] );
+
+            for ( const issue of issues ) {
+
+                let codeName: string | undefined = undefined;
+
+                let message: string[] = [
+                    ...issue.message.split( '\n' ),
+                ];
+
+                switch ( issue.code ) {
+
+                    case z.ZodIssueCode.custom:
+                        codeName = 'Custom (Refinements)';
+                        break;
+
+                    case z.ZodIssueCode.invalid_arguments:
+                        codeName = 'Invalid Arguments';
+                        break;
+
+                    case z.ZodIssueCode.invalid_date:
+                        codeName = 'Invalid Date';
+                        break;
+
+                    case z.ZodIssueCode.invalid_enum_value:
+                        codeName = 'Invalid Enum Value';
+                        break;
+
+                    case z.ZodIssueCode.invalid_return_type:
+                        codeName = 'Invalid Return Type';
+                        break;
+
+                    case z.ZodIssueCode.invalid_string:
+                        codeName = 'Invalid String';
+                        break;
+
+                    case z.ZodIssueCode.invalid_type:
+                        codeName = 'Invalid Type';
+                        break;
+
+                    case z.ZodIssueCode.invalid_union:
+                        codeName = 'Invalid Union';
+                        break;
+
+                    case z.ZodIssueCode.not_multiple_of:
+                        codeName = 'Not a Multiple of';
+                        break;
+
+                    case z.ZodIssueCode.too_big:
+                        codeName = 'Too Big';
+                        break;
+
+                    case z.ZodIssueCode.too_small:
+                        codeName = 'Too Small';
+                        break;
+
+                    case z.ZodIssueCode.unrecognized_keys:
+                        codeName = 'Unrecognized Keys';
+                        break;
+                }
+
+                if ( issue.code == z.ZodIssueCode.invalid_union ) {
+
+                    msgs.push(
+                        [
+                            [
+                                codeName + ' @ ' + this.context.location,
+                                this.context.name + ' - ' + issue.path.join( ' ' ),
+                                ...message,
+                            ].join( '\n    ' ),
+                        ],
+
+                        ...issue.unionErrors.map(
+                            ( _error, _i ): ArrayItem<MessageMaker.BulkMsgs> => [ _error.issues.map( _issue => _issue.message ), { indent: '    ' } ]
+                        ),
+                    );
+                    continue;
+                }
+
+                msgs.push(
+                    [
+                        [
+                            ( codeName ?? 'Unknown Zod Issue' ) + ' @ ' + this.context.location,
+                            this.context.name + ' - ' + issue.path.join( ' ' ),
+                            ...message,
+                        ].join( '\n    ' ),
+                    ],
+                );
+            }
+
+            return msgs;
+        }
+
+        /**
+         * The object shape used when converting to JSON.
+         *
+         * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#description | JSON.stringify}
+         */
+        public override toJSON() {
+
+            const json = {
+                name: this.name,
+                message: this.message,
+                context: this.context,
+                issues: ( this.cause as z.ZodError )?.issues ?? undefined,
+                cause: this.cause,
+                stack: this.stack,
+                string: this.toString(),
+            } satisfies internalUtils.AbstractError.JSON<Tokens_Error.Context>;
+
+            return json;
+        }
+    }
+
+    export namespace Tokens_Error {
+
+        export interface Context {
+
+            /** Name for the schema, used in error messages. */
+            name: string;
+
+            /** Location where schema is being tested. */
+            location: string;
+        };
     }
 }

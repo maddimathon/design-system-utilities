@@ -10,7 +10,7 @@
 
 import * as z from 'zod';
 
-import { AbstractTokens } from '../abstracts/AbstractTokens.js';
+import { AbstractTokens } from '../../abstracts/AbstractTokens.js';
 
 /**
  * Generates a complete token object for the design system.
@@ -41,10 +41,17 @@ export class Tokens_CSS_Transition extends AbstractTokens<
     ) {
         super( input ?? {} );
 
-        this.time = this.schema.shape.time.parse( input?.time ?? {} );
+        this.time = this.parseSchema(
+            this.schema.shape.time,
+            input?.time ?? {},
+            {
+                name: 'Tokens_CSS_Transition',
+                location: 'src/ts/02-tokens/Tokens/CSS/CSS_Transition.ts:49',
+            },
+        );
     }
 
-    public export(): Tokens_CSS_Transition.Export {
+    public valueOf(): Tokens_CSS_Transition.Export {
 
         return {
             time: this.time,
@@ -52,11 +59,11 @@ export class Tokens_CSS_Transition extends AbstractTokens<
     }
 
     public toJSON() {
-        return this.export();
+        return this.valueOf();
     }
 
     public toScssVars() {
-        return this.export();
+        return this.valueOf();
     }
 }
 

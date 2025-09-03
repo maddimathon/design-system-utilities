@@ -10,10 +10,12 @@
 import { JsonToScss } from '@maddimathon/utility-sass';
 import * as z from 'zod';
 import { AbstractTokens } from './abstracts/AbstractTokens.js';
+// import { Tokens_Colour } from './Tokens/Colour.js';
 import { Tokens_Spacing } from './Tokens/Spacing.js';
 import { Tokens_Typography } from './Tokens/Typography.js';
-import { Tokens_CSS_Border } from './Tokens/CSS_Border.js';
-import { Tokens_CSS_Transition } from './Tokens/CSS_Transition.js';
+import { Tokens_CSS_Border } from './Tokens/CSS/CSS_Border.js';
+import { Tokens_CSS_Transition } from './Tokens/CSS/CSS_Transition.js';
+import { Tokens_Colour_ShadeMap_Shade } from './Tokens/Colour/ShadeMap/Colour_ShadeMap_Shade.js';
 /**
  * Generates a complete token object for the design system.
  *
@@ -23,6 +25,8 @@ export class Tokens extends AbstractTokens {
     get schema() {
         return Tokens.Schema;
     }
+    // public readonly colour: Tokens_Colour;
+    shadeTest;
     spacing;
     typography;
     CSS;
@@ -33,6 +37,8 @@ export class Tokens extends AbstractTokens {
             tokensAsDefault: false,
             ...opts,
         };
+        // this.colour = new Tokens_Colour( input?.colour ?? {} );
+        this.shadeTest = new Tokens_Colour_ShadeMap_Shade('test-shade', input?.shadeTest ?? { h: 0, s: 0, l: 50 });
         this.spacing = new Tokens_Spacing(input?.spacing ?? {});
         this.typography = new Tokens_Typography(this.spacing, input?.typography ?? {});
         const zIndex = this.schema.shape.CSS.shape.zIndex.parse(input?.css?.zIndex ?? {});
@@ -42,19 +48,23 @@ export class Tokens extends AbstractTokens {
             zIndex,
         };
     }
-    export() {
+    valueOf() {
         return {
-            spacing: this.spacing.export(),
-            typography: this.typography.export(),
+            // colour: this.colour.valueOf(),
+            shadeTest: this.shadeTest.valueOf(),
+            spacing: this.spacing.valueOf(),
+            typography: this.typography.valueOf(),
             CSS: {
-                border: this.CSS.border.export(),
-                transition: this.CSS.transition.export(),
+                border: this.CSS.border.valueOf(),
+                transition: this.CSS.transition.valueOf(),
                 zIndex: this.CSS.zIndex,
             },
         };
     }
     toJSON() {
         return {
+            // colour: this.colour.toJSON(),
+            shadeTest: this.shadeTest.toJSON(),
             spacing: this.spacing.toJSON(),
             typography: this.typography.toJSON(),
             CSS: {
@@ -66,6 +76,8 @@ export class Tokens extends AbstractTokens {
     }
     toScssVars() {
         return {
+            // colour: this.colour.toScssVars(),
+            shadeTest: this.shadeTest.toScssVars(),
             ...this.spacing.toScssVars(),
             ...this.typography.toScssVars(),
             border: this.CSS.border.toScssVars(),
@@ -76,6 +88,8 @@ export class Tokens extends AbstractTokens {
     toScss() {
         const _vars = this.toScssVars();
         const vars = {
+            // colour: JsonToScss.convert( _vars.colour ) || '()',
+            shadeTest: JsonToScss.convert(_vars.shadeTest) || '()',
             spacing_multiplier: JsonToScss.convert(_vars.spacing_multiplier) || String(this.schema.shape.spacing.shape.multiplier.parse('')),
             margin: JsonToScss.convert(_vars.margin) || '()',
             font: JsonToScss.convert(_vars.font) || '()',
@@ -102,6 +116,8 @@ export class Tokens extends AbstractTokens {
  */
 (function (Tokens) {
     Tokens.Schema = z.object({
+        // colour: Tokens_Colour.Schema,
+        shadeTest: Tokens_Colour_ShadeMap_Shade.Schema,
         spacing: Tokens_Spacing.Schema,
         typography: Tokens_Typography.Schema,
         CSS: z.object({

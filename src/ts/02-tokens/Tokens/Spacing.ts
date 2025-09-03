@@ -63,12 +63,26 @@ export class Tokens_Spacing extends AbstractTokens<
     ) {
         super( input ?? {} );
 
-        this.margin = this.schema.shape.margin.parse( input?.margin ?? {} );
+        this.margin = this.parseSchema(
+            this.schema.shape.margin,
+            input?.margin ?? {},
+            {
+                name: 'Tokens_Spacing.margin',
+                location: 'src/ts/02-tokens/Tokens/Spacing.ts:71',
+            },
+        );
 
-        this.multiplier = this.schema.shape.multiplier.parse( input?.multiplier );
+        this.multiplier = this.parseSchema(
+            this.schema.shape.multiplier,
+            input?.multiplier,
+            {
+                name: 'Tokens_Spacing.multiplier',
+                location: 'src/ts/02-tokens/Tokens/Spacing.ts:80',
+            },
+        );
     }
 
-    public export(): Tokens_Spacing.Export {
+    public valueOf(): Tokens_Spacing.Export {
 
         return {
             multiplier: this.multiplier,
@@ -106,7 +120,7 @@ export class Tokens_Spacing extends AbstractTokens<
             return _rem;
         };
 
-        const exp = this.export();
+        const exp = this.valueOf();
 
         return {
             ...exp,
@@ -141,7 +155,7 @@ export class Tokens_Spacing extends AbstractTokens<
 
     public toScssVars() {
 
-        const exp = this.export();
+        const exp = this.valueOf();
         return {
             margin: exp.margin,
             spacing_multiplier: this.multiplier,

@@ -24,6 +24,17 @@ export const tokenLevels = z.union( [
     z.literal( '900' ),
 ] );
 
+export type TokenLevels =
+    | "100"
+    | "200"
+    | "300"
+    | "400"
+    | "500"
+    | "600"
+    | "700"
+    | "800"
+    | "900";
+
 export const tokenLevels_extended = z.union( [
     z.literal( '000' ),
     z.literal( '050' ),
@@ -46,3 +57,25 @@ export const tokenLevels_extended = z.union( [
     z.literal( '900' ),
     z.literal( '950' ),
 ] );
+
+export type TokenLevels_Extended =
+    | "000"
+    | "050"
+    | "100"
+    | "150"
+    | "200"
+    | "250"
+    | "300"
+    | "350"
+    | "400"
+    | "450"
+    | "500"
+    | "550"
+    | "600"
+    | "650"
+    | "700"
+    | "750"
+    | "800"
+    | "850"
+    | "900"
+    | "950";
