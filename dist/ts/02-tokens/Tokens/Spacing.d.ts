@@ -15,7 +15,7 @@ import { AbstractTokens } from '../abstracts/AbstractTokens.js';
  * @since 0.1.0-alpha.draft
  * @internal
  */
-export declare class Tokens_Spacing extends AbstractTokens<typeof Tokens_Spacing.Schema, Tokens_Spacing.Export, Tokens_Spacing.Part, Tokens_Spacing.JSON, Tokens_Spacing.ScssVars> {
+export declare class Tokens_Spacing extends AbstractTokens<typeof Tokens_Spacing.Schema, Tokens_Spacing.Parsed, Tokens_Spacing.Part, Tokens_Spacing.JSON, Tokens_Spacing.ScssVars> {
     get schema(): z.ZodObject<{
         multiplier: z.ZodDefault<z.ZodNumber>;
         margin: z.ZodIntersection<z.ZodObject<{
@@ -79,14 +79,13 @@ export declare class Tokens_Spacing extends AbstractTokens<typeof Tokens_Spacing
      * }
      * ```
      */
-    readonly margin: Tokens_Spacing.Export['margin'];
+    readonly margin: Tokens_Spacing.Parsed['margin'];
     /**
      * Used for scaling various size sets relative to each other - e.g.,
      * margins, font sizes, line heights.
      */
-    readonly multiplier: Tokens_Spacing.Export['multiplier'];
+    readonly multiplier: Tokens_Spacing.Parsed['multiplier'];
     constructor(input?: Tokens_Spacing.Part);
-    valueOf(): Tokens_Spacing.Export;
     toJSON(): {
         margin: {
             rem: {
@@ -169,6 +168,7 @@ export declare class Tokens_Spacing extends AbstractTokens<typeof Tokens_Spacing
         } & Partial<Record<"100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900" | "000" | "050" | "150" | "250" | "350" | "450" | "550" | "650" | "750" | "850" | "950", number>>;
         spacing_multiplier: number;
     };
+    valueOf(): Tokens_Spacing.Parsed;
 }
 /**
  * Utilities for the {@link Tokens} class.
@@ -222,25 +222,23 @@ export declare namespace Tokens_Spacing {
         } & Partial<Record<"100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900" | "000" | "050" | "150" | "250" | "350" | "450" | "550" | "650" | "750" | "850" | "950", number>>;
         multiplier?: number | undefined;
     }>;
-    interface Export extends z.infer<typeof Schema> {
-    }
-    interface JSON extends Omit<z.infer<typeof Schema>, "margin"> {
-        margin: {
-            rem: z.infer<typeof Schema.shape.margin>;
-            pt: z.infer<typeof Schema.shape.margin>;
-            px: z.infer<typeof Schema.shape.margin>;
-        };
-    }
+    type Parsed = z.infer<typeof Schema>;
     /**
      * The partialized version of the {@link Tokens_Spacing.Schema} accepted as
      * input.
      *
      * @since 0.1.0-alpha.draft
      */
-    interface Part extends Partial<z.infer<typeof Schema>> {
-    }
-    interface ScssVars extends Omit<z.infer<typeof Schema>, "multiplier"> {
+    type Part = Partial<z.input<typeof Schema>>;
+    type JSON = Omit<Parsed, "margin"> & {
+        margin: {
+            rem: z.infer<typeof Schema.shape.margin>;
+            pt: z.infer<typeof Schema.shape.margin>;
+            px: z.infer<typeof Schema.shape.margin>;
+        };
+    };
+    type ScssVars = Omit<Parsed, "multiplier"> & {
         spacing_multiplier: number;
-    }
+    };
 }
 //# sourceMappingURL=Spacing.d.ts.map

@@ -31,16 +31,16 @@ export class Tokens_CSS_Transition extends AbstractTokens {
             location: 'src/ts/02-tokens/Tokens/CSS/CSS_Transition.ts:49',
         });
     }
-    valueOf() {
-        return {
-            time: this.time,
-        };
-    }
     toJSON() {
         return this.valueOf();
     }
     toScssVars() {
         return this.valueOf();
+    }
+    valueOf() {
+        return {
+            time: this.time,
+        };
     }
 }
 /**
@@ -49,6 +49,8 @@ export class Tokens_CSS_Transition extends AbstractTokens {
  * @since 0.1.0-alpha.draft
  */
 (function (Tokens_CSS_Transition) {
+    /* SCHEMA
+     * ====================================================================== */
     const transitionTime = z.string().regex(/^\d+m?s$/);
     Tokens_CSS_Transition.Schema = z.object({
         time: z.object({
@@ -57,8 +59,5 @@ export class Tokens_CSS_Transition extends AbstractTokens {
             slow: transitionTime.default('750ms'),
         }).and(z.record(z.string(), transitionTime)),
     });
-    ;
-    ;
-    ;
 })(Tokens_CSS_Transition || (Tokens_CSS_Transition = {}));
 //# sourceMappingURL=CSS_Transition.js.map

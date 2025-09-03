@@ -14,7 +14,7 @@ import { AbstractTokens } from '../../abstracts/AbstractTokens.js';
  *
  * @since 0.1.0-alpha.draft
  */
-export declare class Tokens_CSS_Transition extends AbstractTokens<typeof Tokens_CSS_Transition.Schema, Tokens_CSS_Transition.Export, Tokens_CSS_Transition.Part, Tokens_CSS_Transition.JSON, Tokens_CSS_Transition.ScssVars> {
+export declare class Tokens_CSS_Transition extends AbstractTokens<typeof Tokens_CSS_Transition.Schema, Tokens_CSS_Transition.Parsed, Tokens_CSS_Transition.Part, Tokens_CSS_Transition.JSON, Tokens_CSS_Transition.ScssVars> {
     get schema(): z.ZodObject<{
         time: z.ZodIntersection<z.ZodObject<{
             fast: z.ZodDefault<z.ZodString>;
@@ -47,11 +47,23 @@ export declare class Tokens_CSS_Transition extends AbstractTokens<typeof Tokens_
      *
      * Default keys are 'fast', 'normal', 'slow'.
      */
-    readonly time: Tokens_CSS_Transition.Export['time'];
+    readonly time: Tokens_CSS_Transition.Parsed['time'];
     constructor(input?: Tokens_CSS_Transition.Part);
-    valueOf(): Tokens_CSS_Transition.Export;
-    toJSON(): Tokens_CSS_Transition.Export;
-    toScssVars(): Tokens_CSS_Transition.Export;
+    toJSON(): {
+        time: {
+            normal: string;
+            fast: string;
+            slow: string;
+        } & Record<string, string>;
+    };
+    toScssVars(): {
+        time: {
+            normal: string;
+            fast: string;
+            slow: string;
+        } & Record<string, string>;
+    };
+    valueOf(): Tokens_CSS_Transition.Parsed;
 }
 /**
  * Utilities for the {@link Tokens} class.
@@ -86,10 +98,7 @@ export declare namespace Tokens_CSS_Transition {
             slow?: string | undefined;
         } & Record<string, string>;
     }>;
-    interface Export extends z.infer<typeof Schema> {
-    }
-    interface JSON extends z.infer<typeof Schema> {
-    }
+    type Parsed = z.infer<typeof Schema>;
     /**
      * The partialized version of the {@link Tokens_CSS_Transition.Schema}
      * accepted as input.
@@ -99,7 +108,7 @@ export declare namespace Tokens_CSS_Transition {
     interface Part {
         time?: Partial<z.infer<typeof Schema.shape.time>>;
     }
-    interface ScssVars extends z.infer<typeof Schema> {
-    }
+    type JSON = Parsed;
+    type ScssVars = Parsed;
 }
 //# sourceMappingURL=CSS_Transition.d.ts.map

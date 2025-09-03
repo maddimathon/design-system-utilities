@@ -23,7 +23,7 @@ import type { Tokens_Spacing } from './Spacing.js';
  */
 export class Tokens_Typography extends AbstractTokens<
     typeof Tokens_Typography.Schema,
-    Tokens_Typography.Export,
+    Tokens_Typography.Parsed,
     Tokens_Typography.Part,
     Tokens_Typography.JSON,
     Tokens_Typography.ScssVars
@@ -39,7 +39,7 @@ export class Tokens_Typography extends AbstractTokens<
      * Passed to utility-sass and used to compile a font size scale with
      * {@link Tokens_Spacing.multiplier}.
      */
-    public readonly lineHeight: Tokens_Typography.Export[ 'lineHeight' ];
+    public readonly lineHeight: Tokens_Typography.Parsed[ 'lineHeight' ];
 
     /**
      * Font sizes for the design system.
@@ -47,7 +47,7 @@ export class Tokens_Typography extends AbstractTokens<
      * Passed to utility-sass and used to compile a font size scale with
      * {@link Tokens_Spacing.multiplier}.
      */
-    public readonly size: Tokens_Typography.Export[ 'size' ];
+    public readonly size: Tokens_Typography.Parsed[ 'size' ];
 
     public constructor (
         protected tokens_spacing: Tokens_Spacing,
@@ -113,7 +113,7 @@ export class Tokens_Typography extends AbstractTokens<
         };
     }
 
-    public valueOf(): Tokens_Typography.Export {
+    public valueOf(): Tokens_Typography.Parsed {
 
         return {
             lineHeight: this.lineHeight,
@@ -203,6 +203,11 @@ export class Tokens_Typography extends AbstractTokens<
  */
 export namespace Tokens_Typography {
 
+
+
+    /* SCHEMA
+     * ====================================================================== */
+
     export const Schema = z.object( {
 
         lineHeight: z.object( {
@@ -251,16 +256,12 @@ export namespace Tokens_Typography {
         } ),
     } );
 
-    export interface Export extends z.infer<typeof Schema> { };
 
-    export interface JSON extends Omit<z.infer<typeof Schema>, "size"> {
 
-        size: {
-            rem: z.infer<typeof Schema.shape.size>;
-            pt: z.infer<typeof Schema.shape.size>;
-            px: z.infer<typeof Schema.shape.size>;
-        };
-    };
+    /* TYPES
+     * ====================================================================== */
+
+    export type Parsed = z.infer<typeof Schema>;
 
     /**
      * The partialized version of the {@link Tokens_Typography.Schema} accepted
@@ -268,10 +269,18 @@ export namespace Tokens_Typography {
      *
      * @since ___PKG_VERSION___
      */
-    export interface Part extends Partial<z.infer<typeof Schema>> { }
+    export type Part = Partial<Parsed>;
 
-    export interface ScssVars {
-        font: Omit<z.infer<typeof Schema>, "lineHeight">;
-        line_height: z.infer<typeof Schema.shape.lineHeight>;
+    export type JSON = Omit<Parsed, "size"> & {
+        size: {
+            rem: Parsed[ 'size' ];
+            pt: Parsed[ 'size' ];
+            px: Parsed[ 'size' ];
+        };
+    };
+
+    export type ScssVars = {
+        font: Omit<Parsed, "lineHeight">;
+        line_height: Parsed[ 'lineHeight' ];
     };
 }

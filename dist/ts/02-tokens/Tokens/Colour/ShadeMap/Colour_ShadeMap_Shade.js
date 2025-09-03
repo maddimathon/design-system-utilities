@@ -7,6 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
+import clrConvert from 'color-convert';
 import * as z from 'zod';
 import { AbstractTokens } from '../../../abstracts/AbstractTokens.js';
 /**
@@ -25,11 +26,11 @@ export class Tokens_Colour_ShadeMap_Shade extends AbstractTokens {
     rgb;
     oklch;
     constructor(name, input) {
-        super({});
+        super(input);
         this.name = name;
         const parsed = this.parseSchema(this.schema, input ?? {}, {
             name: `Tokens_Colour_ShadeMap_Shade.${this.name}`,
-            location: 'src/ts/02-tokens/Tokens/Colour/ShadeMap/Colour_ShadeMap_Shade.ts:56',
+            location: 'src/ts/02-tokens/Tokens/Colour/ShadeMap/Colour_ShadeMap_Shade.ts:50',
         });
         this.hex = parsed.hex;
         this.hsl = parsed.hsl;
@@ -48,7 +49,7 @@ export class Tokens_Colour_ShadeMap_Shade extends AbstractTokens {
         return this.valueOf();
     }
     toScssVars() {
-        return `hsl( ${this.hsl.h}, ${this.hsl.s}%, ${this.hsl.l}% )`;
+        return `oklch( ${this.oklch.l / 100} ${this.oklch.c} ${this.oklch.h} )`;
     }
 }
 /**
@@ -58,6 +59,8 @@ export class Tokens_Colour_ShadeMap_Shade extends AbstractTokens {
  * @internal
  */
 (function (Tokens_Colour_ShadeMap_Shade) {
+    /* SCHEMA
+     * ====================================================================== */
     Tokens_Colour_ShadeMap_Shade.Schema_Hex = z.string().toUpperCase().regex(/^#?[0-9|A-H]{3,6}$/i);
     Tokens_Colour_ShadeMap_Shade.Schema_HSL = z.object({
         h: z.number().nonnegative().lte(360),
@@ -71,7 +74,7 @@ export class Tokens_Colour_ShadeMap_Shade extends AbstractTokens {
     });
     Tokens_Colour_ShadeMap_Shade.Schema_OKLCH = z.object({
         l: z.number().nonnegative().lte(100),
-        c: z.number().safe().lte(32),
+        c: z.number().safe(),
         h: z.number().safe(),
     });
     Tokens_Colour_ShadeMap_Shade.Schema = z.union([
@@ -90,23 +93,126 @@ export class Tokens_Colour_ShadeMap_Shade extends AbstractTokens {
         if (typeof input === 'object' && 'hex' in input) {
             return input;
         }
-        // returns - is hex code
-        if (typeof input === 'string') {
-            return {
-                hex: input,
-                hsl: { h: 0, s: 0, l: 50 },
-                rgb: { r: 80, g: 80, b: 80 },
-                oklch: { l: 0.4313, c: 0, h: 0 },
-            };
-        }
         return {
-            hex: '#505050',
-            hsl: { h: 0, s: 0, l: 50 },
-            rgb: { r: 80, g: 80, b: 80 },
-            oklch: { l: 0.4313, c: 0, h: 0 },
+            hex: toHex(input),
+            hsl: toHSL(input),
+            rgb: toRGB(input),
+            oklch: toOKLCH(input),
         };
     });
-    ;
-    ;
+    /* UTILITY FUNCTIONS
+     * ====================================================================== */
+    function toHex(clr) {
+        const _hexValidator = (hex) => '#' + hex.replace(/^#/gi, '');
+        // returns - plain
+        if (typeof clr === 'string') {
+            return _hexValidator(clr);
+        }
+        // returns - plain
+        if ('hex' in clr) {
+            return _hexValidator(clr.hex);
+        }
+        // returns - hsl
+        if ('s' in clr) {
+            const hex = clrConvert.hsl.hex.raw(clr.h, clr.s, clr.l);
+            return _hexValidator(hex);
+        }
+        // returns - lch
+        if ('c' in clr) {
+            const hex = clrConvert.lch.hex.raw(clr.l, clr.c, clr.h);
+            return _hexValidator(hex);
+        }
+        // clr is rgb
+        const hex = clrConvert.rgb.hex.raw(clr.r, clr.g, clr.b);
+        return _hexValidator(hex);
+    }
+    Tokens_Colour_ShadeMap_Shade.toHex = toHex;
+    function toHSL(clr) {
+        const _arrayToObject = (hsl) => ({
+            h: Math.round(hsl[0] * 200) / 200,
+            s: Math.round(hsl[1] * 200) / 200,
+            l: Math.round(hsl[2] * 200) / 200,
+        });
+        // returns - converts
+        if (typeof clr === 'string') {
+            const hsl = clrConvert.hex.hsl.raw(clr);
+            return _arrayToObject(hsl);
+        }
+        // returns - plain
+        if ('hsl' in clr) {
+            return _arrayToObject([clr.hsl.h, clr.hsl.s, clr.hsl.l]);
+        }
+        // returns - plain
+        if ('s' in clr) {
+            return _arrayToObject([clr.h, clr.s, clr.l]);
+        }
+        // returns - lch
+        if ('c' in clr) {
+            const hsl = clrConvert.lch.hsl.raw(clr.l, clr.c, clr.h);
+            return _arrayToObject(hsl);
+        }
+        // clr is rgb
+        const hsl = clrConvert.rgb.hsl.raw(clr.r, clr.g, clr.b);
+        return _arrayToObject(hsl);
+    }
+    Tokens_Colour_ShadeMap_Shade.toHSL = toHSL;
+    function toOKLCH(clr) {
+        const _arrayToObject = (oklch) => ({
+            l: Math.max(0, Math.min(100, Math.round(oklch[0] * 1000) / 1000)),
+            c: Math.round(oklch[1] * 10000) / 10000,
+            h: Math.round(oklch[2] * 1000) / 1000,
+        });
+        // returns - converts
+        if (typeof clr === 'string') {
+            const lch = clrConvert.hex.lch.raw(clr);
+            return _arrayToObject(lch);
+        }
+        // returns - plain
+        if ('oklch' in clr) {
+            return _arrayToObject([clr.oklch.l, clr.oklch.c, clr.oklch.h]);
+        }
+        // returns - plain
+        if ('c' in clr) {
+            return _arrayToObject([clr.l, clr.c, clr.h]);
+        }
+        // returns - hsl
+        if ('h' in clr) {
+            const lch = clrConvert.hsl.lch.raw(clr.h, clr.s, clr.l);
+            return _arrayToObject(lch);
+        }
+        // clr is rgb
+        const lch = clrConvert.rgb.lch.raw(clr.r, clr.g, clr.b);
+        return _arrayToObject(lch);
+    }
+    Tokens_Colour_ShadeMap_Shade.toOKLCH = toOKLCH;
+    function toRGB(clr) {
+        const _arrayToObject = (rgb) => ({
+            r: Math.round(rgb[0] * 200) / 200,
+            g: Math.round(rgb[1] * 200) / 200,
+            b: Math.round(rgb[2] * 200) / 200,
+        });
+        // returns - converts
+        if (typeof clr === 'string') {
+            const rgb = clrConvert.hex.rgb.raw(clr);
+            return _arrayToObject(rgb);
+        }
+        // returns - plain
+        if ('rgb' in clr) {
+            return _arrayToObject([clr.rgb.r, clr.rgb.g, clr.rgb.b]);
+        }
+        // returns - plain
+        if ('g' in clr) {
+            return _arrayToObject([clr.r, clr.g, clr.b]);
+        }
+        // returns - lch
+        if ('c' in clr) {
+            const rgb = clrConvert.lch.rgb.raw(clr.l, clr.c, clr.h);
+            return _arrayToObject(rgb);
+        }
+        // clr is hsl
+        const rgb = clrConvert.hsl.rgb.raw(clr.h, clr.s, clr.l);
+        return _arrayToObject(rgb);
+    }
+    Tokens_Colour_ShadeMap_Shade.toRGB = toRGB;
 })(Tokens_Colour_ShadeMap_Shade || (Tokens_Colour_ShadeMap_Shade = {}));
 //# sourceMappingURL=Colour_ShadeMap_Shade.js.map

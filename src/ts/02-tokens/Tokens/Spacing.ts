@@ -22,7 +22,7 @@ import { AbstractTokens } from '../abstracts/AbstractTokens.js';
  */
 export class Tokens_Spacing extends AbstractTokens<
     typeof Tokens_Spacing.Schema,
-    Tokens_Spacing.Export,
+    Tokens_Spacing.Parsed,
     Tokens_Spacing.Part,
     Tokens_Spacing.JSON,
     Tokens_Spacing.ScssVars
@@ -50,13 +50,13 @@ export class Tokens_Spacing extends AbstractTokens<
      * }
      * ```
      */
-    public readonly margin: Tokens_Spacing.Export[ 'margin' ];
+    public readonly margin: Tokens_Spacing.Parsed[ 'margin' ];
 
     /**
      * Used for scaling various size sets relative to each other - e.g.,
      * margins, font sizes, line heights.
      */
-    public readonly multiplier: Tokens_Spacing.Export[ 'multiplier' ];
+    public readonly multiplier: Tokens_Spacing.Parsed[ 'multiplier' ];
 
     public constructor (
         input?: Tokens_Spacing.Part,
@@ -80,14 +80,6 @@ export class Tokens_Spacing extends AbstractTokens<
                 location: 'src/ts/02-tokens/Tokens/Spacing.ts:80',
             },
         );
-    }
-
-    public valueOf(): Tokens_Spacing.Export {
-
-        return {
-            multiplier: this.multiplier,
-            margin: this.margin,
-        };
     }
 
     public toJSON() {
@@ -161,6 +153,14 @@ export class Tokens_Spacing extends AbstractTokens<
             spacing_multiplier: this.multiplier,
         };
     }
+
+    public valueOf(): Tokens_Spacing.Parsed {
+
+        return {
+            multiplier: this.multiplier,
+            margin: this.margin,
+        };
+    }
 }
 
 /**
@@ -170,6 +170,11 @@ export class Tokens_Spacing extends AbstractTokens<
  * @internal
  */
 export namespace Tokens_Spacing {
+
+
+
+    /* SCHEMA
+     * ====================================================================== */
 
     export const Schema = z.object( {
 
@@ -185,15 +190,12 @@ export namespace Tokens_Spacing {
         } ).and( z.record( tokenLevels_extended, z.number() ) ),
     } );
 
-    export interface Export extends z.infer<typeof Schema> { };
 
-    export interface JSON extends Omit<z.infer<typeof Schema>, "margin"> {
-        margin: {
-            rem: z.infer<typeof Schema.shape.margin>;
-            pt: z.infer<typeof Schema.shape.margin>;
-            px: z.infer<typeof Schema.shape.margin>;
-        };
-    };
+
+    /* TYPES
+     * ====================================================================== */
+
+    export type Parsed = z.infer<typeof Schema>;
 
     /**
      * The partialized version of the {@link Tokens_Spacing.Schema} accepted as
@@ -201,9 +203,17 @@ export namespace Tokens_Spacing {
      *
      * @since ___PKG_VERSION___
      */
-    export interface Part extends Partial<z.infer<typeof Schema>> { }
+    export type Part = Partial<z.input<typeof Schema>>;
 
-    export interface ScssVars extends Omit<z.infer<typeof Schema>, "multiplier"> {
+    export type JSON = Omit<Parsed, "margin"> & {
+        margin: {
+            rem: z.infer<typeof Schema.shape.margin>;
+            pt: z.infer<typeof Schema.shape.margin>;
+            px: z.infer<typeof Schema.shape.margin>;
+        };
+    };
+
+    export type ScssVars = Omit<Parsed, "multiplier"> & {
         spacing_multiplier: number;
     };
 }

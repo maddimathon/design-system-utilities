@@ -118,6 +118,8 @@ export class Tokens_Typography extends AbstractTokens {
  * @internal
  */
 (function (Tokens_Typography) {
+    /* SCHEMA
+     * ====================================================================== */
     Tokens_Typography.Schema = z.object({
         lineHeight: z.object({
             '100': z.number().default(-2.75),
@@ -158,8 +160,5 @@ export class Tokens_Typography extends AbstractTokens {
             }).and(z.record(z.number(), z.number())),
         }),
     });
-    ;
-    ;
-    ;
 })(Tokens_Typography || (Tokens_Typography = {}));
 //# sourceMappingURL=Typography.js.map

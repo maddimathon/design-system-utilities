@@ -8,8 +8,8 @@
  * @license MIT
  */
 import * as z from 'zod';
+import type { TokenLevels } from '../../../00-schemata/@utils.js';
 import { AbstractTokens } from '../../abstracts/AbstractTokens.js';
-import type { TokenLevels } from 'src/ts/00-schemata/@utils.js';
 import { Tokens_Colour_ShadeMap_Shade } from './ShadeMap/Colour_ShadeMap_Shade.js';
 /**
  * Generates a map of shades used as colour tokens for the design system.
@@ -17,7 +17,7 @@ import { Tokens_Colour_ShadeMap_Shade } from './ShadeMap/Colour_ShadeMap_Shade.j
  * @since 0.1.0-alpha.draft
  * @internal
  */
-export declare class Tokens_Colour_ShadeMap extends AbstractTokens<typeof Tokens_Colour_ShadeMap.Schema, Tokens_Colour_ShadeMap.Export, Tokens_Colour_ShadeMap.Part, Tokens_Colour_ShadeMap.JSON, Tokens_Colour_ShadeMap.ScssVars> {
+export declare class Tokens_Colour_ShadeMap extends AbstractTokens<typeof Tokens_Colour_ShadeMap.Schema, Tokens_Colour_ShadeMap.Parsed, Tokens_Colour_ShadeMap.Part, Tokens_Colour_ShadeMap.JSON, Tokens_Colour_ShadeMap.ScssVars> {
     readonly name: string;
     get schema(): z.ZodEffects<z.ZodObject<{
         '100': z.ZodOptional<z.ZodEffects<z.ZodUnion<[z.ZodString, z.ZodObject<{
@@ -1944,9 +1944,9 @@ export declare class Tokens_Colour_ShadeMap extends AbstractTokens<typeof Tokens
     }>;
     readonly map: z.output<typeof Tokens_Colour_ShadeMap.Schema>;
     constructor(name: string, input?: Tokens_Colour_ShadeMap.Part);
-    valueOf(): Tokens_Colour_ShadeMap.Export;
     toJSON(): Tokens_Colour_ShadeMap.JSON;
     toScssVars(): Tokens_Colour_ShadeMap.ScssVars;
+    valueOf(): Tokens_Colour_ShadeMap.Parsed;
 }
 /**
  * Utilities for the {@link Tokens} class.
@@ -1955,9 +1955,9 @@ export declare class Tokens_Colour_ShadeMap extends AbstractTokens<typeof Tokens
  * @internal
  */
 export declare namespace Tokens_Colour_ShadeMap {
-    function mixColours(name: string, clrA: Tokens_Colour_ShadeMap_Shade | z.input<typeof Tokens_Colour_ShadeMap_Shade.Schema>, clrB: Tokens_Colour_ShadeMap_Shade | z.input<typeof Tokens_Colour_ShadeMap_Shade.Schema>): Tokens_Colour_ShadeMap_Shade;
+    function mixColours(_clrA: Tokens_Colour_ShadeMap_Shade | z.input<typeof Tokens_Colour_ShadeMap_Shade.Schema>, _clrB: Tokens_Colour_ShadeMap_Shade | z.input<typeof Tokens_Colour_ShadeMap_Shade.Schema>): z.input<typeof Tokens_Colour_ShadeMap_Shade.Schema>;
     function completeMap(part: {
-        [K in TokenLevels]?: z.output<typeof Tokens_Colour_ShadeMap_Shade.Schema> | undefined;
+        [K in TokenLevels]?: (Tokens_Colour_ShadeMap_Shade | Tokens_Colour_ShadeMap_Shade.Parsed | undefined);
     }, cfx: Partial<{
         path: string | (number | string)[];
     }>): {
@@ -3886,26 +3886,13 @@ export declare namespace Tokens_Colour_ShadeMap {
             };
         } | undefined;
     }>;
-    type Export = {
-        [K in keyof z.output<typeof Schema>]-?: Tokens_Colour_ShadeMap_Shade.Export;
-    };
+    type Parsed = z.output<typeof Schema>;
+    type Part = z.input<typeof Schema>;
     type JSON = {
-        [K in keyof z.output<typeof Schema>]-?: Tokens_Colour_ShadeMap_Shade.JSON;
+        [K in keyof z.output<typeof Schema>]: Tokens_Colour_ShadeMap_Shade.JSON;
     };
-    /**
-     * The partialized version of the {@link Tokens_Colour_ShadeMap.Schema} accepted as input.
-     *
-     * @since 0.1.0-alpha.draft
-     * @interface
-     */
-    type Part = {
-        [K in keyof z.input<typeof Schema>]?: z.input<typeof Tokens_Colour_ShadeMap_Shade.Schema>;
-    };
-    /**
-     * @interface
-     */
     type ScssVars = {
-        [K in keyof z.output<typeof Schema>]-?: Tokens_Colour_ShadeMap_Shade.ScssVars;
+        [K in keyof z.output<typeof Schema>]: Tokens_Colour_ShadeMap_Shade.ScssVars;
     };
 }
 //# sourceMappingURL=Colour_ShadeMap.d.ts.map

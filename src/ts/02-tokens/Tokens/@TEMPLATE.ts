@@ -20,7 +20,7 @@ import { AbstractTokens } from '../abstracts/AbstractTokens.js';
  */
 export class Tokens_TEMPLATE extends AbstractTokens<
     typeof Tokens_TEMPLATE.Schema,
-    Tokens_TEMPLATE.Export,
+    Tokens_TEMPLATE.Parsed,
     Tokens_TEMPLATE.Part,
     Tokens_TEMPLATE.JSON,
     Tokens_TEMPLATE.ScssVars
@@ -47,7 +47,7 @@ export class Tokens_TEMPLATE extends AbstractTokens<
         // );
     }
 
-    public valueOf(): Tokens_TEMPLATE.Export {
+    public valueOf(): Tokens_TEMPLATE.Parsed {
 
         return {
         };
@@ -70,22 +70,29 @@ export class Tokens_TEMPLATE extends AbstractTokens<
  */
 export namespace Tokens_TEMPLATE {
 
+
+
+    /* SCHEMA
+     * ====================================================================== */
+
     export const Schema = z.object( {
     } );
 
-    export interface Export extends z.infer<typeof Schema> {
-    };
 
-    export interface JSON extends Export {
-    };
+
+    /* TYPES
+     * ====================================================================== */
+
+    export type Parsed = z.infer<typeof Schema>;
 
     /**
      * The partialized version of the {@link Tokens_TEMPLATE.Schema} accepted as input.
      *
      * @since ___PKG_VERSION___
      */
-    export interface Part extends Partial<Export> { }
+    export type Part = Partial<Parsed>;
 
-    export interface ScssVars extends Export {
-    };
+    export type JSON = Parsed;
+
+    export type ScssVars = Parsed;
 }

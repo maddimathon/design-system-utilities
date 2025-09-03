@@ -48,9 +48,8 @@ export class Tokens_TEMPLATE extends AbstractTokens {
  * @internal
  */
 (function (Tokens_TEMPLATE) {
+    /* SCHEMA
+     * ====================================================================== */
     Tokens_TEMPLATE.Schema = z.object({});
-    ;
-    ;
-    ;
 })(Tokens_TEMPLATE || (Tokens_TEMPLATE = {}));
 //# sourceMappingURL=@TEMPLATE.js.map

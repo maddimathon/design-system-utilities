@@ -16,7 +16,7 @@ import type { Tokens_Spacing } from './Spacing.js';
  * @since 0.1.0-alpha.draft
  * @internal
  */
-export declare class Tokens_Typography extends AbstractTokens<typeof Tokens_Typography.Schema, Tokens_Typography.Export, Tokens_Typography.Part, Tokens_Typography.JSON, Tokens_Typography.ScssVars> {
+export declare class Tokens_Typography extends AbstractTokens<typeof Tokens_Typography.Schema, Tokens_Typography.Parsed, Tokens_Typography.Part, Tokens_Typography.JSON, Tokens_Typography.ScssVars> {
     protected tokens_spacing: Tokens_Spacing;
     get schema(): z.ZodObject<{
         lineHeight: z.ZodIntersection<z.ZodObject<{
@@ -218,16 +218,16 @@ export declare class Tokens_Typography extends AbstractTokens<typeof Tokens_Typo
      * Passed to utility-sass and used to compile a font size scale with
      * {@link Tokens_Spacing.multiplier}.
      */
-    readonly lineHeight: Tokens_Typography.Export['lineHeight'];
+    readonly lineHeight: Tokens_Typography.Parsed['lineHeight'];
     /**
      * Font sizes for the design system.
      *
      * Passed to utility-sass and used to compile a font size scale with
      * {@link Tokens_Spacing.multiplier}.
      */
-    readonly size: Tokens_Typography.Export['size'];
+    readonly size: Tokens_Typography.Parsed['size'];
     constructor(tokens_spacing: Tokens_Spacing, input?: Tokens_Typography.Part);
-    valueOf(): Tokens_Typography.Export;
+    valueOf(): Tokens_Typography.Parsed;
     toScssVars(): {
         font: {
             size: {
@@ -467,26 +467,24 @@ export declare namespace Tokens_Typography {
             normal?: number | undefined;
         };
     }>;
-    interface Export extends z.infer<typeof Schema> {
-    }
-    interface JSON extends Omit<z.infer<typeof Schema>, "size"> {
-        size: {
-            rem: z.infer<typeof Schema.shape.size>;
-            pt: z.infer<typeof Schema.shape.size>;
-            px: z.infer<typeof Schema.shape.size>;
-        };
-    }
+    type Parsed = z.infer<typeof Schema>;
     /**
      * The partialized version of the {@link Tokens_Typography.Schema} accepted
      * as input.
      *
      * @since 0.1.0-alpha.draft
      */
-    interface Part extends Partial<z.infer<typeof Schema>> {
-    }
-    interface ScssVars {
-        font: Omit<z.infer<typeof Schema>, "lineHeight">;
-        line_height: z.infer<typeof Schema.shape.lineHeight>;
-    }
+    type Part = Partial<Parsed>;
+    type JSON = Omit<Parsed, "size"> & {
+        size: {
+            rem: Parsed['size'];
+            pt: Parsed['size'];
+            px: Parsed['size'];
+        };
+    };
+    type ScssVars = {
+        font: Omit<Parsed, "lineHeight">;
+        line_height: Parsed['lineHeight'];
+    };
 }
 //# sourceMappingURL=Typography.d.ts.map

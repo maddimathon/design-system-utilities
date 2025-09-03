@@ -44,18 +44,24 @@ export class Tokens_CSS_Border extends AbstractTokens {
     width;
     constructor(input) {
         super(input ?? {});
-        this.radius = this.objectMap(this.parseSchema(this.schema.shape.radius, input?.radius ?? {}, {
+        this.radius = this.parseSchema(this.schema.shape.radius, input?.radius ?? {}, {
             name: 'Tokens_CSS_Border.radius',
             location: 'src/ts/02-tokens/Tokens/CSS/CSS_Border.ts:74',
-        }), (key, value) => key && this.roundToPixel(value, 32));
-        this.stroke = this.objectMap(this.parseSchema(this.schema.shape.stroke, input?.stroke ?? {}, {
+        });
+        this.stroke = this.parseSchema(this.schema.shape.stroke, input?.stroke ?? {}, {
             name: 'Tokens_CSS_Border.stroke',
             location: 'src/ts/02-tokens/Tokens/CSS/CSS_Border.ts:86',
-        }), (key, value) => key && this.roundToPixel(value, 32));
-        this.width = this.objectMap(this.parseSchema(this.schema.shape.width, input?.width ?? {}, {
+        });
+        this.width = this.parseSchema(this.schema.shape.width, input?.width ?? {}, {
             name: 'Tokens_CSS_Border.width',
             location: 'src/ts/02-tokens/Tokens/CSS/CSS_Border.ts:98',
-        }), (key, value) => key && this.roundToPixel(value, 32));
+        });
+    }
+    toJSON() {
+        return this.valueOf();
+    }
+    toScssVars() {
+        return this.valueOf();
     }
     valueOf() {
         return {
@@ -64,12 +70,6 @@ export class Tokens_CSS_Border extends AbstractTokens {
             width: this.width,
         };
     }
-    toJSON() {
-        return this.valueOf();
-    }
-    toScssVars() {
-        return this.valueOf();
-    }
 }
 /**
  * Utilities for the {@link Tokens} class.
@@ -77,18 +77,24 @@ export class Tokens_CSS_Border extends AbstractTokens {
  * @since 0.1.0-alpha.draft
  */
 (function (Tokens_CSS_Border) {
+    /* SCHEMA
+     * ====================================================================== */
     Tokens_CSS_Border.Schema = z.object({
         radius: z.object({
             '100': z.number().default(0.25),
             '200': z.number().default(0.375),
             '400': z.number().default(0.625),
-        }).and(z.record(tokenLevels_extended, z.number())),
+        }).and(z.record(tokenLevels_extended, z.number())).transform((map) => AbstractTokens.objectMap(map, (_key, _value) => _key && (typeof _value === 'number'
+            ? AbstractTokens.roundToPixel(_value, 32)
+            : _value))),
         width: z.object({
             '100': z.number().default(0.0625),
             '200': z.number().default(0.125),
             '300': z.number().default(0.1875),
             '400': z.number().default(0.25),
-        }).and(z.record(tokenLevels_extended, z.number())),
+        }).and(z.record(tokenLevels_extended, z.number())).transform((map) => AbstractTokens.objectMap(map, (_key, _value) => _key && (typeof _value === 'number'
+            ? AbstractTokens.roundToPixel(_value, 32)
+            : _value))),
         stroke: z.object({
             '100': z.number().default(0.5 / 16),
             '200': z.number().default(1 / 16),
@@ -96,10 +102,10 @@ export class Tokens_CSS_Border extends AbstractTokens {
             '600': z.number().default(3 / 16),
             '800': z.number().default(4 / 16),
             '900': z.number().default(6 / 16),
-        }).and(z.record(tokenLevels_extended, z.number())),
+        }).and(z.record(tokenLevels_extended, z.number())).transform((map) => AbstractTokens.objectMap(map, (_key, _value) => _key && (typeof _value === 'number'
+            ? AbstractTokens.roundToPixel(_value, 32)
+            : _value))),
     });
-    ;
-    ;
     ;
 })(Tokens_CSS_Border || (Tokens_CSS_Border = {}));
 //# sourceMappingURL=CSS_Border.js.map

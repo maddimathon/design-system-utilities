@@ -59,13 +59,7 @@ export class AbstractTokens {
         return result.data;
     }
     objectMap(obj, mapper) {
-        // @ts-expect-error
-        let mapped = {};
-        for (const t_key in obj) {
-            const key = t_key;
-            mapped[key] = mapper(key, obj[key]);
-        }
-        return mapped;
+        return AbstractTokens.objectMap(obj, mapper);
     }
     /**
      * Returns a single-level object record with kebab case keys based on nested
@@ -109,7 +103,7 @@ export class AbstractTokens {
         return flat;
     }
     roundToPixel(num, factor = 16) {
-        return (Math.round(num * factor) / factor);
+        return AbstractTokens.roundToPixel(num, factor);
     }
     toScss() {
         return JsonToScss.convert(this.toScssVars()) || '()';
@@ -230,5 +224,19 @@ export class AbstractTokens {
     (function (Tokens_Error) {
         ;
     })(Tokens_Error = AbstractTokens.Tokens_Error || (AbstractTokens.Tokens_Error = {}));
+    function objectMap(obj, mapper) {
+        // @ts-expect-error
+        let mapped = {};
+        for (const t_key in obj) {
+            const key = t_key;
+            mapped[key] = mapper(key, obj[key]);
+        }
+        return mapped;
+    }
+    AbstractTokens.objectMap = objectMap;
+    function roundToPixel(num, factor = 16) {
+        return (Math.round(num * factor) / factor);
+    }
+    AbstractTokens.roundToPixel = roundToPixel;
 })(AbstractTokens || (AbstractTokens = {}));
 //# sourceMappingURL=AbstractTokens.js.map

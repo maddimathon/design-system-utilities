@@ -31,8 +31,8 @@ type RecursiveRecord<
 export abstract class AbstractTokens<
     T_SystemSchema extends z.ZodTypeAny,
     T_ExportType extends object = z.infer<T_SystemSchema>,
-    T_InputType extends object = Partial<z.infer<T_SystemSchema>>,
-    T_JsonType extends object = T_ExportType,
+    T_InputType extends number | object | string = Partial<z.infer<T_SystemSchema>>,
+    T_JsonType extends number | object | string = T_ExportType,
     T_ScssType extends number | object | string = T_ExportType,
 > {
 
@@ -119,17 +119,7 @@ export abstract class AbstractTokens<
         obj: T_Object,
         mapper: ( key: keyof T_Object, value: T_Object[ keyof T_Object ] ) => T_Return,
     ): { [ K in keyof T_Object ]: T_Return } {
-
-        // @ts-expect-error
-        let mapped: { [ K in keyof T_Object ]: T_Return } = {};
-
-        for ( const t_key in obj ) {
-            const key = t_key as keyof T_Object;
-
-            mapped[ key ] = mapper( key, obj[ key ] );
-        }
-
-        return mapped;
+        return AbstractTokens.objectMap( obj, mapper );
     }
 
     /**
@@ -196,7 +186,7 @@ export abstract class AbstractTokens<
     }
 
     protected roundToPixel( num: number, factor: number = 16 ): number {
-        return ( Math.round( num * factor ) / factor );
+        return AbstractTokens.roundToPixel( num, factor );
     }
 
 
@@ -391,5 +381,29 @@ export namespace AbstractTokens {
             /** Location where schema is being tested. */
             location: string;
         };
+    }
+
+    export function objectMap<
+        T_Object extends object,
+        T_Return extends unknown,
+    >(
+        obj: T_Object,
+        mapper: ( key: keyof T_Object, value: T_Object[ keyof T_Object ] ) => T_Return,
+    ): { [ K in keyof T_Object ]: T_Return; } {
+
+        // @ts-expect-error
+        let mapped: { [ K in keyof T_Object ]: T_Return } = {};
+
+        for ( const t_key in obj ) {
+            const key = t_key as keyof T_Object;
+
+            mapped[ key ] = mapper( key, obj[ key ] );
+        }
+
+        return mapped;
+    }
+
+    export function roundToPixel( num: number, factor: number = 16 ): number {
+        return ( Math.round( num * factor ) / factor );
     }
 }

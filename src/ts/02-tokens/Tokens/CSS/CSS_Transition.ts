@@ -19,7 +19,7 @@ import { AbstractTokens } from '../../abstracts/AbstractTokens.js';
  */
 export class Tokens_CSS_Transition extends AbstractTokens<
     typeof Tokens_CSS_Transition.Schema,
-    Tokens_CSS_Transition.Export,
+    Tokens_CSS_Transition.Parsed,
     Tokens_CSS_Transition.Part,
     Tokens_CSS_Transition.JSON,
     Tokens_CSS_Transition.ScssVars
@@ -34,7 +34,7 @@ export class Tokens_CSS_Transition extends AbstractTokens<
      * 
      * Default keys are 'fast', 'normal', 'slow'.
      */
-    public readonly time: Tokens_CSS_Transition.Export[ 'time' ];
+    public readonly time: Tokens_CSS_Transition.Parsed[ 'time' ];
 
     public constructor (
         input?: Tokens_CSS_Transition.Part,
@@ -51,19 +51,19 @@ export class Tokens_CSS_Transition extends AbstractTokens<
         );
     }
 
-    public valueOf(): Tokens_CSS_Transition.Export {
-
-        return {
-            time: this.time,
-        };
-    }
-
     public toJSON() {
         return this.valueOf();
     }
 
     public toScssVars() {
         return this.valueOf();
+    }
+
+    public valueOf(): Tokens_CSS_Transition.Parsed {
+
+        return {
+            time: this.time,
+        };
     }
 }
 
@@ -73,6 +73,11 @@ export class Tokens_CSS_Transition extends AbstractTokens<
  * @since ___PKG_VERSION___
  */
 export namespace Tokens_CSS_Transition {
+
+
+
+    /* SCHEMA
+     * ====================================================================== */
 
     const transitionTime = z.string().regex( /^\d+m?s$/ );
 
@@ -85,9 +90,12 @@ export namespace Tokens_CSS_Transition {
         } ).and( z.record( z.string(), transitionTime ) ),
     } );
 
-    export interface Export extends z.infer<typeof Schema> { };
 
-    export interface JSON extends z.infer<typeof Schema> { };
+
+    /* TYPES
+     * ====================================================================== */
+
+    export type Parsed = z.infer<typeof Schema>;
 
     /**
      * The partialized version of the {@link Tokens_CSS_Transition.Schema}
@@ -99,5 +107,7 @@ export namespace Tokens_CSS_Transition {
         time?: Partial<z.infer<typeof Schema.shape.time>>,
     }
 
-    export interface ScssVars extends z.infer<typeof Schema> { };
+    export type JSON = Parsed;
+
+    export type ScssVars = Parsed;
 }

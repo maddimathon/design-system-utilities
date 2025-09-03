@@ -15,7 +15,7 @@ import { AbstractTokens } from '../../../abstracts/AbstractTokens.js';
  * @since 0.1.0-alpha.draft
  * @internal
  */
-export declare class Tokens_Colour_ShadeMap_Shade extends AbstractTokens<typeof Tokens_Colour_ShadeMap_Shade.Schema, Tokens_Colour_ShadeMap_Shade.Export, Partial<Tokens_Colour_ShadeMap_Shade.Export>, Tokens_Colour_ShadeMap_Shade.JSON, Tokens_Colour_ShadeMap_Shade.ScssVars> {
+export declare class Tokens_Colour_ShadeMap_Shade extends AbstractTokens<typeof Tokens_Colour_ShadeMap_Shade.Schema, Tokens_Colour_ShadeMap_Shade.Parsed, Tokens_Colour_ShadeMap_Shade.Part, Tokens_Colour_ShadeMap_Shade.JSON, Tokens_Colour_ShadeMap_Shade.ScssVars> {
     readonly name: string;
     get schema(): z.ZodEffects<z.ZodUnion<[z.ZodString, z.ZodObject<{
         h: z.ZodNumber;
@@ -163,12 +163,12 @@ export declare class Tokens_Colour_ShadeMap_Shade extends AbstractTokens<typeof 
             c: number;
         };
     }>;
-    readonly hex: Tokens_Colour_ShadeMap_Shade.Export['hex'];
-    readonly hsl: Tokens_Colour_ShadeMap_Shade.Export['hsl'];
-    readonly rgb: Tokens_Colour_ShadeMap_Shade.Export['rgb'];
-    readonly oklch: Tokens_Colour_ShadeMap_Shade.Export['oklch'];
+    readonly hex: Tokens_Colour_ShadeMap_Shade.Parsed['hex'];
+    readonly hsl: Tokens_Colour_ShadeMap_Shade.Parsed['hsl'];
+    readonly rgb: Tokens_Colour_ShadeMap_Shade.Parsed['rgb'];
+    readonly oklch: Tokens_Colour_ShadeMap_Shade.Parsed['oklch'];
     constructor(name: string, input: z.input<typeof Tokens_Colour_ShadeMap_Shade.Schema> | z.output<typeof Tokens_Colour_ShadeMap_Shade.Schema>);
-    valueOf(): Tokens_Colour_ShadeMap_Shade.Export;
+    valueOf(): Tokens_Colour_ShadeMap_Shade.Parsed;
     toJSON(): Tokens_Colour_ShadeMap_Shade.JSON;
     toScssVars(): Tokens_Colour_ShadeMap_Shade.ScssVars;
 }
@@ -365,10 +365,18 @@ export declare namespace Tokens_Colour_ShadeMap_Shade {
             c: number;
         };
     }>;
-    interface Export extends z.output<typeof Schema> {
-    }
-    interface JSON extends Export {
-    }
+    type Parsed = z.output<typeof Schema>;
+    /**
+     * The partialized version of the {@link Tokens_TEMPLATE.Schema} accepted as input.
+     *
+     * @since 0.1.0-alpha.draft
+     */
+    type Part = z.input<typeof Schema>;
+    type JSON = Parsed;
     type ScssVars = string;
+    function toHex(clr: Tokens_Colour_ShadeMap_Shade | z.input<typeof Schema>): z.infer<typeof Schema_Hex>;
+    function toHSL(clr: Tokens_Colour_ShadeMap_Shade | z.input<typeof Schema>): z.infer<typeof Schema_HSL>;
+    function toOKLCH(clr: Tokens_Colour_ShadeMap_Shade | z.input<typeof Schema>): z.infer<typeof Schema_OKLCH>;
+    function toRGB(clr: Tokens_Colour_ShadeMap_Shade | z.input<typeof Schema>): z.infer<typeof Schema_RGB>;
 }
 //# sourceMappingURL=Colour_ShadeMap_Shade.d.ts.map

@@ -16,86 +16,99 @@ import { Tokens_Colour_ShadeMap } from './Colour/Colour_ShadeMap.js';
  * @since 0.1.0-alpha.draft
  * @internal
  */
+// <
+//     T_AdditionalShadeMaps extends string = never,
+// >
 export class Tokens_Colour extends AbstractTokens {
-    static get DEFAULT() {
-        return {
-            base: {},
-            primary: {
-                '100': { h: 281, s: 81, l: 97 },
-                '500': { h: 281, s: 50, l: 53 },
-                '900': { h: 281, s: 85, l: 2 },
-            },
-            secondary: {
-                '100': { h: 146, s: 72, l: 95 },
-                '500': { h: 166, s: 90, l: 29 },
-                '900': { h: 166, s: 100, l: 1 },
-            },
-            active: {
-                '100': { h: 350, s: 83, l: 97 },
-                '500': { h: 350, s: 49, l: 54 },
-                '900': { h: 357, s: 100, l: 2 },
-            },
-        };
-    }
     get schema() {
         return Tokens_Colour.Schema;
     }
-    additionalMapKeys;
+    // protected readonly additionalMapKeys: T_AdditionalShadeMaps[];
     base;
     primary;
     secondary;
     active;
-    additional;
+    // public readonly additional: {
+    //     [ K in T_AdditionalShadeMaps ]: Tokens_Colour_ShadeMap;
+    // };
+    // public constructor (
+    //     input: Tokens_Colour.Part,
+    // );
+    // public constructor (
+    //     input?: Tokens_Colour.Part<never>,
+    // );
     constructor(input) {
-        super(input ?? Tokens_Colour.DEFAULT);
-        this.base = new Tokens_Colour_ShadeMap('base', input?.base ?? {});
-        this.primary = new Tokens_Colour_ShadeMap('primary', input?.primary ?? {});
-        this.secondary = new Tokens_Colour_ShadeMap('secondary', input?.secondary ?? {});
-        this.active = new Tokens_Colour_ShadeMap('active', input?.active ?? {});
-        this.additionalMapKeys = Object.keys(input ?? {}).filter(_key => _key.match(/^(base|primary|secondary|active)$/gi) === null);
-        const addMaps = {};
-        for (const key of this.additionalMapKeys) {
-            addMaps[key] = new Tokens_Colour_ShadeMap(key, input?.[key]);
-        }
-        this.additional = addMaps;
+        super(input ?? {});
+        const parsed = this.parseSchema(this.schema, input, {
+            name: `Tokens_Colour`,
+            location: 'src/ts/02-tokens/Tokens/Colour.ts:66',
+        });
+        this.base = parsed.base;
+        this.primary = parsed.primary;
+        this.secondary = parsed.secondary;
+        this.active = parsed.active;
+        // this.additionalMapKeys = Object.keys( input ?? {} ).filter(
+        //     _key => _key.match( /^(base|primary|secondary|active)$/gi ) === null
+        // ) as T_AdditionalShadeMaps[];
+        // const addMaps: {
+        //     [ K in T_AdditionalShadeMaps ]?: Tokens_Colour_ShadeMap;
+        // } = {};
+        // for ( const key of this.additionalMapKeys ) {
+        //     addMaps[ key ] = new Tokens_Colour_ShadeMap( key, input?.[ key ] );
+        // }
+        // this.additional = addMaps as {
+        //     [ K in T_AdditionalShadeMaps ]: Tokens_Colour_ShadeMap;
+        // };
     }
     valueOf() {
-        const addMaps = {};
-        for (const key of this.additionalMapKeys) {
-            addMaps[key] = this.additional[key].valueOf();
-        }
+        // const addMaps: {
+        //     [ K in T_AdditionalShadeMaps ]?: Tokens_Colour_ShadeMap.Parsed;
+        // } = {};
+        // for ( const key of this.additionalMapKeys ) {
+        //     addMaps[ key ] = this.additional[ key ].valueOf();
+        // }
         return {
             base: this.base.valueOf(),
             primary: this.primary.valueOf(),
             secondary: this.secondary.valueOf(),
             active: this.active.valueOf(),
-            ...addMaps,
+            // ...addMaps as {
+            //     [ K in T_AdditionalShadeMaps ]: Tokens_Colour_ShadeMap.Parsed;
+            // },
         };
     }
     toJSON() {
-        const addMaps = {};
-        for (const key of this.additionalMapKeys) {
-            addMaps[key] = this.additional[key].toJSON();
-        }
+        // const addMaps: {
+        //     [ K in T_AdditionalShadeMaps ]?: Tokens_Colour_ShadeMap.JSON;
+        // } = {};
+        // for ( const key of this.additionalMapKeys ) {
+        //     addMaps[ key ] = this.additional[ key ].toJSON();
+        // }
         return {
             base: this.base.toJSON(),
             primary: this.primary.toJSON(),
             secondary: this.secondary.toJSON(),
             active: this.active.toJSON(),
-            ...addMaps,
+            // ...addMaps as {
+            //     [ K in T_AdditionalShadeMaps ]: Tokens_Colour_ShadeMap.JSON;
+            // },
         };
     }
     toScssVars() {
-        const addMaps = {};
-        for (const key of this.additionalMapKeys) {
-            addMaps[key] = this.additional[key].toScssVars();
-        }
+        // const addMaps: {
+        //     [ K in T_AdditionalShadeMaps ]?: Tokens_Colour_ShadeMap.ScssVars;
+        // } = {};
+        // for ( const key of this.additionalMapKeys ) {
+        //     addMaps[ key ] = this.additional[ key ].toScssVars();
+        // }
         return {
             base: this.base.toScssVars(),
             primary: this.primary.toScssVars(),
             secondary: this.secondary.toScssVars(),
             active: this.active.toScssVars(),
-            ...addMaps,
+            // ...addMaps as {
+            //     [ K in T_AdditionalShadeMaps ]: Tokens_Colour_ShadeMap.ScssVars;
+            // },
         };
     }
 }
@@ -106,11 +119,26 @@ export class Tokens_Colour extends AbstractTokens {
  * @internal
  */
 (function (Tokens_Colour) {
+    /* SCHEMA
+     * ====================================================================== */
+    // TODO - make this work by only setting 500
     Tokens_Colour.Schema = z.object({
-        base: Tokens_Colour_ShadeMap.Schema,
-        primary: Tokens_Colour_ShadeMap.Schema,
-        secondary: Tokens_Colour_ShadeMap.Schema,
-        active: Tokens_Colour_ShadeMap.Schema,
-    }).and(z.record(z.string(), Tokens_Colour_ShadeMap.Schema));
+        base: Tokens_Colour_ShadeMap.Schema.default({}),
+        primary: Tokens_Colour_ShadeMap.Schema.default({
+            '100': { l: 96, c: 7, h: 318 },
+            '500': { l: 47, c: 50, h: 318 },
+            '900': { l: 2, c: 4, h: 318 },
+        }),
+        secondary: Tokens_Colour_ShadeMap.Schema.default({
+            '100': { l: 98, c: 8.5, h: 180 },
+            '500': { l: 52, c: 40.5, h: 180 },
+            '900': { l: 2, c: 100, h: 180 },
+        }),
+        active: Tokens_Colour_ShadeMap.Schema.default({
+            '100': { l: 96, c: 5, h: 15 },
+            '500': { l: 50, c: 49, h: 15 },
+            '900': { l: 2, c: 3, h: 15 },
+        }),
+    }).transform((part) => AbstractTokens.objectMap(part, (key, value) => new Tokens_Colour_ShadeMap(`Tokens_Colour.${key}`, value)));
 })(Tokens_Colour || (Tokens_Colour = {}));
 //# sourceMappingURL=Colour.js.map

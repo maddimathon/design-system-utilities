@@ -55,12 +55,6 @@ export class Tokens_Spacing extends AbstractTokens {
             location: 'src/ts/02-tokens/Tokens/Spacing.ts:80',
         });
     }
-    valueOf() {
-        return {
-            multiplier: this.multiplier,
-            margin: this.margin,
-        };
-    }
     toJSON() {
         const _converter = (_val, _opts) => {
             const opts = {
@@ -100,6 +94,12 @@ export class Tokens_Spacing extends AbstractTokens {
             spacing_multiplier: this.multiplier,
         };
     }
+    valueOf() {
+        return {
+            multiplier: this.multiplier,
+            margin: this.margin,
+        };
+    }
 }
 /**
  * Utilities for the {@link Tokens} class.
@@ -108,6 +108,8 @@ export class Tokens_Spacing extends AbstractTokens {
  * @internal
  */
 (function (Tokens_Spacing) {
+    /* SCHEMA
+     * ====================================================================== */
     Tokens_Spacing.Schema = z.object({
         multiplier: z.number().default(1.15625),
         margin: z.object({
@@ -119,8 +121,5 @@ export class Tokens_Spacing extends AbstractTokens {
             '800': z.number().default(8),
         }).and(z.record(tokenLevels_extended, z.number())),
     });
-    ;
-    ;
-    ;
 })(Tokens_Spacing || (Tokens_Spacing = {}));
 //# sourceMappingURL=Spacing.js.map
