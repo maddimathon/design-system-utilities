@@ -10,8 +10,9 @@
 @forward '02-01-05-animation';
 @forward '02-01-06-decoration';
 
-@use 'pkg:@maddimathon/utility-sass' as lib;
 @use 'pkg:@maddimathon/utility-sass/meta';
+
+@use '../../utility-sass' as lib;
 
 // @use '02-01-01-spacing' as *;
 // @use '02-01-02-modes' as *;
@@ -43,22 +44,20 @@
     $zIndex: true
 ) {
     @include lib.tokens-all(
+        $borderWidth: $borderWidth,
         $custom: $custom,
         $fontSize: $fontSize,
         $lineHeight: $lineHeight,
         $margin: $margin,
+        $strokeRelative: $strokeRelative,
+
+        // TODO - use config.$include_html for html-specific css
         $widths: false
     );
 
     // decoration
     @if $borderRadius {
         @include tokens-border-radius;
-    }
-    @if $borderWidth {
-        @include tokens-border-width;
-    }
-    @if $strokeRelative {
-        @include tokens-stroke-relative;
     }
     @if $zIndex {
         @include tokens-z-index;
@@ -75,8 +74,4 @@
     @if $theme {
         @include tokens-theme;
     }
-
-    /* 
-        tokens.$customTokens = #{meta.var-dump( tokens.$customTokens )}
-     */
 }

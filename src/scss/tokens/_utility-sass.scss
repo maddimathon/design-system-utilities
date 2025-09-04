@@ -9,7 +9,9 @@
 @use 'default';
 
 // TODO - figure out why custom props aren't printing
-@forward 'pkg:@maddimathon/utility-sass/tokens' with (
+@forward 'pkg:@maddimathon/utility-sass/templates/base/tokens' with (
+    $border_widths: map.get(default.$border, width),
+    $strokes_relative: map.get(default.$border, stroke),
     $brightnessMode_all: map.keys(map.get(default.$theme, average)),
     $contrastMode_all: map.keys(default.$theme),
     $customTokens: custom.$customTokens,

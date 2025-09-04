@@ -27,9 +27,6 @@
 /* ## Typography - Inline ==================================== */
 
 a {
-    display: inline;
-    border: none;
-    text-decoration: underline #{var-stroke-relative('200')};
     color: #{var-theme(link)};
 
     /// STATES ///
@@ -44,11 +41,17 @@ a {
         --focus-ring-outline-color: #{var-theme(link-active)};
         color: #{var-theme(link-active)};
     }
+
+    /// EXCEPTIONS ///
+
+    &.no-style {
+    }
+
+    &[aria-disabled='true'] {
+    }
 }
 
 abbr[title] {
-    text-decoration: dotted underline #{var-stroke-relative('400')};
-    cursor: help;
 }
 
 /* ## Typography - Block ==================================== */

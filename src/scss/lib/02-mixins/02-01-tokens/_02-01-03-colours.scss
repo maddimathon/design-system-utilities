@@ -11,8 +11,9 @@
 @use 'pkg:@maddimathon/utility-sass/selector';
 @use 'pkg:@maddimathon/utility-sass/string';
 
-@use 'pkg:@maddimathon/utility-sass' as lib;
+@use '../../utility-sass' as lib;
 
+// @use '../../../config';
 @use '../../../tokens';
 
 @use '../../01-functions' as *;
@@ -87,12 +88,18 @@
         }
     }
 
-    /*#region contrast forced-colors */
+    /*#region Tokens - Theme - forced-colors contrast */
     @include lib.forced-colors {
-        @each $prop,
-            $value in map.flatten(map.get(tokens.$theme, forced-colors))
-        {
-            --theme-#{$prop}: #{$value} !important;
+        // all colour modes to ensure the right specificity
+        @include lib.colour-mode(
+            tokens.$brightnessMode_all,
+            $includeQuery: false
+        ) {
+            @each $prop,
+                $value in map.flatten(map.get(tokens.$theme, forced-colors))
+            {
+                --theme-#{$prop}: #{$value} !important;
+            }
         }
     }
     /*#endregion contrast forced-colors */

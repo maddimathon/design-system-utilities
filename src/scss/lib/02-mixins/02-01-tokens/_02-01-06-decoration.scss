@@ -11,8 +11,9 @@
 @use 'pkg:@maddimathon/utility-sass/selector';
 // @use 'pkg:@maddimathon/utility-sass/string';
 
-// @use 'pkg:@maddimathon/utility-sass' as lib;
+// @use '../../utility-sass' as lib;
 
+// @use '../../../config';
 @use '../../../tokens';
 
 @use '../../01-functions' as *;
@@ -30,36 +31,6 @@
         }
     }
     /* #endregion Tokens - Border Radius */
-}
-
-///
-/// Prints out the border width custom property tokens based on config.
-///
-/// @since ___PKG_VERSION___
-///
-@mixin tokens-border-width {
-    /* #region Tokens - Border Width */
-    #{selector.parent-or-root()} {
-        @each $slug, $_value in map.get(tokens.$border, width) {
-            --border-width-#{$slug}: #{border-width-value($slug)}rem;
-        }
-    }
-    /* #endregion Tokens - Border Width */
-}
-
-///
-/// Prints out the border width custom property tokens based on config.
-///
-/// @since ___PKG_VERSION___
-///
-@mixin tokens-stroke-relative {
-    /* #region Tokens - Stroke Relative */
-    #{selector.parent-or-root()} {
-        @each $slug, $_value in map.get(tokens.$border, stroke) {
-            --stroke-relative-#{$slug}: #{stroke-relative-value($slug)}em;
-        }
-    }
-    /* #endregion Tokens - Stroke Relative */
 }
 
 ///
