@@ -23,18 +23,25 @@ import { SITE_TITLE } from '../constants.js';
 /* import - layouts */
 import UtilPage from '@maddimathon/utility-astro/layouts/Page';
 import type * as UtilPageTypes from '@maddimathon/utility-astro/layouts/Page';
+import type { ArrayItem } from '@maddimathon/utility-typescript/types';
 
 /* TYPES ===================================== */
 
 /* PROPS ===================================== */
 
-export interface Props extends Partial<UtilPageTypes.Props> {}
+type Partial_UtilProps = Partial<UtilPageTypes.Props> &
+    Pick<UtilPageTypes.Props, 'title'>;
+
+export interface Props extends Partial_UtilProps {}
 
 const inputs: Props = Astro.props.frontmatter ?? Astro.props;
 
 const props: Props & UtilPageTypes.Props = mergeArgs(
     {
         title: SITE_TITLE,
+
+        dir: 'ltr',
+        lang: 'en-CA',
 
         footer: {
             copyright: {
@@ -63,8 +70,14 @@ const props: Props & UtilPageTypes.Props = mergeArgs(
         // skipLinks: [
         // ],
 
+        settings: {
+            brightness: true,
+            contrast: true,
+            motion: true,
+        },
+
         support: {
-            settings: false,
+            settings: true,
         },
     } as Props & UtilPageTypes.Props,
     inputs,
@@ -73,13 +86,31 @@ const props: Props & UtilPageTypes.Props = mergeArgs(
 
 /* CONSTANTS ===================================== */
 
+const _menuMapper = (
+    _obj: ArrayItem<[] & UtilPageTypes.Props['primaryMenu']>
+) => {
+    if (typeof _obj.href === 'string') {
+        _obj.href = relativeURL(Astro.url, _obj.href);
+    }
+    if (_obj.child?.length) {
+        _obj.child = _obj.child.map(_menuMapper);
+    }
+    return _obj;
+};
+
 props.primaryMenu = [
     { label: 'Home', href: '' },
+    {
+        label: 'SCSS',
+        child: [
+            {
+                label: 'Templates',
+                child: [{ label: 'HTML', href: 'scss/templates/html' }],
+            },
+        ],
+    },
     { label: 'MIT License', href: 'license' },
-].map((_obj) => {
-    _obj.href = relativeURL(Astro.url, _obj.href);
-    return _obj;
-});
+].map(_menuMapper);
 ---
 
 <UtilPage {...props}>

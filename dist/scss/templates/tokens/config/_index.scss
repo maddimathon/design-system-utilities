@@ -3,10 +3,7 @@
 /// @since 0.1.0-alpha.draft
 ///
 
-@forward '../../../config' with (
-    $internal_supressCredit: true,
-    $include_normalize: false !default
-);
+@forward '_lib' hide print-tokens, $print_tokens;
 
 @use '../../../config/utility-sass' as utils;
 
@@ -15,3 +12,12 @@ $internal_supressCredit: utils.config-valid-bool(
     $internal_supressCredit,
     'internal_supressCredit'
 );
+
+$print_tokens: true !default;
+$print_tokens: utils.config-valid-bool($print_tokens, 'print_tokens');
+
+@mixin print-tokens {
+    @if $print_tokens {
+        @content;
+    }
+}

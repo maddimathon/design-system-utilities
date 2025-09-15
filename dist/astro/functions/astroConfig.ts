@@ -89,6 +89,12 @@ export function astroConfig(
         site: homepage.origin,
 
         srcDir,
+
+        vite: {
+            build: {
+                assetsInlineLimit: 9999999,
+            },
+        },
     };
 
     return mergeArgs( astroDefaultConfig, {

@@ -3,14 +3,16 @@
 /// @since 0.1.0-alpha.draft
 ///
 
-// @use 'pkg:@maddimathon/utility-sass/colour';
-// @use 'pkg:@maddimathon/utility-sass/list';
-// @use 'pkg:@maddimathon/utility-sass/map';
-// @use 'pkg:@maddimathon/utility-sass/math';
-// @use 'pkg:@maddimathon/utility-sass/meta';
-// @use 'pkg:@maddimathon/utility-sass/selector';
-// @use 'pkg:@maddimathon/utility-sass/string';
+@forward '00-abstracts';
 
-@use '../lib';
+@forward 'pkg:@maddimathon/utility-sass/templates/base' hide print-tokens,
+    snippet-button, snippet-input, snippet-input-types, snippet-label,
+    tokens-all, $font_sizes, $internal_supressCredit, $line_heights, $margins,
+    $print_tokens, $scale_multiplier;
 
-@include lib.tokens-all;
+// @forward '01-accessibility';
+// @forward '02-objects';
+// @forward '03-typography';
+// @forward '04-lists';
+// @forward '05-forms';
+// @forward '06-tables';

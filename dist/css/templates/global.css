@@ -1,27 +1,12 @@
 @charset "UTF-8";
 /*!
- * Design System Utilities — Sass Template — Global
+ * Design System Utilities - Sass Template - Global
  * 
  * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * License: MIT
  */
-/*!
- * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0-alpha.draft
- * 
- * License: MIT
- */
 /* # TOKENS & PROPERTIES
  * ======================================================================== */
-/* #region Tokens - Width */
-:root {
-    --width-content: 36rem;
-    --width-sidebar: 17rem;
-    --width-callout: 29.25rem;
-    --width-page: 53rem;
-}
-
-/* #endregion Tokens - Width */
 /* #region Tokens - Margin */
 :root {
     --mrg-firm-100: 0.3125rem;
@@ -118,6 +103,925 @@
 }
 
 /* #endregion Tokens - Misc. */
+/* #region Tokens - Border Radius */
+:root {
+    --border-radius-100: 0.25rem;
+    --border-radius-200: 0.375rem;
+    --border-radius-400: 0.625rem;
+}
+
+/* #endregion Tokens - Border Radius */
+/* #region Tokens - Z Index */
+:root {
+    --z-index-nav: 1000;
+    --z-index-settings: 9999;
+    --z-index-skipLink: 99999;
+}
+
+/* #endregion Tokens - Z Index */
+/* #region Tokens - Transition Time */
+:root {
+    --tr-time-fast: 250ms;
+    --tr-time-normal: 500ms;
+    --tr-time-slow: 750ms;
+}
+
+/* #endregion Tokens - Transition Time */
+/* #region Tokens - Colour */
+:root {
+    --clr-base-100: hsl(0, 0%, 97.73%);
+    --clr-base-200: hsl(0, 0%, 84.33%);
+    --clr-base-300: hsl(0, 0%, 71.32%);
+    --clr-base-400: hsl(0, 0%, 58.74%);
+    --clr-base-500: hsl(0, 0%, 46.63%);
+    --clr-base-600: hsl(0, 0%, 35.07%);
+    --clr-base-700: hsl(0, 0%, 24.13%);
+    --clr-base-800: hsl(0, 0%, 13.96%);
+    --clr-base-900: hsl(0, 0%, 2.86%);
+    --clr-primary-100: hsl(290, 73.25%, 96.68%);
+    --clr-primary-200: hsl(289.28, 39.64%, 84.78%);
+    --clr-primary-300: hsl(288.48, 35.22%, 73.08%);
+    --clr-primary-400: hsl(287.59, 33.28%, 61.54%);
+    --clr-primary-500: hsl(286.64, 32.21%, 50.09%);
+    --clr-primary-600: hsl(286.79, 31.05%, 37.73%);
+    --clr-primary-700: hsl(287.04, 29.43%, 26.02%);
+    --clr-primary-800: hsl(287.56, 26.45%, 15.1%);
+    --clr-primary-900: hsl(291.51, 45.77%, 3.67%);
+    --clr-secondary-100: hsl(165.36, 95.21%, 95.27%);
+    --clr-secondary-200: hsl(166.2, 43.35%, 79.89%);
+    --clr-secondary-300: hsl(167.33, 36.89%, 64.41%);
+    --clr-secondary-400: hsl(169.07, 38.65%, 48%);
+    --clr-secondary-500: hsl(173.48, 100%, 20.75%);
+    --clr-secondary-600: hsl(173.02, 100%, 7.41%);
+    --clr-secondary-700: hsl(171.77, 100%, 2.1%);
+    --clr-secondary-800: hsl(349.11, 100%, 0%);
+    --clr-secondary-900: hsl(338.61, 100%, 0%);
+    --clr-active-100: hsl(356.09, 85.55%, 96.89%);
+    --clr-active-200: hsl(355.24, 61.11%, 86.74%);
+    --clr-active-300: hsl(354.06, 54.89%, 76.23%);
+    --clr-active-400: hsl(352.3, 50.7%, 65.28%);
+    --clr-active-500: hsl(349.37, 47.61%, 53.57%);
+    --clr-active-600: hsl(350, 39.66%, 40.38%);
+    --clr-active-700: hsl(350.91, 37.24%, 27.85%);
+    --clr-active-800: hsl(352.37, 32.92%, 16.09%);
+    --clr-active-900: hsl(356.17, 49.77%, 3.85%);
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --clr-base-100: hsl(0, 0%, 97.73%);
+        --clr-base-200: hsl(0, 0%, 84.33%);
+        --clr-base-300: hsl(0, 0%, 71.32%);
+        --clr-base-400: hsl(0, 0%, 58.74%);
+        --clr-base-500: hsl(0, 0%, 46.63%);
+        --clr-base-600: hsl(0, 0%, 35.07%);
+        --clr-base-700: hsl(0, 0%, 24.13%);
+        --clr-base-800: hsl(0, 0%, 13.96%);
+        --clr-base-900: hsl(0, 0%, 2.86%);
+        --clr-primary-100: hsl(290, 73.25%, 96.68%);
+        --clr-primary-200: hsl(289.28, 39.64%, 84.78%);
+        --clr-primary-300: hsl(288.48, 35.22%, 73.08%);
+        --clr-primary-400: hsl(287.59, 33.28%, 61.54%);
+        --clr-primary-500: hsl(286.64, 32.21%, 50.09%);
+        --clr-primary-600: hsl(286.79, 31.05%, 37.73%);
+        --clr-primary-700: hsl(287.04, 29.43%, 26.02%);
+        --clr-primary-800: hsl(287.56, 26.45%, 15.1%);
+        --clr-primary-900: hsl(291.51, 45.77%, 3.67%);
+        --clr-secondary-100: hsl(165.36, 95.21%, 95.27%);
+        --clr-secondary-200: hsl(166.2, 43.35%, 79.89%);
+        --clr-secondary-300: hsl(167.33, 36.89%, 64.41%);
+        --clr-secondary-400: hsl(169.07, 38.65%, 48%);
+        --clr-secondary-500: hsl(173.48, 100%, 20.75%);
+        --clr-secondary-600: hsl(173.02, 100%, 7.41%);
+        --clr-secondary-700: hsl(171.77, 100%, 2.1%);
+        --clr-secondary-800: hsl(349.11, 100%, 0%);
+        --clr-secondary-900: hsl(338.61, 100%, 0%);
+        --clr-active-100: hsl(356.09, 85.55%, 96.89%);
+        --clr-active-200: hsl(355.24, 61.11%, 86.74%);
+        --clr-active-300: hsl(354.06, 54.89%, 76.23%);
+        --clr-active-400: hsl(352.3, 50.7%, 65.28%);
+        --clr-active-500: hsl(349.37, 47.61%, 53.57%);
+        --clr-active-600: hsl(350, 39.66%, 40.38%);
+        --clr-active-700: hsl(350.91, 37.24%, 27.85%);
+        --clr-active-800: hsl(352.37, 32.92%, 16.09%);
+        --clr-active-900: hsl(356.17, 49.77%, 3.85%);
+    }
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --clr-base-100: hsl(0, 0%, 2.86%);
+        --clr-base-200: hsl(0, 0%, 13.96%);
+        --clr-base-300: hsl(0, 0%, 24.13%);
+        --clr-base-400: hsl(0, 0%, 35.07%);
+        --clr-base-500: hsl(0, 0%, 46.63%);
+        --clr-base-600: hsl(0, 0%, 58.74%);
+        --clr-base-700: hsl(0, 0%, 71.32%);
+        --clr-base-800: hsl(0, 0%, 84.33%);
+        --clr-base-900: hsl(0, 0%, 97.73%);
+        --clr-primary-100: hsl(291.51, 45.77%, 3.67%);
+        --clr-primary-200: hsl(287.56, 26.45%, 15.1%);
+        --clr-primary-300: hsl(287.04, 29.43%, 26.02%);
+        --clr-primary-400: hsl(286.79, 31.05%, 37.73%);
+        --clr-primary-500: hsl(286.64, 32.21%, 50.09%);
+        --clr-primary-600: hsl(287.59, 33.28%, 61.54%);
+        --clr-primary-700: hsl(288.48, 35.22%, 73.08%);
+        --clr-primary-800: hsl(289.28, 39.64%, 84.78%);
+        --clr-primary-900: hsl(290, 73.25%, 96.68%);
+        --clr-secondary-100: hsl(338.61, 100%, 0%);
+        --clr-secondary-200: hsl(349.11, 100%, 0%);
+        --clr-secondary-300: hsl(171.77, 100%, 2.1%);
+        --clr-secondary-400: hsl(173.02, 100%, 7.41%);
+        --clr-secondary-500: hsl(173.48, 100%, 20.75%);
+        --clr-secondary-600: hsl(169.07, 38.65%, 48%);
+        --clr-secondary-700: hsl(167.33, 36.89%, 64.41%);
+        --clr-secondary-800: hsl(166.2, 43.35%, 79.89%);
+        --clr-secondary-900: hsl(165.36, 95.21%, 95.27%);
+        --clr-active-100: hsl(356.17, 49.77%, 3.85%);
+        --clr-active-200: hsl(352.37, 32.92%, 16.09%);
+        --clr-active-300: hsl(350.91, 37.24%, 27.85%);
+        --clr-active-400: hsl(350, 39.66%, 40.38%);
+        --clr-active-500: hsl(349.37, 47.61%, 53.57%);
+        --clr-active-600: hsl(352.3, 50.7%, 65.28%);
+        --clr-active-700: hsl(354.06, 54.89%, 76.23%);
+        --clr-active-800: hsl(355.24, 61.11%, 86.74%);
+        --clr-active-900: hsl(356.09, 85.55%, 96.89%);
+    }
+}
+/* #endregion Tokens - Colour */
+/*#region Tokens - Theme - light mode + average contrast */
+:root {
+    --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    --theme-text-primary: var(--clr-primary-800, hsl(287.56, 26.45%, 15.1%));
+    --theme-text-secondary: var(--clr-secondary-800, hsl(349.11, 100%, 0%));
+    --theme-text-active: var(--clr-active-800, hsl(352.37, 32.92%, 16.09%));
+    --theme-ui: var(--clr-base-800, hsl(0, 0%, 13.96%));
+    --theme-ui-primary: var(--clr-primary-700, hsl(287.04, 29.43%, 26.02%));
+    --theme-ui-secondary: var(--clr-secondary-700, hsl(171.77, 100%, 2.1%));
+    --theme-ui-active: var(--clr-active-700, hsl(350.91, 37.24%, 27.85%));
+    --theme-selection-bg: var(--clr-primary-700, hsl(287.04, 29.43%, 26.02%));
+    --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --theme-link: var(--clr-primary-800, hsl(287.56, 26.45%, 15.1%));
+    --theme-link-hover: var(--clr-secondary-800, hsl(349.11, 100%, 0%));
+    --theme-link-active: var(--clr-active-800, hsl(352.37, 32.92%, 16.09%));
+    --theme-button-bg: var(--clr-primary-800, hsl(287.56, 26.45%, 15.1%));
+    --theme-button-bg-hover: var(--clr-secondary-800, hsl(349.11, 100%, 0%));
+    --theme-button-bg-active: var(
+        --clr-active-800,
+        hsl(352.37, 32.92%, 16.09%)
+    );
+    --theme-button-border: var(--clr-primary-800, hsl(287.56, 26.45%, 15.1%));
+    --theme-button-border-hover: var(
+        --clr-secondary-800,
+        hsl(349.11, 100%, 0%)
+    );
+    --theme-button-border-active: var(
+        --clr-active-800,
+        hsl(352.37, 32.92%, 16.09%)
+    );
+    --theme-button-text: var(--clr-primary-200, hsl(289.28, 39.64%, 84.78%));
+    --theme-button-text-hover: var(
+        --clr-secondary-200,
+        hsl(166.2, 43.35%, 79.89%)
+    );
+    --theme-button-text-active: var(
+        --clr-active-200,
+        hsl(355.24, 61.11%, 86.74%)
+    );
+    --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --theme-field-border: var(--clr-primary-700, hsl(287.04, 29.43%, 26.02%));
+    --theme-field-border-hover: var(
+        --clr-secondary-700,
+        hsl(171.77, 100%, 2.1%)
+    );
+    --theme-field-border-active: var(
+        --clr-active-700,
+        hsl(350.91, 37.24%, 27.85%)
+    );
+    --theme-field-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 2.86%));
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-text-primary: var(
+            --clr-primary-800,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --theme-text-secondary: var(--clr-secondary-800, hsl(349.11, 100%, 0%));
+        --theme-text-active: var(--clr-active-800, hsl(352.37, 32.92%, 16.09%));
+        --theme-ui: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --theme-ui-primary: var(--clr-primary-700, hsl(287.04, 29.43%, 26.02%));
+        --theme-ui-secondary: var(--clr-secondary-700, hsl(171.77, 100%, 2.1%));
+        --theme-ui-active: var(--clr-active-700, hsl(350.91, 37.24%, 27.85%));
+        --theme-selection-bg: var(
+            --clr-primary-700,
+            hsl(287.04, 29.43%, 26.02%)
+        );
+        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-link: var(--clr-primary-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-link-hover: var(--clr-secondary-800, hsl(349.11, 100%, 0%));
+        --theme-link-active: var(--clr-active-800, hsl(352.37, 32.92%, 16.09%));
+        --theme-button-bg: var(--clr-primary-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-button-bg-hover: var(
+            --clr-secondary-800,
+            hsl(349.11, 100%, 0%)
+        );
+        --theme-button-bg-active: var(
+            --clr-active-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-button-border: var(
+            --clr-primary-800,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --theme-button-border-hover: var(
+            --clr-secondary-800,
+            hsl(349.11, 100%, 0%)
+        );
+        --theme-button-border-active: var(
+            --clr-active-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-button-text: var(
+            --clr-primary-200,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-button-text-hover: var(
+            --clr-secondary-200,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-button-text-active: var(
+            --clr-active-200,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-border: var(
+            --clr-primary-700,
+            hsl(287.04, 29.43%, 26.02%)
+        );
+        --theme-field-border-hover: var(
+            --clr-secondary-700,
+            hsl(171.77, 100%, 2.1%)
+        );
+        --theme-field-border-active: var(
+            --clr-active-700,
+            hsl(350.91, 37.24%, 27.85%)
+        );
+        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    }
+}
+/*#endregion Tokens - Theme - light mode + average contrast */
+/*#region Tokens - Theme - light mode + low contrast */
+@media (prefers-contrast: less) {
+    :root {
+        --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-text-primary: var(
+            --clr-primary-800,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --theme-text-secondary: var(--clr-secondary-800, hsl(349.11, 100%, 0%));
+        --theme-text-active: var(--clr-active-800, hsl(352.37, 32.92%, 16.09%));
+        --theme-ui: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --theme-ui-primary: var(--clr-primary-700, hsl(287.04, 29.43%, 26.02%));
+        --theme-ui-secondary: var(--clr-secondary-700, hsl(171.77, 100%, 2.1%));
+        --theme-ui-active: var(--clr-active-700, hsl(350.91, 37.24%, 27.85%));
+        --theme-selection-bg: var(
+            --clr-primary-700,
+            hsl(287.04, 29.43%, 26.02%)
+        );
+        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-link: var(--clr-primary-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-link-hover: var(--clr-secondary-800, hsl(349.11, 100%, 0%));
+        --theme-link-active: var(--clr-active-800, hsl(352.37, 32.92%, 16.09%));
+        --theme-button-bg: var(--clr-primary-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-button-bg-hover: var(
+            --clr-secondary-800,
+            hsl(349.11, 100%, 0%)
+        );
+        --theme-button-bg-active: var(
+            --clr-active-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-button-border: var(
+            --clr-primary-800,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --theme-button-border-hover: var(
+            --clr-secondary-800,
+            hsl(349.11, 100%, 0%)
+        );
+        --theme-button-border-active: var(
+            --clr-active-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-button-text: var(
+            --clr-primary-200,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-button-text-hover: var(
+            --clr-secondary-200,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-button-text-active: var(
+            --clr-active-200,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-border: var(
+            --clr-primary-700,
+            hsl(287.04, 29.43%, 26.02%)
+        );
+        --theme-field-border-hover: var(
+            --clr-secondary-700,
+            hsl(171.77, 100%, 2.1%)
+        );
+        --theme-field-border-active: var(
+            --clr-active-700,
+            hsl(350.91, 37.24%, 27.85%)
+        );
+        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    }
+}
+@media (( prefers-color-scheme: light ) and ( prefers-contrast: less )) {
+    :root {
+        --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-text-primary: var(
+            --clr-primary-800,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --theme-text-secondary: var(--clr-secondary-800, hsl(349.11, 100%, 0%));
+        --theme-text-active: var(--clr-active-800, hsl(352.37, 32.92%, 16.09%));
+        --theme-ui: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --theme-ui-primary: var(--clr-primary-700, hsl(287.04, 29.43%, 26.02%));
+        --theme-ui-secondary: var(--clr-secondary-700, hsl(171.77, 100%, 2.1%));
+        --theme-ui-active: var(--clr-active-700, hsl(350.91, 37.24%, 27.85%));
+        --theme-selection-bg: var(
+            --clr-primary-700,
+            hsl(287.04, 29.43%, 26.02%)
+        );
+        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-link: var(--clr-primary-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-link-hover: var(--clr-secondary-800, hsl(349.11, 100%, 0%));
+        --theme-link-active: var(--clr-active-800, hsl(352.37, 32.92%, 16.09%));
+        --theme-button-bg: var(--clr-primary-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-button-bg-hover: var(
+            --clr-secondary-800,
+            hsl(349.11, 100%, 0%)
+        );
+        --theme-button-bg-active: var(
+            --clr-active-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-button-border: var(
+            --clr-primary-800,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --theme-button-border-hover: var(
+            --clr-secondary-800,
+            hsl(349.11, 100%, 0%)
+        );
+        --theme-button-border-active: var(
+            --clr-active-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-button-text: var(
+            --clr-primary-200,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-button-text-hover: var(
+            --clr-secondary-200,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-button-text-active: var(
+            --clr-active-200,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-border: var(
+            --clr-primary-700,
+            hsl(287.04, 29.43%, 26.02%)
+        );
+        --theme-field-border-hover: var(
+            --clr-secondary-700,
+            hsl(171.77, 100%, 2.1%)
+        );
+        --theme-field-border-active: var(
+            --clr-active-700,
+            hsl(350.91, 37.24%, 27.85%)
+        );
+        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    }
+}
+/*#endregion Tokens - Theme - light mode + low contrast */
+/*#region Tokens - Theme - light mode + high contrast */
+@media (prefers-contrast: more) {
+    :root {
+        --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-text-primary: var(
+            --clr-primary-800,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --theme-text-secondary: var(--clr-secondary-800, hsl(349.11, 100%, 0%));
+        --theme-text-active: var(--clr-active-800, hsl(352.37, 32.92%, 16.09%));
+        --theme-ui: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --theme-ui-primary: var(--clr-primary-700, hsl(287.04, 29.43%, 26.02%));
+        --theme-ui-secondary: var(--clr-secondary-700, hsl(171.77, 100%, 2.1%));
+        --theme-ui-active: var(--clr-active-700, hsl(350.91, 37.24%, 27.85%));
+        --theme-selection-bg: var(
+            --clr-primary-700,
+            hsl(287.04, 29.43%, 26.02%)
+        );
+        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-link: var(--clr-primary-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-link-hover: var(--clr-secondary-800, hsl(349.11, 100%, 0%));
+        --theme-link-active: var(--clr-active-800, hsl(352.37, 32.92%, 16.09%));
+        --theme-button-bg: var(--clr-primary-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-button-bg-hover: var(
+            --clr-secondary-800,
+            hsl(349.11, 100%, 0%)
+        );
+        --theme-button-bg-active: var(
+            --clr-active-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-button-border: var(
+            --clr-primary-800,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --theme-button-border-hover: var(
+            --clr-secondary-800,
+            hsl(349.11, 100%, 0%)
+        );
+        --theme-button-border-active: var(
+            --clr-active-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-button-text: var(
+            --clr-primary-200,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-button-text-hover: var(
+            --clr-secondary-200,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-button-text-active: var(
+            --clr-active-200,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-border: var(
+            --clr-primary-700,
+            hsl(287.04, 29.43%, 26.02%)
+        );
+        --theme-field-border-hover: var(
+            --clr-secondary-700,
+            hsl(171.77, 100%, 2.1%)
+        );
+        --theme-field-border-active: var(
+            --clr-active-700,
+            hsl(350.91, 37.24%, 27.85%)
+        );
+        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    }
+}
+@media (( prefers-color-scheme: light ) and ( prefers-contrast: more )) {
+    :root {
+        --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-text-primary: var(
+            --clr-primary-800,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --theme-text-secondary: var(--clr-secondary-800, hsl(349.11, 100%, 0%));
+        --theme-text-active: var(--clr-active-800, hsl(352.37, 32.92%, 16.09%));
+        --theme-ui: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --theme-ui-primary: var(--clr-primary-700, hsl(287.04, 29.43%, 26.02%));
+        --theme-ui-secondary: var(--clr-secondary-700, hsl(171.77, 100%, 2.1%));
+        --theme-ui-active: var(--clr-active-700, hsl(350.91, 37.24%, 27.85%));
+        --theme-selection-bg: var(
+            --clr-primary-700,
+            hsl(287.04, 29.43%, 26.02%)
+        );
+        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-link: var(--clr-primary-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-link-hover: var(--clr-secondary-800, hsl(349.11, 100%, 0%));
+        --theme-link-active: var(--clr-active-800, hsl(352.37, 32.92%, 16.09%));
+        --theme-button-bg: var(--clr-primary-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-button-bg-hover: var(
+            --clr-secondary-800,
+            hsl(349.11, 100%, 0%)
+        );
+        --theme-button-bg-active: var(
+            --clr-active-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-button-border: var(
+            --clr-primary-800,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --theme-button-border-hover: var(
+            --clr-secondary-800,
+            hsl(349.11, 100%, 0%)
+        );
+        --theme-button-border-active: var(
+            --clr-active-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-button-text: var(
+            --clr-primary-200,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-button-text-hover: var(
+            --clr-secondary-200,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-button-text-active: var(
+            --clr-active-200,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-border: var(
+            --clr-primary-700,
+            hsl(287.04, 29.43%, 26.02%)
+        );
+        --theme-field-border-hover: var(
+            --clr-secondary-700,
+            hsl(171.77, 100%, 2.1%)
+        );
+        --theme-field-border-active: var(
+            --clr-active-700,
+            hsl(350.91, 37.24%, 27.85%)
+        );
+        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    }
+}
+/*#endregion Tokens - Theme - light mode + high contrast */
+/*#region Tokens - Theme - light mode + forced-colors contrast */
+/*#endregion Tokens - Theme - light mode + forced-colors contrast */
+/*#region Tokens - Theme - dark mode + average contrast */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --theme-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-text-primary: var(
+            --clr-primary-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-text-secondary: var(
+            --clr-secondary-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-text-active: var(--clr-active-800, hsl(355.24, 61.11%, 86.74%));
+        --theme-ui: var(--clr-base-800, hsl(0, 0%, 84.33%));
+        --theme-ui-primary: var(--clr-primary-700, hsl(288.48, 35.22%, 73.08%));
+        --theme-ui-secondary: var(
+            --clr-secondary-700,
+            hsl(167.33, 36.89%, 64.41%)
+        );
+        --theme-ui-active: var(--clr-active-700, hsl(354.06, 54.89%, 76.23%));
+        --theme-selection-bg: var(
+            --clr-primary-700,
+            hsl(288.48, 35.22%, 73.08%)
+        );
+        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-link: var(--clr-primary-800, hsl(289.28, 39.64%, 84.78%));
+        --theme-link-hover: var(
+            --clr-secondary-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-link-active: var(--clr-active-800, hsl(355.24, 61.11%, 86.74%));
+        --theme-button-bg: var(--clr-primary-800, hsl(289.28, 39.64%, 84.78%));
+        --theme-button-bg-hover: var(
+            --clr-secondary-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-button-bg-active: var(
+            --clr-active-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --theme-button-border: var(
+            --clr-primary-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-button-border-hover: var(
+            --clr-secondary-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-button-border-active: var(
+            --clr-active-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --theme-button-text: var(--clr-primary-200, hsl(287.56, 26.45%, 15.1%));
+        --theme-button-text-hover: var(
+            --clr-secondary-200,
+            hsl(349.11, 100%, 0%)
+        );
+        --theme-button-text-active: var(
+            --clr-active-200,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-field-border: var(
+            --clr-primary-700,
+            hsl(288.48, 35.22%, 73.08%)
+        );
+        --theme-field-border-hover: var(
+            --clr-secondary-700,
+            hsl(167.33, 36.89%, 64.41%)
+        );
+        --theme-field-border-active: var(
+            --clr-active-700,
+            hsl(354.06, 54.89%, 76.23%)
+        );
+        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 97.73%));
+    }
+}
+/*#endregion Tokens - Theme - dark mode + average contrast */
+/*#region Tokens - Theme - dark mode + low contrast */
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: less )) {
+    :root {
+        --theme-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-text-primary: var(
+            --clr-primary-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-text-secondary: var(
+            --clr-secondary-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-text-active: var(--clr-active-800, hsl(355.24, 61.11%, 86.74%));
+        --theme-ui: var(--clr-base-800, hsl(0, 0%, 84.33%));
+        --theme-ui-primary: var(--clr-primary-700, hsl(288.48, 35.22%, 73.08%));
+        --theme-ui-secondary: var(
+            --clr-secondary-700,
+            hsl(167.33, 36.89%, 64.41%)
+        );
+        --theme-ui-active: var(--clr-active-700, hsl(354.06, 54.89%, 76.23%));
+        --theme-selection-bg: var(
+            --clr-primary-700,
+            hsl(288.48, 35.22%, 73.08%)
+        );
+        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-link: var(--clr-primary-800, hsl(289.28, 39.64%, 84.78%));
+        --theme-link-hover: var(
+            --clr-secondary-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-link-active: var(--clr-active-800, hsl(355.24, 61.11%, 86.74%));
+        --theme-button-bg: var(--clr-primary-800, hsl(289.28, 39.64%, 84.78%));
+        --theme-button-bg-hover: var(
+            --clr-secondary-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-button-bg-active: var(
+            --clr-active-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --theme-button-border: var(
+            --clr-primary-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-button-border-hover: var(
+            --clr-secondary-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-button-border-active: var(
+            --clr-active-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --theme-button-text: var(--clr-primary-200, hsl(287.56, 26.45%, 15.1%));
+        --theme-button-text-hover: var(
+            --clr-secondary-200,
+            hsl(349.11, 100%, 0%)
+        );
+        --theme-button-text-active: var(
+            --clr-active-200,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-field-border: var(
+            --clr-primary-700,
+            hsl(288.48, 35.22%, 73.08%)
+        );
+        --theme-field-border-hover: var(
+            --clr-secondary-700,
+            hsl(167.33, 36.89%, 64.41%)
+        );
+        --theme-field-border-active: var(
+            --clr-active-700,
+            hsl(354.06, 54.89%, 76.23%)
+        );
+        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 97.73%));
+    }
+}
+/*#endregion Tokens - Theme - dark mode + low contrast */
+/*#region Tokens - Theme - dark mode + high contrast */
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: more )) {
+    :root {
+        --theme-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-text-primary: var(
+            --clr-primary-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-text-secondary: var(
+            --clr-secondary-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-text-active: var(--clr-active-800, hsl(355.24, 61.11%, 86.74%));
+        --theme-ui: var(--clr-base-800, hsl(0, 0%, 84.33%));
+        --theme-ui-primary: var(--clr-primary-700, hsl(288.48, 35.22%, 73.08%));
+        --theme-ui-secondary: var(
+            --clr-secondary-700,
+            hsl(167.33, 36.89%, 64.41%)
+        );
+        --theme-ui-active: var(--clr-active-700, hsl(354.06, 54.89%, 76.23%));
+        --theme-selection-bg: var(
+            --clr-primary-700,
+            hsl(288.48, 35.22%, 73.08%)
+        );
+        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-link: var(--clr-primary-800, hsl(289.28, 39.64%, 84.78%));
+        --theme-link-hover: var(
+            --clr-secondary-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-link-active: var(--clr-active-800, hsl(355.24, 61.11%, 86.74%));
+        --theme-button-bg: var(--clr-primary-800, hsl(289.28, 39.64%, 84.78%));
+        --theme-button-bg-hover: var(
+            --clr-secondary-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-button-bg-active: var(
+            --clr-active-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --theme-button-border: var(
+            --clr-primary-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-button-border-hover: var(
+            --clr-secondary-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-button-border-active: var(
+            --clr-active-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --theme-button-text: var(--clr-primary-200, hsl(287.56, 26.45%, 15.1%));
+        --theme-button-text-hover: var(
+            --clr-secondary-200,
+            hsl(349.11, 100%, 0%)
+        );
+        --theme-button-text-active: var(
+            --clr-active-200,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-field-border: var(
+            --clr-primary-700,
+            hsl(288.48, 35.22%, 73.08%)
+        );
+        --theme-field-border-hover: var(
+            --clr-secondary-700,
+            hsl(167.33, 36.89%, 64.41%)
+        );
+        --theme-field-border-active: var(
+            --clr-active-700,
+            hsl(354.06, 54.89%, 76.23%)
+        );
+        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 97.73%));
+    }
+}
+/*#endregion Tokens - Theme - dark mode + high contrast */
+/*#region Tokens - Theme - dark mode + forced-colors contrast */
+/*#endregion Tokens - Theme - dark mode + forced-colors contrast */
+/*#region Tokens - Theme - forced-colors contrast */
+:root {
+    --theme-background: Canvas !important;
+    --theme-text: CanvasText !important;
+    --theme-text-primary: CanvasText !important;
+    --theme-text-secondary: CanvasText !important;
+    --theme-text-active: CanvasText !important;
+    --theme-ui: CanvasText !important;
+    --theme-ui-primary: CanvasText !important;
+    --theme-ui-secondary: CanvasText !important;
+    --theme-ui-active: CanvasText !important;
+    --theme-selection-bg: Highlight !important;
+    --theme-selection-text: HighlightText !important;
+    --theme-link: LinkText !important;
+    --theme-link-hover: ActiveText !important;
+    --theme-link-active: ActiveText !important;
+    --theme-button-bg: ButtonFace !important;
+    --theme-button-bg-hover: SelectedItem !important;
+    --theme-button-bg-active: ButtonFace !important;
+    --theme-button-border: ButtonBorder !important;
+    --theme-button-border-hover: SelectedItem !important;
+    --theme-button-border-active: ButtonBorder !important;
+    --theme-button-text: ButtonText !important;
+    --theme-button-text-hover: SelectedItemText !important;
+    --theme-button-text-active: ButtonText !important;
+    --theme-field-bg: Field !important;
+    --theme-field-bg-hover: SelectedItem !important;
+    --theme-field-bg-active: Field !important;
+    --theme-field-border: FieldText !important;
+    --theme-field-border-hover: SelectedItem !important;
+    --theme-field-border-active: FieldText !important;
+    --theme-field-text: FieldText !important;
+    --theme-field-text-hover: SelectedItemText !important;
+    --theme-field-text-active: FieldText !important;
+    --theme-field-placeholder: FieldText !important;
+}
+
+@media (forced-colors: active), (prefers-contrast: custom) {
+    :root {
+        --theme-background: Canvas !important;
+        --theme-text: CanvasText !important;
+        --theme-text-primary: CanvasText !important;
+        --theme-text-secondary: CanvasText !important;
+        --theme-text-active: CanvasText !important;
+        --theme-ui: CanvasText !important;
+        --theme-ui-primary: CanvasText !important;
+        --theme-ui-secondary: CanvasText !important;
+        --theme-ui-active: CanvasText !important;
+        --theme-selection-bg: Highlight !important;
+        --theme-selection-text: HighlightText !important;
+        --theme-link: LinkText !important;
+        --theme-link-hover: ActiveText !important;
+        --theme-link-active: ActiveText !important;
+        --theme-button-bg: ButtonFace !important;
+        --theme-button-bg-hover: SelectedItem !important;
+        --theme-button-bg-active: ButtonFace !important;
+        --theme-button-border: ButtonBorder !important;
+        --theme-button-border-hover: SelectedItem !important;
+        --theme-button-border-active: ButtonBorder !important;
+        --theme-button-text: ButtonText !important;
+        --theme-button-text-hover: SelectedItemText !important;
+        --theme-button-text-active: ButtonText !important;
+        --theme-field-bg: Field !important;
+        --theme-field-bg-hover: SelectedItem !important;
+        --theme-field-bg-active: Field !important;
+        --theme-field-border: FieldText !important;
+        --theme-field-border-hover: SelectedItem !important;
+        --theme-field-border-active: FieldText !important;
+        --theme-field-text: FieldText !important;
+        --theme-field-text-hover: SelectedItemText !important;
+        --theme-field-text-active: FieldText !important;
+        --theme-field-placeholder: FieldText !important;
+    }
+}
+/*#endregion contrast forced-colors */
 /* # ACCESSIBILITY
  * ======================================================================== */
 :focus {
@@ -130,11 +1034,85 @@
 
 /* # OBJECTS
  * ======================================================================== */
+:root,
+body {
+    scroll-padding-block-start: clamp(0.3125rem, 2.5vw * 0.625, 2.5rem);
+    scroll-padding-block-start: clamp(
+        var(--mrg-soft-200, 0.3125rem),
+        2.5vw * 0.625,
+        var(--mrg-soft-800, 2.5rem)
+    );
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    margin-top: clamp(0.3125rem, 2.5vw * 0.625, 2.5rem);
+    margin-bottom: clamp(0.3125rem, 2.5vw * 0.625, 2.5rem);
+    margin-top: clamp(
+        var(--mrg-soft-200, 0.3125rem),
+        2.5vw * 0.625,
+        var(--mrg-soft-800, 2.5rem)
+    );
+    margin-bottom: clamp(
+        var(--mrg-soft-200, 0.3125rem),
+        2.5vw * 0.625,
+        var(--mrg-soft-800, 2.5rem)
+    );
+    margin-left: max(0.5rem, min(2.5vw, 4rem));
+    margin-right: max(0.5rem, min(2.5vw, 4rem));
+    margin-left: max(
+        var(--mrg-firm-200, 0.5rem),
+        min(2.5vw, var(--mrg-firm-800, 4rem))
+    );
+    margin-right: max(
+        var(--mrg-firm-200, 0.5rem),
+        min(2.5vw, var(--mrg-firm-800, 4rem))
+    );
+    margin-inline: max(0.5rem, min(2.5vw, 4rem));
+    margin-left: max(0.5rem, min(2.5vw, 4rem));
+    margin-left: clamp(0.5rem, 2.5vw, 4rem);
+    margin-right: max(0.5rem, min(2.5vw, 4rem));
+    margin-right: clamp(0.5rem, 2.5vw, 4rem);
+    margin-left: max(
+        var(--mrg-firm-200, 0.5rem),
+        min(2.5vw, var(--mrg-firm-800, 4rem))
+    );
+    margin-left: clamp(
+        var(--mrg-firm-200, 0.5rem),
+        2.5vw,
+        var(--mrg-firm-800, 4rem)
+    );
+    margin-right: max(
+        var(--mrg-firm-200, 0.5rem),
+        min(2.5vw, var(--mrg-firm-800, 4rem))
+    );
+    margin-right: clamp(
+        var(--mrg-firm-200, 0.5rem),
+        2.5vw,
+        var(--mrg-firm-800, 4rem)
+    );
+}
+:where(body > *) {
+    width: min(53rem, 100%);
+    width: min(var(--width-page, 53rem), 100%);
+}
+
 hr {
     display: block;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    width: -moz-fit-content;
+    width: fit-content;
+    max-width: min(29.25rem, 100%);
+    max-width: min(var(--width-callout, 29.25rem), 100%);
     width: 100%;
+    margin-top: calc(0.8125rem + 2.25rem);
+    margin-top: calc(
+        var(--mrg-soft-400, 0.8125rem) + var(--mrg-firm-600, 2.25rem)
+    );
     margin-top: 2.25rem;
     margin-bottom: 2.25rem;
     margin-top: var(--mrg-firm-600, 2.25rem);
@@ -243,8 +1221,12 @@ hr + p {
 
 blockquote {
     display: block;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    width: -moz-fit-content;
+    width: fit-content;
+    max-width: min(29.25rem, 100%);
+    max-width: min(var(--width-callout, 29.25rem), 100%);
     margin-top: 0.8125rem;
     margin-top: var(--mrg-soft-400, 0.8125rem);
     margin-bottom: 0;
@@ -283,8 +1265,12 @@ blockquote > cite::before {
 
 pre {
     display: block;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    width: -moz-fit-content;
+    width: fit-content;
+    max-width: min(29.25rem, 100%);
+    max-width: min(var(--width-callout, 29.25rem), 100%);
     margin-top: 0.8125rem;
     margin-top: var(--mrg-soft-400, 0.8125rem);
     margin-bottom: 0;
@@ -294,7 +1280,6 @@ pre {
     margin-bottom: calc(
         var(--mrg-soft-600, 1.4375rem) - var(--mrg-soft-400, 0.8125rem)
     );
-    width: -moz-fit-content;
     width: fit-content;
     max-width: min(80ch, 100%);
     overflow: visible; /* otherwise the code block's focus ring is hidden (on scroll) */
@@ -313,18 +1298,7 @@ pre > code {
 }
 
 /* ## Typography - Headings ==================================== */
-.heading {
-    margin-top: 1.4375rem;
-    margin-top: var(--mrg-soft-600, 1.4375rem);
-    margin-bottom: 0;
-    font-weight: 600;
-    font-size: 1.1875rem;
-    font-size: var(--fs-bigger-1, 1.1875rem);
-    text-wrap: balance;
-}
-
-h1,
-.h1 {
+h1 {
     margin-top: 1.4375rem;
     margin-top: var(--mrg-soft-600, 1.4375rem);
     margin-bottom: 0;
@@ -336,8 +1310,7 @@ h1,
     text-wrap: balance;
 }
 
-h2,
-.h2 {
+h2 {
     margin-top: 2.5rem;
     margin-top: var(--mrg-soft-800, 2.5rem);
     margin-bottom: 0;
@@ -349,8 +1322,7 @@ h2,
     text-wrap: balance;
 }
 
-h3,
-.h3 {
+h3 {
     margin-top: 2.5rem;
     margin-top: var(--mrg-soft-800, 2.5rem);
     margin-bottom: 0;
@@ -362,8 +1334,7 @@ h3,
     text-wrap: balance;
 }
 
-h4,
-.h4 {
+h4 {
     margin-top: 1.4375rem;
     margin-top: var(--mrg-soft-600, 1.4375rem);
     margin-bottom: 0;
@@ -376,8 +1347,7 @@ h4,
     text-wrap: balance;
 }
 
-h5,
-.h5 {
+h5 {
     margin-top: 1.4375rem;
     margin-top: var(--mrg-soft-600, 1.4375rem);
     margin-bottom: 0;
@@ -390,8 +1360,7 @@ h5,
     text-wrap: balance;
 }
 
-h6,
-.h6 {
+h6 {
     margin-top: 1.4375rem;
     margin-top: var(--mrg-soft-600, 1.4375rem);
     margin-bottom: 0;
@@ -411,6 +1380,23 @@ ul {
     margin: 0;
     padding: 0;
     padding-left: 20%;
+    padding-left: max(0.8125rem, min(10%, 2.5rem));
+    padding-left: max(
+        var(--mrg-soft-400, 0.8125rem),
+        min(10%, var(--mrg-soft-800, 2.5rem))
+    );
+    padding-inline-start: max(0.8125rem, min(10%, 2.5rem));
+    padding-left: max(0.8125rem, min(10%, 2.5rem));
+    padding-left: clamp(0.8125rem, 10%, 2.5rem);
+    padding-left: max(
+        var(--mrg-soft-400, 0.8125rem),
+        min(10%, var(--mrg-soft-800, 2.5rem))
+    );
+    padding-left: clamp(
+        var(--mrg-soft-400, 0.8125rem),
+        10%,
+        var(--mrg-soft-800, 2.5rem)
+    );
     line-height: 1.6875;
     line-height: var(--line-height-400, 1.6875);
 }
@@ -502,12 +1488,62 @@ li li li li em {
 /* # FORMS
  * ======================================================================== */
 fieldset {
-    margin: 0;
-    padding: 0;
-    border: none;
+    display: block;
+    margin: 1.25rem 0 0.4375rem;
+    margin: var(--mrg-firm-400, 1.25rem) 0 var(--mrg-half-400, 0.4375rem);
+    padding: 0.5rem 1.25rem 0.8125rem;
+    padding: var(--mrg-soft-300, 0.5rem) var(--mrg-firm-400, 1.25rem)
+        var(--mrg-firm-300, 0.8125rem);
+    border: 0.0625rem solid AccentColor;
+    border-radius: 0;
+    background-color: Canvas;
+    color: CanvasText;
+}
+fieldset:focus {
+    border-color: ActiveText;
+}
+
+fieldset:focus-within {
+    border-color: ActiveText;
+}
+
+fieldset:active {
+    border-color: AccentColor;
 }
 fieldset legend {
+    display: block;
+}
+fieldset > :first-child {
+    margin-top: 0;
+    margin-top: calc(0.8125rem - 0.3125rem);
+    margin-top: calc(
+        var(--mrg-soft-400, 0.8125rem) - var(--mrg-soft-200, 0.3125rem)
+    );
+}
+fieldset > legend + * {
+    margin-top: 0;
+}
+
+fieldset legend {
+    margin-top: 1.4375rem;
+    margin-top: var(--mrg-soft-600, 1.4375rem);
+    margin-bottom: 0;
     font-weight: 600;
+    font-size: 1.1875rem;
+    font-size: var(--fs-bigger-1, 1.1875rem);
+    text-wrap: balance;
+    margin: 0;
+    margin-left: calc(0.5rem * -1);
+    margin-right: calc(0.5rem * -1);
+    margin-left: calc(var(--mrg-soft-300, 0.5rem) * -1);
+    margin-right: calc(var(--mrg-soft-300, 0.5rem) * -1);
+    margin-bottom: 0.5rem;
+    margin-bottom: var(--mrg-soft-300, 0.5rem);
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-left: var(--mrg-soft-300, 0.5rem);
+    padding-right: var(--mrg-soft-300, 0.5rem);
+    font-style: italic;
 }
 
 textarea,
@@ -696,14 +1732,12 @@ textarea {
     cursor: text;
 }
 
-a.button,
+/* ## Forms - Buttons ==================================== */
 button,
 [role="button"],
 input[type="button"],
 input[type="submit"],
 input[type="reset"],
-a.button-secondary,
-.button-secondary,
 ::file-selector-button {
     display: block;
     margin: 1.25rem 0 0.4375rem;
@@ -721,13 +1755,11 @@ a.button-secondary,
     color: ButtonText;
     accent-color: ButtonText;
 }
-a.button:focus,
 button:focus,
 [role="button"]:focus,
 input[type="button"]:focus,
 input[type="submit"]:focus,
 input[type="reset"]:focus,
-.button-secondary:focus,
 :focus::file-selector-button {
     background-color: SelectedItem;
     border-color: SelectedItem;
@@ -735,28 +1767,12 @@ input[type="reset"]:focus,
     accent-color: ButtonText;
     opacity: 0.875;
 }
-@media (prefers-contrast: more),
-    (forced-colors: active),
-    (prefers-contrast: custom) {
-    a.button:focus,
-    button:focus,
-    [role="button"]:focus,
-    input[type="button"]:focus,
-    input[type="submit"]:focus,
-    input[type="reset"]:focus,
-    .button-secondary:focus,
-    :focus::file-selector-button {
-        opacity: 1;
-    }
-}
 
-a.button:hover,
 button:hover,
 [role="button"]:hover,
 input[type="button"]:hover,
 input[type="submit"]:hover,
 input[type="reset"]:hover,
-.button-secondary:hover,
 :hover::file-selector-button {
     background-color: SelectedItem;
     border-color: SelectedItem;
@@ -764,28 +1780,12 @@ input[type="reset"]:hover,
     accent-color: ButtonText;
     opacity: 0.875;
 }
-@media (prefers-contrast: more),
-    (forced-colors: active),
-    (prefers-contrast: custom) {
-    a.button:hover,
-    button:hover,
-    [role="button"]:hover,
-    input[type="button"]:hover,
-    input[type="submit"]:hover,
-    input[type="reset"]:hover,
-    .button-secondary:hover,
-    :hover::file-selector-button {
-        opacity: 1;
-    }
-}
 
-a.button:focus-within,
 button:focus-within,
 [role="button"]:focus-within,
 input[type="button"]:focus-within,
 input[type="submit"]:focus-within,
 input[type="reset"]:focus-within,
-.button-secondary:focus-within,
 :focus-within::file-selector-button {
     background-color: SelectedItem;
     border-color: SelectedItem;
@@ -793,42 +1793,49 @@ input[type="reset"]:focus-within,
     accent-color: ButtonText;
     opacity: 0.875;
 }
+
 @media (prefers-contrast: more),
     (forced-colors: active),
     (prefers-contrast: custom) {
-    a.button:focus-within,
     button:focus-within,
     [role="button"]:focus-within,
     input[type="button"]:focus-within,
     input[type="submit"]:focus-within,
     input[type="reset"]:focus-within,
-    .button-secondary:focus-within,
     :focus-within::file-selector-button {
         opacity: 1;
     }
+    button:focus,
+    [role="button"]:focus,
+    input[type="button"]:focus,
+    input[type="submit"]:focus,
+    input[type="reset"]:focus,
+    :focus::file-selector-button,
+    button:hover,
+    [role="button"]:hover,
+    input[type="button"]:hover,
+    input[type="submit"]:hover,
+    input[type="reset"]:hover,
+    :hover::file-selector-button {
+        opacity: 1;
+    }
 }
-
-a.button:active,
 button:active,
 [role="button"]:active,
 input[type="button"]:active,
 input[type="submit"]:active,
 input[type="reset"]:active,
-.button-secondary:active,
 :active::file-selector-button {
     background-color: ButtonFace;
     border-color: ButtonBorder;
     color: ButtonText;
     accent-color: ActiveText;
 }
-a.button,
 button,
 [role="button"],
 input[type="button"],
 input[type="submit"],
 input[type="reset"],
-a.button-secondary,
-.button-secondary,
 ::file-selector-button {
     -webkit-appearance: button;
     -moz-appearance: button;
@@ -892,1045 +1899,80 @@ label > input[type="radio"] {
 
 /* # TABLES
  * ======================================================================== */
-/* #region Tokens - Margin */
-:root {
-    --mrg-firm-100: 0.3125rem;
-    --mrg-firm-200: 0.5rem;
-    --mrg-firm-300: 0.8125rem;
-    --mrg-firm-400: 1.25rem;
-    --mrg-firm-600: 2.25rem;
-    --mrg-firm-800: 4rem;
-}
-
-:root {
-    --mrg-soft-100: 0.1875rem;
-    --mrg-soft-200: 0.3125rem;
-    --mrg-soft-300: 0.5rem;
-    --mrg-soft-400: 0.8125rem;
-    --mrg-soft-600: 1.4375rem;
-    --mrg-soft-800: 2.5rem;
-}
-
-:root {
-    --mrg-half-100: 0.125rem;
-    --mrg-half-200: 0.1875rem;
-    --mrg-half-300: 0.3125rem;
-    --mrg-half-400: 0.4375rem;
-    --mrg-half-600: 0.8125rem;
-    --mrg-half-800: 1.5rem;
-}
-
-/* #endregion Tokens - Margin */
-/* #region Tokens - Font Size */
-:root {
-    --fs-title: 2.75rem;
-    --fs-title: clamp(2.0625rem, 3.625svw + 1rem, 3.125rem);
-    --fs-heading-1: 2.375rem;
-    --fs-heading-1: clamp(1.8125rem, 3.125svw + 1rem, 2.6875rem);
-    --fs-heading-2: 2.0625rem;
-    --fs-heading-2: clamp(1.5625rem, 2.6875svw + 1rem, 2.3125rem);
-    --fs-heading-3: 1.8125rem;
-    --fs-heading-3: clamp(1.375rem, 2.375svw + 1rem, 2.0625rem);
-    --fs-heading-4: 1.5625rem;
-    --fs-heading-4: clamp(1.1875rem, 2.0625svw + 1rem, 1.75rem);
-    --fs-heading-5: 1.3125rem;
-    --fs-heading-5: clamp(1rem, 1.75svw + 1rem, 1.5rem);
-    --fs-heading-6: 1.1875rem;
-    --fs-heading-6: clamp(0.875rem, 1.5625svw + 1rem, 1.3125rem);
-    --fs-smaller-2: 0.8125rem;
-    --fs-smaller-1: 0.9375rem;
-    --fs-normal: 1rem;
-    --fs-bigger-1: 1.1875rem;
-    --fs-bigger-2: 1.3125rem;
-    --fs-bigger-3: 1.5625rem;
-    --fs-bigger-4: 1.8125rem;
-    --fs-bigger-5: 2.0625rem;
-    --fs-bigger-6: 2.375rem;
-}
-
-/* #endregion Tokens - Font Size */
-/* #region Tokens - Line Heights */
-:root {
-    --line-height-100: 1.1875;
-    --line-height-200: 1.3125;
-    --line-height-300: 1.4375;
-    --line-height-400: 1.6875;
-    --line-height-500: 1.90625;
-    --line-height-600: 2.1875;
-}
-
-/* #endregion Tokens - Line Heights */
-/* #region Tokens - Border Width */
-:root {
-    --border-width-100: 0.0625rem;
-    --border-width-200: 0.125rem;
-    --border-width-300: 0.1875rem;
-    --border-width-400: 0.25rem;
-}
-
-/* #endregion Tokens - Border Width */
-/* #region Tokens - Stroke Relative */
-:root {
-    --stroke-relative-100: 0.03125em;
-    --stroke-relative-200: 0.0625em;
-    --stroke-relative-400: 0.125em;
-    --stroke-relative-600: 0.1875em;
-    --stroke-relative-800: 0.25em;
-    --stroke-relative-900: 0.375em;
-}
-
-/* #endregion Tokens - Stroke Relative */
-/* #region Tokens - Misc. */
-:root {
-    --focus-ring-outline-width: 0.125rem;
-    --focus-ring-outline-offset: 0.125em;
-    --focus-ring-outline-color: currentColor;
-}
-
-/* #endregion Tokens - Misc. */
-/* #region Tokens - Border Radius */
-:root {
-    --border-radius-100: 0.25rem;
-    --border-radius-200: 0.375rem;
-    --border-radius-400: 0.625rem;
-}
-
-/* #endregion Tokens - Border Radius */
-/* #region Tokens - Z Index */
-:root {
-    --z-index-nav: 1000;
-    --z-index-settings: 9999;
-    --z-index-skipLink: 99999;
-}
-
-/* #endregion Tokens - Z Index */
-/* #region Tokens - Transition Time */
-:root {
-    --tr-time-fast: 250ms;
-    --tr-time-normal: 500ms;
-    --tr-time-slow: 750ms;
-}
-
-/* #endregion Tokens - Transition Time */
-/* #region Tokens - Colour */
-body {
-    --clr-base-100: hsl(0, 0%, 97.73%);
-    --clr-base-200: hsl(0, 0%, 84.33%);
-    --clr-base-300: hsl(0, 0%, 71.32%);
-    --clr-base-400: hsl(0, 0%, 58.74%);
-    --clr-base-500: hsl(0, 0%, 46.63%);
-    --clr-base-600: hsl(0, 0%, 35.07%);
-    --clr-base-700: hsl(0, 0%, 24.13%);
-    --clr-base-800: hsl(0, 0%, 13.96%);
-    --clr-base-900: hsl(0, 0%, 2.86%);
-    --clr-primary-100: hsl(290, 73.25%, 96.68%);
-    --clr-primary-200: hsl(289.28, 39.64%, 84.78%);
-    --clr-primary-300: hsl(288.48, 35.22%, 73.08%);
-    --clr-primary-400: hsl(287.59, 33.28%, 61.54%);
-    --clr-primary-500: hsl(286.64, 32.21%, 50.09%);
-    --clr-primary-600: hsl(286.79, 31.05%, 37.73%);
-    --clr-primary-700: hsl(287.04, 29.43%, 26.02%);
-    --clr-primary-800: hsl(287.56, 26.45%, 15.1%);
-    --clr-primary-900: hsl(291.51, 45.77%, 3.67%);
-    --clr-secondary-100: hsl(165.36, 95.21%, 95.27%);
-    --clr-secondary-200: hsl(166.2, 43.35%, 79.89%);
-    --clr-secondary-300: hsl(167.33, 36.89%, 64.41%);
-    --clr-secondary-400: hsl(169.07, 38.65%, 48%);
-    --clr-secondary-500: hsl(173.48, 100%, 20.75%);
-    --clr-secondary-600: hsl(173.02, 100%, 7.41%);
-    --clr-secondary-700: hsl(171.77, 100%, 2.1%);
-    --clr-secondary-800: hsl(349.11, 100%, 0%);
-    --clr-secondary-900: hsl(338.61, 100%, 0%);
-    --clr-active-100: hsl(356.09, 85.55%, 96.89%);
-    --clr-active-200: hsl(355.24, 61.11%, 86.74%);
-    --clr-active-300: hsl(354.06, 54.89%, 76.23%);
-    --clr-active-400: hsl(352.3, 50.7%, 65.28%);
-    --clr-active-500: hsl(349.37, 47.61%, 53.57%);
-    --clr-active-600: hsl(350, 39.66%, 40.38%);
-    --clr-active-700: hsl(350.91, 37.24%, 27.85%);
-    --clr-active-800: hsl(352.37, 32.92%, 16.09%);
-    --clr-active-900: hsl(356.17, 49.77%, 3.85%);
-}
-
-@media (prefers-color-scheme: light) {
-    body {
-        --clr-base-100: hsl(0, 0%, 97.73%);
-        --clr-base-200: hsl(0, 0%, 84.33%);
-        --clr-base-300: hsl(0, 0%, 71.32%);
-        --clr-base-400: hsl(0, 0%, 58.74%);
-        --clr-base-500: hsl(0, 0%, 46.63%);
-        --clr-base-600: hsl(0, 0%, 35.07%);
-        --clr-base-700: hsl(0, 0%, 24.13%);
-        --clr-base-800: hsl(0, 0%, 13.96%);
-        --clr-base-900: hsl(0, 0%, 2.86%);
-        --clr-primary-100: hsl(290, 73.25%, 96.68%);
-        --clr-primary-200: hsl(289.28, 39.64%, 84.78%);
-        --clr-primary-300: hsl(288.48, 35.22%, 73.08%);
-        --clr-primary-400: hsl(287.59, 33.28%, 61.54%);
-        --clr-primary-500: hsl(286.64, 32.21%, 50.09%);
-        --clr-primary-600: hsl(286.79, 31.05%, 37.73%);
-        --clr-primary-700: hsl(287.04, 29.43%, 26.02%);
-        --clr-primary-800: hsl(287.56, 26.45%, 15.1%);
-        --clr-primary-900: hsl(291.51, 45.77%, 3.67%);
-        --clr-secondary-100: hsl(165.36, 95.21%, 95.27%);
-        --clr-secondary-200: hsl(166.2, 43.35%, 79.89%);
-        --clr-secondary-300: hsl(167.33, 36.89%, 64.41%);
-        --clr-secondary-400: hsl(169.07, 38.65%, 48%);
-        --clr-secondary-500: hsl(173.48, 100%, 20.75%);
-        --clr-secondary-600: hsl(173.02, 100%, 7.41%);
-        --clr-secondary-700: hsl(171.77, 100%, 2.1%);
-        --clr-secondary-800: hsl(349.11, 100%, 0%);
-        --clr-secondary-900: hsl(338.61, 100%, 0%);
-        --clr-active-100: hsl(356.09, 85.55%, 96.89%);
-        --clr-active-200: hsl(355.24, 61.11%, 86.74%);
-        --clr-active-300: hsl(354.06, 54.89%, 76.23%);
-        --clr-active-400: hsl(352.3, 50.7%, 65.28%);
-        --clr-active-500: hsl(349.37, 47.61%, 53.57%);
-        --clr-active-600: hsl(350, 39.66%, 40.38%);
-        --clr-active-700: hsl(350.91, 37.24%, 27.85%);
-        --clr-active-800: hsl(352.37, 32.92%, 16.09%);
-        --clr-active-900: hsl(356.17, 49.77%, 3.85%);
-    }
-}
-@media (prefers-color-scheme: dark) {
-    body {
-        --clr-base-100: hsl(0, 0%, 2.86%);
-        --clr-base-200: hsl(0, 0%, 13.96%);
-        --clr-base-300: hsl(0, 0%, 24.13%);
-        --clr-base-400: hsl(0, 0%, 35.07%);
-        --clr-base-500: hsl(0, 0%, 46.63%);
-        --clr-base-600: hsl(0, 0%, 58.74%);
-        --clr-base-700: hsl(0, 0%, 71.32%);
-        --clr-base-800: hsl(0, 0%, 84.33%);
-        --clr-base-900: hsl(0, 0%, 97.73%);
-        --clr-primary-100: hsl(291.51, 45.77%, 3.67%);
-        --clr-primary-200: hsl(287.56, 26.45%, 15.1%);
-        --clr-primary-300: hsl(287.04, 29.43%, 26.02%);
-        --clr-primary-400: hsl(286.79, 31.05%, 37.73%);
-        --clr-primary-500: hsl(286.64, 32.21%, 50.09%);
-        --clr-primary-600: hsl(287.59, 33.28%, 61.54%);
-        --clr-primary-700: hsl(288.48, 35.22%, 73.08%);
-        --clr-primary-800: hsl(289.28, 39.64%, 84.78%);
-        --clr-primary-900: hsl(290, 73.25%, 96.68%);
-        --clr-secondary-100: hsl(338.61, 100%, 0%);
-        --clr-secondary-200: hsl(349.11, 100%, 0%);
-        --clr-secondary-300: hsl(171.77, 100%, 2.1%);
-        --clr-secondary-400: hsl(173.02, 100%, 7.41%);
-        --clr-secondary-500: hsl(173.48, 100%, 20.75%);
-        --clr-secondary-600: hsl(169.07, 38.65%, 48%);
-        --clr-secondary-700: hsl(167.33, 36.89%, 64.41%);
-        --clr-secondary-800: hsl(166.2, 43.35%, 79.89%);
-        --clr-secondary-900: hsl(165.36, 95.21%, 95.27%);
-        --clr-active-100: hsl(356.17, 49.77%, 3.85%);
-        --clr-active-200: hsl(352.37, 32.92%, 16.09%);
-        --clr-active-300: hsl(350.91, 37.24%, 27.85%);
-        --clr-active-400: hsl(350, 39.66%, 40.38%);
-        --clr-active-500: hsl(349.37, 47.61%, 53.57%);
-        --clr-active-600: hsl(352.3, 50.7%, 65.28%);
-        --clr-active-700: hsl(354.06, 54.89%, 76.23%);
-        --clr-active-800: hsl(355.24, 61.11%, 86.74%);
-        --clr-active-900: hsl(356.09, 85.55%, 96.89%);
-    }
-}
-/* #endregion Tokens - Colour */
-/*#region Tokens - Theme - light mode + average contrast */
-body {
-    --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
-    --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
-    --theme-text-primary: var(--clr-primary-800, hsl(287.56, 26.45%, 15.1%));
-    --theme-text-secondary: var(--clr-secondary-800, hsl(349.11, 100%, 0%));
-    --theme-text-active: var(--clr-active-800, hsl(352.37, 32.92%, 16.09%));
-    --theme-ui: var(--clr-base-800, hsl(0, 0%, 13.96%));
-    --theme-ui-primary: var(--clr-primary-700, hsl(287.04, 29.43%, 26.02%));
-    --theme-ui-secondary: var(--clr-secondary-700, hsl(171.77, 100%, 2.1%));
-    --theme-ui-active: var(--clr-active-700, hsl(350.91, 37.24%, 27.85%));
-    --theme-selection-bg: var(--clr-primary-700, hsl(287.04, 29.43%, 26.02%));
-    --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-    --theme-link: var(--clr-primary-800, hsl(287.56, 26.45%, 15.1%));
-    --theme-link-hover: var(--clr-secondary-800, hsl(349.11, 100%, 0%));
-    --theme-link-active: var(--clr-active-800, hsl(352.37, 32.92%, 16.09%));
-    --theme-button-bg: var(--clr-primary-800, hsl(287.56, 26.45%, 15.1%));
-    --theme-button-bg-hover: var(--clr-secondary-800, hsl(349.11, 100%, 0%));
-    --theme-button-bg-active: var(
-        --clr-active-800,
-        hsl(352.37, 32.92%, 16.09%)
+table {
+    position: relative;
+    margin-top: 0.8125rem;
+    margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-bottom: 0;
+    margin-top: 1.4375rem;
+    margin-bottom: calc(1.4375rem - 0.8125rem);
+    margin-top: var(--mrg-soft-600, 1.4375rem);
+    margin-bottom: calc(
+        var(--mrg-soft-600, 1.4375rem) - var(--mrg-soft-400, 0.8125rem)
     );
-    --theme-button-border: var(--clr-primary-800, hsl(287.56, 26.45%, 15.1%));
-    --theme-button-border-hover: var(
-        --clr-secondary-800,
-        hsl(349.11, 100%, 0%)
-    );
-    --theme-button-border-active: var(
-        --clr-active-800,
-        hsl(352.37, 32.92%, 16.09%)
-    );
-    --theme-button-text: var(--clr-primary-200, hsl(289.28, 39.64%, 84.78%));
-    --theme-button-text-hover: var(
-        --clr-secondary-200,
-        hsl(166.2, 43.35%, 79.89%)
-    );
-    --theme-button-text-active: var(
-        --clr-active-200,
-        hsl(355.24, 61.11%, 86.74%)
-    );
-    --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 84.33%));
-    --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 84.33%));
-    --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 84.33%));
-    --theme-field-border: var(--clr-primary-700, hsl(287.04, 29.43%, 26.02%));
-    --theme-field-border-hover: var(
-        --clr-secondary-700,
-        hsl(171.77, 100%, 2.1%)
-    );
-    --theme-field-border-active: var(
-        --clr-active-700,
-        hsl(350.91, 37.24%, 27.85%)
-    );
-    --theme-field-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
-    --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 2.86%));
-    --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 2.86%));
-    --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    background: AccentColor;
+    width: min(53rem, 100%);
+    width: min(var(--width-page, 53rem), 100%);
 }
 
-@media (prefers-color-scheme: light) {
-    body {
-        --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-text-primary: var(
-            --clr-primary-800,
-            hsl(287.56, 26.45%, 15.1%)
-        );
-        --theme-text-secondary: var(--clr-secondary-800, hsl(349.11, 100%, 0%));
-        --theme-text-active: var(--clr-active-800, hsl(352.37, 32.92%, 16.09%));
-        --theme-ui: var(--clr-base-800, hsl(0, 0%, 13.96%));
-        --theme-ui-primary: var(--clr-primary-700, hsl(287.04, 29.43%, 26.02%));
-        --theme-ui-secondary: var(--clr-secondary-700, hsl(171.77, 100%, 2.1%));
-        --theme-ui-active: var(--clr-active-700, hsl(350.91, 37.24%, 27.85%));
-        --theme-selection-bg: var(
-            --clr-primary-700,
-            hsl(287.04, 29.43%, 26.02%)
-        );
-        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-link: var(--clr-primary-800, hsl(287.56, 26.45%, 15.1%));
-        --theme-link-hover: var(--clr-secondary-800, hsl(349.11, 100%, 0%));
-        --theme-link-active: var(--clr-active-800, hsl(352.37, 32.92%, 16.09%));
-        --theme-button-bg: var(--clr-primary-800, hsl(287.56, 26.45%, 15.1%));
-        --theme-button-bg-hover: var(
-            --clr-secondary-800,
-            hsl(349.11, 100%, 0%)
-        );
-        --theme-button-bg-active: var(
-            --clr-active-800,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --theme-button-border: var(
-            --clr-primary-800,
-            hsl(287.56, 26.45%, 15.1%)
-        );
-        --theme-button-border-hover: var(
-            --clr-secondary-800,
-            hsl(349.11, 100%, 0%)
-        );
-        --theme-button-border-active: var(
-            --clr-active-800,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --theme-button-text: var(
-            --clr-primary-200,
-            hsl(289.28, 39.64%, 84.78%)
-        );
-        --theme-button-text-hover: var(
-            --clr-secondary-200,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --theme-button-text-active: var(
-            --clr-active-200,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-field-border: var(
-            --clr-primary-700,
-            hsl(287.04, 29.43%, 26.02%)
-        );
-        --theme-field-border-hover: var(
-            --clr-secondary-700,
-            hsl(171.77, 100%, 2.1%)
-        );
-        --theme-field-border-active: var(
-            --clr-active-700,
-            hsl(350.91, 37.24%, 27.85%)
-        );
-        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 2.86%));
-    }
-}
-/*#endregion Tokens - Theme - light mode + average contrast */
-/*#region Tokens - Theme - light mode + low contrast */
-@media (prefers-contrast: less) {
-    body {
-        --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-text-primary: var(
-            --clr-primary-800,
-            hsl(287.56, 26.45%, 15.1%)
-        );
-        --theme-text-secondary: var(--clr-secondary-800, hsl(349.11, 100%, 0%));
-        --theme-text-active: var(--clr-active-800, hsl(352.37, 32.92%, 16.09%));
-        --theme-ui: var(--clr-base-800, hsl(0, 0%, 13.96%));
-        --theme-ui-primary: var(--clr-primary-700, hsl(287.04, 29.43%, 26.02%));
-        --theme-ui-secondary: var(--clr-secondary-700, hsl(171.77, 100%, 2.1%));
-        --theme-ui-active: var(--clr-active-700, hsl(350.91, 37.24%, 27.85%));
-        --theme-selection-bg: var(
-            --clr-primary-700,
-            hsl(287.04, 29.43%, 26.02%)
-        );
-        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-link: var(--clr-primary-800, hsl(287.56, 26.45%, 15.1%));
-        --theme-link-hover: var(--clr-secondary-800, hsl(349.11, 100%, 0%));
-        --theme-link-active: var(--clr-active-800, hsl(352.37, 32.92%, 16.09%));
-        --theme-button-bg: var(--clr-primary-800, hsl(287.56, 26.45%, 15.1%));
-        --theme-button-bg-hover: var(
-            --clr-secondary-800,
-            hsl(349.11, 100%, 0%)
-        );
-        --theme-button-bg-active: var(
-            --clr-active-800,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --theme-button-border: var(
-            --clr-primary-800,
-            hsl(287.56, 26.45%, 15.1%)
-        );
-        --theme-button-border-hover: var(
-            --clr-secondary-800,
-            hsl(349.11, 100%, 0%)
-        );
-        --theme-button-border-active: var(
-            --clr-active-800,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --theme-button-text: var(
-            --clr-primary-200,
-            hsl(289.28, 39.64%, 84.78%)
-        );
-        --theme-button-text-hover: var(
-            --clr-secondary-200,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --theme-button-text-active: var(
-            --clr-active-200,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-field-border: var(
-            --clr-primary-700,
-            hsl(287.04, 29.43%, 26.02%)
-        );
-        --theme-field-border-hover: var(
-            --clr-secondary-700,
-            hsl(171.77, 100%, 2.1%)
-        );
-        --theme-field-border-active: var(
-            --clr-active-700,
-            hsl(350.91, 37.24%, 27.85%)
-        );
-        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 2.86%));
-    }
-}
-@media (( prefers-color-scheme: light ) and ( prefers-contrast: less )) {
-    body {
-        --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-text-primary: var(
-            --clr-primary-800,
-            hsl(287.56, 26.45%, 15.1%)
-        );
-        --theme-text-secondary: var(--clr-secondary-800, hsl(349.11, 100%, 0%));
-        --theme-text-active: var(--clr-active-800, hsl(352.37, 32.92%, 16.09%));
-        --theme-ui: var(--clr-base-800, hsl(0, 0%, 13.96%));
-        --theme-ui-primary: var(--clr-primary-700, hsl(287.04, 29.43%, 26.02%));
-        --theme-ui-secondary: var(--clr-secondary-700, hsl(171.77, 100%, 2.1%));
-        --theme-ui-active: var(--clr-active-700, hsl(350.91, 37.24%, 27.85%));
-        --theme-selection-bg: var(
-            --clr-primary-700,
-            hsl(287.04, 29.43%, 26.02%)
-        );
-        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-link: var(--clr-primary-800, hsl(287.56, 26.45%, 15.1%));
-        --theme-link-hover: var(--clr-secondary-800, hsl(349.11, 100%, 0%));
-        --theme-link-active: var(--clr-active-800, hsl(352.37, 32.92%, 16.09%));
-        --theme-button-bg: var(--clr-primary-800, hsl(287.56, 26.45%, 15.1%));
-        --theme-button-bg-hover: var(
-            --clr-secondary-800,
-            hsl(349.11, 100%, 0%)
-        );
-        --theme-button-bg-active: var(
-            --clr-active-800,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --theme-button-border: var(
-            --clr-primary-800,
-            hsl(287.56, 26.45%, 15.1%)
-        );
-        --theme-button-border-hover: var(
-            --clr-secondary-800,
-            hsl(349.11, 100%, 0%)
-        );
-        --theme-button-border-active: var(
-            --clr-active-800,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --theme-button-text: var(
-            --clr-primary-200,
-            hsl(289.28, 39.64%, 84.78%)
-        );
-        --theme-button-text-hover: var(
-            --clr-secondary-200,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --theme-button-text-active: var(
-            --clr-active-200,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-field-border: var(
-            --clr-primary-700,
-            hsl(287.04, 29.43%, 26.02%)
-        );
-        --theme-field-border-hover: var(
-            --clr-secondary-700,
-            hsl(171.77, 100%, 2.1%)
-        );
-        --theme-field-border-active: var(
-            --clr-active-700,
-            hsl(350.91, 37.24%, 27.85%)
-        );
-        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 2.86%));
-    }
-}
-/*#endregion Tokens - Theme - light mode + low contrast */
-/*#region Tokens - Theme - light mode + high contrast */
-@media (prefers-contrast: more) {
-    body {
-        --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-text-primary: var(
-            --clr-primary-800,
-            hsl(287.56, 26.45%, 15.1%)
-        );
-        --theme-text-secondary: var(--clr-secondary-800, hsl(349.11, 100%, 0%));
-        --theme-text-active: var(--clr-active-800, hsl(352.37, 32.92%, 16.09%));
-        --theme-ui: var(--clr-base-800, hsl(0, 0%, 13.96%));
-        --theme-ui-primary: var(--clr-primary-700, hsl(287.04, 29.43%, 26.02%));
-        --theme-ui-secondary: var(--clr-secondary-700, hsl(171.77, 100%, 2.1%));
-        --theme-ui-active: var(--clr-active-700, hsl(350.91, 37.24%, 27.85%));
-        --theme-selection-bg: var(
-            --clr-primary-700,
-            hsl(287.04, 29.43%, 26.02%)
-        );
-        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-link: var(--clr-primary-800, hsl(287.56, 26.45%, 15.1%));
-        --theme-link-hover: var(--clr-secondary-800, hsl(349.11, 100%, 0%));
-        --theme-link-active: var(--clr-active-800, hsl(352.37, 32.92%, 16.09%));
-        --theme-button-bg: var(--clr-primary-800, hsl(287.56, 26.45%, 15.1%));
-        --theme-button-bg-hover: var(
-            --clr-secondary-800,
-            hsl(349.11, 100%, 0%)
-        );
-        --theme-button-bg-active: var(
-            --clr-active-800,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --theme-button-border: var(
-            --clr-primary-800,
-            hsl(287.56, 26.45%, 15.1%)
-        );
-        --theme-button-border-hover: var(
-            --clr-secondary-800,
-            hsl(349.11, 100%, 0%)
-        );
-        --theme-button-border-active: var(
-            --clr-active-800,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --theme-button-text: var(
-            --clr-primary-200,
-            hsl(289.28, 39.64%, 84.78%)
-        );
-        --theme-button-text-hover: var(
-            --clr-secondary-200,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --theme-button-text-active: var(
-            --clr-active-200,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-field-border: var(
-            --clr-primary-700,
-            hsl(287.04, 29.43%, 26.02%)
-        );
-        --theme-field-border-hover: var(
-            --clr-secondary-700,
-            hsl(171.77, 100%, 2.1%)
-        );
-        --theme-field-border-active: var(
-            --clr-active-700,
-            hsl(350.91, 37.24%, 27.85%)
-        );
-        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 2.86%));
-    }
-}
-@media (( prefers-color-scheme: light ) and ( prefers-contrast: more )) {
-    body {
-        --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-text-primary: var(
-            --clr-primary-800,
-            hsl(287.56, 26.45%, 15.1%)
-        );
-        --theme-text-secondary: var(--clr-secondary-800, hsl(349.11, 100%, 0%));
-        --theme-text-active: var(--clr-active-800, hsl(352.37, 32.92%, 16.09%));
-        --theme-ui: var(--clr-base-800, hsl(0, 0%, 13.96%));
-        --theme-ui-primary: var(--clr-primary-700, hsl(287.04, 29.43%, 26.02%));
-        --theme-ui-secondary: var(--clr-secondary-700, hsl(171.77, 100%, 2.1%));
-        --theme-ui-active: var(--clr-active-700, hsl(350.91, 37.24%, 27.85%));
-        --theme-selection-bg: var(
-            --clr-primary-700,
-            hsl(287.04, 29.43%, 26.02%)
-        );
-        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-link: var(--clr-primary-800, hsl(287.56, 26.45%, 15.1%));
-        --theme-link-hover: var(--clr-secondary-800, hsl(349.11, 100%, 0%));
-        --theme-link-active: var(--clr-active-800, hsl(352.37, 32.92%, 16.09%));
-        --theme-button-bg: var(--clr-primary-800, hsl(287.56, 26.45%, 15.1%));
-        --theme-button-bg-hover: var(
-            --clr-secondary-800,
-            hsl(349.11, 100%, 0%)
-        );
-        --theme-button-bg-active: var(
-            --clr-active-800,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --theme-button-border: var(
-            --clr-primary-800,
-            hsl(287.56, 26.45%, 15.1%)
-        );
-        --theme-button-border-hover: var(
-            --clr-secondary-800,
-            hsl(349.11, 100%, 0%)
-        );
-        --theme-button-border-active: var(
-            --clr-active-800,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --theme-button-text: var(
-            --clr-primary-200,
-            hsl(289.28, 39.64%, 84.78%)
-        );
-        --theme-button-text-hover: var(
-            --clr-secondary-200,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --theme-button-text-active: var(
-            --clr-active-200,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-field-border: var(
-            --clr-primary-700,
-            hsl(287.04, 29.43%, 26.02%)
-        );
-        --theme-field-border-hover: var(
-            --clr-secondary-700,
-            hsl(171.77, 100%, 2.1%)
-        );
-        --theme-field-border-active: var(
-            --clr-active-700,
-            hsl(350.91, 37.24%, 27.85%)
-        );
-        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 2.86%));
-    }
-}
-/*#endregion Tokens - Theme - light mode + high contrast */
-/*#region Tokens - Theme - light mode + forced-colors contrast */
-/*#endregion Tokens - Theme - light mode + forced-colors contrast */
-/*#region Tokens - Theme - dark mode + average contrast */
-@media (prefers-color-scheme: dark) {
-    body {
-        --theme-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --theme-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
-        --theme-text-primary: var(
-            --clr-primary-800,
-            hsl(289.28, 39.64%, 84.78%)
-        );
-        --theme-text-secondary: var(
-            --clr-secondary-800,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --theme-text-active: var(--clr-active-800, hsl(355.24, 61.11%, 86.74%));
-        --theme-ui: var(--clr-base-800, hsl(0, 0%, 84.33%));
-        --theme-ui-primary: var(--clr-primary-700, hsl(288.48, 35.22%, 73.08%));
-        --theme-ui-secondary: var(
-            --clr-secondary-700,
-            hsl(167.33, 36.89%, 64.41%)
-        );
-        --theme-ui-active: var(--clr-active-700, hsl(354.06, 54.89%, 76.23%));
-        --theme-selection-bg: var(
-            --clr-primary-700,
-            hsl(288.48, 35.22%, 73.08%)
-        );
-        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --theme-link: var(--clr-primary-800, hsl(289.28, 39.64%, 84.78%));
-        --theme-link-hover: var(
-            --clr-secondary-800,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --theme-link-active: var(--clr-active-800, hsl(355.24, 61.11%, 86.74%));
-        --theme-button-bg: var(--clr-primary-800, hsl(289.28, 39.64%, 84.78%));
-        --theme-button-bg-hover: var(
-            --clr-secondary-800,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --theme-button-bg-active: var(
-            --clr-active-800,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --theme-button-border: var(
-            --clr-primary-800,
-            hsl(289.28, 39.64%, 84.78%)
-        );
-        --theme-button-border-hover: var(
-            --clr-secondary-800,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --theme-button-border-active: var(
-            --clr-active-800,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --theme-button-text: var(--clr-primary-200, hsl(287.56, 26.45%, 15.1%));
-        --theme-button-text-hover: var(
-            --clr-secondary-200,
-            hsl(349.11, 100%, 0%)
-        );
-        --theme-button-text-active: var(
-            --clr-active-200,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --theme-field-border: var(
-            --clr-primary-700,
-            hsl(288.48, 35.22%, 73.08%)
-        );
-        --theme-field-border-hover: var(
-            --clr-secondary-700,
-            hsl(167.33, 36.89%, 64.41%)
-        );
-        --theme-field-border-active: var(
-            --clr-active-700,
-            hsl(354.06, 54.89%, 76.23%)
-        );
-        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
-        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 97.73%));
-        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 97.73%));
-        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 97.73%));
-    }
-}
-/*#endregion Tokens - Theme - dark mode + average contrast */
-/*#region Tokens - Theme - dark mode + low contrast */
-@media (( prefers-color-scheme: dark ) and ( prefers-contrast: less )) {
-    body {
-        --theme-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --theme-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
-        --theme-text-primary: var(
-            --clr-primary-800,
-            hsl(289.28, 39.64%, 84.78%)
-        );
-        --theme-text-secondary: var(
-            --clr-secondary-800,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --theme-text-active: var(--clr-active-800, hsl(355.24, 61.11%, 86.74%));
-        --theme-ui: var(--clr-base-800, hsl(0, 0%, 84.33%));
-        --theme-ui-primary: var(--clr-primary-700, hsl(288.48, 35.22%, 73.08%));
-        --theme-ui-secondary: var(
-            --clr-secondary-700,
-            hsl(167.33, 36.89%, 64.41%)
-        );
-        --theme-ui-active: var(--clr-active-700, hsl(354.06, 54.89%, 76.23%));
-        --theme-selection-bg: var(
-            --clr-primary-700,
-            hsl(288.48, 35.22%, 73.08%)
-        );
-        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --theme-link: var(--clr-primary-800, hsl(289.28, 39.64%, 84.78%));
-        --theme-link-hover: var(
-            --clr-secondary-800,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --theme-link-active: var(--clr-active-800, hsl(355.24, 61.11%, 86.74%));
-        --theme-button-bg: var(--clr-primary-800, hsl(289.28, 39.64%, 84.78%));
-        --theme-button-bg-hover: var(
-            --clr-secondary-800,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --theme-button-bg-active: var(
-            --clr-active-800,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --theme-button-border: var(
-            --clr-primary-800,
-            hsl(289.28, 39.64%, 84.78%)
-        );
-        --theme-button-border-hover: var(
-            --clr-secondary-800,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --theme-button-border-active: var(
-            --clr-active-800,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --theme-button-text: var(--clr-primary-200, hsl(287.56, 26.45%, 15.1%));
-        --theme-button-text-hover: var(
-            --clr-secondary-200,
-            hsl(349.11, 100%, 0%)
-        );
-        --theme-button-text-active: var(
-            --clr-active-200,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --theme-field-border: var(
-            --clr-primary-700,
-            hsl(288.48, 35.22%, 73.08%)
-        );
-        --theme-field-border-hover: var(
-            --clr-secondary-700,
-            hsl(167.33, 36.89%, 64.41%)
-        );
-        --theme-field-border-active: var(
-            --clr-active-700,
-            hsl(354.06, 54.89%, 76.23%)
-        );
-        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
-        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 97.73%));
-        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 97.73%));
-        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 97.73%));
-    }
-}
-/*#endregion Tokens - Theme - dark mode + low contrast */
-/*#region Tokens - Theme - dark mode + high contrast */
-@media (( prefers-color-scheme: dark ) and ( prefers-contrast: more )) {
-    body {
-        --theme-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --theme-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
-        --theme-text-primary: var(
-            --clr-primary-800,
-            hsl(289.28, 39.64%, 84.78%)
-        );
-        --theme-text-secondary: var(
-            --clr-secondary-800,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --theme-text-active: var(--clr-active-800, hsl(355.24, 61.11%, 86.74%));
-        --theme-ui: var(--clr-base-800, hsl(0, 0%, 84.33%));
-        --theme-ui-primary: var(--clr-primary-700, hsl(288.48, 35.22%, 73.08%));
-        --theme-ui-secondary: var(
-            --clr-secondary-700,
-            hsl(167.33, 36.89%, 64.41%)
-        );
-        --theme-ui-active: var(--clr-active-700, hsl(354.06, 54.89%, 76.23%));
-        --theme-selection-bg: var(
-            --clr-primary-700,
-            hsl(288.48, 35.22%, 73.08%)
-        );
-        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --theme-link: var(--clr-primary-800, hsl(289.28, 39.64%, 84.78%));
-        --theme-link-hover: var(
-            --clr-secondary-800,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --theme-link-active: var(--clr-active-800, hsl(355.24, 61.11%, 86.74%));
-        --theme-button-bg: var(--clr-primary-800, hsl(289.28, 39.64%, 84.78%));
-        --theme-button-bg-hover: var(
-            --clr-secondary-800,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --theme-button-bg-active: var(
-            --clr-active-800,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --theme-button-border: var(
-            --clr-primary-800,
-            hsl(289.28, 39.64%, 84.78%)
-        );
-        --theme-button-border-hover: var(
-            --clr-secondary-800,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --theme-button-border-active: var(
-            --clr-active-800,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --theme-button-text: var(--clr-primary-200, hsl(287.56, 26.45%, 15.1%));
-        --theme-button-text-hover: var(
-            --clr-secondary-200,
-            hsl(349.11, 100%, 0%)
-        );
-        --theme-button-text-active: var(
-            --clr-active-200,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --theme-field-border: var(
-            --clr-primary-700,
-            hsl(288.48, 35.22%, 73.08%)
-        );
-        --theme-field-border-hover: var(
-            --clr-secondary-700,
-            hsl(167.33, 36.89%, 64.41%)
-        );
-        --theme-field-border-active: var(
-            --clr-active-700,
-            hsl(354.06, 54.89%, 76.23%)
-        );
-        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
-        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 97.73%));
-        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 97.73%));
-        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 97.73%));
-    }
-}
-/*#endregion Tokens - Theme - dark mode + high contrast */
-/*#region Tokens - Theme - dark mode + forced-colors contrast */
-/*#endregion Tokens - Theme - dark mode + forced-colors contrast */
-/*#region Tokens - Theme - forced-colors contrast */
-body {
-    --theme-background: Canvas !important;
-    --theme-text: CanvasText !important;
-    --theme-text-primary: CanvasText !important;
-    --theme-text-secondary: CanvasText !important;
-    --theme-text-active: CanvasText !important;
-    --theme-ui: CanvasText !important;
-    --theme-ui-primary: CanvasText !important;
-    --theme-ui-secondary: CanvasText !important;
-    --theme-ui-active: CanvasText !important;
-    --theme-selection-bg: Highlight !important;
-    --theme-selection-text: HighlightText !important;
-    --theme-link: LinkText !important;
-    --theme-link-hover: ActiveText !important;
-    --theme-link-active: ActiveText !important;
-    --theme-button-bg: ButtonFace !important;
-    --theme-button-bg-hover: SelectedItem !important;
-    --theme-button-bg-active: ButtonFace !important;
-    --theme-button-border: ButtonBorder !important;
-    --theme-button-border-hover: SelectedItem !important;
-    --theme-button-border-active: ButtonBorder !important;
-    --theme-button-text: ButtonText !important;
-    --theme-button-text-hover: SelectedItemText !important;
-    --theme-button-text-active: ButtonText !important;
-    --theme-field-bg: Field !important;
-    --theme-field-bg-hover: SelectedItem !important;
-    --theme-field-bg-active: Field !important;
-    --theme-field-border: FieldText !important;
-    --theme-field-border-hover: SelectedItem !important;
-    --theme-field-border-active: FieldText !important;
-    --theme-field-text: FieldText !important;
-    --theme-field-text-hover: SelectedItemText !important;
-    --theme-field-text-active: FieldText !important;
-    --theme-field-placeholder: FieldText !important;
+table {
+    border-spacing: 0.125rem;
+    border-spacing: var(--border-width-200, 0.125rem);
+    font-size: 0.9375rem;
+    font-size: var(--fs-smaller-1, 0.9375rem);
 }
 
-@media (forced-colors: active), (prefers-contrast: custom) {
-    body {
-        --theme-background: Canvas !important;
-        --theme-text: CanvasText !important;
-        --theme-text-primary: CanvasText !important;
-        --theme-text-secondary: CanvasText !important;
-        --theme-text-active: CanvasText !important;
-        --theme-ui: CanvasText !important;
-        --theme-ui-primary: CanvasText !important;
-        --theme-ui-secondary: CanvasText !important;
-        --theme-ui-active: CanvasText !important;
-        --theme-selection-bg: Highlight !important;
-        --theme-selection-text: HighlightText !important;
-        --theme-link: LinkText !important;
-        --theme-link-hover: ActiveText !important;
-        --theme-link-active: ActiveText !important;
-        --theme-button-bg: ButtonFace !important;
-        --theme-button-bg-hover: SelectedItem !important;
-        --theme-button-bg-active: ButtonFace !important;
-        --theme-button-border: ButtonBorder !important;
-        --theme-button-border-hover: SelectedItem !important;
-        --theme-button-border-active: ButtonBorder !important;
-        --theme-button-text: ButtonText !important;
-        --theme-button-text-hover: SelectedItemText !important;
-        --theme-button-text-active: ButtonText !important;
-        --theme-field-bg: Field !important;
-        --theme-field-bg-hover: SelectedItem !important;
-        --theme-field-bg-active: Field !important;
-        --theme-field-border: FieldText !important;
-        --theme-field-border-hover: SelectedItem !important;
-        --theme-field-border-active: FieldText !important;
-        --theme-field-text: FieldText !important;
-        --theme-field-text-hover: SelectedItemText !important;
-        --theme-field-text-active: FieldText !important;
-        --theme-field-placeholder: FieldText !important;
-    }
+th,
+td {
+    padding: 0.3125rem 0.8125rem;
+    padding: var(--mrg-soft-200, 0.3125rem) var(--mrg-firm-300, 0.8125rem);
+    min-width: 10em;
+    background: Canvas;
+    vertical-align: top;
+    text-align: left;
 }
-/*#endregion contrast forced-colors */
+th > :first-child,
+td > :first-child {
+    margin-top: 0;
+}
+th > :last-child,
+td > :last-child {
+    margin-bottom: 0;
+}
+
+th {
+    padding-top: 0.3125rem;
+    padding-top: var(--mrg-soft-200, 0.3125rem);
+    padding-bottom: 0.3125rem;
+    padding-bottom: var(--mrg-soft-200, 0.3125rem);
+    background: AccentColor;
+    color: AccentColorText;
+}
+
 /* # TYPOGRAPHY
  * ======================================================================== */
 ::-moz-selection {
-    background-color: hsl(287.04, 29.43%, 26.02%);
+    background-color: Highlight;
     background-color: var(
         --theme-selection-bg,
         var(--clr-primary-700, hsl(287.04, 29.43%, 26.02%))
     );
-    color: hsl(0, 0%, 84.33%);
+    color: HighlightText;
     color: var(--theme-selection-text, var(--clr-base-200, hsl(0, 0%, 84.33%)));
 }
 ::selection {
-    background-color: hsl(287.04, 29.43%, 26.02%);
+    background-color: Highlight;
     background-color: var(
         --theme-selection-bg,
         var(--clr-primary-700, hsl(287.04, 29.43%, 26.02%))
     );
-    color: hsl(0, 0%, 84.33%);
+    color: HighlightText;
     color: var(--theme-selection-text, var(--clr-base-200, hsl(0, 0%, 84.33%)));
 }
 
 /* ## Typography - Inline ==================================== */
 a {
-    color: hsl(287.56, 26.45%, 15.1%);
+    color: LinkText;
     color: var(
         --theme-link,
         var(--clr-primary-800, hsl(287.56, 26.45%, 15.1%))
@@ -1941,7 +1983,7 @@ a:focus {
         --theme-link-hover,
         var(--clr-secondary-800, hsl(349.11, 100%, 0%))
     );
-    color: hsl(349.11, 100%, 0%);
+    color: ActiveText;
     color: var(
         --theme-link-hover,
         var(--clr-secondary-800, hsl(349.11, 100%, 0%))
@@ -1954,7 +1996,7 @@ a:hover {
         --theme-link-hover,
         var(--clr-secondary-800, hsl(349.11, 100%, 0%))
     );
-    color: hsl(349.11, 100%, 0%);
+    color: ActiveText;
     color: var(
         --theme-link-hover,
         var(--clr-secondary-800, hsl(349.11, 100%, 0%))
@@ -1967,7 +2009,7 @@ a:active {
         --theme-link-active,
         var(--clr-active-800, hsl(352.37, 32.92%, 16.09%))
     );
-    color: hsl(352.37, 32.92%, 16.09%);
+    color: ActiveText;
     color: var(
         --theme-link-active,
         var(--clr-active-800, hsl(352.37, 32.92%, 16.09%))

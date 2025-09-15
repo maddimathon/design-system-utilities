@@ -44,71 +44,59 @@
         ".": {
             "sass": "./dist/scss/index.scss",
             "types": "./dist/ts/index.d.ts",
-
             "default": "./dist/ts/index.js"
         },
 
-        "./jest.config":    "./jest.config.js",
         "./jest.config.js": "./jest.config.js",
-        
         "./package.json": "./package.json",
+        "./tsconfig": "./tsconfig.json",
 
-        "./tsconfig":      "./tsconfig.json",
-        "./tsconfig.json": "./tsconfig.json",
+        
+        "./astro/*": "./dist/astro/*",
+        "./astro/functions": "./dist/astro/functions/index.ts",
+        "./components/*": "./dist/astro/components/*",
+        "./layouts/*": "./dist/astro/layouts/*",
 
-        "./components": {
-            "types": "./dist/astro/components/index.ts",
-            "default": "./dist/astro/components/index.ts"
-        },
 
-        "./layouts": {
-            "types": "./dist/astro/layouts/index.ts",
-            "default": "./dist/astro/layouts/index.ts"
-        },
-
-        "./astro/functions": {
-            "types": "./dist/astro/functions/index.ts",
-            "default": "./dist/astro/functions/index.ts"
-        },
-
-        "./astro/*": [
-            "./dist/astro/*.astro",
-            "./dist/astro/*.js",
-            "./dist/astro/*/index.js",
-            "./dist/astro/*"
+        "./config.scss": "./dist/scss/config/index.scss",
+        "./config/*.scss": [
+            "./dist/scss/config/*.scss",
+            "./dist/scss/config/_*.scss",
+            "./dist/scss/config/*/index.scss",
+            "./dist/scss/config/*/_index.scss"
+        ],
+        
+        "./templates/*.scss": [
+            "./dist/scss/templates/*.scss",
+            "./dist/scss/templates/_*.scss",
+            "./dist/scss/templates/*/index.scss",
+            "./dist/scss/templates/*/_index.scss"
         ],
 
-        "./schema/*": [
-            "./dist/schemata/*.json",
-            "./dist/schemata/*.js",
-            "./dist/schemata/*/index.js",
-            "./dist/schemata/*"
-        ],
-        "./schemata/*": [
-            "./dist/schemata/*.json",
-            "./dist/schemata/*.js",
-            "./dist/schemata/*/index.js",
-            "./dist/schemata/*"
+        "./tokens.scss": "./dist/scss/tokens/index.scss",
+        "./tokens/*.scss": [
+            "./dist/scss/tokens/*.scss",
+            "./dist/scss/tokens/_*.scss",
+            "./dist/scss/tokens/*/index.scss",
+            "./dist/scss/tokens/*/_index.scss"
         ],
 
         "./*.scss": [
-            "./dist/scss/*.scss",
-            "./dist/scss/_*.scss",
-            "./dist/scss/*/index.scss",
-            "./dist/scss/*/_index.scss",
-            "./dist/scss/_*/index.scss",
-            "./dist/scss/_*/_index.scss"
+            "./dist/scss/lib/*.scss",
+            "./dist/scss/lib/_*.scss",
+            "./dist/scss/lib/*/index.scss",
+            "./dist/scss/lib/*/_index.scss"
         ],
 
         "./*": {
 
             "sass": [
-                "./dist/scss/*.scss",
-                "./dist/scss/_*.scss",
-                "./dist/scss/*/index.scss",
-                "./dist/scss/*/_index.scss",
-                "./dist/scss/_*/index.scss",
-                "./dist/scss/_*/_index.scss"
+                "./dist/scss/lib/*.scss",
+                "./dist/scss/lib/_*.scss",
+                "./dist/scss/lib/*/index.scss",
+                "./dist/scss/lib/*/_index.scss",
+                "./dist/scss/lib/*",
+                "./dist/scss/lib/_*"
             ],
 
             "types": [
@@ -176,10 +164,10 @@
         "@maddimathon/build-utilities": "0.2.0-alpha.4",
         "@maddimathon/utility-astro": "file:../utility-astro",
         "@maddimathon/utility-sass": "file:../utility-sass",
-        "@maddimathon/utility-typescript": "^2.0.0-beta",
+        "@maddimathon/utility-typescript": "2.0.0-beta",
         "@types/jest": "^30.0.0",
-        "astro": "^5.13.5",
-        "color-convert": "^3.1.0",
+        "astro": "^5.13.7",
+        "color-convert": "^3.1.2",
         "minimist": "^1.2.8",
         "typedoc": "^0.28.12",
         "typedoc-plugin-markdown": "^4.8.1",
@@ -200,10 +188,11 @@
 
     "peerDependencies": {
         "@maddimathon/build-utilities": "^0.2.0-alpha.4",
-        "astro": "^5.13.2",
-        "typedoc": "^0.28.7",
-        "typedoc-plugin-markdown": "^4.7.0",
-        "zod": "^3.24.4"
+        "@maddimathon/utility-typescript": "^2.0.0-beta",
+        "astro": "^5.13.7",
+        "typedoc": "^0.28.12",
+        "typedoc-plugin-markdown": "^4.8.1",
+        "zod": "^3.25.76"
     },
     "peerDependenciesMeta": {
         "@maddimathon/build-utilities": {
