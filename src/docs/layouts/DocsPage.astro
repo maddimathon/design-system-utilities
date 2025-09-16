@@ -36,53 +36,53 @@ export interface Props extends Partial_UtilProps {}
 
 const inputs: Props = Astro.props.frontmatter ?? Astro.props;
 
-const props: Props & UtilPageTypes.Props = mergeArgs(
-    {
-        title: SITE_TITLE,
+const _def: Props & UtilPageTypes.Props = {
+    title: SITE_TITLE,
 
-        dir: 'ltr',
-        lang: 'en-CA',
+    dir: 'ltr',
+    lang: 'en-CA',
 
-        footer: {
-            copyright: {
-                html:
-                    '<a href="https://www.maddimathon.com">Maddi Mathon</a>' +
-                    ' | ' +
-                    '<a href="' +
-                    relativeURL(Astro.url, 'license') +
-                    '">MIT license</a>',
-                // owner: 'Maddi Mathon',
-                year: 2025,
-            },
+    footer: {
+        copyright: {
+            html:
+                '<a href="https://www.maddimathon.com">Maddi Mathon</a>' +
+                ' | ' +
+                '<a href="' +
+                relativeURL(Astro.url, 'license') +
+                '">MIT license</a>',
+            // owner: 'Maddi Mathon',
+            year: 2025,
         },
+    },
 
-        meta: {
-            title: arrayUnique([
-                ...(inputs.title?.length
-                    ? Array.isArray(inputs.title)
-                        ? inputs.title
-                        : [inputs.title]
-                    : []),
-                SITE_TITLE,
-            ]).join(' — '),
-        },
+    meta: {
+        title: arrayUnique([
+            ...(inputs.title?.length
+                ? Array.isArray(inputs.title)
+                    ? inputs.title
+                    : [inputs.title]
+                : []),
+            SITE_TITLE,
+        ]).join(' — '),
+    },
 
-        // skipLinks: [
-        // ],
+    // skipLinks: [
+    // ],
 
+    settings: {
         settings: {
             brightness: true,
             contrast: true,
             motion: true,
         },
+    },
 
-        support: {
-            settings: true,
-        },
-    } as Props & UtilPageTypes.Props,
-    inputs,
-    true
-);
+    support: {
+        settings: true,
+    },
+};
+
+const props: Props & UtilPageTypes.Props = mergeArgs(_def, inputs, true);
 
 /* CONSTANTS ===================================== */
 

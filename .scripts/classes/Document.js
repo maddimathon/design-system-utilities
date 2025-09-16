@@ -91,6 +91,15 @@ export class Document extends DocumentStage {
             'docs/scss',
             'src/docs/css',
         );
+
+        await this.atry(
+            this.fs.prettier,
+            2,
+            [ [
+                'src/docs/css/*.css',
+                'src/docs/css/**/*.css',
+            ], 'css' ]
+        );
     }
 
     /**

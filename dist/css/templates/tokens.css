@@ -1,4 +1,10 @@
 /*!
+ * This stylesheet includes css generated using 
+ * @maddimathon/utility-sass@0.1.0-alpha.draft
+ * 
+ * License: MIT
+ */
+/*!
  * Design System Utilities - Sass Template - Tokens
  * 
  * @maddimathon/design-system-utilities@0.1.0-alpha.draft
@@ -7,7 +13,7 @@
 /* # TOKENS & PROPERTIES
  * ======================================================================== */
 /* #region Tokens - Margin */
-:root {
+html {
     --mrg-firm-100: 0.3125rem;
     --mrg-firm-200: 0.5rem;
     --mrg-firm-300: 0.8125rem;
@@ -16,7 +22,7 @@
     --mrg-firm-800: 4rem;
 }
 
-:root {
+html {
     --mrg-soft-100: 0.1875rem;
     --mrg-soft-200: 0.3125rem;
     --mrg-soft-300: 0.5rem;
@@ -25,7 +31,7 @@
     --mrg-soft-800: 2.5rem;
 }
 
-:root {
+html {
     --mrg-half-100: 0.125rem;
     --mrg-half-200: 0.1875rem;
     --mrg-half-300: 0.3125rem;
@@ -36,7 +42,7 @@
 
 /* #endregion Tokens - Margin */
 /* #region Tokens - Font Size */
-:root {
+html {
     --fs-title: 2.75rem;
     --fs-title: clamp(2.0625rem, 3.625svw + 1rem, 3.125rem);
     --fs-heading-1: 2.375rem;
@@ -51,6 +57,8 @@
     --fs-heading-5: clamp(1rem, 1.75svw + 1rem, 1.5rem);
     --fs-heading-6: 1.1875rem;
     --fs-heading-6: clamp(0.875rem, 1.5625svw + 1rem, 1.3125rem);
+    --fs-heading-7: 1rem;
+    --fs-heading-7: clamp(0.75rem, 1.3125svw + 1rem, 1.125rem);
     --fs-smaller-2: 0.8125rem;
     --fs-smaller-1: 0.9375rem;
     --fs-normal: 1rem;
@@ -64,7 +72,7 @@
 
 /* #endregion Tokens - Font Size */
 /* #region Tokens - Line Heights */
-:root {
+html {
     --line-height-100: 1.1875;
     --line-height-200: 1.3125;
     --line-height-300: 1.4375;
@@ -75,7 +83,7 @@
 
 /* #endregion Tokens - Line Heights */
 /* #region Tokens - Border Width */
-:root {
+html {
     --border-width-100: 0.0625rem;
     --border-width-200: 0.125rem;
     --border-width-300: 0.1875rem;
@@ -84,7 +92,7 @@
 
 /* #endregion Tokens - Border Width */
 /* #region Tokens - Stroke Relative */
-:root {
+html {
     --stroke-relative-100: 0.03125em;
     --stroke-relative-200: 0.0625em;
     --stroke-relative-400: 0.125em;
@@ -95,7 +103,7 @@
 
 /* #endregion Tokens - Stroke Relative */
 /* #region Tokens - Misc. */
-:root {
+html {
     --focus-ring-outline-width: 0.125rem;
     --focus-ring-outline-offset: 0.125em;
     --focus-ring-outline-color: currentColor;
@@ -127,7 +135,7 @@
 
 /* #endregion Tokens - Transition Time */
 /* #region Tokens - Colour */
-:root {
+html {
     --clr-base-100: hsl(0, 0%, 97.73%);
     --clr-base-200: hsl(0, 0%, 84.33%);
     --clr-base-300: hsl(0, 0%, 71.32%);
@@ -167,7 +175,7 @@
 }
 
 @media (prefers-color-scheme: light) {
-    :root {
+    html {
         --clr-base-100: hsl(0, 0%, 97.73%);
         --clr-base-200: hsl(0, 0%, 84.33%);
         --clr-base-300: hsl(0, 0%, 71.32%);
@@ -207,7 +215,7 @@
     }
 }
 @media (prefers-color-scheme: dark) {
-    :root {
+    html {
         --clr-base-100: hsl(0, 0%, 2.86%);
         --clr-base-200: hsl(0, 0%, 13.96%);
         --clr-base-300: hsl(0, 0%, 24.13%);
@@ -248,7 +256,7 @@
 }
 /* #endregion Tokens - Colour */
 /*#region Tokens - Theme - light mode + average contrast */
-:root {
+html {
     --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
     --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
     --theme-text-primary: var(--clr-primary-800, hsl(287.56, 26.45%, 15.1%));
@@ -306,7 +314,7 @@
 }
 
 @media (prefers-color-scheme: light) {
-    :root {
+    html {
         --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
         --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
         --theme-text-primary: var(
@@ -384,7 +392,7 @@
 /*#endregion Tokens - Theme - light mode + average contrast */
 /*#region Tokens - Theme - light mode + low contrast */
 @media (prefers-contrast: less) {
-    :root {
+    html {
         --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
         --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
         --theme-text-primary: var(
@@ -460,7 +468,7 @@
     }
 }
 @media (( prefers-color-scheme: light ) and ( prefers-contrast: less )) {
-    :root {
+    html {
         --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
         --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
         --theme-text-primary: var(
@@ -538,7 +546,7 @@
 /*#endregion Tokens - Theme - light mode + low contrast */
 /*#region Tokens - Theme - light mode + high contrast */
 @media (prefers-contrast: more) {
-    :root {
+    html {
         --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
         --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
         --theme-text-primary: var(
@@ -614,7 +622,7 @@
     }
 }
 @media (( prefers-color-scheme: light ) and ( prefers-contrast: more )) {
-    :root {
+    html {
         --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
         --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
         --theme-text-primary: var(
@@ -694,7 +702,7 @@
 /*#endregion Tokens - Theme - light mode + forced-colors contrast */
 /*#region Tokens - Theme - dark mode + average contrast */
 @media (prefers-color-scheme: dark) {
-    :root {
+    html {
         --theme-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
         --theme-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
         --theme-text-primary: var(
@@ -778,7 +786,7 @@
 /*#endregion Tokens - Theme - dark mode + average contrast */
 /*#region Tokens - Theme - dark mode + low contrast */
 @media (( prefers-color-scheme: dark ) and ( prefers-contrast: less )) {
-    :root {
+    html {
         --theme-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
         --theme-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
         --theme-text-primary: var(
@@ -862,7 +870,7 @@
 /*#endregion Tokens - Theme - dark mode + low contrast */
 /*#region Tokens - Theme - dark mode + high contrast */
 @media (( prefers-color-scheme: dark ) and ( prefers-contrast: more )) {
-    :root {
+    html {
         --theme-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
         --theme-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
         --theme-text-primary: var(
@@ -947,7 +955,7 @@
 /*#region Tokens - Theme - dark mode + forced-colors contrast */
 /*#endregion Tokens - Theme - dark mode + forced-colors contrast */
 /*#region Tokens - Theme - forced-colors contrast */
-:root {
+html {
     --theme-background: Canvas !important;
     --theme-text: CanvasText !important;
     --theme-text-primary: CanvasText !important;
@@ -984,7 +992,7 @@
 }
 
 @media (forced-colors: active), (prefers-contrast: custom) {
-    :root {
+    html {
         --theme-background: Canvas !important;
         --theme-text: CanvasText !important;
         --theme-text-primary: CanvasText !important;
@@ -1021,6 +1029,18 @@
     }
 }
 /*#endregion contrast forced-colors */
+/*!
+ * Utility Astro Template - HTML
+ * 
+ * @maddimathon/utility-astro@0.1.0-alpha.draft
+ * License: MIT
+ */
+/*!
+ * Utility Sass Template - Base
+ * 
+ * @maddimathon/utility-sass@0.1.0-alpha.draft
+ * License: MIT
+ */
 /* # ACCESSIBILITY
  * ======================================================================== */
 /* # OBJECTS
@@ -1037,4 +1057,6 @@
 /* ## Forms - Buttons ==================================== */
 /* # TABLES
  * ======================================================================== */
+/*! end of @maddimathon/utility-sass/templates/base */
+/*! end of @maddimathon/utility-astro/templates/html */
 /*! end of @maddimathon/design-system-utilities/templates/tokens */
