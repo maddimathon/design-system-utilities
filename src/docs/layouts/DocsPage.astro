@@ -6,68 +6,113 @@
  */
 
 /* import - types */
+import type { ComponentProps } from 'astro/types';
 
 /* import - functions */
 import {
     arrayUnique,
-    mergeArgs,
+    // mergeArgs,
 } from '@maddimathon/utility-typescript/functions';
 import { relativeURL } from '../functions/relativeURL.js';
 
 /* import - values */
-import '../css/main.css';
+import cssUrl from '../css/main.css?url';
+import pkgJson from '../../../package.json';
 import { SITE_TITLE } from '../constants.js';
+
+// import { base as config_base } from 'astro:config/client';
 
 /* import - components */
 
 /* import - layouts */
-import UtilPage from '@maddimathon/utility-astro/layouts/Page';
-import type * as UtilPageTypes from '@maddimathon/utility-astro/layouts/Page';
-import type { ArrayItem } from '@maddimathon/utility-typescript/types';
+import LibPage from '../../astro/layouts/Page.astro';
 
 /* TYPES ===================================== */
 
 /* PROPS ===================================== */
 
-type Partial_UtilProps = Partial<UtilPageTypes.Props> &
-    Pick<UtilPageTypes.Props, 'title'>;
+type Partial_UtilProps = Partial<
+    Omit<
+        ComponentProps<typeof LibPage>,
+        'meta' | 'settings' | 'stylesheetVersion' | 'urlMaker'
+    >
+> &
+    Pick<ComponentProps<typeof LibPage>, 'title'> & {
+        meta?: Partial<ComponentProps<typeof LibPage>['meta']>;
+    };
 
 export interface Props extends Partial_UtilProps {}
 
+// const _defaultProps = {
+//     title: [],
+
+//     dir: 'ltr',
+//     lang: 'en-CA',
+
+//     footer: {
+//         copyright: {
+//             html:
+//                 '<a href="https://www.maddimathon.com">Maddi Mathon</a>' +
+//                 ' | ' +
+//                 '<a href="' +
+//                 relativeURL(Astro.url, 'license') +
+//                 '">MIT license</a>',
+//             // owner: 'Maddi Mathon',
+//             year: 2025,
+//         },
+//     },
+
+//     meta: {},
+
+//     settings: {
+//         settings: {
+//             brightness: true,
+//             contrast: true,
+//             motion: true,
+//         },
+//     },
+// } satisfies Props;
+
 const inputs: Props = Astro.props.frontmatter ?? Astro.props;
 
-const _def: Props & UtilPageTypes.Props = {
-    title: SITE_TITLE,
+// const props = mergeArgs(
+//     _defaultProps,
+//     inputs as Props & Partial<typeof _defaultProps>,
+//     true
+// );
 
+const title = Array.isArray(inputs.title) ? inputs.title : [inputs.title];
+
+const props = {
     dir: 'ltr',
     lang: 'en-CA',
 
+    ...inputs,
+    title,
+
     footer: {
-        copyright: {
+        ...inputs.footer,
+
+        copyright: inputs.footer?.copyright ?? {
             html:
                 '<a href="https://www.maddimathon.com">Maddi Mathon</a>' +
                 ' | ' +
                 '<a href="' +
                 relativeURL(Astro.url, 'license') +
                 '">MIT license</a>',
+
             // owner: 'Maddi Mathon',
             year: 2025,
         },
     },
 
     meta: {
-        title: arrayUnique([
-            ...(inputs.title?.length
-                ? Array.isArray(inputs.title)
-                    ? inputs.title
-                    : [inputs.title]
-                : []),
-            SITE_TITLE,
-        ]).join(' — '),
-    },
+        ...inputs.meta,
 
-    // skipLinks: [
-    // ],
+        title:
+            inputs.meta?.title ??
+            arrayUnique(title.concat([SITE_TITLE])).join(' — '),
+    },
 
     settings: {
         settings: {
@@ -76,27 +121,9 @@ const _def: Props & UtilPageTypes.Props = {
             motion: true,
         },
     },
-
-    support: {
-        settings: true,
-    },
-};
-
-const props: Props & UtilPageTypes.Props = mergeArgs(_def, inputs, true);
+} satisfies ComponentProps<typeof LibPage>;
 
 /* CONSTANTS ===================================== */
-
-const _menuMapper = (
-    _obj: ArrayItem<[] & UtilPageTypes.Props['primaryMenu']>
-) => {
-    if (typeof _obj.href === 'string') {
-        _obj.href = relativeURL(Astro.url, _obj.href);
-    }
-    if (_obj.child?.length) {
-        _obj.child = _obj.child.map(_menuMapper);
-    }
-    return _obj;
-};
 
 props.primaryMenu = [
     { label: 'Home', href: '' },
@@ -110,31 +137,43 @@ props.primaryMenu = [
         ],
     },
     { label: 'MIT License', href: 'license' },
-].map(_menuMapper);
+];
 ---
 
-<UtilPage {...props}>
+<LibPage
+    {...props}
+    accessibilityReportEmail={undefined}
+    layout={props.layout || 'content-only'}
+    stylesheetVersion={pkgJson.version}
+    stylesheetURLs={[cssUrl].concat(props.stylesheetURLs ?? [])}
+    title={title}
+    urlMaker={relativeURL}
+>
     <slot
-        name='head-open'
         slot='head-open'
+        name='head-open'
+    />
+
+    <slot
+        slot='head-close'
+        name='head-close'
     />
 
     <meta
         slot='head-close'
         name='color-scheme'
-        content='light dark'
+        content='dark light'
     />
 
     <slot
-        name='head-close'
-        slot='head-close'
-    />
-
-    <slot
-        name='body-open'
         slot='body-open'
+        name='body-open'
     />
 
+    <slot
+        name='settings-menu-open'
+        slot='settings-menu-open'
+    />
     <p
         slot='settings-menu-open'
         class='website-settings__disclaimer'
@@ -144,37 +183,93 @@ props.primaryMenu = [
     </p>
 
     <slot
-        name='before-header'
+        name='settings-menu'
+        slot='settings-menu'
+    />
+    <slot
+        name='settings-menu-close'
+        slot='settings-menu-close'
+    />
+
+    <slot
         slot='before-header'
+        name='before-header'
     />
+
     <slot
-        name='header'
         slot='header'
+        name='header'
     />
+
     <slot
-        name='after-header'
+        slot='before-primary-nav'
+        name='before-primary-nav'
+    />
+
+    <slot
+        slot='after-primary-nav'
+        name='after-primary-nav'
+    />
+
+    <slot
         slot='after-header'
+        name='after-header'
+    />
+
+    <slot
+        slot='content-header'
+        name='content-header'
+    />
+
+    <slot
+        slot='before-site-content'
+        name='before-site-content'
     />
 
     <slot />
 
     <slot
-        name='before-footer'
+        slot='after-site-content'
+        name='after-site-content'
+    />
+
+    <slot
+        slot='sidebar'
+        name='sidebar'
+    />
+
+    <slot
+        slot='before-secondary-nav'
+        name='before-secondary-nav'
+    />
+
+    <slot
+        slot='after-secondary-nav'
+        name='after-secondary-nav'
+    />
+
+    <slot
         slot='before-footer'
+        name='before-footer'
     />
+
     <slot
-        name='footer'
         slot='footer'
+        name='footer'
     />
+
     <slot
-        name='after-footer'
         slot='after-footer'
+        name='after-footer'
     />
 
     <slot
-        name='body-close'
         slot='body-close'
+        name='body-close'
     />
 
-    <slot name='footer-scripts' />
-</UtilPage>
+    <slot
+        slot='footer-scripts'
+        name='footer-scripts'
+    />
+</LibPage>

@@ -1,0 +1,320 @@
+---
+/**
+ * @since 0.1.0-alpha.draft
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+import type { ComponentProps } from 'astro/types';
+import type { ArrayItem } from '@maddimathon/utility-typescript/types';
+import type { GenericProps } from '@maddimathon/utility-astro';
+
+/* import - functions */
+import { escRegExp } from '@maddimathon/utility-typescript/functions';
+
+/* import - values */
+import { base as config_base } from 'astro:config/client';
+
+/* import - components */
+
+/* import - layouts */
+import UtilPage from '@maddimathon/utility-astro/layouts/Page';
+import { absoluteInternalURL } from '@maddimathon/utility-astro/astro/functions';
+
+/* TYPES ===================================== */
+
+/* PROPS ===================================== */
+
+type UtilPage_Props = Omit<ComponentProps<typeof UtilPage>, 'frontmatter'>;
+
+type Partial_LibProps = Partial<Omit<UtilPage_Props, 'footer'>> &
+    Pick<UtilPage_Props, 'meta' | 'title'>;
+
+export interface Props_Raw extends Partial_LibProps {
+    footer?: {
+        copyright?: Required<Required<UtilPage_Props>['footer']>['copyright'];
+        designedBy?: boolean | string;
+    };
+
+    stylesheetURLs?: string[];
+    stylesheetVersion?: string;
+    urlMaker?: (currentURL: URL, targetSubpath: string) => string;
+}
+
+export type Props = GenericProps<Props_Raw>;
+
+const urlMaker = Astro.props?.urlMaker ?? absoluteInternalURL;
+
+// const _defaultProps = {
+//     title: [],
+
+//     dir: 'ltr',
+//     lang: 'en-CA',
+
+//     footer: {
+//         copyright: {
+//             html:
+//                 '<a href="https://www.maddimathon.com">Maddi Mathon</a>' +
+//                 ' | ' +
+//                 '<a href="' +
+//                 urlMaker(Astro.url, 'license') +
+//                 '">MIT license</a>',
+//             // owner: 'Maddi Mathon',
+//             year: 2025,
+//         },
+//     },
+
+//     meta: {
+//         title: 'Utility Astro',
+//     },
+
+//     settings: {
+//         settings: {
+//             brightness: true,
+//             contrast: true,
+//             motion: true,
+//         },
+//     },
+// } as const satisfies Props & UtilPage_Props;
+
+// const props = mergeArgs<Props & UtilPage_Props, Props>(
+//     _defaultProps,
+//     Astro.props.frontmatter ?? Astro.props,
+//     true
+// );
+
+const inputs: Props = Astro.props.frontmatter ?? Astro.props;
+
+const props = {
+    dir: 'ltr',
+    lang: 'en-CA',
+
+    ...inputs,
+
+    footer: {
+        copyright: inputs.footer?.copyright ?? {
+            html:
+                '<a href="https://www.maddimathon.com">Maddi Mathon</a>' +
+                ' | ' +
+                '<a href="' +
+                urlMaker(Astro.url, 'license') +
+                '">MIT license</a>',
+            // owner: 'Maddi Mathon',
+            year: 2025,
+        },
+
+        designedBy:
+            inputs.footer?.designedBy === true
+                ? `<span class="designer">Initial design and developement by <a
+                        href="https://www.maddimathon.com/web"
+                        set:text='Maddi Mathon'
+                        target="_blank"
+                    />.</span>`
+                : inputs.footer?.designedBy
+                  ? inputs.footer?.designedBy
+                  : undefined,
+    },
+
+    settings: {
+        settings: {
+            brightness: true,
+            contrast: true,
+            motion: true,
+        },
+    },
+} satisfies UtilPage_Props;
+
+/* CONSTANTS ===================================== */
+
+/* Stylesheets ------------------ */
+
+const versionSuffix = props.stylesheetVersion
+    ? `?v=${props.stylesheetVersion}`
+    : '';
+
+const stylesheets = props.stylesheetURLs
+    ? props.stylesheetURLs.map(
+          (_str) =>
+              urlMaker(
+                  Astro.url,
+                  _str.replace(
+                      new RegExp(
+                          '^' +
+                              escRegExp(
+                                  `/${config_base.replace(/(^\/|\/$)/gi, '')}/`
+                              ),
+                          'gi'
+                      ),
+                      ''
+                  )
+              ).replace(/\.html$/gi, '') + versionSuffix
+      )
+    : [];
+
+/* Menus ------------------ */
+
+const _menuMapper = (_obj: ArrayItem<[] & UtilPage_Props['primaryMenu']>) => {
+    if (typeof _obj.href === 'string') {
+        _obj.href = urlMaker(Astro.url, _obj.href);
+    }
+    if (_obj.child?.length) {
+        _obj.child = _obj.child.map(_menuMapper);
+    }
+    return _obj;
+};
+
+if (Array.isArray(props.primaryMenu)) {
+    props.primaryMenu = props.primaryMenu.map(_menuMapper);
+}
+
+if (Array.isArray(props.secondaryMenu)) {
+    props.secondaryMenu = props.secondaryMenu.map(_menuMapper);
+}
+---
+
+<UtilPage {...props as UtilPage_Props}>
+    <slot
+        slot='head-open'
+        name='head-open'
+    />
+
+    {
+        stylesheets.map((url) => (
+            <link
+                slot='head-open'
+                rel='preload'
+                href={url}
+                as='style'
+            />
+        ))
+    }
+    {
+        stylesheets.map((url) => (
+            <link
+                slot='head-open'
+                rel='stylesheet'
+                href={url}
+            />
+        ))
+    }
+
+    <slot
+        slot='head-close'
+        name='head-close'
+    />
+
+    <meta
+        slot='head-close'
+        name='color-scheme'
+        content='dark light'
+    />
+
+    <slot
+        slot='body-open'
+        name='body-open'
+    />
+
+    <p
+        slot='settings-menu-open'
+        class='website-settings__disclaimer'
+    >
+        These settings are saved using browser cookies, which may not work as
+        expected in offline copies.
+    </p>
+    <slot
+        slot='settings-menu-open'
+        name='settings-menu-open'
+    />
+
+    <slot
+        slot='settings-menu'
+        name='settings-menu'
+    />
+    <slot
+        slot='settings-menu-close'
+        name='settings-menu-close'
+    />
+
+    <slot
+        slot='before-header'
+        name='before-header'
+    />
+
+    <slot
+        slot='header'
+        name='header'
+    />
+
+    <slot
+        slot='before-primary-nav'
+        name='before-primary-nav'
+    />
+
+    <slot
+        slot='after-primary-nav'
+        name='after-primary-nav'
+    />
+
+    <slot
+        slot='after-header'
+        name='after-header'
+    />
+
+    <slot
+        slot='content-header'
+        name='content-header'
+    />
+
+    <slot
+        slot='before-site-content'
+        name='before-site-content'
+    />
+
+    <slot />
+
+    <slot
+        slot='after-site-content'
+        name='after-site-content'
+    />
+
+    <slot
+        slot='sidebar'
+        name='sidebar'
+    />
+
+    <slot
+        slot='before-secondary-nav'
+        name='before-secondary-nav'
+    />
+
+    <slot
+        slot='after-secondary-nav'
+        name='after-secondary-nav'
+    />
+
+    <slot
+        slot='before-footer'
+        name='before-footer'
+    />
+
+    <slot
+        slot='footer'
+        name='footer'
+    />
+
+    <slot
+        slot='after-footer'
+        name='after-footer'
+    />
+
+    <slot
+        slot='body-close'
+        name='body-close'
+    />
+
+    <slot
+        slot='footer-scripts'
+        name='footer-scripts'
+    />
+</UtilPage>

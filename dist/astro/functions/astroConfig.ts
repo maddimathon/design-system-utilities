@@ -92,6 +92,7 @@ export function astroConfig(
 
         vite: {
             build: {
+                // to try and inline all scripts
                 assetsInlineLimit: 9999999,
             },
         },

@@ -7,4 +7,4 @@
 /**
  * Docs site title.
  */
-export const SITE_TITLE = 'Boilerplate Brand Kit';
+export const SITE_TITLE = 'Design System Utilities';

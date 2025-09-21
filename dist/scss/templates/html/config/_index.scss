@@ -3,20 +3,15 @@
 /// @since 0.1.0-alpha.draft
 ///
 
-@forward '../../global/config' with (
-    $include_html: true !default,
-    $internal_supressCredit: true,
-
-    $print_globals: true !default,
-    $print_normalize: true !default,
-    $print_tokens: true !default,
-    $print_utils: true !default,
-
-    $selectorType_mode: 'attribute' !default,
-    $selectorType_motion: 'attribute' !default
-);
+@forward '_lib' hide $internal_extendSelectors;
 
 @use '../../../config/utility-sass' as utils;
+
+$internal_extendSelectors: true !default;
+$internal_extendSelectors: utils.config-valid-bool(
+    $internal_extendSelectors,
+    'internal_extendSelectors'
+);
 
 $internal_supressCredit: false !default;
 $internal_supressCredit: utils.config-valid-bool(

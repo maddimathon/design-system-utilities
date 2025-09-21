@@ -12,6 +12,30 @@
 
 @forward 'lib';
 
+@forward 'pkg:@maddimathon/utility-astro/templates/tokens' hide
+        extend-selector-globals,
+    extend-selector-utils, print-tokens, snippet-button, snippet-input,
+    snippet-input-types, snippet-label, tokens-all, $font_sizes,
+    $internal_extendSelectors, $internal_supressCredit, $line_heights, $margins,
+    $print_tokens, $scale_multiplier;
+
 @forward '_content';
 
 @forward '_footer';
+
+/// # EXTENDING SELECTORS
+/// ======================================================================== ///
+
+@use 'config';
+
+@use 'lib' as *;
+
+@if config.$internal_extendSelectors {
+    @include config.print-globals {
+        @include extend-selector-globals;
+    }
+
+    @include config.print-utils {
+        @include extend-selector-utils;
+    }
+}

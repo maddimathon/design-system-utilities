@@ -11,6 +11,1618 @@
  * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * License: MIT
  */
+/*!
+ * Utility Astro Template - HTML
+ * 
+ * @maddimathon/utility-astro@0.1.0-alpha.draft
+ * License: MIT
+ */
+/* #region Normalize */
+/*! modern-normalize v3.0.1 | MIT License | https://github.com/sindresorhus/modern-normalize */
+/*
+Document
+========
+*/
+/**
+Use a better box model (opinionated).
+*/
+*,
+::before,
+::after {
+    box-sizing: border-box;
+}
+
+html {
+    /* Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3) */
+    /* font-family:
+      system-ui,
+      'Segoe UI',
+      Roboto,
+      Helvetica,
+      Arial,
+      sans-serif,
+      'Apple Color Emoji',
+      'Segoe UI Emoji'; */
+    line-height: 1.15; /* 1. Correct the line height in all browsers. */
+    -webkit-text-size-adjust: 100%; /* 2. Prevent adjustments of font size after orientation changes in iOS. */
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4; /* 3. Use a more readable tab size (opinionated). */
+}
+
+/*
+Sections
+========
+*/
+body {
+    margin: 0; /* Remove the margin in all browsers. */
+}
+
+/*
+Text-level semantics
+====================
+*/
+/**
+Add the correct font weight in Chrome and Safari.
+*/
+b,
+strong {
+    font-weight: bolder;
+}
+
+/**
+1. Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3)
+2. Correct the odd 'em' font sizing in all browsers.
+*/
+code,
+kbd,
+samp,
+pre {
+    /* font-family:
+      ui-monospace,
+      SFMono-Regular,
+      Consolas,
+      'Liberation Mono',
+      Menlo,
+      monospace; */ /* 1 */
+    font-size: 1em; /* 2 */
+}
+
+/**
+Add the correct font size in all browsers.
+*/
+small {
+    font-size: 80%;
+}
+
+/**
+Prevent 'sub' and 'sup' elements from affecting the line height in all browsers.
+*/
+sub,
+sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+sub {
+    bottom: -0.25em;
+}
+
+sup {
+    top: -0.5em;
+}
+
+/*
+Tabular data
+============
+*/
+/**
+Correct table border color inheritance in Chrome and Safari. (https://issues.chromium.org/issues/40615503, https://bugs.webkit.org/show_bug.cgi?id=195016)
+*/
+table {
+    border-color: currentcolor;
+}
+
+/*
+Forms
+=====
+*/
+/**
+1. Change the font styles in all browsers.
+2. Remove the margin in Firefox and Safari.
+*/
+button,
+input,
+optgroup,
+select,
+textarea {
+    font-family: inherit; /* 1 */
+    font-size: 100%; /* 1 */
+    line-height: 1.15; /* 1 */
+    margin: 0; /* 2 */
+}
+
+/**
+Correct the inability to style clickable types in iOS and Safari.
+*/
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+    -webkit-appearance: button;
+}
+
+/**
+Remove the padding so developers are not caught out when they zero out 'fieldset' elements in all browsers.
+*/
+legend {
+    padding: 0;
+}
+
+/**
+Add the correct vertical alignment in Chrome and Firefox.
+*/
+progress {
+    vertical-align: baseline;
+}
+
+/**
+Correct the cursor style of increment and decrement buttons in Safari.
+*/
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+    height: auto;
+}
+
+/**
+1. Correct the odd appearance in Chrome and Safari.
+2. Correct the outline style in Safari.
+*/
+[type="search"] {
+    -webkit-appearance: textfield; /* 1 */
+    outline-offset: -2px; /* 2 */
+}
+
+/**
+Remove the inner padding in Chrome and Safari on macOS.
+*/
+::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+/**
+1. Correct the inability to style clickable types in iOS and Safari.
+2. Change font properties to 'inherit' in Safari.
+*/
+::-webkit-file-upload-button {
+    -webkit-appearance: button; /* 1 */
+    font: inherit; /* 2 */
+}
+
+/*
+Interactive
+===========
+*/
+/*
+Add the correct display in Chrome and Safari.
+*/
+summary {
+    display: list-item;
+}
+
+/*! end of modern-normalize */
+html {
+    color-scheme: light, dark;
+}
+html[data-brightness-mode="light"] {
+    color-scheme: light;
+}
+
+@media (prefers-color-scheme: light) {
+    html {
+        color-scheme: light;
+    }
+}
+html[data-brightness-mode="dark"] {
+    color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+    html {
+        color-scheme: dark;
+    }
+}
+
+html {
+    font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Oxygen-Sans,
+        Ubuntu,
+        Cantarell,
+        "Helvetica Neue",
+        Helvetica,
+        Arial,
+        sans-serif,
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol";
+    font-size: 115%;
+}
+@media (min-width: 50em) {
+    html {
+        font-size: 105%;
+    }
+}
+
+code,
+kbd,
+samp,
+pre {
+    font-family:
+        ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo,
+        monospace;
+}
+
+/* #endregion Normalize */
+/*!
+ * Utility Sass Template - Base
+ * 
+ * @maddimathon/utility-sass@0.1.0-alpha.draft
+ * License: MIT
+ */
+/* # ACCESSIBILITY
+ * ======================================================================== */
+.no-js :focus,
+.js__no-where-selector :focus {
+    /* %focus-ring */
+    outline: 0.125rem dashed currentColor;
+    outline: var(--focus-ring-outline-width, 0.125rem) dashed
+        var(--focus-ring-outline-color, currentColor);
+    outline-offset: 0.125em;
+    outline-offset: var(--focus-ring-outline-offset, 0.125em);
+}
+
+:where(.js__no-focusVisible) :focus {
+    /* %focus-ring--where */
+    outline: 0.125rem dashed currentColor;
+    outline: var(--focus-ring-outline-width, 0.125rem) dashed
+        var(--focus-ring-outline-color, currentColor);
+    outline-offset: 0.125em;
+    outline-offset: var(--focus-ring-outline-offset, 0.125em);
+}
+
+:focus-visible {
+    /* %focus-ring--visible */
+    outline: 0.125rem dashed currentColor;
+    outline: var(--focus-ring-outline-width, 0.125rem) dashed
+        var(--focus-ring-outline-color, currentColor);
+    outline-offset: 0.125em;
+    outline-offset: var(--focus-ring-outline-offset, 0.125em);
+}
+
+.screen-reader-text {
+    position: absolute !important;
+    left: -10000px !important;
+    margin: 0 !important;
+    padding: 0;
+    width: 1px;
+    height: 1px;
+    overflow: hidden !important;
+}
+
+/* # OBJECTS
+ * ======================================================================== */
+html,
+body {
+    scroll-padding-top: max(1.625rem, min(5svw, 5.8125rem));
+    scroll-padding-top: clamp(1.625rem, 5svw, 5.8125rem);
+    scroll-padding-top: var(--gap-block-layout, 5vw);
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    gap: max(1.625rem, min(5svw, 5.8125rem)) max(1.25rem, min(8svw, 7.125rem));
+    gap: max(1.625rem, min(5svw, 5.8125rem)) clamp(1.25rem, 8svw, 7.125rem);
+    gap: max(1.25rem, min(8svw, 7.125rem)) max(1.25rem, min(8svw, 7.125rem));
+    gap: max(1.25rem, min(8svw, 7.125rem)) clamp(1.25rem, 8svw, 7.125rem);
+    gap: clamp(1.625rem, 5svw, 5.8125rem) clamp(1.25rem, 8svw, 7.125rem);
+    gap: var(--gap-block-layout, 5vw) var(--gap-inline-layout, 8vw);
+    margin-top: max(1.625rem, min(5svw, 5.8125rem));
+    margin-bottom: max(1.625rem, min(5svw, 5.8125rem));
+    margin-top: max(1.625rem, min(5svw, 5.8125rem));
+    margin-top: clamp(1.625rem, 5svw, 5.8125rem);
+    margin-bottom: max(1.625rem, min(5svw, 5.8125rem));
+    margin-bottom: clamp(1.625rem, 5svw, 5.8125rem);
+    margin-top: var(--gap-block-layout, 5vw);
+    margin-bottom: var(--gap-block-layout, 5vw);
+    margin-left: max(1.25rem, min(8svw, 7.125rem));
+    margin-right: max(1.25rem, min(8svw, 7.125rem));
+    margin-left: max(1.25rem, min(8svw, 7.125rem));
+    margin-left: clamp(1.25rem, 8svw, 7.125rem);
+    margin-right: max(1.25rem, min(8svw, 7.125rem));
+    margin-right: clamp(1.25rem, 8svw, 7.125rem);
+    margin-left: var(--gap-inline-layout, 8vw);
+    margin-right: var(--gap-inline-layout, 8vw);
+}
+:where(body > *) {
+    width: min(calc(36rem + max(1.25rem, min(8svw, 7.125rem)) + 16rem), 100%);
+    width: min(calc(36rem + clamp(1.25rem, 8svw, 7.125rem) + 16rem), 100%);
+    width: min(var(--width-page, 58rem), 100%);
+}
+
+hr {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+    margin-left: max(0.5rem, min(4svw, 2.25rem));
+    margin-right: max(0.5rem, min(4svw, 2.25rem));
+    margin-left: max(0.5rem, min(4svw, 2.25rem));
+    margin-left: clamp(0.5rem, 4svw, 2.25rem);
+    margin-right: max(0.5rem, min(4svw, 2.25rem));
+    margin-right: clamp(0.5rem, 4svw, 2.25rem);
+    margin-left: var(--gap-inline-indent, 4vw);
+    margin-right: var(--gap-inline-indent, 4vw);
+}
+@media (min-width: 25em) {
+    hr {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: min(29.25rem, 100%);
+        max-width: min(var(--width-callout, 29.25rem), 100%);
+    }
+}
+hr {
+    width: 100%;
+    margin-top: calc(0.8125rem + 2.25rem);
+    margin-top: calc(
+        var(--mrg-soft-400, 0.8125rem) + var(--mrg-firm-600, 2.25rem)
+    );
+    margin-top: 2.25rem;
+    margin-bottom: 2.25rem;
+    margin-top: var(--mrg-firm-600, 2.25rem);
+    margin-bottom: var(--mrg-firm-600, 2.25rem);
+    border: none;
+    border-bottom: currentColor solid 2px;
+}
+
+/* # TYPOGRAPHY
+ * ======================================================================== */
+html {
+    line-height: 1.6875;
+    line-height: var(--line-height-400, 1.6875);
+}
+
+/* ## Typography - Inline ==================================== */
+strong,
+b {
+    font-weight: 700;
+}
+strong strong,
+b strong {
+    font-weight: 800;
+}
+strong strong strong,
+b strong strong {
+    font-weight: 900;
+}
+
+em,
+i {
+    font-style: italic;
+}
+em em,
+i em {
+    font-style: normal;
+}
+em em em,
+i em em {
+    font-style: italic;
+}
+
+a {
+    display: inline;
+    border: none;
+    -webkit-text-decoration: underline 0.0625em;
+    text-decoration: underline 0.0625em;
+    -webkit-text-decoration: underline var(--stroke-relative-200, 0.0625em);
+    text-decoration: underline var(--stroke-relative-200, 0.0625em);
+    text-underline-offset: 0.1875em;
+    text-underline-offset: var(--stroke-relative-600, 0.1875em);
+    color: LinkText;
+}
+a:visited {
+    color: VisitedText;
+}
+.no-js a:focus,
+.js__no-where-selector a:focus {
+    text-decoration-color: transparent;
+    color: ActiveText;
+}
+
+:where(.js__no-focusVisible) a:focus {
+    text-decoration-color: transparent;
+    color: ActiveText;
+}
+
+a:hover {
+    text-decoration-color: transparent;
+    color: ActiveText;
+}
+
+a:focus-visible {
+    text-decoration-color: transparent;
+    color: ActiveText;
+}
+
+a:active {
+    color: ActiveText;
+}
+a.no-style {
+    text-decoration: none;
+    font-weight: inherit;
+    color: inherit;
+}
+a[aria-disabled="true"] {
+    text-decoration-line: line-through;
+    opacity: 1;
+    cursor: not-allowed;
+}
+a[aria-disabled="true"] {
+    opacity: 0.875;
+}
+
+@media (prefers-contrast: less) {
+    a[aria-disabled="true"] {
+        opacity: 0.875;
+    }
+}
+
+abbr[title] {
+    -webkit-text-decoration: dotted underline 0.125em;
+    text-decoration: dotted underline 0.125em;
+    -webkit-text-decoration: dotted underline
+        var(--stroke-relative-400, 0.125em);
+    text-decoration: dotted underline var(--stroke-relative-400, 0.125em);
+    cursor: help;
+}
+
+/* ## Typography - Block ==================================== */
+p {
+    margin-top: 0.8125rem;
+    margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-bottom: 0;
+}
+hr + p {
+    margin-top: 0;
+}
+
+blockquote {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+    margin-left: max(0.5rem, min(4svw, 2.25rem));
+    margin-right: max(0.5rem, min(4svw, 2.25rem));
+    margin-left: max(0.5rem, min(4svw, 2.25rem));
+    margin-left: clamp(0.5rem, 4svw, 2.25rem);
+    margin-right: max(0.5rem, min(4svw, 2.25rem));
+    margin-right: clamp(0.5rem, 4svw, 2.25rem);
+    margin-left: var(--gap-inline-indent, 4vw);
+    margin-right: var(--gap-inline-indent, 4vw);
+}
+blockquote {
+    margin-top: 0.8125rem;
+    margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-bottom: 0;
+    margin-top: 1.625rem;
+    margin-bottom: calc(1.625rem - 0.8125rem);
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: calc(
+        var(--mrg-soft-600, 1.625rem) - var(--mrg-soft-400, 0.8125rem)
+    );
+}
+blockquote > p:first-child {
+    margin-top: 0;
+}
+blockquote > cite {
+    display: block;
+    margin-top: 0.8125rem;
+    margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-bottom: 0;
+    text-align: right;
+    color: color-mix(in srgb, currentColor 75%, transparent);
+}
+blockquote > cite::before {
+    content: "— ";
+    color: currentColor;
+}
+[data-contrast-mode="high"] blockquote > cite {
+    color: color-mix(in srgb, currentColor 87.5%, transparent);
+}
+
+@media (prefers-contrast: more) {
+    blockquote > cite {
+        color: color-mix(in srgb, currentColor 87.5%, transparent);
+    }
+}
+[data-contrast-mode="forced-colors"] blockquote > cite {
+    color: currentColor;
+}
+
+@media (forced-colors: active), (prefers-contrast: custom) {
+    blockquote > cite {
+        color: currentColor;
+    }
+}
+
+pre {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+    margin-left: max(0.5rem, min(4svw, 2.25rem));
+    margin-right: max(0.5rem, min(4svw, 2.25rem));
+    margin-left: max(0.5rem, min(4svw, 2.25rem));
+    margin-left: clamp(0.5rem, 4svw, 2.25rem);
+    margin-right: max(0.5rem, min(4svw, 2.25rem));
+    margin-right: clamp(0.5rem, 4svw, 2.25rem);
+    margin-left: var(--gap-inline-indent, 4vw);
+    margin-right: var(--gap-inline-indent, 4vw);
+}
+pre {
+    position: relative;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0.8125rem;
+    margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-bottom: 0;
+    margin-top: 1.625rem;
+    margin-bottom: calc(1.625rem - 0.8125rem);
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: calc(
+        var(--mrg-soft-600, 1.625rem) - var(--mrg-soft-400, 0.8125rem)
+    );
+    padding: 0;
+    max-width: min(120ch, 100%);
+    overflow: auto;
+    font-size: 0.9375rem;
+    font-size: var(--fs-smaller-1, 0.9375rem);
+}
+pre > code {
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: none;
+    width: auto;
+    max-width: 100%;
+    white-space: normal;
+    text-wrap: auto;
+}
+pre:where(:has(> code)) {
+    white-space: normal;
+    text-wrap: auto;
+}
+pre:where(:has(> code)) > code {
+    white-space: pre;
+    text-wrap: nowrap;
+    overflow: visible;
+}
+
+/* ## Typography - Headings ==================================== */
+.heading,
+heading {
+    margin-top: 1.625rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: 0;
+    font-weight: 600;
+    font-size: clamp(0.75rem, 1.3125svw + 1rem, 1.125rem);
+    font-size: var(--fs-heading-7, 1rem);
+    text-wrap: balance;
+}
+
+h1,
+.h1,
+.page-title {
+    margin-top: 1.625rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: 0;
+    font-weight: 900;
+    font-size: clamp(2.0625rem, 3.625svw + 1rem, 3.125rem);
+    font-size: var(--fs-title, 2.75rem);
+    line-height: 1.1875;
+    line-height: var(--line-height-100, 1.1875);
+    text-wrap: balance;
+}
+
+h2,
+.h2 {
+    margin-top: 3.125rem;
+    margin-top: var(--mrg-soft-800, 3.125rem);
+    margin-bottom: 0;
+    font-weight: 800;
+    font-size: clamp(1.5625rem, 2.6875svw + 1rem, 2.3125rem);
+    font-size: var(--fs-heading-2, 2.0625rem);
+    line-height: 1.3125;
+    line-height: var(--line-height-200, 1.3125);
+    text-wrap: balance;
+}
+
+h3,
+.h3 {
+    margin-top: 3.125rem;
+    margin-top: var(--mrg-soft-800, 3.125rem);
+    margin-bottom: 0;
+    font-weight: 700;
+    font-size: clamp(1.375rem, 2.375svw + 1rem, 2.0625rem);
+    font-size: var(--fs-heading-3, 1.8125rem);
+    line-height: 1.3125;
+    line-height: var(--line-height-200, 1.3125);
+    text-wrap: balance;
+}
+
+h4,
+.h4 {
+    margin-top: 1.625rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: 0;
+    font-weight: 700;
+    font-style: italic;
+    font-size: clamp(1.1875rem, 2.0625svw + 1rem, 1.75rem);
+    font-size: var(--fs-heading-4, 1.5625rem);
+    line-height: 1.4375;
+    line-height: var(--line-height-300, 1.4375);
+    text-wrap: balance;
+}
+
+h5,
+.h5 {
+    margin-top: 1.625rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: 0;
+    font-weight: 600;
+    font-style: italic;
+    font-size: clamp(1rem, 1.75svw + 1rem, 1.5rem);
+    font-size: var(--fs-heading-5, 1.3125rem);
+    line-height: 1.4375;
+    line-height: var(--line-height-300, 1.4375);
+    text-wrap: balance;
+}
+
+h6,
+.h6 {
+    margin-top: 1.625rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: 0;
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(0.875rem, 1.5625svw + 1rem, 1.3125rem);
+    font-size: var(--fs-heading-6, 1.1875rem);
+    line-height: 1.4375;
+    line-height: var(--line-height-300, 1.4375);
+    text-wrap: balance;
+}
+
+/* # LISTS
+ * ======================================================================== */
+ol,
+ul {
+    margin: 0;
+    margin-left: 20%;
+    padding: 0;
+    padding-left: 1em;
+    margin-left: max(0.3125rem, min(1.5svw, 2.25rem));
+    margin-left: max(0.3125rem, min(1.5svw, 2.25rem));
+    margin-left: clamp(0.3125rem, 1.5svw, 2.25rem);
+    margin-left: var(--gap-inline-tab, 1.5vw);
+    line-height: 1.6875;
+    line-height: var(--line-height-400, 1.6875);
+}
+ol ol,
+ol ul,
+ul ol,
+ul ul {
+    margin-top: 0;
+}
+ol ol ol,
+ol ol ul,
+ol ul ol,
+ol ul ul,
+ul ol ol,
+ul ol ul,
+ul ul ol,
+ul ul ul {
+    font-size: 0.9375rem;
+    font-size: var(--fs-smaller-1, 0.9375rem);
+}
+
+ol {
+    /* level 1 - ol */
+    list-style-type: decimal;
+}
+ol ol {
+    /* level 2 - ol ol */
+    list-style-type: lower-alpha;
+}
+ol ol ol {
+    /* level 3 - ol ol ol */
+    list-style-type: lower-roman;
+}
+ol ol ol ol {
+    /* level 4 - ol ol ol ol */
+}
+ol ol ol ol ol {
+    /* level 5 - ol ol ol ol ol */
+}
+
+ul {
+    /* level 1 - ul */
+    list-style-type: disc;
+}
+ul ul {
+    /* level 2 - ul ul */
+    list-style-type: circle;
+}
+ol ol ol ol,
+ul ul ul {
+    /* level 3 - ul ul ul */
+    /* level 4 - ol ol ol ol */
+    list-style-type: square; /* fallback */
+    list-style-type: "–  ";
+}
+ol ol ol ol ol,
+ol ol ol ol ul,
+ul ul ul ul {
+    /* level 4 - ul ul ul ul */
+    /* level 5 - ol ol ol ol ol */
+}
+
+li {
+    margin: 0;
+    margin-top: 0.5rem;
+    margin-top: var(--mrg-soft-300, 0.5rem);
+    padding: 0;
+}
+li::marker {
+    font-weight: 500;
+    font-size: 0.9375rem;
+    font-size: var(--fs-smaller-1, 0.9375rem);
+}
+li li li {
+    margin-top: 0.3125rem;
+    margin-top: var(--mrg-soft-200, 0.3125rem);
+}
+li li li::marker {
+    font-size: 0.8125rem;
+    font-size: var(--fs-smaller-2, 0.8125rem);
+}
+li li li li {
+    font-style: italic;
+}
+li li li li em {
+    font-style: normal;
+}
+
+/* # FORMS
+ * ======================================================================== */
+fieldset {
+    display: block;
+    margin: 1.25rem 0 0.4375rem;
+    margin: var(--mrg-firm-400, 1.25rem) 0 var(--mrg-half-400, 0.4375rem);
+    padding: 0.5rem 1.25rem 0.8125rem;
+    padding: var(--mrg-soft-300, 0.5rem) var(--mrg-firm-400, 1.25rem)
+        var(--mrg-firm-300, 0.8125rem);
+    border: 0.0625rem solid AccentColor;
+    border-radius: 0;
+    background-color: Canvas;
+    color: CanvasText;
+}
+.no-js fieldset:focus,
+.js__no-where-selector fieldset:focus {
+    border-color: ActiveText;
+}
+
+:where(.js__no-focusVisible) fieldset:focus {
+    border-color: ActiveText;
+}
+
+fieldset:focus-visible {
+    border-color: ActiveText;
+}
+
+fieldset:focus-within {
+    border-color: ActiveText;
+}
+
+fieldset:active {
+    border-color: AccentColor;
+}
+fieldset legend {
+    display: block;
+}
+fieldset > :first-child {
+    margin-top: 0;
+    margin-top: calc(0.8125rem - 0.3125rem);
+    margin-top: calc(
+        var(--mrg-soft-400, 0.8125rem) - var(--mrg-soft-200, 0.3125rem)
+    );
+}
+fieldset > legend + * {
+    margin-top: 0;
+}
+
+fieldset legend {
+    margin-top: 1.625rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: 0;
+    font-weight: 600;
+    font-size: clamp(0.75rem, 1.3125svw + 1rem, 1.125rem);
+    font-size: var(--fs-heading-7, 1rem);
+    text-wrap: balance;
+    margin-left: calc(0.5rem * -1);
+    margin-right: calc(0.5rem * -1);
+    margin-left: calc(var(--mrg-soft-300, 0.5rem) * -1);
+    margin-right: calc(var(--mrg-soft-300, 0.5rem) * -1);
+    margin-bottom: 0.5rem;
+    margin-top: 0;
+    margin-bottom: var(--mrg-soft-300, 0.5rem);
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-left: var(--mrg-soft-300, 0.5rem);
+    padding-right: var(--mrg-soft-300, 0.5rem);
+    font-style: italic;
+}
+
+textarea,
+select,
+input {
+    display: block;
+    margin: 1.25rem 0 0.4375rem;
+    margin: var(--mrg-firm-400, 1.25rem) 0 var(--mrg-half-400, 0.4375rem);
+    padding: 0.3125rem 0.5rem;
+    padding: var(--mrg-soft-200, 0.3125rem) var(--mrg-firm-200, 0.5rem);
+    width: 100%;
+    font: inherit;
+    line-height: 1.3125;
+    line-height: var(--line-height-200, 1.3125);
+    border: 0.0625rem solid FieldText;
+    border-radius: 0;
+    background-color: Field;
+    color: FieldText;
+    accent-color: FieldText;
+}
+.no-js textarea:focus,
+.no-js select:focus,
+.no-js input:focus,
+.js__no-where-selector textarea:focus,
+.js__no-where-selector select:focus,
+.js__no-where-selector input:focus {
+    background-color: Field;
+    border-color: FieldText;
+    color: FieldText;
+    accent-color: FieldText;
+}
+
+:where(.js__no-focusVisible) textarea:focus,
+:where(.js__no-focusVisible) select:focus,
+:where(.js__no-focusVisible) input:focus {
+    background-color: Field;
+    border-color: FieldText;
+    color: FieldText;
+    accent-color: FieldText;
+}
+
+textarea:hover,
+select:hover,
+input:hover {
+    background-color: Field;
+    border-color: FieldText;
+    color: FieldText;
+    accent-color: FieldText;
+}
+
+textarea:focus-visible,
+select:focus-visible,
+input:focus-visible {
+    background-color: Field;
+    border-color: FieldText;
+    color: FieldText;
+    accent-color: FieldText;
+}
+
+textarea:focus-within,
+select:focus-within,
+input:focus-within {
+    background-color: Field;
+    border-color: FieldText;
+    color: FieldText;
+    accent-color: FieldText;
+}
+
+textarea:active,
+select:active,
+input:active {
+    background-color: Field;
+    border-color: FieldText;
+    color: FieldText;
+    accent-color: ActiveText;
+}
+textarea::-moz-placeholder,
+select::-moz-placeholder,
+input::-moz-placeholder {
+    opacity: 1;
+    color: currentColor;
+    color: color-mix(in srgb, currentColor 62.5%, transparent);
+}
+textarea::placeholder,
+select::placeholder,
+input::placeholder {
+    opacity: 1;
+    color: currentColor;
+    color: color-mix(in srgb, currentColor 62.5%, transparent);
+}
+[data-contrast-mode="high"] textarea::-moz-placeholder,
+[data-contrast-mode="high"] select::-moz-placeholder,
+[data-contrast-mode="high"] input::-moz-placeholder {
+    color: color-mix(in srgb, currentColor 87.5%, transparent);
+}
+[data-contrast-mode="high"] textarea::placeholder,
+[data-contrast-mode="high"] select::placeholder,
+[data-contrast-mode="high"] input::placeholder {
+    color: color-mix(in srgb, currentColor 87.5%, transparent);
+}
+
+@media (prefers-contrast: more) {
+    textarea::-moz-placeholder,
+    select::-moz-placeholder,
+    input::-moz-placeholder {
+        color: color-mix(in srgb, currentColor 87.5%, transparent);
+    }
+    textarea::placeholder,
+    select::placeholder,
+    input::placeholder {
+        color: color-mix(in srgb, currentColor 87.5%, transparent);
+    }
+}
+[data-contrast-mode="forced-colors"] textarea::-moz-placeholder,
+[data-contrast-mode="forced-colors"] select::-moz-placeholder,
+[data-contrast-mode="forced-colors"] input::-moz-placeholder {
+    color: currentColor;
+}
+[data-contrast-mode="forced-colors"] textarea::placeholder,
+[data-contrast-mode="forced-colors"] select::placeholder,
+[data-contrast-mode="forced-colors"] input::placeholder {
+    color: currentColor;
+}
+
+@media (forced-colors: active), (prefers-contrast: custom) {
+    textarea::-moz-placeholder,
+    select::-moz-placeholder,
+    input::-moz-placeholder {
+        color: currentColor;
+    }
+    textarea::placeholder,
+    select::placeholder,
+    input::placeholder {
+        color: currentColor;
+    }
+}
+label + textarea,
+label + select,
+label + input,
+label > textarea,
+label > select,
+label > input {
+    margin-top: 0.5rem;
+    margin-top: var(--mrg-firm-200, 0.5rem);
+}
+
+input[type="button"],
+input[type="checkbox"],
+input[type="color"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="file"],
+input[type="month"],
+input[type="radio"],
+input[type="range"],
+input[type="reset"],
+input[type="submit"],
+input[type="time"],
+input[type="week"] {
+    cursor: pointer;
+}
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="url"],
+input[type="week"] {
+    cursor: text;
+}
+input[type="checkbox"],
+input[type="radio"] {
+    display: inline-block;
+    padding: 0;
+    width: auto;
+    accent-color: FieldText;
+}
+.no-js input[type="checkbox"]:focus,
+.no-js input[type="radio"]:focus,
+.js__no-where-selector input[type="checkbox"]:focus,
+.js__no-where-selector input[type="radio"]:focus {
+    accent-color: FieldText;
+}
+
+:where(.js__no-focusVisible) input[type="checkbox"]:focus,
+:where(.js__no-focusVisible) input[type="radio"]:focus {
+    accent-color: FieldText;
+}
+
+input[type="checkbox"]:hover,
+input[type="radio"]:hover {
+    accent-color: FieldText;
+}
+
+input[type="checkbox"]:focus-visible,
+input[type="radio"]:focus-visible {
+    accent-color: FieldText;
+}
+
+input[type="checkbox"]:focus-within,
+input[type="radio"]:focus-within {
+    accent-color: FieldText;
+}
+
+input[type="checkbox"]:active,
+input[type="radio"]:active {
+    accent-color: ActiveText;
+}
+input[type="color"] {
+    padding: 0;
+    height: 2.25em;
+    width: 2.25em;
+}
+input[type="date"],
+input[type="datetime-local"],
+input[type="file"],
+input[type="month"],
+input[type="time"],
+input[type="week"] {
+    width: auto;
+}
+input[type="file"] {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-top: var(--mrg-soft-300, 0.5rem);
+    padding-bottom: var(--mrg-soft-300, 0.5rem);
+    padding-left: 0.8125rem;
+    padding-right: 0.8125rem;
+    padding-left: var(--mrg-firm-300, 0.8125rem);
+    padding-right: var(--mrg-firm-300, 0.8125rem);
+    font-size: 0.9375rem;
+    font-size: var(--fs-smaller-1, 0.9375rem);
+}
+input[type="range"] {
+    padding: 0;
+}
+
+select {
+    cursor: pointer;
+}
+
+textarea {
+    cursor: text;
+}
+
+/* ## Forms - Buttons ==================================== */
+button,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+.button,
+input[type="reset"],
+::file-selector-button,
+.button-secondary {
+    display: block;
+    margin: 1.25rem 0 0.4375rem;
+    margin: var(--mrg-firm-400, 1.25rem) 0 var(--mrg-half-400, 0.4375rem);
+    padding: 0.3125rem 0.8125rem;
+    padding: var(--mrg-soft-200, 0.3125rem) var(--mrg-firm-300, 0.8125rem);
+    width: -moz-fit-content;
+    width: fit-content;
+    font: inherit;
+    line-height: 1.1875;
+    line-height: var(--line-height-100, 1.1875);
+    border: 0.125rem solid ButtonBorder;
+    border-radius: 0;
+    background-color: ButtonFace;
+    color: ButtonText;
+    accent-color: ButtonText;
+}
+.no-js button:focus,
+.no-js [role="button"]:focus,
+.no-js input[type="button"]:focus,
+.no-js input[type="submit"]:focus,
+.no-js .button:focus,
+.no-js input[type="reset"]:focus,
+.no-js :focus::file-selector-button,
+.no-js .button-secondary:focus,
+.js__no-where-selector button:focus,
+.js__no-where-selector [role="button"]:focus,
+.js__no-where-selector input[type="button"]:focus,
+.js__no-where-selector input[type="submit"]:focus,
+.js__no-where-selector .button:focus,
+.js__no-where-selector input[type="reset"]:focus,
+.js__no-where-selector :focus::file-selector-button,
+.js__no-where-selector .button-secondary:focus {
+    background-color: SelectedItem;
+    border-color: SelectedItem;
+    color: SelectedItemText;
+    accent-color: ButtonText;
+    opacity: 0.875;
+}
+
+:where(.js__no-focusVisible) button:focus,
+:where(.js__no-focusVisible) [role="button"]:focus,
+:where(.js__no-focusVisible) input[type="button"]:focus,
+:where(.js__no-focusVisible) input[type="submit"]:focus,
+:where(.js__no-focusVisible) .button:focus,
+:where(.js__no-focusVisible) input[type="reset"]:focus,
+:where(.js__no-focusVisible) :focus::file-selector-button,
+:where(.js__no-focusVisible) .button-secondary:focus {
+    background-color: SelectedItem;
+    border-color: SelectedItem;
+    color: SelectedItemText;
+    accent-color: ButtonText;
+    opacity: 0.875;
+}
+
+button:hover,
+[role="button"]:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover,
+.button:hover,
+input[type="reset"]:hover,
+:hover::file-selector-button,
+.button-secondary:hover {
+    background-color: SelectedItem;
+    border-color: SelectedItem;
+    color: SelectedItemText;
+    accent-color: ButtonText;
+    opacity: 0.875;
+}
+
+button:focus-visible,
+[role="button"]:focus-visible,
+input[type="button"]:focus-visible,
+input[type="submit"]:focus-visible,
+.button:focus-visible,
+input[type="reset"]:focus-visible,
+:focus-visible::file-selector-button,
+.button-secondary:focus-visible {
+    background-color: SelectedItem;
+    border-color: SelectedItem;
+    color: SelectedItemText;
+    accent-color: ButtonText;
+    opacity: 0.875;
+}
+
+button:focus-within,
+[role="button"]:focus-within,
+input[type="button"]:focus-within,
+input[type="submit"]:focus-within,
+.button:focus-within,
+input[type="reset"]:focus-within,
+:focus-within::file-selector-button,
+.button-secondary:focus-within {
+    background-color: SelectedItem;
+    border-color: SelectedItem;
+    color: SelectedItemText;
+    accent-color: ButtonText;
+    opacity: 0.875;
+}
+
+[data-contrast-mode="high"].no-js button:focus,
+[data-contrast-mode="high"].no-js [role="button"]:focus,
+[data-contrast-mode="high"].no-js input[type="button"]:focus,
+[data-contrast-mode="high"].no-js input[type="submit"]:focus,
+[data-contrast-mode="high"].no-js .button:focus,
+[data-contrast-mode="high"].no-js input[type="reset"]:focus,
+[data-contrast-mode="high"].no-js :focus::file-selector-button,
+[data-contrast-mode="high"].no-js .button-secondary:focus,
+[data-contrast-mode="high"].js__no-where-selector button:focus,
+[data-contrast-mode="high"].js__no-where-selector [role="button"]:focus,
+[data-contrast-mode="high"].js__no-where-selector input[type="button"]:focus,
+[data-contrast-mode="high"].js__no-where-selector input[type="submit"]:focus,
+[data-contrast-mode="high"].js__no-where-selector .button:focus,
+[data-contrast-mode="high"].js__no-where-selector input[type="reset"]:focus,
+[data-contrast-mode="high"].js__no-where-selector :focus::file-selector-button,
+[data-contrast-mode="high"].js__no-where-selector .button-secondary:focus,
+[data-contrast-mode="forced-colors"].no-js button:focus,
+[data-contrast-mode="forced-colors"].no-js [role="button"]:focus,
+[data-contrast-mode="forced-colors"].no-js input[type="button"]:focus,
+[data-contrast-mode="forced-colors"].no-js input[type="submit"]:focus,
+[data-contrast-mode="forced-colors"].no-js .button:focus,
+[data-contrast-mode="forced-colors"].no-js input[type="reset"]:focus,
+[data-contrast-mode="forced-colors"].no-js :focus::file-selector-button,
+[data-contrast-mode="forced-colors"].no-js .button-secondary:focus,
+[data-contrast-mode="forced-colors"].js__no-where-selector button:focus,
+[data-contrast-mode="forced-colors"].js__no-where-selector
+    [role="button"]:focus,
+[data-contrast-mode="forced-colors"].js__no-where-selector
+    input[type="button"]:focus,
+[data-contrast-mode="forced-colors"].js__no-where-selector
+    input[type="submit"]:focus,
+[data-contrast-mode="forced-colors"].js__no-where-selector .button:focus,
+[data-contrast-mode="forced-colors"].js__no-where-selector
+    input[type="reset"]:focus,
+[data-contrast-mode="forced-colors"].js__no-where-selector
+    :focus::file-selector-button,
+[data-contrast-mode="forced-colors"].js__no-where-selector
+    .button-secondary:focus {
+    opacity: 1;
+}
+
+[data-contrast-mode="high"]:where(.js__no-focusVisible) button:focus,
+[data-contrast-mode="high"]:where(.js__no-focusVisible) [role="button"]:focus,
+[data-contrast-mode="high"]:where(.js__no-focusVisible)
+    input[type="button"]:focus,
+[data-contrast-mode="high"]:where(.js__no-focusVisible)
+    input[type="submit"]:focus,
+[data-contrast-mode="high"]:where(.js__no-focusVisible) .button:focus,
+[data-contrast-mode="high"]:where(.js__no-focusVisible)
+    input[type="reset"]:focus,
+[data-contrast-mode="high"]:where(.js__no-focusVisible)
+    :focus::file-selector-button,
+[data-contrast-mode="high"]:where(.js__no-focusVisible) .button-secondary:focus,
+[data-contrast-mode="forced-colors"]:where(.js__no-focusVisible) button:focus,
+[data-contrast-mode="forced-colors"]:where(.js__no-focusVisible)
+    [role="button"]:focus,
+[data-contrast-mode="forced-colors"]:where(.js__no-focusVisible)
+    input[type="button"]:focus,
+[data-contrast-mode="forced-colors"]:where(.js__no-focusVisible)
+    input[type="submit"]:focus,
+[data-contrast-mode="forced-colors"]:where(.js__no-focusVisible) .button:focus,
+[data-contrast-mode="forced-colors"]:where(.js__no-focusVisible)
+    input[type="reset"]:focus,
+[data-contrast-mode="forced-colors"]:where(.js__no-focusVisible)
+    :focus::file-selector-button,
+[data-contrast-mode="forced-colors"]:where(.js__no-focusVisible)
+    .button-secondary:focus {
+    opacity: 1;
+}
+
+@media (prefers-contrast: more),
+    (forced-colors: active),
+    (prefers-contrast: custom) {
+    .no-js button:focus,
+    .no-js [role="button"]:focus,
+    .no-js input[type="button"]:focus,
+    .no-js input[type="submit"]:focus,
+    .no-js .button:focus,
+    .no-js input[type="reset"]:focus,
+    .no-js :focus::file-selector-button,
+    .no-js .button-secondary:focus,
+    .js__no-where-selector button:focus,
+    .js__no-where-selector [role="button"]:focus,
+    .js__no-where-selector input[type="button"]:focus,
+    .js__no-where-selector input[type="submit"]:focus,
+    .js__no-where-selector .button:focus,
+    .js__no-where-selector input[type="reset"]:focus,
+    .js__no-where-selector :focus::file-selector-button,
+    .js__no-where-selector .button-secondary:focus {
+        opacity: 1;
+    }
+    :where(.js__no-focusVisible) button:focus,
+    :where(.js__no-focusVisible) [role="button"]:focus,
+    :where(.js__no-focusVisible) input[type="button"]:focus,
+    :where(.js__no-focusVisible) input[type="submit"]:focus,
+    :where(.js__no-focusVisible) .button:focus,
+    :where(.js__no-focusVisible) input[type="reset"]:focus,
+    :where(.js__no-focusVisible) :focus::file-selector-button,
+    :where(.js__no-focusVisible) .button-secondary:focus {
+        opacity: 1;
+    }
+}
+[data-contrast-mode="high"] button:focus-visible,
+[data-contrast-mode="high"] [role="button"]:focus-visible,
+[data-contrast-mode="high"] input[type="button"]:focus-visible,
+[data-contrast-mode="high"] input[type="submit"]:focus-visible,
+[data-contrast-mode="high"] .button:focus-visible,
+[data-contrast-mode="high"] input[type="reset"]:focus-visible,
+[data-contrast-mode="high"] :focus-visible::file-selector-button,
+[data-contrast-mode="high"] .button-secondary:focus-visible,
+[data-contrast-mode="forced-colors"] button:focus-visible,
+[data-contrast-mode="forced-colors"] [role="button"]:focus-visible,
+[data-contrast-mode="forced-colors"] input[type="button"]:focus-visible,
+[data-contrast-mode="forced-colors"] input[type="submit"]:focus-visible,
+[data-contrast-mode="forced-colors"] .button:focus-visible,
+[data-contrast-mode="forced-colors"] input[type="reset"]:focus-visible,
+[data-contrast-mode="forced-colors"] :focus-visible::file-selector-button,
+[data-contrast-mode="forced-colors"] .button-secondary:focus-visible {
+    opacity: 1;
+}
+[data-contrast-mode="high"] button:focus-within,
+[data-contrast-mode="high"] [role="button"]:focus-within,
+[data-contrast-mode="high"] input[type="button"]:focus-within,
+[data-contrast-mode="high"] input[type="submit"]:focus-within,
+[data-contrast-mode="high"] .button:focus-within,
+[data-contrast-mode="high"] input[type="reset"]:focus-within,
+[data-contrast-mode="high"] :focus-within::file-selector-button,
+[data-contrast-mode="high"] .button-secondary:focus-within,
+[data-contrast-mode="forced-colors"] button:focus-within,
+[data-contrast-mode="forced-colors"] [role="button"]:focus-within,
+[data-contrast-mode="forced-colors"] input[type="button"]:focus-within,
+[data-contrast-mode="forced-colors"] input[type="submit"]:focus-within,
+[data-contrast-mode="forced-colors"] .button:focus-within,
+[data-contrast-mode="forced-colors"] input[type="reset"]:focus-within,
+[data-contrast-mode="forced-colors"] :focus-within::file-selector-button,
+[data-contrast-mode="forced-colors"] .button-secondary:focus-within {
+    opacity: 1;
+}
+[data-contrast-mode="high"] button:hover,
+[data-contrast-mode="high"] [role="button"]:hover,
+[data-contrast-mode="high"] input[type="button"]:hover,
+[data-contrast-mode="high"] input[type="submit"]:hover,
+[data-contrast-mode="high"] .button:hover,
+[data-contrast-mode="high"] input[type="reset"]:hover,
+[data-contrast-mode="high"] :hover::file-selector-button,
+[data-contrast-mode="high"] .button-secondary:hover,
+[data-contrast-mode="forced-colors"] button:hover,
+[data-contrast-mode="forced-colors"] [role="button"]:hover,
+[data-contrast-mode="forced-colors"] input[type="button"]:hover,
+[data-contrast-mode="forced-colors"] input[type="submit"]:hover,
+[data-contrast-mode="forced-colors"] .button:hover,
+[data-contrast-mode="forced-colors"] input[type="reset"]:hover,
+[data-contrast-mode="forced-colors"] :hover::file-selector-button,
+[data-contrast-mode="forced-colors"] .button-secondary:hover {
+    opacity: 1;
+}
+
+@media (prefers-contrast: more),
+    (forced-colors: active),
+    (prefers-contrast: custom) {
+    button:focus-visible,
+    [role="button"]:focus-visible,
+    input[type="button"]:focus-visible,
+    input[type="submit"]:focus-visible,
+    .button:focus-visible,
+    input[type="reset"]:focus-visible,
+    :focus-visible::file-selector-button,
+    .button-secondary:focus-visible {
+        opacity: 1;
+    }
+    button:focus-within,
+    [role="button"]:focus-within,
+    input[type="button"]:focus-within,
+    input[type="submit"]:focus-within,
+    .button:focus-within,
+    input[type="reset"]:focus-within,
+    :focus-within::file-selector-button,
+    .button-secondary:focus-within {
+        opacity: 1;
+    }
+    button:hover,
+    [role="button"]:hover,
+    input[type="button"]:hover,
+    input[type="submit"]:hover,
+    .button:hover,
+    input[type="reset"]:hover,
+    :hover::file-selector-button,
+    .button-secondary:hover {
+        opacity: 1;
+    }
+}
+button:active,
+[role="button"]:active,
+input[type="button"]:active,
+input[type="submit"]:active,
+.button:active,
+input[type="reset"]:active,
+:active::file-selector-button,
+.button-secondary:active {
+    background-color: ButtonFace;
+    border-color: ButtonBorder;
+    color: ButtonText;
+    accent-color: ActiveText;
+}
+button,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+.button,
+input[type="reset"],
+::file-selector-button,
+.button-secondary {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+::file-selector-button {
+    display: initial;
+    margin: 0;
+    margin-right: 0.8125rem;
+    margin-right: var(--mrg-firm-300, 0.8125rem);
+    font-size: 1rem;
+    font-size: var(--fs-normal, 1rem);
+}
+
+label {
+    display: block;
+    margin: 1.25rem 0 0;
+    margin: var(--mrg-firm-400, 1.25rem) 0 0;
+    font-weight: 600;
+    line-height: 1.3125;
+    line-height: var(--line-height-200, 1.3125);
+    color: CanvasText;
+}
+label:has(> :where(input[type="checkbox"], input[type="radio"])) {
+    display: grid;
+    grid-template-columns: fit-content(0) 1fr;
+    justify-content: end;
+    align-items: baseline;
+    grid-gap: 0.5rem;
+    grid-gap: var(--mrg-soft-300, 0.5rem);
+    gap: 0.5rem;
+    gap: var(--mrg-soft-300, 0.5rem);
+    font-weight: 400;
+    line-height: 1.6875;
+    line-height: var(--line-height-400, 1.6875);
+    text-wrap: balance;
+    color: CanvasText;
+    cursor: pointer;
+}
+label:has(> :where(input[type="checkbox"], input[type="radio"]))
+    + label:has(> :where(input[type="checkbox"], input[type="radio"])) {
+    margin-top: 0.5rem;
+    margin-top: var(--mrg-firm-200, 0.5rem);
+}
+label:has(> :where(input[type="checkbox"], input[type="radio"])) + input,
+label:has(> :where(input[type="checkbox"], input[type="radio"])) + select,
+label:has(> :where(input[type="checkbox"], input[type="radio"])) + textarea {
+    margin-top: 1.25rem;
+    margin-top: var(--mrg-firm-400, 1.25rem);
+}
+label > input[type="checkbox"],
+label > input[type="radio"] {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/* # TABLES
+ * ======================================================================== */
+.table-wrapper,
+table {
+    position: relative;
+    margin-top: 0.8125rem;
+    margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-bottom: 0;
+    margin-top: 1.625rem;
+    margin-bottom: calc(1.625rem - 0.8125rem);
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: calc(
+        var(--mrg-soft-600, 1.625rem) - var(--mrg-soft-400, 0.8125rem)
+    );
+    background: AccentColor;
+    width: min(calc(36rem + max(1.25rem, min(8svw, 7.125rem)) + 16rem), 100%);
+    width: min(calc(36rem + clamp(1.25rem, 8svw, 7.125rem) + 16rem), 100%);
+    width: min(var(--width-page, 53rem), 100%);
+}
+
+table {
+    border-spacing: 0.125rem;
+    border-spacing: var(--border-width-200, 0.125rem);
+    font-size: 0.9375rem;
+    font-size: var(--fs-smaller-1, 0.9375rem);
+}
+
+.table-wrapper {
+    display: block;
+    overflow-x: auto;
+    overscroll-behavior-x: none;
+}
+.table-wrapper > table {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+}
+
+th,
+td {
+    padding: 0.3125rem 0.8125rem;
+    padding: var(--mrg-soft-200, 0.3125rem) var(--mrg-firm-300, 0.8125rem);
+    min-width: 10em;
+    background: Canvas;
+    vertical-align: top;
+    text-align: left;
+}
+th > :first-child,
+td > :first-child {
+    margin-top: 0;
+}
+th > :last-child,
+td > :last-child {
+    margin-bottom: 0;
+}
+
+th {
+    padding-top: 0.3125rem;
+    padding-top: var(--mrg-soft-200, 0.3125rem);
+    padding-bottom: 0.3125rem;
+    padding-bottom: var(--mrg-soft-200, 0.3125rem);
+    background: AccentColor;
+    color: AccentColorText;
+}
+
+/*! end of @maddimathon/utility-sass/templates/base */
+/* # GLOBALS - TYPOGRAPHY
+ * ======================================================================== */
+/* # GLOBALS - TABLES
+ * ======================================================================== */
+nav ol,
+nav ul {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+nav ol li,
+nav ul li {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+body > aside > :first-child {
+    margin-top: 0;
+}
+
+.page-subtitle {
+    margin-top: 0.8125rem;
+    margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-bottom: 0;
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(0.875rem, 1.5625svw + 1rem, 1.3125rem);
+    font-size: var(--fs-heading-6, 1.1875rem);
+    line-height: 1.4375;
+    line-height: var(--line-height-300, 1.4375);
+    text-wrap: balance;
+}
+.page-subtitle {
+    opacity: 0.75;
+}
+
+@media (prefers-contrast: less) {
+    .page-subtitle {
+        opacity: 0.75;
+    }
+}
+.page-subtitle em,
+.page-subtitle i {
+    font-style: normal;
+}
+.page-subtitle em em,
+.page-subtitle em i,
+.page-subtitle i em,
+.page-subtitle i i {
+    font-style: italic;
+}
+
+/*! end of @maddimathon/utility-astro/templates/html */
 /* # TOKENS & PROPERTIES
  * ======================================================================== */
 /* #region Tokens - Margin */
@@ -21,6 +1633,7 @@ html {
     --mrg-firm-400: 1.25rem;
     --mrg-firm-600: 2.25rem;
     --mrg-firm-800: 4rem;
+    --mrg-firm-900: 7.125rem;
 }
 
 html {
@@ -28,8 +1641,9 @@ html {
     --mrg-soft-200: 0.3125rem;
     --mrg-soft-300: 0.5rem;
     --mrg-soft-400: 0.8125rem;
-    --mrg-soft-600: 1.4375rem;
-    --mrg-soft-800: 2.5rem;
+    --mrg-soft-600: 1.625rem;
+    --mrg-soft-800: 3.125rem;
+    --mrg-soft-900: 5.8125rem;
 }
 
 html {
@@ -37,8 +1651,9 @@ html {
     --mrg-half-200: 0.1875rem;
     --mrg-half-300: 0.3125rem;
     --mrg-half-400: 0.4375rem;
-    --mrg-half-600: 0.8125rem;
-    --mrg-half-800: 1.5rem;
+    --mrg-half-600: 0.625rem;
+    --mrg-half-800: 0.875rem;
+    --mrg-half-900: 1.3125rem;
 }
 
 /* #endregion Tokens - Margin */
@@ -83,6 +1698,43 @@ html {
 }
 
 /* #endregion Tokens - Line Heights */
+/* #region Tokens - Gap */
+html {
+    --gap-block-layout: 5vw;
+    --gap-block-layout: max(1.625rem, min(5svw, 5.8125rem));
+    --gap-block-layout: clamp(1.625rem, 5svw, 5.8125rem);
+    --gap-block-layout-half: 2.5vw;
+    --gap-block-layout-half: max(0.8125rem, min(2.5svw, 2.90625rem));
+    --gap-block-layout-half: clamp(0.8125rem, 2.5svw, 2.90625rem);
+    --gap-inline-indent: 4vw;
+    --gap-inline-indent: max(
+        var(--mrg-firm-200, 0.5rem),
+        min(4svw, var(--mrg-firm-600, 2.25rem))
+    );
+    --gap-inline-indent: clamp(
+        var(--mrg-firm-200, 0.5rem),
+        4svw,
+        var(--mrg-firm-600, 2.25rem)
+    );
+    --gap-inline-layout: 8vw;
+    --gap-inline-layout: max(1.25rem, min(8svw, 7.125rem));
+    --gap-inline-layout: clamp(1.25rem, 8svw, 7.125rem);
+    --gap-inline-layout-half: 4vw;
+    --gap-inline-layout-half: max(0.625rem, min(4svw, 3.5625rem));
+    --gap-inline-layout-half: clamp(0.625rem, 4svw, 3.5625rem);
+    --gap-inline-tab: 1.5vw;
+    --gap-inline-tab: max(
+        var(--mrg-firm-100, 0.3125rem),
+        min(1.5svw, var(--mrg-firm-600, 2.25rem))
+    );
+    --gap-inline-tab: clamp(
+        var(--mrg-firm-100, 0.3125rem),
+        1.5svw,
+        var(--mrg-firm-600, 2.25rem)
+    );
+}
+
+/* #endregion Tokens - Gap */
 /* #region Tokens - Border Width */
 html {
     --border-width-100: 0.0625rem;
@@ -111,6 +1763,19 @@ html {
 }
 
 /* #endregion Tokens - Misc. */
+/* #region Tokens - Width */
+html {
+    --width-content: 36rem;
+    --width-sidebar: 16rem;
+    --width-callout: 29.25rem;
+    --width-page: 58rem;
+    --width-page: calc(
+        var(--width-content, 36rem) + var(--gap-inline-layout, 8vw) +
+            var(--width-sidebar, 16rem)
+    );
+}
+
+/* #endregion Tokens - Width */
 /* #region Tokens - Border Radius */
 :root {
     --border-radius-100: 0.25rem;
@@ -1858,1542 +3523,6 @@ html,
     }
 }
 /*#endregion contrast forced-colors */
-/*!
- * Utility Astro Template - HTML
- * 
- * @maddimathon/utility-astro@0.1.0-alpha.draft
- * License: MIT
- */
-/*!
- * Utility Sass Template - Base
- * 
- * @maddimathon/utility-sass@0.1.0-alpha.draft
- * License: MIT
- */
-/* #region Normalize */
-/*! modern-normalize v3.0.1 | MIT License | https://github.com/sindresorhus/modern-normalize */
-/*
-Document
-========
-*/
-/**
-Use a better box model (opinionated).
-*/
-*,
-::before,
-::after {
-    box-sizing: border-box;
-}
-
-html {
-    /* Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3) */
-    /* font-family:
-      system-ui,
-      'Segoe UI',
-      Roboto,
-      Helvetica,
-      Arial,
-      sans-serif,
-      'Apple Color Emoji',
-      'Segoe UI Emoji'; */
-    line-height: 1.15; /* 1. Correct the line height in all browsers. */
-    -webkit-text-size-adjust: 100%; /* 2. Prevent adjustments of font size after orientation changes in iOS. */
-    -moz-tab-size: 4;
-    -o-tab-size: 4;
-    tab-size: 4; /* 3. Use a more readable tab size (opinionated). */
-}
-
-/*
-Sections
-========
-*/
-body {
-    margin: 0; /* Remove the margin in all browsers. */
-}
-
-/*
-Text-level semantics
-====================
-*/
-/**
-Add the correct font weight in Chrome and Safari.
-*/
-b,
-strong {
-    font-weight: bolder;
-}
-
-/**
-1. Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3)
-2. Correct the odd 'em' font sizing in all browsers.
-*/
-code,
-kbd,
-samp,
-pre {
-    /* font-family:
-      ui-monospace,
-      SFMono-Regular,
-      Consolas,
-      'Liberation Mono',
-      Menlo,
-      monospace; */ /* 1 */
-    font-size: 1em; /* 2 */
-}
-
-/**
-Add the correct font size in all browsers.
-*/
-small {
-    font-size: 80%;
-}
-
-/**
-Prevent 'sub' and 'sup' elements from affecting the line height in all browsers.
-*/
-sub,
-sup {
-    font-size: 75%;
-    line-height: 0;
-    position: relative;
-    vertical-align: baseline;
-}
-
-sub {
-    bottom: -0.25em;
-}
-
-sup {
-    top: -0.5em;
-}
-
-/*
-Tabular data
-============
-*/
-/**
-Correct table border color inheritance in Chrome and Safari. (https://issues.chromium.org/issues/40615503, https://bugs.webkit.org/show_bug.cgi?id=195016)
-*/
-table {
-    border-color: currentcolor;
-}
-
-/*
-Forms
-=====
-*/
-/**
-1. Change the font styles in all browsers.
-2. Remove the margin in Firefox and Safari.
-*/
-button,
-input,
-optgroup,
-select,
-textarea {
-    font-family: inherit; /* 1 */
-    font-size: 100%; /* 1 */
-    line-height: 1.15; /* 1 */
-    margin: 0; /* 2 */
-}
-
-/**
-Correct the inability to style clickable types in iOS and Safari.
-*/
-button,
-[type="button"],
-[type="reset"],
-[type="submit"] {
-    -webkit-appearance: button;
-}
-
-/**
-Remove the padding so developers are not caught out when they zero out 'fieldset' elements in all browsers.
-*/
-legend {
-    padding: 0;
-}
-
-/**
-Add the correct vertical alignment in Chrome and Firefox.
-*/
-progress {
-    vertical-align: baseline;
-}
-
-/**
-Correct the cursor style of increment and decrement buttons in Safari.
-*/
-::-webkit-inner-spin-button,
-::-webkit-outer-spin-button {
-    height: auto;
-}
-
-/**
-1. Correct the odd appearance in Chrome and Safari.
-2. Correct the outline style in Safari.
-*/
-[type="search"] {
-    -webkit-appearance: textfield; /* 1 */
-    outline-offset: -2px; /* 2 */
-}
-
-/**
-Remove the inner padding in Chrome and Safari on macOS.
-*/
-::-webkit-search-decoration {
-    -webkit-appearance: none;
-}
-
-/**
-1. Correct the inability to style clickable types in iOS and Safari.
-2. Change font properties to 'inherit' in Safari.
-*/
-::-webkit-file-upload-button {
-    -webkit-appearance: button; /* 1 */
-    font: inherit; /* 2 */
-}
-
-/*
-Interactive
-===========
-*/
-/*
-Add the correct display in Chrome and Safari.
-*/
-summary {
-    display: list-item;
-}
-
-/*! end of modern-normalize */
-html {
-    color-scheme: light, dark;
-}
-html[data-brightness-mode="light"] {
-    color-scheme: light;
-}
-
-@media (prefers-color-scheme: light) {
-    html {
-        color-scheme: light;
-    }
-}
-html[data-brightness-mode="dark"] {
-    color-scheme: dark;
-}
-
-@media (prefers-color-scheme: dark) {
-    html {
-        color-scheme: dark;
-    }
-}
-
-html {
-    font-family:
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Oxygen-Sans,
-        Ubuntu,
-        Cantarell,
-        "Helvetica Neue",
-        Helvetica,
-        Arial,
-        sans-serif,
-        "Apple Color Emoji",
-        "Segoe UI Emoji",
-        "Segoe UI Symbol";
-    font-size: 115%;
-}
-@media (min-width: 50em) {
-    html {
-        font-size: 105%;
-    }
-}
-
-code,
-kbd,
-samp,
-pre {
-    font-family:
-        ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo,
-        monospace;
-}
-
-/* #endregion Normalize */
-/* # ACCESSIBILITY
- * ======================================================================== */
-.no-js :focus,
-.js__no-where-selector :focus {
-    /* %focus-ring */
-    outline: 0.125rem dashed currentColor;
-    outline: var(--focus-ring-outline-width, 0.125rem) dashed
-        var(--focus-ring-outline-color, currentColor);
-    outline-offset: 0.125em;
-    outline-offset: var(--focus-ring-outline-offset, 0.125em);
-}
-
-:where(.js__no-focusVisible) :focus {
-    /* %focus-ring--where */
-    outline: 0.125rem dashed currentColor;
-    outline: var(--focus-ring-outline-width, 0.125rem) dashed
-        var(--focus-ring-outline-color, currentColor);
-    outline-offset: 0.125em;
-    outline-offset: var(--focus-ring-outline-offset, 0.125em);
-}
-
-:focus-visible {
-    /* %focus-ring--visible */
-    outline: 0.125rem dashed currentColor;
-    outline: var(--focus-ring-outline-width, 0.125rem) dashed
-        var(--focus-ring-outline-color, currentColor);
-    outline-offset: 0.125em;
-    outline-offset: var(--focus-ring-outline-offset, 0.125em);
-}
-
-.screen-reader-text {
-    position: absolute !important;
-    left: -10000px !important;
-    margin: 0 !important;
-    padding: 0;
-    width: 1px;
-    height: 1px;
-    overflow: hidden !important;
-}
-
-/* # OBJECTS
- * ======================================================================== */
-html,
-body {
-    scroll-padding-block-start: clamp(0.3125rem, 2.5vw * 0.625, 2.5rem);
-    scroll-padding-block-start: clamp(
-        var(--mrg-soft-200, 0.3125rem),
-        2.5vw * 0.625,
-        var(--mrg-soft-800, 2.5rem)
-    );
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-    margin-top: clamp(0.3125rem, 2.5vw * 0.625, 2.5rem);
-    margin-bottom: clamp(0.3125rem, 2.5vw * 0.625, 2.5rem);
-    margin-top: clamp(
-        var(--mrg-soft-200, 0.3125rem),
-        2.5vw * 0.625,
-        var(--mrg-soft-800, 2.5rem)
-    );
-    margin-bottom: clamp(
-        var(--mrg-soft-200, 0.3125rem),
-        2.5vw * 0.625,
-        var(--mrg-soft-800, 2.5rem)
-    );
-    margin-left: max(0.5rem, min(2.5vw, 4rem));
-    margin-right: max(0.5rem, min(2.5vw, 4rem));
-    margin-left: max(
-        var(--mrg-firm-200, 0.5rem),
-        min(2.5vw, var(--mrg-firm-800, 4rem))
-    );
-    margin-right: max(
-        var(--mrg-firm-200, 0.5rem),
-        min(2.5vw, var(--mrg-firm-800, 4rem))
-    );
-    margin-inline: max(0.5rem, min(2.5vw, 4rem));
-    margin-left: max(0.5rem, min(2.5vw, 4rem));
-    margin-left: clamp(0.5rem, 2.5vw, 4rem);
-    margin-right: max(0.5rem, min(2.5vw, 4rem));
-    margin-right: clamp(0.5rem, 2.5vw, 4rem);
-    margin-left: max(
-        var(--mrg-firm-200, 0.5rem),
-        min(2.5vw, var(--mrg-firm-800, 4rem))
-    );
-    margin-left: clamp(
-        var(--mrg-firm-200, 0.5rem),
-        2.5vw,
-        var(--mrg-firm-800, 4rem)
-    );
-    margin-right: max(
-        var(--mrg-firm-200, 0.5rem),
-        min(2.5vw, var(--mrg-firm-800, 4rem))
-    );
-    margin-right: clamp(
-        var(--mrg-firm-200, 0.5rem),
-        2.5vw,
-        var(--mrg-firm-800, 4rem)
-    );
-}
-:where(body > *) {
-    width: min(53rem, 100%);
-    width: min(var(--width-page, 53rem), 100%);
-}
-
-hr {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: -moz-fit-content;
-    width: fit-content;
-    max-width: min(29.25rem, 100%);
-    max-width: min(var(--width-callout, 29.25rem), 100%);
-    width: 100%;
-    margin-top: calc(0.8125rem + 2.25rem);
-    margin-top: calc(
-        var(--mrg-soft-400, 0.8125rem) + var(--mrg-firm-600, 2.25rem)
-    );
-    margin-top: 2.25rem;
-    margin-bottom: 2.25rem;
-    margin-top: var(--mrg-firm-600, 2.25rem);
-    margin-bottom: var(--mrg-firm-600, 2.25rem);
-    border: none;
-    border-bottom: currentColor solid 2px;
-}
-
-/* # TYPOGRAPHY
- * ======================================================================== */
-html {
-    line-height: 1.6875;
-    line-height: var(--line-height-400, 1.6875);
-}
-
-/* ## Typography - Inline ==================================== */
-strong,
-b {
-    font-weight: 700;
-}
-strong strong,
-b strong {
-    font-weight: 800;
-}
-strong strong strong,
-b strong strong {
-    font-weight: 900;
-}
-
-em,
-i {
-    font-style: italic;
-}
-em em,
-i em {
-    font-style: normal;
-}
-em em em,
-i em em {
-    font-style: italic;
-}
-
-a {
-    display: inline;
-    border: none;
-    -webkit-text-decoration: underline 0.0625em;
-    text-decoration: underline 0.0625em;
-    -webkit-text-decoration: underline var(--stroke-relative-200, 0.0625em);
-    text-decoration: underline var(--stroke-relative-200, 0.0625em);
-    text-underline-offset: 0.1875em;
-    text-underline-offset: var(--stroke-relative-600, 0.1875em);
-    color: LinkText;
-}
-a:visited {
-    color: VisitedText;
-}
-.no-js a:focus,
-.js__no-where-selector a:focus {
-    text-decoration-color: transparent;
-    color: ActiveText;
-}
-
-:where(.js__no-focusVisible) a:focus {
-    text-decoration-color: transparent;
-    color: ActiveText;
-}
-
-a:hover {
-    text-decoration-color: transparent;
-    color: ActiveText;
-}
-
-a:focus-visible {
-    text-decoration-color: transparent;
-    color: ActiveText;
-}
-
-a:active {
-    color: ActiveText;
-}
-a.no-style {
-    text-decoration: none;
-    font-weight: inherit;
-    color: inherit;
-}
-a[aria-disabled="true"] {
-    opacity: 0.875;
-    cursor: not-allowed;
-}
-[data-contrast-mode="high"] a[aria-disabled="true"],
-[data-contrast-mode="forced-colors"] a[aria-disabled="true"] {
-    text-decoration-line: line-through;
-    opacity: 1;
-}
-
-@media (prefers-contrast: more),
-    (forced-colors: active),
-    (prefers-contrast: custom) {
-    a[aria-disabled="true"] {
-        text-decoration-line: line-through;
-        opacity: 1;
-    }
-}
-
-abbr[title] {
-    -webkit-text-decoration: dotted underline 0.125em;
-    text-decoration: dotted underline 0.125em;
-    -webkit-text-decoration: dotted underline
-        var(--stroke-relative-400, 0.125em);
-    text-decoration: dotted underline var(--stroke-relative-400, 0.125em);
-    cursor: help;
-}
-
-/* ## Typography - Block ==================================== */
-p {
-    margin-top: 0.8125rem;
-    margin-top: var(--mrg-soft-400, 0.8125rem);
-    margin-bottom: 0;
-}
-hr + p {
-    margin-top: 0;
-}
-
-blockquote {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: -moz-fit-content;
-    width: fit-content;
-    max-width: min(29.25rem, 100%);
-    max-width: min(var(--width-callout, 29.25rem), 100%);
-    margin-top: 0.8125rem;
-    margin-top: var(--mrg-soft-400, 0.8125rem);
-    margin-bottom: 0;
-    margin-top: 1.4375rem;
-    margin-bottom: calc(1.4375rem - 0.8125rem);
-    margin-top: var(--mrg-soft-600, 1.4375rem);
-    margin-bottom: calc(
-        var(--mrg-soft-600, 1.4375rem) - var(--mrg-soft-400, 0.8125rem)
-    );
-}
-blockquote > p:first-child {
-    margin-top: 0;
-}
-blockquote > cite {
-    display: block;
-    margin-top: 0.8125rem;
-    margin-top: var(--mrg-soft-400, 0.8125rem);
-    margin-bottom: 0;
-    text-align: right;
-    color: color-mix(in srgb, currentColor 75%, transparent);
-}
-blockquote > cite::before {
-    content: "— ";
-    color: currentColor;
-}
-[data-contrast-mode="high"] blockquote > cite {
-    color: color-mix(in srgb, currentColor 87.5%, transparent);
-}
-
-@media (prefers-contrast: more) {
-    blockquote > cite {
-        color: color-mix(in srgb, currentColor 87.5%, transparent);
-    }
-}
-[data-contrast-mode="forced-colors"] blockquote > cite {
-    color: currentColor;
-}
-
-@media (forced-colors: active), (prefers-contrast: custom) {
-    blockquote > cite {
-        color: currentColor;
-    }
-}
-
-pre {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: -moz-fit-content;
-    width: fit-content;
-    max-width: min(29.25rem, 100%);
-    max-width: min(var(--width-callout, 29.25rem), 100%);
-    margin-top: 0.8125rem;
-    margin-top: var(--mrg-soft-400, 0.8125rem);
-    margin-bottom: 0;
-    margin-top: 1.4375rem;
-    margin-bottom: calc(1.4375rem - 0.8125rem);
-    margin-top: var(--mrg-soft-600, 1.4375rem);
-    margin-bottom: calc(
-        var(--mrg-soft-600, 1.4375rem) - var(--mrg-soft-400, 0.8125rem)
-    );
-    width: fit-content;
-    max-width: min(80ch, 100%);
-    overflow: visible; /* otherwise the code block's focus ring is hidden (on scroll) */
-    font-size: 0.9375rem;
-    font-size: var(--fs-smaller-1, 0.9375rem);
-}
-pre > code {
-    display: block;
-    margin: 0;
-    padding: 0;
-    border: none;
-    width: -moz-fit-content;
-    width: fit-content;
-    max-width: 100%;
-    overflow: auto;
-}
-
-/* ## Typography - Headings ==================================== */
-.heading,
-heading {
-    margin-top: 1.4375rem;
-    margin-top: var(--mrg-soft-600, 1.4375rem);
-    margin-bottom: 0;
-    font-weight: 600;
-    font-size: clamp(0.75rem, 1.3125svw + 1rem, 1.125rem);
-    font-size: var(--fs-heading-7, 1rem);
-    text-wrap: balance;
-}
-
-h1,
-.h1,
-.page-title {
-    margin-top: 1.4375rem;
-    margin-top: var(--mrg-soft-600, 1.4375rem);
-    margin-bottom: 0;
-    font-weight: 900;
-    font-size: clamp(2.0625rem, 3.625svw + 1rem, 3.125rem);
-    font-size: var(--fs-title, 2.75rem);
-    line-height: 1.1875;
-    line-height: var(--line-height-100, 1.1875);
-    text-wrap: balance;
-}
-
-h2,
-.h2 {
-    margin-top: 2.5rem;
-    margin-top: var(--mrg-soft-800, 2.5rem);
-    margin-bottom: 0;
-    font-weight: 800;
-    font-size: clamp(1.5625rem, 2.6875svw + 1rem, 2.3125rem);
-    font-size: var(--fs-heading-2, 2.0625rem);
-    line-height: 1.3125;
-    line-height: var(--line-height-200, 1.3125);
-    text-wrap: balance;
-}
-
-h3,
-.h3 {
-    margin-top: 2.5rem;
-    margin-top: var(--mrg-soft-800, 2.5rem);
-    margin-bottom: 0;
-    font-weight: 700;
-    font-size: clamp(1.375rem, 2.375svw + 1rem, 2.0625rem);
-    font-size: var(--fs-heading-3, 1.8125rem);
-    line-height: 1.3125;
-    line-height: var(--line-height-200, 1.3125);
-    text-wrap: balance;
-}
-
-h4,
-.h4 {
-    margin-top: 1.4375rem;
-    margin-top: var(--mrg-soft-600, 1.4375rem);
-    margin-bottom: 0;
-    font-weight: 700;
-    font-style: italic;
-    font-size: clamp(1.1875rem, 2.0625svw + 1rem, 1.75rem);
-    font-size: var(--fs-heading-4, 1.5625rem);
-    line-height: 1.4375;
-    line-height: var(--line-height-300, 1.4375);
-    text-wrap: balance;
-}
-
-h5,
-.h5 {
-    margin-top: 1.4375rem;
-    margin-top: var(--mrg-soft-600, 1.4375rem);
-    margin-bottom: 0;
-    font-weight: 600;
-    font-style: italic;
-    font-size: clamp(1rem, 1.75svw + 1rem, 1.5rem);
-    font-size: var(--fs-heading-5, 1.3125rem);
-    line-height: 1.4375;
-    line-height: var(--line-height-300, 1.4375);
-    text-wrap: balance;
-}
-
-h6,
-.h6 {
-    margin-top: 1.4375rem;
-    margin-top: var(--mrg-soft-600, 1.4375rem);
-    margin-bottom: 0;
-    font-weight: 500;
-    font-style: italic;
-    font-size: clamp(0.875rem, 1.5625svw + 1rem, 1.3125rem);
-    font-size: var(--fs-heading-6, 1.1875rem);
-    line-height: 1.4375;
-    line-height: var(--line-height-300, 1.4375);
-    text-wrap: balance;
-}
-
-/* # LISTS
- * ======================================================================== */
-ol,
-ul {
-    margin: 0;
-    padding: 0;
-    padding-left: 20%;
-    padding-left: max(0.8125rem, min(10%, 2.5rem));
-    padding-left: max(
-        var(--mrg-soft-400, 0.8125rem),
-        min(10%, var(--mrg-soft-800, 2.5rem))
-    );
-    padding-inline-start: max(0.8125rem, min(10%, 2.5rem));
-    padding-left: max(0.8125rem, min(10%, 2.5rem));
-    padding-left: clamp(0.8125rem, 10%, 2.5rem);
-    padding-left: max(
-        var(--mrg-soft-400, 0.8125rem),
-        min(10%, var(--mrg-soft-800, 2.5rem))
-    );
-    padding-left: clamp(
-        var(--mrg-soft-400, 0.8125rem),
-        10%,
-        var(--mrg-soft-800, 2.5rem)
-    );
-    line-height: 1.6875;
-    line-height: var(--line-height-400, 1.6875);
-}
-ol ol,
-ol ul,
-ul ol,
-ul ul {
-    margin-top: 0;
-}
-ol ol ol,
-ol ol ul,
-ol ul ol,
-ol ul ul,
-ul ol ol,
-ul ol ul,
-ul ul ol,
-ul ul ul {
-    font-size: 0.9375rem;
-    font-size: var(--fs-smaller-1, 0.9375rem);
-}
-
-ol {
-    /* level 1 - ol */
-    list-style-type: decimal;
-}
-ol ol {
-    /* level 2 - ol ol */
-    list-style-type: lower-alpha;
-}
-ol ol ol {
-    /* level 3 - ol ol ol */
-    list-style-type: lower-roman;
-}
-ol ol ol ol {
-    /* level 4 - ol ol ol ol */
-}
-ol ol ol ol ol {
-    /* level 5 - ol ol ol ol ol */
-}
-
-ul {
-    /* level 1 - ul */
-    list-style-type: disc;
-}
-ul ul {
-    /* level 2 - ul ul */
-    list-style-type: circle;
-}
-ol ol ol ol,
-ul ul ul {
-    /* level 3 - ul ul ul */
-    /* level 4 - ol ol ol ol */
-    list-style-type: square; /* fallback */
-    list-style-type: "–  ";
-}
-ol ol ol ol ol,
-ol ol ol ol ul,
-ul ul ul ul {
-    /* level 4 - ul ul ul ul */
-    /* level 5 - ol ol ol ol ol */
-}
-
-li {
-    margin: 0;
-    margin-top: 0.5rem;
-    margin-top: var(--mrg-soft-300, 0.5rem);
-    padding: 0;
-}
-li::marker {
-    font-weight: 500;
-    font-size: 0.9375rem;
-    font-size: var(--fs-smaller-1, 0.9375rem);
-}
-li li li {
-    margin-top: 0.3125rem;
-    margin-top: var(--mrg-soft-200, 0.3125rem);
-}
-li li li::marker {
-    font-size: 0.8125rem;
-    font-size: var(--fs-smaller-2, 0.8125rem);
-}
-li li li li {
-    font-style: italic;
-}
-li li li li em {
-    font-style: normal;
-}
-
-/* # FORMS
- * ======================================================================== */
-fieldset {
-    display: block;
-    margin: 1.25rem 0 0.4375rem;
-    margin: var(--mrg-firm-400, 1.25rem) 0 var(--mrg-half-400, 0.4375rem);
-    padding: 0.5rem 1.25rem 0.8125rem;
-    padding: var(--mrg-soft-300, 0.5rem) var(--mrg-firm-400, 1.25rem)
-        var(--mrg-firm-300, 0.8125rem);
-    border: 0.0625rem solid AccentColor;
-    border-radius: 0;
-    background-color: Canvas;
-    color: CanvasText;
-}
-.no-js fieldset:focus,
-.js__no-where-selector fieldset:focus {
-    border-color: ActiveText;
-}
-
-:where(.js__no-focusVisible) fieldset:focus {
-    border-color: ActiveText;
-}
-
-fieldset:focus-visible {
-    border-color: ActiveText;
-}
-
-fieldset:focus-within {
-    border-color: ActiveText;
-}
-
-fieldset:active {
-    border-color: AccentColor;
-}
-fieldset legend {
-    display: block;
-}
-fieldset > :first-child {
-    margin-top: 0;
-    margin-top: calc(0.8125rem - 0.3125rem);
-    margin-top: calc(
-        var(--mrg-soft-400, 0.8125rem) - var(--mrg-soft-200, 0.3125rem)
-    );
-}
-fieldset > legend + * {
-    margin-top: 0;
-}
-
-fieldset legend {
-    margin-top: 1.4375rem;
-    margin-top: var(--mrg-soft-600, 1.4375rem);
-    margin-bottom: 0;
-    font-weight: 600;
-    font-size: clamp(0.75rem, 1.3125svw + 1rem, 1.125rem);
-    font-size: var(--fs-heading-7, 1rem);
-    text-wrap: balance;
-    margin-left: calc(0.5rem * -1);
-    margin-right: calc(0.5rem * -1);
-    margin-left: calc(var(--mrg-soft-300, 0.5rem) * -1);
-    margin-right: calc(var(--mrg-soft-300, 0.5rem) * -1);
-    margin-bottom: 0.5rem;
-    margin-top: 0;
-    margin-bottom: var(--mrg-soft-300, 0.5rem);
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    padding-left: var(--mrg-soft-300, 0.5rem);
-    padding-right: var(--mrg-soft-300, 0.5rem);
-    font-style: italic;
-}
-
-textarea,
-select,
-input {
-    display: block;
-    margin: 1.25rem 0 0.4375rem;
-    margin: var(--mrg-firm-400, 1.25rem) 0 var(--mrg-half-400, 0.4375rem);
-    padding: 0.3125rem 0.5rem;
-    padding: var(--mrg-soft-200, 0.3125rem) var(--mrg-firm-200, 0.5rem);
-    width: 100%;
-    font: inherit;
-    line-height: 1.3125;
-    line-height: var(--line-height-200, 1.3125);
-    border: 0.0625rem solid FieldText;
-    border-radius: 0;
-    background-color: Field;
-    color: FieldText;
-    accent-color: FieldText;
-}
-.no-js textarea:focus,
-.no-js select:focus,
-.no-js input:focus,
-.js__no-where-selector textarea:focus,
-.js__no-where-selector select:focus,
-.js__no-where-selector input:focus {
-    background-color: Field;
-    border-color: FieldText;
-    color: FieldText;
-    accent-color: FieldText;
-}
-
-:where(.js__no-focusVisible) textarea:focus,
-:where(.js__no-focusVisible) select:focus,
-:where(.js__no-focusVisible) input:focus {
-    background-color: Field;
-    border-color: FieldText;
-    color: FieldText;
-    accent-color: FieldText;
-}
-
-textarea:hover,
-select:hover,
-input:hover {
-    background-color: Field;
-    border-color: FieldText;
-    color: FieldText;
-    accent-color: FieldText;
-}
-
-textarea:focus-visible,
-select:focus-visible,
-input:focus-visible {
-    background-color: Field;
-    border-color: FieldText;
-    color: FieldText;
-    accent-color: FieldText;
-}
-
-textarea:focus-within,
-select:focus-within,
-input:focus-within {
-    background-color: Field;
-    border-color: FieldText;
-    color: FieldText;
-    accent-color: FieldText;
-}
-
-textarea:active,
-select:active,
-input:active {
-    background-color: Field;
-    border-color: FieldText;
-    color: FieldText;
-    accent-color: ActiveText;
-}
-textarea::-moz-placeholder,
-select::-moz-placeholder,
-input::-moz-placeholder {
-    opacity: 1;
-    color: currentColor;
-    color: color-mix(in srgb, currentColor 62.5%, transparent);
-}
-textarea::placeholder,
-select::placeholder,
-input::placeholder {
-    opacity: 1;
-    color: currentColor;
-    color: color-mix(in srgb, currentColor 62.5%, transparent);
-}
-[data-contrast-mode="high"] textarea::-moz-placeholder,
-[data-contrast-mode="high"] select::-moz-placeholder,
-[data-contrast-mode="high"] input::-moz-placeholder {
-    color: color-mix(in srgb, currentColor 87.5%, transparent);
-}
-[data-contrast-mode="high"] textarea::placeholder,
-[data-contrast-mode="high"] select::placeholder,
-[data-contrast-mode="high"] input::placeholder {
-    color: color-mix(in srgb, currentColor 87.5%, transparent);
-}
-
-@media (prefers-contrast: more) {
-    textarea::-moz-placeholder,
-    select::-moz-placeholder,
-    input::-moz-placeholder {
-        color: color-mix(in srgb, currentColor 87.5%, transparent);
-    }
-    textarea::placeholder,
-    select::placeholder,
-    input::placeholder {
-        color: color-mix(in srgb, currentColor 87.5%, transparent);
-    }
-}
-[data-contrast-mode="forced-colors"] textarea::-moz-placeholder,
-[data-contrast-mode="forced-colors"] select::-moz-placeholder,
-[data-contrast-mode="forced-colors"] input::-moz-placeholder {
-    color: currentColor;
-}
-[data-contrast-mode="forced-colors"] textarea::placeholder,
-[data-contrast-mode="forced-colors"] select::placeholder,
-[data-contrast-mode="forced-colors"] input::placeholder {
-    color: currentColor;
-}
-
-@media (forced-colors: active), (prefers-contrast: custom) {
-    textarea::-moz-placeholder,
-    select::-moz-placeholder,
-    input::-moz-placeholder {
-        color: currentColor;
-    }
-    textarea::placeholder,
-    select::placeholder,
-    input::placeholder {
-        color: currentColor;
-    }
-}
-label + textarea,
-label + select,
-label + input,
-label > textarea,
-label > select,
-label > input {
-    margin-top: 0.5rem;
-    margin-top: var(--mrg-firm-200, 0.5rem);
-}
-
-input[type="button"],
-input[type="checkbox"],
-input[type="color"],
-input[type="date"],
-input[type="datetime-local"],
-input[type="file"],
-input[type="month"],
-input[type="radio"],
-input[type="range"],
-input[type="reset"],
-input[type="submit"],
-input[type="time"],
-input[type="week"] {
-    cursor: pointer;
-}
-input[type="email"],
-input[type="month"],
-input[type="number"],
-input[type="password"],
-input[type="search"],
-input[type="tel"],
-input[type="text"],
-input[type="url"],
-input[type="week"] {
-    cursor: text;
-}
-input[type="checkbox"],
-input[type="radio"] {
-    display: inline-block;
-    padding: 0;
-    width: auto;
-    accent-color: FieldText;
-}
-.no-js input[type="checkbox"]:focus,
-.no-js input[type="radio"]:focus,
-.js__no-where-selector input[type="checkbox"]:focus,
-.js__no-where-selector input[type="radio"]:focus {
-    accent-color: FieldText;
-}
-
-:where(.js__no-focusVisible) input[type="checkbox"]:focus,
-:where(.js__no-focusVisible) input[type="radio"]:focus {
-    accent-color: FieldText;
-}
-
-input[type="checkbox"]:hover,
-input[type="radio"]:hover {
-    accent-color: FieldText;
-}
-
-input[type="checkbox"]:focus-visible,
-input[type="radio"]:focus-visible {
-    accent-color: FieldText;
-}
-
-input[type="checkbox"]:focus-within,
-input[type="radio"]:focus-within {
-    accent-color: FieldText;
-}
-
-input[type="checkbox"]:active,
-input[type="radio"]:active {
-    accent-color: ActiveText;
-}
-input[type="color"] {
-    padding: 0;
-    height: 2.25em;
-    width: 2.25em;
-}
-input[type="date"],
-input[type="datetime-local"],
-input[type="file"],
-input[type="month"],
-input[type="time"],
-input[type="week"] {
-    width: auto;
-}
-input[type="file"] {
-    padding-left: 0.8125rem;
-    padding-right: 0.8125rem;
-    padding-left: var(--mrg-firm-300, 0.8125rem);
-    padding-right: var(--mrg-firm-300, 0.8125rem);
-    font-size: 0.9375rem;
-    font-size: var(--fs-smaller-1, 0.9375rem);
-}
-input[type="range"] {
-    padding: 0;
-}
-
-select {
-    cursor: pointer;
-}
-
-textarea {
-    cursor: text;
-}
-
-/* ## Forms - Buttons ==================================== */
-button,
-[role="button"],
-input[type="button"],
-input[type="submit"],
-input[type="reset"],
-::file-selector-button,
-.button-secondary {
-    display: block;
-    margin: 1.25rem 0 0.4375rem;
-    margin: var(--mrg-firm-400, 1.25rem) 0 var(--mrg-half-400, 0.4375rem);
-    padding: 0.3125rem 0.8125rem;
-    padding: var(--mrg-soft-200, 0.3125rem) var(--mrg-firm-300, 0.8125rem);
-    width: -moz-fit-content;
-    width: fit-content;
-    font: inherit;
-    line-height: 1.1875;
-    line-height: var(--line-height-100, 1.1875);
-    border: 0.125rem solid ButtonBorder;
-    border-radius: 0;
-    background-color: ButtonFace;
-    color: ButtonText;
-    accent-color: ButtonText;
-}
-.no-js button:focus,
-.no-js [role="button"]:focus,
-.no-js input[type="button"]:focus,
-.no-js input[type="submit"]:focus,
-.no-js input[type="reset"]:focus,
-.no-js :focus::file-selector-button,
-.no-js .button-secondary:focus,
-.js__no-where-selector button:focus,
-.js__no-where-selector [role="button"]:focus,
-.js__no-where-selector input[type="button"]:focus,
-.js__no-where-selector input[type="submit"]:focus,
-.js__no-where-selector input[type="reset"]:focus,
-.js__no-where-selector :focus::file-selector-button,
-.js__no-where-selector .button-secondary:focus {
-    background-color: SelectedItem;
-    border-color: SelectedItem;
-    color: SelectedItemText;
-    accent-color: ButtonText;
-    opacity: 0.875;
-}
-
-:where(.js__no-focusVisible) button:focus,
-:where(.js__no-focusVisible) [role="button"]:focus,
-:where(.js__no-focusVisible) input[type="button"]:focus,
-:where(.js__no-focusVisible) input[type="submit"]:focus,
-:where(.js__no-focusVisible) input[type="reset"]:focus,
-:where(.js__no-focusVisible) :focus::file-selector-button,
-:where(.js__no-focusVisible) .button-secondary:focus {
-    background-color: SelectedItem;
-    border-color: SelectedItem;
-    color: SelectedItemText;
-    accent-color: ButtonText;
-    opacity: 0.875;
-}
-
-button:hover,
-[role="button"]:hover,
-input[type="button"]:hover,
-input[type="submit"]:hover,
-input[type="reset"]:hover,
-:hover::file-selector-button,
-.button-secondary:hover {
-    background-color: SelectedItem;
-    border-color: SelectedItem;
-    color: SelectedItemText;
-    accent-color: ButtonText;
-    opacity: 0.875;
-}
-
-button:focus-visible,
-[role="button"]:focus-visible,
-input[type="button"]:focus-visible,
-input[type="submit"]:focus-visible,
-input[type="reset"]:focus-visible,
-:focus-visible::file-selector-button,
-.button-secondary:focus-visible {
-    background-color: SelectedItem;
-    border-color: SelectedItem;
-    color: SelectedItemText;
-    accent-color: ButtonText;
-    opacity: 0.875;
-}
-
-button:focus-within,
-[role="button"]:focus-within,
-input[type="button"]:focus-within,
-input[type="submit"]:focus-within,
-input[type="reset"]:focus-within,
-:focus-within::file-selector-button,
-.button-secondary:focus-within {
-    background-color: SelectedItem;
-    border-color: SelectedItem;
-    color: SelectedItemText;
-    accent-color: ButtonText;
-    opacity: 0.875;
-}
-
-[data-contrast-mode="high"].no-js button:focus,
-[data-contrast-mode="high"].no-js [role="button"]:focus,
-[data-contrast-mode="high"].no-js input[type="button"]:focus,
-[data-contrast-mode="high"].no-js input[type="submit"]:focus,
-[data-contrast-mode="high"].no-js input[type="reset"]:focus,
-[data-contrast-mode="high"].no-js :focus::file-selector-button,
-[data-contrast-mode="high"].no-js .button-secondary:focus,
-[data-contrast-mode="high"].js__no-where-selector button:focus,
-[data-contrast-mode="high"].js__no-where-selector [role="button"]:focus,
-[data-contrast-mode="high"].js__no-where-selector input[type="button"]:focus,
-[data-contrast-mode="high"].js__no-where-selector input[type="submit"]:focus,
-[data-contrast-mode="high"].js__no-where-selector input[type="reset"]:focus,
-[data-contrast-mode="high"].js__no-where-selector :focus::file-selector-button,
-[data-contrast-mode="high"].js__no-where-selector .button-secondary:focus,
-[data-contrast-mode="forced-colors"].no-js button:focus,
-[data-contrast-mode="forced-colors"].no-js [role="button"]:focus,
-[data-contrast-mode="forced-colors"].no-js input[type="button"]:focus,
-[data-contrast-mode="forced-colors"].no-js input[type="submit"]:focus,
-[data-contrast-mode="forced-colors"].no-js input[type="reset"]:focus,
-[data-contrast-mode="forced-colors"].no-js :focus::file-selector-button,
-[data-contrast-mode="forced-colors"].no-js .button-secondary:focus,
-[data-contrast-mode="forced-colors"].js__no-where-selector button:focus,
-[data-contrast-mode="forced-colors"].js__no-where-selector
-    [role="button"]:focus,
-[data-contrast-mode="forced-colors"].js__no-where-selector
-    input[type="button"]:focus,
-[data-contrast-mode="forced-colors"].js__no-where-selector
-    input[type="submit"]:focus,
-[data-contrast-mode="forced-colors"].js__no-where-selector
-    input[type="reset"]:focus,
-[data-contrast-mode="forced-colors"].js__no-where-selector
-    :focus::file-selector-button,
-[data-contrast-mode="forced-colors"].js__no-where-selector
-    .button-secondary:focus {
-    opacity: 1;
-}
-
-[data-contrast-mode="high"]:where(.js__no-focusVisible) button:focus,
-[data-contrast-mode="high"]:where(.js__no-focusVisible) [role="button"]:focus,
-[data-contrast-mode="high"]:where(.js__no-focusVisible)
-    input[type="button"]:focus,
-[data-contrast-mode="high"]:where(.js__no-focusVisible)
-    input[type="submit"]:focus,
-[data-contrast-mode="high"]:where(.js__no-focusVisible)
-    input[type="reset"]:focus,
-[data-contrast-mode="high"]:where(.js__no-focusVisible)
-    :focus::file-selector-button,
-[data-contrast-mode="high"]:where(.js__no-focusVisible) .button-secondary:focus,
-[data-contrast-mode="forced-colors"]:where(.js__no-focusVisible) button:focus,
-[data-contrast-mode="forced-colors"]:where(.js__no-focusVisible)
-    [role="button"]:focus,
-[data-contrast-mode="forced-colors"]:where(.js__no-focusVisible)
-    input[type="button"]:focus,
-[data-contrast-mode="forced-colors"]:where(.js__no-focusVisible)
-    input[type="submit"]:focus,
-[data-contrast-mode="forced-colors"]:where(.js__no-focusVisible)
-    input[type="reset"]:focus,
-[data-contrast-mode="forced-colors"]:where(.js__no-focusVisible)
-    :focus::file-selector-button,
-[data-contrast-mode="forced-colors"]:where(.js__no-focusVisible)
-    .button-secondary:focus {
-    opacity: 1;
-}
-
-@media (prefers-contrast: more),
-    (forced-colors: active),
-    (prefers-contrast: custom) {
-    .no-js button:focus,
-    .no-js [role="button"]:focus,
-    .no-js input[type="button"]:focus,
-    .no-js input[type="submit"]:focus,
-    .no-js input[type="reset"]:focus,
-    .no-js :focus::file-selector-button,
-    .no-js .button-secondary:focus,
-    .js__no-where-selector button:focus,
-    .js__no-where-selector [role="button"]:focus,
-    .js__no-where-selector input[type="button"]:focus,
-    .js__no-where-selector input[type="submit"]:focus,
-    .js__no-where-selector input[type="reset"]:focus,
-    .js__no-where-selector :focus::file-selector-button,
-    .js__no-where-selector .button-secondary:focus {
-        opacity: 1;
-    }
-    :where(.js__no-focusVisible) button:focus,
-    :where(.js__no-focusVisible) [role="button"]:focus,
-    :where(.js__no-focusVisible) input[type="button"]:focus,
-    :where(.js__no-focusVisible) input[type="submit"]:focus,
-    :where(.js__no-focusVisible) input[type="reset"]:focus,
-    :where(.js__no-focusVisible) :focus::file-selector-button,
-    :where(.js__no-focusVisible) .button-secondary:focus {
-        opacity: 1;
-    }
-}
-[data-contrast-mode="high"] button:focus-visible,
-[data-contrast-mode="high"] [role="button"]:focus-visible,
-[data-contrast-mode="high"] input[type="button"]:focus-visible,
-[data-contrast-mode="high"] input[type="submit"]:focus-visible,
-[data-contrast-mode="high"] input[type="reset"]:focus-visible,
-[data-contrast-mode="high"] :focus-visible::file-selector-button,
-[data-contrast-mode="high"] .button-secondary:focus-visible,
-[data-contrast-mode="forced-colors"] button:focus-visible,
-[data-contrast-mode="forced-colors"] [role="button"]:focus-visible,
-[data-contrast-mode="forced-colors"] input[type="button"]:focus-visible,
-[data-contrast-mode="forced-colors"] input[type="submit"]:focus-visible,
-[data-contrast-mode="forced-colors"] input[type="reset"]:focus-visible,
-[data-contrast-mode="forced-colors"] :focus-visible::file-selector-button,
-[data-contrast-mode="forced-colors"] .button-secondary:focus-visible {
-    opacity: 1;
-}
-[data-contrast-mode="high"] button:focus-within,
-[data-contrast-mode="high"] [role="button"]:focus-within,
-[data-contrast-mode="high"] input[type="button"]:focus-within,
-[data-contrast-mode="high"] input[type="submit"]:focus-within,
-[data-contrast-mode="high"] input[type="reset"]:focus-within,
-[data-contrast-mode="high"] :focus-within::file-selector-button,
-[data-contrast-mode="high"] .button-secondary:focus-within,
-[data-contrast-mode="forced-colors"] button:focus-within,
-[data-contrast-mode="forced-colors"] [role="button"]:focus-within,
-[data-contrast-mode="forced-colors"] input[type="button"]:focus-within,
-[data-contrast-mode="forced-colors"] input[type="submit"]:focus-within,
-[data-contrast-mode="forced-colors"] input[type="reset"]:focus-within,
-[data-contrast-mode="forced-colors"] :focus-within::file-selector-button,
-[data-contrast-mode="forced-colors"] .button-secondary:focus-within {
-    opacity: 1;
-}
-[data-contrast-mode="high"] button:hover,
-[data-contrast-mode="high"] [role="button"]:hover,
-[data-contrast-mode="high"] input[type="button"]:hover,
-[data-contrast-mode="high"] input[type="submit"]:hover,
-[data-contrast-mode="high"] input[type="reset"]:hover,
-[data-contrast-mode="high"] :hover::file-selector-button,
-[data-contrast-mode="high"] .button-secondary:hover,
-[data-contrast-mode="forced-colors"] button:hover,
-[data-contrast-mode="forced-colors"] [role="button"]:hover,
-[data-contrast-mode="forced-colors"] input[type="button"]:hover,
-[data-contrast-mode="forced-colors"] input[type="submit"]:hover,
-[data-contrast-mode="forced-colors"] input[type="reset"]:hover,
-[data-contrast-mode="forced-colors"] :hover::file-selector-button,
-[data-contrast-mode="forced-colors"] .button-secondary:hover {
-    opacity: 1;
-}
-
-@media (prefers-contrast: more),
-    (forced-colors: active),
-    (prefers-contrast: custom) {
-    button:focus-visible,
-    [role="button"]:focus-visible,
-    input[type="button"]:focus-visible,
-    input[type="submit"]:focus-visible,
-    input[type="reset"]:focus-visible,
-    :focus-visible::file-selector-button,
-    .button-secondary:focus-visible {
-        opacity: 1;
-    }
-    button:focus-within,
-    [role="button"]:focus-within,
-    input[type="button"]:focus-within,
-    input[type="submit"]:focus-within,
-    input[type="reset"]:focus-within,
-    :focus-within::file-selector-button,
-    .button-secondary:focus-within {
-        opacity: 1;
-    }
-    button:hover,
-    [role="button"]:hover,
-    input[type="button"]:hover,
-    input[type="submit"]:hover,
-    input[type="reset"]:hover,
-    :hover::file-selector-button,
-    .button-secondary:hover {
-        opacity: 1;
-    }
-}
-button:active,
-[role="button"]:active,
-input[type="button"]:active,
-input[type="submit"]:active,
-input[type="reset"]:active,
-:active::file-selector-button,
-.button-secondary:active {
-    background-color: ButtonFace;
-    border-color: ButtonBorder;
-    color: ButtonText;
-    accent-color: ActiveText;
-}
-button,
-[role="button"],
-input[type="button"],
-input[type="submit"],
-input[type="reset"],
-::file-selector-button,
-.button-secondary {
-    -webkit-appearance: button;
-    -moz-appearance: button;
-    appearance: button;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-::file-selector-button {
-    display: initial;
-    margin: 0.5rem 0;
-    margin: var(--mrg-firm-200, 0.5rem) 0;
-    margin-right: 0.8125rem;
-    margin-right: var(--mrg-firm-300, 0.8125rem);
-    border: none;
-    font-size: 1rem;
-    font-size: var(--fs-normal, 1rem);
-}
-
-label {
-    display: block;
-    margin: 1.25rem 0 0;
-    margin: var(--mrg-firm-400, 1.25rem) 0 0;
-    font-weight: 600;
-    line-height: 1.3125;
-    line-height: var(--line-height-200, 1.3125);
-    color: CanvasText;
-}
-label:has(> :where(input[type="checkbox"], input[type="radio"])) {
-    display: grid;
-    grid-template-columns: fit-content(0) 1fr;
-    justify-content: end;
-    align-items: baseline;
-    grid-gap: 0.5rem;
-    grid-gap: var(--mrg-soft-300, 0.5rem);
-    gap: 0.5rem;
-    gap: var(--mrg-soft-300, 0.5rem);
-    font-weight: 400;
-    line-height: 1.6875;
-    line-height: var(--line-height-400, 1.6875);
-    text-wrap: balance;
-    color: CanvasText;
-    cursor: pointer;
-}
-label:has(> :where(input[type="checkbox"], input[type="radio"]))
-    + label:has(> :where(input[type="checkbox"], input[type="radio"])) {
-    margin-top: 0.5rem;
-    margin-top: var(--mrg-firm-200, 0.5rem);
-}
-label:has(> :where(input[type="checkbox"], input[type="radio"])) + input,
-label:has(> :where(input[type="checkbox"], input[type="radio"])) + select,
-label:has(> :where(input[type="checkbox"], input[type="radio"])) + textarea {
-    margin-top: 1.25rem;
-    margin-top: var(--mrg-firm-400, 1.25rem);
-}
-label > input[type="checkbox"],
-label > input[type="radio"] {
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
-/* # TABLES
- * ======================================================================== */
-.table-wrapper,
-table {
-    position: relative;
-    margin-top: 0.8125rem;
-    margin-top: var(--mrg-soft-400, 0.8125rem);
-    margin-bottom: 0;
-    margin-top: 1.4375rem;
-    margin-bottom: calc(1.4375rem - 0.8125rem);
-    margin-top: var(--mrg-soft-600, 1.4375rem);
-    margin-bottom: calc(
-        var(--mrg-soft-600, 1.4375rem) - var(--mrg-soft-400, 0.8125rem)
-    );
-    background: AccentColor;
-    width: min(53rem, 100%);
-    width: min(var(--width-page, 53rem), 100%);
-}
-
-table {
-    border-spacing: 0.125rem;
-    border-spacing: var(--border-width-200, 0.125rem);
-    font-size: 0.9375rem;
-    font-size: var(--fs-smaller-1, 0.9375rem);
-}
-
-.table-wrapper {
-    display: block;
-    overflow-x: auto;
-    overscroll-behavior-x: none;
-}
-.table-wrapper > table {
-    margin: 0;
-    padding: 0;
-    background: transparent;
-}
-
-th,
-td {
-    padding: 0.3125rem 0.8125rem;
-    padding: var(--mrg-soft-200, 0.3125rem) var(--mrg-firm-300, 0.8125rem);
-    min-width: 10em;
-    background: Canvas;
-    vertical-align: top;
-    text-align: left;
-}
-th > :first-child,
-td > :first-child {
-    margin-top: 0;
-}
-th > :last-child,
-td > :last-child {
-    margin-bottom: 0;
-}
-
-th {
-    padding-top: 0.3125rem;
-    padding-top: var(--mrg-soft-200, 0.3125rem);
-    padding-bottom: 0.3125rem;
-    padding-bottom: var(--mrg-soft-200, 0.3125rem);
-    background: AccentColor;
-    color: AccentColorText;
-}
-
-/*! end of @maddimathon/utility-sass/templates/base */
-body {
-    gap: 0.8125rem;
-    gap: var(--mrg-soft-400, 0.8125rem);
-}
-
-/*! end of @maddimathon/utility-astro/templates/html */
 /* # TYPOGRAPHY
  * ======================================================================== */
 ::-moz-selection {
