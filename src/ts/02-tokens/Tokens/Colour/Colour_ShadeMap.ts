@@ -10,7 +10,7 @@
 
 import * as z from 'zod';
 
-import type { TokenLevels } from '../../../old--00-schemata/@utils.js';
+import type { TokenLevels } from '../../@utils.js';
 
 import { AbstractTokens } from '../../abstracts/AbstractTokens.js';
 import { Tokens_Colour_ShadeMap_Shade } from './ShadeMap/Colour_ShadeMap_Shade.js';

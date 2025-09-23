@@ -13,9 +13,6 @@
  * @license MIT
  */
 
-
-export * as Schemata from './old--00-schemata/index.js';
-
 export * from './02-tokens/abstracts/AbstractTokens.js';
 
 export * from './02-tokens/Tokens/Spacing.js';
