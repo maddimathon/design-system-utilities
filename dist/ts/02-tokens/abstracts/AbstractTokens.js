@@ -224,6 +224,15 @@ export class AbstractTokens {
     (function (Tokens_Error) {
         ;
     })(Tokens_Error = AbstractTokens.Tokens_Error || (AbstractTokens.Tokens_Error = {}));
+    function objectGenerator(keys, mapper) {
+        // @ts-expect-error
+        let obj = {};
+        for (const key of keys) {
+            obj[key] = mapper(key);
+        }
+        return obj;
+    }
+    AbstractTokens.objectGenerator = objectGenerator;
     function objectMap(obj, mapper) {
         // @ts-expect-error
         let mapped = {};

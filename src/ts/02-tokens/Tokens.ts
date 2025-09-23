@@ -26,19 +26,21 @@ import { Tokens_Theme } from './Tokens/Theme.js';
  * 
  * @since ___PKG_VERSION___
  */
-export class Tokens extends AbstractTokens<
-    typeof Tokens.Schema,
-    Tokens.Parsed,
-    Tokens.Part,
-    Tokens.JSON,
-    Tokens.ScssVars
+export class Tokens<
+    T_ColourName extends string,
+> extends AbstractTokens<
+    undefined,
+    Tokens.Parsed<T_ColourName>,
+    Tokens.Part<T_ColourName>,
+    Tokens.JSON<T_ColourName>,
+    Tokens.ScssVars<T_ColourName>
 > {
 
     get schema() {
-        return Tokens.Schema;
+        return undefined;
     }
 
-    public readonly colour: Tokens_Colour;
+    public readonly colour: Tokens_Colour<T_ColourName>;
     public readonly spacing: Tokens_Spacing;
     public readonly theme: Tokens_Theme;
     public readonly typography: Tokens_Typography;
@@ -52,13 +54,14 @@ export class Tokens extends AbstractTokens<
          * 
          * Default keys are 'nav', 'settings', 'skipLink'.
          */
-        zIndex: z.output<typeof Tokens.Schema.shape.CSS.shape.zIndex>;
+        zIndex: z.output<Tokens.Schemata<T_ColourName>[ 'CSS' ]>[ 'zIndex' ];
     };
 
     public readonly opts: Tokens.Opts;
 
     public constructor (
-        input?: Tokens.Part,
+        protected readonly clrNames: T_ColourName[],
+        input?: Tokens.Part<T_ColourName>,
         opts?: Partial<Tokens.Opts>,
     ) {
         super( input ?? {} );
@@ -68,7 +71,7 @@ export class Tokens extends AbstractTokens<
             ...opts,
         };
 
-        this.colour = new Tokens_Colour( input?.colour ?? {} );
+        this.colour = new Tokens_Colour( this.clrNames, input?.colour ?? {} );
         this.spacing = new Tokens_Spacing( input?.spacing ?? {} );
         this.theme = new Tokens_Theme( input?.theme ?? {} );
 
@@ -77,7 +80,7 @@ export class Tokens extends AbstractTokens<
             input?.typography ?? {}
         );
 
-        const zIndex = this.schema.shape.CSS.shape.zIndex.parse( input?.css?.zIndex ?? {} );
+        const zIndex = Tokens.Schema_CSS.shape.zIndex.parse( input?.css?.zIndex ?? {} );
 
         this.CSS = {
             border: new Tokens_CSS_Border( input?.css?.border ?? {} ),
@@ -86,7 +89,7 @@ export class Tokens extends AbstractTokens<
         };
     }
 
-    public toJSON(): Tokens.JSON {
+    public toJSON(): Tokens.JSON<T_ColourName> {
 
         return {
             spacing: this.spacing.toJSON(),
@@ -103,7 +106,7 @@ export class Tokens extends AbstractTokens<
         };
     }
 
-    public override toScssVars(): Tokens.ScssVars {
+    public override toScssVars(): Tokens.ScssVars<T_ColourName> {
 
         return {
             ...this.spacing.toScssVars(),
@@ -122,9 +125,9 @@ export class Tokens extends AbstractTokens<
 
         const _vars = this.toScssVars();
 
-        const vars: { [ K in keyof Tokens.ScssVars ]: string; } = {
+        const vars: { [ K in keyof Tokens.ScssVars<T_ColourName> ]: string; } = {
 
-            spacing_multiplier: JsonToScss.convert( _vars.spacing_multiplier ) || String( this.schema.shape.spacing.shape.multiplier.parse( '' ) ),
+            spacing_multiplier: JsonToScss.convert( _vars.spacing_multiplier ) || String( Tokens_Spacing.Schema.shape.multiplier.parse( '' ) ),
             margin: JsonToScss.convert( _vars.margin ) || '()',
 
             font: JsonToScss.convert( _vars.font ) || '()',
@@ -154,7 +157,7 @@ export class Tokens extends AbstractTokens<
         return scss.join( '\n\n' );
     }
 
-    public valueOf(): Tokens.Parsed {
+    public valueOf(): Tokens.Parsed<T_ColourName> {
 
         return {
             spacing: this.spacing.valueOf(),
@@ -193,33 +196,52 @@ export namespace Tokens {
     /* SCHEMA
      * ====================================================================== */
 
-    export const Schema = z.object( {
+    export const Schema_CSS = z.object( {
 
-        colour: Tokens_Colour.Schema,
-        spacing: Tokens_Spacing.Schema,
-        theme: Tokens_Theme.Schema,
-        typography: Tokens_Typography.Schema,
+        border: Tokens_CSS_Border.Schema,
+        transition: Tokens_CSS_Transition.Schema,
 
-        CSS: z.object( {
-
-            border: Tokens_CSS_Border.Schema,
-            transition: Tokens_CSS_Transition.Schema,
-
-            zIndex: z.object( {
-                nav: z.number().default( 1000 ),
-                settings: z.number().default( 9999 ),
-                skipLink: z.number().default( 99999 ),
-            } ),
+        zIndex: z.object( {
+            nav: z.number().default( 1000 ),
+            popup: z.number().default( 999999 ),
+            settings: z.number().default( 9999 ),
+            skipLink: z.number().default( 99999 ),
         } ),
     } );
+
+    // export const Schema = <
+    //     T_ColourName extends string,
+    // >( clrNames: T_ColourName[] ) => z.object( {
+
+    //     colour: Tokens_Colour.Schema( clrNames ),
+    //     // spacing: Tokens_Spacing.Schema,
+    //     // theme: Tokens_Theme.Schema,
+    //     // typography: Tokens_Typography.Schema,
+
+    //     // CSS: Schema_CSS,
+
+    // } ) satisfies Schema<T_ColourName>;
+
+    export type Schemata<
+        T_ColourName extends string,
+    > = {
+        colour: Tokens_Colour.Schema<T_ColourName>,
+        spacing: typeof Tokens_Spacing.Schema,
+        theme: typeof Tokens_Theme.Schema,
+        typography: typeof Tokens_Typography.Schema,
+
+        CSS: ( typeof Schema_CSS ),
+    };
 
 
 
     /* TYPES
      * ====================================================================== */
 
-    export type Parsed = {
-        colour: Tokens_Colour.Parsed;
+    export type Parsed<
+        T_ColourName extends string,
+    > = {
+        colour: Tokens_Colour.Parsed<T_ColourName>;
         spacing: Tokens_Spacing.Parsed;
         theme: Tokens_Theme.Parsed;
         typography: Tokens_Typography.Parsed;
@@ -227,7 +249,7 @@ export namespace Tokens {
         CSS: {
             border: Tokens_CSS_Border.Parsed;
             transition: Tokens_CSS_Transition.Parsed;
-            zIndex: z.output<typeof Schema>[ 'CSS' ][ 'zIndex' ];
+            zIndex: z.output<typeof Schema_CSS>[ 'zIndex' ];
         };
     };
 
@@ -235,9 +257,12 @@ export namespace Tokens {
      * The partialized version of the {@link Tokens.Schema} accepted as input.
      *
      * @since ___PKG_VERSION___
+     * @interface
      */
-    export interface Part {
-        colour?: Tokens_Colour.Part;
+    export type Part<
+        T_ColourName extends string,
+    > = {
+        colour?: Tokens_Colour.Part<T_ColourName>;
         spacing?: Tokens_Spacing.Part;
         theme?: Tokens_Theme.Part;
         typography?: Tokens_Typography.Part;
@@ -246,12 +271,18 @@ export namespace Tokens {
             border?: Tokens_CSS_Border.Part;
             transition?: Tokens_CSS_Transition.Part;
 
-            zIndex?: Partial<Parsed[ 'CSS' ][ 'zIndex' ]>;
+            zIndex?: Partial<Parsed<T_ColourName>[ 'CSS' ][ 'zIndex' ]>;
         };
     };
 
-    export type JSON = {
-        colour: Tokens_Colour.JSON;
+    /**
+     * @since ___PKG_VERSION___
+     * @interface
+     */
+    export type JSON<
+        T_ColourName extends string,
+    > = {
+        colour: Tokens_Colour.JSON<T_ColourName>;
         spacing: Tokens_Spacing.JSON;
         theme: Tokens_Theme.JSON;
         typography: Tokens_Typography.JSON;
@@ -259,21 +290,24 @@ export namespace Tokens {
         CSS: {
             border: Tokens_CSS_Border.JSON;
             transition: Tokens_CSS_Transition.JSON;
-            zIndex: Parsed[ 'CSS' ][ 'zIndex' ];
+            zIndex: Parsed<T_ColourName>[ 'CSS' ][ 'zIndex' ];
         };
     };
 
     /**
+     * @since ___PKG_VERSION___
      * @interface
      */
-    export type ScssVars = Omit<Parsed, "colour" | "CSS" | "spacing" | "theme" | "typography">
+    export type ScssVars<
+        T_ColourName extends string,
+    > = Omit<Parsed<T_ColourName>, "colour" | "CSS" | "spacing" | "theme" | "typography">
         & Tokens_Spacing.ScssVars
         & Tokens_Typography.ScssVars
         & {
             border: Tokens_CSS_Border.ScssVars;
-            colour: Tokens_Colour.ScssVars;
+            colour: Tokens_Colour.ScssVars<T_ColourName>;
             theme: Tokens_Theme.ScssVars;
             transition: Tokens_CSS_Transition.ScssVars;
-            z_index: Parsed[ 'CSS' ][ 'zIndex' ];
+            z_index: Parsed<T_ColourName>[ 'CSS' ][ 'zIndex' ];
         };
 }

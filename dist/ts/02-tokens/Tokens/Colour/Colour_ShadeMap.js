@@ -68,6 +68,7 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
         });
     }
     Tokens_Colour_ShadeMap.mixColours = mixColours;
+    // TODO - make this work by only setting 500
     function completeMap(part, cfx) {
         const inputKeys = Object.keys(part);
         const name = Array.isArray(cfx.path) ? cfx.path.join(' ') : cfx.path;
@@ -164,6 +165,6 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
         '700': Tokens_Colour_ShadeMap_Shade.Schema,
         '800': Tokens_Colour_ShadeMap_Shade.Schema,
         '900': Tokens_Colour_ShadeMap_Shade.Schema,
-    }).partial().transform((part, cfx) => completeMap(part, cfx));
+    }).partial().default({}).transform((part, cfx) => completeMap(part, cfx));
 })(Tokens_Colour_ShadeMap || (Tokens_Colour_ShadeMap = {}));
 //# sourceMappingURL=Colour_ShadeMap.js.map

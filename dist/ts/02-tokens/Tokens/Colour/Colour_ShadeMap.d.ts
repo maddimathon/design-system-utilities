@@ -8,7 +8,7 @@
  * @license MIT
  */
 import * as z from 'zod';
-import type { TokenLevels } from '../../../00-schemata/@utils.js';
+import type { TokenLevels } from '../../../old--00-schemata/@utils.js';
 import { AbstractTokens } from '../../abstracts/AbstractTokens.js';
 import { Tokens_Colour_ShadeMap_Shade } from './ShadeMap/Colour_ShadeMap_Shade.js';
 /**
@@ -19,7 +19,7 @@ import { Tokens_Colour_ShadeMap_Shade } from './ShadeMap/Colour_ShadeMap_Shade.j
  */
 export declare class Tokens_Colour_ShadeMap extends AbstractTokens<typeof Tokens_Colour_ShadeMap.Schema, Tokens_Colour_ShadeMap.Parsed, Tokens_Colour_ShadeMap.Part, Tokens_Colour_ShadeMap.JSON, Tokens_Colour_ShadeMap.ScssVars> {
     readonly name: string;
-    get schema(): z.ZodEffects<z.ZodObject<{
+    get schema(): z.ZodEffects<z.ZodDefault<z.ZodObject<{
         '100': z.ZodOptional<z.ZodEffects<z.ZodUnion<[z.ZodString, z.ZodObject<{
             h: z.ZodNumber;
             s: z.ZodNumber;
@@ -1660,7 +1660,7 @@ export declare class Tokens_Colour_ShadeMap extends AbstractTokens<typeof Tokens
                 c: number;
             };
         } | undefined;
-    }>, {
+    }>>, {
         '100': Tokens_Colour_ShadeMap_Shade;
         '200': Tokens_Colour_ShadeMap_Shade;
         '300': Tokens_Colour_ShadeMap_Shade;
@@ -1941,7 +1941,7 @@ export declare class Tokens_Colour_ShadeMap extends AbstractTokens<typeof Tokens
                 c: number;
             };
         } | undefined;
-    }>;
+    } | undefined>;
     readonly map: z.output<typeof Tokens_Colour_ShadeMap.Schema>;
     constructor(name: string, input?: Tokens_Colour_ShadeMap.Part);
     toJSON(): Tokens_Colour_ShadeMap.JSON;
@@ -1963,7 +1963,7 @@ export declare namespace Tokens_Colour_ShadeMap {
     }>): {
         [K in keyof typeof part]-?: Tokens_Colour_ShadeMap_Shade;
     };
-    const Schema: z.ZodEffects<z.ZodObject<{
+    const Schema: z.ZodEffects<z.ZodDefault<z.ZodObject<{
         '100': z.ZodOptional<z.ZodEffects<z.ZodUnion<[z.ZodString, z.ZodObject<{
             h: z.ZodNumber;
             s: z.ZodNumber;
@@ -3604,7 +3604,7 @@ export declare namespace Tokens_Colour_ShadeMap {
                 c: number;
             };
         } | undefined;
-    }>, {
+    }>>, {
         '100': Tokens_Colour_ShadeMap_Shade;
         '200': Tokens_Colour_ShadeMap_Shade;
         '300': Tokens_Colour_ShadeMap_Shade;
@@ -3885,9 +3885,11 @@ export declare namespace Tokens_Colour_ShadeMap {
                 c: number;
             };
         } | undefined;
-    }>;
+    } | undefined>;
     type Parsed = z.output<typeof Schema>;
-    type Part = z.input<typeof Schema>;
+    type Part = {
+        [K in keyof z.output<typeof Schema>]?: Tokens_Colour_ShadeMap_Shade.Part;
+    };
     type JSON = {
         [K in keyof z.output<typeof Schema>]: Tokens_Colour_ShadeMap_Shade.JSON;
     };

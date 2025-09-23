@@ -10,7 +10,7 @@
 
 import * as z from 'zod';
 
-import { tokenLevels_extended } from '../../00-schemata/@utils.js';
+import { tokenLevels_extended } from '../../old--00-schemata/@utils.js';
 
 import { AbstractTokens } from '../abstracts/AbstractTokens.js';
 import type { Tokens_Spacing } from './Spacing.js';

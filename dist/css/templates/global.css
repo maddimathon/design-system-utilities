@@ -67,9 +67,26 @@ hr {
 
 /* # TYPOGRAPHY
  * ======================================================================== */
+::-moz-selection {
+    background-color: Highlight;
+    background-color: var(--sys-clr-selection-bg, Highlight);
+    color: HighlightText;
+    color: var(--sys-clr-selection-text, HighlightText);
+}
+::selection {
+    background-color: Highlight;
+    background-color: var(--sys-clr-selection-bg, Highlight);
+    color: HighlightText;
+    color: var(--sys-clr-selection-text, HighlightText);
+}
+
 html {
     line-height: 1.6875;
     line-height: var(--line-height-400, 1.6875);
+    background: Canvas;
+    background: var(--sys-clr-background, Canvas);
+    color: CanvasText;
+    color: var(--sys-clr-text, CanvasText);
 }
 
 /* ## Typography - Inline ==================================== */
@@ -100,6 +117,7 @@ i em em {
 }
 
 a {
+    --focus-ring-outline-color: currentColor;
     display: inline;
     border: none;
     -webkit-text-decoration: underline 0.0625em;
@@ -109,33 +127,40 @@ a {
     text-underline-offset: 0.1875em;
     text-underline-offset: var(--stroke-relative-600, 0.1875em);
     color: LinkText;
+    color: var(--sys-clr-link, LinkText);
 }
 a:visited {
     color: VisitedText;
+    color: var(--sys-clr-link-visited, VisitedText);
 }
 .no-js a:focus,
 .js__no-where-selector a:focus {
     text-decoration-color: transparent;
     color: ActiveText;
+    color: var(--sys-clr-link-hover, ActiveText);
 }
 
 :where(.js__no-focusVisible) a:focus {
     text-decoration-color: transparent;
     color: ActiveText;
+    color: var(--sys-clr-link-hover, ActiveText);
 }
 
 a:hover {
     text-decoration-color: transparent;
     color: ActiveText;
+    color: var(--sys-clr-link-hover, ActiveText);
 }
 
 a:focus-visible {
     text-decoration-color: transparent;
     color: ActiveText;
+    color: var(--sys-clr-link-hover, ActiveText);
 }
 
 a:active {
     color: ActiveText;
+    color: var(--sys-clr-link-active, ActiveText);
 }
 a.no-style {
     text-decoration: none;
@@ -146,15 +171,8 @@ a[aria-disabled="true"] {
     text-decoration-line: line-through;
     opacity: 1;
     cursor: not-allowed;
-}
-a[aria-disabled="true"] {
-    opacity: 0.875;
-}
-
-@media (prefers-contrast: less) {
-    a[aria-disabled="true"] {
-        opacity: 0.875;
-    }
+    color: GrayText;
+    color: var(--sys-clr-text-disabled, GrayText);
 }
 
 abbr[title] {
@@ -202,20 +220,19 @@ blockquote > cite {
     margin-top: var(--mrg-soft-400, 0.8125rem);
     margin-bottom: 0;
     text-align: right;
-    color: color-mix(in srgb, currentColor 75%, transparent);
 }
 blockquote > cite::before {
     content: "— ";
     color: currentColor;
 }
+@media (prefers-contrast: less) {
+    blockquote > cite {
+        color: color-mix(in srgb, currentColor 75%, transparent);
+    }
+}
 @media (prefers-contrast: more) {
     blockquote > cite {
         color: color-mix(in srgb, currentColor 87.5%, transparent);
-    }
-}
-@media (forced-colors: active), (prefers-contrast: custom) {
-    blockquote > cite {
-        color: currentColor;
     }
 }
 
@@ -445,30 +462,38 @@ fieldset {
     padding: 0.5rem 1.25rem 0.8125rem;
     padding: var(--mrg-soft-300, 0.5rem) var(--mrg-firm-400, 1.25rem)
         var(--mrg-firm-300, 0.8125rem);
-    border: 0.0625rem solid AccentColor;
+    border: 0.0625rem solid CanvasText;
+    border: 0.0625rem solid var(--sys-clr-accent-bg, CanvasText);
     border-radius: 0;
     background-color: Canvas;
+    background-color: var(--sys-clr-background, Canvas);
     color: CanvasText;
+    color: var(--sys-clr-text, CanvasText);
 }
 .no-js fieldset:focus,
 .js__no-where-selector fieldset:focus {
     border-color: ActiveText;
+    border-color: var(--sys-clr-text-active, ActiveText);
 }
 
 :where(.js__no-focusVisible) fieldset:focus {
     border-color: ActiveText;
+    border-color: var(--sys-clr-text-active, ActiveText);
 }
 
 fieldset:focus-visible {
     border-color: ActiveText;
+    border-color: var(--sys-clr-text-active, ActiveText);
 }
 
 fieldset:focus-within {
     border-color: ActiveText;
+    border-color: var(--sys-clr-text-active, ActiveText);
 }
 
 fieldset:active {
-    border-color: AccentColor;
+    border-color: CanvasText;
+    border-color: var(--sys-clr-accent-bg, CanvasText);
 }
 fieldset legend {
     display: block;
@@ -519,10 +544,15 @@ input {
     line-height: 1.3125;
     line-height: var(--line-height-200, 1.3125);
     border: 0.0625rem solid FieldText;
+    border: 0.0625rem solid var(--sys-clr-input-border, FieldText);
     border-radius: 0;
+    --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
     background-color: Field;
+    background-color: var(--sys-clr-input-bg, Field);
     color: FieldText;
+    color: var(--sys-clr-input-text, FieldText);
     accent-color: FieldText;
+    accent-color: var(--sys-clr-input-text, FieldText);
 }
 .no-js textarea:focus,
 .no-js select:focus,
@@ -530,69 +560,109 @@ input {
 .js__no-where-selector textarea:focus,
 .js__no-where-selector select:focus,
 .js__no-where-selector input:focus {
-    background-color: Field;
-    border-color: FieldText;
-    color: FieldText;
+    --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
+    background-color: SelectedItem;
+    background-color: var(--sys-clr-input-bg-hover, SelectedItem);
+    border-color: SelectedItem;
+    border-color: var(--sys-clr-input-border-hover, SelectedItem);
+    color: SelectedItemText;
+    color: var(--sys-clr-input-text-hover, SelectedItemText);
     accent-color: FieldText;
+    accent-color: var(--sys-clr-input-text, FieldText);
 }
 
 :where(.js__no-focusVisible) textarea:focus,
 :where(.js__no-focusVisible) select:focus,
 :where(.js__no-focusVisible) input:focus {
-    background-color: Field;
-    border-color: FieldText;
-    color: FieldText;
+    --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
+    background-color: SelectedItem;
+    background-color: var(--sys-clr-input-bg-hover, SelectedItem);
+    border-color: SelectedItem;
+    border-color: var(--sys-clr-input-border-hover, SelectedItem);
+    color: SelectedItemText;
+    color: var(--sys-clr-input-text-hover, SelectedItemText);
     accent-color: FieldText;
+    accent-color: var(--sys-clr-input-text, FieldText);
 }
 
 textarea:hover,
 select:hover,
 input:hover {
-    background-color: Field;
-    border-color: FieldText;
-    color: FieldText;
+    --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
+    background-color: SelectedItem;
+    background-color: var(--sys-clr-input-bg-hover, SelectedItem);
+    border-color: SelectedItem;
+    border-color: var(--sys-clr-input-border-hover, SelectedItem);
+    color: SelectedItemText;
+    color: var(--sys-clr-input-text-hover, SelectedItemText);
     accent-color: FieldText;
+    accent-color: var(--sys-clr-input-text, FieldText);
 }
 
 textarea:focus-visible,
 select:focus-visible,
 input:focus-visible {
-    background-color: Field;
-    border-color: FieldText;
-    color: FieldText;
+    --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
+    background-color: SelectedItem;
+    background-color: var(--sys-clr-input-bg-hover, SelectedItem);
+    border-color: SelectedItem;
+    border-color: var(--sys-clr-input-border-hover, SelectedItem);
+    color: SelectedItemText;
+    color: var(--sys-clr-input-text-hover, SelectedItemText);
     accent-color: FieldText;
+    accent-color: var(--sys-clr-input-text, FieldText);
 }
 
 textarea:focus-within,
 select:focus-within,
 input:focus-within {
-    background-color: Field;
-    border-color: FieldText;
-    color: FieldText;
+    --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
+    background-color: SelectedItem;
+    background-color: var(--sys-clr-input-bg-hover, SelectedItem);
+    border-color: SelectedItem;
+    border-color: var(--sys-clr-input-border-hover, SelectedItem);
+    color: SelectedItemText;
+    color: var(--sys-clr-input-text-hover, SelectedItemText);
     accent-color: FieldText;
+    accent-color: var(--sys-clr-input-text, FieldText);
 }
 
 textarea:active,
 select:active,
 input:active {
+    --focus-ring-outline-color: var(--sys-clr-text-active, ActiveText);
     background-color: Field;
+    background-color: var(--sys-clr-input-bg-active, Field);
     border-color: FieldText;
+    border-color: var(--sys-clr-input-border-active, FieldText);
     color: FieldText;
+    color: var(--sys-clr-input-text-active, FieldText);
     accent-color: ActiveText;
+    accent-color: var(--sys-clr-text-active, ActiveText);
 }
 textarea::-moz-placeholder,
 select::-moz-placeholder,
 input::-moz-placeholder {
     opacity: 1;
     color: currentColor;
-    color: color-mix(in srgb, currentColor 62.5%, transparent);
 }
 textarea::placeholder,
 select::placeholder,
 input::placeholder {
     opacity: 1;
     color: currentColor;
-    color: color-mix(in srgb, currentColor 62.5%, transparent);
+}
+@media (prefers-contrast: less) {
+    textarea::-moz-placeholder,
+    select::-moz-placeholder,
+    input::-moz-placeholder {
+        color: color-mix(in srgb, currentColor 62.5%, transparent);
+    }
+    textarea::placeholder,
+    select::placeholder,
+    input::placeholder {
+        color: color-mix(in srgb, currentColor 62.5%, transparent);
+    }
 }
 @media (prefers-contrast: more) {
     textarea::-moz-placeholder,
@@ -604,18 +674,6 @@ input::placeholder {
     select::placeholder,
     input::placeholder {
         color: color-mix(in srgb, currentColor 87.5%, transparent);
-    }
-}
-@media (forced-colors: active), (prefers-contrast: custom) {
-    textarea::-moz-placeholder,
-    select::-moz-placeholder,
-    input::-moz-placeholder {
-        color: currentColor;
-    }
-    textarea::placeholder,
-    select::placeholder,
-    input::placeholder {
-        color: currentColor;
     }
 }
 label + textarea,
@@ -660,37 +718,44 @@ input[type="radio"] {
     padding: 0;
     width: auto;
     accent-color: FieldText;
+    accent-color: var(--sys-clr-input-text, FieldText);
 }
 .no-js input[type="checkbox"]:focus,
 .no-js input[type="radio"]:focus,
 .js__no-where-selector input[type="checkbox"]:focus,
 .js__no-where-selector input[type="radio"]:focus {
     accent-color: FieldText;
+    accent-color: var(--sys-clr-input-text, FieldText);
 }
 
 :where(.js__no-focusVisible) input[type="checkbox"]:focus,
 :where(.js__no-focusVisible) input[type="radio"]:focus {
     accent-color: FieldText;
+    accent-color: var(--sys-clr-input-text, FieldText);
 }
 
 input[type="checkbox"]:hover,
 input[type="radio"]:hover {
     accent-color: FieldText;
+    accent-color: var(--sys-clr-input-text, FieldText);
 }
 
 input[type="checkbox"]:focus-visible,
 input[type="radio"]:focus-visible {
     accent-color: FieldText;
+    accent-color: var(--sys-clr-input-text, FieldText);
 }
 
 input[type="checkbox"]:focus-within,
 input[type="radio"]:focus-within {
     accent-color: FieldText;
+    accent-color: var(--sys-clr-input-text, FieldText);
 }
 
 input[type="checkbox"]:active,
 input[type="radio"]:active {
     accent-color: ActiveText;
+    accent-color: var(--sys-clr-text-active, ActiveText);
 }
 input[type="color"] {
     padding: 0;
@@ -746,11 +811,16 @@ input[type="reset"],
     font: inherit;
     line-height: 1.1875;
     line-height: var(--line-height-100, 1.1875);
-    border: 0.125rem solid ButtonBorder;
+    border: 0.125rem solid ButtonFace;
+    border: 0.125rem solid var(--sys-clr-button-border, ButtonFace);
     border-radius: 0;
+    --focus-ring-outline-color: var(--sys-clr-button-text, ButtonText);
     background-color: ButtonFace;
+    background-color: var(--sys-clr-button-bg, ButtonFace);
     color: ButtonText;
+    color: var(--sys-clr-button-text, ButtonText);
     accent-color: ButtonText;
+    accent-color: var(--sys-clr-button-text, ButtonText);
 }
 .no-js button:focus,
 .no-js [role="button"]:focus,
@@ -764,11 +834,217 @@ input[type="reset"],
 .js__no-where-selector input[type="submit"]:focus,
 .js__no-where-selector input[type="reset"]:focus,
 .js__no-where-selector :focus::file-selector-button {
+    --focus-ring-outline-color: var(
+        --sys-clr-button-text-hover,
+        SelectedItemText
+    );
     background-color: SelectedItem;
+    background-color: var(--sys-clr-button-bg-hover, SelectedItem);
     border-color: SelectedItem;
+    border-color: var(--sys-clr-button-border-hover, SelectedItem);
     color: SelectedItemText;
-    accent-color: ButtonText;
+    color: var(--sys-clr-button-text-hover, SelectedItemText);
+    accent-color: SelectedItemText;
+    accent-color: var(--sys-clr-button-text-hover, SelectedItemText);
+}
+.no-js .no-js button:focus:focus,
+.no-js .no-js [role="button"]:focus:focus,
+.no-js .no-js input[type="button"]:focus:focus,
+.no-js .no-js input[type="submit"]:focus:focus,
+.no-js .no-js input[type="reset"]:focus:focus,
+.no-js .no-js :focus:focus::file-selector-button,
+.no-js .js__no-where-selector button:focus:focus,
+.no-js .js__no-where-selector [role="button"]:focus:focus,
+.no-js .js__no-where-selector input[type="button"]:focus:focus,
+.no-js .js__no-where-selector input[type="submit"]:focus:focus,
+.no-js .js__no-where-selector input[type="reset"]:focus:focus,
+.no-js .js__no-where-selector :focus:focus::file-selector-button,
+.js__no-where-selector .no-js button:focus:focus,
+.js__no-where-selector .no-js [role="button"]:focus:focus,
+.js__no-where-selector .no-js input[type="button"]:focus:focus,
+.js__no-where-selector .no-js input[type="submit"]:focus:focus,
+.js__no-where-selector .no-js input[type="reset"]:focus:focus,
+.js__no-where-selector .no-js :focus:focus::file-selector-button,
+.js__no-where-selector .js__no-where-selector button:focus:focus,
+.js__no-where-selector .js__no-where-selector [role="button"]:focus:focus,
+.js__no-where-selector .js__no-where-selector input[type="button"]:focus:focus,
+.js__no-where-selector .js__no-where-selector input[type="submit"]:focus:focus,
+.js__no-where-selector .js__no-where-selector input[type="reset"]:focus:focus,
+.js__no-where-selector
+    .js__no-where-selector
+    :focus:focus::file-selector-button {
     opacity: 0.875;
+}
+
+:where(.js__no-focusVisible) .no-js button:focus:focus,
+:where(.js__no-focusVisible) .no-js [role="button"]:focus:focus,
+:where(.js__no-focusVisible) .no-js input[type="button"]:focus:focus,
+:where(.js__no-focusVisible) .no-js input[type="submit"]:focus:focus,
+:where(.js__no-focusVisible) .no-js input[type="reset"]:focus:focus,
+:where(.js__no-focusVisible) .no-js :focus:focus::file-selector-button,
+:where(.js__no-focusVisible) .js__no-where-selector button:focus:focus,
+:where(.js__no-focusVisible) .js__no-where-selector [role="button"]:focus:focus,
+:where(.js__no-focusVisible)
+    .js__no-where-selector
+    input[type="button"]:focus:focus,
+:where(.js__no-focusVisible)
+    .js__no-where-selector
+    input[type="submit"]:focus:focus,
+:where(.js__no-focusVisible)
+    .js__no-where-selector
+    input[type="reset"]:focus:focus,
+:where(.js__no-focusVisible)
+    .js__no-where-selector
+    :focus:focus::file-selector-button {
+    opacity: 0.875;
+}
+
+@media (prefers-contrast: less) {
+    .no-js .no-js button:focus:focus,
+    .no-js .no-js [role="button"]:focus:focus,
+    .no-js .no-js input[type="button"]:focus:focus,
+    .no-js .no-js input[type="submit"]:focus:focus,
+    .no-js .no-js input[type="reset"]:focus:focus,
+    .no-js .no-js :focus:focus::file-selector-button,
+    .no-js .js__no-where-selector button:focus:focus,
+    .no-js .js__no-where-selector [role="button"]:focus:focus,
+    .no-js .js__no-where-selector input[type="button"]:focus:focus,
+    .no-js .js__no-where-selector input[type="submit"]:focus:focus,
+    .no-js .js__no-where-selector input[type="reset"]:focus:focus,
+    .no-js .js__no-where-selector :focus:focus::file-selector-button,
+    .js__no-where-selector .no-js button:focus:focus,
+    .js__no-where-selector .no-js [role="button"]:focus:focus,
+    .js__no-where-selector .no-js input[type="button"]:focus:focus,
+    .js__no-where-selector .no-js input[type="submit"]:focus:focus,
+    .js__no-where-selector .no-js input[type="reset"]:focus:focus,
+    .js__no-where-selector .no-js :focus:focus::file-selector-button,
+    .js__no-where-selector .js__no-where-selector button:focus:focus,
+    .js__no-where-selector .js__no-where-selector [role="button"]:focus:focus,
+    .js__no-where-selector
+        .js__no-where-selector
+        input[type="button"]:focus:focus,
+    .js__no-where-selector
+        .js__no-where-selector
+        input[type="submit"]:focus:focus,
+    .js__no-where-selector
+        .js__no-where-selector
+        input[type="reset"]:focus:focus,
+    .js__no-where-selector
+        .js__no-where-selector
+        :focus:focus::file-selector-button {
+        opacity: 0.875;
+    }
+    :where(.js__no-focusVisible) .no-js button:focus:focus,
+    :where(.js__no-focusVisible) .no-js [role="button"]:focus:focus,
+    :where(.js__no-focusVisible) .no-js input[type="button"]:focus:focus,
+    :where(.js__no-focusVisible) .no-js input[type="submit"]:focus:focus,
+    :where(.js__no-focusVisible) .no-js input[type="reset"]:focus:focus,
+    :where(.js__no-focusVisible) .no-js :focus:focus::file-selector-button,
+    :where(.js__no-focusVisible) .js__no-where-selector button:focus:focus,
+    :where(.js__no-focusVisible)
+        .js__no-where-selector
+        [role="button"]:focus:focus,
+    :where(.js__no-focusVisible)
+        .js__no-where-selector
+        input[type="button"]:focus:focus,
+    :where(.js__no-focusVisible)
+        .js__no-where-selector
+        input[type="submit"]:focus:focus,
+    :where(.js__no-focusVisible)
+        .js__no-where-selector
+        input[type="reset"]:focus:focus,
+    :where(.js__no-focusVisible)
+        .js__no-where-selector
+        :focus:focus::file-selector-button {
+        opacity: 0.875;
+    }
+}
+.no-js button:focus:focus-visible,
+.no-js [role="button"]:focus:focus-visible,
+.no-js input[type="button"]:focus:focus-visible,
+.no-js input[type="submit"]:focus:focus-visible,
+.no-js input[type="reset"]:focus:focus-visible,
+.no-js :focus:focus-visible::file-selector-button,
+.js__no-where-selector button:focus:focus-visible,
+.js__no-where-selector [role="button"]:focus:focus-visible,
+.js__no-where-selector input[type="button"]:focus:focus-visible,
+.js__no-where-selector input[type="submit"]:focus:focus-visible,
+.js__no-where-selector input[type="reset"]:focus:focus-visible,
+.js__no-where-selector :focus:focus-visible::file-selector-button {
+    opacity: 0.875;
+}
+.no-js button:focus:focus-within,
+.no-js [role="button"]:focus:focus-within,
+.no-js input[type="button"]:focus:focus-within,
+.no-js input[type="submit"]:focus:focus-within,
+.no-js input[type="reset"]:focus:focus-within,
+.no-js :focus:focus-within::file-selector-button,
+.js__no-where-selector button:focus:focus-within,
+.js__no-where-selector [role="button"]:focus:focus-within,
+.js__no-where-selector input[type="button"]:focus:focus-within,
+.js__no-where-selector input[type="submit"]:focus:focus-within,
+.js__no-where-selector input[type="reset"]:focus:focus-within,
+.js__no-where-selector :focus:focus-within::file-selector-button {
+    opacity: 0.875;
+}
+.no-js button:focus:hover,
+.no-js [role="button"]:focus:hover,
+.no-js input[type="button"]:focus:hover,
+.no-js input[type="submit"]:focus:hover,
+.no-js input[type="reset"]:focus:hover,
+.no-js :focus:hover::file-selector-button,
+.js__no-where-selector button:focus:hover,
+.js__no-where-selector [role="button"]:focus:hover,
+.js__no-where-selector input[type="button"]:focus:hover,
+.js__no-where-selector input[type="submit"]:focus:hover,
+.js__no-where-selector input[type="reset"]:focus:hover,
+.js__no-where-selector :focus:hover::file-selector-button {
+    opacity: 0.875;
+}
+
+@media (prefers-contrast: less) {
+    .no-js button:focus:focus-visible,
+    .no-js [role="button"]:focus:focus-visible,
+    .no-js input[type="button"]:focus:focus-visible,
+    .no-js input[type="submit"]:focus:focus-visible,
+    .no-js input[type="reset"]:focus:focus-visible,
+    .no-js :focus:focus-visible::file-selector-button,
+    .js__no-where-selector button:focus:focus-visible,
+    .js__no-where-selector [role="button"]:focus:focus-visible,
+    .js__no-where-selector input[type="button"]:focus:focus-visible,
+    .js__no-where-selector input[type="submit"]:focus:focus-visible,
+    .js__no-where-selector input[type="reset"]:focus:focus-visible,
+    .js__no-where-selector :focus:focus-visible::file-selector-button {
+        opacity: 0.875;
+    }
+    .no-js button:focus:focus-within,
+    .no-js [role="button"]:focus:focus-within,
+    .no-js input[type="button"]:focus:focus-within,
+    .no-js input[type="submit"]:focus:focus-within,
+    .no-js input[type="reset"]:focus:focus-within,
+    .no-js :focus:focus-within::file-selector-button,
+    .js__no-where-selector button:focus:focus-within,
+    .js__no-where-selector [role="button"]:focus:focus-within,
+    .js__no-where-selector input[type="button"]:focus:focus-within,
+    .js__no-where-selector input[type="submit"]:focus:focus-within,
+    .js__no-where-selector input[type="reset"]:focus:focus-within,
+    .js__no-where-selector :focus:focus-within::file-selector-button {
+        opacity: 0.875;
+    }
+    .no-js button:focus:hover,
+    .no-js [role="button"]:focus:hover,
+    .no-js input[type="button"]:focus:hover,
+    .no-js input[type="submit"]:focus:hover,
+    .no-js input[type="reset"]:focus:hover,
+    .no-js :focus:hover::file-selector-button,
+    .js__no-where-selector button:focus:hover,
+    .js__no-where-selector [role="button"]:focus:hover,
+    .js__no-where-selector input[type="button"]:focus:hover,
+    .js__no-where-selector input[type="submit"]:focus:hover,
+    .js__no-where-selector input[type="reset"]:focus:hover,
+    .js__no-where-selector :focus:hover::file-selector-button {
+        opacity: 0.875;
+    }
 }
 
 :where(.js__no-focusVisible) button:focus,
@@ -777,11 +1053,157 @@ input[type="reset"],
 :where(.js__no-focusVisible) input[type="submit"]:focus,
 :where(.js__no-focusVisible) input[type="reset"]:focus,
 :where(.js__no-focusVisible) :focus::file-selector-button {
+    --focus-ring-outline-color: var(
+        --sys-clr-button-text-hover,
+        SelectedItemText
+    );
     background-color: SelectedItem;
+    background-color: var(--sys-clr-button-bg-hover, SelectedItem);
     border-color: SelectedItem;
+    border-color: var(--sys-clr-button-border-hover, SelectedItem);
     color: SelectedItemText;
-    accent-color: ButtonText;
+    color: var(--sys-clr-button-text-hover, SelectedItemText);
+    accent-color: SelectedItemText;
+    accent-color: var(--sys-clr-button-text-hover, SelectedItemText);
+}
+.no-js :where(.js__no-focusVisible) button:focus:focus,
+.no-js :where(.js__no-focusVisible) [role="button"]:focus:focus,
+.no-js :where(.js__no-focusVisible) input[type="button"]:focus:focus,
+.no-js :where(.js__no-focusVisible) input[type="submit"]:focus:focus,
+.no-js :where(.js__no-focusVisible) input[type="reset"]:focus:focus,
+.no-js :where(.js__no-focusVisible) :focus:focus::file-selector-button,
+.js__no-where-selector :where(.js__no-focusVisible) button:focus:focus,
+.js__no-where-selector :where(.js__no-focusVisible) [role="button"]:focus:focus,
+.js__no-where-selector
+    :where(.js__no-focusVisible)
+    input[type="button"]:focus:focus,
+.js__no-where-selector
+    :where(.js__no-focusVisible)
+    input[type="submit"]:focus:focus,
+.js__no-where-selector
+    :where(.js__no-focusVisible)
+    input[type="reset"]:focus:focus,
+.js__no-where-selector
+    :where(.js__no-focusVisible)
+    :focus:focus::file-selector-button {
     opacity: 0.875;
+}
+
+:where(.js__no-focusVisible) :where(.js__no-focusVisible) button:focus:focus,
+:where(.js__no-focusVisible)
+    :where(.js__no-focusVisible)
+    [role="button"]:focus:focus,
+:where(.js__no-focusVisible)
+    :where(.js__no-focusVisible)
+    input[type="button"]:focus:focus,
+:where(.js__no-focusVisible)
+    :where(.js__no-focusVisible)
+    input[type="submit"]:focus:focus,
+:where(.js__no-focusVisible)
+    :where(.js__no-focusVisible)
+    input[type="reset"]:focus:focus,
+:where(.js__no-focusVisible)
+    :where(.js__no-focusVisible)
+    :focus:focus::file-selector-button {
+    opacity: 0.875;
+}
+
+@media (prefers-contrast: less) {
+    .no-js :where(.js__no-focusVisible) button:focus:focus,
+    .no-js :where(.js__no-focusVisible) [role="button"]:focus:focus,
+    .no-js :where(.js__no-focusVisible) input[type="button"]:focus:focus,
+    .no-js :where(.js__no-focusVisible) input[type="submit"]:focus:focus,
+    .no-js :where(.js__no-focusVisible) input[type="reset"]:focus:focus,
+    .no-js :where(.js__no-focusVisible) :focus:focus::file-selector-button,
+    .js__no-where-selector :where(.js__no-focusVisible) button:focus:focus,
+    .js__no-where-selector
+        :where(.js__no-focusVisible)
+        [role="button"]:focus:focus,
+    .js__no-where-selector
+        :where(.js__no-focusVisible)
+        input[type="button"]:focus:focus,
+    .js__no-where-selector
+        :where(.js__no-focusVisible)
+        input[type="submit"]:focus:focus,
+    .js__no-where-selector
+        :where(.js__no-focusVisible)
+        input[type="reset"]:focus:focus,
+    .js__no-where-selector
+        :where(.js__no-focusVisible)
+        :focus:focus::file-selector-button {
+        opacity: 0.875;
+    }
+    :where(.js__no-focusVisible)
+        :where(.js__no-focusVisible)
+        button:focus:focus,
+    :where(.js__no-focusVisible)
+        :where(.js__no-focusVisible)
+        [role="button"]:focus:focus,
+    :where(.js__no-focusVisible)
+        :where(.js__no-focusVisible)
+        input[type="button"]:focus:focus,
+    :where(.js__no-focusVisible)
+        :where(.js__no-focusVisible)
+        input[type="submit"]:focus:focus,
+    :where(.js__no-focusVisible)
+        :where(.js__no-focusVisible)
+        input[type="reset"]:focus:focus,
+    :where(.js__no-focusVisible)
+        :where(.js__no-focusVisible)
+        :focus:focus::file-selector-button {
+        opacity: 0.875;
+    }
+}
+:where(.js__no-focusVisible) button:focus:focus-visible,
+:where(.js__no-focusVisible) [role="button"]:focus:focus-visible,
+:where(.js__no-focusVisible) input[type="button"]:focus:focus-visible,
+:where(.js__no-focusVisible) input[type="submit"]:focus:focus-visible,
+:where(.js__no-focusVisible) input[type="reset"]:focus:focus-visible,
+:where(.js__no-focusVisible) :focus:focus-visible::file-selector-button {
+    opacity: 0.875;
+}
+:where(.js__no-focusVisible) button:focus:focus-within,
+:where(.js__no-focusVisible) [role="button"]:focus:focus-within,
+:where(.js__no-focusVisible) input[type="button"]:focus:focus-within,
+:where(.js__no-focusVisible) input[type="submit"]:focus:focus-within,
+:where(.js__no-focusVisible) input[type="reset"]:focus:focus-within,
+:where(.js__no-focusVisible) :focus:focus-within::file-selector-button {
+    opacity: 0.875;
+}
+:where(.js__no-focusVisible) button:focus:hover,
+:where(.js__no-focusVisible) [role="button"]:focus:hover,
+:where(.js__no-focusVisible) input[type="button"]:focus:hover,
+:where(.js__no-focusVisible) input[type="submit"]:focus:hover,
+:where(.js__no-focusVisible) input[type="reset"]:focus:hover,
+:where(.js__no-focusVisible) :focus:hover::file-selector-button {
+    opacity: 0.875;
+}
+
+@media (prefers-contrast: less) {
+    :where(.js__no-focusVisible) button:focus:focus-visible,
+    :where(.js__no-focusVisible) [role="button"]:focus:focus-visible,
+    :where(.js__no-focusVisible) input[type="button"]:focus:focus-visible,
+    :where(.js__no-focusVisible) input[type="submit"]:focus:focus-visible,
+    :where(.js__no-focusVisible) input[type="reset"]:focus:focus-visible,
+    :where(.js__no-focusVisible) :focus:focus-visible::file-selector-button {
+        opacity: 0.875;
+    }
+    :where(.js__no-focusVisible) button:focus:focus-within,
+    :where(.js__no-focusVisible) [role="button"]:focus:focus-within,
+    :where(.js__no-focusVisible) input[type="button"]:focus:focus-within,
+    :where(.js__no-focusVisible) input[type="submit"]:focus:focus-within,
+    :where(.js__no-focusVisible) input[type="reset"]:focus:focus-within,
+    :where(.js__no-focusVisible) :focus:focus-within::file-selector-button {
+        opacity: 0.875;
+    }
+    :where(.js__no-focusVisible) button:focus:hover,
+    :where(.js__no-focusVisible) [role="button"]:focus:hover,
+    :where(.js__no-focusVisible) input[type="button"]:focus:hover,
+    :where(.js__no-focusVisible) input[type="submit"]:focus:hover,
+    :where(.js__no-focusVisible) input[type="reset"]:focus:hover,
+    :where(.js__no-focusVisible) :focus:hover::file-selector-button {
+        opacity: 0.875;
+    }
 }
 
 button:hover,
@@ -790,11 +1212,117 @@ input[type="button"]:hover,
 input[type="submit"]:hover,
 input[type="reset"]:hover,
 :hover::file-selector-button {
+    --focus-ring-outline-color: var(
+        --sys-clr-button-text-hover,
+        SelectedItemText
+    );
     background-color: SelectedItem;
+    background-color: var(--sys-clr-button-bg-hover, SelectedItem);
     border-color: SelectedItem;
+    border-color: var(--sys-clr-button-border-hover, SelectedItem);
     color: SelectedItemText;
-    accent-color: ButtonText;
+    color: var(--sys-clr-button-text-hover, SelectedItemText);
+    accent-color: SelectedItemText;
+    accent-color: var(--sys-clr-button-text-hover, SelectedItemText);
+}
+.no-js button:hover:focus,
+.no-js [role="button"]:hover:focus,
+.no-js input[type="button"]:hover:focus,
+.no-js input[type="submit"]:hover:focus,
+.no-js input[type="reset"]:hover:focus,
+.no-js :hover:focus::file-selector-button,
+.js__no-where-selector button:hover:focus,
+.js__no-where-selector [role="button"]:hover:focus,
+.js__no-where-selector input[type="button"]:hover:focus,
+.js__no-where-selector input[type="submit"]:hover:focus,
+.js__no-where-selector input[type="reset"]:hover:focus,
+.js__no-where-selector :hover:focus::file-selector-button {
     opacity: 0.875;
+}
+
+:where(.js__no-focusVisible) button:hover:focus,
+:where(.js__no-focusVisible) [role="button"]:hover:focus,
+:where(.js__no-focusVisible) input[type="button"]:hover:focus,
+:where(.js__no-focusVisible) input[type="submit"]:hover:focus,
+:where(.js__no-focusVisible) input[type="reset"]:hover:focus,
+:where(.js__no-focusVisible) :hover:focus::file-selector-button {
+    opacity: 0.875;
+}
+
+@media (prefers-contrast: less) {
+    .no-js button:hover:focus,
+    .no-js [role="button"]:hover:focus,
+    .no-js input[type="button"]:hover:focus,
+    .no-js input[type="submit"]:hover:focus,
+    .no-js input[type="reset"]:hover:focus,
+    .no-js :hover:focus::file-selector-button,
+    .js__no-where-selector button:hover:focus,
+    .js__no-where-selector [role="button"]:hover:focus,
+    .js__no-where-selector input[type="button"]:hover:focus,
+    .js__no-where-selector input[type="submit"]:hover:focus,
+    .js__no-where-selector input[type="reset"]:hover:focus,
+    .js__no-where-selector :hover:focus::file-selector-button {
+        opacity: 0.875;
+    }
+    :where(.js__no-focusVisible) button:hover:focus,
+    :where(.js__no-focusVisible) [role="button"]:hover:focus,
+    :where(.js__no-focusVisible) input[type="button"]:hover:focus,
+    :where(.js__no-focusVisible) input[type="submit"]:hover:focus,
+    :where(.js__no-focusVisible) input[type="reset"]:hover:focus,
+    :where(.js__no-focusVisible) :hover:focus::file-selector-button {
+        opacity: 0.875;
+    }
+}
+button:hover:focus-visible,
+[role="button"]:hover:focus-visible,
+input[type="button"]:hover:focus-visible,
+input[type="submit"]:hover:focus-visible,
+input[type="reset"]:hover:focus-visible,
+:hover:focus-visible::file-selector-button {
+    opacity: 0.875;
+}
+button:hover:focus-within,
+[role="button"]:hover:focus-within,
+input[type="button"]:hover:focus-within,
+input[type="submit"]:hover:focus-within,
+input[type="reset"]:hover:focus-within,
+:hover:focus-within::file-selector-button {
+    opacity: 0.875;
+}
+button:hover:hover,
+[role="button"]:hover:hover,
+input[type="button"]:hover:hover,
+input[type="submit"]:hover:hover,
+input[type="reset"]:hover:hover,
+:hover:hover::file-selector-button {
+    opacity: 0.875;
+}
+
+@media (prefers-contrast: less) {
+    button:hover:focus-visible,
+    [role="button"]:hover:focus-visible,
+    input[type="button"]:hover:focus-visible,
+    input[type="submit"]:hover:focus-visible,
+    input[type="reset"]:hover:focus-visible,
+    :hover:focus-visible::file-selector-button {
+        opacity: 0.875;
+    }
+    button:hover:focus-within,
+    [role="button"]:hover:focus-within,
+    input[type="button"]:hover:focus-within,
+    input[type="submit"]:hover:focus-within,
+    input[type="reset"]:hover:focus-within,
+    :hover:focus-within::file-selector-button {
+        opacity: 0.875;
+    }
+    button:hover:hover,
+    [role="button"]:hover:hover,
+    input[type="button"]:hover:hover,
+    input[type="submit"]:hover:hover,
+    input[type="reset"]:hover:hover,
+    :hover:hover::file-selector-button {
+        opacity: 0.875;
+    }
 }
 
 button:focus-visible,
@@ -803,11 +1331,117 @@ input[type="button"]:focus-visible,
 input[type="submit"]:focus-visible,
 input[type="reset"]:focus-visible,
 :focus-visible::file-selector-button {
+    --focus-ring-outline-color: var(
+        --sys-clr-button-text-hover,
+        SelectedItemText
+    );
     background-color: SelectedItem;
+    background-color: var(--sys-clr-button-bg-hover, SelectedItem);
     border-color: SelectedItem;
+    border-color: var(--sys-clr-button-border-hover, SelectedItem);
     color: SelectedItemText;
-    accent-color: ButtonText;
+    color: var(--sys-clr-button-text-hover, SelectedItemText);
+    accent-color: SelectedItemText;
+    accent-color: var(--sys-clr-button-text-hover, SelectedItemText);
+}
+.no-js button:focus-visible:focus,
+.no-js [role="button"]:focus-visible:focus,
+.no-js input[type="button"]:focus-visible:focus,
+.no-js input[type="submit"]:focus-visible:focus,
+.no-js input[type="reset"]:focus-visible:focus,
+.no-js :focus-visible:focus::file-selector-button,
+.js__no-where-selector button:focus-visible:focus,
+.js__no-where-selector [role="button"]:focus-visible:focus,
+.js__no-where-selector input[type="button"]:focus-visible:focus,
+.js__no-where-selector input[type="submit"]:focus-visible:focus,
+.js__no-where-selector input[type="reset"]:focus-visible:focus,
+.js__no-where-selector :focus-visible:focus::file-selector-button {
     opacity: 0.875;
+}
+
+:where(.js__no-focusVisible) button:focus-visible:focus,
+:where(.js__no-focusVisible) [role="button"]:focus-visible:focus,
+:where(.js__no-focusVisible) input[type="button"]:focus-visible:focus,
+:where(.js__no-focusVisible) input[type="submit"]:focus-visible:focus,
+:where(.js__no-focusVisible) input[type="reset"]:focus-visible:focus,
+:where(.js__no-focusVisible) :focus-visible:focus::file-selector-button {
+    opacity: 0.875;
+}
+
+@media (prefers-contrast: less) {
+    .no-js button:focus-visible:focus,
+    .no-js [role="button"]:focus-visible:focus,
+    .no-js input[type="button"]:focus-visible:focus,
+    .no-js input[type="submit"]:focus-visible:focus,
+    .no-js input[type="reset"]:focus-visible:focus,
+    .no-js :focus-visible:focus::file-selector-button,
+    .js__no-where-selector button:focus-visible:focus,
+    .js__no-where-selector [role="button"]:focus-visible:focus,
+    .js__no-where-selector input[type="button"]:focus-visible:focus,
+    .js__no-where-selector input[type="submit"]:focus-visible:focus,
+    .js__no-where-selector input[type="reset"]:focus-visible:focus,
+    .js__no-where-selector :focus-visible:focus::file-selector-button {
+        opacity: 0.875;
+    }
+    :where(.js__no-focusVisible) button:focus-visible:focus,
+    :where(.js__no-focusVisible) [role="button"]:focus-visible:focus,
+    :where(.js__no-focusVisible) input[type="button"]:focus-visible:focus,
+    :where(.js__no-focusVisible) input[type="submit"]:focus-visible:focus,
+    :where(.js__no-focusVisible) input[type="reset"]:focus-visible:focus,
+    :where(.js__no-focusVisible) :focus-visible:focus::file-selector-button {
+        opacity: 0.875;
+    }
+}
+button:focus-visible:focus-visible,
+[role="button"]:focus-visible:focus-visible,
+input[type="button"]:focus-visible:focus-visible,
+input[type="submit"]:focus-visible:focus-visible,
+input[type="reset"]:focus-visible:focus-visible,
+:focus-visible:focus-visible::file-selector-button {
+    opacity: 0.875;
+}
+button:focus-visible:focus-within,
+[role="button"]:focus-visible:focus-within,
+input[type="button"]:focus-visible:focus-within,
+input[type="submit"]:focus-visible:focus-within,
+input[type="reset"]:focus-visible:focus-within,
+:focus-visible:focus-within::file-selector-button {
+    opacity: 0.875;
+}
+button:focus-visible:hover,
+[role="button"]:focus-visible:hover,
+input[type="button"]:focus-visible:hover,
+input[type="submit"]:focus-visible:hover,
+input[type="reset"]:focus-visible:hover,
+:focus-visible:hover::file-selector-button {
+    opacity: 0.875;
+}
+
+@media (prefers-contrast: less) {
+    button:focus-visible:focus-visible,
+    [role="button"]:focus-visible:focus-visible,
+    input[type="button"]:focus-visible:focus-visible,
+    input[type="submit"]:focus-visible:focus-visible,
+    input[type="reset"]:focus-visible:focus-visible,
+    :focus-visible:focus-visible::file-selector-button {
+        opacity: 0.875;
+    }
+    button:focus-visible:focus-within,
+    [role="button"]:focus-visible:focus-within,
+    input[type="button"]:focus-visible:focus-within,
+    input[type="submit"]:focus-visible:focus-within,
+    input[type="reset"]:focus-visible:focus-within,
+    :focus-visible:focus-within::file-selector-button {
+        opacity: 0.875;
+    }
+    button:focus-visible:hover,
+    [role="button"]:focus-visible:hover,
+    input[type="button"]:focus-visible:hover,
+    input[type="submit"]:focus-visible:hover,
+    input[type="reset"]:focus-visible:hover,
+    :focus-visible:hover::file-selector-button {
+        opacity: 0.875;
+    }
 }
 
 button:focus-within,
@@ -816,77 +1450,134 @@ input[type="button"]:focus-within,
 input[type="submit"]:focus-within,
 input[type="reset"]:focus-within,
 :focus-within::file-selector-button {
+    --focus-ring-outline-color: var(
+        --sys-clr-button-text-hover,
+        SelectedItemText
+    );
     background-color: SelectedItem;
+    background-color: var(--sys-clr-button-bg-hover, SelectedItem);
     border-color: SelectedItem;
+    border-color: var(--sys-clr-button-border-hover, SelectedItem);
     color: SelectedItemText;
-    accent-color: ButtonText;
+    color: var(--sys-clr-button-text-hover, SelectedItemText);
+    accent-color: SelectedItemText;
+    accent-color: var(--sys-clr-button-text-hover, SelectedItemText);
+}
+.no-js button:focus-within:focus,
+.no-js [role="button"]:focus-within:focus,
+.no-js input[type="button"]:focus-within:focus,
+.no-js input[type="submit"]:focus-within:focus,
+.no-js input[type="reset"]:focus-within:focus,
+.no-js :focus-within:focus::file-selector-button,
+.js__no-where-selector button:focus-within:focus,
+.js__no-where-selector [role="button"]:focus-within:focus,
+.js__no-where-selector input[type="button"]:focus-within:focus,
+.js__no-where-selector input[type="submit"]:focus-within:focus,
+.js__no-where-selector input[type="reset"]:focus-within:focus,
+.js__no-where-selector :focus-within:focus::file-selector-button {
     opacity: 0.875;
 }
 
-@media (prefers-contrast: more),
-    (forced-colors: active),
-    (prefers-contrast: custom) {
-    .no-js button:focus,
-    .no-js [role="button"]:focus,
-    .no-js input[type="button"]:focus,
-    .no-js input[type="submit"]:focus,
-    .no-js input[type="reset"]:focus,
-    .no-js :focus::file-selector-button,
-    .js__no-where-selector button:focus,
-    .js__no-where-selector [role="button"]:focus,
-    .js__no-where-selector input[type="button"]:focus,
-    .js__no-where-selector input[type="submit"]:focus,
-    .js__no-where-selector input[type="reset"]:focus,
-    .js__no-where-selector :focus::file-selector-button {
-        opacity: 1;
+:where(.js__no-focusVisible) button:focus-within:focus,
+:where(.js__no-focusVisible) [role="button"]:focus-within:focus,
+:where(.js__no-focusVisible) input[type="button"]:focus-within:focus,
+:where(.js__no-focusVisible) input[type="submit"]:focus-within:focus,
+:where(.js__no-focusVisible) input[type="reset"]:focus-within:focus,
+:where(.js__no-focusVisible) :focus-within:focus::file-selector-button {
+    opacity: 0.875;
+}
+
+@media (prefers-contrast: less) {
+    .no-js button:focus-within:focus,
+    .no-js [role="button"]:focus-within:focus,
+    .no-js input[type="button"]:focus-within:focus,
+    .no-js input[type="submit"]:focus-within:focus,
+    .no-js input[type="reset"]:focus-within:focus,
+    .no-js :focus-within:focus::file-selector-button,
+    .js__no-where-selector button:focus-within:focus,
+    .js__no-where-selector [role="button"]:focus-within:focus,
+    .js__no-where-selector input[type="button"]:focus-within:focus,
+    .js__no-where-selector input[type="submit"]:focus-within:focus,
+    .js__no-where-selector input[type="reset"]:focus-within:focus,
+    .js__no-where-selector :focus-within:focus::file-selector-button {
+        opacity: 0.875;
     }
-    :where(.js__no-focusVisible) button:focus,
-    :where(.js__no-focusVisible) [role="button"]:focus,
-    :where(.js__no-focusVisible) input[type="button"]:focus,
-    :where(.js__no-focusVisible) input[type="submit"]:focus,
-    :where(.js__no-focusVisible) input[type="reset"]:focus,
-    :where(.js__no-focusVisible) :focus::file-selector-button {
-        opacity: 1;
+    :where(.js__no-focusVisible) button:focus-within:focus,
+    :where(.js__no-focusVisible) [role="button"]:focus-within:focus,
+    :where(.js__no-focusVisible) input[type="button"]:focus-within:focus,
+    :where(.js__no-focusVisible) input[type="submit"]:focus-within:focus,
+    :where(.js__no-focusVisible) input[type="reset"]:focus-within:focus,
+    :where(.js__no-focusVisible) :focus-within:focus::file-selector-button {
+        opacity: 0.875;
     }
 }
-@media (prefers-contrast: more),
-    (forced-colors: active),
-    (prefers-contrast: custom) {
-    button:focus-visible,
-    [role="button"]:focus-visible,
-    input[type="button"]:focus-visible,
-    input[type="submit"]:focus-visible,
-    input[type="reset"]:focus-visible,
-    :focus-visible::file-selector-button {
-        opacity: 1;
+button:focus-within:focus-visible,
+[role="button"]:focus-within:focus-visible,
+input[type="button"]:focus-within:focus-visible,
+input[type="submit"]:focus-within:focus-visible,
+input[type="reset"]:focus-within:focus-visible,
+:focus-within:focus-visible::file-selector-button {
+    opacity: 0.875;
+}
+button:focus-within:focus-within,
+[role="button"]:focus-within:focus-within,
+input[type="button"]:focus-within:focus-within,
+input[type="submit"]:focus-within:focus-within,
+input[type="reset"]:focus-within:focus-within,
+:focus-within:focus-within::file-selector-button {
+    opacity: 0.875;
+}
+button:focus-within:hover,
+[role="button"]:focus-within:hover,
+input[type="button"]:focus-within:hover,
+input[type="submit"]:focus-within:hover,
+input[type="reset"]:focus-within:hover,
+:focus-within:hover::file-selector-button {
+    opacity: 0.875;
+}
+
+@media (prefers-contrast: less) {
+    button:focus-within:focus-visible,
+    [role="button"]:focus-within:focus-visible,
+    input[type="button"]:focus-within:focus-visible,
+    input[type="submit"]:focus-within:focus-visible,
+    input[type="reset"]:focus-within:focus-visible,
+    :focus-within:focus-visible::file-selector-button {
+        opacity: 0.875;
     }
-    button:focus-within,
-    [role="button"]:focus-within,
-    input[type="button"]:focus-within,
-    input[type="submit"]:focus-within,
-    input[type="reset"]:focus-within,
-    :focus-within::file-selector-button {
-        opacity: 1;
+    button:focus-within:focus-within,
+    [role="button"]:focus-within:focus-within,
+    input[type="button"]:focus-within:focus-within,
+    input[type="submit"]:focus-within:focus-within,
+    input[type="reset"]:focus-within:focus-within,
+    :focus-within:focus-within::file-selector-button {
+        opacity: 0.875;
     }
-    button:hover,
-    [role="button"]:hover,
-    input[type="button"]:hover,
-    input[type="submit"]:hover,
-    input[type="reset"]:hover,
-    :hover::file-selector-button {
-        opacity: 1;
+    button:focus-within:hover,
+    [role="button"]:focus-within:hover,
+    input[type="button"]:focus-within:hover,
+    input[type="submit"]:focus-within:hover,
+    input[type="reset"]:focus-within:hover,
+    :focus-within:hover::file-selector-button {
+        opacity: 0.875;
     }
 }
+
 button:active,
 [role="button"]:active,
 input[type="button"]:active,
 input[type="submit"]:active,
 input[type="reset"]:active,
 :active::file-selector-button {
+    --focus-ring-outline-color: var(--sys-clr-button-text-active, ButtonText);
     background-color: ButtonFace;
-    border-color: ButtonBorder;
+    background-color: var(--sys-clr-button-bg-active, ButtonFace);
+    border-color: ButtonFace;
+    border-color: var(--sys-clr-button-border-active, ButtonFace);
     color: ButtonText;
-    accent-color: ActiveText;
+    color: var(--sys-clr-button-text-active, ButtonText);
+    accent-color: ButtonText;
+    accent-color: var(--sys-clr-button-text-active, ButtonText);
 }
 button,
 [role="button"],
@@ -918,6 +1609,7 @@ label {
     line-height: 1.3125;
     line-height: var(--line-height-200, 1.3125);
     color: CanvasText;
+    color: var(--sys-clr-text, CanvasText);
 }
 label:has(> :where(input[type="checkbox"], input[type="radio"])) {
     display: grid;
@@ -933,6 +1625,7 @@ label:has(> :where(input[type="checkbox"], input[type="radio"])) {
     line-height: var(--line-height-400, 1.6875);
     text-wrap: balance;
     color: CanvasText;
+    color: var(--sys-clr-text, CanvasText);
     cursor: pointer;
 }
 label:has(> :where(input[type="checkbox"], input[type="radio"]))
@@ -965,7 +1658,8 @@ table {
     margin-bottom: calc(
         var(--mrg-soft-600, 1.625rem) - var(--mrg-soft-400, 0.8125rem)
     );
-    background: AccentColor;
+    background: CanvasText;
+    background: var(--sys-clr-accent-bg, CanvasText);
 }
 
 table {
@@ -981,6 +1675,7 @@ td {
     padding: var(--mrg-soft-200, 0.3125rem) var(--mrg-firm-300, 0.8125rem);
     min-width: 10em;
     background: Canvas;
+    background: var(--sys-clr-background, Canvas);
     vertical-align: top;
     text-align: left;
 }
@@ -998,8 +1693,10 @@ th {
     padding-top: var(--mrg-soft-200, 0.3125rem);
     padding-bottom: 0.3125rem;
     padding-bottom: var(--mrg-soft-200, 0.3125rem);
-    background: AccentColor;
-    color: AccentColorText;
+    background: CanvasText;
+    background: var(--sys-clr-accent-bg, CanvasText);
+    color: Canvas;
+    color: var(--sys-clr-accent-text, Canvas);
 }
 
 /*! end of @maddimathon/utility-sass/templates/base */
@@ -1024,103 +1721,30 @@ body > aside > :first-child {
 
 /* # TYPOGRAPHY
  * ======================================================================== */
-::-moz-selection {
-    background-color: hsl(287.04, 29.43%, 26.02%);
-    background-color: var(
-        --theme-selection-bg,
-        var(--clr-primary-700, hsl(287.04, 29.43%, 26.02%))
-    );
-    color: hsl(0, 0%, 84.33%);
-    color: var(--theme-selection-text, var(--clr-base-200, hsl(0, 0%, 84.33%)));
-}
-::selection {
-    background-color: hsl(287.04, 29.43%, 26.02%);
-    background-color: var(
-        --theme-selection-bg,
-        var(--clr-primary-700, hsl(287.04, 29.43%, 26.02%))
-    );
-    color: hsl(0, 0%, 84.33%);
-    color: var(--theme-selection-text, var(--clr-base-200, hsl(0, 0%, 84.33%)));
-}
-
 /* ## Typography - Inline ==================================== */
-a {
-    color: hsl(287.56, 26.45%, 15.1%);
-    color: var(
-        --theme-link,
-        var(--clr-primary-800, hsl(287.56, 26.45%, 15.1%))
-    );
-}
 .no-js a:focus,
 .js__no-where-selector a:focus {
-    --focus-ring-outline-color: var(
-        --theme-link-hover,
-        var(--clr-secondary-800, hsl(349.11, 100%, 0%))
-    );
-    color: hsl(349.11, 100%, 0%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-secondary-800, hsl(349.11, 100%, 0%))
-    );
     text-decoration-color: transparent;
 }
 
 :where(.js__no-focusVisible) a:focus {
-    --focus-ring-outline-color: var(
-        --theme-link-hover,
-        var(--clr-secondary-800, hsl(349.11, 100%, 0%))
-    );
-    color: hsl(349.11, 100%, 0%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-secondary-800, hsl(349.11, 100%, 0%))
-    );
     text-decoration-color: transparent;
 }
 
 a:hover {
-    --focus-ring-outline-color: var(
-        --theme-link-hover,
-        var(--clr-secondary-800, hsl(349.11, 100%, 0%))
-    );
-    color: hsl(349.11, 100%, 0%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-secondary-800, hsl(349.11, 100%, 0%))
-    );
     text-decoration-color: transparent;
 }
 
 a:focus-visible {
-    --focus-ring-outline-color: var(
-        --theme-link-hover,
-        var(--clr-secondary-800, hsl(349.11, 100%, 0%))
-    );
-    color: hsl(349.11, 100%, 0%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-secondary-800, hsl(349.11, 100%, 0%))
-    );
     text-decoration-color: transparent;
 }
 
-a:active {
-    --focus-ring-outline-color: var(
-        --theme-link-active,
-        var(--clr-active-800, hsl(352.37, 32.92%, 16.09%))
-    );
-    color: hsl(352.37, 32.92%, 16.09%);
-    color: var(
-        --theme-link-active,
-        var(--clr-active-800, hsl(352.37, 32.92%, 16.09%))
-    );
-}
 /* ## Typography - Block ==================================== */
 pre,
 code {
     --focus-ring-outline-color: var(
         --theme-text-secondary,
-        var(--clr-secondary-800, hsl(349.11, 100%, 0%))
+        var(--clr-blue-800, hsl(349.11, 100%, 0%))
     );
     position: relative;
 }

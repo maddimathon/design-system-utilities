@@ -8,7 +8,7 @@
  * @license MIT
  */
 import * as z from 'zod';
-import type { TokenLevels } from '../../../00-schemata/@utils.js';
+import type { TokenLevels } from '../../../old--00-schemata/@utils.js';
 import { AbstractTokens } from '../../abstracts/AbstractTokens.js';
 /**
  * Generates a token object for the design system.
@@ -24,32 +24,38 @@ export declare class Tokens_Theme_Set extends AbstractTokens<typeof Tokens_Theme
             primary: z.ZodDefault<z.ZodString>;
             secondary: z.ZodDefault<z.ZodString>;
             active: z.ZodDefault<z.ZodString>;
+            disabled: z.ZodDefault<z.ZodString>;
         }, "strip", z.ZodTypeAny, {
+            $: string;
             primary: string;
             secondary: string;
             active: string;
-            $: string;
+            disabled: string;
         }, {
+            $?: string | undefined;
             primary?: string | undefined;
             secondary?: string | undefined;
             active?: string | undefined;
-            $?: string | undefined;
+            disabled?: string | undefined;
         }>>;
         ui: z.ZodDefault<z.ZodObject<{
             $: z.ZodDefault<z.ZodString>;
             primary: z.ZodDefault<z.ZodString>;
             secondary: z.ZodDefault<z.ZodString>;
             active: z.ZodDefault<z.ZodString>;
+            disabled: z.ZodDefault<z.ZodString>;
         }, "strip", z.ZodTypeAny, {
+            $: string;
             primary: string;
             secondary: string;
             active: string;
-            $: string;
+            disabled: string;
         }, {
+            $?: string | undefined;
             primary?: string | undefined;
             secondary?: string | undefined;
             active?: string | undefined;
-            $?: string | undefined;
+            disabled?: string | undefined;
         }>>;
         selection: z.ZodDefault<z.ZodObject<{
             bg: z.ZodDefault<z.ZodString>;
@@ -65,14 +71,17 @@ export declare class Tokens_Theme_Set extends AbstractTokens<typeof Tokens_Theme
             $: z.ZodDefault<z.ZodString>;
             hover: z.ZodDefault<z.ZodString>;
             active: z.ZodDefault<z.ZodString>;
+            visited: z.ZodDefault<z.ZodString>;
         }, "strip", z.ZodTypeAny, {
-            active: string;
             $: string;
+            active: string;
             hover: string;
+            visited: string;
         }, {
-            active?: string | undefined;
             $?: string | undefined;
+            active?: string | undefined;
             hover?: string | undefined;
+            visited?: string | undefined;
         }>>;
         button: z.ZodDefault<z.ZodObject<{
             bg: z.ZodDefault<z.ZodObject<{
@@ -80,12 +89,12 @@ export declare class Tokens_Theme_Set extends AbstractTokens<typeof Tokens_Theme
                 hover: z.ZodDefault<z.ZodString>;
                 active: z.ZodDefault<z.ZodString>;
             }, "strip", z.ZodTypeAny, {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             }, {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             }>>;
             border: z.ZodDefault<z.ZodObject<{
@@ -93,12 +102,12 @@ export declare class Tokens_Theme_Set extends AbstractTokens<typeof Tokens_Theme
                 hover: z.ZodDefault<z.ZodString>;
                 active: z.ZodDefault<z.ZodString>;
             }, "strip", z.ZodTypeAny, {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             }, {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             }>>;
             text: z.ZodDefault<z.ZodObject<{
@@ -106,44 +115,44 @@ export declare class Tokens_Theme_Set extends AbstractTokens<typeof Tokens_Theme
                 hover: z.ZodDefault<z.ZodString>;
                 active: z.ZodDefault<z.ZodString>;
             }, "strip", z.ZodTypeAny, {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             }, {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             }>>;
         }, "strip", z.ZodTypeAny, {
             text: {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             };
             bg: {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             };
             border: {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             };
         }, {
             text?: {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             } | undefined;
             bg?: {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             } | undefined;
             border?: {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             } | undefined;
         }>>;
@@ -153,12 +162,12 @@ export declare class Tokens_Theme_Set extends AbstractTokens<typeof Tokens_Theme
                 hover: z.ZodDefault<z.ZodString>;
                 active: z.ZodDefault<z.ZodString>;
             }, "strip", z.ZodTypeAny, {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             }, {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             }>>;
             border: z.ZodDefault<z.ZodObject<{
@@ -166,12 +175,12 @@ export declare class Tokens_Theme_Set extends AbstractTokens<typeof Tokens_Theme
                 hover: z.ZodDefault<z.ZodString>;
                 active: z.ZodDefault<z.ZodString>;
             }, "strip", z.ZodTypeAny, {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             }, {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             }>>;
             text: z.ZodDefault<z.ZodObject<{
@@ -179,68 +188,129 @@ export declare class Tokens_Theme_Set extends AbstractTokens<typeof Tokens_Theme
                 hover: z.ZodDefault<z.ZodString>;
                 active: z.ZodDefault<z.ZodString>;
             }, "strip", z.ZodTypeAny, {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             }, {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             }>>;
             placeholder: z.ZodDefault<z.ZodString>;
         }, "strip", z.ZodTypeAny, {
             text: {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             };
             bg: {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             };
             border: {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             };
             placeholder: string;
         }, {
             text?: {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             } | undefined;
             bg?: {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             } | undefined;
             border?: {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             } | undefined;
             placeholder?: string | undefined;
         }>>;
+        system: z.ZodDefault<z.ZodObject<{
+            accent: z.ZodDefault<z.ZodObject<{
+                bg: z.ZodDefault<z.ZodString>;
+                text: z.ZodDefault<z.ZodString>;
+            }, "strip", z.ZodTypeAny, {
+                text: string;
+                bg: string;
+            }, {
+                text?: string | undefined;
+                bg?: string | undefined;
+            }>>;
+            mark: z.ZodDefault<z.ZodObject<{
+                bg: z.ZodDefault<z.ZodString>;
+                text: z.ZodDefault<z.ZodString>;
+            }, "strip", z.ZodTypeAny, {
+                text: string;
+                bg: string;
+            }, {
+                text?: string | undefined;
+                bg?: string | undefined;
+            }>>;
+            selected: z.ZodDefault<z.ZodObject<{
+                bg: z.ZodDefault<z.ZodString>;
+                text: z.ZodDefault<z.ZodString>;
+            }, "strip", z.ZodTypeAny, {
+                text: string;
+                bg: string;
+            }, {
+                text?: string | undefined;
+                bg?: string | undefined;
+            }>>;
+        }, "strip", z.ZodTypeAny, {
+            accent: {
+                text: string;
+                bg: string;
+            };
+            mark: {
+                text: string;
+                bg: string;
+            };
+            selected: {
+                text: string;
+                bg: string;
+            };
+        }, {
+            accent?: {
+                text?: string | undefined;
+                bg?: string | undefined;
+            } | undefined;
+            mark?: {
+                text?: string | undefined;
+                bg?: string | undefined;
+            } | undefined;
+            selected?: {
+                text?: string | undefined;
+                bg?: string | undefined;
+            } | undefined;
+        }>>;
     }, "strip", z.ZodTypeAny, {
         link: {
-            active: string;
             $: string;
+            active: string;
             hover: string;
+            visited: string;
         };
         background: string;
         text: {
+            $: string;
             primary: string;
             secondary: string;
             active: string;
-            $: string;
+            disabled: string;
         };
         ui: {
+            $: string;
             primary: string;
             secondary: string;
             active: string;
-            $: string;
+            disabled: string;
         };
         selection: {
             text: string;
@@ -248,57 +318,74 @@ export declare class Tokens_Theme_Set extends AbstractTokens<typeof Tokens_Theme
         };
         button: {
             text: {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             };
             bg: {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             };
             border: {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             };
         };
         field: {
             text: {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             };
             bg: {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             };
             border: {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             };
             placeholder: string;
         };
+        system: {
+            accent: {
+                text: string;
+                bg: string;
+            };
+            mark: {
+                text: string;
+                bg: string;
+            };
+            selected: {
+                text: string;
+                bg: string;
+            };
+        };
     }, {
         link?: {
-            active?: string | undefined;
             $?: string | undefined;
+            active?: string | undefined;
             hover?: string | undefined;
+            visited?: string | undefined;
         } | undefined;
         background?: string | undefined;
         text?: {
+            $?: string | undefined;
             primary?: string | undefined;
             secondary?: string | undefined;
             active?: string | undefined;
-            $?: string | undefined;
+            disabled?: string | undefined;
         } | undefined;
         ui?: {
+            $?: string | undefined;
             primary?: string | undefined;
             secondary?: string | undefined;
             active?: string | undefined;
-            $?: string | undefined;
+            disabled?: string | undefined;
         } | undefined;
         selection?: {
             text?: string | undefined;
@@ -306,38 +393,52 @@ export declare class Tokens_Theme_Set extends AbstractTokens<typeof Tokens_Theme
         } | undefined;
         button?: {
             text?: {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             } | undefined;
             bg?: {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             } | undefined;
             border?: {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             } | undefined;
         } | undefined;
         field?: {
             text?: {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             } | undefined;
             bg?: {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             } | undefined;
             border?: {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             } | undefined;
             placeholder?: string | undefined;
+        } | undefined;
+        system?: {
+            accent?: {
+                text?: string | undefined;
+                bg?: string | undefined;
+            } | undefined;
+            mark?: {
+                text?: string | undefined;
+                bg?: string | undefined;
+            } | undefined;
+            selected?: {
+                text?: string | undefined;
+                bg?: string | undefined;
+            } | undefined;
         } | undefined;
     }>;
     readonly set: Tokens_Theme_Set.Parsed;
@@ -363,7 +464,12 @@ export declare namespace Tokens_Theme_Set {
             accent: TokenLevels;
             base: TokenLevels;
         };
-    }, _slugs?: Partial<{}>): Parsed;
+    }, _slugs?: Partial<{
+        primary: string;
+        secondary: string;
+        active: string;
+        disabled: string;
+    }>): Parsed;
     const Schema: z.ZodObject<{
         background: z.ZodDefault<z.ZodString>;
         text: z.ZodDefault<z.ZodObject<{
@@ -371,32 +477,38 @@ export declare namespace Tokens_Theme_Set {
             primary: z.ZodDefault<z.ZodString>;
             secondary: z.ZodDefault<z.ZodString>;
             active: z.ZodDefault<z.ZodString>;
+            disabled: z.ZodDefault<z.ZodString>;
         }, "strip", z.ZodTypeAny, {
+            $: string;
             primary: string;
             secondary: string;
             active: string;
-            $: string;
+            disabled: string;
         }, {
+            $?: string | undefined;
             primary?: string | undefined;
             secondary?: string | undefined;
             active?: string | undefined;
-            $?: string | undefined;
+            disabled?: string | undefined;
         }>>;
         ui: z.ZodDefault<z.ZodObject<{
             $: z.ZodDefault<z.ZodString>;
             primary: z.ZodDefault<z.ZodString>;
             secondary: z.ZodDefault<z.ZodString>;
             active: z.ZodDefault<z.ZodString>;
+            disabled: z.ZodDefault<z.ZodString>;
         }, "strip", z.ZodTypeAny, {
+            $: string;
             primary: string;
             secondary: string;
             active: string;
-            $: string;
+            disabled: string;
         }, {
+            $?: string | undefined;
             primary?: string | undefined;
             secondary?: string | undefined;
             active?: string | undefined;
-            $?: string | undefined;
+            disabled?: string | undefined;
         }>>;
         selection: z.ZodDefault<z.ZodObject<{
             bg: z.ZodDefault<z.ZodString>;
@@ -412,14 +524,17 @@ export declare namespace Tokens_Theme_Set {
             $: z.ZodDefault<z.ZodString>;
             hover: z.ZodDefault<z.ZodString>;
             active: z.ZodDefault<z.ZodString>;
+            visited: z.ZodDefault<z.ZodString>;
         }, "strip", z.ZodTypeAny, {
-            active: string;
             $: string;
+            active: string;
             hover: string;
+            visited: string;
         }, {
-            active?: string | undefined;
             $?: string | undefined;
+            active?: string | undefined;
             hover?: string | undefined;
+            visited?: string | undefined;
         }>>;
         button: z.ZodDefault<z.ZodObject<{
             bg: z.ZodDefault<z.ZodObject<{
@@ -427,12 +542,12 @@ export declare namespace Tokens_Theme_Set {
                 hover: z.ZodDefault<z.ZodString>;
                 active: z.ZodDefault<z.ZodString>;
             }, "strip", z.ZodTypeAny, {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             }, {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             }>>;
             border: z.ZodDefault<z.ZodObject<{
@@ -440,12 +555,12 @@ export declare namespace Tokens_Theme_Set {
                 hover: z.ZodDefault<z.ZodString>;
                 active: z.ZodDefault<z.ZodString>;
             }, "strip", z.ZodTypeAny, {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             }, {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             }>>;
             text: z.ZodDefault<z.ZodObject<{
@@ -453,44 +568,44 @@ export declare namespace Tokens_Theme_Set {
                 hover: z.ZodDefault<z.ZodString>;
                 active: z.ZodDefault<z.ZodString>;
             }, "strip", z.ZodTypeAny, {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             }, {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             }>>;
         }, "strip", z.ZodTypeAny, {
             text: {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             };
             bg: {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             };
             border: {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             };
         }, {
             text?: {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             } | undefined;
             bg?: {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             } | undefined;
             border?: {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             } | undefined;
         }>>;
@@ -500,12 +615,12 @@ export declare namespace Tokens_Theme_Set {
                 hover: z.ZodDefault<z.ZodString>;
                 active: z.ZodDefault<z.ZodString>;
             }, "strip", z.ZodTypeAny, {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             }, {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             }>>;
             border: z.ZodDefault<z.ZodObject<{
@@ -513,12 +628,12 @@ export declare namespace Tokens_Theme_Set {
                 hover: z.ZodDefault<z.ZodString>;
                 active: z.ZodDefault<z.ZodString>;
             }, "strip", z.ZodTypeAny, {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             }, {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             }>>;
             text: z.ZodDefault<z.ZodObject<{
@@ -526,68 +641,129 @@ export declare namespace Tokens_Theme_Set {
                 hover: z.ZodDefault<z.ZodString>;
                 active: z.ZodDefault<z.ZodString>;
             }, "strip", z.ZodTypeAny, {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             }, {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             }>>;
             placeholder: z.ZodDefault<z.ZodString>;
         }, "strip", z.ZodTypeAny, {
             text: {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             };
             bg: {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             };
             border: {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             };
             placeholder: string;
         }, {
             text?: {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             } | undefined;
             bg?: {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             } | undefined;
             border?: {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             } | undefined;
             placeholder?: string | undefined;
         }>>;
+        system: z.ZodDefault<z.ZodObject<{
+            accent: z.ZodDefault<z.ZodObject<{
+                bg: z.ZodDefault<z.ZodString>;
+                text: z.ZodDefault<z.ZodString>;
+            }, "strip", z.ZodTypeAny, {
+                text: string;
+                bg: string;
+            }, {
+                text?: string | undefined;
+                bg?: string | undefined;
+            }>>;
+            mark: z.ZodDefault<z.ZodObject<{
+                bg: z.ZodDefault<z.ZodString>;
+                text: z.ZodDefault<z.ZodString>;
+            }, "strip", z.ZodTypeAny, {
+                text: string;
+                bg: string;
+            }, {
+                text?: string | undefined;
+                bg?: string | undefined;
+            }>>;
+            selected: z.ZodDefault<z.ZodObject<{
+                bg: z.ZodDefault<z.ZodString>;
+                text: z.ZodDefault<z.ZodString>;
+            }, "strip", z.ZodTypeAny, {
+                text: string;
+                bg: string;
+            }, {
+                text?: string | undefined;
+                bg?: string | undefined;
+            }>>;
+        }, "strip", z.ZodTypeAny, {
+            accent: {
+                text: string;
+                bg: string;
+            };
+            mark: {
+                text: string;
+                bg: string;
+            };
+            selected: {
+                text: string;
+                bg: string;
+            };
+        }, {
+            accent?: {
+                text?: string | undefined;
+                bg?: string | undefined;
+            } | undefined;
+            mark?: {
+                text?: string | undefined;
+                bg?: string | undefined;
+            } | undefined;
+            selected?: {
+                text?: string | undefined;
+                bg?: string | undefined;
+            } | undefined;
+        }>>;
     }, "strip", z.ZodTypeAny, {
         link: {
-            active: string;
             $: string;
+            active: string;
             hover: string;
+            visited: string;
         };
         background: string;
         text: {
+            $: string;
             primary: string;
             secondary: string;
             active: string;
-            $: string;
+            disabled: string;
         };
         ui: {
+            $: string;
             primary: string;
             secondary: string;
             active: string;
-            $: string;
+            disabled: string;
         };
         selection: {
             text: string;
@@ -595,57 +771,74 @@ export declare namespace Tokens_Theme_Set {
         };
         button: {
             text: {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             };
             bg: {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             };
             border: {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             };
         };
         field: {
             text: {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             };
             bg: {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             };
             border: {
-                active: string;
                 $: string;
+                active: string;
                 hover: string;
             };
             placeholder: string;
         };
+        system: {
+            accent: {
+                text: string;
+                bg: string;
+            };
+            mark: {
+                text: string;
+                bg: string;
+            };
+            selected: {
+                text: string;
+                bg: string;
+            };
+        };
     }, {
         link?: {
-            active?: string | undefined;
             $?: string | undefined;
+            active?: string | undefined;
             hover?: string | undefined;
+            visited?: string | undefined;
         } | undefined;
         background?: string | undefined;
         text?: {
+            $?: string | undefined;
             primary?: string | undefined;
             secondary?: string | undefined;
             active?: string | undefined;
-            $?: string | undefined;
+            disabled?: string | undefined;
         } | undefined;
         ui?: {
+            $?: string | undefined;
             primary?: string | undefined;
             secondary?: string | undefined;
             active?: string | undefined;
-            $?: string | undefined;
+            disabled?: string | undefined;
         } | undefined;
         selection?: {
             text?: string | undefined;
@@ -653,38 +846,52 @@ export declare namespace Tokens_Theme_Set {
         } | undefined;
         button?: {
             text?: {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             } | undefined;
             bg?: {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             } | undefined;
             border?: {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             } | undefined;
         } | undefined;
         field?: {
             text?: {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             } | undefined;
             bg?: {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             } | undefined;
             border?: {
-                active?: string | undefined;
                 $?: string | undefined;
+                active?: string | undefined;
                 hover?: string | undefined;
             } | undefined;
             placeholder?: string | undefined;
+        } | undefined;
+        system?: {
+            accent?: {
+                text?: string | undefined;
+                bg?: string | undefined;
+            } | undefined;
+            mark?: {
+                text?: string | undefined;
+                bg?: string | undefined;
+            } | undefined;
+            selected?: {
+                text?: string | undefined;
+                bg?: string | undefined;
+            } | undefined;
         } | undefined;
     }>;
     type Parsed = z.output<typeof Schema>;

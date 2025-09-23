@@ -14,7 +14,7 @@
  */
 
 
-export * as Schemata from './00-schemata/index.js';
+export * as Schemata from './old--00-schemata/index.js';
 
 export * from './02-tokens/abstracts/AbstractTokens.js';
 

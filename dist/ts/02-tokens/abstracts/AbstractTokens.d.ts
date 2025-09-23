@@ -18,7 +18,7 @@ type RecursiveRecord<T_Keys extends number | string | symbol = number | string |
  *
  * @since 0.1.0-alpha.draft
  */
-export declare abstract class AbstractTokens<T_SystemSchema extends z.ZodTypeAny, T_ExportType extends object = z.infer<T_SystemSchema>, T_InputType extends number | object | string = Partial<z.infer<T_SystemSchema>>, T_JsonType extends number | object | string = T_ExportType, T_ScssType extends number | object | string = T_ExportType> {
+export declare abstract class AbstractTokens<T_SystemSchema extends z.ZodTypeAny | undefined, T_ExportType extends object = T_SystemSchema extends undefined ? undefined : z.infer<T_SystemSchema & {}>, T_InputType extends number | object | string = T_SystemSchema extends undefined ? {} : Partial<z.infer<T_SystemSchema & {}>>, T_JsonType extends number | object | string = T_ExportType, T_ScssType extends number | object | string = T_ExportType> {
     #private;
     protected readonly input: T_InputType;
     static customErrorMap(...params: Parameters<z.ZodErrorMap>): ReturnType<z.ZodErrorMap>;
@@ -85,6 +85,9 @@ export declare namespace AbstractTokens {
             location: string;
         }
     }
+    function objectGenerator<T_Keys extends number | string, T_Return extends unknown>(keys: T_Keys[], mapper: (key: T_Keys) => T_Return): {
+        [K in T_Keys]: T_Return;
+    };
     function objectMap<T_Object extends object, T_Return extends unknown>(obj: T_Object, mapper: (key: keyof T_Object, value: T_Object[keyof T_Object]) => T_Return): {
         [K in keyof T_Object]: T_Return;
     };

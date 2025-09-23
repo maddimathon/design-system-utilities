@@ -81,6 +81,13 @@ const config = {
 
                         out: 'docs-typedoc',
 
+                        // visibilityFilters: {
+                        //     ...def.visibilityFilters,
+                        //     private: _stage.params.packaging ? true : false,
+                        //     '@internal': _stage.params.packaging ? true : false,
+                        //     // '@internal': _stage.params.packaging ? false : true,
+                        // },
+
                         // kindSortOrder: [
                         //     ...def.kindSortOrder.filter( _str => _str !== 'Module' ),
                         //     'Module',

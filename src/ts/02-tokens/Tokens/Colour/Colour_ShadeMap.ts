@@ -10,7 +10,7 @@
 
 import * as z from 'zod';
 
-import type { TokenLevels } from '../../../00-schemata/@utils.js';
+import type { TokenLevels } from '../../../old--00-schemata/@utils.js';
 
 import { AbstractTokens } from '../../abstracts/AbstractTokens.js';
 import { Tokens_Colour_ShadeMap_Shade } from './ShadeMap/Colour_ShadeMap_Shade.js';
@@ -100,6 +100,7 @@ export namespace Tokens_Colour_ShadeMap {
         } );
     }
 
+    // TODO - make this work by only setting 500
     export function completeMap(
 
         part: {
@@ -259,7 +260,7 @@ export namespace Tokens_Colour_ShadeMap {
         '700': Tokens_Colour_ShadeMap_Shade.Schema,
         '800': Tokens_Colour_ShadeMap_Shade.Schema,
         '900': Tokens_Colour_ShadeMap_Shade.Schema,
-    } ).partial().transform( ( part, cfx ): {
+    } ).partial().default( {} ).transform( ( part, cfx ): {
         [ K in keyof typeof part ]-?: Tokens_Colour_ShadeMap_Shade;
     } => completeMap( part, cfx ) );
 
@@ -270,7 +271,9 @@ export namespace Tokens_Colour_ShadeMap {
 
     export type Parsed = z.output<typeof Schema>;
 
-    export type Part = z.input<typeof Schema>;
+    export type Part = {
+        [ K in keyof z.output<typeof Schema> ]?: Tokens_Colour_ShadeMap_Shade.Part;
+    };
 
     export type JSON = {
         [ K in keyof z.output<typeof Schema> ]: Tokens_Colour_ShadeMap_Shade.JSON;

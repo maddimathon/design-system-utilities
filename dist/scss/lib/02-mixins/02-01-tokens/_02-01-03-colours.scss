@@ -52,15 +52,75 @@
     /* #endregion Tokens - Colour */
 }
 
+$_flattenedThemes: map.flatten(tokens.$theme);
+$_systemColors: lib.get-sys-colours();
+
+///
+/// Prints out the line height custom property default values based on config.
+///
+/// @since 0.1.0-alpha.draft
+///
+@mixin tokens-sys-colour($brightness, $contrast) {
+    $map: $_systemColors;
+
+    @each $slug, $list in $map {
+        // prettier-ignore
+        @if $contrast == forced-colors {
+            
+            @each $value in $list {
+                --sys-clr-#{$slug}: #{$value} !important;
+            }
+        } @else {
+            $lookupSlug: if(
+                map.has-key(
+                    $_flattenedThemes,
+                    '#{$contrast}-#{$brightness}-#{$slug}'
+                ),
+                $slug,
+                if(
+                    map.has-key(
+                        $_flattenedThemes,
+                        '#{$contrast}-#{$brightness}-system-#{$slug}'
+                    ),
+                    'system-#{$slug}',
+                    false
+                )
+            );
+
+            @if $lookupSlug != false {
+                $_clrSlug: theme-token-value(
+                    $lookupSlug,
+                    $brightness,
+                    $contrast
+                );
+
+                --sys-clr-#{$slug}: #{if(
+                        string.index($_clrSlug, '-'),
+                        var-clr(
+                            string.slice($_clrSlug, 1, -5),
+                            string.slice($_clrSlug, -3, -1),
+                            $brightness
+                        ),
+                        $_clrSlug
+                    )};
+            }
+        }
+    }
+}
+
 ///
 /// Prints out the theme custom property tokens based on config.
 ///
 /// @since 0.1.0-alpha.draft
 ///
 @mixin tokens-theme {
-    //
-    @include lib.token-mode-each($includeRegions_heading: 'Tokens - Theme - ')
-        using ($brightness, $contrast) {
+    // prettier-ignore
+    @include lib.token-mode-each($includeRegions_heading: 'Tokens - Theme - ') using ($brightness, $contrast) {
+            // 
+            @include tokens-sys-colour(
+                $brightness: $brightness,
+                $contrast: $contrast,
+            );
         //
         @if $contrast != forced-colors {
             //
@@ -73,15 +133,18 @@
                     );
 
                     @each $prop, $value in $flattened {
-                        --theme-#{$prop}: #{if(
-                                string.index($value, '-'),
-                                var-clr(
-                                    string.slice($value, 1, -5),
-                                    string.slice($value, -3, -1),
-                                    $brightness
-                                ),
-                                $value
-                            )};
+                        @if string.index($prop, 'system-') != 1 {
+
+                            --theme-#{$prop}: #{if(
+                                    string.index($value, '-'),
+                                    var-clr(
+                                        string.slice($value, 1, -5),
+                                        string.slice($value, -3, -1),
+                                        $brightness
+                                    ),
+                                    $value
+                                )};
+                        }
                     }
                 }
             }
@@ -95,9 +158,13 @@
             tokens.$brightnessMode_all,
             $includeQuery: false
         ) {
-            @each $prop,
-                $value in map.flatten(map.get(tokens.$theme, forced-colors))
-            {
+            @include tokens-sys-colour(
+                $brightness: tokens.$brightnessMode_default,
+                $contrast: forced-colors
+            );
+
+            // prettier-ignore
+            @each $prop, $value in map.flatten(map.get(tokens.$theme, forced-colors)) {
                 --theme-#{$prop}: #{$value} !important;
             }
         }

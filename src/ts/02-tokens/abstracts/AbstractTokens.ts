@@ -29,9 +29,9 @@ type RecursiveRecord<
  * @since ___PKG_VERSION___
  */
 export abstract class AbstractTokens<
-    T_SystemSchema extends z.ZodTypeAny,
-    T_ExportType extends object = z.infer<T_SystemSchema>,
-    T_InputType extends number | object | string = Partial<z.infer<T_SystemSchema>>,
+    T_SystemSchema extends z.ZodTypeAny | undefined,
+    T_ExportType extends object = T_SystemSchema extends undefined ? undefined : z.infer<T_SystemSchema & {}>,
+    T_InputType extends number | object | string = T_SystemSchema extends undefined ? {} : Partial<z.infer<T_SystemSchema & {}>>,
     T_JsonType extends number | object | string = T_ExportType,
     T_ScssType extends number | object | string = T_ExportType,
 > {
@@ -381,6 +381,24 @@ export namespace AbstractTokens {
             /** Location where schema is being tested. */
             location: string;
         };
+    }
+
+    export function objectGenerator<
+        T_Keys extends number | string,
+        T_Return extends unknown,
+    >(
+        keys: T_Keys[],
+        mapper: ( key: T_Keys ) => T_Return,
+    ): { [ K in T_Keys ]: T_Return; } {
+
+        // @ts-expect-error
+        let obj: { [ K in T_Keys ]: T_Return } = {};
+
+        for ( const key of keys ) {
+            obj[ key ] = mapper( key );
+        }
+
+        return obj;
     }
 
     export function objectMap<

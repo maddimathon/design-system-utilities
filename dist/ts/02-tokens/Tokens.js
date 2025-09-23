@@ -22,8 +22,9 @@ import { Tokens_Theme } from './Tokens/Theme.js';
  * @since 0.1.0-alpha.draft
  */
 export class Tokens extends AbstractTokens {
+    clrNames;
     get schema() {
-        return Tokens.Schema;
+        return undefined;
     }
     colour;
     spacing;
@@ -31,17 +32,18 @@ export class Tokens extends AbstractTokens {
     typography;
     CSS;
     opts;
-    constructor(input, opts) {
+    constructor(clrNames, input, opts) {
         super(input ?? {});
+        this.clrNames = clrNames;
         this.opts = {
             tokensAsDefault: false,
             ...opts,
         };
-        this.colour = new Tokens_Colour(input?.colour ?? {});
+        this.colour = new Tokens_Colour(this.clrNames, input?.colour ?? {});
         this.spacing = new Tokens_Spacing(input?.spacing ?? {});
         this.theme = new Tokens_Theme(input?.theme ?? {});
         this.typography = new Tokens_Typography(this.spacing, input?.typography ?? {});
-        const zIndex = this.schema.shape.CSS.shape.zIndex.parse(input?.css?.zIndex ?? {});
+        const zIndex = Tokens.Schema_CSS.shape.zIndex.parse(input?.css?.zIndex ?? {});
         this.CSS = {
             border: new Tokens_CSS_Border(input?.css?.border ?? {}),
             transition: new Tokens_CSS_Transition(input?.css?.transition ?? {}),
@@ -75,7 +77,7 @@ export class Tokens extends AbstractTokens {
     toScss() {
         const _vars = this.toScssVars();
         const vars = {
-            spacing_multiplier: JsonToScss.convert(_vars.spacing_multiplier) || String(this.schema.shape.spacing.shape.multiplier.parse('')),
+            spacing_multiplier: JsonToScss.convert(_vars.spacing_multiplier) || String(Tokens_Spacing.Schema.shape.multiplier.parse('')),
             margin: JsonToScss.convert(_vars.margin) || '()',
             font: JsonToScss.convert(_vars.font) || '()',
             line_height: JsonToScss.convert(_vars.line_height) || '()',
@@ -118,21 +120,15 @@ export class Tokens extends AbstractTokens {
     ;
     /* SCHEMA
      * ====================================================================== */
-    Tokens.Schema = z.object({
-        colour: Tokens_Colour.Schema,
-        spacing: Tokens_Spacing.Schema,
-        theme: Tokens_Theme.Schema,
-        typography: Tokens_Typography.Schema,
-        CSS: z.object({
-            border: Tokens_CSS_Border.Schema,
-            transition: Tokens_CSS_Transition.Schema,
-            zIndex: z.object({
-                nav: z.number().default(1000),
-                settings: z.number().default(9999),
-                skipLink: z.number().default(99999),
-            }),
+    Tokens.Schema_CSS = z.object({
+        border: Tokens_CSS_Border.Schema,
+        transition: Tokens_CSS_Transition.Schema,
+        zIndex: z.object({
+            nav: z.number().default(1000),
+            popup: z.number().default(999999),
+            settings: z.number().default(9999),
+            skipLink: z.number().default(99999),
         }),
     });
-    ;
 })(Tokens || (Tokens = {}));
 //# sourceMappingURL=Tokens.js.map

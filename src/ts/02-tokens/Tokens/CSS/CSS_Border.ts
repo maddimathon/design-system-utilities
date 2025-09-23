@@ -12,7 +12,7 @@ import * as z from 'zod';
 
 import {
     tokenLevels_extended,
-} from '../../../00-schemata/@utils.js';
+} from '../../../old--00-schemata/@utils.js';
 
 import { AbstractTokens } from '../../abstracts/AbstractTokens.js';
 

@@ -10,7 +10,7 @@
 
 import * as z from 'zod';
 
-import type { TokenLevels } from '../../../00-schemata/@utils.js';
+import type { TokenLevels } from '../../../old--00-schemata/@utils.js';
 
 import { AbstractTokens } from '../../abstracts/AbstractTokens.js';
 
@@ -89,24 +89,39 @@ export namespace Tokens_Theme_Set {
                 base: TokenLevels,
             },
         },
-        _slugs?: Partial<{}>,
+        _slugs?: Partial<{
+            primary: string;
+            secondary: string;
+            active: string;
+            disabled: string;
+        }>,
     ): Parsed {
 
         const slugs = {
-            primary: 'primary',
-            secondary: 'secondary',
-            active: 'active',
+            primary: 'purple',
+            secondary: 'blue',
+            active: 'red',
+            disabled: 'base',
             ..._slugs,
         };
 
-        return {
+        const vals = {
             background: `base-${ levels.bg }`,
+            text: `base-${ levels.text.base }`,
+            textPrimary: `${ slugs.primary }-${ levels.text.accent }`,
+            textSecondary: `${ slugs.secondary }-${ levels.text.accent }`,
+            textActive: `${ slugs.active }-${ levels.text.accent }`,
+        };
+
+        return {
+            background: vals.background,
 
             text: {
-                '$': `base-${ levels.text.base }`,
-                'primary': `${ slugs.primary }-${ levels.text.accent }`,
-                'secondary': `${ slugs.secondary }-${ levels.text.accent }`,
-                'active': `${ slugs.active }-${ levels.text.accent }`,
+                '$': vals.text,
+                'primary': vals.textPrimary,
+                'secondary': vals.textSecondary,
+                'active': vals.textActive,
+                'disabled': `${ slugs.disabled }-${ levels.text.accent }`,
             },
 
             ui: {
@@ -114,6 +129,7 @@ export namespace Tokens_Theme_Set {
                 'primary': `${ slugs.primary }-${ levels.ui.accent }`,
                 'secondary': `${ slugs.secondary }-${ levels.ui.accent }`,
                 'active': `${ slugs.active }-${ levels.ui.accent }`,
+                'disabled': `${ slugs.disabled }-${ levels.ui.accent }`,
             },
 
             selection: {
@@ -122,23 +138,24 @@ export namespace Tokens_Theme_Set {
             },
 
             link: {
-                '$': `${ slugs.primary }-${ levels.text.accent }`,
-                'hover': `${ slugs.secondary }-${ levels.text.accent }`,
-                'active': `${ slugs.active }-${ levels.text.accent }`,
+                '$': vals.textPrimary,
+                'hover': vals.textSecondary,
+                'active': vals.textActive,
+                'visited': vals.textPrimary,
             },
 
             button: {
 
                 bg: {
-                    '$': `${ slugs.primary }-${ levels.text.accent }`,
-                    'hover': `${ slugs.secondary }-${ levels.text.accent }`,
-                    'active': `${ slugs.active }-${ levels.text.accent }`,
+                    '$': vals.textPrimary,
+                    'hover': vals.textSecondary,
+                    'active': vals.textActive,
                 },
 
                 border: {
-                    '$': `${ slugs.primary }-${ levels.text.accent }`,
-                    'hover': `${ slugs.secondary }-${ levels.text.accent }`,
-                    'active': `${ slugs.active }-${ levels.text.accent }`,
+                    '$': vals.textPrimary,
+                    'hover': vals.textSecondary,
+                    'active': vals.textActive,
                 },
 
                 text: {
@@ -163,12 +180,27 @@ export namespace Tokens_Theme_Set {
                 },
 
                 text: {
-                    '$': `base-${ levels.text.base }`,
-                    'hover': `base-${ levels.text.base }`,
-                    'active': `base-${ levels.text.base }`,
+                    '$': vals.text,
+                    'hover': vals.text,
+                    'active': vals.text,
                 },
 
-                placeholder: `base-${ levels.text.base }`,
+                placeholder: vals.text,
+            },
+
+            system: {
+                accent: {
+                    bg: vals.textPrimary,
+                    text: vals.background,
+                },
+                mark: {
+                    bg: vals.textPrimary,
+                    text: vals.background,
+                },
+                selected: {
+                    bg: vals.textSecondary,
+                    text: vals.background,
+                },
             },
         };
     }
@@ -186,14 +218,16 @@ export namespace Tokens_Theme_Set {
             '$': z.string().default( 'CanvasText' ),
             'primary': z.string().default( 'CanvasText' ),
             'secondary': z.string().default( 'CanvasText' ),
-            'active': z.string().default( 'CanvasText' ),
+            'active': z.string().default( 'ActiveText' ),
+            'disabled': z.string().default( 'GrayText' ),
         } ).default( {} ),
 
         ui: z.object( {
             '$': z.string().default( 'CanvasText' ),
             'primary': z.string().default( 'CanvasText' ),
             'secondary': z.string().default( 'CanvasText' ),
-            'active': z.string().default( 'CanvasText' ),
+            'active': z.string().default( 'ActiveText' ),
+            'disabled': z.string().default( 'GrayText' ),
         } ).default( {} ),
 
         selection: z.object( {
@@ -205,6 +239,7 @@ export namespace Tokens_Theme_Set {
             '$': z.string().default( 'LinkText' ),
             'hover': z.string().default( 'ActiveText' ),
             'active': z.string().default( 'ActiveText' ),
+            'visited': z.string().default( 'VisitedText' ),
         } ).default( {} ),
 
         button: z.object( {
@@ -251,6 +286,25 @@ export namespace Tokens_Theme_Set {
             } ).default( {} ),
 
             placeholder: z.string().default( 'FieldText' ),
+
+        } ).default( {} ),
+
+        system: z.object( {
+
+            accent: z.object( {
+                'bg': z.string().default( 'CanvasText' ),
+                'text': z.string().default( 'Canvas' ),
+            } ).default( {} ),
+
+            mark: z.object( {
+                'bg': z.string().default( 'CanvasText' ),
+                'text': z.string().default( 'Canvas' ),
+            } ).default( {} ),
+
+            selected: z.object( {
+                'bg': z.string().default( 'SelectedItem' ),
+                'text': z.string().default( 'SelectedItemText' ),
+            } ).default( {} ),
 
         } ).default( {} ),
     } );
