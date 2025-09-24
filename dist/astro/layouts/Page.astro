@@ -88,7 +88,7 @@ const inputs: Props = Astro.props.frontmatter ?? Astro.props;
 
 const props = {
     dir: 'ltr',
-    lang: 'en-CA',
+    lang: 'en',
 
     ...inputs,
 
@@ -101,7 +101,7 @@ const props = {
                 urlMaker(Astro.url, 'license') +
                 '">MIT license</a>',
             // owner: 'Maddi Mathon',
-            year: 2025,
+            year: new Date().getFullYear(),
         },
 
         designedBy:
@@ -173,7 +173,10 @@ if (Array.isArray(props.secondaryMenu)) {
 }
 ---
 
-<UtilPage {...props as UtilPage_Props}>
+<UtilPage
+    {...props as UtilPage_Props}
+    layout={props.layout || 'content-only'}
+>
     <slot
         slot='head-open'
         name='head-open'

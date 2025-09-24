@@ -11,10 +11,10 @@
 // @use 'pkg:@maddimathon/utility-sass/selector';
 // @use 'pkg:@maddimathon/utility-sass/string';
 
-@use '../utility-sass' as lib;
-
 @use '../01-functions' as *;
 // @use '../02-mixins' as *;
+
+@use 'utils';
 
 ///
 /// Base styles for a button element.
@@ -44,7 +44,7 @@
     --focus-ring-outline-color: #{$accentClr_hover};
     --focus-ring-outline-offset: #{var-border-width('200')};
 
-    @include lib.snippet-button(
+    @include utils.snippet-button(
         $accentClr: $accentClr,
         $accentClr_active: $accentClr_active,
         $accentClr_hover: $accentClr_hover,
@@ -97,7 +97,7 @@
     --focus-ring-outline-color: #{$accentClr_hover};
     border-width: #{var-border-width($borderWidth)};
 
-    @include lib.snippet-input(
+    @include utils.snippet-input(
         $accentClr: $accentClr,
         $accentClr_active: $accentClr_active,
         $accentClr_hover: $accentClr_hover,
@@ -125,11 +125,11 @@
         color: #{$color_placeholder};
         color: color-mix(in srgb, #{$color_placeholder} 62.5%, transparent);
 
-        @include lib.high-contrast {
+        @include high-contrast {
             color: color-mix(in srgb, #{$color_placeholder} 87.5%, transparent);
         }
 
-        @include lib.forced-colors {
+        @include forced-colors {
             color: #{$color_placeholder};
         }
     }
@@ -149,7 +149,7 @@
 ) {
     $args: meta.keywords($args);
 
-    @include lib.snippet-input-types(
+    @include utils.snippet-input-types(
         $accentClr: $accentClr,
         $accentClr_active: $accentClr_active,
         $accentClr_hover: $accentClr_hover,
@@ -169,16 +169,16 @@
     $color: var-theme(text-primary),
     $color_checkradio: var-theme(text),
     //
-    // $gap: lib.var-mrg-soft('300'),
-    // $lh_checkradio: lib.var-line-height('400'),
-    // $lh: lib.var-line-height('200'),
-    // $marginBlock_innercheckradio: lib.var-mrg-firm('200'),
-    // $marginBlock: lib.var-mrg-firm('400')
+    // $gap: var-mrg-soft('300'),
+    // $lh_checkradio: var-line-height('400'),
+    // $lh: var-line-height('200'),
+    // $marginBlock_innercheckradio: var-mrg-firm('200'),
+    // $marginBlock: var-mrg-firm('400')
     $args...
 ) {
     $args: meta.keywords($args);
 
-    @include lib.snippet-label(
+    @include utils.snippet-label(
         $color: $color,
         $color_checkradio: $color_checkradio,
         $includeClrs: true,

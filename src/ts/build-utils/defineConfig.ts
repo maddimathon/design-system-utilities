@@ -29,12 +29,16 @@ import { Document } from './classes/Document.js';
  * 
  * @since ___PKG_VERSION___
  */
-export function defineConfig(
+export function defineConfig<
+    T_Build extends typeof Build,
+    T_Compile extends typeof Compile,
+    T_Document extends typeof Document,
+>(
     config: Config,
     _classes: {
-        Build?: typeof Build,
-        Compile?: typeof Compile,
-        Document?: typeof Document,
+        Build?: T_Build,
+        Compile?: T_Compile,
+        Document?: T_Document,
     } = {},
 ): Config {
 

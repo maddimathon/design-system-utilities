@@ -72,27 +72,8 @@ const config = {
                     'src/ts/internal.docs.ts',
                 ],
 
-                typeDoc: ( _stage ) => {
-
-                    const def = DocumentStage.typeDocConfig( _stage );
-
-                    return {
-                        ...def,
-
-                        out: 'docs-typedoc',
-
-                        // visibilityFilters: {
-                        //     ...def.visibilityFilters,
-                        //     private: _stage.params.packaging ? true : false,
-                        //     '@internal': _stage.params.packaging ? true : false,
-                        //     // '@internal': _stage.params.packaging ? false : true,
-                        // },
-
-                        // kindSortOrder: [
-                        //     ...def.kindSortOrder.filter( _str => _str !== 'Module' ),
-                        //     'Module',
-                        // ],
-                    };
+                typeDoc: {
+                    out: 'docs-typedoc',
                 },
             }
         ],

@@ -42,20 +42,31 @@
     "exports": {
 
         ".": {
+            "astro": "./dist/ts/index.js",
             "sass": "./dist/scss/index.scss",
             "types": "./dist/ts/index.d.ts",
             "default": "./dist/ts/index.js"
         },
+        
 
         "./jest.config.js": "./jest.config.js",
         "./package.json": "./package.json",
         "./tsconfig": "./tsconfig.json",
 
         
-        "./astro/*": "./dist/astro/*",
+        "./components/*": "./dist/astro/components/*.astro",
+        "./css/*": "./dist/astro/css/*.css",
+        "./layouts/*": "./dist/astro/layouts/*.astro",
+        "./support/*": "./dist/astro/support/*.astro",
+
         "./astro/functions": "./dist/astro/functions/index.ts",
-        "./components/*": "./dist/astro/components/*",
-        "./layouts/*": "./dist/astro/layouts/*",
+
+        "./astro/*": [
+            "./dist/astro/*.astro",
+            "./dist/astro/*.js",
+            "./dist/astro/*/index.js",
+            "./dist/astro/*"
+        ],
 
 
         "./config.scss": "./dist/scss/config/index.scss",
@@ -66,9 +77,10 @@
             "./dist/scss/config/*/_index.scss"
         ],
         
+        "./notice.scss": "./dist/scss/_notice.scss",
+        
         "./templates/*.scss": [
             "./dist/scss/templates/*.scss",
-            "./dist/scss/templates/_*.scss",
             "./dist/scss/templates/*/index.scss",
             "./dist/scss/templates/*/_index.scss"
         ],
@@ -82,8 +94,10 @@
         ],
 
         "./*.scss": [
-            "./dist/scss/lib/*.scss",
-            "./dist/scss/lib/_*.scss",
+            "./dist/scss/templates/*/index.scss",
+            "./dist/scss/templates/*/_index.scss",
+            "./dist/scss/lib/*",
+            "./dist/scss/lib/_*",
             "./dist/scss/lib/*/index.scss",
             "./dist/scss/lib/*/_index.scss"
         ],
@@ -91,12 +105,12 @@
         "./*": {
 
             "sass": [
-                "./dist/scss/lib/*.scss",
-                "./dist/scss/lib/_*.scss",
-                "./dist/scss/lib/*/index.scss",
-                "./dist/scss/lib/*/_index.scss",
+                "./dist/scss/templates/*/index.scss",
+                "./dist/scss/templates/*/_index.scss",
                 "./dist/scss/lib/*",
-                "./dist/scss/lib/_*"
+                "./dist/scss/lib/_*",
+                "./dist/scss/lib/*/index.scss",
+                "./dist/scss/lib/*/_index.scss"
             ],
 
             "types": [
@@ -140,17 +154,18 @@
         "prewatch": "build-utils compile --starting",
         
         "watch": "run-p --silent watch:*",
-            "watch:schemata": "watch -p 'src/schemata/**/*' -c 'npm run --silent quick-build -- --only-compile schemata --watchedWatcher \"watch:schemata\"  --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "x-watch:schemata": "watch -p 'src/schemata/**/*' -c 'npm run --silent quick-build -- --only-compile schemata --watchedWatcher \"watch:schemata\"  --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
             "watch:css":      "watch -p 'src/scss/**/*'     -c 'npm run --silent quick-build -- --only-compile scss     --watchedWatcher \"watch:scss\"      --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
             "watch:js":       "watch -p 'src/ts/**/*'       -c 'npm run --silent quick-build -- --only-compile ts       --watchedWatcher \"watch:js\"        --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
-            "watch:docs":     "watch -p 'src/docs/**/*'     -c 'build-utils document         --                         --watchedWatcher \"watch:docs\"      --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:docs":     "watch -p 'src/docs/**/*'     -c 'build-utils document                                    --watchedWatcher \"watch:docs\"      --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
         
         
         "prestart": "build-utils build -- --without minimize,prettify,template --only-document scss",
 
-        "quick-start": "run-p start:* watch-docs:scss",
-        "start":       "run-p start:* watch-docs:scss",
-            "watch-docs:scss": "watch -p 'src/docs/scss/**/*' -c 'build-utils document --only scss  --watchedWatcher \"watch-docs:scss\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+        "quick-start": "run-p start:* start:watch:*",
+        "start":       "run-p start:* start:watch:*",
+            "start:watch:typedoc": "watch -p 'src/ts/**/*'        -c 'build-utils document --only typeDoc          --watchedWatcher \"watch:docs\"      --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "start:watch:scss":    "watch -p 'src/docs/scss/**/*' -c 'build-utils document --only scss --watchedWatcher \"watch-docs:scss\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
             "start:astro": "astro dev",
         
 
@@ -161,16 +176,15 @@
     },
     
     "dependencies": {
-        "@maddimathon/build-utilities": "0.2.0-alpha.4",
+        "@maddimathon/build-utilities": "0.3.0-alpha",
         "@maddimathon/utility-astro": "file:../utility-astro",
         "@maddimathon/utility-sass": "file:../utility-sass",
         "@maddimathon/utility-typescript": "2.0.0-beta",
         "@types/jest": "^30.0.0",
-        "astro": "^5.13.7",
+        "astro": "^5.13.11",
         "color-convert": "^3.1.2",
         "minimist": "^1.2.8",
-        "typedoc": "^0.28.12",
-        "typedoc-plugin-markdown": "^4.8.1",
+        "typedoc": "^0.28.13",
         "yaml": "^2.8.1",
         "zod": "^3.25.76"
     },
@@ -178,20 +192,20 @@
         "@astrojs/check": "0.9.4",
         "@types/minimist": "1.2.5",
         "@types/node": "22.18.0",
-        "jest": "30.0.5",
+        "jest": "30.1.3",
         "npm-run-all": "4.1.5",
-        "sass": "1.90.0",
-        "tsx": "4.20.4",
+        "sass": "1.93.2",
+        "tsx": "4.20.5",
+        "typedoc-plugin-inline-sources": "1.3.0",
         "typescript": "5.9.2",
         "watch-cli": "0.2.3"
     },
 
     "peerDependencies": {
-        "@maddimathon/build-utilities": "^0.2.0-alpha.4",
+        "@maddimathon/build-utilities": "~0.3.0-alpha",
         "@maddimathon/utility-typescript": "^2.0.0-beta",
-        "astro": "^5.13.7",
-        "typedoc": "^0.28.12",
-        "typedoc-plugin-markdown": "^4.8.1",
+        "astro": "^5.13.11",
+        "typedoc": "^0.28.13",
         "zod": "^3.25.76"
     },
     "peerDependenciesMeta": {
@@ -204,10 +218,6 @@
         },
 
         "typedoc": {
-            "optional": true
-        },
-
-        "typedoc-plugin-markdown": {
             "optional": true
         },
 

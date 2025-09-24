@@ -43,68 +43,16 @@ type Partial_UtilProps = Partial<
 
 export interface Props extends Partial_UtilProps {}
 
-// const _defaultProps = {
-//     title: [],
-
-//     dir: 'ltr',
-//     lang: 'en-CA',
-
-//     footer: {
-//         copyright: {
-//             html:
-//                 '<a href="https://www.maddimathon.com">Maddi Mathon</a>' +
-//                 ' | ' +
-//                 '<a href="' +
-//                 relativeURL(Astro.url, 'license') +
-//                 '">MIT license</a>',
-//             // owner: 'Maddi Mathon',
-//             year: 2025,
-//         },
-//     },
-
-//     meta: {},
-
-//     settings: {
-//         settings: {
-//             brightness: true,
-//             contrast: true,
-//             motion: true,
-//         },
-//     },
-// } satisfies Props;
-
 const inputs: Props = Astro.props.frontmatter ?? Astro.props;
-
-// const props = mergeArgs(
-//     _defaultProps,
-//     inputs as Props & Partial<typeof _defaultProps>,
-//     true
-// );
 
 const title = Array.isArray(inputs.title) ? inputs.title : [inputs.title];
 
 const props = {
-    dir: 'ltr',
     lang: 'en-CA',
 
     ...inputs,
+
     title,
-
-    footer: {
-        ...inputs.footer,
-
-        copyright: inputs.footer?.copyright ?? {
-            html:
-                '<a href="https://www.maddimathon.com">Maddi Mathon</a>' +
-                ' | ' +
-                '<a href="' +
-                relativeURL(Astro.url, 'license') +
-                '">MIT license</a>',
-
-            // owner: 'Maddi Mathon',
-            year: 2025,
-        },
-    },
 
     meta: {
         ...inputs.meta,
@@ -112,14 +60,6 @@ const props = {
         title:
             inputs.meta?.title ??
             arrayUnique(title.concat([SITE_TITLE])).join(' — '),
-    },
-
-    settings: {
-        settings: {
-            brightness: true,
-            contrast: true,
-            motion: true,
-        },
     },
 } satisfies ComponentProps<typeof LibPage>;
 
@@ -143,7 +83,6 @@ props.primaryMenu = [
 <LibPage
     {...props}
     accessibilityReportEmail={undefined}
-    layout={props.layout || 'content-only'}
     stylesheetVersion={pkgJson.version}
     stylesheetURLs={[cssUrl].concat(props.stylesheetURLs ?? [])}
     title={title}

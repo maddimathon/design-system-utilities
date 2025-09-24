@@ -5,6 +5,7 @@
  * 
  * @since ___PKG_VERSION___
  * @internal
+ * @private
  * 
  * @packageDocumentation
  */

@@ -89,16 +89,16 @@ export class Tokens_Typography extends AbstractTokens {
             const _converter = (_val) => {
                 let _rem = Math.pow(opts.multiplier, _val) * base;
                 if (opts.roundToPixel) {
-                    _rem = this.roundToPixel(_rem, opts.roundToPixel_factor);
+                    _rem = AbstractTokens.roundToPixel(_rem, opts.roundToPixel_factor);
                 }
                 return _rem;
             };
             return {
                 title: _converter(this.size.title),
-                heading: this.objectMap(this.size.heading, (key, value) => key && _converter(value)),
-                smaller: this.objectMap(this.size.smaller, (key, value) => key && _converter(value)),
+                heading: AbstractTokens.objectMap(this.size.heading, (key, value) => key && _converter(value)),
+                smaller: AbstractTokens.objectMap(this.size.smaller, (key, value) => key && _converter(value)),
                 normal: _converter(this.size.normal),
-                bigger: this.objectMap(this.size.bigger, (key, value) => key && _converter(value)),
+                bigger: AbstractTokens.objectMap(this.size.bigger, (key, value) => key && _converter(value)),
             };
         };
         return {

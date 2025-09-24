@@ -65,7 +65,7 @@ export class Tokens_Spacing extends AbstractTokens {
             };
             let _rem = Math.pow(opts.multiplier, _val) * opts.base;
             if (opts.roundToPixel) {
-                _rem = this.roundToPixel(_rem, opts.roundToPixel_factor);
+                _rem = AbstractTokens.roundToPixel(_rem, opts.roundToPixel_factor);
             }
             return _rem;
         };
@@ -73,13 +73,13 @@ export class Tokens_Spacing extends AbstractTokens {
         return {
             ...exp,
             margin: {
-                rem: this.objectMap(exp.margin, (key, value) => key && _converter(value ?? 0)),
-                pt: this.objectMap(exp.margin, (key, value) => key && _converter(value ?? 0, {
+                rem: AbstractTokens.objectMap(exp.margin, (key, value) => key && _converter(value ?? 0)),
+                pt: AbstractTokens.objectMap(exp.margin, (key, value) => key && _converter(value ?? 0, {
                     base: 11,
                     roundToPixel: true,
                     roundToPixel_factor: 2,
                 })),
-                px: this.objectMap(exp.margin, (key, value) => key && _converter(value ?? 0, {
+                px: AbstractTokens.objectMap(exp.margin, (key, value) => key && _converter(value ?? 0, {
                     base: 16,
                     roundToPixel: true,
                     roundToPixel_factor: 1,

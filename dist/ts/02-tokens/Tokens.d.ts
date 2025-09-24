@@ -35,7 +35,7 @@ export declare class Tokens<T_ColourName extends string> extends AbstractTokens<
          *
          * Default keys are 'nav', 'settings', 'skipLink'.
          */
-        zIndex: z.output<Tokens.Schemata<T_ColourName>['CSS']>['zIndex'];
+        zIndex: z.output<Tokens.Schema<T_ColourName>['CSS']>['zIndex'];
     };
     readonly opts: Tokens.Opts;
     constructor(clrNames: T_ColourName[], input?: Tokens.Part<T_ColourName>, opts?: Partial<Tokens.Opts>);
@@ -58,6 +58,10 @@ export declare namespace Tokens {
     interface Opts {
         tokensAsDefault: boolean;
     }
+    /**
+     * @since 0.1.0-alpha.draft
+     * @hidden
+     */
     const Schema_CSS: z.ZodObject<{
         border: z.ZodObject<{
             radius: z.ZodEffects<z.ZodIntersection<z.ZodObject<{
@@ -439,7 +443,10 @@ export declare namespace Tokens {
             skipLink?: number | undefined;
         };
     }>;
-    type Schemata<T_ColourName extends string> = {
+    /**
+     * @since 0.1.0-alpha.draft
+     */
+    type Schema<T_ColourName extends string> = {
         colour: Tokens_Colour.Schema<T_ColourName>;
         spacing: typeof Tokens_Spacing.Schema;
         theme: typeof Tokens_Theme.Schema;

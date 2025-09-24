@@ -12,7 +12,8 @@
  * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
-export * from './01-utilities/index.js';
-export * from './02-tokens/index.js';
-export * as BuildUtils from './build-utils/index.js';
+export type * from './01-utilities/@types.d.ts';
+export * from './01-utilities/makeRelativeURL.js';
+export * from './02-tokens/Tokens.js';
+export * as BuildUtilities from './build-utils/index.js';
 //# sourceMappingURL=index.d.ts.map

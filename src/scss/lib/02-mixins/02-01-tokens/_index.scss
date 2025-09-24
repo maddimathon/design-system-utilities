@@ -12,7 +12,11 @@
 
 @use 'pkg:@maddimathon/utility-sass/meta';
 
-@use '../../utility-sass' as lib;
+@use '../../../tokens';
+
+@use '../../01-functions' as *;
+
+@use '../utils';
 
 // @use '02-01-01-spacing' as *;
 // @use '02-01-02-modes' as *;
@@ -20,10 +24,6 @@
 // @use '02-01-04-typography' as *;
 @use '02-01-05-animation' as *;
 @use '02-01-06-decoration' as *;
-
-@use '../../../tokens';
-
-@use '../../01-functions' as *;
 
 ///
 /// Prints out all the tokens included in this system as custom properties.
@@ -43,7 +43,7 @@
     $trTime: true,
     $zIndex: true
 ) {
-    @include lib.tokens-all(
+    @include utils.tokens-all(
         $borderWidth: $borderWidth,
         $custom: $custom,
         $fontSize: $fontSize,

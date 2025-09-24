@@ -11,12 +11,12 @@
 @use 'pkg:@maddimathon/utility-sass/selector';
 @use 'pkg:@maddimathon/utility-sass/string';
 
-@use '../../utility-sass' as lib;
-
 // @use '../../../config';
 @use '../../../tokens';
 
 @use '../../01-functions' as *;
+
+@use '../utils';
 
 ///
 /// Prints out the colour custom property tokens based on config.
@@ -26,7 +26,7 @@
 @mixin tokens-colour {
     /* #region Tokens - Colour */
     @each $mode in tokens.$brightnessMode_all {
-        @include lib.colour-mode($mode, $includeDefault: true) {
+        @include utils.colour-mode($mode, $includeDefault: true) {
             @each $slug, $map in tokens.$colour {
                 @each $level, $clr in $map {
                     --clr-#{$slug}-#{$level}: #{colour.to-hsl(
@@ -53,7 +53,7 @@
 }
 
 $_flattenedThemes: map.flatten(tokens.$theme);
-$_systemColors: lib.get-sys-colours();
+$_systemColors: get-sys-colours();
 
 ///
 /// Prints out the line height custom property default values based on config.
@@ -115,7 +115,7 @@ $_systemColors: lib.get-sys-colours();
 ///
 @mixin tokens-theme {
     // prettier-ignore
-    @include lib.token-mode-each($includeRegions_heading: 'Tokens - Theme - ') using ($brightness, $contrast) {
+    @include utils.token-mode-each($includeRegions_heading: 'Tokens - Theme - ') using ($brightness, $contrast) {
             // 
             @include tokens-sys-colour(
                 $brightness: $brightness,
@@ -152,9 +152,9 @@ $_systemColors: lib.get-sys-colours();
     }
 
     /*#region Tokens - Theme - forced-colors contrast */
-    @include lib.forced-colors {
+    @include utils.forced-colors {
         // all colour modes to ensure the right specificity
-        @include lib.colour-mode(
+        @include utils.colour-mode(
             tokens.$brightnessMode_all,
             $includeQuery: false
         ) {

@@ -8,36 +8,63 @@
  * @license MIT
  */
 
+import type {
+    ArrayItem,
+} from '@maddimathon/utility-typescript/types';
+
+import type {
+    MessageMaker,
+} from '@maddimathon/utility-typescript/classes';
+
 import * as z from 'zod';
 
-import { VariableInspector, type MessageMaker } from '@maddimathon/utility-typescript/classes';
+import {
+    VariableInspector,
+} from '@maddimathon/utility-typescript/classes';
 
-import { internal as internalUtils } from '@maddimathon/build-utilities';
-import { JsonToScss } from '@maddimathon/utility-sass';
-import type { ArrayItem } from '@maddimathon/utility-typescript/types';
+import {
+    internal as buildUtils_internal,
+} from '@maddimathon/build-utilities';
 
-type RecursiveRecord<
-    T_Keys extends number | string | symbol = number | string | symbol,
-    T_Values extends any = any
-> = {
-        [ K in T_Keys ]: T_Values | RecursiveRecord<T_Keys, T_Values>;
-    };
+import {
+    JsonToScss,
+} from '@maddimathon/utility-sass';
+
+import type {
+    RecursiveRecord,
+} from '../../01-utilities/@types.js';
 
 /**
- * Base class for the classes used to construct tokens.
+ * Base class for the classes used to manage tokens and token groups.
+ * 
+ * @typeParam T_SchemaType  Type of the zod schema that defines and parses this token or group.
+ * @typeParam T_ExportType  Optional. Type returned by {@link AbstractTokens.valueOf}.
+ * @typeParam T_InputType   Optional. Type passed to the constructor and used to override defaults.
+ * @typeParam T_JsonType    Optional. Type returned by {@link AbstractTokens.toJSON}.
+ * @typeParam T_ScssType    Optional. Type returned by {@link AbstractTokens.toScssVars}.
  * 
  * @since ___PKG_VERSION___
  */
 export abstract class AbstractTokens<
-    T_SystemSchema extends z.ZodTypeAny | undefined,
-    T_ExportType extends object = T_SystemSchema extends undefined ? undefined : z.infer<T_SystemSchema & {}>,
-    T_InputType extends number | object | string = T_SystemSchema extends undefined ? {} : Partial<z.infer<T_SystemSchema & {}>>,
+    T_SchemaType extends z.ZodTypeAny | undefined,
+    T_ExportType extends object = T_SchemaType extends undefined ? undefined : z.infer<T_SchemaType & {}>,
+    T_InputType extends number | object | string = T_ExportType extends undefined ? {} : Partial<T_ExportType>,
     T_JsonType extends number | object | string = T_ExportType,
     T_ScssType extends number | object | string = T_ExportType,
 > {
 
+    /**
+     * Whether the error map has been set by {@link AbstractTokens.constructor}.
+     * 
+     * @since ___PKG_VERSION___
+     */
     static #zodErrorMapSet: boolean = false;
 
+    /**
+     * A custom error handler to use with Zod schemas.
+     * 
+     * @since ___PKG_VERSION___
+     */
     public static customErrorMap( ...params: Parameters<z.ZodErrorMap> ): ReturnType<z.ZodErrorMap> {
 
         const [ issue, ctx ] = params;
@@ -64,12 +91,22 @@ export abstract class AbstractTokens<
         return { message: ctx.defaultError + '\n' + VariableInspector.stringify( { received: ctx.data } ) };
     }
 
-    public abstract get schema(): T_SystemSchema;
+    /**
+     * The zod schema for this group, if applicable.
+     * 
+     * @since ___PKG_VERSION___
+     */
+    public abstract get schema(): T_SchemaType;
 
+    /**
+     * Defines {@link AbstractTokens.input} and sets the Zod error map, if
+     * applicable.
+     *
+     * @since ___PKG_VERSION___
+     */
     constructor (
         protected readonly input: T_InputType,
     ) {
-
         if ( !AbstractTokens.#zodErrorMapSet ) {
             z.setErrorMap( AbstractTokens.customErrorMap );
         }
@@ -80,6 +117,19 @@ export abstract class AbstractTokens<
     /* # UTILITIES
      * ====================================================================== */
 
+    /**
+     * A utility for parsing Zod schemas with appropriate error handling.
+     * 
+     * @param schema        Schema to use when parsing the value.
+     * @param value         The value to check against the schema.
+     * @param context       A context object used for {@link AbstractTokens.Tokens_Error} if the parsing fails.
+     * @param errorMessage  Optional. Message to use if the parsing fails.
+     * @param params        Optional. Parameters passed to the Zod schema's `safeParse` method.
+     * 
+     * @throws {AbstractTokens.Tokens_Error}  If the schema parsing fails.
+     * 
+     * @since ___PKG_VERSION___
+     */
     protected parseSchema<
         T_Schema extends z.ZodTypeAny,
         T_ValueToTest extends Parameters<T_Schema[ 'safeParse' ]>[ 0 ],
@@ -87,13 +137,11 @@ export abstract class AbstractTokens<
         schema: T_Schema,
         value: T_ValueToTest,
 
-        context: ConstructorParameters<typeof AbstractTokens.Tokens_Error>[ 1 ],
+        context: AbstractTokens.Tokens_Error.Context,
 
         errorMessage: string = 'Error parsing Zod schema',
-
-        params?: Parameters<T_Schema[ 'safeParse' ]>[ 1 ],
+        params: Parameters<T_Schema[ 'safeParse' ]>[ 1 ] = {},
     ) {
-
         const result = schema.safeParse( value, params ) as z.SafeParseReturnType<typeof value, z.infer<T_Schema>>;
 
         // throws
@@ -112,96 +160,41 @@ export abstract class AbstractTokens<
         return result.data satisfies z.infer<T_Schema>;
     }
 
-    protected objectMap<
-        T_Object extends object,
-        T_Return extends unknown,
-    >(
-        obj: T_Object,
-        mapper: ( key: keyof T_Object, value: T_Object[ keyof T_Object ] ) => T_Return,
-    ): { [ K in keyof T_Object ]: T_Return } {
-        return AbstractTokens.objectMap( obj, mapper );
-    }
-
-    /**
-     * Returns a single-level object record with kebab case keys based on nested
-     * map keys.
-     */
-    protected objectFlatten<
-        T_Keys extends string,
-        T_Values extends any,
-    >(
-        obj: RecursiveRecord<T_Keys, T_Values>,
-        prefix: string,
-        suffix: string,
-    ) {
-
-        const validateKey_addPrefix = ( key: string ) => {
-            const _includeKeyName = key.length < 1;
-            const _includePrefix = prefix && prefix.length > 0;
-
-            // returns 
-            if ( !_includeKeyName ) {
-                return _includePrefix ? prefix : '';
-            }
-
-            return _includePrefix ? `${ prefix }-${ key }` : key;
-        };
-
-        const key_addSuffix = ( key: string ) => {
-
-            const _includeSuffix = suffix && suffix.length > 0;
-
-            // returns
-            if ( key.length < 1 ) {
-                return _includeSuffix ? suffix : '';
-            }
-
-            return _includeSuffix ? `${ key }-${ suffix }` : key;
-        };
-
-        const flat: { [ key: string ]: T_Values; } = {};
-
-        for ( const t_key in obj ) {
-            const key = validateKey_addPrefix( t_key );
-            const value = obj[ t_key as T_Keys ];
-
-            // continues
-            if ( typeof value !== 'object' || !value ) {
-                flat[ key_addSuffix( key ) ] = value as T_Values;
-                continue;
-            }
-
-            const flatValue = this.objectFlatten( value as RecursiveRecord<T_Keys, T_Values>, key, suffix );
-
-            for ( const t_flat_childKey in flatValue ) {
-                const _flat_childKey = t_flat_childKey as keyof typeof flatValue;
-
-                if ( typeof flatValue[ _flat_childKey ] !== 'undefined' ) {
-                    flat[ t_flat_childKey ] = flatValue[ _flat_childKey ];
-                }
-            }
-        }
-
-        return flat;
-    }
-
-    protected roundToPixel( num: number, factor: number = 16 ): number {
-        return AbstractTokens.roundToPixel( num, factor );
-    }
-
 
 
     /* # EXPORTS
      * ====================================================================== */
 
+    /**
+     * Converts this token or group to a json-compatible object. NOT W3C tokens
+     * -- this is meant to be more human-readable.
+     * 
+     * @since ___PKG_VERSION___
+     */
     public abstract toJSON(): T_JsonType;
 
+    /**
+     * Converts this token or group to the values used when converting to scss.
+     * 
+     * @since ___PKG_VERSION___
+     */
     public abstract toScssVars(): T_ScssType;
 
+    /**
+     * Uses {@link AbstractTokens.toScssVars} to convert this token to a scss
+     * string.
+     * 
+     * @since ___PKG_VERSION___
+     */
     public toScss(): string {
         return JsonToScss.convert( this.toScssVars() ) || '()';
     }
 
+    /**
+     * The working value of this object.
+     * 
+     * @since ___PKG_VERSION___
+     */
     public abstract valueOf(): T_ExportType;
 }
 
@@ -212,10 +205,15 @@ export abstract class AbstractTokens<
  */
 export namespace AbstractTokens {
 
+    /**
+     * Used to throw errors while compiling the tokens.
+     * 
+     * @since ___PKG_VERSION___
+     */
     export class Tokens_Error<
         T_CauseType extends unknown | undefined = never,
         T_IsZodError extends T_CauseType extends z.ZodError ? true : false = T_CauseType extends z.ZodError ? true : false,
-    > extends internalUtils.AbstractError<never, Tokens_Error.Context> {
+    > extends buildUtils_internal.AbstractError<never, Tokens_Error.Context> {
 
         public override readonly name: string;
 
@@ -233,7 +231,7 @@ export namespace AbstractTokens {
                 (
                     opts.isZodError
                         ? undefined
-                        : opts.cause as internalUtils.AbstractError.Input
+                        : opts.cause as buildUtils_internal.AbstractError.Input
                 ),
             );
 
@@ -365,24 +363,119 @@ export namespace AbstractTokens {
                 cause: this.cause,
                 stack: this.stack,
                 string: this.toString(),
-            } satisfies internalUtils.AbstractError.JSON<Tokens_Error.Context>;
+            } satisfies buildUtils_internal.AbstractError.JSON<Tokens_Error.Context>;
 
             return json;
         }
     }
 
+    /**
+     * Utilities for the {@link AbstractTokens.Tokens_Error} class.
+     * 
+     * @since ___PKG_VERSION___
+     */
     export namespace Tokens_Error {
 
+        /**
+         * Object used to give context for where this error was triggered.
+         * 
+         * @since ___PKG_VERSION___
+         */
         export interface Context {
 
-            /** Name for the schema, used in error messages. */
+            /** 
+             * Name for the schema, used in error messages.
+             */
             name: string;
 
-            /** Location where schema is being tested. */
+            /** 
+             * Location where schema is being tested.
+             */
             location: string;
         };
     }
 
+    /**
+     * Returns a single-level object record with kebab case keys based on nested
+     * map keys.
+     * 
+     * @param obj     Object to flatten.
+     * @param prefix  Optional. String used to prefix the flattened keys.
+     * @param suffix  Optional. String used to suffix the flattened keys.
+     * 
+     * @since ___PKG_VERSION___
+     */
+    export function objectFlatten<
+        T_Keys extends string,
+        T_Values extends any,
+        T_Prefix extends string | never,
+        T_Suffix extends string | never,
+    >(
+        obj: RecursiveRecord<T_Keys, T_Values>,
+        prefix?: T_Prefix,
+        suffix?: T_Suffix,
+    ) {
+
+        const validateKey_addPrefix = ( key: string ) => {
+            const _includeKeyName = key.length < 1;
+            const _includePrefix = prefix && prefix.length > 0;
+
+            // returns 
+            if ( !_includeKeyName ) {
+                return _includePrefix ? prefix : '';
+            }
+
+            return _includePrefix ? `${ prefix }-${ key }` : key;
+        };
+
+        const key_addSuffix = ( key: string ) => {
+
+            const _includeSuffix = suffix && suffix.length > 0;
+
+            // returns
+            if ( key.length < 1 ) {
+                return _includeSuffix ? suffix : '';
+            }
+
+            return _includeSuffix ? `${ key }-${ suffix }` : key;
+        };
+
+        const flat: { [ key: string ]: T_Values; } = {};
+
+        for ( const t_key in obj ) {
+            const key = validateKey_addPrefix( t_key );
+            const value = obj[ t_key as T_Keys ];
+
+            // continues
+            if ( typeof value !== 'object' || !value ) {
+                flat[ key_addSuffix( key ) ] = value as T_Values;
+                continue;
+            }
+
+            const flatValue = AbstractTokens.objectFlatten(
+                value as RecursiveRecord<T_Keys, T_Values>,
+                key,
+                suffix,
+            );
+
+            for ( const t_flat_childKey in flatValue ) {
+                const _flat_childKey = t_flat_childKey as keyof typeof flatValue;
+
+                if ( typeof flatValue[ _flat_childKey ] !== 'undefined' ) {
+                    flat[ t_flat_childKey ] = flatValue[ _flat_childKey ];
+                }
+            }
+        }
+
+        return flat;
+    }
+
+    /**
+     * Takes an array of keys and a callback function to easily construct a
+     * typed object.
+     *
+     * @since ___PKG_VERSION___
+     */
     export function objectGenerator<
         T_Keys extends number | string,
         T_Return extends unknown,
@@ -401,6 +494,14 @@ export namespace AbstractTokens {
         return obj;
     }
 
+    /**
+     * A utility to map the values of an object using a callback function.
+     * 
+     * @param obj     The object to map.
+     * @param mapper  The callback function used to define new values.
+     * 
+     * @since ___PKG_VERSION___
+     */
     export function objectMap<
         T_Object extends object,
         T_Return extends unknown,
@@ -421,6 +522,16 @@ export namespace AbstractTokens {
         return mapped;
     }
 
+    /**
+     * A simple rounding function to use for rounding em and rem values for
+     * nicer output.
+     * 
+     * @param num     Number to round.
+     * @param factor  Optional. Number used to round the number to an inverse multiple.
+     * 
+     * @since ___PKG_VERSION___
+     * @source
+     */
     export function roundToPixel( num: number, factor: number = 16 ): number {
         return ( Math.round( num * factor ) / factor );
     }

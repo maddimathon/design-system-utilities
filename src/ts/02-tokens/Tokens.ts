@@ -54,7 +54,7 @@ export class Tokens<
          * 
          * Default keys are 'nav', 'settings', 'skipLink'.
          */
-        zIndex: z.output<Tokens.Schemata<T_ColourName>[ 'CSS' ]>[ 'zIndex' ];
+        zIndex: z.output<Tokens.Schema<T_ColourName>[ 'CSS' ]>[ 'zIndex' ];
     };
 
     public readonly opts: Tokens.Opts;
@@ -196,6 +196,10 @@ export namespace Tokens {
     /* SCHEMA
      * ====================================================================== */
 
+    /**
+     * @since ___PKG_VERSION___
+     * @hidden
+     */
     export const Schema_CSS = z.object( {
 
         border: Tokens_CSS_Border.Schema,
@@ -209,20 +213,10 @@ export namespace Tokens {
         } ),
     } );
 
-    // export const Schema = <
-    //     T_ColourName extends string,
-    // >( clrNames: T_ColourName[] ) => z.object( {
-
-    //     colour: Tokens_Colour.Schema( clrNames ),
-    //     // spacing: Tokens_Spacing.Schema,
-    //     // theme: Tokens_Theme.Schema,
-    //     // typography: Tokens_Typography.Schema,
-
-    //     // CSS: Schema_CSS,
-
-    // } ) satisfies Schema<T_ColourName>;
-
-    export type Schemata<
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export type Schema<
         T_ColourName extends string,
     > = {
         colour: Tokens_Colour.Schema<T_ColourName>,

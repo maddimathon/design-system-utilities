@@ -8,8 +8,8 @@
  * @license MIT
  */
 import * as z from 'zod';
-import { AbstractTokens } from '../abstracts/AbstractTokens.js';
 import type { Tokens_Spacing } from './Spacing.js';
+import { AbstractTokens } from '../abstracts/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *

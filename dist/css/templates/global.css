@@ -1,22 +1,1692 @@
 @charset "UTF-8";
 /*!
- * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0-alpha.draft
- * 
- * License: MIT
- */
-/*!
  * Design System Utilities - Sass Template - Global
  * 
  * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * License: MIT
  */
 /*!
- * Utility Sass Template - Base
- * 
+ * This stylesheet includes css generated using 
  * @maddimathon/utility-sass@0.1.0-alpha.draft
+ * 
  * License: MIT
  */
+/* # TOKENS & PROPERTIES
+ * ======================================================================== */
+/* #region Tokens - Margin */
+html {
+    --mrg-firm-100: 0.3125rem;
+    --mrg-firm-200: 0.5rem;
+    --mrg-firm-300: 0.8125rem;
+    --mrg-firm-400: 1.25rem;
+    --mrg-firm-600: 2.25rem;
+    --mrg-firm-800: 4rem;
+    --mrg-firm-900: 7.125rem;
+}
+
+html {
+    --mrg-soft-100: 0.1875rem;
+    --mrg-soft-200: 0.3125rem;
+    --mrg-soft-300: 0.5rem;
+    --mrg-soft-400: 0.8125rem;
+    --mrg-soft-600: 1.625rem;
+    --mrg-soft-800: 3.125rem;
+    --mrg-soft-900: 5.8125rem;
+}
+
+html {
+    --mrg-half-100: 0.125rem;
+    --mrg-half-200: 0.1875rem;
+    --mrg-half-300: 0.3125rem;
+    --mrg-half-400: 0.4375rem;
+    --mrg-half-600: 0.625rem;
+    --mrg-half-800: 0.875rem;
+    --mrg-half-900: 1.3125rem;
+}
+
+/* #endregion Tokens - Margin */
+/* #region Tokens - Font Size */
+html {
+    --fs-title: 2.75rem;
+    --fs-title: clamp(2.0625rem, 3.625svw + 1rem, 3.125rem);
+    --fs-heading-1: 2.375rem;
+    --fs-heading-1: clamp(1.8125rem, 3.125svw + 1rem, 2.6875rem);
+    --fs-heading-2: 2.0625rem;
+    --fs-heading-2: clamp(1.5625rem, 2.6875svw + 1rem, 2.3125rem);
+    --fs-heading-3: 1.8125rem;
+    --fs-heading-3: clamp(1.375rem, 2.375svw + 1rem, 2.0625rem);
+    --fs-heading-4: 1.5625rem;
+    --fs-heading-4: clamp(1.1875rem, 2.0625svw + 1rem, 1.75rem);
+    --fs-heading-5: 1.3125rem;
+    --fs-heading-5: clamp(1rem, 1.75svw + 1rem, 1.5rem);
+    --fs-heading-6: 1.1875rem;
+    --fs-heading-6: clamp(0.875rem, 1.5625svw + 1rem, 1.3125rem);
+    --fs-heading-7: 1rem;
+    --fs-heading-7: clamp(0.75rem, 1.3125svw + 1rem, 1.125rem);
+    --fs-smaller-2: 0.8125rem;
+    --fs-smaller-1: 0.9375rem;
+    --fs-normal: 1rem;
+    --fs-bigger-1: 1.1875rem;
+    --fs-bigger-2: 1.3125rem;
+    --fs-bigger-3: 1.5625rem;
+    --fs-bigger-4: 1.8125rem;
+    --fs-bigger-5: 2.0625rem;
+    --fs-bigger-6: 2.375rem;
+}
+
+/* #endregion Tokens - Font Size */
+/* #region Tokens - Line Heights */
+html {
+    --line-height-100: 1.1875;
+    --line-height-200: 1.3125;
+    --line-height-300: 1.4375;
+    --line-height-400: 1.6875;
+    --line-height-500: 1.90625;
+    --line-height-600: 2.1875;
+}
+
+/* #endregion Tokens - Line Heights */
+/* #region Tokens - Gap */
+html {
+    --gap-block-layout: 5vw;
+    --gap-block-layout: max(1.625rem, min(5svw, 5.8125rem));
+    --gap-block-layout-half: 2.5vw;
+    --gap-block-layout-half: max(0.8125rem, min(2.5svw, 2.90625rem));
+    --gap-inline-indent: 4vw;
+    --gap-inline-indent: max(
+        var(--mrg-firm-200, 0.5rem),
+        min(4svw, var(--mrg-firm-600, 2.25rem))
+    );
+    --gap-inline-layout: 8vw;
+    --gap-inline-layout: max(1.25rem, min(8svw, 7.125rem));
+    --gap-inline-layout-half: 4vw;
+    --gap-inline-layout-half: max(0.625rem, min(4svw, 3.5625rem));
+    --gap-inline-tab: 1.5vw;
+    --gap-inline-tab: max(
+        var(--mrg-firm-100, 0.3125rem),
+        min(1.5svw, var(--mrg-firm-600, 2.25rem))
+    );
+}
+
+/* #endregion Tokens - Gap */
+/* #region Tokens - Border Width */
+html {
+    --border-width-100: 0.0625rem;
+    --border-width-200: 0.125rem;
+    --border-width-300: 0.1875rem;
+    --border-width-400: 0.25rem;
+}
+
+/* #endregion Tokens - Border Width */
+/* #region Tokens - Stroke Relative */
+html {
+    --stroke-relative-100: 0.03125em;
+    --stroke-relative-200: 0.0625em;
+    --stroke-relative-400: 0.125em;
+    --stroke-relative-600: 0.1875em;
+    --stroke-relative-800: 0.25em;
+    --stroke-relative-900: 0.375em;
+}
+
+/* #endregion Tokens - Stroke Relative */
+/* #region Tokens - Misc. */
+html {
+    --focus-ring-outline-width: 0.125rem;
+    --focus-ring-outline-offset: 0.125em;
+    --focus-ring-outline-color: currentColor;
+}
+
+/* #endregion Tokens - Misc. */
+/* #region Tokens - Width */
+html {
+    --width-content: 36rem;
+    --width-sidebar: 16rem;
+    --width-callout: 29.25rem;
+    --width-page: 58rem;
+    --width-page: calc(
+        var(--width-content, 36rem) + var(--gap-inline-layout, 8vw) +
+            var(--width-sidebar, 16rem)
+    );
+}
+
+/* #endregion Tokens - Width */
+/* #region Tokens - Border Radius */
+:root {
+    --border-radius-100: 0.25rem;
+    --border-radius-200: 0.375rem;
+    --border-radius-400: 0.625rem;
+}
+
+/* #endregion Tokens - Border Radius */
+/* #region Tokens - Z Index */
+:root {
+    --z-index-nav: 1000;
+    --z-index-popup: 999999;
+    --z-index-settings: 9999;
+    --z-index-skipLink: 99999;
+}
+
+/* #endregion Tokens - Z Index */
+/* #region Tokens - Transition Time */
+:root {
+    --tr-time-fast: 250ms;
+    --tr-time-normal: 500ms;
+    --tr-time-slow: 750ms;
+}
+
+/* #endregion Tokens - Transition Time */
+/* #region Tokens - Colour */
+html {
+    --clr-base-100: hsl(0, 0%, 97.73%);
+    --clr-base-200: hsl(0, 0%, 84.33%);
+    --clr-base-300: hsl(0, 0%, 71.32%);
+    --clr-base-400: hsl(0, 0%, 58.74%);
+    --clr-base-500: hsl(0, 0%, 46.63%);
+    --clr-base-600: hsl(0, 0%, 35.07%);
+    --clr-base-700: hsl(0, 0%, 24.13%);
+    --clr-base-800: hsl(0, 0%, 13.96%);
+    --clr-base-900: hsl(0, 0%, 2.86%);
+    --clr-red-100: hsl(356.09, 85.55%, 96.89%);
+    --clr-red-200: hsl(355.24, 61.11%, 86.74%);
+    --clr-red-300: hsl(354.06, 54.89%, 76.23%);
+    --clr-red-400: hsl(352.3, 50.7%, 65.28%);
+    --clr-red-500: hsl(349.37, 47.61%, 53.57%);
+    --clr-red-600: hsl(350, 39.66%, 40.38%);
+    --clr-red-700: hsl(350.91, 37.24%, 27.85%);
+    --clr-red-800: hsl(352.37, 32.92%, 16.09%);
+    --clr-red-900: hsl(356.17, 49.77%, 3.85%);
+    --clr-blue-100: hsl(165.36, 95.21%, 95.27%);
+    --clr-blue-200: hsl(166.2, 43.35%, 79.89%);
+    --clr-blue-300: hsl(167.33, 36.89%, 64.41%);
+    --clr-blue-400: hsl(169.07, 38.65%, 48%);
+    --clr-blue-500: hsl(173.48, 100%, 20.75%);
+    --clr-blue-600: hsl(173.02, 100%, 7.41%);
+    --clr-blue-700: hsl(171.77, 100%, 2.1%);
+    --clr-blue-800: hsl(349.11, 100%, 0%);
+    --clr-blue-900: hsl(338.61, 100%, 0%);
+    --clr-purple-100: hsl(290, 73.25%, 96.68%);
+    --clr-purple-200: hsl(289.28, 39.64%, 84.78%);
+    --clr-purple-300: hsl(288.48, 35.22%, 73.08%);
+    --clr-purple-400: hsl(287.59, 33.28%, 61.54%);
+    --clr-purple-500: hsl(286.64, 32.21%, 50.09%);
+    --clr-purple-600: hsl(286.79, 31.05%, 37.73%);
+    --clr-purple-700: hsl(287.04, 29.43%, 26.02%);
+    --clr-purple-800: hsl(287.56, 26.45%, 15.1%);
+    --clr-purple-900: hsl(291.51, 45.77%, 3.67%);
+}
+
+@media (prefers-color-scheme: light) {
+    html {
+        --clr-base-100: hsl(0, 0%, 97.73%);
+        --clr-base-200: hsl(0, 0%, 84.33%);
+        --clr-base-300: hsl(0, 0%, 71.32%);
+        --clr-base-400: hsl(0, 0%, 58.74%);
+        --clr-base-500: hsl(0, 0%, 46.63%);
+        --clr-base-600: hsl(0, 0%, 35.07%);
+        --clr-base-700: hsl(0, 0%, 24.13%);
+        --clr-base-800: hsl(0, 0%, 13.96%);
+        --clr-base-900: hsl(0, 0%, 2.86%);
+        --clr-red-100: hsl(356.09, 85.55%, 96.89%);
+        --clr-red-200: hsl(355.24, 61.11%, 86.74%);
+        --clr-red-300: hsl(354.06, 54.89%, 76.23%);
+        --clr-red-400: hsl(352.3, 50.7%, 65.28%);
+        --clr-red-500: hsl(349.37, 47.61%, 53.57%);
+        --clr-red-600: hsl(350, 39.66%, 40.38%);
+        --clr-red-700: hsl(350.91, 37.24%, 27.85%);
+        --clr-red-800: hsl(352.37, 32.92%, 16.09%);
+        --clr-red-900: hsl(356.17, 49.77%, 3.85%);
+        --clr-blue-100: hsl(165.36, 95.21%, 95.27%);
+        --clr-blue-200: hsl(166.2, 43.35%, 79.89%);
+        --clr-blue-300: hsl(167.33, 36.89%, 64.41%);
+        --clr-blue-400: hsl(169.07, 38.65%, 48%);
+        --clr-blue-500: hsl(173.48, 100%, 20.75%);
+        --clr-blue-600: hsl(173.02, 100%, 7.41%);
+        --clr-blue-700: hsl(171.77, 100%, 2.1%);
+        --clr-blue-800: hsl(349.11, 100%, 0%);
+        --clr-blue-900: hsl(338.61, 100%, 0%);
+        --clr-purple-100: hsl(290, 73.25%, 96.68%);
+        --clr-purple-200: hsl(289.28, 39.64%, 84.78%);
+        --clr-purple-300: hsl(288.48, 35.22%, 73.08%);
+        --clr-purple-400: hsl(287.59, 33.28%, 61.54%);
+        --clr-purple-500: hsl(286.64, 32.21%, 50.09%);
+        --clr-purple-600: hsl(286.79, 31.05%, 37.73%);
+        --clr-purple-700: hsl(287.04, 29.43%, 26.02%);
+        --clr-purple-800: hsl(287.56, 26.45%, 15.1%);
+        --clr-purple-900: hsl(291.51, 45.77%, 3.67%);
+    }
+}
+@media (prefers-color-scheme: dark) {
+    html {
+        --clr-base-100: hsl(0, 0%, 2.86%);
+        --clr-base-200: hsl(0, 0%, 13.96%);
+        --clr-base-300: hsl(0, 0%, 24.13%);
+        --clr-base-400: hsl(0, 0%, 35.07%);
+        --clr-base-500: hsl(0, 0%, 46.63%);
+        --clr-base-600: hsl(0, 0%, 58.74%);
+        --clr-base-700: hsl(0, 0%, 71.32%);
+        --clr-base-800: hsl(0, 0%, 84.33%);
+        --clr-base-900: hsl(0, 0%, 97.73%);
+        --clr-red-100: hsl(356.17, 49.77%, 3.85%);
+        --clr-red-200: hsl(352.37, 32.92%, 16.09%);
+        --clr-red-300: hsl(350.91, 37.24%, 27.85%);
+        --clr-red-400: hsl(350, 39.66%, 40.38%);
+        --clr-red-500: hsl(349.37, 47.61%, 53.57%);
+        --clr-red-600: hsl(352.3, 50.7%, 65.28%);
+        --clr-red-700: hsl(354.06, 54.89%, 76.23%);
+        --clr-red-800: hsl(355.24, 61.11%, 86.74%);
+        --clr-red-900: hsl(356.09, 85.55%, 96.89%);
+        --clr-blue-100: hsl(338.61, 100%, 0%);
+        --clr-blue-200: hsl(349.11, 100%, 0%);
+        --clr-blue-300: hsl(171.77, 100%, 2.1%);
+        --clr-blue-400: hsl(173.02, 100%, 7.41%);
+        --clr-blue-500: hsl(173.48, 100%, 20.75%);
+        --clr-blue-600: hsl(169.07, 38.65%, 48%);
+        --clr-blue-700: hsl(167.33, 36.89%, 64.41%);
+        --clr-blue-800: hsl(166.2, 43.35%, 79.89%);
+        --clr-blue-900: hsl(165.36, 95.21%, 95.27%);
+        --clr-purple-100: hsl(291.51, 45.77%, 3.67%);
+        --clr-purple-200: hsl(287.56, 26.45%, 15.1%);
+        --clr-purple-300: hsl(287.04, 29.43%, 26.02%);
+        --clr-purple-400: hsl(286.79, 31.05%, 37.73%);
+        --clr-purple-500: hsl(286.64, 32.21%, 50.09%);
+        --clr-purple-600: hsl(287.59, 33.28%, 61.54%);
+        --clr-purple-700: hsl(288.48, 35.22%, 73.08%);
+        --clr-purple-800: hsl(289.28, 39.64%, 84.78%);
+        --clr-purple-900: hsl(290, 73.25%, 96.68%);
+    }
+}
+/* #endregion Tokens - Colour */
+/*#region Tokens - Theme - light mode + average contrast */
+html {
+    --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    --sys-clr-accent-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --sys-clr-accent-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --sys-clr-mark-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --sys-clr-mark-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --sys-clr-selected-bg: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+    --sys-clr-selected-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --sys-clr-selection-bg: var(--clr-purple-700, hsl(287.04, 29.43%, 26.02%));
+    --sys-clr-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --sys-clr-text-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+    --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
+    --sys-clr-button-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --sys-clr-button-bg-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+    --sys-clr-button-bg-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+    --sys-clr-button-border: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --sys-clr-button-border-active: var(
+        --clr-red-800,
+        hsl(352.37, 32.92%, 16.09%)
+    );
+    --sys-clr-button-border-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+    --sys-clr-button-text: var(--clr-purple-200, hsl(289.28, 39.64%, 84.78%));
+    --sys-clr-button-text-active: var(
+        --clr-red-200,
+        hsl(355.24, 61.11%, 86.74%)
+    );
+    --sys-clr-button-text-hover: var(
+        --clr-blue-200,
+        hsl(166.2, 43.35%, 79.89%)
+    );
+    --sys-clr-link: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --sys-clr-link-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+    --sys-clr-link-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+    --sys-clr-link-visited: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    --theme-text-primary: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --theme-text-secondary: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+    --theme-text-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+    --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
+    --theme-ui: var(--clr-base-800, hsl(0, 0%, 13.96%));
+    --theme-ui-primary: var(--clr-purple-700, hsl(287.04, 29.43%, 26.02%));
+    --theme-ui-secondary: var(--clr-blue-700, hsl(171.77, 100%, 2.1%));
+    --theme-ui-active: var(--clr-red-700, hsl(350.91, 37.24%, 27.85%));
+    --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+    --theme-selection-bg: var(--clr-purple-700, hsl(287.04, 29.43%, 26.02%));
+    --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --theme-link: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --theme-link-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+    --theme-link-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+    --theme-link-visited: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --theme-button-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --theme-button-bg-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+    --theme-button-bg-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+    --theme-button-border: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --theme-button-border-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+    --theme-button-border-active: var(
+        --clr-red-800,
+        hsl(352.37, 32.92%, 16.09%)
+    );
+    --theme-button-text: var(--clr-purple-200, hsl(289.28, 39.64%, 84.78%));
+    --theme-button-text-hover: var(--clr-blue-200, hsl(166.2, 43.35%, 79.89%));
+    --theme-button-text-active: var(--clr-red-200, hsl(355.24, 61.11%, 86.74%));
+    --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --theme-field-border: var(--clr-purple-700, hsl(287.04, 29.43%, 26.02%));
+    --theme-field-border-hover: var(--clr-blue-700, hsl(171.77, 100%, 2.1%));
+    --theme-field-border-active: var(
+        --clr-red-700,
+        hsl(350.91, 37.24%, 27.85%)
+    );
+    --theme-field-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 2.86%));
+}
+
+@media (prefers-color-scheme: light) {
+    html {
+        --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --sys-clr-accent-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --sys-clr-accent-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-mark-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --sys-clr-mark-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-selected-bg: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --sys-clr-selected-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-selection-bg: var(
+            --clr-purple-700,
+            hsl(287.04, 29.43%, 26.02%)
+        );
+        --sys-clr-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-text-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+        --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --sys-clr-button-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --sys-clr-button-bg-active: var(
+            --clr-red-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --sys-clr-button-bg-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --sys-clr-button-border: var(
+            --clr-purple-800,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --sys-clr-button-border-active: var(
+            --clr-red-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --sys-clr-button-border-hover: var(
+            --clr-blue-800,
+            hsl(349.11, 100%, 0%)
+        );
+        --sys-clr-button-text: var(
+            --clr-purple-200,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --sys-clr-button-text-active: var(
+            --clr-red-200,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --sys-clr-button-text-hover: var(
+            --clr-blue-200,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --sys-clr-link: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --sys-clr-link-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+        --sys-clr-link-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --sys-clr-link-visited: var(
+            --clr-purple-800,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-text-primary: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-text-secondary: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --theme-text-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+        --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --theme-ui: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --theme-ui-primary: var(--clr-purple-700, hsl(287.04, 29.43%, 26.02%));
+        --theme-ui-secondary: var(--clr-blue-700, hsl(171.77, 100%, 2.1%));
+        --theme-ui-active: var(--clr-red-700, hsl(350.91, 37.24%, 27.85%));
+        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --theme-selection-bg: var(
+            --clr-purple-700,
+            hsl(287.04, 29.43%, 26.02%)
+        );
+        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-link: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-link-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --theme-link-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+        --theme-link-visited: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-button-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-button-bg-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --theme-button-bg-active: var(
+            --clr-red-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-button-border: var(
+            --clr-purple-800,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --theme-button-border-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --theme-button-border-active: var(
+            --clr-red-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-button-text: var(--clr-purple-200, hsl(289.28, 39.64%, 84.78%));
+        --theme-button-text-hover: var(
+            --clr-blue-200,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-button-text-active: var(
+            --clr-red-200,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-border: var(
+            --clr-purple-700,
+            hsl(287.04, 29.43%, 26.02%)
+        );
+        --theme-field-border-hover: var(
+            --clr-blue-700,
+            hsl(171.77, 100%, 2.1%)
+        );
+        --theme-field-border-active: var(
+            --clr-red-700,
+            hsl(350.91, 37.24%, 27.85%)
+        );
+        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    }
+}
+/*#endregion Tokens - Theme - light mode + average contrast */
+/*#region Tokens - Theme - light mode + low contrast */
+@media (prefers-contrast: less) {
+    html {
+        --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --sys-clr-accent-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --sys-clr-accent-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-mark-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --sys-clr-mark-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-selected-bg: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --sys-clr-selected-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-selection-bg: var(
+            --clr-purple-700,
+            hsl(287.04, 29.43%, 26.02%)
+        );
+        --sys-clr-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-text-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+        --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --sys-clr-button-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --sys-clr-button-bg-active: var(
+            --clr-red-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --sys-clr-button-bg-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --sys-clr-button-border: var(
+            --clr-purple-800,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --sys-clr-button-border-active: var(
+            --clr-red-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --sys-clr-button-border-hover: var(
+            --clr-blue-800,
+            hsl(349.11, 100%, 0%)
+        );
+        --sys-clr-button-text: var(
+            --clr-purple-200,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --sys-clr-button-text-active: var(
+            --clr-red-200,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --sys-clr-button-text-hover: var(
+            --clr-blue-200,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --sys-clr-link: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --sys-clr-link-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+        --sys-clr-link-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --sys-clr-link-visited: var(
+            --clr-purple-800,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-text-primary: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-text-secondary: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --theme-text-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+        --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --theme-ui: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --theme-ui-primary: var(--clr-purple-700, hsl(287.04, 29.43%, 26.02%));
+        --theme-ui-secondary: var(--clr-blue-700, hsl(171.77, 100%, 2.1%));
+        --theme-ui-active: var(--clr-red-700, hsl(350.91, 37.24%, 27.85%));
+        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --theme-selection-bg: var(
+            --clr-purple-700,
+            hsl(287.04, 29.43%, 26.02%)
+        );
+        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-link: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-link-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --theme-link-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+        --theme-link-visited: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-button-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-button-bg-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --theme-button-bg-active: var(
+            --clr-red-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-button-border: var(
+            --clr-purple-800,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --theme-button-border-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --theme-button-border-active: var(
+            --clr-red-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-button-text: var(--clr-purple-200, hsl(289.28, 39.64%, 84.78%));
+        --theme-button-text-hover: var(
+            --clr-blue-200,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-button-text-active: var(
+            --clr-red-200,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-border: var(
+            --clr-purple-700,
+            hsl(287.04, 29.43%, 26.02%)
+        );
+        --theme-field-border-hover: var(
+            --clr-blue-700,
+            hsl(171.77, 100%, 2.1%)
+        );
+        --theme-field-border-active: var(
+            --clr-red-700,
+            hsl(350.91, 37.24%, 27.85%)
+        );
+        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    }
+}
+@media (( prefers-color-scheme: light ) and ( prefers-contrast: less )) {
+    html {
+        --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --sys-clr-accent-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --sys-clr-accent-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-mark-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --sys-clr-mark-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-selected-bg: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --sys-clr-selected-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-selection-bg: var(
+            --clr-purple-700,
+            hsl(287.04, 29.43%, 26.02%)
+        );
+        --sys-clr-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-text-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+        --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --sys-clr-button-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --sys-clr-button-bg-active: var(
+            --clr-red-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --sys-clr-button-bg-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --sys-clr-button-border: var(
+            --clr-purple-800,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --sys-clr-button-border-active: var(
+            --clr-red-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --sys-clr-button-border-hover: var(
+            --clr-blue-800,
+            hsl(349.11, 100%, 0%)
+        );
+        --sys-clr-button-text: var(
+            --clr-purple-200,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --sys-clr-button-text-active: var(
+            --clr-red-200,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --sys-clr-button-text-hover: var(
+            --clr-blue-200,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --sys-clr-link: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --sys-clr-link-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+        --sys-clr-link-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --sys-clr-link-visited: var(
+            --clr-purple-800,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-text-primary: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-text-secondary: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --theme-text-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+        --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --theme-ui: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --theme-ui-primary: var(--clr-purple-700, hsl(287.04, 29.43%, 26.02%));
+        --theme-ui-secondary: var(--clr-blue-700, hsl(171.77, 100%, 2.1%));
+        --theme-ui-active: var(--clr-red-700, hsl(350.91, 37.24%, 27.85%));
+        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --theme-selection-bg: var(
+            --clr-purple-700,
+            hsl(287.04, 29.43%, 26.02%)
+        );
+        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-link: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-link-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --theme-link-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+        --theme-link-visited: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-button-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-button-bg-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --theme-button-bg-active: var(
+            --clr-red-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-button-border: var(
+            --clr-purple-800,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --theme-button-border-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --theme-button-border-active: var(
+            --clr-red-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-button-text: var(--clr-purple-200, hsl(289.28, 39.64%, 84.78%));
+        --theme-button-text-hover: var(
+            --clr-blue-200,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-button-text-active: var(
+            --clr-red-200,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-border: var(
+            --clr-purple-700,
+            hsl(287.04, 29.43%, 26.02%)
+        );
+        --theme-field-border-hover: var(
+            --clr-blue-700,
+            hsl(171.77, 100%, 2.1%)
+        );
+        --theme-field-border-active: var(
+            --clr-red-700,
+            hsl(350.91, 37.24%, 27.85%)
+        );
+        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    }
+}
+/*#endregion Tokens - Theme - light mode + low contrast */
+/*#region Tokens - Theme - light mode + high contrast */
+@media (prefers-contrast: more) {
+    html {
+        --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --sys-clr-accent-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --sys-clr-accent-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-mark-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --sys-clr-mark-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-selected-bg: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --sys-clr-selected-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-selection-bg: var(
+            --clr-purple-700,
+            hsl(287.04, 29.43%, 26.02%)
+        );
+        --sys-clr-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-text-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+        --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --sys-clr-button-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --sys-clr-button-bg-active: var(
+            --clr-red-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --sys-clr-button-bg-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --sys-clr-button-border: var(
+            --clr-purple-800,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --sys-clr-button-border-active: var(
+            --clr-red-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --sys-clr-button-border-hover: var(
+            --clr-blue-800,
+            hsl(349.11, 100%, 0%)
+        );
+        --sys-clr-button-text: var(
+            --clr-purple-200,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --sys-clr-button-text-active: var(
+            --clr-red-200,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --sys-clr-button-text-hover: var(
+            --clr-blue-200,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --sys-clr-link: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --sys-clr-link-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+        --sys-clr-link-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --sys-clr-link-visited: var(
+            --clr-purple-800,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-text-primary: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-text-secondary: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --theme-text-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+        --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --theme-ui: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --theme-ui-primary: var(--clr-purple-700, hsl(287.04, 29.43%, 26.02%));
+        --theme-ui-secondary: var(--clr-blue-700, hsl(171.77, 100%, 2.1%));
+        --theme-ui-active: var(--clr-red-700, hsl(350.91, 37.24%, 27.85%));
+        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --theme-selection-bg: var(
+            --clr-purple-700,
+            hsl(287.04, 29.43%, 26.02%)
+        );
+        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-link: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-link-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --theme-link-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+        --theme-link-visited: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-button-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-button-bg-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --theme-button-bg-active: var(
+            --clr-red-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-button-border: var(
+            --clr-purple-800,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --theme-button-border-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --theme-button-border-active: var(
+            --clr-red-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-button-text: var(--clr-purple-200, hsl(289.28, 39.64%, 84.78%));
+        --theme-button-text-hover: var(
+            --clr-blue-200,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-button-text-active: var(
+            --clr-red-200,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-border: var(
+            --clr-purple-700,
+            hsl(287.04, 29.43%, 26.02%)
+        );
+        --theme-field-border-hover: var(
+            --clr-blue-700,
+            hsl(171.77, 100%, 2.1%)
+        );
+        --theme-field-border-active: var(
+            --clr-red-700,
+            hsl(350.91, 37.24%, 27.85%)
+        );
+        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    }
+}
+@media (( prefers-color-scheme: light ) and ( prefers-contrast: more )) {
+    html {
+        --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --sys-clr-accent-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --sys-clr-accent-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-mark-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --sys-clr-mark-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-selected-bg: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --sys-clr-selected-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-selection-bg: var(
+            --clr-purple-700,
+            hsl(287.04, 29.43%, 26.02%)
+        );
+        --sys-clr-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-text-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+        --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --sys-clr-button-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --sys-clr-button-bg-active: var(
+            --clr-red-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --sys-clr-button-bg-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --sys-clr-button-border: var(
+            --clr-purple-800,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --sys-clr-button-border-active: var(
+            --clr-red-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --sys-clr-button-border-hover: var(
+            --clr-blue-800,
+            hsl(349.11, 100%, 0%)
+        );
+        --sys-clr-button-text: var(
+            --clr-purple-200,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --sys-clr-button-text-active: var(
+            --clr-red-200,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --sys-clr-button-text-hover: var(
+            --clr-blue-200,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --sys-clr-link: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --sys-clr-link-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+        --sys-clr-link-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --sys-clr-link-visited: var(
+            --clr-purple-800,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-text-primary: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-text-secondary: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --theme-text-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+        --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --theme-ui: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --theme-ui-primary: var(--clr-purple-700, hsl(287.04, 29.43%, 26.02%));
+        --theme-ui-secondary: var(--clr-blue-700, hsl(171.77, 100%, 2.1%));
+        --theme-ui-active: var(--clr-red-700, hsl(350.91, 37.24%, 27.85%));
+        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --theme-selection-bg: var(
+            --clr-purple-700,
+            hsl(287.04, 29.43%, 26.02%)
+        );
+        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-link: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-link-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --theme-link-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+        --theme-link-visited: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-button-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-button-bg-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --theme-button-bg-active: var(
+            --clr-red-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-button-border: var(
+            --clr-purple-800,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --theme-button-border-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --theme-button-border-active: var(
+            --clr-red-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-button-text: var(--clr-purple-200, hsl(289.28, 39.64%, 84.78%));
+        --theme-button-text-hover: var(
+            --clr-blue-200,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-button-text-active: var(
+            --clr-red-200,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-border: var(
+            --clr-purple-700,
+            hsl(287.04, 29.43%, 26.02%)
+        );
+        --theme-field-border-hover: var(
+            --clr-blue-700,
+            hsl(171.77, 100%, 2.1%)
+        );
+        --theme-field-border-active: var(
+            --clr-red-700,
+            hsl(350.91, 37.24%, 27.85%)
+        );
+        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    }
+}
+/*#endregion Tokens - Theme - light mode + high contrast */
+/*#region Tokens - Theme - light mode + forced-colors contrast */
+@media (forced-colors: active), (prefers-contrast: custom) {
+    html {
+        --sys-clr-background: Canvas !important;
+        --sys-clr-text: CanvasText !important;
+        --sys-clr-accent-bg: CanvasText !important;
+        --sys-clr-accent-bg: AccentColor !important;
+        --sys-clr-accent-text: Canvas !important;
+        --sys-clr-accent-text: AccentColorText !important;
+        --sys-clr-mark-bg: CanvasText !important;
+        --sys-clr-mark-bg: AccentColor !important;
+        --sys-clr-mark-bg: Mark !important;
+        --sys-clr-mark-text: Canvas !important;
+        --sys-clr-mark-text: AccentColorText !important;
+        --sys-clr-mark-text: MarkText !important;
+        --sys-clr-selected-bg: SelectedItem !important;
+        --sys-clr-selected-text: SelectedItemText !important;
+        --sys-clr-selection-bg: Highlight !important;
+        --sys-clr-selection-text: HighlightText !important;
+        --sys-clr-text-active: ActiveText !important;
+        --sys-clr-text-disabled: GrayText !important;
+        --sys-clr-button-bg: ButtonFace !important;
+        --sys-clr-button-bg-active: ButtonFace !important;
+        --sys-clr-button-bg-hover: SelectedItem !important;
+        --sys-clr-button-border: ButtonFace !important;
+        --sys-clr-button-border: ButtonBorder !important;
+        --sys-clr-button-border-active: ButtonFace !important;
+        --sys-clr-button-border-active: ButtonBorder !important;
+        --sys-clr-button-border-hover: SelectedItem !important;
+        --sys-clr-button-text: ButtonText !important;
+        --sys-clr-button-text-active: ButtonText !important;
+        --sys-clr-button-text-hover: SelectedItemText !important;
+        --sys-clr-input-bg: Field !important;
+        --sys-clr-input-bg-hover: SelectedItem !important;
+        --sys-clr-input-bg-active: Field !important;
+        --sys-clr-input-border: FieldText !important;
+        --sys-clr-input-border-hover: SelectedItem !important;
+        --sys-clr-input-border-active: FieldText !important;
+        --sys-clr-input-text: FieldText !important;
+        --sys-clr-input-text-hover: SelectedItemText !important;
+        --sys-clr-input-text-active: FieldText !important;
+        --sys-clr-link: LinkText !important;
+        --sys-clr-link-active: ActiveText !important;
+        --sys-clr-link-hover: ActiveText !important;
+        --sys-clr-link-visited: VisitedText !important;
+    }
+}
+@media (( prefers-color-scheme: light ) and ( forced-colors: active )),
+    (( prefers-color-scheme: light ) and ( prefers-contrast: custom )) {
+    html {
+        --sys-clr-background: Canvas !important;
+        --sys-clr-text: CanvasText !important;
+        --sys-clr-accent-bg: CanvasText !important;
+        --sys-clr-accent-bg: AccentColor !important;
+        --sys-clr-accent-text: Canvas !important;
+        --sys-clr-accent-text: AccentColorText !important;
+        --sys-clr-mark-bg: CanvasText !important;
+        --sys-clr-mark-bg: AccentColor !important;
+        --sys-clr-mark-bg: Mark !important;
+        --sys-clr-mark-text: Canvas !important;
+        --sys-clr-mark-text: AccentColorText !important;
+        --sys-clr-mark-text: MarkText !important;
+        --sys-clr-selected-bg: SelectedItem !important;
+        --sys-clr-selected-text: SelectedItemText !important;
+        --sys-clr-selection-bg: Highlight !important;
+        --sys-clr-selection-text: HighlightText !important;
+        --sys-clr-text-active: ActiveText !important;
+        --sys-clr-text-disabled: GrayText !important;
+        --sys-clr-button-bg: ButtonFace !important;
+        --sys-clr-button-bg-active: ButtonFace !important;
+        --sys-clr-button-bg-hover: SelectedItem !important;
+        --sys-clr-button-border: ButtonFace !important;
+        --sys-clr-button-border: ButtonBorder !important;
+        --sys-clr-button-border-active: ButtonFace !important;
+        --sys-clr-button-border-active: ButtonBorder !important;
+        --sys-clr-button-border-hover: SelectedItem !important;
+        --sys-clr-button-text: ButtonText !important;
+        --sys-clr-button-text-active: ButtonText !important;
+        --sys-clr-button-text-hover: SelectedItemText !important;
+        --sys-clr-input-bg: Field !important;
+        --sys-clr-input-bg-hover: SelectedItem !important;
+        --sys-clr-input-bg-active: Field !important;
+        --sys-clr-input-border: FieldText !important;
+        --sys-clr-input-border-hover: SelectedItem !important;
+        --sys-clr-input-border-active: FieldText !important;
+        --sys-clr-input-text: FieldText !important;
+        --sys-clr-input-text-hover: SelectedItemText !important;
+        --sys-clr-input-text-active: FieldText !important;
+        --sys-clr-link: LinkText !important;
+        --sys-clr-link-active: ActiveText !important;
+        --sys-clr-link-hover: ActiveText !important;
+        --sys-clr-link-visited: VisitedText !important;
+    }
+}
+/*#endregion Tokens - Theme - light mode + forced-colors contrast */
+/*#region Tokens - Theme - dark mode + average contrast */
+@media (prefers-color-scheme: dark) {
+    html {
+        --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --sys-clr-accent-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --sys-clr-accent-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-mark-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --sys-clr-mark-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-selected-bg: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+        --sys-clr-selected-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-selection-bg: var(
+            --clr-purple-700,
+            hsl(288.48, 35.22%, 73.08%)
+        );
+        --sys-clr-selection-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-text-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+        --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
+        --sys-clr-button-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --sys-clr-button-bg-active: var(
+            --clr-red-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --sys-clr-button-bg-hover: var(
+            --clr-blue-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --sys-clr-button-border: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --sys-clr-button-border-active: var(
+            --clr-red-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --sys-clr-button-border-hover: var(
+            --clr-blue-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --sys-clr-button-text: var(
+            --clr-purple-200,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --sys-clr-button-text-active: var(
+            --clr-red-200,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --sys-clr-button-text-hover: var(--clr-blue-200, hsl(349.11, 100%, 0%));
+        --sys-clr-link: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --sys-clr-link-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+        --sys-clr-link-hover: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+        --sys-clr-link-visited: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-text-primary: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-text-secondary: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+        --theme-text-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+        --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
+        --theme-ui: var(--clr-base-800, hsl(0, 0%, 84.33%));
+        --theme-ui-primary: var(--clr-purple-700, hsl(288.48, 35.22%, 73.08%));
+        --theme-ui-secondary: var(--clr-blue-700, hsl(167.33, 36.89%, 64.41%));
+        --theme-ui-active: var(--clr-red-700, hsl(354.06, 54.89%, 76.23%));
+        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
+        --theme-selection-bg: var(
+            --clr-purple-700,
+            hsl(288.48, 35.22%, 73.08%)
+        );
+        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-link: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --theme-link-hover: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+        --theme-link-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+        --theme-link-visited: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-button-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --theme-button-bg-hover: var(
+            --clr-blue-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-button-bg-active: var(
+            --clr-red-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --theme-button-border: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-button-border-hover: var(
+            --clr-blue-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-button-border-active: var(
+            --clr-red-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --theme-button-text: var(--clr-purple-200, hsl(287.56, 26.45%, 15.1%));
+        --theme-button-text-hover: var(--clr-blue-200, hsl(349.11, 100%, 0%));
+        --theme-button-text-active: var(
+            --clr-red-200,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-field-border: var(
+            --clr-purple-700,
+            hsl(288.48, 35.22%, 73.08%)
+        );
+        --theme-field-border-hover: var(
+            --clr-blue-700,
+            hsl(167.33, 36.89%, 64.41%)
+        );
+        --theme-field-border-active: var(
+            --clr-red-700,
+            hsl(354.06, 54.89%, 76.23%)
+        );
+        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 97.73%));
+    }
+}
+/*#endregion Tokens - Theme - dark mode + average contrast */
+/*#region Tokens - Theme - dark mode + low contrast */
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: less )) {
+    html {
+        --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --sys-clr-accent-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --sys-clr-accent-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-mark-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --sys-clr-mark-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-selected-bg: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+        --sys-clr-selected-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-selection-bg: var(
+            --clr-purple-700,
+            hsl(288.48, 35.22%, 73.08%)
+        );
+        --sys-clr-selection-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-text-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+        --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
+        --sys-clr-button-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --sys-clr-button-bg-active: var(
+            --clr-red-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --sys-clr-button-bg-hover: var(
+            --clr-blue-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --sys-clr-button-border: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --sys-clr-button-border-active: var(
+            --clr-red-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --sys-clr-button-border-hover: var(
+            --clr-blue-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --sys-clr-button-text: var(
+            --clr-purple-200,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --sys-clr-button-text-active: var(
+            --clr-red-200,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --sys-clr-button-text-hover: var(--clr-blue-200, hsl(349.11, 100%, 0%));
+        --sys-clr-link: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --sys-clr-link-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+        --sys-clr-link-hover: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+        --sys-clr-link-visited: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-text-primary: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-text-secondary: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+        --theme-text-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+        --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
+        --theme-ui: var(--clr-base-800, hsl(0, 0%, 84.33%));
+        --theme-ui-primary: var(--clr-purple-700, hsl(288.48, 35.22%, 73.08%));
+        --theme-ui-secondary: var(--clr-blue-700, hsl(167.33, 36.89%, 64.41%));
+        --theme-ui-active: var(--clr-red-700, hsl(354.06, 54.89%, 76.23%));
+        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
+        --theme-selection-bg: var(
+            --clr-purple-700,
+            hsl(288.48, 35.22%, 73.08%)
+        );
+        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-link: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --theme-link-hover: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+        --theme-link-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+        --theme-link-visited: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-button-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --theme-button-bg-hover: var(
+            --clr-blue-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-button-bg-active: var(
+            --clr-red-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --theme-button-border: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-button-border-hover: var(
+            --clr-blue-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-button-border-active: var(
+            --clr-red-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --theme-button-text: var(--clr-purple-200, hsl(287.56, 26.45%, 15.1%));
+        --theme-button-text-hover: var(--clr-blue-200, hsl(349.11, 100%, 0%));
+        --theme-button-text-active: var(
+            --clr-red-200,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-field-border: var(
+            --clr-purple-700,
+            hsl(288.48, 35.22%, 73.08%)
+        );
+        --theme-field-border-hover: var(
+            --clr-blue-700,
+            hsl(167.33, 36.89%, 64.41%)
+        );
+        --theme-field-border-active: var(
+            --clr-red-700,
+            hsl(354.06, 54.89%, 76.23%)
+        );
+        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 97.73%));
+    }
+}
+/*#endregion Tokens - Theme - dark mode + low contrast */
+/*#region Tokens - Theme - dark mode + high contrast */
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: more )) {
+    html {
+        --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --sys-clr-accent-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --sys-clr-accent-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-mark-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --sys-clr-mark-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-selected-bg: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+        --sys-clr-selected-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-selection-bg: var(
+            --clr-purple-700,
+            hsl(288.48, 35.22%, 73.08%)
+        );
+        --sys-clr-selection-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-text-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+        --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
+        --sys-clr-button-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --sys-clr-button-bg-active: var(
+            --clr-red-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --sys-clr-button-bg-hover: var(
+            --clr-blue-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --sys-clr-button-border: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --sys-clr-button-border-active: var(
+            --clr-red-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --sys-clr-button-border-hover: var(
+            --clr-blue-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --sys-clr-button-text: var(
+            --clr-purple-200,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --sys-clr-button-text-active: var(
+            --clr-red-200,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --sys-clr-button-text-hover: var(--clr-blue-200, hsl(349.11, 100%, 0%));
+        --sys-clr-link: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --sys-clr-link-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+        --sys-clr-link-hover: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+        --sys-clr-link-visited: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-text-primary: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-text-secondary: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+        --theme-text-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+        --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
+        --theme-ui: var(--clr-base-800, hsl(0, 0%, 84.33%));
+        --theme-ui-primary: var(--clr-purple-700, hsl(288.48, 35.22%, 73.08%));
+        --theme-ui-secondary: var(--clr-blue-700, hsl(167.33, 36.89%, 64.41%));
+        --theme-ui-active: var(--clr-red-700, hsl(354.06, 54.89%, 76.23%));
+        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
+        --theme-selection-bg: var(
+            --clr-purple-700,
+            hsl(288.48, 35.22%, 73.08%)
+        );
+        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-link: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --theme-link-hover: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+        --theme-link-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+        --theme-link-visited: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-button-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --theme-button-bg-hover: var(
+            --clr-blue-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-button-bg-active: var(
+            --clr-red-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --theme-button-border: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-button-border-hover: var(
+            --clr-blue-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-button-border-active: var(
+            --clr-red-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --theme-button-text: var(--clr-purple-200, hsl(287.56, 26.45%, 15.1%));
+        --theme-button-text-hover: var(--clr-blue-200, hsl(349.11, 100%, 0%));
+        --theme-button-text-active: var(
+            --clr-red-200,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-field-border: var(
+            --clr-purple-700,
+            hsl(288.48, 35.22%, 73.08%)
+        );
+        --theme-field-border-hover: var(
+            --clr-blue-700,
+            hsl(167.33, 36.89%, 64.41%)
+        );
+        --theme-field-border-active: var(
+            --clr-red-700,
+            hsl(354.06, 54.89%, 76.23%)
+        );
+        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 97.73%));
+    }
+}
+/*#endregion Tokens - Theme - dark mode + high contrast */
+/*#region Tokens - Theme - dark mode + forced-colors contrast */
+@media (( prefers-color-scheme: dark ) and ( forced-colors: active )),
+    (( prefers-color-scheme: dark ) and ( prefers-contrast: custom )) {
+    html {
+        --sys-clr-background: Canvas !important;
+        --sys-clr-text: CanvasText !important;
+        --sys-clr-accent-bg: CanvasText !important;
+        --sys-clr-accent-bg: AccentColor !important;
+        --sys-clr-accent-text: Canvas !important;
+        --sys-clr-accent-text: AccentColorText !important;
+        --sys-clr-mark-bg: CanvasText !important;
+        --sys-clr-mark-bg: AccentColor !important;
+        --sys-clr-mark-bg: Mark !important;
+        --sys-clr-mark-text: Canvas !important;
+        --sys-clr-mark-text: AccentColorText !important;
+        --sys-clr-mark-text: MarkText !important;
+        --sys-clr-selected-bg: SelectedItem !important;
+        --sys-clr-selected-text: SelectedItemText !important;
+        --sys-clr-selection-bg: Highlight !important;
+        --sys-clr-selection-text: HighlightText !important;
+        --sys-clr-text-active: ActiveText !important;
+        --sys-clr-text-disabled: GrayText !important;
+        --sys-clr-button-bg: ButtonFace !important;
+        --sys-clr-button-bg-active: ButtonFace !important;
+        --sys-clr-button-bg-hover: SelectedItem !important;
+        --sys-clr-button-border: ButtonFace !important;
+        --sys-clr-button-border: ButtonBorder !important;
+        --sys-clr-button-border-active: ButtonFace !important;
+        --sys-clr-button-border-active: ButtonBorder !important;
+        --sys-clr-button-border-hover: SelectedItem !important;
+        --sys-clr-button-text: ButtonText !important;
+        --sys-clr-button-text-active: ButtonText !important;
+        --sys-clr-button-text-hover: SelectedItemText !important;
+        --sys-clr-input-bg: Field !important;
+        --sys-clr-input-bg-hover: SelectedItem !important;
+        --sys-clr-input-bg-active: Field !important;
+        --sys-clr-input-border: FieldText !important;
+        --sys-clr-input-border-hover: SelectedItem !important;
+        --sys-clr-input-border-active: FieldText !important;
+        --sys-clr-input-text: FieldText !important;
+        --sys-clr-input-text-hover: SelectedItemText !important;
+        --sys-clr-input-text-active: FieldText !important;
+        --sys-clr-link: LinkText !important;
+        --sys-clr-link-active: ActiveText !important;
+        --sys-clr-link-hover: ActiveText !important;
+        --sys-clr-link-visited: VisitedText !important;
+    }
+}
+/*#endregion Tokens - Theme - dark mode + forced-colors contrast */
+/*#region Tokens - Theme - forced-colors contrast */
+html {
+    --sys-clr-background: Canvas !important;
+    --sys-clr-text: CanvasText !important;
+    --sys-clr-accent-bg: CanvasText !important;
+    --sys-clr-accent-bg: AccentColor !important;
+    --sys-clr-accent-text: Canvas !important;
+    --sys-clr-accent-text: AccentColorText !important;
+    --sys-clr-mark-bg: CanvasText !important;
+    --sys-clr-mark-bg: AccentColor !important;
+    --sys-clr-mark-bg: Mark !important;
+    --sys-clr-mark-text: Canvas !important;
+    --sys-clr-mark-text: AccentColorText !important;
+    --sys-clr-mark-text: MarkText !important;
+    --sys-clr-selected-bg: SelectedItem !important;
+    --sys-clr-selected-text: SelectedItemText !important;
+    --sys-clr-selection-bg: Highlight !important;
+    --sys-clr-selection-text: HighlightText !important;
+    --sys-clr-text-active: ActiveText !important;
+    --sys-clr-text-disabled: GrayText !important;
+    --sys-clr-button-bg: ButtonFace !important;
+    --sys-clr-button-bg-active: ButtonFace !important;
+    --sys-clr-button-bg-hover: SelectedItem !important;
+    --sys-clr-button-border: ButtonFace !important;
+    --sys-clr-button-border: ButtonBorder !important;
+    --sys-clr-button-border-active: ButtonFace !important;
+    --sys-clr-button-border-active: ButtonBorder !important;
+    --sys-clr-button-border-hover: SelectedItem !important;
+    --sys-clr-button-text: ButtonText !important;
+    --sys-clr-button-text-active: ButtonText !important;
+    --sys-clr-button-text-hover: SelectedItemText !important;
+    --sys-clr-input-bg: Field !important;
+    --sys-clr-input-bg-hover: SelectedItem !important;
+    --sys-clr-input-bg-active: Field !important;
+    --sys-clr-input-border: FieldText !important;
+    --sys-clr-input-border-hover: SelectedItem !important;
+    --sys-clr-input-border-active: FieldText !important;
+    --sys-clr-input-text: FieldText !important;
+    --sys-clr-input-text-hover: SelectedItemText !important;
+    --sys-clr-input-text-active: FieldText !important;
+    --sys-clr-link: LinkText !important;
+    --sys-clr-link-active: ActiveText !important;
+    --sys-clr-link-hover: ActiveText !important;
+    --sys-clr-link-visited: VisitedText !important;
+    --theme-background: Canvas !important;
+    --theme-text: CanvasText !important;
+    --theme-text-primary: CanvasText !important;
+    --theme-text-secondary: CanvasText !important;
+    --theme-text-active: ActiveText !important;
+    --theme-text-disabled: GrayText !important;
+    --theme-ui: CanvasText !important;
+    --theme-ui-primary: CanvasText !important;
+    --theme-ui-secondary: CanvasText !important;
+    --theme-ui-active: ActiveText !important;
+    --theme-ui-disabled: GrayText !important;
+    --theme-selection-bg: Highlight !important;
+    --theme-selection-text: HighlightText !important;
+    --theme-link: LinkText !important;
+    --theme-link-hover: ActiveText !important;
+    --theme-link-active: ActiveText !important;
+    --theme-link-visited: VisitedText !important;
+    --theme-button-bg: ButtonFace !important;
+    --theme-button-bg-hover: SelectedItem !important;
+    --theme-button-bg-active: ButtonFace !important;
+    --theme-button-border: ButtonBorder !important;
+    --theme-button-border-hover: SelectedItem !important;
+    --theme-button-border-active: ButtonBorder !important;
+    --theme-button-text: ButtonText !important;
+    --theme-button-text-hover: SelectedItemText !important;
+    --theme-button-text-active: ButtonText !important;
+    --theme-field-bg: Field !important;
+    --theme-field-bg-hover: SelectedItem !important;
+    --theme-field-bg-active: Field !important;
+    --theme-field-border: FieldText !important;
+    --theme-field-border-hover: SelectedItem !important;
+    --theme-field-border-active: FieldText !important;
+    --theme-field-text: FieldText !important;
+    --theme-field-text-hover: SelectedItemText !important;
+    --theme-field-text-active: FieldText !important;
+    --theme-field-placeholder: FieldText !important;
+    --theme-system-accent-bg: CanvasText !important;
+    --theme-system-accent-text: Canvas !important;
+    --theme-system-mark-bg: CanvasText !important;
+    --theme-system-mark-text: Canvas !important;
+    --theme-system-selected-bg: SelectedItem !important;
+    --theme-system-selected-text: SelectedItemText !important;
+}
+
+@media (forced-colors: active), (prefers-contrast: custom) {
+    html {
+        --sys-clr-background: Canvas !important;
+        --sys-clr-text: CanvasText !important;
+        --sys-clr-accent-bg: CanvasText !important;
+        --sys-clr-accent-bg: AccentColor !important;
+        --sys-clr-accent-text: Canvas !important;
+        --sys-clr-accent-text: AccentColorText !important;
+        --sys-clr-mark-bg: CanvasText !important;
+        --sys-clr-mark-bg: AccentColor !important;
+        --sys-clr-mark-bg: Mark !important;
+        --sys-clr-mark-text: Canvas !important;
+        --sys-clr-mark-text: AccentColorText !important;
+        --sys-clr-mark-text: MarkText !important;
+        --sys-clr-selected-bg: SelectedItem !important;
+        --sys-clr-selected-text: SelectedItemText !important;
+        --sys-clr-selection-bg: Highlight !important;
+        --sys-clr-selection-text: HighlightText !important;
+        --sys-clr-text-active: ActiveText !important;
+        --sys-clr-text-disabled: GrayText !important;
+        --sys-clr-button-bg: ButtonFace !important;
+        --sys-clr-button-bg-active: ButtonFace !important;
+        --sys-clr-button-bg-hover: SelectedItem !important;
+        --sys-clr-button-border: ButtonFace !important;
+        --sys-clr-button-border: ButtonBorder !important;
+        --sys-clr-button-border-active: ButtonFace !important;
+        --sys-clr-button-border-active: ButtonBorder !important;
+        --sys-clr-button-border-hover: SelectedItem !important;
+        --sys-clr-button-text: ButtonText !important;
+        --sys-clr-button-text-active: ButtonText !important;
+        --sys-clr-button-text-hover: SelectedItemText !important;
+        --sys-clr-input-bg: Field !important;
+        --sys-clr-input-bg-hover: SelectedItem !important;
+        --sys-clr-input-bg-active: Field !important;
+        --sys-clr-input-border: FieldText !important;
+        --sys-clr-input-border-hover: SelectedItem !important;
+        --sys-clr-input-border-active: FieldText !important;
+        --sys-clr-input-text: FieldText !important;
+        --sys-clr-input-text-hover: SelectedItemText !important;
+        --sys-clr-input-text-active: FieldText !important;
+        --sys-clr-link: LinkText !important;
+        --sys-clr-link-active: ActiveText !important;
+        --sys-clr-link-hover: ActiveText !important;
+        --sys-clr-link-visited: VisitedText !important;
+        --theme-background: Canvas !important;
+        --theme-text: CanvasText !important;
+        --theme-text-primary: CanvasText !important;
+        --theme-text-secondary: CanvasText !important;
+        --theme-text-active: ActiveText !important;
+        --theme-text-disabled: GrayText !important;
+        --theme-ui: CanvasText !important;
+        --theme-ui-primary: CanvasText !important;
+        --theme-ui-secondary: CanvasText !important;
+        --theme-ui-active: ActiveText !important;
+        --theme-ui-disabled: GrayText !important;
+        --theme-selection-bg: Highlight !important;
+        --theme-selection-text: HighlightText !important;
+        --theme-link: LinkText !important;
+        --theme-link-hover: ActiveText !important;
+        --theme-link-active: ActiveText !important;
+        --theme-link-visited: VisitedText !important;
+        --theme-button-bg: ButtonFace !important;
+        --theme-button-bg-hover: SelectedItem !important;
+        --theme-button-bg-active: ButtonFace !important;
+        --theme-button-border: ButtonBorder !important;
+        --theme-button-border-hover: SelectedItem !important;
+        --theme-button-border-active: ButtonBorder !important;
+        --theme-button-text: ButtonText !important;
+        --theme-button-text-hover: SelectedItemText !important;
+        --theme-button-text-active: ButtonText !important;
+        --theme-field-bg: Field !important;
+        --theme-field-bg-hover: SelectedItem !important;
+        --theme-field-bg-active: Field !important;
+        --theme-field-border: FieldText !important;
+        --theme-field-border-hover: SelectedItem !important;
+        --theme-field-border-active: FieldText !important;
+        --theme-field-text: FieldText !important;
+        --theme-field-text-hover: SelectedItemText !important;
+        --theme-field-text-active: FieldText !important;
+        --theme-field-placeholder: FieldText !important;
+        --theme-system-accent-bg: CanvasText !important;
+        --theme-system-accent-text: Canvas !important;
+        --theme-system-mark-bg: CanvasText !important;
+        --theme-system-mark-text: Canvas !important;
+        --theme-system-selected-bg: SelectedItem !important;
+        --theme-system-selected-text: SelectedItemText !important;
+    }
+}
+/*#endregion contrast forced-colors */
 /* # ACCESSIBILITY
  * ======================================================================== */
 .no-js :focus,
@@ -287,7 +1957,7 @@ h1 {
     margin-top: var(--mrg-soft-600, 1.625rem);
     margin-bottom: 0;
     font-weight: 900;
-    font-size: 2.75rem;
+    font-size: clamp(2.0625rem, 3.625svw + 1rem, 3.125rem);
     font-size: var(--fs-title, 2.75rem);
     line-height: 1.1875;
     line-height: var(--line-height-100, 1.1875);
@@ -299,7 +1969,7 @@ h2 {
     margin-top: var(--mrg-soft-800, 3.125rem);
     margin-bottom: 0;
     font-weight: 800;
-    font-size: 2.0625rem;
+    font-size: clamp(1.5625rem, 2.6875svw + 1rem, 2.3125rem);
     font-size: var(--fs-heading-2, 2.0625rem);
     line-height: 1.3125;
     line-height: var(--line-height-200, 1.3125);
@@ -311,7 +1981,7 @@ h3 {
     margin-top: var(--mrg-soft-800, 3.125rem);
     margin-bottom: 0;
     font-weight: 700;
-    font-size: 1.8125rem;
+    font-size: clamp(1.375rem, 2.375svw + 1rem, 2.0625rem);
     font-size: var(--fs-heading-3, 1.8125rem);
     line-height: 1.3125;
     line-height: var(--line-height-200, 1.3125);
@@ -324,7 +1994,7 @@ h4 {
     margin-bottom: 0;
     font-weight: 700;
     font-style: italic;
-    font-size: 1.5625rem;
+    font-size: clamp(1.1875rem, 2.0625svw + 1rem, 1.75rem);
     font-size: var(--fs-heading-4, 1.5625rem);
     line-height: 1.4375;
     line-height: var(--line-height-300, 1.4375);
@@ -337,7 +2007,7 @@ h5 {
     margin-bottom: 0;
     font-weight: 600;
     font-style: italic;
-    font-size: 1.3125rem;
+    font-size: clamp(1rem, 1.75svw + 1rem, 1.5rem);
     font-size: var(--fs-heading-5, 1.3125rem);
     line-height: 1.4375;
     line-height: var(--line-height-300, 1.4375);
@@ -350,7 +2020,7 @@ h6 {
     margin-bottom: 0;
     font-weight: 500;
     font-style: italic;
-    font-size: 1.1875rem;
+    font-size: clamp(0.875rem, 1.5625svw + 1rem, 1.3125rem);
     font-size: var(--fs-heading-6, 1.1875rem);
     line-height: 1.4375;
     line-height: var(--line-height-300, 1.4375);
@@ -462,7 +2132,7 @@ fieldset {
     padding: 0.5rem 1.25rem 0.8125rem;
     padding: var(--mrg-soft-300, 0.5rem) var(--mrg-firm-400, 1.25rem)
         var(--mrg-firm-300, 0.8125rem);
-    border: 0.0625rem solid CanvasText;
+    border: 0.0625rem solid AccentColor;
     border: 0.0625rem solid var(--sys-clr-accent-bg, CanvasText);
     border-radius: 0;
     background-color: Canvas;
@@ -492,7 +2162,7 @@ fieldset:focus-within {
 }
 
 fieldset:active {
-    border-color: CanvasText;
+    border-color: AccentColor;
     border-color: var(--sys-clr-accent-bg, CanvasText);
 }
 fieldset legend {
@@ -514,7 +2184,7 @@ fieldset legend {
     margin-top: var(--mrg-soft-600, 1.625rem);
     margin-bottom: 0;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: clamp(0.75rem, 1.3125svw + 1rem, 1.125rem);
     font-size: var(--fs-heading-7, 1rem);
     text-wrap: balance;
     margin-left: calc(0.5rem * -1);
@@ -811,7 +2481,7 @@ input[type="reset"],
     font: inherit;
     line-height: 1.1875;
     line-height: var(--line-height-100, 1.1875);
-    border: 0.125rem solid ButtonFace;
+    border: 0.125rem solid ButtonBorder;
     border: 0.125rem solid var(--sys-clr-button-border, ButtonFace);
     border-radius: 0;
     --focus-ring-outline-color: var(--sys-clr-button-text, ButtonText);
@@ -1572,7 +3242,7 @@ input[type="reset"]:active,
     --focus-ring-outline-color: var(--sys-clr-button-text-active, ButtonText);
     background-color: ButtonFace;
     background-color: var(--sys-clr-button-bg-active, ButtonFace);
-    border-color: ButtonFace;
+    border-color: ButtonBorder;
     border-color: var(--sys-clr-button-border-active, ButtonFace);
     color: ButtonText;
     color: var(--sys-clr-button-text-active, ButtonText);
@@ -1658,7 +3328,7 @@ table {
     margin-bottom: calc(
         var(--mrg-soft-600, 1.625rem) - var(--mrg-soft-400, 0.8125rem)
     );
-    background: CanvasText;
+    background: AccentColor;
     background: var(--sys-clr-accent-bg, CanvasText);
 }
 
@@ -1693,13 +3363,12 @@ th {
     padding-top: var(--mrg-soft-200, 0.3125rem);
     padding-bottom: 0.3125rem;
     padding-bottom: var(--mrg-soft-200, 0.3125rem);
-    background: CanvasText;
+    background: AccentColor;
     background: var(--sys-clr-accent-bg, CanvasText);
-    color: Canvas;
+    color: AccentColorText;
     color: var(--sys-clr-accent-text, Canvas);
 }
 
-/*! end of @maddimathon/utility-sass/templates/base */
 /* # GLOBALS - TYPOGRAPHY
  * ======================================================================== */
 /* # GLOBALS - TABLES

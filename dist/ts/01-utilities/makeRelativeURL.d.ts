@@ -10,6 +10,11 @@
 /**
  * Makes a filenames-based relative url for offline-friendly exports.
  *
+ * @param config_base    Value of `base` as imported from 'astro:config/client' in the build env.
+ * @param config_build   Value of `build` as imported from 'astro:config/client' in the build env.
+ * @param currentURL     Value of `Astro.url` in the build env.
+ * @param targetSubpath  Path to used to construct the URL - relative to the site root (ignoring the base path).
+ *
  * @since 0.1.0-alpha.draft
  */
 export declare function makeRelativeURL(config_base: string, config_build: {

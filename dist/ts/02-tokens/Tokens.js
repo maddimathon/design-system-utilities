@@ -120,6 +120,10 @@ export class Tokens extends AbstractTokens {
     ;
     /* SCHEMA
      * ====================================================================== */
+    /**
+     * @since 0.1.0-alpha.draft
+     * @hidden
+     */
     Tokens.Schema_CSS = z.object({
         border: Tokens_CSS_Border.Schema,
         transition: Tokens_CSS_Transition.Schema,

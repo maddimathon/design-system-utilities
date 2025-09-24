@@ -10,10 +10,11 @@
 
 import * as z from 'zod';
 
+import type { Tokens_Spacing } from './Spacing.js';
+
 import { tokenLevels_extended } from '../@utils.js';
 
 import { AbstractTokens } from '../abstracts/AbstractTokens.js';
-import type { Tokens_Spacing } from './Spacing.js';
 
 /**
  * Generates a complete token object for the design system.
@@ -155,7 +156,7 @@ export class Tokens_Typography extends AbstractTokens<
                 ) * base;
 
                 if ( opts.roundToPixel ) {
-                    _rem = this.roundToPixel( _rem, opts.roundToPixel_factor );
+                    _rem = AbstractTokens.roundToPixel( _rem, opts.roundToPixel_factor );
                 }
 
                 return _rem;
@@ -164,19 +165,19 @@ export class Tokens_Typography extends AbstractTokens<
             return {
                 title: _converter( this.size.title ),
 
-                heading: this.objectMap(
+                heading: AbstractTokens.objectMap(
                     this.size.heading,
                     ( key, value ) => key && _converter( value )
                 ),
 
-                smaller: this.objectMap(
+                smaller: AbstractTokens.objectMap(
                     this.size.smaller,
                     ( key, value ) => key && _converter( value )
                 ),
 
                 normal: _converter( this.size.normal ),
 
-                bigger: this.objectMap(
+                bigger: AbstractTokens.objectMap(
                     this.size.bigger,
                     ( key, value ) => key && _converter( value )
                 ),

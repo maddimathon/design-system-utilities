@@ -16,9 +16,9 @@ import { Document } from './classes/Document.js';
  *
  * @since 0.1.0-alpha.draft
  */
-export declare function defineConfig(config: Config, _classes?: {
-    Build?: typeof Build;
-    Compile?: typeof Compile;
-    Document?: typeof Document;
+export declare function defineConfig<T_Build extends typeof Build, T_Compile extends typeof Compile, T_Document extends typeof Document>(config: Config, _classes?: {
+    Build?: T_Build;
+    Compile?: T_Compile;
+    Document?: T_Document;
 }): Config;
 //# sourceMappingURL=defineConfig.d.ts.map
