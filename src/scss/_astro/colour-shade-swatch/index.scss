@@ -1,0 +1,36 @@
+///
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+// @use 'pkg:@maddimathon/utility-sass/colour';
+// @use 'pkg:@maddimathon/utility-sass/list';
+// @use 'pkg:@maddimathon/utility-sass/map';
+// @use 'pkg:@maddimathon/utility-sass/math';
+// @use 'pkg:@maddimathon/utility-sass/meta';
+// @use 'pkg:@maddimathon/utility-sass/selector';
+// @use 'pkg:@maddimathon/utility-sass/string';
+
+@use '../lib';
+
+/* # COLOUR SHADE SWATCH ==================================== */
+
+.colour-shade-swatch {
+    display: flex;
+    flex-direction: column;
+
+    padding: #{lib.var-mrg-soft('200')} #{lib.var-mrg-firm('200')};
+    gap: #{lib.var-mrg-soft('200')} #{lib.var-mrg-firm('200')};
+
+    > :where(*) {
+        margin: 0;
+    }
+
+    .colour-value {
+        text-wrap: nowrap;
+
+        strong {
+            font-weight: 500;
+        }
+    }
+}

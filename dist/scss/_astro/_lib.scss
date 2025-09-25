@@ -1,0 +1,26 @@
+///
+/// Used in subdirs to easily reference the lib.
+///
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+
+@forward '../templates/astro/config';
+@forward '../templates/astro/tokens';
+
+@forward '../notice';
+
+@forward '../templates/astro/lib';
+
+@use '../templates/astro/config';
+@use '../templates/astro/lib' as *;
+
+@mixin extend-selectors {
+    @include config.print-globals {
+        @include extend-selector-globals($optional: true);
+    }
+
+    @include config.print-utils {
+        @include extend-selector-utils($optional: true);
+    }
+}

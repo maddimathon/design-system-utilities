@@ -179,7 +179,9 @@ export declare class Tokens_Colour_ShadeMap_Shade extends AbstractTokens<typeof 
  * @internal
  */
 export declare namespace Tokens_Colour_ShadeMap_Shade {
+    type Schema_Hex = z.infer<typeof Schema_Hex>;
     const Schema_Hex: z.ZodString;
+    type Schema_HSL = z.infer<typeof Schema_HSL>;
     const Schema_HSL: z.ZodObject<{
         h: z.ZodNumber;
         s: z.ZodNumber;
@@ -193,6 +195,7 @@ export declare namespace Tokens_Colour_ShadeMap_Shade {
         s: number;
         l: number;
     }>;
+    type Schema_RGB = z.infer<typeof Schema_RGB>;
     const Schema_RGB: z.ZodObject<{
         r: z.ZodNumber;
         g: z.ZodNumber;
@@ -206,6 +209,7 @@ export declare namespace Tokens_Colour_ShadeMap_Shade {
         g: number;
         b: number;
     }>;
+    type Schema_LCH = z.infer<typeof Schema_LCH>;
     const Schema_LCH: z.ZodObject<{
         l: z.ZodNumber;
         c: z.ZodNumber;
@@ -365,13 +369,22 @@ export declare namespace Tokens_Colour_ShadeMap_Shade {
             c: number;
         };
     }>;
+    /**
+     * @since 0.1.0-alpha.draft
+     * @useDeclaredType
+     */
     type Parsed = z.output<typeof Schema>;
     /**
      * The partialized version of the {@link Tokens_TEMPLATE.Schema} accepted as input.
      *
      * @since 0.1.0-alpha.draft
+     * @useDeclaredType
      */
     type Part = z.input<typeof Schema>;
+    /**
+     * @since 0.1.0-alpha.draft
+     * @useDeclaredType
+     */
     type JSON = Parsed;
     type ScssVars = string;
     function toHex(clr: Tokens_Colour_ShadeMap_Shade | z.input<typeof Schema>): z.infer<typeof Schema_Hex>;

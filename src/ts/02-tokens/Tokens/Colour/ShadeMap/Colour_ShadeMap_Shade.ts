@@ -89,20 +89,24 @@ export namespace Tokens_Colour_ShadeMap_Shade {
     /* SCHEMA
      * ====================================================================== */
 
+    export type Schema_Hex = z.infer<typeof Schema_Hex>;
     export const Schema_Hex = z.string().toUpperCase().regex( /^#?[0-9|A-H]{3,6}$/i );
 
+    export type Schema_HSL = z.infer<typeof Schema_HSL>;
     export const Schema_HSL = z.object( {
         h: z.number().nonnegative().lte( 360 ),
         s: z.number().nonnegative().lte( 100 ),
         l: z.number().nonnegative().lte( 100 ),
     } );
 
+    export type Schema_RGB = z.infer<typeof Schema_RGB>;
     export const Schema_RGB = z.object( {
         r: z.number().nonnegative().lte( 255 ),
         g: z.number().nonnegative().lte( 255 ),
         b: z.number().nonnegative().lte( 255 ),
     } );
 
+    export type Schema_LCH = z.infer<typeof Schema_LCH>;
     export const Schema_LCH = z.object( {
         l: z.number().nonnegative().lte( 100 ),
         c: z.number().safe(),
@@ -146,15 +150,24 @@ export namespace Tokens_Colour_ShadeMap_Shade {
     /* TYPES
      * ====================================================================== */
 
+    /**
+     * @since ___PKG_VERSION___
+     * @useDeclaredType
+     */
     export type Parsed = z.output<typeof Schema>;
 
     /**
      * The partialized version of the {@link Tokens_TEMPLATE.Schema} accepted as input.
      *
      * @since ___PKG_VERSION___
+     * @useDeclaredType
      */
     export type Part = z.input<typeof Schema>;
 
+    /**
+     * @since ___PKG_VERSION___
+     * @useDeclaredType
+     */
     export type JSON = Parsed;
 
     export type ScssVars = string;

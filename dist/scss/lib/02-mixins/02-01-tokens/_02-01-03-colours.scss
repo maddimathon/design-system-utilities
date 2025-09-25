@@ -60,7 +60,7 @@ $_systemColors: get-sys-colours();
 ///
 /// @since 0.1.0-alpha.draft
 ///
-@mixin tokens-sys-colour($brightness, $contrast) {
+@mixin tokens-sys-colour($brightness: null, $contrast: null) {
     $map: $_systemColors;
 
     @each $slug, $list in $map {
@@ -70,7 +70,13 @@ $_systemColors: get-sys-colours();
             @each $value in $list {
                 --sys-clr-#{$slug}: #{$value} !important;
             }
-        } @else {
+            
+        } @else if
+            $brightness !=
+            null and
+            $contrast !=
+            null
+        {
             $lookupSlug: if(
                 map.has-key(
                     $_flattenedThemes,
@@ -116,11 +122,6 @@ $_systemColors: get-sys-colours();
 @mixin tokens-theme {
     // prettier-ignore
     @include utils.token-mode-each($includeRegions_heading: 'Tokens - Theme - ') using ($brightness, $contrast) {
-            // 
-            @include tokens-sys-colour(
-                $brightness: $brightness,
-                $contrast: $contrast,
-            );
         //
         @if $contrast != forced-colors {
             //
@@ -130,6 +131,11 @@ $_systemColors: get-sys-colours();
                 {
                     $flattened: map.flatten(
                         map.get(tokens.$theme, $contrast, $brightness)
+                    );
+                    
+                    @include tokens-sys-colour(
+                        $brightness: $brightness,
+                        $contrast: $contrast,
                     );
 
                     @each $prop, $value in $flattened {
@@ -154,19 +160,11 @@ $_systemColors: get-sys-colours();
     /*#region Tokens - Theme - forced-colors contrast */
     @include utils.forced-colors {
         // all colour modes to ensure the right specificity
-        @include utils.colour-mode(
-            tokens.$brightnessMode_all,
-            $includeQuery: false
-        ) {
-            @include tokens-sys-colour(
-                $brightness: tokens.$brightnessMode_default,
-                $contrast: forced-colors
-            );
+        @include tokens-sys-colour($contrast: forced-colors);
 
-            // prettier-ignore
-            @each $prop, $value in map.flatten(map.get(tokens.$theme, forced-colors)) {
-                --theme-#{$prop}: #{$value} !important;
-            }
+        // prettier-ignore
+        @each $prop, $value in map.flatten(map.get(tokens.$theme, forced-colors)) {
+            --theme-#{$prop}: #{$value} !important;
         }
     }
     /*#endregion contrast forced-colors */

@@ -84,11 +84,14 @@ export function astroConfig(
         server: {
             port: 8080,
             host: true,
+
         },
 
         site: homepage.origin,
 
         srcDir,
+
+        trailingSlash: 'always',
 
         vite: {
             build: {

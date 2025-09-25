@@ -164,8 +164,9 @@
 
         "quick-start": "run-p start:* start:watch:*",
         "start":       "run-p start:* start:watch:*",
-            "start:watch:typedoc": "watch -p 'src/ts/**/*'        -c 'build-utils document --only typeDoc          --watchedWatcher \"watch:docs\"      --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
-            "start:watch:scss":    "watch -p 'src/docs/scss/**/*' -c 'build-utils document --only scss --watchedWatcher \"watch-docs:scss\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "start:watch:astro-scss": "watch -p 'src/scss/lib/**/*' -p 'src/scss/templates/**/*' -p 'src/scss/_astro/**/*' -c 'build-utils compile  --only scss     --watchedWatcher \"start:watch:astro-scss\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "start:watch:docs-scss":  "watch -p 'src/scss/lib/**/*' -p 'src/scss/templates/**/*' -p 'src/docs/scss/**/*'   -c 'build-utils document --only scss     --watchedWatcher \"start:watch:docs-scss\"  --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "start:watch:typedoc":    "watch -p 'src/ts/**/*'                                                              -c 'build-utils document --only typeDoc  --watchedWatcher \"start:watch:typedoc\"    --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
             "start:astro": "astro dev",
         
 

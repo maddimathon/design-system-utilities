@@ -176,7 +176,8 @@ html {
 
 /* #endregion Tokens - Transition Time */
 /* #region Tokens - Colour */
-html {
+html,
+[data-brightness-mode="light"] {
     --clr-base-100: hsl(0, 0%, 97.73%);
     --clr-base-200: hsl(0, 0%, 84.33%);
     --clr-base-300: hsl(0, 0%, 71.32%);
@@ -255,6 +256,45 @@ html {
         --clr-purple-900: hsl(291.51, 45.77%, 3.67%);
     }
 }
+[data-brightness-mode="dark"] {
+    --clr-base-100: hsl(0, 0%, 2.86%);
+    --clr-base-200: hsl(0, 0%, 13.96%);
+    --clr-base-300: hsl(0, 0%, 24.13%);
+    --clr-base-400: hsl(0, 0%, 35.07%);
+    --clr-base-500: hsl(0, 0%, 46.63%);
+    --clr-base-600: hsl(0, 0%, 58.74%);
+    --clr-base-700: hsl(0, 0%, 71.32%);
+    --clr-base-800: hsl(0, 0%, 84.33%);
+    --clr-base-900: hsl(0, 0%, 97.73%);
+    --clr-red-100: hsl(356.17, 49.77%, 3.85%);
+    --clr-red-200: hsl(352.37, 32.92%, 16.09%);
+    --clr-red-300: hsl(350.91, 37.24%, 27.85%);
+    --clr-red-400: hsl(350, 39.66%, 40.38%);
+    --clr-red-500: hsl(349.37, 47.61%, 53.57%);
+    --clr-red-600: hsl(352.3, 50.7%, 65.28%);
+    --clr-red-700: hsl(354.06, 54.89%, 76.23%);
+    --clr-red-800: hsl(355.24, 61.11%, 86.74%);
+    --clr-red-900: hsl(356.09, 85.55%, 96.89%);
+    --clr-blue-100: hsl(338.61, 100%, 0%);
+    --clr-blue-200: hsl(349.11, 100%, 0%);
+    --clr-blue-300: hsl(171.77, 100%, 2.1%);
+    --clr-blue-400: hsl(173.02, 100%, 7.41%);
+    --clr-blue-500: hsl(173.48, 100%, 20.75%);
+    --clr-blue-600: hsl(169.07, 38.65%, 48%);
+    --clr-blue-700: hsl(167.33, 36.89%, 64.41%);
+    --clr-blue-800: hsl(166.2, 43.35%, 79.89%);
+    --clr-blue-900: hsl(165.36, 95.21%, 95.27%);
+    --clr-purple-100: hsl(291.51, 45.77%, 3.67%);
+    --clr-purple-200: hsl(287.56, 26.45%, 15.1%);
+    --clr-purple-300: hsl(287.04, 29.43%, 26.02%);
+    --clr-purple-400: hsl(286.79, 31.05%, 37.73%);
+    --clr-purple-500: hsl(286.64, 32.21%, 50.09%);
+    --clr-purple-600: hsl(287.59, 33.28%, 61.54%);
+    --clr-purple-700: hsl(288.48, 35.22%, 73.08%);
+    --clr-purple-800: hsl(289.28, 39.64%, 84.78%);
+    --clr-purple-900: hsl(290, 73.25%, 96.68%);
+}
+
 @media (prefers-color-scheme: dark) {
     html {
         --clr-base-100: hsl(0, 0%, 2.86%);
@@ -297,7 +337,10 @@ html {
 }
 /* #endregion Tokens - Colour */
 /*#region Tokens - Theme - light mode + average contrast */
-html {
+html,
+[data-brightness-mode="light"],
+[data-contrast-mode="average"],
+[data-brightness-mode="light"][data-contrast-mode="average"] {
     --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
     --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
     --sys-clr-accent-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
@@ -377,7 +420,8 @@ html {
 }
 
 @media (prefers-color-scheme: light) {
-    html {
+    html,
+    [data-contrast-mode="average"] {
         --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
         --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
         --sys-clr-accent-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
@@ -497,8 +541,208 @@ html {
 }
 /*#endregion Tokens - Theme - light mode + average contrast */
 /*#region Tokens - Theme - light mode + low contrast */
+[data-contrast-mode="low"],
+[data-brightness-mode="light"][data-contrast-mode="low"] {
+    --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    --sys-clr-accent-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --sys-clr-accent-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --sys-clr-mark-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --sys-clr-mark-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --sys-clr-selected-bg: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+    --sys-clr-selected-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --sys-clr-selection-bg: var(--clr-purple-700, hsl(287.04, 29.43%, 26.02%));
+    --sys-clr-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --sys-clr-text-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+    --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
+    --sys-clr-button-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --sys-clr-button-bg-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+    --sys-clr-button-bg-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+    --sys-clr-button-border: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --sys-clr-button-border-active: var(
+        --clr-red-800,
+        hsl(352.37, 32.92%, 16.09%)
+    );
+    --sys-clr-button-border-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+    --sys-clr-button-text: var(--clr-purple-200, hsl(289.28, 39.64%, 84.78%));
+    --sys-clr-button-text-active: var(
+        --clr-red-200,
+        hsl(355.24, 61.11%, 86.74%)
+    );
+    --sys-clr-button-text-hover: var(
+        --clr-blue-200,
+        hsl(166.2, 43.35%, 79.89%)
+    );
+    --sys-clr-link: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --sys-clr-link-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+    --sys-clr-link-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+    --sys-clr-link-visited: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    --theme-text-primary: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --theme-text-secondary: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+    --theme-text-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+    --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
+    --theme-ui: var(--clr-base-800, hsl(0, 0%, 13.96%));
+    --theme-ui-primary: var(--clr-purple-700, hsl(287.04, 29.43%, 26.02%));
+    --theme-ui-secondary: var(--clr-blue-700, hsl(171.77, 100%, 2.1%));
+    --theme-ui-active: var(--clr-red-700, hsl(350.91, 37.24%, 27.85%));
+    --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+    --theme-selection-bg: var(--clr-purple-700, hsl(287.04, 29.43%, 26.02%));
+    --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --theme-link: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --theme-link-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+    --theme-link-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+    --theme-link-visited: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --theme-button-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --theme-button-bg-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+    --theme-button-bg-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+    --theme-button-border: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --theme-button-border-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+    --theme-button-border-active: var(
+        --clr-red-800,
+        hsl(352.37, 32.92%, 16.09%)
+    );
+    --theme-button-text: var(--clr-purple-200, hsl(289.28, 39.64%, 84.78%));
+    --theme-button-text-hover: var(--clr-blue-200, hsl(166.2, 43.35%, 79.89%));
+    --theme-button-text-active: var(--clr-red-200, hsl(355.24, 61.11%, 86.74%));
+    --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --theme-field-border: var(--clr-purple-700, hsl(287.04, 29.43%, 26.02%));
+    --theme-field-border-hover: var(--clr-blue-700, hsl(171.77, 100%, 2.1%));
+    --theme-field-border-active: var(
+        --clr-red-700,
+        hsl(350.91, 37.24%, 27.85%)
+    );
+    --theme-field-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 2.86%));
+}
+
 @media (prefers-contrast: less) {
-    html {
+    html,
+    [data-brightness-mode="light"] {
+        --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --sys-clr-accent-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --sys-clr-accent-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-mark-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --sys-clr-mark-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-selected-bg: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --sys-clr-selected-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-selection-bg: var(
+            --clr-purple-700,
+            hsl(287.04, 29.43%, 26.02%)
+        );
+        --sys-clr-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-text-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+        --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --sys-clr-button-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --sys-clr-button-bg-active: var(
+            --clr-red-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --sys-clr-button-bg-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --sys-clr-button-border: var(
+            --clr-purple-800,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --sys-clr-button-border-active: var(
+            --clr-red-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --sys-clr-button-border-hover: var(
+            --clr-blue-800,
+            hsl(349.11, 100%, 0%)
+        );
+        --sys-clr-button-text: var(
+            --clr-purple-200,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --sys-clr-button-text-active: var(
+            --clr-red-200,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --sys-clr-button-text-hover: var(
+            --clr-blue-200,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --sys-clr-link: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --sys-clr-link-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+        --sys-clr-link-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --sys-clr-link-visited: var(
+            --clr-purple-800,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-text-primary: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-text-secondary: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --theme-text-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+        --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --theme-ui: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --theme-ui-primary: var(--clr-purple-700, hsl(287.04, 29.43%, 26.02%));
+        --theme-ui-secondary: var(--clr-blue-700, hsl(171.77, 100%, 2.1%));
+        --theme-ui-active: var(--clr-red-700, hsl(350.91, 37.24%, 27.85%));
+        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --theme-selection-bg: var(
+            --clr-purple-700,
+            hsl(287.04, 29.43%, 26.02%)
+        );
+        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-link: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-link-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --theme-link-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+        --theme-link-visited: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-button-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-button-bg-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --theme-button-bg-active: var(
+            --clr-red-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-button-border: var(
+            --clr-purple-800,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --theme-button-border-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --theme-button-border-active: var(
+            --clr-red-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-button-text: var(--clr-purple-200, hsl(289.28, 39.64%, 84.78%));
+        --theme-button-text-hover: var(
+            --clr-blue-200,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-button-text-active: var(
+            --clr-red-200,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-border: var(
+            --clr-purple-700,
+            hsl(287.04, 29.43%, 26.02%)
+        );
+        --theme-field-border-hover: var(
+            --clr-blue-700,
+            hsl(171.77, 100%, 2.1%)
+        );
+        --theme-field-border-active: var(
+            --clr-red-700,
+            hsl(350.91, 37.24%, 27.85%)
+        );
+        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    }
+}
+@media (prefers-color-scheme: light) {
+    [data-contrast-mode="low"] {
         --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
         --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
         --sys-clr-accent-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
@@ -737,8 +981,208 @@ html {
 }
 /*#endregion Tokens - Theme - light mode + low contrast */
 /*#region Tokens - Theme - light mode + high contrast */
+[data-contrast-mode="high"],
+[data-brightness-mode="light"][data-contrast-mode="high"] {
+    --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    --sys-clr-accent-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --sys-clr-accent-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --sys-clr-mark-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --sys-clr-mark-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --sys-clr-selected-bg: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+    --sys-clr-selected-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --sys-clr-selection-bg: var(--clr-purple-700, hsl(287.04, 29.43%, 26.02%));
+    --sys-clr-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --sys-clr-text-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+    --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
+    --sys-clr-button-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --sys-clr-button-bg-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+    --sys-clr-button-bg-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+    --sys-clr-button-border: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --sys-clr-button-border-active: var(
+        --clr-red-800,
+        hsl(352.37, 32.92%, 16.09%)
+    );
+    --sys-clr-button-border-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+    --sys-clr-button-text: var(--clr-purple-200, hsl(289.28, 39.64%, 84.78%));
+    --sys-clr-button-text-active: var(
+        --clr-red-200,
+        hsl(355.24, 61.11%, 86.74%)
+    );
+    --sys-clr-button-text-hover: var(
+        --clr-blue-200,
+        hsl(166.2, 43.35%, 79.89%)
+    );
+    --sys-clr-link: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --sys-clr-link-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+    --sys-clr-link-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+    --sys-clr-link-visited: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    --theme-text-primary: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --theme-text-secondary: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+    --theme-text-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+    --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
+    --theme-ui: var(--clr-base-800, hsl(0, 0%, 13.96%));
+    --theme-ui-primary: var(--clr-purple-700, hsl(287.04, 29.43%, 26.02%));
+    --theme-ui-secondary: var(--clr-blue-700, hsl(171.77, 100%, 2.1%));
+    --theme-ui-active: var(--clr-red-700, hsl(350.91, 37.24%, 27.85%));
+    --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+    --theme-selection-bg: var(--clr-purple-700, hsl(287.04, 29.43%, 26.02%));
+    --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --theme-link: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --theme-link-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+    --theme-link-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+    --theme-link-visited: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --theme-button-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --theme-button-bg-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+    --theme-button-bg-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+    --theme-button-border: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+    --theme-button-border-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+    --theme-button-border-active: var(
+        --clr-red-800,
+        hsl(352.37, 32.92%, 16.09%)
+    );
+    --theme-button-text: var(--clr-purple-200, hsl(289.28, 39.64%, 84.78%));
+    --theme-button-text-hover: var(--clr-blue-200, hsl(166.2, 43.35%, 79.89%));
+    --theme-button-text-active: var(--clr-red-200, hsl(355.24, 61.11%, 86.74%));
+    --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --theme-field-border: var(--clr-purple-700, hsl(287.04, 29.43%, 26.02%));
+    --theme-field-border-hover: var(--clr-blue-700, hsl(171.77, 100%, 2.1%));
+    --theme-field-border-active: var(
+        --clr-red-700,
+        hsl(350.91, 37.24%, 27.85%)
+    );
+    --theme-field-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 2.86%));
+}
+
 @media (prefers-contrast: more) {
-    html {
+    html,
+    [data-brightness-mode="light"] {
+        --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --sys-clr-accent-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --sys-clr-accent-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-mark-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --sys-clr-mark-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-selected-bg: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --sys-clr-selected-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-selection-bg: var(
+            --clr-purple-700,
+            hsl(287.04, 29.43%, 26.02%)
+        );
+        --sys-clr-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-text-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+        --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --sys-clr-button-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --sys-clr-button-bg-active: var(
+            --clr-red-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --sys-clr-button-bg-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --sys-clr-button-border: var(
+            --clr-purple-800,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --sys-clr-button-border-active: var(
+            --clr-red-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --sys-clr-button-border-hover: var(
+            --clr-blue-800,
+            hsl(349.11, 100%, 0%)
+        );
+        --sys-clr-button-text: var(
+            --clr-purple-200,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --sys-clr-button-text-active: var(
+            --clr-red-200,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --sys-clr-button-text-hover: var(
+            --clr-blue-200,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --sys-clr-link: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --sys-clr-link-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+        --sys-clr-link-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --sys-clr-link-visited: var(
+            --clr-purple-800,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-text-primary: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-text-secondary: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --theme-text-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+        --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --theme-ui: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --theme-ui-primary: var(--clr-purple-700, hsl(287.04, 29.43%, 26.02%));
+        --theme-ui-secondary: var(--clr-blue-700, hsl(171.77, 100%, 2.1%));
+        --theme-ui-active: var(--clr-red-700, hsl(350.91, 37.24%, 27.85%));
+        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --theme-selection-bg: var(
+            --clr-purple-700,
+            hsl(287.04, 29.43%, 26.02%)
+        );
+        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-link: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-link-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --theme-link-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
+        --theme-link-visited: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-button-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
+        --theme-button-bg-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --theme-button-bg-active: var(
+            --clr-red-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-button-border: var(
+            --clr-purple-800,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --theme-button-border-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
+        --theme-button-border-active: var(
+            --clr-red-800,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-button-text: var(--clr-purple-200, hsl(289.28, 39.64%, 84.78%));
+        --theme-button-text-hover: var(
+            --clr-blue-200,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-button-text-active: var(
+            --clr-red-200,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-field-border: var(
+            --clr-purple-700,
+            hsl(287.04, 29.43%, 26.02%)
+        );
+        --theme-field-border-hover: var(
+            --clr-blue-700,
+            hsl(171.77, 100%, 2.1%)
+        );
+        --theme-field-border-active: var(
+            --clr-red-700,
+            hsl(350.91, 37.24%, 27.85%)
+        );
+        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    }
+}
+@media (prefers-color-scheme: light) {
+    [data-contrast-mode="high"] {
         --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
         --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
         --sys-clr-accent-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
@@ -977,103 +1421,97 @@ html {
 }
 /*#endregion Tokens - Theme - light mode + high contrast */
 /*#region Tokens - Theme - light mode + forced-colors contrast */
-@media (forced-colors: active), (prefers-contrast: custom) {
-    html {
-        --sys-clr-background: Canvas !important;
-        --sys-clr-text: CanvasText !important;
-        --sys-clr-accent-bg: CanvasText !important;
-        --sys-clr-accent-bg: AccentColor !important;
-        --sys-clr-accent-text: Canvas !important;
-        --sys-clr-accent-text: AccentColorText !important;
-        --sys-clr-mark-bg: CanvasText !important;
-        --sys-clr-mark-bg: AccentColor !important;
-        --sys-clr-mark-bg: Mark !important;
-        --sys-clr-mark-text: Canvas !important;
-        --sys-clr-mark-text: AccentColorText !important;
-        --sys-clr-mark-text: MarkText !important;
-        --sys-clr-selected-bg: SelectedItem !important;
-        --sys-clr-selected-text: SelectedItemText !important;
-        --sys-clr-selection-bg: Highlight !important;
-        --sys-clr-selection-text: HighlightText !important;
-        --sys-clr-text-active: ActiveText !important;
-        --sys-clr-text-disabled: GrayText !important;
-        --sys-clr-button-bg: ButtonFace !important;
-        --sys-clr-button-bg-active: ButtonFace !important;
-        --sys-clr-button-bg-hover: SelectedItem !important;
-        --sys-clr-button-border: ButtonFace !important;
-        --sys-clr-button-border: ButtonBorder !important;
-        --sys-clr-button-border-active: ButtonFace !important;
-        --sys-clr-button-border-active: ButtonBorder !important;
-        --sys-clr-button-border-hover: SelectedItem !important;
-        --sys-clr-button-text: ButtonText !important;
-        --sys-clr-button-text-active: ButtonText !important;
-        --sys-clr-button-text-hover: SelectedItemText !important;
-        --sys-clr-input-bg: Field !important;
-        --sys-clr-input-bg-hover: SelectedItem !important;
-        --sys-clr-input-bg-active: Field !important;
-        --sys-clr-input-border: FieldText !important;
-        --sys-clr-input-border-hover: SelectedItem !important;
-        --sys-clr-input-border-active: FieldText !important;
-        --sys-clr-input-text: FieldText !important;
-        --sys-clr-input-text-hover: SelectedItemText !important;
-        --sys-clr-input-text-active: FieldText !important;
-        --sys-clr-link: LinkText !important;
-        --sys-clr-link-active: ActiveText !important;
-        --sys-clr-link-hover: ActiveText !important;
-        --sys-clr-link-visited: VisitedText !important;
-    }
-}
-@media (( prefers-color-scheme: light ) and ( forced-colors: active )),
-    (( prefers-color-scheme: light ) and ( prefers-contrast: custom )) {
-    html {
-        --sys-clr-background: Canvas !important;
-        --sys-clr-text: CanvasText !important;
-        --sys-clr-accent-bg: CanvasText !important;
-        --sys-clr-accent-bg: AccentColor !important;
-        --sys-clr-accent-text: Canvas !important;
-        --sys-clr-accent-text: AccentColorText !important;
-        --sys-clr-mark-bg: CanvasText !important;
-        --sys-clr-mark-bg: AccentColor !important;
-        --sys-clr-mark-bg: Mark !important;
-        --sys-clr-mark-text: Canvas !important;
-        --sys-clr-mark-text: AccentColorText !important;
-        --sys-clr-mark-text: MarkText !important;
-        --sys-clr-selected-bg: SelectedItem !important;
-        --sys-clr-selected-text: SelectedItemText !important;
-        --sys-clr-selection-bg: Highlight !important;
-        --sys-clr-selection-text: HighlightText !important;
-        --sys-clr-text-active: ActiveText !important;
-        --sys-clr-text-disabled: GrayText !important;
-        --sys-clr-button-bg: ButtonFace !important;
-        --sys-clr-button-bg-active: ButtonFace !important;
-        --sys-clr-button-bg-hover: SelectedItem !important;
-        --sys-clr-button-border: ButtonFace !important;
-        --sys-clr-button-border: ButtonBorder !important;
-        --sys-clr-button-border-active: ButtonFace !important;
-        --sys-clr-button-border-active: ButtonBorder !important;
-        --sys-clr-button-border-hover: SelectedItem !important;
-        --sys-clr-button-text: ButtonText !important;
-        --sys-clr-button-text-active: ButtonText !important;
-        --sys-clr-button-text-hover: SelectedItemText !important;
-        --sys-clr-input-bg: Field !important;
-        --sys-clr-input-bg-hover: SelectedItem !important;
-        --sys-clr-input-bg-active: Field !important;
-        --sys-clr-input-border: FieldText !important;
-        --sys-clr-input-border-hover: SelectedItem !important;
-        --sys-clr-input-border-active: FieldText !important;
-        --sys-clr-input-text: FieldText !important;
-        --sys-clr-input-text-hover: SelectedItemText !important;
-        --sys-clr-input-text-active: FieldText !important;
-        --sys-clr-link: LinkText !important;
-        --sys-clr-link-active: ActiveText !important;
-        --sys-clr-link-hover: ActiveText !important;
-        --sys-clr-link-visited: VisitedText !important;
-    }
-}
 /*#endregion Tokens - Theme - light mode + forced-colors contrast */
 /*#region Tokens - Theme - dark mode + average contrast */
+[data-brightness-mode="dark"],
+[data-brightness-mode="dark"][data-contrast-mode="average"] {
+    --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
+    --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+    --sys-clr-accent-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --sys-clr-accent-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+    --sys-clr-mark-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --sys-clr-mark-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+    --sys-clr-selected-bg: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+    --sys-clr-selected-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+    --sys-clr-selection-bg: var(--clr-purple-700, hsl(288.48, 35.22%, 73.08%));
+    --sys-clr-selection-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+    --sys-clr-text-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+    --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
+    --sys-clr-button-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --sys-clr-button-bg-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+    --sys-clr-button-bg-hover: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+    --sys-clr-button-border: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --sys-clr-button-border-active: var(
+        --clr-red-800,
+        hsl(355.24, 61.11%, 86.74%)
+    );
+    --sys-clr-button-border-hover: var(
+        --clr-blue-800,
+        hsl(166.2, 43.35%, 79.89%)
+    );
+    --sys-clr-button-text: var(--clr-purple-200, hsl(287.56, 26.45%, 15.1%));
+    --sys-clr-button-text-active: var(
+        --clr-red-200,
+        hsl(352.37, 32.92%, 16.09%)
+    );
+    --sys-clr-button-text-hover: var(--clr-blue-200, hsl(349.11, 100%, 0%));
+    --sys-clr-link: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --sys-clr-link-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+    --sys-clr-link-hover: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+    --sys-clr-link-visited: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --theme-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
+    --theme-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+    --theme-text-primary: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --theme-text-secondary: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+    --theme-text-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+    --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
+    --theme-ui: var(--clr-base-800, hsl(0, 0%, 84.33%));
+    --theme-ui-primary: var(--clr-purple-700, hsl(288.48, 35.22%, 73.08%));
+    --theme-ui-secondary: var(--clr-blue-700, hsl(167.33, 36.89%, 64.41%));
+    --theme-ui-active: var(--clr-red-700, hsl(354.06, 54.89%, 76.23%));
+    --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
+    --theme-selection-bg: var(--clr-purple-700, hsl(288.48, 35.22%, 73.08%));
+    --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+    --theme-link: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --theme-link-hover: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+    --theme-link-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+    --theme-link-visited: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --theme-button-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --theme-button-bg-hover: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+    --theme-button-bg-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+    --theme-button-border: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --theme-button-border-hover: var(
+        --clr-blue-800,
+        hsl(166.2, 43.35%, 79.89%)
+    );
+    --theme-button-border-active: var(
+        --clr-red-800,
+        hsl(355.24, 61.11%, 86.74%)
+    );
+    --theme-button-text: var(--clr-purple-200, hsl(287.56, 26.45%, 15.1%));
+    --theme-button-text-hover: var(--clr-blue-200, hsl(349.11, 100%, 0%));
+    --theme-button-text-active: var(--clr-red-200, hsl(352.37, 32.92%, 16.09%));
+    --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 13.96%));
+    --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 13.96%));
+    --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 13.96%));
+    --theme-field-border: var(--clr-purple-700, hsl(288.48, 35.22%, 73.08%));
+    --theme-field-border-hover: var(
+        --clr-blue-700,
+        hsl(167.33, 36.89%, 64.41%)
+    );
+    --theme-field-border-active: var(
+        --clr-red-700,
+        hsl(354.06, 54.89%, 76.23%)
+    );
+    --theme-field-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+    --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 97.73%));
+    --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 97.73%));
+    --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 97.73%));
+}
+
 @media (prefers-color-scheme: dark) {
-    html {
+    html,
+    [data-contrast-mode="average"] {
         --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
         --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
         --sys-clr-accent-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
@@ -1202,6 +1640,347 @@ html {
 }
 /*#endregion Tokens - Theme - dark mode + average contrast */
 /*#region Tokens - Theme - dark mode + low contrast */
+[data-brightness-mode="dark"][data-contrast-mode="low"] {
+    --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
+    --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+    --sys-clr-accent-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --sys-clr-accent-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+    --sys-clr-mark-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --sys-clr-mark-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+    --sys-clr-selected-bg: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+    --sys-clr-selected-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+    --sys-clr-selection-bg: var(--clr-purple-700, hsl(288.48, 35.22%, 73.08%));
+    --sys-clr-selection-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+    --sys-clr-text-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+    --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
+    --sys-clr-button-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --sys-clr-button-bg-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+    --sys-clr-button-bg-hover: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+    --sys-clr-button-border: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --sys-clr-button-border-active: var(
+        --clr-red-800,
+        hsl(355.24, 61.11%, 86.74%)
+    );
+    --sys-clr-button-border-hover: var(
+        --clr-blue-800,
+        hsl(166.2, 43.35%, 79.89%)
+    );
+    --sys-clr-button-text: var(--clr-purple-200, hsl(287.56, 26.45%, 15.1%));
+    --sys-clr-button-text-active: var(
+        --clr-red-200,
+        hsl(352.37, 32.92%, 16.09%)
+    );
+    --sys-clr-button-text-hover: var(--clr-blue-200, hsl(349.11, 100%, 0%));
+    --sys-clr-link: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --sys-clr-link-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+    --sys-clr-link-hover: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+    --sys-clr-link-visited: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --theme-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
+    --theme-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+    --theme-text-primary: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --theme-text-secondary: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+    --theme-text-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+    --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
+    --theme-ui: var(--clr-base-800, hsl(0, 0%, 84.33%));
+    --theme-ui-primary: var(--clr-purple-700, hsl(288.48, 35.22%, 73.08%));
+    --theme-ui-secondary: var(--clr-blue-700, hsl(167.33, 36.89%, 64.41%));
+    --theme-ui-active: var(--clr-red-700, hsl(354.06, 54.89%, 76.23%));
+    --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
+    --theme-selection-bg: var(--clr-purple-700, hsl(288.48, 35.22%, 73.08%));
+    --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+    --theme-link: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --theme-link-hover: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+    --theme-link-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+    --theme-link-visited: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --theme-button-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --theme-button-bg-hover: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+    --theme-button-bg-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+    --theme-button-border: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --theme-button-border-hover: var(
+        --clr-blue-800,
+        hsl(166.2, 43.35%, 79.89%)
+    );
+    --theme-button-border-active: var(
+        --clr-red-800,
+        hsl(355.24, 61.11%, 86.74%)
+    );
+    --theme-button-text: var(--clr-purple-200, hsl(287.56, 26.45%, 15.1%));
+    --theme-button-text-hover: var(--clr-blue-200, hsl(349.11, 100%, 0%));
+    --theme-button-text-active: var(--clr-red-200, hsl(352.37, 32.92%, 16.09%));
+    --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 13.96%));
+    --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 13.96%));
+    --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 13.96%));
+    --theme-field-border: var(--clr-purple-700, hsl(288.48, 35.22%, 73.08%));
+    --theme-field-border-hover: var(
+        --clr-blue-700,
+        hsl(167.33, 36.89%, 64.41%)
+    );
+    --theme-field-border-active: var(
+        --clr-red-700,
+        hsl(354.06, 54.89%, 76.23%)
+    );
+    --theme-field-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+    --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 97.73%));
+    --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 97.73%));
+    --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 97.73%));
+}
+
+@media (prefers-contrast: less) {
+    [data-brightness-mode="dark"] {
+        --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --sys-clr-accent-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --sys-clr-accent-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-mark-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --sys-clr-mark-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-selected-bg: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+        --sys-clr-selected-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-selection-bg: var(
+            --clr-purple-700,
+            hsl(288.48, 35.22%, 73.08%)
+        );
+        --sys-clr-selection-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-text-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+        --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
+        --sys-clr-button-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --sys-clr-button-bg-active: var(
+            --clr-red-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --sys-clr-button-bg-hover: var(
+            --clr-blue-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --sys-clr-button-border: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --sys-clr-button-border-active: var(
+            --clr-red-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --sys-clr-button-border-hover: var(
+            --clr-blue-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --sys-clr-button-text: var(
+            --clr-purple-200,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --sys-clr-button-text-active: var(
+            --clr-red-200,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --sys-clr-button-text-hover: var(--clr-blue-200, hsl(349.11, 100%, 0%));
+        --sys-clr-link: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --sys-clr-link-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+        --sys-clr-link-hover: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+        --sys-clr-link-visited: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-text-primary: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-text-secondary: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+        --theme-text-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+        --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
+        --theme-ui: var(--clr-base-800, hsl(0, 0%, 84.33%));
+        --theme-ui-primary: var(--clr-purple-700, hsl(288.48, 35.22%, 73.08%));
+        --theme-ui-secondary: var(--clr-blue-700, hsl(167.33, 36.89%, 64.41%));
+        --theme-ui-active: var(--clr-red-700, hsl(354.06, 54.89%, 76.23%));
+        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
+        --theme-selection-bg: var(
+            --clr-purple-700,
+            hsl(288.48, 35.22%, 73.08%)
+        );
+        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-link: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --theme-link-hover: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+        --theme-link-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+        --theme-link-visited: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-button-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --theme-button-bg-hover: var(
+            --clr-blue-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-button-bg-active: var(
+            --clr-red-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --theme-button-border: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-button-border-hover: var(
+            --clr-blue-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-button-border-active: var(
+            --clr-red-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --theme-button-text: var(--clr-purple-200, hsl(287.56, 26.45%, 15.1%));
+        --theme-button-text-hover: var(--clr-blue-200, hsl(349.11, 100%, 0%));
+        --theme-button-text-active: var(
+            --clr-red-200,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-field-border: var(
+            --clr-purple-700,
+            hsl(288.48, 35.22%, 73.08%)
+        );
+        --theme-field-border-hover: var(
+            --clr-blue-700,
+            hsl(167.33, 36.89%, 64.41%)
+        );
+        --theme-field-border-active: var(
+            --clr-red-700,
+            hsl(354.06, 54.89%, 76.23%)
+        );
+        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 97.73%));
+    }
+}
+@media (prefers-color-scheme: dark) {
+    [data-contrast-mode="low"] {
+        --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --sys-clr-accent-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --sys-clr-accent-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-mark-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --sys-clr-mark-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-selected-bg: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+        --sys-clr-selected-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-selection-bg: var(
+            --clr-purple-700,
+            hsl(288.48, 35.22%, 73.08%)
+        );
+        --sys-clr-selection-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-text-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+        --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
+        --sys-clr-button-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --sys-clr-button-bg-active: var(
+            --clr-red-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --sys-clr-button-bg-hover: var(
+            --clr-blue-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --sys-clr-button-border: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --sys-clr-button-border-active: var(
+            --clr-red-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --sys-clr-button-border-hover: var(
+            --clr-blue-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --sys-clr-button-text: var(
+            --clr-purple-200,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --sys-clr-button-text-active: var(
+            --clr-red-200,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --sys-clr-button-text-hover: var(--clr-blue-200, hsl(349.11, 100%, 0%));
+        --sys-clr-link: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --sys-clr-link-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+        --sys-clr-link-hover: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+        --sys-clr-link-visited: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-text-primary: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-text-secondary: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+        --theme-text-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+        --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
+        --theme-ui: var(--clr-base-800, hsl(0, 0%, 84.33%));
+        --theme-ui-primary: var(--clr-purple-700, hsl(288.48, 35.22%, 73.08%));
+        --theme-ui-secondary: var(--clr-blue-700, hsl(167.33, 36.89%, 64.41%));
+        --theme-ui-active: var(--clr-red-700, hsl(354.06, 54.89%, 76.23%));
+        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
+        --theme-selection-bg: var(
+            --clr-purple-700,
+            hsl(288.48, 35.22%, 73.08%)
+        );
+        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-link: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --theme-link-hover: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+        --theme-link-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+        --theme-link-visited: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-button-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --theme-button-bg-hover: var(
+            --clr-blue-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-button-bg-active: var(
+            --clr-red-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --theme-button-border: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-button-border-hover: var(
+            --clr-blue-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-button-border-active: var(
+            --clr-red-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --theme-button-text: var(--clr-purple-200, hsl(287.56, 26.45%, 15.1%));
+        --theme-button-text-hover: var(--clr-blue-200, hsl(349.11, 100%, 0%));
+        --theme-button-text-active: var(
+            --clr-red-200,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-field-border: var(
+            --clr-purple-700,
+            hsl(288.48, 35.22%, 73.08%)
+        );
+        --theme-field-border-hover: var(
+            --clr-blue-700,
+            hsl(167.33, 36.89%, 64.41%)
+        );
+        --theme-field-border-active: var(
+            --clr-red-700,
+            hsl(354.06, 54.89%, 76.23%)
+        );
+        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 97.73%));
+    }
+}
 @media (( prefers-color-scheme: dark ) and ( prefers-contrast: less )) {
     html {
         --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
@@ -1332,6 +2111,347 @@ html {
 }
 /*#endregion Tokens - Theme - dark mode + low contrast */
 /*#region Tokens - Theme - dark mode + high contrast */
+[data-brightness-mode="dark"][data-contrast-mode="high"] {
+    --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
+    --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+    --sys-clr-accent-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --sys-clr-accent-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+    --sys-clr-mark-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --sys-clr-mark-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+    --sys-clr-selected-bg: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+    --sys-clr-selected-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+    --sys-clr-selection-bg: var(--clr-purple-700, hsl(288.48, 35.22%, 73.08%));
+    --sys-clr-selection-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+    --sys-clr-text-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+    --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
+    --sys-clr-button-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --sys-clr-button-bg-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+    --sys-clr-button-bg-hover: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+    --sys-clr-button-border: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --sys-clr-button-border-active: var(
+        --clr-red-800,
+        hsl(355.24, 61.11%, 86.74%)
+    );
+    --sys-clr-button-border-hover: var(
+        --clr-blue-800,
+        hsl(166.2, 43.35%, 79.89%)
+    );
+    --sys-clr-button-text: var(--clr-purple-200, hsl(287.56, 26.45%, 15.1%));
+    --sys-clr-button-text-active: var(
+        --clr-red-200,
+        hsl(352.37, 32.92%, 16.09%)
+    );
+    --sys-clr-button-text-hover: var(--clr-blue-200, hsl(349.11, 100%, 0%));
+    --sys-clr-link: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --sys-clr-link-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+    --sys-clr-link-hover: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+    --sys-clr-link-visited: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --theme-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
+    --theme-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+    --theme-text-primary: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --theme-text-secondary: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+    --theme-text-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+    --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
+    --theme-ui: var(--clr-base-800, hsl(0, 0%, 84.33%));
+    --theme-ui-primary: var(--clr-purple-700, hsl(288.48, 35.22%, 73.08%));
+    --theme-ui-secondary: var(--clr-blue-700, hsl(167.33, 36.89%, 64.41%));
+    --theme-ui-active: var(--clr-red-700, hsl(354.06, 54.89%, 76.23%));
+    --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
+    --theme-selection-bg: var(--clr-purple-700, hsl(288.48, 35.22%, 73.08%));
+    --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+    --theme-link: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --theme-link-hover: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+    --theme-link-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+    --theme-link-visited: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --theme-button-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --theme-button-bg-hover: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+    --theme-button-bg-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+    --theme-button-border: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+    --theme-button-border-hover: var(
+        --clr-blue-800,
+        hsl(166.2, 43.35%, 79.89%)
+    );
+    --theme-button-border-active: var(
+        --clr-red-800,
+        hsl(355.24, 61.11%, 86.74%)
+    );
+    --theme-button-text: var(--clr-purple-200, hsl(287.56, 26.45%, 15.1%));
+    --theme-button-text-hover: var(--clr-blue-200, hsl(349.11, 100%, 0%));
+    --theme-button-text-active: var(--clr-red-200, hsl(352.37, 32.92%, 16.09%));
+    --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 13.96%));
+    --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 13.96%));
+    --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 13.96%));
+    --theme-field-border: var(--clr-purple-700, hsl(288.48, 35.22%, 73.08%));
+    --theme-field-border-hover: var(
+        --clr-blue-700,
+        hsl(167.33, 36.89%, 64.41%)
+    );
+    --theme-field-border-active: var(
+        --clr-red-700,
+        hsl(354.06, 54.89%, 76.23%)
+    );
+    --theme-field-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+    --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 97.73%));
+    --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 97.73%));
+    --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 97.73%));
+}
+
+@media (prefers-contrast: more) {
+    [data-brightness-mode="dark"] {
+        --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --sys-clr-accent-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --sys-clr-accent-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-mark-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --sys-clr-mark-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-selected-bg: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+        --sys-clr-selected-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-selection-bg: var(
+            --clr-purple-700,
+            hsl(288.48, 35.22%, 73.08%)
+        );
+        --sys-clr-selection-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-text-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+        --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
+        --sys-clr-button-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --sys-clr-button-bg-active: var(
+            --clr-red-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --sys-clr-button-bg-hover: var(
+            --clr-blue-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --sys-clr-button-border: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --sys-clr-button-border-active: var(
+            --clr-red-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --sys-clr-button-border-hover: var(
+            --clr-blue-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --sys-clr-button-text: var(
+            --clr-purple-200,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --sys-clr-button-text-active: var(
+            --clr-red-200,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --sys-clr-button-text-hover: var(--clr-blue-200, hsl(349.11, 100%, 0%));
+        --sys-clr-link: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --sys-clr-link-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+        --sys-clr-link-hover: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+        --sys-clr-link-visited: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-text-primary: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-text-secondary: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+        --theme-text-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+        --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
+        --theme-ui: var(--clr-base-800, hsl(0, 0%, 84.33%));
+        --theme-ui-primary: var(--clr-purple-700, hsl(288.48, 35.22%, 73.08%));
+        --theme-ui-secondary: var(--clr-blue-700, hsl(167.33, 36.89%, 64.41%));
+        --theme-ui-active: var(--clr-red-700, hsl(354.06, 54.89%, 76.23%));
+        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
+        --theme-selection-bg: var(
+            --clr-purple-700,
+            hsl(288.48, 35.22%, 73.08%)
+        );
+        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-link: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --theme-link-hover: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+        --theme-link-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+        --theme-link-visited: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-button-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --theme-button-bg-hover: var(
+            --clr-blue-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-button-bg-active: var(
+            --clr-red-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --theme-button-border: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-button-border-hover: var(
+            --clr-blue-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-button-border-active: var(
+            --clr-red-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --theme-button-text: var(--clr-purple-200, hsl(287.56, 26.45%, 15.1%));
+        --theme-button-text-hover: var(--clr-blue-200, hsl(349.11, 100%, 0%));
+        --theme-button-text-active: var(
+            --clr-red-200,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-field-border: var(
+            --clr-purple-700,
+            hsl(288.48, 35.22%, 73.08%)
+        );
+        --theme-field-border-hover: var(
+            --clr-blue-700,
+            hsl(167.33, 36.89%, 64.41%)
+        );
+        --theme-field-border-active: var(
+            --clr-red-700,
+            hsl(354.06, 54.89%, 76.23%)
+        );
+        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 97.73%));
+    }
+}
+@media (prefers-color-scheme: dark) {
+    [data-contrast-mode="high"] {
+        --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --sys-clr-accent-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --sys-clr-accent-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-mark-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --sys-clr-mark-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-selected-bg: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+        --sys-clr-selected-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-selection-bg: var(
+            --clr-purple-700,
+            hsl(288.48, 35.22%, 73.08%)
+        );
+        --sys-clr-selection-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-text-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+        --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
+        --sys-clr-button-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --sys-clr-button-bg-active: var(
+            --clr-red-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --sys-clr-button-bg-hover: var(
+            --clr-blue-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --sys-clr-button-border: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --sys-clr-button-border-active: var(
+            --clr-red-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --sys-clr-button-border-hover: var(
+            --clr-blue-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --sys-clr-button-text: var(
+            --clr-purple-200,
+            hsl(287.56, 26.45%, 15.1%)
+        );
+        --sys-clr-button-text-active: var(
+            --clr-red-200,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --sys-clr-button-text-hover: var(--clr-blue-200, hsl(349.11, 100%, 0%));
+        --sys-clr-link: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --sys-clr-link-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+        --sys-clr-link-hover: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+        --sys-clr-link-visited: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-text-primary: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-text-secondary: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+        --theme-text-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+        --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
+        --theme-ui: var(--clr-base-800, hsl(0, 0%, 84.33%));
+        --theme-ui-primary: var(--clr-purple-700, hsl(288.48, 35.22%, 73.08%));
+        --theme-ui-secondary: var(--clr-blue-700, hsl(167.33, 36.89%, 64.41%));
+        --theme-ui-active: var(--clr-red-700, hsl(354.06, 54.89%, 76.23%));
+        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
+        --theme-selection-bg: var(
+            --clr-purple-700,
+            hsl(288.48, 35.22%, 73.08%)
+        );
+        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-link: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --theme-link-hover: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
+        --theme-link-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
+        --theme-link-visited: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-button-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
+        --theme-button-bg-hover: var(
+            --clr-blue-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-button-bg-active: var(
+            --clr-red-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --theme-button-border: var(
+            --clr-purple-800,
+            hsl(289.28, 39.64%, 84.78%)
+        );
+        --theme-button-border-hover: var(
+            --clr-blue-800,
+            hsl(166.2, 43.35%, 79.89%)
+        );
+        --theme-button-border-active: var(
+            --clr-red-800,
+            hsl(355.24, 61.11%, 86.74%)
+        );
+        --theme-button-text: var(--clr-purple-200, hsl(287.56, 26.45%, 15.1%));
+        --theme-button-text-hover: var(--clr-blue-200, hsl(349.11, 100%, 0%));
+        --theme-button-text-active: var(
+            --clr-red-200,
+            hsl(352.37, 32.92%, 16.09%)
+        );
+        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-field-border: var(
+            --clr-purple-700,
+            hsl(288.48, 35.22%, 73.08%)
+        );
+        --theme-field-border-hover: var(
+            --clr-blue-700,
+            hsl(167.33, 36.89%, 64.41%)
+        );
+        --theme-field-border-active: var(
+            --clr-red-700,
+            hsl(354.06, 54.89%, 76.23%)
+        );
+        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 97.73%));
+    }
+}
 @media (( prefers-color-scheme: dark ) and ( prefers-contrast: more )) {
     html {
         --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
@@ -1462,56 +2582,9 @@ html {
 }
 /*#endregion Tokens - Theme - dark mode + high contrast */
 /*#region Tokens - Theme - dark mode + forced-colors contrast */
-@media (( prefers-color-scheme: dark ) and ( forced-colors: active )),
-    (( prefers-color-scheme: dark ) and ( prefers-contrast: custom )) {
-    html {
-        --sys-clr-background: Canvas !important;
-        --sys-clr-text: CanvasText !important;
-        --sys-clr-accent-bg: CanvasText !important;
-        --sys-clr-accent-bg: AccentColor !important;
-        --sys-clr-accent-text: Canvas !important;
-        --sys-clr-accent-text: AccentColorText !important;
-        --sys-clr-mark-bg: CanvasText !important;
-        --sys-clr-mark-bg: AccentColor !important;
-        --sys-clr-mark-bg: Mark !important;
-        --sys-clr-mark-text: Canvas !important;
-        --sys-clr-mark-text: AccentColorText !important;
-        --sys-clr-mark-text: MarkText !important;
-        --sys-clr-selected-bg: SelectedItem !important;
-        --sys-clr-selected-text: SelectedItemText !important;
-        --sys-clr-selection-bg: Highlight !important;
-        --sys-clr-selection-text: HighlightText !important;
-        --sys-clr-text-active: ActiveText !important;
-        --sys-clr-text-disabled: GrayText !important;
-        --sys-clr-button-bg: ButtonFace !important;
-        --sys-clr-button-bg-active: ButtonFace !important;
-        --sys-clr-button-bg-hover: SelectedItem !important;
-        --sys-clr-button-border: ButtonFace !important;
-        --sys-clr-button-border: ButtonBorder !important;
-        --sys-clr-button-border-active: ButtonFace !important;
-        --sys-clr-button-border-active: ButtonBorder !important;
-        --sys-clr-button-border-hover: SelectedItem !important;
-        --sys-clr-button-text: ButtonText !important;
-        --sys-clr-button-text-active: ButtonText !important;
-        --sys-clr-button-text-hover: SelectedItemText !important;
-        --sys-clr-input-bg: Field !important;
-        --sys-clr-input-bg-hover: SelectedItem !important;
-        --sys-clr-input-bg-active: Field !important;
-        --sys-clr-input-border: FieldText !important;
-        --sys-clr-input-border-hover: SelectedItem !important;
-        --sys-clr-input-border-active: FieldText !important;
-        --sys-clr-input-text: FieldText !important;
-        --sys-clr-input-text-hover: SelectedItemText !important;
-        --sys-clr-input-text-active: FieldText !important;
-        --sys-clr-link: LinkText !important;
-        --sys-clr-link-active: ActiveText !important;
-        --sys-clr-link-hover: ActiveText !important;
-        --sys-clr-link-visited: VisitedText !important;
-    }
-}
 /*#endregion Tokens - Theme - dark mode + forced-colors contrast */
 /*#region Tokens - Theme - forced-colors contrast */
-html {
+[data-contrast-mode="forced-colors"] {
     --sys-clr-background: Canvas !important;
     --sys-clr-text: CanvasText !important;
     --sys-clr-accent-bg: CanvasText !important;
@@ -1892,11 +2965,19 @@ summary {
 html {
     color-scheme: light, dark;
 }
+html[data-brightness-mode="light"] {
+    color-scheme: light;
+}
+
 @media (prefers-color-scheme: light) {
     html {
         color-scheme: light;
     }
 }
+html[data-brightness-mode="dark"] {
+    color-scheme: dark;
+}
+
 @media (prefers-color-scheme: dark) {
     html {
         color-scheme: dark;
@@ -2048,24 +3129,24 @@ hr {
 /* # TYPOGRAPHY
  * ======================================================================== */
 ::-moz-selection {
-    background-color: Highlight;
+    background-color: hsl(287.04, 29.43%, 26.02%);
     background-color: var(--sys-clr-selection-bg, Highlight);
-    color: HighlightText;
+    color: hsl(0, 0%, 84.33%);
     color: var(--sys-clr-selection-text, HighlightText);
 }
 ::selection {
-    background-color: Highlight;
+    background-color: hsl(287.04, 29.43%, 26.02%);
     background-color: var(--sys-clr-selection-bg, Highlight);
-    color: HighlightText;
+    color: hsl(0, 0%, 84.33%);
     color: var(--sys-clr-selection-text, HighlightText);
 }
 
 html {
     line-height: 1.6875;
     line-height: var(--line-height-400, 1.6875);
-    background: Canvas;
+    background: hsl(0, 0%, 84.33%);
     background: var(--sys-clr-background, Canvas);
-    color: CanvasText;
+    color: hsl(0, 0%, 2.86%);
     color: var(--sys-clr-text, CanvasText);
 }
 
@@ -2106,40 +3187,40 @@ a {
     text-decoration: underline var(--stroke-relative-200, 0.0625em);
     text-underline-offset: 0.1875em;
     text-underline-offset: var(--stroke-relative-600, 0.1875em);
-    color: LinkText;
+    color: hsl(287.56, 26.45%, 15.1%);
     color: var(--sys-clr-link, LinkText);
 }
 a:visited {
-    color: VisitedText;
+    color: hsl(287.56, 26.45%, 15.1%);
     color: var(--sys-clr-link-visited, VisitedText);
 }
 .no-js a:focus,
 .js__no-where-selector a:focus {
     text-decoration-color: transparent;
-    color: ActiveText;
+    color: hsl(349.11, 100%, 0%);
     color: var(--sys-clr-link-hover, ActiveText);
 }
 
 :where(.js__no-focusVisible) a:focus {
     text-decoration-color: transparent;
-    color: ActiveText;
+    color: hsl(349.11, 100%, 0%);
     color: var(--sys-clr-link-hover, ActiveText);
 }
 
 a:hover {
     text-decoration-color: transparent;
-    color: ActiveText;
+    color: hsl(349.11, 100%, 0%);
     color: var(--sys-clr-link-hover, ActiveText);
 }
 
 a:focus-visible {
     text-decoration-color: transparent;
-    color: ActiveText;
+    color: hsl(349.11, 100%, 0%);
     color: var(--sys-clr-link-hover, ActiveText);
 }
 
 a:active {
-    color: ActiveText;
+    color: hsl(352.37, 32.92%, 16.09%);
     color: var(--sys-clr-link-active, ActiveText);
 }
 a.no-style {
@@ -2151,7 +3232,7 @@ a[aria-disabled="true"] {
     text-decoration-line: line-through;
     opacity: 1;
     cursor: not-allowed;
-    color: GrayText;
+    color: hsl(0, 0%, 13.96%);
     color: var(--sys-clr-text-disabled, GrayText);
 }
 
@@ -2211,11 +3292,19 @@ blockquote > cite::before {
     content: "— ";
     color: currentColor;
 }
+[data-contrast-mode="low"] blockquote > cite {
+    color: color-mix(in srgb, currentColor 75%, transparent);
+}
+
 @media (prefers-contrast: less) {
     blockquote > cite {
         color: color-mix(in srgb, currentColor 75%, transparent);
     }
 }
+[data-contrast-mode="high"] blockquote > cite {
+    color: color-mix(in srgb, currentColor 87.5%, transparent);
+}
+
 @media (prefers-contrast: more) {
     blockquote > cite {
         color: color-mix(in srgb, currentColor 87.5%, transparent);
@@ -2475,37 +3564,37 @@ fieldset {
     padding: 0.5rem 1.25rem 0.8125rem;
     padding: var(--mrg-soft-300, 0.5rem) var(--mrg-firm-400, 1.25rem)
         var(--mrg-firm-300, 0.8125rem);
-    border: 0.0625rem solid AccentColor;
+    border: 0.0625rem solid hsl(287.56, 26.45%, 15.1%);
     border: 0.0625rem solid var(--sys-clr-accent-bg, CanvasText);
     border-radius: 0;
-    background-color: Canvas;
+    background-color: hsl(0, 0%, 84.33%);
     background-color: var(--sys-clr-background, Canvas);
-    color: CanvasText;
+    color: hsl(0, 0%, 2.86%);
     color: var(--sys-clr-text, CanvasText);
 }
 .no-js fieldset:focus,
 .js__no-where-selector fieldset:focus {
-    border-color: ActiveText;
+    border-color: hsl(352.37, 32.92%, 16.09%);
     border-color: var(--sys-clr-text-active, ActiveText);
 }
 
 :where(.js__no-focusVisible) fieldset:focus {
-    border-color: ActiveText;
+    border-color: hsl(352.37, 32.92%, 16.09%);
     border-color: var(--sys-clr-text-active, ActiveText);
 }
 
 fieldset:focus-visible {
-    border-color: ActiveText;
+    border-color: hsl(352.37, 32.92%, 16.09%);
     border-color: var(--sys-clr-text-active, ActiveText);
 }
 
 fieldset:focus-within {
-    border-color: ActiveText;
+    border-color: hsl(352.37, 32.92%, 16.09%);
     border-color: var(--sys-clr-text-active, ActiveText);
 }
 
 fieldset:active {
-    border-color: AccentColor;
+    border-color: hsl(287.56, 26.45%, 15.1%);
     border-color: var(--sys-clr-accent-bg, CanvasText);
 }
 fieldset legend {
@@ -2650,7 +3739,7 @@ input:active {
     border-color: var(--sys-clr-input-border-active, FieldText);
     color: FieldText;
     color: var(--sys-clr-input-text-active, FieldText);
-    accent-color: ActiveText;
+    accent-color: hsl(352.37, 32.92%, 16.09%);
     accent-color: var(--sys-clr-text-active, ActiveText);
 }
 textarea::-moz-placeholder,
@@ -2665,6 +3754,17 @@ input::placeholder {
     opacity: 1;
     color: currentColor;
 }
+[data-contrast-mode="low"] textarea::-moz-placeholder,
+[data-contrast-mode="low"] select::-moz-placeholder,
+[data-contrast-mode="low"] input::-moz-placeholder {
+    color: color-mix(in srgb, currentColor 62.5%, transparent);
+}
+[data-contrast-mode="low"] textarea::placeholder,
+[data-contrast-mode="low"] select::placeholder,
+[data-contrast-mode="low"] input::placeholder {
+    color: color-mix(in srgb, currentColor 62.5%, transparent);
+}
+
 @media (prefers-contrast: less) {
     textarea::-moz-placeholder,
     select::-moz-placeholder,
@@ -2677,6 +3777,17 @@ input::placeholder {
         color: color-mix(in srgb, currentColor 62.5%, transparent);
     }
 }
+[data-contrast-mode="high"] textarea::-moz-placeholder,
+[data-contrast-mode="high"] select::-moz-placeholder,
+[data-contrast-mode="high"] input::-moz-placeholder {
+    color: color-mix(in srgb, currentColor 87.5%, transparent);
+}
+[data-contrast-mode="high"] textarea::placeholder,
+[data-contrast-mode="high"] select::placeholder,
+[data-contrast-mode="high"] input::placeholder {
+    color: color-mix(in srgb, currentColor 87.5%, transparent);
+}
+
 @media (prefers-contrast: more) {
     textarea::-moz-placeholder,
     select::-moz-placeholder,
@@ -2767,7 +3878,7 @@ input[type="radio"]:focus-within {
 
 input[type="checkbox"]:active,
 input[type="radio"]:active {
-    accent-color: ActiveText;
+    accent-color: hsl(352.37, 32.92%, 16.09%);
     accent-color: var(--sys-clr-text-active, ActiveText);
 }
 input[type="color"] {
@@ -2826,15 +3937,15 @@ input[type="reset"],
     font: inherit;
     line-height: 1.1875;
     line-height: var(--line-height-100, 1.1875);
-    border: 0.125rem solid ButtonBorder;
+    border: 0.125rem solid hsl(287.56, 26.45%, 15.1%);
     border: 0.125rem solid var(--sys-clr-button-border, ButtonFace);
     border-radius: 0;
     --focus-ring-outline-color: var(--sys-clr-button-text, ButtonText);
-    background-color: ButtonFace;
+    background-color: hsl(287.56, 26.45%, 15.1%);
     background-color: var(--sys-clr-button-bg, ButtonFace);
-    color: ButtonText;
+    color: hsl(289.28, 39.64%, 84.78%);
     color: var(--sys-clr-button-text, ButtonText);
-    accent-color: ButtonText;
+    accent-color: hsl(289.28, 39.64%, 84.78%);
     accent-color: var(--sys-clr-button-text, ButtonText);
 }
 .no-js button:focus,
@@ -2857,13 +3968,13 @@ input[type="reset"],
         --sys-clr-button-text-hover,
         SelectedItemText
     );
-    background-color: SelectedItem;
+    background-color: hsl(349.11, 100%, 0%);
     background-color: var(--sys-clr-button-bg-hover, SelectedItem);
-    border-color: SelectedItem;
+    border-color: hsl(349.11, 100%, 0%);
     border-color: var(--sys-clr-button-border-hover, SelectedItem);
-    color: SelectedItemText;
+    color: hsl(166.2, 43.35%, 79.89%);
     color: var(--sys-clr-button-text-hover, SelectedItemText);
-    accent-color: SelectedItemText;
+    accent-color: hsl(166.2, 43.35%, 79.89%);
     accent-color: var(--sys-clr-button-text-hover, SelectedItemText);
 }
 .no-js .no-js button:focus:focus,
@@ -3132,13 +4243,13 @@ input[type="reset"],
         --sys-clr-button-text-hover,
         SelectedItemText
     );
-    background-color: SelectedItem;
+    background-color: hsl(349.11, 100%, 0%);
     background-color: var(--sys-clr-button-bg-hover, SelectedItem);
-    border-color: SelectedItem;
+    border-color: hsl(349.11, 100%, 0%);
     border-color: var(--sys-clr-button-border-hover, SelectedItem);
-    color: SelectedItemText;
+    color: hsl(166.2, 43.35%, 79.89%);
     color: var(--sys-clr-button-text-hover, SelectedItemText);
-    accent-color: SelectedItemText;
+    accent-color: hsl(166.2, 43.35%, 79.89%);
     accent-color: var(--sys-clr-button-text-hover, SelectedItemText);
 }
 .no-js :where(.js__no-focusVisible) button:focus:focus,
@@ -3327,13 +4438,13 @@ input[type="reset"]:hover,
         --sys-clr-button-text-hover,
         SelectedItemText
     );
-    background-color: SelectedItem;
+    background-color: hsl(349.11, 100%, 0%);
     background-color: var(--sys-clr-button-bg-hover, SelectedItem);
-    border-color: SelectedItem;
+    border-color: hsl(349.11, 100%, 0%);
     border-color: var(--sys-clr-button-border-hover, SelectedItem);
-    color: SelectedItemText;
+    color: hsl(166.2, 43.35%, 79.89%);
     color: var(--sys-clr-button-text-hover, SelectedItemText);
-    accent-color: SelectedItemText;
+    accent-color: hsl(166.2, 43.35%, 79.89%);
     accent-color: var(--sys-clr-button-text-hover, SelectedItemText);
 }
 .no-js button:hover:focus,
@@ -3472,13 +4583,13 @@ input[type="reset"]:focus-visible,
         --sys-clr-button-text-hover,
         SelectedItemText
     );
-    background-color: SelectedItem;
+    background-color: hsl(349.11, 100%, 0%);
     background-color: var(--sys-clr-button-bg-hover, SelectedItem);
-    border-color: SelectedItem;
+    border-color: hsl(349.11, 100%, 0%);
     border-color: var(--sys-clr-button-border-hover, SelectedItem);
-    color: SelectedItemText;
+    color: hsl(166.2, 43.35%, 79.89%);
     color: var(--sys-clr-button-text-hover, SelectedItemText);
-    accent-color: SelectedItemText;
+    accent-color: hsl(166.2, 43.35%, 79.89%);
     accent-color: var(--sys-clr-button-text-hover, SelectedItemText);
 }
 .no-js button:focus-visible:focus,
@@ -3617,13 +4728,13 @@ input[type="reset"]:focus-within,
         --sys-clr-button-text-hover,
         SelectedItemText
     );
-    background-color: SelectedItem;
+    background-color: hsl(349.11, 100%, 0%);
     background-color: var(--sys-clr-button-bg-hover, SelectedItem);
-    border-color: SelectedItem;
+    border-color: hsl(349.11, 100%, 0%);
     border-color: var(--sys-clr-button-border-hover, SelectedItem);
-    color: SelectedItemText;
+    color: hsl(166.2, 43.35%, 79.89%);
     color: var(--sys-clr-button-text-hover, SelectedItemText);
-    accent-color: SelectedItemText;
+    accent-color: hsl(166.2, 43.35%, 79.89%);
     accent-color: var(--sys-clr-button-text-hover, SelectedItemText);
 }
 .no-js button:focus-within:focus,
@@ -3759,13 +4870,13 @@ input[type="reset"]:active,
 :active::file-selector-button,
 .button-secondary:active {
     --focus-ring-outline-color: var(--sys-clr-button-text-active, ButtonText);
-    background-color: ButtonFace;
+    background-color: hsl(352.37, 32.92%, 16.09%);
     background-color: var(--sys-clr-button-bg-active, ButtonFace);
-    border-color: ButtonBorder;
+    border-color: hsl(352.37, 32.92%, 16.09%);
     border-color: var(--sys-clr-button-border-active, ButtonFace);
-    color: ButtonText;
+    color: hsl(355.24, 61.11%, 86.74%);
     color: var(--sys-clr-button-text-active, ButtonText);
-    accent-color: ButtonText;
+    accent-color: hsl(355.24, 61.11%, 86.74%);
     accent-color: var(--sys-clr-button-text-active, ButtonText);
 }
 button,
@@ -3799,7 +4910,7 @@ label {
     font-weight: 600;
     line-height: 1.3125;
     line-height: var(--line-height-200, 1.3125);
-    color: CanvasText;
+    color: hsl(0, 0%, 2.86%);
     color: var(--sys-clr-text, CanvasText);
 }
 label:has(> :where(input[type="checkbox"], input[type="radio"])) {
@@ -3815,7 +4926,7 @@ label:has(> :where(input[type="checkbox"], input[type="radio"])) {
     line-height: 1.6875;
     line-height: var(--line-height-400, 1.6875);
     text-wrap: balance;
-    color: CanvasText;
+    color: hsl(0, 0%, 2.86%);
     color: var(--sys-clr-text, CanvasText);
     cursor: pointer;
 }
@@ -3850,7 +4961,7 @@ table {
     margin-bottom: calc(
         var(--mrg-soft-600, 1.625rem) - var(--mrg-soft-400, 0.8125rem)
     );
-    background: AccentColor;
+    background: hsl(287.56, 26.45%, 15.1%);
     background: var(--sys-clr-accent-bg, CanvasText);
     width: min(calc(36rem + max(1.25rem, min(8svw, 7.125rem)) + 16rem), 100%);
     width: min(var(--width-page, 53rem), 100%);
@@ -3879,7 +4990,7 @@ td {
     padding: 0.3125rem 0.8125rem;
     padding: var(--mrg-soft-200, 0.3125rem) var(--mrg-firm-300, 0.8125rem);
     min-width: 10em;
-    background: Canvas;
+    background: hsl(0, 0%, 84.33%);
     background: var(--sys-clr-background, Canvas);
     vertical-align: top;
     text-align: left;
@@ -3898,9 +5009,9 @@ th {
     padding-top: var(--mrg-soft-200, 0.3125rem);
     padding-bottom: 0.3125rem;
     padding-bottom: var(--mrg-soft-200, 0.3125rem);
-    background: AccentColor;
+    background: hsl(287.56, 26.45%, 15.1%);
     background: var(--sys-clr-accent-bg, CanvasText);
-    color: AccentColorText;
+    color: hsl(0, 0%, 84.33%);
     color: var(--sys-clr-accent-text, Canvas);
 }
 
@@ -4539,7 +5650,7 @@ body > aside > :first-child {
 }
 
 :where(.js) [data-toggle-container="open"] [data-toggle-control] {
-    color: ActiveText;
+    color: hsl(352.37, 32.92%, 16.09%);
     color: var(--sys-clr-text-active, ActiveText);
 }
 
@@ -4550,7 +5661,7 @@ body > aside > :first-child {
     [data-toggle-control]:focus,
 .js__no-where-selector [data-toggle-control]:focus {
     text-decoration-color: transparent;
-    color: LinkText;
+    color: hsl(287.56, 26.45%, 15.1%);
     color: var(--sys-clr-link, LinkText);
 }
 
@@ -4559,21 +5670,21 @@ body > aside > :first-child {
     [data-toggle-control]:focus,
 :where(.js__no-focusVisible) [data-toggle-control]:focus {
     text-decoration-color: transparent;
-    color: LinkText;
+    color: hsl(287.56, 26.45%, 15.1%);
     color: var(--sys-clr-link, LinkText);
 }
 
 [data-toggle-container="open"] [data-toggle-control]:hover,
 [data-toggle-control]:hover {
     text-decoration-color: transparent;
-    color: LinkText;
+    color: hsl(287.56, 26.45%, 15.1%);
     color: var(--sys-clr-link, LinkText);
 }
 
 [data-toggle-container="open"] [data-toggle-control]:focus-visible,
 [data-toggle-control]:focus-visible {
     text-decoration-color: transparent;
-    color: LinkText;
+    color: hsl(287.56, 26.45%, 15.1%);
     color: var(--sys-clr-link, LinkText);
 }
 
@@ -4615,9 +5726,9 @@ body > aside > :first-child {
     padding-right: 0.8125rem;
     padding-left: var(--mrg-firm-300, 0.8125rem);
     padding-right: var(--mrg-firm-300, 0.8125rem);
-    background: Canvas;
+    background: hsl(0, 0%, 84.33%);
     background: var(--sys-clr-background, Canvas);
-    color: CanvasText;
+    color: hsl(0, 0%, 2.86%);
     color: var(--sys-clr-text, CanvasText);
 }
 :where(.js) body > nav[data-toggle-container] .toggle-title {
@@ -4641,9 +5752,9 @@ body > aside > :first-child {
     border-bottom: var(--border-width-200, 0.125rem) solid currentColor;
     font-size: clamp(0.875rem, 1.5625svw + 1rem, 1.3125rem);
     font-size: var(--fs-heading-6, 1.1875rem);
-    background: Canvas;
+    background: hsl(0, 0%, 84.33%);
     background: var(--sys-clr-background, Canvas);
-    color: CanvasText;
+    color: hsl(0, 0%, 2.86%);
     color: var(--sys-clr-text, CanvasText);
 }
 :where(.js)
@@ -4698,7 +5809,7 @@ body > aside > :first-child {
 }
 
 .website-settings__content {
-    background: Canvas;
+    background: hsl(0, 0%, 84.33%);
     background: var(--sys-clr-background, Canvas);
     width: -moz-fit-content;
     width: fit-content;
@@ -4823,15 +5934,15 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     font: inherit;
     line-height: 1.1875;
     line-height: var(--line-height-100, 1.1875);
-    border: 0.125rem solid ButtonBorder;
+    border: 0.125rem solid hsl(287.56, 26.45%, 15.1%);
     border: 0.125rem solid var(--sys-clr-button-border, ButtonFace);
     border-radius: 0;
     --focus-ring-outline-color: var(--sys-clr-button-text, ButtonText);
-    background-color: ButtonFace;
+    background-color: hsl(287.56, 26.45%, 15.1%);
     background-color: var(--sys-clr-button-bg, ButtonFace);
-    color: ButtonText;
+    color: hsl(289.28, 39.64%, 84.78%);
     color: var(--sys-clr-button-text, ButtonText);
-    accent-color: ButtonText;
+    accent-color: hsl(289.28, 39.64%, 84.78%);
     accent-color: var(--sys-clr-button-text, ButtonText);
 }
 .no-js :where(.js) .website-settings-menu [data-toggle-control]:focus,
@@ -4843,13 +5954,13 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
         --sys-clr-button-text-hover,
         SelectedItemText
     );
-    background-color: SelectedItem;
+    background-color: hsl(349.11, 100%, 0%);
     background-color: var(--sys-clr-button-bg-hover, SelectedItem);
-    border-color: SelectedItem;
+    border-color: hsl(349.11, 100%, 0%);
     border-color: var(--sys-clr-button-border-hover, SelectedItem);
-    color: SelectedItemText;
+    color: hsl(166.2, 43.35%, 79.89%);
     color: var(--sys-clr-button-text-hover, SelectedItemText);
-    accent-color: SelectedItemText;
+    accent-color: hsl(166.2, 43.35%, 79.89%);
     accent-color: var(--sys-clr-button-text-hover, SelectedItemText);
 }
 .no-js
@@ -4871,6 +5982,46 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     .js__no-where-selector
     :where(.js)
     .website-settings-menu
+    [data-toggle-control]:focus:focus,
+[data-contrast-mode="low"].no-js
+    .no-js
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus:focus,
+[data-contrast-mode="low"].no-js
+    .js__no-where-selector
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus:focus,
+[data-contrast-mode="low"].js__no-where-selector
+    .no-js
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus:focus,
+[data-contrast-mode="low"].js__no-where-selector
+    .js__no-where-selector
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus:focus,
+[data-contrast-mode="average"].no-js
+    .no-js
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus:focus,
+[data-contrast-mode="average"].no-js
+    .js__no-where-selector
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus:focus,
+[data-contrast-mode="average"].js__no-where-selector
+    .no-js
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus:focus,
+[data-contrast-mode="average"].js__no-where-selector
+    .js__no-where-selector
+    :where(.js)
+    .website-settings-menu
     [data-toggle-control]:focus:focus {
     opacity: 0.875;
 }
@@ -4881,6 +6032,26 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     .website-settings-menu
     [data-toggle-control]:focus:focus,
 :where(.js__no-focusVisible)
+    .js__no-where-selector
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus:focus,
+[data-contrast-mode="low"]:where(.js__no-focusVisible)
+    .no-js
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus:focus,
+[data-contrast-mode="low"]:where(.js__no-focusVisible)
+    .js__no-where-selector
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus:focus,
+[data-contrast-mode="average"]:where(.js__no-focusVisible)
+    .no-js
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus:focus,
+[data-contrast-mode="average"]:where(.js__no-focusVisible)
     .js__no-where-selector
     :where(.js)
     .website-settings-menu
@@ -4931,6 +6102,26 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
 .js__no-where-selector
     :where(.js)
     .website-settings-menu
+    [data-toggle-control]:focus:focus-visible,
+[data-contrast-mode="low"]
+    .no-js
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus:focus-visible,
+[data-contrast-mode="low"]
+    .js__no-where-selector
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus:focus-visible,
+[data-contrast-mode="average"]
+    .no-js
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus:focus-visible,
+[data-contrast-mode="average"]
+    .js__no-where-selector
+    :where(.js)
+    .website-settings-menu
     [data-toggle-control]:focus:focus-visible {
     opacity: 0.875;
 }
@@ -4941,11 +6132,51 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
 .js__no-where-selector
     :where(.js)
     .website-settings-menu
+    [data-toggle-control]:focus:focus-within,
+[data-contrast-mode="low"]
+    .no-js
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus:focus-within,
+[data-contrast-mode="low"]
+    .js__no-where-selector
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus:focus-within,
+[data-contrast-mode="average"]
+    .no-js
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus:focus-within,
+[data-contrast-mode="average"]
+    .js__no-where-selector
+    :where(.js)
+    .website-settings-menu
     [data-toggle-control]:focus:focus-within {
     opacity: 0.875;
 }
 .no-js :where(.js) .website-settings-menu [data-toggle-control]:focus:hover,
 .js__no-where-selector
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus:hover,
+[data-contrast-mode="low"]
+    .no-js
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus:hover,
+[data-contrast-mode="low"]
+    .js__no-where-selector
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus:hover,
+[data-contrast-mode="average"]
+    .no-js
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus:hover,
+[data-contrast-mode="average"]
+    .js__no-where-selector
     :where(.js)
     .website-settings-menu
     [data-toggle-control]:focus:hover {
@@ -4990,13 +6221,13 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
         --sys-clr-button-text-hover,
         SelectedItemText
     );
-    background-color: SelectedItem;
+    background-color: hsl(349.11, 100%, 0%);
     background-color: var(--sys-clr-button-bg-hover, SelectedItem);
-    border-color: SelectedItem;
+    border-color: hsl(349.11, 100%, 0%);
     border-color: var(--sys-clr-button-border-hover, SelectedItem);
-    color: SelectedItemText;
+    color: hsl(166.2, 43.35%, 79.89%);
     color: var(--sys-clr-button-text-hover, SelectedItemText);
-    accent-color: SelectedItemText;
+    accent-color: hsl(166.2, 43.35%, 79.89%);
     accent-color: var(--sys-clr-button-text-hover, SelectedItemText);
 }
 .no-js
@@ -5008,11 +6239,41 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     :where(.js__no-focusVisible)
     :where(.js)
     .website-settings-menu
+    [data-toggle-control]:focus:focus,
+[data-contrast-mode="low"].no-js
+    :where(.js__no-focusVisible)
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus:focus,
+[data-contrast-mode="low"].js__no-where-selector
+    :where(.js__no-focusVisible)
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus:focus,
+[data-contrast-mode="average"].no-js
+    :where(.js__no-focusVisible)
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus:focus,
+[data-contrast-mode="average"].js__no-where-selector
+    :where(.js__no-focusVisible)
+    :where(.js)
+    .website-settings-menu
     [data-toggle-control]:focus:focus {
     opacity: 0.875;
 }
 
 :where(.js__no-focusVisible)
+    :where(.js__no-focusVisible)
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus:focus,
+[data-contrast-mode="low"]:where(.js__no-focusVisible)
+    :where(.js__no-focusVisible)
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus:focus,
+[data-contrast-mode="average"]:where(.js__no-focusVisible)
     :where(.js__no-focusVisible)
     :where(.js)
     .website-settings-menu
@@ -5044,16 +6305,46 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
 :where(.js__no-focusVisible)
     :where(.js)
     .website-settings-menu
+    [data-toggle-control]:focus:focus-visible,
+[data-contrast-mode="low"]
+    :where(.js__no-focusVisible)
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus:focus-visible,
+[data-contrast-mode="average"]
+    :where(.js__no-focusVisible)
+    :where(.js)
+    .website-settings-menu
     [data-toggle-control]:focus:focus-visible {
     opacity: 0.875;
 }
 :where(.js__no-focusVisible)
     :where(.js)
     .website-settings-menu
+    [data-toggle-control]:focus:focus-within,
+[data-contrast-mode="low"]
+    :where(.js__no-focusVisible)
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus:focus-within,
+[data-contrast-mode="average"]
+    :where(.js__no-focusVisible)
+    :where(.js)
+    .website-settings-menu
     [data-toggle-control]:focus:focus-within {
     opacity: 0.875;
 }
 :where(.js__no-focusVisible)
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus:hover,
+[data-contrast-mode="low"]
+    :where(.js__no-focusVisible)
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus:hover,
+[data-contrast-mode="average"]
+    :where(.js__no-focusVisible)
     :where(.js)
     .website-settings-menu
     [data-toggle-control]:focus:hover {
@@ -5086,17 +6377,33 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
         --sys-clr-button-text-hover,
         SelectedItemText
     );
-    background-color: SelectedItem;
+    background-color: hsl(349.11, 100%, 0%);
     background-color: var(--sys-clr-button-bg-hover, SelectedItem);
-    border-color: SelectedItem;
+    border-color: hsl(349.11, 100%, 0%);
     border-color: var(--sys-clr-button-border-hover, SelectedItem);
-    color: SelectedItemText;
+    color: hsl(166.2, 43.35%, 79.89%);
     color: var(--sys-clr-button-text-hover, SelectedItemText);
-    accent-color: SelectedItemText;
+    accent-color: hsl(166.2, 43.35%, 79.89%);
     accent-color: var(--sys-clr-button-text-hover, SelectedItemText);
 }
 .no-js :where(.js) .website-settings-menu [data-toggle-control]:hover:focus,
 .js__no-where-selector
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:hover:focus,
+[data-contrast-mode="low"].no-js
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:hover:focus,
+[data-contrast-mode="low"].js__no-where-selector
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:hover:focus,
+[data-contrast-mode="average"].no-js
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:hover:focus,
+[data-contrast-mode="average"].js__no-where-selector
     :where(.js)
     .website-settings-menu
     [data-toggle-control]:hover:focus {
@@ -5104,6 +6411,14 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
 }
 
 :where(.js__no-focusVisible)
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:hover:focus,
+[data-contrast-mode="low"]:where(.js__no-focusVisible)
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:hover:focus,
+[data-contrast-mode="average"]:where(.js__no-focusVisible)
     :where(.js)
     .website-settings-menu
     [data-toggle-control]:hover:focus {
@@ -5125,13 +6440,37 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
         opacity: 0.875;
     }
 }
-:where(.js) .website-settings-menu [data-toggle-control]:hover:focus-visible {
+:where(.js) .website-settings-menu [data-toggle-control]:hover:focus-visible,
+[data-contrast-mode="low"]
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:hover:focus-visible,
+[data-contrast-mode="average"]
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:hover:focus-visible {
     opacity: 0.875;
 }
-:where(.js) .website-settings-menu [data-toggle-control]:hover:focus-within {
+:where(.js) .website-settings-menu [data-toggle-control]:hover:focus-within,
+[data-contrast-mode="low"]
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:hover:focus-within,
+[data-contrast-mode="average"]
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:hover:focus-within {
     opacity: 0.875;
 }
-:where(.js) .website-settings-menu [data-toggle-control]:hover:hover {
+:where(.js) .website-settings-menu [data-toggle-control]:hover:hover,
+[data-contrast-mode="low"]
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:hover:hover,
+[data-contrast-mode="average"]
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:hover:hover {
     opacity: 0.875;
 }
 
@@ -5156,13 +6495,13 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
         --sys-clr-button-text-hover,
         SelectedItemText
     );
-    background-color: SelectedItem;
+    background-color: hsl(349.11, 100%, 0%);
     background-color: var(--sys-clr-button-bg-hover, SelectedItem);
-    border-color: SelectedItem;
+    border-color: hsl(349.11, 100%, 0%);
     border-color: var(--sys-clr-button-border-hover, SelectedItem);
-    color: SelectedItemText;
+    color: hsl(166.2, 43.35%, 79.89%);
     color: var(--sys-clr-button-text-hover, SelectedItemText);
-    accent-color: SelectedItemText;
+    accent-color: hsl(166.2, 43.35%, 79.89%);
     accent-color: var(--sys-clr-button-text-hover, SelectedItemText);
 }
 .no-js
@@ -5172,11 +6511,35 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
 .js__no-where-selector
     :where(.js)
     .website-settings-menu
+    [data-toggle-control]:focus-visible:focus,
+[data-contrast-mode="low"].no-js
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus-visible:focus,
+[data-contrast-mode="low"].js__no-where-selector
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus-visible:focus,
+[data-contrast-mode="average"].no-js
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus-visible:focus,
+[data-contrast-mode="average"].js__no-where-selector
+    :where(.js)
+    .website-settings-menu
     [data-toggle-control]:focus-visible:focus {
     opacity: 0.875;
 }
 
 :where(.js__no-focusVisible)
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus-visible:focus,
+[data-contrast-mode="low"]:where(.js__no-focusVisible)
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus-visible:focus,
+[data-contrast-mode="average"]:where(.js__no-focusVisible)
     :where(.js)
     .website-settings-menu
     [data-toggle-control]:focus-visible:focus {
@@ -5203,15 +6566,39 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
 }
 :where(.js)
     .website-settings-menu
+    [data-toggle-control]:focus-visible:focus-visible,
+[data-contrast-mode="low"]
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus-visible:focus-visible,
+[data-contrast-mode="average"]
+    :where(.js)
+    .website-settings-menu
     [data-toggle-control]:focus-visible:focus-visible {
     opacity: 0.875;
 }
 :where(.js)
     .website-settings-menu
+    [data-toggle-control]:focus-visible:focus-within,
+[data-contrast-mode="low"]
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus-visible:focus-within,
+[data-contrast-mode="average"]
+    :where(.js)
+    .website-settings-menu
     [data-toggle-control]:focus-visible:focus-within {
     opacity: 0.875;
 }
-:where(.js) .website-settings-menu [data-toggle-control]:focus-visible:hover {
+:where(.js) .website-settings-menu [data-toggle-control]:focus-visible:hover,
+[data-contrast-mode="low"]
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus-visible:hover,
+[data-contrast-mode="average"]
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus-visible:hover {
     opacity: 0.875;
 }
 
@@ -5238,13 +6625,13 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
         --sys-clr-button-text-hover,
         SelectedItemText
     );
-    background-color: SelectedItem;
+    background-color: hsl(349.11, 100%, 0%);
     background-color: var(--sys-clr-button-bg-hover, SelectedItem);
-    border-color: SelectedItem;
+    border-color: hsl(349.11, 100%, 0%);
     border-color: var(--sys-clr-button-border-hover, SelectedItem);
-    color: SelectedItemText;
+    color: hsl(166.2, 43.35%, 79.89%);
     color: var(--sys-clr-button-text-hover, SelectedItemText);
-    accent-color: SelectedItemText;
+    accent-color: hsl(166.2, 43.35%, 79.89%);
     accent-color: var(--sys-clr-button-text-hover, SelectedItemText);
 }
 .no-js
@@ -5254,11 +6641,35 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
 .js__no-where-selector
     :where(.js)
     .website-settings-menu
+    [data-toggle-control]:focus-within:focus,
+[data-contrast-mode="low"].no-js
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus-within:focus,
+[data-contrast-mode="low"].js__no-where-selector
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus-within:focus,
+[data-contrast-mode="average"].no-js
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus-within:focus,
+[data-contrast-mode="average"].js__no-where-selector
+    :where(.js)
+    .website-settings-menu
     [data-toggle-control]:focus-within:focus {
     opacity: 0.875;
 }
 
 :where(.js__no-focusVisible)
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus-within:focus,
+[data-contrast-mode="low"]:where(.js__no-focusVisible)
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus-within:focus,
+[data-contrast-mode="average"]:where(.js__no-focusVisible)
     :where(.js)
     .website-settings-menu
     [data-toggle-control]:focus-within:focus {
@@ -5285,15 +6696,39 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
 }
 :where(.js)
     .website-settings-menu
+    [data-toggle-control]:focus-within:focus-visible,
+[data-contrast-mode="low"]
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus-within:focus-visible,
+[data-contrast-mode="average"]
+    :where(.js)
+    .website-settings-menu
     [data-toggle-control]:focus-within:focus-visible {
     opacity: 0.875;
 }
 :where(.js)
     .website-settings-menu
+    [data-toggle-control]:focus-within:focus-within,
+[data-contrast-mode="low"]
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus-within:focus-within,
+[data-contrast-mode="average"]
+    :where(.js)
+    .website-settings-menu
     [data-toggle-control]:focus-within:focus-within {
     opacity: 0.875;
 }
-:where(.js) .website-settings-menu [data-toggle-control]:focus-within:hover {
+:where(.js) .website-settings-menu [data-toggle-control]:focus-within:hover,
+[data-contrast-mode="low"]
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus-within:hover,
+[data-contrast-mode="average"]
+    :where(.js)
+    .website-settings-menu
+    [data-toggle-control]:focus-within:hover {
     opacity: 0.875;
 }
 
@@ -5317,13 +6752,13 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
 
 :where(.js) .website-settings-menu [data-toggle-control]:active {
     --focus-ring-outline-color: var(--sys-clr-button-text-active, ButtonText);
-    background-color: ButtonFace;
+    background-color: hsl(352.37, 32.92%, 16.09%);
     background-color: var(--sys-clr-button-bg-active, ButtonFace);
-    border-color: ButtonBorder;
+    border-color: hsl(352.37, 32.92%, 16.09%);
     border-color: var(--sys-clr-button-border-active, ButtonFace);
-    color: ButtonText;
+    color: hsl(355.24, 61.11%, 86.74%);
     color: var(--sys-clr-button-text-active, ButtonText);
-    accent-color: ButtonText;
+    accent-color: hsl(355.24, 61.11%, 86.74%);
     accent-color: var(--sys-clr-button-text-active, ButtonText);
 }
 :where(.js) .website-settings-menu [data-toggle-control] {
@@ -5381,14 +6816,14 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
 :where(.js)
     .website-settings-menu
     [data-toggle-control].website-settings__backdrop::before {
-    background: Canvas;
+    background: hsl(0, 0%, 84.33%);
     background: var(--sys-clr-background, Canvas);
     opacity: 0.625;
 }
 :where(.js)
     .website-settings-menu
     [data-toggle-control].website-settings__backdrop::after {
-    background: LinkText;
+    background: hsl(287.56, 26.45%, 15.1%);
     background: var(--sys-clr-link, LinkText);
     opacity: 0.1875;
 }
@@ -5522,12 +6957,12 @@ code {
 /* # TYPOGRAPHY
  * ======================================================================== */
 body {
-    background-color: Canvas;
+    background-color: hsl(0, 0%, 84.33%);
     background-color: var(
         --theme-background,
         var(--clr-base-200, hsl(0, 0%, 84.33%))
     );
-    color: CanvasText;
+    color: hsl(0, 0%, 2.86%);
     color: var(--theme-text, var(--clr-base-900, hsl(0, 0%, 2.86%)));
 }
 

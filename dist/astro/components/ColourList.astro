@@ -1,0 +1,71 @@
+---
+/**
+ * @since 0.1.0-alpha.draft
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Tokens/Colour/Colour_ShadeMap.js';
+
+/* import - functions */
+import { shadeMapToArray } from '../functions/shadeMapToArray.js';
+
+/* import - values */
+
+/* import - components */
+import ColourShadeSwatch from './ColourShadeSwatch.astro';
+
+/* import - layouts */
+
+/* TYPES ===================================== */
+
+/* PROPS ===================================== */
+
+export interface Props<T_ColourName extends string = string> {
+    name: string;
+
+    colour: Tokens_Colour_ShadeMap.JSON;
+
+    bases?: Tokens_Colour_ShadeMap.JSON;
+
+    /** Unique. */
+    id?: string;
+
+    shadeHeading?: '2' | '3' | '4' | '5' | '6';
+
+    frontmatter?: Omit<Props<T_ColourName | 'base'>, 'frontmatter'>;
+}
+
+const { bases, id, name, shadeHeading, ...props }: Props =
+    Astro.props.frontmatter ?? Astro.props;
+
+/* FUNCTIONS ===================================== */
+
+/* CONSTANTS ===================================== */
+
+const colour = shadeMapToArray(props.colour);
+---
+
+{
+    colour && (
+        <div
+            id={id}
+            class='colour-swatch-list'
+        >
+            {colour.map(({ level, values }) => (
+                <ColourShadeSwatch
+                    bases={bases}
+                    heading={shadeHeading}
+                    level={level}
+                    name={name}
+                    values={values}
+                />
+            ))}
+        </div>
+    )
+}
+
+<style lang='scss' is:global>
+    @forward '../css/colour-list';
+</style>
