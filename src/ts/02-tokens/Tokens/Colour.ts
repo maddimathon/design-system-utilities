@@ -10,6 +10,9 @@
 
 import * as z from 'zod';
 
+import { objectMap } from '../../01-utilities/objectMap.js';
+import { objectGenerator } from '../../01-utilities/objectGenerator.js';
+
 import { AbstractTokens } from '../abstracts/AbstractTokens.js';
 import { Tokens_Colour_ShadeMap } from './Colour/Colour_ShadeMap.js';
 
@@ -37,7 +40,7 @@ export class Tokens_Colour<
     }
 
     public readonly maps: {
-        [ K in T_ColourName ]: Tokens_Colour_ShadeMap;
+        [ K in T_ColourName ]: Tokens_Colour_ShadeMap<T_ColourName>;
     };
 
     public constructor (
@@ -56,27 +59,48 @@ export class Tokens_Colour<
         );
     }
 
+    /**
+     * Adds contrast tests to all the colour maps.
+     * 
+     * @since ___PKG_VERSION___
+     */
+    public async addContrastTests() {
+
+        for ( const t_colourName in this.maps ) {
+            const colourName = t_colourName as keyof typeof this.maps;
+
+            for ( const t_test_colourName in this.maps ) {
+                const test_colourName = t_test_colourName as keyof typeof this.maps;
+
+                await this.maps[ colourName ].addContrastTests(
+                    test_colourName,
+                    this.maps[ test_colourName ].map,
+                );
+            }
+        }
+    }
+
     public valueOf(): Tokens_Colour.Parsed<T_ColourName> {
 
-        return AbstractTokens.objectMap(
+        return objectMap(
             this.maps,
-            ( name, map ) => map.valueOf()
+            ( { value } ) => value.valueOf()
         );
     }
 
     public toJSON(): Tokens_Colour.JSON<T_ColourName> {
 
-        return AbstractTokens.objectMap(
+        return objectMap(
             this.maps,
-            ( name, map ) => map.toJSON()
+            ( { value } ) => value.toJSON()
         );
     }
 
     public toScssVars(): Tokens_Colour.ScssVars<T_ColourName> {
 
-        return AbstractTokens.objectMap(
+        return objectMap(
             this.maps,
-            ( name, map ) => map.toScssVars()
+            ( { value } ) => value.toScssVars()
         );
     }
 }
@@ -100,17 +124,17 @@ export namespace Tokens_Colour {
 
         const obj: {
             [ K in T_ColourName ]: typeof Tokens_Colour_ShadeMap.Schema;
-        } = AbstractTokens.objectGenerator(
+        } = objectGenerator(
             names,
             () => Tokens_Colour_ShadeMap.Schema,
         );
 
         return z.object( obj ).transform(
             ( part ): {
-                [ K in T_ColourName ]: Tokens_Colour_ShadeMap
-            } => AbstractTokens.objectMap(
+                [ K in T_ColourName ]: Tokens_Colour_ShadeMap<T_ColourName>
+            } => objectMap(
                 part,
-                ( key, value ) => new Tokens_Colour_ShadeMap( `Tokens_Colour.${ String( key ) }`, value )
+                ( { key, value } ) => new Tokens_Colour_ShadeMap( `Tokens_Colour.${ String( key ) }`, value )
             )
         );
     };
@@ -118,7 +142,7 @@ export namespace Tokens_Colour {
     export type Schema<
         T_ColourName extends string,
     > = z.ZodType<{
-        [ K in T_ColourName ]: Tokens_Colour_ShadeMap;
+        [ K in T_ColourName ]: Tokens_Colour_ShadeMap<T_ColourName>;
     }, {}, {
             [ K in T_ColourName ]: typeof Tokens_Colour_ShadeMap.Schema[ '_input' ];
         }>;
@@ -131,7 +155,7 @@ export namespace Tokens_Colour {
     export type Parsed<
         T_ColourName extends string,
     > = {
-            [ K in T_ColourName ]: Tokens_Colour_ShadeMap.Parsed;
+            [ K in T_ColourName ]: Tokens_Colour_ShadeMap.Parsed<T_ColourName>;
         };
 
     /**
@@ -142,18 +166,18 @@ export namespace Tokens_Colour {
     export type Part<
         T_ColourName extends string,
     > = {
-            [ K in T_ColourName ]?: Tokens_Colour_ShadeMap.Part;
+            [ K in T_ColourName ]?: Tokens_Colour_ShadeMap.Part<T_ColourName>;
         };
 
     export type JSON<
         T_ColourName extends string,
     > = {
-            [ K in T_ColourName ]?: Tokens_Colour_ShadeMap.JSON;
+            [ K in T_ColourName ]?: Tokens_Colour_ShadeMap.JSON<T_ColourName>;
         };
 
     export type ScssVars<
         T_ColourName extends string,
     > = {
-            [ K in T_ColourName ]?: Tokens_Colour_ShadeMap.ScssVars;
+            [ K in T_ColourName ]?: Tokens_Colour_ShadeMap.ScssVars<T_ColourName>;
         };
 }

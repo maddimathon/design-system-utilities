@@ -36,6 +36,24 @@ export class Tokens<
     Tokens.ScssVars<T_ColourName>
 > {
 
+    /**
+     * Used instead of the constructor.
+     */
+    public static async build<
+        T_ColourName extends string,
+    >(
+        clrNames: T_ColourName[],
+        input?: Tokens.Part<NoInfer<T_ColourName>>,
+        opts?: Partial<Tokens.Opts>,
+    ): Promise<Tokens<T_ColourName>> {
+
+        const tokens = new Tokens( clrNames, input, opts );
+
+        await tokens.colour.addContrastTests();
+
+        return tokens;
+    }
+
     get schema() {
         return undefined;
     }
@@ -59,7 +77,7 @@ export class Tokens<
 
     public readonly opts: Tokens.Opts;
 
-    public constructor (
+    protected constructor (
         protected readonly clrNames: T_ColourName[],
         input?: Tokens.Part<T_ColourName>,
         opts?: Partial<Tokens.Opts>,
@@ -88,6 +106,7 @@ export class Tokens<
             zIndex,
         };
     }
+
 
     public toJSON(): Tokens.JSON<T_ColourName> {
 

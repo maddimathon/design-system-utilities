@@ -10,7 +10,10 @@
 
 import * as z from 'zod';
 
-import { tokenLevels_extended } from '../@utils.js';
+import { objectMap } from '../../01-utilities/objectMap.js';
+import { roundToPixel } from '../../01-utilities/roundToPixel.js';
+
+import { TokenLevels_Extended } from '../@utils.js';
 
 import { AbstractTokens } from '../abstracts/AbstractTokens.js';
 
@@ -106,7 +109,7 @@ export class Tokens_Spacing extends AbstractTokens<
             ) * opts.base;
 
             if ( opts.roundToPixel ) {
-                _rem = AbstractTokens.roundToPixel( _rem, opts.roundToPixel_factor );
+                _rem = roundToPixel( _rem, opts.roundToPixel_factor );
             }
 
             return _rem;
@@ -119,23 +122,23 @@ export class Tokens_Spacing extends AbstractTokens<
 
             margin: {
 
-                rem: AbstractTokens.objectMap(
+                rem: objectMap(
                     exp.margin,
-                    ( key, value ) => key && _converter( value ?? 0 )
+                    ( { key, value } ) => key && _converter( value ?? 0 )
                 ),
 
-                pt: AbstractTokens.objectMap(
+                pt: objectMap(
                     exp.margin,
-                    ( key, value ) => key && _converter( value ?? 0, {
+                    ( { key, value } ) => key && _converter( value ?? 0, {
                         base: 11,
                         roundToPixel: true,
                         roundToPixel_factor: 2,
                     } )
                 ),
 
-                px: AbstractTokens.objectMap(
+                px: objectMap(
                     exp.margin,
-                    ( key, value ) => key && _converter( value ?? 0, {
+                    ( { key, value } ) => key && _converter( value ?? 0, {
                         base: 16,
                         roundToPixel: true,
                         roundToPixel_factor: 1,
@@ -187,7 +190,7 @@ export namespace Tokens_Spacing {
             '400': z.number().default( 0 ),
             '600': z.number().default( 4 ),
             '800': z.number().default( 8 ),
-        } ).and( z.record( tokenLevels_extended, z.number() ) ),
+        } ).and( z.record( TokenLevels_Extended, z.number() ) ),
     } );
 
 

@@ -12,7 +12,10 @@ import * as z from 'zod';
 
 import type { Tokens_Spacing } from './Spacing.js';
 
-import { tokenLevels_extended } from '../@utils.js';
+import { objectMap } from '../../01-utilities/objectMap.js';
+import { roundToPixel } from '../../01-utilities/roundToPixel.js';
+
+import { TokenLevels_Extended } from '../@utils.js';
 
 import { AbstractTokens } from '../abstracts/AbstractTokens.js';
 
@@ -156,7 +159,7 @@ export class Tokens_Typography extends AbstractTokens<
                 ) * base;
 
                 if ( opts.roundToPixel ) {
-                    _rem = AbstractTokens.roundToPixel( _rem, opts.roundToPixel_factor );
+                    _rem = roundToPixel( _rem, opts.roundToPixel_factor );
                 }
 
                 return _rem;
@@ -165,21 +168,21 @@ export class Tokens_Typography extends AbstractTokens<
             return {
                 title: _converter( this.size.title ),
 
-                heading: AbstractTokens.objectMap(
+                heading: objectMap(
                     this.size.heading,
-                    ( key, value ) => key && _converter( value )
+                    ( { key, value } ) => key && _converter( value )
                 ),
 
-                smaller: AbstractTokens.objectMap(
+                smaller: objectMap(
                     this.size.smaller,
-                    ( key, value ) => key && _converter( value )
+                    ( { key, value } ) => key && _converter( value )
                 ),
 
                 normal: _converter( this.size.normal ),
 
-                bigger: AbstractTokens.objectMap(
+                bigger: objectMap(
                     this.size.bigger,
-                    ( key, value ) => key && _converter( value )
+                    ( { key, value } ) => key && _converter( value )
                 ),
             };
         };
@@ -218,7 +221,7 @@ export namespace Tokens_Typography {
             '400': z.number().default( 0 ),
             '500': z.number().default( 1 ),
             '600': z.number().default( 2 ),
-        } ).and( z.record( tokenLevels_extended, z.number() ) ),
+        } ).and( z.record( TokenLevels_Extended, z.number() ) ),
 
         size: z.object( {
 

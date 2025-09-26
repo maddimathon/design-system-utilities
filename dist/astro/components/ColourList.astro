@@ -25,9 +25,9 @@ import ColourShadeSwatch from './ColourShadeSwatch.astro';
 export interface Props<T_ColourName extends string = string> {
     name: string;
 
-    colour: Tokens_Colour_ShadeMap.JSON;
+    colour: Tokens_Colour_ShadeMap.JSON<T_ColourName>;
 
-    bases?: Tokens_Colour_ShadeMap.JSON;
+    bases?: Tokens_Colour_ShadeMap.JSON<T_ColourName>;
 
     /** Unique. */
     id?: string;

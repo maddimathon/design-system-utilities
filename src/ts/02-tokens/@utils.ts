@@ -12,7 +12,15 @@
 
 import * as z from 'zod';
 
-export const tokenLevels = z.union( [
+export type ColourNameSchema<T_ColourName extends string> =
+    | z.ZodLiteral<T_ColourName>
+    | z.ZodUnion<[
+        z.ZodLiteral<T_ColourName>,
+        z.ZodLiteral<T_ColourName>,
+        ...z.ZodLiteral<T_ColourName>[]
+    ]>;
+
+export const TokenLevels = z.union( [
     z.literal( '100' ),
     z.literal( '200' ),
     z.literal( '300' ),
@@ -35,7 +43,7 @@ export type TokenLevels =
     | "800"
     | "900";
 
-export const tokenLevels_extended = z.union( [
+export const TokenLevels_Extended = z.union( [
     z.literal( '000' ),
     z.literal( '050' ),
     z.literal( '100' ),

@@ -1,0 +1,164 @@
+/**
+ * @since ___PKG_VERSION___
+ *
+ * @packageDocumentation
+ */
+/*!
+ * @maddimathon/design-system-utilities@___CURRENT_VERSION___
+ * @license MIT
+ */
+import * as z from 'zod';
+import { ColourUtilities } from './ColourUtilities.js';
+/**
+ * Generates a single pair of contrast test results used by the
+ * {@link Tokens_Colour_ShadeMap_Shade} objects.
+ *
+ * @since ___PKG_VERSION___
+ * @internal
+ */
+export declare class ColourContrastTest {
+    #private;
+    readonly clrA: ColourUtilities.SingleShade;
+    readonly clrB: ColourUtilities.SingleShade;
+    static set standards(val: ColourContrastTest.TestStandards);
+    static get standards(): ColourContrastTest.TestStandards;
+    protected static cachePath: string;
+    /**
+     * Gets the contrast ratio for the given colours, checking the cache for
+     * values first.
+     */
+    static test(clrA: ColourUtilities.SingleShade, clrB: ColourUtilities.SingleShade): number;
+    /**
+     * Gets the name for a colour to be used with cache files.
+     */
+    protected static getCacheName(clr: ColourUtilities.SingleShade): string;
+    /**
+     * Get a contrast ratio from the cache, if it exists.
+     */
+    protected static getCache(clrA: ColourUtilities.SingleShade, clrB: ColourUtilities.SingleShade): number | false;
+    /**
+     * Add the given ratio to the contrast cache.
+     *
+     * @return  Returns the ratio for ease of use.
+     */
+    protected static setCache(clrA: ColourUtilities.SingleShade, clrB: ColourUtilities.SingleShade, ratio: number): number;
+    readonly ratio: number;
+    readonly aa: ColourContrastTest.TestResult_Single;
+    readonly aaa: ColourContrastTest.TestResult_Single;
+    constructor(clrA: ColourUtilities.SingleShade, clrB: ColourUtilities.SingleShade);
+    toJSON(): ColourContrastTest.JSON;
+    valueOf(): ColourContrastTest.Parsed;
+}
+/**
+ * Utilities for the {@link Tokens} class.
+ *
+ * @since ___PKG_VERSION___
+ * @internal
+ */
+export declare namespace ColourContrastTest {
+    /**
+     * An object defining the minimum contrast ratios required for a pass.
+     *
+     * @since ___PKG_VERSION___
+     */
+    type TestStandards = {
+        [T in "aa" | "aaa"]: {
+            [K in keyof TestResult_Single]: number;
+        };
+    };
+    /**
+     * @since ___PKG_VERSION___
+     */
+    type TestResult_Single = {
+        ui: boolean;
+        text: boolean;
+    };
+    /**
+     * @since ___PKG_VERSION___
+     */
+    type TestResult = {
+        ratio: number;
+        aa: TestResult_Single;
+        aaa: TestResult_Single;
+    };
+    /**
+     * Creates a JSON schema for this class.
+     */
+    const JSON: z.ZodEffects<z.ZodObject<{
+        ratio: z.ZodNumber;
+        aa: z.ZodObject<{
+            ui: z.ZodBoolean;
+            text: z.ZodBoolean;
+        }, "strip", z.ZodTypeAny, {
+            ui: boolean;
+            text: boolean;
+        }, {
+            ui: boolean;
+            text: boolean;
+        }>;
+        aaa: z.ZodObject<{
+            ui: z.ZodBoolean;
+            text: z.ZodBoolean;
+        }, "strip", z.ZodTypeAny, {
+            ui: boolean;
+            text: boolean;
+        }, {
+            ui: boolean;
+            text: boolean;
+        }>;
+    }, "strip", z.ZodTypeAny, {
+        aa: {
+            ui: boolean;
+            text: boolean;
+        };
+        aaa: {
+            ui: boolean;
+            text: boolean;
+        };
+        ratio: number;
+    }, {
+        aa: {
+            ui: boolean;
+            text: boolean;
+        };
+        aaa: {
+            ui: boolean;
+            text: boolean;
+        };
+        ratio: number;
+    }>, {
+        aa: {
+            ui: boolean;
+            text: boolean;
+        };
+        aaa: {
+            ui: boolean;
+            text: boolean;
+        };
+    }, {
+        aa: {
+            ui: boolean;
+            text: boolean;
+        };
+        aaa: {
+            ui: boolean;
+            text: boolean;
+        };
+        ratio: number;
+    }>;
+    /**
+     * @since ___PKG_VERSION___
+     */
+    type Parsed = TestResult;
+    /**
+     * The partialized version of the {@link ColourContrastTest.Schema} accepted as input.
+     *
+     * @since ___PKG_VERSION___
+     */
+    type Part = Partial<Parsed>;
+    /**
+     * @since ___PKG_VERSION___
+     */
+    type JSON = z.output<typeof JSON>;
+}
+//# sourceMappingURL=ColourContrastTest.d.ts.map

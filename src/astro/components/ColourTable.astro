@@ -30,9 +30,9 @@ export interface Props<T_ColourName extends string = string> {
     /** Unique. */
     id: string;
     
-    colour: Tokens_Colour.JSON<T_ColourName | 'base'>;
+    colour: Tokens_Colour.JSON<T_ColourName>;
 
-    frontmatter?: Omit<Props<T_ColourName | 'base'>, 'frontmatter'>;
+    frontmatter?: Omit<Props<T_ColourName>, 'frontmatter'>;
 }
 
 const {

@@ -9,7 +9,7 @@
 import type { HTMLAttributes } from 'astro/types';
 import type { TokenLevels } from '../../ts/internal.docs';
 import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Tokens/Colour/Colour_ShadeMap.js';
-import type { Tokens_Colour_ShadeMap_Shade } from '../../ts/02-tokens/Tokens/Colour/ShadeMap/Colour_ShadeMap_Shade.js';
+import type { Tokens_Colour_ShadeMap_Shade } from '../../ts/02-tokens/Tokens/Colour/ShadeMap/ShadeMap_Shade.js';
 
 /* import - functions */
 
@@ -23,17 +23,17 @@ import type { Tokens_Colour_ShadeMap_Shade } from '../../ts/02-tokens/Tokens/Col
 
 /* PROPS ===================================== */
 
-export interface Props extends Omit<HTMLAttributes<'div'>, 'class'> {
+export interface Props<T_ColourName extends string = string> extends Omit<HTMLAttributes<'div'>, 'class'> {
     name: string;
     level: TokenLevels;
 
     values: {
-        [K in keyof Tokens_Colour_ShadeMap_Shade.JSON]?:
-            | Tokens_Colour_ShadeMap_Shade.JSON[K]
+        [K in keyof Tokens_Colour_ShadeMap_Shade.JSON<T_ColourName>]?:
+            | Tokens_Colour_ShadeMap_Shade.JSON<T_ColourName>[K]
             | undefined;
     };
 
-    bases?: Tokens_Colour_ShadeMap.JSON;
+    bases?: Tokens_Colour_ShadeMap.JSON<T_ColourName>;
 
     heading?: '2'|'3'|'4'|'5'|'6';
 

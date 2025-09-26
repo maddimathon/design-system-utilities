@@ -10,8 +10,11 @@
 
 import * as z from 'zod';
 
+import { objectMap } from '../../../01-utilities/objectMap.js';
+import { roundToPixel } from '../../../01-utilities/roundToPixel.js';
+
 import {
-    tokenLevels_extended,
+    TokenLevels_Extended,
 } from '../../@utils.js';
 
 import { AbstractTokens } from '../../abstracts/AbstractTokens.js';
@@ -38,7 +41,7 @@ export class Tokens_CSS_Border extends AbstractTokens<
      * Border radii for CSS.
      *
      * Default keys are '100', '200', '400'. After merging, values are
-     * rounded with {@link AbstractTokens.roundToPixel} (factor = 32).
+     * rounded with {@link roundToPixel} (factor = 32).
      */
     public readonly radius: Tokens_CSS_Border.Parsed[ 'radius' ];
 
@@ -47,7 +50,7 @@ export class Tokens_CSS_Border extends AbstractTokens<
      * spacing. Written in css as em units.
      *
      * Default keys are '100', '200', '400', '600', '800', '900'. After
-     * merging, values are rounded with {@link AbstractTokens.roundToPixel}
+     * merging, values are rounded with {@link roundToPixel}
      * (factor = 32).
      */
     public readonly stroke: Tokens_CSS_Border.Parsed[ 'stroke' ];
@@ -56,7 +59,7 @@ export class Tokens_CSS_Border extends AbstractTokens<
      * Border widths for CSS.
      *
      * Default keys are '100', '200', '300', '400'. After merging, values
-     * are rounded with {@link AbstractTokens.roundToPixel} (factor = 32).
+     * are rounded with {@link roundToPixel} (factor = 32).
      */
     public readonly width: Tokens_CSS_Border.Parsed[ 'width' ];
 
@@ -130,14 +133,14 @@ export namespace Tokens_CSS_Border {
             '200': z.number().default( 0.375 ),
             '400': z.number().default( 0.625 ),
         } ).and(
-            z.record( tokenLevels_extended, z.number() )
+            z.record( TokenLevels_Extended, z.number() )
         ).transform(
-            ( map ) => AbstractTokens.objectMap(
+            ( map ) => objectMap(
                 map,
-                ( _key, _value ) => _key && (
-                    typeof _value === 'number'
-                        ? AbstractTokens.roundToPixel( _value, 32 )
-                        : _value
+                ( _ ) => _.key && (
+                    typeof _.value === 'number'
+                        ? roundToPixel( _.value, 32 )
+                        : _.value
                 )
             )
         ),
@@ -148,14 +151,14 @@ export namespace Tokens_CSS_Border {
             '300': z.number().default( 0.1875 ),
             '400': z.number().default( 0.25 ),
         } ).and(
-            z.record( tokenLevels_extended, z.number() )
+            z.record( TokenLevels_Extended, z.number() )
         ).transform(
-            ( map ) => AbstractTokens.objectMap(
+            ( map ) => objectMap(
                 map,
-                ( _key, _value ) => _key && (
-                    typeof _value === 'number'
-                        ? AbstractTokens.roundToPixel( _value, 32 )
-                        : _value
+                ( _ ) => _.key && (
+                    typeof _.value === 'number'
+                        ? roundToPixel( _.value, 32 )
+                        : _.value
                 )
             )
         ),
@@ -168,14 +171,14 @@ export namespace Tokens_CSS_Border {
             '800': z.number().default( 4 / 16 ),
             '900': z.number().default( 6 / 16 ),
         } ).and(
-            z.record( tokenLevels_extended, z.number() )
+            z.record( TokenLevels_Extended, z.number() )
         ).transform(
-            ( map ) => AbstractTokens.objectMap(
+            ( map ) => objectMap(
                 map,
-                ( _key, _value ) => _key && (
-                    typeof _value === 'number'
-                        ? AbstractTokens.roundToPixel( _value, 32 )
-                        : _value
+                ( _ ) => _.key && (
+                    typeof _.value === 'number'
+                        ? roundToPixel( _.value, 32 )
+                        : _.value
                 )
             )
         ),
