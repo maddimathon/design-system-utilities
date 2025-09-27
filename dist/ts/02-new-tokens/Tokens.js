@@ -41,7 +41,12 @@ export class Tokens extends AbstractTokens {
     /**
      * Used instead of the constructor so that it can be async.
      */
-    static async build(clrNames, extraColourLevels, input, config = {}) {
+    static async build(input, config = {}) {
+        const allClrNames = [
+            'base',
+            ...Object.keys(input.colour ?? {}),
+        ];
+        const extraColourLevels = config.extraColourLevels ?? [];
         const brightnessModes = input.themes?.brightness?.length
             ? input.themes.brightness
             : ['light', 'dark'];
@@ -51,8 +56,11 @@ export class Tokens extends AbstractTokens {
             ...(input.themes?.contrast?.filter(c => c !== 'average' && c !== 'high')
                 ?? ['low']),
         ];
-        const themes = await Tokens_Themes.build(clrNames, extraColourLevels, brightnessModes, [...contrastModes], input.themes?.input ?? []);
-        const tokens = new Tokens(clrNames, extraColourLevels, themes, input, config);
+        const themes = await Tokens_Themes.build(allClrNames, extraColourLevels, brightnessModes, [...contrastModes], input.themes?.input ?? []);
+        const tokens = new Tokens(allClrNames, extraColourLevels, themes, input, {
+            ...config,
+            extraColourLevels: undefined,
+        });
         await tokens.colour.addContrastTests();
         return tokens;
     }
@@ -117,5 +125,47 @@ export class Tokens extends AbstractTokens {
  */
 (function (Tokens) {
     ;
+    Tokens.SampleColours = {
+        red: {
+            '100': { l: 96, c: 5, h: 15, },
+            '500': { l: 50, c: 49, h: 15, },
+            '900': { l: 2, c: 3, h: 15, },
+        },
+        orange: {
+            '100': { l: 98, c: 8.5, h: 180 },
+            '500': { l: 52, c: 40.5, h: 180 },
+            '900': { l: 2, c: 100, h: 180 },
+        },
+        yellow: {
+            '100': { l: 98, c: 8.5, h: 180 },
+            '500': { l: 52, c: 40.5, h: 180 },
+            '900': { l: 2, c: 100, h: 180 },
+        },
+        green: {
+            '100': { l: 98, c: 8.5, h: 180 },
+            '500': { l: 52, c: 40.5, h: 180 },
+            '900': { l: 2, c: 100, h: 180 },
+        },
+        blue: {
+            '100': { l: 98, c: 8.5, h: 180 },
+            '500': { l: 52, c: 40.5, h: 180 },
+            '900': { l: 2, c: 100, h: 180 },
+        },
+        turquoise: {
+            '100': { l: 98, c: 8.5, h: 180 },
+            '500': { l: 52, c: 40.5, h: 180 },
+            '900': { l: 2, c: 100, h: 180 },
+        },
+        purple: {
+            '100': { l: 96, c: 7, h: 318 },
+            '500': { l: 47, c: 50, h: 318 },
+            '900': { l: 2, c: 4, h: 318 },
+        },
+        pink: {
+            '100': { l: 98, c: 8.5, h: 180 },
+            '500': { l: 52, c: 40.5, h: 180 },
+            '900': { l: 2, c: 100, h: 180 },
+        },
+    };
 })(Tokens || (Tokens = {}));
 //# sourceMappingURL=Tokens.js.map

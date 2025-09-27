@@ -1,5 +1,5 @@
 {
-    "extends": "@maddimathon/build-utilities/tsconfig",
+    "extends": "../../tsconfig.json",
     "include": [
         "../../src/ts/**/*",
         "./src/ts/**/*"
@@ -8,13 +8,13 @@
         "./.astro/**/*",
         "./.scripts/**/*",
         "./node_modules/**/*",
-        "./02-tokens/**/*",
-        "./src/ts/02-tokens/**/*"
+        "./02-old-tokens/**/*",
+        "./src/ts/02-old-tokens/**/*"
     ],
     "compilerOptions": {
+        "allowUnusedLabels": false,
         "baseUrl": "../../",
-        "exactOptionalPropertyTypes": false,
-        "noUnusedParameters": false,
+        "noEmit": false,
         "outDir": "../../dist/ts/",
         "skipLibCheck": true,
         "sourceMap": true

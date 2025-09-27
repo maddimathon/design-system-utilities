@@ -18,7 +18,7 @@ import { AbstractTokens } from './abstract/AbstractTokens.js';
 
 import { Tokens_Colour_ShadeMap } from './Colour/Colour_ShadeMap.js';
 
-import type { TokenLevels_Extended } from './@types.js';
+import type { TokenLevels_Extended } from './@types.d.ts';
 
 /**
  * Generates a complete token object for the design system.
@@ -72,7 +72,6 @@ export class Tokens_Colour<
     }
 
     public toJSON(): Tokens_Colour.JsonReturn<T_ColourName, T_ExtraLevels> {
-
         return objectMap(
             this.data,
             ( { value } ) => value.toJSON(),
@@ -80,7 +79,6 @@ export class Tokens_Colour<
     }
 
     public toScssVars() {
-
         return objectMap(
             this.data,
             ( { value } ) => value.toScssVars(),

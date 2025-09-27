@@ -14,5 +14,6 @@
  */
 export type * from './01-utilities/@types.d.ts';
 export * from './01-utilities/makeRelativeURL.js';
+export { Tokens } from './02-new-tokens/Tokens.js';
 export * as BuildUtilities from './build-utils/index.js';
 //# sourceMappingURL=index.d.ts.map

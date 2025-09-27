@@ -12,6 +12,8 @@ if ( !config.experimental ) {
     config.experimental = {};
 }
 
+config.publicDir = 'src/docs/_public';
+
 config.experimental.contentIntellisense = true;
 
 if ( !config.server ) {

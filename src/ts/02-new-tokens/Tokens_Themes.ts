@@ -133,7 +133,7 @@ export class Tokens_Themes<
                     input.length
                         ? input as CompleteArray
                         : [
-                            { name: 'default' as T_ThemeName },
+                            { name: 'default' satisfies Tokens_Themes.Default_ThemeName as T_ThemeName },
                         ] as CompleteArray
                 )
                 : [ input ];
@@ -169,7 +169,13 @@ export class Tokens_Themes<
             >;
         } = objectGenerator(
             allThemeNames,
-            ( name ) => objs[ allThemeNames.indexOf( name ) ]
+            ( name ) => objs[ allThemeNames.indexOf( name ) ] as Tokens_Themes_Set<
+                T_ColourName,
+                T_ExtraColourLevels,
+                T_ThemeBrightnessMode[],
+                T_ThemeContrastMode[],
+                T_ThemeName
+            >
         );
 
         return sets;
@@ -240,6 +246,8 @@ export class Tokens_Themes<
  * @since ___PKG_VERSION___
  */
 export namespace Tokens_Themes {
+
+    export type Default_ThemeName = 'default';
 
     /**
      * @since ___PKG_VERSION___

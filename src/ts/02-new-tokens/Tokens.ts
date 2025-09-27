@@ -24,6 +24,7 @@ import { Tokens_CSS } from './Tokens_CSS.js';
 import { Tokens_Spacing } from './Tokens_Spacing.js';
 import { Tokens_Themes } from './Tokens_Themes.js';
 import { Tokens_Typography } from './Tokens_Typography.js';
+import type { Tokens_Colour_ShadeMap } from './Colour/Colour_ShadeMap.js';
 
 /**
  * Generates a complete token object for the design system.
@@ -36,7 +37,7 @@ export class Tokens<
     T_ThemeBrightnessMode extends readonly [ string, ...string[] ],
     T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne,
     T_ThemeName extends string,
-> extends AbstractTokens<Tokens.Data<
+> extends AbstractTokens<Tokens_Internal.Data<
     T_ColourName,
     T_ExtraColourLevels,
     T_ThemeBrightnessMode,
@@ -70,51 +71,56 @@ export class Tokens<
      * Used instead of the constructor so that it can be async.
      */
     public static async build<
-        T_ColourName extends string,
-        T_ExtraColourLevels extends TokenLevels_Extended,
-        T_ThemeBrightnessMode extends readonly [ string, ...string[] ],
-        T_ThemeContrastMode_Extra extends readonly ThemeMode_ContrastExtraOptions[],
-        T_ThemeName extends string,
+        T_ColourName extends string = Tokens_Internal.Default_ColourName,
+        T_ExtraColourLevels extends TokenLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
+        T_ThemeBrightnessMode extends readonly [ string, ...string[] ] = Tokens_Internal.Default_ThemeBrightnessMode,
+        T_ThemeContrastMode_Extra extends readonly ThemeMode_ContrastExtraOptions[] = Tokens_Internal.Default_ThemeExtraContrastMode,
+        T_ThemeName extends string = Tokens_Themes.Default_ThemeName,
     >(
-        clrNames: readonly T_ColourName[],
-        extraColourLevels: readonly T_ExtraColourLevels[],
-        input: Tokens.InputParam<
-            T_ColourName,
+        input: Tokens_Internal.InputParam<
+            Tokens_Internal.Default_ColourName | T_ColourName,
             T_ExtraColourLevels,
             T_ThemeBrightnessMode,
             ThemeMode_Contrast<T_ThemeContrastMode_Extra>,
             T_ThemeName
         >,
-        config: Partial<Tokens.Config> = {},
+        config: Partial<Tokens.Config<T_ExtraColourLevels>> = {},
     ): Promise<Tokens<
-        T_ColourName,
+        Tokens_Internal.Default_ColourName | T_ColourName,
         T_ExtraColourLevels,
         T_ThemeBrightnessMode,
         ThemeMode_Contrast<T_ThemeContrastMode_Extra>,
         T_ThemeName
     >> {
 
+        const allClrNames = [
+            'base',
+            ...Object.keys( input.colour ?? {} ) as T_ColourName[],
+        ] as const;
+
+        const extraColourLevels = config.extraColourLevels ?? [];
+
         const brightnessModes: T_ThemeBrightnessMode = input.themes?.brightness?.length
             ? input.themes.brightness
-            : [ 'light', 'dark' ] as any as T_ThemeBrightnessMode;
+            : [ 'light', 'dark' ] satisfies Tokens_Internal.Default_ThemeBrightnessMode as unknown as T_ThemeBrightnessMode;
 
         const contrastModes: ThemeMode_Contrast<T_ThemeContrastMode_Extra> = [
             "average",
             "high",
             ...(
                 input.themes?.contrast?.filter( c => c !== 'average' && c !== 'high' )
-                ?? ( [ 'low' ] as unknown )
+                ?? ( [ 'low' ] satisfies Tokens_Internal.Default_ThemeExtraContrastMode as unknown )
             ) as T_ThemeContrastMode_Extra,
         ] as const;
 
         const themes = await Tokens_Themes.build<
-            T_ColourName,
+            Tokens_Internal.Default_ColourName | T_ColourName,
             T_ExtraColourLevels,
             T_ThemeBrightnessMode[ number ],
             ThemeMode_Contrast<T_ThemeContrastMode_Extra>[ number ],
             T_ThemeName
         >(
-            clrNames,
+            allClrNames,
             extraColourLevels,
             brightnessModes,
             [ ...contrastModes ],
@@ -122,17 +128,20 @@ export class Tokens<
         );
 
         const tokens = new Tokens<
-            T_ColourName,
+            Tokens_Internal.Default_ColourName | T_ColourName,
             T_ExtraColourLevels,
             T_ThemeBrightnessMode,
             ThemeMode_Contrast<T_ThemeContrastMode_Extra>,
             T_ThemeName
         >(
-            clrNames,
+            allClrNames,
             extraColourLevels,
             themes,
             input,
-            config,
+            {
+                ...config,
+                extraColourLevels: undefined,
+            },
         );
 
         await tokens.colour.addContrastTests();
@@ -150,14 +159,14 @@ export class Tokens<
             T_ThemeContrastMode[ number ],
             T_ThemeName
         >,
-        protected readonly input: Omit<Tokens.InputParam<
+        protected readonly input: Omit<Tokens_Internal.InputParam<
             T_ColourName,
             T_ExtraColourLevels,
             T_ThemeBrightnessMode,
             T_ThemeContrastMode,
             T_ThemeName
         >, "themes">,
-        protected readonly config: Partial<Tokens.Config> = {},
+        protected readonly config: Tokens_Internal.Config = {},
     ) {
         super();
 
@@ -172,7 +181,7 @@ export class Tokens<
         this.typography = new Tokens_Typography( this.input.typography ?? {} );
     }
 
-    public toJSON(): Tokens.JsonReturn<
+    public toJSON(): Tokens_Internal.JsonReturn<
         T_ColourName,
         T_ExtraColourLevels,
         T_ThemeBrightnessMode,
@@ -241,20 +250,27 @@ export class Tokens<
 }
 
 /**
- * Utilities for the {@link Tokens} class.
+ * Internal utilities for the {@link Tokens} class.
  * 
  * @since ___PKG_VERSION___
+ * @internal
+ * @private
  */
-export namespace Tokens {
+export namespace Tokens_Internal {
 
-    /**
-     * Configuration options for the {@link Tokens} class.
-     * 
-     * @since ___PKG_VERSION___
-     */
-    export interface Config {
-        tokensAsDefault: boolean;
-    };
+    export interface Config extends Partial<Omit<Tokens.Config, "extraColourLevels">> {
+        extraColourLevels?: undefined | never;
+    }
+
+    export type Default_ColourName = 'base';
+
+    export type Default_ExtraColourLevels = never;
+
+    export type Default_ThemeBrightnessMode = [ 'light', 'dark' ];
+
+    export type Default_ThemeContrastMode = [ 'average', 'high', 'low' ];
+
+    export type Default_ThemeExtraContrastMode = [ 'low' ];
 
     export type Data<
         T_ColourName extends string,
@@ -318,5 +334,130 @@ export namespace Tokens {
             T_ThemeName
         >;
         typography: Tokens_Typography.JsonReturn;
+    };
+}
+
+/**
+ * Utilities for the {@link Tokens} class.
+ * 
+ * @since ___PKG_VERSION___
+ */
+export namespace Tokens {
+
+    /**
+     * Configuration options for the {@link Tokens} class.
+     * 
+     * @since ___PKG_VERSION___
+     */
+    export interface Config<
+        T_ExtraColourLevels extends TokenLevels_Extended = TokenLevels_Extended,
+    > {
+        extraColourLevels: readonly T_ExtraColourLevels[];
+        tokensAsDefault: boolean;
+    };
+
+    export type Data<
+        T_ColourName extends string = Tokens_Internal.Default_ColourName,
+        T_ExtraColourLevels extends TokenLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
+        T_ThemeBrightnessMode extends readonly [ string, ...string[] ] = Tokens_Internal.Default_ThemeBrightnessMode,
+        T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne = Tokens_Internal.Default_ThemeContrastMode,
+        T_ThemeName extends string = Tokens_Themes.Default_ThemeName,
+    > = Tokens_Internal.Data<
+        T_ColourName,
+        T_ExtraColourLevels,
+        T_ThemeBrightnessMode,
+        T_ThemeContrastMode,
+        T_ThemeName
+    >;
+
+    export interface InputParam<
+        T_ColourName extends string = Tokens_Internal.Default_ColourName,
+        T_ExtraColourLevels extends TokenLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
+        T_ThemeBrightnessMode extends readonly [ string, ...string[] ] = Tokens_Internal.Default_ThemeBrightnessMode,
+        T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne = Tokens_Internal.Default_ThemeContrastMode,
+        T_ThemeName extends string = Tokens_Themes.Default_ThemeName,
+    > extends Tokens_Internal.InputParam<
+        T_ColourName,
+        T_ExtraColourLevels,
+        T_ThemeBrightnessMode,
+        T_ThemeContrastMode,
+        T_ThemeName
+    > { }
+
+    export type JsonReturn<
+        T_ColourName extends string = Tokens_Internal.Default_ColourName,
+        T_ExtraColourLevels extends TokenLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
+        T_ThemeBrightnessMode extends readonly [ string, ...string[] ] = Tokens_Internal.Default_ThemeBrightnessMode,
+        T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne = Tokens_Internal.Default_ThemeContrastMode,
+        T_ThemeName extends string = Tokens_Themes.Default_ThemeName,
+    > = Tokens_Internal.JsonReturn<
+        T_ColourName,
+        T_ExtraColourLevels,
+        T_ThemeBrightnessMode,
+        T_ThemeContrastMode,
+        T_ThemeName
+    >;
+
+    type SampleColourName =
+        | "blue"
+        | "green"
+        | "orange"
+        | "pink"
+        | "purple"
+        | "red"
+        | "turquoise"
+        | "yellow";
+
+    export const SampleColours = {
+
+        red: {
+            '100': { l: 96, c: 5, h: 15, },
+            '500': { l: 50, c: 49, h: 15, },
+            '900': { l: 2, c: 3, h: 15, },
+        },
+
+        orange: {
+            '100': { l: 98, c: 8.5, h: 180 },
+            '500': { l: 52, c: 40.5, h: 180 },
+            '900': { l: 2, c: 100, h: 180 },
+        },
+
+        yellow: {
+            '100': { l: 98, c: 8.5, h: 180 },
+            '500': { l: 52, c: 40.5, h: 180 },
+            '900': { l: 2, c: 100, h: 180 },
+        },
+
+        green: {
+            '100': { l: 98, c: 8.5, h: 180 },
+            '500': { l: 52, c: 40.5, h: 180 },
+            '900': { l: 2, c: 100, h: 180 },
+        },
+
+        blue: {
+            '100': { l: 98, c: 8.5, h: 180 },
+            '500': { l: 52, c: 40.5, h: 180 },
+            '900': { l: 2, c: 100, h: 180 },
+        },
+
+        turquoise: {
+            '100': { l: 98, c: 8.5, h: 180 },
+            '500': { l: 52, c: 40.5, h: 180 },
+            '900': { l: 2, c: 100, h: 180 },
+        },
+
+        purple: {
+            '100': { l: 96, c: 7, h: 318 },
+            '500': { l: 47, c: 50, h: 318 },
+            '900': { l: 2, c: 4, h: 318 },
+        },
+
+        pink: {
+            '100': { l: 98, c: 8.5, h: 180 },
+            '500': { l: 52, c: 40.5, h: 180 },
+            '900': { l: 2, c: 100, h: 180 },
+        },
+    } as const satisfies {
+        [ K in SampleColourName ]: Tokens_Colour_ShadeMap.InputParam<SampleColourName, never>
     };
 }

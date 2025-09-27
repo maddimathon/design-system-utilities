@@ -9,9 +9,9 @@
 
 /* import - functions */
 import ColourTable_Scripts from '../../../astro/support/ColourTable_Scripts.astro';
+import { DefaultTokens } from '../../functions/DefaultTokens.js';
 
 /* import - values */
-import tokens from '../../../../dist/default-tokens.json';
 
 /* import - components */
 
@@ -32,16 +32,16 @@ import ColourList from '../../../astro/components/ColourList.astro';
 >
     <ColourTable
         id='all-colours'
-        colour={tokens.colour}
+        colour={DefaultTokens.colour}
     />
 
     {
-        (Object.keys(tokens.colour) as (keyof typeof tokens.colour)[]).map(
+        (Object.keys(DefaultTokens.colour) as (keyof typeof DefaultTokens.colour)[]).map(
             (name) => (
                 <h2 set:html={name} />
                 <ColourList
-                    bases={tokens.colour.base}
-                    colour={tokens.colour[name]}
+                    bases={DefaultTokens.colour.base}
+                    colour={DefaultTokens.colour[name]}
                     id={`${name}-shade-list`}
                     name={name}
                     shadeHeading="3"

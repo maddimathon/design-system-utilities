@@ -6,7 +6,9 @@
  */
 
 /* import - types */
-import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Tokens/Colour/Colour_ShadeMap.js';
+import type { TokenLevels_Extended } from '../../ts/02-new-tokens/@types.d.ts';
+import type { Tokens_Internal } from '../../ts/02-new-tokens/Tokens.js';
+import type { Tokens_Colour_ShadeMap } from '../../ts/02-new-tokens/Colour/Colour_ShadeMap.js';
 
 /* import - functions */
 import { shadeMapToArray } from '../functions/shadeMapToArray.js';
@@ -22,19 +24,23 @@ import ColourShadeSwatch from './ColourShadeSwatch.astro';
 
 /* PROPS ===================================== */
 
-export interface Props<T_ColourName extends string = string> {
+export interface Props<
+    T_ColourName extends string = Tokens_Internal.Default_ColourName,
+    T_ExtraLevels extends
+        TokenLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
+> {
     name: string;
 
-    colour: Tokens_Colour_ShadeMap.JSON<T_ColourName>;
+    colour: Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, T_ExtraLevels>;
 
-    bases?: Tokens_Colour_ShadeMap.JSON<T_ColourName>;
+    bases?: Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, T_ExtraLevels>;
 
     /** Unique. */
     id?: string;
 
     shadeHeading?: '2' | '3' | '4' | '5' | '6';
 
-    frontmatter?: Omit<Props<T_ColourName | 'base'>, 'frontmatter'>;
+    frontmatter?: Omit<Props<T_ColourName, T_ExtraLevels>, 'frontmatter'>;
 }
 
 const { bases, id, name, shadeHeading, ...props }: Props =

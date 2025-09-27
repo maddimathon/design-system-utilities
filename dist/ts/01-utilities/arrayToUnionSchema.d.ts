@@ -13,5 +13,5 @@ import * as z from 'zod';
  *
  * @since 0.1.0-alpha.draft
  */
-export declare function arrayToUnionSchema<T_Value extends null | z.Primitive>(arr: T_Value[] | readonly T_Value[]): z.ZodUndefined | z.ZodNull | z.ZodLiteral<T_Value> | z.ZodUnion<[z.ZodNull | z.ZodLiteral<T_Value>, z.ZodNull | z.ZodLiteral<T_Value>, ...(z.ZodNull | z.ZodLiteral<T_Value>)[]]>;
+export declare function arrayToUnionSchema<T_Value extends null | z.Primitive>(arr: T_Value[] | readonly T_Value[]): z.ZodUndefined | z.ZodNull | z.ZodLiteral<T_Value> | z.ZodUnion<[z.ZodNull | z.ZodLiteral<T_Value>, z.ZodNull | z.ZodLiteral<T_Value>, ...(z.ZodNull | z.ZodLiteral<T_Value>)[]]> | undefined;
 //# sourceMappingURL=arrayToUnionSchema.d.ts.map

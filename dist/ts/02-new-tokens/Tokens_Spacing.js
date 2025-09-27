@@ -7,6 +7,9 @@
  * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
+// import { JsonToScss } from '@maddimathon/utility-sass';
+// import * as z from 'zod';
+import { mergeArgs } from '@maddimathon/utility-typescript/functions';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
@@ -27,20 +30,10 @@ export class Tokens_Spacing extends AbstractTokens {
             },
         };
     }
-    // public get data(): Tokens_Spacing.Data {
-    //     return {};
-    // }
     data;
     constructor(input) {
         super();
-        this.data = {
-            ...Tokens_Spacing.default,
-            ...input,
-            margin: {
-                ...Tokens_Spacing.default.margin,
-                ...input.margin,
-            },
-        };
+        this.data = mergeArgs(Tokens_Spacing.default, input, true);
     }
     toJSON() {
         return {

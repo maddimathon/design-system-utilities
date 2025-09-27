@@ -13,6 +13,6 @@
  * @license MIT
  */
 export * from './01-utilities/makeRelativeURL.js';
-// export * from './02-tokens/Tokens.js';
+export { Tokens } from './02-new-tokens/Tokens.js';
 export * as BuildUtilities from './build-utils/index.js';
 //# sourceMappingURL=index.js.map

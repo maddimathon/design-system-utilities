@@ -46,6 +46,7 @@ export declare class Tokens_Themes<T_ColourName extends string, T_ExtraColourLev
  * @since 0.1.0-alpha.draft
  */
 export declare namespace Tokens_Themes {
+    type Default_ThemeName = 'default';
     /**
      * @since 0.1.0-alpha.draft
      */

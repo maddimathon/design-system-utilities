@@ -11,7 +11,10 @@
 // import { JsonToScss } from '@maddimathon/utility-sass';
 // import * as z from 'zod';
 
+import { mergeArgs } from '@maddimathon/utility-typescript/functions';
+
 import type { TokenLevels, TokenLevels_Extended } from './@types.js';
+
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 
 /**
@@ -36,9 +39,6 @@ export class Tokens_Spacing extends AbstractTokens<Tokens_Spacing.Data> {
         };
     }
 
-    // public get data(): Tokens_Spacing.Data {
-    //     return {};
-    // }
     public readonly data: Tokens_Spacing.Data;
 
     public constructor (
@@ -46,15 +46,7 @@ export class Tokens_Spacing extends AbstractTokens<Tokens_Spacing.Data> {
     ) {
         super();
 
-        this.data = {
-            ...Tokens_Spacing.default,
-            ...input,
-
-            margin: {
-                ...Tokens_Spacing.default.margin,
-                ...input.margin,
-            },
-        };
+        this.data = mergeArgs( Tokens_Spacing.default, input, true );
     }
 
     public toJSON(): Tokens_Spacing.JsonReturn {

@@ -49,7 +49,7 @@ export class Tokens_Colour_ShadeMap_Shade extends AbstractTokens {
         if (typeof this.contrast.results[colourGroupName] === 'undefined') {
             this.contrast.results[colourGroupName] = {};
         }
-        const test = new ColourContrastTest(this.shadeValue(), testClr);
+        const contrastTest = new ColourContrastTest(this.shadeValue(), testClr);
         if (typeof this.contrast.min[colourGroupName] === 'undefined') {
             this.contrast.min[colourGroupName] = {
                 ui: undefined,
@@ -57,21 +57,33 @@ export class Tokens_Colour_ShadeMap_Shade extends AbstractTokens {
             };
         }
         // SETTING MINIMUMS
-        for (const testName of ['ui', 'text']) {
+        testNameLoop: for (const testName of ['ui', 'text']) {
             // continues
-            if (!test.aa[testName]) {
-                continue;
+            if (!contrastTest.aa[testName] && !contrastTest.aaa[testName]) {
+                continue testNameLoop;
             }
-            if (
-            // if there's no minimum, then this is the new minimum
-            typeof this.contrast.min[colourGroupName][testName] === 'undefined'
-                // this result is less than the existing minimum
-                || test.ratio < this.contrast.min[colourGroupName][testName].ratio) {
+            if (typeof this.contrast.min[colourGroupName][testName] === 'undefined') {
                 this.contrast.min[colourGroupName][testName] = {
-                    name: colourGroupName,
-                    level,
-                    ratio: test.ratio,
+                    aa: undefined,
+                    aaa: undefined,
                 };
+            }
+            standardsLoop: for (const standard of ['aa', 'aaa']) {
+                // if it didn't pass, ignore this
+                if (!contrastTest[standard][testName]) {
+                    continue standardsLoop;
+                }
+                if (
+                // if there's no minimum, then this is the new minimum
+                typeof this.contrast.min[colourGroupName][testName]?.[standard] === 'undefined'
+                    // this result is less than the existing minimum
+                    || contrastTest.ratio < this.contrast.min[colourGroupName][testName]?.[standard].ratio) {
+                    this.contrast.min[colourGroupName][testName][standard] = {
+                        name: colourGroupName,
+                        level,
+                        ratio: contrastTest.ratio,
+                    };
+                }
             }
         }
         // SETTING MAXIMUM
@@ -79,14 +91,14 @@ export class Tokens_Colour_ShadeMap_Shade extends AbstractTokens {
         // if there's no maximum, then this is the new maximum
         typeof this.contrast.max[colourGroupName] === 'undefined'
             // this result is more than the existing maximum
-            || test.ratio > this.contrast.max[colourGroupName].ratio) {
+            || contrastTest.ratio > this.contrast.max[colourGroupName].ratio) {
             this.contrast.max[colourGroupName] = {
                 name: colourGroupName,
                 level,
-                ratio: test.ratio,
+                ratio: contrastTest.ratio,
             };
         }
-        this.contrast.results[colourGroupName][level] = test;
+        this.contrast.results[colourGroupName][level] = contrastTest;
     }
     shadeValue() {
         return {
@@ -97,15 +109,30 @@ export class Tokens_Colour_ShadeMap_Shade extends AbstractTokens {
         };
     }
     toJSON() {
-        const max = objectMap(this.contrast.max, ({ value }) => value && { ...value, ratio: undefined });
+        const max = objectMap(this.contrast.max, ({ value }) => value && {
+            ...value,
+            // ratio: undefined
+        });
         const min = objectMap(this.contrast.min, ({ value: testGroup }) => ({
             ui: testGroup?.ui && {
-                ...testGroup.ui,
-                ratio: undefined,
+                aa: testGroup.ui.aa && {
+                    ...testGroup.ui.aa,
+                    // ratio: undefined,
+                },
+                aaa: testGroup.ui.aaa && {
+                    ...testGroup.ui.aaa,
+                    // ratio: undefined,
+                },
             },
             text: testGroup?.text && {
-                ...testGroup.text,
-                ratio: undefined,
+                aa: testGroup.text.aa && {
+                    ...testGroup.text.aa,
+                    // ratio: undefined,
+                },
+                aaa: testGroup.text.aaa && {
+                    ...testGroup.text.aaa,
+                    // ratio: undefined,
+                },
             },
         }));
         return {

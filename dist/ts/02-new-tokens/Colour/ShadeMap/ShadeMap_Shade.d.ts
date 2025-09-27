@@ -52,7 +52,7 @@ export declare namespace Tokens_Colour_ShadeMap_Shade {
      * @since 0.1.0-alpha.draft
      */
     type JsonReturn<T_ColourName extends string, T_ExtraLevels extends TokenLevels_Extended> = ColourUtilities.Value_All & {
-        contrast: Contrast<T_ColourName, T_ExtraLevels, undefined>;
+        contrast: Contrast<T_ColourName, T_ExtraLevels, number>;
     };
     /**
      * @since 0.1.0-alpha.draft
@@ -93,7 +93,9 @@ export declare namespace Tokens_Colour_ShadeMap_Shade {
          */
         type Minimum<T_ColourName extends string, T_ExtraLevels extends TokenLevels_Extended, T_RatioValue extends number | undefined = number> = {
             [N in T_ColourName]?: undefined | {
-                [K in keyof ColourContrastTest.TestResult_Single]: SingleMinMax<T_ColourName, T_ExtraLevels, T_RatioValue>;
+                [K in keyof ColourContrastTest.TestResult_Single]?: undefined | {
+                    [S in keyof ColourContrastTest.TestStandards]?: SingleMinMax<T_ColourName, T_ExtraLevels, T_RatioValue>;
+                };
             };
         };
     }

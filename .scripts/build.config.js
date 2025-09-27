@@ -11,10 +11,6 @@
  * @import { Config, Stage } from '@maddimathon/build-utilities';
 */
 
-import {
-    DocumentStage,
-} from '@maddimathon/build-utilities';
-
 import { Build } from './classes/Build.js';
 import { Compile } from './classes/Compile.js';
 import { Document } from './classes/Document.js';
@@ -73,7 +69,7 @@ const config = {
                 ],
 
                 typeDoc: {
-                    out: 'docs-typedoc',
+                    out: 'src/docs/_public/typedoc',
                 },
             }
         ],

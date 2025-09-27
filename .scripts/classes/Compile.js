@@ -51,35 +51,11 @@ export class Compile extends CompileStage {
     async tokens() {
         this.console.progress( 'compiling default tokens...', 1 );
 
-        // const Tokens = ( await import( /* @vite-ignore */ '../../dist/ts/02-tokens/Tokens.js' ) ).Tokens;
         const Tokens = ( await import( /* @vite-ignore */ '../../dist/ts/02-new-tokens/Tokens.js' ) ).Tokens;
 
         const defaultTokens = await Tokens.build(
-            [
-                'base',
-                'red',
-                'blue',
-                'purple',
-            ],
-            [],
             {
-                colour: {
-                    red: {
-                        '100': { l: 96, c: 5, h: 15 },
-                        '500': { l: 50, c: 49, h: 15 },
-                        '900': { l: 2, c: 3, h: 15 },
-                    },
-                    blue: {
-                        '100': { l: 98, c: 8.5, h: 180 },
-                        '500': { l: 52, c: 40.5, h: 180 },
-                        '900': { l: 2, c: 100, h: 180 },
-                    },
-                    purple: {
-                        '100': { l: 96, c: 7, h: 318 },
-                        '500': { l: 47, c: 50, h: 318 },
-                        '900': { l: 2, c: 4, h: 318 },
-                    },
-                },
+                colour: Tokens.SampleColours,
             },
             { tokensAsDefault: true },
         );

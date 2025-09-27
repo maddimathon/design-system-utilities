@@ -9,7 +9,6 @@
  */
 import * as WcagContrast from 'wcag-contrast';
 import * as z from 'zod';
-// import { AbstractTokens } from '../02-tokens/abstracts/AbstractTokens.js';
 import { ColourUtilities } from './ColourUtilities.js';
 /**
  * Generates a single pair of contrast test results used by the

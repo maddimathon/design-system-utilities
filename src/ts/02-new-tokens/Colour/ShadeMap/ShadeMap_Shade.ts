@@ -66,7 +66,7 @@ export class Tokens_Colour_ShadeMap_Shade<
             this.contrast.results[ colourGroupName ] = {};
         }
 
-        const test = new ColourContrastTest(
+        const contrastTest = new ColourContrastTest(
             this.shadeValue(),
             testClr,
         );
@@ -79,25 +79,41 @@ export class Tokens_Colour_ShadeMap_Shade<
         }
 
         // SETTING MINIMUMS
+        testNameLoop:
         for ( const testName of ( [ 'ui', 'text' ] as const ) ) {
             // continues
-            if ( !test.aa[ testName ] ) {
-                continue;
+            if ( !contrastTest.aa[ testName ] && !contrastTest.aaa[ testName ] ) {
+                continue testNameLoop;
             }
 
-            if (
-                // if there's no minimum, then this is the new minimum
-                typeof this.contrast.min[ colourGroupName ][ testName ] === 'undefined'
-
-                // this result is less than the existing minimum
-                || test.ratio < this.contrast.min[ colourGroupName ][ testName ].ratio
-            ) {
-
+            if ( typeof this.contrast.min[ colourGroupName ][ testName ] === 'undefined' ) {
                 this.contrast.min[ colourGroupName ][ testName ] = {
-                    name: colourGroupName,
-                    level,
-                    ratio: test.ratio,
+                    aa: undefined,
+                    aaa: undefined,
                 };
+            }
+
+            standardsLoop:
+            for ( const standard of [ 'aa', 'aaa' ] as const ) {
+                // if it didn't pass, ignore this
+                if ( !contrastTest[ standard ][ testName ] ) {
+                    continue standardsLoop;
+                }
+
+                if (
+                    // if there's no minimum, then this is the new minimum
+                    typeof this.contrast.min[ colourGroupName ][ testName ]?.[ standard ] === 'undefined'
+
+                    // this result is less than the existing minimum
+                    || contrastTest.ratio < this.contrast.min[ colourGroupName ][ testName ]?.[ standard ].ratio
+                ) {
+
+                    this.contrast.min[ colourGroupName ][ testName ][ standard ] = {
+                        name: colourGroupName,
+                        level,
+                        ratio: contrastTest.ratio,
+                    };
+                }
             }
         }
 
@@ -107,17 +123,17 @@ export class Tokens_Colour_ShadeMap_Shade<
             typeof this.contrast.max[ colourGroupName ] === 'undefined'
 
             // this result is more than the existing maximum
-            || test.ratio > this.contrast.max[ colourGroupName ].ratio
+            || contrastTest.ratio > this.contrast.max[ colourGroupName ].ratio
         ) {
 
             this.contrast.max[ colourGroupName ] = {
                 name: colourGroupName,
                 level,
-                ratio: test.ratio,
+                ratio: contrastTest.ratio,
             };
         }
 
-        this.contrast.results[ colourGroupName ][ level ] = test;
+        this.contrast.results[ colourGroupName ][ level ] = contrastTest;
     }
 
     public shadeValue(): ColourUtilities.SingleShade {
@@ -136,25 +152,40 @@ export class Tokens_Colour_ShadeMap_Shade<
             this.contrast.max,
             ( { value }: {
                 value: Tokens_Colour_ShadeMap_Shade.Contrast.SingleMinMax<T_ColourName, T_ExtraLevels>;
-            } ) => value && { ...value, ratio: undefined },
+            } ) => value && {
+                ...value,
+                // ratio: undefined
+            },
         );
 
         const min: Tokens_Colour_ShadeMap_Shade.Contrast.Minimum<
             T_ColourName,
             T_ExtraLevels,
-            undefined
+            number
         > = objectMap(
             this.contrast.min,
             ( { value: testGroup } ) => ( {
 
                 ui: testGroup?.ui && {
-                    ...testGroup.ui,
-                    ratio: undefined,
+                    aa: testGroup.ui.aa && {
+                        ...testGroup.ui.aa,
+                        // ratio: undefined,
+                    },
+                    aaa: testGroup.ui.aaa && {
+                        ...testGroup.ui.aaa,
+                        // ratio: undefined,
+                    },
                 },
 
                 text: testGroup?.text && {
-                    ...testGroup.text,
-                    ratio: undefined,
+                    aa: testGroup.text.aa && {
+                        ...testGroup.text.aa,
+                        // ratio: undefined,
+                    },
+                    aaa: testGroup.text.aaa && {
+                        ...testGroup.text.aaa,
+                        // ratio: undefined,
+                    },
                 },
             } ),
         );
@@ -198,7 +229,7 @@ export namespace Tokens_Colour_ShadeMap_Shade {
         T_ColourName extends string,
         T_ExtraLevels extends TokenLevels_Extended,
     > = ColourUtilities.Value_All & {
-        contrast: Contrast<T_ColourName, T_ExtraLevels, undefined>;
+        contrast: Contrast<T_ColourName, T_ExtraLevels, number>;
     };
 
 
@@ -267,7 +298,9 @@ export namespace Tokens_Colour_ShadeMap_Shade {
             T_RatioValue extends number | undefined = number,
         > = {
                 [ N in T_ColourName ]?: undefined | {
-                    [ K in keyof ColourContrastTest.TestResult_Single ]: SingleMinMax<T_ColourName, T_ExtraLevels, T_RatioValue>;
+                    [ K in keyof ColourContrastTest.TestResult_Single ]?: undefined | {
+                        [ S in keyof ColourContrastTest.TestStandards ]?: SingleMinMax<T_ColourName, T_ExtraLevels, T_RatioValue>;
+                    };
                 };
             };
     }

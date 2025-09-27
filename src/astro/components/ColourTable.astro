@@ -6,7 +6,9 @@
  */
 
 /* import - types */
-import type { Tokens_Colour } from '../../ts/02-tokens/Tokens/Colour.js';
+import type { TokenLevels_Extended } from '../../ts/02-new-tokens/@types.d.ts';
+import type { Tokens_Internal } from '../../ts/02-new-tokens/Tokens.js';
+import type { Tokens_Colour } from '../../ts/02-new-tokens/Tokens_Colour.js';
 
 /* import - functions */
 import { colourToArray } from '../functions/colourToArray.js';
@@ -25,14 +27,17 @@ import ColourShadeSwatch from './ColourShadeSwatch.astro';
 
 /* PROPS ===================================== */
 
-export interface Props<T_ColourName extends string = string> {
+export interface Props<
+    T_ColourName extends string = Tokens_Internal.Default_ColourName,
+    T_ExtraLevels extends TokenLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
+> {
 
     /** Unique. */
     id: string;
     
-    colour: Tokens_Colour.JSON<T_ColourName>;
+    colour: Tokens_Colour.JsonReturn<T_ColourName, T_ExtraLevels>;
 
-    frontmatter?: Omit<Props<T_ColourName>, 'frontmatter'>;
+    frontmatter?: Omit<Props<T_ColourName, T_ExtraLevels>, 'frontmatter'>;
 }
 
 const {

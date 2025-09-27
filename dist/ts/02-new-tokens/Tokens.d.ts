@@ -19,11 +19,11 @@ import { Tokens_Typography } from './Tokens_Typography.js';
  *
  * @since 0.1.0-alpha.draft
  */
-export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_ThemeBrightnessMode extends readonly [string, ...string[]], T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne, T_ThemeName extends string> extends AbstractTokens<Tokens.Data<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName>> {
+export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_ThemeBrightnessMode extends readonly [string, ...string[]], T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne, T_ThemeName extends string> extends AbstractTokens<Tokens_Internal.Data<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName>> {
     protected readonly clrNames: readonly T_ColourName[];
     protected readonly extraColourLevels: readonly T_ExtraColourLevels[];
-    protected readonly input: Omit<Tokens.InputParam<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName>, "themes">;
-    protected readonly config: Partial<Tokens.Config>;
+    protected readonly input: Omit<Tokens_Internal.InputParam<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName>, "themes">;
+    protected readonly config: Tokens_Internal.Config;
     get data(): {
         spacing: Tokens_Spacing.Data;
         typography: Tokens_Typography.Data;
@@ -39,9 +39,9 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
     /**
      * Used instead of the constructor so that it can be async.
      */
-    static build<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_ThemeBrightnessMode extends readonly [string, ...string[]], T_ThemeContrastMode_Extra extends readonly ThemeMode_ContrastExtraOptions[], T_ThemeName extends string>(clrNames: readonly T_ColourName[], extraColourLevels: readonly T_ExtraColourLevels[], input: Tokens.InputParam<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, ThemeMode_Contrast<T_ThemeContrastMode_Extra>, T_ThemeName>, config?: Partial<Tokens.Config>): Promise<Tokens<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, ThemeMode_Contrast<T_ThemeContrastMode_Extra>, T_ThemeName>>;
-    protected constructor(clrNames: readonly T_ColourName[], extraColourLevels: readonly T_ExtraColourLevels[], themes: Tokens_Themes<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode[number], T_ThemeContrastMode[number], T_ThemeName>, input: Omit<Tokens.InputParam<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName>, "themes">, config?: Partial<Tokens.Config>);
-    toJSON(): Tokens.JsonReturn<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName>;
+    static build<T_ColourName extends string = Tokens_Internal.Default_ColourName, T_ExtraColourLevels extends TokenLevels_Extended = Tokens_Internal.Default_ExtraColourLevels, T_ThemeBrightnessMode extends readonly [string, ...string[]] = Tokens_Internal.Default_ThemeBrightnessMode, T_ThemeContrastMode_Extra extends readonly ThemeMode_ContrastExtraOptions[] = Tokens_Internal.Default_ThemeExtraContrastMode, T_ThemeName extends string = Tokens_Themes.Default_ThemeName>(input: Tokens_Internal.InputParam<Tokens_Internal.Default_ColourName | T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, ThemeMode_Contrast<T_ThemeContrastMode_Extra>, T_ThemeName>, config?: Partial<Tokens.Config<T_ExtraColourLevels>>): Promise<Tokens<Tokens_Internal.Default_ColourName | T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, ThemeMode_Contrast<T_ThemeContrastMode_Extra>, T_ThemeName>>;
+    protected constructor(clrNames: readonly T_ColourName[], extraColourLevels: readonly T_ExtraColourLevels[], themes: Tokens_Themes<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode[number], T_ThemeContrastMode[number], T_ThemeName>, input: Omit<Tokens_Internal.InputParam<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName>, "themes">, config?: Tokens_Internal.Config);
+    toJSON(): Tokens_Internal.JsonReturn<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName>;
     toScssVars(): {
         colour: Tokens_Colour.Data<T_ColourName, T_ExtraColourLevels> extends infer T extends object ? { [K in keyof T]: T_Return; } : never;
         themes: { [K_1 in T_ThemeName]: { [B in T_ThemeBrightnessMode[number]]: { [C in T_ThemeContrastMode[number]]: import("./Themes/Themes_Set_SingleMode.js").Tokens_Themes_Set_SingleMode.Data<import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>>; }; }; };
@@ -143,19 +143,21 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
     toScss(): string;
 }
 /**
- * Utilities for the {@link Tokens} class.
+ * Internal utilities for the {@link Tokens} class.
  *
  * @since 0.1.0-alpha.draft
+ * @internal
+ * @private
  */
-export declare namespace Tokens {
-    /**
-     * Configuration options for the {@link Tokens} class.
-     *
-     * @since 0.1.0-alpha.draft
-     */
-    interface Config {
-        tokensAsDefault: boolean;
+export declare namespace Tokens_Internal {
+    interface Config extends Partial<Omit<Tokens.Config, "extraColourLevels">> {
+        extraColourLevels?: undefined | never;
     }
+    type Default_ColourName = 'base';
+    type Default_ExtraColourLevels = never;
+    type Default_ThemeBrightnessMode = ['light', 'dark'];
+    type Default_ThemeContrastMode = ['average', 'high', 'low'];
+    type Default_ThemeExtraContrastMode = ['low'];
     type Data<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_ThemeBrightnessMode extends readonly [string, ...string[]], T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne, T_ThemeName extends string> = {
         colour: Tokens_Colour.Data<T_ColourName, T_ExtraColourLevels>;
         css: Tokens_CSS.Data;
@@ -180,6 +182,164 @@ export declare namespace Tokens {
         spacing: Tokens_Spacing.JsonReturn;
         themes: Tokens_Themes.JsonReturn<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode[number], T_ThemeContrastMode[number], T_ThemeName>;
         typography: Tokens_Typography.JsonReturn;
+    };
+}
+/**
+ * Utilities for the {@link Tokens} class.
+ *
+ * @since 0.1.0-alpha.draft
+ */
+export declare namespace Tokens {
+    /**
+     * Configuration options for the {@link Tokens} class.
+     *
+     * @since 0.1.0-alpha.draft
+     */
+    interface Config<T_ExtraColourLevels extends TokenLevels_Extended = TokenLevels_Extended> {
+        extraColourLevels: readonly T_ExtraColourLevels[];
+        tokensAsDefault: boolean;
+    }
+    type Data<T_ColourName extends string = Tokens_Internal.Default_ColourName, T_ExtraColourLevels extends TokenLevels_Extended = Tokens_Internal.Default_ExtraColourLevels, T_ThemeBrightnessMode extends readonly [string, ...string[]] = Tokens_Internal.Default_ThemeBrightnessMode, T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne = Tokens_Internal.Default_ThemeContrastMode, T_ThemeName extends string = Tokens_Themes.Default_ThemeName> = Tokens_Internal.Data<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName>;
+    interface InputParam<T_ColourName extends string = Tokens_Internal.Default_ColourName, T_ExtraColourLevels extends TokenLevels_Extended = Tokens_Internal.Default_ExtraColourLevels, T_ThemeBrightnessMode extends readonly [string, ...string[]] = Tokens_Internal.Default_ThemeBrightnessMode, T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne = Tokens_Internal.Default_ThemeContrastMode, T_ThemeName extends string = Tokens_Themes.Default_ThemeName> extends Tokens_Internal.InputParam<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName> {
+    }
+    type JsonReturn<T_ColourName extends string = Tokens_Internal.Default_ColourName, T_ExtraColourLevels extends TokenLevels_Extended = Tokens_Internal.Default_ExtraColourLevels, T_ThemeBrightnessMode extends readonly [string, ...string[]] = Tokens_Internal.Default_ThemeBrightnessMode, T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne = Tokens_Internal.Default_ThemeContrastMode, T_ThemeName extends string = Tokens_Themes.Default_ThemeName> = Tokens_Internal.JsonReturn<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName>;
+    const SampleColours: {
+        readonly red: {
+            readonly '100': {
+                readonly l: 96;
+                readonly c: 5;
+                readonly h: 15;
+            };
+            readonly '500': {
+                readonly l: 50;
+                readonly c: 49;
+                readonly h: 15;
+            };
+            readonly '900': {
+                readonly l: 2;
+                readonly c: 3;
+                readonly h: 15;
+            };
+        };
+        readonly orange: {
+            readonly '100': {
+                readonly l: 98;
+                readonly c: 8.5;
+                readonly h: 180;
+            };
+            readonly '500': {
+                readonly l: 52;
+                readonly c: 40.5;
+                readonly h: 180;
+            };
+            readonly '900': {
+                readonly l: 2;
+                readonly c: 100;
+                readonly h: 180;
+            };
+        };
+        readonly yellow: {
+            readonly '100': {
+                readonly l: 98;
+                readonly c: 8.5;
+                readonly h: 180;
+            };
+            readonly '500': {
+                readonly l: 52;
+                readonly c: 40.5;
+                readonly h: 180;
+            };
+            readonly '900': {
+                readonly l: 2;
+                readonly c: 100;
+                readonly h: 180;
+            };
+        };
+        readonly green: {
+            readonly '100': {
+                readonly l: 98;
+                readonly c: 8.5;
+                readonly h: 180;
+            };
+            readonly '500': {
+                readonly l: 52;
+                readonly c: 40.5;
+                readonly h: 180;
+            };
+            readonly '900': {
+                readonly l: 2;
+                readonly c: 100;
+                readonly h: 180;
+            };
+        };
+        readonly blue: {
+            readonly '100': {
+                readonly l: 98;
+                readonly c: 8.5;
+                readonly h: 180;
+            };
+            readonly '500': {
+                readonly l: 52;
+                readonly c: 40.5;
+                readonly h: 180;
+            };
+            readonly '900': {
+                readonly l: 2;
+                readonly c: 100;
+                readonly h: 180;
+            };
+        };
+        readonly turquoise: {
+            readonly '100': {
+                readonly l: 98;
+                readonly c: 8.5;
+                readonly h: 180;
+            };
+            readonly '500': {
+                readonly l: 52;
+                readonly c: 40.5;
+                readonly h: 180;
+            };
+            readonly '900': {
+                readonly l: 2;
+                readonly c: 100;
+                readonly h: 180;
+            };
+        };
+        readonly purple: {
+            readonly '100': {
+                readonly l: 96;
+                readonly c: 7;
+                readonly h: 318;
+            };
+            readonly '500': {
+                readonly l: 47;
+                readonly c: 50;
+                readonly h: 318;
+            };
+            readonly '900': {
+                readonly l: 2;
+                readonly c: 4;
+                readonly h: 318;
+            };
+        };
+        readonly pink: {
+            readonly '100': {
+                readonly l: 98;
+                readonly c: 8.5;
+                readonly h: 180;
+            };
+            readonly '500': {
+                readonly l: 52;
+                readonly c: 40.5;
+                readonly h: 180;
+            };
+            readonly '900': {
+                readonly l: 2;
+                readonly c: 100;
+                readonly h: 180;
+            };
+        };
     };
 }
 //# sourceMappingURL=Tokens.d.ts.map

@@ -9,7 +9,7 @@
  */
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 import { Tokens_Colour_ShadeMap } from './Colour/Colour_ShadeMap.js';
-import type { TokenLevels_Extended } from './@types.js';
+import type { TokenLevels_Extended } from './@types.d.ts';
 /**
  * Generates a complete token object for the design system.
  *
