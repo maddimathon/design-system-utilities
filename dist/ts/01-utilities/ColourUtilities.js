@@ -1,10 +1,10 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@___CURRENT_VERSION___
+ * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
 import clrConvert from 'color-convert';
@@ -13,7 +13,7 @@ import * as z from 'zod';
  * Utility functions, schemas, and types for dealing with colour values in the
  * system.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export var ColourUtilities;
 (function (ColourUtilities) {
@@ -70,7 +70,7 @@ export var ColourUtilities;
     /* UTILITY FUNCTIONS
      * ====================================================================== */
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     function toHex(clr) {
         const _hexValidator = (hex) => '#' + hex.replace(/^#/gi, '');
@@ -102,7 +102,7 @@ export var ColourUtilities;
     }
     ColourUtilities.toHex = toHex;
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     function toHSL(clr) {
         const _arrayToObject = (hsl) => ({
@@ -138,7 +138,7 @@ export var ColourUtilities;
     }
     ColourUtilities.toHSL = toHSL;
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     function toLCH(clr) {
         const _arrayToObject = (lch) => ({
@@ -174,7 +174,7 @@ export var ColourUtilities;
     }
     ColourUtilities.toLCH = toLCH;
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     function toRGB(clr) {
         const _arrayToObject = (rgb) => ({
@@ -210,7 +210,7 @@ export var ColourUtilities;
     }
     ColourUtilities.toRGB = toRGB;
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     function mixColours(_clrA, _clrB) {
         const clrA = toLCH(_clrA);

@@ -1,19 +1,19 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@___CURRENT_VERSION___
+ * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 import { Tokens_Colour_ShadeMap } from './Colour/Colour_ShadeMap.js';
-import type { TokenLevels_Extended } from './@utils.js';
+import type { TokenLevels_Extended } from './@types.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export declare class Tokens_Colour<T_ColourName extends string, T_ExtraLevels extends TokenLevels_Extended> extends AbstractTokens<Tokens_Colour.Data<T_ColourName, T_ExtraLevels>> {
     protected readonly allNames: readonly T_ColourName[];
@@ -23,7 +23,7 @@ export declare class Tokens_Colour<T_ColourName extends string, T_ExtraLevels ex
     /**
      * Adds contrast tests to all the colour maps.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     addContrastTests(): Promise<void>;
     toJSON(): Tokens_Colour.JsonReturn<T_ColourName, T_ExtraLevels>;
@@ -32,23 +32,23 @@ export declare class Tokens_Colour<T_ColourName extends string, T_ExtraLevels ex
 /**
  * Utilities for the {@link Tokens_Colour} class.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export declare namespace Tokens_Colour {
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     type Data<T_ColourName extends string, T_ExtraLevels extends TokenLevels_Extended> = {
         [N in T_ColourName]: Tokens_Colour_ShadeMap<T_ColourName, T_ExtraLevels>;
     };
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     type InputParam<T_ColourName extends string, T_ExtraLevels extends TokenLevels_Extended> = {
         [N in T_ColourName]?: Tokens_Colour_ShadeMap.InputParam<T_ColourName, T_ExtraLevels>;
     };
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     type JsonReturn<T_ColourName extends string, T_ExtraLevels extends TokenLevels_Extended> = {
         [N in T_ColourName]: Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, T_ExtraLevels>;

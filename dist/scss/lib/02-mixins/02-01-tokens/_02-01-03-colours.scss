@@ -11,7 +11,7 @@
 @use 'pkg:@maddimathon/utility-sass/selector';
 @use 'pkg:@maddimathon/utility-sass/string';
 
-// @use '../../../config';
+@use '../../../config';
 @use '../../../tokens';
 
 @use '../../01-functions' as *;
@@ -52,7 +52,8 @@
     /* #endregion Tokens - Colour */
 }
 
-$_flattenedThemes: map.flatten(tokens.$theme);
+$_activeTheme: map.get(tokens.$themes, tokens.$activeTheme);
+$_flattenedActiveTheme: map.flatten($_activeTheme);
 $_systemColors: get-sys-colours();
 
 ///
@@ -79,14 +80,14 @@ $_systemColors: get-sys-colours();
         {
             $lookupSlug: if(
                 map.has-key(
-                    $_flattenedThemes,
-                    '#{$contrast}-#{$brightness}-#{$slug}'
+                    $_flattenedActiveTheme,
+                    '#{$brightness}-#{$contrast}-#{$slug}'
                 ),
                 $slug,
                 if(
                     map.has-key(
-                        $_flattenedThemes,
-                        '#{$contrast}-#{$brightness}-system-#{$slug}'
+                        $_flattenedActiveTheme,
+                        '#{$brightness}-#{$contrast}-system-#{$slug}'
                     ),
                     'system-#{$slug}',
                     false
@@ -96,18 +97,13 @@ $_systemColors: get-sys-colours();
             @if $lookupSlug != false {
                 $_clrSlug: theme-token-value(
                     $lookupSlug,
-                    $brightness,
-                    $contrast
+                    $brightness: $brightness,
+                    $contrast: $contrast
                 );
 
-                --sys-clr-#{$slug}: #{if(
-                        string.index($_clrSlug, '-'),
-                        var-clr(
-                            string.slice($_clrSlug, 1, -5),
-                            string.slice($_clrSlug, -3, -1),
-                            $brightness
-                        ),
-                        $_clrSlug
+                --sys-clr-#{$slug}: #{var-clr-from-theme-token(
+                        $_clrSlug,
+                        $brightness: $brightness
                     )};
             }
         }
@@ -121,16 +117,35 @@ $_systemColors: get-sys-colours();
 ///
 @mixin tokens-theme {
     // prettier-ignore
-    @include utils.token-mode-each($includeRegions_heading: 'Tokens - Theme - ') using ($brightness, $contrast) {
+    @include utils.colour-mode-each(
+        $includeRegions_heading: 'Tokens - Theme - ',
+        $nestModeSelectors: config.$mx_themeTokens_nestModeSelectors,
+    ) using ($brightness, $contrast) {
         //
-        @if $contrast != forced-colors {
+        @if $contrast == forced-colors {
+            $flattened: map.flatten(
+                map.get($_activeTheme, forced-colors)
+            );
+            
+            @include tokens-sys-colour(
+                $brightness: tokens.$brightnessMode_default,
+                $contrast: $contrast,
+            );
+
+            @each $prop, $value in $flattened {
+                @if string.index($prop, 'system-') != 1 {
+
+                    --theme-#{$prop}: #{var-clr-from-theme-token($value)} !important;
+                }
+            }
+        } @else {
             //
-            @if map.has-key(tokens.$theme, $contrast) {
+            @if map.has-key($_activeTheme, $brightness) {
                 //
-                @if map.has-key(map.get(tokens.$theme, $contrast), $brightness)
+                @if map.has-key(map.get($_activeTheme, $brightness), $contrast)
                 {
                     $flattened: map.flatten(
-                        map.get(tokens.$theme, $contrast, $brightness)
+                        map.get($_activeTheme, $brightness, $contrast)
                     );
                     
                     @include tokens-sys-colour(
@@ -141,31 +156,14 @@ $_systemColors: get-sys-colours();
                     @each $prop, $value in $flattened {
                         @if string.index($prop, 'system-') != 1 {
 
-                            --theme-#{$prop}: #{if(
-                                    string.index($value, '-'),
-                                    var-clr(
-                                        string.slice($value, 1, -5),
-                                        string.slice($value, -3, -1),
-                                        $brightness
-                                    ),
-                                    $value
-                                )};
+                            --theme-#{$prop}: #{var-clr-from-theme-token(
+                                $value,
+                                $brightness: $brightness
+                            )};
                         }
                     }
                 }
             }
         }
     }
-
-    /*#region Tokens - Theme - forced-colors contrast */
-    @include utils.forced-colors {
-        // all colour modes to ensure the right specificity
-        @include tokens-sys-colour($contrast: forced-colors);
-
-        // prettier-ignore
-        @each $prop, $value in map.flatten(map.get(tokens.$theme, forced-colors)) {
-            --theme-#{$prop}: #{$value} !important;
-        }
-    }
-    /*#endregion contrast forced-colors */
 }

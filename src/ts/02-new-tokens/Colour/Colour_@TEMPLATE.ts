@@ -13,7 +13,7 @@
 
 import { objectGenerator } from '../../01-utilities/objectGenerator.js';
 
-import type { TokenLevels_Extended } from '../@utils.js';
+import type { TokenLevels_Extended } from '../@types.js';
 
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
 

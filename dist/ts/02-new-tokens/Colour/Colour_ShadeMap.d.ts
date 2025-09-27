@@ -1,19 +1,19 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@___CURRENT_VERSION___
+ * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
-import type { TokenLevels, TokenLevels_Extended } from '../@utils.js';
+import type { TokenLevels, TokenLevels_Extended } from '../@types.js';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
 import { Tokens_Colour_ShadeMap_Shade } from './ShadeMap/ShadeMap_Shade.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export declare class Tokens_Colour_ShadeMap<T_ColourName extends string, T_ExtraLevels extends TokenLevels_Extended> extends AbstractTokens<Tokens_Colour_ShadeMap.Data<T_ColourName, T_ExtraLevels>> {
     protected readonly allNames: readonly T_ColourName[];
@@ -25,7 +25,7 @@ export declare class Tokens_Colour_ShadeMap<T_ColourName extends string, T_Extra
     /**
      * Adds the given shade map to this map's shades' contrast results.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     addContrastTests(colourGroupName: T_ColourName, testMap: Tokens_Colour_ShadeMap<T_ColourName, T_ExtraLevels>): Promise<void[]>;
     toJSON(): Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, T_ExtraLevels>;
@@ -36,7 +36,7 @@ export declare class Tokens_Colour_ShadeMap<T_ColourName extends string, T_Extra
 /**
  * Utilities for the {@link Tokens_Colour_ShadeMap} class.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export declare namespace Tokens_Colour_ShadeMap {
     type Data<T_ColourName extends string, T_ExtraLevels extends TokenLevels_Extended> = {

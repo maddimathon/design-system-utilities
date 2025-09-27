@@ -4,12 +4,12 @@
  * @module root
  * @mergeModuleWith <project>
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@___CURRENT_VERSION___
+ * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
 export * from './01-utilities/makeRelativeURL.js';

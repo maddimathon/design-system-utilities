@@ -1,10 +1,10 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@___CURRENT_VERSION___
+ * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
 // import { JsonToScss } from '@maddimathon/utility-sass';
@@ -16,7 +16,7 @@ import { AbstractTokens } from '../../abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export class Tokens_Colour_ShadeMap_Shade extends AbstractTokens {
     allNames;
@@ -43,7 +43,7 @@ export class Tokens_Colour_ShadeMap_Shade extends AbstractTokens {
     /**
      * Adds the given shade to this shade's contrast results.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     async addContrastTest(colourGroupName, level, testClr) {
         if (typeof this.contrast.results[colourGroupName] === 'undefined') {

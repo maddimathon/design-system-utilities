@@ -12,7 +12,7 @@
 // import * as z from 'zod';
 
 import type { RecursivePartial } from '@maddimathon/utility-typescript/types/objects/partial';
-import type { TokenLevels, TokenLevels_Extended } from './@utils.js';
+import type { TokenLevels, TokenLevels_Extended } from './@types.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 import type { RecursiveRecord } from '../01-utilities/@types.js';
 import { mergeArgs } from '@maddimathon/utility-typescript/functions';

@@ -1,17 +1,17 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@___CURRENT_VERSION___
+ * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export declare class Tokens_CSS_Transition extends AbstractTokens<Tokens_CSS_Transition.Data> {
     static get default(): Tokens_CSS_Transition.Data;
@@ -25,12 +25,12 @@ export declare class Tokens_CSS_Transition extends AbstractTokens<Tokens_CSS_Tra
 /**
  * Utilities for the {@link Tokens_CSS_Transition} class.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export declare namespace Tokens_CSS_Transition {
     type TransitionTime = `${number}ms` | `${number}s`;
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     export type Data = {
         time: {
@@ -41,13 +41,13 @@ export declare namespace Tokens_CSS_Transition {
         };
     };
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     export type InputParam = Partial<Omit<Data, 'time'>> & {
         time?: Partial<Data['time']>;
     };
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     export type JsonReturn = Data;
     export {};

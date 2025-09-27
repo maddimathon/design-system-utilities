@@ -12,7 +12,7 @@
 // import * as z from 'zod';
 
 import { mergeArgs } from '@maddimathon/utility-typescript/functions';
-import type { TokenLevels, TokenLevels_Extended } from '../@utils.js';
+import type { TokenLevels, TokenLevels_Extended } from '../@types.js';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
 
 /**

@@ -21,7 +21,7 @@
 ///
 /// @since 0.1.0-alpha.draft
 ///
-@function var-clr($slug, $level, $mode: tokens.$brightnessMode_default) {
+@function var-clr($slug, $level, $brightness: tokens.$brightnessMode_default) {
     // returns
     @if not map.has-key(tokens.$colour, '#{$slug}') {
         @warn "$slug '#{$slug}' was not a key in tokens.$colour";
@@ -39,7 +39,7 @@
 
     $dark_level: $level;
 
-    @if $mode == dark {
+    @if $brightness == dark {
         $dark_level: colour.shade-map-reverse-key(
             $level,
             $slugMap,
@@ -52,7 +52,7 @@
         #{colour.to-hsl(
                 map.get(
                     $slugMap,
-                    if($mode == dark, '#{$dark_level}', '#{$level}')
+                    if($brightness == dark, '#{$dark_level}', '#{$level}')
                 ),
                 $round: false
             )}
@@ -62,7 +62,30 @@
 /// THEME
 /// ======================================================================== ///
 
-$_flattenedThemes: map.flatten(tokens.$theme);
+$_activeTheme: map.get(tokens.$themes, tokens.$activeTheme);
+$_flattenedActiveTheme: map.flatten($_activeTheme);
+
+///
+/// Gets the colour value (either system or var-clr) for the given token slug.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function var-clr-from-theme-token(
+    $tokenValue,
+    $brightness: tokens.$brightnessMode_default
+) {
+    // returns
+    @if string.length(#{$tokenValue}) > 0 and string.index(#{$tokenValue}, '-')
+    {
+        @return var-clr(
+            string.slice(#{$tokenValue}, 1, -5),
+            string.slice(#{$tokenValue}, -3, -1),
+            $brightness: $brightness
+        );
+    }
+
+    @return #{$tokenValue};
+}
 
 ///
 /// Gets the value for the given token slug.
@@ -72,36 +95,41 @@ $_flattenedThemes: map.flatten(tokens.$theme);
 @function theme-token-value($slug, $brightness, $contrast) {
     // returns
     @if $contrast == forced-colors {
-        @if not map.has-key($_flattenedThemes, '#{$contrast}-#{$slug}') {
-            @warn "$slug '#{$slug}' was not a key in flattened tokens.$theme";
-            @debug #{meta.var-dump($_flattenedThemes)};
+        @if not map.has-key($_flattenedActiveTheme, '#{$contrast}-#{$slug}') {
+            @warn "$slug '#{$slug}' was not a key in flattened tokens.$themes for the $activeTheme '#{tokens.$activeTheme}'";
             @return ();
         }
 
-        @return map.get($_flattenedThemes, '#{$contrast}-#{$slug}');
+        @return map.get($_flattenedActiveTheme, '#{$contrast}-#{$slug}');
     }
 
     // returns - no fallback
-    @if not map.has-key(tokens.$theme, $contrast) {
-        @warn "$contrast '#{$contrast}' was not a key in tokens.$theme";
+    @if not map.has-key($_activeTheme, $brightness) {
+        @warn "$brightness '#{$brightness}' was not a key in tokens.$themes for the $activeTheme '#{tokens.$activeTheme}'";
         @return ();
     }
 
     // returns - no fallback
-    @if not map.has-key(map.get(tokens.$theme, $contrast), $brightness) {
-        @warn "$brightness '#{$brightness}' was not a key in tokens.$theme.#{$contrast}";
+    @if not map.has-key(map.get($_activeTheme, $brightness), $contrast) {
+        @warn "$contrast '#{$contrast}' was not a key in tokens.$themes.#{$brightness} for the $activeTheme '#{tokens.$activeTheme}'";
         @return ();
     }
 
     // returns - no fallback
     @if not
-        map.has-key($_flattenedThemes, '#{$contrast}-#{$brightness}-#{$slug}')
+        map.has-key(
+            $_flattenedActiveTheme,
+            '#{$brightness}-#{$contrast}-#{$slug}'
+        )
     {
-        @warn "$slug '#{$slug}' was not a key in flattened tokens.$theme";
+        @warn "$slug '#{$slug}' was not a key in flattened tokens.$themes.#{$brightness}.#{$contrast} for the $activeTheme '#{tokens.$activeTheme}'";
         @return ();
     }
 
-    @return map.get($_flattenedThemes, '#{$contrast}-#{$brightness}-#{$slug}');
+    @return map.get(
+        $_flattenedActiveTheme,
+        '#{$brightness}-#{$contrast}-#{$slug}'
+    );
 }
 
 ///
@@ -128,14 +156,6 @@ $_flattenedThemes: map.flatten(tokens.$theme);
 
     @return var(
         --theme-#{$slug},
-        #{if(
-                string.index($clrSlug, '-'),
-                var-clr(
-                    string.slice($clrSlug, 1, -5),
-                    string.slice($clrSlug, -3, -1),
-                    $brightness
-                ),
-                $clrSlug
-            )}
+        var-clr-from-theme-token($clrSlug, $brightness: $brightness)
     );
 }

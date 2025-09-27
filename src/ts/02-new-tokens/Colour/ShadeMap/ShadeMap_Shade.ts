@@ -15,7 +15,7 @@ import { ColourUtilities } from '../../../01-utilities/ColourUtilities.js';
 import { ColourContrastTest } from '../../../01-utilities/ColourContrastTest.js';
 import { objectMap } from '../../../01-utilities/objectMap.js';
 
-import type { TokenLevels, TokenLevels_Extended } from '../../@utils.js';
+import type { TokenLevels, TokenLevels_Extended } from '../../@types.js';
 
 import { AbstractTokens } from '../../abstract/AbstractTokens.js';
 

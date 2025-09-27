@@ -72,6 +72,7 @@ html {
     --fs-bigger-4: 1.8125rem;
     --fs-bigger-5: 2.0625rem;
     --fs-bigger-6: 2.375rem;
+    --fs-smaller-3: 0.75rem;
 }
 
 /* #endregion Tokens - Font Size */
@@ -296,1081 +297,603 @@ html {
     }
 }
 /* #endregion Tokens - Colour */
-/*#region Tokens - Theme - light mode + average contrast */
+/* #region Tokens - Theme - light mode + average contrast */
 html {
-    --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
-    --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
-    --sys-clr-accent-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-    --sys-clr-accent-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-    --sys-clr-mark-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-    --sys-clr-mark-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-    --sys-clr-selected-bg: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-    --sys-clr-selected-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-    --sys-clr-selection-bg: var(--clr-purple-700, hsl(287.04, 29.43%, 26.02%));
-    --sys-clr-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-    --sys-clr-text-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
-    --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
-    --sys-clr-button-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-    --sys-clr-button-bg-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
-    --sys-clr-button-bg-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-    --sys-clr-button-border: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-    --sys-clr-button-border-active: var(
-        --clr-red-800,
-        hsl(352.37, 32.92%, 16.09%)
-    );
-    --sys-clr-button-border-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-    --sys-clr-button-text: var(--clr-purple-200, hsl(289.28, 39.64%, 84.78%));
-    --sys-clr-button-text-active: var(
-        --clr-red-200,
-        hsl(355.24, 61.11%, 86.74%)
-    );
-    --sys-clr-button-text-hover: var(
-        --clr-blue-200,
-        hsl(166.2, 43.35%, 79.89%)
-    );
-    --sys-clr-link: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-    --sys-clr-link-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
-    --sys-clr-link-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-    --sys-clr-link-visited: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-    --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
-    --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
-    --theme-text-primary: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-    --theme-text-secondary: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-    --theme-text-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
-    --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
-    --theme-ui: var(--clr-base-800, hsl(0, 0%, 13.96%));
-    --theme-ui-primary: var(--clr-purple-700, hsl(287.04, 29.43%, 26.02%));
-    --theme-ui-secondary: var(--clr-blue-700, hsl(171.77, 100%, 2.1%));
-    --theme-ui-active: var(--clr-red-700, hsl(350.91, 37.24%, 27.85%));
-    --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
-    --theme-selection-bg: var(--clr-purple-700, hsl(287.04, 29.43%, 26.02%));
-    --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-    --theme-link: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-    --theme-link-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-    --theme-link-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
-    --theme-link-visited: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-    --theme-button-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-    --theme-button-bg-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-    --theme-button-bg-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
-    --theme-button-border: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-    --theme-button-border-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-    --theme-button-border-active: var(
-        --clr-red-800,
-        hsl(352.37, 32.92%, 16.09%)
-    );
-    --theme-button-text: var(--clr-purple-200, hsl(289.28, 39.64%, 84.78%));
-    --theme-button-text-hover: var(--clr-blue-200, hsl(166.2, 43.35%, 79.89%));
-    --theme-button-text-active: var(--clr-red-200, hsl(355.24, 61.11%, 86.74%));
-    --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 84.33%));
-    --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 84.33%));
-    --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 84.33%));
-    --theme-field-border: var(--clr-purple-700, hsl(287.04, 29.43%, 26.02%));
-    --theme-field-border-hover: var(--clr-blue-700, hsl(171.77, 100%, 2.1%));
-    --theme-field-border-active: var(
-        --clr-red-700,
-        hsl(350.91, 37.24%, 27.85%)
-    );
-    --theme-field-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
-    --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 2.86%));
-    --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 2.86%));
-    --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    --sys-clr-background: var(--clr-base-100, hsl(0, 0%, 97.73%));
+    --sys-clr-text: CanvasText;
+    --sys-clr-accent-bg: CanvasText;
+    --sys-clr-accent-text: CanvasText;
+    --sys-clr-mark-bg: CanvasText;
+    --sys-clr-mark-text: CanvasText;
+    --sys-clr-selected-bg: CanvasText;
+    --sys-clr-selected-text: CanvasText;
+    --sys-clr-selection-bg: CanvasText;
+    --sys-clr-selection-text: CanvasText;
+    --sys-clr-text-active: CanvasText;
+    --sys-clr-text-disabled: CanvasText;
+    --sys-clr-button-bg: CanvasText;
+    --sys-clr-button-bg-active: CanvasText;
+    --sys-clr-button-bg-hover: CanvasText;
+    --sys-clr-button-border: CanvasText;
+    --sys-clr-button-border-active: CanvasText;
+    --sys-clr-button-border-hover: CanvasText;
+    --sys-clr-button-text: CanvasText;
+    --sys-clr-button-text-active: CanvasText;
+    --sys-clr-button-text-hover: CanvasText;
+    --sys-clr-link: CanvasText;
+    --sys-clr-link-active: CanvasText;
+    --sys-clr-link-hover: CanvasText;
+    --sys-clr-link-visited: CanvasText;
+    --theme-background: var(--clr-base-100, hsl(0, 0%, 97.73%));
+    --theme-text: CanvasText;
+    --theme-text-primary: CanvasText;
+    --theme-text-secondary: CanvasText;
+    --theme-text-active: CanvasText;
+    --theme-text-disabled: CanvasText;
+    --theme-ui: CanvasText;
+    --theme-ui-primary: CanvasText;
+    --theme-ui-secondary: CanvasText;
+    --theme-ui-active: CanvasText;
+    --theme-ui-disabled: CanvasText;
+    --theme-selection-bg: CanvasText;
+    --theme-selection-text: CanvasText;
+    --theme-link: CanvasText;
+    --theme-link-hover: CanvasText;
+    --theme-link-active: CanvasText;
+    --theme-link-visited: CanvasText;
+    --theme-button-bg: CanvasText;
+    --theme-button-bg-hover: CanvasText;
+    --theme-button-bg-active: CanvasText;
+    --theme-button-border: CanvasText;
+    --theme-button-border-hover: CanvasText;
+    --theme-button-border-active: CanvasText;
+    --theme-button-text: CanvasText;
+    --theme-button-text-hover: CanvasText;
+    --theme-button-text-active: CanvasText;
+    --theme-field-bg: CanvasText;
+    --theme-field-bg-hover: CanvasText;
+    --theme-field-bg-active: CanvasText;
+    --theme-field-border: CanvasText;
+    --theme-field-border-hover: CanvasText;
+    --theme-field-border-active: CanvasText;
+    --theme-field-text: CanvasText;
+    --theme-field-text-hover: CanvasText;
+    --theme-field-text-active: CanvasText;
+    --theme-field-placeholder: CanvasText;
 }
 
 @media (prefers-color-scheme: light) {
     html {
-        --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --sys-clr-accent-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --sys-clr-accent-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --sys-clr-mark-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --sys-clr-mark-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --sys-clr-selected-bg: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --sys-clr-selected-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --sys-clr-selection-bg: var(
-            --clr-purple-700,
-            hsl(287.04, 29.43%, 26.02%)
-        );
-        --sys-clr-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --sys-clr-text-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
-        --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
-        --sys-clr-button-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --sys-clr-button-bg-active: var(
-            --clr-red-800,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --sys-clr-button-bg-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --sys-clr-button-border: var(
-            --clr-purple-800,
-            hsl(287.56, 26.45%, 15.1%)
-        );
-        --sys-clr-button-border-active: var(
-            --clr-red-800,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --sys-clr-button-border-hover: var(
-            --clr-blue-800,
-            hsl(349.11, 100%, 0%)
-        );
-        --sys-clr-button-text: var(
-            --clr-purple-200,
-            hsl(289.28, 39.64%, 84.78%)
-        );
-        --sys-clr-button-text-active: var(
-            --clr-red-200,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --sys-clr-button-text-hover: var(
-            --clr-blue-200,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --sys-clr-link: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --sys-clr-link-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
-        --sys-clr-link-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --sys-clr-link-visited: var(
-            --clr-purple-800,
-            hsl(287.56, 26.45%, 15.1%)
-        );
-        --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-text-primary: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --theme-text-secondary: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --theme-text-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
-        --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
-        --theme-ui: var(--clr-base-800, hsl(0, 0%, 13.96%));
-        --theme-ui-primary: var(--clr-purple-700, hsl(287.04, 29.43%, 26.02%));
-        --theme-ui-secondary: var(--clr-blue-700, hsl(171.77, 100%, 2.1%));
-        --theme-ui-active: var(--clr-red-700, hsl(350.91, 37.24%, 27.85%));
-        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
-        --theme-selection-bg: var(
-            --clr-purple-700,
-            hsl(287.04, 29.43%, 26.02%)
-        );
-        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-link: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --theme-link-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --theme-link-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
-        --theme-link-visited: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --theme-button-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --theme-button-bg-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --theme-button-bg-active: var(
-            --clr-red-800,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --theme-button-border: var(
-            --clr-purple-800,
-            hsl(287.56, 26.45%, 15.1%)
-        );
-        --theme-button-border-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --theme-button-border-active: var(
-            --clr-red-800,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --theme-button-text: var(--clr-purple-200, hsl(289.28, 39.64%, 84.78%));
-        --theme-button-text-hover: var(
-            --clr-blue-200,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --theme-button-text-active: var(
-            --clr-red-200,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-field-border: var(
-            --clr-purple-700,
-            hsl(287.04, 29.43%, 26.02%)
-        );
-        --theme-field-border-hover: var(
-            --clr-blue-700,
-            hsl(171.77, 100%, 2.1%)
-        );
-        --theme-field-border-active: var(
-            --clr-red-700,
-            hsl(350.91, 37.24%, 27.85%)
-        );
-        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --sys-clr-background: var(--clr-base-100, hsl(0, 0%, 97.73%));
+        --sys-clr-text: CanvasText;
+        --sys-clr-accent-bg: CanvasText;
+        --sys-clr-accent-text: CanvasText;
+        --sys-clr-mark-bg: CanvasText;
+        --sys-clr-mark-text: CanvasText;
+        --sys-clr-selected-bg: CanvasText;
+        --sys-clr-selected-text: CanvasText;
+        --sys-clr-selection-bg: CanvasText;
+        --sys-clr-selection-text: CanvasText;
+        --sys-clr-text-active: CanvasText;
+        --sys-clr-text-disabled: CanvasText;
+        --sys-clr-button-bg: CanvasText;
+        --sys-clr-button-bg-active: CanvasText;
+        --sys-clr-button-bg-hover: CanvasText;
+        --sys-clr-button-border: CanvasText;
+        --sys-clr-button-border-active: CanvasText;
+        --sys-clr-button-border-hover: CanvasText;
+        --sys-clr-button-text: CanvasText;
+        --sys-clr-button-text-active: CanvasText;
+        --sys-clr-button-text-hover: CanvasText;
+        --sys-clr-link: CanvasText;
+        --sys-clr-link-active: CanvasText;
+        --sys-clr-link-hover: CanvasText;
+        --sys-clr-link-visited: CanvasText;
+        --theme-background: var(--clr-base-100, hsl(0, 0%, 97.73%));
+        --theme-text: CanvasText;
+        --theme-text-primary: CanvasText;
+        --theme-text-secondary: CanvasText;
+        --theme-text-active: CanvasText;
+        --theme-text-disabled: CanvasText;
+        --theme-ui: CanvasText;
+        --theme-ui-primary: CanvasText;
+        --theme-ui-secondary: CanvasText;
+        --theme-ui-active: CanvasText;
+        --theme-ui-disabled: CanvasText;
+        --theme-selection-bg: CanvasText;
+        --theme-selection-text: CanvasText;
+        --theme-link: CanvasText;
+        --theme-link-hover: CanvasText;
+        --theme-link-active: CanvasText;
+        --theme-link-visited: CanvasText;
+        --theme-button-bg: CanvasText;
+        --theme-button-bg-hover: CanvasText;
+        --theme-button-bg-active: CanvasText;
+        --theme-button-border: CanvasText;
+        --theme-button-border-hover: CanvasText;
+        --theme-button-border-active: CanvasText;
+        --theme-button-text: CanvasText;
+        --theme-button-text-hover: CanvasText;
+        --theme-button-text-active: CanvasText;
+        --theme-field-bg: CanvasText;
+        --theme-field-bg-hover: CanvasText;
+        --theme-field-bg-active: CanvasText;
+        --theme-field-border: CanvasText;
+        --theme-field-border-hover: CanvasText;
+        --theme-field-border-active: CanvasText;
+        --theme-field-text: CanvasText;
+        --theme-field-text-hover: CanvasText;
+        --theme-field-text-active: CanvasText;
+        --theme-field-placeholder: CanvasText;
     }
 }
-/*#endregion Tokens - Theme - light mode + average contrast */
-/*#region Tokens - Theme - light mode + low contrast */
-@media (prefers-contrast: less) {
-    html {
-        --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --sys-clr-accent-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --sys-clr-accent-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --sys-clr-mark-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --sys-clr-mark-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --sys-clr-selected-bg: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --sys-clr-selected-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --sys-clr-selection-bg: var(
-            --clr-purple-700,
-            hsl(287.04, 29.43%, 26.02%)
-        );
-        --sys-clr-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --sys-clr-text-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
-        --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
-        --sys-clr-button-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --sys-clr-button-bg-active: var(
-            --clr-red-800,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --sys-clr-button-bg-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --sys-clr-button-border: var(
-            --clr-purple-800,
-            hsl(287.56, 26.45%, 15.1%)
-        );
-        --sys-clr-button-border-active: var(
-            --clr-red-800,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --sys-clr-button-border-hover: var(
-            --clr-blue-800,
-            hsl(349.11, 100%, 0%)
-        );
-        --sys-clr-button-text: var(
-            --clr-purple-200,
-            hsl(289.28, 39.64%, 84.78%)
-        );
-        --sys-clr-button-text-active: var(
-            --clr-red-200,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --sys-clr-button-text-hover: var(
-            --clr-blue-200,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --sys-clr-link: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --sys-clr-link-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
-        --sys-clr-link-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --sys-clr-link-visited: var(
-            --clr-purple-800,
-            hsl(287.56, 26.45%, 15.1%)
-        );
-        --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-text-primary: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --theme-text-secondary: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --theme-text-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
-        --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
-        --theme-ui: var(--clr-base-800, hsl(0, 0%, 13.96%));
-        --theme-ui-primary: var(--clr-purple-700, hsl(287.04, 29.43%, 26.02%));
-        --theme-ui-secondary: var(--clr-blue-700, hsl(171.77, 100%, 2.1%));
-        --theme-ui-active: var(--clr-red-700, hsl(350.91, 37.24%, 27.85%));
-        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
-        --theme-selection-bg: var(
-            --clr-purple-700,
-            hsl(287.04, 29.43%, 26.02%)
-        );
-        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-link: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --theme-link-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --theme-link-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
-        --theme-link-visited: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --theme-button-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --theme-button-bg-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --theme-button-bg-active: var(
-            --clr-red-800,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --theme-button-border: var(
-            --clr-purple-800,
-            hsl(287.56, 26.45%, 15.1%)
-        );
-        --theme-button-border-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --theme-button-border-active: var(
-            --clr-red-800,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --theme-button-text: var(--clr-purple-200, hsl(289.28, 39.64%, 84.78%));
-        --theme-button-text-hover: var(
-            --clr-blue-200,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --theme-button-text-active: var(
-            --clr-red-200,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-field-border: var(
-            --clr-purple-700,
-            hsl(287.04, 29.43%, 26.02%)
-        );
-        --theme-field-border-hover: var(
-            --clr-blue-700,
-            hsl(171.77, 100%, 2.1%)
-        );
-        --theme-field-border-active: var(
-            --clr-red-700,
-            hsl(350.91, 37.24%, 27.85%)
-        );
-        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 2.86%));
-    }
-}
-@media (( prefers-color-scheme: light ) and ( prefers-contrast: less )) {
-    html {
-        --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --sys-clr-accent-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --sys-clr-accent-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --sys-clr-mark-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --sys-clr-mark-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --sys-clr-selected-bg: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --sys-clr-selected-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --sys-clr-selection-bg: var(
-            --clr-purple-700,
-            hsl(287.04, 29.43%, 26.02%)
-        );
-        --sys-clr-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --sys-clr-text-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
-        --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
-        --sys-clr-button-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --sys-clr-button-bg-active: var(
-            --clr-red-800,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --sys-clr-button-bg-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --sys-clr-button-border: var(
-            --clr-purple-800,
-            hsl(287.56, 26.45%, 15.1%)
-        );
-        --sys-clr-button-border-active: var(
-            --clr-red-800,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --sys-clr-button-border-hover: var(
-            --clr-blue-800,
-            hsl(349.11, 100%, 0%)
-        );
-        --sys-clr-button-text: var(
-            --clr-purple-200,
-            hsl(289.28, 39.64%, 84.78%)
-        );
-        --sys-clr-button-text-active: var(
-            --clr-red-200,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --sys-clr-button-text-hover: var(
-            --clr-blue-200,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --sys-clr-link: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --sys-clr-link-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
-        --sys-clr-link-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --sys-clr-link-visited: var(
-            --clr-purple-800,
-            hsl(287.56, 26.45%, 15.1%)
-        );
-        --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-text-primary: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --theme-text-secondary: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --theme-text-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
-        --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
-        --theme-ui: var(--clr-base-800, hsl(0, 0%, 13.96%));
-        --theme-ui-primary: var(--clr-purple-700, hsl(287.04, 29.43%, 26.02%));
-        --theme-ui-secondary: var(--clr-blue-700, hsl(171.77, 100%, 2.1%));
-        --theme-ui-active: var(--clr-red-700, hsl(350.91, 37.24%, 27.85%));
-        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
-        --theme-selection-bg: var(
-            --clr-purple-700,
-            hsl(287.04, 29.43%, 26.02%)
-        );
-        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-link: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --theme-link-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --theme-link-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
-        --theme-link-visited: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --theme-button-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --theme-button-bg-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --theme-button-bg-active: var(
-            --clr-red-800,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --theme-button-border: var(
-            --clr-purple-800,
-            hsl(287.56, 26.45%, 15.1%)
-        );
-        --theme-button-border-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --theme-button-border-active: var(
-            --clr-red-800,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --theme-button-text: var(--clr-purple-200, hsl(289.28, 39.64%, 84.78%));
-        --theme-button-text-hover: var(
-            --clr-blue-200,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --theme-button-text-active: var(
-            --clr-red-200,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-field-border: var(
-            --clr-purple-700,
-            hsl(287.04, 29.43%, 26.02%)
-        );
-        --theme-field-border-hover: var(
-            --clr-blue-700,
-            hsl(171.77, 100%, 2.1%)
-        );
-        --theme-field-border-active: var(
-            --clr-red-700,
-            hsl(350.91, 37.24%, 27.85%)
-        );
-        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 2.86%));
-    }
-}
-/*#endregion Tokens - Theme - light mode + low contrast */
-/*#region Tokens - Theme - light mode + high contrast */
+/* #endregion Tokens - Theme - light mode + average contrast */
+/* #region Tokens - Theme - light mode + high contrast */
 @media (prefers-contrast: more) {
     html {
-        --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --sys-clr-accent-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --sys-clr-accent-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --sys-clr-mark-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --sys-clr-mark-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --sys-clr-selected-bg: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --sys-clr-selected-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --sys-clr-selection-bg: var(
-            --clr-purple-700,
-            hsl(287.04, 29.43%, 26.02%)
-        );
-        --sys-clr-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --sys-clr-text-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
-        --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
-        --sys-clr-button-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --sys-clr-button-bg-active: var(
-            --clr-red-800,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --sys-clr-button-bg-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --sys-clr-button-border: var(
-            --clr-purple-800,
-            hsl(287.56, 26.45%, 15.1%)
-        );
-        --sys-clr-button-border-active: var(
-            --clr-red-800,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --sys-clr-button-border-hover: var(
-            --clr-blue-800,
-            hsl(349.11, 100%, 0%)
-        );
-        --sys-clr-button-text: var(
-            --clr-purple-200,
-            hsl(289.28, 39.64%, 84.78%)
-        );
-        --sys-clr-button-text-active: var(
-            --clr-red-200,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --sys-clr-button-text-hover: var(
-            --clr-blue-200,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --sys-clr-link: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --sys-clr-link-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
-        --sys-clr-link-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --sys-clr-link-visited: var(
-            --clr-purple-800,
-            hsl(287.56, 26.45%, 15.1%)
-        );
-        --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-text-primary: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --theme-text-secondary: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --theme-text-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
-        --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
-        --theme-ui: var(--clr-base-800, hsl(0, 0%, 13.96%));
-        --theme-ui-primary: var(--clr-purple-700, hsl(287.04, 29.43%, 26.02%));
-        --theme-ui-secondary: var(--clr-blue-700, hsl(171.77, 100%, 2.1%));
-        --theme-ui-active: var(--clr-red-700, hsl(350.91, 37.24%, 27.85%));
-        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
-        --theme-selection-bg: var(
-            --clr-purple-700,
-            hsl(287.04, 29.43%, 26.02%)
-        );
-        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-link: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --theme-link-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --theme-link-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
-        --theme-link-visited: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --theme-button-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --theme-button-bg-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --theme-button-bg-active: var(
-            --clr-red-800,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --theme-button-border: var(
-            --clr-purple-800,
-            hsl(287.56, 26.45%, 15.1%)
-        );
-        --theme-button-border-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --theme-button-border-active: var(
-            --clr-red-800,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --theme-button-text: var(--clr-purple-200, hsl(289.28, 39.64%, 84.78%));
-        --theme-button-text-hover: var(
-            --clr-blue-200,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --theme-button-text-active: var(
-            --clr-red-200,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-field-border: var(
-            --clr-purple-700,
-            hsl(287.04, 29.43%, 26.02%)
-        );
-        --theme-field-border-hover: var(
-            --clr-blue-700,
-            hsl(171.77, 100%, 2.1%)
-        );
-        --theme-field-border-active: var(
-            --clr-red-700,
-            hsl(350.91, 37.24%, 27.85%)
-        );
-        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --sys-clr-background: var(--clr-base-100, hsl(0, 0%, 97.73%));
+        --sys-clr-text: CanvasText;
+        --sys-clr-accent-bg: CanvasText;
+        --sys-clr-accent-text: CanvasText;
+        --sys-clr-mark-bg: CanvasText;
+        --sys-clr-mark-text: CanvasText;
+        --sys-clr-selected-bg: CanvasText;
+        --sys-clr-selected-text: CanvasText;
+        --sys-clr-selection-bg: CanvasText;
+        --sys-clr-selection-text: CanvasText;
+        --sys-clr-text-active: CanvasText;
+        --sys-clr-text-disabled: CanvasText;
+        --sys-clr-button-bg: CanvasText;
+        --sys-clr-button-bg-active: CanvasText;
+        --sys-clr-button-bg-hover: CanvasText;
+        --sys-clr-button-border: CanvasText;
+        --sys-clr-button-border-active: CanvasText;
+        --sys-clr-button-border-hover: CanvasText;
+        --sys-clr-button-text: CanvasText;
+        --sys-clr-button-text-active: CanvasText;
+        --sys-clr-button-text-hover: CanvasText;
+        --sys-clr-link: CanvasText;
+        --sys-clr-link-active: CanvasText;
+        --sys-clr-link-hover: CanvasText;
+        --sys-clr-link-visited: CanvasText;
+        --theme-background: var(--clr-base-100, hsl(0, 0%, 97.73%));
+        --theme-text: CanvasText;
+        --theme-text-primary: CanvasText;
+        --theme-text-secondary: CanvasText;
+        --theme-text-active: CanvasText;
+        --theme-text-disabled: CanvasText;
+        --theme-ui: CanvasText;
+        --theme-ui-primary: CanvasText;
+        --theme-ui-secondary: CanvasText;
+        --theme-ui-active: CanvasText;
+        --theme-ui-disabled: CanvasText;
+        --theme-selection-bg: CanvasText;
+        --theme-selection-text: CanvasText;
+        --theme-link: CanvasText;
+        --theme-link-hover: CanvasText;
+        --theme-link-active: CanvasText;
+        --theme-link-visited: CanvasText;
+        --theme-button-bg: CanvasText;
+        --theme-button-bg-hover: CanvasText;
+        --theme-button-bg-active: CanvasText;
+        --theme-button-border: CanvasText;
+        --theme-button-border-hover: CanvasText;
+        --theme-button-border-active: CanvasText;
+        --theme-button-text: CanvasText;
+        --theme-button-text-hover: CanvasText;
+        --theme-button-text-active: CanvasText;
+        --theme-field-bg: CanvasText;
+        --theme-field-bg-hover: CanvasText;
+        --theme-field-bg-active: CanvasText;
+        --theme-field-border: CanvasText;
+        --theme-field-border-hover: CanvasText;
+        --theme-field-border-active: CanvasText;
+        --theme-field-text: CanvasText;
+        --theme-field-text-hover: CanvasText;
+        --theme-field-text-active: CanvasText;
+        --theme-field-placeholder: CanvasText;
     }
 }
 @media (( prefers-color-scheme: light ) and ( prefers-contrast: more )) {
     html {
-        --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --sys-clr-accent-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --sys-clr-accent-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --sys-clr-mark-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --sys-clr-mark-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --sys-clr-selected-bg: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --sys-clr-selected-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --sys-clr-selection-bg: var(
-            --clr-purple-700,
-            hsl(287.04, 29.43%, 26.02%)
-        );
-        --sys-clr-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --sys-clr-text-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
-        --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
-        --sys-clr-button-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --sys-clr-button-bg-active: var(
-            --clr-red-800,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --sys-clr-button-bg-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --sys-clr-button-border: var(
-            --clr-purple-800,
-            hsl(287.56, 26.45%, 15.1%)
-        );
-        --sys-clr-button-border-active: var(
-            --clr-red-800,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --sys-clr-button-border-hover: var(
-            --clr-blue-800,
-            hsl(349.11, 100%, 0%)
-        );
-        --sys-clr-button-text: var(
-            --clr-purple-200,
-            hsl(289.28, 39.64%, 84.78%)
-        );
-        --sys-clr-button-text-active: var(
-            --clr-red-200,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --sys-clr-button-text-hover: var(
-            --clr-blue-200,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --sys-clr-link: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --sys-clr-link-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
-        --sys-clr-link-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --sys-clr-link-visited: var(
-            --clr-purple-800,
-            hsl(287.56, 26.45%, 15.1%)
-        );
-        --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-text-primary: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --theme-text-secondary: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --theme-text-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
-        --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
-        --theme-ui: var(--clr-base-800, hsl(0, 0%, 13.96%));
-        --theme-ui-primary: var(--clr-purple-700, hsl(287.04, 29.43%, 26.02%));
-        --theme-ui-secondary: var(--clr-blue-700, hsl(171.77, 100%, 2.1%));
-        --theme-ui-active: var(--clr-red-700, hsl(350.91, 37.24%, 27.85%));
-        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
-        --theme-selection-bg: var(
-            --clr-purple-700,
-            hsl(287.04, 29.43%, 26.02%)
-        );
-        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-link: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --theme-link-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --theme-link-active: var(--clr-red-800, hsl(352.37, 32.92%, 16.09%));
-        --theme-link-visited: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --theme-button-bg: var(--clr-purple-800, hsl(287.56, 26.45%, 15.1%));
-        --theme-button-bg-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --theme-button-bg-active: var(
-            --clr-red-800,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --theme-button-border: var(
-            --clr-purple-800,
-            hsl(287.56, 26.45%, 15.1%)
-        );
-        --theme-button-border-hover: var(--clr-blue-800, hsl(349.11, 100%, 0%));
-        --theme-button-border-active: var(
-            --clr-red-800,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --theme-button-text: var(--clr-purple-200, hsl(289.28, 39.64%, 84.78%));
-        --theme-button-text-hover: var(
-            --clr-blue-200,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --theme-button-text-active: var(
-            --clr-red-200,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 84.33%));
-        --theme-field-border: var(
-            --clr-purple-700,
-            hsl(287.04, 29.43%, 26.02%)
-        );
-        --theme-field-border-hover: var(
-            --clr-blue-700,
-            hsl(171.77, 100%, 2.1%)
-        );
-        --theme-field-border-active: var(
-            --clr-red-700,
-            hsl(350.91, 37.24%, 27.85%)
-        );
-        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 2.86%));
-        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --sys-clr-background: var(--clr-base-100, hsl(0, 0%, 97.73%));
+        --sys-clr-text: CanvasText;
+        --sys-clr-accent-bg: CanvasText;
+        --sys-clr-accent-text: CanvasText;
+        --sys-clr-mark-bg: CanvasText;
+        --sys-clr-mark-text: CanvasText;
+        --sys-clr-selected-bg: CanvasText;
+        --sys-clr-selected-text: CanvasText;
+        --sys-clr-selection-bg: CanvasText;
+        --sys-clr-selection-text: CanvasText;
+        --sys-clr-text-active: CanvasText;
+        --sys-clr-text-disabled: CanvasText;
+        --sys-clr-button-bg: CanvasText;
+        --sys-clr-button-bg-active: CanvasText;
+        --sys-clr-button-bg-hover: CanvasText;
+        --sys-clr-button-border: CanvasText;
+        --sys-clr-button-border-active: CanvasText;
+        --sys-clr-button-border-hover: CanvasText;
+        --sys-clr-button-text: CanvasText;
+        --sys-clr-button-text-active: CanvasText;
+        --sys-clr-button-text-hover: CanvasText;
+        --sys-clr-link: CanvasText;
+        --sys-clr-link-active: CanvasText;
+        --sys-clr-link-hover: CanvasText;
+        --sys-clr-link-visited: CanvasText;
+        --theme-background: var(--clr-base-100, hsl(0, 0%, 97.73%));
+        --theme-text: CanvasText;
+        --theme-text-primary: CanvasText;
+        --theme-text-secondary: CanvasText;
+        --theme-text-active: CanvasText;
+        --theme-text-disabled: CanvasText;
+        --theme-ui: CanvasText;
+        --theme-ui-primary: CanvasText;
+        --theme-ui-secondary: CanvasText;
+        --theme-ui-active: CanvasText;
+        --theme-ui-disabled: CanvasText;
+        --theme-selection-bg: CanvasText;
+        --theme-selection-text: CanvasText;
+        --theme-link: CanvasText;
+        --theme-link-hover: CanvasText;
+        --theme-link-active: CanvasText;
+        --theme-link-visited: CanvasText;
+        --theme-button-bg: CanvasText;
+        --theme-button-bg-hover: CanvasText;
+        --theme-button-bg-active: CanvasText;
+        --theme-button-border: CanvasText;
+        --theme-button-border-hover: CanvasText;
+        --theme-button-border-active: CanvasText;
+        --theme-button-text: CanvasText;
+        --theme-button-text-hover: CanvasText;
+        --theme-button-text-active: CanvasText;
+        --theme-field-bg: CanvasText;
+        --theme-field-bg-hover: CanvasText;
+        --theme-field-bg-active: CanvasText;
+        --theme-field-border: CanvasText;
+        --theme-field-border-hover: CanvasText;
+        --theme-field-border-active: CanvasText;
+        --theme-field-text: CanvasText;
+        --theme-field-text-hover: CanvasText;
+        --theme-field-text-active: CanvasText;
+        --theme-field-placeholder: CanvasText;
     }
 }
-/*#endregion Tokens - Theme - light mode + high contrast */
-/*#region Tokens - Theme - light mode + forced-colors contrast */
-/*#endregion Tokens - Theme - light mode + forced-colors contrast */
-/*#region Tokens - Theme - dark mode + average contrast */
+/* #endregion Tokens - Theme - light mode + high contrast */
+/* #region Tokens - Theme - light mode + low contrast */
+@media (prefers-contrast: less) {
+    html {
+        --sys-clr-background: var(--clr-base-100, hsl(0, 0%, 97.73%));
+        --sys-clr-text: CanvasText;
+        --sys-clr-accent-bg: CanvasText;
+        --sys-clr-accent-text: CanvasText;
+        --sys-clr-mark-bg: CanvasText;
+        --sys-clr-mark-text: CanvasText;
+        --sys-clr-selected-bg: CanvasText;
+        --sys-clr-selected-text: CanvasText;
+        --sys-clr-selection-bg: CanvasText;
+        --sys-clr-selection-text: CanvasText;
+        --sys-clr-text-active: CanvasText;
+        --sys-clr-text-disabled: CanvasText;
+        --sys-clr-button-bg: CanvasText;
+        --sys-clr-button-bg-active: CanvasText;
+        --sys-clr-button-bg-hover: CanvasText;
+        --sys-clr-button-border: CanvasText;
+        --sys-clr-button-border-active: CanvasText;
+        --sys-clr-button-border-hover: CanvasText;
+        --sys-clr-button-text: CanvasText;
+        --sys-clr-button-text-active: CanvasText;
+        --sys-clr-button-text-hover: CanvasText;
+        --sys-clr-link: CanvasText;
+        --sys-clr-link-active: CanvasText;
+        --sys-clr-link-hover: CanvasText;
+        --sys-clr-link-visited: CanvasText;
+        --theme-background: var(--clr-base-100, hsl(0, 0%, 97.73%));
+        --theme-text: CanvasText;
+        --theme-text-primary: CanvasText;
+        --theme-text-secondary: CanvasText;
+        --theme-text-active: CanvasText;
+        --theme-text-disabled: CanvasText;
+        --theme-ui: CanvasText;
+        --theme-ui-primary: CanvasText;
+        --theme-ui-secondary: CanvasText;
+        --theme-ui-active: CanvasText;
+        --theme-ui-disabled: CanvasText;
+        --theme-selection-bg: CanvasText;
+        --theme-selection-text: CanvasText;
+        --theme-link: CanvasText;
+        --theme-link-hover: CanvasText;
+        --theme-link-active: CanvasText;
+        --theme-link-visited: CanvasText;
+        --theme-button-bg: CanvasText;
+        --theme-button-bg-hover: CanvasText;
+        --theme-button-bg-active: CanvasText;
+        --theme-button-border: CanvasText;
+        --theme-button-border-hover: CanvasText;
+        --theme-button-border-active: CanvasText;
+        --theme-button-text: CanvasText;
+        --theme-button-text-hover: CanvasText;
+        --theme-button-text-active: CanvasText;
+        --theme-field-bg: CanvasText;
+        --theme-field-bg-hover: CanvasText;
+        --theme-field-bg-active: CanvasText;
+        --theme-field-border: CanvasText;
+        --theme-field-border-hover: CanvasText;
+        --theme-field-border-active: CanvasText;
+        --theme-field-text: CanvasText;
+        --theme-field-text-hover: CanvasText;
+        --theme-field-text-active: CanvasText;
+        --theme-field-placeholder: CanvasText;
+    }
+}
+@media (( prefers-color-scheme: light ) and ( prefers-contrast: less )) {
+    html {
+        --sys-clr-background: var(--clr-base-100, hsl(0, 0%, 97.73%));
+        --sys-clr-text: CanvasText;
+        --sys-clr-accent-bg: CanvasText;
+        --sys-clr-accent-text: CanvasText;
+        --sys-clr-mark-bg: CanvasText;
+        --sys-clr-mark-text: CanvasText;
+        --sys-clr-selected-bg: CanvasText;
+        --sys-clr-selected-text: CanvasText;
+        --sys-clr-selection-bg: CanvasText;
+        --sys-clr-selection-text: CanvasText;
+        --sys-clr-text-active: CanvasText;
+        --sys-clr-text-disabled: CanvasText;
+        --sys-clr-button-bg: CanvasText;
+        --sys-clr-button-bg-active: CanvasText;
+        --sys-clr-button-bg-hover: CanvasText;
+        --sys-clr-button-border: CanvasText;
+        --sys-clr-button-border-active: CanvasText;
+        --sys-clr-button-border-hover: CanvasText;
+        --sys-clr-button-text: CanvasText;
+        --sys-clr-button-text-active: CanvasText;
+        --sys-clr-button-text-hover: CanvasText;
+        --sys-clr-link: CanvasText;
+        --sys-clr-link-active: CanvasText;
+        --sys-clr-link-hover: CanvasText;
+        --sys-clr-link-visited: CanvasText;
+        --theme-background: var(--clr-base-100, hsl(0, 0%, 97.73%));
+        --theme-text: CanvasText;
+        --theme-text-primary: CanvasText;
+        --theme-text-secondary: CanvasText;
+        --theme-text-active: CanvasText;
+        --theme-text-disabled: CanvasText;
+        --theme-ui: CanvasText;
+        --theme-ui-primary: CanvasText;
+        --theme-ui-secondary: CanvasText;
+        --theme-ui-active: CanvasText;
+        --theme-ui-disabled: CanvasText;
+        --theme-selection-bg: CanvasText;
+        --theme-selection-text: CanvasText;
+        --theme-link: CanvasText;
+        --theme-link-hover: CanvasText;
+        --theme-link-active: CanvasText;
+        --theme-link-visited: CanvasText;
+        --theme-button-bg: CanvasText;
+        --theme-button-bg-hover: CanvasText;
+        --theme-button-bg-active: CanvasText;
+        --theme-button-border: CanvasText;
+        --theme-button-border-hover: CanvasText;
+        --theme-button-border-active: CanvasText;
+        --theme-button-text: CanvasText;
+        --theme-button-text-hover: CanvasText;
+        --theme-button-text-active: CanvasText;
+        --theme-field-bg: CanvasText;
+        --theme-field-bg-hover: CanvasText;
+        --theme-field-bg-active: CanvasText;
+        --theme-field-border: CanvasText;
+        --theme-field-border-hover: CanvasText;
+        --theme-field-border-active: CanvasText;
+        --theme-field-text: CanvasText;
+        --theme-field-text-hover: CanvasText;
+        --theme-field-text-active: CanvasText;
+        --theme-field-placeholder: CanvasText;
+    }
+}
+/* #endregion Tokens - Theme - light mode + low contrast */
+/* #region Tokens - Theme - dark mode + average contrast */
 @media (prefers-color-scheme: dark) {
     html {
-        --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
-        --sys-clr-accent-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
-        --sys-clr-accent-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --sys-clr-mark-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
-        --sys-clr-mark-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --sys-clr-selected-bg: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
-        --sys-clr-selected-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --sys-clr-selection-bg: var(
-            --clr-purple-700,
-            hsl(288.48, 35.22%, 73.08%)
-        );
-        --sys-clr-selection-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --sys-clr-text-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
-        --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
-        --sys-clr-button-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
-        --sys-clr-button-bg-active: var(
-            --clr-red-800,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --sys-clr-button-bg-hover: var(
-            --clr-blue-800,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --sys-clr-button-border: var(
-            --clr-purple-800,
-            hsl(289.28, 39.64%, 84.78%)
-        );
-        --sys-clr-button-border-active: var(
-            --clr-red-800,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --sys-clr-button-border-hover: var(
-            --clr-blue-800,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --sys-clr-button-text: var(
-            --clr-purple-200,
-            hsl(287.56, 26.45%, 15.1%)
-        );
-        --sys-clr-button-text-active: var(
-            --clr-red-200,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --sys-clr-button-text-hover: var(--clr-blue-200, hsl(349.11, 100%, 0%));
-        --sys-clr-link: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
-        --sys-clr-link-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
-        --sys-clr-link-hover: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
-        --sys-clr-link-visited: var(
-            --clr-purple-800,
-            hsl(289.28, 39.64%, 84.78%)
-        );
-        --theme-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --theme-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
-        --theme-text-primary: var(
-            --clr-purple-800,
-            hsl(289.28, 39.64%, 84.78%)
-        );
-        --theme-text-secondary: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
-        --theme-text-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
-        --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
-        --theme-ui: var(--clr-base-800, hsl(0, 0%, 84.33%));
-        --theme-ui-primary: var(--clr-purple-700, hsl(288.48, 35.22%, 73.08%));
-        --theme-ui-secondary: var(--clr-blue-700, hsl(167.33, 36.89%, 64.41%));
-        --theme-ui-active: var(--clr-red-700, hsl(354.06, 54.89%, 76.23%));
-        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
-        --theme-selection-bg: var(
-            --clr-purple-700,
-            hsl(288.48, 35.22%, 73.08%)
-        );
-        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --theme-link: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
-        --theme-link-hover: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
-        --theme-link-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
-        --theme-link-visited: var(
-            --clr-purple-800,
-            hsl(289.28, 39.64%, 84.78%)
-        );
-        --theme-button-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
-        --theme-button-bg-hover: var(
-            --clr-blue-800,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --theme-button-bg-active: var(
-            --clr-red-800,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --theme-button-border: var(
-            --clr-purple-800,
-            hsl(289.28, 39.64%, 84.78%)
-        );
-        --theme-button-border-hover: var(
-            --clr-blue-800,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --theme-button-border-active: var(
-            --clr-red-800,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --theme-button-text: var(--clr-purple-200, hsl(287.56, 26.45%, 15.1%));
-        --theme-button-text-hover: var(--clr-blue-200, hsl(349.11, 100%, 0%));
-        --theme-button-text-active: var(
-            --clr-red-200,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --theme-field-border: var(
-            --clr-purple-700,
-            hsl(288.48, 35.22%, 73.08%)
-        );
-        --theme-field-border-hover: var(
-            --clr-blue-700,
-            hsl(167.33, 36.89%, 64.41%)
-        );
-        --theme-field-border-active: var(
-            --clr-red-700,
-            hsl(354.06, 54.89%, 76.23%)
-        );
-        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
-        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 97.73%));
-        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 97.73%));
-        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --sys-clr-background: var(--clr-base-100, hsl(0, 0%, 2.86%));
+        --sys-clr-text: CanvasText;
+        --sys-clr-accent-bg: CanvasText;
+        --sys-clr-accent-text: CanvasText;
+        --sys-clr-mark-bg: CanvasText;
+        --sys-clr-mark-text: CanvasText;
+        --sys-clr-selected-bg: CanvasText;
+        --sys-clr-selected-text: CanvasText;
+        --sys-clr-selection-bg: CanvasText;
+        --sys-clr-selection-text: CanvasText;
+        --sys-clr-text-active: CanvasText;
+        --sys-clr-text-disabled: CanvasText;
+        --sys-clr-button-bg: CanvasText;
+        --sys-clr-button-bg-active: CanvasText;
+        --sys-clr-button-bg-hover: CanvasText;
+        --sys-clr-button-border: CanvasText;
+        --sys-clr-button-border-active: CanvasText;
+        --sys-clr-button-border-hover: CanvasText;
+        --sys-clr-button-text: CanvasText;
+        --sys-clr-button-text-active: CanvasText;
+        --sys-clr-button-text-hover: CanvasText;
+        --sys-clr-link: CanvasText;
+        --sys-clr-link-active: CanvasText;
+        --sys-clr-link-hover: CanvasText;
+        --sys-clr-link-visited: CanvasText;
+        --theme-background: var(--clr-base-100, hsl(0, 0%, 2.86%));
+        --theme-text: CanvasText;
+        --theme-text-primary: CanvasText;
+        --theme-text-secondary: CanvasText;
+        --theme-text-active: CanvasText;
+        --theme-text-disabled: CanvasText;
+        --theme-ui: CanvasText;
+        --theme-ui-primary: CanvasText;
+        --theme-ui-secondary: CanvasText;
+        --theme-ui-active: CanvasText;
+        --theme-ui-disabled: CanvasText;
+        --theme-selection-bg: CanvasText;
+        --theme-selection-text: CanvasText;
+        --theme-link: CanvasText;
+        --theme-link-hover: CanvasText;
+        --theme-link-active: CanvasText;
+        --theme-link-visited: CanvasText;
+        --theme-button-bg: CanvasText;
+        --theme-button-bg-hover: CanvasText;
+        --theme-button-bg-active: CanvasText;
+        --theme-button-border: CanvasText;
+        --theme-button-border-hover: CanvasText;
+        --theme-button-border-active: CanvasText;
+        --theme-button-text: CanvasText;
+        --theme-button-text-hover: CanvasText;
+        --theme-button-text-active: CanvasText;
+        --theme-field-bg: CanvasText;
+        --theme-field-bg-hover: CanvasText;
+        --theme-field-bg-active: CanvasText;
+        --theme-field-border: CanvasText;
+        --theme-field-border-hover: CanvasText;
+        --theme-field-border-active: CanvasText;
+        --theme-field-text: CanvasText;
+        --theme-field-text-hover: CanvasText;
+        --theme-field-text-active: CanvasText;
+        --theme-field-placeholder: CanvasText;
     }
 }
-/*#endregion Tokens - Theme - dark mode + average contrast */
-/*#region Tokens - Theme - dark mode + low contrast */
-@media (( prefers-color-scheme: dark ) and ( prefers-contrast: less )) {
-    html {
-        --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
-        --sys-clr-accent-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
-        --sys-clr-accent-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --sys-clr-mark-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
-        --sys-clr-mark-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --sys-clr-selected-bg: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
-        --sys-clr-selected-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --sys-clr-selection-bg: var(
-            --clr-purple-700,
-            hsl(288.48, 35.22%, 73.08%)
-        );
-        --sys-clr-selection-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --sys-clr-text-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
-        --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
-        --sys-clr-button-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
-        --sys-clr-button-bg-active: var(
-            --clr-red-800,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --sys-clr-button-bg-hover: var(
-            --clr-blue-800,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --sys-clr-button-border: var(
-            --clr-purple-800,
-            hsl(289.28, 39.64%, 84.78%)
-        );
-        --sys-clr-button-border-active: var(
-            --clr-red-800,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --sys-clr-button-border-hover: var(
-            --clr-blue-800,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --sys-clr-button-text: var(
-            --clr-purple-200,
-            hsl(287.56, 26.45%, 15.1%)
-        );
-        --sys-clr-button-text-active: var(
-            --clr-red-200,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --sys-clr-button-text-hover: var(--clr-blue-200, hsl(349.11, 100%, 0%));
-        --sys-clr-link: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
-        --sys-clr-link-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
-        --sys-clr-link-hover: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
-        --sys-clr-link-visited: var(
-            --clr-purple-800,
-            hsl(289.28, 39.64%, 84.78%)
-        );
-        --theme-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --theme-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
-        --theme-text-primary: var(
-            --clr-purple-800,
-            hsl(289.28, 39.64%, 84.78%)
-        );
-        --theme-text-secondary: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
-        --theme-text-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
-        --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
-        --theme-ui: var(--clr-base-800, hsl(0, 0%, 84.33%));
-        --theme-ui-primary: var(--clr-purple-700, hsl(288.48, 35.22%, 73.08%));
-        --theme-ui-secondary: var(--clr-blue-700, hsl(167.33, 36.89%, 64.41%));
-        --theme-ui-active: var(--clr-red-700, hsl(354.06, 54.89%, 76.23%));
-        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
-        --theme-selection-bg: var(
-            --clr-purple-700,
-            hsl(288.48, 35.22%, 73.08%)
-        );
-        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --theme-link: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
-        --theme-link-hover: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
-        --theme-link-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
-        --theme-link-visited: var(
-            --clr-purple-800,
-            hsl(289.28, 39.64%, 84.78%)
-        );
-        --theme-button-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
-        --theme-button-bg-hover: var(
-            --clr-blue-800,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --theme-button-bg-active: var(
-            --clr-red-800,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --theme-button-border: var(
-            --clr-purple-800,
-            hsl(289.28, 39.64%, 84.78%)
-        );
-        --theme-button-border-hover: var(
-            --clr-blue-800,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --theme-button-border-active: var(
-            --clr-red-800,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --theme-button-text: var(--clr-purple-200, hsl(287.56, 26.45%, 15.1%));
-        --theme-button-text-hover: var(--clr-blue-200, hsl(349.11, 100%, 0%));
-        --theme-button-text-active: var(
-            --clr-red-200,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --theme-field-border: var(
-            --clr-purple-700,
-            hsl(288.48, 35.22%, 73.08%)
-        );
-        --theme-field-border-hover: var(
-            --clr-blue-700,
-            hsl(167.33, 36.89%, 64.41%)
-        );
-        --theme-field-border-active: var(
-            --clr-red-700,
-            hsl(354.06, 54.89%, 76.23%)
-        );
-        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
-        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 97.73%));
-        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 97.73%));
-        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 97.73%));
-    }
-}
-/*#endregion Tokens - Theme - dark mode + low contrast */
-/*#region Tokens - Theme - dark mode + high contrast */
+/* #endregion Tokens - Theme - dark mode + average contrast */
+/* #region Tokens - Theme - dark mode + high contrast */
 @media (( prefers-color-scheme: dark ) and ( prefers-contrast: more )) {
     html {
-        --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --sys-clr-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
-        --sys-clr-accent-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
-        --sys-clr-accent-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --sys-clr-mark-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
-        --sys-clr-mark-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --sys-clr-selected-bg: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
-        --sys-clr-selected-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --sys-clr-selection-bg: var(
-            --clr-purple-700,
-            hsl(288.48, 35.22%, 73.08%)
-        );
-        --sys-clr-selection-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --sys-clr-text-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
-        --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
-        --sys-clr-button-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
-        --sys-clr-button-bg-active: var(
-            --clr-red-800,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --sys-clr-button-bg-hover: var(
-            --clr-blue-800,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --sys-clr-button-border: var(
-            --clr-purple-800,
-            hsl(289.28, 39.64%, 84.78%)
-        );
-        --sys-clr-button-border-active: var(
-            --clr-red-800,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --sys-clr-button-border-hover: var(
-            --clr-blue-800,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --sys-clr-button-text: var(
-            --clr-purple-200,
-            hsl(287.56, 26.45%, 15.1%)
-        );
-        --sys-clr-button-text-active: var(
-            --clr-red-200,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --sys-clr-button-text-hover: var(--clr-blue-200, hsl(349.11, 100%, 0%));
-        --sys-clr-link: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
-        --sys-clr-link-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
-        --sys-clr-link-hover: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
-        --sys-clr-link-visited: var(
-            --clr-purple-800,
-            hsl(289.28, 39.64%, 84.78%)
-        );
-        --theme-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --theme-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
-        --theme-text-primary: var(
-            --clr-purple-800,
-            hsl(289.28, 39.64%, 84.78%)
-        );
-        --theme-text-secondary: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
-        --theme-text-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
-        --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
-        --theme-ui: var(--clr-base-800, hsl(0, 0%, 84.33%));
-        --theme-ui-primary: var(--clr-purple-700, hsl(288.48, 35.22%, 73.08%));
-        --theme-ui-secondary: var(--clr-blue-700, hsl(167.33, 36.89%, 64.41%));
-        --theme-ui-active: var(--clr-red-700, hsl(354.06, 54.89%, 76.23%));
-        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
-        --theme-selection-bg: var(
-            --clr-purple-700,
-            hsl(288.48, 35.22%, 73.08%)
-        );
-        --theme-selection-text: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --theme-link: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
-        --theme-link-hover: var(--clr-blue-800, hsl(166.2, 43.35%, 79.89%));
-        --theme-link-active: var(--clr-red-800, hsl(355.24, 61.11%, 86.74%));
-        --theme-link-visited: var(
-            --clr-purple-800,
-            hsl(289.28, 39.64%, 84.78%)
-        );
-        --theme-button-bg: var(--clr-purple-800, hsl(289.28, 39.64%, 84.78%));
-        --theme-button-bg-hover: var(
-            --clr-blue-800,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --theme-button-bg-active: var(
-            --clr-red-800,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --theme-button-border: var(
-            --clr-purple-800,
-            hsl(289.28, 39.64%, 84.78%)
-        );
-        --theme-button-border-hover: var(
-            --clr-blue-800,
-            hsl(166.2, 43.35%, 79.89%)
-        );
-        --theme-button-border-active: var(
-            --clr-red-800,
-            hsl(355.24, 61.11%, 86.74%)
-        );
-        --theme-button-text: var(--clr-purple-200, hsl(287.56, 26.45%, 15.1%));
-        --theme-button-text-hover: var(--clr-blue-200, hsl(349.11, 100%, 0%));
-        --theme-button-text-active: var(
-            --clr-red-200,
-            hsl(352.37, 32.92%, 16.09%)
-        );
-        --theme-field-bg: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --theme-field-bg-hover: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --theme-field-bg-active: var(--clr-base-200, hsl(0, 0%, 13.96%));
-        --theme-field-border: var(
-            --clr-purple-700,
-            hsl(288.48, 35.22%, 73.08%)
-        );
-        --theme-field-border-hover: var(
-            --clr-blue-700,
-            hsl(167.33, 36.89%, 64.41%)
-        );
-        --theme-field-border-active: var(
-            --clr-red-700,
-            hsl(354.06, 54.89%, 76.23%)
-        );
-        --theme-field-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
-        --theme-field-text-hover: var(--clr-base-900, hsl(0, 0%, 97.73%));
-        --theme-field-text-active: var(--clr-base-900, hsl(0, 0%, 97.73%));
-        --theme-field-placeholder: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --sys-clr-background: var(--clr-base-100, hsl(0, 0%, 2.86%));
+        --sys-clr-text: CanvasText;
+        --sys-clr-accent-bg: CanvasText;
+        --sys-clr-accent-text: CanvasText;
+        --sys-clr-mark-bg: CanvasText;
+        --sys-clr-mark-text: CanvasText;
+        --sys-clr-selected-bg: CanvasText;
+        --sys-clr-selected-text: CanvasText;
+        --sys-clr-selection-bg: CanvasText;
+        --sys-clr-selection-text: CanvasText;
+        --sys-clr-text-active: CanvasText;
+        --sys-clr-text-disabled: CanvasText;
+        --sys-clr-button-bg: CanvasText;
+        --sys-clr-button-bg-active: CanvasText;
+        --sys-clr-button-bg-hover: CanvasText;
+        --sys-clr-button-border: CanvasText;
+        --sys-clr-button-border-active: CanvasText;
+        --sys-clr-button-border-hover: CanvasText;
+        --sys-clr-button-text: CanvasText;
+        --sys-clr-button-text-active: CanvasText;
+        --sys-clr-button-text-hover: CanvasText;
+        --sys-clr-link: CanvasText;
+        --sys-clr-link-active: CanvasText;
+        --sys-clr-link-hover: CanvasText;
+        --sys-clr-link-visited: CanvasText;
+        --theme-background: var(--clr-base-100, hsl(0, 0%, 2.86%));
+        --theme-text: CanvasText;
+        --theme-text-primary: CanvasText;
+        --theme-text-secondary: CanvasText;
+        --theme-text-active: CanvasText;
+        --theme-text-disabled: CanvasText;
+        --theme-ui: CanvasText;
+        --theme-ui-primary: CanvasText;
+        --theme-ui-secondary: CanvasText;
+        --theme-ui-active: CanvasText;
+        --theme-ui-disabled: CanvasText;
+        --theme-selection-bg: CanvasText;
+        --theme-selection-text: CanvasText;
+        --theme-link: CanvasText;
+        --theme-link-hover: CanvasText;
+        --theme-link-active: CanvasText;
+        --theme-link-visited: CanvasText;
+        --theme-button-bg: CanvasText;
+        --theme-button-bg-hover: CanvasText;
+        --theme-button-bg-active: CanvasText;
+        --theme-button-border: CanvasText;
+        --theme-button-border-hover: CanvasText;
+        --theme-button-border-active: CanvasText;
+        --theme-button-text: CanvasText;
+        --theme-button-text-hover: CanvasText;
+        --theme-button-text-active: CanvasText;
+        --theme-field-bg: CanvasText;
+        --theme-field-bg-hover: CanvasText;
+        --theme-field-bg-active: CanvasText;
+        --theme-field-border: CanvasText;
+        --theme-field-border-hover: CanvasText;
+        --theme-field-border-active: CanvasText;
+        --theme-field-text: CanvasText;
+        --theme-field-text-hover: CanvasText;
+        --theme-field-text-active: CanvasText;
+        --theme-field-placeholder: CanvasText;
     }
 }
-/*#endregion Tokens - Theme - dark mode + high contrast */
-/*#region Tokens - Theme - dark mode + forced-colors contrast */
-/*#endregion Tokens - Theme - dark mode + forced-colors contrast */
-/*#region Tokens - Theme - forced-colors contrast */
+/* #endregion Tokens - Theme - dark mode + high contrast */
+/* #region Tokens - Theme - dark mode + low contrast */
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: less )) {
+    html {
+        --sys-clr-background: var(--clr-base-100, hsl(0, 0%, 2.86%));
+        --sys-clr-text: CanvasText;
+        --sys-clr-accent-bg: CanvasText;
+        --sys-clr-accent-text: CanvasText;
+        --sys-clr-mark-bg: CanvasText;
+        --sys-clr-mark-text: CanvasText;
+        --sys-clr-selected-bg: CanvasText;
+        --sys-clr-selected-text: CanvasText;
+        --sys-clr-selection-bg: CanvasText;
+        --sys-clr-selection-text: CanvasText;
+        --sys-clr-text-active: CanvasText;
+        --sys-clr-text-disabled: CanvasText;
+        --sys-clr-button-bg: CanvasText;
+        --sys-clr-button-bg-active: CanvasText;
+        --sys-clr-button-bg-hover: CanvasText;
+        --sys-clr-button-border: CanvasText;
+        --sys-clr-button-border-active: CanvasText;
+        --sys-clr-button-border-hover: CanvasText;
+        --sys-clr-button-text: CanvasText;
+        --sys-clr-button-text-active: CanvasText;
+        --sys-clr-button-text-hover: CanvasText;
+        --sys-clr-link: CanvasText;
+        --sys-clr-link-active: CanvasText;
+        --sys-clr-link-hover: CanvasText;
+        --sys-clr-link-visited: CanvasText;
+        --theme-background: var(--clr-base-100, hsl(0, 0%, 2.86%));
+        --theme-text: CanvasText;
+        --theme-text-primary: CanvasText;
+        --theme-text-secondary: CanvasText;
+        --theme-text-active: CanvasText;
+        --theme-text-disabled: CanvasText;
+        --theme-ui: CanvasText;
+        --theme-ui-primary: CanvasText;
+        --theme-ui-secondary: CanvasText;
+        --theme-ui-active: CanvasText;
+        --theme-ui-disabled: CanvasText;
+        --theme-selection-bg: CanvasText;
+        --theme-selection-text: CanvasText;
+        --theme-link: CanvasText;
+        --theme-link-hover: CanvasText;
+        --theme-link-active: CanvasText;
+        --theme-link-visited: CanvasText;
+        --theme-button-bg: CanvasText;
+        --theme-button-bg-hover: CanvasText;
+        --theme-button-bg-active: CanvasText;
+        --theme-button-border: CanvasText;
+        --theme-button-border-hover: CanvasText;
+        --theme-button-border-active: CanvasText;
+        --theme-button-text: CanvasText;
+        --theme-button-text-hover: CanvasText;
+        --theme-button-text-active: CanvasText;
+        --theme-field-bg: CanvasText;
+        --theme-field-bg-hover: CanvasText;
+        --theme-field-bg-active: CanvasText;
+        --theme-field-border: CanvasText;
+        --theme-field-border-hover: CanvasText;
+        --theme-field-border-active: CanvasText;
+        --theme-field-text: CanvasText;
+        --theme-field-text-hover: CanvasText;
+        --theme-field-text-active: CanvasText;
+        --theme-field-placeholder: CanvasText;
+    }
+}
+/* #endregion Tokens - Theme - dark mode + low contrast */
+/* #region Tokens - Theme - forced-colors */
 @media (forced-colors: active), (prefers-contrast: custom) {
     html {
         --sys-clr-background: Canvas !important;
@@ -1415,51 +938,45 @@ html {
         --sys-clr-link-active: ActiveText !important;
         --sys-clr-link-hover: ActiveText !important;
         --sys-clr-link-visited: VisitedText !important;
-        --theme-background: Canvas !important;
+        --theme-background: var(--clr-base-100, hsl(0, 0%, 97.73%)) !important;
         --theme-text: CanvasText !important;
         --theme-text-primary: CanvasText !important;
         --theme-text-secondary: CanvasText !important;
-        --theme-text-active: ActiveText !important;
-        --theme-text-disabled: GrayText !important;
+        --theme-text-active: CanvasText !important;
+        --theme-text-disabled: CanvasText !important;
         --theme-ui: CanvasText !important;
         --theme-ui-primary: CanvasText !important;
         --theme-ui-secondary: CanvasText !important;
-        --theme-ui-active: ActiveText !important;
-        --theme-ui-disabled: GrayText !important;
-        --theme-selection-bg: Highlight !important;
-        --theme-selection-text: HighlightText !important;
-        --theme-link: LinkText !important;
-        --theme-link-hover: ActiveText !important;
-        --theme-link-active: ActiveText !important;
-        --theme-link-visited: VisitedText !important;
-        --theme-button-bg: ButtonFace !important;
-        --theme-button-bg-hover: SelectedItem !important;
-        --theme-button-bg-active: ButtonFace !important;
-        --theme-button-border: ButtonBorder !important;
-        --theme-button-border-hover: SelectedItem !important;
-        --theme-button-border-active: ButtonBorder !important;
-        --theme-button-text: ButtonText !important;
-        --theme-button-text-hover: SelectedItemText !important;
-        --theme-button-text-active: ButtonText !important;
-        --theme-field-bg: Field !important;
-        --theme-field-bg-hover: SelectedItem !important;
-        --theme-field-bg-active: Field !important;
-        --theme-field-border: FieldText !important;
-        --theme-field-border-hover: SelectedItem !important;
-        --theme-field-border-active: FieldText !important;
-        --theme-field-text: FieldText !important;
-        --theme-field-text-hover: SelectedItemText !important;
-        --theme-field-text-active: FieldText !important;
-        --theme-field-placeholder: FieldText !important;
-        --theme-system-accent-bg: CanvasText !important;
-        --theme-system-accent-text: Canvas !important;
-        --theme-system-mark-bg: CanvasText !important;
-        --theme-system-mark-text: Canvas !important;
-        --theme-system-selected-bg: SelectedItem !important;
-        --theme-system-selected-text: SelectedItemText !important;
+        --theme-ui-active: CanvasText !important;
+        --theme-ui-disabled: CanvasText !important;
+        --theme-selection-bg: CanvasText !important;
+        --theme-selection-text: CanvasText !important;
+        --theme-link: CanvasText !important;
+        --theme-link-hover: CanvasText !important;
+        --theme-link-active: CanvasText !important;
+        --theme-link-visited: CanvasText !important;
+        --theme-button-bg: CanvasText !important;
+        --theme-button-bg-hover: CanvasText !important;
+        --theme-button-bg-active: CanvasText !important;
+        --theme-button-border: CanvasText !important;
+        --theme-button-border-hover: CanvasText !important;
+        --theme-button-border-active: CanvasText !important;
+        --theme-button-text: CanvasText !important;
+        --theme-button-text-hover: CanvasText !important;
+        --theme-button-text-active: CanvasText !important;
+        --theme-field-bg: CanvasText !important;
+        --theme-field-bg-hover: CanvasText !important;
+        --theme-field-bg-active: CanvasText !important;
+        --theme-field-border: CanvasText !important;
+        --theme-field-border-hover: CanvasText !important;
+        --theme-field-border-active: CanvasText !important;
+        --theme-field-text: CanvasText !important;
+        --theme-field-text-hover: CanvasText !important;
+        --theme-field-text-active: CanvasText !important;
+        --theme-field-placeholder: CanvasText !important;
     }
 }
-/*#endregion contrast forced-colors */
+/* #endregion Tokens - Theme - forced-colors */
 /* # ACCESSIBILITY
  * ======================================================================== */
 .no-js :focus,
@@ -1511,24 +1028,24 @@ hr {
 /* # TYPOGRAPHY
  * ======================================================================== */
 ::-moz-selection {
-    background-color: hsl(287.04, 29.43%, 26.02%);
+    background-color: CanvasText;
     background-color: var(--sys-clr-selection-bg, Highlight);
-    color: hsl(0, 0%, 84.33%);
+    color: CanvasText;
     color: var(--sys-clr-selection-text, HighlightText);
 }
 ::selection {
-    background-color: hsl(287.04, 29.43%, 26.02%);
+    background-color: CanvasText;
     background-color: var(--sys-clr-selection-bg, Highlight);
-    color: hsl(0, 0%, 84.33%);
+    color: CanvasText;
     color: var(--sys-clr-selection-text, HighlightText);
 }
 
 html {
     line-height: 1.6875;
     line-height: var(--line-height-400, 1.6875);
-    background: hsl(0, 0%, 84.33%);
+    background: hsl(0, 0%, 97.73%);
     background: var(--sys-clr-background, Canvas);
-    color: hsl(0, 0%, 2.86%);
+    color: CanvasText;
     color: var(--sys-clr-text, CanvasText);
 }
 
@@ -1569,40 +1086,40 @@ a {
     text-decoration: underline var(--stroke-relative-200, 0.0625em);
     text-underline-offset: 0.1875em;
     text-underline-offset: var(--stroke-relative-600, 0.1875em);
-    color: hsl(287.56, 26.45%, 15.1%);
+    color: CanvasText;
     color: var(--sys-clr-link, LinkText);
 }
 a:visited {
-    color: hsl(287.56, 26.45%, 15.1%);
+    color: CanvasText;
     color: var(--sys-clr-link-visited, VisitedText);
 }
 .no-js a:focus,
 .js__no-where-selector a:focus {
     text-decoration-color: transparent;
-    color: hsl(349.11, 100%, 0%);
+    color: CanvasText;
     color: var(--sys-clr-link-hover, ActiveText);
 }
 
 :where(.js__no-focusVisible) a:focus {
     text-decoration-color: transparent;
-    color: hsl(349.11, 100%, 0%);
+    color: CanvasText;
     color: var(--sys-clr-link-hover, ActiveText);
 }
 
 a:hover {
     text-decoration-color: transparent;
-    color: hsl(349.11, 100%, 0%);
+    color: CanvasText;
     color: var(--sys-clr-link-hover, ActiveText);
 }
 
 a:focus-visible {
     text-decoration-color: transparent;
-    color: hsl(349.11, 100%, 0%);
+    color: CanvasText;
     color: var(--sys-clr-link-hover, ActiveText);
 }
 
 a:active {
-    color: hsl(352.37, 32.92%, 16.09%);
+    color: CanvasText;
     color: var(--sys-clr-link-active, ActiveText);
 }
 a.no-style {
@@ -1614,7 +1131,7 @@ a[aria-disabled="true"] {
     text-decoration-line: line-through;
     opacity: 1;
     cursor: not-allowed;
-    color: hsl(0, 0%, 13.96%);
+    color: CanvasText;
     color: var(--sys-clr-text-disabled, GrayText);
 }
 
@@ -1905,37 +1422,37 @@ fieldset {
     padding: 0.5rem 1.25rem 0.8125rem;
     padding: var(--mrg-soft-300, 0.5rem) var(--mrg-firm-400, 1.25rem)
         var(--mrg-firm-300, 0.8125rem);
-    border: 0.0625rem solid hsl(287.56, 26.45%, 15.1%);
+    border: 0.0625rem solid CanvasText;
     border: 0.0625rem solid var(--sys-clr-accent-bg, CanvasText);
     border-radius: 0;
-    background-color: hsl(0, 0%, 84.33%);
+    background-color: hsl(0, 0%, 97.73%);
     background-color: var(--sys-clr-background, Canvas);
-    color: hsl(0, 0%, 2.86%);
+    color: CanvasText;
     color: var(--sys-clr-text, CanvasText);
 }
 .no-js fieldset:focus,
 .js__no-where-selector fieldset:focus {
-    border-color: hsl(352.37, 32.92%, 16.09%);
+    border-color: CanvasText;
     border-color: var(--sys-clr-text-active, ActiveText);
 }
 
 :where(.js__no-focusVisible) fieldset:focus {
-    border-color: hsl(352.37, 32.92%, 16.09%);
+    border-color: CanvasText;
     border-color: var(--sys-clr-text-active, ActiveText);
 }
 
 fieldset:focus-visible {
-    border-color: hsl(352.37, 32.92%, 16.09%);
+    border-color: CanvasText;
     border-color: var(--sys-clr-text-active, ActiveText);
 }
 
 fieldset:focus-within {
-    border-color: hsl(352.37, 32.92%, 16.09%);
+    border-color: CanvasText;
     border-color: var(--sys-clr-text-active, ActiveText);
 }
 
 fieldset:active {
-    border-color: hsl(287.56, 26.45%, 15.1%);
+    border-color: CanvasText;
     border-color: var(--sys-clr-accent-bg, CanvasText);
 }
 fieldset legend {
@@ -2080,7 +1597,7 @@ input:active {
     border-color: var(--sys-clr-input-border-active, FieldText);
     color: FieldText;
     color: var(--sys-clr-input-text-active, FieldText);
-    accent-color: hsl(352.37, 32.92%, 16.09%);
+    accent-color: CanvasText;
     accent-color: var(--sys-clr-text-active, ActiveText);
 }
 textarea::-moz-placeholder,
@@ -2197,7 +1714,7 @@ input[type="radio"]:focus-within {
 
 input[type="checkbox"]:active,
 input[type="radio"]:active {
-    accent-color: hsl(352.37, 32.92%, 16.09%);
+    accent-color: CanvasText;
     accent-color: var(--sys-clr-text-active, ActiveText);
 }
 input[type="color"] {
@@ -2254,15 +1771,15 @@ input[type="reset"],
     font: inherit;
     line-height: 1.1875;
     line-height: var(--line-height-100, 1.1875);
-    border: 0.125rem solid hsl(287.56, 26.45%, 15.1%);
+    border: 0.125rem solid CanvasText;
     border: 0.125rem solid var(--sys-clr-button-border, ButtonFace);
     border-radius: 0;
     --focus-ring-outline-color: var(--sys-clr-button-text, ButtonText);
-    background-color: hsl(287.56, 26.45%, 15.1%);
+    background-color: CanvasText;
     background-color: var(--sys-clr-button-bg, ButtonFace);
-    color: hsl(289.28, 39.64%, 84.78%);
+    color: CanvasText;
     color: var(--sys-clr-button-text, ButtonText);
-    accent-color: hsl(289.28, 39.64%, 84.78%);
+    accent-color: CanvasText;
     accent-color: var(--sys-clr-button-text, ButtonText);
 }
 .no-js button:focus,
@@ -2281,13 +1798,13 @@ input[type="reset"],
         --sys-clr-button-text-hover,
         SelectedItemText
     );
-    background-color: hsl(349.11, 100%, 0%);
+    background-color: CanvasText;
     background-color: var(--sys-clr-button-bg-hover, SelectedItem);
-    border-color: hsl(349.11, 100%, 0%);
+    border-color: CanvasText;
     border-color: var(--sys-clr-button-border-hover, SelectedItem);
-    color: hsl(166.2, 43.35%, 79.89%);
+    color: CanvasText;
     color: var(--sys-clr-button-text-hover, SelectedItemText);
-    accent-color: hsl(166.2, 43.35%, 79.89%);
+    accent-color: CanvasText;
     accent-color: var(--sys-clr-button-text-hover, SelectedItemText);
 }
 .no-js .no-js button:focus:focus,
@@ -2500,13 +2017,13 @@ input[type="reset"],
         --sys-clr-button-text-hover,
         SelectedItemText
     );
-    background-color: hsl(349.11, 100%, 0%);
+    background-color: CanvasText;
     background-color: var(--sys-clr-button-bg-hover, SelectedItem);
-    border-color: hsl(349.11, 100%, 0%);
+    border-color: CanvasText;
     border-color: var(--sys-clr-button-border-hover, SelectedItem);
-    color: hsl(166.2, 43.35%, 79.89%);
+    color: CanvasText;
     color: var(--sys-clr-button-text-hover, SelectedItemText);
-    accent-color: hsl(166.2, 43.35%, 79.89%);
+    accent-color: CanvasText;
     accent-color: var(--sys-clr-button-text-hover, SelectedItemText);
 }
 .no-js :where(.js__no-focusVisible) button:focus:focus,
@@ -2659,13 +2176,13 @@ input[type="reset"]:hover,
         --sys-clr-button-text-hover,
         SelectedItemText
     );
-    background-color: hsl(349.11, 100%, 0%);
+    background-color: CanvasText;
     background-color: var(--sys-clr-button-bg-hover, SelectedItem);
-    border-color: hsl(349.11, 100%, 0%);
+    border-color: CanvasText;
     border-color: var(--sys-clr-button-border-hover, SelectedItem);
-    color: hsl(166.2, 43.35%, 79.89%);
+    color: CanvasText;
     color: var(--sys-clr-button-text-hover, SelectedItemText);
-    accent-color: hsl(166.2, 43.35%, 79.89%);
+    accent-color: CanvasText;
     accent-color: var(--sys-clr-button-text-hover, SelectedItemText);
 }
 .no-js button:hover:focus,
@@ -2778,13 +2295,13 @@ input[type="reset"]:focus-visible,
         --sys-clr-button-text-hover,
         SelectedItemText
     );
-    background-color: hsl(349.11, 100%, 0%);
+    background-color: CanvasText;
     background-color: var(--sys-clr-button-bg-hover, SelectedItem);
-    border-color: hsl(349.11, 100%, 0%);
+    border-color: CanvasText;
     border-color: var(--sys-clr-button-border-hover, SelectedItem);
-    color: hsl(166.2, 43.35%, 79.89%);
+    color: CanvasText;
     color: var(--sys-clr-button-text-hover, SelectedItemText);
-    accent-color: hsl(166.2, 43.35%, 79.89%);
+    accent-color: CanvasText;
     accent-color: var(--sys-clr-button-text-hover, SelectedItemText);
 }
 .no-js button:focus-visible:focus,
@@ -2897,13 +2414,13 @@ input[type="reset"]:focus-within,
         --sys-clr-button-text-hover,
         SelectedItemText
     );
-    background-color: hsl(349.11, 100%, 0%);
+    background-color: CanvasText;
     background-color: var(--sys-clr-button-bg-hover, SelectedItem);
-    border-color: hsl(349.11, 100%, 0%);
+    border-color: CanvasText;
     border-color: var(--sys-clr-button-border-hover, SelectedItem);
-    color: hsl(166.2, 43.35%, 79.89%);
+    color: CanvasText;
     color: var(--sys-clr-button-text-hover, SelectedItemText);
-    accent-color: hsl(166.2, 43.35%, 79.89%);
+    accent-color: CanvasText;
     accent-color: var(--sys-clr-button-text-hover, SelectedItemText);
 }
 .no-js button:focus-within:focus,
@@ -3013,13 +2530,13 @@ input[type="submit"]:active,
 input[type="reset"]:active,
 :active::file-selector-button {
     --focus-ring-outline-color: var(--sys-clr-button-text-active, ButtonText);
-    background-color: hsl(352.37, 32.92%, 16.09%);
+    background-color: CanvasText;
     background-color: var(--sys-clr-button-bg-active, ButtonFace);
-    border-color: hsl(352.37, 32.92%, 16.09%);
+    border-color: CanvasText;
     border-color: var(--sys-clr-button-border-active, ButtonFace);
-    color: hsl(355.24, 61.11%, 86.74%);
+    color: CanvasText;
     color: var(--sys-clr-button-text-active, ButtonText);
-    accent-color: hsl(355.24, 61.11%, 86.74%);
+    accent-color: CanvasText;
     accent-color: var(--sys-clr-button-text-active, ButtonText);
 }
 button,
@@ -3051,7 +2568,7 @@ label {
     font-weight: 600;
     line-height: 1.3125;
     line-height: var(--line-height-200, 1.3125);
-    color: hsl(0, 0%, 2.86%);
+    color: CanvasText;
     color: var(--sys-clr-text, CanvasText);
 }
 label:has(> :where(input[type="checkbox"], input[type="radio"])) {
@@ -3067,7 +2584,7 @@ label:has(> :where(input[type="checkbox"], input[type="radio"])) {
     line-height: 1.6875;
     line-height: var(--line-height-400, 1.6875);
     text-wrap: balance;
-    color: hsl(0, 0%, 2.86%);
+    color: CanvasText;
     color: var(--sys-clr-text, CanvasText);
     cursor: pointer;
 }
@@ -3101,7 +2618,7 @@ table {
     margin-bottom: calc(
         var(--mrg-soft-600, 1.625rem) - var(--mrg-soft-400, 0.8125rem)
     );
-    background: hsl(287.56, 26.45%, 15.1%);
+    background: CanvasText;
     background: var(--sys-clr-accent-bg, CanvasText);
 }
 
@@ -3117,7 +2634,7 @@ td {
     padding: 0.3125rem 0.8125rem;
     padding: var(--mrg-soft-200, 0.3125rem) var(--mrg-firm-300, 0.8125rem);
     min-width: 10em;
-    background: hsl(0, 0%, 84.33%);
+    background: hsl(0, 0%, 97.73%);
     background: var(--sys-clr-background, Canvas);
     vertical-align: top;
     text-align: left;
@@ -3136,9 +2653,9 @@ th {
     padding-top: var(--mrg-soft-200, 0.3125rem);
     padding-bottom: 0.3125rem;
     padding-bottom: var(--mrg-soft-200, 0.3125rem);
-    background: hsl(287.56, 26.45%, 15.1%);
+    background: CanvasText;
     background: var(--sys-clr-accent-bg, CanvasText);
-    color: hsl(0, 0%, 84.33%);
+    color: CanvasText;
     color: var(--sys-clr-accent-text, Canvas);
 }
 
@@ -3184,10 +2701,7 @@ a:focus-visible {
 /* ## Typography - Block ==================================== */
 pre,
 code {
-    --focus-ring-outline-color: var(
-        --theme-text-secondary,
-        var(--clr-blue-800, hsl(349.11, 100%, 0%))
-    );
+    --focus-ring-outline-color: var(--theme-text-secondary, CanvasText);
     position: relative;
 }
 

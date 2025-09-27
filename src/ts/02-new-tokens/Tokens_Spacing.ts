@@ -11,7 +11,7 @@
 // import { JsonToScss } from '@maddimathon/utility-sass';
 // import * as z from 'zod';
 
-import type { TokenLevels, TokenLevels_Extended } from './@utils.js';
+import type { TokenLevels, TokenLevels_Extended } from './@types.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 
 /**
