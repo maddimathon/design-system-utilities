@@ -1,0 +1,53 @@
+---
+/**
+ * @since ___PKG_VERSION___
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+import type { ComponentProps } from 'astro/types';
+
+/* import - functions */
+
+/* import - values */
+
+/* import - components */
+import Alert from '@maddimathon/utility-astro/components/Alert';
+
+/* import - layouts */
+
+/* TYPES ===================================== */
+
+/* PROPS ===================================== */
+
+export interface Props {
+    level: string;
+    clrSlug: string;
+    title?: string;
+    type: ComponentProps<typeof Alert>['type'];
+}
+
+const { clrSlug, level, title, type }: Props = Astro.props;
+
+/* CONSTANTS ===================================== */
+
+const varClr = `var(--clr-${clrSlug})`;
+---
+
+<Alert
+    class:list={['contrast-alert']}
+    data-brightness-mode='light'
+    style={`--contrast-alert-color: ${varClr};`}
+    title={title ?? clrSlug}
+    type={type}
+>
+    <Fragment
+        slot='headline'
+        set:text={level}
+    />
+</Alert>
+
+<style lang='scss' is:global>
+    @forward '../scss/contrast-alert';
+</style>

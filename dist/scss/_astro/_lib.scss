@@ -1,26 +1,32 @@
 ///
 /// Used in subdirs to easily reference the lib.
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-alpha.draft
-/// @since 0.1.0-alpha.draft
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
 ///
 
-@forward '../templates/astro/config';
-@forward '../templates/astro/tokens';
+@forward '../templates/docs/config';
+@forward '../templates/docs/tokens';
 
 @forward '../notice';
 
-@forward '../templates/astro/lib';
+@forward '../templates/docs/lib';
 
-@use '../templates/astro/config';
-@use '../templates/astro/lib' as *;
+@use '../templates/docs/config';
+@use '../templates/docs/lib' as *;
 
-@mixin extend-selectors {
+@mixin extend-selectors($additional: ()) {
     @include config.print-globals {
-        @include extend-selector-globals($optional: true);
+        @include extend-selector-globals(
+            $optional: true,
+            $additional: $additional
+        );
     }
 
     @include config.print-utils {
-        @include extend-selector-utils($optional: true);
+        @include extend-selector-utils(
+            $optional: true,
+            $additional: $additional
+        );
     }
 }

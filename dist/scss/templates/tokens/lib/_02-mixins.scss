@@ -1,6 +1,42 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-alpha.draft
-/// @since 0.1.0-alpha.draft
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
 ///
 
-@forward '../../../lib/02-mixins';
+@forward '../../../lib/02-mixins' hide extend-selector-globals,
+    extend-selector-utils;
+
+/// # EXTENDING SELECTORS
+/// ======================================================================== ///
+
+@use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/math';
+@use 'pkg:@maddimathon/utility-sass/meta';
+
+@use '../../../lib/02-mixins' as lib;
+
+@use '../config';
+@use '../tokens';
+
+// @use '01-functions' as *;
+
+@mixin extend-selector-globals($additional: (), $optional: null) {
+    //
+    // $additional: list.append($additional, (nav));
+
+    @include lib.extend-selector-globals(
+        $additional: $additional,
+        $optional: $optional
+    );
+}
+
+@mixin extend-selector-utils($additional: (), $optional: null) {
+    //
+    // $additional: list.append($additional, ('.h9', 'h8'));
+
+    @include lib.extend-selector-utils(
+        $additional: $additional,
+        $optional: $optional
+    );
+}

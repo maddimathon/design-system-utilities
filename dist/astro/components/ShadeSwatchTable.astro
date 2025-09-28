@@ -1,0 +1,104 @@
+---
+/**
+ * @since 0.1.0-alpha.draft
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+import type { TokenLevels_Extended } from '../../ts/02-tokens/@types.d.ts';
+import type { Tokens_Internal } from '../../ts/02-tokens/Tokens.js';
+import type { Tokens_Colour } from '../../ts/02-tokens/Tokens_Colour.js';
+
+/* import - functions */
+import { colourToArray } from '../functions/colourToArray.js';
+import ShadeSwatchTable_Scripts from '../support/ShadeSwatchTable_Scripts.astro';
+
+/* import - values */
+
+/* import - components */
+import ShadeSwatch from './ShadeSwatch.astro';
+// import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
+
+/* import - layouts */
+
+/* TYPES ===================================== */
+
+/* PROPS ===================================== */
+
+export interface Props<
+    T_ColourName extends string = Tokens_Internal.Default_ColourName,
+    T_ExtraLevels extends TokenLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
+> {
+
+    /** Unique. */
+    id: string;
+    
+    colour: Tokens_Colour.JsonReturn<T_ColourName, T_ExtraLevels>;
+
+    frontmatter?: Omit<Props<T_ColourName, T_ExtraLevels>, 'frontmatter'>;
+}
+
+const {
+    id,
+    ...props
+}: Props = Astro.props.frontmatter ?? Astro.props;
+
+/* FUNCTIONS ===================================== */
+
+/* CONSTANTS ===================================== */
+
+const colour = colourToArray(props);
+---
+
+{
+    colour && (
+        <label
+            class='site-width | shade-swatch-table__display-control__label'
+            aria-ignore="true"
+        ><input 
+            type="checkbox"
+            data-shade-swatch-table-display-text-toggle={id}
+        /> Display table without text</label>
+        
+        <div
+            class:list={['table-wrapper | site-width | shade-swatch-table__wrapper']}
+        >
+            <table
+                id={id}
+            >
+            {colour.map(({ name, map }) => (
+                <tr>
+                    <th
+                        class="screen-reader-text"
+                        set:text={name}
+                    />
+                    {map.map(({ level, values }) => (
+                        <td>
+                            <ShadeSwatch 
+                                id={id}
+                                name={name} 
+                                level={level}
+                                contrast={false}
+                                values={{
+                                    ...values,
+                                    hsl: undefined,
+                                    // lch: undefined,
+                                    rgb: undefined,
+                                }}
+                                bases={props.colour.base}
+                            />
+                        </td> 
+                    ))}
+                </tr>
+            ))}
+            </table>
+        </div>
+    )
+}
+
+<style lang="scss">
+    @forward '../scss/shade-swatch-table';
+</style> 
+
+<ShadeSwatchTable_Scripts />

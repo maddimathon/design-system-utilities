@@ -1,0 +1,151 @@
+/**
+ * @since ___PKG_VERSION___
+ *
+ * @packageDocumentation
+ */
+/*!
+ * @maddimathon/design-system-utilities@___CURRENT_VERSION___
+ * @license MIT
+ */
+// import { JsonToScss } from '@maddimathon/utility-sass';
+// import * as z from 'zod';
+import { ColourUtilities } from '../../../01-utilities/ColourUtilities.js';
+import { ColourContrastTest } from '../../../01-utilities/ColourContrastTest.js';
+import { objectMap } from '../../../01-utilities/objectMap.js';
+import { AbstractTokens } from '../../abstract/AbstractTokens.js';
+/**
+ * Generates a complete token object for the design system.
+ *
+ * @since ___PKG_VERSION___
+ */
+export class Tokens_Colour_ShadeMap_Shade extends AbstractTokens {
+    allNames;
+    extraLevels;
+    shadeName;
+    thisLevel;
+    // public get schemaJSON() {
+    //     return Tokens_Colour_ShadeMap_Shade.Schema.JSON( this.allNames, this.extraLevels );
+    // }
+    data;
+    contrast = {
+        min: {},
+        max: {},
+        results: {},
+    };
+    constructor(allNames, extraLevels, shadeName, thisLevel, input) {
+        super();
+        this.allNames = allNames;
+        this.extraLevels = extraLevels;
+        this.shadeName = shadeName;
+        this.thisLevel = thisLevel;
+        this.data = ColourUtilities.SingleShade.parse(input);
+    }
+    /**
+     * Adds the given shade to this shade's contrast results.
+     *
+     * @since ___PKG_VERSION___
+     */
+    async addContrastTest(colourGroupName, level, testClr) {
+        if (typeof this.contrast.results[colourGroupName] === 'undefined') {
+            this.contrast.results[colourGroupName] = {};
+        }
+        const contrastTest = new ColourContrastTest(this.shadeValue(), testClr);
+        if (typeof this.contrast.min[colourGroupName] === 'undefined') {
+            this.contrast.min[colourGroupName] = {
+                ui: undefined,
+                text: undefined,
+            };
+        }
+        // SETTING MINIMUMS
+        testNameLoop: for (const testName of ['ui', 'text']) {
+            // continues
+            if (!contrastTest.aa[testName] && !contrastTest.aaa[testName]) {
+                continue testNameLoop;
+            }
+            if (typeof this.contrast.min[colourGroupName][testName] === 'undefined') {
+                this.contrast.min[colourGroupName][testName] = {
+                    aa: undefined,
+                    aaa: undefined,
+                };
+            }
+            standardsLoop: for (const standard of ['aa', 'aaa']) {
+                // if it didn't pass, ignore this
+                if (!contrastTest[standard][testName]) {
+                    continue standardsLoop;
+                }
+                if (
+                // if there's no minimum, then this is the new minimum
+                typeof this.contrast.min[colourGroupName][testName]?.[standard] === 'undefined'
+                    // this result is less than the existing minimum
+                    || contrastTest.ratio < this.contrast.min[colourGroupName][testName]?.[standard].ratio) {
+                    this.contrast.min[colourGroupName][testName][standard] = {
+                        name: colourGroupName,
+                        level,
+                        ratio: contrastTest.ratio,
+                    };
+                }
+            }
+        }
+        // SETTING MAXIMUM
+        if (
+        // if there's no maximum, then this is the new maximum
+        typeof this.contrast.max[colourGroupName] === 'undefined'
+            // this result is more than the existing maximum
+            || contrastTest.ratio > this.contrast.max[colourGroupName].ratio) {
+            this.contrast.max[colourGroupName] = {
+                name: colourGroupName,
+                level,
+                ratio: contrastTest.ratio,
+            };
+        }
+        this.contrast.results[colourGroupName][level] = contrastTest;
+    }
+    shadeValue() {
+        return {
+            hex: this.data.hex,
+            hsl: this.data.hsl,
+            rgb: this.data.rgb,
+            lch: this.data.lch,
+        };
+    }
+    toJSON() {
+        const max = objectMap(this.contrast.max, ({ value }) => value && {
+            ...value,
+            // ratio: undefined
+        });
+        const min = objectMap(this.contrast.min, ({ value: testGroup }) => ({
+            ui: testGroup?.ui && {
+                aa: testGroup.ui.aa && {
+                    ...testGroup.ui.aa,
+                    // ratio: undefined,
+                },
+                aaa: testGroup.ui.aaa && {
+                    ...testGroup.ui.aaa,
+                    // ratio: undefined,
+                },
+            },
+            text: testGroup?.text && {
+                aa: testGroup.text.aa && {
+                    ...testGroup.text.aa,
+                    // ratio: undefined,
+                },
+                aaa: testGroup.text.aaa && {
+                    ...testGroup.text.aaa,
+                    // ratio: undefined,
+                },
+            },
+        }));
+        return {
+            ...this.shadeValue(),
+            contrast: {
+                max,
+                min,
+                results: this.contrast.results,
+            },
+        };
+    }
+    toScssVars() {
+        return `lch( ${this.data.lch.l} ${this.data.lch.c} ${this.data.lch.h} )`;
+    }
+}
+//# sourceMappingURL=ShadeMap_Shade.js.map

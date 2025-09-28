@@ -51,7 +51,7 @@ export class Compile extends CompileStage {
     async tokens() {
         this.console.progress( 'compiling default tokens...', 1 );
 
-        const Tokens = ( await import( /* @vite-ignore */ '../../dist/ts/02-new-tokens/Tokens.js' ) ).Tokens;
+        const Tokens = ( await import( /* @vite-ignore */ '../../dist/ts/02-tokens/Tokens.js' ) ).Tokens;
 
         const defaultTokens = await Tokens.build(
             {
@@ -103,12 +103,35 @@ export class Compile extends CompileStage {
     async scss() {
         await this.runCustomDirCopySubStage( 'scss' );
 
-        await this.runCustomScssDirSubStage(
+        const cssPaths = await this.runCustomScssDirSubStage(
             'scss/_astro',
             this.getSrcDir( undefined, 'astro/css' ),
             {
                 postCSS: true,
             },
+        );
+
+        this.console.verbose( 'tidying up compiled files...', 2 );
+
+        for ( const path of cssPaths.map( this.fs.pathRelative ) ) {
+
+            this.try(
+                this.fs.write,
+                ( this.params.verbose ? 3 : 2 ),
+                [
+                    path.replace( /\/astro\/css\//gi, '/astro/scss/' ).replace( /\.css$/gi, '.scss' ),
+                    this.fs.readFile( path ),
+                    { force: true, rename: false }
+                ]
+            );
+        }
+
+        this.try(
+            this.fs.delete,
+            ( this.params.verbose ? 3 : 2 ),
+            [ [
+                'src/astro/css/**/*.css.map',
+            ], ( this.params.verbose ? 3 : 2 ) ]
         );
     }
 

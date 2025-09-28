@@ -1,0 +1,169 @@
+///
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+// @use 'pkg:@maddimathon/utility-sass/colour';
+// @use 'pkg:@maddimathon/utility-sass/list';
+// @use 'pkg:@maddimathon/utility-sass/map';
+// @use 'pkg:@maddimathon/utility-sass/math';
+// @use 'pkg:@maddimathon/utility-sass/meta';
+@use 'pkg:@maddimathon/utility-sass/selector';
+// @use 'pkg:@maddimathon/utility-sass/string';
+
+@use '../lib';
+
+/* # COLOUR SHADE SWATCH ==================================== */
+
+.shade-swatch {
+    display: flex;
+    flex-direction: column;
+
+    padding: #{lib.var-mrg-soft('200')} #{lib.var-mrg-firm('200')};
+    gap: #{lib.var-mrg-soft('200')} #{lib.var-mrg-firm('200')};
+
+    background: var(--shade-swatch-table-background);
+    color: var(
+        --shade-swatch-table-color-override,
+        var(--shade-swatch-table-color)
+    );
+
+    > :global(:where(*)) {
+        margin: 0;
+    }
+
+    > :global(*) {
+        display: var(--shade-swatch-display-override, block);
+        color: inherit;
+    }
+
+    :global(.shade-swatch__colour-value) {
+        margin: 0;
+        line-height: #{lib.var-line-height('100')};
+
+        strong {
+            font-weight: 500;
+        }
+    }
+
+    :global(.shade-swatch__name) {
+        @at-root #{selector.unify(&, '%title')} {
+            font-size: #{lib.var-fs(title)};
+        }
+
+        @each $num in lib.token-all-heading-levels() {
+            @at-root #{selector.unify(&, '%h#{$num}')} {
+                font-size: #{lib.var-fs(heading-#{$num})};
+            }
+        }
+    }
+
+    /// ## CONTRAST ==================================== ///
+
+    :global(.shade-swatch__contrast) {
+        --placeholder: 'hello';
+    }
+
+    /// ### Result Groups ------------------ ///
+
+    :global(.shade-swatch__contrast__result-group) {
+        display: grid;
+        grid-template-columns: repeat(
+            var(--shade-swatch-contrast-result-group-column-count),
+            minmax(0, max-content)
+        );
+        grid-template-rows: auto auto;
+
+        justify-content: stretch;
+        justify-items: stretch;
+        align-content: start;
+        align-items: start;
+
+        gap: #{lib.var-mrg-firm('200')} #{lib.var-mrg-firm('400')};
+
+        > :global(.shade-swatch__contrast__result-group__heading) {
+            grid-column: span
+                var(--shade-swatch-contrast-result-group-column-count, 1);
+        }
+    }
+
+    :global(.shade-swatch__contrast__result-group__heading),
+    :global(.shade-swatch__contrast__result-group__single-standard__heading) {
+        line-height: #{lib.var-line-height('100')};
+
+        @include lib.colour-mode((low, average)) {
+            color: color-mix(in srgb, currentColor 87.5%, transparent);
+        }
+    }
+
+    :global(.shade-swatch__contrast__result-group__heading) {
+        margin-block-start: #{lib.var-mrg-firm('300')};
+        font-size: #{lib.var-fs(heading-9)};
+
+        @include lib.colour-mode((low, average)) {
+            color: var(
+                --shade-swatch-contrast-result-group-heading-color,
+                inherit
+            );
+        }
+
+        + :global(.shade-swatch__contrast__result-group) {
+        }
+    }
+
+    :global(.shade-swatch__contrast__result-group__single-standard) {
+        grid-column: span
+            var(
+                --shade-swatch-contrast-result-group-single-standard-column-count,
+                1
+            );
+
+        display: grid;
+        grid-template-columns: repeat(
+            var(
+                --shade-swatch-contrast-result-group-single-standard-column-count,
+                auto-fill
+            ),
+            minmax(0, min-content)
+        );
+        // grid-template-columns: subgrid;
+        grid-template-rows: auto auto;
+        grid-auto-flow: row;
+
+        justify-content: center;
+        justify-items: stretch;
+        align-content: start;
+        align-items: start;
+
+        gap: #{lib.var-mrg-firm('100')} #{lib.var-mrg-firm('200')};
+
+        :global(
+            .shade-swatch__contrast__result-group__single-standard__heading
+        ) {
+            grid-column: span
+                var(
+                    --shade-swatch-contrast-result-group-single-standard-column-count,
+                    1
+                );
+            grid-row: 1;
+        }
+
+        :global(.contrast-alert) {
+            grid-row: 2;
+        }
+    }
+
+    :global(.shade-swatch__contrast__result-group__single-standard__heading) {
+        margin: 0;
+        // font-size: #{lib.var-fs(heading-9)};
+        text-align: center;
+    }
+
+    :global(
+        .shade-swatch__contrast__result-group__single-standard__heading--maximum
+    ) {
+        color: transparent !important;
+    }
+}
+
+@include lib.extend-selectors;

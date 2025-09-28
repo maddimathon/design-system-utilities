@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@___CURRENT_VERSION___
  * @license MIT
  */
 // import {
@@ -22,7 +22,7 @@ import { trailingSlash, } from '@maddimathon/utility-astro';
  * @param currentURL     Value of `Astro.url` in the build env.
  * @param targetSubpath  Path to used to construct the URL - relative to the site root (ignoring the base path).
  *
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  */
 export function makeRelativeURL(config_base, config_build, currentURL, targetSubpath) {
     const pathPrefix = config_base.replace(/(^\.?\/|\/$)/gi, '');

@@ -1,0 +1,79 @@
+---
+/**
+ * @since 0.1.0-alpha.draft
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+
+/* import - functions */
+
+/* import - values */
+
+/* import - components */
+
+/* import - layouts */
+
+/* TYPES ===================================== */
+
+/* PROPS ===================================== */
+
+// export interface Props {};
+
+// const props: Props = Astro.props.frontmatter ?? Astro.props;
+
+/* CONSTANTS ===================================== */
+---
+
+<script>
+    const controls = document.querySelectorAll(
+        'input[data-shade-swatch-table-display-text-toggle]'
+    ) as NodeListOf<HTMLInputElement>;
+
+    controls.forEach((checkbox) => {
+        const tableId = checkbox.getAttribute(
+            'data-shade-swatch-table-display-text-toggle'
+        );
+
+        // returns
+        if (!tableId) {
+            return;
+        }
+
+        const tables = document.querySelectorAll(`#${tableId}`);
+
+        // returns
+        if (!tables.length) {
+            return;
+        }
+
+        const storageKey = `data-shade-swatch-table-no-text#${tableId}`;
+
+        if (localStorage.getItem(storageKey) == 'true') {
+            checkbox.checked = true;
+            tables.forEach((table) =>
+                table.setAttribute('data-shade-swatch-table-no-text', 'true')
+            );
+        }
+
+        checkbox.addEventListener('input', () =>
+            tables.forEach((table) => {
+                // returns
+                if (checkbox.checked) {
+                    // is truthy
+                    table.setAttribute(
+                        'data-shade-swatch-table-no-text',
+                        'true'
+                    );
+                    localStorage.setItem(storageKey, 'true');
+                    return;
+                }
+
+                // is falsey
+                table.removeAttribute('data-shade-swatch-table-no-text');
+                localStorage.setItem(storageKey, '');
+            })
+        );
+    });
+</script>

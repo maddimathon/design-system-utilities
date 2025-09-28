@@ -1,19 +1,20 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@___CURRENT_VERSION___
  * @license MIT
  */
 import clrConvert from 'color-convert';
 import * as z from 'zod';
+import { roundToPixel } from './roundToPixel.js';
 /**
  * Utility functions, schemas, and types for dealing with colour values in the
  * system.
  *
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  */
 export var ColourUtilities;
 (function (ColourUtilities) {
@@ -70,10 +71,10 @@ export var ColourUtilities;
     /* UTILITY FUNCTIONS
      * ====================================================================== */
     /**
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
     function toHex(clr) {
-        const _hexValidator = (hex) => '#' + hex.replace(/^#/gi, '');
+        const _hexValidator = (hex) => hex.toUpperCase().replace(/^#/gi, '');
         // returns - plain
         if (typeof clr === 'string') {
             return _hexValidator(clr);
@@ -102,14 +103,20 @@ export var ColourUtilities;
     }
     ColourUtilities.toHex = toHex;
     /**
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
-    function toHSL(clr) {
-        const _arrayToObject = (hsl) => ({
-            h: Math.round(hsl[0] * 200) / 200,
-            s: Math.round(hsl[1] * 200) / 200,
-            l: Math.round(hsl[2] * 200) / 200,
-        });
+    function toHSL(clr, round = true) {
+        const _arrayToObject = (hsl) => (round
+            ? {
+                h: roundToPixel(hsl[0], 200),
+                s: roundToPixel(hsl[1], 200),
+                l: roundToPixel(hsl[2], 200),
+            }
+            : {
+                h: hsl[0],
+                s: hsl[1],
+                l: hsl[2],
+            });
         // returns - converts
         if (typeof clr === 'string') {
             const hsl = clrConvert.hex.hsl.raw(clr);
@@ -138,13 +145,13 @@ export var ColourUtilities;
     }
     ColourUtilities.toHSL = toHSL;
     /**
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
     function toLCH(clr) {
         const _arrayToObject = (lch) => ({
-            l: Math.max(0, Math.min(100, Math.round(lch[0] * 1000) / 1000)),
-            c: Math.round(lch[1] * 10000) / 10000,
-            h: Math.round(lch[2] * 1000) / 1000,
+            l: Math.max(0, Math.min(100, roundToPixel(lch[0], 200))),
+            c: roundToPixel(lch[1], 200),
+            h: roundToPixel(lch[2], 200),
         });
         // returns - converts
         if (typeof clr === 'string') {
@@ -174,7 +181,7 @@ export var ColourUtilities;
     }
     ColourUtilities.toLCH = toLCH;
     /**
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
     function toRGB(clr) {
         const _arrayToObject = (rgb) => ({
@@ -210,14 +217,15 @@ export var ColourUtilities;
     }
     ColourUtilities.toRGB = toRGB;
     /**
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
-    function mixColours(_clrA, _clrB) {
+    function mixColours(_clrA, _clrB, saturationMultiplier = 1) {
         const clrA = toLCH(_clrA);
         const clrB = toLCH(_clrB);
+        let c = (clrA.c + clrB.c) / 2 * saturationMultiplier;
         return toLCH({
             l: (clrA.l + clrB.l) / 2,
-            c: (clrA.c + clrB.c) / 2,
+            c,
             h: (clrA.h + clrB.h) / 2,
         });
     }

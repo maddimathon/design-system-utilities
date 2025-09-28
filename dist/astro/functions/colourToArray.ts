@@ -8,8 +8,8 @@
  * @license MIT
  */
 
-import type { TokenLevels_Extended } from '../../ts/02-new-tokens/@types.d.ts';
-import type { Tokens_Colour } from '../../ts/02-new-tokens/Tokens_Colour.js';
+import type { TokenLevels_Extended } from '../../ts/02-tokens/@types.d.ts';
+import type { Tokens_Colour } from '../../ts/02-tokens/Tokens_Colour.js';
 
 import { shadeMapToArray } from './shadeMapToArray.js';
 

@@ -1,0 +1,62 @@
+///
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+// @use 'pkg:@maddimathon/utility-sass/colour';
+// @use 'pkg:@maddimathon/utility-sass/list';
+// @use 'pkg:@maddimathon/utility-sass/map';
+// @use 'pkg:@maddimathon/utility-sass/math';
+// @use 'pkg:@maddimathon/utility-sass/meta';
+// @use 'pkg:@maddimathon/utility-sass/selector';
+// @use 'pkg:@maddimathon/utility-sass/string';
+
+@use '../lib';
+
+/* # COLOUR TABLE ==================================== */
+
+%label {
+    width: fit-content;
+    justify-self: end;
+}
+
+.shade-swatch-table__wrapper {
+    > :global(table) {
+        width: 100%;
+        border-spacing: 0;
+        font-size: #{lib.var-fs(smaller-2)};
+
+        :global(th),
+        :global(td) {
+            padding: 0;
+            min-width: 0;
+        }
+    }
+
+    > :global(table[data-shade-swatch-table-no-text='true']) {
+        --shade-swatch-table-color-override: transparent !important;
+        --shade-swatch-display-override: none !important;
+    }
+
+    :global(.shade-swatch) {
+        padding: #{lib.var-mrg-soft('100')} #{lib.var-mrg-firm('200')};
+        gap: #{lib.var-mrg-soft('100')} #{lib.var-mrg-firm('100')};
+
+        min-width: 3rem;
+        min-height: 2rem;
+
+        :global(.shade-swatch__colour-value) {
+            text-wrap: nowrap;
+        }
+    }
+}
+
+.shade-swatch-table__display-control__label {
+    margin-block-start: #{lib.var-mrg-soft('400')};
+
+    + .shade-swatch-table__wrapper {
+        margin-block-start: #{lib.var-mrg-firm('200')};
+    }
+}
+
+@include lib.extend-selectors;

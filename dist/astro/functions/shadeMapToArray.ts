@@ -8,8 +8,8 @@
  * @license MIT
  */
 
-import type { TokenLevels, TokenLevels_Extended } from '../../ts/02-new-tokens/@types.d.ts';
-import type { Tokens_Colour_ShadeMap } from '../../ts/02-new-tokens/Colour/Colour_ShadeMap.js';
+import type { TokenLevels, TokenLevels_Extended } from '../../ts/02-tokens/@types.d.ts';
+import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
 
 export function shadeMapToArray<
     T_ColourName extends string = string,

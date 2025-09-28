@@ -1,6 +1,47 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-alpha.draft
-/// @since 0.1.0-alpha.draft
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
 ///
 
 @forward '../../astro/lib/02-mixins';
+
+/// # EXTENDING SELECTORS
+/// ======================================================================== ///
+
+@use 'pkg:@maddimathon/utility-sass/list';
+
+@use '../../astro/lib/02-mixins' as lib;
+
+@use '../config';
+
+// @use '01-functions' as *;
+
+@mixin extend-selector-globals($additional: (), $optional: null) {
+    //
+    // $additional: list.append($additional, (nav));
+
+    @include lib.extend-selector-globals(
+        $additional: $additional,
+        $optional: $optional
+    );
+}
+
+@mixin extend-selector-utils($additional: (), $optional: null) {
+    $additional: list.join(
+        $additional,
+        (
+            (('.shade-swatch__name', '.shade-swatch__colour-value'), 'pre'),
+            ('.shade-swatch__contrast__result-group__heading', 'h8'),
+            (
+                '.shade-swatch__contrast__result-group__single-standard__heading',
+                'h9'
+            )
+        ),
+        $separator: comma
+    );
+
+    @include lib.extend-selector-utils(
+        $additional: $additional,
+        $optional: $optional
+    );
+}

@@ -1,0 +1,81 @@
+---
+/**
+ * @since ___PKG_VERSION___
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+import type { TokenLevels_Extended } from '../../ts/02-tokens/@types.d.ts';
+import type { Tokens_Internal } from '../../ts/02-tokens/Tokens.js';
+import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
+
+/* import - functions */
+import { shadeMapToArray } from '../functions/shadeMapToArray.js';
+
+/* import - values */
+
+/* import - components */
+import ShadeSwatch from './ShadeSwatch.astro';
+
+/* import - layouts */
+
+/* TYPES ===================================== */
+
+/* PROPS ===================================== */
+
+export interface Props<
+    T_ColourName extends string = Tokens_Internal.Default_ColourName,
+    T_ExtraLevels extends
+        TokenLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
+> {
+    name: string;
+
+    colour: Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, T_ExtraLevels>;
+
+    bases?: Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, T_ExtraLevels>;
+
+    /** Unique. */
+    id: string;
+
+    shadeHeading?: number;
+
+    frontmatter?: Omit<Props<T_ColourName, T_ExtraLevels>, 'frontmatter'>;
+}
+
+const { bases, id, name, shadeHeading, ...props }: Props =
+    Astro.props.frontmatter ?? Astro.props;
+
+/* FUNCTIONS ===================================== */
+
+/* CONSTANTS ===================================== */
+
+const colour = shadeMapToArray(props.colour);
+---
+
+{
+    colour && (
+        <div
+            id={id}
+            class='shade-swatch-list'
+        >
+            {colour.map(({ level, values }) => (
+                <ShadeSwatch
+                    id={id}
+                    bases={bases}
+                    heading={shadeHeading}
+                    level={level}
+                    name={name}
+                    values={values}
+                />
+            ))}
+        </div>
+    )
+}
+
+<style
+    lang='scss'
+    define:vars={{ 'shade-swatch-list-column-count': colour.length }}
+>
+    @forward '../scss/shade-swatch-list';
+</style>

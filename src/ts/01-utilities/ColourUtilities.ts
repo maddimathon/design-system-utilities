@@ -11,6 +11,8 @@
 import clrConvert from 'color-convert';
 import * as z from 'zod';
 
+import { roundToPixel } from './roundToPixel.js';
+
 /**
  * Utility functions, schemas, and types for dealing with colour values in the
  * system.
@@ -147,7 +149,7 @@ export namespace ColourUtilities {
         clr: { data: SingleShade; } | SingleShade | SingleShade_Input,
     ): Value_Hex {
 
-        const _hexValidator = ( hex: string ) => '#' + hex.replace( /^#/gi, '' );
+        const _hexValidator = ( hex: string ) => hex.toUpperCase().replace( /^#/gi, '' );
 
         // returns - plain
         if ( typeof clr === 'string' ) {
@@ -186,13 +188,22 @@ export namespace ColourUtilities {
      */
     export function toHSL(
         clr: { data: SingleShade; } | SingleShade | SingleShade_Input,
+        round: boolean = true,
     ): Value_HSL {
 
-        const _arrayToObject = ( hsl: [ number, number, number ] ) => ( {
-            h: Math.round( hsl[ 0 ] * 200 ) / 200,
-            s: Math.round( hsl[ 1 ] * 200 ) / 200,
-            l: Math.round( hsl[ 2 ] * 200 ) / 200,
-        } );
+        const _arrayToObject = ( hsl: [ number, number, number ] ) => (
+            round
+                ? {
+                    h: roundToPixel( hsl[ 0 ], 200 ),
+                    s: roundToPixel( hsl[ 1 ], 200 ),
+                    l: roundToPixel( hsl[ 2 ], 200 ),
+                }
+                : {
+                    h: hsl[ 0 ],
+                    s: hsl[ 1 ],
+                    l: hsl[ 2 ],
+                }
+        );
 
         // returns - converts
         if ( typeof clr === 'string' ) {
@@ -238,11 +249,11 @@ export namespace ColourUtilities {
                 0,
                 Math.min(
                     100,
-                    Math.round( lch[ 0 ] * 1000 ) / 1000
+                    roundToPixel( lch[ 0 ], 200 )
                 )
             ),
-            c: Math.round( lch[ 1 ] * 10000 ) / 10000,
-            h: Math.round( lch[ 2 ] * 1000 ) / 1000,
+            c: roundToPixel( lch[ 1 ], 200 ),
+            h: roundToPixel( lch[ 2 ], 200 ),
         } );
 
         // returns - converts
@@ -328,14 +339,17 @@ export namespace ColourUtilities {
     export function mixColours(
         _clrA: { data: SingleShade; } | SingleShade | SingleShade_Input,
         _clrB: { data: SingleShade; } | SingleShade | SingleShade_Input,
+        saturationMultiplier: number = 1,
     ): Value_LCH {
 
         const clrA = toLCH( _clrA );
         const clrB = toLCH( _clrB );
 
+        let c = ( clrA.c + clrB.c ) / 2 * saturationMultiplier;
+
         return toLCH( {
             l: ( clrA.l + clrB.l ) / 2,
-            c: ( clrA.c + clrB.c ) / 2,
+            c,
             h: ( clrA.h + clrB.h ) / 2,
         } );
     }

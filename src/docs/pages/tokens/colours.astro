@@ -8,18 +8,18 @@
 /* import - types */
 
 /* import - functions */
-import ColourTable_Scripts from '../../../astro/support/ColourTable_Scripts.astro';
-import { DefaultTokens } from '../../functions/DefaultTokens.js';
+import { toTitleCase } from '@maddimathon/utility-typescript/functions';
+import { DocsSampleTokens } from '../../functions/DocsSampleTokens.js';
+import ShadeSwatchTable_Scripts from '../../../astro/support/ShadeSwatchTable_Scripts.astro';
 
 /* import - values */
 
 /* import - components */
+import ShadeSwatchTable from '../../../astro/components/ShadeSwatchTable.astro';
+import ShadeSwatchList from '../../../astro/components/ShadeSwatchList.astro';
 
 /* import - layouts */
-import ColourTable from '../../../astro/components/ColourTable.astro';
 import DocsPage from '../../layouts/DocsPage.astro';
-import ColourList from '../../../astro/components/ColourList.astro';
-// import type { Tokens_Colour } from '../../../ts/internal.docs';
 
 /* TYPES ===================================== */
 
@@ -30,25 +30,31 @@ import ColourList from '../../../astro/components/ColourList.astro';
     title='Colour Tokens'
     layout='extra-wide'
 >
-    <ColourTable
+    <ShadeSwatchTable
         id='all-colours'
-        colour={DefaultTokens.colour}
+        colour={DocsSampleTokens.colour}
     />
 
     {
-        (Object.keys(DefaultTokens.colour) as (keyof typeof DefaultTokens.colour)[]).map(
-            (name) => (
-                <h2 set:html={name} />
-                <ColourList
-                    bases={DefaultTokens.colour.base}
-                    colour={DefaultTokens.colour[name]}
-                    id={`${name}-shade-list`}
-                    name={name}
-                    shadeHeading="3"
-                />
-            )
-        )
+        (
+            Object.keys(
+                DocsSampleTokens.colour
+            ) as (keyof typeof DocsSampleTokens.colour)[]
+        ).map((name) => (
+            <h2
+            
+                id={`shades-${name}`}
+                set:text={toTitleCase(name)}
+            />
+            <ShadeSwatchList
+                bases={DocsSampleTokens.colour.base}
+                colour={DocsSampleTokens.colour[name]}
+                id={`shades-${name}__list`}
+                name={name}
+                shadeHeading={3}
+            />
+        ))
     }
 </DocsPage>
 
-<ColourTable_Scripts />
+<ShadeSwatchTable_Scripts />

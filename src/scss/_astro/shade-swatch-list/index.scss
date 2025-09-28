@@ -1,0 +1,47 @@
+///
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+// @use 'pkg:@maddimathon/utility-sass/colour';
+// @use 'pkg:@maddimathon/utility-sass/list';
+// @use 'pkg:@maddimathon/utility-sass/map';
+// @use 'pkg:@maddimathon/utility-sass/math';
+// @use 'pkg:@maddimathon/utility-sass/meta';
+// @use 'pkg:@maddimathon/utility-sass/selector';
+// @use 'pkg:@maddimathon/utility-sass/string';
+
+@use '../lib';
+
+/* # COLOUR SWATCH LIST ==================================== */
+
+.shade-swatch-list {
+    // display: flex;
+    // flex-direction: row;
+    gap: 0;
+
+    margin-block-start: #{lib.var-mrg-firm('400')};
+
+    overflow-inline: auto;
+
+    & {
+        display: grid;
+        // grid-template-columns: repeat(
+        //     var(--shade-swatch-list-column-count, auto-fill),
+        //     16rem // clamp(12rem, 80vw, 16rem)
+        // );
+        grid-template-columns: repeat(
+            var(--shade-swatch-list-column-count, auto-fill),
+            minmax(16rem, auto)
+        );
+        grid-template-rows: auto;
+        grid-auto-flow: column;
+    }
+
+    :global(.shade-swatch) {
+        min-width: 0;
+        max-width: none;
+    }
+}
+
+@include lib.extend-selectors;

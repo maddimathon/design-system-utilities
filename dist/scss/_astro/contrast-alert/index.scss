@@ -1,0 +1,37 @@
+///
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+// @use 'pkg:@maddimathon/utility-sass/colour';
+// @use 'pkg:@maddimathon/utility-sass/list';
+// @use 'pkg:@maddimathon/utility-sass/map';
+// @use 'pkg:@maddimathon/utility-sass/math';
+// @use 'pkg:@maddimathon/utility-sass/meta';
+// @use 'pkg:@maddimathon/utility-sass/selector';
+// @use 'pkg:@maddimathon/utility-sass/string';
+
+@use '../lib';
+
+/* # CONTRAST RESULT ==================================== */
+
+.contrast-alert {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+
+    justify-content: start;
+    align-content: center;
+    align-items: center;
+
+    color: var(
+        --shade-swatch-table-color-override,
+        var(--contrast-alert-color)
+    );
+
+    > * {
+        color: inherit;
+    }
+}
+
+@include lib.extend-selectors;

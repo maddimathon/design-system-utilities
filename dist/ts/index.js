@@ -4,15 +4,15 @@
  * @module root
  * @mergeModuleWith <project>
  *
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@___CURRENT_VERSION___
  * @license MIT
  */
 export * from './01-utilities/makeRelativeURL.js';
-export { Tokens } from './02-new-tokens/Tokens.js';
+export { Tokens } from './02-tokens/Tokens.js';
 export * as BuildUtilities from './build-utils/index.js';
 //# sourceMappingURL=index.js.map

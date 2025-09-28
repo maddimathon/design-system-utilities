@@ -1,0 +1,162 @@
+---
+/**
+ * @since 0.1.0-alpha.draft
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+import type { ComponentProps } from 'astro/types';
+import type { TokenLevels_Extended } from '../../ts/02-tokens/@types.d.ts';
+import type { Tokens_Internal } from '../../ts/02-tokens/Tokens.js';
+import type { Tokens_Colour_ShadeMap_Shade } from '../../ts/02-tokens/Colour/ShadeMap/ShadeMap_Shade.js';
+
+/* import - functions */
+import { toTitleCase } from '@maddimathon/utility-typescript/functions';
+import { objectGenerator } from '../../ts/01-utilities/objectGenerator.js';
+import { objectMap } from '../../ts/01-utilities/objectMap.js';
+
+/* import - values */
+
+/* import - components */
+import ContrastAlert from './ContrastAlert.astro';
+import Heading from '@maddimathon/utility-astro/components/Heading';
+import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
+
+/* import - layouts */
+
+/* TYPES ===================================== */
+
+/* PROPS ===================================== */
+
+export interface Props<
+    T_ColourName extends string = Tokens_Internal.Default_ColourName,
+    T_ExtraLevels extends
+        TokenLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
+> extends Omit<ComponentProps<typeof Heading>, 'frontmatter'|'heading'|'id'> {
+    //
+    id: string;
+
+    values: {
+        min?: Tokens_Colour_ShadeMap_Shade.Contrast.Minimum<
+            T_ColourName,
+            T_ExtraLevels
+        >;
+        max?: Tokens_Colour_ShadeMap_Shade.Contrast.Maximum<
+            T_ColourName,
+            T_ExtraLevels
+        >;
+        results: Tokens_Colour_ShadeMap_Shade.ContrastResults<
+            T_ColourName,
+            T_ExtraLevels
+        >;
+    };
+    // values: Tokens_Colour_ShadeMap_Shade.JsonReturn<
+    //     T_ColourName,
+    //     T_ExtraLevels
+    // >['contrast'];
+
+    heading: number | false;
+}
+
+const { class:classList, heading: headingRaw, id, values, ...attributes }: Props = Astro.props;
+
+/* FUNCTIONS ===================================== */
+
+function getMinimumMap(
+    _standard: "aa"|"aaa",
+    _minimum: Props['values']['min'],
+) {
+
+    return values.min && objectMap(
+        values.min, ({key, value}) => ( {
+
+            name: toTitleCase(key),
+
+            min: (value?.text?.[_standard]||value?.ui?.[_standard]) 
+                && {
+                    text: value?.text?.[_standard] || undefined,
+                    ui: value?.ui?.[_standard] || undefined,
+                },
+        } )
+    );
+}
+
+/* CONSTANTS ===================================== */
+
+const heading = headingRaw || 7; 
+
+const minMaxSets = objectGenerator(
+    ['aa', 'aaa'] as const,
+    (standard) => getMinimumMap(standard, values.min)
+);
+
+
+const minimums = values.min && objectMap(
+    values.min, ({key, value}) => ( {
+        name: toTitleCase(key),
+        value: {
+            aa: (value?.text?.aa||value?.ui?.aa) && {
+                text: value?.text?.aa,
+                ui: value?.ui?.aa,
+            },
+            aaa: (value?.text?.aaa||value?.ui?.aaa) && {
+                text: value?.text?.aaa,
+                ui: value?.ui?.aaa,
+            },
+        },
+    } )
+); 
+---
+
+<Heading
+    {...attributes}
+    class:list={["screen-reader-text", classList]}
+    heading={heading}
+    set:text='Contrast Test Results'
+/>
+
+<VariableDump name='minMaxSets' var={minMaxSets} class="font-size-smaller-2" />
+
+{(['aa', 'aaa'] as const).map(standard=>(
+    <Heading
+        class='shade-swatch__contrast__heading-standard'
+        heading={heading + 1}
+        id={`${id}--${standard}`} 
+        set:text={standard.toUpperCase()}
+    />
+    <Fragment> 
+        {
+            minimums && (
+                <Heading
+                    class='shade-swatch__contrast__heading-test-name'
+                    heading={heading + 2}
+                    set:text='Minimums'
+                />
+                <div class='shade-swatch__contrast shade-swatch__contrast--min'>
+                    {Object.values(minimums).map((min) =>  (min.value[standard]) && (
+                        <div class="shade-swatch__contrast__single-set">
+                            <Heading
+                                class='shade-swatch__contrast__single-set__heading'
+                                heading={heading + 3}
+                                set:text={min.name}
+                            />
+                            { min.value[standard]?.ui && <ContrastAlert 
+                                clrSlug={`${min.value[standard]?.ui.name}-${min.value[standard]?.ui.level}`}
+                                level={min.value[standard]?.ui.level}
+                                title="UI Minimum"
+                                type="ui" 
+                            /> }
+                            { min.value[standard]?.text && <ContrastAlert 
+                                clrSlug={`${min.value[standard]?.text.name}-${min.value[standard]?.text.level}`}
+                                level={min.value[standard]?.text.level}
+                                title="Text Minimum"
+                                type="minimum"  
+                            /> }
+                        </div>
+                    ))}
+                </div>
+            )
+        }
+    </Fragment>
+))}
