@@ -1,10 +1,10 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@___CURRENT_VERSION___
+ * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
 import { DocumentStage, } from '@maddimathon/build-utilities';
@@ -12,7 +12,7 @@ import {} from '@maddimathon/utility-typescript/functions';
 /**
  * Extension of the built-in one.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export class Document extends DocumentStage {
     /**

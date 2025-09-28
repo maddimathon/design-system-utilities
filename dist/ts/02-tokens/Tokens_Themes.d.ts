@@ -1,10 +1,10 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@___CURRENT_VERSION___
+ * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
 import type { ThemeColourOption, ThemeMode_ContrastOption, TokenLevels_Extended } from './@types.d.ts';
@@ -13,7 +13,7 @@ import { Tokens_Themes_Set } from './Themes/Themes_Set.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export declare class Tokens_Themes<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_ThemeBrightnessMode extends string, T_ThemeContrastMode extends ThemeMode_ContrastOption, T_ThemeName extends string> extends AbstractTokens<Tokens_Themes.Data<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName>> {
     protected readonly clrNames: readonly T_ColourName[];
@@ -43,22 +43,22 @@ export declare class Tokens_Themes<T_ColourName extends string, T_ExtraColourLev
 /**
  * Utilities for the {@link Tokens_Themes} class.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export declare namespace Tokens_Themes {
     type Default_ThemeName = 'default';
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     type Data<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_ThemeBrightnessMode extends string, T_ThemeContrastMode extends ThemeMode_ContrastOption, T_ThemeName extends string> = {
         [N in T_ThemeName]: Tokens_Themes_Set.Data<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode[], T_ThemeContrastMode[], N, ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
     };
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     type InputParam<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_ThemeBrightnessMode extends string, T_ThemeContrastMode extends ThemeMode_ContrastOption, T_ThemeName extends string> = Tokens_Themes_Set.InputParam<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode[], T_ThemeContrastMode[], T_ThemeName, ThemeColourOption<T_ColourName, T_ExtraColourLevels>> | Tokens_Themes_Set.InputParam<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode[], T_ThemeContrastMode[], T_ThemeName, ThemeColourOption<T_ColourName, T_ExtraColourLevels>>[];
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     type JsonReturn<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_ThemeBrightnessMode extends string, T_ThemeContrastMode extends ThemeMode_ContrastOption, T_ThemeName extends string> = {
         [N in T_ThemeName]: Tokens_Themes_Set.JsonReturn<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode[], T_ThemeContrastMode[], N, ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;

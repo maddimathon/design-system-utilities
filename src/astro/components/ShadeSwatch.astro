@@ -108,11 +108,11 @@ const textLevel = values.contrast?.min.base?.text?.aaa?.level
 const text = bases && textLevel && bases && textLevel in bases && bases[ textLevel ] 
     && `hsl( ${ bases[ textLevel ].hsl.h }, ${ bases[ textLevel ].hsl.s }%, ${ bases[ textLevel ].hsl.l }% )`;
 
-const brightnessMode = Number(textLevel) > 500 ? 'light' : 'dark';
+const brightnessMode = Number(textLevel) >= 500 ? 'light' : 'dark';
 
 const cssVars = {
-    'shade-swatch-table-color': text || undefined,
-    'shade-swatch-table-background': bg ?? undefined,
+    'shade-swatch-color': text || undefined,
+    'shade-swatch-background': bg ?? undefined,
 };
 --- 
 
@@ -120,6 +120,7 @@ const cssVars = {
     class:list={['container', 'shade-swatch']}
     data-brightness-mode={brightnessMode}
     {...attributes}
+    data-shade-swatch-has-background={cssVars['shade-swatch-background'] && 'true'}
 >
     <Heading
         heading={heading}

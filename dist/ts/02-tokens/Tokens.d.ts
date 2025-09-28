@@ -1,10 +1,10 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@___CURRENT_VERSION___
+ * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
 import type { ThemeMode_Contrast, ThemeMode_ContrastAtLeastOne, ThemeMode_ContrastExtraOptions, TokenLevels_Extended } from './@types.js';
@@ -17,7 +17,7 @@ import { Tokens_Typography } from './Tokens_Typography.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_ThemeBrightnessMode extends readonly [string, ...string[]], T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne, T_ThemeName extends string> extends AbstractTokens<Tokens_Internal.Data<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName>> {
     protected readonly clrNames: readonly T_ColourName[];
@@ -146,7 +146,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
 /**
  * Internal utilities for the {@link Tokens} class.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  * @internal
  * @private
  */
@@ -188,13 +188,13 @@ export declare namespace Tokens_Internal {
 /**
  * Utilities for the {@link Tokens} class.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export declare namespace Tokens {
     /**
      * Configuration options for the {@link Tokens} class.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     interface Config<T_ExtraColourLevels extends TokenLevels_Extended = TokenLevels_Extended> {
         extraColourLevels: readonly T_ExtraColourLevels[];

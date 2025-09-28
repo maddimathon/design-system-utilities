@@ -1,6 +1,6 @@
 ///
-/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
-/// @since ___PKG_VERSION___
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
 ///
 
 // @use 'pkg:@maddimathon/utility-sass/colour';
@@ -15,18 +15,17 @@
 
 /* # COLOUR SHADE SWATCH ==================================== */
 
+$_default_resultGroup_colCount: 6;
+
 .shade-swatch {
     display: flex;
     flex-direction: column;
 
-    padding: #{lib.var-mrg-soft('200')} #{lib.var-mrg-firm('200')};
-    gap: #{lib.var-mrg-soft('200')} #{lib.var-mrg-firm('200')};
+    padding: #{lib.var-mrg-soft('200')} #{lib.var-mrg-firm('300')};
+    gap: #{lib.var-mrg-soft('300')} #{lib.var-mrg-firm('200')};
 
-    background: var(--shade-swatch-table-background);
-    color: var(
-        --shade-swatch-table-color-override,
-        var(--shade-swatch-table-color)
-    );
+    background: var(--shade-swatch-background);
+    color: var(--shade-swatch-color-override, var(--shade-swatch-color));
 
     > :global(:where(*)) {
         margin: 0;
@@ -47,13 +46,37 @@
     }
 
     :global(.shade-swatch__name) {
-        @at-root #{selector.unify(&, '%title')} {
+        $_allHeadingSels: (selector.unify(&, '%title'));
+
+        @at-root #{$_allHeadingSels} {
             font-size: #{lib.var-fs(title)};
         }
 
         @each $num in lib.token-all-heading-levels() {
-            @at-root #{selector.unify(&, '%h#{$num}')} {
+            $__tmp: selector.unify(&, '%h#{$num}');
+
+            $_allHeadingSels: ($_allHeadingSels, $__tmp);
+
+            @at-root #{$__tmp} {
                 font-size: #{lib.var-fs(heading-#{$num})};
+            }
+        }
+
+        @at-root #{$_allHeadingSels} {
+            font-style: normal;
+            letter-spacing: normal;
+            text-transform: none;
+
+            em {
+                font-style: italic;
+
+                em {
+                    font-style: normal;
+
+                    em {
+                        font-style: italic;
+                    }
+                }
             }
         }
     }
@@ -61,108 +84,150 @@
     /// ## CONTRAST ==================================== ///
 
     :global(.shade-swatch__contrast) {
-        --placeholder: 'hello';
+        display: flex;
+        flex-direction: column;
+        gap: #{lib.var-mrg-half('200')} #{lib.var-mrg-firm('200')};
     }
 
     /// ### Result Groups ------------------ ///
 
-    :global(.shade-swatch__contrast__result-group) {
-        display: grid;
-        grid-template-columns: repeat(
-            var(--shade-swatch-contrast-result-group-column-count),
-            minmax(0, max-content)
-        );
-        grid-template-rows: auto auto;
+    :global(.shade-swatch__contrast__result-group),
+    :global(.shade-swatch__contrast__result-group__single-min-max) {
+        grid-auto-flow: row;
 
-        justify-content: stretch;
-        justify-items: stretch;
+        justify-content: space-between;
+        justify-items: center;
         align-content: start;
         align-items: start;
 
-        gap: #{lib.var-mrg-firm('200')} #{lib.var-mrg-firm('400')};
+        gap: #{lib.var-mrg-soft('200')} #{lib.var-mrg-firm('300')};
+    }
 
-        > :global(.shade-swatch__contrast__result-group__heading) {
+    :global(.shade-swatch__contrast__result-group) {
+        display: grid;
+        grid-template-columns: repeat(
+            var(
+                --shade-swatch-contrast-result-group-column-count,
+                #{$_default_resultGroup_colCount}
+            ),
+            min-content
+        );
+        grid-template-rows: auto auto;
+
+        > :global(.shade-swatch__contrast__heading) {
             grid-column: span
-                var(--shade-swatch-contrast-result-group-column-count, 1);
+                var(
+                    --shade-swatch-contrast-result-group-column-count,
+                    #{$_default_resultGroup_colCount}
+                );
         }
     }
 
-    :global(.shade-swatch__contrast__result-group__heading),
-    :global(.shade-swatch__contrast__result-group__single-standard__heading) {
-        line-height: #{lib.var-line-height('100')};
-
-        @include lib.colour-mode((low, average)) {
-            color: color-mix(in srgb, currentColor 87.5%, transparent);
-        }
-    }
-
+    :global(.shade-swatch__contrast__heading),
     :global(.shade-swatch__contrast__result-group__heading) {
-        margin-block-start: #{lib.var-mrg-firm('300')};
-        font-size: #{lib.var-fs(heading-9)};
+        line-height: #{lib.var-line-height('100')};
+        text-align: center;
 
         @include lib.colour-mode((low, average)) {
             color: var(
-                --shade-swatch-contrast-result-group-heading-color,
-                inherit
+                --shade-swatch-color-override,
+                var(--shade-swatch-contrast-result-group-heading-color)
             );
         }
+    }
+    &[data-shade-swatch-has-background='true'] {
+        :global(
+            .shade-swatch__contrast__heading[data-contrast-result-group-has-heading-color='true']
+        ),
+        :global(
+            .shade-swatch__contrast__result-group__heading[data-contrast-result-group-has-heading-color='true']
+        ) {
+            @include lib.colour-mode((low, average)) {
+                margin-block: #{lib.var-mrg-firm('300')}
+                    #{lib.var-mrg-half('300')};
+                padding: #{lib.var-stroke-relative('400')};
+
+                font-weight: 500;
+                font-size: #{lib.var-fs(heading-9)};
+                background: var(
+                    --shade-swatch-contrast-result-group-heading-color,
+                    #{lib.var-theme(text)}
+                );
+
+                color: var(
+                    --shade-swatch-color-override,
+                    var(--shade-swatch-background, #{lib.var-theme(background)})
+                );
+            }
+        }
+    }
+
+    :global(.shade-swatch__contrast__heading) {
+        margin-block-start: #{lib.var-mrg-firm('300')};
+        font-size: #{lib.var-fs(heading-8)};
 
         + :global(.shade-swatch__contrast__result-group) {
         }
     }
 
-    :global(.shade-swatch__contrast__result-group__single-standard) {
+    :global(.shade-swatch__contrast__result-group--min-max) {
+        justify-content: space-around;
+    }
+
+    :global(.shade-swatch__contrast__result-group--all-shades) {
+        grid-template-rows: auto repeat(
+                var(--shade-swatch-contrast-result-group-row-count, 2),
+                auto
+            );
+    }
+
+    :global(.shade-swatch__contrast__result-group__heading) {
         grid-column: span
             var(
-                --shade-swatch-contrast-result-group-single-standard-column-count,
+                --shade-swatch-contrast-result-group-column-count,
+                #{$_default_resultGroup_colCount}
+            );
+        margin: 0;
+        font-size: #{lib.var-fs(heading-9)};
+    }
+
+    :global(.shade-swatch__contrast__result-group__heading--maximum) {
+        // color: transparent !important;
+        text-transform: lowercase;
+    }
+
+    :global(.shade-swatch__contrast__result-group__heading--all-shades) {
+        // text-align: start;
+    }
+
+    :global(.shade-swatch__contrast__result-group__single-min-max) {
+        grid-column: span
+            var(
+                --shade-swatch-contrast-result-group-single-min-max-column-count,
                 1
             );
 
         display: grid;
         grid-template-columns: repeat(
             var(
-                --shade-swatch-contrast-result-group-single-standard-column-count,
-                auto-fill
+                --shade-swatch-contrast-result-group-single-min-max-column-count
             ),
-            minmax(0, min-content)
+            max-content
         );
-        // grid-template-columns: subgrid;
+
         grid-template-rows: auto auto;
-        grid-auto-flow: row;
-
         justify-content: center;
-        justify-items: stretch;
-        align-content: start;
-        align-items: start;
 
-        gap: #{lib.var-mrg-firm('100')} #{lib.var-mrg-firm('200')};
-
-        :global(
-            .shade-swatch__contrast__result-group__single-standard__heading
-        ) {
+        :global(.shade-swatch__contrast__result-group__heading) {
             grid-column: span
                 var(
-                    --shade-swatch-contrast-result-group-single-standard-column-count,
+                    --shade-swatch-contrast-result-group-single-min-max-column-count,
                     1
                 );
-            grid-row: 1;
         }
 
         :global(.contrast-alert) {
-            grid-row: 2;
         }
-    }
-
-    :global(.shade-swatch__contrast__result-group__single-standard__heading) {
-        margin: 0;
-        // font-size: #{lib.var-fs(heading-9)};
-        text-align: center;
-    }
-
-    :global(
-        .shade-swatch__contrast__result-group__single-standard__heading--maximum
-    ) {
-        color: transparent !important;
     }
 }
 

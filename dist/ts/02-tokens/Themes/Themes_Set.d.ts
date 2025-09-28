@@ -1,10 +1,10 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@___CURRENT_VERSION___
+ * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
 import type { CssSystemColor, ThemeColourOption, ThemeMode_ContrastOption, TokenLevels_Extended } from '../@types.js';
@@ -13,7 +13,7 @@ import { Tokens_Themes_Set_SingleMode } from './Themes_Set_SingleMode.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export declare class Tokens_Themes_Set<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_ThemeBrightnessMode extends readonly string[], T_ThemeContrastMode extends readonly ThemeMode_ContrastOption[], T_ThemeName extends string, T_ColourOptions extends string = ThemeColourOption<T_ColourName, T_ExtraColourLevels>> extends AbstractTokens<Tokens_Themes_Set.Data<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_ColourOptions>> {
     /** Name for this shade set. */
@@ -50,11 +50,11 @@ export declare class Tokens_Themes_Set<T_ColourName extends string, T_ExtraColou
 /**
  * Utilities for the {@link Tokens_Themes_Set} class.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export declare namespace Tokens_Themes_Set {
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     type Data<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_ThemeBrightnessMode extends readonly string[], T_ThemeContrastMode extends readonly ThemeMode_ContrastOption[], T_ThemeName extends string, T_ColourOptions extends string> = {
         name: T_ThemeName;
@@ -65,7 +65,7 @@ export declare namespace Tokens_Themes_Set {
         };
     };
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     type InputParam<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_ThemeBrightnessMode extends readonly string[], T_ThemeContrastMode extends readonly ThemeMode_ContrastOption[], T_ThemeName extends string, T_ColourOptions extends string> = {
         name: T_ThemeName;
@@ -76,7 +76,7 @@ export declare namespace Tokens_Themes_Set {
         };
     };
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     type JsonReturn<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_ThemeBrightnessMode extends readonly string[], T_ThemeContrastMode extends readonly ThemeMode_ContrastOption[], T_ThemeName extends string, T_ColourOptions extends string> = {
         name: T_ThemeName;

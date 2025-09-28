@@ -1,10 +1,10 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@___CURRENT_VERSION___
+ * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
 import * as z from 'zod';
@@ -12,13 +12,13 @@ import * as z from 'zod';
  * Utility functions, schemas, and types for dealing with colour values in the
  * system.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export declare namespace ColourUtilities {
     /**
      * A colour value in the Hex space.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     type Value_Hex = z.infer<typeof Value_Hex>;
     /** @hidden */
@@ -26,7 +26,7 @@ export declare namespace ColourUtilities {
     /**
      * A colour value in the HSL space.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     type Value_HSL = z.infer<typeof Value_HSL>;
     /** @hidden */
@@ -46,7 +46,7 @@ export declare namespace ColourUtilities {
     /**
      * A colour value in the RGB space.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     type Value_RGB = z.infer<typeof Value_RGB>;
     /** @hidden */
@@ -66,7 +66,7 @@ export declare namespace ColourUtilities {
     /**
      * A colour value in the LCH space.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     type Value_LCH = z.infer<typeof Value_LCH>;
     /** @hidden */
@@ -86,7 +86,7 @@ export declare namespace ColourUtilities {
     /**
      * Any of the single colour values.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     type Value = z.infer<typeof Value>;
     /** @hidden */
@@ -130,7 +130,7 @@ export declare namespace ColourUtilities {
     /**
      * All of the single colour values as an object.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     type Value_All = z.infer<typeof Value_All>;
     /** @hidden */
@@ -213,14 +213,14 @@ export declare namespace ColourUtilities {
     /**
      * Allowed input for the {@link SingleShade} schema.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      * @useDeclaredType
      */
     type SingleShade_Input = z.input<typeof SingleShade>;
     /**
      * The parsed output of the {@link SingleShade} schema.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      * @useDeclaredType
      */
     type SingleShade = z.output<typeof SingleShade>;
@@ -384,31 +384,31 @@ export declare namespace ColourUtilities {
         };
     }>;
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     function toHex(clr: {
         data: SingleShade;
     } | SingleShade | SingleShade_Input): Value_Hex;
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     function toHSL(clr: {
         data: SingleShade;
     } | SingleShade | SingleShade_Input, round?: boolean): Value_HSL;
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     function toLCH(clr: {
         data: SingleShade;
     } | SingleShade | SingleShade_Input): Value_LCH;
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     function toRGB(clr: {
         data: SingleShade;
     } | SingleShade | SingleShade_Input): Value_RGB;
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     function mixColours(_clrA: {
         data: SingleShade;

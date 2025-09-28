@@ -1,10 +1,10 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@___CURRENT_VERSION___
+ * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
 import * as z from 'zod';
@@ -14,7 +14,7 @@ import { JsonToScss, } from '@maddimathon/utility-sass';
 /**
  * Base class for the classes used to manage tokens and token groups.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export class AbstractTokens {
     static tokenLevels = [
@@ -45,13 +45,13 @@ export class AbstractTokens {
     /**
      * Whether the error map has been set by {@link AbstractTokens.constructor}.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     static #zodErrorMapSet = false;
     /**
      * A custom error handler to use with Zod schemas.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     static customErrorMap(...params) {
         const [issue, ctx] = params;
@@ -82,7 +82,7 @@ export class AbstractTokens {
      * Uses {@link AbstractTokens.toScssVars} to convert this token to a scss
      * string.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     toScss() {
         const value = JsonToScss.convert(this.toScssVars()) || '()';
@@ -91,7 +91,7 @@ export class AbstractTokens {
     /**
      * The working value of this object.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     valueOf() {
         return this.data;
@@ -109,7 +109,7 @@ export class AbstractTokens {
      *
      * @throws {AbstractTokens.Tokens_Error}  If the schema parsing fails.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     parseSchema(schema, value, context, errorMessage = 'Error parsing Zod schema', params = {}) {
         const result = schema.safeParse(value, params);
@@ -126,7 +126,7 @@ export class AbstractTokens {
 /**
  * Utilities for the {@link AbstractTokens} class.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 (function (AbstractTokens) {
     /* ERRORS
@@ -134,7 +134,7 @@ export class AbstractTokens {
     /**
      * Used to throw errors while compiling the tokens.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     class Tokens_Error extends buildUtils_internal.AbstractError {
         context;
@@ -245,7 +245,7 @@ export class AbstractTokens {
     /**
      * Utilities for the {@link AbstractTokens.Tokens_Error} class.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     (function (Tokens_Error) {
         ;

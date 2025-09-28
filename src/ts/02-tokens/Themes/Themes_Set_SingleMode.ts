@@ -228,92 +228,92 @@ export namespace Tokens_Themes_Set_SingleMode {
         ): Promise<Data<T_ColourOptions>> {
 
             const complete: Data<T_ColourOptions> = {
-                background: 'base-100' as T_ColourOptions,
+                background: '"??"' as T_ColourOptions,
 
                 text: {
-                    '$': 'CanvasText' as T_ColourOptions,
-                    'primary': 'CanvasText' as T_ColourOptions,
-                    'secondary': 'CanvasText' as T_ColourOptions,
-                    'active': 'CanvasText' as T_ColourOptions,
-                    'disabled': 'CanvasText' as T_ColourOptions,
+                    '$': '"??"' as T_ColourOptions,
+                    'primary': '"??"' as T_ColourOptions,
+                    'secondary': '"??"' as T_ColourOptions,
+                    'active': '"??"' as T_ColourOptions,
+                    'disabled': '"??"' as T_ColourOptions,
                 },
 
                 ui: {
-                    '$': 'CanvasText' as T_ColourOptions,
-                    'primary': 'CanvasText' as T_ColourOptions,
-                    'secondary': 'CanvasText' as T_ColourOptions,
-                    'active': 'CanvasText' as T_ColourOptions,
-                    'disabled': 'CanvasText' as T_ColourOptions,
+                    '$': '"??"' as T_ColourOptions,
+                    'primary': '"??"' as T_ColourOptions,
+                    'secondary': '"??"' as T_ColourOptions,
+                    'active': '"??"' as T_ColourOptions,
+                    'disabled': '"??"' as T_ColourOptions,
                 },
 
                 selection: {
-                    'bg': 'CanvasText' as T_ColourOptions,
-                    'text': 'CanvasText' as T_ColourOptions,
+                    'bg': '"??"' as T_ColourOptions,
+                    'text': '"??"' as T_ColourOptions,
                 },
 
                 link: {
-                    '$': 'CanvasText' as T_ColourOptions,
-                    'hover': 'CanvasText' as T_ColourOptions,
-                    'active': 'CanvasText' as T_ColourOptions,
-                    'visited': 'CanvasText' as T_ColourOptions,
+                    '$': '"??"' as T_ColourOptions,
+                    'hover': '"??"' as T_ColourOptions,
+                    'active': '"??"' as T_ColourOptions,
+                    'visited': '"??"' as T_ColourOptions,
                 },
 
                 button: {
 
                     bg: {
-                        '$': 'CanvasText' as T_ColourOptions,
-                        'hover': 'CanvasText' as T_ColourOptions,
-                        'active': 'CanvasText' as T_ColourOptions,
+                        '$': '"??"' as T_ColourOptions,
+                        'hover': '"??"' as T_ColourOptions,
+                        'active': '"??"' as T_ColourOptions,
                     },
 
                     border: {
-                        '$': 'CanvasText' as T_ColourOptions,
-                        'hover': 'CanvasText' as T_ColourOptions,
-                        'active': 'CanvasText' as T_ColourOptions,
+                        '$': '"??"' as T_ColourOptions,
+                        'hover': '"??"' as T_ColourOptions,
+                        'active': '"??"' as T_ColourOptions,
                     },
 
                     text: {
-                        '$': 'CanvasText' as T_ColourOptions,
-                        'hover': 'CanvasText' as T_ColourOptions,
-                        'active': 'CanvasText' as T_ColourOptions,
+                        '$': '"??"' as T_ColourOptions,
+                        'hover': '"??"' as T_ColourOptions,
+                        'active': '"??"' as T_ColourOptions,
                     },
                 },
 
                 field: {
 
                     bg: {
-                        '$': 'CanvasText' as T_ColourOptions,
-                        'hover': 'CanvasText' as T_ColourOptions,
-                        'active': 'CanvasText' as T_ColourOptions,
+                        '$': '"??"' as T_ColourOptions,
+                        'hover': '"??"' as T_ColourOptions,
+                        'active': '"??"' as T_ColourOptions,
                     },
 
                     border: {
-                        '$': 'CanvasText' as T_ColourOptions,
-                        'hover': 'CanvasText' as T_ColourOptions,
-                        'active': 'CanvasText' as T_ColourOptions,
+                        '$': '"??"' as T_ColourOptions,
+                        'hover': '"??"' as T_ColourOptions,
+                        'active': '"??"' as T_ColourOptions,
                     },
 
                     text: {
-                        '$': 'CanvasText' as T_ColourOptions,
-                        'hover': 'CanvasText' as T_ColourOptions,
-                        'active': 'CanvasText' as T_ColourOptions,
+                        '$': '"??"' as T_ColourOptions,
+                        'hover': '"??"' as T_ColourOptions,
+                        'active': '"??"' as T_ColourOptions,
                     },
 
-                    placeholder: 'CanvasText' as T_ColourOptions,
+                    placeholder: '"??"' as T_ColourOptions,
                 },
 
                 system: {
                     accent: {
-                        bg: 'CanvasText' as T_ColourOptions,
-                        text: 'CanvasText' as T_ColourOptions,
+                        bg: '"??"' as T_ColourOptions,
+                        text: '"??"' as T_ColourOptions,
                     },
                     mark: {
-                        bg: 'CanvasText' as T_ColourOptions,
-                        text: 'CanvasText' as T_ColourOptions,
+                        bg: '"??"' as T_ColourOptions,
+                        text: '"??"' as T_ColourOptions,
                     },
                     selected: {
-                        bg: 'CanvasText' as T_ColourOptions,
-                        text: 'CanvasText' as T_ColourOptions,
+                        bg: '"??"' as T_ColourOptions,
+                        text: '"??"' as T_ColourOptions,
                     },
                 },
             };

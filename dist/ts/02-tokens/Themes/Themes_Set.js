@@ -1,10 +1,10 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@___CURRENT_VERSION___
+ * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
 import { objectGeneratorAsync } from '../../01-utilities/objectGenerator.js';
@@ -14,7 +14,7 @@ import { Tokens_Themes_Set_SingleMode } from './Themes_Set_SingleMode.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export class Tokens_Themes_Set extends AbstractTokens {
     name;

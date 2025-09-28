@@ -1,10 +1,10 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@___CURRENT_VERSION___
+ * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
 import type { RecursivePartial } from '@maddimathon/utility-typescript/types/objects/partial';
@@ -13,7 +13,7 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export declare class Tokens_Themes_Set_SingleMode<T_ColourOptions extends string = CssSystemColor> extends AbstractTokens<Tokens_Themes_Set_SingleMode.Data<T_ColourOptions>> {
     readonly data: Tokens_Themes_Set_SingleMode.Data<T_ColourOptions>;
@@ -32,11 +32,11 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourOptions extends string
 /**
  * Utilities for the {@link Tokens_Themes_Set_SingleMode} class.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export declare namespace Tokens_Themes_Set_SingleMode {
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     interface Data<T_ColourOptions extends string> {
         background: T_ColourOptions;
@@ -115,11 +115,11 @@ export declare namespace Tokens_Themes_Set_SingleMode {
         };
     }
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     type InputParam<T_ColourOptions extends string> = RecursivePartial<Data<T_ColourOptions>>;
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     type JsonReturn<T_ColourOptions extends string> = Data<T_ColourOptions>;
     namespace Templates {
@@ -128,28 +128,28 @@ export declare namespace Tokens_Themes_Set_SingleMode {
          * An easy way to generate a complete token set from limited inputs.
          * For average contrast.
          *
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha.draft
          */
         function average<T_ColourOptions extends string = CssSystemColor>(input: InputParam<T_ColourOptions>): Promise<Data<T_ColourOptions>>;
         /**
          * An easy way to generate a complete token set from limited inputs.
          * For average contrast.
          *
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha.draft
          */
         function forcedColors(input: InputParam<CssSystemColor>): Promise<Data<CssSystemColor>>;
         /**
          * An easy way to generate a complete token set from limited inputs.
          * For high contrast.
          *
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha.draft
          */
         function high<T_ColourOptions extends string = CssSystemColor>(input: InputParam<T_ColourOptions>): Promise<Data<T_ColourOptions>>;
         /**
          * An easy way to generate a complete token set from limited inputs.
          * For low contrast.
          *
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha.draft
          */
         function low<T_ColourOptions extends string = CssSystemColor>(input: InputParam<T_ColourOptions>): Promise<Data<T_ColourOptions>>;
     }

@@ -57,7 +57,10 @@ export class Compile extends CompileStage {
             {
                 colour: Tokens.SampleColours,
             },
-            { tokensAsDefault: true },
+            {
+                // extraColourLevels: [ '150', '850' ],
+                tokensAsDefault: true,
+            },
         );
 
         this.console.verbose( 'writing default json tokens...', 2 );

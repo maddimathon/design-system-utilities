@@ -1,17 +1,17 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@___CURRENT_VERSION___
+ * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
     data;
@@ -42,7 +42,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
 /**
  * Utilities for the {@link Tokens_Themes_Set_SingleMode} class.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 (function (Tokens_Themes_Set_SingleMode) {
     ;
@@ -53,82 +53,82 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
         /**
          * An easy way to generate a complete token set from limited inputs.
          *
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha.draft
          */
         async function template(input) {
             const complete = {
-                background: 'base-100',
+                background: '"??"',
                 text: {
-                    '$': 'CanvasText',
-                    'primary': 'CanvasText',
-                    'secondary': 'CanvasText',
-                    'active': 'CanvasText',
-                    'disabled': 'CanvasText',
+                    '$': '"??"',
+                    'primary': '"??"',
+                    'secondary': '"??"',
+                    'active': '"??"',
+                    'disabled': '"??"',
                 },
                 ui: {
-                    '$': 'CanvasText',
-                    'primary': 'CanvasText',
-                    'secondary': 'CanvasText',
-                    'active': 'CanvasText',
-                    'disabled': 'CanvasText',
+                    '$': '"??"',
+                    'primary': '"??"',
+                    'secondary': '"??"',
+                    'active': '"??"',
+                    'disabled': '"??"',
                 },
                 selection: {
-                    'bg': 'CanvasText',
-                    'text': 'CanvasText',
+                    'bg': '"??"',
+                    'text': '"??"',
                 },
                 link: {
-                    '$': 'CanvasText',
-                    'hover': 'CanvasText',
-                    'active': 'CanvasText',
-                    'visited': 'CanvasText',
+                    '$': '"??"',
+                    'hover': '"??"',
+                    'active': '"??"',
+                    'visited': '"??"',
                 },
                 button: {
                     bg: {
-                        '$': 'CanvasText',
-                        'hover': 'CanvasText',
-                        'active': 'CanvasText',
+                        '$': '"??"',
+                        'hover': '"??"',
+                        'active': '"??"',
                     },
                     border: {
-                        '$': 'CanvasText',
-                        'hover': 'CanvasText',
-                        'active': 'CanvasText',
+                        '$': '"??"',
+                        'hover': '"??"',
+                        'active': '"??"',
                     },
                     text: {
-                        '$': 'CanvasText',
-                        'hover': 'CanvasText',
-                        'active': 'CanvasText',
+                        '$': '"??"',
+                        'hover': '"??"',
+                        'active': '"??"',
                     },
                 },
                 field: {
                     bg: {
-                        '$': 'CanvasText',
-                        'hover': 'CanvasText',
-                        'active': 'CanvasText',
+                        '$': '"??"',
+                        'hover': '"??"',
+                        'active': '"??"',
                     },
                     border: {
-                        '$': 'CanvasText',
-                        'hover': 'CanvasText',
-                        'active': 'CanvasText',
+                        '$': '"??"',
+                        'hover': '"??"',
+                        'active': '"??"',
                     },
                     text: {
-                        '$': 'CanvasText',
-                        'hover': 'CanvasText',
-                        'active': 'CanvasText',
+                        '$': '"??"',
+                        'hover': '"??"',
+                        'active': '"??"',
                     },
-                    placeholder: 'CanvasText',
+                    placeholder: '"??"',
                 },
                 system: {
                     accent: {
-                        bg: 'CanvasText',
-                        text: 'CanvasText',
+                        bg: '"??"',
+                        text: '"??"',
                     },
                     mark: {
-                        bg: 'CanvasText',
-                        text: 'CanvasText',
+                        bg: '"??"',
+                        text: '"??"',
                     },
                     selected: {
-                        bg: 'CanvasText',
-                        text: 'CanvasText',
+                        bg: '"??"',
+                        text: '"??"',
                     },
                 },
             };
@@ -138,7 +138,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
          * An easy way to generate a complete token set from limited inputs.
          * For average contrast.
          *
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha.draft
          */
         async function average(input) {
             return template(input);
@@ -148,7 +148,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
          * An easy way to generate a complete token set from limited inputs.
          * For average contrast.
          *
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha.draft
          */
         async function forcedColors(input) {
             return template(input);
@@ -158,7 +158,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
          * An easy way to generate a complete token set from limited inputs.
          * For high contrast.
          *
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha.draft
          */
         async function high(input) {
             return template(input);
@@ -168,7 +168,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
          * An easy way to generate a complete token set from limited inputs.
          * For low contrast.
          *
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha.draft
          */
         async function low(input) {
             return template(input);
