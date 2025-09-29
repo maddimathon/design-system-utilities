@@ -42,9 +42,11 @@ export interface Props<
 
     bases?: Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, T_ExtraLevels>;
 
-contrast?:boolean;
+    contrast?: boolean;
+    contrastIsCondensed?: boolean;
 
     heading?: number;
+    headingClass?: string|string[];
 
     frontmatter?: Omit<Props, 'frontmatter'>;
 }
@@ -52,7 +54,9 @@ contrast?:boolean;
 const { 
     bases,
     contrast = true,
+    contrastIsCondensed = false,
     heading = 7,
+    headingClass = [],
     id,
     level, 
     name,
@@ -124,7 +128,11 @@ const cssVars = {
 >
     <Heading
         heading={heading}
-        class='shade-swatch__name'
+        class:list={[
+            'shade-swatch__name',
+            '||',
+            headingClass,
+        ]}
         set:text={`${name}-${level}`}
     />
     {
@@ -169,7 +177,9 @@ const cssVars = {
     {
         contrast && values.contrast && <ShadeSwatch_Contrast 
             id={`${id}--${name}-${level}`}
+            isCondensed={contrastIsCondensed}
             heading={ heading + 1 }
+            thisShadeName={name}
             values={values.contrast}
         />
     }

@@ -1,0 +1,41 @@
+///
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+
+// @use 'pkg:@maddimathon/utility-sass/colour';
+// @use 'pkg:@maddimathon/utility-sass/list';
+// @use 'pkg:@maddimathon/utility-sass/map';
+// @use 'pkg:@maddimathon/utility-sass/math';
+// @use 'pkg:@maddimathon/utility-sass/meta';
+// @use 'pkg:@maddimathon/utility-sass/selector';
+// @use 'pkg:@maddimathon/utility-sass/string';
+
+@use '../lib';
+
+/* # COLOUR SWATCH LIST ==================================== */
+
+:global(:where(.js)) {
+    .shades-list-toggle {
+        --test: 'not global styles';
+
+        &[data-toggle-container],
+        &[data-toggle-container='open'] {
+            --test: 'not global styles';
+
+            > :global([data-toggle-content]) {
+                --test: 'not global styles';
+                border-inline: none;
+                border-block-end: none;
+                grid-column: 1 / -1;
+
+                > :global(.container) {
+                    grid-column: 1 / -1;
+                    padding: 0;
+                }
+            }
+        }
+    }
+}
+
+@include lib.extend-selectors;

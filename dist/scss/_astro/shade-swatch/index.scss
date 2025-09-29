@@ -39,6 +39,7 @@ $_default_resultGroup_colCount: 6;
     :global(.shade-swatch__colour-value) {
         margin: 0;
         line-height: #{lib.var-line-height('100')};
+        font-size: inherit;
 
         strong {
             font-weight: 500;
@@ -78,6 +79,11 @@ $_default_resultGroup_colCount: 6;
                     }
                 }
             }
+
+            :global(.shade-swatch-table__wrapper) & {
+                font-weight: 700;
+                font-size: #{lib.var-fs(heading-9)};
+            }
         }
     }
 
@@ -87,6 +93,7 @@ $_default_resultGroup_colCount: 6;
         display: flex;
         flex-direction: column;
         gap: #{lib.var-mrg-half('200')} #{lib.var-mrg-firm('200')};
+        font-size: #{lib.var-fs(smaller-1)};
     }
 
     /// ### Result Groups ------------------ ///
@@ -148,7 +155,7 @@ $_default_resultGroup_colCount: 6;
                 padding: #{lib.var-stroke-relative('400')};
 
                 font-weight: 500;
-                font-size: #{lib.var-fs(heading-9)};
+                // font-size: #{lib.var-fs(heading-9)};
                 background: var(
                     --shade-swatch-contrast-result-group-heading-color,
                     #{lib.var-theme(text)}
@@ -164,7 +171,7 @@ $_default_resultGroup_colCount: 6;
 
     :global(.shade-swatch__contrast__heading) {
         margin-block-start: #{lib.var-mrg-firm('300')};
-        font-size: #{lib.var-fs(heading-8)};
+        // font-size: #{lib.var-fs(heading-8)};
 
         + :global(.shade-swatch__contrast__result-group) {
         }
@@ -188,7 +195,7 @@ $_default_resultGroup_colCount: 6;
                 #{$_default_resultGroup_colCount}
             );
         margin: 0;
-        font-size: #{lib.var-fs(heading-9)};
+        // font-size: #{lib.var-fs(heading-9)};
     }
 
     :global(.shade-swatch__contrast__result-group__heading--maximum) {
@@ -198,6 +205,7 @@ $_default_resultGroup_colCount: 6;
 
     :global(.shade-swatch__contrast__result-group__heading--all-shades) {
         // text-align: start;
+        text-transform: lowercase;
     }
 
     :global(.shade-swatch__contrast__result-group__single-min-max) {

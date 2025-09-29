@@ -76,17 +76,17 @@ const colour = colourToArray(props);
                     {map.map(({ level, values }) => (
                         <td>
                             <ShadeSwatch 
+                                bases={props.colour.base}
+                                contrastIsCondensed={true}
                                 id={id}
-                                name={name} 
                                 level={level}
-                                contrast={false}
+                                name={name} 
                                 values={{
                                     ...values,
                                     hsl: undefined,
                                     // lch: undefined,
                                     rgb: undefined,
                                 }}
-                                bases={props.colour.base}
                             />
                         </td> 
                     ))}

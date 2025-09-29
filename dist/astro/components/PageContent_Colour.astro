@@ -1,0 +1,70 @@
+---
+/**
+ * @since 0.1.0-alpha.draft
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+
+/* import - functions */
+import { toTitleCase } from '@maddimathon/utility-typescript/functions';
+import { Tokens } from '../../ts/02-tokens/Tokens.js';
+
+/* import - values */
+
+/* import - components */
+import ShadeSwatchList from './ShadeSwatchList.astro';
+import ShadeSwatchTable from './ShadeSwatchTable.astro';
+import Toggle from '@maddimathon/utility-astro/components/Toggle';
+
+/* import - layouts */
+
+/* TYPES ===================================== */
+
+/* PROPS ===================================== */
+
+export interface Props {
+    tokens: Tokens.JsonReturn;
+}
+
+const { tokens }: Props = Astro.props;
+
+/* CONSTANTS ===================================== */
+
+const defaultToggleToOpen = import.meta.env.DEV ? true : undefined;
+---
+
+<ShadeSwatchTable
+    id='all-colours'
+    colour={tokens.colour}
+/>
+
+{
+    (Object.keys(tokens.colour) as (keyof typeof tokens.colour)[]).map(
+        (name) => (
+            <Toggle
+                class='shades-list-toggle'
+                defaultOpen={defaultToggleToOpen}
+                heading={2}
+                id={`shades-${name}`}
+            >
+                <Fragment
+                    set:text={`All ${toTitleCase(name)} Shades`}
+                    slot='button'
+                />
+                <ShadeSwatchList
+                    bases={tokens.colour.base}
+                    colour={tokens.colour[name]}
+                    id={`shades-${name}__list`}
+                    name={name}
+                    shadeHeading={3}
+                />
+            </Toggle>
+        )
+    )
+}
+
+<style lang='scss'>
+    @forward '../scss/page-content-colour';
+</style>

@@ -27,6 +27,7 @@
     margin: 0;
     line-height: 1.1875;
     line-height: var(--line-height-100, 1.1875);
+    font-size: inherit;
 }
 .shade-swatch :global(.shade-swatch__colour-value) strong {
     font-weight: 500;
@@ -40,6 +41,11 @@
 .shade-swatch h1:global(.shade-swatch__name) {
     font-size: 2.375rem;
     font-size: var(--fs-heading-1, 2.375rem);
+}
+
+.shade-swatch .h10:global(.shade-swatch__name) {
+    font-size: 0.6875rem;
+    font-size: var(--fs-heading-10, 0.6875rem);
 }
 
 .shade-swatch .h2:global(.shade-swatch__name),
@@ -93,6 +99,7 @@
 .shade-swatch .page-title:global(.shade-swatch__name),
 .shade-swatch .h1:global(.shade-swatch__name),
 .shade-swatch h1:global(.shade-swatch__name),
+.shade-swatch .h10:global(.shade-swatch__name),
 .shade-swatch .h2:global(.shade-swatch__name),
 .shade-swatch h2:global(.shade-swatch__name),
 .shade-swatch .h3:global(.shade-swatch__name),
@@ -116,6 +123,7 @@
 .shade-swatch .page-title:global(.shade-swatch__name) em,
 .shade-swatch .h1:global(.shade-swatch__name) em,
 .shade-swatch h1:global(.shade-swatch__name) em,
+.shade-swatch .h10:global(.shade-swatch__name) em,
 .shade-swatch .h2:global(.shade-swatch__name) em,
 .shade-swatch h2:global(.shade-swatch__name) em,
 .shade-swatch .h3:global(.shade-swatch__name) em,
@@ -138,6 +146,7 @@
 .shade-swatch .page-title:global(.shade-swatch__name) em em,
 .shade-swatch .h1:global(.shade-swatch__name) em em,
 .shade-swatch h1:global(.shade-swatch__name) em em,
+.shade-swatch .h10:global(.shade-swatch__name) em em,
 .shade-swatch .h2:global(.shade-swatch__name) em em,
 .shade-swatch h2:global(.shade-swatch__name) em em,
 .shade-swatch .h3:global(.shade-swatch__name) em em,
@@ -164,6 +173,7 @@
 .shade-swatch .page-title:global(.shade-swatch__name) em em em,
 .shade-swatch .h1:global(.shade-swatch__name) em em em,
 .shade-swatch h1:global(.shade-swatch__name) em em em,
+.shade-swatch .h10:global(.shade-swatch__name) em em em,
 .shade-swatch .h2:global(.shade-swatch__name) em em em,
 .shade-swatch h2:global(.shade-swatch__name) em em em,
 .shade-swatch .h3:global(.shade-swatch__name) em em em,
@@ -189,12 +199,75 @@
 .shade-swatch .h9:global(.shade-swatch__name) em em em {
     font-style: italic;
 }
+:global(.shade-swatch-table__wrapper)
+    .shade-swatch
+    .page-title:global(.shade-swatch__name),
+:global(.shade-swatch-table__wrapper)
+    .shade-swatch
+    .h1:global(.shade-swatch__name),
+:global(.shade-swatch-table__wrapper)
+    .shade-swatch
+    h1:global(.shade-swatch__name),
+:global(.shade-swatch-table__wrapper)
+    .shade-swatch
+    .h10:global(.shade-swatch__name),
+:global(.shade-swatch-table__wrapper)
+    .shade-swatch
+    .h2:global(.shade-swatch__name),
+:global(.shade-swatch-table__wrapper)
+    .shade-swatch
+    h2:global(.shade-swatch__name),
+:global(.shade-swatch-table__wrapper)
+    .shade-swatch
+    .h3:global(.shade-swatch__name),
+:global(.shade-swatch-table__wrapper)
+    .shade-swatch
+    h3:global(.shade-swatch__name),
+:global(.shade-swatch-table__wrapper)
+    .shade-swatch
+    .h4:global(.shade-swatch__name),
+:global(.shade-swatch-table__wrapper)
+    .shade-swatch
+    h4:global(.shade-swatch__name),
+:global(.shade-swatch-table__wrapper)
+    .shade-swatch
+    .h5:global(.shade-swatch__name),
+:global(.shade-swatch-table__wrapper)
+    .shade-swatch
+    h5:global(.shade-swatch__name),
+:global(.shade-swatch-table__wrapper)
+    .shade-swatch
+    .h6:global(.shade-swatch__name),
+:global(.shade-swatch-table__wrapper)
+    .shade-swatch
+    h6:global(.shade-swatch__name),
+:global(.shade-swatch-table__wrapper)
+    .shade-swatch
+    .h7:global(.shade-swatch__name),
+:global(.shade-swatch-table__wrapper)
+    .shade-swatch
+    .shade-swatch__contrast__heading:global(.shade-swatch__name),
+:global(.shade-swatch-table__wrapper)
+    .shade-swatch
+    .h8:global(.shade-swatch__name),
+:global(.shade-swatch-table__wrapper)
+    .shade-swatch
+    .shade-swatch__contrast__result-group__heading:global(.shade-swatch__name),
+:global(.shade-swatch-table__wrapper)
+    .shade-swatch
+    .h9:global(.shade-swatch__name) {
+    font-weight: 700;
+    font-size: 0.75rem;
+    font-size: var(--fs-heading-9, 0.75rem);
+}
 
 .shade-swatch :global(.shade-swatch__contrast) {
     display: flex;
     flex-direction: column;
     gap: 0.1875rem 0.5rem;
     gap: var(--mrg-half-200, 0.1875rem) var(--mrg-firm-200, 0.5rem);
+    font-size: 0.9375rem;
+    font-size: var(--fs-smaller-1, 0.9375rem);
 }
 .shade-swatch :global(.shade-swatch__contrast__result-group),
 .shade-swatch :global(.shade-swatch__contrast__result-group__single-min-max) {
@@ -291,8 +364,6 @@
     padding: 0.125em;
     padding: var(--stroke-relative-400, 0.125em);
     font-weight: 500;
-    font-size: 0.75rem;
-    font-size: var(--fs-heading-9, 0.75rem);
     background: '??';
     background: var(
         --shade-swatch-contrast-result-group-heading-color,
@@ -321,8 +392,6 @@
         padding: 0.125em;
         padding: var(--stroke-relative-400, 0.125em);
         font-weight: 500;
-        font-size: 0.75rem;
-        font-size: var(--fs-heading-9, 0.75rem);
         background: '??';
         background: var(
             --shade-swatch-contrast-result-group-heading-color,
@@ -338,11 +407,9 @@
 .shade-swatch :global(.shade-swatch__contrast__heading) {
     margin-top: 0.8125rem;
     margin-top: var(--mrg-firm-300, 0.8125rem);
-    font-size: 0.875rem;
-    font-size: var(--fs-heading-8, 0.875rem);
 }
 .shade-swatch :global(.shade-swatch__contrast__result-group--min-max) {
-    justify-content: space-evenly;
+    justify-content: space-around;
 }
 .shade-swatch :global(.shade-swatch__contrast__result-group--all-shades) {
     grid-template-rows: auto repeat(2, auto);
@@ -355,10 +422,12 @@
     grid-column: span 6;
     grid-column: span var(--shade-swatch-contrast-result-group-column-count, 6);
     margin: 0;
-    font-size: 0.75rem;
-    font-size: var(--fs-heading-9, 0.75rem);
 }
 .shade-swatch :global(.shade-swatch__contrast__result-group__heading--maximum) {
+    text-transform: lowercase;
+}
+.shade-swatch
+    :global(.shade-swatch__contrast__result-group__heading--all-shades) {
     text-transform: lowercase;
 }
 .shade-swatch :global(.shade-swatch__contrast__result-group__single-min-max) {

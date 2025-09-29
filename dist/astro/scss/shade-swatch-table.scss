@@ -40,6 +40,81 @@ label {
     :global(.shade-swatch__colour-value) {
     text-wrap: nowrap;
 }
+.shade-swatch-table__wrapper
+    :global(.shade-swatch)
+    :global(.shade-swatch__contrast),
+.shade-swatch-table__wrapper
+    :global(.shade-swatch)
+    :global(.shade-swatch__contrast__result-group),
+.shade-swatch-table__wrapper
+    :global(.shade-swatch)
+    :global(.shade-swatch__contrast__result-group__single-min-max) {
+    gap: 0.1875rem 0.3125rem;
+    gap: var(--mrg-soft-100, 0.1875rem) var(--mrg-firm-100, 0.3125rem);
+}
+.shade-swatch-table__wrapper
+    :global(.shade-swatch)
+    :global(.shade-swatch__contrast) {
+    display: grid;
+    display: var(--shade-swatch-display-override, grid);
+    margin-top: 0.5rem;
+    margin-top: var(--mrg-firm-200, 0.5rem);
+    font-size: 0.75rem;
+    font-size: var(--fs-smaller-3, 0.75rem);
+}
+.shade-swatch-table__wrapper
+    :global(.shade-swatch)
+    :global(.shade-swatch__contrast__result-group),
+.shade-swatch-table__wrapper
+    :global(.shade-swatch)
+    :global(.shade-swatch__contrast__result-group__single-min-max) {
+    grid-template-rows: auto;
+    justify-content: space-between;
+    justify-items: start;
+}
+.shade-swatch-table__wrapper
+    :global(.shade-swatch)
+    :global(.shade-swatch__contrast__result-group) {
+    grid-template-columns: repeat(5, minmax(3ch, min-content));
+}
+.shade-swatch-table__wrapper
+    :global(.shade-swatch)
+    :global(.shade-swatch__contrast__result-group__single-min-max--minimum) {
+    grid-template-columns: repeat(2, minmax(3ch, min-content));
+    grid-template-columns: subgrid;
+}
+.shade-swatch-table__wrapper
+    :global(.shade-swatch)
+    :global(.shade-swatch__contrast__result-group__single-min-max--minimum)
+    :global(.shade-swatch__contrast__result-group__alert--minimum--ui) {
+    grid-column: 1;
+}
+.shade-swatch-table__wrapper
+    :global(.shade-swatch)
+    :global(.shade-swatch__contrast__result-group__single-min-max--minimum)
+    :global(.shade-swatch__contrast__result-group__alert--minimum--text) {
+    grid-column: 2;
+}
+.shade-swatch-table__wrapper
+    :global(.shade-swatch)
+    :global(
+        .shade-swatch__contrast__result-group__single-min-max--minimum--aa
+    ) {
+    grid-column: 1/3;
+}
+.shade-swatch-table__wrapper
+    :global(.shade-swatch)
+    :global(
+        .shade-swatch__contrast__result-group__single-min-max--minimum--aaa
+    ) {
+    grid-column: 3/5;
+}
+.shade-swatch-table__wrapper
+    :global(.shade-swatch)
+    :global(.shade-swatch__contrast__result-group__single-min-max--maximum) {
+    --shade-swatch-contrast-result-group-single-min-max-column-count: 1 !important;
+    grid-column: 5;
+}
 
 .shade-swatch-table__display-control__label {
     margin-top: 0.8125rem;

@@ -34,4 +34,4 @@ export const DocsSampleTokens = ( await Tokens.build(
         // extraColourLevels: [ '150', '850' ],
         tokensAsDefault: true,
     },
-) ).toJSON();
+) ).toJSON() as Tokens.JsonReturn;

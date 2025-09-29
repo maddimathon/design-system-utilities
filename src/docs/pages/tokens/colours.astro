@@ -8,18 +8,16 @@
 /* import - types */
 
 /* import - functions */
-import { toTitleCase } from '@maddimathon/utility-typescript/functions';
 import { DocsSampleTokens } from '../../functions/DocsSampleTokens.js';
 import ShadeSwatchTable_Scripts from '../../../astro/support/ShadeSwatchTable_Scripts.astro';
 
 /* import - values */
 
 /* import - components */
-import ShadeSwatchTable from '../../../astro/components/ShadeSwatchTable.astro';
-import ShadeSwatchList from '../../../astro/components/ShadeSwatchList.astro';
 
 /* import - layouts */
 import DocsPage from '../../layouts/DocsPage.astro';
+import PageContentColour from 'src/astro/components/PageContent_Colour.astro';
 
 /* TYPES ===================================== */
 
@@ -30,31 +28,7 @@ import DocsPage from '../../layouts/DocsPage.astro';
     title='Colour Tokens'
     layout='extra-wide'
 >
-    <ShadeSwatchTable
-        id='all-colours'
-        colour={DocsSampleTokens.colour}
-    />
-
-    {
-        (
-            Object.keys(
-                DocsSampleTokens.colour
-            ) as (keyof typeof DocsSampleTokens.colour)[]
-        ).map((name) => (
-            <h2
-            
-                id={`shades-${name}`}
-                set:text={`All ${toTitleCase(name)} Shades`}
-            />
-            <ShadeSwatchList
-                bases={DocsSampleTokens.colour.base}
-                colour={DocsSampleTokens.colour[name]}
-                id={`shades-${name}__list`}
-                name={name}
-                shadeHeading={3}
-            />
-        ))
-    }
+    <PageContentColour tokens={DocsSampleTokens} />
 </DocsPage>
 
 <ShadeSwatchTable_Scripts />

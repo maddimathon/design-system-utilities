@@ -50,6 +50,7 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
                     7: 0,
                     8: -1,
                     9: -2,
+                    10: -2.5,
                 },
 
                 smaller: {
@@ -136,6 +137,8 @@ export namespace Tokens_Typography {
                 6: number;
                 7: number;
                 8: number;
+                9: number;
+                10: number;
                 [ key: number ]: number;
             };
 

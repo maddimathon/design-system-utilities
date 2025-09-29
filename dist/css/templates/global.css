@@ -79,6 +79,8 @@ html {
     --fs-bigger-6: 2.375rem;
     --fs-heading-9: 0.75rem;
     --fs-heading-9: clamp(0.5625rem, 1svw + 1rem, 0.875rem);
+    --fs-heading-10: 0.6875rem;
+    --fs-heading-10: clamp(0.5rem, 0.875svw + 1rem, 0.75rem);
     --fs-smaller-3: 0.75rem;
 }
 
@@ -1424,6 +1426,42 @@ h1 input[type="submit"] {
     text-wrap: balance;
 }
 :where([role="heading"][aria-level="1"])
+    :where(
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="submit"]
+    ) {
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+
+:where([role="heading"][aria-level="10"]) {
+    margin-top: 0.8125rem;
+    margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-bottom: 0;
+    font-weight: 400;
+    font-size: clamp(0.5rem, 0.875svw + 1rem, 0.75rem);
+    font-size: var(--fs-heading-10, var(--fs-heading-8, 0.875rem));
+    line-height: 1.90625;
+    line-height: var(--line-height-500, 1.90625);
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    font-style: italic;
+}
+:where([role="heading"][aria-level="10"]) em,
+:where([role="heading"][aria-level="10"]) i {
+    font-style: normal;
+}
+:where([role="heading"][aria-level="10"]) em em,
+:where([role="heading"][aria-level="10"]) em i,
+:where([role="heading"][aria-level="10"]) i em,
+:where([role="heading"][aria-level="10"]) i i {
+    font-style: italic;
+}
+:where([role="heading"][aria-level="10"])
     :where(
         button,
         [role="button"],

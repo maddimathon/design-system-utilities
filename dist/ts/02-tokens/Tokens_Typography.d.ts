@@ -35,6 +35,8 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                     6: number;
                     7: number;
                     8: number;
+                    9: number;
+                    10: number;
                     [key: number]: number;
                 };
                 smaller: {
@@ -107,6 +109,8 @@ export declare namespace Tokens_Typography {
                 6: number;
                 7: number;
                 8: number;
+                9: number;
+                10: number;
                 [key: number]: number;
             };
             smaller: {

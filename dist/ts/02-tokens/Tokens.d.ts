@@ -73,6 +73,8 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                     6: number;
                     7: number;
                     8: number;
+                    9: number;
+                    10: number;
                     [key: number]: number;
                 };
                 smaller: {
@@ -155,8 +157,8 @@ export declare namespace Tokens_Internal {
         extraColourLevels?: undefined | never;
     }
     type Default_ColourName = 'base';
-    type Default_ExtraColourLevels = never;
-    type Default_ThemeBrightnessMode = ['light', 'dark'];
+    type Default_ExtraColourLevels = TokenLevels_Extended;
+    type Default_ThemeBrightnessMode = ['light', 'dark', ...string[]];
     type Default_ThemeContrastMode = ['average', 'high', 'low'];
     type Default_ThemeExtraContrastMode = ['low'];
     type Data<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_ThemeBrightnessMode extends readonly [string, ...string[]], T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne, T_ThemeName extends string> = {

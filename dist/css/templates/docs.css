@@ -79,6 +79,8 @@ html {
     --fs-bigger-6: 2.375rem;
     --fs-heading-9: 0.75rem;
     --fs-heading-9: clamp(0.5625rem, 1svw + 1rem, 0.875rem);
+    --fs-heading-10: 0.6875rem;
+    --fs-heading-10: clamp(0.5rem, 0.875svw + 1rem, 0.75rem);
     --fs-smaller-3: 0.75rem;
 }
 
@@ -2584,6 +2586,40 @@ h1 a.button,
     text-transform: inherit;
 }
 
+.h10 {
+    margin-top: 0.8125rem;
+    margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-bottom: 0;
+    font-weight: 400;
+    font-size: clamp(0.5rem, 0.875svw + 1rem, 0.75rem);
+    font-size: var(--fs-heading-10, var(--fs-heading-8, 0.875rem));
+    line-height: 1.90625;
+    line-height: var(--line-height-500, 1.90625);
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    font-style: italic;
+}
+.h10 em,
+.h10 i {
+    font-style: normal;
+}
+.h10 em em,
+.h10 em i,
+.h10 i em,
+.h10 i i {
+    font-style: italic;
+}
+.h10 button,
+.h10 [role="button"],
+.h10 input[type="button"],
+.h10 input[type="submit"],
+.h10 a.button {
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+
 h2,
 .h2 {
     margin-top: 3.125rem;
@@ -4570,6 +4606,11 @@ th {
     font-size: var(--fs-heading-9, 0.75rem);
 }
 
+.font-size-heading-10 {
+    font-size: clamp(0.5rem, 0.875svw + 1rem, 0.75rem);
+    font-size: var(--fs-heading-10, 0.6875rem);
+}
+
 .font-size-smaller-3 {
     font-size: 0.75rem;
     font-size: var(--fs-smaller-3, 0.75rem);
@@ -4844,6 +4885,7 @@ nav ul li {
         title,
         h1,
         .h1,
+        .h10,
         h2,
         .h2,
         h3,
@@ -4866,6 +4908,7 @@ nav ul li {
         title,
         h1,
         .h1,
+        .h10,
         h2,
         .h2,
         h3,
@@ -4947,6 +4990,7 @@ body > aside > :first-child {
 .toggle-title > title,
 .toggle-title > h1,
 .toggle-title > .h1,
+.toggle-title > .h10,
 .toggle-title > h2,
 .toggle-title > .h2,
 .toggle-title > h3,
@@ -4973,6 +5017,7 @@ body > aside > :first-child {
 .toggle-title > title .toggle-icon,
 .toggle-title > h1 .toggle-icon,
 .toggle-title > .h1 .toggle-icon,
+.toggle-title > .h10 .toggle-icon,
 .toggle-title > h2 .toggle-icon,
 .toggle-title > .h2 .toggle-icon,
 .toggle-title > h3 .toggle-icon,
@@ -4994,6 +5039,7 @@ body > aside > :first-child {
 .toggle-title > title .toggle-icon > svg,
 .toggle-title > h1 .toggle-icon > svg,
 .toggle-title > .h1 .toggle-icon > svg,
+.toggle-title > .h10 .toggle-icon > svg,
 .toggle-title > h2 .toggle-icon > svg,
 .toggle-title > .h2 .toggle-icon > svg,
 .toggle-title > h3 .toggle-icon > svg,
@@ -5113,6 +5159,7 @@ body > aside > :first-child {
 :where(.js) .toggle-title > title,
 :where(.js) .toggle-title > h1,
 :where(.js) .toggle-title > .h1,
+:where(.js) .toggle-title > .h10,
 :where(.js) .toggle-title > h2,
 :where(.js) .toggle-title > .h2,
 :where(.js) .toggle-title > h3,
@@ -5178,11 +5225,16 @@ body > aside > :first-child {
 }
 :where(.js)
     [data-toggle-container]:has(
-        .toggle-title > .h7 .h8 .h9,
-        .toggle-title > .h7 .shade-swatch__contrast__heading .h9,
-        .toggle-title > .h7 .h8 .shade-swatch__contrast__result-group__heading,
+        .toggle-title > .h10 .h7 .h8 .h9,
+        .toggle-title > .h10 .h7 .shade-swatch__contrast__heading .h9,
         .toggle-title
-            > .h7
+            > .h10
+            .h7
+            .h8
+            .shade-swatch__contrast__result-group__heading,
+        .toggle-title
+            > .h10
+            .h7
             .shade-swatch__contrast__heading
             .shade-swatch__contrast__result-group__heading
     ) {
@@ -5195,6 +5247,7 @@ body > aside > :first-child {
 :where(.js) .toggle-title > title,
 :where(.js) .toggle-title > h1,
 :where(.js) .toggle-title > .h1,
+:where(.js) .toggle-title > .h10,
 :where(.js) .toggle-title > h2,
 :where(.js) .toggle-title > .h2,
 :where(.js) .toggle-title > h3,
@@ -5221,6 +5274,7 @@ body > aside > :first-child {
 :where(.js) .toggle-title > title,
 :where(.js) .toggle-title > h1,
 :where(.js) .toggle-title > .h1,
+:where(.js) .toggle-title > .h10,
 :where(.js) .toggle-title > h2,
 :where(.js) .toggle-title > .h2,
 :where(.js) .toggle-title > h3,
@@ -5249,6 +5303,7 @@ body > aside > :first-child {
 :where(.js) .toggle-title > title,
 :where(.js) .toggle-title > h1,
 :where(.js) .toggle-title > .h1,
+:where(.js) .toggle-title > .h10,
 :where(.js) .toggle-title > h2,
 :where(.js) .toggle-title > .h2,
 :where(.js) .toggle-title > h3,
@@ -5271,6 +5326,7 @@ body > aside > :first-child {
 :where(.js) .toggle-title > title [data-toggle-control],
 :where(.js) .toggle-title > h1 [data-toggle-control],
 :where(.js) .toggle-title > .h1 [data-toggle-control],
+:where(.js) .toggle-title > .h10 [data-toggle-control],
 :where(.js) .toggle-title > h2 [data-toggle-control],
 :where(.js) .toggle-title > .h2 [data-toggle-control],
 :where(.js) .toggle-title > h3 [data-toggle-control],

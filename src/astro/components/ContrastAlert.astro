@@ -23,12 +23,13 @@ import Alert from '@maddimathon/utility-astro/components/Alert';
 
 export interface Props {
     level: string;
+    class?: string | string[];
     clrSlug: string;
     title?: string;
     type: ComponentProps<typeof Alert>['type'];
 }
 
-const { clrSlug, level, title, type }: Props = Astro.props;
+const { class: classList, clrSlug, level, title, type }: Props = Astro.props;
 
 /* CONSTANTS ===================================== */
 
@@ -36,7 +37,7 @@ const varClr = `var(--clr-${clrSlug})`;
 ---
 
 <Alert
-    class:list={['contrast-alert']}
+    class:list={['contrast-alert', classList]}
     data-brightness-mode='light'
     style={`--contrast-alert-color: ${varClr};`}
     title={title ?? clrSlug}

@@ -264,9 +264,9 @@ export namespace Tokens_Internal {
 
     export type Default_ColourName = 'base';
 
-    export type Default_ExtraColourLevels = never;
+    export type Default_ExtraColourLevels = TokenLevels_Extended;
 
-    export type Default_ThemeBrightnessMode = [ 'light', 'dark' ];
+    export type Default_ThemeBrightnessMode = [ 'light', 'dark', ...string[] ];
 
     export type Default_ThemeContrastMode = [ 'average', 'high', 'low' ];
 
