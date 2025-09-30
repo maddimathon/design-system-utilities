@@ -8,18 +8,20 @@
  * @license MIT
  */
 import type { RecursivePartial } from '@maddimathon/utility-typescript/types/objects/partial';
-import type { TokenLevels, TokenLevels_Extended } from './@types.js';
-import { AbstractTokens } from './abstract/AbstractTokens.js';
 import type { RecursiveRecord } from '../01-utilities/@types.js';
+import type { TokenLevels, TokenLevels_Extended } from './@types.js';
+import type { Tokens_Spacing } from './Tokens_Spacing.js';
+import { AbstractTokens } from './abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *
  * @since 0.1.0-alpha.draft
  */
 export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
+    protected readonly spacing: Tokens_Spacing;
     static get default(): Tokens_Typography.Data;
     readonly data: Tokens_Typography.Data;
-    constructor(input: Tokens_Typography.InputParam);
+    constructor(spacing: Tokens_Spacing, input: Tokens_Typography.InputParam);
     toJSON(): Tokens_Typography.JsonReturn;
     toScssVars(): {
         font: {
@@ -27,6 +29,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                 [key: string]: number | RecursiveRecord<string | number, number>;
                 title: number;
                 heading: {
+                    [key: number]: number;
                     1: number;
                     2: number;
                     3: number;
@@ -37,22 +40,15 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                     8: number;
                     9: number;
                     10: number;
-                    [key: number]: number;
                 };
                 smaller: {
+                    [key: number]: number;
                     1: number;
                     2: number;
                     3: number;
-                    [key: number]: number;
                 };
                 normal: number;
                 bigger: {
-                    1: number;
-                    2: number;
-                    3: number;
-                    4: number;
-                    5: number;
-                    6: number;
                     [key: number]: number;
                 };
             };
@@ -92,44 +88,38 @@ export declare namespace Tokens_Typography {
     /**
      * @since 0.1.0-alpha.draft
      */
-    export type Data = {
+    export type Data<T_SizeValue = number> = {
         lineHeight: {
             [L in DefaultLineHeightLevels]: number;
         } & {
             [L in Exclude<TokenLevels, DefaultLineHeightLevels> | TokenLevels_Extended]?: number;
         };
         size: {
-            title: number;
+            title: T_SizeValue;
             heading: {
-                1: number;
-                2: number;
-                3: number;
-                4: number;
-                5: number;
-                6: number;
-                7: number;
-                8: number;
-                9: number;
-                10: number;
-                [key: number]: number;
+                1: T_SizeValue;
+                2: T_SizeValue;
+                3: T_SizeValue;
+                4: T_SizeValue;
+                5: T_SizeValue;
+                6: T_SizeValue;
+                7: T_SizeValue;
+                8: T_SizeValue;
+                9: T_SizeValue;
+                10: T_SizeValue;
+                [key: number]: T_SizeValue;
             };
             smaller: {
-                1: number;
-                2: number;
-                3: number;
-                [key: number]: number;
+                1: T_SizeValue;
+                2: T_SizeValue;
+                3: T_SizeValue;
+                [key: number]: T_SizeValue;
             };
-            normal: number;
+            normal: T_SizeValue;
             bigger: {
-                1: number;
-                2: number;
-                3: number;
-                4: number;
-                5: number;
-                6: number;
-                [key: number]: number;
+                [key: number]: T_SizeValue;
             };
-            [key: string]: number | RecursiveRecord<number | string, number>;
+            [key: string]: T_SizeValue | RecursiveRecord<number | string, T_SizeValue>;
         };
     };
     /**
@@ -142,7 +132,11 @@ export declare namespace Tokens_Typography {
     /**
      * @since 0.1.0-alpha.draft
      */
-    export type JsonReturn = Data;
+    export type JsonReturn = Data<{
+        rem: number;
+        pt: number;
+        px: number;
+    }>;
     export {};
 }
 //# sourceMappingURL=Tokens_Typography.d.ts.map

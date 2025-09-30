@@ -74,7 +74,7 @@ export class Tokens extends AbstractTokens {
         this.css = new Tokens_CSS(this.input.css ?? {});
         this.spacing = new Tokens_Spacing(this.input.spacing ?? {});
         this.themes = themes;
-        this.typography = new Tokens_Typography(this.input.typography ?? {});
+        this.typography = new Tokens_Typography(this.spacing, this.input.typography ?? {});
     }
     toJSON() {
         return {

@@ -32,16 +32,6 @@ export declare class ColourContrastTest {
      * Gets the name for a colour to be used with cache files.
      */
     protected static getCacheName(clr: ColourUtilities.SingleShade): string;
-    /**
-     * Get a contrast ratio from the cache, if it exists.
-     */
-    protected static getCache(clrA: ColourUtilities.SingleShade, clrB: ColourUtilities.SingleShade): number | false;
-    /**
-     * Add the given ratio to the contrast cache.
-     *
-     * @return  Returns the ratio for ease of use.
-     */
-    protected static setCache(clrA: ColourUtilities.SingleShade, clrB: ColourUtilities.SingleShade, ratio: number): number;
     readonly ratio: number;
     readonly aa: ColourContrastTest.TestResult_Single;
     readonly aaa: ColourContrastTest.TestResult_Single;

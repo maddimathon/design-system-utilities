@@ -18,7 +18,7 @@ import type { RecursiveRecord } from './@types.js';
  *
  * @since 0.1.0-alpha.draft
  */
-export declare function objectFlatten<T_Keys extends string, T_Values extends any, T_Prefix extends string | never, T_Suffix extends string | never>(obj: RecursiveRecord<T_Keys, T_Values>, prefix?: T_Prefix, suffix?: T_Suffix): {
+export declare function objectFlatten<T_Keys extends number | string, T_Values extends any>(obj: RecursiveRecord<T_Keys, T_Values>, prefix?: string, suffix?: string): {
     [key: string]: T_Values;
 };
 //# sourceMappingURL=objectFlatten.d.ts.map

@@ -21,30 +21,21 @@ import type { RecursiveRecord } from './@types.js';
  * @since ___PKG_VERSION___
  */
 export function objectFlatten<
-    T_Keys extends string,
+    T_Keys extends number | string,
     T_Values extends any,
-    T_Prefix extends string | never,
-    T_Suffix extends string | never,
 >(
     obj: RecursiveRecord<T_Keys, T_Values>,
-    prefix?: T_Prefix,
-    suffix?: T_Suffix,
-) {
+    prefix?: string,
+    suffix?: string,
+): { [ key: string ]: T_Values; } {
 
-    const validateKey_addPrefix = ( key: string ) => {
-        const _includeKeyName = key.length < 1;
-        const _includePrefix = prefix && prefix.length > 0;
+    const validateKey_addPrefix = ( key: number | string ): string => [
+        prefix,
+        String( key ),
+    ].filter( v => v ).join( '-' );
 
-        // returns 
-        if ( !_includeKeyName ) {
-            return _includePrefix ? prefix : '';
-        }
-
-        return _includePrefix ? `${ prefix }-${ key }` : key;
-    };
-
-    const key_addSuffix = ( key: string ) => {
-
+    const key_addSuffix = ( key: number | string ): string => {
+        key = String( key );
         const _includeSuffix = suffix && suffix.length > 0;
 
         // returns
@@ -57,23 +48,28 @@ export function objectFlatten<
 
     const flat: { [ key: string ]: T_Values; } = {};
 
-    for ( const t_key in obj ) {
+    for ( const t_key of Object.keys( obj ) ) {
+        const value = obj[ t_key as T_Keys ] as undefined | T_Values;
         const key = validateKey_addPrefix( t_key );
-        const value = obj[ t_key as T_Keys ];
+
+        // continues
+        if ( typeof value === 'undefined' ) {
+            continue;
+        }
 
         // continues
         if ( typeof value !== 'object' || !value ) {
-            flat[ key_addSuffix( key ) ] = value as T_Values;
+            flat[ key_addSuffix( key ) ] = value;
             continue;
         }
 
         const flatValue = objectFlatten(
             value as RecursiveRecord<T_Keys, T_Values>,
-            key,
+            String( key ),
             suffix,
         );
 
-        for ( const t_flat_childKey in flatValue ) {
+        for ( const t_flat_childKey of Object.keys( flatValue ) ) {
             const _flat_childKey = t_flat_childKey as keyof typeof flatValue;
 
             if ( typeof flatValue[ _flat_childKey ] !== 'undefined' ) {

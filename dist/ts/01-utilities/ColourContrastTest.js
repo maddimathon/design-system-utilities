@@ -44,34 +44,13 @@ export class ColourContrastTest {
      * values first.
      */
     static test(clrA, clrB) {
-        const cache = ColourContrastTest.getCache(clrA, clrB);
-        return cache === false ? ColourContrastTest.setCache(clrA, clrB, WcagContrast.rgb([clrA.rgb.r, clrA.rgb.g, clrA.rgb.b], [clrB.rgb.r, clrB.rgb.g, clrB.rgb.b])) : cache;
+        return WcagContrast.rgb([clrA.rgb.r, clrA.rgb.g, clrA.rgb.b], [clrB.rgb.r, clrB.rgb.g, clrB.rgb.b]);
     }
     /**
      * Gets the name for a colour to be used with cache files.
      */
     static getCacheName(clr) {
         return [clr.rgb.r, clr.rgb.g, clr.rgb.b].join(' ');
-    }
-    /**
-     * Get a contrast ratio from the cache, if it exists.
-     */
-    // TODO - implement
-    static getCache(clrA, clrB) {
-        clrA;
-        clrB;
-        return false;
-    }
-    /**
-     * Add the given ratio to the contrast cache.
-     *
-     * @return  Returns the ratio for ease of use.
-     */
-    // TODO - implement
-    static setCache(clrA, clrB, ratio) {
-        clrA;
-        clrB;
-        return ratio;
     }
     ratio;
     aa;

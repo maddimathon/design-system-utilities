@@ -55,16 +55,10 @@ export class ColourContrastTest {
         clrB: ColourUtilities.SingleShade,
     ): number {
 
-        const cache = ColourContrastTest.getCache( clrA, clrB );
-
-        return cache === false ? ColourContrastTest.setCache(
-            clrA,
-            clrB,
-            WcagContrast.rgb(
-                [ clrA.rgb.r, clrA.rgb.g, clrA.rgb.b ],
-                [ clrB.rgb.r, clrB.rgb.g, clrB.rgb.b ],
-            ),
-        ) : cache;
+        return WcagContrast.rgb(
+            [ clrA.rgb.r, clrA.rgb.g, clrA.rgb.b ],
+            [ clrB.rgb.r, clrB.rgb.g, clrB.rgb.b ],
+        );
     }
 
     /**
@@ -74,35 +68,6 @@ export class ColourContrastTest {
         clr: ColourUtilities.SingleShade,
     ): string {
         return [ clr.rgb.r, clr.rgb.g, clr.rgb.b ].join( ' ' );
-    }
-
-    /**
-     * Get a contrast ratio from the cache, if it exists.
-     */
-    // TODO - implement
-    protected static getCache(
-        clrA: ColourUtilities.SingleShade,
-        clrB: ColourUtilities.SingleShade,
-    ): number | false {
-        clrA;
-        clrB;
-        return false;
-    }
-
-    /**
-     * Add the given ratio to the contrast cache.
-     * 
-     * @return  Returns the ratio for ease of use.
-     */
-    // TODO - implement
-    protected static setCache(
-        clrA: ColourUtilities.SingleShade,
-        clrB: ColourUtilities.SingleShade,
-        ratio: number,
-    ): number {
-        clrA;
-        clrB;
-        return ratio;
     }
 
     public readonly ratio: number;

@@ -58,7 +58,6 @@ export class Compile extends CompileStage {
                 colour: Tokens.SampleColours,
             },
             {
-                // extraColourLevels: [ '150', '850' ],
                 tokensAsDefault: true,
             },
         );

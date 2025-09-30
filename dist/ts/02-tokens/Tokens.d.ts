@@ -26,7 +26,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
     protected readonly config: Tokens_Internal.Config;
     get data(): {
         spacing: Tokens_Spacing.Data;
-        typography: Tokens_Typography.Data;
+        typography: Tokens_Typography.Data<number>;
         css: Tokens_CSS.Data;
         colour: Tokens_Colour.Data<T_ColourName, T_ExtraColourLevels>;
         themes: Tokens_Themes.Data<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode[number], T_ThemeContrastMode[number], T_ThemeName>;
@@ -65,6 +65,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                 [key: string]: number | import("../index.js").RecursiveRecord<string | number, number>;
                 title: number;
                 heading: {
+                    [key: number]: number;
                     1: number;
                     2: number;
                     3: number;
@@ -75,22 +76,15 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                     8: number;
                     9: number;
                     10: number;
-                    [key: number]: number;
                 };
                 smaller: {
+                    [key: number]: number;
                     1: number;
                     2: number;
                     3: number;
-                    [key: number]: number;
                 };
                 normal: number;
                 bigger: {
-                    1: number;
-                    2: number;
-                    3: number;
-                    4: number;
-                    5: number;
-                    6: number;
                     [key: number]: number;
                 };
             };

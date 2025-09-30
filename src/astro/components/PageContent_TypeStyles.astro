@@ -1,0 +1,150 @@
+---
+/**
+ * @since ___PKG_VERSION___
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+import type { RecursiveRecord } from '../../ts/index.js';
+import type { Tokens } from '../../ts/02-tokens/Tokens.js';
+
+/* import - functions */
+import { objectMap } from '../../ts/01-utilities/objectMap.js';
+
+/* import - values */
+
+/* import - components */
+import Toggle from '@maddimathon/utility-astro/components/Toggle';
+// import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
+
+/* import - layouts */
+
+/* TYPES ===================================== */
+
+/* PROPS ===================================== */
+
+export interface Props {
+    tokens: Tokens.JsonReturn;
+}
+
+const { tokens }: Props = Astro.props;
+
+/* CONSTANTS ===================================== */
+
+const defaultToggleToOpen = import.meta.env.DEV ? true : undefined;
+
+const headingSizes = Object.keys(tokens.typography.size.heading).map(
+    Number
+) as (keyof typeof tokens.typography.size.heading)[];
+
+const sizeFlattener = (
+    sizes:
+        | Tokens.JsonReturn['typography']['size']
+        | RecursiveRecord<number | string, number>,
+    prefix?: string
+) => {
+    const validateKey_addPrefix = (key: number | string): string =>
+        [prefix, String(key)].filter((v) => v).join('-');
+
+    const flat: {
+        [key: string]: Tokens.JsonReturn['typography']['size']['title'];
+    } = {};
+
+    for (const t_key of Object.keys(sizes)) {
+        const value = sizes[t_key as keyof typeof sizes] as
+            | undefined
+            | (typeof flat)[string];
+        const key = validateKey_addPrefix(t_key);
+
+        // continues
+        if (typeof value === 'undefined') {
+            continue;
+        }
+
+        // continues
+        if (typeof value !== 'object' || !value || 'rem' in value) {
+            flat[key] = value;
+            continue;
+        }
+
+        const flatValue = sizeFlattener(
+            value as RecursiveRecord<number | string, number>,
+            String(key)
+        );
+
+        for (const t_flat_childKey of Object.keys(flatValue)) {
+            const _flat_childKey = t_flat_childKey as keyof typeof flatValue;
+
+            if (typeof flatValue[_flat_childKey] !== 'undefined') {
+                flat[t_flat_childKey] = flatValue[_flat_childKey];
+            }
+        }
+    }
+
+    return flat;
+};
+
+const flattenedSizes = objectMap(
+    sizeFlattener(tokens.typography.size),
+    ({ key, value }) => ({
+        name: key,
+        sizes: Object.values(objectMap(
+            value,
+            (val) => ({
+                type: val.key,
+                value: val.value,
+            })
+        )),
+    })
+);
+---
+
+<Toggle
+    defaultOpen={defaultToggleToOpen}
+    heading={2}
+    id='sizes'
+>
+    <Fragment slot='button'>All Sizes</Fragment>
+    <dl class="typography-all-sizes">
+        
+        { Object.values(flattenedSizes).map( ({name, sizes}) => (
+            <dt 
+                class={`font-size-${name}`}
+                set:text={name}
+            />
+            <dd><dl class="typography-all-sizes__value-list">{sizes.map( ({ type, value }) => (
+                <div class="typography-all-sizes__value-list__pair"><dt set:text={type} />
+                <dd set:text={value} /></div>
+            ) )}</dl></dd>
+        ) ) }
+    </dl>
+</Toggle>
+
+<Toggle
+    defaultOpen={defaultToggleToOpen}
+    heading={2}
+    id='heading-styles'
+>
+    <Fragment slot='button'>Heading Styles</Fragment>
+    <p
+        class={`page-title | typography-all-headings__sample`}
+        id={`page-title`}
+        set:text={`Page Title — Maecenas Facilisis Sollicitudin Nisi, Eget Pellentesque Dui Rhoncus Condimentum. Aenean Lacinia Urna Sed Lacus Interdum Faucibus. Donec Quam Erat, Sagittis id Diam a, Hendrerit Viverra Ligula.`}
+    />
+
+    {
+        headingSizes.map((num) => (
+            <p
+                class={`h${num} | typography-all-headings__sample`}
+                id={`heading-${num}`}
+                set:text={`Heading ${num} — Maecenas Facilisis Sollicitudin Nisi, Eget Pellentesque Dui Rhoncus Condimentum. Aenean Lacinia Urna Sed Lacus Interdum Faucibus. Donec Quam Erat, Sagittis id Diam a, Hendrerit Viverra Ligula.`}
+            />
+        ))
+    }
+</Toggle>
+
+
+<style lang='scss'>
+    @forward '../scss/page-content-type-styles';
+</style>
