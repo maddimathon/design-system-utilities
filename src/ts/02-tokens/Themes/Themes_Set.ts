@@ -13,7 +13,6 @@
 
 import type {
     CssSystemColor,
-    ThemeColourOption,
     ThemeMode_ContrastOption,
     TokenLevels_Extended,
 } from '../@types.js';
@@ -36,14 +35,16 @@ export class Tokens_Themes_Set<
     T_ThemeBrightnessMode extends readonly string[],
     T_ThemeContrastMode extends readonly ThemeMode_ContrastOption[],
     T_ThemeName extends string,
-    T_ColourOptions extends string = ThemeColourOption<T_ColourName, T_ExtraColourLevels>,
+
+    T_Keyword_Universal extends string = never,
 > extends AbstractTokens<Tokens_Themes_Set.Data<
     T_ColourName,
     T_ExtraColourLevels,
     T_ThemeBrightnessMode,
     T_ThemeContrastMode,
     T_ThemeName,
-    T_ColourOptions
+
+    T_Keyword_Universal
 >> {
 
     /**
@@ -55,59 +56,45 @@ export class Tokens_Themes_Set<
         T_ThemeBrightnessMode extends string,
         T_ThemeContrastMode extends ThemeMode_ContrastOption,
         T_ThemeName extends string,
-        T_ColourOptions extends string = ThemeColourOption<T_ColourName, T_ExtraColourLevels>,
+
+        T_Keyword_Universal extends string = never,
     >(
         name: T_ThemeName,
         clrNames: readonly T_ColourName[],
         extraColourLevels: readonly T_ExtraColourLevels[],
         brightnessModes: readonly T_ThemeBrightnessMode[],
         contrastModes: readonly T_ThemeContrastMode[],
+
         input: Tokens_Themes_Set.InputParam<
             T_ColourName,
             T_ExtraColourLevels,
             readonly T_ThemeBrightnessMode[],
             readonly T_ThemeContrastMode[],
             T_ThemeName,
-            T_ColourOptions
+
+            T_Keyword_Universal
         >,
-    ): Promise<Tokens_Themes_Set<
-        T_ColourName,
-        T_ExtraColourLevels,
-        readonly T_ThemeBrightnessMode[],
-        readonly T_ThemeContrastMode[],
-        T_ThemeName,
-        T_ColourOptions
-    >> {
+    ) {
 
-        const forcedColours: Tokens_Themes_Set_SingleMode<CssSystemColor> =
-            await Tokens_Themes_Set_SingleMode.build<CssSystemColor>(
-                'forcedColors',
-                input.forcedColours ?? {},
-            );
-
-        const getDefaultTheme = ( str: string ): ThemeMode_ContrastOption => (
-            ( [
-                'average',
-                // 'forcedColors',
-                'high',
-                'low',
-            ] satisfies ThemeMode_ContrastOption[] ).includes( str as ThemeMode_ContrastOption )
-                ? str as ThemeMode_ContrastOption
-                : 'average'
+        const forcedColours = await Tokens_Themes_Set_SingleMode.build(
+            'forcedColors',
+            clrNames,
+            input.forcedColours ?? {},
         );
 
-        const modes: {
-            [ B in T_ThemeBrightnessMode ]: {
-                [ C in T_ThemeContrastMode ]: Tokens_Themes_Set_SingleMode<T_ColourOptions>;
-            };
-        } = await objectGeneratorAsync(
+        const modes = await objectGeneratorAsync(
             brightnessModes,
             async ( brightness: T_ThemeBrightnessMode[ number ] ) =>
                 objectGeneratorAsync(
                     contrastModes,
                     async ( contrast: T_ThemeContrastMode[ number ] ) =>
-                        Tokens_Themes_Set_SingleMode.build<T_ColourOptions>(
-                            getDefaultTheme( contrast ),
+                        Tokens_Themes_Set_SingleMode.build<
+                            T_ColourName,
+                            T_ExtraColourLevels,
+                            T_Keyword_Universal
+                        >(
+                            contrast,
+                            clrNames,
                             input[ brightness ]?.[ contrast ] ?? {},
                         ),
                 )
@@ -130,7 +117,7 @@ export class Tokens_Themes_Set<
         T_ThemeBrightnessMode,
         T_ThemeContrastMode,
         T_ThemeName,
-        T_ColourOptions
+        T_Keyword_Universal
     > {
         return {
             name: this.name,
@@ -156,11 +143,21 @@ export class Tokens_Themes_Set<
         protected readonly brightnessModes: readonly T_ThemeBrightnessMode[ number ][],
         protected readonly contrastModes: readonly T_ThemeContrastMode[ number ][],
 
-        protected readonly forcedColours: Tokens_Themes_Set_SingleMode<CssSystemColor>,
+        protected readonly forcedColours: Tokens_Themes_Set_SingleMode<
+            T_ColourName,
+            T_ExtraColourLevels,
+            T_Keyword_Universal,
+            CssSystemColor
+        >,
 
         protected readonly modes: {
             [ B in T_ThemeBrightnessMode[ number ] ]: {
-                [ C in T_ThemeContrastMode[ number ] ]: Tokens_Themes_Set_SingleMode<T_ColourOptions>;
+                [ C in T_ThemeContrastMode[ number ] ]:
+                Tokens_Themes_Set_SingleMode<
+                    T_ColourName,
+                    T_ExtraColourLevels,
+                    T_Keyword_Universal
+                >;
             };
         },
     ) {
@@ -173,7 +170,7 @@ export class Tokens_Themes_Set<
         T_ThemeBrightnessMode,
         T_ThemeContrastMode,
         T_ThemeName,
-        T_ColourOptions
+        T_Keyword_Universal
     > {
         return this.data;
     }
@@ -183,7 +180,11 @@ export class Tokens_Themes_Set<
         [ B in T_ThemeBrightnessMode[ number ] ]: {
 
             [ C in T_ThemeContrastMode[ number ] ]: ReturnType<
-                Tokens_Themes_Set_SingleMode<T_ColourOptions>[ 'toScssVars' ]
+                Tokens_Themes_Set_SingleMode<
+                    T_ColourName,
+                    T_ExtraColourLevels,
+                    T_Keyword_Universal
+                >[ 'toScssVars' ]
             >;
         };
     } {
@@ -216,13 +217,23 @@ export namespace Tokens_Themes_Set {
         T_ThemeBrightnessMode extends readonly string[],
         T_ThemeContrastMode extends readonly ThemeMode_ContrastOption[],
         T_ThemeName extends string,
-        T_ColourOptions extends string,
+
+        T_Keyword_Universal extends string,
     > = {
         name: T_ThemeName;
-        forcedColours: Tokens_Themes_Set_SingleMode.Data<CssSystemColor>;
+        forcedColours: Tokens_Themes_Set_SingleMode.Data<
+            T_ColourName,
+            T_ExtraColourLevels,
+            T_Keyword_Universal,
+            CssSystemColor
+        >;
     } & {
             [ B in T_ThemeBrightnessMode[ number ] ]: {
-                [ C in T_ThemeContrastMode[ number ] ]: Tokens_Themes_Set_SingleMode.Data<T_ColourOptions>;
+                [ C in T_ThemeContrastMode[ number ] ]: Tokens_Themes_Set_SingleMode.Data<
+                    T_ColourName,
+                    T_ExtraColourLevels,
+                    T_Keyword_Universal
+                >;
             };
         };
 
@@ -235,13 +246,27 @@ export namespace Tokens_Themes_Set {
         T_ThemeBrightnessMode extends readonly string[],
         T_ThemeContrastMode extends readonly ThemeMode_ContrastOption[],
         T_ThemeName extends string,
-        T_ColourOptions extends string,
+
+        T_Keyword_Universal extends string,
     > = {
         name: T_ThemeName;
-        forcedColours?: Tokens_Themes_Set_SingleMode.InputParam<CssSystemColor>;
+        forcedColours?: Omit<
+            Tokens_Themes_Set_SingleMode.InputParam<
+                T_ColourName,
+                T_ExtraColourLevels,
+                T_Keyword_Universal,
+                CssSystemColor
+            >,
+            "levels" | "variations"
+        >;
     } & {
             [ B in T_ThemeBrightnessMode[ number ] ]?: {
-                [ C in T_ThemeContrastMode[ number ] ]?: Tokens_Themes_Set_SingleMode.InputParam<T_ColourOptions>;
+                [ C in T_ThemeContrastMode[ number ] ]?:
+                Tokens_Themes_Set_SingleMode.InputParam<
+                    T_ColourName,
+                    T_ExtraColourLevels,
+                    T_Keyword_Universal
+                >;
             };
         };
 
@@ -254,13 +279,23 @@ export namespace Tokens_Themes_Set {
         T_ThemeBrightnessMode extends readonly string[],
         T_ThemeContrastMode extends readonly ThemeMode_ContrastOption[],
         T_ThemeName extends string,
-        T_ColourOptions extends string,
+
+        T_Keyword_Universal extends string,
     > = {
         name: T_ThemeName;
-        forcedColours: Tokens_Themes_Set_SingleMode.JsonReturn<CssSystemColor>;
+        forcedColours: Tokens_Themes_Set_SingleMode.JsonReturn<
+            T_ColourName,
+            T_ExtraColourLevels,
+            T_Keyword_Universal,
+            CssSystemColor
+        >;
     } & {
             [ B in T_ThemeBrightnessMode[ number ] ]: {
-                [ C in T_ThemeContrastMode[ number ] ]: Tokens_Themes_Set_SingleMode.JsonReturn<T_ColourOptions>;
+                [ C in T_ThemeContrastMode[ number ] ]: Tokens_Themes_Set_SingleMode.JsonReturn<
+                    T_ColourName,
+                    T_ExtraColourLevels,
+                    T_Keyword_Universal
+                >;
             };
         };
 

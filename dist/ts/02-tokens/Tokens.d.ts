@@ -44,7 +44,89 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
     toJSON(): Tokens_Internal.JsonReturn<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName>;
     toScssVars(): {
         colour: Tokens_Colour.Data<T_ColourName, T_ExtraColourLevels> extends infer T extends object ? { [K in keyof T]: T_Return; } : never;
-        themes: { [K_1 in T_ThemeName]: { [B in T_ThemeBrightnessMode[number]]: { [C in T_ThemeContrastMode[number]]: import("./Themes/Themes_Set_SingleMode.js").Tokens_Themes_Set_SingleMode.Data<import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>>; }; }; };
+        themes: { [K_1 in T_ThemeName]: { [B in T_ThemeBrightnessMode[number]]: { [C in T_ThemeContrastMode[number]]: {
+            system: {
+                button: import("./Themes/Themes_Set_SingleMode.js").Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
+                input: {
+                    bg: {
+                        $: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        hover: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    };
+                    border: {
+                        $: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        hover: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    };
+                    text: {
+                        $: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        hover: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    };
+                    placeholder: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                };
+                accent: {
+                    bg: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    text: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                };
+                mark: {
+                    bg: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    text: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                };
+                selected: {
+                    bg: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    text: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                };
+            };
+            background: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+            text: {
+                $: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                primary: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                secondary: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                disabled: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+            } & {};
+            ui: {
+                $: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                primary: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                secondary: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                disabled: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+            } & {};
+            selection: {
+                bg: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                text: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+            };
+            link: {
+                $: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                hover: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                visited: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+            };
+            button: {
+                primary: import("./Themes/Themes_Set_SingleMode.js").Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
+                secondary: import("./Themes/Themes_Set_SingleMode.js").Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
+                disabled: import("./Themes/Themes_Set_SingleMode.js").Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
+            } & {};
+            field: {
+                bg: {
+                    $: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    hover: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                };
+                border: {
+                    $: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    hover: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                };
+                text: {
+                    $: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    hover: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                };
+                placeholder: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+            };
+        }; }; }; };
         border: {
             radius: AbstractTokens.ScssReturn;
             width: AbstractTokens.ScssReturn;

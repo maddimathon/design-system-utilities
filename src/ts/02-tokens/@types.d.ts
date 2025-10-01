@@ -22,6 +22,7 @@ export type ColourNameSchema<T_ColourName extends string> =
     ]>;
 
 export type CssSystemColor =
+    | "unset"
     | "AccentColor"
     | "AccentColorText"
     | "ActiveText"

@@ -7,27 +7,102 @@
  * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
-import type { RecursivePartial } from '@maddimathon/utility-typescript/types/objects/partial';
-import type { CssSystemColor } from '../@types.js';
+import type { CssSystemColor, ThemeColourOption, TokenLevels, TokenLevels_Extended } from '../@types.js';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *
  * @since 0.1.0-alpha.draft
  */
-export declare class Tokens_Themes_Set_SingleMode<T_ColourOptions extends string = CssSystemColor> extends AbstractTokens<Tokens_Themes_Set_SingleMode.Data<T_ColourOptions>> {
-    readonly data: Tokens_Themes_Set_SingleMode.Data<T_ColourOptions>;
-    /**
-     * An easy way to generate a complete token set from limited inputs.
-     *
-     * @param preset  Contrast preset to use to complete the object.
-     * @param input   Optional overrides.
-     */
-    static build<T_ColourOptions extends CssSystemColor>(preset: "forcedColors", input: Tokens_Themes_Set_SingleMode.InputParam<CssSystemColor>): Promise<Tokens_Themes_Set_SingleMode<CssSystemColor>>;
-    static build<T_ColourOptions extends string>(preset: Tokens_Themes_Set_SingleMode.Templates.Name, input: Tokens_Themes_Set_SingleMode.InputParam<T_ColourOptions>): Promise<Tokens_Themes_Set_SingleMode<T_ColourOptions>>;
-    protected constructor(data: Tokens_Themes_Set_SingleMode.Data<T_ColourOptions>);
-    toJSON(): Tokens_Themes_Set_SingleMode.JsonReturn<T_ColourOptions>;
-    toScssVars(): Tokens_Themes_Set_SingleMode.Data<T_ColourOptions>;
+export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_Keyword_Universal extends string, __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>> extends AbstractTokens<Tokens_Themes_Set_SingleMode.Data<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, __T_ColourOption>> {
+    readonly data: Tokens_Themes_Set_SingleMode.Data<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, __T_ColourOption>;
+    static build<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_Keyword_Universal extends string = never>(preset: "forcedColors", clrNames: readonly T_ColourName[], input: Tokens_Themes_Set_SingleMode.InputParam<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, CssSystemColor>): Promise<Tokens_Themes_Set_SingleMode<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, CssSystemColor>>;
+    static build<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_Keyword_Universal extends string = never>(preset: "average" | "high" | "low", clrNames: readonly T_ColourName[], input: Tokens_Themes_Set_SingleMode.InputParam<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal>): Promise<Tokens_Themes_Set_SingleMode<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal>>;
+    protected constructor(data: Tokens_Themes_Set_SingleMode.Data<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, __T_ColourOption>);
+    toJSON(): Tokens_Themes_Set_SingleMode.JsonReturn<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal>;
+    toScssVars(): {
+        system: {
+            button: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>;
+            input: {
+                bg: {
+                    $: __T_ColourOption;
+                    hover: __T_ColourOption;
+                    active: __T_ColourOption;
+                };
+                border: {
+                    $: __T_ColourOption;
+                    hover: __T_ColourOption;
+                    active: __T_ColourOption;
+                };
+                text: {
+                    $: __T_ColourOption;
+                    hover: __T_ColourOption;
+                    active: __T_ColourOption;
+                };
+                placeholder: __T_ColourOption;
+            };
+            accent: {
+                bg: __T_ColourOption;
+                text: __T_ColourOption;
+            };
+            mark: {
+                bg: __T_ColourOption;
+                text: __T_ColourOption;
+            };
+            selected: {
+                bg: __T_ColourOption;
+                text: __T_ColourOption;
+            };
+        };
+        background: __T_ColourOption;
+        text: {
+            $: __T_ColourOption;
+            primary: __T_ColourOption;
+            secondary: __T_ColourOption;
+            active: __T_ColourOption;
+            disabled: __T_ColourOption;
+        } & { [K in T_Keyword_Universal]: __T_ColourOption; };
+        ui: {
+            $: __T_ColourOption;
+            primary: __T_ColourOption;
+            secondary: __T_ColourOption;
+            active: __T_ColourOption;
+            disabled: __T_ColourOption;
+        } & { [K_1 in T_Keyword_Universal]: __T_ColourOption; };
+        selection: {
+            bg: __T_ColourOption;
+            text: __T_ColourOption;
+        };
+        link: {
+            $: __T_ColourOption;
+            hover: __T_ColourOption;
+            active: __T_ColourOption;
+            visited: __T_ColourOption;
+        };
+        button: {
+            primary: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>;
+            secondary: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>;
+            disabled: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>;
+        } & { [K_2 in T_Keyword_Universal]: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>; };
+        field: {
+            bg: {
+                $: __T_ColourOption;
+                hover: __T_ColourOption;
+                active: __T_ColourOption;
+            };
+            border: {
+                $: __T_ColourOption;
+                hover: __T_ColourOption;
+                active: __T_ColourOption;
+            };
+            text: {
+                $: __T_ColourOption;
+                hover: __T_ColourOption;
+                active: __T_ColourOption;
+            };
+            placeholder: __T_ColourOption;
+        };
+    };
 }
 /**
  * Utilities for the {@link Tokens_Themes_Set_SingleMode} class.
@@ -35,123 +110,168 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourOptions extends string
  * @since 0.1.0-alpha.draft
  */
 export declare namespace Tokens_Themes_Set_SingleMode {
+    interface Data_Button<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>> {
+        bg: {
+            '$': __T_ColourOption;
+            'hover': __T_ColourOption;
+            'active': __T_ColourOption;
+        };
+        border: {
+            '$': __T_ColourOption;
+            'hover': __T_ColourOption;
+            'active': __T_ColourOption;
+        };
+        text: {
+            '$': __T_ColourOption;
+            'hover': __T_ColourOption;
+            'active': __T_ColourOption;
+        };
+    }
     /**
      * @since 0.1.0-alpha.draft
      */
-    interface Data<T_ColourOptions extends string> {
-        background: T_ColourOptions;
+    interface Data<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_Keyword_Universal extends string, __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>> {
+        background: __T_ColourOption;
         text: {
-            '$': T_ColourOptions;
-            'primary': T_ColourOptions;
-            'secondary': T_ColourOptions;
-            'active': T_ColourOptions;
-            'disabled': T_ColourOptions;
+            '$': __T_ColourOption;
+            'primary': __T_ColourOption;
+            'secondary': __T_ColourOption;
+            'active': __T_ColourOption;
+            'disabled': __T_ColourOption;
+        } & {
+            [K in T_Keyword_Universal]: __T_ColourOption;
         };
         ui: {
-            '$': T_ColourOptions;
-            'primary': T_ColourOptions;
-            'secondary': T_ColourOptions;
-            'active': T_ColourOptions;
-            'disabled': T_ColourOptions;
+            '$': __T_ColourOption;
+            'primary': __T_ColourOption;
+            'secondary': __T_ColourOption;
+            'active': __T_ColourOption;
+            'disabled': __T_ColourOption;
+        } & {
+            [K in T_Keyword_Universal]: __T_ColourOption;
         };
         selection: {
-            'bg': T_ColourOptions;
-            'text': T_ColourOptions;
+            'bg': __T_ColourOption;
+            'text': __T_ColourOption;
         };
         link: {
-            '$': T_ColourOptions;
-            'hover': T_ColourOptions;
-            'active': T_ColourOptions;
-            'visited': T_ColourOptions;
+            '$': __T_ColourOption;
+            'hover': __T_ColourOption;
+            'active': __T_ColourOption;
+            'visited': __T_ColourOption;
         };
         button: {
-            bg: {
-                '$': T_ColourOptions;
-                'hover': T_ColourOptions;
-                'active': T_ColourOptions;
-            };
-            border: {
-                '$': T_ColourOptions;
-                'hover': T_ColourOptions;
-                'active': T_ColourOptions;
-            };
-            text: {
-                '$': T_ColourOptions;
-                'hover': T_ColourOptions;
-                'active': T_ColourOptions;
-            };
+            [K in 'primary' | 'secondary' | 'disabled']: Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>;
+        } & {
+            [K in T_Keyword_Universal]: Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>;
         };
         field: {
             bg: {
-                '$': T_ColourOptions;
-                'hover': T_ColourOptions;
-                'active': T_ColourOptions;
+                '$': __T_ColourOption;
+                'hover': __T_ColourOption;
+                'active': __T_ColourOption;
             };
             border: {
-                '$': T_ColourOptions;
-                'hover': T_ColourOptions;
-                'active': T_ColourOptions;
+                '$': __T_ColourOption;
+                'hover': __T_ColourOption;
+                'active': __T_ColourOption;
             };
             text: {
-                '$': T_ColourOptions;
-                'hover': T_ColourOptions;
-                'active': T_ColourOptions;
+                '$': __T_ColourOption;
+                'hover': __T_ColourOption;
+                'active': __T_ColourOption;
             };
-            placeholder: T_ColourOptions;
+            placeholder: __T_ColourOption;
         };
         system: {
             accent: {
-                bg: T_ColourOptions;
-                text: T_ColourOptions;
+                bg: __T_ColourOption;
+                text: __T_ColourOption;
             };
             mark: {
-                bg: T_ColourOptions;
-                text: T_ColourOptions;
+                bg: __T_ColourOption;
+                text: __T_ColourOption;
             };
             selected: {
-                bg: T_ColourOptions;
-                text: T_ColourOptions;
+                bg: __T_ColourOption;
+                text: __T_ColourOption;
+            };
+        };
+    }
+    /** @internal @private */
+    interface RequiredVariations<T_ColourName extends string> {
+        base: T_ColourName;
+        universal: {
+            primary: T_ColourName;
+            secondary: T_ColourName;
+        };
+    }
+    /** @internal @private */
+    interface AllVariations<T_ColourName extends string, T_Keyword_Universal extends string> {
+        base: T_ColourName;
+        universal: RequiredVariations<T_ColourName>['universal'] & {
+            [K in T_Keyword_Universal]: T_ColourName;
+        };
+    }
+    /** @internal @private */
+    interface RequiredLevels<T_ExtraColourLevels extends TokenLevels_Extended> {
+        background: TokenLevels | T_ExtraColourLevels;
+        text: TokenLevels | T_ExtraColourLevels;
+        ui: TokenLevels | T_ExtraColourLevels;
+    }
+    /**
+     * This is used by the build function, not by the constructor.
+     *
+     * @since 0.1.0-alpha.draft
+     */
+    interface InputParam<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_Keyword_Universal extends string, __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>> {
+        levels?: Partial<RequiredLevels<T_ExtraColourLevels>>;
+        variations?: {
+            universal?: Partial<RequiredVariations<T_ColourName>['universal']> & {
+                [K in T_Keyword_Universal]: T_ColourName;
             };
         };
     }
     /**
      * @since 0.1.0-alpha.draft
      */
-    type InputParam<T_ColourOptions extends string> = RecursivePartial<Data<T_ColourOptions>>;
+    type JsonReturn<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_Keyword_Universal extends string, __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>> = Data<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, __T_ColourOption>;
     /**
+     * Used by the {@link Tokens_Themes_Set_SingleMode.build} static function,
+     * not meant to be exposed through the API.
+     *
      * @since 0.1.0-alpha.draft
+     * @internal
      */
-    type JsonReturn<T_ColourOptions extends string> = Data<T_ColourOptions>;
-    namespace Templates {
-        type Name = "average" | "forcedColors" | "high" | "low";
+    namespace Build {
+        /**
+         * @since 0.1.0-alpha.draft
+         */
+        interface Param<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_Keyword_Universal extends string> {
+            levels: RequiredLevels<T_ExtraColourLevels>;
+            variations: AllVariations<T_ColourName, T_Keyword_Universal>;
+        }
+        /**
+         * @since 0.1.0-alpha.draft
+         */
+        interface Param_ForcedColors<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_Keyword_Universal extends string> {
+            levels?: Partial<RequiredLevels<T_ExtraColourLevels>>;
+            variations: AllVariations<T_ColourName, T_Keyword_Universal>;
+        }
+        function completeLevels<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_Keyword_Universal extends string>(input: InputParam<T_ColourName, T_ExtraColourLevels, string>['levels']): Param<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal>['levels'];
+        function completeVariations<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_Keyword_Universal extends string>(clrNames: readonly T_ColourName[], input: InputParam<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal>['variations']): AllVariations<T_ColourName, T_Keyword_Universal>;
         /**
          * An easy way to generate a complete token set from limited inputs.
-         * For average contrast.
          *
          * @since 0.1.0-alpha.draft
          */
-        function average<T_ColourOptions extends string = CssSystemColor>(input: InputParam<T_ColourOptions>): Promise<Data<T_ColourOptions>>;
+        function data<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_Keyword_Universal extends string = never>(input: Param<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal>): Promise<Data<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal>>;
         /**
          * An easy way to generate a complete token set from limited inputs.
-         * For average contrast.
          *
          * @since 0.1.0-alpha.draft
          */
-        function forcedColors(input: InputParam<CssSystemColor>): Promise<Data<CssSystemColor>>;
-        /**
-         * An easy way to generate a complete token set from limited inputs.
-         * For high contrast.
-         *
-         * @since 0.1.0-alpha.draft
-         */
-        function high<T_ColourOptions extends string = CssSystemColor>(input: InputParam<T_ColourOptions>): Promise<Data<T_ColourOptions>>;
-        /**
-         * An easy way to generate a complete token set from limited inputs.
-         * For low contrast.
-         *
-         * @since 0.1.0-alpha.draft
-         */
-        function low<T_ColourOptions extends string = CssSystemColor>(input: InputParam<T_ColourOptions>): Promise<Data<T_ColourOptions>>;
+        function forcedColors<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_Keyword_Universal extends string = never>(input: Param_ForcedColors<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal>): Promise<Data<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, CssSystemColor>>;
     }
 }
 //# sourceMappingURL=Themes_Set_SingleMode.d.ts.map
