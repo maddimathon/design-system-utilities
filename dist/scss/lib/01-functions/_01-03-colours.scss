@@ -14,7 +14,22 @@
 @use '../../config';
 @use '../../tokens';
 
-// @use 'utils';
+@use 'utils';
+
+$_activeTheme: map.get(tokens.$themes, tokens.$activeTheme);
+
+$_systemColors: map.merge(
+    $defaults: map.flatten(utils.get-sys-colours()),
+    $inputs: map.flatten(map.get($_activeTheme, forced-colors, system)),
+    $recursive: true,
+);
+
+///
+/// @since 0.1.0-alpha.draft
+///
+@function get-sys-colours() {
+    @return $_systemColors;
+}
 
 ///
 /// Returns the appropriate var (with fallback).

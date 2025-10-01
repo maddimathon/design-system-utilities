@@ -55,9 +55,17 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
             ...this.data,
             system: {
                 ...this.data.system,
+                background: this.data.background,
                 button: this.data.button.primary,
                 input: this.data.field,
-            }
+                link: this.data.link,
+                selection: this.data.selection,
+                text: {
+                    $: this.data.text.$,
+                    active: this.data.text.active,
+                    disabled: this.data.text.disabled,
+                },
+            },
         };
     }
 }
@@ -122,68 +130,68 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
         async function data(input) {
             const { levels, variations, } = input;
             const text = {
-                '$': clrOpt(variations.base, levels.text),
+                $: clrOpt(variations.base, levels.text),
                 ...objectMap(variations.universal, ({ value: clrName }) => clrOpt(clrName, levels.text)),
                 active: clrOpt(variations.universal.secondary, levels.text),
                 disabled: clrOpt(variations.base, levels.text),
             };
             const ui = {
-                '$': clrOpt(variations.base, levels.ui),
+                $: clrOpt(variations.base, levels.ui),
                 ...objectMap(variations.universal, ({ value: clrName }) => clrOpt(clrName, levels.ui)),
                 active: clrOpt(variations.universal.secondary, levels.ui),
                 disabled: clrOpt(variations.base, levels.ui),
             };
             const singleButtonMaker = (_clrName) => ({
                 bg: {
-                    '$': '"??"',
-                    'hover': '"??"',
-                    'active': '"??"',
+                    $: '"??"',
+                    hover: '"??"',
+                    active: '"??"',
                 },
                 border: {
-                    '$': '"??"',
-                    'hover': '"??"',
-                    'active': '"??"',
+                    $: '"??"',
+                    hover: '"??"',
+                    active: '"??"',
                 },
                 text: {
-                    '$': '"??"',
-                    'hover': '"??"',
-                    'active': '"??"',
+                    $: '"??"',
+                    hover: '"??"',
+                    active: '"??"',
                 },
             });
             const button = {
                 ...objectMap(variations.universal, ({ value: clrName }) => singleButtonMaker(clrName)),
-                'disabled': singleButtonMaker(variations.base),
+                disabled: singleButtonMaker(variations.base),
             };
             const complete = {
                 background: clrOpt(variations.base, levels.background),
                 text,
                 ui,
                 selection: {
-                    'bg': '"??"',
-                    'text': '"??"',
+                    bg: '"??"',
+                    text: '"??"',
                 },
                 link: {
-                    '$': '"??"',
-                    'hover': '"??"',
-                    'active': '"??"',
-                    'visited': '"??"',
+                    $: '"??"',
+                    hover: '"??"',
+                    active: '"??"',
+                    visited: '"??"',
                 },
                 button,
                 field: {
                     bg: {
-                        '$': '"??"',
-                        'hover': '"??"',
-                        'active': '"??"',
+                        $: '"??"',
+                        hover: '"??"',
+                        active: '"??"',
                     },
                     border: {
-                        '$': '"??"',
-                        'hover': '"??"',
-                        'active': '"??"',
+                        $: '"??"',
+                        hover: '"??"',
+                        active: '"??"',
                     },
                     text: {
-                        '$': '"??"',
-                        'hover': '"??"',
-                        'active': '"??"',
+                        $: '"??"',
+                        hover: '"??"',
+                        active: '"??"',
                     },
                     placeholder: '"??"',
                 },
@@ -217,7 +225,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 text: 'CanvasText',
             };
             const text = {
-                '$': sysclr.text,
+                $: sysclr.text,
                 ...objectMap(variations.universal, () => sysclr.text),
                 active: 'ActiveText',
                 disabled: 'GrayText',
@@ -225,19 +233,25 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
             const ui = text;
             const singleButton = {
                 bg: {
-                    '$': 'ButtonFace',
-                    'hover': 'SelectedItem',
-                    'active': 'ButtonFace',
+                    $: 'ButtonFace',
+                    hover: 'SelectedItem',
+                    active: 'ButtonFace',
                 },
                 border: {
-                    '$': 'ButtonBorder',
-                    'hover': 'SelectedItem',
-                    'active': 'ButtonBorder',
+                    $: [
+                        'ButtonFace',
+                        'ButtonBorder',
+                    ],
+                    active: [
+                        'ButtonFace',
+                        'ButtonBorder',
+                    ],
+                    hover: 'SelectedItem',
                 },
                 text: {
-                    '$': 'ButtonText',
-                    'hover': 'SelectedItemText',
-                    'active': 'ButtonText',
+                    $: 'ButtonText',
+                    hover: 'SelectedItemText',
+                    active: 'ButtonText',
                 },
             };
             const button = {
@@ -253,7 +267,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                     text: 'HighlightText',
                 },
                 link: {
-                    '$': 'LinkText',
+                    $: 'LinkText',
                     hover: 'ActiveText',
                     active: 'ActiveText',
                     visited: 'VisitedText',
@@ -261,30 +275,44 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 button,
                 field: {
                     bg: {
-                        '$': 'Field',
-                        'hover': 'SelectedItem',
-                        'active': 'Field',
+                        $: 'Field',
+                        hover: 'SelectedItem',
+                        active: 'Field',
                     },
                     border: {
-                        '$': 'FieldText',
-                        'hover': 'SelectedItem',
-                        'active': 'FieldText',
+                        $: 'FieldText',
+                        hover: 'SelectedItem',
+                        active: 'FieldText',
                     },
                     text: {
-                        '$': 'FieldText',
-                        'hover': 'SelectedItemText',
-                        'active': 'FieldText',
+                        $: 'FieldText',
+                        hover: 'SelectedItemText',
+                        active: 'FieldText',
                     },
                     placeholder: 'FieldText',
                 },
                 system: {
                     accent: {
-                        bg: 'CanvasText',
-                        text: 'Canvas',
+                        bg: [
+                            'CanvasText',
+                            'AccentColor',
+                        ],
+                        text: [
+                            'Canvas',
+                            'AccentColorText',
+                        ],
                     },
                     mark: {
-                        bg: 'CanvasText',
-                        text: 'Canvas',
+                        bg: [
+                            'CanvasText',
+                            'AccentColor',
+                            'Mark',
+                        ],
+                        text: [
+                            'Canvas',
+                            'AccentColorText',
+                            'MarkText',
+                        ],
                     },
                     selected: {
                         bg: 'SelectedItem',

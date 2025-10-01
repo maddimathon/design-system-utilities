@@ -189,57 +189,83 @@ export class Tokens_Themes_Set_SingleMode<
 
     public toScssVars() {
 
-        type Ret = Tokens_Themes_Set_SingleMode.JsonReturn<
-            T_ColourName,
-            T_ExtraColourLevels,
+        type System = {
 
-            T_Keyword_Universal,
+            accent: {
+                bg: __T_ColourOption;
+                text: __T_ColourOption;
+            };
 
-            __T_ColourOption
-        > & {
-            system: {
+            background: __T_ColourOption;
 
-                button: {
+            button: {
 
-                    bg: {
-                        '$': __T_ColourOption;
-                        active: __T_ColourOption;
-                        hover: __T_ColourOption;
-                    };
-
-                    border: {
-                        '$': __T_ColourOption;
-                        active: __T_ColourOption;
-                        hover: __T_ColourOption;
-                    };
-
-                    text: {
-                        '$': __T_ColourOption;
-                        active: __T_ColourOption;
-                        hover: __T_ColourOption;
-                    };
+                bg: {
+                    $: __T_ColourOption;
+                    active: __T_ColourOption;
+                    hover: __T_ColourOption;
                 };
 
-                input: {
-
-                    bg: {
-                        '$': __T_ColourOption;
-                        active: __T_ColourOption;
-                        hover: __T_ColourOption;
-                    };
-
-                    border: {
-                        '$': __T_ColourOption;
-                        active: __T_ColourOption;
-                        hover: __T_ColourOption;
-                    };
-
-                    text: {
-                        '$': __T_ColourOption;
-                        active: __T_ColourOption;
-                        hover: __T_ColourOption;
-                    };
+                border: {
+                    $: __T_ColourOption;
+                    active: __T_ColourOption;
+                    hover: __T_ColourOption;
                 };
+
+                text: {
+                    $: __T_ColourOption;
+                    active: __T_ColourOption;
+                    hover: __T_ColourOption;
+                };
+            };
+
+            input: {
+
+                bg: {
+                    $: __T_ColourOption;
+                    active: __T_ColourOption;
+                    hover: __T_ColourOption;
+                };
+
+                border: {
+                    $: __T_ColourOption;
+                    active: __T_ColourOption;
+                    hover: __T_ColourOption;
+                };
+
+                text: {
+                    $: __T_ColourOption;
+                    active: __T_ColourOption;
+                    hover: __T_ColourOption;
+                };
+            };
+
+            link: {
+                $: __T_ColourOption;
+                active: __T_ColourOption;
+                hover: __T_ColourOption;
+                visited: __T_ColourOption;
+            };
+
+            mark: {
+                bg: __T_ColourOption;
+                text: __T_ColourOption;
+            };
+
+            selected: {
+                bg: __T_ColourOption;
+                text: __T_ColourOption;
+            };
+
+            selection: {
+                bg: __T_ColourOption;
+                text: __T_ColourOption;
+            };
+
+            text: {
+                $: __T_ColourOption;
+                active: __T_ColourOption;
+                disabled: __T_ColourOption;
             };
         };
 
@@ -248,10 +274,20 @@ export class Tokens_Themes_Set_SingleMode<
 
             system: {
                 ...this.data.system,
+
+                background: this.data.background,
                 button: this.data.button.primary,
                 input: this.data.field,
-            }
-        } satisfies Ret;
+                link: this.data.link,
+                selection: this.data.selection,
+
+                text: {
+                    $: this.data.text.$,
+                    active: this.data.text.active,
+                    disabled: this.data.text.disabled,
+                },
+            } satisfies System,
+        };
     }
 }
 
@@ -270,21 +306,21 @@ export namespace Tokens_Themes_Set_SingleMode {
     > {
 
         bg: {
-            '$': __T_ColourOption,
-            'hover': __T_ColourOption,
-            'active': __T_ColourOption,
+            $: __T_ColourOption,
+            hover: __T_ColourOption,
+            active: __T_ColourOption,
         },
 
         border: {
-            '$': __T_ColourOption,
-            'hover': __T_ColourOption,
-            'active': __T_ColourOption,
+            $: __T_ColourOption,
+            hover: __T_ColourOption,
+            active: __T_ColourOption,
         },
 
         text: {
-            '$': __T_ColourOption,
-            'hover': __T_ColourOption,
-            'active': __T_ColourOption,
+            $: __T_ColourOption,
+            hover: __T_ColourOption,
+            active: __T_ColourOption,
         },
     }
 
@@ -302,35 +338,35 @@ export namespace Tokens_Themes_Set_SingleMode {
         background: __T_ColourOption,
 
         text: {
-            '$': __T_ColourOption,
-            'primary': __T_ColourOption,
-            'secondary': __T_ColourOption,
-            'active': __T_ColourOption,
-            'disabled': __T_ColourOption,
+            $: __T_ColourOption,
+            primary: __T_ColourOption,
+            secondary: __T_ColourOption,
+            active: __T_ColourOption,
+            disabled: __T_ColourOption,
         } & {
             [ K in T_Keyword_Universal ]: __T_ColourOption;
         },
 
         ui: {
-            '$': __T_ColourOption,
-            'primary': __T_ColourOption,
-            'secondary': __T_ColourOption,
-            'active': __T_ColourOption,
-            'disabled': __T_ColourOption,
+            $: __T_ColourOption,
+            primary: __T_ColourOption,
+            secondary: __T_ColourOption,
+            active: __T_ColourOption,
+            disabled: __T_ColourOption,
         } & {
             [ K in T_Keyword_Universal ]: __T_ColourOption;
         },
 
         selection: {
-            'bg': __T_ColourOption,
-            'text': __T_ColourOption,
+            bg: __T_ColourOption,
+            text: __T_ColourOption,
         },
 
         link: {
-            '$': __T_ColourOption,
-            'hover': __T_ColourOption,
-            'active': __T_ColourOption,
-            'visited': __T_ColourOption,
+            $: __T_ColourOption,
+            hover: __T_ColourOption,
+            active: __T_ColourOption,
+            visited: __T_ColourOption,
         },
 
         button: {
@@ -350,21 +386,21 @@ export namespace Tokens_Themes_Set_SingleMode {
         field: {
 
             bg: {
-                '$': __T_ColourOption,
-                'hover': __T_ColourOption,
-                'active': __T_ColourOption,
+                $: __T_ColourOption,
+                hover: __T_ColourOption,
+                active: __T_ColourOption,
             },
 
             border: {
-                '$': __T_ColourOption,
-                'hover': __T_ColourOption,
-                'active': __T_ColourOption,
+                $: __T_ColourOption,
+                hover: __T_ColourOption,
+                active: __T_ColourOption,
             },
 
             text: {
-                '$': __T_ColourOption,
-                'hover': __T_ColourOption,
-                'active': __T_ColourOption,
+                $: __T_ColourOption,
+                hover: __T_ColourOption,
+                active: __T_ColourOption,
             },
 
             placeholder: __T_ColourOption,
@@ -621,7 +657,7 @@ export namespace Tokens_Themes_Set_SingleMode {
             } = input;
 
             const text: CompleteData[ 'text' ] = {
-                '$': clrOpt( variations.base, levels.text ),
+                $: clrOpt( variations.base, levels.text ),
 
                 ...objectMap( variations.universal, ( { value: clrName } ) => clrOpt( clrName, levels.text ) ),
 
@@ -630,7 +666,7 @@ export namespace Tokens_Themes_Set_SingleMode {
             };
 
             const ui: CompleteData[ 'ui' ] = {
-                '$': clrOpt( variations.base, levels.ui ),
+                $: clrOpt( variations.base, levels.ui ),
 
                 ...objectMap( variations.universal, ( { value: clrName } ) => clrOpt( clrName, levels.ui ) ),
 
@@ -641,27 +677,27 @@ export namespace Tokens_Themes_Set_SingleMode {
             const singleButtonMaker = ( _clrName: typeof variations[ keyof typeof variations ] ): CompleteData[ 'button' ][ 'primary' ] => ( {
 
                 bg: {
-                    '$': '"??"' as ColourOptions,
-                    'hover': '"??"' as ColourOptions,
-                    'active': '"??"' as ColourOptions,
+                    $: '"??"' as ColourOptions,
+                    hover: '"??"' as ColourOptions,
+                    active: '"??"' as ColourOptions,
                 },
 
                 border: {
-                    '$': '"??"' as ColourOptions,
-                    'hover': '"??"' as ColourOptions,
-                    'active': '"??"' as ColourOptions,
+                    $: '"??"' as ColourOptions,
+                    hover: '"??"' as ColourOptions,
+                    active: '"??"' as ColourOptions,
                 },
 
                 text: {
-                    '$': '"??"' as ColourOptions,
-                    'hover': '"??"' as ColourOptions,
-                    'active': '"??"' as ColourOptions,
+                    $: '"??"' as ColourOptions,
+                    hover: '"??"' as ColourOptions,
+                    active: '"??"' as ColourOptions,
                 },
             } );
 
             const button: CompleteData[ 'button' ] = {
                 ...objectMap( variations.universal, ( { value: clrName } ) => singleButtonMaker( clrName ) ),
-                'disabled': singleButtonMaker( variations.base ),
+                disabled: singleButtonMaker( variations.base ),
             };
 
             const complete: CompleteData = {
@@ -671,15 +707,15 @@ export namespace Tokens_Themes_Set_SingleMode {
                 ui,
 
                 selection: {
-                    'bg': '"??"' as ColourOptions,
-                    'text': '"??"' as ColourOptions,
+                    bg: '"??"' as ColourOptions,
+                    text: '"??"' as ColourOptions,
                 },
 
                 link: {
-                    '$': '"??"' as ColourOptions,
-                    'hover': '"??"' as ColourOptions,
-                    'active': '"??"' as ColourOptions,
-                    'visited': '"??"' as ColourOptions,
+                    $: '"??"' as ColourOptions,
+                    hover: '"??"' as ColourOptions,
+                    active: '"??"' as ColourOptions,
+                    visited: '"??"' as ColourOptions,
                 },
 
                 button,
@@ -687,21 +723,21 @@ export namespace Tokens_Themes_Set_SingleMode {
                 field: {
 
                     bg: {
-                        '$': '"??"' as ColourOptions,
-                        'hover': '"??"' as ColourOptions,
-                        'active': '"??"' as ColourOptions,
+                        $: '"??"' as ColourOptions,
+                        hover: '"??"' as ColourOptions,
+                        active: '"??"' as ColourOptions,
                     },
 
                     border: {
-                        '$': '"??"' as ColourOptions,
-                        'hover': '"??"' as ColourOptions,
-                        'active': '"??"' as ColourOptions,
+                        $: '"??"' as ColourOptions,
+                        hover: '"??"' as ColourOptions,
+                        active: '"??"' as ColourOptions,
                     },
 
                     text: {
-                        '$': '"??"' as ColourOptions,
-                        'hover': '"??"' as ColourOptions,
-                        'active': '"??"' as ColourOptions,
+                        $: '"??"' as ColourOptions,
+                        hover: '"??"' as ColourOptions,
+                        active: '"??"' as ColourOptions,
                     },
 
                     placeholder: '"??"' as ColourOptions,
@@ -765,7 +801,7 @@ export namespace Tokens_Themes_Set_SingleMode {
             } as const;
 
             const text: CompleteData[ 'text' ] = {
-                '$': sysclr.text,
+                $: sysclr.text,
 
                 ...objectMap( variations.universal, () => sysclr.text ),
 
@@ -778,21 +814,27 @@ export namespace Tokens_Themes_Set_SingleMode {
             const singleButton: CompleteData[ 'button' ][ 'primary' ] = {
 
                 bg: {
-                    '$': 'ButtonFace',
-                    'hover': 'SelectedItem',
-                    'active': 'ButtonFace',
+                    $: 'ButtonFace',
+                    hover: 'SelectedItem',
+                    active: 'ButtonFace',
                 },
 
                 border: {
-                    '$': 'ButtonBorder',
-                    'hover': 'SelectedItem',
-                    'active': 'ButtonBorder',
+                    $: [
+                        'ButtonFace',
+                        'ButtonBorder',
+                    ],
+                    active: [
+                        'ButtonFace',
+                        'ButtonBorder',
+                    ],
+                    hover: 'SelectedItem',
                 },
 
                 text: {
-                    '$': 'ButtonText',
-                    'hover': 'SelectedItemText',
-                    'active': 'ButtonText',
+                    $: 'ButtonText',
+                    hover: 'SelectedItemText',
+                    active: 'ButtonText',
                 },
             };
 
@@ -813,7 +855,7 @@ export namespace Tokens_Themes_Set_SingleMode {
                 },
 
                 link: {
-                    '$': 'LinkText',
+                    $: 'LinkText',
                     hover: 'ActiveText',
                     active: 'ActiveText',
                     visited: 'VisitedText',
@@ -824,21 +866,21 @@ export namespace Tokens_Themes_Set_SingleMode {
                 field: {
 
                     bg: {
-                        '$': 'Field',
-                        'hover': 'SelectedItem',
-                        'active': 'Field',
+                        $: 'Field',
+                        hover: 'SelectedItem',
+                        active: 'Field',
                     },
 
                     border: {
-                        '$': 'FieldText',
-                        'hover': 'SelectedItem',
-                        'active': 'FieldText',
+                        $: 'FieldText',
+                        hover: 'SelectedItem',
+                        active: 'FieldText',
                     },
 
                     text: {
-                        '$': 'FieldText',
-                        'hover': 'SelectedItemText',
-                        'active': 'FieldText',
+                        $: 'FieldText',
+                        hover: 'SelectedItemText',
+                        active: 'FieldText',
                     },
 
                     placeholder: 'FieldText',
@@ -846,12 +888,26 @@ export namespace Tokens_Themes_Set_SingleMode {
 
                 system: {
                     accent: {
-                        bg: 'CanvasText',
-                        text: 'Canvas',
+                        bg: [
+                            'CanvasText',
+                            'AccentColor',
+                        ],
+                        text: [
+                            'Canvas',
+                            'AccentColorText',
+                        ],
                     },
                     mark: {
-                        bg: 'CanvasText',
-                        text: 'Canvas',
+                        bg: [
+                            'CanvasText',
+                            'AccentColor',
+                            'Mark',
+                        ],
+                        text: [
+                            'Canvas',
+                            'AccentColorText',
+                            'MarkText',
+                        ],
                     },
                     selected: {
                         bg: 'SelectedItem',

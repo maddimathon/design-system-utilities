@@ -41,7 +41,29 @@ export type CssSystemColor =
     | "MarkText"
     | "SelectedItem"
     | "SelectedItemText"
-    | "VisitedText";
+    | "VisitedText"
+    | (
+        "unset"
+        | "AccentColor"
+        | "AccentColorText"
+        | "ActiveText"
+        | "ButtonBorder"
+        | "ButtonFace"
+        | "ButtonText"
+        | "Canvas"
+        | "CanvasText"
+        | "Field"
+        | "FieldText"
+        | "GrayText"
+        | "Highlight"
+        | "HighlightText"
+        | "LinkText"
+        | "Mark"
+        | "MarkText"
+        | "SelectedItem"
+        | "SelectedItemText"
+        | "VisitedText"
+    )[];
 
 /**
  * Slugs representing the colour tokens in this system.

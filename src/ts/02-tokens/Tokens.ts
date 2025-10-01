@@ -37,12 +37,15 @@ export class Tokens<
     T_ThemeBrightnessMode extends readonly [ string, ...string[] ],
     T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne,
     T_ThemeName extends string,
+
+    T_ThemeKeyword_Universal extends string,
 > extends AbstractTokens<Tokens_Internal.Data<
     T_ColourName,
     T_ExtraColourLevels,
     T_ThemeBrightnessMode,
     T_ThemeContrastMode,
-    T_ThemeName
+    T_ThemeName,
+    T_ThemeKeyword_Universal
 >> {
 
     public get data() {
@@ -63,7 +66,8 @@ export class Tokens<
         T_ExtraColourLevels,
         T_ThemeBrightnessMode[ number ],
         T_ThemeContrastMode[ number ],
-        T_ThemeName
+        T_ThemeName,
+        T_ThemeKeyword_Universal
     >;
     public readonly typography: Tokens_Typography;
 
@@ -76,13 +80,16 @@ export class Tokens<
         T_ThemeBrightnessMode extends readonly [ string, ...string[] ] = Tokens_Internal.Default_ThemeBrightnessMode,
         T_ThemeContrastMode_Extra extends readonly ThemeMode_ContrastExtraOptions[] = Tokens_Internal.Default_ThemeExtraContrastMode,
         T_ThemeName extends string = Tokens_Themes.Default_ThemeName,
+
+        T_ThemeKeyword_Universal extends string = never,
     >(
         input: Tokens_Internal.InputParam<
             Tokens_Internal.Default_ColourName | T_ColourName,
             T_ExtraColourLevels,
             T_ThemeBrightnessMode,
             ThemeMode_Contrast<T_ThemeContrastMode_Extra>,
-            T_ThemeName
+            T_ThemeName,
+            T_ThemeKeyword_Universal
         >,
         config: Partial<Tokens.Config<T_ExtraColourLevels>> = {},
     ): Promise<Tokens<
@@ -90,7 +97,8 @@ export class Tokens<
         T_ExtraColourLevels,
         T_ThemeBrightnessMode,
         ThemeMode_Contrast<T_ThemeContrastMode_Extra>,
-        T_ThemeName
+        T_ThemeName,
+        T_ThemeKeyword_Universal
     >> {
 
         const allClrNames = [
@@ -118,7 +126,8 @@ export class Tokens<
             T_ExtraColourLevels,
             T_ThemeBrightnessMode[ number ],
             ThemeMode_Contrast<T_ThemeContrastMode_Extra>[ number ],
-            T_ThemeName
+            T_ThemeName,
+            T_ThemeKeyword_Universal
         >(
             allClrNames,
             extraColourLevels,
@@ -132,7 +141,8 @@ export class Tokens<
             T_ExtraColourLevels,
             T_ThemeBrightnessMode,
             ThemeMode_Contrast<T_ThemeContrastMode_Extra>,
-            T_ThemeName
+            T_ThemeName,
+            T_ThemeKeyword_Universal
         >(
             allClrNames,
             extraColourLevels,
@@ -157,14 +167,16 @@ export class Tokens<
             T_ExtraColourLevels,
             T_ThemeBrightnessMode[ number ],
             T_ThemeContrastMode[ number ],
-            T_ThemeName
+            T_ThemeName,
+            T_ThemeKeyword_Universal
         >,
         protected readonly input: Omit<Tokens_Internal.InputParam<
             T_ColourName,
             T_ExtraColourLevels,
             T_ThemeBrightnessMode,
             T_ThemeContrastMode,
-            T_ThemeName
+            T_ThemeName,
+            T_ThemeKeyword_Universal
         >, "themes">,
         protected readonly config: Tokens_Internal.Config = {},
     ) {
@@ -189,7 +201,8 @@ export class Tokens<
         T_ExtraColourLevels,
         T_ThemeBrightnessMode,
         T_ThemeContrastMode,
-        T_ThemeName
+        T_ThemeName,
+        T_ThemeKeyword_Universal
     > {
 
         return {
@@ -281,6 +294,8 @@ export namespace Tokens_Internal {
         T_ThemeBrightnessMode extends readonly [ string, ...string[] ],
         T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne,
         T_ThemeName extends string,
+
+        T_ThemeKeyword_Universal extends string,
     > = {
         colour: Tokens_Colour.Data<T_ColourName, T_ExtraColourLevels>;
         css: Tokens_CSS.Data;
@@ -290,7 +305,8 @@ export namespace Tokens_Internal {
             T_ExtraColourLevels,
             T_ThemeBrightnessMode[ number ],
             T_ThemeContrastMode[ number ],
-            T_ThemeName
+            T_ThemeName,
+            T_ThemeKeyword_Universal
         >;
         typography: Tokens_Typography.Data;
     };
@@ -301,6 +317,8 @@ export namespace Tokens_Internal {
         T_ThemeBrightnessMode extends readonly [ string, ...string[] ],
         T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne,
         T_ThemeName extends string,
+
+        T_ThemeKeyword_Universal extends string,
     > {
         colour?: undefined | Tokens_Colour.InputParam<T_ColourName, T_ExtraColourLevels>;
         css?: undefined | Tokens_CSS.InputParam;
@@ -313,7 +331,8 @@ export namespace Tokens_Internal {
                 T_ExtraColourLevels,
                 T_ThemeBrightnessMode[ number ],
                 T_ThemeContrastMode[ number ],
-                T_ThemeName
+                T_ThemeName,
+                T_ThemeKeyword_Universal
             >,
         };
         typography?: undefined | Tokens_Typography.InputParam;
@@ -325,6 +344,8 @@ export namespace Tokens_Internal {
         T_ThemeBrightnessMode extends readonly [ string, ...string[] ],
         T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne,
         T_ThemeName extends string,
+
+        T_ThemeKeyword_Universal extends string,
     > = {
         colour: Tokens_Colour.JsonReturn<T_ColourName, T_ExtraColourLevels>;
         css: Tokens_CSS.JsonReturn;
@@ -334,7 +355,8 @@ export namespace Tokens_Internal {
             T_ExtraColourLevels,
             T_ThemeBrightnessMode[ number ],
             T_ThemeContrastMode[ number ],
-            T_ThemeName
+            T_ThemeName,
+            T_ThemeKeyword_Universal
         >;
         typography: Tokens_Typography.JsonReturn;
     };
@@ -365,12 +387,16 @@ export namespace Tokens {
         T_ThemeBrightnessMode extends readonly [ string, ...string[] ] = Tokens_Internal.Default_ThemeBrightnessMode,
         T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne = Tokens_Internal.Default_ThemeContrastMode,
         T_ThemeName extends string = Tokens_Themes.Default_ThemeName,
+
+        T_ThemeKeyword_Universal extends string = never,
     > = Tokens_Internal.Data<
         T_ColourName,
         T_ExtraColourLevels,
         T_ThemeBrightnessMode,
         T_ThemeContrastMode,
-        T_ThemeName
+        T_ThemeName,
+
+        T_ThemeKeyword_Universal
     >;
 
     export interface InputParam<
@@ -379,12 +405,16 @@ export namespace Tokens {
         T_ThemeBrightnessMode extends readonly [ string, ...string[] ] = Tokens_Internal.Default_ThemeBrightnessMode,
         T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne = Tokens_Internal.Default_ThemeContrastMode,
         T_ThemeName extends string = Tokens_Themes.Default_ThemeName,
+
+        T_ThemeKeyword_Universal extends string = never,
     > extends Tokens_Internal.InputParam<
         T_ColourName,
         T_ExtraColourLevels,
         T_ThemeBrightnessMode,
         T_ThemeContrastMode,
-        T_ThemeName
+        T_ThemeName,
+
+        T_ThemeKeyword_Universal
     > { }
 
     export type JsonReturn<
@@ -393,12 +423,16 @@ export namespace Tokens {
         T_ThemeBrightnessMode extends readonly [ string, ...string[] ] = Tokens_Internal.Default_ThemeBrightnessMode,
         T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne = Tokens_Internal.Default_ThemeContrastMode,
         T_ThemeName extends string = Tokens_Themes.Default_ThemeName,
+
+        T_ThemeKeyword_Universal extends string = never,
     > = Tokens_Internal.JsonReturn<
         T_ColourName,
         T_ExtraColourLevels,
         T_ThemeBrightnessMode,
         T_ThemeContrastMode,
-        T_ThemeName
+        T_ThemeName,
+
+        T_ThemeKeyword_Universal
     >;
 
     type SampleColourName =

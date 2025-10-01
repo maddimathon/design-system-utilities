@@ -54,7 +54,9 @@
 
 $_activeTheme: map.get(tokens.$themes, tokens.$activeTheme);
 $_flattenedActiveTheme: map.flatten($_activeTheme);
+
 $_systemColors: get-sys-colours();
+$_flattenedSystemColors: map.flatten($_systemColors);
 
 ///
 /// Prints out the line height custom property default values based on config.
@@ -90,7 +92,11 @@ $_systemColors: get-sys-colours();
                         '#{$brightness}-#{$contrast}-system-#{$slug}'
                     ),
                     'system-#{$slug}',
-                    false
+                    if(
+                        map.has-key($_flattenedSystemColors, '#{$slug}'),
+                        '#{$slug}',
+                        false
+                    )
                 )
             );
 
@@ -105,6 +111,10 @@ $_systemColors: get-sys-colours();
                         $_clrSlug,
                         $brightness: $brightness
                     )};
+            } @else if map.has-key($_flattenedSystemColors, '#{$slug}') {
+                @each $_sysclr in map.get($_systemColors, $slug) {
+                    --sys-clr-#{$slug}: #{$_sysclr};
+                }
             }
         }
     }

@@ -22,6 +22,7 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T
     toJSON(): Tokens_Themes_Set_SingleMode.JsonReturn<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal>;
     toScssVars(): {
         system: {
+            background: __T_ColourOption;
             button: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>;
             input: {
                 bg: {
@@ -40,6 +41,21 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T
                     active: __T_ColourOption;
                 };
                 placeholder: __T_ColourOption;
+            };
+            link: {
+                $: __T_ColourOption;
+                hover: __T_ColourOption;
+                active: __T_ColourOption;
+                visited: __T_ColourOption;
+            };
+            selection: {
+                bg: __T_ColourOption;
+                text: __T_ColourOption;
+            };
+            text: {
+                $: __T_ColourOption;
+                active: __T_ColourOption;
+                disabled: __T_ColourOption;
             };
             accent: {
                 bg: __T_ColourOption;
@@ -112,19 +128,19 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T
 export declare namespace Tokens_Themes_Set_SingleMode {
     interface Data_Button<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>> {
         bg: {
-            '$': __T_ColourOption;
-            'hover': __T_ColourOption;
-            'active': __T_ColourOption;
+            $: __T_ColourOption;
+            hover: __T_ColourOption;
+            active: __T_ColourOption;
         };
         border: {
-            '$': __T_ColourOption;
-            'hover': __T_ColourOption;
-            'active': __T_ColourOption;
+            $: __T_ColourOption;
+            hover: __T_ColourOption;
+            active: __T_ColourOption;
         };
         text: {
-            '$': __T_ColourOption;
-            'hover': __T_ColourOption;
-            'active': __T_ColourOption;
+            $: __T_ColourOption;
+            hover: __T_ColourOption;
+            active: __T_ColourOption;
         };
     }
     /**
@@ -133,32 +149,32 @@ export declare namespace Tokens_Themes_Set_SingleMode {
     interface Data<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_Keyword_Universal extends string, __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>> {
         background: __T_ColourOption;
         text: {
-            '$': __T_ColourOption;
-            'primary': __T_ColourOption;
-            'secondary': __T_ColourOption;
-            'active': __T_ColourOption;
-            'disabled': __T_ColourOption;
+            $: __T_ColourOption;
+            primary: __T_ColourOption;
+            secondary: __T_ColourOption;
+            active: __T_ColourOption;
+            disabled: __T_ColourOption;
         } & {
             [K in T_Keyword_Universal]: __T_ColourOption;
         };
         ui: {
-            '$': __T_ColourOption;
-            'primary': __T_ColourOption;
-            'secondary': __T_ColourOption;
-            'active': __T_ColourOption;
-            'disabled': __T_ColourOption;
+            $: __T_ColourOption;
+            primary: __T_ColourOption;
+            secondary: __T_ColourOption;
+            active: __T_ColourOption;
+            disabled: __T_ColourOption;
         } & {
             [K in T_Keyword_Universal]: __T_ColourOption;
         };
         selection: {
-            'bg': __T_ColourOption;
-            'text': __T_ColourOption;
+            bg: __T_ColourOption;
+            text: __T_ColourOption;
         };
         link: {
-            '$': __T_ColourOption;
-            'hover': __T_ColourOption;
-            'active': __T_ColourOption;
-            'visited': __T_ColourOption;
+            $: __T_ColourOption;
+            hover: __T_ColourOption;
+            active: __T_ColourOption;
+            visited: __T_ColourOption;
         };
         button: {
             [K in 'primary' | 'secondary' | 'disabled']: Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>;
@@ -167,19 +183,19 @@ export declare namespace Tokens_Themes_Set_SingleMode {
         };
         field: {
             bg: {
-                '$': __T_ColourOption;
-                'hover': __T_ColourOption;
-                'active': __T_ColourOption;
+                $: __T_ColourOption;
+                hover: __T_ColourOption;
+                active: __T_ColourOption;
             };
             border: {
-                '$': __T_ColourOption;
-                'hover': __T_ColourOption;
-                'active': __T_ColourOption;
+                $: __T_ColourOption;
+                hover: __T_ColourOption;
+                active: __T_ColourOption;
             };
             text: {
-                '$': __T_ColourOption;
-                'hover': __T_ColourOption;
-                'active': __T_ColourOption;
+                $: __T_ColourOption;
+                hover: __T_ColourOption;
+                active: __T_ColourOption;
             };
             placeholder: __T_ColourOption;
         };

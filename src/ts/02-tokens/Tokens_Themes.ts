@@ -15,7 +15,6 @@ import { objectGenerator } from '../01-utilities/objectGenerator.js';
 import { objectMap } from '../01-utilities/objectMap.js';
 
 import type {
-    ThemeColourOption,
     ThemeMode_ContrastOption,
     TokenLevels_Extended,
 } from './@types.d.ts';
@@ -33,13 +32,16 @@ export class Tokens_Themes<
     T_ExtraColourLevels extends TokenLevels_Extended,
     T_ThemeBrightnessMode extends string,
     T_ThemeContrastMode extends ThemeMode_ContrastOption,
-    T_ThemeName extends string
+    T_ThemeName extends string,
+
+    T_Keyword_Universal extends string,
 > extends AbstractTokens<Tokens_Themes.Data<
     T_ColourName,
     T_ExtraColourLevels,
     T_ThemeBrightnessMode,
     T_ThemeContrastMode,
-    T_ThemeName
+    T_ThemeName,
+    T_Keyword_Universal
 >> {
 
     /**
@@ -50,7 +52,9 @@ export class Tokens_Themes<
         T_ExtraColourLevels extends TokenLevels_Extended,
         T_ThemeBrightnessMode extends string,
         T_ThemeContrastMode extends ThemeMode_ContrastOption,
-        T_ThemeName extends string
+        T_ThemeName extends string,
+
+        T_Keyword_Universal extends string,
     >(
         clrNames: readonly T_ColourName[],
         extraColourLevels: readonly T_ExtraColourLevels[],
@@ -61,7 +65,8 @@ export class Tokens_Themes<
             T_ExtraColourLevels,
             T_ThemeBrightnessMode,
             T_ThemeContrastMode,
-            T_ThemeName
+            T_ThemeName,
+            T_Keyword_Universal
         >,
     ) {
         return new Tokens_Themes(
@@ -88,6 +93,8 @@ export class Tokens_Themes<
         T_ThemeBrightnessMode extends string,
         T_ThemeContrastMode extends ThemeMode_ContrastOption,
         T_ThemeName extends string,
+
+        T_Keyword_Universal extends string,
     >(
         clrNames: readonly T_ColourName[],
         extraColourLevels: readonly T_ExtraColourLevels[],
@@ -98,14 +105,16 @@ export class Tokens_Themes<
             T_ExtraColourLevels,
             T_ThemeBrightnessMode,
             T_ThemeContrastMode,
-            T_ThemeName
+            T_ThemeName,
+            T_Keyword_Universal
         >,
     ): Promise<Tokens_Themes<
         T_ColourName,
         T_ExtraColourLevels,
         T_ThemeBrightnessMode,
         T_ThemeContrastMode,
-        T_ThemeName
+        T_ThemeName,
+        T_Keyword_Universal
     >[ 'sets' ]> {
 
         type CompleteArray = [
@@ -115,7 +124,7 @@ export class Tokens_Themes<
                 T_ThemeBrightnessMode[],
                 T_ThemeContrastMode[],
                 T_ThemeName,
-                ThemeColourOption<T_ColourName, T_ExtraColourLevels>
+                T_Keyword_Universal
             >,
             ...Tokens_Themes_Set.InputParam<
                 T_ColourName,
@@ -123,7 +132,7 @@ export class Tokens_Themes<
                 T_ThemeBrightnessMode[],
                 T_ThemeContrastMode[],
                 T_ThemeName,
-                ThemeColourOption<T_ColourName, T_ExtraColourLevels>
+                T_Keyword_Universal
             >[]
         ];
 
@@ -145,7 +154,8 @@ export class Tokens_Themes<
                     T_ExtraColourLevels,
                     T_ThemeBrightnessMode,
                     T_ThemeContrastMode,
-                    T_ThemeName
+                    T_ThemeName,
+                    T_Keyword_Universal
                 >(
                     set.name,
                     clrNames,
@@ -165,7 +175,8 @@ export class Tokens_Themes<
                 T_ExtraColourLevels,
                 T_ThemeBrightnessMode[],
                 T_ThemeContrastMode[],
-                T_ThemeName
+                T_ThemeName,
+                T_Keyword_Universal
             >;
         } = objectGenerator(
             allThemeNames,
@@ -174,7 +185,8 @@ export class Tokens_Themes<
                 T_ExtraColourLevels,
                 T_ThemeBrightnessMode[],
                 T_ThemeContrastMode[],
-                T_ThemeName
+                T_ThemeName,
+                T_Keyword_Universal
             >
         );
 
@@ -192,7 +204,8 @@ export class Tokens_Themes<
             T_ExtraColourLevels,
             T_ThemeBrightnessMode,
             T_ThemeContrastMode,
-            T_ThemeName
+            T_ThemeName,
+            T_Keyword_Universal
         >;
     }
 
@@ -207,7 +220,8 @@ export class Tokens_Themes<
                 T_ExtraColourLevels,
                 T_ThemeBrightnessMode[],
                 T_ThemeContrastMode[],
-                T_ThemeName
+                T_ThemeName,
+                T_Keyword_Universal
             >;
         },
     ) {
@@ -219,7 +233,8 @@ export class Tokens_Themes<
         T_ExtraColourLevels,
         T_ThemeBrightnessMode,
         T_ThemeContrastMode,
-        T_ThemeName
+        T_ThemeName,
+        T_Keyword_Universal
     > {
         return this.data;
     }
@@ -230,7 +245,8 @@ export class Tokens_Themes<
             T_ExtraColourLevels,
             T_ThemeBrightnessMode[],
             T_ThemeContrastMode[],
-            T_ThemeName
+            T_ThemeName,
+            T_Keyword_Universal
         >[ 'toScssVars' ]>;
     } {
         return objectMap(
@@ -257,7 +273,9 @@ export namespace Tokens_Themes {
         T_ExtraColourLevels extends TokenLevels_Extended,
         T_ThemeBrightnessMode extends string,
         T_ThemeContrastMode extends ThemeMode_ContrastOption,
-        T_ThemeName extends string
+        T_ThemeName extends string,
+
+        T_Keyword_Universal extends string,
     > = {
             [ N in T_ThemeName ]: Tokens_Themes_Set.Data<
                 T_ColourName,
@@ -265,7 +283,7 @@ export namespace Tokens_Themes {
                 T_ThemeBrightnessMode[],
                 T_ThemeContrastMode[],
                 N,
-                ThemeColourOption<T_ColourName, T_ExtraColourLevels>
+                T_Keyword_Universal
             >;
         };
 
@@ -277,7 +295,9 @@ export namespace Tokens_Themes {
         T_ExtraColourLevels extends TokenLevels_Extended,
         T_ThemeBrightnessMode extends string,
         T_ThemeContrastMode extends ThemeMode_ContrastOption,
-        T_ThemeName extends string
+        T_ThemeName extends string,
+
+        T_Keyword_Universal extends string,
     > =
         | Tokens_Themes_Set.InputParam<
             T_ColourName,
@@ -285,7 +305,7 @@ export namespace Tokens_Themes {
             T_ThemeBrightnessMode[],
             T_ThemeContrastMode[],
             T_ThemeName,
-            ThemeColourOption<T_ColourName, T_ExtraColourLevels>
+            T_Keyword_Universal
         >
         | Tokens_Themes_Set.InputParam<
             T_ColourName,
@@ -293,7 +313,7 @@ export namespace Tokens_Themes {
             T_ThemeBrightnessMode[],
             T_ThemeContrastMode[],
             T_ThemeName,
-            ThemeColourOption<T_ColourName, T_ExtraColourLevels>
+            T_Keyword_Universal
         >[];
 
     /**
@@ -304,7 +324,9 @@ export namespace Tokens_Themes {
         T_ExtraColourLevels extends TokenLevels_Extended,
         T_ThemeBrightnessMode extends string,
         T_ThemeContrastMode extends ThemeMode_ContrastOption,
-        T_ThemeName extends string
+        T_ThemeName extends string,
+
+        T_Keyword_Universal extends string,
     > = {
             [ N in T_ThemeName ]: Tokens_Themes_Set.JsonReturn<
                 T_ColourName,
@@ -312,7 +334,7 @@ export namespace Tokens_Themes {
                 T_ThemeBrightnessMode[],
                 T_ThemeContrastMode[],
                 N,
-                ThemeColourOption<T_ColourName, T_ExtraColourLevels>
+                T_Keyword_Universal
             >;
         };
 
