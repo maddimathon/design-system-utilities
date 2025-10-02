@@ -35,9 +35,9 @@ export class Tokens_Themes_Set extends AbstractTokens {
     get data() {
         return {
             name: this.name,
-            forcedColours: this.forcedColours.data,
             // ...this.modes,
             ...objectMap(this.modes, ({ key: brightnessMode }) => objectMap(this.modes[brightnessMode], ({ value }) => value.data)),
+            forcedColours: this.forcedColours.data,
         };
     }
     constructor(

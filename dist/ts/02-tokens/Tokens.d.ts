@@ -285,6 +285,7 @@ export declare namespace Tokens_Internal {
  * @since 0.1.0-alpha.draft
  */
 export declare namespace Tokens {
+    function sample(): Promise<Tokens<"base" | "purple" | "turquoise" | "red", TokenLevels_Extended, Tokens_Internal.Default_ThemeBrightnessMode, readonly ["average", "high", "low"], "default", never>>;
     /**
      * Configuration options for the {@link Tokens} class.
      *

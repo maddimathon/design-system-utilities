@@ -53,14 +53,7 @@ export class Compile extends CompileStage {
 
         const Tokens = ( await import( /* @vite-ignore */ '../../dist/ts/02-tokens/Tokens.js' ) ).Tokens;
 
-        const defaultTokens = await Tokens.build(
-            {
-                colour: Tokens.SampleColours,
-            },
-            {
-                tokensAsDefault: true,
-            },
-        );
+        const defaultTokens = await Tokens.sample();
 
         this.console.verbose( 'writing default json tokens...', 2 );
         this.try(

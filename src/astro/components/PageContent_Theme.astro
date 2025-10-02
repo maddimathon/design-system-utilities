@@ -1,0 +1,90 @@
+---
+/**
+ * @since ___PKG_VERSION___
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+import type { Tokens } from '../../ts/02-tokens/Tokens.js';
+
+/* import - functions */
+import { toTitleCase } from '@maddimathon/utility-typescript/functions';
+import { objectMap } from '../../ts/01-utilities/objectMap.js';
+
+/* import - values */
+
+/* import - components */
+import Toggle from '@maddimathon/utility-astro/components/Toggle';
+import ThemeModeSwatch from './ThemeModeSwatch.astro';
+
+/* import - layouts */
+
+/* TYPES ===================================== */
+
+/* PROPS ===================================== */
+
+export interface Props {
+    theme: Tokens.JsonReturn['themes'][keyof Tokens.JsonReturn['themes']];
+}
+
+const { theme }: Props = Astro.props;
+
+/* CONSTANTS ===================================== */
+
+const defaultToggleToOpen = import.meta.env.DEV ? true : undefined;
+
+const parsed = Object.values(
+    objectMap(theme, ({ key, value }) =>
+        key === 'name'
+            ? false
+            : key === 'forcedColours'
+              ? false
+              : {
+                    name: key,
+                    values: Object.values(
+                        objectMap(value, ({ key: contrast, value: theme }) => ({
+                            id: `theme-${key}-${contrast}`,
+                            brightness: key,
+                            contrast,
+                            theme,
+                        }))
+                    ),
+                }
+    )
+).filter((v) => v !== false);
+---
+
+{
+    parsed.map((brightnessSet) => (
+        <Toggle
+            class='theme-mode-toggle'
+            defaultOpen={defaultToggleToOpen}
+            heading={2}
+            id={`themes-${brightnessSet.name}-mode`}
+        >
+            <Fragment
+                set:text={toTitleCase(`${brightnessSet.name} Mode`)}
+                slot='button'
+            />
+            <div
+                class='theme-mode-toggle__list'
+                data-brightness-mode={brightnessSet.name}
+                style={`--theme-mode-swatch-list-column-count: ${brightnessSet.values.length};`}
+            >
+                {brightnessSet.values.map((set) => (
+                    <ThemeModeSwatch
+                        {...set}
+                        brightness={undefined}
+                        heading={3}
+                        id={`${set.id}-swatch`}
+                    />
+                ))}
+            </div>
+        </Toggle>
+    ))
+}
+
+<style lang='scss'>
+    @forward '../scss/page-content-theme';
+</style>

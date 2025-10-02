@@ -1,0 +1,70 @@
+/*!
+ * This stylesheet includes css generated using 
+ * @maddimathon/utility-sass@0.1.0-alpha.draft
+ * 
+ * License: MIT
+ */
+/* # PAGE CONTENT - THEME ==================================== */
+:global(:where(.js))
+    .theme-mode-toggle[data-toggle-container]
+    > :global([data-toggle-content]),
+:global(:where(.js))
+    .theme-mode-toggle[data-toggle-container='open']
+    > :global([data-toggle-content]) {
+    grid-column: 1/-1;
+}
+:global(:where(.js))
+    .theme-mode-toggle[data-toggle-container]
+    > :global([data-toggle-content])
+    > :global(.container),
+:global(:where(.js))
+    .theme-mode-toggle[data-toggle-container='open']
+    > :global([data-toggle-content])
+    > :global(.container) {
+    grid-column: 1/-1;
+    justify-content: start;
+    align-content: stretch;
+    align-items: stretch;
+    padding: 0;
+}
+:global(:where(.js))
+    .theme-mode-toggle[data-toggle-container]
+    > :global([data-toggle-content])
+    > :global(.container)
+    .theme-mode-toggle__list,
+:global(:where(.js))
+    .theme-mode-toggle[data-toggle-container='open']
+    > :global([data-toggle-content])
+    > :global(.container)
+    .theme-mode-toggle__list {
+    display: grid;
+    grid-template-columns: repeat(
+        var(--theme-mode-swatch-list-column-count),
+        minmax(16rem, 1fr)
+    );
+    grid-template-rows: auto;
+    grid-auto-flow: column;
+    justify-content: stretch;
+    justify-items: stretch;
+    align-content: start;
+    align-items: start;
+    padding: 0;
+    overflow-x: auto;
+}
+:global(:where(.js))
+    .theme-mode-toggle[data-toggle-container]
+    > :global([data-toggle-content])
+    > :global(.container)
+    .theme-mode-toggle__list
+    :global(.theme-mode-swatch),
+:global(:where(.js))
+    .theme-mode-toggle[data-toggle-container='open']
+    > :global([data-toggle-content])
+    > :global(.container)
+    .theme-mode-toggle__list
+    :global(.theme-mode-swatch) {
+    padding: 0.8125rem 1.25rem;
+    padding: var(--mrg-soft-400, 0.8125rem) var(--mrg-firm-400, 1.25rem);
+    min-width: 0;
+    max-width: none;
+}

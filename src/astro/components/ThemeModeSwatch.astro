@@ -1,0 +1,100 @@
+---
+/**
+ * @since ___PKG_VERSION___
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+import type { HTMLAttributes } from 'astro/types';
+import type { TokenLevels_Extended } from '../../ts/02-tokens/@types.d.ts';
+// import type { Tokens } from '../../ts/02-tokens/Tokens.js';
+import type { Tokens_Themes_Set_SingleMode } from '../../ts/02-tokens/Themes/Themes_Set_SingleMode.js';
+
+/* import - functions */
+import { toTitleCase } from '@maddimathon/utility-typescript/functions';
+import { objectMap } from '../../ts/01-utilities/objectMap.js';
+
+/* import - values */
+
+/* import - components */
+import Heading from '@maddimathon/utility-astro/components/Heading';
+// import ShadeSwatch_Contrast from './ShadeSwatch_Contrast.astro';
+// import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
+
+/* import - layouts */
+
+/* TYPES ===================================== */
+
+/* PROPS ===================================== */
+
+export interface Props extends Omit<HTMLAttributes<'div'>, 'class'> {
+    heading: number;
+    theme: Tokens_Themes_Set_SingleMode.JsonReturn<
+        string,
+        TokenLevels_Extended,
+        string
+    >;
+
+    brightness?: string;
+    contrast?: string;
+}
+
+const { brightness, contrast, heading, theme, ...attributes }: Props =
+    Astro.props;
+
+/* CONSTANTS ===================================== */
+
+/* CONSTANTS ===================================== */
+
+// const cssVars = {
+//     'shade-swatch-color': text || undefined,
+//     'shade-swatch-background': bg ?? undefined,
+// };
+
+const customDisplayKeys = ['background', 'button', 'field', 'link', 'system'];
+
+const autoTokens = Object.values(
+    objectMap(theme, ({ key, value }) =>
+        customDisplayKeys.includes(key)
+            ? false
+            : typeof value === 'object'
+              ? { key, variations: value }
+              : { key, value }
+    )
+).filter((v) => v !== false);
+---
+
+<article
+    class:list={['container', 'theme-mode-swatch']}
+    {...attributes}
+    data-brightness-mode={brightness}
+    data-contrast-mode={contrast}
+>
+    <!-- <Heading
+        heading={heading}
+        class:list={[
+            'shade-swatch__name',
+            '||',
+            headingClass,
+        ]}
+        set:text={`${name}-${level}`}
+    /> -->
+    <!-- <VariableDump
+        name='autoTokens'
+        var={autoTokens}
+    /> -->
+    {
+        autoTokens.map((tokens) => (
+            <Heading
+                heading={heading}
+                class:list={['theme-mode-swatch__set-heading']}
+                set:text={`${toTitleCase(tokens.key)} Tokens`}
+            />
+        ))
+    }
+</article>
+
+<style lang='scss'>
+    @forward '../scss/theme-mode-swatch';
+</style>

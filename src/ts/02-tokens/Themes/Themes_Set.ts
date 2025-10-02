@@ -121,7 +121,6 @@ export class Tokens_Themes_Set<
     > {
         return {
             name: this.name,
-            forcedColours: this.forcedColours.data,
 
             // ...this.modes,
             ...objectMap(
@@ -131,6 +130,8 @@ export class Tokens_Themes_Set<
                     ( { value } ) => value.data
                 )
             ),
+
+            forcedColours: this.forcedColours.data,
         };
     }
 

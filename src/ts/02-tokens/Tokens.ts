@@ -369,6 +369,36 @@ export namespace Tokens_Internal {
  */
 export namespace Tokens {
 
+    export async function sample() {
+
+        return Tokens.build(
+            {
+                // colour: Tokens.SampleColours,
+                colour: {
+                    // 'hue-50': {
+                    //     500: { l: 50, c: 50, h: 350 },
+                    // },
+                    // 'hue-350': {
+                    //     500: { l: 50, c: 50, h: 50 },
+                    // },
+                    base: Tokens.SampleColours.base,
+                    purple: Tokens.SampleColours.purple,
+                    turquoise: Tokens.SampleColours.turquoise,
+                    red: Tokens.SampleColours.red,
+                    // orange: Tokens.SampleColours.orange,
+                    // yellow: Tokens.SampleColours.yellow,
+                    // green: Tokens.SampleColours.green,
+                    // blue: Tokens.SampleColours.blue,
+                    // pink: Tokens.SampleColours.pink,
+                },
+            },
+            {
+                // extraColourLevels: [ '150', '850' ],
+                tokensAsDefault: true,
+            },
+        );
+    }
+
     /**
      * Configuration options for the {@link Tokens} class.
      * 

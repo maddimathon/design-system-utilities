@@ -16,27 +16,18 @@
 /* # COLOUR SWATCH LIST ==================================== */
 
 .shade-swatch-list {
-    // display: flex;
-    // flex-direction: row;
-    gap: 0;
+    display: grid;
+    grid-template-columns: repeat(
+        var(--shade-swatch-list-column-count, auto-fill),
+        max-content
+    );
+    grid-template-rows: auto;
+    grid-auto-flow: column;
 
+    gap: 0;
     margin-block-start: #{lib.var-mrg-firm('400')};
 
     overflow-inline: auto;
-
-    & {
-        display: grid;
-        // grid-template-columns: repeat(
-        //     var(--shade-swatch-list-column-count, auto-fill),
-        //     16rem // clamp(12rem, 80vw, 16rem)
-        // );
-        grid-template-columns: repeat(
-            var(--shade-swatch-list-column-count, auto-fill),
-            max-content
-        );
-        grid-template-rows: auto;
-        grid-auto-flow: column;
-    }
 
     :global(.shade-swatch) {
         min-width: 0;
