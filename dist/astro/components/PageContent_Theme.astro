@@ -78,7 +78,12 @@ const parsed = Object.values(
                         brightness={undefined}
                         heading={3}
                         id={`${set.id}-swatch`}
-                    />
+                    >
+                        <Fragment
+                            slot='heading'
+                            set:text={`${toTitleCase(set.contrast)} Contrast`}
+                        />
+                    </ThemeModeSwatch>
                 ))}
             </div>
         </Toggle>

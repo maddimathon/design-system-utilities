@@ -64,7 +64,6 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                         hover: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                         active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                     };
-                    placeholder: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 };
                 link: {
                     $: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
@@ -140,7 +139,6 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                     hover: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                     active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 };
-                placeholder: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
             };
         }; }; }; };
         border: {
@@ -251,7 +249,7 @@ export declare namespace Tokens_Internal {
     type Default_ColourName = 'base';
     type Default_ExtraColourLevels = TokenLevels_Extended;
     type Default_ThemeBrightnessMode = ['light', 'dark', ...string[]];
-    type Default_ThemeContrastMode = ['average', 'high', 'low'];
+    type Default_ThemeContrastMode = ['low', 'average', 'high'];
     type Default_ThemeExtraContrastMode = ['low'];
     type Data<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_ThemeBrightnessMode extends readonly [string, ...string[]], T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne, T_ThemeName extends string, T_ThemeKeyword_Universal extends string> = {
         colour: Tokens_Colour.Data<T_ColourName, T_ExtraColourLevels>;
@@ -285,7 +283,7 @@ export declare namespace Tokens_Internal {
  * @since 0.1.0-alpha.draft
  */
 export declare namespace Tokens {
-    function sample(): Promise<Tokens<"base" | "purple" | "turquoise" | "red", TokenLevels_Extended, Tokens_Internal.Default_ThemeBrightnessMode, readonly ["average", "high", "low"], "default", never>>;
+    function sample(): Promise<Tokens<"base" | "purple" | "turquoise" | "red", TokenLevels_Extended, Tokens_Internal.Default_ThemeBrightnessMode, readonly ["low", "average", "high", "low"], "default", never>>;
     /**
      * Configuration options for the {@link Tokens} class.
      *

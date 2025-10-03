@@ -88,7 +88,7 @@ export type ThemeColourOption<
 
 export type ThemeMode_Contrast<
     T_Extra extends readonly string[] = never[],
-> = readonly [ "average", "high", ...T_Extra ];
+> = readonly [ "low", "average", "high", ...T_Extra ];
 
 export type ThemeMode_ContrastOption = Exclude<
     Tokens_Themes_Set_SingleMode.Templates.Name,

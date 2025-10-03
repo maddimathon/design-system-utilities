@@ -51,10 +51,11 @@ export class Tokens extends AbstractTokens {
             ? input.themes.brightness
             : ['light', 'dark'];
         const contrastModes = [
-            "average",
-            "high",
-            ...(input.themes?.contrast?.filter(c => c !== 'average' && c !== 'high')
-                ?? ['low']),
+            'low',
+            'average',
+            'high',
+            ...(input.themes?.contrast?.filter(c => c !== 'low' && c !== 'average' && c !== 'high')
+                ?? []),
         ];
         const themes = await Tokens_Themes.build(allClrNames, extraColourLevels, brightnessModes, [...contrastModes], input.themes?.input ?? []);
         const tokens = new Tokens(allClrNames, extraColourLevels, themes, input, {

@@ -17,7 +17,7 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
 export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_Keyword_Universal extends string, __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>> extends AbstractTokens<Tokens_Themes_Set_SingleMode.Data<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, __T_ColourOption>> {
     readonly data: Tokens_Themes_Set_SingleMode.Data<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, __T_ColourOption>;
     static build<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_Keyword_Universal extends string = never>(preset: "forcedColors", clrNames: readonly T_ColourName[], input: Tokens_Themes_Set_SingleMode.InputParam<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, CssSystemColor>): Promise<Tokens_Themes_Set_SingleMode<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, CssSystemColor>>;
-    static build<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_Keyword_Universal extends string = never>(preset: "average" | "high" | "low", clrNames: readonly T_ColourName[], input: Tokens_Themes_Set_SingleMode.InputParam<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal>): Promise<Tokens_Themes_Set_SingleMode<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal>>;
+    static build<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_Keyword_Universal extends string = never>(preset: "low" | "average" | "high", clrNames: readonly T_ColourName[], input: Tokens_Themes_Set_SingleMode.InputParam<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal>): Promise<Tokens_Themes_Set_SingleMode<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal>>;
     protected constructor(data: Tokens_Themes_Set_SingleMode.Data<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, __T_ColourOption>);
     toJSON(): Tokens_Themes_Set_SingleMode.JsonReturn<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal>;
     toScssVars(): {
@@ -40,7 +40,6 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T
                     hover: __T_ColourOption;
                     active: __T_ColourOption;
                 };
-                placeholder: __T_ColourOption;
             };
             link: {
                 $: __T_ColourOption;
@@ -116,7 +115,6 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T
                 hover: __T_ColourOption;
                 active: __T_ColourOption;
             };
-            placeholder: __T_ColourOption;
         };
     };
 }
@@ -197,7 +195,6 @@ export declare namespace Tokens_Themes_Set_SingleMode {
                 hover: __T_ColourOption;
                 active: __T_ColourOption;
             };
-            placeholder: __T_ColourOption;
         };
         system: {
             accent: {

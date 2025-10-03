@@ -73,7 +73,7 @@ export class Tokens_Themes_Set_SingleMode<
 
         T_Keyword_Universal extends string = never,
     >(
-        preset: "average" | "high" | "low",
+        preset: "low" | "average" | "high",
         clrNames: readonly T_ColourName[],
         input: Tokens_Themes_Set_SingleMode.InputParam<
             T_ColourName,
@@ -99,7 +99,7 @@ export class Tokens_Themes_Set_SingleMode<
 
         T_Keyword_Universal extends string = never,
     >(
-        preset: "average" | "forcedColors" | "high" | "low",
+        preset: "low" | "average" | "forcedColors" | "high",
         clrNames: readonly T_ColourName[],
         input: Tokens_Themes_Set_SingleMode.InputParam<
             T_ColourName,
@@ -114,16 +114,33 @@ export class Tokens_Themes_Set_SingleMode<
         >
     > {
 
+        let defaultLevels: Tokens_Themes_Set_SingleMode.RequiredLevels<never>;
+
         // returns if forced colours
         switch ( preset ) {
 
             case 'average':
+                defaultLevels = {
+                    background: '100',
+                    text: '700',
+                    ui: '700',
+                };
                 break;
 
             case 'high':
+                defaultLevels = {
+                    background: '100',
+                    text: '800',
+                    ui: '800',
+                };
                 break;
 
             case 'low':
+                defaultLevels = {
+                    background: '200',
+                    text: '700',
+                    ui: '700',
+                };
                 break;
 
             case 'forcedColors':
@@ -157,7 +174,11 @@ export class Tokens_Themes_Set_SingleMode<
                     T_ColourName,
                     T_ExtraColourLevels,
                     T_Keyword_Universal
-                >( input.levels ),
+                >( mergeArgs(
+                    defaultLevels,
+                    input.levels as Partial<Tokens_Themes_Set_SingleMode.RequiredLevels<never>>,
+                    true
+                ) ),
 
                 variations: Tokens_Themes_Set_SingleMode.Build.completeVariations<
                     T_ColourName,
@@ -402,8 +423,6 @@ export namespace Tokens_Themes_Set_SingleMode {
                 hover: __T_ColourOption,
                 active: __T_ColourOption,
             },
-
-            placeholder: __T_ColourOption,
         },
 
         system: {
@@ -570,8 +589,8 @@ export namespace Tokens_Themes_Set_SingleMode {
 
             const def: RequiredLevels<T_ExtraColourLevels> = {
                 background: '100',
-                text: '700',
-                ui: '700',
+                text: '800',
+                ui: '800',
             };
 
             return mergeArgs(
@@ -739,8 +758,6 @@ export namespace Tokens_Themes_Set_SingleMode {
                         hover: '"??"' as ColourOptions,
                         active: '"??"' as ColourOptions,
                     },
-
-                    placeholder: '"??"' as ColourOptions,
                 },
 
                 system: {
@@ -882,8 +899,6 @@ export namespace Tokens_Themes_Set_SingleMode {
                         hover: 'SelectedItemText',
                         active: 'FieldText',
                     },
-
-                    placeholder: 'FieldText',
                 },
 
                 system: {

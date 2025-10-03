@@ -7,12 +7,15 @@
 
 /* import - types */
 import type { HTMLAttributes } from 'astro/types';
+import type { RecursiveRecord } from '../../ts/01-utilities/@types.d.ts';
 import type { TokenLevels_Extended } from '../../ts/02-tokens/@types.d.ts';
 // import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Themes_Set_SingleMode } from '../../ts/02-tokens/Themes/Themes_Set_SingleMode.js';
 
 /* import - functions */
 import { toTitleCase } from '@maddimathon/utility-typescript/functions';
+// import { objectFlatten } from '../../ts/01-utilities/objectFlatten.js';
+import { objectGenerator } from '../../ts/01-utilities/objectGenerator.js';
 import { objectMap } from '../../ts/01-utilities/objectMap.js';
 
 /* import - values */
@@ -20,7 +23,7 @@ import { objectMap } from '../../ts/01-utilities/objectMap.js';
 /* import - components */
 import Heading from '@maddimathon/utility-astro/components/Heading';
 // import ShadeSwatch_Contrast from './ShadeSwatch_Contrast.astro';
-// import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
+import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
 
 /* import - layouts */
 
@@ -38,31 +41,177 @@ export interface Props extends Omit<HTMLAttributes<'div'>, 'class'> {
 
     brightness?: string;
     contrast?: string;
+    
+    /**
+     * HTML string used between the theme token name and its value.
+     */
+    equals?: string;
 }
 
-const { brightness, contrast, heading, theme, ...attributes }: Props =
-    Astro.props;
+const {
+    brightness,
+    contrast,
+    equals = '=',
+    heading: _heading,
+    theme,
+    ...attributes
+}: Props = Astro.props;
+
+/* FUNCTIONS ===================================== */
+
+function themeTokenFlatten<T_Val extends string | number |undefined |null|any[]>( 
+    prefix: null|string,
+    obj:  RecursiveRecord<string, T_Val>,
+): { key: string; value: T_Val; }[] {
+    const pre = prefix == '$' ? '' : prefix ?? '';
+
+    const mapper = ( { key, value }: { 
+        key: string; 
+        value: T_Val|RecursiveRecord<string, T_Val>;
+    } ): {
+        key: string;
+        value: T_Val;
+    }[] => {
+        key = pre + ( key == '$' ? '' : `-${key}` );
+
+        // returns 
+        if ( value && typeof value === 'object' && !Array.isArray(value) ) {
+            return themeTokenFlatten( key, value );
+        }
+        
+        return [{key: 'theme-' + key, value}];
+    };
+
+    return Object.values(
+        objectMap(
+            obj,
+            mapper
+        )
+    ).flat();
+}
 
 /* CONSTANTS ===================================== */
 
-/* CONSTANTS ===================================== */
-
-// const cssVars = {
-//     'shade-swatch-color': text || undefined,
-//     'shade-swatch-background': bg ?? undefined,
-// };
-
-const customDisplayKeys = ['background', 'button', 'field', 'link', 'system'];
+const customDisplayKeys = ['background', 'button', 'field', 'selection', 'system'];
 
 const autoTokens = Object.values(
     objectMap(theme, ({ key, value }) =>
         customDisplayKeys.includes(key)
             ? false
-            : typeof value === 'object'
-              ? { key, variations: value }
-              : { key, value }
+            : (typeof value !== 'object' || Array.isArray( value ) )
+              ? { key, value }
+              : { key, variations: themeTokenFlatten( 
+                    key, 
+                    value as RecursiveRecord<string, string>
+                ) }
     )
 ).filter((v) => v !== false);
+
+const headingHTML = (await Astro.slots.render('heading')) || false;
+
+const heading = _heading + (headingHTML ? 1 : 0);
+
+
+type ButtonVariation = {
+    name: string;
+    states: {
+        [ K in keyof Tokens_Themes_Set_SingleMode.Data_Button<string, never>['bg'] ]: {
+
+            [ K in keyof Tokens_Themes_Set_SingleMode.Data_Button<string, never> ]: {
+                state: null | Exclude<
+                    keyof Tokens_Themes_Set_SingleMode.Data_Button<string, never>['bg'],
+                    '$'
+                >;
+                key: string;
+                value: string | string[];
+            };
+        };
+    };
+};
+
+const buttons: {
+    [ K in 'primary' | 'secondary' | 'disabled' ]: ButtonVariation;
+} & {
+    [ key: string ]: ButtonVariation;
+} = objectMap(
+    theme.button,
+    ( { key: variation, value } ): ButtonVariation => ( {
+        name: variation,
+        states: objectGenerator(
+            [ '$', 'hover', 'active' ],
+            ( key ) => {
+
+                const state =  key == '$' ? null : key;
+
+                const keySuffix = key == '$' ? '' : `-${key}`;
+                
+                return {
+                    bg: {
+                        state,
+                        key: `button-${variation}-bg${keySuffix}`,
+                        value: value.bg[key],
+                    },
+                    border: {
+                        state,
+                        key: `button-${variation}-border${keySuffix}`,
+                        value: value.border[key],
+                    },
+                    text: {
+                        state,
+                        key: `button-${variation}-text${keySuffix}`,
+                        value: value.text[key],
+                    },
+                };
+            }
+        ),
+    } ),
+);
+
+
+const field: {
+    [ K in keyof Tokens_Themes_Set_SingleMode.JsonReturn<string, never, string>['field']['text'] ]: {
+
+        [ K in keyof Tokens_Themes_Set_SingleMode.JsonReturn<string, never, string>['field'] ]: {
+            state: null | Exclude<
+                keyof Tokens_Themes_Set_SingleMode.JsonReturn<string, never, string>['field']['text'],
+                '$'
+            >;
+            key: string;
+            value: string | string[];
+        };
+    };
+} = objectGenerator(
+    [ '$', 'hover', 'active' ],
+    ( key ) => {
+
+        const state =  key == '$' ? null : key;
+
+        const keySuffix = key == '$' ? '' : `-${key}`;
+        
+        return {
+            bg: {
+                state,
+                key: `field-bg${keySuffix}`,
+                value: theme.field.bg[key],
+            },
+            border: {
+                state,
+                key: `field-border${keySuffix}`,
+                value: theme.field.border[key],
+            },
+            text: {
+                state,
+                key: `field-text${keySuffix}`,
+                value: theme.field.text[key],
+            },
+        };
+    }
+);
+
+// const cssVars = {
+//     'shade-swatch-color': text || undefined,
+//     'shade-swatch-background': bg ?? undefined,
+// };
 ---
 
 <article
@@ -71,28 +220,111 @@ const autoTokens = Object.values(
     data-brightness-mode={brightness}
     data-contrast-mode={contrast}
 >
-    <!-- <Heading
+    {
+        headingHTML && (
+            <Heading
+                heading={heading - 1}
+                class:list={['theme-mode-swatch__name']}
+                set:html={headingHTML}
+            />
+        )
+    }
+    <p
+        class="theme-mode-swatch__sample"
+    ><code set:text="theme-background" /> {equals} <code set:text={theme.background} />.</p>
+    <Heading
         heading={heading}
         class:list={[
-            'shade-swatch__name',
-            '||',
-            headingClass,
+            'screen-reader-text',
+            'theme-mode-swatch__set-heading',
         ]}
-        set:text={`${name}-${level}`}
-    /> -->
-    <!-- <VariableDump
-        name='autoTokens'
-        var={autoTokens}
-    /> -->
+        set:text='Selection'
+    />
+    <p
+        class="theme-mode-swatch__sample"
+        style={ [
+            `background: var(--theme-selection-bg, var(--clr-${theme.selection.bg}))`,
+            `color: var(--theme-selection-text, var(--clr-${theme.selection.text}))`,
+        ].join(';') }
+    ><code set:text='theme-selection-bg' /> {equals} <code set:text={theme.selection.bg} /></p>
+    <p
+        class="theme-mode-swatch__sample"
+        style={ [
+            `background: var(--theme-selection-text, var(--clr-${theme.selection.text}))`,
+            `color: var(--theme-selection-bg, var(--clr-${theme.selection.bg}))`,
+        ].join(';') }
+    ><code set:text='theme-selection-text' /> {equals} <code set:text={theme.selection.text} /></p>
     {
         autoTokens.map((tokens) => (
             <Heading
                 heading={heading}
                 class:list={['theme-mode-swatch__set-heading']}
-                set:text={`${toTitleCase(tokens.key)} Tokens`}
+                set:text={`${tokens.key == 'ui' ? tokens.key.toUpperCase() : toTitleCase(tokens.key)} Tokens`}
             />
+            <Fragment>{ tokens.variations ? tokens.variations.map( ( { key, value } ) => (
+                <p
+                    class="theme-mode-swatch__sample"
+                    style={ [
+                        `background: var(--${key}, var(--clr-${value}))`,
+                        `color: var(--theme-background, var(--clr-${theme.background}))`,
+                    ].join(';') }
+                ><code set:text={key} /> {equals} <code set:text={value} /></p>
+            ) ) : (
+                <VariableDump
+                    name='tokens'
+                    var={tokens}
+                />
+            ) }</Fragment>  
         ))
     }
+    <Heading
+        heading={heading}
+        class:list={['theme-mode-swatch__set-heading']}
+        set:text='Buttons'
+    />
+    { Object.values( buttons ).map( ( variation ) => (
+        <Heading
+            heading={heading + 1}
+            class:list='screen-reader-text'
+            set:text={variation.name}
+        />
+        <div class:list={['theme-mode-swatch__button-span']}>{ Object.values( variation.states ).map( ( state ) => (
+            <a
+                href="#"
+                set:text={`${toTitleCase(variation.name)} Button${state.bg.state ? ` (${state.bg.state})` : ''}`}
+                class:list={ [
+                    'button',
+                    'theme-mode-swatch__sample',
+                    'theme-mode-swatch__sample--button',
+                ] }
+                style={ [
+                    `border-color: var(--${state.border.key}, var(--clr-${state.border.value}))`,
+                    `background: var(--${state.bg.key}, var(--clr-${state.bg.value}))`,
+                    `color: var(--${state.text.key}, var(--clr-${state.text.value}))`,
+                ].join(';') }
+            />
+        ) ) }</div>
+    ) ) }
+    <Heading
+        heading={heading}
+        class:list={['theme-mode-swatch__set-heading']}
+        set:text='Input Fields'
+    />
+    { Object.values( field ).map( ( state ) => (
+        <input
+            type="text"
+            placeholder={`Field${state.bg.state ? ` (${state.bg.state})` : ''}`}
+            class:list={ [
+                'theme-mode-swatch__sample',
+                'theme-mode-swatch__sample--field',
+            ] }
+            style={ [
+                `border-color: var(--${state.border.key}, var(--clr-${state.border.value}))`,
+                `background: var(--${state.bg.key}, var(--clr-${state.bg.value}))`,
+                `color: var(--${state.text.key}, var(--clr-${state.text.value}))`,
+            ].join(';') }
+        />
+    ) ) }
 </article>
 
 <style lang='scss'>

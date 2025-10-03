@@ -23,13 +23,29 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
      * @since 0.1.0-alpha.draft
      */
     static async build(preset, clrNames, input) {
+        let defaultLevels;
         // returns if forced colours
         switch (preset) {
             case 'average':
+                defaultLevels = {
+                    background: '100',
+                    text: '700',
+                    ui: '700',
+                };
                 break;
             case 'high':
+                defaultLevels = {
+                    background: '100',
+                    text: '800',
+                    ui: '800',
+                };
                 break;
             case 'low':
+                defaultLevels = {
+                    background: '200',
+                    text: '700',
+                    ui: '700',
+                };
                 break;
             case 'forcedColors':
                 const _input = {
@@ -39,7 +55,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 return new Tokens_Themes_Set_SingleMode(await Tokens_Themes_Set_SingleMode.Build.forcedColors(_input));
         }
         return new Tokens_Themes_Set_SingleMode(await Tokens_Themes_Set_SingleMode.Build.data({
-            levels: Tokens_Themes_Set_SingleMode.Build.completeLevels(input.levels),
+            levels: Tokens_Themes_Set_SingleMode.Build.completeLevels(mergeArgs(defaultLevels, input.levels, true)),
             variations: Tokens_Themes_Set_SingleMode.Build.completeVariations(clrNames, input.variations),
         }));
     }
@@ -99,8 +115,8 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
         function completeLevels(input) {
             const def = {
                 background: '100',
-                text: '700',
-                ui: '700',
+                text: '800',
+                ui: '800',
             };
             return mergeArgs(def, input, false);
         }
@@ -193,7 +209,6 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                         hover: '"??"',
                         active: '"??"',
                     },
-                    placeholder: '"??"',
                 },
                 system: {
                     accent: {
@@ -289,7 +304,6 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                         hover: 'SelectedItemText',
                         active: 'FieldText',
                     },
-                    placeholder: 'FieldText',
                 },
                 system: {
                     accent: {

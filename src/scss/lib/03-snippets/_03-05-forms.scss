@@ -90,7 +90,6 @@
     $color_active: var-theme(input-text-active),
     $color_hover: var-theme(input-text-hover),
     //
-    $color_placeholder: var-theme(input-placeholder),
     $args...
 ) {
     $args: meta.keywords($args);
@@ -122,15 +121,14 @@
     &::placeholder {
         opacity: 1;
 
-        color: #{$color_placeholder};
-        color: color-mix(in srgb, #{$color_placeholder} 62.5%, transparent);
+        color: currentColor;
 
-        @include high-contrast {
-            color: color-mix(in srgb, #{$color_placeholder} 87.5%, transparent);
+        @include colour-mode(('low', 'average')) {
+            color: color-mix(in srgb, currentColor 75%, transparent);
         }
 
-        @include forced-colors {
-            color: #{$color_placeholder};
+        @include high-contrast {
+            color: color-mix(in srgb, currentColor 90%, transparent);
         }
     }
 }

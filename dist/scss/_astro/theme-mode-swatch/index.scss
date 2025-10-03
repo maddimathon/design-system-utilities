@@ -19,6 +19,26 @@
     display: flex;
     flex-direction: column;
     gap: 0;
+
+    .theme-mode-swatch__name {
+        &:first-child {
+            margin-block-start: 0;
+        }
+    }
+
+    .theme-mode-swatch__button-span {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        margin-block: #{lib.var-mrg-firm('400')} #{lib.var-mrg-half('400')};
+
+        gap: #{lib.var-mrg-firm('200')} #{lib.var-mrg-firm('400')};
+
+        a.button {
+            margin: 0;
+        }
+    }
 }
 
 @include lib.extend-selectors;

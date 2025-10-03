@@ -113,12 +113,13 @@ export class Tokens<
             : [ 'light', 'dark' ] satisfies Tokens_Internal.Default_ThemeBrightnessMode as unknown as T_ThemeBrightnessMode;
 
         const contrastModes: ThemeMode_Contrast<T_ThemeContrastMode_Extra> = [
-            "average",
-            "high",
+            'low',
+            'average',
+            'high',
             ...(
-                input.themes?.contrast?.filter( c => c !== 'average' && c !== 'high' )
-                ?? ( [ 'low' ] satisfies Tokens_Internal.Default_ThemeExtraContrastMode as unknown )
-            ) as T_ThemeContrastMode_Extra,
+                input.themes?.contrast?.filter( c => c !== 'low' && c !== 'average' && c !== 'high' )
+                ?? []
+            ) as unknown as T_ThemeContrastMode_Extra,
         ] as const;
 
         const themes = await Tokens_Themes.build<
@@ -284,7 +285,7 @@ export namespace Tokens_Internal {
 
     export type Default_ThemeBrightnessMode = [ 'light', 'dark', ...string[] ];
 
-    export type Default_ThemeContrastMode = [ 'average', 'high', 'low' ];
+    export type Default_ThemeContrastMode = [ 'low', 'average', 'high' ];
 
     export type Default_ThemeExtraContrastMode = [ 'low' ];
 

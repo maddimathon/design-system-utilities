@@ -346,9 +346,406 @@ html,
     }
 }
 /* #endregion Tokens - Colour */
-/* #region Tokens - Theme - light mode + average contrast */
+/* #region Tokens - Theme - light mode + low contrast */
 html,
 [data-brightness-mode="light"],
+[data-contrast-mode="low"],
+[data-brightness-mode="light"][data-contrast-mode="low"],
+[data-contrast-mode="low"] [data-brightness-mode="light"],
+[data-brightness-mode="light"] [data-contrast-mode="low"] {
+    --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --sys-clr-text: var(--clr-base-700, hsl(0, 0%, 24.13%));
+    --sys-clr-accent-bg: "??";
+    --sys-clr-accent-text: "??";
+    --sys-clr-mark-bg: "??";
+    --sys-clr-mark-text: "??";
+    --sys-clr-selected-bg: "??";
+    --sys-clr-selected-text: "??";
+    --sys-clr-selection-bg: "??";
+    --sys-clr-selection-text: "??";
+    --sys-clr-text-active: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
+    --sys-clr-text-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+    --sys-clr-button-bg: "??";
+    --sys-clr-button-bg-active: "??";
+    --sys-clr-button-bg-hover: "??";
+    --sys-clr-button-border: "??";
+    --sys-clr-button-border-active: "??";
+    --sys-clr-button-border-hover: "??";
+    --sys-clr-button-text: "??";
+    --sys-clr-button-text-active: "??";
+    --sys-clr-button-text-hover: "??";
+    --sys-clr-input-bg: "??";
+    --sys-clr-input-bg-hover: "??";
+    --sys-clr-input-bg-active: "??";
+    --sys-clr-input-border: "??";
+    --sys-clr-input-border-hover: "??";
+    --sys-clr-input-border-active: "??";
+    --sys-clr-input-text: "??";
+    --sys-clr-input-text-hover: "??";
+    --sys-clr-input-text-active: "??";
+    --sys-clr-link: "??";
+    --sys-clr-link-active: "??";
+    --sys-clr-link-hover: "??";
+    --sys-clr-link-visited: "??";
+    --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+    --theme-text: var(--clr-base-700, hsl(0, 0%, 24.13%));
+    --theme-text-primary: var(--clr-purple-700, hsl(282.85, 45.14%, 30.4%));
+    --theme-text-secondary: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
+    --theme-text-active: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
+    --theme-text-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+    --theme-ui: var(--clr-base-700, hsl(0, 0%, 24.13%));
+    --theme-ui-primary: var(--clr-purple-700, hsl(282.85, 45.14%, 30.4%));
+    --theme-ui-secondary: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
+    --theme-ui-active: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
+    --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+    --theme-selection-bg: "??";
+    --theme-selection-text: "??";
+    --theme-link: "??";
+    --theme-link-hover: "??";
+    --theme-link-active: "??";
+    --theme-link-visited: "??";
+    --theme-button-primary-bg: "??";
+    --theme-button-primary-bg-hover: "??";
+    --theme-button-primary-bg-active: "??";
+    --theme-button-primary-border: "??";
+    --theme-button-primary-border-hover: "??";
+    --theme-button-primary-border-active: "??";
+    --theme-button-primary-text: "??";
+    --theme-button-primary-text-hover: "??";
+    --theme-button-primary-text-active: "??";
+    --theme-button-secondary-bg: "??";
+    --theme-button-secondary-bg-hover: "??";
+    --theme-button-secondary-bg-active: "??";
+    --theme-button-secondary-border: "??";
+    --theme-button-secondary-border-hover: "??";
+    --theme-button-secondary-border-active: "??";
+    --theme-button-secondary-text: "??";
+    --theme-button-secondary-text-hover: "??";
+    --theme-button-secondary-text-active: "??";
+    --theme-button-disabled-bg: "??";
+    --theme-button-disabled-bg-hover: "??";
+    --theme-button-disabled-bg-active: "??";
+    --theme-button-disabled-border: "??";
+    --theme-button-disabled-border-hover: "??";
+    --theme-button-disabled-border-active: "??";
+    --theme-button-disabled-text: "??";
+    --theme-button-disabled-text-hover: "??";
+    --theme-button-disabled-text-active: "??";
+    --theme-field-bg: "??";
+    --theme-field-bg-hover: "??";
+    --theme-field-bg-active: "??";
+    --theme-field-border: "??";
+    --theme-field-border-hover: "??";
+    --theme-field-border-active: "??";
+    --theme-field-text: "??";
+    --theme-field-text-hover: "??";
+    --theme-field-text-active: "??";
+}
+
+@media (prefers-contrast: less) {
+    html,
+    [data-brightness-mode="light"] {
+        --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-text: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --sys-clr-accent-bg: "??";
+        --sys-clr-accent-text: "??";
+        --sys-clr-mark-bg: "??";
+        --sys-clr-mark-text: "??";
+        --sys-clr-selected-bg: "??";
+        --sys-clr-selected-text: "??";
+        --sys-clr-selection-bg: "??";
+        --sys-clr-selection-text: "??";
+        --sys-clr-text-active: var(
+            --clr-turquoise-700,
+            hsl(166.3, 100%, 15.52%)
+        );
+        --sys-clr-text-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --sys-clr-button-bg: "??";
+        --sys-clr-button-bg-active: "??";
+        --sys-clr-button-bg-hover: "??";
+        --sys-clr-button-border: "??";
+        --sys-clr-button-border-active: "??";
+        --sys-clr-button-border-hover: "??";
+        --sys-clr-button-text: "??";
+        --sys-clr-button-text-active: "??";
+        --sys-clr-button-text-hover: "??";
+        --sys-clr-input-bg: "??";
+        --sys-clr-input-bg-hover: "??";
+        --sys-clr-input-bg-active: "??";
+        --sys-clr-input-border: "??";
+        --sys-clr-input-border-hover: "??";
+        --sys-clr-input-border-active: "??";
+        --sys-clr-input-text: "??";
+        --sys-clr-input-text-hover: "??";
+        --sys-clr-input-text-active: "??";
+        --sys-clr-link: "??";
+        --sys-clr-link-active: "??";
+        --sys-clr-link-hover: "??";
+        --sys-clr-link-visited: "??";
+        --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-text: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --theme-text-primary: var(--clr-purple-700, hsl(282.85, 45.14%, 30.4%));
+        --theme-text-secondary: var(
+            --clr-turquoise-700,
+            hsl(166.3, 100%, 15.52%)
+        );
+        --theme-text-active: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
+        --theme-text-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --theme-ui: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --theme-ui-primary: var(--clr-purple-700, hsl(282.85, 45.14%, 30.4%));
+        --theme-ui-secondary: var(
+            --clr-turquoise-700,
+            hsl(166.3, 100%, 15.52%)
+        );
+        --theme-ui-active: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
+        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --theme-selection-bg: "??";
+        --theme-selection-text: "??";
+        --theme-link: "??";
+        --theme-link-hover: "??";
+        --theme-link-active: "??";
+        --theme-link-visited: "??";
+        --theme-button-primary-bg: "??";
+        --theme-button-primary-bg-hover: "??";
+        --theme-button-primary-bg-active: "??";
+        --theme-button-primary-border: "??";
+        --theme-button-primary-border-hover: "??";
+        --theme-button-primary-border-active: "??";
+        --theme-button-primary-text: "??";
+        --theme-button-primary-text-hover: "??";
+        --theme-button-primary-text-active: "??";
+        --theme-button-secondary-bg: "??";
+        --theme-button-secondary-bg-hover: "??";
+        --theme-button-secondary-bg-active: "??";
+        --theme-button-secondary-border: "??";
+        --theme-button-secondary-border-hover: "??";
+        --theme-button-secondary-border-active: "??";
+        --theme-button-secondary-text: "??";
+        --theme-button-secondary-text-hover: "??";
+        --theme-button-secondary-text-active: "??";
+        --theme-button-disabled-bg: "??";
+        --theme-button-disabled-bg-hover: "??";
+        --theme-button-disabled-bg-active: "??";
+        --theme-button-disabled-border: "??";
+        --theme-button-disabled-border-hover: "??";
+        --theme-button-disabled-border-active: "??";
+        --theme-button-disabled-text: "??";
+        --theme-button-disabled-text-hover: "??";
+        --theme-button-disabled-text-active: "??";
+        --theme-field-bg: "??";
+        --theme-field-bg-hover: "??";
+        --theme-field-bg-active: "??";
+        --theme-field-border: "??";
+        --theme-field-border-hover: "??";
+        --theme-field-border-active: "??";
+        --theme-field-text: "??";
+        --theme-field-text-hover: "??";
+        --theme-field-text-active: "??";
+    }
+}
+@media (prefers-color-scheme: light) {
+    html,
+    [data-contrast-mode="low"] {
+        --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-text: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --sys-clr-accent-bg: "??";
+        --sys-clr-accent-text: "??";
+        --sys-clr-mark-bg: "??";
+        --sys-clr-mark-text: "??";
+        --sys-clr-selected-bg: "??";
+        --sys-clr-selected-text: "??";
+        --sys-clr-selection-bg: "??";
+        --sys-clr-selection-text: "??";
+        --sys-clr-text-active: var(
+            --clr-turquoise-700,
+            hsl(166.3, 100%, 15.52%)
+        );
+        --sys-clr-text-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --sys-clr-button-bg: "??";
+        --sys-clr-button-bg-active: "??";
+        --sys-clr-button-bg-hover: "??";
+        --sys-clr-button-border: "??";
+        --sys-clr-button-border-active: "??";
+        --sys-clr-button-border-hover: "??";
+        --sys-clr-button-text: "??";
+        --sys-clr-button-text-active: "??";
+        --sys-clr-button-text-hover: "??";
+        --sys-clr-input-bg: "??";
+        --sys-clr-input-bg-hover: "??";
+        --sys-clr-input-bg-active: "??";
+        --sys-clr-input-border: "??";
+        --sys-clr-input-border-hover: "??";
+        --sys-clr-input-border-active: "??";
+        --sys-clr-input-text: "??";
+        --sys-clr-input-text-hover: "??";
+        --sys-clr-input-text-active: "??";
+        --sys-clr-link: "??";
+        --sys-clr-link-active: "??";
+        --sys-clr-link-hover: "??";
+        --sys-clr-link-visited: "??";
+        --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-text: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --theme-text-primary: var(--clr-purple-700, hsl(282.85, 45.14%, 30.4%));
+        --theme-text-secondary: var(
+            --clr-turquoise-700,
+            hsl(166.3, 100%, 15.52%)
+        );
+        --theme-text-active: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
+        --theme-text-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --theme-ui: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --theme-ui-primary: var(--clr-purple-700, hsl(282.85, 45.14%, 30.4%));
+        --theme-ui-secondary: var(
+            --clr-turquoise-700,
+            hsl(166.3, 100%, 15.52%)
+        );
+        --theme-ui-active: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
+        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --theme-selection-bg: "??";
+        --theme-selection-text: "??";
+        --theme-link: "??";
+        --theme-link-hover: "??";
+        --theme-link-active: "??";
+        --theme-link-visited: "??";
+        --theme-button-primary-bg: "??";
+        --theme-button-primary-bg-hover: "??";
+        --theme-button-primary-bg-active: "??";
+        --theme-button-primary-border: "??";
+        --theme-button-primary-border-hover: "??";
+        --theme-button-primary-border-active: "??";
+        --theme-button-primary-text: "??";
+        --theme-button-primary-text-hover: "??";
+        --theme-button-primary-text-active: "??";
+        --theme-button-secondary-bg: "??";
+        --theme-button-secondary-bg-hover: "??";
+        --theme-button-secondary-bg-active: "??";
+        --theme-button-secondary-border: "??";
+        --theme-button-secondary-border-hover: "??";
+        --theme-button-secondary-border-active: "??";
+        --theme-button-secondary-text: "??";
+        --theme-button-secondary-text-hover: "??";
+        --theme-button-secondary-text-active: "??";
+        --theme-button-disabled-bg: "??";
+        --theme-button-disabled-bg-hover: "??";
+        --theme-button-disabled-bg-active: "??";
+        --theme-button-disabled-border: "??";
+        --theme-button-disabled-border-hover: "??";
+        --theme-button-disabled-border-active: "??";
+        --theme-button-disabled-text: "??";
+        --theme-button-disabled-text-hover: "??";
+        --theme-button-disabled-text-active: "??";
+        --theme-field-bg: "??";
+        --theme-field-bg-hover: "??";
+        --theme-field-bg-active: "??";
+        --theme-field-border: "??";
+        --theme-field-border-hover: "??";
+        --theme-field-border-active: "??";
+        --theme-field-text: "??";
+        --theme-field-text-hover: "??";
+        --theme-field-text-active: "??";
+    }
+}
+@media (( prefers-color-scheme: light ) and ( prefers-contrast: less )) {
+    html {
+        --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --sys-clr-text: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --sys-clr-accent-bg: "??";
+        --sys-clr-accent-text: "??";
+        --sys-clr-mark-bg: "??";
+        --sys-clr-mark-text: "??";
+        --sys-clr-selected-bg: "??";
+        --sys-clr-selected-text: "??";
+        --sys-clr-selection-bg: "??";
+        --sys-clr-selection-text: "??";
+        --sys-clr-text-active: var(
+            --clr-turquoise-700,
+            hsl(166.3, 100%, 15.52%)
+        );
+        --sys-clr-text-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --sys-clr-button-bg: "??";
+        --sys-clr-button-bg-active: "??";
+        --sys-clr-button-bg-hover: "??";
+        --sys-clr-button-border: "??";
+        --sys-clr-button-border-active: "??";
+        --sys-clr-button-border-hover: "??";
+        --sys-clr-button-text: "??";
+        --sys-clr-button-text-active: "??";
+        --sys-clr-button-text-hover: "??";
+        --sys-clr-input-bg: "??";
+        --sys-clr-input-bg-hover: "??";
+        --sys-clr-input-bg-active: "??";
+        --sys-clr-input-border: "??";
+        --sys-clr-input-border-hover: "??";
+        --sys-clr-input-border-active: "??";
+        --sys-clr-input-text: "??";
+        --sys-clr-input-text-hover: "??";
+        --sys-clr-input-text-active: "??";
+        --sys-clr-link: "??";
+        --sys-clr-link-active: "??";
+        --sys-clr-link-hover: "??";
+        --sys-clr-link-visited: "??";
+        --theme-background: var(--clr-base-200, hsl(0, 0%, 84.33%));
+        --theme-text: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --theme-text-primary: var(--clr-purple-700, hsl(282.85, 45.14%, 30.4%));
+        --theme-text-secondary: var(
+            --clr-turquoise-700,
+            hsl(166.3, 100%, 15.52%)
+        );
+        --theme-text-active: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
+        --theme-text-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --theme-ui: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --theme-ui-primary: var(--clr-purple-700, hsl(282.85, 45.14%, 30.4%));
+        --theme-ui-secondary: var(
+            --clr-turquoise-700,
+            hsl(166.3, 100%, 15.52%)
+        );
+        --theme-ui-active: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
+        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --theme-selection-bg: "??";
+        --theme-selection-text: "??";
+        --theme-link: "??";
+        --theme-link-hover: "??";
+        --theme-link-active: "??";
+        --theme-link-visited: "??";
+        --theme-button-primary-bg: "??";
+        --theme-button-primary-bg-hover: "??";
+        --theme-button-primary-bg-active: "??";
+        --theme-button-primary-border: "??";
+        --theme-button-primary-border-hover: "??";
+        --theme-button-primary-border-active: "??";
+        --theme-button-primary-text: "??";
+        --theme-button-primary-text-hover: "??";
+        --theme-button-primary-text-active: "??";
+        --theme-button-secondary-bg: "??";
+        --theme-button-secondary-bg-hover: "??";
+        --theme-button-secondary-bg-active: "??";
+        --theme-button-secondary-border: "??";
+        --theme-button-secondary-border-hover: "??";
+        --theme-button-secondary-border-active: "??";
+        --theme-button-secondary-text: "??";
+        --theme-button-secondary-text-hover: "??";
+        --theme-button-secondary-text-active: "??";
+        --theme-button-disabled-bg: "??";
+        --theme-button-disabled-bg-hover: "??";
+        --theme-button-disabled-bg-active: "??";
+        --theme-button-disabled-border: "??";
+        --theme-button-disabled-border-hover: "??";
+        --theme-button-disabled-border-active: "??";
+        --theme-button-disabled-text: "??";
+        --theme-button-disabled-text-hover: "??";
+        --theme-button-disabled-text-active: "??";
+        --theme-field-bg: "??";
+        --theme-field-bg-hover: "??";
+        --theme-field-bg-active: "??";
+        --theme-field-border: "??";
+        --theme-field-border-hover: "??";
+        --theme-field-border-active: "??";
+        --theme-field-text: "??";
+        --theme-field-text-hover: "??";
+        --theme-field-text-active: "??";
+    }
+}
+/* #endregion Tokens - Theme - light mode + low contrast */
+/* #region Tokens - Theme - light mode + average contrast */
 [data-contrast-mode="average"],
 [data-brightness-mode="light"][data-contrast-mode="average"],
 [data-contrast-mode="average"] [data-brightness-mode="light"],
@@ -387,7 +784,6 @@ html,
     --sys-clr-link-active: "??";
     --sys-clr-link-hover: "??";
     --sys-clr-link-visited: "??";
-    --sys-clr-input-placeholder: "??";
     --theme-background: var(--clr-base-100, hsl(0, 0%, 97.73%));
     --theme-text: var(--clr-base-700, hsl(0, 0%, 24.13%));
     --theme-text-primary: var(--clr-purple-700, hsl(282.85, 45.14%, 30.4%));
@@ -441,11 +837,9 @@ html,
     --theme-field-text: "??";
     --theme-field-text-hover: "??";
     --theme-field-text-active: "??";
-    --theme-field-placeholder: "??";
 }
 
 @media (prefers-color-scheme: light) {
-    html,
     [data-contrast-mode="average"] {
         --sys-clr-background: var(--clr-base-100, hsl(0, 0%, 97.73%));
         --sys-clr-text: var(--clr-base-700, hsl(0, 0%, 24.13%));
@@ -484,7 +878,6 @@ html,
         --sys-clr-link-active: "??";
         --sys-clr-link-hover: "??";
         --sys-clr-link-visited: "??";
-        --sys-clr-input-placeholder: "??";
         --theme-background: var(--clr-base-100, hsl(0, 0%, 97.73%));
         --theme-text: var(--clr-base-700, hsl(0, 0%, 24.13%));
         --theme-text-primary: var(--clr-purple-700, hsl(282.85, 45.14%, 30.4%));
@@ -544,7 +937,6 @@ html,
         --theme-field-text: "??";
         --theme-field-text-hover: "??";
         --theme-field-text-active: "??";
-        --theme-field-placeholder: "??";
     }
 }
 /* #endregion Tokens - Theme - light mode + average contrast */
@@ -554,7 +946,7 @@ html,
 [data-contrast-mode="high"] [data-brightness-mode="light"],
 [data-brightness-mode="light"] [data-contrast-mode="high"] {
     --sys-clr-background: var(--clr-base-100, hsl(0, 0%, 97.73%));
-    --sys-clr-text: var(--clr-base-700, hsl(0, 0%, 24.13%));
+    --sys-clr-text: var(--clr-base-800, hsl(0, 0%, 13.96%));
     --sys-clr-accent-bg: "??";
     --sys-clr-accent-text: "??";
     --sys-clr-mark-bg: "??";
@@ -563,8 +955,11 @@ html,
     --sys-clr-selected-text: "??";
     --sys-clr-selection-bg: "??";
     --sys-clr-selection-text: "??";
-    --sys-clr-text-active: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
-    --sys-clr-text-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+    --sys-clr-text-active: var(
+        --clr-turquoise-800,
+        hsl(166.29, 79.45%, 10.88%)
+    );
+    --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
     --sys-clr-button-bg: "??";
     --sys-clr-button-bg-active: "??";
     --sys-clr-button-bg-hover: "??";
@@ -587,18 +982,20 @@ html,
     --sys-clr-link-active: "??";
     --sys-clr-link-hover: "??";
     --sys-clr-link-visited: "??";
-    --sys-clr-input-placeholder: "??";
     --theme-background: var(--clr-base-100, hsl(0, 0%, 97.73%));
-    --theme-text: var(--clr-base-700, hsl(0, 0%, 24.13%));
-    --theme-text-primary: var(--clr-purple-700, hsl(282.85, 45.14%, 30.4%));
-    --theme-text-secondary: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
-    --theme-text-active: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
-    --theme-text-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
-    --theme-ui: var(--clr-base-700, hsl(0, 0%, 24.13%));
-    --theme-ui-primary: var(--clr-purple-700, hsl(282.85, 45.14%, 30.4%));
-    --theme-ui-secondary: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
-    --theme-ui-active: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
-    --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+    --theme-text: var(--clr-base-800, hsl(0, 0%, 13.96%));
+    --theme-text-primary: var(--clr-purple-800, hsl(281.92, 47.83%, 19.28%));
+    --theme-text-secondary: var(
+        --clr-turquoise-800,
+        hsl(166.29, 79.45%, 10.88%)
+    );
+    --theme-text-active: var(--clr-turquoise-800, hsl(166.29, 79.45%, 10.88%));
+    --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
+    --theme-ui: var(--clr-base-800, hsl(0, 0%, 13.96%));
+    --theme-ui-primary: var(--clr-purple-800, hsl(281.92, 47.83%, 19.28%));
+    --theme-ui-secondary: var(--clr-turquoise-800, hsl(166.29, 79.45%, 10.88%));
+    --theme-ui-active: var(--clr-turquoise-800, hsl(166.29, 79.45%, 10.88%));
+    --theme-ui-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
     --theme-selection-bg: "??";
     --theme-selection-text: "??";
     --theme-link: "??";
@@ -641,14 +1038,13 @@ html,
     --theme-field-text: "??";
     --theme-field-text-hover: "??";
     --theme-field-text-active: "??";
-    --theme-field-placeholder: "??";
 }
 
 @media (prefers-contrast: more) {
     html,
     [data-brightness-mode="light"] {
         --sys-clr-background: var(--clr-base-100, hsl(0, 0%, 97.73%));
-        --sys-clr-text: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --sys-clr-text: var(--clr-base-800, hsl(0, 0%, 13.96%));
         --sys-clr-accent-bg: "??";
         --sys-clr-accent-text: "??";
         --sys-clr-mark-bg: "??";
@@ -658,10 +1054,10 @@ html,
         --sys-clr-selection-bg: "??";
         --sys-clr-selection-text: "??";
         --sys-clr-text-active: var(
-            --clr-turquoise-700,
-            hsl(166.3, 100%, 15.52%)
+            --clr-turquoise-800,
+            hsl(166.29, 79.45%, 10.88%)
         );
-        --sys-clr-text-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
         --sys-clr-button-bg: "??";
         --sys-clr-button-bg-active: "??";
         --sys-clr-button-bg-hover: "??";
@@ -684,24 +1080,32 @@ html,
         --sys-clr-link-active: "??";
         --sys-clr-link-hover: "??";
         --sys-clr-link-visited: "??";
-        --sys-clr-input-placeholder: "??";
         --theme-background: var(--clr-base-100, hsl(0, 0%, 97.73%));
-        --theme-text: var(--clr-base-700, hsl(0, 0%, 24.13%));
-        --theme-text-primary: var(--clr-purple-700, hsl(282.85, 45.14%, 30.4%));
+        --theme-text: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --theme-text-primary: var(
+            --clr-purple-800,
+            hsl(281.92, 47.83%, 19.28%)
+        );
         --theme-text-secondary: var(
-            --clr-turquoise-700,
-            hsl(166.3, 100%, 15.52%)
+            --clr-turquoise-800,
+            hsl(166.29, 79.45%, 10.88%)
         );
-        --theme-text-active: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
-        --theme-text-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
-        --theme-ui: var(--clr-base-700, hsl(0, 0%, 24.13%));
-        --theme-ui-primary: var(--clr-purple-700, hsl(282.85, 45.14%, 30.4%));
+        --theme-text-active: var(
+            --clr-turquoise-800,
+            hsl(166.29, 79.45%, 10.88%)
+        );
+        --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --theme-ui: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --theme-ui-primary: var(--clr-purple-800, hsl(281.92, 47.83%, 19.28%));
         --theme-ui-secondary: var(
-            --clr-turquoise-700,
-            hsl(166.3, 100%, 15.52%)
+            --clr-turquoise-800,
+            hsl(166.29, 79.45%, 10.88%)
         );
-        --theme-ui-active: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
-        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --theme-ui-active: var(
+            --clr-turquoise-800,
+            hsl(166.29, 79.45%, 10.88%)
+        );
+        --theme-ui-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
         --theme-selection-bg: "??";
         --theme-selection-text: "??";
         --theme-link: "??";
@@ -744,13 +1148,12 @@ html,
         --theme-field-text: "??";
         --theme-field-text-hover: "??";
         --theme-field-text-active: "??";
-        --theme-field-placeholder: "??";
     }
 }
 @media (prefers-color-scheme: light) {
     [data-contrast-mode="high"] {
         --sys-clr-background: var(--clr-base-100, hsl(0, 0%, 97.73%));
-        --sys-clr-text: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --sys-clr-text: var(--clr-base-800, hsl(0, 0%, 13.96%));
         --sys-clr-accent-bg: "??";
         --sys-clr-accent-text: "??";
         --sys-clr-mark-bg: "??";
@@ -760,10 +1163,10 @@ html,
         --sys-clr-selection-bg: "??";
         --sys-clr-selection-text: "??";
         --sys-clr-text-active: var(
-            --clr-turquoise-700,
-            hsl(166.3, 100%, 15.52%)
+            --clr-turquoise-800,
+            hsl(166.29, 79.45%, 10.88%)
         );
-        --sys-clr-text-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
         --sys-clr-button-bg: "??";
         --sys-clr-button-bg-active: "??";
         --sys-clr-button-bg-hover: "??";
@@ -786,24 +1189,32 @@ html,
         --sys-clr-link-active: "??";
         --sys-clr-link-hover: "??";
         --sys-clr-link-visited: "??";
-        --sys-clr-input-placeholder: "??";
         --theme-background: var(--clr-base-100, hsl(0, 0%, 97.73%));
-        --theme-text: var(--clr-base-700, hsl(0, 0%, 24.13%));
-        --theme-text-primary: var(--clr-purple-700, hsl(282.85, 45.14%, 30.4%));
+        --theme-text: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --theme-text-primary: var(
+            --clr-purple-800,
+            hsl(281.92, 47.83%, 19.28%)
+        );
         --theme-text-secondary: var(
-            --clr-turquoise-700,
-            hsl(166.3, 100%, 15.52%)
+            --clr-turquoise-800,
+            hsl(166.29, 79.45%, 10.88%)
         );
-        --theme-text-active: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
-        --theme-text-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
-        --theme-ui: var(--clr-base-700, hsl(0, 0%, 24.13%));
-        --theme-ui-primary: var(--clr-purple-700, hsl(282.85, 45.14%, 30.4%));
+        --theme-text-active: var(
+            --clr-turquoise-800,
+            hsl(166.29, 79.45%, 10.88%)
+        );
+        --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --theme-ui: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --theme-ui-primary: var(--clr-purple-800, hsl(281.92, 47.83%, 19.28%));
         --theme-ui-secondary: var(
-            --clr-turquoise-700,
-            hsl(166.3, 100%, 15.52%)
+            --clr-turquoise-800,
+            hsl(166.29, 79.45%, 10.88%)
         );
-        --theme-ui-active: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
-        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --theme-ui-active: var(
+            --clr-turquoise-800,
+            hsl(166.29, 79.45%, 10.88%)
+        );
+        --theme-ui-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
         --theme-selection-bg: "??";
         --theme-selection-text: "??";
         --theme-link: "??";
@@ -846,13 +1257,12 @@ html,
         --theme-field-text: "??";
         --theme-field-text-hover: "??";
         --theme-field-text-active: "??";
-        --theme-field-placeholder: "??";
     }
 }
 @media (( prefers-color-scheme: light ) and ( prefers-contrast: more )) {
     html {
         --sys-clr-background: var(--clr-base-100, hsl(0, 0%, 97.73%));
-        --sys-clr-text: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --sys-clr-text: var(--clr-base-800, hsl(0, 0%, 13.96%));
         --sys-clr-accent-bg: "??";
         --sys-clr-accent-text: "??";
         --sys-clr-mark-bg: "??";
@@ -862,10 +1272,10 @@ html,
         --sys-clr-selection-bg: "??";
         --sys-clr-selection-text: "??";
         --sys-clr-text-active: var(
-            --clr-turquoise-700,
-            hsl(166.3, 100%, 15.52%)
+            --clr-turquoise-800,
+            hsl(166.29, 79.45%, 10.88%)
         );
-        --sys-clr-text-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
         --sys-clr-button-bg: "??";
         --sys-clr-button-bg-active: "??";
         --sys-clr-button-bg-hover: "??";
@@ -888,24 +1298,32 @@ html,
         --sys-clr-link-active: "??";
         --sys-clr-link-hover: "??";
         --sys-clr-link-visited: "??";
-        --sys-clr-input-placeholder: "??";
         --theme-background: var(--clr-base-100, hsl(0, 0%, 97.73%));
-        --theme-text: var(--clr-base-700, hsl(0, 0%, 24.13%));
-        --theme-text-primary: var(--clr-purple-700, hsl(282.85, 45.14%, 30.4%));
+        --theme-text: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --theme-text-primary: var(
+            --clr-purple-800,
+            hsl(281.92, 47.83%, 19.28%)
+        );
         --theme-text-secondary: var(
-            --clr-turquoise-700,
-            hsl(166.3, 100%, 15.52%)
+            --clr-turquoise-800,
+            hsl(166.29, 79.45%, 10.88%)
         );
-        --theme-text-active: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
-        --theme-text-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
-        --theme-ui: var(--clr-base-700, hsl(0, 0%, 24.13%));
-        --theme-ui-primary: var(--clr-purple-700, hsl(282.85, 45.14%, 30.4%));
+        --theme-text-active: var(
+            --clr-turquoise-800,
+            hsl(166.29, 79.45%, 10.88%)
+        );
+        --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --theme-ui: var(--clr-base-800, hsl(0, 0%, 13.96%));
+        --theme-ui-primary: var(--clr-purple-800, hsl(281.92, 47.83%, 19.28%));
         --theme-ui-secondary: var(
-            --clr-turquoise-700,
-            hsl(166.3, 100%, 15.52%)
+            --clr-turquoise-800,
+            hsl(166.29, 79.45%, 10.88%)
         );
-        --theme-ui-active: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
-        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --theme-ui-active: var(
+            --clr-turquoise-800,
+            hsl(166.29, 79.45%, 10.88%)
+        );
+        --theme-ui-disabled: var(--clr-base-800, hsl(0, 0%, 13.96%));
         --theme-selection-bg: "??";
         --theme-selection-text: "??";
         --theme-link: "??";
@@ -948,17 +1366,16 @@ html,
         --theme-field-text: "??";
         --theme-field-text-hover: "??";
         --theme-field-text-active: "??";
-        --theme-field-placeholder: "??";
     }
 }
 /* #endregion Tokens - Theme - light mode + high contrast */
-/* #region Tokens - Theme - light mode + low contrast */
-[data-contrast-mode="low"],
-[data-brightness-mode="light"][data-contrast-mode="low"],
-[data-contrast-mode="low"] [data-brightness-mode="light"],
-[data-brightness-mode="light"] [data-contrast-mode="low"] {
-    --sys-clr-background: var(--clr-base-100, hsl(0, 0%, 97.73%));
-    --sys-clr-text: var(--clr-base-700, hsl(0, 0%, 24.13%));
+/* #region Tokens - Theme - dark mode + low contrast */
+[data-brightness-mode="dark"],
+[data-brightness-mode="dark"][data-contrast-mode="low"],
+[data-contrast-mode="low"] [data-brightness-mode="dark"],
+[data-brightness-mode="dark"] [data-contrast-mode="low"] {
+    --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
+    --sys-clr-text: var(--clr-base-700, hsl(0, 0%, 71.32%));
     --sys-clr-accent-bg: "??";
     --sys-clr-accent-text: "??";
     --sys-clr-mark-bg: "??";
@@ -967,8 +1384,11 @@ html,
     --sys-clr-selected-text: "??";
     --sys-clr-selection-bg: "??";
     --sys-clr-selection-text: "??";
-    --sys-clr-text-active: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
-    --sys-clr-text-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+    --sys-clr-text-active: var(
+        --clr-turquoise-700,
+        hsl(157.28, 44.06%, 57.81%)
+    );
+    --sys-clr-text-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
     --sys-clr-button-bg: "??";
     --sys-clr-button-bg-active: "??";
     --sys-clr-button-bg-hover: "??";
@@ -991,18 +1411,20 @@ html,
     --sys-clr-link-active: "??";
     --sys-clr-link-hover: "??";
     --sys-clr-link-visited: "??";
-    --sys-clr-input-placeholder: "??";
-    --theme-background: var(--clr-base-100, hsl(0, 0%, 97.73%));
-    --theme-text: var(--clr-base-700, hsl(0, 0%, 24.13%));
-    --theme-text-primary: var(--clr-purple-700, hsl(282.85, 45.14%, 30.4%));
-    --theme-text-secondary: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
-    --theme-text-active: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
-    --theme-text-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
-    --theme-ui: var(--clr-base-700, hsl(0, 0%, 24.13%));
-    --theme-ui-primary: var(--clr-purple-700, hsl(282.85, 45.14%, 30.4%));
-    --theme-ui-secondary: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
-    --theme-ui-active: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
-    --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+    --theme-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
+    --theme-text: var(--clr-base-700, hsl(0, 0%, 71.32%));
+    --theme-text-primary: var(--clr-purple-700, hsl(284.03, 55.65%, 73.41%));
+    --theme-text-secondary: var(
+        --clr-turquoise-700,
+        hsl(157.28, 44.06%, 57.81%)
+    );
+    --theme-text-active: var(--clr-turquoise-700, hsl(157.28, 44.06%, 57.81%));
+    --theme-text-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
+    --theme-ui: var(--clr-base-700, hsl(0, 0%, 71.32%));
+    --theme-ui-primary: var(--clr-purple-700, hsl(284.03, 55.65%, 73.41%));
+    --theme-ui-secondary: var(--clr-turquoise-700, hsl(157.28, 44.06%, 57.81%));
+    --theme-ui-active: var(--clr-turquoise-700, hsl(157.28, 44.06%, 57.81%));
+    --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
     --theme-selection-bg: "??";
     --theme-selection-text: "??";
     --theme-link: "??";
@@ -1045,116 +1467,122 @@ html,
     --theme-field-text: "??";
     --theme-field-text-hover: "??";
     --theme-field-text-active: "??";
-    --theme-field-placeholder: "??";
 }
 
 @media (prefers-contrast: less) {
+    [data-brightness-mode="dark"] {
+        --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-text: var(--clr-base-700, hsl(0, 0%, 71.32%));
+        --sys-clr-accent-bg: "??";
+        --sys-clr-accent-text: "??";
+        --sys-clr-mark-bg: "??";
+        --sys-clr-mark-text: "??";
+        --sys-clr-selected-bg: "??";
+        --sys-clr-selected-text: "??";
+        --sys-clr-selection-bg: "??";
+        --sys-clr-selection-text: "??";
+        --sys-clr-text-active: var(
+            --clr-turquoise-700,
+            hsl(157.28, 44.06%, 57.81%)
+        );
+        --sys-clr-text-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
+        --sys-clr-button-bg: "??";
+        --sys-clr-button-bg-active: "??";
+        --sys-clr-button-bg-hover: "??";
+        --sys-clr-button-border: "??";
+        --sys-clr-button-border-active: "??";
+        --sys-clr-button-border-hover: "??";
+        --sys-clr-button-text: "??";
+        --sys-clr-button-text-active: "??";
+        --sys-clr-button-text-hover: "??";
+        --sys-clr-input-bg: "??";
+        --sys-clr-input-bg-hover: "??";
+        --sys-clr-input-bg-active: "??";
+        --sys-clr-input-border: "??";
+        --sys-clr-input-border-hover: "??";
+        --sys-clr-input-border-active: "??";
+        --sys-clr-input-text: "??";
+        --sys-clr-input-text-hover: "??";
+        --sys-clr-input-text-active: "??";
+        --sys-clr-link: "??";
+        --sys-clr-link-active: "??";
+        --sys-clr-link-hover: "??";
+        --sys-clr-link-visited: "??";
+        --theme-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-text: var(--clr-base-700, hsl(0, 0%, 71.32%));
+        --theme-text-primary: var(
+            --clr-purple-700,
+            hsl(284.03, 55.65%, 73.41%)
+        );
+        --theme-text-secondary: var(
+            --clr-turquoise-700,
+            hsl(157.28, 44.06%, 57.81%)
+        );
+        --theme-text-active: var(
+            --clr-turquoise-700,
+            hsl(157.28, 44.06%, 57.81%)
+        );
+        --theme-text-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
+        --theme-ui: var(--clr-base-700, hsl(0, 0%, 71.32%));
+        --theme-ui-primary: var(--clr-purple-700, hsl(284.03, 55.65%, 73.41%));
+        --theme-ui-secondary: var(
+            --clr-turquoise-700,
+            hsl(157.28, 44.06%, 57.81%)
+        );
+        --theme-ui-active: var(
+            --clr-turquoise-700,
+            hsl(157.28, 44.06%, 57.81%)
+        );
+        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
+        --theme-selection-bg: "??";
+        --theme-selection-text: "??";
+        --theme-link: "??";
+        --theme-link-hover: "??";
+        --theme-link-active: "??";
+        --theme-link-visited: "??";
+        --theme-button-primary-bg: "??";
+        --theme-button-primary-bg-hover: "??";
+        --theme-button-primary-bg-active: "??";
+        --theme-button-primary-border: "??";
+        --theme-button-primary-border-hover: "??";
+        --theme-button-primary-border-active: "??";
+        --theme-button-primary-text: "??";
+        --theme-button-primary-text-hover: "??";
+        --theme-button-primary-text-active: "??";
+        --theme-button-secondary-bg: "??";
+        --theme-button-secondary-bg-hover: "??";
+        --theme-button-secondary-bg-active: "??";
+        --theme-button-secondary-border: "??";
+        --theme-button-secondary-border-hover: "??";
+        --theme-button-secondary-border-active: "??";
+        --theme-button-secondary-text: "??";
+        --theme-button-secondary-text-hover: "??";
+        --theme-button-secondary-text-active: "??";
+        --theme-button-disabled-bg: "??";
+        --theme-button-disabled-bg-hover: "??";
+        --theme-button-disabled-bg-active: "??";
+        --theme-button-disabled-border: "??";
+        --theme-button-disabled-border-hover: "??";
+        --theme-button-disabled-border-active: "??";
+        --theme-button-disabled-text: "??";
+        --theme-button-disabled-text-hover: "??";
+        --theme-button-disabled-text-active: "??";
+        --theme-field-bg: "??";
+        --theme-field-bg-hover: "??";
+        --theme-field-bg-active: "??";
+        --theme-field-border: "??";
+        --theme-field-border-hover: "??";
+        --theme-field-border-active: "??";
+        --theme-field-text: "??";
+        --theme-field-text-hover: "??";
+        --theme-field-text-active: "??";
+    }
+}
+@media (prefers-color-scheme: dark) {
     html,
-    [data-brightness-mode="light"] {
-        --sys-clr-background: var(--clr-base-100, hsl(0, 0%, 97.73%));
-        --sys-clr-text: var(--clr-base-700, hsl(0, 0%, 24.13%));
-        --sys-clr-accent-bg: "??";
-        --sys-clr-accent-text: "??";
-        --sys-clr-mark-bg: "??";
-        --sys-clr-mark-text: "??";
-        --sys-clr-selected-bg: "??";
-        --sys-clr-selected-text: "??";
-        --sys-clr-selection-bg: "??";
-        --sys-clr-selection-text: "??";
-        --sys-clr-text-active: var(
-            --clr-turquoise-700,
-            hsl(166.3, 100%, 15.52%)
-        );
-        --sys-clr-text-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
-        --sys-clr-button-bg: "??";
-        --sys-clr-button-bg-active: "??";
-        --sys-clr-button-bg-hover: "??";
-        --sys-clr-button-border: "??";
-        --sys-clr-button-border-active: "??";
-        --sys-clr-button-border-hover: "??";
-        --sys-clr-button-text: "??";
-        --sys-clr-button-text-active: "??";
-        --sys-clr-button-text-hover: "??";
-        --sys-clr-input-bg: "??";
-        --sys-clr-input-bg-hover: "??";
-        --sys-clr-input-bg-active: "??";
-        --sys-clr-input-border: "??";
-        --sys-clr-input-border-hover: "??";
-        --sys-clr-input-border-active: "??";
-        --sys-clr-input-text: "??";
-        --sys-clr-input-text-hover: "??";
-        --sys-clr-input-text-active: "??";
-        --sys-clr-link: "??";
-        --sys-clr-link-active: "??";
-        --sys-clr-link-hover: "??";
-        --sys-clr-link-visited: "??";
-        --sys-clr-input-placeholder: "??";
-        --theme-background: var(--clr-base-100, hsl(0, 0%, 97.73%));
-        --theme-text: var(--clr-base-700, hsl(0, 0%, 24.13%));
-        --theme-text-primary: var(--clr-purple-700, hsl(282.85, 45.14%, 30.4%));
-        --theme-text-secondary: var(
-            --clr-turquoise-700,
-            hsl(166.3, 100%, 15.52%)
-        );
-        --theme-text-active: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
-        --theme-text-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
-        --theme-ui: var(--clr-base-700, hsl(0, 0%, 24.13%));
-        --theme-ui-primary: var(--clr-purple-700, hsl(282.85, 45.14%, 30.4%));
-        --theme-ui-secondary: var(
-            --clr-turquoise-700,
-            hsl(166.3, 100%, 15.52%)
-        );
-        --theme-ui-active: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
-        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
-        --theme-selection-bg: "??";
-        --theme-selection-text: "??";
-        --theme-link: "??";
-        --theme-link-hover: "??";
-        --theme-link-active: "??";
-        --theme-link-visited: "??";
-        --theme-button-primary-bg: "??";
-        --theme-button-primary-bg-hover: "??";
-        --theme-button-primary-bg-active: "??";
-        --theme-button-primary-border: "??";
-        --theme-button-primary-border-hover: "??";
-        --theme-button-primary-border-active: "??";
-        --theme-button-primary-text: "??";
-        --theme-button-primary-text-hover: "??";
-        --theme-button-primary-text-active: "??";
-        --theme-button-secondary-bg: "??";
-        --theme-button-secondary-bg-hover: "??";
-        --theme-button-secondary-bg-active: "??";
-        --theme-button-secondary-border: "??";
-        --theme-button-secondary-border-hover: "??";
-        --theme-button-secondary-border-active: "??";
-        --theme-button-secondary-text: "??";
-        --theme-button-secondary-text-hover: "??";
-        --theme-button-secondary-text-active: "??";
-        --theme-button-disabled-bg: "??";
-        --theme-button-disabled-bg-hover: "??";
-        --theme-button-disabled-bg-active: "??";
-        --theme-button-disabled-border: "??";
-        --theme-button-disabled-border-hover: "??";
-        --theme-button-disabled-border-active: "??";
-        --theme-button-disabled-text: "??";
-        --theme-button-disabled-text-hover: "??";
-        --theme-button-disabled-text-active: "??";
-        --theme-field-bg: "??";
-        --theme-field-bg-hover: "??";
-        --theme-field-bg-active: "??";
-        --theme-field-border: "??";
-        --theme-field-border-hover: "??";
-        --theme-field-border-active: "??";
-        --theme-field-text: "??";
-        --theme-field-text-hover: "??";
-        --theme-field-text-active: "??";
-        --theme-field-placeholder: "??";
-    }
-}
-@media (prefers-color-scheme: light) {
     [data-contrast-mode="low"] {
-        --sys-clr-background: var(--clr-base-100, hsl(0, 0%, 97.73%));
-        --sys-clr-text: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-text: var(--clr-base-700, hsl(0, 0%, 71.32%));
         --sys-clr-accent-bg: "??";
         --sys-clr-accent-text: "??";
         --sys-clr-mark-bg: "??";
@@ -1165,9 +1593,9 @@ html,
         --sys-clr-selection-text: "??";
         --sys-clr-text-active: var(
             --clr-turquoise-700,
-            hsl(166.3, 100%, 15.52%)
+            hsl(157.28, 44.06%, 57.81%)
         );
-        --sys-clr-text-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --sys-clr-text-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
         --sys-clr-button-bg: "??";
         --sys-clr-button-bg-active: "??";
         --sys-clr-button-bg-hover: "??";
@@ -1190,24 +1618,32 @@ html,
         --sys-clr-link-active: "??";
         --sys-clr-link-hover: "??";
         --sys-clr-link-visited: "??";
-        --sys-clr-input-placeholder: "??";
-        --theme-background: var(--clr-base-100, hsl(0, 0%, 97.73%));
-        --theme-text: var(--clr-base-700, hsl(0, 0%, 24.13%));
-        --theme-text-primary: var(--clr-purple-700, hsl(282.85, 45.14%, 30.4%));
+        --theme-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-text: var(--clr-base-700, hsl(0, 0%, 71.32%));
+        --theme-text-primary: var(
+            --clr-purple-700,
+            hsl(284.03, 55.65%, 73.41%)
+        );
         --theme-text-secondary: var(
             --clr-turquoise-700,
-            hsl(166.3, 100%, 15.52%)
+            hsl(157.28, 44.06%, 57.81%)
         );
-        --theme-text-active: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
-        --theme-text-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
-        --theme-ui: var(--clr-base-700, hsl(0, 0%, 24.13%));
-        --theme-ui-primary: var(--clr-purple-700, hsl(282.85, 45.14%, 30.4%));
+        --theme-text-active: var(
+            --clr-turquoise-700,
+            hsl(157.28, 44.06%, 57.81%)
+        );
+        --theme-text-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
+        --theme-ui: var(--clr-base-700, hsl(0, 0%, 71.32%));
+        --theme-ui-primary: var(--clr-purple-700, hsl(284.03, 55.65%, 73.41%));
         --theme-ui-secondary: var(
             --clr-turquoise-700,
-            hsl(166.3, 100%, 15.52%)
+            hsl(157.28, 44.06%, 57.81%)
         );
-        --theme-ui-active: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
-        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --theme-ui-active: var(
+            --clr-turquoise-700,
+            hsl(157.28, 44.06%, 57.81%)
+        );
+        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
         --theme-selection-bg: "??";
         --theme-selection-text: "??";
         --theme-link: "??";
@@ -1250,13 +1686,12 @@ html,
         --theme-field-text: "??";
         --theme-field-text-hover: "??";
         --theme-field-text-active: "??";
-        --theme-field-placeholder: "??";
     }
 }
-@media (( prefers-color-scheme: light ) and ( prefers-contrast: less )) {
+@media (( prefers-color-scheme: dark ) and ( prefers-contrast: less )) {
     html {
-        --sys-clr-background: var(--clr-base-100, hsl(0, 0%, 97.73%));
-        --sys-clr-text: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --sys-clr-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --sys-clr-text: var(--clr-base-700, hsl(0, 0%, 71.32%));
         --sys-clr-accent-bg: "??";
         --sys-clr-accent-text: "??";
         --sys-clr-mark-bg: "??";
@@ -1267,9 +1702,9 @@ html,
         --sys-clr-selection-text: "??";
         --sys-clr-text-active: var(
             --clr-turquoise-700,
-            hsl(166.3, 100%, 15.52%)
+            hsl(157.28, 44.06%, 57.81%)
         );
-        --sys-clr-text-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --sys-clr-text-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
         --sys-clr-button-bg: "??";
         --sys-clr-button-bg-active: "??";
         --sys-clr-button-bg-hover: "??";
@@ -1292,24 +1727,32 @@ html,
         --sys-clr-link-active: "??";
         --sys-clr-link-hover: "??";
         --sys-clr-link-visited: "??";
-        --sys-clr-input-placeholder: "??";
-        --theme-background: var(--clr-base-100, hsl(0, 0%, 97.73%));
-        --theme-text: var(--clr-base-700, hsl(0, 0%, 24.13%));
-        --theme-text-primary: var(--clr-purple-700, hsl(282.85, 45.14%, 30.4%));
+        --theme-background: var(--clr-base-200, hsl(0, 0%, 13.96%));
+        --theme-text: var(--clr-base-700, hsl(0, 0%, 71.32%));
+        --theme-text-primary: var(
+            --clr-purple-700,
+            hsl(284.03, 55.65%, 73.41%)
+        );
         --theme-text-secondary: var(
             --clr-turquoise-700,
-            hsl(166.3, 100%, 15.52%)
+            hsl(157.28, 44.06%, 57.81%)
         );
-        --theme-text-active: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
-        --theme-text-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
-        --theme-ui: var(--clr-base-700, hsl(0, 0%, 24.13%));
-        --theme-ui-primary: var(--clr-purple-700, hsl(282.85, 45.14%, 30.4%));
+        --theme-text-active: var(
+            --clr-turquoise-700,
+            hsl(157.28, 44.06%, 57.81%)
+        );
+        --theme-text-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
+        --theme-ui: var(--clr-base-700, hsl(0, 0%, 71.32%));
+        --theme-ui-primary: var(--clr-purple-700, hsl(284.03, 55.65%, 73.41%));
         --theme-ui-secondary: var(
             --clr-turquoise-700,
-            hsl(166.3, 100%, 15.52%)
+            hsl(157.28, 44.06%, 57.81%)
         );
-        --theme-ui-active: var(--clr-turquoise-700, hsl(166.3, 100%, 15.52%));
-        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
+        --theme-ui-active: var(
+            --clr-turquoise-700,
+            hsl(157.28, 44.06%, 57.81%)
+        );
+        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
         --theme-selection-bg: "??";
         --theme-selection-text: "??";
         --theme-link: "??";
@@ -1352,12 +1795,10 @@ html,
         --theme-field-text: "??";
         --theme-field-text-hover: "??";
         --theme-field-text-active: "??";
-        --theme-field-placeholder: "??";
     }
 }
-/* #endregion Tokens - Theme - light mode + low contrast */
+/* #endregion Tokens - Theme - dark mode + low contrast */
 /* #region Tokens - Theme - dark mode + average contrast */
-[data-brightness-mode="dark"],
 [data-brightness-mode="dark"][data-contrast-mode="average"],
 [data-contrast-mode="average"] [data-brightness-mode="dark"],
 [data-brightness-mode="dark"] [data-contrast-mode="average"] {
@@ -1398,7 +1839,6 @@ html,
     --sys-clr-link-active: "??";
     --sys-clr-link-hover: "??";
     --sys-clr-link-visited: "??";
-    --sys-clr-input-placeholder: "??";
     --theme-background: var(--clr-base-100, hsl(0, 0%, 2.86%));
     --theme-text: var(--clr-base-700, hsl(0, 0%, 71.32%));
     --theme-text-primary: var(--clr-purple-700, hsl(284.03, 55.65%, 73.41%));
@@ -1455,11 +1895,9 @@ html,
     --theme-field-text: "??";
     --theme-field-text-hover: "??";
     --theme-field-text-active: "??";
-    --theme-field-placeholder: "??";
 }
 
 @media (prefers-color-scheme: dark) {
-    html,
     [data-contrast-mode="average"] {
         --sys-clr-background: var(--clr-base-100, hsl(0, 0%, 2.86%));
         --sys-clr-text: var(--clr-base-700, hsl(0, 0%, 71.32%));
@@ -1498,7 +1936,6 @@ html,
         --sys-clr-link-active: "??";
         --sys-clr-link-hover: "??";
         --sys-clr-link-visited: "??";
-        --sys-clr-input-placeholder: "??";
         --theme-background: var(--clr-base-100, hsl(0, 0%, 2.86%));
         --theme-text: var(--clr-base-700, hsl(0, 0%, 71.32%));
         --theme-text-primary: var(
@@ -1567,7 +2004,6 @@ html,
         --theme-field-text: "??";
         --theme-field-text-hover: "??";
         --theme-field-text-active: "??";
-        --theme-field-placeholder: "??";
     }
 }
 /* #endregion Tokens - Theme - dark mode + average contrast */
@@ -1576,7 +2012,7 @@ html,
 [data-contrast-mode="high"] [data-brightness-mode="dark"],
 [data-brightness-mode="dark"] [data-contrast-mode="high"] {
     --sys-clr-background: var(--clr-base-100, hsl(0, 0%, 2.86%));
-    --sys-clr-text: var(--clr-base-700, hsl(0, 0%, 71.32%));
+    --sys-clr-text: var(--clr-base-800, hsl(0, 0%, 84.33%));
     --sys-clr-accent-bg: "??";
     --sys-clr-accent-text: "??";
     --sys-clr-mark-bg: "??";
@@ -1586,10 +2022,10 @@ html,
     --sys-clr-selection-bg: "??";
     --sys-clr-selection-text: "??";
     --sys-clr-text-active: var(
-        --clr-turquoise-700,
-        hsl(157.28, 44.06%, 57.81%)
+        --clr-turquoise-800,
+        hsl(153.26, 48.95%, 72.79%)
     );
-    --sys-clr-text-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
+    --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
     --sys-clr-button-bg: "??";
     --sys-clr-button-bg-active: "??";
     --sys-clr-button-bg-hover: "??";
@@ -1612,21 +2048,20 @@ html,
     --sys-clr-link-active: "??";
     --sys-clr-link-hover: "??";
     --sys-clr-link-visited: "??";
-    --sys-clr-input-placeholder: "??";
     --theme-background: var(--clr-base-100, hsl(0, 0%, 2.86%));
-    --theme-text: var(--clr-base-700, hsl(0, 0%, 71.32%));
-    --theme-text-primary: var(--clr-purple-700, hsl(284.03, 55.65%, 73.41%));
+    --theme-text: var(--clr-base-800, hsl(0, 0%, 84.33%));
+    --theme-text-primary: var(--clr-purple-800, hsl(283.65, 60.59%, 82.51%));
     --theme-text-secondary: var(
-        --clr-turquoise-700,
-        hsl(157.28, 44.06%, 57.81%)
+        --clr-turquoise-800,
+        hsl(153.26, 48.95%, 72.79%)
     );
-    --theme-text-active: var(--clr-turquoise-700, hsl(157.28, 44.06%, 57.81%));
-    --theme-text-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
-    --theme-ui: var(--clr-base-700, hsl(0, 0%, 71.32%));
-    --theme-ui-primary: var(--clr-purple-700, hsl(284.03, 55.65%, 73.41%));
-    --theme-ui-secondary: var(--clr-turquoise-700, hsl(157.28, 44.06%, 57.81%));
-    --theme-ui-active: var(--clr-turquoise-700, hsl(157.28, 44.06%, 57.81%));
-    --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
+    --theme-text-active: var(--clr-turquoise-800, hsl(153.26, 48.95%, 72.79%));
+    --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
+    --theme-ui: var(--clr-base-800, hsl(0, 0%, 84.33%));
+    --theme-ui-primary: var(--clr-purple-800, hsl(283.65, 60.59%, 82.51%));
+    --theme-ui-secondary: var(--clr-turquoise-800, hsl(153.26, 48.95%, 72.79%));
+    --theme-ui-active: var(--clr-turquoise-800, hsl(153.26, 48.95%, 72.79%));
+    --theme-ui-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
     --theme-selection-bg: "??";
     --theme-selection-text: "??";
     --theme-link: "??";
@@ -1669,13 +2104,12 @@ html,
     --theme-field-text: "??";
     --theme-field-text-hover: "??";
     --theme-field-text-active: "??";
-    --theme-field-placeholder: "??";
 }
 
 @media (prefers-contrast: more) {
     [data-brightness-mode="dark"] {
         --sys-clr-background: var(--clr-base-100, hsl(0, 0%, 2.86%));
-        --sys-clr-text: var(--clr-base-700, hsl(0, 0%, 71.32%));
+        --sys-clr-text: var(--clr-base-800, hsl(0, 0%, 84.33%));
         --sys-clr-accent-bg: "??";
         --sys-clr-accent-text: "??";
         --sys-clr-mark-bg: "??";
@@ -1685,10 +2119,10 @@ html,
         --sys-clr-selection-bg: "??";
         --sys-clr-selection-text: "??";
         --sys-clr-text-active: var(
-            --clr-turquoise-700,
-            hsl(157.28, 44.06%, 57.81%)
+            --clr-turquoise-800,
+            hsl(153.26, 48.95%, 72.79%)
         );
-        --sys-clr-text-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
+        --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
         --sys-clr-button-bg: "??";
         --sys-clr-button-bg-active: "??";
         --sys-clr-button-bg-hover: "??";
@@ -1711,33 +2145,32 @@ html,
         --sys-clr-link-active: "??";
         --sys-clr-link-hover: "??";
         --sys-clr-link-visited: "??";
-        --sys-clr-input-placeholder: "??";
         --theme-background: var(--clr-base-100, hsl(0, 0%, 2.86%));
-        --theme-text: var(--clr-base-700, hsl(0, 0%, 71.32%));
+        --theme-text: var(--clr-base-800, hsl(0, 0%, 84.33%));
         --theme-text-primary: var(
-            --clr-purple-700,
-            hsl(284.03, 55.65%, 73.41%)
+            --clr-purple-800,
+            hsl(283.65, 60.59%, 82.51%)
         );
         --theme-text-secondary: var(
-            --clr-turquoise-700,
-            hsl(157.28, 44.06%, 57.81%)
+            --clr-turquoise-800,
+            hsl(153.26, 48.95%, 72.79%)
         );
         --theme-text-active: var(
-            --clr-turquoise-700,
-            hsl(157.28, 44.06%, 57.81%)
+            --clr-turquoise-800,
+            hsl(153.26, 48.95%, 72.79%)
         );
-        --theme-text-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
-        --theme-ui: var(--clr-base-700, hsl(0, 0%, 71.32%));
-        --theme-ui-primary: var(--clr-purple-700, hsl(284.03, 55.65%, 73.41%));
+        --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
+        --theme-ui: var(--clr-base-800, hsl(0, 0%, 84.33%));
+        --theme-ui-primary: var(--clr-purple-800, hsl(283.65, 60.59%, 82.51%));
         --theme-ui-secondary: var(
-            --clr-turquoise-700,
-            hsl(157.28, 44.06%, 57.81%)
+            --clr-turquoise-800,
+            hsl(153.26, 48.95%, 72.79%)
         );
         --theme-ui-active: var(
-            --clr-turquoise-700,
-            hsl(157.28, 44.06%, 57.81%)
+            --clr-turquoise-800,
+            hsl(153.26, 48.95%, 72.79%)
         );
-        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
+        --theme-ui-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
         --theme-selection-bg: "??";
         --theme-selection-text: "??";
         --theme-link: "??";
@@ -1780,13 +2213,12 @@ html,
         --theme-field-text: "??";
         --theme-field-text-hover: "??";
         --theme-field-text-active: "??";
-        --theme-field-placeholder: "??";
     }
 }
 @media (prefers-color-scheme: dark) {
     [data-contrast-mode="high"] {
         --sys-clr-background: var(--clr-base-100, hsl(0, 0%, 2.86%));
-        --sys-clr-text: var(--clr-base-700, hsl(0, 0%, 71.32%));
+        --sys-clr-text: var(--clr-base-800, hsl(0, 0%, 84.33%));
         --sys-clr-accent-bg: "??";
         --sys-clr-accent-text: "??";
         --sys-clr-mark-bg: "??";
@@ -1796,10 +2228,10 @@ html,
         --sys-clr-selection-bg: "??";
         --sys-clr-selection-text: "??";
         --sys-clr-text-active: var(
-            --clr-turquoise-700,
-            hsl(157.28, 44.06%, 57.81%)
+            --clr-turquoise-800,
+            hsl(153.26, 48.95%, 72.79%)
         );
-        --sys-clr-text-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
+        --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
         --sys-clr-button-bg: "??";
         --sys-clr-button-bg-active: "??";
         --sys-clr-button-bg-hover: "??";
@@ -1822,33 +2254,32 @@ html,
         --sys-clr-link-active: "??";
         --sys-clr-link-hover: "??";
         --sys-clr-link-visited: "??";
-        --sys-clr-input-placeholder: "??";
         --theme-background: var(--clr-base-100, hsl(0, 0%, 2.86%));
-        --theme-text: var(--clr-base-700, hsl(0, 0%, 71.32%));
+        --theme-text: var(--clr-base-800, hsl(0, 0%, 84.33%));
         --theme-text-primary: var(
-            --clr-purple-700,
-            hsl(284.03, 55.65%, 73.41%)
+            --clr-purple-800,
+            hsl(283.65, 60.59%, 82.51%)
         );
         --theme-text-secondary: var(
-            --clr-turquoise-700,
-            hsl(157.28, 44.06%, 57.81%)
+            --clr-turquoise-800,
+            hsl(153.26, 48.95%, 72.79%)
         );
         --theme-text-active: var(
-            --clr-turquoise-700,
-            hsl(157.28, 44.06%, 57.81%)
+            --clr-turquoise-800,
+            hsl(153.26, 48.95%, 72.79%)
         );
-        --theme-text-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
-        --theme-ui: var(--clr-base-700, hsl(0, 0%, 71.32%));
-        --theme-ui-primary: var(--clr-purple-700, hsl(284.03, 55.65%, 73.41%));
+        --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
+        --theme-ui: var(--clr-base-800, hsl(0, 0%, 84.33%));
+        --theme-ui-primary: var(--clr-purple-800, hsl(283.65, 60.59%, 82.51%));
         --theme-ui-secondary: var(
-            --clr-turquoise-700,
-            hsl(157.28, 44.06%, 57.81%)
+            --clr-turquoise-800,
+            hsl(153.26, 48.95%, 72.79%)
         );
         --theme-ui-active: var(
-            --clr-turquoise-700,
-            hsl(157.28, 44.06%, 57.81%)
+            --clr-turquoise-800,
+            hsl(153.26, 48.95%, 72.79%)
         );
-        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
+        --theme-ui-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
         --theme-selection-bg: "??";
         --theme-selection-text: "??";
         --theme-link: "??";
@@ -1891,13 +2322,12 @@ html,
         --theme-field-text: "??";
         --theme-field-text-hover: "??";
         --theme-field-text-active: "??";
-        --theme-field-placeholder: "??";
     }
 }
 @media (( prefers-color-scheme: dark ) and ( prefers-contrast: more )) {
     html {
         --sys-clr-background: var(--clr-base-100, hsl(0, 0%, 2.86%));
-        --sys-clr-text: var(--clr-base-700, hsl(0, 0%, 71.32%));
+        --sys-clr-text: var(--clr-base-800, hsl(0, 0%, 84.33%));
         --sys-clr-accent-bg: "??";
         --sys-clr-accent-text: "??";
         --sys-clr-mark-bg: "??";
@@ -1907,10 +2337,10 @@ html,
         --sys-clr-selection-bg: "??";
         --sys-clr-selection-text: "??";
         --sys-clr-text-active: var(
-            --clr-turquoise-700,
-            hsl(157.28, 44.06%, 57.81%)
+            --clr-turquoise-800,
+            hsl(153.26, 48.95%, 72.79%)
         );
-        --sys-clr-text-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
+        --sys-clr-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
         --sys-clr-button-bg: "??";
         --sys-clr-button-bg-active: "??";
         --sys-clr-button-bg-hover: "??";
@@ -1933,33 +2363,32 @@ html,
         --sys-clr-link-active: "??";
         --sys-clr-link-hover: "??";
         --sys-clr-link-visited: "??";
-        --sys-clr-input-placeholder: "??";
         --theme-background: var(--clr-base-100, hsl(0, 0%, 2.86%));
-        --theme-text: var(--clr-base-700, hsl(0, 0%, 71.32%));
+        --theme-text: var(--clr-base-800, hsl(0, 0%, 84.33%));
         --theme-text-primary: var(
-            --clr-purple-700,
-            hsl(284.03, 55.65%, 73.41%)
+            --clr-purple-800,
+            hsl(283.65, 60.59%, 82.51%)
         );
         --theme-text-secondary: var(
-            --clr-turquoise-700,
-            hsl(157.28, 44.06%, 57.81%)
+            --clr-turquoise-800,
+            hsl(153.26, 48.95%, 72.79%)
         );
         --theme-text-active: var(
-            --clr-turquoise-700,
-            hsl(157.28, 44.06%, 57.81%)
+            --clr-turquoise-800,
+            hsl(153.26, 48.95%, 72.79%)
         );
-        --theme-text-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
-        --theme-ui: var(--clr-base-700, hsl(0, 0%, 71.32%));
-        --theme-ui-primary: var(--clr-purple-700, hsl(284.03, 55.65%, 73.41%));
+        --theme-text-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
+        --theme-ui: var(--clr-base-800, hsl(0, 0%, 84.33%));
+        --theme-ui-primary: var(--clr-purple-800, hsl(283.65, 60.59%, 82.51%));
         --theme-ui-secondary: var(
-            --clr-turquoise-700,
-            hsl(157.28, 44.06%, 57.81%)
+            --clr-turquoise-800,
+            hsl(153.26, 48.95%, 72.79%)
         );
         --theme-ui-active: var(
-            --clr-turquoise-700,
-            hsl(157.28, 44.06%, 57.81%)
+            --clr-turquoise-800,
+            hsl(153.26, 48.95%, 72.79%)
         );
-        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
+        --theme-ui-disabled: var(--clr-base-800, hsl(0, 0%, 84.33%));
         --theme-selection-bg: "??";
         --theme-selection-text: "??";
         --theme-link: "??";
@@ -2002,445 +2431,9 @@ html,
         --theme-field-text: "??";
         --theme-field-text-hover: "??";
         --theme-field-text-active: "??";
-        --theme-field-placeholder: "??";
     }
 }
 /* #endregion Tokens - Theme - dark mode + high contrast */
-/* #region Tokens - Theme - dark mode + low contrast */
-[data-brightness-mode="dark"][data-contrast-mode="low"],
-[data-contrast-mode="low"] [data-brightness-mode="dark"],
-[data-brightness-mode="dark"] [data-contrast-mode="low"] {
-    --sys-clr-background: var(--clr-base-100, hsl(0, 0%, 2.86%));
-    --sys-clr-text: var(--clr-base-700, hsl(0, 0%, 71.32%));
-    --sys-clr-accent-bg: "??";
-    --sys-clr-accent-text: "??";
-    --sys-clr-mark-bg: "??";
-    --sys-clr-mark-text: "??";
-    --sys-clr-selected-bg: "??";
-    --sys-clr-selected-text: "??";
-    --sys-clr-selection-bg: "??";
-    --sys-clr-selection-text: "??";
-    --sys-clr-text-active: var(
-        --clr-turquoise-700,
-        hsl(157.28, 44.06%, 57.81%)
-    );
-    --sys-clr-text-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
-    --sys-clr-button-bg: "??";
-    --sys-clr-button-bg-active: "??";
-    --sys-clr-button-bg-hover: "??";
-    --sys-clr-button-border: "??";
-    --sys-clr-button-border-active: "??";
-    --sys-clr-button-border-hover: "??";
-    --sys-clr-button-text: "??";
-    --sys-clr-button-text-active: "??";
-    --sys-clr-button-text-hover: "??";
-    --sys-clr-input-bg: "??";
-    --sys-clr-input-bg-hover: "??";
-    --sys-clr-input-bg-active: "??";
-    --sys-clr-input-border: "??";
-    --sys-clr-input-border-hover: "??";
-    --sys-clr-input-border-active: "??";
-    --sys-clr-input-text: "??";
-    --sys-clr-input-text-hover: "??";
-    --sys-clr-input-text-active: "??";
-    --sys-clr-link: "??";
-    --sys-clr-link-active: "??";
-    --sys-clr-link-hover: "??";
-    --sys-clr-link-visited: "??";
-    --sys-clr-input-placeholder: "??";
-    --theme-background: var(--clr-base-100, hsl(0, 0%, 2.86%));
-    --theme-text: var(--clr-base-700, hsl(0, 0%, 71.32%));
-    --theme-text-primary: var(--clr-purple-700, hsl(284.03, 55.65%, 73.41%));
-    --theme-text-secondary: var(
-        --clr-turquoise-700,
-        hsl(157.28, 44.06%, 57.81%)
-    );
-    --theme-text-active: var(--clr-turquoise-700, hsl(157.28, 44.06%, 57.81%));
-    --theme-text-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
-    --theme-ui: var(--clr-base-700, hsl(0, 0%, 71.32%));
-    --theme-ui-primary: var(--clr-purple-700, hsl(284.03, 55.65%, 73.41%));
-    --theme-ui-secondary: var(--clr-turquoise-700, hsl(157.28, 44.06%, 57.81%));
-    --theme-ui-active: var(--clr-turquoise-700, hsl(157.28, 44.06%, 57.81%));
-    --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
-    --theme-selection-bg: "??";
-    --theme-selection-text: "??";
-    --theme-link: "??";
-    --theme-link-hover: "??";
-    --theme-link-active: "??";
-    --theme-link-visited: "??";
-    --theme-button-primary-bg: "??";
-    --theme-button-primary-bg-hover: "??";
-    --theme-button-primary-bg-active: "??";
-    --theme-button-primary-border: "??";
-    --theme-button-primary-border-hover: "??";
-    --theme-button-primary-border-active: "??";
-    --theme-button-primary-text: "??";
-    --theme-button-primary-text-hover: "??";
-    --theme-button-primary-text-active: "??";
-    --theme-button-secondary-bg: "??";
-    --theme-button-secondary-bg-hover: "??";
-    --theme-button-secondary-bg-active: "??";
-    --theme-button-secondary-border: "??";
-    --theme-button-secondary-border-hover: "??";
-    --theme-button-secondary-border-active: "??";
-    --theme-button-secondary-text: "??";
-    --theme-button-secondary-text-hover: "??";
-    --theme-button-secondary-text-active: "??";
-    --theme-button-disabled-bg: "??";
-    --theme-button-disabled-bg-hover: "??";
-    --theme-button-disabled-bg-active: "??";
-    --theme-button-disabled-border: "??";
-    --theme-button-disabled-border-hover: "??";
-    --theme-button-disabled-border-active: "??";
-    --theme-button-disabled-text: "??";
-    --theme-button-disabled-text-hover: "??";
-    --theme-button-disabled-text-active: "??";
-    --theme-field-bg: "??";
-    --theme-field-bg-hover: "??";
-    --theme-field-bg-active: "??";
-    --theme-field-border: "??";
-    --theme-field-border-hover: "??";
-    --theme-field-border-active: "??";
-    --theme-field-text: "??";
-    --theme-field-text-hover: "??";
-    --theme-field-text-active: "??";
-    --theme-field-placeholder: "??";
-}
-
-@media (prefers-contrast: less) {
-    [data-brightness-mode="dark"] {
-        --sys-clr-background: var(--clr-base-100, hsl(0, 0%, 2.86%));
-        --sys-clr-text: var(--clr-base-700, hsl(0, 0%, 71.32%));
-        --sys-clr-accent-bg: "??";
-        --sys-clr-accent-text: "??";
-        --sys-clr-mark-bg: "??";
-        --sys-clr-mark-text: "??";
-        --sys-clr-selected-bg: "??";
-        --sys-clr-selected-text: "??";
-        --sys-clr-selection-bg: "??";
-        --sys-clr-selection-text: "??";
-        --sys-clr-text-active: var(
-            --clr-turquoise-700,
-            hsl(157.28, 44.06%, 57.81%)
-        );
-        --sys-clr-text-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
-        --sys-clr-button-bg: "??";
-        --sys-clr-button-bg-active: "??";
-        --sys-clr-button-bg-hover: "??";
-        --sys-clr-button-border: "??";
-        --sys-clr-button-border-active: "??";
-        --sys-clr-button-border-hover: "??";
-        --sys-clr-button-text: "??";
-        --sys-clr-button-text-active: "??";
-        --sys-clr-button-text-hover: "??";
-        --sys-clr-input-bg: "??";
-        --sys-clr-input-bg-hover: "??";
-        --sys-clr-input-bg-active: "??";
-        --sys-clr-input-border: "??";
-        --sys-clr-input-border-hover: "??";
-        --sys-clr-input-border-active: "??";
-        --sys-clr-input-text: "??";
-        --sys-clr-input-text-hover: "??";
-        --sys-clr-input-text-active: "??";
-        --sys-clr-link: "??";
-        --sys-clr-link-active: "??";
-        --sys-clr-link-hover: "??";
-        --sys-clr-link-visited: "??";
-        --sys-clr-input-placeholder: "??";
-        --theme-background: var(--clr-base-100, hsl(0, 0%, 2.86%));
-        --theme-text: var(--clr-base-700, hsl(0, 0%, 71.32%));
-        --theme-text-primary: var(
-            --clr-purple-700,
-            hsl(284.03, 55.65%, 73.41%)
-        );
-        --theme-text-secondary: var(
-            --clr-turquoise-700,
-            hsl(157.28, 44.06%, 57.81%)
-        );
-        --theme-text-active: var(
-            --clr-turquoise-700,
-            hsl(157.28, 44.06%, 57.81%)
-        );
-        --theme-text-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
-        --theme-ui: var(--clr-base-700, hsl(0, 0%, 71.32%));
-        --theme-ui-primary: var(--clr-purple-700, hsl(284.03, 55.65%, 73.41%));
-        --theme-ui-secondary: var(
-            --clr-turquoise-700,
-            hsl(157.28, 44.06%, 57.81%)
-        );
-        --theme-ui-active: var(
-            --clr-turquoise-700,
-            hsl(157.28, 44.06%, 57.81%)
-        );
-        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
-        --theme-selection-bg: "??";
-        --theme-selection-text: "??";
-        --theme-link: "??";
-        --theme-link-hover: "??";
-        --theme-link-active: "??";
-        --theme-link-visited: "??";
-        --theme-button-primary-bg: "??";
-        --theme-button-primary-bg-hover: "??";
-        --theme-button-primary-bg-active: "??";
-        --theme-button-primary-border: "??";
-        --theme-button-primary-border-hover: "??";
-        --theme-button-primary-border-active: "??";
-        --theme-button-primary-text: "??";
-        --theme-button-primary-text-hover: "??";
-        --theme-button-primary-text-active: "??";
-        --theme-button-secondary-bg: "??";
-        --theme-button-secondary-bg-hover: "??";
-        --theme-button-secondary-bg-active: "??";
-        --theme-button-secondary-border: "??";
-        --theme-button-secondary-border-hover: "??";
-        --theme-button-secondary-border-active: "??";
-        --theme-button-secondary-text: "??";
-        --theme-button-secondary-text-hover: "??";
-        --theme-button-secondary-text-active: "??";
-        --theme-button-disabled-bg: "??";
-        --theme-button-disabled-bg-hover: "??";
-        --theme-button-disabled-bg-active: "??";
-        --theme-button-disabled-border: "??";
-        --theme-button-disabled-border-hover: "??";
-        --theme-button-disabled-border-active: "??";
-        --theme-button-disabled-text: "??";
-        --theme-button-disabled-text-hover: "??";
-        --theme-button-disabled-text-active: "??";
-        --theme-field-bg: "??";
-        --theme-field-bg-hover: "??";
-        --theme-field-bg-active: "??";
-        --theme-field-border: "??";
-        --theme-field-border-hover: "??";
-        --theme-field-border-active: "??";
-        --theme-field-text: "??";
-        --theme-field-text-hover: "??";
-        --theme-field-text-active: "??";
-        --theme-field-placeholder: "??";
-    }
-}
-@media (prefers-color-scheme: dark) {
-    [data-contrast-mode="low"] {
-        --sys-clr-background: var(--clr-base-100, hsl(0, 0%, 2.86%));
-        --sys-clr-text: var(--clr-base-700, hsl(0, 0%, 71.32%));
-        --sys-clr-accent-bg: "??";
-        --sys-clr-accent-text: "??";
-        --sys-clr-mark-bg: "??";
-        --sys-clr-mark-text: "??";
-        --sys-clr-selected-bg: "??";
-        --sys-clr-selected-text: "??";
-        --sys-clr-selection-bg: "??";
-        --sys-clr-selection-text: "??";
-        --sys-clr-text-active: var(
-            --clr-turquoise-700,
-            hsl(157.28, 44.06%, 57.81%)
-        );
-        --sys-clr-text-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
-        --sys-clr-button-bg: "??";
-        --sys-clr-button-bg-active: "??";
-        --sys-clr-button-bg-hover: "??";
-        --sys-clr-button-border: "??";
-        --sys-clr-button-border-active: "??";
-        --sys-clr-button-border-hover: "??";
-        --sys-clr-button-text: "??";
-        --sys-clr-button-text-active: "??";
-        --sys-clr-button-text-hover: "??";
-        --sys-clr-input-bg: "??";
-        --sys-clr-input-bg-hover: "??";
-        --sys-clr-input-bg-active: "??";
-        --sys-clr-input-border: "??";
-        --sys-clr-input-border-hover: "??";
-        --sys-clr-input-border-active: "??";
-        --sys-clr-input-text: "??";
-        --sys-clr-input-text-hover: "??";
-        --sys-clr-input-text-active: "??";
-        --sys-clr-link: "??";
-        --sys-clr-link-active: "??";
-        --sys-clr-link-hover: "??";
-        --sys-clr-link-visited: "??";
-        --sys-clr-input-placeholder: "??";
-        --theme-background: var(--clr-base-100, hsl(0, 0%, 2.86%));
-        --theme-text: var(--clr-base-700, hsl(0, 0%, 71.32%));
-        --theme-text-primary: var(
-            --clr-purple-700,
-            hsl(284.03, 55.65%, 73.41%)
-        );
-        --theme-text-secondary: var(
-            --clr-turquoise-700,
-            hsl(157.28, 44.06%, 57.81%)
-        );
-        --theme-text-active: var(
-            --clr-turquoise-700,
-            hsl(157.28, 44.06%, 57.81%)
-        );
-        --theme-text-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
-        --theme-ui: var(--clr-base-700, hsl(0, 0%, 71.32%));
-        --theme-ui-primary: var(--clr-purple-700, hsl(284.03, 55.65%, 73.41%));
-        --theme-ui-secondary: var(
-            --clr-turquoise-700,
-            hsl(157.28, 44.06%, 57.81%)
-        );
-        --theme-ui-active: var(
-            --clr-turquoise-700,
-            hsl(157.28, 44.06%, 57.81%)
-        );
-        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
-        --theme-selection-bg: "??";
-        --theme-selection-text: "??";
-        --theme-link: "??";
-        --theme-link-hover: "??";
-        --theme-link-active: "??";
-        --theme-link-visited: "??";
-        --theme-button-primary-bg: "??";
-        --theme-button-primary-bg-hover: "??";
-        --theme-button-primary-bg-active: "??";
-        --theme-button-primary-border: "??";
-        --theme-button-primary-border-hover: "??";
-        --theme-button-primary-border-active: "??";
-        --theme-button-primary-text: "??";
-        --theme-button-primary-text-hover: "??";
-        --theme-button-primary-text-active: "??";
-        --theme-button-secondary-bg: "??";
-        --theme-button-secondary-bg-hover: "??";
-        --theme-button-secondary-bg-active: "??";
-        --theme-button-secondary-border: "??";
-        --theme-button-secondary-border-hover: "??";
-        --theme-button-secondary-border-active: "??";
-        --theme-button-secondary-text: "??";
-        --theme-button-secondary-text-hover: "??";
-        --theme-button-secondary-text-active: "??";
-        --theme-button-disabled-bg: "??";
-        --theme-button-disabled-bg-hover: "??";
-        --theme-button-disabled-bg-active: "??";
-        --theme-button-disabled-border: "??";
-        --theme-button-disabled-border-hover: "??";
-        --theme-button-disabled-border-active: "??";
-        --theme-button-disabled-text: "??";
-        --theme-button-disabled-text-hover: "??";
-        --theme-button-disabled-text-active: "??";
-        --theme-field-bg: "??";
-        --theme-field-bg-hover: "??";
-        --theme-field-bg-active: "??";
-        --theme-field-border: "??";
-        --theme-field-border-hover: "??";
-        --theme-field-border-active: "??";
-        --theme-field-text: "??";
-        --theme-field-text-hover: "??";
-        --theme-field-text-active: "??";
-        --theme-field-placeholder: "??";
-    }
-}
-@media (( prefers-color-scheme: dark ) and ( prefers-contrast: less )) {
-    html {
-        --sys-clr-background: var(--clr-base-100, hsl(0, 0%, 2.86%));
-        --sys-clr-text: var(--clr-base-700, hsl(0, 0%, 71.32%));
-        --sys-clr-accent-bg: "??";
-        --sys-clr-accent-text: "??";
-        --sys-clr-mark-bg: "??";
-        --sys-clr-mark-text: "??";
-        --sys-clr-selected-bg: "??";
-        --sys-clr-selected-text: "??";
-        --sys-clr-selection-bg: "??";
-        --sys-clr-selection-text: "??";
-        --sys-clr-text-active: var(
-            --clr-turquoise-700,
-            hsl(157.28, 44.06%, 57.81%)
-        );
-        --sys-clr-text-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
-        --sys-clr-button-bg: "??";
-        --sys-clr-button-bg-active: "??";
-        --sys-clr-button-bg-hover: "??";
-        --sys-clr-button-border: "??";
-        --sys-clr-button-border-active: "??";
-        --sys-clr-button-border-hover: "??";
-        --sys-clr-button-text: "??";
-        --sys-clr-button-text-active: "??";
-        --sys-clr-button-text-hover: "??";
-        --sys-clr-input-bg: "??";
-        --sys-clr-input-bg-hover: "??";
-        --sys-clr-input-bg-active: "??";
-        --sys-clr-input-border: "??";
-        --sys-clr-input-border-hover: "??";
-        --sys-clr-input-border-active: "??";
-        --sys-clr-input-text: "??";
-        --sys-clr-input-text-hover: "??";
-        --sys-clr-input-text-active: "??";
-        --sys-clr-link: "??";
-        --sys-clr-link-active: "??";
-        --sys-clr-link-hover: "??";
-        --sys-clr-link-visited: "??";
-        --sys-clr-input-placeholder: "??";
-        --theme-background: var(--clr-base-100, hsl(0, 0%, 2.86%));
-        --theme-text: var(--clr-base-700, hsl(0, 0%, 71.32%));
-        --theme-text-primary: var(
-            --clr-purple-700,
-            hsl(284.03, 55.65%, 73.41%)
-        );
-        --theme-text-secondary: var(
-            --clr-turquoise-700,
-            hsl(157.28, 44.06%, 57.81%)
-        );
-        --theme-text-active: var(
-            --clr-turquoise-700,
-            hsl(157.28, 44.06%, 57.81%)
-        );
-        --theme-text-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
-        --theme-ui: var(--clr-base-700, hsl(0, 0%, 71.32%));
-        --theme-ui-primary: var(--clr-purple-700, hsl(284.03, 55.65%, 73.41%));
-        --theme-ui-secondary: var(
-            --clr-turquoise-700,
-            hsl(157.28, 44.06%, 57.81%)
-        );
-        --theme-ui-active: var(
-            --clr-turquoise-700,
-            hsl(157.28, 44.06%, 57.81%)
-        );
-        --theme-ui-disabled: var(--clr-base-700, hsl(0, 0%, 71.32%));
-        --theme-selection-bg: "??";
-        --theme-selection-text: "??";
-        --theme-link: "??";
-        --theme-link-hover: "??";
-        --theme-link-active: "??";
-        --theme-link-visited: "??";
-        --theme-button-primary-bg: "??";
-        --theme-button-primary-bg-hover: "??";
-        --theme-button-primary-bg-active: "??";
-        --theme-button-primary-border: "??";
-        --theme-button-primary-border-hover: "??";
-        --theme-button-primary-border-active: "??";
-        --theme-button-primary-text: "??";
-        --theme-button-primary-text-hover: "??";
-        --theme-button-primary-text-active: "??";
-        --theme-button-secondary-bg: "??";
-        --theme-button-secondary-bg-hover: "??";
-        --theme-button-secondary-bg-active: "??";
-        --theme-button-secondary-border: "??";
-        --theme-button-secondary-border-hover: "??";
-        --theme-button-secondary-border-active: "??";
-        --theme-button-secondary-text: "??";
-        --theme-button-secondary-text-hover: "??";
-        --theme-button-secondary-text-active: "??";
-        --theme-button-disabled-bg: "??";
-        --theme-button-disabled-bg-hover: "??";
-        --theme-button-disabled-bg-active: "??";
-        --theme-button-disabled-border: "??";
-        --theme-button-disabled-border-hover: "??";
-        --theme-button-disabled-border-active: "??";
-        --theme-button-disabled-text: "??";
-        --theme-button-disabled-text-hover: "??";
-        --theme-button-disabled-text-active: "??";
-        --theme-field-bg: "??";
-        --theme-field-bg-hover: "??";
-        --theme-field-bg-active: "??";
-        --theme-field-border: "??";
-        --theme-field-border-hover: "??";
-        --theme-field-border-active: "??";
-        --theme-field-text: "??";
-        --theme-field-text-hover: "??";
-        --theme-field-text-active: "??";
-        --theme-field-placeholder: "??";
-    }
-}
-/* #endregion Tokens - Theme - dark mode + low contrast */
 /* #region Tokens - Theme - forced-colors */
 @media (forced-colors: active), (prefers-contrast: custom) {
     html {
@@ -2486,7 +2479,6 @@ html,
         --sys-clr-link-active: ActiveText !important;
         --sys-clr-link-hover: ActiveText !important;
         --sys-clr-link-visited: VisitedText !important;
-        --sys-clr-input-placeholder: FieldText !important;
         --theme-background: CanvasText !important;
         --theme-text: CanvasText !important;
         --theme-text-primary: CanvasText !important;
@@ -2543,7 +2535,6 @@ html,
         --theme-field-text: FieldText !important;
         --theme-field-text-hover: SelectedItemText !important;
         --theme-field-text-active: FieldText !important;
-        --theme-field-placeholder: FieldText !important;
     }
 }
 /* #endregion Tokens - Theme - forced-colors */
@@ -2925,7 +2916,7 @@ hr {
 html {
     line-height: 1.6875;
     line-height: var(--line-height-400, 1.6875);
-    background: hsl(0, 0%, 97.73%);
+    background: hsl(0, 0%, 84.33%);
     background: var(--sys-clr-background, Canvas);
     color: hsl(0, 0%, 24.13%);
     color: var(--sys-clr-text, CanvasText);
@@ -3081,7 +3072,7 @@ blockquote > cite::before {
     content: "— ";
     color: currentColor;
 }
-[data-contrast-mode="low"] blockquote > cite {
+blockquote > cite {
     color: color-mix(in srgb, currentColor 75%, transparent);
 }
 
@@ -3652,7 +3643,7 @@ fieldset {
     border: 0.0625rem solid "??";
     border: 0.0625rem solid var(--sys-clr-accent-bg, CanvasText);
     border-radius: 0;
-    background-color: hsl(0, 0%, 97.73%);
+    background-color: hsl(0, 0%, 84.33%);
     background-color: var(--sys-clr-background, Canvas);
     color: hsl(0, 0%, 24.13%);
     color: var(--sys-clr-text, CanvasText);
@@ -3856,14 +3847,14 @@ input::placeholder {
     opacity: 1;
     color: currentColor;
 }
-[data-contrast-mode="low"] textarea::-moz-placeholder,
-[data-contrast-mode="low"] select::-moz-placeholder,
-[data-contrast-mode="low"] input::-moz-placeholder {
+textarea::-moz-placeholder,
+select::-moz-placeholder,
+input::-moz-placeholder {
     color: color-mix(in srgb, currentColor 62.5%, transparent);
 }
-[data-contrast-mode="low"] textarea::placeholder,
-[data-contrast-mode="low"] select::placeholder,
-[data-contrast-mode="low"] input::placeholder {
+textarea::placeholder,
+select::placeholder,
+input::placeholder {
     color: color-mix(in srgb, currentColor 62.5%, transparent);
 }
 
@@ -5092,7 +5083,7 @@ td {
     padding: 0.3125rem 0.8125rem;
     padding: var(--mrg-soft-200, 0.3125rem) var(--mrg-firm-300, 0.8125rem);
     min-width: 10em;
-    background: hsl(0, 0%, 97.73%);
+    background: hsl(0, 0%, 84.33%);
     background: var(--sys-clr-background, Canvas);
     vertical-align: top;
     text-align: left;
@@ -6119,7 +6110,7 @@ body > aside > :first-child {
     padding-right: 0.8125rem;
     padding-left: var(--mrg-firm-300, 0.8125rem);
     padding-right: var(--mrg-firm-300, 0.8125rem);
-    background: hsl(0, 0%, 97.73%);
+    background: hsl(0, 0%, 84.33%);
     background: var(--sys-clr-background, Canvas);
     color: hsl(0, 0%, 24.13%);
     color: var(--sys-clr-text, CanvasText);
@@ -6145,7 +6136,7 @@ body > aside > :first-child {
     border-bottom: var(--border-width-200, 0.125rem) solid currentColor;
     font-size: clamp(0.875rem, 1.5svw + 1rem, 1.3125rem);
     font-size: var(--fs-heading-6, 1.15625rem);
-    background: hsl(0, 0%, 97.73%);
+    background: hsl(0, 0%, 84.33%);
     background: var(--sys-clr-background, Canvas);
     color: hsl(0, 0%, 24.13%);
     color: var(--sys-clr-text, CanvasText);
@@ -6202,7 +6193,7 @@ body > aside > :first-child {
 }
 
 .website-settings__content {
-    background: hsl(0, 0%, 97.73%);
+    background: hsl(0, 0%, 84.33%);
     background: var(--sys-clr-background, Canvas);
     width: -moz-fit-content;
     width: fit-content;
@@ -7209,7 +7200,7 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
 :where(.js)
     .website-settings-menu
     [data-toggle-control].website-settings__backdrop::before {
-    background: hsl(0, 0%, 97.73%);
+    background: hsl(0, 0%, 84.33%);
     background: var(--sys-clr-background, Canvas);
     opacity: 0.625;
 }
@@ -7356,13 +7347,13 @@ code {
 html,
 [data-brightness-mode="light"],
 [data-brightness-mode="dark"],
+[data-contrast-mode="low"],
 [data-contrast-mode="average"],
-[data-contrast-mode="high"],
-[data-contrast-mode="low"] {
-    background: hsl(0, 0%, 97.73%);
+[data-contrast-mode="high"] {
+    background: hsl(0, 0%, 84.33%);
     background: var(
         --theme-background,
-        var(--clr-base-100, hsl(0, 0%, 97.73%))
+        var(--clr-base-200, hsl(0, 0%, 84.33%))
     );
     color: hsl(0, 0%, 24.13%);
     color: var(--theme-text, var(--clr-base-700, hsl(0, 0%, 24.13%)));
@@ -7370,15 +7361,15 @@ html,
 
 @media (prefers-color-scheme: light),
     (prefers-color-scheme: dark),
-    (prefers-contrast: more),
     (prefers-contrast: less),
+    (prefers-contrast: more),
     (forced-colors: active),
     (prefers-contrast: custom) {
     html {
-        background: hsl(0, 0%, 97.73%);
+        background: hsl(0, 0%, 84.33%);
         background: var(
             --theme-background,
-            var(--clr-base-100, hsl(0, 0%, 97.73%))
+            var(--clr-base-200, hsl(0, 0%, 84.33%))
         );
         color: hsl(0, 0%, 24.13%);
         color: var(--theme-text, var(--clr-base-700, hsl(0, 0%, 24.13%)));
