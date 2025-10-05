@@ -22,29 +22,53 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
      *
      * @since 0.1.0-alpha.draft
      */
-    static async build(preset, clrNames, input) {
+    static async build(preset, clrNames, input, overrides = {}) {
         let defaultLevels;
         // returns if forced colours
         switch (preset) {
             case 'average':
                 defaultLevels = {
                     background: '100',
-                    text: '700',
-                    ui: '700',
+                    text: {
+                        $: '800',
+                        accent: '700',
+                        min: '700',
+                    },
+                    ui: {
+                        $: '700',
+                        accent: '600',
+                        min: '600',
+                    },
                 };
                 break;
             case 'high':
                 defaultLevels = {
                     background: '100',
-                    text: '800',
-                    ui: '800',
+                    text: {
+                        $: '800',
+                        accent: '800',
+                        min: '800',
+                    },
+                    ui: {
+                        $: '800',
+                        accent: '800',
+                        min: '800',
+                    },
                 };
                 break;
             case 'low':
                 defaultLevels = {
                     background: '200',
-                    text: '700',
-                    ui: '700',
+                    text: {
+                        $: '800',
+                        accent: '700',
+                        min: '700',
+                    },
+                    ui: {
+                        $: '700',
+                        accent: '600',
+                        min: '600',
+                    },
                 };
                 break;
             case 'forcedColors':
@@ -54,10 +78,10 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 };
                 return new Tokens_Themes_Set_SingleMode(await Tokens_Themes_Set_SingleMode.Build.forcedColors(_input));
         }
-        return new Tokens_Themes_Set_SingleMode(await Tokens_Themes_Set_SingleMode.Build.data({
+        return new Tokens_Themes_Set_SingleMode(mergeArgs(await Tokens_Themes_Set_SingleMode.Build.data({
             levels: Tokens_Themes_Set_SingleMode.Build.completeLevels(mergeArgs(defaultLevels, input.levels, true)),
             variations: Tokens_Themes_Set_SingleMode.Build.completeVariations(clrNames, input.variations),
-        }));
+        }), overrides, true));
     }
     constructor(data) {
         super();
@@ -109,29 +133,60 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
     (function (Build) {
         ;
         ;
-        function clrOpt(name, level) {
+        function colourOption(name, level) {
             return `${name}-${level}`;
         }
+        Build.colourOption = colourOption;
         function completeLevels(input) {
-            const def = {
-                background: '100',
-                text: '800',
-                ui: '800',
+            const text = typeof input?.text === 'object'
+                ? {
+                    $: input.text?.$ ?? '800',
+                    accent: input.text?.accent ?? '800',
+                    min: input.text?.min ?? '800',
+                }
+                : {
+                    $: input?.text ?? '800',
+                    accent: input?.text ?? '800',
+                    min: input?.text ?? '800',
+                };
+            const ui = typeof input?.ui === 'object'
+                ? {
+                    $: input.ui?.$ ?? '700',
+                    accent: input.ui?.accent ?? '700',
+                    min: input.ui?.min ?? '700',
+                }
+                : {
+                    $: input?.ui ?? '700',
+                    accent: input?.ui ?? '700',
+                    min: input?.ui ?? '700',
+                };
+            return {
+                background: input?.background ?? '100',
+                text,
+                ui,
             };
-            return mergeArgs(def, input, false);
         }
         Build.completeLevels = completeLevels;
         function completeVariations(clrNames, input) {
             const clrNames_noBase = clrNames.filter(v => v !== 'base');
             const base = 'base';
-            const clr_1 = clrNames_noBase[0] ?? base;
-            const clr_2 = clrNames_noBase[1] ?? clr_1;
-            // const clr_3 = clrNames_noBase[ 2 ] ?? clr_2;
+            const clr_1 = input?.universal?.primary ?? clrNames_noBase[0] ?? base;
+            const clr_2 = input?.universal?.secondary ?? clrNames_noBase[1] ?? clr_1;
+            const clr_3 = input?.text?.active ?? input?.interactive?.active ?? clrNames_noBase[2] ?? clr_2;
             const def = {
                 base: base,
                 universal: {
                     primary: clr_1,
                     secondary: clr_2,
+                },
+                text: {
+                    active: clr_3,
+                    disabled: base,
+                },
+                interactive: {
+                    hover: clr_2,
+                    active: clr_3,
+                    disabled: base,
                 },
             };
             const vars = mergeArgs(def, input, true);
@@ -144,84 +199,115 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
          * @since 0.1.0-alpha.draft
          */
         async function data(input) {
+            const clrOpt = colourOption;
             const { levels, variations, } = input;
             const text = {
-                $: clrOpt(variations.base, levels.text),
-                ...objectMap(variations.universal, ({ value: clrName }) => clrOpt(clrName, levels.text)),
-                active: clrOpt(variations.universal.secondary, levels.text),
-                disabled: clrOpt(variations.base, levels.text),
+                $: clrOpt(variations.base, levels.text.$),
+                ...objectMap(variations.universal, ({ value: clrName }) => clrOpt(clrName, levels.text.accent)),
+                ...objectMap(variations.text, ({ value: clrName }) => clrOpt(clrName, levels.text.accent)),
+                disabled: clrOpt(variations.text.disabled, levels.text.min),
             };
             const ui = {
-                $: clrOpt(variations.base, levels.ui),
-                ...objectMap(variations.universal, ({ value: clrName }) => clrOpt(clrName, levels.ui)),
-                active: clrOpt(variations.universal.secondary, levels.ui),
-                disabled: clrOpt(variations.base, levels.ui),
+                $: clrOpt(variations.base, levels.ui.$),
+                ...objectMap(variations.universal, ({ value: clrName }) => clrOpt(clrName, levels.ui.accent)),
+                ...objectMap(variations.text, ({ value: clrName }) => clrOpt(clrName, levels.ui.accent)),
+                disabled: clrOpt(variations.text.disabled, levels.ui.min),
             };
-            const singleButtonMaker = (_clrName) => ({
-                bg: {
-                    $: '"??"',
-                    hover: '"??"',
-                    active: '"??"',
-                },
-                border: {
-                    $: '"??"',
-                    hover: '"??"',
-                    active: '"??"',
-                },
-                text: {
-                    $: '"??"',
-                    hover: '"??"',
-                    active: '"??"',
-                },
-            });
+            const singleButtonMaker = (_primaryClr) => {
+                const _secondaryClr = _primaryClr ==
+                    variations.universal.primary
+                    ? variations.universal.secondary
+                    : _primaryClr === variations.universal.secondary
+                        ? variations.text.active
+                        : variations.universal.primary;
+                const _activeClr = _primaryClr ==
+                    variations.text.active
+                    ? variations.universal.secondary
+                    : _secondaryClr == variations.text.active
+                        ? variations.universal.primary
+                        : variations.text.active;
+                return {
+                    bg: {
+                        $: clrOpt(_primaryClr, levels.text.accent),
+                        hover: clrOpt(_secondaryClr, levels.text.accent),
+                        active: clrOpt(_activeClr, levels.text.accent),
+                    },
+                    border: {
+                        $: clrOpt(_primaryClr, levels.text.accent),
+                        hover: clrOpt(_secondaryClr, levels.text.accent),
+                        active: clrOpt(_activeClr, levels.text.accent),
+                    },
+                    text: {
+                        $: clrOpt(variations.base, levels.background),
+                        hover: clrOpt(variations.base, levels.background),
+                        active: clrOpt(variations.base, levels.background),
+                    },
+                };
+            };
             const button = {
                 ...objectMap(variations.universal, ({ value: clrName }) => singleButtonMaker(clrName)),
-                disabled: singleButtonMaker(variations.base),
+                disabled: {
+                    bg: {
+                        $: clrOpt(variations.base, levels.text.min),
+                        hover: clrOpt(variations.base, levels.text.min),
+                        active: clrOpt(variations.base, levels.text.min),
+                    },
+                    border: {
+                        $: clrOpt(variations.base, levels.text.min),
+                        hover: clrOpt(variations.base, levels.text.min),
+                        active: clrOpt(variations.base, levels.text.min),
+                    },
+                    text: {
+                        $: clrOpt(variations.base, levels.background),
+                        hover: clrOpt(variations.base, levels.background),
+                        active: clrOpt(variations.base, levels.background),
+                    },
+                },
             };
             const complete = {
                 background: clrOpt(variations.base, levels.background),
                 text,
                 ui,
                 selection: {
-                    bg: '"??"',
-                    text: '"??"',
+                    bg: clrOpt(variations.universal.primary, levels.text.accent),
+                    text: clrOpt(variations.base, levels.background),
                 },
                 link: {
-                    $: '"??"',
-                    hover: '"??"',
-                    active: '"??"',
-                    visited: '"??"',
+                    $: clrOpt(variations.universal.primary, levels.text.accent),
+                    hover: clrOpt(variations.interactive.hover, levels.text.accent),
+                    active: clrOpt(variations.interactive.active, levels.text.accent),
+                    visited: clrOpt(variations.universal.primary, levels.text.accent),
                 },
                 button,
                 field: {
                     bg: {
-                        $: '"??"',
-                        hover: '"??"',
-                        active: '"??"',
+                        $: clrOpt(variations.base, levels.background),
+                        hover: clrOpt(variations.base, levels.background),
+                        active: clrOpt(variations.base, levels.background),
                     },
                     border: {
-                        $: '"??"',
-                        hover: '"??"',
-                        active: '"??"',
+                        $: clrOpt(variations.base, levels.ui.$),
+                        hover: clrOpt(variations.interactive.hover, levels.ui.accent),
+                        active: clrOpt(variations.interactive.active, levels.ui.accent),
                     },
                     text: {
-                        $: '"??"',
-                        hover: '"??"',
-                        active: '"??"',
+                        $: clrOpt(variations.base, levels.text.$),
+                        hover: clrOpt(variations.base, levels.text.$),
+                        active: clrOpt(variations.base, levels.text.$),
                     },
                 },
                 system: {
                     accent: {
-                        bg: '"??"',
-                        text: '"??"',
+                        bg: clrOpt(variations.universal.primary, levels.text.accent),
+                        text: clrOpt(variations.base, levels.background),
                     },
                     mark: {
-                        bg: '"??"',
-                        text: '"??"',
+                        bg: clrOpt(variations.text.active, levels.text.accent),
+                        text: clrOpt(variations.base, levels.background),
                     },
                     selected: {
-                        bg: '"??"',
-                        text: '"??"',
+                        bg: clrOpt(variations.interactive.hover, levels.text.accent),
+                        text: clrOpt(variations.base, levels.background),
                     },
                 },
             };
@@ -242,6 +328,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
             const text = {
                 $: sysclr.text,
                 ...objectMap(variations.universal, () => sysclr.text),
+                ...objectMap(variations.text, () => sysclr.text),
                 active: 'ActiveText',
                 disabled: 'GrayText',
             };

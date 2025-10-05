@@ -1,0 +1,47 @@
+///
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+
+@use 'pkg:@maddimathon/utility-sass/selector';
+
+@use '../config';
+// @use '../tokens';
+
+@use '../lib' as *;
+
+@include config.print-headings {
+    /* # FORMS
+     * ======================================================================== */
+}
+
+%_input-base {
+    @include snippet-input($includeUtils: false);
+}
+
+%input {
+    @extend %_input-base;
+    @include snippet-input-types($includeBase: false, $includeUtils: false);
+}
+
+%select {
+    @extend %_input-base;
+}
+
+%textarea {
+    @extend %_input-base;
+}
+
+@include config.print-headings {
+    /* ## Forms - Buttons ==================================== */
+}
+
+%button,
+%button-secondary {
+    @include snippet-button($includeUtils: false);
+}
+
+%button-secondary,
+#{selector.unify('%button', '.button-secondary')} {
+    @include snippet-button-colours('secondary');
+}

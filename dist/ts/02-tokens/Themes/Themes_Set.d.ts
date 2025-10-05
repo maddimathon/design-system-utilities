@@ -15,35 +15,35 @@ import { Tokens_Themes_Set_SingleMode } from './Themes_Set_SingleMode.js';
  *
  * @since 0.1.0-alpha.draft
  */
-export declare class Tokens_Themes_Set<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_ThemeBrightnessMode extends readonly string[], T_ThemeContrastMode extends readonly ThemeMode_ContrastOption[], T_ThemeName extends string, T_Keyword_Universal extends string = never> extends AbstractTokens<Tokens_Themes_Set.Data<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_Keyword_Universal>> {
+export declare class Tokens_Themes_Set<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_ThemeBrightnessMode extends readonly string[], T_ThemeContrastMode extends readonly ThemeMode_ContrastOption[], T_ThemeName extends string, T_Keyword_Universal extends string = never, T_Keyword_Text extends string = never> extends AbstractTokens<Tokens_Themes_Set.Data<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_Keyword_Universal, T_Keyword_Text>> {
     /** Name for this shade set. */
     protected readonly name: T_ThemeName;
     protected readonly clrNames: readonly T_ColourName[];
     protected readonly extraColourLevels: readonly T_ExtraColourLevels[];
     protected readonly brightnessModes: readonly T_ThemeBrightnessMode[number][];
     protected readonly contrastModes: readonly T_ThemeContrastMode[number][];
-    protected readonly forcedColours: Tokens_Themes_Set_SingleMode<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, CssSystemColor>;
+    protected readonly forcedColours: Tokens_Themes_Set_SingleMode<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, CssSystemColor>;
     protected readonly modes: {
         [B in T_ThemeBrightnessMode[number]]: {
-            [C in T_ThemeContrastMode[number]]: Tokens_Themes_Set_SingleMode<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal>;
+            [C in T_ThemeContrastMode[number]]: Tokens_Themes_Set_SingleMode<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text>;
         };
     };
     /**
      * Used instead of the constructor so that it can be async.
      */
-    static build<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_ThemeBrightnessMode extends string, T_ThemeContrastMode extends ThemeMode_ContrastOption, T_ThemeName extends string, T_Keyword_Universal extends string = never>(name: T_ThemeName, clrNames: readonly T_ColourName[], extraColourLevels: readonly T_ExtraColourLevels[], brightnessModes: readonly T_ThemeBrightnessMode[], contrastModes: readonly T_ThemeContrastMode[], input: Tokens_Themes_Set.InputParam<T_ColourName, T_ExtraColourLevels, readonly T_ThemeBrightnessMode[], readonly T_ThemeContrastMode[], T_ThemeName, T_Keyword_Universal>): Promise<Tokens_Themes_Set<T_ColourName, TokenLevels_Extended, readonly string[], readonly any[], T_ThemeName, never>>;
-    get data(): Tokens_Themes_Set.Data<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_Keyword_Universal>;
+    static build<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_ThemeBrightnessMode extends string, T_ThemeContrastMode extends ThemeMode_ContrastOption, T_ThemeName extends string, T_Keyword_Universal extends string = never, T_Keyword_Text extends string = never>(name: T_ThemeName, clrNames: readonly T_ColourName[], extraColourLevels: readonly T_ExtraColourLevels[], brightnessModes: readonly T_ThemeBrightnessMode[], contrastModes: readonly T_ThemeContrastMode[], input: Tokens_Themes_Set.InputParam<T_ColourName, T_ExtraColourLevels, readonly T_ThemeBrightnessMode[], readonly T_ThemeContrastMode[], T_ThemeName, T_Keyword_Universal, T_Keyword_Text>): Promise<Tokens_Themes_Set<T_ColourName, TokenLevels_Extended, readonly string[], readonly any[], T_ThemeName, never, never>>;
+    get data(): Tokens_Themes_Set.Data<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_Keyword_Universal, T_Keyword_Text>;
     protected constructor(
     /** Name for this shade set. */
-    name: T_ThemeName, clrNames: readonly T_ColourName[], extraColourLevels: readonly T_ExtraColourLevels[], brightnessModes: readonly T_ThemeBrightnessMode[number][], contrastModes: readonly T_ThemeContrastMode[number][], forcedColours: Tokens_Themes_Set_SingleMode<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, CssSystemColor>, modes: {
+    name: T_ThemeName, clrNames: readonly T_ColourName[], extraColourLevels: readonly T_ExtraColourLevels[], brightnessModes: readonly T_ThemeBrightnessMode[number][], contrastModes: readonly T_ThemeContrastMode[number][], forcedColours: Tokens_Themes_Set_SingleMode<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, CssSystemColor>, modes: {
         [B in T_ThemeBrightnessMode[number]]: {
-            [C in T_ThemeContrastMode[number]]: Tokens_Themes_Set_SingleMode<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal>;
+            [C in T_ThemeContrastMode[number]]: Tokens_Themes_Set_SingleMode<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text>;
         };
     });
-    toJSON(): Tokens_Themes_Set.JsonReturn<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_Keyword_Universal>;
+    toJSON(): Tokens_Themes_Set.JsonReturn<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_Keyword_Universal, T_Keyword_Text>;
     toScssVars(): {
         [B in T_ThemeBrightnessMode[number]]: {
-            [C in T_ThemeContrastMode[number]]: ReturnType<Tokens_Themes_Set_SingleMode<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal>['toScssVars']>;
+            [C in T_ThemeContrastMode[number]]: ReturnType<Tokens_Themes_Set_SingleMode<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text>['toScssVars']>;
         };
     };
 }
@@ -56,34 +56,34 @@ export declare namespace Tokens_Themes_Set {
     /**
      * @since 0.1.0-alpha.draft
      */
-    type Data<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_ThemeBrightnessMode extends readonly string[], T_ThemeContrastMode extends readonly ThemeMode_ContrastOption[], T_ThemeName extends string, T_Keyword_Universal extends string> = {
+    type Data<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_ThemeBrightnessMode extends readonly string[], T_ThemeContrastMode extends readonly ThemeMode_ContrastOption[], T_ThemeName extends string, T_Keyword_Universal extends string, T_Keyword_Text extends string> = {
         name: T_ThemeName;
-        forcedColours: Tokens_Themes_Set_SingleMode.Data<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, CssSystemColor>;
+        forcedColours: Tokens_Themes_Set_SingleMode.Data<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, CssSystemColor>;
     } & {
         [B in T_ThemeBrightnessMode[number]]: {
-            [C in T_ThemeContrastMode[number]]: Tokens_Themes_Set_SingleMode.Data<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal>;
+            [C in T_ThemeContrastMode[number]]: Tokens_Themes_Set_SingleMode.Data<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text>;
         };
     };
     /**
      * @since 0.1.0-alpha.draft
      */
-    type InputParam<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_ThemeBrightnessMode extends readonly string[], T_ThemeContrastMode extends readonly ThemeMode_ContrastOption[], T_ThemeName extends string, T_Keyword_Universal extends string> = {
+    type InputParam<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_ThemeBrightnessMode extends readonly string[], T_ThemeContrastMode extends readonly ThemeMode_ContrastOption[], T_ThemeName extends string, T_Keyword_Universal extends string, T_Keyword_Text extends string> = {
         name: T_ThemeName;
-        forcedColours?: Omit<Tokens_Themes_Set_SingleMode.InputParam<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, CssSystemColor>, "levels" | "variations">;
+        forcedColours?: Omit<Tokens_Themes_Set_SingleMode.InputParam<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, CssSystemColor>, "levels" | "variations">;
     } & {
         [B in T_ThemeBrightnessMode[number]]?: {
-            [C in T_ThemeContrastMode[number]]?: Tokens_Themes_Set_SingleMode.InputParam<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal>;
+            [C in T_ThemeContrastMode[number]]?: Tokens_Themes_Set_SingleMode.InputParam<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text>;
         };
     };
     /**
      * @since 0.1.0-alpha.draft
      */
-    type JsonReturn<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_ThemeBrightnessMode extends readonly string[], T_ThemeContrastMode extends readonly ThemeMode_ContrastOption[], T_ThemeName extends string, T_Keyword_Universal extends string> = {
+    type JsonReturn<T_ColourName extends string, T_ExtraColourLevels extends TokenLevels_Extended, T_ThemeBrightnessMode extends readonly string[], T_ThemeContrastMode extends readonly ThemeMode_ContrastOption[], T_ThemeName extends string, T_Keyword_Universal extends string, T_Keyword_Text extends string> = {
         name: T_ThemeName;
-        forcedColours: Tokens_Themes_Set_SingleMode.JsonReturn<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, CssSystemColor>;
+        forcedColours: Tokens_Themes_Set_SingleMode.JsonReturn<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, CssSystemColor>;
     } & {
         [B in T_ThemeBrightnessMode[number]]: {
-            [C in T_ThemeContrastMode[number]]: Tokens_Themes_Set_SingleMode.JsonReturn<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal>;
+            [C in T_ThemeContrastMode[number]]: Tokens_Themes_Set_SingleMode.JsonReturn<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text>;
         };
     };
 }

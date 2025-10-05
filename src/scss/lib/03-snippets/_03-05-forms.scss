@@ -12,9 +12,42 @@
 // @use 'pkg:@maddimathon/utility-sass/string';
 
 @use '../01-functions' as *;
-// @use '../02-mixins' as *;
+@use '../02-mixins' as *;
 
 @use 'utils';
+
+///
+/// Colour properties for an input element.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin snippet-button-colours($variation: 'primary') {
+    --focus-ring-outline-color: #{var-theme(button-#{$variation}-border)};
+    background-color: #{var-theme(button-#{$variation}-bg)};
+    border-color: #{var-theme(button-#{$variation}-border)};
+    color: #{var-theme(button-#{$variation}-text)};
+    accent-color: #{var-theme(button-#{$variation}-border)};
+
+    @include hover-focus-visible-or-within {
+        --focus-ring-outline-color: #{var-theme(
+                button-#{$variation}-border-hover
+            )};
+        background-color: #{var-theme(button-#{$variation}-bg-hover)};
+        border-color: #{var-theme(button-#{$variation}-border-hover)};
+        color: #{var-theme(button-#{$variation}-text-hover)};
+        accent-color: #{var-theme(button-#{$variation}-border-hover)};
+    }
+
+    &:active {
+        --focus-ring-outline-color: #{var-theme(
+                button-#{$variation}-border-active
+            )};
+        background-color: #{var-theme(button-#{$variation}-bg-active)};
+        border-color: #{var-theme(button-#{$variation}-border-active)};
+        color: #{var-theme(button-#{$variation}-text-active)};
+        accent-color: #{var-theme(button-#{$variation}-border-active)};
+    }
+}
 
 ///
 /// Base styles for a button element.
@@ -22,48 +55,39 @@
 /// @since ___PKG_VERSION___
 ///
 @mixin snippet-button(
-    $accentClr: var-theme(button-border),
-    $accentClr_active: var-theme(button-border-active),
-    $accentClr_hover: var-theme(button-border-hover),
+    $includeUtils: true,
     //
-    $background: var-theme(button-bg),
-    $background_active: var-theme(button-bg-active),
-    $background_hover: var-theme(button-bg-hover),
-    //
-    $borderClr: var-theme(button-border),
-    $borderClr_active: var-theme(button-border-active),
-    $borderClr_hover: var-theme(button-border-hover),
-    //
-    $color: var-theme(button-text),
-    $color_active: var-theme(button-text-active),
-    $color_hover: var-theme(button-text-hover),
+    $opacity_hover: null,
     //
     $args...
 ) {
     $args: meta.keywords($args);
-    --focus-ring-outline-color: #{$accentClr_hover};
-    --focus-ring-outline-offset: #{var-border-width('200')};
 
-    @include utils.snippet-button(
-        $accentClr: $accentClr,
-        $accentClr_active: $accentClr_active,
-        $accentClr_hover: $accentClr_hover,
+    @if $includeUtils {
+        @include utils.snippet-button(
+            $opacity_hover: 1,
+            $includeClrs: false,
+            $args...
+        );
+    } @else {
+        @include colour-mode-interactive-mixin(
+            $modes: (
+                low,
+                average,
+            ),
+            $hover: true,
+            $focus: true,
+            $focusWithin: true,
+            $includeDefault: false
+        ) {
+            opacity: 1;
+        }
+    }
 
-        $background: $background,
-        $background_active: $background_active,
-        $background_hover: $background_hover,
-
-        $borderClr: $borderClr,
-        $borderClr_active: $borderClr_active,
-        $borderClr_hover: $borderClr_hover,
-
-        $color: $color,
-        $color_active: $color_active,
-        $color_hover: $color_hover,
-
-        $includeClrs: true,
-        $args...
-    );
+    & {
+        --focus-ring-outline-offset: #{var-border-width('200')};
+        @include snippet-button-colours;
+    }
 }
 
 ///
@@ -72,64 +96,79 @@
 /// @since ___PKG_VERSION___
 ///
 @mixin snippet-input(
-    $borderWidth: '100',
+    $includeUtils: true,
     //
-    $accentClr: var-theme(input-border),
-    $accentClr_active: var-theme(input-border-active),
-    $accentClr_hover: var-theme(input-border-hover),
+    $borderWidth: '200',
     //
-    $background: var-theme(input-bg),
-    $background_active: var-theme(input-bg-active),
-    $background_hover: var-theme(input-bg-hover),
+    $accentClr: var-theme(field-border),
+    $accentClr_active: var-theme(field-border-active),
+    $accentClr_hover: var-theme(field-border-hover),
     //
-    $borderClr: var-theme(input-border),
-    $borderClr_active: var-theme(input-border-active),
-    $borderClr_hover: var-theme(input-border-hover),
+    $background: var-theme(field-bg),
+    $background_active: var-theme(field-bg-active),
+    $background_hover: var-theme(field-bg-hover),
     //
-    $color: var-theme(input-text),
-    $color_active: var-theme(input-text-active),
-    $color_hover: var-theme(input-text-hover),
+    $borderClr: var-theme(field-border),
+    $borderClr_active: var-theme(field-border-active),
+    $borderClr_hover: var-theme(field-border-hover),
+    //
+    $color: var-theme(field-text),
+    $color_active: var-theme(field-text-active),
+    $color_hover: var-theme(field-text-hover),
+    $opacity_hover: null,
     //
     $args...
 ) {
     $args: meta.keywords($args);
-    --focus-ring-outline-color: #{$accentClr_hover};
-    border-width: #{var-border-width($borderWidth)};
 
-    @include utils.snippet-input(
-        $accentClr: $accentClr,
-        $accentClr_active: $accentClr_active,
-        $accentClr_hover: $accentClr_hover,
+    @if $includeUtils {
+        @include utils.snippet-input(
+            $accentClr: $accentClr,
+            $accentClr_active: $accentClr_active,
+            $accentClr_hover: $accentClr_hover,
 
-        $background: $background,
-        $background_active: $background_active,
-        $background_hover: $background_hover,
+            $background: $background,
+            $background_active: $background_active,
+            $background_hover: $background_hover,
 
-        $borderClr: $borderClr,
-        $borderClr_active: $borderClr_active,
-        $borderClr_hover: $borderClr_hover,
+            $borderClr: $borderClr,
+            $borderClr_active: $borderClr_active,
+            $borderClr_hover: $borderClr_hover,
 
-        $color: $color,
-        $color_active: $color_active,
-        $color_hover: $color_hover,
+            $color: $color,
+            $color_active: $color_active,
+            $color_hover: $color_hover,
 
-        $includeClrs: true,
-        $includePlaceholder: false,
-        $args...
-    );
+            $opacity_hover: 100%,
+            $includeClrs: true,
+            $includePlaceholder: false,
+            $args...
+        );
+    } @else {
+        --focus-ring-outline-color: #{$accentClr};
+        background-color: #{$background};
+        color: #{$color};
+        accent-color: #{$accentClr};
 
-    &::placeholder {
-        opacity: 1;
-
-        color: currentColor;
-
-        @include colour-mode(('low', 'average')) {
-            color: color-mix(in srgb, currentColor 75%, transparent);
+        @include hover-focus-visible-or-within {
+            --focus-ring-outline-color: #{$accentClr_hover};
+            background-color: #{$background_hover};
+            border-color: #{$borderClr_hover};
+            color: #{$color_hover};
+            accent-color: #{$accentClr_hover};
         }
 
-        @include high-contrast {
-            color: color-mix(in srgb, currentColor 90%, transparent);
+        &:active {
+            --focus-ring-outline-color: #{$accentClr_active};
+            background-color: #{$background_active};
+            border-color: #{$borderClr_active};
+            color: #{$color_active};
+            accent-color: #{$accentClr_active};
         }
+    }
+
+    & {
+        border-width: #{var-border-width($borderWidth)};
     }
 }
 
@@ -139,9 +178,11 @@
 /// @since ___PKG_VERSION___
 ///
 @mixin snippet-input-types(
-    $accentClr: var-theme(input-border),
-    $accentClr_active: var-theme(input-border-active),
-    $accentClr_hover: var-theme(input-border-hover),
+    $includeUtils: true,
+    //
+    $accentClr: var-theme(field-border),
+    $accentClr_active: var-theme(field-border-active),
+    $accentClr_hover: var-theme(field-border-hover),
     $includeBase: true,
     $args...
 ) {
@@ -176,10 +217,12 @@
 ) {
     $args: meta.keywords($args);
 
-    @include utils.snippet-label(
-        $color: $color,
-        $color_checkradio: $color_checkradio,
-        $includeClrs: true,
-        $args...
-    );
+    @if $includeUtils {
+        @include utils.snippet-label(
+            $color: $color,
+            $color_checkradio: $color_checkradio,
+            $includeClrs: true,
+            $args...
+        );
+    }
 }

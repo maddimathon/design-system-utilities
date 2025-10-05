@@ -35,12 +35,14 @@ export class Tokens_Themes_Set_SingleMode<
     T_ExtraColourLevels extends TokenLevels_Extended,
 
     T_Keyword_Universal extends string,
+    T_Keyword_Text extends string,
 
     __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>,
 > extends AbstractTokens<Tokens_Themes_Set_SingleMode.Data<
     T_ColourName,
     T_ExtraColourLevels,
     T_Keyword_Universal,
+    T_Keyword_Text,
     __T_ColourOption
 >> {
 
@@ -49,6 +51,7 @@ export class Tokens_Themes_Set_SingleMode<
         T_ExtraColourLevels extends TokenLevels_Extended,
 
         T_Keyword_Universal extends string = never,
+        T_Keyword_Text extends string = never,
     >(
         preset: "forcedColors",
         clrNames: readonly T_ColourName[],
@@ -56,13 +59,23 @@ export class Tokens_Themes_Set_SingleMode<
             T_ColourName,
             T_ExtraColourLevels,
             T_Keyword_Universal,
+            T_Keyword_Text,
             CssSystemColor
         >,
+
+        overrides?: RecursivePartial<Tokens_Themes_Set_SingleMode.Data<
+            T_ColourName,
+            T_ExtraColourLevels,
+            T_Keyword_Universal,
+            T_Keyword_Text,
+            CssSystemColor
+        >>,
     ): Promise<
         Tokens_Themes_Set_SingleMode<
             T_ColourName,
             T_ExtraColourLevels,
             T_Keyword_Universal,
+            T_Keyword_Text,
             CssSystemColor
         >
     >;
@@ -72,19 +85,29 @@ export class Tokens_Themes_Set_SingleMode<
         T_ExtraColourLevels extends TokenLevels_Extended,
 
         T_Keyword_Universal extends string = never,
+        T_Keyword_Text extends string = never,
     >(
         preset: "low" | "average" | "high",
         clrNames: readonly T_ColourName[],
         input: Tokens_Themes_Set_SingleMode.InputParam<
             T_ColourName,
             T_ExtraColourLevels,
-            T_Keyword_Universal
+            T_Keyword_Universal,
+            T_Keyword_Text
         >,
+
+        overrides?: RecursivePartial<Tokens_Themes_Set_SingleMode.Data<
+            T_ColourName,
+            T_ExtraColourLevels,
+            T_Keyword_Universal,
+            T_Keyword_Text
+        >>,
     ): Promise<
         Tokens_Themes_Set_SingleMode<
             T_ColourName,
             T_ExtraColourLevels,
-            T_Keyword_Universal
+            T_Keyword_Universal,
+            T_Keyword_Text
         >
     >;
 
@@ -98,19 +121,29 @@ export class Tokens_Themes_Set_SingleMode<
         T_ExtraColourLevels extends TokenLevels_Extended,
 
         T_Keyword_Universal extends string = never,
+        T_Keyword_Text extends string = never,
     >(
         preset: "low" | "average" | "forcedColors" | "high",
         clrNames: readonly T_ColourName[],
         input: Tokens_Themes_Set_SingleMode.InputParam<
             T_ColourName,
             T_ExtraColourLevels,
-            T_Keyword_Universal
+            T_Keyword_Universal,
+            T_Keyword_Text
         >,
+
+        overrides: RecursivePartial<Tokens_Themes_Set_SingleMode.Data<
+            T_ColourName,
+            T_ExtraColourLevels,
+            T_Keyword_Universal,
+            T_Keyword_Text
+        >> = {},
     ): Promise<
         Tokens_Themes_Set_SingleMode<
             T_ColourName,
             T_ExtraColourLevels,
-            T_Keyword_Universal
+            T_Keyword_Universal,
+            T_Keyword_Text
         >
     > {
 
@@ -122,24 +155,48 @@ export class Tokens_Themes_Set_SingleMode<
             case 'average':
                 defaultLevels = {
                     background: '100',
-                    text: '700',
-                    ui: '700',
+                    text: {
+                        $: '800',
+                        accent: '700',
+                        min: '700',
+                    },
+                    ui: {
+                        $: '700',
+                        accent: '600',
+                        min: '600',
+                    },
                 };
                 break;
 
             case 'high':
                 defaultLevels = {
                     background: '100',
-                    text: '800',
-                    ui: '800',
+                    text: {
+                        $: '800',
+                        accent: '800',
+                        min: '800',
+                    },
+                    ui: {
+                        $: '800',
+                        accent: '800',
+                        min: '800',
+                    },
                 };
                 break;
 
             case 'low':
                 defaultLevels = {
                     background: '200',
-                    text: '700',
-                    ui: '700',
+                    text: {
+                        $: '800',
+                        accent: '700',
+                        min: '700',
+                    },
+                    ui: {
+                        $: '700',
+                        accent: '600',
+                        min: '600',
+                    },
                 };
                 break;
 
@@ -147,14 +204,16 @@ export class Tokens_Themes_Set_SingleMode<
                 const _input: Tokens_Themes_Set_SingleMode.Build.Param_ForcedColors<
                     T_ColourName,
                     T_ExtraColourLevels,
-                    T_Keyword_Universal
+                    T_Keyword_Universal,
+                    T_Keyword_Text
                 > = {
                     ...input,
 
                     variations: Tokens_Themes_Set_SingleMode.Build.completeVariations<
                         T_ColourName,
                         T_ExtraColourLevels,
-                        T_Keyword_Universal
+                        T_Keyword_Universal,
+                        T_Keyword_Text
                     >( clrNames, input.variations ),
                 };
 
@@ -164,28 +223,35 @@ export class Tokens_Themes_Set_SingleMode<
         }
 
         return new Tokens_Themes_Set_SingleMode(
-            await Tokens_Themes_Set_SingleMode.Build.data<
-                T_ColourName,
-                T_ExtraColourLevels,
-                T_Keyword_Universal
-            >( {
-
-                levels: Tokens_Themes_Set_SingleMode.Build.completeLevels<
+            mergeArgs(
+                await Tokens_Themes_Set_SingleMode.Build.data<
                     T_ColourName,
                     T_ExtraColourLevels,
-                    T_Keyword_Universal
-                >( mergeArgs(
-                    defaultLevels,
-                    input.levels as Partial<Tokens_Themes_Set_SingleMode.RequiredLevels<never>>,
-                    true
-                ) ),
+                    T_Keyword_Universal,
+                    T_Keyword_Text
+                >( {
 
-                variations: Tokens_Themes_Set_SingleMode.Build.completeVariations<
-                    T_ColourName,
-                    T_ExtraColourLevels,
-                    T_Keyword_Universal
-                >( clrNames, input.variations ),
-            } )
+                    levels: Tokens_Themes_Set_SingleMode.Build.completeLevels<
+                        T_ColourName,
+                        T_ExtraColourLevels,
+                        T_Keyword_Universal,
+                        T_Keyword_Text
+                    >( mergeArgs(
+                        defaultLevels,
+                        input.levels as Partial<Tokens_Themes_Set_SingleMode.RequiredLevels<never>>,
+                        true
+                    ) ),
+
+                    variations: Tokens_Themes_Set_SingleMode.Build.completeVariations<
+                        T_ColourName,
+                        T_ExtraColourLevels,
+                        T_Keyword_Universal,
+                        T_Keyword_Text
+                    >( clrNames, input.variations ),
+                } ),
+                overrides,
+                true
+            )
         );
     }
 
@@ -194,6 +260,7 @@ export class Tokens_Themes_Set_SingleMode<
             T_ColourName,
             T_ExtraColourLevels,
             T_Keyword_Universal,
+            T_Keyword_Text,
             __T_ColourOption
         >,
     ) {
@@ -203,7 +270,8 @@ export class Tokens_Themes_Set_SingleMode<
     public toJSON(): Tokens_Themes_Set_SingleMode.JsonReturn<
         T_ColourName,
         T_ExtraColourLevels,
-        T_Keyword_Universal
+        T_Keyword_Universal,
+        T_Keyword_Text
     > {
         return this.data;
     }
@@ -353,6 +421,7 @@ export namespace Tokens_Themes_Set_SingleMode {
         T_ExtraColourLevels extends TokenLevels_Extended,
 
         T_Keyword_Universal extends string,
+        T_Keyword_Text extends string,
 
         __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>,
     > {
@@ -366,6 +435,8 @@ export namespace Tokens_Themes_Set_SingleMode {
             disabled: __T_ColourOption,
         } & {
             [ K in T_Keyword_Universal ]: __T_ColourOption;
+        } & {
+            [ K in T_Keyword_Text ]: __T_ColourOption;
         },
 
         ui: {
@@ -376,6 +447,8 @@ export namespace Tokens_Themes_Set_SingleMode {
             disabled: __T_ColourOption,
         } & {
             [ K in T_Keyword_Universal ]: __T_ColourOption;
+        } & {
+            [ K in T_Keyword_Text ]: __T_ColourOption;
         },
 
         selection: {
@@ -451,6 +524,17 @@ export namespace Tokens_Themes_Set_SingleMode {
             primary: T_ColourName;
             secondary: T_ColourName;
         };
+
+        text: {
+            active: T_ColourName;
+            disabled: T_ColourName;
+        };
+
+        interactive: {
+            active: T_ColourName;
+            hover: T_ColourName;
+            disabled: T_ColourName;
+        };
     };
 
     /** @internal @private */
@@ -458,21 +542,36 @@ export namespace Tokens_Themes_Set_SingleMode {
         T_ColourName extends string,
 
         T_Keyword_Universal extends string,
+        T_Keyword_Text extends string,
     > {
         base: T_ColourName;
 
         universal: RequiredVariations<T_ColourName>[ 'universal' ] & {
             [ K in T_Keyword_Universal ]: T_ColourName;
         };
+
+        text: RequiredVariations<T_ColourName>[ 'text' ] & {
+            [ K in T_Keyword_Text ]: T_ColourName;
+        };
+
+        interactive: RequiredVariations<T_ColourName>[ 'interactive' ];
     };
+
+    interface LevelsSet<
+        T_ExtraColourLevels extends TokenLevels_Extended,
+    > {
+        $: TokenLevels | T_ExtraColourLevels;
+        accent: TokenLevels | T_ExtraColourLevels;
+        min: TokenLevels | T_ExtraColourLevels;
+    }
 
     /** @internal @private */
     export interface RequiredLevels<
         T_ExtraColourLevels extends TokenLevels_Extended,
     > {
         background: TokenLevels | T_ExtraColourLevels;
-        text: TokenLevels | T_ExtraColourLevels;
-        ui: TokenLevels | T_ExtraColourLevels;
+        text: LevelsSet<T_ExtraColourLevels>;
+        ui: LevelsSet<T_ExtraColourLevels>;
     };
 
     /**
@@ -485,11 +584,16 @@ export namespace Tokens_Themes_Set_SingleMode {
         T_ExtraColourLevels extends TokenLevels_Extended,
 
         T_Keyword_Universal extends string,
+        T_Keyword_Text extends string,
 
         __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>,
     > {
 
-        levels?: Partial<RequiredLevels<T_ExtraColourLevels>>;
+        levels?: {
+            background?: TokenLevels | T_ExtraColourLevels;
+            text?: TokenLevels | T_ExtraColourLevels | Partial<LevelsSet<T_ExtraColourLevels>>;
+            ui?: TokenLevels | T_ExtraColourLevels | Partial<LevelsSet<T_ExtraColourLevels>>;
+        };
 
         variations?: {
 
@@ -498,6 +602,16 @@ export namespace Tokens_Themes_Set_SingleMode {
             > & {
                 [ K in T_Keyword_Universal ]: T_ColourName;
             };
+
+            text?: Partial<
+                RequiredVariations<T_ColourName>[ 'text' ]
+            > & {
+                [ K in T_Keyword_Text ]: T_ColourName;
+            };
+
+            interactive?: Partial<
+                RequiredVariations<T_ColourName>[ 'interactive' ]
+            >;
         };
     };
 
@@ -509,12 +623,14 @@ export namespace Tokens_Themes_Set_SingleMode {
         T_ExtraColourLevels extends TokenLevels_Extended,
 
         T_Keyword_Universal extends string,
+        T_Keyword_Text extends string,
 
         __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>,
     > = Data<
         T_ColourName,
         T_ExtraColourLevels,
         T_Keyword_Universal,
+        T_Keyword_Text,
         __T_ColourOption
     >;
 
@@ -541,9 +657,14 @@ export namespace Tokens_Themes_Set_SingleMode {
             T_ExtraColourLevels extends TokenLevels_Extended,
 
             T_Keyword_Universal extends string,
+            T_Keyword_Text extends string,
         > {
             levels: RequiredLevels<T_ExtraColourLevels>;
-            variations: AllVariations<T_ColourName, T_Keyword_Universal>;
+            variations: AllVariations<
+                T_ColourName,
+                T_Keyword_Universal,
+                T_Keyword_Text
+            >;
         };
 
         /**
@@ -554,12 +675,22 @@ export namespace Tokens_Themes_Set_SingleMode {
             T_ExtraColourLevels extends TokenLevels_Extended,
 
             T_Keyword_Universal extends string,
+            T_Keyword_Text extends string,
         > {
-            levels?: Partial<RequiredLevels<T_ExtraColourLevels>>;
-            variations: AllVariations<T_ColourName, T_Keyword_Universal>;
+            levels?: InputParam<
+                T_ColourName,
+                T_ExtraColourLevels,
+                T_Keyword_Universal,
+                T_Keyword_Text
+            >[ 'levels' ];
+            variations: AllVariations<
+                T_ColourName,
+                T_Keyword_Universal,
+                T_Keyword_Text
+            >;
         };
 
-        function clrOpt<
+        export function colourOption<
             T_ColourName extends string,
             T_ExtraColourLevels extends TokenLevels_Extended,
         >(
@@ -574,30 +705,53 @@ export namespace Tokens_Themes_Set_SingleMode {
             T_ExtraColourLevels extends TokenLevels_Extended,
 
             T_Keyword_Universal extends string,
+            T_Keyword_Text extends string,
         >(
             input: InputParam<
                 T_ColourName,
                 T_ExtraColourLevels,
-                string
+                T_Keyword_Universal,
+                T_Keyword_Text
             >[ 'levels' ],
         ): Param<
             T_ColourName,
             T_ExtraColourLevels,
 
-            T_Keyword_Universal
+            T_Keyword_Universal,
+            T_Keyword_Text
         >[ 'levels' ] {
 
-            const def: RequiredLevels<T_ExtraColourLevels> = {
-                background: '100',
-                text: '800',
-                ui: '800',
-            };
+            const text: RequiredLevels<T_ExtraColourLevels>[ 'text' ] =
+                typeof input?.text === 'object'
+                    ? {
+                        $: input.text?.$ ?? '800',
+                        accent: input.text?.accent ?? '800',
+                        min: input.text?.min ?? '800',
+                    }
+                    : {
+                        $: input?.text ?? '800',
+                        accent: input?.text ?? '800',
+                        min: input?.text ?? '800',
+                    };
 
-            return mergeArgs(
-                def,
-                input,
-                false
-            );
+            const ui: RequiredLevels<T_ExtraColourLevels>[ 'ui' ] =
+                typeof input?.ui === 'object'
+                    ? {
+                        $: input.ui?.$ ?? '700',
+                        accent: input.ui?.accent ?? '700',
+                        min: input.ui?.min ?? '700',
+                    }
+                    : {
+                        $: input?.ui ?? '700',
+                        accent: input?.ui ?? '700',
+                        min: input?.ui ?? '700',
+                    };
+
+            return {
+                background: input?.background ?? '100',
+                text,
+                ui,
+            };
         }
 
         export function completeVariations<
@@ -605,20 +759,26 @@ export namespace Tokens_Themes_Set_SingleMode {
             T_ExtraColourLevels extends TokenLevels_Extended,
 
             T_Keyword_Universal extends string,
+            T_Keyword_Text extends string,
         >(
             clrNames: readonly T_ColourName[],
             input: InputParam<
                 T_ColourName,
                 T_ExtraColourLevels,
-                T_Keyword_Universal
+                T_Keyword_Universal,
+                T_Keyword_Text
             >[ 'variations' ],
-        ): AllVariations<T_ColourName, T_Keyword_Universal> {
+        ): AllVariations<
+            T_ColourName,
+            T_Keyword_Universal,
+            T_Keyword_Text
+        > {
             const clrNames_noBase = clrNames.filter( v => v !== 'base' );
 
             const base = 'base' as T_ColourName;
-            const clr_1 = clrNames_noBase[ 0 ] ?? base;
-            const clr_2 = clrNames_noBase[ 1 ] ?? clr_1;
-            // const clr_3 = clrNames_noBase[ 2 ] ?? clr_2;
+            const clr_1 = input?.universal?.primary ?? clrNames_noBase[ 0 ] ?? base;
+            const clr_2 = input?.universal?.secondary ?? clrNames_noBase[ 1 ] ?? clr_1;
+            const clr_3 = input?.text?.active ?? input?.interactive?.active ?? clrNames_noBase[ 2 ] ?? clr_2;
 
             const def: RequiredVariations<T_ColourName> = {
                 base: base,
@@ -626,14 +786,28 @@ export namespace Tokens_Themes_Set_SingleMode {
                     primary: clr_1,
                     secondary: clr_2,
                 },
+                text: {
+                    active: clr_3,
+                    disabled: base,
+                },
+                interactive: {
+                    hover: clr_2,
+                    active: clr_3,
+                    disabled: base,
+                },
             };
 
-            const vars: AllVariations<T_ColourName, T_Keyword_Universal> = mergeArgs(
+            const vars: AllVariations<
+                T_ColourName,
+                T_Keyword_Universal,
+                T_Keyword_Text
+            > = mergeArgs(
                 def,
                 input as RecursivePartial<RequiredVariations<T_ColourName>> & InputParam<
                     T_ColourName,
                     T_ExtraColourLevels,
-                    T_Keyword_Universal
+                    T_Keyword_Universal,
+                    T_Keyword_Text
                 >[ 'variations' ],
                 true
             );
@@ -651,24 +825,29 @@ export namespace Tokens_Themes_Set_SingleMode {
             T_ExtraColourLevels extends TokenLevels_Extended,
 
             T_Keyword_Universal extends string = never,
+            T_Keyword_Text extends string = never,
         >(
             input: Param<
                 T_ColourName,
                 T_ExtraColourLevels,
-                T_Keyword_Universal
+                T_Keyword_Universal,
+                T_Keyword_Text
             >,
         ): Promise<Data<
             T_ColourName,
             T_ExtraColourLevels,
-            T_Keyword_Universal
+            T_Keyword_Universal,
+            T_Keyword_Text
         >> {
-            type ColourOptions = ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
 
             type CompleteData = Data<
                 T_ColourName,
                 T_ExtraColourLevels,
-                T_Keyword_Universal
+                T_Keyword_Universal,
+                T_Keyword_Text
             >;
+
+            const clrOpt = colourOption;
 
             const {
                 levels,
@@ -676,47 +855,84 @@ export namespace Tokens_Themes_Set_SingleMode {
             } = input;
 
             const text: CompleteData[ 'text' ] = {
-                $: clrOpt( variations.base, levels.text ),
+                $: clrOpt( variations.base, levels.text.$ ),
 
-                ...objectMap( variations.universal, ( { value: clrName } ) => clrOpt( clrName, levels.text ) ),
+                ...objectMap( variations.universal, ( { value: clrName } ) => clrOpt( clrName, levels.text.accent ) ),
+                ...objectMap( variations.text, ( { value: clrName } ) => clrOpt( clrName, levels.text.accent ) ),
 
-                active: clrOpt( variations.universal.secondary, levels.text ),
-                disabled: clrOpt( variations.base, levels.text ),
+                disabled: clrOpt( variations.text.disabled, levels.text.min ),
             };
 
             const ui: CompleteData[ 'ui' ] = {
-                $: clrOpt( variations.base, levels.ui ),
+                $: clrOpt( variations.base, levels.ui.$ ),
 
-                ...objectMap( variations.universal, ( { value: clrName } ) => clrOpt( clrName, levels.ui ) ),
+                ...objectMap( variations.universal, ( { value: clrName } ) => clrOpt( clrName, levels.ui.accent ) ),
+                ...objectMap( variations.text, ( { value: clrName } ) => clrOpt( clrName, levels.ui.accent ) ),
 
-                active: clrOpt( variations.universal.secondary, levels.ui ),
-                disabled: clrOpt( variations.base, levels.ui ),
+                disabled: clrOpt( variations.text.disabled, levels.ui.min ),
             };
 
-            const singleButtonMaker = ( _clrName: typeof variations[ keyof typeof variations ] ): CompleteData[ 'button' ][ 'primary' ] => ( {
+            const singleButtonMaker = ( _primaryClr: T_ColourName ): CompleteData[ 'button' ][ 'primary' ] => {
 
-                bg: {
-                    $: '"??"' as ColourOptions,
-                    hover: '"??"' as ColourOptions,
-                    active: '"??"' as ColourOptions,
-                },
+                const _secondaryClr = _primaryClr ==
+                    variations.universal.primary
+                    ? variations.universal.secondary
+                    : _primaryClr === variations.universal.secondary
+                        ? variations.text.active
+                        : variations.universal.primary;
 
-                border: {
-                    $: '"??"' as ColourOptions,
-                    hover: '"??"' as ColourOptions,
-                    active: '"??"' as ColourOptions,
-                },
+                const _activeClr = _primaryClr ==
+                    variations.text.active
+                    ? variations.universal.secondary
+                    : _secondaryClr == variations.text.active
+                        ? variations.universal.primary
+                        : variations.text.active;
 
-                text: {
-                    $: '"??"' as ColourOptions,
-                    hover: '"??"' as ColourOptions,
-                    active: '"??"' as ColourOptions,
-                },
-            } );
+                return {
+
+                    bg: {
+                        $: clrOpt( _primaryClr, levels.text.accent ),
+                        hover: clrOpt( _secondaryClr, levels.text.accent ),
+                        active: clrOpt( _activeClr, levels.text.accent ),
+                    },
+
+                    border: {
+                        $: clrOpt( _primaryClr, levels.text.accent ),
+                        hover: clrOpt( _secondaryClr, levels.text.accent ),
+                        active: clrOpt( _activeClr, levels.text.accent ),
+                    },
+
+                    text: {
+                        $: clrOpt( variations.base, levels.background ),
+                        hover: clrOpt( variations.base, levels.background ),
+                        active: clrOpt( variations.base, levels.background ),
+                    },
+                };
+            };
 
             const button: CompleteData[ 'button' ] = {
                 ...objectMap( variations.universal, ( { value: clrName } ) => singleButtonMaker( clrName ) ),
-                disabled: singleButtonMaker( variations.base ),
+
+                disabled: {
+
+                    bg: {
+                        $: clrOpt( variations.base, levels.text.min ),
+                        hover: clrOpt( variations.base, levels.text.min ),
+                        active: clrOpt( variations.base, levels.text.min ),
+                    },
+
+                    border: {
+                        $: clrOpt( variations.base, levels.text.min ),
+                        hover: clrOpt( variations.base, levels.text.min ),
+                        active: clrOpt( variations.base, levels.text.min ),
+                    },
+
+                    text: {
+                        $: clrOpt( variations.base, levels.background ),
+                        hover: clrOpt( variations.base, levels.background ),
+                        active: clrOpt( variations.base, levels.background ),
+                    },
+                },
             };
 
             const complete: CompleteData = {
@@ -726,15 +942,15 @@ export namespace Tokens_Themes_Set_SingleMode {
                 ui,
 
                 selection: {
-                    bg: '"??"' as ColourOptions,
-                    text: '"??"' as ColourOptions,
+                    bg: clrOpt( variations.universal.primary, levels.text.accent ),
+                    text: clrOpt( variations.base, levels.background ),
                 },
 
                 link: {
-                    $: '"??"' as ColourOptions,
-                    hover: '"??"' as ColourOptions,
-                    active: '"??"' as ColourOptions,
-                    visited: '"??"' as ColourOptions,
+                    $: clrOpt( variations.universal.primary, levels.text.accent ),
+                    hover: clrOpt( variations.interactive.hover, levels.text.accent ),
+                    active: clrOpt( variations.interactive.active, levels.text.accent ),
+                    visited: clrOpt( variations.universal.primary, levels.text.accent ),
                 },
 
                 button,
@@ -742,36 +958,36 @@ export namespace Tokens_Themes_Set_SingleMode {
                 field: {
 
                     bg: {
-                        $: '"??"' as ColourOptions,
-                        hover: '"??"' as ColourOptions,
-                        active: '"??"' as ColourOptions,
+                        $: clrOpt( variations.base, levels.background ),
+                        hover: clrOpt( variations.base, levels.background ),
+                        active: clrOpt( variations.base, levels.background ),
                     },
 
                     border: {
-                        $: '"??"' as ColourOptions,
-                        hover: '"??"' as ColourOptions,
-                        active: '"??"' as ColourOptions,
+                        $: clrOpt( variations.base, levels.ui.$ ),
+                        hover: clrOpt( variations.interactive.hover, levels.ui.accent ),
+                        active: clrOpt( variations.interactive.active, levels.ui.accent ),
                     },
 
                     text: {
-                        $: '"??"' as ColourOptions,
-                        hover: '"??"' as ColourOptions,
-                        active: '"??"' as ColourOptions,
+                        $: clrOpt( variations.base, levels.text.$ ),
+                        hover: clrOpt( variations.base, levels.text.$ ),
+                        active: clrOpt( variations.base, levels.text.$ ),
                     },
                 },
 
                 system: {
                     accent: {
-                        bg: '"??"' as ColourOptions,
-                        text: '"??"' as ColourOptions,
+                        bg: clrOpt( variations.universal.primary, levels.text.accent ),
+                        text: clrOpt( variations.base, levels.background ),
                     },
                     mark: {
-                        bg: '"??"' as ColourOptions,
-                        text: '"??"' as ColourOptions,
+                        bg: clrOpt( variations.text.active, levels.text.accent ),
+                        text: clrOpt( variations.base, levels.background ),
                     },
                     selected: {
-                        bg: '"??"' as ColourOptions,
-                        text: '"??"' as ColourOptions,
+                        bg: clrOpt( variations.interactive.hover, levels.text.accent ),
+                        text: clrOpt( variations.base, levels.background ),
                     },
                 },
             };
@@ -789,22 +1005,26 @@ export namespace Tokens_Themes_Set_SingleMode {
             T_ExtraColourLevels extends TokenLevels_Extended,
 
             T_Keyword_Universal extends string = never,
+            T_Keyword_Text extends string = never,
         >(
             input: Param_ForcedColors<
                 T_ColourName,
                 T_ExtraColourLevels,
-                T_Keyword_Universal
+                T_Keyword_Universal,
+                T_Keyword_Text
             >,
         ): Promise<Data<
             T_ColourName,
             T_ExtraColourLevels,
             T_Keyword_Universal,
+            T_Keyword_Text,
             CssSystemColor
         >> {
             type CompleteData = Data<
                 T_ColourName,
                 T_ExtraColourLevels,
                 T_Keyword_Universal,
+                T_Keyword_Text,
                 CssSystemColor
             >;
 
@@ -821,6 +1041,7 @@ export namespace Tokens_Themes_Set_SingleMode {
                 $: sysclr.text,
 
                 ...objectMap( variations.universal, () => sysclr.text ),
+                ...objectMap( variations.text, () => sysclr.text ),
 
                 active: 'ActiveText',
                 disabled: 'GrayText',

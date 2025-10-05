@@ -37,6 +37,7 @@ export class Tokens_Themes_Set<
     T_ThemeName extends string,
 
     T_Keyword_Universal extends string = never,
+    T_Keyword_Text extends string = never,
 > extends AbstractTokens<Tokens_Themes_Set.Data<
     T_ColourName,
     T_ExtraColourLevels,
@@ -44,7 +45,8 @@ export class Tokens_Themes_Set<
     T_ThemeContrastMode,
     T_ThemeName,
 
-    T_Keyword_Universal
+    T_Keyword_Universal,
+    T_Keyword_Text
 >> {
 
     /**
@@ -58,6 +60,7 @@ export class Tokens_Themes_Set<
         T_ThemeName extends string,
 
         T_Keyword_Universal extends string = never,
+        T_Keyword_Text extends string = never,
     >(
         name: T_ThemeName,
         clrNames: readonly T_ColourName[],
@@ -72,7 +75,8 @@ export class Tokens_Themes_Set<
             readonly T_ThemeContrastMode[],
             T_ThemeName,
 
-            T_Keyword_Universal
+            T_Keyword_Universal,
+            T_Keyword_Text
         >,
     ) {
 
@@ -91,7 +95,8 @@ export class Tokens_Themes_Set<
                         Tokens_Themes_Set_SingleMode.build<
                             T_ColourName,
                             T_ExtraColourLevels,
-                            T_Keyword_Universal
+                            T_Keyword_Universal,
+                            T_Keyword_Text
                         >(
                             contrast,
                             clrNames,
@@ -117,7 +122,8 @@ export class Tokens_Themes_Set<
         T_ThemeBrightnessMode,
         T_ThemeContrastMode,
         T_ThemeName,
-        T_Keyword_Universal
+        T_Keyword_Universal,
+        T_Keyword_Text
     > {
         return {
             name: this.name,
@@ -148,6 +154,7 @@ export class Tokens_Themes_Set<
             T_ColourName,
             T_ExtraColourLevels,
             T_Keyword_Universal,
+            T_Keyword_Text,
             CssSystemColor
         >,
 
@@ -157,7 +164,8 @@ export class Tokens_Themes_Set<
                 Tokens_Themes_Set_SingleMode<
                     T_ColourName,
                     T_ExtraColourLevels,
-                    T_Keyword_Universal
+                    T_Keyword_Universal,
+                    T_Keyword_Text
                 >;
             };
         },
@@ -171,7 +179,8 @@ export class Tokens_Themes_Set<
         T_ThemeBrightnessMode,
         T_ThemeContrastMode,
         T_ThemeName,
-        T_Keyword_Universal
+        T_Keyword_Universal,
+        T_Keyword_Text
     > {
         return this.data;
     }
@@ -184,7 +193,8 @@ export class Tokens_Themes_Set<
                 Tokens_Themes_Set_SingleMode<
                     T_ColourName,
                     T_ExtraColourLevels,
-                    T_Keyword_Universal
+                    T_Keyword_Universal,
+                    T_Keyword_Text
                 >[ 'toScssVars' ]
             >;
         };
@@ -220,12 +230,14 @@ export namespace Tokens_Themes_Set {
         T_ThemeName extends string,
 
         T_Keyword_Universal extends string,
+        T_Keyword_Text extends string,
     > = {
         name: T_ThemeName;
         forcedColours: Tokens_Themes_Set_SingleMode.Data<
             T_ColourName,
             T_ExtraColourLevels,
             T_Keyword_Universal,
+            T_Keyword_Text,
             CssSystemColor
         >;
     } & {
@@ -233,7 +245,8 @@ export namespace Tokens_Themes_Set {
                 [ C in T_ThemeContrastMode[ number ] ]: Tokens_Themes_Set_SingleMode.Data<
                     T_ColourName,
                     T_ExtraColourLevels,
-                    T_Keyword_Universal
+                    T_Keyword_Universal,
+                    T_Keyword_Text
                 >;
             };
         };
@@ -249,6 +262,7 @@ export namespace Tokens_Themes_Set {
         T_ThemeName extends string,
 
         T_Keyword_Universal extends string,
+        T_Keyword_Text extends string,
     > = {
         name: T_ThemeName;
         forcedColours?: Omit<
@@ -256,6 +270,7 @@ export namespace Tokens_Themes_Set {
                 T_ColourName,
                 T_ExtraColourLevels,
                 T_Keyword_Universal,
+                T_Keyword_Text,
                 CssSystemColor
             >,
             "levels" | "variations"
@@ -266,7 +281,8 @@ export namespace Tokens_Themes_Set {
                 Tokens_Themes_Set_SingleMode.InputParam<
                     T_ColourName,
                     T_ExtraColourLevels,
-                    T_Keyword_Universal
+                    T_Keyword_Universal,
+                    T_Keyword_Text
                 >;
             };
         };
@@ -282,12 +298,14 @@ export namespace Tokens_Themes_Set {
         T_ThemeName extends string,
 
         T_Keyword_Universal extends string,
+        T_Keyword_Text extends string,
     > = {
         name: T_ThemeName;
         forcedColours: Tokens_Themes_Set_SingleMode.JsonReturn<
             T_ColourName,
             T_ExtraColourLevels,
             T_Keyword_Universal,
+            T_Keyword_Text,
             CssSystemColor
         >;
     } & {
@@ -295,7 +313,8 @@ export namespace Tokens_Themes_Set {
                 [ C in T_ThemeContrastMode[ number ] ]: Tokens_Themes_Set_SingleMode.JsonReturn<
                     T_ColourName,
                     T_ExtraColourLevels,
-                    T_Keyword_Universal
+                    T_Keyword_Universal,
+                    T_Keyword_Text
                 >;
             };
         };

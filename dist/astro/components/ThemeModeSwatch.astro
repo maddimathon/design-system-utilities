@@ -8,8 +8,8 @@
 /* import - types */
 import type { HTMLAttributes } from 'astro/types';
 import type { RecursiveRecord } from '../../ts/01-utilities/@types.d.ts';
-import type { TokenLevels_Extended } from '../../ts/02-tokens/@types.d.ts';
-// import type { Tokens } from '../../ts/02-tokens/Tokens.js';
+// import type { TokenLevels_Extended } from '../../ts/02-tokens/@types.d.ts';
+import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Themes_Set_SingleMode } from '../../ts/02-tokens/Themes/Themes_Set_SingleMode.js';
 
 /* import - functions */
@@ -33,11 +33,7 @@ import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
 
 export interface Props extends Omit<HTMLAttributes<'div'>, 'class'> {
     heading: number;
-    theme: Tokens_Themes_Set_SingleMode.JsonReturn<
-        string,
-        TokenLevels_Extended,
-        string
-    >;
+    theme: Tokens.Themes.Set.SingleMode.JsonReturn;
 
     brightness?: string;
     contrast?: string;
@@ -169,11 +165,11 @@ const buttons: {
 
 
 const field: {
-    [ K in keyof Tokens_Themes_Set_SingleMode.JsonReturn<string, never, string>['field']['text'] ]: {
+    [ K in keyof Tokens.Themes.Set.SingleMode.JsonReturn['field']['text'] ]: {
 
-        [ K in keyof Tokens_Themes_Set_SingleMode.JsonReturn<string, never, string>['field'] ]: {
+        [ K in keyof Tokens.Themes.Set.SingleMode.JsonReturn['field'] ]: {
             state: null | Exclude<
-                keyof Tokens_Themes_Set_SingleMode.JsonReturn<string, never, string>['field']['text'],
+                keyof Tokens.Themes.Set.SingleMode.JsonReturn['field']['text'],
                 '$'
             >;
             key: string;
@@ -250,8 +246,8 @@ const field: {
     <p
         class="theme-mode-swatch__sample"
         style={ [
-            `background: var(--theme-selection-text, var(--clr-${theme.selection.text}))`,
-            `color: var(--theme-selection-bg, var(--clr-${theme.selection.bg}))`,
+            `background: var(--theme-selection-bg, var(--clr-${theme.selection.bg}))`,
+            `color: var(--theme-selection-text, var(--clr-${theme.selection.text}))`,
         ].join(';') }
     ><code set:text='theme-selection-text' /> {equals} <code set:text={theme.selection.text} /></p>
     {
@@ -265,8 +261,8 @@ const field: {
                 <p
                     class="theme-mode-swatch__sample"
                     style={ [
-                        `background: var(--${key}, var(--clr-${value}))`,
-                        `color: var(--theme-background, var(--clr-${theme.background}))`,
+                        `color: var(--${key}, var(--clr-${value}))`,
+                        // `color: var(--theme-background, var(--clr-${theme.background}))`,
                     ].join(';') }
                 ><code set:text={key} /> {equals} <code set:text={value} /></p>
             ) ) : (
@@ -319,9 +315,10 @@ const field: {
                 'theme-mode-swatch__sample--field',
             ] }
             style={ [
-                `border-color: var(--${state.border.key}, var(--clr-${state.border.value}))`,
-                `background: var(--${state.bg.key}, var(--clr-${state.bg.value}))`,
-                `color: var(--${state.text.key}, var(--clr-${state.text.value}))`,
+                state.border.key == 'base' ?  '' : `--focus-ring-outline-color: var(--theme-${state.border.key}, var(--clr-${state.border.value}))`,
+                `border-color: var(--theme-${state.border.key}, var(--clr-${state.border.value}))`,
+                `background: var(--theme-${state.bg.key}, var(--clr-${state.bg.value}))`,
+                `color: var(--theme-${state.text.key}, var(--clr-${state.text.value}))`,
             ].join(';') }
         />
     ) ) }
