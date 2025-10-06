@@ -16,7 +16,7 @@ import { objectMap } from '../01-utilities/objectMap.js';
 
 import type {
     ThemeMode_ContrastOption,
-    TokenLevels_Extended,
+    ColourLevels_Extended,
 } from './@types.d.ts';
 
 import { AbstractTokens } from './abstract/AbstractTokens.js';
@@ -29,7 +29,7 @@ import { Tokens_Themes_Set } from './Themes/Themes_Set.js';
  */
 export class Tokens_Themes<
     T_ColourName extends string,
-    T_ExtraColourLevels extends TokenLevels_Extended,
+    T_ExtraColourLevels extends ColourLevels_Extended,
     T_ThemeBrightnessMode extends string,
     T_ThemeContrastMode extends ThemeMode_ContrastOption,
     T_ThemeName extends string,
@@ -51,7 +51,7 @@ export class Tokens_Themes<
      */
     public static async build<
         T_ColourName extends string,
-        T_ExtraColourLevels extends TokenLevels_Extended,
+        T_ExtraColourLevels extends ColourLevels_Extended,
         T_ThemeBrightnessMode extends string,
         T_ThemeContrastMode extends ThemeMode_ContrastOption,
         T_ThemeName extends string,
@@ -93,7 +93,7 @@ export class Tokens_Themes<
      */
     protected static async buildSets<
         T_ColourName extends string,
-        T_ExtraColourLevels extends TokenLevels_Extended,
+        T_ExtraColourLevels extends ColourLevels_Extended,
         T_ThemeBrightnessMode extends string,
         T_ThemeContrastMode extends ThemeMode_ContrastOption,
         T_ThemeName extends string,
@@ -286,7 +286,7 @@ export namespace Tokens_Themes {
      */
     export type Data<
         T_ColourName extends string,
-        T_ExtraColourLevels extends TokenLevels_Extended,
+        T_ExtraColourLevels extends ColourLevels_Extended,
         T_ThemeBrightnessMode extends string,
         T_ThemeContrastMode extends ThemeMode_ContrastOption,
         T_ThemeName extends string,
@@ -310,7 +310,7 @@ export namespace Tokens_Themes {
      */
     export type InputParam<
         T_ColourName extends string,
-        T_ExtraColourLevels extends TokenLevels_Extended,
+        T_ExtraColourLevels extends ColourLevels_Extended,
         T_ThemeBrightnessMode extends string,
         T_ThemeContrastMode extends ThemeMode_ContrastOption,
         T_ThemeName extends string,
@@ -342,7 +342,7 @@ export namespace Tokens_Themes {
      */
     export type JsonReturn<
         T_ColourName extends string,
-        T_ExtraColourLevels extends TokenLevels_Extended,
+        T_ExtraColourLevels extends ColourLevels_Extended,
         T_ThemeBrightnessMode extends string,
         T_ThemeContrastMode extends ThemeMode_ContrastOption,
         T_ThemeName extends string,

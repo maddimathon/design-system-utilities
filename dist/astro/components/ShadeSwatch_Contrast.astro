@@ -9,8 +9,8 @@
 import type { ComponentProps } from 'astro/types';
 import type { ColourContrastTest } from '../../ts/01-utilities/ColourContrastTest.js';
 import type {
-    TokenLevels,
-    TokenLevels_Extended,
+    ColourLevels,
+    ColourLevels_Extended,
 } from '../../ts/02-tokens/@types.d.ts';
 import type { Tokens_Internal } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Colour_ShadeMap_Shade } from '../../ts/02-tokens/Colour/ShadeMap/ShadeMap_Shade.js';
@@ -39,7 +39,7 @@ import Heading from '@maddimathon/utility-astro/components/Heading';
 export interface Props<
     T_ColourName extends string = Tokens_Internal.Default_ColourName,
     T_ExtraLevels extends
-        TokenLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
+        ColourLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
 > extends Omit<
     ComponentProps<typeof Heading>,
     'frontmatter' | 'heading' | 'id'
@@ -90,10 +90,10 @@ type ColourSet_AllShadeLevels_Result = undefined | {
 };
 
 type ColourSet_AllShadeLevels<
-    T_ExtraLevels extends TokenLevels_Extended,
+    T_ExtraLevels extends ColourLevels_Extended,
 > = undefined | {
-    [ K in TokenLevels | T_ExtraLevels ]?: {
-        level: TokenLevels | T_ExtraLevels;
+    [ K in ColourLevels | T_ExtraLevels ]?: {
+        level: ColourLevels | T_ExtraLevels;
         ratio: number;
         result: ColourSet_AllShadeLevels_Result;
         interpretedResult: string;
@@ -102,15 +102,15 @@ type ColourSet_AllShadeLevels<
 };
 
 type ColourSet_MinMax_Single<
-    T_ExtraLevels extends TokenLevels_Extended,
+    T_ExtraLevels extends ColourLevels_Extended,
 > = undefined | {
-    level: TokenLevels | T_ExtraLevels;
+    level: ColourLevels | T_ExtraLevels;
     ratio: number;
     shadeLevelName: string;
 };
 
 type ColourSet_Minimum<
-    T_ExtraLevels extends TokenLevels_Extended,
+    T_ExtraLevels extends ColourLevels_Extended,
 > = undefined | {
     [S in 'aa' | 'aaa']?: {
         colCount: number;
@@ -122,7 +122,7 @@ type ColourSet_Minimum<
 type ColourSet<
     T_ColourName extends string = Tokens_Internal.Default_ColourName,
     T_ExtraLevels extends
-        TokenLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
+        ColourLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
 > =
     | undefined
     | {
@@ -140,7 +140,7 @@ type ColourSet<
 function getShadeMapSets<
     T_ColourName extends string = Tokens_Internal.Default_ColourName,
     T_ExtraLevels extends
-        TokenLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
+        ColourLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
 >(
     _values: Props<T_ColourName, T_ExtraLevels>['values'],
     _isCondensed: boolean,
@@ -231,7 +231,7 @@ function getShadeMapSets<
                 (res) => {
                     
                     let __val: undefined | {
-                        level: TokenLevels | T_ExtraLevels;
+                        level: ColourLevels | T_ExtraLevels;
                         ratio: number;
                         result: ColourSet_AllShadeLevels_Result;
                         interpretedResult: string;
@@ -274,7 +274,7 @@ function getShadeMapSets<
                         }
 
                         __val = {
-                            level: res.key as TokenLevels | T_ExtraLevels,
+                            level: res.key as ColourLevels | T_ExtraLevels,
                             ratio: res.value?.ratio,
                             result,
                             interpretedResult: interpretedResult ?? 'Fail',
@@ -489,7 +489,7 @@ const resultGroupColCount = shadeMapSets?.base?.allShades && Math.max(
                                     ]}
                                     clrSlug={`${shadeMapSet.name}-${singleLevel.level}`}
                                     level={ singleLevel.level }
-                                    title={`${shadeMapSet.name}-${singleLevel.level}: ${singleLevel.interpretedResult}`}
+                                    title={`${shadeMapSet.name}-${singleLevel.level}: ${singleLevel.interpretedResult}` + ( import.meta.env.DEV ? ` (${singleLevel.ratio.toFixed(5)})` : '' )}
                                     type={ singleLevel.type }
                                 />
                             ) ) }

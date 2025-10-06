@@ -87,10 +87,33 @@ export class Document extends DocumentStage {
      * @protected
      */
     async scss() {
-        await this.runCustomScssDirSubStage(
+        const paths = await this.runCustomScssDirSubStage(
             'docs/scss',
             'src/docs/css',
         );
+
+        this.console.verbose( 'replacing global selectors...', 2 );
+
+        const content_regex = /:global\([\n\s]*([^\(\)]+|:(global|has|is|not|where)\([\n\s]*([^\(\)]+)[\n\s]*\))[\n\s]*\)/g;
+
+        await Promise.all( paths.map( async ( path ) => {
+
+            const content = this.try(
+                this.fs.readFile,
+                2,
+                [ path ]
+            );
+
+            return this.try(
+                this.fs.write,
+                2,
+                [
+                    path,
+                    content.replace( content_regex, '$1' ),
+                    { force: true, rename: false, },
+                ]
+            );
+        } ) );
 
         await this.atry(
             this.fs.prettier,

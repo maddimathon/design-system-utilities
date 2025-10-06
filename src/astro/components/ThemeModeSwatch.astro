@@ -8,7 +8,7 @@
 /* import - types */
 import type { HTMLAttributes } from 'astro/types';
 import type { RecursiveRecord } from '../../ts/01-utilities/@types.d.ts';
-// import type { TokenLevels_Extended } from '../../ts/02-tokens/@types.d.ts';
+// import type { ColourLevels_Extended } from '../../ts/02-tokens/@types.d.ts';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Themes_Set_SingleMode } from '../../ts/02-tokens/Themes/Themes_Set_SingleMode.js';
 
@@ -237,18 +237,10 @@ const field: {
         set:text='Selection'
     />
     <p
-        class="theme-mode-swatch__sample"
-        style={ [
-            `background: var(--theme-selection-bg, var(--clr-${theme.selection.bg}))`,
-            `color: var(--theme-selection-text, var(--clr-${theme.selection.text}))`,
-        ].join(';') }
+        class="theme-mode-swatch__sample theme-mode-swatch__sample--selection"
     ><code set:text='theme-selection-bg' /> {equals} <code set:text={theme.selection.bg} /></p>
     <p
-        class="theme-mode-swatch__sample"
-        style={ [
-            `background: var(--theme-selection-bg, var(--clr-${theme.selection.bg}))`,
-            `color: var(--theme-selection-text, var(--clr-${theme.selection.text}))`,
-        ].join(';') }
+        class="theme-mode-swatch__sample theme-mode-swatch__sample--selection"
     ><code set:text='theme-selection-text' /> {equals} <code set:text={theme.selection.text} /></p>
     {
         autoTokens.map((tokens) => (

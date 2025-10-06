@@ -21,16 +21,11 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
     extraLevels;
     name;
     data;
-    allLevels;
     constructor(allNames, extraLevels, name, input) {
         super();
         this.allNames = allNames;
         this.extraLevels = extraLevels;
         this.name = name;
-        this.allLevels = [
-            ...this.tokenLevels,
-            ...this.extraLevels,
-        ];
         this.data = Tokens_Colour_ShadeMap.completeMap(this.allNames, this.extraLevels, this.name, input);
     }
     /**
@@ -101,7 +96,7 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
                 const _hue = Object.values(part).map(p => ColourUtilities.toLCH(p).h).reduce((partialSum, a) => partialSum + a, 0) / Math.max(1, inputKeys.length);
                 _l_100 = shadeMaker('100', {
                     l: bases['100'].l,
-                    c: 40,
+                    c: 5,
                     h: _hue,
                 });
                 _l_900 = shadeMaker('900', {
@@ -129,12 +124,12 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
             : part['500']));
         const l_300 = shadeMaker('300', ((!('300' in part) || !part['300'])
             // we should merge it from what's available
-            ? ColourUtilities.mixColours(l_100, l_500, 1.25)
+            ? ColourUtilities.mixColours(l_100, l_500, 1.5)
             // otherwise we can safely assume this exists
             : part['300']));
         const l_700 = shadeMaker('700', ((!('700' in part) || !part['700'])
             // we should merge it from what's available
-            ? ColourUtilities.mixColours(l_500, l_900, 1.25)
+            ? ColourUtilities.mixColours(l_500, l_900, 1.5)
             // otherwise we can safely assume this exists
             : part['700']));
         const l_200 = shadeMaker('200', ((!('200' in part) || !part['200'])
@@ -157,21 +152,45 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
             ? ColourUtilities.mixColours(l_700, l_900)
             // otherwise we can safely assume this exists
             : part['800']));
+        const l_150 = shadeMaker('150', ((!('150' in part) || !part['150'])
+            // we should merge it from what's available
+            ? ColourUtilities.mixColours(l_100, l_200)
+            // otherwise we can safely assume this exists
+            : part['150']));
+        const l_850 = shadeMaker('850', ((!('850' in part) || !part['850'])
+            // we should merge it from what's available
+            ? ColourUtilities.mixColours(l_800, l_900)
+            // otherwise we can safely assume this exists
+            : part['850']));
+        const l_350 = shadeMaker('350', ((!('350' in part) || !part['350'])
+            // we should merge it from what's available
+            ? ColourUtilities.mixColours(l_300, l_400)
+            // otherwise we can safely assume this exists
+            : part['350']));
+        const l_650 = shadeMaker('650', ((!('650' in part) || !part['650'])
+            // we should merge it from what's available
+            ? ColourUtilities.mixColours(l_600, l_700)
+            // otherwise we can safely assume this exists
+            : part['650']));
         const defaultLevels = {
             '100': l_100,
+            '150': l_150,
             '200': l_200,
             '300': l_300,
+            '350': l_350,
             '400': l_400,
             '500': l_500,
             '600': l_600,
+            '650': l_650,
             '700': l_700,
             '800': l_800,
+            '850': l_850,
             '900': l_900,
         };
         // @ts-expect-error
         const completeLevels = {};
         const levelsToInclude = [
-            ...AbstractTokens.tokenLevels,
+            ...Object.keys(defaultLevels),
             ...extraLevels
         ].sort();
         levelLoop: for (const level of levelsToInclude) {
@@ -195,17 +214,9 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
                         ? completeLevels['000']
                         : ColourUtilities.mixColours('FFFFFF', defaultLevels['100'])), defaultLevels['100']));
                     continue levelLoop;
-                case '150':
-                    lowerLevel = '100';
-                    higherLevel = '200';
-                    break;
                 case '250':
                     lowerLevel = '200';
                     higherLevel = '300';
-                    break;
-                case '350':
-                    lowerLevel = '300';
-                    higherLevel = '400';
                     break;
                 case '450':
                     lowerLevel = '400';
@@ -215,17 +226,9 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
                     lowerLevel = '500';
                     higherLevel = '600';
                     break;
-                case '650':
-                    lowerLevel = '600';
-                    higherLevel = '700';
-                    break;
                 case '750':
                     lowerLevel = '700';
                     higherLevel = '800';
-                    break;
-                case '850':
-                    lowerLevel = '800';
-                    higherLevel = '900';
                     break;
             }
             completeLevels[level] = shadeMaker(level, ColourUtilities.mixColours(defaultLevels[lowerLevel], defaultLevels[higherLevel]));

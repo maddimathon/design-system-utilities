@@ -18,8 +18,8 @@ import type {
     ColourTokenSlug,
     CssSystemColor,
     ThemeColourOption,
-    TokenLevels,
-    TokenLevels_Extended,
+    ColourLevels,
+    ColourLevels_Extended,
 } from '../@types.js';
 
 import { objectMap } from '../../01-utilities/objectMap.js';
@@ -32,7 +32,7 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
  */
 export class Tokens_Themes_Set_SingleMode<
     T_ColourName extends string,
-    T_ExtraColourLevels extends TokenLevels_Extended,
+    T_ExtraColourLevels extends ColourLevels_Extended,
 
     T_Keyword_Universal extends string,
     T_Keyword_Text extends string,
@@ -48,7 +48,7 @@ export class Tokens_Themes_Set_SingleMode<
 
     public static async build<
         T_ColourName extends string,
-        T_ExtraColourLevels extends TokenLevels_Extended,
+        T_ExtraColourLevels extends ColourLevels_Extended,
 
         T_Keyword_Universal extends string = never,
         T_Keyword_Text extends string = never,
@@ -63,13 +63,12 @@ export class Tokens_Themes_Set_SingleMode<
             CssSystemColor
         >,
 
-        overrides?: RecursivePartial<Tokens_Themes_Set_SingleMode.Data<
+        overrides?: Tokens_Themes_Set_SingleMode.Data_RecursivePartial<
             T_ColourName,
             T_ExtraColourLevels,
             T_Keyword_Universal,
-            T_Keyword_Text,
-            CssSystemColor
-        >>,
+            T_Keyword_Text
+        >,
     ): Promise<
         Tokens_Themes_Set_SingleMode<
             T_ColourName,
@@ -82,7 +81,7 @@ export class Tokens_Themes_Set_SingleMode<
 
     public static async build<
         T_ColourName extends string,
-        T_ExtraColourLevels extends TokenLevels_Extended,
+        T_ExtraColourLevels extends ColourLevels_Extended,
 
         T_Keyword_Universal extends string = never,
         T_Keyword_Text extends string = never,
@@ -93,21 +92,23 @@ export class Tokens_Themes_Set_SingleMode<
             T_ColourName,
             T_ExtraColourLevels,
             T_Keyword_Universal,
-            T_Keyword_Text
+            T_Keyword_Text,
+            ThemeColourOption<T_ColourName, T_ExtraColourLevels>
         >,
 
-        overrides?: RecursivePartial<Tokens_Themes_Set_SingleMode.Data<
+        overrides?: Tokens_Themes_Set_SingleMode.Data_RecursivePartial<
             T_ColourName,
             T_ExtraColourLevels,
             T_Keyword_Universal,
             T_Keyword_Text
-        >>,
+        >,
     ): Promise<
         Tokens_Themes_Set_SingleMode<
             T_ColourName,
             T_ExtraColourLevels,
             T_Keyword_Universal,
-            T_Keyword_Text
+            T_Keyword_Text,
+            ThemeColourOption<T_ColourName, T_ExtraColourLevels>
         >
     >;
 
@@ -118,7 +119,7 @@ export class Tokens_Themes_Set_SingleMode<
      */
     public static async build<
         T_ColourName extends string,
-        T_ExtraColourLevels extends TokenLevels_Extended,
+        T_ExtraColourLevels extends ColourLevels_Extended,
 
         T_Keyword_Universal extends string = never,
         T_Keyword_Text extends string = never,
@@ -132,12 +133,13 @@ export class Tokens_Themes_Set_SingleMode<
             T_Keyword_Text
         >,
 
-        overrides: RecursivePartial<Tokens_Themes_Set_SingleMode.Data<
+        overrides: Tokens_Themes_Set_SingleMode.Data_RecursivePartial<
             T_ColourName,
             T_ExtraColourLevels,
             T_Keyword_Universal,
             T_Keyword_Text
-        >> = {},
+        > = {},
+
     ): Promise<
         Tokens_Themes_Set_SingleMode<
             T_ColourName,
@@ -146,8 +148,23 @@ export class Tokens_Themes_Set_SingleMode<
             T_Keyword_Text
         >
     > {
-
         let defaultLevels: Tokens_Themes_Set_SingleMode.RequiredLevels<never>;
+
+        let levels: Tokens_Themes_Set_SingleMode.Build.Param<
+            T_ColourName,
+            T_ExtraColourLevels,
+            T_Keyword_Universal,
+            T_Keyword_Text
+        >[ 'levels' ];
+
+        const variations = Tokens_Themes_Set_SingleMode.Build.completeVariations<
+            T_ColourName,
+            T_ExtraColourLevels,
+            T_Keyword_Universal,
+            T_Keyword_Text
+        >( clrNames, input.variations );
+
+        const clrOpt = Tokens_Themes_Set_SingleMode.Build.colourOption;
 
         // returns if forced colours
         switch ( preset ) {
@@ -158,13 +175,30 @@ export class Tokens_Themes_Set_SingleMode<
                     text: {
                         $: '800',
                         accent: '700',
-                        min: '700',
+                        min: '650',
                     },
                     ui: {
                         $: '700',
-                        accent: '600',
+                        accent: '650',
                         min: '600',
                     },
+                };
+
+                levels = Tokens_Themes_Set_SingleMode.Build.completeLevels<
+                    T_ColourName,
+                    T_ExtraColourLevels,
+                    T_Keyword_Universal,
+                    T_Keyword_Text
+                >( mergeArgs(
+                    defaultLevels,
+                    input.levels as Partial<Tokens_Themes_Set_SingleMode.RequiredLevels<never>>,
+                    true
+                ) );
+
+                overrides.selection = {
+                    bg: clrOpt( variations.universal.primary, '500' as T_ExtraColourLevels | ColourLevels ),
+                    text: clrOpt( variations.base, '900' as T_ExtraColourLevels | ColourLevels ),
+                    ...overrides.selection,
                 };
                 break;
 
@@ -172,31 +206,59 @@ export class Tokens_Themes_Set_SingleMode<
                 defaultLevels = {
                     background: '100',
                     text: {
-                        $: '800',
+                        $: '900',
                         accent: '800',
                         min: '800',
                     },
                     ui: {
                         $: '800',
                         accent: '800',
-                        min: '800',
+                        min: '700',
                     },
                 };
+
+                levels = Tokens_Themes_Set_SingleMode.Build.completeLevels<
+                    T_ColourName,
+                    T_ExtraColourLevels,
+                    T_Keyword_Universal,
+                    T_Keyword_Text
+                >( mergeArgs(
+                    defaultLevels,
+                    input.levels as Partial<Tokens_Themes_Set_SingleMode.RequiredLevels<never>>,
+                    true
+                ) );
                 break;
 
             case 'low':
                 defaultLevels = {
-                    background: '200',
+                    background: '150',
                     text: {
                         $: '800',
-                        accent: '700',
-                        min: '700',
+                        accent: '650',
+                        min: '600',
                     },
                     ui: {
                         $: '700',
                         accent: '600',
                         min: '600',
                     },
+                };
+
+                levels = Tokens_Themes_Set_SingleMode.Build.completeLevels<
+                    T_ColourName,
+                    T_ExtraColourLevels,
+                    T_Keyword_Universal,
+                    T_Keyword_Text
+                >( mergeArgs(
+                    defaultLevels,
+                    input.levels as Partial<Tokens_Themes_Set_SingleMode.RequiredLevels<never>>,
+                    true
+                ) );
+
+                overrides.selection = {
+                    bg: clrOpt( variations.universal.primary, '400' as T_ExtraColourLevels | ColourLevels ),
+                    text: clrOpt( variations.base, '900' as T_ExtraColourLevels | ColourLevels ),
+                    ...overrides.selection,
                 };
                 break;
 
@@ -230,26 +292,15 @@ export class Tokens_Themes_Set_SingleMode<
                     T_Keyword_Universal,
                     T_Keyword_Text
                 >( {
-
-                    levels: Tokens_Themes_Set_SingleMode.Build.completeLevels<
-                        T_ColourName,
-                        T_ExtraColourLevels,
-                        T_Keyword_Universal,
-                        T_Keyword_Text
-                    >( mergeArgs(
-                        defaultLevels,
-                        input.levels as Partial<Tokens_Themes_Set_SingleMode.RequiredLevels<never>>,
-                        true
-                    ) ),
-
-                    variations: Tokens_Themes_Set_SingleMode.Build.completeVariations<
-                        T_ColourName,
-                        T_ExtraColourLevels,
-                        T_Keyword_Universal,
-                        T_Keyword_Text
-                    >( clrNames, input.variations ),
+                    levels,
+                    variations,
                 } ),
-                overrides,
+                overrides as RecursivePartial<Tokens_Themes_Set_SingleMode.Data<
+                    T_ColourName,
+                    T_ExtraColourLevels,
+                    T_Keyword_Universal,
+                    T_Keyword_Text
+                >>,
                 true
             )
         );
@@ -389,7 +440,7 @@ export namespace Tokens_Themes_Set_SingleMode {
 
     export interface Data_Button<
         T_ColourName extends string,
-        T_ExtraColourLevels extends TokenLevels_Extended,
+        T_ExtraColourLevels extends ColourLevels_Extended,
 
         __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>,
     > {
@@ -418,7 +469,7 @@ export namespace Tokens_Themes_Set_SingleMode {
      */
     export interface Data<
         T_ColourName extends string,
-        T_ExtraColourLevels extends TokenLevels_Extended,
+        T_ExtraColourLevels extends ColourLevels_Extended,
 
         T_Keyword_Universal extends string,
         T_Keyword_Text extends string,
@@ -429,10 +480,10 @@ export namespace Tokens_Themes_Set_SingleMode {
 
         text: {
             $: __T_ColourOption,
-            primary: __T_ColourOption,
-            secondary: __T_ColourOption,
-            active: __T_ColourOption,
-            disabled: __T_ColourOption,
+        } & {
+            [ K in keyof RequiredVariations<T_ColourName>[ 'universal' ] ]: __T_ColourOption;
+        } & {
+            [ K in keyof RequiredVariations<T_ColourName>[ 'text' ] ]: __T_ColourOption;
         } & {
             [ K in T_Keyword_Universal ]: __T_ColourOption;
         } & {
@@ -441,10 +492,10 @@ export namespace Tokens_Themes_Set_SingleMode {
 
         ui: {
             $: __T_ColourOption,
-            primary: __T_ColourOption,
-            secondary: __T_ColourOption,
-            active: __T_ColourOption,
-            disabled: __T_ColourOption,
+        } & {
+            [ K in keyof RequiredVariations<T_ColourName>[ 'universal' ] ]: __T_ColourOption;
+        } & {
+            [ K in keyof RequiredVariations<T_ColourName>[ 'text' ] ]: __T_ColourOption;
         } & {
             [ K in T_Keyword_Universal ]: __T_ColourOption;
         } & {
@@ -514,6 +565,107 @@ export namespace Tokens_Themes_Set_SingleMode {
         },
     };
 
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export interface Data_RecursivePartial<
+        T_ColourName extends string,
+        T_ExtraColourLevels extends ColourLevels_Extended,
+
+        T_Keyword_Universal extends string,
+        T_Keyword_Text extends string,
+
+        __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>,
+    > {
+        background?: undefined | __T_ColourOption,
+
+        text?: undefined | {
+            $?: undefined | __T_ColourOption,
+        } & {
+            [ K in keyof RequiredVariations<T_ColourName>[ 'universal' ] ]?: undefined | __T_ColourOption;
+        } & {
+            [ K in keyof RequiredVariations<T_ColourName>[ 'text' ] ]?: undefined | __T_ColourOption;
+        } & {
+            [ K in T_Keyword_Universal ]?: undefined | __T_ColourOption;
+        } & {
+            [ K in T_Keyword_Text ]?: undefined | __T_ColourOption;
+        },
+
+        ui?: undefined | {
+            $?: undefined | __T_ColourOption,
+        } & {
+            [ K in keyof RequiredVariations<T_ColourName>[ 'universal' ] ]?: undefined | __T_ColourOption;
+        } & {
+            [ K in keyof RequiredVariations<T_ColourName>[ 'text' ] ]?: undefined | __T_ColourOption;
+        } & {
+            [ K in T_Keyword_Universal ]?: undefined | __T_ColourOption;
+        } & {
+            [ K in T_Keyword_Text ]?: undefined | __T_ColourOption;
+        },
+
+        selection?: undefined | {
+            bg?: undefined | __T_ColourOption,
+            text?: undefined | __T_ColourOption,
+        },
+
+        link?: undefined | {
+            $?: undefined | __T_ColourOption,
+            hover?: undefined | __T_ColourOption,
+            active?: undefined | __T_ColourOption,
+            visited?: undefined | __T_ColourOption,
+        },
+
+        button?: undefined | {
+            [ K in 'primary' | 'secondary' | 'disabled' ]?: undefined | Data_Button<
+                T_ColourName,
+                T_ExtraColourLevels,
+                __T_ColourOption
+            >;
+        } & {
+            [ K in T_Keyword_Universal ]?: undefined | Data_Button<
+                T_ColourName,
+                T_ExtraColourLevels,
+                __T_ColourOption
+            >;
+        },
+
+        field?: undefined | {
+
+            bg?: undefined | {
+                $?: undefined | __T_ColourOption,
+                hover?: undefined | __T_ColourOption,
+                active?: undefined | __T_ColourOption,
+            },
+
+            border?: undefined | {
+                $?: undefined | __T_ColourOption,
+                hover?: undefined | __T_ColourOption,
+                active?: undefined | __T_ColourOption,
+            },
+
+            text?: undefined | {
+                $?: undefined | __T_ColourOption,
+                hover?: undefined | __T_ColourOption,
+                active?: undefined | __T_ColourOption,
+            },
+        },
+
+        system?: undefined | {
+            accent?: undefined | {
+                bg?: undefined | __T_ColourOption,
+                text?: undefined | __T_ColourOption,
+            },
+            mark?: undefined | {
+                bg?: undefined | __T_ColourOption,
+                text?: undefined | __T_ColourOption,
+            },
+            selected?: undefined | {
+                bg?: undefined | __T_ColourOption,
+                text?: undefined | __T_ColourOption,
+            },
+        },
+    };
+
     /** @internal @private */
     export interface RequiredVariations<
         T_ColourName extends string,
@@ -558,18 +710,18 @@ export namespace Tokens_Themes_Set_SingleMode {
     };
 
     interface LevelsSet<
-        T_ExtraColourLevels extends TokenLevels_Extended,
+        T_ExtraColourLevels extends ColourLevels_Extended,
     > {
-        $: TokenLevels | T_ExtraColourLevels;
-        accent: TokenLevels | T_ExtraColourLevels;
-        min: TokenLevels | T_ExtraColourLevels;
+        $: ColourLevels | T_ExtraColourLevels;
+        accent: ColourLevels | T_ExtraColourLevels;
+        min: ColourLevels | T_ExtraColourLevels;
     }
 
     /** @internal @private */
     export interface RequiredLevels<
-        T_ExtraColourLevels extends TokenLevels_Extended,
+        T_ExtraColourLevels extends ColourLevels_Extended,
     > {
-        background: TokenLevels | T_ExtraColourLevels;
+        background: ColourLevels | T_ExtraColourLevels;
         text: LevelsSet<T_ExtraColourLevels>;
         ui: LevelsSet<T_ExtraColourLevels>;
     };
@@ -581,7 +733,7 @@ export namespace Tokens_Themes_Set_SingleMode {
      */
     export interface InputParam<
         T_ColourName extends string,
-        T_ExtraColourLevels extends TokenLevels_Extended,
+        T_ExtraColourLevels extends ColourLevels_Extended,
 
         T_Keyword_Universal extends string,
         T_Keyword_Text extends string,
@@ -590,9 +742,9 @@ export namespace Tokens_Themes_Set_SingleMode {
     > {
 
         levels?: {
-            background?: TokenLevels | T_ExtraColourLevels;
-            text?: TokenLevels | T_ExtraColourLevels | Partial<LevelsSet<T_ExtraColourLevels>>;
-            ui?: TokenLevels | T_ExtraColourLevels | Partial<LevelsSet<T_ExtraColourLevels>>;
+            background?: ColourLevels | T_ExtraColourLevels;
+            text?: ColourLevels | T_ExtraColourLevels | Partial<LevelsSet<T_ExtraColourLevels>>;
+            ui?: ColourLevels | T_ExtraColourLevels | Partial<LevelsSet<T_ExtraColourLevels>>;
         };
 
         variations?: {
@@ -620,7 +772,7 @@ export namespace Tokens_Themes_Set_SingleMode {
      */
     export type JsonReturn<
         T_ColourName extends string,
-        T_ExtraColourLevels extends TokenLevels_Extended,
+        T_ExtraColourLevels extends ColourLevels_Extended,
 
         T_Keyword_Universal extends string,
         T_Keyword_Text extends string,
@@ -654,7 +806,7 @@ export namespace Tokens_Themes_Set_SingleMode {
          */
         export interface Param<
             T_ColourName extends string,
-            T_ExtraColourLevels extends TokenLevels_Extended,
+            T_ExtraColourLevels extends ColourLevels_Extended,
 
             T_Keyword_Universal extends string,
             T_Keyword_Text extends string,
@@ -672,7 +824,7 @@ export namespace Tokens_Themes_Set_SingleMode {
          */
         export interface Param_ForcedColors<
             T_ColourName extends string,
-            T_ExtraColourLevels extends TokenLevels_Extended,
+            T_ExtraColourLevels extends ColourLevels_Extended,
 
             T_Keyword_Universal extends string,
             T_Keyword_Text extends string,
@@ -692,17 +844,17 @@ export namespace Tokens_Themes_Set_SingleMode {
 
         export function colourOption<
             T_ColourName extends string,
-            T_ExtraColourLevels extends TokenLevels_Extended,
+            T_ExtraColourLevels extends ColourLevels_Extended,
         >(
             name: T_ColourName,
-            level: TokenLevels | T_ExtraColourLevels,
+            level: ColourLevels | T_ExtraColourLevels,
         ): ColourTokenSlug<T_ColourName, T_ExtraColourLevels> {
             return `${ name }-${ level }`;
         }
 
         export function completeLevels<
             T_ColourName extends string,
-            T_ExtraColourLevels extends TokenLevels_Extended,
+            T_ExtraColourLevels extends ColourLevels_Extended,
 
             T_Keyword_Universal extends string,
             T_Keyword_Text extends string,
@@ -756,7 +908,7 @@ export namespace Tokens_Themes_Set_SingleMode {
 
         export function completeVariations<
             T_ColourName extends string,
-            T_ExtraColourLevels extends TokenLevels_Extended,
+            T_ExtraColourLevels extends ColourLevels_Extended,
 
             T_Keyword_Universal extends string,
             T_Keyword_Text extends string,
@@ -822,7 +974,7 @@ export namespace Tokens_Themes_Set_SingleMode {
          */
         export async function data<
             T_ColourName extends string,
-            T_ExtraColourLevels extends TokenLevels_Extended,
+            T_ExtraColourLevels extends ColourLevels_Extended,
 
             T_Keyword_Universal extends string = never,
             T_Keyword_Text extends string = never,
@@ -1002,7 +1154,7 @@ export namespace Tokens_Themes_Set_SingleMode {
          */
         export async function forcedColors<
             T_ColourName extends string,
-            T_ExtraColourLevels extends TokenLevels_Extended,
+            T_ExtraColourLevels extends ColourLevels_Extended,
 
             T_Keyword_Universal extends string = never,
             T_Keyword_Text extends string = never,

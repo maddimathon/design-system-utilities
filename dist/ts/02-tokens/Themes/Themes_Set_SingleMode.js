@@ -24,6 +24,9 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
      */
     static async build(preset, clrNames, input, overrides = {}) {
         let defaultLevels;
+        let levels;
+        const variations = Tokens_Themes_Set_SingleMode.Build.completeVariations(clrNames, input.variations);
+        const clrOpt = Tokens_Themes_Set_SingleMode.Build.colourOption;
         // returns if forced colours
         switch (preset) {
             case 'average':
@@ -32,43 +35,56 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                     text: {
                         $: '800',
                         accent: '700',
-                        min: '700',
+                        min: '650',
                     },
                     ui: {
                         $: '700',
-                        accent: '600',
+                        accent: '650',
                         min: '600',
                     },
+                };
+                levels = Tokens_Themes_Set_SingleMode.Build.completeLevels(mergeArgs(defaultLevels, input.levels, true));
+                overrides.selection = {
+                    bg: clrOpt(variations.universal.primary, '500'),
+                    text: clrOpt(variations.base, '900'),
+                    ...overrides.selection,
                 };
                 break;
             case 'high':
                 defaultLevels = {
                     background: '100',
                     text: {
-                        $: '800',
+                        $: '900',
                         accent: '800',
                         min: '800',
                     },
                     ui: {
                         $: '800',
                         accent: '800',
-                        min: '800',
+                        min: '700',
                     },
                 };
+                levels = Tokens_Themes_Set_SingleMode.Build.completeLevels(mergeArgs(defaultLevels, input.levels, true));
                 break;
             case 'low':
                 defaultLevels = {
-                    background: '200',
+                    background: '150',
                     text: {
                         $: '800',
-                        accent: '700',
-                        min: '700',
+                        accent: '650',
+                        min: '600',
                     },
                     ui: {
                         $: '700',
                         accent: '600',
                         min: '600',
                     },
+                };
+                levels = Tokens_Themes_Set_SingleMode.Build.completeLevels(mergeArgs(defaultLevels, input.levels, true));
+                overrides.selection = {
+                    bg: clrOpt(variations.universal.primary, '400'),
+                    text: clrOpt(variations.base, '900'),
+                    ...overrides.selection,
                 };
                 break;
             case 'forcedColors':
@@ -79,8 +95,8 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 return new Tokens_Themes_Set_SingleMode(await Tokens_Themes_Set_SingleMode.Build.forcedColors(_input));
         }
         return new Tokens_Themes_Set_SingleMode(mergeArgs(await Tokens_Themes_Set_SingleMode.Build.data({
-            levels: Tokens_Themes_Set_SingleMode.Build.completeLevels(mergeArgs(defaultLevels, input.levels, true)),
-            variations: Tokens_Themes_Set_SingleMode.Build.completeVariations(clrNames, input.variations),
+            levels,
+            variations,
         }), overrides, true));
     }
     constructor(data) {
@@ -115,6 +131,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
  * @since 0.1.0-alpha.draft
  */
 (function (Tokens_Themes_Set_SingleMode) {
+    ;
     ;
     ;
     ;

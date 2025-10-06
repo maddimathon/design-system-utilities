@@ -194,9 +194,9 @@ export namespace ColourUtilities {
         const _arrayToObject = ( hsl: [ number, number, number ] ) => (
             round
                 ? {
-                    h: roundToPixel( hsl[ 0 ], 200 ),
-                    s: roundToPixel( hsl[ 1 ], 200 ),
-                    l: roundToPixel( hsl[ 2 ], 200 ),
+                    h: roundToPixel( hsl[ 0 ], 10 ),
+                    s: Math.max( 0, Math.min( 100, roundToPixel( hsl[ 1 ], 20 ) ) ),
+                    l: Math.max( 0, Math.min( 100, roundToPixel( hsl[ 2 ], 20 ) ) ),
                 }
                 : {
                     h: hsl[ 0 ],
@@ -245,15 +245,9 @@ export namespace ColourUtilities {
     ): Value_LCH {
 
         const _arrayToObject = ( lch: [ number, number, number ] ) => ( {
-            l: Math.max(
-                0,
-                Math.min(
-                    100,
-                    roundToPixel( lch[ 0 ], 200 )
-                )
-            ),
+            l: Math.max( 0, Math.min( 100, roundToPixel( lch[ 0 ], 100 ) ) ),
             c: roundToPixel( lch[ 1 ], 200 ),
-            h: roundToPixel( lch[ 2 ], 200 ),
+            h: roundToPixel( lch[ 2 ], 100 ),
         } );
 
         // returns - converts
@@ -296,9 +290,9 @@ export namespace ColourUtilities {
     ): Value_RGB {
 
         const _arrayToObject = ( rgb: [ number, number, number ] ) => ( {
-            r: Math.round( rgb[ 0 ] * 200 ) / 200,
-            g: Math.round( rgb[ 1 ] * 200 ) / 200,
-            b: Math.round( rgb[ 2 ] * 200 ) / 200,
+            r: Math.max( 0, roundToPixel( rgb[ 0 ], 100 ) ),
+            g: Math.max( 0, roundToPixel( rgb[ 1 ], 100 ) ),
+            b: Math.max( 0, roundToPixel( rgb[ 2 ], 100 ) ),
         } );
 
         // returns - converts

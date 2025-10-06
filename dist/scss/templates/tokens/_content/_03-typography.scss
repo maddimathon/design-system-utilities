@@ -14,3 +14,74 @@
     /* # TYPOGRAPHY
      * ======================================================================== */
 }
+
+%selection {
+    @include average-contrast {
+        background-color: color-mix(
+            in srgb,
+            #{var-theme(selection-bg)} 50%,
+            transparent
+        );
+        color: #{var-theme(selection-text)};
+    }
+
+    @include low-contrast {
+        background-color: color-mix(
+            in srgb,
+            #{var-theme(selection-bg)} 25%,
+            transparent
+        );
+        color: #{var-theme(selection-text)};
+    }
+
+    @include high-contrast {
+        background-color: color-mix(
+            in srgb,
+            #{var-theme(selection-bg)} 90%,
+            transparent
+        );
+        color: #{var-theme(selection-text)};
+    }
+
+    @include forced-colors {
+        background-color: #{var-theme(selection-bg)};
+        color: #{var-theme(selection-text)};
+    }
+}
+
+/* ## Typography - Inline ==================================== */
+
+%a {
+    /// STATES ///
+
+    @include hover-focus-visible() {
+        text-decoration-color: transparent;
+    }
+
+    /// EXCEPTIONS ///
+
+    &.no-style {
+    }
+
+    &[aria-disabled='true'] {
+    }
+}
+
+%abbr {
+    &[title] {
+    }
+}
+
+/* ## Typography - Block ==================================== */
+
+%pre,
+%code {
+    --focus-ring-outline-color: #{var-theme(text-secondary)};
+    position: relative;
+}
+
+%code {
+}
+
+%pre {
+}

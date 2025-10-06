@@ -72,8 +72,8 @@ export type CssSystemColor =
  */
 export type ColourTokenSlug<
     T_ColourName extends string,
-    T_ExtraColourLevels extends TokenLevels_Extended,
-> = `${ T_ColourName }-${ TokenLevels | T_ExtraColourLevels }`;
+    T_ExtraColourLevels extends ColourLevels_Extended,
+> = `${ T_ColourName }-${ ColourLevels | T_ExtraColourLevels }`;
 
 /**
  * Allowed options for the values of theme tokens (representing either CSS
@@ -83,7 +83,7 @@ export type ColourTokenSlug<
  */
 export type ThemeColourOption<
     T_ColourName extends string,
-    T_ExtraColourLevels extends TokenLevels_Extended,
+    T_ExtraColourLevels extends ColourLevels_Extended,
 > = CssSystemColor | ColourTokenSlug<T_ColourName, T_ExtraColourLevels>;
 
 export type ThemeMode_Contrast<
@@ -128,4 +128,29 @@ export type TokenLevels_Extended =
     | "650"
     | "750"
     | "850"
+    | "950";
+
+
+export type ColourLevels =
+    | "100"
+    | "150"
+    | "200"
+    | "300"
+    | "350"
+    | "400"
+    | "500"
+    | "600"
+    | "650"
+    | "700"
+    | "800"
+    | "850"
+    | "900";
+
+export type ColourLevels_Extended =
+    | "000"
+    | "050"
+    | "250"
+    | "450"
+    | "550"
+    | "750"
     | "950";

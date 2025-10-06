@@ -6,18 +6,22 @@
  */
 
 /* import - types */
-import type { TokenLevels_Extended } from '../../ts/02-tokens/@types.d.ts';
+import Heading from '@maddimathon/utility-astro/components/Heading';
+import type { ColourLevels, ColourLevels_Extended } from '../../ts/02-tokens/@types.d.ts';
 import type { Tokens_Internal } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Colour } from '../../ts/02-tokens/Tokens_Colour.js';
 
 /* import - functions */
+import { objectMap } from '../../ts/01-utilities/objectMap.js';
 import { colourToArray } from '../functions/colourToArray.js';
 import ShadeSwatchTable_Scripts from '../support/ShadeSwatchTable_Scripts.astro';
-
+import { textColorLevel } from './ShadeSwatch.astro';
+ 
 /* import - values */
-
+ 
 /* import - components */
 import ShadeSwatch from './ShadeSwatch.astro';
+import ContrastAlert from './ContrastAlert.astro';
 // import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
 
 /* import - layouts */
@@ -28,7 +32,7 @@ import ShadeSwatch from './ShadeSwatch.astro';
 
 export interface Props<
     T_ColourName extends string = Tokens_Internal.Default_ColourName,
-    T_ExtraLevels extends TokenLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
+    T_ExtraLevels extends ColourLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
 > {
 
     /** Unique. */
@@ -49,6 +53,248 @@ const {
 /* CONSTANTS ===================================== */
 
 const colour = colourToArray(props);
+
+const rawGoals: {
+    [ L in ColourLevels ]: {
+        min: {
+            aa: {
+                ui: ColourLevels | undefined,
+                text: ColourLevels | undefined,
+            },
+            aaa: {
+                ui: ColourLevels | undefined,
+                text: ColourLevels | undefined,
+            },
+        },
+        max: ColourLevels,
+    }
+} = {
+    '100': {
+        min: {
+            aa: {
+                ui: '500',
+                text: '600',
+            },
+            aaa: {
+                ui: '600',
+                text: '650',
+            },
+        },
+        max: '900',
+    },
+
+    '150': {
+        min: {
+            aa: {
+                ui: '500',
+                text: '600',
+            },
+            aaa: {
+                ui: '600',
+                text: '650',
+            },
+        },
+        max: '900',
+    },
+
+    '200': {
+        min: {
+            aa: {
+                ui: '500',
+                text: '600',
+            },
+            aaa: {
+                ui: '600',
+                text: '700',
+            },
+        },
+        max: '900',
+    },
+
+    '300': {
+        min: {
+            aa: {
+                ui: '600',
+                text: '700',
+            },
+            aaa: {
+                ui: '700',
+                text: '800',
+            },
+        },
+        max: '900',
+    },
+
+    '350': {
+        min: {
+            aa: {
+                ui: '650',
+                text: '800',
+            },
+            aaa: {
+                ui: '800',
+                text: '850',
+            },
+        },
+        max: '900',
+    },
+
+    '400': {
+        min: {
+            aa: {
+                ui: '700',
+                text: '800',
+            },
+            aaa: {
+                ui: '800',
+                text: undefined,
+            },
+        },
+        max: '900',
+    },
+
+    '500': {
+        min: {
+            aa: {
+                ui: '200',
+                text: undefined,
+            },
+            aaa: {
+                ui: undefined,
+                text: undefined,
+            },
+        },
+        max: '900',
+    },
+
+    '600': {
+        min: {
+            aa: {
+                ui: '300',
+                text: '200',
+            },
+            aaa: {
+                ui: '200',
+                text: undefined,
+            },
+        },
+        max: '100',
+    },
+
+    '650': {
+        min: {
+            aa: {
+                ui: '350',
+                text: '200',
+            },
+            aaa: {
+                ui: '200',
+                text: '150',
+            },
+        },
+        max: '100',
+    },
+
+    '700': {
+        min: {
+            aa: {
+                ui: '400',
+                text: '300',
+            },
+            aaa: {
+                ui: '300',
+                text: '200',
+            },
+        },
+        max: '100',
+    },
+
+    '800': {
+        min: {
+            aa: {
+                ui: '500',
+                text: '400',
+            },
+            aaa: {
+                ui: '400',
+                text: '300',
+            },
+        },
+        max: '100',
+    },
+
+    '850': {
+        min: {
+            aa: {
+                ui: '500',
+                text: '400',
+            },
+            aaa: {
+                ui: '400',
+                text: '350',
+            },
+        },
+        max: '100',
+    },
+
+    '900': {
+        min: {
+            aa: {
+                ui: '500',
+                text: '400',
+            },
+            aaa: {
+                ui: '400',
+                text: '350',
+            },
+        },
+        max: '100',
+    },
+};
+
+const goalLevels = objectMap(
+    rawGoals,
+    <L extends ColourLevels>( { 
+        key: targetLevel, 
+        value,
+     }: { key: L; value: typeof rawGoals[L] } ): {
+        level: L,
+        textLevel: ColourLevels,
+        min: {
+            aa: {
+                colCount: number;
+                ui: ColourLevels | undefined,
+                text: ColourLevels | undefined,
+            },
+            aaa: {
+                colCount: number;
+                ui: ColourLevels | undefined,
+                text: ColourLevels | undefined,
+            },
+        },
+        max: ColourLevels,
+    } => {
+        
+        return {
+            level: targetLevel,
+            
+            textLevel: value.min.aaa.text
+                ?? value.min.aa.text
+                ?? value.max
+                ?? textColorLevel( targetLevel ),
+            
+            min: objectMap(
+                value.min,
+                ( { value: minSet } ) => ( {
+                    colCount: Object.values( minSet ).filter( v => v).length,
+                    ...minSet,
+                } )
+            ),
+
+            max: value.max,
+        };
+    }
+);
 ---
 
 {
@@ -67,6 +313,132 @@ const colour = colourToArray(props);
             <table
                 id={id}
             >
+                { import.meta.env.DEV && <tr>
+                    <th
+                        class="screen-reader-text"
+                        set:text='contrast targets'
+                    />
+                    <Fragment>{ Object.values( goalLevels ).map( (set) => <td>
+                        <article
+                            class:list={['container', 'shade-swatch']}
+                            data-brightness-mode='light'
+                            data-shade-swatch-has-background={true}
+                            style={ [ 
+                                `--shade-swatch-background: var(--clr-base-${set.level}, hsl( ${ props.colour.base[ set.level ].hsl.h }, ${ props.colour.base[ set.level ].hsl.s }%, ${ props.colour.base[ set.level ].hsl.l }% ))`,
+                                `--shade-swatch-color: var(--clr-base-${set.textLevel}, hsl( ${ props.colour.base[ set.textLevel ].hsl.h }, ${ props.colour.base[ set.textLevel ].hsl.s }%, ${ props.colour.base[ set.textLevel ].hsl.l }% ))`,
+                             ].join(';') }
+                        >
+                            <Heading
+                                class:list='shade-swatch__name' 
+                                heading={7}
+                                set:text={`target-${set.level}`}
+                            />
+
+                            <Heading
+                                class:list='screen-reader-text'
+                                heading={8}
+                                set:text='Contrast Test Results'
+                            />
+
+                            <div 
+                                class="shade-swatch__contrast"
+                                style={[
+                                    `--shade-swatch-contrast-result-group-column-count: 2`,
+                                    `--shade-swatch-contrast-result-group-row-count: 2`,
+                                ].join(';')}
+                                data-brightness-mode="light"
+                            >
+                                <div
+                                    class:list={[
+                                        'shade-swatch__contrast__result-group',
+                                        'shade-swatch__contrast__result-group--min-max',
+                                    ]}
+                                    style={`--shade-swatch-contrast-result-group-column-count: 5;`}
+                                >
+                                    {(['aa', 'aaa'] as const).map( (standard) => (
+                                        <div
+                                            class:list={ [
+                                                'shade-swatch__contrast__result-group__single-min-max',
+                                                `shade-swatch__contrast__result-group__single-min-max--minimum`,
+                                                `shade-swatch__contrast__result-group__single-min-max--minimum--${standard}`,
+                                            ] }
+                                            style={`--shade-swatch-contrast-result-group-single-min-max-column-count: ${set.min?.[standard].colCount}`}
+                                        >
+                                            <Heading
+                                                class:list={[
+                                                    'screen-reader-text | ',
+                                                    'shade-swatch__contrast__result-group__heading',
+                                                    'shade-swatch__contrast__result-group__heading--minimum',
+                                                    `shade-swatch__contrast__result-group__heading--minimum--${standard}`,
+                                                ]}
+                                                heading={9}
+                                                set:text={standard.toUpperCase()}
+                                            />
+                                            {set.min?.[standard].ui && (
+                                                <ContrastAlert
+                                                    class={[
+                                                        'shade-swatch__contrast__result-group__alert',
+                                                        'shade-swatch__contrast__result-group__alert--minimum',
+                                                        'shade-swatch__contrast__result-group__alert--minimum--ui',
+                                                        `shade-swatch__contrast__result-group__alert--minimum--${standard}`,
+                                                    ]}
+                                                    clrSlug={`base-${set.min[standard].ui}`}
+                                                    level={set.min[standard].ui}
+                                                    title={`${standard.toUpperCase()} UI min: ${set.min[standard].ui}`}
+                                                    type='ui-minimum'
+                                                />
+                                            )}
+                                            {set.min?.[standard].text && (
+                                                <ContrastAlert
+                                                    class={[
+                                                        'shade-swatch__contrast__result-group__alert',
+                                                        'shade-swatch__contrast__result-group__alert--minimum',
+                                                        'shade-swatch__contrast__result-group__alert--minimum--text',
+                                                        `shade-swatch__contrast__result-group__alert--minimum--${standard}`,
+                                                    ]}
+                                                    clrSlug={`base-${set.min[standard].text}`}
+                                                    level={set.min[standard].text}
+                                                    title={`${standard.toUpperCase()} text min: ${set.min[standard].text}`}
+                                                    type='minimum'
+                                                />
+                                            )}
+                                        </div>
+                                    ) )}
+
+                                    {set.max && (
+                                        <div
+                                            class:list={[
+                                                'shade-swatch__contrast__result-group__single-min-max',
+                                                'shade-swatch__contrast__result-group__single-min-max--maximum',
+                                            ]}
+                                            style={`--shade-swatch-contrast-result-group-single-min-max-column-count: 1`}
+                                        >
+                                            <Heading 
+                                                class:list={[
+                                                    'screen-reader-text | ',
+                                                    'shade-swatch__contrast__result-group__heading',
+                                                    'shade-swatch__contrast__result-group__heading--maximum',
+                                                ]}
+                                                heading={9}
+                                                set:text='Max'
+                                            />
+                                            <ContrastAlert
+                                                class={[
+                                                    'shade-swatch__contrast__result-group__alert',
+                                                    'shade-swatch__contrast__result-group__alert--maximum',
+                                                ]}
+                                                clrSlug={`base-${set.max}`}
+                                                level={set.max}
+                                                title={`max: ${set.max}`}
+                                                type='maximum'
+                                            />
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </article>
+                    </td>  ) }</Fragment>
+                </tr> }
             {colour.map(({ name, map }) => (
                 <tr>
                     <th
@@ -83,8 +455,8 @@ const colour = colourToArray(props);
                                 name={name} 
                                 values={{
                                     ...values,
-                                    hsl: undefined,
-                                    // lch: undefined,
+                                    hsl: import.meta.env.DEV ? values.hsl : undefined,
+                                    lch: import.meta.env.DEV ? values.lch : undefined,
                                     rgb: undefined,
                                 }}
                             />
@@ -98,6 +470,7 @@ const colour = colourToArray(props);
 }
 
 <style lang="scss">
+    @forward '../scss/shade-swatch';
     @forward '../scss/shade-swatch-table';
 </style> 
 

@@ -11,7 +11,7 @@
 // import { JsonToScss } from '@maddimathon/utility-sass';
 // import * as z from 'zod';
 
-import type { TokenLevels, TokenLevels_Extended } from '../@types.js';
+import type { ColourLevels, ColourLevels_Extended } from '../@types.js';
 
 import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
 import { objectMap } from '../../01-utilities/objectMap.js';
@@ -28,12 +28,10 @@ import { Tokens_Colour_ShadeMap_Shade } from './ShadeMap/ShadeMap_Shade.js';
  */
 export class Tokens_Colour_ShadeMap<
     T_ColourName extends string,
-    T_ExtraLevels extends TokenLevels_Extended,
+    T_ExtraLevels extends ColourLevels_Extended,
 > extends AbstractTokens<Tokens_Colour_ShadeMap.Data<T_ColourName, T_ExtraLevels>> {
 
     public readonly data: Tokens_Colour_ShadeMap.Data<T_ColourName, T_ExtraLevels>;
-
-    public readonly allLevels;
 
     public constructor (
         protected readonly allNames: readonly T_ColourName[],
@@ -42,11 +40,6 @@ export class Tokens_Colour_ShadeMap<
         input: Tokens_Colour_ShadeMap.InputParam<T_ColourName, T_ExtraLevels>,
     ) {
         super();
-
-        this.allLevels = [
-            ...this.tokenLevels,
-            ...this.extraLevels,
-        ];
 
         this.data = Tokens_Colour_ShadeMap.completeMap(
             this.allNames,
@@ -68,10 +61,10 @@ export class Tokens_Colour_ShadeMap<
         const promises: Promise<void>[] = [];
 
         for ( const t_thisLevel in this.data ) {
-            const thisLevel = t_thisLevel as TokenLevels | T_ExtraLevels;
+            const thisLevel = t_thisLevel as ColourLevels | T_ExtraLevels;
 
             for ( const t_testLevel in testMap.data ) {
-                const testLevel = t_testLevel as TokenLevels | T_ExtraLevels;
+                const testLevel = t_testLevel as ColourLevels | T_ExtraLevels;
 
                 promises.push(
                     this.data[ thisLevel ].addContrastTest(
@@ -95,7 +88,7 @@ export class Tokens_Colour_ShadeMap<
     }
 
     public toScssVars(): {
-        [ K in TokenLevels | T_ExtraLevels ]: AbstractTokens.ScssReturn;
+        [ K in ColourLevels | T_ExtraLevels ]: AbstractTokens.ScssReturn;
     } {
 
         return objectMap(
@@ -114,23 +107,23 @@ export namespace Tokens_Colour_ShadeMap {
 
     export type Data<
         T_ColourName extends string,
-        T_ExtraLevels extends TokenLevels_Extended,
+        T_ExtraLevels extends ColourLevels_Extended,
     > = {
-            [ N in TokenLevels | T_ExtraLevels ]: Tokens_Colour_ShadeMap_Shade<T_ColourName, T_ExtraLevels>;
+            [ N in ColourLevels | T_ExtraLevels ]: Tokens_Colour_ShadeMap_Shade<T_ColourName, T_ExtraLevels>;
         };
 
     export type InputParam<
         T_ColourName extends string,
-        T_ExtraLevels extends TokenLevels_Extended,
+        T_ExtraLevels extends ColourLevels_Extended,
     > = {
-            [ N in TokenLevels | T_ExtraLevels ]?: Tokens_Colour_ShadeMap_Shade.InputParam;
+            [ N in ColourLevels | T_ExtraLevels ]?: Tokens_Colour_ShadeMap_Shade.InputParam;
         };
 
     export type JsonReturn<
         T_ColourName extends string,
-        T_ExtraLevels extends TokenLevels_Extended,
+        T_ExtraLevels extends ColourLevels_Extended,
     > = {
-            [ N in TokenLevels | T_ExtraLevels ]: Tokens_Colour_ShadeMap_Shade.JsonReturn<T_ColourName, T_ExtraLevels>;
+            [ N in ColourLevels | T_ExtraLevels ]: Tokens_Colour_ShadeMap_Shade.JsonReturn<T_ColourName, T_ExtraLevels>;
         };
 
 
@@ -141,7 +134,7 @@ export namespace Tokens_Colour_ShadeMap {
     // UPGRADE - make this work by only setting lch or hsl hue value
     export function completeMap<
         T_ColourName extends string,
-        T_ExtraLevels extends TokenLevels_Extended,
+        T_ExtraLevels extends ColourLevels_Extended,
     >(
         allNames: readonly T_ColourName[],
         extraLevels: readonly T_ExtraLevels[],
@@ -149,10 +142,10 @@ export namespace Tokens_Colour_ShadeMap {
 
         part: InputParam<T_ColourName, T_ExtraLevels>,
     ): {
-            [ L in TokenLevels | T_ExtraLevels ]: Tokens_Colour_ShadeMap_Shade<T_ColourName, T_ExtraLevels>;
+            [ L in ColourLevels | T_ExtraLevels ]: Tokens_Colour_ShadeMap_Shade<T_ColourName, T_ExtraLevels>;
         } {
 
-        const inputKeys = Object.keys( part ) as TokenLevels[];
+        const inputKeys = Object.keys( part ) as ColourLevels[];
 
         const bases = {
             '100': { l: 98, c: 0, h: 0 },
@@ -161,7 +154,7 @@ export namespace Tokens_Colour_ShadeMap {
         };
 
         const shadeMaker = (
-            _thisLevel: TokenLevels | T_ExtraLevels,
+            _thisLevel: ColourLevels | T_ExtraLevels,
             _input: Tokens_Colour_ShadeMap_Shade<T_ColourName, T_ExtraLevels> | Tokens_Colour_ShadeMap_Shade.InputParam,
         ) => {
 
@@ -213,7 +206,7 @@ export namespace Tokens_Colour_ShadeMap {
 
                 _l_100 = shadeMaker( '100', {
                     l: bases[ '100' ].l,
-                    c: 40,
+                    c: 5,
                     h: _hue,
                 } );
                 _l_900 = shadeMaker( '900', {
@@ -250,7 +243,7 @@ export namespace Tokens_Colour_ShadeMap {
             (
                 ( !( '300' in part ) || !part[ '300' ] )
                     // we should merge it from what's available
-                    ? ColourUtilities.mixColours( l_100, l_500, 1.25 )
+                    ? ColourUtilities.mixColours( l_100, l_500, 1.5 )
                     // otherwise we can safely assume this exists
                     : part[ '300' ]
             )
@@ -261,7 +254,7 @@ export namespace Tokens_Colour_ShadeMap {
             (
                 ( !( '700' in part ) || !part[ '700' ] )
                     // we should merge it from what's available
-                    ? ColourUtilities.mixColours( l_500, l_900, 1.25 )
+                    ? ColourUtilities.mixColours( l_500, l_900, 1.5 )
                     // otherwise we can safely assume this exists
                     : part[ '700' ]
             )
@@ -311,27 +304,75 @@ export namespace Tokens_Colour_ShadeMap {
             )
         );
 
+        const l_150 = shadeMaker(
+            '150',
+            (
+                ( !( '150' in part ) || !part[ '150' ] )
+                    // we should merge it from what's available
+                    ? ColourUtilities.mixColours( l_100, l_200 )
+                    // otherwise we can safely assume this exists
+                    : part[ '150' ]
+            )
+        );
+
+        const l_850 = shadeMaker(
+            '850',
+            (
+                ( !( '850' in part ) || !part[ '850' ] )
+                    // we should merge it from what's available
+                    ? ColourUtilities.mixColours( l_800, l_900 )
+                    // otherwise we can safely assume this exists
+                    : part[ '850' ]
+            )
+        );
+
+        const l_350 = shadeMaker(
+            '350',
+            (
+                ( !( '350' in part ) || !part[ '350' ] )
+                    // we should merge it from what's available
+                    ? ColourUtilities.mixColours( l_300, l_400 )
+                    // otherwise we can safely assume this exists
+                    : part[ '350' ]
+            )
+        );
+
+        const l_650 = shadeMaker(
+            '650',
+            (
+                ( !( '650' in part ) || !part[ '650' ] )
+                    // we should merge it from what's available
+                    ? ColourUtilities.mixColours( l_600, l_700 )
+                    // otherwise we can safely assume this exists
+                    : part[ '650' ]
+            )
+        );
+
         const defaultLevels: {
-            [ L in TokenLevels ]: Tokens_Colour_ShadeMap_Shade<T_ColourName, T_ExtraLevels>;
+            [ L in ColourLevels ]: Tokens_Colour_ShadeMap_Shade<T_ColourName, T_ExtraLevels>;
         } = {
             '100': l_100,
+            '150': l_150,
             '200': l_200,
             '300': l_300,
+            '350': l_350,
             '400': l_400,
             '500': l_500,
             '600': l_600,
+            '650': l_650,
             '700': l_700,
             '800': l_800,
+            '850': l_850,
             '900': l_900,
         };
 
         // @ts-expect-error
         const completeLevels: {
-            [ L in TokenLevels | T_ExtraLevels ]: Tokens_Colour_ShadeMap_Shade<T_ColourName, T_ExtraLevels>;
+            [ L in ColourLevels | T_ExtraLevels ]: Tokens_Colour_ShadeMap_Shade<T_ColourName, T_ExtraLevels>;
         } = {};
 
         const levelsToInclude = [
-            ...AbstractTokens.tokenLevels,
+            ...Object.keys( defaultLevels ) as ( keyof typeof defaultLevels )[],
             ...extraLevels
         ].sort();
 
@@ -340,12 +381,12 @@ export namespace Tokens_Colour_ShadeMap {
 
             // continues
             if ( level in defaultLevels ) {
-                completeLevels[ level ] = defaultLevels[ level as TokenLevels ];
+                completeLevels[ level ] = defaultLevels[ level as ColourLevels ];
                 continue levelLoop;
             }
 
-            let lowerLevel: TokenLevels;
-            let higherLevel: TokenLevels;
+            let lowerLevel: ColourLevels;
+            let higherLevel: ColourLevels;
 
             // continues for 000, 050, and 950
             switch ( level as T_ExtraLevels ) {
@@ -378,19 +419,9 @@ export namespace Tokens_Colour_ShadeMap {
                     );
                     continue levelLoop;
 
-                case '150':
-                    lowerLevel = '100';
-                    higherLevel = '200';
-                    break;
-
                 case '250':
                     lowerLevel = '200';
                     higherLevel = '300';
-                    break;
-
-                case '350':
-                    lowerLevel = '300';
-                    higherLevel = '400';
                     break;
 
                 case '450':
@@ -403,19 +434,9 @@ export namespace Tokens_Colour_ShadeMap {
                     higherLevel = '600';
                     break;
 
-                case '650':
-                    lowerLevel = '600';
-                    higherLevel = '700';
-                    break;
-
                 case '750':
                     lowerLevel = '700';
                     higherLevel = '800';
-                    break;
-
-                case '850':
-                    lowerLevel = '800';
-                    higherLevel = '900';
                     break;
             }
 

@@ -15,7 +15,7 @@ import type {
     ThemeMode_Contrast,
     ThemeMode_ContrastAtLeastOne,
     ThemeMode_ContrastExtraOptions,
-    TokenLevels_Extended,
+    ColourLevels_Extended,
 } from './@types.js';
 
 import { AbstractTokens } from './abstract/AbstractTokens.js';
@@ -34,7 +34,7 @@ import type { Tokens_Themes_Set_SingleMode } from './Themes/Themes_Set_SingleMod
  */
 export class Tokens<
     T_ColourName extends string,
-    T_ExtraColourLevels extends TokenLevels_Extended,
+    T_ExtraColourLevels extends ColourLevels_Extended,
     T_ThemeBrightnessMode extends readonly [ string, ...string[] ],
     T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne,
     T_ThemeName extends string,
@@ -80,7 +80,7 @@ export class Tokens<
      */
     public static async build<
         T_ColourName extends string = Tokens_Internal.Default_ColourName,
-        T_ExtraColourLevels extends TokenLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
+        T_ExtraColourLevels extends ColourLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
         T_ThemeBrightnessMode extends readonly [ string, ...string[] ] = Tokens_Internal.Default_ThemeBrightnessMode,
         T_ThemeContrastMode_Extra extends readonly ThemeMode_ContrastExtraOptions[] = Tokens_Internal.Default_ThemeExtraContrastMode,
         T_ThemeName extends string = Tokens_Themes.Default_ThemeName,
@@ -293,7 +293,7 @@ export namespace Tokens_Internal {
 
     export type Default_ColourName = 'base';
 
-    export type Default_ExtraColourLevels = TokenLevels_Extended;
+    export type Default_ExtraColourLevels = ColourLevels_Extended;
 
     export type Default_ThemeBrightnessMode = [ 'light', 'dark', ...string[] ];
 
@@ -303,7 +303,7 @@ export namespace Tokens_Internal {
 
     export type Data<
         T_ColourName extends string,
-        T_ExtraColourLevels extends TokenLevels_Extended,
+        T_ExtraColourLevels extends ColourLevels_Extended,
         T_ThemeBrightnessMode extends readonly [ string, ...string[] ],
         T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne,
         T_ThemeName extends string,
@@ -328,7 +328,7 @@ export namespace Tokens_Internal {
 
     export interface InputParam<
         T_ColourName extends string,
-        T_ExtraColourLevels extends TokenLevels_Extended,
+        T_ExtraColourLevels extends ColourLevels_Extended,
         T_ThemeBrightnessMode extends readonly [ string, ...string[] ],
         T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne,
         T_ThemeName extends string,
@@ -357,7 +357,7 @@ export namespace Tokens_Internal {
 
     export type JsonReturn<
         T_ColourName extends string,
-        T_ExtraColourLevels extends TokenLevels_Extended,
+        T_ExtraColourLevels extends ColourLevels_Extended,
         T_ThemeBrightnessMode extends readonly [ string, ...string[] ],
         T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne,
         T_ThemeName extends string,
@@ -392,12 +392,8 @@ export namespace Tokens {
 
         return Tokens.build(
             {
-                // colour: Tokens.SampleColours,
                 colour: {
                     // 'hue-50': {
-                    //     500: { l: 50, c: 50, h: 350 },
-                    // },
-                    // 'hue-350': {
                     //     500: { l: 50, c: 50, h: 50 },
                     // },
                     base: Tokens.SampleColours.base,
@@ -407,14 +403,13 @@ export namespace Tokens {
                     // orange: Tokens.SampleColours.orange,
                     // yellow: Tokens.SampleColours.yellow,
                     // green: Tokens.SampleColours.green,
+                    // turquoise: Tokens.SampleColours.turquoise,
                     // blue: Tokens.SampleColours.blue,
+                    // purple: Tokens.SampleColours.purple,
                     // pink: Tokens.SampleColours.pink,
                 },
             },
-            {
-                // extraColourLevels: [ '150', '850' ],
-                tokensAsDefault: true,
-            },
+            { tokensAsDefault: true, },
         );
     }
 
@@ -424,7 +419,7 @@ export namespace Tokens {
      * @since ___PKG_VERSION___
      */
     export interface Config<
-        T_ExtraColourLevels extends TokenLevels_Extended = TokenLevels_Extended,
+        T_ExtraColourLevels extends ColourLevels_Extended = ColourLevels_Extended,
     > {
         extraColourLevels: readonly T_ExtraColourLevels[];
         tokensAsDefault: boolean;
@@ -432,7 +427,7 @@ export namespace Tokens {
 
     export type Data<
         T_ColourName extends string = Tokens_Internal.Default_ColourName,
-        T_ExtraColourLevels extends TokenLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
+        T_ExtraColourLevels extends ColourLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
         T_ThemeBrightnessMode extends readonly [ string, ...string[] ] = Tokens_Internal.Default_ThemeBrightnessMode,
         T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne = Tokens_Internal.Default_ThemeContrastMode,
         T_ThemeName extends string = Tokens_Themes.Default_ThemeName,
@@ -452,7 +447,7 @@ export namespace Tokens {
 
     export interface InputParam<
         T_ColourName extends string = Tokens_Internal.Default_ColourName,
-        T_ExtraColourLevels extends TokenLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
+        T_ExtraColourLevels extends ColourLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
         T_ThemeBrightnessMode extends readonly [ string, ...string[] ] = Tokens_Internal.Default_ThemeBrightnessMode,
         T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne = Tokens_Internal.Default_ThemeContrastMode,
         T_ThemeName extends string = Tokens_Themes.Default_ThemeName,
@@ -472,7 +467,7 @@ export namespace Tokens {
 
     export type JsonReturn<
         T_ColourName extends string = Tokens_Internal.Default_ColourName,
-        T_ExtraColourLevels extends TokenLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
+        T_ExtraColourLevels extends ColourLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
         T_ThemeBrightnessMode extends readonly [ string, ...string[] ] = Tokens_Internal.Default_ThemeBrightnessMode,
         T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne = Tokens_Internal.Default_ThemeContrastMode,
         T_ThemeName extends string = Tokens_Themes.Default_ThemeName,
@@ -491,6 +486,8 @@ export namespace Tokens {
     >;
 
     type SampleColourName =
+        | "yardstick"
+        | "base"
         | "blue"
         | "green"
         | "orange"
@@ -502,6 +499,12 @@ export namespace Tokens {
 
     export const SampleColours = {
 
+        yardstick: {
+            '100': { l: 98, c: 0, h: 0, },
+            '500': { l: 50, c: 0, h: 0, },
+            '900': { l: 2, c: 0, h: 0, },
+        },
+
         base: {
             // '100': 'F9F9F9',
             // '500': '777777',
@@ -512,75 +515,55 @@ export namespace Tokens {
         },
 
         red: {
-            // '100': 'fef1f1',
-            // '500': 'c35152',
-            // '900': '0a0002', 
-            '100': { l: 98, c: 50, h: 25, },
-            '500': { l: 50, c: 75, h: 38, },
-            '900': { l: 2, c: 9.125, h: 40, },
+            '100': { h: 5, s: 100, l: 98, },
+            '300': { h: 4, s: 100, l: 79.5, },
+            '500': { h: 3, s: 68, l: 53, },
+            '900': { h: 7, s: 90, l: 4, },
         },
 
         orange: {
-            // '100': 'fcf3ed',
-            // '500': 'b75d2a',
-            // '900': '0a0100',
-            '100': { l: 98, c: 35, h: 40, },
-            '500': { l: 50, c: 65, h: 55, },
-            '900': { l: 2, c: 4.75, h: 45, },
+            '100': { h: 35, s: 100, l: 96.5, },
+            '500': { h: 22, s: 75, l: 43, },
+            '900': { h: 19, s: 100, l: 3, },
         },
 
         yellow: {
-            '100': 'fdf8ed',
-            '500': 'cc9200',
-            '900': '0a0400',
-            // '100': { l: 98, c: 15, h: 80, },
-            // '500': { l: 50, c: 70, h: 80, },
-            // '900': { l: 2, c: 5, h: 80, },
+            '100': { h: 49, s: 100, l: 94, },
+            '300': { h: 45, s: 70, l: 54, },
+            '500': { h: 35, s: 100, l: 34, },
+            '900': { h: 20, s: 100, l: 3, },
         },
 
         green: {
-            '100': 'cef6d2',
-            '500': '258d2e',
-            '900': '021705',
-            // '100': { l: 98, c: 0, h: 0, },
-            // '500': { l: 50, c: 0, h: 0, },
-            // '900': { l:  2, c: 0, h: 0, },
+            '100': { h: 112, s: 53, l: 97, },
+            '500': { h: 125, s: 50, l: 35.5, },
+            '900': { h: 112, s: 81, l: 2, },
         },
 
         turquoise: {
-            '100': 'c8f4de',
-            '500': '068c6e',
-            '900': '001712',
-            // '100': { l: 98, c: 0, h: 0, },
-            // '500': { l: 50, c: 0, h: 0, },
-            // '900': { l:  2, c: 0, h: 0, },
+            '100': { h: 157, s: 68, l: 96.5, },
+            '500': { h: 168, s: 92, l: 27.5, },
+            '700': { h: 163, s: 100, l: 14, },
+            '900': { h: 153, s: 100, l: 2, },
         },
 
         blue: {
-            '100': 'd5e7f7',
-            '500': '487ba8',
-            '900': '051322',
-            // '100': { l: 98, c: 0, h: 0, },
-            // '500': { l: 50, c: 0, h: 0, },
-            // '900': { l:  2, c: 0, h: 0, },
+            '100': { h: 245, s: 100, l: 98.5, },
+            '500': { h: 230, s: 63, l: 60, },
+            '900': { h: 244, s: 41, l: 4, },
         },
 
         purple: {
-            '100': 'eedaf9',
-            '500': '975eb1',
-            '900': '1b0824',
-            // '100': { l: 98, c: 0, h: 0, },
-            // '500': { l: 50, c: 0, h: 0, },
-            // '900': { l:  2, c: 0, h: 0, },
+            '100': { h: 270, s: 100, l: 98.5, },
+            '500': { h: 280, s: 60, l: 56.5, },
+            '900': { h: 285, s: 75, l: 4.5, },
         },
 
         pink: {
-            '100': 'fbdbef',
-            '500': 'ae5691',
-            '900': '25071b',
-            // '100': { l: 98, c: 0, h: 0, },
-            // '500': { l: 50, c: 0, h: 0, },
-            // '900': { l:  2, c: 0, h: 0, },
+            '100': { h: 325, s: 100, l: 98, },
+            '300': { h: 322, s: 100, l: 79.5, },
+            '500': { h: 320, s: 58, l: 51, },
+            '900': { h: 322, s: 85, l: 5, },
         },
     } as const satisfies {
         [ K in SampleColourName | Tokens_Internal.Default_ColourName ]: Tokens_Colour_ShadeMap.InputParam<SampleColourName, never>
@@ -606,7 +589,7 @@ export namespace Tokens {
 
                 export interface JsonReturn<
                     T_ColourName extends string = Tokens_Internal.Default_ColourName,
-                    T_ExtraColourLevels extends TokenLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
+                    T_ExtraColourLevels extends ColourLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
 
                     T_ThemeKeyword_Universal extends string = never,
                     T_ThemeKeyword_Text extends string = never,

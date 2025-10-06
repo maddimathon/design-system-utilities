@@ -7,14 +7,14 @@
  * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
-import type { TokenLevels_Extended } from '../@types.js';
+import type { ColourLevels_Extended } from '../@types.js';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *
  * @since 0.1.0-alpha.draft
  */
-export declare class Tokens_Colour_TEMPLATE<T_ColourName extends string, T_ExtraLevels extends TokenLevels_Extended> extends AbstractTokens<Tokens_Colour_TEMPLATE.Data<T_ColourName, T_ExtraLevels>> {
+export declare class Tokens_Colour_TEMPLATE<T_ColourName extends string, T_ExtraLevels extends ColourLevels_Extended> extends AbstractTokens<Tokens_Colour_TEMPLATE.Data<T_ColourName, T_ExtraLevels>> {
     protected readonly names: readonly T_ColourName[];
     protected readonly extraLevels: readonly T_ExtraLevels[];
     readonly data: Tokens_Colour_TEMPLATE.Data<T_ColourName, T_ExtraLevels>;
@@ -33,14 +33,14 @@ export declare namespace Tokens_Colour_TEMPLATE {
     /**
      * @since 0.1.0-alpha.draft
      */
-    type Data<T_ColourName extends string, T_ExtraLevels extends TokenLevels_Extended> = {};
+    type Data<T_ColourName extends string, T_ExtraLevels extends ColourLevels_Extended> = {};
     /**
      * @since 0.1.0-alpha.draft
      */
-    type InputParam<T_ColourName extends string, T_ExtraLevels extends TokenLevels_Extended> = {};
+    type InputParam<T_ColourName extends string, T_ExtraLevels extends ColourLevels_Extended> = {};
     /**
      * @since 0.1.0-alpha.draft
      */
-    type JsonReturn<T_ColourName extends string, T_ExtraLevels extends TokenLevels_Extended> = {};
+    type JsonReturn<T_ColourName extends string, T_ExtraLevels extends ColourLevels_Extended> = {};
 }
 //# sourceMappingURL=Colour_@TEMPLATE.d.ts.map
