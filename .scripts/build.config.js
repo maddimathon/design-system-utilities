@@ -70,6 +70,10 @@ const config = {
 
                 typeDoc: {
                     out: 'src/docs/_public/typedoc',
+
+                    projectDocuments: [
+                        'README.typedoc.md',
+                    ],
                 },
             }
         ],

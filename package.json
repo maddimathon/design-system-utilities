@@ -3,7 +3,7 @@
     "version": "0.1.0-alpha",
 
     "author": "Maddi Mathon (www.maddimathon.com)",
-    "description": "Utilities to use while building brand kits or design systems.  Developped for use with @maddimathon/boilerplate-brand-kit.",
+    "description": "Utilities to use while building brand kits or design systems.  Developed for use with @maddimathon/boilerplate-brand-kit.",
     
     "keywords": [],
 
@@ -173,12 +173,11 @@
         
         
         "build-start": "build-utils build --without minimize,prettify --without-document astro && npm run --silent start",
+        "build-update": "npm run --silent build -- --watchedWatcher \"watch:cx\" --watchedChange --only compile,document --without-compile astro,templates,files --only-document scss --verbose",
 
         "start": "run-p start:* start:watch:*",
-            "start:watch:astro-scss": "watch -p 'src/scss/config/**/*' -p 'src/scss/lib/**/*' -p 'src/scss/tokens/**/*' -p 'src/scss/_astro/**/*' -p 'src/scss/templates/**/*'  -c 'build-utils compile --only scss                                                                   --watchedWatcher \"start:watch:astro-scss\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
-            "start:watch:docs-scss":  "watch -p 'src/scss/config/**/*' -p 'src/scss/lib/**/*' -p 'src/scss/tokens/**/*' -p 'src/docs/scss/**/*'   -p 'src/scss/templates/**/*'  -c 'build-utils build   --only document                                       --only-document scss    --watchedWatcher \"start:watch:docs-scss\"  --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
-            "start:watch:ts":         "watch -p 'src/ts/**/*'                                                                                                                   -c 'build-utils build   --only compile,test,document --only-compile ts,tokens --only-document scss    --watchedWatcher \"start:watch:ts\"         --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
-            "start:watch:typedoc":    "watch -p 'src/ts/**/*'                                                                                                                   -c 'build-utils build   --only document                                       --only-document typeDoc --watchedWatcher \"start:watch:typedoc\"    --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "start:watch:scss": "watch -p 'src/scss/**/*' -p 'src/docs/scss/**/*' -c 'build-utils build --only compile,document      --only-compile scss      --only-document scss --watchedWatcher \"start:watch:scss\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "start:watch:ts":   "watch -p 'src/ts/**/*'                           -c 'build-utils build --only compile,test,document --only-compile ts,tokens --only-document scss --watchedWatcher \"start:watch:ts\"   --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
             "start:astro": "astro dev",
         
 

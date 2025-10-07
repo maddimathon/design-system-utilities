@@ -10,9 +10,10 @@
 /* import - functions */
 
 /* import - values */
+import pkg from '../../../package.json';
 
 /* import - components */
-import { Content } from '../../../README.md';
+import { Content } from '../md/README.content.md';
 
 /* import - layouts */
 import DocsPage from '../layouts/DocsPage.astro';
@@ -20,8 +21,10 @@ import DocsPage from '../layouts/DocsPage.astro';
 /* TYPES ===================================== */
 
 /* CONSTANTS ===================================== */
+
+const title = `Design System Utilities @ ${pkg.version}`;
 ---
 
-<DocsPage title='Documentation'>
+<DocsPage title={title}>
     <Content />
 </DocsPage>

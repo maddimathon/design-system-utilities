@@ -46,13 +46,75 @@ export class Build extends BuildStage {
      * @protected
      */
     async readme() {
-        this.console.progress( 'replacing readme placeholders...', 1 );
+        this.console.progress( 'building readme markdown...', 1 );
 
-        const headerRegex = /(<!--README_HEADER-->).*?(<!--\/README_HEADER-->)/gs;
+        const source = 'src/docs/md/README.content.md';
 
-        let readmeContent = this.fs.readFile( 'README.md' )
-            .replace( headerRegex, '$1\n' + escRegExpReplace( `# ${ this.config.title } @ ${ this.version.toString( this.isDraftVersion ) }` ) + '\n$2' );
+        await this.readme_replace( source );
+        await this.readme_build( source );
+    }
 
+    /**
+     * @param {string} source
+     * 
+     * @protected
+     */
+    async readme_build( source ) {
+        this.console.verbose( 'writing readme files...', 2 );
+
+        const completeContent = [
+            '<!--README_HEADER-->',
+            `# ${ this.config.title } @ ${ this.version.toString( this.isDraftVersion ) }`,
+            '<!--/README_HEADER-->',
+            '',
+            this.try(
+                this.fs.readFile,
+                2,
+                [ source ],
+            ),
+        ].join( '\n' );
+
+        // write to main README
+        this.try(
+            this.fs.write,
+            2,
+            [
+                'README.md',
+                completeContent,
+                { force: true, rename: false },
+            ],
+        );
+
+        // write to typedoc README
+        this.try(
+            this.fs.write,
+            2,
+            [
+                'README.typedoc.md',
+                [
+                    '---',
+                    'title: About',
+                    'children: ',
+                    '  - ./CHANGELOG.md',
+                    '  - ./LICENSE.md',
+                    '---',
+                    '',
+                    completeContent,
+                ].join( '\n' ),
+                { force: true, rename: false },
+            ],
+        );
+    }
+
+    /**
+     * @param {string} path
+     * 
+     * @protected
+     */
+    async readme_replace( path ) {
+        this.console.verbose( 'replacing readme placeholders...', 2 );
+
+        let readmeContent = this.fs.readFile( path );
 
         // READ DOCS
         readmeContent = readmeContent.replace(
@@ -64,7 +126,6 @@ export class Build extends BuildStage {
             ) + '\n$2'
         );
 
-
         // DESCRIPTION
         readmeContent = readmeContent.replace(
             /(<!--README_DESC-->).*?(<!--\/README_DESC-->)/gs,
@@ -74,7 +135,6 @@ export class Build extends BuildStage {
                     : ''
             ) + '\n$2'
         );
-
 
         /** Markdown links to read the changelog. */
         const changelogLinks = [];
@@ -90,7 +150,6 @@ export class Build extends BuildStage {
             changelogLinks.push( `[the docs site](${ this.pkg.homepage }/Changelog.html)` );
         }
 
-
         // CHANGELOG LINKS
         readmeContent = readmeContent.replace(
             /(<!--README_DOCS_CHANGELOG-->).*?(<!--\/README_DOCS_CHANGELOG-->)/gs,
@@ -100,7 +159,6 @@ export class Build extends BuildStage {
                     : ''
             ) + '\n$2'
         );
-
 
         if ( this.params.releasing ) {
 
@@ -115,7 +173,6 @@ export class Build extends BuildStage {
             );
         }
 
-
-        this.fs.write( 'README.md', readmeContent, { force: true } );
+        this.fs.write( path, readmeContent, { force: true } );
     }
 }

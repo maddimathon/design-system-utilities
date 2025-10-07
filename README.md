@@ -1,17 +1,10 @@
----
-title: About
-children: 
-  - ./CHANGELOG.md
-  - ./LICENSE.md
----
-
 <!--README_HEADER-->
 # Design System Utilities @ 0.1.0-alpha.draft
 <!--/README_HEADER-->
 
 <!--README_DESC-->
-Utilities to use while building brand kits or design systems.  Developped for
-use with @maddimathon/boilerplate-brand-kit.
+Utilities to use while building brand kits or design systems.  Developed for use
+with @maddimathon/boilerplate-brand-kit.
 <!--/README_DESC-->
 
 Currently very opinionated with plans to make it more modular and customizeable
@@ -135,5 +128,5 @@ of its files.  **Types should also be tested** using the utility types in
 
 ## License
 
-This library uses the [MIT license](LICENSE.md).  Please read and understand
-the license — I promise it’s short!
+This library uses the MIT license.  Please read and understand the license — I
+promise it’s short!
