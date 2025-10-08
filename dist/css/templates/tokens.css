@@ -96,22 +96,24 @@ html {
 /* #region Tokens - Gap */
 html {
     --gap-block-layout: 5vw;
-    --gap-block-layout: max(1.625rem, min(5svw, 5.8125rem));
+    --gap-block-layout: clamp(1.625rem, 5svw, 5.8125rem);
     --gap-block-layout-half: 2.5vw;
-    --gap-block-layout-half: max(0.8125rem, min(2.5svw, 2.90625rem));
+    --gap-block-layout-half: clamp(0.8125rem, 2.5svw, 2.90625rem);
     --gap-inline-indent: 4vw;
-    --gap-inline-indent: max(
+    --gap-inline-indent: clamp(
         var(--mrg-firm-200, 0.5rem),
-        min(4svw, var(--mrg-firm-600, 2.25rem))
+        4svw,
+        var(--mrg-firm-600, 2.25rem)
     );
     --gap-inline-layout: 8vw;
-    --gap-inline-layout: max(1.25rem, min(8svw, 7.125rem));
+    --gap-inline-layout: clamp(1.25rem, 8svw, 7.125rem);
     --gap-inline-layout-half: 4vw;
-    --gap-inline-layout-half: max(0.625rem, min(4svw, 3.5625rem));
+    --gap-inline-layout-half: clamp(0.625rem, 4svw, 3.5625rem);
     --gap-inline-tab: 1.5vw;
-    --gap-inline-tab: max(
+    --gap-inline-tab: clamp(
         var(--mrg-firm-100, 0.3125rem),
-        min(1.5svw, var(--mrg-firm-600, 2.25rem))
+        1.5svw,
+        var(--mrg-firm-600, 2.25rem)
     );
 }
 
@@ -138,7 +140,7 @@ html {
 /* #endregion Tokens - Stroke Relative */
 /* #region Tokens - Misc. */
 html {
-    --focus-ring-outline-width: max(0.0625rem, min(0.0625em, 0.1875rem));
+    --focus-ring-outline-width: clamp(0.0625rem, 0.0625em, 0.1875rem);
     --focus-ring-outline-offset: 0.125em;
     --focus-ring-outline-color: currentColor;
 }

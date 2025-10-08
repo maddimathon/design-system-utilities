@@ -161,7 +161,10 @@ export class Compile extends CompileStage {
         await this.runCustomScssDirSubStage(
             'scss/templates',
             this.getDistDir( undefined, 'css/templates' ),
-            { postCSS: true },
+            {
+                maxConcurrent: 5,
+                postCSS: true,
+            },
         );
 
         if ( this.params.packaging || this.params.releasing ) {

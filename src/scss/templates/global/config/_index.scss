@@ -5,6 +5,7 @@
 
 @forward '_lib' hide $internal_extendSelectors;
 
+@use '_lib' as lib;
 @use '../../../config/utility-astro' as utils;
 
 $internal_extendSelectors: true !default;
@@ -21,20 +22,26 @@ $internal_supressCredit: utils.config-valid-bool(
 
 /// ASTRO SUPPORT ///
 
-$print_astro_content: true !default;
+$print_astro_content: lib.$print_astro !default;
 $print_astro_content: utils.config-valid-bool(
     $print_astro_content,
     'print_astro_content'
 );
 
-$print_astro_settingsMenu: true !default;
+$print_astro_settingsMenu: lib.$print_astro !default;
 $print_astro_settingsMenu: utils.config-valid-bool(
     $print_astro_settingsMenu,
     'print_astro_settingsMenu'
 );
 
-$print_astro_toggle: true !default;
+$print_astro_toggle: lib.$print_astro !default;
 $print_astro_toggle: utils.config-valid-bool(
     $print_astro_toggle,
     'print_astro_toggle'
+);
+
+$print_astro_toggleNav: lib.$print_astro !default;
+$print_astro_toggleNav: utils.config-valid-bool(
+    $print_astro_toggleNav,
+    'print_astro_toggleNav'
 );
