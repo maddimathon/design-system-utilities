@@ -197,6 +197,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                     secondary: clr_2,
                 },
                 text: {
+                    grey: base,
                     active: clr_3,
                     disabled: base,
                 },
@@ -222,12 +223,14 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 $: clrOpt(variations.base, levels.text.$),
                 ...objectMap(variations.universal, ({ value: clrName }) => clrOpt(clrName, levels.text.accent)),
                 ...objectMap(variations.text, ({ value: clrName }) => clrOpt(clrName, levels.text.accent)),
+                grey: clrOpt(variations.text.disabled, levels.text.min),
                 disabled: clrOpt(variations.text.disabled, levels.text.min),
             };
             const ui = {
                 $: clrOpt(variations.base, levels.ui.$),
                 ...objectMap(variations.universal, ({ value: clrName }) => clrOpt(clrName, levels.ui.accent)),
                 ...objectMap(variations.text, ({ value: clrName }) => clrOpt(clrName, levels.ui.accent)),
+                grey: clrOpt(variations.text.disabled, levels.ui.min),
                 disabled: clrOpt(variations.text.disabled, levels.ui.min),
             };
             const singleButtonMaker = (_primaryClr) => {
@@ -346,6 +349,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 $: sysclr.text,
                 ...objectMap(variations.universal, () => sysclr.text),
                 ...objectMap(variations.text, () => sysclr.text),
+                grey: 'GrayText',
                 active: 'ActiveText',
                 disabled: 'GrayText',
             };

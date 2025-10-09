@@ -101,6 +101,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                 primary: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 secondary: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
             } & {
+                grey: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 disabled: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
             } & { [K_3 in T_ThemeKeyword_Universal]: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>; } & { [K_4 in T_ThemeKeyword_Text]: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>; };
@@ -110,6 +111,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                 primary: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 secondary: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
             } & {
+                grey: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 disabled: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
             } & { [K_5 in T_ThemeKeyword_Universal]: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>; } & { [K_6 in T_ThemeKeyword_Text]: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>; };

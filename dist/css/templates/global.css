@@ -1,0 +1,2650 @@
+@charset "UTF-8";
+/*!
+ * Design System Utilities - Sass Template - Global
+ * 
+ * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * License: MIT
+ */
+/*!
+ * This stylesheet includes css generated using 
+ * @maddimathon/utility-sass@0.1.0-alpha.draft
+ * 
+ * License: MIT
+ */
+/* # GLOBALS - Accessibility
+ * ======================================================================== */
+.no-js :focus,
+.js__no-where-selector :focus {
+    /* %focus-ring */
+    outline: max(0.0625rem, min(0.0625em, 0.1875rem)) dashed currentColor;
+    outline: var(
+            --focus-ring-outline-width,
+            max(0.0625rem, min(0.0625em, 0.1875rem))
+        )
+        dashed currentColor;
+    outline-color: currentColor;
+    outline-color: var(--focus-ring-outline-color, currentColor);
+    outline-offset: 0.125em;
+    outline-offset: var(--focus-ring-outline-offset, 0.125em);
+}
+
+:where(.js__no-focusVisible) :focus {
+    /* %focus-ring--where */
+    outline: max(0.0625rem, min(0.0625em, 0.1875rem)) dashed currentColor;
+    outline: var(
+            --focus-ring-outline-width,
+            max(0.0625rem, min(0.0625em, 0.1875rem))
+        )
+        dashed currentColor;
+    outline-color: currentColor;
+    outline-color: var(--focus-ring-outline-color, currentColor);
+    outline-offset: 0.125em;
+    outline-offset: var(--focus-ring-outline-offset, 0.125em);
+}
+
+:focus-visible {
+    /* %focus-ring--visible */
+    outline: max(0.0625rem, min(0.0625em, 0.1875rem)) dashed currentColor;
+    outline: var(
+            --focus-ring-outline-width,
+            max(0.0625rem, min(0.0625em, 0.1875rem))
+        )
+        dashed currentColor;
+    outline-color: currentColor;
+    outline-color: var(--focus-ring-outline-color, currentColor);
+    outline-offset: 0.125em;
+    outline-offset: var(--focus-ring-outline-offset, 0.125em);
+}
+
+/* # GLOBALS - Objects
+ * ======================================================================== */
+hr {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+}
+hr {
+    width: 100%;
+    margin-top: 2.25rem;
+    margin-bottom: 2.25rem;
+    margin-top: var(--mrg-firm-600, 2.25rem);
+    margin-bottom: var(--mrg-firm-600, 2.25rem);
+    border: none;
+    border-bottom: currentColor solid 2px;
+}
+
+/* # GLOBALS - Typography
+ * ======================================================================== */
+::-moz-selection {
+    background-color: Highlight;
+    background-color: var(--sys-clr-selection-bg, Highlight);
+    color: HighlightText;
+    color: var(--sys-clr-selection-text, HighlightText);
+}
+::selection {
+    background-color: Highlight;
+    background-color: var(--sys-clr-selection-bg, Highlight);
+    color: HighlightText;
+    color: var(--sys-clr-selection-text, HighlightText);
+}
+
+html {
+    line-height: 1.6875;
+    line-height: var(--line-height-400, 1.6875);
+    background: Canvas;
+    background: var(--sys-clr-background, Canvas);
+    color: CanvasText;
+    color: var(--sys-clr-text, CanvasText);
+}
+
+/* ## Typography - Inline ==================================== */
+strong,
+b {
+    font-weight: 700;
+}
+strong strong,
+b strong {
+    font-weight: 800;
+}
+strong strong strong,
+b strong strong {
+    font-weight: 900;
+}
+
+em,
+i {
+    font-style: italic;
+}
+em em,
+i em,
+em i,
+i i {
+    font-style: normal;
+}
+em em em,
+i em em,
+em em i,
+i em i,
+em i em,
+i i em,
+em i i,
+i i i {
+    font-style: italic;
+}
+
+a {
+    --focus-ring-outline-color: currentColor;
+    display: inline;
+    border: none;
+    -webkit-text-decoration: underline 0.0625em;
+    text-decoration: underline 0.0625em;
+    -webkit-text-decoration: underline var(--stroke-relative-200, 0.0625em);
+    text-decoration: underline var(--stroke-relative-200, 0.0625em);
+    text-underline-offset: 0.25em;
+    text-underline-offset: var(--stroke-relative-800, 0.25em);
+    color: LinkText;
+    color: var(--sys-clr-link, LinkText);
+}
+a:visited {
+    color: VisitedText;
+    color: var(--sys-clr-link-visited, VisitedText);
+}
+.no-js a:focus,
+.js__no-where-selector a:focus {
+    text-decoration-color: transparent;
+    color: ActiveText;
+    color: var(--sys-clr-link-hover, ActiveText);
+}
+
+:where(.js__no-focusVisible) a:focus {
+    text-decoration-color: transparent;
+    color: ActiveText;
+    color: var(--sys-clr-link-hover, ActiveText);
+}
+
+a:hover {
+    text-decoration-color: transparent;
+    color: ActiveText;
+    color: var(--sys-clr-link-hover, ActiveText);
+}
+
+a:focus-visible {
+    text-decoration-color: transparent;
+    color: ActiveText;
+    color: var(--sys-clr-link-hover, ActiveText);
+}
+
+a:active {
+    color: ActiveText;
+    color: var(--sys-clr-link-active, ActiveText);
+}
+a.no-style {
+    text-decoration: none;
+    font-weight: inherit;
+    color: inherit;
+}
+a[aria-disabled="true"] {
+    text-decoration-line: line-through;
+    opacity: 1;
+    cursor: not-allowed;
+    color: GrayText;
+    color: var(--sys-clr-text-disabled, GrayText);
+}
+
+abbr[title] {
+    -webkit-text-decoration: dotted underline 0.125em;
+    text-decoration: dotted underline 0.125em;
+    -webkit-text-decoration: dotted underline
+        var(--stroke-relative-400, 0.125em);
+    text-decoration: dotted underline var(--stroke-relative-400, 0.125em);
+    cursor: help;
+}
+
+/* ## Typography - Block ==================================== */
+p {
+    margin-top: 0.8125rem;
+    margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-bottom: 0;
+}
+hr + p {
+    margin-top: 0;
+}
+
+blockquote {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+}
+blockquote {
+    margin-top: 0.8125rem;
+    margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-bottom: 0;
+    margin-top: 1.625rem;
+    margin-bottom: calc(1.625rem - 0.8125rem);
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: calc(
+        var(--mrg-soft-600, 1.625rem) - var(--mrg-soft-400, 0.8125rem)
+    );
+}
+blockquote > p:first-child {
+    margin-top: 0;
+}
+blockquote > cite {
+    display: block;
+    margin-top: 0.8125rem;
+    margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-bottom: 0;
+    text-align: right;
+}
+blockquote > cite::before {
+    content: "— ";
+    color: currentColor;
+}
+blockquote > cite {
+    color: color-mix(in srgb, currentColor 75%, transparent);
+}
+
+@media (prefers-contrast: less) {
+    blockquote > cite {
+        color: color-mix(in srgb, currentColor 75%, transparent);
+    }
+}
+@media (prefers-contrast: more) {
+    blockquote > cite {
+        color: color-mix(in srgb, currentColor 87.5%, transparent);
+    }
+}
+
+pre {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+}
+pre {
+    position: relative;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0.8125rem;
+    margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-bottom: 0;
+    margin-top: 1.625rem;
+    margin-bottom: calc(1.625rem - 0.8125rem);
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: calc(
+        var(--mrg-soft-600, 1.625rem) - var(--mrg-soft-400, 0.8125rem)
+    );
+    padding: 0;
+    max-width: min(120ch, 100%);
+    overflow: auto;
+    font-size: 0.9375rem;
+    font-size: var(--fs-smaller-1, 0.9375rem);
+}
+pre > code {
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: none;
+    width: auto;
+    max-width: 100%;
+    white-space: normal;
+    text-wrap: auto;
+}
+pre:where(:has(> code)) {
+    white-space: normal;
+    text-wrap: auto;
+}
+pre:where(:has(> code)) > code {
+    white-space: pre;
+    text-wrap: nowrap;
+    overflow: visible;
+}
+
+/* ## Typography - Headings ==================================== */
+h1 {
+    margin-top: 3.125rem;
+    margin-top: var(--mrg-soft-800, 3.125rem);
+    margin-bottom: 0;
+    font-weight: 900;
+    font-size: 2.375rem;
+    font-size: var(--fs-heading-1, 2.375rem);
+    line-height: 1.3125;
+    line-height: var(--line-height-200, 1.3125);
+    text-wrap: balance;
+}
+h1 button,
+h1 [role="button"],
+h1 input[type="button"],
+h1 input[type="submit"] {
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+
+:where([role="heading"][aria-level="1"]) {
+    margin-top: 3.125rem;
+    margin-top: var(--mrg-soft-800, 3.125rem);
+    margin-bottom: 0;
+    font-weight: 900;
+    font-size: 2.375rem;
+    font-size: var(--fs-heading-1, 2.375rem);
+    line-height: 1.3125;
+    line-height: var(--line-height-200, 1.3125);
+    text-wrap: balance;
+}
+:where([role="heading"][aria-level="1"])
+    :where(
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="submit"]
+    ) {
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+
+h2 {
+    margin-top: 3.125rem;
+    margin-top: var(--mrg-soft-800, 3.125rem);
+    margin-bottom: 0;
+    font-weight: 800;
+    font-size: 2.0625rem;
+    font-size: var(--fs-heading-2, 2.0625rem);
+    line-height: 1.3125;
+    line-height: var(--line-height-200, 1.3125);
+    text-wrap: balance;
+}
+h2 button,
+h2 [role="button"],
+h2 input[type="button"],
+h2 input[type="submit"] {
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+
+:where([role="heading"][aria-level="2"]) {
+    margin-top: 3.125rem;
+    margin-top: var(--mrg-soft-800, 3.125rem);
+    margin-bottom: 0;
+    font-weight: 800;
+    font-size: 2.0625rem;
+    font-size: var(--fs-heading-2, 2.0625rem);
+    line-height: 1.3125;
+    line-height: var(--line-height-200, 1.3125);
+    text-wrap: balance;
+}
+:where([role="heading"][aria-level="2"])
+    :where(
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="submit"]
+    ) {
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+
+h3 {
+    margin-top: 3.125rem;
+    margin-top: var(--mrg-soft-800, 3.125rem);
+    margin-bottom: 0;
+    font-weight: 700;
+    font-size: 1.78125rem;
+    font-size: var(--fs-heading-3, 1.78125rem);
+    line-height: 1.3125;
+    line-height: var(--line-height-200, 1.3125);
+    text-wrap: balance;
+}
+h3 button,
+h3 [role="button"],
+h3 input[type="button"],
+h3 input[type="submit"] {
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+
+:where([role="heading"][aria-level="3"]) {
+    margin-top: 3.125rem;
+    margin-top: var(--mrg-soft-800, 3.125rem);
+    margin-bottom: 0;
+    font-weight: 700;
+    font-size: 1.78125rem;
+    font-size: var(--fs-heading-3, 1.78125rem);
+    line-height: 1.3125;
+    line-height: var(--line-height-200, 1.3125);
+    text-wrap: balance;
+}
+:where([role="heading"][aria-level="3"])
+    :where(
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="submit"]
+    ) {
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+
+h4 {
+    margin-top: 1.625rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: 0;
+    font-weight: 700;
+    font-size: 1.53125rem;
+    font-size: var(--fs-heading-4, 1.53125rem);
+    line-height: 1.4375;
+    line-height: var(--line-height-300, 1.4375);
+    text-wrap: balance;
+    font-style: italic;
+}
+h4 em,
+h4 i {
+    font-style: normal;
+}
+h4 em em,
+h4 em i,
+h4 i em,
+h4 i i {
+    font-style: italic;
+}
+h4 button,
+h4 [role="button"],
+h4 input[type="button"],
+h4 input[type="submit"] {
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+
+:where([role="heading"][aria-level="4"]) {
+    margin-top: 1.625rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: 0;
+    font-weight: 700;
+    font-size: 1.53125rem;
+    font-size: var(--fs-heading-4, 1.53125rem);
+    line-height: 1.4375;
+    line-height: var(--line-height-300, 1.4375);
+    text-wrap: balance;
+    font-style: italic;
+}
+:where([role="heading"][aria-level="4"]) em,
+:where([role="heading"][aria-level="4"]) i {
+    font-style: normal;
+}
+:where([role="heading"][aria-level="4"]) em em,
+:where([role="heading"][aria-level="4"]) em i,
+:where([role="heading"][aria-level="4"]) i em,
+:where([role="heading"][aria-level="4"]) i i {
+    font-style: italic;
+}
+:where([role="heading"][aria-level="4"])
+    :where(
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="submit"]
+    ) {
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+
+h5 {
+    margin-top: 1.625rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: 0;
+    font-weight: 600;
+    font-size: 1.34375rem;
+    font-size: var(--fs-heading-5, 1.34375rem);
+    line-height: 1.4375;
+    line-height: var(--line-height-300, 1.4375);
+    text-wrap: balance;
+    font-style: italic;
+}
+h5 em,
+h5 i {
+    font-style: normal;
+}
+h5 em em,
+h5 em i,
+h5 i em,
+h5 i i {
+    font-style: italic;
+}
+h5 button,
+h5 [role="button"],
+h5 input[type="button"],
+h5 input[type="submit"] {
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+
+:where([role="heading"][aria-level="5"]) {
+    margin-top: 1.625rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: 0;
+    font-weight: 600;
+    font-size: 1.34375rem;
+    font-size: var(--fs-heading-5, 1.34375rem);
+    line-height: 1.4375;
+    line-height: var(--line-height-300, 1.4375);
+    text-wrap: balance;
+    font-style: italic;
+}
+:where([role="heading"][aria-level="5"]) em,
+:where([role="heading"][aria-level="5"]) i {
+    font-style: normal;
+}
+:where([role="heading"][aria-level="5"]) em em,
+:where([role="heading"][aria-level="5"]) em i,
+:where([role="heading"][aria-level="5"]) i em,
+:where([role="heading"][aria-level="5"]) i i {
+    font-style: italic;
+}
+:where([role="heading"][aria-level="5"])
+    :where(
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="submit"]
+    ) {
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+
+h6 {
+    margin-top: 1.625rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: 0;
+    font-weight: 500;
+    font-size: 1.15625rem;
+    font-size: var(--fs-heading-6, 1.15625rem);
+    line-height: 1.4375;
+    line-height: var(--line-height-300, 1.4375);
+    text-wrap: balance;
+    font-style: italic;
+}
+h6 em,
+h6 i {
+    font-style: normal;
+}
+h6 em em,
+h6 em i,
+h6 i em,
+h6 i i {
+    font-style: italic;
+}
+h6 button,
+h6 [role="button"],
+h6 input[type="button"],
+h6 input[type="submit"] {
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+
+:where([role="heading"][aria-level="6"]) {
+    margin-top: 1.625rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: 0;
+    font-weight: 500;
+    font-size: 1.15625rem;
+    font-size: var(--fs-heading-6, 1.15625rem);
+    line-height: 1.4375;
+    line-height: var(--line-height-300, 1.4375);
+    text-wrap: balance;
+    font-style: italic;
+}
+:where([role="heading"][aria-level="6"]) em,
+:where([role="heading"][aria-level="6"]) i {
+    font-style: normal;
+}
+:where([role="heading"][aria-level="6"]) em em,
+:where([role="heading"][aria-level="6"]) em i,
+:where([role="heading"][aria-level="6"]) i em,
+:where([role="heading"][aria-level="6"]) i i {
+    font-style: italic;
+}
+:where([role="heading"][aria-level="6"])
+    :where(
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="submit"]
+    ) {
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+
+:where([role="heading"][aria-level="7"]) {
+    margin-top: 0.8125rem;
+    margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-bottom: 0;
+    font-weight: 600;
+    font-size: 1rem;
+    font-size: var(--fs-heading-7, 1rem);
+    line-height: 1.6875;
+    line-height: var(--line-height-400, 1.6875);
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    font-style: italic;
+}
+:where([role="heading"][aria-level="7"]) em,
+:where([role="heading"][aria-level="7"]) i {
+    font-style: normal;
+}
+:where([role="heading"][aria-level="7"]) em em,
+:where([role="heading"][aria-level="7"]) em i,
+:where([role="heading"][aria-level="7"]) i em,
+:where([role="heading"][aria-level="7"]) i i {
+    font-style: italic;
+}
+:where([role="heading"][aria-level="7"])
+    :where(
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="submit"]
+    ) {
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+
+:where([role="heading"][aria-level="8"]) {
+    margin-top: 0.8125rem;
+    margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-bottom: 0;
+    font-weight: 400;
+    font-size: 0.875rem;
+    font-size: var(--fs-heading-8, 0.875rem);
+    line-height: 1.6875;
+    line-height: var(--line-height-400, 1.6875);
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    font-style: italic;
+}
+:where([role="heading"][aria-level="8"]) em,
+:where([role="heading"][aria-level="8"]) i {
+    font-style: normal;
+}
+:where([role="heading"][aria-level="8"]) em em,
+:where([role="heading"][aria-level="8"]) em i,
+:where([role="heading"][aria-level="8"]) i em,
+:where([role="heading"][aria-level="8"]) i i {
+    font-style: italic;
+}
+:where([role="heading"][aria-level="8"])
+    :where(
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="submit"]
+    ) {
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+
+:where([role="heading"][aria-level="9"]) {
+    margin-top: 0.8125rem;
+    margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-bottom: 0;
+    font-weight: 400;
+    font-size: 0.875rem;
+    font-size: var(--fs-heading-9, var(--fs-heading-8, 0.875rem));
+    line-height: 1.90625;
+    line-height: var(--line-height-500, 1.90625);
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    font-style: italic;
+}
+:where([role="heading"][aria-level="9"]) em,
+:where([role="heading"][aria-level="9"]) i {
+    font-style: normal;
+}
+:where([role="heading"][aria-level="9"]) em em,
+:where([role="heading"][aria-level="9"]) em i,
+:where([role="heading"][aria-level="9"]) i em,
+:where([role="heading"][aria-level="9"]) i i {
+    font-style: italic;
+}
+:where([role="heading"][aria-level="9"])
+    :where(
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="submit"]
+    ) {
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+
+:where([role="heading"][aria-level="10"]) {
+    margin-top: 0.8125rem;
+    margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-bottom: 0;
+    font-weight: 400;
+    font-size: 0.875rem;
+    font-size: var(--fs-heading-10, var(--fs-heading-8, 0.875rem));
+    line-height: 1.90625;
+    line-height: var(--line-height-500, 1.90625);
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    font-style: italic;
+}
+:where([role="heading"][aria-level="10"]) em,
+:where([role="heading"][aria-level="10"]) i {
+    font-style: normal;
+}
+:where([role="heading"][aria-level="10"]) em em,
+:where([role="heading"][aria-level="10"]) em i,
+:where([role="heading"][aria-level="10"]) i em,
+:where([role="heading"][aria-level="10"]) i i {
+    font-style: italic;
+}
+:where([role="heading"][aria-level="10"])
+    :where(
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="submit"]
+    ) {
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+}
+
+/* # GLOBALS - Lists
+ * ======================================================================== */
+ol,
+ul {
+    margin: 0;
+    margin-left: 20%;
+    padding: 0;
+    padding-left: 1em;
+    line-height: 1.6875;
+    line-height: var(--line-height-400, 1.6875);
+}
+ol ol,
+ol ul,
+ul ol,
+ul ul {
+    margin-top: 0;
+}
+ol ol ol,
+ol ol ul,
+ol ul ol,
+ol ul ul,
+ul ol ol,
+ul ol ul,
+ul ul ol,
+ul ul ul {
+    font-size: 0.9375rem;
+    font-size: var(--fs-smaller-1, 0.9375rem);
+}
+
+ol {
+    /* level 1 - ol */
+    list-style-type: decimal;
+}
+ol ol {
+    /* level 2 - ol ol */
+    list-style-type: lower-alpha;
+}
+ol ol ol {
+    /* level 3 - ol ol ol */
+    list-style-type: lower-roman;
+}
+ol ol ol ol {
+    /* level 4 - ol ol ol ol */
+}
+ol ol ol ol ol {
+    /* level 5 - ol ol ol ol ol */
+}
+
+ul {
+    /* level 1 - ul */
+    list-style-type: disc;
+}
+ul ul {
+    /* level 2 - ul ul */
+    list-style-type: circle;
+}
+ol ol ol ol,
+ul ul ul {
+    /* level 3 - ul ul ul */
+    /* level 4 - ol ol ol ol */
+    list-style-type: square; /* fallback */
+    list-style-type: "–  ";
+}
+ol ol ol ol ol,
+ol ol ol ol ul,
+ul ul ul ul {
+    /* level 4 - ul ul ul ul */
+    /* level 5 - ol ol ol ol ol */
+}
+
+li {
+    margin: 0;
+    margin-top: 0.5rem;
+    margin-top: var(--mrg-soft-300, 0.5rem);
+    padding: 0;
+}
+li::marker {
+    font-weight: 500;
+    font-size: 0.9375rem;
+    font-size: var(--fs-smaller-1, 0.9375rem);
+}
+li li li {
+    margin-top: 0.3125rem;
+    margin-top: var(--mrg-soft-200, 0.3125rem);
+}
+li li li::marker {
+    font-size: 0.8125rem;
+    font-size: var(--fs-smaller-2, 0.8125rem);
+}
+li li li li {
+    font-style: italic;
+}
+li li li li em {
+    font-style: normal;
+}
+
+/* # GLOBALS - Forms
+ * ======================================================================== */
+fieldset {
+    display: block;
+    margin: 1.25rem 0 0.4375rem;
+    margin: var(--mrg-firm-400, 1.25rem) 0 var(--mrg-half-400, 0.4375rem);
+    padding: 0.5rem 1.25rem 0.8125rem;
+    padding: var(--mrg-soft-300, 0.5rem) var(--mrg-firm-400, 1.25rem)
+        var(--mrg-firm-300, 0.8125rem);
+    border: 0.0625rem solid CanvasText;
+    border: 0.0625rem solid var(--sys-clr-accent-bg, CanvasText);
+    border-radius: 0;
+    background-color: Canvas;
+    background-color: var(--sys-clr-background, Canvas);
+    color: CanvasText;
+    color: var(--sys-clr-text, CanvasText);
+}
+.no-js fieldset:focus,
+.js__no-where-selector fieldset:focus {
+    border-color: ActiveText;
+    border-color: var(--sys-clr-text-active, ActiveText);
+}
+
+:where(.js__no-focusVisible) fieldset:focus {
+    border-color: ActiveText;
+    border-color: var(--sys-clr-text-active, ActiveText);
+}
+
+fieldset:focus-visible {
+    border-color: ActiveText;
+    border-color: var(--sys-clr-text-active, ActiveText);
+}
+
+fieldset:focus-within {
+    border-color: ActiveText;
+    border-color: var(--sys-clr-text-active, ActiveText);
+}
+
+fieldset:active {
+    border-color: CanvasText;
+    border-color: var(--sys-clr-accent-bg, CanvasText);
+}
+fieldset legend {
+    display: block;
+}
+fieldset > :first-child {
+    margin-top: 0;
+    margin-top: calc(0.8125rem - 0.3125rem);
+    margin-top: calc(
+        var(--mrg-soft-400, 0.8125rem) - var(--mrg-soft-200, 0.3125rem)
+    );
+}
+fieldset > legend + * {
+    margin-top: 0;
+}
+
+fieldset legend {
+    margin-top: 0.8125rem;
+    margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-bottom: 0;
+    font-weight: 600;
+    font-size: 1rem;
+    font-size: var(--fs-heading-7, 1rem);
+    line-height: 1.6875;
+    line-height: var(--line-height-400, 1.6875);
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    font-style: italic;
+    margin-left: calc(0.5rem * -1);
+    margin-right: calc(0.5rem * -1);
+    margin-left: calc(var(--mrg-soft-300, 0.5rem) * -1);
+    margin-right: calc(var(--mrg-soft-300, 0.5rem) * -1);
+    margin-bottom: 0.5rem;
+    margin-top: 0;
+    margin-bottom: var(--mrg-soft-300, 0.5rem);
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-left: var(--mrg-soft-300, 0.5rem);
+    padding-right: var(--mrg-soft-300, 0.5rem);
+    font-style: italic;
+}
+fieldset legend em,
+fieldset legend i {
+    font-style: normal;
+}
+fieldset legend em em,
+fieldset legend em i,
+fieldset legend i em,
+fieldset legend i i {
+    font-style: italic;
+}
+
+textarea,
+select,
+input {
+    display: block;
+    margin: 1.25rem 0 0.4375rem;
+    margin: var(--mrg-firm-400, 1.25rem) 0 var(--mrg-half-400, 0.4375rem);
+    padding: 0.3125rem 0.5rem;
+    padding: var(--mrg-soft-200, 0.3125rem) var(--mrg-firm-200, 0.5rem);
+    width: 100%;
+    font: inherit;
+    line-height: 1.3125;
+    line-height: var(--line-height-200, 1.3125);
+    border: 0.0625rem solid FieldText;
+    border: 0.0625rem solid var(--sys-clr-input-border, FieldText);
+    border-radius: 0;
+    --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
+    background-color: Field;
+    background-color: var(--sys-clr-input-bg, Field);
+    color: FieldText;
+    color: var(--sys-clr-input-text, FieldText);
+    accent-color: FieldText;
+    accent-color: var(--sys-clr-input-text, FieldText);
+}
+.no-js textarea:focus,
+.no-js select:focus,
+.no-js input:focus,
+.js__no-where-selector textarea:focus,
+.js__no-where-selector select:focus,
+.js__no-where-selector input:focus {
+    --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
+    background-color: SelectedItem;
+    background-color: var(--sys-clr-input-bg-hover, SelectedItem);
+    border-color: SelectedItem;
+    border-color: var(--sys-clr-input-border-hover, SelectedItem);
+    color: SelectedItemText;
+    color: var(--sys-clr-input-text-hover, SelectedItemText);
+    accent-color: FieldText;
+    accent-color: var(--sys-clr-input-text, FieldText);
+}
+
+:where(.js__no-focusVisible) textarea:focus,
+:where(.js__no-focusVisible) select:focus,
+:where(.js__no-focusVisible) input:focus {
+    --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
+    background-color: SelectedItem;
+    background-color: var(--sys-clr-input-bg-hover, SelectedItem);
+    border-color: SelectedItem;
+    border-color: var(--sys-clr-input-border-hover, SelectedItem);
+    color: SelectedItemText;
+    color: var(--sys-clr-input-text-hover, SelectedItemText);
+    accent-color: FieldText;
+    accent-color: var(--sys-clr-input-text, FieldText);
+}
+
+textarea:hover,
+select:hover,
+input:hover {
+    --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
+    background-color: SelectedItem;
+    background-color: var(--sys-clr-input-bg-hover, SelectedItem);
+    border-color: SelectedItem;
+    border-color: var(--sys-clr-input-border-hover, SelectedItem);
+    color: SelectedItemText;
+    color: var(--sys-clr-input-text-hover, SelectedItemText);
+    accent-color: FieldText;
+    accent-color: var(--sys-clr-input-text, FieldText);
+}
+
+textarea:focus-visible,
+select:focus-visible,
+input:focus-visible {
+    --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
+    background-color: SelectedItem;
+    background-color: var(--sys-clr-input-bg-hover, SelectedItem);
+    border-color: SelectedItem;
+    border-color: var(--sys-clr-input-border-hover, SelectedItem);
+    color: SelectedItemText;
+    color: var(--sys-clr-input-text-hover, SelectedItemText);
+    accent-color: FieldText;
+    accent-color: var(--sys-clr-input-text, FieldText);
+}
+
+textarea:focus-within,
+select:focus-within,
+input:focus-within {
+    --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
+    background-color: SelectedItem;
+    background-color: var(--sys-clr-input-bg-hover, SelectedItem);
+    border-color: SelectedItem;
+    border-color: var(--sys-clr-input-border-hover, SelectedItem);
+    color: SelectedItemText;
+    color: var(--sys-clr-input-text-hover, SelectedItemText);
+    accent-color: FieldText;
+    accent-color: var(--sys-clr-input-text, FieldText);
+}
+
+textarea:active,
+select:active,
+input:active {
+    --focus-ring-outline-color: var(--sys-clr-text-active, ActiveText);
+    background-color: Field;
+    background-color: var(--sys-clr-input-bg-active, Field);
+    border-color: FieldText;
+    border-color: var(--sys-clr-input-border-active, FieldText);
+    color: FieldText;
+    color: var(--sys-clr-input-text-active, FieldText);
+    accent-color: ActiveText;
+    accent-color: var(--sys-clr-text-active, ActiveText);
+}
+textarea::-moz-placeholder,
+select::-moz-placeholder,
+input::-moz-placeholder {
+    opacity: 1;
+    color: currentColor;
+}
+textarea::placeholder,
+select::placeholder,
+input::placeholder {
+    opacity: 1;
+    color: currentColor;
+}
+textarea::-moz-placeholder,
+select::-moz-placeholder,
+input::-moz-placeholder {
+    color: color-mix(in srgb, currentColor 75%, transparent);
+}
+textarea::placeholder,
+select::placeholder,
+input::placeholder {
+    color: color-mix(in srgb, currentColor 75%, transparent);
+}
+
+@media (prefers-contrast: less) {
+    textarea::-moz-placeholder,
+    select::-moz-placeholder,
+    input::-moz-placeholder {
+        color: color-mix(in srgb, currentColor 75%, transparent);
+    }
+    textarea::placeholder,
+    select::placeholder,
+    input::placeholder {
+        color: color-mix(in srgb, currentColor 75%, transparent);
+    }
+}
+@media (prefers-contrast: more) {
+    textarea::-moz-placeholder,
+    select::-moz-placeholder,
+    input::-moz-placeholder {
+        color: color-mix(in srgb, currentColor 90%, transparent);
+    }
+    textarea::placeholder,
+    select::placeholder,
+    input::placeholder {
+        color: color-mix(in srgb, currentColor 90%, transparent);
+    }
+}
+label + textarea,
+label + select,
+label + input,
+label > textarea,
+label > select,
+label > input {
+    margin-top: 0.5rem;
+    margin-top: var(--mrg-firm-200, 0.5rem);
+}
+
+input[type="button"],
+input[type="checkbox"],
+input[type="color"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="file"],
+input[type="month"],
+input[type="radio"],
+input[type="range"],
+input[type="reset"],
+input[type="submit"],
+input[type="time"],
+input[type="week"] {
+    cursor: pointer;
+}
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="url"],
+input[type="week"] {
+    cursor: text;
+}
+input[type="checkbox"],
+input[type="radio"] {
+    display: inline-block;
+    padding: 0;
+    width: auto;
+    accent-color: FieldText;
+    accent-color: var(--sys-clr-input-text, FieldText);
+}
+.no-js input[type="checkbox"]:focus,
+.no-js input[type="radio"]:focus,
+.js__no-where-selector input[type="checkbox"]:focus,
+.js__no-where-selector input[type="radio"]:focus {
+    accent-color: FieldText;
+    accent-color: var(--sys-clr-input-text, FieldText);
+}
+
+:where(.js__no-focusVisible) input[type="checkbox"]:focus,
+:where(.js__no-focusVisible) input[type="radio"]:focus {
+    accent-color: FieldText;
+    accent-color: var(--sys-clr-input-text, FieldText);
+}
+
+input[type="checkbox"]:hover,
+input[type="radio"]:hover {
+    accent-color: FieldText;
+    accent-color: var(--sys-clr-input-text, FieldText);
+}
+
+input[type="checkbox"]:focus-visible,
+input[type="radio"]:focus-visible {
+    accent-color: FieldText;
+    accent-color: var(--sys-clr-input-text, FieldText);
+}
+
+input[type="checkbox"]:focus-within,
+input[type="radio"]:focus-within {
+    accent-color: FieldText;
+    accent-color: var(--sys-clr-input-text, FieldText);
+}
+
+input[type="checkbox"]:active,
+input[type="radio"]:active {
+    accent-color: ActiveText;
+    accent-color: var(--sys-clr-text-active, ActiveText);
+}
+input[type="color"] {
+    padding: 0;
+    height: 2.25em;
+    width: 2.25em;
+}
+input[type="date"],
+input[type="datetime-local"],
+input[type="file"],
+input[type="month"],
+input[type="time"],
+input[type="week"] {
+    width: auto;
+}
+input[type="file"] {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-top: var(--mrg-soft-300, 0.5rem);
+    padding-bottom: var(--mrg-soft-300, 0.5rem);
+    padding-left: 0.8125rem;
+    padding-right: 0.8125rem;
+    padding-left: var(--mrg-firm-300, 0.8125rem);
+    padding-right: var(--mrg-firm-300, 0.8125rem);
+    font-size: 0.9375rem;
+    font-size: var(--fs-smaller-1, 0.9375rem);
+}
+input[type="range"] {
+    padding: 0;
+}
+
+select {
+    cursor: pointer;
+}
+
+textarea {
+    cursor: text;
+}
+
+/* ## Forms - Buttons ==================================== */
+button,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+::file-selector-button {
+    display: block;
+    margin: 1.25rem 0 0.4375rem;
+    margin: var(--mrg-firm-400, 1.25rem) 0 var(--mrg-half-400, 0.4375rem);
+    padding: 0.3125rem 0.8125rem;
+    padding: var(--mrg-soft-200, 0.3125rem) var(--mrg-firm-300, 0.8125rem);
+    width: -moz-fit-content;
+    width: fit-content;
+    font: inherit;
+    line-height: 1.1875;
+    line-height: var(--line-height-100, 1.1875);
+    border: 0.125rem solid ButtonFace;
+    border: 0.125rem solid var(--sys-clr-button-border, ButtonFace);
+    border-radius: 0;
+    --focus-ring-outline-color: var(--sys-clr-button-bg, ButtonFace);
+    background-color: ButtonFace;
+    background-color: var(--sys-clr-button-bg, ButtonFace);
+    color: ButtonText;
+    color: var(--sys-clr-button-text, ButtonText);
+    accent-color: ButtonFace;
+    accent-color: var(--sys-clr-button-bg, ButtonFace);
+}
+.no-js button:focus,
+.no-js [role="button"]:focus,
+.no-js input[type="button"]:focus,
+.no-js input[type="submit"]:focus,
+.no-js input[type="reset"]:focus,
+.no-js :focus::file-selector-button,
+.js__no-where-selector button:focus,
+.js__no-where-selector [role="button"]:focus,
+.js__no-where-selector input[type="button"]:focus,
+.js__no-where-selector input[type="submit"]:focus,
+.js__no-where-selector input[type="reset"]:focus,
+.js__no-where-selector :focus::file-selector-button {
+    --focus-ring-outline-color: var(--sys-clr-button-bg-hover, SelectedItem);
+    background-color: SelectedItem;
+    background-color: var(--sys-clr-button-bg-hover, SelectedItem);
+    border-color: SelectedItem;
+    border-color: var(--sys-clr-button-border-hover, SelectedItem);
+    color: SelectedItemText;
+    color: var(--sys-clr-button-text-hover, SelectedItemText);
+    accent-color: SelectedItem;
+    accent-color: var(--sys-clr-button-bg-hover, SelectedItem);
+}
+
+:where(.js__no-focusVisible) button:focus,
+:where(.js__no-focusVisible) [role="button"]:focus,
+:where(.js__no-focusVisible) input[type="button"]:focus,
+:where(.js__no-focusVisible) input[type="submit"]:focus,
+:where(.js__no-focusVisible) input[type="reset"]:focus,
+:where(.js__no-focusVisible) :focus::file-selector-button {
+    --focus-ring-outline-color: var(--sys-clr-button-bg-hover, SelectedItem);
+    background-color: SelectedItem;
+    background-color: var(--sys-clr-button-bg-hover, SelectedItem);
+    border-color: SelectedItem;
+    border-color: var(--sys-clr-button-border-hover, SelectedItem);
+    color: SelectedItemText;
+    color: var(--sys-clr-button-text-hover, SelectedItemText);
+    accent-color: SelectedItem;
+    accent-color: var(--sys-clr-button-bg-hover, SelectedItem);
+}
+
+button:hover,
+[role="button"]:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+:hover::file-selector-button {
+    --focus-ring-outline-color: var(--sys-clr-button-bg-hover, SelectedItem);
+    background-color: SelectedItem;
+    background-color: var(--sys-clr-button-bg-hover, SelectedItem);
+    border-color: SelectedItem;
+    border-color: var(--sys-clr-button-border-hover, SelectedItem);
+    color: SelectedItemText;
+    color: var(--sys-clr-button-text-hover, SelectedItemText);
+    accent-color: SelectedItem;
+    accent-color: var(--sys-clr-button-bg-hover, SelectedItem);
+}
+
+button:focus-visible,
+[role="button"]:focus-visible,
+input[type="button"]:focus-visible,
+input[type="submit"]:focus-visible,
+input[type="reset"]:focus-visible,
+:focus-visible::file-selector-button {
+    --focus-ring-outline-color: var(--sys-clr-button-bg-hover, SelectedItem);
+    background-color: SelectedItem;
+    background-color: var(--sys-clr-button-bg-hover, SelectedItem);
+    border-color: SelectedItem;
+    border-color: var(--sys-clr-button-border-hover, SelectedItem);
+    color: SelectedItemText;
+    color: var(--sys-clr-button-text-hover, SelectedItemText);
+    accent-color: SelectedItem;
+    accent-color: var(--sys-clr-button-bg-hover, SelectedItem);
+}
+
+button:focus-within,
+[role="button"]:focus-within,
+input[type="button"]:focus-within,
+input[type="submit"]:focus-within,
+input[type="reset"]:focus-within,
+:focus-within::file-selector-button {
+    --focus-ring-outline-color: var(--sys-clr-button-bg-hover, SelectedItem);
+    background-color: SelectedItem;
+    background-color: var(--sys-clr-button-bg-hover, SelectedItem);
+    border-color: SelectedItem;
+    border-color: var(--sys-clr-button-border-hover, SelectedItem);
+    color: SelectedItemText;
+    color: var(--sys-clr-button-text-hover, SelectedItemText);
+    accent-color: SelectedItem;
+    accent-color: var(--sys-clr-button-bg-hover, SelectedItem);
+}
+
+.no-js button:focus,
+.no-js [role="button"]:focus,
+.no-js input[type="button"]:focus,
+.no-js input[type="submit"]:focus,
+.no-js input[type="reset"]:focus,
+.no-js :focus::file-selector-button,
+.js__no-where-selector button:focus,
+.js__no-where-selector [role="button"]:focus,
+.js__no-where-selector input[type="button"]:focus,
+.js__no-where-selector input[type="submit"]:focus,
+.js__no-where-selector input[type="reset"]:focus,
+.js__no-where-selector :focus::file-selector-button {
+    opacity: 0.875;
+}
+
+:where(.js__no-focusVisible) button:focus,
+:where(.js__no-focusVisible) [role="button"]:focus,
+:where(.js__no-focusVisible) input[type="button"]:focus,
+:where(.js__no-focusVisible) input[type="submit"]:focus,
+:where(.js__no-focusVisible) input[type="reset"]:focus,
+:where(.js__no-focusVisible) :focus::file-selector-button {
+    opacity: 0.875;
+}
+
+@media (prefers-contrast: less) {
+    .no-js button:focus,
+    .no-js [role="button"]:focus,
+    .no-js input[type="button"]:focus,
+    .no-js input[type="submit"]:focus,
+    .no-js input[type="reset"]:focus,
+    .no-js :focus::file-selector-button,
+    .js__no-where-selector button:focus,
+    .js__no-where-selector [role="button"]:focus,
+    .js__no-where-selector input[type="button"]:focus,
+    .js__no-where-selector input[type="submit"]:focus,
+    .js__no-where-selector input[type="reset"]:focus,
+    .js__no-where-selector :focus::file-selector-button {
+        opacity: 0.875;
+    }
+    :where(.js__no-focusVisible) button:focus,
+    :where(.js__no-focusVisible) [role="button"]:focus,
+    :where(.js__no-focusVisible) input[type="button"]:focus,
+    :where(.js__no-focusVisible) input[type="submit"]:focus,
+    :where(.js__no-focusVisible) input[type="reset"]:focus,
+    :where(.js__no-focusVisible) :focus::file-selector-button {
+        opacity: 0.875;
+    }
+}
+@media (prefers-contrast: less) {
+    button:focus-visible,
+    [role="button"]:focus-visible,
+    input[type="button"]:focus-visible,
+    input[type="submit"]:focus-visible,
+    input[type="reset"]:focus-visible,
+    :focus-visible::file-selector-button {
+        opacity: 0.875;
+    }
+    button:focus-within,
+    [role="button"]:focus-within,
+    input[type="button"]:focus-within,
+    input[type="submit"]:focus-within,
+    input[type="reset"]:focus-within,
+    :focus-within::file-selector-button {
+        opacity: 0.875;
+    }
+    button:hover,
+    [role="button"]:hover,
+    input[type="button"]:hover,
+    input[type="submit"]:hover,
+    input[type="reset"]:hover,
+    :hover::file-selector-button {
+        opacity: 0.875;
+    }
+}
+button:active,
+[role="button"]:active,
+input[type="button"]:active,
+input[type="submit"]:active,
+input[type="reset"]:active,
+:active::file-selector-button {
+    --focus-ring-outline-color: var(--sys-clr-button-bg-active, ButtonFace);
+    background-color: ButtonFace;
+    background-color: var(--sys-clr-button-bg-active, ButtonFace);
+    border-color: ButtonFace;
+    border-color: var(--sys-clr-button-border-active, ButtonFace);
+    color: ButtonText;
+    color: var(--sys-clr-button-text-active, ButtonText);
+    accent-color: ButtonFace;
+    accent-color: var(--sys-clr-button-bg-active, ButtonFace);
+}
+button,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+::file-selector-button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+::file-selector-button {
+    display: initial;
+    margin: 0;
+    margin-right: 0.8125rem;
+    margin-right: var(--mrg-firm-300, 0.8125rem);
+    font-size: 1rem;
+    font-size: var(--fs-normal, 1rem);
+}
+
+label {
+    display: block;
+    margin: 1.25rem 0 0;
+    margin: var(--mrg-firm-400, 1.25rem) 0 0;
+    font-weight: 600;
+    line-height: 1.3125;
+    line-height: var(--line-height-200, 1.3125);
+    color: CanvasText;
+    color: var(--sys-clr-text, CanvasText);
+}
+label:has(> :where(input[type="checkbox"], input[type="radio"])) {
+    display: grid;
+    grid-template-columns: fit-content(0) 1fr;
+    justify-content: end;
+    align-items: baseline;
+    grid-gap: 0.5rem;
+    grid-gap: var(--mrg-soft-300, 0.5rem);
+    gap: 0.5rem;
+    gap: var(--mrg-soft-300, 0.5rem);
+    font-weight: 400;
+    line-height: 1.6875;
+    line-height: var(--line-height-400, 1.6875);
+    text-wrap: balance;
+    color: CanvasText;
+    color: var(--sys-clr-text, CanvasText);
+    cursor: pointer;
+}
+label:has(> :where(input[type="checkbox"], input[type="radio"]))
+    + label:has(> :where(input[type="checkbox"], input[type="radio"])) {
+    margin-top: 0.5rem;
+    margin-top: var(--mrg-firm-200, 0.5rem);
+}
+label:has(> :where(input[type="checkbox"], input[type="radio"])) + input,
+label:has(> :where(input[type="checkbox"], input[type="radio"])) + select,
+label:has(> :where(input[type="checkbox"], input[type="radio"])) + textarea {
+    margin-top: 1.25rem;
+    margin-top: var(--mrg-firm-400, 1.25rem);
+}
+label > input[type="checkbox"],
+label > input[type="radio"] {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/* # GLOBALS - Tables
+ * ======================================================================== */
+table {
+    position: relative;
+    margin-top: 0.8125rem;
+    margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-bottom: 0;
+    margin-top: 1.625rem;
+    margin-bottom: calc(1.625rem - 0.8125rem);
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: calc(
+        var(--mrg-soft-600, 1.625rem) - var(--mrg-soft-400, 0.8125rem)
+    );
+    background: CanvasText;
+    background: var(--sys-clr-accent-bg, CanvasText);
+}
+
+table {
+    border-spacing: 0.125rem;
+    border-spacing: var(--border-width-200, 0.125rem);
+    font-size: 0.9375rem;
+    font-size: var(--fs-smaller-1, 0.9375rem);
+}
+
+th,
+td {
+    padding: 0.3125rem 0.8125rem;
+    padding: var(--mrg-soft-200, 0.3125rem) var(--mrg-firm-300, 0.8125rem);
+    min-width: 10em;
+    background: Canvas;
+    background: var(--sys-clr-background, Canvas);
+    vertical-align: top;
+    text-align: left;
+}
+th > :first-child,
+td > :first-child {
+    margin-top: 0;
+}
+th > :last-child,
+td > :last-child {
+    margin-bottom: 0;
+}
+
+th {
+    padding-top: 0.3125rem;
+    padding-top: var(--mrg-soft-200, 0.3125rem);
+    padding-bottom: 0.3125rem;
+    padding-bottom: var(--mrg-soft-200, 0.3125rem);
+    background: CanvasText;
+    background: var(--sys-clr-accent-bg, CanvasText);
+    color: Canvas;
+    color: var(--sys-clr-accent-text, Canvas);
+}
+
+/* # UTILITIES - Typography
+ * ======================================================================== */
+/* ## Font Sizes ==================================== */
+/* # TYPOGRAPHY
+ * ======================================================================== */
+::-moz-selection {
+    background-color: color-mix(
+        in srgb,
+        hsl(283.07, 73.89%, 68.19%) 25%,
+        transparent
+    ) !important;
+    color: hsl(0, 0%, 2.86%) !important;
+    color: var(
+        --theme-selection-text,
+        var(--clr-base-900, hsl(0, 0%, 2.86%))
+    ) !important;
+}
+::selection {
+    background-color: color-mix(
+        in srgb,
+        hsl(283.07, 73.89%, 68.19%) 25%,
+        transparent
+    ) !important;
+    color: hsl(0, 0%, 2.86%) !important;
+    color: var(
+        --theme-selection-text,
+        var(--clr-base-900, hsl(0, 0%, 2.86%))
+    ) !important;
+}
+@supports (color: color-mix(in lch, red, blue)) {
+    ::-moz-selection {
+        background-color: color-mix(
+            in srgb,
+            var(
+                    --theme-selection-bg,
+                    var(--clr-purple-400, hsl(283.07, 73.89%, 68.19%))
+                )
+                25%,
+            transparent
+        ) !important;
+    }
+    ::selection {
+        background-color: color-mix(
+            in srgb,
+            var(
+                    --theme-selection-bg,
+                    var(--clr-purple-400, hsl(283.07, 73.89%, 68.19%))
+                )
+                25%,
+            transparent
+        ) !important;
+    }
+}
+
+@media (prefers-contrast: less) {
+    ::-moz-selection {
+        background-color: color-mix(
+            in srgb,
+            hsl(283.07, 73.89%, 68.19%) 25%,
+            transparent
+        ) !important;
+        color: hsl(0, 0%, 2.86%) !important;
+        color: var(
+            --theme-selection-text,
+            var(--clr-base-900, hsl(0, 0%, 2.86%))
+        ) !important;
+    }
+    ::selection {
+        background-color: color-mix(
+            in srgb,
+            hsl(283.07, 73.89%, 68.19%) 25%,
+            transparent
+        ) !important;
+        color: hsl(0, 0%, 2.86%) !important;
+        color: var(
+            --theme-selection-text,
+            var(--clr-base-900, hsl(0, 0%, 2.86%))
+        ) !important;
+    }
+
+    @supports (color: color-mix(in lch, red, blue)) {
+        ::-moz-selection {
+            background-color: color-mix(
+                in srgb,
+                var(
+                        --theme-selection-bg,
+                        var(--clr-purple-400, hsl(283.07, 73.89%, 68.19%))
+                    )
+                    25%,
+                transparent
+            ) !important;
+        }
+        ::selection {
+            background-color: color-mix(
+                in srgb,
+                var(
+                        --theme-selection-bg,
+                        var(--clr-purple-400, hsl(283.07, 73.89%, 68.19%))
+                    )
+                    25%,
+                transparent
+            ) !important;
+        }
+    }
+}
+@media (prefers-contrast: more) {
+    ::-moz-selection {
+        background-color: color-mix(
+            in srgb,
+            hsl(283.07, 73.89%, 68.19%) 90%,
+            transparent
+        ) !important;
+        color: hsl(0, 0%, 2.86%) !important;
+        color: var(
+            --theme-selection-text,
+            var(--clr-base-900, hsl(0, 0%, 2.86%))
+        ) !important;
+    }
+    ::selection {
+        background-color: color-mix(
+            in srgb,
+            hsl(283.07, 73.89%, 68.19%) 90%,
+            transparent
+        ) !important;
+        color: hsl(0, 0%, 2.86%) !important;
+        color: var(
+            --theme-selection-text,
+            var(--clr-base-900, hsl(0, 0%, 2.86%))
+        ) !important;
+    }
+
+    @supports (color: color-mix(in lch, red, blue)) {
+        ::-moz-selection {
+            background-color: color-mix(
+                in srgb,
+                var(
+                        --theme-selection-bg,
+                        var(--clr-purple-400, hsl(283.07, 73.89%, 68.19%))
+                    )
+                    90%,
+                transparent
+            ) !important;
+        }
+        ::selection {
+            background-color: color-mix(
+                in srgb,
+                var(
+                        --theme-selection-bg,
+                        var(--clr-purple-400, hsl(283.07, 73.89%, 68.19%))
+                    )
+                    90%,
+                transparent
+            ) !important;
+        }
+    }
+}
+@media (forced-colors: active), (prefers-contrast: custom) {
+    ::-moz-selection {
+        background-color: hsl(283.07, 73.89%, 68.19%) !important;
+        background-color: var(
+            --theme-selection-bg,
+            var(--clr-purple-400, hsl(283.07, 73.89%, 68.19%))
+        ) !important;
+        color: hsl(0, 0%, 2.86%) !important;
+        color: var(
+            --theme-selection-text,
+            var(--clr-base-900, hsl(0, 0%, 2.86%))
+        ) !important;
+    }
+    ::selection {
+        background-color: hsl(283.07, 73.89%, 68.19%) !important;
+        background-color: var(
+            --theme-selection-bg,
+            var(--clr-purple-400, hsl(283.07, 73.89%, 68.19%))
+        ) !important;
+        color: hsl(0, 0%, 2.86%) !important;
+        color: var(
+            --theme-selection-text,
+            var(--clr-base-900, hsl(0, 0%, 2.86%))
+        ) !important;
+    }
+}
+
+/* ## Typography - Inline ==================================== */
+.no-js a:focus,
+.js__no-where-selector a:focus {
+    text-decoration-color: transparent;
+}
+
+:where(.js__no-focusVisible) a:focus {
+    text-decoration-color: transparent;
+}
+
+a:hover {
+    text-decoration-color: transparent;
+}
+
+a:focus-visible {
+    text-decoration-color: transparent;
+}
+
+/* ## Typography - Block ==================================== */
+pre,
+code {
+    --focus-ring-outline-color: var(
+        --theme-text-secondary,
+        var(--clr-turquoise-650, hsl(164.37, 100%, 16.99%))
+    );
+    position: relative;
+}
+
+/* # FORMS
+ * ======================================================================== */
+textarea,
+select,
+input {
+    --focus-ring-outline-color: var(
+        --theme-field-border,
+        var(--clr-base-700, hsl(0, 0%, 24.13%))
+    );
+    background-color: hsl(0, 0%, 90.98%);
+    background-color: var(
+        --theme-field-bg,
+        var(--clr-base-150, hsl(0, 0%, 90.98%))
+    );
+    color: hsl(0, 0%, 13.96%);
+    color: var(--theme-field-text, var(--clr-base-800, hsl(0, 0%, 13.96%)));
+    accent-color: hsl(0, 0%, 24.13%);
+    accent-color: var(
+        --theme-field-border,
+        var(--clr-base-700, hsl(0, 0%, 24.13%))
+    );
+}
+.no-js textarea:focus,
+.no-js select:focus,
+.no-js input:focus,
+.js__no-where-selector textarea:focus,
+.js__no-where-selector select:focus,
+.js__no-where-selector input:focus {
+    --focus-ring-outline-color: var(
+        --theme-field-border-hover,
+        var(--clr-turquoise-600, hsl(165.5, 96.33%, 20.48%))
+    );
+    background-color: hsl(0, 0%, 90.98%);
+    background-color: var(
+        --theme-field-bg-hover,
+        var(--clr-base-150, hsl(0, 0%, 90.98%))
+    );
+    border-color: hsl(165.5, 96.33%, 20.48%);
+    border-color: var(
+        --theme-field-border-hover,
+        var(--clr-turquoise-600, hsl(165.5, 96.33%, 20.48%))
+    );
+    color: hsl(0, 0%, 13.96%);
+    color: var(
+        --theme-field-text-hover,
+        var(--clr-base-800, hsl(0, 0%, 13.96%))
+    );
+    accent-color: hsl(165.5, 96.33%, 20.48%);
+    accent-color: var(
+        --theme-field-border-hover,
+        var(--clr-turquoise-600, hsl(165.5, 96.33%, 20.48%))
+    );
+}
+
+:where(.js__no-focusVisible) textarea:focus,
+:where(.js__no-focusVisible) select:focus,
+:where(.js__no-focusVisible) input:focus {
+    --focus-ring-outline-color: var(
+        --theme-field-border-hover,
+        var(--clr-turquoise-600, hsl(165.5, 96.33%, 20.48%))
+    );
+    background-color: hsl(0, 0%, 90.98%);
+    background-color: var(
+        --theme-field-bg-hover,
+        var(--clr-base-150, hsl(0, 0%, 90.98%))
+    );
+    border-color: hsl(165.5, 96.33%, 20.48%);
+    border-color: var(
+        --theme-field-border-hover,
+        var(--clr-turquoise-600, hsl(165.5, 96.33%, 20.48%))
+    );
+    color: hsl(0, 0%, 13.96%);
+    color: var(
+        --theme-field-text-hover,
+        var(--clr-base-800, hsl(0, 0%, 13.96%))
+    );
+    accent-color: hsl(165.5, 96.33%, 20.48%);
+    accent-color: var(
+        --theme-field-border-hover,
+        var(--clr-turquoise-600, hsl(165.5, 96.33%, 20.48%))
+    );
+}
+
+textarea:hover,
+select:hover,
+input:hover {
+    --focus-ring-outline-color: var(
+        --theme-field-border-hover,
+        var(--clr-turquoise-600, hsl(165.5, 96.33%, 20.48%))
+    );
+    background-color: hsl(0, 0%, 90.98%);
+    background-color: var(
+        --theme-field-bg-hover,
+        var(--clr-base-150, hsl(0, 0%, 90.98%))
+    );
+    border-color: hsl(165.5, 96.33%, 20.48%);
+    border-color: var(
+        --theme-field-border-hover,
+        var(--clr-turquoise-600, hsl(165.5, 96.33%, 20.48%))
+    );
+    color: hsl(0, 0%, 13.96%);
+    color: var(
+        --theme-field-text-hover,
+        var(--clr-base-800, hsl(0, 0%, 13.96%))
+    );
+    accent-color: hsl(165.5, 96.33%, 20.48%);
+    accent-color: var(
+        --theme-field-border-hover,
+        var(--clr-turquoise-600, hsl(165.5, 96.33%, 20.48%))
+    );
+}
+
+textarea:focus-visible,
+select:focus-visible,
+input:focus-visible {
+    --focus-ring-outline-color: var(
+        --theme-field-border-hover,
+        var(--clr-turquoise-600, hsl(165.5, 96.33%, 20.48%))
+    );
+    background-color: hsl(0, 0%, 90.98%);
+    background-color: var(
+        --theme-field-bg-hover,
+        var(--clr-base-150, hsl(0, 0%, 90.98%))
+    );
+    border-color: hsl(165.5, 96.33%, 20.48%);
+    border-color: var(
+        --theme-field-border-hover,
+        var(--clr-turquoise-600, hsl(165.5, 96.33%, 20.48%))
+    );
+    color: hsl(0, 0%, 13.96%);
+    color: var(
+        --theme-field-text-hover,
+        var(--clr-base-800, hsl(0, 0%, 13.96%))
+    );
+    accent-color: hsl(165.5, 96.33%, 20.48%);
+    accent-color: var(
+        --theme-field-border-hover,
+        var(--clr-turquoise-600, hsl(165.5, 96.33%, 20.48%))
+    );
+}
+
+textarea:focus-within,
+select:focus-within,
+input:focus-within {
+    --focus-ring-outline-color: var(
+        --theme-field-border-hover,
+        var(--clr-turquoise-600, hsl(165.5, 96.33%, 20.48%))
+    );
+    background-color: hsl(0, 0%, 90.98%);
+    background-color: var(
+        --theme-field-bg-hover,
+        var(--clr-base-150, hsl(0, 0%, 90.98%))
+    );
+    border-color: hsl(165.5, 96.33%, 20.48%);
+    border-color: var(
+        --theme-field-border-hover,
+        var(--clr-turquoise-600, hsl(165.5, 96.33%, 20.48%))
+    );
+    color: hsl(0, 0%, 13.96%);
+    color: var(
+        --theme-field-text-hover,
+        var(--clr-base-800, hsl(0, 0%, 13.96%))
+    );
+    accent-color: hsl(165.5, 96.33%, 20.48%);
+    accent-color: var(
+        --theme-field-border-hover,
+        var(--clr-turquoise-600, hsl(165.5, 96.33%, 20.48%))
+    );
+}
+
+textarea:active,
+select:active,
+input:active {
+    --focus-ring-outline-color: var(
+        --theme-field-border-active,
+        var(--clr-red-600, hsl(358.63, 67.03%, 39.78%))
+    );
+    background-color: hsl(0, 0%, 90.98%);
+    background-color: var(
+        --theme-field-bg-active,
+        var(--clr-base-150, hsl(0, 0%, 90.98%))
+    );
+    border-color: hsl(358.63, 67.03%, 39.78%);
+    border-color: var(
+        --theme-field-border-active,
+        var(--clr-red-600, hsl(358.63, 67.03%, 39.78%))
+    );
+    color: hsl(0, 0%, 13.96%);
+    color: var(
+        --theme-field-text-active,
+        var(--clr-base-800, hsl(0, 0%, 13.96%))
+    );
+    accent-color: hsl(358.63, 67.03%, 39.78%);
+    accent-color: var(
+        --theme-field-border-active,
+        var(--clr-red-600, hsl(358.63, 67.03%, 39.78%))
+    );
+}
+textarea,
+select,
+input {
+    border-width: 0.125rem;
+    border-width: var(--border-width-200, 0.125rem);
+}
+
+input[type="button"],
+input[type="checkbox"],
+input[type="color"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="file"],
+input[type="month"],
+input[type="radio"],
+input[type="range"],
+input[type="reset"],
+input[type="submit"],
+input[type="time"],
+input[type="week"] {
+    cursor: pointer;
+}
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="url"],
+input[type="week"] {
+    cursor: text;
+}
+input[type="checkbox"],
+input[type="radio"] {
+    display: inline-block;
+    padding: 0;
+    width: auto;
+    accent-color: hsl(0, 0%, 24.13%);
+    accent-color: var(
+        --theme-field-border,
+        var(--clr-base-700, hsl(0, 0%, 24.13%))
+    );
+}
+.no-js input[type="checkbox"]:focus,
+.no-js input[type="radio"]:focus,
+.js__no-where-selector input[type="checkbox"]:focus,
+.js__no-where-selector input[type="radio"]:focus {
+    accent-color: hsl(165.5, 96.33%, 20.48%);
+    accent-color: var(
+        --theme-field-border-hover,
+        var(--clr-turquoise-600, hsl(165.5, 96.33%, 20.48%))
+    );
+}
+
+:where(.js__no-focusVisible) input[type="checkbox"]:focus,
+:where(.js__no-focusVisible) input[type="radio"]:focus {
+    accent-color: hsl(165.5, 96.33%, 20.48%);
+    accent-color: var(
+        --theme-field-border-hover,
+        var(--clr-turquoise-600, hsl(165.5, 96.33%, 20.48%))
+    );
+}
+
+input[type="checkbox"]:hover,
+input[type="radio"]:hover {
+    accent-color: hsl(165.5, 96.33%, 20.48%);
+    accent-color: var(
+        --theme-field-border-hover,
+        var(--clr-turquoise-600, hsl(165.5, 96.33%, 20.48%))
+    );
+}
+
+input[type="checkbox"]:focus-visible,
+input[type="radio"]:focus-visible {
+    accent-color: hsl(165.5, 96.33%, 20.48%);
+    accent-color: var(
+        --theme-field-border-hover,
+        var(--clr-turquoise-600, hsl(165.5, 96.33%, 20.48%))
+    );
+}
+
+input[type="checkbox"]:focus-within,
+input[type="radio"]:focus-within {
+    accent-color: hsl(165.5, 96.33%, 20.48%);
+    accent-color: var(
+        --theme-field-border-hover,
+        var(--clr-turquoise-600, hsl(165.5, 96.33%, 20.48%))
+    );
+}
+
+input[type="checkbox"]:active,
+input[type="radio"]:active {
+    accent-color: hsl(358.63, 67.03%, 39.78%);
+    accent-color: var(
+        --theme-field-border-active,
+        var(--clr-red-600, hsl(358.63, 67.03%, 39.78%))
+    );
+}
+input[type="color"] {
+    padding: 0;
+    height: 2.25em;
+    width: 2.25em;
+}
+input[type="date"],
+input[type="datetime-local"],
+input[type="file"],
+input[type="month"],
+input[type="time"],
+input[type="week"] {
+    width: auto;
+}
+input[type="file"] {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-top: var(--mrg-soft-300, 0.5rem);
+    padding-bottom: var(--mrg-soft-300, 0.5rem);
+    padding-left: 0.8125rem;
+    padding-right: 0.8125rem;
+    padding-left: var(--mrg-firm-300, 0.8125rem);
+    padding-right: var(--mrg-firm-300, 0.8125rem);
+    font-size: 0.9375rem;
+    font-size: var(--fs-smaller-1, 0.9375rem);
+}
+input[type="range"] {
+    padding: 0;
+}
+
+/* ## Forms - Buttons ==================================== */
+.no-js button:focus,
+.no-js [role="button"]:focus,
+.no-js input[type="button"]:focus,
+.no-js input[type="submit"]:focus,
+.no-js input[type="reset"]:focus,
+.no-js :focus::file-selector-button,
+.js__no-where-selector button:focus,
+.js__no-where-selector [role="button"]:focus,
+.js__no-where-selector input[type="button"]:focus,
+.js__no-where-selector input[type="submit"]:focus,
+.js__no-where-selector input[type="reset"]:focus,
+.js__no-where-selector :focus::file-selector-button {
+    opacity: 1;
+}
+
+:where(.js__no-focusVisible) button:focus,
+:where(.js__no-focusVisible) [role="button"]:focus,
+:where(.js__no-focusVisible) input[type="button"]:focus,
+:where(.js__no-focusVisible) input[type="submit"]:focus,
+:where(.js__no-focusVisible) input[type="reset"]:focus,
+:where(.js__no-focusVisible) :focus::file-selector-button {
+    opacity: 1;
+}
+
+@media (prefers-contrast: less) {
+    .no-js button:focus,
+    .no-js [role="button"]:focus,
+    .no-js input[type="button"]:focus,
+    .no-js input[type="submit"]:focus,
+    .no-js input[type="reset"]:focus,
+    .no-js :focus::file-selector-button,
+    .js__no-where-selector button:focus,
+    .js__no-where-selector [role="button"]:focus,
+    .js__no-where-selector input[type="button"]:focus,
+    .js__no-where-selector input[type="submit"]:focus,
+    .js__no-where-selector input[type="reset"]:focus,
+    .js__no-where-selector :focus::file-selector-button {
+        opacity: 1;
+    }
+    :where(.js__no-focusVisible) button:focus,
+    :where(.js__no-focusVisible) [role="button"]:focus,
+    :where(.js__no-focusVisible) input[type="button"]:focus,
+    :where(.js__no-focusVisible) input[type="submit"]:focus,
+    :where(.js__no-focusVisible) input[type="reset"]:focus,
+    :where(.js__no-focusVisible) :focus::file-selector-button {
+        opacity: 1;
+    }
+}
+@media (prefers-contrast: less) {
+    button:focus-visible,
+    [role="button"]:focus-visible,
+    input[type="button"]:focus-visible,
+    input[type="submit"]:focus-visible,
+    input[type="reset"]:focus-visible,
+    :focus-visible::file-selector-button {
+        opacity: 1;
+    }
+    button:focus-within,
+    [role="button"]:focus-within,
+    input[type="button"]:focus-within,
+    input[type="submit"]:focus-within,
+    input[type="reset"]:focus-within,
+    :focus-within::file-selector-button {
+        opacity: 1;
+    }
+    button:hover,
+    [role="button"]:hover,
+    input[type="button"]:hover,
+    input[type="submit"]:hover,
+    input[type="reset"]:hover,
+    :hover::file-selector-button {
+        opacity: 1;
+    }
+}
+button,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+::file-selector-button {
+    --focus-ring-outline-offset: var(--border-width-200, 0.125rem);
+    --focus-ring-outline-color: var(
+        --theme-button-primary-border,
+        var(--clr-purple-650, hsl(283.17, 64.63%, 36.13%))
+    );
+    background-color: hsl(283.17, 64.63%, 36.13%);
+    background-color: var(
+        --theme-button-primary-bg,
+        var(--clr-purple-650, hsl(283.17, 64.63%, 36.13%))
+    );
+    border-color: hsl(283.17, 64.63%, 36.13%);
+    border-color: var(
+        --theme-button-primary-border,
+        var(--clr-purple-650, hsl(283.17, 64.63%, 36.13%))
+    );
+    color: hsl(0, 0%, 90.98%);
+    color: var(
+        --theme-button-primary-text,
+        var(--clr-base-150, hsl(0, 0%, 90.98%))
+    );
+    accent-color: hsl(283.17, 64.63%, 36.13%);
+    accent-color: var(
+        --theme-button-primary-border,
+        var(--clr-purple-650, hsl(283.17, 64.63%, 36.13%))
+    );
+}
+.no-js button:focus,
+.no-js [role="button"]:focus,
+.no-js input[type="button"]:focus,
+.no-js input[type="submit"]:focus,
+.no-js input[type="reset"]:focus,
+.no-js :focus::file-selector-button,
+.js__no-where-selector button:focus,
+.js__no-where-selector [role="button"]:focus,
+.js__no-where-selector input[type="button"]:focus,
+.js__no-where-selector input[type="submit"]:focus,
+.js__no-where-selector input[type="reset"]:focus,
+.js__no-where-selector :focus::file-selector-button {
+    --focus-ring-outline-color: var(
+        --theme-button-primary-border-hover,
+        var(--clr-turquoise-650, hsl(164.37, 100%, 16.99%))
+    );
+    background-color: hsl(164.37, 100%, 16.99%);
+    background-color: var(
+        --theme-button-primary-bg-hover,
+        var(--clr-turquoise-650, hsl(164.37, 100%, 16.99%))
+    );
+    border-color: hsl(164.37, 100%, 16.99%);
+    border-color: var(
+        --theme-button-primary-border-hover,
+        var(--clr-turquoise-650, hsl(164.37, 100%, 16.99%))
+    );
+    color: hsl(0, 0%, 90.98%);
+    color: var(
+        --theme-button-primary-text-hover,
+        var(--clr-base-150, hsl(0, 0%, 90.98%))
+    );
+    accent-color: hsl(164.37, 100%, 16.99%);
+    accent-color: var(
+        --theme-button-primary-border-hover,
+        var(--clr-turquoise-650, hsl(164.37, 100%, 16.99%))
+    );
+}
+
+:where(.js__no-focusVisible) button:focus,
+:where(.js__no-focusVisible) [role="button"]:focus,
+:where(.js__no-focusVisible) input[type="button"]:focus,
+:where(.js__no-focusVisible) input[type="submit"]:focus,
+:where(.js__no-focusVisible) input[type="reset"]:focus,
+:where(.js__no-focusVisible) :focus::file-selector-button {
+    --focus-ring-outline-color: var(
+        --theme-button-primary-border-hover,
+        var(--clr-turquoise-650, hsl(164.37, 100%, 16.99%))
+    );
+    background-color: hsl(164.37, 100%, 16.99%);
+    background-color: var(
+        --theme-button-primary-bg-hover,
+        var(--clr-turquoise-650, hsl(164.37, 100%, 16.99%))
+    );
+    border-color: hsl(164.37, 100%, 16.99%);
+    border-color: var(
+        --theme-button-primary-border-hover,
+        var(--clr-turquoise-650, hsl(164.37, 100%, 16.99%))
+    );
+    color: hsl(0, 0%, 90.98%);
+    color: var(
+        --theme-button-primary-text-hover,
+        var(--clr-base-150, hsl(0, 0%, 90.98%))
+    );
+    accent-color: hsl(164.37, 100%, 16.99%);
+    accent-color: var(
+        --theme-button-primary-border-hover,
+        var(--clr-turquoise-650, hsl(164.37, 100%, 16.99%))
+    );
+}
+
+button:hover,
+[role="button"]:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+:hover::file-selector-button {
+    --focus-ring-outline-color: var(
+        --theme-button-primary-border-hover,
+        var(--clr-turquoise-650, hsl(164.37, 100%, 16.99%))
+    );
+    background-color: hsl(164.37, 100%, 16.99%);
+    background-color: var(
+        --theme-button-primary-bg-hover,
+        var(--clr-turquoise-650, hsl(164.37, 100%, 16.99%))
+    );
+    border-color: hsl(164.37, 100%, 16.99%);
+    border-color: var(
+        --theme-button-primary-border-hover,
+        var(--clr-turquoise-650, hsl(164.37, 100%, 16.99%))
+    );
+    color: hsl(0, 0%, 90.98%);
+    color: var(
+        --theme-button-primary-text-hover,
+        var(--clr-base-150, hsl(0, 0%, 90.98%))
+    );
+    accent-color: hsl(164.37, 100%, 16.99%);
+    accent-color: var(
+        --theme-button-primary-border-hover,
+        var(--clr-turquoise-650, hsl(164.37, 100%, 16.99%))
+    );
+}
+
+button:focus-visible,
+[role="button"]:focus-visible,
+input[type="button"]:focus-visible,
+input[type="submit"]:focus-visible,
+input[type="reset"]:focus-visible,
+:focus-visible::file-selector-button {
+    --focus-ring-outline-color: var(
+        --theme-button-primary-border-hover,
+        var(--clr-turquoise-650, hsl(164.37, 100%, 16.99%))
+    );
+    background-color: hsl(164.37, 100%, 16.99%);
+    background-color: var(
+        --theme-button-primary-bg-hover,
+        var(--clr-turquoise-650, hsl(164.37, 100%, 16.99%))
+    );
+    border-color: hsl(164.37, 100%, 16.99%);
+    border-color: var(
+        --theme-button-primary-border-hover,
+        var(--clr-turquoise-650, hsl(164.37, 100%, 16.99%))
+    );
+    color: hsl(0, 0%, 90.98%);
+    color: var(
+        --theme-button-primary-text-hover,
+        var(--clr-base-150, hsl(0, 0%, 90.98%))
+    );
+    accent-color: hsl(164.37, 100%, 16.99%);
+    accent-color: var(
+        --theme-button-primary-border-hover,
+        var(--clr-turquoise-650, hsl(164.37, 100%, 16.99%))
+    );
+}
+
+button:focus-within,
+[role="button"]:focus-within,
+input[type="button"]:focus-within,
+input[type="submit"]:focus-within,
+input[type="reset"]:focus-within,
+:focus-within::file-selector-button {
+    --focus-ring-outline-color: var(
+        --theme-button-primary-border-hover,
+        var(--clr-turquoise-650, hsl(164.37, 100%, 16.99%))
+    );
+    background-color: hsl(164.37, 100%, 16.99%);
+    background-color: var(
+        --theme-button-primary-bg-hover,
+        var(--clr-turquoise-650, hsl(164.37, 100%, 16.99%))
+    );
+    border-color: hsl(164.37, 100%, 16.99%);
+    border-color: var(
+        --theme-button-primary-border-hover,
+        var(--clr-turquoise-650, hsl(164.37, 100%, 16.99%))
+    );
+    color: hsl(0, 0%, 90.98%);
+    color: var(
+        --theme-button-primary-text-hover,
+        var(--clr-base-150, hsl(0, 0%, 90.98%))
+    );
+    accent-color: hsl(164.37, 100%, 16.99%);
+    accent-color: var(
+        --theme-button-primary-border-hover,
+        var(--clr-turquoise-650, hsl(164.37, 100%, 16.99%))
+    );
+}
+
+button:active,
+[role="button"]:active,
+input[type="button"]:active,
+input[type="submit"]:active,
+input[type="reset"]:active,
+:active::file-selector-button {
+    --focus-ring-outline-color: var(
+        --theme-button-primary-border-active,
+        var(--clr-red-650, hsl(355.33, 78.64%, 32.56%))
+    );
+    background-color: hsl(355.33, 78.64%, 32.56%);
+    background-color: var(
+        --theme-button-primary-bg-active,
+        var(--clr-red-650, hsl(355.33, 78.64%, 32.56%))
+    );
+    border-color: hsl(355.33, 78.64%, 32.56%);
+    border-color: var(
+        --theme-button-primary-border-active,
+        var(--clr-red-650, hsl(355.33, 78.64%, 32.56%))
+    );
+    color: hsl(0, 0%, 90.98%);
+    color: var(
+        --theme-button-primary-text-active,
+        var(--clr-base-150, hsl(0, 0%, 90.98%))
+    );
+    accent-color: hsl(355.33, 78.64%, 32.56%);
+    accent-color: var(
+        --theme-button-primary-border-active,
+        var(--clr-red-650, hsl(355.33, 78.64%, 32.56%))
+    );
+}
+
+input[type="reset"],
+::file-selector-button,
+button.button-secondary,
+.button-secondary[role="button"],
+input.button-secondary[type="button"],
+input.button-secondary[type="submit"] {
+    --focus-ring-outline-color: var(
+        --theme-button-secondary-border,
+        var(--clr-turquoise-650, hsl(164.37, 100%, 16.99%))
+    );
+    background-color: hsl(164.37, 100%, 16.99%);
+    background-color: var(
+        --theme-button-secondary-bg,
+        var(--clr-turquoise-650, hsl(164.37, 100%, 16.99%))
+    );
+    border-color: hsl(164.37, 100%, 16.99%);
+    border-color: var(
+        --theme-button-secondary-border,
+        var(--clr-turquoise-650, hsl(164.37, 100%, 16.99%))
+    );
+    color: hsl(0, 0%, 90.98%);
+    color: var(
+        --theme-button-secondary-text,
+        var(--clr-base-150, hsl(0, 0%, 90.98%))
+    );
+    accent-color: hsl(164.37, 100%, 16.99%);
+    accent-color: var(
+        --theme-button-secondary-border,
+        var(--clr-turquoise-650, hsl(164.37, 100%, 16.99%))
+    );
+}
+.no-js input[type="reset"]:focus,
+.no-js :focus::file-selector-button,
+.no-js button.button-secondary:focus,
+.no-js .button-secondary[role="button"]:focus,
+.no-js input.button-secondary[type="button"]:focus,
+.no-js input.button-secondary[type="submit"]:focus,
+.js__no-where-selector input[type="reset"]:focus,
+.js__no-where-selector :focus::file-selector-button,
+.js__no-where-selector button.button-secondary:focus,
+.js__no-where-selector .button-secondary[role="button"]:focus,
+.js__no-where-selector input.button-secondary[type="button"]:focus,
+.js__no-where-selector input.button-secondary[type="submit"]:focus {
+    --focus-ring-outline-color: var(
+        --theme-button-secondary-border-hover,
+        var(--clr-red-650, hsl(355.33, 78.64%, 32.56%))
+    );
+    background-color: hsl(355.33, 78.64%, 32.56%);
+    background-color: var(
+        --theme-button-secondary-bg-hover,
+        var(--clr-red-650, hsl(355.33, 78.64%, 32.56%))
+    );
+    border-color: hsl(355.33, 78.64%, 32.56%);
+    border-color: var(
+        --theme-button-secondary-border-hover,
+        var(--clr-red-650, hsl(355.33, 78.64%, 32.56%))
+    );
+    color: hsl(0, 0%, 90.98%);
+    color: var(
+        --theme-button-secondary-text-hover,
+        var(--clr-base-150, hsl(0, 0%, 90.98%))
+    );
+    accent-color: hsl(355.33, 78.64%, 32.56%);
+    accent-color: var(
+        --theme-button-secondary-border-hover,
+        var(--clr-red-650, hsl(355.33, 78.64%, 32.56%))
+    );
+}
+
+:where(.js__no-focusVisible) input[type="reset"]:focus,
+:where(.js__no-focusVisible) :focus::file-selector-button,
+:where(.js__no-focusVisible) button.button-secondary:focus,
+:where(.js__no-focusVisible) .button-secondary[role="button"]:focus,
+:where(.js__no-focusVisible) input.button-secondary[type="button"]:focus,
+:where(.js__no-focusVisible) input.button-secondary[type="submit"]:focus {
+    --focus-ring-outline-color: var(
+        --theme-button-secondary-border-hover,
+        var(--clr-red-650, hsl(355.33, 78.64%, 32.56%))
+    );
+    background-color: hsl(355.33, 78.64%, 32.56%);
+    background-color: var(
+        --theme-button-secondary-bg-hover,
+        var(--clr-red-650, hsl(355.33, 78.64%, 32.56%))
+    );
+    border-color: hsl(355.33, 78.64%, 32.56%);
+    border-color: var(
+        --theme-button-secondary-border-hover,
+        var(--clr-red-650, hsl(355.33, 78.64%, 32.56%))
+    );
+    color: hsl(0, 0%, 90.98%);
+    color: var(
+        --theme-button-secondary-text-hover,
+        var(--clr-base-150, hsl(0, 0%, 90.98%))
+    );
+    accent-color: hsl(355.33, 78.64%, 32.56%);
+    accent-color: var(
+        --theme-button-secondary-border-hover,
+        var(--clr-red-650, hsl(355.33, 78.64%, 32.56%))
+    );
+}
+
+input[type="reset"]:hover,
+:hover::file-selector-button,
+button.button-secondary:hover,
+.button-secondary[role="button"]:hover,
+input.button-secondary[type="button"]:hover,
+input.button-secondary[type="submit"]:hover {
+    --focus-ring-outline-color: var(
+        --theme-button-secondary-border-hover,
+        var(--clr-red-650, hsl(355.33, 78.64%, 32.56%))
+    );
+    background-color: hsl(355.33, 78.64%, 32.56%);
+    background-color: var(
+        --theme-button-secondary-bg-hover,
+        var(--clr-red-650, hsl(355.33, 78.64%, 32.56%))
+    );
+    border-color: hsl(355.33, 78.64%, 32.56%);
+    border-color: var(
+        --theme-button-secondary-border-hover,
+        var(--clr-red-650, hsl(355.33, 78.64%, 32.56%))
+    );
+    color: hsl(0, 0%, 90.98%);
+    color: var(
+        --theme-button-secondary-text-hover,
+        var(--clr-base-150, hsl(0, 0%, 90.98%))
+    );
+    accent-color: hsl(355.33, 78.64%, 32.56%);
+    accent-color: var(
+        --theme-button-secondary-border-hover,
+        var(--clr-red-650, hsl(355.33, 78.64%, 32.56%))
+    );
+}
+
+input[type="reset"]:focus-visible,
+:focus-visible::file-selector-button,
+button.button-secondary:focus-visible,
+.button-secondary[role="button"]:focus-visible,
+input.button-secondary[type="button"]:focus-visible,
+input.button-secondary[type="submit"]:focus-visible {
+    --focus-ring-outline-color: var(
+        --theme-button-secondary-border-hover,
+        var(--clr-red-650, hsl(355.33, 78.64%, 32.56%))
+    );
+    background-color: hsl(355.33, 78.64%, 32.56%);
+    background-color: var(
+        --theme-button-secondary-bg-hover,
+        var(--clr-red-650, hsl(355.33, 78.64%, 32.56%))
+    );
+    border-color: hsl(355.33, 78.64%, 32.56%);
+    border-color: var(
+        --theme-button-secondary-border-hover,
+        var(--clr-red-650, hsl(355.33, 78.64%, 32.56%))
+    );
+    color: hsl(0, 0%, 90.98%);
+    color: var(
+        --theme-button-secondary-text-hover,
+        var(--clr-base-150, hsl(0, 0%, 90.98%))
+    );
+    accent-color: hsl(355.33, 78.64%, 32.56%);
+    accent-color: var(
+        --theme-button-secondary-border-hover,
+        var(--clr-red-650, hsl(355.33, 78.64%, 32.56%))
+    );
+}
+
+input[type="reset"]:focus-within,
+:focus-within::file-selector-button,
+button.button-secondary:focus-within,
+.button-secondary[role="button"]:focus-within,
+input.button-secondary[type="button"]:focus-within,
+input.button-secondary[type="submit"]:focus-within {
+    --focus-ring-outline-color: var(
+        --theme-button-secondary-border-hover,
+        var(--clr-red-650, hsl(355.33, 78.64%, 32.56%))
+    );
+    background-color: hsl(355.33, 78.64%, 32.56%);
+    background-color: var(
+        --theme-button-secondary-bg-hover,
+        var(--clr-red-650, hsl(355.33, 78.64%, 32.56%))
+    );
+    border-color: hsl(355.33, 78.64%, 32.56%);
+    border-color: var(
+        --theme-button-secondary-border-hover,
+        var(--clr-red-650, hsl(355.33, 78.64%, 32.56%))
+    );
+    color: hsl(0, 0%, 90.98%);
+    color: var(
+        --theme-button-secondary-text-hover,
+        var(--clr-base-150, hsl(0, 0%, 90.98%))
+    );
+    accent-color: hsl(355.33, 78.64%, 32.56%);
+    accent-color: var(
+        --theme-button-secondary-border-hover,
+        var(--clr-red-650, hsl(355.33, 78.64%, 32.56%))
+    );
+}
+
+input[type="reset"]:active,
+:active::file-selector-button,
+button.button-secondary:active,
+.button-secondary[role="button"]:active,
+input.button-secondary[type="button"]:active,
+input.button-secondary[type="submit"]:active {
+    --focus-ring-outline-color: var(
+        --theme-button-secondary-border-active,
+        var(--clr-purple-650, hsl(283.17, 64.63%, 36.13%))
+    );
+    background-color: hsl(283.17, 64.63%, 36.13%);
+    background-color: var(
+        --theme-button-secondary-bg-active,
+        var(--clr-purple-650, hsl(283.17, 64.63%, 36.13%))
+    );
+    border-color: hsl(283.17, 64.63%, 36.13%);
+    border-color: var(
+        --theme-button-secondary-border-active,
+        var(--clr-purple-650, hsl(283.17, 64.63%, 36.13%))
+    );
+    color: hsl(0, 0%, 90.98%);
+    color: var(
+        --theme-button-secondary-text-active,
+        var(--clr-base-150, hsl(0, 0%, 90.98%))
+    );
+    accent-color: hsl(283.17, 64.63%, 36.13%);
+    accent-color: var(
+        --theme-button-secondary-border-active,
+        var(--clr-purple-650, hsl(283.17, 64.63%, 36.13%))
+    );
+}
+
+/* # ASTRO LAYOUT SUPPORT
+ * ======================================================================== */
+nav ol,
+nav ul {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+nav ol li,
+nav ul li {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/*! end of @maddimathon/design-system-utilities/templates/global */

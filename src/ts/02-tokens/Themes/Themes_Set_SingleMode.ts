@@ -678,6 +678,7 @@ export namespace Tokens_Themes_Set_SingleMode {
         };
 
         text: {
+            grey: T_ColourName;
             active: T_ColourName;
             disabled: T_ColourName;
         };
@@ -939,6 +940,7 @@ export namespace Tokens_Themes_Set_SingleMode {
                     secondary: clr_2,
                 },
                 text: {
+                    grey: base,
                     active: clr_3,
                     disabled: base,
                 },
@@ -1012,6 +1014,7 @@ export namespace Tokens_Themes_Set_SingleMode {
                 ...objectMap( variations.universal, ( { value: clrName } ) => clrOpt( clrName, levels.text.accent ) ),
                 ...objectMap( variations.text, ( { value: clrName } ) => clrOpt( clrName, levels.text.accent ) ),
 
+                grey: clrOpt( variations.text.disabled, levels.text.min ),
                 disabled: clrOpt( variations.text.disabled, levels.text.min ),
             };
 
@@ -1021,6 +1024,7 @@ export namespace Tokens_Themes_Set_SingleMode {
                 ...objectMap( variations.universal, ( { value: clrName } ) => clrOpt( clrName, levels.ui.accent ) ),
                 ...objectMap( variations.text, ( { value: clrName } ) => clrOpt( clrName, levels.ui.accent ) ),
 
+                grey: clrOpt( variations.text.disabled, levels.ui.min ),
                 disabled: clrOpt( variations.text.disabled, levels.ui.min ),
             };
 
@@ -1195,6 +1199,7 @@ export namespace Tokens_Themes_Set_SingleMode {
                 ...objectMap( variations.universal, () => sysclr.text ),
                 ...objectMap( variations.text, () => sysclr.text ),
 
+                grey: 'GrayText',
                 active: 'ActiveText',
                 disabled: 'GrayText',
             };

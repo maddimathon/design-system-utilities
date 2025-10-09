@@ -76,6 +76,7 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T
             primary: __T_ColourOption;
             secondary: __T_ColourOption;
         } & {
+            grey: __T_ColourOption;
             active: __T_ColourOption;
             disabled: __T_ColourOption;
         } & { [K in T_Keyword_Universal]: __T_ColourOption; } & { [K_1 in T_Keyword_Text]: __T_ColourOption; };
@@ -85,6 +86,7 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T
             primary: __T_ColourOption;
             secondary: __T_ColourOption;
         } & {
+            grey: __T_ColourOption;
             active: __T_ColourOption;
             disabled: __T_ColourOption;
         } & { [K_2 in T_Keyword_Universal]: __T_ColourOption; } & { [K_3 in T_Keyword_Text]: __T_ColourOption; };
@@ -301,6 +303,7 @@ export declare namespace Tokens_Themes_Set_SingleMode {
             secondary: T_ColourName;
         };
         text: {
+            grey: T_ColourName;
             active: T_ColourName;
             disabled: T_ColourName;
         };

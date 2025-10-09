@@ -3,27 +3,28 @@
 /// @since 0.1.0-alpha.draft
 ///
 
-@forward '_lib' hide print-tokens, $internal_extendSelectors, $print_tokens;
+// @forward '_lib' hide print-tokens, $internal_extendSelectors, $print_tokens;
+@forward '_lib';
 
-@use '../../../config/utility-astro' as utils;
+@use '_lib' as lib;
 
 $internal_extendSelectors: true !default;
-$internal_extendSelectors: utils.config-valid-bool(
+$internal_extendSelectors: lib.config-valid-bool(
     $internal_extendSelectors,
     'internal_extendSelectors'
 );
 
 $internal_supressCredit: false !default;
-$internal_supressCredit: utils.config-valid-bool(
+$internal_supressCredit: lib.config-valid-bool(
     $internal_supressCredit,
     'internal_supressCredit'
 );
 
-$print_tokens: true !default;
-$print_tokens: utils.config-valid-bool($print_tokens, 'print_tokens');
+// $print_tokens: true !default;
+// $print_tokens: lib.config-valid-bool($print_tokens, 'print_tokens');
 
-@mixin print-tokens {
-    @if $print_tokens {
-        @content;
-    }
-}
+// @mixin print-tokens {
+//     @if $print_tokens {
+//         @content;
+//     }
+// }

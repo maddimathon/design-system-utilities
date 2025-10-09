@@ -67,11 +67,13 @@ export interface Props<
     //     T_ColourName,
     //     T_ExtraLevels
     // >['contrast'];
-
+    
+    brightness?: string;
     isCondensed?: boolean;
 }
 
 const {
+    brightness,
     class: classList,
     heading: headingRaw,
     id,
@@ -398,6 +400,7 @@ const resultGroupColCount = shadeMapSets?.base?.allShades && Math.max(
                                     />
                                     {shadeMapSet.min?.[standard].ui && (
                                         <ContrastAlert
+                                            brightness={brightness}
                                             class={[
                                                 'shade-swatch__contrast__result-group__alert',
                                                 'shade-swatch__contrast__result-group__alert--minimum',
@@ -412,6 +415,7 @@ const resultGroupColCount = shadeMapSets?.base?.allShades && Math.max(
                                     )}
                                     {shadeMapSet.min?.[standard].text && (
                                         <ContrastAlert
+                                            brightness={brightness}
                                             class={[
                                                 'shade-swatch__contrast__result-group__alert',
                                                 'shade-swatch__contrast__result-group__alert--minimum',
@@ -446,6 +450,7 @@ const resultGroupColCount = shadeMapSets?.base?.allShades && Math.max(
                                 set:text='Max'
                             />
                             <ContrastAlert
+                                brightness={brightness}
                                 class={[
                                     'shade-swatch__contrast__result-group__alert',
                                     'shade-swatch__contrast__result-group__alert--maximum',
@@ -483,6 +488,7 @@ const resultGroupColCount = shadeMapSets?.base?.allShades && Math.max(
                             
                             { Object.values( shadeMapSet.allShades ).map( ( singleLevel ) => (
                                 <ContrastAlert
+                                    brightness={brightness}
                                     class={[
                                         'shade-swatch__contrast__result-group__alert',
                                         'shade-swatch__contrast__result-group__alert--maximum',

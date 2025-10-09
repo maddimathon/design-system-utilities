@@ -167,9 +167,9 @@
         "prewatch": "build-utils compile --starting",
         
         "watch": "run-p --silent watch:*",
-            "watch:css":      "watch -p 'src/scss/**/*'     -c 'npm run --silent quick-build -- --only-compile scss     --watchedWatcher \"watch:scss\"      --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
-            "watch:js":       "watch -p 'src/ts/**/*'       -c 'npm run --silent quick-build -- --only-compile ts       --watchedWatcher \"watch:js\"        --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
-            "watch:docs":     "watch -p 'src/docs/**/*'     -c 'build-utils document                                    --watchedWatcher \"watch:docs\"      --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:css":  "watch -p 'src/scss/**/*' -c 'npm run --silent quick-build -- --only-compile scss --watchedWatcher \"watch:scss\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:js":   "watch -p 'src/ts/**/*'   -c 'npm run --silent quick-build -- --only-compile ts   --watchedWatcher \"watch:js\"   --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:docs": "watch -p 'src/docs/**/*' -c 'build-utils document                                --watchedWatcher \"watch:docs\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
         
         
         "build-start": "build-utils build --without minimize,prettify --without-document astro && npm run --silent start",
