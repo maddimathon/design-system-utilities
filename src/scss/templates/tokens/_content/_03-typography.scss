@@ -98,3 +98,18 @@
 
 %pre {
 }
+
+@include config.print-headings {
+    /* ## Typography - Headings ==================================== */
+}
+
+@each $num in token-all-heading-levels() {
+    //
+    #{if( $num == 1, ('%h#{$num}', '%title'), '%h#{$num}' )} {
+        @include snippet-heading($num, $includeUtils: false);
+    }
+
+    %h#{$num}--where {
+        @include snippet-heading($num, $includeUtils: false);
+    }
+}

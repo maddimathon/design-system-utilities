@@ -29,9 +29,9 @@ export declare class Tokens_Spacing extends AbstractTokens<Tokens_Spacing.Data> 
             500: number;
             600: number;
             800: number;
+            900: number;
         } & {
             700?: number | undefined;
-            900?: number | undefined;
             "000"?: number | undefined;
             "050"?: number | undefined;
             150?: number | undefined;
@@ -52,7 +52,7 @@ export declare class Tokens_Spacing extends AbstractTokens<Tokens_Spacing.Data> 
  * @since 0.1.0-alpha.draft
  */
 export declare namespace Tokens_Spacing {
-    type DefaultMarginLevels = "100" | "200" | "300" | "400" | "500" | "600" | "800";
+    type DefaultMarginLevels = "100" | "200" | "300" | "400" | "500" | "600" | "800" | "900";
     /**
      * @since 0.1.0-alpha.draft
      */

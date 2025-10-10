@@ -36,6 +36,7 @@ export class Tokens_Spacing extends AbstractTokens<Tokens_Spacing.Data> {
                 '500': 2,
                 '600': 4,
                 '800': 8,
+                '900': 12,
             },
         };
     }
@@ -74,7 +75,7 @@ export class Tokens_Spacing extends AbstractTokens<Tokens_Spacing.Data> {
  */
 export namespace Tokens_Spacing {
 
-    type DefaultMarginLevels = "100" | "200" | "300" | "400" | "500" | "600" | "800";
+    type DefaultMarginLevels = "100" | "200" | "300" | "400" | "500" | "600" | "800" | "900";
 
     /**
      * @since ___PKG_VERSION___

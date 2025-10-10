@@ -29,15 +29,14 @@ export class Tokens_Typography extends AbstractTokens {
                 '600': 2,
             },
             size: {
-                title: 7,
                 heading: {
-                    1: 6,
+                    1: 7,
                     2: 5,
                     3: 4,
                     4: 3,
                     5: 2,
                     6: 1,
-                    7: 0,
+                    7: -0.25,
                     8: -1,
                     9: -1.75,
                     10: -2.5,

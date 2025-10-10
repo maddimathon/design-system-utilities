@@ -126,19 +126,19 @@ const flattenedSizes = objectMap(
     heading={2}
     id='heading-styles'
 >
-    <Fragment slot='button'>Heading Styles</Fragment>
+    <Fragment slot='button' set:text='Heading Styles' />
     <p
         class={`page-title | typography-all-headings__sample`}
         id={`page-title`}
-        set:text={`Page Title — Maecenas Facilisis Sollicitudin Nisi, Eget Pellentesque Dui Rhoncus Condimentum. Aenean Lacinia Urna Sed Lacus Interdum Faucibus. Donec Quam Erat, Sagittis id Diam a, Hendrerit Viverra Ligula.`}
+        set:text={`Page Title (H1) – Maecenas Facilisis Sollicitudin Nisi, Eget Pellentesque Dui Rhoncus Condimentum; Aenean Lacinia Urna Sed Lacus Interdum Faucibus; Donec Quam Erat, Sagittis id Diam a, Hendrerit Viverra Ligula; Proin Efficitur Rhoncus ex Auctor Faucibus`}
     />
 
     {
-        headingSizes.map((num) => (
+        headingSizes.map((num) => ( num > 1 ) && (
             <p
                 class={`h${num} | typography-all-headings__sample`}
                 id={`heading-${num}`}
-                set:text={`Heading ${num} — Maecenas Facilisis Sollicitudin Nisi, Eget Pellentesque Dui Rhoncus Condimentum. Aenean Lacinia Urna Sed Lacus Interdum Faucibus. Donec Quam Erat, Sagittis id Diam a, Hendrerit Viverra Ligula.`}
+                set:text={`Heading ${num} – Maecenas Facilisis Sollicitudin Nisi, Eget Pellentesque Dui Rhoncus Condimentum; Aenean Lacinia Urna Sed Lacus Interdum Faucibus; Donec Quam Erat, Sagittis id Diam a, Hendrerit Viverra Ligula; Proin Efficitur Rhoncus ex Auctor Faucibus`}
             />
         ))
     }

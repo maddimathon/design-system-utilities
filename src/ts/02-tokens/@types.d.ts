@@ -13,6 +13,9 @@
 import * as z from 'zod';
 import type { Tokens_Themes_Set_SingleMode } from './Themes/Themes_Set_SingleMode.ts';
 
+/**
+ * @since ___PKG_VERSION___
+ */
 export type ColourNameSchema<T_ColourName extends string> =
     | z.ZodLiteral<T_ColourName>
     | z.ZodUnion<[
@@ -21,6 +24,9 @@ export type ColourNameSchema<T_ColourName extends string> =
         ...z.ZodLiteral<T_ColourName>[]
     ]>;
 
+/**
+ * @since ___PKG_VERSION___
+ */
 export type CssSystemColor =
     | "unset"
     | "AccentColor"
@@ -86,26 +92,41 @@ export type ThemeColourOption<
     T_ExtraColourLevels extends ColourLevels_Extended,
 > = CssSystemColor | ColourTokenSlug<T_ColourName, T_ExtraColourLevels>;
 
+/**
+ * @since ___PKG_VERSION___
+ */
 export type ThemeMode_Contrast<
     T_Extra extends readonly string[] = never[],
 > = readonly [ "low", "average", "high", ...T_Extra ];
 
+/**
+ * @since ___PKG_VERSION___
+ */
 export type ThemeMode_ContrastOption = Exclude<
     Tokens_Themes_Set_SingleMode.Templates.Name,
     "forcedColors"
 >;
 
+/**
+ * @since ___PKG_VERSION___
+ */
 export type ThemeMode_ContrastExtraOptions = Exclude<
     ThemeMode_ContrastOption,
     ThemeMode_Contrast[ number ]
 >;
 
+/**
+ * @since ___PKG_VERSION___
+ */
 export type ThemeMode_ContrastAtLeastOne = readonly [
     ThemeMode_ContrastOption,
     ...ThemeMode_ContrastOption[]
 ];
 
 
+/**
+ * @since ___PKG_VERSION___
+ */
 export type TokenLevels =
     | "100"
     | "200"
@@ -117,6 +138,9 @@ export type TokenLevels =
     | "800"
     | "900";
 
+/**
+ * @since ___PKG_VERSION___
+ */
 export type TokenLevels_Extended =
     | "000"
     | "050"
@@ -131,6 +155,9 @@ export type TokenLevels_Extended =
     | "950";
 
 
+/**
+ * @since ___PKG_VERSION___
+ */
 export type ColourLevels =
     | "100"
     | "150"
@@ -146,6 +173,9 @@ export type ColourLevels =
     | "850"
     | "900";
 
+/**
+ * @since ___PKG_VERSION___
+ */
 export type ColourLevels_Extended =
     | "000"
     | "050"
@@ -154,3 +184,19 @@ export type ColourLevels_Extended =
     | "550"
     | "750"
     | "950";
+
+
+/**
+ * @since ___PKG_VERSION___
+ */
+export type RequiredHeadingLevels =
+    | 1
+    | 2
+    | 3
+    | 4
+    | 5
+    | 6
+    | 7
+    | 8
+    | 9
+    | 10;

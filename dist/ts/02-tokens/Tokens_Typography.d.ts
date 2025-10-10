@@ -9,7 +9,7 @@
  */
 import type { RecursivePartial } from '@maddimathon/utility-typescript/types/objects/partial';
 import type { RecursiveRecord } from '../01-utilities/@types.js';
-import type { TokenLevels, TokenLevels_Extended } from './@types.js';
+import type { RequiredHeadingLevels, TokenLevels, TokenLevels_Extended } from './@types.js';
 import type { Tokens_Spacing } from './Tokens_Spacing.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 /**
@@ -27,10 +27,9 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
         font: {
             size: {
                 [key: string]: number | RecursiveRecord<string | number, number>;
-                title: number;
                 heading: {
-                    [key: number]: number;
                     1: number;
+                    9: number;
                     2: number;
                     3: number;
                     4: number;
@@ -38,8 +37,9 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                     6: number;
                     7: number;
                     8: number;
-                    9: number;
                     10: number;
+                } & {
+                    [key: number]: number;
                 };
                 smaller: {
                     [key: number]: number;
@@ -95,18 +95,9 @@ export declare namespace Tokens_Typography {
             [L in Exclude<TokenLevels, DefaultLineHeightLevels> | TokenLevels_Extended]?: number;
         };
         size: {
-            title: T_SizeValue;
             heading: {
-                1: T_SizeValue;
-                2: T_SizeValue;
-                3: T_SizeValue;
-                4: T_SizeValue;
-                5: T_SizeValue;
-                6: T_SizeValue;
-                7: T_SizeValue;
-                8: T_SizeValue;
-                9: T_SizeValue;
-                10: T_SizeValue;
+                [L in RequiredHeadingLevels]: T_SizeValue;
+            } & {
                 [key: number]: T_SizeValue;
             };
             smaller: {

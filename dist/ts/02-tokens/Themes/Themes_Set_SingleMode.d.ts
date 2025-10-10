@@ -7,7 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
-import type { ColourTokenSlug, CssSystemColor, ThemeColourOption, ColourLevels, ColourLevels_Extended } from '../@types.js';
+import type { ColourLevels_Extended, ColourLevels, ColourTokenSlug, CssSystemColor, RequiredHeadingLevels, ThemeColourOption } from '../@types.js';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
@@ -76,9 +76,9 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T
             primary: __T_ColourOption;
             secondary: __T_ColourOption;
         } & {
-            grey: __T_ColourOption;
             active: __T_ColourOption;
             disabled: __T_ColourOption;
+            grey: __T_ColourOption;
         } & { [K in T_Keyword_Universal]: __T_ColourOption; } & { [K_1 in T_Keyword_Text]: __T_ColourOption; };
         ui: {
             $: __T_ColourOption;
@@ -86,10 +86,22 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T
             primary: __T_ColourOption;
             secondary: __T_ColourOption;
         } & {
-            grey: __T_ColourOption;
             active: __T_ColourOption;
             disabled: __T_ColourOption;
+            grey: __T_ColourOption;
         } & { [K_2 in T_Keyword_Universal]: __T_ColourOption; } & { [K_3 in T_Keyword_Text]: __T_ColourOption; };
+        heading: {
+            1: __T_ColourOption;
+            9: __T_ColourOption;
+            2: __T_ColourOption;
+            3: __T_ColourOption;
+            4: __T_ColourOption;
+            5: __T_ColourOption;
+            6: __T_ColourOption;
+            7: __T_ColourOption;
+            8: __T_ColourOption;
+            10: __T_ColourOption;
+        };
         selection: {
             bg: __T_ColourOption;
             text: __T_ColourOption;
@@ -130,6 +142,7 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T
  * @since 0.1.0-alpha.draft
  */
 export declare namespace Tokens_Themes_Set_SingleMode {
+    export const allHeadingLevels: readonly [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     export interface Data_Button<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>> {
         bg: {
             $: __T_ColourOption;
@@ -173,6 +186,9 @@ export declare namespace Tokens_Themes_Set_SingleMode {
             [K in T_Keyword_Universal]: __T_ColourOption;
         } & {
             [K in T_Keyword_Text]: __T_ColourOption;
+        };
+        heading: {
+            [L in RequiredHeadingLevels]: __T_ColourOption;
         };
         selection: {
             bg: __T_ColourOption;
@@ -248,6 +264,9 @@ export declare namespace Tokens_Themes_Set_SingleMode {
         } & {
             [K in T_Keyword_Text]?: undefined | __T_ColourOption;
         };
+        heading?: undefined | {
+            [L in RequiredHeadingLevels]?: undefined | __T_ColourOption;
+        };
         selection?: undefined | {
             bg?: undefined | __T_ColourOption;
             text?: undefined | __T_ColourOption;
@@ -303,9 +322,12 @@ export declare namespace Tokens_Themes_Set_SingleMode {
             secondary: T_ColourName;
         };
         text: {
-            grey: T_ColourName;
             active: T_ColourName;
             disabled: T_ColourName;
+            grey: T_ColourName;
+        };
+        heading: {
+            [L in RequiredHeadingLevels]: T_ColourName;
         };
         interactive: {
             active: T_ColourName;
@@ -322,6 +344,9 @@ export declare namespace Tokens_Themes_Set_SingleMode {
         text: RequiredVariations<T_ColourName>['text'] & {
             [K in T_Keyword_Text]: T_ColourName;
         };
+        heading: RequiredVariations<T_ColourName>['heading'] & {
+            [key: number]: T_ColourName;
+        };
         interactive: RequiredVariations<T_ColourName>['interactive'];
     }
     interface LevelsSet<T_ExtraColourLevels extends ColourLevels_Extended> {
@@ -334,6 +359,9 @@ export declare namespace Tokens_Themes_Set_SingleMode {
         background: ColourLevels | T_ExtraColourLevels;
         text: LevelsSet<T_ExtraColourLevels>;
         ui: LevelsSet<T_ExtraColourLevels>;
+        heading: {
+            [L in RequiredHeadingLevels]: ColourLevels | T_ExtraColourLevels;
+        };
     }
     /**
      * This is used by the build function, not by the constructor.
@@ -345,6 +373,9 @@ export declare namespace Tokens_Themes_Set_SingleMode {
             background?: ColourLevels | T_ExtraColourLevels;
             text?: ColourLevels | T_ExtraColourLevels | Partial<LevelsSet<T_ExtraColourLevels>>;
             ui?: ColourLevels | T_ExtraColourLevels | Partial<LevelsSet<T_ExtraColourLevels>>;
+            heading?: ColourLevels | T_ExtraColourLevels | {
+                [L in RequiredHeadingLevels]?: ColourLevels | T_ExtraColourLevels;
+            };
         };
         variations?: {
             universal?: Partial<RequiredVariations<T_ColourName>['universal']> & {
@@ -352,6 +383,9 @@ export declare namespace Tokens_Themes_Set_SingleMode {
             };
             text?: Partial<RequiredVariations<T_ColourName>['text']> & {
                 [K in T_Keyword_Text]: T_ColourName;
+            };
+            heading?: Partial<RequiredVariations<T_ColourName>['heading']> & {
+                [key: number]: T_ColourName;
             };
             interactive?: Partial<RequiredVariations<T_ColourName>['interactive']>;
         };

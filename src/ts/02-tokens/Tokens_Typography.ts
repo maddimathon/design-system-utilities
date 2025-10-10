@@ -15,7 +15,11 @@ import type { RecursivePartial } from '@maddimathon/utility-typescript/types/obj
 import { mergeArgs } from '@maddimathon/utility-typescript/functions';
 
 import type { RecursiveRecord } from '../01-utilities/@types.js';
-import type { TokenLevels, TokenLevels_Extended } from './@types.js';
+import type {
+    RequiredHeadingLevels,
+    TokenLevels,
+    TokenLevels_Extended,
+} from './@types.js';
 import type { Tokens_Spacing } from './Tokens_Spacing.js';
 
 import { objectMap } from '../01-utilities/objectMap.js';
@@ -43,16 +47,14 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
 
             size: {
 
-                title: 7,
-
                 heading: {
-                    1: 6,
+                    1: 7,
                     2: 5,
                     3: 4,
                     4: 3,
                     5: 2,
                     6: 1,
-                    7: 0,
+                    7: -0.25,
                     8: -1,
                     9: -1.75,
                     10: -2.5,
@@ -189,19 +191,10 @@ export namespace Tokens_Typography {
         };
 
         size: {
-            title: T_SizeValue;
 
             heading: {
-                1: T_SizeValue;
-                2: T_SizeValue;
-                3: T_SizeValue;
-                4: T_SizeValue;
-                5: T_SizeValue;
-                6: T_SizeValue;
-                7: T_SizeValue;
-                8: T_SizeValue;
-                9: T_SizeValue;
-                10: T_SizeValue;
+                [ L in RequiredHeadingLevels ]: T_SizeValue;
+            } & {
                 [ key: number ]: T_SizeValue;
             };
 

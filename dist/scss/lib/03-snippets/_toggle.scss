@@ -8,7 +8,7 @@
 // @use 'pkg:@maddimathon/utility-sass/map';
 // @use 'pkg:@maddimathon/utility-sass/math';
 // @use 'pkg:@maddimathon/utility-sass/meta';
-// @use 'pkg:@maddimathon/utility-sass/selector';
+@use 'pkg:@maddimathon/utility-sass/selector';
 // @use 'pkg:@maddimathon/utility-sass/string';
 
 @use '../01-functions' as *;
@@ -44,6 +44,16 @@ $_defaultHeadingSelectors_greaterThan6: ();
     $headingSelectors: $_defaultHeadingSelectors,
     $headingSelectors_bigOnly: $_defaultHeadingSelectors_bigOnly
 ) {
+    $_has_directHeadingSelectors: ();
+
+    @each $_hdg in $headingSelectors {
+        $_has_directHeadingSelectors: list.append(
+            $_has_directHeadingSelectors,
+            "&:has( #{selector.nest('>', ($_hdg))} )",
+            $separator: comma
+        );
+    }
+
     @include utils.snippet-support-toggle(
         $headingSelectors: $headingSelectors,
         $headingSelectors_bigOnly: $headingSelectors_bigOnly
@@ -52,37 +62,55 @@ $_defaultHeadingSelectors_greaterThan6: ();
     [data-toggle-container] {
     }
 
-    // .toggle-title,
-    // #{selector.nest('.toggle-title', '>', ($headingSelectors))} {
-    // }
-
     @include js {
         [data-toggle-container] {
-            [data-toggle-content] {
+            > [data-toggle-content] {
+                border-width: #{var-border-width('300')};
+                border-block-start-width: #{var-border-width('200')};
                 border-color: #{var-theme(ui-grey)};
             }
         }
     }
 
     .toggle-title {
-        [data-toggle-container='open'] & {
-            @include js {
-                color: #{var-theme(link-hover)};
-
-                + [data-toggle-content] {
-                    border-color: #{var-theme(ui-grey)};
-                    border-block-start-color: #{var-theme(link-hover)};
-                }
-            }
-        }
-
         &,
         [data-toggle-container='open'] & {
             @include hover-focus-visible {
                 color: #{var-theme(link)};
 
+                #{selector.nest('>', ($headingSelectors))} {
+                    color: inherit;
+                }
+
                 + [data-toggle-content] {
                     border-color: #{var-theme(link)};
+                }
+            }
+        }
+
+        // [data-toggle-container] & {
+        //     #{$_has_directHeadingSelectors} {
+        //         @include hover-focus-visible {
+        //             color: #{var-theme(link-hover)};
+
+        //             + [data-toggle-content] {
+        //                 border-color: #{var-theme(link-hover)};
+        //             }
+        //         }
+        //     }
+        // }
+
+        [data-toggle-container='open'] & {
+            @include js {
+                color: #{var-theme(link-hover)};
+
+                #{selector.nest('>', ($headingSelectors))} {
+                    color: inherit;
+                }
+
+                + [data-toggle-content] {
+                    border-color: #{var-theme(ui-grey)};
+                    border-block-start-color: #{var-theme(link-hover)};
                 }
             }
         }

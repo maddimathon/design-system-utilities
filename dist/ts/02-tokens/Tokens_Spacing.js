@@ -28,6 +28,7 @@ export class Tokens_Spacing extends AbstractTokens {
                 '500': 2,
                 '600': 4,
                 '800': 8,
+                '900': 12,
             },
         };
     }

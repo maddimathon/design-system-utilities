@@ -8,6 +8,7 @@
  * @license MIT
  */
 import { mergeArgs } from '@maddimathon/utility-typescript/functions';
+import { objectGenerator } from '../../01-utilities/objectGenerator.js';
 import { objectMap } from '../../01-utilities/objectMap.js';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
 /**
@@ -42,6 +43,17 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                         accent: '650',
                         min: '600',
                     },
+                    heading: objectGenerator(Tokens_Themes_Set_SingleMode.allHeadingLevels, (hdgNum) => {
+                        // returns on match
+                        switch (hdgNum) {
+                            case 1:
+                                return '800';
+                            case 2:
+                            case 3:
+                                return '700';
+                        }
+                        return '650';
+                    }),
                 };
                 levels = Tokens_Themes_Set_SingleMode.Build.completeLevels(mergeArgs(defaultLevels, input.levels, true));
                 overrides.selection = {
@@ -63,6 +75,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                         accent: '800',
                         min: '700',
                     },
+                    heading: objectGenerator(Tokens_Themes_Set_SingleMode.allHeadingLevels, () => '800'),
                 };
                 levels = Tokens_Themes_Set_SingleMode.Build.completeLevels(mergeArgs(defaultLevels, input.levels, true));
                 break;
@@ -79,6 +92,17 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                         accent: '600',
                         min: '600',
                     },
+                    heading: objectGenerator(Tokens_Themes_Set_SingleMode.allHeadingLevels, (hdgNum) => {
+                        // returns on match
+                        switch (hdgNum) {
+                            case 1:
+                                return '700';
+                            case 2:
+                            case 3:
+                                return '650';
+                        }
+                        return '600';
+                    }),
                 };
                 levels = Tokens_Themes_Set_SingleMode.Build.completeLevels(mergeArgs(defaultLevels, input.levels, true));
                 overrides.selection = {
@@ -131,6 +155,18 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
  * @since 0.1.0-alpha.draft
  */
 (function (Tokens_Themes_Set_SingleMode) {
+    Tokens_Themes_Set_SingleMode.allHeadingLevels = [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+    ];
     ;
     ;
     ;
@@ -177,10 +213,14 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                     accent: input?.ui ?? '700',
                     min: input?.ui ?? '700',
                 };
+            const heading = typeof input?.heading === 'object'
+                ? objectGenerator(Tokens_Themes_Set_SingleMode.allHeadingLevels, (hdgNum) => input.heading?.[hdgNum] ?? text.accent)
+                : objectGenerator(Tokens_Themes_Set_SingleMode.allHeadingLevels, () => input?.heading ?? text.accent);
             return {
                 background: input?.background ?? '100',
                 text,
                 ui,
+                heading,
             };
         }
         Build.completeLevels = completeLevels;
@@ -197,10 +237,11 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                     secondary: clr_2,
                 },
                 text: {
-                    grey: base,
                     active: clr_3,
                     disabled: base,
+                    grey: base,
                 },
+                heading: objectGenerator(Tokens_Themes_Set_SingleMode.allHeadingLevels, (hdgNum) => hdgNum >= 9 ? base : hdgNum >= 7 ? clr_2 : clr_1),
                 interactive: {
                     hover: clr_2,
                     active: clr_3,
@@ -223,16 +264,17 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 $: clrOpt(variations.base, levels.text.$),
                 ...objectMap(variations.universal, ({ value: clrName }) => clrOpt(clrName, levels.text.accent)),
                 ...objectMap(variations.text, ({ value: clrName }) => clrOpt(clrName, levels.text.accent)),
-                grey: clrOpt(variations.text.disabled, levels.text.min),
                 disabled: clrOpt(variations.text.disabled, levels.text.min),
+                grey: clrOpt(variations.text.disabled, levels.text.min),
             };
             const ui = {
                 $: clrOpt(variations.base, levels.ui.$),
                 ...objectMap(variations.universal, ({ value: clrName }) => clrOpt(clrName, levels.ui.accent)),
                 ...objectMap(variations.text, ({ value: clrName }) => clrOpt(clrName, levels.ui.accent)),
-                grey: clrOpt(variations.text.disabled, levels.ui.min),
                 disabled: clrOpt(variations.text.disabled, levels.ui.min),
+                grey: clrOpt(variations.text.disabled, levels.ui.min),
             };
+            const heading = objectGenerator(Tokens_Themes_Set_SingleMode.allHeadingLevels, (hdgNum) => clrOpt(variations.heading[hdgNum] ?? variations.heading[10], levels.heading[hdgNum]));
             const singleButtonMaker = (_primaryClr) => {
                 const _secondaryClr = _primaryClr ==
                     variations.universal.primary
@@ -288,6 +330,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 background: clrOpt(variations.base, levels.background),
                 text,
                 ui,
+                heading,
                 selection: {
                     bg: clrOpt(variations.universal.primary, levels.text.accent),
                     text: clrOpt(variations.base, levels.background),
@@ -349,11 +392,12 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 $: sysclr.text,
                 ...objectMap(variations.universal, () => sysclr.text),
                 ...objectMap(variations.text, () => sysclr.text),
-                grey: 'GrayText',
                 active: 'ActiveText',
                 disabled: 'GrayText',
+                grey: 'GrayText',
             };
             const ui = text;
+            const heading = objectGenerator(Tokens_Themes_Set_SingleMode.allHeadingLevels, () => sysclr.text);
             const singleButton = {
                 bg: {
                     $: 'ButtonFace',
@@ -385,6 +429,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 background: sysclr.text,
                 text,
                 ui,
+                heading,
                 selection: {
                     bg: 'Highlight',
                     text: 'HighlightText',

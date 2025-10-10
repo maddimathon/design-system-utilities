@@ -17,7 +17,7 @@
  * ======================================================================== */
 
 @include js-support(whereSelector) {
-    $_navHeight: 3rem;
+    $_navHeight: 3.125rem;
     $_scrollPaddingFallback: calc(#{$_navHeight} + #{var-gap-block(layout)});
 
     &,
@@ -51,8 +51,11 @@
         z-index: 9999;
 
         > .toggle-title {
-            padding-block: #{var-mrg-soft('200')};
             min-height: var(--height-nav-primary, #{$_navHeight});
+
+            [data-toggle-control] {
+                padding-block: min(0.75vh, #{var-mrg-soft('300')});
+            }
         }
 
         > [data-toggle-content] {

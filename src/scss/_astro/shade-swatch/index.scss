@@ -50,7 +50,7 @@ $_default_resultGroup_colCount: 6;
         $_allHeadingSels: (selector.unify(&, '%title'));
 
         @at-root #{$_allHeadingSels} {
-            font-size: #{lib.var-fs(title)};
+            font-size: #{lib.var-fs(heading-1)};
         }
 
         @each $num in lib.token-all-heading-levels() {
@@ -159,7 +159,6 @@ $_default_resultGroup_colCount: 6;
                 padding: #{lib.var-stroke-relative('400')};
 
                 font-weight: 500;
-                // font-size: #{lib.var-fs(heading-9)};
                 background: var(
                     --shade-swatch-contrast-result-group-heading-color,
                     #{lib.var-theme(text)}
@@ -175,7 +174,6 @@ $_default_resultGroup_colCount: 6;
 
     :global(.shade-swatch__contrast__heading) {
         margin-block-start: #{lib.var-mrg-firm('300')};
-        // font-size: #{lib.var-fs(heading-8)};
 
         + :global(.shade-swatch__contrast__result-group) {
         }
@@ -199,16 +197,13 @@ $_default_resultGroup_colCount: 6;
                 #{$_default_resultGroup_colCount}
             );
         margin: 0;
-        // font-size: #{lib.var-fs(heading-9)};
     }
 
     :global(.shade-swatch__contrast__result-group__heading--maximum) {
-        // color: transparent !important;
         text-transform: lowercase;
     }
 
     :global(.shade-swatch__contrast__result-group__heading--all-shades) {
-        // text-align: start;
         text-transform: lowercase;
     }
 

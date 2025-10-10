@@ -15,14 +15,17 @@ import type { RecursivePartial } from '@maddimathon/utility-typescript/types/obj
 import { mergeArgs } from '@maddimathon/utility-typescript/functions';
 
 import type {
+    ColourLevels_Extended,
+    ColourLevels,
     ColourTokenSlug,
     CssSystemColor,
+    RequiredHeadingLevels,
     ThemeColourOption,
-    ColourLevels,
-    ColourLevels_Extended,
 } from '../@types.js';
 
+import { objectGenerator } from '../../01-utilities/objectGenerator.js';
 import { objectMap } from '../../01-utilities/objectMap.js';
+
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
 
 /**
@@ -182,6 +185,24 @@ export class Tokens_Themes_Set_SingleMode<
                         accent: '650',
                         min: '600',
                     },
+                    heading: objectGenerator(
+                        Tokens_Themes_Set_SingleMode.allHeadingLevels,
+                        ( hdgNum ) => {
+
+                            // returns on match
+                            switch ( hdgNum ) {
+
+                                case 1:
+                                    return '800';
+
+                                case 2:
+                                case 3:
+                                    return '700';
+                            }
+
+                            return '650';
+                        }
+                    ),
                 };
 
                 levels = Tokens_Themes_Set_SingleMode.Build.completeLevels<
@@ -215,6 +236,10 @@ export class Tokens_Themes_Set_SingleMode<
                         accent: '800',
                         min: '700',
                     },
+                    heading: objectGenerator(
+                        Tokens_Themes_Set_SingleMode.allHeadingLevels,
+                        () => '800'
+                    ),
                 };
 
                 levels = Tokens_Themes_Set_SingleMode.Build.completeLevels<
@@ -242,6 +267,24 @@ export class Tokens_Themes_Set_SingleMode<
                         accent: '600',
                         min: '600',
                     },
+                    heading: objectGenerator(
+                        Tokens_Themes_Set_SingleMode.allHeadingLevels,
+                        ( hdgNum ) => {
+
+                            // returns on match
+                            switch ( hdgNum ) {
+
+                                case 1:
+                                    return '700';
+
+                                case 2:
+                                case 3:
+                                    return '650';
+                            }
+
+                            return '600';
+                        }
+                    ),
                 };
 
                 levels = Tokens_Themes_Set_SingleMode.Build.completeLevels<
@@ -438,6 +481,19 @@ export class Tokens_Themes_Set_SingleMode<
  */
 export namespace Tokens_Themes_Set_SingleMode {
 
+    export const allHeadingLevels = [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+    ] as const;
+
     export interface Data_Button<
         T_ColourName extends string,
         T_ExtraColourLevels extends ColourLevels_Extended,
@@ -501,6 +557,10 @@ export namespace Tokens_Themes_Set_SingleMode {
         } & {
             [ K in T_Keyword_Text ]: __T_ColourOption;
         },
+
+        heading: {
+            [ L in RequiredHeadingLevels ]: __T_ColourOption;
+        };
 
         selection: {
             bg: __T_ColourOption,
@@ -603,6 +663,10 @@ export namespace Tokens_Themes_Set_SingleMode {
             [ K in T_Keyword_Text ]?: undefined | __T_ColourOption;
         },
 
+        heading?: undefined | {
+            [ L in RequiredHeadingLevels ]?: undefined | __T_ColourOption;
+        };
+
         selection?: undefined | {
             bg?: undefined | __T_ColourOption,
             text?: undefined | __T_ColourOption,
@@ -678,9 +742,13 @@ export namespace Tokens_Themes_Set_SingleMode {
         };
 
         text: {
-            grey: T_ColourName;
             active: T_ColourName;
             disabled: T_ColourName;
+            grey: T_ColourName;
+        };
+
+        heading: {
+            [ L in RequiredHeadingLevels ]: T_ColourName;
         };
 
         interactive: {
@@ -707,6 +775,10 @@ export namespace Tokens_Themes_Set_SingleMode {
             [ K in T_Keyword_Text ]: T_ColourName;
         };
 
+        heading: RequiredVariations<T_ColourName>[ 'heading' ] & {
+            [ key: number ]: T_ColourName;
+        };
+
         interactive: RequiredVariations<T_ColourName>[ 'interactive' ];
     };
 
@@ -725,6 +797,10 @@ export namespace Tokens_Themes_Set_SingleMode {
         background: ColourLevels | T_ExtraColourLevels;
         text: LevelsSet<T_ExtraColourLevels>;
         ui: LevelsSet<T_ExtraColourLevels>;
+
+        heading: {
+            [ L in RequiredHeadingLevels ]: ColourLevels | T_ExtraColourLevels;
+        };
     };
 
     /**
@@ -746,6 +822,10 @@ export namespace Tokens_Themes_Set_SingleMode {
             background?: ColourLevels | T_ExtraColourLevels;
             text?: ColourLevels | T_ExtraColourLevels | Partial<LevelsSet<T_ExtraColourLevels>>;
             ui?: ColourLevels | T_ExtraColourLevels | Partial<LevelsSet<T_ExtraColourLevels>>;
+
+            heading?: ColourLevels | T_ExtraColourLevels | {
+                [ L in RequiredHeadingLevels ]?: ColourLevels | T_ExtraColourLevels;
+            };
         };
 
         variations?: {
@@ -760,6 +840,12 @@ export namespace Tokens_Themes_Set_SingleMode {
                 RequiredVariations<T_ColourName>[ 'text' ]
             > & {
                 [ K in T_Keyword_Text ]: T_ColourName;
+            };
+
+            heading?: Partial<
+                RequiredVariations<T_ColourName>[ 'heading' ]
+            > & {
+                [ key: number ]: T_ColourName;
             };
 
             interactive?: Partial<
@@ -900,10 +986,22 @@ export namespace Tokens_Themes_Set_SingleMode {
                         min: input?.ui ?? '700',
                     };
 
+            const heading: RequiredLevels<T_ExtraColourLevels>[ 'heading' ] =
+                typeof input?.heading === 'object'
+                    ? objectGenerator(
+                        Tokens_Themes_Set_SingleMode.allHeadingLevels,
+                        ( hdgNum ) => ( input.heading?.[ hdgNum ] as ColourLevels | T_ExtraColourLevels ) ?? text.accent
+                    )
+                    : objectGenerator(
+                        Tokens_Themes_Set_SingleMode.allHeadingLevels,
+                        () => ( input?.heading as ColourLevels | T_ExtraColourLevels ) ?? text.accent
+                    );
+
             return {
                 background: input?.background ?? '100',
                 text,
                 ui,
+                heading,
             };
         }
 
@@ -935,15 +1033,23 @@ export namespace Tokens_Themes_Set_SingleMode {
 
             const def: RequiredVariations<T_ColourName> = {
                 base: base,
+
                 universal: {
                     primary: clr_1,
                     secondary: clr_2,
                 },
+
                 text: {
-                    grey: base,
                     active: clr_3,
                     disabled: base,
+                    grey: base,
                 },
+
+                heading: objectGenerator(
+                    Tokens_Themes_Set_SingleMode.allHeadingLevels,
+                    ( hdgNum ) => hdgNum >= 9 ? base : hdgNum >= 7 ? clr_2 : clr_1
+                ),
+
                 interactive: {
                     hover: clr_2,
                     active: clr_3,
@@ -1014,8 +1120,8 @@ export namespace Tokens_Themes_Set_SingleMode {
                 ...objectMap( variations.universal, ( { value: clrName } ) => clrOpt( clrName, levels.text.accent ) ),
                 ...objectMap( variations.text, ( { value: clrName } ) => clrOpt( clrName, levels.text.accent ) ),
 
-                grey: clrOpt( variations.text.disabled, levels.text.min ),
                 disabled: clrOpt( variations.text.disabled, levels.text.min ),
+                grey: clrOpt( variations.text.disabled, levels.text.min ),
             };
 
             const ui: CompleteData[ 'ui' ] = {
@@ -1024,9 +1130,14 @@ export namespace Tokens_Themes_Set_SingleMode {
                 ...objectMap( variations.universal, ( { value: clrName } ) => clrOpt( clrName, levels.ui.accent ) ),
                 ...objectMap( variations.text, ( { value: clrName } ) => clrOpt( clrName, levels.ui.accent ) ),
 
-                grey: clrOpt( variations.text.disabled, levels.ui.min ),
                 disabled: clrOpt( variations.text.disabled, levels.ui.min ),
+                grey: clrOpt( variations.text.disabled, levels.ui.min ),
             };
+
+            const heading: CompleteData[ 'heading' ] = objectGenerator(
+                Tokens_Themes_Set_SingleMode.allHeadingLevels,
+                ( hdgNum ) => clrOpt( variations.heading[ hdgNum ] ?? variations.heading[ 10 ], levels.heading[ hdgNum ] )
+            );
 
             const singleButtonMaker = ( _primaryClr: T_ColourName ): CompleteData[ 'button' ][ 'primary' ] => {
 
@@ -1096,6 +1207,7 @@ export namespace Tokens_Themes_Set_SingleMode {
 
                 text,
                 ui,
+                heading,
 
                 selection: {
                     bg: clrOpt( variations.universal.primary, levels.text.accent ),
@@ -1199,12 +1311,17 @@ export namespace Tokens_Themes_Set_SingleMode {
                 ...objectMap( variations.universal, () => sysclr.text ),
                 ...objectMap( variations.text, () => sysclr.text ),
 
-                grey: 'GrayText',
                 active: 'ActiveText',
                 disabled: 'GrayText',
+                grey: 'GrayText',
             };
 
             const ui: CompleteData[ 'ui' ] = text;
+
+            const heading: CompleteData[ 'heading' ] = objectGenerator(
+                Tokens_Themes_Set_SingleMode.allHeadingLevels,
+                () => sysclr.text
+            );
 
             const singleButton: CompleteData[ 'button' ][ 'primary' ] = {
 
@@ -1243,6 +1360,7 @@ export namespace Tokens_Themes_Set_SingleMode {
 
                 text,
                 ui,
+                heading,
 
                 selection: {
                     bg: 'Highlight',

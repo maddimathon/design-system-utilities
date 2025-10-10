@@ -101,9 +101,9 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                 primary: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 secondary: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
             } & {
-                grey: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 disabled: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                grey: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
             } & { [K_3 in T_ThemeKeyword_Universal]: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>; } & { [K_4 in T_ThemeKeyword_Text]: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>; };
             ui: {
                 $: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
@@ -111,10 +111,22 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                 primary: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 secondary: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
             } & {
-                grey: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 disabled: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                grey: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
             } & { [K_5 in T_ThemeKeyword_Universal]: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>; } & { [K_6 in T_ThemeKeyword_Text]: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>; };
+            heading: {
+                1: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                9: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                2: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                3: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                4: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                5: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                6: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                7: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                8: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                10: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+            };
             selection: {
                 bg: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 text: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
@@ -166,10 +178,9 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
         font: {
             size: {
                 [key: string]: number | import("../index.js").RecursiveRecord<string | number, number>;
-                title: number;
                 heading: {
-                    [key: number]: number;
                     1: number;
+                    9: number;
                     2: number;
                     3: number;
                     4: number;
@@ -177,8 +188,9 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                     6: number;
                     7: number;
                     8: number;
-                    9: number;
                     10: number;
+                } & {
+                    [key: number]: number;
                 };
                 smaller: {
                     [key: number]: number;
@@ -224,9 +236,9 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
             500: number;
             600: number;
             800: number;
+            900: number;
         } & {
             700?: number | undefined;
-            900?: number | undefined;
             "000"?: number | undefined;
             "050"?: number | undefined;
             150?: number | undefined;

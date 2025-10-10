@@ -3,8 +3,7 @@
 /// @since ___PKG_VERSION___
 ///
 
-// @forward '_lib' hide print-tokens, $internal_extendSelectors, $print_tokens;
-@forward '_lib';
+@forward '_lib' hide $print_tokens, print-tokens;
 
 @use '_lib' as lib;
 
@@ -20,11 +19,11 @@ $internal_supressCredit: lib.config-valid-bool(
     'internal_supressCredit'
 );
 
-// $print_tokens: true !default;
-// $print_tokens: lib.config-valid-bool($print_tokens, 'print_tokens');
+$print_tokens: true !default;
+$print_tokens: lib.config-valid-bool($print_tokens, 'print_tokens');
 
-// @mixin print-tokens {
-//     @if $print_tokens {
-//         @content;
-//     }
-// }
+@mixin print-tokens {
+    @if $print_tokens {
+        @content;
+    }
+}

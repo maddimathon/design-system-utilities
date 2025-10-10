@@ -10,6 +10,7 @@
 /* import - functions */
 
 /* import - values */
+import { SampleTokens_Json } from '../../functions/SampleTokens.js';
 
 /* import - components */
 import LoremIpsum from '@maddimathon/utility-astro/components/LoremIpsum';
@@ -23,5 +24,10 @@ import DocsPage from '../../layouts/DocsPage.astro';
 ---
 
 <DocsPage title={['Demo', 'Sass Templates']}>
-    <LoremIpsum mode='fancy' />
+    <LoremIpsum
+        mode='fancy'
+        allHeadingLevels={Object.keys(
+            SampleTokens_Json.typography.size.heading
+        ).map(Number)}
+    />
 </DocsPage>
