@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@___CURRENT_VERSION___
  * @license MIT
  */
 import { mergeArgs } from '@maddimathon/utility-typescript/functions';
@@ -14,7 +14,7 @@ import { AbstractTokens } from './abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  */
 export class Tokens_Typography extends AbstractTokens {
     spacing;

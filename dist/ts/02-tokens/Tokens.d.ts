@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@___CURRENT_VERSION___
  * @license MIT
  */
 import type { ThemeMode_Contrast, ThemeMode_ContrastAtLeastOne, ThemeMode_ContrastExtraOptions, ColourLevels_Extended } from './@types.js';
@@ -18,7 +18,7 @@ import type { Tokens_Themes_Set_SingleMode } from './Themes/Themes_Set_SingleMod
 /**
  * Generates a complete token object for the design system.
  *
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  */
 export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_ThemeBrightnessMode extends readonly [string, ...string[]], T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne, T_ThemeName extends string, T_ThemeKeyword_Universal extends string, T_ThemeKeyword_Text extends string> extends AbstractTokens<Tokens_Internal.Data<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_ThemeKeyword_Universal, T_ThemeKeyword_Text>> {
     protected readonly clrNames: readonly T_ColourName[];
@@ -50,6 +50,11 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                 background: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 button: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
                 input: {
+                    accent: {
+                        $: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        hover: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    };
                     bg: {
                         $: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                         hover: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
@@ -68,9 +73,11 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                 };
                 link: {
                     $: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    hover: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                     visited: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                } & {
+                    active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    hover: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    disabled: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 };
                 selection: {
                     bg: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
@@ -133,9 +140,19 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
             };
             link: {
                 $: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                hover: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 visited: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+            } & {
+                active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                hover: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                disabled: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+            };
+            'link-ui': {
+                $: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                visited: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+            } & {
+                active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                hover: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                disabled: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
             };
             button: {
                 primary: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
@@ -143,6 +160,11 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                 disabled: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
             } & { [K_7 in T_ThemeKeyword_Universal]: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>>; };
             field: {
+                accent: {
+                    $: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    hover: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                };
                 bg: {
                     $: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                     hover: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
@@ -257,7 +279,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
 /**
  * Internal utilities for the {@link Tokens} class.
  *
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  * @internal
  * @private
  */
@@ -299,14 +321,14 @@ export declare namespace Tokens_Internal {
 /**
  * Utilities for the {@link Tokens} class.
  *
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  */
 export declare namespace Tokens {
     function sample(): Promise<Tokens<"base" | "purple" | "turquoise" | "red", ColourLevels_Extended, Tokens_Internal.Default_ThemeBrightnessMode, readonly ["low", "average", "high", "low"], "default", never, never>>;
     /**
      * Configuration options for the {@link Tokens} class.
      *
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
     interface Config<T_ExtraColourLevels extends ColourLevels_Extended = ColourLevels_Extended> {
         extraColourLevels: readonly T_ExtraColourLevels[];
@@ -509,15 +531,15 @@ export declare namespace Tokens {
         };
     };
     /**
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
     namespace Themes {
         /**
-         * @since 0.1.0-alpha.draft
+         * @since ___PKG_VERSION___
          */
         namespace Set {
             /**
-             * @since 0.1.0-alpha.draft
+             * @since ___PKG_VERSION___
              */
             namespace SingleMode {
                 interface JsonReturn<T_ColourName extends string = Tokens_Internal.Default_ColourName, T_ExtraColourLevels extends ColourLevels_Extended = Tokens_Internal.Default_ExtraColourLevels, T_ThemeKeyword_Universal extends string = never, T_ThemeKeyword_Text extends string = never> extends Tokens_Themes_Set_SingleMode.JsonReturn<T_ColourName, T_ExtraColourLevels, T_ThemeKeyword_Universal, T_ThemeKeyword_Text> {

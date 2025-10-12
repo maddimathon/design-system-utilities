@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@___CURRENT_VERSION___
  * @license MIT
  */
 import { AbstractTokens } from './abstract/AbstractTokens.js';
@@ -13,7 +13,7 @@ import { Tokens_CSS_Transition } from './CSS/CSS_Transition.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  */
 export declare class Tokens_CSS extends AbstractTokens<Tokens_CSS.Data> {
     static get default(): Omit<Tokens_CSS.Data, 'border' | 'transition'>;
@@ -44,11 +44,11 @@ export declare class Tokens_CSS extends AbstractTokens<Tokens_CSS.Data> {
 /**
  * Utilities for the {@link Tokens_CSS} class.
  *
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  */
 export declare namespace Tokens_CSS {
     /**
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
     type Data = {
         border: Tokens_CSS_Border;
@@ -62,7 +62,7 @@ export declare namespace Tokens_CSS {
         };
     };
     /**
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
     type InputParam = Partial<Omit<Data, 'border' | 'transition' | 'zIndex'>> & {
         border?: Tokens_CSS_Border.InputParam;
@@ -70,7 +70,7 @@ export declare namespace Tokens_CSS {
         zIndex?: Partial<Data['zIndex']>;
     };
     /**
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
     type JsonReturn = Data;
 }

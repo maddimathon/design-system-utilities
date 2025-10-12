@@ -1,6 +1,6 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-alpha.draft
-/// @since 0.1.0-alpha.draft
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
 ///
 
 // @use 'pkg:@maddimathon/utility-sass/colour';
@@ -19,7 +19,7 @@
 ///
 /// Colour properties for an input element.
 ///
-/// @since 0.1.0-alpha.draft
+/// @since ___PKG_VERSION___
 ///
 @mixin snippet-button-colours($variation: 'primary') {
     --focus-ring-outline-color: #{var-theme(button-#{$variation}-border)};
@@ -52,24 +52,39 @@
 ///
 /// Base styles for a button element.
 ///
-/// @since 0.1.0-alpha.draft
+/// @since ___PKG_VERSION___
 ///
-@mixin snippet-button(
-    $includeUtils: true,
-    //
-    $opacity_hover: null,
-    //
-    $args...
-) {
+@mixin snippet-button($includeUtils: true, $args...) {
     $args: meta.keywords($args);
+
+    // $accentClr: var-theme(button-primary-border);
+    // $accentClr_active: var-theme(button-primary-border-active);
+    // $accentClr_hover: var-theme(button-primary-border-hover);
+
+    // $background: var-theme(button-primary-bg);
+    // $background_active: var-theme(button-primary-bg-active);
+    // $background_hover: var-theme(button-primary-bg-hover);
+
+    // $borderClr: var-theme(button-primary-border);
+    // $borderClr_active: var-theme(button-primary-border-active);
+    // $borderClr_hover: var-theme(button-primary-border-hover);
+
+    // $color: var-theme(button-primary-text);
+    // $color_active: var-theme(button-primary-text-active);
+    // $color_hover: var-theme(button-primary-text-hover);
+
+    $focusOffset: var-border-width('300');
 
     @if $includeUtils {
         @include utils.snippet-button(
+            $focusOffset: $focusOffset,
             $opacity_hover: 1,
             $includeClrs: false,
             $args...
         );
     } @else {
+        --focus-ring-outline-offset: #{$focusOffset};
+
         @include colour-mode-interactive-mixin(
             $modes: (
                 low,
@@ -92,33 +107,30 @@
 ///
 /// Base styles for an input element.
 ///
-/// @since 0.1.0-alpha.draft
+/// @since ___PKG_VERSION___
 ///
-@mixin snippet-input(
-    $includeUtils: true,
-    //
-    $borderWidth: '200',
-    //
-    $accentClr: var-theme(field-border),
-    $accentClr_active: var-theme(field-border-active),
-    $accentClr_hover: var-theme(field-border-hover),
-    //
-    $background: var-theme(field-bg),
-    $background_active: var-theme(field-bg-active),
-    $background_hover: var-theme(field-bg-hover),
-    //
-    $borderClr: var-theme(field-border),
-    $borderClr_active: var-theme(field-border-active),
-    $borderClr_hover: var-theme(field-border-hover),
-    //
-    $color: var-theme(field-text),
-    $color_active: var-theme(field-text-active),
-    $color_hover: var-theme(field-text-hover),
-    $opacity_hover: null,
-    //
-    $args...
-) {
+@mixin snippet-input($includeUtils: true, $args...) {
     $args: meta.keywords($args);
+
+    $borderWidth: '200';
+
+    $accentClr: var-theme(field-accent);
+    $accentClr_active: var-theme(field-accent-active);
+    $accentClr_hover: var-theme(field-accent-hover);
+
+    $background: var-theme(field-bg);
+    $background_active: var-theme(field-bg-active);
+    $background_hover: var-theme(field-bg-hover);
+
+    $borderClr: var-theme(field-border);
+    $borderClr_active: var-theme(field-border-active);
+    $borderClr_hover: var-theme(field-border-hover);
+
+    $color: var-theme(field-text);
+    $color_active: var-theme(field-text-active);
+    $color_hover: var-theme(field-text-hover);
+
+    $focusOffset: var-border-width('300');
 
     @if $includeUtils {
         @include utils.snippet-input(
@@ -138,13 +150,16 @@
             $color_active: $color_active,
             $color_hover: $color_hover,
 
-            $opacity_hover: 100%,
+            $focusOffset: $focusOffset,
+            $opacity_hover: 1,
+
             $includeClrs: true,
             $includePlaceholder: false,
             $args...
         );
     } @else {
         --focus-ring-outline-color: #{$accentClr};
+        --focus-ring-outline-offset: #{$focusOffset};
         background-color: #{$background};
         color: #{$color};
         accent-color: #{$accentClr};
@@ -174,7 +189,7 @@
 ///
 /// Base styles for the types of an element. Uses the & as input.
 ///
-/// @since 0.1.0-alpha.draft
+/// @since ___PKG_VERSION___
 ///
 @mixin snippet-input-types(
     $includeUtils: true,
@@ -201,7 +216,7 @@
 ///
 /// Base styles for a form label, including check and radio boxes.
 ///
-/// @since 0.1.0-alpha.draft
+/// @since ___PKG_VERSION___
 ///
 @mixin snippet-label(
     $color: var-theme(text-primary),

@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@___CURRENT_VERSION___
  * @license MIT
  */
 import * as z from 'zod';
@@ -13,7 +13,7 @@ import { ColourUtilities } from './ColourUtilities.js';
  * Generates a single pair of contrast test results used by the
  * {@link Tokens_Colour_ShadeMap_Shade} objects.
  *
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  * @internal
  */
 export declare class ColourContrastTest {
@@ -42,14 +42,14 @@ export declare class ColourContrastTest {
 /**
  * Utilities for the {@link Tokens} class.
  *
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  * @internal
  */
 export declare namespace ColourContrastTest {
     /**
      * An object defining the minimum contrast ratios required for a pass.
      *
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
     type TestStandards = {
         [T in "aa" | "aaa"]: {
@@ -57,14 +57,14 @@ export declare namespace ColourContrastTest {
         };
     };
     /**
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
     type TestResult_Single = {
         ui: boolean;
         text: boolean;
     };
     /**
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
     type TestResult = {
         ratio: number;
@@ -137,17 +137,17 @@ export declare namespace ColourContrastTest {
         ratio: number;
     }>;
     /**
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
     type Parsed = TestResult;
     /**
      * The partialized version of the {@link ColourContrastTest.Schema} accepted as input.
      *
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
     type Part = Partial<Parsed>;
     /**
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
     type JSON = z.output<typeof JSON>;
 }

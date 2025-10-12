@@ -185,6 +185,11 @@ const field: {
         const keySuffix = key == '$' ? '' : `-${key}`;
         
         return {
+            accent: {
+                state,
+                key: `field-accent${keySuffix}`,
+                value: theme.field.accent[key],
+            },
             bg: {
                 state,
                 key: `field-bg${keySuffix}`,
@@ -253,9 +258,9 @@ const field: {
                 <p
                     class="theme-mode-swatch__sample"
                     style={ [
-                        `color: var(--${key}, var(--clr-${value}))`,
+                        !( value === 'transparent' || value === 'unset' ) && `color: var(--${key}, var(--clr-${value}))`,
                         // `color: var(--theme-background, var(--clr-${theme.background}))`,
-                    ].join(';') }
+                    ].filter( v => v ).join(';') }
                 ><code set:text={key} /> {equals} <code set:text={value} /></p>
             ) ) : (
                 <VariableDump
@@ -276,10 +281,11 @@ const field: {
             class:list='screen-reader-text'
             set:text={variation.name}
         />
-        <div class:list={['theme-mode-swatch__button-span']}>{ Object.values( variation.states ).map( ( state ) => (
+        <div class:list={['button-span | theme-mode-swatch__button-span']}>{ Object.values( variation.states ).map( ( state ) => (
             <a
                 href="#"
                 set:text={`${toTitleCase(variation.name)} Button${state.bg.state ? ` (${state.bg.state})` : ''}`}
+                aria-disabled={ variation.name === 'disabled' ? true : undefined }
                 class:list={ [
                     'button',
                     'theme-mode-swatch__sample',

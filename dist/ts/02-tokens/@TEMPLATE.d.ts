@@ -1,17 +1,17 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@___CURRENT_VERSION___
  * @license MIT
  */
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  */
 export declare class Tokens_TEMPLATE extends AbstractTokens<Tokens_TEMPLATE.Data> {
     static get default(): Tokens_TEMPLATE.Data;
@@ -25,19 +25,19 @@ export declare class Tokens_TEMPLATE extends AbstractTokens<Tokens_TEMPLATE.Data
 /**
  * Utilities for the {@link Tokens_TEMPLATE} class.
  *
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  */
 export declare namespace Tokens_TEMPLATE {
     /**
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
     type Data = {};
     /**
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
     type InputParam = Partial<Data>;
     /**
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
     type JsonReturn = Data;
 }

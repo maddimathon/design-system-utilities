@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@___CURRENT_VERSION___
  * @license MIT
  */
 import { JsonToScss } from '@maddimathon/utility-sass';
@@ -17,7 +17,7 @@ import { Tokens_Typography } from './Tokens_Typography.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  */
 export class Tokens extends AbstractTokens {
     clrNames;
@@ -122,7 +122,7 @@ export class Tokens extends AbstractTokens {
 /**
  * Utilities for the {@link Tokens} class.
  *
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  */
 (function (Tokens) {
     async function sample() {

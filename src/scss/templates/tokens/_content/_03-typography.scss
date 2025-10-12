@@ -52,10 +52,16 @@
 /* ## Typography - Inline ==================================== */
 
 %a {
+    text-decoration-color: #{var-theme(link-ui)};
+
     /// STATES ///
 
     @include hover-focus-visible() {
-        text-decoration-color: transparent;
+        text-decoration-color: #{var-theme(link-ui-hover)};
+    }
+
+    &:active {
+        text-decoration-color: #{var-theme(link-ui-active)};
     }
 
     /// EXCEPTIONS ///
@@ -64,11 +70,13 @@
     }
 
     &[aria-disabled='true'] {
+        color: #{var-theme(link-disabled)};
     }
 }
 
 %abbr {
     &[title] {
+        text-decoration-color: #{var-theme(ui-primary)};
     }
 }
 
@@ -87,10 +95,27 @@
     }
 }
 
+%blockquote {
+    border-inline-start-color: #{var-theme(ui-primary)};
+
+    > p {
+    }
+
+    > cite {
+        font-size: #{var-fs(smaller-1)};
+        color: #{var-theme(text-primary)};
+
+        &::before {
+        }
+    }
+}
+
+%code,
+%kbd,
 %pre,
-%code {
+%samp {
     --focus-ring-outline-color: #{var-theme(text-secondary)};
-    position: relative;
+    color: #{var-theme(text-primary)};
 }
 
 %code {

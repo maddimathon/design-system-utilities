@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@___CURRENT_VERSION___
  * @license MIT
  */
 import { mergeArgs } from '@maddimathon/utility-typescript/functions';
@@ -14,14 +14,14 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  */
 export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
     data;
     /**
      * An easy way to generate a complete token set from limited inputs.
      *
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
     static async build(preset, clrNames, input, overrides = {}) {
         let defaultLevels;
@@ -152,7 +152,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
 /**
  * Utilities for the {@link Tokens_Themes_Set_SingleMode} class.
  *
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  */
 (function (Tokens_Themes_Set_SingleMode) {
     Tokens_Themes_Set_SingleMode.allHeadingLevels = [
@@ -179,7 +179,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
      * Used by the {@link Tokens_Themes_Set_SingleMode.build} static function,
      * not meant to be exposed through the API.
      *
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      * @internal
      */
     let Build;
@@ -255,7 +255,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
         /**
          * An easy way to generate a complete token set from limited inputs.
          *
-         * @since 0.1.0-alpha.draft
+         * @since ___PKG_VERSION___
          */
         async function data(input) {
             const clrOpt = colourOption;
@@ -275,6 +275,19 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 grey: clrOpt(variations.text.disabled, levels.ui.min),
             };
             const heading = objectGenerator(Tokens_Themes_Set_SingleMode.allHeadingLevels, (hdgNum) => clrOpt(variations.heading[hdgNum] ?? variations.heading[10], levels.heading[hdgNum]));
+            const link = {
+                $: clrOpt(variations.universal.primary, levels.text.accent),
+                visited: clrOpt(variations.universal.primary, levels.text.accent),
+                ...objectMap(variations.interactive, ({ value: clrName }) => clrOpt(clrName, levels.text.accent)),
+                disabled: clrOpt(variations.text.disabled, levels.text.min),
+            };
+            const linkUI = {
+                $: clrOpt(variations.universal.primary, levels.ui.accent),
+                visited: clrOpt(variations.universal.primary, levels.ui.accent),
+                hover: 'transparent',
+                active: clrOpt(variations.interactive.active, levels.ui.accent),
+                disabled: clrOpt(variations.text.disabled, levels.ui.min),
+            };
             const singleButtonMaker = (_primaryClr) => {
                 const _secondaryClr = _primaryClr ==
                     variations.universal.primary
@@ -335,21 +348,22 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                     bg: clrOpt(variations.universal.primary, levels.text.accent),
                     text: clrOpt(variations.base, levels.background),
                 },
-                link: {
-                    $: clrOpt(variations.universal.primary, levels.text.accent),
-                    hover: clrOpt(variations.interactive.hover, levels.text.accent),
-                    active: clrOpt(variations.interactive.active, levels.text.accent),
-                    visited: clrOpt(variations.universal.primary, levels.text.accent),
-                },
+                link,
+                'link-ui': linkUI,
                 button,
                 field: {
+                    accent: {
+                        $: clrOpt(variations.universal.primary, levels.ui.accent),
+                        hover: clrOpt(variations.interactive.hover, levels.ui.accent),
+                        active: clrOpt(variations.interactive.active, levels.ui.accent),
+                    },
                     bg: {
                         $: clrOpt(variations.base, levels.background),
                         hover: clrOpt(variations.base, levels.background),
                         active: clrOpt(variations.base, levels.background),
                     },
                     border: {
-                        $: clrOpt(variations.base, levels.ui.$),
+                        $: clrOpt(variations.base, levels.ui.min),
                         hover: clrOpt(variations.interactive.hover, levels.ui.accent),
                         active: clrOpt(variations.interactive.active, levels.ui.accent),
                     },
@@ -380,7 +394,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
         /**
          * An easy way to generate a complete token set from limited inputs.
          *
-         * @since 0.1.0-alpha.draft
+         * @since ___PKG_VERSION___
          */
         async function forcedColors(input) {
             const { variations, } = input;
@@ -436,12 +450,25 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 },
                 link: {
                     $: 'LinkText',
+                    visited: 'VisitedText',
                     hover: 'ActiveText',
                     active: 'ActiveText',
+                    disabled: 'GrayText',
+                },
+                'link-ui': {
+                    $: 'LinkText',
                     visited: 'VisitedText',
+                    hover: 'ActiveText',
+                    active: 'ActiveText',
+                    disabled: 'GrayText',
                 },
                 button,
                 field: {
+                    accent: {
+                        $: 'ActiveText',
+                        hover: 'ActiveText',
+                        active: 'ActiveText',
+                    },
                     bg: {
                         $: 'Field',
                         hover: 'SelectedItem',

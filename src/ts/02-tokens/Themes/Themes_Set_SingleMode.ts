@@ -569,9 +569,16 @@ export namespace Tokens_Themes_Set_SingleMode {
 
         link: {
             $: __T_ColourOption,
-            hover: __T_ColourOption,
-            active: __T_ColourOption,
             visited: __T_ColourOption,
+        } & {
+            [ K in keyof RequiredVariations<T_ColourName>[ 'interactive' ] ]: __T_ColourOption;
+        },
+
+        'link-ui': {
+            $: __T_ColourOption,
+            visited: __T_ColourOption,
+        } & {
+            [ K in keyof RequiredVariations<T_ColourName>[ 'interactive' ] ]: __T_ColourOption;
         },
 
         button: {
@@ -589,6 +596,15 @@ export namespace Tokens_Themes_Set_SingleMode {
         },
 
         field: {
+
+            /** 
+             * Used for accent-color and focus ring colour.
+             */
+            accent: {
+                $: __T_ColourOption,
+                hover: __T_ColourOption,
+                active: __T_ColourOption,
+            },
 
             bg: {
                 $: __T_ColourOption,
@@ -1139,6 +1155,24 @@ export namespace Tokens_Themes_Set_SingleMode {
                 ( hdgNum ) => clrOpt( variations.heading[ hdgNum ] ?? variations.heading[ 10 ], levels.heading[ hdgNum ] )
             );
 
+            const link: CompleteData[ 'link' ] = {
+                $: clrOpt( variations.universal.primary, levels.text.accent ),
+                visited: clrOpt( variations.universal.primary, levels.text.accent ),
+
+                ...objectMap( variations.interactive, ( { value: clrName } ) => clrOpt( clrName, levels.text.accent ) ),
+
+                disabled: clrOpt( variations.text.disabled, levels.text.min ),
+            };
+
+            const linkUI: CompleteData[ 'link-ui' ] = {
+                $: clrOpt( variations.universal.primary, levels.ui.accent ),
+                visited: clrOpt( variations.universal.primary, levels.ui.accent ),
+
+                hover: 'transparent',
+                active: clrOpt( variations.interactive.active, levels.ui.accent ),
+                disabled: clrOpt( variations.text.disabled, levels.ui.min ),
+            };
+
             const singleButtonMaker = ( _primaryClr: T_ColourName ): CompleteData[ 'button' ][ 'primary' ] => {
 
                 const _secondaryClr = _primaryClr ==
@@ -1214,16 +1248,18 @@ export namespace Tokens_Themes_Set_SingleMode {
                     text: clrOpt( variations.base, levels.background ),
                 },
 
-                link: {
-                    $: clrOpt( variations.universal.primary, levels.text.accent ),
-                    hover: clrOpt( variations.interactive.hover, levels.text.accent ),
-                    active: clrOpt( variations.interactive.active, levels.text.accent ),
-                    visited: clrOpt( variations.universal.primary, levels.text.accent ),
-                },
+                link,
+                'link-ui': linkUI,
 
                 button,
 
                 field: {
+
+                    accent: {
+                        $: clrOpt( variations.universal.primary, levels.ui.accent ),
+                        hover: clrOpt( variations.interactive.hover, levels.ui.accent ),
+                        active: clrOpt( variations.interactive.active, levels.ui.accent ),
+                    },
 
                     bg: {
                         $: clrOpt( variations.base, levels.background ),
@@ -1232,7 +1268,7 @@ export namespace Tokens_Themes_Set_SingleMode {
                     },
 
                     border: {
-                        $: clrOpt( variations.base, levels.ui.$ ),
+                        $: clrOpt( variations.base, levels.ui.min ),
                         hover: clrOpt( variations.interactive.hover, levels.ui.accent ),
                         active: clrOpt( variations.interactive.active, levels.ui.accent ),
                     },
@@ -1369,14 +1405,29 @@ export namespace Tokens_Themes_Set_SingleMode {
 
                 link: {
                     $: 'LinkText',
+                    visited: 'VisitedText',
                     hover: 'ActiveText',
                     active: 'ActiveText',
+                    disabled: 'GrayText',
+                },
+
+                'link-ui': {
+                    $: 'LinkText',
                     visited: 'VisitedText',
+                    hover: 'ActiveText',
+                    active: 'ActiveText',
+                    disabled: 'GrayText',
                 },
 
                 button,
 
                 field: {
+
+                    accent: {
+                        $: 'ActiveText',
+                        hover: 'ActiveText',
+                        active: 'ActiveText',
+                    },
 
                     bg: {
                         $: 'Field',

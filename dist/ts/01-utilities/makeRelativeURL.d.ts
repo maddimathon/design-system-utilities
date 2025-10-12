@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@___CURRENT_VERSION___
  * @license MIT
  */
 /**
@@ -15,7 +15,7 @@
  * @param currentURL     Value of `Astro.url` in the build env.
  * @param targetSubpath  Path to used to construct the URL - relative to the site root (ignoring the base path).
  *
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  */
 export declare function makeRelativeURL(config_base: string, config_build: {
     format: "preserve" | "file" | "directory";

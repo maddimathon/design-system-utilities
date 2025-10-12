@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@___CURRENT_VERSION___
  * @license MIT
  */
 import type { ColourLevels_Extended, ColourLevels, ColourTokenSlug, CssSystemColor, RequiredHeadingLevels, ThemeColourOption } from '../@types.js';
@@ -12,7 +12,7 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  */
 export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_Keyword_Universal extends string, T_Keyword_Text extends string, __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>> extends AbstractTokens<Tokens_Themes_Set_SingleMode.Data<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, __T_ColourOption>> {
     readonly data: Tokens_Themes_Set_SingleMode.Data<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, __T_ColourOption>;
@@ -25,6 +25,14 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T
             background: __T_ColourOption;
             button: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>;
             input: {
+                /**
+                 * Used for accent-color and focus ring colour.
+                 */
+                accent: {
+                    $: __T_ColourOption;
+                    hover: __T_ColourOption;
+                    active: __T_ColourOption;
+                };
                 bg: {
                     $: __T_ColourOption;
                     hover: __T_ColourOption;
@@ -43,9 +51,11 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T
             };
             link: {
                 $: __T_ColourOption;
-                hover: __T_ColourOption;
-                active: __T_ColourOption;
                 visited: __T_ColourOption;
+            } & {
+                active: __T_ColourOption;
+                hover: __T_ColourOption;
+                disabled: __T_ColourOption;
             };
             selection: {
                 bg: __T_ColourOption;
@@ -108,9 +118,19 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T
         };
         link: {
             $: __T_ColourOption;
-            hover: __T_ColourOption;
-            active: __T_ColourOption;
             visited: __T_ColourOption;
+        } & {
+            active: __T_ColourOption;
+            hover: __T_ColourOption;
+            disabled: __T_ColourOption;
+        };
+        'link-ui': {
+            $: __T_ColourOption;
+            visited: __T_ColourOption;
+        } & {
+            active: __T_ColourOption;
+            hover: __T_ColourOption;
+            disabled: __T_ColourOption;
         };
         button: {
             primary: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>;
@@ -118,6 +138,14 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T
             disabled: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>;
         } & { [K_4 in T_Keyword_Universal]: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>; };
         field: {
+            /**
+             * Used for accent-color and focus ring colour.
+             */
+            accent: {
+                $: __T_ColourOption;
+                hover: __T_ColourOption;
+                active: __T_ColourOption;
+            };
             bg: {
                 $: __T_ColourOption;
                 hover: __T_ColourOption;
@@ -139,7 +167,7 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T
 /**
  * Utilities for the {@link Tokens_Themes_Set_SingleMode} class.
  *
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  */
 export declare namespace Tokens_Themes_Set_SingleMode {
     export const allHeadingLevels: readonly [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -161,7 +189,7 @@ export declare namespace Tokens_Themes_Set_SingleMode {
         };
     }
     /**
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
     export interface Data<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_Keyword_Universal extends string, T_Keyword_Text extends string, __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>> {
         background: __T_ColourOption;
@@ -196,9 +224,15 @@ export declare namespace Tokens_Themes_Set_SingleMode {
         };
         link: {
             $: __T_ColourOption;
-            hover: __T_ColourOption;
-            active: __T_ColourOption;
             visited: __T_ColourOption;
+        } & {
+            [K in keyof RequiredVariations<T_ColourName>['interactive']]: __T_ColourOption;
+        };
+        'link-ui': {
+            $: __T_ColourOption;
+            visited: __T_ColourOption;
+        } & {
+            [K in keyof RequiredVariations<T_ColourName>['interactive']]: __T_ColourOption;
         };
         button: {
             [K in 'primary' | 'secondary' | 'disabled']: Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>;
@@ -206,6 +240,14 @@ export declare namespace Tokens_Themes_Set_SingleMode {
             [K in T_Keyword_Universal]: Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>;
         };
         field: {
+            /**
+             * Used for accent-color and focus ring colour.
+             */
+            accent: {
+                $: __T_ColourOption;
+                hover: __T_ColourOption;
+                active: __T_ColourOption;
+            };
             bg: {
                 $: __T_ColourOption;
                 hover: __T_ColourOption;
@@ -238,7 +280,7 @@ export declare namespace Tokens_Themes_Set_SingleMode {
         };
     }
     /**
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
     export interface Data_RecursivePartial<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_Keyword_Universal extends string, T_Keyword_Text extends string, __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>> {
         background?: undefined | __T_ColourOption;
@@ -366,7 +408,7 @@ export declare namespace Tokens_Themes_Set_SingleMode {
     /**
      * This is used by the build function, not by the constructor.
      *
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
     export interface InputParam<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_Keyword_Universal extends string, T_Keyword_Text extends string, __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>> {
         levels?: {
@@ -391,26 +433,26 @@ export declare namespace Tokens_Themes_Set_SingleMode {
         };
     }
     /**
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
     export type JsonReturn<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_Keyword_Universal extends string, T_Keyword_Text extends string, __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>> = Data<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, __T_ColourOption>;
     /**
      * Used by the {@link Tokens_Themes_Set_SingleMode.build} static function,
      * not meant to be exposed through the API.
      *
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      * @internal
      */
     export namespace Build {
         /**
-         * @since 0.1.0-alpha.draft
+         * @since ___PKG_VERSION___
          */
         interface Param<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_Keyword_Universal extends string, T_Keyword_Text extends string> {
             levels: RequiredLevels<T_ExtraColourLevels>;
             variations: AllVariations<T_ColourName, T_Keyword_Universal, T_Keyword_Text>;
         }
         /**
-         * @since 0.1.0-alpha.draft
+         * @since ___PKG_VERSION___
          */
         interface Param_ForcedColors<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_Keyword_Universal extends string, T_Keyword_Text extends string> {
             levels?: InputParam<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text>['levels'];
@@ -422,13 +464,13 @@ export declare namespace Tokens_Themes_Set_SingleMode {
         /**
          * An easy way to generate a complete token set from limited inputs.
          *
-         * @since 0.1.0-alpha.draft
+         * @since ___PKG_VERSION___
          */
         function data<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_Keyword_Universal extends string = never, T_Keyword_Text extends string = never>(input: Param<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text>): Promise<Data<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text>>;
         /**
          * An easy way to generate a complete token set from limited inputs.
          *
-         * @since 0.1.0-alpha.draft
+         * @since ___PKG_VERSION___
          */
         function forcedColors<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_Keyword_Universal extends string = never, T_Keyword_Text extends string = never>(input: Param_ForcedColors<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text>): Promise<Data<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, CssSystemColor>>;
     }

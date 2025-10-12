@@ -28,6 +28,7 @@ export type ColourNameSchema<T_ColourName extends string> =
  * @since ___PKG_VERSION___
  */
 export type CssSystemColor =
+    | "transparent"
     | "unset"
     | "AccentColor"
     | "AccentColorText"

@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@___CURRENT_VERSION___
  * @license MIT
  */
 import { ColourUtilities } from '../../../01-utilities/ColourUtilities.js';
@@ -14,7 +14,7 @@ import { AbstractTokens } from '../../abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  */
 export declare class Tokens_Colour_ShadeMap_Shade<T_ColourName extends string, T_ExtraLevels extends ColourLevels_Extended> extends AbstractTokens<Tokens_Colour_ShadeMap_Shade.Data> {
     protected readonly allNames: readonly T_ColourName[];
@@ -27,7 +27,7 @@ export declare class Tokens_Colour_ShadeMap_Shade<T_ColourName extends string, T
     /**
      * Adds the given shade to this shade's contrast results.
      *
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
     addContrastTest(colourGroupName: T_ColourName, level: ColourLevels | T_ExtraLevels, testClr: ColourUtilities.SingleShade): Promise<void>;
     shadeValue(): ColourUtilities.SingleShade;
@@ -37,25 +37,25 @@ export declare class Tokens_Colour_ShadeMap_Shade<T_ColourName extends string, T
 /**
  * Utilities for the {@link Tokens_Colour_ShadeMap_Shade} class.
  *
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  */
 export declare namespace Tokens_Colour_ShadeMap_Shade {
     /**
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
     type Data = ColourUtilities.SingleShade;
     /**
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
     type InputParam = ColourUtilities.SingleShade_Input;
     /**
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
     type JsonReturn<T_ColourName extends string, T_ExtraLevels extends ColourLevels_Extended> = ColourUtilities.Value_All & {
         contrast: Contrast<T_ColourName, T_ExtraLevels, number>;
     };
     /**
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
     type ContrastResults<T_ColourName extends string, T_ExtraLevels extends ColourLevels_Extended, T_RatioValue extends number | undefined = number> = {
         [N in T_ColourName]?: undefined | {
@@ -63,7 +63,7 @@ export declare namespace Tokens_Colour_ShadeMap_Shade {
         };
     };
     /**
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
     type Contrast<T_ColourName extends string, T_ExtraLevels extends ColourLevels_Extended, T_RatioValue extends number | undefined = number> = {
         min: Contrast.Minimum<T_ColourName, T_ExtraLevels, T_RatioValue>;
@@ -71,11 +71,11 @@ export declare namespace Tokens_Colour_ShadeMap_Shade {
         results: ContrastResults<T_ColourName, T_ExtraLevels>;
     };
     /**
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
     namespace Contrast {
         /**
-         * @since 0.1.0-alpha.draft
+         * @since ___PKG_VERSION___
          */
         type SingleMinMax<T_ColourName extends string, T_ExtraLevels extends ColourLevels_Extended, T_RatioValue extends number | undefined = number> = undefined | {
             name: T_ColourName;
@@ -83,13 +83,13 @@ export declare namespace Tokens_Colour_ShadeMap_Shade {
             ratio: T_RatioValue;
         };
         /**
-         * @since 0.1.0-alpha.draft
+         * @since ___PKG_VERSION___
          */
         type Maximum<T_ColourName extends string, T_ExtraLevels extends ColourLevels_Extended, T_RatioValue extends number | undefined = number> = {
             [N in T_ColourName]?: SingleMinMax<T_ColourName, T_ExtraLevels, T_RatioValue>;
         };
         /**
-         * @since 0.1.0-alpha.draft
+         * @since ___PKG_VERSION___
          */
         type Minimum<T_ColourName extends string, T_ExtraLevels extends ColourLevels_Extended, T_RatioValue extends number | undefined = number> = {
             [N in T_ColourName]?: undefined | {

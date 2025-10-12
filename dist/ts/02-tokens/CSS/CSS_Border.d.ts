@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@___CURRENT_VERSION___
  * @license MIT
  */
 import type { TokenLevels, TokenLevels_Extended } from '../@types.js';
@@ -12,7 +12,7 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  */
 export declare class Tokens_CSS_Border extends AbstractTokens<Tokens_CSS_Border.Data> {
     static get default(): Tokens_CSS_Border.Data;
@@ -26,14 +26,14 @@ export declare class Tokens_CSS_Border extends AbstractTokens<Tokens_CSS_Border.
 /**
  * Utilities for the {@link Tokens_CSS_Border} class.
  *
- * @since 0.1.0-alpha.draft
+ * @since ___PKG_VERSION___
  */
 export declare namespace Tokens_CSS_Border {
     type DefaultRadiusLevels = "100" | "200" | "400";
     type DefaultWidthLevels = "100" | "200" | "300" | "400";
     type DefaultStrokeLevels = "100" | "200" | "400" | "600" | "800" | "900";
     /**
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
     export type Data = {
         radius: {
@@ -53,7 +53,7 @@ export declare namespace Tokens_CSS_Border {
         };
     };
     /**
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
     export type InputParam = Partial<Omit<Data, 'radius' | 'width' | 'stroke'>> & {
         radius?: Partial<Data['radius']>;
@@ -61,7 +61,7 @@ export declare namespace Tokens_CSS_Border {
         stroke?: Partial<Data['stroke']>;
     };
     /**
-     * @since 0.1.0-alpha.draft
+     * @since ___PKG_VERSION___
      */
     export type JsonReturn = Data;
     export {};
