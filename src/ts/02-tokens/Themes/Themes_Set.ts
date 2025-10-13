@@ -90,6 +90,7 @@ export class Tokens_Themes_Set<
             CssSystemColor
         > = await Tokens_Themes_Set_SingleMode.build(
             'forcedColors',
+            undefined,
             clrNames,
             input.forcedColours ?? {},
         );
@@ -117,6 +118,7 @@ export class Tokens_Themes_Set<
                             T_Keyword_Text
                         >(
                             contrast,
+                            brightness as string,
                             clrNames,
                             input[ brightness ]?.[ contrast ] ?? {},
                         ),

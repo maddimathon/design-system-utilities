@@ -29,8 +29,8 @@ export class Tokens_Themes_Set extends AbstractTokens {
      * Used instead of the constructor so that it can be async.
      */
     static async build(name, clrNames, extraColourLevels, brightnessModes, contrastModes, input) {
-        const forcedColours = await Tokens_Themes_Set_SingleMode.build('forcedColors', clrNames, input.forcedColours ?? {});
-        const modes = await objectGeneratorAsync(brightnessModes, async (brightness) => objectGeneratorAsync(contrastModes, async (contrast) => Tokens_Themes_Set_SingleMode.build(contrast, clrNames, input[brightness]?.[contrast] ?? {})));
+        const forcedColours = await Tokens_Themes_Set_SingleMode.build('forcedColors', undefined, clrNames, input.forcedColours ?? {});
+        const modes = await objectGeneratorAsync(brightnessModes, async (brightness) => objectGeneratorAsync(contrastModes, async (contrast) => Tokens_Themes_Set_SingleMode.build(contrast, brightness, clrNames, input[brightness]?.[contrast] ?? {})));
         return new Tokens_Themes_Set(name, clrNames, extraColourLevels, brightnessModes, contrastModes, forcedColours, modes);
     }
     get data() {

@@ -26,38 +26,39 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
      *
      * @since 0.1.0-alpha.draft
      */
-    static async build(preset, clrNames, input, overrides = {}) {
+    static async build(preset, brightness, clrNames, input, overrides = {}) {
         let defaultLevels;
         let levels;
         const variations = Tokens_Themes_Set_SingleMode.Build.completeVariations(clrNames, input.variations);
         const clrOpt = Tokens_Themes_Set_SingleMode.Build.colourOption;
+        const isLightMode = brightness !== 'dark';
         let description = null;
         // returns if forced colours
         switch (preset) {
             case 'average':
                 description = 'This is the default contrast mode for most users, unless they have defined a specific preference (‘low’, ‘high’, or ‘forced-colors’) in their OS or browser settings.  It meets or exceeds WCAG AAA contrast standards.';
                 defaultLevels = {
-                    background: '150',
+                    background: isLightMode ? '200' : '150',
                     text: {
-                        $: '750',
-                        accent: '650',
-                        min: '650',
+                        $: isLightMode ? '800' : '750',
+                        accent: isLightMode ? '700' : '650',
+                        min: isLightMode ? '700' : '650',
                     },
                     ui: {
-                        $: '700',
-                        accent: '600',
-                        min: '650',
+                        $: isLightMode ? '750' : '700',
+                        accent: isLightMode ? '650' : '600',
+                        min: isLightMode ? '650' : '600',
                     },
                     heading: objectGenerator(Tokens_Themes_Set_SingleMode.allHeadingLevels, (hdgNum) => {
                         // returns on match
                         switch (hdgNum) {
                             case 1:
-                                return '750';
+                                return isLightMode ? '800' : '750';
                             case 2:
                             case 3:
-                                return '700';
+                                return isLightMode ? '750' : '700';
                         }
-                        return '650';
+                        return isLightMode ? '700' : '650';
                     }),
                 };
                 levels = Tokens_Themes_Set_SingleMode.Build.completeLevels(mergeArgs(defaultLevels, input.levels, true));
@@ -70,18 +71,18 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
             case 'low':
                 description = 'This is the low contrast mode.  This is the default for users who set ‘low’ as their preferred contrast mode in OS or browser settings.  It mostly meets WCAG AA contrast standards, but in rare cases does not (which is acceptable in this case).';
                 defaultLevels = {
-                    background: '300',
+                    background: isLightMode ? '300' : '200',
                     text: {
-                        $: '700',
-                        accent: '700',
-                        min: '650',
+                        $: isLightMode ? '700' : '650',
+                        accent: isLightMode ? '700' : '600',
+                        min: isLightMode ? '650' : '600',
                     },
                     ui: {
-                        $: '650',
-                        accent: '600',
-                        min: '600',
+                        $: isLightMode ? '650' : '600',
+                        accent: isLightMode ? '650' : '600',
+                        min: isLightMode ? '650' : '600',
                     },
-                    heading: objectGenerator(Tokens_Themes_Set_SingleMode.allHeadingLevels, (hdgNum) => hdgNum <= 1 ? '600' : hdgNum <= 3 ? '650' : '700'),
+                    heading: objectGenerator(Tokens_Themes_Set_SingleMode.allHeadingLevels, isLightMode ? ((hdgNum) => hdgNum <= 1 ? '600' : hdgNum <= 3 ? '650' : '700') : ((hdgNum) => hdgNum <= 1 ? '700' : '600')),
                 };
                 levels = Tokens_Themes_Set_SingleMode.Build.completeLevels(mergeArgs(defaultLevels, input.levels, true));
                 overrides.selection = {

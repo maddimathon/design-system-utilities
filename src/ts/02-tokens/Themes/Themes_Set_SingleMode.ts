@@ -60,6 +60,7 @@ export class Tokens_Themes_Set_SingleMode<
         T_Keyword_Text extends string = never,
     >(
         preset: "forcedColors",
+        brightness: undefined | string,
         clrNames: readonly T_ColourName[],
         input: Tokens_Themes_Set_SingleMode.InputParam<
             T_ColourName,
@@ -93,6 +94,7 @@ export class Tokens_Themes_Set_SingleMode<
         T_Keyword_Text extends string = never,
     >(
         preset: "low" | "average" | "high" | "max",
+        brightness: undefined | string,
         clrNames: readonly T_ColourName[],
         input: Tokens_Themes_Set_SingleMode.InputParam<
             T_ColourName,
@@ -131,6 +133,7 @@ export class Tokens_Themes_Set_SingleMode<
         T_Keyword_Text extends string = never,
     >(
         preset: "low" | "average" | "high" | "max" | "forcedColors",
+        brightness: undefined | string,
         clrNames: readonly T_ColourName[],
         input: Tokens_Themes_Set_SingleMode.InputParam<
             T_ColourName,
@@ -172,6 +175,8 @@ export class Tokens_Themes_Set_SingleMode<
 
         const clrOpt = Tokens_Themes_Set_SingleMode.Build.colourOption;
 
+        const isLightMode = brightness !== 'dark';
+
         let description: null | string = null;
 
         // returns if forced colours
@@ -181,16 +186,16 @@ export class Tokens_Themes_Set_SingleMode<
                 description = 'This is the default contrast mode for most users, unless they have defined a specific preference (‘low’, ‘high’, or ‘forced-colors’) in their OS or browser settings.  It meets or exceeds WCAG AAA contrast standards.';
 
                 defaultLevels = {
-                    background: '150',
+                    background: isLightMode ? '200' : '150',
                     text: {
-                        $: '750',
-                        accent: '650',
-                        min: '650',
+                        $: isLightMode ? '800' : '750',
+                        accent: isLightMode ? '700' : '650',
+                        min: isLightMode ? '700' : '650',
                     },
                     ui: {
-                        $: '700',
-                        accent: '600',
-                        min: '650',
+                        $: isLightMode ? '750' : '700',
+                        accent: isLightMode ? '650' : '600',
+                        min: isLightMode ? '650' : '600',
                     },
                     heading: objectGenerator(
                         Tokens_Themes_Set_SingleMode.allHeadingLevels,
@@ -200,14 +205,14 @@ export class Tokens_Themes_Set_SingleMode<
                             switch ( hdgNum ) {
 
                                 case 1:
-                                    return '750';
+                                    return isLightMode ? '800' : '750';
 
                                 case 2:
                                 case 3:
-                                    return '700';
+                                    return isLightMode ? '750' : '700';
                             }
 
-                            return '650';
+                            return isLightMode ? '700' : '650';
                         }
                     ),
                 };
@@ -234,20 +239,24 @@ export class Tokens_Themes_Set_SingleMode<
                 description = 'This is the low contrast mode.  This is the default for users who set ‘low’ as their preferred contrast mode in OS or browser settings.  It mostly meets WCAG AA contrast standards, but in rare cases does not (which is acceptable in this case).';
 
                 defaultLevels = {
-                    background: '300',
+                    background: isLightMode ? '300' : '200',
                     text: {
-                        $: '700',
-                        accent: '700',
-                        min: '650',
+                        $: isLightMode ? '700' : '650',
+                        accent: isLightMode ? '700' : '600',
+                        min: isLightMode ? '650' : '600',
                     },
                     ui: {
-                        $: '650',
-                        accent: '600',
-                        min: '600',
+                        $: isLightMode ? '650' : '600',
+                        accent: isLightMode ? '650' : '600',
+                        min: isLightMode ? '650' : '600',
                     },
                     heading: objectGenerator(
                         Tokens_Themes_Set_SingleMode.allHeadingLevels,
-                        ( hdgNum ) => hdgNum <= 1 ? '600' : hdgNum <= 3 ? '650' : '700',
+                        isLightMode ? (
+                            ( hdgNum ) => hdgNum <= 1 ? '600' : hdgNum <= 3 ? '650' : '700'
+                        ) : (
+                            ( hdgNum ) => hdgNum <= 1 ? '700' : '600'
+                        ),
                     ),
                 };
 
