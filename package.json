@@ -172,7 +172,7 @@
             "watch:docs": "watch -p 'src/docs/**/*' -c 'build-utils document                                --watchedWatcher \"watch:docs\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
         
         
-        "build-start": "build-utils build --without minimize,prettify --without-document astro && npm run --silent start",
+        "build-start": "build-utils build --verbose --starting --without minimize,prettify && npm run --silent start",
         "build-update": "npm run --silent build -- --watchedWatcher \"watch:cx\" --watchedChange --only compile,document --without-compile astro,templates,files --only-document scss --verbose",
 
         "start": "run-p start:* start:watch:*",
@@ -193,10 +193,10 @@
         "@maddimathon/utility-sass": "file:../utility-sass",
         "@maddimathon/utility-typescript": "2.0.0-beta",
         "@types/jest": "^30.0.0",
-        "astro": "^5.13.11",
+        "astro": "^5.14.4",
         "color-convert": "^3.1.2",
         "minimist": "^1.2.8",
-        "typedoc": "^0.28.13",
+        "typedoc": "^0.28.14",
         "wcag-contrast": "^3.0.0",
         "yaml": "^2.8.1",
         "zod": "^3.25.76"
@@ -206,20 +206,19 @@
         "@types/minimist": "1.2.5",
         "@types/node": "22.18.0",
         "@types/wcag-contrast": "3.0.3",
-        "jest": "30.1.3",
+        "jest": "30.2.0",
         "npm-run-all": "4.1.5",
         "sass": "1.93.2",
-        "tsx": "4.20.5",
         "typedoc-plugin-inline-sources": "1.3.0",
-        "typescript": "5.9.2",
+        "typescript": "5.9.3",
         "watch-cli": "0.2.3"
     },
 
     "peerDependencies": {
         "@maddimathon/build-utilities": "~0.3.0-alpha",
         "@maddimathon/utility-typescript": "^2.0.0-beta",
-        "astro": "^5.13.11",
-        "typedoc": "^0.28.13",
+        "astro": "^5.14.4",
+        "typedoc": "^0.28.14",
         "zod": "^3.25.76"
     },
     "peerDependenciesMeta": {

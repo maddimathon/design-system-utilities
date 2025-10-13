@@ -7,9 +7,14 @@
 
 /* import - types */
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
+import type {
+    ColourLevels,
+    ColourLevels_Extended,
+} from '../../ts/02-tokens/@types.d.ts';
 
 /* import - functions */
 import { toTitleCase } from '@maddimathon/utility-typescript/functions';
+import { objectMap } from '../../ts/01-utilities/objectMap.js';
 
 /* import - values */
 
@@ -33,11 +38,25 @@ const { tokens }: Props = Astro.props;
 /* CONSTANTS ===================================== */
 
 const defaultToggleToOpen = import.meta.env.DEV ? true : undefined;
+
+const allLevels = Object.keys(tokens.colour.base) as (
+    | ColourLevels
+    | ColourLevels_Extended
+)[];
+
+const levelsInUse = Object.values(
+    objectMap(tokens.themes, ({ value: theme }) => theme.levelsInUse)
+).flat();
+
+const excludeLevels = import.meta.env.DEV
+    ? []
+    : allLevels.filter((level) => !levelsInUse.includes(level));
 ---
 
 <ShadeSwatchTable
     id='all-colours'
     colour={tokens.colour}
+    excludeLevels={excludeLevels}
 />
 
 {

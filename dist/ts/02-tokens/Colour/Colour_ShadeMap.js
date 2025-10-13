@@ -1,10 +1,10 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@___CURRENT_VERSION___
+ * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
 import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
@@ -14,7 +14,7 @@ import { Tokens_Colour_ShadeMap_Shade } from './ShadeMap/ShadeMap_Shade.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export class Tokens_Colour_ShadeMap extends AbstractTokens {
     allNames;
@@ -31,7 +31,7 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
     /**
      * Adds the given shade map to this map's shades' contrast results.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     async addContrastTests(colourGroupName, testMap) {
         const promises = [];
@@ -54,7 +54,7 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
 /**
  * Utilities for the {@link Tokens_Colour_ShadeMap} class.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 (function (Tokens_Colour_ShadeMap) {
     /* FUNCTIIONS
@@ -157,6 +157,11 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
             ? ColourUtilities.mixColours(l_100, l_200)
             // otherwise we can safely assume this exists
             : part['150']));
+        const l_250 = shadeMaker('250', ((!('250' in part) || !part['250'])
+            // we should merge it from what's available
+            ? ColourUtilities.mixColours(l_200, l_300)
+            // otherwise we can safely assume this exists
+            : part['250']));
         const l_850 = shadeMaker('850', ((!('850' in part) || !part['850'])
             // we should merge it from what's available
             ? ColourUtilities.mixColours(l_800, l_900)
@@ -172,10 +177,16 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
             ? ColourUtilities.mixColours(l_600, l_700)
             // otherwise we can safely assume this exists
             : part['650']));
+        const l_750 = shadeMaker('750', ((!('750' in part) || !part['750'])
+            // we should merge it from what's available
+            ? ColourUtilities.mixColours(l_700, l_800)
+            // otherwise we can safely assume this exists
+            : part['750']));
         const defaultLevels = {
             '100': l_100,
             '150': l_150,
             '200': l_200,
+            '250': l_250,
             '300': l_300,
             '350': l_350,
             '400': l_400,
@@ -183,6 +194,7 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
             '600': l_600,
             '650': l_650,
             '700': l_700,
+            '750': l_750,
             '800': l_800,
             '850': l_850,
             '900': l_900,
@@ -214,10 +226,6 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
                         ? completeLevels['000']
                         : ColourUtilities.mixColours('FFFFFF', defaultLevels['100'])), defaultLevels['100']));
                     continue levelLoop;
-                case '250':
-                    lowerLevel = '200';
-                    higherLevel = '300';
-                    break;
                 case '450':
                     lowerLevel = '400';
                     higherLevel = '500';
@@ -225,10 +233,6 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
                 case '550':
                     lowerLevel = '500';
                     higherLevel = '600';
-                    break;
-                case '750':
-                    lowerLevel = '700';
-                    higherLevel = '800';
                     break;
             }
             completeLevels[level] = shadeMaker(level, ColourUtilities.mixColours(defaultLevels[lowerLevel], defaultLevels[higherLevel]));

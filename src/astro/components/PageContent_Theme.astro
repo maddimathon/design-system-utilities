@@ -38,22 +38,40 @@ const parsed = Object.values(
     objectMap(theme, ({ key, value }) =>
         key === 'name'
             ? false
-            : key === 'forcedColours'
+            : key === 'levelsInUse'
               ? false
-              : {
-                    name: key,
-                    values: Object.values(
-                        objectMap(value, ({ key: contrast, value: theme }) => ({
-                            id: `theme-${key}-${contrast}`,
-                            brightness: key,
-                            contrast,
-                            theme,
-                        }))
-                    ),
-                }
+              : key === 'forcedColours'
+                ? false
+                : {
+                      name: key,
+                      values: Object.values(
+                          objectMap(
+                              value,
+                              ({ key: contrast, value: theme }) => ({
+                                  id: `theme-${key}-${contrast}`,
+                                  brightness: key,
+                                  contrast,
+                                  theme,
+                              })
+                          )
+                      ),
+                  }
     )
 ).filter((v) => v !== false);
 ---
+
+<p>
+    The following colour shade levels are in use in at least one of the themes
+    below: {
+        theme.levelsInUse.map((level, i) =>
+            i < theme.levelsInUse.length - 1 ? (
+                <Fragment set:html={`<code>${level}</code>, `} />
+            ) : (
+                <Fragment set:html={`and <code>${level}</code>.`} />
+            )
+        )
+    }
+</p>
 
 {
     parsed.map((brightnessSet) => (

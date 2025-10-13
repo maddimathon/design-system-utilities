@@ -315,6 +315,17 @@ export namespace Tokens_Colour_ShadeMap {
             )
         );
 
+        const l_250 = shadeMaker(
+            '250',
+            (
+                ( !( '250' in part ) || !part[ '250' ] )
+                    // we should merge it from what's available
+                    ? ColourUtilities.mixColours( l_200, l_300 )
+                    // otherwise we can safely assume this exists
+                    : part[ '250' ]
+            )
+        );
+
         const l_850 = shadeMaker(
             '850',
             (
@@ -348,12 +359,24 @@ export namespace Tokens_Colour_ShadeMap {
             )
         );
 
+        const l_750 = shadeMaker(
+            '750',
+            (
+                ( !( '750' in part ) || !part[ '750' ] )
+                    // we should merge it from what's available
+                    ? ColourUtilities.mixColours( l_700, l_800 )
+                    // otherwise we can safely assume this exists
+                    : part[ '750' ]
+            )
+        );
+
         const defaultLevels: {
             [ L in ColourLevels ]: Tokens_Colour_ShadeMap_Shade<T_ColourName, T_ExtraLevels>;
         } = {
             '100': l_100,
             '150': l_150,
             '200': l_200,
+            '250': l_250,
             '300': l_300,
             '350': l_350,
             '400': l_400,
@@ -361,6 +384,7 @@ export namespace Tokens_Colour_ShadeMap {
             '600': l_600,
             '650': l_650,
             '700': l_700,
+            '750': l_750,
             '800': l_800,
             '850': l_850,
             '900': l_900,
@@ -419,11 +443,6 @@ export namespace Tokens_Colour_ShadeMap {
                     );
                     continue levelLoop;
 
-                case '250':
-                    lowerLevel = '200';
-                    higherLevel = '300';
-                    break;
-
                 case '450':
                     lowerLevel = '400';
                     higherLevel = '500';
@@ -432,11 +451,6 @@ export namespace Tokens_Colour_ShadeMap {
                 case '550':
                     lowerLevel = '500';
                     higherLevel = '600';
-                    break;
-
-                case '750':
-                    lowerLevel = '700';
-                    higherLevel = '800';
                     break;
             }
 

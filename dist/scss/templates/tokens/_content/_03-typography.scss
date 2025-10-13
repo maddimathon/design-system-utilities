@@ -1,12 +1,12 @@
 ///
-/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
-/// @since ___PKG_VERSION___
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
 ///
 
 // @use 'pkg:@maddimathon/utility-sass/map';
 
 @use '../config';
-// @use '../tokens';
+@use '../tokens';
 
 @use '../lib' as *;
 
@@ -16,36 +16,39 @@
 }
 
 %selection {
-    @include average-contrast {
-        background-color: color-mix(
-            in srgb,
-            #{var-theme(selection-bg)} 50%,
-            transparent
-        ) !important;
-        color: #{var-theme(selection-text)} !important;
-    }
+    @each $mode in tokens.$contrastMode_all {
+        @include colour-mode($mode, $includeDefault: false) {
+            //
+            background-color: #{var-theme(selection-bg, $contrast: $mode)} !important;
+            color: #{var-theme(selection-text, $contrast: $mode)} !important;
 
-    @include low-contrast {
-        background-color: color-mix(
-            in srgb,
-            #{var-theme(selection-bg)} 25%,
-            transparent
-        ) !important;
-        color: #{var-theme(selection-text)} !important;
-    }
-
-    @include high-contrast {
-        background-color: color-mix(
-            in srgb,
-            #{var-theme(selection-bg)} 90%,
-            transparent
-        ) !important;
-        color: #{var-theme(selection-text)} !important;
-    }
-
-    @include forced-colors {
-        background-color: #{var-theme(selection-bg)} !important;
-        color: #{var-theme(selection-text)} !important;
+            & {
+                @if $mode == average {
+                    //
+                    background-color: color-mix(
+                        in srgb,
+                        #{var-theme(selection-bg, $contrast: $mode)} 45%,
+                        transparent
+                    ) !important;
+                    //
+                } @else if $mode == low {
+                    //
+                    background-color: color-mix(
+                        in srgb,
+                        #{var-theme(selection-bg, $contrast: $mode)} 35%,
+                        transparent
+                    ) !important;
+                    //
+                } @else if $mode == high {
+                    //
+                    background-color: color-mix(
+                        in srgb,
+                        #{var-theme(selection-bg, $contrast: $mode)} 90%,
+                        transparent
+                    ) !important;
+                }
+            }
+        }
     }
 }
 
@@ -55,6 +58,10 @@
     text-decoration-color: #{var-theme(link-ui)};
 
     /// STATES ///
+
+    &:visited {
+        text-decoration-color: #{var-theme(link-ui-visited)};
+    }
 
     @include hover-focus-visible() {
         text-decoration-color: #{var-theme(link-ui-hover)};
@@ -122,6 +129,12 @@
 }
 
 %pre {
+    border-color: #{var-theme(ui-primary)};
+    color: #{var-theme(text)};
+
+    > code {
+        color: inherit;
+    }
 }
 
 @include config.print-headings {

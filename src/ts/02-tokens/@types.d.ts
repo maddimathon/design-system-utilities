@@ -98,15 +98,12 @@ export type ThemeColourOption<
  */
 export type ThemeMode_Contrast<
     T_Extra extends readonly string[] = never[],
-> = readonly [ "low", "average", "high", ...T_Extra ];
+> = readonly [ "low", "average", "high", "max", ...T_Extra ];
 
 /**
  * @since ___PKG_VERSION___
  */
-export type ThemeMode_ContrastOption = Exclude<
-    Tokens_Themes_Set_SingleMode.Templates.Name,
-    "forcedColors"
->;
+export type ThemeMode_ContrastOption = "low" | "average" | "high" | "max";
 
 /**
  * @since ___PKG_VERSION___
@@ -163,6 +160,7 @@ export type ColourLevels =
     | "100"
     | "150"
     | "200"
+    | "250"
     | "300"
     | "350"
     | "400"
@@ -170,6 +168,7 @@ export type ColourLevels =
     | "600"
     | "650"
     | "700"
+    | "750"
     | "800"
     | "850"
     | "900";
@@ -180,10 +179,8 @@ export type ColourLevels =
 export type ColourLevels_Extended =
     | "000"
     | "050"
-    | "250"
     | "450"
     | "550"
-    | "750"
     | "950";
 
 

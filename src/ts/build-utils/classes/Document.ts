@@ -66,11 +66,14 @@ export class Document extends DocumentStage {
             [ 'astro check' ]
         );
 
-        this.console.verbose( 'compiling to ' + distDir + '...', 2 );
-        this.try(
-            this.console.nc.cmd,
-            this.params.verbose ? 3 : 2,
-            [ 'astro build' ]
-        );
+        if ( !this.params.starting && !this.isWatchedUpdate ) {
+
+            this.console.verbose( 'compiling to ' + distDir + '...', 2 );
+            this.try(
+                this.console.nc.cmd,
+                this.params.verbose ? 3 : 2,
+                [ 'astro build' ]
+            );
+        }
     }
 }

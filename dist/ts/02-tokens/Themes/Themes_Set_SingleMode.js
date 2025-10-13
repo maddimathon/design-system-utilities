@@ -1,53 +1,58 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@___CURRENT_VERSION___
+ * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
-import { mergeArgs } from '@maddimathon/utility-typescript/functions';
+import { arrayUnique, mergeArgs } from '@maddimathon/utility-typescript/functions';
+import { objectFlatten } from '../../01-utilities/objectFlatten.js';
 import { objectGenerator } from '../../01-utilities/objectGenerator.js';
 import { objectMap } from '../../01-utilities/objectMap.js';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
+    description;
+    levelsInUse;
     data;
     /**
      * An easy way to generate a complete token set from limited inputs.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     static async build(preset, clrNames, input, overrides = {}) {
         let defaultLevels;
         let levels;
         const variations = Tokens_Themes_Set_SingleMode.Build.completeVariations(clrNames, input.variations);
         const clrOpt = Tokens_Themes_Set_SingleMode.Build.colourOption;
+        let description = null;
         // returns if forced colours
         switch (preset) {
             case 'average':
+                description = 'This is the default contrast mode for most users, unless they have defined a specific preference (‘low’, ‘high’, or ‘forced-colors’) in their OS or browser settings.  It meets or exceeds WCAG AAA contrast standards.';
                 defaultLevels = {
-                    background: '100',
+                    background: '150',
                     text: {
-                        $: '800',
-                        accent: '700',
+                        $: '750',
+                        accent: '650',
                         min: '650',
                     },
                     ui: {
                         $: '700',
-                        accent: '650',
-                        min: '600',
+                        accent: '600',
+                        min: '650',
                     },
                     heading: objectGenerator(Tokens_Themes_Set_SingleMode.allHeadingLevels, (hdgNum) => {
                         // returns on match
                         switch (hdgNum) {
                             case 1:
-                                return '800';
+                                return '750';
                             case 2:
                             case 3:
                                 return '700';
@@ -57,40 +62,47 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 };
                 levels = Tokens_Themes_Set_SingleMode.Build.completeLevels(mergeArgs(defaultLevels, input.levels, true));
                 overrides.selection = {
-                    bg: clrOpt(variations.universal.primary, '500'),
+                    bg: clrOpt(variations.universal.primary, '600'),
                     text: clrOpt(variations.base, '900'),
                     ...overrides.selection,
                 };
                 break;
+            case 'low':
+                description = 'This is the low contrast mode.  This is the default for users who set ‘low’ as their preferred contrast mode in OS or browser settings.  It mostly meets WCAG AA contrast standards, but in rare cases does not (which is acceptable in this case).';
+                defaultLevels = {
+                    background: '300',
+                    text: {
+                        $: '700',
+                        accent: '700',
+                        min: '650',
+                    },
+                    ui: {
+                        $: '650',
+                        accent: '600',
+                        min: '600',
+                    },
+                    heading: objectGenerator(Tokens_Themes_Set_SingleMode.allHeadingLevels, (hdgNum) => hdgNum <= 1 ? '600' : hdgNum <= 3 ? '650' : '700'),
+                };
+                levels = Tokens_Themes_Set_SingleMode.Build.completeLevels(mergeArgs(defaultLevels, input.levels, true));
+                overrides.selection = {
+                    bg: clrOpt(variations.universal.primary, '600'),
+                    text: clrOpt(variations.base, '850'),
+                    ...overrides.selection,
+                };
+                break;
             case 'high':
+                description = 'This is the high contrast mode.  This is the default for users who set ‘high’ as their preferred contrast mode in OS or browser settings.  It exceeds WCAG AAA contrast standards.';
                 defaultLevels = {
                     background: '100',
                     text: {
-                        $: '900',
-                        accent: '800',
-                        min: '800',
-                    },
-                    ui: {
-                        $: '800',
-                        accent: '800',
+                        $: '850',
+                        accent: '750',
                         min: '700',
                     },
-                    heading: objectGenerator(Tokens_Themes_Set_SingleMode.allHeadingLevels, () => '800'),
-                };
-                levels = Tokens_Themes_Set_SingleMode.Build.completeLevels(mergeArgs(defaultLevels, input.levels, true));
-                break;
-            case 'low':
-                defaultLevels = {
-                    background: '150',
-                    text: {
-                        $: '800',
-                        accent: '650',
-                        min: '600',
-                    },
                     ui: {
-                        $: '700',
-                        accent: '600',
-                        min: '600',
+                        $: '750',
+                        accent: '700',
+                        min: '700',
                     },
                     heading: objectGenerator(Tokens_Themes_Set_SingleMode.allHeadingLevels, (hdgNum) => {
                         // returns on match
@@ -99,15 +111,33 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                                 return '700';
                             case 2:
                             case 3:
-                                return '650';
+                                return '750';
                         }
-                        return '600';
+                        return '800';
                     }),
                 };
                 levels = Tokens_Themes_Set_SingleMode.Build.completeLevels(mergeArgs(defaultLevels, input.levels, true));
+                break;
+            case 'max':
+                description = 'This is the maximum contrast mode.  This is an alternate option for users who want an even higher contrast than the ‘high’ mode, but without enabling ‘forced-colors’ mode.  It exceeds WCAG AAA contrast standards.';
+                defaultLevels = {
+                    background: '100',
+                    text: {
+                        $: '900',
+                        accent: '850',
+                        min: '850',
+                    },
+                    ui: {
+                        $: '850',
+                        accent: '850',
+                        min: '800',
+                    },
+                    heading: objectGenerator(Tokens_Themes_Set_SingleMode.allHeadingLevels, () => '850'),
+                };
+                levels = Tokens_Themes_Set_SingleMode.Build.completeLevels(mergeArgs(defaultLevels, input.levels, true));
                 overrides.selection = {
-                    bg: clrOpt(variations.universal.primary, '400'),
-                    text: clrOpt(variations.base, '900'),
+                    bg: clrOpt(variations.universal.primary, '800'),
+                    text: clrOpt(variations.base, '100'),
                     ...overrides.selection,
                 };
                 break;
@@ -116,19 +146,40 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                     ...input,
                     variations: Tokens_Themes_Set_SingleMode.Build.completeVariations(clrNames, input.variations),
                 };
-                return new Tokens_Themes_Set_SingleMode(await Tokens_Themes_Set_SingleMode.Build.forcedColors(_input));
+                return new Tokens_Themes_Set_SingleMode('This is the forced colours contrast mode, which is a mode only applied for users with this accessibility featured enabled in their OS settings.  It cannot be manually selected.  This mode uses System Colour keywords, which lets users apply custom colours to websites.  This is very important for accessibility!', [], await Tokens_Themes_Set_SingleMode.Build.forcedColors(_input));
         }
-        return new Tokens_Themes_Set_SingleMode(mergeArgs(await Tokens_Themes_Set_SingleMode.Build.data({
+        const levelsInUse = Object.values(objectFlatten(levels)).concat(Object.values(objectFlatten(overrides)).map((val) => {
+            const match = String(val).match(/\-(\d+)$/);
+            // returns
+            if (match && match[1]) {
+                return match[1];
+            }
+            return false;
+        }).filter(v => v !== false));
+        return new Tokens_Themes_Set_SingleMode(description, arrayUnique(levelsInUse).sort(), mergeArgs(await Tokens_Themes_Set_SingleMode.Build.data({
             levels,
             variations,
         }), overrides, true));
     }
-    constructor(data) {
+    constructor(description, levelsInUse, data) {
         super();
+        this.description = description;
+        this.levelsInUse = levelsInUse;
         this.data = data;
     }
     toJSON() {
-        return this.data;
+        const levelsInUse = this.levelsInUse.map((level) => {
+            const dark = (1000 - Number(level)).toFixed(0);
+            return {
+                light: level,
+                dark: dark.padStart(Math.max(0, 3 - dark.length), '0'),
+            };
+        });
+        return {
+            description: this.description ?? undefined,
+            data: this.data,
+            levelsInUse,
+        };
     }
     toScssVars() {
         return {
@@ -152,7 +203,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
 /**
  * Utilities for the {@link Tokens_Themes_Set_SingleMode} class.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 (function (Tokens_Themes_Set_SingleMode) {
     Tokens_Themes_Set_SingleMode.allHeadingLevels = [
@@ -179,7 +230,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
      * Used by the {@link Tokens_Themes_Set_SingleMode.build} static function,
      * not meant to be exposed through the API.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      * @internal
      */
     let Build;
@@ -255,7 +306,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
         /**
          * An easy way to generate a complete token set from limited inputs.
          *
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha.draft
          */
         async function data(input) {
             const clrOpt = colourOption;
@@ -394,7 +445,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
         /**
          * An easy way to generate a complete token set from limited inputs.
          *
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha.draft
          */
         async function forcedColors(input) {
             const { variations, } = input;
@@ -440,7 +491,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 disabled: singleButton,
             };
             const complete = {
-                background: sysclr.text,
+                background: sysclr.background,
                 text,
                 ui,
                 heading,

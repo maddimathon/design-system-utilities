@@ -1,10 +1,10 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@___CURRENT_VERSION___
+ * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
 import type { TokenLevels, TokenLevels_Extended } from './@types.js';
@@ -12,7 +12,7 @@ import { AbstractTokens } from './abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export declare class Tokens_Spacing extends AbstractTokens<Tokens_Spacing.Data> {
     static get default(): Tokens_Spacing.Data;
@@ -49,12 +49,12 @@ export declare class Tokens_Spacing extends AbstractTokens<Tokens_Spacing.Data> 
 /**
  * Utilities for the {@link Tokens_Spacing} class.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export declare namespace Tokens_Spacing {
     type DefaultMarginLevels = "100" | "200" | "300" | "400" | "500" | "600" | "800" | "900";
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     export type Data = {
         multiplier: number;
@@ -65,14 +65,14 @@ export declare namespace Tokens_Spacing {
         };
     };
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     export type InputParam = {
         multiplier?: number;
         margin?: Partial<Data['margin']>;
     };
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     export type JsonReturn = {};
     export {};

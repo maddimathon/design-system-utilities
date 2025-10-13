@@ -1,10 +1,10 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@___CURRENT_VERSION___
+ * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
 import * as WcagContrast from 'wcag-contrast';
@@ -14,7 +14,7 @@ import { ColourUtilities } from './ColourUtilities.js';
  * Generates a single pair of contrast test results used by the
  * {@link Tokens_Colour_ShadeMap_Shade} objects.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  * @internal
  */
 export class ColourContrastTest {
@@ -93,7 +93,7 @@ export class ColourContrastTest {
 /**
  * Utilities for the {@link Tokens} class.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  * @internal
  */
 (function (ColourContrastTest) {

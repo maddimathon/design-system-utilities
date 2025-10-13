@@ -1,10 +1,10 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@___CURRENT_VERSION___
+ * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
 import type { ThemeMode_Contrast, ThemeMode_ContrastAtLeastOne, ThemeMode_ContrastExtraOptions, ColourLevels_Extended } from './@types.js';
@@ -18,7 +18,7 @@ import type { Tokens_Themes_Set_SingleMode } from './Themes/Themes_Set_SingleMod
 /**
  * Generates a complete token object for the design system.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_ThemeBrightnessMode extends readonly [string, ...string[]], T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne, T_ThemeName extends string, T_ThemeKeyword_Universal extends string, T_ThemeKeyword_Text extends string> extends AbstractTokens<Tokens_Internal.Data<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_ThemeKeyword_Universal, T_ThemeKeyword_Text>> {
     protected readonly clrNames: readonly T_ColourName[];
@@ -279,7 +279,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
 /**
  * Internal utilities for the {@link Tokens} class.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  * @internal
  * @private
  */
@@ -290,8 +290,8 @@ export declare namespace Tokens_Internal {
     type Default_ColourName = 'base';
     type Default_ExtraColourLevels = ColourLevels_Extended;
     type Default_ThemeBrightnessMode = ['light', 'dark', ...string[]];
-    type Default_ThemeContrastMode = ['low', 'average', 'high'];
-    type Default_ThemeExtraContrastMode = ['low'];
+    type Default_ThemeContrastMode = ['low', 'average', 'high', 'max'];
+    type Default_ThemeExtraContrastMode = [];
     type Data<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_ThemeBrightnessMode extends readonly [string, ...string[]], T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne, T_ThemeName extends string, T_ThemeKeyword_Universal extends string, T_ThemeKeyword_Text extends string> = {
         colour: Tokens_Colour.Data<T_ColourName, T_ExtraColourLevels>;
         css: Tokens_CSS.Data;
@@ -321,14 +321,14 @@ export declare namespace Tokens_Internal {
 /**
  * Utilities for the {@link Tokens} class.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export declare namespace Tokens {
-    function sample(): Promise<Tokens<"base" | "purple" | "turquoise" | "red", ColourLevels_Extended, Tokens_Internal.Default_ThemeBrightnessMode, readonly ["low", "average", "high", "low"], "default", never, never>>;
+    function sample(): Promise<Tokens<"base" | "purple" | "turquoise" | "red", ColourLevels_Extended, Tokens_Internal.Default_ThemeBrightnessMode, readonly ["low", "average", "high", "max"], "default", never, never>>;
     /**
      * Configuration options for the {@link Tokens} class.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     interface Config<T_ExtraColourLevels extends ColourLevels_Extended = ColourLevels_Extended> {
         extraColourLevels: readonly T_ExtraColourLevels[];
@@ -531,15 +531,15 @@ export declare namespace Tokens {
         };
     };
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     namespace Themes {
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha.draft
          */
         namespace Set {
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-alpha.draft
              */
             namespace SingleMode {
                 interface JsonReturn<T_ColourName extends string = Tokens_Internal.Default_ColourName, T_ExtraColourLevels extends ColourLevels_Extended = Tokens_Internal.Default_ExtraColourLevels, T_ThemeKeyword_Universal extends string = never, T_ThemeKeyword_Text extends string = never> extends Tokens_Themes_Set_SingleMode.JsonReturn<T_ColourName, T_ExtraColourLevels, T_ThemeKeyword_Universal, T_ThemeKeyword_Text> {

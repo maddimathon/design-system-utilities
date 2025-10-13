@@ -123,8 +123,9 @@ export class Tokens<
             'low',
             'average',
             'high',
+            'max',
             ...(
-                input.themes?.contrast?.filter( c => c !== 'low' && c !== 'average' && c !== 'high' )
+                input.themes?.contrast?.filter( c => c !== 'low' && c !== 'average' && c !== 'high' && c !== 'max' )
                 ?? []
             ) as unknown as T_ThemeContrastMode_Extra,
         ] as const;
@@ -297,9 +298,9 @@ export namespace Tokens_Internal {
 
     export type Default_ThemeBrightnessMode = [ 'light', 'dark', ...string[] ];
 
-    export type Default_ThemeContrastMode = [ 'low', 'average', 'high' ];
+    export type Default_ThemeContrastMode = [ 'low', 'average', 'high', 'max' ];
 
-    export type Default_ThemeExtraContrastMode = [ 'low' ];
+    export type Default_ThemeExtraContrastMode = [];
 
     export type Data<
         T_ColourName extends string,

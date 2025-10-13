@@ -8,21 +8,21 @@
 /* import - types */
 import type { HTMLAttributes } from 'astro/types';
 import type { RecursiveRecord } from '../../ts/01-utilities/@types.d.ts';
-// import type { ColourLevels_Extended } from '../../ts/02-tokens/@types.d.ts';
+import type { ColourLevels } from '../../ts/02-tokens/@types.d.ts';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Themes_Set_SingleMode } from '../../ts/02-tokens/Themes/Themes_Set_SingleMode.js';
 
 /* import - functions */
 import { toTitleCase } from '@maddimathon/utility-typescript/functions';
-// import { objectFlatten } from '../../ts/01-utilities/objectFlatten.js';
 import { objectGenerator } from '../../ts/01-utilities/objectGenerator.js';
 import { objectMap } from '../../ts/01-utilities/objectMap.js';
+import { textColorLevel } from './ShadeSwatch.astro';
 
 /* import - values */
 
 /* import - components */
 import Heading from '@maddimathon/utility-astro/components/Heading';
-// import ShadeSwatch_Contrast from './ShadeSwatch_Contrast.astro';
+import Table from '@maddimathon/utility-astro/components/Table';
 import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
 
 /* import - layouts */
@@ -91,7 +91,7 @@ function themeTokenFlatten<T_Val extends string | number |undefined |null|any[]>
 const customDisplayKeys = ['background', 'button', 'field', 'selection', 'system'];
 
 const autoTokens = Object.values(
-    objectMap(theme, ({ key, value }) =>
+    objectMap(theme.data, ({ key, value }) =>
         customDisplayKeys.includes(key)
             ? false
             : (typeof value !== 'object' || Array.isArray( value ) )
@@ -106,6 +106,25 @@ const autoTokens = Object.values(
 const headingHTML = (await Astro.slots.render('heading')) || false;
 
 const heading = _heading + (headingHTML ? 1 : 0);
+
+const levelsInUse = theme.levelsInUse.map(
+    ( levels ) => ( {
+        levels,
+
+        styles: objectMap(
+            levels,
+            ( { value } ) => {
+
+                const textColor = textColorLevel( value as ColourLevels );
+                
+                return textColor && {
+                    background: `var(--clr-base-${value})`,
+                    color: `var(--clr-base-${textColor})`,
+                } ;
+            }
+        ),
+    } ),
+);
 
 
 type ButtonVariation = {
@@ -130,7 +149,7 @@ const buttons: {
 } & {
     [ key: string ]: ButtonVariation;
 } = objectMap(
-    theme.button,
+    theme.data.button,
     ( { key: variation, value } ): ButtonVariation => ( {
         name: variation,
         states: objectGenerator(
@@ -165,11 +184,11 @@ const buttons: {
 
 
 const field: {
-    [ K in keyof Tokens.Themes.Set.SingleMode.JsonReturn['field']['text'] ]: {
+    [ K in keyof Tokens.Themes.Set.SingleMode.JsonReturn['data']['field']['text'] ]: {
 
-        [ K in keyof Tokens.Themes.Set.SingleMode.JsonReturn['field'] ]: {
+        [ K in keyof Tokens.Themes.Set.SingleMode.JsonReturn['data']['field'] ]: {
             state: null | Exclude<
-                keyof Tokens.Themes.Set.SingleMode.JsonReturn['field']['text'],
+                keyof Tokens.Themes.Set.SingleMode.JsonReturn['data']['field']['text'],
                 '$'
             >;
             key: string;
@@ -185,20 +204,25 @@ const field: {
         const keySuffix = key == '$' ? '' : `-${key}`;
         
         return {
+            accent: {
+                state,
+                key: `field-accent${keySuffix}`,
+                value: theme.data.field.accent[key],
+            },
             bg: {
                 state,
                 key: `field-bg${keySuffix}`,
-                value: theme.field.bg[key],
+                value: theme.data.field.bg[key],
             },
             border: {
                 state,
                 key: `field-border${keySuffix}`,
-                value: theme.field.border[key],
+                value: theme.data.field.border[key],
             },
             text: {
                 state,
                 key: `field-text${keySuffix}`,
-                value: theme.field.text[key],
+                value: theme.data.field.text[key],
             },
         };
     }
@@ -225,37 +249,32 @@ const field: {
             />
         )
     }
-    <p
-        class="theme-mode-swatch__sample"
-    ><code set:text="theme-background" /> {equals} <code set:text={theme.background} />.</p>
+    { theme.description &&  <p set:html={theme.description} /> }
     <Heading
         heading={heading}
-        class:list={[
-            'screen-reader-text',
-            'theme-mode-swatch__set-heading',
-        ]}
-        set:text='Selection'
+        set:text='Tokens'
     />
     <p
-        class="theme-mode-swatch__sample theme-mode-swatch__sample--selection"
-    ><code set:text='theme-selection-bg' /> {equals} <code set:text={theme.selection.bg} /></p>
+        class="theme-mode-swatch__sample"
+    ><code set:text="theme-background" /> {equals} <code set:text={theme.data.background} />.</p>
     <p
         class="theme-mode-swatch__sample theme-mode-swatch__sample--selection"
-    ><code set:text='theme-selection-text' /> {equals} <code set:text={theme.selection.text} /></p>
+    ><code set:text='theme-selection-bg' /> {equals} <code set:text={theme.data.selection.bg} /></p>
+    <p
+        class="theme-mode-swatch__sample theme-mode-swatch__sample--selection"
+    ><code set:text='theme-selection-text' /> {equals} <code set:text={theme.data.selection.text} /></p>
     {
         autoTokens.map((tokens) => (
             <Heading
-                heading={heading}
-                class:list={['theme-mode-swatch__set-heading']}
+                heading={heading + 1}
                 set:text={`${tokens.key == 'ui' ? tokens.key.toUpperCase() : toTitleCase(tokens.key)} Tokens`}
             />
             <Fragment>{ tokens.variations ? tokens.variations.map( ( { key, value } ) => (
                 <p
                     class="theme-mode-swatch__sample"
                     style={ [
-                        `color: var(--${key}, var(--clr-${value}))`,
-                        // `color: var(--theme-background, var(--clr-${theme.background}))`,
-                    ].join(';') }
+                        !( value === 'transparent' || value === 'unset' ) && `color: var(--${key}, var(--clr-${value}))`,
+                    ].filter( v => v ).join(';') }
                 ><code set:text={key} /> {equals} <code set:text={value} /></p>
             ) ) : (
                 <VariableDump
@@ -266,20 +285,20 @@ const field: {
         ))
     }
     <Heading
-        heading={heading}
-        class:list={['theme-mode-swatch__set-heading']}
+        heading={heading + 1}
         set:text='Buttons'
     />
     { Object.values( buttons ).map( ( variation ) => (
         <Heading
-            heading={heading + 1}
+            heading={heading + 2}
             class:list='screen-reader-text'
             set:text={variation.name}
         />
-        <div class:list={['theme-mode-swatch__button-span']}>{ Object.values( variation.states ).map( ( state ) => (
+        <div class:list={['button-span | theme-mode-swatch__button-span']}>{ Object.values( variation.states ).map( ( state ) => (
             <a
                 href="#"
                 set:text={`${toTitleCase(variation.name)} Button${state.bg.state ? ` (${state.bg.state})` : ''}`}
+                aria-disabled={ variation.name === 'disabled' ? true : undefined }
                 class:list={ [
                     'button',
                     'theme-mode-swatch__sample',
@@ -294,8 +313,7 @@ const field: {
         ) ) }</div>
     ) ) }
     <Heading
-        heading={heading}
-        class:list={['theme-mode-swatch__set-heading']}
+        heading={heading + 1}
         set:text='Input Fields'
     />
     { Object.values( field ).map( ( state ) => (
@@ -307,13 +325,44 @@ const field: {
                 'theme-mode-swatch__sample--field',
             ] }
             style={ [
-                state.border.key == 'base' ?  '' : `--focus-ring-outline-color: var(--theme-${state.border.key}, var(--clr-${state.border.value}))`,
                 `border-color: var(--theme-${state.border.key}, var(--clr-${state.border.value}))`,
                 `background: var(--theme-${state.bg.key}, var(--clr-${state.bg.value}))`,
                 `color: var(--theme-${state.text.key}, var(--clr-${state.text.value}))`,
             ].join(';') }
         />
     ) ) }
+    { levelsInUse.length && (
+        <Heading
+            heading={heading}
+            set:text='Shades in Use'
+        />
+        <Table 
+            class:list={['theme-mode-swatch__shades-in-use']}
+        >
+            <tr>
+                <th set:text='Light Mode' />
+                <th set:text='Dark Mode' />
+            </tr>
+            { levelsInUse.map( ({ levels, styles }) => <tr>
+                <td 
+                    data-brightness-mode="light"
+                    set:text={levels.light}
+                    style={styles && [
+                        `background: ${styles.light.background}`,
+                        `color: ${styles.light.color}`,
+                    ].join(';')}
+                />
+                <td 
+                    data-brightness-mode="light"
+                    set:text={levels.dark}
+                    style={styles && [
+                        `background: ${styles.dark.background}`,
+                        `color: ${styles.dark.color}`,
+                    ].join(';')}
+                />
+            </tr> ) }
+        </Table>
+    ) }
 </article>
 
 <style lang='scss'>

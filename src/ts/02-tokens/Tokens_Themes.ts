@@ -251,7 +251,19 @@ export class Tokens_Themes<
         T_Keyword_Universal,
         T_Keyword_Text
     > {
-        return this.data;
+
+        return objectMap(
+            this.sets,
+            ( { value } ) => value.toJSON()
+        ) as Tokens_Themes.JsonReturn<
+            T_ColourName,
+            T_ExtraColourLevels,
+            T_ThemeBrightnessMode,
+            T_ThemeContrastMode,
+            T_ThemeName,
+            T_Keyword_Universal,
+            T_Keyword_Text
+        >;
     }
 
     public toScssVars(): {

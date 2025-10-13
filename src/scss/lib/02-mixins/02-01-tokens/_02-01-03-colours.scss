@@ -176,4 +176,15 @@ $_flattenedSystemColors: map.flatten($_systemColors);
             }
         }
     }
+
+    // for high-contrast modes
+    /* #region Tokens - Exceptions - high-contrast modes */
+    @include utils.colour-mode((high, max, forced-colors)) {
+        --focus-ring-outline-width: clamp(
+            #{border-width-value('200')},
+            #{stroke-relative-value('600')},
+            #{border-width-value('400')}
+        );
+    }
+    /* #endregion Tokens - Exceptions - high-contrast modes */
 }

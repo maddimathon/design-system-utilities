@@ -12,7 +12,7 @@
 // import * as z from 'zod';
 
 import type { RecursivePartial } from '@maddimathon/utility-typescript/types/objects';
-import { mergeArgs } from '@maddimathon/utility-typescript/functions';
+import { arrayUnique, mergeArgs } from '@maddimathon/utility-typescript/functions';
 
 import type {
     ColourLevels_Extended,
@@ -23,6 +23,9 @@ import type {
     ThemeColourOption,
 } from '../@types.js';
 
+import type { RecursiveRecord } from '../../01-utilities/@types.js';
+
+import { objectFlatten } from '../../01-utilities/objectFlatten.js';
 import { objectGenerator } from '../../01-utilities/objectGenerator.js';
 import { objectMap } from '../../01-utilities/objectMap.js';
 
@@ -89,7 +92,7 @@ export class Tokens_Themes_Set_SingleMode<
         T_Keyword_Universal extends string = never,
         T_Keyword_Text extends string = never,
     >(
-        preset: "low" | "average" | "high",
+        preset: "low" | "average" | "high" | "max",
         clrNames: readonly T_ColourName[],
         input: Tokens_Themes_Set_SingleMode.InputParam<
             T_ColourName,
@@ -127,7 +130,7 @@ export class Tokens_Themes_Set_SingleMode<
         T_Keyword_Universal extends string = never,
         T_Keyword_Text extends string = never,
     >(
-        preset: "low" | "average" | "forcedColors" | "high",
+        preset: "low" | "average" | "high" | "max" | "forcedColors",
         clrNames: readonly T_ColourName[],
         input: Tokens_Themes_Set_SingleMode.InputParam<
             T_ColourName,
@@ -169,21 +172,25 @@ export class Tokens_Themes_Set_SingleMode<
 
         const clrOpt = Tokens_Themes_Set_SingleMode.Build.colourOption;
 
+        let description: null | string = null;
+
         // returns if forced colours
         switch ( preset ) {
 
             case 'average':
+                description = 'This is the default contrast mode for most users, unless they have defined a specific preference (‘low’, ‘high’, or ‘forced-colors’) in their OS or browser settings.  It meets or exceeds WCAG AAA contrast standards.';
+
                 defaultLevels = {
-                    background: '100',
+                    background: '150',
                     text: {
-                        $: '800',
-                        accent: '700',
+                        $: '750',
+                        accent: '650',
                         min: '650',
                     },
                     ui: {
                         $: '700',
-                        accent: '650',
-                        min: '600',
+                        accent: '600',
+                        min: '650',
                     },
                     heading: objectGenerator(
                         Tokens_Themes_Set_SingleMode.allHeadingLevels,
@@ -193,7 +200,7 @@ export class Tokens_Themes_Set_SingleMode<
                             switch ( hdgNum ) {
 
                                 case 1:
-                                    return '800';
+                                    return '750';
 
                                 case 2:
                                 case 3:
@@ -217,73 +224,30 @@ export class Tokens_Themes_Set_SingleMode<
                 ) );
 
                 overrides.selection = {
-                    bg: clrOpt( variations.universal.primary, '500' as T_ExtraColourLevels | ColourLevels ),
+                    bg: clrOpt( variations.universal.primary, '600' as T_ExtraColourLevels | ColourLevels ),
                     text: clrOpt( variations.base, '900' as T_ExtraColourLevels | ColourLevels ),
                     ...overrides.selection,
                 };
                 break;
 
-            case 'high':
-                defaultLevels = {
-                    background: '100',
-                    text: {
-                        $: '900',
-                        accent: '800',
-                        min: '800',
-                    },
-                    ui: {
-                        $: '800',
-                        accent: '800',
-                        min: '700',
-                    },
-                    heading: objectGenerator(
-                        Tokens_Themes_Set_SingleMode.allHeadingLevels,
-                        () => '800'
-                    ),
-                };
-
-                levels = Tokens_Themes_Set_SingleMode.Build.completeLevels<
-                    T_ColourName,
-                    T_ExtraColourLevels,
-                    T_Keyword_Universal,
-                    T_Keyword_Text
-                >( mergeArgs(
-                    defaultLevels,
-                    input.levels as Partial<Tokens_Themes_Set_SingleMode.RequiredLevels<never>>,
-                    true
-                ) );
-                break;
-
             case 'low':
+                description = 'This is the low contrast mode.  This is the default for users who set ‘low’ as their preferred contrast mode in OS or browser settings.  It mostly meets WCAG AA contrast standards, but in rare cases does not (which is acceptable in this case).';
+
                 defaultLevels = {
-                    background: '150',
+                    background: '300',
                     text: {
-                        $: '800',
-                        accent: '650',
-                        min: '600',
+                        $: '700',
+                        accent: '700',
+                        min: '650',
                     },
                     ui: {
-                        $: '700',
+                        $: '650',
                         accent: '600',
                         min: '600',
                     },
                     heading: objectGenerator(
                         Tokens_Themes_Set_SingleMode.allHeadingLevels,
-                        ( hdgNum ) => {
-
-                            // returns on match
-                            switch ( hdgNum ) {
-
-                                case 1:
-                                    return '700';
-
-                                case 2:
-                                case 3:
-                                    return '650';
-                            }
-
-                            return '600';
-                        }
+                        ( hdgNum ) => hdgNum <= 1 ? '600' : hdgNum <= 3 ? '650' : '700',
                     ),
                 };
 
@@ -299,8 +263,94 @@ export class Tokens_Themes_Set_SingleMode<
                 ) );
 
                 overrides.selection = {
-                    bg: clrOpt( variations.universal.primary, '400' as T_ExtraColourLevels | ColourLevels ),
-                    text: clrOpt( variations.base, '900' as T_ExtraColourLevels | ColourLevels ),
+                    bg: clrOpt( variations.universal.primary, '600' as T_ExtraColourLevels | ColourLevels ),
+                    text: clrOpt( variations.base, '850' as T_ExtraColourLevels | ColourLevels ),
+                    ...overrides.selection,
+                };
+                break;
+
+            case 'high':
+                description = 'This is the high contrast mode.  This is the default for users who set ‘high’ as their preferred contrast mode in OS or browser settings.  It exceeds WCAG AAA contrast standards.';
+
+                defaultLevels = {
+                    background: '100',
+                    text: {
+                        $: '850',
+                        accent: '750',
+                        min: '700',
+                    },
+                    ui: {
+                        $: '750',
+                        accent: '700',
+                        min: '700',
+                    },
+                    heading: objectGenerator(
+                        Tokens_Themes_Set_SingleMode.allHeadingLevels,
+                        ( hdgNum ) => {
+
+                            // returns on match
+                            switch ( hdgNum ) {
+
+                                case 1:
+                                    return '700';
+
+                                case 2:
+                                case 3:
+                                    return '750';
+                            }
+
+                            return '800';
+                        }
+                    ),
+                };
+
+                levels = Tokens_Themes_Set_SingleMode.Build.completeLevels<
+                    T_ColourName,
+                    T_ExtraColourLevels,
+                    T_Keyword_Universal,
+                    T_Keyword_Text
+                >( mergeArgs(
+                    defaultLevels,
+                    input.levels as Partial<Tokens_Themes_Set_SingleMode.RequiredLevels<never>>,
+                    true
+                ) );
+                break;
+
+            case 'max':
+                description = 'This is the maximum contrast mode.  This is an alternate option for users who want an even higher contrast than the ‘high’ mode, but without enabling ‘forced-colors’ mode.  It exceeds WCAG AAA contrast standards.';
+
+                defaultLevels = {
+                    background: '100',
+                    text: {
+                        $: '900',
+                        accent: '850',
+                        min: '850',
+                    },
+                    ui: {
+                        $: '850',
+                        accent: '850',
+                        min: '800',
+                    },
+                    heading: objectGenerator(
+                        Tokens_Themes_Set_SingleMode.allHeadingLevels,
+                        () => '850'
+                    ),
+                };
+
+                levels = Tokens_Themes_Set_SingleMode.Build.completeLevels<
+                    T_ColourName,
+                    T_ExtraColourLevels,
+                    T_Keyword_Universal,
+                    T_Keyword_Text
+                >( mergeArgs(
+                    defaultLevels,
+                    input.levels as Partial<Tokens_Themes_Set_SingleMode.RequiredLevels<never>>,
+                    true
+                ) );
+
+                overrides.selection = {
+                    bg: clrOpt( variations.universal.primary, '800' as T_ExtraColourLevels | ColourLevels ),
+                    text: clrOpt( variations.base, '100' as T_ExtraColourLevels | ColourLevels ),
                     ...overrides.selection,
                 };
                 break;
@@ -323,11 +373,35 @@ export class Tokens_Themes_Set_SingleMode<
                 };
 
                 return new Tokens_Themes_Set_SingleMode(
+                    'This is the forced colours contrast mode, which is a mode only applied for users with this accessibility featured enabled in their OS settings.  It cannot be manually selected.  This mode uses System Colour keywords, which lets users apply custom colours to websites.  This is very important for accessibility!',
+                    [],
                     await Tokens_Themes_Set_SingleMode.Build.forcedColors( _input )
                 );
         }
 
+        const levelsInUse = (
+            Object.values(
+                objectFlatten( levels as unknown as RecursiveRecord<string, ColourLevels | ColourLevels_Extended> )
+            ) as ( ColourLevels | ColourLevels_Extended )[]
+        ).concat(
+            Object.values(
+                objectFlatten( overrides as unknown as RecursiveRecord<string, ThemeColourOption<T_ColourName, T_ExtraColourLevels>> )
+            ).map( ( val ): ColourLevels | ColourLevels_Extended | false => {
+
+                const match = String( val ).match( /\-(\d+)$/ );
+
+                // returns
+                if ( match && match[ 1 ] ) {
+                    return match[ 1 ] as ColourLevels | ColourLevels_Extended;
+                }
+
+                return false;
+            } ).filter( v => v !== false )
+        );
+
         return new Tokens_Themes_Set_SingleMode(
+            description,
+            arrayUnique( levelsInUse ).sort(),
             mergeArgs(
                 await Tokens_Themes_Set_SingleMode.Build.data<
                     T_ColourName,
@@ -350,6 +424,8 @@ export class Tokens_Themes_Set_SingleMode<
     }
 
     protected constructor (
+        public readonly description: null | string,
+        public readonly levelsInUse: ( ColourLevels | ColourLevels_Extended )[],
         public readonly data: Tokens_Themes_Set_SingleMode.Data<
             T_ColourName,
             T_ExtraColourLevels,
@@ -365,9 +441,26 @@ export class Tokens_Themes_Set_SingleMode<
         T_ColourName,
         T_ExtraColourLevels,
         T_Keyword_Universal,
-        T_Keyword_Text
+        T_Keyword_Text,
+        __T_ColourOption
     > {
-        return this.data;
+
+        const levelsInUse = this.levelsInUse.map( ( level ) => {
+
+            const dark = ( 1000 - Number( level ) ).toFixed( 0 );
+
+            return {
+                light: level,
+                dark: dark.padStart( Math.max( 0, 3 - dark.length ), '0' ) as ColourLevels | ColourLevels_Extended,
+            };
+        } );
+
+        return {
+            description: this.description ?? undefined,
+            data: this.data,
+
+            levelsInUse,
+        };
     }
 
     public toScssVars() {
@@ -881,13 +974,20 @@ export namespace Tokens_Themes_Set_SingleMode {
         T_Keyword_Text extends string,
 
         __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>,
-    > = Data<
-        T_ColourName,
-        T_ExtraColourLevels,
-        T_Keyword_Universal,
-        T_Keyword_Text,
-        __T_ColourOption
-    >;
+    > = {
+        description?: undefined | string;
+        data: Data<
+            T_ColourName,
+            T_ExtraColourLevels,
+            T_Keyword_Universal,
+            T_Keyword_Text,
+            __T_ColourOption
+        >;
+        levelsInUse: {
+            light: ColourLevels | ColourLevels_Extended;
+            dark: ColourLevels | ColourLevels_Extended;
+        }[];
+    };
 
 
 
@@ -1392,7 +1492,7 @@ export namespace Tokens_Themes_Set_SingleMode {
             };
 
             const complete: CompleteData = {
-                background: sysclr.text,
+                background: sysclr.background,
 
                 text,
                 ui,

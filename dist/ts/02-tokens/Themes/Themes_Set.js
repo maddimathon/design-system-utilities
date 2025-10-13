@@ -1,20 +1,21 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@___CURRENT_VERSION___
+ * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
 import { objectGeneratorAsync } from '../../01-utilities/objectGenerator.js';
 import { objectMap } from '../../01-utilities/objectMap.js';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
 import { Tokens_Themes_Set_SingleMode } from './Themes_Set_SingleMode.js';
+import { arrayUnique } from '@maddimathon/utility-typescript/functions';
 /**
  * Generates a complete token object for the design system.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export class Tokens_Themes_Set extends AbstractTokens {
     name;
@@ -53,7 +54,18 @@ export class Tokens_Themes_Set extends AbstractTokens {
         this.modes = modes;
     }
     toJSON() {
-        return this.data;
+        const levelsInUse = arrayUnique(Object.values(objectMap(this.modes, ({ key: brightnessMode }) => Object.values(objectMap(this.modes[brightnessMode], ({ value }) => value.levelsInUse)).flat())).flat());
+        const levelsInUse_dark = levelsInUse.map((level) => {
+            const dark = (1000 - Number(level)).toFixed(0);
+            return dark.padStart(Math.max(0, 3 - dark.length), '0');
+        });
+        return {
+            name: this.name,
+            // ...this.modes,
+            ...objectMap(this.modes, ({ key: brightnessMode }) => objectMap(this.modes[brightnessMode], ({ value }) => value.toJSON())),
+            forcedColours: this.forcedColours.toJSON(),
+            levelsInUse: arrayUnique(levelsInUse.concat(levelsInUse_dark)).sort(),
+        };
     }
     toScssVars() {
         return {

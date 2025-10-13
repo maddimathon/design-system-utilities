@@ -1,10 +1,10 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@___CURRENT_VERSION___
+ * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
 // import { JsonToScss } from '@maddimathon/utility-sass';
@@ -16,7 +16,7 @@ import { Tokens_Colour_ShadeMap } from './Colour/Colour_ShadeMap.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export class Tokens_Colour extends AbstractTokens {
     allNames;
@@ -31,7 +31,7 @@ export class Tokens_Colour extends AbstractTokens {
     /**
      * Adds contrast tests to all the colour maps.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     async addContrastTests() {
         for (const t_colourName in this.data) {

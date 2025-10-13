@@ -1,10 +1,10 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@___CURRENT_VERSION___
+ * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
 import type { RecursivePartial } from '@maddimathon/utility-typescript/types/objects/partial';
@@ -15,7 +15,7 @@ import { AbstractTokens } from './abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
     protected readonly spacing: Tokens_Spacing;
@@ -81,12 +81,12 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
 /**
  * Utilities for the {@link Tokens_Typography} class.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export declare namespace Tokens_Typography {
     type DefaultLineHeightLevels = "100" | "200" | "300" | "400" | "500" | "600";
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     export type Data<T_SizeValue = number> = {
         lineHeight: {
@@ -114,14 +114,14 @@ export declare namespace Tokens_Typography {
         };
     };
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     export type InputParam = Partial<Omit<Data, 'lineHeight' | 'size'>> & {
         size?: RecursivePartial<Data['size']>;
         lineHeight?: Partial<Data['lineHeight']>;
     };
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     export type JsonReturn = Data<{
         rem: number;

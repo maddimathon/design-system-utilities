@@ -40,11 +40,14 @@ export interface Props<
     
     colour: Tokens_Colour.JsonReturn<T_ColourName, T_ExtraLevels>;
 
+    excludeLevels?: ( ColourLevels | T_ExtraLevels )[];
+
     frontmatter?: Omit<Props<T_ColourName, T_ExtraLevels>, 'frontmatter'>;
 }
 
 const {
     id,
+    excludeLevels = [],
     ...props
 }: Props = Astro.props.frontmatter ?? Astro.props;
 
@@ -111,6 +114,20 @@ const rawGoals: {
         max: '900',
     },
 
+    '250': {
+        min: {
+            aa: {
+                ui: '600',
+                text: '650',
+            },
+            aaa: {
+                ui: '650',
+                text: '750',
+            },
+        },
+        max: '900',
+    },
+
     '300': {
         min: {
             aa: {
@@ -129,10 +146,10 @@ const rawGoals: {
         min: {
             aa: {
                 ui: '650',
-                text: '800',
+                text: '750',
             },
             aaa: {
-                ui: '800',
+                ui: '750',
                 text: '850',
             },
         },
@@ -185,10 +202,10 @@ const rawGoals: {
         min: {
             aa: {
                 ui: '350',
-                text: '200',
+                text: '250',
             },
             aaa: {
-                ui: '200',
+                ui: '250',
                 text: '150',
             },
         },
@@ -204,6 +221,20 @@ const rawGoals: {
             aaa: {
                 ui: '300',
                 text: '200',
+            },
+        },
+        max: '100',
+    },
+
+    '750': {
+        min: {
+            aa: {
+                ui: '400',
+                text: '350',
+            },
+            aaa: {
+                ui: '350',
+                text: '250',
             },
         },
         max: '100',
@@ -257,7 +288,7 @@ const goalLevels = objectMap(
     <L extends ColourLevels>( { 
         key: targetLevel, 
         value,
-     }: { key: L; value: typeof rawGoals[L] } ): {
+    }: { key: L; value: typeof rawGoals[L] } ): false | {
         level: L,
         textLevel: ColourLevels,
         min: {
@@ -274,6 +305,10 @@ const goalLevels = objectMap(
         },
         max: ColourLevels,
     } => {
+        // returns - don't include
+        if ( excludeLevels.includes( targetLevel ) ) {
+            return false;
+        }
         
         return {
             level: targetLevel,
@@ -318,7 +353,7 @@ const goalLevels = objectMap(
                         class="screen-reader-text"
                         set:text='contrast targets'
                     />
-                    <Fragment>{ Object.values( goalLevels ).map( (set) => <td>
+                    <Fragment>{ Object.values( goalLevels ).map( (set) => set && <td>
                         <article
                             class:list={['container', 'shade-swatch']}
                             data-brightness-mode='light'
@@ -445,23 +480,21 @@ const goalLevels = objectMap(
                         class="screen-reader-text"
                         set:text={name}
                     />
-                    {map.map(({ level, values }) => (
-                        <td>
-                            <ShadeSwatch 
-                                bases={props.colour.base}
-                                contrastIsCondensed={true}
-                                id={id}
-                                level={level}
-                                name={name} 
-                                values={{
-                                    ...values,
-                                    hsl: import.meta.env.DEV ? values.hsl : undefined,
-                                    lch: import.meta.env.DEV ? values.lch : undefined,
-                                    rgb: undefined,
-                                }}
-                            />
-                        </td> 
-                    ))}
+                    {map.map(({ level, values }) => !( excludeLevels.includes( level ) ) && <td>
+                        <ShadeSwatch 
+                            bases={props.colour.base}
+                            contrastIsCondensed={true}
+                            id={id}
+                            level={level}
+                            name={name} 
+                            values={{
+                                ...values,
+                                hsl: import.meta.env.DEV ? values.hsl : undefined,
+                                lch: import.meta.env.DEV ? values.lch : undefined,
+                                rgb: undefined,
+                            }}
+                        />
+                    </td> )}
                 </tr>
             ))}
             </table>

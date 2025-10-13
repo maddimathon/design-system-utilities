@@ -1,10 +1,10 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@___CURRENT_VERSION___
+ * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
 import type { ColourLevels_Extended, ColourLevels, ColourTokenSlug, CssSystemColor, RequiredHeadingLevels, ThemeColourOption } from '../@types.js';
@@ -12,14 +12,16 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_Keyword_Universal extends string, T_Keyword_Text extends string, __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>> extends AbstractTokens<Tokens_Themes_Set_SingleMode.Data<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, __T_ColourOption>> {
+    readonly description: null | string;
+    readonly levelsInUse: (ColourLevels | ColourLevels_Extended)[];
     readonly data: Tokens_Themes_Set_SingleMode.Data<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, __T_ColourOption>;
     static build<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_Keyword_Universal extends string = never, T_Keyword_Text extends string = never>(preset: "forcedColors", clrNames: readonly T_ColourName[], input: Tokens_Themes_Set_SingleMode.InputParam<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, CssSystemColor>, overrides?: Tokens_Themes_Set_SingleMode.Data_RecursivePartial<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text>): Promise<Tokens_Themes_Set_SingleMode<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, CssSystemColor>>;
-    static build<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_Keyword_Universal extends string = never, T_Keyword_Text extends string = never>(preset: "low" | "average" | "high", clrNames: readonly T_ColourName[], input: Tokens_Themes_Set_SingleMode.InputParam<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, ThemeColourOption<T_ColourName, T_ExtraColourLevels>>, overrides?: Tokens_Themes_Set_SingleMode.Data_RecursivePartial<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text>): Promise<Tokens_Themes_Set_SingleMode<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, ThemeColourOption<T_ColourName, T_ExtraColourLevels>>>;
-    protected constructor(data: Tokens_Themes_Set_SingleMode.Data<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, __T_ColourOption>);
-    toJSON(): Tokens_Themes_Set_SingleMode.JsonReturn<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text>;
+    static build<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_Keyword_Universal extends string = never, T_Keyword_Text extends string = never>(preset: "low" | "average" | "high" | "max", clrNames: readonly T_ColourName[], input: Tokens_Themes_Set_SingleMode.InputParam<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, ThemeColourOption<T_ColourName, T_ExtraColourLevels>>, overrides?: Tokens_Themes_Set_SingleMode.Data_RecursivePartial<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text>): Promise<Tokens_Themes_Set_SingleMode<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, ThemeColourOption<T_ColourName, T_ExtraColourLevels>>>;
+    protected constructor(description: null | string, levelsInUse: (ColourLevels | ColourLevels_Extended)[], data: Tokens_Themes_Set_SingleMode.Data<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, __T_ColourOption>);
+    toJSON(): Tokens_Themes_Set_SingleMode.JsonReturn<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, __T_ColourOption>;
     toScssVars(): {
         system: {
             background: __T_ColourOption;
@@ -167,7 +169,7 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T
 /**
  * Utilities for the {@link Tokens_Themes_Set_SingleMode} class.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export declare namespace Tokens_Themes_Set_SingleMode {
     export const allHeadingLevels: readonly [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -189,7 +191,7 @@ export declare namespace Tokens_Themes_Set_SingleMode {
         };
     }
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     export interface Data<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_Keyword_Universal extends string, T_Keyword_Text extends string, __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>> {
         background: __T_ColourOption;
@@ -280,7 +282,7 @@ export declare namespace Tokens_Themes_Set_SingleMode {
         };
     }
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     export interface Data_RecursivePartial<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_Keyword_Universal extends string, T_Keyword_Text extends string, __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>> {
         background?: undefined | __T_ColourOption;
@@ -408,7 +410,7 @@ export declare namespace Tokens_Themes_Set_SingleMode {
     /**
      * This is used by the build function, not by the constructor.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
     export interface InputParam<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_Keyword_Universal extends string, T_Keyword_Text extends string, __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>> {
         levels?: {
@@ -433,26 +435,33 @@ export declare namespace Tokens_Themes_Set_SingleMode {
         };
     }
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      */
-    export type JsonReturn<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_Keyword_Universal extends string, T_Keyword_Text extends string, __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>> = Data<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, __T_ColourOption>;
+    export type JsonReturn<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_Keyword_Universal extends string, T_Keyword_Text extends string, __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>> = {
+        description?: undefined | string;
+        data: Data<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, __T_ColourOption>;
+        levelsInUse: {
+            light: ColourLevels | ColourLevels_Extended;
+            dark: ColourLevels | ColourLevels_Extended;
+        }[];
+    };
     /**
      * Used by the {@link Tokens_Themes_Set_SingleMode.build} static function,
      * not meant to be exposed through the API.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha.draft
      * @internal
      */
     export namespace Build {
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha.draft
          */
         interface Param<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_Keyword_Universal extends string, T_Keyword_Text extends string> {
             levels: RequiredLevels<T_ExtraColourLevels>;
             variations: AllVariations<T_ColourName, T_Keyword_Universal, T_Keyword_Text>;
         }
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha.draft
          */
         interface Param_ForcedColors<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_Keyword_Universal extends string, T_Keyword_Text extends string> {
             levels?: InputParam<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text>['levels'];
@@ -464,13 +473,13 @@ export declare namespace Tokens_Themes_Set_SingleMode {
         /**
          * An easy way to generate a complete token set from limited inputs.
          *
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha.draft
          */
         function data<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_Keyword_Universal extends string = never, T_Keyword_Text extends string = never>(input: Param<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text>): Promise<Data<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text>>;
         /**
          * An easy way to generate a complete token set from limited inputs.
          *
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha.draft
          */
         function forcedColors<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_Keyword_Universal extends string = never, T_Keyword_Text extends string = never>(input: Param_ForcedColors<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text>): Promise<Data<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, CssSystemColor>>;
     }

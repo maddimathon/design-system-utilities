@@ -1,10 +1,10 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@___CURRENT_VERSION___
+ * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
 // import { JsonToScss } from '@maddimathon/utility-sass';
@@ -16,7 +16,7 @@ import { Tokens_Themes_Set } from './Themes/Themes_Set.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.draft
  */
 export class Tokens_Themes extends AbstractTokens {
     clrNames;
@@ -58,7 +58,7 @@ export class Tokens_Themes extends AbstractTokens {
         this.sets = sets;
     }
     toJSON() {
-        return this.data;
+        return objectMap(this.sets, ({ value }) => value.toJSON());
     }
     toScssVars() {
         return objectMap(this.sets, ({ value }) => value.toScssVars());

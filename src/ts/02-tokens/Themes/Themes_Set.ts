@@ -15,6 +15,7 @@ import type {
     CssSystemColor,
     ThemeMode_ContrastOption,
     ColourLevels_Extended,
+    ColourLevels,
 } from '../@types.js';
 
 import { objectGeneratorAsync } from '../../01-utilities/objectGenerator.js';
@@ -23,6 +24,7 @@ import { objectMap } from '../../01-utilities/objectMap.js';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
 
 import { Tokens_Themes_Set_SingleMode } from './Themes_Set_SingleMode.js';
+import { arrayUnique } from '@maddimathon/utility-typescript/functions';
 
 /**
  * Generates a complete token object for the design system.
@@ -80,18 +82,34 @@ export class Tokens_Themes_Set<
         >,
     ) {
 
-        const forcedColours = await Tokens_Themes_Set_SingleMode.build(
+        const forcedColours: Tokens_Themes_Set_SingleMode<
+            T_ColourName,
+            T_ExtraColourLevels,
+            T_Keyword_Universal,
+            T_Keyword_Text,
+            CssSystemColor
+        > = await Tokens_Themes_Set_SingleMode.build(
             'forcedColors',
             clrNames,
             input.forcedColours ?? {},
         );
 
-        const modes = await objectGeneratorAsync(
+        const modes: {
+            [ B in T_ThemeBrightnessMode ]: {
+                [ C in T_ThemeContrastMode ]:
+                Tokens_Themes_Set_SingleMode<
+                    T_ColourName,
+                    T_ExtraColourLevels,
+                    T_Keyword_Universal,
+                    T_Keyword_Text
+                >;
+            };
+        } = await objectGeneratorAsync(
             brightnessModes,
-            async ( brightness: T_ThemeBrightnessMode[ number ] ) =>
+            async ( brightness: T_ThemeBrightnessMode ) =>
                 objectGeneratorAsync(
                     contrastModes,
-                    async ( contrast: T_ThemeContrastMode[ number ] ) =>
+                    async ( contrast: T_ThemeContrastMode ) =>
                         Tokens_Themes_Set_SingleMode.build<
                             T_ColourName,
                             T_ExtraColourLevels,
@@ -105,7 +123,16 @@ export class Tokens_Themes_Set<
                 )
         );
 
-        return new Tokens_Themes_Set(
+        return new Tokens_Themes_Set<
+            T_ColourName,
+            T_ExtraColourLevels,
+            readonly T_ThemeBrightnessMode[],
+            readonly T_ThemeContrastMode[],
+            T_ThemeName,
+
+            T_Keyword_Universal,
+            T_Keyword_Text
+        >(
             name,
             clrNames,
             extraColourLevels,
@@ -182,7 +209,44 @@ export class Tokens_Themes_Set<
         T_Keyword_Universal,
         T_Keyword_Text
     > {
-        return this.data;
+
+        const levelsInUse = arrayUnique( (
+            Object.values(
+                objectMap(
+                    this.modes,
+                    ( { key: brightnessMode } ) => Object.values(
+                        objectMap(
+                            this.modes[ brightnessMode ],
+                            ( { value } ) => value.levelsInUse
+                        )
+                    ).flat()
+                )
+            ) as ( ColourLevels | ColourLevels_Extended )[][]
+        ).flat() );
+
+        const levelsInUse_dark = levelsInUse.map( ( level ) => {
+
+            const dark = ( 1000 - Number( level ) ).toFixed( 0 );
+
+            return dark.padStart( Math.max( 0, 3 - dark.length ), '0' ) as ColourLevels | ColourLevels_Extended;
+        } );
+
+        return {
+            name: this.name,
+
+            // ...this.modes,
+            ...objectMap(
+                this.modes,
+                ( { key: brightnessMode } ) => objectMap(
+                    this.modes[ brightnessMode ],
+                    ( { value } ) => value.toJSON()
+                )
+            ),
+
+            forcedColours: this.forcedColours.toJSON(),
+
+            levelsInUse: arrayUnique( levelsInUse.concat( levelsInUse_dark ) ).sort(),
+        };
     }
 
     public toScssVars(): {
@@ -301,6 +365,7 @@ export namespace Tokens_Themes_Set {
         T_Keyword_Text extends string,
     > = {
         name: T_ThemeName;
+        levelsInUse: ( ColourLevels | ColourLevels_Extended )[];
         forcedColours: Tokens_Themes_Set_SingleMode.JsonReturn<
             T_ColourName,
             T_ExtraColourLevels,

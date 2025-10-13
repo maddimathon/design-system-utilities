@@ -1,6 +1,6 @@
 ///
-/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
-/// @since ___PKG_VERSION___
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
 ///
 
 @use 'pkg:@maddimathon/utility-sass/list';
@@ -21,9 +21,6 @@ $activeTheme: config.config-valid-string(
     $options: $_themeNames
 );
 
-$_brightnessMode_options: ('light', 'dark');
-$_contrastMode_options: ('low', 'average', 'high', 'forced-colors');
-
 $brightnessMode_all: list.except(
     map.keys(map.get(default.$themes, $activeTheme)),
     'forced-colors'
@@ -37,9 +34,16 @@ $brightnessMode_default: config.config-valid-string(
     $options: $brightnessMode_all,
 );
 
-$contrastMode_all: list.join(
-    map.keys(map.get(default.$themes, $activeTheme, $brightnessMode_default)),
-    ('forced-colors')
+$contrastMode_all: list.unique(
+    list.join(
+        ('average'),
+        list.join(
+            map.keys(
+                map.get(default.$themes, $activeTheme, $brightnessMode_default)
+            ),
+            ('forced-colors')
+        )
+    )
 );
 
 $contrastMode_default: null !default;
