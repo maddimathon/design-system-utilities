@@ -89,31 +89,28 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
         else if (!('100' in part) && !('900' in part) || !(part['100'] && part['900'])) {
             // if these core colours aren't set, we have to generate them or the
             // reset of the system will break
-            // TODO - generate these from whatever existing keys
-            _l_100 = shadeMaker('100', bases['100']);
-            _l_900 = shadeMaker('900', bases['900']);
             if (inputKeys.length > 0) {
                 const _hue = Object.values(part).map(p => ColourUtilities.toLCH(p).h).reduce((partialSum, a) => partialSum + a, 0) / Math.max(1, inputKeys.length);
-                _l_100 = shadeMaker('100', {
+                _l_100 = shadeMaker('100', part['100'] ?? {
                     l: bases['100'].l,
                     c: 5,
                     h: _hue,
                 });
-                _l_900 = shadeMaker('900', {
+                _l_900 = shadeMaker('900', part['900'] ?? {
                     l: bases['900'].l,
                     c: 4,
                     h: _hue,
                 });
             }
             else {
-                _l_100 = shadeMaker('100', bases['100']);
-                _l_900 = shadeMaker('900', bases['900']);
+                _l_100 = shadeMaker('100', part['100'] ?? bases['100']);
+                _l_900 = shadeMaker('900', part['900'] ?? bases['900']);
             }
         }
         else {
             // now we can safely assume these exist
-            _l_100 = shadeMaker('100', part['100']);
-            _l_900 = shadeMaker('900', part['900']);
+            _l_100 = shadeMaker('100', part['100'] ?? bases['100']);
+            _l_900 = shadeMaker('900', part['900'] ?? bases['900']);
         }
         const l_100 = _l_100;
         const l_900 = _l_900;
@@ -124,12 +121,14 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
             : part['500']));
         const l_300 = shadeMaker('300', ((!('300' in part) || !part['300'])
             // we should merge it from what's available
-            ? ColourUtilities.mixColours(l_100, l_500, 1.5)
+            ? ColourUtilities.mixColours(l_100, l_500, name == 'base' ? 0 : 0.375)
+            // ? ColourUtilities.mixColours( l_100, l_500 )
             // otherwise we can safely assume this exists
             : part['300']));
         const l_700 = shadeMaker('700', ((!('700' in part) || !part['700'])
             // we should merge it from what's available
-            ? ColourUtilities.mixColours(l_500, l_900, 1.5)
+            ? ColourUtilities.mixColours(l_500, l_900, name == 'base' ? 0 : 0.375)
+            // ? ColourUtilities.mixColours( l_500, l_900 )
             // otherwise we can safely assume this exists
             : part['700']));
         const l_200 = shadeMaker('200', ((!('200' in part) || !part['200'])

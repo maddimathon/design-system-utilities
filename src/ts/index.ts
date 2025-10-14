@@ -15,7 +15,12 @@
 
 export type * from './01-utilities/@types.d.ts';
 
+export * from './01-utilities/ColourUtilities.js';
 export * from './01-utilities/makeRelativeURL.js';
+export * from './01-utilities/objectFlatten.js';
+export * from './01-utilities/objectGenerator.js';
+export * from './01-utilities/objectMap.js';
+export * from './01-utilities/roundToPixel.js';
 
 export { Tokens } from './02-tokens/Tokens.js';
 

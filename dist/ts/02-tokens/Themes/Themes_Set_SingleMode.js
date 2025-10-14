@@ -73,7 +73,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 defaultLevels = {
                     background: isLightMode ? '300' : '200',
                     text: {
-                        $: isLightMode ? '700' : '650',
+                        $: isLightMode ? '750' : '650',
                         accent: isLightMode ? '700' : '600',
                         min: isLightMode ? '650' : '600',
                     },

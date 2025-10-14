@@ -16,11 +16,6 @@
 
 export * from './01-utilities/arrayToUnionSchema.js';
 export * from './01-utilities/ColourContrastTest.js';
-export * from './01-utilities/ColourUtilities.js';
-export * from './01-utilities/objectFlatten.js';
-export * from './01-utilities/objectGenerator.js';
-export * from './01-utilities/objectMap.js';
-export * from './01-utilities/roundToPixel.js';
 
 export type { Tokens_Internal } from './02-tokens/Tokens.js';
 

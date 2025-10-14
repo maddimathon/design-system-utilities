@@ -63,11 +63,12 @@ export class Tokens_Themes<
         extraColourLevels: readonly T_ExtraColourLevels[],
         brightnessModes: readonly T_ThemeBrightnessMode[],
         contrastModes: readonly T_ThemeContrastMode[],
+
         input: Tokens_Themes.InputParam<
-            T_ColourName,
-            T_ExtraColourLevels,
-            T_ThemeBrightnessMode,
-            T_ThemeContrastMode,
+            NoInfer<T_ColourName>,
+            NoInfer<T_ExtraColourLevels>,
+            NoInfer<T_ThemeBrightnessMode>,
+            NoInfer<T_ThemeContrastMode>,
             T_ThemeName,
             T_Keyword_Universal,
             T_Keyword_Text

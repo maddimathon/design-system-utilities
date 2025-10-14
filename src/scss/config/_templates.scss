@@ -1,0 +1,15 @@
+///
+/// @package @maddimathon/utility-astro@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'utility-astro' as utils;
+
+$print_docs: false !default;
+$print_docs: utils.config-valid-bool($print_docs, 'print_docs');
+
+$print_astro_stickyNav: utils.$print_astro and $print_docs !default;
+$print_astro_stickyNav: utils.config-valid-bool(
+    $print_astro_stickyNav,
+    'print_astro_stickyNav'
+);

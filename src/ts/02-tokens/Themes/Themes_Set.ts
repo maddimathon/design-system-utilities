@@ -71,10 +71,10 @@ export class Tokens_Themes_Set<
         contrastModes: readonly T_ThemeContrastMode[],
 
         input: Tokens_Themes_Set.InputParam<
-            T_ColourName,
+            NoInfer<T_ColourName>,
             T_ExtraColourLevels,
-            readonly T_ThemeBrightnessMode[],
-            readonly T_ThemeContrastMode[],
+            readonly NoInfer<T_ThemeBrightnessMode>[],
+            readonly NoInfer<T_ThemeContrastMode>[],
             T_ThemeName,
 
             T_Keyword_Universal,
@@ -92,7 +92,10 @@ export class Tokens_Themes_Set<
             'forcedColors',
             undefined,
             clrNames,
-            input.forcedColours ?? {},
+            {
+                ...input.forcedColours ?? {},
+                variations: input.variations,
+            },
         );
 
         const modes: {
@@ -120,7 +123,10 @@ export class Tokens_Themes_Set<
                             contrast,
                             brightness as string,
                             clrNames,
-                            input[ brightness ]?.[ contrast ] ?? {},
+                            {
+                                ...input[ brightness ]?.[ contrast ] ?? {},
+                                variations: input.variations,
+                            },
                         ),
                 )
         );
@@ -155,7 +161,7 @@ export class Tokens_Themes_Set<
         T_Keyword_Text
     > {
         return {
-            name: this.name,
+            name: this.name ?? 'default',
 
             // ...this.modes,
             ...objectMap(
@@ -234,7 +240,7 @@ export class Tokens_Themes_Set<
         } );
 
         return {
-            name: this.name,
+            name: this.name ?? 'default',
 
             // ...this.modes,
             ...objectMap(
@@ -331,6 +337,12 @@ export namespace Tokens_Themes_Set {
         T_Keyword_Text extends string,
     > = {
         name: T_ThemeName;
+        variations?: Tokens_Themes_Set_SingleMode.InputParam<
+            T_ColourName,
+            T_ExtraColourLevels,
+            T_Keyword_Universal,
+            T_Keyword_Text
+        >[ 'variations' ];
         forcedColours?: Omit<
             Tokens_Themes_Set_SingleMode.InputParam<
                 T_ColourName,
@@ -344,12 +356,12 @@ export namespace Tokens_Themes_Set {
     } & {
             [ B in T_ThemeBrightnessMode[ number ] ]?: {
                 [ C in T_ThemeContrastMode[ number ] ]?:
-                Tokens_Themes_Set_SingleMode.InputParam<
+                Omit<Tokens_Themes_Set_SingleMode.InputParam<
                     T_ColourName,
                     T_ExtraColourLevels,
                     T_Keyword_Universal,
                     T_Keyword_Text
-                >;
+                >, "variations">;
             };
         };
 

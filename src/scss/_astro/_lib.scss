@@ -6,27 +6,8 @@
 ///
 
 @forward '../templates/docs/config';
-@forward '../templates/docs/tokens';
+@forward '../tokens';
 
 @forward '../notice';
 
-@forward '../templates/docs/lib';
-
-@use '../templates/docs/config';
-@use '../templates/docs/lib' as *;
-
-@mixin extend-selectors($additional: ()) {
-    @include config.print-globals {
-        @include extend-selector-globals(
-            $optional: true,
-            $additional: $additional
-        );
-    }
-
-    @include config.print-utils {
-        @include extend-selector-utils(
-            $optional: true,
-            $additional: $additional
-        );
-    }
-}
+@forward '../lib';

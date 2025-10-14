@@ -6,12 +6,12 @@
 @use 'pkg:@maddimathon/utility-sass/map';
 
 @use 'custom';
-@use 'default';
+@use 'system';
 @use 'theme';
 
 // TODO - figure out why custom props aren't printing
-@forward 'pkg:@maddimathon/utility-astro/templates/astro/tokens' with (
-    $border_widths: map.get(default.$border, width),
+@forward 'pkg:@maddimathon/utility-astro/tokens' with (
+    $border_widths: map.get(system.$border, width),
     //
     $brightnessMode_all: theme.$brightnessMode_all,
     $brightnessMode_default: theme.$brightnessMode_default,
@@ -21,9 +21,9 @@
     $customTokens: custom.$customTokens,
     $internal_customTokensDefault: custom.$internal_customTokensDefault,
     //
-    $font_sizes: map.get(default.$font, size),
-    $line_heights: default.$line_height,
-    $margins: default.$margin,
-    $scale_multiplier: default.$spacing_multiplier,
-    $strokes_relative: map.get(default.$border, stroke)
+    $font_sizes: map.get(system.$font, size),
+    $line_heights: system.$line_height,
+    $margins: system.$margin,
+    $scale_multiplier: system.$spacing_multiplier,
+    $strokes_relative: map.get(system.$border, stroke)
 );

@@ -33,17 +33,29 @@ export class Compile extends CompileStage {
     override readonly subStages: Stage.SubStage.Compile[] = [
         'ts',
         'tokens' as Stage.SubStage.Compile,
+        'astro' as Stage.SubStage.Compile,
         'scss',
         'templates' as Stage.SubStage.Compile,
         'files',
     ];
+
+
+    protected async astro() {
+        await this.runCustomDirCopySubStage( 'astro' );
+    }
+
+    protected override async scss() {
+        await this.runCustomDirCopySubStage( 'scss' );
+    }
 
     protected async templates() {
 
         await this.runCustomScssDirSubStage(
             'scss/templates',
             this.getDistDir( undefined, 'css/templates' ),
-            { postCSS: true },
+            {
+                postCSS: this.params.packaging,
+            },
         );
 
         if ( this.params.packaging || this.params.releasing ) {
@@ -58,9 +70,5 @@ export class Compile extends CompileStage {
                 ], ( this.params.verbose ? 3 : 2 ) ]
             );
         }
-    }
-
-    protected override async scss() {
-        await this.runCustomDirCopySubStage( 'scss' );
     }
 }

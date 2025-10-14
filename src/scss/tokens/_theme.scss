@@ -8,9 +8,10 @@
 @use 'pkg:@maddimathon/utility-sass/meta';
 
 @use '../config';
-@use 'default';
 
-$_themeNames: map.keys(default.$themes);
+@use 'system';
+
+$_themeNames: map.keys(system.$themes);
 $_defaultThemeName: list.nth($_themeNames, 1);
 
 $activeTheme: null !default;
@@ -22,7 +23,7 @@ $activeTheme: config.config-valid-string(
 );
 
 $brightnessMode_all: list.except(
-    map.keys(map.get(default.$themes, $activeTheme)),
+    map.keys(map.get(system.$themes, $activeTheme)),
     'forced-colors'
 );
 
@@ -39,7 +40,7 @@ $contrastMode_all: list.unique(
         ('average'),
         list.join(
             map.keys(
-                map.get(default.$themes, $activeTheme, $brightnessMode_default)
+                map.get(system.$themes, $activeTheme, $brightnessMode_default)
             ),
             ('forced-colors')
         )

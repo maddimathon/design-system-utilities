@@ -29,10 +29,10 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                 [key: string]: number | RecursiveRecord<string | number, number>;
                 heading: {
                     1: number;
-                    9: number;
                     2: number;
-                    3: number;
                     4: number;
+                    3: number;
+                    9: number;
                     5: number;
                     6: number;
                     7: number;

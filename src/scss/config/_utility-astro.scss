@@ -3,17 +3,27 @@
 /// @since ___PKG_VERSION___
 ///
 
-@forward 'pkg:@maddimathon/utility-astro/templates/astro/config' with (
+@forward 'pkg:@maddimathon/utility-astro/config' with (
     $include_html: false !default,
+
+    $internal_isTemplate: false !default,
+    $internal_supressCredit: true,
+
+    $mx_extendHeadingsByRole: false !default,
 
     $print_astro: false !default,
     $print_globals: false !default,
-    $print_normalize: false !default,
-    $print_tokens: false !default,
+    $print_normalize: false,
+    $print_tokens: false,
     $print_utils: false !default,
 
     $selectorType_mode: 'null-selector' !default,
     $selectorType_motion: 'null-selector' !default,
+
+    $selector_root: (
+        'html',
+    )
+    !default,
 
     $fn_fontRoundToPixelFactor: 32 !default
 );

@@ -18,8 +18,8 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T
     readonly description: null | string;
     readonly levelsInUse: (ColourLevels | ColourLevels_Extended)[];
     readonly data: Tokens_Themes_Set_SingleMode.Data<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, __T_ColourOption>;
-    static build<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_Keyword_Universal extends string = never, T_Keyword_Text extends string = never>(preset: "forcedColors", brightness: undefined | string, clrNames: readonly T_ColourName[], input: Tokens_Themes_Set_SingleMode.InputParam<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, CssSystemColor>, overrides?: Tokens_Themes_Set_SingleMode.Data_RecursivePartial<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text>): Promise<Tokens_Themes_Set_SingleMode<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, CssSystemColor>>;
-    static build<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_Keyword_Universal extends string = never, T_Keyword_Text extends string = never>(preset: "low" | "average" | "high" | "max", brightness: undefined | string, clrNames: readonly T_ColourName[], input: Tokens_Themes_Set_SingleMode.InputParam<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, ThemeColourOption<T_ColourName, T_ExtraColourLevels>>, overrides?: Tokens_Themes_Set_SingleMode.Data_RecursivePartial<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text>): Promise<Tokens_Themes_Set_SingleMode<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, ThemeColourOption<T_ColourName, T_ExtraColourLevels>>>;
+    static build<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_Keyword_Universal extends string = never, T_Keyword_Text extends string = never>(preset: "forcedColors", brightness: undefined | string, clrNames: readonly T_ColourName[], input: Tokens_Themes_Set_SingleMode.InputParam<NoInfer<T_ColourName>, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, CssSystemColor>, overrides?: Tokens_Themes_Set_SingleMode.Data_RecursivePartial<NoInfer<T_ColourName>, NoInfer<T_ExtraColourLevels>, NoInfer<T_Keyword_Universal>, NoInfer<T_Keyword_Text>>): Promise<Tokens_Themes_Set_SingleMode<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, CssSystemColor>>;
+    static build<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_Keyword_Universal extends string = never, T_Keyword_Text extends string = never>(preset: "low" | "average" | "high" | "max", brightness: undefined | string, clrNames: readonly T_ColourName[], input: Tokens_Themes_Set_SingleMode.InputParam<NoInfer<T_ColourName>, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, ThemeColourOption<T_ColourName, T_ExtraColourLevels>>, overrides?: Tokens_Themes_Set_SingleMode.Data_RecursivePartial<NoInfer<T_ColourName>, NoInfer<T_ExtraColourLevels>, NoInfer<T_Keyword_Universal>, NoInfer<T_Keyword_Text>>): Promise<Tokens_Themes_Set_SingleMode<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, ThemeColourOption<T_ColourName, T_ExtraColourLevels>>>;
     protected constructor(description: null | string, levelsInUse: (ColourLevels | ColourLevels_Extended)[], data: Tokens_Themes_Set_SingleMode.Data<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, __T_ColourOption>);
     toJSON(): Tokens_Themes_Set_SingleMode.JsonReturn<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, __T_ColourOption>;
     toScssVars(): {
@@ -104,10 +104,10 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T
         } & { [K_2 in T_Keyword_Universal]: __T_ColourOption; } & { [K_3 in T_Keyword_Text]: __T_ColourOption; };
         heading: {
             1: __T_ColourOption;
-            9: __T_ColourOption;
             2: __T_ColourOption;
-            3: __T_ColourOption;
             4: __T_ColourOption;
+            3: __T_ColourOption;
+            9: __T_ColourOption;
             5: __T_ColourOption;
             6: __T_ColourOption;
             7: __T_ColourOption;

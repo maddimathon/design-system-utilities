@@ -9,6 +9,8 @@
  */
 
 import clrConvert from 'color-convert';
+
+import * as sass from 'sass';
 import * as z from 'zod';
 
 import { roundToPixel } from './roundToPixel.js';
@@ -194,9 +196,9 @@ export namespace ColourUtilities {
         const _arrayToObject = ( hsl: [ number, number, number ] ) => (
             round
                 ? {
-                    h: roundToPixel( hsl[ 0 ], 10 ),
-                    s: Math.max( 0, Math.min( 100, roundToPixel( hsl[ 1 ], 20 ) ) ),
-                    l: Math.max( 0, Math.min( 100, roundToPixel( hsl[ 2 ], 20 ) ) ),
+                    h: roundToPixel( hsl[ 0 ], 100 ),
+                    s: Math.max( 0, Math.min( 100, roundToPixel( hsl[ 1 ], 100 ) ) ),
+                    l: Math.max( 0, Math.min( 100, roundToPixel( hsl[ 2 ], 100 ) ) ),
                 }
                 : {
                     h: hsl[ 0 ],
@@ -245,9 +247,9 @@ export namespace ColourUtilities {
     ): Value_LCH {
 
         const _arrayToObject = ( lch: [ number, number, number ] ) => ( {
-            l: Math.max( 0, Math.min( 100, roundToPixel( lch[ 0 ], 100 ) ) ),
-            c: roundToPixel( lch[ 1 ], 200 ),
-            h: roundToPixel( lch[ 2 ], 100 ),
+            l: roundToPixel( lch[ 0 ], 1000 ),
+            c: roundToPixel( lch[ 1 ], 2000 ),
+            h: roundToPixel( lch[ 2 ], 1000 ),
         } );
 
         // returns - converts
@@ -333,18 +335,40 @@ export namespace ColourUtilities {
     export function mixColours(
         _clrA: { data: SingleShade; } | SingleShade | SingleShade_Input,
         _clrB: { data: SingleShade; } | SingleShade | SingleShade_Input,
-        saturationMultiplier: number = 1,
+        saturationMultiplier: number = 0,
     ): Value_LCH {
 
         const clrA = toLCH( _clrA );
         const clrB = toLCH( _clrB );
 
-        let c = ( clrA.c + clrB.c ) / 2 * saturationMultiplier;
+        saturationMultiplier = ( Math.min( 1, Math.max( -1, saturationMultiplier ) ) * 100 );
+
+        const clrA_str = `lch( ${ clrA.l } ${ clrA.c } ${ clrA.h } )`;
+        const clrB_str = `lch( ${ clrB.l } ${ clrB.c } ${ clrB.h } )`;
+
+        const sass_mixed = `color.mix( ${ clrA_str }, ${ clrB_str }, $method: lch shorter hue )`;
+        const sass_mixed_hsl = `color.to-gamut( ${ sass_mixed }, $space: hsl, $method: local-minde )`;
+        const sass_mixed_saturated = `color.scale( ${ sass_mixed_hsl }, $saturation: ${ saturationMultiplier }%, $space: hsl )`;
+
+        const sassMixed = sass.compileString(
+            `@use 'sass:color'; /* #{color.to-gamut( ${ sass_mixed_saturated }, $space: lch, $method: local-minde )} */`,
+        );
+
+        const matches = `${ sassMixed.css }`.match( /lch\(\s*([\d\.]+)%\s+([\d\.]+)\s+([\d\.]+)deg\s*\)/is );
+
+        // returns - in theory never used
+        if ( !( matches && matches[ 1 ] && matches[ 2 ] && matches[ 3 ] ) ) {
+            return toLCH( {
+                l: ( clrA.l + clrB.l ) / 2,
+                c: ( ( clrA.c + clrB.c ) / 2 ) * saturationMultiplier,
+                h: ( clrA.h + clrB.h ) / 2,
+            } );
+        }
 
         return toLCH( {
-            l: ( clrA.l + clrB.l ) / 2,
-            c,
-            h: ( clrA.h + clrB.h ) / 2,
+            l: Number( matches[ 1 ] ),
+            c: Number( matches[ 2 ] ),
+            h: Number( matches[ 3 ] ),
         } );
     }
 }

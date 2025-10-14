@@ -24,12 +24,21 @@ export class Compile extends CompileStage {
     subStages = [
         'ts',
         'tokens',
+        'astro',
         'scss',
         'templates',
         'files',
     ];
+    async astro() {
+        await this.runCustomDirCopySubStage('astro');
+    }
+    async scss() {
+        await this.runCustomDirCopySubStage('scss');
+    }
     async templates() {
-        await this.runCustomScssDirSubStage('scss/templates', this.getDistDir(undefined, 'css/templates'), { postCSS: true });
+        await this.runCustomScssDirSubStage('scss/templates', this.getDistDir(undefined, 'css/templates'), {
+            postCSS: this.params.packaging,
+        });
         if (this.params.packaging || this.params.releasing) {
             this.console.verbose('tidying up compiled files...', 2);
             this.try(this.fs.delete, (this.params.verbose ? 3 : 2), [[
@@ -37,9 +46,6 @@ export class Compile extends CompileStage {
                     'dist/css/templates/@template.css.map'
                 ], (this.params.verbose ? 3 : 2)]);
         }
-    }
-    async scss() {
-        await this.runCustomDirCopySubStage('scss');
     }
 }
 //# sourceMappingURL=Compile.js.map

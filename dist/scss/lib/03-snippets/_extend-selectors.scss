@@ -1,0 +1,85 @@
+///
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+
+@use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/math';
+@use 'pkg:@maddimathon/utility-sass/meta';
+
+@use 'pkg:@maddimathon/utility-astro/03-snippets' as lib;
+
+@use '../../config';
+@use '../../tokens';
+
+@use '../01-functions' as *;
+// @use '../02-mixins' as *;
+
+@mixin extend-selectors-globals(
+    $additional: (),
+    $optional: null,
+    $allHeadingLevels: token-all-heading-levels()
+) {
+    //
+    // $additional: list.append($additional, (nav));
+
+    @if config.$print_docs {
+        $additional: list.join(
+            $additional,
+            (
+                (
+                    ('.shade-swatch__name', '.shade-swatch__colour-value'),
+                    'code'
+                ),
+                ('.shade-swatch__contrast__heading', 'h9'),
+                ('.shade-swatch__contrast__result-group__heading', 'h10'),
+                ('.theme-mode-swatch__sample--selection', 'selection')
+            ),
+            $separator: comma
+        );
+    }
+
+    @include lib.extend-selectors-globals(
+        $additional: $additional,
+        $optional: $optional
+    );
+}
+
+@mixin extend-selectors-utils(
+    $additional: (),
+    $optional: null,
+    $allHeadingLevels: token-all-heading-levels()
+) {
+    //
+    $additional: list.append($additional, ('p.aside', 'aside'));
+    $additional: list.append($additional, ('.button-span', 'button-span'));
+
+    @include lib.extend-selectors-utils(
+        $additional: $additional,
+        $optional: $optional
+    );
+}
+
+@mixin extend-selectors(
+    $optional: null,
+    $additional_globals: (),
+    $additional_utils: (),
+    $allHeadingLevels: token-all-heading-levels()
+) {
+    @if config.$print_globals {
+        @include extend-selectors-globals(
+            $additional: $additional_globals,
+            $optional: $optional,
+            $allHeadingLevels: $allHeadingLevels
+        );
+    }
+
+    @if config.$print_utils {
+        @include extend-selectors-utils(
+            $additional: $additional_utils,
+            $optional: $optional,
+            $allHeadingLevels: $allHeadingLevels
+        );
+    }
+}

@@ -63,7 +63,7 @@ export class Tokens_Themes_Set_SingleMode<
         brightness: undefined | string,
         clrNames: readonly T_ColourName[],
         input: Tokens_Themes_Set_SingleMode.InputParam<
-            T_ColourName,
+            NoInfer<T_ColourName>,
             T_ExtraColourLevels,
             T_Keyword_Universal,
             T_Keyword_Text,
@@ -71,10 +71,10 @@ export class Tokens_Themes_Set_SingleMode<
         >,
 
         overrides?: Tokens_Themes_Set_SingleMode.Data_RecursivePartial<
-            T_ColourName,
-            T_ExtraColourLevels,
-            T_Keyword_Universal,
-            T_Keyword_Text
+            NoInfer<T_ColourName>,
+            NoInfer<T_ExtraColourLevels>,
+            NoInfer<T_Keyword_Universal>,
+            NoInfer<T_Keyword_Text>
         >,
     ): Promise<
         Tokens_Themes_Set_SingleMode<
@@ -97,7 +97,7 @@ export class Tokens_Themes_Set_SingleMode<
         brightness: undefined | string,
         clrNames: readonly T_ColourName[],
         input: Tokens_Themes_Set_SingleMode.InputParam<
-            T_ColourName,
+            NoInfer<T_ColourName>,
             T_ExtraColourLevels,
             T_Keyword_Universal,
             T_Keyword_Text,
@@ -105,10 +105,10 @@ export class Tokens_Themes_Set_SingleMode<
         >,
 
         overrides?: Tokens_Themes_Set_SingleMode.Data_RecursivePartial<
-            T_ColourName,
-            T_ExtraColourLevels,
-            T_Keyword_Universal,
-            T_Keyword_Text
+            NoInfer<T_ColourName>,
+            NoInfer<T_ExtraColourLevels>,
+            NoInfer<T_Keyword_Universal>,
+            NoInfer<T_Keyword_Text>
         >,
     ): Promise<
         Tokens_Themes_Set_SingleMode<
@@ -135,18 +135,19 @@ export class Tokens_Themes_Set_SingleMode<
         preset: "low" | "average" | "high" | "max" | "forcedColors",
         brightness: undefined | string,
         clrNames: readonly T_ColourName[],
+
         input: Tokens_Themes_Set_SingleMode.InputParam<
-            T_ColourName,
+            NoInfer<T_ColourName>,
             T_ExtraColourLevels,
             T_Keyword_Universal,
             T_Keyword_Text
         >,
 
         overrides: Tokens_Themes_Set_SingleMode.Data_RecursivePartial<
-            T_ColourName,
-            T_ExtraColourLevels,
-            T_Keyword_Universal,
-            T_Keyword_Text
+            NoInfer<T_ColourName>,
+            NoInfer<T_ExtraColourLevels>,
+            NoInfer<T_Keyword_Universal>,
+            NoInfer<T_Keyword_Text>
         > = {},
 
     ): Promise<
@@ -241,7 +242,7 @@ export class Tokens_Themes_Set_SingleMode<
                 defaultLevels = {
                     background: isLightMode ? '300' : '200',
                     text: {
-                        $: isLightMode ? '700' : '650',
+                        $: isLightMode ? '750' : '650',
                         accent: isLightMode ? '700' : '600',
                         min: isLightMode ? '650' : '600',
                     },

@@ -31,7 +31,7 @@ export declare class Tokens_Themes_Set<T_ColourName extends string, T_ExtraColou
     /**
      * Used instead of the constructor so that it can be async.
      */
-    static build<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_ThemeBrightnessMode extends string, T_ThemeContrastMode extends ThemeMode_ContrastOption, T_ThemeName extends string, T_Keyword_Universal extends string = never, T_Keyword_Text extends string = never>(name: T_ThemeName, clrNames: readonly T_ColourName[], extraColourLevels: readonly T_ExtraColourLevels[], brightnessModes: readonly T_ThemeBrightnessMode[], contrastModes: readonly T_ThemeContrastMode[], input: Tokens_Themes_Set.InputParam<T_ColourName, T_ExtraColourLevels, readonly T_ThemeBrightnessMode[], readonly T_ThemeContrastMode[], T_ThemeName, T_Keyword_Universal, T_Keyword_Text>): Promise<Tokens_Themes_Set<T_ColourName, T_ExtraColourLevels, readonly T_ThemeBrightnessMode[], readonly T_ThemeContrastMode[], T_ThemeName, T_Keyword_Universal, T_Keyword_Text>>;
+    static build<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_ThemeBrightnessMode extends string, T_ThemeContrastMode extends ThemeMode_ContrastOption, T_ThemeName extends string, T_Keyword_Universal extends string = never, T_Keyword_Text extends string = never>(name: T_ThemeName, clrNames: readonly T_ColourName[], extraColourLevels: readonly T_ExtraColourLevels[], brightnessModes: readonly T_ThemeBrightnessMode[], contrastModes: readonly T_ThemeContrastMode[], input: Tokens_Themes_Set.InputParam<NoInfer<T_ColourName>, T_ExtraColourLevels, readonly NoInfer<T_ThemeBrightnessMode>[], readonly NoInfer<T_ThemeContrastMode>[], T_ThemeName, T_Keyword_Universal, T_Keyword_Text>): Promise<Tokens_Themes_Set<T_ColourName, T_ExtraColourLevels, readonly T_ThemeBrightnessMode[], readonly T_ThemeContrastMode[], T_ThemeName, T_Keyword_Universal, T_Keyword_Text>>;
     get data(): Tokens_Themes_Set.Data<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_Keyword_Universal, T_Keyword_Text>;
     protected constructor(
     /** Name for this shade set. */
@@ -69,10 +69,11 @@ export declare namespace Tokens_Themes_Set {
      */
     type InputParam<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_ThemeBrightnessMode extends readonly string[], T_ThemeContrastMode extends readonly ThemeMode_ContrastOption[], T_ThemeName extends string, T_Keyword_Universal extends string, T_Keyword_Text extends string> = {
         name: T_ThemeName;
+        variations?: Tokens_Themes_Set_SingleMode.InputParam<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text>['variations'];
         forcedColours?: Omit<Tokens_Themes_Set_SingleMode.InputParam<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, CssSystemColor>, "levels" | "variations">;
     } & {
         [B in T_ThemeBrightnessMode[number]]?: {
-            [C in T_ThemeContrastMode[number]]?: Tokens_Themes_Set_SingleMode.InputParam<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text>;
+            [C in T_ThemeContrastMode[number]]?: Omit<Tokens_Themes_Set_SingleMode.InputParam<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text>, "variations">;
         };
     };
     /**

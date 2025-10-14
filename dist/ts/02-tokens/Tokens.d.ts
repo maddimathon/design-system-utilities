@@ -15,6 +15,7 @@ import { Tokens_Spacing } from './Tokens_Spacing.js';
 import { Tokens_Themes } from './Tokens_Themes.js';
 import { Tokens_Typography } from './Tokens_Typography.js';
 import type { Tokens_Themes_Set_SingleMode } from './Themes/Themes_Set_SingleMode.js';
+import type * as TokenTypes from './@types.js';
 /**
  * Generates a complete token object for the design system.
  *
@@ -23,7 +24,7 @@ import type { Tokens_Themes_Set_SingleMode } from './Themes/Themes_Set_SingleMod
 export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_ThemeBrightnessMode extends readonly [string, ...string[]], T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne, T_ThemeName extends string, T_ThemeKeyword_Universal extends string, T_ThemeKeyword_Text extends string> extends AbstractTokens<Tokens_Internal.Data<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_ThemeKeyword_Universal, T_ThemeKeyword_Text>> {
     protected readonly clrNames: readonly T_ColourName[];
     protected readonly extraColourLevels: readonly T_ExtraColourLevels[];
-    protected readonly input: Omit<Tokens_Internal.InputParam<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_ThemeKeyword_Universal, T_ThemeKeyword_Text>, "themes">;
+    protected readonly input: Omit<Tokens_Internal.InputParam<NoInfer<T_ColourName>, NoInfer<T_ExtraColourLevels>, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_ThemeKeyword_Universal, T_ThemeKeyword_Text>, "themes">;
     protected readonly config: Tokens_Internal.Config;
     get data(): {
         spacing: Tokens_Spacing.Data;
@@ -40,145 +41,145 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
     /**
      * Used instead of the constructor so that it can be async.
      */
-    static build<T_ColourName extends string = Tokens_Internal.Default_ColourName, T_ExtraColourLevels extends ColourLevels_Extended = Tokens_Internal.Default_ExtraColourLevels, T_ThemeBrightnessMode extends readonly [string, ...string[]] = Tokens_Internal.Default_ThemeBrightnessMode, T_ThemeContrastMode_Extra extends readonly ThemeMode_ContrastExtraOptions[] = Tokens_Internal.Default_ThemeExtraContrastMode, T_ThemeName extends string = Tokens_Themes.Default_ThemeName, T_ThemeKeyword_Universal extends string = never, T_ThemeKeyword_Text extends string = never>(input: Tokens_Internal.InputParam<Tokens_Internal.Default_ColourName | T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, ThemeMode_Contrast<T_ThemeContrastMode_Extra>, T_ThemeName, T_ThemeKeyword_Universal, T_ThemeKeyword_Text>, config?: Partial<Tokens.Config<T_ExtraColourLevels>>): Promise<Tokens<Tokens_Internal.Default_ColourName | T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, ThemeMode_Contrast<T_ThemeContrastMode_Extra>, T_ThemeName, T_ThemeKeyword_Universal, T_ThemeKeyword_Text>>;
-    protected constructor(clrNames: readonly T_ColourName[], extraColourLevels: readonly T_ExtraColourLevels[], themes: Tokens_Themes<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode[number], T_ThemeContrastMode[number], T_ThemeName, T_ThemeKeyword_Universal, T_ThemeKeyword_Text>, input: Omit<Tokens_Internal.InputParam<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_ThemeKeyword_Universal, T_ThemeKeyword_Text>, "themes">, config?: Tokens_Internal.Config);
+    static build<T_ColourName extends string = Tokens_Internal.Default_ColourName, T_ExtraColourLevels extends ColourLevels_Extended = Tokens_Internal.Default_ExtraColourLevels, T_ThemeBrightnessMode extends readonly [string, ...string[]] = Tokens_Internal.Default_ThemeBrightnessMode, T_ThemeContrastMode_Extra extends readonly ThemeMode_ContrastExtraOptions[] = Tokens_Internal.Default_ThemeExtraContrastMode, T_ThemeName extends string = Tokens_Themes.Default_ThemeName, T_ThemeKeyword_Universal extends string = never, T_ThemeKeyword_Text extends string = never>(input: Tokens_Internal.InputParam<Tokens_Internal.Default_ColourName | T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, ThemeMode_Contrast<T_ThemeContrastMode_Extra>, T_ThemeName, T_ThemeKeyword_Universal, T_ThemeKeyword_Text>, config?: Partial<Tokens.Config<NoInfer<T_ExtraColourLevels>>>): Promise<Tokens<Tokens_Internal.Default_ColourName | T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, ThemeMode_Contrast<T_ThemeContrastMode_Extra>, T_ThemeName, T_ThemeKeyword_Universal, T_ThemeKeyword_Text>>;
+    protected constructor(clrNames: readonly T_ColourName[], extraColourLevels: readonly T_ExtraColourLevels[], themes: Tokens_Themes<NoInfer<T_ColourName>, NoInfer<T_ExtraColourLevels>, T_ThemeBrightnessMode[number], T_ThemeContrastMode[number], T_ThemeName, T_ThemeKeyword_Universal, T_ThemeKeyword_Text>, input: Omit<Tokens_Internal.InputParam<NoInfer<T_ColourName>, NoInfer<T_ExtraColourLevels>, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_ThemeKeyword_Universal, T_ThemeKeyword_Text>, "themes">, config?: Tokens_Internal.Config);
     toJSON(): Tokens_Internal.JsonReturn<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_ThemeKeyword_Universal, T_ThemeKeyword_Text>;
     toScssVars(): {
         colour: Tokens_Colour.Data<T_ColourName, T_ExtraColourLevels> extends infer T extends object ? { [K in keyof T]: T_Return; } : never;
         themes: { [K_1 in T_ThemeName]: { [B in T_ThemeBrightnessMode[number]]: { [C in T_ThemeContrastMode[number]]: {
             system: {
-                background: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                button: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
+                background: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                button: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
                 input: {
                     accent: {
-                        $: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        hover: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                     };
                     bg: {
-                        $: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        hover: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                     };
                     border: {
-                        $: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        hover: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                     };
                     text: {
-                        $: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        hover: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                     };
                 };
                 link: {
-                    $: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    visited: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    visited: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 } & {
-                    active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    hover: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    disabled: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    disabled: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 };
                 selection: {
-                    bg: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    text: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    bg: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    text: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 };
                 text: {
-                    $: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    disabled: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    disabled: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 };
                 accent: {
-                    bg: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    text: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    bg: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    text: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 };
                 mark: {
-                    bg: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    text: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    bg: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    text: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 };
                 selected: {
-                    bg: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    text: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    bg: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    text: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 };
             };
-            background: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+            background: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
             text: {
-                $: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
             } & {
-                primary: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                secondary: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                primary: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                secondary: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
             } & {
-                active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                disabled: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                grey: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-            } & { [K_3 in T_ThemeKeyword_Universal]: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>; } & { [K_4 in T_ThemeKeyword_Text]: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>; };
+                active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                disabled: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                grey: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+            } & { [K_3 in T_ThemeKeyword_Universal]: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>; } & { [K_4 in T_ThemeKeyword_Text]: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>; };
             ui: {
-                $: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
             } & {
-                primary: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                secondary: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                primary: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                secondary: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
             } & {
-                active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                disabled: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                grey: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-            } & { [K_5 in T_ThemeKeyword_Universal]: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>; } & { [K_6 in T_ThemeKeyword_Text]: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>; };
+                active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                disabled: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                grey: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+            } & { [K_5 in T_ThemeKeyword_Universal]: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>; } & { [K_6 in T_ThemeKeyword_Text]: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>; };
             heading: {
-                1: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                9: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                2: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                3: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                4: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                5: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                6: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                7: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                8: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                10: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                1: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                2: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                4: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                3: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                9: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                5: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                6: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                7: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                8: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                10: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
             };
             selection: {
-                bg: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                text: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                bg: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                text: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
             };
             link: {
-                $: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                visited: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                visited: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
             } & {
-                active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                hover: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                disabled: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                disabled: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
             };
             'link-ui': {
-                $: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                visited: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                visited: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
             } & {
-                active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                hover: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                disabled: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                disabled: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
             };
             button: {
-                primary: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
-                secondary: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
-                disabled: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
-            } & { [K_7 in T_ThemeKeyword_Universal]: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>>; };
+                primary: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
+                secondary: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
+                disabled: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
+            } & { [K_7 in T_ThemeKeyword_Universal]: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>; };
             field: {
                 accent: {
-                    $: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    hover: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 };
                 bg: {
-                    $: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    hover: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 };
                 border: {
-                    $: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    hover: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 };
                 text: {
-                    $: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    hover: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    active: import("./@types.js").ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 };
             };
         }; }; }; };
@@ -202,10 +203,10 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                 [key: string]: number | import("../index.js").RecursiveRecord<string | number, number>;
                 heading: {
                     1: number;
-                    9: number;
                     2: number;
-                    3: number;
                     4: number;
+                    3: number;
+                    9: number;
                     5: number;
                     6: number;
                     7: number;
@@ -324,7 +325,15 @@ export declare namespace Tokens_Internal {
  * @since 0.1.0-alpha.draft
  */
 export declare namespace Tokens {
-    function sample(): Promise<Tokens<"base" | "purple" | "turquoise" | "red", ColourLevels_Extended, Tokens_Internal.Default_ThemeBrightnessMode, readonly ["low", "average", "high", "max"], "default", never, never>>;
+    function sample(): Promise<Tokens<"base" | "purple" | "turquoise" | "red", TokenTypes.ColourLevels_Extended, Tokens_Internal.Default_ThemeBrightnessMode, readonly ["low", "average", "high", "max"], "default", never, never>>;
+    /**
+     * @since 0.1.0-alpha.draft
+     */
+    type ColourLevels = TokenTypes.ColourLevels;
+    /**
+     * @since 0.1.0-alpha.draft
+     */
+    type ColourLevels_Extended = TokenTypes.ColourLevels_Extended;
     /**
      * Configuration options for the {@link Tokens} class.
      *
@@ -457,15 +466,20 @@ export declare namespace Tokens {
                 readonly s: 68;
                 readonly l: 96.5;
             };
+            readonly '300': {
+                readonly h: 160;
+                readonly s: 45;
+                readonly l: 60;
+            };
             readonly '500': {
                 readonly h: 168;
                 readonly s: 92;
                 readonly l: 27.5;
             };
             readonly '700': {
-                readonly h: 163;
-                readonly s: 100;
-                readonly l: 14;
+                readonly h: 162;
+                readonly s: 69;
+                readonly l: 16.5;
             };
             readonly '900': {
                 readonly h: 153;

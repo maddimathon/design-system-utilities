@@ -23,7 +23,8 @@ export declare class Compile extends CompileStage {
      * @source
      */
     readonly subStages: Stage.SubStage.Compile[];
-    protected templates(): Promise<void>;
+    protected astro(): Promise<void>;
     protected scss(): Promise<void>;
+    protected templates(): Promise<void>;
 }
 //# sourceMappingURL=Compile.d.ts.map
