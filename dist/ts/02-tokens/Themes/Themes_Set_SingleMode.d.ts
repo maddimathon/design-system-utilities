@@ -126,6 +126,14 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T
             hover: __T_ColourOption;
             disabled: __T_ColourOption;
         };
+        'link-icon': {
+            $: __T_ColourOption;
+            visited: __T_ColourOption;
+        } & {
+            active: __T_ColourOption;
+            hover: __T_ColourOption;
+            disabled: __T_ColourOption;
+        };
         'link-ui': {
             $: __T_ColourOption;
             visited: __T_ColourOption;
@@ -225,6 +233,12 @@ export declare namespace Tokens_Themes_Set_SingleMode {
             text: __T_ColourOption;
         };
         link: {
+            $: __T_ColourOption;
+            visited: __T_ColourOption;
+        } & {
+            [K in keyof RequiredVariations<T_ColourName>['interactive']]: __T_ColourOption;
+        };
+        'link-icon': {
             $: __T_ColourOption;
             visited: __T_ColourOption;
         } & {

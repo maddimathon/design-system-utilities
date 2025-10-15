@@ -1,0 +1,45 @@
+---
+/**
+ * @since 0.1.0-alpha.draft
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+import type { GenericElementProps } from '@maddimathon/utility-astro';
+import type { Tokens_Icons } from '../../ts/02-tokens/Tokens_Icons';
+
+/* import - functions */
+
+/* import - values */
+
+/* import - components */
+
+/* import - layouts */
+
+/* TYPES ===================================== */
+
+/* PROPS ===================================== */
+
+export interface Internal_Props {
+    icon: Tokens_Icons.SvgIcon.JsonReturn;
+}
+
+export interface Props extends GenericElementProps<Internal_Props, 'span'> {}
+
+const {
+    icon,
+    class: classList = [],
+    ...attributes
+}: Props = Astro.props?.frontmatter ?? Astro.props;
+
+/* CONSTANTS ===================================== */
+---
+
+<span
+    class:list={['icon', `icon--${icon.slug}`, '||', classList]}
+    {...attributes}
+    aria-label={`${icon.label} icon`}
+>
+    <Fragment set:html={icon.svg} />
+</span>

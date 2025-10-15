@@ -11,6 +11,7 @@ import { JsonToScss } from '@maddimathon/utility-sass';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 import { Tokens_Colour } from './Tokens_Colour.js';
 import { Tokens_CSS } from './Tokens_CSS.js';
+import { Tokens_Icons } from './Tokens_Icons.js';
 import { Tokens_Spacing } from './Tokens_Spacing.js';
 import { Tokens_Themes } from './Tokens_Themes.js';
 import { Tokens_Typography } from './Tokens_Typography.js';
@@ -26,15 +27,17 @@ export class Tokens extends AbstractTokens {
     config;
     get data() {
         return {
+            icons: this.icons.data,
             spacing: this.spacing.data,
             typography: this.typography.data,
-            css: this.css.data,
             colour: this.colour.data,
             themes: this.themes.data,
+            css: this.css.data,
         };
     }
     colour;
     css;
+    icons;
     spacing;
     themes;
     typography;
@@ -59,9 +62,7 @@ export class Tokens extends AbstractTokens {
                 ?? []),
         ];
         const themes = await Tokens_Themes.build(allClrNames, extraColourLevels, brightnessModes, [...contrastModes], input.themes?.input ?? []);
-        const tokens = new Tokens(allClrNames, extraColourLevels, 
-        // @ts-expect-error -idek
-        themes, input, {
+        const tokens = new Tokens(allClrNames, extraColourLevels, themes, input, {
             ...config,
             extraColourLevels: undefined,
         });
@@ -76,12 +77,14 @@ export class Tokens extends AbstractTokens {
         this.config = config;
         this.colour = new Tokens_Colour(this.clrNames, this.extraColourLevels, this.input.colour ?? {});
         this.css = new Tokens_CSS(this.input.css ?? {});
+        this.icons = new Tokens_Icons(this.input.icons ?? {});
         this.spacing = new Tokens_Spacing(this.input.spacing ?? {});
         this.themes = themes;
         this.typography = new Tokens_Typography(this.spacing, this.input.typography ?? {});
     }
     toJSON() {
         return {
+            icons: this.icons.toJSON(),
             spacing: this.spacing.toJSON(),
             typography: this.typography.toJSON(),
             colour: this.colour.toJSON(),
@@ -94,6 +97,7 @@ export class Tokens extends AbstractTokens {
             ...this.spacing.toScssVars(),
             ...this.typography.toScssVars(),
             ...this.css.toScssVars(),
+            icons: this.icons.toScssVars(),
             colour: this.colour.toScssVars(),
             themes: this.themes.toScssVars(),
         };

@@ -54,7 +54,7 @@ export class Compile extends CompileStage {
             'scss/templates',
             this.getDistDir( undefined, 'css/templates' ),
             {
-                postCSS: this.params.packaging,
+                postCSS: true,
             },
         );
 

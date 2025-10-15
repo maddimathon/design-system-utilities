@@ -1,19 +1,25 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-alpha.draft
-/// @since 0.1.0-alpha.draft
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
 ///
 
-@use '../../../config';
-// @use '../../../tokens';
+// @use 'pkg:@maddimathon/utility-sass/list';
 
-@use '../../../lib' as *;
+// @use 'pkg:@maddimathon/utility-astro/03-snippets' as lib;
 
-@if config.$print_astro_stickyNav {
-    @if config.$print_headings {
-        /* # ASTRO SUPPORT - STICKY NAV
-         * ======================================================================== */
-    }
+// @use '../../config';
+// @use '../../tokens';
 
+@use '../01-functions' as *;
+@use '../02-mixins' as *;
+
+///
+/// Makes a utility-astro ToggleNav component sticky, assuming it has
+/// .nav-primary and is a direct child of the body element.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin snippet-support-astro-sticky-toggle-nav {
     @include js-support(whereSelector) {
         $_navHeight: 3.125rem;
         $_scrollPaddingFallback: calc(

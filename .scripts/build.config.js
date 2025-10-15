@@ -29,6 +29,15 @@ const config = {
     launchYear: '2025',
 
     compiler: {
+
+        postCSS: {
+            presetEnv: {
+                features: {
+                    "content-alt-text": false,
+                },
+            },
+        },
+
         ts: {
             tidyGlobs: 'types/**/*.js',
         },

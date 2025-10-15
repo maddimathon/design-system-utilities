@@ -97,7 +97,7 @@ export type ThemeColourOption<
  * @since ___PKG_VERSION___
  */
 export type ThemeMode_Contrast<
-    T_Extra extends readonly string[] = never[],
+    T_Extra extends readonly ThemeMode_ContrastExtraOptions[] = never[],
 > = readonly [ "low", "average", "high", "max", ...T_Extra ];
 
 /**

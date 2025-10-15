@@ -1,0 +1,51 @@
+---
+/**
+ * @since 0.1.0-alpha.draft
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+// import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
+import type { Tokens } from '../../ts/02-tokens/Tokens.js';
+
+/* import - functions */
+
+/* import - values */
+
+/* import - components */
+import Toggle from '@maddimathon/utility-astro/components/Toggle';
+import Icon from './Icon.astro';
+
+/* import - layouts */
+
+/* TYPES ===================================== */
+
+/* PROPS ===================================== */
+
+export interface Props {
+    tokens: Tokens.JsonReturn;
+}
+
+const { tokens }: Props = Astro.props;
+
+/* CONSTANTS ===================================== */
+---
+
+<div class='container tokens-demo-all-icons'>
+    {Object.values(tokens.icons).map((icon) => <Icon icon={icon} />)}
+</div>
+
+<Toggle
+    heading={2}
+    id={`tokens-demo-icons-vardump`}
+>
+    <Fragment
+        set:text='Value'
+        slot='button'
+    />
+    <!-- <VariableDump
+        var={tokens.icons}
+        name='tokens.icons'
+    /> -->
+</Toggle>

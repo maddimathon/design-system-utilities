@@ -37,7 +37,7 @@ export class Compile extends CompileStage {
     }
     async templates() {
         await this.runCustomScssDirSubStage('scss/templates', this.getDistDir(undefined, 'css/templates'), {
-            postCSS: this.params.packaging,
+            postCSS: true,
         });
         if (this.params.packaging || this.params.releasing) {
             this.console.verbose('tidying up compiled files...', 2);

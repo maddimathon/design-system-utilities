@@ -46,44 +46,6 @@ export type Props = GenericProps<Props_Raw>;
 
 const urlMaker = Astro.props?.urlMaker ?? absoluteInternalURL;
 
-// const _defaultProps = {
-//     title: [],
-
-//     dir: 'ltr',
-//     lang: 'en-CA',
-
-//     footer: {
-//         copyright: {
-//             html:
-//                 '<a href="https://www.maddimathon.com">Maddi Mathon</a>' +
-//                 ' | ' +
-//                 '<a href="' +
-//                 urlMaker(Astro.url, 'license') +
-//                 '">MIT license</a>',
-//             // owner: 'Maddi Mathon',
-//             year: 2025,
-//         },
-//     },
-
-//     meta: {
-//         title: 'Utility Astro',
-//     },
-
-//     settings: {
-//         settings: {
-//             brightness: true,
-//             contrast: true,
-//             motion: true,
-//         },
-//     },
-// } as const satisfies Props & UtilPage_Props;
-
-// const props = mergeArgs<Props & UtilPage_Props, Props>(
-//     _defaultProps,
-//     Astro.props.frontmatter ?? Astro.props,
-//     true
-// );
-
 const inputs: Props = Astro.props.frontmatter ?? Astro.props;
 
 const props = {
@@ -95,7 +57,7 @@ const props = {
     footer: {
         copyright: inputs.footer?.copyright ?? {
             html:
-                '<a href="https://www.maddimathon.com">Maddi Mathon</a>' +
+                'by <a href="https://www.maddimathon.com" target="_blank">Maddi Mathon</a>' +
                 ' | ' +
                 '<a href="' +
                 urlMaker(Astro.url, 'license') +

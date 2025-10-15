@@ -1,0 +1,106 @@
+///
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+
+@use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/string';
+
+// @use 'pkg:@maddimathon/utility-astro/03-snippets' as lib;
+
+// @use '../../config';
+@use '../../tokens';
+
+@use '../01-functions' as *;
+// @use '../02-mixins' as *;
+
+$_allUniqueIconAspectRatioSlugs: ();
+$_allUniqueIconAspectRatios: ();
+
+@each $slug, $map in tokens.$icons {
+    $_ratio: map.get($map, aspectRatio);
+
+    // @if $_ratio != 1 {
+    $_ratioSlug: string.slugify(#{$_ratio});
+
+    @if list.index($_allUniqueIconAspectRatioSlugs, $_ratioSlug) == null {
+        $_allUniqueIconAspectRatioSlugs: list.append(
+            $_allUniqueIconAspectRatioSlugs,
+            $_ratioSlug
+        );
+        $_allUniqueIconAspectRatios: map.set(
+            $_allUniqueIconAspectRatios,
+            $_ratioSlug,
+            $_ratio
+        );
+    }
+    // }
+}
+
+///
+/// Adds support for icons, assuming the html matches that in the local astro
+/// Icon component.
+///
+/// @since 0.1.0-alpha.draft
+///
+@mixin snippet-support-icons {
+    %icon {
+        display: inline-block;
+        vertical-align: #{var-token(icon-vertical-align, $fallback: middle)};
+
+        height: #{var-token(icon-size)};
+        // aspect-ratio: 1 / 1;
+
+        color: #{var-token(icon-color)};
+
+        > svg {
+        }
+    }
+
+    @each $slug, $value in $_allUniqueIconAspectRatios {
+        %icon-aspect-ratio--#{$slug} {
+            aspect-ratio: #{$value};
+        }
+    }
+
+    @each $slug, $map in tokens.$icons {
+        .icon--#{$slug} {
+            $aspectRatio: icon-aspect-ratio-value($slug);
+
+            // only if the aspect ratio doesn't match the default
+            // @if $aspectRatio != 1 {
+            @extend %icon-aspect-ratio--#{string.slugify( #{$aspectRatio} )};
+            // }
+        }
+    }
+}
+
+///
+/// Adds properties for displaying an icon inside a ::before or ::after selector.
+///
+/// @since 0.1.0-alpha.draft
+///
+@mixin snippet-icon-pseudo-element($slug) {
+    @supports (mask-image: url('..test.svg')) {
+        display: inline-block;
+        vertical-align: #{var-token(icon-vertical-align, $fallback: sub)};
+        margin-inline-start: #{var-token(icon-inline-buffer)};
+
+        content: '';
+        content: '' / #{icon-label-value($slug)};
+
+        background: #{var-token(icon-color)};
+
+        mask-image: #{icon-embedded-value($slug)};
+        mask-clip: no-clip;
+        mask-mode: alpha;
+        mask-origin: border-box;
+        mask-position: center;
+        mask-repeat: no-repeat;
+        mask-size: contain;
+
+        height: #{var-token(icon-size-pseudo)};
+        aspect-ratio: #{icon-aspect-ratio-value($slug)};
+    }
+}

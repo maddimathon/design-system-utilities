@@ -677,6 +677,13 @@ export namespace Tokens_Themes_Set_SingleMode {
             [ K in keyof RequiredVariations<T_ColourName>[ 'interactive' ] ]: __T_ColourOption;
         },
 
+        'link-icon': {
+            $: __T_ColourOption,
+            visited: __T_ColourOption,
+        } & {
+            [ K in keyof RequiredVariations<T_ColourName>[ 'interactive' ] ]: __T_ColourOption;
+        },
+
         'link-ui': {
             $: __T_ColourOption,
             visited: __T_ColourOption,
@@ -1274,6 +1281,15 @@ export namespace Tokens_Themes_Set_SingleMode {
                 disabled: clrOpt( variations.text.disabled, levels.text.min ),
             };
 
+            const linkIcon: CompleteData[ 'link-icon' ] = {
+                $: clrOpt( variations.base, levels.ui.min ),
+                visited: clrOpt( variations.base, levels.ui.accent ),
+
+                hover: clrOpt( variations.interactive.hover, levels.ui.accent ),
+                active: clrOpt( variations.interactive.active, levels.ui.accent ),
+                disabled: clrOpt( variations.text.disabled, levels.ui.min ),
+            };
+
             const linkUI: CompleteData[ 'link-ui' ] = {
                 $: clrOpt( variations.universal.primary, levels.ui.accent ),
                 visited: clrOpt( variations.universal.primary, levels.ui.accent ),
@@ -1359,6 +1375,7 @@ export namespace Tokens_Themes_Set_SingleMode {
                 },
 
                 link,
+                'link-icon': linkIcon,
                 'link-ui': linkUI,
 
                 button,
@@ -1462,7 +1479,13 @@ export namespace Tokens_Themes_Set_SingleMode {
                 grey: 'GrayText',
             };
 
-            const ui: CompleteData[ 'ui' ] = text;
+            const link: CompleteData[ 'link' ] = {
+                $: 'LinkText',
+                visited: 'VisitedText',
+                hover: 'ActiveText',
+                active: 'ActiveText',
+                disabled: 'GrayText',
+            };
 
             const heading: CompleteData[ 'heading' ] = objectGenerator(
                 Tokens_Themes_Set_SingleMode.allHeadingLevels,
@@ -1505,7 +1528,7 @@ export namespace Tokens_Themes_Set_SingleMode {
                 background: sysclr.background,
 
                 text,
-                ui,
+                ui: text,
                 heading,
 
                 selection: {
@@ -1513,21 +1536,9 @@ export namespace Tokens_Themes_Set_SingleMode {
                     text: 'HighlightText',
                 },
 
-                link: {
-                    $: 'LinkText',
-                    visited: 'VisitedText',
-                    hover: 'ActiveText',
-                    active: 'ActiveText',
-                    disabled: 'GrayText',
-                },
-
-                'link-ui': {
-                    $: 'LinkText',
-                    visited: 'VisitedText',
-                    hover: 'ActiveText',
-                    active: 'ActiveText',
-                    disabled: 'GrayText',
-                },
+                link,
+                'link-icon': link,
+                'link-ui': link,
 
                 button,
 

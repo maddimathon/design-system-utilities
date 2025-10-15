@@ -21,6 +21,7 @@ import type {
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 import { Tokens_Colour } from './Tokens_Colour.js';
 import { Tokens_CSS } from './Tokens_CSS.js';
+import { Tokens_Icons } from './Tokens_Icons.js';
 import { Tokens_Spacing } from './Tokens_Spacing.js';
 import { Tokens_Themes } from './Tokens_Themes.js';
 import { Tokens_Typography } from './Tokens_Typography.js';
@@ -39,6 +40,7 @@ export class Tokens<
     T_ThemeBrightnessMode extends readonly [ string, ...string[] ],
     T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne,
     T_ThemeName extends string,
+    T_ExtraIconNames extends string,
 
     T_ThemeKeyword_Universal extends string,
     T_ThemeKeyword_Text extends string,
@@ -48,22 +50,28 @@ export class Tokens<
     T_ThemeBrightnessMode,
     T_ThemeContrastMode,
     T_ThemeName,
+    T_ExtraIconNames,
+
     T_ThemeKeyword_Universal,
     T_ThemeKeyword_Text
 >> {
 
     public get data() {
         return {
+            icons: this.icons.data,
             spacing: this.spacing.data,
             typography: this.typography.data,
-            css: this.css.data,
+
             colour: this.colour.data,
             themes: this.themes.data,
+
+            css: this.css.data,
         };
     }
 
     public readonly colour: Tokens_Colour<T_ColourName, T_ExtraColourLevels>;
     public readonly css: Tokens_CSS;
+    public readonly icons: Tokens_Icons<T_ExtraIconNames>;
     public readonly spacing: Tokens_Spacing;
     public readonly themes: Tokens_Themes<
         T_ColourName,
@@ -85,6 +93,7 @@ export class Tokens<
         T_ThemeBrightnessMode extends readonly [ string, ...string[] ] = Tokens_Internal.Default_ThemeBrightnessMode,
         T_ThemeContrastMode_Extra extends readonly ThemeMode_ContrastExtraOptions[] = Tokens_Internal.Default_ThemeExtraContrastMode,
         T_ThemeName extends string = Tokens_Themes.Default_ThemeName,
+        T_ExtraIconNames extends string = never,
 
         T_ThemeKeyword_Universal extends string = never,
         T_ThemeKeyword_Text extends string = never,
@@ -95,6 +104,8 @@ export class Tokens<
             T_ThemeBrightnessMode,
             ThemeMode_Contrast<T_ThemeContrastMode_Extra>,
             T_ThemeName,
+            T_ExtraIconNames,
+
             T_ThemeKeyword_Universal,
             T_ThemeKeyword_Text
         >,
@@ -105,22 +116,24 @@ export class Tokens<
         T_ThemeBrightnessMode,
         ThemeMode_Contrast<T_ThemeContrastMode_Extra>,
         T_ThemeName,
+        T_ExtraIconNames,
+
         T_ThemeKeyword_Universal,
         T_ThemeKeyword_Text
     >> {
 
         const allClrNames = [
-            'base',
+            'base' as const,
             ...Object.keys( input.colour ?? {} ) as T_ColourName[],
-        ] as const;
+        ];
 
         const extraColourLevels = config.extraColourLevels ?? [];
 
-        const brightnessModes: T_ThemeBrightnessMode = input.themes?.brightness?.length
+        const brightnessModes = input.themes?.brightness?.length
             ? input.themes.brightness
             : [ 'light', 'dark' ] satisfies Tokens_Internal.Default_ThemeBrightnessMode as unknown as T_ThemeBrightnessMode;
 
-        const contrastModes: ThemeMode_Contrast<T_ThemeContrastMode_Extra> = [
+        const contrastModes = [
             'low',
             'average',
             'high',
@@ -131,15 +144,7 @@ export class Tokens<
             ) as unknown as T_ThemeContrastMode_Extra,
         ] as const;
 
-        const themes = await Tokens_Themes.build<
-            Tokens_Internal.Default_ColourName | T_ColourName,
-            T_ExtraColourLevels,
-            T_ThemeBrightnessMode[ number ],
-            ThemeMode_Contrast<T_ThemeContrastMode_Extra>[ number ],
-            T_ThemeName,
-            T_ThemeKeyword_Universal,
-            T_ThemeKeyword_Text
-        >(
+        const themes = await Tokens_Themes.build(
             allClrNames,
             extraColourLevels,
             brightnessModes,
@@ -153,12 +158,13 @@ export class Tokens<
             T_ThemeBrightnessMode,
             ThemeMode_Contrast<T_ThemeContrastMode_Extra>,
             T_ThemeName,
+            T_ExtraIconNames,
+
             T_ThemeKeyword_Universal,
             T_ThemeKeyword_Text
         >(
             allClrNames,
             extraColourLevels,
-            // @ts-expect-error -idek
             themes,
             input,
             {
@@ -190,6 +196,8 @@ export class Tokens<
             T_ThemeBrightnessMode,
             T_ThemeContrastMode,
             T_ThemeName,
+            T_ExtraIconNames,
+
             T_ThemeKeyword_Universal,
             T_ThemeKeyword_Text
         >, "themes">,
@@ -203,6 +211,7 @@ export class Tokens<
             this.input.colour ?? {},
         );
         this.css = new Tokens_CSS( this.input.css ?? {} );
+        this.icons = new Tokens_Icons( this.input.icons ?? {} );
         this.spacing = new Tokens_Spacing( this.input.spacing ?? {} );
         this.themes = themes;
         this.typography = new Tokens_Typography(
@@ -217,11 +226,14 @@ export class Tokens<
         T_ThemeBrightnessMode,
         T_ThemeContrastMode,
         T_ThemeName,
+        T_ExtraIconNames,
+
         T_ThemeKeyword_Universal,
         T_ThemeKeyword_Text
     > {
 
         return {
+            icons: this.icons.toJSON(),
             spacing: this.spacing.toJSON(),
             typography: this.typography.toJSON(),
 
@@ -238,6 +250,8 @@ export class Tokens<
             ...this.spacing.toScssVars(),
             ...this.typography.toScssVars(),
             ...this.css.toScssVars(),
+
+            icons: this.icons.toScssVars(),
 
             colour: this.colour.toScssVars(),
             themes: this.themes.toScssVars(),
@@ -320,12 +334,14 @@ export namespace Tokens_Internal {
         T_ThemeBrightnessMode extends readonly [ string, ...string[] ],
         T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne,
         T_ThemeName extends string,
+        T_ExtraIconNames extends string,
 
         T_ThemeKeyword_Universal extends string,
         T_ThemeKeyword_Text extends string,
     > = {
         colour: Tokens_Colour.Data<T_ColourName, T_ExtraColourLevels>;
         css: Tokens_CSS.Data;
+        icons: Tokens_Icons.Data<T_ExtraIconNames>;
         spacing: Tokens_Spacing.Data;
         themes: Tokens_Themes.Data<
             T_ColourName,
@@ -345,22 +361,26 @@ export namespace Tokens_Internal {
         T_ThemeBrightnessMode extends readonly [ string, ...string[] ],
         T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne,
         T_ThemeName extends string,
+        T_ExtraIconNames extends string,
 
         T_ThemeKeyword_Universal extends string,
         T_ThemeKeyword_Text extends string,
     > {
         colour?: undefined | Tokens_Colour.InputParam<T_ColourName, T_ExtraColourLevels>;
         css?: undefined | Tokens_CSS.InputParam;
+        icons?: undefined | Tokens_Icons.InputParam<T_ExtraIconNames>;
         spacing?: undefined | Tokens_Spacing.InputParam;
         themes?: {
             brightness?: T_ThemeBrightnessMode,
             contrast?: T_ThemeContrastMode,
+
             input?: Tokens_Themes.InputParam<
                 T_ColourName,
                 T_ExtraColourLevels,
                 T_ThemeBrightnessMode[ number ],
                 T_ThemeContrastMode[ number ],
                 T_ThemeName,
+
                 T_ThemeKeyword_Universal,
                 T_ThemeKeyword_Text
             >,
@@ -374,12 +394,14 @@ export namespace Tokens_Internal {
         T_ThemeBrightnessMode extends readonly [ string, ...string[] ],
         T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne,
         T_ThemeName extends string,
+        T_ExtraIconNames extends string,
 
         T_ThemeKeyword_Universal extends string,
         T_ThemeKeyword_Text extends string,
     > = {
         colour: Tokens_Colour.JsonReturn<T_ColourName, T_ExtraColourLevels>;
         css: Tokens_CSS.JsonReturn;
+        icons: Tokens_Icons.JsonReturn<T_ExtraIconNames>;
         spacing: Tokens_Spacing.JsonReturn;
         themes: Tokens_Themes.JsonReturn<
             T_ColourName,
@@ -454,15 +476,17 @@ export namespace Tokens {
         T_ThemeBrightnessMode extends readonly [ string, ...string[] ] = Tokens_Internal.Default_ThemeBrightnessMode,
         T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne = Tokens_Internal.Default_ThemeContrastMode,
         T_ThemeName extends string = Tokens_Themes.Default_ThemeName,
+        T_ExtraIconNames extends string = string,
 
-        T_ThemeKeyword_Universal extends string = never,
-        T_ThemeKeyword_Text extends string = never,
+        T_ThemeKeyword_Universal extends string = string,
+        T_ThemeKeyword_Text extends string = string,
     > = Tokens_Internal.Data<
         T_ColourName,
         T_ExtraColourLevels,
         T_ThemeBrightnessMode,
         T_ThemeContrastMode,
         T_ThemeName,
+        T_ExtraIconNames,
 
         T_ThemeKeyword_Universal,
         T_ThemeKeyword_Text
@@ -474,15 +498,17 @@ export namespace Tokens {
         T_ThemeBrightnessMode extends readonly [ string, ...string[] ] = Tokens_Internal.Default_ThemeBrightnessMode,
         T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne = Tokens_Internal.Default_ThemeContrastMode,
         T_ThemeName extends string = Tokens_Themes.Default_ThemeName,
+        T_ExtraIconNames extends string = string,
 
-        T_ThemeKeyword_Universal extends string = never,
-        T_ThemeKeyword_Text extends string = never,
+        T_ThemeKeyword_Universal extends string = string,
+        T_ThemeKeyword_Text extends string = string,
     > extends Tokens_Internal.InputParam<
         T_ColourName,
         T_ExtraColourLevels,
         T_ThemeBrightnessMode,
         T_ThemeContrastMode,
         T_ThemeName,
+        T_ExtraIconNames,
 
         T_ThemeKeyword_Universal,
         T_ThemeKeyword_Text
@@ -494,15 +520,17 @@ export namespace Tokens {
         T_ThemeBrightnessMode extends readonly [ string, ...string[] ] = Tokens_Internal.Default_ThemeBrightnessMode,
         T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne = Tokens_Internal.Default_ThemeContrastMode,
         T_ThemeName extends string = Tokens_Themes.Default_ThemeName,
+        T_ExtraIconNames extends string = string,
 
-        T_ThemeKeyword_Universal extends string = never,
-        T_ThemeKeyword_Text extends string = never,
+        T_ThemeKeyword_Universal extends string = string,
+        T_ThemeKeyword_Text extends string = string,
     > = Tokens_Internal.JsonReturn<
         T_ColourName,
         T_ExtraColourLevels,
         T_ThemeBrightnessMode,
         T_ThemeContrastMode,
         T_ThemeName,
+        T_ExtraIconNames,
 
         T_ThemeKeyword_Universal,
         T_ThemeKeyword_Text

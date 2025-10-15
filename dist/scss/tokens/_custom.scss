@@ -16,15 +16,25 @@ $internal_customTokensDefault: map.merge(
             outline-offset: '400',
             outline-color: currentColor,
         ),
+
+        icon: (
+            color: currentColor,
+            inline-buffer: 0.125em,
+            vertical-align: middle,
+            size: (
+                '$': 1.375em,
+                pseudo: 1em,
+            ),
+        ),
     ),
-    map.flatten($internal_customTokensDefault),
-    $recursive: false
+    $internal_customTokensDefault,
+    $recursive: true
 );
 
 $customTokens: () !default;
 
 $customTokens: map.merge(
-    $internal_customTokensDefault,
+    map.flatten($internal_customTokensDefault),
     map.flatten($customTokens),
     $recursive: false
 );

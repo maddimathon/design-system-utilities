@@ -44,6 +44,69 @@
 }
 
 ///
+/// Uses the icon tokens to return a url('...') value.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function icon-aspect-ratio-value($slug) {
+    // returns
+    @if not map.has-key(tokens.$icons, '#{$slug}') {
+        @warn "$slug '#{$slug}' was not a key in tokens.$icons";
+        @return $slug;
+    }
+
+    // returns
+    @if not map.has-key(tokens.$icons, '#{$slug}', aspectRatio) {
+        @warn "'aspectRatio' was not a key in tokens.$icons.#{$slug}";
+        @return $slug;
+    }
+
+    @return map.get(tokens.$icons, '#{$slug}', aspectRatio);
+}
+
+///
+/// Uses the icon tokens to return its aspect ratio.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function icon-embedded-value($slug) {
+    // returns
+    @if not map.has-key(tokens.$icons, '#{$slug}') {
+        @warn "$slug '#{$slug}' was not a key in tokens.$icons";
+        @return $slug;
+    }
+
+    // returns
+    @if not map.has-key(tokens.$icons, '#{$slug}', embedded) {
+        @warn "'embedded' was not a key in tokens.$icons.#{$slug}";
+        @return $slug;
+    }
+
+    @return map.get(tokens.$icons, '#{$slug}', embedded);
+}
+
+///
+/// Uses the icon tokens to return its label value.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function icon-label-value($slug) {
+    // returns
+    @if not map.has-key(tokens.$icons, '#{$slug}') {
+        @warn "$slug '#{$slug}' was not a key in tokens.$icons";
+        @return $slug;
+    }
+
+    // returns
+    @if not map.has-key(tokens.$icons, '#{$slug}', label) {
+        @warn "'label' was not a key in tokens.$icons.#{$slug}";
+        @return $slug;
+    }
+
+    @return map.get(tokens.$icons, '#{$slug}', label);
+}
+
+///
 /// Uses the transition time tokens to prepare the appropriate numerical value
 /// (rem).
 ///

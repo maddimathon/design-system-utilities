@@ -65,10 +65,10 @@ export class Tokens_Themes<
         contrastModes: readonly T_ThemeContrastMode[],
 
         input: Tokens_Themes.InputParam<
-            NoInfer<T_ColourName>,
-            NoInfer<T_ExtraColourLevels>,
-            NoInfer<T_ThemeBrightnessMode>,
-            NoInfer<T_ThemeContrastMode>,
+            T_ColourName,
+            T_ExtraColourLevels,
+            T_ThemeBrightnessMode,
+            T_ThemeContrastMode,
             T_ThemeName,
             T_Keyword_Universal,
             T_Keyword_Text

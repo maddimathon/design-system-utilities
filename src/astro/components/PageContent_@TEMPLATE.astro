@@ -6,6 +6,7 @@
  */
 
 /* import - types */
+import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 
 /* import - functions */
@@ -13,7 +14,7 @@ import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 /* import - values */
 
 /* import - components */
-// import Toggle from '@maddimathon/utility-astro/components/Toggle';
+import Toggle from '@maddimathon/utility-astro/components/Toggle';
 
 /* import - layouts */
 
@@ -25,9 +26,24 @@ export interface Props {
     tokens: Tokens.JsonReturn;
 }
 
-// const { tokens }: Props = Astro.props;
+const { tokens }: Props = Astro.props;
 
 /* CONSTANTS ===================================== */
 
-// const defaultToggleToOpen = import.meta.env.DEV ? true : undefined;
+const defaultToggleToOpen = import.meta.env.DEV ? true : undefined;
 ---
+
+<Toggle
+    defaultOpen={defaultToggleToOpen}
+    heading={2}
+    id={`tokens-demo-TEMPLATE-vardump`}
+>
+    <Fragment
+        set:text='Value'
+        slot='button'
+    />
+    <VariableDump
+        var={tokens}
+        name='tokens'
+    />
+</Toggle>
