@@ -3,19 +3,11 @@
 /// @since 0.1.0-alpha.draft
 ///
 
-@forward 'utility-astro' hide $internal_supressCredit,
-    $print_astro_settingsMenu, $print_astro_stickyToggleNav,
-    $print_astro_toggle, $print_astro_toggleNav, $print_normalize, $print_tokens;
+@forward 'utility-astro';
 
-@forward 'templates';
+@forward 'template';
 
 @use 'utility-astro' as utils;
-
-$internal_supressCredit: false !default;
-$internal_supressCredit: utils.config-valid-bool(
-    $internal_supressCredit,
-    'internal_supressCredit'
-);
 
 $mx_themeTokens_nestModeSelectors: false !default;
 $mx_themeTokens_nestModeSelectors: utils.config-valid-bool(

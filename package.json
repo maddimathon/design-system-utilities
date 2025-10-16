@@ -24,8 +24,8 @@
     "files": [
         "./dist/**/*",
         "!./dist/default-tokens.json",
-        "!./dist/css/templates/@template.css",
-        "!./dist/css/templates/@template.css.map",
+        "!./dist/css/template/@template.css",
+        "!./dist/css/template/@template.css.map",
         "./LICENSE.md",
         "./package-lock.json",
         "./package.json",
@@ -80,7 +80,7 @@
             "./dist/astro/*/index.js",
             "./dist/astro/*"
         ],
-
+        
 
         "./config.scss": "./dist/scss/config/index.scss",
         "./config/*.scss": [
@@ -92,14 +92,15 @@
         
         "./notice.scss": "./dist/scss/_notice.scss",
         
-        "./template.scss": "./dist/scss/templates/default/index.scss",
-        "./template/content.scss": "./dist/scss/templates/_content/_index.scss",
+        "./template.scss": "./dist/scss/template/default/index.scss",
+        "./template/content.scss": "./dist/scss/template/_content/_index.scss",
+        "./template/content/notice.scss": "./dist/scss/template/_content/_header/_notice.scss",
         
         "./template/*.scss": [
-            "./dist/scss/templates/*.scss",
-            "./dist/scss/templates/_*.scss",
-            "./dist/scss/templates/*/index.scss",
-            "./dist/scss/templates/*/_index.scss"
+            "./dist/scss/template/*.scss",
+            "./dist/scss/template/_*.scss",
+            "./dist/scss/template/*/index.scss",
+            "./dist/scss/template/*/_index.scss"
         ],
 
         "./tokens.scss": "./dist/scss/tokens/index.scss",
@@ -111,23 +112,33 @@
         ],
 
         "./*.scss": [
-            "./dist/scss/templates/*/index.scss",
-            "./dist/scss/templates/*/_index.scss",
-            "./dist/scss/lib/*",
-            "./dist/scss/lib/_*",
+            "./dist/scss/template/*/index.scss",
+            "./dist/scss/template/*/_index.scss",
+            "./dist/scss/lib/*.scss",
+            "./dist/scss/lib/_*.scss",
             "./dist/scss/lib/*/index.scss",
-            "./dist/scss/lib/*/_index.scss"
+            "./dist/scss/lib/*/_index.scss",
+            "./dist/scss/*/index.scss",
+            "./dist/scss/*/_index.scss",
+            "./dist/scss/*.scss",
+            "./dist/scss/_*.scss"
         ],
 
         "./*": {
 
             "sass": [
-                "./dist/scss/templates/*/index.scss",
-                "./dist/scss/templates/*/_index.scss",
+                "./dist/scss/template/*/index.scss",
+                "./dist/scss/template/*/_index.scss",
+                "./dist/scss/lib/*.scss",
+                "./dist/scss/lib/_*.scss",
+                "./dist/scss/lib/*/index.scss",
+                "./dist/scss/lib/*/_index.scss",
+                "./dist/scss/*/index.scss",
+                "./dist/scss/*/_index.scss",
                 "./dist/scss/lib/*",
                 "./dist/scss/lib/_*",
-                "./dist/scss/lib/*/index.scss",
-                "./dist/scss/lib/*/_index.scss"
+                "./dist/scss/*",
+                "./dist/scss/_*"
             ],
 
             "types": [

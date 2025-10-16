@@ -1,0 +1,184 @@
+///
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+// @use 'pkg:@maddimathon/utility-sass/map';
+
+@use '../../../config';
+@use '../../../tokens';
+
+@use '../../../lib' as *;
+
+@if config.$print_headings {
+    /* # GLOBALS - TYPOGRAPHY
+     * ======================================================================== */
+}
+
+@if config.$include_html {
+    @include colour-mode-all {
+        background: #{var-theme(background)};
+        color: #{var-theme(text)};
+    }
+}
+
+%selection {
+    @each $mode in tokens.$contrastMode_all {
+        @include colour-mode($mode, $includeDefault: false) {
+            //
+            background-color: #{var-theme(selection-bg, $contrast: $mode)} !important;
+            color: #{var-theme(selection-text, $contrast: $mode)} !important;
+
+            & {
+                @if $mode == average {
+                    //
+                    background-color: color-mix(
+                        in srgb,
+                        #{var-theme(selection-bg, $contrast: $mode)} 45%,
+                        transparent
+                    ) !important;
+                    //
+                } @else if $mode == low {
+                    //
+                    background-color: color-mix(
+                        in srgb,
+                        #{var-theme(selection-bg, $contrast: $mode)} 35%,
+                        transparent
+                    ) !important;
+                    //
+                } @else if $mode == high {
+                    //
+                    background-color: color-mix(
+                        in srgb,
+                        #{var-theme(selection-bg, $contrast: $mode)} 90%,
+                        transparent
+                    ) !important;
+                }
+            }
+        }
+    }
+}
+
+@if config.$print_headings {
+    /* ## Typography - Inline ==================================== */
+}
+
+%a {
+    --icon-color: #{var-theme(link-icon)};
+    text-decoration-color: #{var-theme(link-ui)};
+
+    /// STATES ///
+
+    &:visited {
+        --icon-color: #{var-theme(link-icon-visited)};
+        text-decoration-color: #{var-theme(link-ui-visited)};
+    }
+
+    @include hover-focus-visible() {
+        --icon-color: #{var-theme(link-icon-hover)};
+        text-decoration-color: #{var-theme(link-ui-hover)};
+    }
+
+    &:active {
+        --icon-color: #{var-theme(link-icon-active)};
+        text-decoration-color: #{var-theme(link-ui-active)};
+    }
+
+    /// EXCEPTIONS ///
+
+    &.no-style {
+    }
+
+    &[target='_blank'] {
+        &::after {
+            @include snippet-icon-pseudo-element(external);
+        }
+    }
+
+    &[aria-disabled='true'] {
+        color: #{var-theme(link-disabled)};
+    }
+}
+
+%abbr {
+    &[title] {
+        text-decoration: dotted underline #{var-stroke-relative('400')};
+        text-decoration-color: #{var-theme(ui-primary)};
+    }
+}
+
+@if config.$print_headings {
+    /* ## Typography - Block ==================================== */
+}
+
+%aside {
+    font-style: italic;
+    color: #{var-theme(text-primary)};
+
+    em {
+        font-style: normal;
+
+        em {
+            font-style: italic;
+        }
+    }
+}
+
+%blockquote {
+    border-inline-start-color: #{var-theme(ui-primary)};
+
+    > p {
+    }
+
+    > cite {
+        font-size: #{var-fs(smaller-1)};
+        color: #{var-theme(text-primary)};
+
+        &::before {
+        }
+    }
+}
+
+%code,
+%kbd,
+%pre,
+%samp {
+    --focus-ring-outline-color: #{var-theme(text-secondary)};
+    color: #{var-theme(text-primary)};
+}
+
+%code {
+}
+
+%pre {
+    border-color: #{var-theme(ui-primary)};
+    color: #{var-theme(text)};
+
+    > code {
+        color: inherit;
+    }
+}
+
+@if config.$print_headings {
+    /* ## Typography - Headings ==================================== */
+}
+
+@each $num in token-all-heading-levels() {
+    //
+    #{if( $num == 1, ('%h#{$num}', '%title'), '%h#{$num}' )} {
+        @include snippet-heading($num, $includeUtils: false);
+    }
+
+    %h#{$num}--where {
+        @include snippet-heading($num, $includeUtils: false);
+    }
+}
+
+%page-subtitle {
+    font-size: #{var-fs(heading-5)};
+    color: #{var-theme(text-grey)};
+
+    @include colour-mode-all {
+        opacity: 1;
+    }
+}

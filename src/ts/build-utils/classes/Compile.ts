@@ -51,8 +51,8 @@ export class Compile extends CompileStage {
     protected async templates() {
 
         await this.runCustomScssDirSubStage(
-            'scss/templates',
-            this.getDistDir( undefined, 'css/templates' ),
+            'scss/template',
+            this.getDistDir( undefined, 'css/template' ),
             {
                 postCSS: true,
             },
@@ -65,8 +65,8 @@ export class Compile extends CompileStage {
                 this.fs.delete,
                 ( this.params.verbose ? 3 : 2 ),
                 [ [
-                    'dist/css/templates/@template.css',
-                    'dist/css/templates/@template.css.map'
+                    'dist/css/template/@template.css',
+                    'dist/css/template/@template.css.map'
                 ], ( this.params.verbose ? 3 : 2 ) ]
             );
         }

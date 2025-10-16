@@ -14,11 +14,18 @@
  * License: MIT
  */
 /*!
- * Design System Utilities - Sass Template - Docs
+ * This stylesheet includes css generated using 
+ * @maddimathon/utility-astro@0.1.0-alpha.draft
  * 
- * @maddimathon/design-system-utilities@___CURRENT_VERSION___
  * License: MIT
  */
+/*!
+ * This stylesheet includes css generated using 
+ * @maddimathon/design-system-utilities@___CURRENT_VERSION___
+ * 
+ * License: MIT
+ */
+/*! START of @maddimathon/design-system-utilities/template/docs */
 /* #region Normalize */
 /*! modern-normalize v3.0.1 | MIT License | https://github.com/sindresorhus/modern-normalize */
 /*
@@ -272,6 +279,8 @@ pre {
 }
 
 /* #endregion Normalize */
+/* # TOKENS & PROPERTIES
+ * ======================================================================== */
 /* #region Tokens - Margin */
 html {
     --mrg-firm-100: 0.3125rem;
@@ -6776,18 +6785,10 @@ html,
     }
 }
 /* #endregion Tokens - Exceptions - high-contrast modes */
-/*!
- * Utility Astro Template
- * 
- * @maddimathon/utility-astro@0.1.0-alpha.draft
- * License: MIT
- */
-/*!
- * Utility Sass Template
- * 
- * @maddimathon/utility-sass@0.1.0-alpha.draft
- * License: MIT
- */
+/*! START of @maddimathon/utility-astro/template */
+/*! START of @maddimathon/utility-sass/template */
+/* # GLOBALS - Accessibility
+ * ======================================================================== */
 .no-js :focus,
 .js__no-where-selector :focus {
     /* %focus-ring */
@@ -6844,6 +6845,8 @@ html,
     overflow: hidden !important;
 }
 
+/* # GLOBALS - Objects
+ * ======================================================================== */
 html,
 body {
     scroll-padding-top: max(1.625rem, min(5svw, 5.8125rem));
@@ -6909,13 +6912,14 @@ hr {
     border-bottom: currentColor solid 2px;
 }
 
+/* # GLOBALS - Typography
+ * ======================================================================== */
 ::-moz-selection {
     background-color: hsl(283.65, 54.92%, 42.15%);
     background-color: var(--sys-clr-selection-bg, Highlight);
     color: hsl(0, 0%, 2.86%);
     color: var(--sys-clr-selection-text, HighlightText);
 }
-
 ::selection,
 .theme-mode-swatch__sample--selection {
     background-color: hsl(283.65, 54.92%, 42.15%);
@@ -6933,6 +6937,7 @@ html {
     color: var(--sys-clr-text, CanvasText);
 }
 
+/* ## Typography - Inline ==================================== */
 strong,
 b {
     font-weight: 700;
@@ -7036,6 +7041,7 @@ abbr[title] {
     cursor: help;
 }
 
+/* ## Typography - Block ==================================== */
 p {
     margin-top: 0.8125rem;
     margin-top: var(--mrg-soft-400, 0.8125rem);
@@ -7180,6 +7186,7 @@ pre:where(:has(> code)) > .shade-swatch__colour-value {
     overflow: visible;
 }
 
+/* ## Typography - Headings ==================================== */
 h1,
 .h1,
 .page-title {
@@ -7559,6 +7566,8 @@ h6 a.button,
     text-transform: inherit;
 }
 
+/* # GLOBALS - Lists
+ * ======================================================================== */
 ol,
 ul {
     margin: 0;
@@ -7663,6 +7672,8 @@ li li li li i i {
     font-style: italic;
 }
 
+/* # GLOBALS - Forms
+ * ======================================================================== */
 fieldset {
     display: block;
     margin: 1.25rem 0 0.4375rem;
@@ -8031,6 +8042,7 @@ textarea {
     cursor: text;
 }
 
+/* ## Forms - Buttons ==================================== */
 button,
 [role="button"],
 input[type="button"],
@@ -8423,6 +8435,8 @@ label > input[type="radio"] {
     margin-bottom: 0;
 }
 
+/* # GLOBALS - Tables
+ * ======================================================================== */
 .table-wrapper,
 table {
     position: relative;
@@ -8489,6 +8503,9 @@ th {
     color: var(--sys-clr-accent-text, Canvas);
 }
 
+/* # UTILITIES - Typography
+ * ======================================================================== */
+/* ## Font Sizes ==================================== */
 .font-size-heading-1 {
     font-size: clamp(2.0625rem, 3.625svw + 1rem, 3.125rem);
     font-size: var(--fs-heading-1, 2.75rem);
@@ -8574,7 +8591,9 @@ th {
     font-size: var(--fs-bigger-9, 3.6875rem);
 }
 
-/*! end of @maddimathon/utility-sass/template */
+/*! END of @maddimathon/utility-sass/template */
+/* # LAYOUT - BASICS
+ * ======================================================================== */
 nav ol,
 nav ul {
     margin-top: 0;
@@ -8586,6 +8605,8 @@ nav ul li {
     margin-bottom: 0;
 }
 
+/* # ASTRO LAYOUT - CONTENT SUPPORT
+ * ======================================================================== */
 body > aside {
     grid-column: sidebar-start/sidebar-end;
     width: auto;
@@ -8903,7 +8924,9 @@ body > aside > :first-child {
     }
 }
 
-/*! end of @maddimathon/utility-astro/template */
+/*! END of @maddimathon/utility-astro/template */
+/* # GLOBALS - TYPOGRAPHY
+ * ======================================================================== */
 html,
 [data-brightness-mode="light"],
 [data-brightness-mode="dark"],
@@ -9500,6 +9523,7 @@ pre > code {
     color: inherit;
 }
 
+/* ## Typography - Headings ==================================== */
 h1,
 .h1,
 .page-title {
@@ -10099,6 +10123,8 @@ h6 a:active,
     }
 }
 
+/* # LISTS
+ * ======================================================================== */
 li::marker {
     color: hsl(282.99, 65.99%, 29.2%);
     color: var(
@@ -10124,6 +10150,8 @@ li li li li li {
     );
 }
 
+/* # FORMS
+ * ======================================================================== */
 textarea,
 select,
 input {
@@ -10449,6 +10477,7 @@ input[type="range"] {
     padding: 0;
 }
 
+/* ## Forms - Buttons ==================================== */
 .button-span {
     display: flex;
     flex-direction: row;
@@ -11107,6 +11136,8 @@ input.button-secondary[type="submit"]:active {
     );
 }
 
+/* # BLOCKS - ICONS
+ * ======================================================================== */
 .icon {
     display: inline-block;
     vertical-align: middle;
@@ -11151,6 +11182,8 @@ input.button-secondary[type="submit"]:active {
     aspect-ratio: 7 / 6;
 }
 
+/* # ASTRO COMPONENT - TOGGLE
+ * ======================================================================== */
 [data-toggle-content] > .container,
 [data-toggle-container] {
     --display: flex;
@@ -11960,6 +11993,8 @@ input.button-secondary[type="submit"]:active {
     color: currentColor;
 }
 
+/* # ASTRO COMPONENT - TOGGLE NAV MENU
+ * ======================================================================== */
 body > nav[data-toggle-container] {
     grid-column: page-start/page-end;
     width: auto;
@@ -12087,6 +12122,8 @@ body > nav[data-toggle-container] {
     border-top: none;
 }
 
+/* # ASTRO SUPPORT - STICKY TOGGLE NAV
+ * ======================================================================== */
 :where(.js),
 :where(.js) body {
     --height-nav-primary: 3.125rem;
@@ -12136,6 +12173,8 @@ body > nav[data-toggle-container] {
     margin-top: 0;
 }
 
+/* # ASTRO COMPONENT - SETTINGS MENU
+ * ======================================================================== */
 .website-settings-menu {
     grid-column: page-start/page-end;
     --display: none;
@@ -12683,7 +12722,7 @@ p.aside em em em {
     );
 }
 
-/*! end of @maddimathon/design-system-utilities/templates/docs */
+/*! END of @maddimathon/design-system-utilities/template/docs */
 /* # CONTRAST RESULT ==================================== */
 .contrast-alert {
     display: flex;
