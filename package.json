@@ -158,6 +158,8 @@
     "scripts": {
         "commit": "sh .scripts/commit.sh",
 
+        "rm": "rm -rf dist docs src/astro/css src/astro/scss src/scss/tokens/system/_default.scss",
+
         "astro:check": "astro check",
         "astro:build": "astro check && astro build",
         "astro:preview": "astro preview",
@@ -205,7 +207,7 @@
     "dependencies": {
         "@maddimathon/build-utilities": "file:../npm-build-utilities",
         "@maddimathon/utility-astro": "file:../utility-astro",
-        "@maddimathon/utility-sass": "file:../utility-sass",
+        "@maddimathon/utility-sass": "github:maddimathon/utility-sass#0.1.0-pre.0",
         "@maddimathon/utility-typescript": "2.0.0-beta",
         "@types/jest": "^30.0.0",
         "astro": "^5.14.4",
@@ -231,6 +233,7 @@
 
     "peerDependencies": {
         "@maddimathon/build-utilities": "~0.3.0-alpha",
+        "@maddimathon/utility-sass": "~0.1.0-pre.0",
         "@maddimathon/utility-typescript": "^2.0.0-beta",
         "astro": "^5.14.4",
         "typedoc": "^0.28.14",
