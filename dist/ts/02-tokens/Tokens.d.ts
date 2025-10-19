@@ -7,7 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
-import type { ThemeMode_Contrast, ThemeMode_ContrastAtLeastOne, ThemeMode_ContrastExtraOptions, ColourLevels_Extended } from './@types.js';
+import type { ThemeMode_Contrast, ThemeMode_ContrastAtLeastOne, ThemeMode_ContrastExtraOptions, ColourLevels_Extended, TokenLevels } from './@types.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 import { Tokens_Colour } from './Tokens_Colour.js';
 import { Tokens_CSS } from './Tokens_CSS.js';
@@ -31,7 +31,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
     get data(): {
         icons: Tokens_Icons.Data<T_ExtraIconNames>;
         spacing: Tokens_Spacing.Data;
-        typography: Tokens_Typography.Data<number>;
+        typography: Tokens_Typography.Data<number, string>;
         colour: Tokens_Colour.Data<T_ColourName, T_ExtraColourLevels>;
         themes: Tokens_Themes.Data<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode[number], T_ThemeContrastMode[number], T_ThemeName, T_ThemeKeyword_Universal, T_ThemeKeyword_Text>;
         css: Tokens_CSS.Data;
@@ -242,6 +242,280 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                 normal: number;
                 bigger: {
                     [key: number]: number;
+                };
+            };
+            family: {
+                [x: string]: {
+                    100?: {
+                        normal: {
+                            family: string;
+                            fallbacks: string[];
+                            src: {
+                                type: "local" | "ttf" | "woff" | "woff2";
+                                path: string;
+                            }[];
+                            style: "normal" | "italic";
+                            weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            display?: "auto" | "block" | "fallback" | "optional" | "swap";
+                            'line-gap-override'?: string;
+                            'size-adjust'?: string;
+                            'unicode-range'?: string;
+                        };
+                        italic: {
+                            family: string;
+                            fallbacks: string[];
+                            src: {
+                                type: "local" | "ttf" | "woff" | "woff2";
+                                path: string;
+                            }[];
+                            style: "normal" | "italic";
+                            weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            display?: "auto" | "block" | "fallback" | "optional" | "swap";
+                            'line-gap-override'?: string;
+                            'size-adjust'?: string;
+                            'unicode-range'?: string;
+                        };
+                    } | undefined;
+                    200?: {
+                        normal: {
+                            family: string;
+                            fallbacks: string[];
+                            src: {
+                                type: "local" | "ttf" | "woff" | "woff2";
+                                path: string;
+                            }[];
+                            style: "normal" | "italic";
+                            weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            display?: "auto" | "block" | "fallback" | "optional" | "swap";
+                            'line-gap-override'?: string;
+                            'size-adjust'?: string;
+                            'unicode-range'?: string;
+                        };
+                        italic: {
+                            family: string;
+                            fallbacks: string[];
+                            src: {
+                                type: "local" | "ttf" | "woff" | "woff2";
+                                path: string;
+                            }[];
+                            style: "normal" | "italic";
+                            weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            display?: "auto" | "block" | "fallback" | "optional" | "swap";
+                            'line-gap-override'?: string;
+                            'size-adjust'?: string;
+                            'unicode-range'?: string;
+                        };
+                    } | undefined;
+                    300?: {
+                        normal: {
+                            family: string;
+                            fallbacks: string[];
+                            src: {
+                                type: "local" | "ttf" | "woff" | "woff2";
+                                path: string;
+                            }[];
+                            style: "normal" | "italic";
+                            weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            display?: "auto" | "block" | "fallback" | "optional" | "swap";
+                            'line-gap-override'?: string;
+                            'size-adjust'?: string;
+                            'unicode-range'?: string;
+                        };
+                        italic: {
+                            family: string;
+                            fallbacks: string[];
+                            src: {
+                                type: "local" | "ttf" | "woff" | "woff2";
+                                path: string;
+                            }[];
+                            style: "normal" | "italic";
+                            weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            display?: "auto" | "block" | "fallback" | "optional" | "swap";
+                            'line-gap-override'?: string;
+                            'size-adjust'?: string;
+                            'unicode-range'?: string;
+                        };
+                    } | undefined;
+                    400?: {
+                        normal: {
+                            family: string;
+                            fallbacks: string[];
+                            src: {
+                                type: "local" | "ttf" | "woff" | "woff2";
+                                path: string;
+                            }[];
+                            style: "normal" | "italic";
+                            weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            display?: "auto" | "block" | "fallback" | "optional" | "swap";
+                            'line-gap-override'?: string;
+                            'size-adjust'?: string;
+                            'unicode-range'?: string;
+                        };
+                        italic: {
+                            family: string;
+                            fallbacks: string[];
+                            src: {
+                                type: "local" | "ttf" | "woff" | "woff2";
+                                path: string;
+                            }[];
+                            style: "normal" | "italic";
+                            weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            display?: "auto" | "block" | "fallback" | "optional" | "swap";
+                            'line-gap-override'?: string;
+                            'size-adjust'?: string;
+                            'unicode-range'?: string;
+                        };
+                    } | undefined;
+                    500?: {
+                        normal: {
+                            family: string;
+                            fallbacks: string[];
+                            src: {
+                                type: "local" | "ttf" | "woff" | "woff2";
+                                path: string;
+                            }[];
+                            style: "normal" | "italic";
+                            weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            display?: "auto" | "block" | "fallback" | "optional" | "swap";
+                            'line-gap-override'?: string;
+                            'size-adjust'?: string;
+                            'unicode-range'?: string;
+                        };
+                        italic: {
+                            family: string;
+                            fallbacks: string[];
+                            src: {
+                                type: "local" | "ttf" | "woff" | "woff2";
+                                path: string;
+                            }[];
+                            style: "normal" | "italic";
+                            weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            display?: "auto" | "block" | "fallback" | "optional" | "swap";
+                            'line-gap-override'?: string;
+                            'size-adjust'?: string;
+                            'unicode-range'?: string;
+                        };
+                    } | undefined;
+                    600?: {
+                        normal: {
+                            family: string;
+                            fallbacks: string[];
+                            src: {
+                                type: "local" | "ttf" | "woff" | "woff2";
+                                path: string;
+                            }[];
+                            style: "normal" | "italic";
+                            weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            display?: "auto" | "block" | "fallback" | "optional" | "swap";
+                            'line-gap-override'?: string;
+                            'size-adjust'?: string;
+                            'unicode-range'?: string;
+                        };
+                        italic: {
+                            family: string;
+                            fallbacks: string[];
+                            src: {
+                                type: "local" | "ttf" | "woff" | "woff2";
+                                path: string;
+                            }[];
+                            style: "normal" | "italic";
+                            weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            display?: "auto" | "block" | "fallback" | "optional" | "swap";
+                            'line-gap-override'?: string;
+                            'size-adjust'?: string;
+                            'unicode-range'?: string;
+                        };
+                    } | undefined;
+                    700?: {
+                        normal: {
+                            family: string;
+                            fallbacks: string[];
+                            src: {
+                                type: "local" | "ttf" | "woff" | "woff2";
+                                path: string;
+                            }[];
+                            style: "normal" | "italic";
+                            weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            display?: "auto" | "block" | "fallback" | "optional" | "swap";
+                            'line-gap-override'?: string;
+                            'size-adjust'?: string;
+                            'unicode-range'?: string;
+                        };
+                        italic: {
+                            family: string;
+                            fallbacks: string[];
+                            src: {
+                                type: "local" | "ttf" | "woff" | "woff2";
+                                path: string;
+                            }[];
+                            style: "normal" | "italic";
+                            weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            display?: "auto" | "block" | "fallback" | "optional" | "swap";
+                            'line-gap-override'?: string;
+                            'size-adjust'?: string;
+                            'unicode-range'?: string;
+                        };
+                    } | undefined;
+                    800?: {
+                        normal: {
+                            family: string;
+                            fallbacks: string[];
+                            src: {
+                                type: "local" | "ttf" | "woff" | "woff2";
+                                path: string;
+                            }[];
+                            style: "normal" | "italic";
+                            weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            display?: "auto" | "block" | "fallback" | "optional" | "swap";
+                            'line-gap-override'?: string;
+                            'size-adjust'?: string;
+                            'unicode-range'?: string;
+                        };
+                        italic: {
+                            family: string;
+                            fallbacks: string[];
+                            src: {
+                                type: "local" | "ttf" | "woff" | "woff2";
+                                path: string;
+                            }[];
+                            style: "normal" | "italic";
+                            weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            display?: "auto" | "block" | "fallback" | "optional" | "swap";
+                            'line-gap-override'?: string;
+                            'size-adjust'?: string;
+                            'unicode-range'?: string;
+                        };
+                    } | undefined;
+                    900?: {
+                        normal: {
+                            family: string;
+                            fallbacks: string[];
+                            src: {
+                                type: "local" | "ttf" | "woff" | "woff2";
+                                path: string;
+                            }[];
+                            style: "normal" | "italic";
+                            weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            display?: "auto" | "block" | "fallback" | "optional" | "swap";
+                            'line-gap-override'?: string;
+                            'size-adjust'?: string;
+                            'unicode-range'?: string;
+                        };
+                        italic: {
+                            family: string;
+                            fallbacks: string[];
+                            src: {
+                                type: "local" | "ttf" | "woff" | "woff2";
+                                path: string;
+                            }[];
+                            style: "normal" | "italic";
+                            weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            display?: "auto" | "block" | "fallback" | "optional" | "swap";
+                            'line-gap-override'?: string;
+                            'size-adjust'?: string;
+                            'unicode-range'?: string;
+                        };
+                    } | undefined;
                 };
             };
         };
@@ -587,6 +861,31 @@ export declare namespace Tokens {
             };
         };
     };
+    /**
+     * @since 0.1.0-alpha.draft
+     */
+    namespace Typography {
+        type AllFonts<T_FontFamilySlug extends string = string> = {
+            [K in T_FontFamilySlug]: Tokens_Typography.Font.Family<K>;
+        };
+        namespace Font {
+            type AllLevels<T_FontFamilySlug extends string = string> = {
+                [K in T_FontFamilySlug]: Omit<Tokens_Typography.Font.Family<K>, 'weights'> & {
+                    weights: {
+                        [K in TokenLevels]: {
+                            normal: Tokens_Typography.Font.File;
+                            italic: Tokens_Typography.Font.File;
+                        };
+                    };
+                };
+            };
+            type File = Tokens_Typography.Font.File;
+            /**
+             * @since 0.1.0-alpha.draft
+             */
+            const SystemUI: string[];
+        }
+    }
     /**
      * @since 0.1.0-alpha.draft
      */

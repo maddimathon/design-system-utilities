@@ -181,20 +181,18 @@
         "quick-build": "build-utils build --without minimize,prettify",
         
         
-        "prewatch": "build-utils compile --starting",
-        
         "watch": "run-p --silent watch:*",
-            "watch:css":  "watch -p 'src/scss/**/*' -c 'build-utils build --without minimize,prettify --only-compile scss --watchedWatcher \"watch:scss\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
-            "watch:js":   "watch -p 'src/ts/**/*'   -c 'build-utils build --without minimize,prettify --only-compile ts   --watchedWatcher \"watch:js\"   --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
-            "watch:docs": "watch -p 'src/docs/**/*' -c 'build-utils document                                              --watchedWatcher \"watch:docs\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:astro": "watch -p 'src/astro/components/**/*' -p 'src/astro/layouts/**/*' -c 'build-utils build --only compile          --only-compile astro                     --watchedWatcher \"start:watch:astro\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:scss":  "watch -p 'src/scss/**/*' -p 'src/docs/scss/**/*'                 -c 'build-utils build --only compile,document --only-compile scss --only-document scss --watchedWatcher \"start:watch:scss\"  --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:ts":    "watch -p 'src/ts/**/*'                                           -c 'build-utils build --only compile,test     --only-compile ts,tokens                 --watchedWatcher \"start:watch:ts\"    --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
         
         
         "build-start": "build-utils build --verbose --starting --without minimize,prettify && npm run --silent start",
         "build-update": "npm run --silent build -- --watchedWatcher \"watch:cx\" --watchedChange --only compile,document --without-compile astro,templates,files --only-document scss --verbose",
 
         "start": "run-p start:* start:watch:*",
-            "start:watch:scss": "watch -p 'src/scss/**/*' -p 'src/docs/scss/**/*' -c 'build-utils build --only compile,document      --only-compile scss      --only-document scss --watchedWatcher \"start:watch:scss\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
-            "start:watch:ts":   "watch -p 'src/ts/**/*'                           -c 'build-utils build --only compile,test,document --only-compile ts,tokens --only-document scss --watchedWatcher \"start:watch:ts\"   --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "start:watch:scss": "watch -p 'src/scss/**/*' -p 'src/docs/scss/**/*' -c 'build-utils build --only compile,document --only-compile scss --only-document scss --watchedWatcher \"start:watch:scss\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "start:watch:ts":   "watch -p 'src/ts/**/*'                           -c 'build-utils build --only compile,test     --only-compile ts,tokens                 --watchedWatcher \"start:watch:ts\"   --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
             "start:astro": "astro dev",
         
 

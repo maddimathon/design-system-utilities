@@ -28,6 +28,7 @@ export class Tokens_Typography extends AbstractTokens {
                 '500': 1,
                 '600': 2,
             },
+            fonts: {},
             size: {
                 heading: {
                     1: 7,
@@ -107,9 +108,37 @@ export class Tokens_Typography extends AbstractTokens {
             font: {
                 // UPGRADE - make empty size objects equal to null
                 size: this.data.size,
+                family: objectMap(this.data.fonts, ({ value }) => value && objectMap(value.weights, ({ key: weight, value: fontSet }) => fontSet && objectMap(fontSet, ({ key: style, value: font }) => ({
+                    family: value.name,
+                    fallbacks: value.fallbacks ?? [],
+                    style,
+                    weight,
+                    display: font.display ?? value.display,
+                    'line-gap-override': font.lineGapOverride ?? value.lineGapOverride,
+                    'size-adjust': font.sizeAdjust ?? value.sizeAdjust,
+                    'unicode-range': font.unicodeRange ?? value.unicodeRange,
+                    src: Object.values(objectMap(font.path, ({ key: type, value: paths }) => typeof paths === 'undefined'
+                        ? []
+                        : (Array.isArray(paths) ? paths : [paths]).map((path) => ({ type, path })))).flat(),
+                })))),
             },
             line_height: this.data.lineHeight,
         };
     }
 }
+/**
+ * Utilities for the {@link Tokens_Typography} class.
+ *
+ * @since 0.1.0-alpha.draft
+ */
+(function (Tokens_Typography) {
+    /**
+     * @since 0.1.0-alpha.draft
+     */
+    let Font;
+    (function (Font) {
+        ;
+        ;
+    })(Font = Tokens_Typography.Font || (Tokens_Typography.Font = {}));
+})(Tokens_Typography || (Tokens_Typography = {}));
 //# sourceMappingURL=Tokens_Typography.js.map

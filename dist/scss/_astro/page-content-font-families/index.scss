@@ -1,0 +1,67 @@
+///
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+
+@use '../lib';
+
+/* # FONT FAMILY SWATCH LIST ==================================== */
+
+$_fontWeights: ('100', '200', '300', '400', '500', '600', '700', '800', '900');
+
+$_grid_rows: '[title] auto [details] auto';
+
+@each $weight in $_fontWeights {
+    $_grid_rows: '#{$_grid_rows} [term-#{$weight}] auto [def-#{$weight}] auto';
+}
+
+.font-family-swatch-list {
+    --display: grid;
+    display: grid;
+    grid-template-columns: repeat(
+        var(--font-family-list-column-count, auto-fill),
+        minmax(16rem, 1fr)
+    );
+    grid-template-rows: auto;
+    grid-auto-flow: column;
+
+    gap: 0;
+    margin-block-start: #{lib.var-mrg-firm('400')};
+
+    overflow-inline: auto;
+
+    @include lib.js-support(whereSelector) {
+        grid-template-rows: #{$_grid_rows};
+    }
+
+    .font-family-swatch {
+        --display: grid: display: grid: grid-template-columns: 1fr;
+        grid-template-rows: #{$_grid_rows};
+        grid-template-rows: subgrid;
+
+        gap: 0;
+
+        min-width: 0;
+        max-width: none;
+
+        .font-family-swatch__name {
+            grid-row: title;
+        }
+
+        .font-family-swatch__details-list {
+            grid-row: details;
+        }
+
+        @each $weight in $_fontWeights {
+            .font-family-swatch__weight-dt--#{$weight} {
+                grid-row: term-#{$weight};
+            }
+
+            .font-family-swatch__weight-dt--#{$weight}-italic {
+                grid-row: def-#{$weight};
+            }
+        }
+    }
+}
+
+@include lib.extend-selectors($optional: true);

@@ -16,6 +16,7 @@ import type {
     ThemeMode_ContrastAtLeastOne,
     ThemeMode_ContrastExtraOptions,
     ColourLevels_Extended,
+    TokenLevels,
 } from './@types.js';
 
 import { AbstractTokens } from './abstract/AbstractTokens.js';
@@ -663,6 +664,54 @@ export namespace Tokens {
     } as const satisfies {
         [ K in SampleColourName | Tokens_Internal.Default_ColourName ]: Tokens_Colour_ShadeMap.InputParam<SampleColourName, never>
     };
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export namespace Typography {
+
+        export type AllFonts<T_FontFamilySlug extends string = string> = {
+            [ K in T_FontFamilySlug ]: Tokens_Typography.Font.Family<K>;
+        };
+
+        export namespace Font {
+
+            export type AllLevels<T_FontFamilySlug extends string = string> = {
+                [ K in T_FontFamilySlug ]: Omit<Tokens_Typography.Font.Family<K>, 'weights'> & {
+                    weights: {
+                        [ K in TokenLevels ]: {
+                            normal: Tokens_Typography.Font.File;
+                            italic: Tokens_Typography.Font.File;
+                        };
+                    };
+                };
+            };
+
+            export type File = Tokens_Typography.Font.File;
+
+
+            /**
+             * @since ___PKG_VERSION___
+             */
+            export const SystemUI = [
+                'system-ui',
+                '-apple-system',
+                'BlinkMacSystemFont',
+                'Segoe UI',
+                'Roboto',
+                'Oxygen-Sans',
+                'Ubuntu',
+                'Cantarell',
+                'Helvetica Neue',
+                'Helvetica',
+                'Arial',
+                'sans-serif',
+                'Apple Color Emoji',
+                'Segoe UI Emoji',
+                'Segoe UI Symbol',
+            ];
+        }
+    }
 
     /**
      * @since ___PKG_VERSION___

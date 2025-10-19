@@ -6,7 +6,7 @@
 // @forward '02-01-01-spacing';
 // @forward '02-01-02-modes';
 @forward '02-01-03-colours';
-// @forward '02-01-04-typography';
+@forward '02-01-04-typography';
 @forward '02-01-05-animation';
 @forward '02-01-06-decoration';
 
@@ -21,7 +21,7 @@
 // @use '02-01-01-spacing' as *;
 // @use '02-01-02-modes' as *;
 @use '02-01-03-colours' as *;
-// @use '02-01-04-typography' as *;
+@use '02-01-04-typography' as *;
 @use '02-01-05-animation' as *;
 @use '02-01-06-decoration' as *;
 
@@ -35,6 +35,7 @@
     $borderWidth: true,
     $colour: true,
     $custom: true,
+    $fontFamily: true,
     $fontSize: true,
     $lineHeight: true,
     $margin: true,
@@ -43,6 +44,11 @@
     $trTime: true,
     $zIndex: true
 ) {
+    // typography
+    @if $fontFamily {
+        @include tokens-font-face;
+    }
+
     @include utils.tokens-all(
         $borderWidth: $borderWidth,
         $custom: $custom,

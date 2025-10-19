@@ -1,0 +1,69 @@
+///
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/meta';
+
+// @use '../../config';
+@use '../../tokens';
+
+@use 'pkg:@maddimathon/utility-astro/01-functions' as utils;
+
+///
+/// @since ___PKG_VERSION___
+///
+@function font-family-exists($slug) {
+    // returns
+    @if not map.has-key(tokens.$designSystem, font, family) {
+        @return false;
+    }
+
+    @return map.has-key(tokens.$designSystem, font, family, $slug);
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@function font-family-list($slug) {
+    // returns
+    @if not map.has-key(tokens.$designSystem, font, family) {
+        @warn 'there are no font family tokens';
+        @return utils.font-family-system-ui();
+    }
+
+    // returns
+    @if not map.has-key(tokens.$designSystem, font, family, $slug) {
+        @warn "$slug '#{$slug}' was not a key in the font family tokens";
+        @return utils.font-family-system-ui();
+    }
+
+    $fontMap: map.get(tokens.$designSystem, font, family, $slug, '400', normal);
+
+    // @return '#{meta.var-dump($fontMap)}';
+
+    // @return meta.var-dump(
+    //     list.join(
+    //         (map.get($fontMap, family)),
+    //         map.get($fontMap, fallbacks),
+    //         $separator: comma
+    //     )
+    // );
+
+    @return utils.font-list(
+        list.join(
+            (map.get($fontMap, family)),
+            map.get($fontMap, fallbacks),
+            $separator: comma
+        )
+    );
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@function var-font-family($slug) {
+    @return var(--ff-#{$slug}, #{font-family-list($slug)});
+}

@@ -16,6 +16,12 @@
 }
 
 @if config.$include_html {
+    #{config.$selector_root} {
+        @if font-family-exists(body) {
+            font-family: var-font-family('body');
+        }
+    }
+
     @include colour-mode-all {
         background: #{var-theme(background)};
         color: #{var-theme(text)};
@@ -145,6 +151,10 @@
 %samp {
     --focus-ring-outline-color: #{var-theme(text-secondary)};
     color: #{var-theme(text-primary)};
+
+    @if font-family-exists(monospace) {
+        font-family: #{var-font-family(monospace)};
+    }
 }
 
 %code {

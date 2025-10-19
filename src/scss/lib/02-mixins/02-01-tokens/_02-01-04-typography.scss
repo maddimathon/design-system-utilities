@@ -1,0 +1,93 @@
+///
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/meta';
+@use 'pkg:@maddimathon/utility-sass/selector';
+
+@use '../../../config';
+@use '../../../tokens';
+
+@use '../../01-functions' as *;
+
+@function _font-src-list($list) {
+    $_list: ();
+
+    @each $map in $list {
+        $type: map.get($map, type);
+        $paths: map.get($map, path);
+
+        @if meta.type-of($paths) != list {
+            $paths: ($paths);
+        }
+
+        @each $path in $paths {
+            $_list: list.append(
+                $_list,
+                if(
+                    $type == local,
+                    "local('#{$path}')",
+                    'url("#{config.$path_fonts}#{$path}") format("#{$type}")'
+                ),
+                $separator: comma
+            );
+        }
+    }
+
+    @return $_list;
+}
+
+///
+/// Prints out the theme custom property tokens based on config.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin tokens-font-face {
+    @if map.has-key(tokens.$designSystem, font, family) {
+        $_fontFamilySlugs: ();
+
+        /* #region Tokens - Font Face */
+        @each $slug, $weightMap in map.get(tokens.$designSystem, font, family) {
+            //
+            $_fontFamilySlugs: list.append(
+                $_fontFamilySlugs,
+                $slug,
+                $separator: comma
+            );
+
+            @each $weight, $styleMap in $weightMap {
+                //
+                @each $style, $fileMap in $styleMap {
+                    @font-face {
+                        //
+                        @each $prop, $value in $fileMap {
+                            //
+                            @if $prop == fallbacks {
+                            } @else if $prop == family {
+                                font-family: '#{$value}';
+                            } @else if $prop == style or $prop == weight {
+                                font-#{$prop}: #{$value};
+                            } @else if $prop == src {
+                                src: #{_font-src-list($value)};
+                            } @else {
+                                #{$prop}: #{$value};
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        /* #endregion Tokens - Font Face */
+
+        /* #region Tokens - Font Families */
+        #{selector.parent-or-root()} {
+            @each $slug in $_fontFamilySlugs {
+                --ff-#{$slug}: #{font-family-list($slug)};
+            }
+        }
+        /* #endregion Tokens - Font Families */
+    }
+}

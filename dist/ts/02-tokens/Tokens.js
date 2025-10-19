@@ -232,6 +232,35 @@ export class Tokens extends AbstractTokens {
     /**
      * @since 0.1.0-alpha.draft
      */
+    let Typography;
+    (function (Typography) {
+        let Font;
+        (function (Font) {
+            /**
+             * @since 0.1.0-alpha.draft
+             */
+            Font.SystemUI = [
+                'system-ui',
+                '-apple-system',
+                'BlinkMacSystemFont',
+                'Segoe UI',
+                'Roboto',
+                'Oxygen-Sans',
+                'Ubuntu',
+                'Cantarell',
+                'Helvetica Neue',
+                'Helvetica',
+                'Arial',
+                'sans-serif',
+                'Apple Color Emoji',
+                'Segoe UI Emoji',
+                'Segoe UI Symbol',
+            ];
+        })(Font = Typography.Font || (Typography.Font = {}));
+    })(Typography = Tokens.Typography || (Tokens.Typography = {}));
+    /**
+     * @since 0.1.0-alpha.draft
+     */
     let Themes;
     (function (Themes) {
         /**
