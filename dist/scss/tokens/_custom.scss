@@ -5,7 +5,23 @@
 
 @use 'pkg:@maddimathon/utility-sass/map';
 
-// @use 'system';
+@use 'system';
+
+$_theme_ui_base: var(
+    --theme-ui,
+    var(
+        --clr-#{map.get(system.$themes, default, light, average, ui, '$')},
+        currentColor
+    )
+);
+
+$_theme_ui_primary: var(
+    --theme-ui-primary,
+    var(
+        --clr-#{map.get(system.$themes, default, light, average, ui, primary)},
+        currentColor
+    )
+);
 
 $internal_customTokensDefault: () !default;
 
@@ -17,8 +33,17 @@ $internal_customTokensDefault: map.merge(
             outline-color: currentColor,
         ),
 
+        alert: (
+            color: (
+                border: $_theme_ui_primary,
+                icon: $_theme_ui_primary,
+            ),
+
+            icon-size: 1.1875em,
+        ),
+
         icon: (
-            color: currentColor,
+            color: $_theme_ui_base,
             inline-buffer: 0.125em,
             vertical-align: middle,
             size: (

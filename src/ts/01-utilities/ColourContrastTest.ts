@@ -83,14 +83,14 @@ export class ColourContrastTest {
 
         const standards = ColourContrastTest.standards;
 
-        // @ts-expect-error
+        // @ts-expect-error - this will be filled
         const tmp_results: Omit<ColourContrastTest.TestResult, 'ratio'> = {};
 
         for ( const t_standard in standards ) {
             const standard = t_standard as keyof typeof standards;
 
             if ( typeof tmp_results[ standard ] === 'undefined' ) {
-                // @ts-expect-error
+                // @ts-expect-error - this will be filled
                 tmp_results[ standard ] = {};
             }
 

@@ -29,6 +29,60 @@ export class Compile extends CompileStage {
         'templates',
         'files',
     ];
+    /**
+     * Runs through the basics of a typical Compile.tokens substage.
+     *
+     * @category Running
+     */
+    async buildTokens(level, tokens, _paths) {
+        this.console.progress('compiling tokens...', 0 + level);
+        this.console.verbose('parsing paths...', 1 + level);
+        const distDir = this.getDistDir(undefined, _paths.distDir ?? 'tokens');
+        const paths = {
+            slug: _paths.slug,
+            json: _paths.json === false
+                ? _paths.json
+                : Array.isArray(_paths.json)
+                    ? _paths.json
+                    : [_paths.json ?? this.fs.pathResolve(distDir, `${_paths.slug}.json`)],
+            scss: _paths.scss === false
+                ? _paths.scss
+                : Array.isArray(_paths.scss)
+                    ? _paths.scss
+                    : [_paths.scss ?? 'src/scss/tokens/_system.scss'],
+        };
+        if (!this.isWatchedUpdate && (this.fs.exists(distDir) || paths.scss)) {
+            this.console.verbose('deleting any existing files...', 1 + level);
+            this.fs.delete([distDir].flat(), (this.params.verbose ? 2 : 1) + level);
+            if (paths.scss) {
+                for (const path of paths.scss) {
+                    this.fs.delete([path], (this.params.verbose ? 2 : 1) + level);
+                }
+            }
+        }
+        if (paths.json) {
+            this.console.verbose('writing json tokens...', 1 + level);
+            const tokenJson = JSON.stringify(tokens, null, 4);
+            for (const path of paths.json) {
+                this.try(this.fs.write, (this.params.verbose ? 2 : 1) + level, [path, tokenJson, { force: true }]);
+            }
+        }
+        if (paths.scss) {
+            this.console.verbose('writing scss tokens...', 1 + level);
+            const tokenScss = tokens.toScss();
+            for (const path of paths.scss) {
+                this.try(this.fs.write, (this.params.verbose ? 2 : 1) + level, [
+                    path,
+                    tokenScss,
+                    { force: true }
+                ]);
+            }
+            await this.atry(this.fs.prettier, (this.params.verbose ? 2 : 1) + level, [
+                paths.scss,
+                'scss',
+            ]);
+        }
+    }
     async astro() {
         await this.runCustomDirCopySubStage('astro');
     }
@@ -46,6 +100,9 @@ export class Compile extends CompileStage {
                     'dist/css/template/@template.css.map'
                 ], (this.params.verbose ? 3 : 2)]);
         }
+    }
+    async tokens() {
+        this.console.log('🚨 Compile.tokens substage is not implemented', 1);
     }
 }
 //# sourceMappingURL=Compile.js.map

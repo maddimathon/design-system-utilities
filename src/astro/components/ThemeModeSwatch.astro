@@ -33,7 +33,7 @@ import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
 
 export interface Props extends Omit<HTMLAttributes<'div'>, 'class'> {
     heading: number;
-    theme: Tokens.Themes.Set.SingleMode.JsonReturn;
+    theme: Tokens.Themes.SingleMode.JsonReturn;
 
     brightness?: string;
     contrast?: string;
@@ -184,11 +184,11 @@ const buttons: {
 
 
 const field: {
-    [ K in keyof Tokens.Themes.Set.SingleMode.JsonReturn['data']['field']['text'] ]: {
+    [ K in keyof Tokens.Themes.SingleMode.JsonReturn['data']['field']['text'] ]: {
 
-        [ K in keyof Tokens.Themes.Set.SingleMode.JsonReturn['data']['field'] ]: {
+        [ K in keyof Tokens.Themes.SingleMode.JsonReturn['data']['field'] ]: {
             state: null | Exclude<
-                keyof Tokens.Themes.Set.SingleMode.JsonReturn['data']['field']['text'],
+                keyof Tokens.Themes.SingleMode.JsonReturn['data']['field']['text'],
                 '$'
             >;
             key: string;

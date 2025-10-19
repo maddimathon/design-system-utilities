@@ -14,5 +14,11 @@ $print_astro_stickyToggleNav: utils.config-valid-bool(
 $print_docs: false !default;
 $print_docs: utils.config-valid-bool($print_docs, 'print_docs');
 
-$print_icons: utils.$print_utils or utils.$print_astro !default;
+$print_alertBlocks: utils.$print_utils or utils.$print_astro !default;
+$print_alertBlocks: utils.config-valid-bool(
+    $print_alertBlocks,
+    'print_alertBlocks'
+);
+
+$print_icons: utils.$print_utils or utils.$print_astro or $print_alertBlocks !default;
 $print_icons: utils.config-valid-bool($print_icons, 'print_icons');

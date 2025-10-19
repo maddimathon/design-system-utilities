@@ -15,6 +15,7 @@ import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 
 /* import - components */
 // import Toggle from '@maddimathon/utility-astro/components/Toggle';
+import Alert from './Alert.astro';
 import Icon from './Icon.astro';
 
 /* import - layouts */
@@ -32,9 +33,32 @@ const { tokens }: Props = Astro.props;
 /* CONSTANTS ===================================== */
 ---
 
-<div class='container tokens-demo-all-icons'>
+<h2>All Icons</h2>
+
+<div class='container body-subgrid | tokens-demo-all-icons'>
     {Object.values(tokens.icons).map((icon) => <Icon icon={icon} />)}
 </div>
+
+<Alert
+    heading={2}
+    icon={tokens.icons.star}
+>
+    <span
+        slot='headline'
+        set:text='All Alert Blocks'
+    />
+</Alert>
+{
+    Object.values(tokens.icons).map((icon) => (
+        <Alert icon={icon}>
+            <span
+                slot='headline'
+                set:text={icon.slug}
+            />
+            <p set:text={`label: ${icon.label}`} />
+        </Alert>
+    ))
+}
 
 <!-- <Toggle
     heading={2}

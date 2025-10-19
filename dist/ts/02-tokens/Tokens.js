@@ -15,6 +15,7 @@ import { Tokens_Icons } from './Tokens_Icons.js';
 import { Tokens_Spacing } from './Tokens_Spacing.js';
 import { Tokens_Themes } from './Tokens_Themes.js';
 import { Tokens_Typography } from './Tokens_Typography.js';
+import { Tokens_Themes_Set_SingleMode } from './Themes/Themes_Set_SingleMode.js';
 /**
  * Generates a complete token object for the design system.
  *
@@ -140,6 +141,9 @@ export class Tokens extends AbstractTokens {
  * @since 0.1.0-alpha.draft
  */
 (function (Tokens) {
+    /**
+     * @since 0.1.0-alpha.draft
+     */
     async function sample() {
         return Tokens.build({
             colour: {
@@ -162,6 +166,9 @@ export class Tokens extends AbstractTokens {
     }
     Tokens.sample = sample;
     ;
+    /**
+     * @since 0.1.0-alpha.draft
+     */
     Tokens.SampleColours = {
         yardstick: {
             '100': { l: 98, c: 0, h: 0, },
@@ -222,5 +229,15 @@ export class Tokens extends AbstractTokens {
             '900': { h: 322, s: 85, l: 5, },
         },
     };
+    /**
+     * @since 0.1.0-alpha.draft
+     */
+    let Themes;
+    (function (Themes) {
+        /**
+         * @since 0.1.0-alpha.draft
+         */
+        Themes.allHeadingLevels = Tokens_Themes_Set_SingleMode.allHeadingLevels;
+    })(Themes = Tokens.Themes || (Tokens.Themes = {}));
 })(Tokens || (Tokens = {}));
 //# sourceMappingURL=Tokens.js.map

@@ -9,6 +9,7 @@
  */
 import type { Stage } from '@maddimathon/build-utilities';
 import { CompileStage } from '@maddimathon/build-utilities';
+import type { Tokens } from '../../02-tokens/Tokens.js';
 /**
  * Extension of the built-in one.
  *
@@ -23,8 +24,39 @@ export declare class Compile extends CompileStage {
      * @source
      */
     readonly subStages: Stage.SubStage.Compile[];
+    /**
+     * Runs through the basics of a typical Compile.tokens substage.
+     *
+     * @category Running
+     */
+    buildTokens<T_Tokens extends Tokens.Instance>(level: number, tokens: T_Tokens, _paths: {
+        /**
+         * The subpath for the tokens output in the dist directory.
+         *
+         * @default 'tokens'
+         */
+        distDir?: string;
+        /**
+         * Where to write the json tokens, relative to project root.
+         *
+         * @default `${distDir}/${slug}.json`
+         */
+        json?: false | string | string[];
+        /**
+         * Where to write the scss tokens, relative to project root.
+         *
+         * @default 'src/scss/tokens/_system.scss'
+         */
+        scss?: false | string | string[];
+        /**
+         * The project slug, used in token file names, without any ending
+         * extensions.
+         */
+        slug: string;
+    }): Promise<void>;
     protected astro(): Promise<void>;
     protected scss(): Promise<void>;
     protected templates(): Promise<void>;
+    protected tokens(): Promise<void>;
 }
 //# sourceMappingURL=Compile.d.ts.map

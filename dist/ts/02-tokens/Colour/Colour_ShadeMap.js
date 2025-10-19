@@ -198,7 +198,7 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
             '850': l_850,
             '900': l_900,
         };
-        // @ts-expect-error
+        // @ts-expect-error - this will be filled
         const completeLevels = {};
         const levelsToInclude = [
             ...Object.keys(defaultLevels),

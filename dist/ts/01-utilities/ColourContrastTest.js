@@ -60,12 +60,12 @@ export class ColourContrastTest {
         this.clrB = clrB;
         this.ratio = ColourContrastTest.test(clrA, clrB);
         const standards = ColourContrastTest.standards;
-        // @ts-expect-error
+        // @ts-expect-error - this will be filled
         const tmp_results = {};
         for (const t_standard in standards) {
             const standard = t_standard;
             if (typeof tmp_results[standard] === 'undefined') {
-                // @ts-expect-error
+                // @ts-expect-error - this will be filled
                 tmp_results[standard] = {};
             }
             for (const t_testName in standards[standard]) {

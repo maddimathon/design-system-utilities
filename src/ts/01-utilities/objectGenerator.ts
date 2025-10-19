@@ -22,7 +22,7 @@ export function objectGenerator<
     mapper: ( key: T_Keys ) => T_Return,
 ): { [ K in T_Keys ]: T_Return; } {
 
-    // @ts-expect-error
+    // @ts-expect-error - this will be filled
     let obj: { [ K in T_Keys ]: T_Return } = {};
 
     for ( const key of keys ) {
@@ -46,7 +46,7 @@ export async function objectGeneratorAsync<
     mapper: ( key: T_Keys ) => Promise<T_Return>,
 ): Promise<{ [ K in T_Keys ]: T_Return; }> {
 
-    // @ts-expect-error
+    // @ts-expect-error - this will be filled
     let obj: { [ K in T_Keys ]: T_Return } = {};
 
     for ( const key of keys ) {

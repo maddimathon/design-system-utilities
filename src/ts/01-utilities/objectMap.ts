@@ -24,7 +24,7 @@ export function objectMap<
     mapper: ( p: { key: keyof T_Object, value: T_Object[ keyof T_Object ]; } ) => T_Return,
 ): { [ K in keyof T_Object ]: T_Return; } {
 
-    // @ts-expect-error
+    // @ts-expect-error - this will be filled
     let mapped: { [ K in keyof T_Object ]: T_Return } = {};
 
     for ( const t_key in obj ) {

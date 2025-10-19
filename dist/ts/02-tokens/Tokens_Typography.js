@@ -72,7 +72,7 @@ export class Tokens_Typography extends AbstractTokens {
             };
         };
         const sizeMapper = (sizes) => {
-            // @ts-expect-error
+            // @ts-expect-error - this will be filled
             const mapped = {};
             for (const sizeKey of Object.keys(sizes)) {
                 const sizeValue = sizes[sizeKey];
@@ -83,7 +83,7 @@ export class Tokens_Typography extends AbstractTokens {
                     if (sizeValue_type === 'undefined') {
                         continue;
                     }
-                    // @ts-expect-error
+                    // @ts-expect-error - this will be filled
                     mapped[sizeKey] = sizeConverter(sizeValue);
                     continue;
                 }

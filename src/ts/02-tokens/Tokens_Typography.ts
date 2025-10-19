@@ -113,7 +113,7 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
         const sizeMapper = <T_Obj extends RecursiveRecord<number | string, number>>(
             sizes: T_Obj,
         ) => {
-            // @ts-expect-error
+            // @ts-expect-error - this will be filled
             const mapped: SizeMapper<T_Obj> = {};
 
             for ( const sizeKey of ( Object.keys( sizes ) as ( keyof typeof sizes )[] ) ) {
@@ -128,7 +128,7 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
                         continue;
                     }
 
-                    // @ts-expect-error
+                    // @ts-expect-error - this will be filled
                     mapped[ sizeKey ] = sizeConverter( sizeValue );
                     continue;
                 }

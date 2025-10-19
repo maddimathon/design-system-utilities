@@ -16,7 +16,7 @@
  * @since 0.1.0-alpha.draft
  */
 export function objectMap(obj, mapper) {
-    // @ts-expect-error
+    // @ts-expect-error - this will be filled
     let mapped = {};
     for (const t_key in obj) {
         const key = t_key;

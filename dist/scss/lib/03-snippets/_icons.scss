@@ -48,10 +48,7 @@ $_allUniqueIconAspectRatios: ();
     %icon {
         display: inline-block;
         vertical-align: #{var-token(icon-vertical-align, $fallback: middle)};
-
         height: #{var-token(icon-size)};
-        // aspect-ratio: 1 / 1;
-
         color: #{var-token(icon-color)};
 
         > svg {
@@ -65,13 +62,11 @@ $_allUniqueIconAspectRatios: ();
     }
 
     @each $slug, $map in tokens.$icons {
-        .icon--#{$slug} {
-            $aspectRatio: icon-aspect-ratio-value($slug);
-
-            // only if the aspect ratio doesn't match the default
-            // @if $aspectRatio != 1 {
-            @extend %icon-aspect-ratio--#{string.slugify( #{$aspectRatio} )};
-            // }
+        %icon {
+            &--#{$slug} {
+                $aspectRatio: icon-aspect-ratio-value($slug);
+                @extend %icon-aspect-ratio--#{string.slugify( #{$aspectRatio} )};
+            }
         }
     }
 }

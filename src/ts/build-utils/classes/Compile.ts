@@ -16,6 +16,8 @@ import {
     CompileStage,
 } from '@maddimathon/build-utilities';
 
+import type { Tokens } from '../../02-tokens/Tokens.js';
+
 /**
  * Extension of the built-in one.
  * 
@@ -38,6 +40,139 @@ export class Compile extends CompileStage {
         'templates' as Stage.SubStage.Compile,
         'files',
     ];
+
+
+    /**
+     * Runs through the basics of a typical Compile.tokens substage. 
+     *
+     * @category Running
+     */
+    public async buildTokens<
+        T_Tokens extends Tokens.Instance,
+    >(
+        level: number,
+        tokens: T_Tokens,
+        _paths: {
+
+            /**
+             * The subpath for the tokens output in the dist directory.
+             * 
+             * @default 'tokens'
+             */
+            distDir?: string;
+
+            /**
+             * Where to write the json tokens, relative to project root.
+             * 
+             * @default `${distDir}/${slug}.json`
+             */
+            json?: false | string | string[];
+
+            /**
+             * Where to write the scss tokens, relative to project root.
+             * 
+             * @default 'src/scss/tokens/_system.scss'
+             */
+            scss?: false | string | string[];
+
+            /**
+             * The project slug, used in token file names, without any ending
+             * extensions.
+             */
+            slug: string;
+        },
+    ) {
+        this.console.progress( 'compiling tokens...', 0 + level );
+
+        this.console.verbose( 'parsing paths...', 1 + level );
+
+        const distDir = this.getDistDir(
+            undefined,
+            _paths.distDir ?? 'tokens',
+        );
+
+        const paths: {
+            slug: string;
+            json: false | string[];
+            scss: false | string[];
+        } = {
+
+            slug: _paths.slug,
+
+            json: _paths.json === false
+                ? _paths.json
+                : Array.isArray( _paths.json )
+                    ? _paths.json
+                    : [ _paths.json ?? this.fs.pathResolve( distDir, `${ _paths.slug }.json` ) ],
+
+            scss: _paths.scss === false
+                ? _paths.scss
+                : Array.isArray( _paths.scss )
+                    ? _paths.scss
+                    : [ _paths.scss ?? 'src/scss/tokens/_system.scss' ],
+        };
+
+        if ( !this.isWatchedUpdate && ( this.fs.exists( distDir ) || paths.scss ) ) {
+            this.console.verbose( 'deleting any existing files...', 1 + level );
+
+            this.fs.delete(
+                [ distDir ].flat(),
+                ( this.params.verbose ? 2 : 1 ) + level,
+            );
+
+            if ( paths.scss ) {
+
+                for ( const path of paths.scss ) {
+                    this.fs.delete(
+                        [ path ],
+                        ( this.params.verbose ? 2 : 1 ) + level,
+                    );
+                }
+            }
+        }
+
+        if ( paths.json ) {
+            this.console.verbose( 'writing json tokens...', 1 + level );
+
+            const tokenJson = JSON.stringify( tokens, null, 4 );
+
+            for ( const path of paths.json ) {
+                this.try(
+                    this.fs.write,
+                    ( this.params.verbose ? 2 : 1 ) + level,
+                    [ path, tokenJson, { force: true } ]
+                );
+            }
+        }
+
+        if ( paths.scss ) {
+            this.console.verbose( 'writing scss tokens...', 1 + level );
+
+            const tokenScss = tokens.toScss();
+
+            for ( const path of paths.scss ) {
+
+                this.try(
+                    this.fs.write,
+                    ( this.params.verbose ? 2 : 1 ) + level,
+                    [
+                        path,
+                        tokenScss,
+                        { force: true }
+                    ]
+                );
+            }
+
+            await this.atry(
+                this.fs.prettier,
+                ( this.params.verbose ? 2 : 1 ) + level,
+                [
+                    paths.scss,
+                    'scss',
+                ],
+            );
+        }
+    }
 
 
     protected async astro() {
@@ -70,5 +205,9 @@ export class Compile extends CompileStage {
                 ], ( this.params.verbose ? 3 : 2 ) ]
             );
         }
+    }
+
+    protected async tokens() {
+        this.console.log( '🚨 Compile.tokens substage is not implemented', 1 );
     }
 }

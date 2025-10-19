@@ -14,7 +14,7 @@
  * @since 0.1.0-alpha.draft
  */
 export function objectGenerator(keys, mapper) {
-    // @ts-expect-error
+    // @ts-expect-error - this will be filled
     let obj = {};
     for (const key of keys) {
         obj[key] = mapper(key);
@@ -28,7 +28,7 @@ export function objectGenerator(keys, mapper) {
  * @since 0.1.0-alpha.draft
  */
 export async function objectGeneratorAsync(keys, mapper) {
-    // @ts-expect-error
+    // @ts-expect-error - this will be filled
     let obj = {};
     for (const key of keys) {
         obj[key] = await mapper(key);

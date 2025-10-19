@@ -30,12 +30,12 @@ export class Compile extends CompileStage {
         'ts',
         // @ts-expect-error
         'tokens',
-        // @ts-expect-error
-        'astro',
         'scss',
         // @ts-expect-error
-        'templates',
+        'astro',
         'files',
+        // @ts-expect-error
+        'templates',
     ];
 
     /**
@@ -90,6 +90,23 @@ export class Compile extends CompileStage {
      */
     async ts() {
         await super.ts();
+
+        this.console.verbose( 'copying definitions...', 2 );
+        this.try(
+            this.fs.copy,
+            ( this.params.verbose ? 3 : 2 ),
+            [
+                '**/*.d.ts',
+                ( this.params.verbose ? 3 : 2 ),
+                this.getDistDir( undefined, 'ts' ),
+                this.getSrcDir( undefined, 'ts' ),
+                {
+                    force: true,
+                    rename: false,
+                    recursive: true,
+                },
+            ],
+        );
 
         this.console.verbose( 'tidying up compiled files...', 2 );
 

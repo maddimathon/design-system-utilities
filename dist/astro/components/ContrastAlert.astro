@@ -11,9 +11,11 @@ import type { ComponentProps } from 'astro/types';
 /* import - functions */
 
 /* import - values */
+// import { SVG } from '@maddimathon/utility-astro';
 
 /* import - components */
-import Alert from '@maddimathon/utility-astro/components/Alert';
+// import Alert from '@maddimathon/utility-astro/components/Alert';
+import AstroIcon from '@maddimathon/utility-astro/components/Icon';
 
 /* import - layouts */
 
@@ -24,7 +26,7 @@ import Alert from '@maddimathon/utility-astro/components/Alert';
 export interface Props {
     level: string;
     clrSlug: string;
-    type: ComponentProps<typeof Alert>['type'];
+    type: NonNullable<ComponentProps<typeof AstroIcon>['type']>;
 
     brightness?: string;
     class?: string | string[];
@@ -45,7 +47,7 @@ const {
 const varClr = `var(--clr-${clrSlug})`;
 ---
 
-<Alert
+<!-- <Alert
     class:list={['contrast-alert', classList]}
     data-brightness-mode='light'
     style={`--contrast-alert-color: ${varClr};`}
@@ -58,7 +60,21 @@ const varClr = `var(--clr-${clrSlug})`;
         set:text={level}
         style='background: transparent'
     />
-</Alert>
+</Alert> -->
+<div
+    class:list={['contrast-alert', classList]}
+    data-brightness-mode='light'
+    style={`--contrast-alert-color: ${varClr};`}
+    title={title ?? clrSlug}
+>
+    <AstroIcon type={type} />
+    <span
+        data-brightness-mode={brightness}
+        set:text={level}
+        style='background: transparent'
+    />
+    <slot />
+</div>
 
 <style lang='scss' is:global>
     @forward '../scss/contrast-alert';

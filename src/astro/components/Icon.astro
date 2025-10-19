@@ -6,14 +6,15 @@
  */
 
 /* import - types */
-import type { GenericElementProps } from '@maddimathon/utility-astro';
-import type { Tokens_Icons } from '../../ts/02-tokens/Tokens_Icons';
+import type { ComponentProps } from 'astro/types';
+import type { Tokens_Icons } from '../../ts/02-tokens/Tokens_Icons.js';
 
 /* import - functions */
 
 /* import - values */
 
 /* import - components */
+import UtilsIcon from '@maddimathon/utility-astro/components/Icon';
 
 /* import - layouts */
 
@@ -21,25 +22,22 @@ import type { Tokens_Icons } from '../../ts/02-tokens/Tokens_Icons';
 
 /* PROPS ===================================== */
 
-export interface Internal_Props {
+export interface Props
+    extends Omit<
+        ComponentProps<typeof UtilsIcon>,
+        'svg' | 'svgLabel' | 'type'
+    > {
     icon: Tokens_Icons.SvgIcon.JsonReturn;
 }
 
-export interface Props extends GenericElementProps<Internal_Props, 'span'> {}
-
-const {
-    icon,
-    class: classList = [],
-    ...attributes
-}: Props = Astro.props?.frontmatter ?? Astro.props;
+const { icon, ...attributes }: Props = Astro.props;
 
 /* CONSTANTS ===================================== */
 ---
 
-<span
-    class:list={['icon', `icon--${icon.slug}`, '||', classList]}
+<UtilsIcon
+    slug={icon.slug}
+    svg={icon.svg}
+    svgLabel={icon.label}
     {...attributes}
-    aria-label={`${icon.label} icon`}
->
-    <Fragment set:html={icon.svg} />
-</span>
+/>

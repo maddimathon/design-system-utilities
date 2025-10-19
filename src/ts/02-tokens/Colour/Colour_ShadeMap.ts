@@ -389,7 +389,7 @@ export namespace Tokens_Colour_ShadeMap {
             '900': l_900,
         };
 
-        // @ts-expect-error
+        // @ts-expect-error - this will be filled
         const completeLevels: {
             [ L in ColourLevels | T_ExtraLevels ]: Tokens_Colour_ShadeMap_Shade<T_ColourName, T_ExtraLevels>;
         } = {};
