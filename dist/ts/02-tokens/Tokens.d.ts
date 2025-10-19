@@ -8,16 +8,16 @@
  * @license MIT
  */
 import type { ThemeMode_Contrast, ThemeMode_ContrastAtLeastOne, ThemeMode_ContrastExtraOptions, ColourLevels_Extended, TokenLevels } from './@types.js';
+import type * as TokenTypes from './@types.js';
+import type { Tokens_Colour_ShadeMap } from './Colour/Colour_ShadeMap.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 import { Tokens_Colour } from './Tokens_Colour.js';
 import { Tokens_CSS } from './Tokens_CSS.js';
 import { Tokens_Icons } from './Tokens_Icons.js';
 import { Tokens_Spacing } from './Tokens_Spacing.js';
 import { Tokens_Themes } from './Tokens_Themes.js';
-import { Tokens_Typography } from './Tokens_Typography.js';
-import type { Tokens_Colour_ShadeMap } from './Colour/Colour_ShadeMap.js';
 import { Tokens_Themes_Set_SingleMode } from './Themes/Themes_Set_SingleMode.js';
-import type * as TokenTypes from './@types.js';
+import { Tokens_Typography } from './Tokens_Typography.js';
 /**
  * Generates a complete token object for the design system.
  *
@@ -865,10 +865,19 @@ export declare namespace Tokens {
      * @since 0.1.0-alpha.draft
      */
     namespace Typography {
+        /**
+         * @since 0.1.0-alpha.draft
+         */
         type AllFonts<T_FontFamilySlug extends string = string> = {
             [K in T_FontFamilySlug]: Tokens_Typography.Font.Family<K>;
         };
+        /**
+         * @since 0.1.0-alpha.draft
+         */
         namespace Font {
+            /**
+             * @since 0.1.0-alpha.draft
+             */
             type AllLevels<T_FontFamilySlug extends string = string> = {
                 [K in T_FontFamilySlug]: Omit<Tokens_Typography.Font.Family<K>, 'weights'> & {
                     weights: {
@@ -879,11 +888,49 @@ export declare namespace Tokens {
                     };
                 };
             };
+            /**
+             * @since 0.1.0-alpha.draft
+             */
             type File = Tokens_Typography.Font.File;
             /**
              * @since 0.1.0-alpha.draft
              */
+            const allWeights: readonly ["100", "200", "300", "400", "500", "600", "700", "800", "900"];
+            /**
+             * @since 0.1.0-alpha.draft
+             */
+            const SystemMonospace: string[];
+            /**
+             * @since 0.1.0-alpha.draft
+             */
             const SystemUI: string[];
+            /**
+             * Helps to generate all the weights for a font family.
+             *
+             * @since 0.1.0-alpha.draft
+             */
+            function familyGenerator<T_Slug extends string>(slug: T_Slug, name: string, familyOpts?: Omit<Tokens_Typography.Font.File, "path" | "style" | "weight"> & {
+                fallbacks?: string[];
+                appendSystemFontsToFallbacks?: Tokens_Typography.Font.Family<T_Slug>['appendSystemFontsToFallbacks'];
+            }, weightOpts?: {
+                [L in TokenLevels]?: familyGenerator.FileOptions;
+            }): Tokens_Typography.Font.Family<T_Slug> & {
+                weights: Required<Tokens_Typography.Font.Family<T_Slug>['weights']>;
+            };
+            /**
+             * Utilities for the {@link familyGenerator} function.
+             *
+             * @since 0.1.0-alpha.draft
+             */
+            namespace familyGenerator {
+                /**
+                 * @since 0.1.0-alpha.draft
+                 */
+                type FileOptions = Omit<Tokens_Typography.Font.File, "path" | "style" | "weight"> & {
+                    pathWeight?: TokenLevels;
+                    pathStyle?: "normal" | "italic";
+                };
+            }
         }
     }
     /**

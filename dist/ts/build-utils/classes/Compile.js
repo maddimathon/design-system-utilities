@@ -49,7 +49,7 @@ export class Compile extends CompileStage {
                 ? _paths.scss
                 : Array.isArray(_paths.scss)
                     ? _paths.scss
-                    : [_paths.scss ?? 'src/scss/tokens/_system.scss'],
+                    : [_paths.scss ?? 'src/scss/tokens/system/_tokens.scss'],
         };
         if (!this.isWatchedUpdate && (this.fs.exists(distDir) || paths.scss)) {
             this.console.verbose('deleting any existing files...', 1 + level);

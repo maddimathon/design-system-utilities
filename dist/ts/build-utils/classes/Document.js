@@ -27,9 +27,16 @@ export class Document extends DocumentStage {
         'astro',
         'replace',
     ];
+    astroPublicDir = 'docs/_public/assets';
     async scss() {
-        const outDir = (this.getSrcDir('docs', 'css')[0]
-            ?? this.getSrcDir(undefined, 'docs/css')).replace(/\/$/g, '');
+        // returns - we don't need to compile this
+        if (this.isWatchedUpdate
+            && this.params.building
+            && this.params.watchedFilename?.match(/(^|\/)scss\/_astro\//)) {
+            this.console.progress('skipping document css compile for astro-only update...', 1);
+            return;
+        }
+        const outDir = this.getSrcDir(undefined, this.astroPublicDir.replace(/\/$/g, '') + '/css');
         await this.runCustomScssDirSubStage('docs/scss', outDir);
     }
     async astro() {

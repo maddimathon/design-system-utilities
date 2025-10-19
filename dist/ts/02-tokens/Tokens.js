@@ -7,15 +7,17 @@
  * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
+import { slugify } from '@maddimathon/utility-typescript/functions';
 import { JsonToScss } from '@maddimathon/utility-sass';
+import { objectGenerator } from '../01-utilities/objectGenerator.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 import { Tokens_Colour } from './Tokens_Colour.js';
 import { Tokens_CSS } from './Tokens_CSS.js';
 import { Tokens_Icons } from './Tokens_Icons.js';
 import { Tokens_Spacing } from './Tokens_Spacing.js';
 import { Tokens_Themes } from './Tokens_Themes.js';
-import { Tokens_Typography } from './Tokens_Typography.js';
 import { Tokens_Themes_Set_SingleMode } from './Themes/Themes_Set_SingleMode.js';
+import { Tokens_Typography } from './Tokens_Typography.js';
 /**
  * Generates a complete token object for the design system.
  *
@@ -234,28 +236,105 @@ export class Tokens extends AbstractTokens {
      */
     let Typography;
     (function (Typography) {
+        /**
+         * @since 0.1.0-alpha.draft
+         */
         let Font;
         (function (Font) {
             /**
              * @since 0.1.0-alpha.draft
              */
-            Font.SystemUI = [
-                'system-ui',
-                '-apple-system',
-                'BlinkMacSystemFont',
-                'Segoe UI',
-                'Roboto',
-                'Oxygen-Sans',
-                'Ubuntu',
-                'Cantarell',
-                'Helvetica Neue',
-                'Helvetica',
-                'Arial',
-                'sans-serif',
-                'Apple Color Emoji',
-                'Segoe UI Emoji',
-                'Segoe UI Symbol',
+            Font.allWeights = [
+                "100",
+                "200",
+                "300",
+                "400",
+                "500",
+                "600",
+                "700",
+                "800",
+                "900",
             ];
+            /**
+             * @since 0.1.0-alpha.draft
+             */
+            Font.SystemMonospace = Tokens_Typography.Font.SystemMonospace;
+            /**
+             * @since 0.1.0-alpha.draft
+             */
+            Font.SystemUI = Tokens_Typography.Font.SystemUI;
+            /**
+             * Helps to generate all the weights for a font family.
+             *
+             * @since 0.1.0-alpha.draft
+             */
+            function familyGenerator(slug, name, familyOpts = {}, weightOpts = {}) {
+                function _fontFileGenerator(_subpath, _name, _weight, _style, _opts = {}) {
+                    const _slug = slugify(_name);
+                    let _filename = `${_slug}-${_opts.pathWeight ?? _weight}`;
+                    const _path = {
+                        local: _name,
+                    };
+                    switch (_opts.pathWeight ?? _weight) {
+                        case '100':
+                            _path.local = _path.local + ' Thin';
+                            break;
+                        case '200':
+                            _path.local = _path.local + ' ExtraLight';
+                            break;
+                        case '300':
+                            _path.local = _path.local + ' Light';
+                            break;
+                        case '500':
+                            _path.local = _path.local + ' Medium';
+                            break;
+                        case '600':
+                            _path.local = _path.local + ' SemiBold';
+                            break;
+                        case '700':
+                            _path.local = _path.local + ' Bold';
+                            break;
+                        case '800':
+                            _path.local = _path.local + ' ExtraBold';
+                            break;
+                        case '900':
+                            _path.local = _path.local + ' Black';
+                            break;
+                    }
+                    switch (_opts.pathStyle ?? _style) {
+                        case 'italic':
+                            _path.local = _path.local + ' Italic';
+                            _filename = _filename + '-italic';
+                            break;
+                    }
+                    return {
+                        weight: _weight,
+                        style: _style,
+                        display: _opts.display,
+                        lineGapOverride: _opts.lineGapOverride,
+                        sizeAdjust: _opts.sizeAdjust,
+                        unicodeRange: _opts.unicodeRange,
+                        path: {
+                            ..._path,
+                            local: [
+                                _path.local,
+                                _path.local.replace(/\s+/g, ''),
+                            ],
+                            woff2: `${_subpath}/woff2/${_filename}.woff2`,
+                            woff: `${_subpath}/woff/${_filename}.woff`,
+                            ttf: `${_subpath}/ttf/${_filename}.ttf`,
+                        },
+                    };
+                }
+                return {
+                    slug,
+                    name,
+                    fallbacks: familyOpts.fallbacks ?? [],
+                    ...familyOpts,
+                    weights: objectGenerator(Font.allWeights, (weight) => objectGenerator(["normal", "italic"], (style) => _fontFileGenerator(slug, name, weight, style, weightOpts?.[weight]))),
+                };
+            }
+            Font.familyGenerator = familyGenerator;
         })(Font = Typography.Font || (Typography.Font = {}));
     })(Typography = Tokens.Typography || (Tokens.Typography = {}));
     /**

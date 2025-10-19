@@ -8,6 +8,8 @@
  * @license MIT
  */
 
+import type { Objects } from '@maddimathon/utility-typescript/types';
+import { slugify } from '@maddimathon/utility-typescript/functions';
 import { JsonToScss } from '@maddimathon/utility-sass';
 // import * as z from 'zod';
 
@@ -18,6 +20,11 @@ import type {
     ColourLevels_Extended,
     TokenLevels,
 } from './@types.js';
+import type * as TokenTypes from './@types.js';
+
+import type { Tokens_Colour_ShadeMap } from './Colour/Colour_ShadeMap.js';
+
+import { objectGenerator } from '../01-utilities/objectGenerator.js';
 
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 import { Tokens_Colour } from './Tokens_Colour.js';
@@ -25,10 +32,8 @@ import { Tokens_CSS } from './Tokens_CSS.js';
 import { Tokens_Icons } from './Tokens_Icons.js';
 import { Tokens_Spacing } from './Tokens_Spacing.js';
 import { Tokens_Themes } from './Tokens_Themes.js';
-import { Tokens_Typography } from './Tokens_Typography.js';
-import type { Tokens_Colour_ShadeMap } from './Colour/Colour_ShadeMap.js';
 import { Tokens_Themes_Set_SingleMode } from './Themes/Themes_Set_SingleMode.js';
-import type * as TokenTypes from './@types.js';
+import { Tokens_Typography } from './Tokens_Typography.js';
 
 /**
  * Generates a complete token object for the design system.
@@ -670,12 +675,21 @@ export namespace Tokens {
      */
     export namespace Typography {
 
+        /**
+         * @since ___PKG_VERSION___
+         */
         export type AllFonts<T_FontFamilySlug extends string = string> = {
             [ K in T_FontFamilySlug ]: Tokens_Typography.Font.Family<K>;
         };
 
+        /**
+         * @since ___PKG_VERSION___
+         */
         export namespace Font {
 
+            /**
+             * @since ___PKG_VERSION___
+             */
             export type AllLevels<T_FontFamilySlug extends string = string> = {
                 [ K in T_FontFamilySlug ]: Omit<Tokens_Typography.Font.Family<K>, 'weights'> & {
                     weights: {
@@ -687,29 +701,179 @@ export namespace Tokens {
                 };
             };
 
+            /**
+             * @since ___PKG_VERSION___
+             */
             export type File = Tokens_Typography.Font.File;
 
 
             /**
              * @since ___PKG_VERSION___
              */
-            export const SystemUI = [
-                'system-ui',
-                '-apple-system',
-                'BlinkMacSystemFont',
-                'Segoe UI',
-                'Roboto',
-                'Oxygen-Sans',
-                'Ubuntu',
-                'Cantarell',
-                'Helvetica Neue',
-                'Helvetica',
-                'Arial',
-                'sans-serif',
-                'Apple Color Emoji',
-                'Segoe UI Emoji',
-                'Segoe UI Symbol',
-            ];
+            export const allWeights = [
+                "100",
+                "200",
+                "300",
+                "400",
+                "500",
+                "600",
+                "700",
+                "800",
+                "900",
+            ] as const;
+
+            /**
+             * @since ___PKG_VERSION___
+             */
+            export const SystemMonospace = Tokens_Typography.Font.SystemMonospace;
+
+            /**
+             * @since ___PKG_VERSION___
+             */
+            export const SystemUI = Tokens_Typography.Font.SystemUI;
+
+            /**
+             * Helps to generate all the weights for a font family.
+             * 
+             * @since ___PKG_VERSION___
+             */
+            export function familyGenerator<
+                T_Slug extends string,
+            >(
+                slug: T_Slug,
+                name: string,
+                familyOpts: Omit<Tokens_Typography.Font.File, "path" | "style" | "weight"> & {
+                    fallbacks?: string[];
+                    appendSystemFontsToFallbacks?: Tokens_Typography.Font.Family<T_Slug>[ 'appendSystemFontsToFallbacks' ];
+                } = {},
+                weightOpts: {
+                    [ L in TokenLevels ]?: familyGenerator.FileOptions;
+                } = {},
+            ): Tokens_Typography.Font.Family<T_Slug> & { weights: Required<Tokens_Typography.Font.Family<T_Slug>[ 'weights' ]>; } {
+
+                function _fontFileGenerator(
+                    _subpath: T_Slug,
+                    _name: string,
+                    _weight: TokenLevels,
+                    _style: "normal" | "italic",
+                    _opts: familyGenerator.FileOptions = {},
+                ): Tokens_Typography.Font.File {
+
+                    const _slug = slugify( _name );
+
+                    let _filename = `${ _slug }-${ _opts.pathWeight ?? _weight }`;
+
+                    const _path = {
+                        local: _name,
+                    };
+
+                    switch ( _opts.pathWeight ?? _weight ) {
+
+                        case '100':
+                            _path.local = _path.local + ' Thin';
+                            break;
+
+                        case '200':
+                            _path.local = _path.local + ' ExtraLight';
+                            break;
+
+                        case '300':
+                            _path.local = _path.local + ' Light';
+                            break;
+
+                        case '500':
+                            _path.local = _path.local + ' Medium';
+                            break;
+
+                        case '600':
+                            _path.local = _path.local + ' SemiBold';
+                            break;
+
+                        case '700':
+                            _path.local = _path.local + ' Bold';
+                            break;
+
+                        case '800':
+                            _path.local = _path.local + ' ExtraBold';
+                            break;
+
+                        case '900':
+                            _path.local = _path.local + ' Black';
+                            break;
+                    }
+
+                    switch ( _opts.pathStyle ?? _style ) {
+
+                        case 'italic':
+                            _path.local = _path.local + ' Italic';
+                            _filename = _filename + '-italic';
+                            break;
+                    }
+
+                    return {
+
+                        weight: _weight,
+                        style: _style,
+
+                        display: _opts.display,
+                        lineGapOverride: _opts.lineGapOverride,
+                        sizeAdjust: _opts.sizeAdjust,
+                        unicodeRange: _opts.unicodeRange,
+
+                        path: {
+                            ..._path,
+
+                            local: [
+                                _path.local,
+                                _path.local.replace( /\s+/g, '' ),
+                            ],
+
+                            woff2: `${ _subpath }/woff2/${ _filename }.woff2`,
+                            woff: `${ _subpath }/woff/${ _filename }.woff`,
+                            ttf: `${ _subpath }/ttf/${ _filename }.ttf`,
+                        },
+                    } satisfies Objects.Classify<Tokens_Typography.Font.File>;
+                }
+
+                return {
+                    slug,
+                    name,
+
+                    fallbacks: familyOpts.fallbacks ?? [],
+
+                    ...familyOpts,
+
+                    weights: objectGenerator(
+                        allWeights,
+                        ( weight ) => objectGenerator(
+                            [ "normal", "italic" ] as const,
+                            ( style ) => _fontFileGenerator(
+                                slug,
+                                name,
+                                weight,
+                                style,
+                                weightOpts?.[ weight ],
+                            ),
+                        )
+                    ),
+                };
+            }
+
+            /**
+             * Utilities for the {@link familyGenerator} function.
+             * 
+             * @since ___PKG_VERSION___
+             */
+            export namespace familyGenerator {
+
+                /**
+                 * @since ___PKG_VERSION___
+                 */
+                export type FileOptions = Omit<Tokens_Typography.Font.File, "path" | "style" | "weight"> & {
+                    pathWeight?: TokenLevels;
+                    pathStyle?: "normal" | "italic";
+                };
+            }
         }
     }
 

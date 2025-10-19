@@ -12,44 +12,93 @@ $_fontWeights: ('100', '200', '300', '400', '500', '600', '700', '800', '900');
 $_grid_rows: '[title] auto [details] auto';
 
 @each $weight in $_fontWeights {
-    $_grid_rows: '#{$_grid_rows} [term-#{$weight}] auto [def-#{$weight}] auto';
+    @each $suffix in ('', '-italic') {
+        $_grid_rows: '#{$_grid_rows} [term-#{$weight}#{$suffix}] auto';
+        $_grid_rows: '#{$_grid_rows} [def-#{$weight}#{$suffix}] auto';
+    }
+}
+
+%_grid-base {
+    --display: grid;
+    display: grid;
+
+    justify-content: stretch;
+    justify-items: start;
+    align-items: first baseline;
+
+    margin: 0;
+    gap: 0;
 }
 
 .font-family-swatch-list {
-    --display: grid;
-    display: grid;
+    @extend %_grid-base;
     grid-template-columns: repeat(
         var(--font-family-list-column-count, auto-fill),
         minmax(16rem, 1fr)
     );
-    grid-template-rows: auto;
-    grid-auto-flow: column;
+    grid-auto-rows: auto;
+    grid-auto-flow: row;
 
-    gap: 0;
     margin-block-start: #{lib.var-mrg-firm('400')};
+    padding: 0;
 
     overflow-inline: auto;
 
-    @include lib.js-support(whereSelector) {
-        grid-template-rows: #{$_grid_rows};
-    }
-
     .font-family-swatch {
-        --display: grid: display: grid: grid-template-columns: 1fr;
+        @extend %_grid-base;
+        grid-template-columns: 1fr;
         grid-template-rows: #{$_grid_rows};
-        grid-template-rows: subgrid;
 
-        gap: 0;
+        padding: #{lib.var-mrg-soft('200')} #{lib.var-mrg-firm('300')};
 
         min-width: 0;
         max-width: none;
 
+        > * {
+            grid-column: 1 / -1;
+        }
+
+        .font-family-swatch__name,
+        .font-family-swatch__details-list,
+        .font-family-swatch__weight-dt,
+        .font-family-swatch__weight-dd {
+        }
+
         .font-family-swatch__name {
+            margin-block-start: 0;
             grid-row: title;
         }
 
         .font-family-swatch__details-list {
             grid-row: details;
+            margin: 0;
+
+            > dt,
+            > dd {
+                margin: 0;
+            }
+
+            > dt {
+                margin-block-start: #{lib.var-mrg-soft('400')};
+            }
+
+            + .font-family-swatch__weight-dt {
+                margin-block-start: #{lib.var-mrg-soft('600')};
+            }
+        }
+
+        .font-family-swatch__weight-dt,
+        .font-family-swatch__weight-dd {
+            margin: 0;
+        }
+
+        .font-family-swatch__weight-dt {
+            margin-block-start: #{lib.var-mrg-soft('400')};
+        }
+
+        .font-family-swatch__weight-dd {
+            margin-block-start: #{lib.var-mrg-soft('200')};
+            font-size: #{lib.var-fs(normal)};
         }
 
         @each $weight in $_fontWeights {
@@ -57,9 +106,29 @@ $_grid_rows: '[title] auto [details] auto';
                 grid-row: term-#{$weight};
             }
 
-            .font-family-swatch__weight-dt--#{$weight}-italic {
+            .font-family-swatch__weight-dd--#{$weight} {
                 grid-row: def-#{$weight};
             }
+
+            .font-family-swatch__weight-dt--#{$weight}-italic {
+                grid-row: term-#{$weight}-italic;
+            }
+
+            .font-family-swatch__weight-dd--#{$weight}-italic {
+                grid-row: def-#{$weight}-italic;
+            }
+        }
+    }
+}
+
+:global(#{lib.selector-feature-check( subgrid, true )}) {
+    //
+    .font-family-swatch-list {
+        grid-template-rows: #{$_grid_rows};
+
+        .font-family-swatch {
+            grid-template-rows: subgrid;
+            grid-row: 1 / -1;
         }
     }
 }

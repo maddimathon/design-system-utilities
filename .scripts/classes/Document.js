@@ -87,41 +87,19 @@ export class Document extends DocumentStage {
      * @protected
      */
     async scss() {
-        const paths = await this.runCustomScssDirSubStage(
+        // returns - we don't need to compile this
+        if (
+            this.isWatchedUpdate
+            && this.params.building
+            && this.params.watchedFilename?.match( /(^|\/)scss\/_astro\// )
+        ) {
+            this.console.progress( 'skipping document css compile for astro-only update...', 1 );
+            return;
+        }
+
+        await this.runCustomScssDirSubStage(
             'docs/scss',
             'src/docs/css',
-        );
-
-        this.console.verbose( 'replacing global selectors...', 2 );
-
-        const content_regex = /:global\([\n\s]*([^\(\)]+|:(global|has|is|not|where)\([\n\s]*([^\(\)]+)[\n\s]*\))[\n\s]*\)/g;
-
-        await Promise.all( paths.map( async ( path ) => {
-
-            const content = this.try(
-                this.fs.readFile,
-                2,
-                [ path ]
-            );
-
-            return this.try(
-                this.fs.write,
-                2,
-                [
-                    path,
-                    content.replace( content_regex, '$1' ),
-                    { force: true, rename: false, },
-                ]
-            );
-        } ) );
-
-        await this.atry(
-            this.fs.prettier,
-            2,
-            [ [
-                'src/docs/css/*.css',
-                'src/docs/css/**/*.css',
-            ], 'css' ]
         );
     }
 

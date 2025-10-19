@@ -11,8 +11,8 @@
 // import { JsonToScss } from '@maddimathon/utility-sass';
 // import * as z from 'zod';
 
-import type { RecursivePartial } from '@maddimathon/utility-typescript/types/objects/partial';
-import { mergeArgs } from '@maddimathon/utility-typescript/functions';
+import type { Objects } from '@maddimathon/utility-typescript/types';
+import { arrayUnique, mergeArgs } from '@maddimathon/utility-typescript/functions';
 
 import type { RecursiveRecord } from '../01-utilities/@types.js';
 import type {
@@ -159,6 +159,61 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
 
     public toScssVars() {
 
+        const familyMapper = (
+            family: Tokens_Typography.Font.Family,
+            weight: TokenLevels,
+            { key: style, value: font }: {
+                key: "italic" | "normal";
+                value: Tokens_Typography.Font.File;
+            },
+        ): NonNullable<Tokens_Typography.Font.FamilyScss[ TokenLevels ]> => {
+
+            let fallbacks = family.fallbacks ?? [];
+
+            if ( family.appendSystemFontsToFallbacks ) {
+
+                switch ( family.appendSystemFontsToFallbacks ) {
+
+                    case 'monospace':
+                        fallbacks.push( ...Tokens_Typography.Font.SystemMonospace );
+                        break;
+
+                    default:
+                        fallbacks.push( ...Tokens_Typography.Font.SystemUI );
+                        break;
+                }
+
+                fallbacks = arrayUnique( fallbacks );
+            }
+
+            return {
+
+                family: family.name,
+                fallbacks,
+
+                style,
+                weight,
+
+                display: font.display ?? family.display,
+                'line-gap-override': font.lineGapOverride ?? family.lineGapOverride,
+                'size-adjust': font.sizeAdjust ?? family.sizeAdjust,
+                'unicode-range': font.unicodeRange ?? family.unicodeRange,
+
+                src: Object.values(
+                    objectMap(
+                        font.path,
+                        ( { key: type, value: paths } ) => typeof paths === 'undefined'
+                            ? []
+                            : (
+                                Array.isArray( paths ) ? paths : [ paths ]
+                            ).map(
+                                ( path ) => ( { type, path } )
+                            )
+                    )
+                ).flat(),
+            };
+        };
+
         return {
             font: {
                 // UPGRADE - make empty size objects equal to null
@@ -166,36 +221,11 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
 
                 family: objectMap(
                     this.data.fonts,
-                    ( { value }: { value: Tokens_Typography.Font.Family; } ) => value && objectMap(
-                        value.weights,
+                    ( { value: family }: { value: Tokens_Typography.Font.Family; } ) => family && objectMap(
+                        family.weights,
                         ( { key: weight, value: fontSet } ) => fontSet && objectMap(
                             fontSet,
-                            ( { key: style, value: font } ): NonNullable<Tokens_Typography.Font.FamilyScss[ TokenLevels ]> => ( {
-
-                                family: value.name,
-                                fallbacks: value.fallbacks ?? [],
-
-                                style,
-                                weight,
-
-                                display: font.display ?? value.display,
-                                'line-gap-override': font.lineGapOverride ?? value.lineGapOverride,
-                                'size-adjust': font.sizeAdjust ?? value.sizeAdjust,
-                                'unicode-range': font.unicodeRange ?? value.unicodeRange,
-
-                                src: Object.values(
-                                    objectMap(
-                                        font.path,
-                                        ( { key: type, value: paths } ) => typeof paths === 'undefined'
-                                            ? []
-                                            : (
-                                                Array.isArray( paths ) ? paths : [ paths ]
-                                            ).map(
-                                                ( path ) => ( { type, path } )
-                                            )
-                                    )
-                                ).flat(),
-                            } )
+                            ( obj ) => familyMapper( family, weight, obj )
                         )
                     )
                 ),
@@ -266,7 +296,7 @@ export namespace Tokens_Typography {
     export type InputParam<
         T_FontFamilySlug extends string = string,
     > = Partial<Omit<Data<number, T_FontFamilySlug>, 'lineHeight' | 'size'>> & {
-        size?: RecursivePartial<Data<number, T_FontFamilySlug>[ 'size' ]>;
+        size?: Objects.RecursivePartial<Data<number, T_FontFamilySlug>[ 'size' ]>;
         lineHeight?: Partial<Data<number, T_FontFamilySlug>[ 'lineHeight' ]>;
     };
 
@@ -289,7 +319,43 @@ export namespace Tokens_Typography {
         /**
          * @since ___PKG_VERSION___
          */
-        export interface FontFaceOptions {
+        export const SystemMonospace = [
+            'Menlo',
+            'Consolas',
+            'Monaco',
+            'Liberation Mono',
+            'Lucida Console',
+            'monospace',
+            'Apple Color Emoji',
+            'Segoe UI Emoji',
+            'Segoe UI Symbol',
+        ];
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        export const SystemUI = [
+            'system-ui',
+            '-apple-system',
+            'BlinkMacSystemFont',
+            'Segoe UI',
+            'Roboto',
+            'Oxygen-Sans',
+            'Ubuntu',
+            'Cantarell',
+            'Helvetica Neue',
+            'Helvetica',
+            'Arial',
+            'sans-serif',
+            'Apple Color Emoji',
+            'Segoe UI Emoji',
+            'Segoe UI Symbol',
+        ];
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        export interface FontFileOptions {
             display?: undefined | "auto" | "block" | "fallback" | "optional" | "swap";
             lineGapOverride?: undefined | string;
             sizeAdjust?: undefined | string;
@@ -299,7 +365,7 @@ export namespace Tokens_Typography {
         /**
          * @since ___PKG_VERSION___
          */
-        export interface File extends FontFaceOptions {
+        export interface File extends FontFileOptions {
             path: {
                 [ F in "local" | "ttf" | "woff" | "woff2" ]?: string | string[];
             };
@@ -332,12 +398,18 @@ export namespace Tokens_Typography {
         /**
          * @since ___PKG_VERSION___
          */
-        export interface Family<T_Slug extends string = string> extends FontFaceOptions {
+        export interface Family<T_Slug extends string = string> extends FontFileOptions {
 
             slug: T_Slug;
 
             name: string;
             fallbacks?: string[];
+
+            /**
+             * Whether to append the system fonts list to the fallbacks when
+             * outputting to scss.
+             */
+            appendSystemFontsToFallbacks?: boolean | "monospace";
 
             weights: {
                 [ K in TokenLevels ]?: {

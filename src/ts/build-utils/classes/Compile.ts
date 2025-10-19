@@ -71,7 +71,7 @@ export class Compile extends CompileStage {
             /**
              * Where to write the scss tokens, relative to project root.
              * 
-             * @default 'src/scss/tokens/_system.scss'
+             * @default 'src/scss/tokens/system/_tokens.scss'
              */
             scss?: false | string | string[];
 
@@ -109,7 +109,7 @@ export class Compile extends CompileStage {
                 ? _paths.scss
                 : Array.isArray( _paths.scss )
                     ? _paths.scss
-                    : [ _paths.scss ?? 'src/scss/tokens/_system.scss' ],
+                    : [ _paths.scss ?? 'src/scss/tokens/system/_tokens.scss' ],
         };
 
         if ( !this.isWatchedUpdate && ( this.fs.exists( distDir ) || paths.scss ) ) {

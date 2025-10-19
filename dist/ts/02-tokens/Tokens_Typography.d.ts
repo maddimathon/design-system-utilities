@@ -7,7 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
-import type { RecursivePartial } from '@maddimathon/utility-typescript/types/objects/partial';
+import type { Objects } from '@maddimathon/utility-typescript/types';
 import type { RecursiveRecord } from '../01-utilities/@types.js';
 import type { RequiredHeadingLevels, TokenLevels, TokenLevels_Extended } from './@types.js';
 import type { Tokens_Spacing } from './Tokens_Spacing.js';
@@ -394,7 +394,7 @@ export declare namespace Tokens_Typography {
      * @since 0.1.0-alpha.draft
      */
     export type InputParam<T_FontFamilySlug extends string = string> = Partial<Omit<Data<number, T_FontFamilySlug>, 'lineHeight' | 'size'>> & {
-        size?: RecursivePartial<Data<number, T_FontFamilySlug>['size']>;
+        size?: Objects.RecursivePartial<Data<number, T_FontFamilySlug>['size']>;
         lineHeight?: Partial<Data<number, T_FontFamilySlug>['lineHeight']>;
     };
     /**
@@ -412,7 +412,15 @@ export declare namespace Tokens_Typography {
         /**
          * @since 0.1.0-alpha.draft
          */
-        interface FontFaceOptions {
+        const SystemMonospace: string[];
+        /**
+         * @since 0.1.0-alpha.draft
+         */
+        const SystemUI: string[];
+        /**
+         * @since 0.1.0-alpha.draft
+         */
+        interface FontFileOptions {
             display?: undefined | "auto" | "block" | "fallback" | "optional" | "swap";
             lineGapOverride?: undefined | string;
             sizeAdjust?: undefined | string;
@@ -421,7 +429,7 @@ export declare namespace Tokens_Typography {
         /**
          * @since 0.1.0-alpha.draft
          */
-        interface File extends FontFaceOptions {
+        interface File extends FontFileOptions {
             path: {
                 [F in "local" | "ttf" | "woff" | "woff2"]?: string | string[];
             };
@@ -450,10 +458,15 @@ export declare namespace Tokens_Typography {
         /**
          * @since 0.1.0-alpha.draft
          */
-        interface Family<T_Slug extends string = string> extends FontFaceOptions {
+        interface Family<T_Slug extends string = string> extends FontFileOptions {
             slug: T_Slug;
             name: string;
             fallbacks?: string[];
+            /**
+             * Whether to append the system fonts list to the fallbacks when
+             * outputting to scss.
+             */
+            appendSystemFontsToFallbacks?: boolean | "monospace";
             weights: {
                 [K in TokenLevels]?: {
                     normal: File;

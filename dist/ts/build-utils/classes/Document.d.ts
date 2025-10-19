@@ -23,6 +23,7 @@ export declare class Document extends DocumentStage {
      * @source
      */
     readonly subStages: Stage.SubStage.Document[];
+    protected readonly astroPublicDir = "docs/_public/assets";
     protected scss(): Promise<void>;
     protected astro(): Promise<void>;
 }

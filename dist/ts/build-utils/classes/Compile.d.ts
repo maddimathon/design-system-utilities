@@ -45,7 +45,7 @@ export declare class Compile extends CompileStage {
         /**
          * Where to write the scss tokens, relative to project root.
          *
-         * @default 'src/scss/tokens/_system.scss'
+         * @default 'src/scss/tokens/system/_tokens.scss'
          */
         scss?: false | string | string[];
         /**

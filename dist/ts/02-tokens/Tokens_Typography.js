@@ -7,7 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
-import { mergeArgs } from '@maddimathon/utility-typescript/functions';
+import { arrayUnique, mergeArgs } from '@maddimathon/utility-typescript/functions';
 import { objectMap } from '../01-utilities/objectMap.js';
 import { roundToPixel } from '../01-utilities/roundToPixel.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
@@ -104,23 +104,38 @@ export class Tokens_Typography extends AbstractTokens {
         };
     }
     toScssVars() {
+        const familyMapper = (family, weight, { key: style, value: font }) => {
+            let fallbacks = family.fallbacks ?? [];
+            if (family.appendSystemFontsToFallbacks) {
+                switch (family.appendSystemFontsToFallbacks) {
+                    case 'monospace':
+                        fallbacks.push(...Tokens_Typography.Font.SystemMonospace);
+                        break;
+                    default:
+                        fallbacks.push(...Tokens_Typography.Font.SystemUI);
+                        break;
+                }
+                fallbacks = arrayUnique(fallbacks);
+            }
+            return {
+                family: family.name,
+                fallbacks,
+                style,
+                weight,
+                display: font.display ?? family.display,
+                'line-gap-override': font.lineGapOverride ?? family.lineGapOverride,
+                'size-adjust': font.sizeAdjust ?? family.sizeAdjust,
+                'unicode-range': font.unicodeRange ?? family.unicodeRange,
+                src: Object.values(objectMap(font.path, ({ key: type, value: paths }) => typeof paths === 'undefined'
+                    ? []
+                    : (Array.isArray(paths) ? paths : [paths]).map((path) => ({ type, path })))).flat(),
+            };
+        };
         return {
             font: {
                 // UPGRADE - make empty size objects equal to null
                 size: this.data.size,
-                family: objectMap(this.data.fonts, ({ value }) => value && objectMap(value.weights, ({ key: weight, value: fontSet }) => fontSet && objectMap(fontSet, ({ key: style, value: font }) => ({
-                    family: value.name,
-                    fallbacks: value.fallbacks ?? [],
-                    style,
-                    weight,
-                    display: font.display ?? value.display,
-                    'line-gap-override': font.lineGapOverride ?? value.lineGapOverride,
-                    'size-adjust': font.sizeAdjust ?? value.sizeAdjust,
-                    'unicode-range': font.unicodeRange ?? value.unicodeRange,
-                    src: Object.values(objectMap(font.path, ({ key: type, value: paths }) => typeof paths === 'undefined'
-                        ? []
-                        : (Array.isArray(paths) ? paths : [paths]).map((path) => ({ type, path })))).flat(),
-                })))),
+                family: objectMap(this.data.fonts, ({ value: family }) => family && objectMap(family.weights, ({ key: weight, value: fontSet }) => fontSet && objectMap(fontSet, (obj) => familyMapper(family, weight, obj)))),
             },
             line_height: this.data.lineHeight,
         };
@@ -137,6 +152,40 @@ export class Tokens_Typography extends AbstractTokens {
      */
     let Font;
     (function (Font) {
+        /**
+         * @since 0.1.0-alpha.draft
+         */
+        Font.SystemMonospace = [
+            'Menlo',
+            'Consolas',
+            'Monaco',
+            'Liberation Mono',
+            'Lucida Console',
+            'monospace',
+            'Apple Color Emoji',
+            'Segoe UI Emoji',
+            'Segoe UI Symbol',
+        ];
+        /**
+         * @since 0.1.0-alpha.draft
+         */
+        Font.SystemUI = [
+            'system-ui',
+            '-apple-system',
+            'BlinkMacSystemFont',
+            'Segoe UI',
+            'Roboto',
+            'Oxygen-Sans',
+            'Ubuntu',
+            'Cantarell',
+            'Helvetica Neue',
+            'Helvetica',
+            'Arial',
+            'sans-serif',
+            'Apple Color Emoji',
+            'Segoe UI Emoji',
+            'Segoe UI Symbol',
+        ];
         ;
         ;
     })(Font = Tokens_Typography.Font || (Tokens_Typography.Font = {}));
