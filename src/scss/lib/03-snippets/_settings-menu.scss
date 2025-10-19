@@ -2,8 +2,10 @@
 /// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
 /// @since ___PKG_VERSION___
 ///
+@use 'pkg:@maddimathon/utility-sass/map';
 
 @use '../../config';
+@use '../../tokens';
 
 @use '../01-functions' as *;
 @use '../02-mixins' as *;
@@ -12,6 +14,8 @@
 
 ///
 /// Supports the SettingsMenu astro component.
+///
+/// @since ___PKG_VERSION___
 ///
 @mixin snippet-support-astro-settings-menu {
     @include utils.snippet-support-astro-settings-menu;
@@ -129,6 +133,41 @@
                 [data-toggle-content] {
                     > .container {
                     }
+                }
+            }
+        }
+    }
+}
+
+///
+/// Supports font override settings (according to the tokens).
+///
+/// @since ___PKG_VERSION___
+///
+@mixin snippet-support-astro-settings-menu-font-overrides {
+    @each $map in map.get(tokens.$designSystem, font, familyOverrides) {
+        $slug: map.get($map, value);
+
+        $attrSelector: '[data-font-family-override=#{$slug}]';
+
+        $selectors: $attrSelector;
+
+        @if map.has-key($map, labelClass) {
+            $selectors: '#{$selectors}, .website-settings-menu .#{map.get($map, labelClass)}';
+        }
+
+        #{$selectors} {
+            font-family: #{var-font-family(map.get($map, value))} !important;
+        }
+
+        @if map.has-key($map, lineHeightScale) {
+            //
+            $_multi: map.get($map, lineHeightScale);
+
+            #{$attrSelector} {
+                @each $slug, $_value in tokens.$line_heights {
+                    --line-height-#{$slug}: #{line-height-value($slug) *
+                        $_multi};
                 }
             }
         }

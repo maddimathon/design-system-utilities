@@ -8,7 +8,7 @@
 /* import - types */
 import type { ComponentProps } from 'astro/types';
 import type { ArrayItem } from '@maddimathon/utility-typescript/types';
-import type { GenericProps } from '@maddimathon/utility-astro';
+import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 
 /* import - functions */
 import { escRegExp } from '@maddimathon/utility-typescript/functions';
@@ -28,10 +28,12 @@ import { absoluteInternalURL } from '@maddimathon/utility-astro/astro/functions'
 
 type UtilPage_Props = Omit<ComponentProps<typeof UtilPage>, 'frontmatter'>;
 
-type Partial_LibProps = Partial<Omit<UtilPage_Props, 'footer'>> &
+type Partial_LibProps = Partial<Omit<UtilPage_Props, 'footer' | 'settings'>> &
     Pick<UtilPage_Props, 'meta' | 'title'>;
 
-export interface Props_Raw extends Partial_LibProps {
+export interface Props extends Partial_LibProps {
+    tokens: Tokens.JsonReturn;
+
     footer?: {
         copyright?: Required<Required<UtilPage_Props>['footer']>['copyright'];
         designedBy?: boolean | string;
@@ -42,11 +44,19 @@ export interface Props_Raw extends Partial_LibProps {
     urlMaker?: (currentURL: URL, targetSubpath: string) => string;
 }
 
-export type Props = GenericProps<Props_Raw>;
-
 const urlMaker = Astro.props?.urlMaker ?? absoluteInternalURL;
 
-const inputs: Props = Astro.props.frontmatter ?? Astro.props;
+const inputs: Props = Astro.props;
+
+const _settings: UtilPage_Props['settings'] = {
+    settings: {
+        brightness: true,
+        contrast: {
+            max: true,
+        },
+        motion: true,
+    },
+};
 
 const props = {
     dir: 'ltr',
@@ -77,15 +87,7 @@ const props = {
                   : undefined,
     },
 
-    settings: {
-        settings: {
-            brightness: true,
-            contrast: {
-                max: true,
-            },
-            motion: true,
-        },
-    },
+    settings: _settings,
 } satisfies UtilPage_Props;
 
 /* CONSTANTS ===================================== */
@@ -133,6 +135,31 @@ if (Array.isArray(props.primaryMenu)) {
 
 if (Array.isArray(props.secondaryMenu)) {
     props.secondaryMenu = props.secondaryMenu.map(_menuMapper);
+}
+
+/* Settings ------------------ */
+
+if (inputs.tokens.typography.familyOverrides.length) {
+    if (!props.settings.settings) {
+        props.settings.settings = {};
+    }
+
+    props.settings.settings.custom = [
+        {
+            id: 'font-family-override',
+            label: 'Font Override',
+            default: 'default',
+
+            options: [
+                {
+                    label: 'Default',
+                    value: 'default',
+                },
+                ...inputs.tokens.typography.familyOverrides,
+            ],
+        },
+        ...(props.settings.settings.custom ?? []),
+    ];
 }
 ---
 

@@ -269,72 +269,120 @@ export class Tokens extends AbstractTokens {
              * @since 0.1.0-alpha.draft
              */
             function familyGenerator(slug, name, familyOpts = {}, weightOpts = {}) {
-                function _fontFileGenerator(_subpath, _name, _weight, _style, _opts = {}) {
-                    const _slug = slugify(_name);
-                    let _filename = `${_slug}-${_opts.pathWeight ?? _weight}`;
-                    const _path = {
-                        local: _name,
-                    };
-                    switch (_opts.pathWeight ?? _weight) {
-                        case '100':
-                            _path.local = _path.local + ' Thin';
-                            break;
-                        case '200':
-                            _path.local = _path.local + ' ExtraLight';
-                            break;
-                        case '300':
-                            _path.local = _path.local + ' Light';
-                            break;
-                        case '500':
-                            _path.local = _path.local + ' Medium';
-                            break;
-                        case '600':
-                            _path.local = _path.local + ' SemiBold';
-                            break;
-                        case '700':
-                            _path.local = _path.local + ' Bold';
-                            break;
-                        case '800':
-                            _path.local = _path.local + ' ExtraBold';
-                            break;
-                        case '900':
-                            _path.local = _path.local + ' Black';
-                            break;
-                    }
-                    switch (_opts.pathStyle ?? _style) {
-                        case 'italic':
-                            _path.local = _path.local + ' Italic';
-                            _filename = _filename + '-italic';
-                            break;
-                    }
-                    return {
-                        weight: _weight,
-                        style: _style,
-                        display: _opts.display,
-                        lineGapOverride: _opts.lineGapOverride,
-                        sizeAdjust: _opts.sizeAdjust,
-                        unicodeRange: _opts.unicodeRange,
-                        path: {
-                            ..._path,
-                            local: [
-                                _path.local,
-                                _path.local.replace(/\s+/g, ''),
-                            ],
-                            woff2: `${_subpath}/woff2/${_filename}.woff2`,
-                            woff: `${_subpath}/woff/${_filename}.woff`,
-                            ttf: `${_subpath}/ttf/${_filename}.ttf`,
-                        },
-                    };
-                }
                 return {
                     slug,
                     name,
                     fallbacks: familyOpts.fallbacks ?? [],
                     ...familyOpts,
-                    weights: objectGenerator(Font.allWeights, (weight) => objectGenerator(["normal", "italic"], (style) => _fontFileGenerator(slug, name, weight, style, weightOpts?.[weight]))),
+                    weights: objectGenerator(Font.allWeights, (weight) => objectGenerator(["normal", "italic"], (style) => familyGenerator.fileGenerator(slug, name, weight, style, weightOpts?.[weight]))),
                 };
             }
             Font.familyGenerator = familyGenerator;
+            /**
+             * Utilities for the {@link familyGenerator} function.
+             *
+             * @since 0.1.0-alpha.draft
+             */
+            (function (familyGenerator) {
+                /**
+                 * @since 0.1.0-alpha.draft
+                 */
+                function fileGenerator(subpath, name, weight, style, opts = {}) {
+                    const _slug = slugify(name);
+                    let _filename = `${_slug}-${opts.pathWeight ?? weight}`;
+                    const path = {
+                        local: name,
+                    };
+                    switch (opts.pathWeight ?? weight) {
+                        case '100':
+                            path.local = path.local + ' Thin';
+                            break;
+                        case '200':
+                            path.local = path.local + ' ExtraLight';
+                            break;
+                        case '300':
+                            path.local = path.local + ' Light';
+                            break;
+                        case '500':
+                            path.local = path.local + ' Medium';
+                            break;
+                        case '600':
+                            path.local = path.local + ' SemiBold';
+                            break;
+                        case '700':
+                            path.local = path.local + ' Bold';
+                            break;
+                        case '800':
+                            path.local = path.local + ' ExtraBold';
+                            break;
+                        case '900':
+                            path.local = path.local + ' Black';
+                            break;
+                    }
+                    switch (opts.pathStyle ?? style) {
+                        case 'italic':
+                            path.local = path.local + ' Italic';
+                            _filename = _filename + '-italic';
+                            break;
+                    }
+                    return {
+                        weight: weight,
+                        style: style,
+                        display: opts.display,
+                        lineGapOverride: opts.lineGapOverride,
+                        sizeAdjust: opts.sizeAdjust,
+                        unicodeRange: opts.unicodeRange,
+                        path: {
+                            ...path,
+                            local: [
+                                path.local,
+                                path.local.replace(/\s+/g, ''),
+                            ],
+                            woff2: `${subpath}/woff2/${_filename}.woff2`,
+                            woff: `${subpath}/woff/${_filename}.woff`,
+                            ttf: `${subpath}/ttf/${_filename}.ttf`,
+                        },
+                    };
+                }
+                familyGenerator.fileGenerator = fileGenerator;
+            })(familyGenerator = Font.familyGenerator || (Font.familyGenerator = {}));
+            /**
+             * @since 0.1.0-alpha.draft
+             */
+            let Family;
+            (function (Family) {
+                Family.dyslexic = {
+                    slug: 'dyslexic',
+                    name: 'Open Dyslexic',
+                    appendSystemFontsToFallbacks: true,
+                    lineHeightScale: 1.15,
+                    weights: objectGenerator(['400', '700'], (weight) => objectGenerator(["normal", "italic"], (style) => familyGenerator.fileGenerator('dyslexic', 'Open Dyslexic', weight === '400' ? '100 400' : '500 900', style, {
+                        pathWeight: weight,
+                    }))),
+                };
+                Family.hyperlegible = {
+                    slug: 'hyperlegible',
+                    name: 'Atkinson Hyperlegible',
+                    appendSystemFontsToFallbacks: true,
+                    lineHeightScale: 1.035,
+                    sizeAdjust: '108%',
+                    weights: objectGenerator(['400', '700'], (weight) => objectGenerator(["normal", "italic"], (style) => familyGenerator.fileGenerator('hyperlegible', 'Atkinson Hyperlegible', weight === '400' ? '100 400' : '500 900', style, {
+                        pathWeight: weight,
+                    }))),
+                };
+                Family.monospace = {
+                    slug: 'monospace',
+                    name: 'IBM Plex Mono',
+                    appendSystemFontsToFallbacks: 'monospace',
+                    fallbacks: [
+                        'Courier New',
+                    ],
+                    sizeAdjust: '97%',
+                    weights: objectGenerator(Font.allWeights.filter(w => w !== '800' && w !== '900'), (weight) => objectGenerator(["normal", "italic"], (style) => familyGenerator.fileGenerator('monospace', 'IBM Plex Mono', weight === '700' ? '700 900' : weight, style, {
+                        pathWeight: weight,
+                    }))),
+                };
+            })(Family = Font.Family || (Font.Family = {}));
         })(Font = Typography.Font || (Typography.Font = {}));
     })(Typography = Tokens.Typography || (Tokens.Typography = {}));
     /**

@@ -1,6 +1,6 @@
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0-pre.0
+ * @maddimathon/utility-sass@0.1.0-pre.1
  * 
  * License: MIT
  */
@@ -30,10 +30,10 @@
 }
 
 .font-family-swatch-list {
-    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr));
     grid-template-columns: repeat(
         var(--font-family-list-column-count, auto-fill),
-        minmax(16rem, 1fr)
+        minmax(22rem, 1fr)
     );
     grid-auto-rows: auto;
     grid-auto-flow: row;
@@ -94,8 +94,17 @@
     margin-top: var(--mrg-soft-400, 0.8125rem);
 }
 .font-family-swatch-list .font-family-swatch .font-family-swatch__weight-dd {
+    display: -webkit-inline-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    -webkit-line-clamp: var(--line-clamp, 3);
+    line-clamp: 3;
+    line-clamp: var(--line-clamp, 3);
+    overflow: hidden;
     margin-top: 0.3125rem;
     margin-top: var(--mrg-soft-200, 0.3125rem);
+    line-height: 1.6875;
+    line-height: var(--line-height-400, 1.6875);
     font-size: 1rem;
     font-size: var(--fs-normal, 1rem);
 }

@@ -75,6 +75,8 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
                 bigger: {
                 },
             },
+
+            sizeScale: 1.0625,
         };
     }
 
@@ -83,6 +85,13 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
     // }
     public readonly data: Tokens_Typography.Data;
 
+    public readonly familyOverrides: {
+        label: string;
+        value: string;
+        labelClass?: string;
+        lineHeightScale?: number;
+    }[];
+
     public constructor (
         protected readonly spacing: Tokens_Spacing,
         input: Tokens_Typography.InputParam,
@@ -90,6 +99,30 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
         super();
 
         this.data = mergeArgs( Tokens_Typography.default, input, true );
+
+        this.familyOverrides = Object.values( this.data.fonts ).map(
+            ( font ) => {
+                let isOverride = font.fontOverrideOption;
+
+                if ( typeof isOverride === 'undefined' ) {
+
+                    switch ( font.slug ) {
+                        case 'dyslexic':
+                        case 'hyperlegible':
+                        case 'monospace':
+                            isOverride = true;
+                            break;
+                    }
+                }
+
+                return isOverride && ( {
+                    label: font.slug === 'monospace' ? 'Monospace' : font.name,
+                    value: font.slug,
+                    labelClass: `font-family-override-${ font.slug }`,
+                    lineHeightScale: font.lineHeightScale,
+                } );
+            }
+        ).filter( v => typeof v !== 'undefined' && v !== false );
     }
 
     public toJSON(): Tokens_Typography.JsonReturn {
@@ -97,7 +130,7 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
         type SizeJson = Tokens_Typography.JsonReturn[ 'size' ][ 'title' ];
 
         const sizeConverter = ( num: number ) => {
-            const rem = roundToPixel( Math.pow( this.spacing.data.multiplier, num ), 32 );
+            const rem = roundToPixel( Math.pow( this.spacing.data.multiplier, num ) * this.data.sizeScale, 32 );
 
             return {
                 px: roundToPixel( rem * 16, 2 ),
@@ -154,6 +187,7 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
         return {
             ...this.data,
             size,
+            familyOverrides: this.familyOverrides,
         };
     }
 
@@ -219,6 +253,8 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
                 // UPGRADE - make empty size objects equal to null
                 size: this.data.size,
 
+                sizeScale: this.data.sizeScale,
+
                 family: objectMap(
                     this.data.fonts,
                     ( { value: family }: { value: Tokens_Typography.Font.Family; } ) => family && objectMap(
@@ -229,6 +265,8 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
                         )
                     )
                 ),
+
+                familyOverrides: this.familyOverrides,
             },
 
             line_height: this.data.lineHeight,
@@ -288,6 +326,8 @@ export namespace Tokens_Typography {
 
             [ key: string ]: T_SizeValue | RecursiveRecord<number | string, T_SizeValue>;
         };
+
+        sizeScale: number;
     };
 
     /**
@@ -296,8 +336,8 @@ export namespace Tokens_Typography {
     export type InputParam<
         T_FontFamilySlug extends string = string,
     > = Partial<Omit<Data<number, T_FontFamilySlug>, 'lineHeight' | 'size'>> & {
-        size?: Objects.RecursivePartial<Data<number, T_FontFamilySlug>[ 'size' ]>;
         lineHeight?: Partial<Data<number, T_FontFamilySlug>[ 'lineHeight' ]>;
+        size?: Objects.RecursivePartial<Data<number, T_FontFamilySlug>[ 'size' ]>;
     };
 
     /**
@@ -309,7 +349,14 @@ export namespace Tokens_Typography {
         rem: number;
         pt: number;
         px: number;
-    }, T_FontFamilySlug>;
+    }, T_FontFamilySlug> & {
+        familyOverrides: {
+            label: string;
+            value: T_FontFamilySlug;
+            labelClass?: string;
+            lineHeightScale?: number;
+        }[];
+    };
 
     /**
      * @since ___PKG_VERSION___
@@ -370,7 +417,7 @@ export namespace Tokens_Typography {
                 [ F in "local" | "ttf" | "woff" | "woff2" ]?: string | string[];
             };
             style: "normal" | "italic";
-            weight: TokenLevels;
+            weight: TokenLevels | `${ TokenLevels } ${ TokenLevels }`;
         }
 
         /**
@@ -410,6 +457,17 @@ export namespace Tokens_Typography {
              * outputting to scss.
              */
             appendSystemFontsToFallbacks?: boolean | "monospace";
+
+            /**
+             * Whether this should be an override option in website settings.
+             */
+            fontOverrideOption?: boolean;
+
+            /**
+             * A multiplier for the line height when this font is applied as an
+             * override.
+             */
+            lineHeightScale?: number;
 
             weights: {
                 [ K in TokenLevels ]?: {

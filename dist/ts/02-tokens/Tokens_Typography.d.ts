@@ -21,6 +21,12 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
     protected readonly spacing: Tokens_Spacing;
     static get default(): Tokens_Typography.Data;
     readonly data: Tokens_Typography.Data;
+    readonly familyOverrides: {
+        label: string;
+        value: string;
+        labelClass?: string;
+        lineHeightScale?: number;
+    }[];
     constructor(spacing: Tokens_Spacing, input: Tokens_Typography.InputParam);
     toJSON(): Tokens_Typography.JsonReturn;
     toScssVars(): {
@@ -52,6 +58,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                     [key: number]: number;
                 };
             };
+            sizeScale: number;
             family: {
                 [x: string]: {
                     100?: {
@@ -326,6 +333,12 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                     } | undefined;
                 };
             };
+            familyOverrides: {
+                label: string;
+                value: string;
+                labelClass?: string;
+                lineHeightScale?: number;
+            }[];
         };
         line_height: {
             100: number;
@@ -389,13 +402,14 @@ export declare namespace Tokens_Typography {
             };
             [key: string]: T_SizeValue | RecursiveRecord<number | string, T_SizeValue>;
         };
+        sizeScale: number;
     };
     /**
      * @since 0.1.0-alpha.draft
      */
     export type InputParam<T_FontFamilySlug extends string = string> = Partial<Omit<Data<number, T_FontFamilySlug>, 'lineHeight' | 'size'>> & {
-        size?: Objects.RecursivePartial<Data<number, T_FontFamilySlug>['size']>;
         lineHeight?: Partial<Data<number, T_FontFamilySlug>['lineHeight']>;
+        size?: Objects.RecursivePartial<Data<number, T_FontFamilySlug>['size']>;
     };
     /**
      * @since 0.1.0-alpha.draft
@@ -404,7 +418,14 @@ export declare namespace Tokens_Typography {
         rem: number;
         pt: number;
         px: number;
-    }, T_FontFamilySlug>;
+    }, T_FontFamilySlug> & {
+        familyOverrides: {
+            label: string;
+            value: T_FontFamilySlug;
+            labelClass?: string;
+            lineHeightScale?: number;
+        }[];
+    };
     /**
      * @since 0.1.0-alpha.draft
      */
@@ -434,7 +455,7 @@ export declare namespace Tokens_Typography {
                 [F in "local" | "ttf" | "woff" | "woff2"]?: string | string[];
             };
             style: "normal" | "italic";
-            weight: TokenLevels;
+            weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
         }
         /**
          * @since 0.1.0-alpha.draft
@@ -467,6 +488,15 @@ export declare namespace Tokens_Typography {
              * outputting to scss.
              */
             appendSystemFontsToFallbacks?: boolean | "monospace";
+            /**
+             * Whether this should be an override option in website settings.
+             */
+            fontOverrideOption?: boolean;
+            /**
+             * A multiplier for the line height when this font is applied as an
+             * override.
+             */
+            lineHeightScale?: number;
             weights: {
                 [K in TokenLevels]?: {
                     normal: File;

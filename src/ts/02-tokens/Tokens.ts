@@ -737,9 +737,7 @@ export namespace Tokens {
              * 
              * @since ___PKG_VERSION___
              */
-            export function familyGenerator<
-                T_Slug extends string,
-            >(
+            export function familyGenerator<T_Slug extends string>(
                 slug: T_Slug,
                 name: string,
                 familyOpts: Omit<Tokens_Typography.Font.File, "path" | "style" | "weight"> & {
@@ -750,90 +748,6 @@ export namespace Tokens {
                     [ L in TokenLevels ]?: familyGenerator.FileOptions;
                 } = {},
             ): Tokens_Typography.Font.Family<T_Slug> & { weights: Required<Tokens_Typography.Font.Family<T_Slug>[ 'weights' ]>; } {
-
-                function _fontFileGenerator(
-                    _subpath: T_Slug,
-                    _name: string,
-                    _weight: TokenLevels,
-                    _style: "normal" | "italic",
-                    _opts: familyGenerator.FileOptions = {},
-                ): Tokens_Typography.Font.File {
-
-                    const _slug = slugify( _name );
-
-                    let _filename = `${ _slug }-${ _opts.pathWeight ?? _weight }`;
-
-                    const _path = {
-                        local: _name,
-                    };
-
-                    switch ( _opts.pathWeight ?? _weight ) {
-
-                        case '100':
-                            _path.local = _path.local + ' Thin';
-                            break;
-
-                        case '200':
-                            _path.local = _path.local + ' ExtraLight';
-                            break;
-
-                        case '300':
-                            _path.local = _path.local + ' Light';
-                            break;
-
-                        case '500':
-                            _path.local = _path.local + ' Medium';
-                            break;
-
-                        case '600':
-                            _path.local = _path.local + ' SemiBold';
-                            break;
-
-                        case '700':
-                            _path.local = _path.local + ' Bold';
-                            break;
-
-                        case '800':
-                            _path.local = _path.local + ' ExtraBold';
-                            break;
-
-                        case '900':
-                            _path.local = _path.local + ' Black';
-                            break;
-                    }
-
-                    switch ( _opts.pathStyle ?? _style ) {
-
-                        case 'italic':
-                            _path.local = _path.local + ' Italic';
-                            _filename = _filename + '-italic';
-                            break;
-                    }
-
-                    return {
-
-                        weight: _weight,
-                        style: _style,
-
-                        display: _opts.display,
-                        lineGapOverride: _opts.lineGapOverride,
-                        sizeAdjust: _opts.sizeAdjust,
-                        unicodeRange: _opts.unicodeRange,
-
-                        path: {
-                            ..._path,
-
-                            local: [
-                                _path.local,
-                                _path.local.replace( /\s+/g, '' ),
-                            ],
-
-                            woff2: `${ _subpath }/woff2/${ _filename }.woff2`,
-                            woff: `${ _subpath }/woff/${ _filename }.woff`,
-                            ttf: `${ _subpath }/ttf/${ _filename }.ttf`,
-                        },
-                    } satisfies Objects.Classify<Tokens_Typography.Font.File>;
-                }
 
                 return {
                     slug,
@@ -847,7 +761,7 @@ export namespace Tokens {
                         allWeights,
                         ( weight ) => objectGenerator(
                             [ "normal", "italic" ] as const,
-                            ( style ) => _fontFileGenerator(
+                            ( style ) => familyGenerator.fileGenerator(
                                 slug,
                                 name,
                                 weight,
@@ -873,6 +787,175 @@ export namespace Tokens {
                     pathWeight?: TokenLevels;
                     pathStyle?: "normal" | "italic";
                 };
+
+                /**
+                 * @since ___PKG_VERSION___
+                 */
+                export function fileGenerator<T_Slug extends string>(
+                    subpath: T_Slug,
+                    name: string,
+                    weight: TokenLevels | `${ TokenLevels } ${ TokenLevels }`,
+                    style: "normal" | "italic",
+                    opts: familyGenerator.FileOptions = {},
+                ): Tokens_Typography.Font.File {
+
+                    const _slug = slugify( name );
+
+                    let _filename = `${ _slug }-${ opts.pathWeight ?? weight }`;
+
+                    const path = {
+                        local: name,
+                    };
+
+                    switch ( opts.pathWeight ?? weight ) {
+
+                        case '100':
+                            path.local = path.local + ' Thin';
+                            break;
+
+                        case '200':
+                            path.local = path.local + ' ExtraLight';
+                            break;
+
+                        case '300':
+                            path.local = path.local + ' Light';
+                            break;
+
+                        case '500':
+                            path.local = path.local + ' Medium';
+                            break;
+
+                        case '600':
+                            path.local = path.local + ' SemiBold';
+                            break;
+
+                        case '700':
+                            path.local = path.local + ' Bold';
+                            break;
+
+                        case '800':
+                            path.local = path.local + ' ExtraBold';
+                            break;
+
+                        case '900':
+                            path.local = path.local + ' Black';
+                            break;
+                    }
+
+                    switch ( opts.pathStyle ?? style ) {
+
+                        case 'italic':
+                            path.local = path.local + ' Italic';
+                            _filename = _filename + '-italic';
+                            break;
+                    }
+
+                    return {
+
+                        weight: weight,
+                        style: style,
+
+                        display: opts.display,
+                        lineGapOverride: opts.lineGapOverride,
+                        sizeAdjust: opts.sizeAdjust,
+                        unicodeRange: opts.unicodeRange,
+
+                        path: {
+                            ...path,
+
+                            local: [
+                                path.local,
+                                path.local.replace( /\s+/g, '' ),
+                            ],
+
+                            woff2: `${ subpath }/woff2/${ _filename }.woff2`,
+                            woff: `${ subpath }/woff/${ _filename }.woff`,
+                            ttf: `${ subpath }/ttf/${ _filename }.ttf`,
+                        },
+                    } satisfies Objects.Classify<Tokens_Typography.Font.File>;
+                }
+            }
+
+            /**
+             * @since ___PKG_VERSION___
+             */
+            export namespace Family {
+
+                export const dyslexic = {
+                    slug: 'dyslexic',
+                    name: 'Open Dyslexic',
+
+                    appendSystemFontsToFallbacks: true,
+                    lineHeightScale: 1.15,
+
+                    weights: objectGenerator(
+                        [ '400', '700' ] as const,
+                        ( weight ) => objectGenerator(
+                            [ "normal", "italic" ] as const,
+                            ( style ) => familyGenerator.fileGenerator(
+                                'dyslexic',
+                                'Open Dyslexic',
+                                weight === '400' ? '100 400' : '500 900',
+                                style,
+                                {
+                                    pathWeight: weight,
+                                },
+                            ),
+                        )
+                    ),
+                } satisfies Tokens_Typography.Font.Family<'dyslexic'>;
+
+                export const hyperlegible = {
+                    slug: 'hyperlegible',
+                    name: 'Atkinson Hyperlegible',
+
+                    appendSystemFontsToFallbacks: true,
+                    lineHeightScale: 1.035,
+                    sizeAdjust: '108%',
+
+                    weights: objectGenerator(
+                        [ '400', '700' ] as const,
+                        ( weight ) => objectGenerator(
+                            [ "normal", "italic" ] as const,
+                            ( style ) => familyGenerator.fileGenerator(
+                                'hyperlegible',
+                                'Atkinson Hyperlegible',
+                                weight === '400' ? '100 400' : '500 900',
+                                style,
+                                {
+                                    pathWeight: weight,
+                                },
+                            ),
+                        )
+                    ),
+                } satisfies Tokens_Typography.Font.Family<'hyperlegible'>;
+
+                export const monospace = {
+                    slug: 'monospace',
+                    name: 'IBM Plex Mono',
+
+                    appendSystemFontsToFallbacks: 'monospace',
+                    fallbacks: [
+                        'Courier New',
+                    ],
+                    sizeAdjust: '97%',
+
+                    weights: objectGenerator(
+                        allWeights.filter( w => w !== '800' && w !== '900' ),
+                        ( weight ) => objectGenerator(
+                            [ "normal", "italic" ] as const,
+                            ( style ) => familyGenerator.fileGenerator(
+                                'monospace',
+                                'IBM Plex Mono',
+                                weight === '700' ? '700 900' : weight,
+                                style,
+                                {
+                                    pathWeight: weight,
+                                },
+                            ),
+                        )
+                    ),
+                } satisfies Tokens_Typography.Font.Family<'monospace'>;
             }
         }
     }

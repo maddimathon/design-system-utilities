@@ -18,6 +18,7 @@ import { relativeURL } from '../functions/relativeURL.js';
 /* import - values */
 import cssUrl from '../css/main.css?url';
 import pkgJson from '../../../package.json';
+import { SampleTokens_Json } from '../functions/SampleTokens.js';
 import { SITE_TITLE } from '../constants.js';
 
 // import { base as config_base } from 'astro:config/client';
@@ -43,7 +44,7 @@ type Partial_UtilProps = Partial<
 
 export interface Props extends Partial_UtilProps {}
 
-const inputs: Props = Astro.props.frontmatter ?? Astro.props;
+const inputs: Props = Astro.props;
 
 const title = Array.isArray(inputs.title) ? inputs.title : [inputs.title];
 
@@ -61,6 +62,8 @@ const props = {
             inputs.meta?.title ??
             arrayUnique(title.concat([SITE_TITLE])).join(' — '),
     },
+
+    tokens: SampleTokens_Json,
 } satisfies ComponentProps<typeof LibPage>;
 
 /* CONSTANTS ===================================== */

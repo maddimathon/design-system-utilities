@@ -244,6 +244,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                     [key: number]: number;
                 };
             };
+            sizeScale: number;
             family: {
                 [x: string]: {
                     100?: {
@@ -518,6 +519,12 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                     } | undefined;
                 };
             };
+            familyOverrides: {
+                label: string;
+                value: string;
+                labelClass?: string;
+                lineHeightScale?: number;
+            }[];
         };
         line_height: {
             100: number;
@@ -929,6 +936,85 @@ export declare namespace Tokens {
                 type FileOptions = Omit<Tokens_Typography.Font.File, "path" | "style" | "weight"> & {
                     pathWeight?: TokenLevels;
                     pathStyle?: "normal" | "italic";
+                };
+                /**
+                 * @since 0.1.0-alpha.draft
+                 */
+                function fileGenerator<T_Slug extends string>(subpath: T_Slug, name: string, weight: TokenLevels | `${TokenLevels} ${TokenLevels}`, style: "normal" | "italic", opts?: familyGenerator.FileOptions): Tokens_Typography.Font.File;
+            }
+            /**
+             * @since 0.1.0-alpha.draft
+             */
+            namespace Family {
+                const dyslexic: {
+                    slug: "dyslexic";
+                    name: string;
+                    appendSystemFontsToFallbacks: true;
+                    lineHeightScale: number;
+                    weights: {
+                        400: {
+                            italic: Tokens_Typography.Font.File;
+                            normal: Tokens_Typography.Font.File;
+                        };
+                        700: {
+                            italic: Tokens_Typography.Font.File;
+                            normal: Tokens_Typography.Font.File;
+                        };
+                    };
+                };
+                const hyperlegible: {
+                    slug: "hyperlegible";
+                    name: string;
+                    appendSystemFontsToFallbacks: true;
+                    lineHeightScale: number;
+                    sizeAdjust: string;
+                    weights: {
+                        400: {
+                            italic: Tokens_Typography.Font.File;
+                            normal: Tokens_Typography.Font.File;
+                        };
+                        700: {
+                            italic: Tokens_Typography.Font.File;
+                            normal: Tokens_Typography.Font.File;
+                        };
+                    };
+                };
+                const monospace: {
+                    slug: "monospace";
+                    name: string;
+                    appendSystemFontsToFallbacks: "monospace";
+                    fallbacks: string[];
+                    sizeAdjust: string;
+                    weights: {
+                        100: {
+                            italic: Tokens_Typography.Font.File;
+                            normal: Tokens_Typography.Font.File;
+                        };
+                        200: {
+                            italic: Tokens_Typography.Font.File;
+                            normal: Tokens_Typography.Font.File;
+                        };
+                        300: {
+                            italic: Tokens_Typography.Font.File;
+                            normal: Tokens_Typography.Font.File;
+                        };
+                        400: {
+                            italic: Tokens_Typography.Font.File;
+                            normal: Tokens_Typography.Font.File;
+                        };
+                        500: {
+                            italic: Tokens_Typography.Font.File;
+                            normal: Tokens_Typography.Font.File;
+                        };
+                        600: {
+                            italic: Tokens_Typography.Font.File;
+                            normal: Tokens_Typography.Font.File;
+                        };
+                        700: {
+                            italic: Tokens_Typography.Font.File;
+                            normal: Tokens_Typography.Font.File;
+                        };
+                    };
                 };
             }
         }

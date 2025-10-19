@@ -52,20 +52,40 @@ export class Tokens_Typography extends AbstractTokens {
                 },
                 bigger: {},
             },
+            sizeScale: 1.0625,
         };
     }
     // public get data(): Tokens_Typography.Data {
     //     return {};
     // }
     data;
+    familyOverrides;
     constructor(spacing, input) {
         super();
         this.spacing = spacing;
         this.data = mergeArgs(Tokens_Typography.default, input, true);
+        this.familyOverrides = Object.values(this.data.fonts).map((font) => {
+            let isOverride = font.fontOverrideOption;
+            if (typeof isOverride === 'undefined') {
+                switch (font.slug) {
+                    case 'dyslexic':
+                    case 'hyperlegible':
+                    case 'monospace':
+                        isOverride = true;
+                        break;
+                }
+            }
+            return isOverride && ({
+                label: font.slug === 'monospace' ? 'Monospace' : font.name,
+                value: font.slug,
+                labelClass: `font-family-override-${font.slug}`,
+                lineHeightScale: font.lineHeightScale,
+            });
+        }).filter(v => typeof v !== 'undefined' && v !== false);
     }
     toJSON() {
         const sizeConverter = (num) => {
-            const rem = roundToPixel(Math.pow(this.spacing.data.multiplier, num), 32);
+            const rem = roundToPixel(Math.pow(this.spacing.data.multiplier, num) * this.data.sizeScale, 32);
             return {
                 px: roundToPixel(rem * 16, 2),
                 pt: roundToPixel(rem * 11, 2),
@@ -101,6 +121,7 @@ export class Tokens_Typography extends AbstractTokens {
         return {
             ...this.data,
             size,
+            familyOverrides: this.familyOverrides,
         };
     }
     toScssVars() {
@@ -135,7 +156,9 @@ export class Tokens_Typography extends AbstractTokens {
             font: {
                 // UPGRADE - make empty size objects equal to null
                 size: this.data.size,
+                sizeScale: this.data.sizeScale,
                 family: objectMap(this.data.fonts, ({ value: family }) => family && objectMap(family.weights, ({ key: weight, value: fontSet }) => fontSet && objectMap(fontSet, (obj) => familyMapper(family, weight, obj)))),
+                familyOverrides: this.familyOverrides,
             },
             line_height: this.data.lineHeight,
         };
