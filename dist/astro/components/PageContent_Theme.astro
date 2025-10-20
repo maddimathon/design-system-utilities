@@ -9,7 +9,10 @@
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 
 /* import - functions */
-import { toTitleCase } from '@maddimathon/utility-typescript/functions';
+import {
+    arrayUnique,
+    toTitleCase,
+} from '@maddimathon/utility-typescript/functions';
 import { objectMap } from '../../ts/01-utilities/objectMap.js';
 
 /* import - values */
@@ -26,50 +29,83 @@ import ThemeModeSwatch from './ThemeModeSwatch.astro';
 /* PROPS ===================================== */
 
 export interface Props {
-    theme: Tokens.JsonReturn['themes'][keyof Tokens.JsonReturn['themes']];
+    // theme: Tokens.JsonReturn['themes'][keyof Tokens.JsonReturn['themes']];
+    tokens: Tokens.JsonReturn;
 }
 
-const { theme }: Props = Astro.props;
+const { tokens }: Props = Astro.props;
 
 /* CONSTANTS ===================================== */
 
 const defaultToggleToOpen = import.meta.env.DEV ? true : undefined;
 
-const parsed = Object.values(
-    objectMap(theme, ({ key, value }) =>
-        key === 'name'
-            ? false
-            : key === 'levelsInUse'
-              ? false
-              : key === 'forcedColours'
-                ? false
-                : {
-                      name: key,
-                      values: Object.values(
-                          objectMap(
-                              value,
-                              ({ key: contrast, value: theme }) => ({
-                                  id: `theme-${key}-${contrast}`,
-                                  brightness: key,
-                                  contrast,
-                                  theme,
-                              })
-                          )
-                      ),
-                  }
-    )
-).filter((v) => v !== false);
+const levelsInUse = arrayUnique(
+    Object.values(tokens.themes)
+        .map((theme) => theme.levelsInUse)
+        .flat()
+).sort();
+
+// const parsed = Object.values(
+//     objectMap(theme, ({ key, value }) =>
+//         key === 'name'
+//             ? false
+//             : key === 'levelsInUse'
+//               ? false
+//               : key === 'forcedColours'
+//                 ? false
+//                 : {
+//                       name: key,
+//                       values: Object.values(
+//                           objectMap(
+//                               value,
+//                               ({ key: contrast, value: theme }) => ({
+//                                   id: `theme-${key}-${contrast}`,
+//                                   brightness: key,
+//                                   contrast,
+//                                   theme,
+//                               })
+//                           )
+//                       ),
+//                   }
+//     )
+// ).filter((v) => v !== false);
+
+const parsedSets = Object.values(
+    objectMap(tokens.themes, ({ key, value: theme }) => ({
+        key,
+        parsed: Object.values(
+            objectMap(theme, ({ key, value }) =>
+                key === 'name'
+                    ? false
+                    : key === 'levelsInUse'
+                      ? false
+                      : key === 'forcedColours'
+                        ? false
+                        : {
+                              name: key,
+                              values: Object.values(
+                                  objectMap(
+                                      value,
+                                      ({ key: contrast, value: theme }) => ({
+                                          id: `theme-${key}-${contrast}`,
+                                          brightness: key,
+                                          contrast,
+                                          theme,
+                                      })
+                                  )
+                              ),
+                          }
+            )
+        ).filter((v) => v !== false),
+    }))
+);
 ---
 
-<!-- <VariableDump
-    var={theme}
-    name='theme'
-/> -->
 <p>
     The following colour shade levels are in use in at least one of the themes
     below: {
-        theme.levelsInUse.map((level, i) =>
-            i < theme.levelsInUse.length - 1 ? (
+        levelsInUse.map((level, i) =>
+            i < levelsInUse.length - 1 ? (
                 <Fragment set:html={`<code>${level}</code>, `} />
             ) : (
                 <Fragment set:html={`and <code>${level}</code>.`} />
@@ -79,6 +115,49 @@ const parsed = Object.values(
 </p>
 
 {
+    parsedSets.map(({ key, parsed }) => (
+        <h2 
+            class='screen-reader-text'
+            set:text={`${toTitleCase(key)} Theme`}
+        />
+        <Fragment>
+            {parsed.map((brightnessSet) => (
+                <Toggle
+                    class='theme-mode-toggle'
+                    defaultOpen={defaultToggleToOpen}
+                    heading={3}
+                    id={`themes-${key}-${brightnessSet.name}-mode`}
+                >
+                    <Fragment
+                        set:text={toTitleCase(`${key} — ${brightnessSet.name} Mode`)}
+                        slot='button'
+                    />
+                    <div
+                        class='theme-mode-toggle__list'
+                        data-brightness-mode={brightnessSet.name}
+                        style={`--theme-mode-swatch-list-column-count: ${brightnessSet.values.length};`}
+                    >
+                        {brightnessSet.values.map((set) => (
+                            <ThemeModeSwatch
+                                {...set}
+                                brightness={brightnessSet.name}
+                                heading={4}
+                                id={`${set.id}-swatch`}
+                            >
+                                <Fragment
+                                    slot='heading'
+                                    set:text={`${toTitleCase(set.contrast)} Contrast`}
+                                />
+                            </ThemeModeSwatch>
+                        ))}
+                    </div>
+                </Toggle>
+            ))}
+        </Fragment>
+    ))
+}
+
+<!-- {
     parsed.map((brightnessSet) => (
         <Toggle
             class='theme-mode-toggle'
@@ -111,7 +190,7 @@ const parsed = Object.values(
             </div>
         </Toggle>
     ))
-}
+} -->
 
 <style lang='scss'>
     @forward '../scss/page-content-theme';

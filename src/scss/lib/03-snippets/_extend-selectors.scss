@@ -32,13 +32,15 @@
                     ('.shade-swatch__name', '.shade-swatch__colour-value'),
                     'code'
                 ),
-                (
-                    '.font-family-swatch .font-family-swatch__details-list > dt',
-                    'h7'
-                ),
+                (('.theme-mode-toggle .toggle-title > h3'), 'h2'),
+                ('.theme-mode-toggle__list .theme-mode-swatch__name', 'h3'),
                 (
                     '.font-family-swatch-list .font-family-swatch .font-family-swatch__weight-dt',
                     'h6'
+                ),
+                (
+                    '.font-family-swatch .font-family-swatch__details-list > dt',
+                    'h7'
                 ),
                 ('.shade-swatch__contrast__heading', 'h9'),
                 ('.shade-swatch__contrast__result-group__heading', 'h10'),
@@ -46,6 +48,18 @@
             ),
             $separator: comma
         );
+
+        @if list.length(map.keys(tokens.$themes)) > 1 {
+            @each $key, $theme in tokens.$themes {
+                @if $key != default {
+                    $additional: list.append(
+                        $additional,
+                        ('.active-theme--#{$key}', 'active-theme--#{$key}'),
+                        $separator: comma
+                    );
+                }
+            }
+        }
     }
 
     @include lib.extend-selectors-globals(

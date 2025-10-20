@@ -37,7 +37,11 @@ export class Document extends DocumentStage {
             return;
         }
         const outDir = this.getSrcDir(undefined, this.astroPublicDir.replace(/\/$/g, '') + '/css');
-        await this.runCustomScssDirSubStage('docs/scss', outDir);
+        await this.runCustomScssDirSubStage('docs/scss', outDir, { postCSS: true });
+        await this.atry(this.fs.prettier, (this.params.verbose ? 2 : 1), [
+            outDir,
+            'css',
+        ]);
     }
     async astro() {
         this.console.progress('building astro docs...', 1);

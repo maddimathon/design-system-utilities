@@ -23,6 +23,7 @@ import type {
 import type * as TokenTypes from './@types.js';
 
 import type { Tokens_Colour_ShadeMap } from './Colour/Colour_ShadeMap.js';
+import type { Tokens_Themes_Set } from './Themes/Themes_Set.js';
 
 import { objectGenerator } from '../01-utilities/objectGenerator.js';
 
@@ -1014,6 +1015,35 @@ export namespace Tokens {
             T_ExtraColourLevels extends ColourLevels_Extended,
         > extends Tokens_Themes_Set_SingleMode.RequiredLevels<T_ExtraColourLevels> { }
 
+        /**
+         * @since ___PKG_VERSION___
+         */
+        export namespace Set {
+
+            /**
+             * @since ___PKG_VERSION___
+             */
+            export type InputParam<
+                T_ColourName extends string = Tokens_Internal.Default_ColourName,
+                T_ExtraColourLevels extends ColourLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
+
+                T_ThemeBrightnessMode extends readonly [ string, ...string[] ] = Tokens_Internal.Default_ThemeBrightnessMode,
+                T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne = Tokens_Internal.Default_ThemeContrastMode,
+                T_ThemeName extends string = Tokens_Themes.Default_ThemeName,
+
+                T_ThemeKeyword_Universal extends string = never,
+                T_ThemeKeyword_Text extends string = never,
+            > = Tokens_Themes_Set.InputParam<
+                T_ColourName,
+                T_ExtraColourLevels,
+                T_ThemeBrightnessMode,
+                T_ThemeContrastMode,
+                T_ThemeName,
+                T_ThemeKeyword_Universal,
+                T_ThemeKeyword_Text
+            >;
+        }
+
 
         /**
          * @since ___PKG_VERSION___
@@ -1024,11 +1054,11 @@ export namespace Tokens {
              * @since ___PKG_VERSION___
              */
             export interface InputParam<
-                T_ColourName extends string,
-                T_ExtraColourLevels extends ColourLevels_Extended,
+                T_ColourName extends string = Tokens_Internal.Default_ColourName,
+                T_ExtraColourLevels extends ColourLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
 
-                T_ThemeKeyword_Universal extends string,
-                T_ThemeKeyword_Text extends string,
+                T_ThemeKeyword_Universal extends string = never,
+                T_ThemeKeyword_Text extends string = never,
             > extends Tokens_Themes_Set_SingleMode.InputParam<
                 T_ColourName,
                 T_ExtraColourLevels,

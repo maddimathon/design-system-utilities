@@ -7235,6 +7235,7 @@ h1 a.button,
 }
 
 h2,
+.theme-mode-toggle .toggle-title > h3,
 .h2 {
     margin-top: 3.125rem;
     margin-bottom: 0.4375rem;
@@ -7248,14 +7249,19 @@ h2,
     text-wrap: balance;
 }
 h2 button,
+.theme-mode-toggle .toggle-title > h3 button,
 .h2 button,
 h2 [role="button"],
+.theme-mode-toggle .toggle-title > h3 [role="button"],
 .h2 [role="button"],
 h2 input[type="button"],
+.theme-mode-toggle .toggle-title > h3 input[type="button"],
 .h2 input[type="button"],
 h2 input[type="submit"],
+.theme-mode-toggle .toggle-title > h3 input[type="submit"],
 .h2 input[type="submit"],
 h2 a.button,
+.theme-mode-toggle .toggle-title > h3 a.button,
 .h2 a.button {
     font: inherit;
     letter-spacing: inherit;
@@ -7263,6 +7269,7 @@ h2 a.button,
 }
 
 h3,
+.theme-mode-toggle__list .theme-mode-swatch__name,
 .h3 {
     margin-top: 3.125rem;
     margin-bottom: 0.4375rem;
@@ -7276,14 +7283,19 @@ h3,
     text-wrap: balance;
 }
 h3 button,
+.theme-mode-toggle__list .theme-mode-swatch__name button,
 .h3 button,
 h3 [role="button"],
+.theme-mode-toggle__list .theme-mode-swatch__name [role="button"],
 .h3 [role="button"],
 h3 input[type="button"],
+.theme-mode-toggle__list .theme-mode-swatch__name input[type="button"],
 .h3 input[type="button"],
 h3 input[type="submit"],
+.theme-mode-toggle__list .theme-mode-swatch__name input[type="submit"],
 .h3 input[type="submit"],
 h3 a.button,
+.theme-mode-toggle__list .theme-mode-swatch__name a.button,
 .h3 a.button {
     font: inherit;
     letter-spacing: inherit;
@@ -8712,13 +8724,13 @@ body > .body-subgrid {
     --grid-template-columns--page: 0 [page-start] 1fr [sidebar-start] 0 [content-start] minmax(auto, 36rem) [content-end] 0 [sidebar-end] 1fr [page-end] 0;
     /* prettier-ignore */
     grid-template-columns: max(0.625rem, min(4svw, 3.5625rem)) [site-start] 0 [page-start] 1fr [sidebar-start] 0 [content-start] minmax(auto, 36rem) [content-end] 0 [sidebar-end] 1fr [page-end] 0 [site-end] max(0.625rem, min(4svw, 3.5625rem));
-    grid-template-columns: var(
-            --gap-inline-layout-half,
-            4vw
-        ) [site-start] 0 [page-start] 1fr [sidebar-start] 0 [content-start] minmax(
+    grid-template-columns:
+        var(--gap-inline-layout-half, 4vw)
+        [site-start] 0 [page-start] 1fr [sidebar-start] 0 [content-start] minmax(
             auto,
             36rem
-        ) [content-end] 0 [sidebar-end] 1fr [page-end] 0 [site-end] var(
+        )
+        [content-end] 0 [sidebar-end] 1fr [page-end] 0 [site-end] var(
             --gap-inline-layout-half,
             4vw
         );
@@ -8744,19 +8756,15 @@ body > .body-subgrid {
         --grid-template-columns--page: 0 [page-start] minmax(auto, 8rem) var(--gap-inline-layout-half, 4vw) [sidebar-start] 0 [content-start] minmax(auto, 36rem) [content-end] 0 [sidebar-end] var(--gap-inline-layout-half, 4vw) minmax(auto, 8rem) [page-end] 0;
         /* prettier-ignore */
         grid-template-columns: max(0.625rem, min(4svw, 3.5625rem)) [site-start] 1fr 0 [page-start] minmax(auto, 8rem) max(0.625rem, min(4svw, 3.5625rem)) [sidebar-start] 0 [content-start] minmax(auto, 36rem) [content-end] 0 [sidebar-end] max(0.625rem, min(4svw, 3.5625rem)) minmax(auto, 8rem) [page-end] 0 1fr [site-end] max(0.625rem, min(4svw, 3.5625rem));
-        grid-template-columns: var(
+        grid-template-columns:
+            var(--gap-inline-layout-half, 4vw)
+            [site-start] 1fr 0 [page-start] minmax(auto, 8rem) var(
                 --gap-inline-layout-half,
                 4vw
-            ) [site-start] 1fr 0 [page-start] minmax(auto, 8rem) var(
-                --gap-inline-layout-half,
-                4vw
-            ) [sidebar-start] 0 [content-start] minmax(
-                auto,
-                36rem
-            ) [content-end] 0 [sidebar-end] var(
-                --gap-inline-layout-half,
-                4vw
-            ) minmax(auto, 8rem) [page-end] 0 1fr [site-end] var(
+            )
+            [sidebar-start] 0 [content-start] minmax(auto, 36rem)
+            [content-end] 0 [sidebar-end] var(--gap-inline-layout-half, 4vw)
+            minmax(auto, 8rem) [page-end] 0 1fr [site-end] var(
                 --gap-inline-layout-half,
                 4vw
             );
@@ -8863,19 +8871,15 @@ body > aside > :first-child {
         --grid-template-columns--page: 0 [page-start] 0 [sidebar-start] minmax(auto, 16rem) [sidebar-end] var(--gap-inline-layout, 8vw) [content-start] minmax(auto, 36rem) [content-end] 0 [page-end] 0;
         /* prettier-ignore */
         grid-template-columns: max(0.625rem, min(4svw, 3.5625rem)) [site-start] 1fr 0 [page-start] 0 [sidebar-start] minmax(auto, 16rem) [sidebar-end] max(1.25rem, min(8svw, 7.125rem)) [content-start] minmax(auto, 36rem) [content-end] 0 [page-end] 0 1fr [site-end] max(0.625rem, min(4svw, 3.5625rem));
-        grid-template-columns: var(
-                --gap-inline-layout-half,
-                4vw
-            ) [site-start] 1fr 0 [page-start] 0 [sidebar-start] minmax(
+        grid-template-columns:
+            var(--gap-inline-layout-half, 4vw)
+            [site-start] 1fr 0 [page-start] 0 [sidebar-start] minmax(
                 auto,
                 16rem
-            ) [sidebar-end] var(
-                --gap-inline-layout,
-                8vw
-            ) [content-start] minmax(
-                auto,
-                36rem
-            ) [content-end] 0 [page-end] 0 1fr [site-end] var(
+            )
+            [sidebar-end] var(--gap-inline-layout, 8vw)
+            [content-start] minmax(auto, 36rem)
+            [content-end] 0 [page-end] 0 1fr [site-end] var(
                 --gap-inline-layout-half,
                 4vw
             );
@@ -8888,19 +8892,15 @@ body > aside > :first-child {
         --grid-template-columns--page: 0 [page-start] 0 [content-start] minmax(auto, 36rem) [content-end] var(--gap-inline-layout, 8vw) [sidebar-start] minmax(auto, 16rem) [sidebar-end] 0 [page-end] 0;
         /* prettier-ignore */
         grid-template-columns: max(0.625rem, min(4svw, 3.5625rem)) [site-start] 1fr 0 [page-start] 0 [content-start] minmax(auto, 36rem) [content-end] max(1.25rem, min(8svw, 7.125rem)) [sidebar-start] minmax(auto, 16rem) [sidebar-end] 0 [page-end] 0 1fr [site-end] max(0.625rem, min(4svw, 3.5625rem));
-        grid-template-columns: var(
-                --gap-inline-layout-half,
-                4vw
-            ) [site-start] 1fr 0 [page-start] 0 [content-start] minmax(
+        grid-template-columns:
+            var(--gap-inline-layout-half, 4vw)
+            [site-start] 1fr 0 [page-start] 0 [content-start] minmax(
                 auto,
                 36rem
-            ) [content-end] var(
-                --gap-inline-layout,
-                8vw
-            ) [sidebar-start] minmax(
-                auto,
-                16rem
-            ) [sidebar-end] 0 [page-end] 0 1fr [site-end] var(
+            )
+            [content-end] var(--gap-inline-layout, 8vw)
+            [sidebar-start] minmax(auto, 16rem)
+            [sidebar-end] 0 [page-end] 0 1fr [site-end] var(
                 --gap-inline-layout-half,
                 4vw
             );
@@ -8916,8 +8916,10 @@ body > aside > :first-child {
         h1,
         .h1,
         h2,
+        .theme-mode-toggle .toggle-title > h3,
         .h2,
         h3,
+        .theme-mode-toggle__list .theme-mode-swatch__name,
         .h3,
         h4,
         .h4,
@@ -8942,8 +8944,10 @@ body > aside > :first-child {
         h1,
         .h1,
         h2,
+        .theme-mode-toggle .toggle-title > h3,
         .h2,
         h3,
+        .theme-mode-toggle__list .theme-mode-swatch__name,
         .h3,
         h4,
         .h4,
@@ -9661,6 +9665,7 @@ h1 a:active,
 }
 
 h2,
+.theme-mode-toggle .toggle-title > h3,
 .h2 {
     color: hsl(282.49, 61.17%, 23.26%);
     color: var(
@@ -9669,12 +9674,17 @@ h2,
     );
 }
 h2 a,
+.theme-mode-toggle .toggle-title > h3 a,
 .h2 a {
     color: inherit;
 }
 .no-js h2 a:focus,
+.no-js .theme-mode-toggle .toggle-title > h3 a:focus,
+.theme-mode-toggle .no-js .toggle-title > h3 a:focus,
 .no-js .h2 a:focus,
 .js__no-where-selector h2 a:focus,
+.js__no-where-selector .theme-mode-toggle .toggle-title > h3 a:focus,
+.theme-mode-toggle .js__no-where-selector .toggle-title > h3 a:focus,
 .js__no-where-selector .h2 a:focus {
     color: hsl(161.88, 71.59%, 16.32%);
     color: var(
@@ -9684,6 +9694,8 @@ h2 a,
 }
 
 :where(.js__no-focusVisible) h2 a:focus,
+:where(.js__no-focusVisible) .theme-mode-toggle .toggle-title > h3 a:focus,
+.theme-mode-toggle :where(.js__no-focusVisible) .toggle-title > h3 a:focus,
 :where(.js__no-focusVisible) .h2 a:focus {
     color: hsl(161.88, 71.59%, 16.32%);
     color: var(
@@ -9693,6 +9705,7 @@ h2 a,
 }
 
 h2 a:hover,
+.theme-mode-toggle .toggle-title > h3 a:hover,
 .h2 a:hover {
     color: hsl(161.88, 71.59%, 16.32%);
     color: var(
@@ -9702,6 +9715,7 @@ h2 a:hover,
 }
 
 h2 a:focus-visible,
+.theme-mode-toggle .toggle-title > h3 a:focus-visible,
 .h2 a:focus-visible {
     color: hsl(161.88, 71.59%, 16.32%);
     color: var(
@@ -9711,6 +9725,7 @@ h2 a:focus-visible,
 }
 
 h2 a:active,
+.theme-mode-toggle .toggle-title > h3 a:active,
 .h2 a:active {
     color: hsl(2.2, 70.94%, 27.79%);
     color: var(
@@ -9720,6 +9735,7 @@ h2 a:active,
 }
 
 h3,
+.theme-mode-toggle__list .theme-mode-swatch__name,
 .h3 {
     color: hsl(282.49, 61.17%, 23.26%);
     color: var(
@@ -9728,12 +9744,23 @@ h3,
     );
 }
 h3 a,
+.theme-mode-toggle__list .theme-mode-swatch__name a,
 .h3 a {
     color: inherit;
 }
 .no-js h3 a:focus,
+.no-js .theme-mode-toggle__list .theme-mode-swatch__name a:focus,
+.theme-mode-toggle__list .no-js .theme-mode-swatch__name a:focus,
 .no-js .h3 a:focus,
 .js__no-where-selector h3 a:focus,
+.js__no-where-selector
+    .theme-mode-toggle__list
+    .theme-mode-swatch__name
+    a:focus,
+.theme-mode-toggle__list
+    .js__no-where-selector
+    .theme-mode-swatch__name
+    a:focus,
 .js__no-where-selector .h3 a:focus {
     color: hsl(161.88, 71.59%, 16.32%);
     color: var(
@@ -9743,6 +9770,14 @@ h3 a,
 }
 
 :where(.js__no-focusVisible) h3 a:focus,
+:where(.js__no-focusVisible)
+    .theme-mode-toggle__list
+    .theme-mode-swatch__name
+    a:focus,
+.theme-mode-toggle__list
+    :where(.js__no-focusVisible)
+    .theme-mode-swatch__name
+    a:focus,
 :where(.js__no-focusVisible) .h3 a:focus {
     color: hsl(161.88, 71.59%, 16.32%);
     color: var(
@@ -9752,6 +9787,7 @@ h3 a,
 }
 
 h3 a:hover,
+.theme-mode-toggle__list .theme-mode-swatch__name a:hover,
 .h3 a:hover {
     color: hsl(161.88, 71.59%, 16.32%);
     color: var(
@@ -9761,6 +9797,7 @@ h3 a:hover,
 }
 
 h3 a:focus-visible,
+.theme-mode-toggle__list .theme-mode-swatch__name a:focus-visible,
 .h3 a:focus-visible {
     color: hsl(161.88, 71.59%, 16.32%);
     color: var(
@@ -9770,6 +9807,7 @@ h3 a:focus-visible,
 }
 
 h3 a:active,
+.theme-mode-toggle__list .theme-mode-swatch__name a:active,
 .h3 a:active {
     color: hsl(2.2, 70.94%, 27.79%);
     color: var(
@@ -11353,8 +11391,16 @@ input.button-secondary[type="submit"]:active {
     width: auto;
 }
 .alert-block--has-heading.alert-block:has(h1, .h1),
-.alert-block--has-heading.alert-block:has(h2, .h2),
-.alert-block--has-heading.alert-block:has(h3, .h3) {
+.alert-block--has-heading.alert-block:has(
+        h2,
+        .theme-mode-toggle .toggle-title > h3,
+        .h2
+    ),
+.alert-block--has-heading.alert-block:has(
+        h3,
+        .theme-mode-toggle__list .theme-mode-swatch__name,
+        .h3
+    ) {
     margin-top: 4rem;
     margin-top: var(--mrg-firm-800, 4rem);
 }
@@ -11377,6 +11423,9 @@ input.button-secondary[type="submit"]:active {
 .alert-block > h2.alert-block__headline,
 .alert-block > .alert-block__headline.h2,
 .alert-block > h3.alert-block__headline,
+.theme-mode-toggle__list
+    .alert-block
+    > .alert-block__headline.theme-mode-swatch__name,
 .alert-block > .alert-block__headline.h3,
 .alert-block > h4.alert-block__headline,
 .alert-block > .alert-block__headline.h4,
@@ -11432,8 +11481,10 @@ input.button-secondary[type="submit"]:active {
 .toggle-title > h1,
 .toggle-title > .h1,
 .toggle-title > h2,
+.theme-mode-toggle .toggle-title > h3,
 .toggle-title > .h2,
 .toggle-title > h3,
+.theme-mode-toggle__list .toggle-title > .theme-mode-swatch__name,
 .toggle-title > .h3,
 .toggle-title > h4,
 .toggle-title > .h4,
@@ -11465,6 +11516,7 @@ input.button-secondary[type="submit"]:active {
 .toggle-title > h2 .toggle-icon,
 .toggle-title > .h2 .toggle-icon,
 .toggle-title > h3 .toggle-icon,
+.theme-mode-toggle__list .toggle-title > .theme-mode-swatch__name .toggle-icon,
 .toggle-title > .h3 .toggle-icon,
 .toggle-title > h4 .toggle-icon,
 .toggle-title > .h4 .toggle-icon,
@@ -11586,8 +11638,12 @@ input.button-secondary[type="submit"]:active {
 :where(.js) .toggle-title > h1,
 :where(.js) .toggle-title > .h1,
 :where(.js) .toggle-title > h2,
+:where(.js) .theme-mode-toggle .toggle-title > h3,
+.theme-mode-toggle :where(.js) .toggle-title > h3,
 :where(.js) .toggle-title > .h2,
 :where(.js) .toggle-title > h3,
+:where(.js) .theme-mode-toggle__list .toggle-title > .theme-mode-swatch__name,
+.theme-mode-toggle__list :where(.js) .toggle-title > .theme-mode-swatch__name,
 :where(.js) .toggle-title > .h3,
 :where(.js) .toggle-title > h4,
 :where(.js) .toggle-title > .h4,
@@ -11652,9 +11708,17 @@ input.button-secondary[type="submit"]:active {
 :where(.js)
     [data-toggle-container]:has(.toggle-title > h1, .toggle-title > .h1),
 :where(.js)
-    [data-toggle-container]:has(.toggle-title > h2, .toggle-title > .h2),
+    [data-toggle-container]:has(
+        .toggle-title > h2,
+        .theme-mode-toggle .toggle-title > h3,
+        .toggle-title > .h2
+    ),
 :where(.js)
-    [data-toggle-container]:has(.toggle-title > h3, .toggle-title > .h3) {
+    [data-toggle-container]:has(
+        .toggle-title > h3,
+        .theme-mode-toggle__list .toggle-title > .theme-mode-swatch__name,
+        .toggle-title > .h3
+    ) {
     margin-top: 3.125rem;
     margin-top: var(--mrg-soft-800, 3.125rem);
 }
@@ -11722,8 +11786,12 @@ input.button-secondary[type="submit"]:active {
 :where(.js) .toggle-title > h1,
 :where(.js) .toggle-title > .h1,
 :where(.js) .toggle-title > h2,
+:where(.js) .theme-mode-toggle .toggle-title > h3,
+.theme-mode-toggle :where(.js) .toggle-title > h3,
 :where(.js) .toggle-title > .h2,
 :where(.js) .toggle-title > h3,
+:where(.js) .theme-mode-toggle__list .toggle-title > .theme-mode-swatch__name,
+.theme-mode-toggle__list :where(.js) .toggle-title > .theme-mode-swatch__name,
 :where(.js) .toggle-title > .h3,
 :where(.js) .toggle-title > h4,
 :where(.js) .toggle-title > .h4,
@@ -11766,8 +11834,12 @@ input.button-secondary[type="submit"]:active {
 :where(.js) .toggle-title > h1,
 :where(.js) .toggle-title > .h1,
 :where(.js) .toggle-title > h2,
+:where(.js) .theme-mode-toggle .toggle-title > h3,
+.theme-mode-toggle :where(.js) .toggle-title > h3,
 :where(.js) .toggle-title > .h2,
 :where(.js) .toggle-title > h3,
+:where(.js) .theme-mode-toggle__list .toggle-title > .theme-mode-swatch__name,
+.theme-mode-toggle__list :where(.js) .toggle-title > .theme-mode-swatch__name,
 :where(.js) .toggle-title > .h3,
 :where(.js) .toggle-title > h4,
 :where(.js) .toggle-title > .h4,
@@ -11810,8 +11882,12 @@ input.button-secondary[type="submit"]:active {
 :where(.js) .toggle-title > h1,
 :where(.js) .toggle-title > .h1,
 :where(.js) .toggle-title > h2,
+:where(.js) .theme-mode-toggle .toggle-title > h3,
+.theme-mode-toggle :where(.js) .toggle-title > h3,
 :where(.js) .toggle-title > .h2,
 :where(.js) .toggle-title > h3,
+:where(.js) .theme-mode-toggle__list .toggle-title > .theme-mode-swatch__name,
+.theme-mode-toggle__list :where(.js) .toggle-title > .theme-mode-swatch__name,
 :where(.js) .toggle-title > .h3,
 :where(.js) .toggle-title > h4,
 :where(.js) .toggle-title > .h4,
@@ -11852,6 +11928,16 @@ input.button-secondary[type="submit"]:active {
 :where(.js) .toggle-title > h2 [data-toggle-control],
 :where(.js) .toggle-title > .h2 [data-toggle-control],
 :where(.js) .toggle-title > h3 [data-toggle-control],
+:where(.js)
+    .theme-mode-toggle__list
+    .toggle-title
+    > .theme-mode-swatch__name
+    [data-toggle-control],
+.theme-mode-toggle__list
+    :where(.js)
+    .toggle-title
+    > .theme-mode-swatch__name
+    [data-toggle-control],
 :where(.js) .toggle-title > .h3 [data-toggle-control],
 :where(.js) .toggle-title > h4 [data-toggle-control],
 :where(.js) .toggle-title > .h4 [data-toggle-control],
@@ -11917,8 +12003,12 @@ input.button-secondary[type="submit"]:active {
 :where(.js) .toggle-title > h1,
 :where(.js) .toggle-title > .h1,
 :where(.js) .toggle-title > h2,
+:where(.js) .theme-mode-toggle .toggle-title > h3,
+.theme-mode-toggle :where(.js) .toggle-title > h3,
 :where(.js) .toggle-title > .h2,
 :where(.js) .toggle-title > h3,
+:where(.js) .theme-mode-toggle__list .toggle-title > .theme-mode-swatch__name,
+.theme-mode-toggle__list :where(.js) .toggle-title > .theme-mode-swatch__name,
 :where(.js) .toggle-title > .h3,
 :where(.js) .toggle-title > h4,
 :where(.js) .toggle-title > .h4,
@@ -12078,8 +12168,12 @@ input.button-secondary[type="submit"]:active {
 .no-js .toggle-title:focus > h1,
 .no-js .toggle-title:focus > .h1,
 .no-js .toggle-title:focus > h2,
+.no-js .theme-mode-toggle .toggle-title:focus > h3,
+.theme-mode-toggle .no-js .toggle-title:focus > h3,
 .no-js .toggle-title:focus > .h2,
 .no-js .toggle-title:focus > h3,
+.no-js .theme-mode-toggle__list .toggle-title:focus > .theme-mode-swatch__name,
+.theme-mode-toggle__list .no-js .toggle-title:focus > .theme-mode-swatch__name,
 .no-js .toggle-title:focus > .h3,
 .no-js .toggle-title:focus > h4,
 .no-js .toggle-title:focus > .h4,
@@ -12115,8 +12209,28 @@ input.button-secondary[type="submit"]:active {
 .no-js [data-toggle-container="open"] .toggle-title:focus > h1,
 .no-js [data-toggle-container="open"] .toggle-title:focus > .h1,
 .no-js [data-toggle-container="open"] .toggle-title:focus > h2,
+.no-js
+    [data-toggle-container="open"]
+    .theme-mode-toggle
+    .toggle-title:focus
+    > h3,
+.theme-mode-toggle
+    .no-js
+    [data-toggle-container="open"]
+    .toggle-title:focus
+    > h3,
 .no-js [data-toggle-container="open"] .toggle-title:focus > .h2,
 .no-js [data-toggle-container="open"] .toggle-title:focus > h3,
+.no-js
+    [data-toggle-container="open"]
+    .theme-mode-toggle__list
+    .toggle-title:focus
+    > .theme-mode-swatch__name,
+.theme-mode-toggle__list
+    .no-js
+    [data-toggle-container="open"]
+    .toggle-title:focus
+    > .theme-mode-swatch__name,
 .no-js [data-toggle-container="open"] .toggle-title:focus > .h3,
 .no-js [data-toggle-container="open"] .toggle-title:focus > h4,
 .no-js [data-toggle-container="open"] .toggle-title:focus > .h4,
@@ -12162,8 +12276,18 @@ input.button-secondary[type="submit"]:active {
 .js__no-where-selector .toggle-title:focus > h1,
 .js__no-where-selector .toggle-title:focus > .h1,
 .js__no-where-selector .toggle-title:focus > h2,
+.js__no-where-selector .theme-mode-toggle .toggle-title:focus > h3,
+.theme-mode-toggle .js__no-where-selector .toggle-title:focus > h3,
 .js__no-where-selector .toggle-title:focus > .h2,
 .js__no-where-selector .toggle-title:focus > h3,
+.js__no-where-selector
+    .theme-mode-toggle__list
+    .toggle-title:focus
+    > .theme-mode-swatch__name,
+.theme-mode-toggle__list
+    .js__no-where-selector
+    .toggle-title:focus
+    > .theme-mode-swatch__name,
 .js__no-where-selector .toggle-title:focus > .h3,
 .js__no-where-selector .toggle-title:focus > h4,
 .js__no-where-selector .toggle-title:focus > .h4,
@@ -12201,8 +12325,28 @@ input.button-secondary[type="submit"]:active {
 .js__no-where-selector [data-toggle-container="open"] .toggle-title:focus > h1,
 .js__no-where-selector [data-toggle-container="open"] .toggle-title:focus > .h1,
 .js__no-where-selector [data-toggle-container="open"] .toggle-title:focus > h2,
+.js__no-where-selector
+    [data-toggle-container="open"]
+    .theme-mode-toggle
+    .toggle-title:focus
+    > h3,
+.theme-mode-toggle
+    .js__no-where-selector
+    [data-toggle-container="open"]
+    .toggle-title:focus
+    > h3,
 .js__no-where-selector [data-toggle-container="open"] .toggle-title:focus > .h2,
 .js__no-where-selector [data-toggle-container="open"] .toggle-title:focus > h3,
+.js__no-where-selector
+    [data-toggle-container="open"]
+    .theme-mode-toggle__list
+    .toggle-title:focus
+    > .theme-mode-swatch__name,
+.theme-mode-toggle__list
+    .js__no-where-selector
+    [data-toggle-container="open"]
+    .toggle-title:focus
+    > .theme-mode-swatch__name,
 .js__no-where-selector [data-toggle-container="open"] .toggle-title:focus > .h3,
 .js__no-where-selector [data-toggle-container="open"] .toggle-title:focus > h4,
 .js__no-where-selector [data-toggle-container="open"] .toggle-title:focus > .h4,
@@ -12282,6 +12426,14 @@ input.button-secondary[type="submit"]:active {
 :where(.js__no-focusVisible) .toggle-title:focus > h2,
 :where(.js__no-focusVisible) .toggle-title:focus > .h2,
 :where(.js__no-focusVisible) .toggle-title:focus > h3,
+:where(.js__no-focusVisible)
+    .theme-mode-toggle__list
+    .toggle-title:focus
+    > .theme-mode-swatch__name,
+.theme-mode-toggle__list
+    :where(.js__no-focusVisible)
+    .toggle-title:focus
+    > .theme-mode-swatch__name,
 :where(.js__no-focusVisible) .toggle-title:focus > .h3,
 :where(.js__no-focusVisible) .toggle-title:focus > h4,
 :where(.js__no-focusVisible) .toggle-title:focus > .h4,
@@ -12342,6 +12494,7 @@ input.button-secondary[type="submit"]:active {
 .toggle-title:hover > h2,
 .toggle-title:hover > .h2,
 .toggle-title:hover > h3,
+.theme-mode-toggle__list .toggle-title:hover > .theme-mode-swatch__name,
 .toggle-title:hover > .h3,
 .toggle-title:hover > h4,
 .toggle-title:hover > .h4,
@@ -12382,6 +12535,7 @@ input.button-secondary[type="submit"]:active {
 .toggle-title:focus-visible > h2,
 .toggle-title:focus-visible > .h2,
 .toggle-title:focus-visible > h3,
+.theme-mode-toggle__list .toggle-title:focus-visible > .theme-mode-swatch__name,
 .toggle-title:focus-visible > .h3,
 .toggle-title:focus-visible > h4,
 .toggle-title:focus-visible > .h4,
@@ -12428,6 +12582,16 @@ input.button-secondary[type="submit"]:active {
 :where(.js) [data-toggle-container="open"] .toggle-title > h2,
 :where(.js) [data-toggle-container="open"] .toggle-title > .h2,
 :where(.js) [data-toggle-container="open"] .toggle-title > h3,
+:where(.js)
+    [data-toggle-container="open"]
+    .theme-mode-toggle__list
+    .toggle-title
+    > .theme-mode-swatch__name,
+.theme-mode-toggle__list
+    :where(.js)
+    [data-toggle-container="open"]
+    .toggle-title
+    > .theme-mode-swatch__name,
 :where(.js) [data-toggle-container="open"] .toggle-title > .h3,
 :where(.js) [data-toggle-container="open"] .toggle-title > h4,
 :where(.js) [data-toggle-container="open"] .toggle-title > .h4,

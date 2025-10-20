@@ -57,7 +57,16 @@ export class Document extends DocumentStage {
             this.astroPublicDir.replace( /\/$/g, '' ) + '/css',
         );
 
-        await this.runCustomScssDirSubStage( 'docs/scss', outDir );
+        await this.runCustomScssDirSubStage( 'docs/scss', outDir, { postCSS: true } );
+
+        await this.atry(
+            this.fs.prettier,
+            ( this.params.verbose ? 2 : 1 ),
+            [
+                outDir,
+                'css',
+            ],
+        );
     }
 
     protected async astro() {
