@@ -79,6 +79,7 @@ export class Tokens_Typography extends AbstractTokens {
                 label: font.slug === 'monospace' ? 'Monospace' : font.name,
                 value: font.slug,
                 labelClass: `font-family-override-${font.slug}`,
+                contentWidthScale: font.contentWidthScale,
                 lineHeightScale: font.lineHeightScale,
             });
         }).filter(v => typeof v !== 'undefined' && v !== false);
@@ -141,8 +142,9 @@ export class Tokens_Typography extends AbstractTokens {
             return {
                 family: family.name,
                 fallbacks,
-                style,
-                weight,
+                style: font.style,
+                weight: font.weight,
+                printFontFace: family.printFontFace ?? true,
                 display: font.display ?? family.display,
                 'line-gap-override': font.lineGapOverride ?? family.lineGapOverride,
                 'size-adjust': font.sizeAdjust ?? family.sizeAdjust,

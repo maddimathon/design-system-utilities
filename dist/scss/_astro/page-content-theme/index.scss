@@ -7,7 +7,45 @@
 
 /* # PAGE CONTENT - THEME ==================================== */
 
-:global(:where(.js)) {
+.theme-mode-preview-page__display-mode__wrapper {
+    display: none;
+    margin-block-start: #{lib.var-mrg-soft('400')};
+
+    input,
+    label {
+        margin: 0;
+    }
+}
+
+[data-theme-mode-preview-page-display-mode-content] {
+    display: none;
+}
+
+[data-theme-mode-preview-page-display-mode-content='preview'] {
+    display: var(--display, grid);
+}
+
+:global(.js) {
+    .theme-mode-preview-page__display-mode__wrapper {
+        display: flex;
+        justify-content: end;
+        gap: #{lib.var-mrg-soft('200')} #{lib.var-gap-inline(tab)};
+    }
+
+    @each $_opt in (preview, tokens) {
+        &:global([data-theme-mode-preview-page-display-mode='#{$_opt}']) {
+            :global([data-theme-mode-preview-page-display-mode-content]) {
+                display: none;
+            }
+
+            :global(
+                [data-theme-mode-preview-page-display-mode-content='#{$_opt}']
+            ) {
+                display: var(--display, grid);
+            }
+        }
+    }
+
     .theme-mode-toggle {
         &[data-toggle-container],
         &[data-toggle-container='open'] {
@@ -20,7 +58,7 @@
                     padding: 0;
 
                     .theme-mode-toggle__list {
-                        display: grid;
+                        --display: grid;
                         grid-template-columns: repeat(
                             var(--theme-mode-swatch-list-column-count),
                             minmax(16rem, 1fr)

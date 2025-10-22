@@ -55,21 +55,5 @@
 /// @since 0.1.0-alpha.draft
 ///
 @function var-font-family($slug) {
-    @return var(--ff-#{$slug}, #{font-family-list($slug)});
-
-    // // returns
-    // @if not map.has-key(tokens.$designSystem, font, family) {
-    //     @warn 'there are no font family tokens';
-    //     @return utils.font-family-system-ui();
-    // }
-
-    // // returns
-    // @if not map.has-key(tokens.$designSystem, font, family, $slug) {
-    //     @warn "$slug '#{$slug}' was not a key in the font family tokens";
-    //     @return utils.font-family-system-ui();
-    // }
-
-    // $fontMap: map.get(tokens.$designSystem, font, family, $slug, '400', normal);
-
-    // @return var(--ff-#{$slug}, '#{map.get($fontMap, family)}');
+    @return var(--ff-#{$slug}, font-family-list($slug));
 }

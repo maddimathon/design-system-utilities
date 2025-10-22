@@ -3,6 +3,8 @@
 /// @since 0.1.0-alpha.draft
 ///
 @use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/math';
+@use 'pkg:@maddimathon/utility-sass/meta';
 
 @use '../../config';
 @use '../../tokens';
@@ -146,6 +148,8 @@
 ///
 @mixin snippet-support-astro-settings-menu-font-overrides {
     @each $map in map.get(tokens.$designSystem, font, familyOverrides) {
+        //
+        $label: map.get($map, label);
         $slug: map.get($map, value);
 
         $attrSelector: '[data-font-family-override=#{$slug}]';
@@ -153,23 +157,149 @@
         $selectors: $attrSelector;
 
         @if map.has-key($map, labelClass) {
-            $selectors: '#{$selectors}, .website-settings-menu .#{map.get($map, labelClass)}';
+            $selectors: '#{$selectors}, #{$attrSelector} *, .website-settings-menu .#{map.get($map, labelClass)}';
         }
 
-        #{$selectors} {
-            font-family: #{var-font-family(map.get($map, value))} !important;
+        @at-root #{$selectors} {
+            font-family: #{var-font-family($slug)} !important;
         }
 
-        @if map.has-key($map, lineHeightScale) {
+        @at-root #{$attrSelector} {
             //
-            $_multi: map.get($map, lineHeightScale);
+            @if $label == 'Open Dyslexic' {
+                --icon-size--font-multiplier: 1.1875;
+                --icon-size-pseudo--font-multiplier: 1.25;
+                --icon-size-pseudo--inline-buffer-start: 3;
+                --icon-size-pseudo--inline-buffer-end: 1;
+            }
 
-            #{$attrSelector} {
-                @each $slug, $_value in tokens.$line_heights {
-                    --line-height-#{$slug}: #{line-height-value($slug) *
-                        $_multi};
+            @if map.has-key($map, contentWidthScale) {
+                //
+                $_multi_width: map.get($map, contentWidthScale);
+
+                @if meta.type-of($_multi_width) == number and $_multi_width != 1
+                {
+                    $_multi_border: -1;
+
+                    @if $_multi_width > 1 {
+                        $_multi_border: $_multi_width;
+                    }
+
+                    // WIDTHS
+                    @if $_multi_width > 0 and $_multi_width != 1 {
+                        //
+                        @each $slug, $_value in config.$widths {
+                            @each $value
+                                in width-value(
+                                    $slug,
+                                    $returnAsNumber: false,
+                                    $multiplier: $_multi_width
+                                )
+                            {
+                                --width-#{$slug}: #{$value};
+                            }
+                        }
+                    }
+
+                    // BORDER WIDTHS
+                    @if $_multi_border > 0 and $_multi_border != 1 {
+                        //
+                        @each $slug, $_value in tokens.$border_widths {
+                            $_oldValue: border-width-value($slug);
+
+                            $_newValue: math.round-to-pixel(
+                                $_oldValue * $_multi_border,
+                                32
+                            );
+
+                            @if $_newValue != $_oldValue {
+                                --border-width-#{$slug}: #{$_newValue};
+                            }
+                        }
+                    }
                 }
             }
+
+            @if map.has-key($map, lineHeightScale) {
+                //
+                $_multi_lh: map.get($map, lineHeightScale);
+
+                @if meta.type-of($_multi_lh) == number and $_multi_lh != 1 {
+                    $_multi_margin: -1;
+                    $_multi_stroke: -1;
+
+                    @if $_multi_lh > 1 {
+                        $_multi_margin: if(
+                            $_multi_lh < 2,
+                            calc(
+                                (($_multi_lh - 1) * mrg-value-firm('400')) + 1
+                            ),
+                            $_multi_lh
+                        );
+
+                        $_multi_stroke: $_multi_lh;
+                    }
+
+                    // MARGINS
+                    @if $_multi_margin >
+                        0 and
+                        ($_multi_margin < 1 or $_multi_margin >= 1.0625)
+                    {
+                        //
+                        @each $level, $_value in tokens.$margins {
+                            --mrg-firm-#{$level}: #{math.round-to-pixel(
+                                    mrg-value-firm($level) * $_multi_margin
+                                )}rem;
+                        }
+                        @each $level, $_value in tokens.$margins {
+                            --mrg-soft-#{$level}: #{math.round-to-pixel(
+                                    mrg-value-soft($level) * $_multi_margin
+                                )}rem;
+                        }
+                        @each $level, $_value in tokens.$margins {
+                            --mrg-half-#{$level}: #{math.round-to-pixel(
+                                    mrg-value-half($level) * $_multi_margin
+                                )}rem;
+                        }
+                    }
+
+                    // LINE HEIGHTS
+                    @each $slug, $_value in tokens.$line_heights {
+                        $_oldValue: line-height-value($slug);
+
+                        $_newValue: math.round-to-pixel(
+                            $_oldValue * $_multi_lh,
+                            32
+                        );
+
+                        @if $_newValue != $_oldValue {
+                            --line-height-#{$slug}: #{$_newValue};
+                        }
+                    }
+
+                    // STROKE RELATIVE
+                    @if $_multi_stroke > 0 and $_multi_stroke != 1 {
+                        @each $slug, $_value in tokens.$strokes_relative {
+                            $_oldValue: stroke-relative-value($slug);
+
+                            $_newValue: math.round-to-pixel(
+                                $_oldValue * $_multi_stroke,
+                                32
+                            );
+
+                            @if $_newValue != $_oldValue {
+                                --stroke-relative-#{$slug}: #{$_newValue};
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @at-root .website-settings-menu .font-family-override-default {
+        @if map.has-key(tokens.$designSystem, font, family, body) {
+            font-family: #{var-font-family(body)} !important;
         }
     }
 }

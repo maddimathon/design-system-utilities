@@ -1,0 +1,93 @@
+---
+/**
+ * @since 0.1.0-alpha.draft
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+
+/* import - functions */
+
+/* import - values */
+
+/* import - components */
+
+/* import - layouts */
+
+/* TYPES ===================================== */
+
+/* PROPS ===================================== */
+
+/* CONSTANTS ===================================== */
+---
+
+<script>
+    const attrName = 'data-theme-mode-preview-page-display-mode';
+
+    type DisplayOption = 'preview' | 'tokens';
+
+    const defaultOpt = 'preview' as const satisfies DisplayOption;
+
+    const validDisplayOption = (opt: unknown): DisplayOption | null => {
+        switch (opt) {
+            case 'preview':
+            case 'tokens':
+                return opt;
+        }
+
+        return null;
+    };
+
+    const _local = validDisplayOption(localStorage.getItem(attrName));
+
+    if (_local) {
+        document.documentElement.setAttribute(attrName, _local);
+    }
+
+    const inputs = {
+        preview: Array.from(
+            document.querySelectorAll(
+                'input[name=theme-mode-preview-page__display-mode-control][value=preview]'
+            ) as NodeListOf<HTMLInputElement>
+        ),
+
+        tokens: Array.from(
+            document.querySelectorAll(
+                'input[name=theme-mode-preview-page__display-mode-control][value=tokens]'
+            ) as NodeListOf<HTMLInputElement>
+        ),
+    } as const;
+
+    console.log({ inputs });
+    console.log({
+        'localStorage.getItem(attrName)': localStorage.getItem(attrName),
+    });
+
+    if (_local) {
+        document.documentElement.setAttribute(attrName, _local);
+    }
+
+    inputs[_local ?? defaultOpt].forEach((input) => (input.checked = true));
+
+    await Promise.all(
+        Array.from(inputs.preview)
+            .concat(Array.from(inputs.tokens))
+            .map(async (input) =>
+                input.addEventListener('input', (event) => {
+                    console.log({ event });
+
+                    const _value =
+                        validDisplayOption(
+                            (event.target as HTMLInputElement).value
+                        ) ?? defaultOpt;
+
+                    document.documentElement.setAttribute(attrName, _value);
+
+                    localStorage.setItem(attrName, _value);
+
+                    inputs[_value].forEach((input) => (input.checked = true));
+                })
+            )
+    );
+</script>

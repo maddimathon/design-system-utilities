@@ -61,19 +61,21 @@
             @each $weight, $styleMap in $weightMap {
                 //
                 @each $style, $fileMap in $styleMap {
-                    @font-face {
-                        //
-                        @each $prop, $value in $fileMap {
+                    @if map.get($fileMap, printFontFace) {
+                        @font-face {
                             //
-                            @if $prop == fallbacks {
-                            } @else if $prop == family {
-                                font-family: '#{$value}';
-                            } @else if $prop == style or $prop == weight {
-                                font-#{$prop}: #{$value};
-                            } @else if $prop == src {
-                                src: #{_font-src-list($value)};
-                            } @else {
-                                #{$prop}: #{$value};
+                            @each $prop, $value in $fileMap {
+                                //
+                                @if $prop == fallbacks {
+                                } @else if $prop == family {
+                                    font-family: '#{$value}';
+                                } @else if $prop == style or $prop == weight {
+                                    font-#{$prop}: #{$value};
+                                } @else if $prop == src {
+                                    src: #{_font-src-list($value)};
+                                } @else {
+                                    #{$prop}: #{$value};
+                                }
                             }
                         }
                     }

@@ -1,6 +1,6 @@
 ///
-/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
-/// @since ___PKG_VERSION___
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
 ///
 
 @use 'pkg:@maddimathon/utility-sass/list';
@@ -9,11 +9,11 @@
 
 // @use 'pkg:@maddimathon/utility-astro/03-snippets' as lib;
 
-// @use '../../config';
-@use '../../tokens';
+// @use '../../../config';
+@use '../../../tokens';
 
-@use '../01-functions' as *;
-// @use '../02-mixins' as *;
+@use '../../01-functions' as *;
+// @use '../../02-mixins' as *;
 
 $_allUniqueIconAspectRatioSlugs: ();
 $_allUniqueIconAspectRatios: ();
@@ -21,7 +21,6 @@ $_allUniqueIconAspectRatios: ();
 @each $slug, $map in tokens.$icons {
     $_ratio: map.get($map, aspectRatio);
 
-    // @if $_ratio != 1 {
     $_ratioSlug: string.slugify(#{$_ratio});
 
     @if list.index($_allUniqueIconAspectRatioSlugs, $_ratioSlug) == null {
@@ -35,20 +34,24 @@ $_allUniqueIconAspectRatios: ();
             $_ratio
         );
     }
-    // }
 }
 
 ///
 /// Adds support for icons, assuming the html matches that in the local astro
 /// Icon component.
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-alpha.draft
 ///
 @mixin snippet-support-icons {
     %icon {
         display: inline-block;
         vertical-align: #{var-token(icon-vertical-align, $fallback: middle)};
+
         height: #{var-token(icon-size)};
+        height: calc(
+            #{var-token(icon-size)} * var(--icon-size--font-multiplier, 1)
+        );
+
         color: #{var-token(icon-color)};
 
         > svg {
@@ -74,13 +77,15 @@ $_allUniqueIconAspectRatios: ();
 ///
 /// Adds properties for displaying an icon inside a ::before or ::after selector.
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-alpha.draft
 ///
-@mixin snippet-icon-pseudo-element($slug) {
+@mixin snippet-icon-pseudo-element($slug, $pseudo: 'after') {
+    $_start: if($pseudo == before, end, start);
+    $_end: if($pseudo == before, start, end);
+
     @supports (mask-image: url('..test.svg')) {
         display: inline-block;
         vertical-align: #{var-token(icon-vertical-align, $fallback: sub)};
-        margin-inline-start: #{var-token(icon-inline-buffer)};
 
         content: '';
         content: '' / #{icon-label-value($slug)};
@@ -95,7 +100,26 @@ $_allUniqueIconAspectRatios: ();
         mask-repeat: no-repeat;
         mask-size: contain;
 
+        margin-block-start: var(--icon-pseudo-element-margin-block-start, 0);
+        margin-inline-#{$_start}: #{var-token(icon-inline-buffer)};
+        margin-inline-#{$_start}: calc(
+            #{var-token(icon-inline-buffer)} *
+                var(
+                    --icon-size-pseudo--inline-buffer-start,
+                    var(--icon-size-pseudo--font-multiplier, 1)
+                )
+        );
+        margin-inline-#{$_end}: calc(
+            #{var-token(icon-inline-buffer)} *
+                var(--icon-size-pseudo--inline-buffer-end, 0)
+        );
+
         height: #{var-token(icon-size-pseudo)};
+        height: calc(
+            #{var-token(icon-size-pseudo)} *
+                var(--icon-size-pseudo--font-multiplier, 1)
+        );
+
         aspect-ratio: #{icon-aspect-ratio-value($slug)};
     }
 }

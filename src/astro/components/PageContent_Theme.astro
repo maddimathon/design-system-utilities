@@ -14,6 +14,7 @@ import {
     toTitleCase,
 } from '@maddimathon/utility-typescript/functions';
 import { objectMap } from '../../ts/01-utilities/objectMap.js';
+import PageContent_Theme_Scripts from '../support/PageContent_Theme_Scripts.astro';
 
 /* import - values */
 
@@ -85,7 +86,7 @@ const parsedSets = Object.values(
                               name: key,
                               values: Object.values(
                                   objectMap(
-                                      value,
+                                  theme[key],
                                       ({ key: contrast, value: theme }) => ({
                                           id: `theme-${key}-${contrast}`,
                                           brightness: key,
@@ -99,6 +100,20 @@ const parsedSets = Object.values(
         ).filter((v) => v !== false),
     }))
 );
+
+const displayOptions = [
+    {
+        label: 'Preview',
+        value: 'preview',
+    },
+    {
+        label: 'Token values',
+        value: 'tokens',
+    },
+] as const satisfies {
+    label: string;
+    value: string;
+}[];
 ---
 
 <p>
@@ -113,6 +128,19 @@ const parsedSets = Object.values(
         )
     }
 </p>
+
+<div
+    aria-ignore="true"
+    class="theme-mode-preview-page__display-mode__wrapper"
+>Display themes as: 
+{ displayOptions.map( ( { label, value } ) => (
+    <label class='theme-mode-preview-page__display-mode__label'><input 
+        type='radio'
+        class='theme-mode-preview-page__display-mode__label'
+        name='theme-mode-preview-page__display-mode-control'
+        value={value}
+    /> {label}</label>
+) ) }</div>
 
 {
     parsedSets.map(({ key, parsed }) => (
@@ -132,25 +160,32 @@ const parsedSets = Object.values(
                         set:text={toTitleCase(`${key} — ${brightnessSet.name} Mode`)}
                         slot='button'
                     />
-                    <div
-                        class='theme-mode-toggle__list'
-                        data-brightness-mode={brightnessSet.name}
-                        style={`--theme-mode-swatch-list-column-count: ${brightnessSet.values.length};`}
-                    >
-                        {brightnessSet.values.map((set) => (
-                            <ThemeModeSwatch
-                                {...set}
-                                brightness={brightnessSet.name}
-                                heading={4}
-                                id={`${set.id}-swatch`}
-                            >
-                                <Fragment
-                                    slot='heading'
-                                    set:text={`${toTitleCase(set.contrast)} Contrast`}
-                                />
-                            </ThemeModeSwatch>
-                        ))}
-                    </div>
+                    { displayOptions.map( ( opt ) => (
+                        <div
+                            class:list={ [
+                                'theme-mode-toggle__list', 
+                            ] }
+                            data-brightness-mode={brightnessSet.name}
+                            data-theme-mode-preview-page-display-mode-content={opt.value}
+                            style={`--theme-mode-swatch-list-column-count: ${brightnessSet.values.length};`}
+                        >
+                            { brightnessSet.values.map((set) => (
+                                <ThemeModeSwatch
+                                    {...set}
+                                    brightness={brightnessSet.name}
+                                    displayMode={opt.value}
+                                    heading={4}
+                                    id={`${set.id}-swatch`}
+                                    tokens={tokens}
+                                >
+                                    <Fragment
+                                        slot='heading'
+                                        set:text={`${toTitleCase(set.contrast)} Contrast`}
+                                    />
+                                </ThemeModeSwatch>
+                            )) }
+                        </div>
+                    ) ) }
                 </Toggle>
             ))}
         </Fragment>
@@ -191,6 +226,8 @@ const parsedSets = Object.values(
         </Toggle>
     ))
 } -->
+
+<PageContent_Theme_Scripts />
 
 <style lang='scss'>
     @forward '../scss/page-content-theme';

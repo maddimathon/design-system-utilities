@@ -42,6 +42,7 @@ export class Tokens_CSS_Border extends AbstractTokens<Tokens_CSS_Border.Data> {
                 '100': 0.5 / 16,
                 '200': 1 / 16,
                 '400': 2 / 16,
+                '500': 2.5 / 16,
                 '600': 3 / 16,
                 '800': 4 / 16,
                 '900': 6 / 16,
@@ -84,7 +85,7 @@ export namespace Tokens_CSS_Border {
 
     type DefaultRadiusLevels = "100" | "200" | "400";
     type DefaultWidthLevels = "100" | "200" | "300" | "400";
-    type DefaultStrokeLevels = "100" | "200" | "400" | "600" | "800" | "900";
+    type DefaultStrokeLevels = "100" | "200" | "400" | "500" | "600" | "800" | "900";
 
     /**
      * @since ___PKG_VERSION___

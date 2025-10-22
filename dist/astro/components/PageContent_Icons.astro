@@ -14,7 +14,7 @@ import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 /* import - values */
 
 /* import - components */
-// import Toggle from '@maddimathon/utility-astro/components/Toggle';
+import Toggle from '@maddimathon/utility-astro/components/Toggle';
 import Alert from './Alert.astro';
 import Icon from './Icon.astro';
 
@@ -31,6 +31,8 @@ export interface Props {
 const { tokens }: Props = Astro.props;
 
 /* CONSTANTS ===================================== */
+
+const defaultToggleToOpen = import.meta.env.DEV ? true : undefined;
 ---
 
 <h2>All Icons</h2>
@@ -60,16 +62,43 @@ const { tokens }: Props = Astro.props;
     ))
 }
 
-<!-- <Toggle
+<Toggle
+    class:list={'page-width'}
+    defaultOpen={defaultToggleToOpen}
     heading={2}
     id={`tokens-demo-icons-vardump`}
 >
     <Fragment
-        set:text='Value'
+        set:text='All Alert Heading Levels'
         slot='button'
     />
-    <VariableDump
-        var={tokens.icons}
-        name='tokens.icons'
-    />
-</Toggle> -->
+    {
+        Object.keys(tokens.typography.size.heading)
+            .map(Number)
+            .map((heading) => (
+                <Alert
+                    heading={heading}
+                    icon={tokens.icons.star}
+                >
+                    <span
+                        slot='headline'
+                        set:text={`Heading Level ${heading}`}
+                    />
+                    <p set:text='Aenean dictum commodo ex, eleifend malesuada nibh rhoncus at. Vivamus non lectus eu turpis aliquet pretium. Cras metus urna, tincidunt at scelerisque sit amet, tincidunt vitae risus.' />
+                    <p set:text='Vivamus sed commodo ligula, nec efficitur elit. Praesent condimentum diam est, sit amet venenatis sapien ullamcorper sit amet.' />
+                </Alert>
+            ))
+    }
+    <Alert icon={tokens.icons.star}>
+        <span
+            slot='headline'
+            set:text={`NO Heading Level`}
+        />
+        <p
+            set:text='Aenean dictum commodo ex, eleifend malesuada nibh rhoncus at. Vivamus non lectus eu turpis aliquet pretium. Cras metus urna, tincidunt at scelerisque sit amet, tincidunt vitae risus.'
+        />
+        <p
+            set:text='Vivamus sed commodo ligula, nec efficitur elit. Praesent condimentum diam est, sit amet venenatis sapien ullamcorper sit amet.'
+        />
+    </Alert>
+</Toggle>

@@ -329,7 +329,7 @@ export namespace Tokens_Internal {
 
     export type Default_ExtraColourLevels = ColourLevels_Extended;
 
-    export type Default_ThemeBrightnessMode = [ 'light', 'dark', ...string[] ];
+    export type Default_ThemeBrightnessMode = [ 'light', 'dark' ];
 
     export type Default_ThemeContrastMode = [ 'low', 'average', 'high', 'max' ];
 
@@ -741,14 +741,15 @@ export namespace Tokens {
             export function familyGenerator<T_Slug extends string>(
                 slug: T_Slug,
                 name: string,
-                familyOpts: Omit<Tokens_Typography.Font.File, "path" | "style" | "weight"> & {
-                    fallbacks?: string[];
-                    appendSystemFontsToFallbacks?: Tokens_Typography.Font.Family<T_Slug>[ 'appendSystemFontsToFallbacks' ];
+                familyOpts: Omit<Partial<Tokens_Typography.Font.Family<T_Slug>>, "path" | "style" | "weight"> & {
+                    includeLocalSrc?: boolean;
                 } = {},
                 weightOpts: {
                     [ L in TokenLevels ]?: familyGenerator.FileOptions;
                 } = {},
-            ): Tokens_Typography.Font.Family<T_Slug> & { weights: Required<Tokens_Typography.Font.Family<T_Slug>[ 'weights' ]>; } {
+            ): Tokens_Typography.Font.Family<T_Slug> & {
+                weights: Required<Tokens_Typography.Font.Family<T_Slug>[ 'weights' ]>;
+            } {
 
                 return {
                     slug,
@@ -767,7 +768,10 @@ export namespace Tokens {
                                 name,
                                 weight,
                                 style,
-                                weightOpts?.[ weight ],
+                                {
+                                    ...familyOpts,
+                                    ...weightOpts?.[ weight ],
+                                },
                             ),
                         )
                     ),
@@ -785,6 +789,14 @@ export namespace Tokens {
                  * @since ___PKG_VERSION___
                  */
                 export type FileOptions = Omit<Tokens_Typography.Font.File, "path" | "style" | "weight"> & {
+
+                    /**
+                     * Whether to include local sources in the files list.
+                     * 
+                     * @default true
+                     */
+                    includeLocalSrc?: boolean;
+
                     pathWeight?: TokenLevels;
                     pathStyle?: "normal" | "italic";
                 };
@@ -887,7 +899,8 @@ export namespace Tokens {
                     name: 'Open Dyslexic',
 
                     appendSystemFontsToFallbacks: true,
-                    lineHeightScale: 1.15,
+                    contentWidthScale: 1.2,
+                    lineHeightScale: 1.2,
 
                     weights: objectGenerator(
                         [ '400', '700' ] as const,
@@ -896,7 +909,7 @@ export namespace Tokens {
                             ( style ) => familyGenerator.fileGenerator(
                                 'dyslexic',
                                 'Open Dyslexic',
-                                weight === '400' ? '100 400' : '500 900',
+                                weight == '400' ? '100 400' : '500 900',
                                 style,
                                 {
                                     pathWeight: weight,
@@ -911,8 +924,9 @@ export namespace Tokens {
                     name: 'Atkinson Hyperlegible',
 
                     appendSystemFontsToFallbacks: true,
+                    contentWidthScale: 1.035,
                     lineHeightScale: 1.035,
-                    sizeAdjust: '108%',
+                    sizeAdjust: '106.5%',
 
                     weights: objectGenerator(
                         [ '400', '700' ] as const,
@@ -936,6 +950,7 @@ export namespace Tokens {
                     name: 'IBM Plex Mono',
 
                     appendSystemFontsToFallbacks: 'monospace',
+                    contentWidthScale: 1.125,
                     fallbacks: [
                         'Courier New',
                     ],

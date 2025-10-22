@@ -274,7 +274,10 @@ export class Tokens extends AbstractTokens {
                     name,
                     fallbacks: familyOpts.fallbacks ?? [],
                     ...familyOpts,
-                    weights: objectGenerator(Font.allWeights, (weight) => objectGenerator(["normal", "italic"], (style) => familyGenerator.fileGenerator(slug, name, weight, style, weightOpts?.[weight]))),
+                    weights: objectGenerator(Font.allWeights, (weight) => objectGenerator(["normal", "italic"], (style) => familyGenerator.fileGenerator(slug, name, weight, style, {
+                        ...familyOpts,
+                        ...weightOpts?.[weight],
+                    }))),
                 };
             }
             Font.familyGenerator = familyGenerator;
@@ -355,8 +358,9 @@ export class Tokens extends AbstractTokens {
                     slug: 'dyslexic',
                     name: 'Open Dyslexic',
                     appendSystemFontsToFallbacks: true,
-                    lineHeightScale: 1.15,
-                    weights: objectGenerator(['400', '700'], (weight) => objectGenerator(["normal", "italic"], (style) => familyGenerator.fileGenerator('dyslexic', 'Open Dyslexic', weight === '400' ? '100 400' : '500 900', style, {
+                    contentWidthScale: 1.2,
+                    lineHeightScale: 1.2,
+                    weights: objectGenerator(['400', '700'], (weight) => objectGenerator(["normal", "italic"], (style) => familyGenerator.fileGenerator('dyslexic', 'Open Dyslexic', weight == '400' ? '100 400' : '500 900', style, {
                         pathWeight: weight,
                     }))),
                 };
@@ -364,8 +368,9 @@ export class Tokens extends AbstractTokens {
                     slug: 'hyperlegible',
                     name: 'Atkinson Hyperlegible',
                     appendSystemFontsToFallbacks: true,
+                    contentWidthScale: 1.035,
                     lineHeightScale: 1.035,
-                    sizeAdjust: '108%',
+                    sizeAdjust: '106.5%',
                     weights: objectGenerator(['400', '700'], (weight) => objectGenerator(["normal", "italic"], (style) => familyGenerator.fileGenerator('hyperlegible', 'Atkinson Hyperlegible', weight === '400' ? '100 400' : '500 900', style, {
                         pathWeight: weight,
                     }))),
@@ -374,6 +379,7 @@ export class Tokens extends AbstractTokens {
                     slug: 'monospace',
                     name: 'IBM Plex Mono',
                     appendSystemFontsToFallbacks: 'monospace',
+                    contentWidthScale: 1.125,
                     fallbacks: [
                         'Courier New',
                     ],

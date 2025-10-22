@@ -63,13 +63,13 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 };
                 levels = Tokens_Themes_Set_SingleMode.Build.completeLevels(mergeArgs(defaultLevels, input.levels, true));
                 overrides.selection = {
-                    bg: clrOpt(variations.universal.primary, '600'),
+                    bg: clrOpt(variations.universal.primary, '400'),
                     text: clrOpt(variations.base, '900'),
                     ...overrides.selection,
                 };
                 break;
             case 'low':
-                description = 'This is the low contrast mode.  This is the default for users who set ‘low’ as their preferred contrast mode in OS or browser settings.  It mostly meets WCAG AA contrast standards, but in rare cases does not (which is acceptable in this case).';
+                description = 'This is the low contrast mode.  This is the default for users who set ‘low’ as their preferred contrast mode in their OS or browser settings.  It mostly meets WCAG AA contrast standards, but in rare cases does not (which is acceptable in this case).';
                 defaultLevels = {
                     background: isLightMode ? '300' : '200',
                     text: {
@@ -86,13 +86,13 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 };
                 levels = Tokens_Themes_Set_SingleMode.Build.completeLevels(mergeArgs(defaultLevels, input.levels, true));
                 overrides.selection = {
-                    bg: clrOpt(variations.universal.primary, '600'),
+                    bg: clrOpt(variations.universal.primary, '400'),
                     text: clrOpt(variations.base, '850'),
                     ...overrides.selection,
                 };
                 break;
             case 'high':
-                description = 'This is the high contrast mode.  This is the default for users who set ‘high’ as their preferred contrast mode in OS or browser settings.  It exceeds WCAG AAA contrast standards.';
+                description = 'This is the high contrast mode.  This is the default for users who set ‘high’ as their preferred contrast mode in their OS or browser settings.  It exceeds WCAG AAA contrast standards.';
                 defaultLevels = {
                     background: '100',
                     text: {
@@ -137,7 +137,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 };
                 levels = Tokens_Themes_Set_SingleMode.Build.completeLevels(mergeArgs(defaultLevels, input.levels, true));
                 overrides.selection = {
-                    bg: clrOpt(variations.universal.primary, '800'),
+                    bg: clrOpt(variations.universal.primary, '850'),
                     text: clrOpt(variations.base, '100'),
                     ...overrides.selection,
                 };
@@ -376,6 +376,11 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                         hover: clrOpt(variations.base, levels.background),
                         active: clrOpt(variations.base, levels.background),
                     },
+                    ui: {
+                        $: clrOpt(variations.base, levels.background),
+                        hover: clrOpt(variations.base, levels.background),
+                        active: clrOpt(variations.base, levels.background),
+                    },
                 };
             };
             const button = {
@@ -392,6 +397,11 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                         active: clrOpt(variations.base, levels.text.min),
                     },
                     text: {
+                        $: clrOpt(variations.base, levels.background),
+                        hover: clrOpt(variations.base, levels.background),
+                        active: clrOpt(variations.base, levels.background),
+                    },
+                    ui: {
                         $: clrOpt(variations.base, levels.background),
                         hover: clrOpt(variations.base, levels.background),
                         active: clrOpt(variations.base, levels.background),
@@ -496,6 +506,11 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                     hover: 'SelectedItem',
                 },
                 text: {
+                    $: 'ButtonText',
+                    hover: 'SelectedItemText',
+                    active: 'ButtonText',
+                },
+                ui: {
                     $: 'ButtonText',
                     hover: 'SelectedItemText',
                     active: 'ButtonText',

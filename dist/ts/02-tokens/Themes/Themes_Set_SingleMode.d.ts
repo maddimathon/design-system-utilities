@@ -197,6 +197,11 @@ export declare namespace Tokens_Themes_Set_SingleMode {
             hover: __T_ColourOption;
             active: __T_ColourOption;
         };
+        ui: {
+            $: __T_ColourOption;
+            hover: __T_ColourOption;
+            active: __T_ColourOption;
+        };
     }
     /**
      * @since 0.1.0-alpha.draft
@@ -326,8 +331,8 @@ export declare namespace Tokens_Themes_Set_SingleMode {
             [L in RequiredHeadingLevels]?: undefined | __T_ColourOption;
         };
         selection?: undefined | {
-            bg?: undefined | __T_ColourOption;
-            text?: undefined | __T_ColourOption;
+            bg: __T_ColourOption;
+            text: __T_ColourOption;
         };
         link?: undefined | {
             $?: undefined | __T_ColourOption;

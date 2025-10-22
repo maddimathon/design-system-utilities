@@ -182,9 +182,9 @@
         
         
         "watch": "run-p --silent watch:*",
-            "watch:astro": "watch -p 'src/astro/components/**/*' -p 'src/astro/layouts/**/*' -c 'build-utils build --only compile      --only-compile astro     --watchedWatcher \"start:watch:astro\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
-            "watch:scss":  "watch -p 'src/scss/**/*' -p 'src/docs/scss/**/*'                 -c 'build-utils build --only compile      --only-compile scss      --watchedWatcher \"start:watch:scss\"  --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
-            "watch:ts":    "watch -p 'src/ts/**/*'                                           -c 'build-utils build --only compile,test --only-compile ts,tokens --watchedWatcher \"start:watch:ts\"    --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:astro": "watch -p 'src/astro/components/**/*' -p 'src/astro/layouts/**/*' -c 'build-utils build --only compile      --only-compile astro     --watchedWatcher \"watch:astro\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:scss":  "watch -p 'src/scss/**/*' -p 'src/docs/scss/**/*'                 -c 'build-utils build --only compile      --only-compile scss      --watchedWatcher \"watch:scss\"  --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:ts":    "watch -p 'src/ts/**/*'                                           -c 'build-utils build --only compile,test --only-compile ts,tokens --watchedWatcher \"watch:ts\"    --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
         
         "build-start":       "build-utils build --verbose --starting --without minimize                             --without-document replace && npm run --silent start",
         "quick-build-start": "build-utils build --verbose --starting --without minimize --without-compile templates --without-document replace && npm run --silent start",
@@ -206,7 +206,7 @@
     "dependencies": {
         "@maddimathon/build-utilities": "file:../npm-build-utilities",
         "@maddimathon/utility-astro": "file:../utility-astro",
-        "@maddimathon/utility-sass": "github:maddimathon/utility-sass#0.1.0-pre.1",
+        "@maddimathon/utility-sass": "github:maddimathon/utility-sass#0.1.0-pre.4",
         "@maddimathon/utility-typescript": "2.0.0-beta",
         "@types/jest": "^30.0.0",
         "astro": "^5.14.4",

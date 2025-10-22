@@ -38,7 +38,7 @@ export declare namespace Tokens_Icons {
     /**
      * @since 0.1.0-alpha.draft
      */
-    type DefaultIconNames = "check" | "clock" | "compass" | "dash" | "double-check" | "down" | "external" | "fail" | "left" | "lightbulb" | "lightning" | "maximum" | "minimum" | "minus" | "no" | "plus" | "question" | "right" | "search" | "settings" | "star" | "ui" | "ui-check" | "ui-minimum" | "up" | "warning";
+    type DefaultIconNames = "check" | "clock" | "compass" | "dash" | "double-check" | "down" | "external" | "fail" | "forbidden" | "left" | "lightbulb" | "lightning" | "maximum" | "minimum" | "minus" | "no" | "plus" | "question" | "refresh" | "right" | "search" | "settings" | "star" | "ui" | "ui-check" | "ui-minimum" | "up" | "warning";
     /**
      * @since 0.1.0-alpha.draft
      */
@@ -79,6 +79,7 @@ export declare namespace Tokens_Icons {
         static simplifyRatio(a: number, b: number): [number, number];
         static svgAttrString(label: string, width: number, height: number): string;
         static svg(svgAttrString: string, innerSVG: string): string;
+        static svgFile(svg: string): string;
         readonly slug: string;
         readonly label: string;
         readonly height: number;
@@ -86,6 +87,7 @@ export declare namespace Tokens_Icons {
         readonly aspectRatio: [number, number];
         readonly innerSVG: string;
         readonly svg: string;
+        readonly svgFile: string;
         readonly svgAttrString: string;
         constructor(data: SvgIcon.Data);
         toJSON(): {

@@ -88,6 +88,8 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
     public readonly familyOverrides: {
         label: string;
         value: string;
+
+        contentWidthScale?: number;
         labelClass?: string;
         lineHeightScale?: number;
     }[];
@@ -119,6 +121,8 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
                     label: font.slug === 'monospace' ? 'Monospace' : font.name,
                     value: font.slug,
                     labelClass: `font-family-override-${ font.slug }`,
+
+                    contentWidthScale: font.contentWidthScale,
                     lineHeightScale: font.lineHeightScale,
                 } );
             }
@@ -225,8 +229,10 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
                 family: family.name,
                 fallbacks,
 
-                style,
-                weight,
+                style: font.style,
+                weight: font.weight,
+
+                printFontFace: family.printFontFace ?? true,
 
                 display: font.display ?? family.display,
                 'line-gap-override': font.lineGapOverride ?? family.lineGapOverride,
@@ -353,6 +359,8 @@ export namespace Tokens_Typography {
         familyOverrides: {
             label: string;
             value: T_FontFamilySlug;
+
+            contentWidthScale?: number;
             labelClass?: string;
             lineHeightScale?: number;
         }[];
@@ -434,6 +442,7 @@ export namespace Tokens_Typography {
                 style: "normal" | "italic";
                 weight: TokenLevels | `${ TokenLevels } ${ TokenLevels }`;
 
+                printFontFace: boolean;
 
                 display?: "auto" | "block" | "fallback" | "optional" | "swap";
                 'line-gap-override'?: string;
@@ -459,6 +468,12 @@ export namespace Tokens_Typography {
             appendSystemFontsToFallbacks?: boolean | "monospace";
 
             /**
+             * A multiplier for the content/page widths when this font is
+             * applied as an override.
+             */
+            contentWidthScale?: number;
+
+            /**
              * Whether this should be an override option in website settings.
              */
             fontOverrideOption?: boolean;
@@ -468,6 +483,13 @@ export namespace Tokens_Typography {
              * override.
              */
             lineHeightScale?: number;
+
+            /**
+             * Whether to include @font-face declarations in the css.
+             * 
+             * @default true
+             */
+            printFontFace?: boolean;
 
             weights: {
                 [ K in TokenLevels ]?: {

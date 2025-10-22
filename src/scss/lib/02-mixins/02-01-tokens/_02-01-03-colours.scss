@@ -43,7 +43,6 @@
                             ),
                             $round: false
                         )};
-                    // /* #{var-clr($slug, $level)} */
                 }
             }
         }
@@ -172,12 +171,11 @@ $_flattenedSystemColors: map.flatten($_systemColors);
 @mixin tokens-theme(
     $includeAlternatives: list.length(map.keys(tokens.$themes)) > 1
 ) {
-    //
+    // prettier-ignore
     @include utils.colour-mode-each(
             $includeRegions_heading: 'Tokens - Theme - ',
             $nestModeSelectors: config.$mx_themeTokens_nestModeSelectors
-        )
-        using ($brightness, $contrast) {
+    ) using ($brightness, $contrast) {
         //
         @include _tokens-theme-individual(
             tokens.$activeTheme,

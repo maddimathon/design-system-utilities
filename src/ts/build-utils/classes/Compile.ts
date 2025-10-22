@@ -54,17 +54,27 @@ export class Compile extends CompileStage {
         tokens: T_Tokens,
         _paths: {
 
+            assets?: false | {
+
+                /**
+                 * Where to write the json tokens, relative to `tokensDistSubpath`.
+                 * 
+                 * @default 'assets/icons'
+                 */
+                icons?: false | string | string[];
+            };
+
             /**
              * The subpath for the tokens output in the dist directory.
              * 
              * @default 'tokens'
              */
-            distDir?: string;
+            tokensDistSubpath?: string;
 
             /**
-             * Where to write the json tokens, relative to project root.
+             * Where to write the json tokens, relative to `tokensDistSubpath`.
              * 
-             * @default `${distDir}/${slug}.json`
+             * @default `${slug}.json`
              */
             json?: false | string | string[];
 
@@ -86,24 +96,47 @@ export class Compile extends CompileStage {
 
         this.console.verbose( 'parsing paths...', 1 + level );
 
-        const distDir = this.getDistDir(
+        const tokensDistDir = this.getDistDir(
             undefined,
-            _paths.distDir ?? 'tokens',
+            _paths.tokensDistSubpath ?? 'tokens',
         );
 
         const paths: {
             slug: string;
+            assets: {
+                icons: false | string[];
+            };
             json: false | string[];
             scss: false | string[];
         } = {
 
             slug: _paths.slug,
 
+            assets: _paths.assets === false
+                ? {
+                    icons: false,
+                }
+                : {
+                    icons: _paths.assets?.icons === false
+                        ? _paths.assets?.icons
+                        : (
+                            Array.isArray( _paths.assets?.icons )
+                                ? _paths.assets?.icons
+                                : [ _paths.assets?.icons ?? 'assets/icons' ]
+                        ).map(
+                            path => this.fs.pathResolve( tokensDistDir, path )
+                        ),
+                },
+
             json: _paths.json === false
                 ? _paths.json
-                : Array.isArray( _paths.json )
-                    ? _paths.json
-                    : [ _paths.json ?? this.fs.pathResolve( distDir, `${ _paths.slug }.json` ) ],
+                : (
+                    Array.isArray( _paths.json )
+                        ? _paths.json
+                        : [ _paths.json ?? `${ _paths.slug }.json` ]
+                ).map(
+                    path => this.fs.pathResolve( tokensDistDir, path )
+                ),
 
             scss: _paths.scss === false
                 ? _paths.scss
@@ -112,47 +145,67 @@ export class Compile extends CompileStage {
                     : [ _paths.scss ?? 'src/scss/tokens/system/_tokens.scss' ],
         };
 
-        if ( !this.isWatchedUpdate && ( this.fs.exists( distDir ) || paths.scss ) ) {
+        if (
+            !this.isWatchedUpdate
+            && ( this.fs.exists( tokensDistDir ) || paths.scss )
+        ) {
             this.console.verbose( 'deleting any existing files...', 1 + level );
 
             this.fs.delete(
-                [ distDir ].flat(),
+                [ tokensDistDir ].flat(),
                 ( this.params.verbose ? 2 : 1 ) + level,
             );
-
-            if ( paths.scss ) {
-
-                for ( const path of paths.scss ) {
-                    this.fs.delete(
-                        [ path ],
-                        ( this.params.verbose ? 2 : 1 ) + level,
-                    );
-                }
-            }
         }
 
-        if ( paths.json ) {
-            this.console.verbose( 'writing json tokens...', 1 + level );
+        await Promise.all( [
+            this.buildTokens_writeJson( tokens, paths.json, level ),
+            this.buildTokens_writeScss( tokens, paths.scss, level ),
+            this.buildTokens_writeIcons( tokens, paths.assets.icons, level ),
+        ] );
+    }
 
-            const tokenJson = JSON.stringify( tokens, null, 4 );
-
-            for ( const path of paths.json ) {
-                this.try(
-                    this.fs.write,
-                    ( this.params.verbose ? 2 : 1 ) + level,
-                    [ path, tokenJson, { force: true } ]
-                );
-            }
+    protected async buildTokens_writeJson<
+        T_Tokens extends Tokens.Instance,
+    >(
+        tokens: T_Tokens,
+        paths: false | string[],
+        level: number,
+    ) {
+        // returns
+        if ( !paths ) {
+            return;
         }
 
-        if ( paths.scss ) {
-            this.console.verbose( 'writing scss tokens...', 1 + level );
+        this.console.verbose( 'writing json tokens...', 1 + level );
 
-            const tokenScss = tokens.toScss();
+        const tokenJson = JSON.stringify( tokens, null, 4 );
 
-            for ( const path of paths.scss ) {
+        return Promise.all( paths.map( async ( path ) => this.try(
+            this.fs.write,
+            ( this.params.verbose ? 2 : 1 ) + level,
+            [ path, tokenJson, { force: true } ]
+        ) ) );
+    }
 
-                this.try(
+    protected async buildTokens_writeScss<
+        T_Tokens extends Tokens.Instance,
+    >(
+        tokens: T_Tokens,
+        paths: false | string[],
+        level: number,
+    ) {
+        // returns
+        if ( !paths ) {
+            return;
+        }
+
+        this.console.verbose( 'writing scss tokens...', 1 + level );
+
+        const tokenScss = tokens.toScss();
+
+        return Promise.all(
+            paths.map(
+                async ( path ) => this.try(
                     this.fs.write,
                     ( this.params.verbose ? 2 : 1 ) + level,
                     [
@@ -160,18 +213,51 @@ export class Compile extends CompileStage {
                         tokenScss,
                         { force: true }
                     ]
-                );
-            }
-
-            await this.atry(
+                )
+            )
+        ).then(
+            async () => this.atry(
                 this.fs.prettier,
                 ( this.params.verbose ? 2 : 1 ) + level,
                 [
-                    paths.scss,
+                    paths,
                     'scss',
                 ],
-            );
+            )
+        );
+    }
+
+    protected async buildTokens_writeIcons<
+        T_Tokens extends Tokens.Instance,
+    >(
+        tokens: T_Tokens,
+        paths: false | string[],
+        level: number,
+    ) {
+        // returns
+        if ( !paths ) {
+            return;
         }
+
+        this.console.verbose( 'writing icon files...', 1 + level );
+
+        return Promise.all(
+            paths.map(
+                async ( path ) => Promise.all(
+                    Object.values( tokens.icons.data ).map(
+                        async ( icon ) => this.try(
+                            this.fs.write,
+                            ( this.params.verbose ? 2 : 1 ) + level,
+                            [
+                                this.fs.pathResolve( path, `${ icon.slug }.svg` ),
+                                icon.svgFile,
+                                { force: true }
+                            ]
+                        )
+                    )
+                )
+            )
+        );
     }
 
 

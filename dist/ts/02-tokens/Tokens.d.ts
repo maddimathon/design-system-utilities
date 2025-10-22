@@ -258,6 +258,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -272,6 +273,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -288,6 +290,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -302,6 +305,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -318,6 +322,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -332,6 +337,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -348,6 +354,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -362,6 +369,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -378,6 +386,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -392,6 +401,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -408,6 +418,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -422,6 +433,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -438,6 +450,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -452,6 +465,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -468,6 +482,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -482,6 +497,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -498,6 +514,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -512,6 +529,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -523,6 +541,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
             familyOverrides: {
                 label: string;
                 value: string;
+                contentWidthScale?: number;
                 labelClass?: string;
                 lineHeightScale?: number;
             }[];
@@ -590,7 +609,7 @@ export declare namespace Tokens_Internal {
     }
     type Default_ColourName = 'base';
     type Default_ExtraColourLevels = ColourLevels_Extended;
-    type Default_ThemeBrightnessMode = ['light', 'dark', ...string[]];
+    type Default_ThemeBrightnessMode = ['light', 'dark'];
     type Default_ThemeContrastMode = ['low', 'average', 'high', 'max'];
     type Default_ThemeExtraContrastMode = [];
     type Data<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_ThemeBrightnessMode extends readonly [string, ...string[]], T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne, T_ThemeName extends string, T_ExtraIconNames extends string, T_ThemeKeyword_Universal extends string, T_ThemeKeyword_Text extends string> = {
@@ -917,9 +936,8 @@ export declare namespace Tokens {
              *
              * @since 0.1.0-alpha.draft
              */
-            function familyGenerator<T_Slug extends string>(slug: T_Slug, name: string, familyOpts?: Omit<Tokens_Typography.Font.File, "path" | "style" | "weight"> & {
-                fallbacks?: string[];
-                appendSystemFontsToFallbacks?: Tokens_Typography.Font.Family<T_Slug>['appendSystemFontsToFallbacks'];
+            function familyGenerator<T_Slug extends string>(slug: T_Slug, name: string, familyOpts?: Omit<Partial<Tokens_Typography.Font.Family<T_Slug>>, "path" | "style" | "weight"> & {
+                includeLocalSrc?: boolean;
             }, weightOpts?: {
                 [L in TokenLevels]?: familyGenerator.FileOptions;
             }): Tokens_Typography.Font.Family<T_Slug> & {
@@ -935,6 +953,12 @@ export declare namespace Tokens {
                  * @since 0.1.0-alpha.draft
                  */
                 type FileOptions = Omit<Tokens_Typography.Font.File, "path" | "style" | "weight"> & {
+                    /**
+                     * Whether to include local sources in the files list.
+                     *
+                     * @default true
+                     */
+                    includeLocalSrc?: boolean;
                     pathWeight?: TokenLevels;
                     pathStyle?: "normal" | "italic";
                 };
@@ -951,6 +975,7 @@ export declare namespace Tokens {
                     slug: "dyslexic";
                     name: string;
                     appendSystemFontsToFallbacks: true;
+                    contentWidthScale: number;
                     lineHeightScale: number;
                     weights: {
                         400: {
@@ -967,6 +992,7 @@ export declare namespace Tokens {
                     slug: "hyperlegible";
                     name: string;
                     appendSystemFontsToFallbacks: true;
+                    contentWidthScale: number;
                     lineHeightScale: number;
                     sizeAdjust: string;
                     weights: {
@@ -984,6 +1010,7 @@ export declare namespace Tokens {
                     slug: "monospace";
                     name: string;
                     appendSystemFontsToFallbacks: "monospace";
+                    contentWidthScale: number;
                     fallbacks: string[];
                     sizeAdjust: string;
                     weights: {

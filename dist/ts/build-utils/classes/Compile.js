@@ -37,51 +37,78 @@ export class Compile extends CompileStage {
     async buildTokens(level, tokens, _paths) {
         this.console.progress('compiling tokens...', 0 + level);
         this.console.verbose('parsing paths...', 1 + level);
-        const distDir = this.getDistDir(undefined, _paths.distDir ?? 'tokens');
+        const tokensDistDir = this.getDistDir(undefined, _paths.tokensDistSubpath ?? 'tokens');
         const paths = {
             slug: _paths.slug,
+            assets: _paths.assets === false
+                ? {
+                    icons: false,
+                }
+                : {
+                    icons: _paths.assets?.icons === false
+                        ? _paths.assets?.icons
+                        : (Array.isArray(_paths.assets?.icons)
+                            ? _paths.assets?.icons
+                            : [_paths.assets?.icons ?? 'assets/icons']).map(path => this.fs.pathResolve(tokensDistDir, path)),
+                },
             json: _paths.json === false
                 ? _paths.json
-                : Array.isArray(_paths.json)
+                : (Array.isArray(_paths.json)
                     ? _paths.json
-                    : [_paths.json ?? this.fs.pathResolve(distDir, `${_paths.slug}.json`)],
+                    : [_paths.json ?? `${_paths.slug}.json`]).map(path => this.fs.pathResolve(tokensDistDir, path)),
             scss: _paths.scss === false
                 ? _paths.scss
                 : Array.isArray(_paths.scss)
                     ? _paths.scss
                     : [_paths.scss ?? 'src/scss/tokens/system/_tokens.scss'],
         };
-        if (!this.isWatchedUpdate && (this.fs.exists(distDir) || paths.scss)) {
+        if (!this.isWatchedUpdate
+            && (this.fs.exists(tokensDistDir) || paths.scss)) {
             this.console.verbose('deleting any existing files...', 1 + level);
-            this.fs.delete([distDir].flat(), (this.params.verbose ? 2 : 1) + level);
-            if (paths.scss) {
-                for (const path of paths.scss) {
-                    this.fs.delete([path], (this.params.verbose ? 2 : 1) + level);
-                }
-            }
+            this.fs.delete([tokensDistDir].flat(), (this.params.verbose ? 2 : 1) + level);
         }
-        if (paths.json) {
-            this.console.verbose('writing json tokens...', 1 + level);
-            const tokenJson = JSON.stringify(tokens, null, 4);
-            for (const path of paths.json) {
-                this.try(this.fs.write, (this.params.verbose ? 2 : 1) + level, [path, tokenJson, { force: true }]);
-            }
+        await Promise.all([
+            this.buildTokens_writeJson(tokens, paths.json, level),
+            this.buildTokens_writeScss(tokens, paths.scss, level),
+            this.buildTokens_writeIcons(tokens, paths.assets.icons, level),
+        ]);
+    }
+    async buildTokens_writeJson(tokens, paths, level) {
+        // returns
+        if (!paths) {
+            return;
         }
-        if (paths.scss) {
-            this.console.verbose('writing scss tokens...', 1 + level);
-            const tokenScss = tokens.toScss();
-            for (const path of paths.scss) {
-                this.try(this.fs.write, (this.params.verbose ? 2 : 1) + level, [
-                    path,
-                    tokenScss,
-                    { force: true }
-                ]);
-            }
-            await this.atry(this.fs.prettier, (this.params.verbose ? 2 : 1) + level, [
-                paths.scss,
-                'scss',
-            ]);
+        this.console.verbose('writing json tokens...', 1 + level);
+        const tokenJson = JSON.stringify(tokens, null, 4);
+        return Promise.all(paths.map(async (path) => this.try(this.fs.write, (this.params.verbose ? 2 : 1) + level, [path, tokenJson, { force: true }])));
+    }
+    async buildTokens_writeScss(tokens, paths, level) {
+        // returns
+        if (!paths) {
+            return;
         }
+        this.console.verbose('writing scss tokens...', 1 + level);
+        const tokenScss = tokens.toScss();
+        return Promise.all(paths.map(async (path) => this.try(this.fs.write, (this.params.verbose ? 2 : 1) + level, [
+            path,
+            tokenScss,
+            { force: true }
+        ]))).then(async () => this.atry(this.fs.prettier, (this.params.verbose ? 2 : 1) + level, [
+            paths,
+            'scss',
+        ]));
+    }
+    async buildTokens_writeIcons(tokens, paths, level) {
+        // returns
+        if (!paths) {
+            return;
+        }
+        this.console.verbose('writing icon files...', 1 + level);
+        return Promise.all(paths.map(async (path) => Promise.all(Object.values(tokens.icons.data).map(async (icon) => this.try(this.fs.write, (this.params.verbose ? 2 : 1) + level, [
+            this.fs.pathResolve(path, `${icon.slug}.svg`),
+            icon.svgFile,
+            { force: true }
+        ])))));
     }
     async astro() {
         await this.runCustomDirCopySubStage('astro');

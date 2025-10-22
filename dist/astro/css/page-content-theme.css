@@ -1,6 +1,6 @@
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0-pre.1
+ * @maddimathon/utility-sass@0.1.0-pre.4
  * 
  * License: MIT
  */
@@ -17,11 +17,54 @@
  * License: MIT
  */
 /* # PAGE CONTENT - THEME ==================================== */
-:global(:where(.js))
+.theme-mode-preview-page__display-mode__wrapper {
+    display: none;
+    margin-top: 0.8125rem;
+    margin-top: var(--mrg-soft-400, 0.8125rem);
+}
+.theme-mode-preview-page__display-mode__wrapper input,
+.theme-mode-preview-page__display-mode__wrapper label {
+    margin: 0;
+}
+
+[data-theme-mode-preview-page-display-mode-content] {
+    display: none;
+}
+
+[data-theme-mode-preview-page-display-mode-content="preview"] {
+    display: grid;
+    display: var(--display, grid);
+}
+
+:global(.js) .theme-mode-preview-page__display-mode__wrapper {
+    display: flex;
+    justify-content: end;
+    gap: 0.3125rem 1.5vw;
+    gap: var(--mrg-soft-200, 0.3125rem) var(--gap-inline-tab, 1.5vw);
+}
+:global(.js):global([data-theme-mode-preview-page-display-mode="preview"])
+    :global([data-theme-mode-preview-page-display-mode-content]) {
+    display: none;
+}
+:global(.js):global([data-theme-mode-preview-page-display-mode="preview"])
+    :global([data-theme-mode-preview-page-display-mode-content="preview"]) {
+    display: grid;
+    display: var(--display, grid);
+}
+:global(.js):global([data-theme-mode-preview-page-display-mode="tokens"])
+    :global([data-theme-mode-preview-page-display-mode-content]) {
+    display: none;
+}
+:global(.js):global([data-theme-mode-preview-page-display-mode="tokens"])
+    :global([data-theme-mode-preview-page-display-mode-content="tokens"]) {
+    display: grid;
+    display: var(--display, grid);
+}
+:global(.js)
     .theme-mode-toggle[data-toggle-container]
     > :global([data-toggle-content])
     > :global(.container),
-:global(:where(.js))
+:global(.js)
     .theme-mode-toggle[data-toggle-container="open"]
     > :global([data-toggle-content])
     > :global(.container) {
@@ -30,17 +73,17 @@
     align-items: stretch;
     padding: 0;
 }
-:global(:where(.js))
+:global(.js)
     .theme-mode-toggle[data-toggle-container]
     > :global([data-toggle-content])
     > :global(.container)
     .theme-mode-toggle__list,
-:global(:where(.js))
+:global(.js)
     .theme-mode-toggle[data-toggle-container="open"]
     > :global([data-toggle-content])
     > :global(.container)
     .theme-mode-toggle__list {
-    display: grid;
+    --display: grid;
     grid-template-columns: repeat(
         var(--theme-mode-swatch-list-column-count),
         minmax(16rem, 1fr)
@@ -54,13 +97,13 @@
     padding: 0;
     overflow-x: auto;
 }
-:global(:where(.js))
+:global(.js)
     .theme-mode-toggle[data-toggle-container]
     > :global([data-toggle-content])
     > :global(.container)
     .theme-mode-toggle__list
     :global(.theme-mode-swatch),
-:global(:where(.js))
+:global(.js)
     .theme-mode-toggle[data-toggle-container="open"]
     > :global([data-toggle-content])
     > :global(.container)

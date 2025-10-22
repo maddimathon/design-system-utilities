@@ -62,13 +62,13 @@ $_systemColors: map.merge(
 
     @return var(
         --clr-#{$slug}-#{$level},
-        #{colour.to-hsl(
-                map.get(
-                    $slugMap,
-                    if($brightness == dark, '#{$dark_level}', '#{$level}')
-                ),
-                $round: false
-            )}
+        colour.to-hsl(
+            map.get(
+                $slugMap,
+                if($brightness == dark, '#{$dark_level}', '#{$level}')
+            ),
+            $round: false
+        )
     );
 }
 
@@ -97,7 +97,7 @@ $_flattenedActiveTheme: map.flatten($_activeTheme);
         );
     }
 
-    @return #{$tokenValue};
+    @return $tokenValue;
 }
 
 ///

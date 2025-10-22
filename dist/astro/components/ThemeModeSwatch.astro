@@ -24,6 +24,7 @@ import { textColorLevel } from './ShadeSwatch.astro';
 import Heading from '@maddimathon/utility-astro/components/Heading';
 import Table from '@maddimathon/utility-astro/components/Table';
 import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
+import LoremIpsum from './LoremIpsum.astro';
 
 /* import - layouts */
 
@@ -34,6 +35,9 @@ import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
 export interface Props extends Omit<HTMLAttributes<'div'>, 'class'> {
     heading: number;
     theme: Tokens.Themes.SingleMode.JsonReturn;
+    tokens: Tokens.JsonReturn;
+
+    displayMode: 'preview' | 'tokens';
 
     brightness?: string;
     contrast?: string;
@@ -47,9 +51,11 @@ export interface Props extends Omit<HTMLAttributes<'div'>, 'class'> {
 const {
     brightness,
     contrast,
+    displayMode,
     equals = '=',
     heading: _heading,
     theme,
+    tokens,
     ...attributes
 }: Props = Astro.props;
 
@@ -176,6 +182,11 @@ const buttons: {
                         key: `button-${variation}-text${keySuffix}`,
                         value: value.text[key],
                     },
+                    ui: {
+                        state,
+                        key: `button-${variation}-ui${keySuffix}`,
+                        value: value.text[key],
+                    },
                 };
             }
         ),
@@ -232,6 +243,8 @@ const field: {
 //     'shade-swatch-color': text || undefined,
 //     'shade-swatch-background': bg ?? undefined,
 // };
+
+const displayHeading = 3;
 ---
 
 <article
@@ -244,124 +257,143 @@ const field: {
         headingHTML && (
             <Heading
                 heading={heading - 1}
-                class:list={['theme-mode-swatch__name']}
+                class:list={ [
+                    `h${displayHeading - 1}`,
+                    'theme-mode-swatch__name',
+                ] }
                 set:html={headingHTML}
             />
         )
     }
     { theme.description &&  <p set:html={theme.description} /> }
-    <Heading
-        heading={heading}
-        set:text='Tokens'
-    />
-    <p
-        class="theme-mode-swatch__sample"
-    ><code set:text="theme-background" /> {equals} <code set:text={theme.data.background} />.</p>
-    <p
-        class="theme-mode-swatch__sample theme-mode-swatch__sample--selection"
-    ><code set:text='theme-selection-bg' /> {equals} <code set:text={theme.data.selection.bg} /></p>
-    <p
-        class="theme-mode-swatch__sample theme-mode-swatch__sample--selection"
-    ><code set:text='theme-selection-text' /> {equals} <code set:text={theme.data.selection.text} /></p>
-    {
-        autoTokens.map((tokens) => (
-            <Heading
-                heading={heading + 1}
-                set:text={`${tokens.key == 'ui' ? tokens.key.toUpperCase() : toTitleCase(tokens.key)} Tokens`}
-            />
-            <Fragment>{ tokens.variations ? tokens.variations.map( ( { key, value } ) => (
-                <p
-                    class="theme-mode-swatch__sample"
-                    style={ [
-                        !( value === 'transparent' || value === 'unset' ) && `color: var(--${key}, var(--clr-${value}))`,
-                    ].filter( v => v ).join(';') }
-                ><code set:text={key} /> {equals} <code set:text={value} /></p>
-            ) ) : (
-                <VariableDump
-                    name='tokens'
-                    var={tokens}
-                />
-            ) }</Fragment>  
-        ))
-    }
-    <Heading
-        heading={heading + 1}
-        set:text='Buttons'
-    />
-    { Object.values( buttons ).map( ( variation ) => (
-        <Heading
-            heading={heading + 2}
-            class:list='screen-reader-text'
-            set:text={variation.name}
-        />
-        <div class:list={['button-span | theme-mode-swatch__button-span']}>{ Object.values( variation.states ).map( ( state ) => (
-            <a
-                href="#"
-                set:text={`${toTitleCase(variation.name)} Button${state.bg.state ? ` (${state.bg.state})` : ''}`}
-                aria-disabled={ variation.name === 'disabled' ? true : undefined }
-                class:list={ [
-                    'button',
-                    'theme-mode-swatch__sample',
-                    'theme-mode-swatch__sample--button',
-                ] }
-                style={ [
-                    `border-color: var(--${state.border.key}, var(--clr-${state.border.value}))`,
-                    `background: var(--${state.bg.key}, var(--clr-${state.bg.value}))`,
-                    `color: var(--${state.text.key}, var(--clr-${state.text.value}))`,
-                ].join(';') }
-            />
-        ) ) }</div>
-    ) ) }
-    <Heading
-        heading={heading + 1}
-        set:text='Input Fields'
-    />
-    { Object.values( field ).map( ( state ) => (
-        <input
-            type="text"
-            placeholder={`Field${state.bg.state ? ` (${state.bg.state})` : ''}`}
-            class:list={ [
-                'theme-mode-swatch__sample',
-                'theme-mode-swatch__sample--field',
-            ] }
-            style={ [
-                `border-color: var(--theme-${state.border.key}, var(--clr-${state.border.value}))`,
-                `background: var(--theme-${state.bg.key}, var(--clr-${state.bg.value}))`,
-                `color: var(--theme-${state.text.key}, var(--clr-${state.text.value}))`,
-            ].join(';') }
-        />
-    ) ) }
-    { levelsInUse.length && (
+    
+    { displayMode == 'tokens' ? <Fragment>
         <Heading
             heading={heading}
-            set:text='Shades in Use'
+            class:list={`h${displayHeading}`}
+            set:text='Tokens'
         />
-        <Table 
-            class:list={['theme-mode-swatch__shades-in-use']}
-        >
-            <tr>
-                <th set:text='Light Mode' />
-                <th set:text='Dark Mode' />
-            </tr>
-            { levelsInUse.map( ({ levels, styles }) => <tr>
-                <td 
-                    data-brightness-mode="light"
-                    set:text={levels.light}
-                    style={styles && [
-                        `background: ${styles.light.background}`,
-                        `color: ${styles.light.color}`,
-                    ].join(';')}
+        <p
+            class="theme-mode-swatch__sample"
+        ><code set:text="theme-background" /> {equals} <code set:text={theme.data.background} />.</p>
+        <p
+            class="theme-mode-swatch__sample theme-mode-swatch__sample--selection"
+        ><code set:text='theme-selection-bg' /> {equals} <code set:text={theme.data.selection.bg} /></p>
+        <p
+            class="theme-mode-swatch__sample theme-mode-swatch__sample--selection"
+        ><code set:text='theme-selection-text' /> {equals} <code set:text={theme.data.selection.text} /></p>
+        {
+            autoTokens.map((tokens) => (
+                <Heading
+                    class:list={`h${displayHeading + 1}`}
+                    heading={heading + 1}
+                    set:text={`${tokens.key == 'ui' ? tokens.key.toUpperCase() : toTitleCase(tokens.key)} Tokens`}
                 />
-                <td 
-                    data-brightness-mode="light"
-                    set:text={levels.dark}
-                    style={styles && [
-                        `background: ${styles.dark.background}`,
-                        `color: ${styles.dark.color}`,
-                    ].join(';')}
+                <Fragment>{ tokens.variations ? tokens.variations.map( ( { key, value } ) => (
+                    <p
+                        class="theme-mode-swatch__sample"
+                        style={ [
+                            !( value === 'transparent' || value === 'unset' ) && `color: var(--${key}, var(--clr-${value}))`,
+                        ].filter( v => v ).join(';') }
+                    ><code set:text={key} /> {equals} <code set:text={value} /></p>
+                ) ) : (
+                    <VariableDump
+                        name='tokens'
+                        var={tokens}
+                    />
+                ) }</Fragment>  
+            ))
+        }
+        <Heading
+            class:list={`h${displayHeading + 1}`}
+            heading={heading + 1}
+            set:text='Buttons'
+        />
+        { Object.values( buttons ).map( ( variation ) => (
+            <Heading
+                heading={heading + 2}
+                class:list='screen-reader-text'
+                set:text={variation.name}
+            />
+            <div class:list={['button-span | theme-mode-swatch__button-span']}>{ Object.values( variation.states ).map( ( state ) => (
+                <a
+                    href="#"
+                    set:text={`${toTitleCase(variation.name)} Button${state.bg.state ? ` (${state.bg.state})` : ''}`}
+                    aria-disabled={ variation.name === 'disabled' ? true : undefined }
+                    class:list={ [
+                        'button',
+                        'theme-mode-swatch__sample',
+                        'theme-mode-swatch__sample--button',
+                    ] }
+                    style={ [
+                        `border-color: var(--${state.border.key}, var(--clr-${state.border.value}))`,
+                        `background: var(--${state.bg.key}, var(--clr-${state.bg.value}))`,
+                        `color: var(--${state.text.key}, var(--clr-${state.text.value}))`,
+                    ].join(';') }
                 />
-            </tr> ) }
-        </Table>
+            ) ) }</div>
+        ) ) }
+        <Heading
+            class:list={`h${displayHeading + 1}`}
+            heading={heading + 1}
+            set:text='Input Fields'
+        />
+        { Object.values( field ).map( ( state ) => (
+            <input
+                type="text"
+                placeholder={`Field${state.bg.state ? ` (${state.bg.state})` : ''}`}
+                class:list={ [
+                    'theme-mode-swatch__sample',
+                    'theme-mode-swatch__sample--field',
+                ] }
+                style={ [
+                    `border-color: var(--theme-${state.border.key}, var(--clr-${state.border.value}))`,
+                    `background: var(--theme-${state.bg.key}, var(--clr-${state.bg.value}))`,
+                    `color: var(--theme-${state.text.key}, var(--clr-${state.text.value}))`,
+                ].join(';') }
+            />
+        ) ) }
+        { levelsInUse.length && (
+            <Heading
+                class:list={`h${displayHeading}`}
+                heading={heading}
+                set:text='Shades in Use'
+            />
+            <Table 
+                class:list={['theme-mode-swatch__shades-in-use']}
+            >
+                <tr>
+                    <th set:text='Light Mode' />
+                    <th set:text='Dark Mode' />
+                </tr>
+                { levelsInUse.map( ({ levels, styles }) => <tr>
+                    <td 
+                        data-brightness-mode="light"
+                        set:text={levels.light}
+                        style={styles && [
+                            `background: ${styles.light.background}`,
+                            `color: ${styles.light.color}`,
+                        ].join(';')}
+                    />
+                    <td 
+                        data-brightness-mode="light"
+                        set:text={levels.dark}
+                        style={styles && [
+                            `background: ${styles.dark.background}`,
+                            `color: ${styles.dark.color}`,
+                        ].join(';')}
+                    />
+                </tr> ) }
+            </Table>
+        ) }
+    </Fragment> : (
+        <hr />
+        <LoremIpsum
+            abbreviated={true}
+            heading={heading}
+            tokens={tokens}
+            displayHeading={displayHeading}
+        />
     ) }
 </article>
 

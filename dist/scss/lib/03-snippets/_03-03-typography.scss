@@ -6,6 +6,8 @@
 @use 'pkg:@maddimathon/utility-sass/math';
 @use 'pkg:@maddimathon/utility-sass/meta';
 
+@use '../../tokens';
+
 @use '../01-functions' as *;
 @use '../02-mixins' as *;
 
@@ -86,7 +88,7 @@
     color: #{$color};
 
     %a {
-        color: inherit;
+        color: #{var-theme(link)};
 
         @include hover-focus-visible() {
             color: #{var-theme(link-hover)};
@@ -95,5 +97,46 @@
         &:active {
             color: #{var-theme(link-active)};
         }
+    }
+}
+
+///
+///
+///
+/// @since 0.1.0-alpha.draft
+///
+@mixin snippet-selection($contrast: tokens.$contrastMode_default) {
+    //
+    --icon-color: #{var-theme(selection-text, $contrast: $contrast)} !important;
+    color: #{var-theme(selection-text, $contrast: $contrast)} !important;
+
+    background-color: #{var-theme(selection-bg, $contrast: $contrast)} !important;
+
+    @if $contrast == average {
+        //
+        background-color: color-mix(
+            in srgb,
+            #{var-theme(selection-bg, $contrast: $contrast)}
+                var(--selection-background-opacity, 75%),
+            transparent
+        ) !important;
+        //
+    } @else if $contrast == low {
+        //
+        background-color: color-mix(
+            in srgb,
+            #{var-theme(selection-bg, $contrast: $contrast)}
+                var(--selection-background-opacity, 65%),
+            transparent
+        ) !important;
+        //
+    } @else if $contrast == high {
+        //
+        background-color: color-mix(
+            in srgb,
+            #{var-theme(selection-bg, $contrast: $contrast)}
+                var(--selection-background-opacity, 90%),
+            transparent
+        ) !important;
     }
 }

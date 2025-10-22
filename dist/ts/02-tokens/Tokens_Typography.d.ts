@@ -24,6 +24,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
     readonly familyOverrides: {
         label: string;
         value: string;
+        contentWidthScale?: number;
         labelClass?: string;
         lineHeightScale?: number;
     }[];
@@ -71,6 +72,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -85,6 +87,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -101,6 +104,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -115,6 +119,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -131,6 +136,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -145,6 +151,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -161,6 +168,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -175,6 +183,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -191,6 +200,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -205,6 +215,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -221,6 +232,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -235,6 +247,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -251,6 +264,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -265,6 +279,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -281,6 +296,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -295,6 +311,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -311,6 +328,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -325,6 +343,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             }[];
                             style: "normal" | "italic";
                             weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                            printFontFace: boolean;
                             display?: "auto" | "block" | "fallback" | "optional" | "swap";
                             'line-gap-override'?: string;
                             'size-adjust'?: string;
@@ -336,6 +355,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
             familyOverrides: {
                 label: string;
                 value: string;
+                contentWidthScale?: number;
                 labelClass?: string;
                 lineHeightScale?: number;
             }[];
@@ -422,6 +442,7 @@ export declare namespace Tokens_Typography {
         familyOverrides: {
             label: string;
             value: T_FontFamilySlug;
+            contentWidthScale?: number;
             labelClass?: string;
             lineHeightScale?: number;
         }[];
@@ -470,6 +491,7 @@ export declare namespace Tokens_Typography {
                 }[];
                 style: "normal" | "italic";
                 weight: TokenLevels | `${TokenLevels} ${TokenLevels}`;
+                printFontFace: boolean;
                 display?: "auto" | "block" | "fallback" | "optional" | "swap";
                 'line-gap-override'?: string;
                 'size-adjust'?: string;
@@ -489,6 +511,11 @@ export declare namespace Tokens_Typography {
              */
             appendSystemFontsToFallbacks?: boolean | "monospace";
             /**
+             * A multiplier for the content/page widths when this font is
+             * applied as an override.
+             */
+            contentWidthScale?: number;
+            /**
              * Whether this should be an override option in website settings.
              */
             fontOverrideOption?: boolean;
@@ -497,6 +524,12 @@ export declare namespace Tokens_Typography {
              * override.
              */
             lineHeightScale?: number;
+            /**
+             * Whether to include @font-face declarations in the css.
+             *
+             * @default true
+             */
+            printFontFace?: boolean;
             weights: {
                 [K in TokenLevels]?: {
                     normal: File;

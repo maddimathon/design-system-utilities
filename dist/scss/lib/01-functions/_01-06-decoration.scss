@@ -34,7 +34,10 @@
 /// @since 0.1.0-alpha.draft
 ///
 @function var-border-radius($level) {
-    @return var(--border-radius-#{$level}, #{border-radius-value($level)}rem);
+    @return var(
+        --border-radius-#{$level},
+        calc(1rem * border-radius-value($level))
+    );
 }
 
 ///
@@ -123,5 +126,5 @@
 /// @since 0.1.0-alpha.draft
 ///
 @function var-z-index($level) {
-    @return var(--z-index-#{$level}, #{z-index-value($level)});
+    @return var(--z-index-#{$level}, z-index-value($level));
 }

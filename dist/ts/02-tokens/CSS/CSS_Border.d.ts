@@ -31,7 +31,7 @@ export declare class Tokens_CSS_Border extends AbstractTokens<Tokens_CSS_Border.
 export declare namespace Tokens_CSS_Border {
     type DefaultRadiusLevels = "100" | "200" | "400";
     type DefaultWidthLevels = "100" | "200" | "300" | "400";
-    type DefaultStrokeLevels = "100" | "200" | "400" | "600" | "800" | "900";
+    type DefaultStrokeLevels = "100" | "200" | "400" | "500" | "600" | "800" | "900";
     /**
      * @since 0.1.0-alpha.draft
      */

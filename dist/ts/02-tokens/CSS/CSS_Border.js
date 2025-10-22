@@ -34,6 +34,7 @@ export class Tokens_CSS_Border extends AbstractTokens {
                 '100': 0.5 / 16,
                 '200': 1 / 16,
                 '400': 2 / 16,
+                '500': 2.5 / 16,
                 '600': 3 / 16,
                 '800': 4 / 16,
                 '900': 6 / 16,

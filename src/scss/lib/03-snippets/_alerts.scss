@@ -3,6 +3,7 @@
 /// @since ___PKG_VERSION___
 ///
 @use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/meta';
 @use 'pkg:@maddimathon/utility-sass/selector';
 
 // @use 'pkg:@maddimathon/utility-astro/03-snippets' as lib;
@@ -14,6 +15,86 @@
 // @use '../02-mixins' as *;
 
 $_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
+
+@mixin _snippet-alert-headline-heading($slug: '7') {
+    //
+    $slugAsNumber: if(meta.type-of($slug) == 'number', $slug, null);
+    $slug: #{$slug};
+
+    $heading10orAbove: false;
+
+    $color: null;
+    $icon_after_marginBlockStart: -0.125em;
+
+    @if $slug and $slug != title {
+        //
+        $slugAsNumber: if(
+            $slugAsNumber == null,
+            math.num-val($slug),
+            $slugAsNumber
+        );
+
+        @if $slugAsNumber >= 10 {
+            $heading10orAbove: true;
+        }
+    }
+
+    @if $slug == title or $slug == '1' {
+        $color: var-theme(heading-1);
+        $icon_after_marginBlockStart: -0.0625em;
+    }
+
+    @if $slug == '2' {
+        $color: var-theme(heading-#{$slug});
+        $icon_after_marginBlockStart: -0.0625em;
+    }
+
+    @if $slug == '3' {
+        $color: var-theme(heading-#{$slug});
+        $icon_after_marginBlockStart: -0.0625em;
+    }
+
+    @if $slug == '4' {
+        $color: var-theme(heading-#{$slug});
+        $icon_after_marginBlockStart: -0.09375em;
+    }
+
+    @if $slug == '5' {
+        $color: var-theme(heading-#{$slug});
+        $icon_after_marginBlockStart: -0.09375em;
+    }
+
+    @if $slug == '6' {
+        $color: var-theme(heading-#{$slug});
+        $icon_after_marginBlockStart: -0.09375em;
+    }
+
+    @if $slug == '7' or $slug == '8' or $slug == '9' or $heading10orAbove {
+    }
+
+    @if $slug == '8' {
+    }
+
+    @if $slug == '9' {
+    }
+
+    @if $slug == '10' or $heading10orAbove {
+    }
+
+    @if $heading10orAbove {
+    }
+
+    // /* placeholder - alert-headline-heading( #{$slug} ) */
+    @if $color {
+        color: #{$color};
+    }
+
+    > %icon {
+        + * {
+            margin-block-start: #{$icon_after_marginBlockStart};
+        }
+    }
+}
 
 ///
 /// Adds support for icons, assuming the html matches that in the local astro
@@ -54,7 +135,8 @@ $_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
 
         margin-block: #{var-mrg-firm('400')} #{var-mrg-half('400')};
         margin-inline: 0;
-        padding: #{var-mrg-firm('300')};
+        padding: #{var-mrg-firm('300')} #{var-mrg-firm('300')}
+            #{var-mrg-soft('400')};
 
         width: fit-content;
 
@@ -69,10 +151,32 @@ $_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
             justify-self: stretch;
             width: auto;
 
-            &:has(%h1),
-            &:has(%h2),
-            &:has(%h3) {
-                margin-block-start: #{var-mrg-firm('800')};
+            @each $num in token-all-heading-levels() {
+                //
+                $_headingSelector: if(
+                    $num == 1,
+                    ('%h#{$num}', '%title'),
+                    '%h#{$num}'
+                );
+
+                @each $_sel
+                    in (
+                        ':has( #{$_headingSelector} )',
+                        ':has( #{$_headingSelector}--where )'
+                    )
+                {
+                    @at-root #{selector.unify(&, $_sel)} {
+                        //
+                        @if $num <= 3 {
+                            margin-block-start: #{var-mrg-firm('800')};
+                        }
+
+                        @if $num > 3 {
+                            border-style: #{if($num <= 6, dashed, dotted)};
+                            border-width: #{var-border-width('300')};
+                        }
+                    }
+                }
             }
         }
 
@@ -84,14 +188,12 @@ $_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
             margin: 0;
             align-items: start;
 
+            color: #{var-token(alert-color-text)};
+
             @at-root #{selector.unify(&, 'header')} {
                 line-height: #{var-line-height('200')};
                 font-weight: 600;
                 font-size: #{var-fs(heading-7)};
-            }
-
-            @at-root #{selector.unify(&, $_defaultHeadingSelectors)} {
-                /* placeholder */
             }
 
             > :first-child {
@@ -100,9 +202,30 @@ $_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
 
             > %icon {
                 grid-column: icon;
+                margin-inline-end: 0.125em;
 
                 + * {
-                    margin-block-start: 0;
+                    margin-block-start: -0.09375em;
+                }
+            }
+
+            @at-root #{selector.unify(&, $_defaultHeadingSelectors)} {
+                /* placeholder */
+            }
+            @each $num in token-all-heading-levels() {
+                //
+                $_headingSelector: if(
+                    $num == 1,
+                    ('%h#{$num}', '%title'),
+                    '%h#{$num}'
+                );
+
+                @at-root #{selector.unify(&, $_headingSelector)} {
+                    @include _snippet-alert-headline-heading($num);
+
+                    &--where {
+                        @include _snippet-alert-headline-heading($num);
+                    }
                 }
             }
         }

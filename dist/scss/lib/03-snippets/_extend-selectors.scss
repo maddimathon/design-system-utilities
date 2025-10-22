@@ -22,7 +22,14 @@
     $allHeadingLevels: token-all-heading-levels()
 ) {
     //
-    // $additional: list.append($additional, (nav));
+    $additional: list.append(
+        $additional,
+        ("input[type='reset']", button-form-reset)
+    );
+    $additional: list.append(
+        $additional,
+        ("input[type='submit']", button-form-submit)
+    );
 
     @if config.$print_docs {
         $additional: list.join(
@@ -33,7 +40,6 @@
                     'code'
                 ),
                 (('.theme-mode-toggle .toggle-title > h3'), 'h2'),
-                ('.theme-mode-toggle__list .theme-mode-swatch__name', 'h3'),
                 (
                     '.font-family-swatch-list .font-family-swatch .font-family-swatch__weight-dt',
                     'h6'
@@ -44,7 +50,15 @@
                 ),
                 ('.shade-swatch__contrast__heading', 'h9'),
                 ('.shade-swatch__contrast__result-group__heading', 'h10'),
-                ('.theme-mode-swatch__sample--selection', 'selection')
+                ('.theme-mode-swatch__sample--selection', 'selection'),
+                (
+                    (
+                        "button[type='reset']",
+                        '.website-settings-menu [data-settings-reset]'
+                    ),
+                    button-form-reset
+                ),
+                ("button[type='submit']", button-form-submit)
             ),
             $separator: comma
         );

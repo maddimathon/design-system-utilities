@@ -5,8 +5,14 @@
 
 @use 'pkg:@maddimathon/utility-sass/meta';
 
+@use '../../config';
+@use '../../tokens';
+
 @use '../01-functions' as *;
 @use '../02-mixins' as *;
+
+@use '03-00-tokens' as *;
+@use '03-03-typography' as *;
 
 @use 'pkg:@maddimathon/utility-astro/03-snippets' as utils;
 
@@ -17,29 +23,35 @@
 ///
 @mixin snippet-button-colours($variation: 'primary') {
     --focus-ring-outline-color: #{var-theme(button-#{$variation}-border)};
+    --icon-color: #{var-theme(button-#{$variation}-ui)};
+    --theme-link-icon: #{var-theme(button-#{$variation}-ui)};
+    accent-color: #{var-theme(button-#{$variation}-border)};
     background-color: #{var-theme(button-#{$variation}-bg)};
     border-color: #{var-theme(button-#{$variation}-border)};
     color: #{var-theme(button-#{$variation}-text)};
-    accent-color: #{var-theme(button-#{$variation}-border)};
 
     @include hover-focus-visible-or-within {
         --focus-ring-outline-color: #{var-theme(
                 button-#{$variation}-border-hover
             )};
+        --icon-color: #{var-theme(button-#{$variation}-ui-hover)};
+        --theme-link-icon: #{var-theme(button-#{$variation}-ui-hover)};
+        accent-color: #{var-theme(button-#{$variation}-border-hover)};
         background-color: #{var-theme(button-#{$variation}-bg-hover)};
         border-color: #{var-theme(button-#{$variation}-border-hover)};
         color: #{var-theme(button-#{$variation}-text-hover)};
-        accent-color: #{var-theme(button-#{$variation}-border-hover)};
     }
 
     &:active {
         --focus-ring-outline-color: #{var-theme(
                 button-#{$variation}-border-active
             )};
+        --icon-color: #{var-theme(button-#{$variation}-ui-active)};
+        --theme-link-icon: #{var-theme(button-#{$variation}-ui-active)};
+        accent-color: #{var-theme(button-#{$variation}-border-active)};
         background-color: #{var-theme(button-#{$variation}-bg-active)};
         border-color: #{var-theme(button-#{$variation}-border-active)};
         color: #{var-theme(button-#{$variation}-text-active)};
-        accent-color: #{var-theme(button-#{$variation}-border-active)};
     }
 }
 
@@ -48,7 +60,12 @@
 ///
 /// @since 0.1.0-alpha.draft
 ///
-@mixin snippet-button($includeUtils: true, $args...) {
+@mixin snippet-button(
+    $includeDisabled: true,
+    $includeUtils: true,
+    $variation: 'primary',
+    $args...
+) {
     $args: meta.keywords($args);
 
     $focusOffset: var-border-width('300');
@@ -78,7 +95,36 @@
     }
 
     & {
-        @include snippet-button-colours;
+        --icon-pseudo-element-margin-block-start: 0.09375em;
+        @include snippet-button-colours($variation);
+
+        @if $includeDisabled {
+            &[aria-disabled='true'] {
+                @include snippet-button-colours(disabled);
+
+                &::before {
+                    @if config.$template_button_inlineIcons {
+                        @include snippet-icon-pseudo-element(
+                            forbidden,
+                            $pseudo: before
+                        );
+                    }
+                }
+            }
+        }
+
+        * {
+            --icon-color: inherit !important;
+            color: inherit !important;
+        }
+
+        ::selection {
+            @each $mode in tokens.$contrastMode_all {
+                @include colour-mode($mode, $includeDefault: false) {
+                    @include snippet-selection($mode);
+                }
+            }
+        }
     }
 }
 
@@ -189,6 +235,11 @@
         $includeClrs: true,
         $args...
     );
+
+    &[type='submit'][disabled],
+    &[type='reset'][disabled] {
+        @include snippet-button-colours(disabled);
+    }
 }
 
 ///

@@ -15,6 +15,7 @@ import {
     arrayUnique,
     toTitleCase,
 } from '@maddimathon/utility-typescript/functions';
+import { objectGenerator } from '../../ts/01-utilities/objectGenerator.js';
 import { objectMap } from '../../ts/01-utilities/objectMap.js';
  
 /* import - values */
@@ -46,10 +47,23 @@ function detailsMapper( font: Tokens_Typography.Font.Family<string> ) {
             // returns on match
             switch (key) {
 
+                case 'name':
+                    return { 
+                        key: toTitleCase(key),
+                        value,
+                    };
+
                 case 'appendSystemFontsToFallbacks':
+                case 'printFontFace':
                 case 'display':
                 case 'weights':
                     return false;
+
+                case 'contentWidthScale':
+                    return import.meta.env.DEV ? {
+                        key: 'Content Width Scale',
+                        value,
+                    } : false;
  
                 case 'fallbacks':
                     if(Array.isArray(value) ) {
@@ -61,6 +75,12 @@ function detailsMapper( font: Tokens_Typography.Font.Family<string> ) {
                         return false;
                     }
                     break;
+
+                case 'fontOverrideOption':
+                    return import.meta.env.DEV ? {
+                        key: 'Font Override Option',
+                        value,
+                    } : false;
 
                 case 'lineGapOverride':
                     return import.meta.env.DEV ? {
@@ -92,11 +112,8 @@ function detailsMapper( font: Tokens_Typography.Font.Family<string> ) {
                         value,
                     };
             }
-            
-            return { 
-                key: toTitleCase(key),
-                value,
-            };
+                
+            return false;
         }
     ) ).filter( v => v !== false );
 }
@@ -104,6 +121,25 @@ function detailsMapper( font: Tokens_Typography.Font.Family<string> ) {
 /* CONSTANTS ===================================== */
 
 const defaultToggleToOpen = import.meta.env.DEV ? true : undefined;
+
+const sortedFontKeys: ( keyof typeof tokens.typography.fonts )[] = arrayUnique(
+    (
+        [
+            'heading',
+            'body',
+            'monospace',
+            'hyperlegible',
+            'serif',
+            ...(Object.keys(tokens.typography.fonts) as ( keyof typeof tokens.typography.fonts )[]).filter( v => v != 'dyslexic'),
+            'dyslexic',
+        ] as const
+    ).filter( key => key in tokens.typography.fonts )
+);
+
+const sortedFonts = objectGenerator(
+    sortedFontKeys,
+    (key) => tokens.typography.fonts[key]
+) as typeof tokens.typography.fonts;
 
 const allFontLevels = arrayUnique(
     Object.values(tokens.typography.fonts)
@@ -123,7 +159,7 @@ const allFontLevels = arrayUnique(
         style={`--font-family-list-column-count: ${Object.keys( tokens.typography.fonts ).length}`}
     >
         {
-            Object.values(tokens.typography.fonts).map((font) => (
+            Object.values(sortedFonts).map((font) => (
                 <article 
                     class='font-family-swatch'
                     data-font-family-override={font.slug}

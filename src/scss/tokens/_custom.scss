@@ -23,6 +23,14 @@ $_theme_ui_primary: var(
     )
 );
 
+$_theme_text_primary: var(
+    --theme-text-primary,
+    var(
+        --clr-#{map.get(system.$themes, default, light, average, text, primary)},
+        currentColor
+    )
+);
+
 $internal_customTokensDefault: () !default;
 
 $internal_customTokensDefault: map.merge(
@@ -37,9 +45,10 @@ $internal_customTokensDefault: map.merge(
             color: (
                 border: $_theme_ui_primary,
                 icon: $_theme_ui_primary,
+                text: $_theme_text_primary,
             ),
 
-            icon-size: 1.1875em,
+            icon-size: 1.125em,
         ),
 
         icon: (

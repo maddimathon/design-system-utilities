@@ -230,14 +230,14 @@ export class Tokens_Themes_Set_SingleMode<
                 ) );
 
                 overrides.selection = {
-                    bg: clrOpt( variations.universal.primary, '600' as T_ExtraColourLevels | ColourLevels ),
+                    bg: clrOpt( variations.universal.primary, '400' as T_ExtraColourLevels | ColourLevels ),
                     text: clrOpt( variations.base, '900' as T_ExtraColourLevels | ColourLevels ),
                     ...overrides.selection,
                 };
                 break;
 
             case 'low':
-                description = 'This is the low contrast mode.  This is the default for users who set ‘low’ as their preferred contrast mode in OS or browser settings.  It mostly meets WCAG AA contrast standards, but in rare cases does not (which is acceptable in this case).';
+                description = 'This is the low contrast mode.  This is the default for users who set ‘low’ as their preferred contrast mode in their OS or browser settings.  It mostly meets WCAG AA contrast standards, but in rare cases does not (which is acceptable in this case).';
 
                 defaultLevels = {
                     background: isLightMode ? '300' : '200',
@@ -273,14 +273,14 @@ export class Tokens_Themes_Set_SingleMode<
                 ) );
 
                 overrides.selection = {
-                    bg: clrOpt( variations.universal.primary, '600' as T_ExtraColourLevels | ColourLevels ),
+                    bg: clrOpt( variations.universal.primary, '400' as T_ExtraColourLevels | ColourLevels ),
                     text: clrOpt( variations.base, '850' as T_ExtraColourLevels | ColourLevels ),
                     ...overrides.selection,
                 };
                 break;
 
             case 'high':
-                description = 'This is the high contrast mode.  This is the default for users who set ‘high’ as their preferred contrast mode in OS or browser settings.  It exceeds WCAG AAA contrast standards.';
+                description = 'This is the high contrast mode.  This is the default for users who set ‘high’ as their preferred contrast mode in their OS or browser settings.  It exceeds WCAG AAA contrast standards.';
 
                 defaultLevels = {
                     background: '100',
@@ -359,7 +359,7 @@ export class Tokens_Themes_Set_SingleMode<
                 ) );
 
                 overrides.selection = {
-                    bg: clrOpt( variations.universal.primary, '800' as T_ExtraColourLevels | ColourLevels ),
+                    bg: clrOpt( variations.universal.primary, '850' as T_ExtraColourLevels | ColourLevels ),
                     text: clrOpt( variations.base, '100' as T_ExtraColourLevels | ColourLevels ),
                     ...overrides.selection,
                 };
@@ -621,6 +621,12 @@ export namespace Tokens_Themes_Set_SingleMode {
             hover: __T_ColourOption,
             active: __T_ColourOption,
         },
+
+        ui: {
+            $: __T_ColourOption,
+            hover: __T_ColourOption,
+            active: __T_ColourOption,
+        },
     }
 
     /**
@@ -794,8 +800,8 @@ export namespace Tokens_Themes_Set_SingleMode {
         };
 
         selection?: undefined | {
-            bg?: undefined | __T_ColourOption,
-            text?: undefined | __T_ColourOption,
+            bg: __T_ColourOption,
+            text: __T_ColourOption,
         },
 
         link?: undefined | {
@@ -1334,6 +1340,12 @@ export namespace Tokens_Themes_Set_SingleMode {
                         hover: clrOpt( variations.base, levels.background ),
                         active: clrOpt( variations.base, levels.background ),
                     },
+
+                    ui: {
+                        $: clrOpt( variations.base, levels.background ),
+                        hover: clrOpt( variations.base, levels.background ),
+                        active: clrOpt( variations.base, levels.background ),
+                    },
                 };
             };
 
@@ -1355,6 +1367,12 @@ export namespace Tokens_Themes_Set_SingleMode {
                     },
 
                     text: {
+                        $: clrOpt( variations.base, levels.background ),
+                        hover: clrOpt( variations.base, levels.background ),
+                        active: clrOpt( variations.base, levels.background ),
+                    },
+
+                    ui: {
                         $: clrOpt( variations.base, levels.background ),
                         hover: clrOpt( variations.base, levels.background ),
                         active: clrOpt( variations.base, levels.background ),
@@ -1513,6 +1531,12 @@ export namespace Tokens_Themes_Set_SingleMode {
                 },
 
                 text: {
+                    $: 'ButtonText',
+                    hover: 'SelectedItemText',
+                    active: 'ButtonText',
+                },
+
+                ui: {
                     $: 'ButtonText',
                     hover: 'SelectedItemText',
                     active: 'ButtonText',

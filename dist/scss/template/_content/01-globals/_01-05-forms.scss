@@ -3,10 +3,11 @@
 /// @since 0.1.0-alpha.draft
 ///
 
+@use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/selector';
 
 @use '../../../config';
-// @use '../../../tokens';
+@use '../../../tokens';
 
 @use '../../../lib' as *;
 
@@ -50,12 +51,50 @@
     }
 }
 
-%button,
-%button-secondary {
-    @include snippet-button($includeUtils: false);
+%button {
+    @include snippet-button($includeUtils: false, $variation: primary);
 }
 
-%button-secondary,
-#{selector.unify('%button', '.button-secondary')} {
-    @include snippet-button-colours('secondary');
+@each $variant,
+    $_map
+        in map.get(
+            tokens.$themes,
+            tokens.$activeTheme,
+            tokens.$brightnessMode_default,
+            tokens.$contrastMode_default,
+            button
+        )
+{
+    @if $variant != primary and $variant != disabled {
+        %button-#{$variant} {
+            @extend %button;
+        }
+
+        %button-#{$variant},
+        #{selector.unify('%button', '.button-#{$variant}')} {
+            @include snippet-button-colours($variant);
+        }
+    }
+}
+
+%button-form-reset {
+    @include snippet-button-colours(secondary);
+
+    &::before {
+        @if config.$template_button_inlineIcons {
+            @include snippet-icon-pseudo-element(refresh, $pseudo: before);
+        }
+    }
+}
+
+%button-form-submit {
+    &::before {
+        @if config.$template_button_inlineIcons {
+            @include snippet-icon-pseudo-element(check, $pseudo: before);
+        }
+    }
+}
+
+%file-selector-button {
+    @include snippet-button($includeUtils: false, $variation: 'secondary');
 }

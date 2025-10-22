@@ -5,6 +5,12 @@
 
 @use 'utility-astro' as utils;
 
+$print_alertBlocks: utils.$print_utils or utils.$print_astro !default;
+$print_alertBlocks: utils.config-valid-bool(
+    $print_alertBlocks,
+    'print_alertBlocks'
+);
+
 $print_astro_stickyToggleNav: utils.$print_astro !default;
 $print_astro_stickyToggleNav: utils.config-valid-bool(
     $print_astro_stickyToggleNav,
@@ -20,11 +26,17 @@ $print_astro_settingsMenu_fontOverrides: utils.config-valid-bool(
 $print_docs: false !default;
 $print_docs: utils.config-valid-bool($print_docs, 'print_docs');
 
-$print_alertBlocks: utils.$print_utils or utils.$print_astro !default;
-$print_alertBlocks: utils.config-valid-bool(
-    $print_alertBlocks,
-    'print_alertBlocks'
-);
-
 $print_icons: utils.$print_utils or utils.$print_astro or $print_alertBlocks !default;
 $print_icons: utils.config-valid-bool($print_icons, 'print_icons');
+
+$template_button_inlineIcons: utils.$include_html !default;
+$template_button_inlineIcons: utils.config-valid-bool(
+    $template_button_inlineIcons,
+    'template_button_inlineIcons'
+);
+
+$template_link_inlineIcons: utils.$include_html !default;
+$template_link_inlineIcons: utils.config-valid-bool(
+    $template_link_inlineIcons,
+    'template_link_inlineIcons'
+);
