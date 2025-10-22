@@ -211,6 +211,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
             stroke: AbstractTokens.ScssReturn;
         };
         transition: {
+            properties: AbstractTokens.ScssReturn;
             time: AbstractTokens.ScssReturn;
         };
         z_index: {

@@ -4,7 +4,7 @@
  */
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0-pre.4
+ * @maddimathon/utility-sass@0.1.0-pre.5
  * 
  * License: MIT
  */
@@ -464,14 +464,90 @@ html {
 }
 
 /* #endregion Tokens - Z Index */
-/* #region Tokens - Transition Time */
+/* #region Tokens - Transitions */
 :root {
     --tr-time-fast: 250ms;
     --tr-time-normal: 500ms;
     --tr-time-slow: 750ms;
 }
 
-/* #endregion Tokens - Transition Time */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        --tr-time-toggle-closing: 1200ms;
+        --transition:
+            background-color var(--tr-time-normal, 500ms) ease-in-out,
+            border-color var(--tr-time-normal, 500ms) ease-in-out,
+            color var(--tr-time-normal, 500ms) ease-in-out,
+            font-weight var(--tr-time-normal, 500ms) ease-in-out,
+            opacity var(--tr-time-normal, 500ms) ease-in-out,
+            outline-color var(--tr-time-normal, 500ms) ease-in-out,
+            text-decoration-color var(--tr-time-normal, 500ms) ease-in-out,
+            visibility var(--tr-time-normal, 500ms) ease-in-out,
+            aspect-ratio var(--tr-time-normal, 500ms) ease-in-out,
+            bottom var(--tr-time-normal, 500ms) ease-in-out,
+            font-weight var(--tr-time-normal, 500ms) ease-in-out,
+            height var(--tr-time-normal, 500ms) ease-in-out,
+            left var(--tr-time-normal, 500ms) ease-in-out,
+            margin var(--tr-time-normal, 500ms) ease-in-out,
+            padding var(--tr-time-normal, 500ms) ease-in-out,
+            right var(--tr-time-normal, 500ms) ease-in-out,
+            top var(--tr-time-normal, 500ms) ease-in-out,
+            transform var(--tr-time-normal, 500ms) ease-in-out,
+            width var(--tr-time-normal, 500ms) ease-in-out;
+    }
+}
+[data-motion="no-preference"] {
+    --tr-time-toggle-closing: 1200ms;
+    --transition:
+        background-color var(--tr-time-normal, 500ms) ease-in-out,
+        border-color var(--tr-time-normal, 500ms) ease-in-out,
+        color var(--tr-time-normal, 500ms) ease-in-out,
+        font-weight var(--tr-time-normal, 500ms) ease-in-out,
+        opacity var(--tr-time-normal, 500ms) ease-in-out,
+        outline-color var(--tr-time-normal, 500ms) ease-in-out,
+        text-decoration-color var(--tr-time-normal, 500ms) ease-in-out,
+        visibility var(--tr-time-normal, 500ms) ease-in-out,
+        aspect-ratio var(--tr-time-normal, 500ms) ease-in-out,
+        bottom var(--tr-time-normal, 500ms) ease-in-out,
+        font-weight var(--tr-time-normal, 500ms) ease-in-out,
+        height var(--tr-time-normal, 500ms) ease-in-out,
+        left var(--tr-time-normal, 500ms) ease-in-out,
+        margin var(--tr-time-normal, 500ms) ease-in-out,
+        padding var(--tr-time-normal, 500ms) ease-in-out,
+        right var(--tr-time-normal, 500ms) ease-in-out,
+        top var(--tr-time-normal, 500ms) ease-in-out,
+        transform var(--tr-time-normal, 500ms) ease-in-out,
+        width var(--tr-time-normal, 500ms) ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        --tr-time-toggle-closing: 0 !important;
+        --transition:
+            background-color var(--tr-time-normal, 500ms) ease-in-out,
+            border-color var(--tr-time-normal, 500ms) ease-in-out,
+            color var(--tr-time-normal, 500ms) ease-in-out,
+            font-weight var(--tr-time-normal, 500ms) ease-in-out,
+            opacity var(--tr-time-normal, 500ms) ease-in-out,
+            outline-color var(--tr-time-normal, 500ms) ease-in-out,
+            text-decoration-color var(--tr-time-normal, 500ms) ease-in-out,
+            visibility var(--tr-time-normal, 500ms) ease-in-out !important;
+    }
+}
+[data-motion="reduce"] {
+    --tr-time-toggle-closing: 0 !important;
+    --transition:
+        background-color var(--tr-time-normal, 500ms) ease-in-out,
+        border-color var(--tr-time-normal, 500ms) ease-in-out,
+        color var(--tr-time-normal, 500ms) ease-in-out,
+        font-weight var(--tr-time-normal, 500ms) ease-in-out,
+        opacity var(--tr-time-normal, 500ms) ease-in-out,
+        outline-color var(--tr-time-normal, 500ms) ease-in-out,
+        text-decoration-color var(--tr-time-normal, 500ms) ease-in-out,
+        visibility var(--tr-time-normal, 500ms) ease-in-out !important;
+}
+
+/* #endregion Tokens - Transitions */
 /* #region Tokens - Colour */
 html,
 [data-brightness-mode="light"] {
@@ -746,7 +822,7 @@ html,
     );
     --sys-clr-selected-text: var(--clr-base-200, hsl(0, 0%, 84.33%));
     --sys-clr-selection-bg: var(--clr-purple-400, hsl(281.93, 67.89%, 67.68%));
-    --sys-clr-selection-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    --sys-clr-selection-text: var(--clr-base-850, hsl(0, 0%, 9.22%));
     --sys-clr-text-active: var(--clr-red-700, hsl(2.2, 70.94%, 27.79%));
     --sys-clr-text-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
     --sys-clr-button-bg: var(--clr-purple-700, hsl(282.99, 65.99%, 29.2%));
@@ -820,7 +896,7 @@ html,
     --theme-heading-9: var(--clr-base-700, hsl(0, 0%, 24.13%));
     --theme-heading-10: var(--clr-base-700, hsl(0, 0%, 24.13%));
     --theme-selection-bg: var(--clr-purple-400, hsl(281.93, 67.89%, 67.68%));
-    --theme-selection-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+    --theme-selection-text: var(--clr-base-850, hsl(0, 0%, 9.22%));
     --theme-link: var(--clr-purple-700, hsl(282.99, 65.99%, 29.2%));
     --theme-link-visited: var(--clr-purple-700, hsl(282.99, 65.99%, 29.2%));
     --theme-link-hover: var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%));
@@ -964,7 +1040,7 @@ html,
             --clr-purple-400,
             hsl(281.93, 67.89%, 67.68%)
         );
-        --sys-clr-selection-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --sys-clr-selection-text: var(--clr-base-850, hsl(0, 0%, 9.22%));
         --sys-clr-text-active: var(--clr-red-700, hsl(2.2, 70.94%, 27.79%));
         --sys-clr-text-disabled: var(--clr-base-700, hsl(0, 0%, 24.13%));
         --sys-clr-button-bg: var(--clr-purple-700, hsl(282.99, 65.99%, 29.2%));
@@ -1071,7 +1147,7 @@ html,
             --clr-purple-400,
             hsl(281.93, 67.89%, 67.68%)
         );
-        --theme-selection-text: var(--clr-base-900, hsl(0, 0%, 2.86%));
+        --theme-selection-text: var(--clr-base-850, hsl(0, 0%, 9.22%));
         --theme-link: var(--clr-purple-700, hsl(282.99, 65.99%, 29.2%));
         --theme-link-visited: var(--clr-purple-700, hsl(282.99, 65.99%, 29.2%));
         --theme-link-hover: var(
@@ -3994,7 +4070,7 @@ html,
     );
     --sys-clr-selected-text: var(--clr-base-150, hsl(0, 0%, 9.22%));
     --sys-clr-selection-bg: var(--clr-purple-400, hsl(283.65, 54.92%, 42.15%));
-    --sys-clr-selection-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+    --sys-clr-selection-text: var(--clr-base-850, hsl(0, 0%, 90.98%));
     --sys-clr-text-active: var(--clr-red-650, hsl(4.23, 83.86%, 72.58%));
     --sys-clr-text-disabled: var(--clr-base-650, hsl(0, 0%, 64.97%));
     --sys-clr-button-bg: var(--clr-purple-650, hsl(280.79, 72.91%, 73.26%));
@@ -4074,7 +4150,7 @@ html,
     --theme-heading-9: var(--clr-base-650, hsl(0, 0%, 64.97%));
     --theme-heading-10: var(--clr-base-650, hsl(0, 0%, 64.97%));
     --theme-selection-bg: var(--clr-purple-400, hsl(283.65, 54.92%, 42.15%));
-    --theme-selection-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+    --theme-selection-text: var(--clr-base-850, hsl(0, 0%, 90.98%));
     --theme-link: var(--clr-purple-650, hsl(280.79, 72.91%, 73.26%));
     --theme-link-visited: var(--clr-purple-650, hsl(280.79, 72.91%, 73.26%));
     --theme-link-hover: var(--clr-turquoise-650, hsl(160.94, 40.04%, 52.93%));
@@ -4212,7 +4288,7 @@ html,
             --clr-purple-400,
             hsl(283.65, 54.92%, 42.15%)
         );
-        --sys-clr-selection-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --sys-clr-selection-text: var(--clr-base-850, hsl(0, 0%, 90.98%));
         --sys-clr-text-active: var(--clr-red-650, hsl(4.23, 83.86%, 72.58%));
         --sys-clr-text-disabled: var(--clr-base-650, hsl(0, 0%, 64.97%));
         --sys-clr-button-bg: var(--clr-purple-650, hsl(280.79, 72.91%, 73.26%));
@@ -4322,7 +4398,7 @@ html,
             --clr-purple-400,
             hsl(283.65, 54.92%, 42.15%)
         );
-        --theme-selection-text: var(--clr-base-900, hsl(0, 0%, 97.73%));
+        --theme-selection-text: var(--clr-base-850, hsl(0, 0%, 90.98%));
         --theme-link: var(--clr-purple-650, hsl(280.79, 72.91%, 73.26%));
         --theme-link-visited: var(
             --clr-purple-650,
@@ -7371,6 +7447,27 @@ html,
     }
 }
 /* #endregion Tokens - Exceptions - high-contrast modes */
+/* ## ANIMATIONS ==================================== */
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+        opacity: var(--fade--opacity-out, 0);
+    }
+    100% {
+        opacity: 1;
+        opacity: var(--fade--opacity-in, 1);
+    }
+}
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+        opacity: var(--fade--opacity-in, 1);
+    }
+    100% {
+        opacity: 0;
+        opacity: var(--fade--opacity-out, 0);
+    }
+}
 /*! START of @maddimathon/utility-astro/template */
 /*! START of @maddimathon/utility-sass/template */
 /* # GLOBALS - Accessibility
@@ -7506,14 +7603,14 @@ hr {
 ::-moz-selection {
     background-color: hsl(281.93, 67.89%, 67.68%);
     background-color: var(--sys-clr-selection-bg, Highlight);
-    color: hsl(0, 0%, 2.86%);
+    color: hsl(0, 0%, 9.22%);
     color: var(--sys-clr-selection-text, HighlightText);
 }
 ::selection,
 .theme-mode-swatch__sample--selection {
     background-color: hsl(281.93, 67.89%, 67.68%);
     background-color: var(--sys-clr-selection-bg, Highlight);
-    color: hsl(0, 0%, 2.86%);
+    color: hsl(0, 0%, 9.22%);
     color: var(--sys-clr-selection-text, HighlightText);
 }
 
@@ -9787,12 +9884,12 @@ html,
 [data-contrast-mode="average"] ::-moz-selection {
     --icon-color: var(
         --theme-selection-text,
-        var(--clr-base-900, hsl(0, 0%, 2.86%))
+        var(--clr-base-850, hsl(0, 0%, 9.22%))
     ) !important;
-    color: hsl(0, 0%, 2.86%) !important;
+    color: hsl(0, 0%, 9.22%) !important;
     color: var(
         --theme-selection-text,
-        var(--clr-base-900, hsl(0, 0%, 2.86%))
+        var(--clr-base-850, hsl(0, 0%, 9.22%))
     ) !important;
     background-color: hsl(281.93, 67.89%, 67.68%) !important;
     background-color: var(
@@ -9809,12 +9906,12 @@ html,
 [data-contrast-mode="average"] .theme-mode-swatch__sample--selection {
     --icon-color: var(
         --theme-selection-text,
-        var(--clr-base-900, hsl(0, 0%, 2.86%))
+        var(--clr-base-850, hsl(0, 0%, 9.22%))
     ) !important;
-    color: hsl(0, 0%, 2.86%) !important;
+    color: hsl(0, 0%, 9.22%) !important;
     color: var(
         --theme-selection-text,
-        var(--clr-base-900, hsl(0, 0%, 2.86%))
+        var(--clr-base-850, hsl(0, 0%, 9.22%))
     ) !important;
     background-color: hsl(281.93, 67.89%, 67.68%) !important;
     background-color: var(
@@ -9858,7 +9955,7 @@ html,
         --theme-selection-text,
         var(--clr-base-850, hsl(0, 0%, 9.22%))
     ) !important;
-    color: hsl(0, 0%, 2.86%) !important;
+    color: hsl(0, 0%, 9.22%) !important;
     color: var(
         --theme-selection-text,
         var(--clr-base-850, hsl(0, 0%, 9.22%))
@@ -9881,7 +9978,7 @@ html,
         --theme-selection-text,
         var(--clr-base-850, hsl(0, 0%, 9.22%))
     ) !important;
-    color: hsl(0, 0%, 2.86%) !important;
+    color: hsl(0, 0%, 9.22%) !important;
     color: var(
         --theme-selection-text,
         var(--clr-base-850, hsl(0, 0%, 9.22%))
@@ -9930,7 +10027,7 @@ html,
             --theme-selection-text,
             var(--clr-base-850, hsl(0, 0%, 9.22%))
         ) !important;
-        color: hsl(0, 0%, 2.86%) !important;
+        color: hsl(0, 0%, 9.22%) !important;
         color: var(
             --theme-selection-text,
             var(--clr-base-850, hsl(0, 0%, 9.22%))
@@ -9952,7 +10049,7 @@ html,
             --theme-selection-text,
             var(--clr-base-850, hsl(0, 0%, 9.22%))
         ) !important;
-        color: hsl(0, 0%, 2.86%) !important;
+        color: hsl(0, 0%, 9.22%) !important;
         color: var(
             --theme-selection-text,
             var(--clr-base-850, hsl(0, 0%, 9.22%))
@@ -10000,7 +10097,7 @@ html,
         --theme-selection-text,
         var(--clr-base-100, hsl(0, 0%, 97.73%))
     ) !important;
-    color: hsl(0, 0%, 2.86%) !important;
+    color: hsl(0, 0%, 9.22%) !important;
     color: var(
         --theme-selection-text,
         var(--clr-base-100, hsl(0, 0%, 97.73%))
@@ -10022,7 +10119,7 @@ html,
         --theme-selection-text,
         var(--clr-base-100, hsl(0, 0%, 97.73%))
     ) !important;
-    color: hsl(0, 0%, 2.86%) !important;
+    color: hsl(0, 0%, 9.22%) !important;
     color: var(
         --theme-selection-text,
         var(--clr-base-100, hsl(0, 0%, 97.73%))
@@ -10070,7 +10167,7 @@ html,
             --theme-selection-text,
             var(--clr-base-100, hsl(0, 0%, 97.73%))
         ) !important;
-        color: hsl(0, 0%, 2.86%) !important;
+        color: hsl(0, 0%, 9.22%) !important;
         color: var(
             --theme-selection-text,
             var(--clr-base-100, hsl(0, 0%, 97.73%))
@@ -10092,7 +10189,7 @@ html,
             --theme-selection-text,
             var(--clr-base-100, hsl(0, 0%, 97.73%))
         ) !important;
-        color: hsl(0, 0%, 2.86%) !important;
+        color: hsl(0, 0%, 9.22%) !important;
         color: var(
             --theme-selection-text,
             var(--clr-base-100, hsl(0, 0%, 97.73%))
@@ -10140,7 +10237,7 @@ html,
         --theme-selection-text,
         var(--clr-base-100, hsl(0, 0%, 97.73%))
     ) !important;
-    color: hsl(0, 0%, 2.86%) !important;
+    color: hsl(0, 0%, 9.22%) !important;
     color: var(
         --theme-selection-text,
         var(--clr-base-100, hsl(0, 0%, 97.73%))
@@ -10157,7 +10254,7 @@ html,
         --theme-selection-text,
         var(--clr-base-100, hsl(0, 0%, 97.73%))
     ) !important;
-    color: hsl(0, 0%, 2.86%) !important;
+    color: hsl(0, 0%, 9.22%) !important;
     color: var(
         --theme-selection-text,
         var(--clr-base-100, hsl(0, 0%, 97.73%))
@@ -10207,6 +10304,7 @@ a {
         --theme-link-ui,
         var(--clr-purple-650, hsl(283.3, 59.42%, 35.62%))
     );
+    transition: var(--transition);
 }
 a:visited {
     --icon-color: var(
@@ -10537,10 +10635,14 @@ code,
 .shade-swatch__colour-value,
 kbd,
 samp {
+    display: inline;
     margin-left: 0.125em;
     margin-right: 0.125em;
     margin-left: var(--stroke-relative-400, 0.125em);
     margin-right: var(--stroke-relative-400, 0.125em);
+    vertical-align: baseline;
+    align-self: baseline;
+    font-weight: 500;
     letter-spacing: -0.015em;
 }
 
@@ -10554,6 +10656,7 @@ pre {
     color: var(--theme-text, var(--clr-base-800, hsl(0, 0%, 13.96%)));
 }
 pre > code {
+    font-weight: 400;
     color: inherit;
 }
 
@@ -11468,8 +11571,7 @@ input:active {
 textarea,
 select,
 input {
-    border-width: 0.125rem;
-    border-width: var(--border-width-200, 0.125rem);
+    transition: var(--transition);
 }
 
 input[type="button"],
@@ -12016,6 +12118,7 @@ a.button,
 input[type="reset"],
 a.button-secondary {
     --icon-pseudo-element-margin-block-start: 0.09375em;
+    transition: var(--transition);
     --focus-ring-outline-color: var(
         --theme-button-primary-border,
         var(--clr-purple-700, hsl(282.99, 65.99%, 29.2%))
@@ -12672,12 +12775,12 @@ a.button-secondary * {
 [data-contrast-mode="average"] a.button-secondary ::-moz-selection {
     --icon-color: var(
         --theme-selection-text,
-        var(--clr-base-900, hsl(0, 0%, 2.86%))
+        var(--clr-base-850, hsl(0, 0%, 9.22%))
     ) !important;
-    color: hsl(0, 0%, 2.86%) !important;
+    color: hsl(0, 0%, 9.22%) !important;
     color: var(
         --theme-selection-text,
-        var(--clr-base-900, hsl(0, 0%, 2.86%))
+        var(--clr-base-850, hsl(0, 0%, 9.22%))
     ) !important;
     background-color: hsl(281.93, 67.89%, 67.68%) !important;
     background-color: var(
@@ -12699,12 +12802,12 @@ a.button-secondary * {
 [data-contrast-mode="average"] a.button-secondary ::selection {
     --icon-color: var(
         --theme-selection-text,
-        var(--clr-base-900, hsl(0, 0%, 2.86%))
+        var(--clr-base-850, hsl(0, 0%, 9.22%))
     ) !important;
-    color: hsl(0, 0%, 2.86%) !important;
+    color: hsl(0, 0%, 9.22%) !important;
     color: var(
         --theme-selection-text,
-        var(--clr-base-900, hsl(0, 0%, 2.86%))
+        var(--clr-base-850, hsl(0, 0%, 9.22%))
     ) !important;
     background-color: hsl(281.93, 67.89%, 67.68%) !important;
     background-color: var(
@@ -12765,7 +12868,7 @@ a.button-secondary * {
         --theme-selection-text,
         var(--clr-base-850, hsl(0, 0%, 9.22%))
     ) !important;
-    color: hsl(0, 0%, 2.86%) !important;
+    color: hsl(0, 0%, 9.22%) !important;
     color: var(
         --theme-selection-text,
         var(--clr-base-850, hsl(0, 0%, 9.22%))
@@ -12793,7 +12896,7 @@ a.button-secondary * {
         --theme-selection-text,
         var(--clr-base-850, hsl(0, 0%, 9.22%))
     ) !important;
-    color: hsl(0, 0%, 2.86%) !important;
+    color: hsl(0, 0%, 9.22%) !important;
     color: var(
         --theme-selection-text,
         var(--clr-base-850, hsl(0, 0%, 9.22%))
@@ -12859,7 +12962,7 @@ a.button-secondary * {
             --theme-selection-text,
             var(--clr-base-850, hsl(0, 0%, 9.22%))
         ) !important;
-        color: hsl(0, 0%, 2.86%) !important;
+        color: hsl(0, 0%, 9.22%) !important;
         color: var(
             --theme-selection-text,
             var(--clr-base-850, hsl(0, 0%, 9.22%))
@@ -12886,7 +12989,7 @@ a.button-secondary * {
             --theme-selection-text,
             var(--clr-base-850, hsl(0, 0%, 9.22%))
         ) !important;
-        color: hsl(0, 0%, 2.86%) !important;
+        color: hsl(0, 0%, 9.22%) !important;
         color: var(
             --theme-selection-text,
             var(--clr-base-850, hsl(0, 0%, 9.22%))
@@ -12951,7 +13054,7 @@ a.button-secondary * {
         --theme-selection-text,
         var(--clr-base-100, hsl(0, 0%, 97.73%))
     ) !important;
-    color: hsl(0, 0%, 2.86%) !important;
+    color: hsl(0, 0%, 9.22%) !important;
     color: var(
         --theme-selection-text,
         var(--clr-base-100, hsl(0, 0%, 97.73%))
@@ -12978,7 +13081,7 @@ a.button-secondary * {
         --theme-selection-text,
         var(--clr-base-100, hsl(0, 0%, 97.73%))
     ) !important;
-    color: hsl(0, 0%, 2.86%) !important;
+    color: hsl(0, 0%, 9.22%) !important;
     color: var(
         --theme-selection-text,
         var(--clr-base-100, hsl(0, 0%, 97.73%))
@@ -13043,7 +13146,7 @@ a.button-secondary * {
             --theme-selection-text,
             var(--clr-base-100, hsl(0, 0%, 97.73%))
         ) !important;
-        color: hsl(0, 0%, 2.86%) !important;
+        color: hsl(0, 0%, 9.22%) !important;
         color: var(
             --theme-selection-text,
             var(--clr-base-100, hsl(0, 0%, 97.73%))
@@ -13070,7 +13173,7 @@ a.button-secondary * {
             --theme-selection-text,
             var(--clr-base-100, hsl(0, 0%, 97.73%))
         ) !important;
-        color: hsl(0, 0%, 2.86%) !important;
+        color: hsl(0, 0%, 9.22%) !important;
         color: var(
             --theme-selection-text,
             var(--clr-base-100, hsl(0, 0%, 97.73%))
@@ -13135,7 +13238,7 @@ a.button-secondary * {
         --theme-selection-text,
         var(--clr-base-100, hsl(0, 0%, 97.73%))
     ) !important;
-    color: hsl(0, 0%, 2.86%) !important;
+    color: hsl(0, 0%, 9.22%) !important;
     color: var(
         --theme-selection-text,
         var(--clr-base-100, hsl(0, 0%, 97.73%))
@@ -13157,7 +13260,7 @@ a.button-secondary * {
         --theme-selection-text,
         var(--clr-base-100, hsl(0, 0%, 97.73%))
     ) !important;
-    color: hsl(0, 0%, 2.86%) !important;
+    color: hsl(0, 0%, 9.22%) !important;
     color: var(
         --theme-selection-text,
         var(--clr-base-100, hsl(0, 0%, 97.73%))
@@ -13928,6 +14031,7 @@ input[type="reset"]:active,
 }
 ::file-selector-button {
     --icon-pseudo-element-margin-block-start: 0.09375em;
+    transition: var(--transition);
     --focus-ring-outline-color: var(
         --theme-button-secondary-border,
         var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
@@ -14423,12 +14527,12 @@ input[type="reset"]:active,
 [data-contrast-mode="average"] ::file-selector-button ::-moz-selection {
     --icon-color: var(
         --theme-selection-text,
-        var(--clr-base-900, hsl(0, 0%, 2.86%))
+        var(--clr-base-850, hsl(0, 0%, 9.22%))
     ) !important;
-    color: hsl(0, 0%, 2.86%) !important;
+    color: hsl(0, 0%, 9.22%) !important;
     color: var(
         --theme-selection-text,
-        var(--clr-base-900, hsl(0, 0%, 2.86%))
+        var(--clr-base-850, hsl(0, 0%, 9.22%))
     ) !important;
     background-color: hsl(281.93, 67.89%, 67.68%) !important;
     background-color: var(
@@ -14444,12 +14548,12 @@ input[type="reset"]:active,
 [data-contrast-mode="average"] ::file-selector-button ::selection {
     --icon-color: var(
         --theme-selection-text,
-        var(--clr-base-900, hsl(0, 0%, 2.86%))
+        var(--clr-base-850, hsl(0, 0%, 9.22%))
     ) !important;
-    color: hsl(0, 0%, 2.86%) !important;
+    color: hsl(0, 0%, 9.22%) !important;
     color: var(
         --theme-selection-text,
-        var(--clr-base-900, hsl(0, 0%, 2.86%))
+        var(--clr-base-850, hsl(0, 0%, 9.22%))
     ) !important;
     background-color: hsl(281.93, 67.89%, 67.68%) !important;
     background-color: var(
@@ -14492,7 +14596,7 @@ input[type="reset"]:active,
         --theme-selection-text,
         var(--clr-base-850, hsl(0, 0%, 9.22%))
     ) !important;
-    color: hsl(0, 0%, 2.86%) !important;
+    color: hsl(0, 0%, 9.22%) !important;
     color: var(
         --theme-selection-text,
         var(--clr-base-850, hsl(0, 0%, 9.22%))
@@ -14514,7 +14618,7 @@ input[type="reset"]:active,
         --theme-selection-text,
         var(--clr-base-850, hsl(0, 0%, 9.22%))
     ) !important;
-    color: hsl(0, 0%, 2.86%) !important;
+    color: hsl(0, 0%, 9.22%) !important;
     color: var(
         --theme-selection-text,
         var(--clr-base-850, hsl(0, 0%, 9.22%))
@@ -14562,7 +14666,7 @@ input[type="reset"]:active,
             --theme-selection-text,
             var(--clr-base-850, hsl(0, 0%, 9.22%))
         ) !important;
-        color: hsl(0, 0%, 2.86%) !important;
+        color: hsl(0, 0%, 9.22%) !important;
         color: var(
             --theme-selection-text,
             var(--clr-base-850, hsl(0, 0%, 9.22%))
@@ -14583,7 +14687,7 @@ input[type="reset"]:active,
             --theme-selection-text,
             var(--clr-base-850, hsl(0, 0%, 9.22%))
         ) !important;
-        color: hsl(0, 0%, 2.86%) !important;
+        color: hsl(0, 0%, 9.22%) !important;
         color: var(
             --theme-selection-text,
             var(--clr-base-850, hsl(0, 0%, 9.22%))
@@ -14630,7 +14734,7 @@ input[type="reset"]:active,
         --theme-selection-text,
         var(--clr-base-100, hsl(0, 0%, 97.73%))
     ) !important;
-    color: hsl(0, 0%, 2.86%) !important;
+    color: hsl(0, 0%, 9.22%) !important;
     color: var(
         --theme-selection-text,
         var(--clr-base-100, hsl(0, 0%, 97.73%))
@@ -14651,7 +14755,7 @@ input[type="reset"]:active,
         --theme-selection-text,
         var(--clr-base-100, hsl(0, 0%, 97.73%))
     ) !important;
-    color: hsl(0, 0%, 2.86%) !important;
+    color: hsl(0, 0%, 9.22%) !important;
     color: var(
         --theme-selection-text,
         var(--clr-base-100, hsl(0, 0%, 97.73%))
@@ -14698,7 +14802,7 @@ input[type="reset"]:active,
             --theme-selection-text,
             var(--clr-base-100, hsl(0, 0%, 97.73%))
         ) !important;
-        color: hsl(0, 0%, 2.86%) !important;
+        color: hsl(0, 0%, 9.22%) !important;
         color: var(
             --theme-selection-text,
             var(--clr-base-100, hsl(0, 0%, 97.73%))
@@ -14719,7 +14823,7 @@ input[type="reset"]:active,
             --theme-selection-text,
             var(--clr-base-100, hsl(0, 0%, 97.73%))
         ) !important;
-        color: hsl(0, 0%, 2.86%) !important;
+        color: hsl(0, 0%, 9.22%) !important;
         color: var(
             --theme-selection-text,
             var(--clr-base-100, hsl(0, 0%, 97.73%))
@@ -14766,7 +14870,7 @@ input[type="reset"]:active,
         --theme-selection-text,
         var(--clr-base-100, hsl(0, 0%, 97.73%))
     ) !important;
-    color: hsl(0, 0%, 2.86%) !important;
+    color: hsl(0, 0%, 9.22%) !important;
     color: var(
         --theme-selection-text,
         var(--clr-base-100, hsl(0, 0%, 97.73%))
@@ -14782,7 +14886,7 @@ input[type="reset"]:active,
         --theme-selection-text,
         var(--clr-base-100, hsl(0, 0%, 97.73%))
     ) !important;
-    color: hsl(0, 0%, 2.86%) !important;
+    color: hsl(0, 0%, 9.22%) !important;
     color: var(
         --theme-selection-text,
         var(--clr-base-100, hsl(0, 0%, 97.73%))
@@ -15237,6 +15341,7 @@ input[type="reset"]:active,
 }
 
 [data-toggle-control] {
+    --icon-color: currentColor;
     margin: 0;
     width: auto;
     font: inherit;
@@ -15254,21 +15359,19 @@ input[type="reset"]:active,
     appearance: none;
     cursor: text;
 }
-[data-toggle-control][aria-disabled] .icon {
+[data-toggle-control][aria-disabled] .toggle-icon {
     display: none;
 }
 .no-js [data-toggle-control]:focus,
 .js__no-where-selector [data-toggle-control]:focus {
     border: none;
     background: none;
-    color: inherit;
     opacity: 1;
 }
 
 :where(.js__no-focusVisible) [data-toggle-control]:focus {
     border: none;
     background: none;
-    color: inherit;
     opacity: 1;
 }
 
@@ -15276,21 +15379,18 @@ input[type="reset"]:active,
 [data-toggle-control]:active {
     border: none;
     background: none;
-    color: inherit;
     opacity: 1;
 }
 
 [data-toggle-control]:focus-visible {
     border: none;
     background: none;
-    color: inherit;
     opacity: 1;
 }
 
 [data-toggle-control]:focus-within {
     border: none;
     background: none;
-    color: inherit;
     opacity: 1;
 }
 
@@ -15603,55 +15703,6 @@ input[type="reset"]:active,
     margin-top: 0;
     margin-bottom: 0;
 }
-:where(.js) .toggle-title > h1 [data-toggle-control],
-:where(.js) .toggle-title > .h1 [data-toggle-control],
-:where(.js) .toggle-title > h2 [data-toggle-control],
-:where(.js) .toggle-title > .h2 [data-toggle-control],
-:where(.js) .toggle-title > h3 [data-toggle-control],
-:where(.js) .toggle-title > .h3 [data-toggle-control],
-:where(.js) .toggle-title > h4 [data-toggle-control],
-:where(.js) .toggle-title > .h4 [data-toggle-control],
-:where(.js) .toggle-title > h5 [data-toggle-control],
-:where(.js) .toggle-title > .h5 [data-toggle-control],
-:where(.js) .toggle-title > h6 [data-toggle-control],
-:where(.js)
-    .font-family-swatch-list
-    .font-family-swatch
-    .toggle-title
-    > .font-family-swatch__weight-dt
-    [data-toggle-control],
-.font-family-swatch-list
-    .font-family-swatch
-    :where(.js)
-    .toggle-title
-    > .font-family-swatch__weight-dt
-    [data-toggle-control],
-:where(.js) .toggle-title > .h6 [data-toggle-control],
-:where(.js)
-    .font-family-swatch
-    .toggle-title.font-family-swatch__details-list
-    > dt
-    [data-toggle-control],
-.font-family-swatch
-    :where(.js)
-    .toggle-title.font-family-swatch__details-list
-    > dt
-    [data-toggle-control],
-:where(.js) .toggle-title > .h7 [data-toggle-control],
-:where(.js) .toggle-title > .h8 [data-toggle-control],
-:where(.js)
-    .toggle-title
-    > .shade-swatch__contrast__heading
-    [data-toggle-control],
-:where(.js) .toggle-title > .h9 [data-toggle-control],
-:where(.js)
-    .toggle-title
-    > .shade-swatch__contrast__result-group__heading
-    [data-toggle-control],
-:where(.js) .toggle-title > .h10 [data-toggle-control],
-:where(.js) .toggle-title > .page-title [data-toggle-control] {
-    font: inherit;
-}
 :where(.js) [data-toggle-control] {
     align-content: center;
     align-items: center;
@@ -15665,10 +15716,16 @@ input[type="reset"]:active,
     appearance: button;
     cursor: pointer;
 }
-:where(.js) [data-toggle-control] .icon,
-:where(.js) [data-toggle-control] .icon svg {
-    display: block;
+:where(.js) [data-toggle-control] .toggle-icon {
     grid-column: icon;
+}
+:where(.js) [data-toggle-control] .toggle-icon,
+:where(.js) [data-toggle-control] .toggle-icon svg {
+    display: block;
+}
+:where(.js) [data-toggle-control] .toggle-icon svg #a,
+:where(.js) [data-toggle-control] .toggle-icon svg #b {
+    transform-origin: center;
 }
 :where(.js) .toggle-title > h1,
 :where(.js) .toggle-title > .h1,
@@ -15721,8 +15778,9 @@ input[type="reset"]:active,
     grid-template-rows: 0fr;
     margin: 0;
     padding: 0;
-    border-top: 0.125rem solid currentColor;
-    border-top: var(--border-width-200, 0.125rem) solid currentColor;
+    border: 0 dotted currentColor;
+    border-top-width: 0.125rem;
+    border-top-width: var(--border-width-200, 0.125rem);
     border-top-style: solid;
     overflow: hidden;
 }
@@ -15744,14 +15802,29 @@ input[type="reset"]:active,
     margin-bottom: 0;
 }
 /** Opening & Closing ------------------ **/
-:where(.js) [data-toggle-container="open"] > .toggle-title .toggle-icon svg #b {
-    opacity: 0;
+:where(.js) [data-toggle-container="open"] > [data-toggle-content] > .container,
+:where(.js)
+    [data-toggle-container="closing"]
+    > [data-toggle-content]
+    > .container {
+    visibility: visible;
+}
+:where(.js)
+    [data-toggle-container="open"]
+    [data-toggle-control]
+    .toggle-icon
+    > svg
+    #b {
+    transform: rotate(270deg);
 }
 :where(.js) [data-toggle-container="open"] > [data-toggle-content] {
+    border-left-width: 0.125rem;
+    border-right-width: 0.125rem;
+    border-left-width: var(--border-width-200, 0.125rem);
+    border-right-width: var(--border-width-200, 0.125rem);
+    border-bottom-width: 0.125rem;
+    border-bottom-width: var(--border-width-200, 0.125rem);
     grid-template-rows: 1fr;
-    border: 0.125rem dotted currentColor;
-    border: var(--border-width-200, 0.125rem) dotted currentColor;
-    border-top-style: solid;
 }
 :where(.js)
     [data-toggle-container="open"]
@@ -15762,7 +15835,14 @@ input[type="reset"]:active,
     padding-top: var(--mrg-soft-300, 0.5rem);
     padding-bottom: var(--mrg-soft-300, 0.5rem);
     opacity: 1;
-    visibility: visible;
+}
+:where(.js)
+    [data-toggle-container="closing"]
+    [data-toggle-control]
+    .toggle-icon
+    > svg
+    #b {
+    transform: rotate(540deg);
 }
 :where(.js) [data-toggle-container="closing"] > [data-toggle-content] {
     grid-template-rows: 0fr;
@@ -15814,17 +15894,555 @@ input[type="reset"]:active,
     color: var(--sys-clr-link, LinkText);
 }
 
-:where(.js) [data-toggle-container] > [data-toggle-content] {
-    border-width: 0.1875rem;
-    border-width: var(--border-width-300, 0.1875rem);
-    border-top-width: 0.125rem;
-    border-top-width: var(--border-width-200, 0.125rem);
+[data-toggle-container] {
+    --toggle-closing-time: var(--tr-time-toggle-closing, 1200ms);
+}
+
+:where(.js) .toggle-title,
+:where(.js) [data-toggle-content] {
+    transition:
+        background-color 500ms ease-in-out,
+        border-color 500ms ease-in-out,
+        color 500ms ease-in-out,
+        font-weight 500ms ease-in-out,
+        opacity 500ms ease-in-out,
+        outline-color 500ms ease-in-out,
+        text-decoration-color 500ms ease-in-out,
+        visibility 500ms ease-in-out;
+    transition:
+        background-color var(--tr-time-normal, 500ms) ease-in-out,
+        border-color var(--tr-time-normal, 500ms) ease-in-out,
+        color var(--tr-time-normal, 500ms) ease-in-out,
+        font-weight var(--tr-time-normal, 500ms) ease-in-out,
+        opacity var(--tr-time-normal, 500ms) ease-in-out,
+        outline-color var(--tr-time-normal, 500ms) ease-in-out,
+        text-decoration-color var(--tr-time-normal, 500ms) ease-in-out,
+        visibility var(--tr-time-normal, 500ms) ease-in-out;
+}
+:where(.js) .toggle-title [data-toggle-control],
+:where(.js) [data-toggle-content] [data-toggle-control] {
+    color: inherit;
+}
+:where(.js) [data-toggle-container="open"] > [data-toggle-content],
+:where(.js) [data-toggle-container="closing"] > [data-toggle-content] {
+    border-left-width: 0.1875rem;
+    border-right-width: 0.1875rem;
+    border-left-width: var(--border-width-300, 0.1875rem);
+    border-right-width: var(--border-width-300, 0.1875rem);
+}
+:where(.js) [data-toggle-container="open"] > [data-toggle-content] {
+    border-bottom-width: 0.1875rem;
+    border-bottom-width: var(--border-width-300, 0.1875rem);
     border-color: hsl(0, 0%, 29.51%);
     border-color: var(--theme-ui-grey, var(--clr-base-650, hsl(0, 0%, 29.51%)));
 }
+@media (prefers-reduced-motion: no-preference) {
+    :where(.js) [data-toggle-content] {
+        transition:
+            border-color 500ms ease-in-out 0ms,
+            grid-template-rows 1200ms ease-in-out 0ms,
+            border-bottom-width 1200ms ease-in-out 0ms,
+            background-color 500ms ease-in-out,
+            border-color 500ms ease-in-out,
+            color 500ms ease-in-out,
+            font-weight 500ms ease-in-out,
+            opacity 500ms ease-in-out,
+            outline-color 500ms ease-in-out,
+            text-decoration-color 500ms ease-in-out,
+            visibility 500ms ease-in-out;
+        transition:
+            border-color var(--tr-time-normal, 500ms) ease-in-out 0ms,
+            grid-template-rows var(--tr-time-toggle-closing, 1200ms) ease-in-out
+                0ms,
+            border-bottom-width var(--tr-time-toggle-closing, 1200ms)
+                ease-in-out 0ms,
+            background-color var(--tr-time-normal, 500ms) ease-in-out,
+            border-color var(--tr-time-normal, 500ms) ease-in-out,
+            color var(--tr-time-normal, 500ms) ease-in-out,
+            font-weight var(--tr-time-normal, 500ms) ease-in-out,
+            opacity var(--tr-time-normal, 500ms) ease-in-out,
+            outline-color var(--tr-time-normal, 500ms) ease-in-out,
+            text-decoration-color var(--tr-time-normal, 500ms) ease-in-out,
+            visibility var(--tr-time-normal, 500ms) ease-in-out;
+    }
+    :where(.js) [data-toggle-content] > .container {
+        transition:
+            opacity 1200ms ease-in-out 100ms,
+            padding 1200ms ease-in-out 0ms;
+        transition:
+            opacity var(--tr-time-toggle-closing, 1200ms) ease-in-out 100ms,
+            padding var(--tr-time-toggle-closing, 1200ms) ease-in-out 0ms;
+    }
+    :where(.js)
+        [data-toggle-container="open"]
+        [data-toggle-control]
+        .toggle-icon
+        > svg
+        #a,
+    :where(.js)
+        [data-toggle-container="open"]
+        [data-toggle-control]
+        .toggle-icon
+        > svg
+        #b,
+    :where(.js)
+        [data-toggle-container="closing"]
+        [data-toggle-control]
+        .toggle-icon
+        > svg
+        #a,
+    :where(.js)
+        [data-toggle-container="closing"]
+        [data-toggle-control]
+        .toggle-icon
+        > svg
+        #b {
+        transition: transform 1200ms ease-in-out 0ms;
+        transition: transform var(--tr-time-toggle-closing, 1200ms) ease-in-out
+            0ms;
+    }
+    :where(.js) [data-toggle-container="open"] > [data-toggle-content],
+    :where(.js) [data-toggle-container="closing"] > [data-toggle-content] {
+        transition:
+            border-color 1200ms ease-in-out 0ms,
+            grid-template-rows 1200ms ease-in-out 0ms,
+            border-bottom-width 1200ms ease-in-out 0ms,
+            background-color 500ms ease-in-out,
+            border-color 500ms ease-in-out,
+            color 500ms ease-in-out,
+            font-weight 500ms ease-in-out,
+            opacity 500ms ease-in-out,
+            outline-color 500ms ease-in-out,
+            text-decoration-color 500ms ease-in-out,
+            visibility 500ms ease-in-out;
+        transition:
+            border-color var(--tr-time-toggle-closing, 1200ms) ease-in-out 0ms,
+            grid-template-rows var(--tr-time-toggle-closing, 1200ms) ease-in-out
+                0ms,
+            border-bottom-width var(--tr-time-toggle-closing, 1200ms)
+                ease-in-out 0ms,
+            background-color var(--tr-time-normal, 500ms) ease-in-out,
+            border-color var(--tr-time-normal, 500ms) ease-in-out,
+            color var(--tr-time-normal, 500ms) ease-in-out,
+            font-weight var(--tr-time-normal, 500ms) ease-in-out,
+            opacity var(--tr-time-normal, 500ms) ease-in-out,
+            outline-color var(--tr-time-normal, 500ms) ease-in-out,
+            text-decoration-color var(--tr-time-normal, 500ms) ease-in-out,
+            visibility var(--tr-time-normal, 500ms) ease-in-out;
+    }
+    :where(.js)
+        [data-toggle-container="open"]
+        > [data-toggle-content]
+        > .container,
+    :where(.js)
+        [data-toggle-container="closing"]
+        > [data-toggle-content]
+        > .container {
+        transition-delay: 0ms;
+    }
+}
+[data-motion="no-preference"]:where(.js) [data-toggle-content] {
+    transition:
+        border-color 500ms ease-in-out 0ms,
+        grid-template-rows 1200ms ease-in-out 0ms,
+        border-bottom-width 1200ms ease-in-out 0ms,
+        background-color 500ms ease-in-out,
+        border-color 500ms ease-in-out,
+        color 500ms ease-in-out,
+        font-weight 500ms ease-in-out,
+        opacity 500ms ease-in-out,
+        outline-color 500ms ease-in-out,
+        text-decoration-color 500ms ease-in-out,
+        visibility 500ms ease-in-out;
+    transition:
+        border-color var(--tr-time-normal, 500ms) ease-in-out 0ms,
+        grid-template-rows var(--tr-time-toggle-closing, 1200ms) ease-in-out 0ms,
+        border-bottom-width var(--tr-time-toggle-closing, 1200ms) ease-in-out
+            0ms,
+        background-color var(--tr-time-normal, 500ms) ease-in-out,
+        border-color var(--tr-time-normal, 500ms) ease-in-out,
+        color var(--tr-time-normal, 500ms) ease-in-out,
+        font-weight var(--tr-time-normal, 500ms) ease-in-out,
+        opacity var(--tr-time-normal, 500ms) ease-in-out,
+        outline-color var(--tr-time-normal, 500ms) ease-in-out,
+        text-decoration-color var(--tr-time-normal, 500ms) ease-in-out,
+        visibility var(--tr-time-normal, 500ms) ease-in-out;
+}
+[data-motion="no-preference"]:where(.js) [data-toggle-content] > .container {
+    transition:
+        opacity 1200ms ease-in-out 100ms,
+        padding 1200ms ease-in-out 0ms;
+    transition:
+        opacity var(--tr-time-toggle-closing, 1200ms) ease-in-out 100ms,
+        padding var(--tr-time-toggle-closing, 1200ms) ease-in-out 0ms;
+}
+[data-motion="no-preference"]:where(.js)
+    [data-toggle-container="open"]
+    [data-toggle-control]
+    .toggle-icon
+    > svg
+    #a,
+[data-motion="no-preference"]:where(.js)
+    [data-toggle-container="open"]
+    [data-toggle-control]
+    .toggle-icon
+    > svg
+    #b,
+[data-motion="no-preference"]:where(.js)
+    [data-toggle-container="closing"]
+    [data-toggle-control]
+    .toggle-icon
+    > svg
+    #a,
+[data-motion="no-preference"]:where(.js)
+    [data-toggle-container="closing"]
+    [data-toggle-control]
+    .toggle-icon
+    > svg
+    #b {
+    transition: transform 1200ms ease-in-out 0ms;
+    transition: transform var(--tr-time-toggle-closing, 1200ms) ease-in-out 0ms;
+}
+[data-motion="no-preference"]:where(.js)
+    [data-toggle-container="open"]
+    > [data-toggle-content],
+[data-motion="no-preference"]:where(.js)
+    [data-toggle-container="closing"]
+    > [data-toggle-content] {
+    transition:
+        border-color 1200ms ease-in-out 0ms,
+        grid-template-rows 1200ms ease-in-out 0ms,
+        border-bottom-width 1200ms ease-in-out 0ms,
+        background-color 500ms ease-in-out,
+        border-color 500ms ease-in-out,
+        color 500ms ease-in-out,
+        font-weight 500ms ease-in-out,
+        opacity 500ms ease-in-out,
+        outline-color 500ms ease-in-out,
+        text-decoration-color 500ms ease-in-out,
+        visibility 500ms ease-in-out;
+    transition:
+        border-color var(--tr-time-toggle-closing, 1200ms) ease-in-out 0ms,
+        grid-template-rows var(--tr-time-toggle-closing, 1200ms) ease-in-out 0ms,
+        border-bottom-width var(--tr-time-toggle-closing, 1200ms) ease-in-out
+            0ms,
+        background-color var(--tr-time-normal, 500ms) ease-in-out,
+        border-color var(--tr-time-normal, 500ms) ease-in-out,
+        color var(--tr-time-normal, 500ms) ease-in-out,
+        font-weight var(--tr-time-normal, 500ms) ease-in-out,
+        opacity var(--tr-time-normal, 500ms) ease-in-out,
+        outline-color var(--tr-time-normal, 500ms) ease-in-out,
+        text-decoration-color var(--tr-time-normal, 500ms) ease-in-out,
+        visibility var(--tr-time-normal, 500ms) ease-in-out;
+}
+[data-motion="no-preference"]:where(.js)
+    [data-toggle-container="open"]
+    > [data-toggle-content]
+    > .container,
+[data-motion="no-preference"]:where(.js)
+    [data-toggle-container="closing"]
+    > [data-toggle-content]
+    > .container {
+    transition-delay: 0ms;
+}
 
-.toggle-title {
-    --icon-color: currentColor;
+@media (prefers-reduced-motion: reduce) {
+    :where(.js) [data-toggle-content] {
+        transition:
+            border-color 500ms ease-in-out 0ms,
+            grid-template-rows 0ms ease-in-out 1200ms,
+            background-color 500ms ease-in-out,
+            border-color 500ms ease-in-out,
+            color 500ms ease-in-out,
+            font-weight 500ms ease-in-out,
+            opacity 500ms ease-in-out,
+            outline-color 500ms ease-in-out,
+            text-decoration-color 500ms ease-in-out,
+            visibility 500ms ease-in-out;
+        transition:
+            border-color var(--tr-time-normal, 500ms) ease-in-out 0ms,
+            grid-template-rows 0ms ease-in-out
+                var(--tr-time-toggle-closing, 1200ms),
+            background-color var(--tr-time-normal, 500ms) ease-in-out,
+            border-color var(--tr-time-normal, 500ms) ease-in-out,
+            color var(--tr-time-normal, 500ms) ease-in-out,
+            font-weight var(--tr-time-normal, 500ms) ease-in-out,
+            opacity var(--tr-time-normal, 500ms) ease-in-out,
+            outline-color var(--tr-time-normal, 500ms) ease-in-out,
+            text-decoration-color var(--tr-time-normal, 500ms) ease-in-out,
+            visibility var(--tr-time-normal, 500ms) ease-in-out;
+    }
+    :where(.js) [data-toggle-content] > .container {
+        transition: opacity 500ms ease-in-out 100ms;
+        transition: opacity var(--tr-time-normal, 500ms) ease-in-out 100ms;
+    }
+    :where(.js)
+        [data-toggle-container="open"]
+        [data-toggle-control]
+        .toggle-icon
+        > svg
+        #a,
+    :where(.js)
+        [data-toggle-container="open"]
+        [data-toggle-control]
+        .toggle-icon
+        > svg
+        #b,
+    :where(.js)
+        [data-toggle-container="closing"]
+        [data-toggle-control]
+        .toggle-icon
+        > svg
+        #a,
+    :where(.js)
+        [data-toggle-container="closing"]
+        [data-toggle-control]
+        .toggle-icon
+        > svg
+        #b {
+        transition: none;
+    }
+    :where(.js) [data-toggle-container="open"] > [data-toggle-content],
+    :where(.js) [data-toggle-container="closing"] > [data-toggle-content] {
+        transition:
+            border-color 500ms ease-in-out 0ms,
+            background-color 500ms ease-in-out,
+            border-color 500ms ease-in-out,
+            color 500ms ease-in-out,
+            font-weight 500ms ease-in-out,
+            opacity 500ms ease-in-out,
+            outline-color 500ms ease-in-out,
+            text-decoration-color 500ms ease-in-out,
+            visibility 500ms ease-in-out;
+        transition:
+            border-color var(--tr-time-normal, 500ms) ease-in-out 0ms,
+            background-color var(--tr-time-normal, 500ms) ease-in-out,
+            border-color var(--tr-time-normal, 500ms) ease-in-out,
+            color var(--tr-time-normal, 500ms) ease-in-out,
+            font-weight var(--tr-time-normal, 500ms) ease-in-out,
+            opacity var(--tr-time-normal, 500ms) ease-in-out,
+            outline-color var(--tr-time-normal, 500ms) ease-in-out,
+            text-decoration-color var(--tr-time-normal, 500ms) ease-in-out,
+            visibility var(--tr-time-normal, 500ms) ease-in-out;
+    }
+    :where(.js)
+        [data-toggle-container="open"]
+        > [data-toggle-content]
+        > .container,
+    :where(.js)
+        [data-toggle-container="closing"]
+        > [data-toggle-content]
+        > .container {
+        transition-delay: 0ms, 0ms;
+    }
+}
+[data-motion="reduce"]:where(.js) [data-toggle-content] {
+    transition:
+        border-color 500ms ease-in-out 0ms,
+        grid-template-rows 0ms ease-in-out 1200ms,
+        background-color 500ms ease-in-out,
+        border-color 500ms ease-in-out,
+        color 500ms ease-in-out,
+        font-weight 500ms ease-in-out,
+        opacity 500ms ease-in-out,
+        outline-color 500ms ease-in-out,
+        text-decoration-color 500ms ease-in-out,
+        visibility 500ms ease-in-out;
+    transition:
+        border-color var(--tr-time-normal, 500ms) ease-in-out 0ms,
+        grid-template-rows 0ms ease-in-out var(--tr-time-toggle-closing, 1200ms),
+        background-color var(--tr-time-normal, 500ms) ease-in-out,
+        border-color var(--tr-time-normal, 500ms) ease-in-out,
+        color var(--tr-time-normal, 500ms) ease-in-out,
+        font-weight var(--tr-time-normal, 500ms) ease-in-out,
+        opacity var(--tr-time-normal, 500ms) ease-in-out,
+        outline-color var(--tr-time-normal, 500ms) ease-in-out,
+        text-decoration-color var(--tr-time-normal, 500ms) ease-in-out,
+        visibility var(--tr-time-normal, 500ms) ease-in-out;
+}
+[data-motion="reduce"]:where(.js) [data-toggle-content] > .container {
+    transition: opacity 500ms ease-in-out 100ms;
+    transition: opacity var(--tr-time-normal, 500ms) ease-in-out 100ms;
+}
+[data-motion="reduce"]:where(.js)
+    [data-toggle-container="open"]
+    [data-toggle-control]
+    .toggle-icon
+    > svg
+    #a,
+[data-motion="reduce"]:where(.js)
+    [data-toggle-container="open"]
+    [data-toggle-control]
+    .toggle-icon
+    > svg
+    #b,
+[data-motion="reduce"]:where(.js)
+    [data-toggle-container="closing"]
+    [data-toggle-control]
+    .toggle-icon
+    > svg
+    #a,
+[data-motion="reduce"]:where(.js)
+    [data-toggle-container="closing"]
+    [data-toggle-control]
+    .toggle-icon
+    > svg
+    #b {
+    transition: none;
+}
+[data-motion="reduce"]:where(.js)
+    [data-toggle-container="open"]
+    > [data-toggle-content],
+[data-motion="reduce"]:where(.js)
+    [data-toggle-container="closing"]
+    > [data-toggle-content] {
+    transition:
+        border-color 500ms ease-in-out 0ms,
+        background-color 500ms ease-in-out,
+        border-color 500ms ease-in-out,
+        color 500ms ease-in-out,
+        font-weight 500ms ease-in-out,
+        opacity 500ms ease-in-out,
+        outline-color 500ms ease-in-out,
+        text-decoration-color 500ms ease-in-out,
+        visibility 500ms ease-in-out;
+    transition:
+        border-color var(--tr-time-normal, 500ms) ease-in-out 0ms,
+        background-color var(--tr-time-normal, 500ms) ease-in-out,
+        border-color var(--tr-time-normal, 500ms) ease-in-out,
+        color var(--tr-time-normal, 500ms) ease-in-out,
+        font-weight var(--tr-time-normal, 500ms) ease-in-out,
+        opacity var(--tr-time-normal, 500ms) ease-in-out,
+        outline-color var(--tr-time-normal, 500ms) ease-in-out,
+        text-decoration-color var(--tr-time-normal, 500ms) ease-in-out,
+        visibility var(--tr-time-normal, 500ms) ease-in-out;
+}
+[data-motion="reduce"]:where(.js)
+    [data-toggle-container="open"]
+    > [data-toggle-content]
+    > .container,
+[data-motion="reduce"]:where(.js)
+    [data-toggle-container="closing"]
+    > [data-toggle-content]
+    > .container {
+    transition-delay: 0ms, 0ms;
+}
+
+.toggle-title:has(> h1, > .h1) {
+    color: hsl(282.15, 55.79%, 17.32%);
+    color: var(
+        --theme-heading-1,
+        var(--clr-purple-800, hsl(282.15, 55.79%, 17.32%))
+    );
+}
+.toggle-title:has(> h2, > .theme-mode-toggle .toggle-title > h3, > .h2) {
+    color: hsl(282.49, 61.17%, 23.26%);
+    color: var(
+        --theme-heading-2,
+        var(--clr-purple-750, hsl(282.49, 61.17%, 23.26%))
+    );
+}
+.toggle-title:has(> h3, > .h3) {
+    color: hsl(282.49, 61.17%, 23.26%);
+    color: var(
+        --theme-heading-3,
+        var(--clr-purple-750, hsl(282.49, 61.17%, 23.26%))
+    );
+}
+.toggle-title:has(> h4, > .h4) {
+    color: hsl(282.99, 65.99%, 29.2%);
+    color: var(
+        --theme-heading-4,
+        var(--clr-purple-700, hsl(282.99, 65.99%, 29.2%))
+    );
+}
+.toggle-title:has(> h5, > .h5) {
+    color: hsl(282.99, 65.99%, 29.2%);
+    color: var(
+        --theme-heading-5,
+        var(--clr-purple-700, hsl(282.99, 65.99%, 29.2%))
+    );
+}
+.toggle-title:has(
+    > h6,
+    > .font-family-swatch-list
+        .font-family-swatch
+        .font-family-swatch__weight-dt,
+    > .h6
+) {
+    color: hsl(282.99, 65.99%, 29.2%);
+    color: var(
+        --theme-heading-6,
+        var(--clr-purple-700, hsl(282.99, 65.99%, 29.2%))
+    );
+}
+.toggle-title:has(
+    > .font-family-swatch .font-family-swatch__details-list > dt,
+    > .h7
+) {
+    color: hsl(161.88, 71.59%, 16.32%);
+    color: var(
+        --theme-heading-7,
+        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
+    );
+}
+.toggle-title:has(> .h8) {
+    color: hsl(161.88, 71.59%, 16.32%);
+    color: var(
+        --theme-heading-8,
+        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
+    );
+}
+.toggle-title:has(> .shade-swatch__contrast__heading, > .h9) {
+    color: hsl(0, 0%, 24.13%);
+    color: var(--theme-heading-9, var(--clr-base-700, hsl(0, 0%, 24.13%)));
+}
+.toggle-title:has(> .shade-swatch__contrast__result-group__heading, > .h10) {
+    color: hsl(0, 0%, 24.13%);
+    color: var(--theme-heading-10, var(--clr-base-700, hsl(0, 0%, 24.13%)));
+}
+.toggle-title > h1,
+.toggle-title > .h1,
+.toggle-title > h2,
+.theme-mode-toggle .toggle-title > h3,
+.toggle-title > .h2,
+.toggle-title > h3,
+.toggle-title > .h3,
+.toggle-title > h4,
+.toggle-title > .h4,
+.toggle-title > h5,
+.toggle-title > .h5,
+.toggle-title > h6,
+.font-family-swatch-list
+    .font-family-swatch
+    .toggle-title
+    > .font-family-swatch__weight-dt,
+.toggle-title > .h6,
+.font-family-swatch .toggle-title.font-family-swatch__details-list > dt,
+.toggle-title > .h7,
+.toggle-title > .h8,
+.toggle-title > .shade-swatch__contrast__heading,
+.toggle-title > .h9,
+.toggle-title > .shade-swatch__contrast__result-group__heading,
+.toggle-title > .h10,
+.toggle-title > .page-title {
+    color: inherit;
+}
+[data-toggle-container="open"] .toggle-title {
+    color: hsl(161.88, 71.59%, 16.32%);
+    color: var(
+        --theme-link-hover,
+        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
+    );
+}
+[data-toggle-container="open"] .toggle-title + [data-toggle-content] {
+    border-color: hsl(0, 0%, 29.51%);
+    border-color: var(--theme-ui-grey, var(--clr-base-650, hsl(0, 0%, 29.51%)));
+    border-top-color: hsl(161.88, 71.59%, 16.32%);
+    border-top-color: var(
+        --theme-link-hover,
+        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
+    );
 }
 .no-js .toggle-title:focus,
 .no-js [data-toggle-container="open"] .toggle-title:focus,
@@ -15832,208 +16450,6 @@ input[type="reset"]:active,
 .js__no-where-selector [data-toggle-container="open"] .toggle-title:focus {
     color: hsl(282.99, 65.99%, 29.2%);
     color: var(--theme-link, var(--clr-purple-700, hsl(282.99, 65.99%, 29.2%)));
-}
-.no-js .toggle-title:focus > h1,
-.no-js .toggle-title:focus > .h1,
-.no-js .toggle-title:focus > h2,
-.no-js .theme-mode-toggle .toggle-title:focus > h3,
-.theme-mode-toggle .no-js .toggle-title:focus > h3,
-.no-js .toggle-title:focus > .h2,
-.no-js .toggle-title:focus > h3,
-.no-js .toggle-title:focus > .h3,
-.no-js .toggle-title:focus > h4,
-.no-js .toggle-title:focus > .h4,
-.no-js .toggle-title:focus > h5,
-.no-js .toggle-title:focus > .h5,
-.no-js .toggle-title:focus > h6,
-.no-js
-    .font-family-swatch-list
-    .font-family-swatch
-    .toggle-title:focus
-    > .font-family-swatch__weight-dt,
-.font-family-swatch-list
-    .font-family-swatch
-    .no-js
-    .toggle-title:focus
-    > .font-family-swatch__weight-dt,
-.no-js .toggle-title:focus > .h6,
-.no-js
-    .font-family-swatch
-    .toggle-title.font-family-swatch__details-list:focus
-    > dt,
-.font-family-swatch
-    .no-js
-    .toggle-title.font-family-swatch__details-list:focus
-    > dt,
-.no-js .toggle-title:focus > .h7,
-.no-js .toggle-title:focus > .h8,
-.no-js .toggle-title:focus > .shade-swatch__contrast__heading,
-.no-js .toggle-title:focus > .h9,
-.no-js .toggle-title:focus > .shade-swatch__contrast__result-group__heading,
-.no-js .toggle-title:focus > .h10,
-.no-js .toggle-title:focus > .page-title,
-.no-js [data-toggle-container="open"] .toggle-title:focus > h1,
-.no-js [data-toggle-container="open"] .toggle-title:focus > .h1,
-.no-js [data-toggle-container="open"] .toggle-title:focus > h2,
-.no-js
-    [data-toggle-container="open"]
-    .theme-mode-toggle
-    .toggle-title:focus
-    > h3,
-.theme-mode-toggle
-    .no-js
-    [data-toggle-container="open"]
-    .toggle-title:focus
-    > h3,
-.no-js [data-toggle-container="open"] .toggle-title:focus > .h2,
-.no-js [data-toggle-container="open"] .toggle-title:focus > h3,
-.no-js [data-toggle-container="open"] .toggle-title:focus > .h3,
-.no-js [data-toggle-container="open"] .toggle-title:focus > h4,
-.no-js [data-toggle-container="open"] .toggle-title:focus > .h4,
-.no-js [data-toggle-container="open"] .toggle-title:focus > h5,
-.no-js [data-toggle-container="open"] .toggle-title:focus > .h5,
-.no-js [data-toggle-container="open"] .toggle-title:focus > h6,
-.no-js
-    [data-toggle-container="open"]
-    .font-family-swatch-list
-    .font-family-swatch
-    .toggle-title:focus
-    > .font-family-swatch__weight-dt,
-.font-family-swatch-list
-    .font-family-swatch
-    .no-js
-    [data-toggle-container="open"]
-    .toggle-title:focus
-    > .font-family-swatch__weight-dt,
-.no-js [data-toggle-container="open"] .toggle-title:focus > .h6,
-.no-js
-    [data-toggle-container="open"]
-    .font-family-swatch
-    .toggle-title.font-family-swatch__details-list:focus
-    > dt,
-.font-family-swatch
-    .no-js
-    [data-toggle-container="open"]
-    .toggle-title.font-family-swatch__details-list:focus
-    > dt,
-.no-js [data-toggle-container="open"] .toggle-title:focus > .h7,
-.no-js [data-toggle-container="open"] .toggle-title:focus > .h8,
-.no-js
-    [data-toggle-container="open"]
-    .toggle-title:focus
-    > .shade-swatch__contrast__heading,
-.no-js [data-toggle-container="open"] .toggle-title:focus > .h9,
-.no-js
-    [data-toggle-container="open"]
-    .toggle-title:focus
-    > .shade-swatch__contrast__result-group__heading,
-.no-js [data-toggle-container="open"] .toggle-title:focus > .h10,
-.no-js [data-toggle-container="open"] .toggle-title:focus > .page-title,
-.js__no-where-selector .toggle-title:focus > h1,
-.js__no-where-selector .toggle-title:focus > .h1,
-.js__no-where-selector .toggle-title:focus > h2,
-.js__no-where-selector .theme-mode-toggle .toggle-title:focus > h3,
-.theme-mode-toggle .js__no-where-selector .toggle-title:focus > h3,
-.js__no-where-selector .toggle-title:focus > .h2,
-.js__no-where-selector .toggle-title:focus > h3,
-.js__no-where-selector .toggle-title:focus > .h3,
-.js__no-where-selector .toggle-title:focus > h4,
-.js__no-where-selector .toggle-title:focus > .h4,
-.js__no-where-selector .toggle-title:focus > h5,
-.js__no-where-selector .toggle-title:focus > .h5,
-.js__no-where-selector .toggle-title:focus > h6,
-.js__no-where-selector
-    .font-family-swatch-list
-    .font-family-swatch
-    .toggle-title:focus
-    > .font-family-swatch__weight-dt,
-.font-family-swatch-list
-    .font-family-swatch
-    .js__no-where-selector
-    .toggle-title:focus
-    > .font-family-swatch__weight-dt,
-.js__no-where-selector .toggle-title:focus > .h6,
-.js__no-where-selector
-    .font-family-swatch
-    .toggle-title.font-family-swatch__details-list:focus
-    > dt,
-.font-family-swatch
-    .js__no-where-selector
-    .toggle-title.font-family-swatch__details-list:focus
-    > dt,
-.js__no-where-selector .toggle-title:focus > .h7,
-.js__no-where-selector .toggle-title:focus > .h8,
-.js__no-where-selector .toggle-title:focus > .shade-swatch__contrast__heading,
-.js__no-where-selector .toggle-title:focus > .h9,
-.js__no-where-selector
-    .toggle-title:focus
-    > .shade-swatch__contrast__result-group__heading,
-.js__no-where-selector .toggle-title:focus > .h10,
-.js__no-where-selector .toggle-title:focus > .page-title,
-.js__no-where-selector [data-toggle-container="open"] .toggle-title:focus > h1,
-.js__no-where-selector [data-toggle-container="open"] .toggle-title:focus > .h1,
-.js__no-where-selector [data-toggle-container="open"] .toggle-title:focus > h2,
-.js__no-where-selector
-    [data-toggle-container="open"]
-    .theme-mode-toggle
-    .toggle-title:focus
-    > h3,
-.theme-mode-toggle
-    .js__no-where-selector
-    [data-toggle-container="open"]
-    .toggle-title:focus
-    > h3,
-.js__no-where-selector [data-toggle-container="open"] .toggle-title:focus > .h2,
-.js__no-where-selector [data-toggle-container="open"] .toggle-title:focus > h3,
-.js__no-where-selector [data-toggle-container="open"] .toggle-title:focus > .h3,
-.js__no-where-selector [data-toggle-container="open"] .toggle-title:focus > h4,
-.js__no-where-selector [data-toggle-container="open"] .toggle-title:focus > .h4,
-.js__no-where-selector [data-toggle-container="open"] .toggle-title:focus > h5,
-.js__no-where-selector [data-toggle-container="open"] .toggle-title:focus > .h5,
-.js__no-where-selector [data-toggle-container="open"] .toggle-title:focus > h6,
-.js__no-where-selector
-    [data-toggle-container="open"]
-    .font-family-swatch-list
-    .font-family-swatch
-    .toggle-title:focus
-    > .font-family-swatch__weight-dt,
-.font-family-swatch-list
-    .font-family-swatch
-    .js__no-where-selector
-    [data-toggle-container="open"]
-    .toggle-title:focus
-    > .font-family-swatch__weight-dt,
-.js__no-where-selector [data-toggle-container="open"] .toggle-title:focus > .h6,
-.js__no-where-selector
-    [data-toggle-container="open"]
-    .font-family-swatch
-    .toggle-title.font-family-swatch__details-list:focus
-    > dt,
-.font-family-swatch
-    .js__no-where-selector
-    [data-toggle-container="open"]
-    .toggle-title.font-family-swatch__details-list:focus
-    > dt,
-.js__no-where-selector [data-toggle-container="open"] .toggle-title:focus > .h7,
-.js__no-where-selector [data-toggle-container="open"] .toggle-title:focus > .h8,
-.js__no-where-selector
-    [data-toggle-container="open"]
-    .toggle-title:focus
-    > .shade-swatch__contrast__heading,
-.js__no-where-selector [data-toggle-container="open"] .toggle-title:focus > .h9,
-.js__no-where-selector
-    [data-toggle-container="open"]
-    .toggle-title:focus
-    > .shade-swatch__contrast__result-group__heading,
-.js__no-where-selector
-    [data-toggle-container="open"]
-    .toggle-title:focus
-    > .h10,
-.js__no-where-selector
-    [data-toggle-container="open"]
-    .toggle-title:focus
-    > .page-title {
-    color: inherit;
 }
 .no-js .toggle-title:focus + [data-toggle-content],
 .no-js
@@ -16059,49 +16475,6 @@ input[type="reset"]:active,
     color: hsl(282.99, 65.99%, 29.2%);
     color: var(--theme-link, var(--clr-purple-700, hsl(282.99, 65.99%, 29.2%)));
 }
-:where(.js__no-focusVisible) .toggle-title:focus > h1,
-:where(.js__no-focusVisible) .toggle-title:focus > .h1,
-:where(.js__no-focusVisible) .toggle-title:focus > h2,
-:where(.js__no-focusVisible) .toggle-title:focus > .h2,
-:where(.js__no-focusVisible) .toggle-title:focus > h3,
-:where(.js__no-focusVisible) .toggle-title:focus > .h3,
-:where(.js__no-focusVisible) .toggle-title:focus > h4,
-:where(.js__no-focusVisible) .toggle-title:focus > .h4,
-:where(.js__no-focusVisible) .toggle-title:focus > h5,
-:where(.js__no-focusVisible) .toggle-title:focus > .h5,
-:where(.js__no-focusVisible) .toggle-title:focus > h6,
-:where(.js__no-focusVisible)
-    .font-family-swatch-list
-    .font-family-swatch
-    .toggle-title:focus
-    > .font-family-swatch__weight-dt,
-.font-family-swatch-list
-    .font-family-swatch
-    :where(.js__no-focusVisible)
-    .toggle-title:focus
-    > .font-family-swatch__weight-dt,
-:where(.js__no-focusVisible) .toggle-title:focus > .h6,
-:where(.js__no-focusVisible)
-    .font-family-swatch
-    .toggle-title.font-family-swatch__details-list:focus
-    > dt,
-.font-family-swatch
-    :where(.js__no-focusVisible)
-    .toggle-title.font-family-swatch__details-list:focus
-    > dt,
-:where(.js__no-focusVisible) .toggle-title:focus > .h7,
-:where(.js__no-focusVisible) .toggle-title:focus > .h8,
-:where(.js__no-focusVisible)
-    .toggle-title:focus
-    > .shade-swatch__contrast__heading,
-:where(.js__no-focusVisible) .toggle-title:focus > .h9,
-:where(.js__no-focusVisible)
-    .toggle-title:focus
-    > .shade-swatch__contrast__result-group__heading,
-:where(.js__no-focusVisible) .toggle-title:focus > .h10,
-:where(.js__no-focusVisible) .toggle-title:focus > .page-title {
-    color: inherit;
-}
 :where(.js__no-focusVisible) .toggle-title:focus + [data-toggle-content],
 :where(.js__no-focusVisible)
     [data-toggle-container="open"]
@@ -16119,32 +16492,6 @@ input[type="reset"]:active,
     color: hsl(282.99, 65.99%, 29.2%);
     color: var(--theme-link, var(--clr-purple-700, hsl(282.99, 65.99%, 29.2%)));
 }
-.toggle-title:hover > h1,
-.toggle-title:hover > .h1,
-.toggle-title:hover > h2,
-.toggle-title:hover > .h2,
-.toggle-title:hover > h3,
-.toggle-title:hover > .h3,
-.toggle-title:hover > h4,
-.toggle-title:hover > .h4,
-.toggle-title:hover > h5,
-.toggle-title:hover > .h5,
-.toggle-title:hover > h6,
-.font-family-swatch-list
-    .font-family-swatch
-    .toggle-title:hover
-    > .font-family-swatch__weight-dt,
-.toggle-title:hover > .h6,
-.font-family-swatch .toggle-title.font-family-swatch__details-list:hover > dt,
-.toggle-title:hover > .h7,
-.toggle-title:hover > .h8,
-.toggle-title:hover > .shade-swatch__contrast__heading,
-.toggle-title:hover > .h9,
-.toggle-title:hover > .shade-swatch__contrast__result-group__heading,
-.toggle-title:hover > .h10,
-.toggle-title:hover > .page-title {
-    color: inherit;
-}
 .toggle-title:hover + [data-toggle-content],
 [data-toggle-container="open"] .toggle-title:hover + [data-toggle-content] {
     border-color: hsl(282.99, 65.99%, 29.2%);
@@ -16159,34 +16506,6 @@ input[type="reset"]:active,
     color: hsl(282.99, 65.99%, 29.2%);
     color: var(--theme-link, var(--clr-purple-700, hsl(282.99, 65.99%, 29.2%)));
 }
-.toggle-title:focus-visible > h1,
-.toggle-title:focus-visible > .h1,
-.toggle-title:focus-visible > h2,
-.toggle-title:focus-visible > .h2,
-.toggle-title:focus-visible > h3,
-.toggle-title:focus-visible > .h3,
-.toggle-title:focus-visible > h4,
-.toggle-title:focus-visible > .h4,
-.toggle-title:focus-visible > h5,
-.toggle-title:focus-visible > .h5,
-.toggle-title:focus-visible > h6,
-.font-family-swatch-list
-    .font-family-swatch
-    .toggle-title:focus-visible
-    > .font-family-swatch__weight-dt,
-.toggle-title:focus-visible > .h6,
-.font-family-swatch
-    .toggle-title.font-family-swatch__details-list:focus-visible
-    > dt,
-.toggle-title:focus-visible > .h7,
-.toggle-title:focus-visible > .h8,
-.toggle-title:focus-visible > .shade-swatch__contrast__heading,
-.toggle-title:focus-visible > .h9,
-.toggle-title:focus-visible > .shade-swatch__contrast__result-group__heading,
-.toggle-title:focus-visible > .h10,
-.toggle-title:focus-visible > .page-title {
-    color: inherit;
-}
 .toggle-title:focus-visible + [data-toggle-content],
 [data-toggle-container="open"]
     .toggle-title:focus-visible
@@ -16198,103 +16517,46 @@ input[type="reset"]:active,
     );
 }
 
-:where(.js) [data-toggle-container="open"] .toggle-title {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-:where(.js) [data-toggle-container="open"] .toggle-title > h1,
-:where(.js) [data-toggle-container="open"] .toggle-title > .h1,
-:where(.js) [data-toggle-container="open"] .toggle-title > h2,
-:where(.js) [data-toggle-container="open"] .toggle-title > .h2,
-:where(.js) [data-toggle-container="open"] .toggle-title > h3,
-:where(.js) [data-toggle-container="open"] .toggle-title > .h3,
-:where(.js) [data-toggle-container="open"] .toggle-title > h4,
-:where(.js) [data-toggle-container="open"] .toggle-title > .h4,
-:where(.js) [data-toggle-container="open"] .toggle-title > h5,
-:where(.js) [data-toggle-container="open"] .toggle-title > .h5,
-:where(.js) [data-toggle-container="open"] .toggle-title > h6,
-:where(.js)
-    [data-toggle-container="open"]
+[data-toggle-container="open"] .toggle-title > h1,
+[data-toggle-container="open"] .toggle-title > .h1,
+[data-toggle-container="open"] .toggle-title > h2,
+[data-toggle-container="open"] .toggle-title > .h2,
+[data-toggle-container="open"] .toggle-title > h3,
+[data-toggle-container="open"] .toggle-title > .h3,
+[data-toggle-container="open"] .toggle-title > h4,
+[data-toggle-container="open"] .toggle-title > .h4,
+[data-toggle-container="open"] .toggle-title > h5,
+[data-toggle-container="open"] .toggle-title > .h5,
+[data-toggle-container="open"] .toggle-title > h6,
+[data-toggle-container="open"]
     .font-family-swatch-list
     .font-family-swatch
     .toggle-title
     > .font-family-swatch__weight-dt,
 .font-family-swatch-list
     .font-family-swatch
-    :where(.js)
     [data-toggle-container="open"]
     .toggle-title
     > .font-family-swatch__weight-dt,
-:where(.js) [data-toggle-container="open"] .toggle-title > .h6,
-:where(.js)
-    [data-toggle-container="open"]
+[data-toggle-container="open"] .toggle-title > .h6,
+[data-toggle-container="open"]
     .font-family-swatch
     .toggle-title.font-family-swatch__details-list
     > dt,
 .font-family-swatch
-    :where(.js)
     [data-toggle-container="open"]
     .toggle-title.font-family-swatch__details-list
     > dt,
-:where(.js) [data-toggle-container="open"] .toggle-title > .h7,
-:where(.js) [data-toggle-container="open"] .toggle-title > .h8,
-:where(.js)
-    [data-toggle-container="open"]
-    .toggle-title
-    > .shade-swatch__contrast__heading,
-:where(.js) [data-toggle-container="open"] .toggle-title > .h9,
-:where(.js)
-    [data-toggle-container="open"]
+[data-toggle-container="open"] .toggle-title > .h7,
+[data-toggle-container="open"] .toggle-title > .h8,
+[data-toggle-container="open"] .toggle-title > .shade-swatch__contrast__heading,
+[data-toggle-container="open"] .toggle-title > .h9,
+[data-toggle-container="open"]
     .toggle-title
     > .shade-swatch__contrast__result-group__heading,
-:where(.js) [data-toggle-container="open"] .toggle-title > .h10,
-:where(.js) [data-toggle-container="open"] .toggle-title > .page-title {
+[data-toggle-container="open"] .toggle-title > .h10,
+[data-toggle-container="open"] .toggle-title > .page-title {
     color: inherit;
-}
-:where(.js)
-    [data-toggle-container="open"]
-    .toggle-title
-    + [data-toggle-content] {
-    border-color: hsl(0, 0%, 29.51%);
-    border-color: var(--theme-ui-grey, var(--clr-base-650, hsl(0, 0%, 29.51%)));
-    border-top-color: hsl(161.88, 71.59%, 16.32%);
-    border-top-color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-:where(.js) [data-toggle-container="open"] [data-toggle-control] {
-    color: currentColor;
-}
-
-.no-js [data-toggle-control]:focus,
-.no-js [data-toggle-container="open"] [data-toggle-control]:focus,
-.js__no-where-selector [data-toggle-control]:focus,
-.js__no-where-selector
-    [data-toggle-container="open"]
-    [data-toggle-control]:focus {
-    color: currentColor;
-}
-
-:where(.js__no-focusVisible) [data-toggle-control]:focus,
-:where(.js__no-focusVisible)
-    [data-toggle-container="open"]
-    [data-toggle-control]:focus {
-    color: currentColor;
-}
-
-[data-toggle-control]:hover,
-[data-toggle-container="open"] [data-toggle-control]:hover {
-    color: currentColor;
-}
-
-[data-toggle-control]:focus-visible,
-[data-toggle-container="open"] [data-toggle-control]:focus-visible {
-    color: currentColor;
 }
 
 /* # ASTRO COMPONENT - TOGGLE NAV MENU
@@ -16409,6 +16671,21 @@ body > nav[data-toggle-container] {
     width: 100%;
 }
 
+:where(.js)
+    body
+    > nav[data-toggle-container="open"]
+    > [data-toggle-content]
+    > .container,
+:where(.js)
+    body
+    > nav[data-toggle-container="closing"]
+    > [data-toggle-content]
+    > .container {
+    border: 0.125rem dotted currentColor;
+    border: var(--border-width-200, 0.125rem) dotted currentColor;
+    border-top: none;
+}
+
 :where(.js) body > nav[data-toggle-container="open"] > [data-toggle-content] {
     margin-bottom: 1.25rem;
     margin-bottom: var(--mrg-firm-400, 1.25rem);
@@ -16422,9 +16699,6 @@ body > nav[data-toggle-container] {
     padding-bottom: 0.8125rem;
     padding-top: var(--mrg-soft-400, 0.8125rem);
     padding-bottom: var(--mrg-soft-400, 0.8125rem);
-    border: 0.125rem dotted currentColor;
-    border: var(--border-width-200, 0.125rem) dotted currentColor;
-    border-top: none;
 }
 
 /* # ASTRO SUPPORT - STICKY TOGGLE NAV
@@ -16584,6 +16858,7 @@ body > nav[data-toggle-container] {
 
 .website-settings__backdrop {
     display: none;
+    opacity: 0;
 }
 
 /* With Javascript ==================================== */
@@ -16829,10 +17104,8 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     cursor: not-allowed;
 }
 :where(.js) .website-settings-menu [data-toggle-control] {
-    justify-self: end;
-}
-:where(.js) .website-settings-menu [data-toggle-control] .settings-icon {
     --icon-size: 1.75rem;
+    justify-self: end;
 }
 :where(.js)
     .website-settings-menu
@@ -16852,7 +17125,6 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     backdrop-filter: blur(1rem);
     background: none;
     border: none;
-    opacity: 1;
     z-index: -1;
     cursor: pointer;
 }
@@ -16896,7 +17168,6 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     border: none;
     background: none;
     color: inherit;
-    opacity: 1;
 }
 
 :where(.js__no-focusVisible)
@@ -16906,7 +17177,6 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     border: none;
     background: none;
     color: inherit;
-    opacity: 1;
 }
 
 :where(.js)
@@ -16918,7 +17188,6 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     border: none;
     background: none;
     color: inherit;
-    opacity: 1;
 }
 
 :where(.js)
@@ -16927,7 +17196,6 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     border: none;
     background: none;
     color: inherit;
-    opacity: 1;
 }
 
 :where(.js)
@@ -16936,7 +17204,6 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     border: none;
     background: none;
     color: inherit;
-    opacity: 1;
 }
 
 :where(.js) .website-settings-menu [data-toggle-content] {
@@ -16948,16 +17215,33 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
 }
 :where(.js)
     .website-settings-menu[data-toggle-container="open"]
+    .website-settings__backdrop,
+:where(.js)
+    .website-settings-menu[data-toggle-container="closing"]
     .website-settings__backdrop {
     display: block;
     display: var(--display, block);
 }
 :where(.js)
     .website-settings-menu[data-toggle-container="open"]
-    [data-toggle-content] {
+    .website-settings__backdrop {
+    opacity: 1;
+}
+:where(.js)
+    .website-settings-menu[data-toggle-container="open"]
+    > [data-toggle-content] {
     max-height: 80svh;
     max-height: calc(90svh - 2rem - max(1.625rem, min(5svw, 5.8125rem)) * 2);
     max-height: calc(90svh - 2rem - var(--gap-block-layout, 5vw) * 2);
+}
+:where(.js)
+    .website-settings-menu[data-toggle-container="open"]
+    > [data-toggle-content]
+    > .container {
+    padding-top: 0.8125rem;
+    padding-bottom: 0.8125rem;
+    padding-top: var(--mrg-soft-400, 0.8125rem);
+    padding-bottom: var(--mrg-firm-300, 0.8125rem);
 }
 
 p.aside {
@@ -16975,6 +17259,15 @@ p.aside em em em {
     font-style: italic;
 }
 
+@media (prefers-reduced-motion: reduce) {
+    .website-settings-menu {
+        --toggle-closing-time: var(--tr-time-normal, 500ms);
+    }
+}
+[data-motion="reduce"] .website-settings-menu {
+    --toggle-closing-time: var(--tr-time-normal, 500ms);
+}
+
 .website-settings__content fieldset > legend {
     color: hsl(282.99, 65.99%, 29.2%);
     color: var(
@@ -16982,6 +17275,11 @@ p.aside em em em {
         var(--clr-purple-700, hsl(282.99, 65.99%, 29.2%))
     );
 }
+
+.website-settings__backdrop {
+    transition: var(--transition);
+}
+
 /* With Javascript ==================================== */
 .no-js .website-settings-menu [data-toggle-control]:focus,
 .no-js
@@ -17036,10 +17334,19 @@ p.aside em em em {
     --icon-color: currentColor;
 }
 :where(.js)
-    .website-settings-menu
-    [data-toggle-control].website-settings__backdrop {
-    padding: 0.1875rem 0.1875rem;
-    padding: var(--mrg-soft-100, 0.1875rem) var(--mrg-soft-100, 0.1875rem);
+    .website-settings-menu[data-toggle-container="open"]
+    .website-settings__backdrop {
+    opacity: 0;
+    animation: fade-in 500ms ease-in-out 10ms forwards;
+    animation: fade-in var(--tr-time-normal, 500ms) ease-in-out 10ms forwards;
 }
+:where(.js)
+    .website-settings-menu[data-toggle-container="closing"]
+    .website-settings__backdrop {
+    opacity: 0;
+    animation: fade-out 500ms ease-in-out 0ms forwards;
+    animation: fade-out var(--tr-time-normal, 500ms) ease-in-out 0ms forwards;
+}
+
 /* ## ASTRO - Settings Menu - Font Overrides ==================================== */
 /*! END of @maddimathon/design-system-utilities/template/docs */

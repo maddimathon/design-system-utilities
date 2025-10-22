@@ -96,6 +96,7 @@
 
     & {
         --icon-pseudo-element-margin-block-start: 0.09375em;
+        transition: var(--transition);
         @include snippet-button-colours($variation);
 
         @if $includeDisabled {
@@ -174,6 +175,7 @@
             $color_active: $color_active,
             $color_hover: $color_hover,
 
+            $borderWidth: $borderWidth,
             $focusOffset: $focusOffset,
             $opacity_hover: 1,
 
@@ -206,7 +208,7 @@
     }
 
     & {
-        border-width: #{var-border-width($borderWidth)};
+        transition: var(--transition);
     }
 }
 

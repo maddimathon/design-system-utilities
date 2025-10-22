@@ -373,7 +373,7 @@ export class Tokens extends AbstractTokens {
                     fallbacks: [
                         'Courier New',
                     ],
-                    sizeAdjust: '97%',
+                    sizeAdjust: '96.5%',
                     weights: objectGenerator(Font.allWeights.filter(w => w !== '800' && w !== '900'), (weight) => objectGenerator(["normal", "italic"], (style) => familyGenerator.fileGenerator('monospace', 'IBM Plex Mono', weight === '700' ? '700 900' : weight, style, {
                         pathWeight: weight,
                     }))),

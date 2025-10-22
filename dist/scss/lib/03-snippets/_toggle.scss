@@ -11,6 +11,8 @@
 
 @use 'pkg:@maddimathon/utility-astro/03-snippets' as utils;
 
+$_closing_time: var-tr-time(toggle-closing);
+
 $_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
 
 $_defaultHeadingSelectors_bigOnly: ('%title');
@@ -32,52 +34,172 @@ $_defaultHeadingSelectors_greaterThan6: ();
     }
 }
 
+@mixin _motion-props($bool) {
+    [data-toggle-content] {
+        $_transitionList: (
+            'border-color #{var-tr-time(normal)} ease-in-out 0ms'
+        );
+
+        @if $bool {
+            $_transitionList: list.join(
+                $_transitionList,
+                (
+                    'grid-template-rows #{$_closing_time} ease-in-out 0ms',
+                    'border-block-end-width #{$_closing_time} ease-in-out 0ms'
+                ),
+                $separator: comma
+            );
+        } @else {
+            $_transitionList: list.join(
+                $_transitionList,
+                ('grid-template-rows 0ms ease-in-out #{$_closing_time}'),
+                $separator: comma
+            );
+        }
+
+        transition:
+            #{$_transitionList},
+            #{transition-properties-value(false)};
+
+        > .container {
+            $_transitionList: (
+                'opacity #{if($bool, $_closing_time, var-tr-time(normal))} ease-in-out 100ms'
+            );
+
+            @if $bool {
+                $_transitionList: list.join(
+                    $_transitionList,
+                    ('padding #{$_closing_time} ease-in-out 0ms'),
+                    $separator: comma
+                );
+            }
+
+            transition: #{$_transitionList};
+        }
+    }
+
+    [data-toggle-container='open'],
+    [data-toggle-container='closing'] {
+        [data-toggle-control] {
+            .toggle-icon {
+                > svg #a,
+                > svg #b {
+                    @if $bool {
+                        transition: transform #{$_closing_time} ease-in-out 0ms;
+                    } @else {
+                        transition: none;
+                    }
+                }
+            }
+        }
+
+        > [data-toggle-content] {
+            $_transitionList: (
+                'border-color #{if($bool, $_closing_time, var-tr-time(normal))} ease-in-out 0ms'
+            );
+
+            @if $bool {
+                $_transitionList: list.join(
+                    $_transitionList,
+                    (
+                        'grid-template-rows #{$_closing_time} ease-in-out 0ms',
+                        'border-block-end-width #{$_closing_time} ease-in-out 0ms'
+                    ),
+                    $separator: comma
+                );
+            }
+
+            transition:
+                #{$_transitionList},
+                #{transition-properties-value(false)};
+
+            > .container {
+                @if $bool {
+                    transition-delay: 0ms;
+                } @else {
+                    transition-delay: 0ms, 0ms;
+                }
+            }
+        }
+    }
+}
+
 ///
 /// Supports the Toggle astro component.
+///
+/// @since 0.1.0-alpha.draft
 ///
 @mixin snippet-support-astro-toggle(
     $headingSelectors: $_defaultHeadingSelectors,
     $headingSelectors_bigOnly: $_defaultHeadingSelectors_bigOnly
 ) {
-    $_has_directHeadingSelectors: ();
-
-    @each $_hdg in $headingSelectors {
-        $_has_directHeadingSelectors: list.append(
-            $_has_directHeadingSelectors,
-            "&:has( #{selector.nest('>', ($_hdg))} )",
-            $separator: comma
-        );
-    }
-
     @include utils.snippet-support-astro-toggle(
         $headingSelectors: $headingSelectors,
         $headingSelectors_bigOnly: $headingSelectors_bigOnly
     );
 
     [data-toggle-container] {
+        --toggle-closing-time: #{$_closing_time};
     }
 
     @include js {
-        [data-toggle-container] {
+        .toggle-title,
+        [data-toggle-content] {
+            transition: #{transition-properties-value(false)};
+
+            [data-toggle-control] {
+                // transition: none;
+                color: inherit;
+            }
+        }
+
+        [data-toggle-container='open'],
+        [data-toggle-container='closing'] {
             > [data-toggle-content] {
-                border-width: #{var-border-width('300')};
-                border-block-start-width: #{var-border-width('200')};
+                border-inline-width: #{var-border-width('300')};
+            }
+        }
+
+        [data-toggle-container='open'] {
+            > [data-toggle-content] {
+                border-block-end-width: #{var-border-width('300')};
                 border-color: #{var-theme(ui-grey)};
             }
+        }
+
+        @include motion($nestParent: false, $unifyParent: true) {
+            @include _motion-props(true);
+        }
+
+        @include no-motion($nestParent: false, $unifyParent: true) {
+            @include _motion-props(false);
         }
     }
 
     .toggle-title {
-        --icon-color: currentColor;
+        @each $level in token-all-heading-levels() {
+            &:has(> %h#{$level}) {
+                color: #{var-theme(heading-#{$level})};
+            }
+        }
+
+        #{selector.nest( '>', ( $headingSelectors ) )} {
+            color: inherit;
+        }
+
+        [data-toggle-container='open'] & {
+            color: #{var-theme(link-hover)};
+
+            + [data-toggle-content] {
+                border-color: #{var-theme(ui-grey)};
+                border-block-start-color: #{var-theme(link-hover)};
+            }
+        }
 
         &,
         [data-toggle-container='open'] & {
             @include hover-focus-visible {
                 color: #{var-theme(link)};
-
-                #{selector.nest('>', ($headingSelectors))} {
-                    color: inherit;
-                }
 
                 + [data-toggle-content] {
                     border-color: #{var-theme(link)};
@@ -86,41 +208,9 @@ $_defaultHeadingSelectors_greaterThan6: ();
         }
 
         [data-toggle-container='open'] & {
-            @include js {
-                color: #{var-theme(link-hover)};
-
-                #{selector.nest('>', ($headingSelectors))} {
-                    color: inherit;
-                }
-
-                + [data-toggle-content] {
-                    border-color: #{var-theme(ui-grey)};
-                    border-block-start-color: #{var-theme(link-hover)};
-                }
+            #{selector.nest( '>', ( $headingSelectors ) )} {
+                color: inherit;
             }
         }
-    }
-
-    [data-toggle-control] {
-        [data-toggle-container='open'] & {
-            @include js {
-                color: currentColor;
-            }
-        }
-
-        &,
-        [data-toggle-container='open'] & {
-            @include hover-focus-visible {
-                color: currentColor;
-            }
-        }
-    }
-
-    .toggle-icon {
-        > svg {
-        }
-    }
-
-    .toggle-control-inner {
     }
 }

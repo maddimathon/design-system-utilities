@@ -22,11 +22,64 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
 export class Tokens_CSS_Transition extends AbstractTokens<Tokens_CSS_Transition.Data> {
 
     public static get default(): Tokens_CSS_Transition.Data {
+
+        const always: Tokens_CSS_Transition.AllowedProperties[] = [
+            'background-color',
+            'border-color',
+            // 'box-shadow',
+            'color',
+            'font-weight',
+            'opacity',
+            'outline-color',
+            'text-decoration-color',
+            // 'text-shadow',
+            'visibility',
+        ];
+
         return {
+
+            properties: {
+
+                always,
+
+                motion: [
+                    ...always,
+                    'aspect-ratio',
+                    // 'border',
+                    'bottom',
+                    // 'font',
+                    'font-weight',
+                    'height',
+                    'left',
+                    // 'letter-spacing',
+                    // 'line-height',
+                    'margin',
+                    // 'max-height',
+                    // 'max-width',
+                    // 'min-height',
+                    // 'min-width',
+                    // 'outline',
+                    'padding',
+                    'right',
+                    // 'rotate',
+                    // 'scale',
+                    // 'text-indent',
+                    'top',
+                    'transform',
+                    // 'transform-origin',
+                    // 'translate',
+                    // 'vertical-align',
+                    'width',
+                    // 'word-spacing',
+                    // 'z-index',
+                ],
+            },
+
             time: {
                 fast: '250ms',
                 normal: '500ms',
                 slow: '750ms',
+                'toggle-closing': '1200ms',
             },
         };
     }
@@ -51,6 +104,7 @@ export class Tokens_CSS_Transition extends AbstractTokens<Tokens_CSS_Transition.
     } {
 
         return {
+            properties: this.data.properties,
             time: this.data.time,
         };
     }
@@ -65,15 +119,63 @@ export namespace Tokens_CSS_Transition {
 
     type TransitionTime = `${ number }ms` | `${ number }s`;
 
+    export type AllowedProperties =
+        | 'aspect-ratio'
+        | 'background-color'
+        | 'border-color'
+        | 'border'
+        | 'bottom'
+        | 'box-shadow'
+        | 'color'
+        | 'font-weight'
+        | 'font-weight'
+        | 'font'
+        | 'height'
+        | 'left'
+        | 'letter-spacing'
+        | 'line-height'
+        | 'margin'
+        | 'max-height'
+        | 'max-width'
+        | 'min-height'
+        | 'min-width'
+        | 'opacity'
+        | 'outline-color'
+        | 'outline'
+        | 'padding'
+        | 'right'
+        | 'rotate'
+        | 'scale'
+        | 'text-decoration-color'
+        | 'text-indent'
+        | 'text-shadow'
+        | 'top'
+        | 'transform-origin'
+        | 'transform'
+        | 'translate'
+        | 'vertical-align'
+        | 'visibility'
+        | 'width'
+        | 'word-spacing'
+        | 'z-index';
+
     /**
      * @since ___PKG_VERSION___
      */
     export type Data = {
 
+        properties: {
+            always: AllowedProperties[];
+            motion: AllowedProperties[];
+        },
+
         time: {
             fast: TransitionTime;
             normal: TransitionTime;
             slow: TransitionTime;
+
+            'toggle-closing': TransitionTime;
+
             [ key: string ]: TransitionTime;
         };
     };

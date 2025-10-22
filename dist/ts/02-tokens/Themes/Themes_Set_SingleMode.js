@@ -64,7 +64,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 levels = Tokens_Themes_Set_SingleMode.Build.completeLevels(mergeArgs(defaultLevels, input.levels, true));
                 overrides.selection = {
                     bg: clrOpt(variations.universal.primary, '400'),
-                    text: clrOpt(variations.base, '900'),
+                    text: clrOpt(variations.base, '850'),
                     ...overrides.selection,
                 };
                 break;

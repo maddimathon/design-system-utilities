@@ -44,6 +44,8 @@
     --icon-color: #{var-theme(link-icon)};
     text-decoration-color: #{var-theme(link-ui)};
 
+    transition: var(--transition);
+
     /// STATES ///
 
     &:visited {
@@ -170,7 +172,13 @@
 %code,
 %kbd,
 %samp {
+    display: inline;
     margin-inline: #{var-stroke-relative('400')};
+
+    vertical-align: baseline;
+    align-self: baseline;
+
+    font-weight: 500;
     letter-spacing: -0.015em;
 }
 
@@ -182,6 +190,7 @@
     color: #{var-theme(text)};
 
     > code {
+        font-weight: 400;
         color: inherit;
     }
 }

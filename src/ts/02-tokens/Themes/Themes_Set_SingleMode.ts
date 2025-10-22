@@ -231,7 +231,7 @@ export class Tokens_Themes_Set_SingleMode<
 
                 overrides.selection = {
                     bg: clrOpt( variations.universal.primary, '400' as T_ExtraColourLevels | ColourLevels ),
-                    text: clrOpt( variations.base, '900' as T_ExtraColourLevels | ColourLevels ),
+                    text: clrOpt( variations.base, '850' as T_ExtraColourLevels | ColourLevels ),
                     ...overrides.selection,
                 };
                 break;

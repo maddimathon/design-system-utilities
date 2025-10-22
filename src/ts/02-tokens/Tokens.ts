@@ -959,7 +959,7 @@ export namespace Tokens {
                     fallbacks: [
                         'Courier New',
                     ],
-                    sizeAdjust: '97%',
+                    sizeAdjust: '96.5%',
 
                     weights: objectGenerator(
                         allWeights.filter( w => w !== '800' && w !== '900' ),

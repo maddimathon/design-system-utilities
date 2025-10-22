@@ -66,7 +66,8 @@
                             //
                             @each $prop, $value in $fileMap {
                                 //
-                                @if $prop == fallbacks {
+                                @if $prop == fallbacks or $prop == printFontFace
+                                {
                                 } @else if $prop == family {
                                     font-family: '#{$value}';
                                 } @else if $prop == style or $prop == weight {

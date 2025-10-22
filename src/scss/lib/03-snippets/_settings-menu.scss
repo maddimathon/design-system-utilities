@@ -14,6 +14,8 @@
 
 @use 'pkg:@maddimathon/utility-astro/03-snippets' as utils;
 
+$_closing_time: var-tr-time(toggle-closing);
+
 ///
 /// Supports the SettingsMenu astro component.
 ///
@@ -40,25 +42,15 @@
     }
 
     .website-settings-menu {
+        @include no-motion {
+            --toggle-closing-time: #{var-tr-time(normal)};
+        }
     }
 
     .website-settings__content {
-        > .container {
-        }
-
         fieldset {
             > legend {
                 color: #{var-theme(text-primary)};
-
-                &,
-                &:first-child {
-                }
-            }
-
-            > .container {
-                > label,
-                > input {
-                }
             }
         }
     }
@@ -67,14 +59,10 @@
     }
 
     .website-settings__backdrop {
+        transition: var(--transition);
     }
 
     /* With Javascript ==================================== */
-
-    #{config.$selector_body} {
-        &:has(.website-settings-menu[data-toggle-container='open']) {
-        }
-    }
 
     [data-toggle-control] {
         .website-settings-menu &,
@@ -93,48 +81,21 @@
         .website-settings-menu {
             [data-toggle-control] {
                 --icon-color: currentColor;
-
-                &.website-settings__backdrop {
-                    padding: #{var-mrg-soft('100')} #{var-mrg-soft('100')};
-
-                    &::before,
-                    &::after {
-                    }
-
-                    &::before {
-                    }
-
-                    &::after {
-                    }
-
-                    // @include hover-focus-visible-or-within(
-                    //     $addSelectors: (
-                    //         '&:active',
-                    //     )
-                    // ) {
-                    // }
-                }
-            }
-
-            [data-toggle-content] {
-                > .container {
-                }
-            }
-
-            &[data-toggle-container] {
-            }
-
-            &[data-toggle-container='open'],
-            &[data-toggle-container='closing'] {
             }
 
             &[data-toggle-container='open'] {
                 .website-settings__backdrop {
+                    opacity: 0;
+                    animation: fade-in #{var-tr-time(normal)} ease-in-out 10ms
+                        forwards;
                 }
+            }
 
-                [data-toggle-content] {
-                    > .container {
-                    }
+            &[data-toggle-container='closing'] {
+                .website-settings__backdrop {
+                    opacity: 0;
+                    animation: fade-out #{var-tr-time(normal)} ease-in-out 0ms
+                        forwards;
                 }
             }
         }

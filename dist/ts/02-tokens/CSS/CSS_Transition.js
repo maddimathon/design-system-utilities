@@ -18,11 +18,58 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
  */
 export class Tokens_CSS_Transition extends AbstractTokens {
     static get default() {
+        const always = [
+            'background-color',
+            'border-color',
+            // 'box-shadow',
+            'color',
+            'font-weight',
+            'opacity',
+            'outline-color',
+            'text-decoration-color',
+            // 'text-shadow',
+            'visibility',
+        ];
         return {
+            properties: {
+                always,
+                motion: [
+                    ...always,
+                    'aspect-ratio',
+                    // 'border',
+                    'bottom',
+                    // 'font',
+                    'font-weight',
+                    'height',
+                    'left',
+                    // 'letter-spacing',
+                    // 'line-height',
+                    'margin',
+                    // 'max-height',
+                    // 'max-width',
+                    // 'min-height',
+                    // 'min-width',
+                    // 'outline',
+                    'padding',
+                    'right',
+                    // 'rotate',
+                    // 'scale',
+                    // 'text-indent',
+                    'top',
+                    'transform',
+                    // 'transform-origin',
+                    // 'translate',
+                    // 'vertical-align',
+                    'width',
+                    // 'word-spacing',
+                    // 'z-index',
+                ],
+            },
             time: {
                 fast: '250ms',
                 normal: '500ms',
                 slow: '750ms',
+                'toggle-closing': '1200ms',
             },
         };
     }
@@ -36,6 +83,7 @@ export class Tokens_CSS_Transition extends AbstractTokens {
     }
     toScssVars() {
         return {
+            properties: this.data.properties,
             time: this.data.time,
         };
     }

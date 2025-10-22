@@ -11,19 +11,30 @@
 
 @use '../../01-functions' as *;
 
-// @use 'pkg:@maddimathon/utility-astro/02-mixins' as utils;
+@use 'pkg:@maddimathon/utility-astro/02-mixins' as utils;
 
 ///
-/// Prints out the border width custom property tokens based on config.
+/// Prints out the transition custom property based on tokens.
 ///
 /// @since 0.1.0-alpha.draft
 ///
-@mixin tokens-tr-time {
-    /* #region Tokens - Transition Time */
+@mixin tokens-transition {
+    /* #region Tokens - Transitions */
     #{selector.parent-or-root()} {
         @each $slug, $_value in map.get(tokens.$transition, time) {
-            --tr-time-#{$slug}: #{transition-time-value($slug)};
+            @if $slug == toggle-closing {
+            } @else {
+                --tr-time-#{$slug}: #{transition-time-value($slug)};
+            }
         }
     }
-    /* #endregion Tokens - Transition Time */
+    @include utils.motion {
+        --tr-time-toggle-closing: #{transition-time-value(toggle-closing)};
+        --transition: #{transition-properties-value(true)};
+    }
+    @include utils.no-motion {
+        --tr-time-toggle-closing: 0 !important;
+        --transition: #{transition-properties-value(false)} !important;
+    }
+    /* #endregion Tokens - Transitions */
 }
