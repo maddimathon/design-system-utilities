@@ -13,6 +13,7 @@
 
 import { mergeArgs } from '@maddimathon/utility-typescript/functions';
 import { objectMap } from '../01-utilities/objectMap.js';
+import { SvgMaker } from '../01-utilities/SvgMaker.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 
 /**
@@ -25,7 +26,7 @@ export class Tokens_Icons<
 > extends AbstractTokens<Tokens_Icons.Data<T_ExtraIconNames>> {
 
     public static get default(): {
-        [ K in keyof Tokens_Icons.Data<never> ]: Tokens_Icons.SvgIcon.Data;
+        [ K in keyof Tokens_Icons.Data<never> ]: SvgMaker.Data;
     } {
 
         return {
@@ -293,9 +294,9 @@ export class Tokens_Icons<
         super();
 
         const merged: {
-            [ I in Tokens_Icons.DefaultIconNames ]: Tokens_Icons.SvgIcon | Tokens_Icons.SvgIcon.Data;
+            [ I in Tokens_Icons.DefaultIconNames ]: Tokens_Icons.SvgIcon | SvgMaker.Data;
         } & {
-            [ I in T_ExtraIconNames ]?: Tokens_Icons.SvgIcon.Data | Tokens_Icons.SvgIcon;
+            [ I in T_ExtraIconNames ]?: SvgMaker.Data | Tokens_Icons.SvgIcon;
         } = mergeArgs(
             Tokens_Icons.default,
             input,
@@ -402,9 +403,9 @@ export namespace Tokens_Icons {
     export type InputParam<
         T_ExtraIconNames extends string,
     > = Partial<{
-        [ I in DefaultIconNames ]?: undefined | SvgIcon | Partial<Tokens_Icons.SvgIcon.Data>;
+        [ I in DefaultIconNames ]?: undefined | SvgIcon | Partial<SvgMaker.Data>;
     }> & {
-            [ I in T_ExtraIconNames ]?: Tokens_Icons.SvgIcon.Data | SvgIcon;
+            [ I in T_ExtraIconNames ]?: SvgMaker.Data | SvgIcon;
         };
 
     /**
@@ -413,9 +414,9 @@ export namespace Tokens_Icons {
     export type JsonReturn<
         T_ExtraIconNames extends string,
     > = {
-        [ I in DefaultIconNames ]: SvgIcon.JsonReturn;
+        [ I in DefaultIconNames ]: SvgMaker.JsonReturn;
     } & {
-            [ I in T_ExtraIconNames ]: SvgIcon.JsonReturn;
+            [ I in T_ExtraIconNames ]: SvgMaker.JsonReturn;
         };
 
 
@@ -428,177 +429,19 @@ export namespace Tokens_Icons {
      * 
      * @since ___PKG_VERSION___
      */
-    export class SvgIcon implements SvgIcon.Data {
+    export class SvgIcon extends SvgMaker {
 
-        /**
-         * An implementation of euclid's algorithm to find the greatest common 
-         * denominator of two numbers.
-         * 
-         * @see {@link https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm} Used as reference.
-         */
-        public static greatestCommonDenominator(
-            a: number,
-            b: number,
-        ): number {
-            a = Math.abs( a );
-            b = Math.abs( b );
-
-            // returns = "if a = 0 then GCD( a, b ) = b, since the GCD( 0, b ) = b"
-            if ( !a ) {
-                return b;
-            }
-
-            // returns = "if b = 0 then GCD( a, b ) = a, since the GCD( a, 0 ) = a"
-            if ( !b ) {
-                return a;
-            }
-
-            const [
-                smaller, // new B
-                larger, // new A
-            ] = ( a < b ) ? [ a, b ] : [ b, a ];
-
-            // find the remainder of `larger` / `smaller`
-            const remainder = larger % smaller;
-
-            // find GCD( `smaller`, `remainder` ) using the Euclidean Algorithm since GCD( `larger`, `smaller` ) = GCD( `smaller`, `remainder` )
-            return SvgIcon.greatestCommonDenominator( smaller, remainder );
-        }
-
-        public static simplifyRatio(
-            a: number,
-            b: number,
-        ): [ number, number ] {
-
-            const gcd = SvgIcon.greatestCommonDenominator( a, b );
-
-            return [
-                ( a / gcd ),
-                ( b / gcd ),
-            ];
-        }
-
-        public static svgAttrString(
-            label: string,
-            width: number,
-            height: number,
+        public constructor (
+            data: SvgMaker.Data,
         ) {
-
-            return [
-
+            super( data, [
                 'aria-ignore="true"',
 
-                `title="${ label } icon"`,
-
-                `width="100%"`,
-                `height="100%"`,
-
-                `viewBox="0 0 ${ width } ${ height }"`,
+                `title="${ data.label } icon"`,
 
                 // `style="fill: currentColor;"`,
                 'fill="currentColor"',
-
-                'version="1.1"',
-                'xmlns="http://www.w3.org/2000/svg"',
-                'xml:space="preserve"',
-            ].join( ' ' );
+            ] );
         }
-
-        public static svg( svgAttrString: string, innerSVG: string ) {
-            return `<svg ${ svgAttrString }>${ innerSVG }</svg>`;
-        }
-
-        public static svgFile( svg: string ) {
-            return `<?xml version="1.0" encoding="UTF-8" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">${ svg }`;
-        }
-
-        public readonly slug: string;
-        public readonly label: string;
-
-        public readonly height: number;
-        public readonly width: number;
-        public readonly aspectRatio: [ number, number ];
-
-        public readonly innerSVG: string;
-        public readonly svg: string;
-        public readonly svgFile: string;
-        public readonly svgAttrString: string;
-
-        public constructor (
-            data: SvgIcon.Data,
-        ) {
-            this.slug = data.slug;
-            this.label = data.label;
-            this.height = data.height;
-            this.width = data.width;
-            this.innerSVG = data.innerSVG;
-
-            this.aspectRatio = SvgIcon.simplifyRatio( this.width, this.height );
-            this.svgAttrString = SvgIcon.svgAttrString( this.label, this.width, this.height );
-            this.svg = SvgIcon.svg( this.svgAttrString, this.innerSVG );
-            this.svgFile = SvgIcon.svgFile( this.svg );
-        }
-
-        public toJSON() {
-
-            return {
-                slug: this.slug,
-                label: this.label,
-
-                height: this.height,
-                width: this.width,
-                aspectRatio: this.aspectRatio,
-
-                innerSVG: this.innerSVG,
-
-                svgAttrString: this.svgAttrString,
-                svg: this.svg,
-            };
-        }
-    }
-
-    /**
-     * Utilities for the {@link SvgIcon} class.
-     * 
-     * @since ___PKG_VERSION___
-     */
-    export namespace SvgIcon {
-
-        /**
-         * @since ___PKG_VERSION___
-         */
-        export interface Data {
-
-            /**
-             * The slugified name of this icon as displayed in code (e.g., props, css).
-             */
-            slug: string;
-
-            /**
-             * The human-readable name of this icon as displayed for users
-             * (including via screen-readers).
-             */
-            label: string;
-
-            /**
-             * Height of the SVG viewport.
-             */
-            height: number;
-
-            /**
-             * Width of the SVG viewport.
-             */
-            width: number;
-
-            /**
-             * The paths and shapes to be included inside a <svg> element.
-             */
-            innerSVG: string;
-        };
-
-        /**
-         * @since ___PKG_VERSION___
-         */
-        export type JsonReturn = ReturnType<SvgIcon[ 'toJSON' ]>;
     }
 }

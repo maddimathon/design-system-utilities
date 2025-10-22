@@ -177,11 +177,8 @@ export type ColourLevels =
  * @since ___PKG_VERSION___
  */
 export type ColourLevels_Extended =
-    | "000"
-    | "050"
     | "450"
-    | "550"
-    | "950";
+    | "550";
 
 
 /**

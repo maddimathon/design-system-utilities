@@ -6,6 +6,7 @@
  */
 
 /* import - types */
+import type { Tokens } from '../../../ts/02-tokens/Tokens.js';
 
 /* import - functions */
 import { SampleTokens_Json } from '../../../astro/functions/SampleTokens.js';
@@ -28,7 +29,7 @@ import DocsPage from '../../layouts/DocsPage.astro';
     title={['Colour', 'Sample Tokens']}
     layout='extra-wide'
 >
-    <PageContent_Colour tokens={SampleTokens_Json} />
+    <PageContent_Colour tokens={SampleTokens_Json as Tokens.JsonReturn} />
 </DocsPage>
 
 <ShadeSwatchTable_Scripts />

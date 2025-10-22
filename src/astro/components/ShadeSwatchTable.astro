@@ -345,9 +345,7 @@ const goalLevels = objectMap(
         <div
             class:list={['table-wrapper | site-width | shade-swatch-table__wrapper']}
         >
-            <table
-                id={id}
-            >
+            <table id={id}>
                 { import.meta.env.DEV && <tr>
                     <th
                         class="screen-reader-text"
@@ -474,29 +472,29 @@ const goalLevels = objectMap(
                         </article>
                     </td>  ) }</Fragment>
                 </tr> }
-            {colour.map(({ name, map }) => (
-                <tr>
-                    <th
-                        class="screen-reader-text"
-                        set:text={name}
-                    />
-                    {map.map(({ level, values }) => !( excludeLevels.includes( level ) ) && <td>
-                        <ShadeSwatch 
-                            bases={props.colour.base}
-                            contrastIsCondensed={true}
-                            id={id}
-                            level={level}
-                            name={name} 
-                            values={{
-                                ...values,
-                                hsl: import.meta.env.DEV ? values.hsl : undefined,
-                                lch: import.meta.env.DEV ? values.lch : undefined,
-                                rgb: undefined,
-                            }}
+                {colour.map(({ name, map }) => (
+                    <tr>
+                        <th
+                            class="screen-reader-text"
+                            set:text={name}
                         />
-                    </td> )}
-                </tr>
-            ))}
+                        {map.map(({ level, values }) => !( excludeLevels.includes( level ) ) && <td>
+                            <ShadeSwatch 
+                                bases={props.colour.base}
+                                contrastIsCondensed={true}
+                                id={id}
+                                level={level}
+                                name={name} 
+                                values={{
+                                    ...values,
+                                    hsl: import.meta.env.DEV ? values.hsl : undefined,
+                                    lch: import.meta.env.DEV ? values.lch : undefined,
+                                    rgb: undefined,
+                                }}
+                            />
+                        </td> )}
+                    </tr>
+                ))}
             </table>
         </div>
     )

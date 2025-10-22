@@ -43,6 +43,7 @@ export class Compile extends CompileStage {
             assets: _paths.assets === false
                 ? {
                     icons: false,
+                    logos: false,
                 }
                 : {
                     icons: _paths.assets?.icons === false
@@ -50,6 +51,11 @@ export class Compile extends CompileStage {
                         : (Array.isArray(_paths.assets?.icons)
                             ? _paths.assets?.icons
                             : [_paths.assets?.icons ?? 'assets/icons']).map(path => this.fs.pathResolve(tokensDistDir, path)),
+                    logos: _paths.assets?.logos === false
+                        ? _paths.assets?.logos
+                        : (Array.isArray(_paths.assets?.logos)
+                            ? _paths.assets?.logos
+                            : [_paths.assets?.logos ?? 'assets/logos']).map(path => this.fs.pathResolve(tokensDistDir, path)),
                 },
             json: _paths.json === false
                 ? _paths.json
@@ -107,6 +113,18 @@ export class Compile extends CompileStage {
         return Promise.all(paths.map(async (path) => Promise.all(Object.values(tokens.icons.data).map(async (icon) => this.try(this.fs.write, (this.params.verbose ? 2 : 1) + level, [
             this.fs.pathResolve(path, `${icon.slug}.svg`),
             icon.svgFile,
+            { force: true }
+        ])))));
+    }
+    async buildTokens_writeLogos(tokens, paths, level) {
+        // returns
+        if (!paths) {
+            return;
+        }
+        this.console.verbose('writing logo files...', 1 + level);
+        return Promise.all(paths.map(async (path) => Promise.all(Object.values(tokens.logos.data).map(async (logo) => this.try(this.fs.write, (this.params.verbose ? 2 : 1) + level, [
+            this.fs.pathResolve(path, `${logo.slug}.svg`),
+            logo.svgFile,
             { force: true }
         ])))));
     }

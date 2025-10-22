@@ -39,7 +39,7 @@ export interface Props
 
 const {
     abbreviated = false,
-    tokens = SampleTokens_Json,
+    tokens = SampleTokens_Json as Tokens.JsonReturn,
     ...props
 }: Props = Astro.props;
 
@@ -125,13 +125,14 @@ const displayHeading = props.displayHeading ?? heading;
     <p id="blockquote">Turpis maximus posuere rhoncus, nunc est aliquam ligula, non ultrices felis turpis in sapien. Proin efficitur rhoncus ex auctor faucibus. Maecenas sed ornare ante, vitae consequat tellus. Aliquam eget facilisis nunc.</p>
     
     <div class="button-span">
-        <button>This is a button</button>
-        <button aria-disabled="true">This is a disabled button</button>
+        <button type="button">This is a button</button>
+        <button aria-disabled="true" type="button">This is a disabled button</button>
         
         <Fragment>{ buttonVariations.map(
             variant => <button
                 class={`button-${variant}`}
                 set:text={`This is a ${variant} button`}
+                type="button"
             />
         ) }</Fragment>
     </div>

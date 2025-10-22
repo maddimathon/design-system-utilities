@@ -177,11 +177,8 @@ export type ColourLevels =
  * @since 0.1.0-alpha.draft
  */
 export type ColourLevels_Extended =
-    | "000"
-    | "050"
     | "450"
-    | "550"
-    | "950";
+    | "550";
 
 
 /**

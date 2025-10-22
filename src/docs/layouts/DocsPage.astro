@@ -7,6 +7,7 @@
 
 /* import - types */
 import type { ComponentProps } from 'astro/types';
+import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 
 /* import - functions */
 import {
@@ -63,7 +64,7 @@ const props = {
             arrayUnique(title.concat([SITE_TITLE])).join(' — '),
     },
 
-    tokens: SampleTokens_Json,
+    tokens: SampleTokens_Json as Tokens.JsonReturn,
 } satisfies ComponentProps<typeof LibPage>;
 
 /* CONSTANTS ===================================== */

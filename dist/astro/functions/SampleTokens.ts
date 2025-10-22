@@ -12,4 +12,4 @@ import { Tokens } from '../../ts/02-tokens/Tokens.js';
 
 export const SampleTokens = await Tokens.sample();
 
-export const SampleTokens_Json = SampleTokens.toJSON() as Tokens.JsonReturn;
+export const SampleTokens_Json = SampleTokens.toJSON();

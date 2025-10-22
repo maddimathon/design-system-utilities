@@ -31,6 +31,7 @@ import { AbstractTokens } from './abstract/AbstractTokens.js';
 import { Tokens_Colour } from './Tokens_Colour.js';
 import { Tokens_CSS } from './Tokens_CSS.js';
 import { Tokens_Icons } from './Tokens_Icons.js';
+import { Tokens_Logos } from './Tokens_Logos.js';
 import { Tokens_Spacing } from './Tokens_Spacing.js';
 import { Tokens_Themes } from './Tokens_Themes.js';
 import { Tokens_Themes_Set_SingleMode } from './Themes/Themes_Set_SingleMode.js';
@@ -48,6 +49,7 @@ export class Tokens<
     T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne,
     T_ThemeName extends string,
     T_ExtraIconNames extends string,
+    T_LogoNames extends string,
 
     T_ThemeKeyword_Universal extends string,
     T_ThemeKeyword_Text extends string,
@@ -58,6 +60,7 @@ export class Tokens<
     T_ThemeContrastMode,
     T_ThemeName,
     T_ExtraIconNames,
+    T_LogoNames,
 
     T_ThemeKeyword_Universal,
     T_ThemeKeyword_Text
@@ -66,6 +69,7 @@ export class Tokens<
     public get data() {
         return {
             icons: this.icons.data,
+            logos: this.logos.data,
             spacing: this.spacing.data,
             typography: this.typography.data,
 
@@ -79,6 +83,7 @@ export class Tokens<
     public readonly colour: Tokens_Colour<T_ColourName, T_ExtraColourLevels>;
     public readonly css: Tokens_CSS;
     public readonly icons: Tokens_Icons<T_ExtraIconNames>;
+    public readonly logos: Tokens_Logos<T_LogoNames>;
     public readonly spacing: Tokens_Spacing;
     public readonly themes: Tokens_Themes<
         T_ColourName,
@@ -101,6 +106,7 @@ export class Tokens<
         T_ThemeContrastMode_Extra extends readonly ThemeMode_ContrastExtraOptions[] = Tokens_Internal.Default_ThemeExtraContrastMode,
         T_ThemeName extends string = Tokens_Themes.Default_ThemeName,
         T_ExtraIconNames extends string = never,
+        T_LogoNames extends string = never,
 
         T_ThemeKeyword_Universal extends string = never,
         T_ThemeKeyword_Text extends string = never,
@@ -112,6 +118,7 @@ export class Tokens<
             ThemeMode_Contrast<T_ThemeContrastMode_Extra>,
             T_ThemeName,
             T_ExtraIconNames,
+            T_LogoNames,
 
             T_ThemeKeyword_Universal,
             T_ThemeKeyword_Text
@@ -124,6 +131,7 @@ export class Tokens<
         ThemeMode_Contrast<T_ThemeContrastMode_Extra>,
         T_ThemeName,
         T_ExtraIconNames,
+        T_LogoNames,
 
         T_ThemeKeyword_Universal,
         T_ThemeKeyword_Text
@@ -166,6 +174,7 @@ export class Tokens<
             ThemeMode_Contrast<T_ThemeContrastMode_Extra>,
             T_ThemeName,
             T_ExtraIconNames,
+            T_LogoNames,
 
             T_ThemeKeyword_Universal,
             T_ThemeKeyword_Text
@@ -204,6 +213,7 @@ export class Tokens<
             T_ThemeContrastMode,
             T_ThemeName,
             T_ExtraIconNames,
+            T_LogoNames,
 
             T_ThemeKeyword_Universal,
             T_ThemeKeyword_Text
@@ -219,6 +229,12 @@ export class Tokens<
         );
         this.css = new Tokens_CSS( this.input.css ?? {} );
         this.icons = new Tokens_Icons( this.input.icons ?? {} );
+
+        this.logos = new Tokens_Logos(
+            // @ts-expect-error
+            this.input.logos ?? {}
+        );
+
         this.spacing = new Tokens_Spacing( this.input.spacing ?? {} );
         this.themes = themes;
         this.typography = new Tokens_Typography(
@@ -234,6 +250,7 @@ export class Tokens<
         T_ThemeContrastMode,
         T_ThemeName,
         T_ExtraIconNames,
+        T_LogoNames,
 
         T_ThemeKeyword_Universal,
         T_ThemeKeyword_Text
@@ -241,6 +258,7 @@ export class Tokens<
 
         return {
             icons: this.icons.toJSON(),
+            logos: this.logos.toJSON(),
             spacing: this.spacing.toJSON(),
             typography: this.typography.toJSON(),
 
@@ -267,25 +285,6 @@ export class Tokens<
 
     public override toScss(): string {
 
-        // const _vars = this.toScssVars();
-
-        // const vars: { [ K in keyof typeof _vars ]: string; } = {
-
-        //     spacing_multiplier: JsonToScss.convert( _vars.spacing_multiplier ) || Tokens_Spacing.default.multiplier.toString(),
-        //     margin: JsonToScss.convert( _vars.margin ) || '()',
-
-        //     font: JsonToScss.convert( _vars.font ) || '()',
-
-        //     line_height: JsonToScss.convert( _vars.line_height ) || '()',
-
-        //     border: JsonToScss.convert( _vars.border ) || '()',
-        //     transition: JsonToScss.convert( _vars.transition ) || '()',
-        //     z_index: JsonToScss.convert( _vars.z_index ) || '()',
-
-        //     colour: JsonToScss.convert( _vars.colour ) || '()',
-        //     themes: JsonToScss.convert( _vars.themes ) || '()',
-        // };
-
         const tokensString = JsonToScss.convert( this.toScssVars() ) || '()';
 
         const varString = [
@@ -299,14 +298,6 @@ export class Tokens<
             '// this file is auto-generated by the design-system-utilities Tokens class',
             varString,
         ];
-
-        // const defaultString = this.config.tokensAsDefault ? ' !default' : '';
-
-        // for ( const t_key in vars ) {
-        //     const _key = t_key as keyof typeof vars;
-
-        //     scss.push( `$${ _key }: ${ vars[ _key ] }${ defaultString };` );
-        // }
 
         return scss.join( '\n\n' );
     }
@@ -342,6 +333,7 @@ export namespace Tokens_Internal {
         T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne,
         T_ThemeName extends string,
         T_ExtraIconNames extends string,
+        T_LogoNames extends string,
 
         T_ThemeKeyword_Universal extends string,
         T_ThemeKeyword_Text extends string,
@@ -349,6 +341,7 @@ export namespace Tokens_Internal {
         colour: Tokens_Colour.Data<T_ColourName, T_ExtraColourLevels>;
         css: Tokens_CSS.Data;
         icons: Tokens_Icons.Data<T_ExtraIconNames>;
+        logos: Tokens_Logos.Data<T_LogoNames>;
         spacing: Tokens_Spacing.Data;
         themes: Tokens_Themes.Data<
             T_ColourName,
@@ -369,6 +362,7 @@ export namespace Tokens_Internal {
         T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne,
         T_ThemeName extends string,
         T_ExtraIconNames extends string,
+        T_LogoNames extends string,
 
         T_ThemeKeyword_Universal extends string,
         T_ThemeKeyword_Text extends string,
@@ -376,6 +370,7 @@ export namespace Tokens_Internal {
         colour?: undefined | Tokens_Colour.InputParam<T_ColourName, T_ExtraColourLevels>;
         css?: undefined | Tokens_CSS.InputParam;
         icons?: undefined | Tokens_Icons.InputParam<T_ExtraIconNames>;
+        logos?: undefined | Tokens_Logos.InputParam<T_LogoNames>;
         spacing?: undefined | Tokens_Spacing.InputParam;
         themes?: {
             brightness?: T_ThemeBrightnessMode,
@@ -402,6 +397,7 @@ export namespace Tokens_Internal {
         T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne,
         T_ThemeName extends string,
         T_ExtraIconNames extends string,
+        T_LogoNames extends string,
 
         T_ThemeKeyword_Universal extends string,
         T_ThemeKeyword_Text extends string,
@@ -409,6 +405,7 @@ export namespace Tokens_Internal {
         colour: Tokens_Colour.JsonReturn<T_ColourName, T_ExtraColourLevels>;
         css: Tokens_CSS.JsonReturn;
         icons: Tokens_Icons.JsonReturn<T_ExtraIconNames>;
+        logos: Tokens_Logos.JsonReturn<T_LogoNames>;
         spacing: Tokens_Spacing.JsonReturn;
         themes: Tokens_Themes.JsonReturn<
             T_ColourName,
@@ -490,6 +487,7 @@ export namespace Tokens {
         T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne = Tokens_Internal.Default_ThemeContrastMode,
         T_ThemeName extends string = Tokens_Themes.Default_ThemeName,
         T_ExtraIconNames extends string = string,
+        T_LogoNames extends string = string,
 
         T_ThemeKeyword_Universal extends string = string,
         T_ThemeKeyword_Text extends string = string,
@@ -500,6 +498,7 @@ export namespace Tokens {
         T_ThemeContrastMode,
         T_ThemeName,
         T_ExtraIconNames,
+        T_LogoNames,
 
         T_ThemeKeyword_Universal,
         T_ThemeKeyword_Text
@@ -518,6 +517,7 @@ export namespace Tokens {
         T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne = Tokens_Internal.Default_ThemeContrastMode,
         T_ThemeName extends string = Tokens_Themes.Default_ThemeName,
         T_ExtraIconNames extends string = string,
+        T_LogoNames extends string = string,
 
         T_ThemeKeyword_Universal extends string = string,
         T_ThemeKeyword_Text extends string = string,
@@ -528,6 +528,7 @@ export namespace Tokens {
         T_ThemeContrastMode,
         T_ThemeName,
         T_ExtraIconNames,
+        T_LogoNames,
 
         T_ThemeKeyword_Universal,
         T_ThemeKeyword_Text
@@ -543,6 +544,7 @@ export namespace Tokens {
         T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne = Tokens_Internal.Default_ThemeContrastMode,
         T_ThemeName extends string = Tokens_Themes.Default_ThemeName,
         T_ExtraIconNames extends string = string,
+        T_LogoNames extends string = string,
 
         T_ThemeKeyword_Universal extends string = string,
         T_ThemeKeyword_Text extends string = string,
@@ -553,6 +555,7 @@ export namespace Tokens {
         T_ThemeContrastMode,
         T_ThemeName,
         T_ExtraIconNames,
+        T_LogoNames,
 
         T_ThemeKeyword_Universal,
         T_ThemeKeyword_Text
@@ -568,6 +571,7 @@ export namespace Tokens {
         T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne = Tokens_Internal.Default_ThemeContrastMode,
         T_ThemeName extends string = Tokens_Themes.Default_ThemeName,
         T_ExtraIconNames extends string = string,
+        T_LogoNames extends string = string,
 
         T_ThemeKeyword_Universal extends string = string,
         T_ThemeKeyword_Text extends string = string,
@@ -578,6 +582,7 @@ export namespace Tokens {
         T_ThemeContrastMode,
         T_ThemeName,
         T_ExtraIconNames,
+        T_LogoNames,
 
         T_ThemeKeyword_Universal,
         T_ThemeKeyword_Text

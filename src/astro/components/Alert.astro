@@ -7,7 +7,7 @@
 
 /* import - types */
 import type { ComponentProps } from 'astro/types';
-import type { Tokens_Icons } from '../../ts/02-tokens/Tokens_Icons.js';
+import type { SvgMaker } from '../../ts/01-utilities/SvgMaker.js';
 
 /* import - functions */
 
@@ -28,7 +28,7 @@ export interface Props
         ComponentProps<typeof UtilsAlert>,
         'svg' | 'svgLabel' | 'type'
     > {
-    icon: Tokens_Icons.SvgIcon.JsonReturn;
+    icon: SvgMaker.JsonReturn;
 }
 
 const { icon, class: classList = [], ...attributes }: Props = Astro.props;

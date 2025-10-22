@@ -302,8 +302,6 @@ export class Tokens_Themes_Set_SingleMode<
                             switch ( hdgNum ) {
 
                                 case 1:
-                                    return '700';
-
                                 case 2:
                                 case 3:
                                     return '750';

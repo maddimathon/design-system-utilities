@@ -11,6 +11,7 @@
 // import * as z from 'zod';
 import { mergeArgs } from '@maddimathon/utility-typescript/functions';
 import { objectMap } from '../01-utilities/objectMap.js';
+import { SvgMaker } from '../01-utilities/SvgMaker.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
@@ -254,100 +255,16 @@ export class Tokens_Icons extends AbstractTokens {
      *
      * @since 0.1.0-alpha.draft
      */
-    class SvgIcon {
-        /**
-         * An implementation of euclid's algorithm to find the greatest common
-         * denominator of two numbers.
-         *
-         * @see {@link https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm} Used as reference.
-         */
-        static greatestCommonDenominator(a, b) {
-            a = Math.abs(a);
-            b = Math.abs(b);
-            // returns = "if a = 0 then GCD( a, b ) = b, since the GCD( 0, b ) = b"
-            if (!a) {
-                return b;
-            }
-            // returns = "if b = 0 then GCD( a, b ) = a, since the GCD( a, 0 ) = a"
-            if (!b) {
-                return a;
-            }
-            const [smaller, // new B
-            larger, // new A
-            ] = (a < b) ? [a, b] : [b, a];
-            // find the remainder of `larger` / `smaller`
-            const remainder = larger % smaller;
-            // find GCD( `smaller`, `remainder` ) using the Euclidean Algorithm since GCD( `larger`, `smaller` ) = GCD( `smaller`, `remainder` )
-            return SvgIcon.greatestCommonDenominator(smaller, remainder);
-        }
-        static simplifyRatio(a, b) {
-            const gcd = SvgIcon.greatestCommonDenominator(a, b);
-            return [
-                (a / gcd),
-                (b / gcd),
-            ];
-        }
-        static svgAttrString(label, width, height) {
-            return [
+    class SvgIcon extends SvgMaker {
+        constructor(data) {
+            super(data, [
                 'aria-ignore="true"',
-                `title="${label} icon"`,
-                `width="100%"`,
-                `height="100%"`,
-                `viewBox="0 0 ${width} ${height}"`,
+                `title="${data.label} icon"`,
                 // `style="fill: currentColor;"`,
                 'fill="currentColor"',
-                'version="1.1"',
-                'xmlns="http://www.w3.org/2000/svg"',
-                'xml:space="preserve"',
-            ].join(' ');
-        }
-        static svg(svgAttrString, innerSVG) {
-            return `<svg ${svgAttrString}>${innerSVG}</svg>`;
-        }
-        static svgFile(svg) {
-            return `<?xml version="1.0" encoding="UTF-8" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">${svg}`;
-        }
-        slug;
-        label;
-        height;
-        width;
-        aspectRatio;
-        innerSVG;
-        svg;
-        svgFile;
-        svgAttrString;
-        constructor(data) {
-            this.slug = data.slug;
-            this.label = data.label;
-            this.height = data.height;
-            this.width = data.width;
-            this.innerSVG = data.innerSVG;
-            this.aspectRatio = SvgIcon.simplifyRatio(this.width, this.height);
-            this.svgAttrString = SvgIcon.svgAttrString(this.label, this.width, this.height);
-            this.svg = SvgIcon.svg(this.svgAttrString, this.innerSVG);
-            this.svgFile = SvgIcon.svgFile(this.svg);
-        }
-        toJSON() {
-            return {
-                slug: this.slug,
-                label: this.label,
-                height: this.height,
-                width: this.width,
-                aspectRatio: this.aspectRatio,
-                innerSVG: this.innerSVG,
-                svgAttrString: this.svgAttrString,
-                svg: this.svg,
-            };
+            ]);
         }
     }
     Tokens_Icons.SvgIcon = SvgIcon;
-    /**
-     * Utilities for the {@link SvgIcon} class.
-     *
-     * @since 0.1.0-alpha.draft
-     */
-    (function (SvgIcon) {
-        ;
-    })(SvgIcon = Tokens_Icons.SvgIcon || (Tokens_Icons.SvgIcon = {}));
 })(Tokens_Icons || (Tokens_Icons = {}));
 //# sourceMappingURL=Tokens_Icons.js.map

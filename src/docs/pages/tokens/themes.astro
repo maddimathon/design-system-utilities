@@ -8,6 +8,7 @@
 /* import - types */
 
 /* import - functions */
+import type { Tokens } from '../../../ts/02-tokens/Tokens.js';
 import { SampleTokens_Json } from '../../../astro/functions/SampleTokens.js';
 import PageContent_Theme_Scripts from '../../../astro/support/PageContent_Theme_Scripts.astro';
 
@@ -28,7 +29,7 @@ import DocsPage from '../../layouts/DocsPage.astro';
     title={['Themes', 'Sample Tokens']}
     layout='extra-wide'
 >
-    <PageContent_Theme tokens={SampleTokens_Json} />
+    <PageContent_Theme tokens={SampleTokens_Json as Tokens.JsonReturn} />
 </DocsPage>
 
 <PageContent_Theme_Scripts />

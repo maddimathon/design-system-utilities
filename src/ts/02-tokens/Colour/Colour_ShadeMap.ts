@@ -414,34 +414,6 @@ export namespace Tokens_Colour_ShadeMap {
             // continues for 000, 050, and 950
             switch ( level as T_ExtraLevels ) {
 
-                case '000':
-                    completeLevels[ level ] = shadeMaker(
-                        level,
-                        ColourUtilities.mixColours( 'FFFFFF', defaultLevels[ '100' ] ),
-                    );
-                    continue levelLoop;
-
-                case '950':
-                    completeLevels[ level ] = shadeMaker(
-                        level,
-                        ColourUtilities.mixColours( defaultLevels[ '900' ], '000000' ),
-                    );
-                    continue levelLoop;
-
-                case '050':
-                    completeLevels[ level ] = shadeMaker(
-                        level,
-                        ColourUtilities.mixColours(
-                            (
-                                ( '000' in completeLevels && completeLevels[ '000' as T_ExtraLevels ] )
-                                    ? completeLevels[ '000' as T_ExtraLevels ]
-                                    : ColourUtilities.mixColours( 'FFFFFF', defaultLevels[ '100' ] )
-                            ),
-                            defaultLevels[ '100' ]
-                        ),
-                    );
-                    continue levelLoop;
-
                 case '450':
                     lowerLevel = '400';
                     higherLevel = '500';

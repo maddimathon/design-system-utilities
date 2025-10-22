@@ -32,11 +32,17 @@ export declare class Compile extends CompileStage {
     buildTokens<T_Tokens extends Tokens.Instance>(level: number, tokens: T_Tokens, _paths: {
         assets?: false | {
             /**
-             * Where to write the json tokens, relative to `tokensDistSubpath`.
+             * Where to write the icon tokens, relative to `tokensDistSubpath`.
              *
              * @default 'assets/icons'
              */
             icons?: false | string | string[];
+            /**
+             * Where to write the logo tokens, relative to `tokensDistSubpath`.
+             *
+             * @default 'assets/logos'
+             */
+            logos?: false | string | string[];
         };
         /**
          * The subpath for the tokens output in the dist directory.
@@ -65,6 +71,7 @@ export declare class Compile extends CompileStage {
     protected buildTokens_writeJson<T_Tokens extends Tokens.Instance>(tokens: T_Tokens, paths: false | string[], level: number): Promise<(string | false)[] | undefined>;
     protected buildTokens_writeScss<T_Tokens extends Tokens.Instance>(tokens: T_Tokens, paths: false | string[], level: number): Promise<string[] | undefined>;
     protected buildTokens_writeIcons<T_Tokens extends Tokens.Instance>(tokens: T_Tokens, paths: false | string[], level: number): Promise<(string | false)[][] | undefined>;
+    protected buildTokens_writeLogos<T_Tokens extends Tokens.Instance>(tokens: T_Tokens, paths: false | string[], level: number): Promise<(string | false)[][] | undefined>;
     protected astro(): Promise<void>;
     protected scss(): Promise<void>;
     protected templates(): Promise<void>;

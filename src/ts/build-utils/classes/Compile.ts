@@ -57,11 +57,18 @@ export class Compile extends CompileStage {
             assets?: false | {
 
                 /**
-                 * Where to write the json tokens, relative to `tokensDistSubpath`.
+                 * Where to write the icon tokens, relative to `tokensDistSubpath`.
                  * 
                  * @default 'assets/icons'
                  */
                 icons?: false | string | string[];
+
+                /**
+                 * Where to write the logo tokens, relative to `tokensDistSubpath`.
+                 * 
+                 * @default 'assets/logos'
+                 */
+                logos?: false | string | string[];
             };
 
             /**
@@ -105,6 +112,7 @@ export class Compile extends CompileStage {
             slug: string;
             assets: {
                 icons: false | string[];
+                logos: false | string[];
             };
             json: false | string[];
             scss: false | string[];
@@ -115,6 +123,7 @@ export class Compile extends CompileStage {
             assets: _paths.assets === false
                 ? {
                     icons: false,
+                    logos: false,
                 }
                 : {
                     icons: _paths.assets?.icons === false
@@ -123,6 +132,16 @@ export class Compile extends CompileStage {
                             Array.isArray( _paths.assets?.icons )
                                 ? _paths.assets?.icons
                                 : [ _paths.assets?.icons ?? 'assets/icons' ]
+                        ).map(
+                            path => this.fs.pathResolve( tokensDistDir, path )
+                        ),
+
+                    logos: _paths.assets?.logos === false
+                        ? _paths.assets?.logos
+                        : (
+                            Array.isArray( _paths.assets?.logos )
+                                ? _paths.assets?.logos
+                                : [ _paths.assets?.logos ?? 'assets/logos' ]
                         ).map(
                             path => this.fs.pathResolve( tokensDistDir, path )
                         ),
@@ -251,6 +270,39 @@ export class Compile extends CompileStage {
                             [
                                 this.fs.pathResolve( path, `${ icon.slug }.svg` ),
                                 icon.svgFile,
+                                { force: true }
+                            ]
+                        )
+                    )
+                )
+            )
+        );
+    }
+
+    protected async buildTokens_writeLogos<
+        T_Tokens extends Tokens.Instance,
+    >(
+        tokens: T_Tokens,
+        paths: false | string[],
+        level: number,
+    ) {
+        // returns
+        if ( !paths ) {
+            return;
+        }
+
+        this.console.verbose( 'writing logo files...', 1 + level );
+
+        return Promise.all(
+            paths.map(
+                async ( path ) => Promise.all(
+                    Object.values( tokens.logos.data ).map(
+                        async ( logo ) => this.try(
+                            this.fs.write,
+                            ( this.params.verbose ? 2 : 1 ) + level,
+                            [
+                                this.fs.pathResolve( path, `${ logo.slug }.svg` ),
+                                logo.svgFile,
                                 { force: true }
                             ]
                         )

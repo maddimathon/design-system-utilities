@@ -24,11 +24,11 @@
     //
     $additional: list.append(
         $additional,
-        ("input[type='reset']", button-form-reset)
+        (("button[type='reset']", "input[type='reset']") button-form-reset)
     );
     $additional: list.append(
         $additional,
-        ("input[type='submit']", button-form-submit)
+        (("button[type='submit']", "input[type='submit']"), button-form-submit)
     );
 
     @if config.$print_docs {
@@ -52,13 +52,9 @@
                 ('.shade-swatch__contrast__result-group__heading', 'h10'),
                 ('.theme-mode-swatch__sample--selection', 'selection'),
                 (
-                    (
-                        "button[type='reset']",
-                        '.website-settings-menu [data-settings-reset]'
-                    ),
+                    '.website-settings-menu [data-settings-reset]',
                     button-form-reset
-                ),
-                ("button[type='submit']", button-form-submit)
+                )
             ),
             $separator: comma
         );

@@ -109,7 +109,6 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                         // returns on match
                         switch (hdgNum) {
                             case 1:
-                                return '700';
                             case 2:
                             case 3:
                                 return '750';

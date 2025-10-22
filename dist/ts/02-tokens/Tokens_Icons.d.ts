@@ -7,6 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
+import { SvgMaker } from '../01-utilities/SvgMaker.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
@@ -15,7 +16,7 @@ import { AbstractTokens } from './abstract/AbstractTokens.js';
  */
 export declare class Tokens_Icons<T_ExtraIconNames extends string> extends AbstractTokens<Tokens_Icons.Data<T_ExtraIconNames>> {
     static get default(): {
-        [K in keyof Tokens_Icons.Data<never>]: Tokens_Icons.SvgIcon.Data;
+        [K in keyof Tokens_Icons.Data<never>]: SvgMaker.Data;
     };
     readonly data: Tokens_Icons.Data<T_ExtraIconNames>;
     constructor(input: Tokens_Icons.InputParam<T_ExtraIconNames>);
@@ -51,92 +52,25 @@ export declare namespace Tokens_Icons {
      * @since 0.1.0-alpha.draft
      */
     type InputParam<T_ExtraIconNames extends string> = Partial<{
-        [I in DefaultIconNames]?: undefined | SvgIcon | Partial<Tokens_Icons.SvgIcon.Data>;
+        [I in DefaultIconNames]?: undefined | SvgIcon | Partial<SvgMaker.Data>;
     }> & {
-        [I in T_ExtraIconNames]?: Tokens_Icons.SvgIcon.Data | SvgIcon;
+        [I in T_ExtraIconNames]?: SvgMaker.Data | SvgIcon;
     };
     /**
      * @since 0.1.0-alpha.draft
      */
     type JsonReturn<T_ExtraIconNames extends string> = {
-        [I in DefaultIconNames]: SvgIcon.JsonReturn;
+        [I in DefaultIconNames]: SvgMaker.JsonReturn;
     } & {
-        [I in T_ExtraIconNames]: SvgIcon.JsonReturn;
+        [I in T_ExtraIconNames]: SvgMaker.JsonReturn;
     };
     /**
      * The object that defines a single SVG token.
      *
      * @since 0.1.0-alpha.draft
      */
-    class SvgIcon implements SvgIcon.Data {
-        /**
-         * An implementation of euclid's algorithm to find the greatest common
-         * denominator of two numbers.
-         *
-         * @see {@link https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm} Used as reference.
-         */
-        static greatestCommonDenominator(a: number, b: number): number;
-        static simplifyRatio(a: number, b: number): [number, number];
-        static svgAttrString(label: string, width: number, height: number): string;
-        static svg(svgAttrString: string, innerSVG: string): string;
-        static svgFile(svg: string): string;
-        readonly slug: string;
-        readonly label: string;
-        readonly height: number;
-        readonly width: number;
-        readonly aspectRatio: [number, number];
-        readonly innerSVG: string;
-        readonly svg: string;
-        readonly svgFile: string;
-        readonly svgAttrString: string;
-        constructor(data: SvgIcon.Data);
-        toJSON(): {
-            slug: string;
-            label: string;
-            height: number;
-            width: number;
-            aspectRatio: [number, number];
-            innerSVG: string;
-            svgAttrString: string;
-            svg: string;
-        };
-    }
-    /**
-     * Utilities for the {@link SvgIcon} class.
-     *
-     * @since 0.1.0-alpha.draft
-     */
-    namespace SvgIcon {
-        /**
-         * @since 0.1.0-alpha.draft
-         */
-        interface Data {
-            /**
-             * The slugified name of this icon as displayed in code (e.g., props, css).
-             */
-            slug: string;
-            /**
-             * The human-readable name of this icon as displayed for users
-             * (including via screen-readers).
-             */
-            label: string;
-            /**
-             * Height of the SVG viewport.
-             */
-            height: number;
-            /**
-             * Width of the SVG viewport.
-             */
-            width: number;
-            /**
-             * The paths and shapes to be included inside a <svg> element.
-             */
-            innerSVG: string;
-        }
-        /**
-         * @since 0.1.0-alpha.draft
-         */
-        type JsonReturn = ReturnType<SvgIcon['toJSON']>;
+    class SvgIcon extends SvgMaker {
+        constructor(data: SvgMaker.Data);
     }
 }
 //# sourceMappingURL=Tokens_Icons.d.ts.map
