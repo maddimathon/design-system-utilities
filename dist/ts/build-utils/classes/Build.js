@@ -18,5 +18,33 @@ import {} from '@maddimathon/utility-typescript/functions';
  * @since 0.1.0-alpha.draft
  */
 export class Build extends BuildStage {
+    // /**
+    //  * All sub-stages to run in this stage (in order).
+    //  *
+    //  * @category Running
+    //  *
+    //  * @source
+    //  */
+    // override readonly subStages: Stage.SubStage.Build[] = [
+    //     'compile',
+    //     'replace',
+    //     'prettify',
+    //     'minimize',
+    //     'test',
+    //     'document',
+    // ];
+    get ARGS_DEFAULT() {
+        const _defaults = super.ARGS_DEFAULT;
+        return {
+            ..._defaults,
+            minimize: false,
+            prettify: (_stage) => {
+                return {
+                    ..._defaults.prettify(_stage),
+                    html: undefined,
+                };
+            },
+        };
+    }
 }
 //# sourceMappingURL=Build.js.map

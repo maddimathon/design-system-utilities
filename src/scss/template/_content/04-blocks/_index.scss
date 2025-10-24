@@ -61,7 +61,9 @@
     @include snippet-support-astro-settings-menu;
 }
 
-@if config.$print_astro_settingsMenu_fontOverrides {
+@if config.$print_astro_settingsMenu_fontOverrides and
+    tokens-has-font-families()
+{
     @if config.$print_headings {
         /* ## ASTRO - Settings Menu - Font Overrides ==================================== */
     }

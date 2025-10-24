@@ -22,11 +22,10 @@ import { objectMap } from '../../ts/01-utilities/objectMap.js';
 
 /* import - components */
 import Toggle from '@maddimathon/utility-astro/components/Toggle';
+import Heading from '@maddimathon/utility-astro/components/Heading';
 // import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
 
 /* import - layouts */
-
-/* TYPES ===================================== */
 
 /* PROPS ===================================== */
 
@@ -172,7 +171,7 @@ const allFontLevels = arrayUnique(
                     <dl class='font-family-swatch__details-list'>
                         { detailsMapper(font).map( ( {key, value} ) => (
                             <dt
-                                class:list={[ 'font-family-swatch__details-dt' ]}
+                                class:list={[ 'h7', '|', 'font-family-swatch__details-dt' ]}
                                 set:text={key} 
                             />
                             <dd
@@ -182,7 +181,10 @@ const allFontLevels = arrayUnique(
                         ) ) }
                     </dl>
                     {allFontLevels.map(( weight ) => font.weights[weight] && ( [ 'normal', 'italic' ] as const ).map( style => (
-                        <h4
+                        <Heading
+                            heading={4}
+                            displayHeading={6}
+
                             class:list={[
                                 'font-family-swatch__weight-dt',
                                 `font-family-swatch__weight-dt--${ style == 'italic' ? `${weight}-${style}` : weight }`, 

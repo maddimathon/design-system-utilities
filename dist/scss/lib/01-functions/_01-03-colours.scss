@@ -60,15 +60,18 @@ $_systemColors: map.merge(
         );
     }
 
-    @return var(
-        --clr-#{$slug}-#{$level},
-        colour.to-hsl(
-            map.get(
-                $slugMap,
-                if($brightness == dark, '#{$dark_level}', '#{$level}')
-            ),
-            $round: false
-        )
+    $fallback: colour.to-hsl(
+        map.get(
+            $slugMap,
+            if($brightness == dark, '#{$dark_level}', '#{$level}')
+        ),
+        $round: false
+    );
+
+    @return if(
+        config.$fn_var_replaceWithValue_colour,
+        $fallback,
+        var(--clr-#{$slug}-#{$level}, $fallback)
     );
 }
 

@@ -14,5 +14,6 @@ import { BuildStage } from '@maddimathon/build-utilities';
  * @since 0.1.0-alpha.draft
  */
 export declare class Build extends BuildStage {
+    get ARGS_DEFAULT(): BuildStage["ARGS_DEFAULT"];
 }
 //# sourceMappingURL=Build.d.ts.map

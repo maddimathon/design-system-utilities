@@ -57,7 +57,7 @@ export declare namespace Tokens_Colour_ShadeMap_Shade {
     /**
      * @since 0.1.0-alpha.draft
      */
-    type ContrastResults<T_ColourName extends string, T_ExtraLevels extends ColourLevels_Extended, T_RatioValue extends number | undefined = number> = {
+    type ContrastResults<T_ColourName extends string, T_ExtraLevels extends ColourLevels_Extended> = {
         [N in T_ColourName]?: undefined | {
             [K in ColourLevels | T_ExtraLevels]?: ColourContrastTest.Parsed;
         };

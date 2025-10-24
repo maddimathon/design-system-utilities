@@ -210,6 +210,9 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
             width: AbstractTokens.ScssReturn;
             stroke: AbstractTokens.ScssReturn;
         };
+        style: {
+            heading: AbstractTokens.ScssReturn;
+        };
         transition: {
             properties: AbstractTokens.ScssReturn;
             time: AbstractTokens.ScssReturn;
@@ -257,7 +260,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -272,7 +275,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -289,7 +292,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -304,7 +307,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -321,7 +324,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -336,7 +339,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -353,7 +356,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -368,7 +371,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -385,7 +388,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -400,7 +403,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -417,7 +420,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -432,7 +435,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -449,7 +452,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -464,7 +467,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -481,7 +484,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -496,7 +499,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -513,7 +516,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -528,7 +531,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";

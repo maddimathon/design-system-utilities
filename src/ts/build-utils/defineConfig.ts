@@ -8,13 +8,8 @@
  * @license MIT
  */
 
-import {
-    mergeArgs,
-} from '@maddimathon/utility-typescript/functions';
-
 import type {
     Config,
-    Stage,
 } from '@maddimathon/build-utilities';
 
 import {
@@ -34,7 +29,9 @@ export function defineConfig<
     T_Compile extends typeof Compile,
     T_Document extends typeof Document,
 >(
-    config: Config,
+    config: Omit<Config, 'stages'> & {
+        stages?: undefined | Omit<Config[ 'stages' ], 'build' | 'compile' | 'document'>;
+    },
     _classes: {
         Build?: T_Build,
         Compile?: T_Compile,
@@ -49,48 +46,17 @@ export function defineConfig<
         ..._classes,
     };
 
-    const _defaults = {
-        build: classes.Build.prototype.ARGS_DEFAULT,
-    };
-
     const merged: Config = {
         ...config,
 
         stages: {
-
-            build: [
-                classes.Build,
-                {
-                    minimize: false,
-
-                    prettify: ( _stage: Stage ) => {
-
-                        return {
-                            ..._defaults.build.prettify( _stage ),
-                            html: undefined,
-                        };
-                    },
-                },
-            ],
-
-            compile: classes.Compile,
-
-            document: classes.Document,
-
             test: false,
-
             ...config.stages,
-        },
 
-        compiler: mergeArgs(
-            {
-                ts: {
-                    tidyGlobs: 'types/**/*.js',
-                },
-            } as Partial<Stage.Compiler.Args>,
-            config.compiler,
-            true
-        ),
+            build: classes.Build,
+            compile: classes.Compile,
+            document: classes.Document,
+        },
     };
 
     return merged;

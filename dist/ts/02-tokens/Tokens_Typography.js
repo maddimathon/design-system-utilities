@@ -139,6 +139,12 @@ export class Tokens_Typography extends AbstractTokens {
                 }
                 fallbacks = arrayUnique(fallbacks);
             }
+            const sources = objectMap(font.path, ({ key: type, value: paths }) => typeof paths === 'undefined'
+                ? []
+                : (Array.isArray(paths) ? paths : [paths]).map((path) => ({
+                    type: type == 'ttf' ? 'truetype' : type,
+                    path,
+                })));
             return {
                 family: family.name,
                 fallbacks,
@@ -149,9 +155,10 @@ export class Tokens_Typography extends AbstractTokens {
                 'line-gap-override': font.lineGapOverride ?? family.lineGapOverride,
                 'size-adjust': font.sizeAdjust ?? family.sizeAdjust,
                 'unicode-range': font.unicodeRange ?? family.unicodeRange,
-                src: Object.values(objectMap(font.path, ({ key: type, value: paths }) => typeof paths === 'undefined'
-                    ? []
-                    : (Array.isArray(paths) ? paths : [paths]).map((path) => ({ type, path })))).flat(),
+                src: Object.values({
+                    ...sources,
+                    truetype: sources.ttf,
+                }).flat().filter(v => typeof v !== 'undefined'),
             };
         };
         return {

@@ -5,7 +5,7 @@
 
 @use 'pkg:@maddimathon/utility-sass/map';
 
-// @use '../../config';
+@use '../../config';
 @use '../../tokens';
 
 // @use 'pkg:@maddimathon/utility-astro/01-functions' as utils;
@@ -24,7 +24,7 @@
         $value: map.get(tokens.$border, radius, '#{$level}');
     }
 
-    @return $value;
+    @return calc(1rem * $value);
 }
 
 ///
@@ -34,9 +34,38 @@
 /// @since 0.1.0-alpha.draft
 ///
 @function var-border-radius($level) {
-    @return var(
-        --border-radius-#{$level},
-        calc(1rem * border-radius-value($level))
+    @return if(
+        config.$fn_var_replaceWithValue_borderRadius,
+        border-radius-value($level),
+        var(--border-radius-#{$level}, border-radius-value($level))
+    );
+}
+
+///
+/// Uses the border-width config tokens to print the appropriate var(...) with
+/// a fallback.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function var-border-width($level) {
+    @return if(
+        config.$fn_var_replaceWithValue_borderWidth,
+        border-width-value($level),
+        var(--border-width-#{$level}, border-width-value($level))
+    );
+}
+
+///
+/// Uses the stroke-relative config tokens to print the appropriate var(...) with
+/// a fallback.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function var-stroke-relative($level) {
+    @return if(
+        config.$fn_var_replaceWithValue_strokeRelative,
+        stroke-relative-value($level),
+        var(--stroke-relative-#{$level}, stroke-relative-value($level))
     );
 }
 
@@ -126,5 +155,9 @@
 /// @since 0.1.0-alpha.draft
 ///
 @function var-z-index($level) {
-    @return var(--z-index-#{$level}, z-index-value($level));
+    @return if(
+        config.$fn_var_replaceWithValue_zIndex,
+        z-index-value($level),
+        var(--z-index-#{$level}, z-index-value($level))
+    );
 }

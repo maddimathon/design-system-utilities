@@ -7,68 +7,79 @@
 
 /* import - types */
 import type { HTMLAttributes } from 'astro/types';
-import type { ColourLevels, ColourLevels_Extended } from '../../ts/02-tokens/@types.d.ts';
-import type { Tokens_Internal } from '../../ts/02-tokens/Tokens.js';
+import type { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
+import type {
+    ColourLevels,
+    ColourLevels_Extended,
+    ColourNameGeneric,
+} from '../../ts/02-tokens/@types.d.ts';
+import type { Tokens, Tokens_Internal } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
 import type { Tokens_Colour_ShadeMap_Shade } from '../../ts/02-tokens/Colour/ShadeMap/ShadeMap_Shade.js';
 
 /* import - functions */
+import { objectGenerator } from '../../ts/01-utilities/objectGenerator.js';
 
 /* import - values */
 
-/* import - components */ 
+/* import - components */
 import Heading from '@maddimathon/utility-astro/components/Heading';
+// import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
 import ShadeSwatch_Contrast from './ShadeSwatch_Contrast.astro';
+import ShadeSwatch_ColourValue from './ShadeSwatch_ColourValue.astro';
 
 /* import - layouts */
-
-/* TYPES ===================================== */
 
 /* PROPS ===================================== */
 
 export interface Props<
     T_ColourName extends string = Tokens_Internal.Default_ColourName,
-    T_ExtraLevels extends ColourLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
+    T_ExtraLevels extends
+        ColourLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
 > extends Omit<HTMLAttributes<'div'>, 'class'> {
+    heading: number;
     id: string;
-    name: string;
     level: ColourLevels;
+    name: string;
 
-    values: {
-        [K in keyof Tokens_Colour_ShadeMap_Shade.JsonReturn<T_ColourName, T_ExtraLevels>]?:
-            | Tokens_Colour_ShadeMap_Shade.JsonReturn<T_ColourName, T_ExtraLevels>[K]
-            | undefined;
-    };
+    tokens: Tokens.JsonReturn<T_ColourName, T_ExtraLevels>;
+    values: Partial<
+        Tokens_Colour_ShadeMap_Shade.JsonReturn<
+            ColourNameGeneric<T_ColourName>,
+            T_ExtraLevels
+        >
+    >;
 
     bases?: Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, T_ExtraLevels>;
 
     contrast?: boolean;
     contrastIsCondensed?: boolean;
 
-    heading?: number;
-    headingClass?: string|string[];
+    displayHeading?: number;
+    headingClass?: string | string[];
 
     frontmatter?: Omit<Props, 'frontmatter'>;
 }
 
-const { 
+const {
     bases,
     contrast = true,
     contrastIsCondensed = false,
-    heading = 7,
+    heading,
     headingClass = [],
+    displayHeading,
     id,
-    level, 
+    level,
     name,
+    tokens,
     values,
     ...attributes
- }: Props = Astro.props.frontmatter ?? Astro.props;
+}: Props = Astro.props.frontmatter ?? Astro.props;
 
-/* CONSTANTS ===================================== */
+/* FUNCTIONS ===================================== */
 
 export function textColorLevel(lvl: ColourLevels | ColourLevels_Extended) {
-
-    switch ( lvl ) {
+    switch (lvl) {
         case '100':
             return '700';
 
@@ -126,14 +137,24 @@ export function textColorLevel(lvl: ColourLevels | ColourLevels_Extended) {
 
 values.hex = values.hex?.replace(/^#/g, '');
 
-const bg = values.hsl ? `hsl( ${ values.hsl.h }, ${ values.hsl.s }%, ${ values.hsl.l }% )` : values.hex ? `#${values.hex}`: null;
+const bg = values.hsl
+    ? `hsl( ${values.hsl.h}, ${values.hsl.s}%, ${values.hsl.l}% )`
+    : values.hex
+      ? `#${values.hex}`
+      : null;
 
-const textLevel = values.contrast?.min.base?.text?.aaa?.level
-    ?? values.contrast?.max.base?.level
-    ?? textColorLevel(level);
+const textLevel =
+    values.contrast?.min.base?.text?.aaa?.level ??
+    values.contrast?.max.base?.level ??
+    textColorLevel(level);
 
-const text = bases && textLevel && bases && textLevel in bases && bases[ textLevel ] 
-    && `hsl( ${ bases[ textLevel ].hsl.h }, ${ bases[ textLevel ].hsl.s }%, ${ bases[ textLevel ].hsl.l }% )`;
+const text =
+    bases &&
+    textLevel &&
+    bases &&
+    textLevel in bases &&
+    bases[textLevel] &&
+    `hsl( ${bases[textLevel].hsl.h}, ${bases[textLevel].hsl.s}%, ${bases[textLevel].hsl.l}% )`;
 
 const brightnessMode = Number(textLevel) >= 500 ? 'light' : 'dark';
 
@@ -141,76 +162,72 @@ const cssVars = {
     'shade-swatch-color': text || undefined,
     'shade-swatch-background': bg ?? undefined,
 };
---- 
+
+// const valueTypes = (Object.keys(values) as (keyof typeof values)[])
+//     .filter((v) => v !== 'contrast')
+//     .map(
+//         (version) =>
+//             ({
+//                 version,
+//                 shade: values,
+//             }) satisfies {
+//                 shade: Partial<ColourUtilities.SingleShade>;
+//                 version: keyof ColourUtilities.SingleShade;
+//             }
+//     );
+
+const presentTypes = (Object.keys(values) as (keyof typeof values)[]).filter(
+    (v) => v !== 'contrast'
+);
+
+const valueTypes = objectGenerator(
+    presentTypes,
+    (version) =>
+        values[version] &&
+        ({
+            version,
+            shade: values,
+        } satisfies {
+            shade: Partial<ColourUtilities.SingleShade>;
+            version: keyof ColourUtilities.SingleShade;
+        })
+);
+---
 
 <article
     class:list={['container', 'shade-swatch']}
     data-brightness-mode={brightnessMode}
     {...attributes}
-    data-shade-swatch-has-background={cssVars['shade-swatch-background'] && 'true'}
+    data-shade-swatch-has-background={cssVars['shade-swatch-background'] &&
+        'true'}
 >
     <Heading
         heading={heading}
-        class:list={[
-            'shade-swatch__name',
-            '||',
-            headingClass,
-        ]}
+        displayHeading={displayHeading}
+        class:list={['shade-swatch__name', '||', headingClass]}
         set:text={`${name}-${level}`}
     />
+    <!-- {valueTypes.map((value) => <ShadeSwatch_ColourValue {...value} />)} -->
+    {valueTypes['hex'] && <ShadeSwatch_ColourValue {...valueTypes['hex']} />}
+    {valueTypes['hsl'] && <ShadeSwatch_ColourValue {...valueTypes['hsl']} />}
+    {valueTypes['rgb'] && <ShadeSwatch_ColourValue {...valueTypes['rgb']} />}
+    {valueTypes['lch'] && <ShadeSwatch_ColourValue {...valueTypes['lch']} />}
+    <!-- <VariableDump var={valueTypes} /> -->
     {
-        values.hex && (
-            <p
-                class:list={['shade-swatch__colour-value', `shade-swatch__colour-value--hex`]}
-            >
-                #<strong set:text={values.hex} />
-            </p>
+        contrast && values.contrast && (
+            <ShadeSwatch_Contrast
+                brightness={brightnessMode}
+                id={`${id}--${name}-${level}`}
+                isCondensed={contrastIsCondensed}
+                heading={heading + 1}
+                thisShadeName={name}
+                tokens={tokens}
+                values={values.contrast}
+            />
         )
-    }
-    {
-        values.hsl && (
-            <p
-                class:list={['shade-swatch__colour-value', `shade-swatch__colour-value--hsl`]}
-            >
-                <!-- prettier-ignore -->
-                hsl(<strong set:text={values.hsl.h} />,{' '}<strong set:text={`${values.hsl.s}%`} />,{' '}<strong set:text={`${values.hsl.l}%`} />)
-            </p>
-        )
-    }
-    {
-        values.rgb && (
-            <p
-                class:list={['shade-swatch__colour-value', `shade-swatch__colour-value--rgb`]}
-            >
-                <!-- prettier-ignore -->
-                rgb(<strong set:text={values.rgb.r} />,{' '}<strong set:text={`${values.rgb.g}`} />,{' '}<strong set:text={`${values.rgb.b}`} />)
-            </p>
-        )
-    }
-    {
-        values.lch && (
-            <p
-                class:list={['shade-swatch__colour-value', `shade-swatch__colour-value--lch`]}
-            >
-                <!-- prettier-ignore -->
-                lch(<strong set:text={values.lch.l} />{' '}<strong set:text={`${values.lch.c}`} />{' '}<strong set:text={`${values.lch.h}`} />)
-            </p>
-        )
-    }
-    {
-        contrast && values.contrast && <ShadeSwatch_Contrast 
-            brightness={brightnessMode}
-            id={`${id}--${name}-${level}`}
-            isCondensed={contrastIsCondensed}
-            heading={ heading + 1 }
-            thisShadeName={name}
-            values={values.contrast}
-        />
     }
 </article>
 
 <style lang='scss' define:vars={cssVars}>
     @forward '../scss/shade-swatch';
 </style>
-
-  

@@ -98,7 +98,9 @@ export class Tokens_Colour_ShadeMap_Shade extends AbstractTokens {
                 ratio: contrastTest.ratio,
             };
         }
-        this.contrast.results[colourGroupName][level] = contrastTest;
+        this.contrast.results[colourGroupName][level] = {
+            ...contrastTest,
+        };
     }
     shadeValue() {
         return {
@@ -145,7 +147,7 @@ export class Tokens_Colour_ShadeMap_Shade extends AbstractTokens {
         };
     }
     toScssVars() {
-        return `lch( ${this.data.lch.l} ${this.data.lch.c} ${this.data.lch.h} )`;
+        return ColourUtilities.toString.lch(this.data.lch);
     }
 }
 //# sourceMappingURL=ShadeMap_Shade.js.map

@@ -224,8 +224,8 @@ export var ColourUtilities;
         const clrA = toLCH(_clrA);
         const clrB = toLCH(_clrB);
         saturationMultiplier = (Math.min(1, Math.max(-1, saturationMultiplier)) * 100);
-        const clrA_str = `lch( ${clrA.l} ${clrA.c} ${clrA.h} )`;
-        const clrB_str = `lch( ${clrB.l} ${clrB.c} ${clrB.h} )`;
+        const clrA_str = ColourUtilities.toString.lch(clrA);
+        const clrB_str = ColourUtilities.toString.lch(clrB);
         const sass_mixed = `color.mix( ${clrA_str}, ${clrB_str}, $method: lch shorter hue )`;
         const sass_mixed_hsl = `color.to-gamut( ${sass_mixed}, $space: hsl, $method: local-minde )`;
         const sass_mixed_saturated = `color.scale( ${sass_mixed_hsl}, $saturation: ${saturationMultiplier}%, $space: hsl )`;
@@ -246,5 +246,27 @@ export var ColourUtilities;
         });
     }
     ColourUtilities.mixColours = mixColours;
+    let toString;
+    (function (toString) {
+        function hex(clr) {
+            return toHex(clr);
+        }
+        toString.hex = hex;
+        function hsl(clr) {
+            const hsl = toHSL(clr);
+            return `hsl( ${hsl.h}, ${hsl.s}%, ${hsl.l}% )`;
+        }
+        toString.hsl = hsl;
+        function lch(clr) {
+            const lch = toLCH(clr);
+            return `lch( ${lch.l}% ${lch.c} ${lch.h} )`;
+        }
+        toString.lch = lch;
+        function rgb(clr) {
+            const rgb = toRGB(clr);
+            return `rgb( ${rgb.r}, ${rgb.g}, ${rgb.b} )`;
+        }
+        toString.rgb = rgb;
+    })(toString = ColourUtilities.toString || (ColourUtilities.toString = {}));
 })(ColourUtilities || (ColourUtilities = {}));
 //# sourceMappingURL=ColourUtilities.js.map

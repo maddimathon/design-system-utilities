@@ -182,19 +182,17 @@
         
         
         "watch": "run-p --silent watch:*",
-            "watch:astro": "watch -p 'src/astro/components/**/*' -p 'src/astro/layouts/**/*' -c 'build-utils build --only compile      --only-compile astro     --watchedWatcher \"watch:astro\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
-            "watch:scss":  "watch -p 'src/scss/**/*' -p 'src/docs/scss/**/*'                 -c 'build-utils build --only compile      --only-compile scss      --watchedWatcher \"watch:scss\"  --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
-            "watch:ts":    "watch -p 'src/ts/**/*'                                           -c 'build-utils build --only compile,test --only-compile ts,tokens --watchedWatcher \"watch:ts\"    --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:astro":     "watch -p 'src/astro/components/**/*' -p 'src/astro/layouts/**/*' -c 'build-utils build --only compile      --only-compile astro     --watchedWatcher \"watch:astro\"      --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:scss":      "watch -p 'src/scss/**/*' -p 'src/docs/scss/**/*'                 -c 'build-utils build --only compile      --only-compile scss      --watchedWatcher \"watch:scss\"       --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:docs-scss": "watch -p 'src/scss/**/*' -p 'src/docs/scss/**/*'                 -c 'build-utils build --only document     --only-document scss     --watchedWatcher \"watch:docs-scss\"  --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:ts":        "watch -p 'src/ts/**/*'                                           -c 'build-utils build --only compile,test --only-compile ts,tokens --watchedWatcher \"watch:ts\"         --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
         
-        "build-start":       "build-utils build --verbose --starting --without minimize                             --without-document replace && npm run --silent start",
-        "quick-build-start": "build-utils build --verbose --starting --without minimize --without-compile templates --without-document replace && npm run --silent start",
+        "build-start":       "build-utils build --verbose --starting --without minimize                             && npm run --silent start",
+        "quick-build-start": "build-utils build --verbose --starting --without minimize --without-compile templates && npm run --silent start",
 
         "build-update": "npm run --silent build -- --watchedWatcher \"watch:cx\" --watchedChange --only compile,document --without-compile astro,templates,files --only-document scss --verbose",
 
-        "start": "run-p start:* start:watch:*",
-            "start:watch:scss": "watch -p 'src/scss/**/*' -p 'src/docs/scss/**/*' -c 'build-utils build --only compile,document --only-compile scss --only-document scss --watchedWatcher \"start:watch:scss\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
-            "start:watch:ts":   "watch -p 'src/ts/**/*'                           -c 'build-utils build --only compile,test     --only-compile ts,tokens                 --watchedWatcher \"start:watch:ts\"   --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
-            "start:astro": "astro dev",
+        "start": "run-p astro:start watch:scss watch:docs-scss watch:ts",
         
 
         "package": "build-utils package",
@@ -206,7 +204,7 @@
     "dependencies": {
         "@maddimathon/build-utilities": "file:../npm-build-utilities",
         "@maddimathon/utility-astro": "file:../utility-astro",
-        "@maddimathon/utility-sass": "github:maddimathon/utility-sass#0.1.0-pre.5",
+        "@maddimathon/utility-sass": "file:../utility-sass",
         "@maddimathon/utility-typescript": "2.0.0-beta",
         "@types/jest": "^30.0.0",
         "astro": "^5.14.4",

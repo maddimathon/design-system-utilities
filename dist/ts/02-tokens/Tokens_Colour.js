@@ -9,6 +9,7 @@
  */
 // import { JsonToScss } from '@maddimathon/utility-sass';
 // import * as z from 'zod';
+import { arrayUnique } from '@maddimathon/utility-typescript/functions';
 import { objectGenerator } from '../01-utilities/objectGenerator.js';
 import { objectMap } from '../01-utilities/objectMap.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
@@ -19,13 +20,16 @@ import { Tokens_Colour_ShadeMap } from './Colour/Colour_ShadeMap.js';
  * @since 0.1.0-alpha.draft
  */
 export class Tokens_Colour extends AbstractTokens {
-    allNames;
     extraLevels;
     data;
+    allNames;
     constructor(allNames, extraLevels, input) {
         super();
-        this.allNames = allNames;
         this.extraLevels = extraLevels;
+        this.allNames = arrayUnique([
+            'base',
+            ...allNames,
+        ]);
         this.data = objectGenerator(this.allNames, (name) => new Tokens_Colour_ShadeMap(this.allNames, this.extraLevels, name, input[name] ?? {}));
     }
     /**

@@ -37,9 +37,10 @@ export class Document extends DocumentStage {
             return;
         }
         const outDir = this.getSrcDir(undefined, this.astroPublicDir.replace(/\/$/g, '') + '/css');
-        await this.runCustomScssDirSubStage('docs/scss', outDir, { postCSS: true });
+        const paths = await this.runCustomScssDirSubStage('docs/scss', outDir, { postCSS: true });
+        this.console.verbose('prettifying...', 2);
         await this.atry(this.fs.prettier, (this.params.verbose ? 2 : 1), [
-            outDir,
+            paths,
             'css',
         ]);
     }

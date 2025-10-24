@@ -18,23 +18,35 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin tokens-transition {
+@mixin tokens-transition($trTime: true) {
     /* #region Tokens - Transitions */
     #{selector.parent-or-root()} {
-        @each $slug, $_value in map.get(tokens.$transition, time) {
-            @if $slug == toggle-closing {
-            } @else {
-                --tr-time-#{$slug}: #{transition-time-value($slug)};
+        @if $trTime {
+            @each $slug, $_value in map.get(tokens.$transition, time) {
+                @if $slug == toggle-closing {
+                } @else {
+                    --tr-time-#{$slug}: #{transition-time-value($slug)};
+                }
             }
         }
+        --transition: none;
     }
-    @include utils.motion {
-        --tr-time-toggle-closing: #{transition-time-value(toggle-closing)};
-        --transition: #{transition-properties-value(true)};
-    }
-    @include utils.no-motion {
-        --tr-time-toggle-closing: 0 !important;
-        --transition: #{transition-properties-value(false)} !important;
+
+    @include utils.js {
+        @include utils.motion($nestParent: false, $unifyParent: true) {
+            @if $trTime {
+                --tr-time-toggle-closing: #{transition-time-value(
+                        toggle-closing
+                    )};
+            }
+            --transition: #{transition-properties-value(true)};
+        }
+        @include utils.no-motion($nestParent: false, $unifyParent: true) {
+            @if $trTime {
+                --tr-time-toggle-closing: 0 !important;
+            }
+            --transition: #{transition-properties-value(false)} !important;
+        }
     }
     /* #endregion Tokens - Transitions */
 }

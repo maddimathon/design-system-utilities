@@ -24,8 +24,6 @@ import Toggle from '@maddimathon/utility-astro/components/Toggle';
 
 /* import - layouts */
 
-/* TYPES ===================================== */
-
 /* PROPS ===================================== */
 
 export interface Props
@@ -40,7 +38,7 @@ export interface Props
 const {
     abbreviated = false,
     tokens = SampleTokens_Json as Tokens.JsonReturn,
-    ...props
+    ...props 
 }: Props = Astro.props;
 
 let mode: { [ K in Required<Props>['mode'] ]: boolean };
@@ -87,9 +85,11 @@ const allHeadingLevels = Object.keys(tokens.typography.size.heading).map(
     Number
 );
 
-const buttonVariations = Object.keys(
-    tokens.themes.default['light'].average.data.button
-).filter( v => v != 'primary' && v != 'disabled' );
+const buttonVariations = tokens.themes['default'] 
+    ? Object.keys(
+        tokens.themes['default']['light'].average.data.button
+    ).filter( v => v != 'primary' && v != 'disabled' )
+    : [];
 
 const heading = props.heading ?? 2;
 const displayHeading = props.displayHeading ?? heading;

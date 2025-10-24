@@ -12,6 +12,7 @@
 
 @use 'pkg:@maddimathon/utility-sass/meta';
 
+@use '../../../config';
 @use '../../../tokens';
 
 @use '../../01-functions' as *;
@@ -31,18 +32,20 @@
 /// @since 0.1.0-alpha.draft
 ///
 @mixin tokens-all(
-    $borderRadius: true,
-    $borderWidth: true,
-    $colour: true,
+    $borderRadius: not config.$fn_var_replaceWithValue_borderRadius,
+    $borderWidth: not config.$fn_var_replaceWithValue_borderWidth,
+    $colour: not config.$fn_var_replaceWithValue_colour,
     $custom: true,
     $fontFamily: true,
-    $fontSize: true,
+    $fontSize: not config.$fn_var_replaceWithValue_fontSize,
     $lineHeight: true,
     $margin: true,
-    $strokeRelative: true,
+    $strokeRelative: not config.$fn_var_replaceWithValue_strokeRelative,
+    $style: not config.$fn_var_replaceWithValue_style,
     $theme: true,
-    $trTime: true,
-    $zIndex: true
+    $transition: true,
+    $trTime: not config.$fn_var_replaceWithValue_transitionTime,
+    $zIndex: not config.$fn_var_replaceWithValue_zIndex
 ) {
     // typography
     @if $fontFamily {
@@ -66,12 +69,16 @@
     @if $zIndex {
         @include tokens-z-index;
     }
-
-    // animation
-    @if $trTime {
-        @include tokens-transition;
+    @if $style {
+        @include tokens-style;
     }
 
+    // animation
+    @if $transition {
+        @include tokens-transition($trTime);
+    }
+
+    // colours
     @if $colour {
         @include tokens-colour;
     }

@@ -8,7 +8,7 @@
 /* import - types */
 import Heading from '@maddimathon/utility-astro/components/Heading';
 import type { ColourLevels, ColourLevels_Extended } from '../../ts/02-tokens/@types.d.ts';
-import type { Tokens_Internal } from '../../ts/02-tokens/Tokens.js';
+import type { Tokens, Tokens_Internal } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Colour } from '../../ts/02-tokens/Tokens_Colour.js';
 
 /* import - functions */
@@ -26,19 +26,16 @@ import ContrastAlert from './ContrastAlert.astro';
 
 /* import - layouts */
 
-/* TYPES ===================================== */
-
 /* PROPS ===================================== */
 
 export interface Props<
     T_ColourName extends string = Tokens_Internal.Default_ColourName,
     T_ExtraLevels extends ColourLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
 > {
-
-    /** Unique. */
-    id: string;
-    
     colour: Tokens_Colour.JsonReturn<T_ColourName, T_ExtraLevels>;
+    id: string;
+    heading: number;
+    tokens: Tokens.JsonReturn;
 
     excludeLevels?: ( ColourLevels | T_ExtraLevels )[];
 
@@ -46,8 +43,10 @@ export interface Props<
 }
 
 const {
-    id,
     excludeLevels = [],
+    heading,
+    id,
+    tokens,
     ...props
 }: Props = Astro.props.frontmatter ?? Astro.props;
 
@@ -363,13 +362,15 @@ const goalLevels = objectMap(
                         >
                             <Heading
                                 class:list='shade-swatch__name' 
-                                heading={7}
+                                displayHeading={7}
+                                heading={heading}
                                 set:text={`target-${set.level}`}
                             />
 
                             <Heading
                                 class:list='screen-reader-text'
-                                heading={8}
+                                displayHeading={8}
+                                heading={heading + 1}
                                 set:text='Contrast Test Results'
                             />
 
@@ -398,13 +399,15 @@ const goalLevels = objectMap(
                                             style={`--shade-swatch-contrast-result-group-single-min-max-column-count: ${set.min?.[standard].colCount}`}
                                         >
                                             <Heading
+                                                heading={heading + 2}
+                                                displayHeading={10}
+
                                                 class:list={[
                                                     'screen-reader-text | ',
                                                     'shade-swatch__contrast__result-group__heading',
                                                     'shade-swatch__contrast__result-group__heading--minimum',
                                                     `shade-swatch__contrast__result-group__heading--minimum--${standard}`,
                                                 ]}
-                                                heading={9}
                                                 set:text={standard.toUpperCase()}
                                             />
                                             {set.min?.[standard].ui && (
@@ -415,6 +418,7 @@ const goalLevels = objectMap(
                                                         'shade-swatch__contrast__result-group__alert--minimum--ui',
                                                         `shade-swatch__contrast__result-group__alert--minimum--${standard}`,
                                                     ]}
+                                                    clr={tokens.colour.base[set.min[standard].ui]}
                                                     clrSlug={`base-${set.min[standard].ui}`}
                                                     level={set.min[standard].ui}
                                                     title={`${standard.toUpperCase()} UI min: ${set.min[standard].ui}`}
@@ -429,6 +433,7 @@ const goalLevels = objectMap(
                                                         'shade-swatch__contrast__result-group__alert--minimum--text',
                                                         `shade-swatch__contrast__result-group__alert--minimum--${standard}`,
                                                     ]}
+                                                    clr={tokens.colour.base[set.min[standard].text]}
                                                     clrSlug={`base-${set.min[standard].text}`}
                                                     level={set.min[standard].text}
                                                     title={`${standard.toUpperCase()} text min: ${set.min[standard].text}`}
@@ -447,12 +452,13 @@ const goalLevels = objectMap(
                                             style={`--shade-swatch-contrast-result-group-single-min-max-column-count: 1`}
                                         >
                                             <Heading 
+                                                heading={heading + 2}
+                                                displayHeading={10}
                                                 class:list={[
                                                     'screen-reader-text | ',
                                                     'shade-swatch__contrast__result-group__heading',
                                                     'shade-swatch__contrast__result-group__heading--maximum',
                                                 ]}
-                                                heading={9}
                                                 set:text='Max'
                                             />
                                             <ContrastAlert
@@ -460,6 +466,7 @@ const goalLevels = objectMap(
                                                     'shade-swatch__contrast__result-group__alert',
                                                     'shade-swatch__contrast__result-group__alert--maximum',
                                                 ]}
+                                                clr={tokens.colour.base[set.max]}
                                                 clrSlug={`base-${set.max}`}
                                                 level={set.max}
                                                 title={`max: ${set.max}`}
@@ -482,9 +489,12 @@ const goalLevels = objectMap(
                             <ShadeSwatch 
                                 bases={props.colour.base}
                                 contrastIsCondensed={true}
+                                displayHeading={7}
+                                heading={heading}
                                 id={id}
                                 level={level}
                                 name={name} 
+                                tokens={tokens}
                                 values={{
                                     ...values,
                                     hsl: import.meta.env.DEV ? values.hsl : undefined,

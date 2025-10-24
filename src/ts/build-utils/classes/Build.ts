@@ -14,6 +14,7 @@
 
 import {
     BuildStage,
+    type Stage,
 } from '@maddimathon/build-utilities';
 
 import {
@@ -41,4 +42,22 @@ export class Build extends BuildStage {
     //     'test',
     //     'document',
     // ];
+
+    public override get ARGS_DEFAULT() {
+
+        const _defaults = super.ARGS_DEFAULT;
+
+        return {
+            ..._defaults,
+            minimize: false,
+
+            prettify: ( _stage ) => {
+
+                return {
+                    ..._defaults.prettify( _stage ),
+                    html: undefined,
+                };
+            },
+        } satisfies Stage.Args.Build as unknown as BuildStage[ 'ARGS_DEFAULT' ];
+    }
 }

@@ -8,11 +8,13 @@
 /* import - types */
 import type { ComponentProps } from 'astro/types';
 import type { ColourContrastTest } from '../../ts/01-utilities/ColourContrastTest.js';
+import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
 import type {
     ColourLevels,
     ColourLevels_Extended,
+    ColourNameGeneric,
 } from '../../ts/02-tokens/@types.d.ts';
-import type { Tokens_Internal } from '../../ts/02-tokens/Tokens.js';
+import type { Tokens, Tokens_Internal } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Colour_ShadeMap_Shade } from '../../ts/02-tokens/Colour/ShadeMap/ShadeMap_Shade.js';
 
 /* import - functions */
@@ -32,8 +34,6 @@ import Heading from '@maddimathon/utility-astro/components/Heading';
 
 /* import - layouts */
 
-/* TYPES ===================================== */
-
 /* PROPS ===================================== */
 
 export interface Props<
@@ -48,25 +48,9 @@ export interface Props<
     id: string;
 
     thisShadeName: string;
-
-    values: {
-        min?: Tokens_Colour_ShadeMap_Shade.Contrast.Minimum<
-            T_ColourName,
-            T_ExtraLevels
-        >;
-        max?: Tokens_Colour_ShadeMap_Shade.Contrast.Maximum<
-            T_ColourName,
-            T_ExtraLevels
-        >;
-        results: Tokens_Colour_ShadeMap_Shade.ContrastResults<
-            T_ColourName,
-            T_ExtraLevels
-        >;
-    };
-    // values: Tokens_Colour_ShadeMap_Shade.JsonReturn<
-    //     T_ColourName,
-    //     T_ExtraLevels
-    // >['contrast'];
+    
+    tokens: Tokens.JsonReturn<T_ColourName, T_ExtraLevels>;
+    values: Tokens_Colour_ShadeMap_Shade.Contrast<ColourNameGeneric<T_ColourName>, T_ExtraLevels, number>;
     
     brightness?: string;
     isCondensed?: boolean;
@@ -79,6 +63,7 @@ const {
     id,
     isCondensed = false,
     thisShadeName,
+    tokens,
     values,
     ...attributes
 }: Props = Astro.props;
@@ -108,6 +93,7 @@ type ColourSet_MinMax_Single<
 > = undefined | {
     level: ColourLevels | T_ExtraLevels;
     ratio: number;
+    shade: ColourUtilities.SingleShade;
     shadeLevelName: string;
 };
 
@@ -144,13 +130,14 @@ function getShadeMapSets<
     T_ExtraLevels extends
         ColourLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
 >(
-    _values: Props<T_ColourName, T_ExtraLevels>['values'],
+    _tokens: Tokens.JsonReturn<T_ColourName, T_ExtraLevels>,
+    _values: Props<ColourNameGeneric<T_ColourName>, T_ExtraLevels>['values'],
     _isCondensed: boolean,
     _thisShadeName: string,
-): ColourSet<T_ColourName, T_ExtraLevels> {
+): ColourSet<ColourNameGeneric<T_ColourName>, T_ExtraLevels> {
     const allColours = arrayUnique(
         Object.keys(_values.min ?? []).concat(Object.keys(_values.max ?? []))
-    ) as T_ColourName[];
+    ) as ColourNameGeneric<T_ColourName>[];
 
     // returns
     if (!allColours.length) {
@@ -161,22 +148,36 @@ function getShadeMapSets<
         _v:
             | undefined
             | Tokens_Colour_ShadeMap_Shade.Contrast.SingleMinMax<
-                  T_ColourName,
-                  T_ExtraLevels
-              >,
+                ColourNameGeneric<T_ColourName>, 
+                T_ExtraLevels, 
+                number
+            >,
     ): ColourSet_MinMax_Single<T_ExtraLevels> =>
         _v && {
             level: _v.level,
+            shade: _tokens.colour[_v.name][_v.level],
             shadeLevelName: `${_v.name}-${_v.level}`,
             ratio: _v.ratio,
         };
+        
+    type _StdResult = undefined|Tokens_Colour_ShadeMap_Shade.Contrast.SingleMinMax<
+            ColourNameGeneric<T_ColourName>, 
+            T_ExtraLevels, 
+            number
+        >;
 
     const minMaker = <T_Std extends 'aa' | 'aaa'>(
-        _clr: T_ColourName,
+        _clr: ColourNameGeneric<T_ColourName>,
         _std: T_Std,
     ): NonNullable<ColourSet_Minimum<T_ExtraLevels>>[T_Std] => {
-        const text = summarizer(_values.min?.[_clr]?.text?.[_std]);
-        const ui = summarizer(_values.min?.[_clr]?.ui?.[_std]);
+        
+        const text = summarizer(
+            _values.min?.[_clr]?.text?.[_std] as _StdResult
+        );
+
+        const ui = summarizer(
+            _values.min?.[_clr]?.ui?.[_std] as _StdResult
+        );
 
         if (text || ui) {
             return {
@@ -189,12 +190,14 @@ function getShadeMapSets<
         return undefined;
     };
 
-    const base_min_aa = minMaker('base' as T_ColourName, 'aa');
-    const base_min_aaa = minMaker('base' as T_ColourName, 'aaa');
-    const base_max = summarizer(_values.max?.['base' as T_ColourName]) || undefined;
+    const base_min_aa = minMaker('base', 'aa');
+    const base_min_aaa = minMaker('base', 'aaa');
+    const base_max = summarizer(_values.max?.['base'] as _StdResult) || undefined;
 
-    function _generator<T_Clr extends T_ColourName>(colourName: T_Clr): {
-        name: T_Clr;
+    function _generator<T_Clr extends T_ColourName>(
+        colourName: ColourNameGeneric<T_Clr>,
+    ): {
+        name: ColourNameGeneric<T_Clr>;
         colCount: number;
         cssTextColour?: string;
         cssTextGreyColour?: string;
@@ -211,7 +214,7 @@ function getShadeMapSets<
             aaa: min_aaa || undefined,
         };
 
-        const max: ColourSet_MinMax_Single<T_ExtraLevels> = summarizer(_values.max?.[colourName]) || undefined;
+        const max: ColourSet_MinMax_Single<T_ExtraLevels> = summarizer(_values.max?.[colourName] as _StdResult) || undefined;
 
         const colCount: number =
             (max ? 1 : 0) + (min?.aa?.colCount ?? 0) + (min?.aaa?.colCount ?? 0);
@@ -296,12 +299,12 @@ function getShadeMapSets<
             max,
 
             cssTextColour:
-                cssTextColourLevel &&
-                `var(--clr-${colourName}-${cssTextColourLevel})`,
+                cssTextColourLevel  
+                && ColourUtilities.toString.hsl(_tokens.colour[colourName][cssTextColourLevel]),
 
             cssTextGreyColour:
-                cssTextGreyColourLevel &&
-                    `var(--clr-base-${cssTextGreyColourLevel})`,
+                cssTextGreyColourLevel 
+                && ColourUtilities.toString.hsl(_tokens.colour.base[cssTextGreyColourLevel]),
 
             allShades,
         };
@@ -310,7 +313,7 @@ function getShadeMapSets<
     // returns
     if (_isCondensed && _thisShadeName !== 'base') {
         return objectGenerator(
-            ['base' as T_ColourName], 
+            [ 'base' ], 
             _generator
         );
     }
@@ -325,7 +328,7 @@ function getShadeMapSets<
 
 const heading = headingRaw || 7;
 
-const shadeMapSets = getShadeMapSets(values, isCondensed, thisShadeName);
+const shadeMapSets = getShadeMapSets(tokens, values, isCondensed, thisShadeName);
 
 const resultGroupColCount = shadeMapSets?.base?.allShades && Math.max(
     Math.ceil( Object.keys( shadeMapSets.base.allShades ).length / 2  ),
@@ -352,11 +355,13 @@ const resultGroupColCount = shadeMapSets?.base?.allShades && Math.max(
         shadeMapSets &&
             Object.values(shadeMapSets).map((shadeMapSet) => (
                 <Heading
+                    heading={heading + 1}
+                    displayHeading={9}
+
                     class:list={[
-                        isCondensed && 'screen-reader-text | ',
+                        isCondensed && 'screen-reader-text',
                         'shade-swatch__contrast__heading',
                     ]}
-                    heading={heading + 1}
                     set:text={toTitleCase(shadeMapSet.name)}
                     data-contrast-result-group-has-heading-color={shadeMapSet.cssTextColour && 'true'}
                     style={
@@ -385,13 +390,15 @@ const resultGroupColCount = shadeMapSets?.base?.allShades && Math.max(
                                     style={`--shade-swatch-contrast-result-group-single-min-max-column-count: ${shadeMapSet.min?.[standard].colCount}`}
                                 >
                                     <Heading
+                                        heading={heading + 2}
+                                        displayHeading={10}
+
                                         class:list={[
                                             isCondensed && 'screen-reader-text | ',
                                             'shade-swatch__contrast__result-group__heading',
                                             'shade-swatch__contrast__result-group__heading--minimum',
                                             `shade-swatch__contrast__result-group__heading--minimum--${standard}`,
                                         ]}
-                                        heading={heading + 2}
                                         set:text={standard.toUpperCase()}
                                         style={
                                             shadeMapSet.cssTextColour &&
@@ -407,6 +414,7 @@ const resultGroupColCount = shadeMapSets?.base?.allShades && Math.max(
                                                 'shade-swatch__contrast__result-group__alert--minimum--ui',
                                                 `shade-swatch__contrast__result-group__alert--minimum--${standard}`,
                                             ]}
+                                            clr={shadeMapSet.min[standard].ui.shade}
                                             clrSlug={shadeMapSet.min[standard].ui.shadeLevelName}
                                             level={shadeMapSet.min[standard].ui.level}
                                             title={`${standard.toUpperCase()} UI min: ${shadeMapSet.min[standard].ui.shadeLevelName}`}
@@ -422,6 +430,7 @@ const resultGroupColCount = shadeMapSets?.base?.allShades && Math.max(
                                                 'shade-swatch__contrast__result-group__alert--minimum--text',
                                                 `shade-swatch__contrast__result-group__alert--minimum--${standard}`,
                                             ]}
+                                            clr={shadeMapSet.min[standard].text.shade}
                                             clrSlug={shadeMapSet.min[standard].text.shadeLevelName}
                                             level={shadeMapSet.min[standard].text.level}
                                             title={`${standard.toUpperCase()} text min: ${shadeMapSet.min[standard].text.shadeLevelName}`}
@@ -441,12 +450,14 @@ const resultGroupColCount = shadeMapSets?.base?.allShades && Math.max(
                             style={`--shade-swatch-contrast-result-group-single-min-max-column-count: 1`}
                         >
                             <Heading 
+                                heading={heading + 2}
+                                displayHeading={10}
+
                                 class:list={[
                                     isCondensed && 'screen-reader-text | ',
                                     'shade-swatch__contrast__result-group__heading',
                                     'shade-swatch__contrast__result-group__heading--maximum',
                                 ]}
-                                heading={heading + 2}
                                 set:text='Max'
                             />
                             <ContrastAlert
@@ -455,6 +466,7 @@ const resultGroupColCount = shadeMapSets?.base?.allShades && Math.max(
                                     'shade-swatch__contrast__result-group__alert',
                                     'shade-swatch__contrast__result-group__alert--maximum',
                                 ]}
+                                clr={shadeMapSet.max.shade}
                                 clrSlug={shadeMapSet.max.shadeLevelName}
                                 level={shadeMapSet.max.level}
                                 title={`max: ${shadeMapSet.max.shadeLevelName}`}
@@ -473,12 +485,14 @@ const resultGroupColCount = shadeMapSets?.base?.allShades && Math.max(
                             ]}
                         >
                             <Heading 
+                                heading={heading + 2}
+                                displayHeading={10}
+
                                 class={[
                                     'shade-swatch__contrast__result-group__heading',
                                     'shade-swatch__contrast__result-group__heading--all-shades',
                                     `shade-swatch__contrast__result-group__heading--all-shades--${shadeMapSet.name}`,
                                 ]}
-                                heading={heading + 2}
                                 set:text='All'
                                 style={
                                     shadeMapSet.cssTextGreyColour &&
@@ -493,6 +507,7 @@ const resultGroupColCount = shadeMapSets?.base?.allShades && Math.max(
                                         'shade-swatch__contrast__result-group__alert',
                                         'shade-swatch__contrast__result-group__alert--maximum',
                                     ]}
+                                    clr={tokens.colour[shadeMapSet.name][singleLevel.level]}
                                     clrSlug={`${shadeMapSet.name}-${singleLevel.level}`}
                                     level={ singleLevel.level }
                                     title={`${shadeMapSet.name}-${singleLevel.level}: ${singleLevel.interpretedResult}` + ( import.meta.env.DEV ? ` (${singleLevel.ratio.toFixed(5)})` : '' )}

@@ -182,6 +182,14 @@ export type ColourLevels_Extended =
 
 
 /**
+ * Enforces some shade names that are always present.
+ * 
+ * @since ___PKG_VERSION___
+ */
+export type ColourNameGeneric<T_ColourName extends string> = "base" | T_ColourName;
+
+
+/**
  * @since ___PKG_VERSION___
  */
 export type RequiredHeadingLevels =

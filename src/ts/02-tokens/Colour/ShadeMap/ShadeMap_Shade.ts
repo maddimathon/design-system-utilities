@@ -133,7 +133,9 @@ export class Tokens_Colour_ShadeMap_Shade<
             };
         }
 
-        this.contrast.results[ colourGroupName ][ level ] = contrastTest;
+        this.contrast.results[ colourGroupName ][ level ] = {
+            ...contrastTest,
+        };
     }
 
     public shadeValue(): ColourUtilities.SingleShade {
@@ -201,7 +203,7 @@ export class Tokens_Colour_ShadeMap_Shade<
     }
 
     public toScssVars() {
-        return `lch( ${ this.data.lch.l } ${ this.data.lch.c } ${ this.data.lch.h } )`;
+        return ColourUtilities.toString.lch( this.data.lch );
     }
 }
 
@@ -240,7 +242,6 @@ export namespace Tokens_Colour_ShadeMap_Shade {
     export type ContrastResults<
         T_ColourName extends string,
         T_ExtraLevels extends ColourLevels_Extended,
-        T_RatioValue extends number | undefined = number,
     > = {
             [ N in T_ColourName ]?: undefined | {
                 [ K in ColourLevels | T_ExtraLevels ]?: ColourContrastTest.Parsed;

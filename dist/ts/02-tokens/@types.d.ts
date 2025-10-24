@@ -182,6 +182,14 @@ export type ColourLevels_Extended =
 
 
 /**
+ * Enforces some shade names that are always present.
+ * 
+ * @since 0.1.0-alpha.draft
+ */
+export type ColourNameGeneric<T_ColourName extends string> = "base" | T_ColourName;
+
+
+/**
  * @since 0.1.0-alpha.draft
  */
 export type RequiredHeadingLevels =

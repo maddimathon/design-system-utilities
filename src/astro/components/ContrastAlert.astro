@@ -11,21 +11,19 @@ import type { ComponentProps } from 'astro/types';
 /* import - functions */
 
 /* import - values */
-// import { SVG } from '@maddimathon/utility-astro';
 
 /* import - components */
-// import Alert from '@maddimathon/utility-astro/components/Alert';
 import AstroIcon from '@maddimathon/utility-astro/components/Icon';
+import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
 
 /* import - layouts */
-
-/* TYPES ===================================== */
 
 /* PROPS ===================================== */
 
 export interface Props {
-    level: string;
+    clr: ColourUtilities.SingleShade;
     clrSlug: string;
+    level: string;
     type: NonNullable<ComponentProps<typeof AstroIcon>['type']>;
 
     brightness?: string;
@@ -36,6 +34,7 @@ export interface Props {
 const {
     brightness,
     class: classList,
+    clr,
     clrSlug,
     level,
     title,
@@ -44,7 +43,7 @@ const {
 
 /* CONSTANTS ===================================== */
 
-const varClr = `var(--clr-${clrSlug})`;
+const varClr = ColourUtilities.toString.hsl(clr);
 ---
 
 <!-- <Alert

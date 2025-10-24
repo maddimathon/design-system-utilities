@@ -26,8 +26,6 @@ import ShadeSwatchTable from './ShadeSwatchTable.astro';
 
 /* import - layouts */
 
-/* TYPES ===================================== */
-
 /* PROPS ===================================== */
 
 export interface Props {
@@ -55,9 +53,11 @@ const excludeLevels = import.meta.env.DEV
 ---
 
 <ShadeSwatchTable
+    heading={2}
     id='all-colours'
     colour={tokens.colour}
     excludeLevels={excludeLevels}
+    tokens={tokens}
 />
 
 {
@@ -79,6 +79,7 @@ const excludeLevels = import.meta.env.DEV
                     id={`shades-${name}__list`}
                     name={name}
                     shadeHeading={3}
+                    tokens={tokens}
                 />
             </Toggle>
         )

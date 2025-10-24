@@ -7,7 +7,7 @@
 
 /* import - types */
 import type { ColourLevels_Extended } from '../../ts/02-tokens/@types.d.ts';
-import type { Tokens_Internal } from '../../ts/02-tokens/Tokens.js';
+import type { Tokens, Tokens_Internal } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
 
 /* import - functions */
@@ -20,8 +20,6 @@ import ShadeSwatch from './ShadeSwatch.astro';
 
 /* import - layouts */
 
-/* TYPES ===================================== */
-
 /* PROPS ===================================== */
 
 export interface Props<
@@ -32,18 +30,19 @@ export interface Props<
     name: string;
 
     colour: Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, T_ExtraLevels>;
+    tokens: Tokens.JsonReturn;
 
     bases?: Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, T_ExtraLevels>;
 
     /** Unique. */
     id: string;
 
-    shadeHeading?: number;
+    shadeHeading: number;
 
     frontmatter?: Omit<Props<T_ColourName, T_ExtraLevels>, 'frontmatter'>;
 }
 
-const { bases, id, name, shadeHeading, ...props }: Props =
+const { bases, id, name, shadeHeading, tokens, ...props }: Props =
     Astro.props.frontmatter ?? Astro.props;
 
 /* FUNCTIONS ===================================== */
@@ -66,6 +65,7 @@ const colour = shadeMapToArray(props.colour);
                     heading={shadeHeading}
                     level={level}
                     name={name}
+                    tokens={tokens}
                     values={values}
                 />
             ))}

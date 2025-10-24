@@ -343,8 +343,8 @@ export namespace ColourUtilities {
 
         saturationMultiplier = ( Math.min( 1, Math.max( -1, saturationMultiplier ) ) * 100 );
 
-        const clrA_str = `lch( ${ clrA.l } ${ clrA.c } ${ clrA.h } )`;
-        const clrB_str = `lch( ${ clrB.l } ${ clrB.c } ${ clrB.h } )`;
+        const clrA_str = ColourUtilities.toString.lch( clrA );
+        const clrB_str = ColourUtilities.toString.lch( clrB );
 
         const sass_mixed = `color.mix( ${ clrA_str }, ${ clrB_str }, $method: lch shorter hue )`;
         const sass_mixed_hsl = `color.to-gamut( ${ sass_mixed }, $space: hsl, $method: local-minde )`;
@@ -370,5 +370,35 @@ export namespace ColourUtilities {
             c: Number( matches[ 2 ] ),
             h: Number( matches[ 3 ] ),
         } );
+    }
+
+    export namespace toString {
+
+        export function hex(
+            clr: { data: SingleShade; } | SingleShade | SingleShade_Input,
+        ): string {
+            return toHex( clr );
+        }
+
+        export function hsl(
+            clr: { data: SingleShade; } | SingleShade | SingleShade_Input,
+        ): string {
+            const hsl = toHSL( clr );
+            return `hsl( ${ hsl.h }, ${ hsl.s }%, ${ hsl.l }% )`;
+        }
+
+        export function lch(
+            clr: { data: SingleShade; } | SingleShade | SingleShade_Input,
+        ): string {
+            const lch = toLCH( clr );
+            return `lch( ${ lch.l }% ${ lch.c } ${ lch.h } )`;
+        }
+
+        export function rgb(
+            clr: { data: SingleShade; } | SingleShade | SingleShade_Input,
+        ): string {
+            const rgb = toRGB( clr );
+            return `rgb( ${ rgb.r }, ${ rgb.g }, ${ rgb.b } )`;
+        }
     }
 }

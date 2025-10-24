@@ -6,7 +6,7 @@
 @use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/map';
 
-// @use '../../config';
+@use '../../config';
 @use '../../tokens';
 
 // @use 'pkg:@maddimathon/utility-astro/01-functions' as utils;
@@ -36,14 +36,18 @@
 /// @since 0.1.0-alpha.draft
 ///
 @function var-tr-time($level) {
-    @return var(--tr-time-#{$level}, #{transition-time-value($level)});
+    @return if(
+        config.$fn_var_replaceWithValue_transitionTime,
+        #{transition-time-value($level)},
+        var(--tr-time-#{$level}, #{transition-time-value($level)})
+    );
 }
 
 $_transition: ();
 @each $prop in map.get(tokens.$designSystem, transition, properties, always) {
     $_transition: list.append(
         $_transition,
-        '#{$prop} #{var-tr-time(normal)} ease-in-out',
+        '#{$prop} #{var-tr-time(fast)} ease-in-out',
         $separator: comma
     );
 }
@@ -52,7 +56,7 @@ $_motionTransition: ();
 @each $prop in map.get(tokens.$designSystem, transition, properties, motion) {
     $_motionTransition: list.append(
         $_motionTransition,
-        '#{$prop} #{var-tr-time(normal)} ease-in-out',
+        '#{$prop} #{var-tr-time(fast)} ease-in-out',
         $separator: comma
     );
 }
@@ -64,10 +68,10 @@ $_motionTransition: ();
 ///
 @function transition-properties-value(
     $withMotion: false,
-    $time: var-tr-time(normal)
+    $time: var-tr-time(fast)
 ) {
     // returns
-    @if $time == var-tr-time(normal) {
+    @if $time == var-tr-time(fast) {
         @return if($withMotion, $_motionTransition, $_transition);
     }
 

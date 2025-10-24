@@ -10,6 +10,7 @@
 
 // import { JsonToScss } from '@maddimathon/utility-sass';
 // import * as z from 'zod';
+import { arrayUnique } from '@maddimathon/utility-typescript/functions';
 
 import { objectGenerator } from '../01-utilities/objectGenerator.js';
 import { objectMap } from '../01-utilities/objectMap.js';
@@ -18,7 +19,10 @@ import { AbstractTokens } from './abstract/AbstractTokens.js';
 
 import { Tokens_Colour_ShadeMap } from './Colour/Colour_ShadeMap.js';
 
-import type { ColourLevels_Extended } from './@types.d.ts';
+import type {
+    ColourLevels_Extended,
+    ColourNameGeneric,
+} from './@types.d.ts';
 
 /**
  * Generates a complete token object for the design system.
@@ -32,12 +36,21 @@ export class Tokens_Colour<
 
     public readonly data: Tokens_Colour.Data<T_ColourName, T_ExtraLevels>;
 
+    protected readonly allNames: readonly ColourNameGeneric<T_ColourName>[];
+
     public constructor (
-        protected readonly allNames: readonly T_ColourName[],
+        allNames: readonly T_ColourName[],
         protected readonly extraLevels: readonly T_ExtraLevels[],
         input: Tokens_Colour.InputParam<T_ColourName, T_ExtraLevels>,
     ) {
         super();
+
+        this.allNames = arrayUnique(
+            [
+                'base',
+                ...allNames,
+            ]
+        );
 
         this.data = objectGenerator(
             this.allNames,
@@ -100,7 +113,10 @@ export namespace Tokens_Colour {
         T_ColourName extends string,
         T_ExtraLevels extends ColourLevels_Extended,
     > = {
-            [ N in T_ColourName ]: Tokens_Colour_ShadeMap<T_ColourName, T_ExtraLevels>;
+            [ N in ColourNameGeneric<T_ColourName> ]: Tokens_Colour_ShadeMap<
+                ColourNameGeneric<T_ColourName>,
+                T_ExtraLevels
+            >;
         };
 
     /**
@@ -110,7 +126,10 @@ export namespace Tokens_Colour {
         T_ColourName extends string,
         T_ExtraLevels extends ColourLevels_Extended,
     > = {
-            [ N in T_ColourName ]?: Tokens_Colour_ShadeMap.InputParam<T_ColourName, T_ExtraLevels>;
+            [ N in ColourNameGeneric<T_ColourName> ]?: Tokens_Colour_ShadeMap.InputParam<
+                ColourNameGeneric<T_ColourName>,
+                T_ExtraLevels
+            >;
         };
 
     /**
@@ -120,6 +139,9 @@ export namespace Tokens_Colour {
         T_ColourName extends string,
         T_ExtraLevels extends ColourLevels_Extended,
     > = {
-            [ N in T_ColourName ]: Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, T_ExtraLevels>;
+            [ N in ColourNameGeneric<T_ColourName> ]: Tokens_Colour_ShadeMap.JsonReturn<
+                ColourNameGeneric<T_ColourName>,
+                T_ExtraLevels
+            >;
         };
 }

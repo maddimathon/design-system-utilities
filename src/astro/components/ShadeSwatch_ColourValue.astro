@@ -1,0 +1,68 @@
+---
+/**
+ * @since ___PKG_VERSION___
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+import type { ElementProps } from '@maddimathon/utility-astro';
+import type { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
+
+/* import - functions */
+
+/* import - shade */
+
+/* import - components */
+
+/* import - layouts */
+
+/* TYPES ===================================== */
+
+/* PROPS ===================================== */
+
+export interface Props extends ElementProps<{}, 'samp'> {
+    shade: Partial<ColourUtilities.SingleShade>;
+    version: keyof ColourUtilities.SingleShade;
+}
+
+const {
+    shade,
+    version = 'hex',
+    class: classList = [],
+    ...attrs
+}: Props = Astro.props;
+
+/* CONSTANTS ===================================== */
+---
+
+{Object.keys( shade ).length && (
+    <samp
+        {...attrs}
+        class:list={[
+            'shade-swatch__colour-value',
+            `shade-swatch__colour-value--${version}`,
+            '||',
+            classList,
+        ]}
+    >
+        {
+            version == 'hsl' && shade.hsl ? (
+                <Fragment>
+                    <!-- prettier-ignore -->
+                    hsl(<strong set:text={shade.hsl.h} />,{' '}<strong set:text={`${shade.hsl.s}%`} />,{' '}<strong set:text={`${shade.hsl.l}%`} />)
+                </Fragment>
+            ) : version == 'lch' && shade.lch ? (
+                <Fragment>
+                    <!-- prettier-ignore -->
+                    lch(<strong set:text={shade.lch.l} />{' '}<strong set:text={`${shade.lch.c}`} />{' '}<strong set:text={`${shade.lch.h}`} />)
+                </Fragment>
+            ) : version == 'rgb' && shade.rgb ? (
+                <Fragment>
+                    <!-- prettier-ignore -->
+                    rgb(<strong set:text={shade.rgb.r} />,{' '}<strong set:text={`${shade.rgb.g}`} />,{' '}<strong set:text={`${shade.rgb.b}`} />)
+                </Fragment>
+            ) : shade.hex && <Fragment>#<strong set:text={shade.hex} /></Fragment>
+        }
+    </samp>
+) }

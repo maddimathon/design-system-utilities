@@ -67,7 +67,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -82,7 +82,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -99,7 +99,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -114,7 +114,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -131,7 +131,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -146,7 +146,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -163,7 +163,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -178,7 +178,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -195,7 +195,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -210,7 +210,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -227,7 +227,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -242,7 +242,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -259,7 +259,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -274,7 +274,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -291,7 +291,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -306,7 +306,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -323,7 +323,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -338,7 +338,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                             family: string;
                             fallbacks: string[];
                             src: {
-                                type: "local" | "ttf" | "woff" | "woff2";
+                                type: "local" | "truetype" | "woff" | "woff2";
                                 path: string;
                             }[];
                             style: "normal" | "italic";
@@ -486,7 +486,7 @@ export declare namespace Tokens_Typography {
                 family: string;
                 fallbacks: string[];
                 src: {
-                    type: "local" | "ttf" | "woff" | "woff2";
+                    type: "local" | "truetype" | "woff" | "woff2";
                     path: string;
                 }[];
                 style: "normal" | "italic";
@@ -525,7 +525,7 @@ export declare namespace Tokens_Typography {
              */
             lineHeightScale?: number;
             /**
-             * Whether to include @font-face declarations in the css.
+             * Whether to include font-face declarations in the css.
              *
              * @default true
              */

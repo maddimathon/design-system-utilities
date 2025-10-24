@@ -9,6 +9,7 @@
  */
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 import { Tokens_CSS_Border } from './CSS/CSS_Border.js';
+import { Tokens_CSS_Style } from './CSS/CSS_Style.js';
 import { Tokens_CSS_Transition } from './CSS/CSS_Transition.js';
 /**
  * Generates a complete token object for the design system.
@@ -16,9 +17,10 @@ import { Tokens_CSS_Transition } from './CSS/CSS_Transition.js';
  * @since 0.1.0-alpha.draft
  */
 export declare class Tokens_CSS extends AbstractTokens<Tokens_CSS.Data> {
-    static get default(): Omit<Tokens_CSS.Data, 'border' | 'transition'>;
+    static get default(): Omit<Tokens_CSS.Data, 'border' | 'style' | 'transition'>;
     get data(): Tokens_CSS.Data;
     protected readonly border: Tokens_CSS_Border;
+    protected readonly style: Tokens_CSS_Style;
     protected readonly transition: Tokens_CSS_Transition;
     protected readonly zIndex: Tokens_CSS.Data['zIndex'];
     constructor(input: Tokens_CSS.InputParam);
@@ -28,6 +30,9 @@ export declare class Tokens_CSS extends AbstractTokens<Tokens_CSS.Data> {
             radius: AbstractTokens.ScssReturn;
             width: AbstractTokens.ScssReturn;
             stroke: AbstractTokens.ScssReturn;
+        };
+        style: {
+            heading: AbstractTokens.ScssReturn;
         };
         transition: {
             properties: AbstractTokens.ScssReturn;
@@ -53,6 +58,7 @@ export declare namespace Tokens_CSS {
      */
     type Data = {
         border: Tokens_CSS_Border;
+        style: Tokens_CSS_Style;
         transition: Tokens_CSS_Transition;
         zIndex: {
             nav: number;
@@ -67,6 +73,7 @@ export declare namespace Tokens_CSS {
      */
     type InputParam = Partial<Omit<Data, 'border' | 'transition' | 'zIndex'>> & {
         border?: Tokens_CSS_Border.InputParam;
+        style?: Tokens_CSS_Style.InputParam;
         transition?: Tokens_CSS_Transition.InputParam;
         zIndex?: Partial<Data['zIndex']>;
     };

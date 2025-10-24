@@ -20,84 +20,54 @@
 ///
 @mixin snippet-heading($slug: '7', $includeUtils: true) {
     //
-    $slugAsNumber: if(meta.type-of($slug) == 'number', $slug, null);
-    $slug: #{$slug};
-
-    $heading10orAbove: false;
-
-    $color: var-theme(heading-10);
-
     @if $slug == title {
-        $color: var-theme(heading-1);
-    } @else if $slug {
-        //
-        $color: var-theme(heading-#{$slug});
-
-        $slugAsNumber: if(
-            $slugAsNumber == null,
-            math.num-val($slug),
-            $slugAsNumber
-        );
-
-        @if $slugAsNumber >= 10 {
-            $heading10orAbove: true;
-        }
+        $slug: '1';
     }
 
-    @if $includeUtils {
-        @include utils.snippet-heading($slug: $slug);
-        // } @else {
-    }
+    $fontStyle: var-style(heading-#{$slug}-font-style);
 
-    @if $slug == title or $slug == '1' {
-    }
-
-    @if $slug == '2' {
-    }
-
-    @if $slug == '3' {
-    }
-
-    @if $slug == '4' {
-    }
-
-    @if $slug == '5' {
-    }
-
-    @if $slug == '6' {
-    }
-
-    @if $slug == '7' or $slug == '8' or $slug == '9' or $heading10orAbove {
-    }
-
-    @if $slug == '8' {
-    }
-
-    @if $slug == '9' {
-    }
-
-    @if $slug == '10' or $heading10orAbove {
-    }
-
-    @if $heading10orAbove {
-    }
+    margin-block: #{var-style(heading-#{$slug}-margin-block-start)}
+        #{var-style(heading-#{$slug}-margin-block-end)};
 
     @if font-family-exists(heading) {
         font-family: #{var-font-family(heading)};
     }
-    color: #{$color};
 
-    %a {
-        color: #{var-theme(link)};
+    font-weight: #{var-style(heading-#{$slug}-font-weight)};
+    font-size: #{var-fs(heading-#{$slug})};
+    line-height: #{var-style(heading-#{$slug}-line-height)};
+    letter-spacing: #{var-style(heading-#{$slug}-letter-spacing)};
 
-        @include hover-focus-visible() {
-            color: #{var-theme(link-hover)};
-        }
+    text-transform: #{var-style(heading-#{$slug}-text-transform)};
+    text-wrap: balance;
 
-        &:active {
-            color: #{var-theme(link-active)};
+    font-style: #{$fontStyle};
+
+    @if $fontStyle == italic {
+        em,
+        i {
+            font-style: normal;
+
+            em,
+            i {
+                font-style: italic;
+            }
         }
     }
+
+    color: #{var-theme(heading-#{$slug})};
+
+    // %a {
+    //     color: #{var-theme(link)};
+
+    //     @include hover-focus-visible() {
+    //         color: #{var-theme(link-hover)};
+    //     }
+
+    //     &:active {
+    //         color: #{var-theme(link-active)};
+    //     }
+    // }
 }
 
 ///

@@ -821,51 +821,68 @@ export namespace Tokens {
 
                     let _filename = `${ _slug }-${ opts.pathWeight ?? weight }`;
 
-                    const path = {
-                        local: name,
-                    };
+                    const paths: {
+                        local?: undefined | string[];
+                    } = {};
 
-                    switch ( opts.pathWeight ?? weight ) {
+                    if ( opts.includeLocalSrc ) {
 
-                        case '100':
-                            path.local = path.local + ' Thin';
-                            break;
+                        let weightSuffix = '';
+                        let styleSuffix = '';
 
-                        case '200':
-                            path.local = path.local + ' ExtraLight';
-                            break;
+                        switch ( opts.pathWeight ?? weight ) {
 
-                        case '300':
-                            path.local = path.local + ' Light';
-                            break;
+                            case '100':
+                                weightSuffix = ' Thin';
+                                break;
 
-                        case '500':
-                            path.local = path.local + ' Medium';
-                            break;
+                            case '200':
+                                weightSuffix = ' ExtraLight';
+                                break;
 
-                        case '600':
-                            path.local = path.local + ' SemiBold';
-                            break;
+                            case '300':
+                                weightSuffix = ' Light';
+                                break;
 
-                        case '700':
-                            path.local = path.local + ' Bold';
-                            break;
+                            case '500':
+                                weightSuffix = ' Medium';
+                                break;
 
-                        case '800':
-                            path.local = path.local + ' ExtraBold';
-                            break;
+                            case '600':
+                                weightSuffix = ' SemiBold';
+                                break;
 
-                        case '900':
-                            path.local = path.local + ' Black';
-                            break;
-                    }
+                            case '700':
+                                weightSuffix = ' Bold';
+                                break;
 
-                    switch ( opts.pathStyle ?? style ) {
+                            case '800':
+                                weightSuffix = ' ExtraBold';
+                                break;
 
-                        case 'italic':
-                            path.local = path.local + ' Italic';
-                            _filename = _filename + '-italic';
-                            break;
+                            case '900':
+                                weightSuffix = ' Black';
+                                break;
+                        }
+
+                        switch ( opts.pathStyle ?? style ) {
+
+                            case 'italic':
+                                styleSuffix = ' Italic';
+                                _filename = _filename + '-italic';
+                                break;
+                        }
+
+                        paths.local = [
+
+                            name + weightSuffix + styleSuffix,
+
+                            (
+                                ( weightSuffix || styleSuffix )
+                                    ? `${ name }-${ weightSuffix }${ styleSuffix }`.replace( /\s+/g, '' )
+                                    : name.replace( /\s+/g, '' )
+                            ),
+                        ];
                     }
 
                     return {
@@ -879,12 +896,7 @@ export namespace Tokens {
                         unicodeRange: opts.unicodeRange,
 
                         path: {
-                            ...path,
-
-                            local: [
-                                path.local,
-                                path.local.replace( /\s+/g, '' ),
-                            ],
+                            ...paths,
 
                             woff2: `${ subpath }/woff2/${ _filename }.woff2`,
                             woff: `${ subpath }/woff/${ _filename }.woff`,

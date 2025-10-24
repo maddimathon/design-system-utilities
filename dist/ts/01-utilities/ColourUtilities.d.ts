@@ -415,5 +415,19 @@ export declare namespace ColourUtilities {
     } | SingleShade | SingleShade_Input, _clrB: {
         data: SingleShade;
     } | SingleShade | SingleShade_Input, saturationMultiplier?: number): Value_LCH;
+    namespace toString {
+        function hex(clr: {
+            data: SingleShade;
+        } | SingleShade | SingleShade_Input): string;
+        function hsl(clr: {
+            data: SingleShade;
+        } | SingleShade | SingleShade_Input): string;
+        function lch(clr: {
+            data: SingleShade;
+        } | SingleShade | SingleShade_Input): string;
+        function rgb(clr: {
+            data: SingleShade;
+        } | SingleShade | SingleShade_Input): string;
+    }
 }
 //# sourceMappingURL=ColourUtilities.d.ts.map

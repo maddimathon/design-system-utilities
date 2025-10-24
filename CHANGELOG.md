@@ -2,7 +2,7 @@
 title: Changelog
 ---
 
-# Design System Utilities Changelog
+# Design System Utilities - Brand Kit Changelog
 
 All notable changes to this project will be documented in this file after/on
 each release.

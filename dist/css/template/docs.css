@@ -4,7 +4,7 @@
  */
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0-pre.5
+ * @maddimathon/utility-sass@0.1.0-pre.5.draft
  * 
  * License: MIT
  */
@@ -276,10 +276,6 @@ pre {
 /* #endregion Normalize */
 /* # TOKENS & PROPERTIES
  * ======================================================================== */
-/* #region Tokens - Font Face */
-/* #endregion Tokens - Font Face */
-/* #region Tokens - Font Families */
-/* #endregion Tokens - Font Families */
 /* #region Tokens - Margin */
 html {
     --mrg-firm-100: 0.3125rem;
@@ -447,104 +443,56 @@ html {
 }
 
 /* #endregion Tokens - Width */
-/* #region Tokens - Border Radius */
-:root {
-    --border-radius-100: 0.25rem;
-    --border-radius-200: 0.375rem;
-    --border-radius-400: 0.625rem;
-}
-
-/* #endregion Tokens - Border Radius */
-/* #region Tokens - Z Index */
-:root {
-    --z-index-nav: 1000;
-    --z-index-popup: 999999;
-    --z-index-settings: 9999;
-    --z-index-skipLink: 99999;
-}
-
-/* #endregion Tokens - Z Index */
 /* #region Tokens - Transitions */
 :root {
-    --tr-time-fast: 250ms;
-    --tr-time-normal: 500ms;
-    --tr-time-slow: 750ms;
+    --transition: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-    html {
-        --tr-time-toggle-closing: 1200ms;
+    :where(.js) {
         --transition:
-            background-color var(--tr-time-normal, 500ms) ease-in-out,
-            border-color var(--tr-time-normal, 500ms) ease-in-out,
-            color var(--tr-time-normal, 500ms) ease-in-out,
-            font-weight var(--tr-time-normal, 500ms) ease-in-out,
-            opacity var(--tr-time-normal, 500ms) ease-in-out,
-            outline-color var(--tr-time-normal, 500ms) ease-in-out,
-            text-decoration-color var(--tr-time-normal, 500ms) ease-in-out,
-            visibility var(--tr-time-normal, 500ms) ease-in-out,
-            aspect-ratio var(--tr-time-normal, 500ms) ease-in-out,
-            bottom var(--tr-time-normal, 500ms) ease-in-out,
-            font-weight var(--tr-time-normal, 500ms) ease-in-out,
-            height var(--tr-time-normal, 500ms) ease-in-out,
-            left var(--tr-time-normal, 500ms) ease-in-out,
-            margin var(--tr-time-normal, 500ms) ease-in-out,
-            padding var(--tr-time-normal, 500ms) ease-in-out,
-            right var(--tr-time-normal, 500ms) ease-in-out,
-            top var(--tr-time-normal, 500ms) ease-in-out,
-            transform var(--tr-time-normal, 500ms) ease-in-out,
-            width var(--tr-time-normal, 500ms) ease-in-out;
+            background-color 250ms ease-in-out, border-color 250ms ease-in-out,
+            color 250ms ease-in-out, font-weight 250ms ease-in-out,
+            opacity 250ms ease-in-out, outline-color 250ms ease-in-out,
+            text-decoration-color 250ms ease-in-out,
+            visibility 250ms ease-in-out, aspect-ratio 250ms ease-in-out,
+            bottom 250ms ease-in-out, font-weight 250ms ease-in-out,
+            height 250ms ease-in-out, left 250ms ease-in-out,
+            margin 250ms ease-in-out, padding 250ms ease-in-out,
+            right 250ms ease-in-out, top 250ms ease-in-out,
+            transform 250ms ease-in-out, width 250ms ease-in-out;
     }
 }
-[data-motion="no-preference"] {
-    --tr-time-toggle-closing: 1200ms;
+[data-motion="no-preference"]:where(.js) {
     --transition:
-        background-color var(--tr-time-normal, 500ms) ease-in-out,
-        border-color var(--tr-time-normal, 500ms) ease-in-out,
-        color var(--tr-time-normal, 500ms) ease-in-out,
-        font-weight var(--tr-time-normal, 500ms) ease-in-out,
-        opacity var(--tr-time-normal, 500ms) ease-in-out,
-        outline-color var(--tr-time-normal, 500ms) ease-in-out,
-        text-decoration-color var(--tr-time-normal, 500ms) ease-in-out,
-        visibility var(--tr-time-normal, 500ms) ease-in-out,
-        aspect-ratio var(--tr-time-normal, 500ms) ease-in-out,
-        bottom var(--tr-time-normal, 500ms) ease-in-out,
-        font-weight var(--tr-time-normal, 500ms) ease-in-out,
-        height var(--tr-time-normal, 500ms) ease-in-out,
-        left var(--tr-time-normal, 500ms) ease-in-out,
-        margin var(--tr-time-normal, 500ms) ease-in-out,
-        padding var(--tr-time-normal, 500ms) ease-in-out,
-        right var(--tr-time-normal, 500ms) ease-in-out,
-        top var(--tr-time-normal, 500ms) ease-in-out,
-        transform var(--tr-time-normal, 500ms) ease-in-out,
-        width var(--tr-time-normal, 500ms) ease-in-out;
+        background-color 250ms ease-in-out, border-color 250ms ease-in-out,
+        color 250ms ease-in-out, font-weight 250ms ease-in-out,
+        opacity 250ms ease-in-out, outline-color 250ms ease-in-out,
+        text-decoration-color 250ms ease-in-out, visibility 250ms ease-in-out,
+        aspect-ratio 250ms ease-in-out, bottom 250ms ease-in-out,
+        font-weight 250ms ease-in-out, height 250ms ease-in-out,
+        left 250ms ease-in-out, margin 250ms ease-in-out,
+        padding 250ms ease-in-out, right 250ms ease-in-out,
+        top 250ms ease-in-out, transform 250ms ease-in-out,
+        width 250ms ease-in-out;
 }
 
 @media (prefers-reduced-motion: reduce) {
-    html {
-        --tr-time-toggle-closing: 0 !important;
+    :where(.js) {
         --transition:
-            background-color var(--tr-time-normal, 500ms) ease-in-out,
-            border-color var(--tr-time-normal, 500ms) ease-in-out,
-            color var(--tr-time-normal, 500ms) ease-in-out,
-            font-weight var(--tr-time-normal, 500ms) ease-in-out,
-            opacity var(--tr-time-normal, 500ms) ease-in-out,
-            outline-color var(--tr-time-normal, 500ms) ease-in-out,
-            text-decoration-color var(--tr-time-normal, 500ms) ease-in-out,
-            visibility var(--tr-time-normal, 500ms) ease-in-out !important;
+            background-color 250ms ease-in-out, border-color 250ms ease-in-out,
+            color 250ms ease-in-out, font-weight 250ms ease-in-out,
+            opacity 250ms ease-in-out, outline-color 250ms ease-in-out,
+            text-decoration-color 250ms ease-in-out,
+            visibility 250ms ease-in-out !important;
     }
 }
-[data-motion="reduce"] {
-    --tr-time-toggle-closing: 0 !important;
+[data-motion="reduce"]:where(.js) {
     --transition:
-        background-color var(--tr-time-normal, 500ms) ease-in-out,
-        border-color var(--tr-time-normal, 500ms) ease-in-out,
-        color var(--tr-time-normal, 500ms) ease-in-out,
-        font-weight var(--tr-time-normal, 500ms) ease-in-out,
-        opacity var(--tr-time-normal, 500ms) ease-in-out,
-        outline-color var(--tr-time-normal, 500ms) ease-in-out,
-        text-decoration-color var(--tr-time-normal, 500ms) ease-in-out,
-        visibility var(--tr-time-normal, 500ms) ease-in-out !important;
+        background-color 250ms ease-in-out, border-color 250ms ease-in-out,
+        color 250ms ease-in-out, font-weight 250ms ease-in-out,
+        opacity 250ms ease-in-out, outline-color 250ms ease-in-out,
+        text-decoration-color 250ms ease-in-out, visibility 250ms ease-in-out !important;
 }
 
 /* #endregion Tokens - Transitions */
@@ -7814,8 +7762,6 @@ blockquote > cite {
 }
 
 code,
-.shade-swatch__name,
-.shade-swatch__colour-value,
 kbd,
 pre,
 samp {
@@ -7870,450 +7816,12 @@ pre:where(:has(> code)) {
     white-space: normal;
     text-wrap: auto;
 }
-pre:where(:has(> code)) > code,
-pre:where(:has(> code)) > .shade-swatch__name,
-pre:where(:has(> code)) > .shade-swatch__colour-value {
+pre:where(:has(> code)) > code {
     white-space: pre;
     text-wrap: nowrap;
     overflow: visible;
 }
 
-/* ## Typography - Headings ==================================== */
-h1,
-.h1,
-.page-title {
-    margin-top: 3.125rem;
-    margin-bottom: 0.4375rem;
-    margin-top: var(--mrg-soft-800, 3.125rem);
-    margin-bottom: var(--mrg-half-400, 0.4375rem);
-    font-weight: 900;
-    font-size: clamp(2.0625rem, 3.625svw + 1rem, 3.125rem);
-    font-size: var(--fs-heading-1, 2.75rem);
-    line-height: 1.3125;
-    line-height: var(--line-height-200, 1.3125);
-    letter-spacing: normal;
-    text-transform: none;
-    text-wrap: balance;
-    font-style: normal;
-}
-h1 button,
-.h1 button,
-h1 [role="button"],
-.h1 [role="button"],
-h1 input[type="button"],
-.h1 input[type="button"],
-h1 input[type="submit"],
-.h1 input[type="submit"],
-h1 a.button,
-.h1 a.button,
-.page-title button,
-.page-title [role="button"],
-.page-title input[type="button"],
-.page-title input[type="submit"],
-.page-title a.button {
-    font: inherit;
-    letter-spacing: inherit;
-    text-transform: inherit;
-}
-h2,
-.theme-mode-toggle .toggle-title > h3,
-.h2 {
-    margin-top: 3.125rem;
-    margin-bottom: 0.4375rem;
-    margin-top: var(--mrg-soft-800, 3.125rem);
-    margin-bottom: var(--mrg-half-400, 0.4375rem);
-    font-weight: 800;
-    font-size: clamp(1.5625rem, 2.6875svw + 1rem, 2.3125rem);
-    font-size: var(--fs-heading-2, 2.0625rem);
-    line-height: 1.3125;
-    line-height: var(--line-height-200, 1.3125);
-    letter-spacing: normal;
-    text-transform: none;
-    text-wrap: balance;
-    font-style: normal;
-}
-h2 button,
-.theme-mode-toggle .toggle-title > h3 button,
-.h2 button,
-h2 [role="button"],
-.theme-mode-toggle .toggle-title > h3 [role="button"],
-.h2 [role="button"],
-h2 input[type="button"],
-.theme-mode-toggle .toggle-title > h3 input[type="button"],
-.h2 input[type="button"],
-h2 input[type="submit"],
-.theme-mode-toggle .toggle-title > h3 input[type="submit"],
-.h2 input[type="submit"],
-h2 a.button,
-.theme-mode-toggle .toggle-title > h3 a.button,
-.h2 a.button {
-    font: inherit;
-    letter-spacing: inherit;
-    text-transform: inherit;
-}
-h3,
-.h3 {
-    margin-top: 3.125rem;
-    margin-bottom: 0.4375rem;
-    margin-top: var(--mrg-soft-800, 3.125rem);
-    margin-bottom: var(--mrg-half-400, 0.4375rem);
-    font-weight: 700;
-    font-size: clamp(1.3125rem, 2.3125svw + 1rem, 2rem);
-    font-size: var(--fs-heading-3, 1.78125rem);
-    line-height: 1.3125;
-    line-height: var(--line-height-200, 1.3125);
-    letter-spacing: normal;
-    text-transform: none;
-    text-wrap: balance;
-    font-style: normal;
-}
-h3 button,
-.h3 button,
-h3 [role="button"],
-.h3 [role="button"],
-h3 input[type="button"],
-.h3 input[type="button"],
-h3 input[type="submit"],
-.h3 input[type="submit"],
-h3 a.button,
-.h3 a.button {
-    font: inherit;
-    letter-spacing: inherit;
-    text-transform: inherit;
-}
-h4,
-.h4 {
-    margin-top: 1.625rem;
-    margin-bottom: 0.4375rem;
-    margin-top: var(--mrg-soft-600, 1.625rem);
-    margin-bottom: var(--mrg-half-400, 0.4375rem);
-    font-weight: 700;
-    font-size: clamp(1.125rem, 2svw + 1rem, 1.75rem);
-    font-size: var(--fs-heading-4, 1.53125rem);
-    line-height: 1.4375;
-    line-height: var(--line-height-300, 1.4375);
-    letter-spacing: normal;
-    text-transform: none;
-    text-wrap: balance;
-    font-style: italic;
-}
-h4 em,
-.h4 em,
-h4 i,
-.h4 i {
-    font-style: normal;
-}
-h4 em em,
-.h4 em em,
-h4 em i,
-.h4 em i,
-h4 i em,
-.h4 i em,
-h4 i i,
-.h4 i i {
-    font-style: italic;
-}
-h4 button,
-.h4 button,
-h4 [role="button"],
-.h4 [role="button"],
-h4 input[type="button"],
-.h4 input[type="button"],
-h4 input[type="submit"],
-.h4 input[type="submit"],
-h4 a.button,
-.h4 a.button {
-    font: inherit;
-    letter-spacing: inherit;
-    text-transform: inherit;
-}
-h5,
-.h5 {
-    margin-top: 1.625rem;
-    margin-bottom: 0.4375rem;
-    margin-top: var(--mrg-soft-600, 1.625rem);
-    margin-bottom: var(--mrg-half-400, 0.4375rem);
-    font-weight: 600;
-    font-size: clamp(1rem, 1.75svw + 1rem, 1.5rem);
-    font-size: var(--fs-heading-5, 1.34375rem);
-    line-height: 1.4375;
-    line-height: var(--line-height-300, 1.4375);
-    letter-spacing: normal;
-    text-transform: none;
-    text-wrap: balance;
-    font-style: italic;
-}
-h5 em,
-.h5 em,
-h5 i,
-.h5 i {
-    font-style: normal;
-}
-h5 em em,
-.h5 em em,
-h5 em i,
-.h5 em i,
-h5 i em,
-.h5 i em,
-h5 i i,
-.h5 i i {
-    font-style: italic;
-}
-h5 button,
-.h5 button,
-h5 [role="button"],
-.h5 [role="button"],
-h5 input[type="button"],
-.h5 input[type="button"],
-h5 input[type="submit"],
-.h5 input[type="submit"],
-h5 a.button,
-.h5 a.button {
-    font: inherit;
-    letter-spacing: inherit;
-    text-transform: inherit;
-}
-h6,
-.font-family-swatch-list .font-family-swatch .font-family-swatch__weight-dt,
-.h6 {
-    margin-top: 1.625rem;
-    margin-bottom: 0.4375rem;
-    margin-top: var(--mrg-soft-600, 1.625rem);
-    margin-bottom: var(--mrg-half-400, 0.4375rem);
-    font-weight: 500;
-    font-size: clamp(0.875rem, 1.5svw + 1rem, 1.3125rem);
-    font-size: var(--fs-heading-6, 1.15625rem);
-    line-height: 1.4375;
-    line-height: var(--line-height-300, 1.4375);
-    letter-spacing: normal;
-    text-transform: none;
-    text-wrap: balance;
-    font-style: italic;
-}
-h6 em,
-.font-family-swatch-list .font-family-swatch .font-family-swatch__weight-dt em,
-.h6 em,
-h6 i,
-.font-family-swatch-list .font-family-swatch .font-family-swatch__weight-dt i,
-.h6 i {
-    font-style: normal;
-}
-h6 em em,
-.font-family-swatch-list
-    .font-family-swatch
-    .font-family-swatch__weight-dt
-    em
-    em,
-.h6 em em,
-h6 em i,
-.font-family-swatch-list
-    .font-family-swatch
-    .font-family-swatch__weight-dt
-    em
-    i,
-.h6 em i,
-h6 i em,
-.font-family-swatch-list
-    .font-family-swatch
-    .font-family-swatch__weight-dt
-    i
-    em,
-.h6 i em,
-h6 i i,
-.font-family-swatch-list .font-family-swatch .font-family-swatch__weight-dt i i,
-.h6 i i {
-    font-style: italic;
-}
-h6 button,
-.font-family-swatch-list
-    .font-family-swatch
-    .font-family-swatch__weight-dt
-    button,
-.h6 button,
-h6 [role="button"],
-.font-family-swatch-list
-    .font-family-swatch
-    .font-family-swatch__weight-dt
-    [role="button"],
-.h6 [role="button"],
-h6 input[type="button"],
-.font-family-swatch-list
-    .font-family-swatch
-    .font-family-swatch__weight-dt
-    input[type="button"],
-.h6 input[type="button"],
-h6 input[type="submit"],
-.font-family-swatch-list
-    .font-family-swatch
-    .font-family-swatch__weight-dt
-    input[type="submit"],
-.h6 input[type="submit"],
-h6 a.button,
-.font-family-swatch-list
-    .font-family-swatch
-    .font-family-swatch__weight-dt
-    a.button,
-.h6 a.button {
-    font: inherit;
-    letter-spacing: inherit;
-    text-transform: inherit;
-}
-.font-family-swatch .font-family-swatch__details-list > dt,
-.h7 {
-    margin-top: 1.625rem;
-    margin-bottom: 0.4375rem;
-    margin-top: var(--mrg-soft-600, 1.625rem);
-    margin-bottom: var(--mrg-half-400, 0.4375rem);
-    font-weight: 500;
-    font-size: clamp(0.75rem, 1.25svw + 1rem, 1.0625rem);
-    font-size: var(--fs-heading-7, 0.96875rem);
-    line-height: 1.6875;
-    line-height: var(--line-height-400, 1.6875);
-    letter-spacing: 0.0625em;
-    text-transform: uppercase;
-    text-wrap: balance;
-    font-style: normal;
-}
-.font-family-swatch .font-family-swatch__details-list > dt button,
-.h7 button,
-.font-family-swatch .font-family-swatch__details-list > dt [role="button"],
-.h7 [role="button"],
-.font-family-swatch .font-family-swatch__details-list > dt input[type="button"],
-.h7 input[type="button"],
-.font-family-swatch .font-family-swatch__details-list > dt input[type="submit"],
-.h7 input[type="submit"],
-.font-family-swatch .font-family-swatch__details-list > dt a.button,
-.h7 a.button {
-    font: inherit;
-    letter-spacing: inherit;
-    text-transform: inherit;
-}
-.h8 {
-    margin-top: 1.625rem;
-    margin-bottom: 0.4375rem;
-    margin-top: var(--mrg-soft-600, 1.625rem);
-    margin-bottom: var(--mrg-half-400, 0.4375rem);
-    font-weight: 500;
-    font-size: clamp(0.6875rem, 1.125svw + 1rem, 1rem);
-    font-size: var(--fs-heading-8, 0.875rem);
-    line-height: 1.6875;
-    line-height: var(--line-height-400, 1.6875);
-    letter-spacing: 0.0625em;
-    text-transform: uppercase;
-    text-wrap: balance;
-    font-style: italic;
-}
-.h8 em,
-.h8 i {
-    font-style: normal;
-}
-.h8 em em,
-.h8 em i,
-.h8 i em,
-.h8 i i {
-    font-style: italic;
-}
-.h8 button,
-.h8 [role="button"],
-.h8 input[type="button"],
-.h8 input[type="submit"],
-.h8 a.button {
-    font: inherit;
-    letter-spacing: inherit;
-    text-transform: inherit;
-}
-.shade-swatch__contrast__heading,
-.h9 {
-    margin-top: 1.1875rem;
-    margin-bottom: 0.4375rem;
-    margin-top: var(--mrg-soft-500, 1.1875rem);
-    margin-bottom: var(--mrg-half-400, 0.4375rem);
-    font-weight: 500;
-    font-size: clamp(0.5625rem, 1svw + 1rem, 0.875rem);
-    font-size: var(--fs-heading-9, var(--fs-heading-8, 0.875rem));
-    line-height: 1.90625;
-    line-height: var(--line-height-500, 1.90625);
-    letter-spacing: 0.0625em;
-    text-transform: uppercase;
-    text-wrap: balance;
-    font-style: italic;
-}
-.shade-swatch__contrast__heading em,
-.h9 em,
-.shade-swatch__contrast__heading i,
-.h9 i {
-    font-style: normal;
-}
-.shade-swatch__contrast__heading em em,
-.h9 em em,
-.shade-swatch__contrast__heading em i,
-.h9 em i,
-.shade-swatch__contrast__heading i em,
-.h9 i em,
-.shade-swatch__contrast__heading i i,
-.h9 i i {
-    font-style: italic;
-}
-.shade-swatch__contrast__heading button,
-.h9 button,
-.shade-swatch__contrast__heading [role="button"],
-.h9 [role="button"],
-.shade-swatch__contrast__heading input[type="button"],
-.h9 input[type="button"],
-.shade-swatch__contrast__heading input[type="submit"],
-.h9 input[type="submit"],
-.shade-swatch__contrast__heading a.button,
-.h9 a.button {
-    font: inherit;
-    letter-spacing: inherit;
-    text-transform: inherit;
-}
-.shade-swatch__contrast__result-group__heading,
-.h10 {
-    margin-top: 1.1875rem;
-    margin-bottom: 0.4375rem;
-    margin-top: var(--mrg-soft-500, 1.1875rem);
-    margin-bottom: var(--mrg-half-400, 0.4375rem);
-    font-weight: 500;
-    font-size: clamp(0.5rem, 0.875svw + 1rem, 0.75rem);
-    font-size: var(--fs-heading-10, var(--fs-heading-8, 0.875rem));
-    line-height: 1.90625;
-    line-height: var(--line-height-500, 1.90625);
-    letter-spacing: 0.0625em;
-    text-transform: uppercase;
-    text-wrap: balance;
-    font-style: italic;
-}
-.shade-swatch__contrast__result-group__heading em,
-.h10 em,
-.shade-swatch__contrast__result-group__heading i,
-.h10 i {
-    font-style: normal;
-}
-.shade-swatch__contrast__result-group__heading em em,
-.h10 em em,
-.shade-swatch__contrast__result-group__heading em i,
-.h10 em i,
-.shade-swatch__contrast__result-group__heading i em,
-.h10 i em,
-.shade-swatch__contrast__result-group__heading i i,
-.h10 i i {
-    font-style: italic;
-}
-.shade-swatch__contrast__result-group__heading button,
-.h10 button,
-.shade-swatch__contrast__result-group__heading [role="button"],
-.h10 [role="button"],
-.shade-swatch__contrast__result-group__heading input[type="button"],
-.h10 input[type="button"],
-.shade-swatch__contrast__result-group__heading input[type="submit"],
-.h10 input[type="submit"],
-.shade-swatch__contrast__result-group__heading a.button,
-.h10 a.button {
-    font: inherit;
-    letter-spacing: inherit;
-    text-transform: inherit;
-}
 /* # GLOBALS - Lists
  * ======================================================================== */
 ol,
@@ -9769,7 +9277,6 @@ body > aside > :first-child {
         h1,
         .h1,
         h2,
-        .theme-mode-toggle .toggle-title > h3,
         .h2,
         h3,
         .h3,
@@ -9778,16 +9285,10 @@ body > aside > :first-child {
         h5,
         .h5,
         h6,
-        .font-family-swatch-list
-            .font-family-swatch
-            .font-family-swatch__weight-dt,
         .h6,
-        .font-family-swatch .font-family-swatch__details-list > dt,
         .h7,
         .h8,
-        .shade-swatch__contrast__heading,
         .h9,
-        .shade-swatch__contrast__result-group__heading,
         .h10
     ),
 .content-header
@@ -9796,7 +9297,6 @@ body > aside > :first-child {
         h1,
         .h1,
         h2,
-        .theme-mode-toggle .toggle-title > h3,
         .h2,
         h3,
         .h3,
@@ -9805,16 +9305,10 @@ body > aside > :first-child {
         h5,
         .h5,
         h6,
-        .font-family-swatch-list
-            .font-family-swatch
-            .font-family-swatch__weight-dt,
         .h6,
-        .font-family-swatch .font-family-swatch__details-list > dt,
         .h7,
         .h8,
-        .shade-swatch__contrast__heading,
         .h9,
-        .shade-swatch__contrast__result-group__heading,
         .h10
     ) {
     margin-top: 0;
@@ -10304,6 +9798,7 @@ a {
         --theme-link-ui,
         var(--clr-purple-650, hsl(283.3, 59.42%, 35.62%))
     );
+    transition: none;
     transition: var(--transition);
 }
 a:visited {
@@ -10570,15 +10065,19 @@ abbr[title] {
     -webkit-text-decoration: dotted underline 0.15625em;
     text-decoration: dotted underline 0.15625em;
     -webkit-text-decoration: dotted underline
-        var(--stroke-relative-500, 0.15625em);
-    text-decoration: dotted underline var(--stroke-relative-500, 0.15625em);
+        var(--stroke-relative-500, stroke-relative-value("500"));
+    text-decoration: dotted underline
+        var(--stroke-relative-500, stroke-relative-value("500"));
     text-decoration-color: hsl(283.3, 59.42%, 35.62%);
     text-decoration-color: var(
         --theme-ui-primary,
         var(--clr-purple-650, hsl(283.3, 59.42%, 35.62%))
     );
     text-underline-offset: 0.1875em;
-    text-underline-offset: var(--stroke-relative-600, 0.1875em);
+    text-underline-offset: var(
+        --stroke-relative-600,
+        stroke-relative-value("600")
+    );
 }
 
 /* ## Typography - Block ==================================== */
@@ -10614,8 +10113,6 @@ blockquote > cite {
     );
 }
 code,
-.shade-swatch__name,
-.shade-swatch__colour-value,
 kbd,
 pre,
 samp {
@@ -10631,15 +10128,13 @@ samp {
 }
 
 code,
-.shade-swatch__name,
-.shade-swatch__colour-value,
 kbd,
 samp {
     display: inline;
     margin-left: 0.125em;
     margin-right: 0.125em;
-    margin-left: var(--stroke-relative-400, 0.125em);
-    margin-right: var(--stroke-relative-400, 0.125em);
+    margin-left: var(--stroke-relative-400, stroke-relative-value("400"));
+    margin-right: var(--stroke-relative-400, stroke-relative-value("400"));
     vertical-align: baseline;
     align-self: baseline;
     font-weight: 500;
@@ -10664,662 +10159,281 @@ pre > code {
 h1,
 .h1,
 .page-title {
+    margin-top: 3.125rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-800, 3.125rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
+    font-weight: 900;
+    font-size: clamp(2.0625rem, 3.625svw + 1rem, 3.125rem);
+    font-size: var(--fs-heading-1, 2.75rem);
+    line-height: 1.3125;
+    line-height: var(--line-height-200, 1.3125);
+    letter-spacing: normal;
+    text-transform: none;
+    text-wrap: balance;
+    font-style: normal;
     color: hsl(282.15, 55.79%, 17.32%);
     color: var(
         --theme-heading-1,
         var(--clr-purple-800, hsl(282.15, 55.79%, 17.32%))
     );
 }
-h1 a,
-.h1 a,
-.page-title a {
-    color: hsl(282.99, 65.99%, 29.2%);
-    color: var(--theme-link, var(--clr-purple-700, hsl(282.99, 65.99%, 29.2%)));
-}
-.no-js h1 a:focus,
-.no-js .h1 a:focus,
-.no-js .page-title a:focus,
-.js__no-where-selector h1 a:focus,
-.js__no-where-selector .h1 a:focus,
-.js__no-where-selector .page-title a:focus {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-:where(.js__no-focusVisible) h1 a:focus,
-:where(.js__no-focusVisible) .h1 a:focus,
-:where(.js__no-focusVisible) .page-title a:focus {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-h1 a:hover,
-.h1 a:hover,
-.page-title a:hover {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-h1 a:focus-visible,
-.h1 a:focus-visible,
-.page-title a:focus-visible {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-h1 a:active,
-.h1 a:active,
-.page-title a:active {
-    color: hsl(2.2, 70.94%, 27.79%);
-    color: var(
-        --theme-link-active,
-        var(--clr-red-700, hsl(2.2, 70.94%, 27.79%))
-    );
-}
 h2,
-.theme-mode-toggle .toggle-title > h3,
 .h2 {
+    margin-top: 3.125rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-800, 3.125rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
+    font-weight: 800;
+    font-size: clamp(1.5625rem, 2.6875svw + 1rem, 2.3125rem);
+    font-size: var(--fs-heading-2, 2.0625rem);
+    line-height: 1.3125;
+    line-height: var(--line-height-200, 1.3125);
+    letter-spacing: normal;
+    text-transform: none;
+    text-wrap: balance;
+    font-style: normal;
     color: hsl(282.49, 61.17%, 23.26%);
     color: var(
         --theme-heading-2,
         var(--clr-purple-750, hsl(282.49, 61.17%, 23.26%))
     );
 }
-h2 a,
-.theme-mode-toggle .toggle-title > h3 a,
-.h2 a {
-    color: hsl(282.99, 65.99%, 29.2%);
-    color: var(--theme-link, var(--clr-purple-700, hsl(282.99, 65.99%, 29.2%)));
-}
-.no-js h2 a:focus,
-.no-js .theme-mode-toggle .toggle-title > h3 a:focus,
-.theme-mode-toggle .no-js .toggle-title > h3 a:focus,
-.no-js .h2 a:focus,
-.js__no-where-selector h2 a:focus,
-.js__no-where-selector .theme-mode-toggle .toggle-title > h3 a:focus,
-.theme-mode-toggle .js__no-where-selector .toggle-title > h3 a:focus,
-.js__no-where-selector .h2 a:focus {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-:where(.js__no-focusVisible) h2 a:focus,
-:where(.js__no-focusVisible) .theme-mode-toggle .toggle-title > h3 a:focus,
-.theme-mode-toggle :where(.js__no-focusVisible) .toggle-title > h3 a:focus,
-:where(.js__no-focusVisible) .h2 a:focus {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-h2 a:hover,
-.theme-mode-toggle .toggle-title > h3 a:hover,
-.h2 a:hover {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-h2 a:focus-visible,
-.theme-mode-toggle .toggle-title > h3 a:focus-visible,
-.h2 a:focus-visible {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-h2 a:active,
-.theme-mode-toggle .toggle-title > h3 a:active,
-.h2 a:active {
-    color: hsl(2.2, 70.94%, 27.79%);
-    color: var(
-        --theme-link-active,
-        var(--clr-red-700, hsl(2.2, 70.94%, 27.79%))
-    );
-}
 h3,
 .h3 {
+    margin-top: 3.125rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-800, 3.125rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
+    font-weight: 700;
+    font-size: clamp(1.3125rem, 2.3125svw + 1rem, 2rem);
+    font-size: var(--fs-heading-3, 1.78125rem);
+    line-height: 1.3125;
+    line-height: var(--line-height-200, 1.3125);
+    letter-spacing: normal;
+    text-transform: none;
+    text-wrap: balance;
+    font-style: normal;
     color: hsl(282.49, 61.17%, 23.26%);
     color: var(
         --theme-heading-3,
         var(--clr-purple-750, hsl(282.49, 61.17%, 23.26%))
     );
 }
-h3 a,
-.h3 a {
-    color: hsl(282.99, 65.99%, 29.2%);
-    color: var(--theme-link, var(--clr-purple-700, hsl(282.99, 65.99%, 29.2%)));
-}
-.no-js h3 a:focus,
-.no-js .h3 a:focus,
-.js__no-where-selector h3 a:focus,
-.js__no-where-selector .h3 a:focus {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-:where(.js__no-focusVisible) h3 a:focus,
-:where(.js__no-focusVisible) .h3 a:focus {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-h3 a:hover,
-.h3 a:hover {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-h3 a:focus-visible,
-.h3 a:focus-visible {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-h3 a:active,
-.h3 a:active {
-    color: hsl(2.2, 70.94%, 27.79%);
-    color: var(
-        --theme-link-active,
-        var(--clr-red-700, hsl(2.2, 70.94%, 27.79%))
-    );
-}
 h4,
 .h4 {
+    margin-top: 1.625rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
+    font-weight: 700;
+    font-size: clamp(1.125rem, 2svw + 1rem, 1.75rem);
+    font-size: var(--fs-heading-4, 1.53125rem);
+    line-height: 1.4375;
+    line-height: var(--line-height-300, 1.4375);
+    letter-spacing: normal;
+    text-transform: none;
+    text-wrap: balance;
+    font-style: italic;
     color: hsl(282.99, 65.99%, 29.2%);
     color: var(
         --theme-heading-4,
         var(--clr-purple-700, hsl(282.99, 65.99%, 29.2%))
     );
 }
-h4 a,
-.h4 a {
-    color: hsl(282.99, 65.99%, 29.2%);
-    color: var(--theme-link, var(--clr-purple-700, hsl(282.99, 65.99%, 29.2%)));
+h4 em,
+.h4 em,
+h4 i,
+.h4 i {
+    font-style: normal;
 }
-.no-js h4 a:focus,
-.no-js .h4 a:focus,
-.js__no-where-selector h4 a:focus,
-.js__no-where-selector .h4 a:focus {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-:where(.js__no-focusVisible) h4 a:focus,
-:where(.js__no-focusVisible) .h4 a:focus {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-h4 a:hover,
-.h4 a:hover {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-h4 a:focus-visible,
-.h4 a:focus-visible {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-h4 a:active,
-.h4 a:active {
-    color: hsl(2.2, 70.94%, 27.79%);
-    color: var(
-        --theme-link-active,
-        var(--clr-red-700, hsl(2.2, 70.94%, 27.79%))
-    );
+h4 em em,
+.h4 em em,
+h4 em i,
+.h4 em i,
+h4 i em,
+.h4 i em,
+h4 i i,
+.h4 i i {
+    font-style: italic;
 }
 h5,
 .h5 {
+    margin-top: 1.625rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
+    font-weight: 600;
+    font-size: clamp(1rem, 1.75svw + 1rem, 1.5rem);
+    font-size: var(--fs-heading-5, 1.34375rem);
+    line-height: 1.4375;
+    line-height: var(--line-height-300, 1.4375);
+    letter-spacing: normal;
+    text-transform: none;
+    text-wrap: balance;
+    font-style: italic;
     color: hsl(282.99, 65.99%, 29.2%);
     color: var(
         --theme-heading-5,
         var(--clr-purple-700, hsl(282.99, 65.99%, 29.2%))
     );
 }
-h5 a,
-.h5 a {
-    color: hsl(282.99, 65.99%, 29.2%);
-    color: var(--theme-link, var(--clr-purple-700, hsl(282.99, 65.99%, 29.2%)));
+h5 em,
+.h5 em,
+h5 i,
+.h5 i {
+    font-style: normal;
 }
-.no-js h5 a:focus,
-.no-js .h5 a:focus,
-.js__no-where-selector h5 a:focus,
-.js__no-where-selector .h5 a:focus {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-:where(.js__no-focusVisible) h5 a:focus,
-:where(.js__no-focusVisible) .h5 a:focus {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-h5 a:hover,
-.h5 a:hover {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-h5 a:focus-visible,
-.h5 a:focus-visible {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-h5 a:active,
-.h5 a:active {
-    color: hsl(2.2, 70.94%, 27.79%);
-    color: var(
-        --theme-link-active,
-        var(--clr-red-700, hsl(2.2, 70.94%, 27.79%))
-    );
+h5 em em,
+.h5 em em,
+h5 em i,
+.h5 em i,
+h5 i em,
+.h5 i em,
+h5 i i,
+.h5 i i {
+    font-style: italic;
 }
 h6,
-.font-family-swatch-list .font-family-swatch .font-family-swatch__weight-dt,
 .h6 {
+    margin-top: 1.625rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
+    font-weight: 500;
+    font-size: clamp(0.875rem, 1.5svw + 1rem, 1.3125rem);
+    font-size: var(--fs-heading-6, 1.15625rem);
+    line-height: 1.4375;
+    line-height: var(--line-height-300, 1.4375);
+    letter-spacing: normal;
+    text-transform: none;
+    text-wrap: balance;
+    font-style: italic;
     color: hsl(282.99, 65.99%, 29.2%);
     color: var(
         --theme-heading-6,
         var(--clr-purple-700, hsl(282.99, 65.99%, 29.2%))
     );
 }
-h6 a,
-.font-family-swatch-list .font-family-swatch .font-family-swatch__weight-dt a,
-.h6 a {
-    color: hsl(282.99, 65.99%, 29.2%);
-    color: var(--theme-link, var(--clr-purple-700, hsl(282.99, 65.99%, 29.2%)));
+h6 em,
+.h6 em,
+h6 i,
+.h6 i {
+    font-style: normal;
 }
-.no-js h6 a:focus,
-.no-js
-    .font-family-swatch-list
-    .font-family-swatch
-    .font-family-swatch__weight-dt
-    a:focus,
-.font-family-swatch-list
-    .font-family-swatch
-    .no-js
-    .font-family-swatch__weight-dt
-    a:focus,
-.no-js .h6 a:focus,
-.js__no-where-selector h6 a:focus,
-.js__no-where-selector
-    .font-family-swatch-list
-    .font-family-swatch
-    .font-family-swatch__weight-dt
-    a:focus,
-.font-family-swatch-list
-    .font-family-swatch
-    .js__no-where-selector
-    .font-family-swatch__weight-dt
-    a:focus,
-.js__no-where-selector .h6 a:focus {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
+h6 em em,
+.h6 em em,
+h6 em i,
+.h6 em i,
+h6 i em,
+.h6 i em,
+h6 i i,
+.h6 i i {
+    font-style: italic;
 }
-
-:where(.js__no-focusVisible) h6 a:focus,
-:where(.js__no-focusVisible)
-    .font-family-swatch-list
-    .font-family-swatch
-    .font-family-swatch__weight-dt
-    a:focus,
-.font-family-swatch-list
-    .font-family-swatch
-    :where(.js__no-focusVisible)
-    .font-family-swatch__weight-dt
-    a:focus,
-:where(.js__no-focusVisible) .h6 a:focus {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-h6 a:hover,
-.font-family-swatch-list
-    .font-family-swatch
-    .font-family-swatch__weight-dt
-    a:hover,
-.h6 a:hover {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-h6 a:focus-visible,
-.font-family-swatch-list
-    .font-family-swatch
-    .font-family-swatch__weight-dt
-    a:focus-visible,
-.h6 a:focus-visible {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-h6 a:active,
-.font-family-swatch-list
-    .font-family-swatch
-    .font-family-swatch__weight-dt
-    a:active,
-.h6 a:active {
-    color: hsl(2.2, 70.94%, 27.79%);
-    color: var(
-        --theme-link-active,
-        var(--clr-red-700, hsl(2.2, 70.94%, 27.79%))
-    );
-}
-.font-family-swatch .font-family-swatch__details-list > dt,
 .h7 {
+    margin-top: 1.625rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
+    font-weight: 500;
+    font-size: clamp(0.75rem, 1.25svw + 1rem, 1.0625rem);
+    font-size: var(--fs-heading-7, 0.96875rem);
+    line-height: 1.6875;
+    line-height: var(--line-height-400, 1.6875);
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    font-style: normal;
     color: hsl(161.88, 71.59%, 16.32%);
     color: var(
         --theme-heading-7,
         var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
     );
 }
-.font-family-swatch .font-family-swatch__details-list > dt a,
-.h7 a {
-    color: hsl(282.99, 65.99%, 29.2%);
-    color: var(--theme-link, var(--clr-purple-700, hsl(282.99, 65.99%, 29.2%)));
-}
-.no-js .font-family-swatch .font-family-swatch__details-list > dt a:focus,
-.font-family-swatch .no-js .font-family-swatch__details-list > dt a:focus,
-.no-js .h7 a:focus,
-.js__no-where-selector
-    .font-family-swatch
-    .font-family-swatch__details-list
-    > dt
-    a:focus,
-.font-family-swatch
-    .js__no-where-selector
-    .font-family-swatch__details-list
-    > dt
-    a:focus,
-.js__no-where-selector .h7 a:focus {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-:where(.js__no-focusVisible)
-    .font-family-swatch
-    .font-family-swatch__details-list
-    > dt
-    a:focus,
-.font-family-swatch
-    :where(.js__no-focusVisible)
-    .font-family-swatch__details-list
-    > dt
-    a:focus,
-:where(.js__no-focusVisible) .h7 a:focus {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-.font-family-swatch .font-family-swatch__details-list > dt a:hover,
-.h7 a:hover {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-.font-family-swatch .font-family-swatch__details-list > dt a:focus-visible,
-.h7 a:focus-visible {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-.font-family-swatch .font-family-swatch__details-list > dt a:active,
-.h7 a:active {
-    color: hsl(2.2, 70.94%, 27.79%);
-    color: var(
-        --theme-link-active,
-        var(--clr-red-700, hsl(2.2, 70.94%, 27.79%))
-    );
-}
 .h8 {
+    margin-top: 1.625rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
+    font-weight: 500;
+    font-size: clamp(0.6875rem, 1.125svw + 1rem, 1rem);
+    font-size: var(--fs-heading-8, 0.875rem);
+    line-height: 1.6875;
+    line-height: var(--line-height-400, 1.6875);
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    font-style: italic;
     color: hsl(161.88, 71.59%, 16.32%);
     color: var(
         --theme-heading-8,
         var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
     );
 }
-.h8 a {
-    color: hsl(282.99, 65.99%, 29.2%);
-    color: var(--theme-link, var(--clr-purple-700, hsl(282.99, 65.99%, 29.2%)));
+.h8 em,
+.h8 i {
+    font-style: normal;
 }
-.no-js .h8 a:focus,
-.js__no-where-selector .h8 a:focus {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
+.h8 em em,
+.h8 em i,
+.h8 i em,
+.h8 i i {
+    font-style: italic;
 }
-
-:where(.js__no-focusVisible) .h8 a:focus {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-.h8 a:hover {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-.h8 a:focus-visible {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-.h8 a:active {
-    color: hsl(2.2, 70.94%, 27.79%);
-    color: var(
-        --theme-link-active,
-        var(--clr-red-700, hsl(2.2, 70.94%, 27.79%))
-    );
-}
-.shade-swatch__contrast__heading,
 .h9 {
+    margin-top: 1.1875rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-500, 1.1875rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
+    font-weight: 500;
+    font-size: clamp(0.5625rem, 1svw + 1rem, 0.875rem);
+    font-size: var(--fs-heading-9, 0.78125rem);
+    line-height: 1.90625;
+    line-height: var(--line-height-500, 1.90625);
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    font-style: italic;
     color: hsl(0, 0%, 24.13%);
     color: var(--theme-heading-9, var(--clr-base-700, hsl(0, 0%, 24.13%)));
 }
-.shade-swatch__contrast__heading a,
-.h9 a {
-    color: hsl(282.99, 65.99%, 29.2%);
-    color: var(--theme-link, var(--clr-purple-700, hsl(282.99, 65.99%, 29.2%)));
+.h9 em,
+.h9 i {
+    font-style: normal;
 }
-.no-js .shade-swatch__contrast__heading a:focus,
-.no-js .h9 a:focus,
-.js__no-where-selector .shade-swatch__contrast__heading a:focus,
-.js__no-where-selector .h9 a:focus {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
+.h9 em em,
+.h9 em i,
+.h9 i em,
+.h9 i i {
+    font-style: italic;
 }
-
-:where(.js__no-focusVisible) .shade-swatch__contrast__heading a:focus,
-:where(.js__no-focusVisible) .h9 a:focus {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-.shade-swatch__contrast__heading a:hover,
-.h9 a:hover {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-.shade-swatch__contrast__heading a:focus-visible,
-.h9 a:focus-visible {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-.shade-swatch__contrast__heading a:active,
-.h9 a:active {
-    color: hsl(2.2, 70.94%, 27.79%);
-    color: var(
-        --theme-link-active,
-        var(--clr-red-700, hsl(2.2, 70.94%, 27.79%))
-    );
-}
-.shade-swatch__contrast__result-group__heading,
 .h10 {
+    margin-top: 1.1875rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-500, 1.1875rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
+    font-weight: 500;
+    font-size: clamp(0.5rem, 0.875svw + 1rem, 0.75rem);
+    font-size: var(--fs-heading-10, 0.6875rem);
+    line-height: 1.90625;
+    line-height: var(--line-height-500, 1.90625);
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    font-style: italic;
     color: hsl(0, 0%, 24.13%);
     color: var(--theme-heading-10, var(--clr-base-700, hsl(0, 0%, 24.13%)));
 }
-.shade-swatch__contrast__result-group__heading a,
-.h10 a {
-    color: hsl(282.99, 65.99%, 29.2%);
-    color: var(--theme-link, var(--clr-purple-700, hsl(282.99, 65.99%, 29.2%)));
+.h10 em,
+.h10 i {
+    font-style: normal;
 }
-.no-js .shade-swatch__contrast__result-group__heading a:focus,
-.no-js .h10 a:focus,
-.js__no-where-selector .shade-swatch__contrast__result-group__heading a:focus,
-.js__no-where-selector .h10 a:focus {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-:where(.js__no-focusVisible)
-    .shade-swatch__contrast__result-group__heading
-    a:focus,
-:where(.js__no-focusVisible) .h10 a:focus {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-.shade-swatch__contrast__result-group__heading a:hover,
-.h10 a:hover {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-.shade-swatch__contrast__result-group__heading a:focus-visible,
-.h10 a:focus-visible {
-    color: hsl(161.88, 71.59%, 16.32%);
-    color: var(
-        --theme-link-hover,
-        var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
-    );
-}
-
-.shade-swatch__contrast__result-group__heading a:active,
-.h10 a:active {
-    color: hsl(2.2, 70.94%, 27.79%);
-    color: var(
-        --theme-link-active,
-        var(--clr-red-700, hsl(2.2, 70.94%, 27.79%))
-    );
+.h10 em em,
+.h10 em i,
+.h10 i em,
+.h10 i i {
+    font-style: italic;
 }
 .page-subtitle {
     font-size: clamp(1rem, 1.75svw + 1rem, 1.5rem);
@@ -11378,7 +10492,10 @@ input {
         --theme-field-accent,
         var(--clr-purple-650, hsl(283.3, 59.42%, 35.62%))
     );
-    --focus-ring-outline-offset: var(--border-width-300, 0.1875rem);
+    --focus-ring-outline-offset: var(
+        --border-width-300,
+        border-width-value("300")
+    );
     background-color: hsl(0, 0%, 84.33%);
     background-color: var(
         --theme-field-bg,
@@ -11571,6 +10688,7 @@ input:active {
 textarea,
 select,
 input {
+    transition: none;
     transition: var(--transition);
 }
 
@@ -11976,7 +11094,10 @@ input[type="submit"],
 a.button,
 input[type="reset"],
 a.button-secondary {
-    --focus-ring-outline-offset: var(--border-width-300, 0.1875rem);
+    --focus-ring-outline-offset: var(
+        --border-width-300,
+        border-width-value("300")
+    );
 }
 .no-js button:focus,
 .no-js [role="button"]:focus,
@@ -12118,6 +11239,7 @@ a.button,
 input[type="reset"],
 a.button-secondary {
     --icon-pseudo-element-margin-block-start: 0.09375em;
+    transition: none;
     transition: var(--transition);
     --focus-ring-outline-color: var(
         --theme-button-primary-border,
@@ -13985,7 +13107,10 @@ input[type="reset"]:active,
 }
 
 ::file-selector-button {
-    --focus-ring-outline-offset: var(--border-width-300, 0.1875rem);
+    --focus-ring-outline-offset: var(
+        --border-width-300,
+        border-width-value("300")
+    );
 }
 .no-js :focus::file-selector-button,
 .js__no-where-selector :focus::file-selector-button {
@@ -14031,6 +13156,7 @@ input[type="reset"]:active,
 }
 ::file-selector-button {
     --icon-pseudo-element-margin-block-start: 0.09375em;
+    transition: none;
     transition: var(--transition);
     --focus-ring-outline-color: var(
         --theme-button-secondary-border,
@@ -14990,7 +14116,7 @@ input[type="reset"]:active,
     line-height: 1.4375;
     line-height: var(--line-height-300, 1.4375);
     border: 0.125rem solid hsl(283.3, 59.42%, 35.62%);
-    border: var(--border-width-200, 0.125rem) solid
+    border: var(--border-width-200, border-width-value("200")) solid
         var(
             --alert-color-border,
             var(--theme-ui-primary, var(--clr-purple-650, currentColor))
@@ -15014,11 +14140,7 @@ input[type="reset"]:active,
     margin-top: var(--mrg-firm-800, 4rem);
 }
 
-.alert-block--has-heading.alert-block:has(
-        h2,
-        .theme-mode-toggle .toggle-title > h3,
-        .h2
-    ) {
+.alert-block--has-heading.alert-block:has(h2, .h2) {
     margin-top: 4rem;
     margin-top: var(--mrg-firm-800, 4rem);
 }
@@ -15031,58 +14153,43 @@ input[type="reset"]:active,
 .alert-block--has-heading.alert-block:has(h4, .h4) {
     border-style: dashed;
     border-width: 0.1875rem;
-    border-width: var(--border-width-300, 0.1875rem);
+    border-width: var(--border-width-300, border-width-value("300"));
 }
 
 .alert-block--has-heading.alert-block:has(h5, .h5) {
     border-style: dashed;
     border-width: 0.1875rem;
-    border-width: var(--border-width-300, 0.1875rem);
+    border-width: var(--border-width-300, border-width-value("300"));
 }
 
-.alert-block--has-heading.alert-block:has(
-        h6,
-        .font-family-swatch-list
-            .font-family-swatch
-            .font-family-swatch__weight-dt,
-        .h6
-    ) {
+.alert-block--has-heading.alert-block:has(h6, .h6) {
     border-style: dashed;
     border-width: 0.1875rem;
-    border-width: var(--border-width-300, 0.1875rem);
+    border-width: var(--border-width-300, border-width-value("300"));
 }
 
-.alert-block--has-heading.alert-block:has(
-        .font-family-swatch .font-family-swatch__details-list > dt,
-        .h7
-    ) {
+.alert-block--has-heading.alert-block:has(.h7) {
     border-style: dotted;
     border-width: 0.1875rem;
-    border-width: var(--border-width-300, 0.1875rem);
+    border-width: var(--border-width-300, border-width-value("300"));
 }
 
 .alert-block--has-heading.alert-block:has(.h8) {
     border-style: dotted;
     border-width: 0.1875rem;
-    border-width: var(--border-width-300, 0.1875rem);
+    border-width: var(--border-width-300, border-width-value("300"));
 }
 
-.alert-block--has-heading.alert-block:has(
-        .shade-swatch__contrast__heading,
-        .h9
-    ) {
+.alert-block--has-heading.alert-block:has(.h9) {
     border-style: dotted;
     border-width: 0.1875rem;
-    border-width: var(--border-width-300, 0.1875rem);
+    border-width: var(--border-width-300, border-width-value("300"));
 }
 
-.alert-block--has-heading.alert-block:has(
-        .shade-swatch__contrast__result-group__heading,
-        .h10
-    ) {
+.alert-block--has-heading.alert-block:has(.h10) {
     border-style: dotted;
     border-width: 0.1875rem;
-    border-width: var(--border-width-300, 0.1875rem);
+    border-width: var(--border-width-300, border-width-value("300"));
 }
 
 .alert-block > .alert-block__headline {
@@ -15125,20 +14232,10 @@ input[type="reset"]:active,
 .alert-block > h5.alert-block__headline,
 .alert-block > .alert-block__headline.h5,
 .alert-block > h6.alert-block__headline,
-.font-family-swatch-list
-    .font-family-swatch
-    .alert-block
-    > .alert-block__headline.font-family-swatch__weight-dt,
 .alert-block > .alert-block__headline.h6,
-.font-family-swatch
-    .alert-block.font-family-swatch__details-list
-    > dt.alert-block__headline,
 .alert-block > .alert-block__headline.h7,
 .alert-block > .alert-block__headline.h8,
-.alert-block > .alert-block__headline.shade-swatch__contrast__heading,
 .alert-block > .alert-block__headline.h9,
-.alert-block
-    > .alert-block__headline.shade-swatch__contrast__result-group__heading,
 .alert-block > .alert-block__headline.h10,
 .alert-block > .alert-block__headline.page-title {
     /* placeholder */
@@ -15159,7 +14256,6 @@ input[type="reset"]:active,
     margin-top: -0.0625em;
 }
 .alert-block > h2.alert-block__headline,
-.theme-mode-toggle .alert-block.toggle-title > h3.alert-block__headline,
 .alert-block > .alert-block__headline.h2 {
     color: hsl(282.49, 61.17%, 23.26%);
     color: var(
@@ -15168,11 +14264,6 @@ input[type="reset"]:active,
     );
 }
 .alert-block > h2.alert-block__headline > .icon + *,
-.theme-mode-toggle
-    .alert-block.toggle-title
-    > h3.alert-block__headline
-    > .icon
-    + *,
 .alert-block > .alert-block__headline.h2 > .icon + * {
     margin-top: -0.0625em;
 }
@@ -15213,10 +14304,6 @@ input[type="reset"]:active,
     margin-top: -0.09375em;
 }
 .alert-block > h6.alert-block__headline,
-.font-family-swatch-list
-    .font-family-swatch
-    .alert-block
-    > .alert-block__headline.font-family-swatch__weight-dt,
 .alert-block > .alert-block__headline.h6 {
     color: hsl(282.99, 65.99%, 29.2%);
     color: var(
@@ -15225,37 +14312,18 @@ input[type="reset"]:active,
     );
 }
 .alert-block > h6.alert-block__headline > .icon + *,
-.font-family-swatch-list
-    .font-family-swatch
-    .alert-block
-    > .alert-block__headline.font-family-swatch__weight-dt
-    > .icon
-    + *,
 .alert-block > .alert-block__headline.h6 > .icon + * {
     margin-top: -0.09375em;
 }
-.font-family-swatch
-    .alert-block.font-family-swatch__details-list
-    > dt.alert-block__headline
-    > .icon
-    + *,
 .alert-block > .alert-block__headline.h7 > .icon + * {
     margin-top: -0.125em;
 }
 .alert-block > .alert-block__headline.h8 > .icon + * {
     margin-top: -0.125em;
 }
-.alert-block
-    > .alert-block__headline.shade-swatch__contrast__heading
-    > .icon
-    + *,
 .alert-block > .alert-block__headline.h9 > .icon + * {
     margin-top: -0.125em;
 }
-.alert-block
-    > .alert-block__headline.shade-swatch__contrast__result-group__heading
-    > .icon
-    + *,
 .alert-block > .alert-block__headline.h10 > .icon + * {
     margin-top: -0.125em;
 }
@@ -15279,7 +14347,6 @@ input[type="reset"]:active,
 .toggle-title > h1,
 .toggle-title > .h1,
 .toggle-title > h2,
-.theme-mode-toggle .toggle-title > h3,
 .toggle-title > .h2,
 .toggle-title > h3,
 .toggle-title > .h3,
@@ -15288,17 +14355,10 @@ input[type="reset"]:active,
 .toggle-title > h5,
 .toggle-title > .h5,
 .toggle-title > h6,
-.font-family-swatch-list
-    .font-family-swatch
-    .toggle-title
-    > .font-family-swatch__weight-dt,
 .toggle-title > .h6,
-.font-family-swatch .toggle-title.font-family-swatch__details-list > dt,
 .toggle-title > .h7,
 .toggle-title > .h8,
-.toggle-title > .shade-swatch__contrast__heading,
 .toggle-title > .h9,
-.toggle-title > .shade-swatch__contrast__result-group__heading,
 .toggle-title > .h10,
 .toggle-title > .page-title {
     margin: 0;
@@ -15319,21 +14379,10 @@ input[type="reset"]:active,
 .toggle-title > h5 .toggle-icon,
 .toggle-title > .h5 .toggle-icon,
 .toggle-title > h6 .toggle-icon,
-.font-family-swatch-list
-    .font-family-swatch
-    .toggle-title
-    > .font-family-swatch__weight-dt
-    .toggle-icon,
 .toggle-title > .h6 .toggle-icon,
-.font-family-swatch
-    .toggle-title.font-family-swatch__details-list
-    > dt
-    .toggle-icon,
 .toggle-title > .h7 .toggle-icon,
 .toggle-title > .h8 .toggle-icon,
-.toggle-title > .shade-swatch__contrast__heading .toggle-icon,
 .toggle-title > .h9 .toggle-icon,
-.toggle-title > .shade-swatch__contrast__result-group__heading .toggle-icon,
 .toggle-title > .h10 .toggle-icon,
 .toggle-title > .page-title .toggle-icon {
     --icon-size: 1em;
@@ -15430,8 +14479,6 @@ input[type="reset"]:active,
 :where(.js) .toggle-title > h1,
 :where(.js) .toggle-title > .h1,
 :where(.js) .toggle-title > h2,
-:where(.js) .theme-mode-toggle .toggle-title > h3,
-.theme-mode-toggle :where(.js) .toggle-title > h3,
 :where(.js) .toggle-title > .h2,
 :where(.js) .toggle-title > h3,
 :where(.js) .toggle-title > .h3,
@@ -15440,30 +14487,10 @@ input[type="reset"]:active,
 :where(.js) .toggle-title > h5,
 :where(.js) .toggle-title > .h5,
 :where(.js) .toggle-title > h6,
-:where(.js)
-    .font-family-swatch-list
-    .font-family-swatch
-    .toggle-title
-    > .font-family-swatch__weight-dt,
-.font-family-swatch-list
-    .font-family-swatch
-    :where(.js)
-    .toggle-title
-    > .font-family-swatch__weight-dt,
 :where(.js) .toggle-title > .h6,
-:where(.js)
-    .font-family-swatch
-    .toggle-title.font-family-swatch__details-list
-    > dt,
-.font-family-swatch
-    :where(.js)
-    .toggle-title.font-family-swatch__details-list
-    > dt,
 :where(.js) .toggle-title > .h7,
 :where(.js) .toggle-title > .h8,
-:where(.js) .toggle-title > .shade-swatch__contrast__heading,
 :where(.js) .toggle-title > .h9,
-:where(.js) .toggle-title > .shade-swatch__contrast__result-group__heading,
 :where(.js) .toggle-title > .h10,
 :where(.js) .toggle-title > .page-title,
 :where(.js) [data-toggle-container] {
@@ -15498,11 +14525,7 @@ input[type="reset"]:active,
 :where(.js)
     [data-toggle-container]:has(.toggle-title > h1, .toggle-title > .h1),
 :where(.js)
-    [data-toggle-container]:has(
-        .toggle-title > h2,
-        .theme-mode-toggle .toggle-title > h3,
-        .toggle-title > .h2
-    ),
+    [data-toggle-container]:has(.toggle-title > h2, .toggle-title > .h2),
 :where(.js)
     [data-toggle-container]:has(.toggle-title > h3, .toggle-title > .h3) {
     margin-top: 3.125rem;
@@ -15513,56 +14536,11 @@ input[type="reset"]:active,
 :where(.js)
     [data-toggle-container]:has(.toggle-title > h5, .toggle-title > .h5),
 :where(.js)
-    [data-toggle-container]:has(
-        .toggle-title > h6,
-        .font-family-swatch-list
-            .font-family-swatch
-            .toggle-title
-            > .font-family-swatch__weight-dt,
-        .toggle-title > .h6
-    ) {
+    [data-toggle-container]:has(.toggle-title > h6, .toggle-title > .h6) {
     margin-top: 1.625rem;
     margin-top: var(--mrg-soft-600, 1.625rem);
 }
-:where(.js)
-    [data-toggle-container]:has(
-        .font-family-swatch
-            .toggle-title.font-family-swatch__details-list
-            > dt
-            .h8
-            .shade-swatch__contrast__heading
-            .shade-swatch__contrast__result-group__heading,
-        .toggle-title
-            > .h7
-            .h8
-            .shade-swatch__contrast__heading
-            .shade-swatch__contrast__result-group__heading,
-        .font-family-swatch
-            .toggle-title.font-family-swatch__details-list
-            > dt
-            .h8
-            .h9
-            .shade-swatch__contrast__result-group__heading,
-        .toggle-title
-            > .h7
-            .h8
-            .h9
-            .shade-swatch__contrast__result-group__heading,
-        .font-family-swatch
-            .toggle-title.font-family-swatch__details-list
-            > dt
-            .h8
-            .shade-swatch__contrast__heading
-            .h10,
-        .toggle-title > .h7 .h8 .shade-swatch__contrast__heading .h10,
-        .font-family-swatch
-            .toggle-title.font-family-swatch__details-list
-            > dt
-            .h8
-            .h9
-            .h10,
-        .toggle-title > .h7 .h8 .h9 .h10
-    ) {
+:where(.js) [data-toggle-container]:has(.toggle-title > .h7 .h8 .h9 .h10) {
     margin-top: 1.625rem;
     margin-top: var(--mrg-soft-600, 1.625rem);
 }
@@ -15572,8 +14550,6 @@ input[type="reset"]:active,
 :where(.js) .toggle-title > h1,
 :where(.js) .toggle-title > .h1,
 :where(.js) .toggle-title > h2,
-:where(.js) .theme-mode-toggle .toggle-title > h3,
-.theme-mode-toggle :where(.js) .toggle-title > h3,
 :where(.js) .toggle-title > .h2,
 :where(.js) .toggle-title > h3,
 :where(.js) .toggle-title > .h3,
@@ -15582,30 +14558,10 @@ input[type="reset"]:active,
 :where(.js) .toggle-title > h5,
 :where(.js) .toggle-title > .h5,
 :where(.js) .toggle-title > h6,
-:where(.js)
-    .font-family-swatch-list
-    .font-family-swatch
-    .toggle-title
-    > .font-family-swatch__weight-dt,
-.font-family-swatch-list
-    .font-family-swatch
-    :where(.js)
-    .toggle-title
-    > .font-family-swatch__weight-dt,
 :where(.js) .toggle-title > .h6,
-:where(.js)
-    .font-family-swatch
-    .toggle-title.font-family-swatch__details-list
-    > dt,
-.font-family-swatch
-    :where(.js)
-    .toggle-title.font-family-swatch__details-list
-    > dt,
 :where(.js) .toggle-title > .h7,
 :where(.js) .toggle-title > .h8,
-:where(.js) .toggle-title > .shade-swatch__contrast__heading,
 :where(.js) .toggle-title > .h9,
-:where(.js) .toggle-title > .shade-swatch__contrast__result-group__heading,
 :where(.js) .toggle-title > .h10,
 :where(.js) .toggle-title > .page-title {
     grid-template-columns: subgrid;
@@ -15618,8 +14574,6 @@ input[type="reset"]:active,
 :where(.js) .toggle-title > h1,
 :where(.js) .toggle-title > .h1,
 :where(.js) .toggle-title > h2,
-:where(.js) .theme-mode-toggle .toggle-title > h3,
-.theme-mode-toggle :where(.js) .toggle-title > h3,
 :where(.js) .toggle-title > .h2,
 :where(.js) .toggle-title > h3,
 :where(.js) .toggle-title > .h3,
@@ -15628,30 +14582,10 @@ input[type="reset"]:active,
 :where(.js) .toggle-title > h5,
 :where(.js) .toggle-title > .h5,
 :where(.js) .toggle-title > h6,
-:where(.js)
-    .font-family-swatch-list
-    .font-family-swatch
-    .toggle-title
-    > .font-family-swatch__weight-dt,
-.font-family-swatch-list
-    .font-family-swatch
-    :where(.js)
-    .toggle-title
-    > .font-family-swatch__weight-dt,
 :where(.js) .toggle-title > .h6,
-:where(.js)
-    .font-family-swatch
-    .toggle-title.font-family-swatch__details-list
-    > dt,
-.font-family-swatch
-    :where(.js)
-    .toggle-title.font-family-swatch__details-list
-    > dt,
 :where(.js) .toggle-title > .h7,
 :where(.js) .toggle-title > .h8,
-:where(.js) .toggle-title > .shade-swatch__contrast__heading,
 :where(.js) .toggle-title > .h9,
-:where(.js) .toggle-title > .shade-swatch__contrast__result-group__heading,
 :where(.js) .toggle-title > .h10,
 :where(.js) .toggle-title > .page-title {
     align-content: center;
@@ -15664,8 +14598,6 @@ input[type="reset"]:active,
 :where(.js) .toggle-title > h1,
 :where(.js) .toggle-title > .h1,
 :where(.js) .toggle-title > h2,
-:where(.js) .theme-mode-toggle .toggle-title > h3,
-.theme-mode-toggle :where(.js) .toggle-title > h3,
 :where(.js) .toggle-title > .h2,
 :where(.js) .toggle-title > h3,
 :where(.js) .toggle-title > .h3,
@@ -15674,30 +14606,10 @@ input[type="reset"]:active,
 :where(.js) .toggle-title > h5,
 :where(.js) .toggle-title > .h5,
 :where(.js) .toggle-title > h6,
-:where(.js)
-    .font-family-swatch-list
-    .font-family-swatch
-    .toggle-title
-    > .font-family-swatch__weight-dt,
-.font-family-swatch-list
-    .font-family-swatch
-    :where(.js)
-    .toggle-title
-    > .font-family-swatch__weight-dt,
 :where(.js) .toggle-title > .h6,
-:where(.js)
-    .font-family-swatch
-    .toggle-title.font-family-swatch__details-list
-    > dt,
-.font-family-swatch
-    :where(.js)
-    .toggle-title.font-family-swatch__details-list
-    > dt,
 :where(.js) .toggle-title > .h7,
 :where(.js) .toggle-title > .h8,
-:where(.js) .toggle-title > .shade-swatch__contrast__heading,
 :where(.js) .toggle-title > .h9,
-:where(.js) .toggle-title > .shade-swatch__contrast__result-group__heading,
 :where(.js) .toggle-title > .h10,
 :where(.js) .toggle-title > .page-title {
     margin-top: 0;
@@ -15730,8 +14642,6 @@ input[type="reset"]:active,
 :where(.js) .toggle-title > h1,
 :where(.js) .toggle-title > .h1,
 :where(.js) .toggle-title > h2,
-:where(.js) .theme-mode-toggle .toggle-title > h3,
-.theme-mode-toggle :where(.js) .toggle-title > h3,
 :where(.js) .toggle-title > .h2,
 :where(.js) .toggle-title > h3,
 :where(.js) .toggle-title > .h3,
@@ -15740,30 +14650,10 @@ input[type="reset"]:active,
 :where(.js) .toggle-title > h5,
 :where(.js) .toggle-title > .h5,
 :where(.js) .toggle-title > h6,
-:where(.js)
-    .font-family-swatch-list
-    .font-family-swatch
-    .toggle-title
-    > .font-family-swatch__weight-dt,
-.font-family-swatch-list
-    .font-family-swatch
-    :where(.js)
-    .toggle-title
-    > .font-family-swatch__weight-dt,
 :where(.js) .toggle-title > .h6,
-:where(.js)
-    .font-family-swatch
-    .toggle-title.font-family-swatch__details-list
-    > dt,
-.font-family-swatch
-    :where(.js)
-    .toggle-title.font-family-swatch__details-list
-    > dt,
 :where(.js) .toggle-title > .h7,
 :where(.js) .toggle-title > .h8,
-:where(.js) .toggle-title > .shade-swatch__contrast__heading,
 :where(.js) .toggle-title > .h9,
-:where(.js) .toggle-title > .shade-swatch__contrast__result-group__heading,
 :where(.js) .toggle-title > .h10,
 :where(.js) .toggle-title > .page-title {
     padding-bottom: 0.125em;
@@ -15895,29 +14785,20 @@ input[type="reset"]:active,
 }
 
 [data-toggle-container] {
-    --toggle-closing-time: var(--tr-time-toggle-closing, 1200ms);
+    --toggle-closing-time: 1200ms;
 }
 
 :where(.js) .toggle-title,
 :where(.js) [data-toggle-content] {
     transition:
-        background-color 500ms ease-in-out,
-        border-color 500ms ease-in-out,
-        color 500ms ease-in-out,
-        font-weight 500ms ease-in-out,
-        opacity 500ms ease-in-out,
-        outline-color 500ms ease-in-out,
-        text-decoration-color 500ms ease-in-out,
-        visibility 500ms ease-in-out;
-    transition:
-        background-color var(--tr-time-normal, 500ms) ease-in-out,
-        border-color var(--tr-time-normal, 500ms) ease-in-out,
-        color var(--tr-time-normal, 500ms) ease-in-out,
-        font-weight var(--tr-time-normal, 500ms) ease-in-out,
-        opacity var(--tr-time-normal, 500ms) ease-in-out,
-        outline-color var(--tr-time-normal, 500ms) ease-in-out,
-        text-decoration-color var(--tr-time-normal, 500ms) ease-in-out,
-        visibility var(--tr-time-normal, 500ms) ease-in-out;
+        background-color 250ms ease-in-out,
+        border-color 250ms ease-in-out,
+        color 250ms ease-in-out,
+        font-weight 250ms ease-in-out,
+        opacity 250ms ease-in-out,
+        outline-color 250ms ease-in-out,
+        text-decoration-color 250ms ease-in-out,
+        visibility 250ms ease-in-out;
 }
 :where(.js) .toggle-title [data-toggle-control],
 :where(.js) [data-toggle-content] [data-toggle-control] {
@@ -15927,12 +14808,12 @@ input[type="reset"]:active,
 :where(.js) [data-toggle-container="closing"] > [data-toggle-content] {
     border-left-width: 0.1875rem;
     border-right-width: 0.1875rem;
-    border-left-width: var(--border-width-300, 0.1875rem);
-    border-right-width: var(--border-width-300, 0.1875rem);
+    border-left-width: var(--border-width-300, border-width-value("300"));
+    border-right-width: var(--border-width-300, border-width-value("300"));
 }
 :where(.js) [data-toggle-container="open"] > [data-toggle-content] {
     border-bottom-width: 0.1875rem;
-    border-bottom-width: var(--border-width-300, 0.1875rem);
+    border-bottom-width: var(--border-width-300, border-width-value("300"));
     border-color: hsl(0, 0%, 29.51%);
     border-color: var(--theme-ui-grey, var(--clr-base-650, hsl(0, 0%, 29.51%)));
 }
@@ -15942,36 +14823,19 @@ input[type="reset"]:active,
             border-color 500ms ease-in-out 0ms,
             grid-template-rows 1200ms ease-in-out 0ms,
             border-bottom-width 1200ms ease-in-out 0ms,
-            background-color 500ms ease-in-out,
-            border-color 500ms ease-in-out,
-            color 500ms ease-in-out,
-            font-weight 500ms ease-in-out,
-            opacity 500ms ease-in-out,
-            outline-color 500ms ease-in-out,
-            text-decoration-color 500ms ease-in-out,
-            visibility 500ms ease-in-out;
-        transition:
-            border-color var(--tr-time-normal, 500ms) ease-in-out 0ms,
-            grid-template-rows var(--tr-time-toggle-closing, 1200ms) ease-in-out
-                0ms,
-            border-bottom-width var(--tr-time-toggle-closing, 1200ms)
-                ease-in-out 0ms,
-            background-color var(--tr-time-normal, 500ms) ease-in-out,
-            border-color var(--tr-time-normal, 500ms) ease-in-out,
-            color var(--tr-time-normal, 500ms) ease-in-out,
-            font-weight var(--tr-time-normal, 500ms) ease-in-out,
-            opacity var(--tr-time-normal, 500ms) ease-in-out,
-            outline-color var(--tr-time-normal, 500ms) ease-in-out,
-            text-decoration-color var(--tr-time-normal, 500ms) ease-in-out,
-            visibility var(--tr-time-normal, 500ms) ease-in-out;
+            background-color 250ms ease-in-out,
+            border-color 250ms ease-in-out,
+            color 250ms ease-in-out,
+            font-weight 250ms ease-in-out,
+            opacity 250ms ease-in-out,
+            outline-color 250ms ease-in-out,
+            text-decoration-color 250ms ease-in-out,
+            visibility 250ms ease-in-out;
     }
     :where(.js) [data-toggle-content] > .container {
         transition:
             opacity 1200ms ease-in-out 100ms,
             padding 1200ms ease-in-out 0ms;
-        transition:
-            opacity var(--tr-time-toggle-closing, 1200ms) ease-in-out 100ms,
-            padding var(--tr-time-toggle-closing, 1200ms) ease-in-out 0ms;
     }
     :where(.js)
         [data-toggle-container="open"]
@@ -15998,8 +14862,6 @@ input[type="reset"]:active,
         > svg
         #b {
         transition: transform 1200ms ease-in-out 0ms;
-        transition: transform var(--tr-time-toggle-closing, 1200ms) ease-in-out
-            0ms;
     }
     :where(.js) [data-toggle-container="open"] > [data-toggle-content],
     :where(.js) [data-toggle-container="closing"] > [data-toggle-content] {
@@ -16007,28 +14869,14 @@ input[type="reset"]:active,
             border-color 1200ms ease-in-out 0ms,
             grid-template-rows 1200ms ease-in-out 0ms,
             border-bottom-width 1200ms ease-in-out 0ms,
-            background-color 500ms ease-in-out,
-            border-color 500ms ease-in-out,
-            color 500ms ease-in-out,
-            font-weight 500ms ease-in-out,
-            opacity 500ms ease-in-out,
-            outline-color 500ms ease-in-out,
-            text-decoration-color 500ms ease-in-out,
-            visibility 500ms ease-in-out;
-        transition:
-            border-color var(--tr-time-toggle-closing, 1200ms) ease-in-out 0ms,
-            grid-template-rows var(--tr-time-toggle-closing, 1200ms) ease-in-out
-                0ms,
-            border-bottom-width var(--tr-time-toggle-closing, 1200ms)
-                ease-in-out 0ms,
-            background-color var(--tr-time-normal, 500ms) ease-in-out,
-            border-color var(--tr-time-normal, 500ms) ease-in-out,
-            color var(--tr-time-normal, 500ms) ease-in-out,
-            font-weight var(--tr-time-normal, 500ms) ease-in-out,
-            opacity var(--tr-time-normal, 500ms) ease-in-out,
-            outline-color var(--tr-time-normal, 500ms) ease-in-out,
-            text-decoration-color var(--tr-time-normal, 500ms) ease-in-out,
-            visibility var(--tr-time-normal, 500ms) ease-in-out;
+            background-color 250ms ease-in-out,
+            border-color 250ms ease-in-out,
+            color 250ms ease-in-out,
+            font-weight 250ms ease-in-out,
+            opacity 250ms ease-in-out,
+            outline-color 250ms ease-in-out,
+            text-decoration-color 250ms ease-in-out,
+            visibility 250ms ease-in-out;
     }
     :where(.js)
         [data-toggle-container="open"]
@@ -16046,35 +14894,19 @@ input[type="reset"]:active,
         border-color 500ms ease-in-out 0ms,
         grid-template-rows 1200ms ease-in-out 0ms,
         border-bottom-width 1200ms ease-in-out 0ms,
-        background-color 500ms ease-in-out,
-        border-color 500ms ease-in-out,
-        color 500ms ease-in-out,
-        font-weight 500ms ease-in-out,
-        opacity 500ms ease-in-out,
-        outline-color 500ms ease-in-out,
-        text-decoration-color 500ms ease-in-out,
-        visibility 500ms ease-in-out;
-    transition:
-        border-color var(--tr-time-normal, 500ms) ease-in-out 0ms,
-        grid-template-rows var(--tr-time-toggle-closing, 1200ms) ease-in-out 0ms,
-        border-bottom-width var(--tr-time-toggle-closing, 1200ms) ease-in-out
-            0ms,
-        background-color var(--tr-time-normal, 500ms) ease-in-out,
-        border-color var(--tr-time-normal, 500ms) ease-in-out,
-        color var(--tr-time-normal, 500ms) ease-in-out,
-        font-weight var(--tr-time-normal, 500ms) ease-in-out,
-        opacity var(--tr-time-normal, 500ms) ease-in-out,
-        outline-color var(--tr-time-normal, 500ms) ease-in-out,
-        text-decoration-color var(--tr-time-normal, 500ms) ease-in-out,
-        visibility var(--tr-time-normal, 500ms) ease-in-out;
+        background-color 250ms ease-in-out,
+        border-color 250ms ease-in-out,
+        color 250ms ease-in-out,
+        font-weight 250ms ease-in-out,
+        opacity 250ms ease-in-out,
+        outline-color 250ms ease-in-out,
+        text-decoration-color 250ms ease-in-out,
+        visibility 250ms ease-in-out;
 }
 [data-motion="no-preference"]:where(.js) [data-toggle-content] > .container {
     transition:
         opacity 1200ms ease-in-out 100ms,
         padding 1200ms ease-in-out 0ms;
-    transition:
-        opacity var(--tr-time-toggle-closing, 1200ms) ease-in-out 100ms,
-        padding var(--tr-time-toggle-closing, 1200ms) ease-in-out 0ms;
 }
 [data-motion="no-preference"]:where(.js)
     [data-toggle-container="open"]
@@ -16101,7 +14933,6 @@ input[type="reset"]:active,
     > svg
     #b {
     transition: transform 1200ms ease-in-out 0ms;
-    transition: transform var(--tr-time-toggle-closing, 1200ms) ease-in-out 0ms;
 }
 [data-motion="no-preference"]:where(.js)
     [data-toggle-container="open"]
@@ -16113,27 +14944,14 @@ input[type="reset"]:active,
         border-color 1200ms ease-in-out 0ms,
         grid-template-rows 1200ms ease-in-out 0ms,
         border-bottom-width 1200ms ease-in-out 0ms,
-        background-color 500ms ease-in-out,
-        border-color 500ms ease-in-out,
-        color 500ms ease-in-out,
-        font-weight 500ms ease-in-out,
-        opacity 500ms ease-in-out,
-        outline-color 500ms ease-in-out,
-        text-decoration-color 500ms ease-in-out,
-        visibility 500ms ease-in-out;
-    transition:
-        border-color var(--tr-time-toggle-closing, 1200ms) ease-in-out 0ms,
-        grid-template-rows var(--tr-time-toggle-closing, 1200ms) ease-in-out 0ms,
-        border-bottom-width var(--tr-time-toggle-closing, 1200ms) ease-in-out
-            0ms,
-        background-color var(--tr-time-normal, 500ms) ease-in-out,
-        border-color var(--tr-time-normal, 500ms) ease-in-out,
-        color var(--tr-time-normal, 500ms) ease-in-out,
-        font-weight var(--tr-time-normal, 500ms) ease-in-out,
-        opacity var(--tr-time-normal, 500ms) ease-in-out,
-        outline-color var(--tr-time-normal, 500ms) ease-in-out,
-        text-decoration-color var(--tr-time-normal, 500ms) ease-in-out,
-        visibility var(--tr-time-normal, 500ms) ease-in-out;
+        background-color 250ms ease-in-out,
+        border-color 250ms ease-in-out,
+        color 250ms ease-in-out,
+        font-weight 250ms ease-in-out,
+        opacity 250ms ease-in-out,
+        outline-color 250ms ease-in-out,
+        text-decoration-color 250ms ease-in-out,
+        visibility 250ms ease-in-out;
 }
 [data-motion="no-preference"]:where(.js)
     [data-toggle-container="open"]
@@ -16151,30 +14969,17 @@ input[type="reset"]:active,
         transition:
             border-color 500ms ease-in-out 0ms,
             grid-template-rows 0ms ease-in-out 1200ms,
-            background-color 500ms ease-in-out,
-            border-color 500ms ease-in-out,
-            color 500ms ease-in-out,
-            font-weight 500ms ease-in-out,
-            opacity 500ms ease-in-out,
-            outline-color 500ms ease-in-out,
-            text-decoration-color 500ms ease-in-out,
-            visibility 500ms ease-in-out;
-        transition:
-            border-color var(--tr-time-normal, 500ms) ease-in-out 0ms,
-            grid-template-rows 0ms ease-in-out
-                var(--tr-time-toggle-closing, 1200ms),
-            background-color var(--tr-time-normal, 500ms) ease-in-out,
-            border-color var(--tr-time-normal, 500ms) ease-in-out,
-            color var(--tr-time-normal, 500ms) ease-in-out,
-            font-weight var(--tr-time-normal, 500ms) ease-in-out,
-            opacity var(--tr-time-normal, 500ms) ease-in-out,
-            outline-color var(--tr-time-normal, 500ms) ease-in-out,
-            text-decoration-color var(--tr-time-normal, 500ms) ease-in-out,
-            visibility var(--tr-time-normal, 500ms) ease-in-out;
+            background-color 250ms ease-in-out,
+            border-color 250ms ease-in-out,
+            color 250ms ease-in-out,
+            font-weight 250ms ease-in-out,
+            opacity 250ms ease-in-out,
+            outline-color 250ms ease-in-out,
+            text-decoration-color 250ms ease-in-out,
+            visibility 250ms ease-in-out;
     }
     :where(.js) [data-toggle-content] > .container {
         transition: opacity 500ms ease-in-out 100ms;
-        transition: opacity var(--tr-time-normal, 500ms) ease-in-out 100ms;
     }
     :where(.js)
         [data-toggle-container="open"]
@@ -16206,24 +15011,14 @@ input[type="reset"]:active,
     :where(.js) [data-toggle-container="closing"] > [data-toggle-content] {
         transition:
             border-color 500ms ease-in-out 0ms,
-            background-color 500ms ease-in-out,
-            border-color 500ms ease-in-out,
-            color 500ms ease-in-out,
-            font-weight 500ms ease-in-out,
-            opacity 500ms ease-in-out,
-            outline-color 500ms ease-in-out,
-            text-decoration-color 500ms ease-in-out,
-            visibility 500ms ease-in-out;
-        transition:
-            border-color var(--tr-time-normal, 500ms) ease-in-out 0ms,
-            background-color var(--tr-time-normal, 500ms) ease-in-out,
-            border-color var(--tr-time-normal, 500ms) ease-in-out,
-            color var(--tr-time-normal, 500ms) ease-in-out,
-            font-weight var(--tr-time-normal, 500ms) ease-in-out,
-            opacity var(--tr-time-normal, 500ms) ease-in-out,
-            outline-color var(--tr-time-normal, 500ms) ease-in-out,
-            text-decoration-color var(--tr-time-normal, 500ms) ease-in-out,
-            visibility var(--tr-time-normal, 500ms) ease-in-out;
+            background-color 250ms ease-in-out,
+            border-color 250ms ease-in-out,
+            color 250ms ease-in-out,
+            font-weight 250ms ease-in-out,
+            opacity 250ms ease-in-out,
+            outline-color 250ms ease-in-out,
+            text-decoration-color 250ms ease-in-out,
+            visibility 250ms ease-in-out;
     }
     :where(.js)
         [data-toggle-container="open"]
@@ -16240,29 +15035,17 @@ input[type="reset"]:active,
     transition:
         border-color 500ms ease-in-out 0ms,
         grid-template-rows 0ms ease-in-out 1200ms,
-        background-color 500ms ease-in-out,
-        border-color 500ms ease-in-out,
-        color 500ms ease-in-out,
-        font-weight 500ms ease-in-out,
-        opacity 500ms ease-in-out,
-        outline-color 500ms ease-in-out,
-        text-decoration-color 500ms ease-in-out,
-        visibility 500ms ease-in-out;
-    transition:
-        border-color var(--tr-time-normal, 500ms) ease-in-out 0ms,
-        grid-template-rows 0ms ease-in-out var(--tr-time-toggle-closing, 1200ms),
-        background-color var(--tr-time-normal, 500ms) ease-in-out,
-        border-color var(--tr-time-normal, 500ms) ease-in-out,
-        color var(--tr-time-normal, 500ms) ease-in-out,
-        font-weight var(--tr-time-normal, 500ms) ease-in-out,
-        opacity var(--tr-time-normal, 500ms) ease-in-out,
-        outline-color var(--tr-time-normal, 500ms) ease-in-out,
-        text-decoration-color var(--tr-time-normal, 500ms) ease-in-out,
-        visibility var(--tr-time-normal, 500ms) ease-in-out;
+        background-color 250ms ease-in-out,
+        border-color 250ms ease-in-out,
+        color 250ms ease-in-out,
+        font-weight 250ms ease-in-out,
+        opacity 250ms ease-in-out,
+        outline-color 250ms ease-in-out,
+        text-decoration-color 250ms ease-in-out,
+        visibility 250ms ease-in-out;
 }
 [data-motion="reduce"]:where(.js) [data-toggle-content] > .container {
     transition: opacity 500ms ease-in-out 100ms;
-    transition: opacity var(--tr-time-normal, 500ms) ease-in-out 100ms;
 }
 [data-motion="reduce"]:where(.js)
     [data-toggle-container="open"]
@@ -16298,24 +15081,14 @@ input[type="reset"]:active,
     > [data-toggle-content] {
     transition:
         border-color 500ms ease-in-out 0ms,
-        background-color 500ms ease-in-out,
-        border-color 500ms ease-in-out,
-        color 500ms ease-in-out,
-        font-weight 500ms ease-in-out,
-        opacity 500ms ease-in-out,
-        outline-color 500ms ease-in-out,
-        text-decoration-color 500ms ease-in-out,
-        visibility 500ms ease-in-out;
-    transition:
-        border-color var(--tr-time-normal, 500ms) ease-in-out 0ms,
-        background-color var(--tr-time-normal, 500ms) ease-in-out,
-        border-color var(--tr-time-normal, 500ms) ease-in-out,
-        color var(--tr-time-normal, 500ms) ease-in-out,
-        font-weight var(--tr-time-normal, 500ms) ease-in-out,
-        opacity var(--tr-time-normal, 500ms) ease-in-out,
-        outline-color var(--tr-time-normal, 500ms) ease-in-out,
-        text-decoration-color var(--tr-time-normal, 500ms) ease-in-out,
-        visibility var(--tr-time-normal, 500ms) ease-in-out;
+        background-color 250ms ease-in-out,
+        border-color 250ms ease-in-out,
+        color 250ms ease-in-out,
+        font-weight 250ms ease-in-out,
+        opacity 250ms ease-in-out,
+        outline-color 250ms ease-in-out,
+        text-decoration-color 250ms ease-in-out,
+        visibility 250ms ease-in-out;
 }
 [data-motion="reduce"]:where(.js)
     [data-toggle-container="open"]
@@ -16335,7 +15108,7 @@ input[type="reset"]:active,
         var(--clr-purple-800, hsl(282.15, 55.79%, 17.32%))
     );
 }
-.toggle-title:has(> h2, > .theme-mode-toggle .toggle-title > h3, > .h2) {
+.toggle-title:has(> h2, > .h2) {
     color: hsl(282.49, 61.17%, 23.26%);
     color: var(
         --theme-heading-2,
@@ -16363,23 +15136,14 @@ input[type="reset"]:active,
         var(--clr-purple-700, hsl(282.99, 65.99%, 29.2%))
     );
 }
-.toggle-title:has(
-    > h6,
-    > .font-family-swatch-list
-        .font-family-swatch
-        .font-family-swatch__weight-dt,
-    > .h6
-) {
+.toggle-title:has(> h6, > .h6) {
     color: hsl(282.99, 65.99%, 29.2%);
     color: var(
         --theme-heading-6,
         var(--clr-purple-700, hsl(282.99, 65.99%, 29.2%))
     );
 }
-.toggle-title:has(
-    > .font-family-swatch .font-family-swatch__details-list > dt,
-    > .h7
-) {
+.toggle-title:has(> .h7) {
     color: hsl(161.88, 71.59%, 16.32%);
     color: var(
         --theme-heading-7,
@@ -16393,18 +15157,17 @@ input[type="reset"]:active,
         var(--clr-turquoise-700, hsl(161.88, 71.59%, 16.32%))
     );
 }
-.toggle-title:has(> .shade-swatch__contrast__heading, > .h9) {
+.toggle-title:has(> .h9) {
     color: hsl(0, 0%, 24.13%);
     color: var(--theme-heading-9, var(--clr-base-700, hsl(0, 0%, 24.13%)));
 }
-.toggle-title:has(> .shade-swatch__contrast__result-group__heading, > .h10) {
+.toggle-title:has(> .h10) {
     color: hsl(0, 0%, 24.13%);
     color: var(--theme-heading-10, var(--clr-base-700, hsl(0, 0%, 24.13%)));
 }
 .toggle-title > h1,
 .toggle-title > .h1,
 .toggle-title > h2,
-.theme-mode-toggle .toggle-title > h3,
 .toggle-title > .h2,
 .toggle-title > h3,
 .toggle-title > .h3,
@@ -16413,17 +15176,10 @@ input[type="reset"]:active,
 .toggle-title > h5,
 .toggle-title > .h5,
 .toggle-title > h6,
-.font-family-swatch-list
-    .font-family-swatch
-    .toggle-title
-    > .font-family-swatch__weight-dt,
 .toggle-title > .h6,
-.font-family-swatch .toggle-title.font-family-swatch__details-list > dt,
 .toggle-title > .h7,
 .toggle-title > .h8,
-.toggle-title > .shade-swatch__contrast__heading,
 .toggle-title > .h9,
-.toggle-title > .shade-swatch__contrast__result-group__heading,
 .toggle-title > .h10,
 .toggle-title > .page-title {
     color: inherit;
@@ -16528,32 +15284,10 @@ input[type="reset"]:active,
 [data-toggle-container="open"] .toggle-title > h5,
 [data-toggle-container="open"] .toggle-title > .h5,
 [data-toggle-container="open"] .toggle-title > h6,
-[data-toggle-container="open"]
-    .font-family-swatch-list
-    .font-family-swatch
-    .toggle-title
-    > .font-family-swatch__weight-dt,
-.font-family-swatch-list
-    .font-family-swatch
-    [data-toggle-container="open"]
-    .toggle-title
-    > .font-family-swatch__weight-dt,
 [data-toggle-container="open"] .toggle-title > .h6,
-[data-toggle-container="open"]
-    .font-family-swatch
-    .toggle-title.font-family-swatch__details-list
-    > dt,
-.font-family-swatch
-    [data-toggle-container="open"]
-    .toggle-title.font-family-swatch__details-list
-    > dt,
 [data-toggle-container="open"] .toggle-title > .h7,
 [data-toggle-container="open"] .toggle-title > .h8,
-[data-toggle-container="open"] .toggle-title > .shade-swatch__contrast__heading,
 [data-toggle-container="open"] .toggle-title > .h9,
-[data-toggle-container="open"]
-    .toggle-title
-    > .shade-swatch__contrast__result-group__heading,
 [data-toggle-container="open"] .toggle-title > .h10,
 [data-toggle-container="open"] .toggle-title > .page-title {
     color: inherit;
@@ -17261,13 +15995,17 @@ p.aside em em em {
 
 @media (prefers-reduced-motion: reduce) {
     .website-settings-menu {
-        --toggle-closing-time: var(--tr-time-normal, 500ms);
+        --toggle-closing-time: 500ms;
     }
 }
 [data-motion="reduce"] .website-settings-menu {
-    --toggle-closing-time: var(--tr-time-normal, 500ms);
+    --toggle-closing-time: 500ms;
 }
 
+.website-settings__content fieldset {
+    transition: none;
+    transition: var(--transition);
+}
 .website-settings__content fieldset > legend {
     color: hsl(282.99, 65.99%, 29.2%);
     color: var(
@@ -17277,6 +16015,7 @@ p.aside em em em {
 }
 
 .website-settings__backdrop {
+    transition: none;
     transition: var(--transition);
 }
 
@@ -17338,15 +16077,12 @@ p.aside em em em {
     .website-settings__backdrop {
     opacity: 0;
     animation: fade-in 500ms ease-in-out 10ms forwards;
-    animation: fade-in var(--tr-time-normal, 500ms) ease-in-out 10ms forwards;
 }
 :where(.js)
     .website-settings-menu[data-toggle-container="closing"]
     .website-settings__backdrop {
     opacity: 0;
     animation: fade-out 500ms ease-in-out 0ms forwards;
-    animation: fade-out var(--tr-time-normal, 500ms) ease-in-out 0ms forwards;
 }
 
-/* ## ASTRO - Settings Menu - Font Overrides ==================================== */
 /*! END of @maddimathon/design-system-utilities/template/docs */

@@ -224,6 +224,20 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
                 fallbacks = arrayUnique( fallbacks );
             }
 
+            const sources = objectMap(
+                font.path,
+                ( { key: type, value: paths } ) => typeof paths === 'undefined'
+                    ? []
+                    : (
+                        Array.isArray( paths ) ? paths : [ paths ]
+                    ).map(
+                        ( path ) => ( {
+                            type: type == 'ttf' ? 'truetype' as const : type,
+                            path,
+                        } )
+                    )
+            );
+
             return {
 
                 family: family.name,
@@ -239,18 +253,10 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
                 'size-adjust': font.sizeAdjust ?? family.sizeAdjust,
                 'unicode-range': font.unicodeRange ?? family.unicodeRange,
 
-                src: Object.values(
-                    objectMap(
-                        font.path,
-                        ( { key: type, value: paths } ) => typeof paths === 'undefined'
-                            ? []
-                            : (
-                                Array.isArray( paths ) ? paths : [ paths ]
-                            ).map(
-                                ( path ) => ( { type, path } )
-                            )
-                    )
-                ).flat(),
+                src: Object.values( {
+                    ...sources,
+                    truetype: sources.ttf,
+                } ).flat().filter( v => typeof v !== 'undefined' ),
             };
         };
 
@@ -436,7 +442,7 @@ export namespace Tokens_Typography {
                 family: string;
                 fallbacks: string[];
                 src: {
-                    type: "local" | "ttf" | "woff" | "woff2";
+                    type: "local" | "truetype" | "woff" | "woff2";
                     path: string;
                 }[];
                 style: "normal" | "italic";
@@ -485,7 +491,7 @@ export namespace Tokens_Typography {
             lineHeightScale?: number;
 
             /**
-             * Whether to include @font-face declarations in the css.
+             * Whether to include font-face declarations in the css.
              * 
              * @default true
              */

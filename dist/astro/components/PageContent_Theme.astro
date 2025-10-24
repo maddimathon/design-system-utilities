@@ -25,8 +25,6 @@ import ThemeModeSwatch from './ThemeModeSwatch.astro';
 
 /* import - layouts */
 
-/* TYPES ===================================== */
-
 /* PROPS ===================================== */
 
 export interface Props {
@@ -75,7 +73,7 @@ const parsedSets = Object.values(
     objectMap(tokens.themes, ({ key, value: theme }) => ({
         key,
         parsed: Object.values(
-            objectMap(theme, ({ key, value }) =>
+            objectMap(theme, ({ key }) =>
                 key === 'name'
                     ? false
                     : key === 'levelsInUse'
@@ -149,14 +147,15 @@ const displayOptions = [
             set:text={`${toTitleCase(key)} Theme`}
         />
         <Fragment>
-            {parsed.map((brightnessSet) => (
+            {parsed.map((brightnessSet) => ( 
                 <Toggle
                     class='theme-mode-toggle'
-                    defaultOpen={defaultToggleToOpen}
-                    heading={3}
+                    defaultOpen={defaultToggleToOpen} 
+                    displayHeading={2}
+                    heading={3} 
                     id={`themes-${key}-${brightnessSet.name}-mode`}
                 >
-                    <Fragment
+                    <Fragment 
                         set:text={toTitleCase(`${key} — ${brightnessSet.name} Mode`)}
                         slot='button'
                     />

@@ -1,0 +1,206 @@
+/**
+ * @since ___PKG_VERSION___
+ * 
+ * @packageDocumentation
+ */
+/*!
+ * @maddimathon/design-system-utilities@___CURRENT_VERSION___
+ * @license MIT
+ */
+
+// import { JsonToScss } from '@maddimathon/utility-sass';
+// import * as z from 'zod';
+import { mergeArgs } from '@maddimathon/utility-typescript/functions';
+
+import type { RequiredHeadingLevels, TokenLevels } from '../@types.js';
+
+import { objectGenerator } from '../../01-utilities/objectGenerator.js';
+import { AbstractTokens } from '../abstract/AbstractTokens.js';
+
+/**
+ * Generates a complete token object for the design system.
+ * 
+ * @since ___PKG_VERSION___
+ */
+export class Tokens_CSS_Style extends AbstractTokens<Tokens_CSS_Style.Data> {
+
+    public static headingStyle( heading: number ): Tokens_CSS_Style.HeadingStyles {
+
+        heading = heading < 1 ? 11 : heading;
+
+        const style: Tokens_CSS_Style.HeadingStyles = {
+
+            font: {
+                style: 'normal',
+                weight: '600',
+            },
+
+            'letter-spacing': 'normal',
+            'line-height': '400',
+            'text-transform': 'none',
+
+            margin: {
+                block: {
+                    start: '600',
+                    end: '400',
+                },
+            },
+        };
+
+        switch ( heading ) {
+
+            case 1:
+                style.font.weight = '900';
+                style[ 'line-height' ] = '200';
+                style.margin.block.start = '800';
+                break;
+
+            case 2:
+                style.font.weight = '800';
+                style[ 'line-height' ] = '200';
+                style.margin.block.start = '800';
+                break;
+
+            case 3:
+                style.font.weight = '700';
+                style[ 'line-height' ] = '200';
+                style.margin.block.start = '800';
+                break;
+
+            case 4:
+                style.font.weight = '700';
+                style.font.style = 'italic';
+                style[ 'line-height' ] = '300';
+                break;
+
+            case 5:
+                style.font.weight = '600';
+                style.font.style = 'italic';
+                style[ 'line-height' ] = '300';
+                break;
+
+            case 6:
+                style.font.weight = '500';
+                style.font.style = 'italic';
+                style[ 'line-height' ] = '300';
+                break;
+        }
+
+        if ( heading >= 7 ) {
+            style.font.weight = '500';
+            style.font.style = 'normal';
+
+            style[ 'letter-spacing' ] = '0.0625em';
+            style[ 'line-height' ] = '400';
+            style[ 'text-transform' ] = 'uppercase';
+        }
+
+        if ( heading >= 8 ) {
+            style.font.style = 'italic';
+        }
+
+        if ( heading >= 9 ) {
+            style.margin.block.start = '500';
+            style[ 'line-height' ] = '500';
+        }
+
+        return style;
+    }
+
+    public static get default(): Tokens_CSS_Style.Data {
+
+        return {
+
+            heading: objectGenerator(
+                [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const,
+                ( hdg ) => Tokens_CSS_Style.headingStyle( hdg )
+            ),
+        };
+    }
+
+    // public get data(): Tokens_CSS_Style.Data {
+    //     return {};
+    // }
+    public readonly data: Tokens_CSS_Style.Data;
+
+    public constructor (
+        input: Tokens_CSS_Style.InputParam,
+    ) {
+        super();
+
+        this.data = mergeArgs( Tokens_CSS_Style.default, input, true );
+    }
+
+    public toJSON(): Tokens_CSS_Style.JsonReturn {
+        return this.data;
+    }
+
+    public toScssVars(): {
+        [ K in keyof Tokens_CSS_Style.Data ]: AbstractTokens.ScssReturn;
+    } {
+        return this.data;
+    }
+}
+
+/**
+ * Utilities for the {@link Tokens_CSS_Style} class.
+ * 
+ * @since ___PKG_VERSION___
+ */
+export namespace Tokens_CSS_Style {
+
+    export namespace CSS {
+        export type TextTransform = "none" | "capitalize" | "uppercase" | "lowercase" | "full-width" | "full-size-kana" | "math-auto";
+    }
+
+    export interface HeadingStyles {
+
+        font: {
+            style: "normal" | "italic";
+            weight: TokenLevels;
+        };
+
+        'letter-spacing': string;
+        'line-height': TokenLevels;
+        'text-transform': CSS.TextTransform;
+
+        margin: {
+            block: {
+                start: TokenLevels;
+                end: TokenLevels;
+            };
+        };
+    }
+
+    export interface HeadingStyles_Partial extends Partial<HeadingStyles> { }
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export type Data = {
+
+        heading: {
+            [ L in RequiredHeadingLevels ]: HeadingStyles;
+        } & {
+            [ key: number ]: HeadingStyles;
+        };
+    };
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export type InputParam = {
+
+        heading?: {
+            [ L in RequiredHeadingLevels ]?: HeadingStyles_Partial;
+        } & {
+            [ key: number ]: HeadingStyles_Partial;
+        };
+    };
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export type JsonReturn = Data;
+
+}
