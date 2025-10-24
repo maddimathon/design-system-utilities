@@ -48,7 +48,15 @@ $_designSystemHasFontFamilies: map.has-key(tokens.$designSystem, font, family)
         @return utils.font-family-system-ui();
     }
 
-    $fontMap: map.get(tokens.$designSystem, font, family, $slug, '400', normal);
+    $fontMap: map.get(
+        tokens.$designSystem,
+        font,
+        family,
+        $slug,
+        weights,
+        '400',
+        normal
+    );
 
     @return utils.font-list(
         list.join(
@@ -63,7 +71,11 @@ $_designSystemHasFontFamilies: map.has-key(tokens.$designSystem, font, family)
 /// @since 0.1.0-alpha.draft
 ///
 @function var-font-family($slug) {
-    @return var(--ff-#{$slug}, font-family-list($slug));
+    @return if(
+        config.$fn_var_replaceWithValue_fontFamily,
+        font-family-list($slug),
+        var(--ff-#{$slug}, font-family-list($slug))
+    );
 }
 
 ///

@@ -36,7 +36,8 @@
     $borderWidth: not config.$fn_var_replaceWithValue_borderWidth,
     $colour: not config.$fn_var_replaceWithValue_colour,
     $custom: true,
-    $fontFamily: true,
+    $fontFace: true,
+    $fontFamily: not config.$fn_var_replaceWithValue_fontFamily,
     $fontSize: not config.$fn_var_replaceWithValue_fontSize,
     $lineHeight: true,
     $margin: true,
@@ -48,8 +49,11 @@
     $zIndex: not config.$fn_var_replaceWithValue_zIndex
 ) {
     // typography
-    @if $fontFamily {
+    @if $fontFace {
         @include tokens-font-face;
+    }
+    @if $fontFamily {
+        @include tokens-font-family;
     }
 
     @include utils.tokens-all(

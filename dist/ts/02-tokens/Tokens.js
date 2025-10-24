@@ -283,6 +283,11 @@ export class Tokens extends AbstractTokens {
                 function fileGenerator(subpath, name, weight, style, opts = {}) {
                     const _slug = slugify(name);
                     let _filename = `${_slug}-${opts.pathWeight ?? weight}`;
+                    switch (opts.pathStyle ?? style) {
+                        case 'italic':
+                            _filename = _filename + '-italic';
+                            break;
+                    }
                     const paths = {};
                     if (opts.includeLocalSrc) {
                         let weightSuffix = '';
@@ -316,7 +321,6 @@ export class Tokens extends AbstractTokens {
                         switch (opts.pathStyle ?? style) {
                             case 'italic':
                                 styleSuffix = ' Italic';
-                                _filename = _filename + '-italic';
                                 break;
                         }
                         paths.local = [
@@ -353,7 +357,11 @@ export class Tokens extends AbstractTokens {
                     name: 'Open Dyslexic',
                     appendSystemFontsToFallbacks: true,
                     contentWidthScale: 1.2,
+                    fallbacks: [
+                        'Verdana',
+                    ],
                     lineHeightScale: 1.2,
+                    sizeAdjust: '95%',
                     weights: objectGenerator(['400', '700'], (weight) => objectGenerator(["normal", "italic"], (style) => familyGenerator.fileGenerator('dyslexic', 'Open Dyslexic', weight == '400' ? '100 400' : '500 900', style, {
                         pathWeight: weight,
                     }))),
@@ -363,6 +371,9 @@ export class Tokens extends AbstractTokens {
                     name: 'Atkinson Hyperlegible',
                     appendSystemFontsToFallbacks: true,
                     contentWidthScale: 1.035,
+                    fallbacks: [
+                        'Verdana',
+                    ],
                     lineHeightScale: 1.035,
                     sizeAdjust: '106.5%',
                     weights: objectGenerator(['400', '700'], (weight) => objectGenerator(["normal", "italic"], (style) => familyGenerator.fileGenerator('hyperlegible', 'Atkinson Hyperlegible', weight === '400' ? '100 400' : '500 900', style, {

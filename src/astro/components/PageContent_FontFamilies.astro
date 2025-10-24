@@ -7,8 +7,7 @@
 
 /* import - types */
 import type { TokenLevels } from '../../ts/02-tokens/@types.d.ts';
-import type { Tokens } from '../../ts/02-tokens/Tokens.js'; 
-import type { Tokens_Typography } from '../../ts/02-tokens/Tokens_Typography.js';
+import { Tokens_Typography } from '../../ts/02-tokens/Tokens_Typography.js';
 
 /* import - functions */
 import { 
@@ -24,6 +23,7 @@ import { objectMap } from '../../ts/01-utilities/objectMap.js';
 import Toggle from '@maddimathon/utility-astro/components/Toggle';
 import Heading from '@maddimathon/utility-astro/components/Heading';
 // import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
+import  { Tokens } from '../../ts/02-tokens/Tokens.js'; 
 
 /* import - layouts */
 
@@ -140,11 +140,21 @@ const sortedFonts = objectGenerator(
     (key) => tokens.typography.fonts[key]
 ) as typeof tokens.typography.fonts;
 
-const allFontLevels = arrayUnique(
+let allFontLevels = arrayUnique(
     Object.values(tokens.typography.fonts)
-        .map( ( { weights } ) => Object.keys(weights) as TokenLevels[] )
+        .map( ( { weights, variable } ) => (
+            variable
+                ? Tokens.Typography.Font.allWeights
+                : Object.keys(weights) as TokenLevels[]
+        ) )
         .flat()
 ).sort();
+
+if ( ! import.meta.env.DEV ) {
+    allFontLevels = allFontLevels.filter( 
+        level => level != '100' && level != '200'
+    );
+}
 ---
 
 <Toggle
@@ -162,25 +172,30 @@ const allFontLevels = arrayUnique(
                 <article 
                     class='font-family-swatch'
                     data-font-family-override={font.slug}
-                    style={`font-family: var(--ff-${font.slug}, "${font.name}")`}
+                    style={ [
+                        `--font-family-swatch-family: var(--ff-${font.slug}, "${font.name}")`,
+                        'font-family: var(--font-family-swatch-family) !important',
+                    ].join(';') }
                 >
-                    <h3
-                        class:list={['font-family-swatch__name']}
-                        set:text={font.name}
-                    />
-                    <dl class='font-family-swatch__details-list'>
-                        { detailsMapper(font).map( ( {key, value} ) => (
-                            <dt
-                                class:list={[ 'h7', '|', 'font-family-swatch__details-dt' ]}
-                                set:text={key} 
-                            />
-                            <dd
-                                class:list={[ 'font-family-swatch__details-dd' ]}
-                                set:text={value}
-                            />
-                        ) ) }
-                    </dl>
-                    {allFontLevels.map(( weight ) => font.weights[weight] && ( [ 'normal', 'italic' ] as const ).map( style => (
+                    <div class="font-family-swatch__intro">
+                        <h3
+                            class:list={['font-family-swatch__name']}
+                            set:text={font.name}
+                        />
+                        <dl class='font-family-swatch__details-list'>
+                            { detailsMapper(font).map( ( {key, value} ) => (
+                                <dt
+                                    class:list={[ 'h7', '|', 'font-family-swatch__details-dt' ]}
+                                    set:text={key} 
+                                />
+                                <dd
+                                    class:list={[ 'font-family-swatch__details-dd' ]}
+                                    set:text={value}
+                                />
+                            ) ) }
+                        </dl>
+                    </div>
+                    {allFontLevels.map(( weight ) => ( font.weights[weight] || font.variable ) && ( [ 'normal', 'italic' ] as const ).map( style => (
                         <Heading
                             heading={4}
                             displayHeading={6}
@@ -191,6 +206,7 @@ const allFontLevels = arrayUnique(
                             ]}
                             style={ [
                                 `font-style: ${style}`,
+                                `font-weight: ${weight}`,
                             ].join(';') }
                             set:text={ style === 'italic' ? `${weight} (${style})`: weight }
                         />

@@ -199,7 +199,7 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
 
         const familyMapper = (
             family: Tokens_Typography.Font.Family,
-            weight: TokenLevels,
+            weight: TokenLevels | 'variable',
             { key: style, value: font }: {
                 key: "italic" | "normal";
                 value: Tokens_Typography.Font.File;
@@ -256,6 +256,7 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
                 src: Object.values( {
                     ...sources,
                     truetype: sources.ttf,
+                    ttf: undefined,
                 } ).flat().filter( v => typeof v !== 'undefined' ),
             };
         };
@@ -269,13 +270,21 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
 
                 family: objectMap(
                     this.data.fonts,
-                    ( { value: family }: { value: Tokens_Typography.Font.Family; } ) => family && objectMap(
-                        family.weights,
-                        ( { key: weight, value: fontSet } ) => fontSet && objectMap(
-                            fontSet,
-                            ( obj ) => familyMapper( family, weight, obj )
-                        )
-                    )
+                    ( { value: family }: { value: Tokens_Typography.Font.Family; } ) => family && ( {
+
+                        variable: family.variable && objectMap(
+                            family.variable,
+                            ( obj ) => familyMapper( family, 'variable', obj )
+                        ),
+
+                        weights: objectMap(
+                            family.weights,
+                            ( { key: weight, value: fontSet } ) => fontSet && objectMap(
+                                fontSet,
+                                ( obj ) => familyMapper( family, weight, obj )
+                            )
+                        ),
+                    } )
                 ),
 
                 familyOverrides: this.familyOverrides,
@@ -503,6 +512,11 @@ export namespace Tokens_Typography {
                     italic: File;
                 };
             };
+
+            variable?: {
+                normal: File;
+                italic: File;
+            },
         };
     }
 }

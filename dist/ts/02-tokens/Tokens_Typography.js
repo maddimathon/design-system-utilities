@@ -158,6 +158,7 @@ export class Tokens_Typography extends AbstractTokens {
                 src: Object.values({
                     ...sources,
                     truetype: sources.ttf,
+                    ttf: undefined,
                 }).flat().filter(v => typeof v !== 'undefined'),
             };
         };
@@ -166,7 +167,10 @@ export class Tokens_Typography extends AbstractTokens {
                 // UPGRADE - make empty size objects equal to null
                 size: this.data.size,
                 sizeScale: this.data.sizeScale,
-                family: objectMap(this.data.fonts, ({ value: family }) => family && objectMap(family.weights, ({ key: weight, value: fontSet }) => fontSet && objectMap(fontSet, (obj) => familyMapper(family, weight, obj)))),
+                family: objectMap(this.data.fonts, ({ value: family }) => family && ({
+                    variable: family.variable && objectMap(family.variable, (obj) => familyMapper(family, 'variable', obj)),
+                    weights: objectMap(family.weights, ({ key: weight, value: fontSet }) => fontSet && objectMap(fontSet, (obj) => familyMapper(family, weight, obj))),
+                })),
                 familyOverrides: this.familyOverrides,
             },
             line_height: this.data.lineHeight,

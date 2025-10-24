@@ -802,7 +802,7 @@ export namespace Tokens {
                      */
                     includeLocalSrc?: boolean;
 
-                    pathWeight?: TokenLevels;
+                    pathWeight?: TokenLevels | 'variable';
                     pathStyle?: "normal" | "italic";
                 };
 
@@ -820,6 +820,12 @@ export namespace Tokens {
                     const _slug = slugify( name );
 
                     let _filename = `${ _slug }-${ opts.pathWeight ?? weight }`;
+
+                    switch ( opts.pathStyle ?? style ) {
+                        case 'italic':
+                            _filename = _filename + '-italic';
+                            break;
+                    }
 
                     const paths: {
                         local?: undefined | string[];
@@ -869,7 +875,6 @@ export namespace Tokens {
 
                             case 'italic':
                                 styleSuffix = ' Italic';
-                                _filename = _filename + '-italic';
                                 break;
                         }
 
@@ -917,7 +922,11 @@ export namespace Tokens {
 
                     appendSystemFontsToFallbacks: true,
                     contentWidthScale: 1.2,
+                    fallbacks: [
+                        'Verdana',
+                    ],
                     lineHeightScale: 1.2,
+                    sizeAdjust: '95%',
 
                     weights: objectGenerator(
                         [ '400', '700' ] as const,
@@ -942,6 +951,9 @@ export namespace Tokens {
 
                     appendSystemFontsToFallbacks: true,
                     contentWidthScale: 1.035,
+                    fallbacks: [
+                        'Verdana',
+                    ],
                     lineHeightScale: 1.035,
                     sizeAdjust: '106.5%',
 

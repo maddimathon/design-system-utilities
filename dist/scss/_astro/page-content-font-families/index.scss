@@ -9,7 +9,7 @@
 
 $_fontWeights: ('100', '200', '300', '400', '500', '600', '700', '800', '900');
 
-$_grid_rows: '[title] auto [details] auto';
+$_grid_rows: '[intro] auto';
 
 @each $weight in $_fontWeights {
     @each $suffix in ('', '-italic') {
@@ -54,6 +54,11 @@ $_grid_rows: '[title] auto [details] auto';
         min-width: 0;
         max-width: none;
 
+        &,
+        & * {
+            font-family: var(--font-family-swatch-family) !important;
+        }
+
         > * {
             grid-column: 1 / -1;
         }
@@ -64,14 +69,20 @@ $_grid_rows: '[title] auto [details] auto';
         .font-family-swatch__weight-dd {
         }
 
+        .font-family-swatch__intro {
+            margin-block-start: 0;
+            grid-row: intro;
+        }
+
         .font-family-swatch__name {
             margin-block-start: 0;
-            grid-row: title;
+            // grid-row: title;
         }
 
         .font-family-swatch__details-list {
-            grid-row: details;
+            // grid-row: details;
             margin: 0;
+            margin-block-start: #{lib.var-mrg-soft('500')};
 
             > dt,
             > dd {
@@ -80,6 +91,10 @@ $_grid_rows: '[title] auto [details] auto';
 
             > dt {
                 margin-block-start: #{lib.var-mrg-soft('400')};
+
+                &:first-child {
+                    margin-block-start: 0;
+                }
             }
 
             + .font-family-swatch__weight-dt {
