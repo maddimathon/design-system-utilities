@@ -948,7 +948,7 @@ export namespace Tokens_Themes_Set_SingleMode {
         __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>,
     > {
 
-        levels?: {
+        levels?: undefined | {
             background?: ColourLevels | T_ExtraColourLevels;
             text?: ColourLevels | T_ExtraColourLevels | Partial<LevelsSet<T_ExtraColourLevels>>;
             ui?: ColourLevels | T_ExtraColourLevels | Partial<LevelsSet<T_ExtraColourLevels>>;
@@ -958,7 +958,7 @@ export namespace Tokens_Themes_Set_SingleMode {
             };
         };
 
-        variations?: {
+        variations?: undefined | {
 
             universal?: Partial<
                 RequiredVariations<T_ColourName>[ 'universal' ]

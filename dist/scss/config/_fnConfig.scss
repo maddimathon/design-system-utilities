@@ -3,7 +3,11 @@
 /// @since 0.1.0-alpha.draft
 ///
 
+@forward 'template';
+
 @use 'utility-astro' as utils;
+
+@use 'template';
 
 ///
 /// @since 0.1.0-alpha.draft
@@ -38,7 +42,7 @@ $fn_var_replaceWithValue_colour: utils.config-valid-bool(
 ///
 /// @since 0.1.0-alpha.draft
 ///
-$fn_var_replaceWithValue_fontFamily: true !default;
+$fn_var_replaceWithValue_fontFamily: not template.$print_docs !default;
 $fn_var_replaceWithValue_fontFamily: utils.config-valid-bool(
     $fn_var_replaceWithValue_fontFamily,
     'fn_var_replaceWithValue_fontFamily'

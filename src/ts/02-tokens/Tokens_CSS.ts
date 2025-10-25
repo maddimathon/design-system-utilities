@@ -104,7 +104,7 @@ export namespace Tokens_CSS {
     /**
      * @since ___PKG_VERSION___
      */
-    export type InputParam = Partial<Omit<Data, 'border' | 'transition' | 'zIndex'>> & {
+    export type InputParam = Partial<Omit<Data, 'border' | 'style' | 'transition' | 'zIndex'>> & {
         border?: Tokens_CSS_Border.InputParam;
         style?: Tokens_CSS_Style.InputParam;
         transition?: Tokens_CSS_Transition.InputParam;

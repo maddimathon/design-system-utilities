@@ -71,7 +71,7 @@ export declare namespace Tokens_CSS {
     /**
      * @since 0.1.0-alpha.draft
      */
-    type InputParam = Partial<Omit<Data, 'border' | 'transition' | 'zIndex'>> & {
+    type InputParam = Partial<Omit<Data, 'border' | 'style' | 'transition' | 'zIndex'>> & {
         border?: Tokens_CSS_Border.InputParam;
         style?: Tokens_CSS_Style.InputParam;
         transition?: Tokens_CSS_Transition.InputParam;

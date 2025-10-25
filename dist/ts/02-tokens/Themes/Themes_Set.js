@@ -11,7 +11,7 @@ import { objectGeneratorAsync } from '../../01-utilities/objectGenerator.js';
 import { objectMap } from '../../01-utilities/objectMap.js';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
 import { Tokens_Themes_Set_SingleMode } from './Themes_Set_SingleMode.js';
-import { arrayUnique } from '@maddimathon/utility-typescript/functions';
+import { arrayUnique, mergeArgs } from '@maddimathon/utility-typescript/functions';
 /**
  * Generates a complete token object for the design system.
  *
@@ -35,7 +35,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
         });
         const modes = await objectGeneratorAsync(brightnessModes, async (brightness) => objectGeneratorAsync(contrastModes, async (contrast) => Tokens_Themes_Set_SingleMode.build(contrast, brightness, clrNames, {
             ...input[brightness]?.[contrast] ?? {},
-            variations: input.variations,
+            variations: mergeArgs(input.variations ?? {}, input[brightness]?.[contrast]?.variations ?? {}, true),
         })));
         return new Tokens_Themes_Set(name, clrNames, extraColourLevels, brightnessModes, contrastModes, forcedColours, modes);
     }

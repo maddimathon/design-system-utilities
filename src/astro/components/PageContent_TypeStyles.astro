@@ -125,19 +125,17 @@ const flattenedSizes = objectMap(
     id='heading-styles'
 >
     <Fragment slot='button' set:text='Heading Styles' />
-    <p
-        class={`page-title | typography-all-headings__sample`}
+    <p 
+        class:list={`page-title | typography-all-headings__sample`}
         id={`page-title`}
-        set:text={`Page Title (H1) – Maecenas Facilisis Sollicitudin Nisi, Eget Pellentesque Dui Rhoncus Condimentum; Aenean Lacinia Urna Sed Lacus Interdum Faucibus; Donec Quam Erat, Sagittis id Diam a, Hendrerit Viverra Ligula; Proin Efficitur Rhoncus ex Auctor Faucibus`}
-    />
+    >Page Title (H1) – Maecenas Facilisis <a href="#">Sollicitudin Nisi</a>, Eget Pellentesque Dui Rhoncus Condimentum; Aenean Lacinia Urna Sed Lacus Interdum Faucibus; Donec Quam Erat, Sagittis id Diam a, Hendrerit Viverra Ligula; Proin Efficitur Rhoncus ex Auctor Faucibus</p>
 
     {
         headingSizes.map((num) => ( num > 1 ) && (
-            <p
-                class={`h${num} | typography-all-headings__sample`}
+            <p 
+                class:list={`h${num} | typography-all-headings__sample`}
                 id={`heading-${num}`}
-                set:text={`Heading ${num} – Maecenas Facilisis Sollicitudin Nisi, Eget Pellentesque Dui Rhoncus Condimentum; Aenean Lacinia Urna Sed Lacus Interdum Faucibus; Donec Quam Erat, Sagittis id Diam a, Hendrerit Viverra Ligula; Proin Efficitur Rhoncus ex Auctor Faucibus`}
-            />
+            >Heading {num} – Maecenas Facilisis <a href="#">Sollicitudin Nisi</a>, Eget Pellentesque Dui Rhoncus Condimentum; Aenean Lacinia Urna Sed Lacus Interdum Faucibus; Donec Quam Erat, Sagittis id Diam a, Hendrerit Viverra Ligula; Proin Efficitur Rhoncus ex Auctor Faucibus</p>
         ))
     }
 </Toggle>

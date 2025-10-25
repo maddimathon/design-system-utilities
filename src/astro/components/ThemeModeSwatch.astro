@@ -8,12 +8,13 @@
 /* import - types */
 import type { HTMLAttributes } from 'astro/types';
 import type { RecursiveRecord } from '../../ts/01-utilities/@types.d.ts';
-import type { ColourLevels } from '../../ts/02-tokens/@types.d.ts';
+import type { ColourLevels, ColourLevels_Extended } from '../../ts/02-tokens/@types.d.ts';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Themes_Set_SingleMode } from '../../ts/02-tokens/Themes/Themes_Set_SingleMode.js';
 
 /* import - functions */
 import { toTitleCase } from '@maddimathon/utility-typescript/functions';
+import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
 import { objectGenerator } from '../../ts/01-utilities/objectGenerator.js';
 import { objectMap } from '../../ts/01-utilities/objectMap.js';
 import { textColorLevel } from './ShadeSwatch.astro';
@@ -90,6 +91,71 @@ function themeTokenFlatten<T_Val extends string | number |undefined |null|any[]>
     ).flat();
 }
 
+function captureClrDataFromThemeValue( 
+    _tokens: Tokens.JsonReturn<string>,
+    _brightness?: string,
+    _clrSlug: string,
+): undefined | {
+    name: string;
+    level: ColourLevels | ColourLevels_Extended;
+} {
+    // returns
+    if (_clrSlug === 'transparent' || _clrSlug === 'unset') {
+        return undefined;
+    }
+
+    const matches = _clrSlug?.match( /^([^\s]+)-(\d{3})$/i ) as null | [ string, string, ColourLevels ];
+
+    // returns
+    if (!matches) {
+        return undefined;
+    }
+
+    const level = _brightness == 'dark'
+     ? ColourUtilities.getDarkLevel( matches[2] )
+     : matches[2];
+
+     return {
+        name: matches[1],
+        level,
+     };
+}
+
+function getClrFromThemeValue( 
+    _tokens: Tokens.JsonReturn<string>,
+    _brightness?: string,
+    _clrSlug: string | string[],
+): string {
+
+    const slug = Array.isArray(_clrSlug) ? _clrSlug[0] : _clrSlug;
+
+    // returns
+    if (!slug) {
+        return String(slug);
+    }
+    
+    // returns
+    if (slug === 'transparent' || slug === 'unset') {
+        return 'inherit';
+    }
+
+    const { name, level } = captureClrDataFromThemeValue(_tokens, _brightness, slug) ?? {};
+
+    // returns
+    if (!name || !level) {
+        return String(slug);
+    }
+    
+    const clr = _tokens.colour[name]?.[level];
+
+    // returns
+    if (!clr) {
+        return String(slug);
+    }
+    
+    return ColourUtilities.toString.hsl(clr);
+}
+
 /* CONSTANTS ===================================== */
 
 const customDisplayKeys = ['background', 'button', 'field', 'selection', 'system'];
@@ -122,8 +188,8 @@ const levelsInUse = theme.levelsInUse.map(
                 const textColor = textColorLevel( value as ColourLevels );
                 
                 return textColor && {
-                    background: `var(--clr-base-${value})`,
-                    color: `var(--clr-base-${textColor})`,
+                    background: tokens.colour.base[value],
+                    color: tokens.colour.base[textColor],
                 } ;
             }
         ),
@@ -201,7 +267,7 @@ const field: {
                 '$'
             >;
             key: string;
-            value: string | string[];
+            clrSlug: string | string[];
         };
     };
 } = objectGenerator(
@@ -216,22 +282,22 @@ const field: {
             accent: {
                 state,
                 key: `field-accent${keySuffix}`,
-                value: theme.data.field.accent[key],
+                clrSlug: theme.data.field.accent[key],
             },
             bg: {
                 state,
                 key: `field-bg${keySuffix}`,
-                value: theme.data.field.bg[key],
+                clrSlug: theme.data.field.bg[key],
             },
             border: {
                 state,
                 key: `field-border${keySuffix}`,
-                value: theme.data.field.border[key],
+                clrSlug: theme.data.field.border[key],
             },
             text: {
                 state,
                 key: `field-text${keySuffix}`,
-                value: theme.data.field.text[key],
+                clrSlug: theme.data.field.text[key],
             },
         };
     }
@@ -281,23 +347,21 @@ const displayHeading = 3;
             class="theme-mode-swatch__sample theme-mode-swatch__sample--selection"
         ><code set:text='theme-selection-text' /> {equals} <code set:text={theme.data.selection.text} /></p>
         {
-            autoTokens.map((tokens) => (
+            autoTokens.map((_tokens) => (
                 <Heading
                     class:list={`h${displayHeading + 1}`}
                     heading={heading + 1}
-                    set:text={`${tokens.key == 'ui' ? tokens.key.toUpperCase() : toTitleCase(tokens.key)} Tokens`}
+                    set:text={`${_tokens.key == 'ui' ? _tokens.key.toUpperCase() : toTitleCase(_tokens.key)} Tokens`}
                 />
-                <Fragment>{ tokens.variations ? tokens.variations.map( ( { key, value } ) => (
+                <Fragment>{ _tokens.variations ? _tokens.variations.map( ( { key, value } ) => (
                     <p
                         class="theme-mode-swatch__sample"
-                        style={ [
-                            !( value === 'transparent' || value === 'unset' ) && `color: var(--${key}, var(--clr-${value}))`,
-                        ].filter( v => v ).join(';') }
+                        style={ `color: ${getClrFromThemeValue(tokens, brightness, value)}` }
                     ><code set:text={key} /> {equals} <code set:text={value} /></p>
                 ) ) : (
                     <VariableDump
-                        name='tokens'
-                        var={tokens}
+                        name='_tokens'
+                        var={_tokens}
                     />
                 ) }</Fragment>  
             ))
@@ -324,9 +388,9 @@ const displayHeading = 3;
                         'theme-mode-swatch__sample--button',
                     ] }
                     style={ [
-                        `border-color: var(--${state.border.key}, var(--clr-${state.border.value}))`,
-                        `background: var(--${state.bg.key}, var(--clr-${state.bg.value}))`,
-                        `color: var(--${state.text.key}, var(--clr-${state.text.value}))`,
+                        `border-color: ${getClrFromThemeValue(tokens, brightness, state.border.value)}`,
+                        `background: ${getClrFromThemeValue(tokens, brightness, state.bg.value)}`,
+                        `color: ${getClrFromThemeValue(tokens, brightness, state.text.value)}`,
                     ].join(';') }
                 />
             ) ) }</div>
@@ -345,13 +409,13 @@ const displayHeading = 3;
                     'theme-mode-swatch__sample--field',
                 ] }
                 style={ [
-                    `border-color: var(--theme-${state.border.key}, var(--clr-${state.border.value}))`,
-                    `background: var(--theme-${state.bg.key}, var(--clr-${state.bg.value}))`,
-                    `color: var(--theme-${state.text.key}, var(--clr-${state.text.value}))`,
+                    `border-color: ${getClrFromThemeValue(tokens, brightness, state.border.clrSlug)}`,
+                    `background: ${getClrFromThemeValue(tokens, brightness, state.bg.clrSlug)}`,
+                    `color: ${getClrFromThemeValue(tokens, brightness, state.text.clrSlug)}`,
                 ].join(';') }
-            />
+            /> 
         ) ) }
-        { levelsInUse.length && (
+        { levelsInUse.length && ( 
             <Heading
                 class:list={`h${displayHeading}`}
                 heading={heading}
@@ -369,16 +433,16 @@ const displayHeading = 3;
                         data-brightness-mode="light"
                         set:text={levels.light}
                         style={styles && [
-                            `background: ${styles.light.background}`,
-                            `color: ${styles.light.color}`,
+                            `background: ${ColourUtilities.toString.hsl( styles.light.background )}`,
+                            `color: ${ColourUtilities.toString.hsl( styles.light.color )}`,
                         ].join(';')}
                     />
                     <td 
                         data-brightness-mode="light"
                         set:text={levels.dark}
                         style={styles && [
-                            `background: ${styles.dark.background}`,
-                            `color: ${styles.dark.color}`,
+                            `background: ${ColourUtilities.toString.hsl(styles.dark.background)}`,
+                            `color: ${ColourUtilities.toString.hsl(styles.dark.color)}`,
                         ].join(';')}
                     />
                 </tr> ) }

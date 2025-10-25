@@ -137,7 +137,7 @@
 @mixin snippet-input($includeUtils: true, $args...) {
     $args: meta.keywords($args);
 
-    $borderWidth: '200';
+    $borderWidth: var-border-width('200');
 
     $accentClr: var-theme(field-accent);
     $accentClr_active: var-theme(field-accent-active);
@@ -189,6 +189,7 @@
         background-color: #{$background};
         color: #{$color};
         accent-color: #{$accentClr};
+        border-width: #{$borderWidth};
 
         @include hover-focus-visible-or-within {
             --focus-ring-outline-color: #{$accentClr_hover};

@@ -8,6 +8,7 @@
  * @license MIT
  */
 import * as z from 'zod';
+import type { ColourLevels, ColourLevels_Extended } from '../internal.docs.js';
 /**
  * Utility functions, schemas, and types for dealing with colour values in the
  * system.
@@ -383,6 +384,7 @@ export declare namespace ColourUtilities {
             c: number;
         };
     }>;
+    function getDarkLevel(lightLevel: ColourLevels | ColourLevels_Extended): ColourLevels | ColourLevels_Extended;
     /**
      * @since 0.1.0-alpha.draft
      */

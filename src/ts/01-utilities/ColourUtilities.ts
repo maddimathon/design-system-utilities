@@ -14,6 +14,7 @@ import * as sass from 'sass';
 import * as z from 'zod';
 
 import { roundToPixel } from './roundToPixel.js';
+import type { ColourLevels, ColourLevels_Extended } from '../internal.docs.js';
 
 /**
  * Utility functions, schemas, and types for dealing with colour values in the
@@ -143,6 +144,18 @@ export namespace ColourUtilities {
 
     /* UTILITY FUNCTIONS
      * ====================================================================== */
+
+    export function getDarkLevel(
+        lightLevel: ColourLevels | ColourLevels_Extended,
+    ): ColourLevels | ColourLevels_Extended {
+
+        const dark = ( 1000 - Number( lightLevel ) ).toFixed( 0 );
+
+        return dark.padStart(
+            Math.max( 0, 3 - dark.length ),
+            '0',
+        ) as ColourLevels | ColourLevels_Extended;
+    }
 
     /**
      * @since ___PKG_VERSION___

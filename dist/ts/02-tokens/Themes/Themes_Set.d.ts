@@ -73,7 +73,7 @@ export declare namespace Tokens_Themes_Set {
         forcedColours?: Omit<Tokens_Themes_Set_SingleMode.InputParam<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, CssSystemColor>, "levels" | "variations">;
     } & {
         [B in T_ThemeBrightnessMode[number]]?: {
-            [C in T_ThemeContrastMode[number]]?: Omit<Tokens_Themes_Set_SingleMode.InputParam<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text>, "variations">;
+            [C in T_ThemeContrastMode[number]]?: Tokens_Themes_Set_SingleMode.InputParam<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text>;
         };
     };
     /**

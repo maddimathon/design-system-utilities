@@ -3,7 +3,11 @@
 /// @since ___PKG_VERSION___
 ///
 
+@forward 'template';
+
 @use 'utility-astro' as utils;
+
+@use 'template';
 
 ///
 /// @since ___PKG_VERSION___
@@ -38,7 +42,7 @@ $fn_var_replaceWithValue_colour: utils.config-valid-bool(
 ///
 /// @since ___PKG_VERSION___
 ///
-$fn_var_replaceWithValue_fontFamily: true !default;
+$fn_var_replaceWithValue_fontFamily: not template.$print_docs !default;
 $fn_var_replaceWithValue_fontFamily: utils.config-valid-bool(
     $fn_var_replaceWithValue_fontFamily,
     'fn_var_replaceWithValue_fontFamily'

@@ -71,6 +71,11 @@ export var ColourUtilities;
     });
     /* UTILITY FUNCTIONS
      * ====================================================================== */
+    function getDarkLevel(lightLevel) {
+        const dark = (1000 - Number(lightLevel)).toFixed(0);
+        return dark.padStart(Math.max(0, 3 - dark.length), '0');
+    }
+    ColourUtilities.getDarkLevel = getDarkLevel;
     /**
      * @since 0.1.0-alpha.draft
      */

@@ -17,41 +17,21 @@
 
 @use 'pkg:@maddimathon/utility-astro/02-mixins' as utils;
 
-///
-/// Prints out the colour custom property tokens based on config.
-///
-/// @since 0.1.0-alpha.draft
-///
-@mixin tokens-colour {
-    /* #region Tokens - Colour */
-    @each $mode in tokens.$brightnessMode_all {
-        @include utils.colour-mode($mode, $includeDefault: true) {
-            @each $slug, $map in tokens.$colour {
-                @each $level, $clr in $map {
-                    --clr-#{$slug}-#{$level}: #{colour.to-hsl(
-                            if(
-                                $mode == dark,
-                                map.get(
-                                    $map,
-                                    colour.shade-map-reverse-key(
-                                        $level,
-                                        $map,
-                                        $sort: true
-                                    )
-                                ),
-                                $clr
-                            ),
-                            $round: false
-                        )};
-                }
-            }
-        }
-    }
-    /* #endregion Tokens - Colour */
-}
-
 $_activeTheme: map.get(tokens.$themes, tokens.$activeTheme);
 $_flattenedActiveTheme: map.flatten($_activeTheme);
+
+$_themeSlugs: map.keys(tokens.$themes);
+$_themeSelectors: (config.$selector_null);
+
+@if list.length($_themeSlugs) > 1 {
+    @each $key in $_themeSlugs {
+        $_themeSelectors: list.append(
+            $_themeSelectors,
+            '%active-theme--#{$key}',
+            $separator: comma
+        );
+    }
+}
 
 $_systemColors: get-sys-colours();
 $_flattenedSystemColors: map.flatten($_systemColors);
@@ -118,9 +98,53 @@ $_flattenedSystemColors: map.flatten($_systemColors);
     }
 }
 
-@mixin _tokens-theme-individual($slug, $brightness, $contrast) {
+///
+/// Prints out the colour custom property tokens based on config.
+///
+/// @since 0.1.0-alpha.draft
+///
+@mixin tokens-colour {
+    /* #region Tokens - Colour */
+    @each $mode in tokens.$brightnessMode_all {
+        @include utils.colour-mode($mode, $includeDefault: true) {
+            @each $slug, $map in tokens.$colour {
+                @each $level, $clr in $map {
+                    --clr-#{$slug}-#{$level}: #{colour.to-hsl(
+                            if(
+                                $mode == dark,
+                                map.get(
+                                    $map,
+                                    colour.shade-map-reverse-key(
+                                        $level,
+                                        $map,
+                                        $sort: true
+                                    )
+                                ),
+                                $clr
+                            ),
+                            $round: false
+                        )};
+                }
+            }
+        }
+    }
+    /* #endregion Tokens - Colour */
+}
+
+@mixin tokens-theme-individual(
+    $slug,
+    $brightness,
+    $contrast,
+    $activeTheme: tokens.$activeTheme
+) {
     // $args: meta.keywords($args);
-    $activeTheme: map.get(tokens.$themes, $slug);
+    $activeTheme: map.get(tokens.$themes, default);
+
+    @if map.has-key(tokens.$themes, $slug) {
+        $activeTheme: map.get(tokens.$themes, $slug);
+    } @else {
+        @warn "$slug '#{$slug}' was not a key in tokens.$themes";
+    }
 
     @if $contrast == forced-colors {
         $flattened: map.flatten(map.get($activeTheme, forced-colors));
@@ -163,29 +187,58 @@ $_flattenedSystemColors: map.flatten($_systemColors);
         }
     }
 }
+
+$_themes_includeAlternatives: list.length(map.keys(tokens.$themes)) > 1 and
+    config.$print_docs;
+
+@mixin tokens-theme-alternatives() {
+    @each $key, $theme in tokens.$themes {
+        // prettier-ignore
+        [data-active-theme=#{$key}] {
+            @include utils.colour-mode-each(
+                // $includeForcedColors: false,
+                $includeRegions_heading: 'Tokens - Theme Override - #{$key} - ',
+
+                $nestModeSelectors: config.$mx_themeTokens_nestModeSelectors,
+                
+                $nestParentSelector: config.$mx_themeTokens_nestModeSelectors,
+                $unifyParentSelector: true,
+                $wrapParentSelector: false,
+
+            ) using ($brightness, $contrast) {
+                @include tokens-theme-individual(
+                    $key,
+                    $brightness: $brightness,
+                    $contrast: $contrast
+                );
+                @content($brightness, $contrast);
+            }
+        }
+    }
+}
+
 ///
 /// Prints out the theme custom property tokens based on config.
 ///
 /// @since 0.1.0-alpha.draft
 ///
-@mixin tokens-theme(
-    $includeAlternatives: list.length(map.keys(tokens.$themes)) > 1
-) {
+@mixin tokens-theme($includeAlternatives: $_themes_includeAlternatives) {
     // prettier-ignore
     @include utils.colour-mode-each(
-            $includeRegions_heading: 'Tokens - Theme - ',
-            $nestModeSelectors: config.$mx_themeTokens_nestModeSelectors
+        $includeRegions_heading: 'Tokens - Theme - ',
+        $nestModeSelectors: config.$mx_themeTokens_nestModeSelectors
     ) using ($brightness, $contrast) {
         //
-        @include _tokens-theme-individual(
+        @include tokens-theme-individual(
             tokens.$activeTheme,
             $brightness: $brightness,
             $contrast: $contrast
         );
+        @content($brightness, $contrast);
     }
 
     // for high-contrast modes
-    /* #region Tokens - Exceptions - high-contrast modes */
+    /* #region Tokens - Theme - Exceptions - high-contrast modes */
     @include utils.colour-mode((high, max, forced-colors)) {
         --focus-ring-outline-width: clamp(
             #{border-width-value('200')},
@@ -193,25 +246,9 @@ $_flattenedSystemColors: map.flatten($_systemColors);
             #{border-width-value('400')}
         );
     }
-    /* #endregion Tokens - Exceptions - high-contrast modes */
+    /* #endregion Tokens - Theme - Exceptions - high-contrast modes */
 
     @if $includeAlternatives {
-        @each $key, $theme in tokens.$themes {
-            // prettier-ignore
-            @include utils.colour-mode-each(
-                $includeForcedColors: false,
-                $includeRegions_heading: 'Tokens - Theme Override - #{$key} - ',
-    
-                $nestModeSelectors: false
-            ) using ($brightness, $contrast) {
-                %active-theme--#{$key} {
-                    @include _tokens-theme-individual(
-                        $key,
-                        $brightness: $brightness,
-                        $contrast: $contrast
-                    );
-                }
-            }
-        }
+        @include tokens-theme-alternatives;
     }
 }

@@ -3,7 +3,9 @@
 /// @since ___PKG_VERSION___
 ///
 
-// @use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/selector';
 
 @use '../../../config';
 @use '../../../tokens';
@@ -22,9 +24,27 @@
         }
     }
 
+    $_themeSelectors: (config.$selector_null);
+
+    $_themeSlugs: map.keys(tokens.$themes);
+
+    @if list.length($_themeSlugs) > 1 {
+        @each $key in $_themeSlugs {
+            $_themeSelectors: list.append(
+                $_themeSelectors,
+                '%active-theme--#{$key}',
+                $separator: comma
+            );
+        }
+    }
+
     @include colour-mode-all {
-        background: #{var-theme(background)};
-        color: #{var-theme(text)};
+        @at-root &,
+            #{selector.unify(&, $_themeSelectors)},
+            #{selector.nest(&, $_themeSelectors)} {
+            background: #{var-theme(background)};
+            color: #{var-theme(text)};
+        }
     }
 }
 

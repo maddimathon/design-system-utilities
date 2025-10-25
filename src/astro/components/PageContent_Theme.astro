@@ -44,31 +44,6 @@ const levelsInUse = arrayUnique(
         .flat()
 ).sort();
 
-// const parsed = Object.values(
-//     objectMap(theme, ({ key, value }) =>
-//         key === 'name'
-//             ? false
-//             : key === 'levelsInUse'
-//               ? false
-//               : key === 'forcedColours'
-//                 ? false
-//                 : {
-//                       name: key,
-//                       values: Object.values(
-//                           objectMap(
-//                               value,
-//                               ({ key: contrast, value: theme }) => ({
-//                                   id: `theme-${key}-${contrast}`,
-//                                   brightness: key,
-//                                   contrast,
-//                                   theme,
-//                               })
-//                           )
-//                       ),
-//                   }
-//     )
-// ).filter((v) => v !== false);
-
 const parsedSets = Object.values(
     objectMap(tokens.themes, ({ key, value: theme }) => ({
         key,
@@ -164,6 +139,7 @@ const displayOptions = [
                             class:list={ [
                                 'theme-mode-toggle__list', 
                             ] }
+                            data-active-theme={key}
                             data-brightness-mode={brightnessSet.name}
                             data-theme-mode-preview-page-display-mode-content={opt.value}
                             style={`--theme-mode-swatch-list-column-count: ${brightnessSet.values.length};`}
@@ -172,6 +148,7 @@ const displayOptions = [
                                 <ThemeModeSwatch
                                     {...set}
                                     brightness={brightnessSet.name}
+                                    data-active-theme={key}
                                     displayMode={opt.value}
                                     heading={4}
                                     id={`${set.id}-swatch`}

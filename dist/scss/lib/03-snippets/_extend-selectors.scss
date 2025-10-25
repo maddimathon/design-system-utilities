@@ -43,18 +43,6 @@
             ),
             $separator: comma
         );
-
-        @if list.length(map.keys(tokens.$themes)) > 1 {
-            @each $key, $theme in tokens.$themes {
-                @if $key != default {
-                    $additional: list.append(
-                        $additional,
-                        ('.active-theme--#{$key}', 'active-theme--#{$key}'),
-                        $separator: comma
-                    );
-                }
-            }
-        }
     }
 
     @include lib.extend-selectors-globals(

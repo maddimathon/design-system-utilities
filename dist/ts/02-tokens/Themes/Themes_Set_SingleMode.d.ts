@@ -105,12 +105,12 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T
         heading: {
             1: __T_ColourOption;
             2: __T_ColourOption;
-            4: __T_ColourOption;
             3: __T_ColourOption;
+            7: __T_ColourOption;
+            4: __T_ColourOption;
             9: __T_ColourOption;
             5: __T_ColourOption;
             6: __T_ColourOption;
-            7: __T_ColourOption;
             8: __T_ColourOption;
             10: __T_ColourOption;
         };
@@ -432,7 +432,7 @@ export declare namespace Tokens_Themes_Set_SingleMode {
      * @since 0.1.0-alpha.draft
      */
     export interface InputParam<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_Keyword_Universal extends string, T_Keyword_Text extends string, __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>> {
-        levels?: {
+        levels?: undefined | {
             background?: ColourLevels | T_ExtraColourLevels;
             text?: ColourLevels | T_ExtraColourLevels | Partial<LevelsSet<T_ExtraColourLevels>>;
             ui?: ColourLevels | T_ExtraColourLevels | Partial<LevelsSet<T_ExtraColourLevels>>;
@@ -440,7 +440,7 @@ export declare namespace Tokens_Themes_Set_SingleMode {
                 [L in RequiredHeadingLevels]?: ColourLevels | T_ExtraColourLevels;
             };
         };
-        variations?: {
+        variations?: undefined | {
             universal?: Partial<RequiredVariations<T_ColourName>['universal']> & {
                 [K in T_Keyword_Universal]: T_ColourName;
             };

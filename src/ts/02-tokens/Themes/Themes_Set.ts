@@ -24,7 +24,7 @@ import { objectMap } from '../../01-utilities/objectMap.js';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
 
 import { Tokens_Themes_Set_SingleMode } from './Themes_Set_SingleMode.js';
-import { arrayUnique } from '@maddimathon/utility-typescript/functions';
+import { arrayUnique, mergeArgs } from '@maddimathon/utility-typescript/functions';
 
 /**
  * Generates a complete token object for the design system.
@@ -125,7 +125,11 @@ export class Tokens_Themes_Set<
                             clrNames,
                             {
                                 ...input[ brightness ]?.[ contrast ] ?? {},
-                                variations: input.variations,
+                                variations: mergeArgs(
+                                    input.variations ?? {},
+                                    input[ brightness ]?.[ contrast ]?.variations ?? {},
+                                    true
+                                ),
                             },
                         ),
                 )
@@ -355,13 +359,12 @@ export namespace Tokens_Themes_Set {
         >;
     } & {
             [ B in T_ThemeBrightnessMode[ number ] ]?: {
-                [ C in T_ThemeContrastMode[ number ] ]?:
-                Omit<Tokens_Themes_Set_SingleMode.InputParam<
+                [ C in T_ThemeContrastMode[ number ] ]?: Tokens_Themes_Set_SingleMode.InputParam<
                     T_ColourName,
                     T_ExtraColourLevels,
                     T_Keyword_Universal,
                     T_Keyword_Text
-                >, "variations">;
+                >;
             };
         };
 
