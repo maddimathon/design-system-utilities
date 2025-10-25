@@ -384,7 +384,26 @@ export declare namespace ColourUtilities {
             c: number;
         };
     }>;
-    function getDarkLevel(lightLevel: ColourLevels | ColourLevels_Extended): ColourLevels | ColourLevels_Extended;
+    const LevelConverter: {
+        readonly '100': "900";
+        readonly '150': "850";
+        readonly '200': "800";
+        readonly '250': "750";
+        readonly '300': "700";
+        readonly '350': "650";
+        readonly '400': "600";
+        readonly '450': "550";
+        readonly '500': "500";
+        readonly '550': "450";
+        readonly '600': "400";
+        readonly '650': "350";
+        readonly '700': "300";
+        readonly '750': "250";
+        readonly '800': "200";
+        readonly '850': "150";
+        readonly '900': "100";
+    };
+    function getDarkLevel<T_LightLevel extends ColourLevels | ColourLevels_Extended>(lightLevel: T_LightLevel): (typeof LevelConverter)[T_LightLevel];
     /**
      * @since 0.1.0-alpha.draft
      */

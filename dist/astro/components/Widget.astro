@@ -1,0 +1,64 @@
+---
+/**
+ * @since 0.1.0-alpha.draft
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+import type { ElementProps } from '@maddimathon/utility-astro';
+
+/* import - functions */
+
+/* import - values */
+
+/* import - components */
+import Heading from '@maddimathon/utility-astro/components/Heading';
+
+/* import - layouts */
+
+/* PROPS ===================================== */
+
+export interface Props extends ElementProps<{}, 'section'> {
+    children: any[];
+
+    /**
+     * If any, the heading display level override for this heading (otherwise
+     * the `heading` value is used).
+     */
+    displayHeading?: number;
+
+    heading: number;
+}
+
+const {
+    class: classList,
+    displayHeading,
+    heading,
+    ...attributes
+}: Props = Astro.props;
+
+/* CONSTANTS ===================================== */
+
+const headingHTML = (await Astro.slots.render('heading')) || false;
+---
+
+{
+    headingHTML && (
+        <section
+            {...attributes}
+            class:list={['sidebar-widget', '||', classList]}
+        >
+            <slot name='prefix' />
+            <Heading
+                class='widget-title'
+                heading={heading}
+                displayHeading={displayHeading}
+                set:html={headingHTML}
+            />
+            <div class='widget-content'>
+                <slot />
+            </div>
+        </section>
+    )
+}

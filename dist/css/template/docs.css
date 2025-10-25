@@ -3084,13 +3084,13 @@ body > .body-subgrid {
     --grid-template-columns--page: 0 [page-start] 1fr [sidebar-start] 0 [content-start] minmax(auto, var(--width-content, 36rem)) [content-end] 0 [sidebar-end] 1fr [page-end] 0;
     /* prettier-ignore */
     grid-template-columns: max(0.625rem, min(4svw, 3.5625rem)) [site-start] 0 [page-start] 1fr [sidebar-start] 0 [content-start] minmax(auto, 36rem) [content-end] 0 [sidebar-end] 1fr [page-end] 0 [site-end] max(0.625rem, min(4svw, 3.5625rem));
-    grid-template-columns: var(
-            --gap-inline-layout-half,
-            4vw
-        ) [site-start] 0 [page-start] 1fr [sidebar-start] 0 [content-start] minmax(
+    grid-template-columns:
+        var(--gap-inline-layout-half, 4vw)
+        [site-start] 0 [page-start] 1fr [sidebar-start] 0 [content-start] minmax(
             auto,
             var(--width-content, 36rem)
-        ) [content-end] 0 [sidebar-end] 1fr [page-end] 0 [site-end] var(
+        )
+        [content-end] 0 [sidebar-end] 1fr [page-end] 0 [site-end] var(
             --gap-inline-layout-half,
             4vw
         );
@@ -3116,25 +3116,20 @@ body > .body-subgrid {
         --grid-template-columns--page: 0 [page-start] minmax(auto, calc(var(--width-sidebar, 16rem) / 2)) var(--gap-inline-layout-half, 4vw) [sidebar-start] 0 [content-start] minmax(auto, var(--width-content, 36rem)) [content-end] 0 [sidebar-end] var(--gap-inline-layout-half, 4vw) minmax(auto, calc(var(--width-sidebar, 16rem) / 2)) [page-end] 0;
         /* prettier-ignore */
         grid-template-columns: max(0.625rem, min(4svw, 3.5625rem)) [site-start] 1fr 0 [page-start] minmax(auto, calc(16rem / 2)) max(0.625rem, min(4svw, 3.5625rem)) [sidebar-start] 0 [content-start] minmax(auto, 36rem) [content-end] 0 [sidebar-end] max(0.625rem, min(4svw, 3.5625rem)) minmax(auto, calc(16rem / 2)) [page-end] 0 1fr [site-end] max(0.625rem, min(4svw, 3.5625rem));
-        grid-template-columns: var(
-                --gap-inline-layout-half,
-                4vw
-            ) [site-start] 1fr 0 [page-start] minmax(
+        grid-template-columns:
+            var(--gap-inline-layout-half, 4vw)
+            [site-start] 1fr 0 [page-start] minmax(
                 auto,
                 calc(var(--width-sidebar, 16rem) / 2)
-            ) var(
-                --gap-inline-layout-half,
-                4vw
-            ) [sidebar-start] 0 [content-start] minmax(
+            )
+            var(--gap-inline-layout-half, 4vw)
+            [sidebar-start] 0 [content-start] minmax(
                 auto,
                 var(--width-content, 36rem)
-            ) [content-end] 0 [sidebar-end] var(
-                --gap-inline-layout-half,
-                4vw
-            ) minmax(
-                auto,
-                calc(var(--width-sidebar, 16rem) / 2)
-            ) [page-end] 0 1fr [site-end] var(--gap-inline-layout-half, 4vw);
+            )
+            [content-end] 0 [sidebar-end] var(--gap-inline-layout-half, 4vw)
+            minmax(auto, calc(var(--width-sidebar, 16rem) / 2))
+            [page-end] 0 1fr [site-end] var(--gap-inline-layout-half, 4vw);
     }
 }
 
@@ -3240,19 +3235,15 @@ body > aside > :first-child {
         --grid-template-columns--page: 0 [page-start] 0 [sidebar-start] minmax(auto, var(--width-sidebar, 16rem)) [sidebar-end] var(--gap-inline-layout, 8vw) [content-start] minmax(auto, var(--width-content, 36rem)) [content-end] 0 [page-end] 0;
         /* prettier-ignore */
         grid-template-columns: max(0.625rem, min(4svw, 3.5625rem)) [site-start] 1fr 0 [page-start] 0 [sidebar-start] minmax(auto, 16rem) [sidebar-end] max(1.25rem, min(8svw, 7.125rem)) [content-start] minmax(auto, 36rem) [content-end] 0 [page-end] 0 1fr [site-end] max(0.625rem, min(4svw, 3.5625rem));
-        grid-template-columns: var(
-                --gap-inline-layout-half,
-                4vw
-            ) [site-start] 1fr 0 [page-start] 0 [sidebar-start] minmax(
+        grid-template-columns:
+            var(--gap-inline-layout-half, 4vw)
+            [site-start] 1fr 0 [page-start] 0 [sidebar-start] minmax(
                 auto,
                 var(--width-sidebar, 16rem)
-            ) [sidebar-end] var(
-                --gap-inline-layout,
-                8vw
-            ) [content-start] minmax(
-                auto,
-                var(--width-content, 36rem)
-            ) [content-end] 0 [page-end] 0 1fr [site-end] var(
+            )
+            [sidebar-end] var(--gap-inline-layout, 8vw)
+            [content-start] minmax(auto, var(--width-content, 36rem))
+            [content-end] 0 [page-end] 0 1fr [site-end] var(
                 --gap-inline-layout-half,
                 4vw
             );
@@ -3265,19 +3256,15 @@ body > aside > :first-child {
         --grid-template-columns--page: 0 [page-start] 0 [content-start] minmax(auto, var(--width-content, 36rem)) [content-end] var(--gap-inline-layout, 8vw) [sidebar-start] minmax(auto, var(--width-sidebar, 16rem)) [sidebar-end] 0 [page-end] 0;
         /* prettier-ignore */
         grid-template-columns: max(0.625rem, min(4svw, 3.5625rem)) [site-start] 1fr 0 [page-start] 0 [content-start] minmax(auto, 36rem) [content-end] max(1.25rem, min(8svw, 7.125rem)) [sidebar-start] minmax(auto, 16rem) [sidebar-end] 0 [page-end] 0 1fr [site-end] max(0.625rem, min(4svw, 3.5625rem));
-        grid-template-columns: var(
-                --gap-inline-layout-half,
-                4vw
-            ) [site-start] 1fr 0 [page-start] 0 [content-start] minmax(
+        grid-template-columns:
+            var(--gap-inline-layout-half, 4vw)
+            [site-start] 1fr 0 [page-start] 0 [content-start] minmax(
                 auto,
                 var(--width-content, 36rem)
-            ) [content-end] var(
-                --gap-inline-layout,
-                8vw
-            ) [sidebar-start] minmax(
-                auto,
-                var(--width-sidebar, 16rem)
-            ) [sidebar-end] 0 [page-end] 0 1fr [site-end] var(
+            )
+            [content-end] var(--gap-inline-layout, 8vw)
+            [sidebar-start] minmax(auto, var(--width-sidebar, 16rem))
+            [sidebar-end] 0 [page-end] 0 1fr [site-end] var(
                 --gap-inline-layout-half,
                 4vw
             );

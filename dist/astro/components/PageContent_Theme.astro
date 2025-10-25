@@ -36,7 +36,7 @@ const { tokens }: Props = Astro.props;
 
 /* CONSTANTS ===================================== */
 
-const defaultToggleToOpen = import.meta.env.DEV ? true : undefined;
+const defaultToggleToOpen = Object.keys(tokens.themes).length < 2 && import.meta.env.DEV ? true : undefined;
 
 const levelsInUse = arrayUnique(
     Object.values(tokens.themes)
@@ -148,7 +148,7 @@ const displayOptions = [
                                 <ThemeModeSwatch
                                     {...set}
                                     brightness={brightnessSet.name}
-                                    data-active-theme={key}
+                                    data-active-theme={key == 'default' ? undefined : key}
                                     displayMode={opt.value}
                                     heading={4}
                                     id={`${set.id}-swatch`}
@@ -167,41 +167,6 @@ const displayOptions = [
         </Fragment>
     ))
 }
-
-<!-- {
-    parsed.map((brightnessSet) => (
-        <Toggle
-            class='theme-mode-toggle'
-            defaultOpen={defaultToggleToOpen}
-            heading={2}
-            id={`themes-${brightnessSet.name}-mode`}
-        >
-            <Fragment
-                set:text={toTitleCase(`${brightnessSet.name} Mode`)}
-                slot='button'
-            />
-            <div
-                class='theme-mode-toggle__list'
-                data-brightness-mode={brightnessSet.name}
-                style={`--theme-mode-swatch-list-column-count: ${brightnessSet.values.length};`}
-            >
-                {brightnessSet.values.map((set) => (
-                    <ThemeModeSwatch
-                        {...set}
-                        brightness={brightnessSet.name}
-                        heading={3}
-                        id={`${set.id}-swatch`}
-                    >
-                        <Fragment
-                            slot='heading'
-                            set:text={`${toTitleCase(set.contrast)} Contrast`}
-                        />
-                    </ThemeModeSwatch>
-                ))}
-            </div>
-        </Toggle>
-    ))
-} -->
 
 <PageContent_Theme_Scripts />
 

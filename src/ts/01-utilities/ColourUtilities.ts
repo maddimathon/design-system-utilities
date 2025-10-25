@@ -145,16 +145,42 @@ export namespace ColourUtilities {
     /* UTILITY FUNCTIONS
      * ====================================================================== */
 
-    export function getDarkLevel(
-        lightLevel: ColourLevels | ColourLevels_Extended,
-    ): ColourLevels | ColourLevels_Extended {
+    export const LevelConverter = {
+        '100': '900',
+        '150': '850',
+        '200': '800',
+        '250': '750',
+        '300': '700',
+        '350': '650',
+        '400': '600',
+        '450': '550',
+        '500': '500',
+        '550': '450',
+        '600': '400',
+        '650': '350',
+        '700': '300',
+        '750': '250',
+        '800': '200',
+        '850': '150',
+        '900': '100',
+    } as const satisfies {
+        [ L in ColourLevels | ColourLevels_Extended ]: ColourLevels | ColourLevels_Extended;
+    };
 
-        const dark = ( 1000 - Number( lightLevel ) ).toFixed( 0 );
+    export function getDarkLevel<
+        T_LightLevel extends ColourLevels | ColourLevels_Extended
+    >(
+        lightLevel: T_LightLevel,
+    ): ( typeof LevelConverter )[ T_LightLevel ] {
 
-        return dark.padStart(
-            Math.max( 0, 3 - dark.length ),
-            '0',
-        ) as ColourLevels | ColourLevels_Extended;
+        return LevelConverter[ lightLevel ];
+
+        // const dark = ( 1000 - Number( lightLevel ) ).toFixed( 0 );
+
+        // return dark.padStart(
+        //     Math.max( 0, 3 - dark.length ),
+        //     '0',
+        // ) as ColourLevels | ColourLevels_Extended;
     }
 
     /**
