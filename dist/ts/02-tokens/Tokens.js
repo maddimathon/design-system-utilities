@@ -405,6 +405,13 @@ export class Tokens extends AbstractTokens {
          * @since 0.1.0-alpha.draft
          */
         Themes.allHeadingLevels = Tokens_Themes_Set_SingleMode.allHeadingLevels;
+        /**
+         * @since 0.1.0-alpha.draft
+         */
+        let SingleMode;
+        (function (SingleMode) {
+            SingleMode.colourOption = Tokens_Themes_Set_SingleMode.Build.colourOption;
+        })(SingleMode = Themes.SingleMode || (Themes.SingleMode = {}));
     })(Themes = Tokens.Themes || (Tokens.Themes = {}));
 })(Tokens || (Tokens = {}));
 //# sourceMappingURL=Tokens.js.map

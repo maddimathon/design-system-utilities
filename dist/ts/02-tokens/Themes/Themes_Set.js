@@ -32,11 +32,11 @@ export class Tokens_Themes_Set extends AbstractTokens {
         const forcedColours = await Tokens_Themes_Set_SingleMode.build('forcedColors', undefined, clrNames, {
             ...input.forcedColours ?? {},
             variations: input.variations,
-        });
+        }, input.forcedColours?.overrides);
         const modes = await objectGeneratorAsync(brightnessModes, async (brightness) => objectGeneratorAsync(contrastModes, async (contrast) => Tokens_Themes_Set_SingleMode.build(contrast, brightness, clrNames, {
             ...input[brightness]?.[contrast] ?? {},
             variations: mergeArgs(input.variations ?? {}, input[brightness]?.[contrast]?.variations ?? {}, true),
-        })));
+        }, input[brightness]?.[contrast]?.overrides ?? {})));
         return new Tokens_Themes_Set(name, clrNames, extraColourLevels, brightnessModes, contrastModes, forcedColours, modes);
     }
     get data() {

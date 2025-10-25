@@ -812,7 +812,7 @@ export namespace Tokens {
                 export function fileGenerator<T_Slug extends string>(
                     subpath: T_Slug,
                     name: string,
-                    weight: TokenLevels | `${ TokenLevels } ${ TokenLevels }`,
+                    weight: TokenLevels | `${ '000' | TokenLevels } ${ TokenLevels | '1000' }`,
                     style: "normal" | "italic",
                     opts: familyGenerator.FileOptions = {},
                 ): Tokens_Typography.Font.File {
@@ -1093,6 +1093,27 @@ export namespace Tokens {
          * @since ___PKG_VERSION___
          */
         export namespace SingleMode {
+
+            export const colourOption = Tokens_Themes_Set_SingleMode.Build.colourOption;
+
+            /**
+             * @since ___PKG_VERSION___
+             */
+            export interface Data_RecursivePartial<
+                T_ColourName extends string = Tokens_Internal.Default_ColourName,
+                T_ExtraColourLevels extends ColourLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
+
+                T_ThemeKeyword_Universal extends string = never,
+                T_ThemeKeyword_Text extends string = never,
+
+                __T_ColourOption extends TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels> = TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>,
+            > extends Tokens_Themes_Set_SingleMode.Data_RecursivePartial<
+                T_ColourName,
+                T_ExtraColourLevels,
+                T_ThemeKeyword_Universal,
+                T_ThemeKeyword_Text,
+                __T_ColourOption
+            > { }
 
             /**
              * @since ___PKG_VERSION___

@@ -1,0 +1,134 @@
+///
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.draft
+/// @since 0.1.0-alpha.draft
+///
+
+@use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/string';
+
+@use '../../config';
+@use '../../tokens';
+
+@use 'pkg:@maddimathon/utility-astro/01-functions' as utils;
+
+@use '01-06-decoration' as *;
+
+$_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
+
+///
+/// Uses the (flattened) style tokens.
+///
+/// @since 0.1.0-alpha.draft
+///
+@function style-value($slug) {
+    // returns
+    @if not map.has-key($_flattenedStyles, $slug) {
+        @warn "$slug '#{$slug}' was not a key in flattened tokens.$designSystem.style";
+        @return $slug;
+    }
+
+    $value: map.get($_flattenedStyles, $slug);
+
+    $isButtonStyle: string.index($slug, button-) == 1;
+    $isHeadingStyle: string.index($slug, heading-) == 1;
+
+    $isBorderRadius: false;
+    $isBorderWidth: false;
+    $isLineHeight: false;
+    $isGap: false;
+    $isMargin: false;
+    $isPadding: false;
+
+    @if $isButtonStyle or $isHeadingStyle {
+        $_slugLength: string.length($slug);
+
+        // gap
+        @if string.index($slug, -gap-) {
+            $isGap: true;
+        } @else if string.index($slug, '-gap') == ($_slugLength - 6) {
+            $isGap: true;
+        }
+
+        // margins
+        @if string.index($slug, -margin-) {
+            $isMargin: true;
+        } @else if string.index($slug, '-margin') == ($_slugLength - 6) {
+            $isMargin: true;
+        }
+
+        // padding
+        @if string.index($slug, -padding-) {
+            $isPadding: true;
+        } @else if string.index($slug, '-padding') == ($_slugLength - 6) {
+            $isPadding: true;
+        }
+
+        // border-radius
+        @if string.index($slug, '-border-radius') == ($_slugLength - 13) {
+            $isBorderRadius: true;
+        }
+
+        // border-width
+        @if string.index($slug, '-border-width') == ($_slugLength - 12) {
+            $isBorderWidth: true;
+        }
+
+        // line-height
+        @if string.index($slug, '-line-height') == ($_slugLength - 11) {
+            $isLineHeight: true;
+        }
+    }
+
+    @if $isMargin {
+        //
+        @if string.index($slug, margin-block-start) {
+            $value: if(
+                $isButtonStyle,
+                utils.var-mrg-firm($value),
+                utils.var-mrg-soft($value)
+            );
+        } @else if string.index($slug, margin-block-end) {
+            $value: utils.var-mrg-half($value);
+        } @else {
+            $value: utils.var-mrg-firm($value);
+        }
+    } @else if $isPadding or $isGap {
+        //
+        @if string.index($slug, padding-block-start) or
+            string.index($slug, gap-block-start)
+        {
+            $value: utils.var-mrg-soft($value);
+        } @else if
+            string.index($slug, padding-block-end) or
+            string.index($slug, gap-block-end)
+        {
+            $value: utils.var-mrg-half($value);
+        } @else if
+            string.index($slug, padding-block) or
+            string.index($slug, gap-block)
+        {
+            $value: utils.var-mrg-soft($value);
+        } @else {
+            $value: utils.var-mrg-firm($value);
+        }
+    } @else if $isBorderRadius {
+        $value: if($value == '0', $value, var-border-radius($value));
+    } @else if $isBorderWidth {
+        $value: var-border-width($value);
+    } @else if $isLineHeight {
+        $value: utils.var-line-height($value);
+    }
+
+    @return $value;
+}
+
+///
+/// @since 0.1.0-alpha.draft
+///
+@function var-style($slug) {
+    @return if(
+        config.$fn_var_replaceWithValue_style,
+        style-value($slug),
+        var(--style-#{$slug}, #{style-value($slug)})
+    );
+}

@@ -32,7 +32,9 @@ export declare class Tokens_CSS extends AbstractTokens<Tokens_CSS.Data> {
             stroke: AbstractTokens.ScssReturn;
         };
         style: {
+            button: AbstractTokens.ScssReturn;
             heading: AbstractTokens.ScssReturn;
+            selection: AbstractTokens.ScssReturn;
         };
         transition: {
             properties: AbstractTokens.ScssReturn;

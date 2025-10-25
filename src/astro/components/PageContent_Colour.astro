@@ -36,7 +36,7 @@ const { tokens }: Props = Astro.props;
 
 /* CONSTANTS ===================================== */
 
-const defaultToggleToOpen = import.meta.env.DEV ? true : undefined;
+// const defaultToggleToOpen = import.meta.env.DEV ? true : undefined;
 
 const allLevels = Object.keys(tokens.colour.base) as (
     | ColourLevels
@@ -65,7 +65,6 @@ const excludeLevels = import.meta.env.DEV
         (name) => (
             <Toggle
                 class='shades-list-toggle'
-                defaultOpen={defaultToggleToOpen}
                 heading={2}
                 id={`shades-${name}`}
             >

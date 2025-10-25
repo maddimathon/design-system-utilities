@@ -52,7 +52,7 @@
 }
 
 %button {
-    @include snippet-button($includeUtils: false, $variation: primary);
+    @include snippet-button($variation: primary);
 }
 
 @each $variant,
@@ -67,11 +67,6 @@
 {
     @if $variant != primary and $variant != disabled {
         %button-#{$variant} {
-            @extend %button;
-        }
-
-        %button-#{$variant},
-        #{selector.unify('%button', '.button-#{$variant}')} {
             @include snippet-button-colours($variant);
         }
     }
@@ -96,5 +91,11 @@
 }
 
 %file-selector-button {
-    @include snippet-button($includeUtils: false, $variation: 'secondary');
+    @include snippet-button($variation: 'secondary');
+
+    & {
+        display: initial;
+        margin: 0;
+        margin-inline-end: #{var-mrg-firm('300')};
+    }
 }

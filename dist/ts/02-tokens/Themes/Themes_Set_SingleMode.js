@@ -370,6 +370,10 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                         hover: clrOpt(_secondaryClr, levels.text.accent),
                         active: clrOpt(_activeClr, levels.text.accent),
                     },
+                    outline: {
+                        hover: clrOpt(_secondaryClr, levels.text.accent),
+                        active: clrOpt(_activeClr, levels.text.accent),
+                    },
                     text: {
                         $: clrOpt(variations.base, levels.background),
                         hover: clrOpt(variations.base, levels.background),
@@ -392,6 +396,10 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                     },
                     border: {
                         $: clrOpt(variations.base, levels.text.min),
+                        hover: clrOpt(variations.base, levels.text.min),
+                        active: clrOpt(variations.base, levels.text.min),
+                    },
+                    outline: {
                         hover: clrOpt(variations.base, levels.text.min),
                         active: clrOpt(variations.base, levels.text.min),
                     },
@@ -498,6 +506,13 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                         'ButtonFace',
                         'ButtonBorder',
                     ],
+                    active: [
+                        'ButtonFace',
+                        'ButtonBorder',
+                    ],
+                    hover: 'SelectedItem',
+                },
+                outline: {
                     active: [
                         'ButtonFace',
                         'ButtonBorder',

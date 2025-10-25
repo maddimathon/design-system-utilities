@@ -7,7 +7,8 @@
  * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
-import type { RequiredHeadingLevels, TokenLevels } from '../@types.js';
+import type { RecursivePartial } from '@maddimathon/utility-typescript/types/objects';
+import type { RequiredHeadingLevels, ThemeMode_ContrastOption, TokenLevels } from '../@types.js';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
@@ -15,6 +16,7 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
  * @since 0.1.0-alpha.draft
  */
 export declare class Tokens_CSS_Style extends AbstractTokens<Tokens_CSS_Style.Data> {
+    static buttonStyle(): Tokens_CSS_Style.ButtonStyles;
     static headingStyle(heading: number): Tokens_CSS_Style.HeadingStyles;
     static get default(): Tokens_CSS_Style.Data;
     readonly data: Tokens_CSS_Style.Data;
@@ -32,6 +34,40 @@ export declare class Tokens_CSS_Style extends AbstractTokens<Tokens_CSS_Style.Da
 export declare namespace Tokens_CSS_Style {
     namespace CSS {
         type TextTransform = "none" | "capitalize" | "uppercase" | "lowercase" | "full-width" | "full-size-kana" | "math-auto";
+    }
+    interface ButtonStyles {
+        border: {
+            radius: "0" | TokenLevels;
+            style: string;
+            width: TokenLevels;
+        };
+        focus: {
+            offset: TokenLevels;
+        };
+        font: {
+            style: "normal" | "italic";
+            weight: TokenLevels;
+        };
+        gap: {
+            block: TokenLevels;
+            inline: TokenLevels;
+        };
+        'letter-spacing': string;
+        'line-height': TokenLevels;
+        'text-transform': CSS.TextTransform;
+        margin: {
+            block: {
+                start: TokenLevels;
+                end: TokenLevels;
+            };
+        };
+        padding: {
+            block: TokenLevels;
+            inline: TokenLevels;
+        };
+        width: string;
+    }
+    interface ButtonStyles_Partial extends RecursivePartial<ButtonStyles> {
     }
     interface HeadingStyles {
         font: {
@@ -54,20 +90,32 @@ export declare namespace Tokens_CSS_Style {
      * @since 0.1.0-alpha.draft
      */
     type Data = {
+        button: ButtonStyles;
         heading: {
             [L in RequiredHeadingLevels]: HeadingStyles;
         } & {
             [key: number]: HeadingStyles;
+        };
+        selection: {
+            [C in Exclude<ThemeMode_ContrastOption, 'max'>]: {
+                'background-opacity': string;
+            };
         };
     };
     /**
      * @since 0.1.0-alpha.draft
      */
     type InputParam = {
+        button?: ButtonStyles_Partial;
         heading?: {
             [L in RequiredHeadingLevels]?: HeadingStyles_Partial;
         } & {
             [key: number]: HeadingStyles_Partial;
+        };
+        selection?: {
+            [C in Exclude<ThemeMode_ContrastOption, 'max'>]?: {
+                'background-opacity'?: string;
+            };
         };
     };
     /**

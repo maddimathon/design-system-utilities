@@ -440,7 +440,7 @@ export namespace Tokens_Typography {
                 [ F in "local" | "ttf" | "woff" | "woff2" ]?: string | string[];
             };
             style: "normal" | "italic";
-            weight: TokenLevels | `${ TokenLevels } ${ TokenLevels }`;
+            weight: TokenLevels | `${ '000' | TokenLevels } ${ TokenLevels | '1000' }`;
         }
 
         /**
@@ -455,7 +455,7 @@ export namespace Tokens_Typography {
                     path: string;
                 }[];
                 style: "normal" | "italic";
-                weight: TokenLevels | `${ TokenLevels } ${ TokenLevels }`;
+                weight: TokenLevels | `${ '000' | TokenLevels } ${ TokenLevels | '1000' }`;
 
                 printFontFace: boolean;
 

@@ -10,9 +10,11 @@
 
 // import { JsonToScss } from '@maddimathon/utility-sass';
 // import * as z from 'zod';
+
+import type { RecursivePartial } from '@maddimathon/utility-typescript/types/objects';
 import { mergeArgs } from '@maddimathon/utility-typescript/functions';
 
-import type { RequiredHeadingLevels, TokenLevels } from '../@types.js';
+import type { RequiredHeadingLevels, ThemeMode_ContrastOption, TokenLevels } from '../@types.js';
 
 import { objectGenerator } from '../../01-utilities/objectGenerator.js';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
@@ -23,6 +25,52 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
  * @since ___PKG_VERSION___
  */
 export class Tokens_CSS_Style extends AbstractTokens<Tokens_CSS_Style.Data> {
+
+    public static buttonStyle(): Tokens_CSS_Style.ButtonStyles {
+
+        const style: Tokens_CSS_Style.ButtonStyles = {
+
+            border: {
+                radius: '0',
+                style: 'solid',
+                width: '200',
+            },
+
+            focus: {
+                offset: '300',
+            },
+
+            font: {
+                style: 'normal',
+                weight: '500',
+            },
+
+            gap: {
+                block: '300',
+                inline: '200',
+            },
+
+            'letter-spacing': 'normal',
+            'line-height': '100',
+            'text-transform': 'none',
+
+            margin: {
+                block: {
+                    start: '400',
+                    end: '400',
+                },
+            },
+
+            padding: {
+                block: '200',
+                inline: '300',
+            },
+
+            width: 'fit-content',
+        };
+
+        return style;
+    }
 
     public static headingStyle( heading: number ): Tokens_CSS_Style.HeadingStyles {
 
@@ -111,10 +159,24 @@ export class Tokens_CSS_Style extends AbstractTokens<Tokens_CSS_Style.Data> {
 
         return {
 
+            button: Tokens_CSS_Style.buttonStyle(),
+
             heading: objectGenerator(
                 [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const,
                 ( hdg ) => Tokens_CSS_Style.headingStyle( hdg )
             ),
+
+            selection: {
+                low: {
+                    "background-opacity": '65%',
+                },
+                average: {
+                    "background-opacity": '75%',
+                },
+                high: {
+                    "background-opacity": '95%',
+                },
+            },
         };
     }
 
@@ -153,6 +215,49 @@ export namespace Tokens_CSS_Style {
         export type TextTransform = "none" | "capitalize" | "uppercase" | "lowercase" | "full-width" | "full-size-kana" | "math-auto";
     }
 
+    export interface ButtonStyles {
+
+        border: {
+            radius: "0" | TokenLevels;
+            style: string;
+            width: TokenLevels;
+        };
+
+        focus: {
+            offset: TokenLevels;
+        };
+
+        font: {
+            style: "normal" | "italic";
+            weight: TokenLevels;
+        };
+
+        gap: {
+            block: TokenLevels;
+            inline: TokenLevels;
+        };
+
+        'letter-spacing': string;
+        'line-height': TokenLevels;
+        'text-transform': CSS.TextTransform;
+
+        margin: {
+            block: {
+                start: TokenLevels;
+                end: TokenLevels;
+            };
+        };
+
+        padding: {
+            block: TokenLevels;
+            inline: TokenLevels;
+        };
+
+        width: string;
+    }
+
+    export interface ButtonStyles_Partial extends RecursivePartial<ButtonStyles> { }
+
     export interface HeadingStyles {
 
         font: {
@@ -179,10 +284,18 @@ export namespace Tokens_CSS_Style {
      */
     export type Data = {
 
+        button: ButtonStyles;
+
         heading: {
             [ L in RequiredHeadingLevels ]: HeadingStyles;
         } & {
             [ key: number ]: HeadingStyles;
+        };
+
+        selection: {
+            [ C in Exclude<ThemeMode_ContrastOption, 'max'> ]: {
+                'background-opacity': string;
+            };
         };
     };
 
@@ -191,10 +304,18 @@ export namespace Tokens_CSS_Style {
      */
     export type InputParam = {
 
+        button?: ButtonStyles_Partial;
+
         heading?: {
             [ L in RequiredHeadingLevels ]?: HeadingStyles_Partial;
         } & {
             [ key: number ]: HeadingStyles_Partial;
+        };
+
+        selection?: {
+            [ C in Exclude<ThemeMode_ContrastOption, 'max'> ]?: {
+                'background-opacity'?: string;
+            };
         };
     };
 

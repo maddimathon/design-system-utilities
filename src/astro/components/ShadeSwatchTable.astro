@@ -22,6 +22,7 @@ import { textColorLevel } from './ShadeSwatch.astro';
 /* import - components */
 import ShadeSwatch from './ShadeSwatch.astro';
 import ContrastAlert from './ContrastAlert.astro';
+import { arrayUnique } from '@maddimathon/utility-typescript/functions';
 // import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
 
 /* import - layouts */
@@ -54,10 +55,12 @@ const {
 
 /* CONSTANTS ===================================== */
 
+const allTokenLevels = arrayUnique(Object.values(tokens.colour).map(val=>Object.keys(val) as (keyof typeof val)[]).flat());
+
 const colour = colourToArray(props);
 
 const rawGoals: {
-    [ L in ColourLevels ]: {
+    [ L in ColourLevels|ColourLevels_Extended ]: {
         min: {
             aa: {
                 ui: ColourLevels | undefined,
@@ -169,6 +172,20 @@ const rawGoals: {
         max: '900',
     },
 
+    '450': {
+        min: {
+            aa: {
+                ui: '100',
+                text: '850',
+            },
+            aaa: {
+                ui: '850',
+                text: undefined,
+            },
+        },
+        max: '900',
+    },
+
     '500': {
         min: {
             aa: {
@@ -181,6 +198,20 @@ const rawGoals: {
             },
         },
         max: '900',
+    },
+
+    '550': {
+        min: {
+            aa: {
+                ui: '850',
+                text: '150',
+            },
+            aaa: {
+                ui: '150',
+                text: undefined,
+            },
+        },
+        max: '100',
     },
 
     '600': {
@@ -284,28 +315,28 @@ const rawGoals: {
 
 const goalLevels = objectMap(
     rawGoals,
-    <L extends ColourLevels>( { 
+    <L extends ColourLevels|ColourLevels_Extended>( { 
         key: targetLevel, 
         value,
     }: { key: L; value: typeof rawGoals[L] } ): false | {
         level: L,
-        textLevel: ColourLevels,
+        textLevel: ColourLevels|ColourLevels_Extended,
         min: {
             aa: {
                 colCount: number;
-                ui: ColourLevels | undefined,
-                text: ColourLevels | undefined,
+                ui: ColourLevels|ColourLevels_Extended | undefined,
+                text: ColourLevels|ColourLevels_Extended | undefined,
             },
             aaa: {
                 colCount: number;
-                ui: ColourLevels | undefined,
-                text: ColourLevels | undefined,
+                ui: ColourLevels|ColourLevels_Extended | undefined,
+                text: ColourLevels|ColourLevels_Extended | undefined,
             },
         },
         max: ColourLevels,
     } => {
         // returns - don't include
-        if ( excludeLevels.includes( targetLevel ) ) {
+        if ( excludeLevels.includes( targetLevel ) || ! allTokenLevels.includes(targetLevel) ) {
             return false;
         }
         

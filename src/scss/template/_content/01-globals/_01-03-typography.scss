@@ -222,10 +222,10 @@
 @each $num in token-all-heading-levels() {
     //
     #{if( $num == 1, ('%h#{$num}', '%title'), '%h#{$num}' )} {
-        @include snippet-heading($num, $includeUtils: false);
+        @include snippet-heading($num);
 
         &--where {
-            @include snippet-heading($num, $includeUtils: false);
+            @include snippet-heading($num);
         }
     }
 }

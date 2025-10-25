@@ -7,8 +7,6 @@
  * @maddimathon/design-system-utilities@0.1.0-alpha.draft
  * @license MIT
  */
-// import { JsonToScss } from '@maddimathon/utility-sass';
-// import * as z from 'zod';
 import { mergeArgs } from '@maddimathon/utility-typescript/functions';
 import { objectGenerator } from '../../01-utilities/objectGenerator.js';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
@@ -18,6 +16,41 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
  * @since 0.1.0-alpha.draft
  */
 export class Tokens_CSS_Style extends AbstractTokens {
+    static buttonStyle() {
+        const style = {
+            border: {
+                radius: '0',
+                style: 'solid',
+                width: '200',
+            },
+            focus: {
+                offset: '300',
+            },
+            font: {
+                style: 'normal',
+                weight: '500',
+            },
+            gap: {
+                block: '300',
+                inline: '200',
+            },
+            'letter-spacing': 'normal',
+            'line-height': '100',
+            'text-transform': 'none',
+            margin: {
+                block: {
+                    start: '400',
+                    end: '400',
+                },
+            },
+            padding: {
+                block: '200',
+                inline: '300',
+            },
+            width: 'fit-content',
+        };
+        return style;
+    }
     static headingStyle(heading) {
         heading = heading < 1 ? 11 : heading;
         const style = {
@@ -85,7 +118,19 @@ export class Tokens_CSS_Style extends AbstractTokens {
     }
     static get default() {
         return {
+            button: Tokens_CSS_Style.buttonStyle(),
             heading: objectGenerator([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], (hdg) => Tokens_CSS_Style.headingStyle(hdg)),
+            selection: {
+                low: {
+                    "background-opacity": '65%',
+                },
+                average: {
+                    "background-opacity": '75%',
+                },
+                high: {
+                    "background-opacity": '95%',
+                },
+            },
         };
     }
     // public get data(): Tokens_CSS_Style.Data {

@@ -124,20 +124,3 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
         /* #endregion Tokens - Font Families */
     }
 }
-
-///
-/// Prints out the style custom property tokens based on config.
-///
-/// @since 0.1.0-alpha.draft
-///
-@mixin tokens-style {
-    /* #region Tokens - Style */
-    #{selector.parent-or-root()} {
-        @each $slug,
-            $_value in map.flatten(map.get(tokens.$designSystem, style))
-        {
-            --style-#{$slug}: #{style-value($slug)};
-        }
-    }
-    /* #endregion Tokens - Style */
-}

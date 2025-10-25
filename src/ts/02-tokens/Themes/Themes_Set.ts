@@ -96,6 +96,7 @@ export class Tokens_Themes_Set<
                 ...input.forcedColours ?? {},
                 variations: input.variations,
             },
+            input.forcedColours?.overrides
         );
 
         const modes: {
@@ -131,6 +132,7 @@ export class Tokens_Themes_Set<
                                     true
                                 ),
                             },
+                            input[ brightness ]?.[ contrast ]?.overrides ?? {}
                         ),
                 )
         );
@@ -356,7 +358,15 @@ export namespace Tokens_Themes_Set {
                 CssSystemColor
             >,
             "levels" | "variations"
-        >;
+        > & {
+            overrides?: Tokens_Themes_Set_SingleMode.Data_RecursivePartial<
+                T_ColourName,
+                T_ExtraColourLevels,
+                T_Keyword_Universal,
+                T_Keyword_Text,
+                CssSystemColor
+            >,
+        };
     } & {
             [ B in T_ThemeBrightnessMode[ number ] ]?: {
                 [ C in T_ThemeContrastMode[ number ] ]?: Tokens_Themes_Set_SingleMode.InputParam<
@@ -364,7 +374,14 @@ export namespace Tokens_Themes_Set {
                     T_ExtraColourLevels,
                     T_Keyword_Universal,
                     T_Keyword_Text
-                >;
+                > & {
+                    overrides?: Tokens_Themes_Set_SingleMode.Data_RecursivePartial<
+                        T_ColourName,
+                        T_ExtraColourLevels,
+                        T_Keyword_Universal,
+                        T_Keyword_Text
+                    >,
+                };
             };
         };
 

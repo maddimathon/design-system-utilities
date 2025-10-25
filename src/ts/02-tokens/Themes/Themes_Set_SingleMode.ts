@@ -614,6 +614,12 @@ export namespace Tokens_Themes_Set_SingleMode {
             active: __T_ColourOption,
         },
 
+        outline: {
+            $?: undefined | never,
+            hover: __T_ColourOption,
+            active: __T_ColourOption,
+        },
+
         text: {
             $: __T_ColourOption,
             hover: __T_ColourOption,
@@ -1333,6 +1339,11 @@ export namespace Tokens_Themes_Set_SingleMode {
                         active: clrOpt( _activeClr, levels.text.accent ),
                     },
 
+                    outline: {
+                        hover: clrOpt( _secondaryClr, levels.text.accent ),
+                        active: clrOpt( _activeClr, levels.text.accent ),
+                    },
+
                     text: {
                         $: clrOpt( variations.base, levels.background ),
                         hover: clrOpt( variations.base, levels.background ),
@@ -1360,6 +1371,11 @@ export namespace Tokens_Themes_Set_SingleMode {
 
                     border: {
                         $: clrOpt( variations.base, levels.text.min ),
+                        hover: clrOpt( variations.base, levels.text.min ),
+                        active: clrOpt( variations.base, levels.text.min ),
+                    },
+
+                    outline: {
                         hover: clrOpt( variations.base, levels.text.min ),
                         active: clrOpt( variations.base, levels.text.min ),
                     },
@@ -1521,6 +1537,14 @@ export namespace Tokens_Themes_Set_SingleMode {
                         'ButtonFace',
                         'ButtonBorder',
                     ],
+                    active: [
+                        'ButtonFace',
+                        'ButtonBorder',
+                    ],
+                    hover: 'SelectedItem',
+                },
+
+                outline: {
                     active: [
                         'ButtonFace',
                         'ButtonBorder',

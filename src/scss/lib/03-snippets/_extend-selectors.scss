@@ -7,6 +7,7 @@
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/math';
 @use 'pkg:@maddimathon/utility-sass/meta';
+@use 'pkg:@maddimathon/utility-sass/selector';
 
 @use 'pkg:@maddimathon/utility-astro/03-snippets' as lib;
 
@@ -61,6 +62,50 @@
     $additional: list.append($additional, ('p.aside', 'aside'));
     $additional: list.append($additional, ('.button-span', 'button-span'));
     $additional: list.append($additional, ('.icon', 'icon'));
+
+    @each $variant,
+        $_map
+            in map.get(
+                tokens.$themes,
+                tokens.$activeTheme,
+                tokens.$brightnessMode_default,
+                tokens.$contrastMode_default,
+                button
+            )
+    {
+        @if $variant !=
+            primary and
+            $variant !=
+            secondary and
+            $variant !=
+            disabled
+        {
+            //
+            $additional: list.append(
+                $additional,
+                ('a.button-#{$variant}', button)
+            );
+
+            $additional: list.append(
+                $additional,
+                (
+                    (
+                        selector.unify(
+                            (
+                                button,
+                                'a',
+                                "[role='button']",
+                                "input[type='button']",
+                                "input[type='submit']"
+                            ),
+                            '.button-#{$variant}'
+                        )
+                    ),
+                    button-#{$variant}
+                )
+            );
+        }
+    }
 
     @include lib.extend-selectors-utils(
         $additional: $additional,

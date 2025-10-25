@@ -16,42 +16,54 @@
 
 @use 'pkg:@maddimathon/utility-astro/03-snippets' as utils;
 
+@mixin _snippet-button-colour-single-state($bg, $border, $text, $ui) {
+    --icon-color: #{$ui};
+    --theme-link-icon: #{$ui};
+    text-decoration-color: #{$ui};
+    accent-color: #{$border};
+    background-color: #{$bg};
+    border-color: #{$border};
+    color: #{$text};
+}
+
 ///
 /// Colour properties for an input element.
 ///
 /// @since ___PKG_VERSION___
 ///
 @mixin snippet-button-colours($variation: 'primary') {
-    --focus-ring-outline-color: #{var-theme(button-#{$variation}-border)};
-    --icon-color: #{var-theme(button-#{$variation}-ui)};
-    --theme-link-icon: #{var-theme(button-#{$variation}-ui)};
-    accent-color: #{var-theme(button-#{$variation}-border)};
-    background-color: #{var-theme(button-#{$variation}-bg)};
-    border-color: #{var-theme(button-#{$variation}-border)};
-    color: #{var-theme(button-#{$variation}-text)};
+    & {
+        --focus-ring-outline-color: #{var-theme(
+                button-#{$variation}-outline-hover
+            )};
+        @include _snippet-button-colour-single-state(
+            $bg: var-theme(button-#{$variation}-bg),
+            $border: var-theme(button-#{$variation}-border),
+            $text: var-theme(button-#{$variation}-text),
+            $ui: var-theme(button-#{$variation}-ui)
+        );
+    }
 
     @include hover-focus-visible-or-within {
-        --focus-ring-outline-color: #{var-theme(
-                button-#{$variation}-border-hover
-            )};
-        --icon-color: #{var-theme(button-#{$variation}-ui-hover)};
-        --theme-link-icon: #{var-theme(button-#{$variation}-ui-hover)};
-        accent-color: #{var-theme(button-#{$variation}-border-hover)};
-        background-color: #{var-theme(button-#{$variation}-bg-hover)};
-        border-color: #{var-theme(button-#{$variation}-border-hover)};
-        color: #{var-theme(button-#{$variation}-text-hover)};
+        @include _snippet-button-colour-single-state(
+            $bg: var-theme(button-#{$variation}-bg-hover),
+            $border: var-theme(button-#{$variation}-border-hover),
+            $text: var-theme(button-#{$variation}-text-hover),
+            $ui: var-theme(button-#{$variation}-ui-hover)
+        );
+        text-decoration-color: var-theme(link-ui-hover);
     }
 
     &:active {
         --focus-ring-outline-color: #{var-theme(
-                button-#{$variation}-border-active
+                button-#{$variation}-outline-active
             )};
-        --icon-color: #{var-theme(button-#{$variation}-ui-active)};
-        --theme-link-icon: #{var-theme(button-#{$variation}-ui-active)};
-        accent-color: #{var-theme(button-#{$variation}-border-active)};
-        background-color: #{var-theme(button-#{$variation}-bg-active)};
-        border-color: #{var-theme(button-#{$variation}-border-active)};
-        color: #{var-theme(button-#{$variation}-text-active)};
+        @include _snippet-button-colour-single-state(
+            $bg: var-theme(button-#{$variation}-bg-active),
+            $border: var-theme(button-#{$variation}-border-active),
+            $text: var-theme(button-#{$variation}-text-active),
+            $ui: var-theme(button-#{$variation}-ui-active)
+        );
     }
 }
 
@@ -60,70 +72,97 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin snippet-button(
-    $includeDisabled: true,
-    $includeUtils: true,
-    $variation: 'primary',
-    $args...
-) {
-    $args: meta.keywords($args);
+@mixin snippet-button($includeDisabled: true, $variation: 'primary') {
+    $fontStyle: var-style(button-font-style);
 
-    $focusOffset: var-border-width('300');
+    --focus-ring-outline-offset: #{var-border-width(
+            var-style(button-focus-offset)
+        )};
+    --icon-pseudo-element-margin-block-start: 0.09375em;
 
-    @if $includeUtils {
-        @include utils.snippet-button(
-            $focusOffset: $focusOffset,
-            $opacity_hover: 1,
-            $includeClrs: false,
-            $args...
-        );
-    } @else {
-        --focus-ring-outline-offset: #{$focusOffset};
+    --display: flex;
+    display: flex;
 
-        @include colour-mode-interactive-mixin(
-            $modes: (
-                low,
-                average,
-            ),
-            $hover: true,
-            $focus: true,
-            $focusWithin: true,
-            $includeDefault: false
-        ) {
-            opacity: 1;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    justify-content: start;
+    align-content: start;
+    align-items: start;
+
+    width: #{var-style(button-width)};
+
+    margin-block: #{var-style(button-margin-block-start)}
+        #{var-style(button-margin-block-end)};
+
+    padding: #{var-style(button-padding-block)}
+        #{var-style(button-padding-inline)};
+
+    gap: #{var-style(button-gap-block)} #{var-style(button-gap-inline)};
+
+    border-width: #{var-style(button-border-width)};
+    border-radius: #{var-style(button-border-radius)};
+    border-style: #{var-style(button-border-style)};
+
+    font-weight: #{var-style(button-font-weight)};
+    font-style: #{$fontStyle};
+    font-size: #{var-fs(normal)};
+    line-height: #{var-style(button-line-height)};
+    letter-spacing: #{var-style(button-letter-spacing)};
+
+    text-transform: #{var-style(button-text-transform)};
+    text-decoration: none;
+    text-wrap: balance;
+
+    text-align: start;
+
+    transition: var(--transition);
+    opacity: 1;
+
+    appearance: button;
+    cursor: pointer;
+
+    @include snippet-button-colours($variation);
+
+    /// BLOCK ///
+
+    @if $fontStyle == italic {
+        em,
+        i {
+            font-style: normal;
+
+            em,
+            i {
+                font-style: italic;
+            }
         }
     }
 
-    & {
-        --icon-pseudo-element-margin-block-start: 0.09375em;
-        transition: var(--transition);
-        @include snippet-button-colours($variation);
+    @if $includeDisabled {
+        &[aria-disabled='true'] {
+            cursor: not-allowed;
+            @include snippet-button-colours(disabled);
 
-        @if $includeDisabled {
-            &[aria-disabled='true'] {
-                @include snippet-button-colours(disabled);
-
-                &::before {
-                    @if config.$template_button_inlineIcons {
-                        @include snippet-icon-pseudo-element(
-                            forbidden,
-                            $pseudo: before
-                        );
-                    }
+            &::before {
+                @if config.$template_button_inlineIcons {
+                    @include snippet-icon-pseudo-element(
+                        forbidden,
+                        $pseudo: before
+                    );
                 }
             }
         }
+    }
 
-        * {
-            --icon-color: inherit !important;
-            color: inherit !important;
-        }
+    * {
+        --icon-color: inherit !important;
+        color: inherit !important;
+    }
 
-        ::selection {
-            @each $mode in tokens.$contrastMode_all {
-                @include colour-mode($mode, $includeDefault: false) {
-                    @include snippet-selection($mode);
-                }
+    ::selection {
+        @each $mode in tokens.$contrastMode_all {
+            @include colour-mode($mode, $includeDefault: false) {
+                @include snippet-selection($mode);
             }
         }
     }

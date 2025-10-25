@@ -202,13 +202,13 @@ type ButtonVariation = {
     states: {
         [ K in keyof Tokens_Themes_Set_SingleMode.Data_Button<string, never>['bg'] ]: {
 
-            [ K in keyof Tokens_Themes_Set_SingleMode.Data_Button<string, never> ]: {
+            [ K in keyof Tokens_Themes_Set_SingleMode.Data_Button<string, never> ]: undefined | {
                 state: null | Exclude<
                     keyof Tokens_Themes_Set_SingleMode.Data_Button<string, never>['bg'],
                     '$'
                 >;
                 key: string;
-                value: string | string[];
+                value: string | string[] ;
             };
         };
     };
@@ -241,6 +241,11 @@ const buttons: {
                         key: `button-${variation}-border${keySuffix}`,
                         value: value.border[key],
                     },
+                    outline: state && value.outline[key] ? {
+                        state,
+                        key: `button-${variation}-outline${keySuffix}`,
+                        value: value.outline[key],
+                    } : undefined,
                     text: {
                         state,
                         key: `button-${variation}-text${keySuffix}`,
@@ -321,8 +326,8 @@ const displayHeading = 3;
         headingHTML && (
             <Heading
                 heading={heading - 1}
+            displayHeading={displayHeading - 1}
                 class:list={ [
-                    `h${displayHeading - 1}`,
                     'theme-mode-swatch__name',
                 ] }
                 set:html={headingHTML}
@@ -334,7 +339,7 @@ const displayHeading = 3;
     { displayMode == 'tokens' ? <Fragment>
         <Heading
             heading={heading}
-            class:list={`h${displayHeading}`}
+            displayHeading={displayHeading}
             set:text='Tokens'
         />
         <p
@@ -349,8 +354,8 @@ const displayHeading = 3;
         {
             autoTokens.map((_tokens) => (
                 <Heading
-                    class:list={`h${displayHeading + 1}`}
                     heading={heading + 1}
+                    displayHeading={displayHeading + 1}
                     set:text={`${_tokens.key == 'ui' ? _tokens.key.toUpperCase() : toTitleCase(_tokens.key)} Tokens`}
                 />
                 <Fragment>{ _tokens.variations ? _tokens.variations.map( ( { key, value } ) => (
@@ -367,37 +372,73 @@ const displayHeading = 3;
             ))
         }
         <Heading
-            class:list={`h${displayHeading + 1}`}
+            displayHeading={displayHeading + 1}
             heading={heading + 1}
             set:text='Buttons'
         />
+        { import.meta.env.DEV && ( 
+            <Fragment>
+                <Heading
+                    heading={heading + 2}
+                    class:list='screen-reader-text'
+                    set:text='Button Previews'
+                />
+                { Object.values( buttons ).map( ( variation ) => (
+                    <Heading
+                        heading={heading + 3}
+                        class:list='screen-reader-text'
+                        set:text={variation.name}
+                    />
+                    <div class:list={['button-span | theme-mode-swatch__button-span']}>{ Object.values( variation.states ).map( ( state ) => (
+                        <button
+                            set:text={`${toTitleCase(variation.name)} Button${state.bg?.state ? ` (${state.bg.state})` : ''}`}
+                            aria-disabled={ variation.name === 'disabled' ? true : undefined }
+                            class:list={ [
+                                `button-${variation.name}`,
+                                '|',
+                                'theme-mode-swatch__sample',
+                                'theme-mode-swatch__sample--button',
+                            ] }
+                            style={ [
+                                state.border?.value && `border-color: ${getClrFromThemeValue(tokens, brightness, state.border.value)}`,
+                                state.bg?.value && `background: ${getClrFromThemeValue(tokens, brightness, state.bg.value)}`,
+                                state.text?.value && `color: ${getClrFromThemeValue(tokens, brightness, state.text.value)}`,
+                            ].join(';') }
+                        />
+                    ) ) }</div>
+                ) ) }
+            </Fragment>
+         ) }
+        <Heading
+            heading={heading + 2}
+            class:list='screen-reader-text'
+            set:text='Token Values'
+        />
         { Object.values( buttons ).map( ( variation ) => (
             <Heading
-                heading={heading + 2}
-                class:list='screen-reader-text'
-                set:text={variation.name}
+                heading={heading + 3}
+                displayHeading={displayHeading + 2}
+                set:text={`${toTitleCase(variation.name)} Button`}
             />
-            <div class:list={['button-span | theme-mode-swatch__button-span']}>{ Object.values( variation.states ).map( ( state ) => (
-                <a
-                    href="#"
-                    set:text={`${toTitleCase(variation.name)} Button${state.bg.state ? ` (${state.bg.state})` : ''}`}
-                    aria-disabled={ variation.name === 'disabled' ? true : undefined }
-                    class:list={ [
-                        'button',
-                        'theme-mode-swatch__sample',
-                        'theme-mode-swatch__sample--button',
-                    ] }
-                    style={ [
-                        `border-color: ${getClrFromThemeValue(tokens, brightness, state.border.value)}`,
-                        `background: ${getClrFromThemeValue(tokens, brightness, state.bg.value)}`,
-                        `color: ${getClrFromThemeValue(tokens, brightness, state.text.value)}`,
-                    ].join(';') }
-                />
-            ) ) }</div>
+            <Fragment>{ Object.values( variation.states ).map(
+                ( state ) => (['bg', 'border', 'text', 'ui'] as const).map(
+                    (key) => (
+                        state[key] && ( key != 'border' || state.border?.value != state.bg?.value ) && <p
+                            class="theme-mode-swatch__sample"
+                            style={ [
+                                (key == 'text' || key == 'ui') && state.bg 
+                                    ? `background: ${getClrFromThemeValue(tokens, brightness, state.bg.value)}`
+                                    : '',
+                                `color: ${getClrFromThemeValue(tokens, brightness, state[key].value)}`,
+                            ].join(';') }
+                        ><code set:text={`theme-button-${variation.name}-${key}${state[key].state ? `-${state[key].state}`: '' }`} /> {equals} <code set:text={state[key].value} /></p>
+                    )
+                )
+             ) }</Fragment>
         ) ) }
         <Heading
-            class:list={`h${displayHeading + 1}`}
             heading={heading + 1}
+            displayHeading={displayHeading + 1}
             set:text='Input Fields'
         />
         { Object.values( field ).map( ( state ) => (
@@ -417,8 +458,8 @@ const displayHeading = 3;
         ) ) }
         { levelsInUse.length && ( 
             <Heading
-                class:list={`h${displayHeading}`}
                 heading={heading}
+                displayHeading={displayHeading }
                 set:text='Shades in Use'
             />
             <Table 

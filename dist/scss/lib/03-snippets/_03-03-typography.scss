@@ -18,7 +18,7 @@
 ///
 /// @since 0.1.0-alpha.draft
 ///
-@mixin snippet-heading($slug: '7', $includeUtils: true) {
+@mixin snippet-heading($slug: '7') {
     //
     @if $slug == title {
         $slug: '1';
@@ -56,22 +56,8 @@
     }
 
     color: #{var-theme(heading-#{$slug})};
-
-    // %a {
-    //     color: #{var-theme(link)};
-
-    //     @include hover-focus-visible() {
-    //         color: #{var-theme(link-hover)};
-    //     }
-
-    //     &:active {
-    //         color: #{var-theme(link-active)};
-    //     }
-    // }
 }
 
-///
-///
 ///
 /// @since 0.1.0-alpha.draft
 ///
@@ -87,7 +73,10 @@
         background-color: color-mix(
             in srgb,
             #{var-theme(selection-bg, $contrast: $contrast)}
-                var(--selection-background-opacity, 75%),
+                var(
+                    --selection-background-opacity,
+                    #{var-style(selection-average-background-opacity)}
+                ),
             transparent
         ) !important;
         //
@@ -96,7 +85,10 @@
         background-color: color-mix(
             in srgb,
             #{var-theme(selection-bg, $contrast: $contrast)}
-                var(--selection-background-opacity, 65%),
+                var(
+                    --selection-background-opacity,
+                    #{var-style(selection-low-background-opacity)}
+                ),
             transparent
         ) !important;
         //
@@ -105,7 +97,10 @@
         background-color: color-mix(
             in srgb,
             #{var-theme(selection-bg, $contrast: $contrast)}
-                var(--selection-background-opacity, 95%),
+                var(
+                    --selection-background-opacity,
+                    #{var-style(selection-high-background-opacity)}
+                ),
             transparent
         ) !important;
     }

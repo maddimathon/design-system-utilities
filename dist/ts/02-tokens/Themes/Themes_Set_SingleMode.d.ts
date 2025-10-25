@@ -192,6 +192,11 @@ export declare namespace Tokens_Themes_Set_SingleMode {
             hover: __T_ColourOption;
             active: __T_ColourOption;
         };
+        outline: {
+            $?: undefined | never;
+            hover: __T_ColourOption;
+            active: __T_ColourOption;
+        };
         text: {
             $: __T_ColourOption;
             hover: __T_ColourOption;
