@@ -38,6 +38,11 @@ const config = {
             },
         },
 
+        sass: {
+            benchmarkCompileTime: true,
+            // compileViaCLI: true,
+        },
+
         ts: {
             tidyGlobs: 'types/**/*.js',
         },

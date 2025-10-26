@@ -218,7 +218,7 @@ $_themes_includeAlternatives: list.length(map.keys(tokens.$themes)) > 1 and
 @mixin tokens-theme-alternatives() {
     @each $key, $_theme in tokens.$themes {
         @include utils.colour-mode-each(
-                // $includeForcedColors: false,
+                $includeForcedColors: false,
                 $includeRegions_heading: 'Tokens - Theme Override - #{$key} - ',
 
                 // $ignoreParentSelector: true,
@@ -226,9 +226,8 @@ $_themes_includeAlternatives: list.length(map.keys(tokens.$themes)) > 1 and
                 $nestModeSelectors: config.$mx_themeTokens_nestModeSelectors,
 
                 // $nestParentSelector: true,
-                // $unifyParentSelector:
-                //     config.$mx_themeTokens_unifyActiveThemeSelectors,
-                 // $wrapParentSelector: false
+                // $unifyParentSelector: config.$mx_themeTokens_unifyActiveThemeSelectors,
+                 // $wrapParentSelector: false,
             )
             using ($brightness, $contrast) {
             //
