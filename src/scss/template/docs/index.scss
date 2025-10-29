@@ -4,19 +4,21 @@
 ///
 
 @forward 'config';
-@forward '../_content/_header' with (
-    $template_name: 'Docs'
-);
-@forward '../../tokens';
+// @forward '../_content/_header' with (
+//     $template_name: 'Docs'
+// );
+// @forward '../../tokens';
 
 @forward '../../lib';
 
-@forward '../_content';
+@forward '../_content' with (
+    $template_name: 'Docs'
+);
 
 /// # EXTENDING SELECTORS
 /// ======================================================================== ///
 
 @use '../../lib' as *;
-@use '../_content' as *;
+// @use '../_content' as *;
 
 @include extend-selectors;

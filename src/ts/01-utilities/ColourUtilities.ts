@@ -10,7 +10,7 @@
 
 import clrConvert from 'color-convert';
 
-import * as sass from 'sass';
+import * as sass from 'sass-embedded';
 import * as z from 'zod';
 
 import { roundToPixel } from './roundToPixel.js';

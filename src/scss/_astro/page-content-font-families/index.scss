@@ -3,6 +3,8 @@
 /// @since ___PKG_VERSION___
 ///
 
+@use 'pkg:@maddimathon/utility-sass/feature-check';
+
 @use '../lib';
 
 /* # FONT FAMILY SWATCH LIST ==================================== */
@@ -143,7 +145,7 @@ $_grid_rows: '[intro] auto';
     }
 }
 
-:global(#{lib.selector-feature-check( subgrid, true )}) {
+:global(#{feature-check.get-selector( subgrid, true )}) {
     //
     .font-family-swatch-list {
         grid-template-rows: #{$_grid_rows};

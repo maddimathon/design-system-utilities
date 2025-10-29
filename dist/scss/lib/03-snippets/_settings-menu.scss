@@ -2,6 +2,7 @@
 /// @package @maddimathon/design-system-utilities@0.1.0-alpha.draft
 /// @since 0.1.0-alpha.draft
 ///
+@use 'pkg:@maddimathon/utility-sass/feature-check';
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/math';
 @use 'pkg:@maddimathon/utility-sass/meta';
@@ -79,7 +80,7 @@ $_closing_time: var-tr-time(toggle-closing);
         }
     }
 
-    @include js {
+    @include feature-check.js {
         .website-settings-menu {
             [data-toggle-control] {
                 --icon-color: currentColor;

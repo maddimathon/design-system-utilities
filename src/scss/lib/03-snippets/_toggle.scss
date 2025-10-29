@@ -3,6 +3,7 @@
 /// @since ___PKG_VERSION___
 ///
 
+@use 'pkg:@maddimathon/utility-sass/feature-check';
 @use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/selector';
 
@@ -142,7 +143,7 @@ $_defaultHeadingSelectors_greaterThan6: ();
         --toggle-closing-time: #{$_closing_time};
     }
 
-    @include js {
+    @include feature-check.js {
         .toggle-title,
         [data-toggle-content] {
             transition: #{transition-properties-value(false)};

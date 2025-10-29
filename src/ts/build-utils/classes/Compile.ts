@@ -324,10 +324,11 @@ export class Compile extends CompileStage {
     protected async templates() {
 
         await this.runCustomScssDirSubStage(
-            'scss/template',
-            this.getDistDir( undefined, 'css/template' ),
+            'template',
+            this.getDistDir( undefined, 'css' ),
             {
                 postCSS: true,
+                srcDir: 'src/scss'
             },
         );
 

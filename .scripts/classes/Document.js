@@ -98,9 +98,12 @@ export class Document extends DocumentStage {
         }
 
         const files = await this.runCustomScssDirSubStage(
-            'docs/scss',
+            '',
             'src/docs/css',
-            { postCSS: true }
+            {
+                postCSS: true,
+                srcDir: 'src/docs/scss',
+            }
         );
 
         this.console.verbose( 'prettifying...', 2 );

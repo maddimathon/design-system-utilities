@@ -3,7 +3,7 @@
 /// @since ___PKG_VERSION___
 ///
 
-// @use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/feature-check';
 
 // @use 'pkg:@maddimathon/utility-astro/03-snippets' as lib;
 
@@ -20,7 +20,7 @@
 /// @since ___PKG_VERSION___
 ///
 @mixin snippet-support-astro-sticky-toggle-nav {
-    @include js-support(whereSelector) {
+    @include feature-check.js-support(whereSelector) {
         $_navHeight: 3.125rem;
         $_scrollPaddingFallback: calc(
             #{$_navHeight} + #{var-gap-block(layout)}

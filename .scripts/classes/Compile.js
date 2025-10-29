@@ -53,10 +53,11 @@ export class Compile extends CompileStage {
         await this.runCustomDirCopySubStage( 'scss' );
 
         const cssPaths = await this.runCustomScssDirSubStage(
-            'scss/_astro',
-            this.getSrcDir( undefined, 'astro/css' ),
+            '',
+            'src/astro/css',
             {
                 postCSS: true,
+                srcDir: 'src/scss/_astro',
             },
         );
 
@@ -130,11 +131,12 @@ export class Compile extends CompileStage {
     async templates() {
 
         await this.runCustomScssDirSubStage(
-            'scss/template',
-            this.getDistDir( undefined, 'css/template' ),
+            'template',
+            'dist/css',
             {
                 maxConcurrent: 5,
                 postCSS: true,
+                srcDir: 'src/scss',
             },
         );
     }
