@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -27,7 +27,7 @@ import type {
 /**
  * Generates a complete token object for the design system.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export class Tokens_Colour<
     T_ColourName extends string,
@@ -66,7 +66,7 @@ export class Tokens_Colour<
     /**
      * Adds contrast tests to all the colour maps.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     public async addContrastTests() {
 
@@ -102,12 +102,12 @@ export class Tokens_Colour<
 /**
  * Utilities for the {@link Tokens_Colour} class.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export namespace Tokens_Colour {
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type Data<
         T_ColourName extends string,
@@ -120,7 +120,7 @@ export namespace Tokens_Colour {
         };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type InputParam<
         T_ColourName extends string,
@@ -133,7 +133,7 @@ export namespace Tokens_Colour {
         };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type JsonReturn<
         T_ColourName extends string,

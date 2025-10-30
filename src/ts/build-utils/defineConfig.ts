@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -22,7 +22,7 @@ import { Document } from './classes/Document.js';
 /**
  * Applies a better default build config for npm-build-utilities.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export function defineConfig<
     T_Build extends typeof Build,

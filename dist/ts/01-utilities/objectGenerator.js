@@ -1,17 +1,17 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@0.1.0-alpha
  * @license MIT
  */
 /**
  * Takes an array of keys and a callback function to easily construct a
  * typed object.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  */
 export function objectGenerator(keys, mapper) {
     // @ts-expect-error - this will be filled
@@ -25,7 +25,7 @@ export function objectGenerator(keys, mapper) {
  * Takes an array of keys and a callback function to easily construct a
  * typed object.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  */
 export async function objectGeneratorAsync(keys, mapper) {
     // @ts-expect-error - this will be filled

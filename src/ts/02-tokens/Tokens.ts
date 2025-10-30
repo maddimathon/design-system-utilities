@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -40,7 +40,7 @@ import { Tokens_Typography } from './Tokens_Typography.js';
 /**
  * Generates a complete token object for the design system.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export class Tokens<
     T_ColourName extends string,
@@ -306,7 +306,7 @@ export class Tokens<
 /**
  * Internal utilities for the {@link Tokens} class.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * @internal
  * @private
  */
@@ -423,12 +423,12 @@ export namespace Tokens_Internal {
 /**
  * Utilities for the {@link Tokens} class.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export namespace Tokens {
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export async function sample() {
 
@@ -456,19 +456,19 @@ export namespace Tokens {
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type ColourLevels = TokenTypes.ColourLevels;
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type ColourLevels_Extended = TokenTypes.ColourLevels_Extended;
 
     /**
      * Configuration options for the {@link Tokens} class.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export interface Config<
         T_ExtraColourLevels extends ColourLevels_Extended = ColourLevels_Extended,
@@ -478,7 +478,7 @@ export namespace Tokens {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type Data<
         T_ColourName extends string = Tokens_Internal.Default_ColourName,
@@ -508,7 +508,7 @@ export namespace Tokens {
      * The shape of a default {@link Tokens} class instance, without any
      * required generics.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type Instance<
         T_ColourName extends string = Tokens_Internal.Default_ColourName,
@@ -535,7 +535,7 @@ export namespace Tokens {
     >;
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export interface InputParam<
         T_ColourName extends string = Tokens_Internal.Default_ColourName,
@@ -562,7 +562,7 @@ export namespace Tokens {
     > { }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type JsonReturn<
         T_ColourName extends string = Tokens_Internal.Default_ColourName,
@@ -601,7 +601,7 @@ export namespace Tokens {
         | "yellow";
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export const SampleColours = {
 
@@ -677,24 +677,24 @@ export namespace Tokens {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export namespace Typography {
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha
          */
         export type AllFonts<T_FontFamilySlug extends string = string> = {
             [ K in T_FontFamilySlug ]: Tokens_Typography.Font.Family<K>;
         };
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha
          */
         export namespace Font {
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-alpha
              */
             export type AllLevels<T_FontFamilySlug extends string = string> = {
                 [ K in T_FontFamilySlug ]: Omit<Tokens_Typography.Font.Family<K>, 'weights'> & {
@@ -708,13 +708,13 @@ export namespace Tokens {
             };
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-alpha
              */
             export type File = Tokens_Typography.Font.File;
 
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-alpha
              */
             export const allWeights = [
                 "100",
@@ -729,19 +729,19 @@ export namespace Tokens {
             ] as const;
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-alpha
              */
             export const SystemMonospace = Tokens_Typography.Font.SystemMonospace;
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-alpha
              */
             export const SystemUI = Tokens_Typography.Font.SystemUI;
 
             /**
              * Helps to generate all the weights for a font family.
              * 
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-alpha
              */
             export function familyGenerator<T_Slug extends string>(
                 slug: T_Slug,
@@ -786,12 +786,12 @@ export namespace Tokens {
             /**
              * Utilities for the {@link familyGenerator} function.
              * 
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-alpha
              */
             export namespace familyGenerator {
 
                 /**
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-alpha
                  */
                 export type FileOptions = Omit<Tokens_Typography.Font.File, "path" | "style" | "weight"> & {
 
@@ -807,7 +807,7 @@ export namespace Tokens {
                 };
 
                 /**
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-alpha
                  */
                 export function fileGenerator<T_Slug extends string>(
                     subpath: T_Slug,
@@ -912,7 +912,7 @@ export namespace Tokens {
             }
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-alpha
              */
             export namespace Family {
 
@@ -1006,12 +1006,12 @@ export namespace Tokens {
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export namespace Colour {
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha
          */
         export type AllColours<
             T_ColourName extends string = Tokens_Internal.Default_ColourName,
@@ -1019,7 +1019,7 @@ export namespace Tokens {
         > = Tokens_Colour.InputParam<T_ColourName, T_ExtraColourLevels>;
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha
          */
         export type PartialMap<
             T_ColourName extends string,
@@ -1028,17 +1028,17 @@ export namespace Tokens {
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export namespace Themes {
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha
          */
         export const allHeadingLevels = Tokens_Themes_Set_SingleMode.allHeadingLevels;
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha
          */
         export interface AllVariations<
             T_ColourName extends string = Tokens_Internal.Default_ColourName,
@@ -1053,19 +1053,19 @@ export namespace Tokens {
         > { }
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha
          */
         export interface RequiredLevels<
             T_ExtraColourLevels extends ColourLevels_Extended,
         > extends Tokens_Themes_Set_SingleMode.RequiredLevels<T_ExtraColourLevels> { }
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha
          */
         export namespace Set {
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-alpha
              */
             export type InputParam<
                 T_ColourName extends string = Tokens_Internal.Default_ColourName,
@@ -1090,14 +1090,14 @@ export namespace Tokens {
 
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha
          */
         export namespace SingleMode {
 
             export const colourOption = Tokens_Themes_Set_SingleMode.Build.colourOption;
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-alpha
              */
             export interface Data_RecursivePartial<
                 T_ColourName extends string = Tokens_Internal.Default_ColourName,
@@ -1116,7 +1116,7 @@ export namespace Tokens {
             > { }
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-alpha
              */
             export interface InputParam<
                 T_ColourName extends string = Tokens_Internal.Default_ColourName,
@@ -1132,7 +1132,7 @@ export namespace Tokens {
             > { }
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-alpha
              */
             export interface JsonReturn<
                 T_ColourName extends string = Tokens_Internal.Default_ColourName,

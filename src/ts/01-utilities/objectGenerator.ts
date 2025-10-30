@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -12,7 +12,7 @@
  * Takes an array of keys and a callback function to easily construct a
  * typed object.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export function objectGenerator<
     T_Keys extends number | string,
@@ -36,7 +36,7 @@ export function objectGenerator<
  * Takes an array of keys and a callback function to easily construct a
  * typed object.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export async function objectGeneratorAsync<
     T_Keys extends number | string,

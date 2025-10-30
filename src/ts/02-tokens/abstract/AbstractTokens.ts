@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -36,7 +36,7 @@ import type { RecursiveRecord } from '../../01-utilities/@types.js';
 /**
  * Base class for the classes used to manage tokens and token groups.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export abstract class AbstractTokens<T_DataType> {
 
@@ -72,14 +72,14 @@ export abstract class AbstractTokens<T_DataType> {
     /**
      * Whether the error map has been set by {@link AbstractTokens.constructor}.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     static #zodErrorMapSet: boolean = false;
 
     /**
      * A custom error handler to use with Zod schemas.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     public static customErrorMap( ...params: Parameters<z.ZodErrorMap> ): ReturnType<z.ZodErrorMap> {
 
@@ -117,7 +117,7 @@ export abstract class AbstractTokens<T_DataType> {
     /**
      * The zod schema for this group's JSON export.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     public abstract get data(): T_DataType;
 
@@ -127,14 +127,14 @@ export abstract class AbstractTokens<T_DataType> {
      * 
      * Uses {@link AbstractTokens.schemaJSON}.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     public abstract toJSON(): AbstractTokens.JsonReturn;
 
     /**
      * Converts this token or group to the values used when converting to scss.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     public abstract toScssVars(): AbstractTokens.ScssReturn;
 
@@ -142,7 +142,7 @@ export abstract class AbstractTokens<T_DataType> {
      * Uses {@link AbstractTokens.toScssVars} to convert this token to a scss
      * string.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     public toScss(): string {
         const value = JsonToScss.convert( this.toScssVars() ) || '()';
@@ -152,7 +152,7 @@ export abstract class AbstractTokens<T_DataType> {
     /**
      * The working value of this object.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     public valueOf(): T_DataType {
         return this.data;
@@ -174,7 +174,7 @@ export abstract class AbstractTokens<T_DataType> {
      * 
      * @throws {AbstractTokens.Tokens_Error}  If the schema parsing fails.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     protected parseSchema<
         T_Schema extends z.ZodTypeAny,
@@ -211,7 +211,7 @@ export abstract class AbstractTokens<T_DataType> {
 /**
  * Utilities for the {@link AbstractTokens} class.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export namespace AbstractTokens {
 
@@ -233,7 +233,7 @@ export namespace AbstractTokens {
     /**
      * Used to throw errors while compiling the tokens.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export class Tokens_Error<
         T_CauseType extends unknown | undefined = never,
@@ -397,14 +397,14 @@ export namespace AbstractTokens {
     /**
      * Utilities for the {@link AbstractTokens.Tokens_Error} class.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export namespace Tokens_Error {
 
         /**
          * Object used to give context for where this error was triggered.
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha
          */
         export interface Context {
 

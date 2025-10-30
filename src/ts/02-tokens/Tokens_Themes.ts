@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -25,7 +25,7 @@ import { Tokens_Themes_Set } from './Themes/Themes_Set.js';
 /**
  * Generates a complete token object for the design system.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export class Tokens_Themes<
     T_ColourName extends string,
@@ -288,14 +288,14 @@ export class Tokens_Themes<
 /**
  * Utilities for the {@link Tokens_Themes} class.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export namespace Tokens_Themes {
 
     export type Default_ThemeName = 'default';
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type Data<
         T_ColourName extends string,
@@ -319,7 +319,7 @@ export namespace Tokens_Themes {
         };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type InputParam<
         T_ColourName extends string,
@@ -351,7 +351,7 @@ export namespace Tokens_Themes {
         >[];
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type JsonReturn<
         T_ColourName extends string,

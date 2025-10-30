@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -34,7 +34,7 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export class Tokens_Themes_Set_SingleMode<
     T_ColourName extends string,
@@ -123,7 +123,7 @@ export class Tokens_Themes_Set_SingleMode<
     /**
      * An easy way to generate a complete token set from limited inputs.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     public static async build<
         T_ColourName extends string,
@@ -578,7 +578,7 @@ export class Tokens_Themes_Set_SingleMode<
 /**
  * Utilities for the {@link Tokens_Themes_Set_SingleMode} class.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export namespace Tokens_Themes_Set_SingleMode {
 
@@ -634,7 +634,7 @@ export namespace Tokens_Themes_Set_SingleMode {
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export interface Data<
         T_ColourName extends string,
@@ -762,7 +762,7 @@ export namespace Tokens_Themes_Set_SingleMode {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export interface Data_RecursivePartial<
         T_ColourName extends string,
@@ -942,7 +942,7 @@ export namespace Tokens_Themes_Set_SingleMode {
     /**
      * This is used by the build function, not by the constructor.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export interface InputParam<
         T_ColourName extends string,
@@ -991,7 +991,7 @@ export namespace Tokens_Themes_Set_SingleMode {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type JsonReturn<
         T_ColourName extends string,
@@ -1026,13 +1026,13 @@ export namespace Tokens_Themes_Set_SingleMode {
      * Used by the {@link Tokens_Themes_Set_SingleMode.build} static function,
      * not meant to be exposed through the API.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      * @internal
      */
     export namespace Build {
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha
          */
         export interface Param<
             T_ColourName extends string,
@@ -1050,7 +1050,7 @@ export namespace Tokens_Themes_Set_SingleMode {
         };
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha
          */
         export interface Param_ForcedColors<
             T_ColourName extends string,
@@ -1221,7 +1221,7 @@ export namespace Tokens_Themes_Set_SingleMode {
         /**
          * An easy way to generate a complete token set from limited inputs.
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha
          */
         export async function data<
             T_ColourName extends string,
@@ -1461,7 +1461,7 @@ export namespace Tokens_Themes_Set_SingleMode {
         /**
          * An easy way to generate a complete token set from limited inputs.
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha
          */
         export async function forcedColors<
             T_ColourName extends string,

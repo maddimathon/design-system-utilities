@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@0.1.0-alpha
  * @license MIT
  */
 import type { RecursivePartial } from '@maddimathon/utility-typescript/types/objects';
@@ -13,7 +13,7 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  */
 export declare class Tokens_CSS_Style extends AbstractTokens<Tokens_CSS_Style.Data> {
     static buttonStyle(): Tokens_CSS_Style.ButtonStyles;
@@ -29,7 +29,7 @@ export declare class Tokens_CSS_Style extends AbstractTokens<Tokens_CSS_Style.Da
 /**
  * Utilities for the {@link Tokens_CSS_Style} class.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  */
 export declare namespace Tokens_CSS_Style {
     namespace CSS {
@@ -87,7 +87,7 @@ export declare namespace Tokens_CSS_Style {
     interface HeadingStyles_Partial extends Partial<HeadingStyles> {
     }
     /**
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     type Data = {
         button: ButtonStyles;
@@ -103,7 +103,7 @@ export declare namespace Tokens_CSS_Style {
         };
     };
     /**
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     type InputParam = {
         button?: ButtonStyles_Partial;
@@ -119,7 +119,7 @@ export declare namespace Tokens_CSS_Style {
         };
     };
     /**
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     type JsonReturn = Data;
 }

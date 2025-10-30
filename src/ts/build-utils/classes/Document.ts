@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -22,7 +22,7 @@ import {
 /**
  * Extension of the built-in one.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export class Document extends DocumentStage {
 

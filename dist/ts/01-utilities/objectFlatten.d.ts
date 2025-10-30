@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@0.1.0-alpha
  * @license MIT
  */
 import type { RecursiveRecord } from './@types.js';
@@ -16,7 +16,7 @@ import type { RecursiveRecord } from './@types.js';
  * @param prefix  Optional. String used to prefix the flattened keys.
  * @param suffix  Optional. String used to suffix the flattened keys.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  */
 export declare function objectFlatten<T_Keys extends number | string, T_Values extends any>(obj: RecursiveRecord<T_Keys, T_Values>, prefix?: string, suffix?: string): {
     [key: string]: T_Values;

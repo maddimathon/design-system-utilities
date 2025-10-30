@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -22,7 +22,7 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export class Tokens_CSS_Style extends AbstractTokens<Tokens_CSS_Style.Data> {
 
@@ -207,7 +207,7 @@ export class Tokens_CSS_Style extends AbstractTokens<Tokens_CSS_Style.Data> {
 /**
  * Utilities for the {@link Tokens_CSS_Style} class.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export namespace Tokens_CSS_Style {
 
@@ -280,7 +280,7 @@ export namespace Tokens_CSS_Style {
     export interface HeadingStyles_Partial extends Partial<HeadingStyles> { }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type Data = {
 
@@ -300,7 +300,7 @@ export namespace Tokens_CSS_Style {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type InputParam = {
 
@@ -320,7 +320,7 @@ export namespace Tokens_CSS_Style {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type JsonReturn = Data;
 

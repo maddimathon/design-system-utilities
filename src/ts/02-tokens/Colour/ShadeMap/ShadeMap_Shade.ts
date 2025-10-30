@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -22,7 +22,7 @@ import { AbstractTokens } from '../../abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export class Tokens_Colour_ShadeMap_Shade<
     T_ColourName extends string,
@@ -55,7 +55,7 @@ export class Tokens_Colour_ShadeMap_Shade<
     /**
      * Adds the given shade to this shade's contrast results.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     public async addContrastTest(
         colourGroupName: T_ColourName,
@@ -210,22 +210,22 @@ export class Tokens_Colour_ShadeMap_Shade<
 /**
  * Utilities for the {@link Tokens_Colour_ShadeMap_Shade} class.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export namespace Tokens_Colour_ShadeMap_Shade {
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type Data = ColourUtilities.SingleShade;
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type InputParam = ColourUtilities.SingleShade_Input;
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type JsonReturn<
         T_ColourName extends string,
@@ -237,7 +237,7 @@ export namespace Tokens_Colour_ShadeMap_Shade {
 
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type ContrastResults<
         T_ColourName extends string,
@@ -249,7 +249,7 @@ export namespace Tokens_Colour_ShadeMap_Shade {
         };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type Contrast<
         T_ColourName extends string,
@@ -262,12 +262,12 @@ export namespace Tokens_Colour_ShadeMap_Shade {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export namespace Contrast {
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha
          */
         export type SingleMinMax<
             T_ColourName extends string,
@@ -280,7 +280,7 @@ export namespace Tokens_Colour_ShadeMap_Shade {
         };
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha
          */
         export type Maximum<
             T_ColourName extends string,
@@ -291,7 +291,7 @@ export namespace Tokens_Colour_ShadeMap_Shade {
             };
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha
          */
         export type Minimum<
             T_ColourName extends string,

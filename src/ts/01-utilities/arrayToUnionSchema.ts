@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -13,7 +13,7 @@ import * as z from 'zod';
 /**
  * Takes an array of values and translates them into an appropriate ZodType.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export function arrayToUnionSchema<
     T_Value extends null | z.Primitive,

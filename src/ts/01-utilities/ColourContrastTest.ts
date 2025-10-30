@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -17,7 +17,7 @@ import { ColourUtilities } from './ColourUtilities.js';
  * Generates a single pair of contrast test results used by the
  * {@link Tokens_Colour_ShadeMap_Shade} objects.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * @internal
  */
 export class ColourContrastTest {
@@ -126,7 +126,7 @@ export class ColourContrastTest {
 /**
  * Utilities for the {@link Tokens} class.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * @internal
  */
 export namespace ColourContrastTest {
@@ -134,7 +134,7 @@ export namespace ColourContrastTest {
     /**
      * An object defining the minimum contrast ratios required for a pass.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type TestStandards = {
         [ T in "aa" | "aaa" ]: {
@@ -143,7 +143,7 @@ export namespace ColourContrastTest {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type TestResult_Single = {
         ui: boolean;
@@ -151,7 +151,7 @@ export namespace ColourContrastTest {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type TestResult = {
         ratio: number;
@@ -186,19 +186,19 @@ export namespace ColourContrastTest {
      * ====================================================================== */
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type Parsed = TestResult;
 
     /**
      * The partialized version of the {@link ColourContrastTest.Schema} accepted as input.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type Part = Partial<Parsed>;
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type JSON = z.output<typeof JSON>;
 }

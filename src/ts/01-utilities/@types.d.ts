@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -12,7 +12,7 @@
  * Similar to the built-in `Record` type, but where the object's values can also
  * be identical records.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export type RecursiveRecord<
     T_Keys extends number | string | symbol = number | string | symbol,

@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -29,7 +29,7 @@ import { arrayUnique, mergeArgs } from '@maddimathon/utility-typescript/function
 /**
  * Generates a complete token object for the design system.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export class Tokens_Themes_Set<
     T_ColourName extends string,
@@ -293,12 +293,12 @@ export class Tokens_Themes_Set<
 /**
  * Utilities for the {@link Tokens_Themes_Set} class.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export namespace Tokens_Themes_Set {
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type Data<
         T_ColourName extends string,
@@ -330,7 +330,7 @@ export namespace Tokens_Themes_Set {
         };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type InputParam<
         T_ColourName extends string,
@@ -386,7 +386,7 @@ export namespace Tokens_Themes_Set {
         };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type JsonReturn<
         T_ColourName extends string,

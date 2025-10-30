@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@0.1.0-alpha
  * @license MIT
  */
 import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
@@ -14,7 +14,7 @@ import { Tokens_Colour_ShadeMap_Shade } from './ShadeMap/ShadeMap_Shade.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  */
 export class Tokens_Colour_ShadeMap extends AbstractTokens {
     allNames;
@@ -31,7 +31,7 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
     /**
      * Adds the given shade map to this map's shades' contrast results.
      *
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     async addContrastTests(colourGroupName, testMap) {
         const promises = [];
@@ -54,7 +54,7 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
 /**
  * Utilities for the {@link Tokens_Colour_ShadeMap} class.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  */
 (function (Tokens_Colour_ShadeMap) {
     /* FUNCTIIONS

@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -20,7 +20,7 @@ import { Tokens_CSS_Transition } from './CSS/CSS_Transition.js';
 /**
  * Generates a complete token object for the design system.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export class Tokens_CSS extends AbstractTokens<Tokens_CSS.Data> {
 
@@ -80,12 +80,12 @@ export class Tokens_CSS extends AbstractTokens<Tokens_CSS.Data> {
 /**
  * Utilities for the {@link Tokens_CSS} class.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export namespace Tokens_CSS {
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type Data = {
         border: Tokens_CSS_Border;
@@ -102,7 +102,7 @@ export namespace Tokens_CSS {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type InputParam = Partial<Omit<Data, 'border' | 'style' | 'transition' | 'zIndex'>> & {
         border?: Tokens_CSS_Border.InputParam;
@@ -112,7 +112,7 @@ export namespace Tokens_CSS {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type JsonReturn = Data;
 

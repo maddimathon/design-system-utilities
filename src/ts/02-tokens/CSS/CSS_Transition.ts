@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -17,7 +17,7 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export class Tokens_CSS_Transition extends AbstractTokens<Tokens_CSS_Transition.Data> {
 
@@ -113,7 +113,7 @@ export class Tokens_CSS_Transition extends AbstractTokens<Tokens_CSS_Transition.
 /**
  * Utilities for the {@link Tokens_CSS_Transition} class.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export namespace Tokens_CSS_Transition {
 
@@ -160,7 +160,7 @@ export namespace Tokens_CSS_Transition {
         | 'z-index';
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type Data = {
 
@@ -181,14 +181,14 @@ export namespace Tokens_CSS_Transition {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type InputParam = Partial<Omit<Data, 'time'>> & {
         time?: Partial<Data[ 'time' ]>;
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type JsonReturn = Data;
 

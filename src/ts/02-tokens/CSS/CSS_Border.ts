@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -18,7 +18,7 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export class Tokens_CSS_Border extends AbstractTokens<Tokens_CSS_Border.Data> {
 
@@ -79,7 +79,7 @@ export class Tokens_CSS_Border extends AbstractTokens<Tokens_CSS_Border.Data> {
 /**
  * Utilities for the {@link Tokens_CSS_Border} class.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export namespace Tokens_CSS_Border {
 
@@ -88,7 +88,7 @@ export namespace Tokens_CSS_Border {
     type DefaultStrokeLevels = "100" | "200" | "400" | "500" | "600" | "800" | "900";
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type Data = {
 
@@ -112,7 +112,7 @@ export namespace Tokens_CSS_Border {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type InputParam = Partial<Omit<Data, 'radius' | 'width' | 'stroke'>> & {
         radius?: Partial<Data[ 'radius' ]>;
@@ -121,7 +121,7 @@ export namespace Tokens_CSS_Border {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type JsonReturn = Data;
 

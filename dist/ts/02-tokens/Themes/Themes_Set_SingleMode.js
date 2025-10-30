@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@0.1.0-alpha
  * @license MIT
  */
 import { arrayUnique, mergeArgs } from '@maddimathon/utility-typescript/functions';
@@ -15,7 +15,7 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  */
 export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
     description;
@@ -24,7 +24,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
     /**
      * An easy way to generate a complete token set from limited inputs.
      *
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     static async build(preset, brightness, clrNames, input, overrides = {}) {
         let defaultLevels;
@@ -203,7 +203,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
 /**
  * Utilities for the {@link Tokens_Themes_Set_SingleMode} class.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  */
 (function (Tokens_Themes_Set_SingleMode) {
     Tokens_Themes_Set_SingleMode.allHeadingLevels = [
@@ -230,7 +230,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
      * Used by the {@link Tokens_Themes_Set_SingleMode.build} static function,
      * not meant to be exposed through the API.
      *
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      * @internal
      */
     let Build;
@@ -306,7 +306,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
         /**
          * An easy way to generate a complete token set from limited inputs.
          *
-         * @since 0.1.0-alpha.draft
+         * @since 0.1.0-alpha
          */
         async function data(input) {
             const clrOpt = colourOption;
@@ -471,7 +471,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
         /**
          * An easy way to generate a complete token set from limited inputs.
          *
-         * @since 0.1.0-alpha.draft
+         * @since 0.1.0-alpha
          */
         async function forcedColors(input) {
             const { variations, } = input;

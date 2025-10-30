@@ -1,7 +1,7 @@
 /**
  * Utilities for constructing the schema.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -14,7 +14,7 @@ import * as z from 'zod';
 import type { Tokens_Themes_Set_SingleMode } from './Themes/Themes_Set_SingleMode.ts';
 
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export type ColourNameSchema<T_ColourName extends string> =
     | z.ZodLiteral<T_ColourName>
@@ -25,7 +25,7 @@ export type ColourNameSchema<T_ColourName extends string> =
     ]>;
 
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export type CssSystemColor =
     | "transparent"
@@ -75,7 +75,7 @@ export type CssSystemColor =
 /**
  * Slugs representing the colour tokens in this system.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export type ColourTokenSlug<
     T_ColourName extends string,
@@ -86,7 +86,7 @@ export type ColourTokenSlug<
  * Allowed options for the values of theme tokens (representing either CSS
  * System Colors or colour design tokens in this system).
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export type ThemeColourOption<
     T_ColourName extends string,
@@ -94,19 +94,19 @@ export type ThemeColourOption<
 > = CssSystemColor | ColourTokenSlug<T_ColourName, T_ExtraColourLevels>;
 
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export type ThemeMode_Contrast<
     T_Extra extends readonly ThemeMode_ContrastExtraOptions[] = never[],
 > = readonly [ "low", "average", "high", "max", ...T_Extra ];
 
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export type ThemeMode_ContrastOption = "low" | "average" | "high" | "max";
 
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export type ThemeMode_ContrastExtraOptions = Exclude<
     ThemeMode_ContrastOption,
@@ -114,7 +114,7 @@ export type ThemeMode_ContrastExtraOptions = Exclude<
 >;
 
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export type ThemeMode_ContrastAtLeastOne = readonly [
     ThemeMode_ContrastOption,
@@ -123,7 +123,7 @@ export type ThemeMode_ContrastAtLeastOne = readonly [
 
 
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export type TokenLevels =
     | "100"
@@ -137,7 +137,7 @@ export type TokenLevels =
     | "900";
 
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export type TokenLevels_Extended =
     | "000"
@@ -154,7 +154,7 @@ export type TokenLevels_Extended =
 
 
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export type ColourLevels =
     | "100"
@@ -174,7 +174,7 @@ export type ColourLevels =
     | "900";
 
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export type ColourLevels_Extended =
     | "450"
@@ -184,13 +184,13 @@ export type ColourLevels_Extended =
 /**
  * Enforces some shade names that are always present.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export type ColourNameGeneric<T_ColourName extends string> = "base" | T_ColourName;
 
 
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export type RequiredHeadingLevels =
     | 1

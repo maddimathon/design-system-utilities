@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -20,14 +20,14 @@ import type { ColourLevels, ColourLevels_Extended } from '../internal.docs.js';
  * Utility functions, schemas, and types for dealing with colour values in the
  * system.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export namespace ColourUtilities {
 
     /**
      * A colour value in the Hex space.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type Value_Hex = z.infer<typeof Value_Hex>;
     /** @hidden */
@@ -36,7 +36,7 @@ export namespace ColourUtilities {
     /**
      * A colour value in the HSL space.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type Value_HSL = z.infer<typeof Value_HSL>;
     /** @hidden */
@@ -49,7 +49,7 @@ export namespace ColourUtilities {
     /**
      * A colour value in the RGB space.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type Value_RGB = z.infer<typeof Value_RGB>;
     /** @hidden */
@@ -62,7 +62,7 @@ export namespace ColourUtilities {
     /**
      * A colour value in the LCH space.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type Value_LCH = z.infer<typeof Value_LCH>;
     /** @hidden */
@@ -75,7 +75,7 @@ export namespace ColourUtilities {
     /**
      * Any of the single colour values.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type Value = z.infer<typeof Value>;
     /** @hidden */
@@ -89,7 +89,7 @@ export namespace ColourUtilities {
     /**
      * All of the single colour values as an object.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type Value_All = z.infer<typeof Value_All>;
     /** @hidden */
@@ -108,7 +108,7 @@ export namespace ColourUtilities {
     /**
      * Allowed input for the {@link SingleShade} schema.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      * @useDeclaredType
      */
     export type SingleShade_Input = z.input<typeof SingleShade>;
@@ -116,7 +116,7 @@ export namespace ColourUtilities {
     /**
      * The parsed output of the {@link SingleShade} schema.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      * @useDeclaredType
      */
     export type SingleShade = z.output<typeof SingleShade>;
@@ -184,7 +184,7 @@ export namespace ColourUtilities {
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export function toHex(
         clr: { data: SingleShade; } | SingleShade | SingleShade_Input,
@@ -225,7 +225,7 @@ export namespace ColourUtilities {
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export function toHSL(
         clr: { data: SingleShade; } | SingleShade | SingleShade_Input,
@@ -279,7 +279,7 @@ export namespace ColourUtilities {
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export function toLCH(
         clr: { data: SingleShade; } | SingleShade | SingleShade_Input,
@@ -324,7 +324,7 @@ export namespace ColourUtilities {
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export function toRGB(
         clr: { data: SingleShade; } | SingleShade | SingleShade_Input,
@@ -369,7 +369,7 @@ export namespace ColourUtilities {
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export function mixColours(
         _clrA: { data: SingleShade; } | SingleShade | SingleShade_Input,

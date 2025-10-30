@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
@@ -31,7 +31,7 @@ import {
  * @param currentURL     Value of `Astro.url` in the build env.
  * @param targetSubpath  Path to used to construct the URL - relative to the site root (ignoring the base path).
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export function makeRelativeURL(
     config_base: string,

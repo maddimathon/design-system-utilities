@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@0.1.0-alpha
  * @license MIT
  */
 import type { ThemeMode_ContrastOption, ColourLevels_Extended } from './@types.d.ts';
@@ -13,7 +13,7 @@ import { Tokens_Themes_Set } from './Themes/Themes_Set.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  */
 export declare class Tokens_Themes<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_ThemeBrightnessMode extends string, T_ThemeContrastMode extends ThemeMode_ContrastOption, T_ThemeName extends string, T_Keyword_Universal extends string, T_Keyword_Text extends string> extends AbstractTokens<Tokens_Themes.Data<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_Keyword_Universal, T_Keyword_Text>> {
     protected readonly clrNames: readonly T_ColourName[];
@@ -43,22 +43,22 @@ export declare class Tokens_Themes<T_ColourName extends string, T_ExtraColourLev
 /**
  * Utilities for the {@link Tokens_Themes} class.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  */
 export declare namespace Tokens_Themes {
     type Default_ThemeName = 'default';
     /**
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     type Data<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_ThemeBrightnessMode extends string, T_ThemeContrastMode extends ThemeMode_ContrastOption, T_ThemeName extends string, T_Keyword_Universal extends string, T_Keyword_Text extends string> = {
         [N in T_ThemeName]: Tokens_Themes_Set.Data<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode[], T_ThemeContrastMode[], N, T_Keyword_Universal, T_Keyword_Text>;
     };
     /**
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     type InputParam<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_ThemeBrightnessMode extends string, T_ThemeContrastMode extends ThemeMode_ContrastOption, T_ThemeName extends string, T_Keyword_Universal extends string, T_Keyword_Text extends string> = Tokens_Themes_Set.InputParam<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode[], T_ThemeContrastMode[], T_ThemeName, T_Keyword_Universal, T_Keyword_Text> | Tokens_Themes_Set.InputParam<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode[], T_ThemeContrastMode[], T_ThemeName, T_Keyword_Universal, T_Keyword_Text>[];
     /**
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     type JsonReturn<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_ThemeBrightnessMode extends string, T_ThemeContrastMode extends ThemeMode_ContrastOption, T_ThemeName extends string, T_Keyword_Universal extends string, T_Keyword_Text extends string> = {
         [N in T_ThemeName]: Tokens_Themes_Set.JsonReturn<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode[], T_ThemeContrastMode[], N, T_Keyword_Universal, T_Keyword_Text>;

@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@0.1.0-alpha
  * @license MIT
  */
 import * as z from 'zod';
@@ -13,13 +13,13 @@ import type { ColourLevels, ColourLevels_Extended } from '../internal.docs.js';
  * Utility functions, schemas, and types for dealing with colour values in the
  * system.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  */
 export declare namespace ColourUtilities {
     /**
      * A colour value in the Hex space.
      *
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     type Value_Hex = z.infer<typeof Value_Hex>;
     /** @hidden */
@@ -27,7 +27,7 @@ export declare namespace ColourUtilities {
     /**
      * A colour value in the HSL space.
      *
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     type Value_HSL = z.infer<typeof Value_HSL>;
     /** @hidden */
@@ -47,7 +47,7 @@ export declare namespace ColourUtilities {
     /**
      * A colour value in the RGB space.
      *
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     type Value_RGB = z.infer<typeof Value_RGB>;
     /** @hidden */
@@ -67,7 +67,7 @@ export declare namespace ColourUtilities {
     /**
      * A colour value in the LCH space.
      *
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     type Value_LCH = z.infer<typeof Value_LCH>;
     /** @hidden */
@@ -87,7 +87,7 @@ export declare namespace ColourUtilities {
     /**
      * Any of the single colour values.
      *
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     type Value = z.infer<typeof Value>;
     /** @hidden */
@@ -131,7 +131,7 @@ export declare namespace ColourUtilities {
     /**
      * All of the single colour values as an object.
      *
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     type Value_All = z.infer<typeof Value_All>;
     /** @hidden */
@@ -214,14 +214,14 @@ export declare namespace ColourUtilities {
     /**
      * Allowed input for the {@link SingleShade} schema.
      *
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      * @useDeclaredType
      */
     type SingleShade_Input = z.input<typeof SingleShade>;
     /**
      * The parsed output of the {@link SingleShade} schema.
      *
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      * @useDeclaredType
      */
     type SingleShade = z.output<typeof SingleShade>;
@@ -405,31 +405,31 @@ export declare namespace ColourUtilities {
     };
     function getDarkLevel<T_LightLevel extends ColourLevels | ColourLevels_Extended>(lightLevel: T_LightLevel): (typeof LevelConverter)[T_LightLevel];
     /**
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     function toHex(clr: {
         data: SingleShade;
     } | SingleShade | SingleShade_Input): Value_Hex;
     /**
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     function toHSL(clr: {
         data: SingleShade;
     } | SingleShade | SingleShade_Input, round?: boolean): Value_HSL;
     /**
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     function toLCH(clr: {
         data: SingleShade;
     } | SingleShade | SingleShade_Input): Value_LCH;
     /**
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     function toRGB(clr: {
         data: SingleShade;
     } | SingleShade | SingleShade_Input): Value_RGB;
     /**
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     function mixColours(_clrA: {
         data: SingleShade;

@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@0.1.0-alpha
  * @license MIT
  */
 import { arrayUnique, mergeArgs } from '@maddimathon/utility-typescript/functions';
@@ -14,7 +14,7 @@ import { AbstractTokens } from './abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  */
 export class Tokens_Typography extends AbstractTokens {
     spacing;
@@ -180,16 +180,16 @@ export class Tokens_Typography extends AbstractTokens {
 /**
  * Utilities for the {@link Tokens_Typography} class.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  */
 (function (Tokens_Typography) {
     /**
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     let Font;
     (function (Font) {
         /**
-         * @since 0.1.0-alpha.draft
+         * @since 0.1.0-alpha
          */
         Font.SystemMonospace = [
             'Menlo',
@@ -203,7 +203,7 @@ export class Tokens_Typography extends AbstractTokens {
             'Segoe UI Symbol',
         ];
         /**
-         * @since 0.1.0-alpha.draft
+         * @since 0.1.0-alpha
          */
         Font.SystemUI = [
             'system-ui',

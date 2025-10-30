@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@0.1.0-alpha
  * @license MIT
  */
 /**
@@ -15,7 +15,7 @@
  * @param prefix  Optional. String used to prefix the flattened keys.
  * @param suffix  Optional. String used to suffix the flattened keys.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  */
 export function objectFlatten(obj, prefix, suffix) {
     const validateKey_addPrefix = (key) => [

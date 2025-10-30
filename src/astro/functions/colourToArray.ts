@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -14,7 +14,7 @@ import type { Tokens_Colour } from '../../ts/02-tokens/Tokens_Colour.js';
 import { shadeMapToArray } from './shadeMapToArray.js';
 
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export function colourToArray<
     T_ColourName extends string = string,

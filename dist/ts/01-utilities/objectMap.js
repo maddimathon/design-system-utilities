@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@0.1.0-alpha
  * @license MIT
  */
 /**
@@ -13,7 +13,7 @@
  * @param obj     The object to map.
  * @param mapper  The callback function used to define new values.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  */
 export function objectMap(obj, mapper) {
     // @ts-expect-error - this will be filled

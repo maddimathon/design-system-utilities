@@ -1,5 +1,5 @@
 <!--README_DESC-->
-Utilities to use while building brand kits or design systems.  Developed for use
+Utilities to use while building brand kits or design systems. Developed for use
 with @maddimathon/boilerplate-brand-kit.
 <!--/README_DESC-->
 

@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -19,7 +19,7 @@ import { AbstractTokens } from './abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export class Tokens_Icons<
     T_ExtraIconNames extends string,
@@ -349,12 +349,12 @@ export class Tokens_Icons<
 /**
  * Utilities for the {@link Tokens_Icons} class.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export namespace Tokens_Icons {
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type DefaultIconNames =
         | "check"
@@ -387,7 +387,7 @@ export namespace Tokens_Icons {
         | "warning";
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type Data<
         T_ExtraIconNames extends string,
@@ -398,7 +398,7 @@ export namespace Tokens_Icons {
         };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type InputParam<
         T_ExtraIconNames extends string,
@@ -409,7 +409,7 @@ export namespace Tokens_Icons {
         };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type JsonReturn<
         T_ExtraIconNames extends string,
@@ -427,7 +427,7 @@ export namespace Tokens_Icons {
     /**
      * The object that defines a single SVG token.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export class SvgIcon extends SvgMaker {
 

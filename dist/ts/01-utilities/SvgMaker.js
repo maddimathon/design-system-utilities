@@ -1,16 +1,16 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@0.1.0-alpha
  * @license MIT
  */
 /**
  * The object that defines a single SVG token.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  */
 export class SvgMaker {
     /**
@@ -98,7 +98,7 @@ export class SvgMaker {
 /**
  * Utilities for the {@link SvgMaker} class.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  */
 (function (SvgMaker) {
     ;

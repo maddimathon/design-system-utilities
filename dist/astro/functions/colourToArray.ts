@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@0.1.0-alpha
  * @license MIT
  */
 
@@ -14,7 +14,7 @@ import type { Tokens_Colour } from '../../ts/02-tokens/Tokens_Colour.js';
 import { shadeMapToArray } from './shadeMapToArray.js';
 
 /**
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  */
 export function colourToArray<
     T_ColourName extends string = string,

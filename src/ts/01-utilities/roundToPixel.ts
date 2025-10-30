@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -15,7 +15,7 @@
  * @param num     Number to round.
  * @param factor  Optional. Number used to round the number to an inverse multiple.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * @source
  */
 export function roundToPixel( num: number, factor: number = 16 ): number {

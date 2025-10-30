@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -21,7 +21,7 @@ import type { Tokens } from '../../02-tokens/Tokens.js';
 /**
  * Extension of the built-in one.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export class Compile extends CompileStage {
 

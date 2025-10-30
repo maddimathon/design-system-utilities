@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@0.1.0-alpha
  * @license MIT
  */
 import type { Objects } from '@maddimathon/utility-typescript/types';
@@ -15,7 +15,7 @@ import { AbstractTokens } from './abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  */
 export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
     protected readonly spacing: Tokens_Spacing;
@@ -422,12 +422,12 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
 /**
  * Utilities for the {@link Tokens_Typography} class.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  */
 export declare namespace Tokens_Typography {
     type DefaultLineHeightLevels = "100" | "200" | "300" | "400" | "500" | "600";
     /**
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     export type Data<T_SizeValue = number, T_FontFamilySlug extends string = string> = {
         lineHeight: {
@@ -459,14 +459,14 @@ export declare namespace Tokens_Typography {
         sizeScale: number;
     };
     /**
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     export type InputParam<T_FontFamilySlug extends string = string> = Partial<Omit<Data<number, T_FontFamilySlug>, 'lineHeight' | 'size'>> & {
         lineHeight?: Partial<Data<number, T_FontFamilySlug>['lineHeight']>;
         size?: Objects.RecursivePartial<Data<number, T_FontFamilySlug>['size']>;
     };
     /**
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     export type JsonReturn<T_FontFamilySlug extends string = string> = Data<{
         rem: number;
@@ -482,19 +482,19 @@ export declare namespace Tokens_Typography {
         }[];
     };
     /**
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     export namespace Font {
         /**
-         * @since 0.1.0-alpha.draft
+         * @since 0.1.0-alpha
          */
         const SystemMonospace: string[];
         /**
-         * @since 0.1.0-alpha.draft
+         * @since 0.1.0-alpha
          */
         const SystemUI: string[];
         /**
-         * @since 0.1.0-alpha.draft
+         * @since 0.1.0-alpha
          */
         interface FontFileOptions {
             display?: undefined | "auto" | "block" | "fallback" | "optional" | "swap";
@@ -503,7 +503,7 @@ export declare namespace Tokens_Typography {
             unicodeRange?: undefined | string;
         }
         /**
-         * @since 0.1.0-alpha.draft
+         * @since 0.1.0-alpha
          */
         interface File extends FontFileOptions {
             path: {
@@ -513,7 +513,7 @@ export declare namespace Tokens_Typography {
             weight: TokenLevels | `${'000' | TokenLevels} ${TokenLevels | '1000'}`;
         }
         /**
-         * @since 0.1.0-alpha.draft
+         * @since 0.1.0-alpha
          */
         type FamilyScss = {
             [L in TokenLevels | `${TokenLevels}i`]?: {
@@ -533,7 +533,7 @@ export declare namespace Tokens_Typography {
             };
         };
         /**
-         * @since 0.1.0-alpha.draft
+         * @since 0.1.0-alpha
          */
         interface Family<T_Slug extends string = string> extends FontFileOptions {
             slug: T_Slug;

@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -18,7 +18,7 @@ import type { RecursiveRecord } from './@types.js';
  * @param prefix  Optional. String used to prefix the flattened keys.
  * @param suffix  Optional. String used to suffix the flattened keys.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export function objectFlatten<
     T_Keys extends number | string,

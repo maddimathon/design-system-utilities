@@ -1,9 +1,9 @@
 <!--README_HEADER-->
-# Design System Utilities @ 0.1.0-alpha.draft
+# Design System Utilities @ 0.1.0-alpha
 <!--/README_HEADER-->
 
 <!--README_DESC-->
-Utilities to use while building brand kits or design systems.  Developed for use
+Utilities to use while building brand kits or design systems. Developed for use
 with @maddimathon/boilerplate-brand-kit.
 <!--/README_DESC-->
 

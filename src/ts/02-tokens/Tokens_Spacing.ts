@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -20,7 +20,7 @@ import { AbstractTokens } from './abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export class Tokens_Spacing extends AbstractTokens<Tokens_Spacing.Data> {
 
@@ -71,14 +71,14 @@ export class Tokens_Spacing extends AbstractTokens<Tokens_Spacing.Data> {
 /**
  * Utilities for the {@link Tokens_Spacing} class.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export namespace Tokens_Spacing {
 
     type DefaultMarginLevels = "100" | "200" | "300" | "400" | "500" | "600" | "800" | "900";
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type Data = {
 
@@ -92,7 +92,7 @@ export namespace Tokens_Spacing {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type InputParam = {
         multiplier?: number;
@@ -100,7 +100,7 @@ export namespace Tokens_Spacing {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type JsonReturn = {};
 

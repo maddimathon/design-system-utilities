@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@0.1.0-alpha
  * @license MIT
  */
 import type { Stage } from '@maddimathon/build-utilities';
@@ -13,7 +13,7 @@ import type { Tokens } from '../../02-tokens/Tokens.js';
 /**
  * Extension of the built-in one.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  */
 export declare class Compile extends CompileStage {
     /**

@@ -1,16 +1,16 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@0.1.0-alpha
  * @license MIT
  */
 /**
  * The object that defines a single SVG token.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  */
 export declare class SvgMaker implements SvgMaker.Data {
     /**
@@ -48,11 +48,11 @@ export declare class SvgMaker implements SvgMaker.Data {
 /**
  * Utilities for the {@link SvgMaker} class.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  */
 export declare namespace SvgMaker {
     /**
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     interface Data {
         /**
@@ -78,7 +78,7 @@ export declare namespace SvgMaker {
         innerSVG: string;
     }
     /**
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     type JsonReturn = ReturnType<SvgMaker['toJSON']>;
 }

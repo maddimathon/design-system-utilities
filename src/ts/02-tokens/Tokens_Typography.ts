@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -29,7 +29,7 @@ import { AbstractTokens } from './abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
 
@@ -298,14 +298,14 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
 /**
  * Utilities for the {@link Tokens_Typography} class.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export namespace Tokens_Typography {
 
     type DefaultLineHeightLevels = "100" | "200" | "300" | "400" | "500" | "600";
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type Data<
         T_SizeValue = number,
@@ -352,7 +352,7 @@ export namespace Tokens_Typography {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type InputParam<
         T_FontFamilySlug extends string = string,
@@ -362,7 +362,7 @@ export namespace Tokens_Typography {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type JsonReturn<
         T_FontFamilySlug extends string = string,
@@ -382,12 +382,12 @@ export namespace Tokens_Typography {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export namespace Font {
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha
          */
         export const SystemMonospace = [
             'Menlo',
@@ -402,7 +402,7 @@ export namespace Tokens_Typography {
         ];
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha
          */
         export const SystemUI = [
             'system-ui',
@@ -423,7 +423,7 @@ export namespace Tokens_Typography {
         ];
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha
          */
         export interface FontFileOptions {
             display?: undefined | "auto" | "block" | "fallback" | "optional" | "swap";
@@ -433,7 +433,7 @@ export namespace Tokens_Typography {
         };
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha
          */
         export interface File extends FontFileOptions {
             path: {
@@ -444,7 +444,7 @@ export namespace Tokens_Typography {
         }
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha
          */
         export type FamilyScss = {
             [ L in TokenLevels | `${ TokenLevels }i` ]?: {
@@ -467,7 +467,7 @@ export namespace Tokens_Typography {
         };
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-alpha
          */
         export interface Family<T_Slug extends string = string> extends FontFileOptions {
 

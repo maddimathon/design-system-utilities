@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@0.1.0-alpha
  * @license MIT
  */
 import { slugify } from '@maddimathon/utility-typescript/functions';
@@ -22,7 +22,7 @@ import { Tokens_Typography } from './Tokens_Typography.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  */
 export class Tokens extends AbstractTokens {
     clrNames;
@@ -130,11 +130,11 @@ export class Tokens extends AbstractTokens {
 /**
  * Utilities for the {@link Tokens} class.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  */
 (function (Tokens) {
     /**
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     async function sample() {
         return Tokens.build({
@@ -159,7 +159,7 @@ export class Tokens extends AbstractTokens {
     Tokens.sample = sample;
     ;
     /**
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     Tokens.SampleColours = {
         yardstick: {
@@ -222,17 +222,17 @@ export class Tokens extends AbstractTokens {
         },
     };
     /**
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     let Typography;
     (function (Typography) {
         /**
-         * @since 0.1.0-alpha.draft
+         * @since 0.1.0-alpha
          */
         let Font;
         (function (Font) {
             /**
-             * @since 0.1.0-alpha.draft
+             * @since 0.1.0-alpha
              */
             Font.allWeights = [
                 "100",
@@ -246,17 +246,17 @@ export class Tokens extends AbstractTokens {
                 "900",
             ];
             /**
-             * @since 0.1.0-alpha.draft
+             * @since 0.1.0-alpha
              */
             Font.SystemMonospace = Tokens_Typography.Font.SystemMonospace;
             /**
-             * @since 0.1.0-alpha.draft
+             * @since 0.1.0-alpha
              */
             Font.SystemUI = Tokens_Typography.Font.SystemUI;
             /**
              * Helps to generate all the weights for a font family.
              *
-             * @since 0.1.0-alpha.draft
+             * @since 0.1.0-alpha
              */
             function familyGenerator(slug, name, familyOpts = {}, weightOpts = {}) {
                 return {
@@ -274,11 +274,11 @@ export class Tokens extends AbstractTokens {
             /**
              * Utilities for the {@link familyGenerator} function.
              *
-             * @since 0.1.0-alpha.draft
+             * @since 0.1.0-alpha
              */
             (function (familyGenerator) {
                 /**
-                 * @since 0.1.0-alpha.draft
+                 * @since 0.1.0-alpha
                  */
                 function fileGenerator(subpath, name, weight, style, opts = {}) {
                     const _slug = slugify(name);
@@ -348,7 +348,7 @@ export class Tokens extends AbstractTokens {
                 familyGenerator.fileGenerator = fileGenerator;
             })(familyGenerator = Font.familyGenerator || (Font.familyGenerator = {}));
             /**
-             * @since 0.1.0-alpha.draft
+             * @since 0.1.0-alpha
              */
             let Family;
             (function (Family) {
@@ -397,16 +397,16 @@ export class Tokens extends AbstractTokens {
         })(Font = Typography.Font || (Typography.Font = {}));
     })(Typography = Tokens.Typography || (Tokens.Typography = {}));
     /**
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     let Themes;
     (function (Themes) {
         /**
-         * @since 0.1.0-alpha.draft
+         * @since 0.1.0-alpha
          */
         Themes.allHeadingLevels = Tokens_Themes_Set_SingleMode.allHeadingLevels;
         /**
-         * @since 0.1.0-alpha.draft
+         * @since 0.1.0-alpha
          */
         let SingleMode;
         (function (SingleMode) {

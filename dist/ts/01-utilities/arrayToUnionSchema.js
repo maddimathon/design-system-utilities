@@ -1,17 +1,17 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@0.1.0-alpha
  * @license MIT
  */
 import * as z from 'zod';
 /**
  * Takes an array of values and translates them into an appropriate ZodType.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  */
 export function arrayToUnionSchema(arr) {
     // returns

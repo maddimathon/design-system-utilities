@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -24,7 +24,7 @@ import { Tokens_Colour_ShadeMap_Shade } from './ShadeMap/ShadeMap_Shade.js';
 /**
  * Generates a complete token object for the design system.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export class Tokens_Colour_ShadeMap<
     T_ColourName extends string,
@@ -52,7 +52,7 @@ export class Tokens_Colour_ShadeMap<
     /**
      * Adds the given shade map to this map's shades' contrast results.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     public async addContrastTests(
         colourGroupName: T_ColourName,
@@ -101,7 +101,7 @@ export class Tokens_Colour_ShadeMap<
 /**
  * Utilities for the {@link Tokens_Colour_ShadeMap} class.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export namespace Tokens_Colour_ShadeMap {
 

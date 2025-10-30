@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@0.1.0-alpha
  * @license MIT
  */
 import clrConvert from 'color-convert';
@@ -15,7 +15,7 @@ import { roundToPixel } from './roundToPixel.js';
  * Utility functions, schemas, and types for dealing with colour values in the
  * system.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  */
 export var ColourUtilities;
 (function (ColourUtilities) {
@@ -100,7 +100,7 @@ export var ColourUtilities;
     }
     ColourUtilities.getDarkLevel = getDarkLevel;
     /**
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     function toHex(clr) {
         const _hexValidator = (hex) => hex.toUpperCase().replace(/^#/gi, '');
@@ -132,7 +132,7 @@ export var ColourUtilities;
     }
     ColourUtilities.toHex = toHex;
     /**
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     function toHSL(clr, round = true) {
         const _arrayToObject = (hsl) => (round
@@ -174,7 +174,7 @@ export var ColourUtilities;
     }
     ColourUtilities.toHSL = toHSL;
     /**
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     function toLCH(clr) {
         const _arrayToObject = (lch) => ({
@@ -210,7 +210,7 @@ export var ColourUtilities;
     }
     ColourUtilities.toLCH = toLCH;
     /**
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     function toRGB(clr) {
         const _arrayToObject = (rgb) => ({
@@ -246,7 +246,7 @@ export var ColourUtilities;
     }
     ColourUtilities.toRGB = toRGB;
     /**
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     function mixColours(_clrA, _clrB, saturationMultiplier = 0) {
         const clrA = toLCH(_clrA);

@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@0.1.0-alpha
  * @license MIT
  */
 /**
@@ -14,7 +14,7 @@
  * @param num     Number to round.
  * @param factor  Optional. Number used to round the number to an inverse multiple.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  * @source
  */
 export declare function roundToPixel(num: number, factor?: number): number;

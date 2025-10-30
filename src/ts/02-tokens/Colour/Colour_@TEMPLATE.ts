@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -20,7 +20,7 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export class Tokens_Colour_TEMPLATE<
     T_ColourName extends string,
@@ -64,12 +64,12 @@ export class Tokens_Colour_TEMPLATE<
 /**
  * Utilities for the {@link Tokens_Colour_TEMPLATE} class.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export namespace Tokens_Colour_TEMPLATE {
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type Data<
         T_ColourName extends string,
@@ -78,7 +78,7 @@ export namespace Tokens_Colour_TEMPLATE {
         };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type InputParam<
         T_ColourName extends string,
@@ -87,7 +87,7 @@ export namespace Tokens_Colour_TEMPLATE {
         };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type JsonReturn<
         T_ColourName extends string,

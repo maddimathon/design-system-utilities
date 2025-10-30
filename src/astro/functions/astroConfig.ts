@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -32,7 +32,7 @@ import {
  * @param partialProjectConfig  Project's build config file contents.
  * @param astroConfig           Config overrides.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export function astroConfig(
     homepage: URL,

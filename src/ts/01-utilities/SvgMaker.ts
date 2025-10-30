@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -12,7 +12,7 @@
 /**
  * The object that defines a single SVG token.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export class SvgMaker implements SvgMaker.Data {
 
@@ -142,12 +142,12 @@ export class SvgMaker implements SvgMaker.Data {
 /**
  * Utilities for the {@link SvgMaker} class.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha
  */
 export namespace SvgMaker {
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export interface Data {
 
@@ -179,7 +179,7 @@ export namespace SvgMaker {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-alpha
      */
     export type JsonReturn = ReturnType<SvgMaker[ 'toJSON' ]>;
 }

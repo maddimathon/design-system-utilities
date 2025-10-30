@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@0.1.0-alpha
  * @license MIT
  */
 // import { JsonToScss } from '@maddimathon/utility-sass';
@@ -16,7 +16,7 @@ import { AbstractTokens } from './abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  */
 export class Tokens_Icons extends AbstractTokens {
     static get default() {
@@ -245,7 +245,7 @@ export class Tokens_Icons extends AbstractTokens {
 /**
  * Utilities for the {@link Tokens_Icons} class.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  */
 (function (Tokens_Icons) {
     /* # Svg Icon Class
@@ -253,7 +253,7 @@ export class Tokens_Icons extends AbstractTokens {
     /**
      * The object that defines a single SVG token.
      *
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     class SvgIcon extends SvgMaker {
         constructor(data) {

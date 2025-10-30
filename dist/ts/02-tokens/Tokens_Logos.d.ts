@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.draft
+ * @maddimathon/design-system-utilities@0.1.0-alpha
  * @license MIT
  */
 import { SvgMaker } from '../01-utilities/SvgMaker.js';
@@ -12,7 +12,7 @@ import { AbstractTokens } from './abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  */
 export declare class Tokens_Logos<T_LogoNames extends string> extends AbstractTokens<Tokens_Logos.Data<T_LogoNames>> {
     readonly data: Tokens_Logos.Data<T_LogoNames>;
@@ -30,23 +30,23 @@ export declare class Tokens_Logos<T_LogoNames extends string> extends AbstractTo
 /**
  * Utilities for the {@link Tokens_Logos} class.
  *
- * @since 0.1.0-alpha.draft
+ * @since 0.1.0-alpha
  */
 export declare namespace Tokens_Logos {
     /**
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     type Data<T_LogoNames extends string> = {
         [I in T_LogoNames]: SvgMaker;
     };
     /**
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     type InputParam<T_LogoNames extends string> = {
         [I in T_LogoNames]: SvgMaker.Data | SvgMaker;
     };
     /**
-     * @since 0.1.0-alpha.draft
+     * @since 0.1.0-alpha
      */
     type JsonReturn<T_LogoNames extends string> = {
         [I in T_LogoNames]: SvgMaker.JsonReturn;
