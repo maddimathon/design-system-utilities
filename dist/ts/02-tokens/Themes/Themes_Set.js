@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha
+ * @maddimathon/design-system-utilities@0.1.0-alpha.1
  * @license MIT
  */
 import { objectGeneratorAsync } from '../../01-utilities/objectGenerator.js';

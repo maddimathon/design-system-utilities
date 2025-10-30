@@ -1,5 +1,5 @@
 <!--README_HEADER-->
-# Design System Utilities @ 0.1.0-alpha
+# Design System Utilities @ 0.1.0-alpha.1
 <!--/README_HEADER-->
 
 <!--README_DESC-->
@@ -24,8 +24,8 @@ or
 
 <!--README_INSTALL-->
 ```bash
-npm i -D @maddimathon/design-system-utilities@0.1.0-alpha
-npm i -D github:maddimathon/design-system-utilities#0.1.0-alpha
+npm i -D @maddimathon/design-system-utilities@0.1.0-alpha.1
+npm i -D github:maddimathon/design-system-utilities#0.1.0-alpha.1
 ```
 <!--/README_INSTALL-->
 

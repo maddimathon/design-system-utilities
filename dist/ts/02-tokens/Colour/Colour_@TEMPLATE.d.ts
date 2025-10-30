@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha
+ * @maddimathon/design-system-utilities@0.1.0-alpha.1
  * @license MIT
  */
 import type { ColourLevels_Extended } from '../@types.js';
