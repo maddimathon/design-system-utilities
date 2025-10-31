@@ -156,7 +156,7 @@ const text =
     bases[textLevel] &&
     `hsl( ${bases[textLevel].hsl.h}, ${bases[textLevel].hsl.s}%, ${bases[textLevel].hsl.l}% )`;
 
-const brightnessMode = Number(textLevel) >= 500 ? 'light' : 'dark';
+const brightnessMode = Number(textLevel) <= 500 ? 'light' : 'dark';
 
 const cssVars = {
     'shade-swatch-color': text || undefined,

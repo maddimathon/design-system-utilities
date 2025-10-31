@@ -46,20 +46,6 @@ const {
 const varClr = ColourUtilities.toString.hsl(clr);
 ---
 
-<!-- <Alert
-    class:list={['contrast-alert', classList]}
-    data-brightness-mode='light'
-    style={`--contrast-alert-color: ${varClr};`}
-    title={title ?? clrSlug}
-    type={type}
->
-    <span
-        data-brightness-mode={brightness}
-        slot='headline'
-        set:text={level}
-        style='background: transparent'
-    />
-</Alert> -->
 <div
     class:list={['contrast-alert', classList]}
     data-brightness-mode='light'
@@ -68,7 +54,9 @@ const varClr = ColourUtilities.toString.hsl(clr);
 >
     <AstroIcon type={type} />
     <span
-        data-brightness-mode={brightness}
+        data-brightness-mode={(brightness ?? Number(level) <= 500)
+            ? 'dark'
+            : 'light'}
         set:text={level}
         style='background: transparent'
     />

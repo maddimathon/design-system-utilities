@@ -35,12 +35,17 @@ $_contrastColWidth: minmax(3.5ch, min-content);
         --shade-swatch-display-override: none !important;
     }
 
+    :global(td) {
+        :global(.shade-swatch) {
+            min-width: 3rem;
+            min-height: 6rem;
+            min-height: min(6rem, 9svh);
+        }
+    }
+
     :global(.shade-swatch) {
         padding: #{lib.var-mrg-soft('100')} #{lib.var-mrg-firm('200')};
         gap: #{lib.var-mrg-soft('100')} #{lib.var-mrg-firm('100')};
-
-        min-width: 3rem;
-        min-height: 2rem;
 
         :global(.shade-swatch__colour-value) {
             text-wrap: nowrap;

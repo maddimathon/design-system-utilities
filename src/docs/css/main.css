@@ -3656,6 +3656,7 @@ a:active {
                 var(--icon-size-pseudo--font-multiplier, 1)
         );
         aspect-ratio: 1;
+        align-self: center;
     }
 }
 a[aria-disabled="true"] {
@@ -3761,6 +3762,7 @@ a[aria-disabled="true"]:active {
                 var(--icon-size-pseudo--font-multiplier, 1)
         );
         aspect-ratio: 1;
+        align-self: center;
     }
 }
 a[aria-disabled="true"][target="_blank"]::after {
@@ -4582,7 +4584,6 @@ a.button-secondary {
         --border-width-300,
         border-width-value("300")
     );
-    --icon-pseudo-element-margin-block-start: 0.09375em;
     --display: flex;
     display: flex;
     flex-direction: row;
@@ -5141,6 +5142,7 @@ a[aria-disabled="true"].button-secondary:active {
                 var(--icon-size-pseudo--font-multiplier, 1)
         );
         aspect-ratio: 1;
+        align-self: center;
     }
 }
 button *,
@@ -5151,6 +5153,14 @@ a.button *,
 a.button-secondary * {
     --icon-color: inherit !important;
     color: inherit !important;
+}
+button .icon,
+[role="button"] .icon,
+input[type="button"] .icon,
+input[type="submit"] .icon,
+a.button .icon,
+a.button-secondary .icon {
+    align-self: center;
 }
 [data-contrast-mode="average"] button ::-moz-selection,
 [data-contrast-mode="average"] [role="button"] ::-moz-selection,
@@ -5983,6 +5993,7 @@ input[type="reset"]:active,
                 var(--icon-size-pseudo--font-multiplier, 1)
         );
         aspect-ratio: 1;
+        align-self: center;
     }
 }
 
@@ -6039,6 +6050,7 @@ input[type="reset"]:active,
                 var(--icon-size-pseudo--font-multiplier, 1)
         );
         aspect-ratio: 1;
+        align-self: center;
     }
 }
 
@@ -6047,7 +6059,6 @@ input[type="reset"]:active,
         --border-width-300,
         border-width-value("300")
     );
-    --icon-pseudo-element-margin-block-start: 0.09375em;
     --display: flex;
     display: flex;
     flex-direction: row;
@@ -6483,6 +6494,9 @@ input[type="reset"]:active,
 ::file-selector-button * {
     --icon-color: inherit !important;
     color: inherit !important;
+}
+::file-selector-button .icon {
+    align-self: center;
 }
 [data-contrast-mode="average"] ::file-selector-button ::-moz-selection {
     --icon-color: var(--theme-selection-text, hsl(0, 0%, 9.22%)) !important;

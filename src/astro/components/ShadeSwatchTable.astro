@@ -12,6 +12,7 @@ import type { Tokens, Tokens_Internal } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Colour } from '../../ts/02-tokens/Tokens_Colour.js';
 
 /* import - functions */
+import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
 import { objectMap } from '../../ts/01-utilities/objectMap.js';
 import { colourToArray } from '../functions/colourToArray.js';
 import ShadeSwatchTable_Scripts from '../support/ShadeSwatchTable_Scripts.astro';
@@ -381,14 +382,14 @@ const goalLevels = objectMap(
                         class="screen-reader-text"
                         set:text='contrast targets'
                     />
-                    <Fragment>{ Object.values( goalLevels ).map( (set) => set && <td>
+                    <Fragment>{ Object.values( goalLevels ).map( (set) => set && <th>
                         <article
                             class:list={['container', 'shade-swatch']}
-                            data-brightness-mode='light'
+                            data-brightness-mode={ Number(set.level) <= 500 ? 'light' : 'dark' }
                             data-shade-swatch-has-background={true}
                             style={ [ 
-                                `--shade-swatch-background: var(--clr-base-${set.level}, hsl( ${ props.colour.base[ set.level ].hsl.h }, ${ props.colour.base[ set.level ].hsl.s }%, ${ props.colour.base[ set.level ].hsl.l }% ))`,
-                                `--shade-swatch-color: var(--clr-base-${set.textLevel}, hsl( ${ props.colour.base[ set.textLevel ].hsl.h }, ${ props.colour.base[ set.textLevel ].hsl.s }%, ${ props.colour.base[ set.textLevel ].hsl.l }% ))`,
+                                `--shade-swatch-background: ${ColourUtilities.toString.hsl(props.colour.base[ set.level ])}`,
+                                `--shade-swatch-color: ${ColourUtilities.toString.hsl(props.colour.base[ set.textLevel ])}`,
                              ].join(';') }
                         >
                             <Heading
@@ -411,7 +412,6 @@ const goalLevels = objectMap(
                                     `--shade-swatch-contrast-result-group-column-count: 2`,
                                     `--shade-swatch-contrast-result-group-row-count: 2`,
                                 ].join(';')}
-                                data-brightness-mode="light"
                             >
                                 <div
                                     class:list={[
@@ -508,7 +508,7 @@ const goalLevels = objectMap(
                                 </div>
                             </div>
                         </article>
-                    </td>  ) }</Fragment>
+                    </th>  ) }</Fragment>
                 </tr> }
                 {colour.map(({ name, map }) => (
                     <tr>

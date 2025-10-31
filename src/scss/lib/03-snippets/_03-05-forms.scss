@@ -78,7 +78,6 @@
     --focus-ring-outline-offset: #{var-border-width(
             var-style(button-focus-offset)
         )};
-    --icon-pseudo-element-margin-block-start: 0.09375em;
 
     --display: flex;
     display: flex;
@@ -148,7 +147,9 @@
                     @include snippet-icon-pseudo-element(
                         forbidden,
                         $pseudo: before
-                    );
+                    ) {
+                        align-self: center;
+                    }
                 }
             }
         }
@@ -157,6 +158,10 @@
     * {
         --icon-color: inherit !important;
         color: inherit !important;
+    }
+
+    %icon {
+        align-self: center;
     }
 
     ::selection {
