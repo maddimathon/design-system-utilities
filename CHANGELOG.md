@@ -19,6 +19,20 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.2** — 2025-11-03
+
+Small astro component & style fixes.
+
+### Removed
+- $mx_tokensTheme_nestModeSelectors config var
+
+### Added
+- getLevelsInUse() function for themes
+
+### Changed
+- Updated dependencies
+
+
 ## **0.1.0-alpha.1** — 2025-10-30
 
 Forgot to include the tsconfig file.

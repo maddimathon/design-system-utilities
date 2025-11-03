@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.2.draft
+ * @maddimathon/design-system-utilities@0.1.0-alpha.2
  * @license MIT
  */
 import type { ThemeMode_Contrast, ThemeMode_ContrastAtLeastOne, ThemeMode_ContrastExtraOptions, ColourLevels_Extended, TokenLevels } from './@types.js';
@@ -696,7 +696,7 @@ export declare namespace Tokens {
     /**
      * @since 0.1.0-alpha
      */
-    function sample(): Promise<Tokens<"red" | "turquoise" | "purple" | "base", TokenTypes.ColourLevels_Extended, Tokens_Internal.Default_ThemeBrightnessMode, readonly ["low", "average", "high", "max"], "default", never, never, never, never>>;
+    function sample(): Promise<Tokens<"base" | "purple" | "turquoise" | "red", TokenTypes.ColourLevels_Extended, Tokens_Internal.Default_ThemeBrightnessMode, readonly ["low", "average", "high", "max"], "default", never, never, never, never>>;
     /**
      * @since 0.1.0-alpha
      */

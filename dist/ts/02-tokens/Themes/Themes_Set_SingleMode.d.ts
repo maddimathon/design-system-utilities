@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.2.draft
+ * @maddimathon/design-system-utilities@0.1.0-alpha.2
  * @license MIT
  */
 import type { ColourLevels_Extended, ColourLevels, ColourTokenSlug, CssSystemColor, RequiredHeadingLevels, ThemeColourOption } from '../@types.js';

@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.2
  * 
  * @packageDocumentation
  */
@@ -14,7 +14,7 @@ import type { ColourLevels, ColourLevels_Extended } from './@types.js';
 /**
  * Returns a set of the unique levels in use for the given theme tokens.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-alpha.2
  */
 export function getLevelsInUse( themes: Tokens.JsonReturn[ 'themes' ] ) {
 
