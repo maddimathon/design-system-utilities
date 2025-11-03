@@ -33,7 +33,8 @@ $fn_var_replaceWithValue_borderWidth: utils.config-valid-bool(
 ///
 /// @since 0.1.0-alpha
 ///
-$fn_var_replaceWithValue_colour: true !default;
+$fn_var_replaceWithValue_colour: utils.$include_html or utils.$print_astro or
+    template.$print_docs !default;
 $fn_var_replaceWithValue_colour: utils.config-valid-bool(
     $fn_var_replaceWithValue_colour,
     'fn_var_replaceWithValue_colour'

@@ -10,10 +10,10 @@ import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 
 /* import - functions */
 import {
-    arrayUnique,
     toTitleCase,
 } from '@maddimathon/utility-typescript/functions';
 import { objectMap } from '../../ts/01-utilities/objectMap.js';
+import { getLevelsInUse } from '../../ts/02-tokens/getLevelsInUse.js';
 import PageContent_Theme_Scripts from '../support/PageContent_Theme_Scripts.astro';
 
 /* import - values */
@@ -21,6 +21,7 @@ import PageContent_Theme_Scripts from '../support/PageContent_Theme_Scripts.astr
 /* import - components */
 import Toggle from '@maddimathon/utility-astro/components/Toggle';
 import ThemeModeSwatch from './ThemeModeSwatch.astro';
+import Widget from './Widget.astro';
 // import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
 
 /* import - layouts */
@@ -36,33 +37,44 @@ const { tokens }: Props = Astro.props;
 
 /* CONSTANTS ===================================== */
 
-const defaultToggleToOpen = Object.keys(tokens.themes).length < 2 && import.meta.env.DEV ? true : undefined;
+const themeNames = Object.keys(tokens.themes) as (keyof typeof  tokens.themes )[];
 
-const levelsInUse = arrayUnique(
-    Object.values(tokens.themes)
-        .map((theme) => theme.levelsInUse)
-        .flat()
-).sort();
+const hasMultipleThemes = themeNames.length > 1;
+
+const defaultToggleToOpen = !hasMultipleThemes && import.meta.env.DEV ? true : undefined;
+
+const levelsInUse = getLevelsInUse(tokens.themes);
+
+const buttonVariations = tokens.themes['default'] 
+    ? Object.keys(
+        tokens.themes['default']['light'].average.data.button
+    ).filter( v => v != 'primary' && v != 'disabled' )
+    : [];
 
 const parsedSets = Object.values(
     objectMap(tokens.themes, ({ key, value: theme }) => ({
         key,
         parsed: Object.values(
-            objectMap(theme, ({ key }) =>
-                key === 'name'
+            objectMap(theme, ({ key: brightness }) =>
+            brightness === 'name'
                     ? false
-                    : key === 'levelsInUse'
+                    : brightness === 'levelsInUse'
                       ? false
-                      : key === 'forcedColours'
+                      :  brightness === 'forcedColours' 
                         ? false
                         : {
-                              name: key,
+                              name: brightness,
                               values: Object.values(
                                   objectMap(
-                                  theme[key],
-                                      ({ key: contrast, value: theme }) => ({
+                                  theme[brightness],
+                                    ({ key: contrast, value: theme }): {
+                                        id: string,
+                                        brightness: "light"|"dark",
+                                        contrast: "low"|"average"|"high"|"max",
+                                        theme: typeof theme,
+                                    } => ({
                                           id: `theme-${key}-${contrast}`,
-                                          brightness: key,
+                                          brightness,
                                           contrast,
                                           theme,
                                       })
@@ -92,8 +104,8 @@ const displayOptions = [
 <p>
     The following colour shade levels are in use in at least one of the themes
     below: {
-        levelsInUse.map((level, i) =>
-            i < levelsInUse.length - 1 ? (
+        Array.from( levelsInUse ).map( (level, i) =>
+            i < levelsInUse.size - 1 ? (
                 <Fragment set:html={`<code>${level}</code>, `} />
             ) : (
                 <Fragment set:html={`and <code>${level}</code>.`} />
@@ -158,6 +170,40 @@ const displayOptions = [
                                         slot='heading'
                                         set:text={`${toTitleCase(set.contrast)} Contrast`}
                                     />
+                                    { hasMultipleThemes && key == 'default' && (
+                                        <div class="theme-mode-swatch__alt-widgets" slot="preview">{ themeNames.map(
+                                            ( themeName ) => themeName !== key && (
+                                                <Widget
+                                                    displayHeading={3}
+                                                    heading={5} 
+                                                    data-active-theme={themeName}
+                                                    data-brightness-mode={brightnessSet.name}
+                                                    data-contrast-mode={set.contrast}
+                                                >
+                                                    <Fragment slot='heading' ><samp set:text={toTitleCase(themeName)} /> Callout</Fragment>
+                                                    <p>Lorem ipsum <a href="#">dolor sit amet</a>, consectetur adipiscing elit. Sed vel odio at nibh <abbr title="these aren’t real words">pharetra condimentum</abbr>. Mauris id sapien sodales, volutpat turpis. { import.meta.env.DEV && <Fragment set:html={'Donec mi ex, venenatis in elit vitae, <a href="#" aria-disabled="true">blandit sodales nunc</a>. '} /> }</p>
+                                                    <ul>
+                                                        <li>Etiam ullamcorper commodo risus.</li>
+                                                        <li>Fusce mattis, odio at varius pharetra, tellus arcu convallis erat, vel blandit nulla sem nec enim.</li>
+                                                    </ul>
+                                                    <p>Etiam ornare ligula eu ipsum eleifend laoreet blandit et diam. Duis cursus eros magna, ac sagittis nibh sodales eget.</p>
+                                                    <div class="button-span">
+                                                        <button type="button">This is a button</button>
+                                                        <button aria-disabled="true" type="button">This is a disabled button</button>
+                                                        
+                                                        <Fragment>{ buttonVariations.map(
+                                                            variant => <button
+                                                                class={`button-${variant}`}
+                                                                set:text={`This is a ${variant} button`}
+                                                                type="button"
+                                                            />
+                                                        ) }</Fragment>
+                                                    </div>
+                                                    <p>Maecenas facilisis sollicitudin nisi, eget pellentesque dui rhoncus condimentum. Vivamus vulputate nisl sit amet vehicula commodo.</p>
+                                                </Widget>
+                                            )
+                                        ) }</div>
+                                    ) }
                                 </ThemeModeSwatch>
                             )) }
                         </div>

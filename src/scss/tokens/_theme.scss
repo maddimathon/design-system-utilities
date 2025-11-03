@@ -22,6 +22,34 @@ $activeTheme: config.config-valid-string(
     $options: $_themeNames
 );
 
+$themes__nestedFlat: ();
+
+@each $themeKey, $themeMap in system.$themes {
+    //
+    @each $brightness, $brightnessMap in $themeMap {
+        @if $brightness == forced-colors {
+            //
+            $themes__nestedFlat: map.set(
+                $themes__nestedFlat,
+                $themeKey,
+                $brightness,
+                map.flatten(map.get($themeMap, $brightness))
+            );
+        } @else {
+            //
+            @each $contrast, $modeMap in $brightnessMap {
+                $themes__nestedFlat: map.set(
+                    $themes__nestedFlat,
+                    $themeKey,
+                    $brightness,
+                    $contrast,
+                    map.flatten($modeMap)
+                );
+            }
+        }
+    }
+}
+
 $brightnessMode_all: list.except(
     map.keys(map.get(system.$themes, $activeTheme)),
     'forced-colors'

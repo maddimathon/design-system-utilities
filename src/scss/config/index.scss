@@ -5,26 +5,9 @@
 
 @forward 'utility-astro';
 
-@forward 'fnConfig';
+@forward 'function-config';
+@forward 'mixin-config';
 @forward 'paths';
 @forward 'template';
 
 @use 'utility-astro' as utils;
-
-$mx_themeTokens_nestModeSelectors: false !default;
-$mx_themeTokens_nestModeSelectors: utils.config-valid-bool(
-    $mx_themeTokens_nestModeSelectors,
-    'mx_themeTokens_nestModeSelectors'
-);
-
-$mx_themeTokens_nestActiveThemeSelectors: $mx_themeTokens_nestModeSelectors !default;
-$mx_themeTokens_nestActiveThemeSelectors: utils.config-valid-bool(
-    $mx_themeTokens_nestActiveThemeSelectors,
-    'mx_themeTokens_nestActiveThemeSelectors'
-);
-
-$mx_themeTokens_unifyActiveThemeSelectors: false !default;
-$mx_themeTokens_unifyActiveThemeSelectors: utils.config-valid-bool(
-    $mx_themeTokens_unifyActiveThemeSelectors,
-    'mx_themeTokens_unifyActiveThemeSelectors'
-);

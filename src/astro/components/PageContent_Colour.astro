@@ -14,7 +14,7 @@ import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 
 /* import - functions */
 import { toTitleCase } from '@maddimathon/utility-typescript/functions';
-import { objectMap } from '../../ts/01-utilities/objectMap.js';
+import { getLevelsInUse } from '../../ts/02-tokens/getLevelsInUse.js';
 
 /* import - values */
 
@@ -43,13 +43,11 @@ const allLevels = Object.keys(tokens.colour.base) as (
     | ColourLevels_Extended
 )[];
 
-const levelsInUse = Object.values(
-    objectMap(tokens.themes, ({ value: theme }) => theme.levelsInUse)
-).flat();
+const levelsInUse = getLevelsInUse(tokens.themes);
 
 const excludeLevels = import.meta.env.DEV
     ? []
-    : allLevels.filter((level) => !levelsInUse.includes(level));
+    : allLevels.filter((level) => !levelsInUse.has(level));
 ---
 
 <ShadeSwatchTable

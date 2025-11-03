@@ -21,13 +21,13 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
 /// @since 0.1.0-alpha
 ///
 @function style-value($slug) {
+    $value: map.get($_flattenedStyles, $slug);
+
     // returns
-    @if not map.has-key($_flattenedStyles, $slug) {
+    @if $value == null {
         @warn "$slug '#{$slug}' was not a key in flattened tokens.$designSystem.style";
         @return $slug;
     }
-
-    $value: map.get($_flattenedStyles, $slug);
 
     $isButtonStyle: string.index($slug, button-) == 1;
     $isHeadingStyle: string.index($slug, heading-) == 1;

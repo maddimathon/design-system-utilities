@@ -177,7 +177,8 @@ const headingHTML = (await Astro.slots.render('heading')) || false;
 
 const heading = _heading + (headingHTML ? 1 : 0);
 
-const levelsInUse = theme.levelsInUse.map(
+
+const levelsInUseTable = theme.levelsInUse.map(
     ( levels ) => ( {
         levels,
 
@@ -321,6 +322,12 @@ const displayHeading = 3;
     {...attributes}
     data-brightness-mode={brightness}
     data-contrast-mode={contrast}
+    style={ [
+        `--theme-background: var(--clr-${theme.data.background})`,
+        `--theme-text: var(--clr-${theme.data.text.$})`,
+        `background: var(--clr-${theme.data.background})`,
+        `color: var(--clr-${theme.data.text.$})`,
+    ].join(';') }
 >
     {
         headingHTML && (
@@ -334,7 +341,8 @@ const displayHeading = 3;
             />
         )
     }
-    { theme.description &&  <p set:html={theme.description} /> }
+
+    { theme.description &&  <p class="theme-mode-swatch__description" set:html={theme.description} /> }
     
     { displayMode == 'tokens' ? <Fragment>
         <Heading
@@ -456,7 +464,8 @@ const displayHeading = 3;
                 ].join(';') }
             /> 
         ) ) }
-        { levelsInUse.length && ( 
+        <slot name="tokens" />
+        { levelsInUseTable.length && ( 
             <Heading
                 heading={heading}
                 displayHeading={displayHeading }
@@ -469,7 +478,7 @@ const displayHeading = 3;
                     <th set:text='Light Mode' />
                     <th set:text='Dark Mode' />
                 </tr>
-                { levelsInUse.map( ({ levels, styles }) => <tr>
+                { levelsInUseTable.map( ({ levels, styles }) => <tr>
                     <td 
                         data-brightness-mode="light"
                         set:text={levels.light}
@@ -497,6 +506,7 @@ const displayHeading = 3;
             tokens={tokens}
             displayHeading={displayHeading}
         />
+        <slot name="preview" />
     ) }
 </article>
 

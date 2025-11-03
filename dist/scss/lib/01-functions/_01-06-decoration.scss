@@ -8,7 +8,7 @@
 @use '../../config';
 @use '../../tokens';
 
-// @use 'pkg:@maddimathon/utility-astro/01-functions' as utils;
+@use 'pkg:@maddimathon/utility-astro/01-functions' as utils;
 
 ///
 /// Uses the border radius tokens to prepare the appropriate numerical value (rem).
@@ -16,12 +16,11 @@
 /// @since 0.1.0-alpha
 ///
 @function border-radius-value($level) {
-    $value: map.get(tokens.$border, radius, '200');
+    $value: map.get(tokens.$border, radius, #{$level});
 
-    @if not map.has-key(tokens.$border, radius, '#{$level}') {
+    @if $value == null {
         @warn "$level '#{$level}' was not a key in tokens.$border['radius']";
-    } @else {
-        $value: map.get(tokens.$border, radius, '#{$level}');
+        $value: map.get(tokens.$border, radius, '200');
     }
 
     @return calc(1rem * $value);
@@ -50,8 +49,8 @@
 @function var-border-width($level) {
     @return if(
         config.$fn_var_replaceWithValue_borderWidth,
-        border-width-value($level),
-        var(--border-width-#{$level}, border-width-value($level))
+        utils.border-width-value($level),
+        var(--border-width-#{$level}, utils.border-width-value($level))
     );
 }
 
@@ -64,8 +63,8 @@
 @function var-stroke-relative($level) {
     @return if(
         config.$fn_var_replaceWithValue_strokeRelative,
-        stroke-relative-value($level),
-        var(--stroke-relative-#{$level}, stroke-relative-value($level))
+        utils.stroke-relative-value($level),
+        var(--stroke-relative-#{$level}, utils.stroke-relative-value($level))
     );
 }
 
@@ -76,18 +75,20 @@
 ///
 @function icon-aspect-ratio-value($slug) {
     // returns
-    @if not map.has-key(tokens.$icons, '#{$slug}') {
+    @if not map.has-key(tokens.$icons, $slug) {
         @warn "$slug '#{$slug}' was not a key in tokens.$icons";
         @return $slug;
     }
 
+    $value: map.get(tokens.$icons, $slug, aspectRatio);
+
     // returns
-    @if not map.has-key(tokens.$icons, '#{$slug}', aspectRatio) {
+    @if $value == null {
         @warn "'aspectRatio' was not a key in tokens.$icons.#{$slug}";
         @return $slug;
     }
 
-    @return map.get(tokens.$icons, '#{$slug}', aspectRatio);
+    @return $value;
 }
 
 ///
@@ -97,18 +98,20 @@
 ///
 @function icon-embedded-value($slug) {
     // returns
-    @if not map.has-key(tokens.$icons, '#{$slug}') {
+    @if not map.has-key(tokens.$icons, $slug) {
         @warn "$slug '#{$slug}' was not a key in tokens.$icons";
         @return $slug;
     }
 
+    $value: map.get(tokens.$icons, $slug, embedded);
+
     // returns
-    @if not map.has-key(tokens.$icons, '#{$slug}', embedded) {
+    @if $value == null {
         @warn "'embedded' was not a key in tokens.$icons.#{$slug}";
         @return $slug;
     }
 
-    @return map.get(tokens.$icons, '#{$slug}', embedded);
+    @return $value;
 }
 
 ///
@@ -118,18 +121,20 @@
 ///
 @function icon-label-value($slug) {
     // returns
-    @if not map.has-key(tokens.$icons, '#{$slug}') {
+    @if not map.has-key(tokens.$icons, $slug) {
         @warn "$slug '#{$slug}' was not a key in tokens.$icons";
         @return $slug;
     }
 
+    $value: map.get(tokens.$icons, $slug, label);
+
     // returns
-    @if not map.has-key(tokens.$icons, '#{$slug}', label) {
+    @if $value == null {
         @warn "'label' was not a key in tokens.$icons.#{$slug}";
         @return $slug;
     }
 
-    @return map.get(tokens.$icons, '#{$slug}', label);
+    @return $value;
 }
 
 ///
@@ -139,13 +144,15 @@
 /// @since 0.1.0-alpha
 ///
 @function z-index-value($level) {
+    $value: map.get(tokens.$z_index, #{$level});
+
     // returns
-    @if not map.has-key(tokens.$z_index, '#{$level}') {
+    @if $value == null {
         @warn "$level '#{$level}' was not a key in tokens.$z_index";
         @return $level;
     }
 
-    @return map.get(tokens.$z_index, '#{$level}');
+    @return $value;
 }
 
 ///

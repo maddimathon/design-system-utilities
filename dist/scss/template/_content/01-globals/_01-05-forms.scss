@@ -55,15 +55,16 @@
     @include snippet-button($variation: primary);
 }
 
-@each $variant,
-    $_map
-        in map.get(
+@each $variant
+    in map.keys(
+        map.get(
             tokens.$themes,
             tokens.$activeTheme,
             tokens.$brightnessMode_default,
             tokens.$contrastMode_default,
             button
         )
+    )
 {
     @if $variant != primary and $variant != disabled {
         %button-#{$variant} {

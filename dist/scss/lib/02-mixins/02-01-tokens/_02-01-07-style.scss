@@ -11,6 +11,8 @@
 
 @use '../../01-functions' as *;
 
+$_flattenedStyle: map.flatten(map.get(tokens.$designSystem, style));
+
 ///
 /// Prints out the style custom property tokens based on tokens.
 ///
@@ -19,9 +21,7 @@
 @mixin tokens-style {
     /* #region Tokens - Style */
     #{selector.parent-or-root()} {
-        @each $slug,
-            $_value in map.flatten(map.get(tokens.$designSystem, style))
-        {
+        @each $slug, $_value in $_flattenedStyle {
             --style-#{$slug}: #{style-value($slug)};
         }
     }

@@ -17,22 +17,6 @@
 
 @use 'pkg:@maddimathon/utility-astro/02-mixins' as utils;
 
-$_activeTheme: map.get(tokens.$themes, tokens.$activeTheme);
-$_flattenedActiveTheme: map.flatten($_activeTheme);
-
-$_themeSlugs: map.keys(tokens.$themes);
-$_themeSelectors: (config.$selector_null);
-
-@if list.length($_themeSlugs) > 1 {
-    @each $key in $_themeSlugs {
-        $_themeSelectors: list.append(
-            $_themeSelectors,
-            '%active-theme--#{$key}',
-            $separator: comma
-        );
-    }
-}
-
 $_systemColors: get-sys-colours();
 $_flattenedSystemColors: map.flatten($_systemColors);
 
@@ -48,64 +32,54 @@ $_flattenedSystemColors: map.flatten($_systemColors);
 ) {
     $map: $_systemColors;
 
-    $activeTheme: map.get(tokens.$themes, default);
+    $activeTheme_flat: map.get(tokens.$themes__nestedFlat, $themeSlug);
 
-    @if map.has-key(tokens.$themes, $themeSlug) {
-        $activeTheme: map.get(tokens.$themes, $themeSlug);
+    @if $activeTheme_flat == null {
+        @warn "$themeSlug '#{$themeSlug}' was not a key in tokens.$themes__nestedFlat";
     } @else {
-        @warn "$themeSlug '#{$themeSlug}' was not a key in tokens.$themes";
-    }
-
-    $activeTheme_flat: map.flatten($activeTheme);
-
-    @each $slug, $list in $map {
-        // prettier-ignore
-        @if $contrast == forced-colors {
-            
-            @each $value in $list {
-                --sys-clr-#{$slug}: #{$value} !important;
-            }
-            
-        } @else if
-            $brightness !=
-            null and
-            $contrast !=
-            null
-        {
-            $lookupSlug: if(
-                map.has-key(
+        @each $slug, $list in $map {
+            // prettier-ignore
+            @if $contrast == forced-colors {
+                
+                @each $value in $list {
+                    --sys-clr-#{$slug}: #{$value} !important;
+                }
+                
+            } @else if
+                $brightness !=
+                null and
+                $contrast !=
+                null
+            {
+                $clrSlug: map.get(
                     $activeTheme_flat,
-                    '#{$brightness}-#{$contrast}-#{$slug}'
-                ),
-                $slug,
-                if(
-                    map.has-key(
-                        $activeTheme_flat,
-                        '#{$brightness}-#{$contrast}-system-#{$slug}'
-                    ),
-                    'system-#{$slug}',
-                    if(
-                        map.has-key($_flattenedSystemColors, '#{$slug}'),
-                        '#{$slug}',
-                        false
-                    )
-                )
-            );
-
-            @if $lookupSlug != false {
-                $_clrSlug: theme-token-value(
-                    $lookupSlug,
-                    $brightness: $brightness,
-                    $contrast: $contrast
+                    $brightness,
+                    $contrast,
+                    $slug
                 );
 
-                --sys-clr-#{$slug}: #{var-clr-from-theme-token(
-                        $_clrSlug,
-                        $brightness: $brightness
-                    )};
-            } @else if map.has-key($_flattenedSystemColors, '#{$slug}') {
-                @each $_sysclr in map.get($_systemColors, $slug) {
-                    --sys-clr-#{$slug}: #{$_sysclr};
+                @if $clrSlug == null {
+                    $clrSlug: map.get(
+                        $activeTheme_flat,
+                        $brightness,
+                        $contrast,
+                        'system-#{$slug}'
+                    );
+                }
+
+                @if $clrSlug != null {
+                    --sys-clr-#{$slug}: #{var-clr-from-theme-token(
+                            $clrSlug,
+                            $brightness: $brightness
+                        )};
+                } @else {
+                    $values: map.get($_systemColors, $slug);
+
+                    @if $values != null {
+                        @each $_sysclr in $values {
+                            --sys-clr-#{$slug}: #{$_sysclr};
+                        }
+                    }
                 }
             }
         }
@@ -145,31 +119,38 @@ $_flattenedSystemColors: map.flatten($_systemColors);
     /* #endregion Tokens - Colour */
 }
 
-@mixin _theme-where-defaults($flattenedThemeMap) {
-    :where(&) {
-        --icon-color: #{var-clr-from-theme-token(
-                map.get($flattenedThemeMap, ui)
-            )};
-    }
+@mixin _tokens-theme-individual-base-properties($slug, $brightness, $contrast) {
+    --icon-color: #{var-theme(
+            ui,
+            $brightness: $brightness,
+            $contrast: $contrast,
+            $themeSlug: $slug
+        )};
+    background: #{var-theme(
+            background,
+            $brightness: $brightness,
+            $contrast: $contrast,
+            $themeSlug: $slug
+        )};
+    color: #{var-theme(
+            text,
+            $brightness: $brightness,
+            $contrast: $contrast,
+            $themeSlug: $slug
+        )};
 }
 
-@mixin tokens-theme-individual(
-    $slug,
-    $brightness,
-    $contrast,
-    $activeTheme: tokens.$activeTheme
-) {
-    $activeTheme: map.get(tokens.$themes, default);
+@mixin tokens-theme-individual($slug, $brightness, $contrast) {
+    $activeTheme_flat: map.get(tokens.$themes__nestedFlat, $slug);
 
-    @if map.has-key(tokens.$themes, $slug) {
-        $activeTheme: map.get(tokens.$themes, $slug);
-    } @else {
-        @warn "$slug '#{$slug}' was not a key in tokens.$themes";
+    @if $activeTheme_flat == null {
+        @warn "$slug '#{$slug}' was not a key in tokens.$themes__nestedFlat";
         $slug: default;
+        $activeTheme_flat: map.get(tokens.$themes__nestedFlat, default);
     }
 
     @if $contrast == forced-colors {
-        $flattened: map.flatten(map.get($activeTheme, forced-colors));
+        $flattened: map.get($activeTheme_flat, forced-colors);
 
         @include tokens-sys-colour(
             $brightness: tokens.$brightnessMode_default,
@@ -186,25 +167,198 @@ $_flattenedSystemColors: map.flatten($_systemColors);
         }
     } @else {
         //
-        @if map.has-key($activeTheme, $brightness) {
-            //
-            @if map.has-key(map.get($activeTheme, $brightness), $contrast) {
-                $flattened: map.flatten(
-                    map.get($activeTheme, $brightness, $contrast)
-                );
+        $flattened: map.get($activeTheme_flat, $brightness, $contrast);
 
-                @include tokens-sys-colour(
-                    $brightness: $brightness,
-                    $contrast: $contrast,
-                    $themeSlug: $slug
-                );
+        @if $flattened != null {
+            @include tokens-sys-colour(
+                $brightness: $brightness,
+                $contrast: $contrast,
+                $themeSlug: $slug
+            );
 
-                @each $prop, $value in $flattened {
-                    @if string.index($prop, 'system-') != 1 {
-                        --theme-#{$prop}: #{var-clr-from-theme-token(
-                                $value,
-                                $brightness: $brightness
-                            )};
+            @each $prop, $value in $flattened {
+                @if string.index($prop, 'system-') != 1 {
+                    $_clrValue: var-clr-from-theme-token(
+                        $value,
+                        $brightness: $brightness
+                    );
+
+                    @if config.$fn_var_replaceWithValue_colour {
+                        --theme-#{$prop}: #{$_clrValue}; /* #{$value} */
+                    } @else {
+                        --theme-#{$prop}: #{$_clrValue};
+                    }
+                }
+            }
+        }
+    }
+
+    @if config.$mx_tokensTheme_setBaseProperties {
+        @include _tokens-theme-individual-base-properties(
+            $slug,
+            $brightness: $brightness,
+            $contrast: $contrast
+        );
+    }
+}
+
+@function _tokens-theme-internal-mode--nested-active-theme-selectors(
+    $themeKey
+) {
+    $singleSelector: '[data-active-theme=#{$themeKey}]';
+
+    // returns
+    @if config.$mx_colourModeEach_nestModeSelectors {
+        @return (
+            if(
+                config.$mx_tokensTheme_unifyActiveThemeSelectors,
+                selector.unify(&, $singleSelector),
+                config.$selector_null
+            ),
+            selector.nest($singleSelector, &),
+            selector.nest(&, $singleSelector)
+        );
+    }
+
+    @return (
+        $singleSelector,
+        if(
+            config.$mx_tokensTheme_unifyActiveThemeSelectors,
+            selector.unify(&, $singleSelector),
+            config.$selector_null
+        ),
+        if(
+                config.$mx_colourModeEach_nestModeSelectors,
+                selector.nest($singleSelector, &),
+                config.$selector_null
+            ) // selector.nest(&, $singleSelector)
+    );
+}
+
+@mixin _tokens-theme-internal-mode(
+    $brightness,
+    $contrast,
+    $includeAlternatives
+) {
+    //
+    @if not $includeAlternatives or $contrast == forced-colors {
+        //
+        @include tokens-theme-individual(
+            tokens.$activeTheme,
+            $brightness: $brightness,
+            $contrast: $contrast
+        );
+        @content ($brightness, $contrast, $location: main);
+        //
+    } @else {
+        //
+        // defaults first
+
+        @if config.$mx_colourModeEach_nestModeSelectors and
+            #{&} !=
+            #{config.$selector_root} and
+            #{&} !=
+            #{config.$selector_body} and
+            #{&} !=
+            '%root' and
+            #{&} !=
+            '%body'
+        {
+            @if config.$mx_tokensTheme_unifyActiveThemeSelectors {
+                &,
+                &[data-active-theme='#{tokens.$activeTheme}'][data-active-theme],
+                & [data-active-theme='#{tokens.$activeTheme}'] {
+                    //
+                    @include tokens-theme-individual(
+                        tokens.$activeTheme,
+                        $brightness: $brightness,
+                        $contrast: $contrast
+                    );
+                    @content ($brightness, $contrast, $location: main);
+                }
+            } @else {
+                &,
+                & [data-active-theme='#{tokens.$activeTheme}'] {
+                    //
+                    @include tokens-theme-individual(
+                        tokens.$activeTheme,
+                        $brightness: $brightness,
+                        $contrast: $contrast
+                    );
+                    @content ($brightness, $contrast, $location: main);
+                }
+            }
+        } @else {
+            @if config.$mx_tokensTheme_unifyActiveThemeSelectors {
+                &,
+                &[data-active-theme='#{tokens.$activeTheme}'][data-active-theme] {
+                    //
+                    @include tokens-theme-individual(
+                        tokens.$activeTheme,
+                        $brightness: $brightness,
+                        $contrast: $contrast
+                    );
+                    @content ($brightness, $contrast, $location: main);
+                }
+            } @else {
+                & {
+                    //
+                    @include tokens-theme-individual(
+                        tokens.$activeTheme,
+                        $brightness: $brightness,
+                        $contrast: $contrast
+                    );
+                    @content ($brightness, $contrast, $location: main);
+                }
+            }
+        }
+
+        @each $key in map.keys(tokens.$themes) {
+            @if #{$key} != #{tokens.$activeTheme} {
+                //
+                @if config.$mx_colourModeEach_nestModeSelectors {
+                    @if config.$mx_tokensTheme_unifyActiveThemeSelectors {
+                        &[data-active-theme='#{$key}'][data-active-theme],
+                        & [data-active-theme='#{$key}'],
+                        [data-active-theme='#{$key}'] & {
+                            @include tokens-theme-individual(
+                                $key,
+                                $brightness: $brightness,
+                                $contrast: $contrast
+                            );
+                            @content ($brightness, $contrast, $location: theme-#{$key});
+                        }
+                    } @else {
+                        & [data-active-theme='#{$key}'],
+                        [data-active-theme='#{$key}'] & {
+                            @include tokens-theme-individual(
+                                $key,
+                                $brightness: $brightness,
+                                $contrast: $contrast
+                            );
+                            @content ($brightness, $contrast, $location: theme-#{$key});
+                        }
+                    }
+                } @else {
+                    @if config.$mx_tokensTheme_unifyActiveThemeSelectors {
+                        &[data-active-theme='#{$key}'][data-active-theme],
+                        & [data-active-theme='#{$key}'] {
+                            @include tokens-theme-individual(
+                                $key,
+                                $brightness: $brightness,
+                                $contrast: $contrast
+                            );
+                            @content ($brightness, $contrast, $location: theme-#{$key});
+                        }
+                    } @else {
+                        [data-active-theme='#{$key}'] {
+                            @include tokens-theme-individual(
+                                $key,
+                                $brightness: $brightness,
+                                $contrast: $contrast
+                            );
+                            @content ($brightness, $contrast, $location: theme-#{$key});
+                        }
                     }
                 }
             }
@@ -212,110 +366,66 @@ $_flattenedSystemColors: map.flatten($_systemColors);
     }
 }
 
-$_themes_includeAlternatives: list.length(map.keys(tokens.$themes)) > 1 and
-    config.$print_docs;
-
-@mixin tokens-theme-alternatives() {
-    @each $key, $_theme in tokens.$themes {
-        @include utils.colour-mode-each(
-                $includeForcedColors: false,
-                $includeRegions_heading: 'Tokens - Theme Override - #{$key} - ',
-
-                // $ignoreParentSelector: true,
-                // $includeDefault: false,
-                $nestModeSelectors: config.$mx_themeTokens_nestModeSelectors,
-
-                // $nestParentSelector: true,
-                // $unifyParentSelector: config.$mx_themeTokens_unifyActiveThemeSelectors,
-                 // $wrapParentSelector: false,
-            )
-            using ($brightness, $contrast) {
-            //
-            $_sels: (selector.nest(&, '[data-active-theme=#{$key}]'));
-
-            @if config.$mx_themeTokens_nestActiveThemeSelectors {
-                //
-                $_sels: list.append(
-                    $_sels,
-                    (
-                        selector.nest(
-                            config.$selector_root,
-                            #{selector.nest(&, '[data-active-theme=#{$key}]')}
-                        )
-                    ),
-                    $separator: comma
-                );
-            }
-
-            @if config.$mx_themeTokens_unifyActiveThemeSelectors {
-                //
-                $_sels: list.append(
-                    $_sels,
-                    (
-                        selector.unify(
-                            config.$selector_root,
-                            '[data-active-theme=#{$key}]'
-                        ),
-                        selector.nest(
-                            config.$selector_root,
-                            #{selector.unify(&, '[data-active-theme=#{$key}]')}
-                        )
-                    ),
-                    $separator: comma
-                );
-            }
-
-            @at-root #{$_sels} {
-                @include tokens-theme-individual(
-                    $key,
-                    $brightness: $brightness,
-                    $contrast: $contrast
-                );
-                @content ($brightness, $contrast);
-            }
-        }
-
-        // [data-active-theme=#{$key}] {
-        //     @include utils.colour-mode-each(
-        //         // $includeForcedColors: false,
-        //         $includeRegions_heading: 'Tokens - Theme Override - #{$key} - ',
-
-        //         $nestModeSelectors: config.$mx_themeTokens_nestModeSelectors,
-
-        //         $nestParentSelector: true,
-        //         $unifyParentSelector: config.$mx_themeTokens_unifyActiveThemeSelectors,
-        //         $wrapParentSelector: false,
-
-        //     ) using ($brightness, $contrast) {
-        //         @include tokens-theme-individual(
-        //             $key,
-        //             $brightness: $brightness,
-        //             $contrast: $contrast
-        //         );
-        //         @content($brightness, $contrast);
-        //     }
-        // }
-    }
-}
+$_themes_includeAlternatives: if(
+    config.$mx_tokensTheme_includeAlternateThemes == null,
+    config.$include_html and list.length(map.keys(tokens.$themes)) > 1,
+    config.$mx_tokensTheme_includeAlternateThemes
+);
 
 ///
 /// Prints out the theme custom property tokens based on config.
 ///
 /// @since 0.1.0-alpha
 ///
-@mixin tokens-theme($includeAlternatives: $_themes_includeAlternatives) {
-    // prettier-ignore
-    @include utils.colour-mode-each(
-        $includeRegions_heading: 'Tokens - Theme - ',
-        $nestModeSelectors: config.$mx_themeTokens_nestModeSelectors
-    ) using ($brightness, $contrast) {
-        //
-        @include tokens-theme-individual(
-            tokens.$activeTheme,
-            $brightness: $brightness,
-            $contrast: $contrast
-        );
-        @content($brightness, $contrast);
+@mixin tokens-theme(
+    $includeAlternatives: $_themes_includeAlternatives,
+    $separateQueriesAndSelectors:
+        config.$mx_tokensTheme_separateQueriesAndSelectors
+) {
+    @if $separateQueriesAndSelectors {
+        // prettier-ignore
+        @include utils.colour-mode-each(
+            $includeRegions_heading: 'Tokens - Theme - Queries - ',
+    
+            $includeDefault: not config.$include_defaultMediaQueries,
+            $includeForcedColors: false,
+            $includeQuery: true,
+            $includeSelectors: false
+        ) using ($brightness, $contrast) {
+            //
+            @include _tokens-theme-internal-mode(
+                $brightness: $brightness,
+                $contrast: $contrast,
+                $includeAlternatives: $includeAlternatives,
+            );
+        }
+
+        // prettier-ignore
+        @include utils.colour-mode-each(
+            $includeRegions_heading: 'Tokens - Theme - Selectors - ',
+    
+            $includeDefault: config.$mx_tokensTheme_includeDefaultSelectors,
+            $includeQuery: false
+        ) using ($brightness, $contrast) {
+            //
+            @include _tokens-theme-internal-mode(
+                $brightness: $brightness,
+                $contrast: $contrast,
+                $includeAlternatives: $includeAlternatives,
+            );
+        }
+    } @else {
+        // prettier-ignore
+        @include utils.colour-mode-each(
+            $includeRegions_heading: 'Tokens - Theme - ',
+        ) using ($brightness, $contrast) {
+            //
+            @include _tokens-theme-internal-mode(
+                $brightness: $brightness,
+                $contrast: $contrast,
+                $includeAlternatives: $includeAlternatives,
+            );
+        }
     }
 
     // for high-contrast modes
@@ -328,8 +438,4 @@ $_themes_includeAlternatives: list.length(map.keys(tokens.$themes)) > 1 and
         );
     }
     /* #endregion Tokens - Theme - Exceptions - high-contrast modes */
-
-    @if $includeAlternatives {
-        @include tokens-theme-alternatives;
-    }
 }

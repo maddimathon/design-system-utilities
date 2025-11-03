@@ -18,12 +18,11 @@
 /// @since 0.1.0-alpha
 ///
 @function transition-time-value($level) {
-    $value: map.get(tokens.$transition, time, normal);
+    $value: map.get(tokens.$transition, time, #{$level});
 
-    @if not map.has-key(tokens.$transition, time, '#{$level}') {
+    @if $value == null {
         @warn "$level '#{$level}' was not a key in tokens.$transition['time']";
-    } @else {
-        $value: map.get(tokens.$transition, time, '#{$level}');
+        $value: map.get(tokens.$transition, time, normal);
     }
 
     @return $value;

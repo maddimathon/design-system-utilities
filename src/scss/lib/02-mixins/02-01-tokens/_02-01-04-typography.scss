@@ -82,24 +82,23 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
             //
             $weightMap: map.get($familyMap, weights);
 
-            @if map.has-key(tokens.$designSystem, font, family, $slug, variable)
-            {
+            $fontMap: map.get(
+                tokens.$designSystem,
+                font,
+                family,
+                $slug,
+                variable
+            );
+
+            @if $fontMap != null {
                 @include _tokens-font-face-style-printer(
-                    map.get(
-                        tokens.$designSystem,
-                        font,
-                        family,
-                        $slug,
-                        variable
-                    ),
+                    $fontMap,
                     $isVariable: true
                 );
             } @else {
                 @each $weight, $styleMap in $weightMap {
                     //
-                    @each $style, $fileMap in $styleMap {
-                        @include _tokens-font-face-style-printer($styleMap);
-                    }
+                    @include _tokens-font-face-style-printer($styleMap);
                 }
             }
         }

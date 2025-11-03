@@ -137,9 +137,10 @@ $_closing_time: var-tr-time(toggle-closing);
                 --icon-size-pseudo--inline-buffer-end: 1;
             }
 
-            @if map.has-key($map, contentWidthScale) {
+            $_multi_width: map.get($map, contentWidthScale);
+
+            @if $_multi_width != null {
                 //
-                $_multi_width: map.get($map, contentWidthScale);
 
                 @if meta.type-of($_multi_width) == number and $_multi_width != 1
                 {
@@ -184,10 +185,10 @@ $_closing_time: var-tr-time(toggle-closing);
                 }
             }
 
-            @if map.has-key($map, lineHeightScale) {
-                //
-                $_multi_lh: map.get($map, lineHeightScale);
+            $_multi_lh: map.get($map, lineHeightScale);
 
+            @if $_multi_lh != null {
+                //
                 @if meta.type-of($_multi_lh) == number and $_multi_lh != 1 {
                     $_multi_margin: -1;
                     $_multi_stroke: -1;
@@ -262,8 +263,6 @@ $_closing_time: var-tr-time(toggle-closing);
     }
 
     @at-root .website-settings-menu .font-family-override-default {
-        @if map.has-key(tokens.$designSystem, font, family, body) {
-            font-family: #{var-font-family(body)} !important;
-        }
+        font-family: #{var-font-family(body)} !important;
     }
 }

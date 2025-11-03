@@ -29,6 +29,8 @@ export class Tokens_CSS_Border extends AbstractTokens<Tokens_CSS_Border.Data> {
                 '100': 0.25,
                 '200': 0.375,
                 '400': 0.625,
+                '600': 1.25,
+                '800': 2.5,
             },
 
             width: {
