@@ -145,6 +145,9 @@ export namespace ColourUtilities {
     /* UTILITY FUNCTIONS
      * ====================================================================== */
 
+    /**
+     * @since 0.1.0-alpha
+     */
     export const LevelConverter = {
         '100': '900',
         '150': '850',
@@ -167,6 +170,9 @@ export namespace ColourUtilities {
         [ L in ColourLevels | ColourLevels_Extended ]: ColourLevels | ColourLevels_Extended;
     };
 
+    /**
+     * @since 0.1.0-alpha
+     */
     export function getDarkLevel<
         T_LightLevel extends ColourLevels | ColourLevels_Extended
     >(

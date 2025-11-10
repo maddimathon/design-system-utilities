@@ -128,7 +128,7 @@ export namespace Tokens_Colour_ShadeMap {
 
 
 
-    /* FUNCTIIONS
+    /* FUNCTIONS
      * ====================================================================== */
 
     // UPGRADE - make this work by only setting lch or hsl hue value

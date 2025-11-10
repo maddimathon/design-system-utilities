@@ -202,38 +202,38 @@ $_flattenedSystemColors: map.flatten($_systemColors);
     }
 }
 
-@function _tokens-theme-internal-mode--nested-active-theme-selectors(
-    $themeKey
-) {
-    $singleSelector: '[data-active-theme=#{$themeKey}]';
+// @function _tokens-theme-internal-mode--nested-active-theme-selectors(
+//     $themeKey
+// ) {
+//     $singleSelector: '[data-active-theme=#{$themeKey}]';
 
-    // returns
-    @if config.$mx_colourModeEach_nestModeSelectors {
-        @return (
-            if(
-                config.$mx_tokensTheme_unifyActiveThemeSelectors,
-                selector.unify(&, $singleSelector),
-                config.$selector_null
-            ),
-            selector.nest($singleSelector, &),
-            selector.nest(&, $singleSelector)
-        );
-    }
+//     // returns
+//     @if config.$mx_colourModeEach_nestModeSelectors {
+//         @return (
+//             if(
+//                 config.$mx_tokensTheme_unifyActiveThemeSelectors,
+//                 selector.unify(&, $singleSelector),
+//                 config.$selector_null
+//             ),
+//             selector.nest($singleSelector, &),
+//             selector.nest(&, $singleSelector)
+//         );
+//     }
 
-    @return (
-        $singleSelector,
-        if(
-            config.$mx_tokensTheme_unifyActiveThemeSelectors,
-            selector.unify(&, $singleSelector),
-            config.$selector_null
-        ),
-        if(
-                config.$mx_colourModeEach_nestModeSelectors,
-                selector.nest($singleSelector, &),
-                config.$selector_null
-            ) // selector.nest(&, $singleSelector)
-    );
-}
+//     @return (
+//         $singleSelector,
+//         if(
+//             config.$mx_tokensTheme_unifyActiveThemeSelectors,
+//             selector.unify(&, $singleSelector),
+//             config.$selector_null
+//         ),
+//         if(
+//                 config.$mx_colourModeEach_nestModeSelectors,
+//                 selector.nest($singleSelector, &),
+//                 config.$selector_null
+//             ) // selector.nest(&, $singleSelector)
+//     );
+// }
 
 @mixin _tokens-theme-internal-mode(
     $brightness,
