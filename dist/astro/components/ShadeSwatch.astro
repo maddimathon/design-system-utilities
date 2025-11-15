@@ -208,10 +208,38 @@ const valueTypes = objectGenerator(
         set:text={`${name}-${level}`}
     />
     <!-- {valueTypes.map((value) => <ShadeSwatch_ColourValue {...value} />)} -->
-    {valueTypes['hex'] && <ShadeSwatch_ColourValue {...valueTypes['hex']} />}
-    {valueTypes['hsl'] && <ShadeSwatch_ColourValue {...valueTypes['hsl']} />}
-    {valueTypes['rgb'] && <ShadeSwatch_ColourValue {...valueTypes['rgb']} />}
-    {valueTypes['lch'] && <ShadeSwatch_ColourValue {...valueTypes['lch']} />}
+    {
+        valueTypes['hex'] && (
+            <ShadeSwatch_ColourValue
+                background={true}
+                {...valueTypes['hex']}
+            />
+        )
+    }
+    {
+        valueTypes['hsl'] && (
+            <ShadeSwatch_ColourValue
+                background={true}
+                {...valueTypes['hsl']}
+            />
+        )
+    }
+    {
+        valueTypes['rgb'] && (
+            <ShadeSwatch_ColourValue
+                background={true}
+                {...valueTypes['rgb']}
+            />
+        )
+    }
+    {
+        valueTypes['lch'] && (
+            <ShadeSwatch_ColourValue
+                background={true}
+                {...valueTypes['lch']}
+            />
+        )
+    }
     <!-- <VariableDump var={valueTypes} /> -->
     {
         contrast && values.contrast && (

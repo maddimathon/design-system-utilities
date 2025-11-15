@@ -1,0 +1,67 @@
+///
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/selector';
+@use 'pkg:@maddimathon/utility-sass/string';
+
+// @use 'pkg:@maddimathon/utility-astro/03-snippets' as lib;
+
+// @use '../../../config';
+@use '../../../tokens';
+
+@use '../../01-functions' as *;
+// @use '../../02-mixins' as *;
+
+$_allUniqueLogoAspectRatios: ();
+
+@each $slug, $map in tokens.$logos {
+    $_ratio: map.get($map, aspectRatio);
+
+    $_ratioSlug: string.slugify(#{$_ratio});
+
+    @if not map.has-key($_allUniqueLogoAspectRatios, $_ratioSlug) {
+        $_allUniqueLogoAspectRatios: map.set(
+            $_allUniqueLogoAspectRatios,
+            $_ratioSlug,
+            $_ratio
+        );
+    }
+}
+
+///
+/// Adds support for logos, assuming the html matches that in the local astro
+/// Icon component.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin snippet-support-logos {
+    %brand-logo {
+        display: block;
+        position: relative;
+        margin-block: #{var-mrg-firm('400')} #{var-mrg-half('400')};
+
+        color: #{var-theme(text-primary)};
+
+        > svg {
+            fill: currentColor;
+        }
+    }
+
+    @each $slug, $value in $_allUniqueLogoAspectRatios {
+        %brand-logo-aspect-ratio--#{$slug} {
+            aspect-ratio: #{$value};
+        }
+    }
+
+    @each $slug, $map in tokens.$logos {
+        %brand-logo {
+            &--#{$slug} {
+                $aspectRatio: logo-aspect-ratio-value($slug);
+                @extend %brand-logo-aspect-ratio--#{string.slugify( #{$aspectRatio} )};
+            }
+        }
+    }
+}

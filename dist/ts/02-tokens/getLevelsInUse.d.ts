@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.2
+ * @maddimathon/design-system-utilities@0.1.0-alpha.2.draft
  * @license MIT
  */
 import type { Tokens } from './Tokens.ts';

@@ -26,7 +26,7 @@ export class Tokens_Icons<
 > extends AbstractTokens<Tokens_Icons.Data<T_ExtraIconNames>> {
 
     public static get default(): {
-        [ K in keyof Tokens_Icons.Data<never> ]: SvgMaker.Data;
+        [ I in keyof Tokens_Icons.Data<never> ]: SvgMaker.Data<I>;
     } {
 
         return {
@@ -294,9 +294,9 @@ export class Tokens_Icons<
         super();
 
         const merged: {
-            [ I in Tokens_Icons.DefaultIconNames ]: Tokens_Icons.SvgIcon | SvgMaker.Data;
+            [ I in Tokens_Icons.DefaultIconNames ]: Tokens_Icons.SvgIcon<I> | SvgMaker.Data<I>;
         } & {
-            [ I in T_ExtraIconNames ]?: SvgMaker.Data | Tokens_Icons.SvgIcon;
+            [ I in T_ExtraIconNames ]?: SvgMaker.Data<I> | Tokens_Icons.SvgIcon<I>;
         } = mergeArgs(
             Tokens_Icons.default,
             input,
@@ -305,39 +305,75 @@ export class Tokens_Icons<
 
         this.data = objectMap(
             merged,
-            ( { value } ) => (
-                value instanceof Tokens_Icons.SvgIcon
-                    ? value
-                    : value && new Tokens_Icons.SvgIcon( value )
-            )
-        );
+            <
+                T_Icon extends Tokens_Icons.DefaultIconNames | T_ExtraIconNames,
+            >(
+                { value }: { key: T_Icon; value: typeof merged[ T_Icon ]; }
+            ): undefined | Tokens_Icons.SvgIcon<T_Icon> => {
+                // returns
+                if ( value instanceof Tokens_Icons.SvgIcon ) {
+                    return value as Tokens_Icons.SvgIcon<T_Icon>;
+                }
+
+                // returns
+                if ( !value ) {
+                    return undefined;
+                }
+
+                return new Tokens_Icons.SvgIcon( value as SvgMaker.Data<T_Icon> );
+            }
+        ) as Tokens_Icons.Data<T_ExtraIconNames>;
     }
 
     public toJSON(): Tokens_Icons.JsonReturn<T_ExtraIconNames> {
 
         return objectMap(
             this.data,
-            ( { value } ) => value.toJSON()
-        );
+            <
+                T_Icon extends Tokens_Icons.DefaultIconNames | T_ExtraIconNames,
+            >(
+                { value }: {
+                    key: T_Icon;
+                    value: Tokens_Icons.Data<T_ExtraIconNames>[ T_Icon ];
+                }
+            ) => value.toJSON() as SvgMaker.JsonReturn<T_Icon>
+        ) as Tokens_Icons.JsonReturn<T_ExtraIconNames>;
     }
 
     public toScssVars(): {
-        [ K in keyof Tokens_Icons.Data<T_ExtraIconNames> ]: {
+        [ K in Tokens_Icons.DefaultIconNames | T_ExtraIconNames ]: {
+            slug: Tokens_Icons.DefaultIconNames | T_ExtraIconNames;
             label: string;
             height: number;
             width: number;
+            aspectRatio: string;
             embedded: string;
         };
     } {
         return objectMap(
             this.data,
-            ( { value } ) => ( {
+            <
+                T_Icon extends Tokens_Icons.DefaultIconNames | T_ExtraIconNames,
+            >(
+                { value }: {
+                    key: T_Icon;
+                    value: Tokens_Icons.Data<T_ExtraIconNames>[ T_Icon ];
+                }
+            ): {
+                slug: Tokens_Icons.DefaultIconNames | T_ExtraIconNames;
+                label: string;
+                height: number;
+                width: number;
+                aspectRatio: string;
+                embedded: string;
+            } => ( {
+                slug: value.slug as T_Icon,
                 label: value.label,
                 height: value.height,
                 width: value.width,
 
                 aspectRatio: value.aspectRatio[ 0 ] === value.aspectRatio[ 1 ]
-                    ? value.aspectRatio[ 0 ]
+                    ? value.aspectRatio[ 0 ].toString()
                     : value.aspectRatio.join( ' / ' ),
 
                 embedded: `url( 'data:image/svg+xml;utf8,${ value.svg }' )`
@@ -392,9 +428,9 @@ export namespace Tokens_Icons {
     export type Data<
         T_ExtraIconNames extends string,
     > = {
-        [ I in DefaultIconNames ]: SvgIcon;
+        [ I in DefaultIconNames ]: SvgIcon<I>;
     } & {
-            [ I in T_ExtraIconNames ]: SvgIcon;
+            [ I in T_ExtraIconNames ]: SvgIcon<I>;
         };
 
     /**
@@ -403,9 +439,9 @@ export namespace Tokens_Icons {
     export type InputParam<
         T_ExtraIconNames extends string,
     > = Partial<{
-        [ I in DefaultIconNames ]?: undefined | SvgIcon | Partial<SvgMaker.Data>;
+        [ I in DefaultIconNames ]?: undefined | SvgIcon<I> | Partial<SvgMaker.Data<I>>;
     }> & {
-            [ I in T_ExtraIconNames ]?: SvgMaker.Data | SvgIcon;
+            [ I in T_ExtraIconNames ]?: SvgMaker.Data<I> | SvgIcon<I>;
         };
 
     /**
@@ -414,9 +450,9 @@ export namespace Tokens_Icons {
     export type JsonReturn<
         T_ExtraIconNames extends string,
     > = {
-        [ I in DefaultIconNames ]: SvgMaker.JsonReturn;
+        [ I in DefaultIconNames ]: SvgMaker.JsonReturn<T_ExtraIconNames>;
     } & {
-            [ I in T_ExtraIconNames ]: SvgMaker.JsonReturn;
+            [ I in T_ExtraIconNames ]: SvgMaker.JsonReturn<T_ExtraIconNames>;
         };
 
 
@@ -429,10 +465,12 @@ export namespace Tokens_Icons {
      * 
      * @since 0.1.0-alpha
      */
-    export class SvgIcon extends SvgMaker {
+    export class SvgIcon<
+        T_Slug extends string = string,
+    > extends SvgMaker<T_Slug> {
 
         public constructor (
-            data: SvgMaker.Data,
+            data: SvgMaker.Data<T_Slug>,
         ) {
             super( data, [
                 'aria-ignore="true"',

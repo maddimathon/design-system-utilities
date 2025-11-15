@@ -178,13 +178,13 @@ export class Tokens_Themes_Set_SingleMode<
 
         const isLightMode = brightness !== 'dark';
 
-        let description: null | string = null;
+        let description: null | string = input.description ?? null;
 
         // returns if forced colours
         switch ( preset ) {
 
             case 'average':
-                description = 'This is the default contrast mode for most users, unless they have defined a specific preference (‘low’, ‘high’, or ‘forced-colors’) in their OS or browser settings.  It meets or exceeds WCAG AAA contrast standards.';
+                description = description ?? 'This is the default contrast mode for most users, unless they have defined a specific preference (‘low’, ‘high’, or ‘forced-colors’) in their OS or browser settings.  It meets or exceeds WCAG AAA contrast standards.';
 
                 defaultLevels = {
                     background: isLightMode ? '200' : '150',
@@ -237,7 +237,7 @@ export class Tokens_Themes_Set_SingleMode<
                 break;
 
             case 'low':
-                description = 'This is the low contrast mode.  This is the default for users who set ‘low’ as their preferred contrast mode in their OS or browser settings.  It mostly meets WCAG AA contrast standards, but in rare cases does not (which is acceptable in this case).';
+                description = description ?? 'This is the low contrast mode.  This is the default for users who set ‘low’ as their preferred contrast mode in their OS or browser settings.  It mostly meets WCAG AA contrast standards, but in rare cases does not (which is acceptable in this case).';
 
                 defaultLevels = {
                     background: isLightMode ? '300' : '200',
@@ -280,7 +280,7 @@ export class Tokens_Themes_Set_SingleMode<
                 break;
 
             case 'high':
-                description = 'This is the high contrast mode.  This is the default for users who set ‘high’ as their preferred contrast mode in their OS or browser settings.  It exceeds WCAG AAA contrast standards.';
+                description = description ?? 'This is the high contrast mode.  This is the default for users who set ‘high’ as their preferred contrast mode in their OS or browser settings.  It exceeds WCAG AAA contrast standards.';
 
                 defaultLevels = {
                     background: '100',
@@ -325,7 +325,7 @@ export class Tokens_Themes_Set_SingleMode<
                 break;
 
             case 'max':
-                description = 'This is the maximum contrast mode.  This is an alternate option for users who want an even higher contrast than the ‘high’ mode, but without enabling ‘forced-colors’ mode.  It exceeds WCAG AAA contrast standards.';
+                description = description ?? 'This is the maximum contrast mode.  This is an alternate option for users who want an even higher contrast than the ‘high’ mode, but without enabling ‘forced-colors’ mode.  It exceeds WCAG AAA contrast standards.';
 
                 defaultLevels = {
                     background: '100',
@@ -815,6 +815,20 @@ export namespace Tokens_Themes_Set_SingleMode {
             visited?: undefined | __T_ColourOption,
         },
 
+        'link-icon'?: undefined | {
+            $?: undefined | __T_ColourOption,
+            hover?: undefined | __T_ColourOption,
+            active?: undefined | __T_ColourOption,
+            visited?: undefined | __T_ColourOption,
+        },
+
+        'link-ui'?: undefined | {
+            $?: undefined | __T_ColourOption,
+            hover?: undefined | __T_ColourOption,
+            active?: undefined | __T_ColourOption,
+            visited?: undefined | __T_ColourOption,
+        },
+
         button?: undefined | {
             [ K in 'primary' | 'secondary' | 'disabled' ]?: undefined | Data_Button<
                 T_ColourName,
@@ -830,6 +844,12 @@ export namespace Tokens_Themes_Set_SingleMode {
         },
 
         field?: undefined | {
+
+            accent?: undefined | {
+                $?: undefined | __T_ColourOption,
+                hover?: undefined | __T_ColourOption,
+                active?: undefined | __T_ColourOption,
+            },
 
             bg?: undefined | {
                 $?: undefined | __T_ColourOption,
@@ -953,6 +973,8 @@ export namespace Tokens_Themes_Set_SingleMode {
 
         __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>,
     > {
+
+        description?: null | string;
 
         levels?: undefined | {
             background?: ColourLevels | T_ExtraColourLevels;
@@ -1264,7 +1286,7 @@ export namespace Tokens_Themes_Set_SingleMode {
                 ...objectMap( variations.text, ( { value: clrName } ) => clrOpt( clrName, levels.text.accent ) ),
 
                 disabled: clrOpt( variations.text.disabled, levels.text.min ),
-                grey: clrOpt( variations.text.disabled, levels.text.min ),
+                grey: clrOpt( variations.text.disabled, levels.text.accent ),
             };
 
             const ui: CompleteData[ 'ui' ] = {
@@ -1274,7 +1296,7 @@ export namespace Tokens_Themes_Set_SingleMode {
                 ...objectMap( variations.text, ( { value: clrName } ) => clrOpt( clrName, levels.ui.accent ) ),
 
                 disabled: clrOpt( variations.text.disabled, levels.ui.min ),
-                grey: clrOpt( variations.text.disabled, levels.ui.min ),
+                grey: clrOpt( variations.text.disabled, levels.ui.accent ),
             };
 
             const heading: CompleteData[ 'heading' ] = objectGenerator(
@@ -1292,7 +1314,7 @@ export namespace Tokens_Themes_Set_SingleMode {
             };
 
             const linkIcon: CompleteData[ 'link-icon' ] = {
-                $: clrOpt( variations.base, levels.ui.min ),
+                $: clrOpt( variations.base, levels.ui.accent ),
                 visited: clrOpt( variations.base, levels.ui.accent ),
 
                 hover: clrOpt( variations.interactive.hover, levels.ui.accent ),

@@ -7,7 +7,7 @@
 
 /* import - types */
 import type { ElementProps } from '@maddimathon/utility-astro';
-import type { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
+import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
 
 /* import - functions */
 
@@ -22,6 +22,8 @@ import type { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
 /* PROPS ===================================== */
 
 export interface Props extends ElementProps<{}, 'samp'> {
+    /** Whether to set the background as the colour value. */
+    background?: boolean;
     shade: Partial<ColourUtilities.SingleShade>;
     version: keyof ColourUtilities.SingleShade;
 }
@@ -29,11 +31,26 @@ export interface Props extends ElementProps<{}, 'samp'> {
 const {
     shade,
     version = 'hex',
+    background = false,
     class: classList = [],
     ...attrs
 }: Props = Astro.props;
 
 /* CONSTANTS ===================================== */
+
+const bgStyle = background 
+? (
+    version == 'lch' && shade.lch
+    ? ColourUtilities.toString.lch(shade.lch)
+    : version == 'hsl' && shade.hsl
+    ? ColourUtilities.toString.hsl(shade.hsl)
+    : version == 'rgb' && shade.rgb
+    ? ColourUtilities.toString.rgb(shade.rgb)
+    : shade.hex
+    ? ColourUtilities.toString.hex(shade.hex)
+    : undefined
+)
+: undefined;
 ---
 
 {Object.keys( shade ).length && (
@@ -45,6 +62,7 @@ const {
             '||',
             classList,
         ]}
+        style={bgStyle && `background: ${bgStyle} !important;`}
     >
         {
             version == 'hsl' && shade.hsl ? (

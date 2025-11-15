@@ -14,7 +14,9 @@
  * 
  * @since 0.1.0-alpha
  */
-export class SvgMaker implements SvgMaker.Data {
+export class SvgMaker<
+    T_Slug extends string = string,
+> implements SvgMaker.Data<T_Slug> {
 
     /**
      * An implementation of euclid's algorithm to find the greatest common 
@@ -93,7 +95,7 @@ export class SvgMaker implements SvgMaker.Data {
         return `<?xml version="1.0" encoding="UTF-8" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">${ svg }`;
     }
 
-    public readonly slug: string;
+    public readonly slug: T_Slug;
     public readonly label: string;
 
     public readonly height: number;
@@ -106,7 +108,7 @@ export class SvgMaker implements SvgMaker.Data {
     public readonly svgAttrString: string;
 
     public constructor (
-        data: SvgMaker.Data,
+        data: SvgMaker.Data<T_Slug>,
         svgAttrs: string[] = []
     ) {
         this.slug = data.slug;
@@ -149,12 +151,14 @@ export namespace SvgMaker {
     /**
      * @since 0.1.0-alpha
      */
-    export interface Data {
+    export interface Data<
+        T_Slug extends string = string,
+    > {
 
         /**
          * The slugified name of this icon as displayed in code (e.g., props, css).
          */
-        slug: string;
+        slug: T_Slug;
 
         /**
          * The human-readable name of this icon as displayed for users
@@ -181,5 +185,7 @@ export namespace SvgMaker {
     /**
      * @since 0.1.0-alpha
      */
-    export type JsonReturn = ReturnType<SvgMaker[ 'toJSON' ]>;
+    export type JsonReturn<
+        T_Slug extends string = string,
+    > = ReturnType<SvgMaker<T_Slug>[ 'toJSON' ]>;
 }

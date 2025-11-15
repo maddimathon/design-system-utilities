@@ -228,9 +228,9 @@ export class Tokens<
             this.input.colour ?? {},
         );
         this.css = new Tokens_CSS( this.input.css ?? {} );
-        this.icons = new Tokens_Icons( this.input.icons ?? {} );
+        this.icons = new Tokens_Icons<T_ExtraIconNames>( this.input.icons ?? {} );
 
-        this.logos = new Tokens_Logos(
+        this.logos = new Tokens_Logos<T_LogoNames>(
             // @ts-expect-error
             this.input.logos ?? {}
         );
@@ -277,6 +277,7 @@ export class Tokens<
             ...this.css.toScssVars(),
 
             icons: this.icons.toScssVars(),
+            logos: this.logos.toScssVars(),
 
             colour: this.colour.toScssVars(),
             themes: this.themes.toScssVars(),

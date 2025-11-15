@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.2
+ * @maddimathon/design-system-utilities@0.1.0-alpha.2.draft
  * @license MIT
  */
 import type { ColourLevels_Extended, ColourLevels, ColourTokenSlug, CssSystemColor, RequiredHeadingLevels, ThemeColourOption } from '../@types.js';
@@ -345,12 +345,29 @@ export declare namespace Tokens_Themes_Set_SingleMode {
             active?: undefined | __T_ColourOption;
             visited?: undefined | __T_ColourOption;
         };
+        'link-icon'?: undefined | {
+            $?: undefined | __T_ColourOption;
+            hover?: undefined | __T_ColourOption;
+            active?: undefined | __T_ColourOption;
+            visited?: undefined | __T_ColourOption;
+        };
+        'link-ui'?: undefined | {
+            $?: undefined | __T_ColourOption;
+            hover?: undefined | __T_ColourOption;
+            active?: undefined | __T_ColourOption;
+            visited?: undefined | __T_ColourOption;
+        };
         button?: undefined | {
             [K in 'primary' | 'secondary' | 'disabled']?: undefined | Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>;
         } & {
             [K in T_Keyword_Universal]?: undefined | Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>;
         };
         field?: undefined | {
+            accent?: undefined | {
+                $?: undefined | __T_ColourOption;
+                hover?: undefined | __T_ColourOption;
+                active?: undefined | __T_ColourOption;
+            };
             bg?: undefined | {
                 $?: undefined | __T_ColourOption;
                 hover?: undefined | __T_ColourOption;
@@ -437,6 +454,7 @@ export declare namespace Tokens_Themes_Set_SingleMode {
      * @since 0.1.0-alpha
      */
     export interface InputParam<T_ColourName extends string, T_ExtraColourLevels extends ColourLevels_Extended, T_Keyword_Universal extends string, T_Keyword_Text extends string, __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>> {
+        description?: null | string;
         levels?: undefined | {
             background?: ColourLevels | T_ExtraColourLevels;
             text?: ColourLevels | T_ExtraColourLevels | Partial<LevelsSet<T_ExtraColourLevels>>;

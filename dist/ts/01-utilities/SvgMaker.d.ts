@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.2
+ * @maddimathon/design-system-utilities@0.1.0-alpha.2.draft
  * @license MIT
  */
 /**
@@ -12,7 +12,7 @@
  *
  * @since 0.1.0-alpha
  */
-export declare class SvgMaker implements SvgMaker.Data {
+export declare class SvgMaker<T_Slug extends string = string> implements SvgMaker.Data<T_Slug> {
     /**
      * An implementation of euclid's algorithm to find the greatest common
      * denominator of two numbers.
@@ -24,7 +24,7 @@ export declare class SvgMaker implements SvgMaker.Data {
     static svgAttrString(width: number, height: number, attrs?: string[]): string;
     static svg(svgAttrString: string, innerSVG: string): string;
     static svgFile(svg: string): string;
-    readonly slug: string;
+    readonly slug: T_Slug;
     readonly label: string;
     readonly height: number;
     readonly width: number;
@@ -33,9 +33,9 @@ export declare class SvgMaker implements SvgMaker.Data {
     readonly svg: string;
     readonly svgFile: string;
     readonly svgAttrString: string;
-    constructor(data: SvgMaker.Data, svgAttrs?: string[]);
+    constructor(data: SvgMaker.Data<T_Slug>, svgAttrs?: string[]);
     toJSON(): {
-        slug: string;
+        slug: T_Slug;
         label: string;
         height: number;
         width: number;
@@ -54,11 +54,11 @@ export declare namespace SvgMaker {
     /**
      * @since 0.1.0-alpha
      */
-    interface Data {
+    interface Data<T_Slug extends string = string> {
         /**
          * The slugified name of this icon as displayed in code (e.g., props, css).
          */
-        slug: string;
+        slug: T_Slug;
         /**
          * The human-readable name of this icon as displayed for users
          * (including via screen-readers).
@@ -80,6 +80,6 @@ export declare namespace SvgMaker {
     /**
      * @since 0.1.0-alpha
      */
-    type JsonReturn = ReturnType<SvgMaker['toJSON']>;
+    type JsonReturn<T_Slug extends string = string> = ReturnType<SvgMaker<T_Slug>['toJSON']>;
 }
 //# sourceMappingURL=SvgMaker.d.ts.map

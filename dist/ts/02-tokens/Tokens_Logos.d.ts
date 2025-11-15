@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.2
+ * @maddimathon/design-system-utilities@0.1.0-alpha.2.draft
  * @license MIT
  */
 import { SvgMaker } from '../01-utilities/SvgMaker.js';
@@ -23,7 +23,7 @@ export declare class Tokens_Logos<T_LogoNames extends string> extends AbstractTo
             label: string;
             height: number;
             width: number;
-            embedded: string;
+            aspectRatio: string;
         };
     };
 }
@@ -37,19 +37,19 @@ export declare namespace Tokens_Logos {
      * @since 0.1.0-alpha
      */
     type Data<T_LogoNames extends string> = {
-        [I in T_LogoNames]: SvgMaker;
+        [L in T_LogoNames]: SvgMaker<L>;
     };
     /**
      * @since 0.1.0-alpha
      */
     type InputParam<T_LogoNames extends string> = {
-        [I in T_LogoNames]: SvgMaker.Data | SvgMaker;
+        [L in T_LogoNames]: SvgMaker.Data<L> | SvgMaker<L>;
     };
     /**
      * @since 0.1.0-alpha
      */
     type JsonReturn<T_LogoNames extends string> = {
-        [I in T_LogoNames]: SvgMaker.JsonReturn;
+        [L in T_LogoNames]: SvgMaker.JsonReturn<T_LogoNames>;
     };
 }
 //# sourceMappingURL=Tokens_Logos.d.ts.map

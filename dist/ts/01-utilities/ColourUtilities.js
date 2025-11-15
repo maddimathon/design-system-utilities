@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.2
+ * @maddimathon/design-system-utilities@0.1.0-alpha.2.draft
  * @license MIT
  */
 import clrConvert from 'color-convert';
@@ -71,6 +71,9 @@ export var ColourUtilities;
     });
     /* UTILITY FUNCTIONS
      * ====================================================================== */
+    /**
+     * @since 0.1.0-alpha
+     */
     ColourUtilities.LevelConverter = {
         '100': '900',
         '150': '850',
@@ -90,6 +93,9 @@ export var ColourUtilities;
         '850': '150',
         '900': '100',
     };
+    /**
+     * @since 0.1.0-alpha
+     */
     function getDarkLevel(lightLevel) {
         return ColourUtilities.LevelConverter[lightLevel];
         // const dark = ( 1000 - Number( lightLevel ) ).toFixed( 0 );

@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-alpha.2
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.2.draft
 /// @since 0.1.0-alpha
 ///
 
@@ -131,6 +131,75 @@
     // returns
     @if $value == null {
         @warn "'label' was not a key in tokens.$icons.#{$slug}";
+        @return $slug;
+    }
+
+    @return $value;
+}
+
+///
+/// Uses the logo tokens to return a url('...') value.
+///
+/// @since 0.1.0-alpha.2.draft
+///
+@function logo-aspect-ratio-value($slug) {
+    // returns
+    @if not map.has-key(tokens.$logos, $slug) {
+        @warn "$slug '#{$slug}' was not a key in tokens.$logos";
+        @return $slug;
+    }
+
+    $value: map.get(tokens.$logos, $slug, aspectRatio);
+
+    // returns
+    @if $value == null {
+        @warn "'aspectRatio' was not a key in tokens.$logos.#{$slug}";
+        @return $slug;
+    }
+
+    @return $value;
+}
+
+///
+/// Uses the logo tokens to return its aspect ratio.
+///
+/// @since 0.1.0-alpha.2.draft
+///
+@function logo-embedded-value($slug) {
+    // returns
+    @if not map.has-key(tokens.$logos, $slug) {
+        @warn "$slug '#{$slug}' was not a key in tokens.$logos";
+        @return $slug;
+    }
+
+    $value: map.get(tokens.$logos, $slug, embedded);
+
+    // returns
+    @if $value == null {
+        @warn "'embedded' was not a key in tokens.$logos.#{$slug}";
+        @return $slug;
+    }
+
+    @return $value;
+}
+
+///
+/// Uses the logo tokens to return its label value.
+///
+/// @since 0.1.0-alpha.2.draft
+///
+@function logo-label-value($slug) {
+    // returns
+    @if not map.has-key(tokens.$logos, $slug) {
+        @warn "$slug '#{$slug}' was not a key in tokens.$logos";
+        @return $slug;
+    }
+
+    $value: map.get(tokens.$logos, $slug, label);
+
+    // returns
+    @if $value == null {
+        @warn "'label' was not a key in tokens.$logos.#{$slug}";
         @return $slug;
     }
 

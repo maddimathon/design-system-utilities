@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.2
+ * @maddimathon/design-system-utilities@0.1.0-alpha.2.draft
  * @license MIT
  */
 // import { JsonToScss } from '@maddimathon/utility-sass';
@@ -34,9 +34,9 @@ export class Tokens_Logos extends AbstractTokens {
             height: value.height,
             width: value.width,
             aspectRatio: value.aspectRatio[0] === value.aspectRatio[1]
-                ? value.aspectRatio[0]
+                ? value.aspectRatio[0].toString()
                 : value.aspectRatio.join(' / '),
-            embedded: `url( 'data:image/svg+xml;utf8,${value.svg}' )`
+            // embedded: `url( 'data:image/svg+xml;utf8,${ value.svg }' )`
         }));
     }
 }

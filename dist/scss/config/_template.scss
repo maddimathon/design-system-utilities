@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/utility-astro@0.1.0-alpha.2
+/// @package @maddimathon/utility-astro@0.1.0-alpha.2.draft
 /// @since 0.1.0-alpha
 ///
 
@@ -28,6 +28,10 @@ $print_docs: utils.config-valid-bool($print_docs, 'print_docs');
 
 $print_icons: utils.$print_utils or utils.$print_astro or $print_alertBlocks !default;
 $print_icons: utils.config-valid-bool($print_icons, 'print_icons');
+
+$print_logos: $print_icons or utils.$print_utils or utils.$print_astro or
+    $print_alertBlocks !default;
+$print_logos: utils.config-valid-bool($print_logos, 'print_logos');
 
 $template_button_inlineIcons: utils.$include_html !default;
 $template_button_inlineIcons: utils.config-valid-bool(

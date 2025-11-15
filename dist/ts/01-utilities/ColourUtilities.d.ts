@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.2
+ * @maddimathon/design-system-utilities@0.1.0-alpha.2.draft
  * @license MIT
  */
 import * as z from 'zod';
@@ -384,6 +384,9 @@ export declare namespace ColourUtilities {
             c: number;
         };
     }>;
+    /**
+     * @since 0.1.0-alpha
+     */
     const LevelConverter: {
         readonly '100': "900";
         readonly '150': "850";
@@ -403,6 +406,9 @@ export declare namespace ColourUtilities {
         readonly '850': "150";
         readonly '900': "100";
     };
+    /**
+     * @since 0.1.0-alpha
+     */
     function getDarkLevel<T_LightLevel extends ColourLevels | ColourLevels_Extended>(lightLevel: T_LightLevel): (typeof LevelConverter)[T_LightLevel];
     /**
      * @since 0.1.0-alpha

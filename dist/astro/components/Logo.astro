@@ -1,0 +1,44 @@
+---
+/**
+ * @since 0.1.0-alpha
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+import type { SvgMaker } from '../../ts/01-utilities/SvgMaker.js';
+
+/* import - functions */
+
+/* import - values */
+
+/* import - components */
+import type {
+    ClassList,
+    GenericElementProps,
+} from '@maddimathon/utility-astro';
+
+/* import - layouts */
+
+/* PROPS ===================================== */
+
+export interface Props extends GenericElementProps<{}, 'div'> {
+    logo: SvgMaker.JsonReturn;
+    class?: ClassList;
+}
+
+const { logo, class: classList = [], ...attributes }: Props = Astro.props;
+
+/* CONSTANTS ===================================== */
+
+const { label, slug, svg } = logo;
+---
+
+<div
+    {...attributes}
+    class:list={['brand-logo', `brand-logo--${slug}`, '||', classList]}
+    aria-label={label}
+    title={label}
+>
+    <Fragment set:html={svg} />
+</div>

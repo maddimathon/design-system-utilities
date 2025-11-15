@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-alpha.2
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.2.draft
 /// @since 0.1.0-alpha
 ///
 
@@ -60,8 +60,23 @@
     //
     $additional: list.append($additional, ('.alert-block', 'alert'));
     $additional: list.append($additional, ('p.aside', 'aside'));
+    $additional: list.append($additional, ('.brand-logo', brand-logo));
     $additional: list.append($additional, ('.button-span', 'button-span'));
     $additional: list.append($additional, ('.icon', 'icon'));
+
+    @each $iconSlug, $iconMap in tokens.$icons {
+        $additional: list.append(
+            $additional,
+            ('.icon--#{$iconSlug}', icon--#{$iconSlug})
+        );
+    }
+
+    @each $logoSlug, $logoMap in tokens.$logos {
+        $additional: list.append(
+            $additional,
+            ('.brand-logo--#{$logoSlug}', brand-logo--#{$logoSlug})
+        );
+    }
 
     @each $variant
         in map.keys(

@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.2
+ * @maddimathon/design-system-utilities@0.1.0-alpha.2.draft
  * @license MIT
  */
 import { slugify } from '@maddimathon/utility-typescript/functions';
@@ -108,6 +108,7 @@ export class Tokens extends AbstractTokens {
             ...this.typography.toScssVars(),
             ...this.css.toScssVars(),
             icons: this.icons.toScssVars(),
+            logos: this.logos.toScssVars(),
             colour: this.colour.toScssVars(),
             themes: this.themes.toScssVars(),
         };

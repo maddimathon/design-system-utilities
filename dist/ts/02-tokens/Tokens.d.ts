@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.2
+ * @maddimathon/design-system-utilities@0.1.0-alpha.2.draft
  * @license MIT
  */
 import type { ThemeMode_Contrast, ThemeMode_ContrastAtLeastOne, ThemeMode_ContrastExtraOptions, ColourLevels_Extended, TokenLevels } from './@types.js';
@@ -53,14 +53,22 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
     protected constructor(clrNames: readonly T_ColourName[], extraColourLevels: readonly T_ExtraColourLevels[], themes: Tokens_Themes<NoInfer<T_ColourName>, NoInfer<T_ExtraColourLevels>, T_ThemeBrightnessMode[number], T_ThemeContrastMode[number], T_ThemeName, T_ThemeKeyword_Universal, T_ThemeKeyword_Text>, input: Omit<Tokens_Internal.InputParam<NoInfer<T_ColourName>, NoInfer<T_ExtraColourLevels>, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_ExtraIconNames, T_LogoNames, T_ThemeKeyword_Universal, T_ThemeKeyword_Text>, "themes">, config?: Tokens_Internal.Config);
     toJSON(): Tokens_Internal.JsonReturn<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_ExtraIconNames, T_LogoNames, T_ThemeKeyword_Universal, T_ThemeKeyword_Text>;
     toScssVars(): {
-        icons: { [K in keyof Tokens_Icons.Data<T_ExtraIconNames>]: {
+        icons: { [K in Tokens_Icons.DefaultIconNames | T_ExtraIconNames]: {
+            slug: Tokens_Icons.DefaultIconNames | T_ExtraIconNames;
             label: string;
             height: number;
             width: number;
+            aspectRatio: string;
             embedded: string;
         }; };
-        colour: Tokens_Colour.Data<T_ColourName, T_ExtraColourLevels> extends infer T extends object ? { [K_1 in keyof T]: T_Return; } : never;
-        themes: { [K_2 in T_ThemeName]: { [B in T_ThemeBrightnessMode[number]]: { [C in T_ThemeContrastMode[number]]: {
+        logos: { [K_1 in keyof Tokens_Logos.Data<T_LogoNames>]: {
+            label: string;
+            height: number;
+            width: number;
+            aspectRatio: string;
+        }; };
+        colour: Tokens_Colour.Data<T_ColourName, T_ExtraColourLevels> extends infer T extends object ? { [K_2 in keyof T]: T_Return; } : never;
+        themes: { [K_3 in T_ThemeName]: { [B in T_ThemeBrightnessMode[number]]: { [C in T_ThemeContrastMode[number]]: {
             system: {
                 background: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 button: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
@@ -126,7 +134,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                 active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 disabled: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 grey: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-            } & { [K_4 in T_ThemeKeyword_Universal]: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>; } & { [K_5 in T_ThemeKeyword_Text]: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>; };
+            } & { [K_5 in T_ThemeKeyword_Universal]: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>; } & { [K_6 in T_ThemeKeyword_Text]: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>; };
             ui: {
                 $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
             } & {
@@ -136,7 +144,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                 active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 disabled: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 grey: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-            } & { [K_6 in T_ThemeKeyword_Universal]: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>; } & { [K_7 in T_ThemeKeyword_Text]: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>; };
+            } & { [K_7 in T_ThemeKeyword_Universal]: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>; } & { [K_8 in T_ThemeKeyword_Text]: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>; };
             heading: {
                 1: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 2: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
@@ -181,7 +189,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                 primary: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
                 secondary: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
                 disabled: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
-            } & { [K_8 in T_ThemeKeyword_Universal]: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>; };
+            } & { [K_9 in T_ThemeKeyword_Universal]: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>; };
             field: {
                 accent: {
                     $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;

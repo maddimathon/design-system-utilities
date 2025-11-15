@@ -138,6 +138,75 @@
 }
 
 ///
+/// Uses the logo tokens to return a url('...') value.
+///
+/// @since ___PKG_VERSION___
+///
+@function logo-aspect-ratio-value($slug) {
+    // returns
+    @if not map.has-key(tokens.$logos, $slug) {
+        @warn "$slug '#{$slug}' was not a key in tokens.$logos";
+        @return $slug;
+    }
+
+    $value: map.get(tokens.$logos, $slug, aspectRatio);
+
+    // returns
+    @if $value == null {
+        @warn "'aspectRatio' was not a key in tokens.$logos.#{$slug}";
+        @return $slug;
+    }
+
+    @return $value;
+}
+
+///
+/// Uses the logo tokens to return its aspect ratio.
+///
+/// @since ___PKG_VERSION___
+///
+@function logo-embedded-value($slug) {
+    // returns
+    @if not map.has-key(tokens.$logos, $slug) {
+        @warn "$slug '#{$slug}' was not a key in tokens.$logos";
+        @return $slug;
+    }
+
+    $value: map.get(tokens.$logos, $slug, embedded);
+
+    // returns
+    @if $value == null {
+        @warn "'embedded' was not a key in tokens.$logos.#{$slug}";
+        @return $slug;
+    }
+
+    @return $value;
+}
+
+///
+/// Uses the logo tokens to return its label value.
+///
+/// @since ___PKG_VERSION___
+///
+@function logo-label-value($slug) {
+    // returns
+    @if not map.has-key(tokens.$logos, $slug) {
+        @warn "$slug '#{$slug}' was not a key in tokens.$logos";
+        @return $slug;
+    }
+
+    $value: map.get(tokens.$logos, $slug, label);
+
+    // returns
+    @if $value == null {
+        @warn "'label' was not a key in tokens.$logos.#{$slug}";
+        @return $slug;
+    }
+
+    @return $value;
+}
+
+///
 /// Uses the transition time tokens to prepare the appropriate numerical value
 /// (rem).
 ///

@@ -1,11 +1,20 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-alpha.2
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.2.draft
 /// @since 0.1.0-alpha
 ///
 
 @use '../../../config';
 
 @use '../../../lib' as *;
+
+@if config.$print_logos {
+    @if config.$print_headings {
+        /* # BLOCKS - LOGOS
+         * ======================================================================== */
+    }
+
+    @include snippet-support-logos;
+}
 
 @if config.$print_icons {
     @if config.$print_headings {

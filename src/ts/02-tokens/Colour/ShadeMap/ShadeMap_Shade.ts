@@ -203,7 +203,7 @@ export class Tokens_Colour_ShadeMap_Shade<
     }
 
     public toScssVars() {
-        return ColourUtilities.toString.lch( this.data.lch );
+        return ColourUtilities.toString.hsl( this.data.hsl );
     }
 }
 

@@ -29,6 +29,10 @@ $print_docs: utils.config-valid-bool($print_docs, 'print_docs');
 $print_icons: utils.$print_utils or utils.$print_astro or $print_alertBlocks !default;
 $print_icons: utils.config-valid-bool($print_icons, 'print_icons');
 
+$print_logos: $print_icons or utils.$print_utils or utils.$print_astro or
+    $print_alertBlocks !default;
+$print_logos: utils.config-valid-bool($print_logos, 'print_logos');
+
 $template_button_inlineIcons: utils.$include_html !default;
 $template_button_inlineIcons: utils.config-valid-bool(
     $template_button_inlineIcons,

@@ -3,8 +3,9 @@
 /// @since 0.1.0-alpha
 ///
 
-@use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/feature-check';
 @use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/selector';
 @use 'pkg:@maddimathon/utility-sass/string';
 
 // @use 'pkg:@maddimathon/utility-astro/03-snippets' as lib;
@@ -15,7 +16,6 @@
 @use '../../01-functions' as *;
 // @use '../../02-mixins' as *;
 
-$_allUniqueIconAspectRatioSlugs: ();
 $_allUniqueIconAspectRatios: ();
 
 @each $slug, $map in tokens.$icons {
@@ -23,11 +23,7 @@ $_allUniqueIconAspectRatios: ();
 
     $_ratioSlug: string.slugify(#{$_ratio});
 
-    @if list.index($_allUniqueIconAspectRatioSlugs, $_ratioSlug) == null {
-        $_allUniqueIconAspectRatioSlugs: list.append(
-            $_allUniqueIconAspectRatioSlugs,
-            $_ratioSlug
-        );
+    @if not map.has-key($_allUniqueIconAspectRatios, $_ratioSlug) {
         $_allUniqueIconAspectRatios: map.set(
             $_allUniqueIconAspectRatios,
             $_ratioSlug,
@@ -45,6 +41,7 @@ $_allUniqueIconAspectRatios: ();
 @mixin snippet-support-icons {
     %icon {
         display: inline-block;
+        position: relative;
         vertical-align: #{var-token(icon-vertical-align, $fallback: middle)};
 
         height: #{var-token(icon-size)};
@@ -53,6 +50,13 @@ $_allUniqueIconAspectRatios: ();
         );
 
         color: #{var-token(icon-color)};
+
+        @include feature-check.js-no-support(aspectRatio) {
+            width: #{var-token(icon-size)};
+            width: calc(
+                #{var-token(icon-size)} * var(--icon-size--font-multiplier, 1)
+            );
+        }
 
         > svg {
         }

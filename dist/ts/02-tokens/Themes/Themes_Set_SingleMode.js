@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.2
+ * @maddimathon/design-system-utilities@0.1.0-alpha.2.draft
  * @license MIT
  */
 import { arrayUnique, mergeArgs } from '@maddimathon/utility-typescript/functions';
@@ -32,11 +32,11 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
         const variations = Tokens_Themes_Set_SingleMode.Build.completeVariations(clrNames, input.variations);
         const clrOpt = Tokens_Themes_Set_SingleMode.Build.colourOption;
         const isLightMode = brightness !== 'dark';
-        let description = null;
+        let description = input.description ?? null;
         // returns if forced colours
         switch (preset) {
             case 'average':
-                description = 'This is the default contrast mode for most users, unless they have defined a specific preference (‘low’, ‘high’, or ‘forced-colors’) in their OS or browser settings.  It meets or exceeds WCAG AAA contrast standards.';
+                description = description ?? 'This is the default contrast mode for most users, unless they have defined a specific preference (‘low’, ‘high’, or ‘forced-colors’) in their OS or browser settings.  It meets or exceeds WCAG AAA contrast standards.';
                 defaultLevels = {
                     background: isLightMode ? '200' : '150',
                     text: {
@@ -69,7 +69,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 };
                 break;
             case 'low':
-                description = 'This is the low contrast mode.  This is the default for users who set ‘low’ as their preferred contrast mode in their OS or browser settings.  It mostly meets WCAG AA contrast standards, but in rare cases does not (which is acceptable in this case).';
+                description = description ?? 'This is the low contrast mode.  This is the default for users who set ‘low’ as their preferred contrast mode in their OS or browser settings.  It mostly meets WCAG AA contrast standards, but in rare cases does not (which is acceptable in this case).';
                 defaultLevels = {
                     background: isLightMode ? '300' : '200',
                     text: {
@@ -92,7 +92,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 };
                 break;
             case 'high':
-                description = 'This is the high contrast mode.  This is the default for users who set ‘high’ as their preferred contrast mode in their OS or browser settings.  It exceeds WCAG AAA contrast standards.';
+                description = description ?? 'This is the high contrast mode.  This is the default for users who set ‘high’ as their preferred contrast mode in their OS or browser settings.  It exceeds WCAG AAA contrast standards.';
                 defaultLevels = {
                     background: '100',
                     text: {
@@ -119,7 +119,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 levels = Tokens_Themes_Set_SingleMode.Build.completeLevels(mergeArgs(defaultLevels, input.levels, true));
                 break;
             case 'max':
-                description = 'This is the maximum contrast mode.  This is an alternate option for users who want an even higher contrast than the ‘high’ mode, but without enabling ‘forced-colors’ mode.  It exceeds WCAG AAA contrast standards.';
+                description = description ?? 'This is the maximum contrast mode.  This is an alternate option for users who want an even higher contrast than the ‘high’ mode, but without enabling ‘forced-colors’ mode.  It exceeds WCAG AAA contrast standards.';
                 defaultLevels = {
                     background: '100',
                     text: {
@@ -316,14 +316,14 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 ...objectMap(variations.universal, ({ value: clrName }) => clrOpt(clrName, levels.text.accent)),
                 ...objectMap(variations.text, ({ value: clrName }) => clrOpt(clrName, levels.text.accent)),
                 disabled: clrOpt(variations.text.disabled, levels.text.min),
-                grey: clrOpt(variations.text.disabled, levels.text.min),
+                grey: clrOpt(variations.text.disabled, levels.text.accent),
             };
             const ui = {
                 $: clrOpt(variations.base, levels.ui.$),
                 ...objectMap(variations.universal, ({ value: clrName }) => clrOpt(clrName, levels.ui.accent)),
                 ...objectMap(variations.text, ({ value: clrName }) => clrOpt(clrName, levels.ui.accent)),
                 disabled: clrOpt(variations.text.disabled, levels.ui.min),
-                grey: clrOpt(variations.text.disabled, levels.ui.min),
+                grey: clrOpt(variations.text.disabled, levels.ui.accent),
             };
             const heading = objectGenerator(Tokens_Themes_Set_SingleMode.allHeadingLevels, (hdgNum) => clrOpt(variations.heading[hdgNum] ?? variations.heading[10], levels.heading[hdgNum]));
             const link = {
@@ -333,7 +333,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 disabled: clrOpt(variations.text.disabled, levels.text.min),
             };
             const linkIcon = {
-                $: clrOpt(variations.base, levels.ui.min),
+                $: clrOpt(variations.base, levels.ui.accent),
                 visited: clrOpt(variations.base, levels.ui.accent),
                 hover: clrOpt(variations.interactive.hover, levels.ui.accent),
                 active: clrOpt(variations.interactive.active, levels.ui.accent),

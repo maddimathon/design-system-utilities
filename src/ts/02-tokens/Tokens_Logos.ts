@@ -55,7 +55,8 @@ export class Tokens_Logos<
             label: string;
             height: number;
             width: number;
-            embedded: string;
+            aspectRatio: string;
+            // embedded: string;
         };
     } {
         return objectMap(
@@ -66,10 +67,10 @@ export class Tokens_Logos<
                 width: value.width,
 
                 aspectRatio: value.aspectRatio[ 0 ] === value.aspectRatio[ 1 ]
-                    ? value.aspectRatio[ 0 ]
+                    ? value.aspectRatio[ 0 ].toString()
                     : value.aspectRatio.join( ' / ' ),
 
-                embedded: `url( 'data:image/svg+xml;utf8,${ value.svg }' )`
+                // embedded: `url( 'data:image/svg+xml;utf8,${ value.svg }' )`
             } )
         );
     }
@@ -88,7 +89,7 @@ export namespace Tokens_Logos {
     export type Data<
         T_LogoNames extends string,
     > = {
-            [ I in T_LogoNames ]: SvgMaker;
+            [ L in T_LogoNames ]: SvgMaker<L>;
         };
 
     /**
@@ -97,7 +98,7 @@ export namespace Tokens_Logos {
     export type InputParam<
         T_LogoNames extends string,
     > = {
-            [ I in T_LogoNames ]: SvgMaker.Data | SvgMaker;
+            [ L in T_LogoNames ]: SvgMaker.Data<L> | SvgMaker<L>;
         };
 
     /**
@@ -106,6 +107,6 @@ export namespace Tokens_Logos {
     export type JsonReturn<
         T_LogoNames extends string,
     > = {
-            [ I in T_LogoNames ]: SvgMaker.JsonReturn;
+            [ L in T_LogoNames ]: SvgMaker.JsonReturn<T_LogoNames>;
         };
 }

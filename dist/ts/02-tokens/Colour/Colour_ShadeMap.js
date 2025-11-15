@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.2
+ * @maddimathon/design-system-utilities@0.1.0-alpha.2.draft
  * @license MIT
  */
 import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
@@ -57,7 +57,7 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
  * @since 0.1.0-alpha
  */
 (function (Tokens_Colour_ShadeMap) {
-    /* FUNCTIIONS
+    /* FUNCTIONS
      * ====================================================================== */
     // UPGRADE - make this work by only setting lch or hsl hue value
     function completeMap(allNames, extraLevels, name, part) {
