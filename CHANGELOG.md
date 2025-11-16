@@ -19,6 +19,29 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.3** — 2025-11-15
+
+Improved theme swatches, logos.
+
+### Added
+- Added widget previews of alternate themes to default theme swatches
+- Added option to override theme descriptions
+- Added generic types so that logo & icon object slugs are recognized as their keys
+- Added logo support mixin (with aspect-ratio setting like icons)
+- Added scss aspect-ratio-string-to-list() function for icon & logo aspect ratio strings
+- Added $mx_aspectRatio_includeFallback config var
+- Added local aspect-ratio fallback mixin
+
+### Changed
+- Switched colour token toScss() to output the hsl value (was causing 
+  inconsistency to convert from lch in the scss)
+
+### Fixed
+- Fixed theme swatch token inheritance
+- Fixed missing 'link-icon' and 'link-ui' keys in 
+  Tokens_Themes_Set_SingleMode.Data_RecursivePartial type
+
+
 ## **0.1.0-alpha.2** — 2025-11-03
 
 Small astro component & style fixes.
