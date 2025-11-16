@@ -9,7 +9,7 @@
  */
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0-alpha.4
+ * @maddimathon/utility-sass@0.1.0-alpha.5
  * 
  * https://maddimathon.github.io/utility-sass
  */
@@ -5832,7 +5832,44 @@ a:active {
             var(--icon-size-pseudo, 1em) *
                 var(--icon-size-pseudo--font-multiplier, 1)
         );
-        aspect-ratio: 1;
+        aspect-ratio: 1/1;
+    }
+    .no-js a[target="_blank"]::after,
+    .js__no-whereSelector a[target="_blank"]::after {
+        /* aspect-ratio fallback */
+        position: relative;
+    }
+    .no-js a[target="_blank"]::after::before,
+    .js__no-whereSelector a[target="_blank"]::after::before {
+        /* aspect-ratio fallback */
+        content: "";
+        float: left;
+        padding-top: 100%;
+    }
+    .no-js a[target="_blank"]::after::after,
+    .js__no-whereSelector a[target="_blank"]::after::after {
+        /* aspect-ratio fallback */
+        content: "";
+        display: block;
+        clear: both;
+    }
+    :where(.js__no-aspectRatio) a[target="_blank"]::after {
+        /* aspect-ratio fallback */
+        position: relative;
+    }
+    :where(.js__no-aspectRatio) a[target="_blank"]::after::before {
+        /* aspect-ratio fallback */
+        content: "";
+        float: left;
+        padding-top: 100%;
+    }
+    :where(.js__no-aspectRatio) a[target="_blank"]::after::after {
+        /* aspect-ratio fallback */
+        content: "";
+        display: block;
+        clear: both;
+    }
+    a[target="_blank"]::after {
         align-self: center;
     }
 }
@@ -5941,7 +5978,44 @@ a[aria-disabled="true"]:active {
             var(--icon-size-pseudo, 1em) *
                 var(--icon-size-pseudo--font-multiplier, 1)
         );
-        aspect-ratio: 1;
+        aspect-ratio: 1/1;
+    }
+    .no-js a[aria-disabled="true"]::before,
+    .js__no-whereSelector a[aria-disabled="true"]::before {
+        /* aspect-ratio fallback */
+        position: relative;
+    }
+    .no-js a[aria-disabled="true"]::before::before,
+    .js__no-whereSelector a[aria-disabled="true"]::before::before {
+        /* aspect-ratio fallback */
+        content: "";
+        float: left;
+        padding-top: 100%;
+    }
+    .no-js a[aria-disabled="true"]::before::after,
+    .js__no-whereSelector a[aria-disabled="true"]::before::after {
+        /* aspect-ratio fallback */
+        content: "";
+        display: block;
+        clear: both;
+    }
+    :where(.js__no-aspectRatio) a[aria-disabled="true"]::before {
+        /* aspect-ratio fallback */
+        position: relative;
+    }
+    :where(.js__no-aspectRatio) a[aria-disabled="true"]::before::before {
+        /* aspect-ratio fallback */
+        content: "";
+        float: left;
+        padding-top: 100%;
+    }
+    :where(.js__no-aspectRatio) a[aria-disabled="true"]::before::after {
+        /* aspect-ratio fallback */
+        content: "";
+        display: block;
+        clear: both;
+    }
+    a[aria-disabled="true"]::before {
         align-self: center;
     }
 }
@@ -7582,7 +7656,111 @@ a[aria-disabled="true"].button-secondary:active {
             var(--icon-size-pseudo, 1em) *
                 var(--icon-size-pseudo--font-multiplier, 1)
         );
-        aspect-ratio: 1;
+        aspect-ratio: 1/1;
+    }
+    .no-js button[aria-disabled="true"]::before,
+    .no-js [aria-disabled="true"][role="button"]::before,
+    .no-js input[aria-disabled="true"][type="button"]::before,
+    .no-js input[aria-disabled="true"][type="submit"]::before,
+    .no-js a[aria-disabled="true"].button::before,
+    .no-js a[aria-disabled="true"].button-secondary::before,
+    .js__no-whereSelector button[aria-disabled="true"]::before,
+    .js__no-whereSelector [aria-disabled="true"][role="button"]::before,
+    .js__no-whereSelector input[aria-disabled="true"][type="button"]::before,
+    .js__no-whereSelector input[aria-disabled="true"][type="submit"]::before,
+    .js__no-whereSelector a[aria-disabled="true"].button::before,
+    .js__no-whereSelector a[aria-disabled="true"].button-secondary::before {
+        /* aspect-ratio fallback */
+        position: relative;
+    }
+    .no-js button[aria-disabled="true"]::before::before,
+    .no-js [aria-disabled="true"][role="button"]::before::before,
+    .no-js input[aria-disabled="true"][type="button"]::before::before,
+    .no-js input[aria-disabled="true"][type="submit"]::before::before,
+    .no-js a[aria-disabled="true"].button::before::before,
+    .no-js a[aria-disabled="true"].button-secondary::before::before,
+    .js__no-whereSelector button[aria-disabled="true"]::before::before,
+    .js__no-whereSelector [aria-disabled="true"][role="button"]::before::before,
+    .js__no-whereSelector
+        input[aria-disabled="true"][type="button"]::before::before,
+    .js__no-whereSelector
+        input[aria-disabled="true"][type="submit"]::before::before,
+    .js__no-whereSelector a[aria-disabled="true"].button::before::before,
+    .js__no-whereSelector
+        a[aria-disabled="true"].button-secondary::before::before {
+        /* aspect-ratio fallback */
+        content: "";
+        float: left;
+        padding-top: 100%;
+    }
+    .no-js button[aria-disabled="true"]::before::after,
+    .no-js [aria-disabled="true"][role="button"]::before::after,
+    .no-js input[aria-disabled="true"][type="button"]::before::after,
+    .no-js input[aria-disabled="true"][type="submit"]::before::after,
+    .no-js a[aria-disabled="true"].button::before::after,
+    .no-js a[aria-disabled="true"].button-secondary::before::after,
+    .js__no-whereSelector button[aria-disabled="true"]::before::after,
+    .js__no-whereSelector [aria-disabled="true"][role="button"]::before::after,
+    .js__no-whereSelector
+        input[aria-disabled="true"][type="button"]::before::after,
+    .js__no-whereSelector
+        input[aria-disabled="true"][type="submit"]::before::after,
+    .js__no-whereSelector a[aria-disabled="true"].button::before::after,
+    .js__no-whereSelector
+        a[aria-disabled="true"].button-secondary::before::after {
+        /* aspect-ratio fallback */
+        content: "";
+        display: block;
+        clear: both;
+    }
+    :where(.js__no-aspectRatio) button[aria-disabled="true"]::before,
+    :where(.js__no-aspectRatio) [aria-disabled="true"][role="button"]::before,
+    :where(.js__no-aspectRatio)
+        input[aria-disabled="true"][type="button"]::before,
+    :where(.js__no-aspectRatio)
+        input[aria-disabled="true"][type="submit"]::before,
+    :where(.js__no-aspectRatio) a[aria-disabled="true"].button::before,
+    :where(.js__no-aspectRatio)
+        a[aria-disabled="true"].button-secondary::before {
+        /* aspect-ratio fallback */
+        position: relative;
+    }
+    :where(.js__no-aspectRatio) button[aria-disabled="true"]::before::before,
+    :where(.js__no-aspectRatio)
+        [aria-disabled="true"][role="button"]::before::before,
+    :where(.js__no-aspectRatio)
+        input[aria-disabled="true"][type="button"]::before::before,
+    :where(.js__no-aspectRatio)
+        input[aria-disabled="true"][type="submit"]::before::before,
+    :where(.js__no-aspectRatio) a[aria-disabled="true"].button::before::before,
+    :where(.js__no-aspectRatio)
+        a[aria-disabled="true"].button-secondary::before::before {
+        /* aspect-ratio fallback */
+        content: "";
+        float: left;
+        padding-top: 100%;
+    }
+    :where(.js__no-aspectRatio) button[aria-disabled="true"]::before::after,
+    :where(.js__no-aspectRatio)
+        [aria-disabled="true"][role="button"]::before::after,
+    :where(.js__no-aspectRatio)
+        input[aria-disabled="true"][type="button"]::before::after,
+    :where(.js__no-aspectRatio)
+        input[aria-disabled="true"][type="submit"]::before::after,
+    :where(.js__no-aspectRatio) a[aria-disabled="true"].button::before::after,
+    :where(.js__no-aspectRatio)
+        a[aria-disabled="true"].button-secondary::before::after {
+        /* aspect-ratio fallback */
+        content: "";
+        display: block;
+        clear: both;
+    }
+    button[aria-disabled="true"]::before,
+    [aria-disabled="true"][role="button"]::before,
+    input[aria-disabled="true"][type="button"]::before,
+    input[aria-disabled="true"][type="submit"]::before,
+    a[aria-disabled="true"].button::before,
+    a[aria-disabled="true"].button-secondary::before {
         align-self: center;
     }
 }
@@ -8455,7 +8633,93 @@ input[type="reset"]:active,
             var(--icon-size-pseudo, 1em) *
                 var(--icon-size-pseudo--font-multiplier, 1)
         );
-        aspect-ratio: 1;
+        aspect-ratio: 1/1;
+    }
+    .no-js button[type="reset"]::before,
+    .no-js input[type="reset"]::before,
+    .no-js .website-settings-menu [data-settings-reset]::before,
+    .website-settings-menu .no-js [data-settings-reset]::before,
+    .js__no-whereSelector button[type="reset"]::before,
+    .js__no-whereSelector input[type="reset"]::before,
+    .js__no-whereSelector .website-settings-menu [data-settings-reset]::before,
+    .website-settings-menu .js__no-whereSelector [data-settings-reset]::before {
+        /* aspect-ratio fallback */
+        position: relative;
+    }
+    .no-js button[type="reset"]::before::before,
+    .no-js input[type="reset"]::before::before,
+    .no-js .website-settings-menu [data-settings-reset]::before::before,
+    .website-settings-menu .no-js [data-settings-reset]::before::before,
+    .js__no-whereSelector button[type="reset"]::before::before,
+    .js__no-whereSelector input[type="reset"]::before::before,
+    .js__no-whereSelector
+        .website-settings-menu
+        [data-settings-reset]::before::before,
+    .website-settings-menu
+        .js__no-whereSelector
+        [data-settings-reset]::before::before {
+        /* aspect-ratio fallback */
+        content: "";
+        float: left;
+        padding-top: 100%;
+    }
+    .no-js button[type="reset"]::before::after,
+    .no-js input[type="reset"]::before::after,
+    .no-js .website-settings-menu [data-settings-reset]::before::after,
+    .website-settings-menu .no-js [data-settings-reset]::before::after,
+    .js__no-whereSelector button[type="reset"]::before::after,
+    .js__no-whereSelector input[type="reset"]::before::after,
+    .js__no-whereSelector
+        .website-settings-menu
+        [data-settings-reset]::before::after,
+    .website-settings-menu
+        .js__no-whereSelector
+        [data-settings-reset]::before::after {
+        /* aspect-ratio fallback */
+        content: "";
+        display: block;
+        clear: both;
+    }
+    :where(.js__no-aspectRatio) button[type="reset"]::before,
+    :where(.js__no-aspectRatio) input[type="reset"]::before,
+    :where(.js__no-aspectRatio)
+        .website-settings-menu
+        [data-settings-reset]::before,
+    .website-settings-menu
+        :where(.js__no-aspectRatio)
+        [data-settings-reset]::before {
+        /* aspect-ratio fallback */
+        position: relative;
+    }
+    :where(.js__no-aspectRatio) button[type="reset"]::before::before,
+    :where(.js__no-aspectRatio) input[type="reset"]::before::before,
+    :where(.js__no-aspectRatio)
+        .website-settings-menu
+        [data-settings-reset]::before::before,
+    .website-settings-menu
+        :where(.js__no-aspectRatio)
+        [data-settings-reset]::before::before {
+        /* aspect-ratio fallback */
+        content: "";
+        float: left;
+        padding-top: 100%;
+    }
+    :where(.js__no-aspectRatio) button[type="reset"]::before::after,
+    :where(.js__no-aspectRatio) input[type="reset"]::before::after,
+    :where(.js__no-aspectRatio)
+        .website-settings-menu
+        [data-settings-reset]::before::after,
+    .website-settings-menu
+        :where(.js__no-aspectRatio)
+        [data-settings-reset]::before::after {
+        /* aspect-ratio fallback */
+        content: "";
+        display: block;
+        clear: both;
+    }
+    button[type="reset"]::before,
+    input[type="reset"]::before,
+    .website-settings-menu [data-settings-reset]::before {
         align-self: center;
     }
 }
@@ -8512,7 +8776,54 @@ input[type="reset"]:active,
             var(--icon-size-pseudo, 1em) *
                 var(--icon-size-pseudo--font-multiplier, 1)
         );
-        aspect-ratio: 1;
+        aspect-ratio: 1/1;
+    }
+    .no-js button[type="submit"]::before,
+    .no-js input[type="submit"]::before,
+    .js__no-whereSelector button[type="submit"]::before,
+    .js__no-whereSelector input[type="submit"]::before {
+        /* aspect-ratio fallback */
+        position: relative;
+    }
+    .no-js button[type="submit"]::before::before,
+    .no-js input[type="submit"]::before::before,
+    .js__no-whereSelector button[type="submit"]::before::before,
+    .js__no-whereSelector input[type="submit"]::before::before {
+        /* aspect-ratio fallback */
+        content: "";
+        float: left;
+        padding-top: 100%;
+    }
+    .no-js button[type="submit"]::before::after,
+    .no-js input[type="submit"]::before::after,
+    .js__no-whereSelector button[type="submit"]::before::after,
+    .js__no-whereSelector input[type="submit"]::before::after {
+        /* aspect-ratio fallback */
+        content: "";
+        display: block;
+        clear: both;
+    }
+    :where(.js__no-aspectRatio) button[type="submit"]::before,
+    :where(.js__no-aspectRatio) input[type="submit"]::before {
+        /* aspect-ratio fallback */
+        position: relative;
+    }
+    :where(.js__no-aspectRatio) button[type="submit"]::before::before,
+    :where(.js__no-aspectRatio) input[type="submit"]::before::before {
+        /* aspect-ratio fallback */
+        content: "";
+        float: left;
+        padding-top: 100%;
+    }
+    :where(.js__no-aspectRatio) button[type="submit"]::before::after,
+    :where(.js__no-aspectRatio) input[type="submit"]::before::after {
+        /* aspect-ratio fallback */
+        content: "";
+        display: block;
+        clear: both;
+    }
+    button[type="submit"]::before,
+    input[type="submit"]::before {
         align-self: center;
     }
 }
@@ -9258,25 +9569,6 @@ input[type="reset"]:active,
         var(--theme-ui, var(--clr-base-750, currentColor))
     );
 }
-.no-js .icon,
-.js__no-whereSelector .icon {
-    width: 1.375em;
-    width: var(--icon-size, 1.375em);
-    width: calc(1.375em * 1);
-    width: calc(
-        var(--icon-size, 1.375em) * var(--icon-size--font-multiplier, 1)
-    );
-}
-
-:where(.js__no-aspectRatio) .icon {
-    width: 1.375em;
-    width: var(--icon-size, 1.375em);
-    width: calc(1.375em * 1);
-    width: calc(
-        var(--icon-size, 1.375em) * var(--icon-size--font-multiplier, 1)
-    );
-}
-
 .icon--warning,
 .icon--up,
 .icon--ui,
@@ -9302,16 +9594,349 @@ input[type="reset"]:active,
 .icon--compass,
 .icon--clock,
 .icon--check {
-    aspect-ratio: 1;
+    aspect-ratio: 1/1;
+}
+.no-js .icon--warning,
+.no-js .icon--up,
+.no-js .icon--ui,
+.no-js .icon--star,
+.no-js .icon--settings,
+.no-js .icon--search,
+.no-js .icon--right,
+.no-js .icon--refresh,
+.no-js .icon--question,
+.no-js .icon--plus,
+.no-js .icon--no,
+.no-js .icon--minus,
+.no-js .icon--minimum,
+.no-js .icon--maximum,
+.no-js .icon--lightning,
+.no-js .icon--lightbulb,
+.no-js .icon--left,
+.no-js .icon--forbidden,
+.no-js .icon--fail,
+.no-js .icon--external,
+.no-js .icon--down,
+.no-js .icon--dash,
+.no-js .icon--compass,
+.no-js .icon--clock,
+.no-js .icon--check,
+.js__no-whereSelector .icon--warning,
+.js__no-whereSelector .icon--up,
+.js__no-whereSelector .icon--ui,
+.js__no-whereSelector .icon--star,
+.js__no-whereSelector .icon--settings,
+.js__no-whereSelector .icon--search,
+.js__no-whereSelector .icon--right,
+.js__no-whereSelector .icon--refresh,
+.js__no-whereSelector .icon--question,
+.js__no-whereSelector .icon--plus,
+.js__no-whereSelector .icon--no,
+.js__no-whereSelector .icon--minus,
+.js__no-whereSelector .icon--minimum,
+.js__no-whereSelector .icon--maximum,
+.js__no-whereSelector .icon--lightning,
+.js__no-whereSelector .icon--lightbulb,
+.js__no-whereSelector .icon--left,
+.js__no-whereSelector .icon--forbidden,
+.js__no-whereSelector .icon--fail,
+.js__no-whereSelector .icon--external,
+.js__no-whereSelector .icon--down,
+.js__no-whereSelector .icon--dash,
+.js__no-whereSelector .icon--compass,
+.js__no-whereSelector .icon--clock,
+.js__no-whereSelector .icon--check {
+    /* aspect-ratio fallback */
+    position: relative;
+}
+.no-js .icon--warning::before,
+.no-js .icon--up::before,
+.no-js .icon--ui::before,
+.no-js .icon--star::before,
+.no-js .icon--settings::before,
+.no-js .icon--search::before,
+.no-js .icon--right::before,
+.no-js .icon--refresh::before,
+.no-js .icon--question::before,
+.no-js .icon--plus::before,
+.no-js .icon--no::before,
+.no-js .icon--minus::before,
+.no-js .icon--minimum::before,
+.no-js .icon--maximum::before,
+.no-js .icon--lightning::before,
+.no-js .icon--lightbulb::before,
+.no-js .icon--left::before,
+.no-js .icon--forbidden::before,
+.no-js .icon--fail::before,
+.no-js .icon--external::before,
+.no-js .icon--down::before,
+.no-js .icon--dash::before,
+.no-js .icon--compass::before,
+.no-js .icon--clock::before,
+.no-js .icon--check::before,
+.js__no-whereSelector .icon--warning::before,
+.js__no-whereSelector .icon--up::before,
+.js__no-whereSelector .icon--ui::before,
+.js__no-whereSelector .icon--star::before,
+.js__no-whereSelector .icon--settings::before,
+.js__no-whereSelector .icon--search::before,
+.js__no-whereSelector .icon--right::before,
+.js__no-whereSelector .icon--refresh::before,
+.js__no-whereSelector .icon--question::before,
+.js__no-whereSelector .icon--plus::before,
+.js__no-whereSelector .icon--no::before,
+.js__no-whereSelector .icon--minus::before,
+.js__no-whereSelector .icon--minimum::before,
+.js__no-whereSelector .icon--maximum::before,
+.js__no-whereSelector .icon--lightning::before,
+.js__no-whereSelector .icon--lightbulb::before,
+.js__no-whereSelector .icon--left::before,
+.js__no-whereSelector .icon--forbidden::before,
+.js__no-whereSelector .icon--fail::before,
+.js__no-whereSelector .icon--external::before,
+.js__no-whereSelector .icon--down::before,
+.js__no-whereSelector .icon--dash::before,
+.js__no-whereSelector .icon--compass::before,
+.js__no-whereSelector .icon--clock::before,
+.js__no-whereSelector .icon--check::before {
+    /* aspect-ratio fallback */
+    content: "";
+    float: left;
+    padding-top: 100%;
+}
+.no-js .icon--warning::after,
+.no-js .icon--up::after,
+.no-js .icon--ui::after,
+.no-js .icon--star::after,
+.no-js .icon--settings::after,
+.no-js .icon--search::after,
+.no-js .icon--right::after,
+.no-js .icon--refresh::after,
+.no-js .icon--question::after,
+.no-js .icon--plus::after,
+.no-js .icon--no::after,
+.no-js .icon--minus::after,
+.no-js .icon--minimum::after,
+.no-js .icon--maximum::after,
+.no-js .icon--lightning::after,
+.no-js .icon--lightbulb::after,
+.no-js .icon--left::after,
+.no-js .icon--forbidden::after,
+.no-js .icon--fail::after,
+.no-js .icon--external::after,
+.no-js .icon--down::after,
+.no-js .icon--dash::after,
+.no-js .icon--compass::after,
+.no-js .icon--clock::after,
+.no-js .icon--check::after,
+.js__no-whereSelector .icon--warning::after,
+.js__no-whereSelector .icon--up::after,
+.js__no-whereSelector .icon--ui::after,
+.js__no-whereSelector .icon--star::after,
+.js__no-whereSelector .icon--settings::after,
+.js__no-whereSelector .icon--search::after,
+.js__no-whereSelector .icon--right::after,
+.js__no-whereSelector .icon--refresh::after,
+.js__no-whereSelector .icon--question::after,
+.js__no-whereSelector .icon--plus::after,
+.js__no-whereSelector .icon--no::after,
+.js__no-whereSelector .icon--minus::after,
+.js__no-whereSelector .icon--minimum::after,
+.js__no-whereSelector .icon--maximum::after,
+.js__no-whereSelector .icon--lightning::after,
+.js__no-whereSelector .icon--lightbulb::after,
+.js__no-whereSelector .icon--left::after,
+.js__no-whereSelector .icon--forbidden::after,
+.js__no-whereSelector .icon--fail::after,
+.js__no-whereSelector .icon--external::after,
+.js__no-whereSelector .icon--down::after,
+.js__no-whereSelector .icon--dash::after,
+.js__no-whereSelector .icon--compass::after,
+.js__no-whereSelector .icon--clock::after,
+.js__no-whereSelector .icon--check::after {
+    /* aspect-ratio fallback */
+    content: "";
+    display: block;
+    clear: both;
+}
+
+:where(.js__no-aspectRatio) .icon--warning,
+:where(.js__no-aspectRatio) .icon--up,
+:where(.js__no-aspectRatio) .icon--ui,
+:where(.js__no-aspectRatio) .icon--star,
+:where(.js__no-aspectRatio) .icon--settings,
+:where(.js__no-aspectRatio) .icon--search,
+:where(.js__no-aspectRatio) .icon--right,
+:where(.js__no-aspectRatio) .icon--refresh,
+:where(.js__no-aspectRatio) .icon--question,
+:where(.js__no-aspectRatio) .icon--plus,
+:where(.js__no-aspectRatio) .icon--no,
+:where(.js__no-aspectRatio) .icon--minus,
+:where(.js__no-aspectRatio) .icon--minimum,
+:where(.js__no-aspectRatio) .icon--maximum,
+:where(.js__no-aspectRatio) .icon--lightning,
+:where(.js__no-aspectRatio) .icon--lightbulb,
+:where(.js__no-aspectRatio) .icon--left,
+:where(.js__no-aspectRatio) .icon--forbidden,
+:where(.js__no-aspectRatio) .icon--fail,
+:where(.js__no-aspectRatio) .icon--external,
+:where(.js__no-aspectRatio) .icon--down,
+:where(.js__no-aspectRatio) .icon--dash,
+:where(.js__no-aspectRatio) .icon--compass,
+:where(.js__no-aspectRatio) .icon--clock,
+:where(.js__no-aspectRatio) .icon--check {
+    /* aspect-ratio fallback */
+    position: relative;
+}
+:where(.js__no-aspectRatio) .icon--warning::before,
+:where(.js__no-aspectRatio) .icon--up::before,
+:where(.js__no-aspectRatio) .icon--ui::before,
+:where(.js__no-aspectRatio) .icon--star::before,
+:where(.js__no-aspectRatio) .icon--settings::before,
+:where(.js__no-aspectRatio) .icon--search::before,
+:where(.js__no-aspectRatio) .icon--right::before,
+:where(.js__no-aspectRatio) .icon--refresh::before,
+:where(.js__no-aspectRatio) .icon--question::before,
+:where(.js__no-aspectRatio) .icon--plus::before,
+:where(.js__no-aspectRatio) .icon--no::before,
+:where(.js__no-aspectRatio) .icon--minus::before,
+:where(.js__no-aspectRatio) .icon--minimum::before,
+:where(.js__no-aspectRatio) .icon--maximum::before,
+:where(.js__no-aspectRatio) .icon--lightning::before,
+:where(.js__no-aspectRatio) .icon--lightbulb::before,
+:where(.js__no-aspectRatio) .icon--left::before,
+:where(.js__no-aspectRatio) .icon--forbidden::before,
+:where(.js__no-aspectRatio) .icon--fail::before,
+:where(.js__no-aspectRatio) .icon--external::before,
+:where(.js__no-aspectRatio) .icon--down::before,
+:where(.js__no-aspectRatio) .icon--dash::before,
+:where(.js__no-aspectRatio) .icon--compass::before,
+:where(.js__no-aspectRatio) .icon--clock::before,
+:where(.js__no-aspectRatio) .icon--check::before {
+    /* aspect-ratio fallback */
+    content: "";
+    float: left;
+    padding-top: 100%;
+}
+:where(.js__no-aspectRatio) .icon--warning::after,
+:where(.js__no-aspectRatio) .icon--up::after,
+:where(.js__no-aspectRatio) .icon--ui::after,
+:where(.js__no-aspectRatio) .icon--star::after,
+:where(.js__no-aspectRatio) .icon--settings::after,
+:where(.js__no-aspectRatio) .icon--search::after,
+:where(.js__no-aspectRatio) .icon--right::after,
+:where(.js__no-aspectRatio) .icon--refresh::after,
+:where(.js__no-aspectRatio) .icon--question::after,
+:where(.js__no-aspectRatio) .icon--plus::after,
+:where(.js__no-aspectRatio) .icon--no::after,
+:where(.js__no-aspectRatio) .icon--minus::after,
+:where(.js__no-aspectRatio) .icon--minimum::after,
+:where(.js__no-aspectRatio) .icon--maximum::after,
+:where(.js__no-aspectRatio) .icon--lightning::after,
+:where(.js__no-aspectRatio) .icon--lightbulb::after,
+:where(.js__no-aspectRatio) .icon--left::after,
+:where(.js__no-aspectRatio) .icon--forbidden::after,
+:where(.js__no-aspectRatio) .icon--fail::after,
+:where(.js__no-aspectRatio) .icon--external::after,
+:where(.js__no-aspectRatio) .icon--down::after,
+:where(.js__no-aspectRatio) .icon--dash::after,
+:where(.js__no-aspectRatio) .icon--compass::after,
+:where(.js__no-aspectRatio) .icon--clock::after,
+:where(.js__no-aspectRatio) .icon--check::after {
+    /* aspect-ratio fallback */
+    content: "";
+    display: block;
+    clear: both;
 }
 
 .icon--double-check {
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 4/3;
+}
+.no-js .icon--double-check,
+.js__no-whereSelector .icon--double-check {
+    /* aspect-ratio fallback */
+    position: relative;
+}
+.no-js .icon--double-check::before,
+.js__no-whereSelector .icon--double-check::before {
+    /* aspect-ratio fallback */
+    content: "";
+    float: left;
+    padding-top: 75%;
+}
+.no-js .icon--double-check::after,
+.js__no-whereSelector .icon--double-check::after {
+    /* aspect-ratio fallback */
+    content: "";
+    display: block;
+    clear: both;
+}
+
+:where(.js__no-aspectRatio) .icon--double-check {
+    /* aspect-ratio fallback */
+    position: relative;
+}
+:where(.js__no-aspectRatio) .icon--double-check::before {
+    /* aspect-ratio fallback */
+    content: "";
+    float: left;
+    padding-top: 75%;
+}
+:where(.js__no-aspectRatio) .icon--double-check::after {
+    /* aspect-ratio fallback */
+    content: "";
+    display: block;
+    clear: both;
 }
 
 .icon--ui-minimum,
 .icon--ui-check {
-    aspect-ratio: 7 / 6;
+    aspect-ratio: 7/6;
+}
+.no-js .icon--ui-minimum,
+.no-js .icon--ui-check,
+.js__no-whereSelector .icon--ui-minimum,
+.js__no-whereSelector .icon--ui-check {
+    /* aspect-ratio fallback */
+    position: relative;
+}
+.no-js .icon--ui-minimum::before,
+.no-js .icon--ui-check::before,
+.js__no-whereSelector .icon--ui-minimum::before,
+.js__no-whereSelector .icon--ui-check::before {
+    /* aspect-ratio fallback */
+    content: "";
+    float: left;
+    padding-top: 85.7142857143%;
+}
+.no-js .icon--ui-minimum::after,
+.no-js .icon--ui-check::after,
+.js__no-whereSelector .icon--ui-minimum::after,
+.js__no-whereSelector .icon--ui-check::after {
+    /* aspect-ratio fallback */
+    content: "";
+    display: block;
+    clear: both;
+}
+
+:where(.js__no-aspectRatio) .icon--ui-minimum,
+:where(.js__no-aspectRatio) .icon--ui-check {
+    /* aspect-ratio fallback */
+    position: relative;
+}
+:where(.js__no-aspectRatio) .icon--ui-minimum::before,
+:where(.js__no-aspectRatio) .icon--ui-check::before {
+    /* aspect-ratio fallback */
+    content: "";
+    float: left;
+    padding-top: 85.7142857143%;
+}
+:where(.js__no-aspectRatio) .icon--ui-minimum::after,
+:where(.js__no-aspectRatio) .icon--ui-check::after {
+    /* aspect-ratio fallback */
+    content: "";
+    display: block;
+    clear: both;
 }
 
 /* # BLOCKS - ALERTS

@@ -97,6 +97,7 @@ export class SvgMaker<
 
     public readonly slug: T_Slug;
     public readonly label: string;
+    public readonly ariaLabel: string;
 
     public readonly height: number;
     public readonly width: number;
@@ -113,6 +114,7 @@ export class SvgMaker<
     ) {
         this.slug = data.slug;
         this.label = data.label;
+        this.ariaLabel = data.ariaLabel ?? this.label;
         this.height = data.height;
         this.width = data.width;
         this.innerSVG = data.innerSVG;
@@ -128,6 +130,7 @@ export class SvgMaker<
         return {
             slug: this.slug,
             label: this.label,
+            ariaLabel: this.ariaLabel,
 
             height: this.height,
             width: this.width,
@@ -165,6 +168,11 @@ export namespace SvgMaker {
          * (including via screen-readers).
          */
         label: string;
+
+        /**
+         * An override for the accessible name for this logo.
+         */
+        ariaLabel?: string;
 
         /**
          * Height of the SVG viewport.

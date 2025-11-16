@@ -64,6 +64,7 @@ export class SvgMaker {
     }
     slug;
     label;
+    ariaLabel;
     height;
     width;
     aspectRatio;
@@ -74,6 +75,7 @@ export class SvgMaker {
     constructor(data, svgAttrs = []) {
         this.slug = data.slug;
         this.label = data.label;
+        this.ariaLabel = data.ariaLabel ?? this.label;
         this.height = data.height;
         this.width = data.width;
         this.innerSVG = data.innerSVG;
@@ -86,6 +88,7 @@ export class SvgMaker {
         return {
             slug: this.slug,
             label: this.label,
+            ariaLabel: this.ariaLabel,
             height: this.height,
             width: this.width,
             aspectRatio: this.aspectRatio,

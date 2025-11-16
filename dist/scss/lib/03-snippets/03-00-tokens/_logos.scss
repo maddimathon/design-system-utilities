@@ -3,6 +3,7 @@
 /// @since 0.1.0-alpha.2.draft
 ///
 
+@use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/selector';
 @use 'pkg:@maddimathon/utility-sass/string';
@@ -13,7 +14,7 @@
 @use '../../../tokens';
 
 @use '../../01-functions' as *;
-// @use '../../02-mixins' as *;
+@use '../../02-mixins' as *;
 
 $_allUniqueLogoAspectRatios: ();
 
@@ -23,10 +24,17 @@ $_allUniqueLogoAspectRatios: ();
     $_ratioSlug: string.slugify(#{$_ratio});
 
     @if not map.has-key($_allUniqueLogoAspectRatios, $_ratioSlug) {
+        //
+        $_ratioList: aspect-ratio-string-to-list($_ratio);
+
         $_allUniqueLogoAspectRatios: map.set(
             $_allUniqueLogoAspectRatios,
             $_ratioSlug,
-            $_ratio
+            (
+                ratio: $_ratio,
+                width: list.nth($_ratioList, 1),
+                height: list.nth($_ratioList, 2),
+            )
         );
     }
 }
@@ -50,9 +58,9 @@ $_allUniqueLogoAspectRatios: ();
         }
     }
 
-    @each $slug, $value in $_allUniqueLogoAspectRatios {
+    @each $slug, $map in $_allUniqueLogoAspectRatios {
         %brand-logo-aspect-ratio--#{$slug} {
-            aspect-ratio: #{$value};
+            @include aspect-ratio(map.get($map, width), map.get($map, height));
         }
     }
 

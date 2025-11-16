@@ -4,6 +4,7 @@
 ///
 
 @use 'pkg:@maddimathon/utility-sass/feature-check';
+@use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/selector';
 @use 'pkg:@maddimathon/utility-sass/string';
@@ -14,7 +15,7 @@
 @use '../../../tokens';
 
 @use '../../01-functions' as *;
-// @use '../../02-mixins' as *;
+@use '../../02-mixins' as *;
 
 $_allUniqueIconAspectRatios: ();
 
@@ -24,10 +25,17 @@ $_allUniqueIconAspectRatios: ();
     $_ratioSlug: string.slugify(#{$_ratio});
 
     @if not map.has-key($_allUniqueIconAspectRatios, $_ratioSlug) {
+        //
+        $_ratioList: aspect-ratio-string-to-list($_ratio);
+
         $_allUniqueIconAspectRatios: map.set(
             $_allUniqueIconAspectRatios,
             $_ratioSlug,
-            $_ratio
+            (
+                ratio: $_ratio,
+                width: list.nth($_ratioList, 1),
+                height: list.nth($_ratioList, 2),
+            )
         );
     }
 }
@@ -51,20 +59,13 @@ $_allUniqueIconAspectRatios: ();
 
         color: #{var-token(icon-color)};
 
-        @include feature-check.js-no-support(aspectRatio) {
-            width: #{var-token(icon-size)};
-            width: calc(
-                #{var-token(icon-size)} * var(--icon-size--font-multiplier, 1)
-            );
-        }
-
         > svg {
         }
     }
 
-    @each $slug, $value in $_allUniqueIconAspectRatios {
+    @each $slug, $map in $_allUniqueIconAspectRatios {
         %icon-aspect-ratio--#{$slug} {
-            aspect-ratio: #{$value};
+            @include aspect-ratio(map.get($map, width), map.get($map, height));
         }
     }
 
@@ -124,8 +125,16 @@ $_allUniqueIconAspectRatios: ();
                 var(--icon-size-pseudo--font-multiplier, 1)
         );
 
-        aspect-ratio: #{icon-aspect-ratio-value($slug)};
+        $aspectRatioMap: aspect-ratio-string-to-list(
+            icon-aspect-ratio-value($slug)
+        );
+        @include aspect-ratio(
+            list.nth($aspectRatioMap, 1),
+            list.nth($aspectRatioMap, 2)
+        );
 
-        @content;
+        & {
+            @content;
+        }
     }
 }

@@ -1,0 +1,36 @@
+///
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.2.draft
+/// @since 0.1.0-alpha.2.draft
+///
+
+@use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/math';
+@use 'pkg:@maddimathon/utility-sass/string';
+
+// @use '../../config';
+// @use '../../tokens';
+
+// @use 'pkg:@maddimathon/utility-astro/01-functions' as utils;
+
+@function aspect-ratio-string-to-list($str) {
+    $width: $str;
+    $height: $str;
+
+    $splitList: string.split($str, ' / ');
+
+    // returns if no slash is found
+    @if list.length($splitList) < 2 {
+        $splitList: string.split($str, '/');
+
+        // returns
+        @if list.length($splitList) < 2 {
+            $num: math.num-val($str);
+            @return ($num, $num);
+        }
+    }
+
+    $width: math.num-val(list.nth($splitList, 1));
+    $height: math.num-val(list.nth($splitList, 2));
+
+    @return ($width, $height);
+}

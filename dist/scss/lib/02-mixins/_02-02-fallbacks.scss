@@ -1,0 +1,19 @@
+///
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.2.draft
+/// @since 0.1.0-alpha.2.draft
+///
+
+@use 'pkg:@maddimathon/utility-sass/feature-check';
+
+@use '../../config';
+// @use '../../tokens';
+
+// @use '../01-functions' as *;
+
+@mixin aspect-ratio($w, $h) {
+    @if config.$mx_aspectRatio_includeFallback {
+        @include feature-check.aspect-ratio($w, $h);
+    } @else {
+        aspect-ratio: #{$w} / #{$h};
+    }
+}

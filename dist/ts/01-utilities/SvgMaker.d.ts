@@ -26,6 +26,7 @@ export declare class SvgMaker<T_Slug extends string = string> implements SvgMake
     static svgFile(svg: string): string;
     readonly slug: T_Slug;
     readonly label: string;
+    readonly ariaLabel: string;
     readonly height: number;
     readonly width: number;
     readonly aspectRatio: [number, number];
@@ -37,6 +38,7 @@ export declare class SvgMaker<T_Slug extends string = string> implements SvgMake
     toJSON(): {
         slug: T_Slug;
         label: string;
+        ariaLabel: string;
         height: number;
         width: number;
         aspectRatio: [number, number];
@@ -64,6 +66,10 @@ export declare namespace SvgMaker {
          * (including via screen-readers).
          */
         label: string;
+        /**
+         * An override for the accessible name for this logo.
+         */
+        ariaLabel?: string;
         /**
          * Height of the SVG viewport.
          */
