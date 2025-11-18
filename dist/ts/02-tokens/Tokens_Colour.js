@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.3
+ * @maddimathon/design-system-utilities@0.1.0-alpha.4.draft
  * @license MIT
  */
 // import { JsonToScss } from '@maddimathon/utility-sass';
@@ -47,10 +47,10 @@ export class Tokens_Colour extends AbstractTokens {
         }
     }
     toJSON() {
-        return objectMap(this.data, ({ value }) => value.toJSON());
+        return objectMap(this.data, ([key, value]) => value.toJSON());
     }
     toScssVars() {
-        return objectMap(this.data, ({ value }) => value.toScssVars());
+        return objectMap(this.data, ([key, value]) => value.toScssVars());
     }
 }
 //# sourceMappingURL=Tokens_Colour.js.map

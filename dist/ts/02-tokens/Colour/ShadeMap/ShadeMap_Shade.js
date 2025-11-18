@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.3
+ * @maddimathon/design-system-utilities@0.1.0-alpha.4.draft
  * @license MIT
  */
 // import { JsonToScss } from '@maddimathon/utility-sass';
@@ -111,11 +111,11 @@ export class Tokens_Colour_ShadeMap_Shade extends AbstractTokens {
         };
     }
     toJSON() {
-        const max = objectMap(this.contrast.max, ({ value }) => value && {
+        const max = objectMap(this.contrast.max, ([key, value]) => value && {
             ...value,
             // ratio: undefined
         });
-        const min = objectMap(this.contrast.min, ({ value: testGroup }) => ({
+        const min = objectMap(this.contrast.min, ([key, testGroup]) => ({
             ui: testGroup?.ui && {
                 aa: testGroup.ui.aa && {
                     ...testGroup.ui.aa,

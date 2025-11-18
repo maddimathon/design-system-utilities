@@ -11,16 +11,19 @@ import type {
     ColourLevels_Extended,
 } from '../../ts/02-tokens/@types.d.ts';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
+import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
+import type { LevelTargets } from './ShadeSwatchTable.astro';
 
 /* import - functions */
 import { toTitleCase } from '@maddimathon/utility-typescript/functions';
 import { getLevelsInUse } from '../../ts/02-tokens/getLevelsInUse.js';
+import { objectMapAsync } from '../../ts/01-utilities/objectMapAsync.js';
+import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
 
 /* import - values */
 
 /* import - components */
 import Toggle from '@maddimathon/utility-astro/components/Toggle';
-// import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
 import ShadeSwatchList from './ShadeSwatchList.astro';
 import ShadeSwatchTable from './ShadeSwatchTable.astro';
 
@@ -30,9 +33,146 @@ import ShadeSwatchTable from './ShadeSwatchTable.astro';
 
 export interface Props {
     tokens: Tokens.JsonReturn;
+
+    /**
+     * Used to pass custom targets to the shade swatch table.
+     *
+     * @since 0.1.0-alpha.4.draft
+     */
+    yardstick?:
+        | Tokens_Colour_ShadeMap.JsonReturn<string, ColourLevels_Extended>
+        | {
+              base: Tokens_Colour_ShadeMap.JsonReturn<
+                  string,
+                  ColourLevels_Extended
+              >;
+
+              /**
+               * Colour name to use to find target contrast from base shades.
+               */
+              accent?: string;
+          };
 }
 
-const { tokens }: Props = Astro.props;
+const { tokens, yardstick }: Props = Astro.props;
+
+/* FUNCTION ===================================== */
+
+export async function makeTargetLevels<T_ColourName extends string>(
+    sampleColourName: T_ColourName,
+    targetShadeMap?:
+        | undefined
+        | Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, ColourLevels_Extended>
+): Promise<LevelTargets | undefined> {
+    // returns
+    if (!targetShadeMap) {
+        return undefined;
+    }
+
+    const matchedPairs = [
+        ['100', '900'],
+        ['150', '850'],
+        ['200', '800'],
+        ['250', '750'],
+        ['300', '700'],
+        ['350', '650'],
+        ['400', '600'],
+        ['450', '550'],
+    ] as const;
+
+    const current = await objectMapAsync(
+        targetShadeMap,
+        async ([level, value]) =>
+            ({
+                min: {
+                    aa: {
+                        ui: value.contrast.min[sampleColourName]?.ui?.aa?.level,
+                        text: value.contrast.min[sampleColourName]?.text?.aa
+                            ?.level,
+                    },
+                    aaa: {
+                        ui: value.contrast.min[sampleColourName]?.ui?.aaa
+                            ?.level,
+                        text: value.contrast.min[sampleColourName]?.text?.aaa
+                            ?.level,
+                    },
+                },
+                max: value.contrast.max[sampleColourName]?.level,
+            }) satisfies LevelTargets[keyof typeof targetShadeMap]
+    );
+
+    const getMaxLevel = (
+        _lvlA?: undefined | ColourLevels | ColourLevels_Extended,
+        _lvlB?: undefined | ColourLevels | ColourLevels_Extended
+    ): undefined | ColourLevels | ColourLevels_Extended => {
+        // returns
+        if (!_lvlA || !_lvlB) {
+            return undefined;
+        }
+
+        _lvlB = ColourUtilities.getDarkLevel(_lvlB);
+
+        return Math.max(Number(_lvlA), Number(_lvlB)).toString() as
+            | ColourLevels
+            | ColourLevels_Extended;
+    };
+
+    for (const [level_a, level_b] of matchedPairs) {
+        const corrected_a = {
+            min: {
+                aa: {
+                    ui: getMaxLevel(
+                        current[level_a].min.aa.ui,
+                        current[level_b].min.aa.ui
+                    ),
+                    text: getMaxLevel(
+                        current[level_a].min.aa.text,
+                        current[level_b].min.aa.text
+                    ),
+                },
+                aaa: {
+                    ui: getMaxLevel(
+                        current[level_a].min.aaa.ui,
+                        current[level_b].min.aaa.ui
+                    ),
+                    text: getMaxLevel(
+                        current[level_a].min.aaa.text,
+                        current[level_b].min.aaa.text
+                    ),
+                },
+            },
+            max: getMaxLevel(current[level_a].max, current[level_b].max),
+        } satisfies LevelTargets[keyof typeof targetShadeMap];
+
+        current[level_a] = corrected_a;
+
+        current[level_b] = {
+            min: {
+                aa: {
+                    ui:
+                        corrected_a.min.aa.ui &&
+                        ColourUtilities.getDarkLevel(corrected_a.min.aa.ui),
+                    text:
+                        corrected_a.min.aa.text &&
+                        ColourUtilities.getDarkLevel(corrected_a.min.aa.text),
+                },
+                aaa: {
+                    ui:
+                        corrected_a.min.aaa.ui &&
+                        ColourUtilities.getDarkLevel(corrected_a.min.aaa.ui),
+                    text:
+                        corrected_a.min.aaa.text &&
+                        ColourUtilities.getDarkLevel(corrected_a.min.aaa.text),
+                },
+            },
+            max:
+                corrected_a.max &&
+                ColourUtilities.getDarkLevel(corrected_a.max),
+        } satisfies LevelTargets[keyof typeof targetShadeMap];
+    }
+
+    return current;
+}
 
 /* CONSTANTS ===================================== */
 
@@ -48,6 +188,21 @@ const levelsInUse = getLevelsInUse(tokens.themes);
 const excludeLevels = import.meta.env.DEV
     ? []
     : allLevels.filter((level) => !levelsInUse.has(level));
+
+const yardsticks = yardstick
+    ? 'base' in yardstick
+        ? yardstick
+        : { base: yardstick }
+    : undefined;
+
+const levelTargets = {
+    base: await makeTargetLevels('base', yardsticks?.base),
+    accent:
+        yardsticks?.accent &&
+        tokens.colour[yardsticks?.accent as keyof typeof tokens.colour]
+            ? await makeTargetLevels(yardsticks.accent, yardsticks?.base)
+            : undefined,
+};
 ---
 
 <ShadeSwatchTable
@@ -55,6 +210,7 @@ const excludeLevels = import.meta.env.DEV
     id='all-colours'
     colour={tokens.colour}
     excludeLevels={excludeLevels}
+    targets={levelTargets}
     tokens={tokens}
 />
 

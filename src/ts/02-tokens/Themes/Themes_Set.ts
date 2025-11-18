@@ -172,9 +172,9 @@ export class Tokens_Themes_Set<
             // ...this.modes,
             ...objectMap(
                 this.modes,
-                ( { key: brightnessMode } ) => objectMap(
+                ( [ brightnessMode ] ) => objectMap(
                     this.modes[ brightnessMode ],
-                    ( { value } ) => value.data
+                    ( [ __key, value ] ) => value.data
                 )
             ),
 
@@ -228,10 +228,10 @@ export class Tokens_Themes_Set<
             Object.values(
                 objectMap(
                     this.modes,
-                    ( { key: brightnessMode } ) => Object.values(
+                    ( [ brightnessMode ] ) => Object.values(
                         objectMap(
                             this.modes[ brightnessMode ],
-                            ( { value } ) => value.levelsInUse
+                            ( [ __key, value ] ) => value.levelsInUse
                         )
                     ).flat()
                 )
@@ -251,9 +251,9 @@ export class Tokens_Themes_Set<
             // ...this.modes,
             ...objectMap(
                 this.modes,
-                ( { key: brightnessMode } ) => objectMap(
+                ( [ brightnessMode ] ) => objectMap(
                     this.modes[ brightnessMode ],
-                    ( { value } ) => value.toJSON()
+                    ( [ __key, value ] ) => value.toJSON()
                 )
             ),
 
@@ -281,9 +281,9 @@ export class Tokens_Themes_Set<
             'forced-colors': this.forcedColours.toScssVars(),
             ...objectMap(
                 this.modes,
-                ( { key: brightnessMode } ) => objectMap(
+                ( [ brightnessMode ] ) => objectMap(
                     this.modes[ brightnessMode ],
-                    ( { value } ) => value.toScssVars()
+                    ( [ __key, value ] ) => value.toScssVars()
                 )
             ),
         };

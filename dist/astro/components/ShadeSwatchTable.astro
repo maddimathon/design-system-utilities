@@ -35,46 +35,48 @@ export interface Props<
     T_ExtraLevels extends ColourLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
 > {
     colour: Tokens_Colour.JsonReturn<T_ColourName, T_ExtraLevels>;
-    id: string;
+    id: string; 
     heading: number;
     tokens: Tokens.JsonReturn;
 
     excludeLevels?: ( ColourLevels | T_ExtraLevels )[];
 
+    targets?: undefined|LevelTargets|{
+        base: undefined|LevelTargets;
+        accent?: undefined|LevelTargets;
+    };
+
     frontmatter?: Omit<Props<T_ColourName, T_ExtraLevels>, 'frontmatter'>;
-}
+};
 
 const {
     excludeLevels = [],
     heading,
     id,
+    targets: _targets,
     tokens,
     ...props
 }: Props = Astro.props.frontmatter ?? Astro.props;
 
-/* FUNCTIONS ===================================== */
+/* TYPES ===================================== */
 
-/* CONSTANTS ===================================== */
-
-const allTokenLevels = arrayUnique(Object.values(tokens.colour).map(val=>Object.keys(val) as (keyof typeof val)[]).flat());
-
-const colour = colourToArray(props);
-
-const rawGoals: {
-    [ L in ColourLevels|ColourLevels_Extended ]: {
+export type LevelTargets = {
+    [ L in ColourLevels | ColourLevels_Extended ]: {
         min: {
             aa: {
-                ui: ColourLevels | undefined,
-                text: ColourLevels | undefined,
+                ui: ColourLevels | ColourLevels_Extended | undefined,
+                text: ColourLevels | ColourLevels_Extended | undefined,
             },
             aaa: {
-                ui: ColourLevels | undefined,
-                text: ColourLevels | undefined,
+                ui: ColourLevels | ColourLevels_Extended | undefined,
+                text: ColourLevels | ColourLevels_Extended | undefined,
             },
         },
-        max: ColourLevels,
+        max: ColourLevels | ColourLevels_Extended | undefined,
     }
-} = {
+};
+
+export const DEFAULT_LEVEL_TARGETS: LevelTargets = {
     '100': {
         min: {
             aa: {
@@ -314,52 +316,76 @@ const rawGoals: {
     },
 };
 
-const goalLevels = objectMap(
-    rawGoals,
-    <L extends ColourLevels|ColourLevels_Extended>( { 
-        key: targetLevel, 
-        value,
-    }: { key: L; value: typeof rawGoals[L] } ): false | {
-        level: L,
-        textLevel: ColourLevels|ColourLevels_Extended,
-        min: {
-            aa: {
-                colCount: number;
-                ui: ColourLevels|ColourLevels_Extended | undefined,
-                text: ColourLevels|ColourLevels_Extended | undefined,
-            },
-            aaa: {
-                colCount: number;
-                ui: ColourLevels|ColourLevels_Extended | undefined,
-                text: ColourLevels|ColourLevels_Extended | undefined,
-            },
-        },
-        max: ColourLevels,
-    } => {
-        // returns - don't include
-        if ( excludeLevels.includes( targetLevel ) || ! allTokenLevels.includes(targetLevel) ) {
-            return false;
-        }
-        
-        return {
-            level: targetLevel,
-            
-            textLevel: value.min.aaa.text
-                ?? value.min.aa.text
-                ?? value.max
-                ?? textColorLevel( targetLevel ),
-            
-            min: objectMap(
-                value.min,
-                ( { value: minSet } ) => ( {
-                    colCount: Object.values( minSet ).filter( v => v).length,
-                    ...minSet,
-                } )
-            ),
+/* FUNCTIONS ===================================== */
 
-            max: value.max,
-        };
-    }
+/* CONSTANTS ===================================== */
+
+const allTokenLevels = arrayUnique(Object.values(tokens.colour).map(val=>Object.keys(val) as (keyof typeof val)[]).flat());
+
+const colour = colourToArray(props);
+
+const primaryColour = tokens.colour[
+    Object.keys(tokens.colour).filter( k =>  k.match(/^base(\-|\_|$)/i) === null )[0] as keyof typeof tokens.colour
+] ?? tokens.colour.base;
+
+const targets: {
+    base: LevelTargets;
+    accent?: undefined|LevelTargets;
+} = _targets ? ('base' in _targets ) ? (_targets.base ? _targets as {
+    base:  LevelTargets;
+    accent?: undefined | LevelTargets;
+} : {base: DEFAULT_LEVEL_TARGETS}) : {base: _targets}  : {base: DEFAULT_LEVEL_TARGETS};
+
+const goalLevels = objectMap(
+    targets,
+    ([version, levelMap]) =>
+        levelMap && objectMap(
+            levelMap,
+            ( [
+                targetLevel, 
+                value,
+            ] ): false | {
+                level: ColourLevels|ColourLevels_Extended,
+                textLevel: ColourLevels|ColourLevels_Extended,
+                min: {
+                    aa: {
+                        colCount: number;
+                        ui: ColourLevels|ColourLevels_Extended | undefined,
+                        text: ColourLevels|ColourLevels_Extended | undefined,
+                    },
+                    aaa: {
+                        colCount: number;
+                        ui: ColourLevels|ColourLevels_Extended | undefined,
+                        text: ColourLevels|ColourLevels_Extended | undefined,
+                    },
+                },
+                max: ColourLevels|ColourLevels_Extended | undefined,
+            } => {
+                // returns - don't include
+                if ( excludeLevels.includes( targetLevel ) || ! allTokenLevels.includes(targetLevel) ) {
+                    return false;
+                }
+                
+                return {
+                    level: targetLevel,
+                    
+                    textLevel: value.min.aaa.text
+                        ?? value.min.aa.text
+                        ?? value.max
+                        ?? textColorLevel( targetLevel ),
+                    
+                    min: objectMap(
+                        value.min,
+                        ( [ key, minSet ] ) => ( {
+                            colCount: Object.values( minSet ).filter( v => v).length,
+                            ...minSet,
+                        } )
+                    ),
+
+                    max: value.max,
+                };
+            }
+        )
 );
 ---
 
@@ -377,12 +403,14 @@ const goalLevels = objectMap(
             class:list={['table-wrapper | site-width | shade-swatch-table__wrapper']}
         >
             <table id={id}>
-                { import.meta.env.DEV && <tr>
+                { import.meta.env.DEV && goalLevels.base && <tr>
                     <th
                         class="screen-reader-text"
                         set:text='contrast targets'
                     />
-                    <Fragment>{ Object.values( goalLevels ).map( (set) => set && <th>
+                    <Fragment>{ (
+                        Object.entries( goalLevels.base ) as [ColourLevels|ColourLevels_Extended, typeof goalLevels.base[ColourLevels|ColourLevels_Extended]][]
+                    ).map( ([level, set]) => set && <th>
                         <article
                             class:list={['container', 'shade-swatch']}
                             data-brightness-mode={ Number(set.level) <= 500 ? 'light' : 'dark' }
@@ -403,7 +431,7 @@ const goalLevels = objectMap(
                                 class:list='screen-reader-text'
                                 displayHeading={8}
                                 heading={heading + 1}
-                                set:text='Contrast Test Results'
+                                set:text='Contrast Test Targets'
                             />
 
                             <div 
@@ -506,6 +534,102 @@ const goalLevels = objectMap(
                                         </div>
                                     )}
                                 </div>
+
+                                { goalLevels.accent?.[level] && (
+                                    <div
+                                        class:list={[
+                                            'shade-swatch__contrast__result-group',
+                                            'shade-swatch__contrast__result-group--min-max',
+                                        ]}
+                                        style={`--shade-swatch-contrast-result-group-column-count: 5;`}
+                                    >
+                                        { (['aa', 'aaa'] as const).map( (standard) => goalLevels.accent?.[level] && (
+                                            <div
+                                                class:list={ [
+                                                    'shade-swatch__contrast__result-group__single-min-max',
+                                                    `shade-swatch__contrast__result-group__single-min-max--minimum`,
+                                                    `shade-swatch__contrast__result-group__single-min-max--minimum--${standard}`,
+                                                ] }
+                                                style={`--shade-swatch-contrast-result-group-single-min-max-column-count: ${goalLevels.accent[level].min?.[standard].colCount}`}
+                                            >
+                                                <Heading
+                                                    heading={heading + 2}
+                                                    displayHeading={10}
+
+                                                    class:list={[
+                                                        'screen-reader-text | ',
+                                                        'shade-swatch__contrast__result-group__heading',
+                                                        'shade-swatch__contrast__result-group__heading--minimum',
+                                                        `shade-swatch__contrast__result-group__heading--minimum--${standard}`,
+                                                    ]}
+                                                    set:text={`${standard.toUpperCase()} (accent colours)`}
+                                                />
+                                                {goalLevels.accent[level].min?.[standard].ui && (
+                                                    <ContrastAlert
+                                                        class={[
+                                                            'shade-swatch__contrast__result-group__alert',
+                                                            'shade-swatch__contrast__result-group__alert--minimum',
+                                                            'shade-swatch__contrast__result-group__alert--minimum--ui',
+                                                            `shade-swatch__contrast__result-group__alert--minimum--${standard}`,
+                                                        ]}
+                                                        clr={primaryColour[goalLevels.accent[level].min[standard].ui]}
+                                                        clrSlug={`accent-${goalLevels.accent[level].min[standard].ui}`}
+                                                        level={goalLevels.accent[level].min[standard].ui}
+                                                        title={`${standard.toUpperCase()} UI min: ${goalLevels.accent[level].min[standard].ui}`}
+                                                        type='ui-minimum'
+                                                    />
+                                                )}
+                                                {goalLevels.accent[level].min?.[standard].text && (
+                                                    <ContrastAlert
+                                                        class={[
+                                                            'shade-swatch__contrast__result-group__alert',
+                                                            'shade-swatch__contrast__result-group__alert--minimum',
+                                                            'shade-swatch__contrast__result-group__alert--minimum--text',
+                                                            `shade-swatch__contrast__result-group__alert--minimum--${standard}`,
+                                                        ]}
+                                                        clr={primaryColour[goalLevels.accent[level].min[standard].text]}
+                                                        clrSlug={`accent-${goalLevels.accent[level].min[standard].text}`}
+                                                        level={goalLevels.accent[level].min[standard].text}
+                                                        title={`${standard.toUpperCase()} text min: ${goalLevels.accent[level].min[standard].text}`}
+                                                        type='minimum'
+                                                    />
+                                                )}
+                                            </div>
+                                        ) )}
+
+                                        {goalLevels.accent[level].max && (
+                                            <div
+                                                class:list={[
+                                                    'shade-swatch__contrast__result-group__single-min-max',
+                                                    'shade-swatch__contrast__result-group__single-min-max--maximum',
+                                                ]}
+                                                style={`--shade-swatch-contrast-result-group-single-min-max-column-count: 1`}
+                                            >
+                                                <Heading 
+                                                    heading={heading + 2}
+                                                    displayHeading={10}
+                                                    class:list={[
+                                                        'screen-reader-text | ',
+                                                        'shade-swatch__contrast__result-group__heading',
+                                                        'shade-swatch__contrast__result-group__heading--maximum',
+                                                    ]}
+                                                    set:text='Max'
+                                                />
+                                                <ContrastAlert
+                                                    class={[
+                                                        'shade-swatch__contrast__result-group__alert',
+                                                        'shade-swatch__contrast__result-group__alert--maximum',
+                                                    ]}
+                                                    clr={primaryColour[goalLevels.accent[level].max]}
+                                                    clrSlug={`accent-${goalLevels.accent[level].max}`}
+                                                    level={goalLevels.accent[level].max}
+                                                    title={`max: ${goalLevels.accent[level].max}`}
+                                                    type='maximum'
+                                                />
+                                            </div>
+                                        )}
+                                    </div>
+                                ) }
                             </div>
                         </article>
                     </th>  ) }</Fragment>

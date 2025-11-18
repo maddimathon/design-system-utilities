@@ -34,7 +34,7 @@ export class Tokens_Logos<
 
         this.data = objectMap(
             input,
-            ( { value } ) => (
+            ( [ key, value ] ) => (
                 value instanceof SvgMaker
                     ? value
                     : value && new SvgMaker( value )
@@ -46,7 +46,7 @@ export class Tokens_Logos<
 
         return objectMap(
             this.data,
-            ( { value } ) => value.toJSON()
+            ( [ key, value ] ) => value.toJSON()
         );
     }
 
@@ -61,7 +61,7 @@ export class Tokens_Logos<
     } {
         return objectMap(
             this.data,
-            ( { value } ) => ( {
+            ( [ key, value ] ) => ( {
                 label: value.label,
                 height: value.height,
                 width: value.width,

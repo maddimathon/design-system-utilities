@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.3
+ * @maddimathon/design-system-utilities@0.1.0-alpha.4.draft
  * @license MIT
  */
 import type { ColourLevels, ColourLevels_Extended } from '../@types.js';
@@ -47,7 +47,7 @@ export declare namespace Tokens_Colour_ShadeMap {
     type JsonReturn<T_ColourName extends string, T_ExtraLevels extends ColourLevels_Extended> = {
         [N in ColourLevels | T_ExtraLevels]: Tokens_Colour_ShadeMap_Shade.JsonReturn<T_ColourName, T_ExtraLevels>;
     };
-    function completeMap<T_ColourName extends string, T_ExtraLevels extends ColourLevels_Extended>(allNames: readonly T_ColourName[], extraLevels: readonly T_ExtraLevels[], name: T_ColourName, part: InputParam<T_ColourName, T_ExtraLevels>): {
+    function completeMap<T_ColourName extends string, T_ExtraLevels extends ColourLevels_Extended>(allNames: readonly T_ColourName[], extraLevels: readonly T_ExtraLevels[], name: T_ColourName, part: InputParam<T_ColourName, T_ExtraLevels>, _treatShadeAsBase?: boolean): {
         [L in ColourLevels | T_ExtraLevels]: Tokens_Colour_ShadeMap_Shade<T_ColourName, T_ExtraLevels>;
     };
 }

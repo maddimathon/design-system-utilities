@@ -178,7 +178,7 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
 
         const size = objectMap(
             this.data.size,
-            ( { key, value } ): Tokens_Typography.JsonReturn[ 'size' ][ string ] => {
+            ( [ key, value ] ): Tokens_Typography.JsonReturn[ 'size' ][ string ] => {
                 // returns
                 if ( typeof value === 'object' ) {
                     return sizeMapper( value );
@@ -226,7 +226,7 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
 
             const sources = objectMap(
                 font.path,
-                ( { key: type, value: paths } ) => typeof paths === 'undefined'
+                ( [ type, paths ] ) => typeof paths === 'undefined'
                     ? []
                     : (
                         Array.isArray( paths ) ? paths : [ paths ]
@@ -270,18 +270,18 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
 
                 family: objectMap(
                     this.data.fonts,
-                    ( { value: family }: { value: Tokens_Typography.Font.Family; } ) => family && ( {
+                    ( [ __key, family ] ) => family && ( {
 
                         variable: family.variable && objectMap(
                             family.variable,
-                            ( obj ) => familyMapper( family, 'variable', obj )
+                            ( [ key, value ] ) => familyMapper( family, 'variable', { key, value } )
                         ),
 
                         weights: objectMap(
                             family.weights,
-                            ( { key: weight, value: fontSet } ) => fontSet && objectMap(
+                            ( [ weight, fontSet ] ) => fontSet && objectMap(
                                 fontSet,
-                                ( obj ) => familyMapper( family, weight, obj )
+                                ( [ key, value ] ) => familyMapper( family, weight, { key, value } )
                             )
                         ),
                     } )

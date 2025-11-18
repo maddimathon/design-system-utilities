@@ -92,7 +92,7 @@ const config = {
             }
         ],
 
-        test: false,
+        test: true,
     },
 };
 

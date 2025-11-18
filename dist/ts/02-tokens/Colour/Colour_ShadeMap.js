@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.3
+ * @maddimathon/design-system-utilities@0.1.0-alpha.4.draft
  * @license MIT
  */
 import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
@@ -45,10 +45,10 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
         return Promise.all(promises);
     }
     toJSON() {
-        return objectMap(this.data, ({ value }) => value.toJSON());
+        return objectMap(this.data, ([key, value]) => value.toJSON());
     }
     toScssVars() {
-        return objectMap(this.data, ({ value }) => value.toScssVars());
+        return objectMap(this.data, ([key, value]) => value.toScssVars());
     }
 }
 /**
@@ -60,7 +60,8 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
     /* FUNCTIONS
      * ====================================================================== */
     // UPGRADE - make this work by only setting lch or hsl hue value
-    function completeMap(allNames, extraLevels, name, part) {
+    function completeMap(allNames, extraLevels, name, part, _treatShadeAsBase) {
+        const treatShadeAsBase = _treatShadeAsBase ?? (name.match(/^base(\-|\_|$)/i) !== null);
         const inputKeys = Object.keys(part);
         const bases = {
             '100': { l: 98, c: 0, h: 0 },
@@ -121,13 +122,13 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
             : part['500']));
         const l_300 = shadeMaker('300', ((!('300' in part) || !part['300'])
             // we should merge it from what's available
-            ? ColourUtilities.mixColours(l_100, l_500, name == 'base' ? 0 : 0.375)
+            ? ColourUtilities.mixColours(l_100, l_500, treatShadeAsBase ? 0 : 0.375)
             // ? ColourUtilities.mixColours( l_100, l_500 )
             // otherwise we can safely assume this exists
             : part['300']));
         const l_700 = shadeMaker('700', ((!('700' in part) || !part['700'])
             // we should merge it from what's available
-            ? ColourUtilities.mixColours(l_500, l_900, name == 'base' ? 0 : 0.375)
+            ? ColourUtilities.mixColours(l_500, l_900, treatShadeAsBase ? 0 : 0.375)
             // ? ColourUtilities.mixColours( l_500, l_900 )
             // otherwise we can safely assume this exists
             : part['700']));

@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.3
+ * @maddimathon/design-system-utilities@0.1.0-alpha.4.draft
  * @license MIT
  */
 /**
@@ -14,14 +14,13 @@
  * @param mapper  The callback function used to define new values.
  *
  * @since 0.1.0-alpha
- */
-export function objectMap(obj, mapper) {
-    // @ts-expect-error - this will be filled
-    let mapped = {};
-    for (const t_key in obj) {
-        const key = t_key;
-        mapped[key] = mapper({ key, value: obj[key] });
-    }
-    return mapped;
+*/
+export function objectMap(obj, callback) {
+    const entries = Object.entries(obj);
+    const mappedEntries = entries.map(([key, value]) => [
+        key,
+        callback([key, value]),
+    ]);
+    return Object.fromEntries(mappedEntries);
 }
 //# sourceMappingURL=objectMap.js.map

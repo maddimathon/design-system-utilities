@@ -83,7 +83,7 @@ export class Tokens_Colour_ShadeMap<
 
         return objectMap(
             this.data,
-            ( { value } ) => value.toJSON(),
+            ( [ key, value ] ) => value.toJSON(),
         );
     }
 
@@ -93,7 +93,7 @@ export class Tokens_Colour_ShadeMap<
 
         return objectMap(
             this.data,
-            ( { value } ) => value.toScssVars(),
+            ( [ key, value ] ) => value.toScssVars(),
         );
     }
 }
@@ -141,9 +141,13 @@ export namespace Tokens_Colour_ShadeMap {
         name: T_ColourName,
 
         part: InputParam<T_ColourName, T_ExtraLevels>,
+
+        _treatShadeAsBase?: boolean,
     ): {
             [ L in ColourLevels | T_ExtraLevels ]: Tokens_Colour_ShadeMap_Shade<T_ColourName, T_ExtraLevels>;
         } {
+
+        const treatShadeAsBase = _treatShadeAsBase ?? ( name.match( /^base(\-|\_|$)/i ) !== null );
 
         const inputKeys = Object.keys( part ) as ColourLevels[];
 
@@ -240,7 +244,7 @@ export namespace Tokens_Colour_ShadeMap {
             (
                 ( !( '300' in part ) || !part[ '300' ] )
                     // we should merge it from what's available
-                    ? ColourUtilities.mixColours( l_100, l_500, name == 'base' ? 0 : 0.375 )
+                    ? ColourUtilities.mixColours( l_100, l_500, treatShadeAsBase ? 0 : 0.375 )
                     // ? ColourUtilities.mixColours( l_100, l_500 )
                     // otherwise we can safely assume this exists
                     : part[ '300' ]
@@ -252,7 +256,7 @@ export namespace Tokens_Colour_ShadeMap {
             (
                 ( !( '700' in part ) || !part[ '700' ] )
                     // we should merge it from what's available
-                    ? ColourUtilities.mixColours( l_500, l_900, name == 'base' ? 0 : 0.375 )
+                    ? ColourUtilities.mixColours( l_500, l_900, treatShadeAsBase ? 0 : 0.375 )
                     // ? ColourUtilities.mixColours( l_500, l_900 )
                     // otherwise we can safely assume this exists
                     : part[ '700' ]

@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.3
+ * @maddimathon/design-system-utilities@0.1.0-alpha.4.draft
  * @license MIT
  */
 import { arrayUnique, mergeArgs } from '@maddimathon/utility-typescript/functions';
@@ -112,7 +112,7 @@ export class Tokens_Typography extends AbstractTokens {
             }
             return mapped;
         };
-        const size = objectMap(this.data.size, ({ key, value }) => {
+        const size = objectMap(this.data.size, ([key, value]) => {
             // returns
             if (typeof value === 'object') {
                 return sizeMapper(value);
@@ -139,7 +139,7 @@ export class Tokens_Typography extends AbstractTokens {
                 }
                 fallbacks = arrayUnique(fallbacks);
             }
-            const sources = objectMap(font.path, ({ key: type, value: paths }) => typeof paths === 'undefined'
+            const sources = objectMap(font.path, ([type, paths]) => typeof paths === 'undefined'
                 ? []
                 : (Array.isArray(paths) ? paths : [paths]).map((path) => ({
                     type: type == 'ttf' ? 'truetype' : type,
@@ -167,9 +167,9 @@ export class Tokens_Typography extends AbstractTokens {
                 // UPGRADE - make empty size objects equal to null
                 size: this.data.size,
                 sizeScale: this.data.sizeScale,
-                family: objectMap(this.data.fonts, ({ value: family }) => family && ({
-                    variable: family.variable && objectMap(family.variable, (obj) => familyMapper(family, 'variable', obj)),
-                    weights: objectMap(family.weights, ({ key: weight, value: fontSet }) => fontSet && objectMap(fontSet, (obj) => familyMapper(family, weight, obj))),
+                family: objectMap(this.data.fonts, ([__key, family]) => family && ({
+                    variable: family.variable && objectMap(family.variable, ([key, value]) => familyMapper(family, 'variable', { key, value })),
+                    weights: objectMap(family.weights, ([weight, fontSet]) => fontSet && objectMap(fontSet, ([key, value]) => familyMapper(family, weight, { key, value }))),
                 })),
                 familyOverrides: this.familyOverrides,
             },

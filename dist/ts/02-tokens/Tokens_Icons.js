@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.3
+ * @maddimathon/design-system-utilities@0.1.0-alpha.4.draft
  * @license MIT
  */
 // import { JsonToScss } from '@maddimathon/utility-sass';
@@ -223,7 +223,7 @@ export class Tokens_Icons extends AbstractTokens {
     constructor(input) {
         super();
         const merged = mergeArgs(Tokens_Icons.default, input, true);
-        this.data = objectMap(merged, ({ value }) => {
+        this.data = objectMap(merged, ([key, value]) => {
             // returns
             if (value instanceof Tokens_Icons.SvgIcon) {
                 return value;
@@ -236,10 +236,10 @@ export class Tokens_Icons extends AbstractTokens {
         });
     }
     toJSON() {
-        return objectMap(this.data, ({ value }) => value.toJSON());
+        return objectMap(this.data, ([key, value]) => value.toJSON());
     }
     toScssVars() {
-        return objectMap(this.data, ({ value }) => ({
+        return objectMap(this.data, ([key, value]) => ({
             slug: value.slug,
             label: value.label,
             height: value.height,

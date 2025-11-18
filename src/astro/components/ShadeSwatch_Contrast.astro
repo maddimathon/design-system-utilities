@@ -233,7 +233,7 @@ function getShadeMapSets<
             _isCondensed ? undefined : _values.results[ colourName ] && objectMap(
                 _values.results[ colourName ],
                 
-                (res) => {
+                ([key, value]) => {
                     
                     let __val: undefined | {
                         level: ColourLevels | T_ExtraLevels;
@@ -243,16 +243,16 @@ function getShadeMapSets<
                         type: ComponentProps<typeof ContrastAlert>['type'];
                     } = undefined;
 
-                    if (res.value?.ratio) {
+                    if (value?.ratio) {
 
                         const result = {
                             text: {
-                                aa: res.value?.aa?.text,
-                                aaa: res.value?.aaa?.text,
+                                aa: value?.aa?.text,
+                                aaa: value?.aaa?.text,
                             },
                             ui: {
-                                aa: res.value?.aa?.ui,
-                                aaa: res.value?.aaa?.ui,
+                                aa: value?.aa?.ui,
+                                aaa: value?.aaa?.ui,
                             },
                         };
 
@@ -279,8 +279,8 @@ function getShadeMapSets<
                         }
 
                         __val = {
-                            level: res.key as ColourLevels | T_ExtraLevels,
-                            ratio: res.value?.ratio,
+                            level: key as ColourLevels | T_ExtraLevels,
+                            ratio: value?.ratio,
                             result,
                             interpretedResult: interpretedResult ?? 'Fail',
                             type: type ?? 'fail',

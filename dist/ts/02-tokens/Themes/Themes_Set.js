@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.3
+ * @maddimathon/design-system-utilities@0.1.0-alpha.4.draft
  * @license MIT
  */
 import { objectGeneratorAsync } from '../../01-utilities/objectGenerator.js';
@@ -43,7 +43,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
         return {
             name: this.name ?? 'default',
             // ...this.modes,
-            ...objectMap(this.modes, ({ key: brightnessMode }) => objectMap(this.modes[brightnessMode], ({ value }) => value.data)),
+            ...objectMap(this.modes, ([brightnessMode]) => objectMap(this.modes[brightnessMode], ([__key, value]) => value.data)),
             forcedColours: this.forcedColours.data,
         };
     }
@@ -60,7 +60,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
         this.modes = modes;
     }
     toJSON() {
-        const levelsInUse = arrayUnique(Object.values(objectMap(this.modes, ({ key: brightnessMode }) => Object.values(objectMap(this.modes[brightnessMode], ({ value }) => value.levelsInUse)).flat())).flat());
+        const levelsInUse = arrayUnique(Object.values(objectMap(this.modes, ([brightnessMode]) => Object.values(objectMap(this.modes[brightnessMode], ([__key, value]) => value.levelsInUse)).flat())).flat());
         const levelsInUse_dark = levelsInUse.map((level) => {
             const dark = (1000 - Number(level)).toFixed(0);
             return dark.padStart(Math.max(0, 3 - dark.length), '0');
@@ -68,7 +68,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
         return {
             name: this.name ?? 'default',
             // ...this.modes,
-            ...objectMap(this.modes, ({ key: brightnessMode }) => objectMap(this.modes[brightnessMode], ({ value }) => value.toJSON())),
+            ...objectMap(this.modes, ([brightnessMode]) => objectMap(this.modes[brightnessMode], ([__key, value]) => value.toJSON())),
             forcedColours: this.forcedColours.toJSON(),
             levelsInUse: arrayUnique(levelsInUse.concat(levelsInUse_dark)).sort(),
         };
@@ -76,7 +76,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
     toScssVars() {
         return {
             'forced-colors': this.forcedColours.toScssVars(),
-            ...objectMap(this.modes, ({ key: brightnessMode }) => objectMap(this.modes[brightnessMode], ({ value }) => value.toScssVars())),
+            ...objectMap(this.modes, ([brightnessMode]) => objectMap(this.modes[brightnessMode], ([__key, value]) => value.toScssVars())),
         };
     }
 }

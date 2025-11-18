@@ -211,7 +211,7 @@ export class Tokens_Themes<
 
         return objectMap(
             this.sets,
-            ( { value } ) => value.data
+            ( [ key, value ] ) => value.data
         ) as Tokens_Themes.Data<
             T_ColourName,
             T_ExtraColourLevels,
@@ -255,7 +255,7 @@ export class Tokens_Themes<
 
         return objectMap(
             this.sets,
-            ( { value } ) => value.toJSON()
+            ( [ key, value ] ) => value.toJSON()
         ) as Tokens_Themes.JsonReturn<
             T_ColourName,
             T_ExtraColourLevels,
@@ -280,7 +280,7 @@ export class Tokens_Themes<
     } {
         return objectMap(
             this.sets,
-            ( { value } ) => value.toScssVars()
+            ( [ key, value ] ) => value.toScssVars()
         );
     }
 }

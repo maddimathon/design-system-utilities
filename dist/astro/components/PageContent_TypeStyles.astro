@@ -85,13 +85,13 @@ const sizeFlattener = (
 
 const flattenedSizes = objectMap(
     sizeFlattener(tokens.typography.size),
-    ({ key, value }) => ({
-        name: key,
+    ([ key, value ]) => ({
+        name: key, 
         sizes: Object.values(objectMap(
             value,
-            (val) => ({
-                type: val.key,
-                value: val.value,
+            ([ type, value ]) => ({
+                type,
+                value,
             })
         )),
     })

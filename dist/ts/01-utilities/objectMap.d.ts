@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.3
+ * @maddimathon/design-system-utilities@0.1.0-alpha.4.draft
  * @license MIT
  */
 /**
@@ -14,11 +14,8 @@
  * @param mapper  The callback function used to define new values.
  *
  * @since 0.1.0-alpha
- */
-export declare function objectMap<T_Object extends object, T_Return extends unknown>(obj: T_Object, mapper: (p: {
-    key: keyof T_Object;
-    value: T_Object[keyof T_Object];
-}) => T_Return): {
-    [K in keyof T_Object]: T_Return;
+*/
+export declare function objectMap<T_Obj extends object, T_NewValue extends unknown>(obj: T_Obj, callback: (entry: [keyof T_Obj, T_Obj[keyof T_Obj]]) => T_NewValue): {
+    [K in keyof T_Obj]: T_NewValue;
 };
 //# sourceMappingURL=objectMap.d.ts.map

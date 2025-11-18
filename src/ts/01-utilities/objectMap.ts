@@ -15,23 +15,28 @@
  * @param mapper  The callback function used to define new values.
  * 
  * @since 0.1.0-alpha
- */
+*/
 export function objectMap<
-    T_Object extends object,
-    T_Return extends unknown,
+    T_Obj extends object,
+    T_NewValue extends unknown,
 >(
-    obj: T_Object,
-    mapper: ( p: { key: keyof T_Object, value: T_Object[ keyof T_Object ]; } ) => T_Return,
-): { [ K in keyof T_Object ]: T_Return; } {
+    obj: T_Obj,
+    callback: ( entry: [ keyof T_Obj, T_Obj[ keyof T_Obj ] ] ) => T_NewValue
+): { [ K in keyof T_Obj ]: T_NewValue; } {
 
-    // @ts-expect-error - this will be filled
-    let mapped: { [ K in keyof T_Object ]: T_Return } = {};
+    const entries = Object.entries( obj ) as [
+        keyof T_Obj,
+        T_Obj[ keyof T_Obj ],
+    ][];
 
-    for ( const t_key in obj ) {
-        const key = t_key as keyof T_Object;
+    const mappedEntries = entries.map(
+        ( [ key, value ] ): [ keyof T_Obj, T_NewValue ] => [
+            key,
+            callback( [ key, value ] ),
+        ]
+    );
 
-        mapped[ key ] = mapper( { key, value: obj[ key ] } );
-    }
-
-    return mapped;
+    return Object.fromEntries( mappedEntries ) as {
+        [ K in keyof T_Obj ]: T_NewValue;
+    };
 }

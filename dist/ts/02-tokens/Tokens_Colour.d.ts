@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.3
+ * @maddimathon/design-system-utilities@0.1.0-alpha.4.draft
  * @license MIT
  */
 import { AbstractTokens } from './abstract/AbstractTokens.js';
@@ -27,7 +27,7 @@ export declare class Tokens_Colour<T_ColourName extends string, T_ExtraLevels ex
      */
     addContrastTests(): Promise<void>;
     toJSON(): Tokens_Colour.JsonReturn<T_ColourName, T_ExtraLevels>;
-    toScssVars(): Tokens_Colour.Data<T_ColourName, T_ExtraLevels> extends infer T extends object ? { [K in keyof T]: T_Return; } : never;
+    toScssVars(): Tokens_Colour.Data<T_ColourName, T_ExtraLevels> extends infer T extends object ? { [K in keyof T]: T_NewValue; } : never;
 }
 /**
  * Utilities for the {@link Tokens_Colour} class.

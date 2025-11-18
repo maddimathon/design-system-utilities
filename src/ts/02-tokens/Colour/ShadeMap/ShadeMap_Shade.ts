@@ -152,9 +152,7 @@ export class Tokens_Colour_ShadeMap_Shade<
 
         const max = objectMap(
             this.contrast.max,
-            ( { value }: {
-                value: Tokens_Colour_ShadeMap_Shade.Contrast.SingleMinMax<T_ColourName, T_ExtraLevels>;
-            } ) => value && {
+            ( [ key, value ] ) => value && {
                 ...value,
                 // ratio: undefined
             },
@@ -166,7 +164,7 @@ export class Tokens_Colour_ShadeMap_Shade<
             number
         > = objectMap(
             this.contrast.min,
-            ( { value: testGroup } ) => ( {
+            ( [ key, testGroup ] ) => ( {
 
                 ui: testGroup?.ui && {
                     aa: testGroup.ui.aa && {
@@ -274,7 +272,7 @@ export namespace Tokens_Colour_ShadeMap_Shade {
             T_ExtraLevels extends ColourLevels_Extended,
             T_RatioValue extends number | undefined = number,
         > = undefined | {
-            name: T_ColourName;
+            name: 'base' | T_ColourName;
             level: ColourLevels | T_ExtraLevels;
             ratio: T_RatioValue;
         };
@@ -287,7 +285,7 @@ export namespace Tokens_Colour_ShadeMap_Shade {
             T_ExtraLevels extends ColourLevels_Extended,
             T_RatioValue extends number | undefined = number,
         > = {
-                [ N in T_ColourName ]?: SingleMinMax<T_ColourName, T_ExtraLevels, T_RatioValue>;
+                [ N in 'base' | T_ColourName ]?: SingleMinMax<T_ColourName, T_ExtraLevels, T_RatioValue>;
             };
 
         /**
@@ -298,7 +296,7 @@ export namespace Tokens_Colour_ShadeMap_Shade {
             T_ExtraLevels extends ColourLevels_Extended,
             T_RatioValue extends number | undefined = number,
         > = {
-                [ N in T_ColourName ]?: undefined | {
+                [ N in 'base' | T_ColourName ]?: undefined | {
                     [ K in keyof ColourContrastTest.TestResult_Single ]?: undefined | {
                         [ S in keyof ColourContrastTest.TestStandards ]?: SingleMinMax<T_ColourName, T_ExtraLevels, T_RatioValue>;
                     };

@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.3
+ * @maddimathon/design-system-utilities@0.1.0-alpha.4.draft
  * @license MIT
  */
 import { arrayUnique, mergeArgs } from '@maddimathon/utility-typescript/functions';
@@ -313,15 +313,15 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
             const { levels, variations, } = input;
             const text = {
                 $: clrOpt(variations.base, levels.text.$),
-                ...objectMap(variations.universal, ({ value: clrName }) => clrOpt(clrName, levels.text.accent)),
-                ...objectMap(variations.text, ({ value: clrName }) => clrOpt(clrName, levels.text.accent)),
+                ...objectMap(variations.universal, ([key, clrName]) => clrOpt(clrName, levels.text.accent)),
+                ...objectMap(variations.text, ([key, clrName]) => clrOpt(clrName, levels.text.accent)),
                 disabled: clrOpt(variations.text.disabled, levels.text.min),
                 grey: clrOpt(variations.text.disabled, levels.text.accent),
             };
             const ui = {
                 $: clrOpt(variations.base, levels.ui.$),
-                ...objectMap(variations.universal, ({ value: clrName }) => clrOpt(clrName, levels.ui.accent)),
-                ...objectMap(variations.text, ({ value: clrName }) => clrOpt(clrName, levels.ui.accent)),
+                ...objectMap(variations.universal, ([key, clrName]) => clrOpt(clrName, levels.ui.accent)),
+                ...objectMap(variations.text, ([key, clrName]) => clrOpt(clrName, levels.ui.accent)),
                 disabled: clrOpt(variations.text.disabled, levels.ui.min),
                 grey: clrOpt(variations.text.disabled, levels.ui.accent),
             };
@@ -329,7 +329,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
             const link = {
                 $: clrOpt(variations.universal.primary, levels.text.accent),
                 visited: clrOpt(variations.universal.primary, levels.text.accent),
-                ...objectMap(variations.interactive, ({ value: clrName }) => clrOpt(clrName, levels.text.accent)),
+                ...objectMap(variations.interactive, ([key, clrName]) => clrOpt(clrName, levels.text.accent)),
                 disabled: clrOpt(variations.text.disabled, levels.text.min),
             };
             const linkIcon = {
@@ -387,7 +387,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 };
             };
             const button = {
-                ...objectMap(variations.universal, ({ value: clrName }) => singleButtonMaker(clrName)),
+                ...objectMap(variations.universal, ([key, clrName]) => singleButtonMaker(clrName)),
                 disabled: {
                     bg: {
                         $: clrOpt(variations.base, levels.text.min),

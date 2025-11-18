@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.3
+ * @maddimathon/design-system-utilities@0.1.0-alpha.4.draft
  * @license MIT
  */
 // import { JsonToScss } from '@maddimathon/utility-sass';
@@ -47,7 +47,7 @@ export class Tokens_Themes extends AbstractTokens {
         return sets;
     }
     get data() {
-        return objectMap(this.sets, ({ value }) => value.data);
+        return objectMap(this.sets, ([key, value]) => value.data);
     }
     constructor(clrNames, extraColourLevels, brightnessModes, contrastModes, sets) {
         super();
@@ -58,10 +58,10 @@ export class Tokens_Themes extends AbstractTokens {
         this.sets = sets;
     }
     toJSON() {
-        return objectMap(this.sets, ({ value }) => value.toJSON());
+        return objectMap(this.sets, ([key, value]) => value.toJSON());
     }
     toScssVars() {
-        return objectMap(this.sets, ({ value }) => value.toScssVars());
+        return objectMap(this.sets, ([key, value]) => value.toScssVars());
     }
 }
 //# sourceMappingURL=Tokens_Themes.js.map

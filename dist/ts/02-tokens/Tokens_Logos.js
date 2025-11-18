@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.3
+ * @maddimathon/design-system-utilities@0.1.0-alpha.4.draft
  * @license MIT
  */
 // import { JsonToScss } from '@maddimathon/utility-sass';
@@ -21,15 +21,15 @@ export class Tokens_Logos extends AbstractTokens {
     data;
     constructor(input) {
         super();
-        this.data = objectMap(input, ({ value }) => (value instanceof SvgMaker
+        this.data = objectMap(input, ([key, value]) => (value instanceof SvgMaker
             ? value
             : value && new SvgMaker(value)));
     }
     toJSON() {
-        return objectMap(this.data, ({ value }) => value.toJSON());
+        return objectMap(this.data, ([key, value]) => value.toJSON());
     }
     toScssVars() {
-        return objectMap(this.data, ({ value }) => ({
+        return objectMap(this.data, ([key, value]) => ({
             label: value.label,
             height: value.height,
             width: value.width,

@@ -308,7 +308,7 @@ export class Tokens_Icons<
             <
                 T_Icon extends Tokens_Icons.DefaultIconNames | T_ExtraIconNames,
             >(
-                { value }: { key: T_Icon; value: typeof merged[ T_Icon ]; }
+                [ key, value ]: [ T_Icon, typeof merged[ T_Icon ] ]
             ): undefined | Tokens_Icons.SvgIcon<T_Icon> => {
                 // returns
                 if ( value instanceof Tokens_Icons.SvgIcon ) {
@@ -332,10 +332,7 @@ export class Tokens_Icons<
             <
                 T_Icon extends Tokens_Icons.DefaultIconNames | T_ExtraIconNames,
             >(
-                { value }: {
-                    key: T_Icon;
-                    value: Tokens_Icons.Data<T_ExtraIconNames>[ T_Icon ];
-                }
+                [ key, value ]: [ T_Icon, Tokens_Icons.Data<T_ExtraIconNames>[ T_Icon ] ]
             ) => value.toJSON() as SvgMaker.JsonReturn<T_Icon>
         ) as Tokens_Icons.JsonReturn<T_ExtraIconNames>;
     }
@@ -355,10 +352,7 @@ export class Tokens_Icons<
             <
                 T_Icon extends Tokens_Icons.DefaultIconNames | T_ExtraIconNames,
             >(
-                { value }: {
-                    key: T_Icon;
-                    value: Tokens_Icons.Data<T_ExtraIconNames>[ T_Icon ];
-                }
+                [ key, value ]: [ T_Icon, Tokens_Icons.Data<T_ExtraIconNames>[ T_Icon ] ]
             ): {
                 slug: Tokens_Icons.DefaultIconNames | T_ExtraIconNames;
                 label: string;

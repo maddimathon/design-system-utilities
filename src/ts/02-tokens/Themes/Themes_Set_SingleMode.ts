@@ -1282,8 +1282,8 @@ export namespace Tokens_Themes_Set_SingleMode {
             const text: CompleteData[ 'text' ] = {
                 $: clrOpt( variations.base, levels.text.$ ),
 
-                ...objectMap( variations.universal, ( { value: clrName } ) => clrOpt( clrName, levels.text.accent ) ),
-                ...objectMap( variations.text, ( { value: clrName } ) => clrOpt( clrName, levels.text.accent ) ),
+                ...objectMap( variations.universal, ( [ key, clrName ] ) => clrOpt( clrName, levels.text.accent ) ),
+                ...objectMap( variations.text, ( [ key, clrName ] ) => clrOpt( clrName, levels.text.accent ) ),
 
                 disabled: clrOpt( variations.text.disabled, levels.text.min ),
                 grey: clrOpt( variations.text.disabled, levels.text.accent ),
@@ -1292,8 +1292,8 @@ export namespace Tokens_Themes_Set_SingleMode {
             const ui: CompleteData[ 'ui' ] = {
                 $: clrOpt( variations.base, levels.ui.$ ),
 
-                ...objectMap( variations.universal, ( { value: clrName } ) => clrOpt( clrName, levels.ui.accent ) ),
-                ...objectMap( variations.text, ( { value: clrName } ) => clrOpt( clrName, levels.ui.accent ) ),
+                ...objectMap( variations.universal, ( [ key, clrName ] ) => clrOpt( clrName, levels.ui.accent ) ),
+                ...objectMap( variations.text, ( [ key, clrName ] ) => clrOpt( clrName, levels.ui.accent ) ),
 
                 disabled: clrOpt( variations.text.disabled, levels.ui.min ),
                 grey: clrOpt( variations.text.disabled, levels.ui.accent ),
@@ -1308,7 +1308,7 @@ export namespace Tokens_Themes_Set_SingleMode {
                 $: clrOpt( variations.universal.primary, levels.text.accent ),
                 visited: clrOpt( variations.universal.primary, levels.text.accent ),
 
-                ...objectMap( variations.interactive, ( { value: clrName } ) => clrOpt( clrName, levels.text.accent ) ),
+                ...objectMap( variations.interactive, ( [ key, clrName ] ) => clrOpt( clrName, levels.text.accent ) ),
 
                 disabled: clrOpt( variations.text.disabled, levels.text.min ),
             };
@@ -1381,7 +1381,7 @@ export namespace Tokens_Themes_Set_SingleMode {
             };
 
             const button: CompleteData[ 'button' ] = {
-                ...objectMap( variations.universal, ( { value: clrName } ) => singleButtonMaker( clrName ) ),
+                ...objectMap( variations.universal, ( [ key, clrName ] ) => singleButtonMaker( clrName ) ),
 
                 disabled: {
 

@@ -52,10 +52,10 @@ const buttonVariations = tokens.themes['default']
     : [];
 
 const parsedSets = Object.values(
-    objectMap(tokens.themes, ({ key, value: theme }) => ({
+    objectMap(tokens.themes, ([key,  theme]) => ({
         key,
         parsed: Object.values(
-            objectMap(theme, ({ key: brightness }) =>
+            objectMap(theme, ([brightness]) =>
             brightness === 'name'
                     ? false
                     : brightness === 'levelsInUse'
@@ -67,7 +67,7 @@ const parsedSets = Object.values(
                               values: Object.values(
                                   objectMap(
                                   theme[brightness],
-                                    ({ key: contrast, value: theme }): {
+                                    ([ contrast,  theme ]): {
                                         id: string,
                                         brightness: "light"|"dark",
                                         contrast: "low"|"average"|"high"|"max",

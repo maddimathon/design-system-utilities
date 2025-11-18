@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.3
+ * @maddimathon/design-system-utilities@0.1.0-alpha.4.draft
  * @license MIT
  */
 import type { ThemeMode_Contrast, ThemeMode_ContrastAtLeastOne, ThemeMode_ContrastExtraOptions, ColourLevels_Extended, TokenLevels } from './@types.js';
@@ -67,7 +67,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
             width: number;
             aspectRatio: string;
         }; };
-        colour: Tokens_Colour.Data<T_ColourName, T_ExtraColourLevels> extends infer T extends object ? { [K_2 in keyof T]: T_Return; } : never;
+        colour: Tokens_Colour.Data<T_ColourName, T_ExtraColourLevels> extends infer T extends object ? { [K_2 in keyof T]: T_NewValue; } : never;
         themes: { [K_3 in T_ThemeName]: { [B in T_ThemeBrightnessMode[number]]: { [C in T_ThemeContrastMode[number]]: {
             system: {
                 background: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;

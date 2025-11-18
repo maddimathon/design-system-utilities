@@ -66,10 +66,10 @@ function themeTokenFlatten<T_Val extends string | number |undefined |null|any[]>
 ): { key: string; value: T_Val; }[] {
     const pre = prefix == '$' ? '' : prefix ?? '';
 
-    const mapper = ( { key, value }: { 
-        key: string; 
-        value: T_Val|RecursiveRecord<string, T_Val>;
-    } ): {
+    const mapper = ( [ key, value ]: [
+        string,
+        T_Val|RecursiveRecord<string, T_Val>
+    ] ): {
         key: string;
         value: T_Val;
     }[] => {
@@ -161,7 +161,7 @@ function getClrFromThemeValue(
 const customDisplayKeys = ['background', 'button', 'field', 'selection', 'system'];
 
 const autoTokens = Object.values(
-    objectMap(theme.data, ({ key, value }) =>
+    objectMap(theme.data, ([key, value ]) =>
         customDisplayKeys.includes(key)
             ? false
             : (typeof value !== 'object' || Array.isArray( value ) )
@@ -184,7 +184,7 @@ const levelsInUseTable = theme.levelsInUse.map(
 
         styles: objectMap(
             levels,
-            ( { value } ) => {
+            ( [ key, value ] ) => {
 
                 const textColor = textColorLevel( value as ColourLevels );
                 
@@ -221,7 +221,7 @@ const buttons: {
     [ key: string ]: ButtonVariation;
 } = objectMap(
     theme.data.button,
-    ( { key: variation, value } ): ButtonVariation => ( {
+    ( [ variation, value ] ): ButtonVariation => ( {
         name: variation,
         states: objectGenerator(
             [ '$', 'hover', 'active' ],

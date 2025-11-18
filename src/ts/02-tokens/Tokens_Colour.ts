@@ -87,14 +87,14 @@ export class Tokens_Colour<
     public toJSON(): Tokens_Colour.JsonReturn<T_ColourName, T_ExtraLevels> {
         return objectMap(
             this.data,
-            ( { value } ) => value.toJSON(),
+            ( [ key, value ] ) => value.toJSON(),
         );
     }
 
     public toScssVars() {
         return objectMap(
             this.data,
-            ( { value } ) => value.toScssVars(),
+            ( [ key, value ] ) => value.toScssVars(),
         );
     }
 }
