@@ -148,12 +148,12 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
             heading: {
                 1: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 2: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                3: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                7: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                4: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 9: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                3: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                4: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 5: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 6: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                7: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 8: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 10: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
             };
@@ -240,12 +240,12 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                 heading: {
                     1: number;
                     2: number;
-                    3: number;
-                    7: number;
-                    4: number;
                     9: number;
+                    3: number;
+                    4: number;
                     5: number;
                     6: number;
+                    7: number;
                     8: number;
                     10: number;
                 } & {

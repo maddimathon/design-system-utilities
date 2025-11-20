@@ -5832,44 +5832,7 @@ a:active {
             var(--icon-size-pseudo, 1em) *
                 var(--icon-size-pseudo--font-multiplier, 1)
         );
-        aspect-ratio: 1/1;
-    }
-    .no-js a[target="_blank"]::after,
-    .js__no-whereSelector a[target="_blank"]::after {
-        /* aspect-ratio fallback */
-        position: relative;
-    }
-    .no-js a[target="_blank"]::after::before,
-    .js__no-whereSelector a[target="_blank"]::after::before {
-        /* aspect-ratio fallback */
-        content: "";
-        float: left;
-        padding-top: 100%;
-    }
-    .no-js a[target="_blank"]::after::after,
-    .js__no-whereSelector a[target="_blank"]::after::after {
-        /* aspect-ratio fallback */
-        content: "";
-        display: block;
-        clear: both;
-    }
-    :where(.js__no-aspectRatio) a[target="_blank"]::after {
-        /* aspect-ratio fallback */
-        position: relative;
-    }
-    :where(.js__no-aspectRatio) a[target="_blank"]::after::before {
-        /* aspect-ratio fallback */
-        content: "";
-        float: left;
-        padding-top: 100%;
-    }
-    :where(.js__no-aspectRatio) a[target="_blank"]::after::after {
-        /* aspect-ratio fallback */
-        content: "";
-        display: block;
-        clear: both;
-    }
-    a[target="_blank"]::after {
+        aspect-ratio: 1;
         align-self: center;
     }
 }
@@ -5889,32 +5852,32 @@ a[aria-disabled="true"] {
     --icon-color: var(--theme-link-icon-hover, hsl(163.49, 71.55%, 19.73%));
     text-decoration-color: "transparent";
     text-decoration-color: var(--theme-link-ui-hover, "transparent");
-    color: hsl(162, 69%, 16.5%);
-    color: var(--theme-link-hover, hsl(162, 69%, 16.5%));
+    color: hsl(339.45, 0%, 24.13%);
+    color: var(--theme-link-disabled, hsl(339.45, 0%, 24.13%));
 }
 
 :where(.js__no-focusVisible) a[aria-disabled="true"]:focus {
     --icon-color: var(--theme-link-icon-hover, hsl(163.49, 71.55%, 19.73%));
     text-decoration-color: "transparent";
     text-decoration-color: var(--theme-link-ui-hover, "transparent");
-    color: hsl(162, 69%, 16.5%);
-    color: var(--theme-link-hover, hsl(162, 69%, 16.5%));
+    color: hsl(339.45, 0%, 24.13%);
+    color: var(--theme-link-disabled, hsl(339.45, 0%, 24.13%));
 }
 
 a[aria-disabled="true"]:hover {
     --icon-color: var(--theme-link-icon-hover, hsl(163.49, 71.55%, 19.73%));
     text-decoration-color: "transparent";
     text-decoration-color: var(--theme-link-ui-hover, "transparent");
-    color: hsl(162, 69%, 16.5%);
-    color: var(--theme-link-hover, hsl(162, 69%, 16.5%));
+    color: hsl(339.45, 0%, 24.13%);
+    color: var(--theme-link-disabled, hsl(339.45, 0%, 24.13%));
 }
 
 a[aria-disabled="true"]:focus-visible {
     --icon-color: var(--theme-link-icon-hover, hsl(163.49, 71.55%, 19.73%));
     text-decoration-color: "transparent";
     text-decoration-color: var(--theme-link-ui-hover, "transparent");
-    color: hsl(162, 69%, 16.5%);
-    color: var(--theme-link-hover, hsl(162, 69%, 16.5%));
+    color: hsl(339.45, 0%, 24.13%);
+    color: var(--theme-link-disabled, hsl(339.45, 0%, 24.13%));
 }
 
 a[aria-disabled="true"]:active {
@@ -5924,8 +5887,8 @@ a[aria-disabled="true"]:active {
         --theme-link-ui-active,
         hsl(3.04, 67.98%, 34.03%)
     );
-    color: hsl(2.81, 72.25%, 28.09%);
-    color: var(--theme-link-active, hsl(2.81, 72.25%, 28.09%));
+    color: hsl(339.45, 0%, 24.13%);
+    color: var(--theme-link-disabled, hsl(339.45, 0%, 24.13%));
 }
 @supports (
     (-webkit-mask-image: url("../fake.svg")) or (mask-image: url("../fake.svg"))
@@ -5978,50 +5941,9 @@ a[aria-disabled="true"]:active {
             var(--icon-size-pseudo, 1em) *
                 var(--icon-size-pseudo--font-multiplier, 1)
         );
-        aspect-ratio: 1/1;
-    }
-    .no-js a[aria-disabled="true"]::before,
-    .js__no-whereSelector a[aria-disabled="true"]::before {
-        /* aspect-ratio fallback */
-        position: relative;
-    }
-    .no-js a[aria-disabled="true"]::before::before,
-    .js__no-whereSelector a[aria-disabled="true"]::before::before {
-        /* aspect-ratio fallback */
-        content: "";
-        float: left;
-        padding-top: 100%;
-    }
-    .no-js a[aria-disabled="true"]::before::after,
-    .js__no-whereSelector a[aria-disabled="true"]::before::after {
-        /* aspect-ratio fallback */
-        content: "";
-        display: block;
-        clear: both;
-    }
-    :where(.js__no-aspectRatio) a[aria-disabled="true"]::before {
-        /* aspect-ratio fallback */
-        position: relative;
-    }
-    :where(.js__no-aspectRatio) a[aria-disabled="true"]::before::before {
-        /* aspect-ratio fallback */
-        content: "";
-        float: left;
-        padding-top: 100%;
-    }
-    :where(.js__no-aspectRatio) a[aria-disabled="true"]::before::after {
-        /* aspect-ratio fallback */
-        content: "";
-        display: block;
-        clear: both;
-    }
-    a[aria-disabled="true"]::before {
+        aspect-ratio: 1;
         align-self: center;
     }
-}
-a[aria-disabled="true"][target="_blank"]::after {
-    content: none;
-    display: none;
 }
 
 abbr[title] {
@@ -6674,45 +6596,45 @@ input[type="radio"] {
     display: inline-block;
     padding: 0;
     width: auto;
-    accent-color: hsl(339.45, 0%, 29.51%);
-    accent-color: var(--theme-field-border, hsl(339.45, 0%, 29.51%));
+    accent-color: hsl(278.62, 55.11%, 36.46%);
+    accent-color: var(--theme-field-accent, hsl(278.62, 55.11%, 36.46%));
 }
 .no-js input[type="checkbox"]:focus,
 .no-js input[type="radio"]:focus,
 .js__no-whereSelector input[type="checkbox"]:focus,
 .js__no-whereSelector input[type="radio"]:focus {
     accent-color: hsl(163.49, 71.55%, 19.73%);
-    accent-color: var(--theme-field-border-hover, hsl(163.49, 71.55%, 19.73%));
+    accent-color: var(--theme-field-accent-hover, hsl(163.49, 71.55%, 19.73%));
 }
 
 :where(.js__no-focusVisible) input[type="checkbox"]:focus,
 :where(.js__no-focusVisible) input[type="radio"]:focus {
     accent-color: hsl(163.49, 71.55%, 19.73%);
-    accent-color: var(--theme-field-border-hover, hsl(163.49, 71.55%, 19.73%));
+    accent-color: var(--theme-field-accent-hover, hsl(163.49, 71.55%, 19.73%));
 }
 
 input[type="checkbox"]:hover,
 input[type="radio"]:hover {
     accent-color: hsl(163.49, 71.55%, 19.73%);
-    accent-color: var(--theme-field-border-hover, hsl(163.49, 71.55%, 19.73%));
+    accent-color: var(--theme-field-accent-hover, hsl(163.49, 71.55%, 19.73%));
 }
 
 input[type="checkbox"]:focus-visible,
 input[type="radio"]:focus-visible {
     accent-color: hsl(163.49, 71.55%, 19.73%);
-    accent-color: var(--theme-field-border-hover, hsl(163.49, 71.55%, 19.73%));
+    accent-color: var(--theme-field-accent-hover, hsl(163.49, 71.55%, 19.73%));
 }
 
 input[type="checkbox"]:focus-within,
 input[type="radio"]:focus-within {
     accent-color: hsl(163.49, 71.55%, 19.73%);
-    accent-color: var(--theme-field-border-hover, hsl(163.49, 71.55%, 19.73%));
+    accent-color: var(--theme-field-accent-hover, hsl(163.49, 71.55%, 19.73%));
 }
 
 input[type="checkbox"]:active,
 input[type="radio"]:active {
     accent-color: hsl(3.04, 67.98%, 34.03%);
-    accent-color: var(--theme-field-border-active, hsl(3.04, 67.98%, 34.03%));
+    accent-color: var(--theme-field-accent-active, hsl(3.04, 67.98%, 34.03%));
 }
 input[type="color"] {
     padding: 0;
@@ -7656,111 +7578,7 @@ a[aria-disabled="true"].button-secondary:active {
             var(--icon-size-pseudo, 1em) *
                 var(--icon-size-pseudo--font-multiplier, 1)
         );
-        aspect-ratio: 1/1;
-    }
-    .no-js button[aria-disabled="true"]::before,
-    .no-js [aria-disabled="true"][role="button"]::before,
-    .no-js input[aria-disabled="true"][type="button"]::before,
-    .no-js input[aria-disabled="true"][type="submit"]::before,
-    .no-js a[aria-disabled="true"].button::before,
-    .no-js a[aria-disabled="true"].button-secondary::before,
-    .js__no-whereSelector button[aria-disabled="true"]::before,
-    .js__no-whereSelector [aria-disabled="true"][role="button"]::before,
-    .js__no-whereSelector input[aria-disabled="true"][type="button"]::before,
-    .js__no-whereSelector input[aria-disabled="true"][type="submit"]::before,
-    .js__no-whereSelector a[aria-disabled="true"].button::before,
-    .js__no-whereSelector a[aria-disabled="true"].button-secondary::before {
-        /* aspect-ratio fallback */
-        position: relative;
-    }
-    .no-js button[aria-disabled="true"]::before::before,
-    .no-js [aria-disabled="true"][role="button"]::before::before,
-    .no-js input[aria-disabled="true"][type="button"]::before::before,
-    .no-js input[aria-disabled="true"][type="submit"]::before::before,
-    .no-js a[aria-disabled="true"].button::before::before,
-    .no-js a[aria-disabled="true"].button-secondary::before::before,
-    .js__no-whereSelector button[aria-disabled="true"]::before::before,
-    .js__no-whereSelector [aria-disabled="true"][role="button"]::before::before,
-    .js__no-whereSelector
-        input[aria-disabled="true"][type="button"]::before::before,
-    .js__no-whereSelector
-        input[aria-disabled="true"][type="submit"]::before::before,
-    .js__no-whereSelector a[aria-disabled="true"].button::before::before,
-    .js__no-whereSelector
-        a[aria-disabled="true"].button-secondary::before::before {
-        /* aspect-ratio fallback */
-        content: "";
-        float: left;
-        padding-top: 100%;
-    }
-    .no-js button[aria-disabled="true"]::before::after,
-    .no-js [aria-disabled="true"][role="button"]::before::after,
-    .no-js input[aria-disabled="true"][type="button"]::before::after,
-    .no-js input[aria-disabled="true"][type="submit"]::before::after,
-    .no-js a[aria-disabled="true"].button::before::after,
-    .no-js a[aria-disabled="true"].button-secondary::before::after,
-    .js__no-whereSelector button[aria-disabled="true"]::before::after,
-    .js__no-whereSelector [aria-disabled="true"][role="button"]::before::after,
-    .js__no-whereSelector
-        input[aria-disabled="true"][type="button"]::before::after,
-    .js__no-whereSelector
-        input[aria-disabled="true"][type="submit"]::before::after,
-    .js__no-whereSelector a[aria-disabled="true"].button::before::after,
-    .js__no-whereSelector
-        a[aria-disabled="true"].button-secondary::before::after {
-        /* aspect-ratio fallback */
-        content: "";
-        display: block;
-        clear: both;
-    }
-    :where(.js__no-aspectRatio) button[aria-disabled="true"]::before,
-    :where(.js__no-aspectRatio) [aria-disabled="true"][role="button"]::before,
-    :where(.js__no-aspectRatio)
-        input[aria-disabled="true"][type="button"]::before,
-    :where(.js__no-aspectRatio)
-        input[aria-disabled="true"][type="submit"]::before,
-    :where(.js__no-aspectRatio) a[aria-disabled="true"].button::before,
-    :where(.js__no-aspectRatio)
-        a[aria-disabled="true"].button-secondary::before {
-        /* aspect-ratio fallback */
-        position: relative;
-    }
-    :where(.js__no-aspectRatio) button[aria-disabled="true"]::before::before,
-    :where(.js__no-aspectRatio)
-        [aria-disabled="true"][role="button"]::before::before,
-    :where(.js__no-aspectRatio)
-        input[aria-disabled="true"][type="button"]::before::before,
-    :where(.js__no-aspectRatio)
-        input[aria-disabled="true"][type="submit"]::before::before,
-    :where(.js__no-aspectRatio) a[aria-disabled="true"].button::before::before,
-    :where(.js__no-aspectRatio)
-        a[aria-disabled="true"].button-secondary::before::before {
-        /* aspect-ratio fallback */
-        content: "";
-        float: left;
-        padding-top: 100%;
-    }
-    :where(.js__no-aspectRatio) button[aria-disabled="true"]::before::after,
-    :where(.js__no-aspectRatio)
-        [aria-disabled="true"][role="button"]::before::after,
-    :where(.js__no-aspectRatio)
-        input[aria-disabled="true"][type="button"]::before::after,
-    :where(.js__no-aspectRatio)
-        input[aria-disabled="true"][type="submit"]::before::after,
-    :where(.js__no-aspectRatio) a[aria-disabled="true"].button::before::after,
-    :where(.js__no-aspectRatio)
-        a[aria-disabled="true"].button-secondary::before::after {
-        /* aspect-ratio fallback */
-        content: "";
-        display: block;
-        clear: both;
-    }
-    button[aria-disabled="true"]::before,
-    [aria-disabled="true"][role="button"]::before,
-    input[aria-disabled="true"][type="button"]::before,
-    input[aria-disabled="true"][type="submit"]::before,
-    a[aria-disabled="true"].button::before,
-    a[aria-disabled="true"].button-secondary::before {
+        aspect-ratio: 1;
         align-self: center;
     }
 }
@@ -8633,93 +8451,7 @@ input[type="reset"]:active,
             var(--icon-size-pseudo, 1em) *
                 var(--icon-size-pseudo--font-multiplier, 1)
         );
-        aspect-ratio: 1/1;
-    }
-    .no-js button[type="reset"]::before,
-    .no-js input[type="reset"]::before,
-    .no-js .website-settings-menu [data-settings-reset]::before,
-    .website-settings-menu .no-js [data-settings-reset]::before,
-    .js__no-whereSelector button[type="reset"]::before,
-    .js__no-whereSelector input[type="reset"]::before,
-    .js__no-whereSelector .website-settings-menu [data-settings-reset]::before,
-    .website-settings-menu .js__no-whereSelector [data-settings-reset]::before {
-        /* aspect-ratio fallback */
-        position: relative;
-    }
-    .no-js button[type="reset"]::before::before,
-    .no-js input[type="reset"]::before::before,
-    .no-js .website-settings-menu [data-settings-reset]::before::before,
-    .website-settings-menu .no-js [data-settings-reset]::before::before,
-    .js__no-whereSelector button[type="reset"]::before::before,
-    .js__no-whereSelector input[type="reset"]::before::before,
-    .js__no-whereSelector
-        .website-settings-menu
-        [data-settings-reset]::before::before,
-    .website-settings-menu
-        .js__no-whereSelector
-        [data-settings-reset]::before::before {
-        /* aspect-ratio fallback */
-        content: "";
-        float: left;
-        padding-top: 100%;
-    }
-    .no-js button[type="reset"]::before::after,
-    .no-js input[type="reset"]::before::after,
-    .no-js .website-settings-menu [data-settings-reset]::before::after,
-    .website-settings-menu .no-js [data-settings-reset]::before::after,
-    .js__no-whereSelector button[type="reset"]::before::after,
-    .js__no-whereSelector input[type="reset"]::before::after,
-    .js__no-whereSelector
-        .website-settings-menu
-        [data-settings-reset]::before::after,
-    .website-settings-menu
-        .js__no-whereSelector
-        [data-settings-reset]::before::after {
-        /* aspect-ratio fallback */
-        content: "";
-        display: block;
-        clear: both;
-    }
-    :where(.js__no-aspectRatio) button[type="reset"]::before,
-    :where(.js__no-aspectRatio) input[type="reset"]::before,
-    :where(.js__no-aspectRatio)
-        .website-settings-menu
-        [data-settings-reset]::before,
-    .website-settings-menu
-        :where(.js__no-aspectRatio)
-        [data-settings-reset]::before {
-        /* aspect-ratio fallback */
-        position: relative;
-    }
-    :where(.js__no-aspectRatio) button[type="reset"]::before::before,
-    :where(.js__no-aspectRatio) input[type="reset"]::before::before,
-    :where(.js__no-aspectRatio)
-        .website-settings-menu
-        [data-settings-reset]::before::before,
-    .website-settings-menu
-        :where(.js__no-aspectRatio)
-        [data-settings-reset]::before::before {
-        /* aspect-ratio fallback */
-        content: "";
-        float: left;
-        padding-top: 100%;
-    }
-    :where(.js__no-aspectRatio) button[type="reset"]::before::after,
-    :where(.js__no-aspectRatio) input[type="reset"]::before::after,
-    :where(.js__no-aspectRatio)
-        .website-settings-menu
-        [data-settings-reset]::before::after,
-    .website-settings-menu
-        :where(.js__no-aspectRatio)
-        [data-settings-reset]::before::after {
-        /* aspect-ratio fallback */
-        content: "";
-        display: block;
-        clear: both;
-    }
-    button[type="reset"]::before,
-    input[type="reset"]::before,
-    .website-settings-menu [data-settings-reset]::before {
+        aspect-ratio: 1;
         align-self: center;
     }
 }
@@ -8776,54 +8508,7 @@ input[type="reset"]:active,
             var(--icon-size-pseudo, 1em) *
                 var(--icon-size-pseudo--font-multiplier, 1)
         );
-        aspect-ratio: 1/1;
-    }
-    .no-js button[type="submit"]::before,
-    .no-js input[type="submit"]::before,
-    .js__no-whereSelector button[type="submit"]::before,
-    .js__no-whereSelector input[type="submit"]::before {
-        /* aspect-ratio fallback */
-        position: relative;
-    }
-    .no-js button[type="submit"]::before::before,
-    .no-js input[type="submit"]::before::before,
-    .js__no-whereSelector button[type="submit"]::before::before,
-    .js__no-whereSelector input[type="submit"]::before::before {
-        /* aspect-ratio fallback */
-        content: "";
-        float: left;
-        padding-top: 100%;
-    }
-    .no-js button[type="submit"]::before::after,
-    .no-js input[type="submit"]::before::after,
-    .js__no-whereSelector button[type="submit"]::before::after,
-    .js__no-whereSelector input[type="submit"]::before::after {
-        /* aspect-ratio fallback */
-        content: "";
-        display: block;
-        clear: both;
-    }
-    :where(.js__no-aspectRatio) button[type="submit"]::before,
-    :where(.js__no-aspectRatio) input[type="submit"]::before {
-        /* aspect-ratio fallback */
-        position: relative;
-    }
-    :where(.js__no-aspectRatio) button[type="submit"]::before::before,
-    :where(.js__no-aspectRatio) input[type="submit"]::before::before {
-        /* aspect-ratio fallback */
-        content: "";
-        float: left;
-        padding-top: 100%;
-    }
-    :where(.js__no-aspectRatio) button[type="submit"]::before::after,
-    :where(.js__no-aspectRatio) input[type="submit"]::before::after {
-        /* aspect-ratio fallback */
-        content: "";
-        display: block;
-        clear: both;
-    }
-    button[type="submit"]::before,
-    input[type="submit"]::before {
+        aspect-ratio: 1;
         align-self: center;
     }
 }

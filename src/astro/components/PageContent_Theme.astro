@@ -31,9 +31,11 @@ import Widget from './Widget.astro';
 export interface Props {
     // theme: Tokens.JsonReturn['themes'][keyof Tokens.JsonReturn['themes']];
     tokens: Tokens.JsonReturn;
+
+    defaultToggleToOpen?: boolean;
 }
 
-const { tokens }: Props = Astro.props;
+const { defaultToggleToOpen: _defaultToggleToOpen, tokens }: Props = Astro.props;
 
 /* CONSTANTS ===================================== */
 
@@ -41,7 +43,7 @@ const themeNames = Object.keys(tokens.themes) as (keyof typeof  tokens.themes )[
 
 const hasMultipleThemes = themeNames.length > 1;
 
-const defaultToggleToOpen = !hasMultipleThemes && import.meta.env.DEV ? true : undefined;
+const defaultToggleToOpen = _defaultToggleToOpen ?? ((!hasMultipleThemes && import.meta.env.DEV) ? true : undefined);
 
 const levelsInUse = getLevelsInUse(tokens.themes);
 

@@ -125,16 +125,8 @@ $_allUniqueIconAspectRatios: ();
                 var(--icon-size-pseudo--font-multiplier, 1)
         );
 
-        $aspectRatioMap: aspect-ratio-string-to-list(
-            icon-aspect-ratio-value($slug)
-        );
-        @include aspect-ratio(
-            list.nth($aspectRatioMap, 1),
-            list.nth($aspectRatioMap, 2)
-        );
+        aspect-ratio: #{icon-aspect-ratio-value($slug)};
 
-        & {
-            @content;
-        }
+        @content;
     }
 }

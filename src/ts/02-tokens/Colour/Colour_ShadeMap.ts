@@ -412,6 +412,12 @@ export namespace Tokens_Colour_ShadeMap {
                 continue levelLoop;
             }
 
+            // continues
+            if ( part[ level ] ) {
+                completeLevels[ level ] = shadeMaker( level, part[ level ] );
+                continue levelLoop;
+            }
+
             let lowerLevel: ColourLevels;
             let higherLevel: ColourLevels;
 
@@ -431,7 +437,10 @@ export namespace Tokens_Colour_ShadeMap {
 
             completeLevels[ level ] = shadeMaker(
                 level,
-                ColourUtilities.mixColours( defaultLevels[ lowerLevel ], defaultLevels[ higherLevel ] ),
+                ColourUtilities.mixColours(
+                    defaultLevels[ lowerLevel ],
+                    defaultLevels[ higherLevel ],
+                ),
             );
         }
 

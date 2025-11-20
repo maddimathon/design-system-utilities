@@ -80,59 +80,59 @@ export declare namespace ColourContrastTest {
             ui: z.ZodBoolean;
             text: z.ZodBoolean;
         }, "strip", z.ZodTypeAny, {
-            ui: boolean;
             text: boolean;
+            ui: boolean;
         }, {
-            ui: boolean;
             text: boolean;
+            ui: boolean;
         }>;
         aaa: z.ZodObject<{
             ui: z.ZodBoolean;
             text: z.ZodBoolean;
         }, "strip", z.ZodTypeAny, {
-            ui: boolean;
             text: boolean;
+            ui: boolean;
         }, {
-            ui: boolean;
             text: boolean;
+            ui: boolean;
         }>;
     }, "strip", z.ZodTypeAny, {
         aa: {
-            ui: boolean;
             text: boolean;
+            ui: boolean;
         };
         aaa: {
-            ui: boolean;
             text: boolean;
+            ui: boolean;
         };
         ratio: number;
     }, {
         aa: {
-            ui: boolean;
             text: boolean;
+            ui: boolean;
         };
         aaa: {
-            ui: boolean;
             text: boolean;
+            ui: boolean;
         };
         ratio: number;
     }>, {
         aa: {
-            ui: boolean;
             text: boolean;
+            ui: boolean;
         };
         aaa: {
-            ui: boolean;
             text: boolean;
+            ui: boolean;
         };
     }, {
         aa: {
-            ui: boolean;
             text: boolean;
+            ui: boolean;
         };
         aaa: {
-            ui: boolean;
             text: boolean;
+            ui: boolean;
         };
         ratio: number;
     }>;

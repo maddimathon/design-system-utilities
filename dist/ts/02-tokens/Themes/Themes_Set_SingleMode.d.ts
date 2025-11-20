@@ -105,12 +105,12 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T
         heading: {
             1: __T_ColourOption;
             2: __T_ColourOption;
-            3: __T_ColourOption;
-            7: __T_ColourOption;
-            4: __T_ColourOption;
             9: __T_ColourOption;
+            3: __T_ColourOption;
+            4: __T_ColourOption;
             5: __T_ColourOption;
             6: __T_ColourOption;
+            7: __T_ColourOption;
             8: __T_ColourOption;
             10: __T_ColourOption;
         };

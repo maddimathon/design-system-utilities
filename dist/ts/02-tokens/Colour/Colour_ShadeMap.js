@@ -211,6 +211,11 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
                 completeLevels[level] = defaultLevels[level];
                 continue levelLoop;
             }
+            // continues
+            if (part[level]) {
+                completeLevels[level] = shadeMaker(level, part[level]);
+                continue levelLoop;
+            }
             let lowerLevel;
             let higherLevel;
             // continues for 000, 050, and 950

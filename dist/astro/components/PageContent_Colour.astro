@@ -34,6 +34,9 @@ import ShadeSwatchTable from './ShadeSwatchTable.astro';
 export interface Props {
     tokens: Tokens.JsonReturn;
 
+    /** @since 0.1.0-alpha.4.draft */
+    includeTargetLevels?: boolean;
+
     /**
      * Used to pass custom targets to the shade swatch table.
      *
@@ -54,7 +57,7 @@ export interface Props {
           };
 }
 
-const { tokens, yardstick }: Props = Astro.props;
+const { includeTargetLevels, tokens, yardstick }: Props = Astro.props;
 
 /* FUNCTION ===================================== */
 
@@ -112,7 +115,17 @@ export async function makeTargetLevels<T_ColourName extends string>(
 
         _lvlB = ColourUtilities.getDarkLevel(_lvlB);
 
-        return Math.max(Number(_lvlA), Number(_lvlB)).toString() as
+        const num_A = Number(_lvlA);
+        const num_B = Number(_lvlB);
+
+        // // returns
+        // if (num_A < 500 && num_B < 500) {
+        //     return Math.min(num_A, num_B).toString() as
+        //         | ColourLevels
+        //         | ColourLevels_Extended;
+        // }
+
+        return Math.max(num_A, num_B).toString() as
             | ColourLevels
             | ColourLevels_Extended;
     };
@@ -210,6 +223,7 @@ const levelTargets = {
     id='all-colours'
     colour={tokens.colour}
     excludeLevels={excludeLevels}
+    includeTargetLevels={includeTargetLevels}
     targets={levelTargets}
     tokens={tokens}
 />

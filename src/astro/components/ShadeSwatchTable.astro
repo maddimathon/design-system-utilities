@@ -41,6 +41,13 @@ export interface Props<
 
     excludeLevels?: ( ColourLevels | T_ExtraLevels )[];
 
+    /**
+     * Whether to include the contrast targets as column headers.
+     *
+     * @since ___PKG_VERSION___
+     */
+    includeTargetLevels?: boolean;
+
     targets?: undefined|LevelTargets|{
         base: undefined|LevelTargets;
         accent?: undefined|LevelTargets;
@@ -53,6 +60,7 @@ const {
     excludeLevels = [],
     heading,
     id,
+    includeTargetLevels = import.meta.env.DEV,
     targets: _targets,
     tokens,
     ...props
@@ -403,7 +411,7 @@ const goalLevels = objectMap(
             class:list={['table-wrapper | site-width | shade-swatch-table__wrapper']}
         >
             <table id={id}>
-                { import.meta.env.DEV && goalLevels.base && <tr>
+                { includeTargetLevels && goalLevels.base && <tr>
                     <th
                         class="screen-reader-text"
                         set:text='contrast targets'

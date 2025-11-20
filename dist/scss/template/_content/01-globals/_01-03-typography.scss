@@ -87,13 +87,13 @@
         @include hover-focus-visible() {
             --icon-color: #{var-theme(link-icon-hover)};
             text-decoration-color: #{var-theme(link-ui-hover)};
-            color: #{var-theme(link-hover)};
+            color: #{var-theme(link-disabled)};
         }
 
         &:active {
             --icon-color: #{var-theme(link-icon-active)};
             text-decoration-color: #{var-theme(link-ui-active)};
-            color: #{var-theme(link-active)};
+            color: #{var-theme(link-disabled)};
         }
 
         &::before {
@@ -103,15 +103,6 @@
                     $pseudo: before
                 ) {
                     align-self: center;
-                }
-            }
-        }
-
-        &[target='_blank'] {
-            &::after {
-                @if config.$template_link_inlineIcons {
-                    content: none;
-                    display: none;
                 }
             }
         }
