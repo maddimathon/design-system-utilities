@@ -134,7 +134,7 @@ export class Tokens_Colour_ShadeMap_Shade<
         }
 
         this.contrast.results[ colourGroupName ][ level ] = {
-            ...contrastTest,
+            ...contrastTest.toJSON(),
         };
     }
 

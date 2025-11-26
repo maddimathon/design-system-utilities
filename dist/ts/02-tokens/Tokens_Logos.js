@@ -26,6 +26,10 @@ export class Tokens_Logos extends AbstractTokens {
             : value && new SvgMaker(value)));
     }
     toJSON() {
+        // returns - no logos, so we return undefined instead of an empty object
+        if (!Object.keys(this.data).length) {
+            return undefined;
+        }
         return objectMap(this.data, ([key, value]) => value.toJSON());
     }
     toScssVars() {

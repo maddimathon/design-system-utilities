@@ -28,7 +28,7 @@ export class Tokens_Typography extends AbstractTokens {
                 '500': 1,
                 '600': 2,
             },
-            fonts: {},
+            fonts: undefined,
             size: {
                 heading: {
                     1: 7,
@@ -64,25 +64,27 @@ export class Tokens_Typography extends AbstractTokens {
         super();
         this.spacing = spacing;
         this.data = mergeArgs(Tokens_Typography.default, input, true);
-        this.familyOverrides = Object.values(this.data.fonts).map((font) => {
-            let isOverride = font.fontOverrideOption;
-            if (typeof isOverride === 'undefined') {
-                switch (font.slug) {
-                    case 'dyslexic':
-                    case 'hyperlegible':
-                    case 'monospace':
-                        isOverride = true;
-                        break;
+        this.familyOverrides = this.data.fonts
+            ? Object.values(this.data.fonts).map((font) => {
+                let isOverride = font.fontOverrideOption;
+                if (typeof isOverride === 'undefined') {
+                    switch (font.slug) {
+                        case 'dyslexic':
+                        case 'hyperlegible':
+                        case 'monospace':
+                            isOverride = true;
+                            break;
+                    }
                 }
-            }
-            return isOverride && ({
-                label: font.slug === 'monospace' ? 'Monospace' : font.name,
-                value: font.slug,
-                labelClass: `font-family-override-${font.slug}`,
-                contentWidthScale: font.contentWidthScale,
-                lineHeightScale: font.lineHeightScale,
-            });
-        }).filter(v => typeof v !== 'undefined' && v !== false);
+                return isOverride && ({
+                    label: font.slug === 'monospace' ? 'Monospace' : font.name,
+                    value: font.slug,
+                    labelClass: `font-family-override-${font.slug}`,
+                    contentWidthScale: font.contentWidthScale,
+                    lineHeightScale: font.lineHeightScale,
+                });
+            }).filter(v => typeof v !== 'undefined' && v !== false)
+            : undefined;
     }
     toJSON() {
         const sizeConverter = (num) => {
@@ -126,7 +128,7 @@ export class Tokens_Typography extends AbstractTokens {
         };
     }
     toScssVars() {
-        const familyMapper = (family, weight, { key: style, value: font }) => {
+        const familyMapper = (family, weight, { value: font }) => {
             let fallbacks = family.fallbacks ?? [];
             if (family.appendSystemFontsToFallbacks) {
                 switch (family.appendSystemFontsToFallbacks) {
@@ -167,7 +169,7 @@ export class Tokens_Typography extends AbstractTokens {
                 // UPGRADE - make empty size objects equal to null
                 size: this.data.size,
                 sizeScale: this.data.sizeScale,
-                family: objectMap(this.data.fonts, ([__key, family]) => family && ({
+                family: this.data.fonts && objectMap(this.data.fonts, ([__key, family]) => family && ({
                     variable: family.variable && objectMap(family.variable, ([key, value]) => familyMapper(family, 'variable', { key, value })),
                     weights: objectMap(family.weights, ([weight, fontSet]) => fontSet && objectMap(fontSet, ([key, value]) => familyMapper(family, weight, { key, value }))),
                 })),

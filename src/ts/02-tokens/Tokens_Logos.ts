@@ -44,6 +44,11 @@ export class Tokens_Logos<
 
     public toJSON(): Tokens_Logos.JsonReturn<T_LogoNames> {
 
+        // returns - no logos, so we return undefined instead of an empty object
+        if ( !Object.keys( this.data ).length ) {
+            return undefined;
+        }
+
         return objectMap(
             this.data,
             ( [ key, value ] ) => value.toJSON()
@@ -106,7 +111,7 @@ export namespace Tokens_Logos {
      */
     export type JsonReturn<
         T_LogoNames extends string,
-    > = {
-            [ L in T_LogoNames ]: SvgMaker.JsonReturn<T_LogoNames>;
-        };
+    > = undefined | {
+        [ L in T_LogoNames ]: SvgMaker.JsonReturn<T_LogoNames>;
+    };
 }

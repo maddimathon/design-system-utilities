@@ -373,14 +373,13 @@ $_themes_includeAlternatives: if(
 );
 
 ///
-/// Prints out the theme custom property tokens based on config.
+/// Handles iterating through each colour mode.
 ///
-/// @since 0.1.0-alpha
+/// @since ___PKG_VERSION___
 ///
-@mixin tokens-theme(
-    $includeAlternatives: $_themes_includeAlternatives,
-    $separateQueriesAndSelectors:
-        config.$mx_tokensTheme_separateQueriesAndSelectors
+@mixin tokens-theme-iterator(
+    $includeAlternatives,
+    $separateQueriesAndSelectors
 ) {
     @if $separateQueriesAndSelectors {
         // prettier-ignore
@@ -392,12 +391,7 @@ $_themes_includeAlternatives: if(
             $includeQuery: true,
             $includeSelectors: false
         ) using ($brightness, $contrast) {
-            //
-            @include _tokens-theme-internal-mode(
-                $brightness: $brightness,
-                $contrast: $contrast,
-                $includeAlternatives: $includeAlternatives,
-            );
+            @content($brightness, $contrast);
         }
 
         // prettier-ignore
@@ -407,25 +401,84 @@ $_themes_includeAlternatives: if(
             $includeDefault: config.$mx_tokensTheme_includeDefaultSelectors,
             $includeQuery: false
         ) using ($brightness, $contrast) {
-            //
-            @include _tokens-theme-internal-mode(
-                $brightness: $brightness,
-                $contrast: $contrast,
-                $includeAlternatives: $includeAlternatives,
-            );
+            @content($brightness, $contrast);
         }
     } @else {
         // prettier-ignore
         @include utils.colour-mode-each(
             $includeRegions_heading: 'Tokens - Theme - ',
         ) using ($brightness, $contrast) {
-            //
-            @include _tokens-theme-internal-mode(
-                $brightness: $brightness,
-                $contrast: $contrast,
-                $includeAlternatives: $includeAlternatives,
-            );
+            @content($brightness, $contrast);
         }
+    }
+}
+
+///
+/// Prints out the theme custom property tokens based on config.
+///
+/// @since 0.1.0-alpha
+///
+@mixin tokens-theme(
+    $includeAlternatives: $_themes_includeAlternatives,
+    $separateQueriesAndSelectors:
+        config.$mx_tokensTheme_separateQueriesAndSelectors
+) {
+    // @if $separateQueriesAndSelectors {
+    //     // prettier-ignore
+    //     @include utils.colour-mode-each(
+    //         $includeRegions_heading: 'Tokens - Theme - Queries - ',
+
+    //         $includeDefault: not config.$include_defaultMediaQueries,
+    //         $includeForcedColors: false,
+    //         $includeQuery: true,
+    //         $includeSelectors: false
+    //     ) using ($brightness, $contrast) {
+    //         //
+    //         @include _tokens-theme-internal-mode(
+    //             $brightness: $brightness,
+    //             $contrast: $contrast,
+    //             $includeAlternatives: $includeAlternatives,
+    //         );
+    //     }
+
+    //     // prettier-ignore
+    //     @include utils.colour-mode-each(
+    //         $includeRegions_heading: 'Tokens - Theme - Selectors - ',
+
+    //         $includeDefault: config.$mx_tokensTheme_includeDefaultSelectors,
+    //         $includeQuery: false
+    //     ) using ($brightness, $contrast) {
+    //         //
+    //         @include _tokens-theme-internal-mode(
+    //             $brightness: $brightness,
+    //             $contrast: $contrast,
+    //             $includeAlternatives: $includeAlternatives,
+    //         );
+    //     }
+    // } @else {
+    //     // prettier-ignore
+    //     @include utils.colour-mode-each(
+    //         $includeRegions_heading: 'Tokens - Theme - ',
+    //     ) using ($brightness, $contrast) {
+    //         //
+    //         @include _tokens-theme-internal-mode(
+    //             $brightness: $brightness,
+    //             $contrast: $contrast,
+    //             $includeAlternatives: $includeAlternatives,
+    //         );
+    //     }
+    // }
+    // prettier-ignore
+    @include tokens-theme-iterator(
+        $includeAlternatives,
+        $separateQueriesAndSelectors
+    ) using ($brightness, $contrast) {
+        //
+        @include _tokens-theme-internal-mode(
+            $brightness: $brightness,
+            $contrast: $contrast,
+            $includeAlternatives: $includeAlternatives
+        );
     }
 
     // for high-contrast modes

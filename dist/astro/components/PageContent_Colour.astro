@@ -34,8 +34,23 @@ import ShadeSwatchTable from './ShadeSwatchTable.astro';
 export interface Props {
     tokens: Tokens.JsonReturn;
 
+    /**
+     * Whether to include the given colour formats in the the shade swatch table.
+     *
+     * @since 0.1.0-alpha.4.draft
+     */
+    includeColourFormats?: {
+        hex?: boolean;
+        hsl?: boolean;
+        lch?: boolean;
+        rgb?: boolean;
+    };
+
     /** @since 0.1.0-alpha.4.draft */
     includeTargetLevels?: boolean;
+
+    /** @since 0.1.0-alpha.4.draft */
+    includeOnlyUsedLevels?: boolean;
 
     /**
      * Used to pass custom targets to the shade swatch table.
@@ -57,7 +72,13 @@ export interface Props {
           };
 }
 
-const { includeTargetLevels, tokens, yardstick }: Props = Astro.props;
+const {
+    includeColourFormats,
+    includeTargetLevels,
+    includeOnlyUsedLevels = !!import.meta.env.DEV,
+    tokens,
+    yardstick,
+}: Props = Astro.props;
 
 /* FUNCTION ===================================== */
 
@@ -85,8 +106,10 @@ export async function makeTargetLevels<T_ColourName extends string>(
 
     const current = await objectMapAsync(
         targetShadeMap,
-        async ([level, value]) =>
-            ({
+        async ([level, value]) => {
+            level;
+
+            return {
                 min: {
                     aa: {
                         ui: value.contrast.min[sampleColourName]?.ui?.aa?.level,
@@ -101,7 +124,8 @@ export async function makeTargetLevels<T_ColourName extends string>(
                     },
                 },
                 max: value.contrast.max[sampleColourName]?.level,
-            }) satisfies LevelTargets[keyof typeof targetShadeMap]
+            } satisfies LevelTargets[keyof typeof targetShadeMap];
+        }
     );
 
     const getMaxLevel = (
@@ -198,7 +222,7 @@ const allLevels = Object.keys(tokens.colour.base) as (
 
 const levelsInUse = getLevelsInUse(tokens.themes);
 
-const excludeLevels = import.meta.env.DEV
+const excludeLevels = !includeOnlyUsedLevels
     ? []
     : allLevels.filter((level) => !levelsInUse.has(level));
 
@@ -223,6 +247,7 @@ const levelTargets = {
     id='all-colours'
     colour={tokens.colour}
     excludeLevels={excludeLevels}
+    includeColourFormats={includeColourFormats}
     includeTargetLevels={includeTargetLevels}
     targets={levelTargets}
     tokens={tokens}

@@ -77,10 +77,7 @@ export class ColourContrastTest {
         this.aaa = tmp_results.aaa;
     }
     toJSON() {
-        return {
-            aa: this.aa,
-            aaa: this.aaa,
-        };
+        return this.valueOf();
     }
     valueOf() {
         return {
@@ -110,6 +107,6 @@ export class ColourContrastTest {
         ratio: z.number(),
         aa: JSON_SingleResult,
         aaa: JSON_SingleResult,
-    }).transform(obj => ({ aa: obj.aa, aaa: obj.aaa }));
+    });
 })(ColourContrastTest || (ColourContrastTest = {}));
 //# sourceMappingURL=ColourContrastTest.js.map

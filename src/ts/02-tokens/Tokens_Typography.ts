@@ -45,7 +45,7 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
                 '600': 2,
             },
 
-            fonts: {},
+            fonts: undefined,
 
             size: {
 
@@ -85,7 +85,7 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
     // }
     public readonly data: Tokens_Typography.Data;
 
-    public readonly familyOverrides: {
+    public readonly familyOverrides: undefined | {
         label: string;
         value: string;
 
@@ -102,31 +102,33 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
 
         this.data = mergeArgs( Tokens_Typography.default, input, true );
 
-        this.familyOverrides = Object.values( this.data.fonts ).map(
-            ( font ) => {
-                let isOverride = font.fontOverrideOption;
+        this.familyOverrides = this.data.fonts
+            ? Object.values( this.data.fonts ).map(
+                ( font ) => {
+                    let isOverride = font.fontOverrideOption;
 
-                if ( typeof isOverride === 'undefined' ) {
+                    if ( typeof isOverride === 'undefined' ) {
 
-                    switch ( font.slug ) {
-                        case 'dyslexic':
-                        case 'hyperlegible':
-                        case 'monospace':
-                            isOverride = true;
-                            break;
+                        switch ( font.slug ) {
+                            case 'dyslexic':
+                            case 'hyperlegible':
+                            case 'monospace':
+                                isOverride = true;
+                                break;
+                        }
                     }
+
+                    return isOverride && ( {
+                        label: font.slug === 'monospace' ? 'Monospace' : font.name,
+                        value: font.slug,
+                        labelClass: `font-family-override-${ font.slug }`,
+
+                        contentWidthScale: font.contentWidthScale,
+                        lineHeightScale: font.lineHeightScale,
+                    } );
                 }
-
-                return isOverride && ( {
-                    label: font.slug === 'monospace' ? 'Monospace' : font.name,
-                    value: font.slug,
-                    labelClass: `font-family-override-${ font.slug }`,
-
-                    contentWidthScale: font.contentWidthScale,
-                    lineHeightScale: font.lineHeightScale,
-                } );
-            }
-        ).filter( v => typeof v !== 'undefined' && v !== false );
+            ).filter( v => typeof v !== 'undefined' && v !== false )
+            : undefined;
     }
 
     public toJSON(): Tokens_Typography.JsonReturn {
@@ -200,7 +202,7 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
         const familyMapper = (
             family: Tokens_Typography.Font.Family,
             weight: TokenLevels | 'variable',
-            { key: style, value: font }: {
+            { value: font }: {
                 key: "italic" | "normal";
                 value: Tokens_Typography.Font.File;
             },
@@ -268,7 +270,7 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
 
                 sizeScale: this.data.sizeScale,
 
-                family: objectMap(
+                family: this.data.fonts && objectMap(
                     this.data.fonts,
                     ( [ __key, family ] ) => family && ( {
 
@@ -318,7 +320,7 @@ export namespace Tokens_Typography {
             [ L in Exclude<TokenLevels, DefaultLineHeightLevels> | TokenLevels_Extended ]?: number;
         };
 
-        fonts: {
+        fonts: undefined | {
             [ F in T_FontFamilySlug ]: Font.Family<F>;
         };
 
@@ -371,7 +373,7 @@ export namespace Tokens_Typography {
         pt: number;
         px: number;
     }, T_FontFamilySlug> & {
-        familyOverrides: {
+        familyOverrides: undefined | {
             label: string;
             value: T_FontFamilySlug;
 

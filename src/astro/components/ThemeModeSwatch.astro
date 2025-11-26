@@ -185,6 +185,7 @@ const levelsInUseTable = theme.levelsInUse.map(
         styles: objectMap(
             levels,
             ( [ key, value ] ) => {
+                key;
 
                 const textColor = textColorLevel( value as ColourLevels );
                 
@@ -352,6 +353,10 @@ const displayHeading = 3;
         />
         <p
             class="theme-mode-swatch__sample"
+            style={ [
+                `background: ${getClrFromThemeValue(tokens, brightness, theme.data.background)}`,
+                `color: ${getClrFromThemeValue(tokens, brightness, theme.data.text.$)}`,
+            ].join(';') }
         ><code set:text="theme-background" /> {equals} <code set:text={theme.data.background} />.</p>
         <p
             class="theme-mode-swatch__sample theme-mode-swatch__sample--selection"
@@ -483,16 +488,16 @@ const displayHeading = 3;
                         data-brightness-mode="light"
                         set:text={levels.light}
                         style={styles && [
-                            `background: ${ColourUtilities.toString.hsl( styles.light.background )}`,
-                            `color: ${ColourUtilities.toString.hsl( styles.light.color )}`,
+                            `background: ${styles.light.background && ColourUtilities.toString.hsl( styles.light.background )}`,
+                            `color: ${styles.light.color && ColourUtilities.toString.hsl( styles.light.color )}`,
                         ].join(';')}
                     />
                     <td 
                         data-brightness-mode="light"
                         set:text={levels.dark}
                         style={styles && [
-                            `background: ${ColourUtilities.toString.hsl(styles.dark.background)}`,
-                            `color: ${ColourUtilities.toString.hsl(styles.dark.color)}`,
+                            `background: ${styles.dark.background && ColourUtilities.toString.hsl( styles.dark.background )}`,
+                            `color: ${styles.dark.color && ColourUtilities.toString.hsl( styles.dark.color )}`,
                         ].join(';')}
                     />
                 </tr> ) }

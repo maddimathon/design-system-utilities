@@ -74,7 +74,7 @@ export declare namespace ColourContrastTest {
     /**
      * Creates a JSON schema for this class.
      */
-    const JSON: z.ZodEffects<z.ZodObject<{
+    const JSON: z.ZodObject<{
         ratio: z.ZodNumber;
         aa: z.ZodObject<{
             ui: z.ZodBoolean;
@@ -106,25 +106,6 @@ export declare namespace ColourContrastTest {
             ui: boolean;
         };
         ratio: number;
-    }, {
-        aa: {
-            text: boolean;
-            ui: boolean;
-        };
-        aaa: {
-            text: boolean;
-            ui: boolean;
-        };
-        ratio: number;
-    }>, {
-        aa: {
-            text: boolean;
-            ui: boolean;
-        };
-        aaa: {
-            text: boolean;
-            ui: boolean;
-        };
     }, {
         aa: {
             text: boolean;

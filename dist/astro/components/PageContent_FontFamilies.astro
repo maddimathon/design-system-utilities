@@ -121,7 +121,11 @@ function detailsMapper( font: Tokens_Typography.Font.Family<string> ) {
 
 const defaultToggleToOpen = import.meta.env.DEV ? true : undefined;
 
-const sortedFontKeys: ( keyof typeof tokens.typography.fonts )[] = arrayUnique(
+const fontTokens = tokens.typography.fonts 
+    ? Object.keys(tokens.typography.fonts).filter( v => v != 'dyslexic') 
+    : [] ;
+
+const sortedFontKeys = arrayUnique(
     (
         [
             'heading',
@@ -129,18 +133,18 @@ const sortedFontKeys: ( keyof typeof tokens.typography.fonts )[] = arrayUnique(
             'monospace',
             'hyperlegible',
             'serif',
-            ...(Object.keys(tokens.typography.fonts) as ( keyof typeof tokens.typography.fonts )[]).filter( v => v != 'dyslexic'),
+            ...fontTokens,
             'dyslexic',
         ] as const
-    ).filter( key => key in tokens.typography.fonts )
+    ).filter( key => !tokens.typography.fonts || key in tokens.typography.fonts )
 );
 
-const sortedFonts = objectGenerator(
+const sortedFonts = tokens.typography.fonts && objectGenerator(
     sortedFontKeys,
-    (key) => tokens.typography.fonts[key]
+    (key) => tokens.typography.fonts && tokens.typography.fonts[key]
 ) as typeof tokens.typography.fonts;
 
-let allFontLevels = arrayUnique(
+let allFontLevels = tokens.typography.fonts && arrayUnique(
     Object.values(tokens.typography.fonts)
         .map( ( { weights, variable } ) => (
             variable
@@ -150,7 +154,7 @@ let allFontLevels = arrayUnique(
         .flat()
 ).sort();
 
-if ( ! import.meta.env.DEV ) {
+if ( ! import.meta.env.DEV && allFontLevels ) {
     allFontLevels = allFontLevels.filter( 
         level => level != '100' && level != '200'
     );
@@ -165,10 +169,10 @@ if ( ! import.meta.env.DEV ) {
     <Fragment slot='button'>Font Families</Fragment>
     <div 
         class='font-family-swatch-list'
-        style={`--font-family-list-column-count: ${Object.keys( tokens.typography.fonts ).length}`}
+        style={tokens.typography.fonts && `--font-family-list-column-count: ${Object.keys( tokens.typography.fonts ).length}`}
     >
         {
-            Object.values(sortedFonts).map((font) => (
+           sortedFonts && Object.values(sortedFonts).map((font) => (
                 <article 
                     class='font-family-swatch'
                     data-font-family-override={font.slug}
@@ -195,7 +199,7 @@ if ( ! import.meta.env.DEV ) {
                             ) ) }
                         </dl>
                     </div>
-                    {allFontLevels.map(( weight ) => ( font.weights[weight] || font.variable ) && ( [ 'normal', 'italic' ] as const ).map( style => (
+                    {allFontLevels && allFontLevels.map(( weight ) => ( font.weights[weight] || font.variable ) && ( [ 'normal', 'italic' ] as const ).map( style => (
                         <Heading
                             heading={4}
                             displayHeading={6}

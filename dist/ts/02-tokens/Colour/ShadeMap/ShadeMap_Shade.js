@@ -99,7 +99,7 @@ export class Tokens_Colour_ShadeMap_Shade extends AbstractTokens {
             };
         }
         this.contrast.results[colourGroupName][level] = {
-            ...contrastTest,
+            ...contrastTest.toJSON(),
         };
     }
     shadeValue() {

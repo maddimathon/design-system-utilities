@@ -106,11 +106,7 @@ export class ColourContrastTest {
     }
 
     public toJSON(): ColourContrastTest.JSON {
-
-        return {
-            aa: this.aa,
-            aaa: this.aaa,
-        };
+        return this.valueOf();
     }
 
     public valueOf(): ColourContrastTest.Parsed {
@@ -176,9 +172,7 @@ export namespace ColourContrastTest {
         ratio: z.number(),
         aa: JSON_SingleResult,
         aaa: JSON_SingleResult,
-    } ).transform(
-        obj => ( { aa: obj.aa, aaa: obj.aaa } )
-    );
+    } );
 
 
 

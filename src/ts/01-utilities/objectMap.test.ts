@@ -24,7 +24,7 @@ const test1_og = {
 const test1_generator = ( [ key, value ]: [
     keyof typeof test1_og,
     typeof test1_og[ keyof typeof test1_og ],
-] ) => false;
+] ) => key && value && false;
 
 const test1_expected = {
     'one': false,

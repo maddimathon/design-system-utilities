@@ -40,6 +40,18 @@ export interface Props<
     tokens: Tokens.JsonReturn;
 
     excludeLevels?: ( ColourLevels | T_ExtraLevels )[];
+    
+    /**
+     * Whether to include the given colour formats by default.
+     *
+     * @since ___PKG_VERSION___
+     */
+    includeColourFormats?: {
+        hex?: boolean;
+        hsl?: boolean;
+        lch?: boolean;
+        rgb?: boolean;
+    };
 
     /**
      * Whether to include the contrast targets as column headers.
@@ -61,6 +73,7 @@ const {
     heading,
     id,
     includeTargetLevels = import.meta.env.DEV,
+    includeColourFormats = {},
     targets: _targets,
     tokens,
     ...props
@@ -328,6 +341,14 @@ export const DEFAULT_LEVEL_TARGETS: LevelTargets = {
 
 /* CONSTANTS ===================================== */
 
+const includeFormats = {
+    hex: true,
+    hsl: import.meta.env.DEV ? true : false,
+    lch: import.meta.env.DEV ? true : false,
+    rgb: false,
+    ...includeColourFormats,
+};
+
 const allTokenLevels = arrayUnique(Object.values(tokens.colour).map(val=>Object.keys(val) as (keyof typeof val)[]).flat());
 
 const colour = colourToArray(props);
@@ -346,8 +367,10 @@ const targets: {
 
 const goalLevels = objectMap(
     targets,
-    ([version, levelMap]) =>
-        levelMap && objectMap(
+    ([version, levelMap]) => {
+        version;
+
+        return levelMap && objectMap(
             levelMap,
             ( [
                 targetLevel, 
@@ -384,16 +407,21 @@ const goalLevels = objectMap(
                     
                     min: objectMap(
                         value.min,
-                        ( [ key, minSet ] ) => ( {
-                            colCount: Object.values( minSet ).filter( v => v).length,
-                            ...minSet,
-                        } )
+                        ( [ key, minSet ] ) => {
+                            key;
+                            
+                            return {
+                                colCount: Object.values( minSet ).filter( v => v).length,
+                                ...minSet,
+                            };
+                        }
                     ),
 
                     max: value.max,
                 };
             }
         )
+    }
 );
 ---
 
@@ -660,9 +688,10 @@ const goalLevels = objectMap(
                                 tokens={tokens}
                                 values={{
                                     ...values,
-                                    hsl: import.meta.env.DEV ? values.hsl : undefined,
-                                    lch: import.meta.env.DEV ? values.lch : undefined,
-                                    rgb: undefined,
+                                    hex: includeFormats.hex ? values.hex : undefined,
+                                    hsl: includeFormats.hsl ? values.hsl : undefined,
+                                    lch: includeFormats.lch ? values.lch : undefined,
+                                    rgb: includeFormats.rgb ? values.rgb : undefined,
                                 }}
                             />
                         </td> )}

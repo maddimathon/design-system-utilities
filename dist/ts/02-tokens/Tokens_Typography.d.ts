@@ -21,7 +21,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
     protected readonly spacing: Tokens_Spacing;
     static get default(): Tokens_Typography.Data;
     readonly data: Tokens_Typography.Data;
-    readonly familyOverrides: {
+    readonly familyOverrides: undefined | {
         label: string;
         value: string;
         contentWidthScale?: number;
@@ -385,14 +385,14 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                         } | undefined;
                     };
                 };
-            };
+            } | undefined;
             familyOverrides: {
                 label: string;
                 value: string;
                 contentWidthScale?: number;
                 labelClass?: string;
                 lineHeightScale?: number;
-            }[];
+            }[] | undefined;
         };
         line_height: {
             100: number;
@@ -435,7 +435,7 @@ export declare namespace Tokens_Typography {
         } & {
             [L in Exclude<TokenLevels, DefaultLineHeightLevels> | TokenLevels_Extended]?: number;
         };
-        fonts: {
+        fonts: undefined | {
             [F in T_FontFamilySlug]: Font.Family<F>;
         };
         size: {
@@ -473,7 +473,7 @@ export declare namespace Tokens_Typography {
         pt: number;
         px: number;
     }, T_FontFamilySlug> & {
-        familyOverrides: {
+        familyOverrides: undefined | {
             label: string;
             value: T_FontFamilySlug;
             contentWidthScale?: number;
