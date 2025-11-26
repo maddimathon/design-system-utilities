@@ -55,9 +55,6 @@ export class Tokens_Typography extends AbstractTokens {
             sizeScale: 1.0625,
         };
     }
-    // public get data(): Tokens_Typography.Data {
-    //     return {};
-    // }
     data;
     familyOverrides;
     constructor(spacing, input) {

@@ -42,7 +42,6 @@ export class Tokens_Themes_Set extends AbstractTokens {
     get data() {
         return {
             name: this.name ?? 'default',
-            // ...this.modes,
             ...objectMap(this.modes, ([brightnessMode]) => objectMap(this.modes[brightnessMode], ([__key, value]) => value.data)),
             forcedColours: this.forcedColours.data,
         };
@@ -67,7 +66,6 @@ export class Tokens_Themes_Set extends AbstractTokens {
         });
         return {
             name: this.name ?? 'default',
-            // ...this.modes,
             ...objectMap(this.modes, ([brightnessMode]) => objectMap(this.modes[brightnessMode], ([__key, value]) => value.toJSON())),
             forcedColours: this.forcedColours.toJSON(),
             levelsInUse: arrayUnique(levelsInUse.concat(levelsInUse_dark)).sort(),

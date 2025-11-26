@@ -202,39 +202,6 @@ $_flattenedSystemColors: map.flatten($_systemColors);
     }
 }
 
-// @function _tokens-theme-internal-mode--nested-active-theme-selectors(
-//     $themeKey
-// ) {
-//     $singleSelector: '[data-active-theme=#{$themeKey}]';
-
-//     // returns
-//     @if config.$mx_colourModeEach_nestModeSelectors {
-//         @return (
-//             if(
-//                 config.$mx_tokensTheme_unifyActiveThemeSelectors,
-//                 selector.unify(&, $singleSelector),
-//                 config.$selector_null
-//             ),
-//             selector.nest($singleSelector, &),
-//             selector.nest(&, $singleSelector)
-//         );
-//     }
-
-//     @return (
-//         $singleSelector,
-//         if(
-//             config.$mx_tokensTheme_unifyActiveThemeSelectors,
-//             selector.unify(&, $singleSelector),
-//             config.$selector_null
-//         ),
-//         if(
-//                 config.$mx_colourModeEach_nestModeSelectors,
-//                 selector.nest($singleSelector, &),
-//                 config.$selector_null
-//             ) // selector.nest(&, $singleSelector)
-//     );
-// }
-
 @mixin _tokens-theme-internal-mode(
     $brightness,
     $contrast,
@@ -423,55 +390,10 @@ $_themes_includeAlternatives: if(
     $separateQueriesAndSelectors:
         config.$mx_tokensTheme_separateQueriesAndSelectors
 ) {
-    // @if $separateQueriesAndSelectors {
-    //     // prettier-ignore
-    //     @include utils.colour-mode-each(
-    //         $includeRegions_heading: 'Tokens - Theme - Queries - ',
-
-    //         $includeDefault: not config.$include_defaultMediaQueries,
-    //         $includeForcedColors: false,
-    //         $includeQuery: true,
-    //         $includeSelectors: false
-    //     ) using ($brightness, $contrast) {
-    //         //
-    //         @include _tokens-theme-internal-mode(
-    //             $brightness: $brightness,
-    //             $contrast: $contrast,
-    //             $includeAlternatives: $includeAlternatives,
-    //         );
-    //     }
-
-    //     // prettier-ignore
-    //     @include utils.colour-mode-each(
-    //         $includeRegions_heading: 'Tokens - Theme - Selectors - ',
-
-    //         $includeDefault: config.$mx_tokensTheme_includeDefaultSelectors,
-    //         $includeQuery: false
-    //     ) using ($brightness, $contrast) {
-    //         //
-    //         @include _tokens-theme-internal-mode(
-    //             $brightness: $brightness,
-    //             $contrast: $contrast,
-    //             $includeAlternatives: $includeAlternatives,
-    //         );
-    //     }
-    // } @else {
-    //     // prettier-ignore
-    //     @include utils.colour-mode-each(
-    //         $includeRegions_heading: 'Tokens - Theme - ',
-    //     ) using ($brightness, $contrast) {
-    //         //
-    //         @include _tokens-theme-internal-mode(
-    //             $brightness: $brightness,
-    //             $contrast: $contrast,
-    //             $includeAlternatives: $includeAlternatives,
-    //         );
-    //     }
-    // }
     // prettier-ignore
     @include tokens-theme-iterator(
-        $includeAlternatives,
-        $separateQueriesAndSelectors
+        $includeAlternatives: $includeAlternatives,
+        $separateQueriesAndSelectors: $separateQueriesAndSelectors,
     ) using ($brightness, $contrast) {
         //
         @include _tokens-theme-internal-mode(

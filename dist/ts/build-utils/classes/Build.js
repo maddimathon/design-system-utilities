@@ -7,9 +7,6 @@
  * @maddimathon/design-system-utilities@0.1.0-alpha.4.draft
  * @license MIT
  */
-// import type {
-//     Stage,
-// } from '@maddimathon/build-utilities';
 import { BuildStage, } from '@maddimathon/build-utilities';
 import {} from '@maddimathon/utility-typescript/functions';
 /**
@@ -18,21 +15,6 @@ import {} from '@maddimathon/utility-typescript/functions';
  * @since 0.1.0-alpha
  */
 export class Build extends BuildStage {
-    // /**
-    //  * All sub-stages to run in this stage (in order).
-    //  *
-    //  * @category Running
-    //  *
-    //  * @source
-    //  */
-    // override readonly subStages: Stage.SubStage.Build[] = [
-    //     'compile',
-    //     'replace',
-    //     'prettify',
-    //     'minimize',
-    //     'test',
-    //     'document',
-    // ];
     get ARGS_DEFAULT() {
         const _defaults = super.ARGS_DEFAULT;
         return {

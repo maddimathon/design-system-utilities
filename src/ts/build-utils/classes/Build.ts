@@ -8,10 +8,6 @@
  * @license MIT
  */
 
-// import type {
-//     Stage,
-// } from '@maddimathon/build-utilities';
-
 import {
     BuildStage,
     type Stage,
@@ -26,22 +22,6 @@ import {
  * @since 0.1.0-alpha
  */
 export class Build extends BuildStage {
-
-    // /**
-    //  * All sub-stages to run in this stage (in order).
-    //  *
-    //  * @category Running
-    //  *
-    //  * @source
-    //  */
-    // override readonly subStages: Stage.SubStage.Build[] = [
-    //     'compile',
-    //     'replace',
-    //     'prettify',
-    //     'minimize',
-    //     'test',
-    //     'document',
-    // ];
 
     public override get ARGS_DEFAULT() {
 

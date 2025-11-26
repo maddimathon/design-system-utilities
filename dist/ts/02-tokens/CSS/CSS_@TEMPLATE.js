@@ -19,9 +19,6 @@ export class Tokens_CSS_TEMPLATE extends AbstractTokens {
     static get default() {
         return {};
     }
-    // public get data(): Tokens_CSS_TEMPLATE.Data {
-    //     return {};
-    // }
     data;
     constructor(input) {
         super();

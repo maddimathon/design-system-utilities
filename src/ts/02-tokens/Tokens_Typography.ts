@@ -8,9 +8,6 @@
  * @license MIT
  */
 
-// import { JsonToScss } from '@maddimathon/utility-sass';
-// import * as z from 'zod';
-
 import type { Objects } from '@maddimathon/utility-typescript/types';
 import { arrayUnique, mergeArgs } from '@maddimathon/utility-typescript/functions';
 
@@ -80,9 +77,6 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
         };
     }
 
-    // public get data(): Tokens_Typography.Data {
-    //     return {};
-    // }
     public readonly data: Tokens_Typography.Data;
 
     public readonly familyOverrides: undefined | {
@@ -336,8 +330,6 @@ export namespace Tokens_Typography {
                 1: T_SizeValue;
                 2: T_SizeValue;
                 3: T_SizeValue;
-                // 4: T_SizeValue;
-                // 5: T_SizeValue;
                 [ key: number ]: T_SizeValue;
             };
 

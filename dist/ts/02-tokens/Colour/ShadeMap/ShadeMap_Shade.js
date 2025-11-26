@@ -23,9 +23,6 @@ export class Tokens_Colour_ShadeMap_Shade extends AbstractTokens {
     extraLevels;
     shadeName;
     thisLevel;
-    // public get schemaJSON() {
-    //     return Tokens_Colour_ShadeMap_Shade.Schema.JSON( this.allNames, this.extraLevels );
-    // }
     data;
     contrast = {
         min: {},
@@ -111,30 +108,15 @@ export class Tokens_Colour_ShadeMap_Shade extends AbstractTokens {
         };
     }
     toJSON() {
-        const max = objectMap(this.contrast.max, ([key, value]) => value && {
-            ...value,
-            // ratio: undefined
-        });
+        const max = this.contrast.max;
         const min = objectMap(this.contrast.min, ([key, testGroup]) => ({
             ui: testGroup?.ui && {
-                aa: testGroup.ui.aa && {
-                    ...testGroup.ui.aa,
-                    // ratio: undefined,
-                },
-                aaa: testGroup.ui.aaa && {
-                    ...testGroup.ui.aaa,
-                    // ratio: undefined,
-                },
+                aa: testGroup.ui.aa,
+                aaa: testGroup.ui.aaa,
             },
             text: testGroup?.text && {
-                aa: testGroup.text.aa && {
-                    ...testGroup.text.aa,
-                    // ratio: undefined,
-                },
-                aaa: testGroup.text.aaa && {
-                    ...testGroup.text.aaa,
-                    // ratio: undefined,
-                },
+                aa: testGroup.text.aa,
+                aaa: testGroup.text.aaa,
             },
         }));
         return {

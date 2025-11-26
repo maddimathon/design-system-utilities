@@ -8,11 +8,6 @@
  * @license MIT
  */
 
-// import {
-//     base as config_base,
-//     build as config_build,
-// } from 'astro:config/client';
-
 import NodePath from 'node:path';
 
 import {

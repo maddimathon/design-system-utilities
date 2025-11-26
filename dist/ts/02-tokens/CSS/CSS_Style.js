@@ -133,9 +133,6 @@ export class Tokens_CSS_Style extends AbstractTokens {
             },
         };
     }
-    // public get data(): Tokens_CSS_Style.Data {
-    //     return {};
-    // }
     data;
     constructor(input) {
         super();

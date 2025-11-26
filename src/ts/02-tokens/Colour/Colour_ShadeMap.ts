@@ -8,9 +8,6 @@
  * @license MIT
  */
 
-// import { JsonToScss } from '@maddimathon/utility-sass';
-// import * as z from 'zod';
-
 import type { ColourLevels, ColourLevels_Extended } from '../@types.js';
 
 import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';

@@ -8,9 +8,6 @@
  * @license MIT
  */
 
-// import { JsonToScss } from '@maddimathon/utility-sass';
-// import * as z from 'zod';
-
 import type {
     CssSystemColor,
     ThemeMode_ContrastOption,
@@ -169,7 +166,6 @@ export class Tokens_Themes_Set<
         return {
             name: this.name ?? 'default',
 
-            // ...this.modes,
             ...objectMap(
                 this.modes,
                 ( [ brightnessMode ] ) => objectMap(
@@ -248,7 +244,6 @@ export class Tokens_Themes_Set<
         return {
             name: this.name ?? 'default',
 
-            // ...this.modes,
             ...objectMap(
                 this.modes,
                 ( [ brightnessMode ] ) => objectMap(

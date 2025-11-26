@@ -8,9 +8,6 @@
  * @license MIT
  */
 
-// import { JsonToScss } from '@maddimathon/utility-sass';
-// import * as z from 'zod';
-
 import { mergeArgs } from '@maddimathon/utility-typescript/functions';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
 
@@ -95,14 +92,12 @@ export class Tokens_CSS_Transition extends AbstractTokens<Tokens_CSS_Transition.
     }
 
     public toJSON(): Tokens_CSS_Transition.JsonReturn {
-
         return this.data;
     }
 
     public toScssVars(): {
         [ K in keyof Tokens_CSS_Transition.Data ]: AbstractTokens.ScssReturn;
     } {
-
         return {
             properties: this.data.properties,
             time: this.data.time,

@@ -8,9 +8,6 @@
  * @license MIT
  */
 
-// import { JsonToScss } from '@maddimathon/utility-sass';
-// import * as z from 'zod';
-
 import { objectGenerator } from '../01-utilities/objectGenerator.js';
 import { objectMap } from '../01-utilities/objectMap.js';
 
@@ -373,5 +370,4 @@ export namespace Tokens_Themes {
                 T_Keyword_Text
             >;
         };
-
 }

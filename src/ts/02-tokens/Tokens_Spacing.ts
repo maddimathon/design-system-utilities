@@ -8,9 +8,6 @@
  * @license MIT
  */
 
-// import { JsonToScss } from '@maddimathon/utility-sass';
-// import * as z from 'zod';
-
 import { mergeArgs } from '@maddimathon/utility-typescript/functions';
 
 import type { TokenLevels, TokenLevels_Extended } from './@types.js';
@@ -103,5 +100,4 @@ export namespace Tokens_Spacing {
      * @since 0.1.0-alpha
      */
     export type JsonReturn = {};
-
 }

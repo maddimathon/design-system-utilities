@@ -29,10 +29,6 @@ export class Tokens_Colour_ShadeMap_Shade<
     T_ExtraLevels extends ColourLevels_Extended,
 > extends AbstractTokens<Tokens_Colour_ShadeMap_Shade.Data> {
 
-    // public get schemaJSON() {
-    //     return Tokens_Colour_ShadeMap_Shade.Schema.JSON( this.allNames, this.extraLevels );
-    // }
-
     public readonly data: Tokens_Colour_ShadeMap_Shade.Data;
 
     public contrast: Tokens_Colour_ShadeMap_Shade.Contrast<T_ColourName, T_ExtraLevels> = {
@@ -150,13 +146,7 @@ export class Tokens_Colour_ShadeMap_Shade<
 
     public toJSON(): Tokens_Colour_ShadeMap_Shade.JsonReturn<T_ColourName, T_ExtraLevels> {
 
-        const max = objectMap(
-            this.contrast.max,
-            ( [ key, value ] ) => value && {
-                ...value,
-                // ratio: undefined
-            },
-        );
+        const max = this.contrast.max;
 
         const min: Tokens_Colour_ShadeMap_Shade.Contrast.Minimum<
             T_ColourName,
@@ -167,25 +157,13 @@ export class Tokens_Colour_ShadeMap_Shade<
             ( [ key, testGroup ] ) => ( {
 
                 ui: testGroup?.ui && {
-                    aa: testGroup.ui.aa && {
-                        ...testGroup.ui.aa,
-                        // ratio: undefined,
-                    },
-                    aaa: testGroup.ui.aaa && {
-                        ...testGroup.ui.aaa,
-                        // ratio: undefined,
-                    },
+                    aa: testGroup.ui.aa,
+                    aaa: testGroup.ui.aaa,
                 },
 
                 text: testGroup?.text && {
-                    aa: testGroup.text.aa && {
-                        ...testGroup.text.aa,
-                        // ratio: undefined,
-                    },
-                    aaa: testGroup.text.aaa && {
-                        ...testGroup.text.aaa,
-                        // ratio: undefined,
-                    },
+                    aa: testGroup.text.aa,
+                    aaa: testGroup.text.aaa,
                 },
             } ),
         );

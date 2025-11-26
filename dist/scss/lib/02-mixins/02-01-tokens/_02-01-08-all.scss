@@ -1,0 +1,85 @@
+///
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.4.draft
+/// @since 0.1.0-alpha.4.draft — Moved from index.
+///
+
+@use 'pkg:@maddimathon/utility-sass/meta';
+
+@use '../../../config';
+@use '../../../tokens';
+
+@use '../../01-functions' as *;
+
+@use 'pkg:@maddimathon/utility-astro/02-mixins' as utils;
+
+// @use '02-01-01-spacing' as *;
+// @use '02-01-02-modes' as *;
+@use '02-01-03-colours' as *;
+@use '02-01-04-typography' as *;
+@use '02-01-05-animation' as *;
+@use '02-01-06-decoration' as *;
+
+///
+/// Prints out all the tokens included in this system as custom properties.
+///
+/// @since 0.1.0-alpha
+///
+@mixin tokens-all(
+    $borderRadius: not config.$fn_var_replaceWithValue_borderRadius,
+    $borderWidth: not config.$fn_var_replaceWithValue_borderWidth,
+    $colour: not config.$fn_var_replaceWithValue_colour,
+    $custom: true,
+    $fontFace: true,
+    $fontFamily: not config.$fn_var_replaceWithValue_fontFamily,
+    $fontSize: not config.$fn_var_replaceWithValue_fontSize,
+    $lineHeight: true,
+    $margin: true,
+    $strokeRelative: not config.$fn_var_replaceWithValue_strokeRelative,
+    $style: not config.$fn_var_replaceWithValue_style,
+    $theme: config.$include_html or config.$fn_var_replaceWithValue_colour,
+    $transition: true,
+    $trTime: not config.$fn_var_replaceWithValue_transitionTime,
+    $zIndex: not config.$fn_var_replaceWithValue_zIndex
+) {
+    // typography
+    @if $fontFace {
+        @include tokens-font-face;
+    }
+    @if $fontFamily {
+        @include tokens-font-family;
+    }
+
+    @include utils.tokens-all(
+        $borderWidth: $borderWidth,
+        $custom: $custom,
+        $fontSize: $fontSize,
+        $lineHeight: $lineHeight,
+        $margin: $margin,
+        $strokeRelative: $strokeRelative,
+        $sysColours: false
+    );
+
+    // decoration
+    @if $borderRadius {
+        @include tokens-border-radius;
+    }
+    @if $zIndex {
+        @include tokens-z-index;
+    }
+    @if $style {
+        @include tokens-style;
+    }
+
+    // animation
+    @if $transition {
+        @include tokens-transition($trTime: $trTime);
+    }
+
+    // colours
+    @if $colour {
+        @include tokens-colour;
+    }
+    @if $theme {
+        @include tokens-theme;
+    }
+}

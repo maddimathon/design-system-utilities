@@ -25,9 +25,6 @@ export class Tokens_CSS_TEMPLATE extends AbstractTokens<Tokens_CSS_TEMPLATE.Data
         };
     }
 
-    // public get data(): Tokens_CSS_TEMPLATE.Data {
-    //     return {};
-    // }
     public readonly data: Tokens_CSS_TEMPLATE.Data;
 
     public constructor (
@@ -42,14 +39,12 @@ export class Tokens_CSS_TEMPLATE extends AbstractTokens<Tokens_CSS_TEMPLATE.Data
     }
 
     public toJSON(): Tokens_CSS_TEMPLATE.JsonReturn {
-
         return this.data;
     }
 
     public toScssVars(): {
         [ K in keyof Tokens_CSS_TEMPLATE.Data ]: AbstractTokens.ScssReturn;
     } {
-
         return {};
     }
 }

@@ -180,13 +180,6 @@ export namespace ColourUtilities {
     ): ( typeof LevelConverter )[ T_LightLevel ] {
 
         return LevelConverter[ lightLevel ];
-
-        // const dark = ( 1000 - Number( lightLevel ) ).toFixed( 0 );
-
-        // return dark.padStart(
-        //     Math.max( 0, 3 - dark.length ),
-        //     '0',
-        // ) as ColourLevels | ColourLevels_Extended;
     }
 
     /**

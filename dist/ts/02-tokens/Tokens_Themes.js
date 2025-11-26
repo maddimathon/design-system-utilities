@@ -7,8 +7,6 @@
  * @maddimathon/design-system-utilities@0.1.0-alpha.4.draft
  * @license MIT
  */
-// import { JsonToScss } from '@maddimathon/utility-sass';
-// import * as z from 'zod';
 import { objectGenerator } from '../01-utilities/objectGenerator.js';
 import { objectMap } from '../01-utilities/objectMap.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';

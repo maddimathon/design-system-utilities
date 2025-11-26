@@ -42,14 +42,12 @@ export class Tokens_TEMPLATE extends AbstractTokens<Tokens_TEMPLATE.Data> {
     }
 
     public toJSON(): Tokens_TEMPLATE.JsonReturn {
-
         return this.data;
     }
 
     public toScssVars(): {
         [ K in keyof Tokens_TEMPLATE.Data ]: AbstractTokens.ScssReturn;
     } {
-
         return {};
     }
 }

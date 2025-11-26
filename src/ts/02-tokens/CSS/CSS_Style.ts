@@ -8,9 +8,6 @@
  * @license MIT
  */
 
-// import { JsonToScss } from '@maddimathon/utility-sass';
-// import * as z from 'zod';
-
 import type { RecursivePartial } from '@maddimathon/utility-typescript/types/objects';
 import { mergeArgs } from '@maddimathon/utility-typescript/functions';
 
@@ -180,9 +177,6 @@ export class Tokens_CSS_Style extends AbstractTokens<Tokens_CSS_Style.Data> {
         };
     }
 
-    // public get data(): Tokens_CSS_Style.Data {
-    //     return {};
-    // }
     public readonly data: Tokens_CSS_Style.Data;
 
     public constructor (
@@ -323,5 +317,4 @@ export namespace Tokens_CSS_Style {
      * @since 0.1.0-alpha
      */
     export type JsonReturn = Data;
-
 }

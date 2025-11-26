@@ -140,20 +140,10 @@ export class Tokens extends AbstractTokens {
     async function sample() {
         return Tokens.build({
             colour: {
-                // 'hue-50': {
-                //     500: { l: 50, c: 50, h: 50 },
-                // },
                 base: Tokens.SampleColours.base,
                 purple: Tokens.SampleColours.purple,
                 turquoise: Tokens.SampleColours.turquoise,
                 red: Tokens.SampleColours.red,
-                // orange: Tokens.SampleColours.orange,
-                // yellow: Tokens.SampleColours.yellow,
-                // green: Tokens.SampleColours.green,
-                // turquoise: Tokens.SampleColours.turquoise,
-                // blue: Tokens.SampleColours.blue,
-                // purple: Tokens.SampleColours.purple,
-                // pink: Tokens.SampleColours.pink,
             },
         }, { tokensAsDefault: true, });
     }
@@ -169,9 +159,6 @@ export class Tokens extends AbstractTokens {
             '900': { l: 2, c: 0, h: 0, },
         },
         base: {
-            // '100': 'F9F9F9',
-            // '500': '777777',
-            // '900': '070707',
             '100': { l: 98, c: 0, h: 0, },
             '500': { l: 50, c: 0, h: 0, },
             '900': { l: 2, c: 0, h: 0, },

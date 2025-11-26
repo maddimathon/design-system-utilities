@@ -8,9 +8,6 @@
  * @license MIT
  */
 
-// import { JsonToScss } from '@maddimathon/utility-sass';
-// import * as z from 'zod';
-
 import { objectMap } from '../01-utilities/objectMap.js';
 import { SvgMaker } from '../01-utilities/SvgMaker.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
@@ -74,8 +71,6 @@ export class Tokens_Logos<
                 aspectRatio: value.aspectRatio[ 0 ] === value.aspectRatio[ 1 ]
                     ? value.aspectRatio[ 0 ].toString()
                     : value.aspectRatio.join( ' / ' ),
-
-                // embedded: `url( 'data:image/svg+xml;utf8,${ value.svg }' )`
             } )
         );
     }
