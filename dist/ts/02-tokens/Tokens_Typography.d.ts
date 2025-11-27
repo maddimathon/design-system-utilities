@@ -53,6 +53,7 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                     1: number;
                     2: number;
                     3: number;
+                    4: number;
                 };
                 normal: number;
                 bigger: {
@@ -448,6 +449,7 @@ export declare namespace Tokens_Typography {
                 1: T_SizeValue;
                 2: T_SizeValue;
                 3: T_SizeValue;
+                4: T_SizeValue;
                 [key: number]: T_SizeValue;
             };
             normal: T_SizeValue;

@@ -47,7 +47,7 @@ export class Tokens_Typography extends AbstractTokens {
                     1: -0.75,
                     2: -1.5,
                     3: -2.0,
-                    // 4: -2.5,
+                    4: -2.5,
                     // 5: -3.0,
                 },
                 bigger: {},

@@ -6,6 +6,8 @@
 @use '../../config';
 // @use '../../tokens';
 
+@use 'config' as tmplConfig;
+
 @use '../../lib' as *;
 
 @if config.$print_normalize {
@@ -13,14 +15,19 @@
 }
 
 @if config.$print_tokens {
-    @if config.$print_headings {
-        /* # TOKENS & PROPERTIES
-         * ======================================================================== */
+    @if tmplConfig.$template_tokensAll {
+        @if config.$print_headings {
+            /* # TOKENS & PROPERTIES
+             * ======================================================================== */
+        }
+
+        @include tokens-all;
     }
 
-    @include tokens-all;
-
-    /* ## ANIMATIONS ==================================== */
+    @if config.$print_headings {
+        /* # ANIMATIONS
+         * ======================================================================== */
+    }
 
     @keyframes fade-in {
         0% {

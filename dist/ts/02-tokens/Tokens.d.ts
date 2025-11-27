@@ -256,6 +256,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                     1: number;
                     2: number;
                     3: number;
+                    4: number;
                 };
                 normal: number;
                 bigger: {

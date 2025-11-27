@@ -415,7 +415,7 @@ export namespace ColourUtilities {
         export function hex(
             clr: { data: SingleShade; } | SingleShade | SingleShade_Input,
         ): string {
-            return toHex( clr );
+            return '#' + toHex( clr );
         }
 
         export function hsl(

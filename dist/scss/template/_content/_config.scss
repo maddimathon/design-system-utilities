@@ -3,6 +3,8 @@
 /// @since 0.1.0-alpha
 ///
 
+// @forward '../../config';
+
 @use 'sass:string';
 
 @use '../../config';
@@ -13,5 +15,7 @@ $print_templateDocBlock: not config.$internal_supressCredit or
 $template_name: 'Default' !default;
 
 $template_isDefault: string.to-lower-case($template_name) == default;
+
+$template_tokensAll: config.$print_tokens !default;
 
 $template_internal_supressCredit: not $print_templateDocBlock !default;

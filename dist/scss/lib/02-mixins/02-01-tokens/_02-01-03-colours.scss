@@ -202,137 +202,6 @@ $_flattenedSystemColors: map.flatten($_systemColors);
     }
 }
 
-@mixin _tokens-theme-internal-mode(
-    $brightness,
-    $contrast,
-    $includeAlternatives
-) {
-    //
-    @if not $includeAlternatives or $contrast == forced-colors {
-        //
-        @include tokens-theme-individual(
-            tokens.$activeTheme,
-            $brightness: $brightness,
-            $contrast: $contrast
-        );
-        @content ($brightness, $contrast, $location: main);
-        //
-    } @else {
-        //
-        // defaults first
-
-        @if config.$mx_colourModeEach_nestModeSelectors and
-            #{&} !=
-            #{config.$selector_root} and
-            #{&} !=
-            #{config.$selector_body} and
-            #{&} !=
-            '%root' and
-            #{&} !=
-            '%body'
-        {
-            @if config.$mx_tokensTheme_unifyActiveThemeSelectors {
-                &,
-                &[data-active-theme='#{tokens.$activeTheme}'][data-active-theme],
-                & [data-active-theme='#{tokens.$activeTheme}'] {
-                    //
-                    @include tokens-theme-individual(
-                        tokens.$activeTheme,
-                        $brightness: $brightness,
-                        $contrast: $contrast
-                    );
-                    @content ($brightness, $contrast, $location: main);
-                }
-            } @else {
-                &,
-                & [data-active-theme='#{tokens.$activeTheme}'] {
-                    //
-                    @include tokens-theme-individual(
-                        tokens.$activeTheme,
-                        $brightness: $brightness,
-                        $contrast: $contrast
-                    );
-                    @content ($brightness, $contrast, $location: main);
-                }
-            }
-        } @else {
-            @if config.$mx_tokensTheme_unifyActiveThemeSelectors {
-                &,
-                &[data-active-theme='#{tokens.$activeTheme}'][data-active-theme] {
-                    //
-                    @include tokens-theme-individual(
-                        tokens.$activeTheme,
-                        $brightness: $brightness,
-                        $contrast: $contrast
-                    );
-                    @content ($brightness, $contrast, $location: main);
-                }
-            } @else {
-                & {
-                    //
-                    @include tokens-theme-individual(
-                        tokens.$activeTheme,
-                        $brightness: $brightness,
-                        $contrast: $contrast
-                    );
-                    @content ($brightness, $contrast, $location: main);
-                }
-            }
-        }
-
-        @each $key in map.keys(tokens.$themes) {
-            @if #{$key} != #{tokens.$activeTheme} {
-                //
-                @if config.$mx_colourModeEach_nestModeSelectors {
-                    @if config.$mx_tokensTheme_unifyActiveThemeSelectors {
-                        &[data-active-theme='#{$key}'][data-active-theme],
-                        & [data-active-theme='#{$key}'],
-                        [data-active-theme='#{$key}'] & {
-                            @include tokens-theme-individual(
-                                $key,
-                                $brightness: $brightness,
-                                $contrast: $contrast
-                            );
-                            @content ($brightness, $contrast, $location: theme-#{$key});
-                        }
-                    } @else {
-                        & [data-active-theme='#{$key}'],
-                        [data-active-theme='#{$key}'] & {
-                            @include tokens-theme-individual(
-                                $key,
-                                $brightness: $brightness,
-                                $contrast: $contrast
-                            );
-                            @content ($brightness, $contrast, $location: theme-#{$key});
-                        }
-                    }
-                } @else {
-                    @if config.$mx_tokensTheme_unifyActiveThemeSelectors {
-                        &[data-active-theme='#{$key}'][data-active-theme],
-                        & [data-active-theme='#{$key}'] {
-                            @include tokens-theme-individual(
-                                $key,
-                                $brightness: $brightness,
-                                $contrast: $contrast
-                            );
-                            @content ($brightness, $contrast, $location: theme-#{$key});
-                        }
-                    } @else {
-                        [data-active-theme='#{$key}'] {
-                            @include tokens-theme-individual(
-                                $key,
-                                $brightness: $brightness,
-                                $contrast: $contrast
-                            );
-                            @content ($brightness, $contrast, $location: theme-#{$key});
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
 $_themes_includeAlternatives: if(
     config.$mx_tokensTheme_includeAlternateThemes == null,
     config.$include_html and list.length(map.keys(tokens.$themes)) > 1,
@@ -345,8 +214,9 @@ $_themes_includeAlternatives: if(
 /// @since 0.1.0-alpha.4.draft
 ///
 @mixin tokens-theme-iterator(
-    $includeAlternatives,
-    $separateQueriesAndSelectors
+    $includeAlternatives: $_themes_includeAlternatives,
+    $separateQueriesAndSelectors:
+        config.$mx_tokensTheme_separateQueriesAndSelectors
 ) {
     @if $separateQueriesAndSelectors {
         // prettier-ignore
@@ -396,11 +266,136 @@ $_themes_includeAlternatives: if(
         $separateQueriesAndSelectors: $separateQueriesAndSelectors,
     ) using ($brightness, $contrast) {
         //
-        @include _tokens-theme-internal-mode(
-            $brightness: $brightness,
-            $contrast: $contrast,
-            $includeAlternatives: $includeAlternatives
-        );
+        @if not $includeAlternatives or $contrast == forced-colors {
+            //
+            @include tokens-theme-individual(
+                tokens.$activeTheme,
+                $brightness: $brightness,
+                $contrast: $contrast
+            );
+            @content ($brightness, $contrast, $location: main);
+            //
+        } @else {
+            //
+            // defaults first
+            @if config.$mx_colourModeEach_nestModeSelectors and
+                #{&} !=
+                #{config.$selector_root} and
+                #{&} !=
+                #{config.$selector_body} and
+                #{&} !=
+                '%root' and
+                #{&} !=
+                '%body'
+            {
+                @if config.$mx_tokensTheme_unifyActiveThemeSelectors {
+                    &,
+                    &[data-active-theme='#{tokens.$activeTheme}'][data-active-theme],
+                    & [data-active-theme='#{tokens.$activeTheme}'],
+                    %active-theme-selector--#{tokens.$activeTheme} {
+                        //
+                        @include tokens-theme-individual(
+                            tokens.$activeTheme,
+                            $brightness: $brightness,
+                            $contrast: $contrast
+                        );
+                        @content ($brightness, $contrast, $location: main);
+                    }
+                } @else {
+                    &,
+                    & [data-active-theme='#{tokens.$activeTheme}'],
+                    %active-theme-selector--#{tokens.$activeTheme} {
+                        //
+                        @include tokens-theme-individual(
+                            tokens.$activeTheme,
+                            $brightness: $brightness,
+                            $contrast: $contrast
+                        );
+                        @content ($brightness, $contrast, $location: main);
+                    }
+                }
+            } @else {
+                @if config.$mx_tokensTheme_unifyActiveThemeSelectors {
+                    &,
+                    &[data-active-theme='#{tokens.$activeTheme}'][data-active-theme],
+                    %active-theme-selector--#{tokens.$activeTheme} {
+                        //
+                        @include tokens-theme-individual(
+                            tokens.$activeTheme,
+                            $brightness: $brightness,
+                            $contrast: $contrast
+                        );
+                        @content ($brightness, $contrast, $location: main);
+                    }
+                } @else {
+                    &,
+                    %active-theme-selector--#{tokens.$activeTheme} {
+                        //
+                        @include tokens-theme-individual(
+                            tokens.$activeTheme,
+                            $brightness: $brightness,
+                            $contrast: $contrast
+                        );
+                        @content ($brightness, $contrast, $location: main);
+                    }
+                }
+            }
+    
+            @each $key in map.keys(tokens.$themes) {
+                @if #{$key} != #{tokens.$activeTheme} {
+                    //
+                    @if config.$mx_colourModeEach_nestModeSelectors {
+                        @if config.$mx_tokensTheme_unifyActiveThemeSelectors {
+                            &[data-active-theme='#{$key}'][data-active-theme],
+                            & [data-active-theme='#{$key}'],
+                            [data-active-theme='#{$key}'] &,
+                            %active-theme-selector--#{$key} {
+                                @include tokens-theme-individual(
+                                    $key,
+                                    $brightness: $brightness,
+                                    $contrast: $contrast
+                                );
+                                @content ($brightness, $contrast, $location: theme-#{$key});
+                            }
+                        } @else {
+                            & [data-active-theme='#{$key}'],
+                            [data-active-theme='#{$key}'] &,
+                            %active-theme-selector--#{$key} {
+                                @include tokens-theme-individual(
+                                    $key,
+                                    $brightness: $brightness,
+                                    $contrast: $contrast
+                                );
+                                @content ($brightness, $contrast, $location: theme-#{$key});
+                            }
+                        }
+                    } @else {
+                        @if config.$mx_tokensTheme_unifyActiveThemeSelectors {
+                            &[data-active-theme='#{$key}'][data-active-theme],
+                            & [data-active-theme='#{$key}'],
+                            %active-theme-selector--#{$key} {
+                                @include tokens-theme-individual(
+                                    $key,
+                                    $brightness: $brightness,
+                                    $contrast: $contrast
+                                );
+                                @content ($brightness, $contrast, $location: theme-#{$key});
+                            }
+                        } @else {
+                            [data-active-theme='#{$key}'],
+                            %active-theme-selector--#{$key} {
+                                @include tokens-theme-individual(
+                                    $key,
+                                    $brightness: $brightness,
+                                    $contrast: $contrast
+                                );
+                                @content ($brightness, $contrast, $location: theme-#{$key});
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     // for high-contrast modes

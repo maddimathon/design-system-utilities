@@ -164,18 +164,6 @@ export class Compile extends CompileStage {
                     : [ _paths.scss ?? 'src/scss/tokens/system/_tokens.scss' ],
         };
 
-        if (
-            !this.isWatchedUpdate
-            && ( this.fs.exists( tokensDistDir ) || paths.scss )
-        ) {
-            this.console.verbose( 'deleting any existing files...', 1 + level );
-
-            this.fs.delete(
-                [ tokensDistDir ].flat(),
-                ( this.params.verbose ? 2 : 1 ) + level,
-            );
-        }
-
         await Promise.all( [
             this.buildTokens_writeJson( tokens, paths.json, level ),
             this.buildTokens_writeScss( tokens, paths.scss, level ),

@@ -41,24 +41,32 @@
     --icon-color: #{var-theme(link-icon)};
     --icon-vertical-align: sub;
     text-decoration-color: #{var-theme(link-ui)};
+    color: #{var-theme(link)};
 
-    transition: var(--transition);
+    &,
+    &::before,
+    &::after {
+        transition: var(--transition);
+    }
 
     /// STATES ///
 
     &:visited {
         --icon-color: #{var-theme(link-icon-visited)};
         text-decoration-color: #{var-theme(link-ui-visited)};
+        color: #{var-theme(link-visited)};
     }
 
     @include hover-focus-visible() {
         --icon-color: #{var-theme(link-icon-hover)};
         text-decoration-color: #{var-theme(link-ui-hover)};
+        color: #{var-theme(link-hover)};
     }
 
     &:active {
         --icon-color: #{var-theme(link-icon-active)};
         text-decoration-color: #{var-theme(link-ui-active)};
+        color: #{var-theme(link-active)};
     }
 
     /// EXCEPTIONS ///

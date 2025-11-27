@@ -278,7 +278,7 @@ export var ColourUtilities;
     let toString;
     (function (toString) {
         function hex(clr) {
-            return toHex(clr);
+            return '#' + toHex(clr);
         }
         toString.hex = hex;
         function hsl(clr) {

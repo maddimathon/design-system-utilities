@@ -310,6 +310,7 @@ html {
     --fs-heading-9: clamp(0.625rem, 1.0625svw + 1rem, 0.9375rem);
     --fs-heading-10: 0.75rem;
     --fs-heading-10: clamp(0.5625rem, 1svw + 1rem, 0.875rem);
+    --fs-smaller-4: 0.6875rem;
     --fs-smaller-3: 0.75rem;
     --fs-smaller-2: 0.8125rem;
     --fs-smaller-1: 0.9375rem;
@@ -3982,7 +3983,8 @@ html {
 }
 
 /* #endregion Tokens - Theme - Exceptions - high-contrast modes */
-/* ## ANIMATIONS ==================================== */
+/* # ANIMATIONS
+ * ======================================================================== */
 @keyframes fade-in {
     0% {
         opacity: 0;
@@ -5019,6 +5021,11 @@ th {
     font-size: var(--fs-heading-10, 0.75rem);
 }
 
+.font-size-smaller-4 {
+    font-size: 0.6875rem;
+    font-size: var(--fs-smaller-4, 0.6875rem);
+}
+
 .font-size-smaller-3 {
     font-size: 0.75rem;
     font-size: var(--fs-smaller-3, 0.75rem);
@@ -5568,6 +5575,12 @@ a {
     --icon-vertical-align: sub;
     text-decoration-color: hsl(278.62, 55.11%, 36.46%);
     text-decoration-color: var(--theme-link-ui, hsl(278.62, 55.11%, 36.46%));
+    color: hsl(278.16, 60.54%, 30.06%);
+    color: var(--theme-link, hsl(278.16, 60.54%, 30.06%));
+}
+a,
+a::before,
+a::after {
     transition: none;
     transition: var(--transition);
 }
@@ -5578,30 +5591,40 @@ a:visited {
         --theme-link-ui-visited,
         hsl(278.62, 55.11%, 36.46%)
     );
+    color: hsl(278.16, 60.54%, 30.06%);
+    color: var(--theme-link-visited, hsl(278.16, 60.54%, 30.06%));
 }
 .no-js a:focus,
 .js__no-whereSelector a:focus {
     --icon-color: var(--theme-link-icon-hover, hsl(163.49, 71.55%, 19.73%));
     text-decoration-color: "transparent";
     text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    color: hsl(162, 69%, 16.5%);
+    color: var(--theme-link-hover, hsl(162, 69%, 16.5%));
 }
 
 :where(.js__no-focusVisible) a:focus {
     --icon-color: var(--theme-link-icon-hover, hsl(163.49, 71.55%, 19.73%));
     text-decoration-color: "transparent";
     text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    color: hsl(162, 69%, 16.5%);
+    color: var(--theme-link-hover, hsl(162, 69%, 16.5%));
 }
 
 a:hover {
     --icon-color: var(--theme-link-icon-hover, hsl(163.49, 71.55%, 19.73%));
     text-decoration-color: "transparent";
     text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    color: hsl(162, 69%, 16.5%);
+    color: var(--theme-link-hover, hsl(162, 69%, 16.5%));
 }
 
 a:focus-visible {
     --icon-color: var(--theme-link-icon-hover, hsl(163.49, 71.55%, 19.73%));
     text-decoration-color: "transparent";
     text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    color: hsl(162, 69%, 16.5%);
+    color: var(--theme-link-hover, hsl(162, 69%, 16.5%));
 }
 
 a:active {
@@ -5611,6 +5634,8 @@ a:active {
         --theme-link-ui-active,
         hsl(3.04, 67.98%, 34.03%)
     );
+    color: hsl(2.81, 72.25%, 28.09%);
+    color: var(--theme-link-active, hsl(2.81, 72.25%, 28.09%));
 }
 @supports (
     (-webkit-mask-image: url("../fake.svg")) or (mask-image: url("../fake.svg"))

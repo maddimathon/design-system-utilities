@@ -65,7 +65,7 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
                     1: -0.75,
                     2: -1.5,
                     3: -2.0,
-                    // 4: -2.5,
+                    4: -2.5,
                     // 5: -3.0,
                 },
 
@@ -330,6 +330,7 @@ export namespace Tokens_Typography {
                 1: T_SizeValue;
                 2: T_SizeValue;
                 3: T_SizeValue;
+                4: T_SizeValue;
                 [ key: number ]: T_SizeValue;
             };
 
