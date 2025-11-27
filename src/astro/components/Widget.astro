@@ -29,12 +29,18 @@ export interface Props extends ElementProps<{}, 'section'> {
     displayHeading?: number;
 
     heading: number;
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    hideHeading?: boolean;
 }
 
 const {
     class: classList,
     displayHeading,
     heading,
+    hideHeading = false,
     ...attributes
 }: Props = Astro.props;
 
@@ -51,7 +57,10 @@ const headingHTML = (await Astro.slots.render('heading')) || false;
         >
             <slot name='prefix' />
             <Heading
-                class='widget-title'
+                class:list={[
+                    'widget-title',
+                    hideHeading && 'screen-reader-text',
+                ]}
                 heading={heading}
                 displayHeading={displayHeading}
                 set:html={headingHTML}

@@ -7,7 +7,7 @@
 
 // @use 'pkg:@maddimathon/utility-astro/03-snippets' as lib;
 
-// @use '../../config';
+@use '../../config';
 // @use '../../tokens';
 
 @use '../01-functions' as *;
@@ -20,6 +20,10 @@
 /// @since 0.1.0-alpha
 ///
 @mixin snippet-support-astro-sticky-toggle-nav {
+    @if not config.$print_astro_toggleNav {
+        @include snippet-support-astro-toggle-nav-menu;
+    }
+
     @include feature-check.supports(whereSelector) {
         $_navHeight: 3.125rem;
         $_scrollPaddingFallback: calc(
@@ -64,13 +68,30 @@
                 }
             }
 
-            > [data-toggle-content] {
-                padding-inline: #{var-gap-block(layout-half)};
-                width: 100%;
+            // > [data-toggle-content] {
+            //     margin-inline: #{var-gap-block(layout-half)};
+            //     width: 100%;
 
-                z-index: -1;
+            //     z-index: -1;
+            // }
+
+            &[data-toggle-container='open'] {
+                [data-toggle-control-backdrop] {
+                    opacity: 0;
+                    animation: fade-in #{var-tr-time(normal)} ease-in-out 10ms
+                        forwards;
+                }
+            }
+
+            &[data-toggle-container='closing'] {
+                [data-toggle-control-backdrop] {
+                    opacity: 0;
+                    animation: fade-out #{var-tr-time(normal)} ease-in-out 0ms
+                        forwards;
+                }
             }
         }
+
         .website-settings-menu {
             margin-block-start: 0;
         }

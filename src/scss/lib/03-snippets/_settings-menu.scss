@@ -61,7 +61,7 @@ $_closing_time: var-tr-time(toggle-closing);
     .website-settings__disclaimer {
     }
 
-    .website-settings__backdrop {
+    [data-toggle-control-backdrop] {
         transition: var(--transition);
     }
 
@@ -88,8 +88,12 @@ $_closing_time: var-tr-time(toggle-closing);
                 --icon-color: currentColor;
             }
 
+            > [data-toggle-content] {
+                border-radius: #{var-style(button-border-radius)};
+            }
+
             &[data-toggle-container='open'] {
-                .website-settings__backdrop {
+                [data-toggle-control-backdrop] {
                     opacity: 0;
                     animation: fade-in #{var-tr-time(normal)} ease-in-out 10ms
                         forwards;
@@ -97,7 +101,7 @@ $_closing_time: var-tr-time(toggle-closing);
             }
 
             &[data-toggle-container='closing'] {
-                .website-settings__backdrop {
+                [data-toggle-control-backdrop] {
                     opacity: 0;
                     animation: fade-out #{var-tr-time(normal)} ease-in-out 0ms
                         forwards;
