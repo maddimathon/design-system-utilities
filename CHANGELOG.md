@@ -19,6 +19,34 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.4** — 2025-12-01
+
+Display and component improvements, plus a couple shade map generation fixes.
+
+### Misc. Breaking
+- Changed structure in src/scss/_astro
+
+### Added
+- Added option to ShadeSwatchTable to generate colour target levels by using a
+  colour map's JSON return (can separate base and accent targets)
+- More options for the PageContent_Colour and ShadeSwatchTable components
+- New mixin - tokens-theme-iterator
+
+### Changed
+- Converted objectMap to tested version from scss-templater and added objectMapAsync
+- Changed which colour names are treated as base shades when completing colour maps
+- Misc. ShadeSwatchTable improvements
+- Misc. style updates for preview pages
+
+### Fixed
+- Improved ShadeSwatchTable options & code
+- Fixed bug that didn't overwrite optional shade levels in input colour maps
+- Swatch style updates
+- Fixed JSON output for contrast tests in colour objects
+- Review all files and tidied up
+- Updated with utility-astro
+
+
 ## **0.1.0-alpha.3** — 2025-11-15
 
 Improved theme swatches, logos.
