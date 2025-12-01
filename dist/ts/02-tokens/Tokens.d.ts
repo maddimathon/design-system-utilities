@@ -1117,6 +1117,10 @@ export declare namespace Tokens {
          * @since 0.1.0-alpha
          */
         type PartialMap<T_ColourName extends string, T_ExtraLevels extends ColourLevels_Extended> = Tokens_Colour_ShadeMap.InputParam<T_ColourName, T_ExtraLevels>;
+        /**
+         * @since 0.1.0-alpha.4
+         */
+        type CompleteMap<T_ColourName extends string, T_ExtraLevels extends ColourLevels_Extended> = Tokens_Colour_ShadeMap.Data<T_ColourName, T_ExtraLevels>;
     }
     /**
      * @since 0.1.0-alpha

@@ -1012,6 +1012,14 @@ export namespace Tokens {
             T_ColourName extends string,
             T_ExtraLevels extends ColourLevels_Extended,
         > = Tokens_Colour_ShadeMap.InputParam<T_ColourName, T_ExtraLevels>;
+
+        /**
+         * @since 0.1.0-alpha.4
+         */
+        export type CompleteMap<
+            T_ColourName extends string,
+            T_ExtraLevels extends ColourLevels_Extended,
+        > = Tokens_Colour_ShadeMap.Data<T_ColourName, T_ExtraLevels>;
     }
 
     /**
