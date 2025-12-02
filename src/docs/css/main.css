@@ -4666,7 +4666,9 @@ h6:where(.unstyled-heading) em em em {
 /* # GLOBALS - Lists
  * ======================================================================== */
 ol,
-ul {
+ul,
+.table-of-contents [data-toggle-content] > .container ol,
+.table-of-contents > ol {
     margin: 0;
     margin-left: 20%;
     padding: 0;
@@ -4680,7 +4682,11 @@ ul {
 ol ol,
 ol ul,
 ul ol,
-ul ul {
+.table-of-contents [data-toggle-content] > .container ol ol,
+.table-of-contents > ol ol,
+ul ul,
+.table-of-contents [data-toggle-content] > .container ol ul,
+.table-of-contents > ol ul {
     margin-top: 0;
 }
 ol ol ol,
@@ -4688,9 +4694,17 @@ ol ol ul,
 ol ul ol,
 ol ul ul,
 ul ol ol,
+.table-of-contents [data-toggle-content] > .container ol ol ol,
+.table-of-contents > ol ol ol,
 ul ol ul,
+.table-of-contents [data-toggle-content] > .container ol ol ul,
+.table-of-contents > ol ol ul,
 ul ul ol,
-ul ul ul {
+.table-of-contents [data-toggle-content] > .container ol ul ol,
+.table-of-contents > ol ul ol,
+ul ul ul,
+.table-of-contents [data-toggle-content] > .container ol ul ul,
+.table-of-contents > ol ul ul {
     font-size: 0.9375rem;
     font-size: var(--fs-smaller-1, 0.9375rem);
 }
@@ -4704,12 +4718,26 @@ ol ol {
 ol ol ol {
     list-style-type: lower-roman;
 }
-ul {
+ul,
+.table-of-contents [data-toggle-content] > .container ol,
+.table-of-contents > ol {
     list-style-type: disc;
 }
+.table-of-contents [data-toggle-content] > .container ol ol,
+.table-of-contents [data-toggle-content] > .container ol ul,
+.table-of-contents > ol ol,
+.table-of-contents > ol ul,
 ul ul {
     list-style-type: circle;
 }
+.table-of-contents [data-toggle-content] > .container ol ol ol,
+.table-of-contents [data-toggle-content] > .container ol ol ul,
+.table-of-contents [data-toggle-content] > .container ol ul ol,
+.table-of-contents [data-toggle-content] > .container ol ul ul,
+.table-of-contents > ol ol ol,
+.table-of-contents > ol ol ul,
+.table-of-contents > ol ul ol,
+.table-of-contents > ol ul ul,
 ol ol ol ol,
 ul ul ul {
     list-style-type: square; /* fallback */
@@ -6502,7 +6530,7 @@ h6 samp,
     opacity: 1;
 }
 
-/* # LISTS
+/* # GLOBALS - LISTS
  * ======================================================================== */
 li::marker {
     color: hsl(278.16, 60.54%, 30.06%);
@@ -6520,7 +6548,7 @@ li li li li li {
     color: var(--theme-text-secondary, hsl(162, 69%, 16.5%));
 }
 
-/* # FORMS
+/* # GLOBALS - FORMS
  * ======================================================================== */
 textarea,
 select,

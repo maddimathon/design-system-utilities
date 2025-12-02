@@ -243,14 +243,20 @@ const levelTargets = {
             : undefined,
 };
 
-const shadeList_toc: ComponentProps<typeof TableOfContents>['menu'] =
-    Object.entries(tokens.colour).map(([name]) => ({
-        label: `All ${toTitleCase(name)} Shades`,
+const shadeList_toc: ComponentProps<typeof TableOfContents>['menu'] = [
+    {
+        label: 'Shade Table',
+        href: '#all-colours',
+    },
+    ...Object.entries(tokens.colour).map(([name]) => ({
+        label: `${toTitleCase(name)} Shade Details`,
         href: `#shades-${name}`,
-    }));
+    })),
+];
 ---
 
 <TableOfContents
+    asToggle={false}
     heading={2}
     menu={shadeList_toc}
 />
