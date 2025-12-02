@@ -4,7 +4,7 @@
  */
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0-alpha.5
+ * @maddimathon/utility-sass@0.1.0-alpha.6
  * 
  * https://maddimathon.github.io/utility-sass
  */
@@ -63,19 +63,19 @@ html {
     --gap-block-layout: max(1.625rem, min(5svw, 5.8125rem));
     --gap-block-layout-half: 2.5vw;
     --gap-block-layout-half: max(0.8125rem, min(2.5svw, 2.90625rem));
-    --gap-inline-indent: 4vw;
+    --gap-inline-indent: 9%;
     --gap-inline-indent: max(
         var(--mrg-firm-200, 0.5rem),
-        min(4svw, var(--mrg-firm-600, 2.25rem))
+        min(9%, var(--mrg-firm-800, 4rem))
     );
     --gap-inline-layout: 8vw;
     --gap-inline-layout: max(1.25rem, min(8svw, 7.125rem));
     --gap-inline-layout-half: 4vw;
     --gap-inline-layout-half: max(0.625rem, min(4svw, 3.5625rem));
-    --gap-inline-tab: 1.5vw;
+    --gap-inline-tab: 5%;
     --gap-inline-tab: max(
         var(--mrg-firm-100, 0.3125rem),
-        min(1.5svw, var(--mrg-firm-600, 2.25rem))
+        min(5%, var(--mrg-firm-600, 2.25rem))
     );
 }
 
@@ -324,7 +324,8 @@ html {
     outline-offset: var(--focus-ring-outline-offset, 0.125em);
 }
 
-:where(.js__no-focusVisible) :focus {
+:where(.js__no-focusVisible) :focus,
+:where(.js) [data-toggle-control][data-toggle-is-current-target] {
     /* %focus-ring--where */
     outline: max(0.125rem, min(0.125em, 0.25rem)) dashed currentColor;
     outline: max(0.125rem, min(0.125em, 0.25rem)) dashed currentColor;
@@ -416,23 +417,15 @@ i {
     font-style: italic;
 }
 em em,
-i em,
-em i,
-i i {
+i em {
     font-style: normal;
 }
 em em em,
-i em em,
-em em i,
-i em i,
-em i em,
-i i em,
-em i i,
-i i i {
+i em em {
     font-style: italic;
 }
 
-a {
+a[href] {
     --focus-ring-outline-color: currentColor;
     --focus-ring-outline-offset: var(--stroke-relative-200, 0.0625em);
     display: inline;
@@ -446,39 +439,39 @@ a {
     color: LinkText;
     color: var(--sys-clr-link, LinkText);
 }
-a:visited {
+a[href]:visited {
     color: VisitedText;
     color: var(--sys-clr-link-visited, VisitedText);
 }
-.no-js a:focus,
-.js__no-whereSelector a:focus {
+.no-js a[href]:focus,
+.js__no-whereSelector a[href]:focus {
     text-decoration-color: transparent;
     color: ActiveText;
     color: var(--sys-clr-link-hover, ActiveText);
 }
 
-:where(.js__no-focusVisible) a:focus {
+:where(.js__no-focusVisible) a[href]:focus {
     text-decoration-color: transparent;
     color: ActiveText;
     color: var(--sys-clr-link-hover, ActiveText);
 }
 
-a:hover {
+a[href]:hover {
     text-decoration-color: transparent;
     color: ActiveText;
     color: var(--sys-clr-link-hover, ActiveText);
 }
 
-a:active {
+a[href]:active {
     color: ActiveText;
     color: var(--sys-clr-link-active, ActiveText);
 }
-a.no-style {
+a.no-style[href] {
     text-decoration: none;
     font-weight: inherit;
     color: inherit;
 }
-a[aria-disabled="true"] {
+a[aria-disabled="true"][href] {
     text-decoration-line: line-through;
     color: GrayText;
     color: var(--sys-clr-text-disabled, GrayText);
@@ -528,12 +521,12 @@ blockquote {
 }
 @media (min-width: 36em) {
     blockquote {
-        margin-left: max(0.3125rem, min(1.5svw, 2.25rem));
-        margin-right: max(0.3125rem, min(1.5svw, 2.25rem));
-        margin-left: max(0.3125rem, min(1.5svw, 2.25rem));
-        margin-left: var(--gap-inline-tab, 1.5vw);
-        margin-right: max(0.3125rem, min(1.5svw, 2.25rem));
-        margin-right: var(--gap-inline-tab, 1.5vw);
+        margin-left: max(0.5rem, min(9%, 4rem));
+        margin-right: max(0.5rem, min(9%, 4rem));
+        margin-left: max(0.5rem, min(9%, 4rem));
+        margin-left: var(--gap-inline-indent, 9%);
+        margin-right: max(0.5rem, min(9%, 4rem));
+        margin-right: var(--gap-inline-indent, 9%);
     }
 }
 blockquote > p:first-child {
@@ -649,46 +642,25 @@ ul ul ul {
 }
 
 ol {
-    /* level 1 - ol */
     list-style-type: decimal;
 }
 ol ol {
-    /* level 2 - ol ol */
     list-style-type: lower-alpha;
 }
 ol ol ol {
-    /* level 3 - ol ol ol */
     list-style-type: lower-roman;
 }
-ol ol ol ol {
-    /* level 4 - ol ol ol ol */
-}
-ol ol ol ol ol {
-    /* level 5 - ol ol ol ol ol */
-}
-
 ul {
-    /* level 1 - ul */
     list-style-type: disc;
 }
 ul ul {
-    /* level 2 - ul ul */
     list-style-type: circle;
 }
 ol ol ol ol,
 ul ul ul {
-    /* level 3 - ul ul ul */
-    /* level 4 - ol ol ol ol */
     list-style-type: square; /* fallback */
     list-style-type: "–  ";
 }
-ol ol ol ol ol,
-ol ol ol ol ul,
-ul ul ul ul {
-    /* level 4 - ul ul ul ul */
-    /* level 5 - ol ol ol ol ol */
-}
-
 li {
     margin: 0;
     margin-top: 0.5rem;
@@ -711,14 +683,10 @@ li li li::marker {
 li li li li {
     font-style: italic;
 }
-li li li li em,
-li li li li i {
+li li li li em {
     font-style: normal;
 }
-li li li li em em,
-li li li li em i,
-li li li li i em,
-li li li li i i {
+li li li li em em {
     font-style: italic;
 }
 
@@ -793,6 +761,8 @@ fieldset legend {
     text-transform: uppercase;
     text-wrap: balance;
     font-style: normal;
+}
+fieldset legend {
     margin-left: calc(0.5rem * -1);
     margin-right: calc(0.5rem * -1);
     margin-left: calc(var(--mrg-soft-300, 0.5rem) * -1);
@@ -1345,7 +1315,7 @@ nav ul li {
     }
 }
 /* ## Typography - Inline ==================================== */
-a {
+a[href] {
     --icon-color: var(
         --theme-link-icon,
         var(--clr-base-650, hsl(339.45, 0%, 29.51%))
@@ -1362,13 +1332,13 @@ a {
         var(--clr-purple-700, hsl(278.16, 60.54%, 30.06%))
     );
 }
-a,
-a::before,
-a::after {
+a[href],
+a[href]::before,
+a[href]::after {
     transition: none;
     transition: var(--transition);
 }
-a:visited {
+a[href]:visited {
     --icon-color: var(
         --theme-link-icon-visited,
         var(--clr-base-650, hsl(339.45, 0%, 29.51%))
@@ -1384,8 +1354,8 @@ a:visited {
         var(--clr-purple-700, hsl(278.16, 60.54%, 30.06%))
     );
 }
-.no-js a:focus,
-.js__no-whereSelector a:focus {
+.no-js a[href]:focus,
+.js__no-whereSelector a[href]:focus {
     --icon-color: var(
         --theme-link-icon-hover,
         var(--clr-turquoise-650, hsl(163.49, 71.55%, 19.73%))
@@ -1399,7 +1369,7 @@ a:visited {
     );
 }
 
-:where(.js__no-focusVisible) a:focus {
+:where(.js__no-focusVisible) a[href]:focus {
     --icon-color: var(
         --theme-link-icon-hover,
         var(--clr-turquoise-650, hsl(163.49, 71.55%, 19.73%))
@@ -1413,7 +1383,7 @@ a:visited {
     );
 }
 
-a:hover {
+a[href]:hover {
     --icon-color: var(
         --theme-link-icon-hover,
         var(--clr-turquoise-650, hsl(163.49, 71.55%, 19.73%))
@@ -1427,7 +1397,7 @@ a:hover {
     );
 }
 
-a:active {
+a[href]:active {
     --icon-color: var(
         --theme-link-icon-active,
         var(--clr-red-650, hsl(3.04, 67.98%, 34.03%))
@@ -1443,7 +1413,7 @@ a:active {
         var(--clr-red-700, hsl(2.81, 72.25%, 28.09%))
     );
 }
-a[aria-disabled="true"] {
+a[aria-disabled="true"][href] {
     --icon-color: var(
         --theme-link-icon-disabled,
         var(--clr-base-650, hsl(339.45, 0%, 29.51%))
@@ -1460,8 +1430,8 @@ a[aria-disabled="true"] {
         var(--clr-base-700, hsl(339.45, 0%, 24.13%))
     );
 }
-.no-js a[aria-disabled="true"]:focus,
-.js__no-whereSelector a[aria-disabled="true"]:focus {
+.no-js a[aria-disabled="true"][href]:focus,
+.js__no-whereSelector a[aria-disabled="true"][href]:focus {
     --icon-color: var(
         --theme-link-icon-hover,
         var(--clr-turquoise-650, hsl(163.49, 71.55%, 19.73%))
@@ -1475,7 +1445,7 @@ a[aria-disabled="true"] {
     );
 }
 
-:where(.js__no-focusVisible) a[aria-disabled="true"]:focus {
+:where(.js__no-focusVisible) a[aria-disabled="true"][href]:focus {
     --icon-color: var(
         --theme-link-icon-hover,
         var(--clr-turquoise-650, hsl(163.49, 71.55%, 19.73%))
@@ -1489,7 +1459,7 @@ a[aria-disabled="true"] {
     );
 }
 
-a[aria-disabled="true"]:hover {
+a[aria-disabled="true"][href]:hover {
     --icon-color: var(
         --theme-link-icon-hover,
         var(--clr-turquoise-650, hsl(163.49, 71.55%, 19.73%))
@@ -1503,7 +1473,7 @@ a[aria-disabled="true"]:hover {
     );
 }
 
-a[aria-disabled="true"]:active {
+a[aria-disabled="true"][href]:active {
     --icon-color: var(
         --theme-link-icon-active,
         var(--clr-red-650, hsl(3.04, 67.98%, 34.03%))
@@ -1607,7 +1577,7 @@ h1 {
         var(--clr-purple-800, hsl(277.41, 52.55%, 17.62%))
     );
 }
-h1 a {
+h1 a[href] {
     font-weight: inherit;
 }
 h1 code,
@@ -1635,7 +1605,7 @@ h2 {
         var(--clr-purple-750, hsl(277.69, 56.91%, 23.79%))
     );
 }
-h2 a {
+h2 a[href] {
     font-weight: inherit;
 }
 h2 code,
@@ -1663,7 +1633,7 @@ h3 {
         var(--clr-purple-750, hsl(277.69, 56.91%, 23.79%))
     );
 }
-h3 a {
+h3 a[href] {
     font-weight: inherit;
 }
 h3 code,
@@ -1686,14 +1656,10 @@ h4 {
     text-wrap: balance;
     font-style: italic;
 }
-h4 em,
-h4 i {
+h4 em {
     font-style: normal;
 }
-h4 em em,
-h4 em i,
-h4 i em,
-h4 i i {
+h4 em em {
     font-style: italic;
 }
 h4 {
@@ -1703,7 +1669,7 @@ h4 {
         var(--clr-purple-700, hsl(278.16, 60.54%, 30.06%))
     );
 }
-h4 a {
+h4 a[href] {
     font-weight: inherit;
 }
 h4 code,
@@ -1726,14 +1692,10 @@ h5 {
     text-wrap: balance;
     font-style: italic;
 }
-h5 em,
-h5 i {
+h5 em {
     font-style: normal;
 }
-h5 em em,
-h5 em i,
-h5 i em,
-h5 i i {
+h5 em em {
     font-style: italic;
 }
 h5 {
@@ -1743,7 +1705,7 @@ h5 {
         var(--clr-purple-700, hsl(278.16, 60.54%, 30.06%))
     );
 }
-h5 a {
+h5 a[href] {
     font-weight: inherit;
 }
 h5 code,
@@ -1766,14 +1728,10 @@ h6 {
     text-wrap: balance;
     font-style: italic;
 }
-h6 em,
-h6 i {
+h6 em {
     font-style: normal;
 }
-h6 em em,
-h6 em i,
-h6 i em,
-h6 i i {
+h6 em em {
     font-style: italic;
 }
 h6 {
@@ -1783,7 +1741,7 @@ h6 {
         var(--clr-purple-700, hsl(278.16, 60.54%, 30.06%))
     );
 }
-h6 a {
+h6 a[href] {
     font-weight: inherit;
 }
 h6 code,

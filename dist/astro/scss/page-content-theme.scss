@@ -1,6 +1,6 @@
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0-alpha.5
+ * @maddimathon/utility-sass@0.1.0-alpha.6
  * 
  * https://maddimathon.github.io/utility-sass
  */
@@ -38,8 +38,8 @@
 :global(.js) .theme-mode-preview-page__display-mode__wrapper {
     display: flex;
     justify-content: end;
-    gap: 0.3125rem 1.5vw;
-    gap: var(--mrg-soft-200, 0.3125rem) var(--gap-inline-tab, 1.5vw);
+    gap: 0.3125rem 5%;
+    gap: var(--mrg-soft-200, 0.3125rem) var(--gap-inline-tab, 5%);
 }
 :global(.js):global([data-theme-mode-preview-page-display-mode='preview'])
     :global([data-theme-mode-preview-page-display-mode-content]) {
@@ -112,4 +112,9 @@
     padding: var(--mrg-soft-400, 0.8125rem) var(--mrg-firm-400, 1.25rem);
     min-width: 0;
     max-width: none;
+}
+
+:global(:where(.js)) :global(.table-of-contents) {
+    max-width: 36rem;
+    max-width: var(--width-content, 36rem);
 }

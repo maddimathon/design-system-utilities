@@ -19,9 +19,11 @@ import PageContent_Theme_Scripts from '../support/PageContent_Theme_Scripts.astr
 /* import - values */
 
 /* import - components */
+import TableOfContents from '@maddimathon/utility-astro/components/TableOfContents';
 import Toggle from '@maddimathon/utility-astro/components/Toggle';
 import ThemeModeSwatch from './ThemeModeSwatch.astro';
 import Widget from './Widget.astro';
+import type { ComponentProps } from 'astro/types';
 // import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
 
 /* import - layouts */
@@ -59,30 +61,32 @@ const parsedSets = Object.values(
         parsed: Object.values(
             objectMap(theme, ([brightness]) =>
             brightness === 'name'
+                ? false
+                : brightness === 'levelsInUse'
                     ? false
-                    : brightness === 'levelsInUse'
-                      ? false
-                      :  brightness === 'forcedColours' 
+                    :  brightness === 'forcedColours' 
                         ? false
                         : {
-                              name: brightness,
-                              values: Object.values(
-                                  objectMap(
-                                  theme[brightness],
-                                    ([ contrast,  theme ]): {
-                                        id: string,
-                                        brightness: "light"|"dark",
-                                        contrast: "low"|"average"|"high"|"max",
-                                        theme: typeof theme,
-                                    } => ({
-                                          id: `theme-${key}-${contrast}`,
-                                          brightness,
-                                          contrast,
-                                          theme,
-                                      })
-                                  )
-                              ),
-                          }
+                            name: brightness,
+                            label: toTitleCase(`${key} — ${brightness} Mode`),
+                            href: `themes-${key}-${brightness}-mode`,
+                            values: Object.values(
+                                objectMap(
+                                theme[brightness],
+                                ([ contrast,  theme ]): {
+                                    id: string,
+                                    brightness: "light"|"dark",
+                                    contrast: "low"|"average"|"high"|"max",
+                                    theme: typeof theme,
+                                } => ({
+                                        id: `theme-${key}-${contrast}`,
+                                        brightness,
+                                        contrast,
+                                        theme,
+                                    })
+                                )
+                            ),
+                        }
             )
         ).filter((v) => v !== false),
     }))
@@ -101,7 +105,18 @@ const displayOptions = [
     label: string;
     value: string;
 }[];
+
+const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.map(
+    ( { parsed } ) => parsed.map(
+        ( { label, href } ) => ( { label, href } )
+    )
+).flat();
 ---
+
+<TableOfContents
+    heading={2}
+    menu={themes_toc}
+/>
 
 <p>
     The following colour shade levels are in use in at least one of the themes
@@ -142,10 +157,10 @@ const displayOptions = [
                     defaultOpen={defaultToggleToOpen} 
                     displayHeading={2}
                     heading={3} 
-                    id={`themes-${key}-${brightnessSet.name}-mode`}
+                    id={brightnessSet.href}
                 >
                     <Fragment 
-                        set:text={toTitleCase(`${key} — ${brightnessSet.name} Mode`)}
+                        set:text={brightnessSet.label}
                         slot='button'
                     />
                     { displayOptions.map( ( opt ) => (

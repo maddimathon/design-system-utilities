@@ -6,6 +6,7 @@
  */
 
 /* import - types */
+import type { ComponentProps } from 'astro/types';
 import type {
     ColourLevels,
     ColourLevels_Extended,
@@ -23,6 +24,7 @@ import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
 /* import - values */
 
 /* import - components */
+import TableOfContents from '@maddimathon/utility-astro/components/TableOfContents';
 import Toggle from '@maddimathon/utility-astro/components/Toggle';
 import ShadeSwatchList from './ShadeSwatchList.astro';
 import ShadeSwatchTable from './ShadeSwatchTable.astro';
@@ -240,7 +242,18 @@ const levelTargets = {
             ? await makeTargetLevels(yardsticks.accent, yardsticks?.base)
             : undefined,
 };
+
+const shadeList_toc: ComponentProps<typeof TableOfContents>['menu'] =
+    Object.entries(tokens.colour).map(([name]) => ({
+        label: `All ${toTitleCase(name)} Shades`,
+        href: `#shades-${name}`,
+    }));
 ---
+
+<TableOfContents
+    heading={2}
+    menu={shadeList_toc}
+/>
 
 <ShadeSwatchTable
     heading={2}

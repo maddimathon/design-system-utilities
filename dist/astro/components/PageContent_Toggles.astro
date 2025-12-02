@@ -1,0 +1,137 @@
+---
+/**
+ * @since 0.1.0-alpha.4.draft
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+import type { ComponentProps } from 'astro/types';
+// import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
+import type { Tokens } from '../../ts/02-tokens/Tokens.js';
+
+/* import - functions */
+
+/* import - values */
+
+/* import - components */
+import TableOfContents from '@maddimathon/utility-astro/components/TableOfContents';
+import Toggle from '@maddimathon/utility-astro/components/Toggle';
+import LoremIpsum from './LoremIpsum.astro';
+
+/* import - layouts */
+
+/* PROPS ===================================== */
+
+export interface Props {
+    tokens: Tokens.JsonReturn;
+}
+
+const { tokens }: Props = Astro.props;
+
+/* CONSTANTS ===================================== */
+
+const headingLevels = Object.keys(tokens.typography.size.heading).map(
+    Number
+) as [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, ...number[]];
+
+const headingIDs = headingLevels.map((num) => [num, `heading-${num}`] as const);
+
+const exampleMenuIds_entries = [
+    ['one' as const, { label: 'Example 1', id: 'toggle-ex-1' }],
+    ['two' as const, { label: 'Example 2', id: 'toggle-ex-2' }],
+
+    ...headingLevels.map(
+        (num) =>
+            [
+                `heading-${num}`,
+                {
+                    label: `Example Heading ${num}`,
+                    id: `toggle-ex-heading-${num}`,
+                },
+            ] as const
+    ),
+] as const;
+
+type ExampleKeys = (typeof exampleMenuIds_entries)[number][0];
+type ExampleValues = (typeof exampleMenuIds_entries)[number][1];
+
+const exampleMenuIds = Object.fromEntries(exampleMenuIds_entries) as {
+    [K in ExampleKeys]: ExampleValues;
+};
+
+const tocMenu: ComponentProps<typeof TableOfContents>['menu'] = [
+    ...[exampleMenuIds.one, exampleMenuIds.two].map((item) => ({
+        ...item,
+        id: undefined,
+        href: `#${item.id}`,
+    })),
+
+    {
+        label: 'Headings',
+        href: false,
+        child: headingLevels
+            .map((num) => {
+                const key = `heading-${num}` as const;
+
+                // returns
+                if (exampleMenuIds[key]) {
+                    return {
+                        label: exampleMenuIds[key].label,
+                        href: `#${exampleMenuIds[key].id}`,
+                    };
+                }
+
+                return false;
+            })
+            .filter((child) => child !== false),
+    },
+];
+---
+
+<TableOfContents
+    heading={2}
+    menu={tocMenu}
+    defaultOpen={true}
+/>
+
+<hr />
+
+<Toggle
+    id={exampleMenuIds.one.id}
+    heading={false}
+>
+    <p>Boo!</p>
+    <hr />
+    <LoremIpsum superAbbreviated={true} />
+</Toggle>
+<Toggle
+    id={exampleMenuIds.two.id}
+    heading={false}
+    defaultOpen={true}
+>
+    <Fragment slot='button'>I am open by default</Fragment>
+    <p>Boo!</p>
+    <hr />
+    <LoremIpsum superAbbreviated={true} />
+</Toggle>
+
+{
+    headingIDs.map(
+        ([heading, headingID]) =>
+            exampleMenuIds[headingID] && (
+                <Toggle
+                    id={exampleMenuIds[headingID].id}
+                    heading={heading}
+                >
+                    <Fragment
+                        slot='button'
+                        set:text={`Toggle Heading ${heading}`}
+                    />
+                    <p>Boo!</p>
+                    <hr />
+                    <LoremIpsum superAbbreviated={true} />
+                </Toggle>
+            )
+    )
+}

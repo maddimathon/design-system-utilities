@@ -32,11 +32,13 @@ export interface Props
         'allHeadingLevels' | 'buttonVariations'
     > {
     abbreviated?: boolean;
+    superAbbreviated?: boolean;
     tokens?: Tokens.JsonReturn;
 }
 
 const {
     abbreviated = false,
+    superAbbreviated = false,
     tokens = SampleTokens_Json as Tokens.JsonReturn,
     ...props 
 }: Props = Astro.props;
@@ -95,7 +97,82 @@ const heading = props.heading ?? 2;
 const displayHeading = props.displayHeading ?? heading;
 ---
  
-{ abbreviated ? (
+{ superAbbreviated ? (
+    
+    <p>Lorem ipsum <a href="#">dolor sit amet</a>, consectetur adipiscing elit. Sed vel odio at nibh <abbr title="these aren’t real words">pharetra condimentum</abbr>. Mauris id sapien sodales, volutpat turpis. { import.meta.env.DEV && <Fragment set:html={'Donec mi ex, venenatis in elit vitae, <a href="#" aria-disabled="true">blandit sodales nunc</a>. '} /> } <strong><em>Nunc pellentesque</em></strong> urna sed metus vulputate, vel maximus magna consectetur. Nulla aliquet, <strong>sem id ullamcorper</strong> vehicula, ligula ante mattis nisl.</p>
+    <p>Proin leo mauris, iaculis et est eget, <code>egestas tincidunt</code> metus. Quisque mattis semper semper. Suspendisse dapibus maximus leo, quis facilisis risus auctor et. Nam vitae dolor mi.</p>
+    
+    <ol id="example-list-mixed">
+        <li>Etiam ullamcorper commodo risus.
+            <ul>
+                <li>In hac habitasse platea dictumst.
+                    <ol>
+                        <li>In hac habitasse platea dictumst.
+                            <ul>
+                                <li>At feugiat odio mollis ut.
+                                    <ol>
+                                        <li>Mauris a tincidunt mauris.
+                                            <ol>
+                                                <li>Aliquam luctus fringilla nunc.
+                                                    <ol>
+                                                        <li>Suspendisse dapibus maximus leo, quis.</li>
+                                                        <li>Nam vitae dolor mi.</li>
+                                                    </ol>
+                                                </li>
+                                                <li>Ut maximus arcu hendrerit in.</li>
+                                            </ol>
+                                        </li>
+                                        <li>Integer vehicula lacus ac congue ullamcorper.</li>
+                                    </ol>
+                                </li>
+                                <li>Donec vitae justo vel leo ullamcorper mattis.</li>
+                            </ul>
+                        </li>
+                        <li>Sed hendrerit vel dui in pellentesque.</li>
+                    </ol>
+                </li>
+                <li>Nunc elementum tortor quis felis pharetra faucibus.</li>
+            </ul>
+        </li>
+        <li>Fusce mattis, odio at varius pharetra.
+            <ol>
+                <li>Tellus arcu convallis erat, vel blandit nulla sem nec enim.
+                    <ul>
+                        <li>Proin gravida aliquam purus, at feugiat odio mollis ut.
+                            <ol>
+                                <li>Proin vel risus finibus.</li>
+                                <li>Convallis nisl vel, ultricies lorem.
+                                    <ul>
+                                        <li>Duis hendrerit eu lacus at egestas.
+                                            <ol>
+                                                <li>Cras consequat id tortor nec dapibus.
+                                                    <ol>
+                                                        <li>Suspendisse dapibus maximus leo, quis.</li>
+                                                        <li>Nam vitae dolor mi.</li>
+                                                    </ol>
+                                                </li>
+                                                <li>Ut maximus arcu hendrerit in.</li>
+                                            </ol>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ol>
+                        </li>
+                    </ul>
+                </li>
+                <li>Proin gravida aliquam purus.</li>
+            </ol>
+        </li>
+        <li>Phasellus eu nibh at ligula elementum hendrerit ac vitae quam.</li>
+    </ol>
+    <p>Maecenas facilisis sollicitudin nisi, eget pellentesque dui rhoncus condimentum. Vivamus vulputate nisl sit amet vehicula commodo. Cras neque arcu, fermentum non elementum ac, tincidunt ut nibh. Proin blandit, nisl at volutpat pulvinar, massa nisl vulputate risus.</p>
+    
+    <slot />
+    <slot name="two" />
+    <slot name="three" />
+    <slot name="four" />
+
+) : abbreviated ? (
     
     <p>Lorem ipsum <a href="#">dolor sit amet</a>, consectetur adipiscing elit. Sed vel odio at nibh <abbr title="these aren’t real words">pharetra condimentum</abbr>. Mauris id sapien sodales, volutpat turpis. { import.meta.env.DEV && <Fragment set:html={'Donec mi ex, venenatis in elit vitae, <a href="#" aria-disabled="true">blandit sodales nunc</a>. '} /> } <strong><em>Nunc pellentesque</em></strong> urna sed metus vulputate, vel maximus magna consectetur. Nulla aliquet, <strong>sem id ullamcorper</strong> vehicula, ligula ante mattis nisl.</p>
 
@@ -108,48 +185,69 @@ const displayHeading = props.displayHeading ?? heading;
 
     <slot />
 
-    <Fragment>{ import.meta.env.DEV && (
-        <p>Ut vel leo in ligula facilisis sodales. Nulla facilisi. Nullam non nibh laoreet, cursus ex ut, blandit velit. Ut sit amet tempus velit. Nunc lacus erat, fermentum eget efficitur.</p>
-        <ul>
-            <li>Suspendisse accumsan ex sed ante lobortis sodales.
-                <ul>
-                    <li>Etiam dictum fringilla placerat.</li>
-                    <li>Sed faucibus nulla eu cursus bibendum.
-                        <ul>
-                            <li>Mauris a tincidunt mauris.</li>
-                            <li>Integer vehicula lacus ac congue ullamcorper. Aliquam luctus fringilla nunc, ut maximus arcu.
-                                <ul>
-                                    <li>Duis hendrerit eu lacus at egestas.</li>
-                                </ul>
-                            </li>
-                            <li>Duis hendrerit eu lacus at egestas.</li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li>Curabitur neque risus, consectetur in semper non, fringilla in justo.</li>
-        </ul>
-    ) }</Fragment>
-
     <p>Etiam ornare ligula eu ipsum eleifend laoreet blandit et diam. Duis cursus eros magna, ac sagittis nibh sodales eget. Praesent condimentum erat et egestas venenatis.</p>
-    <ol>
+    <ol id="example-list-mixed">
         <li>Etiam ullamcorper commodo risus.
-            <ol>
+            <ul>
                 <li>In hac habitasse platea dictumst.
                     <ol>
-                        <li>Proin vel risus finibus, convallis nisl vel, ultricies lorem. Sed hendrerit vel dui in pellentesque.
-                            <ol>
+                        <li>In hac habitasse platea dictumst.
+                            <ul>
+                                <li>At feugiat odio mollis ut.
+                                    <ol>
+                                        <li>Mauris a tincidunt mauris.
+                                            <ol>
+                                                <li>Aliquam luctus fringilla nunc.
+                                                    <ol>
+                                                        <li>Suspendisse dapibus maximus leo, quis.</li>
+                                                        <li>Nam vitae dolor mi.</li>
+                                                    </ol>
+                                                </li>
+                                                <li>Ut maximus arcu hendrerit in.</li>
+                                            </ol>
+                                        </li>
+                                        <li>Integer vehicula lacus ac congue ullamcorper.</li>
+                                    </ol>
+                                </li>
                                 <li>Donec vitae justo vel leo ullamcorper mattis.</li>
-                                <li>Duis hendrerit eu lacus at egestas.</li>
-                            </ol>
+                            </ul>
                         </li>
-                        <li>In hac habitasse platea dictumst.</li>
+                        <li>Sed hendrerit vel dui in pellentesque.</li>
                     </ol>
                 </li>
-                <li>Phasellus aliquet varius nibh, ac faucibus eros pharetra vel.</li>
+                <li>Nunc elementum tortor quis felis pharetra faucibus.</li>
+            </ul>
+        </li>
+        <li>Fusce mattis, odio at varius pharetra.
+            <ol>
+                <li>Tellus arcu convallis erat, vel blandit nulla sem nec enim.
+                    <ul>
+                        <li>Proin gravida aliquam purus, at feugiat odio mollis ut.
+                            <ol>
+                                <li>Proin vel risus finibus.</li>
+                                <li>Convallis nisl vel, ultricies lorem.
+                                    <ul>
+                                        <li>Duis hendrerit eu lacus at egestas.
+                                            <ol>
+                                                <li>Cras consequat id tortor nec dapibus.
+                                                    <ol>
+                                                        <li>Suspendisse dapibus maximus leo, quis.</li>
+                                                        <li>Nam vitae dolor mi.</li>
+                                                    </ol>
+                                                </li>
+                                                <li>Ut maximus arcu hendrerit in.</li>
+                                            </ol>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ol>
+                        </li>
+                    </ul>
+                </li>
+                <li>Proin gravida aliquam purus.</li>
             </ol>
         </li>
-        <li>Fusce mattis, odio at varius pharetra, tellus arcu convallis erat, vel blandit nulla sem nec enim.</li>
+        <li>Phasellus eu nibh at ligula elementum hendrerit ac vitae quam.</li>
     </ol>
     <p>Maecenas facilisis sollicitudin nisi, eget pellentesque dui rhoncus condimentum. Vivamus vulputate nisl sit amet vehicula commodo.</p>
 
