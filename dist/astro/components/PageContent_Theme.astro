@@ -24,6 +24,7 @@ import Toggle from '@maddimathon/utility-astro/components/Toggle';
 import ThemeModeSwatch from './ThemeModeSwatch.astro';
 import Widget from './Widget.astro';
 import type { ComponentProps } from 'astro/types';
+import LoremIpsum from './LoremIpsum.astro';
 // import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
 
 /* import - layouts */
@@ -69,7 +70,7 @@ const parsedSets = Object.values(
                         : {
                             name: brightness,
                             label: toTitleCase(`${key} — ${brightness} Mode`),
-                            href: `themes-${key}-${brightness}-mode`,
+                            href: `${key}-${brightness}-mode`,
                             values: Object.values(
                                 objectMap(
                                 theme[brightness],
@@ -108,15 +109,10 @@ const displayOptions = [
 
 const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.map(
     ( { parsed } ) => parsed.map(
-        ( { label, href } ) => ( { label, href } )
+        ( { label, href } ) => ( { label, href: `#${href}` } )
     )
 ).flat();
 ---
-
-<TableOfContents
-    heading={2}
-    menu={themes_toc}
-/>
 
 <p>
     The following colour shade levels are in use in at least one of the themes
@@ -143,6 +139,12 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
         value={value}
     /> {label}</label>
 ) ) }</div>
+
+<TableOfContents
+    asToggle={false}
+    heading={2}
+    menu={themes_toc}
+/>
 
 {
     parsedSets.map(({ key, parsed }) => (
@@ -198,25 +200,49 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
                                                     data-contrast-mode={set.contrast}
                                                 >
                                                     <Fragment slot='heading' ><samp set:text={toTitleCase(themeName)} /> Callout</Fragment>
-                                                    <p>Lorem ipsum <a href="#">dolor sit amet</a>, consectetur adipiscing elit. Sed vel odio at nibh <abbr title="these aren’t real words">pharetra condimentum</abbr>. Mauris id sapien sodales, volutpat turpis. { import.meta.env.DEV && <Fragment set:html={'Donec mi ex, venenatis in elit vitae, <a href="#" aria-disabled="true">blandit sodales nunc</a>. '} /> }</p>
-                                                    <ul>
-                                                        <li>Etiam ullamcorper commodo risus.</li>
-                                                        <li>Fusce mattis, odio at varius pharetra, tellus arcu convallis erat, vel blandit nulla sem nec enim.</li>
-                                                    </ul>
-                                                    <p>Etiam ornare ligula eu ipsum eleifend laoreet blandit et diam. Duis cursus eros magna, ac sagittis nibh sodales eget.</p>
-                                                    <div class="button-span">
-                                                        <button type="button">This is a button</button>
-                                                        <button aria-disabled="true" type="button">This is a disabled button</button>
-                                                        
-                                                        <Fragment>{ buttonVariations.map(
-                                                            variant => <button
-                                                                class={`button-${variant}`}
-                                                                set:text={`This is a ${variant} button`}
-                                                                type="button"
-                                                            />
-                                                        ) }</Fragment>
-                                                    </div>
-                                                    <p>Maecenas facilisis sollicitudin nisi, eget pellentesque dui rhoncus condimentum. Vivamus vulputate nisl sit amet vehicula commodo.</p>
+                                                    { import.meta.env.DEV ? (
+                                                        <LoremIpsum
+                                                            abbreviated={true}
+                                                            heading={6}
+                                                            tokens={tokens}
+                                                            displayHeading={4}
+                                                            mode='fancy'
+                                                        >
+                                                            <div class="button-span" slot="two">
+                                                                <button type="button">This is a button</button>
+                                                                <button aria-disabled="true" type="button">This is a disabled button</button>
+                                                                
+                                                                <Fragment>{ buttonVariations.map(
+                                                                    variant => <button
+                                                                        class={`button-${variant}`}
+                                                                        set:text={`This is a ${variant} button`}
+                                                                        type="button"
+                                                                    />
+                                                                ) }</Fragment>
+                                                            </div>
+                                                            <p slot="two">Maecenas facilisis sollicitudin nisi, eget pellentesque dui rhoncus condimentum. Vivamus vulputate nisl sit amet vehicula commodo.</p>
+                                                        </LoremIpsum>
+                                                    ) : (
+                                                        <p>Lorem ipsum <a href="#">dolor sit amet</a>, consectetur adipiscing elit. Sed vel odio at nibh <abbr title="these aren’t real words">pharetra condimentum</abbr>. Mauris id sapien sodales, volutpat turpis. { import.meta.env.DEV && <Fragment set:html={'Donec mi ex, venenatis in elit vitae, <a href="#" aria-disabled="true">blandit sodales nunc</a>. '} /> }</p>
+                                                        <ul>
+                                                            <li>Etiam ullamcorper commodo risus.</li>
+                                                            <li>Fusce mattis, odio at varius pharetra, tellus arcu convallis erat, vel blandit nulla sem nec enim.</li>
+                                                        </ul>
+                                                        <p>Etiam ornare ligula eu ipsum eleifend laoreet blandit et diam. Duis cursus eros magna, ac sagittis nibh sodales eget.</p>
+                                                        <div class="button-span">
+                                                            <button type="button">This is a button</button>
+                                                            <button aria-disabled="true" type="button">This is a disabled button</button>
+                                                            
+                                                            <Fragment>{ buttonVariations.map(
+                                                                variant => <button
+                                                                    class={`button-${variant}`}
+                                                                    set:text={`This is a ${variant} button`}
+                                                                    type="button"
+                                                                />
+                                                            ) }</Fragment>
+                                                        </div>
+                                                        <p>Maecenas facilisis sollicitudin nisi, eget pellentesque dui rhoncus condimentum. Vivamus vulputate nisl sit amet vehicula commodo.</p>
+                                                    ) }
                                                 </Widget>
                                             )
                                         ) }</div>

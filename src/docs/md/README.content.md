@@ -1,10 +1,10 @@
 <!--README_DESC-->
-Utilities to use while building brand kits or design systems. Developed for use
-with @maddimathon/boilerplate-brand-kit.
+Utilities to use while building brand kits or design systems.
 <!--/README_DESC-->
 
 Currently very opinionated with plans to make it more modular and customizeable
-in the future.
+in the future.  See @maddimathon/boilerplate-brand-kit for an example of
+customizing this system.
 
 
 ## Changelog

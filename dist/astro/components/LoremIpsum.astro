@@ -76,7 +76,7 @@ switch ( props.mode ) {
 /* CONSTANTS ===================================== */
 
 const {
-    // fancy,
+    fancy,
     library,
     // minimum,
 } = mode;
@@ -97,9 +97,9 @@ const heading = props.heading ?? 2;
 const displayHeading = props.displayHeading ?? heading;
 ---
  
-{ superAbbreviated ? (
-    
+{ superAbbreviated ? (    
     <p>Lorem ipsum <a href="#">dolor sit amet</a>, consectetur adipiscing elit. Sed vel odio at nibh <abbr title="these aren’t real words">pharetra condimentum</abbr>. Mauris id sapien sodales, volutpat turpis. { import.meta.env.DEV && <Fragment set:html={'Donec mi ex, venenatis in elit vitae, <a href="#" aria-disabled="true">blandit sodales nunc</a>. '} /> } <strong><em>Nunc pellentesque</em></strong> urna sed metus vulputate, vel maximus magna consectetur. Nulla aliquet, <strong>sem id ullamcorper</strong> vehicula, ligula ante mattis nisl.</p>
+    <slot />
     <p>Proin leo mauris, iaculis et est eget, <code>egestas tincidunt</code> metus. Quisque mattis semper semper. Suspendisse dapibus maximus leo, quis facilisis risus auctor et. Nam vitae dolor mi.</p>
     
     <ol id="example-list-mixed">
@@ -114,10 +114,20 @@ const displayHeading = props.displayHeading ?? heading;
                                         <li>Mauris a tincidunt mauris.
                                             <ol>
                                                 <li>Aliquam luctus fringilla nunc.
-                                                    <ol>
-                                                        <li>Suspendisse dapibus maximus leo, quis.</li>
+                                                    {fancy && <ol>
+                                                        <li>Suspendisse dapibus maximus leo, quis.
+                                                            <ol>
+                                                                <li>Proin vel risus finibus.
+                                                                    <ol>
+                                                                        <li>Feugiat odio mollis ut.</li>
+                                                                        <li>Sed ultricies lorem.</li>
+                                                                    </ol>
+                                                                </li>
+                                                                <li>Convallis nisl vel.</li>
+                                                            </ol>
+                                                        </li>
                                                         <li>Nam vitae dolor mi.</li>
-                                                    </ol>
+                                                    </ol>}
                                                 </li>
                                                 <li>Ut maximus arcu hendrerit in.</li>
                                             </ol>
@@ -140,22 +150,32 @@ const displayHeading = props.displayHeading ?? heading;
                     <ul>
                         <li>Proin gravida aliquam purus, at feugiat odio mollis ut.
                             <ol>
-                                <li>Proin vel risus finibus.</li>
                                 <li>Convallis nisl vel, ultricies lorem.
                                     <ul>
                                         <li>Duis hendrerit eu lacus at egestas.
                                             <ol>
                                                 <li>Cras consequat id tortor nec dapibus.
-                                                    <ol>
-                                                        <li>Suspendisse dapibus maximus leo, quis.</li>
+                                                    {fancy && <ol>
+                                                        <li>Suspendisse dapibus maximus leo, quis.
+                                                            <ol>
+                                                                <li>Proin vel risus finibus.
+                                                                    <ol>
+                                                                        <li>Feugiat odio mollis ut.</li>
+                                                                        <li>Sed ultricies lorem.</li>
+                                                                    </ol>
+                                                                </li>
+                                                                <li>Convallis nisl vel.</li>
+                                                            </ol>
+                                                        </li>
                                                         <li>Nam vitae dolor mi.</li>
-                                                    </ol>
+                                                    </ol>}
                                                 </li>
                                                 <li>Ut maximus arcu hendrerit in.</li>
                                             </ol>
                                         </li>
                                     </ul>
                                 </li>
+                                <li>Proin vel risus finibus.</li>
                             </ol>
                         </li>
                     </ul>
@@ -167,7 +187,6 @@ const displayHeading = props.displayHeading ?? heading;
     </ol>
     <p>Maecenas facilisis sollicitudin nisi, eget pellentesque dui rhoncus condimentum. Vivamus vulputate nisl sit amet vehicula commodo. Cras neque arcu, fermentum non elementum ac, tincidunt ut nibh. Proin blandit, nisl at volutpat pulvinar, massa nisl vulputate risus.</p>
     
-    <slot />
     <slot name="two" />
     <slot name="three" />
     <slot name="four" />
@@ -198,10 +217,20 @@ const displayHeading = props.displayHeading ?? heading;
                                         <li>Mauris a tincidunt mauris.
                                             <ol>
                                                 <li>Aliquam luctus fringilla nunc.
-                                                    <ol>
-                                                        <li>Suspendisse dapibus maximus leo, quis.</li>
+                                                    {fancy && <ol>
+                                                        <li>Suspendisse dapibus maximus leo, quis.
+                                                            <ol>
+                                                                <li>Proin vel risus finibus.
+                                                                    <ol>
+                                                                        <li>Feugiat odio mollis ut.</li>
+                                                                        <li>Sed ultricies lorem.</li>
+                                                                    </ol>
+                                                                </li>
+                                                                <li>Convallis nisl vel.</li>
+                                                            </ol>
+                                                        </li>
                                                         <li>Nam vitae dolor mi.</li>
-                                                    </ol>
+                                                    </ol>}
                                                 </li>
                                                 <li>Ut maximus arcu hendrerit in.</li>
                                             </ol>
@@ -224,22 +253,32 @@ const displayHeading = props.displayHeading ?? heading;
                     <ul>
                         <li>Proin gravida aliquam purus, at feugiat odio mollis ut.
                             <ol>
-                                <li>Proin vel risus finibus.</li>
                                 <li>Convallis nisl vel, ultricies lorem.
                                     <ul>
                                         <li>Duis hendrerit eu lacus at egestas.
                                             <ol>
                                                 <li>Cras consequat id tortor nec dapibus.
-                                                    <ol>
-                                                        <li>Suspendisse dapibus maximus leo, quis.</li>
+                                                    {fancy && <ol>
+                                                        <li>Suspendisse dapibus maximus leo, quis.
+                                                            <ol>
+                                                                <li>Proin vel risus finibus.
+                                                                    <ol>
+                                                                        <li>Feugiat odio mollis ut.</li>
+                                                                        <li>Sed ultricies lorem.</li>
+                                                                    </ol>
+                                                                </li>
+                                                                <li>Convallis nisl vel.</li>
+                                                            </ol>
+                                                        </li>
                                                         <li>Nam vitae dolor mi.</li>
-                                                    </ol>
+                                                    </ol>}
                                                 </li>
                                                 <li>Ut maximus arcu hendrerit in.</li>
                                             </ol>
                                         </li>
                                     </ul>
                                 </li>
+                                <li>Proin vel risus finibus.</li>
                             </ol>
                         </li>
                     </ul>

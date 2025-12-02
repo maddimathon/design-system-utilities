@@ -17,10 +17,11 @@
 
 %ol,
 %ul {
-    & & {
-    }
-
-    & & & {
+    ol,
+    ul {
+        ol,
+        ul {
+        }
     }
 }
 
@@ -29,17 +30,21 @@
 
     /// BLOCK ///
 
-    ol {
+    @at-root %ol-2,
+        & ol {
         // /* level 2 - ol ol */
 
-        ol {
+        @at-root %ol-3,
+            & ol {
             // /* level 3 - ol ol ol */
 
-            ol {
+            @at-root %ol-4,
+                & ol {
                 // /* level 4 - ol ol ol ol */
                 @extend %ul-3;
 
-                ol {
+                @at-root %ol-5,
+                    & ol {
                     // /* level 5 - ol ol ol ol ol */
                     @extend %ul-4;
                 }
@@ -53,7 +58,8 @@
 
     /// BLOCK ///
 
-    ul {
+    @at-root %ul-2,
+        & ul {
         // /* level 2 - ul ul */
 
         @at-root %ul-3,
