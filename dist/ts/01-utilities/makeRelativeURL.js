@@ -19,6 +19,7 @@ import { trailingSlash, } from '@maddimathon/utility-astro';
  * @param targetSubpath  Path to used to construct the URL - relative to the site root (ignoring the base path).
  *
  * @since 0.1.0-alpha
+ * @since 0.1.0-alpha.4.draft — Added a check for existing file extensions before adding '.html'.
  */
 export function makeRelativeURL(config_base, config_build, currentURL, targetSubpath) {
     const pathPrefix = config_base.replace(/(^\.?\/|\/$)/gi, '');
@@ -33,10 +34,15 @@ export function makeRelativeURL(config_base, config_build, currentURL, targetSub
         if (!_subpath) {
             return 'index.html';
         }
-        // returns
+        // returns on match
         switch (config_build.format) {
             case 'file':
-                return _subpath + '.html';
+                const appendHtmlExtension = targetSubpath.match(/\.[a-z]+[a-z|0-9|\-]+$/gi) === null;
+                // returns
+                if (appendHtmlExtension) {
+                    return _subpath + '.html';
+                }
+                return _subpath;
         }
         return _subpath;
     };

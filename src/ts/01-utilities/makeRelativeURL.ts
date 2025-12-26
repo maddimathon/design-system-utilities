@@ -18,6 +18,7 @@ import {
     trailingSlash,
 } from '@maddimathon/utility-astro';
 
+
 /**
  * Makes a filenames-based relative url for offline-friendly exports.
  * 
@@ -27,6 +28,7 @@ import {
  * @param targetSubpath  Path to used to construct the URL - relative to the site root (ignoring the base path).
  * 
  * @since 0.1.0-alpha
+ * @since ___PKG_VERSION___ — Added a check for existing file extensions before adding '.html'.
  */
 export function makeRelativeURL(
     config_base: string,
@@ -55,11 +57,17 @@ export function makeRelativeURL(
             return 'index.html';
         }
 
-        // returns
+        // returns on match
         switch ( config_build.format ) {
 
             case 'file':
-                return _subpath + '.html';
+                const appendHtmlExtension = targetSubpath.match( /\.[a-z]+[a-z|0-9|\-]+$/gi ) === null;
+
+                // returns
+                if ( appendHtmlExtension ) {
+                    return _subpath + '.html';
+                }
+                return _subpath;
         }
 
         return _subpath;
