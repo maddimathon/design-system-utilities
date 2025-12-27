@@ -28,7 +28,7 @@ import {
  * @param targetSubpath  Path to used to construct the URL - relative to the site root (ignoring the base path).
  * 
  * @since 0.1.0-alpha
- * @since ___PKG_VERSION___ — Added a check for existing file extensions before adding '.html'.
+ * @since 0.1.0-alpha.4 — Added a check for existing file extensions before adding '.html'.
  */
 export function makeRelativeURL(
     config_base: string,

@@ -166,7 +166,7 @@ export class Build extends BuildStage {
                 /(<!--README_INSTALL-->).*?(<!--\/README_INSTALL-->)/gs,
                 '$1\n' + escRegExpReplace( [
                     '```bash',
-                    'npm i -D @maddimathon/design-system-utilities@' + this.pkg.version,
+                    // 'npm i -D @maddimathon/design-system-utilities@' + this.pkg.version,
                     'npm i -D github:maddimathon/design-system-utilities#' + this.pkg.version,
                     '```',
                 ].join( '\n' ) ) + '\n$2'

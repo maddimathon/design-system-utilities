@@ -19,6 +19,60 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.4** — 2025-12-27
+
+Display and component improvements, plus a couple shade map generation fixes.
+
+### Misc. Breaking
+- Changed file structure in src/scss/_astro
+
+### Added
+
+#### Astro
+- Added option to ShadeSwatchTable to generate colour target levels by using a
+  colour map's JSON return (can separate base and accent targets)
+- More options for the PageContent_Colour and ShadeSwatchTable components
+- Added table of contents to colour & theme page content components
+
+#### Scss
+- New mixin - tokens-theme-iterator
+- Added support for img, figure, and svg element selectors in styles & selectors
+
+
+### Changed
+
+#### Astro
+- Misc. ShadeSwatchTable improvements
+
+#### JS & Tokens
+- Changed which colour names are automatically treated as base shades when
+  completing colour maps
+- Switched objectMap to tested version from scss-templater; added objectMapAsync
+
+#### Scss
+- Misc. style updates for preview pages
+
+
+### Fixed
+
+#### Astro
+- Improved ShadeSwatchTable options & code
+- Improved LoremIpsum and theme swatch display
+
+#### JS & Tokens
+- Fixed bug that didn't overwrite optional shade levels in input colour maps
+- Fixed JSON output for contrast tests in colour objects
+- Reviewed all files and tidied up
+
+#### Scss
+- Swatch style updates
+- Fix to link button utilities that were broken by switch to `a[href]` selectors
+
+#### Scripts & Build
+- Updated dependencies
+- Updated with utility-astro
+
+
 ## **0.1.0-alpha.3** — 2025-11-15
 
 Improved theme swatches, logos.

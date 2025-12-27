@@ -20,7 +20,6 @@ or
 
 <!--README_INSTALL-->
 ```bash
-npm i -D @maddimathon/design-system-utilities@0.1.0-alpha.4
 npm i -D github:maddimathon/design-system-utilities#0.1.0-alpha.4
 ```
 <!--/README_INSTALL-->
@@ -34,27 +33,6 @@ below.
 <!--README_DOCS_CTA-->
 <a href="https://maddimathon.github.io/design-system-utilities" class="button">Read Documentation</a>
 <!--/README_DOCS_CTA-->
-
-
-### Exports & Entry Points
-
-There are four defined entry points, including the root, though it should be
-possible to target individual files (carefully and at your own risk, paths may
-change without being considered a breaking change). The root entry point exports
-the other entry points as modules.
-
-```ts
-// typescript
-import {
-    type ...,
-    ...,
-} from '@maddimathon/design-system-utilities';
-```
-
-```scss
-// scss
-@forward 'pkg:@maddimathon/design-system-utilities' with ( ... );
-```
 
 
 ## Development & Coding Practices
