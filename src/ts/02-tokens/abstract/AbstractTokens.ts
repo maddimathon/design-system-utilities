@@ -115,7 +115,7 @@ export abstract class AbstractTokens<T_DataType> {
     }
 
     /**
-     * The zod schema for this group's JSON export.
+     * The value of this token.
      * 
      * @since 0.1.0-alpha
      */

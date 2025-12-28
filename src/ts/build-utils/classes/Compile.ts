@@ -99,7 +99,7 @@ export class Compile extends CompileStage {
             slug: string;
         },
     ) {
-        this.console.progress( 'compiling tokens...', 0 + level );
+        this.console.progress( 'building token files...', 0 + level );
 
         this.console.verbose( 'parsing paths...', 1 + level );
 

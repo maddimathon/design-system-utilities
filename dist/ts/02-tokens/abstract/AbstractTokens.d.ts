@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.4
+ * @maddimathon/design-system-utilities@0.1.0-alpha.5
  * @license MIT
  */
 import * as z from 'zod';
@@ -29,7 +29,7 @@ export declare abstract class AbstractTokens<T_DataType> {
     static customErrorMap(...params: Parameters<z.ZodErrorMap>): ReturnType<z.ZodErrorMap>;
     constructor();
     /**
-     * The zod schema for this group's JSON export.
+     * The value of this token.
      *
      * @since 0.1.0-alpha
      */

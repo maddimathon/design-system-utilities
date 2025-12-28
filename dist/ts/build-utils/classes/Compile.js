@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.4
+ * @maddimathon/design-system-utilities@0.1.0-alpha.5
  * @license MIT
  */
 import { CompileStage, } from '@maddimathon/build-utilities';
@@ -35,7 +35,7 @@ export class Compile extends CompileStage {
      * @category Running
      */
     async buildTokens(level, tokens, _paths) {
-        this.console.progress('compiling tokens...', 0 + level);
+        this.console.progress('building token files...', 0 + level);
         this.console.verbose('parsing paths...', 1 + level);
         const tokensDistDir = this.getDistDir(undefined, _paths.tokensDistSubpath ?? 'tokens');
         const paths = {

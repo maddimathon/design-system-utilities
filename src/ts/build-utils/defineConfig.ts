@@ -15,6 +15,8 @@ import type {
 import {
 } from '@maddimathon/build-utilities';
 
+import { sassCompilerOpts } from '@maddimathon/utility-sass';
+
 import { Build } from './classes/Build.js';
 import { Compile } from './classes/Compile.js';
 import { Document } from './classes/Document.js';
@@ -48,6 +50,14 @@ export function defineConfig<
 
     const merged: Config = {
         ...config,
+
+        compiler: {
+            ...config.compiler ?? {},
+
+            sass: sassCompilerOpts(
+                config.compiler?.sass,
+            ),
+        },
 
         stages: {
             test: false,

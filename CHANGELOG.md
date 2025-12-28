@@ -19,6 +19,11 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.5** — 2025-12-28
+
+Updated build-utilities and utility-sass.
+
+
 ## **0.1.0-alpha.4** — 2025-12-27
 
 Display and component improvements, plus a couple shade map generation fixes.

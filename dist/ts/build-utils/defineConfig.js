@@ -4,10 +4,11 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.4
+ * @maddimathon/design-system-utilities@0.1.0-alpha.5
  * @license MIT
  */
 import {} from '@maddimathon/build-utilities';
+import { sassCompilerOpts } from '@maddimathon/utility-sass';
 import { Build } from './classes/Build.js';
 import { Compile } from './classes/Compile.js';
 import { Document } from './classes/Document.js';
@@ -25,6 +26,10 @@ export function defineConfig(config, _classes = {}) {
     };
     const merged = {
         ...config,
+        compiler: {
+            ...config.compiler ?? {},
+            sass: sassCompilerOpts(config.compiler?.sass),
+        },
         stages: {
             test: false,
             ...config.stages,

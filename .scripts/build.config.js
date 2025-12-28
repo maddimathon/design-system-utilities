@@ -9,7 +9,9 @@
 
 /**
  * @import { Config, Stage } from '@maddimathon/build-utilities';
-*/
+ */
+
+import { sassCompilerOpts } from '@maddimathon/utility-sass';
 
 import { Build } from './classes/Build.js';
 import { Compile } from './classes/Compile.js';
@@ -38,10 +40,13 @@ const config = {
             },
         },
 
-        sass: {
-            benchmarkCompileTime: true,
-            // compileViaCLI: true,
-        },
+        sass: sassCompilerOpts(
+            {
+                // @ts-expect-error
+                benchmarkCompileTime: true,
+                // compileViaCLI: true,
+            },
+        ),
 
         ts: {
             tidyGlobs: 'types/**/*.js',
