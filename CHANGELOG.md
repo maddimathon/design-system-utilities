@@ -19,6 +19,11 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.7** — 2026-01-20
+
+Mini scss fixes.
+
+
 ## **0.1.0-alpha.6** — 2026-01-20
 
 ### Added

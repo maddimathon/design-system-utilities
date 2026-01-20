@@ -9,7 +9,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.6
+ * @maddimathon/design-system-utilities@0.1.0-alpha.7
  * @license MIT
  */
 export type * from './01-utilities/@types.d.ts';

@@ -13,6 +13,8 @@
 
 @use '../../01-functions' as *;
 
+@use 'pkg:@maddimathon/utility-astro/02-mixins' as utils;
+
 @function _font-src-list($list, $isVariable: false) {
     $_list: ();
 
@@ -117,7 +119,7 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
         #{selector.parent-or-root()} {
             @each $slug in map.keys(map.get(tokens.$designSystem, font, family))
             {
-                @include cx-prop(ff-#{$slug}, font-family-list($slug));
+                @include utils.cx-prop(ff-#{$slug}, font-family-list($slug));
             }
         }
         /* #endregion Tokens - Font Families */
