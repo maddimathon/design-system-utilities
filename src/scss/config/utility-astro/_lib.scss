@@ -3,8 +3,10 @@
 /// @since 0.1.0-alpha
 ///
 
+@use '_pre' as pre;
+
 @forward 'pkg:@maddimathon/utility-astro/config' with (
-    $include_html: false !default,
+    $include_html: pre.$include_html,
 
     $internal_isTemplate: false !default,
     $internal_supressCredit: false,
@@ -27,6 +29,10 @@
     $selector_root: 'html' !default,
 
     $fn_fontSizeValue_roundToPixelFactor: 32 !default,
+
+    $fn_var_replaceWithValue_borderWidth: not pre.$include_html !default,
+    $fn_var_replaceWithValue_fontSize: not pre.$include_html !default,
+    $fn_var_replaceWithValue_strokeRelative: not pre.$include_html !default,
     //
      //
 );

@@ -19,6 +19,11 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.8** — 2026-01-20
+
+Updated utility-sass for more var-printing config.
+
+
 ## **0.1.0-alpha.7** — 2026-01-20
 
 Mini scss fixes.

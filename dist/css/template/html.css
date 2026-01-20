@@ -4,7 +4,7 @@
  */
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0-alpha.13
+ * @maddimathon/utility-sass@0.1.0-alpha.14
  * 
  * https://maddimathon.github.io/utility-sass
  */
@@ -2072,6 +2072,7 @@ html {
 /* #endregion Tokens - Theme - Exceptions - high-contrast modes */
 /* # ANIMATIONS
  * ======================================================================== */
+/* #region Animations - Keyframes */
 @keyframes fade-in {
     0% {
         opacity: 0;
@@ -2092,6 +2093,7 @@ html {
         opacity: var(--fade--opacity-out, 0);
     }
 }
+/* #endregion Animations - Keyframes */
 /*! START of @maddimathon/utility-astro/template */
 /*! START of @maddimathon/utility-sass/template */
 /* # GLOBALS - Accessibility
@@ -3458,7 +3460,7 @@ a[href]:visited {
 .js__no-whereSelector a[href]:focus {
     --icon-color: var(--theme-link-icon-hover, hsl(160.5, 58.43%, 13.78%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
     color: hsl(160.5, 58.43%, 13.78%);
     color: var(--theme-link-hover, hsl(160.5, 58.43%, 13.78%));
 }
@@ -3466,7 +3468,7 @@ a[href]:visited {
 :where(.js__no-focusVisible) a[href]:focus {
     --icon-color: var(--theme-link-icon-hover, hsl(160.5, 58.43%, 13.78%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
     color: hsl(160.5, 58.43%, 13.78%);
     color: var(--theme-link-hover, hsl(160.5, 58.43%, 13.78%));
 }
@@ -3474,7 +3476,7 @@ a[href]:visited {
 a[href]:hover {
     --icon-color: var(--theme-link-icon-hover, hsl(160.5, 58.43%, 13.78%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
     color: hsl(160.5, 58.43%, 13.78%);
     color: var(--theme-link-hover, hsl(160.5, 58.43%, 13.78%));
 }
@@ -3482,7 +3484,7 @@ a[href]:hover {
 a[href]:focus-visible {
     --icon-color: var(--theme-link-icon-hover, hsl(160.5, 58.43%, 13.78%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
     color: hsl(160.5, 58.43%, 13.78%);
     color: var(--theme-link-hover, hsl(160.5, 58.43%, 13.78%));
 }
@@ -3567,7 +3569,7 @@ a[aria-disabled="true"][href] {
 .js__no-whereSelector a[aria-disabled="true"][href]:focus {
     --icon-color: var(--theme-link-icon-hover, hsl(160.5, 58.43%, 13.78%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
     color: hsl(339.45, 0%, 19.79%);
     color: var(--theme-link-disabled, hsl(339.45, 0%, 19.79%));
 }
@@ -3575,7 +3577,7 @@ a[aria-disabled="true"][href] {
 :where(.js__no-focusVisible) a[aria-disabled="true"][href]:focus {
     --icon-color: var(--theme-link-icon-hover, hsl(160.5, 58.43%, 13.78%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
     color: hsl(339.45, 0%, 19.79%);
     color: var(--theme-link-disabled, hsl(339.45, 0%, 19.79%));
 }
@@ -3583,7 +3585,7 @@ a[aria-disabled="true"][href] {
 a[aria-disabled="true"][href]:hover {
     --icon-color: var(--theme-link-icon-hover, hsl(160.5, 58.43%, 13.78%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
     color: hsl(339.45, 0%, 19.79%);
     color: var(--theme-link-disabled, hsl(339.45, 0%, 19.79%));
 }
@@ -3591,7 +3593,7 @@ a[aria-disabled="true"][href]:hover {
 a[aria-disabled="true"][href]:focus-visible {
     --icon-color: var(--theme-link-icon-hover, hsl(160.5, 58.43%, 13.78%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
     color: hsl(339.45, 0%, 19.79%);
     color: var(--theme-link-disabled, hsl(339.45, 0%, 19.79%));
 }
@@ -4388,7 +4390,7 @@ input[type="reset"][disabled] {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-disabled-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 :where(.js__no-focusVisible) input[type="submit"][disabled]:focus,
@@ -4421,7 +4423,7 @@ input[type="reset"][disabled] {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-disabled-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 input[type="submit"][disabled]:hover,
@@ -4454,7 +4456,7 @@ input[type="reset"][disabled]:hover {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-disabled-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 input[type="submit"][disabled]:focus-visible,
@@ -4487,7 +4489,7 @@ input[type="reset"][disabled]:focus-visible {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-disabled-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 input[type="submit"][disabled]:focus-within,
@@ -4520,7 +4522,7 @@ input[type="reset"][disabled]:focus-within {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-disabled-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 input[type="submit"][disabled]:active,
@@ -4704,7 +4706,7 @@ a.button-secondary[href] {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-primary-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 :where(.js__no-focusVisible) button:focus,
@@ -4741,7 +4743,7 @@ a.button-secondary[href] {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-primary-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 button:hover,
@@ -4778,7 +4780,7 @@ a.button-secondary[href]:hover {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-primary-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 button:focus-visible,
@@ -4815,7 +4817,7 @@ a.button-secondary[href]:focus-visible {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-primary-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 button:focus-within,
@@ -4852,7 +4854,7 @@ a.button-secondary[href]:focus-within {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-primary-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 button:active,
@@ -4967,7 +4969,7 @@ a[aria-disabled="true"].button-secondary[href] {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-disabled-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 :where(.js__no-focusVisible) button[aria-disabled="true"]:focus,
@@ -5005,7 +5007,7 @@ a[aria-disabled="true"].button-secondary[href] {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-disabled-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 button[aria-disabled="true"]:hover,
@@ -5042,7 +5044,7 @@ a[aria-disabled="true"].button-secondary[href]:hover {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-disabled-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 button[aria-disabled="true"]:focus-visible,
@@ -5079,7 +5081,7 @@ a[aria-disabled="true"].button-secondary[href]:focus-visible {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-disabled-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 button[aria-disabled="true"]:focus-within,
@@ -5116,7 +5118,7 @@ a[aria-disabled="true"].button-secondary[href]:focus-within {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-disabled-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 button[aria-disabled="true"]:active,
@@ -5478,7 +5480,7 @@ input[type="submit"].button-secondary {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-secondary-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 :where(.js__no-focusVisible) button[type="reset"]:focus,
@@ -5519,7 +5521,7 @@ input[type="submit"].button-secondary {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-secondary-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 button[type="reset"]:hover,
@@ -5560,7 +5562,7 @@ input[type="submit"].button-secondary:hover {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-secondary-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 button[type="reset"]:focus-visible,
@@ -5601,7 +5603,7 @@ input[type="submit"].button-secondary:focus-visible {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-secondary-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 button[type="reset"]:focus-within,
@@ -5642,7 +5644,7 @@ input[type="submit"].button-secondary:focus-within {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-secondary-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 button[type="reset"]:active,
@@ -5754,7 +5756,7 @@ input[type="reset"] {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-secondary-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 :where(.js__no-focusVisible) button[type="reset"]:focus,
@@ -5790,7 +5792,7 @@ input[type="reset"] {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-secondary-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 button[type="reset"]:hover,
@@ -5826,7 +5828,7 @@ input[type="reset"]:hover {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-secondary-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 button[type="reset"]:focus-visible,
@@ -5862,7 +5864,7 @@ input[type="reset"]:focus-visible {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-secondary-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 button[type="reset"]:focus-within,
@@ -5898,7 +5900,7 @@ input[type="reset"]:focus-within {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-secondary-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 button[type="reset"]:active,
@@ -6157,7 +6159,7 @@ input[type="reset"]:active {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-secondary-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 :where(.js__no-focusVisible) :focus::file-selector-button {
@@ -6192,7 +6194,7 @@ input[type="reset"]:active {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-secondary-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 :hover::file-selector-button {
@@ -6227,7 +6229,7 @@ input[type="reset"]:active {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-secondary-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 :focus-visible::file-selector-button {
@@ -6262,7 +6264,7 @@ input[type="reset"]:active {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-secondary-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 :focus-within::file-selector-button {
@@ -6297,7 +6299,7 @@ input[type="reset"]:active {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-secondary-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 :active::file-selector-button {
@@ -6390,7 +6392,7 @@ input[type="reset"]:active {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-disabled-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 :where(.js__no-focusVisible)
@@ -6423,7 +6425,7 @@ input[type="reset"]:active {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-disabled-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 [aria-disabled="true"]:hover::file-selector-button {
@@ -6455,7 +6457,7 @@ input[type="reset"]:active {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-disabled-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 [aria-disabled="true"]:focus-visible::file-selector-button {
@@ -6487,7 +6489,7 @@ input[type="reset"]:active {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-disabled-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 [aria-disabled="true"]:focus-within::file-selector-button {
@@ -6519,7 +6521,7 @@ input[type="reset"]:active {
     color: hsl(339.45, 0%, 93.5%);
     color: var(--theme-button-disabled-text-hover, hsl(339.45, 0%, 93.5%));
     text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-ui-hover, "transparent");
+    text-decoration-color: var(--theme-link-ui-hover, transparent);
 }
 
 [aria-disabled="true"]:active::file-selector-button {
