@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.9
+ * @maddimathon/design-system-utilities@0.1.0-alpha.10
  * @license MIT
  */
 import { slugify } from '@maddimathon/utility-typescript/functions';
@@ -117,10 +117,10 @@ export class Tokens extends AbstractTokens {
         const tokensString = JsonToScss.convert(this.toScssVars()) || '()';
         const varContent = this.config.tokensAsDefault
             ? [
-                '@use "pkg:@maddimathon/utility-sass/map";',
+                '@use "sass:map";',
                 '',
                 '$designSystem: () !default;',
-                `$designSystem: map.merge( ${tokensString}, $designSystem, $recursive: true );`,
+                `$designSystem: map.deep-merge( ${tokensString}, $designSystem );`,
             ]
             : [
                 `$designSystem: ${tokensString};`

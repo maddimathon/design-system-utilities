@@ -289,10 +289,10 @@ export class Tokens<
 
         const varContent: string[] = this.config.tokensAsDefault
             ? [
-                '@use "pkg:@maddimathon/utility-sass/map";',
+                '@use "sass:map";',
                 '',
                 '$designSystem: () !default;',
-                `$designSystem: map.merge( ${ tokensString }, $designSystem, $recursive: true );`,
+                `$designSystem: map.deep-merge( ${ tokensString }, $designSystem );`,
             ]
             : [
                 `$designSystem: ${ tokensString };`

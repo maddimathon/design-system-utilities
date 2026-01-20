@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.9
+ * @maddimathon/design-system-utilities@0.1.0-alpha.10
  * @license MIT
  */
 import { mergeArgs } from '@maddimathon/utility-typescript/functions';

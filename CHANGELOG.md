@@ -19,6 +19,11 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.10** — 2026-01-20
+
+Minor fix to $designTokens !default overrides now merge recursively.
+
+
 ## **0.1.0-alpha.9** — 2026-01-20
 
 Have to make many test releases so it's the same instance of sass-embedded as
