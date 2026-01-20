@@ -173,8 +173,6 @@ export class Tokens_Themes_Set_SingleMode<
 
         const clrOpt = Tokens_Themes_Set_SingleMode.Build.colourOption;
 
-        const isLightMode = brightness !== 'dark';
-
         let description: null | string = input.description ?? null;
 
         // returns if forced colours
@@ -184,16 +182,16 @@ export class Tokens_Themes_Set_SingleMode<
                 description = description ?? 'This is the default contrast mode for most users, unless they have defined a specific preference (‘low’, ‘high’, or ‘forced-colors’) in their OS or browser settings.  It meets or exceeds WCAG AAA contrast standards.';
 
                 defaultLevels = {
-                    background: isLightMode ? '200' : '150',
+                    background: '150',
                     text: {
-                        $: isLightMode ? '800' : '750',
-                        accent: isLightMode ? '700' : '650',
-                        min: isLightMode ? '700' : '650',
+                        $: '800',
+                        accent: '750',
+                        min: '700',
                     },
                     ui: {
-                        $: isLightMode ? '750' : '700',
-                        accent: isLightMode ? '650' : '600',
-                        min: isLightMode ? '650' : '600',
+                        $: '800',
+                        accent: '750',
+                        min: '700',
                     },
                     heading: objectGenerator(
                         Tokens_Themes_Set_SingleMode.allHeadingLevels,
@@ -203,15 +201,15 @@ export class Tokens_Themes_Set_SingleMode<
                             switch ( hdgNum ) {
 
                                 case 1:
-                                    return isLightMode ? '800' : '750';
+                                    return '800';
 
                                 case 2:
                                 case 3:
-                                    return isLightMode ? '750' : '700';
+                                    return '750';
                             }
 
-                            return isLightMode ? '700' : '650';
-                        }
+                            return '700';
+                        },
                     ),
                 };
 
@@ -227,8 +225,8 @@ export class Tokens_Themes_Set_SingleMode<
                 ) );
 
                 overrides.selection = {
-                    bg: clrOpt( variations.universal.primary, '400' as T_ExtraColourLevels | ColourLevels ),
-                    text: clrOpt( variations.base, '850' as T_ExtraColourLevels | ColourLevels ),
+                    bg: clrOpt( variations.universal.primary, '300' as T_ExtraColourLevels | ColourLevels ),
+                    text: clrOpt( variations.base, '800' as T_ExtraColourLevels | ColourLevels ),
                     ...overrides.selection,
                 };
                 break;
@@ -237,24 +235,34 @@ export class Tokens_Themes_Set_SingleMode<
                 description = description ?? 'This is the low contrast mode.  This is the default for users who set ‘low’ as their preferred contrast mode in their OS or browser settings.  It mostly meets WCAG AA contrast standards, but in rare cases does not (which is acceptable in this case).';
 
                 defaultLevels = {
-                    background: isLightMode ? '300' : '200',
+                    background: '250',
                     text: {
-                        $: isLightMode ? '750' : '650',
-                        accent: isLightMode ? '700' : '600',
-                        min: isLightMode ? '650' : '600',
+                        $: '700',
+                        accent: '700',
+                        min: '600',
                     },
                     ui: {
-                        $: isLightMode ? '650' : '600',
-                        accent: isLightMode ? '650' : '600',
-                        min: isLightMode ? '650' : '600',
+                        $: '700',
+                        accent: '700',
+                        min: '600',
                     },
                     heading: objectGenerator(
                         Tokens_Themes_Set_SingleMode.allHeadingLevels,
-                        isLightMode ? (
-                            ( hdgNum ) => hdgNum <= 1 ? '600' : hdgNum <= 3 ? '650' : '700'
-                        ) : (
-                            ( hdgNum ) => hdgNum <= 1 ? '700' : '600'
-                        ),
+                        ( hdgNum ) => {
+
+                            // returns on match
+                            switch ( hdgNum ) {
+
+                                case 1:
+                                    return '600';
+
+                                case 2:
+                                case 3:
+                                    return '700';
+                            }
+
+                            return '700';
+                        },
                     ),
                 };
 
@@ -270,8 +278,8 @@ export class Tokens_Themes_Set_SingleMode<
                 ) );
 
                 overrides.selection = {
-                    bg: clrOpt( variations.universal.primary, '400' as T_ExtraColourLevels | ColourLevels ),
-                    text: clrOpt( variations.base, '850' as T_ExtraColourLevels | ColourLevels ),
+                    bg: clrOpt( variations.universal.primary, '300' as T_ExtraColourLevels | ColourLevels ),
+                    text: clrOpt( variations.base, '800' as T_ExtraColourLevels | ColourLevels ),
                     ...overrides.selection,
                 };
                 break;
@@ -283,12 +291,12 @@ export class Tokens_Themes_Set_SingleMode<
                     background: '100',
                     text: {
                         $: '850',
-                        accent: '750',
+                        accent: '800',
                         min: '700',
                     },
                     ui: {
-                        $: '750',
-                        accent: '700',
+                        $: '850',
+                        accent: '800',
                         min: '700',
                     },
                     heading: objectGenerator(
@@ -301,7 +309,7 @@ export class Tokens_Themes_Set_SingleMode<
                                 case 1:
                                 case 2:
                                 case 3:
-                                    return '750';
+                                    return '700';
                             }
 
                             return '800';

@@ -1,32 +1,54 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-alpha.5
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.6
 /// @since 0.1.0-alpha
 ///
 
+@use '../config';
 @use 'system';
 
 @use 'pkg:@maddimathon/utility-sass/map';
 
 $_theme_ui_base: var(
-    --theme-ui,
+    --#{config.$cxPropPre}theme-ui,
     var(
-        --clr-#{map.get(system.$themes, default, light, average, ui, '$')},
+        --#{config.$cxPropPre}clr-#{map.get(
+                system.$themes,
+                default,
+                light,
+                average,
+                ui,
+                '$'
+            )},
         currentColor
     )
 );
 
 $_theme_ui_primary: var(
-    --theme-ui-primary,
+    --#{config.$cxPropPre}theme-ui-primary,
     var(
-        --clr-#{map.get(system.$themes, default, light, average, ui, primary)},
+        --#{config.$cxPropPre}clr-#{map.get(
+                system.$themes,
+                default,
+                light,
+                average,
+                ui,
+                primary
+            )},
         currentColor
     )
 );
 
 $_theme_text_primary: var(
-    --theme-text-primary,
+    --#{config.$cxPropPre}theme-text-primary,
     var(
-        --clr-#{map.get(system.$themes, default, light, average, text, primary)},
+        --#{config.$cxPropPre}clr-#{map.get(
+                system.$themes,
+                default,
+                light,
+                average,
+                text,
+                primary
+            )},
         currentColor
     )
 );

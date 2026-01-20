@@ -42,7 +42,6 @@ const config = {
 
         sass: sassCompilerOpts(
             {
-                // @ts-expect-error
                 benchmarkCompileTime: true,
                 // compileViaCLI: true,
             },

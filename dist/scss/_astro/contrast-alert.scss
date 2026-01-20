@@ -1,14 +1,15 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-alpha.5
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.6
 /// @since 0.1.0-alpha
 ///
 
 @use 'lib';
+@use '../config';
 
 /* # CONTRAST RESULT ==================================== */
 
 .contrast-alert {
-    --icon-color: currentColor;
+    @include lib.cx-prop(icon-color, currentColor);
     display: flex;
     flex-direction: column;
     width: fit-content;
@@ -20,7 +21,10 @@
     line-height: #{lib.var-line-height('100')};
     font-size: inherit;
 
-    color: var(--shade-swatch-color-override, var(--contrast-alert-color));
+    color: var(
+        --#{config.$cxPropPre}shade-swatch-color-override,
+        var(--#{config.$cxPropPre}contrast-alert-color)
+    );
 
     > * {
         color: inherit;

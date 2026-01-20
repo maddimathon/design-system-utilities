@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-alpha.5
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.6
 /// @since 0.1.0-alpha
 ///
 
@@ -40,13 +40,13 @@ $_systemColors: map.merge(
     // returns
     @if $slugMap == null {
         @warn "$slug '#{$slug}' was not a key in tokens.$colour";
-        @return var(--clr-#{$slug}-#{$level});
+        @return var(--#{config.$cxPropPre}clr-#{$slug}-#{$level});
     }
 
     // returns
     @if meta.type-of($slugMap) != map {
         @warn "$level '#{$level}' was not a key in tokens.$colour.#{$slug}";
-        @return var(--clr-#{$slug}-#{$level});
+        @return var(--#{config.$cxPropPre}clr-#{$slug}-#{$level});
     }
 
     $level_brightnessAdjusted: $level;
@@ -64,7 +64,7 @@ $_systemColors: map.merge(
     // returns
     @if $fallback_clr == null {
         @warn "$level '#{$level}' was not a key in tokens.$colour.#{$slug}";
-        @return var(--clr-#{$slug}-#{$level});
+        @return var(--#{config.$cxPropPre}clr-#{$slug}-#{$level});
     }
 
     $fallback: colour.to-hsl(
@@ -75,7 +75,7 @@ $_systemColors: map.merge(
     @return if(
         config.$fn_var_replaceWithValue_colour,
         $fallback,
-        var(--clr-#{$slug}-#{$level}, #{$fallback})
+        var(--#{config.$cxPropPre}clr-#{$slug}-#{$level}, #{$fallback})
     );
 }
 
@@ -166,7 +166,7 @@ $_systemColors: map.merge(
 
     // returns
     @if list.length($clrSlug) < 1 {
-        @return var(--theme-#{$slug});
+        @return var(--#{config.$cxPropPre}theme-#{$slug});
     }
 
     // returns
@@ -175,7 +175,7 @@ $_systemColors: map.merge(
     }
 
     @return var(
-        --theme-#{$slug},
+        --#{config.$cxPropPre}theme-#{$slug},
         var-clr-from-theme-token($clrSlug, $brightness: $brightness)
     );
 }

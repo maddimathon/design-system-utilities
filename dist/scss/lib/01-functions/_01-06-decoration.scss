@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-alpha.5
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.6
 /// @since 0.1.0-alpha
 ///
 
@@ -36,7 +36,10 @@
     @return if(
         config.$fn_var_replaceWithValue_borderRadius,
         border-radius-value($level),
-        var(--border-radius-#{$level}, border-radius-value($level))
+        var(
+            --#{config.$cxPropPre}border-radius-#{$level},
+            border-radius-value($level)
+        )
     );
 }
 
@@ -50,7 +53,10 @@
     @return if(
         config.$fn_var_replaceWithValue_borderWidth,
         utils.border-width-value($level),
-        var(--border-width-#{$level}, utils.border-width-value($level))
+        var(
+            --#{config.$cxPropPre}border-width-#{$level},
+            utils.border-width-value($level)
+        )
     );
 }
 
@@ -64,7 +70,10 @@
     @return if(
         config.$fn_var_replaceWithValue_strokeRelative,
         utils.stroke-relative-value($level),
-        var(--stroke-relative-#{$level}, utils.stroke-relative-value($level))
+        var(
+            --#{config.$cxPropPre}stroke-relative-#{$level},
+            utils.stroke-relative-value($level)
+        )
     );
 }
 
@@ -234,6 +243,6 @@
     @return if(
         config.$fn_var_replaceWithValue_zIndex,
         z-index-value($level),
-        var(--z-index-#{$level}, z-index-value($level))
+        var(--#{config.$cxPropPre}z-index-#{$level}, z-index-value($level))
     );
 }

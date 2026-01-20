@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-alpha.5
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.6
 /// @since 0.1.0-alpha
 ///
 
@@ -42,7 +42,7 @@ $_flattenedSystemColors: map.flatten($_systemColors);
             @if $contrast == forced-colors {
                 
                 @each $value in $list {
-                    --sys-clr-#{$slug}: #{$value} !important;
+                    @include utils.cx-prop( sys-clr-#{$slug}, #{$value} !important );
                 }
                 
             } @else if
@@ -68,16 +68,19 @@ $_flattenedSystemColors: map.flatten($_systemColors);
                 }
 
                 @if $clrSlug != null {
-                    --sys-clr-#{$slug}: #{var-clr-from-theme-token(
+                    @include utils.cx-prop(
+                        sys-clr-#{$slug},
+                        var-clr-from-theme-token(
                             $clrSlug,
                             $brightness: $brightness
-                        )};
+                        )
+                    );
                 } @else {
                     $values: map.get($_systemColors, $slug);
 
                     @if $values != null {
                         @each $_sysclr in $values {
-                            --sys-clr-#{$slug}: #{$_sysclr};
+                            @include utils.cx-prop(sys-clr-#{$slug}, $_sysclr);
                         }
                     }
                 }
@@ -97,7 +100,9 @@ $_flattenedSystemColors: map.flatten($_systemColors);
         @include utils.colour-mode($mode, $includeDefault: true) {
             @each $slug, $map in tokens.$colour {
                 @each $level, $clr in $map {
-                    --clr-#{$slug}-#{$level}: #{colour.to-hsl(
+                    @include utils.cx-prop(
+                        clr-#{$slug}-#{$level},
+                        colour.to-hsl(
                             if(
                                 $mode == dark,
                                 map.get(
@@ -111,7 +116,8 @@ $_flattenedSystemColors: map.flatten($_systemColors);
                                 $clr
                             ),
                             $round: false
-                        )};
+                        )
+                    );
                 }
             }
         }
@@ -120,12 +126,15 @@ $_flattenedSystemColors: map.flatten($_systemColors);
 }
 
 @mixin _tokens-theme-individual-base-properties($slug, $brightness, $contrast) {
-    --icon-color: #{var-theme(
+    @include utils.cx-prop(
+        icon-color,
+        var-theme(
             ui,
             $brightness: $brightness,
             $contrast: $contrast,
             $themeSlug: $slug
-        )};
+        )
+    );
     background: #{var-theme(
             background,
             $brightness: $brightness,
@@ -160,9 +169,10 @@ $_flattenedSystemColors: map.flatten($_systemColors);
 
         @each $prop, $value in $flattened {
             @if string.index($prop, 'system-') != 1 {
-                --theme-#{$prop}: #{var-clr-from-theme-token(
-                        $value
-                    )} !important;
+                @include utils.cx-prop(
+                    theme-#{$prop},
+                    #{var-clr-from-theme-token($value)} !important
+                );
             }
         }
     } @else {
@@ -184,9 +194,12 @@ $_flattenedSystemColors: map.flatten($_systemColors);
                     );
 
                     @if config.$fn_var_replaceWithValue_colour {
-                        --theme-#{$prop}: #{$_clrValue}; /* #{$value} */
+                        @include utils.cx-prop(
+                            theme-#{$prop},
+                            $_clrValue
+                        ); /* #{$value} */
                     } @else {
-                        --theme-#{$prop}: #{$_clrValue};
+                        @include utils.cx-prop(theme-#{$prop}, $_clrValue);
                     }
                 }
             }
@@ -401,10 +414,13 @@ $_themes_includeAlternatives: if(
     // for high-contrast modes
     /* #region Tokens - Theme - Exceptions - high-contrast modes */
     @include utils.colour-mode((high, max, forced-colors)) {
-        --focus-ring-outline-width: clamp(
-            #{border-width-value('200')},
-            #{stroke-relative-value('600')},
-            #{border-width-value('400')}
+        @include utils.cx-prop(
+            focus-ring-outline-width,
+            clamp(
+                border-width-value('200'),
+                stroke-relative-value('600'),
+                border-width-value('400')
+            )
         );
     }
     /* #endregion Tokens - Theme - Exceptions - high-contrast modes */

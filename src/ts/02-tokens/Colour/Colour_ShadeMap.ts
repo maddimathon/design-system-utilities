@@ -149,9 +149,9 @@ export namespace Tokens_Colour_ShadeMap {
         const inputKeys = Object.keys( part ) as ColourLevels[];
 
         const bases = {
-            '100': { l: 98, c: 0, h: 0 },
-            '500': { l: 50, c: 0, h: 0 },
-            '900': { l: 2, c: 0, h: 0 },
+            '100': { l: 98, c: 0, h: 0, },
+            '500': { l: 50, c: 0, h: 0, },
+            '900': { l: 2, c: 0, h: 0, },
         };
 
         const shadeMaker = (
@@ -337,27 +337,27 @@ export namespace Tokens_Colour_ShadeMap {
             )
         );
 
-        const l_350 = shadeMaker(
-            '350',
-            (
-                ( !( '350' in part ) || !part[ '350' ] )
-                    // we should merge it from what's available
-                    ? ColourUtilities.mixColours( l_300, l_400 )
-                    // otherwise we can safely assume this exists
-                    : part[ '350' ]
-            )
-        );
+        // const l_350 = shadeMaker(
+        //     '350',
+        //     (
+        //         ( !( '350' in part ) || !part[ '350' ] )
+        //             // we should merge it from what's available
+        //             ? ColourUtilities.mixColours( l_300, l_400 )
+        //             // otherwise we can safely assume this exists
+        //             : part[ '350' ]
+        //     )
+        // );
 
-        const l_650 = shadeMaker(
-            '650',
-            (
-                ( !( '650' in part ) || !part[ '650' ] )
-                    // we should merge it from what's available
-                    ? ColourUtilities.mixColours( l_600, l_700 )
-                    // otherwise we can safely assume this exists
-                    : part[ '650' ]
-            )
-        );
+        // const l_650 = shadeMaker(
+        //     '650',
+        //     (
+        //         ( !( '650' in part ) || !part[ '650' ] )
+        //             // we should merge it from what's available
+        //             ? ColourUtilities.mixColours( l_600, l_700 )
+        //             // otherwise we can safely assume this exists
+        //             : part[ '650' ]
+        //     )
+        // );
 
         const l_750 = shadeMaker(
             '750',
@@ -378,11 +378,11 @@ export namespace Tokens_Colour_ShadeMap {
             '200': l_200,
             '250': l_250,
             '300': l_300,
-            '350': l_350,
+            // '350': l_350,
             '400': l_400,
             '500': l_500,
             '600': l_600,
-            '650': l_650,
+            // '650': l_650,
             '700': l_700,
             '750': l_750,
             '800': l_800,
@@ -421,6 +421,11 @@ export namespace Tokens_Colour_ShadeMap {
             // continues for 000, 050, and 950
             switch ( level as T_ExtraLevels ) {
 
+                case '350':
+                    lowerLevel = '300';
+                    higherLevel = '400';
+                    break;
+
                 case '450':
                     lowerLevel = '400';
                     higherLevel = '500';
@@ -429,6 +434,11 @@ export namespace Tokens_Colour_ShadeMap {
                 case '550':
                     lowerLevel = '500';
                     higherLevel = '600';
+                    break;
+
+                case '650':
+                    lowerLevel = '600';
+                    higherLevel = '700';
                     break;
             }
 

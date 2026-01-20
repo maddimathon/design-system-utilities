@@ -63,7 +63,7 @@ $_designSystemHasFontFamilies: map.has-key(tokens.$designSystem, font, family)
     @return if(
         config.$fn_var_replaceWithValue_fontFamily,
         font-family-list($slug),
-        var(--ff-#{$slug}, font-family-list($slug))
+        var(--#{config.$cxPropPre}ff-#{$slug}, font-family-list($slug))
     );
 }
 

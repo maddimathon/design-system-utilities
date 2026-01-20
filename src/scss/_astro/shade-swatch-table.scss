@@ -4,6 +4,7 @@
 ///
 
 @use 'lib';
+@use '../config';
 
 @use 'pkg:@maddimathon/utility-sass/meta';
 @use 'pkg:@maddimathon/utility-sass/selector';
@@ -31,8 +32,11 @@ $_contrastColWidth: minmax(3.5ch, min-content);
     }
 
     > :global(table[data-shade-swatch-table-no-text='true']) {
-        --shade-swatch-color-override: transparent !important;
-        --shade-swatch-display-override: none !important;
+        @include lib.cx-prop(
+            shade-swatch-color-override,
+            transparent !important
+        );
+        @include lib.cx-prop(shade-swatch-display-override, none !important);
     }
 
     :global(td) {
@@ -59,7 +63,10 @@ $_contrastColWidth: minmax(3.5ch, min-content);
         }
 
         :global(.shade-swatch__contrast) {
-            display: var(--shade-swatch-display-override, grid);
+            display: var(
+                --#{config.$cxPropPre}shade-swatch-display-override,
+                grid
+            );
             margin-block-start: #{lib.var-mrg-firm('200')};
             font-size: #{lib.var-fs(smaller-3)};
         }
@@ -116,7 +123,10 @@ $_contrastColWidth: minmax(3.5ch, min-content);
         :global(
             .shade-swatch__contrast__result-group__single-min-max--maximum
         ) {
-            --shade-swatch-contrast-result-group-single-min-max-column-count: 1 !important;
+            @include lib.cx-prop(
+                shade-swatch-contrast-result-group-single-min-max-column-count,
+                1 !important
+            );
             grid-column: 5;
         }
     }

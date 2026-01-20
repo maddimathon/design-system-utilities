@@ -22,7 +22,10 @@
     /* #region Tokens - Border Radius */
     #{selector.parent-or-root()} {
         @each $slug, $_value in map.get(tokens.$border, radius) {
-            --border-radius-#{$slug}: #{border-radius-value($slug)}rem;
+            @include cx-prop(
+                border-radius-#{$slug},
+                #{border-radius-value($slug)}rem
+            );
         }
     }
     /* #endregion Tokens - Border Radius */
@@ -37,7 +40,7 @@
     /* #region Tokens - Z Index */
     #{selector.parent-or-root()} {
         @each $slug, $_value in tokens.$z_index {
-            --z-index-#{$slug}: #{z-index-value($slug)};
+            @include cx-prop(z-index-#{$slug}, z-index-value($slug));
         }
     }
     /* #endregion Tokens - Z Index */

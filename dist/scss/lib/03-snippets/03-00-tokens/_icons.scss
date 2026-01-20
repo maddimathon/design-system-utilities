@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-alpha.5
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.6
 /// @since 0.1.0-alpha
 ///
 
@@ -11,7 +11,7 @@
 
 // @use 'pkg:@maddimathon/utility-astro/03-snippets' as lib;
 
-// @use '../../../config';
+@use '../../../config';
 @use '../../../tokens';
 
 @use '../../01-functions' as *;
@@ -54,7 +54,8 @@ $_allUniqueIconAspectRatios: ();
 
         height: #{var-token(icon-size)};
         height: calc(
-            #{var-token(icon-size)} * var(--icon-size--font-multiplier, 1)
+            #{var-token(icon-size)} *
+                var(--#{config.$cxPropPre}icon-size--font-multiplier, 1)
         );
 
         color: #{var-token(icon-color)};
@@ -105,24 +106,33 @@ $_allUniqueIconAspectRatios: ();
         mask-repeat: no-repeat;
         mask-size: contain;
 
-        margin-block-start: var(--icon-pseudo-element-margin-block-start, 0);
+        margin-block-start: var(
+            --#{config.$cxPropPre}icon-pseudo-element-margin-block-start,
+            0
+        );
         margin-inline-#{$_start}: #{var-token(icon-inline-buffer)};
         margin-inline-#{$_start}: calc(
             #{var-token(icon-inline-buffer)} *
                 var(
-                    --icon-size-pseudo--inline-buffer-start,
-                    var(--icon-size-pseudo--font-multiplier, 1)
+                    --#{config.$cxPropPre}icon-size-pseudo--inline-buffer-start,
+                    var(
+                        --#{config.$cxPropPre}icon-size-pseudo--font-multiplier,
+                        1
+                    )
                 )
         );
         margin-inline-#{$_end}: calc(
             #{var-token(icon-inline-buffer)} *
-                var(--icon-size-pseudo--inline-buffer-end, 0)
+                var(
+                    --#{config.$cxPropPre}icon-size-pseudo--inline-buffer-end,
+                    0
+                )
         );
 
         height: #{var-token(icon-size-pseudo)};
         height: calc(
             #{var-token(icon-size-pseudo)} *
-                var(--icon-size-pseudo--font-multiplier, 1)
+                var(--#{config.$cxPropPre}icon-size-pseudo--font-multiplier, 1)
         );
 
         aspect-ratio: #{icon-aspect-ratio-value($slug)};

@@ -32,16 +32,22 @@
 
         &,
         & body {
-            --height-nav-primary: #{$_navHeight};
+            @include cx-prop(height-nav-primary, $_navHeight);
 
-            --scroll-padding-top: #{$_scrollPaddingFallback};
-            --scroll-padding-top: calc(
-                var(--height-nav-primary, #{$_navHeight}) +
-                    #{var-gap-block(layout)}
+            @include cx-prop(scroll-padding-top, $_scrollPaddingFallback);
+            @include cx-prop(
+                scroll-padding-top,
+                calc(
+                    var(
+                            --#{config.$cxPropPre}height-nav-primary,
+                            #{$_navHeight}
+                        ) +
+                        var-gap-block(layout)
+                )
             );
 
             scroll-padding-top: var(
-                --scroll-padding-top,
+                --#{config.$cxPropPre}scroll-padding-top,
                 #{$_scrollPaddingFallback}
             );
         }
@@ -61,19 +67,15 @@
             z-index: 9999;
 
             > .toggle-title {
-                min-height: var(--height-nav-primary, #{$_navHeight});
+                min-height: var(
+                    --#{config.$cxPropPre}height-nav-primary,
+                    #{$_navHeight}
+                );
 
                 [data-toggle-control] {
                     padding-block: min(0.75vh, #{var-mrg-soft('300')});
                 }
             }
-
-            // > [data-toggle-content] {
-            //     margin-inline: #{var-gap-block(layout-half)};
-            //     width: 100%;
-
-            //     z-index: -1;
-            // }
 
             &[data-toggle-container='open'] {
                 [data-toggle-control-backdrop] {

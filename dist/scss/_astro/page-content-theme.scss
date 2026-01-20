@@ -1,9 +1,10 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-alpha.5
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.6
 /// @since 0.1.0-alpha
 ///
 
 @use 'lib';
+@use '../config';
 
 /* # PAGE CONTENT - THEME ==================================== */
 
@@ -22,7 +23,7 @@
 }
 
 [data-theme-mode-preview-page-display-mode-content='preview'] {
-    display: var(--display, grid);
+    display: var(--#{config.$cxPropPre}display, grid);
 }
 
 .theme-mode-swatch__alt-widgets {
@@ -50,7 +51,7 @@
             :global(
                 [data-theme-mode-preview-page-display-mode-content='#{$_opt}']
             ) {
-                display: var(--display, grid);
+                display: var(--#{config.$cxPropPre}display, grid);
             }
         }
     }
@@ -67,9 +68,11 @@
                     padding: 0;
 
                     .theme-mode-toggle__list {
-                        --display: grid;
+                        @include lib.cx-prop(display, grid);
                         grid-template-columns: repeat(
-                            var(--theme-mode-swatch-list-column-count),
+                            var(
+                                --#{config.$cxPropPre}theme-mode-swatch-list-column-count
+                            ),
                             minmax(16rem, 1fr)
                         );
                         grid-template-rows: auto;

@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.5
+ * @maddimathon/design-system-utilities@0.1.0-alpha.6
  * @license MIT
  */
 import { slugify } from '@maddimathon/utility-typescript/functions';
@@ -154,14 +154,18 @@ export class Tokens extends AbstractTokens {
      */
     Tokens.SampleColours = {
         yardstick: {
-            '100': { l: 98, c: 0, h: 0, },
+            '100': { l: 99, c: 0, h: 0, },
+            '300': { l: 80, c: 0, h: 0, },
             '500': { l: 50, c: 0, h: 0, },
-            '900': { l: 2, c: 0, h: 0, },
+            '700': { l: 21, c: 0, h: 0, },
+            '900': { l: 1.5, c: 0, h: 0, },
         },
         base: {
-            '100': { l: 98, c: 0, h: 0, },
+            '100': { l: 99, c: 0, h: 0, },
+            '300': { l: 80, c: 0, h: 0, },
             '500': { l: 50, c: 0, h: 0, },
-            '900': { l: 2, c: 0, h: 0, },
+            '700': { l: 21, c: 0, h: 0, },
+            '900': { l: 1.5, c: 0, h: 0, },
         },
         red: {
             '100': { h: 5, s: 100, l: 98, },

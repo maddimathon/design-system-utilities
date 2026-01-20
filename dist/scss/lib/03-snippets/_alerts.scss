@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-alpha.5
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.6
 /// @since 0.1.0-alpha
 ///
 @use 'pkg:@maddimathon/utility-sass/list';
@@ -8,11 +8,11 @@
 
 // @use 'pkg:@maddimathon/utility-astro/03-snippets' as lib;
 
-// @use '../../config';
+@use '../../config';
 @use '../../tokens';
 
 @use '../01-functions' as *;
-// @use '../02-mixins' as *;
+@use '../02-mixins' as *;
 
 $_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
 
@@ -103,12 +103,16 @@ $_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
 ///
 @mixin snippet-support-alert-blocks {
     %_alert-grid {
-        --display: grid;
+        @include cx-prop(display, grid);
         display: grid;
 
-        --grid-template-columns--alert-block: [icon] minmax(max-content, auto)
-            [content] 1fr;
-        grid-template-columns: var(--grid-template-columns--alert-block);
+        @include cx-prop(
+            grid-template-columns--alert-block,
+            '[icon] minmax(max-content, auto) [content] 1fr'
+        );
+        grid-template-columns: var(
+            --#{config.$cxPropPre}grid-template-columns--alert-block
+        );
 
         grid-auto-rows: auto;
         grid-auto-flow: row;
@@ -127,8 +131,8 @@ $_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
 
     %alert {
         @extend %_alert-grid;
-        --icon-color: #{var-token(alert-color-icon)};
-        --icon-size: #{var-token(alert-icon-size)};
+        @include cx-prop(icon-color, var-token(alert-color-icon));
+        @include cx-prop(icon-size, var-token(alert-icon-size));
 
         justify-self: center;
 

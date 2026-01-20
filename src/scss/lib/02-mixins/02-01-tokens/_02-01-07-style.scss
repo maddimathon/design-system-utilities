@@ -22,7 +22,7 @@ $_flattenedStyle: map.flatten(map.get(tokens.$designSystem, style));
     /* #region Tokens - Style */
     #{selector.parent-or-root()} {
         @each $slug, $_value in $_flattenedStyle {
-            --style-#{$slug}: #{style-value($slug)};
+            @include cx-prop(style-#{$slug}, style-value($slug));
         }
     }
     /* #endregion Tokens - Style */

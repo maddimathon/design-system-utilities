@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-alpha.5
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.6
 /// @since 0.1.0-alpha
 ///
 
@@ -129,6 +129,6 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
     @return if(
         config.$fn_var_replaceWithValue_style,
         style-value($slug),
-        var(--style-#{$slug}, #{style-value($slug)})
+        var(--#{config.$cxPropPre}style-#{$slug}, #{style-value($slug)})
     );
 }

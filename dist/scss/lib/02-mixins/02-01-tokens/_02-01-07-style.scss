@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-alpha.5
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.6
 /// @since 0.1.0-alpha
 ///
 
@@ -22,7 +22,7 @@ $_flattenedStyle: map.flatten(map.get(tokens.$designSystem, style));
     /* #region Tokens - Style */
     #{selector.parent-or-root()} {
         @each $slug, $_value in $_flattenedStyle {
-            --style-#{$slug}: #{style-value($slug)};
+            @include cx-prop(style-#{$slug}, style-value($slug));
         }
     }
     /* #endregion Tokens - Style */

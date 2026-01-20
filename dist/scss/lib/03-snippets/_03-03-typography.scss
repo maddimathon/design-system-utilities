@@ -1,11 +1,12 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-alpha.5
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.6
 /// @since 0.1.0-alpha
 ///
 
 @use 'pkg:@maddimathon/utility-sass/math';
 @use 'pkg:@maddimathon/utility-sass/meta';
 
+@use '../../config';
 @use '../../tokens';
 
 @use '../01-functions' as *;
@@ -72,7 +73,10 @@
 ///
 @mixin snippet-selection($contrast: tokens.$contrastMode_default) {
     //
-    --icon-color: #{var-theme(selection-text, $contrast: $contrast)} !important;
+    @include cx-prop(
+        icon-color,
+        #{var-theme(selection-text, $contrast: $contrast)} !important
+    );
     color: #{var-theme(selection-text, $contrast: $contrast)} !important;
 
     background-color: #{var-theme(selection-bg, $contrast: $contrast)} !important;
@@ -85,7 +89,7 @@
                 g
                 b /
                 var(
-                    --selection-background-opacity,
+                    --#{config.$cxPropPre}selection-background-opacity,
                     #{var-style(selection-average-background-opacity)}
                 )
         ) !important;
@@ -98,7 +102,7 @@
                 g
                 b /
                 var(
-                    --selection-background-opacity,
+                    --#{config.$cxPropPre}selection-background-opacity,
                     #{var-style(selection-low-background-opacity)}
                 )
         ) !important;
@@ -111,7 +115,7 @@
                 g
                 b /
                 var(
-                    --selection-background-opacity,
+                    --#{config.$cxPropPre}selection-background-opacity,
                     #{var-style(selection-high-background-opacity)}
                 )
         ) !important;

@@ -22,12 +22,12 @@
 
 <script>
     const controls = document.querySelectorAll(
-        'input[data-shade-swatch-table-display-text-toggle]'
+        'input[data-shade-swatch-table-display-text-toggle]',
     ) as NodeListOf<HTMLInputElement>;
 
     controls.forEach((checkbox) => {
         const tableId = checkbox.getAttribute(
-            'data-shade-swatch-table-display-text-toggle'
+            'data-shade-swatch-table-display-text-toggle',
         );
 
         // returns
@@ -47,7 +47,7 @@
         if (localStorage.getItem(storageKey) == 'true') {
             checkbox.checked = true;
             tables.forEach((table) =>
-                table.setAttribute('data-shade-swatch-table-no-text', 'true')
+                table.setAttribute('data-shade-swatch-table-no-text', 'true'),
             );
         }
 
@@ -58,7 +58,7 @@
                     // is truthy
                     table.setAttribute(
                         'data-shade-swatch-table-no-text',
-                        'true'
+                        'true',
                     );
                     localStorage.setItem(storageKey, 'true');
                     return;
@@ -67,7 +67,7 @@
                 // is falsey
                 table.removeAttribute('data-shade-swatch-table-no-text');
                 localStorage.setItem(storageKey, '');
-            })
+            }),
         );
     });
 </script>

@@ -38,7 +38,10 @@
     @return if(
         config.$fn_var_replaceWithValue_transitionTime,
         #{transition-time-value($level)},
-        var(--tr-time-#{$level}, #{transition-time-value($level)})
+        var(
+            --#{config.$cxPropPre}tr-time-#{$level},
+            #{transition-time-value($level)}
+        )
     );
 }
 

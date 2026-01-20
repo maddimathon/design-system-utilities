@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-alpha.5
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.6
 /// @since 0.1.0-alpha
 ///
 
@@ -17,8 +17,8 @@
 @use 'pkg:@maddimathon/utility-astro/03-snippets' as utils;
 
 @mixin _snippet-button-colour-single-state($bg, $border, $text, $ui) {
-    --icon-color: #{$ui};
-    --theme-link-icon: #{$ui};
+    @include cx-prop(icon-color, $ui);
+    @include cx-prop(theme-link-icon, $ui);
     text-decoration-color: #{$ui};
     accent-color: #{$border};
     background-color: #{$bg};
@@ -33,9 +33,10 @@
 ///
 @mixin snippet-button-colours($variation: 'primary') {
     & {
-        --focus-ring-outline-color: #{var-theme(
-                button-#{$variation}-outline-hover
-            )};
+        @include cx-prop(
+            focus-ring-outline-color,
+            var-theme(button-#{$variation}-outline-hover)
+        );
         @include _snippet-button-colour-single-state(
             $bg: var-theme(button-#{$variation}-bg),
             $border: var-theme(button-#{$variation}-border),
@@ -55,9 +56,10 @@
     }
 
     &:active {
-        --focus-ring-outline-color: #{var-theme(
-                button-#{$variation}-outline-active
-            )};
+        @include cx-prop(
+            focus-ring-outline-color,
+            var-theme(button-#{$variation}-outline-active)
+        );
         @include _snippet-button-colour-single-state(
             $bg: var-theme(button-#{$variation}-bg-active),
             $border: var-theme(button-#{$variation}-border-active),
@@ -75,11 +77,12 @@
 @mixin snippet-button($includeDisabled: true, $variation: 'primary') {
     $fontStyle: var-style(button-font-style);
 
-    --focus-ring-outline-offset: #{var-border-width(
-            var-style(button-focus-offset)
-        )};
+    @include cx-prop(
+        focus-ring-outline-offset,
+        var-border-width(var-style(button-focus-offset))
+    );
 
-    --display: flex;
+    @include cx-prop(display, flex);
     display: flex;
 
     flex-direction: row;
@@ -115,7 +118,7 @@
 
     text-align: start;
 
-    transition: var(--transition);
+    transition: var(--#{config.$cxPropPre}transition);
     opacity: 1;
 
     appearance: button;
@@ -154,7 +157,7 @@
     }
 
     * {
-        --icon-color: inherit !important;
+        @include cx-prop(icon-color, inherit !important);
         color: inherit !important;
     }
 
@@ -226,15 +229,15 @@
             $args...
         );
     } @else {
-        --focus-ring-outline-color: #{$accentClr_hover};
-        --focus-ring-outline-offset: #{$focusOffset};
+        @include cx-prop(focus-ring-outline-color, $accentClr_hover);
+        @include cx-prop(focus-ring-outline-offset, $focusOffset);
         background-color: #{$background};
         color: #{$color};
         accent-color: #{$accentClr};
         border-width: #{$borderWidth};
 
         @include hover-focus-visible-or-within {
-            --focus-ring-outline-color: #{$accentClr_hover};
+            @include cx-prop(focus-ring-outline-color, $accentClr_hover);
             background-color: #{$background_hover};
             border-color: #{$borderClr_hover};
             color: #{$color_hover};
@@ -242,7 +245,7 @@
         }
 
         &:active {
-            --focus-ring-outline-color: #{$accentClr_active};
+            @include cx-prop(focus-ring-outline-color, $accentClr_active);
             background-color: #{$background_active};
             border-color: #{$borderClr_active};
             color: #{$color_active};
@@ -251,7 +254,7 @@
     }
 
     & {
-        transition: var(--transition);
+        transition: var(--#{config.$cxPropPre}transition);
     }
 }
 

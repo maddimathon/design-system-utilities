@@ -162,11 +162,9 @@ export type ColourLevels =
     | "200"
     | "250"
     | "300"
-    | "350"
     | "400"
     | "500"
     | "600"
-    | "650"
     | "700"
     | "750"
     | "800"
@@ -177,8 +175,10 @@ export type ColourLevels =
  * @since 0.1.0-alpha
  */
 export type ColourLevels_Extended =
+    | "350"
     | "450"
-    | "550";
+    | "550"
+    | "650";
 
 
 /**

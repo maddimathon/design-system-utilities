@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-alpha.5
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.6
 /// @since 0.1.0-alpha
 ///
 @use 'pkg:@maddimathon/utility-sass/feature-check';
@@ -44,13 +44,13 @@ $_closing_time: var-tr-time(toggle-closing);
 
     .website-settings-menu {
         @include no-motion {
-            --toggle-closing-time: #{var-tr-time(normal)};
+            @include cx-prop(toggle-closing-time, var-tr-time(normal));
         }
     }
 
     .website-settings__content {
         fieldset {
-            transition: var(--transition);
+            transition: var(--#{config.$cxPropPre}transition);
 
             > legend {
                 color: #{var-theme(text-primary)};
@@ -62,7 +62,7 @@ $_closing_time: var-tr-time(toggle-closing);
     }
 
     [data-toggle-control-backdrop] {
-        transition: var(--transition);
+        transition: var(--#{config.$cxPropPre}transition);
     }
 
     /* With Javascript ==================================== */
@@ -85,7 +85,7 @@ $_closing_time: var-tr-time(toggle-closing);
     @include feature-check.js {
         .website-settings-menu {
             [data-toggle-control] {
-                --icon-color: currentColor;
+                @include cx-prop(icon-color, currentColor);
             }
 
             > [data-toggle-content] {
@@ -137,10 +137,10 @@ $_closing_time: var-tr-time(toggle-closing);
         @at-root #{$attrSelector} {
             //
             @if $label == 'Open Dyslexic' {
-                --icon-size--font-multiplier: 1.1875;
-                --icon-size-pseudo--font-multiplier: 1.25;
-                --icon-size-pseudo--inline-buffer-start: 3;
-                --icon-size-pseudo--inline-buffer-end: 1;
+                @include cx-prop(icon-size--font-multiplier, 1.1875);
+                @include cx-prop(icon-size-pseudo--font-multiplier, 1.25);
+                @include cx-prop(icon-size-pseudo--inline-buffer-start, 3);
+                @include cx-prop(icon-size-pseudo--inline-buffer-end, 1);
             }
 
             $_multi_width: map.get($map, contentWidthScale);
@@ -167,7 +167,7 @@ $_closing_time: var-tr-time(toggle-closing);
                                     $multiplier: $_multi_width
                                 )
                             {
-                                --width-#{$slug}: #{$value};
+                                @include cx-prop(width-#{$slug}, $value);
                             }
                         }
                     }
@@ -184,7 +184,10 @@ $_closing_time: var-tr-time(toggle-closing);
                             );
 
                             @if $_newValue != $_oldValue {
-                                --border-width-#{$slug}: #{$_newValue};
+                                @include cx-prop(
+                                    border-width-#{$slug},
+                                    $_newValue
+                                );
                             }
                         }
                     }
@@ -218,19 +221,28 @@ $_closing_time: var-tr-time(toggle-closing);
                     {
                         //
                         @each $level, $_value in tokens.$margins {
-                            --mrg-firm-#{$level}: #{math.round-to-pixel(
-                                    mrg-value-firm($level) * $_multi_margin
-                                )}rem;
+                            @include cx-prop(
+                                mrg-firm-#{$level},
+                                #{math.round-to-pixel(
+                                        mrg-value-firm($level) * $_multi_margin
+                                    )}rem
+                            );
                         }
                         @each $level, $_value in tokens.$margins {
-                            --mrg-soft-#{$level}: #{math.round-to-pixel(
-                                    mrg-value-soft($level) * $_multi_margin
-                                )}rem;
+                            @include cx-prop(
+                                mrg-soft-#{$level},
+                                #{math.round-to-pixel(
+                                        mrg-value-soft($level) * $_multi_margin
+                                    )}rem
+                            );
                         }
                         @each $level, $_value in tokens.$margins {
-                            --mrg-half-#{$level}: #{math.round-to-pixel(
-                                    mrg-value-half($level) * $_multi_margin
-                                )}rem;
+                            @include cx-prop(
+                                mrg-half-#{$level},
+                                #{math.round-to-pixel(
+                                        mrg-value-half($level) * $_multi_margin
+                                    )}rem
+                            );
                         }
                     }
 
@@ -244,7 +256,7 @@ $_closing_time: var-tr-time(toggle-closing);
                         );
 
                         @if $_newValue != $_oldValue {
-                            --line-height-#{$slug}: #{$_newValue};
+                            @include cx-prop(line-height-#{$slug}, $_newValue);
                         }
                     }
 
@@ -259,7 +271,10 @@ $_closing_time: var-tr-time(toggle-closing);
                             );
 
                             @if $_newValue != $_oldValue {
-                                --stroke-relative-#{$slug}: #{$_newValue};
+                                @include cx-prop(
+                                    stroke-relative-#{$slug},
+                                    $_newValue
+                                );
                             }
                         }
                     }

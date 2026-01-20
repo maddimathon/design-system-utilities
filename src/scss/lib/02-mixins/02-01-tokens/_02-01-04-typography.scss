@@ -117,7 +117,7 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
         #{selector.parent-or-root()} {
             @each $slug in map.keys(map.get(tokens.$designSystem, font, family))
             {
-                --ff-#{$slug}: #{font-family-list($slug)};
+                @include cx-prop(ff-#{$slug}, font-family-list($slug));
             }
         }
         /* #endregion Tokens - Font Families */

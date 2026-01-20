@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-alpha.5
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.6
 /// @since 0.1.0-alpha
 ///
 
@@ -53,7 +53,7 @@ $themes__nestedFlat: ();
 $brightnessMode_all: list.except(
     map.keys(map.get(system.$themes, $activeTheme)),
     'forced-colors'
-);
+) !default;
 
 $brightnessMode_default: null !default;
 $brightnessMode_default: config.config-valid-string(
@@ -73,7 +73,7 @@ $contrastMode_all: list.unique(
             ('forced-colors')
         )
     )
-);
+) !default;
 
 $contrastMode_default: null !default;
 $contrastMode_default: config.config-valid-string(

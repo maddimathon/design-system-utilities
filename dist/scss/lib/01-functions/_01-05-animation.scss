@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-alpha.5
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.6
 /// @since 0.1.0-alpha
 ///
 
@@ -38,7 +38,10 @@
     @return if(
         config.$fn_var_replaceWithValue_transitionTime,
         #{transition-time-value($level)},
-        var(--tr-time-#{$level}, #{transition-time-value($level)})
+        var(
+            --#{config.$cxPropPre}tr-time-#{$level},
+            #{transition-time-value($level)}
+        )
     );
 }
 

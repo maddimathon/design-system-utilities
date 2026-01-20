@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.5
+ * @maddimathon/design-system-utilities@0.1.0-alpha.6
  * @license MIT
  */
 import type { ThemeMode_Contrast, ThemeMode_ContrastAtLeastOne, ThemeMode_ContrastExtraOptions, ColourLevels_Extended, TokenLevels } from './@types.js';
@@ -749,7 +749,12 @@ export declare namespace Tokens {
     const SampleColours: {
         readonly yardstick: {
             readonly '100': {
-                readonly l: 98;
+                readonly l: 99;
+                readonly c: 0;
+                readonly h: 0;
+            };
+            readonly '300': {
+                readonly l: 80;
                 readonly c: 0;
                 readonly h: 0;
             };
@@ -758,15 +763,25 @@ export declare namespace Tokens {
                 readonly c: 0;
                 readonly h: 0;
             };
+            readonly '700': {
+                readonly l: 21;
+                readonly c: 0;
+                readonly h: 0;
+            };
             readonly '900': {
-                readonly l: 2;
+                readonly l: 1.5;
                 readonly c: 0;
                 readonly h: 0;
             };
         };
         readonly base: {
             readonly '100': {
-                readonly l: 98;
+                readonly l: 99;
+                readonly c: 0;
+                readonly h: 0;
+            };
+            readonly '300': {
+                readonly l: 80;
                 readonly c: 0;
                 readonly h: 0;
             };
@@ -775,8 +790,13 @@ export declare namespace Tokens {
                 readonly c: 0;
                 readonly h: 0;
             };
+            readonly '700': {
+                readonly l: 21;
+                readonly c: 0;
+                readonly h: 0;
+            };
             readonly '900': {
-                readonly l: 2;
+                readonly l: 1.5;
                 readonly c: 0;
                 readonly h: 0;
             };

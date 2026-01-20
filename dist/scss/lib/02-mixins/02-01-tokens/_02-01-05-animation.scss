@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-alpha.5
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.6
 /// @since 0.1.0-alpha
 ///
 
@@ -26,27 +26,37 @@
             @each $slug, $_value in map.get(tokens.$transition, time) {
                 @if $slug == toggle-closing {
                 } @else {
-                    --tr-time-#{$slug}: #{transition-time-value($slug)};
+                    @include utils.cx-prop(
+                        tr-time-#{$slug},
+                        transition-time-value($slug)
+                    );
                 }
             }
         }
-        --transition: none;
+        @include utils.cx-prop(transition, none);
     }
 
     @include feature-check.js {
         @include utils.motion($nestParent: false, $unifyParent: true) {
             @if $trTime {
-                --tr-time-toggle-closing: #{transition-time-value(
-                        toggle-closing
-                    )};
+                @include cx-prop(
+                    tr-time-toggle-closing,
+                    transition-time-value(toggle-closing)
+                );
             }
-            --transition: #{transition-properties-value(true)};
+            @include utils.cx-prop(
+                transition,
+                transition-properties-value(true)
+            );
         }
         @include utils.no-motion($nestParent: false, $unifyParent: true) {
             @if $trTime {
-                --tr-time-toggle-closing: 0 !important;
+                @include utils.cx-prop(tr-time-toggle-closing, 0 !important);
             }
-            --transition: #{transition-properties-value(false)} !important;
+            @include utils.cx-prop(
+                transition,
+                #{transition-properties-value(false)} !important
+            );
         }
     }
     /* #endregion Tokens - Transitions */
