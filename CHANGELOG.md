@@ -19,6 +19,18 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-alpha.9** — 2026-01-20
+
+Have to make many test releases so it's the same instance of sass-embedded as
+its dependents.
+
+### Added
+- Made scss mixin public - tokens-theme-individual-base-properties
+
+### Fixed
+- $designTokens !default overrides now merge recursively
+
+
 ## **0.1.0-alpha.8** — 2026-01-20
 
 Updated utility-sass for more var-printing config.

@@ -5,3 +5,10 @@
 
 @forward 'pkg:@maddimathon/utility-sass/notice' hide $internal_isTemplate,
     $internal_supressCredit;
+
+@use 'lib/noticeMx';
+@use 'config';
+
+@if not config.$internal_supressCredit {
+    @include noticeMx.notice();
+}

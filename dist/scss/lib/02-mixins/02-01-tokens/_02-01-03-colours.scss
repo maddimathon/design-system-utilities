@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-alpha.8
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.9
 /// @since 0.1.0-alpha
 ///
 
@@ -125,7 +125,13 @@ $_flattenedSystemColors: map.flatten($_systemColors);
     /* #endregion Tokens - Colour */
 }
 
-@mixin _tokens-theme-individual-base-properties($slug, $brightness, $contrast) {
+///
+/// Prints a single theme's properties.
+///
+/// @since 0.1.0-alpha.5
+/// @since 0.1.0-alpha.9 — Made public.
+///
+@mixin tokens-theme-individual-base-properties($slug, $brightness, $contrast) {
     @include utils.cx-prop(
         icon-color,
         var-theme(
@@ -149,6 +155,11 @@ $_flattenedSystemColors: map.flatten($_systemColors);
         )};
 }
 
+///
+/// Prints a single theme's properties.
+///
+/// @since 0.1.0-alpha.5
+///
 @mixin tokens-theme-individual($slug, $brightness, $contrast) {
     $activeTheme_flat: map.get(tokens.$themes__nestedFlat, $slug);
 
@@ -207,7 +218,7 @@ $_flattenedSystemColors: map.flatten($_systemColors);
     }
 
     @if config.$mx_tokensTheme_setBaseProperties {
-        @include _tokens-theme-individual-base-properties(
+        @include tokens-theme-individual-base-properties(
             $slug,
             $brightness: $brightness,
             $contrast: $contrast
