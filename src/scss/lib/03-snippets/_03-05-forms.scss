@@ -74,13 +74,15 @@
 ///
 /// @since 0.1.0-alpha
 ///
-@mixin snippet-button($includeDisabled: true, $variation: 'primary') {
-    $fontStyle: var-style(button-font-style);
-
-    @include cx-prop(
-        focus-ring-outline-offset,
-        var-border-width(var-style(button-focus-offset))
-    );
+@mixin snippet-button(
+    $fontWeight: var-style(button-font-weight),
+    $fontSize: var-fs(normal),
+    $fontStyle: var-style(button-font-style),
+    $includeColors: true,
+    $includeDisabled: true,
+    $variation: 'primary'
+) {
+    @include cx-prop(focus-ring-outline-offset, var-style(button-focus-offset));
 
     @include cx-prop(display, flex);
     display: flex;
@@ -106,9 +108,9 @@
     border-radius: #{var-style(button-border-radius)};
     border-style: #{var-style(button-border-style)};
 
-    font-weight: #{var-style(button-font-weight)};
+    font-weight: #{$fontWeight};
     font-style: #{$fontStyle};
-    font-size: #{var-fs(normal)};
+    font-size: #{$fontSize};
     line-height: #{var-style(button-line-height)};
     letter-spacing: #{var-style(button-letter-spacing)};
 
@@ -124,7 +126,9 @@
     appearance: button;
     cursor: pointer;
 
-    @include snippet-button-colours($variation);
+    @if $includeColors {
+        @include snippet-button-colours($variation);
+    }
 
     /// BLOCK ///
 
@@ -141,7 +145,10 @@
     @if $includeDisabled {
         &[aria-disabled='true'] {
             cursor: not-allowed;
-            @include snippet-button-colours(disabled);
+
+            @if $includeColors {
+                @include snippet-button-colours(disabled);
+            }
 
             &::before {
                 @if config.$template_button_inlineIcons {
