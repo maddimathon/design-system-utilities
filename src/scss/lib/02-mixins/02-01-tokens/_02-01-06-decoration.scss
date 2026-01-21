@@ -11,7 +11,7 @@
 
 @use '../../01-functions' as *;
 
-// @use 'pkg:@maddimathon/utility-astro/02-mixins' as utils;
+@use 'pkg:@maddimathon/utility-astro/02-mixins' as utils;
 
 ///
 /// Prints out the border width custom property tokens based on config.
@@ -22,7 +22,7 @@
     /* #region Tokens - Border Radius */
     #{selector.parent-or-root()} {
         @each $slug, $_value in map.get(tokens.$border, radius) {
-            @include cx-prop(
+            @include utils.cx-prop(
                 border-radius-#{$slug},
                 #{border-radius-value($slug)}rem
             );
@@ -40,7 +40,7 @@
     /* #region Tokens - Z Index */
     #{selector.parent-or-root()} {
         @each $slug, $_value in tokens.$z_index {
-            @include cx-prop(z-index-#{$slug}, z-index-value($slug));
+            @include utils.cx-prop(z-index-#{$slug}, z-index-value($slug));
         }
     }
     /* #endregion Tokens - Z Index */

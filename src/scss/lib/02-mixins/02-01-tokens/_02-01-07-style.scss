@@ -11,6 +11,8 @@
 
 @use '../../01-functions' as *;
 
+@use 'pkg:@maddimathon/utility-astro/02-mixins' as utils;
+
 $_flattenedStyle: map.flatten(map.get(tokens.$designSystem, style));
 
 ///
@@ -22,7 +24,7 @@ $_flattenedStyle: map.flatten(map.get(tokens.$designSystem, style));
     /* #region Tokens - Style */
     #{selector.parent-or-root()} {
         @each $slug, $_value in $_flattenedStyle {
-            @include cx-prop(style-#{$slug}, style-value($slug));
+            @include utils.cx-prop(style-#{$slug}, style-value($slug));
         }
     }
     /* #endregion Tokens - Style */

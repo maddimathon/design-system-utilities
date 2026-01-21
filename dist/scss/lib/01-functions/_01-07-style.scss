@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-alpha.10
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.11
 /// @since 0.1.0-alpha
 ///
 
@@ -92,21 +92,24 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
         } @else {
             $value: utils.var-mrg-firm($value);
         }
-    } @else if $isPadding or $isGap {
+    } @else if $isPadding {
         //
-        @if string.index($slug, padding-block-start) or
-            string.index($slug, gap-block-start)
-        {
+        @if string.index($slug, padding-block-start) {
+            $value: utils.var-pad-soft($value);
+        } @else if string.index($slug, padding-block-end) {
+            $value: utils.var-pad-half($value);
+        } @else if string.index($slug, padding-block) {
+            $value: utils.var-pad-soft($value);
+        } @else {
+            $value: utils.var-pad-firm($value);
+        }
+    } @else if $isGap {
+        //
+        @if string.index($slug, gap-block-start) {
             $value: utils.var-mrg-soft($value);
-        } @else if
-            string.index($slug, padding-block-end) or
-            string.index($slug, gap-block-end)
-        {
+        } @else if string.index($slug, gap-block-end) {
             $value: utils.var-mrg-half($value);
-        } @else if
-            string.index($slug, padding-block) or
-            string.index($slug, gap-block)
-        {
+        } @else if string.index($slug, gap-block) {
             $value: utils.var-mrg-soft($value);
         } @else {
             $value: utils.var-mrg-firm($value);

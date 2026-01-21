@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-alpha.10
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.11
 /// @since 0.1.0-alpha
 ///
 
@@ -12,15 +12,21 @@
 $spacing_multiplier: map.get(default.$designSystem, spacing_multiplier);
 
 $margin: map.get(default.$designSystem, margin);
+$margin: map.ksort($margin);
 
 $font: map.get(default.$designSystem, font);
 
 $line_height: map.get(default.$designSystem, line_height);
+$line_height: map.ksort($line_height);
 
 $border: map.get(default.$designSystem, border);
+$border: map.ksort($border);
 
 $icons: map.get(default.$designSystem, icons);
+$icons: map.ksort($icons);
+
 $logos: map.get(default.$designSystem, logos);
+$logos: map.ksort($logos);
 
 @if $logos == null {
     $logos: ();
@@ -29,6 +35,7 @@ $logos: map.get(default.$designSystem, logos);
 $transition: map.get(default.$designSystem, transition);
 
 $z_index: map.get(default.$designSystem, z_index);
+$z_index: map.ksort($z_index);
 
 $colour: map.get(default.$designSystem, colour);
 

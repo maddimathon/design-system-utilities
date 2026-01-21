@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-alpha.10
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.11
 /// @since 0.1.0-alpha
 ///
 
@@ -99,7 +99,7 @@ $_flattenedSystemColors: map.flatten($_systemColors);
     @each $mode in tokens.$brightnessMode_all {
         @include utils.colour-mode($mode, $includeDefault: true) {
             @each $slug, $map in tokens.$colour {
-                @each $level, $clr in $map {
+                @each $level, $clr in map.ksort($map) {
                     @include utils.cx-prop(
                         clr-#{$slug}-#{$level},
                         colour.to-hsl(

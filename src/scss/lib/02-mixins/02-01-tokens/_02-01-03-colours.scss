@@ -99,7 +99,7 @@ $_flattenedSystemColors: map.flatten($_systemColors);
     @each $mode in tokens.$brightnessMode_all {
         @include utils.colour-mode($mode, $includeDefault: true) {
             @each $slug, $map in tokens.$colour {
-                @each $level, $clr in $map {
+                @each $level, $clr in map.ksort($map) {
                     @include utils.cx-prop(
                         clr-#{$slug}-#{$level},
                         colour.to-hsl(

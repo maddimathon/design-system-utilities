@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-alpha.10
+/// @package @maddimathon/design-system-utilities@0.1.0-alpha.11
 /// @since 0.1.0-alpha
 ///
 
@@ -10,6 +10,8 @@
 @use '../../../tokens';
 
 @use '../../01-functions' as *;
+
+@use 'pkg:@maddimathon/utility-astro/02-mixins' as utils;
 
 $_flattenedStyle: map.flatten(map.get(tokens.$designSystem, style));
 
@@ -22,7 +24,7 @@ $_flattenedStyle: map.flatten(map.get(tokens.$designSystem, style));
     /* #region Tokens - Style */
     #{selector.parent-or-root()} {
         @each $slug, $_value in $_flattenedStyle {
-            @include cx-prop(style-#{$slug}, style-value($slug));
+            @include utils.cx-prop(style-#{$slug}, style-value($slug));
         }
     }
     /* #endregion Tokens - Style */

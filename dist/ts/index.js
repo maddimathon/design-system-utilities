@@ -9,7 +9,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.10
+ * @maddimathon/design-system-utilities@0.1.0-alpha.11
  * @license MIT
  */
 export * from './01-utilities/ColourContrastTest.js';
