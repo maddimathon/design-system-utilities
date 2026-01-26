@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.12
+ * @maddimathon/design-system-utilities@0.1.1-alpha.0.draft
  * @license MIT
  */
 import * as z from 'zod';
@@ -29,8 +29,6 @@ export class AbstractTokens {
         '900',
     ];
     static tokenLevels_extraOptions = [
-        '000',
-        '050',
         '150',
         '250',
         '350',
@@ -39,7 +37,6 @@ export class AbstractTokens {
         '650',
         '750',
         '850',
-        '950',
     ];
     tokenLevels = AbstractTokens.tokenLevels;
     /**

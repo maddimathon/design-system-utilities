@@ -8,10 +8,7 @@
 /* import - types */
 import type { ComponentProps } from 'astro/types';
 import type { ColourContrastTest } from '../../ts/01-utilities/ColourContrastTest.js';
-import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
 import type {
-    ColourLevels,
-    ColourLevels_Extended,
     ColourNameGeneric,
 } from '../../ts/02-tokens/@types.d.ts';
 import type { Tokens, Tokens_Internal } from '../../ts/02-tokens/Tokens.js';
@@ -22,6 +19,7 @@ import {
     arrayUnique,
     toTitleCase,
 } from '@maddimathon/utility-typescript/functions';
+import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
 import { objectGenerator } from '../../ts/01-utilities/objectGenerator.js';
 import { objectMap } from '../../ts/01-utilities/objectMap.js';
 
@@ -39,7 +37,7 @@ import Heading from '@maddimathon/utility-astro/components/Heading';
 export interface Props<
     T_ColourName extends string = Tokens_Internal.Default_ColourName,
     T_ExtraLevels extends
-        ColourLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
+        ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels,
 > extends Omit<
     ComponentProps<typeof Heading>,
     'frontmatter' | 'heading' | 'id'
@@ -77,10 +75,10 @@ type ColourSet_AllShadeLevels_Result = undefined | {
 };
 
 type ColourSet_AllShadeLevels<
-    T_ExtraLevels extends ColourLevels_Extended,
+    T_ExtraLevels extends ColourUtilities.Levels.Optional,
 > = undefined | {
-    [ K in ColourLevels | T_ExtraLevels ]?: {
-        level: ColourLevels | T_ExtraLevels;
+    [ K in ColourUtilities.Levels.Required | T_ExtraLevels ]?: {
+        level: ColourUtilities.Levels.Required | T_ExtraLevels;
         ratio: number;
         result: ColourSet_AllShadeLevels_Result;
         interpretedResult: string;
@@ -89,16 +87,16 @@ type ColourSet_AllShadeLevels<
 };
 
 type ColourSet_MinMax_Single<
-    T_ExtraLevels extends ColourLevels_Extended,
+    T_ExtraLevels extends ColourUtilities.Levels.Optional,
 > = undefined | {
-    level: ColourLevels | T_ExtraLevels;
+    level: ColourUtilities.Levels.Required | T_ExtraLevels;
     ratio: number;
     shade: ColourUtilities.SingleShade;
     shadeLevelName: string;
 };
 
 type ColourSet_Minimum<
-    T_ExtraLevels extends ColourLevels_Extended,
+    T_ExtraLevels extends ColourUtilities.Levels.Optional,
 > = undefined | {
     [S in 'aa' | 'aaa']?: {
         colCount: number;
@@ -110,7 +108,7 @@ type ColourSet_Minimum<
 type ColourSet<
     T_ColourName extends string = Tokens_Internal.Default_ColourName,
     T_ExtraLevels extends
-        ColourLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
+        ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels,
 > =
     | undefined
     | {
@@ -128,7 +126,7 @@ type ColourSet<
 function getShadeMapSets<
     T_ColourName extends string = Tokens_Internal.Default_ColourName,
     T_ExtraLevels extends
-        ColourLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
+        ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels,
 >(
     _tokens: Tokens.JsonReturn<T_ColourName, T_ExtraLevels>,
     _values: Props<ColourNameGeneric<T_ColourName>, T_ExtraLevels>['values'],
@@ -236,7 +234,7 @@ function getShadeMapSets<
                 ([key, value]) => {
                     
                     let __val: undefined | {
-                        level: ColourLevels | T_ExtraLevels;
+                        level: ColourUtilities.Levels.Required | T_ExtraLevels;
                         ratio: number;
                         result: ColourSet_AllShadeLevels_Result;
                         interpretedResult: string;
@@ -279,7 +277,7 @@ function getShadeMapSets<
                         }
 
                         __val = {
-                            level: key as ColourLevels | T_ExtraLevels,
+                            level: key as ColourUtilities.Levels.Required | T_ExtraLevels,
                             ratio: value?.ratio,
                             result,
                             interpretedResult: interpretedResult ?? 'Fail',

@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.12
+ * @maddimathon/design-system-utilities@0.1.1-alpha.0.draft
  * @license MIT
  */
 import { mergeArgs } from '@maddimathon/utility-typescript/functions';
@@ -21,7 +21,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
             border: {
                 radius: '0',
                 style: 'solid',
-                width: '200',
+                width: '100',
             },
             focus: {
                 offset: '300',
@@ -49,7 +49,21 @@ export class Tokens_CSS_Style extends AbstractTokens {
             },
             width: 'fit-content',
         };
-        return style;
+        return {
+            $: style,
+            disabled: {
+                border: {
+                    radius: style.border.radius,
+                    style: 'dashed',
+                },
+                font: {
+                    ...style.font,
+                    style: 'italic',
+                },
+                'letter-spacing': style['letter-spacing'],
+                'text-transform': style['text-transform'],
+            },
+        };
     }
     static headingStyle(heading) {
         heading = heading < 1 ? 11 : heading;

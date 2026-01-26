@@ -1,6 +1,6 @@
 {
     "name": "@maddimathon/design-system-utilities",
-    "version": "0.1.0-alpha.12",
+    "version": "0.1.1-alpha.0",
 
     "author": "Maddi Mathon (www.maddimathon.com)",
     "description": "Utilities to use while building brand kits or design systems.",
@@ -191,13 +191,14 @@
         
         
         "watch": "run-p --silent watch:*",
-            "watch:astro":     "watch -p 'src/astro/components/**/*' -p 'src/astro/layouts/**/*' -c 'build-utils build --only compile      --only-compile astro     --watchedWatcher \"watch:astro\"      --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
-            "watch:scss":      "watch -p 'src/scss/**/*' -p 'src/docs/scss/**/*'                 -c 'build-utils build --only compile      --only-compile scss      --watchedWatcher \"watch:scss\"       --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
-            "watch:docs-scss": "watch -p 'src/scss/**/*' -p 'src/docs/scss/**/*'                 -c 'build-utils build --only document     --only-document scss     --watchedWatcher \"watch:docs-scss\"  --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
-            "watch:ts":        "watch -p 'src/ts/**/*'                                           -c 'build-utils build --only compile,test --only-compile ts,tokens --watchedWatcher \"watch:ts\"         --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:astro":     "watch -p 'src/astro/components/**/*' -p 'src/astro/layouts/**/*' -c 'build-utils build --only compile      --only-compile astro     --watchedWatcher \"watch:astro\"     --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:scss":      "watch -p 'src/scss/**/*' -p 'src/docs/scss/**/*'                 -c 'build-utils build --only compile      --only-compile scss      --watchedWatcher \"watch:scss\"      --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:docs-scss": "watch -p 'src/scss/**/*' -p 'src/docs/scss/**/*'                 -c 'build-utils build --only document     --only-document scss     --watchedWatcher \"watch:docs-scss\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:ts":        "watch -p 'src/ts/**/*'                                           -c 'build-utils build --only compile,test --only-compile ts,tokens --watchedWatcher \"watch:ts\"        --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:docs-ts":   "watch -p 'dist/ts/**/*'                                          -c 'build-utils build --only document     --only-document typedoc  --watchedWatcher \"watch:docs-ts\"   --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
         
-        "build-start":       "build-utils build --starting --without minimize                             && npm run --silent start",
-        "quick-build-start": "build-utils build --starting --without minimize --without-compile templates && npm run --silent start",
+        "build-start":       "build-utils build --starting --without minimize                             --without-document astro && npm run --silent start",
+        "quick-build-start": "build-utils build --starting --without minimize --without-compile templates --without-document astro && npm run --silent start",
 
         "build-update": "npm run --silent build -- --watchedWatcher \"watch:cx\" --watchedChange --only compile,document --without-compile astro,templates,files --only-document scss --verbose",
 
@@ -211,9 +212,9 @@
     },
     
     "dependencies": {
-        "@maddimathon/build-utilities": "~0.3.0-alpha.13",
+        "@maddimathon/build-utilities": "~0.3.0-alpha.14",
         "@maddimathon/utility-astro": "github:maddimathon/utility-astro#0.1.0-alpha.12",
-        "@maddimathon/utility-sass": "github:maddimathon/utility-sass#0.1.0-alpha.16",
+        "@maddimathon/utility-sass": "github:maddimathon/utility-sass#0.1.0-alpha.17",
         "@maddimathon/utility-typescript": "2.0.0-beta.1",
         "astro": "^5.16.0",
         "color-convert": "^3.1.3",

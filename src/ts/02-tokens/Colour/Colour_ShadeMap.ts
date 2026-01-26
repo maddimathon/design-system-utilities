@@ -8,8 +8,6 @@
  * @license MIT
  */
 
-import type { ColourLevels, ColourLevels_Extended } from '../@types.js';
-
 import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
 import { objectMap } from '../../01-utilities/objectMap.js';
 
@@ -25,7 +23,7 @@ import { Tokens_Colour_ShadeMap_Shade } from './ShadeMap/ShadeMap_Shade.js';
  */
 export class Tokens_Colour_ShadeMap<
     T_ColourName extends string,
-    T_ExtraLevels extends ColourLevels_Extended,
+    T_ExtraLevels extends ColourUtilities.Levels.Optional,
 > extends AbstractTokens<Tokens_Colour_ShadeMap.Data<T_ColourName, T_ExtraLevels>> {
 
     public readonly data: Tokens_Colour_ShadeMap.Data<T_ColourName, T_ExtraLevels>;
@@ -58,10 +56,10 @@ export class Tokens_Colour_ShadeMap<
         const promises: Promise<void>[] = [];
 
         for ( const t_thisLevel in this.data ) {
-            const thisLevel = t_thisLevel as ColourLevels | T_ExtraLevels;
+            const thisLevel = t_thisLevel as ColourUtilities.Levels.Required | T_ExtraLevels;
 
             for ( const t_testLevel in testMap.data ) {
-                const testLevel = t_testLevel as ColourLevels | T_ExtraLevels;
+                const testLevel = t_testLevel as ColourUtilities.Levels.Required | T_ExtraLevels;
 
                 promises.push(
                     this.data[ thisLevel ].addContrastTest(
@@ -85,7 +83,7 @@ export class Tokens_Colour_ShadeMap<
     }
 
     public toScssVars(): {
-        [ K in ColourLevels | T_ExtraLevels ]: AbstractTokens.ScssReturn;
+        [ K in ColourUtilities.Levels.Required | T_ExtraLevels ]: AbstractTokens.ScssReturn;
     } {
 
         return objectMap(
@@ -104,23 +102,23 @@ export namespace Tokens_Colour_ShadeMap {
 
     export type Data<
         T_ColourName extends string,
-        T_ExtraLevels extends ColourLevels_Extended,
+        T_ExtraLevels extends ColourUtilities.Levels.Optional,
     > = {
-            [ N in ColourLevels | T_ExtraLevels ]: Tokens_Colour_ShadeMap_Shade<T_ColourName, T_ExtraLevels>;
+            [ N in ColourUtilities.Levels.Required | T_ExtraLevels ]: Tokens_Colour_ShadeMap_Shade<T_ColourName, T_ExtraLevels>;
         };
 
     export type InputParam<
         T_ColourName extends string,
-        T_ExtraLevels extends ColourLevels_Extended,
+        T_ExtraLevels extends ColourUtilities.Levels.Optional,
     > = {
-            [ N in ColourLevels | T_ExtraLevels ]?: Tokens_Colour_ShadeMap_Shade.InputParam;
+            [ N in ColourUtilities.Levels.Required | T_ExtraLevels ]?: Tokens_Colour_ShadeMap_Shade.InputParam;
         };
 
     export type JsonReturn<
         T_ColourName extends string,
-        T_ExtraLevels extends ColourLevels_Extended,
+        T_ExtraLevels extends ColourUtilities.Levels.Optional,
     > = {
-            [ N in ColourLevels | T_ExtraLevels ]: Tokens_Colour_ShadeMap_Shade.JsonReturn<T_ColourName, T_ExtraLevels>;
+            [ N in ColourUtilities.Levels.Required | T_ExtraLevels ]: Tokens_Colour_ShadeMap_Shade.JsonReturn<T_ColourName, T_ExtraLevels>;
         };
 
 
@@ -131,7 +129,7 @@ export namespace Tokens_Colour_ShadeMap {
     // UPGRADE - make this work by only setting lch or hsl hue value
     export function completeMap<
         T_ColourName extends string,
-        T_ExtraLevels extends ColourLevels_Extended,
+        T_ExtraLevels extends ColourUtilities.Levels.Optional,
     >(
         allNames: readonly T_ColourName[],
         extraLevels: readonly T_ExtraLevels[],
@@ -141,12 +139,12 @@ export namespace Tokens_Colour_ShadeMap {
 
         _treatShadeAsBase?: boolean,
     ): {
-            [ L in ColourLevels | T_ExtraLevels ]: Tokens_Colour_ShadeMap_Shade<T_ColourName, T_ExtraLevels>;
+            [ L in ColourUtilities.Levels.Required | T_ExtraLevels ]: Tokens_Colour_ShadeMap_Shade<T_ColourName, T_ExtraLevels>;
         } {
 
         const treatShadeAsBase = _treatShadeAsBase ?? ( name.match( /^base(\-|\_|$)/i ) !== null );
 
-        const inputKeys = Object.keys( part ) as ColourLevels[];
+        const inputKeys = Object.keys( part ) as ColourUtilities.Levels.Required[];
 
         const bases = {
             '100': { l: 98, c: 0, h: 0, },
@@ -155,7 +153,7 @@ export namespace Tokens_Colour_ShadeMap {
         };
 
         const shadeMaker = (
-            _thisLevel: ColourLevels | T_ExtraLevels,
+            _thisLevel: ColourUtilities.Levels.Required | T_ExtraLevels,
             _input: Tokens_Colour_ShadeMap_Shade<T_ColourName, T_ExtraLevels> | Tokens_Colour_ShadeMap_Shade.InputParam,
         ) => {
 
@@ -371,7 +369,7 @@ export namespace Tokens_Colour_ShadeMap {
         );
 
         const defaultLevels: {
-            [ L in ColourLevels ]: Tokens_Colour_ShadeMap_Shade<T_ColourName, T_ExtraLevels>;
+            [ L in ColourUtilities.Levels.Required ]: Tokens_Colour_ShadeMap_Shade<T_ColourName, T_ExtraLevels>;
         } = {
             '100': l_100,
             '150': l_150,
@@ -392,7 +390,7 @@ export namespace Tokens_Colour_ShadeMap {
 
         // @ts-expect-error - this will be filled
         const completeLevels: {
-            [ L in ColourLevels | T_ExtraLevels ]: Tokens_Colour_ShadeMap_Shade<T_ColourName, T_ExtraLevels>;
+            [ L in ColourUtilities.Levels.Required | T_ExtraLevels ]: Tokens_Colour_ShadeMap_Shade<T_ColourName, T_ExtraLevels>;
         } = {};
 
         const levelsToInclude = [
@@ -405,7 +403,7 @@ export namespace Tokens_Colour_ShadeMap {
 
             // continues
             if ( level in defaultLevels ) {
-                completeLevels[ level ] = defaultLevels[ level as ColourLevels ];
+                completeLevels[ level ] = defaultLevels[ level as ColourUtilities.Levels.Required ];
                 continue levelLoop;
             }
 
@@ -415,8 +413,8 @@ export namespace Tokens_Colour_ShadeMap {
                 continue levelLoop;
             }
 
-            let lowerLevel: ColourLevels;
-            let higherLevel: ColourLevels;
+            let lowerLevel: ColourUtilities.Levels.Required;
+            let higherLevel: ColourUtilities.Levels.Required;
 
             // continues for 000, 050, and 950
             switch ( level as T_ExtraLevels ) {
@@ -452,5 +450,27 @@ export namespace Tokens_Colour_ShadeMap {
         }
 
         return completeLevels;
+    }
+
+    /**
+     * Sample shade maps for contrast & level goals.
+     */
+    export namespace Yardsticks {
+
+        export const base = {
+            '100': { l: 99, c: 0, h: 0, },
+            // '200': { l: 92, c: 0, h: 0, },
+            '300': { l: 80, c: 0, h: 0, },
+            '500': { l: 51, c: 0, h: 0, },
+            '700': { l: 22, c: 0, h: 0, },
+            // '800': { l: 5, c: 0, h: 0, },
+            '900': { l: 3, c: 0, h: 0, },
+        } as const;
+
+        export const accent = {
+            '100': { l: 97, c: 0, h: 0, },
+            '500': { l: 50.5, c: 0, h: 0, },
+            '900': { l: 4, c: 0, h: 0, },
+        } as const;
     }
 }

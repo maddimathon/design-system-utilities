@@ -8,16 +8,16 @@
  * @license MIT
  */
 
-import type { ColourLevels, ColourLevels_Extended } from '../../ts/02-tokens/@types.d.ts';
+import type { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
 import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
 
 export function shadeMapToArray<
     T_ColourName extends string = string,
-    T_ExtraLevels extends ColourLevels_Extended = ColourLevels_Extended,
+    T_ExtraLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional,
 >(
     map: Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, T_ExtraLevels>,
 ) {
-    const levels = Object.keys( map ) as ColourLevels[];
+    const levels = Object.keys( map ) as ColourUtilities.Levels.Required[];
 
     return levels
         .map( ( level ) => {

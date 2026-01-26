@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.12
+ * @maddimathon/design-system-utilities@0.1.1-alpha.0.draft
  * @license MIT
  */
 import { arrayUnique, mergeArgs } from '@maddimathon/utility-typescript/functions';
@@ -27,7 +27,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
      * @since 0.1.0-alpha
      */
     static async build(preset, brightness, clrNames, input, overrides = {}) {
-        let defaultLevels;
+        let defaultLevels = Tokens_Themes_Set_SingleMode.Build.LEVELS_DEFAULT.high;
         let levels;
         const variations = Tokens_Themes_Set_SingleMode.Build.completeVariations(clrNames, input.variations);
         const clrOpt = Tokens_Themes_Set_SingleMode.Build.colourOption;
@@ -36,30 +36,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
         switch (preset) {
             case 'average':
                 description = description ?? 'This is the default contrast mode for most users, unless they have defined a specific preference (‘low’, ‘high’, or ‘forced-colors’) in their OS or browser settings.  It meets or exceeds WCAG AAA contrast standards.';
-                defaultLevels = {
-                    background: '150',
-                    text: {
-                        $: '800',
-                        accent: '750',
-                        min: '700',
-                    },
-                    ui: {
-                        $: '800',
-                        accent: '750',
-                        min: '700',
-                    },
-                    heading: objectGenerator(Tokens_Themes_Set_SingleMode.allHeadingLevels, (hdgNum) => {
-                        // returns on match
-                        switch (hdgNum) {
-                            case 1:
-                                return '800';
-                            case 2:
-                            case 3:
-                                return '750';
-                        }
-                        return '700';
-                    }),
-                };
+                defaultLevels = Tokens_Themes_Set_SingleMode.Build.LEVELS_DEFAULT.average;
                 levels = Tokens_Themes_Set_SingleMode.Build.completeLevels(mergeArgs(defaultLevels, input.levels, true));
                 overrides.selection = {
                     bg: clrOpt(variations.universal.primary, '300'),
@@ -69,30 +46,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 break;
             case 'low':
                 description = description ?? 'This is the low contrast mode.  This is the default for users who set ‘low’ as their preferred contrast mode in their OS or browser settings.  It mostly meets WCAG AA contrast standards, but in rare cases does not (which is acceptable in this case).';
-                defaultLevels = {
-                    background: '250',
-                    text: {
-                        $: '700',
-                        accent: '700',
-                        min: '600',
-                    },
-                    ui: {
-                        $: '700',
-                        accent: '700',
-                        min: '600',
-                    },
-                    heading: objectGenerator(Tokens_Themes_Set_SingleMode.allHeadingLevels, (hdgNum) => {
-                        // returns on match
-                        switch (hdgNum) {
-                            case 1:
-                                return '600';
-                            case 2:
-                            case 3:
-                                return '700';
-                        }
-                        return '700';
-                    }),
-                };
+                defaultLevels = Tokens_Themes_Set_SingleMode.Build.LEVELS_DEFAULT.low;
                 levels = Tokens_Themes_Set_SingleMode.Build.completeLevels(mergeArgs(defaultLevels, input.levels, true));
                 overrides.selection = {
                     bg: clrOpt(variations.universal.primary, '300'),
@@ -102,47 +56,12 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 break;
             case 'high':
                 description = description ?? 'This is the high contrast mode.  This is the default for users who set ‘high’ as their preferred contrast mode in their OS or browser settings.  It exceeds WCAG AAA contrast standards.';
-                defaultLevels = {
-                    background: '100',
-                    text: {
-                        $: '850',
-                        accent: '800',
-                        min: '700',
-                    },
-                    ui: {
-                        $: '850',
-                        accent: '800',
-                        min: '700',
-                    },
-                    heading: objectGenerator(Tokens_Themes_Set_SingleMode.allHeadingLevels, (hdgNum) => {
-                        // returns on match
-                        switch (hdgNum) {
-                            case 1:
-                            case 2:
-                            case 3:
-                                return '700';
-                        }
-                        return '800';
-                    }),
-                };
+                defaultLevels = Tokens_Themes_Set_SingleMode.Build.LEVELS_DEFAULT.high;
                 levels = Tokens_Themes_Set_SingleMode.Build.completeLevels(mergeArgs(defaultLevels, input.levels, true));
                 break;
             case 'max':
                 description = description ?? 'This is the maximum contrast mode.  This is an alternate option for users who want an even higher contrast than the ‘high’ mode, but without enabling ‘forced-colors’ mode.  It exceeds WCAG AAA contrast standards.';
-                defaultLevels = {
-                    background: '100',
-                    text: {
-                        $: '900',
-                        accent: '850',
-                        min: '850',
-                    },
-                    ui: {
-                        $: '850',
-                        accent: '850',
-                        min: '800',
-                    },
-                    heading: objectGenerator(Tokens_Themes_Set_SingleMode.allHeadingLevels, () => '850'),
-                };
+                defaultLevels = Tokens_Themes_Set_SingleMode.Build.LEVELS_DEFAULT.max;
                 levels = Tokens_Themes_Set_SingleMode.Build.completeLevels(mergeArgs(defaultLevels, input.levels, true));
                 overrides.selection = {
                     bg: clrOpt(variations.universal.primary, '850'),
@@ -251,39 +170,175 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
         }
         Build.colourOption = colourOption;
         function completeLevels(input) {
-            const text = typeof input?.text === 'object'
-                ? {
-                    $: input.text?.$ ?? '800',
-                    accent: input.text?.accent ?? '800',
-                    min: input.text?.min ?? '800',
-                }
-                : {
-                    $: input?.text ?? '800',
-                    accent: input?.text ?? '800',
-                    min: input?.text ?? '800',
-                };
-            const ui = typeof input?.ui === 'object'
-                ? {
-                    $: input.ui?.$ ?? '700',
-                    accent: input.ui?.accent ?? '700',
-                    min: input.ui?.min ?? '700',
-                }
-                : {
-                    $: input?.ui ?? '700',
-                    accent: input?.ui ?? '700',
-                    min: input?.ui ?? '700',
-                };
-            const heading = typeof input?.heading === 'object'
-                ? objectGenerator(Tokens_Themes_Set_SingleMode.allHeadingLevels, (hdgNum) => input.heading?.[hdgNum] ?? text.accent)
-                : objectGenerator(Tokens_Themes_Set_SingleMode.allHeadingLevels, () => input?.heading ?? text.accent);
+            const DEFAULT = LEVELS_DEFAULT.high;
+            const nomalized_input = {
+                background: typeof input?.background === 'object' ? input?.background : {
+                    $: input?.background,
+                    accent: input?.background,
+                    alt: input?.background,
+                },
+                heading: typeof input?.heading === 'object'
+                    ? input?.heading
+                    : input?.heading
+                        ? objectGenerator(Tokens_Themes_Set_SingleMode.allHeadingLevels, () => input?.heading)
+                        : {},
+                text: typeof input?.text === 'object' ? input?.text : {
+                    $: input?.text,
+                    accent: input?.text,
+                    min: input?.text,
+                },
+                ui: typeof input?.ui === 'object' ? input?.ui : {
+                    $: input?.ui,
+                    accent: input?.ui,
+                    min: input?.ui,
+                },
+            };
+            const background = {
+                $: nomalized_input.background?.$ ?? DEFAULT.background.$,
+                accent: nomalized_input.background?.accent ?? DEFAULT.background.accent,
+                alt: nomalized_input.background?.alt ?? DEFAULT.background.alt,
+            };
+            const text = {
+                $: nomalized_input.text?.$ ?? DEFAULT.text.$,
+                accent: nomalized_input.text?.accent ?? DEFAULT.text.accent,
+                min: nomalized_input.text?.min ?? DEFAULT.text.min,
+            };
+            const ui = {
+                $: nomalized_input.ui?.$ ?? nomalized_input.text?.$ ?? DEFAULT.ui.$,
+                accent: nomalized_input.ui?.accent ?? nomalized_input.text?.accent ?? DEFAULT.ui.accent,
+                min: nomalized_input.ui?.min ?? nomalized_input.text?.min ?? DEFAULT.ui.min,
+            };
+            const heading = objectGenerator(Tokens_Themes_Set_SingleMode.allHeadingLevels, (hdgNum) => nomalized_input.heading?.[hdgNum] ?? DEFAULT.heading[hdgNum]);
             return {
-                background: input?.background ?? '100',
+                background,
                 text,
                 ui,
                 heading,
             };
         }
         Build.completeLevels = completeLevels;
+        /**
+         * @since 0.1.1-alpha.0.draft
+         */
+        let LEVELS_DEFAULT;
+        (function (LEVELS_DEFAULT) {
+            LEVELS_DEFAULT.average = {
+                background: {
+                    $: '150',
+                    alt: '250',
+                    accent: '200',
+                },
+                text: {
+                    $: '800',
+                    accent: '700',
+                    min: '600',
+                },
+                ui: {
+                    $: '800',
+                    accent: '700',
+                    min: '600',
+                },
+                heading: {
+                    1: '800',
+                    2: '700',
+                    3: '700',
+                    4: '700',
+                    5: '700',
+                    6: '700',
+                    7: '700',
+                    8: '700',
+                    9: '700',
+                    10: '700',
+                },
+            };
+            LEVELS_DEFAULT.high = {
+                background: {
+                    $: '100',
+                    alt: '200',
+                    accent: '150',
+                },
+                text: {
+                    $: '850',
+                    accent: '750',
+                    min: '700',
+                },
+                ui: {
+                    $: '850',
+                    accent: '750',
+                    min: '700',
+                },
+                heading: {
+                    1: '800',
+                    2: '700',
+                    3: '700',
+                    4: '700',
+                    5: '750',
+                    6: '750',
+                    7: '750',
+                    8: '750',
+                    9: '750',
+                    10: '750',
+                },
+            };
+            LEVELS_DEFAULT.low = {
+                background: {
+                    $: '250',
+                    alt: '200',
+                    accent: '200',
+                },
+                text: {
+                    $: '700',
+                    accent: '700',
+                    min: '600',
+                },
+                ui: {
+                    $: '700',
+                    accent: '700',
+                    min: '600',
+                },
+                heading: {
+                    1: '600',
+                    2: '700',
+                    3: '700',
+                    4: '700',
+                    5: '750',
+                    6: '750',
+                    7: '750',
+                    8: '750',
+                    9: '750',
+                    10: '750',
+                },
+            };
+            LEVELS_DEFAULT.max = {
+                background: {
+                    $: '100',
+                    alt: '100',
+                    accent: '100',
+                },
+                text: {
+                    $: '900',
+                    accent: '850',
+                    min: '850',
+                },
+                ui: {
+                    $: '900',
+                    accent: '850',
+                    min: '850',
+                },
+                heading: {
+                    1: '850',
+                    2: '850',
+                    3: '850',
+                    4: '850',
+                    5: '850',
+                    6: '850',
+                    7: '850',
+                    8: '850',
+                    9: '850',
+                    10: '850',
+                },
+            };
+        })(LEVELS_DEFAULT = Build.LEVELS_DEFAULT || (Build.LEVELS_DEFAULT = {}));
         function completeVariations(clrNames, input) {
             const clrNames_noBase = clrNames.filter(v => v !== 'base');
             const base = 'base';
@@ -292,6 +347,9 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
             const clr_3 = input?.text?.active ?? input?.interactive?.active ?? clrNames_noBase[2] ?? clr_2;
             const def = {
                 base: base,
+                background: {
+                    alt: base,
+                },
                 universal: {
                     primary: clr_1,
                     secondary: clr_2,
@@ -308,6 +366,9 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                     disabled: base,
                 },
             };
+            if (!input?.background) {
+                def.background.primary = clr_1;
+            }
             const vars = mergeArgs(def, input, true);
             return vars;
         }
@@ -320,6 +381,12 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
         async function data(input) {
             const clrOpt = colourOption;
             const { levels, variations, } = input;
+            const background = {
+                $: clrOpt(variations.base, levels.background.$),
+                ...objectMap(variations.background, ([key, clrName]) => clrOpt(clrName, levels.background.alt)),
+                ...objectMap(variations.universal, ([key, clrName]) => clrOpt(clrName, levels.background.accent)),
+                alt: clrOpt(variations.base, levels.background.alt),
+            };
             const text = {
                 $: clrOpt(variations.base, levels.text.$),
                 ...objectMap(variations.universal, ([key, clrName]) => clrOpt(clrName, levels.text.accent)),
@@ -384,14 +451,14 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                         active: clrOpt(_activeClr, levels.text.accent),
                     },
                     text: {
-                        $: clrOpt(variations.base, levels.background),
-                        hover: clrOpt(variations.base, levels.background),
-                        active: clrOpt(variations.base, levels.background),
+                        $: clrOpt(variations.base, levels.background.$),
+                        hover: clrOpt(variations.base, levels.background.$),
+                        active: clrOpt(variations.base, levels.background.$),
                     },
                     ui: {
-                        $: clrOpt(variations.base, levels.background),
-                        hover: clrOpt(variations.base, levels.background),
-                        active: clrOpt(variations.base, levels.background),
+                        $: clrOpt(variations.base, levels.background.$),
+                        hover: clrOpt(variations.base, levels.background.$),
+                        active: clrOpt(variations.base, levels.background.$),
                     },
                 };
             };
@@ -413,25 +480,25 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                         active: clrOpt(variations.base, levels.text.min),
                     },
                     text: {
-                        $: clrOpt(variations.base, levels.background),
-                        hover: clrOpt(variations.base, levels.background),
-                        active: clrOpt(variations.base, levels.background),
+                        $: clrOpt(variations.base, levels.background.$),
+                        hover: clrOpt(variations.base, levels.background.$),
+                        active: clrOpt(variations.base, levels.background.$),
                     },
                     ui: {
-                        $: clrOpt(variations.base, levels.background),
-                        hover: clrOpt(variations.base, levels.background),
-                        active: clrOpt(variations.base, levels.background),
+                        $: clrOpt(variations.base, levels.background.$),
+                        hover: clrOpt(variations.base, levels.background.$),
+                        active: clrOpt(variations.base, levels.background.$),
                     },
                 },
             };
             const complete = {
-                background: clrOpt(variations.base, levels.background),
+                background,
                 text,
                 ui,
                 heading,
                 selection: {
                     bg: clrOpt(variations.universal.primary, levels.text.accent),
-                    text: clrOpt(variations.base, levels.background),
+                    text: clrOpt(variations.base, levels.background.$),
                 },
                 link,
                 'link-icon': linkIcon,
@@ -444,9 +511,9 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                         active: clrOpt(variations.interactive.active, levels.ui.accent),
                     },
                     bg: {
-                        $: clrOpt(variations.base, levels.background),
-                        hover: clrOpt(variations.base, levels.background),
-                        active: clrOpt(variations.base, levels.background),
+                        $: clrOpt(variations.base, levels.background.$),
+                        hover: clrOpt(variations.base, levels.background.$),
+                        active: clrOpt(variations.base, levels.background.$),
                     },
                     border: {
                         $: clrOpt(variations.base, levels.ui.min),
@@ -462,15 +529,15 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 system: {
                     accent: {
                         bg: clrOpt(variations.universal.primary, levels.text.accent),
-                        text: clrOpt(variations.base, levels.background),
+                        text: clrOpt(variations.base, levels.background.$),
                     },
                     mark: {
                         bg: clrOpt(variations.text.active, levels.text.accent),
-                        text: clrOpt(variations.base, levels.background),
+                        text: clrOpt(variations.base, levels.background.$),
                     },
                     selected: {
                         bg: clrOpt(variations.interactive.hover, levels.text.accent),
-                        text: clrOpt(variations.base, levels.background),
+                        text: clrOpt(variations.base, levels.background.$),
                     },
                 },
             };
@@ -487,6 +554,11 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
             const sysclr = {
                 background: 'Canvas',
                 text: 'CanvasText',
+            };
+            const background = {
+                $: sysclr.background,
+                ...objectMap(variations.background, () => sysclr.background),
+                ...objectMap(variations.universal, () => sysclr.background),
             };
             const text = {
                 $: sysclr.text,
@@ -544,7 +616,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 disabled: singleButton,
             };
             const complete = {
-                background: sysclr.background,
+                background,
                 text,
                 ui: text,
                 heading,

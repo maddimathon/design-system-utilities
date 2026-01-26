@@ -23,14 +23,17 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
  */
 export class Tokens_CSS_Style extends AbstractTokens<Tokens_CSS_Style.Data> {
 
-    public static buttonStyle(): Tokens_CSS_Style.ButtonStyles {
+    public static buttonStyle(): {
+        $: Tokens_CSS_Style.ButtonStyles;
+        disabled: Tokens_CSS_Style.ButtonStyles_Disabled;
+    } {
 
         const style: Tokens_CSS_Style.ButtonStyles = {
 
             border: {
                 radius: '0',
                 style: 'solid',
-                width: '200',
+                width: '100',
             },
 
             focus: {
@@ -66,7 +69,22 @@ export class Tokens_CSS_Style extends AbstractTokens<Tokens_CSS_Style.Data> {
             width: 'fit-content',
         };
 
-        return style;
+        return {
+            $: style,
+            disabled: {
+                border: {
+                    radius: style.border.radius,
+                    style: 'dashed',
+                },
+
+                font: {
+                    ...style.font,
+                    style: 'italic',
+                },
+                'letter-spacing': style[ 'letter-spacing' ],
+                'text-transform': style[ 'text-transform' ],
+            },
+        };
     }
 
     public static headingStyle( heading: number ): Tokens_CSS_Style.HeadingStyles {
@@ -184,7 +202,11 @@ export class Tokens_CSS_Style extends AbstractTokens<Tokens_CSS_Style.Data> {
     ) {
         super();
 
-        this.data = mergeArgs( Tokens_CSS_Style.default, input, true );
+        this.data = mergeArgs(
+            Tokens_CSS_Style.default,
+            input,
+            true,
+        );
     }
 
     public toJSON(): Tokens_CSS_Style.JsonReturn {
@@ -250,7 +272,19 @@ export namespace Tokens_CSS_Style {
         width: string;
     }
 
+    export interface ButtonStyles_Disabled extends Omit<
+        ButtonStyles,
+        'border' | 'focus' | 'gap' | 'line-height' | 'margin' | 'padding' | 'width'
+    > {
+        border: Omit<ButtonStyles[ 'border' ], 'width'>;
+
+        'letter-spacing': string;
+        'text-transform': CSS.TextTransform;
+    }
+
     export interface ButtonStyles_Partial extends RecursivePartial<ButtonStyles> { }
+
+    export interface ButtonStyles_Disabled_Partial extends RecursivePartial<ButtonStyles_Disabled> { }
 
     export interface HeadingStyles {
 
@@ -278,7 +312,10 @@ export namespace Tokens_CSS_Style {
      */
     export type Data = {
 
-        button: ButtonStyles;
+        button: {
+            $: ButtonStyles;
+            disabled: ButtonStyles_Disabled;
+        };
 
         heading: {
             [ L in RequiredHeadingLevels ]: HeadingStyles;
@@ -298,7 +335,10 @@ export namespace Tokens_CSS_Style {
      */
     export type InputParam = {
 
-        button?: ButtonStyles_Partial;
+        button?: {
+            $: ButtonStyles_Partial;
+            disabled?: ButtonStyles_Disabled_Partial;
+        };
 
         heading?: {
             [ L in RequiredHeadingLevels ]?: HeadingStyles_Partial;

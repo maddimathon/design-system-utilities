@@ -8,11 +8,7 @@
 /* import - types */
 import type { HTMLAttributes } from 'astro/types';
 import type { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
-import type {
-    ColourLevels,
-    ColourLevels_Extended,
-    ColourNameGeneric,
-} from '../../ts/02-tokens/@types.d.ts';
+import type { ColourNameGeneric } from '../../ts/02-tokens/@types.d.ts';
 import type { Tokens, Tokens_Internal } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
 import type { Tokens_Colour_ShadeMap_Shade } from '../../ts/02-tokens/Colour/ShadeMap/ShadeMap_Shade.js';
@@ -34,12 +30,12 @@ import ShadeSwatch_ColourValue from './ShadeSwatch_ColourValue.astro';
 
 export interface Props<
     T_ColourName extends string = Tokens_Internal.Default_ColourName,
-    T_ExtraLevels extends
-        ColourLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
+    T_ExtraLevels extends ColourUtilities.Levels.Optional =
+        Tokens_Internal.Default_ExtraColourLevels,
 > extends Omit<HTMLAttributes<'div'>, 'class'> {
     heading: number;
     id: string;
-    level: ColourLevels;
+    level: ColourUtilities.Levels.Required;
     name: string;
 
     tokens: Tokens.JsonReturn<T_ColourName, T_ExtraLevels>;
@@ -78,7 +74,9 @@ const {
 
 /* FUNCTIONS ===================================== */
 
-export function textColorLevel(lvl: ColourLevels | ColourLevels_Extended) {
+export function textColorLevel(
+    lvl: ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional,
+) {
     switch (lvl) {
         case '100':
             return '700';
@@ -177,7 +175,7 @@ const cssVars = {
 //     );
 
 const presentTypes = (Object.keys(values) as (keyof typeof values)[]).filter(
-    (v) => v !== 'contrast'
+    (v) => v !== 'contrast',
 );
 
 const valueTypes = objectGenerator(
@@ -190,7 +188,7 @@ const valueTypes = objectGenerator(
         } satisfies {
             shade: Partial<ColourUtilities.SingleShade>;
             version: keyof ColourUtilities.SingleShade;
-        })
+        }),
 );
 ---
 

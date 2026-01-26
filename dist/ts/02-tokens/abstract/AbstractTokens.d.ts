@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.12
+ * @maddimathon/design-system-utilities@0.1.1-alpha.0.draft
  * @license MIT
  */
 import * as z from 'zod';
@@ -19,7 +19,7 @@ import type { RecursiveRecord } from '../../01-utilities/@types.js';
 export declare abstract class AbstractTokens<T_DataType> {
     #private;
     static readonly tokenLevels: readonly ["100", "200", "300", "400", "500", "600", "700", "800", "900"];
-    static readonly tokenLevels_extraOptions: readonly ["000", "050", "150", "250", "350", "450", "550", "650", "750", "850", "950"];
+    static readonly tokenLevels_extraOptions: readonly ["150", "250", "350", "450", "550", "650", "750", "850"];
     readonly tokenLevels: readonly ["100", "200", "300", "400", "500", "600", "700", "800", "900"];
     /**
      * A custom error handler to use with Zod schemas.

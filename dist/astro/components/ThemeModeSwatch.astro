@@ -8,7 +8,6 @@
 /* import - types */
 import type { HTMLAttributes } from 'astro/types';
 import type { RecursiveRecord } from '../../ts/01-utilities/@types.d.ts';
-import type { ColourLevels, ColourLevels_Extended } from '../../ts/02-tokens/@types.d.ts';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Themes_Set_SingleMode } from '../../ts/02-tokens/Themes/Themes_Set_SingleMode.js';
 
@@ -97,14 +96,14 @@ function captureClrDataFromThemeValue(
     _clrSlug: string,
 ): undefined | {
     name: string;
-    level: ColourLevels | ColourLevels_Extended;
+    level: ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional;
 } {
     // returns
     if (_clrSlug === 'transparent' || _clrSlug === 'unset') {
         return undefined;
     }
 
-    const matches = _clrSlug?.match( /^([^\s]+)-(\d{3})$/i ) as null | [ string, string, ColourLevels ];
+    const matches = _clrSlug?.match( /^([^\s]+)-(\d{3})$/i ) as null | [ string, string, ColourUtilities.Levels.Required ];
 
     // returns
     if (!matches) {
@@ -187,7 +186,7 @@ const levelsInUseTable = theme.levelsInUse.map(
             ( [ key, value ] ) => {
                 key;
 
-                const textColor = textColorLevel( value as ColourLevels );
+                const textColor = textColorLevel( value as ColourUtilities.Levels.Required );
                 
                 return textColor && {
                     background: tokens.colour.base[value],
@@ -351,13 +350,15 @@ const displayHeading = 3;
             displayHeading={displayHeading}
             set:text='Tokens'
         />
-        <p
-            class="theme-mode-swatch__sample"
-            style={ [
-                `background: ${getClrFromThemeValue(tokens, brightness, theme.data.background)}`,
-                `color: ${getClrFromThemeValue(tokens, brightness, theme.data.text.$)}`,
-            ].join(';') }
-        ><code set:text="theme-background" /> {equals} <code set:text={theme.data.background} />.</p>
+        {Object.entries(theme.data.background).map(([_bgSlug, _bgValue]) => (
+            <p
+                class="theme-mode-swatch__sample"
+                style={ [
+                    `background: ${getClrFromThemeValue(tokens, brightness, _bgValue)}`,
+                    `color: ${getClrFromThemeValue(tokens, brightness, theme.data.text.$)}`,
+                ].join(';') }
+            ><code set:text={ _bgSlug === '$' ? 'theme-background': `theme-background-${_bgSlug}` } /> {equals} <code set:text={_bgValue} />.</p>
+        ))}
         <p
             class="theme-mode-swatch__sample theme-mode-swatch__sample--selection"
         ><code set:text='theme-selection-bg' /> {equals} <code set:text={theme.data.selection.bg} /></p>

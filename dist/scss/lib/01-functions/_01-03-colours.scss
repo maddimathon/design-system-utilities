@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-alpha.12
+/// @package @maddimathon/design-system-utilities@0.1.1-alpha.0.draft
 /// @since 0.1.0-alpha
 ///
 
@@ -17,9 +17,17 @@
 $_activeTheme: map.get(tokens.$themes, tokens.$activeTheme);
 
 $_systemColors: map.merge(
-    $defaults: map.flatten(utils.get-sys-colours()),
-    $inputs: map.flatten(map.get($_activeTheme, forced-colors, system)),
-    $recursive: false,
+    $defaults: utils.get-sys-colours(),
+    $inputs: map.get($_activeTheme, forced-colors, system),
+    $recursive: true,
+);
+
+$_systemColors: map.flatten(
+    map.set(
+        $_systemColors,
+        background,
+        map.get($_systemColors, background, '$')
+    )
 );
 
 ///

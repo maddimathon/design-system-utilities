@@ -7,19 +7,15 @@
 
 /* import - types */
 import type { ComponentProps } from 'astro/types';
-import type {
-    ColourLevels,
-    ColourLevels_Extended,
-} from '../../ts/02-tokens/@types.d.ts';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
 import type { LevelTargets } from './ShadeSwatchTable.astro';
 
 /* import - functions */
 import { toTitleCase } from '@maddimathon/utility-typescript/functions';
-import { getLevelsInUse } from '../../ts/02-tokens/getLevelsInUse.js';
-import { objectMapAsync } from '../../ts/01-utilities/objectMapAsync.js';
 import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
+import { objectMapAsync } from '../../ts/01-utilities/objectMapAsync.js';
+import { getLevelsInUse } from '../../ts/02-tokens/getLevelsInUse.js';
 
 /* import - values */
 
@@ -60,11 +56,14 @@ export interface Props {
      * @since 0.1.0-alpha.4
      */
     yardstick?:
-        | Tokens_Colour_ShadeMap.JsonReturn<string, ColourLevels_Extended>
+        | Tokens_Colour_ShadeMap.JsonReturn<
+              string,
+              ColourUtilities.Levels.Optional
+          >
         | {
               base: Tokens_Colour_ShadeMap.JsonReturn<
                   string,
-                  ColourLevels_Extended
+                  ColourUtilities.Levels.Optional
               >;
 
               /**
@@ -77,7 +76,7 @@ export interface Props {
 const {
     includeColourFormats,
     includeTargetLevels,
-    includeOnlyUsedLevels = !!import.meta.env.DEV,
+    includeOnlyUsedLevels = !import.meta.env.DEV,
     tokens,
     yardstick,
 }: Props = Astro.props;
@@ -88,7 +87,10 @@ export async function makeTargetLevels<T_ColourName extends string>(
     sampleColourName: T_ColourName,
     targetShadeMap?:
         | undefined
-        | Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, ColourLevels_Extended>
+        | Tokens_Colour_ShadeMap.JsonReturn<
+              T_ColourName,
+              ColourUtilities.Levels.Optional
+          >,
 ): Promise<LevelTargets | undefined> {
     // returns
     if (!targetShadeMap) {
@@ -127,13 +129,22 @@ export async function makeTargetLevels<T_ColourName extends string>(
                 },
                 max: value.contrast.max[sampleColourName]?.level,
             } satisfies LevelTargets[keyof typeof targetShadeMap];
-        }
+        },
     );
 
     const getMaxLevel = (
-        _lvlA?: undefined | ColourLevels | ColourLevels_Extended,
-        _lvlB?: undefined | ColourLevels | ColourLevels_Extended
-    ): undefined | ColourLevels | ColourLevels_Extended => {
+        _lvlA?:
+            | undefined
+            | ColourUtilities.Levels.Required
+            | ColourUtilities.Levels.Optional,
+        _lvlB?:
+            | undefined
+            | ColourUtilities.Levels.Required
+            | ColourUtilities.Levels.Optional,
+    ):
+        | undefined
+        | ColourUtilities.Levels.Required
+        | ColourUtilities.Levels.Optional => {
         // returns
         if (!_lvlA || !_lvlB) {
             return undefined;
@@ -147,13 +158,13 @@ export async function makeTargetLevels<T_ColourName extends string>(
         // // returns
         // if (num_A < 500 && num_B < 500) {
         //     return Math.min(num_A, num_B).toString() as
-        //         | ColourLevels
-        //         | ColourLevels_Extended;
+        //         | ColourUtilities.Levels.Required
+        //         | ColourUtilities.Levels.Optional;
         // }
 
         return Math.max(num_A, num_B).toString() as
-            | ColourLevels
-            | ColourLevels_Extended;
+            | ColourUtilities.Levels.Required
+            | ColourUtilities.Levels.Optional;
     };
 
     for (const [level_a, level_b] of matchedPairs) {
@@ -162,21 +173,21 @@ export async function makeTargetLevels<T_ColourName extends string>(
                 aa: {
                     ui: getMaxLevel(
                         current[level_a].min.aa.ui,
-                        current[level_b].min.aa.ui
+                        current[level_b].min.aa.ui,
                     ),
                     text: getMaxLevel(
                         current[level_a].min.aa.text,
-                        current[level_b].min.aa.text
+                        current[level_b].min.aa.text,
                     ),
                 },
                 aaa: {
                     ui: getMaxLevel(
                         current[level_a].min.aaa.ui,
-                        current[level_b].min.aaa.ui
+                        current[level_b].min.aaa.ui,
                     ),
                     text: getMaxLevel(
                         current[level_a].min.aaa.text,
-                        current[level_b].min.aaa.text
+                        current[level_b].min.aaa.text,
                     ),
                 },
             },
@@ -218,8 +229,8 @@ export async function makeTargetLevels<T_ColourName extends string>(
 // const defaultToggleToOpen = import.meta.env.DEV ? true : undefined;
 
 const allLevels = Object.keys(tokens.colour.base) as (
-    | ColourLevels
-    | ColourLevels_Extended
+    | ColourUtilities.Levels.Required
+    | ColourUtilities.Levels.Optional
 )[];
 
 const levelsInUse = getLevelsInUse(tokens.themes);
@@ -293,7 +304,7 @@ const shadeList_toc: ComponentProps<typeof TableOfContents>['menu'] = [
                     tokens={tokens}
                 />
             </Toggle>
-        )
+        ),
     )
 }
 

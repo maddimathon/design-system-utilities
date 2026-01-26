@@ -10,6 +10,7 @@
 
 import { arrayUnique } from '@maddimathon/utility-typescript/functions';
 
+import type { ColourUtilities } from '../01-utilities/ColourUtilities.js';
 import { objectGenerator } from '../01-utilities/objectGenerator.js';
 import { objectMap } from '../01-utilities/objectMap.js';
 
@@ -18,7 +19,6 @@ import { AbstractTokens } from './abstract/AbstractTokens.js';
 import { Tokens_Colour_ShadeMap } from './Colour/Colour_ShadeMap.js';
 
 import type {
-    ColourLevels_Extended,
     ColourNameGeneric,
 } from './@types.d.ts';
 
@@ -29,7 +29,7 @@ import type {
  */
 export class Tokens_Colour<
     T_ColourName extends string,
-    T_ExtraLevels extends ColourLevels_Extended,
+    T_ExtraLevels extends ColourUtilities.Levels.Optional,
 > extends AbstractTokens<Tokens_Colour.Data<T_ColourName, T_ExtraLevels>> {
 
     public readonly data: Tokens_Colour.Data<T_ColourName, T_ExtraLevels>;
@@ -109,7 +109,7 @@ export namespace Tokens_Colour {
      */
     export type Data<
         T_ColourName extends string,
-        T_ExtraLevels extends ColourLevels_Extended,
+        T_ExtraLevels extends ColourUtilities.Levels.Optional,
     > = {
             [ N in ColourNameGeneric<T_ColourName> ]: Tokens_Colour_ShadeMap<
                 ColourNameGeneric<T_ColourName>,
@@ -122,7 +122,7 @@ export namespace Tokens_Colour {
      */
     export type InputParam<
         T_ColourName extends string,
-        T_ExtraLevels extends ColourLevels_Extended,
+        T_ExtraLevels extends ColourUtilities.Levels.Optional,
     > = {
             [ N in ColourNameGeneric<T_ColourName> ]?: Tokens_Colour_ShadeMap.InputParam<
                 ColourNameGeneric<T_ColourName>,
@@ -135,7 +135,7 @@ export namespace Tokens_Colour {
      */
     export type JsonReturn<
         T_ColourName extends string,
-        T_ExtraLevels extends ColourLevels_Extended,
+        T_ExtraLevels extends ColourUtilities.Levels.Optional,
     > = {
             [ N in ColourNameGeneric<T_ColourName> ]: Tokens_Colour_ShadeMap.JsonReturn<
                 ColourNameGeneric<T_ColourName>,

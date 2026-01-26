@@ -4,11 +4,12 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.12
+ * @maddimathon/design-system-utilities@0.1.1-alpha.0.draft
  * @license MIT
  */
 import { slugify } from '@maddimathon/utility-typescript/functions';
 import { JsonToScss } from '@maddimathon/utility-sass';
+import { Tokens_Colour_ShadeMap } from './Colour/Colour_ShadeMap.js';
 import { objectGenerator } from '../01-utilities/objectGenerator.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 import { Tokens_Colour } from './Tokens_Colour.js';
@@ -148,6 +149,8 @@ export class Tokens extends AbstractTokens {
                 purple: Tokens.SampleColours.purple,
                 turquoise: Tokens.SampleColours.turquoise,
                 red: Tokens.SampleColours.red,
+                // yardstick: Tokens.SampleColours.yardstick,
+                // 'yardstick-accent': Tokens.SampleColours[ 'yardstick-accent' ],
             },
         }, { tokensAsDefault: true, });
     }
@@ -157,20 +160,9 @@ export class Tokens extends AbstractTokens {
      * @since 0.1.0-alpha
      */
     Tokens.SampleColours = {
-        yardstick: {
-            '100': { l: 99, c: 0, h: 0, },
-            '300': { l: 80, c: 0, h: 0, },
-            '500': { l: 50, c: 0, h: 0, },
-            '700': { l: 21, c: 0, h: 0, },
-            '900': { l: 1.5, c: 0, h: 0, },
-        },
-        base: {
-            '100': { l: 99, c: 0, h: 0, },
-            '300': { l: 80, c: 0, h: 0, },
-            '500': { l: 50, c: 0, h: 0, },
-            '700': { l: 21, c: 0, h: 0, },
-            '900': { l: 1.5, c: 0, h: 0, },
-        },
+        yardstick: Tokens_Colour_ShadeMap.Yardsticks.base,
+        'yardstick-accent': Tokens_Colour_ShadeMap.Yardsticks.accent,
+        base: Tokens_Colour_ShadeMap.Yardsticks.base,
         red: {
             '100': { h: 5, s: 100, l: 98, },
             '300': { h: 4, s: 100, l: 79.5, },
@@ -401,6 +393,10 @@ export class Tokens extends AbstractTokens {
          * @since 0.1.0-alpha
          */
         Themes.allHeadingLevels = Tokens_Themes_Set_SingleMode.allHeadingLevels;
+        /**
+         * @since 0.1.1-alpha.0.draft
+         */
+        Themes.LEVELS_DEFAULT = Tokens_Themes_Set_SingleMode.Build.LEVELS_DEFAULT;
         /**
          * @since 0.1.0-alpha
          */

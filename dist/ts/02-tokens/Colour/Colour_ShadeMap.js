@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.12
+ * @maddimathon/design-system-utilities@0.1.1-alpha.0.draft
  * @license MIT
  */
 import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
@@ -252,5 +252,25 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
         return completeLevels;
     }
     Tokens_Colour_ShadeMap.completeMap = completeMap;
+    /**
+     * Sample shade maps for contrast & level goals.
+     */
+    let Yardsticks;
+    (function (Yardsticks) {
+        Yardsticks.base = {
+            '100': { l: 99, c: 0, h: 0, },
+            // '200': { l: 92, c: 0, h: 0, },
+            '300': { l: 80, c: 0, h: 0, },
+            '500': { l: 51, c: 0, h: 0, },
+            '700': { l: 22, c: 0, h: 0, },
+            // '800': { l: 5, c: 0, h: 0, },
+            '900': { l: 3, c: 0, h: 0, },
+        };
+        Yardsticks.accent = {
+            '100': { l: 97, c: 0, h: 0, },
+            '500': { l: 50.5, c: 0, h: 0, },
+            '900': { l: 4, c: 0, h: 0, },
+        };
+    })(Yardsticks = Tokens_Colour_ShadeMap.Yardsticks || (Tokens_Colour_ShadeMap.Yardsticks = {}));
 })(Tokens_Colour_ShadeMap || (Tokens_Colour_ShadeMap = {}));
 //# sourceMappingURL=Colour_ShadeMap.js.map

@@ -53,8 +53,6 @@ export abstract class AbstractTokens<T_DataType> {
     ] as const;
 
     public static readonly tokenLevels_extraOptions = [
-        '000',
-        '050',
         '150',
         '250',
         '350',
@@ -63,7 +61,6 @@ export abstract class AbstractTokens<T_DataType> {
         '650',
         '750',
         '850',
-        '950',
     ] as const;
 
     public readonly tokenLevels = AbstractTokens.tokenLevels;

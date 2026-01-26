@@ -11,9 +11,8 @@
 // import { JsonToScss } from '@maddimathon/utility-sass';
 // import * as z from 'zod';
 
+import type { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
 import { objectGenerator } from '../../01-utilities/objectGenerator.js';
-
-import type { ColourLevels_Extended } from '../@types.js';
 
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
 
@@ -24,7 +23,7 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
  */
 export class Tokens_Colour_TEMPLATE<
     T_ColourName extends string,
-    T_ExtraLevels extends ColourLevels_Extended,
+    T_ExtraLevels extends ColourUtilities.Levels.Optional,
 > extends AbstractTokens<Tokens_Colour_TEMPLATE.Data<T_ColourName, T_ExtraLevels>> {
 
     public readonly data: Tokens_Colour_TEMPLATE.Data<T_ColourName, T_ExtraLevels>;
@@ -73,7 +72,7 @@ export namespace Tokens_Colour_TEMPLATE {
      */
     export type Data<
         T_ColourName extends string,
-        T_ExtraLevels extends ColourLevels_Extended,
+        T_ExtraLevels extends ColourUtilities.Levels.Optional,
     > = {
         };
 
@@ -82,7 +81,7 @@ export namespace Tokens_Colour_TEMPLATE {
      */
     export type InputParam<
         T_ColourName extends string,
-        T_ExtraLevels extends ColourLevels_Extended,
+        T_ExtraLevels extends ColourUtilities.Levels.Optional,
     > = {
         };
 
@@ -91,6 +90,6 @@ export namespace Tokens_Colour_TEMPLATE {
      */
     export type JsonReturn<
         T_ColourName extends string,
-        T_ExtraLevels extends ColourLevels_Extended,
+        T_ExtraLevels extends ColourUtilities.Levels.Optional,
     > = {};
 }

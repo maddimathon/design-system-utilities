@@ -14,7 +14,6 @@ import * as sass from 'sass-embedded';
 import * as z from 'zod';
 
 import { roundToPixel } from './roundToPixel.js';
-import type { ColourLevels, ColourLevels_Extended } from '../internal.docs.js';
 
 /**
  * Utility functions, schemas, and types for dealing with colour values in the
@@ -111,7 +110,7 @@ export namespace ColourUtilities {
      * @since 0.1.0-alpha
      * @useDeclaredType
      */
-    export type SingleShade_Input = z.input<typeof SingleShade>;
+    export type SingleShade_Input = z.input<typeof SingleShade> | Readonly<z.input<typeof SingleShade>>;
 
     /**
      * The parsed output of the {@link SingleShade} schema.
@@ -144,43 +143,6 @@ export namespace ColourUtilities {
 
     /* UTILITY FUNCTIONS
      * ====================================================================== */
-
-    /**
-     * @since 0.1.0-alpha
-     */
-    export const LevelConverter = {
-        '100': '900',
-        '150': '850',
-        '200': '800',
-        '250': '750',
-        '300': '700',
-        '350': '650',
-        '400': '600',
-        '450': '550',
-        '500': '500',
-        '550': '450',
-        '600': '400',
-        '650': '350',
-        '700': '300',
-        '750': '250',
-        '800': '200',
-        '850': '150',
-        '900': '100',
-    } as const satisfies {
-        [ L in ColourLevels | ColourLevels_Extended ]: ColourLevels | ColourLevels_Extended;
-    };
-
-    /**
-     * @since 0.1.0-alpha
-     */
-    export function getDarkLevel<
-        T_LightLevel extends ColourLevels | ColourLevels_Extended
-    >(
-        lightLevel: T_LightLevel,
-    ): ( typeof LevelConverter )[ T_LightLevel ] {
-
-        return LevelConverter[ lightLevel ];
-    }
 
     /**
      * @since 0.1.0-alpha
@@ -437,6 +399,149 @@ export namespace ColourUtilities {
         ): string {
             const rgb = toRGB( clr );
             return `rgb( ${ rgb.r }, ${ rgb.g }, ${ rgb.b } )`;
+        }
+    }
+
+
+
+    /* SHADE MAP FUNCTIONS
+     * ====================================================================== */
+
+    /**
+     * Utilities for dealing with shade level values.
+     * 
+     * @since ___PKG_VERSION___
+     */
+    export namespace Levels {
+
+        /**
+         * A key index for converting colour made shade levels to their opposite
+         * (e.g., dark to light modes).
+         * 
+         * @since 0.1.0-alpha
+         * @since ___PKG_VERSION___ — Moved from {@link ColourUtilities} to {@link ColourUtilities.Levels} and renamed.
+         */
+        export const converter = {
+            '100': '900',
+            '150': '850',
+            '200': '800',
+            '250': '750',
+            '300': '700',
+            '350': '650',
+            '400': '600',
+            '450': '550',
+            '500': '500',
+            '550': '450',
+            '600': '400',
+            '650': '350',
+            '700': '300',
+            '750': '250',
+            '800': '200',
+            '850': '150',
+            '900': '100',
+        } as const satisfies {
+            [ L in Levels.Required ]: Levels.Required;
+        } & {
+                [ L in Levels.Optional ]: Levels.Optional;
+            };
+
+        /**
+         * The shade level keys that can be optionally included in maps for this
+         * system.
+         *
+         * @since ___PKG_VERSION___
+         */
+        export const optional = [
+            '350',
+            '450',
+            '550',
+            '650',
+        ] as const;
+
+        /**
+         * The shade level keys always included in maps for this system.
+         * 
+         * @since ___PKG_VERSION___
+         */
+        export const required = [
+            '100',
+            '150',
+            '200',
+            '250',
+            '300',
+            '400',
+            '500',
+            '600',
+            '700',
+            '750',
+            '800',
+            '850',
+            '900',
+        ] as const;
+
+        /**
+         * Shade levels that can be optionally included in maps for this system.
+         * 
+         * @since 0.1.0-alpha — Introduced as a global `Levels.Optional` type in `02-tokens/@types.d.ts`.
+         * @since ___PKG_VERSION___ — Moved to {@link ColourUtilities.Levels} and renamed.
+         */
+        export type Optional = typeof optional[ number ];
+
+        /**
+         * Shade levels always included in maps for this system.
+         * 
+         * @since 0.1.0-alpha — Introduced as a global `Levels.Required` type in `02-tokens/@types.d.ts`.
+         * @since ___PKG_VERSION___ — Moved to {@link ColourUtilities.Levels} and renamed.
+         */
+        export type Required = typeof required[ number ];
+
+        /**
+         * Converts the given shade level to its oppposite (via
+         * {@link ColourUtilities.Levels.converter}).
+         * 
+         * @since 0.1.0-alpha
+         * @since ___PKG_VERSION___ — Moved to {@link ColourUtilities.Levels} and renamed.
+         */
+        export function toDark<
+            T_LightLevel extends Levels.Required | Levels.Optional
+        >( lightLevel: T_LightLevel ): typeof converter[ T_LightLevel ] {
+            return converter[ lightLevel ];
+        }
+    }
+
+    /**
+     * @since 0.1.0-alpha
+     * @deprecated ___PKG_VERSION___ — Use {@link ColourUtilities.Levels.converter} instead.
+     */
+    export const LevelConverter = Levels.converter;
+
+    /**
+     * @since 0.1.0-alpha
+     * @deprecated ___PKG_VERSION___ — Use {@link ColourUtilities.Levels.toDark} instead.
+     */
+    export function getDarkLevel<
+        T_LightLevel extends Levels.Required | Levels.Optional
+    >( lightLevel: T_LightLevel ) {
+        return Levels.toDark<T_LightLevel>( lightLevel );
+    }
+
+    /**
+     * Utilities for working with shade maps (100-900 levels from light to dark).
+     * 
+     * @since ___PKG_VERSION___
+     */
+    export namespace ShadeMaps {
+
+        /**
+         * @since 0.1.0-alpha
+         */
+        export function getDarkLevel<
+            T_LightLevel extends Levels.Required | Levels.Optional
+        >(
+            lightLevel: T_LightLevel,
+        ): ( typeof Levels.converter )[ T_LightLevel ] {
+
+            return Levels.converter[ lightLevel ];
         }
     }
 }

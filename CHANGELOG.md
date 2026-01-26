@@ -19,22 +19,25 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
-## **0.1.0-alpha.12** — 2026-01-20
+## All **0.1.0-alpha** Releases — 2025-10-30 to 2026-01-20
+
+
+### **0.1.0-alpha.12** — 2026-01-20
 
 Minor scss updates.
 
 
-## **0.1.0-alpha.11** — 2026-01-20
+### **0.1.0-alpha.11** — 2026-01-20
 
 Minor scss fixes. Updated utility-sass.
 
 
-## **0.1.0-alpha.10** — 2026-01-20
+### **0.1.0-alpha.10** — 2026-01-20
 
 Minor fix to $designTokens !default overrides now merge recursively.
 
 
-## **0.1.0-alpha.9** — 2026-01-20
+### **0.1.0-alpha.9** — 2026-01-20
 
 Have to make many test releases so it's the same instance of sass-embedded as
 its dependents.
@@ -46,17 +49,17 @@ its dependents.
 - $designTokens !default overrides now merge recursively
 
 
-## **0.1.0-alpha.8** — 2026-01-20
+### **0.1.0-alpha.8** — 2026-01-20
 
 Updated utility-sass for more var-printing config.
 
 
-## **0.1.0-alpha.7** — 2026-01-20
+### **0.1.0-alpha.7** — 2026-01-20
 
 Mini scss fixes.
 
 
-## **0.1.0-alpha.6** — 2026-01-20
+### **0.1.0-alpha.6** — 2026-01-20
 
 ### Added
 - Config var - $mx_tokensAll_includeFontFace
@@ -66,12 +69,12 @@ Mini scss fixes.
 - Updated dependencies
 
 
-## **0.1.0-alpha.5** — 2025-12-28
+### **0.1.0-alpha.5** — 2025-12-28
 
 Updated build-utilities and utility-sass.
 
 
-## **0.1.0-alpha.4** — 2025-12-27
+### **0.1.0-alpha.4** — 2025-12-27
 
 Display and component improvements, plus a couple shade map generation fixes.
 
@@ -125,7 +128,7 @@ Display and component improvements, plus a couple shade map generation fixes.
 - Updated with utility-astro
 
 
-## **0.1.0-alpha.3** — 2025-11-15
+### **0.1.0-alpha.3** — 2025-11-15
 
 Improved theme swatches, logos.
 
@@ -148,7 +151,7 @@ Improved theme swatches, logos.
   Tokens_Themes_Set_SingleMode.Data_RecursivePartial type
 
 
-## **0.1.0-alpha.2** — 2025-11-03
+### **0.1.0-alpha.2** — 2025-11-03
 
 Small astro component & style fixes.
 
@@ -162,12 +165,12 @@ Small astro component & style fixes.
 - Updated dependencies
 
 
-## **0.1.0-alpha.1** — 2025-10-30
+### **0.1.0-alpha.1** — 2025-10-30
 
 Forgot to include the tsconfig file.
 
 
-## **0.1.0-alpha** — 2025-10-30
+### **0.1.0-alpha** — 2025-10-30
 
 A quick pre-release converting templates to scss-templater.  Version 0.1.0 won't
 progress beyond alpha.

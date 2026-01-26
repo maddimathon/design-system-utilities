@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.12
+ * @maddimathon/design-system-utilities@0.1.1-alpha.0.draft
  * @license MIT
  */
 import type { RecursivePartial } from '@maddimathon/utility-typescript/types/objects';
@@ -16,7 +16,10 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
  * @since 0.1.0-alpha
  */
 export declare class Tokens_CSS_Style extends AbstractTokens<Tokens_CSS_Style.Data> {
-    static buttonStyle(): Tokens_CSS_Style.ButtonStyles;
+    static buttonStyle(): {
+        $: Tokens_CSS_Style.ButtonStyles;
+        disabled: Tokens_CSS_Style.ButtonStyles_Disabled;
+    };
     static headingStyle(heading: number): Tokens_CSS_Style.HeadingStyles;
     static get default(): Tokens_CSS_Style.Data;
     readonly data: Tokens_CSS_Style.Data;
@@ -67,7 +70,14 @@ export declare namespace Tokens_CSS_Style {
         };
         width: string;
     }
+    interface ButtonStyles_Disabled extends Omit<ButtonStyles, 'border' | 'focus' | 'gap' | 'line-height' | 'margin' | 'padding' | 'width'> {
+        border: Omit<ButtonStyles['border'], 'width'>;
+        'letter-spacing': string;
+        'text-transform': CSS.TextTransform;
+    }
     interface ButtonStyles_Partial extends RecursivePartial<ButtonStyles> {
+    }
+    interface ButtonStyles_Disabled_Partial extends RecursivePartial<ButtonStyles_Disabled> {
     }
     interface HeadingStyles {
         font: {
@@ -90,7 +100,10 @@ export declare namespace Tokens_CSS_Style {
      * @since 0.1.0-alpha
      */
     type Data = {
-        button: ButtonStyles;
+        button: {
+            $: ButtonStyles;
+            disabled: ButtonStyles_Disabled;
+        };
         heading: {
             [L in RequiredHeadingLevels]: HeadingStyles;
         } & {
@@ -106,7 +119,10 @@ export declare namespace Tokens_CSS_Style {
      * @since 0.1.0-alpha
      */
     type InputParam = {
-        button?: ButtonStyles_Partial;
+        button?: {
+            $: ButtonStyles_Partial;
+            disabled?: ButtonStyles_Disabled_Partial;
+        };
         heading?: {
             [L in RequiredHeadingLevels]?: HeadingStyles_Partial;
         } & {

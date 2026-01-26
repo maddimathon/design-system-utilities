@@ -7,7 +7,6 @@
 
 /* import - types */
 import Heading from '@maddimathon/utility-astro/components/Heading';
-import type { ColourLevels, ColourLevels_Extended } from '../../ts/02-tokens/@types.d.ts';
 import type { Tokens, Tokens_Internal } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Colour } from '../../ts/02-tokens/Tokens_Colour.js';
 
@@ -30,14 +29,14 @@ import { arrayUnique } from '@maddimathon/utility-typescript/functions';
 
 export interface Props<
     T_ColourName extends string = Tokens_Internal.Default_ColourName,
-    T_ExtraLevels extends ColourLevels_Extended = Tokens_Internal.Default_ExtraColourLevels,
+    T_ExtraLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels,
 > {
     colour: Tokens_Colour.JsonReturn<T_ColourName, T_ExtraLevels>;
     id: string; 
     heading: number;
     tokens: Tokens.JsonReturn;
 
-    excludeLevels?: ( ColourLevels | T_ExtraLevels )[];
+    excludeLevels?: ( ColourUtilities.Levels.Required | T_ExtraLevels )[];
     
     /**
      * Whether to include the given colour formats by default.
@@ -80,18 +79,18 @@ const {
 /* TYPES ===================================== */
 
 export type LevelTargets = {
-    [ L in ColourLevels | ColourLevels_Extended ]: {
+    [ L in ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional ]: {
         min: {
             aa: {
-                ui: ColourLevels | ColourLevels_Extended | undefined,
-                text: ColourLevels | ColourLevels_Extended | undefined,
+                ui: ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional | undefined,
+                text: ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional | undefined,
             },
             aaa: {
-                ui: ColourLevels | ColourLevels_Extended | undefined,
-                text: ColourLevels | ColourLevels_Extended | undefined,
+                ui: ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional | undefined,
+                text: ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional | undefined,
             },
         },
-        max: ColourLevels | ColourLevels_Extended | undefined,
+        max: ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional | undefined,
     }
 };
 
@@ -374,21 +373,21 @@ const goalLevels = objectMap(
                 targetLevel, 
                 value,
             ] ): false | {
-                level: ColourLevels|ColourLevels_Extended,
-                textLevel: ColourLevels|ColourLevels_Extended,
+                level: ColourUtilities.Levels.Required|ColourUtilities.Levels.Optional,
+                textLevel: ColourUtilities.Levels.Required|ColourUtilities.Levels.Optional,
                 min: {
                     aa: {
                         colCount: number;
-                        ui: ColourLevels|ColourLevels_Extended | undefined,
-                        text: ColourLevels|ColourLevels_Extended | undefined,
+                        ui: ColourUtilities.Levels.Required|ColourUtilities.Levels.Optional | undefined,
+                        text: ColourUtilities.Levels.Required|ColourUtilities.Levels.Optional | undefined,
                     },
                     aaa: {
                         colCount: number;
-                        ui: ColourLevels|ColourLevels_Extended | undefined,
-                        text: ColourLevels|ColourLevels_Extended | undefined,
+                        ui: ColourUtilities.Levels.Required|ColourUtilities.Levels.Optional | undefined,
+                        text: ColourUtilities.Levels.Required|ColourUtilities.Levels.Optional | undefined,
                     },
                 },
-                max: ColourLevels|ColourLevels_Extended | undefined,
+                max: ColourUtilities.Levels.Required|ColourUtilities.Levels.Optional | undefined,
             } => {
                 // returns - don't include
                 if ( excludeLevels.includes( targetLevel ) || ! allTokenLevels.includes(targetLevel) ) {
@@ -443,7 +442,7 @@ const goalLevels = objectMap(
                         set:text='contrast targets'
                     />
                     <Fragment>{ (
-                        Object.entries( goalLevels.base ) as [ColourLevels|ColourLevels_Extended, typeof goalLevels.base[ColourLevels|ColourLevels_Extended]][]
+                        Object.entries( goalLevels.base ) as [ColourUtilities.Levels.Required|ColourUtilities.Levels.Optional, typeof goalLevels.base[ColourUtilities.Levels.Required|ColourUtilities.Levels.Optional]][]
                     ).map( ([level, set]) => set && <th>
                         <article
                             class:list={['container', 'shade-swatch']}

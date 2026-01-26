@@ -12,8 +12,6 @@ import type { RecursivePartial } from '@maddimathon/utility-typescript/types/obj
 import { arrayUnique, mergeArgs } from '@maddimathon/utility-typescript/functions';
 
 import type {
-    ColourLevels_Extended,
-    ColourLevels,
     ColourTokenSlug,
     CssSystemColor,
     RequiredHeadingLevels,
@@ -21,6 +19,7 @@ import type {
 } from '../@types.js';
 
 import type { RecursiveRecord } from '../../01-utilities/@types.js';
+import type { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
 
 import { objectFlatten } from '../../01-utilities/objectFlatten.js';
 import { objectGenerator } from '../../01-utilities/objectGenerator.js';
@@ -35,10 +34,11 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
  */
 export class Tokens_Themes_Set_SingleMode<
     T_ColourName extends string,
-    T_ExtraColourLevels extends ColourLevels_Extended,
+    T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
 
     T_Keyword_Universal extends string,
     T_Keyword_Text extends string,
+    T_Keyword_Background extends string,
 
     __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>,
 > extends AbstractTokens<Tokens_Themes_Set_SingleMode.Data<
@@ -46,15 +46,17 @@ export class Tokens_Themes_Set_SingleMode<
     T_ExtraColourLevels,
     T_Keyword_Universal,
     T_Keyword_Text,
+    T_Keyword_Background,
     __T_ColourOption
 >> {
 
     public static async build<
         T_ColourName extends string,
-        T_ExtraColourLevels extends ColourLevels_Extended,
+        T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
 
         T_Keyword_Universal extends string = never,
         T_Keyword_Text extends string = never,
+        T_Keyword_Background extends string = never,
     >(
         preset: "forcedColors",
         brightness: undefined | string,
@@ -64,6 +66,7 @@ export class Tokens_Themes_Set_SingleMode<
             T_ExtraColourLevels,
             T_Keyword_Universal,
             T_Keyword_Text,
+            T_Keyword_Background,
             CssSystemColor
         >,
 
@@ -71,7 +74,8 @@ export class Tokens_Themes_Set_SingleMode<
             NoInfer<T_ColourName>,
             NoInfer<T_ExtraColourLevels>,
             NoInfer<T_Keyword_Universal>,
-            NoInfer<T_Keyword_Text>
+            NoInfer<T_Keyword_Text>,
+            NoInfer<T_Keyword_Background>
         >,
     ): Promise<
         Tokens_Themes_Set_SingleMode<
@@ -79,16 +83,18 @@ export class Tokens_Themes_Set_SingleMode<
             T_ExtraColourLevels,
             T_Keyword_Universal,
             T_Keyword_Text,
+            T_Keyword_Background,
             CssSystemColor
         >
     >;
 
     public static async build<
         T_ColourName extends string,
-        T_ExtraColourLevels extends ColourLevels_Extended,
+        T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
 
         T_Keyword_Universal extends string = never,
         T_Keyword_Text extends string = never,
+        T_Keyword_Background extends string = never,
     >(
         preset: "low" | "average" | "high" | "max",
         brightness: undefined | string,
@@ -98,6 +104,7 @@ export class Tokens_Themes_Set_SingleMode<
             T_ExtraColourLevels,
             T_Keyword_Universal,
             T_Keyword_Text,
+            T_Keyword_Background,
             ThemeColourOption<T_ColourName, T_ExtraColourLevels>
         >,
 
@@ -105,7 +112,8 @@ export class Tokens_Themes_Set_SingleMode<
             NoInfer<T_ColourName>,
             NoInfer<T_ExtraColourLevels>,
             NoInfer<T_Keyword_Universal>,
-            NoInfer<T_Keyword_Text>
+            NoInfer<T_Keyword_Text>,
+            NoInfer<T_Keyword_Background>
         >,
     ): Promise<
         Tokens_Themes_Set_SingleMode<
@@ -113,6 +121,7 @@ export class Tokens_Themes_Set_SingleMode<
             T_ExtraColourLevels,
             T_Keyword_Universal,
             T_Keyword_Text,
+            T_Keyword_Background,
             ThemeColourOption<T_ColourName, T_ExtraColourLevels>
         >
     >;
@@ -124,10 +133,11 @@ export class Tokens_Themes_Set_SingleMode<
      */
     public static async build<
         T_ColourName extends string,
-        T_ExtraColourLevels extends ColourLevels_Extended,
+        T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
 
         T_Keyword_Universal extends string = never,
         T_Keyword_Text extends string = never,
+        T_Keyword_Background extends string = never,
     >(
         preset: "low" | "average" | "high" | "max" | "forcedColors",
         brightness: undefined | string,
@@ -137,14 +147,16 @@ export class Tokens_Themes_Set_SingleMode<
             NoInfer<T_ColourName>,
             T_ExtraColourLevels,
             T_Keyword_Universal,
-            T_Keyword_Text
+            T_Keyword_Text,
+            T_Keyword_Background
         >,
 
         overrides: Tokens_Themes_Set_SingleMode.Data_RecursivePartial<
             NoInfer<T_ColourName>,
             NoInfer<T_ExtraColourLevels>,
             NoInfer<T_Keyword_Universal>,
-            NoInfer<T_Keyword_Text>
+            NoInfer<T_Keyword_Text>,
+            NoInfer<T_Keyword_Background>
         > = {},
 
     ): Promise<
@@ -152,23 +164,26 @@ export class Tokens_Themes_Set_SingleMode<
             T_ColourName,
             T_ExtraColourLevels,
             T_Keyword_Universal,
-            T_Keyword_Text
+            T_Keyword_Text,
+            T_Keyword_Background
         >
     > {
-        let defaultLevels: Tokens_Themes_Set_SingleMode.RequiredLevels<never>;
+        let defaultLevels: Tokens_Themes_Set_SingleMode.RequiredLevels<never> = Tokens_Themes_Set_SingleMode.Build.LEVELS_DEFAULT.high;
 
         let levels: Tokens_Themes_Set_SingleMode.Build.Param<
             T_ColourName,
             T_ExtraColourLevels,
             T_Keyword_Universal,
-            T_Keyword_Text
+            T_Keyword_Text,
+            T_Keyword_Background
         >[ 'levels' ];
 
         const variations = Tokens_Themes_Set_SingleMode.Build.completeVariations<
             T_ColourName,
             T_ExtraColourLevels,
             T_Keyword_Universal,
-            T_Keyword_Text
+            T_Keyword_Text,
+            T_Keyword_Background
         >( clrNames, input.variations );
 
         const clrOpt = Tokens_Themes_Set_SingleMode.Build.colourOption;
@@ -181,43 +196,14 @@ export class Tokens_Themes_Set_SingleMode<
             case 'average':
                 description = description ?? 'This is the default contrast mode for most users, unless they have defined a specific preference (‘low’, ‘high’, or ‘forced-colors’) in their OS or browser settings.  It meets or exceeds WCAG AAA contrast standards.';
 
-                defaultLevels = {
-                    background: '150',
-                    text: {
-                        $: '800',
-                        accent: '750',
-                        min: '700',
-                    },
-                    ui: {
-                        $: '800',
-                        accent: '750',
-                        min: '700',
-                    },
-                    heading: objectGenerator(
-                        Tokens_Themes_Set_SingleMode.allHeadingLevels,
-                        ( hdgNum ) => {
-
-                            // returns on match
-                            switch ( hdgNum ) {
-
-                                case 1:
-                                    return '800';
-
-                                case 2:
-                                case 3:
-                                    return '750';
-                            }
-
-                            return '700';
-                        },
-                    ),
-                };
+                defaultLevels = Tokens_Themes_Set_SingleMode.Build.LEVELS_DEFAULT.average;
 
                 levels = Tokens_Themes_Set_SingleMode.Build.completeLevels<
                     T_ColourName,
                     T_ExtraColourLevels,
                     T_Keyword_Universal,
-                    T_Keyword_Text
+                    T_Keyword_Text,
+                    T_Keyword_Background
                 >( mergeArgs(
                     defaultLevels,
                     input.levels as Partial<Tokens_Themes_Set_SingleMode.RequiredLevels<never>>,
@@ -225,8 +211,8 @@ export class Tokens_Themes_Set_SingleMode<
                 ) );
 
                 overrides.selection = {
-                    bg: clrOpt( variations.universal.primary, '300' as T_ExtraColourLevels | ColourLevels ),
-                    text: clrOpt( variations.base, '800' as T_ExtraColourLevels | ColourLevels ),
+                    bg: clrOpt( variations.universal.primary, '300' as T_ExtraColourLevels | ColourUtilities.Levels.Required ),
+                    text: clrOpt( variations.base, '800' as T_ExtraColourLevels | ColourUtilities.Levels.Required ),
                     ...overrides.selection,
                 };
                 break;
@@ -234,43 +220,14 @@ export class Tokens_Themes_Set_SingleMode<
             case 'low':
                 description = description ?? 'This is the low contrast mode.  This is the default for users who set ‘low’ as their preferred contrast mode in their OS or browser settings.  It mostly meets WCAG AA contrast standards, but in rare cases does not (which is acceptable in this case).';
 
-                defaultLevels = {
-                    background: '250',
-                    text: {
-                        $: '700',
-                        accent: '700',
-                        min: '600',
-                    },
-                    ui: {
-                        $: '700',
-                        accent: '700',
-                        min: '600',
-                    },
-                    heading: objectGenerator(
-                        Tokens_Themes_Set_SingleMode.allHeadingLevels,
-                        ( hdgNum ) => {
-
-                            // returns on match
-                            switch ( hdgNum ) {
-
-                                case 1:
-                                    return '600';
-
-                                case 2:
-                                case 3:
-                                    return '700';
-                            }
-
-                            return '700';
-                        },
-                    ),
-                };
+                defaultLevels = Tokens_Themes_Set_SingleMode.Build.LEVELS_DEFAULT.low;
 
                 levels = Tokens_Themes_Set_SingleMode.Build.completeLevels<
                     T_ColourName,
                     T_ExtraColourLevels,
                     T_Keyword_Universal,
-                    T_Keyword_Text
+                    T_Keyword_Text,
+                    T_Keyword_Background
                 >( mergeArgs(
                     defaultLevels,
                     input.levels as Partial<Tokens_Themes_Set_SingleMode.RequiredLevels<never>>,
@@ -278,8 +235,8 @@ export class Tokens_Themes_Set_SingleMode<
                 ) );
 
                 overrides.selection = {
-                    bg: clrOpt( variations.universal.primary, '300' as T_ExtraColourLevels | ColourLevels ),
-                    text: clrOpt( variations.base, '800' as T_ExtraColourLevels | ColourLevels ),
+                    bg: clrOpt( variations.universal.primary, '300' as T_ExtraColourLevels | ColourUtilities.Levels.Required ),
+                    text: clrOpt( variations.base, '800' as T_ExtraColourLevels | ColourUtilities.Levels.Required ),
                     ...overrides.selection,
                 };
                 break;
@@ -287,41 +244,14 @@ export class Tokens_Themes_Set_SingleMode<
             case 'high':
                 description = description ?? 'This is the high contrast mode.  This is the default for users who set ‘high’ as their preferred contrast mode in their OS or browser settings.  It exceeds WCAG AAA contrast standards.';
 
-                defaultLevels = {
-                    background: '100',
-                    text: {
-                        $: '850',
-                        accent: '800',
-                        min: '700',
-                    },
-                    ui: {
-                        $: '850',
-                        accent: '800',
-                        min: '700',
-                    },
-                    heading: objectGenerator(
-                        Tokens_Themes_Set_SingleMode.allHeadingLevels,
-                        ( hdgNum ) => {
-
-                            // returns on match
-                            switch ( hdgNum ) {
-
-                                case 1:
-                                case 2:
-                                case 3:
-                                    return '700';
-                            }
-
-                            return '800';
-                        }
-                    ),
-                };
+                defaultLevels = Tokens_Themes_Set_SingleMode.Build.LEVELS_DEFAULT.high;
 
                 levels = Tokens_Themes_Set_SingleMode.Build.completeLevels<
                     T_ColourName,
                     T_ExtraColourLevels,
                     T_Keyword_Universal,
-                    T_Keyword_Text
+                    T_Keyword_Text,
+                    T_Keyword_Background
                 >( mergeArgs(
                     defaultLevels,
                     input.levels as Partial<Tokens_Themes_Set_SingleMode.RequiredLevels<never>>,
@@ -332,29 +262,14 @@ export class Tokens_Themes_Set_SingleMode<
             case 'max':
                 description = description ?? 'This is the maximum contrast mode.  This is an alternate option for users who want an even higher contrast than the ‘high’ mode, but without enabling ‘forced-colors’ mode.  It exceeds WCAG AAA contrast standards.';
 
-                defaultLevels = {
-                    background: '100',
-                    text: {
-                        $: '900',
-                        accent: '850',
-                        min: '850',
-                    },
-                    ui: {
-                        $: '850',
-                        accent: '850',
-                        min: '800',
-                    },
-                    heading: objectGenerator(
-                        Tokens_Themes_Set_SingleMode.allHeadingLevels,
-                        () => '850'
-                    ),
-                };
+                defaultLevels = Tokens_Themes_Set_SingleMode.Build.LEVELS_DEFAULT.max;
 
                 levels = Tokens_Themes_Set_SingleMode.Build.completeLevels<
                     T_ColourName,
                     T_ExtraColourLevels,
                     T_Keyword_Universal,
-                    T_Keyword_Text
+                    T_Keyword_Text,
+                    T_Keyword_Background
                 >( mergeArgs(
                     defaultLevels,
                     input.levels as Partial<Tokens_Themes_Set_SingleMode.RequiredLevels<never>>,
@@ -362,8 +277,8 @@ export class Tokens_Themes_Set_SingleMode<
                 ) );
 
                 overrides.selection = {
-                    bg: clrOpt( variations.universal.primary, '850' as T_ExtraColourLevels | ColourLevels ),
-                    text: clrOpt( variations.base, '100' as T_ExtraColourLevels | ColourLevels ),
+                    bg: clrOpt( variations.universal.primary, '850' as T_ExtraColourLevels | ColourUtilities.Levels.Required ),
+                    text: clrOpt( variations.base, '100' as T_ExtraColourLevels | ColourUtilities.Levels.Required ),
                     ...overrides.selection,
                 };
                 break;
@@ -373,7 +288,8 @@ export class Tokens_Themes_Set_SingleMode<
                     T_ColourName,
                     T_ExtraColourLevels,
                     T_Keyword_Universal,
-                    T_Keyword_Text
+                    T_Keyword_Text,
+                    T_Keyword_Background
                 > = {
                     ...input,
 
@@ -381,7 +297,8 @@ export class Tokens_Themes_Set_SingleMode<
                         T_ColourName,
                         T_ExtraColourLevels,
                         T_Keyword_Universal,
-                        T_Keyword_Text
+                        T_Keyword_Text,
+                        T_Keyword_Background
                     >( clrNames, input.variations ),
                 };
 
@@ -394,18 +311,18 @@ export class Tokens_Themes_Set_SingleMode<
 
         const levelsInUse = (
             Object.values(
-                objectFlatten( levels as unknown as RecursiveRecord<string, ColourLevels | ColourLevels_Extended> )
-            ) as ( ColourLevels | ColourLevels_Extended )[]
+                objectFlatten( levels as unknown as RecursiveRecord<string, ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional> )
+            ) as ( ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional )[]
         ).concat(
             Object.values(
                 objectFlatten( overrides as unknown as RecursiveRecord<string, ThemeColourOption<T_ColourName, T_ExtraColourLevels>> )
-            ).map( ( val ): ColourLevels | ColourLevels_Extended | false => {
+            ).map( ( val ): ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional | false => {
 
                 const match = String( val ).match( /\-(\d+)$/ );
 
                 // returns
                 if ( match && match[ 1 ] ) {
-                    return match[ 1 ] as ColourLevels | ColourLevels_Extended;
+                    return match[ 1 ] as ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional;
                 }
 
                 return false;
@@ -429,7 +346,8 @@ export class Tokens_Themes_Set_SingleMode<
                     T_ColourName,
                     T_ExtraColourLevels,
                     T_Keyword_Universal,
-                    T_Keyword_Text
+                    T_Keyword_Text,
+                    T_Keyword_Background
                 >>,
                 true
             )
@@ -438,12 +356,13 @@ export class Tokens_Themes_Set_SingleMode<
 
     protected constructor (
         public readonly description: null | string,
-        public readonly levelsInUse: ( ColourLevels | ColourLevels_Extended )[],
+        public readonly levelsInUse: ( ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional )[],
         public readonly data: Tokens_Themes_Set_SingleMode.Data<
             T_ColourName,
             T_ExtraColourLevels,
             T_Keyword_Universal,
             T_Keyword_Text,
+            T_Keyword_Background,
             __T_ColourOption
         >,
     ) {
@@ -455,6 +374,7 @@ export class Tokens_Themes_Set_SingleMode<
         T_ExtraColourLevels,
         T_Keyword_Universal,
         T_Keyword_Text,
+        T_Keyword_Background,
         __T_ColourOption
     > {
 
@@ -464,7 +384,7 @@ export class Tokens_Themes_Set_SingleMode<
 
             return {
                 light: level,
-                dark: dark.padStart( Math.max( 0, 3 - dark.length ), '0' ) as ColourLevels | ColourLevels_Extended,
+                dark: dark.padStart( Math.max( 0, 3 - dark.length ), '0' ) as ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional,
             };
         } );
 
@@ -485,7 +405,9 @@ export class Tokens_Themes_Set_SingleMode<
                 text: __T_ColourOption;
             };
 
-            background: __T_ColourOption;
+            background: {
+                $: __T_ColourOption;
+            };
 
             button: {
 
@@ -602,7 +524,7 @@ export namespace Tokens_Themes_Set_SingleMode {
 
     export interface Data_Button<
         T_ColourName extends string,
-        T_ExtraColourLevels extends ColourLevels_Extended,
+        T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
 
         __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>,
     > {
@@ -643,14 +565,23 @@ export namespace Tokens_Themes_Set_SingleMode {
      */
     export interface Data<
         T_ColourName extends string,
-        T_ExtraColourLevels extends ColourLevels_Extended,
+        T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
 
         T_Keyword_Universal extends string,
         T_Keyword_Text extends string,
+        T_Keyword_Background extends string,
 
         __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>,
     > {
-        background: __T_ColourOption,
+        background: {
+            $: __T_ColourOption;
+        } & {
+            [ K in keyof RequiredVariations<T_ColourName>[ 'background' ] ]: __T_ColourOption;
+        } & {
+            [ K in T_Keyword_Universal ]: __T_ColourOption;
+        } & {
+            [ K in T_Keyword_Background ]: __T_ColourOption;
+        },
 
         text: {
             $: __T_ColourOption,
@@ -771,14 +702,23 @@ export namespace Tokens_Themes_Set_SingleMode {
      */
     export interface Data_RecursivePartial<
         T_ColourName extends string,
-        T_ExtraColourLevels extends ColourLevels_Extended,
+        T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
 
         T_Keyword_Universal extends string,
         T_Keyword_Text extends string,
+        T_Keyword_Background extends string,
 
         __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>,
     > {
-        background?: undefined | __T_ColourOption,
+        background?: undefined | {
+            $?: undefined | __T_ColourOption,
+        } & {
+            [ K in keyof RequiredVariations<T_ColourName>[ 'background' ] ]?: undefined | __T_ColourOption;
+        } & {
+            [ K in T_Keyword_Universal ]?: undefined | __T_ColourOption;
+        } & {
+            [ K in T_Keyword_Background ]?: undefined | __T_ColourOption;
+        },
 
         text?: undefined | {
             $?: undefined | __T_ColourOption,
@@ -897,6 +837,10 @@ export namespace Tokens_Themes_Set_SingleMode {
     > {
         base: T_ColourName;
 
+        background: {
+            alt: T_ColourName;
+        },
+
         universal: {
             primary: T_ColourName;
             secondary: T_ColourName;
@@ -925,8 +869,13 @@ export namespace Tokens_Themes_Set_SingleMode {
 
         T_Keyword_Universal extends string,
         T_Keyword_Text extends string,
+        T_Keyword_Background extends string,
     > {
         base: T_ColourName;
+
+        background: RequiredVariations<T_ColourName>[ 'background' ] & {
+            [ K in T_Keyword_Background ]: T_ColourName;
+        };
 
         universal: RequiredVariations<T_ColourName>[ 'universal' ] & {
             [ K in T_Keyword_Universal ]: T_ColourName;
@@ -943,24 +892,36 @@ export namespace Tokens_Themes_Set_SingleMode {
         interactive: RequiredVariations<T_ColourName>[ 'interactive' ];
     };
 
-    interface LevelsSet<
-        T_ExtraColourLevels extends ColourLevels_Extended,
+    interface LevelsSet_AccentMin<
+        T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
     > {
-        $: ColourLevels | T_ExtraColourLevels;
-        accent: ColourLevels | T_ExtraColourLevels;
-        min: ColourLevels | T_ExtraColourLevels;
+        $: ColourUtilities.Levels.Required | T_ExtraColourLevels;
+        accent: ColourUtilities.Levels.Required | T_ExtraColourLevels;
+        min: ColourUtilities.Levels.Required | T_ExtraColourLevels;
+    }
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    interface LevelsSet_AccentAlt<
+        T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
+    > {
+        $: ColourUtilities.Levels.Required | T_ExtraColourLevels;
+        accent: ColourUtilities.Levels.Required | T_ExtraColourLevels;
+        alt: ColourUtilities.Levels.Required | T_ExtraColourLevels;
     }
 
     /** @internal @private */
     export interface RequiredLevels<
-        T_ExtraColourLevels extends ColourLevels_Extended,
+        T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
     > {
-        background: ColourLevels | T_ExtraColourLevels;
-        text: LevelsSet<T_ExtraColourLevels>;
-        ui: LevelsSet<T_ExtraColourLevels>;
+        background: LevelsSet_AccentAlt<T_ExtraColourLevels>;
+
+        text: LevelsSet_AccentMin<T_ExtraColourLevels>;
+        ui: LevelsSet_AccentMin<T_ExtraColourLevels>;
 
         heading: {
-            [ L in RequiredHeadingLevels ]: ColourLevels | T_ExtraColourLevels;
+            [ L in RequiredHeadingLevels ]: ColourUtilities.Levels.Required | T_ExtraColourLevels;
         };
     };
 
@@ -971,10 +932,11 @@ export namespace Tokens_Themes_Set_SingleMode {
      */
     export interface InputParam<
         T_ColourName extends string,
-        T_ExtraColourLevels extends ColourLevels_Extended,
+        T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
 
         T_Keyword_Universal extends string,
         T_Keyword_Text extends string,
+        T_Keyword_Background extends string,
 
         __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>,
     > {
@@ -982,16 +944,22 @@ export namespace Tokens_Themes_Set_SingleMode {
         description?: null | string;
 
         levels?: undefined | {
-            background?: ColourLevels | T_ExtraColourLevels;
-            text?: ColourLevels | T_ExtraColourLevels | Partial<LevelsSet<T_ExtraColourLevels>>;
-            ui?: ColourLevels | T_ExtraColourLevels | Partial<LevelsSet<T_ExtraColourLevels>>;
+            background?: ColourUtilities.Levels.Required | T_ExtraColourLevels | Partial<LevelsSet_AccentAlt<T_ExtraColourLevels>>;
+            text?: ColourUtilities.Levels.Required | T_ExtraColourLevels | Partial<LevelsSet_AccentMin<T_ExtraColourLevels>>;
+            ui?: ColourUtilities.Levels.Required | T_ExtraColourLevels | Partial<LevelsSet_AccentMin<T_ExtraColourLevels>>;
 
-            heading?: ColourLevels | T_ExtraColourLevels | {
-                [ L in RequiredHeadingLevels ]?: ColourLevels | T_ExtraColourLevels;
+            heading?: ColourUtilities.Levels.Required | T_ExtraColourLevels | {
+                [ L in RequiredHeadingLevels ]?: ColourUtilities.Levels.Required | T_ExtraColourLevels;
             };
         };
 
         variations?: undefined | {
+
+            background?: Partial<
+                RequiredVariations<T_ColourName>[ 'background' ]
+            > & {
+                [ K in T_Keyword_Background ]: T_ColourName;
+            },
 
             universal?: Partial<
                 RequiredVariations<T_ColourName>[ 'universal' ]
@@ -1022,10 +990,11 @@ export namespace Tokens_Themes_Set_SingleMode {
      */
     export type JsonReturn<
         T_ColourName extends string,
-        T_ExtraColourLevels extends ColourLevels_Extended,
+        T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
 
         T_Keyword_Universal extends string,
         T_Keyword_Text extends string,
+        T_Keyword_Background extends string,
 
         __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>,
     > = {
@@ -1035,11 +1004,12 @@ export namespace Tokens_Themes_Set_SingleMode {
             T_ExtraColourLevels,
             T_Keyword_Universal,
             T_Keyword_Text,
+            T_Keyword_Background,
             __T_ColourOption
         >;
         levelsInUse: {
-            light: ColourLevels | ColourLevels_Extended;
-            dark: ColourLevels | ColourLevels_Extended;
+            light: ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional;
+            dark: ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional;
         }[];
     };
 
@@ -1063,16 +1033,18 @@ export namespace Tokens_Themes_Set_SingleMode {
          */
         export interface Param<
             T_ColourName extends string,
-            T_ExtraColourLevels extends ColourLevels_Extended,
+            T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
 
             T_Keyword_Universal extends string,
             T_Keyword_Text extends string,
+            T_Keyword_Background extends string,
         > {
             levels: RequiredLevels<T_ExtraColourLevels>;
             variations: AllVariations<
                 T_ColourName,
                 T_Keyword_Universal,
-                T_Keyword_Text
+                T_Keyword_Text,
+                T_Keyword_Background
             >;
         };
 
@@ -1081,118 +1053,272 @@ export namespace Tokens_Themes_Set_SingleMode {
          */
         export interface Param_ForcedColors<
             T_ColourName extends string,
-            T_ExtraColourLevels extends ColourLevels_Extended,
+            T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
 
             T_Keyword_Universal extends string,
             T_Keyword_Text extends string,
+            T_Keyword_Background extends string,
         > {
             levels?: InputParam<
                 T_ColourName,
                 T_ExtraColourLevels,
                 T_Keyword_Universal,
-                T_Keyword_Text
+                T_Keyword_Text,
+                T_Keyword_Background
             >[ 'levels' ];
+
             variations: AllVariations<
                 T_ColourName,
                 T_Keyword_Universal,
-                T_Keyword_Text
+                T_Keyword_Text,
+                T_Keyword_Background
             >;
         };
 
         export function colourOption<
             T_ColourName extends string,
-            T_ExtraColourLevels extends ColourLevels_Extended,
+            T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
         >(
             name: T_ColourName,
-            level: ColourLevels | T_ExtraColourLevels,
+            level: ColourUtilities.Levels.Required | T_ExtraColourLevels,
         ): ColourTokenSlug<T_ColourName, T_ExtraColourLevels> {
             return `${ name }-${ level }`;
         }
 
         export function completeLevels<
             T_ColourName extends string,
-            T_ExtraColourLevels extends ColourLevels_Extended,
+            T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
 
             T_Keyword_Universal extends string,
             T_Keyword_Text extends string,
+            T_Keyword_Background extends string,
         >(
             input: InputParam<
                 T_ColourName,
                 T_ExtraColourLevels,
                 T_Keyword_Universal,
-                T_Keyword_Text
+                T_Keyword_Text,
+                T_Keyword_Background
             >[ 'levels' ],
         ): Param<
             T_ColourName,
             T_ExtraColourLevels,
 
             T_Keyword_Universal,
-            T_Keyword_Text
+            T_Keyword_Text,
+            T_Keyword_Background
         >[ 'levels' ] {
 
-            const text: RequiredLevels<T_ExtraColourLevels>[ 'text' ] =
-                typeof input?.text === 'object'
-                    ? {
-                        $: input.text?.$ ?? '800',
-                        accent: input.text?.accent ?? '800',
-                        min: input.text?.min ?? '800',
-                    }
-                    : {
-                        $: input?.text ?? '800',
-                        accent: input?.text ?? '800',
-                        min: input?.text ?? '800',
-                    };
+            const DEFAULT = LEVELS_DEFAULT.high;
 
-            const ui: RequiredLevels<T_ExtraColourLevels>[ 'ui' ] =
-                typeof input?.ui === 'object'
-                    ? {
-                        $: input.ui?.$ ?? '700',
-                        accent: input.ui?.accent ?? '700',
-                        min: input.ui?.min ?? '700',
-                    }
-                    : {
-                        $: input?.ui ?? '700',
-                        accent: input?.ui ?? '700',
-                        min: input?.ui ?? '700',
-                    };
+            const nomalized_input = {
 
-            const heading: RequiredLevels<T_ExtraColourLevels>[ 'heading' ] =
-                typeof input?.heading === 'object'
-                    ? objectGenerator(
-                        Tokens_Themes_Set_SingleMode.allHeadingLevels,
-                        ( hdgNum ) => ( input.heading?.[ hdgNum ] as ColourLevels | T_ExtraColourLevels ) ?? text.accent
-                    )
-                    : objectGenerator(
-                        Tokens_Themes_Set_SingleMode.allHeadingLevels,
-                        () => ( input?.heading as ColourLevels | T_ExtraColourLevels ) ?? text.accent
-                    );
+                background: typeof input?.background === 'object' ? input?.background : {
+                    $: input?.background,
+                    accent: input?.background,
+                    alt: input?.background,
+                },
+
+                heading: typeof input?.heading === 'object'
+                    ? input?.heading
+                    : input?.heading
+                        ? objectGenerator(
+                            Tokens_Themes_Set_SingleMode.allHeadingLevels,
+                            () => input?.heading as ColourUtilities.Levels.Required | T_ExtraColourLevels
+                        )
+                        : {},
+
+                text: typeof input?.text === 'object' ? input?.text : {
+                    $: input?.text,
+                    accent: input?.text,
+                    min: input?.text,
+                },
+
+                ui: typeof input?.ui === 'object' ? input?.ui : {
+                    $: input?.ui,
+                    accent: input?.ui,
+                    min: input?.ui,
+                },
+            } as const;
+
+            const background: RequiredLevels<T_ExtraColourLevels>[ 'background' ] = {
+                $: nomalized_input.background?.$ ?? DEFAULT.background.$,
+                accent: nomalized_input.background?.accent ?? DEFAULT.background.accent,
+                alt: nomalized_input.background?.alt ?? DEFAULT.background.alt,
+            };
+
+            const text: RequiredLevels<T_ExtraColourLevels>[ 'text' ] = {
+                $: nomalized_input.text?.$ ?? DEFAULT.text.$,
+                accent: nomalized_input.text?.accent ?? DEFAULT.text.accent,
+                min: nomalized_input.text?.min ?? DEFAULT.text.min,
+            };
+
+            const ui: RequiredLevels<T_ExtraColourLevels>[ 'ui' ] = {
+                $: nomalized_input.ui?.$ ?? nomalized_input.text?.$ ?? DEFAULT.ui.$,
+                accent: nomalized_input.ui?.accent ?? nomalized_input.text?.accent ?? DEFAULT.ui.accent,
+                min: nomalized_input.ui?.min ?? nomalized_input.text?.min ?? DEFAULT.ui.min,
+            };
+
+            const heading: RequiredLevels<T_ExtraColourLevels>[ 'heading' ] = objectGenerator(
+                Tokens_Themes_Set_SingleMode.allHeadingLevels,
+                ( hdgNum ) => nomalized_input.heading?.[ hdgNum ] ?? DEFAULT.heading[ hdgNum ]
+            );
 
             return {
-                background: input?.background ?? '100',
+                background,
                 text,
                 ui,
                 heading,
             };
         }
 
+        /**
+         * @since ___PKG_VERSION___
+         */
+        export namespace LEVELS_DEFAULT {
+
+            export const average = {
+                background: {
+                    $: '150',
+                    alt: '250',
+                    accent: '200',
+                },
+                text: {
+                    $: '800',
+                    accent: '700',
+                    min: '600',
+                },
+                ui: {
+                    $: '800',
+                    accent: '700',
+                    min: '600',
+                },
+                heading: {
+                    1: '800',
+                    2: '700',
+                    3: '700',
+                    4: '700',
+                    5: '700',
+                    6: '700',
+                    7: '700',
+                    8: '700',
+                    9: '700',
+                    10: '700',
+                },
+            } as const satisfies Tokens_Themes_Set_SingleMode.RequiredLevels<never>;
+
+            export const high = {
+                background: {
+                    $: '100',
+                    alt: '200',
+                    accent: '150',
+                },
+                text: {
+                    $: '850',
+                    accent: '750',
+                    min: '700',
+                },
+                ui: {
+                    $: '850',
+                    accent: '750',
+                    min: '700',
+                },
+                heading: {
+                    1: '800',
+                    2: '700',
+                    3: '700',
+                    4: '700',
+                    5: '750',
+                    6: '750',
+                    7: '750',
+                    8: '750',
+                    9: '750',
+                    10: '750',
+                },
+            } as const satisfies Tokens_Themes_Set_SingleMode.RequiredLevels<never>;
+
+            export const low = {
+                background: {
+                    $: '250',
+                    alt: '200',
+                    accent: '200',
+                },
+                text: {
+                    $: '700',
+                    accent: '700',
+                    min: '600',
+                },
+                ui: {
+                    $: '700',
+                    accent: '700',
+                    min: '600',
+                },
+                heading: {
+                    1: '600',
+                    2: '700',
+                    3: '700',
+                    4: '700',
+                    5: '750',
+                    6: '750',
+                    7: '750',
+                    8: '750',
+                    9: '750',
+                    10: '750',
+                },
+            } as const satisfies Tokens_Themes_Set_SingleMode.RequiredLevels<never>;
+
+            export const max = {
+                background: {
+                    $: '100',
+                    alt: '100',
+                    accent: '100',
+                },
+                text: {
+                    $: '900',
+                    accent: '850',
+                    min: '850',
+                },
+                ui: {
+                    $: '900',
+                    accent: '850',
+                    min: '850',
+                },
+                heading: {
+                    1: '850',
+                    2: '850',
+                    3: '850',
+                    4: '850',
+                    5: '850',
+                    6: '850',
+                    7: '850',
+                    8: '850',
+                    9: '850',
+                    10: '850',
+                },
+            } as const satisfies Tokens_Themes_Set_SingleMode.RequiredLevels<never>;
+        }
+
         export function completeVariations<
             T_ColourName extends string,
-            T_ExtraColourLevels extends ColourLevels_Extended,
+            T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
 
             T_Keyword_Universal extends string,
             T_Keyword_Text extends string,
+            T_Keyword_Background extends string,
         >(
             clrNames: readonly T_ColourName[],
             input: InputParam<
                 T_ColourName,
                 T_ExtraColourLevels,
                 T_Keyword_Universal,
-                T_Keyword_Text
+                T_Keyword_Text,
+                T_Keyword_Background
             >[ 'variations' ],
         ): AllVariations<
             T_ColourName,
             T_Keyword_Universal,
-            T_Keyword_Text
+            T_Keyword_Text,
+            T_Keyword_Background
         > {
             const clrNames_noBase = clrNames.filter( v => v !== 'base' );
 
@@ -1201,8 +1327,12 @@ export namespace Tokens_Themes_Set_SingleMode {
             const clr_2 = input?.universal?.secondary ?? clrNames_noBase[ 1 ] ?? clr_1;
             const clr_3 = input?.text?.active ?? input?.interactive?.active ?? clrNames_noBase[ 2 ] ?? clr_2;
 
-            const def: RequiredVariations<T_ColourName> = {
+            const def: RequiredVariations<T_ColourName> & { background: { primary?: T_ColourName; }; } = {
                 base: base,
+
+                background: {
+                    alt: base,
+                },
 
                 universal: {
                     primary: clr_1,
@@ -1227,17 +1357,23 @@ export namespace Tokens_Themes_Set_SingleMode {
                 },
             };
 
+            if ( !input?.background ) {
+                def.background.primary = clr_1;
+            }
+
             const vars: AllVariations<
                 T_ColourName,
                 T_Keyword_Universal,
-                T_Keyword_Text
+                T_Keyword_Text,
+                T_Keyword_Background
             > = mergeArgs(
                 def,
                 input as RecursivePartial<RequiredVariations<T_ColourName>> & InputParam<
                     T_ColourName,
                     T_ExtraColourLevels,
                     T_Keyword_Universal,
-                    T_Keyword_Text
+                    T_Keyword_Text,
+                    T_Keyword_Background
                 >[ 'variations' ],
                 true
             );
@@ -1252,29 +1388,33 @@ export namespace Tokens_Themes_Set_SingleMode {
          */
         export async function data<
             T_ColourName extends string,
-            T_ExtraColourLevels extends ColourLevels_Extended,
+            T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
 
             T_Keyword_Universal extends string = never,
             T_Keyword_Text extends string = never,
+            T_Keyword_Background extends string = never,
         >(
             input: Param<
                 T_ColourName,
                 T_ExtraColourLevels,
                 T_Keyword_Universal,
-                T_Keyword_Text
+                T_Keyword_Text,
+                T_Keyword_Background
             >,
         ): Promise<Data<
             T_ColourName,
             T_ExtraColourLevels,
             T_Keyword_Universal,
-            T_Keyword_Text
+            T_Keyword_Text,
+            T_Keyword_Background
         >> {
 
             type CompleteData = Data<
                 T_ColourName,
                 T_ExtraColourLevels,
                 T_Keyword_Universal,
-                T_Keyword_Text
+                T_Keyword_Text,
+                T_Keyword_Background
             >;
 
             const clrOpt = colourOption;
@@ -1283,6 +1423,15 @@ export namespace Tokens_Themes_Set_SingleMode {
                 levels,
                 variations,
             } = input;
+
+            const background: CompleteData[ 'background' ] = {
+                $: clrOpt( variations.base, levels.background.$ ),
+
+                ...objectMap( variations.background, ( [ key, clrName ] ) => clrOpt( clrName, levels.background.alt ) ),
+                ...objectMap( variations.universal, ( [ key, clrName ] ) => clrOpt( clrName, levels.background.accent ) ),
+
+                alt: clrOpt( variations.base, levels.background.alt ),
+            };
 
             const text: CompleteData[ 'text' ] = {
                 $: clrOpt( variations.base, levels.text.$ ),
@@ -1372,21 +1521,26 @@ export namespace Tokens_Themes_Set_SingleMode {
                     },
 
                     text: {
-                        $: clrOpt( variations.base, levels.background ),
-                        hover: clrOpt( variations.base, levels.background ),
-                        active: clrOpt( variations.base, levels.background ),
+                        $: clrOpt( variations.base, levels.background.$ ),
+                        hover: clrOpt( variations.base, levels.background.$ ),
+                        active: clrOpt( variations.base, levels.background.$ ),
                     },
 
                     ui: {
-                        $: clrOpt( variations.base, levels.background ),
-                        hover: clrOpt( variations.base, levels.background ),
-                        active: clrOpt( variations.base, levels.background ),
+                        $: clrOpt( variations.base, levels.background.$ ),
+                        hover: clrOpt( variations.base, levels.background.$ ),
+                        active: clrOpt( variations.base, levels.background.$ ),
                     },
                 };
             };
 
             const button: CompleteData[ 'button' ] = {
-                ...objectMap( variations.universal, ( [ key, clrName ] ) => singleButtonMaker( clrName ) ),
+                ...objectMap(
+                    variations.universal,
+                    <K extends keyof CompleteData[ 'button' ]>(
+                        [ key, clrName ]: [ K, T_ColourName ]
+                    ) => singleButtonMaker( clrName ) as CompleteData[ 'button' ][ K ],
+                ),
 
                 disabled: {
 
@@ -1408,21 +1562,21 @@ export namespace Tokens_Themes_Set_SingleMode {
                     },
 
                     text: {
-                        $: clrOpt( variations.base, levels.background ),
-                        hover: clrOpt( variations.base, levels.background ),
-                        active: clrOpt( variations.base, levels.background ),
+                        $: clrOpt( variations.base, levels.background.$ ),
+                        hover: clrOpt( variations.base, levels.background.$ ),
+                        active: clrOpt( variations.base, levels.background.$ ),
                     },
 
                     ui: {
-                        $: clrOpt( variations.base, levels.background ),
-                        hover: clrOpt( variations.base, levels.background ),
-                        active: clrOpt( variations.base, levels.background ),
+                        $: clrOpt( variations.base, levels.background.$ ),
+                        hover: clrOpt( variations.base, levels.background.$ ),
+                        active: clrOpt( variations.base, levels.background.$ ),
                     },
                 },
             };
 
             const complete: CompleteData = {
-                background: clrOpt( variations.base, levels.background ),
+                background,
 
                 text,
                 ui,
@@ -1430,7 +1584,7 @@ export namespace Tokens_Themes_Set_SingleMode {
 
                 selection: {
                     bg: clrOpt( variations.universal.primary, levels.text.accent ),
-                    text: clrOpt( variations.base, levels.background ),
+                    text: clrOpt( variations.base, levels.background.$ ),
                 },
 
                 link,
@@ -1448,9 +1602,9 @@ export namespace Tokens_Themes_Set_SingleMode {
                     },
 
                     bg: {
-                        $: clrOpt( variations.base, levels.background ),
-                        hover: clrOpt( variations.base, levels.background ),
-                        active: clrOpt( variations.base, levels.background ),
+                        $: clrOpt( variations.base, levels.background.$ ),
+                        hover: clrOpt( variations.base, levels.background.$ ),
+                        active: clrOpt( variations.base, levels.background.$ ),
                     },
 
                     border: {
@@ -1469,15 +1623,15 @@ export namespace Tokens_Themes_Set_SingleMode {
                 system: {
                     accent: {
                         bg: clrOpt( variations.universal.primary, levels.text.accent ),
-                        text: clrOpt( variations.base, levels.background ),
+                        text: clrOpt( variations.base, levels.background.$ ),
                     },
                     mark: {
                         bg: clrOpt( variations.text.active, levels.text.accent ),
-                        text: clrOpt( variations.base, levels.background ),
+                        text: clrOpt( variations.base, levels.background.$ ),
                     },
                     selected: {
                         bg: clrOpt( variations.interactive.hover, levels.text.accent ),
-                        text: clrOpt( variations.base, levels.background ),
+                        text: clrOpt( variations.base, levels.background.$ ),
                     },
                 },
             };
@@ -1492,22 +1646,25 @@ export namespace Tokens_Themes_Set_SingleMode {
          */
         export async function forcedColors<
             T_ColourName extends string,
-            T_ExtraColourLevels extends ColourLevels_Extended,
+            T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
 
             T_Keyword_Universal extends string = never,
             T_Keyword_Text extends string = never,
+            T_Keyword_Background extends string = never,
         >(
             input: Param_ForcedColors<
                 T_ColourName,
                 T_ExtraColourLevels,
                 T_Keyword_Universal,
-                T_Keyword_Text
+                T_Keyword_Text,
+                T_Keyword_Background
             >,
         ): Promise<Data<
             T_ColourName,
             T_ExtraColourLevels,
             T_Keyword_Universal,
             T_Keyword_Text,
+            T_Keyword_Background,
             CssSystemColor
         >> {
             type CompleteData = Data<
@@ -1515,6 +1672,7 @@ export namespace Tokens_Themes_Set_SingleMode {
                 T_ExtraColourLevels,
                 T_Keyword_Universal,
                 T_Keyword_Text,
+                T_Keyword_Background,
                 CssSystemColor
             >;
 
@@ -1526,6 +1684,12 @@ export namespace Tokens_Themes_Set_SingleMode {
                 background: 'Canvas',
                 text: 'CanvasText',
             } as const;
+
+            const background: CompleteData[ 'background' ] = {
+                $: sysclr.background,
+                ...objectMap( variations.background, () => sysclr.background ),
+                ...objectMap( variations.universal, () => sysclr.background ),
+            };
 
             const text: CompleteData[ 'text' ] = {
                 $: sysclr.text,
@@ -1598,7 +1762,7 @@ export namespace Tokens_Themes_Set_SingleMode {
             };
 
             const complete: CompleteData = {
-                background: sysclr.background,
+                background,
 
                 text,
                 ui: text,

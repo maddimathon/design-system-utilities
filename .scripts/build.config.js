@@ -43,7 +43,7 @@ const config = {
         sass: sassCompilerOpts(
             {
                 benchmarkCompileTime: true,
-                // compileViaCLI: true,
+                pathToSassLoggingRoot: 'node_modules/@maddimathon/build-utilities/node_modules',
             },
         ),
 
@@ -92,8 +92,12 @@ const config = {
                     projectDocuments: [
                         'README.typedoc.md',
                     ],
+
+                    // navigation: {
+                    //     includeGroups: true,
+                    // },
                 },
-            }
+            },
         ],
 
         test: true,

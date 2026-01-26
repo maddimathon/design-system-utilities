@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.12
+ * @maddimathon/design-system-utilities@0.1.1-alpha.0.draft
  * @license MIT
  */
 import type { TokenLevels, TokenLevels_Extended } from './@types.js';
@@ -31,18 +31,7 @@ export declare class Tokens_Spacing extends AbstractTokens<Tokens_Spacing.Data> 
             800: number;
             900: number;
         } & {
-            700?: number | undefined;
-            "000"?: number | undefined;
-            "050"?: number | undefined;
-            150?: number | undefined;
-            250?: number | undefined;
-            350?: number | undefined;
-            450?: number | undefined;
-            550?: number | undefined;
-            650?: number | undefined;
-            750?: number | undefined;
-            850?: number | undefined;
-            950?: number | undefined;
+            [x: string]: number | undefined;
         };
     };
 }

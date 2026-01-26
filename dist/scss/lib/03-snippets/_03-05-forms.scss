@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-alpha.12
+/// @package @maddimathon/design-system-utilities@0.1.1-alpha.0.draft
 /// @since 0.1.0-alpha
 ///
 
@@ -76,10 +76,13 @@
 ///
 @mixin snippet-button(
     $fontWeight: var-style(button-font-weight),
+    $fontWeight_disabled: var-style(button-disabled-font-weight),
     $fontSize: var-fs(normal),
     $fontStyle: var-style(button-font-style),
+    $fontStyle_disabled: var-style(button-disabled-font-style),
     $includeColors: true,
     $includeDisabled: true,
+    $includePseudoIcons: config.$template_button_inlineIcons,
     $variation: 'primary'
 ) {
     @include cx-prop(focus-ring-outline-offset, var-style(button-focus-offset));
@@ -144,22 +147,12 @@
 
     @if $includeDisabled {
         &[aria-disabled='true'] {
-            cursor: not-allowed;
-
-            @if $includeColors {
-                @include snippet-button-colours(disabled);
-            }
-
-            &::before {
-                @if config.$template_button_inlineIcons {
-                    @include snippet-icon-pseudo-element(
-                        forbidden,
-                        $pseudo: before
-                    ) {
-                        align-self: center;
-                    }
-                }
-            }
+            @include snippet-button-disabled(
+                $fontWeight: $fontWeight_disabled,
+                $fontStyle: $fontStyle_disabled,
+                $includeColors: $includeColors,
+                $includePseudoIcons: $includePseudoIcons
+            );
         }
     }
 
@@ -176,6 +169,42 @@
         @each $mode in tokens.$contrastMode_all {
             @include colour-mode($mode, $includeDefault: false) {
                 @include snippet-selection($mode);
+            }
+        }
+    }
+}
+
+///
+/// Override styles for a disabled button element (assuming snippet-button was
+/// assigned to the base element/selector).
+///
+/// @since 0.1.1-alpha.0.draft
+///
+@mixin snippet-button-disabled(
+    $fontWeight: var-style(button-disabled-font-weight),
+    $fontStyle: var-style(button-disabled-font-style),
+    $includeColors: true,
+    $includePseudoIcons: config.$template_button_inlineIcons
+) {
+    border-radius: #{var-style(button-disabled-border-radius)};
+    border-style: #{var-style(button-disabled-border-style)};
+
+    font-weight: #{$fontWeight};
+    font-style: #{$fontStyle};
+
+    letter-spacing: #{var-style(button-disabled-letter-spacing)};
+    text-transform: #{var-style(button-disabled-text-transform)};
+
+    cursor: not-allowed;
+
+    @if $includeColors {
+        @include snippet-button-colours(disabled);
+    }
+
+    &::before {
+        @if $includePseudoIcons {
+            @include snippet-icon-pseudo-element(forbidden, $pseudo: before) {
+                align-self: center;
             }
         }
     }

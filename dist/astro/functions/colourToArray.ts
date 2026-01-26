@@ -4,11 +4,11 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.12
+ * @maddimathon/design-system-utilities@0.1.1-alpha.0.draft
  * @license MIT
  */
 
-import type { ColourLevels_Extended } from '../../ts/02-tokens/@types.d.ts';
+import type { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
 import type { Tokens_Colour } from '../../ts/02-tokens/Tokens_Colour.js';
 
 import { shadeMapToArray } from './shadeMapToArray.js';
@@ -18,7 +18,7 @@ import { shadeMapToArray } from './shadeMapToArray.js';
  */
 export function colourToArray<
     T_ColourName extends string = string,
-    T_ExtraLevels extends ColourLevels_Extended = ColourLevels_Extended,
+    T_ExtraLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional,
 >(
     p: { colour: Tokens_Colour.JsonReturn<T_ColourName, T_ExtraLevels>; }
 ) {

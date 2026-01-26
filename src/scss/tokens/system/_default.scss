@@ -74,36 +74,50 @@ $designSystem: map.deep-merge( (
     ),
     'style': (
         'button': (
-            'border': (
-                'radius': '0',
-                'style': 'solid',
-                'width': '200'
+            '$': (
+                'border': (
+                    'radius': '0',
+                    'style': 'solid',
+                    'width': '100'
+                ),
+                'focus': (
+                    'offset': '300'
+                ),
+                'font': (
+                    'style': 'normal',
+                    'weight': '500'
+                ),
+                'gap': (
+                    'block': '300',
+                    'inline': '200'
+                ),
+                'letter-spacing': 'normal',
+                'line-height': '100',
+                'text-transform': 'none',
+                'margin': (
+                    'block': (
+                        'start': '400',
+                        'end': '400'
+                    )
+                ),
+                'padding': (
+                    'block': '200',
+                    'inline': '300'
+                ),
+                'width': 'fit-content'
             ),
-            'focus': (
-                'offset': '300'
-            ),
-            'font': (
-                'style': 'normal',
-                'weight': '500'
-            ),
-            'gap': (
-                'block': '300',
-                'inline': '200'
-            ),
-            'letter-spacing': 'normal',
-            'line-height': '100',
-            'text-transform': 'none',
-            'margin': (
-                'block': (
-                    'start': '400',
-                    'end': '400'
-                )
-            ),
-            'padding': (
-                'block': '200',
-                'inline': '300'
-            ),
-            'width': 'fit-content'
+            'disabled': (
+                'border': (
+                    'radius': '0',
+                    'style': 'dashed'
+                ),
+                'font': (
+                    'style': 'italic',
+                    'weight': '500'
+                ),
+                'letter-spacing': 'normal',
+                'text-transform': 'none'
+            )
         ),
         'heading': (
             '1': (
@@ -550,14 +564,14 @@ $designSystem: map.deep-merge( (
             '200': hsl( 339.45, 0%, 88.2% ),
             '250': hsl( 339.45, 0%, 82.96% ),
             '300': hsl( 339.45, 0%, 77.78% ),
-            '400': hsl( 339.45, 0%, 61.84% ),
-            '500': hsl( 339.45, 0%, 46.63% ),
-            '600': hsl( 339.45, 0%, 32.73% ),
-            '700': hsl( 339.45, 0%, 19.79% ),
-            '750': hsl( 339.45, 0%, 15.7% ),
-            '800': hsl( 339.45, 0%, 11.75% ),
-            '850': hsl( 339.45, 0%, 7.89% ),
-            '900': hsl( 339.45, 0%, 2.15% )
+            '400': hsl( 339.45, 0%, 62.36% ),
+            '500': hsl( 339.45, 0%, 47.62% ),
+            '600': hsl( 339.45, 0%, 33.66% ),
+            '700': hsl( 339.45, 0%, 20.65% ),
+            '750': hsl( 339.45, 0%, 16.63% ),
+            '800': hsl( 339.45, 0%, 12.75% ),
+            '850': hsl( 339.45, 0%, 9.03% ),
+            '900': hsl( 339.45, 0%, 4.28% )
         ),
         'purple': (
             '100': hsl( 270, 100%, 98.5% ),
@@ -608,7 +622,12 @@ $designSystem: map.deep-merge( (
     'themes': (
         'default': (
             'forced-colors': (
-                'background': 'Canvas',
+                'background': (
+                    '$': 'Canvas',
+                    'alt': 'Canvas',
+                    'primary': 'Canvas',
+                    'secondary': 'Canvas'
+                ),
                 'text': (
                     '$': 'CanvasText',
                     'primary': 'CanvasText',
@@ -818,7 +837,12 @@ $designSystem: map.deep-merge( (
                         'bg': 'SelectedItem',
                         'text': 'SelectedItemText'
                     ),
-                    'background': 'Canvas',
+                    'background': (
+                        '$': 'Canvas',
+                        'alt': 'Canvas',
+                        'primary': 'Canvas',
+                        'secondary': 'Canvas'
+                    ),
                     'button': (
                         'bg': (
                             '$': 'ButtonFace',
@@ -896,7 +920,12 @@ $designSystem: map.deep-merge( (
             ),
             'light': (
                 'low': (
-                    'background': 'base-250',
+                    'background': (
+                        '$': 'base-250',
+                        'alt': 'base-200',
+                        'primary': 'purple-200',
+                        'secondary': 'turquoise-200'
+                    ),
                     'text': (
                         '$': 'base-700',
                         'primary': 'purple-700',
@@ -918,12 +947,12 @@ $designSystem: map.deep-merge( (
                         '2': 'purple-700',
                         '3': 'purple-700',
                         '4': 'purple-700',
-                        '5': 'purple-700',
-                        '6': 'purple-700',
-                        '7': 'turquoise-700',
-                        '8': 'turquoise-700',
-                        '9': 'base-700',
-                        '10': 'base-700'
+                        '5': 'purple-750',
+                        '6': 'purple-750',
+                        '7': 'turquoise-750',
+                        '8': 'turquoise-750',
+                        '9': 'base-750',
+                        '10': 'base-750'
                     ),
                     'selection': (
                         'bg': 'purple-300',
@@ -1065,7 +1094,12 @@ $designSystem: map.deep-merge( (
                             'bg': 'turquoise-700',
                             'text': 'base-250'
                         ),
-                        'background': 'base-250',
+                        'background': (
+                            '$': 'base-250',
+                            'alt': 'base-200',
+                            'primary': 'purple-200',
+                            'secondary': 'turquoise-200'
+                        ),
                         'button': (
                             'bg': (
                                 '$': 'purple-700',
@@ -1133,27 +1167,32 @@ $designSystem: map.deep-merge( (
                     )
                 ),
                 'average': (
-                    'background': 'base-150',
+                    'background': (
+                        '$': 'base-150',
+                        'alt': 'base-250',
+                        'primary': 'purple-200',
+                        'secondary': 'turquoise-200'
+                    ),
                     'text': (
                         '$': 'base-800',
-                        'primary': 'purple-750',
-                        'secondary': 'turquoise-750',
-                        'active': 'red-750',
-                        'disabled': 'base-700',
-                        'grey': 'base-750'
+                        'primary': 'purple-700',
+                        'secondary': 'turquoise-700',
+                        'active': 'red-700',
+                        'disabled': 'base-600',
+                        'grey': 'base-700'
                     ),
                     'ui': (
                         '$': 'base-800',
-                        'primary': 'purple-750',
-                        'secondary': 'turquoise-750',
-                        'active': 'red-750',
-                        'disabled': 'base-700',
-                        'grey': 'base-750'
+                        'primary': 'purple-700',
+                        'secondary': 'turquoise-700',
+                        'active': 'red-700',
+                        'disabled': 'base-600',
+                        'grey': 'base-700'
                     ),
                     'heading': (
                         '1': 'purple-800',
-                        '2': 'purple-750',
-                        '3': 'purple-750',
+                        '2': 'purple-700',
+                        '3': 'purple-700',
                         '4': 'purple-700',
                         '5': 'purple-700',
                         '6': 'purple-700',
@@ -1165,6 +1204,253 @@ $designSystem: map.deep-merge( (
                     'selection': (
                         'bg': 'purple-300',
                         'text': 'base-800'
+                    ),
+                    'link': (
+                        '$': 'purple-700',
+                        'visited': 'purple-700',
+                        'hover': 'turquoise-700',
+                        'active': 'red-700',
+                        'disabled': 'base-600'
+                    ),
+                    'link-icon': (
+                        '$': 'base-700',
+                        'visited': 'base-700',
+                        'hover': 'turquoise-700',
+                        'active': 'red-700',
+                        'disabled': 'base-600'
+                    ),
+                    'link-ui': (
+                        '$': 'purple-700',
+                        'visited': 'purple-700',
+                        'hover': 'transparent',
+                        'active': 'red-700',
+                        'disabled': 'base-600'
+                    ),
+                    'button': (
+                        'primary': (
+                            'bg': (
+                                '$': 'purple-700',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'border': (
+                                '$': 'purple-700',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'outline': (
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'text': (
+                                '$': 'base-150',
+                                'hover': 'base-150',
+                                'active': 'base-150'
+                            ),
+                            'ui': (
+                                '$': 'base-150',
+                                'hover': 'base-150',
+                                'active': 'base-150'
+                            )
+                        ),
+                        'secondary': (
+                            'bg': (
+                                '$': 'turquoise-700',
+                                'hover': 'red-700',
+                                'active': 'purple-700'
+                            ),
+                            'border': (
+                                '$': 'turquoise-700',
+                                'hover': 'red-700',
+                                'active': 'purple-700'
+                            ),
+                            'outline': (
+                                'hover': 'red-700',
+                                'active': 'purple-700'
+                            ),
+                            'text': (
+                                '$': 'base-150',
+                                'hover': 'base-150',
+                                'active': 'base-150'
+                            ),
+                            'ui': (
+                                '$': 'base-150',
+                                'hover': 'base-150',
+                                'active': 'base-150'
+                            )
+                        ),
+                        'disabled': (
+                            'bg': (
+                                '$': 'base-600',
+                                'hover': 'base-600',
+                                'active': 'base-600'
+                            ),
+                            'border': (
+                                '$': 'base-600',
+                                'hover': 'base-600',
+                                'active': 'base-600'
+                            ),
+                            'outline': (
+                                'hover': 'base-600',
+                                'active': 'base-600'
+                            ),
+                            'text': (
+                                '$': 'base-150',
+                                'hover': 'base-150',
+                                'active': 'base-150'
+                            ),
+                            'ui': (
+                                '$': 'base-150',
+                                'hover': 'base-150',
+                                'active': 'base-150'
+                            )
+                        )
+                    ),
+                    'field': (
+                        'accent': (
+                            '$': 'purple-700',
+                            'hover': 'turquoise-700',
+                            'active': 'red-700'
+                        ),
+                        'bg': (
+                            '$': 'base-150',
+                            'hover': 'base-150',
+                            'active': 'base-150'
+                        ),
+                        'border': (
+                            '$': 'base-600',
+                            'hover': 'turquoise-700',
+                            'active': 'red-700'
+                        ),
+                        'text': (
+                            '$': 'base-800',
+                            'hover': 'base-800',
+                            'active': 'base-800'
+                        )
+                    ),
+                    'system': (
+                        'accent': (
+                            'bg': 'purple-700',
+                            'text': 'base-150'
+                        ),
+                        'mark': (
+                            'bg': 'red-700',
+                            'text': 'base-150'
+                        ),
+                        'selected': (
+                            'bg': 'turquoise-700',
+                            'text': 'base-150'
+                        ),
+                        'background': (
+                            '$': 'base-150',
+                            'alt': 'base-250',
+                            'primary': 'purple-200',
+                            'secondary': 'turquoise-200'
+                        ),
+                        'button': (
+                            'bg': (
+                                '$': 'purple-700',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'border': (
+                                '$': 'purple-700',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'outline': (
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'text': (
+                                '$': 'base-150',
+                                'hover': 'base-150',
+                                'active': 'base-150'
+                            ),
+                            'ui': (
+                                '$': 'base-150',
+                                'hover': 'base-150',
+                                'active': 'base-150'
+                            )
+                        ),
+                        'input': (
+                            'accent': (
+                                '$': 'purple-700',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'bg': (
+                                '$': 'base-150',
+                                'hover': 'base-150',
+                                'active': 'base-150'
+                            ),
+                            'border': (
+                                '$': 'base-600',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'text': (
+                                '$': 'base-800',
+                                'hover': 'base-800',
+                                'active': 'base-800'
+                            )
+                        ),
+                        'link': (
+                            '$': 'purple-700',
+                            'visited': 'purple-700',
+                            'hover': 'turquoise-700',
+                            'active': 'red-700',
+                            'disabled': 'base-600'
+                        ),
+                        'selection': (
+                            'bg': 'purple-300',
+                            'text': 'base-800'
+                        ),
+                        'text': (
+                            '$': 'base-800',
+                            'active': 'red-700',
+                            'disabled': 'base-600'
+                        )
+                    )
+                ),
+                'high': (
+                    'background': (
+                        '$': 'base-100',
+                        'alt': 'base-200',
+                        'primary': 'purple-150',
+                        'secondary': 'turquoise-150'
+                    ),
+                    'text': (
+                        '$': 'base-850',
+                        'primary': 'purple-750',
+                        'secondary': 'turquoise-750',
+                        'active': 'red-750',
+                        'disabled': 'base-700',
+                        'grey': 'base-750'
+                    ),
+                    'ui': (
+                        '$': 'base-850',
+                        'primary': 'purple-750',
+                        'secondary': 'turquoise-750',
+                        'active': 'red-750',
+                        'disabled': 'base-700',
+                        'grey': 'base-750'
+                    ),
+                    'heading': (
+                        '1': 'purple-800',
+                        '2': 'purple-700',
+                        '3': 'purple-700',
+                        '4': 'purple-700',
+                        '5': 'purple-750',
+                        '6': 'purple-750',
+                        '7': 'turquoise-750',
+                        '8': 'turquoise-750',
+                        '9': 'base-750',
+                        '10': 'base-750'
+                    ),
+                    'selection': (
+                        'bg': 'purple-750',
+                        'text': 'base-100'
                     ),
                     'link': (
                         '$': 'purple-750',
@@ -1204,14 +1490,14 @@ $designSystem: map.deep-merge( (
                                 'active': 'red-750'
                             ),
                             'text': (
-                                '$': 'base-150',
-                                'hover': 'base-150',
-                                'active': 'base-150'
+                                '$': 'base-100',
+                                'hover': 'base-100',
+                                'active': 'base-100'
                             ),
                             'ui': (
-                                '$': 'base-150',
-                                'hover': 'base-150',
-                                'active': 'base-150'
+                                '$': 'base-100',
+                                'hover': 'base-100',
+                                'active': 'base-100'
                             )
                         ),
                         'secondary': (
@@ -1230,14 +1516,14 @@ $designSystem: map.deep-merge( (
                                 'active': 'purple-750'
                             ),
                             'text': (
-                                '$': 'base-150',
-                                'hover': 'base-150',
-                                'active': 'base-150'
+                                '$': 'base-100',
+                                'hover': 'base-100',
+                                'active': 'base-100'
                             ),
                             'ui': (
-                                '$': 'base-150',
-                                'hover': 'base-150',
-                                'active': 'base-150'
+                                '$': 'base-100',
+                                'hover': 'base-100',
+                                'active': 'base-100'
                             )
                         ),
                         'disabled': (
@@ -1256,14 +1542,14 @@ $designSystem: map.deep-merge( (
                                 'active': 'base-700'
                             ),
                             'text': (
-                                '$': 'base-150',
-                                'hover': 'base-150',
-                                'active': 'base-150'
+                                '$': 'base-100',
+                                'hover': 'base-100',
+                                'active': 'base-100'
                             ),
                             'ui': (
-                                '$': 'base-150',
-                                'hover': 'base-150',
-                                'active': 'base-150'
+                                '$': 'base-100',
+                                'hover': 'base-100',
+                                'active': 'base-100'
                             )
                         )
                     ),
@@ -1274,9 +1560,9 @@ $designSystem: map.deep-merge( (
                             'active': 'red-750'
                         ),
                         'bg': (
-                            '$': 'base-150',
-                            'hover': 'base-150',
-                            'active': 'base-150'
+                            '$': 'base-100',
+                            'hover': 'base-100',
+                            'active': 'base-100'
                         ),
                         'border': (
                             '$': 'base-700',
@@ -1284,25 +1570,30 @@ $designSystem: map.deep-merge( (
                             'active': 'red-750'
                         ),
                         'text': (
-                            '$': 'base-800',
-                            'hover': 'base-800',
-                            'active': 'base-800'
+                            '$': 'base-850',
+                            'hover': 'base-850',
+                            'active': 'base-850'
                         )
                     ),
                     'system': (
                         'accent': (
                             'bg': 'purple-750',
-                            'text': 'base-150'
+                            'text': 'base-100'
                         ),
                         'mark': (
                             'bg': 'red-750',
-                            'text': 'base-150'
+                            'text': 'base-100'
                         ),
                         'selected': (
                             'bg': 'turquoise-750',
-                            'text': 'base-150'
+                            'text': 'base-100'
                         ),
-                        'background': 'base-150',
+                        'background': (
+                            '$': 'base-100',
+                            'alt': 'base-200',
+                            'primary': 'purple-150',
+                            'secondary': 'turquoise-150'
+                        ),
                         'button': (
                             'bg': (
                                 '$': 'purple-750',
@@ -1319,14 +1610,14 @@ $designSystem: map.deep-merge( (
                                 'active': 'red-750'
                             ),
                             'text': (
-                                '$': 'base-150',
-                                'hover': 'base-150',
-                                'active': 'base-150'
+                                '$': 'base-100',
+                                'hover': 'base-100',
+                                'active': 'base-100'
                             ),
                             'ui': (
-                                '$': 'base-150',
-                                'hover': 'base-150',
-                                'active': 'base-150'
+                                '$': 'base-100',
+                                'hover': 'base-100',
+                                'active': 'base-100'
                             )
                         ),
                         'input': (
@@ -1336,9 +1627,9 @@ $designSystem: map.deep-merge( (
                                 'active': 'red-750'
                             ),
                             'bg': (
-                                '$': 'base-150',
-                                'hover': 'base-150',
-                                'active': 'base-150'
+                                '$': 'base-100',
+                                'hover': 'base-100',
+                                'active': 'base-100'
                             ),
                             'border': (
                                 '$': 'base-700',
@@ -1346,9 +1637,9 @@ $designSystem: map.deep-merge( (
                                 'active': 'red-750'
                             ),
                             'text': (
-                                '$': 'base-800',
-                                'hover': 'base-800',
-                                'active': 'base-800'
+                                '$': 'base-850',
+                                'hover': 'base-850',
+                                'active': 'base-850'
                             )
                         ),
                         'link': (
@@ -1359,255 +1650,23 @@ $designSystem: map.deep-merge( (
                             'disabled': 'base-700'
                         ),
                         'selection': (
-                            'bg': 'purple-300',
-                            'text': 'base-800'
+                            'bg': 'purple-750',
+                            'text': 'base-100'
                         ),
                         'text': (
-                            '$': 'base-800',
+                            '$': 'base-850',
                             'active': 'red-750',
                             'disabled': 'base-700'
                         )
                     )
                 ),
-                'high': (
-                    'background': 'base-100',
-                    'text': (
-                        '$': 'base-850',
-                        'primary': 'purple-800',
-                        'secondary': 'turquoise-800',
-                        'active': 'red-800',
-                        'disabled': 'base-700',
-                        'grey': 'base-800'
-                    ),
-                    'ui': (
-                        '$': 'base-850',
-                        'primary': 'purple-800',
-                        'secondary': 'turquoise-800',
-                        'active': 'red-800',
-                        'disabled': 'base-700',
-                        'grey': 'base-800'
-                    ),
-                    'heading': (
-                        '1': 'purple-700',
-                        '2': 'purple-700',
-                        '3': 'purple-700',
-                        '4': 'purple-800',
-                        '5': 'purple-800',
-                        '6': 'purple-800',
-                        '7': 'turquoise-800',
-                        '8': 'turquoise-800',
-                        '9': 'base-800',
-                        '10': 'base-800'
-                    ),
-                    'selection': (
-                        'bg': 'purple-800',
-                        'text': 'base-100'
-                    ),
-                    'link': (
-                        '$': 'purple-800',
-                        'visited': 'purple-800',
-                        'hover': 'turquoise-800',
-                        'active': 'red-800',
-                        'disabled': 'base-700'
-                    ),
-                    'link-icon': (
-                        '$': 'base-800',
-                        'visited': 'base-800',
-                        'hover': 'turquoise-800',
-                        'active': 'red-800',
-                        'disabled': 'base-700'
-                    ),
-                    'link-ui': (
-                        '$': 'purple-800',
-                        'visited': 'purple-800',
-                        'hover': 'transparent',
-                        'active': 'red-800',
-                        'disabled': 'base-700'
-                    ),
-                    'button': (
-                        'primary': (
-                            'bg': (
-                                '$': 'purple-800',
-                                'hover': 'turquoise-800',
-                                'active': 'red-800'
-                            ),
-                            'border': (
-                                '$': 'purple-800',
-                                'hover': 'turquoise-800',
-                                'active': 'red-800'
-                            ),
-                            'outline': (
-                                'hover': 'turquoise-800',
-                                'active': 'red-800'
-                            ),
-                            'text': (
-                                '$': 'base-100',
-                                'hover': 'base-100',
-                                'active': 'base-100'
-                            ),
-                            'ui': (
-                                '$': 'base-100',
-                                'hover': 'base-100',
-                                'active': 'base-100'
-                            )
-                        ),
-                        'secondary': (
-                            'bg': (
-                                '$': 'turquoise-800',
-                                'hover': 'red-800',
-                                'active': 'purple-800'
-                            ),
-                            'border': (
-                                '$': 'turquoise-800',
-                                'hover': 'red-800',
-                                'active': 'purple-800'
-                            ),
-                            'outline': (
-                                'hover': 'red-800',
-                                'active': 'purple-800'
-                            ),
-                            'text': (
-                                '$': 'base-100',
-                                'hover': 'base-100',
-                                'active': 'base-100'
-                            ),
-                            'ui': (
-                                '$': 'base-100',
-                                'hover': 'base-100',
-                                'active': 'base-100'
-                            )
-                        ),
-                        'disabled': (
-                            'bg': (
-                                '$': 'base-700',
-                                'hover': 'base-700',
-                                'active': 'base-700'
-                            ),
-                            'border': (
-                                '$': 'base-700',
-                                'hover': 'base-700',
-                                'active': 'base-700'
-                            ),
-                            'outline': (
-                                'hover': 'base-700',
-                                'active': 'base-700'
-                            ),
-                            'text': (
-                                '$': 'base-100',
-                                'hover': 'base-100',
-                                'active': 'base-100'
-                            ),
-                            'ui': (
-                                '$': 'base-100',
-                                'hover': 'base-100',
-                                'active': 'base-100'
-                            )
-                        )
-                    ),
-                    'field': (
-                        'accent': (
-                            '$': 'purple-800',
-                            'hover': 'turquoise-800',
-                            'active': 'red-800'
-                        ),
-                        'bg': (
-                            '$': 'base-100',
-                            'hover': 'base-100',
-                            'active': 'base-100'
-                        ),
-                        'border': (
-                            '$': 'base-700',
-                            'hover': 'turquoise-800',
-                            'active': 'red-800'
-                        ),
-                        'text': (
-                            '$': 'base-850',
-                            'hover': 'base-850',
-                            'active': 'base-850'
-                        )
-                    ),
-                    'system': (
-                        'accent': (
-                            'bg': 'purple-800',
-                            'text': 'base-100'
-                        ),
-                        'mark': (
-                            'bg': 'red-800',
-                            'text': 'base-100'
-                        ),
-                        'selected': (
-                            'bg': 'turquoise-800',
-                            'text': 'base-100'
-                        ),
-                        'background': 'base-100',
-                        'button': (
-                            'bg': (
-                                '$': 'purple-800',
-                                'hover': 'turquoise-800',
-                                'active': 'red-800'
-                            ),
-                            'border': (
-                                '$': 'purple-800',
-                                'hover': 'turquoise-800',
-                                'active': 'red-800'
-                            ),
-                            'outline': (
-                                'hover': 'turquoise-800',
-                                'active': 'red-800'
-                            ),
-                            'text': (
-                                '$': 'base-100',
-                                'hover': 'base-100',
-                                'active': 'base-100'
-                            ),
-                            'ui': (
-                                '$': 'base-100',
-                                'hover': 'base-100',
-                                'active': 'base-100'
-                            )
-                        ),
-                        'input': (
-                            'accent': (
-                                '$': 'purple-800',
-                                'hover': 'turquoise-800',
-                                'active': 'red-800'
-                            ),
-                            'bg': (
-                                '$': 'base-100',
-                                'hover': 'base-100',
-                                'active': 'base-100'
-                            ),
-                            'border': (
-                                '$': 'base-700',
-                                'hover': 'turquoise-800',
-                                'active': 'red-800'
-                            ),
-                            'text': (
-                                '$': 'base-850',
-                                'hover': 'base-850',
-                                'active': 'base-850'
-                            )
-                        ),
-                        'link': (
-                            '$': 'purple-800',
-                            'visited': 'purple-800',
-                            'hover': 'turquoise-800',
-                            'active': 'red-800',
-                            'disabled': 'base-700'
-                        ),
-                        'selection': (
-                            'bg': 'purple-800',
-                            'text': 'base-100'
-                        ),
-                        'text': (
-                            '$': 'base-850',
-                            'active': 'red-800',
-                            'disabled': 'base-700'
-                        )
-                    )
-                ),
                 'max': (
-                    'background': 'base-100',
+                    'background': (
+                        '$': 'base-100',
+                        'alt': 'base-100',
+                        'primary': 'purple-100',
+                        'secondary': 'turquoise-100'
+                    ),
                     'text': (
                         '$': 'base-900',
                         'primary': 'purple-850',
@@ -1617,11 +1676,11 @@ $designSystem: map.deep-merge( (
                         'grey': 'base-850'
                     ),
                     'ui': (
-                        '$': 'base-850',
+                        '$': 'base-900',
                         'primary': 'purple-850',
                         'secondary': 'turquoise-850',
                         'active': 'red-850',
-                        'disabled': 'base-800',
+                        'disabled': 'base-850',
                         'grey': 'base-850'
                     ),
                     'heading': (
@@ -1652,14 +1711,14 @@ $designSystem: map.deep-merge( (
                         'visited': 'base-850',
                         'hover': 'turquoise-850',
                         'active': 'red-850',
-                        'disabled': 'base-800'
+                        'disabled': 'base-850'
                     ),
                     'link-ui': (
                         '$': 'purple-850',
                         'visited': 'purple-850',
                         'hover': 'transparent',
                         'active': 'red-850',
-                        'disabled': 'base-800'
+                        'disabled': 'base-850'
                     ),
                     'button': (
                         'primary': (
@@ -1753,7 +1812,7 @@ $designSystem: map.deep-merge( (
                             'active': 'base-100'
                         ),
                         'border': (
-                            '$': 'base-800',
+                            '$': 'base-850',
                             'hover': 'turquoise-850',
                             'active': 'red-850'
                         ),
@@ -1776,7 +1835,12 @@ $designSystem: map.deep-merge( (
                             'bg': 'turquoise-850',
                             'text': 'base-100'
                         ),
-                        'background': 'base-100',
+                        'background': (
+                            '$': 'base-100',
+                            'alt': 'base-100',
+                            'primary': 'purple-100',
+                            'secondary': 'turquoise-100'
+                        ),
                         'button': (
                             'bg': (
                                 '$': 'purple-850',
@@ -1815,7 +1879,7 @@ $designSystem: map.deep-merge( (
                                 'active': 'base-100'
                             ),
                             'border': (
-                                '$': 'base-800',
+                                '$': 'base-850',
                                 'hover': 'turquoise-850',
                                 'active': 'red-850'
                             ),
@@ -1846,7 +1910,12 @@ $designSystem: map.deep-merge( (
             ),
             'dark': (
                 'low': (
-                    'background': 'base-250',
+                    'background': (
+                        '$': 'base-250',
+                        'alt': 'base-200',
+                        'primary': 'purple-200',
+                        'secondary': 'turquoise-200'
+                    ),
                     'text': (
                         '$': 'base-700',
                         'primary': 'purple-700',
@@ -1868,12 +1937,12 @@ $designSystem: map.deep-merge( (
                         '2': 'purple-700',
                         '3': 'purple-700',
                         '4': 'purple-700',
-                        '5': 'purple-700',
-                        '6': 'purple-700',
-                        '7': 'turquoise-700',
-                        '8': 'turquoise-700',
-                        '9': 'base-700',
-                        '10': 'base-700'
+                        '5': 'purple-750',
+                        '6': 'purple-750',
+                        '7': 'turquoise-750',
+                        '8': 'turquoise-750',
+                        '9': 'base-750',
+                        '10': 'base-750'
                     ),
                     'selection': (
                         'bg': 'purple-300',
@@ -2015,7 +2084,12 @@ $designSystem: map.deep-merge( (
                             'bg': 'turquoise-700',
                             'text': 'base-250'
                         ),
-                        'background': 'base-250',
+                        'background': (
+                            '$': 'base-250',
+                            'alt': 'base-200',
+                            'primary': 'purple-200',
+                            'secondary': 'turquoise-200'
+                        ),
                         'button': (
                             'bg': (
                                 '$': 'purple-700',
@@ -2083,27 +2157,32 @@ $designSystem: map.deep-merge( (
                     )
                 ),
                 'average': (
-                    'background': 'base-150',
+                    'background': (
+                        '$': 'base-150',
+                        'alt': 'base-250',
+                        'primary': 'purple-200',
+                        'secondary': 'turquoise-200'
+                    ),
                     'text': (
                         '$': 'base-800',
-                        'primary': 'purple-750',
-                        'secondary': 'turquoise-750',
-                        'active': 'red-750',
-                        'disabled': 'base-700',
-                        'grey': 'base-750'
+                        'primary': 'purple-700',
+                        'secondary': 'turquoise-700',
+                        'active': 'red-700',
+                        'disabled': 'base-600',
+                        'grey': 'base-700'
                     ),
                     'ui': (
                         '$': 'base-800',
-                        'primary': 'purple-750',
-                        'secondary': 'turquoise-750',
-                        'active': 'red-750',
-                        'disabled': 'base-700',
-                        'grey': 'base-750'
+                        'primary': 'purple-700',
+                        'secondary': 'turquoise-700',
+                        'active': 'red-700',
+                        'disabled': 'base-600',
+                        'grey': 'base-700'
                     ),
                     'heading': (
                         '1': 'purple-800',
-                        '2': 'purple-750',
-                        '3': 'purple-750',
+                        '2': 'purple-700',
+                        '3': 'purple-700',
                         '4': 'purple-700',
                         '5': 'purple-700',
                         '6': 'purple-700',
@@ -2115,6 +2194,253 @@ $designSystem: map.deep-merge( (
                     'selection': (
                         'bg': 'purple-300',
                         'text': 'base-800'
+                    ),
+                    'link': (
+                        '$': 'purple-700',
+                        'visited': 'purple-700',
+                        'hover': 'turquoise-700',
+                        'active': 'red-700',
+                        'disabled': 'base-600'
+                    ),
+                    'link-icon': (
+                        '$': 'base-700',
+                        'visited': 'base-700',
+                        'hover': 'turquoise-700',
+                        'active': 'red-700',
+                        'disabled': 'base-600'
+                    ),
+                    'link-ui': (
+                        '$': 'purple-700',
+                        'visited': 'purple-700',
+                        'hover': 'transparent',
+                        'active': 'red-700',
+                        'disabled': 'base-600'
+                    ),
+                    'button': (
+                        'primary': (
+                            'bg': (
+                                '$': 'purple-700',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'border': (
+                                '$': 'purple-700',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'outline': (
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'text': (
+                                '$': 'base-150',
+                                'hover': 'base-150',
+                                'active': 'base-150'
+                            ),
+                            'ui': (
+                                '$': 'base-150',
+                                'hover': 'base-150',
+                                'active': 'base-150'
+                            )
+                        ),
+                        'secondary': (
+                            'bg': (
+                                '$': 'turquoise-700',
+                                'hover': 'red-700',
+                                'active': 'purple-700'
+                            ),
+                            'border': (
+                                '$': 'turquoise-700',
+                                'hover': 'red-700',
+                                'active': 'purple-700'
+                            ),
+                            'outline': (
+                                'hover': 'red-700',
+                                'active': 'purple-700'
+                            ),
+                            'text': (
+                                '$': 'base-150',
+                                'hover': 'base-150',
+                                'active': 'base-150'
+                            ),
+                            'ui': (
+                                '$': 'base-150',
+                                'hover': 'base-150',
+                                'active': 'base-150'
+                            )
+                        ),
+                        'disabled': (
+                            'bg': (
+                                '$': 'base-600',
+                                'hover': 'base-600',
+                                'active': 'base-600'
+                            ),
+                            'border': (
+                                '$': 'base-600',
+                                'hover': 'base-600',
+                                'active': 'base-600'
+                            ),
+                            'outline': (
+                                'hover': 'base-600',
+                                'active': 'base-600'
+                            ),
+                            'text': (
+                                '$': 'base-150',
+                                'hover': 'base-150',
+                                'active': 'base-150'
+                            ),
+                            'ui': (
+                                '$': 'base-150',
+                                'hover': 'base-150',
+                                'active': 'base-150'
+                            )
+                        )
+                    ),
+                    'field': (
+                        'accent': (
+                            '$': 'purple-700',
+                            'hover': 'turquoise-700',
+                            'active': 'red-700'
+                        ),
+                        'bg': (
+                            '$': 'base-150',
+                            'hover': 'base-150',
+                            'active': 'base-150'
+                        ),
+                        'border': (
+                            '$': 'base-600',
+                            'hover': 'turquoise-700',
+                            'active': 'red-700'
+                        ),
+                        'text': (
+                            '$': 'base-800',
+                            'hover': 'base-800',
+                            'active': 'base-800'
+                        )
+                    ),
+                    'system': (
+                        'accent': (
+                            'bg': 'purple-700',
+                            'text': 'base-150'
+                        ),
+                        'mark': (
+                            'bg': 'red-700',
+                            'text': 'base-150'
+                        ),
+                        'selected': (
+                            'bg': 'turquoise-700',
+                            'text': 'base-150'
+                        ),
+                        'background': (
+                            '$': 'base-150',
+                            'alt': 'base-250',
+                            'primary': 'purple-200',
+                            'secondary': 'turquoise-200'
+                        ),
+                        'button': (
+                            'bg': (
+                                '$': 'purple-700',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'border': (
+                                '$': 'purple-700',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'outline': (
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'text': (
+                                '$': 'base-150',
+                                'hover': 'base-150',
+                                'active': 'base-150'
+                            ),
+                            'ui': (
+                                '$': 'base-150',
+                                'hover': 'base-150',
+                                'active': 'base-150'
+                            )
+                        ),
+                        'input': (
+                            'accent': (
+                                '$': 'purple-700',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'bg': (
+                                '$': 'base-150',
+                                'hover': 'base-150',
+                                'active': 'base-150'
+                            ),
+                            'border': (
+                                '$': 'base-600',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'text': (
+                                '$': 'base-800',
+                                'hover': 'base-800',
+                                'active': 'base-800'
+                            )
+                        ),
+                        'link': (
+                            '$': 'purple-700',
+                            'visited': 'purple-700',
+                            'hover': 'turquoise-700',
+                            'active': 'red-700',
+                            'disabled': 'base-600'
+                        ),
+                        'selection': (
+                            'bg': 'purple-300',
+                            'text': 'base-800'
+                        ),
+                        'text': (
+                            '$': 'base-800',
+                            'active': 'red-700',
+                            'disabled': 'base-600'
+                        )
+                    )
+                ),
+                'high': (
+                    'background': (
+                        '$': 'base-100',
+                        'alt': 'base-200',
+                        'primary': 'purple-150',
+                        'secondary': 'turquoise-150'
+                    ),
+                    'text': (
+                        '$': 'base-850',
+                        'primary': 'purple-750',
+                        'secondary': 'turquoise-750',
+                        'active': 'red-750',
+                        'disabled': 'base-700',
+                        'grey': 'base-750'
+                    ),
+                    'ui': (
+                        '$': 'base-850',
+                        'primary': 'purple-750',
+                        'secondary': 'turquoise-750',
+                        'active': 'red-750',
+                        'disabled': 'base-700',
+                        'grey': 'base-750'
+                    ),
+                    'heading': (
+                        '1': 'purple-800',
+                        '2': 'purple-700',
+                        '3': 'purple-700',
+                        '4': 'purple-700',
+                        '5': 'purple-750',
+                        '6': 'purple-750',
+                        '7': 'turquoise-750',
+                        '8': 'turquoise-750',
+                        '9': 'base-750',
+                        '10': 'base-750'
+                    ),
+                    'selection': (
+                        'bg': 'purple-750',
+                        'text': 'base-100'
                     ),
                     'link': (
                         '$': 'purple-750',
@@ -2154,14 +2480,14 @@ $designSystem: map.deep-merge( (
                                 'active': 'red-750'
                             ),
                             'text': (
-                                '$': 'base-150',
-                                'hover': 'base-150',
-                                'active': 'base-150'
+                                '$': 'base-100',
+                                'hover': 'base-100',
+                                'active': 'base-100'
                             ),
                             'ui': (
-                                '$': 'base-150',
-                                'hover': 'base-150',
-                                'active': 'base-150'
+                                '$': 'base-100',
+                                'hover': 'base-100',
+                                'active': 'base-100'
                             )
                         ),
                         'secondary': (
@@ -2180,14 +2506,14 @@ $designSystem: map.deep-merge( (
                                 'active': 'purple-750'
                             ),
                             'text': (
-                                '$': 'base-150',
-                                'hover': 'base-150',
-                                'active': 'base-150'
+                                '$': 'base-100',
+                                'hover': 'base-100',
+                                'active': 'base-100'
                             ),
                             'ui': (
-                                '$': 'base-150',
-                                'hover': 'base-150',
-                                'active': 'base-150'
+                                '$': 'base-100',
+                                'hover': 'base-100',
+                                'active': 'base-100'
                             )
                         ),
                         'disabled': (
@@ -2206,14 +2532,14 @@ $designSystem: map.deep-merge( (
                                 'active': 'base-700'
                             ),
                             'text': (
-                                '$': 'base-150',
-                                'hover': 'base-150',
-                                'active': 'base-150'
+                                '$': 'base-100',
+                                'hover': 'base-100',
+                                'active': 'base-100'
                             ),
                             'ui': (
-                                '$': 'base-150',
-                                'hover': 'base-150',
-                                'active': 'base-150'
+                                '$': 'base-100',
+                                'hover': 'base-100',
+                                'active': 'base-100'
                             )
                         )
                     ),
@@ -2224,9 +2550,9 @@ $designSystem: map.deep-merge( (
                             'active': 'red-750'
                         ),
                         'bg': (
-                            '$': 'base-150',
-                            'hover': 'base-150',
-                            'active': 'base-150'
+                            '$': 'base-100',
+                            'hover': 'base-100',
+                            'active': 'base-100'
                         ),
                         'border': (
                             '$': 'base-700',
@@ -2234,25 +2560,30 @@ $designSystem: map.deep-merge( (
                             'active': 'red-750'
                         ),
                         'text': (
-                            '$': 'base-800',
-                            'hover': 'base-800',
-                            'active': 'base-800'
+                            '$': 'base-850',
+                            'hover': 'base-850',
+                            'active': 'base-850'
                         )
                     ),
                     'system': (
                         'accent': (
                             'bg': 'purple-750',
-                            'text': 'base-150'
+                            'text': 'base-100'
                         ),
                         'mark': (
                             'bg': 'red-750',
-                            'text': 'base-150'
+                            'text': 'base-100'
                         ),
                         'selected': (
                             'bg': 'turquoise-750',
-                            'text': 'base-150'
+                            'text': 'base-100'
                         ),
-                        'background': 'base-150',
+                        'background': (
+                            '$': 'base-100',
+                            'alt': 'base-200',
+                            'primary': 'purple-150',
+                            'secondary': 'turquoise-150'
+                        ),
                         'button': (
                             'bg': (
                                 '$': 'purple-750',
@@ -2269,14 +2600,14 @@ $designSystem: map.deep-merge( (
                                 'active': 'red-750'
                             ),
                             'text': (
-                                '$': 'base-150',
-                                'hover': 'base-150',
-                                'active': 'base-150'
+                                '$': 'base-100',
+                                'hover': 'base-100',
+                                'active': 'base-100'
                             ),
                             'ui': (
-                                '$': 'base-150',
-                                'hover': 'base-150',
-                                'active': 'base-150'
+                                '$': 'base-100',
+                                'hover': 'base-100',
+                                'active': 'base-100'
                             )
                         ),
                         'input': (
@@ -2286,9 +2617,9 @@ $designSystem: map.deep-merge( (
                                 'active': 'red-750'
                             ),
                             'bg': (
-                                '$': 'base-150',
-                                'hover': 'base-150',
-                                'active': 'base-150'
+                                '$': 'base-100',
+                                'hover': 'base-100',
+                                'active': 'base-100'
                             ),
                             'border': (
                                 '$': 'base-700',
@@ -2296,9 +2627,9 @@ $designSystem: map.deep-merge( (
                                 'active': 'red-750'
                             ),
                             'text': (
-                                '$': 'base-800',
-                                'hover': 'base-800',
-                                'active': 'base-800'
+                                '$': 'base-850',
+                                'hover': 'base-850',
+                                'active': 'base-850'
                             )
                         ),
                         'link': (
@@ -2309,255 +2640,23 @@ $designSystem: map.deep-merge( (
                             'disabled': 'base-700'
                         ),
                         'selection': (
-                            'bg': 'purple-300',
-                            'text': 'base-800'
+                            'bg': 'purple-750',
+                            'text': 'base-100'
                         ),
                         'text': (
-                            '$': 'base-800',
+                            '$': 'base-850',
                             'active': 'red-750',
                             'disabled': 'base-700'
                         )
                     )
                 ),
-                'high': (
-                    'background': 'base-100',
-                    'text': (
-                        '$': 'base-850',
-                        'primary': 'purple-800',
-                        'secondary': 'turquoise-800',
-                        'active': 'red-800',
-                        'disabled': 'base-700',
-                        'grey': 'base-800'
-                    ),
-                    'ui': (
-                        '$': 'base-850',
-                        'primary': 'purple-800',
-                        'secondary': 'turquoise-800',
-                        'active': 'red-800',
-                        'disabled': 'base-700',
-                        'grey': 'base-800'
-                    ),
-                    'heading': (
-                        '1': 'purple-700',
-                        '2': 'purple-700',
-                        '3': 'purple-700',
-                        '4': 'purple-800',
-                        '5': 'purple-800',
-                        '6': 'purple-800',
-                        '7': 'turquoise-800',
-                        '8': 'turquoise-800',
-                        '9': 'base-800',
-                        '10': 'base-800'
-                    ),
-                    'selection': (
-                        'bg': 'purple-800',
-                        'text': 'base-100'
-                    ),
-                    'link': (
-                        '$': 'purple-800',
-                        'visited': 'purple-800',
-                        'hover': 'turquoise-800',
-                        'active': 'red-800',
-                        'disabled': 'base-700'
-                    ),
-                    'link-icon': (
-                        '$': 'base-800',
-                        'visited': 'base-800',
-                        'hover': 'turquoise-800',
-                        'active': 'red-800',
-                        'disabled': 'base-700'
-                    ),
-                    'link-ui': (
-                        '$': 'purple-800',
-                        'visited': 'purple-800',
-                        'hover': 'transparent',
-                        'active': 'red-800',
-                        'disabled': 'base-700'
-                    ),
-                    'button': (
-                        'primary': (
-                            'bg': (
-                                '$': 'purple-800',
-                                'hover': 'turquoise-800',
-                                'active': 'red-800'
-                            ),
-                            'border': (
-                                '$': 'purple-800',
-                                'hover': 'turquoise-800',
-                                'active': 'red-800'
-                            ),
-                            'outline': (
-                                'hover': 'turquoise-800',
-                                'active': 'red-800'
-                            ),
-                            'text': (
-                                '$': 'base-100',
-                                'hover': 'base-100',
-                                'active': 'base-100'
-                            ),
-                            'ui': (
-                                '$': 'base-100',
-                                'hover': 'base-100',
-                                'active': 'base-100'
-                            )
-                        ),
-                        'secondary': (
-                            'bg': (
-                                '$': 'turquoise-800',
-                                'hover': 'red-800',
-                                'active': 'purple-800'
-                            ),
-                            'border': (
-                                '$': 'turquoise-800',
-                                'hover': 'red-800',
-                                'active': 'purple-800'
-                            ),
-                            'outline': (
-                                'hover': 'red-800',
-                                'active': 'purple-800'
-                            ),
-                            'text': (
-                                '$': 'base-100',
-                                'hover': 'base-100',
-                                'active': 'base-100'
-                            ),
-                            'ui': (
-                                '$': 'base-100',
-                                'hover': 'base-100',
-                                'active': 'base-100'
-                            )
-                        ),
-                        'disabled': (
-                            'bg': (
-                                '$': 'base-700',
-                                'hover': 'base-700',
-                                'active': 'base-700'
-                            ),
-                            'border': (
-                                '$': 'base-700',
-                                'hover': 'base-700',
-                                'active': 'base-700'
-                            ),
-                            'outline': (
-                                'hover': 'base-700',
-                                'active': 'base-700'
-                            ),
-                            'text': (
-                                '$': 'base-100',
-                                'hover': 'base-100',
-                                'active': 'base-100'
-                            ),
-                            'ui': (
-                                '$': 'base-100',
-                                'hover': 'base-100',
-                                'active': 'base-100'
-                            )
-                        )
-                    ),
-                    'field': (
-                        'accent': (
-                            '$': 'purple-800',
-                            'hover': 'turquoise-800',
-                            'active': 'red-800'
-                        ),
-                        'bg': (
-                            '$': 'base-100',
-                            'hover': 'base-100',
-                            'active': 'base-100'
-                        ),
-                        'border': (
-                            '$': 'base-700',
-                            'hover': 'turquoise-800',
-                            'active': 'red-800'
-                        ),
-                        'text': (
-                            '$': 'base-850',
-                            'hover': 'base-850',
-                            'active': 'base-850'
-                        )
-                    ),
-                    'system': (
-                        'accent': (
-                            'bg': 'purple-800',
-                            'text': 'base-100'
-                        ),
-                        'mark': (
-                            'bg': 'red-800',
-                            'text': 'base-100'
-                        ),
-                        'selected': (
-                            'bg': 'turquoise-800',
-                            'text': 'base-100'
-                        ),
-                        'background': 'base-100',
-                        'button': (
-                            'bg': (
-                                '$': 'purple-800',
-                                'hover': 'turquoise-800',
-                                'active': 'red-800'
-                            ),
-                            'border': (
-                                '$': 'purple-800',
-                                'hover': 'turquoise-800',
-                                'active': 'red-800'
-                            ),
-                            'outline': (
-                                'hover': 'turquoise-800',
-                                'active': 'red-800'
-                            ),
-                            'text': (
-                                '$': 'base-100',
-                                'hover': 'base-100',
-                                'active': 'base-100'
-                            ),
-                            'ui': (
-                                '$': 'base-100',
-                                'hover': 'base-100',
-                                'active': 'base-100'
-                            )
-                        ),
-                        'input': (
-                            'accent': (
-                                '$': 'purple-800',
-                                'hover': 'turquoise-800',
-                                'active': 'red-800'
-                            ),
-                            'bg': (
-                                '$': 'base-100',
-                                'hover': 'base-100',
-                                'active': 'base-100'
-                            ),
-                            'border': (
-                                '$': 'base-700',
-                                'hover': 'turquoise-800',
-                                'active': 'red-800'
-                            ),
-                            'text': (
-                                '$': 'base-850',
-                                'hover': 'base-850',
-                                'active': 'base-850'
-                            )
-                        ),
-                        'link': (
-                            '$': 'purple-800',
-                            'visited': 'purple-800',
-                            'hover': 'turquoise-800',
-                            'active': 'red-800',
-                            'disabled': 'base-700'
-                        ),
-                        'selection': (
-                            'bg': 'purple-800',
-                            'text': 'base-100'
-                        ),
-                        'text': (
-                            '$': 'base-850',
-                            'active': 'red-800',
-                            'disabled': 'base-700'
-                        )
-                    )
-                ),
                 'max': (
-                    'background': 'base-100',
+                    'background': (
+                        '$': 'base-100',
+                        'alt': 'base-100',
+                        'primary': 'purple-100',
+                        'secondary': 'turquoise-100'
+                    ),
                     'text': (
                         '$': 'base-900',
                         'primary': 'purple-850',
@@ -2567,11 +2666,11 @@ $designSystem: map.deep-merge( (
                         'grey': 'base-850'
                     ),
                     'ui': (
-                        '$': 'base-850',
+                        '$': 'base-900',
                         'primary': 'purple-850',
                         'secondary': 'turquoise-850',
                         'active': 'red-850',
-                        'disabled': 'base-800',
+                        'disabled': 'base-850',
                         'grey': 'base-850'
                     ),
                     'heading': (
@@ -2602,14 +2701,14 @@ $designSystem: map.deep-merge( (
                         'visited': 'base-850',
                         'hover': 'turquoise-850',
                         'active': 'red-850',
-                        'disabled': 'base-800'
+                        'disabled': 'base-850'
                     ),
                     'link-ui': (
                         '$': 'purple-850',
                         'visited': 'purple-850',
                         'hover': 'transparent',
                         'active': 'red-850',
-                        'disabled': 'base-800'
+                        'disabled': 'base-850'
                     ),
                     'button': (
                         'primary': (
@@ -2703,7 +2802,7 @@ $designSystem: map.deep-merge( (
                             'active': 'base-100'
                         ),
                         'border': (
-                            '$': 'base-800',
+                            '$': 'base-850',
                             'hover': 'turquoise-850',
                             'active': 'red-850'
                         ),
@@ -2726,7 +2825,12 @@ $designSystem: map.deep-merge( (
                             'bg': 'turquoise-850',
                             'text': 'base-100'
                         ),
-                        'background': 'base-100',
+                        'background': (
+                            '$': 'base-100',
+                            'alt': 'base-100',
+                            'primary': 'purple-100',
+                            'secondary': 'turquoise-100'
+                        ),
                         'button': (
                             'bg': (
                                 '$': 'purple-850',
@@ -2765,7 +2869,7 @@ $designSystem: map.deep-merge( (
                                 'active': 'base-100'
                             ),
                             'border': (
-                                '$': 'base-800',
+                                '$': 'base-850',
                                 'hover': 'turquoise-850',
                                 'active': 'red-850'
                             ),

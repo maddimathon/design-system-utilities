@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-alpha.12
+/// @package @maddimathon/design-system-utilities@0.1.1-alpha.0.draft
 /// @since 0.1.0-alpha
 ///
 
@@ -68,13 +68,25 @@ $_flattenedSystemColors: map.flatten($_systemColors);
                 }
 
                 @if $clrSlug != null {
-                    @include utils.cx-prop(
-                        sys-clr-#{$slug},
-                        var-clr-from-theme-token(
-                            $clrSlug,
-                            $brightness: $brightness
-                        )
+                    $_clrValue: var-clr-from-theme-token(
+                        $clrSlug,
+                        $brightness: $brightness
                     );
+
+                    // TODO
+                    // @include utils.cx-prop(
+                    //     sys-clr-#{$slug},
+                    //     $_clrValue,
+                    //     $comment: if(config.$fn_var_replaceWithValue_colour, $clrSlug, null),
+                    // );
+                    @if config.$fn_var_replaceWithValue_colour {
+                        @include utils.cx-prop(
+                            sys-clr-#{$slug},
+                            $_clrValue
+                        ); /* #{$clrSlug} */
+                    } @else {
+                        @include utils.cx-prop(sys-clr-#{$slug}, $_clrValue);
+                    }
                 } @else {
                     $values: map.get($_systemColors, $slug);
 
@@ -204,6 +216,12 @@ $_flattenedSystemColors: map.flatten($_systemColors);
                         $brightness: $brightness
                     );
 
+                    // TODO
+                    // @include utils.cx-prop(
+                    //     theme-#{$prop},
+                    //     $_clrValue,
+                    //     $comment: if(config.$fn_var_replaceWithValue_colour, $value, null),
+                    // );
                     @if config.$fn_var_replaceWithValue_colour {
                         @include utils.cx-prop(
                             theme-#{$prop},

@@ -96,11 +96,16 @@
 }
 
 %file-selector-button {
-    @include snippet-button($variation: 'secondary');
+    @include snippet-button($includeDisabled: false, $variation: 'secondary');
 
     & {
         display: initial;
         margin: 0;
         margin-inline-end: #{var-mrg-firm('300')};
+    }
+
+    // this type of button has a special disabled selector
+    @at-root #{selector.unify('input[aria-disabled=true]', &)} {
+        @include snippet-button-disabled($includePseudoIcons: false);
     }
 }

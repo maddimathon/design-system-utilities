@@ -302,14 +302,10 @@ export class Tokens_Icons<
 
         this.data = objectMap(
             merged,
-            <
-                T_Icon extends Tokens_Icons.DefaultIconNames | T_ExtraIconNames,
-            >(
-                [ key, value ]: [ T_Icon, typeof merged[ T_Icon ] ]
-            ): undefined | Tokens_Icons.SvgIcon<T_Icon> => {
+            ( [ key, value ] ): undefined | Tokens_Icons.SvgIcon => {
                 // returns
                 if ( value instanceof Tokens_Icons.SvgIcon ) {
-                    return value as Tokens_Icons.SvgIcon<T_Icon>;
+                    return value;
                 }
 
                 // returns
@@ -317,7 +313,7 @@ export class Tokens_Icons<
                     return undefined;
                 }
 
-                return new Tokens_Icons.SvgIcon( value as SvgMaker.Data<T_Icon> );
+                return new Tokens_Icons.SvgIcon( value );
             }
         ) as Tokens_Icons.Data<T_ExtraIconNames>;
     }
@@ -326,11 +322,7 @@ export class Tokens_Icons<
 
         return objectMap(
             this.data,
-            <
-                T_Icon extends Tokens_Icons.DefaultIconNames | T_ExtraIconNames,
-            >(
-                [ key, value ]: [ T_Icon, Tokens_Icons.Data<T_ExtraIconNames>[ T_Icon ] ]
-            ) => value.toJSON() as SvgMaker.JsonReturn<T_Icon>
+            ( [ key, value ] ) => value.toJSON()
         ) as Tokens_Icons.JsonReturn<T_ExtraIconNames>;
     }
 
@@ -346,11 +338,7 @@ export class Tokens_Icons<
     } {
         return objectMap(
             this.data,
-            <
-                T_Icon extends Tokens_Icons.DefaultIconNames | T_ExtraIconNames,
-            >(
-                [ key, value ]: [ T_Icon, Tokens_Icons.Data<T_ExtraIconNames>[ T_Icon ] ]
-            ): {
+            ( [ key, value ] ): {
                 slug: Tokens_Icons.DefaultIconNames | T_ExtraIconNames;
                 label: string;
                 height: number;
@@ -358,7 +346,7 @@ export class Tokens_Icons<
                 aspectRatio: string;
                 embedded: string;
             } => ( {
-                slug: value.slug as T_Icon,
+                slug: value.slug as Tokens_Icons.DefaultIconNames | T_ExtraIconNames,
                 label: value.label,
                 height: value.height,
                 width: value.width,

@@ -31,12 +31,14 @@ export class Tokens_Logos<
 
         this.data = objectMap(
             input,
-            ( [ key, value ] ) => (
+            <K extends T_LogoNames>(
+                [ key, value ]: [ K, SvgMaker.Data<K> | SvgMaker<K> ]
+            ): SvgMaker<K> => (
                 value instanceof SvgMaker
                     ? value
                     : value && new SvgMaker( value )
             )
-        );
+        ) as Tokens_Logos.Data<T_LogoNames>;
     }
 
     public toJSON(): Tokens_Logos.JsonReturn<T_LogoNames> {

@@ -15,8 +15,6 @@ import { ColourUtilities } from '../../../01-utilities/ColourUtilities.js';
 import { ColourContrastTest } from '../../../01-utilities/ColourContrastTest.js';
 import { objectMap } from '../../../01-utilities/objectMap.js';
 
-import type { ColourLevels, ColourLevels_Extended } from '../../@types.js';
-
 import { AbstractTokens } from '../../abstract/AbstractTokens.js';
 
 /**
@@ -26,7 +24,7 @@ import { AbstractTokens } from '../../abstract/AbstractTokens.js';
  */
 export class Tokens_Colour_ShadeMap_Shade<
     T_ColourName extends string,
-    T_ExtraLevels extends ColourLevels_Extended,
+    T_ExtraLevels extends ColourUtilities.Levels.Optional,
 > extends AbstractTokens<Tokens_Colour_ShadeMap_Shade.Data> {
 
     public readonly data: Tokens_Colour_ShadeMap_Shade.Data;
@@ -41,7 +39,7 @@ export class Tokens_Colour_ShadeMap_Shade<
         protected readonly allNames: readonly T_ColourName[],
         protected readonly extraLevels: readonly T_ExtraLevels[],
         protected readonly shadeName: T_ColourName,
-        protected readonly thisLevel: ColourLevels | T_ExtraLevels,
+        protected readonly thisLevel: ColourUtilities.Levels.Required | T_ExtraLevels,
         input: Tokens_Colour_ShadeMap_Shade.InputParam,
     ) {
         super();
@@ -55,7 +53,7 @@ export class Tokens_Colour_ShadeMap_Shade<
      */
     public async addContrastTest(
         colourGroupName: T_ColourName,
-        level: ColourLevels | T_ExtraLevels,
+        level: ColourUtilities.Levels.Required | T_ExtraLevels,
         testClr: ColourUtilities.SingleShade,
     ) {
         if ( typeof this.contrast.results[ colourGroupName ] === 'undefined' ) {
@@ -205,7 +203,7 @@ export namespace Tokens_Colour_ShadeMap_Shade {
      */
     export type JsonReturn<
         T_ColourName extends string,
-        T_ExtraLevels extends ColourLevels_Extended,
+        T_ExtraLevels extends ColourUtilities.Levels.Optional,
     > = ColourUtilities.Value_All & {
         contrast: Contrast<T_ColourName, T_ExtraLevels, number>;
     };
@@ -217,10 +215,10 @@ export namespace Tokens_Colour_ShadeMap_Shade {
      */
     export type ContrastResults<
         T_ColourName extends string,
-        T_ExtraLevels extends ColourLevels_Extended,
+        T_ExtraLevels extends ColourUtilities.Levels.Optional,
     > = {
             [ N in T_ColourName ]?: undefined | {
-                [ K in ColourLevels | T_ExtraLevels ]?: ColourContrastTest.Parsed;
+                [ K in ColourUtilities.Levels.Required | T_ExtraLevels ]?: ColourContrastTest.Parsed;
             };
         };
 
@@ -229,7 +227,7 @@ export namespace Tokens_Colour_ShadeMap_Shade {
      */
     export type Contrast<
         T_ColourName extends string,
-        T_ExtraLevels extends ColourLevels_Extended,
+        T_ExtraLevels extends ColourUtilities.Levels.Optional,
         T_RatioValue extends number | undefined = number,
     > = {
         min: Contrast.Minimum<T_ColourName, T_ExtraLevels, T_RatioValue>;
@@ -247,11 +245,11 @@ export namespace Tokens_Colour_ShadeMap_Shade {
          */
         export type SingleMinMax<
             T_ColourName extends string,
-            T_ExtraLevels extends ColourLevels_Extended,
+            T_ExtraLevels extends ColourUtilities.Levels.Optional,
             T_RatioValue extends number | undefined = number,
         > = undefined | {
             name: 'base' | T_ColourName;
-            level: ColourLevels | T_ExtraLevels;
+            level: ColourUtilities.Levels.Required | T_ExtraLevels;
             ratio: T_RatioValue;
         };
 
@@ -260,7 +258,7 @@ export namespace Tokens_Colour_ShadeMap_Shade {
          */
         export type Maximum<
             T_ColourName extends string,
-            T_ExtraLevels extends ColourLevels_Extended,
+            T_ExtraLevels extends ColourUtilities.Levels.Optional,
             T_RatioValue extends number | undefined = number,
         > = {
                 [ N in 'base' | T_ColourName ]?: SingleMinMax<T_ColourName, T_ExtraLevels, T_RatioValue>;
@@ -271,7 +269,7 @@ export namespace Tokens_Colour_ShadeMap_Shade {
          */
         export type Minimum<
             T_ColourName extends string,
-            T_ExtraLevels extends ColourLevels_Extended,
+            T_ExtraLevels extends ColourUtilities.Levels.Optional,
             T_RatioValue extends number | undefined = number,
         > = {
                 [ N in 'base' | T_ColourName ]?: undefined | {

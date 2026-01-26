@@ -11,9 +11,9 @@
 import type {
     CssSystemColor,
     ThemeMode_ContrastOption,
-    ColourLevels_Extended,
-    ColourLevels,
 } from '../@types.js';
+
+import type { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
 
 import { objectGeneratorAsync } from '../../01-utilities/objectGenerator.js';
 import { objectMap } from '../../01-utilities/objectMap.js';
@@ -30,13 +30,14 @@ import { arrayUnique, mergeArgs } from '@maddimathon/utility-typescript/function
  */
 export class Tokens_Themes_Set<
     T_ColourName extends string,
-    T_ExtraColourLevels extends ColourLevels_Extended,
+    T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
     T_ThemeBrightnessMode extends readonly string[],
     T_ThemeContrastMode extends readonly ThemeMode_ContrastOption[],
     T_ThemeName extends string,
 
     T_Keyword_Universal extends string = never,
     T_Keyword_Text extends string = never,
+    T_Keyword_Background extends string = never,
 > extends AbstractTokens<Tokens_Themes_Set.Data<
     T_ColourName,
     T_ExtraColourLevels,
@@ -45,7 +46,8 @@ export class Tokens_Themes_Set<
     T_ThemeName,
 
     T_Keyword_Universal,
-    T_Keyword_Text
+    T_Keyword_Text,
+    T_Keyword_Background
 >> {
 
     /**
@@ -53,13 +55,14 @@ export class Tokens_Themes_Set<
      */
     public static async build<
         T_ColourName extends string,
-        T_ExtraColourLevels extends ColourLevels_Extended,
+        T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
         T_ThemeBrightnessMode extends string,
         T_ThemeContrastMode extends ThemeMode_ContrastOption,
         T_ThemeName extends string,
 
         T_Keyword_Universal extends string = never,
         T_Keyword_Text extends string = never,
+        T_Keyword_Background extends string = never,
     >(
         name: T_ThemeName,
         clrNames: readonly T_ColourName[],
@@ -75,7 +78,8 @@ export class Tokens_Themes_Set<
             T_ThemeName,
 
             T_Keyword_Universal,
-            T_Keyword_Text
+            T_Keyword_Text,
+            T_Keyword_Background
         >,
     ) {
 
@@ -84,6 +88,7 @@ export class Tokens_Themes_Set<
             T_ExtraColourLevels,
             T_Keyword_Universal,
             T_Keyword_Text,
+            T_Keyword_Background,
             CssSystemColor
         > = await Tokens_Themes_Set_SingleMode.build(
             'forcedColors',
@@ -103,7 +108,8 @@ export class Tokens_Themes_Set<
                     T_ColourName,
                     T_ExtraColourLevels,
                     T_Keyword_Universal,
-                    T_Keyword_Text
+                    T_Keyword_Text,
+                    T_Keyword_Background
                 >;
             };
         } = await objectGeneratorAsync(
@@ -116,7 +122,8 @@ export class Tokens_Themes_Set<
                             T_ColourName,
                             T_ExtraColourLevels,
                             T_Keyword_Universal,
-                            T_Keyword_Text
+                            T_Keyword_Text,
+                            T_Keyword_Background
                         >(
                             contrast,
                             brightness as string,
@@ -142,7 +149,8 @@ export class Tokens_Themes_Set<
             T_ThemeName,
 
             T_Keyword_Universal,
-            T_Keyword_Text
+            T_Keyword_Text,
+            T_Keyword_Background
         >(
             name,
             clrNames,
@@ -161,7 +169,8 @@ export class Tokens_Themes_Set<
         T_ThemeContrastMode,
         T_ThemeName,
         T_Keyword_Universal,
-        T_Keyword_Text
+        T_Keyword_Text,
+        T_Keyword_Background
     > {
         return {
             name: this.name ?? 'default',
@@ -192,6 +201,7 @@ export class Tokens_Themes_Set<
             T_ExtraColourLevels,
             T_Keyword_Universal,
             T_Keyword_Text,
+            T_Keyword_Background,
             CssSystemColor
         >,
 
@@ -202,7 +212,8 @@ export class Tokens_Themes_Set<
                     T_ColourName,
                     T_ExtraColourLevels,
                     T_Keyword_Universal,
-                    T_Keyword_Text
+                    T_Keyword_Text,
+                    T_Keyword_Background
                 >;
             };
         },
@@ -217,7 +228,8 @@ export class Tokens_Themes_Set<
         T_ThemeContrastMode,
         T_ThemeName,
         T_Keyword_Universal,
-        T_Keyword_Text
+        T_Keyword_Text,
+        T_Keyword_Background
     > {
 
         const levelsInUse = arrayUnique( (
@@ -231,14 +243,14 @@ export class Tokens_Themes_Set<
                         )
                     ).flat()
                 )
-            ) as ( ColourLevels | ColourLevels_Extended )[][]
+            ) as ( ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional )[][]
         ).flat() );
 
         const levelsInUse_dark = levelsInUse.map( ( level ) => {
 
             const dark = ( 1000 - Number( level ) ).toFixed( 0 );
 
-            return dark.padStart( Math.max( 0, 3 - dark.length ), '0' ) as ColourLevels | ColourLevels_Extended;
+            return dark.padStart( Math.max( 0, 3 - dark.length ), '0' ) as ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional;
         } );
 
         return {
@@ -267,7 +279,8 @@ export class Tokens_Themes_Set<
                     T_ColourName,
                     T_ExtraColourLevels,
                     T_Keyword_Universal,
-                    T_Keyword_Text
+                    T_Keyword_Text,
+                    T_Keyword_Background
                 >[ 'toScssVars' ]
             >;
         };
@@ -297,13 +310,14 @@ export namespace Tokens_Themes_Set {
      */
     export type Data<
         T_ColourName extends string,
-        T_ExtraColourLevels extends ColourLevels_Extended,
+        T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
         T_ThemeBrightnessMode extends readonly string[],
         T_ThemeContrastMode extends readonly ThemeMode_ContrastOption[],
         T_ThemeName extends string,
 
         T_Keyword_Universal extends string,
         T_Keyword_Text extends string,
+        T_Keyword_Background extends string,
     > = {
         name: T_ThemeName;
         forcedColours: Tokens_Themes_Set_SingleMode.Data<
@@ -311,6 +325,7 @@ export namespace Tokens_Themes_Set {
             T_ExtraColourLevels,
             T_Keyword_Universal,
             T_Keyword_Text,
+            T_Keyword_Background,
             CssSystemColor
         >;
     } & {
@@ -319,7 +334,8 @@ export namespace Tokens_Themes_Set {
                     T_ColourName,
                     T_ExtraColourLevels,
                     T_Keyword_Universal,
-                    T_Keyword_Text
+                    T_Keyword_Text,
+                    T_Keyword_Background
                 >;
             };
         };
@@ -329,20 +345,22 @@ export namespace Tokens_Themes_Set {
      */
     export type InputParam<
         T_ColourName extends string,
-        T_ExtraColourLevels extends ColourLevels_Extended,
+        T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
         T_ThemeBrightnessMode extends readonly string[],
         T_ThemeContrastMode extends readonly ThemeMode_ContrastOption[],
         T_ThemeName extends string,
 
         T_Keyword_Universal extends string,
         T_Keyword_Text extends string,
+        T_Keyword_Background extends string,
     > = {
         name: T_ThemeName;
         variations?: Tokens_Themes_Set_SingleMode.InputParam<
             T_ColourName,
             T_ExtraColourLevels,
             T_Keyword_Universal,
-            T_Keyword_Text
+            T_Keyword_Text,
+            T_Keyword_Background
         >[ 'variations' ];
         forcedColours?: Omit<
             Tokens_Themes_Set_SingleMode.InputParam<
@@ -350,6 +368,7 @@ export namespace Tokens_Themes_Set {
                 T_ExtraColourLevels,
                 T_Keyword_Universal,
                 T_Keyword_Text,
+                T_Keyword_Background,
                 CssSystemColor
             >,
             "levels" | "variations"
@@ -359,6 +378,7 @@ export namespace Tokens_Themes_Set {
                 T_ExtraColourLevels,
                 T_Keyword_Universal,
                 T_Keyword_Text,
+                T_Keyword_Background,
                 CssSystemColor
             >,
         };
@@ -368,13 +388,15 @@ export namespace Tokens_Themes_Set {
                     T_ColourName,
                     T_ExtraColourLevels,
                     T_Keyword_Universal,
-                    T_Keyword_Text
+                    T_Keyword_Text,
+                    T_Keyword_Background
                 > & {
                     overrides?: Tokens_Themes_Set_SingleMode.Data_RecursivePartial<
                         T_ColourName,
                         T_ExtraColourLevels,
                         T_Keyword_Universal,
-                        T_Keyword_Text
+                        T_Keyword_Text,
+                        T_Keyword_Background
                     >,
                 };
             };
@@ -385,21 +407,23 @@ export namespace Tokens_Themes_Set {
      */
     export type JsonReturn<
         T_ColourName extends string,
-        T_ExtraColourLevels extends ColourLevels_Extended,
+        T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
         T_ThemeBrightnessMode extends readonly string[],
         T_ThemeContrastMode extends readonly ThemeMode_ContrastOption[],
         T_ThemeName extends string,
 
         T_Keyword_Universal extends string,
         T_Keyword_Text extends string,
+        T_Keyword_Background extends string,
     > = {
         name: T_ThemeName;
-        levelsInUse: ( ColourLevels | ColourLevels_Extended )[];
+        levelsInUse: ( ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional )[];
         forcedColours: Tokens_Themes_Set_SingleMode.JsonReturn<
             T_ColourName,
             T_ExtraColourLevels,
             T_Keyword_Universal,
             T_Keyword_Text,
+            T_Keyword_Background,
             CssSystemColor
         >;
     } & {
@@ -408,7 +432,8 @@ export namespace Tokens_Themes_Set {
                     T_ColourName,
                     T_ExtraColourLevels,
                     T_Keyword_Universal,
-                    T_Keyword_Text
+                    T_Keyword_Text,
+                    T_Keyword_Background
                 >;
             };
         };

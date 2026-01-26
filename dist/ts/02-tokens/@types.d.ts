@@ -6,11 +6,15 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-alpha.12
+ * @maddimathon/design-system-utilities@0.1.1-alpha.0.draft
  * @license MIT
  */
 
 import * as z from 'zod';
+
+import type { ColourUtilities } from '../01-utilities/ColourUtilities.js';
+
+import type { AbstractTokens } from './abstract/AbstractTokens.js';
 import type { Tokens_Themes_Set_SingleMode } from './Themes/Themes_Set_SingleMode.ts';
 
 /**
@@ -79,8 +83,8 @@ export type CssSystemColor =
  */
 export type ColourTokenSlug<
     T_ColourName extends string,
-    T_ExtraColourLevels extends ColourLevels_Extended,
-> = `${ T_ColourName }-${ ColourLevels | T_ExtraColourLevels }`;
+    T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
+> = `${ T_ColourName }-${ ColourUtilities.Levels.Required | T_ExtraColourLevels }`;
 
 /**
  * Allowed options for the values of theme tokens (representing either CSS
@@ -90,7 +94,7 @@ export type ColourTokenSlug<
  */
 export type ThemeColourOption<
     T_ColourName extends string,
-    T_ExtraColourLevels extends ColourLevels_Extended,
+    T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
 > = CssSystemColor | ColourTokenSlug<T_ColourName, T_ExtraColourLevels>;
 
 /**
@@ -124,61 +128,28 @@ export type ThemeMode_ContrastAtLeastOne = readonly [
 
 /**
  * @since 0.1.0-alpha
+ * @since 0.1.1-alpha.0.draft - Switched to be set based on {@link AbstractTokens.tokenLevels} value.
  */
-export type TokenLevels =
-    | "100"
-    | "200"
-    | "300"
-    | "400"
-    | "500"
-    | "600"
-    | "700"
-    | "800"
-    | "900";
+export type TokenLevels = typeof AbstractTokens[ 'tokenLevels' ][ number ];
 
 /**
  * @since 0.1.0-alpha
+ * @since 0.1.1-alpha.0.draft - Switched to be set based on {@link AbstractTokens.tokenLevels_extraOptions} value.
  */
-export type TokenLevels_Extended =
-    | "000"
-    | "050"
-    | "150"
-    | "250"
-    | "350"
-    | "450"
-    | "550"
-    | "650"
-    | "750"
-    | "850"
-    | "950";
+export type TokenLevels_Extended = AbstractTokens[ 'tokenLevels_extraOptions' ][ number ];
 
 
 /**
  * @since 0.1.0-alpha
+ * @deprecated 0.1.1-alpha.0.draft — Use {@link ColourUtilities.Levels.Required} instead.
  */
-export type ColourLevels =
-    | "100"
-    | "150"
-    | "200"
-    | "250"
-    | "300"
-    | "400"
-    | "500"
-    | "600"
-    | "700"
-    | "750"
-    | "800"
-    | "850"
-    | "900";
+export type ColourLevels = ColourUtilities.Levels.Required;
 
 /**
  * @since 0.1.0-alpha
+ * @deprecated 0.1.1-alpha.0.draft — Use {@link ColourUtilities.Levels.Optional} instead.
  */
-export type ColourLevels_Extended =
-    | "350"
-    | "450"
-    | "550"
-    | "650";
+export type ColourLevels_Extended = ColourUtilities.Levels.Optional;
 
 
 /**
