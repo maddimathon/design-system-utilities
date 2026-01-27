@@ -600,12 +600,8 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                 };
             } | undefined;
             familyOverrides: {
-                label: string;
-                value: string;
-                contentWidthScale?: number;
-                labelClass?: string;
-                lineHeightScale?: number;
-            }[] | undefined;
+                [key: string]: Tokens_Typography.Font.FamilyOverride;
+            } | undefined;
         };
         line_height: {
             100: number;

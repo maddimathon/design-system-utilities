@@ -51,4 +51,3 @@ export class Tokens_Colour extends AbstractTokens {
         return objectMap(this.data, ([key, value]) => value.toScssVars());
     }
 }
-//# sourceMappingURL=Tokens_Colour.js.map

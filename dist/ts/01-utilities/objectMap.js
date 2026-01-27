@@ -23,4 +23,3 @@ export function objectMap(obj, callback) {
     ]);
     return Object.fromEntries(mappedEntries);
 }
-//# sourceMappingURL=objectMap.js.map

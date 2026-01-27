@@ -35,4 +35,3 @@ export async function objectGeneratorAsync(keys, mapper) {
     }
     return obj;
 }
-//# sourceMappingURL=objectGenerator.js.map

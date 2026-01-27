@@ -406,4 +406,3 @@ export class Tokens extends AbstractTokens {
         })(SingleMode = Themes.SingleMode || (Themes.SingleMode = {}));
     })(Themes = Tokens.Themes || (Tokens.Themes = {}));
 })(Tokens || (Tokens = {}));
-//# sourceMappingURL=Tokens.js.map

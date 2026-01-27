@@ -54,4 +54,3 @@ export function objectFlatten(obj, prefix, suffix) {
     }
     return flat;
 }
-//# sourceMappingURL=objectFlatten.js.map

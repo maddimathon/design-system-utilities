@@ -40,4 +40,3 @@ export function defineConfig(config, _classes = {}) {
     };
     return merged;
 }
-//# sourceMappingURL=defineConfig.js.map

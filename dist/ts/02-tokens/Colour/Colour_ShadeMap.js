@@ -273,4 +273,3 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
         };
     })(Yardsticks = Tokens_Colour_ShadeMap.Yardsticks || (Tokens_Colour_ShadeMap.Yardsticks = {}));
 })(Tokens_Colour_ShadeMap || (Tokens_Colour_ShadeMap = {}));
-//# sourceMappingURL=Colour_ShadeMap.js.map

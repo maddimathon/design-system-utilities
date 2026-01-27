@@ -117,10 +117,8 @@ $_closing_time: var-tr-time(toggle-closing);
 /// @since 0.1.0-alpha
 ///
 @mixin snippet-support-astro-settings-menu-font-overrides {
-    @each $map in map.get(tokens.$designSystem, font, familyOverrides) {
+    @each $slug, $map in map.get(tokens.$designSystem, font, familyOverrides) {
         //
-        $label: map.get($map, label);
-        $slug: map.get($map, value);
 
         $attrSelector: '[data-font-family-override=#{$slug}]';
 
@@ -135,151 +133,7 @@ $_closing_time: var-tr-time(toggle-closing);
         }
 
         @at-root #{$attrSelector} {
-            //
-            @if $label == 'Open Dyslexic' {
-                @include cx-prop(icon-size--font-multiplier, 1.1875);
-                @include cx-prop(icon-size-pseudo--font-multiplier, 1.25);
-                @include cx-prop(icon-size-pseudo--inline-buffer-start, 3);
-                @include cx-prop(icon-size-pseudo--inline-buffer-end, 1);
-            }
-
-            $_multi_width: map.get($map, contentWidthScale);
-
-            @if $_multi_width != null {
-                //
-
-                @if meta.type-of($_multi_width) == number and $_multi_width != 1
-                {
-                    $_multi_border: -1;
-
-                    @if $_multi_width > 1 {
-                        $_multi_border: $_multi_width;
-                    }
-
-                    // WIDTHS
-                    @if $_multi_width > 0 and $_multi_width != 1 {
-                        //
-                        @each $slug, $_value in config.$widths {
-                            @each $value
-                                in width-value(
-                                    $slug,
-                                    $returnAsNumber: false,
-                                    $multiplier: $_multi_width
-                                )
-                            {
-                                @include cx-prop(width-#{$slug}, $value);
-                            }
-                        }
-                    }
-
-                    // BORDER WIDTHS
-                    @if $_multi_border > 0 and $_multi_border != 1 {
-                        //
-                        @each $slug, $_value in tokens.$border_widths {
-                            $_oldValue: border-width-value($slug);
-
-                            $_newValue: math.round-to-pixel(
-                                $_oldValue * $_multi_border,
-                                32
-                            );
-
-                            @if $_newValue != $_oldValue {
-                                @include cx-prop(
-                                    border-width-#{$slug},
-                                    $_newValue
-                                );
-                            }
-                        }
-                    }
-                }
-            }
-
-            $_multi_lh: map.get($map, lineHeightScale);
-
-            @if $_multi_lh != null {
-                //
-                @if meta.type-of($_multi_lh) == number and $_multi_lh != 1 {
-                    $_multi_margin: -1;
-                    $_multi_stroke: -1;
-
-                    @if $_multi_lh > 1 {
-                        $_multi_margin: if(
-                            $_multi_lh < 2,
-                            calc(
-                                (($_multi_lh - 1) * mrg-value-firm('400')) + 1
-                            ),
-                            $_multi_lh
-                        );
-
-                        $_multi_stroke: $_multi_lh;
-                    }
-
-                    // MARGINS
-                    @if $_multi_margin >
-                        0 and
-                        ($_multi_margin < 1 or $_multi_margin >= 1.0625)
-                    {
-                        //
-                        @each $level, $_value in tokens.$margins {
-                            @include cx-prop(
-                                mrg-firm-#{$level},
-                                #{math.round-to-pixel(
-                                        mrg-value-firm($level) * $_multi_margin
-                                    )}rem
-                            );
-                        }
-                        @each $level, $_value in tokens.$margins {
-                            @include cx-prop(
-                                mrg-soft-#{$level},
-                                #{math.round-to-pixel(
-                                        mrg-value-soft($level) * $_multi_margin
-                                    )}rem
-                            );
-                        }
-                        @each $level, $_value in tokens.$margins {
-                            @include cx-prop(
-                                mrg-half-#{$level},
-                                #{math.round-to-pixel(
-                                        mrg-value-half($level) * $_multi_margin
-                                    )}rem
-                            );
-                        }
-                    }
-
-                    // LINE HEIGHTS
-                    @each $slug, $_value in tokens.$line_heights {
-                        $_oldValue: line-height-value($slug);
-
-                        $_newValue: math.round-to-pixel(
-                            $_oldValue * $_multi_lh,
-                            32
-                        );
-
-                        @if $_newValue != $_oldValue {
-                            @include cx-prop(line-height-#{$slug}, $_newValue);
-                        }
-                    }
-
-                    // STROKE RELATIVE
-                    @if $_multi_stroke > 0 and $_multi_stroke != 1 {
-                        @each $slug, $_value in tokens.$strokes_relative {
-                            $_oldValue: stroke-relative-value($slug);
-
-                            $_newValue: math.round-to-pixel(
-                                $_oldValue * $_multi_stroke,
-                                32
-                            );
-
-                            @if $_newValue != $_oldValue {
-                                @include cx-prop(
-                                    stroke-relative-#{$slug},
-                                    $_newValue
-                                );
-                            }
-                        }
-                    }
-                }
-            }
+            @include font-family-size-tokens($slug);
         }
     }
 

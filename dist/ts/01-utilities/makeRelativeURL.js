@@ -73,4 +73,3 @@ export function makeRelativeURL(config_base, config_build, currentURL, targetSub
     const relative = validateReturn(NodePath.relative(relativeMakers.current, relativeMakers.target) || 'index.html');
     return relative;
 }
-//# sourceMappingURL=makeRelativeURL.js.map

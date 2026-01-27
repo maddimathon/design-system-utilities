@@ -37,4 +37,3 @@ export class Tokens_TEMPLATE extends AbstractTokens {
         return {};
     }
 }
-//# sourceMappingURL=@TEMPLATE.js.map

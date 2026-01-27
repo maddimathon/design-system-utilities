@@ -23,11 +23,7 @@ $_systemColors: map.merge(
 );
 
 $_systemColors: map.flatten(
-    map.set(
-        $_systemColors,
-        background,
-        map.get($_systemColors, background, '$')
-    )
+    map.set($_systemColors, background, map.get($_systemColors, background, '$'))
 );
 
 ///
@@ -60,11 +56,7 @@ $_systemColors: map.flatten(
     $level_brightnessAdjusted: $level;
 
     @if $brightness == dark {
-        $level_brightnessAdjusted: colour.shade-map-reverse-key(
-            $level,
-            $slugMap,
-            $sort: true
-        );
+        $level_brightnessAdjusted: colour.shade-map-reverse-key($level, $slugMap, $sort: true);
     }
 
     $fallback_clr: map.get($slugMap, $level_brightnessAdjusted);
@@ -75,10 +67,7 @@ $_systemColors: map.flatten(
         @return var(--#{config.$cxPropPre}clr-#{$slug}-#{$level});
     }
 
-    $fallback: colour.to-hsl(
-        map.get($slugMap, $level_brightnessAdjusted),
-        $round: false
-    );
+    $fallback: colour.to-hsl(map.get($slugMap, $level_brightnessAdjusted), $round: false);
 
     @return if(
         config.$fn_var_replaceWithValue_colour,
@@ -95,13 +84,9 @@ $_systemColors: map.flatten(
 ///
 /// @since 0.1.0-alpha
 ///
-@function var-clr-from-theme-token(
-    $tokenValue,
-    $brightness: tokens.$brightnessMode_default
-) {
+@function var-clr-from-theme-token($tokenValue, $brightness: tokens.$brightnessMode_default) {
     // returns
-    @if string.length(#{$tokenValue}) > 0 and string.index(#{$tokenValue}, '-')
-    {
+    @if string.length(#{$tokenValue}) > 0 and string.index(#{$tokenValue}, '-') {
         @return var-clr(
             string.slice(#{$tokenValue}, 1, -5),
             string.slice(#{$tokenValue}, -3, -1),
@@ -117,12 +102,7 @@ $_systemColors: map.flatten(
 ///
 /// @since 0.1.0-alpha
 ///
-@function theme-token-value(
-    $slug,
-    $brightness,
-    $contrast,
-    $themeSlug: tokens.$activeTheme
-) {
+@function theme-token-value($slug, $brightness, $contrast, $themeSlug: tokens.$activeTheme) {
     $activeTheme_flat: map.get(tokens.$themes__nestedFlat, $themeSlug);
 
     @if $activeTheme_flat == null {
@@ -163,18 +143,36 @@ $_systemColors: map.flatten(
     $slug,
     $brightness: tokens.$brightnessMode_default,
     $contrast: tokens.$contrastMode_default,
-    $themeSlug: tokens.$activeTheme
+    $themeSlug: tokens.$activeTheme,
+    $useSystemColorFallback: true
 ) {
-    $clrSlug: theme-token-value(
-        $slug,
-        $brightness: $brightness,
-        $contrast: $contrast,
-        $themeSlug: $themeSlug
+    $clrSlug: if(
+        $useSystemColorFallback,
+        theme-token-value(
+            $slug,
+            $brightness: $brightness,
+            $contrast: forced-colors,
+            $themeSlug: $themeSlug
+        ),
+        null
     );
+
+    @if not $clrSlug {
+        $clrSlug: theme-token-value(
+            $slug,
+            $brightness: $brightness,
+            $contrast: $contrast,
+            $themeSlug: $themeSlug
+        );
+    }
 
     // returns
     @if list.length($clrSlug) < 1 {
         @return var(--#{config.$cxPropPre}theme-#{$slug});
+    }
+
+    @if list.length($clrSlug) > 1 {
+        $clrSlug: list.nth($clrSlug, 1);
     }
 
     // returns

@@ -35,4 +35,3 @@ export function arrayToUnionSchema(arr) {
     }
     return z.union(schemas);
 }
-//# sourceMappingURL=arrayToUnionSchema.js.map

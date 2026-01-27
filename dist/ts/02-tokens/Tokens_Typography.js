@@ -62,7 +62,7 @@ export class Tokens_Typography extends AbstractTokens {
         this.spacing = spacing;
         this.data = mergeArgs(Tokens_Typography.default, input, true);
         this.familyOverrides = this.data.fonts
-            ? Object.values(this.data.fonts).map((font) => {
+            ? Object.fromEntries(Object.values(this.data.fonts).map((font) => {
                 let isOverride = font.fontOverrideOption;
                 if (typeof isOverride === 'undefined') {
                     switch (font.slug) {
@@ -73,14 +73,17 @@ export class Tokens_Typography extends AbstractTokens {
                             break;
                     }
                 }
-                return isOverride && ({
-                    label: font.slug === 'monospace' ? 'Monospace' : font.name,
-                    value: font.slug,
-                    labelClass: `font-family-override-${font.slug}`,
-                    contentWidthScale: font.contentWidthScale,
-                    lineHeightScale: font.lineHeightScale,
-                });
-            }).filter(v => typeof v !== 'undefined' && v !== false)
+                return isOverride ? [
+                    font.slug,
+                    {
+                        label: font.slug === 'monospace' ? 'Monospace' : font.name,
+                        value: font.slug,
+                        labelClass: `font-family-override-${font.slug}`,
+                        contentWidthScale: font.contentWidthScale,
+                        lineHeightScale: font.lineHeightScale,
+                    },
+                ] : [];
+            }))
             : undefined;
     }
     toJSON() {
@@ -225,4 +228,3 @@ export class Tokens_Typography extends AbstractTokens {
         ;
     })(Font = Tokens_Typography.Font || (Tokens_Typography.Font = {}));
 })(Tokens_Typography || (Tokens_Typography = {}));
-//# sourceMappingURL=Tokens_Typography.js.map

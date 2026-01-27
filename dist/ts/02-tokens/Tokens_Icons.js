@@ -274,4 +274,3 @@ export class Tokens_Icons extends AbstractTokens {
     }
     Tokens_Icons.SvgIcon = SvgIcon;
 })(Tokens_Icons || (Tokens_Icons = {}));
-//# sourceMappingURL=Tokens_Icons.js.map

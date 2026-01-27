@@ -376,4 +376,3 @@ export var ColourUtilities;
         ShadeMaps.getDarkLevel = getDarkLevel;
     })(ShadeMaps = ColourUtilities.ShadeMaps || (ColourUtilities.ShadeMaps = {}));
 })(ColourUtilities || (ColourUtilities = {}));
-//# sourceMappingURL=ColourUtilities.js.map

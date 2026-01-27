@@ -3,7 +3,11 @@
 /// @since 0.1.0-alpha
 ///
 
+@use 'sass:map';
+
 @use '_pre' as pre;
+
+@use '../../tokens/system/default' as defaultTokens;
 
 @forward 'pkg:@maddimathon/utility-astro/config' with (
     $include_html: pre.$include_html,
@@ -29,6 +33,12 @@
 
     $selector_root: 'html' !default,
 
+    $fn_fontSizeValue_defaultFontScale: map.get(
+            defaultTokens.$designSystem,
+            font,
+            sizeScale
+        )
+        !default,
     $fn_fontSizeValue_roundToPixelFactor: 32 !default,
 
     $fn_var_replaceWithValue_borderWidth: not pre.$include_html !default,

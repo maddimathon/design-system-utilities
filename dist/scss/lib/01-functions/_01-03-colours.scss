@@ -163,18 +163,36 @@ $_systemColors: map.flatten(
     $slug,
     $brightness: tokens.$brightnessMode_default,
     $contrast: tokens.$contrastMode_default,
-    $themeSlug: tokens.$activeTheme
+    $themeSlug: tokens.$activeTheme,
+    $useSystemColorFallback: true
 ) {
-    $clrSlug: theme-token-value(
-        $slug,
-        $brightness: $brightness,
-        $contrast: $contrast,
-        $themeSlug: $themeSlug
+    $clrSlug: if(
+        $useSystemColorFallback,
+        theme-token-value(
+            $slug,
+            $brightness: $brightness,
+            $contrast: forced-colors,
+            $themeSlug: $themeSlug
+        ),
+        null
     );
+
+    @if not $clrSlug {
+        $clrSlug: theme-token-value(
+            $slug,
+            $brightness: $brightness,
+            $contrast: $contrast,
+            $themeSlug: $themeSlug
+        );
+    }
 
     // returns
     @if list.length($clrSlug) < 1 {
         @return var(--#{config.$cxPropPre}theme-#{$slug});
+    }
+
+    @if list.length($clrSlug) > 1 {
+        $clrSlug: list.nth($clrSlug, 1);
     }
 
     // returns

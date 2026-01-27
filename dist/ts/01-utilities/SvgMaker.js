@@ -106,4 +106,3 @@ export class SvgMaker {
 (function (SvgMaker) {
     ;
 })(SvgMaker || (SvgMaker = {}));
-//# sourceMappingURL=SvgMaker.js.map

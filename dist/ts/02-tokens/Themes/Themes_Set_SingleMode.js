@@ -684,4 +684,3 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
         Build.forcedColors = forcedColors;
     })(Build = Tokens_Themes_Set_SingleMode.Build || (Tokens_Themes_Set_SingleMode.Build = {}));
 })(Tokens_Themes_Set_SingleMode || (Tokens_Themes_Set_SingleMode = {}));
-//# sourceMappingURL=Themes_Set_SingleMode.js.map

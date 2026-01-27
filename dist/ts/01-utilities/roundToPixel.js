@@ -20,4 +20,3 @@
 export function roundToPixel(num, factor = 16) {
     return (Math.round(num * factor) / factor);
 }
-//# sourceMappingURL=roundToPixel.js.map

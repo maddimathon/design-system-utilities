@@ -80,13 +80,8 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
     public readonly data: Tokens_Typography.Data;
 
     public readonly familyOverrides: undefined | {
-        label: string;
-        value: string;
-
-        contentWidthScale?: number;
-        labelClass?: string;
-        lineHeightScale?: number;
-    }[];
+        [ key: string ]: Tokens_Typography.Font.FamilyOverride;
+    };
 
     public constructor (
         protected readonly spacing: Tokens_Spacing,
@@ -97,31 +92,36 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
         this.data = mergeArgs( Tokens_Typography.default, input, true );
 
         this.familyOverrides = this.data.fonts
-            ? Object.values( this.data.fonts ).map(
-                ( font ) => {
-                    let isOverride = font.fontOverrideOption;
+            ? Object.fromEntries(
+                Object.values( this.data.fonts ).map(
+                    ( font ): [ string, Tokens_Typography.Font.FamilyOverride ] | [] => {
+                        let isOverride = font.fontOverrideOption;
 
-                    if ( typeof isOverride === 'undefined' ) {
+                        if ( typeof isOverride === 'undefined' ) {
 
-                        switch ( font.slug ) {
-                            case 'dyslexic':
-                            case 'hyperlegible':
-                            case 'monospace':
-                                isOverride = true;
-                                break;
+                            switch ( font.slug ) {
+                                case 'dyslexic':
+                                case 'hyperlegible':
+                                case 'monospace':
+                                    isOverride = true;
+                                    break;
+                            }
                         }
+
+                        return isOverride ? [
+                            font.slug,
+                            {
+                                label: font.slug === 'monospace' ? 'Monospace' : font.name,
+                                value: font.slug,
+                                labelClass: `font-family-override-${ font.slug }`,
+
+                                contentWidthScale: font.contentWidthScale,
+                                lineHeightScale: font.lineHeightScale,
+                            },
+                        ] : [];
                     }
-
-                    return isOverride && ( {
-                        label: font.slug === 'monospace' ? 'Monospace' : font.name,
-                        value: font.slug,
-                        labelClass: `font-family-override-${ font.slug }`,
-
-                        contentWidthScale: font.contentWidthScale,
-                        lineHeightScale: font.lineHeightScale,
-                    } );
-                }
-            ).filter( v => typeof v !== 'undefined' && v !== false )
+                )
+            )
             : undefined;
     }
 
@@ -367,13 +367,8 @@ export namespace Tokens_Typography {
         px: number;
     }, T_FontFamilySlug> & {
         familyOverrides: undefined | {
-            label: string;
-            value: T_FontFamilySlug;
-
-            contentWidthScale?: number;
-            labelClass?: string;
-            lineHeightScale?: number;
-        }[];
+            [ key: string ]: Tokens_Typography.Font.FamilyOverride;
+        };
     };
 
     /**
@@ -436,6 +431,18 @@ export namespace Tokens_Typography {
             };
             style: "normal" | "italic";
             weight: TokenLevels | `${ '000' | TokenLevels } ${ TokenLevels | '1000' }`;
+        }
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        export interface FamilyOverride {
+            label: string;
+            value: string;
+
+            contentWidthScale?: number;
+            labelClass?: string;
+            lineHeightScale?: number;
         }
 
         /**

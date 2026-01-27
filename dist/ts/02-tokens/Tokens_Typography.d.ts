@@ -22,12 +22,8 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
     static get default(): Tokens_Typography.Data;
     readonly data: Tokens_Typography.Data;
     readonly familyOverrides: undefined | {
-        label: string;
-        value: string;
-        contentWidthScale?: number;
-        labelClass?: string;
-        lineHeightScale?: number;
-    }[];
+        [key: string]: Tokens_Typography.Font.FamilyOverride;
+    };
     constructor(spacing: Tokens_Spacing, input: Tokens_Typography.InputParam);
     toJSON(): Tokens_Typography.JsonReturn;
     toScssVars(): {
@@ -388,12 +384,8 @@ export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.
                 };
             } | undefined;
             familyOverrides: {
-                label: string;
-                value: string;
-                contentWidthScale?: number;
-                labelClass?: string;
-                lineHeightScale?: number;
-            }[] | undefined;
+                [key: string]: Tokens_Typography.Font.FamilyOverride;
+            } | undefined;
         };
         line_height: {
             100: number;
@@ -463,12 +455,8 @@ export declare namespace Tokens_Typography {
         px: number;
     }, T_FontFamilySlug> & {
         familyOverrides: undefined | {
-            label: string;
-            value: T_FontFamilySlug;
-            contentWidthScale?: number;
-            labelClass?: string;
-            lineHeightScale?: number;
-        }[];
+            [key: string]: Tokens_Typography.Font.FamilyOverride;
+        };
     };
     /**
      * @since 0.1.0-alpha
@@ -500,6 +488,16 @@ export declare namespace Tokens_Typography {
             };
             style: "normal" | "italic";
             weight: TokenLevels | `${'000' | TokenLevels} ${TokenLevels | '1000'}`;
+        }
+        /**
+         * @since 0.1.1-alpha.0.draft
+         */
+        interface FamilyOverride {
+            label: string;
+            value: string;
+            contentWidthScale?: number;
+            labelClass?: string;
+            lineHeightScale?: number;
         }
         /**
          * @since 0.1.0-alpha

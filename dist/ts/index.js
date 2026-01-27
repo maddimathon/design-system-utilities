@@ -23,4 +23,3 @@ export * from './01-utilities/roundToPixel.js';
 export * from './01-utilities/SvgMaker.js';
 export { Tokens } from './02-tokens/Tokens.js';
 export * as BuildUtilities from './build-utils/index.js';
-//# sourceMappingURL=index.js.map

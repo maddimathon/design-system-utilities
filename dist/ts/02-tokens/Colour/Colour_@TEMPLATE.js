@@ -31,4 +31,3 @@ export class Tokens_Colour_TEMPLATE extends AbstractTokens {
         return objectGenerator(this.names, () => 'undefined');
     }
 }
-//# sourceMappingURL=Colour_@TEMPLATE.js.map

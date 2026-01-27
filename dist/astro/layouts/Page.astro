@@ -105,13 +105,13 @@ const stylesheets = props.stylesheetURLs
                       new RegExp(
                           '^' +
                               escRegExp(
-                                  `/${config_base.replace(/(^\/|\/$)/gi, '')}/`
+                                  `/${config_base.replace(/(^\/|\/$)/gi, '')}/`,
                               ),
-                          'gi'
+                          'gi',
                       ),
-                      ''
-                  )
-              ).replace(/\.html$/gi, '') + versionSuffix
+                      '',
+                  ),
+              ).replace(/\.html$/gi, '') + versionSuffix,
       )
     : [];
 
@@ -137,25 +137,32 @@ if (Array.isArray(props.secondaryMenu)) {
 
 /* Settings ------------------ */
 
-if (inputs.tokens.typography.familyOverrides?.length) {
+const familyOverrideValues = inputs.tokens.typography.familyOverrides
+    ? Object.values(inputs.tokens.typography.familyOverrides).filter((v) => v)
+    : [];
+
+if (familyOverrideValues.length) {
     if (!props.settings.settings) {
         props.settings.settings = {};
     }
+
+    const fontOverrideOptions: NonNullable<
+        typeof props.settings.settings.custom
+    >[number]['options'] = [
+        {
+            label: 'Default',
+            value: 'default',
+            labelClass: 'font-family-override-default',
+        },
+        ...familyOverrideValues,
+    ];
 
     props.settings.settings.custom = [
         {
             id: 'font-family-override',
             label: 'Font Override',
             default: 'default',
-
-            options: [
-                {
-                    label: 'Default',
-                    value: 'default',
-                    labelClass: 'font-family-override-default',
-                },
-                ...inputs.tokens.typography.familyOverrides,
-            ],
+            options: fontOverrideOptions,
         },
         ...(props.settings.settings.custom ?? []),
     ];

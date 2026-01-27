@@ -132,4 +132,3 @@ export class Tokens_Colour_ShadeMap_Shade extends AbstractTokens {
         return ColourUtilities.toString.hsl(this.data.hsl);
     }
 }
-//# sourceMappingURL=ShadeMap_Shade.js.map

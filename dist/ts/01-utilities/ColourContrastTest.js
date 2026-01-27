@@ -109,4 +109,3 @@ export class ColourContrastTest {
         aaa: JSON_SingleResult,
     });
 })(ColourContrastTest || (ColourContrastTest = {}));
-//# sourceMappingURL=ColourContrastTest.js.map

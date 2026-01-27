@@ -62,4 +62,3 @@ export class Document extends DocumentStage {
         }
     }
 }
-//# sourceMappingURL=Document.js.map

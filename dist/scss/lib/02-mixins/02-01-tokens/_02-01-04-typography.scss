@@ -5,6 +5,7 @@
 
 @use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/math';
 @use 'pkg:@maddimathon/utility-sass/meta';
 @use 'pkg:@maddimathon/utility-sass/selector';
 
@@ -123,5 +124,89 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
             }
         }
         /* #endregion Tokens - Font Families */
+    }
+}
+
+///
+/// Changes varies size-related tokens to the values for the given family.
+///
+/// @since 0.1.1-alpha.0.draft
+///
+@mixin font-family-size-tokens($slug) {
+    //
+    $map: map.get(tokens.$designSystem, font, familyOverrides, $slug);
+
+    @if $map {
+        $label: map.get($map, label);
+
+        @if $label == 'Open Dyslexic' {
+            @include utils.cx-prop(icon-size--font-multiplier, 1.1875);
+            @include utils.cx-prop(icon-size-pseudo--font-multiplier, 1.25);
+            @include utils.cx-prop(icon-size-pseudo--inline-buffer-start, 3);
+            @include utils.cx-prop(icon-size-pseudo--inline-buffer-end, 1);
+        }
+
+        $width_multiplier: map.get($map, contentWidthScale);
+
+        @if $width_multiplier != null {
+            // prettier-ignore
+            @if meta.type-of($width_multiplier) == number and $width_multiplier != 1 {
+                $border_multiplier: -1;
+
+                @if $width_multiplier > 1 {
+                    $border_multiplier: $width_multiplier;
+                }
+
+                // WIDTHS
+                @if $width_multiplier > 0 and $width_multiplier != 1 {
+                    @include utils.tokens-width($multiplier: $width_multiplier);
+                }
+
+                // BORDER WIDTHS
+                @if $border_multiplier > 0 and $border_multiplier != 1 {
+                    //
+                    @include utils.tokens-border-width($multiplier: $border_multiplier);
+                }
+            }
+        }
+
+        $lh_multiplier: map.get($map, lineHeightScale);
+
+        @if $lh_multiplier != null {
+            //
+            @if meta.type-of($lh_multiplier) == number and $lh_multiplier != 1 {
+                $margin_multiplier: -1;
+                $stroke_multiplier: -1;
+
+                @if $lh_multiplier > 1 {
+                    $margin_multiplier: if(
+                        $lh_multiplier < 2,
+                        calc(
+                            (($lh_multiplier - 1) * mrg-value-firm('400')) + 1
+                        ),
+                        $lh_multiplier
+                    );
+
+                    $stroke_multiplier: $lh_multiplier;
+                }
+
+                // MARGINS
+                // prettier-ignore
+                @if $margin_multiplier > 0 and ($margin_multiplier < 1 or $margin_multiplier >= 1.0625) {
+                    @include utils.tokens-margin($multiplier: $margin_multiplier);
+                    @include utils.tokens-gap($multiplier: $margin_multiplier);
+                }
+
+                // LINE HEIGHTS
+                @include utils.tokens-line-height($multiplier: $lh_multiplier);
+
+                // STROKE RELATIVE
+                @if $stroke_multiplier > 0 and $stroke_multiplier != 1 {
+                    @include utils.tokens-stroke-relative(
+                        $multiplier: $stroke_multiplier
+                    );
+                }
+            }
+        }
     }
 }

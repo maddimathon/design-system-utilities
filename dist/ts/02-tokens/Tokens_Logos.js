@@ -41,4 +41,3 @@ export class Tokens_Logos extends AbstractTokens {
         }));
     }
 }
-//# sourceMappingURL=Tokens_Logos.js.map

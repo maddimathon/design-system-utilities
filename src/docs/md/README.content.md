@@ -20,7 +20,7 @@ or
 
 <!--README_INSTALL-->
 ```bash
-npm i -D github:maddimathon/design-system-utilities#0.1.0-alpha.12
+npm i -D github:maddimathon/design-system-utilities#0.1.1-alpha.0
 ```
 <!--/README_INSTALL-->
 

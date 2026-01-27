@@ -86,4 +86,3 @@ export class Tokens_CSS_Transition extends AbstractTokens {
         };
     }
 }
-//# sourceMappingURL=CSS_Transition.js.map
