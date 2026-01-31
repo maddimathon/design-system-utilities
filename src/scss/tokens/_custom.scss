@@ -11,14 +11,7 @@
 $_theme_ui_base: var(
     --#{config.$cxPropPre}theme-ui,
     var(
-        --#{config.$cxPropPre}clr-#{map.get(
-                system.$themes,
-                default,
-                light,
-                average,
-                ui,
-                '$'
-            )},
+        --#{config.$cxPropPre}clr-#{map.get(system.$themes, default, light, average, ui, '$')},
         currentColor
     )
 );
@@ -26,14 +19,7 @@ $_theme_ui_base: var(
 $_theme_ui_primary: var(
     --#{config.$cxPropPre}theme-ui-primary,
     var(
-        --#{config.$cxPropPre}clr-#{map.get(
-                system.$themes,
-                default,
-                light,
-                average,
-                ui,
-                primary
-            )},
+        --#{config.$cxPropPre}clr-#{map.get(system.$themes, default, light, average, ui, primary)},
         currentColor
     )
 );
@@ -41,14 +27,7 @@ $_theme_ui_primary: var(
 $_theme_text_primary: var(
     --#{config.$cxPropPre}theme-text-primary,
     var(
-        --#{config.$cxPropPre}clr-#{map.get(
-                system.$themes,
-                default,
-                light,
-                average,
-                text,
-                primary
-            )},
+        --#{config.$cxPropPre}clr-#{map.get(system.$themes, default, light, average, text, primary)},
         currentColor
     )
 );
@@ -89,8 +68,10 @@ $internal_customTokensDefault: map.merge(
 
 $customTokens: () !default;
 
-$customTokens: map.merge(
-    map.flatten($internal_customTokensDefault),
-    map.flatten($customTokens),
-    $recursive: false
+$customTokens: map.ksort(
+    map.merge(
+        map.flatten($internal_customTokensDefault),
+        map.flatten($customTokens),
+        $recursive: false
+    )
 );

@@ -156,29 +156,84 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T
             secondary: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>;
             disabled: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>;
         } & { [K_6 in T_Keyword_Universal]: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>; };
-        field: {
-            /**
-             * Used for accent-color and focus ring colour.
-             */
-            accent: {
-                $: __T_ColourOption;
-                hover: __T_ColourOption;
-                active: __T_ColourOption;
+        /**
+         * @since 0.1.1-alpha.0.draft — Changed from field to input.
+         */
+        input: {
+            readonly: {
+                /**
+                 * Used for accent-color and focus ring colour.
+                 */
+                accent: {
+                    $: __T_ColourOption;
+                    hover: __T_ColourOption;
+                    active: __T_ColourOption;
+                };
+                bg: {
+                    $: __T_ColourOption;
+                    hover: __T_ColourOption;
+                    active: __T_ColourOption;
+                };
+                border: {
+                    $: __T_ColourOption;
+                    hover: __T_ColourOption;
+                    active: __T_ColourOption;
+                };
+                text: {
+                    $: __T_ColourOption;
+                    hover: __T_ColourOption;
+                    active: __T_ColourOption;
+                };
             };
-            bg: {
-                $: __T_ColourOption;
-                hover: __T_ColourOption;
-                active: __T_ColourOption;
+            disabled: {
+                /**
+                 * Used for accent-color and focus ring colour.
+                 */
+                accent: {
+                    $: __T_ColourOption;
+                    hover: __T_ColourOption;
+                    active: __T_ColourOption;
+                };
+                bg: {
+                    $: __T_ColourOption;
+                    hover: __T_ColourOption;
+                    active: __T_ColourOption;
+                };
+                border: {
+                    $: __T_ColourOption;
+                    hover: __T_ColourOption;
+                    active: __T_ColourOption;
+                };
+                text: {
+                    $: __T_ColourOption;
+                    hover: __T_ColourOption;
+                    active: __T_ColourOption;
+                };
             };
-            border: {
-                $: __T_ColourOption;
-                hover: __T_ColourOption;
-                active: __T_ColourOption;
-            };
-            text: {
-                $: __T_ColourOption;
-                hover: __T_ColourOption;
-                active: __T_ColourOption;
+            $: {
+                /**
+                 * Used for accent-color and focus ring colour.
+                 */
+                accent: {
+                    $: __T_ColourOption;
+                    hover: __T_ColourOption;
+                    active: __T_ColourOption;
+                };
+                bg: {
+                    $: __T_ColourOption;
+                    hover: __T_ColourOption;
+                    active: __T_ColourOption;
+                };
+                border: {
+                    $: __T_ColourOption;
+                    hover: __T_ColourOption;
+                    active: __T_ColourOption;
+                };
+                text: {
+                    $: __T_ColourOption;
+                    hover: __T_ColourOption;
+                    active: __T_ColourOption;
+                };
             };
         };
     };
@@ -282,29 +337,34 @@ export declare namespace Tokens_Themes_Set_SingleMode {
         } & {
             [K in T_Keyword_Universal]: Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>;
         };
-        field: {
-            /**
-             * Used for accent-color and focus ring colour.
-             */
-            accent: {
-                $: __T_ColourOption;
-                hover: __T_ColourOption;
-                active: __T_ColourOption;
-            };
-            bg: {
-                $: __T_ColourOption;
-                hover: __T_ColourOption;
-                active: __T_ColourOption;
-            };
-            border: {
-                $: __T_ColourOption;
-                hover: __T_ColourOption;
-                active: __T_ColourOption;
-            };
-            text: {
-                $: __T_ColourOption;
-                hover: __T_ColourOption;
-                active: __T_ColourOption;
+        /**
+         * @since 0.1.1-alpha.0.draft — Changed from field to input.
+         */
+        input: {
+            [K in "$" | "disabled" | "readonly"]: {
+                /**
+                 * Used for accent-color and focus ring colour.
+                 */
+                accent: {
+                    $: __T_ColourOption;
+                    hover: __T_ColourOption;
+                    active: __T_ColourOption;
+                };
+                bg: {
+                    $: __T_ColourOption;
+                    hover: __T_ColourOption;
+                    active: __T_ColourOption;
+                };
+                border: {
+                    $: __T_ColourOption;
+                    hover: __T_ColourOption;
+                    active: __T_ColourOption;
+                };
+                text: {
+                    $: __T_ColourOption;
+                    hover: __T_ColourOption;
+                    active: __T_ColourOption;
+                };
             };
         };
         system: {
@@ -387,26 +447,28 @@ export declare namespace Tokens_Themes_Set_SingleMode {
         } & {
             [K in T_Keyword_Universal]?: undefined | Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>;
         };
-        field?: undefined | {
-            accent?: undefined | {
-                $?: undefined | __T_ColourOption;
-                hover?: undefined | __T_ColourOption;
-                active?: undefined | __T_ColourOption;
-            };
-            bg?: undefined | {
-                $?: undefined | __T_ColourOption;
-                hover?: undefined | __T_ColourOption;
-                active?: undefined | __T_ColourOption;
-            };
-            border?: undefined | {
-                $?: undefined | __T_ColourOption;
-                hover?: undefined | __T_ColourOption;
-                active?: undefined | __T_ColourOption;
-            };
-            text?: undefined | {
-                $?: undefined | __T_ColourOption;
-                hover?: undefined | __T_ColourOption;
-                active?: undefined | __T_ColourOption;
+        input?: undefined | {
+            [K in "$" | "disabled" | "readonly"]?: {
+                accent?: undefined | {
+                    $?: undefined | __T_ColourOption;
+                    hover?: undefined | __T_ColourOption;
+                    active?: undefined | __T_ColourOption;
+                };
+                bg?: undefined | {
+                    $?: undefined | __T_ColourOption;
+                    hover?: undefined | __T_ColourOption;
+                    active?: undefined | __T_ColourOption;
+                };
+                border?: undefined | {
+                    $?: undefined | __T_ColourOption;
+                    hover?: undefined | __T_ColourOption;
+                    active?: undefined | __T_ColourOption;
+                };
+                text?: undefined | {
+                    $?: undefined | __T_ColourOption;
+                    hover?: undefined | __T_ColourOption;
+                    active?: undefined | __T_ColourOption;
+                };
             };
         };
         system?: undefined | {
@@ -564,12 +626,12 @@ export declare namespace Tokens_Themes_Set_SingleMode {
                     readonly accent: "200";
                 };
                 readonly text: {
-                    readonly $: "800";
+                    readonly $: "700";
                     readonly accent: "700";
                     readonly min: "600";
                 };
                 readonly ui: {
-                    readonly $: "800";
+                    readonly $: "700";
                     readonly accent: "700";
                     readonly min: "600";
                 };

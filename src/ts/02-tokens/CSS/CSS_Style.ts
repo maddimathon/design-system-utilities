@@ -37,7 +37,7 @@ export class Tokens_CSS_Style extends AbstractTokens<Tokens_CSS_Style.Data> {
             },
 
             focus: {
-                offset: '300',
+                offset: '400',
             },
 
             font: {
@@ -84,7 +84,7 @@ export class Tokens_CSS_Style extends AbstractTokens<Tokens_CSS_Style.Data> {
                 'letter-spacing': style[ 'letter-spacing' ],
                 'text-transform': style[ 'text-transform' ],
             },
-        };
+        } as const satisfies Tokens_CSS_Style.Data[ 'button' ];
     }
 
     public static headingStyle( heading: number ): Tokens_CSS_Style.HeadingStyles {
@@ -170,6 +170,60 @@ export class Tokens_CSS_Style extends AbstractTokens<Tokens_CSS_Style.Data> {
         return style;
     }
 
+    public static inputStyle(): {
+        $: Tokens_CSS_Style.InputStyles;
+        disabled: Tokens_CSS_Style.InputStyles_Disabled;
+    } {
+
+        const style: Tokens_CSS_Style.InputStyles = {
+
+            border: {
+                radius: '0',
+                style: 'solid',
+                width: '100',
+            },
+
+            focus: {
+                offset: '400',
+            },
+
+            label: {
+
+                font: {
+                    style: 'normal',
+                    weight: '500',
+                },
+
+                'line-height': '200',
+            },
+
+            'line-height': '300',
+
+            margin: {
+                block: {
+                    start: '400',
+                    end: '400',
+                    gap: '200',
+                },
+            },
+
+            padding: {
+                block: '200',
+                inline: '300',
+            },
+        };
+
+        return {
+            $: style,
+            disabled: {
+                border: {
+                    radius: style.border.radius,
+                    style: 'dashed',
+                },
+            },
+        } as const satisfies Tokens_CSS_Style.Data[ 'input' ];
+    }
+
     public static get default(): Tokens_CSS_Style.Data {
 
         return {
@@ -180,6 +234,8 @@ export class Tokens_CSS_Style extends AbstractTokens<Tokens_CSS_Style.Data> {
                 [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const,
                 ( hdg ) => Tokens_CSS_Style.headingStyle( hdg )
             ),
+
+            input: Tokens_CSS_Style.inputStyle(),
 
             selection: {
                 low: {
@@ -308,6 +364,70 @@ export namespace Tokens_CSS_Style {
     export interface HeadingStyles_Partial extends Partial<HeadingStyles> { }
 
     /**
+     * @since ___PKG_VERSION___
+     */
+    export interface InputStyles {
+
+        border: {
+            radius: "0" | TokenLevels;
+            style: string;
+            width: TokenLevels;
+        };
+
+        focus: {
+            offset: TokenLevels;
+        };
+
+        label: {
+            font: {
+                style: "normal" | "italic";
+                weight: TokenLevels;
+            };
+
+            'line-height': TokenLevels;
+        };
+
+        'line-height': TokenLevels;
+
+        margin: {
+            block: {
+                start: TokenLevels;
+                end: TokenLevels;
+
+                /**
+                 * This is the gap between a label and its input.
+                 */
+                gap: TokenLevels;
+            };
+        };
+
+        padding: {
+            block: TokenLevels;
+            inline: TokenLevels;
+        };
+    }
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export interface InputStyles_Disabled extends Omit<
+        InputStyles,
+        'border' | 'focus' | 'label' | 'line-height' | 'margin' | 'padding'
+    > {
+        border: Omit<InputStyles[ 'border' ], 'width'>;
+    }
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export interface InputStyles_Partial extends RecursivePartial<InputStyles> { }
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export interface InputStyles_Disabled_Partial extends RecursivePartial<InputStyles_Disabled> { }
+
+    /**
      * @since 0.1.0-alpha
      */
     export type Data = {
@@ -323,6 +443,11 @@ export namespace Tokens_CSS_Style {
             [ key: number ]: HeadingStyles;
         };
 
+        input: {
+            $: InputStyles;
+            disabled: InputStyles_Disabled;
+        };
+
         selection: {
             [ C in Exclude<ThemeMode_ContrastOption, 'max'> ]: {
                 'background-opacity': string;
@@ -336,7 +461,7 @@ export namespace Tokens_CSS_Style {
     export type InputParam = {
 
         button?: {
-            $: ButtonStyles_Partial;
+            $?: ButtonStyles_Partial;
             disabled?: ButtonStyles_Disabled_Partial;
         };
 
@@ -344,6 +469,11 @@ export namespace Tokens_CSS_Style {
             [ L in RequiredHeadingLevels ]?: HeadingStyles_Partial;
         } & {
             [ key: number ]: HeadingStyles_Partial;
+        };
+
+        input?: {
+            $?: InputStyles_Partial;
+            disabled?: InputStyles_Disabled_Partial;
         };
 
         selection?: {

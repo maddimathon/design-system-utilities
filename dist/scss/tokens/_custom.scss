@@ -89,8 +89,10 @@ $internal_customTokensDefault: map.merge(
 
 $customTokens: () !default;
 
-$customTokens: map.merge(
-    map.flatten($internal_customTokensDefault),
-    map.flatten($customTokens),
-    $recursive: false
+$customTokens: map.ksort(
+    map.merge(
+        map.flatten($internal_customTokensDefault),
+        map.flatten($customTokens),
+        $recursive: false
+    )
 );

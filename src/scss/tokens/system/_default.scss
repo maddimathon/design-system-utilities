@@ -81,7 +81,7 @@ $designSystem: map.deep-merge( (
                     'width': '100'
                 ),
                 'focus': (
-                    'offset': '300'
+                    'offset': '400'
                 ),
                 'font': (
                     'style': 'normal',
@@ -268,6 +268,43 @@ $designSystem: map.deep-merge( (
                         'start': '500',
                         'end': '400'
                     )
+                )
+            )
+        ),
+        'input': (
+            '$': (
+                'border': (
+                    'radius': '0',
+                    'style': 'solid',
+                    'width': '100'
+                ),
+                'focus': (
+                    'offset': '400'
+                ),
+                'label': (
+                    'font': (
+                        'style': 'normal',
+                        'weight': '500'
+                    ),
+                    'line-height': '200'
+                ),
+                'line-height': '300',
+                'margin': (
+                    'block': (
+                        'start': '400',
+                        'end': '400',
+                        'gap': '200'
+                    )
+                ),
+                'padding': (
+                    'block': '200',
+                    'inline': '300'
+                )
+            ),
+            'disabled': (
+                'border': (
+                    'radius': '0',
+                    'style': 'dashed'
                 )
             )
         ),
@@ -559,19 +596,19 @@ $designSystem: map.deep-merge( (
     'logos': (),
     'colour': (
         'base': (
-            '100': hsl( 339.45, 0%, 98.86% ),
-            '150': hsl( 339.45, 0%, 93.5% ),
-            '200': hsl( 339.45, 0%, 88.2% ),
-            '250': hsl( 339.45, 0%, 82.96% ),
+            '100': hsl( 305.21, 100%, 100% ),
+            '150': hsl( 339.45, 0%, 94.35% ),
+            '200': hsl( 339.45, 0%, 88.76% ),
+            '250': hsl( 339.45, 0%, 83.23% ),
             '300': hsl( 339.45, 0%, 77.78% ),
-            '400': hsl( 339.45, 0%, 62.36% ),
-            '500': hsl( 339.45, 0%, 47.62% ),
-            '600': hsl( 339.45, 0%, 33.66% ),
-            '700': hsl( 339.45, 0%, 20.65% ),
-            '750': hsl( 339.45, 0%, 16.63% ),
-            '800': hsl( 339.45, 0%, 12.75% ),
-            '850': hsl( 339.45, 0%, 9.03% ),
-            '900': hsl( 339.45, 0%, 4.28% )
+            '400': hsl( 339.45, 0%, 61.84% ),
+            '500': hsl( 339.45, 0%, 46.63% ),
+            '600': hsl( 339.45, 0%, 31.35% ),
+            '700': hsl( 339.45, 0%, 17.25% ),
+            '750': hsl( 339.45, 0%, 13.55% ),
+            '800': hsl( 339.45, 0%, 9.99% ),
+            '850': hsl( 339.45, 0%, 6.08% ),
+            '900': hsl( 0, 0%, 0% )
         ),
         'purple': (
             '100': hsl( 270, 100%, 98.5% ),
@@ -788,26 +825,72 @@ $designSystem: map.deep-merge( (
                         )
                     )
                 ),
-                'field': (
-                    'accent': (
-                        '$': 'ActiveText',
-                        'hover': 'ActiveText',
-                        'active': 'ActiveText'
+                'input': (
+                    '$': (
+                        'accent': (
+                            '$': 'ActiveText',
+                            'hover': 'ActiveText',
+                            'active': 'ActiveText'
+                        ),
+                        'bg': (
+                            '$': 'Field',
+                            'hover': 'SelectedItem',
+                            'active': 'Field'
+                        ),
+                        'border': (
+                            '$': 'FieldText',
+                            'hover': 'SelectedItem',
+                            'active': 'FieldText'
+                        ),
+                        'text': (
+                            '$': 'FieldText',
+                            'hover': 'SelectedItemText',
+                            'active': 'FieldText'
+                        )
                     ),
-                    'bg': (
-                        '$': 'Field',
-                        'hover': 'SelectedItem',
-                        'active': 'Field'
+                    'disabled': (
+                        'accent': (
+                            '$': 'ActiveText',
+                            'hover': 'ActiveText',
+                            'active': 'ActiveText'
+                        ),
+                        'bg': (
+                            '$': 'Field',
+                            'hover': 'SelectedItem',
+                            'active': 'Field'
+                        ),
+                        'border': (
+                            '$': 'FieldText',
+                            'hover': 'SelectedItem',
+                            'active': 'FieldText'
+                        ),
+                        'text': (
+                            '$': 'FieldText',
+                            'hover': 'SelectedItemText',
+                            'active': 'FieldText'
+                        )
                     ),
-                    'border': (
-                        '$': 'FieldText',
-                        'hover': 'SelectedItem',
-                        'active': 'FieldText'
-                    ),
-                    'text': (
-                        '$': 'FieldText',
-                        'hover': 'SelectedItemText',
-                        'active': 'FieldText'
+                    'readonly': (
+                        'accent': (
+                            '$': 'ActiveText',
+                            'hover': 'ActiveText',
+                            'active': 'ActiveText'
+                        ),
+                        'bg': (
+                            '$': 'Field',
+                            'hover': 'SelectedItem',
+                            'active': 'Field'
+                        ),
+                        'border': (
+                            '$': 'FieldText',
+                            'hover': 'SelectedItem',
+                            'active': 'FieldText'
+                        ),
+                        'text': (
+                            '$': 'FieldText',
+                            'hover': 'SelectedItemText',
+                            'active': 'FieldText'
+                        )
                     )
                 ),
                 'system': (
@@ -1059,26 +1142,72 @@ $designSystem: map.deep-merge( (
                             )
                         )
                     ),
-                    'field': (
-                        'accent': (
-                            '$': 'purple-700',
-                            'hover': 'turquoise-700',
-                            'active': 'red-700'
+                    'input': (
+                        '$': (
+                            'accent': (
+                                '$': 'purple-700',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'bg': (
+                                '$': 'base-250',
+                                'hover': 'base-250',
+                                'active': 'base-250'
+                            ),
+                            'border': (
+                                '$': 'base-600',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'text': (
+                                '$': 'base-700',
+                                'hover': 'base-700',
+                                'active': 'base-700'
+                            )
                         ),
-                        'bg': (
-                            '$': 'base-250',
-                            'hover': 'base-250',
-                            'active': 'base-250'
+                        'disabled': (
+                            'accent': (
+                                '$': 'purple-700',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'bg': (
+                                '$': 'base-250',
+                                'hover': 'base-250',
+                                'active': 'base-250'
+                            ),
+                            'border': (
+                                '$': 'base-600',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'text': (
+                                '$': 'base-700',
+                                'hover': 'base-700',
+                                'active': 'base-700'
+                            )
                         ),
-                        'border': (
-                            '$': 'base-600',
-                            'hover': 'turquoise-700',
-                            'active': 'red-700'
-                        ),
-                        'text': (
-                            '$': 'base-700',
-                            'hover': 'base-700',
-                            'active': 'base-700'
+                        'readonly': (
+                            'accent': (
+                                '$': 'purple-700',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'bg': (
+                                '$': 'base-250',
+                                'hover': 'base-250',
+                                'active': 'base-250'
+                            ),
+                            'border': (
+                                '$': 'base-600',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'text': (
+                                '$': 'base-700',
+                                'hover': 'base-700',
+                                'active': 'base-700'
+                            )
                         )
                     ),
                     'system': (
@@ -1174,7 +1303,7 @@ $designSystem: map.deep-merge( (
                         'secondary': 'turquoise-200'
                     ),
                     'text': (
-                        '$': 'base-800',
+                        '$': 'base-700',
                         'primary': 'purple-700',
                         'secondary': 'turquoise-700',
                         'active': 'red-700',
@@ -1182,7 +1311,7 @@ $designSystem: map.deep-merge( (
                         'grey': 'base-700'
                     ),
                     'ui': (
-                        '$': 'base-800',
+                        '$': 'base-700',
                         'primary': 'purple-700',
                         'secondary': 'turquoise-700',
                         'active': 'red-700',
@@ -1306,26 +1435,72 @@ $designSystem: map.deep-merge( (
                             )
                         )
                     ),
-                    'field': (
-                        'accent': (
-                            '$': 'purple-700',
-                            'hover': 'turquoise-700',
-                            'active': 'red-700'
+                    'input': (
+                        '$': (
+                            'accent': (
+                                '$': 'purple-700',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'bg': (
+                                '$': 'base-150',
+                                'hover': 'base-150',
+                                'active': 'base-150'
+                            ),
+                            'border': (
+                                '$': 'base-600',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'text': (
+                                '$': 'base-700',
+                                'hover': 'base-700',
+                                'active': 'base-700'
+                            )
                         ),
-                        'bg': (
-                            '$': 'base-150',
-                            'hover': 'base-150',
-                            'active': 'base-150'
+                        'disabled': (
+                            'accent': (
+                                '$': 'purple-700',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'bg': (
+                                '$': 'base-150',
+                                'hover': 'base-150',
+                                'active': 'base-150'
+                            ),
+                            'border': (
+                                '$': 'base-600',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'text': (
+                                '$': 'base-700',
+                                'hover': 'base-700',
+                                'active': 'base-700'
+                            )
                         ),
-                        'border': (
-                            '$': 'base-600',
-                            'hover': 'turquoise-700',
-                            'active': 'red-700'
-                        ),
-                        'text': (
-                            '$': 'base-800',
-                            'hover': 'base-800',
-                            'active': 'base-800'
+                        'readonly': (
+                            'accent': (
+                                '$': 'purple-700',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'bg': (
+                                '$': 'base-150',
+                                'hover': 'base-150',
+                                'active': 'base-150'
+                            ),
+                            'border': (
+                                '$': 'base-600',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'text': (
+                                '$': 'base-700',
+                                'hover': 'base-700',
+                                'active': 'base-700'
+                            )
                         )
                     ),
                     'system': (
@@ -1390,9 +1565,9 @@ $designSystem: map.deep-merge( (
                                 'active': 'red-700'
                             ),
                             'text': (
-                                '$': 'base-800',
-                                'hover': 'base-800',
-                                'active': 'base-800'
+                                '$': 'base-700',
+                                'hover': 'base-700',
+                                'active': 'base-700'
                             )
                         ),
                         'link': (
@@ -1407,7 +1582,7 @@ $designSystem: map.deep-merge( (
                             'text': 'base-800'
                         ),
                         'text': (
-                            '$': 'base-800',
+                            '$': 'base-700',
                             'active': 'red-700',
                             'disabled': 'base-600'
                         )
@@ -1553,26 +1728,72 @@ $designSystem: map.deep-merge( (
                             )
                         )
                     ),
-                    'field': (
-                        'accent': (
-                            '$': 'purple-750',
-                            'hover': 'turquoise-750',
-                            'active': 'red-750'
+                    'input': (
+                        '$': (
+                            'accent': (
+                                '$': 'purple-750',
+                                'hover': 'turquoise-750',
+                                'active': 'red-750'
+                            ),
+                            'bg': (
+                                '$': 'base-100',
+                                'hover': 'base-100',
+                                'active': 'base-100'
+                            ),
+                            'border': (
+                                '$': 'base-700',
+                                'hover': 'turquoise-750',
+                                'active': 'red-750'
+                            ),
+                            'text': (
+                                '$': 'base-850',
+                                'hover': 'base-850',
+                                'active': 'base-850'
+                            )
                         ),
-                        'bg': (
-                            '$': 'base-100',
-                            'hover': 'base-100',
-                            'active': 'base-100'
+                        'disabled': (
+                            'accent': (
+                                '$': 'purple-750',
+                                'hover': 'turquoise-750',
+                                'active': 'red-750'
+                            ),
+                            'bg': (
+                                '$': 'base-100',
+                                'hover': 'base-100',
+                                'active': 'base-100'
+                            ),
+                            'border': (
+                                '$': 'base-700',
+                                'hover': 'turquoise-750',
+                                'active': 'red-750'
+                            ),
+                            'text': (
+                                '$': 'base-850',
+                                'hover': 'base-850',
+                                'active': 'base-850'
+                            )
                         ),
-                        'border': (
-                            '$': 'base-700',
-                            'hover': 'turquoise-750',
-                            'active': 'red-750'
-                        ),
-                        'text': (
-                            '$': 'base-850',
-                            'hover': 'base-850',
-                            'active': 'base-850'
+                        'readonly': (
+                            'accent': (
+                                '$': 'purple-750',
+                                'hover': 'turquoise-750',
+                                'active': 'red-750'
+                            ),
+                            'bg': (
+                                '$': 'base-100',
+                                'hover': 'base-100',
+                                'active': 'base-100'
+                            ),
+                            'border': (
+                                '$': 'base-700',
+                                'hover': 'turquoise-750',
+                                'active': 'red-750'
+                            ),
+                            'text': (
+                                '$': 'base-850',
+                                'hover': 'base-850',
+                                'active': 'base-850'
+                            )
                         )
                     ),
                     'system': (
@@ -1800,26 +2021,72 @@ $designSystem: map.deep-merge( (
                             )
                         )
                     ),
-                    'field': (
-                        'accent': (
-                            '$': 'purple-850',
-                            'hover': 'turquoise-850',
-                            'active': 'red-850'
+                    'input': (
+                        '$': (
+                            'accent': (
+                                '$': 'purple-850',
+                                'hover': 'turquoise-850',
+                                'active': 'red-850'
+                            ),
+                            'bg': (
+                                '$': 'base-100',
+                                'hover': 'base-100',
+                                'active': 'base-100'
+                            ),
+                            'border': (
+                                '$': 'base-850',
+                                'hover': 'turquoise-850',
+                                'active': 'red-850'
+                            ),
+                            'text': (
+                                '$': 'base-900',
+                                'hover': 'base-900',
+                                'active': 'base-900'
+                            )
                         ),
-                        'bg': (
-                            '$': 'base-100',
-                            'hover': 'base-100',
-                            'active': 'base-100'
+                        'disabled': (
+                            'accent': (
+                                '$': 'purple-850',
+                                'hover': 'turquoise-850',
+                                'active': 'red-850'
+                            ),
+                            'bg': (
+                                '$': 'base-100',
+                                'hover': 'base-100',
+                                'active': 'base-100'
+                            ),
+                            'border': (
+                                '$': 'base-850',
+                                'hover': 'turquoise-850',
+                                'active': 'red-850'
+                            ),
+                            'text': (
+                                '$': 'base-900',
+                                'hover': 'base-900',
+                                'active': 'base-900'
+                            )
                         ),
-                        'border': (
-                            '$': 'base-850',
-                            'hover': 'turquoise-850',
-                            'active': 'red-850'
-                        ),
-                        'text': (
-                            '$': 'base-900',
-                            'hover': 'base-900',
-                            'active': 'base-900'
+                        'readonly': (
+                            'accent': (
+                                '$': 'purple-850',
+                                'hover': 'turquoise-850',
+                                'active': 'red-850'
+                            ),
+                            'bg': (
+                                '$': 'base-100',
+                                'hover': 'base-100',
+                                'active': 'base-100'
+                            ),
+                            'border': (
+                                '$': 'base-850',
+                                'hover': 'turquoise-850',
+                                'active': 'red-850'
+                            ),
+                            'text': (
+                                '$': 'base-900',
+                                'hover': 'base-900',
+                                'active': 'base-900'
+                            )
                         )
                     ),
                     'system': (
@@ -2049,26 +2316,72 @@ $designSystem: map.deep-merge( (
                             )
                         )
                     ),
-                    'field': (
-                        'accent': (
-                            '$': 'purple-700',
-                            'hover': 'turquoise-700',
-                            'active': 'red-700'
+                    'input': (
+                        '$': (
+                            'accent': (
+                                '$': 'purple-700',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'bg': (
+                                '$': 'base-250',
+                                'hover': 'base-250',
+                                'active': 'base-250'
+                            ),
+                            'border': (
+                                '$': 'base-600',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'text': (
+                                '$': 'base-700',
+                                'hover': 'base-700',
+                                'active': 'base-700'
+                            )
                         ),
-                        'bg': (
-                            '$': 'base-250',
-                            'hover': 'base-250',
-                            'active': 'base-250'
+                        'disabled': (
+                            'accent': (
+                                '$': 'purple-700',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'bg': (
+                                '$': 'base-250',
+                                'hover': 'base-250',
+                                'active': 'base-250'
+                            ),
+                            'border': (
+                                '$': 'base-600',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'text': (
+                                '$': 'base-700',
+                                'hover': 'base-700',
+                                'active': 'base-700'
+                            )
                         ),
-                        'border': (
-                            '$': 'base-600',
-                            'hover': 'turquoise-700',
-                            'active': 'red-700'
-                        ),
-                        'text': (
-                            '$': 'base-700',
-                            'hover': 'base-700',
-                            'active': 'base-700'
+                        'readonly': (
+                            'accent': (
+                                '$': 'purple-700',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'bg': (
+                                '$': 'base-250',
+                                'hover': 'base-250',
+                                'active': 'base-250'
+                            ),
+                            'border': (
+                                '$': 'base-600',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'text': (
+                                '$': 'base-700',
+                                'hover': 'base-700',
+                                'active': 'base-700'
+                            )
                         )
                     ),
                     'system': (
@@ -2164,7 +2477,7 @@ $designSystem: map.deep-merge( (
                         'secondary': 'turquoise-200'
                     ),
                     'text': (
-                        '$': 'base-800',
+                        '$': 'base-700',
                         'primary': 'purple-700',
                         'secondary': 'turquoise-700',
                         'active': 'red-700',
@@ -2172,7 +2485,7 @@ $designSystem: map.deep-merge( (
                         'grey': 'base-700'
                     ),
                     'ui': (
-                        '$': 'base-800',
+                        '$': 'base-700',
                         'primary': 'purple-700',
                         'secondary': 'turquoise-700',
                         'active': 'red-700',
@@ -2296,26 +2609,72 @@ $designSystem: map.deep-merge( (
                             )
                         )
                     ),
-                    'field': (
-                        'accent': (
-                            '$': 'purple-700',
-                            'hover': 'turquoise-700',
-                            'active': 'red-700'
+                    'input': (
+                        '$': (
+                            'accent': (
+                                '$': 'purple-700',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'bg': (
+                                '$': 'base-150',
+                                'hover': 'base-150',
+                                'active': 'base-150'
+                            ),
+                            'border': (
+                                '$': 'base-600',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'text': (
+                                '$': 'base-700',
+                                'hover': 'base-700',
+                                'active': 'base-700'
+                            )
                         ),
-                        'bg': (
-                            '$': 'base-150',
-                            'hover': 'base-150',
-                            'active': 'base-150'
+                        'disabled': (
+                            'accent': (
+                                '$': 'purple-700',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'bg': (
+                                '$': 'base-150',
+                                'hover': 'base-150',
+                                'active': 'base-150'
+                            ),
+                            'border': (
+                                '$': 'base-600',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'text': (
+                                '$': 'base-700',
+                                'hover': 'base-700',
+                                'active': 'base-700'
+                            )
                         ),
-                        'border': (
-                            '$': 'base-600',
-                            'hover': 'turquoise-700',
-                            'active': 'red-700'
-                        ),
-                        'text': (
-                            '$': 'base-800',
-                            'hover': 'base-800',
-                            'active': 'base-800'
+                        'readonly': (
+                            'accent': (
+                                '$': 'purple-700',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'bg': (
+                                '$': 'base-150',
+                                'hover': 'base-150',
+                                'active': 'base-150'
+                            ),
+                            'border': (
+                                '$': 'base-600',
+                                'hover': 'turquoise-700',
+                                'active': 'red-700'
+                            ),
+                            'text': (
+                                '$': 'base-700',
+                                'hover': 'base-700',
+                                'active': 'base-700'
+                            )
                         )
                     ),
                     'system': (
@@ -2380,9 +2739,9 @@ $designSystem: map.deep-merge( (
                                 'active': 'red-700'
                             ),
                             'text': (
-                                '$': 'base-800',
-                                'hover': 'base-800',
-                                'active': 'base-800'
+                                '$': 'base-700',
+                                'hover': 'base-700',
+                                'active': 'base-700'
                             )
                         ),
                         'link': (
@@ -2397,7 +2756,7 @@ $designSystem: map.deep-merge( (
                             'text': 'base-800'
                         ),
                         'text': (
-                            '$': 'base-800',
+                            '$': 'base-700',
                             'active': 'red-700',
                             'disabled': 'base-600'
                         )
@@ -2543,26 +2902,72 @@ $designSystem: map.deep-merge( (
                             )
                         )
                     ),
-                    'field': (
-                        'accent': (
-                            '$': 'purple-750',
-                            'hover': 'turquoise-750',
-                            'active': 'red-750'
+                    'input': (
+                        '$': (
+                            'accent': (
+                                '$': 'purple-750',
+                                'hover': 'turquoise-750',
+                                'active': 'red-750'
+                            ),
+                            'bg': (
+                                '$': 'base-100',
+                                'hover': 'base-100',
+                                'active': 'base-100'
+                            ),
+                            'border': (
+                                '$': 'base-700',
+                                'hover': 'turquoise-750',
+                                'active': 'red-750'
+                            ),
+                            'text': (
+                                '$': 'base-850',
+                                'hover': 'base-850',
+                                'active': 'base-850'
+                            )
                         ),
-                        'bg': (
-                            '$': 'base-100',
-                            'hover': 'base-100',
-                            'active': 'base-100'
+                        'disabled': (
+                            'accent': (
+                                '$': 'purple-750',
+                                'hover': 'turquoise-750',
+                                'active': 'red-750'
+                            ),
+                            'bg': (
+                                '$': 'base-100',
+                                'hover': 'base-100',
+                                'active': 'base-100'
+                            ),
+                            'border': (
+                                '$': 'base-700',
+                                'hover': 'turquoise-750',
+                                'active': 'red-750'
+                            ),
+                            'text': (
+                                '$': 'base-850',
+                                'hover': 'base-850',
+                                'active': 'base-850'
+                            )
                         ),
-                        'border': (
-                            '$': 'base-700',
-                            'hover': 'turquoise-750',
-                            'active': 'red-750'
-                        ),
-                        'text': (
-                            '$': 'base-850',
-                            'hover': 'base-850',
-                            'active': 'base-850'
+                        'readonly': (
+                            'accent': (
+                                '$': 'purple-750',
+                                'hover': 'turquoise-750',
+                                'active': 'red-750'
+                            ),
+                            'bg': (
+                                '$': 'base-100',
+                                'hover': 'base-100',
+                                'active': 'base-100'
+                            ),
+                            'border': (
+                                '$': 'base-700',
+                                'hover': 'turquoise-750',
+                                'active': 'red-750'
+                            ),
+                            'text': (
+                                '$': 'base-850',
+                                'hover': 'base-850',
+                                'active': 'base-850'
+                            )
                         )
                     ),
                     'system': (
@@ -2790,26 +3195,72 @@ $designSystem: map.deep-merge( (
                             )
                         )
                     ),
-                    'field': (
-                        'accent': (
-                            '$': 'purple-850',
-                            'hover': 'turquoise-850',
-                            'active': 'red-850'
+                    'input': (
+                        '$': (
+                            'accent': (
+                                '$': 'purple-850',
+                                'hover': 'turquoise-850',
+                                'active': 'red-850'
+                            ),
+                            'bg': (
+                                '$': 'base-100',
+                                'hover': 'base-100',
+                                'active': 'base-100'
+                            ),
+                            'border': (
+                                '$': 'base-850',
+                                'hover': 'turquoise-850',
+                                'active': 'red-850'
+                            ),
+                            'text': (
+                                '$': 'base-900',
+                                'hover': 'base-900',
+                                'active': 'base-900'
+                            )
                         ),
-                        'bg': (
-                            '$': 'base-100',
-                            'hover': 'base-100',
-                            'active': 'base-100'
+                        'disabled': (
+                            'accent': (
+                                '$': 'purple-850',
+                                'hover': 'turquoise-850',
+                                'active': 'red-850'
+                            ),
+                            'bg': (
+                                '$': 'base-100',
+                                'hover': 'base-100',
+                                'active': 'base-100'
+                            ),
+                            'border': (
+                                '$': 'base-850',
+                                'hover': 'turquoise-850',
+                                'active': 'red-850'
+                            ),
+                            'text': (
+                                '$': 'base-900',
+                                'hover': 'base-900',
+                                'active': 'base-900'
+                            )
                         ),
-                        'border': (
-                            '$': 'base-850',
-                            'hover': 'turquoise-850',
-                            'active': 'red-850'
-                        ),
-                        'text': (
-                            '$': 'base-900',
-                            'hover': 'base-900',
-                            'active': 'base-900'
+                        'readonly': (
+                            'accent': (
+                                '$': 'purple-850',
+                                'hover': 'turquoise-850',
+                                'active': 'red-850'
+                            ),
+                            'bg': (
+                                '$': 'base-100',
+                                'hover': 'base-100',
+                                'active': 'base-100'
+                            ),
+                            'border': (
+                                '$': 'base-850',
+                                'hover': 'turquoise-850',
+                                'active': 'red-850'
+                            ),
+                            'text': (
+                                '$': 'base-900',
+                                'hover': 'base-900',
+                                'active': 'base-900'
+                            )
                         )
                     ),
                     'system': (

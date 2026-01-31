@@ -16,9 +16,17 @@
 
 @use 'pkg:@maddimathon/utility-astro/03-snippets' as utils;
 
-@mixin _snippet-button-colour-single-state($bg, $border, $text, $ui) {
+@mixin _snippet-button-colour-single-state(
+    $bg,
+    $border,
+    $text,
+    $ui,
+    $focusRing
+) {
+    @include cx-prop(focus-ring-outline-color, $focusRing);
     @include cx-prop(icon-color, $ui);
     @include cx-prop(theme-link-icon, $ui);
+
     text-decoration-color: #{$ui};
     accent-color: #{$border};
     background-color: #{$bg};
@@ -33,15 +41,12 @@
 ///
 @mixin snippet-button-colours($variation: 'primary') {
     & {
-        @include cx-prop(
-            focus-ring-outline-color,
-            var-theme(button-#{$variation}-outline-hover)
-        );
         @include _snippet-button-colour-single-state(
             $bg: var-theme(button-#{$variation}-bg),
             $border: var-theme(button-#{$variation}-border),
             $text: var-theme(button-#{$variation}-text),
-            $ui: var-theme(button-#{$variation}-ui)
+            $ui: var-theme(button-#{$variation}-ui),
+            $focusRing: var-theme(button-#{$variation}-outline-hover)
         );
     }
 
@@ -50,21 +55,19 @@
             $bg: var-theme(button-#{$variation}-bg-hover),
             $border: var-theme(button-#{$variation}-border-hover),
             $text: var-theme(button-#{$variation}-text-hover),
-            $ui: var-theme(button-#{$variation}-ui-hover)
+            $ui: var-theme(button-#{$variation}-ui-hover),
+            $focusRing: var-theme(button-#{$variation}-outline-hover)
         );
         text-decoration-color: var-theme(link-ui-hover);
     }
 
     &:active {
-        @include cx-prop(
-            focus-ring-outline-color,
-            var-theme(button-#{$variation}-outline-active)
-        );
         @include _snippet-button-colour-single-state(
             $bg: var-theme(button-#{$variation}-bg-active),
             $border: var-theme(button-#{$variation}-border-active),
             $text: var-theme(button-#{$variation}-text-active),
-            $ui: var-theme(button-#{$variation}-ui-active)
+            $ui: var-theme(button-#{$variation}-ui-active),
+            $focusRing: var-theme(button-#{$variation}-outline-active)
         );
     }
 }
@@ -161,6 +164,13 @@
         color: inherit !important;
     }
 
+    %code,
+    %kbd,
+    %samp {
+        padding: 0;
+        background: transparent;
+    }
+
     %icon {
         align-self: center;
     }
@@ -211,87 +221,232 @@
 }
 
 ///
+/// @since 0.1.1-alpha.0.draft
+///
+@mixin _snippet-input-colours-single(
+    $accentClr,
+    $accentClr_active,
+    $accentClr_hover,
+    //
+    $background,
+    $background_active,
+    $background_hover,
+    //
+    $borderClr,
+    $borderClr_active,
+    $borderClr_hover,
+    //
+    $color,
+    $color_active,
+    $color_hover,
+    //
+    $opacity: true
+) {
+    @include cx-prop(focus-ring-outline-color, $accentClr);
+    background-color: #{$background};
+    border-color: #{$borderClr};
+    color: #{$color};
+    accent-color: #{$accentClr};
+
+    @include hover-focus-visible-or-within {
+        @include cx-prop(focus-ring-outline-color, $accentClr_hover);
+        background-color: #{$background_hover};
+        border-color: #{$borderClr_hover};
+        color: #{$color_hover};
+        accent-color: #{$accentClr_hover};
+
+        @if $opacity {
+            opacity: 1;
+        }
+    }
+
+    &:active {
+        @include cx-prop(focus-ring-outline-color, $accentClr_active);
+        background-color: #{$background_active};
+        border-color: #{$borderClr_active};
+        color: #{$color_active};
+        accent-color: #{$accentClr_active};
+
+        @if $opacity {
+            opacity: 1;
+        }
+    }
+}
+
+///
+/// Snippet input colours.
+///
+/// @since 0.1.1-alpha.0.draft
+///
+@mixin snippet-input-colours(
+    $accentClr: var-theme(input-accent),
+    $accentClr_active: var-theme(input-accent-active),
+    $accentClr_hover: var-theme(input-accent-hover),
+    //
+    $background: var-theme(input-bg),
+    $background_active: var-theme(input-bg-active),
+    $background_hover: var-theme(input-bg-hover),
+    //
+    $borderClr: var-theme(input-border),
+    $borderClr_active: var-theme(input-border-active),
+    $borderClr_hover: var-theme(input-border-hover),
+    //
+    $color: var-theme(input-text),
+    $color_active: var-theme(input-text-active),
+    $color_hover: var-theme(input-text-hover),
+    //
+    $accentClr_disabled: var-theme(input-disabled-accent),
+    $accentClr_disabled_active: var-theme(input-disabled-accent-active),
+    $accentClr_disabled_hover: var-theme(input-disabled-accent-hover),
+    //
+    $background_disabled: var-theme(input-disabled-bg),
+    $background_disabled_active: var-theme(input-disabled-bg-active),
+    $background_disabled_hover: var-theme(input-disabled-bg-hover),
+    //
+    $borderClr_disabled: var-theme(input-disabled-border),
+    $borderClr_disabled_active: var-theme(input-disabled-border-active),
+    $borderClr_disabled_hover: var-theme(input-disabled-border-hover),
+    //
+    $color_disabled: var-theme(input-disabled-text),
+    $color_disabled_active: var-theme(input-disabled-text-active),
+    $color_disabled_hover: var-theme(input-disabled-text-hover),
+    //
+    $accentClr_readonly: var-theme(input-readonly-accent),
+    $accentClr_readonly_active: var-theme(input-readonly-accent-active),
+    $accentClr_readonly_hover: var-theme(input-readonly-accent-hover),
+    //
+    $background_readonly: var-theme(input-readonly-bg),
+    $background_readonly_active: var-theme(input-readonly-bg-active),
+    $background_readonly_hover: var-theme(input-readonly-bg-hover),
+    //
+    $borderClr_readonly: var-theme(input-readonly-border),
+    $borderClr_readonly_active: var-theme(input-readonly-border-active),
+    $borderClr_readonly_hover: var-theme(input-readonly-border-hover),
+    //
+    $color_readonly: var-theme(input-readonly-text),
+    $color_readonly_active: var-theme(input-readonly-text-active),
+    $color_readonly_hover: var-theme(input-readonly-text-hover) //
+) {
+    @include _snippet-input-colours-single(
+        $accentClr: $accentClr,
+        $accentClr_active: $accentClr_active,
+        $accentClr_hover: $accentClr_hover,
+        //
+        $background: $background,
+        $background_active: $background_active,
+        $background_hover: $background_hover,
+        //
+        $borderClr: $borderClr,
+        $borderClr_active: $borderClr_active,
+        $borderClr_hover: $borderClr_hover,
+        //
+        $color: $color,
+        $color_active: $color_active,
+        $color_hover: $color_hover
+    );
+
+    &[aria-disabled='true'] {
+        @include _snippet-input-colours-single(
+            $accentClr: $accentClr_disabled,
+            $accentClr_active: $accentClr_disabled_active,
+            $accentClr_hover: $accentClr_disabled_hover,
+            //
+            $background: $background_disabled,
+            $background_active: $background_disabled_active,
+            $background_hover: $background_disabled_hover,
+            //
+            $borderClr: $borderClr_disabled,
+            $borderClr_active: $borderClr_disabled_active,
+            $borderClr_hover: $borderClr_disabled_hover,
+            //
+            $color: $color_disabled,
+            $color_active: $color_disabled_active,
+            $color_hover: $color_disabled_hover,
+            //
+            $opacity: false
+        );
+    }
+
+    &[readonly] {
+        @include _snippet-input-colours-single(
+            $accentClr: $accentClr_readonly,
+            $accentClr_active: $accentClr_readonly_active,
+            $accentClr_hover: $accentClr_readonly_hover,
+            //
+            $background: $background_readonly,
+            $background_active: $background_readonly_active,
+            $background_hover: $background_readonly_hover,
+            //
+            $borderClr: $borderClr_readonly,
+            $borderClr_active: $borderClr_readonly_active,
+            $borderClr_hover: $borderClr_readonly_hover,
+            //
+            $color: $color_readonly,
+            $color_active: $color_readonly_active,
+            $color_hover: $color_readonly_hover,
+            //
+            $opacity: false
+        );
+    }
+}
+
+///
 /// Base styles for an input element.
 ///
 /// @since 0.1.0-alpha
 ///
-@mixin snippet-input($includeUtils: true, $args...) {
+@mixin snippet-input(
+    $borderWidth: var-style(input-border-width),
+    $focusOffset: var-style(input-focus-offset),
+    $lineHeight: var-style(input-line-height),
+    $margin: var-style(input-margin-block-start) 0
+        var-style(input-margin-block-end),
+    $marginBlockStart_afterLabel: var-style(input-margin-block-gap),
+    $padding: var-style(input-padding-block) var-style(input-padding-inline),
+    //
+    $includeDisabled: true,
+    $includeLabel: true,
+    $includeUtils: true,
+    $args...
+) {
     $args: meta.keywords($args);
-
-    $borderWidth: var-border-width('200');
-
-    $accentClr: var-theme(field-accent);
-    $accentClr_active: var-theme(field-accent-active);
-    $accentClr_hover: var-theme(field-accent-hover);
-
-    $background: var-theme(field-bg);
-    $background_active: var-theme(field-bg-active);
-    $background_hover: var-theme(field-bg-hover);
-
-    $borderClr: var-theme(field-border);
-    $borderClr_active: var-theme(field-border-active);
-    $borderClr_hover: var-theme(field-border-hover);
-
-    $color: var-theme(field-text);
-    $color_active: var-theme(field-text-active);
-    $color_hover: var-theme(field-text-hover);
-
-    $focusOffset: var-border-width('300');
 
     @if $includeUtils {
         @include utils.snippet-input(
-            $accentClr: $accentClr,
-            $accentClr_active: $accentClr_active,
-            $accentClr_hover: $accentClr_hover,
-
-            $background: $background,
-            $background_active: $background_active,
-            $background_hover: $background_hover,
-
-            $borderClr: $borderClr,
-            $borderClr_active: $borderClr_active,
-            $borderClr_hover: $borderClr_hover,
-
-            $color: $color,
-            $color_active: $color_active,
-            $color_hover: $color_hover,
-
             $borderWidth: $borderWidth,
             $focusOffset: $focusOffset,
+            $lineHeight: $lineHeight,
+            $margin: $margin,
+            $marginBlockStart_afterLabel: $marginBlockStart_afterLabel,
             $opacity_hover: 1,
-
-            $includeClrs: true,
+            $padding: $padding,
+            //
+            $includeClrs: false,
             $includePlaceholder: false,
             $args...
         );
-    } @else {
-        @include cx-prop(focus-ring-outline-color, $accentClr_hover);
-        @include cx-prop(focus-ring-outline-offset, $focusOffset);
-        background-color: #{$background};
-        color: #{$color};
-        accent-color: #{$accentClr};
-        border-width: #{$borderWidth};
-
-        @include hover-focus-visible-or-within {
-            @include cx-prop(focus-ring-outline-color, $accentClr_hover);
-            background-color: #{$background_hover};
-            border-color: #{$borderClr_hover};
-            color: #{$color_hover};
-            accent-color: #{$accentClr_hover};
-        }
-
-        &:active {
-            @include cx-prop(focus-ring-outline-color, $accentClr_active);
-            background-color: #{$background_active};
-            border-color: #{$borderClr_active};
-            color: #{$color_active};
-            accent-color: #{$accentClr_active};
-        }
     }
 
     & {
+        @if not $includeUtils {
+            @include cx-prop(focus-ring-outline-offset, $focusOffset);
+            margin: #{$margin};
+            padding: #{$padding};
+            border-width: #{$borderWidth};
+            line-height: #{$lineHeight};
+        }
+
         transition: var(--#{config.$cxPropPre}transition);
+
+        @if not $includeUtils and $includeLabel {
+            label + &,
+            label > & {
+                margin-block-start: #{$marginBlockStart_afterLabel};
+            }
+        }
     }
+
+    @include snippet-input-colours($args...);
 }
 
 ///
@@ -300,29 +455,67 @@
 /// @since 0.1.0-alpha
 ///
 @mixin snippet-input-types(
+    $includeBase: true,
     $includeUtils: true,
     //
-    $accentClr: var-theme(field-accent),
-    $accentClr_active: var-theme(field-accent-active),
-    $accentClr_hover: var-theme(field-accent-hover),
-    $includeBase: true,
     $args...
 ) {
     $args: meta.keywords($args);
 
-    @include utils.snippet-input-types(
-        $accentClr: $accentClr,
-        $accentClr_active: $accentClr_active,
-        $accentClr_hover: $accentClr_hover,
-        $includeBase: $includeBase,
-
-        $includeClrs: true,
-        $args...
-    );
+    @if $includeUtils {
+        @include utils.snippet-input-types(
+            $includeBase: $includeBase,
+            $includeClrs: false,
+            //
+            $args...
+        );
+    }
 
     &[type='submit'][disabled],
     &[type='reset'][disabled] {
         @include snippet-button-colours(disabled);
+    }
+
+    $accentClr: var-theme(input-accent);
+    $accentClr_active: var-theme(input-accent-active);
+    $accentClr_hover: var-theme(input-accent-hover);
+
+    &[type='checkbox'],
+    &[type='radio'] {
+        accent-color: #{$accentClr};
+        color: #{$accentClr};
+
+        @include hover-focus-visible-or-within {
+            accent-color: #{$accentClr_hover};
+            color: #{$accentClr_hover};
+        }
+
+        &:active {
+            accent-color: #{$accentClr_active};
+            color: #{$accentClr_active};
+        }
+    }
+
+    &[readonly] {
+        $accentClr: var-theme(input-readonly-accent);
+        $accentClr_active: var-theme(input-readonly-accent-active);
+        $accentClr_hover: var-theme(input-readonly-accent-hover);
+
+        &[type='checkbox'],
+        &[type='radio'] {
+            accent-color: #{$accentClr};
+            color: #{$accentClr};
+
+            @include hover-focus-visible-or-within {
+                accent-color: #{$accentClr_hover};
+                color: #{$accentClr_hover};
+            }
+
+            &:active {
+                accent-color: #{$accentClr_active};
+                color: #{$accentClr_active};
+            }
+        }
     }
 }
 
@@ -335,6 +528,15 @@
     $color: var-theme(text-primary),
     $color_checkradio: var-theme(text),
     //
+    $fontWeight: var-style(input-label-font-weight),
+    $fontWeight_checkradio: 400,
+    $gap_checkradio: var-mrg-soft('300'),
+    $lineHeight: var-style(input-label-line-height),
+    $lh_checkradio: var-line-height('400'),
+    $marginBlock: var-style(input-margin-block-start) 0,
+    $marginBlock_innercheckradio: var-style(input-margin-block-gap),
+    //
+    $includeUtils: true,
     $args...
 ) {
     $args: meta.keywords($args);
@@ -343,8 +545,48 @@
         @include utils.snippet-label(
             $color: $color,
             $color_checkradio: $color_checkradio,
-            $includeClrs: true,
+            //
+            $fontWeight: $fontWeight,
+            $fontWeight_checkradio: $fontWeight_checkradio,
+            $gap_checkradio: $gap_checkradio,
+            $lineHeight: $lineHeight,
+            $lh_checkradio: $lh_checkradio,
+            $marginBlock: $marginBlock,
+            $marginBlock_innercheckradio: $marginBlock_innercheckradio,
+            //
+            $includeClrs: false,
             $args...
         );
+    }
+
+    & {
+        @if not $includeUtils {
+            margin-block: #{$marginBlock};
+            font-weight: #{$fontWeight};
+            line-height: #{$lineHeight};
+        }
+
+        color: #{$color};
+
+        &:has(> :where(input[type='checkbox'], input[type='radio'])) {
+            @if not $includeUtils {
+                gap: #{$gap_checkradio};
+
+                font-weight: #{$fontWeight_checkradio};
+                line-height: #{$lh_checkradio};
+
+                cursor: pointer;
+            }
+
+            color: #{$color_checkradio};
+
+            & + & {
+                margin-block-start: #{$marginBlock_innercheckradio};
+            }
+
+            + %_input-base {
+                margin-block-start: #{$marginBlock};
+            }
+        }
     }
 }

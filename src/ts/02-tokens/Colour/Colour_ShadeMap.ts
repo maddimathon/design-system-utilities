@@ -458,13 +458,13 @@ export namespace Tokens_Colour_ShadeMap {
     export namespace Yardsticks {
 
         export const base = {
-            '100': { l: 99, c: 0, h: 0, },
+            '100': { l: 100, c: 0, h: 0, },
             // '200': { l: 92, c: 0, h: 0, },
             '300': { l: 80, c: 0, h: 0, },
-            '500': { l: 51, c: 0, h: 0, },
-            '700': { l: 22, c: 0, h: 0, },
+            '500': { l: 50, c: 0, h: 0, },
+            '700': { l: 18, c: 0, h: 0, },
             // '800': { l: 5, c: 0, h: 0, },
-            '900': { l: 3, c: 0, h: 0, },
+            '900': { l: 0, c: 0, h: 0, },
         } as const;
 
         export const accent = {

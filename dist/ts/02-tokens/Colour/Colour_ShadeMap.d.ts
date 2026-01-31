@@ -56,7 +56,7 @@ export declare namespace Tokens_Colour_ShadeMap {
     namespace Yardsticks {
         const base: {
             readonly '100': {
-                readonly l: 99;
+                readonly l: 100;
                 readonly c: 0;
                 readonly h: 0;
             };
@@ -66,17 +66,17 @@ export declare namespace Tokens_Colour_ShadeMap {
                 readonly h: 0;
             };
             readonly '500': {
-                readonly l: 51;
+                readonly l: 50;
                 readonly c: 0;
                 readonly h: 0;
             };
             readonly '700': {
-                readonly l: 22;
+                readonly l: 18;
                 readonly c: 0;
                 readonly h: 0;
             };
             readonly '900': {
-                readonly l: 3;
+                readonly l: 0;
                 readonly c: 0;
                 readonly h: 0;
             };

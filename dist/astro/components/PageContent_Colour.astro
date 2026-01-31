@@ -150,7 +150,7 @@ export async function makeTargetLevels<T_ColourName extends string>(
             return undefined;
         }
 
-        _lvlB = ColourUtilities.getDarkLevel(_lvlB);
+        _lvlB = ColourUtilities.Levels.toDark(_lvlB);
 
         const num_A = Number(_lvlA);
         const num_B = Number(_lvlB);
@@ -201,23 +201,23 @@ export async function makeTargetLevels<T_ColourName extends string>(
                 aa: {
                     ui:
                         corrected_a.min.aa.ui &&
-                        ColourUtilities.getDarkLevel(corrected_a.min.aa.ui),
+                        ColourUtilities.Levels.toDark(corrected_a.min.aa.ui),
                     text:
                         corrected_a.min.aa.text &&
-                        ColourUtilities.getDarkLevel(corrected_a.min.aa.text),
+                        ColourUtilities.Levels.toDark(corrected_a.min.aa.text),
                 },
                 aaa: {
                     ui:
                         corrected_a.min.aaa.ui &&
-                        ColourUtilities.getDarkLevel(corrected_a.min.aaa.ui),
+                        ColourUtilities.Levels.toDark(corrected_a.min.aaa.ui),
                     text:
                         corrected_a.min.aaa.text &&
-                        ColourUtilities.getDarkLevel(corrected_a.min.aaa.text),
+                        ColourUtilities.Levels.toDark(corrected_a.min.aaa.text),
                 },
             },
             max:
                 corrected_a.max &&
-                ColourUtilities.getDarkLevel(corrected_a.max),
+                ColourUtilities.Levels.toDark(corrected_a.max),
         } satisfies LevelTargets[keyof typeof targetShadeMap];
     }
 

@@ -199,26 +199,72 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                 secondary: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
                 disabled: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
             } & { [K_11 in T_ThemeKeyword_Universal]: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>; };
-            field: {
-                accent: {
-                    $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+            input: {
+                readonly: {
+                    accent: {
+                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    };
+                    bg: {
+                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    };
+                    border: {
+                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    };
+                    text: {
+                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    };
                 };
-                bg: {
-                    $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                disabled: {
+                    accent: {
+                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    };
+                    bg: {
+                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    };
+                    border: {
+                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    };
+                    text: {
+                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    };
                 };
-                border: {
-                    $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                };
-                text: {
-                    $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                $: {
+                    accent: {
+                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    };
+                    bg: {
+                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    };
+                    border: {
+                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    };
+                    text: {
+                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    };
                 };
             };
         }; }; }; };
@@ -230,6 +276,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
         style: {
             button: AbstractTokens.ScssReturn;
             heading: AbstractTokens.ScssReturn;
+            input: AbstractTokens.ScssReturn;
             selection: AbstractTokens.ScssReturn;
         };
         transition: {
@@ -732,7 +779,7 @@ export declare namespace Tokens {
     const SampleColours: {
         readonly yardstick: {
             readonly '100': {
-                readonly l: 99;
+                readonly l: 100;
                 readonly c: 0;
                 readonly h: 0;
             };
@@ -742,17 +789,17 @@ export declare namespace Tokens {
                 readonly h: 0;
             };
             readonly '500': {
-                readonly l: 51;
+                readonly l: 50;
                 readonly c: 0;
                 readonly h: 0;
             };
             readonly '700': {
-                readonly l: 22;
+                readonly l: 18;
                 readonly c: 0;
                 readonly h: 0;
             };
             readonly '900': {
-                readonly l: 3;
+                readonly l: 0;
                 readonly c: 0;
                 readonly h: 0;
             };
@@ -776,7 +823,7 @@ export declare namespace Tokens {
         };
         readonly base: {
             readonly '100': {
-                readonly l: 99;
+                readonly l: 100;
                 readonly c: 0;
                 readonly h: 0;
             };
@@ -786,17 +833,17 @@ export declare namespace Tokens {
                 readonly h: 0;
             };
             readonly '500': {
-                readonly l: 51;
+                readonly l: 50;
                 readonly c: 0;
                 readonly h: 0;
             };
             readonly '700': {
-                readonly l: 22;
+                readonly l: 18;
                 readonly c: 0;
                 readonly h: 0;
             };
             readonly '900': {
-                readonly l: 3;
+                readonly l: 0;
                 readonly c: 0;
                 readonly h: 0;
             };

@@ -27,8 +27,10 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
      * @since 0.1.0-alpha
      */
     static async build(preset, brightness, clrNames, input, overrides = {}) {
-        let defaultLevels = Tokens_Themes_Set_SingleMode.Build.LEVELS_DEFAULT.high;
-        let levels;
+        const defaultLevels = preset !== 'forcedColors'
+            ? Tokens_Themes_Set_SingleMode.Build.LEVELS_DEFAULT[preset]
+            : Tokens_Themes_Set_SingleMode.Build.LEVELS_DEFAULT.high;
+        const levels = Tokens_Themes_Set_SingleMode.Build.completeLevels(mergeArgs(defaultLevels, input.levels, true));
         const variations = Tokens_Themes_Set_SingleMode.Build.completeVariations(clrNames, input.variations);
         const clrOpt = Tokens_Themes_Set_SingleMode.Build.colourOption;
         let description = input.description ?? null;
@@ -36,8 +38,6 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
         switch (preset) {
             case 'average':
                 description = description ?? 'This is the default contrast mode for most users, unless they have defined a specific preference (‘low’, ‘high’, or ‘forced-colors’) in their OS or browser settings.  It meets or exceeds WCAG AAA contrast standards.';
-                defaultLevels = Tokens_Themes_Set_SingleMode.Build.LEVELS_DEFAULT.average;
-                levels = Tokens_Themes_Set_SingleMode.Build.completeLevels(mergeArgs(defaultLevels, input.levels, true));
                 overrides.selection = {
                     bg: clrOpt(variations.universal.primary, '300'),
                     text: clrOpt(variations.base, '800'),
@@ -46,8 +46,6 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 break;
             case 'low':
                 description = description ?? 'This is the low contrast mode.  This is the default for users who set ‘low’ as their preferred contrast mode in their OS or browser settings.  It mostly meets WCAG AA contrast standards, but in rare cases does not (which is acceptable in this case).';
-                defaultLevels = Tokens_Themes_Set_SingleMode.Build.LEVELS_DEFAULT.low;
-                levels = Tokens_Themes_Set_SingleMode.Build.completeLevels(mergeArgs(defaultLevels, input.levels, true));
                 overrides.selection = {
                     bg: clrOpt(variations.universal.primary, '300'),
                     text: clrOpt(variations.base, '800'),
@@ -56,13 +54,9 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 break;
             case 'high':
                 description = description ?? 'This is the high contrast mode.  This is the default for users who set ‘high’ as their preferred contrast mode in their OS or browser settings.  It exceeds WCAG AAA contrast standards.';
-                defaultLevels = Tokens_Themes_Set_SingleMode.Build.LEVELS_DEFAULT.high;
-                levels = Tokens_Themes_Set_SingleMode.Build.completeLevels(mergeArgs(defaultLevels, input.levels, true));
                 break;
             case 'max':
                 description = description ?? 'This is the maximum contrast mode.  This is an alternate option for users who want an even higher contrast than the ‘high’ mode, but without enabling ‘forced-colors’ mode.  It exceeds WCAG AAA contrast standards.';
-                defaultLevels = Tokens_Themes_Set_SingleMode.Build.LEVELS_DEFAULT.max;
-                levels = Tokens_Themes_Set_SingleMode.Build.completeLevels(mergeArgs(defaultLevels, input.levels, true));
                 overrides.selection = {
                     bg: clrOpt(variations.universal.primary, '850'),
                     text: clrOpt(variations.base, '100'),
@@ -116,7 +110,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 ...this.data.system,
                 background: this.data.background,
                 button: this.data.button.primary,
-                input: this.data.field,
+                input: this.data.input.$,
                 link: this.data.link,
                 selection: this.data.selection,
                 text: {
@@ -229,12 +223,12 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                     accent: '200',
                 },
                 text: {
-                    $: '800',
+                    $: '700',
                     accent: '700',
                     min: '600',
                 },
                 ui: {
-                    $: '800',
+                    $: '700',
                     accent: '700',
                     min: '600',
                 },
@@ -491,6 +485,28 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                     },
                 },
             };
+            const inputField = {
+                accent: {
+                    $: clrOpt(variations.universal.primary, levels.ui.accent),
+                    hover: clrOpt(variations.interactive.hover, levels.ui.accent),
+                    active: clrOpt(variations.interactive.active, levels.ui.accent),
+                },
+                bg: {
+                    $: clrOpt(variations.base, levels.background.$),
+                    hover: clrOpt(variations.base, levels.background.$),
+                    active: clrOpt(variations.base, levels.background.$),
+                },
+                border: {
+                    $: clrOpt(variations.base, levels.ui.min),
+                    hover: clrOpt(variations.interactive.hover, levels.ui.accent),
+                    active: clrOpt(variations.interactive.active, levels.ui.accent),
+                },
+                text: {
+                    $: clrOpt(variations.base, levels.text.$),
+                    hover: clrOpt(variations.base, levels.text.$),
+                    active: clrOpt(variations.base, levels.text.$),
+                },
+            };
             const complete = {
                 background,
                 text,
@@ -504,27 +520,10 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 'link-icon': linkIcon,
                 'link-ui': linkUI,
                 button,
-                field: {
-                    accent: {
-                        $: clrOpt(variations.universal.primary, levels.ui.accent),
-                        hover: clrOpt(variations.interactive.hover, levels.ui.accent),
-                        active: clrOpt(variations.interactive.active, levels.ui.accent),
-                    },
-                    bg: {
-                        $: clrOpt(variations.base, levels.background.$),
-                        hover: clrOpt(variations.base, levels.background.$),
-                        active: clrOpt(variations.base, levels.background.$),
-                    },
-                    border: {
-                        $: clrOpt(variations.base, levels.ui.min),
-                        hover: clrOpt(variations.interactive.hover, levels.ui.accent),
-                        active: clrOpt(variations.interactive.active, levels.ui.accent),
-                    },
-                    text: {
-                        $: clrOpt(variations.base, levels.text.$),
-                        hover: clrOpt(variations.base, levels.text.$),
-                        active: clrOpt(variations.base, levels.text.$),
-                    },
+                input: {
+                    $: inputField,
+                    disabled: inputField,
+                    readonly: inputField,
                 },
                 system: {
                     accent: {
@@ -615,6 +614,28 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 ...objectMap(variations.universal, () => singleButton),
                 disabled: singleButton,
             };
+            const inputField = {
+                accent: {
+                    $: 'ActiveText',
+                    hover: 'ActiveText',
+                    active: 'ActiveText',
+                },
+                bg: {
+                    $: 'Field',
+                    hover: 'SelectedItem',
+                    active: 'Field',
+                },
+                border: {
+                    $: 'FieldText',
+                    hover: 'SelectedItem',
+                    active: 'FieldText',
+                },
+                text: {
+                    $: 'FieldText',
+                    hover: 'SelectedItemText',
+                    active: 'FieldText',
+                },
+            };
             const complete = {
                 background,
                 text,
@@ -628,27 +649,10 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 'link-icon': link,
                 'link-ui': link,
                 button,
-                field: {
-                    accent: {
-                        $: 'ActiveText',
-                        hover: 'ActiveText',
-                        active: 'ActiveText',
-                    },
-                    bg: {
-                        $: 'Field',
-                        hover: 'SelectedItem',
-                        active: 'Field',
-                    },
-                    border: {
-                        $: 'FieldText',
-                        hover: 'SelectedItem',
-                        active: 'FieldText',
-                    },
-                    text: {
-                        $: 'FieldText',
-                        hover: 'SelectedItemText',
-                        active: 'FieldText',
-                    },
+                input: {
+                    $: inputField,
+                    disabled: inputField,
+                    readonly: inputField,
                 },
                 system: {
                     accent: {

@@ -69,16 +69,17 @@ $_designSystemHasFontFamilies: map.has-key(tokens.$designSystem, font, family)
 
 ///
 /// @since 0.1.0-alpha
+/// @since 0.1.1-alpha.0.draft — Added $relative param.
 ///
-@function var-fs($slug, $fallback: null) {
+@function var-fs($slug, $fallback: null, $relative: false) {
     // returns
     @if config.$fn_var_replaceWithValue_fontSize {
         @return if(
             $fallback == null,
-            list.nth(utils.fs-value($slug), 1),
+            list.nth(utils.fs-value($slug, $relative: $relative), 1),
             $fallback
         );
     }
 
-    @return utils.var-fs($slug, $fallback: $fallback);
+    @return utils.var-fs($slug, $fallback: $fallback, $relative: $relative);
 }

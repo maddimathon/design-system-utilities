@@ -111,7 +111,7 @@ function captureClrDataFromThemeValue(
     }
 
     const level = _brightness == 'dark'
-     ? ColourUtilities.getDarkLevel( matches[2] )
+     ? ColourUtilities.Levels.toDark( matches[2] )
      : matches[2];
 
      return {
@@ -157,7 +157,7 @@ function getClrFromThemeValue(
 
 /* CONSTANTS ===================================== */
 
-const customDisplayKeys = ['background', 'button', 'field', 'selection', 'system'];
+const customDisplayKeys = ['background', 'button', 'input', 'selection', 'system'];
 
 const autoTokens = Object.values(
     objectMap(theme.data, ([key, value ]) =>
@@ -264,49 +264,54 @@ const buttons: {
 );
 
 
-const field: {
-    [ K in keyof Tokens.Themes.SingleMode.JsonReturn['data']['field']['text'] ]: {
+const inputField: {
+    [ InputType in keyof Tokens.Themes.SingleMode.JsonReturn['data']['input'] ]: {
+        [ K in keyof Tokens.Themes.SingleMode.JsonReturn['data']['input'][InputType]['text'] ]: {
 
-        [ K in keyof Tokens.Themes.SingleMode.JsonReturn['data']['field'] ]: {
-            state: null | Exclude<
-                keyof Tokens.Themes.SingleMode.JsonReturn['data']['field']['text'],
-                '$'
-            >;
-            key: string;
-            clrSlug: string | string[];
+            [ K in keyof Tokens.Themes.SingleMode.JsonReturn['data']['input'][InputType] ]: {
+                state: null | Exclude<
+                    keyof Tokens.Themes.SingleMode.JsonReturn['data']['input'][InputType]['text'],
+                    '$'
+                >;
+                key: string;
+                clrSlug: string | string[];
+            };
         };
     };
 } = objectGenerator(
-    [ '$', 'hover', 'active' ],
-    ( key ) => {
+    [ '$', 'disabled','readonly' ],
+    ( inputType ) => objectGenerator(
+        [ '$', 'hover', 'active' ],
+        ( key ) => {
 
-        const state =  key == '$' ? null : key;
+            const state =  key == '$' ? null : key;
 
-        const keySuffix = key == '$' ? '' : `-${key}`;
-        
-        return {
-            accent: {
-                state,
-                key: `field-accent${keySuffix}`,
-                clrSlug: theme.data.field.accent[key],
-            },
-            bg: {
-                state,
-                key: `field-bg${keySuffix}`,
-                clrSlug: theme.data.field.bg[key],
-            },
-            border: {
-                state,
-                key: `field-border${keySuffix}`,
-                clrSlug: theme.data.field.border[key],
-            },
-            text: {
-                state,
-                key: `field-text${keySuffix}`,
-                clrSlug: theme.data.field.text[key],
-            },
-        };
-    }
+            const keySuffix = key == '$' ? '' : `-${key}`;
+            
+            return {
+                accent: {
+                    state,
+                    key: `input-accent${keySuffix}`,
+                    clrSlug: theme.data.input[inputType].accent[key],
+                },
+                bg: {
+                    state,
+                    key: `input-bg${keySuffix}`,
+                    clrSlug: theme.data.input[inputType].bg[key],
+                },
+                border: {
+                    state,
+                    key: `input-border${keySuffix}`,
+                    clrSlug: theme.data.input[inputType].border[key],
+                },
+                text: {
+                    state,
+                    key: `input-text${keySuffix}`,
+                    clrSlug: theme.data.input[inputType].text[key],
+                },
+            };
+        }
+    )
 );
 
 // const cssVars = {
@@ -455,13 +460,13 @@ const displayHeading = 3;
             displayHeading={displayHeading + 1}
             set:text='Input Fields'
         />
-        { Object.values( field ).map( ( state ) => (
+        { Object.values( inputField ).map( ( fieldSet ) => Object.values(fieldSet).map( ( state ) => (
             <input
                 type="text"
                 placeholder={`Field${state.bg.state ? ` (${state.bg.state})` : ''}`}
                 class:list={ [
                     'theme-mode-swatch__sample',
-                    'theme-mode-swatch__sample--field',
+                    'theme-mode-swatch__sample--input',
                 ] }
                 style={ [
                     `border-color: ${getClrFromThemeValue(tokens, brightness, state.border.clrSlug)}`,
@@ -469,7 +474,7 @@ const displayHeading = 3;
                     `color: ${getClrFromThemeValue(tokens, brightness, state.text.clrSlug)}`,
                 ].join(';') }
             /> 
-        ) ) }
+        ) ) ) }
         <slot name="tokens" />
         { levelsInUseTable.length && ( 
             <Heading

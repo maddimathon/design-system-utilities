@@ -11,22 +11,17 @@
 
 $spacing_multiplier: map.get(default.$designSystem, spacing_multiplier);
 
-$margin: map.get(default.$designSystem, margin);
-$margin: map.ksort($margin);
+$margin: map.ksort(map.get(default.$designSystem, margin));
 
 $font: map.get(default.$designSystem, font);
 
-$line_height: map.get(default.$designSystem, line_height);
-$line_height: map.ksort($line_height);
+$line_height: map.ksort(map.get(default.$designSystem, line_height));
 
-$border: map.get(default.$designSystem, border);
-$border: map.ksort($border);
+$border: map.ksort(map.get(default.$designSystem, border), $recursive: true);
 
-$icons: map.get(default.$designSystem, icons);
-$icons: map.ksort($icons);
+$icons: map.ksort(map.get(default.$designSystem, icons));
 
-$logos: map.get(default.$designSystem, logos);
-$logos: map.ksort($logos);
+$logos: map.ksort(map.get(default.$designSystem, logos));
 
 @if $logos == null {
     $logos: ();
@@ -34,9 +29,8 @@ $logos: map.ksort($logos);
 
 $transition: map.get(default.$designSystem, transition);
 
-$z_index: map.get(default.$designSystem, z_index);
-$z_index: map.ksort($z_index);
+$z_index: map.ksort(map.get(default.$designSystem, z_index));
 
-$colour: map.get(default.$designSystem, colour);
+$colour: map.ksort(map.get(default.$designSystem, colour), $recursive: true);
 
 $themes: map.get(default.$designSystem, themes);

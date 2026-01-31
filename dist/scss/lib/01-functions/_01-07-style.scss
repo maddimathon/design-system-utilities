@@ -31,6 +31,7 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
 
     $isButtonStyle: string.index($slug, button-) == 1;
     $isHeadingStyle: string.index($slug, heading-) == 1;
+    $isInputStyle: string.index($slug, input-) == 1;
 
     $isBorderRadius: false;
     $isBorderWidth: false;
@@ -38,8 +39,9 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
     $isGap: false;
     $isMargin: false;
     $isPadding: false;
+    $isStrokeRelative: false;
 
-    @if $isButtonStyle or $isHeadingStyle {
+    @if $isButtonStyle or $isInputStyle or $isHeadingStyle {
         $_slugLength: string.length($slug);
 
         // gap
@@ -50,14 +52,14 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
         }
 
         // margins
-        @if string.index($slug, -margin-) {
+        @if string.index($slug, '-margin-') {
             $isMargin: true;
         } @else if string.index($slug, '-margin') == ($_slugLength - 6) {
             $isMargin: true;
         }
 
         // padding
-        @if string.index($slug, -padding-) {
+        @if string.index($slug, '-padding-') {
             $isPadding: true;
         } @else if string.index($slug, '-padding') == ($_slugLength - 6) {
             $isPadding: true;
@@ -71,6 +73,11 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
         // border-width
         @if string.index($slug, '-border-width') == ($_slugLength - 12) {
             $isBorderWidth: true;
+        }
+
+        // stroke-relative
+        @if string.index($slug, '-focus-offset') {
+            $isStrokeRelative: true;
         }
 
         // line-height
@@ -120,6 +127,8 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
         $value: var-border-width($value);
     } @else if $isLineHeight {
         $value: utils.var-line-height($value);
+    } @else if $isStrokeRelative {
+        $value: utils.var-stroke-relative($value);
     }
 
     @return $value;

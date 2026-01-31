@@ -21,6 +21,10 @@ export declare class Tokens_CSS_Style extends AbstractTokens<Tokens_CSS_Style.Da
         disabled: Tokens_CSS_Style.ButtonStyles_Disabled;
     };
     static headingStyle(heading: number): Tokens_CSS_Style.HeadingStyles;
+    static inputStyle(): {
+        $: Tokens_CSS_Style.InputStyles;
+        disabled: Tokens_CSS_Style.InputStyles_Disabled;
+    };
     static get default(): Tokens_CSS_Style.Data;
     readonly data: Tokens_CSS_Style.Data;
     constructor(input: Tokens_CSS_Style.InputParam);
@@ -97,6 +101,57 @@ export declare namespace Tokens_CSS_Style {
     interface HeadingStyles_Partial extends Partial<HeadingStyles> {
     }
     /**
+     * @since 0.1.1-alpha.0.draft
+     */
+    interface InputStyles {
+        border: {
+            radius: "0" | TokenLevels;
+            style: string;
+            width: TokenLevels;
+        };
+        focus: {
+            offset: TokenLevels;
+        };
+        label: {
+            font: {
+                style: "normal" | "italic";
+                weight: TokenLevels;
+            };
+            'line-height': TokenLevels;
+        };
+        'line-height': TokenLevels;
+        margin: {
+            block: {
+                start: TokenLevels;
+                end: TokenLevels;
+                /**
+                 * This is the gap between a label and its input.
+                 */
+                gap: TokenLevels;
+            };
+        };
+        padding: {
+            block: TokenLevels;
+            inline: TokenLevels;
+        };
+    }
+    /**
+     * @since 0.1.1-alpha.0.draft
+     */
+    interface InputStyles_Disabled extends Omit<InputStyles, 'border' | 'focus' | 'label' | 'line-height' | 'margin' | 'padding'> {
+        border: Omit<InputStyles['border'], 'width'>;
+    }
+    /**
+     * @since 0.1.1-alpha.0.draft
+     */
+    interface InputStyles_Partial extends RecursivePartial<InputStyles> {
+    }
+    /**
+     * @since 0.1.1-alpha.0.draft
+     */
+    interface InputStyles_Disabled_Partial extends RecursivePartial<InputStyles_Disabled> {
+    }
+    /**
      * @since 0.1.0-alpha
      */
     type Data = {
@@ -109,6 +164,10 @@ export declare namespace Tokens_CSS_Style {
         } & {
             [key: number]: HeadingStyles;
         };
+        input: {
+            $: InputStyles;
+            disabled: InputStyles_Disabled;
+        };
         selection: {
             [C in Exclude<ThemeMode_ContrastOption, 'max'>]: {
                 'background-opacity': string;
@@ -120,13 +179,17 @@ export declare namespace Tokens_CSS_Style {
      */
     type InputParam = {
         button?: {
-            $: ButtonStyles_Partial;
+            $?: ButtonStyles_Partial;
             disabled?: ButtonStyles_Disabled_Partial;
         };
         heading?: {
             [L in RequiredHeadingLevels]?: HeadingStyles_Partial;
         } & {
             [key: number]: HeadingStyles_Partial;
+        };
+        input?: {
+            $?: InputStyles_Partial;
+            disabled?: InputStyles_Disabled_Partial;
         };
         selection?: {
             [C in Exclude<ThemeMode_ContrastOption, 'max'>]?: {

@@ -38,6 +38,7 @@
 }
 
 %a {
+    @include cx-prop(focus-ring-outline-color, var-theme(link-hover));
     @include cx-prop(icon-color, var-theme(link-icon));
     @include cx-prop(icon-vertical-align, sub);
     text-decoration-color: #{var-theme(link-ui)};
@@ -52,18 +53,21 @@
     /// STATES ///
 
     &:visited {
+        @include cx-prop(focus-ring-outline-color, var-theme(link-visited));
         @include cx-prop(icon-color, var-theme(link-icon-visited));
         text-decoration-color: #{var-theme(link-ui-visited)};
         color: #{var-theme(link-visited)};
     }
 
     @include hover-focus-visible() {
+        @include cx-prop(focus-ring-outline-color, var-theme(link-hover));
         @include cx-prop(icon-color, var-theme(link-icon-hover));
         text-decoration-color: #{var-theme(link-ui-hover)};
         color: #{var-theme(link-hover)};
     }
 
     &:active {
+        @include cx-prop(focus-ring-outline-color, var-theme(link-active));
         @include cx-prop(icon-color, var-theme(link-icon-active));
         text-decoration-color: #{var-theme(link-ui-active)};
         color: #{var-theme(link-active)};
@@ -162,10 +166,18 @@
 %pre,
 %samp {
     @include cx-prop(focus-ring-outline-color, var-theme(text-secondary));
-    color: #{var-theme(text-primary)};
+    @include cx-prop(icon-color, var-theme(text-primary));
 
     @if font-family-exists(monospace) {
         font-family: #{var-font-family(monospace)};
+    }
+
+    border-radius: #{var-style(button-border-radius)};
+    background: #{var-theme(background-alt)};
+    color: #{var-theme(text-primary)};
+
+    %a & {
+        color: inherit;
     }
 }
 
@@ -173,7 +185,9 @@
 %kbd,
 %samp {
     display: inline;
+    margin-block: 0;
     margin-inline: #{var-stroke-relative('400')};
+    padding: 0 #{var-stroke-relative('600')};
 
     vertical-align: baseline;
     align-self: baseline;
@@ -182,15 +196,16 @@
     letter-spacing: -0.015em;
 }
 
-%code {
-}
-
 %pre {
     border-color: #{var-theme(ui-primary)};
     color: #{var-theme(text)};
 
-    > code {
+    > %code,
+    > %kbd,
+    > %samp {
         font-weight: 400;
+        border-radius: 0;
+        background: transparent;
         color: inherit;
     }
 }

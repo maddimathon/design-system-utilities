@@ -13,8 +13,8 @@
 
 @use 'pkg:@maddimathon/utility-astro/01-functions' as utils;
 
-$_designSystemHasFontFamilies: map.has-key(tokens.$designSystem, font, family)
-    and list.length(map.keys(map.get(tokens.$designSystem, font, family))) > 0;
+$_designSystemHasFontFamilies: map.has-key(tokens.$designSystem, font, family) and
+    list.length(map.keys(map.get(tokens.$designSystem, font, family))) > 0;
 
 @function tokens-has-font-families() {
     @return $_designSystemHasFontFamilies;
@@ -31,15 +31,7 @@ $_designSystemHasFontFamilies: map.has-key(tokens.$designSystem, font, family)
 /// @since 0.1.0-alpha
 ///
 @function font-family-list($slug) {
-    $fontMap: map.get(
-        tokens.$designSystem,
-        font,
-        family,
-        $slug,
-        weights,
-        '400',
-        normal
-    );
+    $fontMap: map.get(tokens.$designSystem, font, family, $slug, weights, '400', normal);
 
     // returns
     @if $fontMap == null {
@@ -48,11 +40,7 @@ $_designSystemHasFontFamilies: map.has-key(tokens.$designSystem, font, family)
     }
 
     @return list.font-list(
-        list.join(
-            (map.get($fontMap, family)),
-            map.get($fontMap, fallbacks),
-            $separator: comma
-        )
+        list.join((map.get($fontMap, family)), map.get($fontMap, fallbacks), $separator: comma)
     );
 }
 
@@ -69,16 +57,17 @@ $_designSystemHasFontFamilies: map.has-key(tokens.$designSystem, font, family)
 
 ///
 /// @since 0.1.0-alpha
+/// @since ___PKG_VERSION___ — Added $relative param.
 ///
-@function var-fs($slug, $fallback: null) {
+@function var-fs($slug, $fallback: null, $relative: false) {
     // returns
     @if config.$fn_var_replaceWithValue_fontSize {
         @return if(
             $fallback == null,
-            list.nth(utils.fs-value($slug), 1),
+            list.nth(utils.fs-value($slug, $relative: $relative), 1),
             $fallback
         );
     }
 
-    @return utils.var-fs($slug, $fallback: $fallback);
+    @return utils.var-fs($slug, $fallback: $fallback, $relative: $relative);
 }

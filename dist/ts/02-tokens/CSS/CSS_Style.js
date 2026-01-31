@@ -24,7 +24,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 width: '100',
             },
             focus: {
-                offset: '300',
+                offset: '400',
             },
             font: {
                 style: 'normal',
@@ -130,10 +130,51 @@ export class Tokens_CSS_Style extends AbstractTokens {
         }
         return style;
     }
+    static inputStyle() {
+        const style = {
+            border: {
+                radius: '0',
+                style: 'solid',
+                width: '100',
+            },
+            focus: {
+                offset: '400',
+            },
+            label: {
+                font: {
+                    style: 'normal',
+                    weight: '500',
+                },
+                'line-height': '200',
+            },
+            'line-height': '300',
+            margin: {
+                block: {
+                    start: '400',
+                    end: '400',
+                    gap: '200',
+                },
+            },
+            padding: {
+                block: '200',
+                inline: '300',
+            },
+        };
+        return {
+            $: style,
+            disabled: {
+                border: {
+                    radius: style.border.radius,
+                    style: 'dashed',
+                },
+            },
+        };
+    }
     static get default() {
         return {
             button: Tokens_CSS_Style.buttonStyle(),
             heading: objectGenerator([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], (hdg) => Tokens_CSS_Style.headingStyle(hdg)),
+            input: Tokens_CSS_Style.inputStyle(),
             selection: {
                 low: {
                     "background-opacity": '65%',
