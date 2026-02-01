@@ -52,7 +52,6 @@
             $ui: var-theme(button-#{$variation}-ui-hover),
             $focusRing: var-theme(button-#{$variation}-outline-hover)
         );
-        text-decoration-color: var-theme(link-ui-hover);
     }
 
     &:active {
@@ -97,7 +96,6 @@
     width: #{var-style(button-width)};
 
     margin-block: #{var-style(button-margin-block-start)} #{var-style(button-margin-block-end)};
-
     padding: #{var-style(button-padding-block)} #{var-style(button-padding-inline)};
 
     gap: #{var-style(button-gap-block)} #{var-style(button-gap-inline)};
@@ -118,7 +116,7 @@
 
     text-align: start;
 
-    transition: var(--#{config.$cxPropPre}transition);
+    transition: do-var(transition);
     opacity: 1;
 
     appearance: button;
@@ -148,6 +146,9 @@
                 $includeColors: $includeColors,
                 $includePseudoIcons: $includePseudoIcons
             );
+        }
+        &[readonly] {
+            cursor: not-allowed;
         }
     }
 
@@ -427,7 +428,7 @@
             line-height: #{$lineHeight};
         }
 
-        transition: var(--#{config.$cxPropPre}transition);
+        transition: do-var(transition);
 
         @if not $includeUtils and $includeLabel {
             label + &,

@@ -24,6 +24,42 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T
     protected constructor(description: null | string, levelsInUse: (ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional)[], data: Tokens_Themes_Set_SingleMode.Data<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, T_Keyword_Background, __T_ColourOption>);
     toJSON(): Tokens_Themes_Set_SingleMode.JsonReturn<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, T_Keyword_Background, __T_ColourOption>;
     toScssVars(): {
+        link: {
+            outline: {
+                active: __T_ColourOption;
+                hover: __T_ColourOption;
+                disabled: __T_ColourOption;
+                $: __T_ColourOption;
+                visited: __T_ColourOption;
+            };
+            $: {
+                $: __T_ColourOption;
+                visited: __T_ColourOption;
+            } & {
+                active: __T_ColourOption;
+                hover: __T_ColourOption;
+                disabled: __T_ColourOption;
+            };
+            /**
+             * @since 0.1.1-alpha.0.draft — Renamed from link-ui to link-decoration.
+             */
+            decoration: {
+                $: __T_ColourOption;
+                visited: __T_ColourOption;
+            } & {
+                active: __T_ColourOption;
+                hover: __T_ColourOption;
+                disabled: __T_ColourOption;
+            };
+            icon: {
+                $: __T_ColourOption;
+                visited: __T_ColourOption;
+            } & {
+                active: __T_ColourOption;
+                hover: __T_ColourOption;
+                disabled: __T_ColourOption;
+            };
+        };
         system: {
             background: {
                 $: __T_ColourOption;
@@ -127,34 +163,10 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T
             bg: __T_ColourOption;
             text: __T_ColourOption;
         };
-        link: {
-            $: __T_ColourOption;
-            visited: __T_ColourOption;
-        } & {
-            active: __T_ColourOption;
-            hover: __T_ColourOption;
-            disabled: __T_ColourOption;
-        };
-        'link-icon': {
-            $: __T_ColourOption;
-            visited: __T_ColourOption;
-        } & {
-            active: __T_ColourOption;
-            hover: __T_ColourOption;
-            disabled: __T_ColourOption;
-        };
-        'link-ui': {
-            $: __T_ColourOption;
-            visited: __T_ColourOption;
-        } & {
-            active: __T_ColourOption;
-            hover: __T_ColourOption;
-            disabled: __T_ColourOption;
-        };
         button: {
+            disabled: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>;
             primary: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>;
             secondary: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>;
-            disabled: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>;
         } & { [K_6 in T_Keyword_Universal]: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>; };
         /**
          * @since 0.1.1-alpha.0.draft — Changed from field to input.
@@ -314,23 +326,39 @@ export declare namespace Tokens_Themes_Set_SingleMode {
             bg: __T_ColourOption;
             text: __T_ColourOption;
         };
+        /**
+         * @since 0.1.1-alpha.0.draft — Switched to a nested object instead of separate keys.
+         */
         link: {
-            $: __T_ColourOption;
-            visited: __T_ColourOption;
-        } & {
-            [K in keyof RequiredVariations<T_ColourName>['interactive']]: __T_ColourOption;
-        };
-        'link-icon': {
-            $: __T_ColourOption;
-            visited: __T_ColourOption;
-        } & {
-            [K in keyof RequiredVariations<T_ColourName>['interactive']]: __T_ColourOption;
-        };
-        'link-ui': {
-            $: __T_ColourOption;
-            visited: __T_ColourOption;
-        } & {
-            [K in keyof RequiredVariations<T_ColourName>['interactive']]: __T_ColourOption;
+            $: {
+                $: __T_ColourOption;
+                visited: __T_ColourOption;
+            } & {
+                [K in keyof RequiredVariations<T_ColourName>['interactive']]: __T_ColourOption;
+            };
+            /**
+             * @since 0.1.1-alpha.0.draft — Renamed from link-ui to link-decoration.
+             */
+            decoration: {
+                $: __T_ColourOption;
+                visited: __T_ColourOption;
+            } & {
+                [K in keyof RequiredVariations<T_ColourName>['interactive']]: __T_ColourOption;
+            };
+            icon: {
+                $: __T_ColourOption;
+                visited: __T_ColourOption;
+            } & {
+                [K in keyof RequiredVariations<T_ColourName>['interactive']]: __T_ColourOption;
+            };
+            /**
+             * Used for the focus outline and similar elements.
+             *
+             * @since 0.1.1-alpha.0.draft
+             */
+            outline: {
+                [K in keyof RequiredVariations<T_ColourName>['interactive']]: __T_ColourOption;
+            };
         };
         button: {
             [K in 'primary' | 'secondary' | 'disabled']: Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>;
@@ -424,23 +452,31 @@ export declare namespace Tokens_Themes_Set_SingleMode {
             bg: __T_ColourOption;
             text: __T_ColourOption;
         };
-        link?: undefined | {
-            $?: undefined | __T_ColourOption;
-            hover?: undefined | __T_ColourOption;
-            active?: undefined | __T_ColourOption;
-            visited?: undefined | __T_ColourOption;
-        };
-        'link-icon'?: undefined | {
-            $?: undefined | __T_ColourOption;
-            hover?: undefined | __T_ColourOption;
-            active?: undefined | __T_ColourOption;
-            visited?: undefined | __T_ColourOption;
-        };
-        'link-ui'?: undefined | {
-            $?: undefined | __T_ColourOption;
-            hover?: undefined | __T_ColourOption;
-            active?: undefined | __T_ColourOption;
-            visited?: undefined | __T_ColourOption;
+        link?: {
+            $: undefined | {
+                $?: undefined | __T_ColourOption;
+                visited?: undefined | __T_ColourOption;
+            } & {
+                [K in keyof RequiredVariations<T_ColourName>['interactive']]?: undefined | __T_ColourOption;
+            };
+            /**
+             * @since 0.1.1-alpha.0.draft — Renamed from link-ui to link-decoration.
+             */
+            decoration?: undefined | {
+                $?: undefined | __T_ColourOption;
+                visited?: undefined | __T_ColourOption;
+            } & {
+                [K in keyof RequiredVariations<T_ColourName>['interactive']]?: undefined | __T_ColourOption;
+            };
+            icon?: undefined | {
+                $?: undefined | __T_ColourOption;
+                visited?: undefined | __T_ColourOption;
+            } & {
+                [K in keyof RequiredVariations<T_ColourName>['interactive']]?: undefined | __T_ColourOption;
+            };
+            outline?: undefined | {
+                [K in keyof RequiredVariations<T_ColourName>['interactive']]?: undefined | __T_ColourOption;
+            };
         };
         button?: undefined | {
             [K in 'primary' | 'secondary' | 'disabled']?: undefined | Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>;

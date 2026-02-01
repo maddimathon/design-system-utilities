@@ -38,17 +38,14 @@
             @include cx-prop(
                 scroll-padding-top,
                 calc(
-                    var(
-                            --#{config.$cxPropPre}height-nav-primary,
-                            #{$_navHeight}
-                        ) +
+                    do-var(height-nav-primary, $_navHeight) +
                         var-gap-block(layout)
                 )
             );
 
-            scroll-padding-top: var(
-                --#{config.$cxPropPre}scroll-padding-top,
-                #{$_scrollPaddingFallback}
+            scroll-padding-top: do-var(
+                scroll-padding-top,
+                $_scrollPaddingFallback
             );
         }
 
@@ -67,10 +64,7 @@
             z-index: 9999;
 
             > .toggle-title {
-                min-height: var(
-                    --#{config.$cxPropPre}height-nav-primary,
-                    #{$_navHeight}
-                );
+                min-height: do-var(height-nav-primary, $_navHeight);
 
                 [data-toggle-control] {
                     padding-block: min(0.75vh, #{var-mrg-soft('300')});

@@ -21,9 +21,9 @@
     line-height: #{lib.var-line-height('100')};
     font-size: inherit;
 
-    color: var(
-        --#{config.$cxPropPre}shade-swatch-color-override,
-        var(--#{config.$cxPropPre}contrast-alert-color)
+    color: lib.do-var(
+        shade-swatch-color-override,
+        lib.do-var(contrast-alert-color)
     );
 
     > * {

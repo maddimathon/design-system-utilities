@@ -106,12 +106,20 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
     toScssVars() {
         return {
             ...this.data,
+            link: {
+                ...this.data.link,
+                outline: {
+                    $: this.data.link.outline.hover,
+                    visited: this.data.link.outline.hover,
+                    ...this.data.link.outline,
+                },
+            },
             system: {
                 ...this.data.system,
                 background: this.data.background,
                 button: this.data.button.primary,
                 input: this.data.input.$,
-                link: this.data.link,
+                link: this.data.link.$,
                 selection: this.data.selection,
                 text: {
                     $: this.data.text.$,
@@ -402,6 +410,13 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 ...objectMap(variations.interactive, ([key, clrName]) => clrOpt(clrName, levels.text.accent)),
                 disabled: clrOpt(variations.text.disabled, levels.text.min),
             };
+            const linkDecoration = {
+                $: clrOpt(variations.universal.primary, levels.ui.accent),
+                visited: clrOpt(variations.universal.primary, levels.ui.accent),
+                hover: 'transparent',
+                active: clrOpt(variations.interactive.active, levels.ui.accent),
+                disabled: clrOpt(variations.text.disabled, levels.ui.min),
+            };
             const linkIcon = {
                 $: clrOpt(variations.base, levels.ui.accent),
                 visited: clrOpt(variations.base, levels.ui.accent),
@@ -409,10 +424,8 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 active: clrOpt(variations.interactive.active, levels.ui.accent),
                 disabled: clrOpt(variations.text.disabled, levels.ui.min),
             };
-            const linkUI = {
-                $: clrOpt(variations.universal.primary, levels.ui.accent),
-                visited: clrOpt(variations.universal.primary, levels.ui.accent),
-                hover: 'transparent',
+            const linkOutline = {
+                hover: clrOpt(variations.interactive.hover, levels.ui.accent),
                 active: clrOpt(variations.interactive.active, levels.ui.accent),
                 disabled: clrOpt(variations.text.disabled, levels.ui.min),
             };
@@ -516,9 +529,12 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                     bg: clrOpt(variations.universal.primary, levels.text.accent),
                     text: clrOpt(variations.base, levels.background.$),
                 },
-                link,
-                'link-icon': linkIcon,
-                'link-ui': linkUI,
+                link: {
+                    $: link,
+                    decoration: linkDecoration,
+                    icon: linkIcon,
+                    outline: linkOutline,
+                },
                 button,
                 input: {
                     $: inputField,
@@ -570,6 +586,11 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
             const link = {
                 $: 'LinkText',
                 visited: 'VisitedText',
+                hover: 'ActiveText',
+                active: 'ActiveText',
+                disabled: 'GrayText',
+            };
+            const linkOutline = {
                 hover: 'ActiveText',
                 active: 'ActiveText',
                 disabled: 'GrayText',
@@ -645,9 +666,12 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                     bg: 'Highlight',
                     text: 'HighlightText',
                 },
-                link,
-                'link-icon': link,
-                'link-ui': link,
+                link: {
+                    $: link,
+                    decoration: link,
+                    icon: link,
+                    outline: linkOutline,
+                },
                 button,
                 input: {
                     $: inputField,

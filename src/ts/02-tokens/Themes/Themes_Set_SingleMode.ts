@@ -439,13 +439,24 @@ export class Tokens_Themes_Set_SingleMode<
         return {
             ...this.data,
 
+            link: {
+                ...this.data.link,
+
+                outline: {
+                    $: this.data.link.outline.hover,
+                    visited: this.data.link.outline.hover,
+
+                    ...this.data.link.outline,
+                },
+            },
+
             system: {
                 ...this.data.system,
 
                 background: this.data.background,
                 button: this.data.button.primary,
                 input: this.data.input.$,
-                link: this.data.link,
+                link: this.data.link.$,
                 selection: this.data.selection,
 
                 text: {
@@ -572,25 +583,43 @@ export namespace Tokens_Themes_Set_SingleMode {
             text: __T_ColourOption,
         },
 
+        /**
+         * @since ___PKG_VERSION___ — Switched to a nested object instead of separate keys. 
+         */
         link: {
-            $: __T_ColourOption,
-            visited: __T_ColourOption,
-        } & {
-            [ K in keyof RequiredVariations<T_ColourName>[ 'interactive' ] ]: __T_ColourOption;
-        },
 
-        'link-icon': {
-            $: __T_ColourOption,
-            visited: __T_ColourOption,
-        } & {
-            [ K in keyof RequiredVariations<T_ColourName>[ 'interactive' ] ]: __T_ColourOption;
-        },
+            $: {
+                $: __T_ColourOption,
+                visited: __T_ColourOption,
+            } & {
+                [ K in keyof RequiredVariations<T_ColourName>[ 'interactive' ] ]: __T_ColourOption;
+            },
 
-        'link-ui': {
-            $: __T_ColourOption,
-            visited: __T_ColourOption,
-        } & {
-            [ K in keyof RequiredVariations<T_ColourName>[ 'interactive' ] ]: __T_ColourOption;
+            /**
+             * @since ___PKG_VERSION___ — Renamed from link-ui to link-decoration.
+             */
+            decoration: {
+                $: __T_ColourOption,
+                visited: __T_ColourOption,
+            } & {
+                [ K in keyof RequiredVariations<T_ColourName>[ 'interactive' ] ]: __T_ColourOption;
+            },
+
+            icon: {
+                $: __T_ColourOption,
+                visited: __T_ColourOption,
+            } & {
+                [ K in keyof RequiredVariations<T_ColourName>[ 'interactive' ] ]: __T_ColourOption;
+            },
+
+            /**
+             * Used for the focus outline and similar elements.
+             * 
+             * @since ___PKG_VERSION___
+             */
+            outline: {
+                [ K in keyof RequiredVariations<T_ColourName>[ 'interactive' ] ]: __T_ColourOption;
+            },
         },
 
         button: {
@@ -714,25 +743,35 @@ export namespace Tokens_Themes_Set_SingleMode {
             text: __T_ColourOption,
         },
 
-        link?: undefined | {
-            $?: undefined | __T_ColourOption,
-            hover?: undefined | __T_ColourOption,
-            active?: undefined | __T_ColourOption,
-            visited?: undefined | __T_ColourOption,
-        },
+        link?: {
 
-        'link-icon'?: undefined | {
-            $?: undefined | __T_ColourOption,
-            hover?: undefined | __T_ColourOption,
-            active?: undefined | __T_ColourOption,
-            visited?: undefined | __T_ColourOption,
-        },
+            $: undefined | {
+                $?: undefined | __T_ColourOption,
+                visited?: undefined | __T_ColourOption,
+            } & {
+                [ K in keyof RequiredVariations<T_ColourName>[ 'interactive' ] ]?: undefined | __T_ColourOption;
+            },
 
-        'link-ui'?: undefined | {
-            $?: undefined | __T_ColourOption,
-            hover?: undefined | __T_ColourOption,
-            active?: undefined | __T_ColourOption,
-            visited?: undefined | __T_ColourOption,
+            /**
+             * @since ___PKG_VERSION___ — Renamed from link-ui to link-decoration.
+             */
+            decoration?: undefined | {
+                $?: undefined | __T_ColourOption,
+                visited?: undefined | __T_ColourOption,
+            } & {
+                [ K in keyof RequiredVariations<T_ColourName>[ 'interactive' ] ]?: undefined | __T_ColourOption;
+            },
+
+            icon?: undefined | {
+                $?: undefined | __T_ColourOption,
+                visited?: undefined | __T_ColourOption,
+            } & {
+                [ K in keyof RequiredVariations<T_ColourName>[ 'interactive' ] ]?: undefined | __T_ColourOption;
+            },
+
+            outline?: undefined | {
+                [ K in keyof RequiredVariations<T_ColourName>[ 'interactive' ] ]?: undefined | __T_ColourOption;
+            },
         },
 
         button?: undefined | {
@@ -1421,7 +1460,7 @@ export namespace Tokens_Themes_Set_SingleMode {
                 ( hdgNum ) => clrOpt( variations.heading[ hdgNum ] ?? variations.heading[ 10 ], levels.heading[ hdgNum ] )
             );
 
-            const link: CompleteData[ 'link' ] = {
+            const link: CompleteData[ 'link' ][ '$' ] = {
                 $: clrOpt( variations.universal.primary, levels.text.accent ),
                 visited: clrOpt( variations.universal.primary, levels.text.accent ),
 
@@ -1430,7 +1469,16 @@ export namespace Tokens_Themes_Set_SingleMode {
                 disabled: clrOpt( variations.text.disabled, levels.text.min ),
             };
 
-            const linkIcon: CompleteData[ 'link-icon' ] = {
+            const linkDecoration: CompleteData[ 'link' ][ 'decoration' ] = {
+                $: clrOpt( variations.universal.primary, levels.ui.accent ),
+                visited: clrOpt( variations.universal.primary, levels.ui.accent ),
+
+                hover: 'transparent',
+                active: clrOpt( variations.interactive.active, levels.ui.accent ),
+                disabled: clrOpt( variations.text.disabled, levels.ui.min ),
+            };
+
+            const linkIcon: CompleteData[ 'link' ][ 'icon' ] = {
                 $: clrOpt( variations.base, levels.ui.accent ),
                 visited: clrOpt( variations.base, levels.ui.accent ),
 
@@ -1439,11 +1487,8 @@ export namespace Tokens_Themes_Set_SingleMode {
                 disabled: clrOpt( variations.text.disabled, levels.ui.min ),
             };
 
-            const linkUI: CompleteData[ 'link-ui' ] = {
-                $: clrOpt( variations.universal.primary, levels.ui.accent ),
-                visited: clrOpt( variations.universal.primary, levels.ui.accent ),
-
-                hover: 'transparent',
+            const linkOutline: CompleteData[ 'link' ][ 'outline' ] = {
+                hover: clrOpt( variations.interactive.hover, levels.ui.accent ),
                 active: clrOpt( variations.interactive.active, levels.ui.accent ),
                 disabled: clrOpt( variations.text.disabled, levels.ui.min ),
             };
@@ -1577,9 +1622,12 @@ export namespace Tokens_Themes_Set_SingleMode {
                     text: clrOpt( variations.base, levels.background.$ ),
                 },
 
-                link,
-                'link-icon': linkIcon,
-                'link-ui': linkUI,
+                link: {
+                    $: link,
+                    decoration: linkDecoration,
+                    icon: linkIcon,
+                    outline: linkOutline,
+                },
 
                 button,
 
@@ -1671,9 +1719,15 @@ export namespace Tokens_Themes_Set_SingleMode {
                 grey: 'GrayText',
             };
 
-            const link: CompleteData[ 'link' ] = {
+            const link: CompleteData[ 'link' ][ '$' ] = {
                 $: 'LinkText',
                 visited: 'VisitedText',
+                hover: 'ActiveText',
+                active: 'ActiveText',
+                disabled: 'GrayText',
+            };
+
+            const linkOutline: CompleteData[ 'link' ][ 'outline' ] = {
                 hover: 'ActiveText',
                 active: 'ActiveText',
                 disabled: 'GrayText',
@@ -1769,9 +1823,12 @@ export namespace Tokens_Themes_Set_SingleMode {
                     text: 'HighlightText',
                 },
 
-                link,
-                'link-icon': link,
-                'link-ui': link,
+                link: {
+                    $: link,
+                    decoration: link,
+                    icon: link,
+                    outline: linkOutline,
+                },
 
                 button,
 

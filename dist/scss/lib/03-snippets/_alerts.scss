@@ -110,9 +110,7 @@ $_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
             grid-template-columns--alert-block,
             '[icon] minmax(max-content, auto) [content] 1fr'
         );
-        grid-template-columns: var(
-            --#{config.$cxPropPre}grid-template-columns--alert-block
-        );
+        grid-template-columns: do-var(grid-template-columns--alert-block);
 
         grid-auto-rows: auto;
         grid-auto-flow: row;

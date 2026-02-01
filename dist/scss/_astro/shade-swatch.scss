@@ -21,10 +21,10 @@ $_default_resultGroup_colCount: 6;
 
     font-size: #{lib.var-fs(smaller-1)};
 
-    background: var(--#{config.$cxPropPre}shade-swatch-background);
-    color: var(
-        --#{config.$cxPropPre}shade-swatch-color-override,
-        var(--#{config.$cxPropPre}shade-swatch-color)
+    background: lib.do-var(shade-swatch-background);
+    color: lib.do-var(
+        shade-swatch-color-override,
+        lib.do-var(shade-swatch-color)
     );
 
     > :global(:where(*)) {
@@ -32,10 +32,7 @@ $_default_resultGroup_colCount: 6;
     }
 
     > :global(*) {
-        display: var(
-            --#{config.$cxPropPre}shade-swatch-display-override,
-            block
-        );
+        display: lib.do-var(shade-swatch-display-override, block);
         color: inherit;
     }
 
@@ -121,8 +118,8 @@ $_default_resultGroup_colCount: 6;
     :global(.shade-swatch__contrast__result-group) {
         display: grid;
         grid-template-columns: repeat(
-            var(
-                --#{config.$cxPropPre}shade-swatch-contrast-result-group-column-count,
+            lib.do-var(
+                shade-swatch-contrast-result-group-column-count,
                 #{$_default_resultGroup_colCount}
             ),
             min-content
@@ -131,8 +128,8 @@ $_default_resultGroup_colCount: 6;
 
         > :global(.shade-swatch__contrast__heading) {
             grid-column: span
-                var(
-                    --#{config.$cxPropPre}shade-swatch-contrast-result-group-column-count,
+                lib.do-var(
+                    shade-swatch-contrast-result-group-column-count,
                     #{$_default_resultGroup_colCount}
                 );
         }
@@ -144,11 +141,9 @@ $_default_resultGroup_colCount: 6;
         text-align: center;
 
         @include lib.colour-mode((low, average)) {
-            color: var(
-                --#{config.$cxPropPre}shade-swatch-color-override,
-                var(
-                    --#{config.$cxPropPre}shade-swatch-contrast-result-group-heading-color
-                )
+            color: lib.do-var(
+                shade-swatch-color-override,
+                lib.do-var(shade-swatch-contrast-result-group-heading-color)
             );
         }
     }
@@ -165,15 +160,15 @@ $_default_resultGroup_colCount: 6;
                 padding: #{lib.var-stroke-relative('400')};
 
                 font-weight: 500;
-                background: var(
-                    --#{config.$cxPropPre}shade-swatch-contrast-result-group-heading-color,
+                background: lib.do-var(
+                    shade-swatch-contrast-result-group-heading-color,
                     #{lib.var-theme(text)}
                 );
 
-                color: var(
-                    --#{config.$cxPropPre}shade-swatch-color-override,
-                    var(
-                        --#{config.$cxPropPre}shade-swatch-background,
+                color: lib.do-var(
+                    shade-swatch-color-override,
+                    lib.do-var(
+                        shade-swatch-background,
                         #{lib.var-theme(background)}
                     )
                 );
@@ -195,18 +190,15 @@ $_default_resultGroup_colCount: 6;
 
     :global(.shade-swatch__contrast__result-group--all-shades) {
         grid-template-rows: auto repeat(
-                var(
-                    --#{config.$cxPropPre}shade-swatch-contrast-result-group-row-count,
-                    2
-                ),
+                lib.do-var(shade-swatch-contrast-result-group-row-count, 2),
                 auto
             );
     }
 
     :global(.shade-swatch__contrast__result-group__heading) {
         grid-column: span
-            var(
-                --#{config.$cxPropPre}shade-swatch-contrast-result-group-column-count,
+            lib.do-var(
+                shade-swatch-contrast-result-group-column-count,
                 #{$_default_resultGroup_colCount}
             );
         margin: 0;
@@ -223,15 +215,15 @@ $_default_resultGroup_colCount: 6;
 
     :global(.shade-swatch__contrast__result-group__single-min-max) {
         grid-column: span
-            var(
-                --#{config.$cxPropPre}shade-swatch-contrast-result-group-single-min-max-column-count,
+            lib.do-var(
+                shade-swatch-contrast-result-group-single-min-max-column-count,
                 1
             );
 
         display: grid;
         grid-template-columns: repeat(
-            var(
-                --#{config.$cxPropPre}shade-swatch-contrast-result-group-single-min-max-column-count
+            lib.do-var(
+                shade-swatch-contrast-result-group-single-min-max-column-count
             ),
             max-content
         );
@@ -241,8 +233,8 @@ $_default_resultGroup_colCount: 6;
 
         :global(.shade-swatch__contrast__result-group__heading) {
             grid-column: span
-                var(
-                    --#{config.$cxPropPre}shade-swatch-contrast-result-group-single-min-max-column-count,
+                lib.do-var(
+                    shade-swatch-contrast-result-group-single-min-max-column-count,
                     1
                 );
         }

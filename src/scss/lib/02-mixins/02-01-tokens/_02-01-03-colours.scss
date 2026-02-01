@@ -123,16 +123,28 @@ $_flattenedSystemColors: map.flatten($_systemColors);
 ///
 /// @since 0.1.0-alpha.5
 /// @since 0.1.0-alpha.9 — Made public.
+/// @since ___PKG_VERSION___ — Allowed $slug, $brightness, and $contrast to be optional.
 ///
-@mixin tokens-theme-individual-base-properties($slug, $brightness, $contrast) {
+@mixin tokens-theme-individual-base-properties(
+    $slug: tokens.$activeTheme,
+    $brightness: tokens.$brightnessMode_default,
+    $contrast: null
+) {
+    $useSystemColorFallback: false;
+
+    @if $contrast == null {
+        $useSystemColorFallback: true;
+        $contrast: tokens.$contrastMode_default;
+    }
+
     @include utils.cx-prop(
         focus-ring-outline-color,
         var-theme(
-            link-hover,
+            link-outline,
             $brightness: $brightness,
             $contrast: $contrast,
             $themeSlug: $slug,
-            $useSystemColorFallback: false
+            $useSystemColorFallback: $useSystemColorFallback
         )
     );
     @include utils.cx-prop(
@@ -142,7 +154,7 @@ $_flattenedSystemColors: map.flatten($_systemColors);
             $brightness: $brightness,
             $contrast: $contrast,
             $themeSlug: $slug,
-            $useSystemColorFallback: false
+            $useSystemColorFallback: $useSystemColorFallback
         )
     );
     background: #{var-theme(
@@ -150,14 +162,14 @@ $_flattenedSystemColors: map.flatten($_systemColors);
             $brightness: $brightness,
             $contrast: $contrast,
             $themeSlug: $slug,
-            $useSystemColorFallback: false
+            $useSystemColorFallback: $useSystemColorFallback
         )};
     color: #{var-theme(
             text,
             $brightness: $brightness,
             $contrast: $contrast,
             $themeSlug: $slug,
-            $useSystemColorFallback: false
+            $useSystemColorFallback: $useSystemColorFallback
         )};
 }
 
@@ -225,7 +237,7 @@ $_flattenedSystemColors: map.flatten($_systemColors);
 
     @if config.$mx_tokensTheme_setBaseProperties {
         @include tokens-theme-individual-base-properties(
-            $slug,
+            $slug: $slug,
             $brightness: $brightness,
             $contrast: $contrast
         );

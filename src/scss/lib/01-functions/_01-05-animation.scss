@@ -9,7 +9,7 @@
 @use '../../config';
 @use '../../tokens';
 
-// @use 'pkg:@maddimathon/utility-astro/01-functions' as utils;
+@use 'pkg:@maddimathon/utility-astro/01-functions' as utils;
 
 ///
 /// Uses the transition time tokens to prepare the appropriate numerical value
@@ -38,10 +38,7 @@
     @return if(
         config.$fn_var_replaceWithValue_transitionTime,
         #{transition-time-value($level)},
-        var(
-            --#{config.$cxPropPre}tr-time-#{$level},
-            #{transition-time-value($level)}
-        )
+        utils.do-var(tr-time-#{$level}, #{transition-time-value($level)})
     );
 }
 
@@ -68,10 +65,7 @@ $_motionTransition: ();
 ///
 /// @since 0.1.0-alpha
 ///
-@function transition-properties-value(
-    $withMotion: false,
-    $time: var-tr-time(fast)
-) {
+@function transition-properties-value($withMotion: false, $time: var-tr-time(fast)) {
     // returns
     @if $time == var-tr-time(fast) {
         @return if($withMotion, $_motionTransition, $_transition);
@@ -79,18 +73,9 @@ $_motionTransition: ();
 
     $transition: ();
     @each $prop
-        in map.get(
-            tokens.$designSystem,
-            transition,
-            properties,
-            if($withMotion, motion, always)
-        )
+        in map.get(tokens.$designSystem, transition, properties, if($withMotion, motion, always))
     {
-        $transition: list.append(
-            $transition,
-            '#{$prop} #{$time} ease-in-out',
-            $separator: comma
-        );
+        $transition: list.append($transition, '#{$prop} #{$time} ease-in-out', $separator: comma);
     }
 
     @return $transition;

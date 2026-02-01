@@ -4,7 +4,7 @@
  */
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0-alpha.24
+ * @maddimathon/utility-sass@0.1.0-alpha.25
  * 
  * https://maddimathon.github.io/utility-sass
  */
@@ -1202,102 +1202,107 @@ figure {
     }
 }
 /* ## Typography - Inline ==================================== */
-a[href] {
-    --focus-ring-outline-color: var(--theme-link-hover, ActiveText);
-    --icon-color: var(--theme-link-icon, LinkText);
-    --icon-vertical-align: sub;
-    text-decoration-color: LinkText;
-    text-decoration-color: var(--theme-link-ui, LinkText);
-    color: LinkText;
-    color: var(--theme-link, LinkText);
-}
 a[href],
 a[href]::before,
 a[href]::after {
     transition: none;
     transition: var(--transition);
 }
+a[href] {
+    --icon-vertical-align: sub;
+    --focus-ring-outline-color: var(--theme-link-outline, ActiveText);
+    --icon-color: var(--theme-link-icon, LinkText);
+    text-decoration-color: LinkText;
+    text-decoration-color: var(--theme-link-decoration, LinkText);
+    color: LinkText;
+    color: var(--theme-link, LinkText);
+}
 a[href]:visited {
-    --focus-ring-outline-color: var(--theme-link-visited, VisitedText);
+    --focus-ring-outline-color: var(--theme-link-outline-visited, ActiveText);
     --icon-color: var(--theme-link-icon-visited, VisitedText);
     text-decoration-color: VisitedText;
-    text-decoration-color: var(--theme-link-ui-visited, VisitedText);
+    text-decoration-color: var(--theme-link-decoration-visited, VisitedText);
     color: VisitedText;
     color: var(--theme-link-visited, VisitedText);
 }
 .no-js a[href]:focus,
 .js__no-whereSelector a[href]:focus {
-    --focus-ring-outline-color: var(--theme-link-hover, ActiveText);
+    --focus-ring-outline-color: var(--theme-link-outline-hover, ActiveText);
     --icon-color: var(--theme-link-icon-hover, ActiveText);
     text-decoration-color: ActiveText;
-    text-decoration-color: var(--theme-link-ui-hover, ActiveText);
+    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
     color: ActiveText;
     color: var(--theme-link-hover, ActiveText);
 }
 
 :where(.js__no-focusVisible) a[href]:focus {
-    --focus-ring-outline-color: var(--theme-link-hover, ActiveText);
+    --focus-ring-outline-color: var(--theme-link-outline-hover, ActiveText);
     --icon-color: var(--theme-link-icon-hover, ActiveText);
     text-decoration-color: ActiveText;
-    text-decoration-color: var(--theme-link-ui-hover, ActiveText);
+    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
     color: ActiveText;
     color: var(--theme-link-hover, ActiveText);
 }
 
 a[href]:hover {
-    --focus-ring-outline-color: var(--theme-link-hover, ActiveText);
+    --focus-ring-outline-color: var(--theme-link-outline-hover, ActiveText);
     --icon-color: var(--theme-link-icon-hover, ActiveText);
     text-decoration-color: ActiveText;
-    text-decoration-color: var(--theme-link-ui-hover, ActiveText);
+    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
     color: ActiveText;
     color: var(--theme-link-hover, ActiveText);
 }
 
 a[href]:active {
-    --focus-ring-outline-color: var(--theme-link-active, ActiveText);
+    --focus-ring-outline-color: var(--theme-link-outline-active, ActiveText);
     --icon-color: var(--theme-link-icon-active, ActiveText);
     text-decoration-color: ActiveText;
-    text-decoration-color: var(--theme-link-ui-active, ActiveText);
+    text-decoration-color: var(--theme-link-decoration-active, ActiveText);
     color: ActiveText;
     color: var(--theme-link-active, ActiveText);
 }
 a[aria-disabled="true"][href] {
+    --focus-ring-outline-color: var(--theme-link-outline-disabled, GrayText);
     --icon-color: var(--theme-link-icon-disabled, GrayText);
     text-decoration-line: underline;
     text-decoration-color: GrayText;
-    text-decoration-color: var(--theme-link-ui-disabled, GrayText);
+    text-decoration-color: var(--theme-link-decoration-disabled, GrayText);
     color: GrayText;
     color: var(--theme-link-disabled, GrayText);
 }
 .no-js a[aria-disabled="true"][href]:focus,
 .js__no-whereSelector a[aria-disabled="true"][href]:focus {
+    --focus-ring-outline-color: var(--theme-link-outline-hover, ActiveText);
     --icon-color: var(--theme-link-icon-hover, ActiveText);
     text-decoration-color: ActiveText;
-    text-decoration-color: var(--theme-link-ui-hover, ActiveText);
-    color: GrayText;
-    color: var(--theme-link-disabled, GrayText);
+    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
+    color: ActiveText;
+    color: var(--theme-link-hover, ActiveText);
 }
 
 :where(.js__no-focusVisible) a[aria-disabled="true"][href]:focus {
+    --focus-ring-outline-color: var(--theme-link-outline-hover, ActiveText);
     --icon-color: var(--theme-link-icon-hover, ActiveText);
     text-decoration-color: ActiveText;
-    text-decoration-color: var(--theme-link-ui-hover, ActiveText);
-    color: GrayText;
-    color: var(--theme-link-disabled, GrayText);
+    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
+    color: ActiveText;
+    color: var(--theme-link-hover, ActiveText);
 }
 
 a[aria-disabled="true"][href]:hover {
+    --focus-ring-outline-color: var(--theme-link-outline-hover, ActiveText);
     --icon-color: var(--theme-link-icon-hover, ActiveText);
     text-decoration-color: ActiveText;
-    text-decoration-color: var(--theme-link-ui-hover, ActiveText);
-    color: GrayText;
-    color: var(--theme-link-disabled, GrayText);
+    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
+    color: ActiveText;
+    color: var(--theme-link-hover, ActiveText);
 }
 
 a[aria-disabled="true"][href]:active {
-    --icon-color: var(--theme-link-icon-active, ActiveText);
-    text-decoration-color: ActiveText;
-    text-decoration-color: var(--theme-link-ui-active, ActiveText);
+    --focus-ring-outline-color: var(--theme-link-outline-disabled, GrayText);
+    --icon-color: var(--theme-link-icon-disabled, GrayText);
+    text-decoration-color: GrayText;
+    text-decoration-color: var(--theme-link-decoration-disabled, GrayText);
     color: GrayText;
     color: var(--theme-link-disabled, GrayText);
 }
@@ -1387,34 +1392,46 @@ h1 {
 }
 h1 a[href] {
     --icon-color: var(--icon-color);
+    text-decoration-color: LinkText;
+    text-decoration-color: var(--theme-link-decoration, LinkText);
     color: inherit;
 }
 h1 a[href]:visited {
     --icon-color: var(--theme-link-icon-visited, VisitedText);
+    text-decoration-color: VisitedText;
+    text-decoration-color: var(--theme-link-decoration-visited, VisitedText);
     color: VisitedText;
     color: var(--theme-link-visited, VisitedText);
 }
 .no-js h1 a[href]:focus,
 .js__no-whereSelector h1 a[href]:focus {
     --icon-color: var(--theme-link-icon-hover, ActiveText);
+    text-decoration-color: ActiveText;
+    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
     color: ActiveText;
     color: var(--theme-link-hover, ActiveText);
 }
 
 :where(.js__no-focusVisible) h1 a[href]:focus {
     --icon-color: var(--theme-link-icon-hover, ActiveText);
+    text-decoration-color: ActiveText;
+    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
     color: ActiveText;
     color: var(--theme-link-hover, ActiveText);
 }
 
 h1 a[href]:hover {
     --icon-color: var(--theme-link-icon-hover, ActiveText);
+    text-decoration-color: ActiveText;
+    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
     color: ActiveText;
     color: var(--theme-link-hover, ActiveText);
 }
 
 h1 a[href]:active {
     --icon-color: var(--theme-link-icon-active, ActiveText);
+    text-decoration-color: ActiveText;
+    text-decoration-color: var(--theme-link-decoration-active, ActiveText);
     color: ActiveText;
     color: var(--theme-link-active, ActiveText);
 }
@@ -1445,34 +1462,46 @@ h2 {
 }
 h2 a[href] {
     --icon-color: var(--icon-color);
+    text-decoration-color: LinkText;
+    text-decoration-color: var(--theme-link-decoration, LinkText);
     color: inherit;
 }
 h2 a[href]:visited {
     --icon-color: var(--theme-link-icon-visited, VisitedText);
+    text-decoration-color: VisitedText;
+    text-decoration-color: var(--theme-link-decoration-visited, VisitedText);
     color: VisitedText;
     color: var(--theme-link-visited, VisitedText);
 }
 .no-js h2 a[href]:focus,
 .js__no-whereSelector h2 a[href]:focus {
     --icon-color: var(--theme-link-icon-hover, ActiveText);
+    text-decoration-color: ActiveText;
+    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
     color: ActiveText;
     color: var(--theme-link-hover, ActiveText);
 }
 
 :where(.js__no-focusVisible) h2 a[href]:focus {
     --icon-color: var(--theme-link-icon-hover, ActiveText);
+    text-decoration-color: ActiveText;
+    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
     color: ActiveText;
     color: var(--theme-link-hover, ActiveText);
 }
 
 h2 a[href]:hover {
     --icon-color: var(--theme-link-icon-hover, ActiveText);
+    text-decoration-color: ActiveText;
+    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
     color: ActiveText;
     color: var(--theme-link-hover, ActiveText);
 }
 
 h2 a[href]:active {
     --icon-color: var(--theme-link-icon-active, ActiveText);
+    text-decoration-color: ActiveText;
+    text-decoration-color: var(--theme-link-decoration-active, ActiveText);
     color: ActiveText;
     color: var(--theme-link-active, ActiveText);
 }
@@ -1503,34 +1532,46 @@ h3 {
 }
 h3 a[href] {
     --icon-color: var(--icon-color);
+    text-decoration-color: LinkText;
+    text-decoration-color: var(--theme-link-decoration, LinkText);
     color: inherit;
 }
 h3 a[href]:visited {
     --icon-color: var(--theme-link-icon-visited, VisitedText);
+    text-decoration-color: VisitedText;
+    text-decoration-color: var(--theme-link-decoration-visited, VisitedText);
     color: VisitedText;
     color: var(--theme-link-visited, VisitedText);
 }
 .no-js h3 a[href]:focus,
 .js__no-whereSelector h3 a[href]:focus {
     --icon-color: var(--theme-link-icon-hover, ActiveText);
+    text-decoration-color: ActiveText;
+    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
     color: ActiveText;
     color: var(--theme-link-hover, ActiveText);
 }
 
 :where(.js__no-focusVisible) h3 a[href]:focus {
     --icon-color: var(--theme-link-icon-hover, ActiveText);
+    text-decoration-color: ActiveText;
+    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
     color: ActiveText;
     color: var(--theme-link-hover, ActiveText);
 }
 
 h3 a[href]:hover {
     --icon-color: var(--theme-link-icon-hover, ActiveText);
+    text-decoration-color: ActiveText;
+    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
     color: ActiveText;
     color: var(--theme-link-hover, ActiveText);
 }
 
 h3 a[href]:active {
     --icon-color: var(--theme-link-icon-active, ActiveText);
+    text-decoration-color: ActiveText;
+    text-decoration-color: var(--theme-link-decoration-active, ActiveText);
     color: ActiveText;
     color: var(--theme-link-active, ActiveText);
 }
@@ -1569,34 +1610,46 @@ h4 {
 }
 h4 a[href] {
     --icon-color: var(--icon-color);
+    text-decoration-color: LinkText;
+    text-decoration-color: var(--theme-link-decoration, LinkText);
     color: inherit;
 }
 h4 a[href]:visited {
     --icon-color: var(--theme-link-icon-visited, VisitedText);
+    text-decoration-color: VisitedText;
+    text-decoration-color: var(--theme-link-decoration-visited, VisitedText);
     color: VisitedText;
     color: var(--theme-link-visited, VisitedText);
 }
 .no-js h4 a[href]:focus,
 .js__no-whereSelector h4 a[href]:focus {
     --icon-color: var(--theme-link-icon-hover, ActiveText);
+    text-decoration-color: ActiveText;
+    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
     color: ActiveText;
     color: var(--theme-link-hover, ActiveText);
 }
 
 :where(.js__no-focusVisible) h4 a[href]:focus {
     --icon-color: var(--theme-link-icon-hover, ActiveText);
+    text-decoration-color: ActiveText;
+    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
     color: ActiveText;
     color: var(--theme-link-hover, ActiveText);
 }
 
 h4 a[href]:hover {
     --icon-color: var(--theme-link-icon-hover, ActiveText);
+    text-decoration-color: ActiveText;
+    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
     color: ActiveText;
     color: var(--theme-link-hover, ActiveText);
 }
 
 h4 a[href]:active {
     --icon-color: var(--theme-link-icon-active, ActiveText);
+    text-decoration-color: ActiveText;
+    text-decoration-color: var(--theme-link-decoration-active, ActiveText);
     color: ActiveText;
     color: var(--theme-link-active, ActiveText);
 }
@@ -1635,34 +1688,46 @@ h5 {
 }
 h5 a[href] {
     --icon-color: var(--icon-color);
+    text-decoration-color: LinkText;
+    text-decoration-color: var(--theme-link-decoration, LinkText);
     color: inherit;
 }
 h5 a[href]:visited {
     --icon-color: var(--theme-link-icon-visited, VisitedText);
+    text-decoration-color: VisitedText;
+    text-decoration-color: var(--theme-link-decoration-visited, VisitedText);
     color: VisitedText;
     color: var(--theme-link-visited, VisitedText);
 }
 .no-js h5 a[href]:focus,
 .js__no-whereSelector h5 a[href]:focus {
     --icon-color: var(--theme-link-icon-hover, ActiveText);
+    text-decoration-color: ActiveText;
+    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
     color: ActiveText;
     color: var(--theme-link-hover, ActiveText);
 }
 
 :where(.js__no-focusVisible) h5 a[href]:focus {
     --icon-color: var(--theme-link-icon-hover, ActiveText);
+    text-decoration-color: ActiveText;
+    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
     color: ActiveText;
     color: var(--theme-link-hover, ActiveText);
 }
 
 h5 a[href]:hover {
     --icon-color: var(--theme-link-icon-hover, ActiveText);
+    text-decoration-color: ActiveText;
+    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
     color: ActiveText;
     color: var(--theme-link-hover, ActiveText);
 }
 
 h5 a[href]:active {
     --icon-color: var(--theme-link-icon-active, ActiveText);
+    text-decoration-color: ActiveText;
+    text-decoration-color: var(--theme-link-decoration-active, ActiveText);
     color: ActiveText;
     color: var(--theme-link-active, ActiveText);
 }
@@ -1701,34 +1766,46 @@ h6 {
 }
 h6 a[href] {
     --icon-color: var(--icon-color);
+    text-decoration-color: LinkText;
+    text-decoration-color: var(--theme-link-decoration, LinkText);
     color: inherit;
 }
 h6 a[href]:visited {
     --icon-color: var(--theme-link-icon-visited, VisitedText);
+    text-decoration-color: VisitedText;
+    text-decoration-color: var(--theme-link-decoration-visited, VisitedText);
     color: VisitedText;
     color: var(--theme-link-visited, VisitedText);
 }
 .no-js h6 a[href]:focus,
 .js__no-whereSelector h6 a[href]:focus {
     --icon-color: var(--theme-link-icon-hover, ActiveText);
+    text-decoration-color: ActiveText;
+    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
     color: ActiveText;
     color: var(--theme-link-hover, ActiveText);
 }
 
 :where(.js__no-focusVisible) h6 a[href]:focus {
     --icon-color: var(--theme-link-icon-hover, ActiveText);
+    text-decoration-color: ActiveText;
+    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
     color: ActiveText;
     color: var(--theme-link-hover, ActiveText);
 }
 
 h6 a[href]:hover {
     --icon-color: var(--theme-link-icon-hover, ActiveText);
+    text-decoration-color: ActiveText;
+    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
     color: ActiveText;
     color: var(--theme-link-hover, ActiveText);
 }
 
 h6 a[href]:active {
     --icon-color: var(--theme-link-icon-active, ActiveText);
+    text-decoration-color: ActiveText;
+    text-decoration-color: var(--theme-link-decoration-active, ActiveText);
     color: ActiveText;
     color: var(--theme-link-active, ActiveText);
 }
@@ -2175,8 +2252,6 @@ input[type="reset"][disabled] {
     border-color: var(--theme-button-disabled-border-hover, SelectedItem);
     color: SelectedItemText;
     color: var(--theme-button-disabled-text-hover, SelectedItemText);
-    text-decoration-color: ActiveText;
-    text-decoration-color: var(--theme-link-ui-hover, ActiveText);
 }
 
 :where(.js__no-focusVisible) input[type="submit"][disabled]:focus,
@@ -2200,8 +2275,6 @@ input[type="reset"][disabled] {
     border-color: var(--theme-button-disabled-border-hover, SelectedItem);
     color: SelectedItemText;
     color: var(--theme-button-disabled-text-hover, SelectedItemText);
-    text-decoration-color: ActiveText;
-    text-decoration-color: var(--theme-link-ui-hover, ActiveText);
 }
 
 input[type="submit"][disabled]:hover,
@@ -2225,8 +2298,6 @@ input[type="reset"][disabled]:hover {
     border-color: var(--theme-button-disabled-border-hover, SelectedItem);
     color: SelectedItemText;
     color: var(--theme-button-disabled-text-hover, SelectedItemText);
-    text-decoration-color: ActiveText;
-    text-decoration-color: var(--theme-link-ui-hover, ActiveText);
 }
 
 .no-js input[type="submit"][disabled]:focus-within,
@@ -2252,8 +2323,6 @@ input[type="reset"][disabled]:hover {
     border-color: var(--theme-button-disabled-border-hover, SelectedItem);
     color: SelectedItemText;
     color: var(--theme-button-disabled-text-hover, SelectedItemText);
-    text-decoration-color: ActiveText;
-    text-decoration-color: var(--theme-link-ui-hover, ActiveText);
 }
 
 :where(.js__no-focusVisible) input[type="submit"][disabled]:focus-within,
@@ -2277,8 +2346,6 @@ input[type="reset"][disabled]:hover {
     border-color: var(--theme-button-disabled-border-hover, SelectedItem);
     color: SelectedItemText;
     color: var(--theme-button-disabled-text-hover, SelectedItemText);
-    text-decoration-color: ActiveText;
-    text-decoration-color: var(--theme-link-ui-hover, ActiveText);
 }
 
 input[type="submit"][disabled]:active,
@@ -2492,8 +2559,6 @@ input[type="reset"] {
     border-color: var(--theme-button-secondary-border-hover, SelectedItem);
     color: SelectedItemText;
     color: var(--theme-button-secondary-text-hover, SelectedItemText);
-    text-decoration-color: ActiveText;
-    text-decoration-color: var(--theme-link-ui-hover, ActiveText);
 }
 
 :where(.js__no-focusVisible) button[type="reset"]:focus,
@@ -2517,8 +2582,6 @@ input[type="reset"] {
     border-color: var(--theme-button-secondary-border-hover, SelectedItem);
     color: SelectedItemText;
     color: var(--theme-button-secondary-text-hover, SelectedItemText);
-    text-decoration-color: ActiveText;
-    text-decoration-color: var(--theme-link-ui-hover, ActiveText);
 }
 
 button[type="reset"]:hover,
@@ -2542,8 +2605,6 @@ input[type="reset"]:hover {
     border-color: var(--theme-button-secondary-border-hover, SelectedItem);
     color: SelectedItemText;
     color: var(--theme-button-secondary-text-hover, SelectedItemText);
-    text-decoration-color: ActiveText;
-    text-decoration-color: var(--theme-link-ui-hover, ActiveText);
 }
 
 .no-js button[type="reset"]:focus-within,
@@ -2569,8 +2630,6 @@ input[type="reset"]:hover {
     border-color: var(--theme-button-secondary-border-hover, SelectedItem);
     color: SelectedItemText;
     color: var(--theme-button-secondary-text-hover, SelectedItemText);
-    text-decoration-color: ActiveText;
-    text-decoration-color: var(--theme-link-ui-hover, ActiveText);
 }
 
 :where(.js__no-focusVisible) button[type="reset"]:focus-within,
@@ -2594,8 +2653,6 @@ input[type="reset"]:hover {
     border-color: var(--theme-button-secondary-border-hover, SelectedItem);
     color: SelectedItemText;
     color: var(--theme-button-secondary-text-hover, SelectedItemText);
-    text-decoration-color: ActiveText;
-    text-decoration-color: var(--theme-link-ui-hover, ActiveText);
 }
 
 button[type="reset"]:active,

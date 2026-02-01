@@ -63,10 +63,7 @@ $_contrastColWidth: minmax(3.5ch, min-content);
         }
 
         :global(.shade-swatch__contrast) {
-            display: var(
-                --#{config.$cxPropPre}shade-swatch-display-override,
-                grid
-            );
+            display: lib.do-var(shade-swatch-display-override, grid);
             margin-block-start: #{lib.var-mrg-firm('200')};
             font-size: #{lib.var-fs(smaller-3)};
         }

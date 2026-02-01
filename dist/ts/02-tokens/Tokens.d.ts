@@ -70,6 +70,39 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
         }; };
         colour: Tokens_Colour.Data<T_ColourName, T_ExtraColourLevels> extends infer T extends object ? { [K_2 in keyof T]: T_NewValue; } : never;
         themes: { [K_3 in T_ThemeName]: { [B in T_ThemeBrightnessMode[number]]: { [C in T_ThemeContrastMode[number]]: {
+            link: {
+                outline: {
+                    active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    disabled: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    visited: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                };
+                $: {
+                    $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    visited: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                } & {
+                    active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    disabled: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                };
+                decoration: {
+                    $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    visited: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                } & {
+                    active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    disabled: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                };
+                icon: {
+                    $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    visited: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                } & {
+                    active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    disabled: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                };
+            };
             system: {
                 background: {
                     $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
@@ -170,34 +203,10 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                 bg: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 text: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
             };
-            link: {
-                $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                visited: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-            } & {
-                active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                disabled: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-            };
-            'link-icon': {
-                $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                visited: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-            } & {
-                active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                disabled: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-            };
-            'link-ui': {
-                $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                visited: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-            } & {
-                active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                disabled: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-            };
             button: {
+                disabled: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
                 primary: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
                 secondary: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
-                disabled: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
             } & { [K_11 in T_ThemeKeyword_Universal]: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>; };
             input: {
                 readonly: {

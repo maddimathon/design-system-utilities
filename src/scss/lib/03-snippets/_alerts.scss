@@ -28,11 +28,7 @@ $_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
 
     @if $slug and $slug != title {
         //
-        $slugAsNumber: if(
-            $slugAsNumber == null,
-            math.num-val($slug),
-            $slugAsNumber
-        );
+        $slugAsNumber: if($slugAsNumber == null, math.num-val($slug), $slugAsNumber);
 
         @if $slugAsNumber >= 10 {
             $heading10orAbove: true;
@@ -110,9 +106,7 @@ $_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
             grid-template-columns--alert-block,
             '[icon] minmax(max-content, auto) [content] 1fr'
         );
-        grid-template-columns: var(
-            --#{config.$cxPropPre}grid-template-columns--alert-block
-        );
+        grid-template-columns: do-var(grid-template-columns--alert-block);
 
         grid-auto-rows: auto;
         grid-auto-flow: row;
@@ -138,14 +132,12 @@ $_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
 
         margin-block: #{var-mrg-firm('400')} #{var-mrg-half('400')};
         margin-inline: 0;
-        padding: #{var-mrg-firm('300')} #{var-mrg-firm('300')}
-            #{var-mrg-soft('400')};
+        padding: #{var-mrg-firm('300')} #{var-mrg-firm('300')} #{var-mrg-soft('400')};
 
         width: fit-content;
 
         line-height: #{var-line-height('300')};
-        border: #{var-border-width('200')} solid
-            #{var-token(alert-color-border)};
+        border: #{var-border-width('200')} solid #{var-token(alert-color-border)};
 
         &.alert-block--has-heading {
             margin-block-start: #{var-mrg-firm('600')};
@@ -156,17 +148,10 @@ $_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
 
             @each $num in token-all-heading-levels() {
                 //
-                $_headingSelector: if(
-                    $num == 1,
-                    ('%h#{$num}', '%title'),
-                    '%h#{$num}'
-                );
+                $_headingSelector: if($num == 1, ('%h#{$num}', '%title'), '%h#{$num}');
 
                 @each $_sel
-                    in (
-                        ':has( #{$_headingSelector} )',
-                        ':has( #{$_headingSelector}--where )'
-                    )
+                    in (':has( #{$_headingSelector} )', ':has( #{$_headingSelector}--where )')
                 {
                     @at-root #{selector.unify(&, $_sel)} {
                         //
@@ -216,11 +201,7 @@ $_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
             }
             @each $num in token-all-heading-levels() {
                 //
-                $_headingSelector: if(
-                    $num == 1,
-                    ('%h#{$num}', '%title'),
-                    '%h#{$num}'
-                );
+                $_headingSelector: if($num == 1, ('%h#{$num}', '%title'), '%h#{$num}');
 
                 @at-root #{selector.unify(&, $_headingSelector)} {
                     @include _snippet-alert-headline-heading($num);

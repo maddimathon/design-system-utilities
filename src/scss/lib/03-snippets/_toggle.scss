@@ -37,9 +37,7 @@ $_defaultHeadingSelectors_greaterThan6: ();
 
 @mixin _motion-props($bool) {
     [data-toggle-content] {
-        $_transitionList: (
-            'border-color #{var-tr-time(normal)} ease-in-out 0ms'
-        );
+        $_transitionList: ('border-color #{var-tr-time(normal)} ease-in-out 0ms');
 
         @if $bool {
             $_transitionList: list.join(
@@ -212,7 +210,7 @@ $_defaultHeadingSelectors_greaterThan6: ();
 
             + [data-toggle-content] {
                 border-color: #{var-theme(ui-grey)};
-                border-block-start-color: #{var-theme(link-hover)};
+                border-block-start-color: #{var-theme(link-outline-hover)};
             }
         }
 
@@ -222,7 +220,7 @@ $_defaultHeadingSelectors_greaterThan6: ();
                 color: #{var-theme(link)};
 
                 + [data-toggle-content] {
-                    border-color: #{var-theme(link)};
+                    border-color: #{var-theme(link-outline)};
                 }
             }
         }

@@ -8,47 +8,26 @@
 
 @use 'pkg:@maddimathon/utility-sass/map';
 
-$_theme_ui_base: var(
-    --#{config.$cxPropPre}theme-ui,
-    var(
-        --#{config.$cxPropPre}clr-#{map.get(
-                system.$themes,
-                default,
-                light,
-                average,
-                ui,
-                '$'
-            )},
+$_theme_ui_base: config.config-do-var(
+    theme-ui,
+    config.config-do-var(
+        clr-#{map.get(system.$themes, default, light, average, ui, '$')},
         currentColor
     )
 );
 
-$_theme_ui_primary: var(
-    --#{config.$cxPropPre}theme-ui-primary,
-    var(
-        --#{config.$cxPropPre}clr-#{map.get(
-                system.$themes,
-                default,
-                light,
-                average,
-                ui,
-                primary
-            )},
+$_theme_ui_primary: config.config-do-var(
+    theme-ui-primary,
+    config.config-do-var(
+        clr-#{map.get(system.$themes, default, light, average, ui, primary)},
         currentColor
     )
 );
 
-$_theme_text_primary: var(
-    --#{config.$cxPropPre}theme-text-primary,
-    var(
-        --#{config.$cxPropPre}clr-#{map.get(
-                system.$themes,
-                default,
-                light,
-                average,
-                text,
-                primary
-            )},
+$_theme_text_primary: config.config-do-var(
+    theme-text-primary,
+    config.config-do-var(
+        clr-#{map.get(system.$themes, default, light, average, text, primary)},
         currentColor
     )
 );

@@ -14,23 +14,195 @@
 
 @use 'pkg:@maddimathon/utility-astro/03-snippets' as utils;
 
-@mixin snippet-link-colors-inherit {
-    @include cx-prop(icon-color, var(--#{config.$cxPropPre}icon-color));
-    color: inherit;
+///
+/// @since 0.1.1-alpha.0.draft
+///
+@mixin snippet-link-colours($includeDisabled: true) {
+    @include cx-prop(focus-ring-outline-color, var-theme(link-outline));
+    @include cx-prop(icon-color, var-theme(link-icon));
+    text-decoration-color: #{var-theme(link-decoration)};
+    color: #{var-theme(link)};
+
+    $location: root;
+    // prettier-ignore
+    @content($location);
+
+    /// STATES ///
+
+    &:visited {
+        @include cx-prop(
+            focus-ring-outline-color,
+            var-theme(link-outline-visited)
+        );
+        @include cx-prop(icon-color, var-theme(link-icon-visited));
+        text-decoration-color: #{var-theme(link-decoration-visited)};
+        color: #{var-theme(link-visited)};
+
+        $location: visited;
+        // prettier-ignore
+        @content($location);
+    }
+
+    @include hover-focus-visible() {
+        @include cx-prop(
+            focus-ring-outline-color,
+            var-theme(link-outline-hover)
+        );
+        @include cx-prop(icon-color, var-theme(link-icon-hover));
+        text-decoration-color: #{var-theme(link-decoration-hover)};
+        color: #{var-theme(link-hover)};
+
+        $location: hover-focus;
+        // prettier-ignore
+        @content($location);
+    }
+
+    &:active {
+        @include cx-prop(
+            focus-ring-outline-color,
+            var-theme(link-outline-active)
+        );
+        @include cx-prop(icon-color, var-theme(link-icon-active));
+        text-decoration-color: #{var-theme(link-decoration-active)};
+        color: #{var-theme(link-active)};
+
+        $location: active;
+        // prettier-ignore
+        @content($location);
+    }
+
+    @if $includeDisabled {
+        &[aria-disabled='true'] {
+            @include cx-prop(
+                focus-ring-outline-color,
+                var-theme(link-outline-disabled)
+            );
+            @include cx-prop(icon-color, var-theme(link-icon-disabled));
+            text-decoration-line: underline;
+            text-decoration-color: #{var-theme(link-decoration-disabled)};
+            color: #{var-theme(link-disabled)};
+
+            $location: root;
+            // prettier-ignore
+            @content($location);
+
+            /// STATES ///
+
+            @include hover-focus-visible() {
+                @include cx-prop(
+                    focus-ring-outline-color,
+                    var-theme(link-outline-hover)
+                );
+                @include cx-prop(icon-color, var-theme(link-icon-hover));
+                text-decoration-color: #{var-theme(link-decoration-hover)};
+                color: #{var-theme(link-hover)};
+
+                $location: hover-focus;
+                // prettier-ignore
+                @content($location);
+            }
+
+            &:active {
+                @include cx-prop(
+                    focus-ring-outline-color,
+                    var-theme(link-outline-disabled)
+                );
+                @include cx-prop(icon-color, var-theme(link-icon-disabled));
+                text-decoration-color: #{var-theme(link-decoration-disabled)};
+                color: #{var-theme(link-disabled)};
+
+                $location: active;
+                // prettier-ignore
+                @content($location);
+            }
+        }
+    }
+}
+
+///
+/// @since 0.1.1-alpha.0.draft
+///
+@mixin snippet-link-colors-inherit(
+    $color: inherit,
+    $iconColor: do-var(icon-color),
+    $textDecorationColor: var-theme(link-decoration),
+    //
+    $iconColor_disabled: var-theme(link-icon-disabled),
+    $textDecorationColor_disabled: var-theme(link-decoration-disabled),
+    $color_disabled: var-theme(link-disabled),
+    //
+    $includeDisabled: false,
+    //
+     //
+) {
+    @include cx-prop(icon-color, $iconColor);
+    text-decoration-color: #{$textDecorationColor};
+    color: #{$color};
+
+    $location: root;
+    // prettier-ignore
+    @content($location);
 
     &:visited {
         @include cx-prop(icon-color, var-theme(link-icon-visited));
+        text-decoration-color: #{var-theme(link-decoration-visited)};
         color: #{var-theme(link-visited)};
+
+        $location: visited;
+        // prettier-ignore
+        @content($location);
     }
 
     @include hover-focus-visible() {
         @include cx-prop(icon-color, var-theme(link-icon-hover));
+        text-decoration-color: #{var-theme(link-decoration-hover)};
         color: #{var-theme(link-hover)};
+
+        $location: hover-focus;
+        // prettier-ignore
+        @content($location);
     }
 
     &:active {
         @include cx-prop(icon-color, var-theme(link-icon-active));
+        text-decoration-color: #{var-theme(link-decoration-active)};
         color: #{var-theme(link-active)};
+
+        $location: active;
+        // prettier-ignore
+        @content($location);
+    }
+
+    @if $includeDisabled {
+        &[aria-disabled='true'] {
+            @include cx-prop(icon-color, $iconColor_disabled);
+            text-decoration-color: #{$textDecorationColor_disabled};
+            color: #{$color_disabled};
+
+            $location: disabled-root;
+            // prettier-ignore
+            @content($location);
+
+            @include hover-focus-visible() {
+                @include cx-prop(icon-color, var-theme(link-icon-hover));
+                text-decoration-color: #{var-theme(link-decoration-hover)};
+                color: #{var-theme(link-hover)};
+
+                $location: disabled-hover-focus;
+                // prettier-ignore
+                @content($location);
+            }
+
+            &:active {
+                @include cx-prop(icon-color, var-theme(link-icon-disabled));
+                text-decoration-color: #{var-theme(link-decoration-disabled)};
+                color: #{var-theme(link-disabled)};
+
+                $location: disabled-active;
+                // prettier-ignore
+                @content($location);
+            }
+        }
     }
 }
 
@@ -109,10 +281,10 @@
                 r
                 g
                 b /
-                var(
-                    --#{config.$cxPropPre}selection-background-opacity,
-                    #{var-style(selection-average-background-opacity)}
-                )
+                #{do-var(
+                    selection-background-opacity,
+                    var-style(selection-average-background-opacity)
+                )}
         ) !important;
         //
     } @else if $contrast == low {
@@ -122,10 +294,10 @@
                 r
                 g
                 b /
-                var(
-                    --#{config.$cxPropPre}selection-background-opacity,
-                    #{var-style(selection-low-background-opacity)}
-                )
+                #{do-var(
+                    selection-background-opacity,
+                    var-style(selection-low-background-opacity)
+                )}
         ) !important;
         //
     } @else if $contrast == high {
@@ -135,10 +307,10 @@
                 r
                 g
                 b /
-                var(
-                    --#{config.$cxPropPre}selection-background-opacity,
-                    #{var-style(selection-high-background-opacity)}
-                )
+                #{do-var(
+                    selection-background-opacity,
+                    var-style(selection-high-background-opacity)
+                )}
         ) !important;
     }
 }

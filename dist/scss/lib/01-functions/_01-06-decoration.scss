@@ -36,10 +36,7 @@
     @return if(
         config.$fn_var_replaceWithValue_borderRadius,
         border-radius-value($level),
-        var(
-            --#{config.$cxPropPre}border-radius-#{$level},
-            border-radius-value($level)
-        )
+        utils.do-var(border-radius-#{$level}, border-radius-value($level))
     );
 }
 
@@ -53,10 +50,7 @@
     @return if(
         config.$fn_var_replaceWithValue_borderWidth,
         utils.border-width-value($level),
-        var(
-            --#{config.$cxPropPre}border-width-#{$level},
-            utils.border-width-value($level)
-        )
+        utils.do-var(border-width-#{$level}, utils.border-width-value($level))
     );
 }
 
@@ -70,8 +64,8 @@
     @return if(
         config.$fn_var_replaceWithValue_strokeRelative,
         utils.stroke-relative-value($level),
-        var(
-            --#{config.$cxPropPre}stroke-relative-#{$level},
+        utils.do-var(
+            stroke-relative-#{$level},
             utils.stroke-relative-value($level)
         )
     );
@@ -243,6 +237,6 @@
     @return if(
         config.$fn_var_replaceWithValue_zIndex,
         z-index-value($level),
-        var(--#{config.$cxPropPre}z-index-#{$level}, z-index-value($level))
+        utils.do-var(z-index-#{$level}, z-index-value($level))
     );
 }

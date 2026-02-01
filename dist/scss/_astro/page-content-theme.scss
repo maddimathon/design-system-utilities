@@ -23,7 +23,7 @@
 }
 
 [data-theme-mode-preview-page-display-mode-content='preview'] {
-    display: var(--#{config.$cxPropPre}display, grid);
+    display: lib.do-var(display, grid);
 }
 
 .theme-mode-swatch__alt-widgets {
@@ -51,7 +51,7 @@
             :global(
                 [data-theme-mode-preview-page-display-mode-content='#{$_opt}']
             ) {
-                display: var(--#{config.$cxPropPre}display, grid);
+                display: lib.do-var(display, grid);
             }
         }
     }
@@ -70,9 +70,7 @@
                     .theme-mode-toggle__list {
                         @include lib.cx-prop(display, grid);
                         grid-template-columns: repeat(
-                            var(
-                                --#{config.$cxPropPre}theme-mode-swatch-list-column-count
-                            ),
+                            lib.do-var(theme-mode-swatch-list-column-count),
                             minmax(16rem, 1fr)
                         );
                         grid-template-rows: auto;

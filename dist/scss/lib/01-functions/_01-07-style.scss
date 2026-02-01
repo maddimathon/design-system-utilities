@@ -141,6 +141,6 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
     @return if(
         config.$fn_var_replaceWithValue_style,
         style-value($slug),
-        var(--#{config.$cxPropPre}style-#{$slug}, #{style-value($slug)})
+        utils.do-var(style-#{$slug}, #{style-value($slug)})
     );
 }

@@ -20,7 +20,7 @@
 @if config.$include_html {
     %root {
         @if font-family-exists(body) {
-            font-family: var-font-family('body');
+            font-family: var-font-family(body);
         }
     }
 }
@@ -38,39 +38,15 @@
 }
 
 %a {
-    @include cx-prop(focus-ring-outline-color, var-theme(link-hover));
-    @include cx-prop(icon-color, var-theme(link-icon));
-    @include cx-prop(icon-vertical-align, sub);
-    text-decoration-color: #{var-theme(link-ui)};
-    color: #{var-theme(link)};
-
     &,
     &::before,
     &::after {
-        transition: var(--#{config.$cxPropPre}transition);
+        transition: do-var(transition);
     }
 
-    /// STATES ///
-
-    &:visited {
-        @include cx-prop(focus-ring-outline-color, var-theme(link-visited));
-        @include cx-prop(icon-color, var-theme(link-icon-visited));
-        text-decoration-color: #{var-theme(link-ui-visited)};
-        color: #{var-theme(link-visited)};
-    }
-
-    @include hover-focus-visible() {
-        @include cx-prop(focus-ring-outline-color, var-theme(link-hover));
-        @include cx-prop(icon-color, var-theme(link-icon-hover));
-        text-decoration-color: #{var-theme(link-ui-hover)};
-        color: #{var-theme(link-hover)};
-    }
-
-    &:active {
-        @include cx-prop(focus-ring-outline-color, var-theme(link-active));
-        @include cx-prop(icon-color, var-theme(link-icon-active));
-        text-decoration-color: #{var-theme(link-ui-active)};
-        color: #{var-theme(link-active)};
+    & {
+        @include cx-prop(icon-vertical-align, sub);
+        @include snippet-link-colours;
     }
 
     /// EXCEPTIONS ///
@@ -89,25 +65,6 @@
     }
 
     &[aria-disabled='true'] {
-        @include cx-prop(icon-color, var-theme(link-icon-disabled));
-        text-decoration-line: underline;
-        text-decoration-color: #{var-theme(link-ui-disabled)};
-        color: #{var-theme(link-disabled)};
-
-        /// STATES ///
-
-        @include hover-focus-visible() {
-            @include cx-prop(icon-color, var-theme(link-icon-hover));
-            text-decoration-color: #{var-theme(link-ui-hover)};
-            color: #{var-theme(link-disabled)};
-        }
-
-        &:active {
-            @include cx-prop(icon-color, var-theme(link-icon-active));
-            text-decoration-color: #{var-theme(link-ui-active)};
-            color: #{var-theme(link-disabled)};
-        }
-
         &::before {
             @if config.$template_link_inlineIcons {
                 @include snippet-icon-pseudo-element(
