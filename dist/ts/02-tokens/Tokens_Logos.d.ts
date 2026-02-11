@@ -18,14 +18,7 @@ export declare class Tokens_Logos<T_LogoNames extends string> extends AbstractTo
     readonly data: Tokens_Logos.Data<T_LogoNames>;
     constructor(input: Tokens_Logos.InputParam<T_LogoNames>);
     toJSON(): Tokens_Logos.JsonReturn<T_LogoNames>;
-    toScssVars(): {
-        [K in keyof Tokens_Logos.Data<T_LogoNames>]: {
-            label: string;
-            height: number;
-            width: number;
-            aspectRatio: string;
-        };
-    };
+    toScssVars(): { [K in keyof Tokens_Logos.Data<T_LogoNames>]: SvgMaker.ScssVars<K>; };
 }
 /**
  * Utilities for the {@link Tokens_Logos} class.
@@ -49,7 +42,7 @@ export declare namespace Tokens_Logos {
      * @since 0.1.0-alpha
      */
     type JsonReturn<T_LogoNames extends string> = undefined | {
-        [L in T_LogoNames]: SvgMaker.JsonReturn<T_LogoNames>;
+        [L in T_LogoNames]: SvgMaker.JsonReturn<L>;
     };
 }
 //# sourceMappingURL=Tokens_Logos.d.ts.map

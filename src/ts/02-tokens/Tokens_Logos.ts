@@ -50,31 +50,18 @@ export class Tokens_Logos<
 
         return objectMap(
             this.data,
-            ( [ key, value ] ) => value.toJSON()
-        );
+            ( [ key, value ] ): SvgMaker.JsonReturn => value.toJSON()
+        ) as Tokens_Logos.JsonReturn<T_LogoNames>;
     }
 
-    public toScssVars(): {
-        [ K in keyof Tokens_Logos.Data<T_LogoNames> ]: {
-            label: string;
-            height: number;
-            width: number;
-            aspectRatio: string;
-            // embedded: string;
-        };
-    } {
+    public toScssVars() {
+
         return objectMap(
             this.data,
-            ( [ key, value ] ) => ( {
-                label: value.label,
-                height: value.height,
-                width: value.width,
-
-                aspectRatio: value.aspectRatio[ 0 ] === value.aspectRatio[ 1 ]
-                    ? value.aspectRatio[ 0 ].toString()
-                    : value.aspectRatio.join( ' / ' ),
-            } )
-        );
+            ( [ key, value ] ) => value.toScssVars()
+        ) as {
+                [ K in keyof Tokens_Logos.Data<T_LogoNames> ]: SvgMaker.ScssVars<K>;
+            };
     }
 }
 
@@ -109,6 +96,6 @@ export namespace Tokens_Logos {
     export type JsonReturn<
         T_LogoNames extends string,
     > = undefined | {
-        [ L in T_LogoNames ]: SvgMaker.JsonReturn<T_LogoNames>;
+        [ L in T_LogoNames ]: SvgMaker.JsonReturn<L>;
     };
 }

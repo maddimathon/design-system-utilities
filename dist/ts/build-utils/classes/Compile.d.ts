@@ -29,7 +29,7 @@ export declare class Compile extends CompileStage {
      *
      * @category Running
      */
-    buildTokens<T_Tokens extends Tokens.Instance>(level: number, tokens: T_Tokens, _paths: {
+    buildTokens<T_Tokens extends Tokens.AnyInstance>(level: number, tokens: Tokens.AnyInstance, _paths: {
         assets?: false | {
             /**
              * Where to write the icon tokens, relative to `tokensDistSubpath`.
@@ -68,10 +68,10 @@ export declare class Compile extends CompileStage {
          */
         slug: string;
     }): Promise<void>;
-    protected buildTokens_writeJson<T_Tokens extends Tokens.Instance>(tokens: T_Tokens, paths: false | string[], level: number): Promise<(string | false)[] | undefined>;
-    protected buildTokens_writeScss<T_Tokens extends Tokens.Instance>(tokens: T_Tokens, paths: false | string[], level: number): Promise<string[] | undefined>;
-    protected buildTokens_writeIcons<T_Tokens extends Tokens.Instance>(tokens: T_Tokens, paths: false | string[], level: number): Promise<(string | false)[][] | undefined>;
-    protected buildTokens_writeLogos<T_Tokens extends Tokens.Instance>(tokens: T_Tokens, paths: false | string[], level: number): Promise<(string | false)[][] | undefined>;
+    protected buildTokens_writeJson<T_Tokens extends Tokens.AnyInstance>(tokens: T_Tokens, paths: false | string[], level: number): Promise<(string | false)[] | undefined>;
+    protected buildTokens_writeScss<T_Tokens extends Tokens.AnyInstance>(tokens: T_Tokens, paths: false | string[], level: number): Promise<string[] | undefined>;
+    protected buildTokens_writeIcons<T_Tokens extends Tokens.AnyInstance>(tokens: T_Tokens, paths: false | string[], level: number): Promise<(string | false)[][] | undefined>;
+    protected buildTokens_writeLogos<T_Tokens extends Tokens.AnyInstance>(tokens: T_Tokens, paths: false | string[], level: number): Promise<(string | false)[][] | undefined>;
     protected astro(): Promise<void>;
     protected scss(): Promise<void>;
     protected templates(): Promise<void>;

@@ -21,11 +21,10 @@ import UtilsAlert from '@maddimathon/utility-astro/components/Alert';
 
 /* PROPS ===================================== */
 
-export interface Props
-    extends Omit<
-        ComponentProps<typeof UtilsAlert>,
-        'svg' | 'svgLabel' | 'type'
-    > {
+export interface Props extends Omit<
+    ComponentProps<typeof UtilsAlert>,
+    'svg' | 'svgLabel' | 'type'
+> {
     icon: SvgMaker.JsonReturn;
 }
 
@@ -37,7 +36,7 @@ const { icon, class: classList = [], ...attributes }: Props = Astro.props;
 <UtilsAlert
     class:list={{ 'alert-block--has-heading': attributes.heading }}
     slug={icon.slug}
-    svg={icon.svg}
+    svg={icon.svgInlineLabelled}
     svgLabel={icon.label}
     {...attributes}
 >

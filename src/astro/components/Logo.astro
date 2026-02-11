@@ -31,14 +31,12 @@ const { logo, class: classList = [], ...attributes }: Props = Astro.props;
 
 /* CONSTANTS ===================================== */
 
-const { ariaLabel, slug, svg } = logo;
+const { slug, svgInlineLabelled: svg } = logo;
 ---
 
 <div
     {...attributes}
     class:list={['brand-logo', `brand-logo--${slug}`, '||', classList]}
-    aria-label={ariaLabel}
-    title={ariaLabel}
 >
     <Fragment set:html={svg} />
 </div>

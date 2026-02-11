@@ -21,6 +21,8 @@ import { Build } from './classes/Build.js';
 import { Compile } from './classes/Compile.js';
 import { Document } from './classes/Document.js';
 
+export type { Config };
+
 /**
  * Applies a better default build config for npm-build-utilities.
  * 

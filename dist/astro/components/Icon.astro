@@ -20,11 +20,10 @@ import UtilsIcon from '@maddimathon/utility-astro/components/Icon';
 
 /* PROPS ===================================== */
 
-export interface Props
-    extends Omit<
-        ComponentProps<typeof UtilsIcon>,
-        'svg' | 'svgLabel' | 'type'
-    > {
+export interface Props extends Omit<
+    ComponentProps<typeof UtilsIcon>,
+    'svg' | 'svgLabel' | 'type'
+> {
     icon: SvgMaker.JsonReturn;
 }
 
@@ -35,7 +34,7 @@ const { icon, ...attributes }: Props = Astro.props;
 
 <UtilsIcon
     slug={icon.slug}
-    svg={icon.svg}
+    svg={icon.svgInlineLabelled}
     svgLabel={icon.ariaLabel}
     {...attributes}
 />

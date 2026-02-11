@@ -31,13 +31,6 @@ export class Tokens_Logos extends AbstractTokens {
         return objectMap(this.data, ([key, value]) => value.toJSON());
     }
     toScssVars() {
-        return objectMap(this.data, ([key, value]) => ({
-            label: value.label,
-            height: value.height,
-            width: value.width,
-            aspectRatio: value.aspectRatio[0] === value.aspectRatio[1]
-                ? value.aspectRatio[0].toString()
-                : value.aspectRatio.join(' / '),
-        }));
+        return objectMap(this.data, ([key, value]) => value.toScssVars());
     }
 }

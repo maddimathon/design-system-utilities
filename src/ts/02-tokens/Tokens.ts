@@ -470,6 +470,38 @@ export namespace Tokens {
     }
 
     /**
+     * The shape of ANY {@link Tokens} class instance, without any
+     * required generics.
+     *
+     * @since ___PKG_VERSION___
+     */
+    export type AnyInstance<
+        T_ColourName extends string = any,
+        T_ExtraColourLevels extends ColourUtilities.Levels.Optional = any,
+        T_ThemeBrightnessMode extends readonly [ string, ...string[] ] = any,
+        T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne = any,
+        T_ThemeName extends string = any,
+        T_ExtraIconNames extends string = string,
+        T_LogoNames extends string = string,
+
+        T_ThemeKeyword_Universal extends string = string,
+        T_ThemeKeyword_Text extends string = string,
+        T_ThemeKeyword_Background extends string = string,
+    > = Instance<
+        T_ColourName,
+        T_ExtraColourLevels,
+        T_ThemeBrightnessMode,
+        T_ThemeContrastMode,
+        T_ThemeName,
+        T_ExtraIconNames,
+        T_LogoNames,
+
+        T_ThemeKeyword_Universal,
+        T_ThemeKeyword_Text,
+        T_ThemeKeyword_Background
+    >;
+
+    /**
      * @since 0.1.0-alpha
      * @deprecated ___PKG_VERSION___ — Use {@link ColourUtilities.Levels.Required} instead.
      */
@@ -611,6 +643,8 @@ export namespace Tokens {
         T_ThemeKeyword_Text,
         T_ThemeKeyword_Background
     >;
+
+    export type DefaultIconNames = Tokens_Icons.DefaultIconNames;
 
     type SampleColourName =
         | "yardstick"

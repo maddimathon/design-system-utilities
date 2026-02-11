@@ -47,11 +47,9 @@ export class Compile extends CompileStage {
      *
      * @category Running
      */
-    public async buildTokens<
-        T_Tokens extends Tokens.Instance,
-    >(
+    public async buildTokens(
         level: number,
-        tokens: T_Tokens,
+        tokens: Tokens.AnyInstance,
         _paths: {
 
             assets?: false | {
@@ -170,10 +168,8 @@ export class Compile extends CompileStage {
         ] );
     }
 
-    protected async buildTokens_writeJson<
-        T_Tokens extends Tokens.Instance,
-    >(
-        tokens: T_Tokens,
+    protected async buildTokens_writeJson(
+        tokens: Tokens.AnyInstance,
         paths: false | string[],
         level: number,
     ) {
@@ -193,10 +189,8 @@ export class Compile extends CompileStage {
         ) ) );
     }
 
-    protected async buildTokens_writeScss<
-        T_Tokens extends Tokens.Instance,
-    >(
-        tokens: T_Tokens,
+    protected async buildTokens_writeScss(
+        tokens: Tokens.AnyInstance,
         paths: false | string[],
         level: number,
     ) {
@@ -233,10 +227,8 @@ export class Compile extends CompileStage {
         );
     }
 
-    protected async buildTokens_writeIcons<
-        T_Tokens extends Tokens.Instance,
-    >(
-        tokens: T_Tokens,
+    protected async buildTokens_writeIcons(
+        tokens: Tokens.AnyInstance,
         paths: false | string[],
         level: number,
     ) {
@@ -256,7 +248,7 @@ export class Compile extends CompileStage {
                             ( this.params.verbose ? 2 : 1 ) + level,
                             [
                                 this.fs.pathResolve( path, `${ icon.slug }.svg` ),
-                                icon.svgFile,
+                                icon.svgFile(),
                                 { force: true },
                             ]
                         )
@@ -266,10 +258,8 @@ export class Compile extends CompileStage {
         );
     }
 
-    protected async buildTokens_writeLogos<
-        T_Tokens extends Tokens.Instance,
-    >(
-        tokens: T_Tokens,
+    protected async buildTokens_writeLogos(
+        tokens: Tokens.AnyInstance,
         paths: false | string[],
         level: number,
     ) {
@@ -289,7 +279,7 @@ export class Compile extends CompileStage {
                             ( this.params.verbose ? 2 : 1 ) + level,
                             [
                                 this.fs.pathResolve( path, `${ logo.slug }.svg` ),
-                                logo.svgFile,
+                                logo.svgFile(),
                                 { force: true },
                             ]
                         )

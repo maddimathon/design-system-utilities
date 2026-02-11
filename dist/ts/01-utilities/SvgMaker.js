@@ -13,6 +13,7 @@
  * @since 0.1.0-alpha
  */
 export class SvgMaker {
+    svgAttrs;
     /**
      * An implementation of euclid's algorithm to find the greatest common
      * denominator of two numbers.
@@ -45,23 +46,6 @@ export class SvgMaker {
             (b / gcd),
         ];
     }
-    static svgAttrString(width, height, attrs = []) {
-        return [
-            `viewBox="0 0 ${width} ${height}"`,
-            `width="100%"`,
-            `height="100%"`,
-            'version="1.1"',
-            'xmlns="http://www.w3.org/2000/svg"',
-            'xml:space="preserve"',
-            ...attrs,
-        ].join(' ');
-    }
-    static svg(svgAttrString, innerSVG) {
-        return `<svg ${svgAttrString}>${innerSVG}</svg>`;
-    }
-    static svgFile(svg) {
-        return `<?xml version="1.0" encoding="UTF-8" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">${svg}`;
-    }
     slug;
     label;
     ariaLabel;
@@ -69,10 +53,8 @@ export class SvgMaker {
     width;
     aspectRatio;
     innerSVG;
-    svg;
-    svgFile;
-    svgAttrString;
     constructor(data, svgAttrs = []) {
+        this.svgAttrs = svgAttrs;
         this.slug = data.slug;
         this.label = data.label;
         this.ariaLabel = data.ariaLabel ?? this.label;
@@ -80,9 +62,52 @@ export class SvgMaker {
         this.width = data.width;
         this.innerSVG = data.innerSVG;
         this.aspectRatio = SvgMaker.simplifyRatio(this.width, this.height);
-        this.svgAttrString = SvgMaker.svgAttrString(this.width, this.height, svgAttrs);
-        this.svg = SvgMaker.svg(this.svgAttrString, this.innerSVG);
-        this.svgFile = SvgMaker.svgFile(this.svg);
+    }
+    /**
+     * @deprecated 0.1.1-alpha.0.draft — Use this.svgInline instead.
+     */
+    svg() {
+        return this.svgInlineHidden();
+    }
+    svgAttrString(attrs = []) {
+        return [
+            `viewBox="0 0 ${this.width} ${this.height}"`,
+            `width="100%"`,
+            `height="100%"`,
+            'version="1.1"',
+            'xmlns="http://www.w3.org/2000/svg"',
+            'xml:space="preserve"',
+            ...this.svgAttrs,
+            ...attrs,
+        ].join(' ');
+    }
+    svgCssEmbedded() {
+        return `<svg ${this.svgAttrString([
+            `title="${this.ariaLabel} icon"`,
+        ])}>${this.innerSVG}</svg>`.replace(/\s*\n+\s*/g, '');
+    }
+    svgFile() {
+        return [
+            '<?xml version="1.0" encoding="UTF-8" standalone="no"?>',
+            '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">',
+            `<svg ${this.svgAttrString([
+                `title="${this.ariaLabel} icon"`,
+            ])}>${this.innerSVG}</svg>`,
+        ].join('\n');
+    }
+    svgInlineHidden() {
+        return `<svg ${this.svgAttrString([
+            `aria-hidden="true"`,
+            `focusable="false"`,
+            `title="${this.ariaLabel} icon"`,
+        ])}>${this.innerSVG}</svg>`;
+    }
+    svgInlineLabelled() {
+        return `<svg ${this.svgAttrString([
+            `aria-label="${this.ariaLabel} icon"`,
+            'focusable="false"',
+            'role="img"',
+        ])}><title>${this.ariaLabel} icon</title>${this.innerSVG}</svg>`;
     }
     toJSON() {
         return {
@@ -93,8 +118,23 @@ export class SvgMaker {
             width: this.width,
             aspectRatio: this.aspectRatio,
             innerSVG: this.innerSVG,
-            svgAttrString: this.svgAttrString,
-            svg: this.svg,
+            svgFile: this.svgFile(),
+            svgCssEmbedded: this.svgCssEmbedded(),
+            svgInlineHidden: this.svgInlineHidden(),
+            svgInlineLabelled: this.svgInlineLabelled(),
+            svgAttrString: this.svgAttrString(),
+        };
+    }
+    toScssVars() {
+        return {
+            slug: this.slug,
+            label: this.label,
+            height: this.height,
+            width: this.width,
+            aspectRatio: this.aspectRatio[0] === this.aspectRatio[1]
+                ? this.aspectRatio[0].toString()
+                : this.aspectRatio.join(' / '),
+            embedded: `url( 'data:image/svg+xml;utf8,${this.svgCssEmbedded()}' )`
         };
     }
 }

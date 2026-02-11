@@ -13,6 +13,7 @@
  * @since 0.1.0-alpha
  */
 export declare class SvgMaker<T_Slug extends string = string> implements SvgMaker.Data<T_Slug> {
+    protected readonly svgAttrs: string[];
     /**
      * An implementation of euclid's algorithm to find the greatest common
      * denominator of two numbers.
@@ -21,9 +22,6 @@ export declare class SvgMaker<T_Slug extends string = string> implements SvgMake
      */
     static greatestCommonDenominator(a: number, b: number): number;
     static simplifyRatio(a: number, b: number): [number, number];
-    static svgAttrString(width: number, height: number, attrs?: string[]): string;
-    static svg(svgAttrString: string, innerSVG: string): string;
-    static svgFile(svg: string): string;
     readonly slug: T_Slug;
     readonly label: string;
     readonly ariaLabel: string;
@@ -31,21 +29,18 @@ export declare class SvgMaker<T_Slug extends string = string> implements SvgMake
     readonly width: number;
     readonly aspectRatio: [number, number];
     readonly innerSVG: string;
-    readonly svg: string;
-    readonly svgFile: string;
-    readonly svgAttrString: string;
     constructor(data: SvgMaker.Data<T_Slug>, svgAttrs?: string[]);
-    toJSON(): {
-        slug: T_Slug;
-        label: string;
-        ariaLabel: string;
-        height: number;
-        width: number;
-        aspectRatio: [number, number];
-        innerSVG: string;
-        svgAttrString: string;
-        svg: string;
-    };
+    /**
+     * @deprecated 0.1.1-alpha.0.draft — Use this.svgInline instead.
+     */
+    svg(): string;
+    svgAttrString(attrs?: string[]): string;
+    svgCssEmbedded(): string;
+    svgFile(): string;
+    svgInlineHidden(): string;
+    svgInlineLabelled(): string;
+    toJSON(): SvgMaker.JsonReturn<T_Slug>;
+    toScssVars(): SvgMaker.ScssVars<T_Slug>;
 }
 /**
  * Utilities for the {@link SvgMaker} class.
@@ -86,6 +81,38 @@ export declare namespace SvgMaker {
     /**
      * @since 0.1.0-alpha
      */
-    type JsonReturn<T_Slug extends string = string> = ReturnType<SvgMaker<T_Slug>['toJSON']>;
+    type JsonReturn<T_Slug extends string = string> = Required<Data<T_Slug>> & {
+        /**
+         * Aspect ratio for the SVG (simplified from the wodth & height).
+         */
+        aspectRatio: [number, number];
+        /**
+         * Just the base attribute string for this SVG.
+         */
+        svgAttrString: string;
+        /**
+         * Contents of the SVG formatted to be saved as a .svg file.
+         */
+        svgFile: string;
+        /**
+         * SVG for embedding in CSS.
+         */
+        svgCssEmbedded: string;
+        /**
+         * HTML-compliant SVG for an icon hidden from screen-readers.
+         */
+        svgInlineHidden: string;
+        /**
+         * HTML-compliant SVG for an icon labelled for screen-readers.
+         */
+        svgInlineLabelled: string;
+    };
+    /**
+     * @since 0.1.1-alpha.0.draft
+     */
+    type ScssVars<T_Slug extends string = string> = Omit<JsonReturn<T_Slug>, "ariaLabel" | "aspectRatio" | "innerSVG" | "svgAttrString" | "svgFile" | "svgCssEmbedded" | "svgInlineHidden" | "svgInlineLabelled"> & {
+        aspectRatio: string;
+        embedded: string;
+    };
 }
 //# sourceMappingURL=SvgMaker.d.ts.map

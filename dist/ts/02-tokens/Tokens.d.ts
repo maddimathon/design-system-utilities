@@ -54,20 +54,8 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
     protected constructor(clrNames: readonly T_ColourName[], extraColourLevels: readonly T_ExtraColourLevels[], themes: Tokens_Themes<NoInfer<T_ColourName>, NoInfer<T_ExtraColourLevels>, T_ThemeBrightnessMode[number], T_ThemeContrastMode[number], T_ThemeName, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background>, input: Omit<Tokens_Internal.InputParam<NoInfer<T_ColourName>, NoInfer<T_ExtraColourLevels>, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_ExtraIconNames, T_LogoNames, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background>, "themes">, config?: Tokens_Internal.Config);
     toJSON(): Tokens_Internal.JsonReturn<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_ExtraIconNames, T_LogoNames, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background>;
     toScssVars(): {
-        icons: { [K in Tokens_Icons.DefaultIconNames | T_ExtraIconNames]: {
-            slug: Tokens_Icons.DefaultIconNames | T_ExtraIconNames;
-            label: string;
-            height: number;
-            width: number;
-            aspectRatio: string;
-            embedded: string;
-        }; };
-        logos: { [K_1 in keyof Tokens_Logos.Data<T_LogoNames>]: {
-            label: string;
-            height: number;
-            width: number;
-            aspectRatio: string;
-        }; };
+        icons: { [K in Tokens_Icons.DefaultIconNames | T_ExtraIconNames]: import("../index.js").SvgMaker.ScssVars<K>; };
+        logos: { [K_1 in keyof Tokens_Logos.Data<T_LogoNames>]: import("../index.js").SvgMaker.ScssVars<K_1>; };
         colour: Tokens_Colour.Data<T_ColourName, T_ExtraColourLevels> extends infer T extends object ? { [K_2 in keyof T]: T_NewValue; } : never;
         themes: { [K_3 in T_ThemeName]: { [B in T_ThemeBrightnessMode[number]]: { [C in T_ThemeContrastMode[number]]: {
             link: {
@@ -744,6 +732,13 @@ export declare namespace Tokens {
      */
     function sample(): Promise<Tokens<"base" | "purple" | "turquoise" | "red", "350" | "450" | "550" | "650", Tokens_Internal.Default_ThemeBrightnessMode, readonly ["low", "average", "high", "max"], "default", never, never, never, never, never>>;
     /**
+     * The shape of ANY {@link Tokens} class instance, without any
+     * required generics.
+     *
+     * @since 0.1.1-alpha.0.draft
+     */
+    type AnyInstance<T_ColourName extends string = any, T_ExtraColourLevels extends ColourUtilities.Levels.Optional = any, T_ThemeBrightnessMode extends readonly [string, ...string[]] = any, T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne = any, T_ThemeName extends string = any, T_ExtraIconNames extends string = string, T_LogoNames extends string = string, T_ThemeKeyword_Universal extends string = string, T_ThemeKeyword_Text extends string = string, T_ThemeKeyword_Background extends string = string> = Instance<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_ExtraIconNames, T_LogoNames, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background>;
+    /**
      * @since 0.1.0-alpha
      * @deprecated 0.1.1-alpha.0.draft — Use {@link ColourUtilities.Levels.Required} instead.
      */
@@ -782,6 +777,7 @@ export declare namespace Tokens {
      * @since 0.1.0-alpha
      */
     type JsonReturn<T_ColourName extends string = Tokens_Internal.Default_ColourName, T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels, T_ThemeBrightnessMode extends readonly [string, ...string[]] = Tokens_Internal.Default_ThemeBrightnessMode, T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne = Tokens_Internal.Default_ThemeContrastMode, T_ThemeName extends string = Tokens_Themes.Default_ThemeName, T_ExtraIconNames extends string = string, T_LogoNames extends string = string, T_ThemeKeyword_Universal extends string = string, T_ThemeKeyword_Text extends string = string, T_ThemeKeyword_Background extends string = string> = Tokens_Internal.JsonReturn<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_ExtraIconNames, T_LogoNames, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background>;
+    type DefaultIconNames = Tokens_Icons.DefaultIconNames;
     /**
      * @since 0.1.0-alpha
      */

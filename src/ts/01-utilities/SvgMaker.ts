@@ -66,35 +66,6 @@ export class SvgMaker<
         ];
     }
 
-    public static svgAttrString(
-        width: number,
-        height: number,
-
-        attrs: string[] = []
-    ) {
-
-        return [
-            `viewBox="0 0 ${ width } ${ height }"`,
-
-            `width="100%"`,
-            `height="100%"`,
-
-            'version="1.1"',
-            'xmlns="http://www.w3.org/2000/svg"',
-            'xml:space="preserve"',
-
-            ...attrs,
-        ].join( ' ' );
-    }
-
-    public static svg( svgAttrString: string, innerSVG: string ) {
-        return `<svg ${ svgAttrString }>${ innerSVG }</svg>`;
-    }
-
-    public static svgFile( svg: string ) {
-        return `<?xml version="1.0" encoding="UTF-8" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">${ svg }`;
-    }
-
     public readonly slug: T_Slug;
     public readonly label: string;
     public readonly ariaLabel: string;
@@ -104,13 +75,10 @@ export class SvgMaker<
     public readonly aspectRatio: [ number, number ];
 
     public readonly innerSVG: string;
-    public readonly svg: string;
-    public readonly svgFile: string;
-    public readonly svgAttrString: string;
 
     public constructor (
         data: SvgMaker.Data<T_Slug>,
-        svgAttrs: string[] = []
+        protected readonly svgAttrs: string[] = []
     ) {
         this.slug = data.slug;
         this.label = data.label;
@@ -120,12 +88,65 @@ export class SvgMaker<
         this.innerSVG = data.innerSVG;
 
         this.aspectRatio = SvgMaker.simplifyRatio( this.width, this.height );
-        this.svgAttrString = SvgMaker.svgAttrString( this.width, this.height, svgAttrs );
-        this.svg = SvgMaker.svg( this.svgAttrString, this.innerSVG );
-        this.svgFile = SvgMaker.svgFile( this.svg );
     }
 
-    public toJSON() {
+    /**
+     * @deprecated ___PKG_VERSION___ — Use this.svgInline instead.
+     */
+    public svg() {
+        return this.svgInlineHidden();
+    }
+
+    public svgAttrString( attrs: string[] = [] ) {
+        return [
+            `viewBox="0 0 ${ this.width } ${ this.height }"`,
+
+            `width="100%"`,
+            `height="100%"`,
+
+            'version="1.1"',
+            'xmlns="http://www.w3.org/2000/svg"',
+            'xml:space="preserve"',
+
+            ...this.svgAttrs,
+            ...attrs,
+        ].join( ' ' );
+    }
+
+    public svgCssEmbedded() {
+        return `<svg ${ this.svgAttrString( [
+            `title="${ this.ariaLabel } icon"`,
+        ] ) }>${ this.innerSVG }</svg>`.replace( /\s*\n+\s*/g, '' );
+    }
+
+    public svgFile() {
+        return [
+            '<?xml version="1.0" encoding="UTF-8" standalone="no"?>',
+            '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">',
+
+            `<svg ${ this.svgAttrString( [
+                `title="${ this.ariaLabel } icon"`,
+            ] ) }>${ this.innerSVG }</svg>`,
+        ].join( '\n' );
+    }
+
+    public svgInlineHidden() {
+        return `<svg ${ this.svgAttrString( [
+            `aria-hidden="true"`,
+            `focusable="false"`,
+            `title="${ this.ariaLabel } icon"`,
+        ] ) }>${ this.innerSVG }</svg>`;
+    }
+
+    public svgInlineLabelled() {
+        return `<svg ${ this.svgAttrString( [
+            `aria-label="${ this.ariaLabel } icon"`,
+            'focusable="false"',
+            'role="img"',
+        ] ) }><title>${ this.ariaLabel } icon</title>${ this.innerSVG }</svg>`;
+    }
+
+    public toJSON(): SvgMaker.JsonReturn<T_Slug> {
 
         return {
             slug: this.slug,
@@ -138,8 +159,28 @@ export class SvgMaker<
 
             innerSVG: this.innerSVG,
 
-            svgAttrString: this.svgAttrString,
-            svg: this.svg,
+            svgFile: this.svgFile(),
+            svgCssEmbedded: this.svgCssEmbedded(),
+            svgInlineHidden: this.svgInlineHidden(),
+            svgInlineLabelled: this.svgInlineLabelled(),
+            svgAttrString: this.svgAttrString(),
+        };
+    }
+
+    public toScssVars(): SvgMaker.ScssVars<T_Slug> {
+
+        return {
+            slug: this.slug,
+            label: this.label,
+
+            height: this.height,
+            width: this.width,
+
+            aspectRatio: this.aspectRatio[ 0 ] === this.aspectRatio[ 1 ]
+                ? this.aspectRatio[ 0 ].toString()
+                : this.aspectRatio.join( ' / ' ),
+
+            embedded: `url( 'data:image/svg+xml;utf8,${ this.svgCssEmbedded() }' )`
         };
     }
 }
@@ -195,5 +236,45 @@ export namespace SvgMaker {
      */
     export type JsonReturn<
         T_Slug extends string = string,
-    > = ReturnType<SvgMaker<T_Slug>[ 'toJSON' ]>;
+    > = Required<Data<T_Slug>> & {
+        /**
+         * Aspect ratio for the SVG (simplified from the wodth & height).
+         */
+        aspectRatio: [ number, number ];
+
+        /**
+         * Just the base attribute string for this SVG.
+         */
+        svgAttrString: string;
+
+        /**
+         * Contents of the SVG formatted to be saved as a .svg file.
+         */
+        svgFile: string;
+
+        /**
+         * SVG for embedding in CSS.
+         */
+        svgCssEmbedded: string;
+
+        /**
+         * HTML-compliant SVG for an icon hidden from screen-readers.
+         */
+        svgInlineHidden: string;
+
+        /**
+         * HTML-compliant SVG for an icon labelled for screen-readers.
+         */
+        svgInlineLabelled: string;
+    };
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export type ScssVars<
+        T_Slug extends string = string,
+    > = Omit<JsonReturn<T_Slug>, "ariaLabel" | "aspectRatio" | "innerSVG" | "svgAttrString" | "svgFile" | "svgCssEmbedded" | "svgInlineHidden" | "svgInlineLabelled"> & {
+        aspectRatio: string;
+        embedded: string;
+    };
 }

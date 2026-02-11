@@ -109,7 +109,7 @@ export class Compile extends CompileStage {
         this.console.verbose('writing icon files...', 1 + level);
         return Promise.all(paths.map(async (path) => Promise.all(Object.values(tokens.icons.data).map(async (icon) => this.try(this.fs.write, (this.params.verbose ? 2 : 1) + level, [
             this.fs.pathResolve(path, `${icon.slug}.svg`),
-            icon.svgFile,
+            icon.svgFile(),
             { force: true },
         ])))));
     }
@@ -121,7 +121,7 @@ export class Compile extends CompileStage {
         this.console.verbose('writing logo files...', 1 + level);
         return Promise.all(paths.map(async (path) => Promise.all(Object.values(tokens.logos.data).map(async (logo) => this.try(this.fs.write, (this.params.verbose ? 2 : 1) + level, [
             this.fs.pathResolve(path, `${logo.slug}.svg`),
-            logo.svgFile,
+            logo.svgFile(),
             { force: true },
         ])))));
     }

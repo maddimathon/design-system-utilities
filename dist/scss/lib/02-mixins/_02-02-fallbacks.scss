@@ -10,7 +10,12 @@
 
 // @use '../01-functions' as *;
 
-@mixin aspect-ratio($w, $h) {
+///
+/// Aspect ratio, with fallback if applicable.
+///
+/// @since 0.1.0-alpha.3
+///
+@mixin aspect-ratio($w, $h: null) {
     @if config.$mx_aspectRatio_includeFallback {
         @include feature-check.aspect-ratio($w, $h);
     } @else {
