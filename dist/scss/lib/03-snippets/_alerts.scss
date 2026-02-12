@@ -3,6 +3,7 @@
 /// @since 0.1.0-alpha
 ///
 @use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/meta';
 @use 'pkg:@maddimathon/utility-sass/selector';
 
@@ -95,6 +96,17 @@ $_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
     }
 }
 
+$_activeTheme: get-active-theme();
+$_activeTheme_textAndBackgroundKeys: list.unique(
+    map.keys(
+        map.merge(
+            map.get($_activeTheme, text),
+            map.get($_activeTheme, background),
+            $recursive: true
+        )
+    )
+);
+
 ///
 /// Adds support for icons, assuming the html matches that in the local astro
 /// Icon component.
@@ -144,6 +156,8 @@ $_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
         line-height: #{var-line-height('300')};
         border: #{var-border-width('200')} solid
             #{var-token(alert-color-border)};
+
+        background: #{var-theme(background-alt)};
 
         &.alert-block--has-heading {
             margin-block-start: #{var-mrg-firm('600')};
@@ -225,6 +239,39 @@ $_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
 
                     &--where {
                         @include _snippet-alert-headline-heading($num);
+                    }
+                }
+            }
+        }
+
+        @each $variationKey in $_activeTheme_textAndBackgroundKeys {
+            @if $variationKey != '$' and $variationKey != '' {
+                //
+                $background: if(
+                    theme-token-exists('background-#{$variationKey}'),
+                    var-theme('background-#{$variationKey}'),
+                    var-theme('background-alt')
+                );
+
+                $text: if(
+                    theme-token-exists('text-#{$variationKey}'),
+                    var-theme('text-#{$variationKey}'),
+                    var-theme('text')
+                );
+
+                $ui: if(
+                    theme-token-exists('ui-#{$variationKey}'),
+                    var-theme('ui-#{$variationKey}'),
+                    var-token('alert-color-border')
+                );
+
+                &.alert-block--#{$variationKey} {
+                    @include cx-prop(icon-color, $ui);
+                    border-color: #{$ui};
+                    background: #{$background};
+
+                    > .alert-block__headline {
+                        color: #{$text};
                     }
                 }
             }

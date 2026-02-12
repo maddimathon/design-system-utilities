@@ -24,6 +24,7 @@ import ThemeModeSwatch from './ThemeModeSwatch.astro';
 import Widget from './Widget.astro';
 import type { ComponentProps } from 'astro/types';
 import LoremIpsum from './LoremIpsum.astro';
+import Alert from './Alert.astro';
 // import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
 
 /* import - layouts */
@@ -165,8 +166,6 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
                         slot='button'
                     />
                     { displayOptions.map( ( opt ) => (
-                        // data-active-theme={key}
-                        // data-brightness-mode={brightnessSet.name}
                         <div
                             class:list={ [
                                 'theme-mode-toggle__list', 
@@ -179,6 +178,7 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
                                     {...set}
                                     brightness={brightnessSet.name}
                                     data-active-theme={key == 'default' ? undefined : key}
+                                    displayHeading={3}
                                     displayMode={opt.value}
                                     heading={4}
                                     id={`${set.id}-swatch`}
@@ -188,43 +188,43 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
                                         slot='heading'
                                         set:text={`${toTitleCase(set.contrast)} Contrast`}
                                     />
-                                    { ((hasMultipleThemes && key == 'default') || Object.keys(set.theme.data.background).length > 1 ) && (
+                                    { Object.keys(set.theme.data.background).length > 1 && (
                                         <div class="theme-mode-swatch__alt-widgets" slot="preview">
-                                            <Fragment>{Object.keys(set.theme.data.background).length > 1 && Object.entries(set.theme.data.background).map(
+                                            <Fragment>{ Object.entries(set.theme.data.background).map(
                                                 ([backgroundSlug, backgroundClrName]) => backgroundSlug !== '$' &&(
-                                                    <Widget
-                                                        displayHeading={3}
-                                                        heading={5} 
-                                                        class:list={'sidebar-widget--alt-background'}
-                                                        data-active-theme={key}
-                                                        data-brightness-mode={brightnessSet.name}
-                                                        data-contrast-mode={set.contrast}
+                                                    // displayHeading={3}
+                                                    <Alert
+                                                        class:list={`alert-block--${backgroundSlug}`}
+                                                        icon={tokens.icons.info}
                                                         style={`background: var(--clr-${backgroundClrName})`}
                                                     >
-                                                        <Fragment slot='heading' ><samp set:text={`background-${backgroundSlug}`} /> Callout</Fragment>
-                                                        <p>Lorem ipsum <a href="#">dolor sit amet</a>, consectetur adipiscing elit. Sed vel odio at nibh <abbr title="these aren’t real words">pharetra condimentum</abbr>. Mauris id sapien sodales, volutpat turpis. { import.meta.env.DEV && <Fragment set:html={'Donec mi ex, venenatis in elit vitae, <a href="#" aria-disabled="true">blandit sodales nunc</a>. '} /> }</p>
+                                                        <span slot='headline'><samp set:text={`background-${backgroundSlug}`} /> Alert Block</span>
+                                                        <p>Lorem ipsum <a href="#">dolor sit amet</a>, consectetur adipiscing elit. Sed vel odio at nibh <abbr title="these aren’t real words">pharetra condimentum</abbr>.</p>
                                                         <ul>
                                                             <li>Etiam ullamcorper commodo risus.</li>
-                                                            <li>Fusce mattis, odio at varius pharetra, tellus arcu convallis erat, vel blandit nulla sem nec enim.</li>
+                                                            <li>Fusce mattis, odio at varius pharetra, tellus arcu convallis erat.</li>
                                                         </ul>
                                                         <p>Etiam ornare ligula eu ipsum eleifend laoreet blandit et diam. Duis cursus eros magna, ac sagittis nibh sodales eget.</p>
                                                         <div class="button-span">
                                                             <button type="button">This is a button</button>
                                                             <button aria-disabled="true" type="button">This is a disabled button</button>
                                                             
-                                                            <Fragment>{ buttonVariations.map(
+                                                            { import.meta.env.DEV && buttonVariations.map(
                                                                 variant => <button
                                                                     class={`button-${variant}`}
                                                                     set:text={`This is a ${variant} button`}
                                                                     type="button"
                                                                 />
-                                                            ) }</Fragment>
+                                                            ) }
                                                         </div>
-                                                        <p>Maecenas facilisis sollicitudin nisi, eget pellentesque dui rhoncus condimentum. Vivamus vulputate nisl sit amet vehicula commodo.</p>
-                                                    </Widget>
+                                                    </Alert>
                                                 )
-                                            )}</Fragment>
-                                            <Fragment>{ hasMultipleThemes && key == 'default' && themeNames.map(
+                                            ) }</Fragment>
+                                        </div>
+                                    ) }
+                                    { hasMultipleThemes && key == 'default' && (
+                                        <div class="theme-mode-swatch__alt-widgets" slot="preview">
+                                            <Fragment>{ themeNames.map(
                                                 ( themeName ) => themeName !== key && (
                                                     <Widget
                                                         displayHeading={3}
@@ -234,7 +234,7 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
                                                         data-brightness-mode={brightnessSet.name}
                                                         data-contrast-mode={set.contrast}
                                                     >
-                                                        <Fragment slot='heading' ><samp set:text={toTitleCase(themeName)} /> Callout</Fragment>
+                                                        <Fragment slot='heading' ><samp set:text={toTitleCase(themeName)} /> (Theme) Widget</Fragment>
                                                         { import.meta.env.DEV ? (
                                                             <LoremIpsum
                                                                 superAbbreviated={true}

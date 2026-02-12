@@ -39,6 +39,7 @@ Improvements for using this kit with a variety of production sites.
 - CSS style tokens for form inputs
 - Tokens for readonly inputs
 - New link-outline theme tokens
+- Scss functions - theme-token-exists, get-active-theme, get-active-theme-flat
 
 ### Changed
 - Started importing $designSystem from tokens into config to set

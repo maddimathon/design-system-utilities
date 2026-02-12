@@ -28,6 +28,41 @@ import LoremIpsum from './LoremIpsum.astro';
 
 /* import - layouts */
 
+/* TYPES ===================================== */
+
+type _ButtonVariation = {
+    name: string;
+    states: {
+        [ K in keyof Tokens_Themes_Set_SingleMode.Data_Button<string, never>['bg'] ]: {
+
+            [ K in keyof Tokens_Themes_Set_SingleMode.Data_Button<string, never> ]: undefined | {
+                state: null | Exclude<
+                    keyof Tokens_Themes_Set_SingleMode.Data_Button<string, never>['bg'],
+                    '$'
+                >;
+                key: string;
+                value: string | string[] ;
+            };
+        };
+    };
+};
+
+type _ParsedInputField = {
+    [ InputType in keyof Tokens.Themes.SingleMode.JsonReturn['data']['input'] ]: {
+        [ K in keyof Tokens.Themes.SingleMode.JsonReturn['data']['input'][InputType]['text'] ]: {
+
+            [ K in keyof Tokens.Themes.SingleMode.JsonReturn['data']['input'][InputType] ]: {
+                state: null | Exclude<
+                    keyof Tokens.Themes.SingleMode.JsonReturn['data']['input'][InputType]['text'],
+                    '$'
+                >;
+                key: string;
+                clrSlug: string | string[];
+            };
+        };
+    };
+};
+
 /* PROPS ===================================== */
 
 export interface Props extends Omit<HTMLAttributes<'div'>, 'class'> {
@@ -39,6 +74,8 @@ export interface Props extends Omit<HTMLAttributes<'div'>, 'class'> {
 
     brightness?: string;
     contrast?: string;
+
+    displayHeading?: number;
     
     /**
      * HTML string used between the theme token name and its value.
@@ -49,9 +86,10 @@ export interface Props extends Omit<HTMLAttributes<'div'>, 'class'> {
 const {
     brightness,
     contrast,
+    displayHeading = 3,
     displayMode,
     equals = '=',
-    heading: _heading,
+    heading,
     theme,
     tokens,
     ...attributes
@@ -157,7 +195,7 @@ function getClrFromThemeValue(
 
 /* CONSTANTS ===================================== */
 
-const customDisplayKeys = ['background', 'button', 'input', 'selection', 'system'];
+const customDisplayKeys = [ 'background', 'button', 'input', 'selection', 'system' ];
 
 const autoTokens = Object.values(
     objectMap(theme.data, ([key, value ]) =>
@@ -173,8 +211,6 @@ const autoTokens = Object.values(
 ).filter((v) => v !== false);
 
 const headingHTML = (await Astro.slots.render('heading')) || false;
-
-const heading = _heading + (headingHTML ? 1 : 0);
 
 
 const levelsInUseTable = theme.levelsInUse.map(
@@ -198,30 +234,13 @@ const levelsInUseTable = theme.levelsInUse.map(
 );
 
 
-type ButtonVariation = {
-    name: string;
-    states: {
-        [ K in keyof Tokens_Themes_Set_SingleMode.Data_Button<string, never>['bg'] ]: {
-
-            [ K in keyof Tokens_Themes_Set_SingleMode.Data_Button<string, never> ]: undefined | {
-                state: null | Exclude<
-                    keyof Tokens_Themes_Set_SingleMode.Data_Button<string, never>['bg'],
-                    '$'
-                >;
-                key: string;
-                value: string | string[] ;
-            };
-        };
-    };
-};
-
 const buttons: {
-    [ K in 'primary' | 'secondary' | 'disabled' ]: ButtonVariation;
+    [ K in 'primary' | 'secondary' | 'disabled' ]: _ButtonVariation;
 } & {
-    [ key: string ]: ButtonVariation;
+    [ key: string ]: _ButtonVariation;
 } = objectMap(
     theme.data.button,
-    ( [ variation, value ] ): ButtonVariation => ( {
+    ( [ variation, value ] ): _ButtonVariation => ( {
         name: variation,
         states: objectGenerator(
             [ '$', 'hover', 'active' ],
@@ -263,22 +282,7 @@ const buttons: {
     } ),
 );
 
-
-const inputField: {
-    [ InputType in keyof Tokens.Themes.SingleMode.JsonReturn['data']['input'] ]: {
-        [ K in keyof Tokens.Themes.SingleMode.JsonReturn['data']['input'][InputType]['text'] ]: {
-
-            [ K in keyof Tokens.Themes.SingleMode.JsonReturn['data']['input'][InputType] ]: {
-                state: null | Exclude<
-                    keyof Tokens.Themes.SingleMode.JsonReturn['data']['input'][InputType]['text'],
-                    '$'
-                >;
-                key: string;
-                clrSlug: string | string[];
-            };
-        };
-    };
-} = objectGenerator(
+const inputField: _ParsedInputField = objectGenerator(
     [ '$', 'disabled','readonly' ],
     ( inputType ) => objectGenerator(
         [ '$', 'hover', 'active' ],
@@ -313,13 +317,6 @@ const inputField: {
         }
     )
 );
-
-// const cssVars = {
-//     'shade-swatch-color': text || undefined,
-//     'shade-swatch-background': bg ?? undefined,
-// };
-
-const displayHeading = 3;
 ---
 
 <article
@@ -338,7 +335,7 @@ const displayHeading = 3;
         headingHTML && (
             <Heading
                 heading={heading - 1}
-            displayHeading={displayHeading - 1}
+                displayHeading={displayHeading - 1}
                 class:list={ [
                     'theme-mode-swatch__name',
                 ] }

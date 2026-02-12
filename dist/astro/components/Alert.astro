@@ -34,7 +34,7 @@ const { icon, class: classList = [], ...attributes }: Props = Astro.props;
 ---
 
 <UtilsAlert
-    class:list={{ 'alert-block--has-heading': attributes.heading }}
+    class:list={[{ 'alert-block--has-heading': attributes.heading }, classList]}
     slug={icon.slug}
     svg={icon.svgInlineLabelled}
     svgLabel={icon.label}

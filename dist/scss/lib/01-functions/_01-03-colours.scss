@@ -90,6 +90,166 @@ $_systemColors: map.flatten(
 /// THEME
 /// ======================================================================== ///
 
+$_default_activeTheme_mode: if(
+    tokens.$contrastMode_default == forced-colors,
+    map.get(tokens.$themes, default, tokens.$contrastMode_default),
+    map.get(
+        tokens.$themes,
+        default,
+        tokens.$brightnessMode_default,
+        tokens.$contrastMode_default
+    )
+);
+
+$_default_activeTheme_flat_mode: if(
+    tokens.$contrastMode_default == forced-colors,
+    map.get(tokens.$themes__nestedFlat, default, tokens.$contrastMode_default),
+    map.get(
+        tokens.$themes__nestedFlat,
+        default,
+        tokens.$brightnessMode_default,
+        tokens.$contrastMode_default
+    )
+);
+
+///
+/// Gets a flattened theme map for the given brightness/contrast, if any.
+///
+/// @return {string|false}
+///
+/// @since 0.1.1-alpha.0
+///
+@function get-active-theme(
+    $brightness: tokens.$brightnessMode_default,
+    $contrast: tokens.$contrastMode_default
+) {
+    // returns
+    @if $brightness == null ad $brightness == null {
+        @return $_default_activeTheme_mode;
+    }
+
+    $activeTheme_flat: map.get(tokens.$themes, default);
+
+    // returns
+    @if $contrast == forced-colors {
+        @return map.get(tokens.$themes, default, $contrast);
+    }
+
+    @return map.get(tokens.$themes, default, $brightness, $contrast);
+}
+
+///
+/// Gets a flattened theme map for the given brightness/contrast, if any.
+///
+/// @return {string|false}
+///
+/// @since 0.1.1-alpha.0
+///
+@function get-active-theme-flat(
+    $brightness: tokens.$brightnessMode_default,
+    $contrast: tokens.$contrastMode_default
+) {
+    // returns
+    @if $brightness == null ad $brightness == null {
+        @return $_default_activeTheme_flat_mode;
+    }
+
+    $activeTheme_flat: map.get(tokens.$themes__nestedFlat, default);
+
+    // returns
+    @if $contrast == forced-colors {
+        @return map.get(tokens.$themes__nestedFlat, default, $contrast);
+    }
+
+    @return map.get(
+        tokens.$themes__nestedFlat,
+        default,
+        $brightness,
+        $contrast
+    );
+}
+
+///
+/// Checks whether the given slug is a tokens key. If yes, it returns the
+/// flattened value; if no, it returns false.
+///
+/// @return {string|false}
+///
+/// @since 0.1.1-alpha.0
+///
+@function theme-token-exists(
+    $slug,
+    $brightness: tokens.$brightnessMode_default,
+    $contrast: tokens.$contrastMode_default,
+    $themeSlug: tokens.$activeTheme,
+    $warnOnFalse: false
+) {
+    $activeTheme_flat: map.get(tokens.$themes__nestedFlat, $themeSlug);
+
+    @if $activeTheme_flat == null {
+        @if $warnOnFalse {
+            @warn "$themeSlug '#{$themeSlug}' was not a key in tokens.$themes__nestedFlat";
+        }
+
+        $themeSlug: default;
+        $activeTheme_flat: map.get(tokens.$themes__nestedFlat, $themeSlug);
+    }
+
+    // returns
+    @if $contrast == forced-colors {
+        $value: map.get($activeTheme_flat, $contrast, $slug);
+
+        @if $value == null {
+            @if $warnOnFalse {
+                @warn "$slug '#{$slug}' was not a key in tokens.$themes__nestedFlat.#{$themeSlug}.#{$contrast}";
+            }
+            @return false;
+        }
+
+        @return $value;
+    }
+
+    $value: map.get($activeTheme_flat, $brightness, $contrast, $slug);
+
+    // returns - no fallback
+    @if $value == null {
+        @if $warnOnFalse {
+            @warn "$slug '#{$slug}' was not a key in tokens.$themes__nestedFlat.#{$themeSlug}.#{$brightness}.#{$contrast}";
+        }
+        @return false;
+    }
+
+    @return $value;
+}
+
+///
+/// Gets the value for the given token slug.
+///
+/// @since 0.1.0-alpha
+/// @since 0.1.1-alpha.0 — Make $brightness and $contrast optional.
+///
+@function theme-token-value(
+    $slug,
+    $brightness: tokens.$brightnessMode_default,
+    $contrast: tokens.$contrastMode_default,
+    $themeSlug: tokens.$activeTheme
+) {
+    $value: theme-token-exists(
+        $slug: $slug,
+        $brightness: $brightness,
+        $contrast: $contrast,
+        $themeSlug: $themeSlug,
+        $warnOnFalse: true,
+    );
+
+    // returns
+    @if $value == null {
+        @return ();
+    }
+
+    @return $value;
+}
+
 ///
 /// Gets the colour value (either system or var-clr) for the given token slug.
 ///
@@ -110,48 +270,6 @@ $_systemColors: map.flatten(
     }
 
     @return $tokenValue;
-}
-
-///
-/// Gets the value for the given token slug.
-///
-/// @since 0.1.0-alpha
-///
-@function theme-token-value(
-    $slug,
-    $brightness,
-    $contrast,
-    $themeSlug: tokens.$activeTheme
-) {
-    $activeTheme_flat: map.get(tokens.$themes__nestedFlat, $themeSlug);
-
-    @if $activeTheme_flat == null {
-        @warn "$themeSlug '#{$themeSlug}' was not a key in tokens.$themes__nestedFlat";
-        $themeSlug: default;
-        $activeTheme_flat: map.get(tokens.$themes__nestedFlat, $themeSlug);
-    }
-
-    // returns
-    @if $contrast == forced-colors {
-        $value: map.get($activeTheme_flat, $contrast, $slug);
-
-        @if $value == null {
-            @warn "$slug '#{$slug}' was not a key in tokens.$themes__nestedFlat.#{$themeSlug}.#{$contrast}";
-            @return ();
-        }
-
-        @return $value;
-    }
-
-    $value: map.get($activeTheme_flat, $brightness, $contrast, $slug);
-
-    // returns - no fallback
-    @if $value == null {
-        @warn "$slug '#{$slug}' was not a key in tokens.$themes__nestedFlat.#{$themeSlug}.#{$brightness}.#{$contrast}";
-        @return ();
-    }
-
-    @return $value;
 }
 
 ///
