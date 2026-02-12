@@ -434,7 +434,7 @@ export namespace Tokens_Typography {
         }
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.1-alpha.0
          */
         export interface FamilyOverride {
             label: string;

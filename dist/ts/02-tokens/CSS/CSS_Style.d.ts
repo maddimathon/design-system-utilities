@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.0.draft
+ * @maddimathon/design-system-utilities@0.1.1-alpha.0
  * @license MIT
  */
 import type { RecursivePartial } from '@maddimathon/utility-typescript/types/objects';
@@ -101,7 +101,7 @@ export declare namespace Tokens_CSS_Style {
     interface HeadingStyles_Partial extends Partial<HeadingStyles> {
     }
     /**
-     * @since 0.1.1-alpha.0.draft
+     * @since 0.1.1-alpha.0
      */
     interface InputStyles {
         border: {
@@ -136,18 +136,18 @@ export declare namespace Tokens_CSS_Style {
         };
     }
     /**
-     * @since 0.1.1-alpha.0.draft
+     * @since 0.1.1-alpha.0
      */
     interface InputStyles_Disabled extends Omit<InputStyles, 'border' | 'focus' | 'label' | 'line-height' | 'margin' | 'padding'> {
         border: Omit<InputStyles['border'], 'width'>;
     }
     /**
-     * @since 0.1.1-alpha.0.draft
+     * @since 0.1.1-alpha.0
      */
     interface InputStyles_Partial extends RecursivePartial<InputStyles> {
     }
     /**
-     * @since 0.1.1-alpha.0.draft
+     * @since 0.1.1-alpha.0
      */
     interface InputStyles_Disabled_Partial extends RecursivePartial<InputStyles_Disabled> {
     }

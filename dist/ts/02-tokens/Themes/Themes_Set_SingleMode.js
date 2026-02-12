@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.0.draft
+ * @maddimathon/design-system-utilities@0.1.1-alpha.0
  * @license MIT
  */
 import { arrayUnique, mergeArgs } from '@maddimathon/utility-typescript/functions';
@@ -220,7 +220,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
         }
         Build.completeLevels = completeLevels;
         /**
-         * @since 0.1.1-alpha.0.draft
+         * @since 0.1.1-alpha.0
          */
         let LEVELS_DEFAULT;
         (function (LEVELS_DEFAULT) {

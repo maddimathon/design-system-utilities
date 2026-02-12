@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.0.draft
+ * @maddimathon/design-system-utilities@0.1.1-alpha.0
  * @license MIT
  */
 import type { ColourTokenSlug, CssSystemColor, RequiredHeadingLevels, ThemeColourOption } from '../@types.js';
@@ -41,7 +41,7 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T
                 disabled: __T_ColourOption;
             };
             /**
-             * @since 0.1.1-alpha.0.draft — Renamed from link-ui to link-decoration.
+             * @since 0.1.1-alpha.0 — Renamed from link-ui to link-decoration.
              */
             decoration: {
                 $: __T_ColourOption;
@@ -169,7 +169,7 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T
             secondary: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>;
         } & { [K_6 in T_Keyword_Universal]: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>; };
         /**
-         * @since 0.1.1-alpha.0.draft — Changed from field to input.
+         * @since 0.1.1-alpha.0 — Changed from field to input.
          */
         input: {
             readonly: {
@@ -327,7 +327,7 @@ export declare namespace Tokens_Themes_Set_SingleMode {
             text: __T_ColourOption;
         };
         /**
-         * @since 0.1.1-alpha.0.draft — Switched to a nested object instead of separate keys.
+         * @since 0.1.1-alpha.0 — Switched to a nested object instead of separate keys.
          */
         link: {
             $: {
@@ -337,7 +337,7 @@ export declare namespace Tokens_Themes_Set_SingleMode {
                 [K in keyof RequiredVariations<T_ColourName>['interactive']]: __T_ColourOption;
             };
             /**
-             * @since 0.1.1-alpha.0.draft — Renamed from link-ui to link-decoration.
+             * @since 0.1.1-alpha.0 — Renamed from link-ui to link-decoration.
              */
             decoration: {
                 $: __T_ColourOption;
@@ -354,7 +354,7 @@ export declare namespace Tokens_Themes_Set_SingleMode {
             /**
              * Used for the focus outline and similar elements.
              *
-             * @since 0.1.1-alpha.0.draft
+             * @since 0.1.1-alpha.0
              */
             outline: {
                 [K in keyof RequiredVariations<T_ColourName>['interactive']]: __T_ColourOption;
@@ -366,7 +366,7 @@ export declare namespace Tokens_Themes_Set_SingleMode {
             [K in T_Keyword_Universal]: Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>;
         };
         /**
-         * @since 0.1.1-alpha.0.draft — Changed from field to input.
+         * @since 0.1.1-alpha.0 — Changed from field to input.
          */
         input: {
             [K in "$" | "disabled" | "readonly"]: {
@@ -460,7 +460,7 @@ export declare namespace Tokens_Themes_Set_SingleMode {
                 [K in keyof RequiredVariations<T_ColourName>['interactive']]?: undefined | __T_ColourOption;
             };
             /**
-             * @since 0.1.1-alpha.0.draft — Renamed from link-ui to link-decoration.
+             * @since 0.1.1-alpha.0 — Renamed from link-ui to link-decoration.
              */
             decoration?: undefined | {
                 $?: undefined | __T_ColourOption;
@@ -569,7 +569,7 @@ export declare namespace Tokens_Themes_Set_SingleMode {
         min: ColourUtilities.Levels.Required | T_ExtraColourLevels;
     }
     /**
-     * @since 0.1.1-alpha.0.draft
+     * @since 0.1.1-alpha.0
      */
     interface LevelsSet_AccentAlt<T_ExtraColourLevels extends ColourUtilities.Levels.Optional> {
         $: ColourUtilities.Levels.Required | T_ExtraColourLevels;
@@ -652,7 +652,7 @@ export declare namespace Tokens_Themes_Set_SingleMode {
         function colourOption<T_ColourName extends string, T_ExtraColourLevels extends ColourUtilities.Levels.Optional>(name: T_ColourName, level: ColourUtilities.Levels.Required | T_ExtraColourLevels): ColourTokenSlug<T_ColourName, T_ExtraColourLevels>;
         function completeLevels<T_ColourName extends string, T_ExtraColourLevels extends ColourUtilities.Levels.Optional, T_Keyword_Universal extends string, T_Keyword_Text extends string, T_Keyword_Background extends string>(input: InputParam<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, T_Keyword_Background>['levels']): Param<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, T_Keyword_Background>['levels'];
         /**
-         * @since 0.1.1-alpha.0.draft
+         * @since 0.1.1-alpha.0
          */
         namespace LEVELS_DEFAULT {
             const average: {

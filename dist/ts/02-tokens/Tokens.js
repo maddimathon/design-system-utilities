@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.0.draft
+ * @maddimathon/design-system-utilities@0.1.1-alpha.0
  * @license MIT
  */
 import { slugify } from '@maddimathon/utility-typescript/functions';
@@ -394,7 +394,7 @@ export class Tokens extends AbstractTokens {
          */
         Themes.allHeadingLevels = Tokens_Themes_Set_SingleMode.allHeadingLevels;
         /**
-         * @since 0.1.1-alpha.0.draft
+         * @since 0.1.1-alpha.0
          */
         Themes.LEVELS_DEFAULT = Tokens_Themes_Set_SingleMode.Build.LEVELS_DEFAULT;
         /**

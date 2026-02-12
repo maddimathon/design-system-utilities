@@ -128,26 +128,26 @@ export type ThemeMode_ContrastAtLeastOne = readonly [
 
 /**
  * @since 0.1.0-alpha
- * @since ___PKG_VERSION___ - Switched to be set based on {@link AbstractTokens.tokenLevels} value.
+ * @since 0.1.1-alpha.0 - Switched to be set based on {@link AbstractTokens.tokenLevels} value.
  */
 export type TokenLevels = typeof AbstractTokens[ 'tokenLevels' ][ number ];
 
 /**
  * @since 0.1.0-alpha
- * @since ___PKG_VERSION___ - Switched to be set based on {@link AbstractTokens.tokenLevels_extraOptions} value.
+ * @since 0.1.1-alpha.0 - Switched to be set based on {@link AbstractTokens.tokenLevels_extraOptions} value.
  */
 export type TokenLevels_Extended = AbstractTokens[ 'tokenLevels_extraOptions' ][ number ];
 
 
 /**
  * @since 0.1.0-alpha
- * @deprecated ___PKG_VERSION___ — Use {@link ColourUtilities.Levels.Required} instead.
+ * @deprecated 0.1.1-alpha.0 — Use {@link ColourUtilities.Levels.Required} instead.
  */
 export type ColourLevels = ColourUtilities.Levels.Required;
 
 /**
  * @since 0.1.0-alpha
- * @deprecated ___PKG_VERSION___ — Use {@link ColourUtilities.Levels.Optional} instead.
+ * @deprecated 0.1.1-alpha.0 — Use {@link ColourUtilities.Levels.Optional} instead.
  */
 export type ColourLevels_Extended = ColourUtilities.Levels.Optional;
 

@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.0.draft
+ * @maddimathon/design-system-utilities@0.1.1-alpha.0
  * @license MIT
  */
 /**
@@ -64,7 +64,7 @@ export class SvgMaker {
         this.aspectRatio = SvgMaker.simplifyRatio(this.width, this.height);
     }
     /**
-     * @deprecated 0.1.1-alpha.0.draft — Use this.svgInline instead.
+     * @deprecated 0.1.1-alpha.0 — Use this.svgInline instead.
      */
     svg() {
         return this.svgInlineHidden();

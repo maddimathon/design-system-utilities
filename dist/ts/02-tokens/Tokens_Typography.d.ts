@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.0.draft
+ * @maddimathon/design-system-utilities@0.1.1-alpha.0
  * @license MIT
  */
 import type { Objects } from '@maddimathon/utility-typescript/types';
@@ -490,7 +490,7 @@ export declare namespace Tokens_Typography {
             weight: TokenLevels | `${'000' | TokenLevels} ${TokenLevels | '1000'}`;
         }
         /**
-         * @since 0.1.1-alpha.0.draft
+         * @since 0.1.1-alpha.0
          */
         interface FamilyOverride {
             label: string;

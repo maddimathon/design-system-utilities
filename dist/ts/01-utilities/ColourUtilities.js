@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.0.draft
+ * @maddimathon/design-system-utilities@0.1.1-alpha.0
  * @license MIT
  */
 import clrConvert from 'color-convert';
@@ -273,7 +273,7 @@ export var ColourUtilities;
     /**
      * Utilities for dealing with shade level values.
      *
-     * @since 0.1.1-alpha.0.draft
+     * @since 0.1.1-alpha.0
      */
     let Levels;
     (function (Levels) {
@@ -282,7 +282,7 @@ export var ColourUtilities;
          * (e.g., dark to light modes).
          *
          * @since 0.1.0-alpha
-         * @since 0.1.1-alpha.0.draft — Moved from {@link ColourUtilities} to {@link ColourUtilities.Levels} and renamed.
+         * @since 0.1.1-alpha.0 — Moved from {@link ColourUtilities} to {@link ColourUtilities.Levels} and renamed.
          */
         Levels.converter = {
             '100': '900',
@@ -307,7 +307,7 @@ export var ColourUtilities;
          * The shade level keys that can be optionally included in maps for this
          * system.
          *
-         * @since 0.1.1-alpha.0.draft
+         * @since 0.1.1-alpha.0
          */
         Levels.optional = [
             '350',
@@ -318,7 +318,7 @@ export var ColourUtilities;
         /**
          * The shade level keys always included in maps for this system.
          *
-         * @since 0.1.1-alpha.0.draft
+         * @since 0.1.1-alpha.0
          */
         Levels.required = [
             '100',
@@ -340,7 +340,7 @@ export var ColourUtilities;
          * {@link ColourUtilities.Levels.converter}).
          *
          * @since 0.1.0-alpha
-         * @since 0.1.1-alpha.0.draft — Moved to {@link ColourUtilities.Levels} and renamed.
+         * @since 0.1.1-alpha.0 — Moved to {@link ColourUtilities.Levels} and renamed.
          */
         function toDark(lightLevel) {
             return Levels.converter[lightLevel];
@@ -349,12 +349,12 @@ export var ColourUtilities;
     })(Levels = ColourUtilities.Levels || (ColourUtilities.Levels = {}));
     /**
      * @since 0.1.0-alpha
-     * @deprecated 0.1.1-alpha.0.draft — Use {@link ColourUtilities.Levels.converter} instead.
+     * @deprecated 0.1.1-alpha.0 — Use {@link ColourUtilities.Levels.converter} instead.
      */
     ColourUtilities.LevelConverter = Levels.converter;
     /**
      * @since 0.1.0-alpha
-     * @deprecated 0.1.1-alpha.0.draft — Use {@link ColourUtilities.Levels.toDark} instead.
+     * @deprecated 0.1.1-alpha.0 — Use {@link ColourUtilities.Levels.toDark} instead.
      */
     function getDarkLevel(lightLevel) {
         return Levels.toDark(lightLevel);
@@ -363,7 +363,7 @@ export var ColourUtilities;
     /**
      * Utilities for working with shade maps (100-900 levels from light to dark).
      *
-     * @since 0.1.1-alpha.0.draft
+     * @since 0.1.1-alpha.0
      */
     let ShadeMaps;
     (function (ShadeMaps) {

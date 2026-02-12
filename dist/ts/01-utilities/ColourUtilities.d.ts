@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.0.draft
+ * @maddimathon/design-system-utilities@0.1.1-alpha.0
  * @license MIT
  */
 import * as z from 'zod';
@@ -432,7 +432,7 @@ export declare namespace ColourUtilities {
     /**
      * Utilities for dealing with shade level values.
      *
-     * @since 0.1.1-alpha.0.draft
+     * @since 0.1.1-alpha.0
      */
     namespace Levels {
         /**
@@ -440,7 +440,7 @@ export declare namespace ColourUtilities {
          * (e.g., dark to light modes).
          *
          * @since 0.1.0-alpha
-         * @since 0.1.1-alpha.0.draft — Moved from {@link ColourUtilities} to {@link ColourUtilities.Levels} and renamed.
+         * @since 0.1.1-alpha.0 — Moved from {@link ColourUtilities} to {@link ColourUtilities.Levels} and renamed.
          */
         const converter: {
             readonly '100': "900";
@@ -465,27 +465,27 @@ export declare namespace ColourUtilities {
          * The shade level keys that can be optionally included in maps for this
          * system.
          *
-         * @since 0.1.1-alpha.0.draft
+         * @since 0.1.1-alpha.0
          */
         const optional: readonly ["350", "450", "550", "650"];
         /**
          * The shade level keys always included in maps for this system.
          *
-         * @since 0.1.1-alpha.0.draft
+         * @since 0.1.1-alpha.0
          */
         const required: readonly ["100", "150", "200", "250", "300", "400", "500", "600", "700", "750", "800", "850", "900"];
         /**
          * Shade levels that can be optionally included in maps for this system.
          *
          * @since 0.1.0-alpha — Introduced as a global `Levels.Optional` type in `02-tokens/@types.d.ts`.
-         * @since 0.1.1-alpha.0.draft — Moved to {@link ColourUtilities.Levels} and renamed.
+         * @since 0.1.1-alpha.0 — Moved to {@link ColourUtilities.Levels} and renamed.
          */
         type Optional = typeof optional[number];
         /**
          * Shade levels always included in maps for this system.
          *
          * @since 0.1.0-alpha — Introduced as a global `Levels.Required` type in `02-tokens/@types.d.ts`.
-         * @since 0.1.1-alpha.0.draft — Moved to {@link ColourUtilities.Levels} and renamed.
+         * @since 0.1.1-alpha.0 — Moved to {@link ColourUtilities.Levels} and renamed.
          */
         type Required = typeof required[number];
         /**
@@ -493,13 +493,13 @@ export declare namespace ColourUtilities {
          * {@link ColourUtilities.Levels.converter}).
          *
          * @since 0.1.0-alpha
-         * @since 0.1.1-alpha.0.draft — Moved to {@link ColourUtilities.Levels} and renamed.
+         * @since 0.1.1-alpha.0 — Moved to {@link ColourUtilities.Levels} and renamed.
          */
         function toDark<T_LightLevel extends Levels.Required | Levels.Optional>(lightLevel: T_LightLevel): typeof converter[T_LightLevel];
     }
     /**
      * @since 0.1.0-alpha
-     * @deprecated 0.1.1-alpha.0.draft — Use {@link ColourUtilities.Levels.converter} instead.
+     * @deprecated 0.1.1-alpha.0 — Use {@link ColourUtilities.Levels.converter} instead.
      */
     const LevelConverter: {
         readonly '100': "900";
@@ -522,7 +522,7 @@ export declare namespace ColourUtilities {
     };
     /**
      * @since 0.1.0-alpha
-     * @deprecated 0.1.1-alpha.0.draft — Use {@link ColourUtilities.Levels.toDark} instead.
+     * @deprecated 0.1.1-alpha.0 — Use {@link ColourUtilities.Levels.toDark} instead.
      */
     function getDarkLevel<T_LightLevel extends Levels.Required | Levels.Optional>(lightLevel: T_LightLevel): {
         readonly '100': "900";
@@ -546,7 +546,7 @@ export declare namespace ColourUtilities {
     /**
      * Utilities for working with shade maps (100-900 levels from light to dark).
      *
-     * @since 0.1.1-alpha.0.draft
+     * @since 0.1.1-alpha.0
      */
     namespace ShadeMaps {
         /**

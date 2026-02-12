@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.0.draft
+ * @maddimathon/design-system-utilities@0.1.1-alpha.0
  * @license MIT
  */
 /**
@@ -31,7 +31,7 @@ export declare class SvgMaker<T_Slug extends string = string> implements SvgMake
     readonly innerSVG: string;
     constructor(data: SvgMaker.Data<T_Slug>, svgAttrs?: string[]);
     /**
-     * @deprecated 0.1.1-alpha.0.draft — Use this.svgInline instead.
+     * @deprecated 0.1.1-alpha.0 — Use this.svgInline instead.
      */
     svg(): string;
     svgAttrString(attrs?: string[]): string;
@@ -108,7 +108,7 @@ export declare namespace SvgMaker {
         svgInlineLabelled: string;
     };
     /**
-     * @since 0.1.1-alpha.0.draft
+     * @since 0.1.1-alpha.0
      */
     type ScssVars<T_Slug extends string = string> = Omit<JsonReturn<T_Slug>, "ariaLabel" | "aspectRatio" | "innerSVG" | "svgAttrString" | "svgFile" | "svgCssEmbedded" | "svgInlineHidden" | "svgInlineLabelled"> & {
         aspectRatio: string;

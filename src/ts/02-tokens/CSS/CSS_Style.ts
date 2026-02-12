@@ -364,7 +364,7 @@ export namespace Tokens_CSS_Style {
     export interface HeadingStyles_Partial extends Partial<HeadingStyles> { }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.1-alpha.0
      */
     export interface InputStyles {
 
@@ -408,7 +408,7 @@ export namespace Tokens_CSS_Style {
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.1-alpha.0
      */
     export interface InputStyles_Disabled extends Omit<
         InputStyles,
@@ -418,12 +418,12 @@ export namespace Tokens_CSS_Style {
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.1-alpha.0
      */
     export interface InputStyles_Partial extends RecursivePartial<InputStyles> { }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.1-alpha.0
      */
     export interface InputStyles_Disabled_Partial extends RecursivePartial<InputStyles_Disabled> { }
 

@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.0.draft
+ * @maddimathon/design-system-utilities@0.1.1-alpha.0
  * @license MIT
  */
 import type { ThemeMode_Contrast, ThemeMode_ContrastAtLeastOne, ThemeMode_ContrastExtraOptions, TokenLevels } from './@types.js';
@@ -735,17 +735,17 @@ export declare namespace Tokens {
      * The shape of ANY {@link Tokens} class instance, without any
      * required generics.
      *
-     * @since 0.1.1-alpha.0.draft
+     * @since 0.1.1-alpha.0
      */
     type AnyInstance<T_ColourName extends string = any, T_ExtraColourLevels extends ColourUtilities.Levels.Optional = any, T_ThemeBrightnessMode extends readonly [string, ...string[]] = any, T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne = any, T_ThemeName extends string = any, T_ExtraIconNames extends string = string, T_LogoNames extends string = string, T_ThemeKeyword_Universal extends string = string, T_ThemeKeyword_Text extends string = string, T_ThemeKeyword_Background extends string = string> = Instance<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_ExtraIconNames, T_LogoNames, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background>;
     /**
      * @since 0.1.0-alpha
-     * @deprecated 0.1.1-alpha.0.draft — Use {@link ColourUtilities.Levels.Required} instead.
+     * @deprecated 0.1.1-alpha.0 — Use {@link ColourUtilities.Levels.Required} instead.
      */
     type ColourLevels = ColourUtilities.Levels.Required;
     /**
      * @since 0.1.0-alpha
-     * @deprecated 0.1.1-alpha.0.draft — Use {@link ColourUtilities.Levels.Optional} instead.
+     * @deprecated 0.1.1-alpha.0 — Use {@link ColourUtilities.Levels.Optional} instead.
      */
     type ColourLevels_Extended = ColourUtilities.Levels.Optional;
     /**
@@ -1208,7 +1208,7 @@ export declare namespace Tokens {
         interface AllVariations<T_ColourName extends string = Tokens_Internal.Default_ColourName, T_ThemeKeyword_Universal extends string = never, T_ThemeKeyword_Text extends string = never, T_ThemeKeyword_Background extends string = never> extends Tokens_Themes_Set_SingleMode.AllVariations<T_ColourName, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background> {
         }
         /**
-         * @since 0.1.1-alpha.0.draft
+         * @since 0.1.1-alpha.0
          */
         const LEVELS_DEFAULT: typeof Tokens_Themes_Set_SingleMode.Build.LEVELS_DEFAULT;
         /**

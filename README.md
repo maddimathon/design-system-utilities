@@ -1,5 +1,5 @@
 <!--README_HEADER-->
-# Design System Utilities @ 0.1.1-alpha.0.draft
+# Design System Utilities @ 0.1.1-alpha.0
 <!--/README_HEADER-->
 
 <!--README_DESC-->

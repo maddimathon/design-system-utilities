@@ -91,7 +91,7 @@ export class SvgMaker<
     }
 
     /**
-     * @deprecated ___PKG_VERSION___ — Use this.svgInline instead.
+     * @deprecated 0.1.1-alpha.0 — Use this.svgInline instead.
      */
     public svg() {
         return this.svgInlineHidden();
@@ -269,7 +269,7 @@ export namespace SvgMaker {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.1-alpha.0
      */
     export type ScssVars<
         T_Slug extends string = string,

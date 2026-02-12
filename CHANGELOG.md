@@ -19,6 +19,49 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.1-alpha.0** — 2026-02-11
+
+Improvements for using this kit with a variety of production sites.
+
+### Misc. Breaking
+- Changed Tokens.typography.familyOverrides from an array to a string-keyed object
+- Changed param from $lh to $lineHeight in mixins - snippet-button, snippet-input, snippet-label
+- Changed field theme tokens to input
+- Renamed theme token from link-ui to link-decoration
+- Switched link tokens to be a nested object (link all similar tokens)
+
+### Added
+- Alternate background options to themes (for alts without creating whole new theme sets)
+- Background levels now have an input object
+- CSS style tokens specific to disabled buttons
+- Scss mixin - snippet-button-disabled
+- TS ShadeMaps namespace to ColourUtilities namespace
+- CSS style tokens for form inputs
+- Tokens for readonly inputs
+- New link-outline theme tokens
+
+### Changed
+- Started importing $designSystem from tokens into config to set
+  $fn_fontSizeValue_defaultFontScale (might have to change how $designSystem is
+  overriden in those rare cases)
+- Changed var-theme function fallback to look for forced-colors fallback by default
+
+### Deprecated
+- TS token utilities:
+    - `ColourUtilities.LevelConverter` replaced by `ColourUtilities.Levels.converter`
+    - `ColourUtilities.getDarkLevel` replaced by `ColourUtilities.Levels.toDark`
+    - global `ColourLevels` replaced by `ColourUtilities.Levels.Required`
+    - global `ColourLevels_Extended` replaced by `ColourUtilities.Levels.Optional`
+    - `Tokens.ColourLevels` replaced by `ColourUtilities.Levels.Required`
+    - `Tokens.ColourLevels_Extended` replaced by `ColourUtilities.Levels.Optional`
+
+### Fixed
+- Updated to utility-sass@0.1.0-alpha.25
+- Fixed bug in writing logo files during included compile stage
+- Minor logo & icon token improvements
+- A couple exported build script improvements
+
+
 ## All **0.1.0-alpha** Releases — 2025-10-30 to 2026-01-20
 
 

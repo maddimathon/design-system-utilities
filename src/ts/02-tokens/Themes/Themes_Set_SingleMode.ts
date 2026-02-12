@@ -584,7 +584,7 @@ export namespace Tokens_Themes_Set_SingleMode {
         },
 
         /**
-         * @since ___PKG_VERSION___ — Switched to a nested object instead of separate keys. 
+         * @since 0.1.1-alpha.0 — Switched to a nested object instead of separate keys. 
          */
         link: {
 
@@ -596,7 +596,7 @@ export namespace Tokens_Themes_Set_SingleMode {
             },
 
             /**
-             * @since ___PKG_VERSION___ — Renamed from link-ui to link-decoration.
+             * @since 0.1.1-alpha.0 — Renamed from link-ui to link-decoration.
              */
             decoration: {
                 $: __T_ColourOption,
@@ -615,7 +615,7 @@ export namespace Tokens_Themes_Set_SingleMode {
             /**
              * Used for the focus outline and similar elements.
              * 
-             * @since ___PKG_VERSION___
+             * @since 0.1.1-alpha.0
              */
             outline: {
                 [ K in keyof RequiredVariations<T_ColourName>[ 'interactive' ] ]: __T_ColourOption;
@@ -637,7 +637,7 @@ export namespace Tokens_Themes_Set_SingleMode {
         },
 
         /**
-         * @since ___PKG_VERSION___ — Changed from field to input.
+         * @since 0.1.1-alpha.0 — Changed from field to input.
          */
         input: {
             [ K in "$" | "disabled" | "readonly" ]: {
@@ -753,7 +753,7 @@ export namespace Tokens_Themes_Set_SingleMode {
             },
 
             /**
-             * @since ___PKG_VERSION___ — Renamed from link-ui to link-decoration.
+             * @since 0.1.1-alpha.0 — Renamed from link-ui to link-decoration.
              */
             decoration?: undefined | {
                 $?: undefined | __T_ColourOption,
@@ -903,7 +903,7 @@ export namespace Tokens_Themes_Set_SingleMode {
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.1-alpha.0
      */
     interface LevelsSet_AccentAlt<
         T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
@@ -1175,7 +1175,7 @@ export namespace Tokens_Themes_Set_SingleMode {
         }
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.1-alpha.0
          */
         export namespace LEVELS_DEFAULT {
 

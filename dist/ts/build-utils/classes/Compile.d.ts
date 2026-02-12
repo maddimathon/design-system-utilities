@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.0.draft
+ * @maddimathon/design-system-utilities@0.1.1-alpha.0
  * @license MIT
  */
 import type { Stage } from '@maddimathon/build-utilities';
@@ -29,7 +29,7 @@ export declare class Compile extends CompileStage {
      *
      * @category Running
      */
-    buildTokens<T_Tokens extends Tokens.AnyInstance>(level: number, tokens: Tokens.AnyInstance, _paths: {
+    buildTokens(level: number, tokens: Tokens.AnyInstance, _paths: {
         assets?: false | {
             /**
              * Where to write the icon tokens, relative to `tokensDistSubpath`.
@@ -68,10 +68,10 @@ export declare class Compile extends CompileStage {
          */
         slug: string;
     }): Promise<void>;
-    protected buildTokens_writeJson<T_Tokens extends Tokens.AnyInstance>(tokens: T_Tokens, paths: false | string[], level: number): Promise<(string | false)[] | undefined>;
-    protected buildTokens_writeScss<T_Tokens extends Tokens.AnyInstance>(tokens: T_Tokens, paths: false | string[], level: number): Promise<string[] | undefined>;
-    protected buildTokens_writeIcons<T_Tokens extends Tokens.AnyInstance>(tokens: T_Tokens, paths: false | string[], level: number): Promise<(string | false)[][] | undefined>;
-    protected buildTokens_writeLogos<T_Tokens extends Tokens.AnyInstance>(tokens: T_Tokens, paths: false | string[], level: number): Promise<(string | false)[][] | undefined>;
+    protected buildTokens_writeJson(tokens: Tokens.AnyInstance, paths: false | string[], level: number): Promise<(string | false)[] | undefined>;
+    protected buildTokens_writeScss(tokens: Tokens.AnyInstance, paths: false | string[], level: number): Promise<string[] | undefined>;
+    protected buildTokens_writeIcons(tokens: Tokens.AnyInstance, paths: false | string[], level: number): Promise<(string | false)[][] | undefined>;
+    protected buildTokens_writeLogos(tokens: Tokens.AnyInstance, paths: false | string[], level: number): Promise<(string | false)[][] | undefined>;
     protected astro(): Promise<void>;
     protected scss(): Promise<void>;
     protected templates(): Promise<void>;

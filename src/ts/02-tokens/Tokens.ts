@@ -473,7 +473,7 @@ export namespace Tokens {
      * The shape of ANY {@link Tokens} class instance, without any
      * required generics.
      *
-     * @since ___PKG_VERSION___
+     * @since 0.1.1-alpha.0
      */
     export type AnyInstance<
         T_ColourName extends string = any,
@@ -503,13 +503,13 @@ export namespace Tokens {
 
     /**
      * @since 0.1.0-alpha
-     * @deprecated ___PKG_VERSION___ — Use {@link ColourUtilities.Levels.Required} instead.
+     * @deprecated 0.1.1-alpha.0 — Use {@link ColourUtilities.Levels.Required} instead.
      */
     export type ColourLevels = ColourUtilities.Levels.Required;
 
     /**
      * @since 0.1.0-alpha
-     * @deprecated ___PKG_VERSION___ — Use {@link ColourUtilities.Levels.Optional} instead.
+     * @deprecated 0.1.1-alpha.0 — Use {@link ColourUtilities.Levels.Optional} instead.
      */
     export type ColourLevels_Extended = ColourUtilities.Levels.Optional;
 
@@ -1112,7 +1112,7 @@ export namespace Tokens {
         > { }
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.1-alpha.0
          */
         export const LEVELS_DEFAULT = Tokens_Themes_Set_SingleMode.Build.LEVELS_DEFAULT;
 
