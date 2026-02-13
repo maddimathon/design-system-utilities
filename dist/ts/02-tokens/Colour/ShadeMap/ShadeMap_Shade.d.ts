@@ -18,11 +18,11 @@ import { AbstractTokens } from '../../abstract/AbstractTokens.js';
 export declare class Tokens_Colour_ShadeMap_Shade<T_ColourName extends string, T_ExtraLevels extends ColourUtilities.Levels.Optional> extends AbstractTokens<Tokens_Colour_ShadeMap_Shade.Data> {
     protected readonly allNames: readonly T_ColourName[];
     protected readonly extraLevels: readonly T_ExtraLevels[];
-    protected readonly shadeName: T_ColourName;
-    protected readonly thisLevel: ColourUtilities.Levels.Required | T_ExtraLevels;
+    protected readonly shadeName: "black" | "white" | T_ColourName;
+    protected readonly thisLevel: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraLevels;
     readonly data: Tokens_Colour_ShadeMap_Shade.Data;
     contrast: Tokens_Colour_ShadeMap_Shade.Contrast<T_ColourName, T_ExtraLevels>;
-    constructor(allNames: readonly T_ColourName[], extraLevels: readonly T_ExtraLevels[], shadeName: T_ColourName, thisLevel: ColourUtilities.Levels.Required | T_ExtraLevels, input: Tokens_Colour_ShadeMap_Shade.InputParam);
+    constructor(allNames: readonly T_ColourName[], extraLevels: readonly T_ExtraLevels[], shadeName: "black" | "white" | T_ColourName, thisLevel: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraLevels, input: Tokens_Colour_ShadeMap_Shade.InputParam);
     /**
      * Adds the given shade to this shade's contrast results.
      *
@@ -31,7 +31,7 @@ export declare class Tokens_Colour_ShadeMap_Shade<T_ColourName extends string, T
     addContrastTest(colourGroupName: T_ColourName, level: ColourUtilities.Levels.Required | T_ExtraLevels, testClr: ColourUtilities.SingleShade): Promise<void>;
     shadeValue(): ColourUtilities.SingleShade;
     toJSON(): Tokens_Colour_ShadeMap_Shade.JsonReturn<T_ColourName, T_ExtraLevels>;
-    toScssVars(): string;
+    toScssVars(): Tokens_Colour_ShadeMap_Shade.ScssVars;
 }
 /**
  * Utilities for the {@link Tokens_Colour_ShadeMap_Shade} class.
@@ -54,6 +54,10 @@ export declare namespace Tokens_Colour_ShadeMap_Shade {
         contrast: Contrast<T_ColourName, T_ExtraLevels, number>;
     };
     /**
+     * @since 0.1.1-alpha.1.draft
+     */
+    type ScssVars = string;
+    /**
      * @since 0.1.0-alpha
      */
     type ContrastResults<T_ColourName extends string, T_ExtraLevels extends ColourUtilities.Levels.Optional> = {
@@ -67,7 +71,7 @@ export declare namespace Tokens_Colour_ShadeMap_Shade {
     type Contrast<T_ColourName extends string, T_ExtraLevels extends ColourUtilities.Levels.Optional, T_RatioValue extends number | undefined = number> = {
         min: Contrast.Minimum<T_ColourName, T_ExtraLevels, T_RatioValue>;
         max: Contrast.Maximum<T_ColourName, T_ExtraLevels, T_RatioValue>;
-        results: ContrastResults<T_ColourName, T_ExtraLevels>;
+        results: ContrastResults<"black" | "white" | T_ColourName, T_ExtraLevels>;
     };
     /**
      * @since 0.1.0-alpha

@@ -232,6 +232,44 @@ export class Tokens_Themes_Set_SingleMode<
             case 'max':
                 description = description ?? 'This is the maximum contrast mode.  This is an alternate option for users who want an even higher contrast than the ‘high’ mode, but without enabling ‘forced-colors’ mode.  It exceeds WCAG AAA contrast standards.';
 
+                overrides.background = {
+                    $: 'white',
+                    alt: 'white',
+
+                    ...objectGenerator(
+                        arrayUnique( [
+                            ...Object.keys( variations.universal ) as T_Keyword_Universal[],
+                            ...Object.keys( variations.background ) as T_Keyword_Background[],
+                        ] ),
+                        () => 'white'
+                    ),
+                    ...overrides.background,
+                };
+                overrides.text = {
+                    $: 'black',
+
+                    ...objectGenerator(
+                        arrayUnique( [
+                            ...Object.keys( variations.universal ) as T_Keyword_Universal[],
+                            ...Object.keys( variations.text ) as T_Keyword_Background[],
+                        ] ),
+                        () => 'black'
+                    ),
+                    ...overrides.text,
+                };
+                overrides.ui = {
+                    $: 'black',
+
+                    ...objectGenerator(
+                        arrayUnique( [
+                            ...Object.keys( variations.universal ) as T_Keyword_Universal[],
+                            ...Object.keys( variations.text ) as T_Keyword_Background[],
+                        ] ),
+                        () => 'black'
+                    ),
+                    ...overrides.ui,
+                };
+
                 overrides.selection = {
                     bg: clrOpt( variations.universal.primary, '850' as T_ExtraColourLevels | ColourUtilities.Levels.Required ),
                     text: clrOpt( variations.base, '100' as T_ExtraColourLevels | ColourUtilities.Levels.Required ),
@@ -1186,12 +1224,12 @@ export namespace Tokens_Themes_Set_SingleMode {
                     accent: '200',
                 },
                 text: {
-                    $: '700',
+                    $: '750',
                     accent: '700',
                     min: '600',
                 },
                 ui: {
-                    $: '700',
+                    $: '750',
                     accent: '700',
                     min: '600',
                 },

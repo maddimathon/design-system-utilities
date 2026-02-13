@@ -20,6 +20,7 @@ import { getLevelsInUse } from '../../ts/02-tokens/getLevelsInUse.js';
 /* import - values */
 
 /* import - components */
+import Heading from '@maddimathon/utility-astro/components/Heading';
 import TableOfContents from '@maddimathon/utility-astro/components/TableOfContents';
 import Toggle from '@maddimathon/utility-astro/components/Toggle';
 import ShadeSwatchList from './ShadeSwatchList.astro';
@@ -259,11 +260,21 @@ const shadeList_toc: ComponentProps<typeof TableOfContents>['menu'] = [
         label: 'Shade Table',
         href: '#all-colours',
     },
+    {
+        label: 'Black & White Shade Details',
+        href: '#shades-black-and-white',
+    },
     ...Object.entries(tokens.colour).map(([name]) => ({
         label: `${toTitleCase(name)} Shade Details`,
         href: `#shades-${name}`,
     })),
 ];
+
+const baseShades = {
+    white: tokens.colour.white,
+    ...tokens.colour.base,
+    black: tokens.colour.black,
+};
 ---
 
 <TableOfContents
@@ -272,10 +283,18 @@ const shadeList_toc: ComponentProps<typeof TableOfContents>['menu'] = [
     menu={shadeList_toc}
 />
 
-<ShadeSwatchTable
+<Heading
+    class='screen-reader-text'
     heading={2}
+    set:text='contrast targets'
+/>
+<ShadeSwatchTable
+    heading={3}
     id='all-colours'
-    colour={tokens.colour}
+    colour={{
+        ...tokens.colour,
+        base: baseShades,
+    }}
     excludeLevels={excludeLevels}
     includeColourFormats={includeColourFormats}
     includeTargetLevels={includeTargetLevels}
@@ -285,26 +304,31 @@ const shadeList_toc: ComponentProps<typeof TableOfContents>['menu'] = [
 
 {
     (Object.keys(tokens.colour) as (keyof typeof tokens.colour)[]).map(
-        (name) => (
-            <Toggle
-                class='shades-list-toggle'
-                heading={2}
-                id={`shades-${name}`}
-            >
-                <Fragment
-                    set:text={`All ${toTitleCase(name)} Shades`}
-                    slot='button'
-                />
-                <ShadeSwatchList
-                    bases={tokens.colour.base}
-                    colour={tokens.colour[name]}
-                    id={`shades-${name}__list`}
-                    name={name}
-                    shadeHeading={3}
-                    tokens={tokens}
-                />
-            </Toggle>
-        ),
+        (name) =>
+            name !== 'black' &&
+            name !== 'white' && (
+                <Toggle
+                    class='shades-list-toggle'
+                    heading={2}
+                    id={`shades-${name}`}
+                >
+                    <Fragment
+                        set:text={`All ${toTitleCase(name)} Shades`}
+                        slot='button'
+                    />
+                    <ShadeSwatchList
+                        bases={baseShades}
+                        colour={tokens.colour[name]}
+                        colour={
+                            name === 'base' ? baseShades : tokens.colour[name]
+                        }
+                        id={`shades-${name}__list`}
+                        name={name}
+                        shadeHeading={3}
+                        tokens={tokens}
+                    />
+                </Toggle>
+            ),
     )
 }
 

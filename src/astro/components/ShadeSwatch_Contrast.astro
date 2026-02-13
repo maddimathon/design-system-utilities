@@ -45,7 +45,7 @@ export interface Props<
     heading: number | false;
     id: string;
 
-    thisShadeName: string;
+    thisShadeName: string | null;
     
     tokens: Tokens.JsonReturn<T_ColourName, T_ExtraLevels>;
     values: Tokens_Colour_ShadeMap_Shade.Contrast<ColourNameGeneric<T_ColourName>, T_ExtraLevels, number>;
@@ -131,7 +131,7 @@ function getShadeMapSets<
     _tokens: Tokens.JsonReturn<T_ColourName, T_ExtraLevels>,
     _values: Props<ColourNameGeneric<T_ColourName>, T_ExtraLevels>['values'],
     _isCondensed: boolean,
-    _thisShadeName: string,
+    _thisShadeName: string|null,
 ): ColourSet<ColourNameGeneric<T_ColourName>, T_ExtraLevels> {
     const allColours = arrayUnique(
         Object.keys(_values.min ?? []).concat(Object.keys(_values.max ?? []))

@@ -10,6 +10,7 @@
 
 import type { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
 import type { Tokens_Colour } from '../../ts/02-tokens/Tokens_Colour.js';
+import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
 
 import { shadeMapToArray } from './shadeMapToArray.js';
 
@@ -28,10 +29,14 @@ export function colourToArray<
 
     return names
         .map( ( name ) =>
-            clr[ name ]
+            clr[ name ] && !( 'hex' in clr[ name ] )
                 ? {
                     name,
-                    map: shadeMapToArray( clr[ name ] ),
+                    map: shadeMapToArray<
+                        T_ColourName,
+                        T_ExtraLevels,
+                        Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, T_ExtraLevels>
+                    >( clr[ name ] ),
                 }
                 : false
         )

@@ -149,6 +149,10 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
 
         background: #{var-style(alert-background)};
 
+        @include colour-mode((high, max, forced-colors)) {
+            border-width: max(0.125rem, #{var-style(alert-border-width)});
+        }
+
         &.alert-block--has-heading {
             justify-content: stretch;
             justify-items: stretch;

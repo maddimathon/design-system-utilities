@@ -103,7 +103,7 @@ html {
     --focus-ring-outline-color: currentColor;
     --focus-ring-outline-offset: 0.125em;
     --focus-ring-outline-width: max(0.125rem, min(0.125em, 0.25rem));
-    --icon-color: var(--theme-ui, var(--clr-base-700, currentColor));
+    --icon-color: var(--theme-ui, var(--clr-base-750, currentColor));
     --icon-inline-buffer: 0.25em;
     --icon-size: 1.375em;
     --icon-size-pseudo: 1em;
@@ -144,19 +144,20 @@ html {
 /* #endregion Tokens - Transitions */
 /* #region Tokens - Colour */
 html {
-    --clr-base-100: hsl(305.21, 100%, 100%);
-    --clr-base-150: hsl(339.45, 0%, 94.35%);
-    --clr-base-200: hsl(339.45, 0%, 88.76%);
-    --clr-base-250: hsl(339.45, 0%, 83.23%);
+    --clr-base-100: hsl(339.45, 0%, 96.6%);
+    --clr-base-150: hsl(339.45, 0%, 91.82%);
+    --clr-base-200: hsl(339.45, 0%, 87.09%);
+    --clr-base-250: hsl(339.45, 0%, 82.41%);
     --clr-base-300: hsl(339.45, 0%, 77.78%);
     --clr-base-400: hsl(339.45, 0%, 61.84%);
     --clr-base-500: hsl(339.45, 0%, 46.63%);
-    --clr-base-600: hsl(339.45, 0%, 31.35%);
-    --clr-base-700: hsl(339.45, 0%, 17.25%);
-    --clr-base-750: hsl(339.45, 0%, 13.55%);
-    --clr-base-800: hsl(339.45, 0%, 9.99%);
-    --clr-base-850: hsl(339.45, 0%, 6.08%);
-    --clr-base-900: hsl(0, 0%, 0%);
+    --clr-base-600: hsl(339.45, 0%, 32.27%);
+    --clr-base-700: hsl(339.45, 0%, 18.94%);
+    --clr-base-750: hsl(339.45, 0%, 15.39%);
+    --clr-base-800: hsl(339.45, 0%, 11.95%);
+    --clr-base-850: hsl(339.45, 0%, 8.63%);
+    --clr-base-900: hsl(339.45, 0%, 4.28%);
+    --clr-black: hsl(0, 0%, 0%);
     --clr-purple-100: hsl(270, 100%, 98.5%);
     --clr-purple-150: hsl(271.19, 88.48%, 93.86%);
     --clr-purple-200: hsl(272.37, 84.47%, 89.06%);
@@ -196,23 +197,25 @@ html {
     --clr-turquoise-800: hsl(158.95, 48.98%, 10.76%);
     --clr-turquoise-850: hsl(158.04, 43.69%, 7.36%);
     --clr-turquoise-900: hsl(153, 100%, 2%);
+    --clr-white: hsl(305.21, 100%, 100%);
 }
 
 @media (prefers-color-scheme: dark) {
     html {
-        --clr-base-100: hsl(0, 0%, 0%);
-        --clr-base-150: hsl(339.45, 0%, 6.08%);
-        --clr-base-200: hsl(339.45, 0%, 9.99%);
-        --clr-base-250: hsl(339.45, 0%, 13.55%);
-        --clr-base-300: hsl(339.45, 0%, 17.25%);
-        --clr-base-400: hsl(339.45, 0%, 31.35%);
+        --clr-base-100: hsl(339.45, 0%, 4.28%);
+        --clr-base-150: hsl(339.45, 0%, 8.63%);
+        --clr-base-200: hsl(339.45, 0%, 11.95%);
+        --clr-base-250: hsl(339.45, 0%, 15.39%);
+        --clr-base-300: hsl(339.45, 0%, 18.94%);
+        --clr-base-400: hsl(339.45, 0%, 32.27%);
         --clr-base-500: hsl(339.45, 0%, 46.63%);
         --clr-base-600: hsl(339.45, 0%, 61.84%);
         --clr-base-700: hsl(339.45, 0%, 77.78%);
-        --clr-base-750: hsl(339.45, 0%, 83.23%);
-        --clr-base-800: hsl(339.45, 0%, 88.76%);
-        --clr-base-850: hsl(339.45, 0%, 94.35%);
-        --clr-base-900: hsl(305.21, 100%, 100%);
+        --clr-base-750: hsl(339.45, 0%, 82.41%);
+        --clr-base-800: hsl(339.45, 0%, 87.09%);
+        --clr-base-850: hsl(339.45, 0%, 91.82%);
+        --clr-base-900: hsl(339.45, 0%, 96.6%);
+        --clr-black: hsl(305.21, 100%, 100%);
         --clr-purple-100: hsl(285, 75%, 4.5%);
         --clr-purple-150: hsl(277.5, 46.56%, 11.6%);
         --clr-purple-200: hsl(277.41, 52.55%, 17.62%);
@@ -252,6 +255,7 @@ html {
         --clr-turquoise-800: hsl(158.01, 46.2%, 78.76%);
         --clr-turquoise-850: hsl(157.43, 49.35%, 87.68%);
         --clr-turquoise-900: hsl(157, 68%, 96.5%);
+        --clr-white: hsl(0, 0%, 0%);
     }
 }
 /* #endregion Tokens - Colour */
@@ -1114,33 +1118,33 @@ figure {
     ::-moz-selection {
         --icon-color: var(
             --theme-selection-text,
-            var(--clr-base-800, hsl(339.45, 0%, 9.99%))
-        ) !important;
-        color: hsl(339.45, 0%, 9.99%) !important;
-        color: var(
-            --theme-selection-text,
-            var(--clr-base-800, hsl(339.45, 0%, 9.99%))
+            var(--clr-base-800, hsl(339.45, 0%, 11.95%))
         ) !important;
         background-color: hsl(274.76, 78.57%, 78.95%) !important;
         background-color: var(
             --theme-selection-bg,
             var(--clr-purple-300, hsl(274.76, 78.57%, 78.95%))
+        ) !important;
+        color: hsl(339.45, 0%, 11.95%) !important;
+        color: var(
+            --theme-selection-text,
+            var(--clr-base-800, hsl(339.45, 0%, 11.95%))
         ) !important;
     }
     ::selection {
         --icon-color: var(
             --theme-selection-text,
-            var(--clr-base-800, hsl(339.45, 0%, 9.99%))
-        ) !important;
-        color: hsl(339.45, 0%, 9.99%) !important;
-        color: var(
-            --theme-selection-text,
-            var(--clr-base-800, hsl(339.45, 0%, 9.99%))
+            var(--clr-base-800, hsl(339.45, 0%, 11.95%))
         ) !important;
         background-color: hsl(274.76, 78.57%, 78.95%) !important;
         background-color: var(
             --theme-selection-bg,
             var(--clr-purple-300, hsl(274.76, 78.57%, 78.95%))
+        ) !important;
+        color: hsl(339.45, 0%, 11.95%) !important;
+        color: var(
+            --theme-selection-text,
+            var(--clr-base-800, hsl(339.45, 0%, 11.95%))
         ) !important;
     }
 }
@@ -1148,43 +1152,45 @@ figure {
     ::-moz-selection {
         --icon-color: var(
             --theme-selection-text,
-            var(--clr-base-100, hsl(305.21, 100%, 100%))
-        ) !important;
-        color: hsl(305.21, 100%, 100%) !important;
-        color: var(
-            --theme-selection-text,
-            var(--clr-base-100, hsl(305.21, 100%, 100%))
+            var(--clr-base-100, hsl(339.45, 0%, 96.6%))
         ) !important;
         background-color: hsl(277.69, 56.91%, 23.79%) !important;
         background-color: var(
             --theme-selection-bg,
             var(--clr-purple-750, hsl(277.69, 56.91%, 23.79%))
+        ) !important;
+        color: hsl(339.45, 0%, 96.6%) !important;
+        color: var(
+            --theme-selection-text,
+            var(--clr-base-100, hsl(339.45, 0%, 96.6%))
         ) !important;
     }
     ::selection {
         --icon-color: var(
             --theme-selection-text,
-            var(--clr-base-100, hsl(305.21, 100%, 100%))
-        ) !important;
-        color: hsl(305.21, 100%, 100%) !important;
-        color: var(
-            --theme-selection-text,
-            var(--clr-base-100, hsl(305.21, 100%, 100%))
+            var(--clr-base-100, hsl(339.45, 0%, 96.6%))
         ) !important;
         background-color: hsl(277.69, 56.91%, 23.79%) !important;
         background-color: var(
             --theme-selection-bg,
             var(--clr-purple-750, hsl(277.69, 56.91%, 23.79%))
+        ) !important;
+        color: hsl(339.45, 0%, 96.6%) !important;
+        color: var(
+            --theme-selection-text,
+            var(--clr-base-100, hsl(339.45, 0%, 96.6%))
         ) !important;
     }
 }
 @media (forced-colors: active), (prefers-contrast: custom) {
     ::-moz-selection {
         --icon-color: HighlightText !important;
+        background-color: Highlight !important;
         color: HighlightText !important;
     }
     ::selection {
         --icon-color: HighlightText !important;
+        background-color: Highlight !important;
         color: HighlightText !important;
     }
 }
@@ -1871,6 +1877,25 @@ input {
     transition: none;
     transition: var(--transition);
 }
+@media (prefers-contrast: more),
+    (forced-colors: active),
+    (prefers-contrast: custom) {
+    textarea,
+    select,
+    input {
+        border-width: max(0.125rem, 0.0625rem);
+    }
+}
+textarea::-moz-placeholder,
+select::-moz-placeholder,
+input::-moz-placeholder {
+    font-style: italic;
+}
+textarea::placeholder,
+select::placeholder,
+input::placeholder {
+    font-style: italic;
+}
 label + textarea,
 label + select,
 label + input,
@@ -1892,6 +1917,18 @@ input {
     color: var(--theme-input-text, FieldText);
     accent-color: ActiveText;
     accent-color: var(--theme-input-accent, ActiveText);
+}
+textarea::-moz-placeholder,
+select::-moz-placeholder,
+input::-moz-placeholder {
+    color: FieldText;
+    color: var(--theme-input-text, FieldText);
+}
+textarea::placeholder,
+select::placeholder,
+input::placeholder {
+    color: FieldText;
+    color: var(--theme-input-text, FieldText);
 }
 .no-js textarea:focus,
 .no-js select:focus,
@@ -1990,7 +2027,10 @@ input:active {
 }
 textarea[aria-disabled="true"],
 select[aria-disabled="true"],
-input[aria-disabled="true"] {
+input[aria-disabled="true"],
+textarea[disabled],
+select[disabled],
+input[disabled] {
     --focus-ring-outline-color: var(--theme-input-disabled-accent, ActiveText);
     background-color: Field;
     background-color: var(--theme-input-disabled-bg, Field);
@@ -2001,12 +2041,36 @@ input[aria-disabled="true"] {
     accent-color: ActiveText;
     accent-color: var(--theme-input-disabled-accent, ActiveText);
 }
+textarea[aria-disabled="true"]::-moz-placeholder,
+select[aria-disabled="true"]::-moz-placeholder,
+input[aria-disabled="true"]::-moz-placeholder,
+textarea[disabled]::-moz-placeholder,
+select[disabled]::-moz-placeholder,
+input[disabled]::-moz-placeholder {
+    color: FieldText;
+    color: var(--theme-input-text, FieldText);
+}
+textarea[aria-disabled="true"]::placeholder,
+select[aria-disabled="true"]::placeholder,
+input[aria-disabled="true"]::placeholder,
+textarea[disabled]::placeholder,
+select[disabled]::placeholder,
+input[disabled]::placeholder {
+    color: FieldText;
+    color: var(--theme-input-text, FieldText);
+}
 .no-js textarea[aria-disabled="true"]:focus,
 .no-js select[aria-disabled="true"]:focus,
 .no-js input[aria-disabled="true"]:focus,
+.no-js textarea[disabled]:focus,
+.no-js select[disabled]:focus,
+.no-js input[disabled]:focus,
 .js__no-whereSelector textarea[aria-disabled="true"]:focus,
 .js__no-whereSelector select[aria-disabled="true"]:focus,
-.js__no-whereSelector input[aria-disabled="true"]:focus {
+.js__no-whereSelector input[aria-disabled="true"]:focus,
+.js__no-whereSelector textarea[disabled]:focus,
+.js__no-whereSelector select[disabled]:focus,
+.js__no-whereSelector input[disabled]:focus {
     --focus-ring-outline-color: var(
         --theme-input-disabled-accent-hover,
         ActiveText
@@ -2023,7 +2087,10 @@ input[aria-disabled="true"] {
 
 :where(.js__no-focusVisible) textarea[aria-disabled="true"]:focus,
 :where(.js__no-focusVisible) select[aria-disabled="true"]:focus,
-:where(.js__no-focusVisible) input[aria-disabled="true"]:focus {
+:where(.js__no-focusVisible) input[aria-disabled="true"]:focus,
+:where(.js__no-focusVisible) textarea[disabled]:focus,
+:where(.js__no-focusVisible) select[disabled]:focus,
+:where(.js__no-focusVisible) input[disabled]:focus {
     --focus-ring-outline-color: var(
         --theme-input-disabled-accent-hover,
         ActiveText
@@ -2040,7 +2107,10 @@ input[aria-disabled="true"] {
 
 textarea[aria-disabled="true"]:hover,
 select[aria-disabled="true"]:hover,
-input[aria-disabled="true"]:hover {
+input[aria-disabled="true"]:hover,
+textarea[disabled]:hover,
+select[disabled]:hover,
+input[disabled]:hover {
     --focus-ring-outline-color: var(
         --theme-input-disabled-accent-hover,
         ActiveText
@@ -2058,9 +2128,15 @@ input[aria-disabled="true"]:hover {
 .no-js textarea[aria-disabled="true"]:focus-within,
 .no-js select[aria-disabled="true"]:focus-within,
 .no-js input[aria-disabled="true"]:focus-within,
+.no-js textarea[disabled]:focus-within,
+.no-js select[disabled]:focus-within,
+.no-js input[disabled]:focus-within,
 .js__no-whereSelector textarea[aria-disabled="true"]:focus-within,
 .js__no-whereSelector select[aria-disabled="true"]:focus-within,
-.js__no-whereSelector input[aria-disabled="true"]:focus-within {
+.js__no-whereSelector input[aria-disabled="true"]:focus-within,
+.js__no-whereSelector textarea[disabled]:focus-within,
+.js__no-whereSelector select[disabled]:focus-within,
+.js__no-whereSelector input[disabled]:focus-within {
     --focus-ring-outline-color: var(
         --theme-input-disabled-accent-hover,
         ActiveText
@@ -2077,7 +2153,10 @@ input[aria-disabled="true"]:hover {
 
 :where(.js__no-focusVisible) textarea[aria-disabled="true"]:focus-within,
 :where(.js__no-focusVisible) select[aria-disabled="true"]:focus-within,
-:where(.js__no-focusVisible) input[aria-disabled="true"]:focus-within {
+:where(.js__no-focusVisible) input[aria-disabled="true"]:focus-within,
+:where(.js__no-focusVisible) textarea[disabled]:focus-within,
+:where(.js__no-focusVisible) select[disabled]:focus-within,
+:where(.js__no-focusVisible) input[disabled]:focus-within {
     --focus-ring-outline-color: var(
         --theme-input-disabled-accent-hover,
         ActiveText
@@ -2094,7 +2173,10 @@ input[aria-disabled="true"]:hover {
 
 textarea[aria-disabled="true"]:active,
 select[aria-disabled="true"]:active,
-input[aria-disabled="true"]:active {
+input[aria-disabled="true"]:active,
+textarea[disabled]:active,
+select[disabled]:active,
+input[disabled]:active {
     --focus-ring-outline-color: var(
         --theme-input-disabled-accent-active,
         ActiveText
@@ -2120,6 +2202,18 @@ input[readonly] {
     color: var(--theme-input-readonly-text, FieldText);
     accent-color: ActiveText;
     accent-color: var(--theme-input-readonly-accent, ActiveText);
+}
+textarea[readonly]::-moz-placeholder,
+select[readonly]::-moz-placeholder,
+input[readonly]::-moz-placeholder {
+    color: FieldText;
+    color: var(--theme-input-text, FieldText);
+}
+textarea[readonly]::placeholder,
+select[readonly]::placeholder,
+input[readonly]::placeholder {
+    color: FieldText;
+    color: var(--theme-input-text, FieldText);
 }
 .no-js textarea[readonly]:focus,
 .no-js select[readonly]:focus,

@@ -176,11 +176,19 @@ export declare namespace Tokens_CSS_Style {
             block: TokenLevels;
             inline: TokenLevels;
         };
+        /**
+         * @since 0.1.1-alpha.1.draft
+         */
+        placeholder: {
+            font: {
+                style: "normal" | "italic";
+            };
+        };
     }
     /**
      * @since 0.1.1-alpha.0
      */
-    interface InputStyles_Disabled extends Omit<InputStyles, 'border' | 'focus' | 'label' | 'line-height' | 'margin' | 'padding'> {
+    interface InputStyles_Disabled extends Omit<InputStyles, 'border' | 'focus' | 'label' | 'line-height' | 'margin' | 'padding' | 'placeholder'> {
         border: Omit<InputStyles['border'], 'width'>;
     }
     /**

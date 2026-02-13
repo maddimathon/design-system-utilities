@@ -6,22 +6,24 @@
  */
 
 /* import - types */
-import Heading from '@maddimathon/utility-astro/components/Heading';
 import type { Tokens, Tokens_Internal } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Colour } from '../../ts/02-tokens/Tokens_Colour.js';
+import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
 
 /* import - functions */
+import { arrayUnique } from '@maddimathon/utility-typescript/functions';
 import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
 import { objectMap } from '../../ts/01-utilities/objectMap.js';
+import { Tokens_Colour_ShadeMap_Shade } from '../../ts/02-tokens/Colour/ShadeMap/ShadeMap_Shade.js';
 import { colourToArray } from '../functions/colourToArray.js';
 import { textColorLevel } from './ShadeSwatch.astro';
  
 /* import - values */
  
 /* import - components */
+import Heading from '@maddimathon/utility-astro/components/Heading';
 import ShadeSwatch from './ShadeSwatch.astro';
 import ContrastAlert from './ContrastAlert.astro';
-import { arrayUnique } from '@maddimathon/utility-typescript/functions';
 
 /* import - layouts */
 
@@ -31,7 +33,19 @@ export interface Props<
     T_ColourName extends string = Tokens_Internal.Default_ColourName,
     T_ExtraLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels,
 > {
-    colour: Tokens_Colour.JsonReturn<T_ColourName, T_ExtraLevels>;
+    colour: Tokens_Colour.JsonReturn<T_ColourName, T_ExtraLevels> & {
+        base: Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, T_ExtraLevels> & {
+        black: Tokens_Colour_ShadeMap_Shade.JsonReturn<
+            T_ColourName,
+            T_ExtraLevels
+        >;
+        white: Tokens_Colour_ShadeMap_Shade.JsonReturn<
+            T_ColourName,
+            T_ExtraLevels
+        >;
+    }
+    };
+
     id: string; 
     heading: number;
     tokens: Tokens.JsonReturn;
@@ -346,12 +360,16 @@ const includeFormats = {
     ...includeColourFormats,
 };
 
-const allTokenLevels = arrayUnique(Object.values(tokens.colour).map(val=>Object.keys(val) as (keyof typeof val)[]).flat());
+const allTokenLevels = arrayUnique(Object.values(tokens.colour).map(
+    val => ! ( val instanceof Tokens_Colour_ShadeMap_Shade ) 
+        ? [] 
+        : Object.keys(val) as (ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional)[]
+).flat());
 
 const colour = colourToArray(props);
 
 const primaryColour = tokens.colour[
-    Object.keys(tokens.colour).filter( k =>  k.match(/^base(\-|\_|$)/i) === null )[0] as keyof typeof tokens.colour
+    Object.keys(tokens.colour).filter( k =>  k.match(/^(base|black|white)(\-|\_|$)/i) === null )[0] as Exclude<keyof typeof tokens.colour, "black"|"white">
 ] ?? tokens.colour.base;
 
 const targets: {
@@ -420,6 +438,9 @@ const goalLevels = objectMap(
         )
     }
 );
+
+const blackTextLevel = props.colour.base.black.contrast?.min.base?.text?.aaa?.level ?? props.colour.base.black.contrast?.max.base?.level ?? 'white';
+const whiteTextLevel = props.colour.base.white.contrast?.min.base?.text?.aaa?.level ?? props.colour.base.white.contrast?.max.base?.level ?? 'black';
 ---
 
 {
@@ -432,18 +453,32 @@ const goalLevels = objectMap(
             data-shade-swatch-table-display-text-toggle={id}
         /> Display table without text</label>
         
-        <div
+        <section
             class:list={['table-wrapper | site-width | shade-swatch-table__wrapper']}
+            id={id}
         >
             <table id={id}>
-                { includeTargetLevels && goalLevels.base && <tr>
+                { includeTargetLevels && goalLevels.base && Object.values( goalLevels.base ).filter( v => v ).length > 0 && <tr>
                     <th
-                        class="screen-reader-text"
+                        class="screen-reader-text" 
                         set:text='contrast targets'
                     />
+                    <th
+                        aria-hidden="true"
+                        data-brightness-mode='light'
+                        style={`background: var(--clr-white, ${ColourUtilities.toString.hsl(props.colour.base.white.hsl)})`}
+                    ><article
+                        class:list={['container', 'shade-swatch']}
+                        data-brightness-mode='light'
+                        data-shade-swatch-has-background={true}
+                        style={ [ 
+                            `--shade-swatch-background: ${ColourUtilities.toString.hsl(props.colour.base.white)}`,
+                            `--shade-swatch-color: ${ColourUtilities.toString.hsl(props.colour.base[ whiteTextLevel ])}`,
+                        ].join(';') }
+                    /></th>
                     <Fragment>{ (
                         Object.entries( goalLevels.base ) as [ColourUtilities.Levels.Required|ColourUtilities.Levels.Optional, typeof goalLevels.base[ColourUtilities.Levels.Required|ColourUtilities.Levels.Optional]][]
-                    ).map( ([level, set]) => set && <th>
+                    ).map( ([level, set]) => set && <th> 
                         <article
                             class:list={['container', 'shade-swatch']}
                             data-brightness-mode={ Number(set.level) <= 500 ? 'light' : 'dark' }
@@ -451,7 +486,7 @@ const goalLevels = objectMap(
                             style={ [ 
                                 `--shade-swatch-background: ${ColourUtilities.toString.hsl(props.colour.base[ set.level ])}`,
                                 `--shade-swatch-color: ${ColourUtilities.toString.hsl(props.colour.base[ set.textLevel ])}`,
-                             ].join(';') }
+                                ].join(';') }
                         >
                             <Heading
                                 class:list='shade-swatch__name' 
@@ -666,6 +701,19 @@ const goalLevels = objectMap(
                             </div>
                         </article>
                     </th>  ) }</Fragment>
+                    <th 
+                        aria-hidden="true"
+                        data-brightness-mode='dark'
+                        style={`background: var(--clr-white, ${ColourUtilities.toString.hsl(props.colour.base.black.hsl)})`}
+                    ><article
+                        class:list={['container', 'shade-swatch']}
+                        data-brightness-mode='dark'
+                        data-shade-swatch-has-background={true}
+                        style={ [ 
+                            `--shade-swatch-background: ${ColourUtilities.toString.hsl(props.colour.base.black)}`,
+                            `--shade-swatch-color: ${ColourUtilities.toString.hsl(props.colour.base[ blackTextLevel ])}`,
+                        ].join(';') }
+                    /></th>
                 </tr> }
                 {colour.map(({ name, map }) => (
                     <tr>
@@ -673,7 +721,32 @@ const goalLevels = objectMap(
                             class="screen-reader-text"
                             set:text={name}
                         />
-                        {map.map(({ level, values }) => !( excludeLevels.includes( level ) ) && <td>
+                        <td
+                            data-brightness-mode='light'
+                            style={`background: var(--clr-white, ${ColourUtilities.toString.hsl(props.colour.base.white.hsl)})`}
+                        ><ShadeSwatch 
+                            bases={props.colour.base}
+                            contrast={false}
+                            displayHeading={name === 'base' ? 7 : false}
+                            displayValues={name === 'base'}
+                            heading={heading}
+                            id={id}
+                            level='white'
+                            name='base' 
+                            tokens={tokens}
+                            values={ name === 'base' ? {
+                                ...props.colour.base.white,
+                                hex: includeFormats.hex ? props.colour.base.white.hex : undefined,
+                                hsl: includeFormats.hsl ? props.colour.base.white.hsl : undefined,
+                                lch: includeFormats.lch ? props.colour.base.white.lch : undefined,
+                                rgb: includeFormats.rgb ? props.colour.base.white.rgb : undefined,
+                            } : props.colour.base.white }
+                        /></td>
+                        {map.map(({ level, values }) => !( 
+                            excludeLevels.includes( level )
+                            || ( level as string ) === 'black'
+                            || ( level as string ) === 'white'
+                         ) && <td>
                             <ShadeSwatch 
                                 bases={props.colour.base}
                                 contrastIsCondensed={true}
@@ -692,6 +765,27 @@ const goalLevels = objectMap(
                                 }}
                             />
                         </td> )}
+                        <td
+                            data-brightness-mode='dark'
+                            style={`background: var(--clr-white, ${ColourUtilities.toString.hsl(props.colour.base.black.hsl)})`}
+                        ><ShadeSwatch 
+                            bases={props.colour.base}
+                            contrast={false}
+                            displayHeading={name === 'base' ? 7 : false}
+                            displayValues={name === 'base'}
+                            heading={heading}
+                            id={id}
+                            level='black'
+                            name='base' 
+                            tokens={tokens}
+                            values={ name === 'base' ? {
+                                ...props.colour.base.black,
+                                hex: includeFormats.hex ? props.colour.base.black.hex : undefined,
+                                hsl: includeFormats.hsl ? props.colour.base.black.hsl : undefined,
+                                lch: includeFormats.lch ? props.colour.base.black.lch : undefined,
+                                rgb: includeFormats.rgb ? props.colour.base.black.rgb : undefined,
+                            } : props.colour.base.black }
+                        /></td>
                     </tr>
                 ))}
             </table>

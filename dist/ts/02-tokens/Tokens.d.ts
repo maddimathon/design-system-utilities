@@ -785,7 +785,7 @@ export declare namespace Tokens {
     const SampleColours: {
         readonly yardstick: {
             readonly '100': {
-                readonly l: 100;
+                readonly l: 97;
                 readonly c: 0;
                 readonly h: 0;
             };
@@ -800,12 +800,12 @@ export declare namespace Tokens {
                 readonly h: 0;
             };
             readonly '700': {
-                readonly l: 18;
+                readonly l: 20;
                 readonly c: 0;
                 readonly h: 0;
             };
             readonly '900': {
-                readonly l: 0;
+                readonly l: 3;
                 readonly c: 0;
                 readonly h: 0;
             };
@@ -827,9 +827,19 @@ export declare namespace Tokens {
                 readonly h: 0;
             };
         };
+        readonly white: {
+            readonly l: 100;
+            readonly c: 0;
+            readonly h: 0;
+        };
+        readonly black: {
+            readonly l: 0;
+            readonly c: 0;
+            readonly h: 0;
+        };
         readonly base: {
             readonly '100': {
-                readonly l: 100;
+                readonly l: 97;
                 readonly c: 0;
                 readonly h: 0;
             };
@@ -844,12 +854,12 @@ export declare namespace Tokens {
                 readonly h: 0;
             };
             readonly '700': {
-                readonly l: 18;
+                readonly l: 20;
                 readonly c: 0;
                 readonly h: 0;
             };
             readonly '900': {
-                readonly l: 0;
+                readonly l: 3;
                 readonly c: 0;
                 readonly h: 0;
             };

@@ -95,7 +95,7 @@ export type ColourTokenSlug<
 export type ThemeColourOption<
     T_ColourName extends string,
     T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
-> = CssSystemColor | ColourTokenSlug<T_ColourName, T_ExtraColourLevels>;
+> = CssSystemColor | "black" | "white" | ColourTokenSlug<T_ColourName, T_ExtraColourLevels>;
 
 /**
  * @since 0.1.0-alpha

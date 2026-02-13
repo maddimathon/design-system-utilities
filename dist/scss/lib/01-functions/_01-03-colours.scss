@@ -54,9 +54,30 @@ $_systemColors: map.flatten(
     $brightness: tokens.$brightnessMode_default,
     $version: null
 ) {
-    $slugMap: map.get(tokens.$colour, $slug);
+    @if $slug == 'white' or $slug == white or $slug == 'black' or $slug == black
+    {
+        $level: null;
 
-    $clrVarSlug: 'clr-#{$slug}-#{$level}';
+        $slug: if(
+            $brightness == dark,
+            if(
+                $slug == 'white' or $slug == white,
+                'black',
+                if($slug == 'black' or $slug == black, 'white', $slug)
+            ),
+            if(
+                $slug == 'white' or $slug == white,
+                'white',
+                if($slug == 'black' or $slug == black, 'black', $slug)
+            )
+        );
+    }
+
+    $clrVarSlug: 'clr-#{$slug}';
+
+    @if $level {
+        $clrVarSlug: '#{$clrVarSlug}-#{$level}';
+    }
 
     @if $version == 'hsl' {
         @if config.$print_colourValues_hsl {
@@ -74,34 +95,44 @@ $_systemColors: map.flatten(
         }
     }
 
+    $slugMap: map.get(tokens.$colour, $slug);
+
     // returns
     @if $slugMap == null {
         @warn "$slug '#{$slug}' was not a key in tokens.$colour";
         @return utils.do-var($clrVarSlug);
     }
 
+    $_slugMapType: meta.type-of($slugMap);
+
     // returns
-    @if meta.type-of($slugMap) != map {
+    @if $_slugMapType != 'map' and $_slugMapType != 'color' {
         @warn "$level '#{$level}' was not a key in tokens.$colour.#{$slug}";
         @return utils.do-var($clrVarSlug);
     }
 
-    $level_brightnessAdjusted: $level;
+    $fallback_clr: null;
 
-    @if $brightness == dark {
-        $level_brightnessAdjusted: colour.shade-map-reverse-key(
-            $level,
-            $slugMap,
-            $sort: true
-        );
-    }
+    @if $_slugMapType == 'color' {
+        $fallback_clr: $slugMap;
+    } @else {
+        $level_brightnessAdjusted: $level;
 
-    $fallback_clr: map.get($slugMap, $level_brightnessAdjusted);
+        @if $brightness == dark {
+            $level_brightnessAdjusted: colour.shade-map-reverse-key(
+                $level,
+                $slugMap,
+                $sort: true
+            );
+        }
 
-    // returns
-    @if $fallback_clr == null {
-        @warn "$level '#{$level}' was not a key in tokens.$colour.#{$slug}";
-        @return utils.do-var($clrVarSlug);
+        $fallback_clr: map.get($slugMap, $level_brightnessAdjusted);
+
+        // returns
+        @if $fallback_clr == null {
+            @warn "$level '#{$level}' was not a key in tokens.$colour.#{$slug}";
+            @return utils.do-var($clrVarSlug);
+        }
     }
 
     $fallback: $fallback_clr;
@@ -294,12 +325,31 @@ $_default_activeTheme_flat_mode: if(
     $brightness: tokens.$brightnessMode_default,
     $version: null
 ) {
+    $tokenValue: #{$tokenValue};
+
     // returns
-    @if string.length(#{$tokenValue}) > 0 and string.index(#{$tokenValue}, '-')
+    @if $tokenValue ==
+        'white' or
+        $tokenValue ==
+        white or
+        $tokenValue ==
+        'black' or
+        $tokenValue ==
+        black
     {
         @return var-clr(
-            string.slice(#{$tokenValue}, 1, -5),
-            string.slice(#{$tokenValue}, -3, -1),
+            $tokenValue,
+            null,
+            $brightness: $brightness,
+            $version: $version
+        );
+    }
+
+    // returns
+    @if string.length($tokenValue) > 0 and string.index($tokenValue, '-') {
+        @return var-clr(
+            string.slice($tokenValue, 1, -5),
+            string.slice($tokenValue, -3, -1),
             $brightness: $brightness,
             $version: $version
         );
@@ -327,7 +377,11 @@ $_default_activeTheme_flat_mode: if(
     $clrSlug: null;
 
     @if $useSystemColorFallback == null {
-        $useSystemColorFallback: if($contrast == null, true, false);
+        $useSystemColorFallback: if(
+            $contrast == null and $opacity == null,
+            true,
+            false
+        );
     }
 
     $useSystemColorFallback: $useSystemColorFallback or $contrast ==

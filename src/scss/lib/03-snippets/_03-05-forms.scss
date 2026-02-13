@@ -122,6 +122,10 @@
     appearance: button;
     cursor: pointer;
 
+    @include colour-mode((high, max, forced-colors)) {
+        border-width: max(0.125rem, #{var-style(button-border-width)});
+    }
+
     @if $includeColors {
         @include snippet-button-colours($variation);
     }
@@ -139,7 +143,8 @@
     }
 
     @if $includeDisabled {
-        &[aria-disabled='true'] {
+        &[aria-disabled='true'],
+        &[disabled] {
             @include snippet-button-disabled(
                 $fontWeight: $fontWeight_disabled,
                 $fontStyle: $fontStyle_disabled,
@@ -241,6 +246,10 @@
     color: #{$color};
     accent-color: #{$accentClr};
 
+    &::placeholder {
+        color: #{var-theme(input-text)};
+    }
+
     @include hover-focus-visible-or-within {
         @include cx-prop(focus-ring-outline-color, $accentClr_hover);
         background-color: #{$background_hover};
@@ -338,7 +347,8 @@
         $color_hover: $color_hover
     );
 
-    &[aria-disabled='true'] {
+    &[aria-disabled='true'],
+    &[disabled] {
         @include _snippet-input-colours-single(
             $accentClr: $accentClr_disabled,
             $accentClr_active: $accentClr_disabled_active,
@@ -429,6 +439,14 @@
         }
 
         transition: do-var(transition);
+
+        @include colour-mode((high, max, forced-colors)) {
+            border-width: max(0.125rem, #{$borderWidth});
+        }
+
+        &::placeholder {
+            font-style: #{var-style(input-placeholder-font-style)};
+        }
 
         @if not $includeUtils and $includeLabel {
             label + &,

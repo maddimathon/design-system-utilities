@@ -28,9 +28,7 @@ export declare class Tokens_Colour_ShadeMap<T_ColourName extends string, T_Extra
      */
     addContrastTests(colourGroupName: T_ColourName, testMap: Tokens_Colour_ShadeMap<T_ColourName, T_ExtraLevels>): Promise<void[]>;
     toJSON(): Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, T_ExtraLevels>;
-    toScssVars(): {
-        [K in ColourUtilities.Levels.Required | T_ExtraLevels]: AbstractTokens.ScssReturn;
-    };
+    toScssVars(): Tokens_Colour_ShadeMap.ScssVars<T_ExtraLevels>;
 }
 /**
  * Utilities for the {@link Tokens_Colour_ShadeMap} class.
@@ -47,6 +45,12 @@ export declare namespace Tokens_Colour_ShadeMap {
     type JsonReturn<T_ColourName extends string, T_ExtraLevels extends ColourUtilities.Levels.Optional> = {
         [N in ColourUtilities.Levels.Required | T_ExtraLevels]: Tokens_Colour_ShadeMap_Shade.JsonReturn<T_ColourName, T_ExtraLevels>;
     };
+    /**
+     * @since 0.1.1-alpha.1.draft
+     */
+    type ScssVars<T_ExtraLevels extends ColourUtilities.Levels.Optional> = {
+        [N in ColourUtilities.Levels.Required | T_ExtraLevels]: Tokens_Colour_ShadeMap_Shade.ScssVars;
+    };
     function completeMap<T_ColourName extends string, T_ExtraLevels extends ColourUtilities.Levels.Optional>(allNames: readonly T_ColourName[], extraLevels: readonly T_ExtraLevels[], name: T_ColourName, part: InputParam<T_ColourName, T_ExtraLevels>, _treatShadeAsBase?: boolean): {
         [L in ColourUtilities.Levels.Required | T_ExtraLevels]: Tokens_Colour_ShadeMap_Shade<T_ColourName, T_ExtraLevels>;
     };
@@ -54,9 +58,19 @@ export declare namespace Tokens_Colour_ShadeMap {
      * Sample shade maps for contrast & level goals.
      */
     namespace Yardsticks {
+        const black: {
+            readonly l: 0;
+            readonly c: 0;
+            readonly h: 0;
+        };
+        const white: {
+            readonly l: 100;
+            readonly c: 0;
+            readonly h: 0;
+        };
         const base: {
             readonly '100': {
-                readonly l: 100;
+                readonly l: 97;
                 readonly c: 0;
                 readonly h: 0;
             };
@@ -71,12 +85,12 @@ export declare namespace Tokens_Colour_ShadeMap {
                 readonly h: 0;
             };
             readonly '700': {
-                readonly l: 18;
+                readonly l: 20;
                 readonly c: 0;
                 readonly h: 0;
             };
             readonly '900': {
-                readonly l: 0;
+                readonly l: 3;
                 readonly c: 0;
                 readonly h: 0;
             };

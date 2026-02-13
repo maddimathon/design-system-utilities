@@ -36,6 +36,7 @@ import { Tokens_Spacing } from './Tokens_Spacing.js';
 import { Tokens_Themes } from './Tokens_Themes.js';
 import { Tokens_Themes_Set_SingleMode } from './Themes/Themes_Set_SingleMode.js';
 import { Tokens_Typography } from './Tokens_Typography.js';
+import type { Tokens_Colour_ShadeMap_Shade } from './Colour/ShadeMap/ShadeMap_Shade.js';
 
 /**
  * Generates a complete token object for the design system.
@@ -667,6 +668,9 @@ export namespace Tokens {
         yardstick: Tokens_Colour_ShadeMap.Yardsticks.base,
         'yardstick-accent': Tokens_Colour_ShadeMap.Yardsticks.accent,
 
+        white: Tokens_Colour_ShadeMap.Yardsticks.white,
+        black: Tokens_Colour_ShadeMap.Yardsticks.black,
+
         base: Tokens_Colour_ShadeMap.Yardsticks.base,
 
         red: {
@@ -722,8 +726,11 @@ export namespace Tokens {
             '900': { h: 322, s: 85, l: 5, },
         },
     } as const satisfies {
-        [ K in SampleColourName | Tokens_Internal.Default_ColourName ]: Tokens_Colour_ShadeMap.InputParam<SampleColourName, never>
-    };
+        black: Tokens_Colour_ShadeMap_Shade.InputParam;
+        white: Tokens_Colour_ShadeMap_Shade.InputParam;
+    } & {
+            [ K in SampleColourName | Tokens_Internal.Default_ColourName ]: Tokens_Colour_ShadeMap.InputParam<SampleColourName, never>
+        };
 
     /**
      * @since 0.1.0-alpha

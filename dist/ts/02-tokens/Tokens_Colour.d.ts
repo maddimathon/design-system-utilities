@@ -7,9 +7,10 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
-import type { ColourUtilities } from '../01-utilities/ColourUtilities.js';
+import { ColourUtilities } from '../01-utilities/ColourUtilities.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 import { Tokens_Colour_ShadeMap } from './Colour/Colour_ShadeMap.js';
+import { Tokens_Colour_ShadeMap_Shade } from './Colour/ShadeMap/ShadeMap_Shade.js';
 import type { ColourNameGeneric } from './@types.d.ts';
 /**
  * Generates a complete token object for the design system.
@@ -40,19 +41,37 @@ export declare namespace Tokens_Colour {
      * @since 0.1.0-alpha
      */
     type Data<T_ColourName extends string, T_ExtraLevels extends ColourUtilities.Levels.Optional> = {
+        black: Tokens_Colour_ShadeMap_Shade<ColourNameGeneric<T_ColourName>, T_ExtraLevels>;
+        white: Tokens_Colour_ShadeMap_Shade<ColourNameGeneric<T_ColourName>, T_ExtraLevels>;
+    } & {
         [N in ColourNameGeneric<T_ColourName>]: Tokens_Colour_ShadeMap<ColourNameGeneric<T_ColourName>, T_ExtraLevels>;
     };
     /**
      * @since 0.1.0-alpha
      */
     type InputParam<T_ColourName extends string, T_ExtraLevels extends ColourUtilities.Levels.Optional> = {
+        black?: Tokens_Colour_ShadeMap_Shade.InputParam;
+        white?: Tokens_Colour_ShadeMap_Shade.InputParam;
+    } & {
         [N in ColourNameGeneric<T_ColourName>]?: Tokens_Colour_ShadeMap.InputParam<ColourNameGeneric<T_ColourName>, T_ExtraLevels>;
     };
     /**
      * @since 0.1.0-alpha
      */
     type JsonReturn<T_ColourName extends string, T_ExtraLevels extends ColourUtilities.Levels.Optional> = {
+        black: Tokens_Colour_ShadeMap_Shade.JsonReturn<ColourNameGeneric<T_ColourName>, T_ExtraLevels>;
+        white: Tokens_Colour_ShadeMap_Shade.JsonReturn<ColourNameGeneric<T_ColourName>, T_ExtraLevels>;
+    } & {
         [N in ColourNameGeneric<T_ColourName>]: Tokens_Colour_ShadeMap.JsonReturn<ColourNameGeneric<T_ColourName>, T_ExtraLevels>;
+    };
+    /**
+     * @since 0.1.1-alpha.1.draft
+     */
+    type ScssVars<T_ColourName extends string, T_ExtraLevels extends ColourUtilities.Levels.Optional> = {
+        black: Tokens_Colour_ShadeMap_Shade.ScssVars;
+        white: Tokens_Colour_ShadeMap_Shade.ScssVars;
+    } & {
+        [N in ColourNameGeneric<T_ColourName>]: Tokens_Colour_ShadeMap.ScssVars<T_ExtraLevels>;
     };
 }
 //# sourceMappingURL=Tokens_Colour.d.ts.map

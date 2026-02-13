@@ -35,8 +35,13 @@ export interface Props<
 > extends Omit<HTMLAttributes<'div'>, 'class'> {
     heading: number;
     id: string;
-    level: ColourUtilities.Levels.Required;
-    name: string;
+    level:
+        | 'black'
+        | 'white'
+        | ColourUtilities.Levels.Required
+        | Tokens_Internal.Default_ExtraColourLevels;
+
+    name: string | null;
 
     tokens: Tokens.JsonReturn<T_ColourName, T_ExtraLevels>;
     values: Partial<
@@ -46,13 +51,26 @@ export interface Props<
         >
     >;
 
-    bases?: Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, T_ExtraLevels>;
+    bases?: Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, T_ExtraLevels> & {
+        black: Tokens_Colour_ShadeMap_Shade.JsonReturn<
+            T_ColourName,
+            T_ExtraLevels
+        >;
+        white: Tokens_Colour_ShadeMap_Shade.JsonReturn<
+            T_ColourName,
+            T_ExtraLevels
+        >;
+    };
 
     contrast?: boolean;
     contrastIsCondensed?: boolean;
 
-    displayHeading?: number;
+    displayHeading?: number | false;
     headingClass?: string | string[];
+
+    displayValues?: boolean;
+
+    wrapperElement?: 'article' | 'div' | 'li' | 'td' | 'section';
 
     frontmatter?: Omit<Props, 'frontmatter'>;
 }
@@ -61,6 +79,7 @@ const {
     bases,
     contrast = true,
     contrastIsCondensed = false,
+    displayValues = true,
     heading,
     headingClass = [],
     displayHeading,
@@ -68,6 +87,7 @@ const {
     level,
     name,
     tokens,
+    wrapperElement: WrapperElement = 'article',
     values,
     ...attributes
 }: Props = Astro.props.frontmatter ?? Astro.props;
@@ -144,7 +164,7 @@ const bg = values.hsl
 const textLevel =
     values.contrast?.min.base?.text?.aaa?.level ??
     values.contrast?.max.base?.level ??
-    textColorLevel(level);
+    (level == 'black' || level == 'white' ? level : textColorLevel(level));
 
 const text =
     bases &&
@@ -160,19 +180,6 @@ const cssVars = {
     'shade-swatch-color': text || undefined,
     'shade-swatch-background': bg ?? undefined,
 };
-
-// const valueTypes = (Object.keys(values) as (keyof typeof values)[])
-//     .filter((v) => v !== 'contrast')
-//     .map(
-//         (version) =>
-//             ({
-//                 version,
-//                 shade: values,
-//             }) satisfies {
-//                 shade: Partial<ColourUtilities.SingleShade>;
-//                 version: keyof ColourUtilities.SingleShade;
-//             }
-//     );
 
 const presentTypes = (Object.keys(values) as (keyof typeof values)[]).filter(
     (v) => v !== 'contrast',
@@ -192,53 +199,59 @@ const valueTypes = objectGenerator(
 );
 ---
 
-<article
+<WrapperElement
     class:list={['container', 'shade-swatch']}
     data-brightness-mode={brightnessMode}
     {...attributes}
     data-shade-swatch-has-background={cssVars['shade-swatch-background'] &&
         'true'}
+    style={[
+        attributes.style,
+        ...Object.entries(cssVars).map(([slug, value]) =>
+            value ? `--${slug}: ${value}` : '',
+        ),
+    ].join('; ')}
 >
-    <Heading
-        heading={heading}
-        displayHeading={displayHeading}
-        class:list={['shade-swatch__name', '||', headingClass]}
-        set:text={`${name}-${level}`}
-    />
-    <!-- {valueTypes.map((value) => <ShadeSwatch_ColourValue {...value} />)} -->
     {
-        valueTypes['hex'] && (
-            <ShadeSwatch_ColourValue
-                background={true}
-                {...valueTypes['hex']}
+        displayHeading !== false && (
+            <Heading
+                heading={heading}
+                displayHeading={displayHeading}
+                class:list={['shade-swatch__name', '||', headingClass]}
+                set:text={name ? `${name}-${level}` : level}
             />
         )
     }
     {
-        valueTypes['hsl'] && (
-            <ShadeSwatch_ColourValue
-                background={true}
-                {...valueTypes['hsl']}
-            />
+        displayValues && (
+            <Fragment>
+                {valueTypes['hex'] && (
+                    <ShadeSwatch_ColourValue
+                        background={true}
+                        {...valueTypes['hex']}
+                    />
+                )}
+                {valueTypes['hsl'] && (
+                    <ShadeSwatch_ColourValue
+                        background={true}
+                        {...valueTypes['hsl']}
+                    />
+                )}
+                {valueTypes['rgb'] && (
+                    <ShadeSwatch_ColourValue
+                        background={true}
+                        {...valueTypes['rgb']}
+                    />
+                )}
+                {valueTypes['lch'] && (
+                    <ShadeSwatch_ColourValue
+                        background={true}
+                        {...valueTypes['lch']}
+                    />
+                )}
+            </Fragment>
         )
     }
-    {
-        valueTypes['rgb'] && (
-            <ShadeSwatch_ColourValue
-                background={true}
-                {...valueTypes['rgb']}
-            />
-        )
-    }
-    {
-        valueTypes['lch'] && (
-            <ShadeSwatch_ColourValue
-                background={true}
-                {...valueTypes['lch']}
-            />
-        )
-    }
-    <!-- <VariableDump var={valueTypes} /> -->
     {
         contrast && values.contrast && (
             <ShadeSwatch_Contrast
@@ -252,8 +265,8 @@ const valueTypes = objectGenerator(
             />
         )
     }
-</article>
+</WrapperElement>
 
-<style lang='scss' define:vars={cssVars}>
+<style lang='scss'>
     @forward '../scss/shade-swatch';
 </style>

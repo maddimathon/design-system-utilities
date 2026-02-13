@@ -38,8 +38,8 @@ export class Tokens_Colour_ShadeMap_Shade<
     public constructor (
         protected readonly allNames: readonly T_ColourName[],
         protected readonly extraLevels: readonly T_ExtraLevels[],
-        protected readonly shadeName: T_ColourName,
-        protected readonly thisLevel: ColourUtilities.Levels.Required | T_ExtraLevels,
+        protected readonly shadeName: "black" | "white" | T_ColourName,
+        protected readonly thisLevel: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraLevels,
         input: Tokens_Colour_ShadeMap_Shade.InputParam,
     ) {
         super();
@@ -176,7 +176,7 @@ export class Tokens_Colour_ShadeMap_Shade<
         };
     }
 
-    public toScssVars() {
+    public toScssVars(): Tokens_Colour_ShadeMap_Shade.ScssVars {
         return ColourUtilities.toString.hsl( this.data.hsl );
     }
 }
@@ -208,6 +208,11 @@ export namespace Tokens_Colour_ShadeMap_Shade {
         contrast: Contrast<T_ColourName, T_ExtraLevels, number>;
     };
 
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export type ScssVars = string;
+
 
 
     /**
@@ -232,7 +237,7 @@ export namespace Tokens_Colour_ShadeMap_Shade {
     > = {
         min: Contrast.Minimum<T_ColourName, T_ExtraLevels, T_RatioValue>;
         max: Contrast.Maximum<T_ColourName, T_ExtraLevels, T_RatioValue>;
-        results: ContrastResults<T_ColourName, T_ExtraLevels>;
+        results: ContrastResults<"black" | "white" | T_ColourName, T_ExtraLevels>;
     };
 
     /**

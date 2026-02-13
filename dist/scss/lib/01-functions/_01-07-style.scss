@@ -5,6 +5,7 @@
 
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/math';
+@use 'pkg:@maddimathon/utility-sass/meta';
 @use 'pkg:@maddimathon/utility-sass/string';
 
 @use '../../config';
@@ -178,7 +179,16 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
     } @else if $isStrokeRelative {
         $value: utils.var-stroke-relative($value);
     } @else if $isThemeToken {
-        $value: var-theme($value);
+        $value: if(
+            meta.type-of($value) ==
+                'color' or
+                $value ==
+                white or
+                $value ==
+                black,
+            $value,
+            var-theme($value)
+        );
     } @else if $isSimpleEm {
         $value: math.add-unit($value, $unit: 1em);
     }

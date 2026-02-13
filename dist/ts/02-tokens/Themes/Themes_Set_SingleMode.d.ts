@@ -662,12 +662,12 @@ export declare namespace Tokens_Themes_Set_SingleMode {
                     readonly accent: "200";
                 };
                 readonly text: {
-                    readonly $: "700";
+                    readonly $: "750";
                     readonly accent: "700";
                     readonly min: "600";
                 };
                 readonly ui: {
-                    readonly $: "700";
+                    readonly $: "750";
                     readonly accent: "700";
                     readonly min: "600";
                 };

@@ -56,6 +56,8 @@ type _ParsedInputField = {
                     keyof Tokens.Themes.SingleMode.JsonReturn['data']['input'][InputType]['text'],
                     '$'
                 >;
+                variation: "$" | "disabled" | "readonly",
+                label: string;
                 key: string;
                 clrSlug: string | string[];
             };
@@ -129,7 +131,7 @@ function themeTokenFlatten<T_Val extends string | number |undefined |null|any[]>
 }
 
 function captureClrDataFromThemeValue( 
-    _tokens: Tokens.JsonReturn<string>,
+    _tokens: Tokens.JsonReturn,
     _brightness?: string,
     _clrSlug: string,
 ): undefined | {
@@ -159,7 +161,7 @@ function captureClrDataFromThemeValue(
 }
 
 function getClrFromThemeValue( 
-    _tokens: Tokens.JsonReturn<string>,
+    _tokens: Tokens.JsonReturn,
     _brightness?: string,
     _clrSlug: string | string[],
 ): string {
@@ -183,7 +185,7 @@ function getClrFromThemeValue(
         return String(slug);
     }
     
-    const clr = _tokens.colour[name]?.[level];
+    const clr = _tokens.colour[name as 'base']?.[level];
 
     // returns
     if (!clr) {
@@ -291,26 +293,38 @@ const inputField: _ParsedInputField = objectGenerator(
             const state =  key == '$' ? null : key;
 
             const keySuffix = key == '$' ? '' : `-${key}`;
+
+            const keyInputSuffix = inputType == '$' ? '' : `-${key}`;
+
+            const label = `Input Field${inputType !== '$' ? ` (${toTitleCase(inputType)})`: ''}${ state ? ` — ${state}` : '' }`;
             
             return {
                 accent: {
+                    key: `input${keyInputSuffix}-accent${keySuffix}`,
                     state,
-                    key: `input-accent${keySuffix}`,
+                    label,
+                    variation: inputType,
                     clrSlug: theme.data.input[inputType].accent[key],
                 },
                 bg: {
+                    key: `input${keyInputSuffix}-bg${keySuffix}`,
                     state,
-                    key: `input-bg${keySuffix}`,
+                    label,
+                    variation: inputType,
                     clrSlug: theme.data.input[inputType].bg[key],
                 },
                 border: {
+                    key: `input${keyInputSuffix}-border${keySuffix}`,
                     state,
-                    key: `input-border${keySuffix}`,
+                    label,
+                    variation: inputType,
                     clrSlug: theme.data.input[inputType].border[key],
                 },
                 text: {
+                    key: `input${keyInputSuffix}-text${keySuffix}`,
                     state,
-                    key: `input-text${keySuffix}`,
+                    label,
+                    variation: inputType,
                     clrSlug: theme.data.input[inputType].text[key],
                 },
             };
@@ -325,9 +339,9 @@ const inputField: _ParsedInputField = objectGenerator(
     data-brightness-mode={brightness}
     data-contrast-mode={contrast}
     style={ [
-        `--theme-background: var(--clr-${theme.data.background})`,
+        `--theme-background: var(--clr-${theme.data.background.$})`,
         `--theme-text: var(--clr-${theme.data.text.$})`,
-        `background: var(--clr-${theme.data.background})`,
+        `background: var(--clr-${theme.data.background.$})`,
         `color: var(--clr-${theme.data.text.$})`,
     ].join(';') }
 >
@@ -428,7 +442,7 @@ const inputField: _ParsedInputField = objectGenerator(
         <Heading
             heading={heading + 2}
             class:list='screen-reader-text'
-            set:text='Token Values'
+            set:text='Button Token Values'
         />
         { Object.values( buttons ).map( ( variation ) => (
             <Heading
@@ -457,21 +471,59 @@ const inputField: _ParsedInputField = objectGenerator(
             displayHeading={displayHeading + 1}
             set:text='Input Fields'
         />
-        { Object.values( inputField ).map( ( fieldSet ) => Object.values(fieldSet).map( ( state ) => (
+        { Object.entries( inputField ).map( ( [variation, fieldSet] ) => Object.values(fieldSet).map( ( state ) => (
+            <label 
+                class="screen-reader-text"
+                set:text={state.bg.label}
+            />
             <input
-                type="text"
-                placeholder={`Field${state.bg.state ? ` (${state.bg.state})` : ''}`}
+                aria-disabled={ variation === 'disabled' ? 'true' : undefined }
                 class:list={ [
                     'theme-mode-swatch__sample',
                     'theme-mode-swatch__sample--input',
                 ] }
+                disabled={ variation === 'disabled' ? 'true' : undefined }
+                placeholder={ variation === '$' ? state.bg.label : '' }
+                readonly={ variation === 'readonly' ? 'true' : undefined }
                 style={ [
                     `border-color: ${getClrFromThemeValue(tokens, brightness, state.border.clrSlug)}`,
                     `background: ${getClrFromThemeValue(tokens, brightness, state.bg.clrSlug)}`,
                     `color: ${getClrFromThemeValue(tokens, brightness, state.text.clrSlug)}`,
                 ].join(';') }
+                type="text"
+                value ={ variation === '$' ? undefined : state.bg.label }
             /> 
         ) ) ) }
+        <Heading
+            heading={heading + 2}
+            class:list='screen-reader-text'
+            set:text='Input Fields Token Values'
+        />
+        { Object.entries( inputField ).map( ( [variation, fieldSet] ) => (
+            <Heading
+                heading={heading + 3}
+                displayHeading={displayHeading + 2}
+                set:text={`${ variation !== '$' ? `${toTitleCase(variation)} ` : '' }Input Fields`}
+            />
+            <Fragment>{ Object.values( fieldSet ).map(
+                ( state ) => (['accent', 'bg', 'border', 'text'] as const).map(
+                    (key) => (
+                        state[key] && <p
+                            class="theme-mode-swatch__sample"
+                            style={ [
+                                (key == 'accent' || key == 'text') && state.bg 
+                                    ? `background: ${getClrFromThemeValue(tokens, brightness, state.bg.clrSlug)}`
+                                    : '',
+                                (key == 'bg') && state.border 
+                                    ? `background: ${getClrFromThemeValue(tokens, brightness, state.border.clrSlug)}`
+                                    : '',
+                                `color: ${getClrFromThemeValue(tokens, brightness, state[key].clrSlug)}`,
+                            ].join(';') }
+                        ><code set:text={`theme-input${ variation !== '$' ? `-${variation}` : '' }-${key}${state[key].state ? `-${state[key].state}`: '' }`} /> {equals} <code set:text={state[key].clrSlug} /></p>
+                    )
+                )
+             ) }</Fragment>
+        ) ) }
         <slot name="tokens" />
         { levelsInUseTable.length && ( 
             <Heading
@@ -514,7 +566,29 @@ const inputField: _ParsedInputField = objectGenerator(
             tokens={tokens}
             displayHeading={displayHeading}
             mode={import.meta.env.DEV ? 'fancy': undefined}
-        />
+        >
+            { Object.entries( inputField ).map( ( [variation, fieldSet] ) => (
+                <label set:text={fieldSet.$.bg.label} />
+                <input
+                    aria-disabled={ variation === 'disabled' ? 'true' : undefined }
+                    class:list={ [
+                        'theme-mode-swatch__sample',
+                        'theme-mode-swatch__sample--input',
+                    ] }
+                    disabled={ variation === 'disabled' ? 'true' : undefined }
+                    placeholder={ variation === '$' ? 'This is a placeholder value.' : '' }
+                    readonly={ variation === 'readonly' ? 'true' : undefined }
+                    slot="four"
+                    style={ [
+                        `border-color: ${getClrFromThemeValue(tokens, brightness, fieldSet.$.border.clrSlug)}`,
+                        `background: ${getClrFromThemeValue(tokens, brightness, fieldSet.$.bg.clrSlug)}`,
+                        `color: ${getClrFromThemeValue(tokens, brightness, fieldSet.$.text.clrSlug)}`,
+                    ].join(';') }
+                    type="text"
+                    value ={ variation === '$' ? undefined : `This is a ${variation} input.` }
+                /> 
+            ) ) }
+        </LoremIpsum>
         <slot name="preview" />
     ) }
 </article>

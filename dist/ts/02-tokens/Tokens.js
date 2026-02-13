@@ -162,6 +162,8 @@ export class Tokens extends AbstractTokens {
     Tokens.SampleColours = {
         yardstick: Tokens_Colour_ShadeMap.Yardsticks.base,
         'yardstick-accent': Tokens_Colour_ShadeMap.Yardsticks.accent,
+        white: Tokens_Colour_ShadeMap.Yardsticks.white,
+        black: Tokens_Colour_ShadeMap.Yardsticks.black,
         base: Tokens_Colour_ShadeMap.Yardsticks.base,
         red: {
             '100': { h: 5, s: 100, l: 98, },

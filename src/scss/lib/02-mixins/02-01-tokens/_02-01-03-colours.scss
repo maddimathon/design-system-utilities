@@ -96,35 +96,38 @@ $_flattenedSystemColors: map.flatten($_systemColors);
     @each $mode in tokens.$brightnessMode_all {
         @include utils.colour-mode($mode, $includeDefault: true) {
             @each $slug, $map in tokens.$colour {
-                @each $level, $clr in map.ksort($map) {
+                //
+                @if meta.type-of($map) != 'map' {
+                    // this is probably a colour then
                     $_clrValue: if(
                         $mode == dark,
-                        map.get($map, colour.shade-map-reverse-key($level, $map, $sort: true)),
-                        $clr
+                        map.get(
+                            tokens.$colour,
+                            if(
+                                $slug == 'white' or $slug == white,
+                                'black',
+                                if($slug == 'black' or $slug == black, 'white', $slug)
+                            )
+                        ),
+                        $map
                     );
 
-                    @include utils.cx-prop(
-                        clr-#{$slug}-#{$level},
-                        colour.to-hsl($_clrValue, $round: false)
-                    );
-                }
+                    @include utils.cx-prop(clr-#{$slug}, colour.to-hsl($_clrValue, $round: false));
 
-                @if config.$print_colourValues_hsl {
-                    @each $level, $clr in map.ksort($map) {
-                        $_clrValue: if(
-                            $mode == dark,
-                            map.get($map, colour.shade-map-reverse-key($level, $map, $sort: true)),
-                            $clr
-                        );
-
+                    @if config.$print_colourValues_hsl {
                         @include utils.cx-prop(
-                            clr-#{$slug}-#{$level}-hsl,
+                            clr-#{$slug}-hsl,
                             colour.to-hsl-list($_clrValue, $round: false)
                         );
                     }
-                }
 
-                @if config.$print_colourValues_rgb {
+                    @if config.$print_colourValues_rgb {
+                        @include utils.cx-prop(
+                            clr-#{$slug}-rgb,
+                            colour.to-rgb-list($_clrValue, $round: true)
+                        );
+                    }
+                } @else {
                     @each $level, $clr in map.ksort($map) {
                         $_clrValue: if(
                             $mode == dark,
@@ -133,9 +136,45 @@ $_flattenedSystemColors: map.flatten($_systemColors);
                         );
 
                         @include utils.cx-prop(
-                            clr-#{$slug}-#{$level}-rgb,
-                            colour.to-rgb-list($_clrValue, $round: true)
+                            clr-#{$slug}-#{$level},
+                            colour.to-hsl($_clrValue, $round: false)
                         );
+                    }
+
+                    @if config.$print_colourValues_hsl {
+                        @each $level, $clr in map.ksort($map) {
+                            $_clrValue: if(
+                                $mode == dark,
+                                map.get(
+                                    $map,
+                                    colour.shade-map-reverse-key($level, $map, $sort: true)
+                                ),
+                                $clr
+                            );
+
+                            @include utils.cx-prop(
+                                clr-#{$slug}-#{$level}-hsl,
+                                colour.to-hsl-list($_clrValue, $round: false)
+                            );
+                        }
+                    }
+
+                    @if config.$print_colourValues_rgb {
+                        @each $level, $clr in map.ksort($map) {
+                            $_clrValue: if(
+                                $mode == dark,
+                                map.get(
+                                    $map,
+                                    colour.shade-map-reverse-key($level, $map, $sort: true)
+                                ),
+                                $clr
+                            );
+
+                            @include utils.cx-prop(
+                                clr-#{$slug}-#{$level}-rgb,
+                                colour.to-rgb-list($_clrValue, $round: true)
+                            );
+                        }
                     }
                 }
             }

@@ -57,6 +57,31 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 break;
             case 'max':
                 description = description ?? 'This is the maximum contrast mode.  This is an alternate option for users who want an even higher contrast than the ‘high’ mode, but without enabling ‘forced-colors’ mode.  It exceeds WCAG AAA contrast standards.';
+                overrides.background = {
+                    $: 'white',
+                    alt: 'white',
+                    ...objectGenerator(arrayUnique([
+                        ...Object.keys(variations.universal),
+                        ...Object.keys(variations.background),
+                    ]), () => 'white'),
+                    ...overrides.background,
+                };
+                overrides.text = {
+                    $: 'black',
+                    ...objectGenerator(arrayUnique([
+                        ...Object.keys(variations.universal),
+                        ...Object.keys(variations.text),
+                    ]), () => 'black'),
+                    ...overrides.text,
+                };
+                overrides.ui = {
+                    $: 'black',
+                    ...objectGenerator(arrayUnique([
+                        ...Object.keys(variations.universal),
+                        ...Object.keys(variations.text),
+                    ]), () => 'black'),
+                    ...overrides.ui,
+                };
                 overrides.selection = {
                     bg: clrOpt(variations.universal.primary, '850'),
                     text: clrOpt(variations.base, '100'),
@@ -231,12 +256,12 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                     accent: '200',
                 },
                 text: {
-                    $: '700',
+                    $: '750',
                     accent: '700',
                     min: '600',
                 },
                 ui: {
-                    $: '700',
+                    $: '750',
                     accent: '700',
                     min: '600',
                 },

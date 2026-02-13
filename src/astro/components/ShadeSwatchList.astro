@@ -9,6 +9,7 @@
 import type { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
 import type { Tokens, Tokens_Internal } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
+import type { Tokens_Colour_ShadeMap_Shade } from '../../ts/02-tokens/Colour/ShadeMap/ShadeMap_Shade.js';
 
 /* import - functions */
 import { shadeMapToArray } from '../functions/shadeMapToArray.js';
@@ -27,12 +28,30 @@ export interface Props<
     T_ExtraLevels extends ColourUtilities.Levels.Optional =
         Tokens_Internal.Default_ExtraColourLevels,
 > {
-    name: string;
+    name: string | null;
 
-    colour: Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, T_ExtraLevels>;
+    colour: Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, T_ExtraLevels> & {
+        black?: Tokens_Colour_ShadeMap_Shade.JsonReturn<
+            T_ColourName,
+            T_ExtraLevels
+        >;
+        white?: Tokens_Colour_ShadeMap_Shade.JsonReturn<
+            T_ColourName,
+            T_ExtraLevels
+        >;
+    };
     tokens: Tokens.JsonReturn;
 
-    bases?: Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, T_ExtraLevels>;
+    bases?: Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, T_ExtraLevels> & {
+        black: Tokens_Colour_ShadeMap_Shade.JsonReturn<
+            T_ColourName,
+            T_ExtraLevels
+        >;
+        white: Tokens_Colour_ShadeMap_Shade.JsonReturn<
+            T_ColourName,
+            T_ExtraLevels
+        >;
+    };
 
     /** Unique. */
     id: string;

@@ -17,6 +17,24 @@ label {
     justify-self: end;
 }
 
+:global(:where(.js__subgrid)) .shade-swatch-table__wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(0, min-content));
+    grid-template-columns: repeat(18, min-content);
+    grid-template-columns: repeat(
+        var(--shade-swatch-table-column-count, 18),
+        min-content
+    );
+}
+
+.shade-swatch-table__wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    grid-auto-flow: row;
+    overflow-x: auto;
+    overscroll-behavior-x: none;
+}
 .shade-swatch-table__wrapper > :global(table) {
     width: 100%;
     border-spacing: 0;
@@ -33,6 +51,7 @@ label {
     --shade-swatch-color-override: transparent !important;
     --shade-swatch-display-override: none !important;
 }
+.shade-swatch-table__wrapper :global(li) :global(.shade-swatch),
 .shade-swatch-table__wrapper :global(td) :global(.shade-swatch) {
     min-width: 3rem;
     min-height: 6rem;

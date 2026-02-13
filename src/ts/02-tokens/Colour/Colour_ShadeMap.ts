@@ -82,9 +82,7 @@ export class Tokens_Colour_ShadeMap<
         );
     }
 
-    public toScssVars(): {
-        [ K in ColourUtilities.Levels.Required | T_ExtraLevels ]: AbstractTokens.ScssReturn;
-    } {
+    public toScssVars(): Tokens_Colour_ShadeMap.ScssVars<T_ExtraLevels> {
 
         return objectMap(
             this.data,
@@ -119,6 +117,15 @@ export namespace Tokens_Colour_ShadeMap {
         T_ExtraLevels extends ColourUtilities.Levels.Optional,
     > = {
             [ N in ColourUtilities.Levels.Required | T_ExtraLevels ]: Tokens_Colour_ShadeMap_Shade.JsonReturn<T_ColourName, T_ExtraLevels>;
+        };
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export type ScssVars<
+        T_ExtraLevels extends ColourUtilities.Levels.Optional,
+    > = {
+            [ N in ColourUtilities.Levels.Required | T_ExtraLevels ]: Tokens_Colour_ShadeMap_Shade.ScssVars;
         };
 
 
@@ -457,14 +464,17 @@ export namespace Tokens_Colour_ShadeMap {
      */
     export namespace Yardsticks {
 
+        export const black = { l: 0, c: 0, h: 0, } as const;
+        export const white = { l: 100, c: 0, h: 0, } as const;
+
         export const base = {
-            '100': { l: 100, c: 0, h: 0, },
+            '100': { l: 97, c: 0, h: 0, },
             // '200': { l: 92, c: 0, h: 0, },
             '300': { l: 80, c: 0, h: 0, },
             '500': { l: 50, c: 0, h: 0, },
-            '700': { l: 18, c: 0, h: 0, },
+            '700': { l: 20, c: 0, h: 0, },
             // '800': { l: 5, c: 0, h: 0, },
-            '900': { l: 0, c: 0, h: 0, },
+            '900': { l: 3, c: 0, h: 0, },
         } as const;
 
         export const accent = {

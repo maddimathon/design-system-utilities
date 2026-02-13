@@ -254,6 +254,12 @@ export class Tokens_CSS_Style extends AbstractTokens<Tokens_CSS_Style.Data> {
                 block: '200',
                 inline: '300',
             },
+
+            placeholder: {
+                font: {
+                    style: 'italic',
+                },
+            },
         };
 
         return {
@@ -495,6 +501,15 @@ export namespace Tokens_CSS_Style {
             block: TokenLevels;
             inline: TokenLevels;
         };
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        placeholder: {
+            font: {
+                style: "normal" | "italic";
+            };
+        };
     }
 
     /**
@@ -502,7 +517,7 @@ export namespace Tokens_CSS_Style {
      */
     export interface InputStyles_Disabled extends Omit<
         InputStyles,
-        'border' | 'focus' | 'label' | 'line-height' | 'margin' | 'padding'
+        'border' | 'focus' | 'label' | 'line-height' | 'margin' | 'padding' | 'placeholder'
     > {
         border: Omit<InputStyles[ 'border' ], 'width'>;
     }

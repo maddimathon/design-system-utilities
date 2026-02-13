@@ -193,6 +193,11 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 block: '200',
                 inline: '300',
             },
+            placeholder: {
+                font: {
+                    style: 'italic',
+                },
+            },
         };
         return {
             $: style,
