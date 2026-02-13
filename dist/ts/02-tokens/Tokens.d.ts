@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.0
+ * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
 import type { ThemeMode_Contrast, ThemeMode_ContrastAtLeastOne, ThemeMode_ContrastExtraOptions, TokenLevels } from './@types.js';
@@ -271,6 +271,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
             stroke: AbstractTokens.ScssReturn;
         };
         style: {
+            alert: AbstractTokens.ScssReturn;
             button: AbstractTokens.ScssReturn;
             heading: AbstractTokens.ScssReturn;
             input: AbstractTokens.ScssReturn;

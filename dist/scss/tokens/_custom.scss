@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.1-alpha.0
+/// @package @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
 /// @since 0.1.0-alpha
 ///
 
@@ -16,22 +16,6 @@ $_theme_ui_base: config.config-do-var(
     )
 );
 
-$_theme_ui_primary: config.config-do-var(
-    theme-ui-primary,
-    config.config-do-var(
-        clr-#{map.get(system.$themes, default, light, average, ui, primary)},
-        currentColor
-    )
-);
-
-$_theme_text_primary: config.config-do-var(
-    theme-text-primary,
-    config.config-do-var(
-        clr-#{map.get(system.$themes, default, light, average, text, primary)},
-        currentColor
-    )
-);
-
 $internal_customTokensDefault: () !default;
 
 $internal_customTokensDefault: map.merge(
@@ -40,16 +24,6 @@ $internal_customTokensDefault: map.merge(
             outline-width: '400',
             outline-offset: '400',
             outline-color: currentColor,
-        ),
-
-        alert: (
-            color: (
-                border: $_theme_ui_primary,
-                icon: $_theme_ui_primary,
-                text: $_theme_text_primary,
-            ),
-
-            icon-size: 1.125em,
         ),
 
         icon: (

@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.1-alpha.0
+/// @package @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
 /// @since 0.1.0-alpha
 ///
 
@@ -262,6 +262,35 @@
 }
 
 ///
+/// Sets the paragraph margins using
+///
+/// @since 0.1.1-alpha.1.draft
+///
+@mixin set-default-margins(
+    $paragraphLevel: '400',
+    $firmStartLevel: null,
+    $firmEndLevel: null
+) {
+    @if $firmStartLevel == null {
+        $firmStartLevel: $paragraphLevel;
+    }
+
+    @if $firmEndLevel == null {
+        $firmEndLevel: $firmStartLevel;
+    }
+
+    %paragraph-margins {
+        margin-block: #{var-mrg-soft($paragraphLevel)} 0;
+    }
+
+    %button,
+    %paragraph-firm-margins {
+        margin-block: #{var-mrg-firm($firmStartLevel)}
+            #{var-mrg-half($firmEndLevel)};
+    }
+}
+
+///
 /// @since 0.1.0-alpha
 ///
 @mixin snippet-selection($contrast: tokens.$contrastMode_default) {
@@ -272,45 +301,66 @@
     );
     color: #{var-theme(selection-text, $contrast: $contrast)} !important;
 
-    background-color: #{var-theme(selection-bg, $contrast: $contrast)} !important;
+    // background-color: #{var-theme(selection-bg, $contrast: $contrast)} !important;
 
     @if $contrast == average {
         //
-        background-color: rgb(
-            from #{var-theme(selection-bg, $contrast: $contrast)}
-                r
-                g
-                b /
-                #{do-var(
-                    selection-background-opacity,
-                    var-style(selection-average-background-opacity)
-                )}
-        ) !important;
+        background-color: #{var-theme(
+                selection-bg,
+                $contrast: $contrast,
+                $opacity: do-var(
+                        selection-background-opacity,
+                        var-style(selection-average-background-opacity)
+                    )
+            )} !important;
+        // background-color: rgb(
+        //     from #{var-theme(selection-bg, $contrast: $contrast)}
+        //         r
+        //         g
+        //         b /
+        //         #{do-var(
+        //             selection-background-opacity,
+        //             var-style(selection-average-background-opacity)
+        //         )}
+        // ) !important;
         //
     } @else if $contrast == low {
         //
-        background-color: rgb(
-            from #{var-theme(selection-bg, $contrast: $contrast)}
-                r
-                g
-                b /
-                #{do-var(
-                    selection-background-opacity,
-                    var-style(selection-low-background-opacity)
-                )}
-        ) !important;
+        background-color: #{var-theme(
+                selection-bg,
+                $contrast: $contrast,
+                $opacity: do-var(
+                        selection-background-opacity,
+                        var-style(selection-low-background-opacity)
+                    )
+            )} !important;
+        // background-color: rgb(
+        //     from #{var-theme(selection-bg, $contrast: $contrast)}
+        //         r
+        //         g
+        //         b /
+        //         #{do-var(selection-background-opacity, var-style(selection-low-background-opacity))}
+        // ) !important;
         //
     } @else if $contrast == high {
         //
-        background-color: rgb(
-            from #{var-theme(selection-bg, $contrast: $contrast)}
-                r
-                g
-                b /
-                #{do-var(
-                    selection-background-opacity,
-                    var-style(selection-high-background-opacity)
-                )}
-        ) !important;
+        background-color: #{var-theme(
+                selection-bg,
+                $contrast: $contrast,
+                $opacity: do-var(
+                        selection-background-opacity,
+                        var-style(selection-high-background-opacity)
+                    )
+            )} !important;
+        // background-color: rgb(
+        //     from #{var-theme(selection-bg, $contrast: $contrast)}
+        //         r
+        //         g
+        //         b /
+        //         #{do-var(
+        //             selection-background-opacity,
+        //             var-style(selection-high-background-opacity)
+        //         )}
+        // ) !important;
     }
 }

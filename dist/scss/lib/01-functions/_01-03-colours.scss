@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.1-alpha.0
+/// @package @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
 /// @since 0.1.0-alpha
 ///
 
@@ -40,21 +40,50 @@ $_systemColors: map.flatten(
 ///
 /// Returns the appropriate var (with fallback).
 ///
-/// @since 0.1.0-alpha
+/// @param {string} $slug  Colour name.
+/// @param {string} $level  Shade level.
+/// @param {string} $brightness  Optional. Brightness mode for this value (switched in dark mode).
+/// @param {string} $version  Optional. Brightness mode for this value (switched in dark mode). Which list version of the var to fetch, if applicable. Options: null, 'hsl', 'rgb'.
 ///
-@function var-clr($slug, $level, $brightness: tokens.$brightnessMode_default) {
+/// @since 0.1.0-alpha
+/// @since __PKG_VERSION___ — Added $version param.
+///
+@function var-clr(
+    $slug,
+    $level,
+    $brightness: tokens.$brightnessMode_default,
+    $version: null
+) {
     $slugMap: map.get(tokens.$colour, $slug);
+
+    $clrVarSlug: 'clr-#{$slug}-#{$level}';
+
+    @if $version == 'hsl' {
+        @if config.$print_colourValues_hsl {
+            $clrVarSlug: '#{$clrVarSlug}-hsl';
+        } @else {
+            $version: null;
+        }
+    }
+
+    @if $version == 'rgb' {
+        @if config.$print_colourValues_hsl {
+            $clrVarSlug: '#{$clrVarSlug}-rgb';
+        } @else {
+            $version: null;
+        }
+    }
 
     // returns
     @if $slugMap == null {
         @warn "$slug '#{$slug}' was not a key in tokens.$colour";
-        @return utils.do-var(clr-#{$slug}-#{$level});
+        @return utils.do-var($clrVarSlug);
     }
 
     // returns
     @if meta.type-of($slugMap) != map {
         @warn "$level '#{$level}' was not a key in tokens.$colour.#{$slug}";
-        @return utils.do-var(clr-#{$slug}-#{$level});
+        @return utils.do-var($clrVarSlug);
     }
 
     $level_brightnessAdjusted: $level;
@@ -72,18 +101,23 @@ $_systemColors: map.flatten(
     // returns
     @if $fallback_clr == null {
         @warn "$level '#{$level}' was not a key in tokens.$colour.#{$slug}";
-        @return utils.do-var(clr-#{$slug}-#{$level});
+        @return utils.do-var($clrVarSlug);
     }
 
-    $fallback: colour.to-hsl(
-        map.get($slugMap, $level_brightnessAdjusted),
-        $round: false
-    );
+    $fallback: $fallback_clr;
+
+    @if $version == 'hsl' {
+        $fallback: colour.to-hsl-list($fallback_clr, $round: false);
+    } @else if $version == 'rgb' {
+        $fallback: colour.to-rgb-list($fallback_clr, $round: true);
+    } @else {
+        $fallback: colour.to-hsl($fallback_clr, $round: false);
+    }
 
     @return if(
         config.$fn_var_replaceWithValue_colour,
         $fallback,
-        utils.do-var(clr-#{$slug}-#{$level}, #{$fallback})
+        utils.do-var($clrVarSlug, $fallback)
     );
 }
 
@@ -257,7 +291,8 @@ $_default_activeTheme_flat_mode: if(
 ///
 @function var-clr-from-theme-token(
     $tokenValue,
-    $brightness: tokens.$brightnessMode_default
+    $brightness: tokens.$brightnessMode_default,
+    $version: null
 ) {
     // returns
     @if string.length(#{$tokenValue}) > 0 and string.index(#{$tokenValue}, '-')
@@ -265,7 +300,8 @@ $_default_activeTheme_flat_mode: if(
         @return var-clr(
             string.slice(#{$tokenValue}, 1, -5),
             string.slice(#{$tokenValue}, -3, -1),
-            $brightness: $brightness
+            $brightness: $brightness,
+            $version: $version
         );
     }
 
@@ -276,24 +312,39 @@ $_default_activeTheme_flat_mode: if(
 /// Returns the appropriate var (with fallback).
 ///
 /// @since 0.1.0-alpha
+/// @since __PKG_VERSION___ — Added $opacity param.
 ///
 @function var-theme(
     $slug,
     $brightness: tokens.$brightnessMode_default,
-    $contrast: tokens.$contrastMode_default,
+    $contrast: null,
     $themeSlug: tokens.$activeTheme,
-    $useSystemColorFallback: true
+    $useSystemColorFallback: null,
+    $opacity: null
 ) {
-    $clrSlug: if(
-        $useSystemColorFallback,
-        theme-token-value(
+    $clrIsSystemColor: false;
+
+    $clrSlug: null;
+
+    @if $useSystemColorFallback == null {
+        $useSystemColorFallback: if($contrast == null, true, false);
+    }
+
+    $useSystemColorFallback: $useSystemColorFallback or $contrast ==
+        forced-colors;
+
+    @if $contrast == null {
+        $contrast: tokens.$contrastMode_default;
+    }
+
+    @if $useSystemColorFallback {
+        $clrSlug: theme-token-value(
             $slug,
             $brightness: $brightness,
             $contrast: forced-colors,
             $themeSlug: $themeSlug
-        ),
-        null
-    );
+        );
+    }
 
     @if not $clrSlug {
         $clrSlug: theme-token-value(
@@ -302,11 +353,24 @@ $_default_activeTheme_flat_mode: if(
             $contrast: $contrast,
             $themeSlug: $themeSlug
         );
+    } @else if $useSystemColorFallback {
+        $clrIsSystemColor: true;
     }
 
     // returns
     @if list.length($clrSlug) < 1 {
         @return utils.do-var(theme-#{$slug});
+    }
+
+    $opacity: if($opacity != null and not $clrIsSystemColor, $opacity, null);
+
+    @if $clrIsSystemColor {
+        $opacity: null;
+    } @else if not
+        config.$print_colourValues_hsl and not
+        config.$print_colourValues_rgb
+    {
+        $opacity: null;
     }
 
     @if list.length($clrSlug) > 1 {
@@ -316,6 +380,36 @@ $_default_activeTheme_flat_mode: if(
     // returns
     @if $contrast == forced-colors {
         @return $clrSlug;
+    }
+
+    // returns on success
+    @if $opacity != null {
+        //
+        @if config.$print_colourValues_hsl {
+            @return hsla(
+                #{utils.do-var(
+                        theme-#{$slug}-hsl,
+                        #{var-clr-from-theme-token(
+                                $clrSlug,
+                                $brightness: $brightness,
+                                $version: hsl
+                            )}
+                    )},
+                #{$opacity}
+            );
+        } @else if config.$print_colourValues_rgb {
+            @return rgba(
+                #{utils.do-var(
+                        theme-#{$slug}-rgb,
+                        #{var-clr-from-theme-token(
+                                $clrSlug,
+                                $brightness: $brightness,
+                                $version: rgb
+                            )}
+                    )},
+                #{$opacity}
+            );
+        }
     }
 
     @return utils.do-var(

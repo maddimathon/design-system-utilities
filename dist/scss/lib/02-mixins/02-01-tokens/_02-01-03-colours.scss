@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.1-alpha.0
+/// @package @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
 /// @since 0.1.0-alpha
 ///
 
@@ -118,24 +118,67 @@ $_flattenedSystemColors: map.flatten($_systemColors);
         @include utils.colour-mode($mode, $includeDefault: true) {
             @each $slug, $map in tokens.$colour {
                 @each $level, $clr in map.ksort($map) {
+                    $_clrValue: if(
+                        $mode == dark,
+                        map.get(
+                            $map,
+                            colour.shade-map-reverse-key(
+                                $level,
+                                $map,
+                                $sort: true
+                            )
+                        ),
+                        $clr
+                    );
+
                     @include utils.cx-prop(
                         clr-#{$slug}-#{$level},
-                        colour.to-hsl(
-                            if(
-                                $mode == dark,
-                                map.get(
-                                    $map,
-                                    colour.shade-map-reverse-key(
-                                        $level,
-                                        $map,
-                                        $sort: true
-                                    )
-                                ),
-                                $clr
-                            ),
-                            $round: false
-                        )
+                        colour.to-hsl($_clrValue, $round: false)
                     );
+                }
+
+                @if config.$print_colourValues_hsl {
+                    @each $level, $clr in map.ksort($map) {
+                        $_clrValue: if(
+                            $mode == dark,
+                            map.get(
+                                $map,
+                                colour.shade-map-reverse-key(
+                                    $level,
+                                    $map,
+                                    $sort: true
+                                )
+                            ),
+                            $clr
+                        );
+
+                        @include utils.cx-prop(
+                            clr-#{$slug}-#{$level}-hsl,
+                            colour.to-hsl-list($_clrValue, $round: false)
+                        );
+                    }
+                }
+
+                @if config.$print_colourValues_rgb {
+                    @each $level, $clr in map.ksort($map) {
+                        $_clrValue: if(
+                            $mode == dark,
+                            map.get(
+                                $map,
+                                colour.shade-map-reverse-key(
+                                    $level,
+                                    $map,
+                                    $sort: true
+                                )
+                            ),
+                            $clr
+                        );
+
+                        @include utils.cx-prop(
+                            clr-#{$slug}-#{$level}-rgb,
+                            colour.to-rgb-list($_clrValue, $round: true)
+                        );
+                    }
                 }
             }
         }
@@ -247,20 +290,44 @@ $_flattenedSystemColors: map.flatten($_systemColors);
                 @if string.index($prop, 'system-') != 1 {
                     //
                     @each $_val in $value {
-                        $_clrValue: var-clr-from-theme-token(
-                            $_val,
-                            $brightness: $brightness
-                        );
-
                         @include utils.cx-prop(
                             theme-#{$prop},
-                            $_clrValue,
+                            var-clr-from-theme-token(
+                                $_val,
+                                $brightness: $brightness
+                            ),
                             $comment: if(
                                     config.$fn_var_replaceWithValue_colour,
                                     $_val,
                                     null
                                 )
                         );
+                    }
+
+                    @if config.$print_colourValues_hsl {
+                        @each $_val in $value {
+                            @include utils.cx-prop(
+                                theme-#{$prop}-hsl,
+                                #{var-clr-from-theme-token(
+                                        $_val,
+                                        $brightness: $brightness,
+                                        $version: hsl
+                                    )}
+                            );
+                        }
+                    }
+
+                    @if config.$print_colourValues_rgb {
+                        @each $_val in $value {
+                            @include utils.cx-prop(
+                                theme-#{$prop}-rgb,
+                                #{var-clr-from-theme-token(
+                                        $_val,
+                                        $brightness: $brightness,
+                                        $version: rgb
+                                    )}
+                            );
+                        }
                     }
                 }
             }

@@ -9,10 +9,7 @@
 /// @since 0.1.0-alpha
 ///
 $print_alertBlocks: utils.$print_utils or utils.$print_astro !default;
-$print_alertBlocks: utils.config-valid-bool(
-    $print_alertBlocks,
-    'print_alertBlocks'
-);
+$print_alertBlocks: utils.config-valid-bool($print_alertBlocks, 'print_alertBlocks');
 
 ///
 /// @since 0.1.0-alpha
@@ -45,10 +42,23 @@ $print_icons: utils.$print_utils or utils.$print_astro or $print_alertBlocks !de
 $print_icons: utils.config-valid-bool($print_icons, 'print_icons');
 
 ///
+/// Whether to inlcude [x]-hsl values in colour/theme tokens.
+///
+/// @since ___PKG_VERSION___
+///
+$print_colourValues_hsl: utils.$include_html !default;
+
+///
+/// Whether to inlcude [x]-rgb values in colour/theme tokens.
+///
+/// @since ___PKG_VERSION___
+///
+$print_colourValues_rgb: false !default;
+
+///
 /// @since 0.1.0-alpha
 ///
-$print_logos: $print_icons or utils.$print_utils or utils.$print_astro or
-    $print_alertBlocks !default;
+$print_logos: $print_icons or utils.$print_utils or utils.$print_astro or $print_alertBlocks !default;
 $print_logos: utils.config-valid-bool($print_logos, 'print_logos');
 
 ///

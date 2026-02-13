@@ -23,6 +23,46 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
  */
 export class Tokens_CSS_Style extends AbstractTokens<Tokens_CSS_Style.Data> {
 
+    /**
+     * @since ___PKG_VERSION___
+     */
+    public static alertStyle(): Tokens_CSS_Style.AlertStyles {
+
+        return {
+            background: 'background',
+
+            border: {
+                color: 'ui-primary',
+                radius: '0',
+                style: 'solid',
+                width: '200',
+            },
+
+            color: 'text-primary',
+
+            'line-height': '300',
+
+            icon: {
+                color: 'ui-primary',
+                size: 1.25,
+            },
+
+            gap: {
+                block: '0',
+                inline: '300',
+            },
+
+            margin: {
+                default: '300',
+            },
+
+            padding: {
+                block: '300',
+                inline: '300',
+            },
+        };
+    }
+
     public static buttonStyle(): {
         $: Tokens_CSS_Style.ButtonStyles;
         disabled: Tokens_CSS_Style.ButtonStyles_Disabled;
@@ -170,6 +210,9 @@ export class Tokens_CSS_Style extends AbstractTokens<Tokens_CSS_Style.Data> {
         return style;
     }
 
+    /**
+     * @since 0.1.1-alpha.0
+     */
     public static inputStyle(): {
         $: Tokens_CSS_Style.InputStyles;
         disabled: Tokens_CSS_Style.InputStyles_Disabled;
@@ -228,6 +271,8 @@ export class Tokens_CSS_Style extends AbstractTokens<Tokens_CSS_Style.Data> {
 
         return {
 
+            alert: Tokens_CSS_Style.alertStyle(),
+
             button: Tokens_CSS_Style.buttonStyle(),
 
             heading: objectGenerator(
@@ -283,8 +328,59 @@ export class Tokens_CSS_Style extends AbstractTokens<Tokens_CSS_Style.Data> {
  */
 export namespace Tokens_CSS_Style {
 
-    export namespace CSS {
-        export type TextTransform = "none" | "capitalize" | "uppercase" | "lowercase" | "full-width" | "full-size-kana" | "math-auto";
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export interface AlertStyles {
+
+        /**
+         * This should be a theme slug.
+         */
+        background: string;
+
+        border: {
+            /**
+             * This should be a theme slug.
+             */
+            color: string;
+
+            radius: "0" | TokenLevels;
+            style: string;
+            width: TokenLevels;
+        };
+
+        /**
+         * For the headline. This should be a theme slug.
+         */
+        color: string;
+
+        gap: {
+            block: "0" | TokenLevels;
+            inline: "0" | TokenLevels;
+        };
+
+        icon: {
+            /**
+             * This should be a theme slug.
+             */
+            color: string;
+
+            /**
+             * In ems.
+             */
+            size: number;
+        };
+
+        'line-height': TokenLevels;
+
+        margin: {
+            default: TokenLevels;
+        };
+
+        padding: {
+            block: TokenLevels;
+            inline: TokenLevels;
+        };
     }
 
     export interface ButtonStyles {
@@ -338,10 +434,6 @@ export namespace Tokens_CSS_Style {
         'text-transform': CSS.TextTransform;
     }
 
-    export interface ButtonStyles_Partial extends RecursivePartial<ButtonStyles> { }
-
-    export interface ButtonStyles_Disabled_Partial extends RecursivePartial<ButtonStyles_Disabled> { }
-
     export interface HeadingStyles {
 
         font: {
@@ -360,8 +452,6 @@ export namespace Tokens_CSS_Style {
             };
         };
     }
-
-    export interface HeadingStyles_Partial extends Partial<HeadingStyles> { }
 
     /**
      * @since 0.1.1-alpha.0
@@ -418,19 +508,23 @@ export namespace Tokens_CSS_Style {
     }
 
     /**
-     * @since 0.1.1-alpha.0
+     * CSS allowed value types.
+     * 
+     * @since 0.1.0-alpha
      */
-    export interface InputStyles_Partial extends RecursivePartial<InputStyles> { }
-
-    /**
-     * @since 0.1.1-alpha.0
-     */
-    export interface InputStyles_Disabled_Partial extends RecursivePartial<InputStyles_Disabled> { }
+    export namespace CSS {
+        export type TextTransform = "none" | "capitalize" | "uppercase" | "lowercase" | "full-width" | "full-size-kana" | "math-auto";
+    }
 
     /**
      * @since 0.1.0-alpha
      */
     export type Data = {
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        alert: AlertStyles;
 
         button: {
             $: ButtonStyles;
@@ -443,6 +537,9 @@ export namespace Tokens_CSS_Style {
             [ key: number ]: HeadingStyles;
         };
 
+        /**
+         * @since 0.1.1-alpha.0
+         */
         input: {
             $: InputStyles;
             disabled: InputStyles_Disabled;
@@ -460,20 +557,25 @@ export namespace Tokens_CSS_Style {
      */
     export type InputParam = {
 
+        /**
+         * @since ___PKG_VERSION___
+         */
+        alert?: RecursivePartial<AlertStyles>;
+
         button?: {
-            $?: ButtonStyles_Partial;
-            disabled?: ButtonStyles_Disabled_Partial;
+            $?: RecursivePartial<ButtonStyles>;
+            disabled?: RecursivePartial<ButtonStyles_Disabled>;
         };
 
         heading?: {
-            [ L in RequiredHeadingLevels ]?: HeadingStyles_Partial;
+            [ L in RequiredHeadingLevels ]?: RecursivePartial<HeadingStyles>;
         } & {
-            [ key: number ]: HeadingStyles_Partial;
+            [ key: number ]: RecursivePartial<HeadingStyles>;
         };
 
         input?: {
-            $?: InputStyles_Partial;
-            disabled?: InputStyles_Disabled_Partial;
+            $?: RecursivePartial<InputStyles>;
+            disabled?: RecursivePartial<InputStyles_Disabled>;
         };
 
         selection?: {

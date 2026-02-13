@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.1-alpha.0
+/// @package @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
 /// @since 0.1.0-alpha
 ///
 @use 'pkg:@maddimathon/utility-sass/list';
@@ -14,6 +14,8 @@
 
 @use '../01-functions' as *;
 @use '../02-mixins' as *;
+
+@use '03-03-typography' as *;
 
 $_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
 
@@ -40,33 +42,34 @@ $_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
         }
     }
 
+    $color: if(
+        theme-token-exists(heading-#{$slug}),
+        var-theme(heading-#{$slug}),
+        null
+    );
+
     @if $slug == title or $slug == '1' {
         $color: var-theme(heading-1);
         $icon_after_marginBlockStart: -0.0625em;
     }
 
     @if $slug == '2' {
-        $color: var-theme(heading-#{$slug});
         $icon_after_marginBlockStart: -0.0625em;
     }
 
     @if $slug == '3' {
-        $color: var-theme(heading-#{$slug});
         $icon_after_marginBlockStart: -0.0625em;
     }
 
     @if $slug == '4' {
-        $color: var-theme(heading-#{$slug});
         $icon_after_marginBlockStart: -0.09375em;
     }
 
     @if $slug == '5' {
-        $color: var-theme(heading-#{$slug});
         $icon_after_marginBlockStart: -0.09375em;
     }
 
     @if $slug == '6' {
-        $color: var-theme(heading-#{$slug});
         $icon_after_marginBlockStart: -0.09375em;
     }
 
@@ -97,13 +100,11 @@ $_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
 }
 
 $_activeTheme: get-active-theme();
-$_activeTheme_textAndBackgroundKeys: list.unique(
-    map.keys(
-        map.merge(
-            map.get($_activeTheme, text),
-            map.get($_activeTheme, background),
-            $recursive: true
-        )
+$_activeTheme_textAndBackgroundKeys: map.keys(
+    map.merge(
+        map.get($_activeTheme, background),
+        map.get($_activeTheme, text),
+        $recursive: true
     )
 );
 
@@ -132,7 +133,7 @@ $_activeTheme_textAndBackgroundKeys: list.unique(
         align-content: start;
         align-items: start;
 
-        gap: 0 #{var-mrg-firm('300')};
+        gap: #{var-style(alert-gap-block)} #{var-style(alert-gap-inline)};
 
         > * {
             grid-column: content;
@@ -141,26 +142,27 @@ $_activeTheme_textAndBackgroundKeys: list.unique(
 
     %alert {
         @extend %_alert-grid;
-        @include cx-prop(icon-color, var-token(alert-color-icon));
-        @include cx-prop(icon-size, var-token(alert-icon-size));
+        @include cx-prop(icon-color, var-style(alert-icon-color));
+        @include cx-prop(icon-size, var-style(alert-icon-size));
 
         justify-self: center;
 
         margin-block: #{var-mrg-firm('400')} #{var-mrg-half('400')};
         margin-inline: 0;
-        padding: #{var-mrg-firm('300')} #{var-mrg-firm('300')}
-            #{var-mrg-soft('400')};
+
+        padding-block: #{var-style(alert-padding-block)};
+        padding-inline: #{var-style(alert-padding-inline)};
 
         width: fit-content;
 
-        line-height: #{var-line-height('300')};
-        border: #{var-border-width('200')} solid
-            #{var-token(alert-color-border)};
+        line-height: #{var-style(alert-line-height)};
+        border: #{var-style(alert-border-width)} solid
+            #{var-style(alert-border-color)};
+        border-radius: #{var-style(alert-border-radius)};
 
-        background: #{var-theme(background-alt)};
+        background: #{var-style(alert-background)};
 
         &.alert-block--has-heading {
-            margin-block-start: #{var-mrg-firm('600')};
             justify-content: stretch;
             justify-items: stretch;
             justify-self: stretch;
@@ -181,15 +183,25 @@ $_activeTheme_textAndBackgroundKeys: list.unique(
                     )
                 {
                     @at-root #{selector.unify(&, $_sel)} {
-                        //
+                        @include cx-prop(
+                            icon-color,
+                            var-theme(heading-#{$num})
+                        );
+
                         @if $num <= 3 {
                             margin-block-start: #{var-mrg-firm('800')};
+                        } @else if $num <= 6 {
+                            margin-block-start: #{var-mrg-firm('600')};
+                        } @else {
+                            margin-block-start: #{var-mrg-firm('500')};
                         }
 
-                        @if $num > 3 {
-                            border-style: #{if($num <= 6, dashed, dotted)};
-                            border-width: #{var-border-width('300')};
-                        }
+                        border-color: #{var-theme(heading-#{$num})};
+
+                        // @if $num > 3 {
+                        //     border-style: #{if($num <= 6, dashed, dotted)};
+                        //     border-width: #{var-border-width('300')};
+                        // }
                     }
                 }
             }
@@ -203,9 +215,9 @@ $_activeTheme_textAndBackgroundKeys: list.unique(
             margin: 0;
             align-items: start;
 
-            color: #{var-token(alert-color-text)};
+            color: #{var-style(alert-color)};
 
-            @at-root #{selector.unify(&, 'header')} {
+            &:where(header) {
                 line-height: #{var-line-height('200')};
                 font-weight: 600;
                 font-size: #{var-fs(heading-7)};
@@ -230,22 +242,33 @@ $_activeTheme_textAndBackgroundKeys: list.unique(
                 //
                 $_headingSelector: if(
                     $num == 1,
-                    ('%h#{$num}', '%title'),
-                    '%h#{$num}'
+                    (
+                        ':where( %h#{$num} )',
+                        '%h#{$num}--where',
+                        ':where( %title )',
+                        '%title--where'
+                    ),
+                    (':where( %h#{$num} )', '%h#{$num}--where')
                 );
 
                 @at-root #{selector.unify(&, $_headingSelector)} {
                     @include _snippet-alert-headline-heading($num);
 
-                    &--where {
-                        @include _snippet-alert-headline-heading($num);
-                    }
+                    // &--where {
+                    //     @include _snippet-alert-headline-heading($num);
+                    // }
                 }
             }
         }
 
         @each $variationKey in $_activeTheme_textAndBackgroundKeys {
-            @if $variationKey != '$' and $variationKey != '' {
+            @if $variationKey !=
+                '$' and
+                $variationKey !=
+                '' and
+                $variationKey !=
+                'disabled'
+            {
                 //
                 $background: if(
                     theme-token-exists('background-#{$variationKey}'),
@@ -262,7 +285,7 @@ $_activeTheme_textAndBackgroundKeys: list.unique(
                 $ui: if(
                     theme-token-exists('ui-#{$variationKey}'),
                     var-theme('ui-#{$variationKey}'),
-                    var-token('alert-color-border')
+                    var-theme('ui')
                 );
 
                 &.alert-block--#{$variationKey} {
@@ -276,6 +299,8 @@ $_activeTheme_textAndBackgroundKeys: list.unique(
                 }
             }
         }
+
+        @include set-default-margins('300');
     }
 
     @each $slug, $map in tokens.$icons {

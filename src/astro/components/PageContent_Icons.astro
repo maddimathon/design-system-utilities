@@ -35,9 +35,15 @@ const defaultToggleToOpen = import.meta.env.DEV ? true : undefined;
 
 <h2>All Icons</h2>
 
-<div class='container body-subgrid | tokens-demo-all-icons'>
-    {Object.values(tokens.icons).map((icon) => <Icon icon={icon} />)}
-</div>
+<ul class='container body-subgrid | tokens-demo-all-icons'>
+    {
+        Object.values(tokens.icons).map((icon) => (
+            <li>
+                <Icon icon={icon} />
+            </li>
+        ))
+    }
+</ul>
 
 <Alert
     heading={2}
@@ -100,3 +106,7 @@ const defaultToggleToOpen = import.meta.env.DEV ? true : undefined;
         />
     </Alert>
 </Toggle>
+
+<style lang='scss'>
+    @forward '../scss/page-content-icons';
+</style>

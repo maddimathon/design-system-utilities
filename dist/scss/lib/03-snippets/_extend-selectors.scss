@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.1-alpha.0
+/// @package @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
 /// @since 0.1.0-alpha
 ///
 
@@ -24,6 +24,15 @@
 ) {
     //
     $additional: list.join($additional, (img, figure, svg));
+
+    $additional: list.append(
+        $additional,
+        ((cite, dt, li, p), 'paragraph-margins')
+    );
+    $additional: list.append(
+        $additional,
+        ((img, figure), 'paragraph-firm-margins')
+    );
 
     $additional: list.append(
         $additional,
@@ -65,6 +74,11 @@
     $additional: list.append($additional, ('.brand-logo', brand-logo));
     $additional: list.append($additional, ('.button-span', 'button-span'));
     $additional: list.append($additional, ('.icon', 'icon'));
+
+    $additional: list.append(
+        $additional,
+        (('.button-span'), 'paragraph-firm-margins')
+    );
 
     @each $iconSlug, $iconMap in tokens.$icons {
         $additional: list.append(

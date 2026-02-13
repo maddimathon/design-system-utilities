@@ -4,7 +4,7 @@
  */
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0-alpha.25
+ * @maddimathon/utility-sass@0.1.0-alpha.27
  * 
  * https://maddimathon.github.io/utility-sass
  */
@@ -100,19 +100,6 @@ html {
 /* #endregion Tokens - Gap */
 /* #region Tokens - Misc. */
 html {
-    --alert-color-border: var(
-        --theme-ui-primary,
-        var(--clr-purple-700, currentColor)
-    );
-    --alert-color-icon: var(
-        --theme-ui-primary,
-        var(--clr-purple-700, currentColor)
-    );
-    --alert-color-text: var(
-        --theme-text-primary,
-        var(--clr-purple-700, currentColor)
-    );
-    --alert-icon-size: 1.125em;
     --focus-ring-outline-color: currentColor;
     --focus-ring-outline-offset: 0.125em;
     --focus-ring-outline-width: max(0.125rem, min(0.125em, 0.25rem));
@@ -991,10 +978,10 @@ textarea {
 
 label {
     display: block;
-    margin-top: 1.25rem;
-    margin-bottom: 1.25rem;
-    margin-top: var(--mrg-firm-400, 1.25rem);
-    margin-bottom: var(--mrg-firm-400, 1.25rem);
+    margin-top: 0.8125rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
     margin-left: 0;
     margin-right: 0;
     font-weight: 600;
@@ -1029,8 +1016,8 @@ label:has(> :where(input[type="checkbox"], input[type="radio"]))
 label:has(> :where(input[type="checkbox"], input[type="radio"])) + input,
 label:has(> :where(input[type="checkbox"], input[type="radio"])) + select,
 label:has(> :where(input[type="checkbox"], input[type="radio"])) + textarea {
-    margin-top: 1.25rem;
-    margin-top: var(--mrg-firm-400, 1.25rem);
+    margin-top: 0.8125rem 0.4375rem;
+    margin-top: var(--mrg-soft-400, 0.8125rem) var(--mrg-half-400, 0.4375rem);
 }
 label > input[type="checkbox"],
 label > input[type="radio"] {
@@ -1125,80 +1112,80 @@ figure {
  * ======================================================================== */
 @media (prefers-contrast: less) {
     ::-moz-selection {
-        --icon-color: var(--theme-selection-text, HighlightText) !important;
-        color: HighlightText !important;
-        color: var(--theme-selection-text, HighlightText) !important;
-        background-color: Highlight !important;
-        background-color: var(--theme-selection-bg, Highlight) !important;
-        background-color: rgb(from Highlight r g b/65%) !important;
+        --icon-color: var(
+            --theme-selection-text,
+            var(--clr-base-800, hsl(339.45, 0%, 9.99%))
+        ) !important;
+        color: hsl(339.45, 0%, 9.99%) !important;
+        color: var(
+            --theme-selection-text,
+            var(--clr-base-800, hsl(339.45, 0%, 9.99%))
+        ) !important;
+        background-color: hsl(274.76, 78.57%, 78.95%) !important;
+        background-color: var(
+            --theme-selection-bg,
+            var(--clr-purple-300, hsl(274.76, 78.57%, 78.95%))
+        ) !important;
     }
     ::selection {
-        --icon-color: var(--theme-selection-text, HighlightText) !important;
-        color: HighlightText !important;
-        color: var(--theme-selection-text, HighlightText) !important;
-        background-color: Highlight !important;
-        background-color: var(--theme-selection-bg, Highlight) !important;
-        background-color: rgb(from Highlight r g b/65%) !important;
-    }
-
-    @supports (color: lab(from red l 1 1% / calc(alpha + 0.1))) {
-        ::-moz-selection {
-            background-color: rgb(
-                from var(--theme-selection-bg, Highlight) r g
-                    b/var(--selection-background-opacity, 65%)
-            ) !important;
-        }
-        ::selection {
-            background-color: rgb(
-                from var(--theme-selection-bg, Highlight) r g
-                    b/var(--selection-background-opacity, 65%)
-            ) !important;
-        }
+        --icon-color: var(
+            --theme-selection-text,
+            var(--clr-base-800, hsl(339.45, 0%, 9.99%))
+        ) !important;
+        color: hsl(339.45, 0%, 9.99%) !important;
+        color: var(
+            --theme-selection-text,
+            var(--clr-base-800, hsl(339.45, 0%, 9.99%))
+        ) !important;
+        background-color: hsl(274.76, 78.57%, 78.95%) !important;
+        background-color: var(
+            --theme-selection-bg,
+            var(--clr-purple-300, hsl(274.76, 78.57%, 78.95%))
+        ) !important;
     }
 }
 @media (prefers-contrast: more) {
     ::-moz-selection {
-        --icon-color: var(--theme-selection-text, HighlightText) !important;
-        color: HighlightText !important;
-        color: var(--theme-selection-text, HighlightText) !important;
-        background-color: Highlight !important;
-        background-color: var(--theme-selection-bg, Highlight) !important;
-        background-color: rgb(from Highlight r g b/95%) !important;
+        --icon-color: var(
+            --theme-selection-text,
+            var(--clr-base-100, hsl(305.21, 100%, 100%))
+        ) !important;
+        color: hsl(305.21, 100%, 100%) !important;
+        color: var(
+            --theme-selection-text,
+            var(--clr-base-100, hsl(305.21, 100%, 100%))
+        ) !important;
+        background-color: hsl(277.69, 56.91%, 23.79%) !important;
+        background-color: var(
+            --theme-selection-bg,
+            var(--clr-purple-750, hsl(277.69, 56.91%, 23.79%))
+        ) !important;
     }
     ::selection {
-        --icon-color: var(--theme-selection-text, HighlightText) !important;
-        color: HighlightText !important;
-        color: var(--theme-selection-text, HighlightText) !important;
-        background-color: Highlight !important;
-        background-color: var(--theme-selection-bg, Highlight) !important;
-        background-color: rgb(from Highlight r g b/95%) !important;
-    }
-
-    @supports (color: lab(from red l 1 1% / calc(alpha + 0.1))) {
-        ::-moz-selection {
-            background-color: rgb(
-                from var(--theme-selection-bg, Highlight) r g
-                    b/var(--selection-background-opacity, 95%)
-            ) !important;
-        }
-        ::selection {
-            background-color: rgb(
-                from var(--theme-selection-bg, Highlight) r g
-                    b/var(--selection-background-opacity, 95%)
-            ) !important;
-        }
+        --icon-color: var(
+            --theme-selection-text,
+            var(--clr-base-100, hsl(305.21, 100%, 100%))
+        ) !important;
+        color: hsl(305.21, 100%, 100%) !important;
+        color: var(
+            --theme-selection-text,
+            var(--clr-base-100, hsl(305.21, 100%, 100%))
+        ) !important;
+        background-color: hsl(277.69, 56.91%, 23.79%) !important;
+        background-color: var(
+            --theme-selection-bg,
+            var(--clr-purple-750, hsl(277.69, 56.91%, 23.79%))
+        ) !important;
     }
 }
 @media (forced-colors: active), (prefers-contrast: custom) {
     ::-moz-selection {
         --icon-color: HighlightText !important;
         color: HighlightText !important;
-        background-color: Highlight !important;
     }
     ::selection {
         --icon-color: HighlightText !important;
         color: HighlightText !important;
-        background-color: Highlight !important;
     }
 }
 /* ## Typography - Inline ==================================== */
@@ -1315,9 +1302,41 @@ abbr[title] {
 }
 
 /* ## Typography - Block ==================================== */
+cite,
+dt,
+li,
+p {
+    margin-top: 0.8125rem;
+    margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-bottom: 0;
+}
+
+img,
+figure {
+    margin-top: 1.25rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--mrg-firm-400, 1.25rem);
+    margin-bottom: var(--mrg-half-400, 0.4375rem);
+}
+
 blockquote {
     border-left-color: CanvasText;
     border-left-color: var(--theme-ui-primary, CanvasText);
+}
+blockquote cite,
+blockquote dt,
+blockquote li,
+blockquote p {
+    margin-top: 0.5rem;
+    margin-top: var(--mrg-soft-300, 0.5rem);
+    margin-bottom: 0;
+}
+blockquote img,
+blockquote figure {
+    margin-top: 0.8125rem;
+    margin-bottom: 0.3125rem;
+    margin-top: var(--mrg-firm-300, 0.8125rem);
+    margin-bottom: var(--mrg-half-300, 0.3125rem);
 }
 blockquote > cite {
     font-size: 0.9375rem;
@@ -1842,8 +1861,8 @@ textarea,
 select,
 input {
     --focus-ring-outline-offset: 0.125em;
-    margin: 0.8125rem 0 0.4375rem;
-    margin: var(--mrg-soft-400, 0.8125rem) 0 var(--mrg-half-400, 0.4375rem);
+    margin: 1.25rem 0 0.4375rem;
+    margin: var(--mrg-firm-400, 1.25rem) 0 var(--mrg-half-400, 0.4375rem);
     padding: 0.3125em 0.8125em;
     padding: var(--pad-soft-200, 0.3125em) var(--pad-firm-300, 0.8125em);
     border-width: 0.0625rem;
@@ -2485,8 +2504,8 @@ input[readonly][type="radio"]:active {
 }
 
 label {
-    margin-top: 0.8125rem;
-    margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-top: 1.25rem;
+    margin-top: var(--mrg-firm-400, 1.25rem);
     margin-bottom: 0;
     font-weight: 500;
     line-height: 1.3125;
@@ -2512,8 +2531,8 @@ label:has(> :where(input[type="checkbox"], input[type="radio"]))
 label:has(> :where(input[type="checkbox"], input[type="radio"])) + input,
 label:has(> :where(input[type="checkbox"], input[type="radio"])) + select,
 label:has(> :where(input[type="checkbox"], input[type="radio"])) + textarea {
-    margin-top: 0.8125rem 0;
-    margin-top: var(--mrg-soft-400, 0.8125rem) 0;
+    margin-top: 1.25rem 0;
+    margin-top: var(--mrg-firm-400, 1.25rem) 0;
 }
 
 /* ## Forms - Buttons ==================================== */

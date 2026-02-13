@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.1-alpha.0
+/// @package @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
 /// @since 0.1.0-alpha
 ///
 
@@ -90,6 +90,8 @@
     /* ## Typography - Block ==================================== */
 }
 
+@include set-default-margins;
+
 %aside {
     font-style: italic;
     color: #{var-theme(text-primary)};
@@ -106,8 +108,7 @@
 %blockquote {
     border-inline-start-color: #{var-theme(ui-primary)};
 
-    > p {
-    }
+    @include set-default-margins('300');
 
     > cite {
         font-size: #{var-fs(smaller-1)};

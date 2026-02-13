@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.0
+ * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
 import type { RecursivePartial } from '@maddimathon/utility-typescript/types/objects';
@@ -16,11 +16,18 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
  * @since 0.1.0-alpha
  */
 export declare class Tokens_CSS_Style extends AbstractTokens<Tokens_CSS_Style.Data> {
+    /**
+     * @since 0.1.1-alpha.1.draft
+     */
+    static alertStyle(): Tokens_CSS_Style.AlertStyles;
     static buttonStyle(): {
         $: Tokens_CSS_Style.ButtonStyles;
         disabled: Tokens_CSS_Style.ButtonStyles_Disabled;
     };
     static headingStyle(heading: number): Tokens_CSS_Style.HeadingStyles;
+    /**
+     * @since 0.1.1-alpha.0
+     */
     static inputStyle(): {
         $: Tokens_CSS_Style.InputStyles;
         disabled: Tokens_CSS_Style.InputStyles_Disabled;
@@ -39,8 +46,49 @@ export declare class Tokens_CSS_Style extends AbstractTokens<Tokens_CSS_Style.Da
  * @since 0.1.0-alpha
  */
 export declare namespace Tokens_CSS_Style {
-    namespace CSS {
-        type TextTransform = "none" | "capitalize" | "uppercase" | "lowercase" | "full-width" | "full-size-kana" | "math-auto";
+    /**
+     * @since 0.1.1-alpha.1.draft
+     */
+    interface AlertStyles {
+        /**
+         * This should be a theme slug.
+         */
+        background: string;
+        border: {
+            /**
+             * This should be a theme slug.
+             */
+            color: string;
+            radius: "0" | TokenLevels;
+            style: string;
+            width: TokenLevels;
+        };
+        /**
+         * For the headline. This should be a theme slug.
+         */
+        color: string;
+        gap: {
+            block: "0" | TokenLevels;
+            inline: "0" | TokenLevels;
+        };
+        icon: {
+            /**
+             * This should be a theme slug.
+             */
+            color: string;
+            /**
+             * In ems.
+             */
+            size: number;
+        };
+        'line-height': TokenLevels;
+        margin: {
+            default: TokenLevels;
+        };
+        padding: {
+            block: TokenLevels;
+            inline: TokenLevels;
+        };
     }
     interface ButtonStyles {
         border: {
@@ -79,10 +127,6 @@ export declare namespace Tokens_CSS_Style {
         'letter-spacing': string;
         'text-transform': CSS.TextTransform;
     }
-    interface ButtonStyles_Partial extends RecursivePartial<ButtonStyles> {
-    }
-    interface ButtonStyles_Disabled_Partial extends RecursivePartial<ButtonStyles_Disabled> {
-    }
     interface HeadingStyles {
         font: {
             style: "normal" | "italic";
@@ -97,8 +141,6 @@ export declare namespace Tokens_CSS_Style {
                 end: TokenLevels;
             };
         };
-    }
-    interface HeadingStyles_Partial extends Partial<HeadingStyles> {
     }
     /**
      * @since 0.1.1-alpha.0
@@ -142,19 +184,21 @@ export declare namespace Tokens_CSS_Style {
         border: Omit<InputStyles['border'], 'width'>;
     }
     /**
-     * @since 0.1.1-alpha.0
+     * CSS allowed value types.
+     *
+     * @since 0.1.0-alpha
      */
-    interface InputStyles_Partial extends RecursivePartial<InputStyles> {
-    }
-    /**
-     * @since 0.1.1-alpha.0
-     */
-    interface InputStyles_Disabled_Partial extends RecursivePartial<InputStyles_Disabled> {
+    namespace CSS {
+        type TextTransform = "none" | "capitalize" | "uppercase" | "lowercase" | "full-width" | "full-size-kana" | "math-auto";
     }
     /**
      * @since 0.1.0-alpha
      */
     type Data = {
+        /**
+         * @since 0.1.1-alpha.1.draft
+         */
+        alert: AlertStyles;
         button: {
             $: ButtonStyles;
             disabled: ButtonStyles_Disabled;
@@ -164,6 +208,9 @@ export declare namespace Tokens_CSS_Style {
         } & {
             [key: number]: HeadingStyles;
         };
+        /**
+         * @since 0.1.1-alpha.0
+         */
         input: {
             $: InputStyles;
             disabled: InputStyles_Disabled;
@@ -178,18 +225,22 @@ export declare namespace Tokens_CSS_Style {
      * @since 0.1.0-alpha
      */
     type InputParam = {
+        /**
+         * @since 0.1.1-alpha.1.draft
+         */
+        alert?: RecursivePartial<AlertStyles>;
         button?: {
-            $?: ButtonStyles_Partial;
-            disabled?: ButtonStyles_Disabled_Partial;
+            $?: RecursivePartial<ButtonStyles>;
+            disabled?: RecursivePartial<ButtonStyles_Disabled>;
         };
         heading?: {
-            [L in RequiredHeadingLevels]?: HeadingStyles_Partial;
+            [L in RequiredHeadingLevels]?: RecursivePartial<HeadingStyles>;
         } & {
-            [key: number]: HeadingStyles_Partial;
+            [key: number]: RecursivePartial<HeadingStyles>;
         };
         input?: {
-            $?: InputStyles_Partial;
-            disabled?: InputStyles_Disabled_Partial;
+            $?: RecursivePartial<InputStyles>;
+            disabled?: RecursivePartial<InputStyles_Disabled>;
         };
         selection?: {
             [C in Exclude<ThemeMode_ContrastOption, 'max'>]?: {

@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.0
+ * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
 import { mergeArgs } from '@maddimathon/utility-typescript/functions';
@@ -16,6 +16,37 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
  * @since 0.1.0-alpha
  */
 export class Tokens_CSS_Style extends AbstractTokens {
+    /**
+     * @since 0.1.1-alpha.1.draft
+     */
+    static alertStyle() {
+        return {
+            background: 'background',
+            border: {
+                color: 'ui-primary',
+                radius: '0',
+                style: 'solid',
+                width: '200',
+            },
+            color: 'text-primary',
+            'line-height': '300',
+            icon: {
+                color: 'ui-primary',
+                size: 1.25,
+            },
+            gap: {
+                block: '0',
+                inline: '300',
+            },
+            margin: {
+                default: '300',
+            },
+            padding: {
+                block: '300',
+                inline: '300',
+            },
+        };
+    }
     static buttonStyle() {
         const style = {
             border: {
@@ -130,6 +161,9 @@ export class Tokens_CSS_Style extends AbstractTokens {
         }
         return style;
     }
+    /**
+     * @since 0.1.1-alpha.0
+     */
     static inputStyle() {
         const style = {
             border: {
@@ -172,6 +206,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
     }
     static get default() {
         return {
+            alert: Tokens_CSS_Style.alertStyle(),
             button: Tokens_CSS_Style.buttonStyle(),
             heading: objectGenerator([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], (hdg) => Tokens_CSS_Style.headingStyle(hdg)),
             input: Tokens_CSS_Style.inputStyle(),

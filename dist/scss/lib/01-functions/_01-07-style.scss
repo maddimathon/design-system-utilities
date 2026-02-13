@@ -1,9 +1,10 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.1-alpha.0
+/// @package @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
 /// @since 0.1.0-alpha
 ///
 
 @use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/math';
 @use 'pkg:@maddimathon/utility-sass/string';
 
 @use '../../config';
@@ -11,6 +12,7 @@
 
 @use 'pkg:@maddimathon/utility-astro/01-functions' as utils;
 
+@use '01-03-colours' as *;
 @use '01-06-decoration' as *;
 
 $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
@@ -29,6 +31,7 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
         @return $slug;
     }
 
+    $isAlertStyle: string.index($slug, alert-) == 1;
     $isButtonStyle: string.index($slug, button-) == 1;
     $isHeadingStyle: string.index($slug, heading-) == 1;
     $isInputStyle: string.index($slug, input-) == 1;
@@ -40,10 +43,13 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
     $isMargin: false;
     $isPadding: false;
     $isStrokeRelative: false;
+    $isThemeToken: false;
 
-    @if $isButtonStyle or $isInputStyle or $isHeadingStyle {
-        $_slugLength: string.length($slug);
+    $isSimpleEm: false;
 
+    $_slugLength: string.length($slug);
+
+    @if $isAlertStyle or $isButtonStyle or $isInputStyle or $isHeadingStyle {
         // gap
         @if string.index($slug, -gap-) {
             $isGap: true;
@@ -51,8 +57,23 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
             $isGap: true;
         }
 
+        // theme (colour) tokens
+        @if string.index($slug, '-background-') {
+            $isThemeToken: true;
+        } @else if string.index($slug, '-color-') {
+            $isThemeToken: true;
+        } @else if string.index($slug, '-background') == ($_slugLength - 10) {
+            $isThemeToken: true;
+        } @else if string.index($slug, '-color') == ($_slugLength - 5) {
+            $isThemeToken: true;
+        }
+
         // margins
-        @if string.index($slug, '-margin-') {
+        @if $isAlertStyle and
+            string.index($slug, '-margin-default') ==
+            ($_slugLength - 14)
+        {
+        } @else if string.index($slug, '-margin-') {
             $isMargin: true;
         } @else if string.index($slug, '-margin') == ($_slugLength - 6) {
             $isMargin: true;
@@ -60,9 +81,17 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
 
         // padding
         @if string.index($slug, '-padding-') {
-            $isPadding: true;
-        } @else if string.index($slug, '-padding') == ($_slugLength - 6) {
-            $isPadding: true;
+            @if $isAlertStyle {
+                $isMargin: true;
+            } @else {
+                $isPadding: true;
+            }
+        } @else if string.index($slug, '-padding') == ($_slugLength - 7) {
+            @if $isAlertStyle {
+                $isMargin: true;
+            } @else {
+                $isPadding: true;
+            }
         }
 
         // border-radius
@@ -86,16 +115,29 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
         }
     }
 
+    @if $isAlertStyle {
+        // icon size
+        @if string.index($slug, '-icon-size') == ($_slugLength - 9) {
+            $isSimpleEm: true;
+        }
+    }
+
     @if $isMargin {
         //
         @if string.index($slug, margin-block-start) {
             $value: if(
-                $isButtonStyle,
+                $isButtonStyle or $isInputStyle,
                 utils.var-mrg-firm($value),
                 utils.var-mrg-soft($value)
             );
         } @else if string.index($slug, margin-block-end) {
             $value: utils.var-mrg-half($value);
+        } @else if string.index($slug, margin-block) {
+            $value: if(
+                $isButtonStyle or $isInputStyle,
+                utils.var-mrg-firm($value),
+                utils.var-mrg-soft($value)
+            );
         } @else {
             $value: utils.var-mrg-firm($value);
         }
@@ -106,13 +148,19 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
         } @else if string.index($slug, padding-block-end) {
             $value: utils.var-pad-half($value);
         } @else if string.index($slug, padding-block) {
-            $value: utils.var-pad-soft($value);
+            $value: if(
+                $isAlertStyle,
+                utils.var-pad-firm($value),
+                utils.var-pad-soft($value)
+            );
         } @else {
             $value: utils.var-pad-firm($value);
         }
     } @else if $isGap {
         //
-        @if string.index($slug, gap-block-start) {
+        @if $value == '0' {
+            $value: 0;
+        } @else if string.index($slug, gap-block-start) {
             $value: utils.var-mrg-soft($value);
         } @else if string.index($slug, gap-block-end) {
             $value: utils.var-mrg-half($value);
@@ -129,6 +177,10 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
         $value: utils.var-line-height($value);
     } @else if $isStrokeRelative {
         $value: utils.var-stroke-relative($value);
+    } @else if $isThemeToken {
+        $value: var-theme($value);
+    } @else if $isSimpleEm {
+        $value: math.add-unit($value, $unit: 1em);
     }
 
     @return $value;

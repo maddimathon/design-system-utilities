@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.0
+ * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
 import { AbstractTokens } from './abstract/AbstractTokens.js';
@@ -32,6 +32,7 @@ export declare class Tokens_CSS extends AbstractTokens<Tokens_CSS.Data> {
             stroke: AbstractTokens.ScssReturn;
         };
         style: {
+            alert: AbstractTokens.ScssReturn;
             button: AbstractTokens.ScssReturn;
             heading: AbstractTokens.ScssReturn;
             input: AbstractTokens.ScssReturn;
