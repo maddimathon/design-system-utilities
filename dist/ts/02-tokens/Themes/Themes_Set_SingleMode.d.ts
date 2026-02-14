@@ -64,7 +64,7 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T
             background: {
                 $: __T_ColourOption;
             } & {
-                alt: __T_ColourOption;
+                grey: __T_ColourOption;
             } & { [K in T_Keyword_Universal]: __T_ColourOption; } & { [K_1 in T_Keyword_Background]: __T_ColourOption; };
             button: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, __T_ColourOption>;
             input: {
@@ -125,7 +125,7 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T
         background: {
             $: __T_ColourOption;
         } & {
-            alt: __T_ColourOption;
+            grey: __T_ColourOption;
         } & { [K in T_Keyword_Universal]: __T_ColourOption; } & { [K_1 in T_Keyword_Background]: __T_ColourOption; };
         text: {
             $: __T_ColourOption;
@@ -526,7 +526,7 @@ export declare namespace Tokens_Themes_Set_SingleMode {
     export interface RequiredVariations<T_ColourName extends string> {
         base: T_ColourName;
         background: {
-            alt: T_ColourName;
+            grey: T_ColourName;
         };
         universal: {
             primary: T_ColourName;
@@ -571,14 +571,14 @@ export declare namespace Tokens_Themes_Set_SingleMode {
     /**
      * @since 0.1.1-alpha.0
      */
-    interface LevelsSet_AccentAlt<T_ExtraColourLevels extends ColourUtilities.Levels.Optional> {
+    interface LevelsSet_AccentGrey<T_ExtraColourLevels extends ColourUtilities.Levels.Optional> {
         $: ColourUtilities.Levels.Required | T_ExtraColourLevels;
         accent: ColourUtilities.Levels.Required | T_ExtraColourLevels;
-        alt: ColourUtilities.Levels.Required | T_ExtraColourLevels;
+        grey: ColourUtilities.Levels.Required | T_ExtraColourLevels;
     }
     /** @internal @private */
     export interface RequiredLevels<T_ExtraColourLevels extends ColourUtilities.Levels.Optional> {
-        background: LevelsSet_AccentAlt<T_ExtraColourLevels>;
+        background: LevelsSet_AccentGrey<T_ExtraColourLevels>;
         text: LevelsSet_AccentMin<T_ExtraColourLevels>;
         ui: LevelsSet_AccentMin<T_ExtraColourLevels>;
         heading: {
@@ -593,7 +593,7 @@ export declare namespace Tokens_Themes_Set_SingleMode {
     export interface InputParam<T_ColourName extends string, T_ExtraColourLevels extends ColourUtilities.Levels.Optional, T_Keyword_Universal extends string, T_Keyword_Text extends string, T_Keyword_Background extends string, __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>> {
         description?: null | string;
         levels?: undefined | {
-            background?: ColourUtilities.Levels.Required | T_ExtraColourLevels | Partial<LevelsSet_AccentAlt<T_ExtraColourLevels>>;
+            background?: ColourUtilities.Levels.Required | T_ExtraColourLevels | Partial<LevelsSet_AccentGrey<T_ExtraColourLevels>>;
             text?: ColourUtilities.Levels.Required | T_ExtraColourLevels | Partial<LevelsSet_AccentMin<T_ExtraColourLevels>>;
             ui?: ColourUtilities.Levels.Required | T_ExtraColourLevels | Partial<LevelsSet_AccentMin<T_ExtraColourLevels>>;
             heading?: ColourUtilities.Levels.Required | T_ExtraColourLevels | {
@@ -658,8 +658,8 @@ export declare namespace Tokens_Themes_Set_SingleMode {
             const average: {
                 readonly background: {
                     readonly $: "150";
-                    readonly alt: "250";
                     readonly accent: "200";
+                    readonly grey: "200";
                 };
                 readonly text: {
                     readonly $: "750";
@@ -687,8 +687,8 @@ export declare namespace Tokens_Themes_Set_SingleMode {
             const high: {
                 readonly background: {
                     readonly $: "100";
-                    readonly alt: "200";
                     readonly accent: "150";
+                    readonly grey: "150";
                 };
                 readonly text: {
                     readonly $: "850";
@@ -715,9 +715,9 @@ export declare namespace Tokens_Themes_Set_SingleMode {
             };
             const low: {
                 readonly background: {
-                    readonly $: "250";
-                    readonly alt: "200";
-                    readonly accent: "200";
+                    readonly $: "300";
+                    readonly accent: "250";
+                    readonly grey: "250";
                 };
                 readonly text: {
                     readonly $: "700";
@@ -745,8 +745,8 @@ export declare namespace Tokens_Themes_Set_SingleMode {
             const max: {
                 readonly background: {
                     readonly $: "100";
-                    readonly alt: "100";
                     readonly accent: "100";
+                    readonly grey: "100";
                 };
                 readonly text: {
                     readonly $: "900";

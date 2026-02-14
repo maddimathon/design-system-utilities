@@ -14,10 +14,10 @@
 
 // @use '02-01-01-spacing' as *;
 // @use '02-01-02-modes' as *;
-@use '02-01-03-colours' as *;
+@use '02-01-02-colours' as *;
+@use '02-01-03-decoration' as *;
 @use '02-01-04-typography' as *;
 @use '02-01-05-animation' as *;
-@use '02-01-06-decoration' as *;
 @use '02-01-07-style' as *;
 
 ///
@@ -57,13 +57,13 @@
     }
 
     @include utils.tokens-all(
-        $borderWidth: $borderWidth,
+        $borderWidth: false,
         $custom: $custom,
         $fontSize: $fontSize,
         $gap: $gap,
         $lineHeight: $lineHeight,
         $margin: $margin,
-        $strokeRelative: $strokeRelative,
+        $strokeRelative: false,
         $sysColours: false,
         $width: $width,
         $args...
@@ -72,6 +72,12 @@
     // decoration
     @if $borderRadius {
         @include tokens-border-radius;
+    }
+    @if $borderWidth {
+        @include tokens-border-width;
+    }
+    @if $strokeRelative {
+        @include tokens-stroke-relative;
     }
     @if $zIndex {
         @include tokens-z-index;

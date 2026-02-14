@@ -75,7 +75,7 @@ export declare namespace Tokens_Colour_ShadeMap {
                 readonly h: 0;
             };
             readonly '300': {
-                readonly l: 80;
+                readonly l: 78;
                 readonly c: 0;
                 readonly h: 0;
             };
@@ -85,7 +85,7 @@ export declare namespace Tokens_Colour_ShadeMap {
                 readonly h: 0;
             };
             readonly '700': {
-                readonly l: 20;
+                readonly l: 22;
                 readonly c: 0;
                 readonly h: 0;
             };

@@ -10,6 +10,32 @@
 @use 'template';
 
 ///
+/// Should be in pixels.
+///
+/// @since 0.1.1-alpha.1.draft
+///
+$fn_clampHighContrastBorderWidth_max: null !default;
+$fn_clampHighContrastBorderWidth_max: utils.config-valid-number(
+    $fn_clampHighContrastBorderWidth_max,
+    'fn_clampHighContrastBorderWidth_max',
+    $default: 4,
+    $unit: 1px
+);
+
+///
+/// A value used as either em or rem.
+///
+/// @since 0.1.1-alpha.1.draft
+///
+$fn_clampHighContrastBorderWidth_min: null !default;
+$fn_clampHighContrastBorderWidth_min: utils.config-valid-number(
+    $fn_clampHighContrastBorderWidth_min,
+    'fn_clampHighContrastBorderWidth_min',
+    $default: 0.125,
+    $unit: false
+);
+
+///
 /// @since 0.1.0-alpha
 ///
 $fn_var_replaceWithValue_borderRadius: true !default;

@@ -34,22 +34,21 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
         const variations = Tokens_Themes_Set_SingleMode.Build.completeVariations(clrNames, input.variations);
         const clrOpt = Tokens_Themes_Set_SingleMode.Build.colourOption;
         let description = input.description ?? null;
+        let defaultOverrides = {};
         // returns if forced colours
         switch (preset) {
             case 'average':
                 description = description ?? 'This is the default contrast mode for most users, unless they have defined a specific preference (‘low’, ‘high’, or ‘forced-colors’) in their OS or browser settings.  It meets or exceeds WCAG AAA contrast standards.';
-                overrides.selection = {
+                defaultOverrides.selection = {
                     bg: clrOpt(variations.universal.primary, '300'),
                     text: clrOpt(variations.base, '800'),
-                    ...overrides.selection,
                 };
                 break;
             case 'low':
                 description = description ?? 'This is the low contrast mode.  This is the default for users who set ‘low’ as their preferred contrast mode in their OS or browser settings.  It mostly meets WCAG AA contrast standards, but in rare cases does not (which is acceptable in this case).';
-                overrides.selection = {
+                defaultOverrides.selection = {
                     bg: clrOpt(variations.universal.primary, '300'),
                     text: clrOpt(variations.base, '800'),
-                    ...overrides.selection,
                 };
                 break;
             case 'high':
@@ -57,35 +56,31 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 break;
             case 'max':
                 description = description ?? 'This is the maximum contrast mode.  This is an alternate option for users who want an even higher contrast than the ‘high’ mode, but without enabling ‘forced-colors’ mode.  It exceeds WCAG AAA contrast standards.';
-                overrides.background = {
+                defaultOverrides.background = {
                     $: 'white',
-                    alt: 'white',
+                    grey: 'white',
                     ...objectGenerator(arrayUnique([
                         ...Object.keys(variations.universal),
                         ...Object.keys(variations.background),
                     ]), () => 'white'),
-                    ...overrides.background,
                 };
-                overrides.text = {
+                defaultOverrides.text = {
                     $: 'black',
                     ...objectGenerator(arrayUnique([
                         ...Object.keys(variations.universal),
                         ...Object.keys(variations.text),
                     ]), () => 'black'),
-                    ...overrides.text,
                 };
-                overrides.ui = {
+                defaultOverrides.ui = {
                     $: 'black',
                     ...objectGenerator(arrayUnique([
                         ...Object.keys(variations.universal),
                         ...Object.keys(variations.text),
                     ]), () => 'black'),
-                    ...overrides.ui,
                 };
-                overrides.selection = {
+                defaultOverrides.selection = {
                     bg: clrOpt(variations.universal.primary, '850'),
                     text: clrOpt(variations.base, '100'),
-                    ...overrides.selection,
                 };
                 break;
             case 'forcedColors':
@@ -103,10 +98,10 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
             }
             return false;
         }).filter(v => v !== false));
-        return new Tokens_Themes_Set_SingleMode(description, arrayUnique(levelsInUse).sort(), mergeArgs(await Tokens_Themes_Set_SingleMode.Build.data({
+        return Tokens_Themes_Set_SingleMode.Build.data({
             levels,
             variations,
-        }), overrides, true));
+        }).then((defaultInputData) => new Tokens_Themes_Set_SingleMode(description, arrayUnique(levelsInUse).sort(), mergeArgs(defaultInputData, mergeArgs(defaultOverrides, overrides, true), true)));
     }
     constructor(description, levelsInUse, data) {
         super();
@@ -202,7 +197,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 background: typeof input?.background === 'object' ? input?.background : {
                     $: input?.background,
                     accent: input?.background,
-                    alt: input?.background,
+                    grey: input?.background,
                 },
                 heading: typeof input?.heading === 'object'
                     ? input?.heading
@@ -223,7 +218,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
             const background = {
                 $: nomalized_input.background?.$ ?? DEFAULT.background.$,
                 accent: nomalized_input.background?.accent ?? DEFAULT.background.accent,
-                alt: nomalized_input.background?.alt ?? DEFAULT.background.alt,
+                grey: nomalized_input.background?.grey ?? DEFAULT.background.grey,
             };
             const text = {
                 $: nomalized_input.text?.$ ?? DEFAULT.text.$,
@@ -252,8 +247,8 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
             LEVELS_DEFAULT.average = {
                 background: {
                     $: '150',
-                    alt: '250',
                     accent: '200',
+                    grey: '200',
                 },
                 text: {
                     $: '750',
@@ -281,8 +276,8 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
             LEVELS_DEFAULT.high = {
                 background: {
                     $: '100',
-                    alt: '200',
                     accent: '150',
+                    grey: '150',
                 },
                 text: {
                     $: '850',
@@ -309,9 +304,9 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
             };
             LEVELS_DEFAULT.low = {
                 background: {
-                    $: '250',
-                    alt: '200',
-                    accent: '200',
+                    $: '300',
+                    accent: '250',
+                    grey: '250',
                 },
                 text: {
                     $: '700',
@@ -339,8 +334,8 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
             LEVELS_DEFAULT.max = {
                 background: {
                     $: '100',
-                    alt: '100',
                     accent: '100',
+                    grey: '100',
                 },
                 text: {
                     $: '900',
@@ -375,7 +370,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
             const def = {
                 base: base,
                 background: {
-                    alt: base,
+                    grey: base,
                 },
                 universal: {
                     primary: clr_1,
@@ -410,9 +405,9 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
             const { levels, variations, } = input;
             const background = {
                 $: clrOpt(variations.base, levels.background.$),
-                ...objectMap(variations.background, ([key, clrName]) => clrOpt(clrName, levels.background.alt)),
+                ...objectMap(variations.background, ([key, clrName]) => clrOpt(clrName, levels.background.grey)),
                 ...objectMap(variations.universal, ([key, clrName]) => clrOpt(clrName, levels.background.accent)),
-                alt: clrOpt(variations.base, levels.background.alt),
+                grey: clrOpt(variations.base, levels.background.grey),
             };
             const text = {
                 $: clrOpt(variations.base, levels.text.$),

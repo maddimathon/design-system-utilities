@@ -76,19 +76,19 @@ export class Tokens_Themes<
             T_Keyword_Background
         >,
     ) {
-        return new Tokens_Themes(
+        return Tokens_Themes.buildSets(
             clrNames,
             extraColourLevels,
             brightnessModes,
             contrastModes,
-            await Tokens_Themes.buildSets(
-                clrNames,
-                extraColourLevels,
-                brightnessModes,
-                contrastModes,
-                input,
-            ),
-        );
+            input,
+        ).then( sets => new Tokens_Themes(
+            clrNames,
+            extraColourLevels,
+            brightnessModes,
+            contrastModes,
+            sets,
+        ) );
     }
 
     /**
@@ -164,7 +164,7 @@ export class Tokens_Themes<
                 )
                 : [ input ];
 
-        const objs = await Promise.all(
+        return Promise.all(
             arr.map(
                 ( set ) => Tokens_Themes_Set.build<
                     T_ColourName,
@@ -184,11 +184,7 @@ export class Tokens_Themes<
                     set,
                 )
             )
-        );
-
-        const allThemeNames = objs.map( o => o.data.name );
-
-        const sets: {
+        ).then( ( objs ): {
             [ N in T_ThemeName ]: Tokens_Themes_Set<
                 T_ColourName,
                 T_ExtraColourLevels,
@@ -199,21 +195,23 @@ export class Tokens_Themes<
                 T_Keyword_Text,
                 T_Keyword_Background
             >;
-        } = objectGenerator(
-            allThemeNames,
-            ( name ) => objs[ allThemeNames.indexOf( name ) ] as Tokens_Themes_Set<
-                T_ColourName,
-                T_ExtraColourLevels,
-                T_ThemeBrightnessMode[],
-                T_ThemeContrastMode[],
-                T_ThemeName,
-                T_Keyword_Universal,
-                T_Keyword_Text,
-                T_Keyword_Background
-            >
-        );
+        } => {
+            const allThemeNames = objs.map( o => o.data.name );
 
-        return sets;
+            return objectGenerator(
+                allThemeNames,
+                ( name ) => objs[ allThemeNames.indexOf( name ) ] as Tokens_Themes_Set<
+                    T_ColourName,
+                    T_ExtraColourLevels,
+                    T_ThemeBrightnessMode[],
+                    T_ThemeContrastMode[],
+                    T_ThemeName,
+                    T_Keyword_Universal,
+                    T_Keyword_Text,
+                    T_Keyword_Background
+                >
+            );
+        } );
     }
 
 

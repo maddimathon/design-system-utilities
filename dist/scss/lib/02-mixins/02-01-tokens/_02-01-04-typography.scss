@@ -14,6 +14,8 @@
 
 @use '../../01-functions' as *;
 
+@use '02-01-03-decoration' as *;
+
 @use 'pkg:@maddimathon/utility-astro/02-mixins' as utils;
 
 @function _font-src-list($list, $isVariable: false) {
@@ -164,8 +166,7 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
 
                 // BORDER WIDTHS
                 @if $border_multiplier > 0 and $border_multiplier != 1 {
-                    //
-                    @include utils.tokens-border-width($multiplier: $border_multiplier);
+                    @include tokens-border-width($multiplier: $border_multiplier);
                 }
             }
         }
@@ -202,7 +203,7 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
 
                 // STROKE RELATIVE
                 @if $stroke_multiplier > 0 and $stroke_multiplier != 1 {
-                    @include utils.tokens-stroke-relative(
+                    @include tokens-stroke-relative(
                         $multiplier: $stroke_multiplier
                     );
                 }

@@ -4,6 +4,7 @@
 ///
 
 @use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/math';
 
 @use '../../config';
 @use '../../tokens';
@@ -27,44 +28,42 @@
 }
 
 ///
-/// Uses the border-radius config tokens to print the appropriate var(...) with
-/// a fallback.
+/// Used to make more visible borders and strokes for high-contrast modes.
 ///
-/// @since 0.1.0-alpha
+/// @since ___PKG_VERSION___
 ///
-@function var-border-radius($level) {
-    @return if(
-        config.$fn_var_replaceWithValue_borderRadius,
-        border-radius-value($level),
-        utils.do-var(border-radius-#{$level}, border-radius-value($level))
-    );
-}
+@function clamp-high-contrast-border-width(
+    $width,
+    $unit: 1rem,
+    $max_multiplier: null,
+    $min_multiplier: null,
+    $minmax_multiplier: 1
+) {
+    @if $max_multiplier == null {
+        $max_multiplier: $minmax_multiplier;
+    }
 
-///
-/// Uses the border-width config tokens to print the appropriate var(...) with
-/// a fallback.
-///
-/// @since 0.1.0-alpha
-///
-@function var-border-width($level) {
-    @return if(
-        config.$fn_var_replaceWithValue_borderWidth,
-        utils.border-width-value($level),
-        utils.do-var(border-width-#{$level}, utils.border-width-value($level))
-    );
-}
+    @if $min_multiplier == null {
+        $min_multiplier: $minmax_multiplier;
+    }
 
-///
-/// Uses the stroke-relative config tokens to print the appropriate var(...) with
-/// a fallback.
-///
-/// @since 0.1.0-alpha
-///
-@function var-stroke-relative($level) {
-    @return if(
-        config.$fn_var_replaceWithValue_strokeRelative,
-        utils.stroke-relative-value($level),
-        utils.do-var(stroke-relative-#{$level}, utils.stroke-relative-value($level))
+    @return clamp(
+        math.add-unit(
+            math.clamp(
+                config.$fn_clampHighContrastBorderWidth_min,
+                math.round-to-pixel(config.$fn_clampHighContrastBorderWidth_min * $min_multiplier),
+                0.25
+            ),
+            $unit,
+            // TODO
+             // $method: ceil,
+        ),
+        $width,
+        math.clamp(
+            config.$fn_clampHighContrastBorderWidth_max,
+            math.ceil(config.$fn_clampHighContrastBorderWidth_max * $max_multiplier),
+            8px
+        )
     );
 }
 
@@ -207,6 +206,62 @@
 }
 
 ///
+/// Uses the border-radius config tokens to print the appropriate var(...) with
+/// a fallback.
+///
+/// @since 0.1.0-alpha
+///
+@function var-border-radius($level) {
+    @return if(
+        config.$fn_var_replaceWithValue_borderRadius,
+        border-radius-value($level),
+        utils.do-var(border-radius-#{$level}, border-radius-value($level))
+    );
+}
+
+///
+/// Uses the border-width config tokens to print the appropriate var(...) with
+/// a fallback.
+///
+/// @since 0.1.0-alpha
+///
+@function var-border-width($level) {
+    @return if(
+        config.$fn_var_replaceWithValue_borderWidth,
+        utils.border-width-value($level),
+        utils.do-var(border-width-#{$level}, utils.border-width-value($level))
+    );
+}
+
+///
+/// Uses the stroke-relative config tokens to print the appropriate var(...) with
+/// a fallback.
+///
+/// @since 0.1.0-alpha
+///
+@function var-stroke-relative($level) {
+    @return if(
+        config.$fn_var_replaceWithValue_strokeRelative,
+        utils.stroke-relative-value($level),
+        utils.do-var(stroke-relative-#{$level}, utils.stroke-relative-value($level))
+    );
+}
+
+///
+/// Uses the border radius config tokens to print the appropriate var(...) with
+/// a fallback.
+///
+/// @since 0.1.0-alpha
+///
+@function var-z-index($level) {
+    @return if(
+        config.$fn_var_replaceWithValue_zIndex,
+        z-index-value($level),
+        utils.do-var(z-index-#{$level}, z-index-value($level))
+    );
+}
+
+///
 /// Uses the transition time tokens to prepare the appropriate numerical value
 /// (rem).
 ///
@@ -222,18 +277,4 @@
     }
 
     @return $value;
-}
-
-///
-/// Uses the border radius config tokens to print the appropriate var(...) with
-/// a fallback.
-///
-/// @since 0.1.0-alpha
-///
-@function var-z-index($level) {
-    @return if(
-        config.$fn_var_replaceWithValue_zIndex,
-        z-index-value($level),
-        utils.do-var(z-index-#{$level}, z-index-value($level))
-    );
 }

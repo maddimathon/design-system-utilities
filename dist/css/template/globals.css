@@ -4,7 +4,7 @@
  */
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0-alpha.27
+ * @maddimathon/utility-sass@0.1.0-alpha.28
  * 
  * https://maddimathon.github.io/utility-sass
  */
@@ -145,17 +145,17 @@ html {
 /* #region Tokens - Colour */
 html {
     --clr-base-100: hsl(339.45, 0%, 96.6%);
-    --clr-base-150: hsl(339.45, 0%, 91.82%);
-    --clr-base-200: hsl(339.45, 0%, 87.09%);
-    --clr-base-250: hsl(339.45, 0%, 82.41%);
-    --clr-base-300: hsl(339.45, 0%, 77.78%);
-    --clr-base-400: hsl(339.45, 0%, 61.84%);
+    --clr-base-150: hsl(339.45, 0%, 91.26%);
+    --clr-base-200: hsl(339.45, 0%, 85.99%);
+    --clr-base-250: hsl(339.45, 0%, 80.77%);
+    --clr-base-300: hsl(339.45, 0%, 75.61%);
+    --clr-base-400: hsl(339.45, 0%, 60.8%);
     --clr-base-500: hsl(339.45, 0%, 46.63%);
-    --clr-base-600: hsl(339.45, 0%, 32.27%);
-    --clr-base-700: hsl(339.45, 0%, 18.94%);
-    --clr-base-750: hsl(339.45, 0%, 15.39%);
-    --clr-base-800: hsl(339.45, 0%, 11.95%);
-    --clr-base-850: hsl(339.45, 0%, 8.63%);
+    --clr-base-600: hsl(339.45, 0%, 33.2%);
+    --clr-base-700: hsl(339.45, 0%, 20.65%);
+    --clr-base-750: hsl(339.45, 0%, 16.63%);
+    --clr-base-800: hsl(339.45, 0%, 12.75%);
+    --clr-base-850: hsl(339.45, 0%, 9.03%);
     --clr-base-900: hsl(339.45, 0%, 4.28%);
     --clr-black: hsl(0, 0%, 0%);
     --clr-purple-100: hsl(270, 100%, 98.5%);
@@ -203,17 +203,17 @@ html {
 @media (prefers-color-scheme: dark) {
     html {
         --clr-base-100: hsl(339.45, 0%, 4.28%);
-        --clr-base-150: hsl(339.45, 0%, 8.63%);
-        --clr-base-200: hsl(339.45, 0%, 11.95%);
-        --clr-base-250: hsl(339.45, 0%, 15.39%);
-        --clr-base-300: hsl(339.45, 0%, 18.94%);
-        --clr-base-400: hsl(339.45, 0%, 32.27%);
+        --clr-base-150: hsl(339.45, 0%, 9.03%);
+        --clr-base-200: hsl(339.45, 0%, 12.75%);
+        --clr-base-250: hsl(339.45, 0%, 16.63%);
+        --clr-base-300: hsl(339.45, 0%, 20.65%);
+        --clr-base-400: hsl(339.45, 0%, 33.2%);
         --clr-base-500: hsl(339.45, 0%, 46.63%);
-        --clr-base-600: hsl(339.45, 0%, 61.84%);
-        --clr-base-700: hsl(339.45, 0%, 77.78%);
-        --clr-base-750: hsl(339.45, 0%, 82.41%);
-        --clr-base-800: hsl(339.45, 0%, 87.09%);
-        --clr-base-850: hsl(339.45, 0%, 91.82%);
+        --clr-base-600: hsl(339.45, 0%, 60.8%);
+        --clr-base-700: hsl(339.45, 0%, 75.61%);
+        --clr-base-750: hsl(339.45, 0%, 80.77%);
+        --clr-base-800: hsl(339.45, 0%, 85.99%);
+        --clr-base-850: hsl(339.45, 0%, 91.26%);
         --clr-base-900: hsl(339.45, 0%, 96.6%);
         --clr-black: hsl(305.21, 100%, 100%);
         --clr-purple-100: hsl(285, 75%, 4.5%);
@@ -912,6 +912,15 @@ input::placeholder {
         color: color-mix(in srgb, currentColor 90%, transparent);
     }
 }
+textarea[aria-disabled="true"],
+select[aria-disabled="true"],
+input[aria-disabled="true"],
+textarea[disabled],
+select[disabled],
+input[disabled] {
+    cursor: not-allowed;
+}
+
 input[type="button"],
 input[type="checkbox"],
 input[type="color"],
@@ -1100,6 +1109,12 @@ nav ul li {
 /*! END of @maddimathon/utility-astro/template */
 /* # GLOBALS - OBJECTS
  * ======================================================================== */
+hr {
+    border-width: 0.125rem;
+    color: CanvasText;
+    color: var(--theme-ui-primary, CanvasText);
+}
+
 img,
 figure,
 svg {
@@ -1118,33 +1133,33 @@ figure {
     ::-moz-selection {
         --icon-color: var(
             --theme-selection-text,
-            var(--clr-base-800, hsl(339.45, 0%, 11.95%))
+            var(--clr-base-800, hsl(339.45, 0%, 12.75%))
         ) !important;
         background-color: hsl(274.76, 78.57%, 78.95%) !important;
         background-color: var(
             --theme-selection-bg,
             var(--clr-purple-300, hsl(274.76, 78.57%, 78.95%))
         ) !important;
-        color: hsl(339.45, 0%, 11.95%) !important;
+        color: hsl(339.45, 0%, 12.75%) !important;
         color: var(
             --theme-selection-text,
-            var(--clr-base-800, hsl(339.45, 0%, 11.95%))
+            var(--clr-base-800, hsl(339.45, 0%, 12.75%))
         ) !important;
     }
     ::selection {
         --icon-color: var(
             --theme-selection-text,
-            var(--clr-base-800, hsl(339.45, 0%, 11.95%))
+            var(--clr-base-800, hsl(339.45, 0%, 12.75%))
         ) !important;
         background-color: hsl(274.76, 78.57%, 78.95%) !important;
         background-color: var(
             --theme-selection-bg,
             var(--clr-purple-300, hsl(274.76, 78.57%, 78.95%))
         ) !important;
-        color: hsl(339.45, 0%, 11.95%) !important;
+        color: hsl(339.45, 0%, 12.75%) !important;
         color: var(
             --theme-selection-text,
-            var(--clr-base-800, hsl(339.45, 0%, 11.95%))
+            var(--clr-base-800, hsl(339.45, 0%, 12.75%))
         ) !important;
     }
 }
@@ -1357,7 +1372,7 @@ samp {
     --icon-color: var(--theme-text-primary, CanvasText);
     border-radius: 0;
     background: Canvas;
-    background: var(--theme-background-alt, Canvas);
+    background: var(--theme-background-grey, Canvas);
     color: CanvasText;
     color: var(--theme-text-primary, CanvasText);
 }
@@ -1467,6 +1482,7 @@ h1 code,
 h1 kbd,
 h1 samp {
     font-weight: inherit;
+    font-style: inherit;
     color: inherit;
 }
 h2 {
@@ -1537,6 +1553,7 @@ h2 code,
 h2 kbd,
 h2 samp {
     font-weight: inherit;
+    font-style: inherit;
     color: inherit;
 }
 h3 {
@@ -1607,6 +1624,7 @@ h3 code,
 h3 kbd,
 h3 samp {
     font-weight: inherit;
+    font-style: inherit;
     color: inherit;
 }
 h4 {
@@ -1685,6 +1703,7 @@ h4 code,
 h4 kbd,
 h4 samp {
     font-weight: inherit;
+    font-style: inherit;
     color: inherit;
 }
 h5 {
@@ -1763,6 +1782,7 @@ h5 code,
 h5 kbd,
 h5 samp {
     font-weight: inherit;
+    font-style: inherit;
     color: inherit;
 }
 h6 {
@@ -1841,6 +1861,7 @@ h6 code,
 h6 kbd,
 h6 samp {
     font-weight: inherit;
+    font-style: inherit;
     color: inherit;
 }
 /* # GLOBALS - LISTS
@@ -1876,15 +1897,6 @@ input {
     line-height: var(--line-height-300, 1.4375);
     transition: none;
     transition: var(--transition);
-}
-@media (prefers-contrast: more),
-    (forced-colors: active),
-    (prefers-contrast: custom) {
-    textarea,
-    select,
-    input {
-        border-width: max(0.125rem, 0.0625rem);
-    }
 }
 textarea::-moz-placeholder,
 select::-moz-placeholder,
@@ -2390,29 +2402,6 @@ input[type="reset"][disabled] {
     color: var(--theme-button-disabled-text-hover, SelectedItemText);
 }
 
-input[type="submit"][disabled]:hover,
-input[type="reset"][disabled]:hover {
-    --focus-ring-outline-color: var(
-        --theme-button-disabled-outline-hover,
-        SelectedItem
-    );
-    --icon-color: var(--theme-button-disabled-ui-hover, SelectedItemText);
-    --theme-link-icon: var(--theme-button-disabled-ui-hover, SelectedItemText);
-    text-decoration-color: SelectedItemText;
-    text-decoration-color: var(
-        --theme-button-disabled-ui-hover,
-        SelectedItemText
-    );
-    accent-color: SelectedItem;
-    accent-color: var(--theme-button-disabled-border-hover, SelectedItem);
-    background-color: SelectedItem;
-    background-color: var(--theme-button-disabled-bg-hover, SelectedItem);
-    border-color: SelectedItem;
-    border-color: var(--theme-button-disabled-border-hover, SelectedItem);
-    color: SelectedItemText;
-    color: var(--theme-button-disabled-text-hover, SelectedItemText);
-}
-
 .no-js input[type="submit"][disabled]:focus-within,
 .no-js input[type="reset"][disabled]:focus-within,
 .js__no-whereSelector input[type="submit"][disabled]:focus-within,
@@ -2461,6 +2450,28 @@ input[type="reset"][disabled]:hover {
     color: var(--theme-button-disabled-text-hover, SelectedItemText);
 }
 
+input[type="submit"][disabled]:hover,
+input[type="reset"][disabled]:hover {
+    --focus-ring-outline-color: var(
+        --theme-button-disabled-outline-hover,
+        SelectedItem
+    );
+    --icon-color: var(--theme-button-disabled-ui-hover, SelectedItemText);
+    --theme-link-icon: var(--theme-button-disabled-ui-hover, SelectedItemText);
+    text-decoration-color: SelectedItemText;
+    text-decoration-color: var(
+        --theme-button-disabled-ui-hover,
+        SelectedItemText
+    );
+    accent-color: SelectedItem;
+    accent-color: var(--theme-button-disabled-border-hover, SelectedItem);
+    background-color: SelectedItem;
+    background-color: var(--theme-button-disabled-bg-hover, SelectedItem);
+    border-color: SelectedItem;
+    border-color: var(--theme-button-disabled-border-hover, SelectedItem);
+    color: SelectedItemText;
+    color: var(--theme-button-disabled-text-hover, SelectedItemText);
+}
 input[type="submit"][disabled]:active,
 input[type="reset"][disabled]:active {
     --focus-ring-outline-color: var(
@@ -2697,29 +2708,6 @@ input[type="reset"] {
     color: var(--theme-button-secondary-text-hover, SelectedItemText);
 }
 
-button[type="reset"]:hover,
-input[type="reset"]:hover {
-    --focus-ring-outline-color: var(
-        --theme-button-secondary-outline-hover,
-        SelectedItem
-    );
-    --icon-color: var(--theme-button-secondary-ui-hover, SelectedItemText);
-    --theme-link-icon: var(--theme-button-secondary-ui-hover, SelectedItemText);
-    text-decoration-color: SelectedItemText;
-    text-decoration-color: var(
-        --theme-button-secondary-ui-hover,
-        SelectedItemText
-    );
-    accent-color: SelectedItem;
-    accent-color: var(--theme-button-secondary-border-hover, SelectedItem);
-    background-color: SelectedItem;
-    background-color: var(--theme-button-secondary-bg-hover, SelectedItem);
-    border-color: SelectedItem;
-    border-color: var(--theme-button-secondary-border-hover, SelectedItem);
-    color: SelectedItemText;
-    color: var(--theme-button-secondary-text-hover, SelectedItemText);
-}
-
 .no-js button[type="reset"]:focus-within,
 .no-js input[type="reset"]:focus-within,
 .js__no-whereSelector button[type="reset"]:focus-within,
@@ -2768,6 +2756,28 @@ input[type="reset"]:hover {
     color: var(--theme-button-secondary-text-hover, SelectedItemText);
 }
 
+button[type="reset"]:hover,
+input[type="reset"]:hover {
+    --focus-ring-outline-color: var(
+        --theme-button-secondary-outline-hover,
+        SelectedItem
+    );
+    --icon-color: var(--theme-button-secondary-ui-hover, SelectedItemText);
+    --theme-link-icon: var(--theme-button-secondary-ui-hover, SelectedItemText);
+    text-decoration-color: SelectedItemText;
+    text-decoration-color: var(
+        --theme-button-secondary-ui-hover,
+        SelectedItemText
+    );
+    accent-color: SelectedItem;
+    accent-color: var(--theme-button-secondary-border-hover, SelectedItem);
+    background-color: SelectedItem;
+    background-color: var(--theme-button-secondary-bg-hover, SelectedItem);
+    border-color: SelectedItem;
+    border-color: var(--theme-button-secondary-border-hover, SelectedItem);
+    color: SelectedItemText;
+    color: var(--theme-button-secondary-text-hover, SelectedItemText);
+}
 button[type="reset"]:active,
 input[type="reset"]:active {
     --focus-ring-outline-color: var(

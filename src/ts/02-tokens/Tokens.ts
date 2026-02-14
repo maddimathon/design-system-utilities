@@ -147,7 +147,7 @@ export class Tokens<
         const allClrNames = [
             'base' as const,
             ...Object.keys( input.colour ?? {} ) as T_ColourName[],
-        ];
+        ].filter( name => name !== 'black' && name !== 'white' );
 
         const extraColourLevels = config.extraColourLevels ?? [];
 

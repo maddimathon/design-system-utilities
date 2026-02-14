@@ -34,6 +34,8 @@
 /// @since 0.1.0-alpha
 ///
 @mixin snippet-button-colours($variation: 'primary') {
+    $_content_exits: meta.content-exists();
+
     & {
         @include _snippet-button-colour-single-state(
             $bg: var-theme(button-#{$variation}-bg),
@@ -42,9 +44,12 @@
             $ui: var-theme(button-#{$variation}-ui),
             $focusRing: var-theme(button-#{$variation}-outline-hover)
         );
+        @if $_content_exits {
+            @content ( $location: 'root' );
+        }
     }
 
-    @include hover-focus-visible-or-within {
+    @include focus-visible-or-within {
         @include _snippet-button-colour-single-state(
             $bg: var-theme(button-#{$variation}-bg-hover),
             $border: var-theme(button-#{$variation}-border-hover),
@@ -52,6 +57,22 @@
             $ui: var-theme(button-#{$variation}-ui-hover),
             $focusRing: var-theme(button-#{$variation}-outline-hover)
         );
+        @if $_content_exits {
+            @content ( $location: 'focus' );
+        }
+    }
+
+    &:hover {
+        @include _snippet-button-colour-single-state(
+            $bg: var-theme(button-#{$variation}-bg-hover),
+            $border: var-theme(button-#{$variation}-border-hover),
+            $text: var-theme(button-#{$variation}-text-hover),
+            $ui: var-theme(button-#{$variation}-ui-hover),
+            $focusRing: var-theme(button-#{$variation}-outline-hover)
+        );
+        @if $_content_exits {
+            @content ( $location: 'hover' );
+        }
     }
 
     &:active {
@@ -62,6 +83,9 @@
             $ui: var-theme(button-#{$variation}-ui-active),
             $focusRing: var-theme(button-#{$variation}-outline-active)
         );
+        @if $_content_exits {
+            @content ( $location: 'active' );
+        }
     }
 }
 
@@ -81,6 +105,8 @@
     $includePseudoIcons: config.$template_button_inlineIcons,
     $variation: 'primary'
 ) {
+    $_content_exits: meta.content-exists();
+
     @include cx-prop(focus-ring-outline-offset, var-style(button-focus-offset));
 
     @include cx-prop(display, flex);
@@ -122,12 +148,34 @@
     appearance: button;
     cursor: pointer;
 
-    @include colour-mode((high, max, forced-colors)) {
-        border-width: max(0.125rem, #{var-style(button-border-width)});
-    }
-
     @if $includeColors {
-        @include snippet-button-colours($variation);
+        @include snippet-button-colours($variation) using ($location) {
+            @content ($location);
+        }
+    } @else {
+        & {
+            @if $_content_exits {
+                @content ( $location: 'root' );
+            }
+        }
+
+        @include hover-focus-visible-or-within {
+            @if $_content_exits {
+                @content ( $location: 'focus' );
+            }
+        }
+
+        &:hover {
+            @if $_content_exits {
+                @content ( $location: 'hover' );
+            }
+        }
+
+        &:active {
+            @if $_content_exits {
+                @content ( $location: 'active' );
+            }
+        }
     }
 
     /// BLOCK ///
@@ -146,11 +194,14 @@
         &[aria-disabled='true'],
         &[disabled] {
             @include snippet-button-disabled(
-                $fontWeight: $fontWeight_disabled,
-                $fontStyle: $fontStyle_disabled,
-                $includeColors: $includeColors,
-                $includePseudoIcons: $includePseudoIcons
-            );
+                    $fontWeight: $fontWeight_disabled,
+                    $fontStyle: $fontStyle_disabled,
+                    $includeColors: $includeColors,
+                    $includePseudoIcons: $includePseudoIcons
+                )
+                using ($location) {
+                @content ($location: 'disabled-#{$location}');
+            }
         }
         &[readonly] {
             cursor: not-allowed;
@@ -166,20 +217,14 @@
     %kbd,
     %samp {
         padding: 0;
+        font-weight: inherit;
+        font-style: inherit;
         background: transparent;
     }
 
     %icon {
         align-self: center;
     }
-
-    // ::selection {
-    //     @each $mode in tokens.$contrastMode_all {
-    //         @include colour-mode($mode, $includeDefault: false) {
-    //             @include snippet-selection($mode);
-    //         }
-    //     }
-    // }
 }
 
 ///
@@ -206,7 +251,38 @@
     cursor: not-allowed;
 
     @if $includeColors {
-        @include snippet-button-colours(disabled);
+        @include snippet-button-colours(disabled) using ($location) {
+            @if $location == focus {
+                border-style: solid;
+            }
+            @content ($location);
+        }
+    } @else {
+        & {
+            @if $_content_exits {
+                @content ( $location: 'root' );
+            }
+        }
+
+        @include focus-visible-or-within {
+            border-style: solid;
+
+            @if $_content_exits {
+                @content ( $location: 'focus' );
+            }
+        }
+
+        &:hover {
+            @if $_content_exits {
+                @content ( $location: 'hover' );
+            }
+        }
+
+        &:active {
+            @if $_content_exits {
+                @content ( $location: 'active' );
+            }
+        }
     }
 
     &::before {
@@ -439,10 +515,6 @@
         }
 
         transition: do-var(transition);
-
-        @include colour-mode((high, max, forced-colors)) {
-            border-width: max(0.125rem, #{$borderWidth});
-        }
 
         &::placeholder {
             font-style: #{var-style(input-placeholder-font-style)};

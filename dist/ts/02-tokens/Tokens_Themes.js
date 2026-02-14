@@ -26,7 +26,7 @@ export class Tokens_Themes extends AbstractTokens {
      * Used instead of the constructor so that it can be async.
      */
     static async build(clrNames, extraColourLevels, brightnessModes, contrastModes, input) {
-        return new Tokens_Themes(clrNames, extraColourLevels, brightnessModes, contrastModes, await Tokens_Themes.buildSets(clrNames, extraColourLevels, brightnessModes, contrastModes, input));
+        return Tokens_Themes.buildSets(clrNames, extraColourLevels, brightnessModes, contrastModes, input).then(sets => new Tokens_Themes(clrNames, extraColourLevels, brightnessModes, contrastModes, sets));
     }
     /**
      * Used to initialize multiple themes at once.
@@ -39,10 +39,10 @@ export class Tokens_Themes extends AbstractTokens {
                     { name: 'default' },
                 ])
             : [input];
-        const objs = await Promise.all(arr.map((set) => Tokens_Themes_Set.build(set.name, clrNames, extraColourLevels, [...brightnessModes], [...contrastModes], set)));
-        const allThemeNames = objs.map(o => o.data.name);
-        const sets = objectGenerator(allThemeNames, (name) => objs[allThemeNames.indexOf(name)]);
-        return sets;
+        return Promise.all(arr.map((set) => Tokens_Themes_Set.build(set.name, clrNames, extraColourLevels, [...brightnessModes], [...contrastModes], set))).then((objs) => {
+            const allThemeNames = objs.map(o => o.data.name);
+            return objectGenerator(allThemeNames, (name) => objs[allThemeNames.indexOf(name)]);
+        });
     }
     get data() {
         return objectMap(this.sets, ([key, value]) => value.data);

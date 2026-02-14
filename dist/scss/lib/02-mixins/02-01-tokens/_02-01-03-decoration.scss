@@ -1,0 +1,147 @@
+///
+/// @package @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+/// @since 0.1.0-alpha
+///
+
+@use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/math';
+@use 'pkg:@maddimathon/utility-sass/selector';
+
+@use '../../../config';
+@use '../../../tokens';
+
+@use '../../01-functions' as *;
+
+@use 'pkg:@maddimathon/utility-astro/02-mixins' as utils;
+
+///
+/// Prints out the border width custom property tokens based on config.
+///
+/// @since 0.1.0-alpha
+///
+@mixin tokens-border-radius {
+    /* #region Tokens - Border Radius */
+    #{selector.parent-or-root()} {
+        @each $slug, $_value in map.get(tokens.$border, radius) {
+            @include utils.cx-prop(
+                border-radius-#{$slug},
+                #{border-radius-value($slug)}
+            );
+        }
+    }
+    /* #endregion Tokens - Border Radius */
+}
+
+///
+/// Prints out the border width custom property tokens based on config.
+///
+/// @since 0.1.1-alpha.1.draft
+///
+@mixin tokens-border-width($multiplier: 1) {
+    /* #region Tokens - Border Width */
+    #{selector.parent-or-root()} {
+        @each $slug, $_value in map.get(tokens.$border, width) {
+            @include utils.cx-prop(
+                border-width-#{$slug},
+                #{border-width-value($slug, $multiplier: $multiplier)}
+            );
+        }
+    }
+
+    @include utils.colour-mode((high, max, forced-colors)) {
+        @each $slug, $_value in map.get(tokens.$border, width) {
+            $_borderValue: border-width-value($slug, $multiplier: $multiplier);
+
+            $_borderValue_deunit: math.deunit($_borderValue);
+
+            $_max_multi: math.div(
+                $_borderValue_deunit * 3 * 16 * $multiplier,
+                math.deunit(config.$fn_clampHighContrastBorderWidth_max)
+            );
+
+            $_min_multi: math.div(
+                $_borderValue_deunit * 2 * $multiplier,
+                math.deunit(config.$fn_clampHighContrastBorderWidth_min)
+            );
+
+            @include utils.cx-prop(
+                border-width-#{$slug},
+                #{clamp-high-contrast-border-width(
+                        $_borderValue,
+                        $unit: 1rem,
+                        $max_multiplier: $_max_multi,
+                        $min_multiplier: $_min_multi
+                    )}
+            );
+        }
+    }
+    /* #endregion Tokens - Border Width */
+}
+
+///
+/// Prints out the relative strokes custom property tokens based on config.
+///
+/// @since 0.1.1-alpha.1.draft
+///
+@mixin tokens-stroke-relative($multiplier: 1) {
+    /* #region Tokens - Stroke Relative */
+    #{selector.parent-or-root()} {
+        @each $slug, $_value in tokens.$strokes_relative {
+            @include utils.cx-prop(
+                stroke-relative-#{$slug},
+                stroke-relative-value($slug, $multiplier: $multiplier)
+            );
+        }
+    }
+
+    @include utils.colour-mode((high, max, forced-colors)) {
+        @each $slug, $_value in tokens.$strokes_relative {
+            $_strokeValue: stroke-relative-value(
+                $slug,
+                $multiplier: $multiplier
+            );
+
+            $_strokeValue_deunit: math.deunit($_strokeValue);
+
+            $_max_multi: 0.75 *
+                $multiplier *
+                math.div(
+                    ($_strokeValue_deunit * 3 * 16),
+                    math.deunit(config.$fn_clampHighContrastBorderWidth_max)
+                );
+
+            $_min_multi: 0.5 *
+                $multiplier *
+                math.div(
+                    $_strokeValue_deunit * 2,
+                    math.deunit(config.$fn_clampHighContrastBorderWidth_min)
+                );
+
+            @include utils.cx-prop(
+                stroke-relative-#{$slug},
+                clamp-high-contrast-border-width(
+                    $_strokeValue,
+                    $unit: 1em,
+                    $max_multiplier: $_max_multi,
+                    $min_multiplier: $_min_multi
+                )
+            );
+        }
+    }
+    /* #endregion Tokens - Stroke Relative */
+}
+
+///
+/// Prints out the border width custom property tokens based on config.
+///
+/// @since 0.1.0-alpha
+///
+@mixin tokens-z-index {
+    /* #region Tokens - Z Index */
+    #{selector.parent-or-root()} {
+        @each $slug, $_value in tokens.$z_index {
+            @include utils.cx-prop(z-index-#{$slug}, z-index-value($slug));
+        }
+    }
+    /* #endregion Tokens - Z Index */
+}

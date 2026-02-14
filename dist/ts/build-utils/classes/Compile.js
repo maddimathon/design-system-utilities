@@ -82,7 +82,7 @@ export class Compile extends CompileStage {
             return;
         }
         this.console.verbose('writing json tokens...', 1 + level);
-        const tokenJson = JSON.stringify(tokens, null, 4);
+        const tokenJson = JSON.stringify(tokens.toJSON(), null, 4);
         return Promise.all(paths.map(async (path) => this.try(this.fs.write, (this.params.verbose ? 2 : 1) + level, [path, tokenJson, { force: true }])));
     }
     async buildTokens_writeScss(tokens, paths, level) {

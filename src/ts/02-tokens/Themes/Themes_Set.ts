@@ -101,7 +101,7 @@ export class Tokens_Themes_Set<
             input.forcedColours?.overrides
         );
 
-        const modes: {
+        const modes: Promise<{
             [ B in T_ThemeBrightnessMode ]: {
                 [ C in T_ThemeContrastMode ]:
                 Tokens_Themes_Set_SingleMode<
@@ -112,12 +112,12 @@ export class Tokens_Themes_Set<
                     T_Keyword_Background
                 >;
             };
-        } = await objectGeneratorAsync(
+        }> = objectGeneratorAsync(
             brightnessModes,
-            async ( brightness: T_ThemeBrightnessMode ) =>
+            ( brightness: T_ThemeBrightnessMode ) =>
                 objectGeneratorAsync(
                     contrastModes,
-                    async ( contrast: T_ThemeContrastMode ) =>
+                    ( contrast: T_ThemeContrastMode ) =>
                         Tokens_Themes_Set_SingleMode.build<
                             T_ColourName,
                             T_ExtraColourLevels,
@@ -141,7 +141,7 @@ export class Tokens_Themes_Set<
                 )
         );
 
-        return new Tokens_Themes_Set<
+        return modes.then( ( modes_resolved => new Tokens_Themes_Set<
             T_ColourName,
             T_ExtraColourLevels,
             readonly T_ThemeBrightnessMode[],
@@ -158,8 +158,8 @@ export class Tokens_Themes_Set<
             brightnessModes,
             contrastModes,
             forcedColours,
-            modes
-        );
+            modes_resolved,
+        ) ) );
     }
 
     public get data(): Tokens_Themes_Set.Data<

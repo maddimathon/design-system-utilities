@@ -55,7 +55,7 @@ export class Tokens extends AbstractTokens {
         const allClrNames = [
             'base',
             ...Object.keys(input.colour ?? {}),
-        ];
+        ].filter(name => name !== 'black' && name !== 'white');
         const extraColourLevels = config.extraColourLevels ?? [];
         const brightnessModes = input.themes?.brightness?.length
             ? input.themes.brightness

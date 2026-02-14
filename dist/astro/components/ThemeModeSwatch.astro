@@ -177,6 +177,18 @@ function getClrFromThemeValue(
     if (slug === 'transparent' || slug === 'unset') {
         return 'inherit';
     }
+    
+    // returns
+    if (slug === 'black' || slug === 'white') {
+
+        if (_brightness === 'dark') {
+            return ColourUtilities.toString.hsl(
+                _tokens.colour[ slug === 'black' ? 'white' : 'black']
+            );
+        }
+        
+        return ColourUtilities.toString.hsl(_tokens.colour[slug]);
+    }
 
     const { name, level } = captureClrDataFromThemeValue(_tokens, _brightness, slug) ?? {};
 
@@ -373,7 +385,7 @@ const inputField: _ParsedInputField = objectGenerator(
                     `background: ${getClrFromThemeValue(tokens, brightness, _bgValue)}`,
                     `color: ${getClrFromThemeValue(tokens, brightness, theme.data.text.$)}`,
                 ].join(';') }
-            ><code set:text={ _bgSlug === '$' ? 'theme-background': `theme-background-${_bgSlug}` } /> {equals} <code set:text={_bgValue} />.</p>
+            ><code set:text={ _bgSlug === '$' ? 'theme-background': `theme-background-${_bgSlug}` } /> {equals} <code set:text={_bgValue} /></p>
         ))}
         <p
             class="theme-mode-swatch__sample theme-mode-swatch__sample--selection"
@@ -456,9 +468,11 @@ const inputField: _ParsedInputField = objectGenerator(
                         state[key] && ( key != 'border' || state.border?.value != state.bg?.value ) && <p
                             class="theme-mode-swatch__sample"
                             style={ [
-                                (key == 'text' || key == 'ui') && state.bg 
-                                    ? `background: ${getClrFromThemeValue(tokens, brightness, state.bg.value)}`
-                                    : '',
+                                key === 'bg' && state.text
+                                    ? `background: ${getClrFromThemeValue(tokens, brightness, state.text.value)}`
+                                    : (key == 'text' || key == 'ui') && state.bg
+                                        ? `background: ${getClrFromThemeValue(tokens, brightness, state.bg.value)}`
+                                        : '',
                                 `color: ${getClrFromThemeValue(tokens, brightness, state[key].value)}`,
                             ].join(';') }
                         ><code set:text={`theme-button-${variation.name}-${key}${state[key].state ? `-${state[key].state}`: '' }`} /> {equals} <code set:text={state[key].value} /></p>
@@ -514,8 +528,8 @@ const inputField: _ParsedInputField = objectGenerator(
                                 (key == 'accent' || key == 'text') && state.bg 
                                     ? `background: ${getClrFromThemeValue(tokens, brightness, state.bg.clrSlug)}`
                                     : '',
-                                (key == 'bg') && state.border 
-                                    ? `background: ${getClrFromThemeValue(tokens, brightness, state.border.clrSlug)}`
+                                (key == 'bg') && state.text 
+                                    ? `background: ${getClrFromThemeValue(tokens, brightness, state.text.clrSlug)}`
                                     : '',
                                 `color: ${getClrFromThemeValue(tokens, brightness, state[key].clrSlug)}`,
                             ].join(';') }

@@ -198,7 +198,7 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
                                                         icon={tokens.icons.info}
                                                         style={`background: var(--clr-${backgroundClrName})`}
                                                     >
-                                                        <span slot='headline'><samp set:text={`background-${backgroundSlug}`} /> Alert Block</span>
+                                                        <span slot='headline'>Alert Block: <samp set:text={`background-${backgroundSlug}`} /></span>
                                                         <p>Lorem ipsum <a href="#">dolor sit amet</a>, consectetur adipiscing elit. Sed vel odio at nibh <abbr title="these aren’t real words">pharetra condimentum</abbr>.</p>
                                                         <ul>
                                                             <li>Etiam ullamcorper commodo risus.</li>
@@ -234,7 +234,7 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
                                                         data-brightness-mode={brightnessSet.name}
                                                         data-contrast-mode={set.contrast}
                                                     >
-                                                        <Fragment slot='heading' ><samp set:text={toTitleCase(themeName)} /> (Theme) Widget</Fragment>
+                                                        <Fragment slot='heading' >Themed Widget: <samp set:text={toTitleCase(themeName)} /></Fragment>
                                                         { import.meta.env.DEV ? (
                                                             <LoremIpsum
                                                                 superAbbreviated={true}

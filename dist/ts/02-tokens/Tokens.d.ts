@@ -95,7 +95,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                 background: {
                     $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 } & {
-                    alt: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    grey: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 } & { [K_5 in T_ThemeKeyword_Universal]: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>; } & { [K_6 in T_ThemeKeyword_Background]: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>; };
                 button: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
                 input: {
@@ -153,7 +153,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
             background: {
                 $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
             } & {
-                alt: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                grey: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
             } & { [K_5 in T_ThemeKeyword_Universal]: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>; } & { [K_6 in T_ThemeKeyword_Background]: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>; };
             text: {
                 $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
@@ -790,7 +790,7 @@ export declare namespace Tokens {
                 readonly h: 0;
             };
             readonly '300': {
-                readonly l: 80;
+                readonly l: 78;
                 readonly c: 0;
                 readonly h: 0;
             };
@@ -800,7 +800,7 @@ export declare namespace Tokens {
                 readonly h: 0;
             };
             readonly '700': {
-                readonly l: 20;
+                readonly l: 22;
                 readonly c: 0;
                 readonly h: 0;
             };
@@ -844,7 +844,7 @@ export declare namespace Tokens {
                 readonly h: 0;
             };
             readonly '300': {
-                readonly l: 80;
+                readonly l: 78;
                 readonly c: 0;
                 readonly h: 0;
             };
@@ -854,7 +854,7 @@ export declare namespace Tokens {
                 readonly h: 0;
             };
             readonly '700': {
-                readonly l: 20;
+                readonly l: 22;
                 readonly c: 0;
                 readonly h: 0;
             };
