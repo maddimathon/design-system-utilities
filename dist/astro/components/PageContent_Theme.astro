@@ -73,13 +73,13 @@ const parsedSets = Object.values(
                             href: `${key}-${brightness}-mode`,
                             values: Object.values(
                                 objectMap(
-                                theme[brightness],
-                                ([ contrast,  theme ]): {
-                                    id: string,
-                                    brightness: "light"|"dark",
-                                    contrast: "low"|"average"|"high"|"max",
-                                    theme: typeof theme,
-                                } => ({
+                                    theme[brightness],
+                                    ([ contrast,  theme ]): {
+                                        id: string,
+                                        brightness: "light"|"dark",
+                                        contrast: "low"|"average"|"high"|"max",
+                                        theme: typeof theme,
+                                    } => ({
                                         id: `theme-${key}-${contrast}`,
                                         brightness,
                                         contrast,

@@ -302,6 +302,8 @@ export var ColourUtilities;
             '800': '200',
             '850': '150',
             '900': '100',
+            'black': 'white',
+            'white': 'black',
         };
         /**
          * The shade level keys that can be optionally included in maps for this

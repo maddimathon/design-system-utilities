@@ -259,6 +259,10 @@ export class Tokens_CSS_Style extends AbstractTokens<Tokens_CSS_Style.Data> {
                 font: {
                     style: 'italic',
                 },
+                opacity: {
+                    low: '65%',
+                    average: '75%',
+                },
             },
         };
 
@@ -289,14 +293,12 @@ export class Tokens_CSS_Style extends AbstractTokens<Tokens_CSS_Style.Data> {
             input: Tokens_CSS_Style.inputStyle(),
 
             selection: {
-                low: {
-                    "background-opacity": '65%',
-                },
-                average: {
-                    "background-opacity": '75%',
-                },
-                high: {
-                    "background-opacity": '95%',
+                background: {
+                    opacity: {
+                        low: '65%',
+                        average: '75%',
+                        high: '95%',
+                    },
                 },
             },
         };
@@ -509,6 +511,12 @@ export namespace Tokens_CSS_Style {
             font: {
                 style: "normal" | "italic";
             };
+            opacity: {
+                /**
+                 * Contrast modes.
+                 */
+                [ C in Exclude<ThemeMode_ContrastOption, 'high' | 'max'> ]?: string;
+            };
         };
     }
 
@@ -560,9 +568,17 @@ export namespace Tokens_CSS_Style {
             disabled: InputStyles_Disabled;
         };
 
+        /**
+         * @since ___PKG_VERSION___ — Restructured object nesting.
+         */
         selection: {
-            [ C in Exclude<ThemeMode_ContrastOption, 'max'> ]: {
-                'background-opacity': string;
+            background?: {
+                opacity?: {
+                    /**
+                     * Contrast modes.
+                     */
+                    [ C in Exclude<ThemeMode_ContrastOption, 'max'> ]?: string;
+                };
             };
         };
     };
@@ -593,9 +609,17 @@ export namespace Tokens_CSS_Style {
             disabled?: RecursivePartial<InputStyles_Disabled>;
         };
 
+        /**
+         * @since ___PKG_VERSION___ — Restructured object nesting.
+         */
         selection?: {
-            [ C in Exclude<ThemeMode_ContrastOption, 'max'> ]?: {
-                'background-opacity'?: string;
+            background?: {
+                opacity?: {
+                    /**
+                     * Contrast modes.
+                     */
+                    [ C in Exclude<ThemeMode_ContrastOption, 'max'> ]?: string;
+                };
             };
         };
     };

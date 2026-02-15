@@ -97,7 +97,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                 } & {
                     grey: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 } & { [K_5 in T_ThemeKeyword_Universal]: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>; } & { [K_6 in T_ThemeKeyword_Background]: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>; };
-                button: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
+                button: Tokens_Themes_Set_SingleMode.Data.Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
                 input: {
                     accent: {
                         $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
@@ -114,6 +114,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                         hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                         active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                     };
+                    placeholder: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                     text: {
                         $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                         hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
@@ -192,10 +193,10 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                 text: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
             };
             button: {
-                disabled: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
-                primary: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
-                secondary: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
-            } & { [K_11 in T_ThemeKeyword_Universal]: Tokens_Themes_Set_SingleMode.Data_Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>; };
+                disabled: Tokens_Themes_Set_SingleMode.Data.Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
+                primary: Tokens_Themes_Set_SingleMode.Data.Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
+                secondary: Tokens_Themes_Set_SingleMode.Data.Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
+            } & { [K_11 in T_ThemeKeyword_Universal]: Tokens_Themes_Set_SingleMode.Data.Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>; };
             input: {
                 readonly: {
                     accent: {
@@ -213,6 +214,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                         hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                         active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                     };
+                    placeholder: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                     text: {
                         $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                         hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
@@ -235,6 +237,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                         hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                         active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                     };
+                    placeholder: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                     text: {
                         $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                         hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
@@ -257,6 +260,7 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                         hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                         active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                     };
+                    placeholder: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                     text: {
                         $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                         hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
@@ -1219,14 +1223,9 @@ export declare namespace Tokens {
         interface AllVariations<T_ColourName extends string = Tokens_Internal.Default_ColourName, T_ThemeKeyword_Universal extends string = never, T_ThemeKeyword_Text extends string = never, T_ThemeKeyword_Background extends string = never> extends Tokens_Themes_Set_SingleMode.AllVariations<T_ColourName, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background> {
         }
         /**
-         * @since 0.1.1-alpha.0
+         * @since 0.1.1-alpha.1.draft
          */
-        const LEVELS_DEFAULT: typeof Tokens_Themes_Set_SingleMode.Build.LEVELS_DEFAULT;
-        /**
-         * @since 0.1.0-alpha
-         */
-        interface RequiredLevels<T_ExtraColourLevels extends ColourUtilities.Levels.Optional> extends Tokens_Themes_Set_SingleMode.RequiredLevels<T_ExtraColourLevels> {
-        }
+        type JsonReturn<T_ColourName extends string = Tokens_Internal.Default_ColourName, T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels, T_ThemeBrightnessMode extends string = Tokens_Internal.Default_ThemeBrightnessMode[number], T_ThemeContrastMode extends TokenTypes.ThemeMode_ContrastOption = TokenTypes.ThemeMode_ContrastOption, T_ThemeName extends string = Tokens_Themes.Default_ThemeName, T_ThemeKeyword_Universal extends string = string, T_ThemeKeyword_Text extends string = string, T_ThemeKeyword_Background extends string = string> = Tokens_Themes.JsonReturn<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background>;
         /**
          * @since 0.1.0-alpha
          */
@@ -1242,9 +1241,62 @@ export declare namespace Tokens {
         namespace SingleMode {
             const colourOption: typeof Tokens_Themes_Set_SingleMode.Build.colourOption;
             /**
+             * @since 0.1.1-alpha.1.draft
+             */
+            namespace Levels {
+                /**
+                 * @since 0.1.1-alpha.1.draft
+                 */
+                interface Input<T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels> extends Tokens_Themes_Set_SingleMode.Levels.Input<T_ExtraColourLevels> {
+                }
+                /**
+                 * @since 0.1.1-alpha.1.draft
+                 */
+                interface Parsed<T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels> extends Tokens_Themes_Set_SingleMode.Levels.Parsed<T_ExtraColourLevels> {
+                }
+                /**
+                 * @since 0.1.1-alpha.1.draft
+                 */
+                interface Required<T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels> extends Tokens_Themes_Set_SingleMode.Levels.Required<T_ExtraColourLevels> {
+                }
+                /**
+                 * @since 0.1.1-alpha.0
+                 * @since 0.1.1-alpha.1.draft — Moved to Tokens_Themes_Set_SingleMode.Levels and renamed.
+                 */
+                const DEFAULT: typeof Tokens_Themes_Set_SingleMode.Levels.DEFAULT;
+                const parse: typeof Tokens_Themes_Set_SingleMode.Levels.parse;
+            }
+            /**
+             * Common object shapes used to set multiple level types.
+             *
+             * @since 0.1.1-alpha.1.draft
+             */
+            namespace Set {
+                /**
+                 * @since 0.1.1-alpha.1.draft
+                 */
+                interface AccentMin<T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels> extends Tokens_Themes_Set_SingleMode.Levels.Set.AccentMin<T_ExtraColourLevels> {
+                }
+                /**
+                 * @since 0.1.1-alpha.1.draft
+                 */
+                interface AccentGrey<T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels> extends Tokens_Themes_Set_SingleMode.Levels.Set.AccentGrey<T_ExtraColourLevels> {
+                }
+            }
+            /**
              * @since 0.1.0-alpha
              */
-            interface Data_RecursivePartial<T_ColourName extends string = Tokens_Internal.Default_ColourName, T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels, T_ThemeKeyword_Universal extends string = never, T_ThemeKeyword_Text extends string = never, T_ThemeKeyword_Background extends string = never, __T_ColourOption extends TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels> = TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>> extends Tokens_Themes_Set_SingleMode.Data_RecursivePartial<T_ColourName, T_ExtraColourLevels, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background, __T_ColourOption> {
+            interface Data<T_ColourName extends string = Tokens_Internal.Default_ColourName, T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels, T_ThemeKeyword_Universal extends string = never, T_ThemeKeyword_Text extends string = never, T_ThemeKeyword_Background extends string = never, __T_ColourOption extends TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels> = TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>> extends Tokens_Themes_Set_SingleMode.Data<T_ColourName, T_ExtraColourLevels, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background, __T_ColourOption> {
+            }
+            /**
+             * @since 0.1.1-alpha.1.draft
+             */
+            namespace Data {
+                /**
+                 * @since 0.1.0-alpha
+                 */
+                interface RecursivePartial<T_ColourName extends string = Tokens_Internal.Default_ColourName, T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels, T_ThemeKeyword_Universal extends string = never, T_ThemeKeyword_Text extends string = never, T_ThemeKeyword_Background extends string = never, __T_ColourOption extends TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels> = TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>> extends Tokens_Themes_Set_SingleMode.Data.RecursivePartial<T_ColourName, T_ExtraColourLevels, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background, __T_ColourOption> {
+                }
             }
             /**
              * @since 0.1.0-alpha

@@ -13,7 +13,7 @@ import type {
     ThemeMode_ContrastOption,
 } from '../@types.js';
 
-import type { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
+import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
 
 import { objectGeneratorAsync } from '../../01-utilities/objectGenerator.js';
 import { objectMap } from '../../01-utilities/objectMap.js';
@@ -232,26 +232,26 @@ export class Tokens_Themes_Set<
         T_Keyword_Background
     > {
 
-        const levelsInUse = arrayUnique( (
-            Object.values(
+        const allLevelsInUse = objectMap(
+            this.modes,
+            ( [ brightnessMode ] ) => Object.values(
                 objectMap(
-                    this.modes,
-                    ( [ brightnessMode ] ) => Object.values(
-                        objectMap(
-                            this.modes[ brightnessMode ],
-                            ( [ __key, value ] ) => value.levelsInUse
-                        )
-                    ).flat()
+                    this.modes[ brightnessMode ],
+                    ( [ __key, value ] ): (
+                        | "black"
+                        | "white"
+                        | ColourUtilities.Levels.Required
+                        | ColourUtilities.Levels.Optional
+                    )[] => value.levelsInUse
                 )
-            ) as ( ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional )[][]
+            ).flat() as ( "black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional )[]
+        );
+
+        const levelsInUse = arrayUnique( (
+            Object.values( allLevelsInUse ) as ( "black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional )[][]
         ).flat() );
 
-        const levelsInUse_dark = levelsInUse.map( ( level ) => {
-
-            const dark = ( 1000 - Number( level ) ).toFixed( 0 );
-
-            return dark.padStart( Math.max( 0, 3 - dark.length ), '0' ) as ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional;
-        } );
+        const levelsInUse_dark = levelsInUse.map( ( light ) => ColourUtilities.Levels.toDark( light ) );
 
         return {
             name: this.name ?? 'default',
@@ -373,7 +373,7 @@ export namespace Tokens_Themes_Set {
             >,
             "levels" | "variations"
         > & {
-            overrides?: Tokens_Themes_Set_SingleMode.Data_RecursivePartial<
+            overrides?: Tokens_Themes_Set_SingleMode.Data.RecursivePartial<
                 T_ColourName,
                 T_ExtraColourLevels,
                 T_Keyword_Universal,
@@ -391,7 +391,7 @@ export namespace Tokens_Themes_Set {
                     T_Keyword_Text,
                     T_Keyword_Background
                 > & {
-                    overrides?: Tokens_Themes_Set_SingleMode.Data_RecursivePartial<
+                    overrides?: Tokens_Themes_Set_SingleMode.Data.RecursivePartial<
                         T_ColourName,
                         T_ExtraColourLevels,
                         T_Keyword_Universal,
@@ -417,7 +417,7 @@ export namespace Tokens_Themes_Set {
         T_Keyword_Background extends string,
     > = {
         name: T_ThemeName;
-        levelsInUse: ( ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional )[];
+        levelsInUse: ( "black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional )[];
         forcedColours: Tokens_Themes_Set_SingleMode.JsonReturn<
             T_ColourName,
             T_ExtraColourLevels,

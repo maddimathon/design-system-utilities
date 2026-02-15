@@ -15,6 +15,8 @@ import type { Tokens_Colour_ShadeMap_Shade } from '../../ts/02-tokens/Colour/Sha
 
 /* import - functions */
 import { objectGenerator } from '../../ts/01-utilities/objectGenerator.js';
+import { getColourValue } from '../functions/getColourValue.js';
+import { textColorLevel } from '../functions/textColorLevel.js';
 
 /* import - values */
 
@@ -94,99 +96,30 @@ const {
 
 /* FUNCTIONS ===================================== */
 
-export function textColorLevel(
-    lvl: ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional,
-) {
-    switch (lvl) {
-        case '100':
-            return '700';
-
-        case '150':
-            return '800';
-
-        case '200':
-            return '800';
-
-        case '250':
-            return '800';
-
-        case '300':
-            return '900';
-
-        case '350':
-            return '900';
-
-        case '400':
-            return '900';
-
-        case '450':
-            return '900';
-
-        case '500':
-            return '100';
-
-        case '550':
-            return '100';
-
-        case '600':
-            return '100';
-
-        case '650':
-            return '100';
-
-        case '700':
-            return '100';
-
-        case '750':
-            return '200';
-
-        case '800':
-            return '200';
-
-        case '850':
-            return '200';
-
-        case '900':
-            return '300';
-    }
-}
-
 /* CONSTANTS ===================================== */
 
-values.hex = values.hex?.replace(/^#/g, '');
-
-const bg = values.hsl
-    ? `hsl( ${values.hsl.h}, ${values.hsl.s}%, ${values.hsl.l}% )`
-    : values.hex
-      ? `#${values.hex}`
-      : null;
+const bg = getColourValue(values);
 
 const textLevel =
     values.contrast?.min.base?.text?.aaa?.level ??
     values.contrast?.max.base?.level ??
-    (level == 'black' || level == 'white' ? level : textColorLevel(level));
+    textColorLevel(level);
 
-const text =
-    bases &&
-    textLevel &&
-    bases &&
-    textLevel in bases &&
-    bases[textLevel] &&
-    `hsl( ${bases[textLevel].hsl.h}, ${bases[textLevel].hsl.s}%, ${bases[textLevel].hsl.l}% )`;
+const text = bases?.[textLevel] && getColourValue(bases[textLevel]);
 
 const brightnessMode = Number(textLevel) <= 500 ? 'light' : 'dark';
 
 const cssVars = {
-    'shade-swatch-color': text || undefined,
-    'shade-swatch-background': bg ?? undefined,
+    'shade-swatch-color': text,
+    'shade-swatch-background': bg,
 };
 
-const presentTypes = (Object.keys(values) as (keyof typeof values)[]).filter(
-    (v) => v !== 'contrast',
-);
+const existingClrValueTypes = (
+    Object.keys(values) as (keyof typeof values)[]
+).filter((v) => v !== 'contrast');
 
-const valueTypes = objectGenerator(
-    presentTypes,
+const clrValueTypes = objectGenerator(
+    existingClrValueTypes,
     (version) =>
         values[version] &&
         ({
@@ -225,28 +158,28 @@ const valueTypes = objectGenerator(
     {
         displayValues && (
             <Fragment>
-                {valueTypes['hex'] && (
+                {clrValueTypes['hex'] && (
                     <ShadeSwatch_ColourValue
                         background={true}
-                        {...valueTypes['hex']}
+                        {...clrValueTypes['hex']}
                     />
                 )}
-                {valueTypes['hsl'] && (
+                {clrValueTypes['hsl'] && (
                     <ShadeSwatch_ColourValue
                         background={true}
-                        {...valueTypes['hsl']}
+                        {...clrValueTypes['hsl']}
                     />
                 )}
-                {valueTypes['rgb'] && (
+                {clrValueTypes['rgb'] && (
                     <ShadeSwatch_ColourValue
                         background={true}
-                        {...valueTypes['rgb']}
+                        {...clrValueTypes['rgb']}
                     />
                 )}
-                {valueTypes['lch'] && (
+                {clrValueTypes['lch'] && (
                     <ShadeSwatch_ColourValue
                         background={true}
-                        {...valueTypes['lch']}
+                        {...clrValueTypes['lch']}
                     />
                 )}
             </Fragment>

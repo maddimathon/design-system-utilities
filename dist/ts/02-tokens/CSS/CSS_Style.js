@@ -197,6 +197,10 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 font: {
                     style: 'italic',
                 },
+                opacity: {
+                    low: '65%',
+                    average: '75%',
+                },
             },
         };
         return {
@@ -216,14 +220,12 @@ export class Tokens_CSS_Style extends AbstractTokens {
             heading: objectGenerator([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], (hdg) => Tokens_CSS_Style.headingStyle(hdg)),
             input: Tokens_CSS_Style.inputStyle(),
             selection: {
-                low: {
-                    "background-opacity": '65%',
-                },
-                average: {
-                    "background-opacity": '75%',
-                },
-                high: {
-                    "background-opacity": '95%',
+                background: {
+                    opacity: {
+                        low: '65%',
+                        average: '75%',
+                        high: '95%',
+                    },
                 },
             },
         };

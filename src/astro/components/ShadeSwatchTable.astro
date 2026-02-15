@@ -16,7 +16,11 @@ import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
 import { objectMap } from '../../ts/01-utilities/objectMap.js';
 import { Tokens_Colour_ShadeMap_Shade } from '../../ts/02-tokens/Colour/ShadeMap/ShadeMap_Shade.js';
 import { colourToArray } from '../functions/colourToArray.js';
-import { textColorLevel } from './ShadeSwatch.astro';
+import { 
+    getBaseColourObject,
+    getMapColourObject,
+ } from '../functions/getColourValue.js';
+import { textColorLevel } from '../functions/textColorLevel.js';
  
 /* import - values */
  
@@ -91,6 +95,8 @@ const {
 }: Props = Astro.props.frontmatter ?? Astro.props;
 
 /* TYPES ===================================== */
+
+type AnyColourLevel = "black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional;
 
 export type LevelTargets = {
     [ L in ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional ]: {
@@ -391,21 +397,21 @@ const goalLevels = objectMap(
                 targetLevel, 
                 value,
             ] ): false | {
-                level: ColourUtilities.Levels.Required|ColourUtilities.Levels.Optional,
-                textLevel: ColourUtilities.Levels.Required|ColourUtilities.Levels.Optional,
+                level: AnyColourLevel,
+                textLevel: AnyColourLevel,
                 min: {
                     aa: {
                         colCount: number;
-                        ui: ColourUtilities.Levels.Required|ColourUtilities.Levels.Optional | undefined,
-                        text: ColourUtilities.Levels.Required|ColourUtilities.Levels.Optional | undefined,
+                        ui: AnyColourLevel | undefined,
+                        text: AnyColourLevel | undefined,
                     },
                     aaa: {
                         colCount: number;
-                        ui: ColourUtilities.Levels.Required|ColourUtilities.Levels.Optional | undefined,
-                        text: ColourUtilities.Levels.Required|ColourUtilities.Levels.Optional | undefined,
+                        ui: AnyColourLevel | undefined,
+                        text: AnyColourLevel | undefined,
                     },
                 },
-                max: ColourUtilities.Levels.Required|ColourUtilities.Levels.Optional | undefined,
+                max: AnyColourLevel | undefined,
             } => {
                 // returns - don't include
                 if ( excludeLevels.includes( targetLevel ) || ! allTokenLevels.includes(targetLevel) ) {
@@ -441,6 +447,14 @@ const goalLevels = objectMap(
 
 const blackTextLevel = props.colour.base.black.contrast?.min.base?.text?.aaa?.level ?? props.colour.base.black.contrast?.max.base?.level ?? 'white';
 const whiteTextLevel = props.colour.base.white.contrast?.min.base?.text?.aaa?.level ?? props.colour.base.white.contrast?.max.base?.level ?? 'black';
+
+const HSL_CLRS = {
+    white: ColourUtilities.toString.hsl(props.colour.base.white.hsl),
+    black: ColourUtilities.toString.hsl(props.colour.base.black.hsl),
+    
+    blackTextLevel: ColourUtilities.toString.hsl(props.colour.base[ blackTextLevel ]),
+    whiteTextLevel: ColourUtilities.toString.hsl(props.colour.base[ whiteTextLevel ]),
+};
 ---
 
 {
@@ -466,18 +480,21 @@ const whiteTextLevel = props.colour.base.white.contrast?.min.base?.text?.aaa?.le
                     <th
                         aria-hidden="true"
                         data-brightness-mode='light'
-                        style={`background: var(--clr-white, ${ColourUtilities.toString.hsl(props.colour.base.white.hsl)})`}
+                        style={`background: var(--clr-white, ${HSL_CLRS.white})`}
                     ><article
                         class:list={['container', 'shade-swatch']}
                         data-brightness-mode='light'
                         data-shade-swatch-has-background={true}
                         style={ [ 
-                            `--shade-swatch-background: ${ColourUtilities.toString.hsl(props.colour.base.white)}`,
-                            `--shade-swatch-color: ${ColourUtilities.toString.hsl(props.colour.base[ whiteTextLevel ])}`,
+                            `--shade-swatch-background: ${HSL_CLRS.white}`,
+                            `--shade-swatch-color: ${HSL_CLRS.whiteTextLevel}`,
                         ].join(';') }
                     /></th>
                     <Fragment>{ (
-                        Object.entries( goalLevels.base ) as [ColourUtilities.Levels.Required|ColourUtilities.Levels.Optional, typeof goalLevels.base[ColourUtilities.Levels.Required|ColourUtilities.Levels.Optional]][]
+                        Object.entries( goalLevels.base ) as [ 
+                            ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional,
+                            typeof goalLevels.base[ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional],
+                        ][]
                     ).map( ([level, set]) => set && <th> 
                         <article
                             class:list={['container', 'shade-swatch']}
@@ -545,7 +562,7 @@ const whiteTextLevel = props.colour.base.white.contrast?.min.base?.text?.aaa?.le
                                                         'shade-swatch__contrast__result-group__alert--minimum--ui',
                                                         `shade-swatch__contrast__result-group__alert--minimum--${standard}`,
                                                     ]}
-                                                    clr={tokens.colour.base[set.min[standard].ui]}
+                                                    clr={getBaseColourObject( tokens.colour.base, set.min[standard].ui )}
                                                     clrSlug={`base-${set.min[standard].ui}`}
                                                     level={set.min[standard].ui}
                                                     title={`${standard.toUpperCase()} UI min: ${set.min[standard].ui}`}
@@ -560,7 +577,7 @@ const whiteTextLevel = props.colour.base.white.contrast?.min.base?.text?.aaa?.le
                                                         'shade-swatch__contrast__result-group__alert--minimum--text',
                                                         `shade-swatch__contrast__result-group__alert--minimum--${standard}`,
                                                     ]}
-                                                    clr={tokens.colour.base[set.min[standard].text]}
+                                                    clr={getBaseColourObject( tokens.colour.base, set.min[standard].text )}
                                                     clrSlug={`base-${set.min[standard].text}`}
                                                     level={set.min[standard].text}
                                                     title={`${standard.toUpperCase()} text min: ${set.min[standard].text}`}
@@ -593,7 +610,7 @@ const whiteTextLevel = props.colour.base.white.contrast?.min.base?.text?.aaa?.le
                                                     'shade-swatch__contrast__result-group__alert',
                                                     'shade-swatch__contrast__result-group__alert--maximum',
                                                 ]}
-                                                clr={tokens.colour.base[set.max]}
+                                                clr={getBaseColourObject( tokens.colour.base, set.max )}
                                                 clrSlug={`base-${set.max}`}
                                                 level={set.max}
                                                 title={`max: ${set.max}`}
@@ -640,7 +657,7 @@ const whiteTextLevel = props.colour.base.white.contrast?.min.base?.text?.aaa?.le
                                                             'shade-swatch__contrast__result-group__alert--minimum--ui',
                                                             `shade-swatch__contrast__result-group__alert--minimum--${standard}`,
                                                         ]}
-                                                        clr={primaryColour[goalLevels.accent[level].min[standard].ui]}
+                                                        clr={getMapColourObject( primaryColour, tokens.colour.base, goalLevels.accent[level].min[standard].ui )}
                                                         clrSlug={`accent-${goalLevels.accent[level].min[standard].ui}`}
                                                         level={goalLevels.accent[level].min[standard].ui}
                                                         title={`${standard.toUpperCase()} UI min: ${goalLevels.accent[level].min[standard].ui}`}
@@ -655,7 +672,7 @@ const whiteTextLevel = props.colour.base.white.contrast?.min.base?.text?.aaa?.le
                                                             'shade-swatch__contrast__result-group__alert--minimum--text',
                                                             `shade-swatch__contrast__result-group__alert--minimum--${standard}`,
                                                         ]}
-                                                        clr={primaryColour[goalLevels.accent[level].min[standard].text]}
+                                                        clr={getMapColourObject( primaryColour, tokens.colour.base, goalLevels.accent[level].min[standard].text )}
                                                         clrSlug={`accent-${goalLevels.accent[level].min[standard].text}`}
                                                         level={goalLevels.accent[level].min[standard].text}
                                                         title={`${standard.toUpperCase()} text min: ${goalLevels.accent[level].min[standard].text}`}
@@ -688,7 +705,7 @@ const whiteTextLevel = props.colour.base.white.contrast?.min.base?.text?.aaa?.le
                                                         'shade-swatch__contrast__result-group__alert',
                                                         'shade-swatch__contrast__result-group__alert--maximum',
                                                     ]}
-                                                    clr={primaryColour[goalLevels.accent[level].max]}
+                                                    clr={getMapColourObject( primaryColour, tokens.colour.base, goalLevels.accent[level].max )}
                                                     clrSlug={`accent-${goalLevels.accent[level].max}`}
                                                     level={goalLevels.accent[level].max}
                                                     title={`max: ${goalLevels.accent[level].max}`}
@@ -704,14 +721,14 @@ const whiteTextLevel = props.colour.base.white.contrast?.min.base?.text?.aaa?.le
                     <th 
                         aria-hidden="true"
                         data-brightness-mode='dark'
-                        style={`background: var(--clr-white, ${ColourUtilities.toString.hsl(props.colour.base.black.hsl)})`}
+                        style={`background: var(--clr-white, ${HSL_CLRS.black})`}
                     ><article
                         class:list={['container', 'shade-swatch']}
                         data-brightness-mode='dark'
                         data-shade-swatch-has-background={true}
                         style={ [ 
-                            `--shade-swatch-background: ${ColourUtilities.toString.hsl(props.colour.base.black)}`,
-                            `--shade-swatch-color: ${ColourUtilities.toString.hsl(props.colour.base[ blackTextLevel ])}`,
+                            `--shade-swatch-background: ${HSL_CLRS.black}`,
+                            `--shade-swatch-color: ${HSL_CLRS.blackTextLevel}`,
                         ].join(';') }
                     /></th>
                 </tr> }
@@ -723,7 +740,7 @@ const whiteTextLevel = props.colour.base.white.contrast?.min.base?.text?.aaa?.le
                         />
                         <td
                             data-brightness-mode='light'
-                            style={`background: var(--clr-white, ${ColourUtilities.toString.hsl(props.colour.base.white.hsl)})`}
+                            style={`background: var(--clr-white, ${HSL_CLRS.white})`}
                         ><ShadeSwatch 
                             bases={props.colour.base}
                             contrast={false}
@@ -767,7 +784,7 @@ const whiteTextLevel = props.colour.base.white.contrast?.min.base?.text?.aaa?.le
                         </td> )}
                         <td
                             data-brightness-mode='dark'
-                            style={`background: var(--clr-white, ${ColourUtilities.toString.hsl(props.colour.base.black.hsl)})`}
+                            style={`background: var(--clr-white, ${HSL_CLRS.black})`}
                         ><ShadeSwatch 
                             bases={props.colour.base}
                             contrast={false}

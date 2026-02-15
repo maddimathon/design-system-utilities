@@ -1902,11 +1902,25 @@ textarea::-moz-placeholder,
 select::-moz-placeholder,
 input::-moz-placeholder {
     font-style: italic;
+    opacity: 1;
 }
 textarea::placeholder,
 select::placeholder,
 input::placeholder {
     font-style: italic;
+    opacity: 1;
+}
+@media (prefers-contrast: less) {
+    textarea::-moz-placeholder,
+    select::-moz-placeholder,
+    input::-moz-placeholder {
+        opacity: 0.65;
+    }
+    textarea::placeholder,
+    select::placeholder,
+    input::placeholder {
+        opacity: 0.65;
+    }
 }
 label + textarea,
 label + select,
@@ -1934,13 +1948,13 @@ textarea::-moz-placeholder,
 select::-moz-placeholder,
 input::-moz-placeholder {
     color: FieldText;
-    color: var(--theme-input-text, FieldText);
+    color: var(--theme-input-placeholder, FieldText);
 }
 textarea::placeholder,
 select::placeholder,
 input::placeholder {
     color: FieldText;
-    color: var(--theme-input-text, FieldText);
+    color: var(--theme-input-placeholder, FieldText);
 }
 .no-js textarea:focus,
 .no-js select:focus,
@@ -2060,7 +2074,7 @@ textarea[disabled]::-moz-placeholder,
 select[disabled]::-moz-placeholder,
 input[disabled]::-moz-placeholder {
     color: FieldText;
-    color: var(--theme-input-text, FieldText);
+    color: var(--theme-input-placeholder, FieldText);
 }
 textarea[aria-disabled="true"]::placeholder,
 select[aria-disabled="true"]::placeholder,
@@ -2069,7 +2083,7 @@ textarea[disabled]::placeholder,
 select[disabled]::placeholder,
 input[disabled]::placeholder {
     color: FieldText;
-    color: var(--theme-input-text, FieldText);
+    color: var(--theme-input-placeholder, FieldText);
 }
 .no-js textarea[aria-disabled="true"]:focus,
 .no-js select[aria-disabled="true"]:focus,
@@ -2219,13 +2233,13 @@ textarea[readonly]::-moz-placeholder,
 select[readonly]::-moz-placeholder,
 input[readonly]::-moz-placeholder {
     color: FieldText;
-    color: var(--theme-input-text, FieldText);
+    color: var(--theme-input-placeholder, FieldText);
 }
 textarea[readonly]::placeholder,
 select[readonly]::placeholder,
 input[readonly]::placeholder {
     color: FieldText;
-    color: var(--theme-input-text, FieldText);
+    color: var(--theme-input-placeholder, FieldText);
 }
 .no-js textarea[readonly]:focus,
 .no-js select[readonly]:focus,

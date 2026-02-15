@@ -183,6 +183,9 @@ export declare namespace Tokens_CSS_Style {
             font: {
                 style: "normal" | "italic";
             };
+            opacity: {
+                [C in Exclude<ThemeMode_ContrastOption, 'high' | 'max'>]?: string;
+            };
         };
     }
     /**
@@ -223,9 +226,14 @@ export declare namespace Tokens_CSS_Style {
             $: InputStyles;
             disabled: InputStyles_Disabled;
         };
+        /**
+         * @since 0.1.1-alpha.1.draft — Restructured object nesting.
+         */
         selection: {
-            [C in Exclude<ThemeMode_ContrastOption, 'max'>]: {
-                'background-opacity': string;
+            background?: {
+                opacity?: {
+                    [C in Exclude<ThemeMode_ContrastOption, 'max'>]?: string;
+                };
             };
         };
     };
@@ -250,9 +258,14 @@ export declare namespace Tokens_CSS_Style {
             $?: RecursivePartial<InputStyles>;
             disabled?: RecursivePartial<InputStyles_Disabled>;
         };
+        /**
+         * @since 0.1.1-alpha.1.draft — Restructured object nesting.
+         */
         selection?: {
-            [C in Exclude<ThemeMode_ContrastOption, 'max'>]?: {
-                'background-opacity'?: string;
+            background?: {
+                opacity?: {
+                    [C in Exclude<ThemeMode_ContrastOption, 'max'>]?: string;
+                };
             };
         };
     };

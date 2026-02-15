@@ -439,8 +439,11 @@ export namespace ColourUtilities {
             '800': '200',
             '850': '150',
             '900': '100',
+
+            'black': 'white',
+            'white': 'black',
         } as const satisfies {
-            [ L in Levels.Required ]: Levels.Required;
+            [ L in "black" | "white" | Levels.Required ]: "black" | "white" | Levels.Required;
         } & {
                 [ L in Levels.Optional ]: Levels.Optional;
             };
@@ -503,7 +506,7 @@ export namespace ColourUtilities {
          * @since 0.1.1-alpha.0 — Moved to {@link ColourUtilities.Levels} and renamed.
          */
         export function toDark<
-            T_LightLevel extends Levels.Required | Levels.Optional
+            T_LightLevel extends "black" | "white" | Levels.Required | Levels.Optional
         >( lightLevel: T_LightLevel ): typeof converter[ T_LightLevel ] {
             return converter[ lightLevel ];
         }

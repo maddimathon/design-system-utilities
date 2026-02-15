@@ -9,6 +9,7 @@
 import type { ComponentProps } from 'astro/types';
 
 /* import - functions */
+import { getColourValue } from '../functions/getColourValue.js';
 
 /* import - values */
 
@@ -21,7 +22,7 @@ import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
 /* PROPS ===================================== */
 
 export interface Props {
-    clr: ColourUtilities.SingleShade;
+    clr: null | ColourUtilities.SingleShade;
     clrSlug: string;
     level: string;
     type: NonNullable<ComponentProps<typeof AstroIcon>['type']>;
@@ -43,13 +44,13 @@ const {
 
 /* CONSTANTS ===================================== */
 
-const varClr = ColourUtilities.toString.hsl(clr);
+const varClr = clr && getColourValue(clr);
 ---
 
 <div
     class:list={['contrast-alert', classList]}
     data-brightness-mode='light'
-    style={`--contrast-alert-color: ${varClr};`}
+    style={varClr ? `--contrast-alert-color: ${varClr};` : undefined}
     title={title ?? clrSlug}
 >
     <AstroIcon type={type} />

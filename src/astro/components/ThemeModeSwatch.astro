@@ -9,6 +9,7 @@
 import type { HTMLAttributes } from 'astro/types';
 import type { RecursiveRecord } from '../../ts/01-utilities/@types.d.ts';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
+import type { Tokens_Colour_ShadeMap_Shade } from '../../ts/02-tokens/Colour/ShadeMap/ShadeMap_Shade.js';
 import type { Tokens_Themes_Set_SingleMode } from '../../ts/02-tokens/Themes/Themes_Set_SingleMode.js';
 
 /* import - functions */
@@ -16,7 +17,8 @@ import { toTitleCase } from '@maddimathon/utility-typescript/functions';
 import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
 import { objectGenerator } from '../../ts/01-utilities/objectGenerator.js';
 import { objectMap } from '../../ts/01-utilities/objectMap.js';
-import { textColorLevel } from './ShadeSwatch.astro';
+import { getColourValue } from '../functions/getColourValue.js';
+import { textColorLevel } from '../functions/textColorLevel.js';
 
 /* import - values */
 
@@ -33,11 +35,11 @@ import LoremIpsum from './LoremIpsum.astro';
 type _ButtonVariation = {
     name: string;
     states: {
-        [ K in keyof Tokens_Themes_Set_SingleMode.Data_Button<string, never>['bg'] ]: {
+        [ K in keyof Tokens_Themes_Set_SingleMode.Data.Button<string, never>['bg'] ]: {
 
-            [ K in keyof Tokens_Themes_Set_SingleMode.Data_Button<string, never> ]: undefined | {
+            [ K in keyof Tokens_Themes_Set_SingleMode.Data.Button<string, never> ]: undefined | {
                 state: null | Exclude<
-                    keyof Tokens_Themes_Set_SingleMode.Data_Button<string, never>['bg'],
+                    keyof Tokens_Themes_Set_SingleMode.Data.Button<string, never>['bg'],
                     '$'
                 >;
                 key: string;
@@ -180,10 +182,11 @@ function getClrFromThemeValue(
     
     // returns
     if (slug === 'black' || slug === 'white') {
-
+        
+        // returns
         if (_brightness === 'dark') {
             return ColourUtilities.toString.hsl(
-                _tokens.colour[ slug === 'black' ? 'white' : 'black']
+                _tokens.colour[ ColourUtilities.Levels.toDark( slug ) ]
             );
         }
         
@@ -236,12 +239,36 @@ const levelsInUseTable = theme.levelsInUse.map(
             ( [ key, value ] ) => {
                 key;
 
-                const textColor = textColorLevel( value as ColourUtilities.Levels.Required );
+                const textColor = textColorLevel( value );
+
+                let background: Tokens_Colour_ShadeMap_Shade.JsonReturn<string, ColourUtilities.Levels.Optional>;
+                let color: Tokens_Colour_ShadeMap_Shade.JsonReturn<string, ColourUtilities.Levels.Optional>;
+
+                switch ( value ) {
+
+                    case 'black':
+                    case 'white':
+                        background = tokens.colour[value];
+                        break;
+                    
+                    default:
+                        background = tokens.colour.base[value];
+                        break;
+                }
+
+                switch ( textColor ) {
+
+                    case 'black':
+                    case 'white':
+                        color = tokens.colour[textColor];
+                        break;
+                    
+                    default:
+                        color = tokens.colour.base[textColor];
+                        break;
+                }
                 
-                return textColor && {
-                    background: tokens.colour.base[value],
-                    color: tokens.colour.base[textColor],
-                } ;
+                return { background, color };
             }
         ),
     } ),
@@ -338,6 +365,13 @@ const inputField: _ParsedInputField = objectGenerator(
                     label,
                     variation: inputType,
                     clrSlug: theme.data.input[inputType].text[key],
+                },
+                placeholder: {
+                    key: `input${keyInputSuffix}-placeholder${keySuffix}`,
+                    state,
+                    label,
+                    variation: inputType,
+                    clrSlug: theme.data.input[inputType].placeholder,
                 },
             };
         }
@@ -557,16 +591,16 @@ const inputField: _ParsedInputField = objectGenerator(
                         data-brightness-mode="light"
                         set:text={levels.light}
                         style={styles && [
-                            `background: ${styles.light.background && ColourUtilities.toString.hsl( styles.light.background )}`,
-                            `color: ${styles.light.color && ColourUtilities.toString.hsl( styles.light.color )}`,
+                            `background: ${getColourValue( styles.light.background ) ?? 'unset'}`,
+                            `color: ${getColourValue( styles.light.color ) ?? 'unset'}`,
                         ].join(';')}
                     />
                     <td 
                         data-brightness-mode="light"
                         set:text={levels.dark}
                         style={styles && [
-                            `background: ${styles.dark.background && ColourUtilities.toString.hsl( styles.dark.background )}`,
-                            `color: ${styles.dark.color && ColourUtilities.toString.hsl( styles.dark.color )}`,
+                            `background: ${getColourValue( styles.dark.background ) ?? 'unset'}`,
+                            `color: ${getColourValue( styles.dark.color ) ?? 'unset'}`,
                         ].join(';')}
                     />
                 </tr> ) }

@@ -331,7 +331,7 @@
     accent-color: #{$accentClr};
 
     &::placeholder {
-        color: #{var-theme(input-text)};
+        color: #{var-theme(input-placeholder)};
     }
 
     @include hover-focus-visible-or-within {
@@ -527,6 +527,15 @@
 
         &::placeholder {
             font-style: #{var-style(input-placeholder-font-style)};
+            opacity: 1;
+
+            @each $contrast in (low, average) {
+                @include colour-mode($contrast, $includeDefault: false) {
+                    opacity: #{var-style(
+                            input-placeholder-opacity-#{$contrast}
+                        )};
+                }
+            }
         }
 
         @if not $includeUtils and $includeLabel {

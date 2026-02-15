@@ -9,3 +9,4 @@
  */
 
 export * from './astroConfig.js';
+export * from './textColorLevel.js';

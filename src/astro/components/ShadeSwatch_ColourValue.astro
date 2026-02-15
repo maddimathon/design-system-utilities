@@ -38,19 +38,17 @@ const {
 
 /* CONSTANTS ===================================== */
 
-const bgStyle = background 
-? (
-    version == 'lch' && shade.lch
-    ? ColourUtilities.toString.lch(shade.lch)
-    : version == 'hsl' && shade.hsl
-    ? ColourUtilities.toString.hsl(shade.hsl)
-    : version == 'rgb' && shade.rgb
-    ? ColourUtilities.toString.rgb(shade.rgb)
-    : shade.hex
-    ? ColourUtilities.toString.hex(shade.hex)
-    : undefined
-)
-: undefined;
+const bgStyle = ! background 
+    ? undefined
+    : version == 'lch' && shade.lch
+        ? ColourUtilities.toString.lch(shade.lch)
+        : version == 'hsl' && shade.hsl
+        ? ColourUtilities.toString.hsl(shade.hsl)
+        : version == 'rgb' && shade.rgb
+        ? ColourUtilities.toString.rgb(shade.rgb)
+        : shade.hex
+        ? ColourUtilities.toString.hex(shade.hex)
+        : undefined;
 ---
 
 {Object.keys( shade ).length && (

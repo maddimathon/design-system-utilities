@@ -8,7 +8,7 @@
  * @license MIT
  */
 import type { CssSystemColor, ThemeMode_ContrastOption } from '../@types.js';
-import type { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
+import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
 import { Tokens_Themes_Set_SingleMode } from './Themes_Set_SingleMode.js';
 /**
@@ -72,12 +72,12 @@ export declare namespace Tokens_Themes_Set {
         name: T_ThemeName;
         variations?: Tokens_Themes_Set_SingleMode.InputParam<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, T_Keyword_Background>['variations'];
         forcedColours?: Omit<Tokens_Themes_Set_SingleMode.InputParam<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, T_Keyword_Background, CssSystemColor>, "levels" | "variations"> & {
-            overrides?: Tokens_Themes_Set_SingleMode.Data_RecursivePartial<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, T_Keyword_Background, CssSystemColor>;
+            overrides?: Tokens_Themes_Set_SingleMode.Data.RecursivePartial<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, T_Keyword_Background, CssSystemColor>;
         };
     } & {
         [B in T_ThemeBrightnessMode[number]]?: {
             [C in T_ThemeContrastMode[number]]?: Tokens_Themes_Set_SingleMode.InputParam<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, T_Keyword_Background> & {
-                overrides?: Tokens_Themes_Set_SingleMode.Data_RecursivePartial<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, T_Keyword_Background>;
+                overrides?: Tokens_Themes_Set_SingleMode.Data.RecursivePartial<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, T_Keyword_Background>;
             };
         };
     };
@@ -86,7 +86,7 @@ export declare namespace Tokens_Themes_Set {
      */
     type JsonReturn<T_ColourName extends string, T_ExtraColourLevels extends ColourUtilities.Levels.Optional, T_ThemeBrightnessMode extends readonly string[], T_ThemeContrastMode extends readonly ThemeMode_ContrastOption[], T_ThemeName extends string, T_Keyword_Universal extends string, T_Keyword_Text extends string, T_Keyword_Background extends string> = {
         name: T_ThemeName;
-        levelsInUse: (ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional)[];
+        levelsInUse: ("black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional)[];
         forcedColours: Tokens_Themes_Set_SingleMode.JsonReturn<T_ColourName, T_ExtraColourLevels, T_Keyword_Universal, T_Keyword_Text, T_Keyword_Background, CssSystemColor>;
     } & {
         [B in T_ThemeBrightnessMode[number]]: {

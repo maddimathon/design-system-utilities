@@ -396,15 +396,23 @@ export class Tokens extends AbstractTokens {
          */
         Themes.allHeadingLevels = Tokens_Themes_Set_SingleMode.allHeadingLevels;
         /**
-         * @since 0.1.1-alpha.0
-         */
-        Themes.LEVELS_DEFAULT = Tokens_Themes_Set_SingleMode.Build.LEVELS_DEFAULT;
-        /**
          * @since 0.1.0-alpha
          */
         let SingleMode;
         (function (SingleMode) {
             SingleMode.colourOption = Tokens_Themes_Set_SingleMode.Build.colourOption;
+            /**
+             * @since 0.1.1-alpha.1.draft
+             */
+            let Levels;
+            (function (Levels) {
+                /**
+                 * @since 0.1.1-alpha.0
+                 * @since 0.1.1-alpha.1.draft — Moved to Tokens_Themes_Set_SingleMode.Levels and renamed.
+                 */
+                Levels.DEFAULT = Tokens_Themes_Set_SingleMode.Levels.DEFAULT;
+                Levels.parse = Tokens_Themes_Set_SingleMode.Levels.parse;
+            })(Levels = SingleMode.Levels || (SingleMode.Levels = {}));
         })(SingleMode = Themes.SingleMode || (Themes.SingleMode = {}));
     })(Themes = Tokens.Themes || (Tokens.Themes = {}));
 })(Tokens || (Tokens = {}));

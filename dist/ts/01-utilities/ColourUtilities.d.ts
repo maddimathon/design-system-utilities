@@ -460,6 +460,8 @@ export declare namespace ColourUtilities {
             readonly '800': "200";
             readonly '850': "150";
             readonly '900': "100";
+            readonly black: "white";
+            readonly white: "black";
         };
         /**
          * The shade level keys that can be optionally included in maps for this
@@ -495,7 +497,7 @@ export declare namespace ColourUtilities {
          * @since 0.1.0-alpha
          * @since 0.1.1-alpha.0 — Moved to {@link ColourUtilities.Levels} and renamed.
          */
-        function toDark<T_LightLevel extends Levels.Required | Levels.Optional>(lightLevel: T_LightLevel): typeof converter[T_LightLevel];
+        function toDark<T_LightLevel extends "black" | "white" | Levels.Required | Levels.Optional>(lightLevel: T_LightLevel): typeof converter[T_LightLevel];
     }
     /**
      * @since 0.1.0-alpha
@@ -519,6 +521,8 @@ export declare namespace ColourUtilities {
         readonly '800': "200";
         readonly '850': "150";
         readonly '900': "100";
+        readonly black: "white";
+        readonly white: "black";
     };
     /**
      * @since 0.1.0-alpha
@@ -542,6 +546,8 @@ export declare namespace ColourUtilities {
         readonly '800': "200";
         readonly '850': "150";
         readonly '900': "100";
+        readonly black: "white";
+        readonly white: "black";
     }[T_LightLevel];
     /**
      * Utilities for working with shade maps (100-900 levels from light to dark).

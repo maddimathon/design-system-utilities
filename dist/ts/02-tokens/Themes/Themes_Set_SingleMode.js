@@ -8,6 +8,7 @@
  * @license MIT
  */
 import { arrayUnique, mergeArgs } from '@maddimathon/utility-typescript/functions';
+import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
 import { objectFlatten } from '../../01-utilities/objectFlatten.js';
 import { objectGenerator } from '../../01-utilities/objectGenerator.js';
 import { objectMap } from '../../01-utilities/objectMap.js';
@@ -28,9 +29,9 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
      */
     static async build(preset, brightness, clrNames, input, overrides = {}) {
         const defaultLevels = preset !== 'forcedColors'
-            ? Tokens_Themes_Set_SingleMode.Build.LEVELS_DEFAULT[preset]
-            : Tokens_Themes_Set_SingleMode.Build.LEVELS_DEFAULT.high;
-        const levels = Tokens_Themes_Set_SingleMode.Build.completeLevels(mergeArgs(defaultLevels, input.levels, true));
+            ? Tokens_Themes_Set_SingleMode.Levels.DEFAULT[preset]
+            : Tokens_Themes_Set_SingleMode.Levels.DEFAULT.max;
+        const levels = Tokens_Themes_Set_SingleMode.Levels.parse(defaultLevels, input.levels);
         const variations = Tokens_Themes_Set_SingleMode.Build.completeVariations(clrNames, input.variations);
         const clrOpt = Tokens_Themes_Set_SingleMode.Build.colourOption;
         let description = input.description ?? null;
@@ -90,7 +91,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                 };
                 return new Tokens_Themes_Set_SingleMode('This is the forced colours contrast mode, which is a mode only applied for users with this accessibility featured enabled in their OS settings.  It cannot be manually selected.  This mode uses System Colour keywords, which lets users apply custom colours to websites.  This is very important for accessibility!', [], await Tokens_Themes_Set_SingleMode.Build.forcedColors(_input));
         }
-        const levelsInUse = Object.values(objectFlatten(levels)).concat(Object.values(objectFlatten(overrides)).map((val) => {
+        const allLevelsInUse = Object.values(objectFlatten(levels)).concat(Object.values(objectFlatten(overrides)).map((val) => {
             const match = String(val).match(/\-(\d+)$/);
             // returns
             if (match && match[1]) {
@@ -98,10 +99,11 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
             }
             return false;
         }).filter(v => v !== false));
+        const levelsInUse = arrayUnique(allLevelsInUse).sort();
         return Tokens_Themes_Set_SingleMode.Build.data({
             levels,
             variations,
-        }).then((defaultInputData) => new Tokens_Themes_Set_SingleMode(description, arrayUnique(levelsInUse).sort(), mergeArgs(defaultInputData, mergeArgs(defaultOverrides, overrides, true), true)));
+        }).then((defaultInputData) => new Tokens_Themes_Set_SingleMode(description, levelsInUse, mergeArgs(defaultInputData, mergeArgs(defaultOverrides, overrides, true), true)));
     }
     constructor(description, levelsInUse, data) {
         super();
@@ -110,13 +112,10 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
         this.data = data;
     }
     toJSON() {
-        const levelsInUse = this.levelsInUse.map((level) => {
-            const dark = (1000 - Number(level)).toFixed(0);
-            return {
-                light: level,
-                dark: dark.padStart(Math.max(0, 3 - dark.length), '0'),
-            };
-        });
+        const levelsInUse = this.levelsInUse.map((light) => ({
+            light,
+            dark: ColourUtilities.Levels.toDark(light),
+        }));
         return {
             description: this.description ?? undefined,
             data: this.data,
@@ -169,82 +168,35 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
         10,
     ];
     ;
+    /**
+     * Utilities and types for the complete tokens theme data for a single mode.
+     *
+     * @since 0.1.1-alpha.1.draft
+     */
+    let Data;
+    (function (Data) {
+        ;
+    })(Data = Tokens_Themes_Set_SingleMode.Data || (Tokens_Themes_Set_SingleMode.Data = {}));
     ;
     ;
-    ;
-    ;
-    ;
-    /* Set Builders
+    /* Levels
      * ====================================================================== */
     /**
-     * Used by the {@link Tokens_Themes_Set_SingleMode.build} static function,
-     * not meant to be exposed through the API.
+     * Utilities and types for levels.
      *
-     * @since 0.1.0-alpha
-     * @internal
+     * @since 0.1.1-alpha.1.draft
      */
-    let Build;
-    (function (Build) {
+    let Levels;
+    (function (Levels) {
         ;
         ;
-        function colourOption(name, level) {
-            return `${name}-${level}`;
-        }
-        Build.colourOption = colourOption;
-        function completeLevels(input) {
-            const DEFAULT = LEVELS_DEFAULT.high;
-            const nomalized_input = {
-                background: typeof input?.background === 'object' ? input?.background : {
-                    $: input?.background,
-                    accent: input?.background,
-                    grey: input?.background,
-                },
-                heading: typeof input?.heading === 'object'
-                    ? input?.heading
-                    : input?.heading
-                        ? objectGenerator(Tokens_Themes_Set_SingleMode.allHeadingLevels, () => input?.heading)
-                        : {},
-                text: typeof input?.text === 'object' ? input?.text : {
-                    $: input?.text,
-                    accent: input?.text,
-                    min: input?.text,
-                },
-                ui: typeof input?.ui === 'object' ? input?.ui : {
-                    $: input?.ui,
-                    accent: input?.ui,
-                    min: input?.ui,
-                },
-            };
-            const background = {
-                $: nomalized_input.background?.$ ?? DEFAULT.background.$,
-                accent: nomalized_input.background?.accent ?? DEFAULT.background.accent,
-                grey: nomalized_input.background?.grey ?? DEFAULT.background.grey,
-            };
-            const text = {
-                $: nomalized_input.text?.$ ?? DEFAULT.text.$,
-                accent: nomalized_input.text?.accent ?? DEFAULT.text.accent,
-                min: nomalized_input.text?.min ?? DEFAULT.text.min,
-            };
-            const ui = {
-                $: nomalized_input.ui?.$ ?? nomalized_input.text?.$ ?? DEFAULT.ui.$,
-                accent: nomalized_input.ui?.accent ?? nomalized_input.text?.accent ?? DEFAULT.ui.accent,
-                min: nomalized_input.ui?.min ?? nomalized_input.text?.min ?? DEFAULT.ui.min,
-            };
-            const heading = objectGenerator(Tokens_Themes_Set_SingleMode.allHeadingLevels, (hdgNum) => nomalized_input.heading?.[hdgNum] ?? DEFAULT.heading[hdgNum]);
-            return {
-                background,
-                text,
-                ui,
-                heading,
-            };
-        }
-        Build.completeLevels = completeLevels;
         /**
          * @since 0.1.1-alpha.0
+         * @since 0.1.1-alpha.1.draft — Moved to Tokens_Themes_Set_SingleMode.Levels and renamed.
          */
-        let LEVELS_DEFAULT;
-        (function (LEVELS_DEFAULT) {
-            LEVELS_DEFAULT.average = {
+        let DEFAULT;
+        (function (DEFAULT) {
+            DEFAULT.average = {
                 background: {
                     $: '150',
                     accent: '200',
@@ -273,7 +225,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                     10: '700',
                 },
             };
-            LEVELS_DEFAULT.high = {
+            DEFAULT.high = {
                 background: {
                     $: '100',
                     accent: '150',
@@ -302,7 +254,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                     10: '750',
                 },
             };
-            LEVELS_DEFAULT.low = {
+            DEFAULT.low = {
                 background: {
                     $: '300',
                     accent: '250',
@@ -331,22 +283,10 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                     10: '750',
                 },
             };
-            LEVELS_DEFAULT.max = {
-                background: {
-                    $: '100',
-                    accent: '100',
-                    grey: '100',
-                },
-                text: {
-                    $: '900',
-                    accent: '850',
-                    min: '850',
-                },
-                ui: {
-                    $: '900',
-                    accent: '850',
-                    min: '850',
-                },
+            DEFAULT.max = {
+                background: 'white',
+                text: 'black',
+                ui: 'black',
                 heading: {
                     1: '850',
                     2: '850',
@@ -360,7 +300,115 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                     10: '850',
                 },
             };
-        })(LEVELS_DEFAULT = Build.LEVELS_DEFAULT || (Build.LEVELS_DEFAULT = {}));
+        })(DEFAULT = Levels.DEFAULT || (Levels.DEFAULT = {}));
+        /**
+         * @since 0.1.0-alpha
+         * @since 0.1.1-alpha.1.draft — Moved to Tokens_Themes_Set_SingleMode.Levels and renamed. Added default param and made inputs optional.
+         */
+        function parse(defaults, inputs = {}) {
+            const nomalized_input = {
+                background: typeof inputs?.background === 'object'
+                    ? inputs?.background
+                    : {
+                        $: inputs?.background,
+                        accent: inputs?.background,
+                        grey: inputs?.background,
+                    },
+                heading: typeof inputs?.heading === 'object'
+                    ? inputs?.heading
+                    : inputs?.heading
+                        ? objectGenerator(Tokens_Themes_Set_SingleMode.allHeadingLevels, () => inputs?.heading)
+                        : {},
+                text: typeof inputs?.text === 'object'
+                    ? inputs?.text
+                    : {
+                        $: inputs?.text,
+                        accent: inputs?.text,
+                        min: inputs?.text,
+                    },
+                ui: typeof inputs?.ui === 'object'
+                    ? inputs?.ui
+                    : {
+                        $: inputs?.ui,
+                        accent: inputs?.ui,
+                        min: inputs?.ui,
+                    },
+            };
+            const DEFAULTS = {
+                background: typeof defaults?.background === 'object'
+                    ? defaults?.background
+                    : {
+                        $: defaults?.background,
+                        accent: defaults?.background,
+                        grey: defaults?.background,
+                    },
+                heading: typeof defaults?.heading === 'object'
+                    ? defaults?.heading
+                    : objectGenerator(Tokens_Themes_Set_SingleMode.allHeadingLevels, () => defaults?.heading),
+                text: typeof defaults?.text === 'object'
+                    ? defaults?.text
+                    : {
+                        $: defaults?.text,
+                        accent: defaults?.text,
+                        min: defaults?.text,
+                    },
+                ui: typeof defaults?.ui === 'object'
+                    ? defaults?.ui
+                    : {
+                        $: defaults?.ui,
+                        accent: defaults?.ui,
+                        min: defaults?.ui,
+                    },
+            };
+            const background = {
+                $: nomalized_input.background?.$ ?? DEFAULTS.background.$,
+                accent: nomalized_input.background?.accent ?? nomalized_input.background?.$ ?? DEFAULTS.background.accent,
+                grey: nomalized_input.background?.grey ?? nomalized_input.background?.$ ?? DEFAULTS.background.grey,
+            };
+            const text = {
+                $: nomalized_input.text?.$ ?? DEFAULTS.text.$,
+                accent: nomalized_input.text?.accent ?? nomalized_input.text?.$ ?? DEFAULTS.text.accent,
+                min: nomalized_input.text?.min ?? nomalized_input.text?.$ ?? DEFAULTS.text.min,
+            };
+            const ui = {
+                $: nomalized_input.ui?.$ ?? nomalized_input.text?.$ ?? DEFAULTS.ui.$,
+                accent: nomalized_input.ui?.accent ?? nomalized_input.text?.accent ?? nomalized_input.ui?.$ ?? DEFAULTS.ui.accent,
+                min: nomalized_input.ui?.min ?? nomalized_input.text?.min ?? nomalized_input.ui?.$ ?? DEFAULTS.ui.min,
+            };
+            const heading = objectGenerator(Tokens_Themes_Set_SingleMode.allHeadingLevels, (hdgNum) => nomalized_input.heading?.[hdgNum] ?? text.accent ?? DEFAULTS.heading[hdgNum]);
+            return {
+                background,
+                text,
+                ui,
+                heading,
+            };
+        }
+        Levels.parse = parse;
+    })(Levels = Tokens_Themes_Set_SingleMode.Levels || (Tokens_Themes_Set_SingleMode.Levels = {}));
+    ;
+    /* Set Builders
+     * ====================================================================== */
+    /**
+     * Used by the {@link Tokens_Themes_Set_SingleMode.build} static function,
+     * not meant to be exposed through the API.
+     *
+     * @since 0.1.0-alpha
+     * @internal
+     */
+    let Build;
+    (function (Build) {
+        ;
+        ;
+        function colourOption(name, level) {
+            // returns
+            switch (level) {
+                case 'black':
+                case 'white':
+                    return level;
+            }
+            return `${name}-${level}`;
+        }
+        Build.colourOption = colourOption;
         function completeVariations(clrNames, input) {
             const clrNames_noBase = clrNames.filter(v => v !== 'base');
             const base = 'base';
@@ -534,6 +582,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                     hover: clrOpt(variations.interactive.hover, levels.ui.accent),
                     active: clrOpt(variations.interactive.active, levels.ui.accent),
                 },
+                placeholder: clrOpt(variations.base, levels.text.min),
                 text: {
                     $: clrOpt(variations.base, levels.text.$),
                     hover: clrOpt(variations.base, levels.text.$),
@@ -671,6 +720,7 @@ export class Tokens_Themes_Set_SingleMode extends AbstractTokens {
                     hover: 'SelectedItem',
                     active: 'FieldText',
                 },
+                placeholder: 'FieldText',
                 text: {
                     $: 'FieldText',
                     hover: 'SelectedItemText',

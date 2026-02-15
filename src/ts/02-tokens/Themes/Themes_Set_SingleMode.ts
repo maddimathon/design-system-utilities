@@ -19,7 +19,7 @@ import type {
 } from '../@types.js';
 
 import type { RecursiveRecord } from '../../01-utilities/@types.js';
-import type { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
+import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
 
 import { objectFlatten } from '../../01-utilities/objectFlatten.js';
 import { objectGenerator } from '../../01-utilities/objectGenerator.js';
@@ -70,7 +70,7 @@ export class Tokens_Themes_Set_SingleMode<
             CssSystemColor
         >,
 
-        overrides?: Tokens_Themes_Set_SingleMode.Data_RecursivePartial<
+        overrides?: Tokens_Themes_Set_SingleMode.Data.RecursivePartial<
             NoInfer<T_ColourName>,
             NoInfer<T_ExtraColourLevels>,
             NoInfer<T_Keyword_Universal>,
@@ -108,7 +108,7 @@ export class Tokens_Themes_Set_SingleMode<
             ThemeColourOption<T_ColourName, T_ExtraColourLevels>
         >,
 
-        overrides?: Tokens_Themes_Set_SingleMode.Data_RecursivePartial<
+        overrides?: Tokens_Themes_Set_SingleMode.Data.RecursivePartial<
             NoInfer<T_ColourName>,
             NoInfer<T_ExtraColourLevels>,
             NoInfer<T_Keyword_Universal>,
@@ -151,7 +151,7 @@ export class Tokens_Themes_Set_SingleMode<
             T_Keyword_Background
         >,
 
-        overrides: Tokens_Themes_Set_SingleMode.Data_RecursivePartial<
+        overrides: Tokens_Themes_Set_SingleMode.Data.RecursivePartial<
             NoInfer<T_ColourName>,
             NoInfer<T_ExtraColourLevels>,
             NoInfer<T_Keyword_Universal>,
@@ -168,27 +168,14 @@ export class Tokens_Themes_Set_SingleMode<
             T_Keyword_Background
         >
     > {
-        const defaultLevels: Tokens_Themes_Set_SingleMode.RequiredLevels<never> = preset !== 'forcedColors'
-            ? Tokens_Themes_Set_SingleMode.Build.LEVELS_DEFAULT[ preset ]
-            : Tokens_Themes_Set_SingleMode.Build.LEVELS_DEFAULT.high;
+        const defaultLevels: Tokens_Themes_Set_SingleMode.Levels.Required<never> = preset !== 'forcedColors'
+            ? Tokens_Themes_Set_SingleMode.Levels.DEFAULT[ preset ]
+            : Tokens_Themes_Set_SingleMode.Levels.DEFAULT.max;
 
-        const levels: Tokens_Themes_Set_SingleMode.Build.Param<
-            T_ColourName,
-            T_ExtraColourLevels,
-            T_Keyword_Universal,
-            T_Keyword_Text,
-            T_Keyword_Background
-        >[ 'levels' ] = Tokens_Themes_Set_SingleMode.Build.completeLevels<
-            T_ColourName,
-            T_ExtraColourLevels,
-            T_Keyword_Universal,
-            T_Keyword_Text,
-            T_Keyword_Background
-        >( mergeArgs(
+        const levels = Tokens_Themes_Set_SingleMode.Levels.parse<T_ExtraColourLevels>(
             defaultLevels,
-            input.levels as Partial<Tokens_Themes_Set_SingleMode.RequiredLevels<never>>,
-            true
-        ) );
+            input.levels,
+        );
 
         const variations = Tokens_Themes_Set_SingleMode.Build.completeVariations<
             T_ColourName,
@@ -202,7 +189,7 @@ export class Tokens_Themes_Set_SingleMode<
 
         let description: null | string = input.description ?? null;
 
-        let defaultOverrides: Tokens_Themes_Set_SingleMode.Data_RecursivePartial<
+        let defaultOverrides: Tokens_Themes_Set_SingleMode.Data.RecursivePartial<
             NoInfer<T_ColourName>,
             NoInfer<T_ExtraColourLevels>,
             NoInfer<T_Keyword_Universal>,
@@ -305,25 +292,29 @@ export class Tokens_Themes_Set_SingleMode<
                 );
         }
 
-        const levelsInUse = (
+        type AnyLevel = "black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional;
+
+        const allLevelsInUse = (
             Object.values(
-                objectFlatten( levels as unknown as RecursiveRecord<string, ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional> )
-            ) as ( ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional )[]
+                objectFlatten( levels as unknown as RecursiveRecord<string, AnyLevel> )
+            ) as AnyLevel[]
         ).concat(
             Object.values(
-                objectFlatten( overrides as unknown as RecursiveRecord<string, ThemeColourOption<T_ColourName, T_ExtraColourLevels>> )
-            ).map( ( val ): ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional | false => {
+                objectFlatten( overrides as RecursiveRecord<string, ThemeColourOption<T_ColourName, T_ExtraColourLevels>> )
+            ).map( ( val ): AnyLevel | false => {
 
                 const match = String( val ).match( /\-(\d+)$/ );
 
                 // returns
                 if ( match && match[ 1 ] ) {
-                    return match[ 1 ] as ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional;
+                    return match[ 1 ] as AnyLevel;
                 }
 
                 return false;
             } ).filter( v => v !== false )
         );
+
+        const levelsInUse = arrayUnique( allLevelsInUse ).sort();
 
         return Tokens_Themes_Set_SingleMode.Build.data<
             T_ColourName,
@@ -337,7 +328,7 @@ export class Tokens_Themes_Set_SingleMode<
         } ).then(
             ( defaultInputData ) => new Tokens_Themes_Set_SingleMode(
                 description,
-                arrayUnique( levelsInUse ).sort(),
+                levelsInUse,
                 mergeArgs(
                     defaultInputData,
                     mergeArgs(
@@ -351,15 +342,15 @@ export class Tokens_Themes_Set_SingleMode<
                         T_Keyword_Text,
                         T_Keyword_Background
                     >>,
-                    true
-                )
+                    true,
+                ),
             )
         );
     }
 
     protected constructor (
         public readonly description: null | string,
-        public readonly levelsInUse: ( ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional )[],
+        public readonly levelsInUse: ( "black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional )[],
         public readonly data: Tokens_Themes_Set_SingleMode.Data<
             T_ColourName,
             T_ExtraColourLevels,
@@ -381,15 +372,10 @@ export class Tokens_Themes_Set_SingleMode<
         __T_ColourOption
     > {
 
-        const levelsInUse = this.levelsInUse.map( ( level ) => {
-
-            const dark = ( 1000 - Number( level ) ).toFixed( 0 );
-
-            return {
-                light: level,
-                dark: dark.padStart( Math.max( 0, 3 - dark.length ), '0' ) as ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional,
-            };
-        } );
+        const levelsInUse = this.levelsInUse.map( ( light ) => ( {
+            light,
+            dark: ColourUtilities.Levels.toDark( light ),
+        } ) );
 
         return {
             description: this.description ?? undefined,
@@ -536,44 +522,6 @@ export namespace Tokens_Themes_Set_SingleMode {
         10,
     ] as const;
 
-    export interface Data_Button<
-        T_ColourName extends string,
-        T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
-
-        __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>,
-    > {
-
-        bg: {
-            $: __T_ColourOption,
-            hover: __T_ColourOption,
-            active: __T_ColourOption,
-        },
-
-        border: {
-            $: __T_ColourOption,
-            hover: __T_ColourOption,
-            active: __T_ColourOption,
-        },
-
-        outline: {
-            $?: undefined | never,
-            hover: __T_ColourOption,
-            active: __T_ColourOption,
-        },
-
-        text: {
-            $: __T_ColourOption,
-            hover: __T_ColourOption,
-            active: __T_ColourOption,
-        },
-
-        ui: {
-            $: __T_ColourOption,
-            hover: __T_ColourOption,
-            active: __T_ColourOption,
-        },
-    }
-
     /**
      * @since 0.1.0-alpha
      */
@@ -670,13 +618,13 @@ export namespace Tokens_Themes_Set_SingleMode {
         },
 
         button: {
-            [ K in 'primary' | 'secondary' | 'disabled' ]: Data_Button<
+            [ K in 'primary' | 'secondary' | 'disabled' ]: Data.Button<
                 T_ColourName,
                 T_ExtraColourLevels,
                 __T_ColourOption
             >;
         } & {
-            [ K in T_Keyword_Universal ]: Data_Button<
+            [ K in T_Keyword_Universal ]: Data.Button<
                 T_ColourName,
                 T_ExtraColourLevels,
                 __T_ColourOption
@@ -685,6 +633,7 @@ export namespace Tokens_Themes_Set_SingleMode {
 
         /**
          * @since 0.1.1-alpha.0 — Changed from field to input.
+         * @since ___PKG_VERSION___ — Added placeholder colour.
          */
         input: {
             [ K in "$" | "disabled" | "readonly" ]: {
@@ -709,6 +658,8 @@ export namespace Tokens_Themes_Set_SingleMode {
                     hover: __T_ColourOption,
                     active: __T_ColourOption,
                 },
+
+                placeholder: __T_ColourOption,
 
                 text: {
                     $: __T_ColourOption,
@@ -735,150 +686,201 @@ export namespace Tokens_Themes_Set_SingleMode {
     };
 
     /**
-     * @since 0.1.0-alpha
+     * Utilities and types for the complete tokens theme data for a single mode.
+     * 
+     * @since ___PKG_VERSION___
      */
-    export interface Data_RecursivePartial<
-        T_ColourName extends string,
-        T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
+    export namespace Data {
 
-        T_Keyword_Universal extends string,
-        T_Keyword_Text extends string,
-        T_Keyword_Background extends string,
+        /**
+         * @since 0.1.0-alpha
+         * @since ___PKG_VERSION___ — Moved to Tokens_Themes_Set_SingleMode.Data and renamed.
+         */
+        export interface Button<
+            T_ColourName extends string,
+            T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
 
-        __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>,
-    > {
-        background?: undefined | {
-            $?: undefined | __T_ColourOption,
-        } & {
-            [ K in keyof RequiredVariations<T_ColourName>[ 'background' ] ]?: undefined | __T_ColourOption;
-        } & {
-            [ K in T_Keyword_Universal ]?: undefined | __T_ColourOption;
-        } & {
-            [ K in T_Keyword_Background ]?: undefined | __T_ColourOption;
-        },
+            __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>,
+        > {
 
-        text?: undefined | {
-            $?: undefined | __T_ColourOption,
-        } & {
-            [ K in keyof RequiredVariations<T_ColourName>[ 'universal' ] ]?: undefined | __T_ColourOption;
-        } & {
-            [ K in keyof RequiredVariations<T_ColourName>[ 'text' ] ]?: undefined | __T_ColourOption;
-        } & {
-            [ K in T_Keyword_Universal ]?: undefined | __T_ColourOption;
-        } & {
-            [ K in T_Keyword_Text ]?: undefined | __T_ColourOption;
-        },
+            bg: {
+                $: __T_ColourOption,
+                hover: __T_ColourOption,
+                active: __T_ColourOption,
+            },
 
-        ui?: undefined | {
-            $?: undefined | __T_ColourOption,
-        } & {
-            [ K in keyof RequiredVariations<T_ColourName>[ 'universal' ] ]?: undefined | __T_ColourOption;
-        } & {
-            [ K in keyof RequiredVariations<T_ColourName>[ 'text' ] ]?: undefined | __T_ColourOption;
-        } & {
-            [ K in T_Keyword_Universal ]?: undefined | __T_ColourOption;
-        } & {
-            [ K in T_Keyword_Text ]?: undefined | __T_ColourOption;
-        },
+            border: {
+                $: __T_ColourOption,
+                hover: __T_ColourOption,
+                active: __T_ColourOption,
+            },
 
-        heading?: undefined | {
-            [ L in RequiredHeadingLevels ]?: undefined | __T_ColourOption;
-        };
+            outline: {
+                $?: undefined | never,
+                hover: __T_ColourOption,
+                active: __T_ColourOption,
+            },
 
-        selection?: undefined | {
-            bg: __T_ColourOption,
-            text: __T_ColourOption,
-        },
+            text: {
+                $: __T_ColourOption,
+                hover: __T_ColourOption,
+                active: __T_ColourOption,
+            },
 
-        link?: {
+            ui: {
+                $: __T_ColourOption,
+                hover: __T_ColourOption,
+                active: __T_ColourOption,
+            },
+        }
 
-            $: undefined | {
+        /**
+         * @since 0.1.0-alpha
+         * @since ___PKG_VERSION___ — Moved to Tokens_Themes_Set_SingleMode.Data and renamed.
+         */
+        export interface RecursivePartial<
+            T_ColourName extends string,
+            T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
+
+            T_Keyword_Universal extends string,
+            T_Keyword_Text extends string,
+            T_Keyword_Background extends string,
+
+            __T_ColourOption extends ThemeColourOption<T_ColourName, T_ExtraColourLevels> = ThemeColourOption<T_ColourName, T_ExtraColourLevels>,
+        > {
+            background?: undefined | {
                 $?: undefined | __T_ColourOption,
-                visited?: undefined | __T_ColourOption,
             } & {
-                [ K in keyof RequiredVariations<T_ColourName>[ 'interactive' ] ]?: undefined | __T_ColourOption;
+                [ K in keyof RequiredVariations<T_ColourName>[ 'background' ] ]?: undefined | __T_ColourOption;
+            } & {
+                [ K in T_Keyword_Universal ]?: undefined | __T_ColourOption;
+            } & {
+                [ K in T_Keyword_Background ]?: undefined | __T_ColourOption;
             },
 
-            /**
-             * @since 0.1.1-alpha.0 — Renamed from link-ui to link-decoration.
-             */
-            decoration?: undefined | {
+            text?: undefined | {
                 $?: undefined | __T_ColourOption,
-                visited?: undefined | __T_ColourOption,
             } & {
-                [ K in keyof RequiredVariations<T_ColourName>[ 'interactive' ] ]?: undefined | __T_ColourOption;
+                [ K in keyof RequiredVariations<T_ColourName>[ 'universal' ] ]?: undefined | __T_ColourOption;
+            } & {
+                [ K in keyof RequiredVariations<T_ColourName>[ 'text' ] ]?: undefined | __T_ColourOption;
+            } & {
+                [ K in T_Keyword_Universal ]?: undefined | __T_ColourOption;
+            } & {
+                [ K in T_Keyword_Text ]?: undefined | __T_ColourOption;
             },
 
-            icon?: undefined | {
+            ui?: undefined | {
                 $?: undefined | __T_ColourOption,
-                visited?: undefined | __T_ColourOption,
             } & {
-                [ K in keyof RequiredVariations<T_ColourName>[ 'interactive' ] ]?: undefined | __T_ColourOption;
+                [ K in keyof RequiredVariations<T_ColourName>[ 'universal' ] ]?: undefined | __T_ColourOption;
+            } & {
+                [ K in keyof RequiredVariations<T_ColourName>[ 'text' ] ]?: undefined | __T_ColourOption;
+            } & {
+                [ K in T_Keyword_Universal ]?: undefined | __T_ColourOption;
+            } & {
+                [ K in T_Keyword_Text ]?: undefined | __T_ColourOption;
             },
 
-            outline?: undefined | {
-                [ K in keyof RequiredVariations<T_ColourName>[ 'interactive' ] ]?: undefined | __T_ColourOption;
-            },
-        },
-
-        button?: undefined | {
-            [ K in 'primary' | 'secondary' | 'disabled' ]?: undefined | Data_Button<
-                T_ColourName,
-                T_ExtraColourLevels,
-                __T_ColourOption
-            >;
-        } & {
-            [ K in T_Keyword_Universal ]?: undefined | Data_Button<
-                T_ColourName,
-                T_ExtraColourLevels,
-                __T_ColourOption
-            >;
-        },
-
-        input?: undefined | {
-            [ K in "$" | "disabled" | "readonly" ]?: {
-
-                accent?: undefined | {
-                    $?: undefined | __T_ColourOption,
-                    hover?: undefined | __T_ColourOption,
-                    active?: undefined | __T_ColourOption,
-                },
-
-                bg?: undefined | {
-                    $?: undefined | __T_ColourOption,
-                    hover?: undefined | __T_ColourOption,
-                    active?: undefined | __T_ColourOption,
-                },
-
-                border?: undefined | {
-                    $?: undefined | __T_ColourOption,
-                    hover?: undefined | __T_ColourOption,
-                    active?: undefined | __T_ColourOption,
-                },
-
-                text?: undefined | {
-                    $?: undefined | __T_ColourOption,
-                    hover?: undefined | __T_ColourOption,
-                    active?: undefined | __T_ColourOption,
-                },
+            heading?: undefined | {
+                [ L in RequiredHeadingLevels ]?: undefined | __T_ColourOption;
             };
-        },
 
-        system?: undefined | {
-            accent?: undefined | {
-                bg?: undefined | __T_ColourOption,
-                text?: undefined | __T_ColourOption,
+            selection?: undefined | {
+                bg: __T_ColourOption,
+                text: __T_ColourOption,
             },
-            mark?: undefined | {
-                bg?: undefined | __T_ColourOption,
-                text?: undefined | __T_ColourOption,
+
+            link?: {
+
+                $: undefined | {
+                    $?: undefined | __T_ColourOption,
+                    visited?: undefined | __T_ColourOption,
+                } & {
+                    [ K in keyof RequiredVariations<T_ColourName>[ 'interactive' ] ]?: undefined | __T_ColourOption;
+                },
+
+                /**
+                 * @since 0.1.1-alpha.0 — Renamed from link-ui to link-decoration.
+                 */
+                decoration?: undefined | {
+                    $?: undefined | __T_ColourOption,
+                    visited?: undefined | __T_ColourOption,
+                } & {
+                    [ K in keyof RequiredVariations<T_ColourName>[ 'interactive' ] ]?: undefined | __T_ColourOption;
+                },
+
+                icon?: undefined | {
+                    $?: undefined | __T_ColourOption,
+                    visited?: undefined | __T_ColourOption,
+                } & {
+                    [ K in keyof RequiredVariations<T_ColourName>[ 'interactive' ] ]?: undefined | __T_ColourOption;
+                },
+
+                outline?: undefined | {
+                    [ K in keyof RequiredVariations<T_ColourName>[ 'interactive' ] ]?: undefined | __T_ColourOption;
+                },
             },
-            selected?: undefined | {
-                bg?: undefined | __T_ColourOption,
-                text?: undefined | __T_ColourOption,
+
+            button?: undefined | {
+                [ K in 'primary' | 'secondary' | 'disabled' ]?: undefined | Data.Button<
+                    T_ColourName,
+                    T_ExtraColourLevels,
+                    __T_ColourOption
+                >;
+            } & {
+                [ K in T_Keyword_Universal ]?: undefined | Data.Button<
+                    T_ColourName,
+                    T_ExtraColourLevels,
+                    __T_ColourOption
+                >;
             },
-        },
-    };
+
+            input?: undefined | {
+                [ K in "$" | "disabled" | "readonly" ]?: {
+
+                    accent?: undefined | {
+                        $?: undefined | __T_ColourOption,
+                        hover?: undefined | __T_ColourOption,
+                        active?: undefined | __T_ColourOption,
+                    },
+
+                    bg?: undefined | {
+                        $?: undefined | __T_ColourOption,
+                        hover?: undefined | __T_ColourOption,
+                        active?: undefined | __T_ColourOption,
+                    },
+
+                    border?: undefined | {
+                        $?: undefined | __T_ColourOption,
+                        hover?: undefined | __T_ColourOption,
+                        active?: undefined | __T_ColourOption,
+                    },
+
+                    text?: undefined | {
+                        $?: undefined | __T_ColourOption,
+                        hover?: undefined | __T_ColourOption,
+                        active?: undefined | __T_ColourOption,
+                    },
+                };
+            },
+
+            system?: undefined | {
+                accent?: undefined | {
+                    bg?: undefined | __T_ColourOption,
+                    text?: undefined | __T_ColourOption,
+                },
+                mark?: undefined | {
+                    bg?: undefined | __T_ColourOption,
+                    text?: undefined | __T_ColourOption,
+                },
+                selected?: undefined | {
+                    bg?: undefined | __T_ColourOption,
+                    text?: undefined | __T_ColourOption,
+                },
+            },
+        };
+    }
 
     /** @internal @private */
     export interface RequiredVariations<
@@ -941,38 +943,329 @@ export namespace Tokens_Themes_Set_SingleMode {
         interactive: RequiredVariations<T_ColourName>[ 'interactive' ];
     };
 
-    interface LevelsSet_AccentMin<
-        T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
-    > {
-        $: ColourUtilities.Levels.Required | T_ExtraColourLevels;
-        accent: ColourUtilities.Levels.Required | T_ExtraColourLevels;
-        min: ColourUtilities.Levels.Required | T_ExtraColourLevels;
-    }
+
+
+    /* Levels
+     * ====================================================================== */
 
     /**
-     * @since 0.1.1-alpha.0
+     * Utilities and types for levels.
+     * 
+     * @since ___PKG_VERSION___
      */
-    interface LevelsSet_AccentGrey<
-        T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
-    > {
-        $: ColourUtilities.Levels.Required | T_ExtraColourLevels;
-        accent: ColourUtilities.Levels.Required | T_ExtraColourLevels;
-        grey: ColourUtilities.Levels.Required | T_ExtraColourLevels;
+    export namespace Levels {
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        export interface Input<
+            T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
+        > {
+            background?: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Partial<Levels.Set.AccentGrey<T_ExtraColourLevels>>;
+            text?: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Partial<Levels.Set.AccentMin<T_ExtraColourLevels>>;
+            ui?: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Partial<Levels.Set.AccentMin<T_ExtraColourLevels>>;
+
+            heading?: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | {
+                [ L in RequiredHeadingLevels ]?: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
+            };
+        }
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        export interface Parsed<
+            T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
+        > {
+            background: Levels.Set.AccentGrey<T_ExtraColourLevels>;
+            text: Levels.Set.AccentMin<T_ExtraColourLevels>;
+            ui: Levels.Set.AccentMin<T_ExtraColourLevels>;
+
+            heading: {
+                [ L in RequiredHeadingLevels ]: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
+            };
+        };
+
+        /**
+         * @since ___PKG_VERSION___ — Made public, moved to Tokens_Themes_Set_SingleMode.Levels and renamed.
+         */
+        export interface Required<
+            T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
+        > {
+            background: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Levels.Set.AccentGrey<T_ExtraColourLevels>;
+            text: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Levels.Set.AccentMin<T_ExtraColourLevels>;
+            ui: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Levels.Set.AccentMin<T_ExtraColourLevels>;
+
+            heading: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | {
+                [ L in RequiredHeadingLevels ]: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
+            };
+        };
+
+        /**
+         * Common object shapes used to set multiple level types.
+         * 
+         * @since ___PKG_VERSION___
+         */
+        export namespace Set {
+
+            /**
+             * @since ___PKG_VERSION___ — Made public, moved to Tokens_Themes_Set_SingleMode.Levels.Sets and renamed.
+             */
+            export interface AccentMin<
+                T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
+            > {
+                $: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
+                accent: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
+                min: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
+            }
+
+            /**
+             * @since 0.1.1-alpha.0
+             * @since ___PKG_VERSION___ — Made public, moved to Tokens_Themes_Set_SingleMode.Levels.Sets and renamed.
+             */
+            export interface AccentGrey<
+                T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
+            > {
+                $: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
+                accent: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
+                grey: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
+            }
+        }
+
+        /**
+         * @since 0.1.1-alpha.0
+         * @since ___PKG_VERSION___ — Moved to Tokens_Themes_Set_SingleMode.Levels and renamed.
+         */
+        export namespace DEFAULT {
+
+            export const average = {
+                background: {
+                    $: '150',
+                    accent: '200',
+                    grey: '200',
+                },
+                text: {
+                    $: '750',
+                    accent: '700',
+                    min: '600',
+                },
+                ui: {
+                    $: '750',
+                    accent: '700',
+                    min: '600',
+                },
+                heading: {
+                    1: '800',
+                    2: '700',
+                    3: '700',
+                    4: '700',
+                    5: '700',
+                    6: '700',
+                    7: '700',
+                    8: '700',
+                    9: '700',
+                    10: '700',
+                },
+            } as const satisfies Tokens_Themes_Set_SingleMode.Levels.Required<never>;
+
+            export const high = {
+                background: {
+                    $: '100',
+                    accent: '150',
+                    grey: '150',
+                },
+                text: {
+                    $: '850',
+                    accent: '750',
+                    min: '700',
+                },
+                ui: {
+                    $: '850',
+                    accent: '750',
+                    min: '700',
+                },
+                heading: {
+                    1: '800',
+                    2: '700',
+                    3: '700',
+                    4: '700',
+                    5: '750',
+                    6: '750',
+                    7: '750',
+                    8: '750',
+                    9: '750',
+                    10: '750',
+                },
+            } as const satisfies Tokens_Themes_Set_SingleMode.Levels.Required<never>;
+
+            export const low = {
+                background: {
+                    $: '300',
+                    accent: '250',
+                    grey: '250',
+                },
+                text: {
+                    $: '700',
+                    accent: '700',
+                    min: '600',
+                },
+                ui: {
+                    $: '700',
+                    accent: '700',
+                    min: '600',
+                },
+                heading: {
+                    1: '600',
+                    2: '700',
+                    3: '700',
+                    4: '700',
+                    5: '750',
+                    6: '750',
+                    7: '750',
+                    8: '750',
+                    9: '750',
+                    10: '750',
+                },
+            } as const satisfies Tokens_Themes_Set_SingleMode.Levels.Required<never>;
+
+            export const max = {
+                background: 'white',
+                text: 'black',
+                ui: 'black',
+                heading: {
+                    1: '850',
+                    2: '850',
+                    3: '850',
+                    4: '850',
+                    5: '850',
+                    6: '850',
+                    7: '850',
+                    8: '850',
+                    9: '850',
+                    10: '850',
+                },
+            } as const satisfies Tokens_Themes_Set_SingleMode.Levels.Required<never>;
+        }
+
+        /**
+         * @since 0.1.0-alpha
+         * @since ___PKG_VERSION___ — Moved to Tokens_Themes_Set_SingleMode.Levels and renamed. Added default param and made inputs optional.
+         */
+        export function parse<T_ExtraColourLevels extends ColourUtilities.Levels.Optional>(
+            defaults: Levels.Required<T_ExtraColourLevels>,
+            inputs: Levels.Input<T_ExtraColourLevels> = {},
+        ): Levels.Parsed<T_ExtraColourLevels> {
+
+            const nomalized_input = {
+
+                background: typeof inputs?.background === 'object'
+                    ? inputs?.background
+                    : {
+                        $: inputs?.background,
+                        accent: inputs?.background,
+                        grey: inputs?.background,
+                    },
+
+                heading: typeof inputs?.heading === 'object'
+                    ? inputs?.heading
+                    : inputs?.heading
+                        ? objectGenerator(
+                            Tokens_Themes_Set_SingleMode.allHeadingLevels,
+                            () => inputs?.heading as ColourUtilities.Levels.Required | T_ExtraColourLevels
+                        )
+                        : {},
+
+                text: typeof inputs?.text === 'object'
+                    ? inputs?.text
+                    : {
+                        $: inputs?.text,
+                        accent: inputs?.text,
+                        min: inputs?.text,
+                    },
+
+                ui: typeof inputs?.ui === 'object'
+                    ? inputs?.ui
+                    : {
+                        $: inputs?.ui,
+                        accent: inputs?.ui,
+                        min: inputs?.ui,
+                    },
+            } as const;
+
+            const DEFAULTS = {
+
+                background: typeof defaults?.background === 'object'
+                    ? defaults?.background
+                    : {
+                        $: defaults?.background,
+                        accent: defaults?.background,
+                        grey: defaults?.background,
+                    },
+
+                heading: typeof defaults?.heading === 'object'
+                    ? defaults?.heading
+                    : objectGenerator(
+                        Tokens_Themes_Set_SingleMode.allHeadingLevels,
+                        () => defaults?.heading as ColourUtilities.Levels.Required | T_ExtraColourLevels
+                    ),
+
+                text: typeof defaults?.text === 'object'
+                    ? defaults?.text
+                    : {
+                        $: defaults?.text,
+                        accent: defaults?.text,
+                        min: defaults?.text,
+                    },
+
+                ui: typeof defaults?.ui === 'object'
+                    ? defaults?.ui
+                    : {
+                        $: defaults?.ui,
+                        accent: defaults?.ui,
+                        min: defaults?.ui,
+                    },
+            } as const;
+
+            const background: Levels.Parsed<T_ExtraColourLevels>[ 'background' ] = {
+                $: nomalized_input.background?.$ ?? DEFAULTS.background.$,
+                accent: nomalized_input.background?.accent ?? nomalized_input.background?.$ ?? DEFAULTS.background.accent,
+                grey: nomalized_input.background?.grey ?? nomalized_input.background?.$ ?? DEFAULTS.background.grey,
+            };
+
+            const text: Levels.Parsed<T_ExtraColourLevels>[ 'text' ] = {
+                $: nomalized_input.text?.$ ?? DEFAULTS.text.$,
+                accent: nomalized_input.text?.accent ?? nomalized_input.text?.$ ?? DEFAULTS.text.accent,
+                min: nomalized_input.text?.min ?? nomalized_input.text?.$ ?? DEFAULTS.text.min,
+            };
+
+            const ui: Levels.Parsed<T_ExtraColourLevels>[ 'ui' ] = {
+                $: nomalized_input.ui?.$ ?? nomalized_input.text?.$ ?? DEFAULTS.ui.$,
+                accent: nomalized_input.ui?.accent ?? nomalized_input.text?.accent ?? nomalized_input.ui?.$ ?? DEFAULTS.ui.accent,
+                min: nomalized_input.ui?.min ?? nomalized_input.text?.min ?? nomalized_input.ui?.$ ?? DEFAULTS.ui.min,
+            };
+
+            const heading: Levels.Parsed<T_ExtraColourLevels>[ 'heading' ] = objectGenerator(
+                Tokens_Themes_Set_SingleMode.allHeadingLevels,
+                ( hdgNum ) => nomalized_input.heading?.[ hdgNum ] ?? text.accent ?? DEFAULTS.heading[ hdgNum ]
+            );
+
+            return {
+                background,
+                text,
+                ui,
+                heading,
+            };
+        }
     }
 
-    /** @internal @private */
-    export interface RequiredLevels<
-        T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
-    > {
-        background: LevelsSet_AccentGrey<T_ExtraColourLevels>;
 
-        text: LevelsSet_AccentMin<T_ExtraColourLevels>;
-        ui: LevelsSet_AccentMin<T_ExtraColourLevels>;
 
-        heading: {
-            [ L in RequiredHeadingLevels ]: ColourUtilities.Levels.Required | T_ExtraColourLevels;
-        };
-    };
+    /* Variations
+     * ====================================================================== */
+
+
+
+    /* All Together Now
+     * ====================================================================== */
 
     /**
      * This is used by the build function, not by the constructor.
@@ -992,15 +1285,7 @@ export namespace Tokens_Themes_Set_SingleMode {
 
         description?: null | string;
 
-        levels?: undefined | {
-            background?: ColourUtilities.Levels.Required | T_ExtraColourLevels | Partial<LevelsSet_AccentGrey<T_ExtraColourLevels>>;
-            text?: ColourUtilities.Levels.Required | T_ExtraColourLevels | Partial<LevelsSet_AccentMin<T_ExtraColourLevels>>;
-            ui?: ColourUtilities.Levels.Required | T_ExtraColourLevels | Partial<LevelsSet_AccentMin<T_ExtraColourLevels>>;
-
-            heading?: ColourUtilities.Levels.Required | T_ExtraColourLevels | {
-                [ L in RequiredHeadingLevels ]?: ColourUtilities.Levels.Required | T_ExtraColourLevels;
-            };
-        };
+        levels?: undefined | Levels.Input<T_ExtraColourLevels>;
 
         variations?: undefined | {
 
@@ -1057,11 +1342,10 @@ export namespace Tokens_Themes_Set_SingleMode {
             __T_ColourOption
         >;
         levelsInUse: {
-            light: ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional;
-            dark: ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional;
+            light: "black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional;
+            dark: "black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional;
         }[];
     };
-
 
 
 
@@ -1088,7 +1372,7 @@ export namespace Tokens_Themes_Set_SingleMode {
             T_Keyword_Text extends string,
             T_Keyword_Background extends string,
         > {
-            levels: RequiredLevels<T_ExtraColourLevels>;
+            levels: Levels.Parsed<T_ExtraColourLevels>;
             variations: AllVariations<
                 T_ColourName,
                 T_Keyword_Universal,
@@ -1129,222 +1413,17 @@ export namespace Tokens_Themes_Set_SingleMode {
             T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
         >(
             name: T_ColourName,
-            level: ColourUtilities.Levels.Required | T_ExtraColourLevels,
-        ): ColourTokenSlug<T_ColourName, T_ExtraColourLevels> {
+            level: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels,
+        ): "black" | "white" | ColourTokenSlug<T_ColourName, T_ExtraColourLevels> {
+            // returns
+            switch ( level ) {
+
+                case 'black':
+                case 'white':
+                    return level;
+            }
+
             return `${ name }-${ level }`;
-        }
-
-        export function completeLevels<
-            T_ColourName extends string,
-            T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
-
-            T_Keyword_Universal extends string,
-            T_Keyword_Text extends string,
-            T_Keyword_Background extends string,
-        >(
-            input: InputParam<
-                T_ColourName,
-                T_ExtraColourLevels,
-                T_Keyword_Universal,
-                T_Keyword_Text,
-                T_Keyword_Background
-            >[ 'levels' ],
-        ): Param<
-            T_ColourName,
-            T_ExtraColourLevels,
-
-            T_Keyword_Universal,
-            T_Keyword_Text,
-            T_Keyword_Background
-        >[ 'levels' ] {
-
-            const DEFAULT = LEVELS_DEFAULT.high;
-
-            const nomalized_input = {
-
-                background: typeof input?.background === 'object' ? input?.background : {
-                    $: input?.background,
-                    accent: input?.background,
-                    grey: input?.background,
-                },
-
-                heading: typeof input?.heading === 'object'
-                    ? input?.heading
-                    : input?.heading
-                        ? objectGenerator(
-                            Tokens_Themes_Set_SingleMode.allHeadingLevels,
-                            () => input?.heading as ColourUtilities.Levels.Required | T_ExtraColourLevels
-                        )
-                        : {},
-
-                text: typeof input?.text === 'object' ? input?.text : {
-                    $: input?.text,
-                    accent: input?.text,
-                    min: input?.text,
-                },
-
-                ui: typeof input?.ui === 'object' ? input?.ui : {
-                    $: input?.ui,
-                    accent: input?.ui,
-                    min: input?.ui,
-                },
-            } as const;
-
-            const background: RequiredLevels<T_ExtraColourLevels>[ 'background' ] = {
-                $: nomalized_input.background?.$ ?? DEFAULT.background.$,
-                accent: nomalized_input.background?.accent ?? DEFAULT.background.accent,
-                grey: nomalized_input.background?.grey ?? DEFAULT.background.grey,
-            };
-
-            const text: RequiredLevels<T_ExtraColourLevels>[ 'text' ] = {
-                $: nomalized_input.text?.$ ?? DEFAULT.text.$,
-                accent: nomalized_input.text?.accent ?? DEFAULT.text.accent,
-                min: nomalized_input.text?.min ?? DEFAULT.text.min,
-            };
-
-            const ui: RequiredLevels<T_ExtraColourLevels>[ 'ui' ] = {
-                $: nomalized_input.ui?.$ ?? nomalized_input.text?.$ ?? DEFAULT.ui.$,
-                accent: nomalized_input.ui?.accent ?? nomalized_input.text?.accent ?? DEFAULT.ui.accent,
-                min: nomalized_input.ui?.min ?? nomalized_input.text?.min ?? DEFAULT.ui.min,
-            };
-
-            const heading: RequiredLevels<T_ExtraColourLevels>[ 'heading' ] = objectGenerator(
-                Tokens_Themes_Set_SingleMode.allHeadingLevels,
-                ( hdgNum ) => nomalized_input.heading?.[ hdgNum ] ?? DEFAULT.heading[ hdgNum ]
-            );
-
-            return {
-                background,
-                text,
-                ui,
-                heading,
-            };
-        }
-
-        /**
-         * @since 0.1.1-alpha.0
-         */
-        export namespace LEVELS_DEFAULT {
-
-            export const average = {
-                background: {
-                    $: '150',
-                    accent: '200',
-                    grey: '200',
-                },
-                text: {
-                    $: '750',
-                    accent: '700',
-                    min: '600',
-                },
-                ui: {
-                    $: '750',
-                    accent: '700',
-                    min: '600',
-                },
-                heading: {
-                    1: '800',
-                    2: '700',
-                    3: '700',
-                    4: '700',
-                    5: '700',
-                    6: '700',
-                    7: '700',
-                    8: '700',
-                    9: '700',
-                    10: '700',
-                },
-            } as const satisfies Tokens_Themes_Set_SingleMode.RequiredLevels<never>;
-
-            export const high = {
-                background: {
-                    $: '100',
-                    accent: '150',
-                    grey: '150',
-                },
-                text: {
-                    $: '850',
-                    accent: '750',
-                    min: '700',
-                },
-                ui: {
-                    $: '850',
-                    accent: '750',
-                    min: '700',
-                },
-                heading: {
-                    1: '800',
-                    2: '700',
-                    3: '700',
-                    4: '700',
-                    5: '750',
-                    6: '750',
-                    7: '750',
-                    8: '750',
-                    9: '750',
-                    10: '750',
-                },
-            } as const satisfies Tokens_Themes_Set_SingleMode.RequiredLevels<never>;
-
-            export const low = {
-                background: {
-                    $: '300',
-                    accent: '250',
-                    grey: '250',
-                },
-                text: {
-                    $: '700',
-                    accent: '700',
-                    min: '600',
-                },
-                ui: {
-                    $: '700',
-                    accent: '700',
-                    min: '600',
-                },
-                heading: {
-                    1: '600',
-                    2: '700',
-                    3: '700',
-                    4: '700',
-                    5: '750',
-                    6: '750',
-                    7: '750',
-                    8: '750',
-                    9: '750',
-                    10: '750',
-                },
-            } as const satisfies Tokens_Themes_Set_SingleMode.RequiredLevels<never>;
-
-            export const max = {
-                background: {
-                    $: '100',
-                    accent: '100',
-                    grey: '100',
-                },
-                text: {
-                    $: '900',
-                    accent: '850',
-                    min: '850',
-                },
-                ui: {
-                    $: '900',
-                    accent: '850',
-                    min: '850',
-                },
-                heading: {
-                    1: '850',
-                    2: '850',
-                    3: '850',
-                    4: '850',
-                    5: '850',
-                    6: '850',
-                    7: '850',
-                    8: '850',
-                    9: '850',
-                    10: '850',
-                },
-            } as const satisfies Tokens_Themes_Set_SingleMode.RequiredLevels<never>;
         }
 
         export function completeVariations<
@@ -1650,6 +1729,8 @@ export namespace Tokens_Themes_Set_SingleMode {
                     active: clrOpt( variations.interactive.active, levels.ui.accent ),
                 },
 
+                placeholder: clrOpt( variations.base, levels.text.min ),
+
                 text: {
                     $: clrOpt( variations.base, levels.text.$ ),
                     hover: clrOpt( variations.base, levels.text.$ ),
@@ -1850,6 +1931,8 @@ export namespace Tokens_Themes_Set_SingleMode {
                     hover: 'SelectedItem',
                     active: 'FieldText',
                 },
+
+                placeholder: 'FieldText',
 
                 text: {
                     $: 'FieldText',

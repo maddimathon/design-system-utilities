@@ -7,6 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
+import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
 import { objectGeneratorAsync } from '../../01-utilities/objectGenerator.js';
 import { objectMap } from '../../01-utilities/objectMap.js';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
@@ -59,11 +60,9 @@ export class Tokens_Themes_Set extends AbstractTokens {
         this.modes = modes;
     }
     toJSON() {
-        const levelsInUse = arrayUnique(Object.values(objectMap(this.modes, ([brightnessMode]) => Object.values(objectMap(this.modes[brightnessMode], ([__key, value]) => value.levelsInUse)).flat())).flat());
-        const levelsInUse_dark = levelsInUse.map((level) => {
-            const dark = (1000 - Number(level)).toFixed(0);
-            return dark.padStart(Math.max(0, 3 - dark.length), '0');
-        });
+        const allLevelsInUse = objectMap(this.modes, ([brightnessMode]) => Object.values(objectMap(this.modes[brightnessMode], ([__key, value]) => value.levelsInUse)).flat());
+        const levelsInUse = arrayUnique(Object.values(allLevelsInUse).flat());
+        const levelsInUse_dark = levelsInUse.map((light) => ColourUtilities.Levels.toDark(light));
         return {
             name: this.name ?? 'default',
             ...objectMap(this.modes, ([brightnessMode]) => objectMap(this.modes[brightnessMode], ([__key, value]) => value.toJSON())),
