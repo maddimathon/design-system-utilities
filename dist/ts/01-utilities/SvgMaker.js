@@ -63,12 +63,6 @@ export class SvgMaker {
         this.innerSVG = data.innerSVG;
         this.aspectRatio = SvgMaker.simplifyRatio(this.width, this.height);
     }
-    /**
-     * @deprecated 0.1.1-alpha.0 — Use this.svgInline instead.
-     */
-    svg() {
-        return this.svgInlineHidden();
-    }
     svgAttrString(attrs = []) {
         return [
             `viewBox="0 0 ${this.width} ${this.height}"`,

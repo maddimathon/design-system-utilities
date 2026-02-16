@@ -30,10 +30,6 @@ export declare class SvgMaker<T_Slug extends string = string> implements SvgMake
     readonly aspectRatio: [number, number];
     readonly innerSVG: string;
     constructor(data: SvgMaker.Data<T_Slug>, svgAttrs?: string[]);
-    /**
-     * @deprecated 0.1.1-alpha.0 — Use this.svgInline instead.
-     */
-    svg(): string;
     svgAttrString(attrs?: string[]): string;
     svgCssEmbedded(): string;
     svgFile(): string;

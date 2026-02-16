@@ -7,8 +7,6 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
-import * as z from 'zod';
-import type { MessageMaker } from '@maddimathon/utility-typescript/classes';
 import { internal as buildUtils_internal } from '@maddimathon/build-utilities';
 import type { RecursiveRecord } from '../../01-utilities/@types.js';
 /**
@@ -17,16 +15,9 @@ import type { RecursiveRecord } from '../../01-utilities/@types.js';
  * @since 0.1.0-alpha
  */
 export declare abstract class AbstractTokens<T_DataType> {
-    #private;
     static readonly tokenLevels: readonly ["100", "200", "300", "400", "500", "600", "700", "800", "900"];
     static readonly tokenLevels_extraOptions: readonly ["150", "250", "350", "450", "550", "650", "750", "850"];
     readonly tokenLevels: readonly ["100", "200", "300", "400", "500", "600", "700", "800", "900"];
-    /**
-     * A custom error handler to use with Zod schemas.
-     *
-     * @since 0.1.0-alpha
-     */
-    static customErrorMap(...params: Parameters<z.ZodErrorMap>): ReturnType<z.ZodErrorMap>;
     constructor();
     /**
      * The value of this token.
@@ -62,20 +53,6 @@ export declare abstract class AbstractTokens<T_DataType> {
      * @since 0.1.0-alpha
      */
     valueOf(): T_DataType;
-    /**
-     * A utility for parsing Zod schemas with appropriate error handling.
-     *
-     * @param schema        Schema to use when parsing the value.
-     * @param value         The value to check against the schema.
-     * @param context       A context object used for {@link AbstractTokens.Tokens_Error} if the parsing fails.
-     * @param errorMessage  Optional. Message to use if the parsing fails.
-     * @param params        Optional. Parameters passed to the Zod schema's `safeParse` method.
-     *
-     * @throws {AbstractTokens.Tokens_Error}  If the schema parsing fails.
-     *
-     * @since 0.1.0-alpha
-     */
-    protected parseSchema<T_Schema extends z.ZodTypeAny, T_ValueToTest extends Parameters<T_Schema['safeParse']>[0]>(schema: T_Schema, value: T_ValueToTest, context: AbstractTokens.Tokens_Error.Context, errorMessage?: string, params?: Parameters<T_Schema['safeParse']>[1]): z.TypeOf<T_Schema>;
 }
 /**
  * Utilities for the {@link AbstractTokens} class.
@@ -91,21 +68,15 @@ export declare namespace AbstractTokens {
      *
      * @since 0.1.0-alpha
      */
-    class Tokens_Error<T_CauseType extends unknown | undefined = never, T_IsZodError extends T_CauseType extends z.ZodError ? true : false = T_CauseType extends z.ZodError ? true : false> extends buildUtils_internal.AbstractError<never, Tokens_Error.Context> {
+    class Tokens_Error<T_CauseType extends unknown | undefined = never> extends buildUtils_internal.AbstractError<never, Tokens_Error.Context> {
         readonly context: Tokens_Error.Context;
         protected readonly opts: {
             cause: T_CauseType;
-            isZodError: T_IsZodError;
         };
         readonly name: string;
         constructor(message: string, context: Tokens_Error.Context, opts: {
             cause: T_CauseType;
-            isZodError: T_IsZodError;
         });
-        /**
-         * Gets a detailed output message for error handlers.
-         */
-        getOutput(): MessageMaker.BulkMsgs;
         /**
          * The object shape used when converting to JSON.
          *
@@ -115,7 +86,6 @@ export declare namespace AbstractTokens {
             name: string;
             message: string;
             context: Tokens_Error.Context;
-            issues: z.ZodIssue[];
             cause: unknown;
             stack: string | undefined;
             string: string;

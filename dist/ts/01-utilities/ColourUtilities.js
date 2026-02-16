@@ -9,7 +9,6 @@
  */
 import clrConvert from 'color-convert';
 import * as sass from 'sass-embedded';
-import * as z from 'zod';
 import { roundToPixel } from './roundToPixel.js';
 /**
  * Utility functions, schemas, and types for dealing with colour values in the
@@ -19,46 +18,11 @@ import { roundToPixel } from './roundToPixel.js';
  */
 export var ColourUtilities;
 (function (ColourUtilities) {
-    /** @hidden */
-    ColourUtilities.Value_Hex = z.string().toUpperCase().regex(/^#?[0-9|A-H]{3,6}$/i);
-    /** @hidden */
-    ColourUtilities.Value_HSL = z.object({
-        h: z.number().nonnegative().lte(360),
-        s: z.number().nonnegative().lte(100),
-        l: z.number().nonnegative().lte(100),
-    });
-    /** @hidden */
-    ColourUtilities.Value_RGB = z.object({
-        r: z.number().nonnegative().lte(255),
-        g: z.number().nonnegative().lte(255),
-        b: z.number().nonnegative().lte(255),
-    });
-    /** @hidden */
-    ColourUtilities.Value_LCH = z.object({
-        l: z.number().nonnegative().lte(100),
-        c: z.number().safe(),
-        h: z.number().safe(),
-    });
-    /** @hidden */
-    ColourUtilities.Value = z.union([
-        ColourUtilities.Value_Hex,
-        ColourUtilities.Value_HSL,
-        ColourUtilities.Value_RGB,
-        ColourUtilities.Value_LCH,
-    ]);
-    /** @hidden */
-    ColourUtilities.Value_All = z.object({
-        hex: ColourUtilities.Value_Hex,
-        hsl: ColourUtilities.Value_HSL,
-        rgb: ColourUtilities.Value_RGB,
-        lch: ColourUtilities.Value_LCH,
-    });
-    /** @private */
-    ColourUtilities.SingleShade = z.union([
-        ColourUtilities.Value,
-        ColourUtilities.Value_All,
-    ]).transform((input) => {
-        // returns - is already converted
+    /**
+     * Ensures a valid shade object.
+     */
+    function validateShade(input) {
+        // returns
         if (typeof input === 'object' && 'hex' in input) {
             return input;
         }
@@ -68,7 +32,8 @@ export var ColourUtilities;
             rgb: toRGB(input),
             lch: toLCH(input),
         };
-    });
+    }
+    ColourUtilities.validateShade = validateShade;
     /* UTILITY FUNCTIONS
      * ====================================================================== */
     /**
@@ -349,19 +314,6 @@ export var ColourUtilities;
         }
         Levels.toDark = toDark;
     })(Levels = ColourUtilities.Levels || (ColourUtilities.Levels = {}));
-    /**
-     * @since 0.1.0-alpha
-     * @deprecated 0.1.1-alpha.0 — Use {@link ColourUtilities.Levels.converter} instead.
-     */
-    ColourUtilities.LevelConverter = Levels.converter;
-    /**
-     * @since 0.1.0-alpha
-     * @deprecated 0.1.1-alpha.0 — Use {@link ColourUtilities.Levels.toDark} instead.
-     */
-    function getDarkLevel(lightLevel) {
-        return Levels.toDark(lightLevel);
-    }
-    ColourUtilities.getDarkLevel = getDarkLevel;
     /**
      * Utilities for working with shade maps (100-900 levels from light to dark).
      *

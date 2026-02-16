@@ -90,13 +90,6 @@ export class SvgMaker<
         this.aspectRatio = SvgMaker.simplifyRatio( this.width, this.height );
     }
 
-    /**
-     * @deprecated 0.1.1-alpha.0 — Use this.svgInline instead.
-     */
-    public svg() {
-        return this.svgInlineHidden();
-    }
-
     public svgAttrString( attrs: string[] = [] ) {
         return [
             `viewBox="0 0 ${ this.width } ${ this.height }"`,

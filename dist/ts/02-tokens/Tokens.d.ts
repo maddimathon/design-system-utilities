@@ -10,15 +10,15 @@
 import type { ThemeMode_Contrast, ThemeMode_ContrastAtLeastOne, ThemeMode_ContrastExtraOptions, TokenLevels } from './@types.js';
 import type * as TokenTypes from './@types.js';
 import type { ColourUtilities } from '../01-utilities/ColourUtilities.js';
-import { Tokens_Colour_ShadeMap } from './Colour/Colour_ShadeMap.js';
-import type { Tokens_Themes_Set } from './Themes/Themes_Set.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 import { Tokens_Colour } from './Tokens_Colour.js';
+import { Tokens_Colour_ShadeMap } from './Colour/Colour_ShadeMap.js';
 import { Tokens_CSS } from './Tokens_CSS.js';
 import { Tokens_Icons } from './Tokens_Icons.js';
 import { Tokens_Logos } from './Tokens_Logos.js';
 import { Tokens_Spacing } from './Tokens_Spacing.js';
 import { Tokens_Themes } from './Tokens_Themes.js';
+import type { Tokens_Themes_Set } from './Themes/Themes_Set.js';
 import { Tokens_Themes_Set_SingleMode } from './Themes/Themes_Set_SingleMode.js';
 import { Tokens_Typography } from './Tokens_Typography.js';
 /**
@@ -177,10 +177,10 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                 grey: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
             } & { [K_9 in T_ThemeKeyword_Universal]: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>; } & { [K_10 in T_ThemeKeyword_Text]: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>; };
             heading: {
-                1: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                2: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                4: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 3: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                2: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                1: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                4: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 9: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 8: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                 5: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
@@ -198,29 +198,6 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                 secondary: Tokens_Themes_Set_SingleMode.Data.Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
             } & { [K_11 in T_ThemeKeyword_Universal]: Tokens_Themes_Set_SingleMode.Data.Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>; };
             input: {
-                readonly: {
-                    accent: {
-                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    };
-                    bg: {
-                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    };
-                    border: {
-                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    };
-                    placeholder: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    text: {
-                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    };
-                };
                 disabled: {
                     accent: {
                         $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
@@ -245,6 +222,29 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
                     };
                 };
                 $: {
+                    accent: {
+                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    };
+                    bg: {
+                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    };
+                    border: {
+                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    };
+                    placeholder: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    text: {
+                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
+                    };
+                };
+                readonly: {
                     accent: {
                         $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
                         hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
@@ -296,10 +296,10 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
             size: {
                 [key: string]: number | import("../index.js").RecursiveRecord<string | number, number>;
                 heading: {
-                    1: number;
-                    2: number;
-                    4: number;
                     3: number;
+                    2: number;
+                    1: number;
+                    4: number;
                     9: number;
                     8: number;
                     5: number;
@@ -744,16 +744,6 @@ export declare namespace Tokens {
      */
     type AnyInstance<T_ColourName extends string = any, T_ExtraColourLevels extends ColourUtilities.Levels.Optional = any, T_ThemeBrightnessMode extends readonly [string, ...string[]] = any, T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne = any, T_ThemeName extends string = any, T_ExtraIconNames extends string = string, T_LogoNames extends string = string, T_ThemeKeyword_Universal extends string = string, T_ThemeKeyword_Text extends string = string, T_ThemeKeyword_Background extends string = string> = Instance<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_ExtraIconNames, T_LogoNames, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background>;
     /**
-     * @since 0.1.0-alpha
-     * @deprecated 0.1.1-alpha.0 — Use {@link ColourUtilities.Levels.Required} instead.
-     */
-    type ColourLevels = ColourUtilities.Levels.Required;
-    /**
-     * @since 0.1.0-alpha
-     * @deprecated 0.1.1-alpha.0 — Use {@link ColourUtilities.Levels.Optional} instead.
-     */
-    type ColourLevels_Extended = ColourUtilities.Levels.Optional;
-    /**
      * Configuration options for the {@link Tokens} class.
      *
      * @since 0.1.0-alpha
@@ -1123,12 +1113,12 @@ export declare namespace Tokens {
                     sizeAdjust: string;
                     weights: {
                         400: {
-                            italic: Tokens_Typography.Font.File;
                             normal: Tokens_Typography.Font.File;
+                            italic: Tokens_Typography.Font.File;
                         };
                         700: {
-                            italic: Tokens_Typography.Font.File;
                             normal: Tokens_Typography.Font.File;
+                            italic: Tokens_Typography.Font.File;
                         };
                     };
                 };
@@ -1142,12 +1132,12 @@ export declare namespace Tokens {
                     sizeAdjust: string;
                     weights: {
                         400: {
-                            italic: Tokens_Typography.Font.File;
                             normal: Tokens_Typography.Font.File;
+                            italic: Tokens_Typography.Font.File;
                         };
                         700: {
-                            italic: Tokens_Typography.Font.File;
                             normal: Tokens_Typography.Font.File;
+                            italic: Tokens_Typography.Font.File;
                         };
                     };
                 };
@@ -1160,32 +1150,32 @@ export declare namespace Tokens {
                     sizeAdjust: string;
                     weights: {
                         100: {
-                            italic: Tokens_Typography.Font.File;
                             normal: Tokens_Typography.Font.File;
+                            italic: Tokens_Typography.Font.File;
                         };
                         200: {
-                            italic: Tokens_Typography.Font.File;
                             normal: Tokens_Typography.Font.File;
+                            italic: Tokens_Typography.Font.File;
                         };
                         300: {
-                            italic: Tokens_Typography.Font.File;
                             normal: Tokens_Typography.Font.File;
+                            italic: Tokens_Typography.Font.File;
                         };
                         400: {
-                            italic: Tokens_Typography.Font.File;
                             normal: Tokens_Typography.Font.File;
+                            italic: Tokens_Typography.Font.File;
                         };
                         500: {
-                            italic: Tokens_Typography.Font.File;
                             normal: Tokens_Typography.Font.File;
+                            italic: Tokens_Typography.Font.File;
                         };
                         600: {
-                            italic: Tokens_Typography.Font.File;
                             normal: Tokens_Typography.Font.File;
+                            italic: Tokens_Typography.Font.File;
                         };
                         700: {
-                            italic: Tokens_Typography.Font.File;
                             normal: Tokens_Typography.Font.File;
+                            italic: Tokens_Typography.Font.File;
                         };
                     };
                 };

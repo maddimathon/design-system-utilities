@@ -9,7 +9,6 @@
  */
 
 import * as WcagContrast from 'wcag-contrast';
-import * as z from 'zod';
 
 import { ColourUtilities } from './ColourUtilities.js';
 
@@ -78,7 +77,6 @@ export class ColourContrastTest {
         public readonly clrA: ColourUtilities.SingleShade,
         public readonly clrB: ColourUtilities.SingleShade,
     ) {
-
         this.ratio = ColourContrastTest.test( clrA, clrB );
 
         const standards = ColourContrastTest.standards;
@@ -110,7 +108,6 @@ export class ColourContrastTest {
     }
 
     public valueOf(): ColourContrastTest.Parsed {
-
         return {
             ratio: this.ratio,
             aa: this.aa,
@@ -157,25 +154,6 @@ export namespace ColourContrastTest {
 
 
 
-    /* SCHEMA
-     * ====================================================================== */
-
-    const JSON_SingleResult = z.object( {
-        ui: z.boolean(),
-        text: z.boolean(),
-    } );
-
-    /**
-     * Creates a JSON schema for this class.
-     */
-    export const JSON = z.object( {
-        ratio: z.number(),
-        aa: JSON_SingleResult,
-        aaa: JSON_SingleResult,
-    } );
-
-
-
     /* TYPES
      * ====================================================================== */
 
@@ -194,5 +172,5 @@ export namespace ColourContrastTest {
     /**
      * @since 0.1.0-alpha
      */
-    export type JSON = z.output<typeof JSON>;
+    export type JSON = TestResult;
 }

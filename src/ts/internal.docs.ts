@@ -14,7 +14,6 @@
  * @license MIT
  */
 
-export * from './01-utilities/arrayToUnionSchema.js';
 export * from './01-utilities/ColourContrastTest.js';
 
 export type { Tokens_Internal } from './02-tokens/Tokens.js';

@@ -21,22 +21,24 @@ import type {
 import type * as TokenTypes from './@types.js';
 
 import type { ColourUtilities } from '../01-utilities/ColourUtilities.js';
-
-import { Tokens_Colour_ShadeMap } from './Colour/Colour_ShadeMap.js';
-import type { Tokens_Themes_Set } from './Themes/Themes_Set.js';
-
 import { objectGenerator } from '../01-utilities/objectGenerator.js';
 
 import { AbstractTokens } from './abstract/AbstractTokens.js';
+
 import { Tokens_Colour } from './Tokens_Colour.js';
+import { Tokens_Colour_ShadeMap } from './Colour/Colour_ShadeMap.js';
+import type { Tokens_Colour_ShadeMap_Shade } from './Colour/ShadeMap/ShadeMap_Shade.js';
+
 import { Tokens_CSS } from './Tokens_CSS.js';
 import { Tokens_Icons } from './Tokens_Icons.js';
 import { Tokens_Logos } from './Tokens_Logos.js';
 import { Tokens_Spacing } from './Tokens_Spacing.js';
+
 import { Tokens_Themes } from './Tokens_Themes.js';
+import type { Tokens_Themes_Set } from './Themes/Themes_Set.js';
 import { Tokens_Themes_Set_SingleMode } from './Themes/Themes_Set_SingleMode.js';
+
 import { Tokens_Typography } from './Tokens_Typography.js';
-import type { Tokens_Colour_ShadeMap_Shade } from './Colour/ShadeMap/ShadeMap_Shade.js';
 
 /**
  * Generates a complete token object for the design system.
@@ -501,18 +503,6 @@ export namespace Tokens {
         T_ThemeKeyword_Text,
         T_ThemeKeyword_Background
     >;
-
-    /**
-     * @since 0.1.0-alpha
-     * @deprecated 0.1.1-alpha.0 — Use {@link ColourUtilities.Levels.Required} instead.
-     */
-    export type ColourLevels = ColourUtilities.Levels.Required;
-
-    /**
-     * @since 0.1.0-alpha
-     * @deprecated 0.1.1-alpha.0 — Use {@link ColourUtilities.Levels.Optional} instead.
-     */
-    export type ColourLevels_Extended = ColourUtilities.Levels.Optional;
 
     /**
      * Configuration options for the {@link Tokens} class.

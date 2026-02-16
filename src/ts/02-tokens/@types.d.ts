@@ -10,23 +10,10 @@
  * @license MIT
  */
 
-import * as z from 'zod';
-
 import type { ColourUtilities } from '../01-utilities/ColourUtilities.js';
 
 import type { AbstractTokens } from './abstract/AbstractTokens.js';
 import type { Tokens_Themes_Set_SingleMode } from './Themes/Themes_Set_SingleMode.ts';
-
-/**
- * @since 0.1.0-alpha
- */
-export type ColourNameSchema<T_ColourName extends string> =
-    | z.ZodLiteral<T_ColourName>
-    | z.ZodUnion<[
-        z.ZodLiteral<T_ColourName>,
-        z.ZodLiteral<T_ColourName>,
-        ...z.ZodLiteral<T_ColourName>[]
-    ]>;
 
 /**
  * @since 0.1.0-alpha
@@ -137,19 +124,6 @@ export type TokenLevels = typeof AbstractTokens[ 'tokenLevels' ][ number ];
  * @since 0.1.1-alpha.0 - Switched to be set based on {@link AbstractTokens.tokenLevels_extraOptions} value.
  */
 export type TokenLevels_Extended = AbstractTokens[ 'tokenLevels_extraOptions' ][ number ];
-
-
-/**
- * @since 0.1.0-alpha
- * @deprecated 0.1.1-alpha.0 — Use {@link ColourUtilities.Levels.Required} instead.
- */
-export type ColourLevels = ColourUtilities.Levels.Required;
-
-/**
- * @since 0.1.0-alpha
- * @deprecated 0.1.1-alpha.0 — Use {@link ColourUtilities.Levels.Optional} instead.
- */
-export type ColourLevels_Extended = ColourUtilities.Levels.Optional;
 
 
 /**

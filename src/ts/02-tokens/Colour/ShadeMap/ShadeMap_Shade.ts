@@ -9,7 +9,6 @@
  */
 
 // import { JsonToScss } from '@maddimathon/utility-sass';
-// import * as z from 'zod';
 
 import { ColourUtilities } from '../../../01-utilities/ColourUtilities.js';
 import { ColourContrastTest } from '../../../01-utilities/ColourContrastTest.js';
@@ -43,7 +42,7 @@ export class Tokens_Colour_ShadeMap_Shade<
         input: Tokens_Colour_ShadeMap_Shade.InputParam,
     ) {
         super();
-        this.data = ColourUtilities.SingleShade.parse( input );
+        this.data = ColourUtilities.validateShade( input );
     }
 
     /**

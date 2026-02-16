@@ -8,7 +8,6 @@
  * @license MIT
  */
 // import { JsonToScss } from '@maddimathon/utility-sass';
-// import * as z from 'zod';
 import { ColourUtilities } from '../../../01-utilities/ColourUtilities.js';
 import { ColourContrastTest } from '../../../01-utilities/ColourContrastTest.js';
 import { objectMap } from '../../../01-utilities/objectMap.js';
@@ -35,7 +34,7 @@ export class Tokens_Colour_ShadeMap_Shade extends AbstractTokens {
         this.extraLevels = extraLevels;
         this.shadeName = shadeName;
         this.thisLevel = thisLevel;
-        this.data = ColourUtilities.SingleShade.parse(input);
+        this.data = ColourUtilities.validateShade(input);
     }
     /**
      * Adds the given shade to this shade's contrast results.

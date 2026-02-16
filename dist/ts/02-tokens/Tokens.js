@@ -9,10 +9,10 @@
  */
 import { slugify } from '@maddimathon/utility-typescript/functions';
 import { JsonToScss } from '@maddimathon/utility-sass';
-import { Tokens_Colour_ShadeMap } from './Colour/Colour_ShadeMap.js';
 import { objectGenerator } from '../01-utilities/objectGenerator.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 import { Tokens_Colour } from './Tokens_Colour.js';
+import { Tokens_Colour_ShadeMap } from './Colour/Colour_ShadeMap.js';
 import { Tokens_CSS } from './Tokens_CSS.js';
 import { Tokens_Icons } from './Tokens_Icons.js';
 import { Tokens_Logos } from './Tokens_Logos.js';

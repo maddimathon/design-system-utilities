@@ -8,7 +8,6 @@
  * @license MIT
  */
 // import { JsonToScss } from '@maddimathon/utility-sass';
-// import * as z from 'zod';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.

@@ -11,7 +11,6 @@
 import clrConvert from 'color-convert';
 
 import * as sass from 'sass-embedded';
-import * as z from 'zod';
 
 import { roundToPixel } from './roundToPixel.js';
 
@@ -28,76 +27,59 @@ export namespace ColourUtilities {
      *
      * @since 0.1.0-alpha
      */
-    export type Value_Hex = z.infer<typeof Value_Hex>;
-    /** @hidden */
-    export const Value_Hex = z.string().toUpperCase().regex( /^#?[0-9|A-H]{3,6}$/i );
+    export type Value_Hex = string;
 
     /**
      * A colour value in the HSL space.
      *
      * @since 0.1.0-alpha
      */
-    export type Value_HSL = z.infer<typeof Value_HSL>;
-    /** @hidden */
-    export const Value_HSL = z.object( {
-        h: z.number().nonnegative().lte( 360 ),
-        s: z.number().nonnegative().lte( 100 ),
-        l: z.number().nonnegative().lte( 100 ),
-    } );
+    export type Value_HSL = {
+        h: number;
+        s: number;
+        l: number;
+    };
 
     /**
      * A colour value in the RGB space.
      *
      * @since 0.1.0-alpha
      */
-    export type Value_RGB = z.infer<typeof Value_RGB>;
-    /** @hidden */
-    export const Value_RGB = z.object( {
-        r: z.number().nonnegative().lte( 255 ),
-        g: z.number().nonnegative().lte( 255 ),
-        b: z.number().nonnegative().lte( 255 ),
-    } );
+    export type Value_RGB = {
+        r: number;
+        g: number;
+        b: number;
+    };
 
     /**
      * A colour value in the LCH space.
      *
      * @since 0.1.0-alpha
      */
-    export type Value_LCH = z.infer<typeof Value_LCH>;
-    /** @hidden */
-    export const Value_LCH = z.object( {
-        l: z.number().nonnegative().lte( 100 ),
-        c: z.number().safe(),
-        h: z.number().safe(),
-    } );
+    export type Value_LCH = {
+        l: number;
+        c: number;
+        h: number;
+    };
 
     /**
      * Any of the single colour values.
      *
      * @since 0.1.0-alpha
      */
-    export type Value = z.infer<typeof Value>;
-    /** @hidden */
-    export const Value = z.union( [
-        Value_Hex,
-        Value_HSL,
-        Value_RGB,
-        Value_LCH,
-    ] );
+    export type Value = Value_Hex | Value_HSL | Value_RGB | Value_LCH;
 
     /**
      * All of the single colour values as an object.
      *
      * @since 0.1.0-alpha
      */
-    export type Value_All = z.infer<typeof Value_All>;
-    /** @hidden */
-    export const Value_All = z.object( {
-        hex: Value_Hex,
-        hsl: Value_HSL,
-        rgb: Value_RGB,
-        lch: Value_LCH,
-    } );
+    export type Value_All = {
+        hex: Value_Hex;
+        hsl: Value_HSL;
+        rgb: Value_RGB;
+        lch: Value_LCH;
+    };
 
 
 
@@ -110,7 +92,7 @@ export namespace ColourUtilities {
      * @since 0.1.0-alpha
      * @useDeclaredType
      */
-    export type SingleShade_Input = z.input<typeof SingleShade> | Readonly<z.input<typeof SingleShade>>;
+    export type SingleShade_Input = Value | Value_All;
 
     /**
      * The parsed output of the {@link SingleShade} schema.
@@ -118,15 +100,13 @@ export namespace ColourUtilities {
      * @since 0.1.0-alpha
      * @useDeclaredType
      */
-    export type SingleShade = z.output<typeof SingleShade>;
+    export type SingleShade = Value_All;
 
-    /** @private */
-    export const SingleShade = z.union( [
-        Value,
-        Value_All,
-    ] ).transform( ( input ): Value_All => {
-
-        // returns - is already converted
+    /**
+     * Ensures a valid shade object.
+     */
+    export function validateShade( input: SingleShade_Input ): SingleShade {
+        // returns
         if ( typeof input === 'object' && 'hex' in input ) {
             return input;
         }
@@ -137,7 +117,7 @@ export namespace ColourUtilities {
             rgb: toRGB( input ),
             lch: toLCH( input ),
         };
-    } );
+    }
 
 
 
@@ -510,22 +490,6 @@ export namespace ColourUtilities {
         >( lightLevel: T_LightLevel ): typeof converter[ T_LightLevel ] {
             return converter[ lightLevel ];
         }
-    }
-
-    /**
-     * @since 0.1.0-alpha
-     * @deprecated 0.1.1-alpha.0 — Use {@link ColourUtilities.Levels.converter} instead.
-     */
-    export const LevelConverter = Levels.converter;
-
-    /**
-     * @since 0.1.0-alpha
-     * @deprecated 0.1.1-alpha.0 — Use {@link ColourUtilities.Levels.toDark} instead.
-     */
-    export function getDarkLevel<
-        T_LightLevel extends Levels.Required | Levels.Optional
-    >( lightLevel: T_LightLevel ) {
-        return Levels.toDark<T_LightLevel>( lightLevel );
     }
 
     /**

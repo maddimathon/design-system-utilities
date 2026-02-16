@@ -8,7 +8,6 @@
  * @license MIT
  */
 import * as WcagContrast from 'wcag-contrast';
-import * as z from 'zod';
 import { ColourUtilities } from './ColourUtilities.js';
 /**
  * Generates a single pair of contrast test results used by the
@@ -87,25 +86,3 @@ export class ColourContrastTest {
         };
     }
 }
-/**
- * Utilities for the {@link Tokens} class.
- *
- * @since 0.1.0-alpha
- * @internal
- */
-(function (ColourContrastTest) {
-    /* SCHEMA
-     * ====================================================================== */
-    const JSON_SingleResult = z.object({
-        ui: z.boolean(),
-        text: z.boolean(),
-    });
-    /**
-     * Creates a JSON schema for this class.
-     */
-    ColourContrastTest.JSON = z.object({
-        ratio: z.number(),
-        aa: JSON_SingleResult,
-        aaa: JSON_SingleResult,
-    });
-})(ColourContrastTest || (ColourContrastTest = {}));

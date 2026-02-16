@@ -7,7 +7,6 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
-import * as z from 'zod';
 import { ColourUtilities } from './ColourUtilities.js';
 /**
  * Generates a single pair of contrast test results used by the
@@ -72,52 +71,6 @@ export declare namespace ColourContrastTest {
         aaa: TestResult_Single;
     };
     /**
-     * Creates a JSON schema for this class.
-     */
-    const JSON: z.ZodObject<{
-        ratio: z.ZodNumber;
-        aa: z.ZodObject<{
-            ui: z.ZodBoolean;
-            text: z.ZodBoolean;
-        }, "strip", z.ZodTypeAny, {
-            text: boolean;
-            ui: boolean;
-        }, {
-            text: boolean;
-            ui: boolean;
-        }>;
-        aaa: z.ZodObject<{
-            ui: z.ZodBoolean;
-            text: z.ZodBoolean;
-        }, "strip", z.ZodTypeAny, {
-            text: boolean;
-            ui: boolean;
-        }, {
-            text: boolean;
-            ui: boolean;
-        }>;
-    }, "strip", z.ZodTypeAny, {
-        aa: {
-            text: boolean;
-            ui: boolean;
-        };
-        aaa: {
-            text: boolean;
-            ui: boolean;
-        };
-        ratio: number;
-    }, {
-        aa: {
-            text: boolean;
-            ui: boolean;
-        };
-        aaa: {
-            text: boolean;
-            ui: boolean;
-        };
-        ratio: number;
-    }>;
-    /**
      * @since 0.1.0-alpha
      */
     type Parsed = TestResult;
@@ -130,6 +83,6 @@ export declare namespace ColourContrastTest {
     /**
      * @since 0.1.0-alpha
      */
-    type JSON = z.output<typeof JSON>;
+    type JSON = TestResult;
 }
 //# sourceMappingURL=ColourContrastTest.d.ts.map

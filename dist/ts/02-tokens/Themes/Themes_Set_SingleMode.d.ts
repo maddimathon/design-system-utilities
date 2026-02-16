@@ -149,10 +149,10 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T
             grey: __T_ColourOption;
         } & { [K_4 in T_Keyword_Universal]: __T_ColourOption; } & { [K_5 in T_Keyword_Text]: __T_ColourOption; };
         heading: {
-            1: __T_ColourOption;
-            2: __T_ColourOption;
-            4: __T_ColourOption;
             3: __T_ColourOption;
+            2: __T_ColourOption;
+            1: __T_ColourOption;
+            4: __T_ColourOption;
             9: __T_ColourOption;
             8: __T_ColourOption;
             5: __T_ColourOption;
@@ -174,32 +174,6 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T
          * @since 0.1.1-alpha.1.draft — Added placeholder colour.
          */
         input: {
-            readonly: {
-                /**
-                 * Used for accent-color and focus ring colour.
-                 */
-                accent: {
-                    $: __T_ColourOption;
-                    hover: __T_ColourOption;
-                    active: __T_ColourOption;
-                };
-                bg: {
-                    $: __T_ColourOption;
-                    hover: __T_ColourOption;
-                    active: __T_ColourOption;
-                };
-                border: {
-                    $: __T_ColourOption;
-                    hover: __T_ColourOption;
-                    active: __T_ColourOption;
-                };
-                placeholder: __T_ColourOption;
-                text: {
-                    $: __T_ColourOption;
-                    hover: __T_ColourOption;
-                    active: __T_ColourOption;
-                };
-            };
             disabled: {
                 /**
                  * Used for accent-color and focus ring colour.
@@ -227,6 +201,32 @@ export declare class Tokens_Themes_Set_SingleMode<T_ColourName extends string, T
                 };
             };
             $: {
+                /**
+                 * Used for accent-color and focus ring colour.
+                 */
+                accent: {
+                    $: __T_ColourOption;
+                    hover: __T_ColourOption;
+                    active: __T_ColourOption;
+                };
+                bg: {
+                    $: __T_ColourOption;
+                    hover: __T_ColourOption;
+                    active: __T_ColourOption;
+                };
+                border: {
+                    $: __T_ColourOption;
+                    hover: __T_ColourOption;
+                    active: __T_ColourOption;
+                };
+                placeholder: __T_ColourOption;
+                text: {
+                    $: __T_ColourOption;
+                    hover: __T_ColourOption;
+                    active: __T_ColourOption;
+                };
+            };
+            readonly: {
                 /**
                  * Used for accent-color and focus ring colour.
                  */
