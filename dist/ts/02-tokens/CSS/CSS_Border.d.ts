@@ -14,14 +14,16 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
  *
  * @since 0.1.0-alpha
  */
-export declare class Tokens_CSS_Border extends AbstractTokens<Tokens_CSS_Border.Data> {
+export declare class Tokens_CSS_Border extends AbstractTokens<{
+    data: Tokens_CSS_Border.Data;
+    json: Tokens_CSS_Border.JsonReturn;
+    scss: Tokens_CSS_Border.ScssVars;
+}> {
     static get default(): Tokens_CSS_Border.Data;
     readonly data: Tokens_CSS_Border.Data;
     constructor(input: Tokens_CSS_Border.InputParam);
     toJSON(): Tokens_CSS_Border.JsonReturn;
-    toScssVars(): {
-        [K in keyof Tokens_CSS_Border.Data]: AbstractTokens.ScssReturn;
-    };
+    toScssVars(): Tokens_CSS_Border.ScssVars;
 }
 /**
  * Utilities for the {@link Tokens_CSS_Border} class.
@@ -64,6 +66,10 @@ export declare namespace Tokens_CSS_Border {
      * @since 0.1.0-alpha
      */
     export type JsonReturn = Data;
+    /**
+     * @since 0.1.1-alpha.1.draft
+     */
+    export type ScssVars = Data;
     export {};
 }
 //# sourceMappingURL=CSS_Border.d.ts.map

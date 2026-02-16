@@ -124,7 +124,7 @@ export class Tokens_Typography extends AbstractTokens {
         return {
             ...this.data,
             size,
-            familyOverrides: this.familyOverrides,
+            familyOverrides: this.familyOverrides ?? {},
         };
     }
     toScssVars() {
@@ -224,7 +224,5 @@ export class Tokens_Typography extends AbstractTokens {
             'Segoe UI Emoji',
             'Segoe UI Symbol',
         ];
-        ;
-        ;
     })(Font = Tokens_Typography.Font || (Tokens_Typography.Font = {}));
 })(Tokens_Typography || (Tokens_Typography = {}));

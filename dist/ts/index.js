@@ -12,7 +12,6 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
-export * from './01-utilities/ColourContrastTest.js';
 export * from './01-utilities/ColourUtilities.js';
 export * from './01-utilities/makeRelativeURL.js';
 export * from './01-utilities/objectFlatten.js';

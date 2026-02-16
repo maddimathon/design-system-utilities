@@ -15,9 +15,13 @@ import { AbstractTokens } from './abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  * 
- * @since 0.1.0-alpha
+ * @since ___PKG_VERSION___
  */
-export class Tokens_TEMPLATE extends AbstractTokens<Tokens_TEMPLATE.Data> {
+export class Tokens_TEMPLATE extends AbstractTokens<{
+    data: Tokens_TEMPLATE.Data;
+    json: Tokens_TEMPLATE.JsonReturn;
+    scss: Tokens_TEMPLATE.ScssVars;
+}> {
 
     public static get default(): Tokens_TEMPLATE.Data {
         return {
@@ -54,23 +58,27 @@ export class Tokens_TEMPLATE extends AbstractTokens<Tokens_TEMPLATE.Data> {
 /**
  * Utilities for the {@link Tokens_TEMPLATE} class.
  * 
- * @since 0.1.0-alpha
+ * @since ___PKG_VERSION___
  */
 export namespace Tokens_TEMPLATE {
 
     /**
-     * @since 0.1.0-alpha
+     * @since ___PKG_VERSION___
      */
     export type Data = {};
 
     /**
-     * @since 0.1.0-alpha
+     * @since ___PKG_VERSION___
      */
     export type InputParam = Partial<Data>;
 
     /**
-     * @since 0.1.0-alpha
+     * @since ___PKG_VERSION___
      */
     export type JsonReturn = Data;
 
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export type ScssVars = Data;
 }

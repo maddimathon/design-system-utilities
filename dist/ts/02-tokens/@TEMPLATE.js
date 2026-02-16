@@ -12,7 +12,7 @@ import { AbstractTokens } from './abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since 0.1.0-alpha
+ * @since 0.1.1-alpha.1.draft
  */
 export class Tokens_TEMPLATE extends AbstractTokens {
     static get default() {

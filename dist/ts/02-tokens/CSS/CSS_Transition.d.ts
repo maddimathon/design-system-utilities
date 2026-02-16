@@ -13,14 +13,16 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
  *
  * @since 0.1.0-alpha
  */
-export declare class Tokens_CSS_Transition extends AbstractTokens<Tokens_CSS_Transition.Data> {
+export declare class Tokens_CSS_Transition extends AbstractTokens<{
+    data: Tokens_CSS_Transition.Data;
+    json: Tokens_CSS_Transition.JsonReturn;
+    scss: Tokens_CSS_Transition.ScssVars;
+}> {
     static get default(): Tokens_CSS_Transition.Data;
     readonly data: Tokens_CSS_Transition.Data;
     constructor(input: Tokens_CSS_Transition.InputParam);
     toJSON(): Tokens_CSS_Transition.JsonReturn;
-    toScssVars(): {
-        [K in keyof Tokens_CSS_Transition.Data]: AbstractTokens.ScssReturn;
-    };
+    toScssVars(): Tokens_CSS_Transition.ScssVars;
 }
 /**
  * Utilities for the {@link Tokens_CSS_Transition} class.
@@ -56,6 +58,10 @@ export declare namespace Tokens_CSS_Transition {
      * @since 0.1.0-alpha
      */
     export type JsonReturn = Data;
+    /**
+     * @since 0.1.1-alpha.1.draft
+     */
+    export type ScssVars = Data;
     export {};
 }
 //# sourceMappingURL=CSS_Transition.d.ts.map

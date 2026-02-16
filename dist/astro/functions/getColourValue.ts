@@ -12,7 +12,6 @@ import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
 import type { ColourNameGeneric } from '../../ts/02-tokens/@types.d.ts';
 import type { Tokens_Internal } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
-import type { Tokens_Colour_ShadeMap_Shade } from '../../ts/02-tokens/Colour/ShadeMap/ShadeMap_Shade.js';
 
 export function getColourValue<
     T_ColourName extends string = Tokens_Internal.Default_ColourName,
@@ -20,7 +19,7 @@ export function getColourValue<
 >(
     shade: null | undefined | Partial<
         | ColourUtilities.SingleShade
-        | Tokens_Colour_ShadeMap_Shade.JsonReturn<
+        | Tokens_Colour_ShadeMap.Shade.JsonReturn<
             ColourNameGeneric<T_ColourName>,
             T_ExtraLevels
         >
@@ -59,17 +58,17 @@ export function getBaseColourObject<
     T_ExtraLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels,
 >(
     baseMap: Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, T_ExtraLevels> & {
-        black?: Tokens_Colour_ShadeMap_Shade.JsonReturn<
+        black?: Tokens_Colour_ShadeMap.Shade.JsonReturn<
             T_ColourName,
             T_ExtraLevels
         >;
-        white?: Tokens_Colour_ShadeMap_Shade.JsonReturn<
+        white?: Tokens_Colour_ShadeMap.Shade.JsonReturn<
             T_ColourName,
             T_ExtraLevels
         >;
     },
     level: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraLevels,
-): null | Tokens_Colour_ShadeMap_Shade.JsonReturn<
+): null | Tokens_Colour_ShadeMap.Shade.JsonReturn<
     T_ColourName,
     T_ExtraLevels
 > {
@@ -87,17 +86,17 @@ export function getMapColourObject<
 >(
     shadeMap: Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, T_ExtraLevels>,
     baseMap: Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, T_ExtraLevels> & {
-        black?: Tokens_Colour_ShadeMap_Shade.JsonReturn<
+        black?: Tokens_Colour_ShadeMap.Shade.JsonReturn<
             T_ColourName,
             T_ExtraLevels
         >;
-        white?: Tokens_Colour_ShadeMap_Shade.JsonReturn<
+        white?: Tokens_Colour_ShadeMap.Shade.JsonReturn<
             T_ColourName,
             T_ExtraLevels
         >;
     },
     level: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraLevels,
-): null | Tokens_Colour_ShadeMap_Shade.JsonReturn<
+): null | Tokens_Colour_ShadeMap.Shade.JsonReturn<
     T_ColourName,
     T_ExtraLevels
 > {
@@ -111,7 +110,7 @@ export function getMapColourObject<
         return getBaseColourObject( baseMap, level );
     }
 
-    return shadeMap[ level ] satisfies Tokens_Colour_ShadeMap_Shade.JsonReturn<
+    return shadeMap[ level ] satisfies Tokens_Colour_ShadeMap.Shade.JsonReturn<
         T_ColourName,
         T_ExtraLevels
     >;

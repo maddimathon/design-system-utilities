@@ -149,7 +149,10 @@ export class Compile extends CompileStage {
 
         const Tokens = ( await import( /* @vite-ignore */ '../../dist/ts/02-tokens/Tokens.js' ) ).Tokens;
 
-        const defaultTokens = await Tokens.sample();
+        const defaultTokens = await this.atry(
+            Tokens.sample,
+            ( this.params.verbose ? 1 : 2 ),
+        );
 
         this.console.verbose( 'writing default json tokens...', 2 );
         this.try(
@@ -159,7 +162,7 @@ export class Compile extends CompileStage {
                 this.getDistDir( undefined, 'default-tokens.json' ),
                 JSON.stringify( defaultTokens, null, 4 ),
                 { force: true }
-            ]
+            ],
         );
 
         this.console.verbose( 'writing default scss tokens...', 2 );
@@ -173,7 +176,7 @@ export class Compile extends CompileStage {
                 this.getDistDir( undefined, 'default-tokens.scss' ),
                 tokenScss,
                 { force: true }
-            ]
+            ],
         );
 
         this.try(
@@ -183,7 +186,7 @@ export class Compile extends CompileStage {
                 'src/scss/tokens/system/_default.scss',
                 tokenScss,
                 { force: true }
-            ]
+            ],
         );
     }
 }

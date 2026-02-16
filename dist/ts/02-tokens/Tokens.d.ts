@@ -18,24 +18,27 @@ import { Tokens_Icons } from './Tokens_Icons.js';
 import { Tokens_Logos } from './Tokens_Logos.js';
 import { Tokens_Spacing } from './Tokens_Spacing.js';
 import { Tokens_Themes } from './Tokens_Themes.js';
-import type { Tokens_Themes_Set } from './Themes/Themes_Set.js';
-import { Tokens_Themes_Set_SingleMode } from './Themes/Themes_Set_SingleMode.js';
+import { Tokens_Themes_Set } from './Themes/Themes_Set.js';
 import { Tokens_Typography } from './Tokens_Typography.js';
 /**
  * Generates a complete token object for the design system.
  *
  * @since 0.1.0-alpha
  */
-export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels extends ColourUtilities.Levels.Optional, T_ThemeBrightnessMode extends readonly [string, ...string[]], T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne, T_ThemeName extends string, T_ExtraIconNames extends string, T_LogoNames extends string, T_ThemeKeyword_Universal extends string, T_ThemeKeyword_Text extends string, T_ThemeKeyword_Background extends string> extends AbstractTokens<Tokens_Internal.Data<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_ExtraIconNames, T_LogoNames, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background>> {
+export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels extends ColourUtilities.Levels.Optional, T_ThemeBrightnessMode extends readonly [string, ...string[]], T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne, T_ThemeName extends string, T_ExtraIconNames extends string, T_LogoNames extends string, T_ThemeKeyword_Universal extends string, T_ThemeKeyword_Text extends string, T_ThemeKeyword_Background extends string> extends AbstractTokens<{
+    data: Tokens_Internal.Data<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_ExtraIconNames, T_LogoNames, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background>;
+    json: Tokens_Internal.JsonReturn<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_ExtraIconNames, T_LogoNames, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background>;
+    scss: Tokens_Internal.ScssVars<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_ExtraIconNames, T_LogoNames, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background>;
+}> {
     protected readonly clrNames: readonly T_ColourName[];
     protected readonly extraColourLevels: readonly T_ExtraColourLevels[];
-    protected readonly input: Omit<Tokens_Internal.InputParam<NoInfer<T_ColourName>, NoInfer<T_ExtraColourLevels>, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_ExtraIconNames, T_LogoNames, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background>, "themes">;
+    protected readonly input: Omit<Tokens_Internal.InputParam<NoInfer<T_ColourName>, NoInfer<T_ExtraColourLevels>, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_ExtraIconNames, T_LogoNames, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background>, "colour" | "themes">;
     protected readonly config: Tokens_Internal.Config;
     get data(): {
         icons: Tokens_Icons.Data<T_ExtraIconNames>;
         logos: Tokens_Logos.Data<T_LogoNames>;
         spacing: Tokens_Spacing.Data;
-        typography: Tokens_Typography.Data<number, string>;
+        typography: Tokens_Typography.Data<string, number>;
         colour: Tokens_Colour.Data<T_ColourName, T_ExtraColourLevels>;
         themes: Tokens_Themes.Data<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode[number], T_ThemeContrastMode[number], T_ThemeName, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background>;
         css: Tokens_CSS.Data;
@@ -46,636 +49,17 @@ export declare class Tokens<T_ColourName extends string, T_ExtraColourLevels ext
     readonly logos: Tokens_Logos<T_LogoNames>;
     readonly spacing: Tokens_Spacing;
     readonly themes: Tokens_Themes<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode[number], T_ThemeContrastMode[number], T_ThemeName, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background>;
-    readonly typography: Tokens_Typography;
+    readonly typography: Tokens_Typography<string>;
     /**
      * Used instead of the constructor so that it can be async.
      */
     static build<T_ColourName extends string = Tokens_Internal.Default_ColourName, T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels, T_ThemeBrightnessMode extends readonly [string, ...string[]] = Tokens_Internal.Default_ThemeBrightnessMode, T_ThemeContrastMode_Extra extends readonly ThemeMode_ContrastExtraOptions[] = Tokens_Internal.Default_ThemeExtraContrastMode, T_ThemeName extends string = Tokens_Themes.Default_ThemeName, T_ExtraIconNames extends string = never, T_LogoNames extends string = never, T_ThemeKeyword_Universal extends string = never, T_ThemeKeyword_Text extends string = never, T_ThemeKeyword_Background extends string = never>(input: Tokens_Internal.InputParam<Tokens_Internal.Default_ColourName | T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, ThemeMode_Contrast<T_ThemeContrastMode_Extra>, T_ThemeName, T_ExtraIconNames, T_LogoNames, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background>, config?: Partial<Tokens.Config<NoInfer<T_ExtraColourLevels>>>): Promise<Tokens<Tokens_Internal.Default_ColourName | T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, ThemeMode_Contrast<T_ThemeContrastMode_Extra>, T_ThemeName, T_ExtraIconNames, T_LogoNames, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background>>;
-    protected constructor(clrNames: readonly T_ColourName[], extraColourLevels: readonly T_ExtraColourLevels[], themes: Tokens_Themes<NoInfer<T_ColourName>, NoInfer<T_ExtraColourLevels>, T_ThemeBrightnessMode[number], T_ThemeContrastMode[number], T_ThemeName, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background>, input: Omit<Tokens_Internal.InputParam<NoInfer<T_ColourName>, NoInfer<T_ExtraColourLevels>, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_ExtraIconNames, T_LogoNames, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background>, "themes">, config?: Tokens_Internal.Config);
+    protected constructor(clrNames: readonly T_ColourName[], extraColourLevels: readonly T_ExtraColourLevels[], { colour, themes }: {
+        colour: Tokens_Colour<T_ColourName, T_ExtraColourLevels>;
+        themes: Tokens_Themes<NoInfer<T_ColourName>, NoInfer<T_ExtraColourLevels>, T_ThemeBrightnessMode[number], T_ThemeContrastMode[number], T_ThemeName, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background>;
+    }, input: Omit<Tokens_Internal.InputParam<NoInfer<T_ColourName>, NoInfer<T_ExtraColourLevels>, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_ExtraIconNames, T_LogoNames, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background>, "colour" | "themes">, config?: Tokens_Internal.Config);
     toJSON(): Tokens_Internal.JsonReturn<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_ExtraIconNames, T_LogoNames, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background>;
-    toScssVars(): {
-        icons: { [K in Tokens_Icons.DefaultIconNames | T_ExtraIconNames]: import("../index.js").SvgMaker.ScssVars<K>; };
-        logos: { [K_1 in keyof Tokens_Logos.Data<T_LogoNames>]: import("../index.js").SvgMaker.ScssVars<K_1>; };
-        colour: Tokens_Colour.Data<T_ColourName, T_ExtraColourLevels> extends infer T extends object ? { [K_2 in keyof T]: T_NewValue; } : never;
-        themes: { [K_3 in T_ThemeName]: { [B in T_ThemeBrightnessMode[number]]: { [C in T_ThemeContrastMode[number]]: {
-            link: {
-                outline: {
-                    active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    disabled: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    visited: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                };
-                $: {
-                    $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    visited: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                } & {
-                    active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    disabled: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                };
-                decoration: {
-                    $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    visited: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                } & {
-                    active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    disabled: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                };
-                icon: {
-                    $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    visited: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                } & {
-                    active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    disabled: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                };
-            };
-            system: {
-                background: {
-                    $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                } & {
-                    grey: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                } & { [K_5 in T_ThemeKeyword_Universal]: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>; } & { [K_6 in T_ThemeKeyword_Background]: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>; };
-                button: Tokens_Themes_Set_SingleMode.Data.Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
-                input: {
-                    accent: {
-                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    };
-                    bg: {
-                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    };
-                    border: {
-                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    };
-                    placeholder: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    text: {
-                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    };
-                };
-                link: {
-                    $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    visited: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                } & {
-                    active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    disabled: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                };
-                selection: {
-                    bg: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    text: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                };
-                text: {
-                    $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    disabled: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                };
-                accent: {
-                    bg: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    text: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                };
-                mark: {
-                    bg: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    text: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                };
-                selected: {
-                    bg: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    text: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                };
-            };
-            background: {
-                $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-            } & {
-                grey: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-            } & { [K_5 in T_ThemeKeyword_Universal]: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>; } & { [K_6 in T_ThemeKeyword_Background]: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>; };
-            text: {
-                $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-            } & {
-                primary: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                secondary: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-            } & {
-                active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                disabled: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                grey: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-            } & { [K_7 in T_ThemeKeyword_Universal]: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>; } & { [K_8 in T_ThemeKeyword_Text]: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>; };
-            ui: {
-                $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-            } & {
-                primary: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                secondary: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-            } & {
-                active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                disabled: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                grey: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-            } & { [K_9 in T_ThemeKeyword_Universal]: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>; } & { [K_10 in T_ThemeKeyword_Text]: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>; };
-            heading: {
-                3: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                2: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                1: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                4: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                9: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                8: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                5: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                6: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                7: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                10: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-            };
-            selection: {
-                bg: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                text: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-            };
-            button: {
-                disabled: Tokens_Themes_Set_SingleMode.Data.Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
-                primary: Tokens_Themes_Set_SingleMode.Data.Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
-                secondary: Tokens_Themes_Set_SingleMode.Data.Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>;
-            } & { [K_11 in T_ThemeKeyword_Universal]: Tokens_Themes_Set_SingleMode.Data.Button<T_ColourName, T_ExtraColourLevels, TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>>; };
-            input: {
-                disabled: {
-                    accent: {
-                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    };
-                    bg: {
-                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    };
-                    border: {
-                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    };
-                    placeholder: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    text: {
-                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    };
-                };
-                $: {
-                    accent: {
-                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    };
-                    bg: {
-                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    };
-                    border: {
-                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    };
-                    placeholder: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    text: {
-                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    };
-                };
-                readonly: {
-                    accent: {
-                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    };
-                    bg: {
-                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    };
-                    border: {
-                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    };
-                    placeholder: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    text: {
-                        $: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        hover: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                        active: TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>;
-                    };
-                };
-            };
-        }; }; }; };
-        border: {
-            radius: AbstractTokens.ScssReturn;
-            width: AbstractTokens.ScssReturn;
-            stroke: AbstractTokens.ScssReturn;
-        };
-        style: {
-            alert: AbstractTokens.ScssReturn;
-            button: AbstractTokens.ScssReturn;
-            heading: AbstractTokens.ScssReturn;
-            input: AbstractTokens.ScssReturn;
-            selection: AbstractTokens.ScssReturn;
-        };
-        transition: {
-            properties: AbstractTokens.ScssReturn;
-            time: AbstractTokens.ScssReturn;
-        };
-        z_index: {
-            [key: string]: number;
-            nav: number;
-            popup: number;
-            settings: number;
-            skipLink: number;
-        };
-        font: {
-            size: {
-                [key: string]: number | import("../index.js").RecursiveRecord<string | number, number>;
-                heading: {
-                    3: number;
-                    2: number;
-                    1: number;
-                    4: number;
-                    9: number;
-                    8: number;
-                    5: number;
-                    6: number;
-                    7: number;
-                    10: number;
-                } & {
-                    [key: number]: number;
-                };
-                smaller: {
-                    [key: number]: number;
-                    1: number;
-                    2: number;
-                    3: number;
-                    4: number;
-                };
-                normal: number;
-                bigger: {
-                    [key: number]: number;
-                };
-            };
-            sizeScale: number;
-            family: {
-                [x: string]: {
-                    variable: {
-                        normal: {
-                            family: string;
-                            fallbacks: string[];
-                            src: {
-                                type: "local" | "truetype" | "woff" | "woff2";
-                                path: string;
-                            }[];
-                            style: "normal" | "italic";
-                            weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                            printFontFace: boolean;
-                            display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                            'line-gap-override'?: string;
-                            'size-adjust'?: string;
-                            'unicode-range'?: string;
-                        };
-                        italic: {
-                            family: string;
-                            fallbacks: string[];
-                            src: {
-                                type: "local" | "truetype" | "woff" | "woff2";
-                                path: string;
-                            }[];
-                            style: "normal" | "italic";
-                            weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                            printFontFace: boolean;
-                            display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                            'line-gap-override'?: string;
-                            'size-adjust'?: string;
-                            'unicode-range'?: string;
-                        };
-                    } | undefined;
-                    weights: {
-                        100?: {
-                            normal: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                            italic: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                        } | undefined;
-                        200?: {
-                            normal: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                            italic: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                        } | undefined;
-                        300?: {
-                            normal: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                            italic: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                        } | undefined;
-                        400?: {
-                            normal: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                            italic: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                        } | undefined;
-                        500?: {
-                            normal: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                            italic: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                        } | undefined;
-                        600?: {
-                            normal: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                            italic: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                        } | undefined;
-                        700?: {
-                            normal: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                            italic: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                        } | undefined;
-                        800?: {
-                            normal: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                            italic: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                        } | undefined;
-                        900?: {
-                            normal: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                            italic: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                        } | undefined;
-                    };
-                };
-            } | undefined;
-            familyOverrides: {
-                [key: string]: Tokens_Typography.Font.FamilyOverride;
-            } | undefined;
-        };
-        line_height: {
-            100: number;
-            200: number;
-            300: number;
-            400: number;
-            500: number;
-            600: number;
-        } & {
-            [x: string]: number | undefined;
-        };
-        spacing_multiplier: number;
-        margin: {
-            100: number;
-            200: number;
-            300: number;
-            400: number;
-            500: number;
-            600: number;
-            800: number;
-            900: number;
-        } & {
-            [x: string]: number | undefined;
-        };
-    };
+    toScssVars(): Tokens_Internal.ScssVars<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_ExtraIconNames, T_LogoNames, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background>;
     toScss(): string;
 }
 /**
@@ -701,7 +85,7 @@ export declare namespace Tokens_Internal {
         logos: Tokens_Logos.Data<T_LogoNames>;
         spacing: Tokens_Spacing.Data;
         themes: Tokens_Themes.Data<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode[number], T_ThemeContrastMode[number], T_ThemeName, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background>;
-        typography: Tokens_Typography.Data;
+        typography: Tokens_Typography.Data<string>;
     };
     interface InputParam<T_ColourName extends string, T_ExtraColourLevels extends ColourUtilities.Levels.Optional, T_ThemeBrightnessMode extends readonly [string, ...string[]], T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne, T_ThemeName extends string, T_ExtraIconNames extends string, T_LogoNames extends string, T_ThemeKeyword_Universal extends string, T_ThemeKeyword_Text extends string, T_ThemeKeyword_Background extends string> {
         colour?: undefined | Tokens_Colour.InputParam<T_ColourName, T_ExtraColourLevels>;
@@ -714,7 +98,7 @@ export declare namespace Tokens_Internal {
             contrast?: T_ThemeContrastMode;
             input?: Tokens_Themes.InputParam<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode[number], T_ThemeContrastMode[number], T_ThemeName, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background>;
         };
-        typography?: undefined | Tokens_Typography.InputParam;
+        typography?: undefined | Tokens_Typography.InputParam<string>;
     }
     type JsonReturn<T_ColourName extends string, T_ExtraColourLevels extends ColourUtilities.Levels.Optional, T_ThemeBrightnessMode extends readonly [string, ...string[]], T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne, T_ThemeName extends string, T_ExtraIconNames extends string, T_LogoNames extends string, T_ThemeKeyword_Universal extends string, T_ThemeKeyword_Text extends string, T_ThemeKeyword_Background extends string> = {
         colour: Tokens_Colour.JsonReturn<T_ColourName, T_ExtraColourLevels>;
@@ -723,7 +107,13 @@ export declare namespace Tokens_Internal {
         logos: Tokens_Logos.JsonReturn<T_LogoNames>;
         spacing: Tokens_Spacing.JsonReturn;
         themes: Tokens_Themes.JsonReturn<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode[number], T_ThemeContrastMode[number], T_ThemeName, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background>;
-        typography: Tokens_Typography.JsonReturn;
+        typography: Tokens_Typography.JsonReturn<string>;
+    };
+    type ScssVars<T_ColourName extends string, T_ExtraColourLevels extends ColourUtilities.Levels.Optional, T_ThemeBrightnessMode extends readonly [string, ...string[]], T_ThemeContrastMode extends ThemeMode_ContrastAtLeastOne, T_ThemeName extends string, T_ExtraIconNames extends string, T_LogoNames extends string, T_ThemeKeyword_Universal extends string, T_ThemeKeyword_Text extends string, T_ThemeKeyword_Background extends string> = Tokens_CSS.ScssVars & Tokens_Spacing.ScssVars & Tokens_Typography.ScssVars<string> & {
+        colour: Tokens_Colour.ScssVars<T_ColourName, T_ExtraColourLevels>;
+        icons: Tokens_Icons.ScssVars<T_ExtraIconNames>;
+        logos: Tokens_Logos.ScssVars<T_LogoNames>;
+        themes: Tokens_Themes.ScssVars<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode[number], T_ThemeContrastMode[number], T_ThemeName, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background>;
     };
 }
 /**
@@ -735,7 +125,7 @@ export declare namespace Tokens {
     /**
      * @since 0.1.0-alpha
      */
-    function sample(): Promise<Tokens<"base" | "purple" | "turquoise" | "red", "350" | "450" | "550" | "650", Tokens_Internal.Default_ThemeBrightnessMode, readonly ["low", "average", "high", "max"], "default", never, never, never, never, never>>;
+    function sample(): Promise<Tokens<"red" | "base" | "purple" | "turquoise", "350" | "450" | "550" | "650", Tokens_Internal.Default_ThemeBrightnessMode, readonly ["low", "average", "high", "max"], "default", never, never, never, never, never>>;
     /**
      * The shape of ANY {@link Tokens} class instance, without any
      * required generics.
@@ -1113,12 +503,12 @@ export declare namespace Tokens {
                     sizeAdjust: string;
                     weights: {
                         400: {
-                            normal: Tokens_Typography.Font.File;
                             italic: Tokens_Typography.Font.File;
+                            normal: Tokens_Typography.Font.File;
                         };
                         700: {
-                            normal: Tokens_Typography.Font.File;
                             italic: Tokens_Typography.Font.File;
+                            normal: Tokens_Typography.Font.File;
                         };
                     };
                 };
@@ -1132,12 +522,12 @@ export declare namespace Tokens {
                     sizeAdjust: string;
                     weights: {
                         400: {
-                            normal: Tokens_Typography.Font.File;
                             italic: Tokens_Typography.Font.File;
+                            normal: Tokens_Typography.Font.File;
                         };
                         700: {
-                            normal: Tokens_Typography.Font.File;
                             italic: Tokens_Typography.Font.File;
+                            normal: Tokens_Typography.Font.File;
                         };
                     };
                 };
@@ -1150,32 +540,32 @@ export declare namespace Tokens {
                     sizeAdjust: string;
                     weights: {
                         100: {
-                            normal: Tokens_Typography.Font.File;
                             italic: Tokens_Typography.Font.File;
+                            normal: Tokens_Typography.Font.File;
                         };
                         200: {
-                            normal: Tokens_Typography.Font.File;
                             italic: Tokens_Typography.Font.File;
+                            normal: Tokens_Typography.Font.File;
                         };
                         300: {
-                            normal: Tokens_Typography.Font.File;
                             italic: Tokens_Typography.Font.File;
+                            normal: Tokens_Typography.Font.File;
                         };
                         400: {
-                            normal: Tokens_Typography.Font.File;
                             italic: Tokens_Typography.Font.File;
+                            normal: Tokens_Typography.Font.File;
                         };
                         500: {
-                            normal: Tokens_Typography.Font.File;
                             italic: Tokens_Typography.Font.File;
+                            normal: Tokens_Typography.Font.File;
                         };
                         600: {
-                            normal: Tokens_Typography.Font.File;
                             italic: Tokens_Typography.Font.File;
+                            normal: Tokens_Typography.Font.File;
                         };
                         700: {
-                            normal: Tokens_Typography.Font.File;
                             italic: Tokens_Typography.Font.File;
+                            normal: Tokens_Typography.Font.File;
                         };
                     };
                 };
@@ -1210,7 +600,7 @@ export declare namespace Tokens {
         /**
          * @since 0.1.0-alpha
          */
-        interface AllVariations<T_ColourName extends string = Tokens_Internal.Default_ColourName, T_ThemeKeyword_Universal extends string = never, T_ThemeKeyword_Text extends string = never, T_ThemeKeyword_Background extends string = never> extends Tokens_Themes_Set_SingleMode.AllVariations<T_ColourName, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background> {
+        interface AllVariations<T_ColourName extends string = Tokens_Internal.Default_ColourName, T_ThemeKeyword_Universal extends string = never, T_ThemeKeyword_Text extends string = never, T_ThemeKeyword_Background extends string = never> extends Tokens_Themes_Set.SingleMode.AllVariations<T_ColourName, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background> {
         }
         /**
          * @since 0.1.1-alpha.1.draft
@@ -1229,7 +619,7 @@ export declare namespace Tokens {
          * @since 0.1.0-alpha
          */
         namespace SingleMode {
-            const colourOption: typeof Tokens_Themes_Set_SingleMode.Build.colourOption;
+            const colourOption: typeof Tokens_Themes_Set.SingleMode.Build.colourOption;
             /**
              * @since 0.1.1-alpha.1.draft
              */
@@ -1237,24 +627,24 @@ export declare namespace Tokens {
                 /**
                  * @since 0.1.1-alpha.1.draft
                  */
-                interface Input<T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels> extends Tokens_Themes_Set_SingleMode.Levels.Input<T_ExtraColourLevels> {
+                interface Input<T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels> extends Tokens_Themes_Set.SingleMode.Levels.Input<T_ExtraColourLevels> {
                 }
                 /**
                  * @since 0.1.1-alpha.1.draft
                  */
-                interface Parsed<T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels> extends Tokens_Themes_Set_SingleMode.Levels.Parsed<T_ExtraColourLevels> {
+                interface Parsed<T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels> extends Tokens_Themes_Set.SingleMode.Levels.Parsed<T_ExtraColourLevels> {
                 }
                 /**
                  * @since 0.1.1-alpha.1.draft
                  */
-                interface Required<T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels> extends Tokens_Themes_Set_SingleMode.Levels.Required<T_ExtraColourLevels> {
+                interface Required<T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels> extends Tokens_Themes_Set.SingleMode.Levels.Required<T_ExtraColourLevels> {
                 }
                 /**
                  * @since 0.1.1-alpha.0
-                 * @since 0.1.1-alpha.1.draft — Moved to Tokens_Themes_Set_SingleMode.Levels and renamed.
+                 * @since 0.1.1-alpha.1.draft — Moved to Tokens_Themes_Set.SingleMode.Levels and renamed.
                  */
-                const DEFAULT: typeof Tokens_Themes_Set_SingleMode.Levels.DEFAULT;
-                const parse: typeof Tokens_Themes_Set_SingleMode.Levels.parse;
+                const DEFAULT: typeof Tokens_Themes_Set.SingleMode.Levels.DEFAULT;
+                const parse: typeof Tokens_Themes_Set.SingleMode.Levels.parse;
             }
             /**
              * Common object shapes used to set multiple level types.
@@ -1265,18 +655,18 @@ export declare namespace Tokens {
                 /**
                  * @since 0.1.1-alpha.1.draft
                  */
-                interface AccentMin<T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels> extends Tokens_Themes_Set_SingleMode.Levels.Set.AccentMin<T_ExtraColourLevels> {
+                interface AccentMin<T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels> extends Tokens_Themes_Set.SingleMode.Levels.Set.AccentMin<T_ExtraColourLevels> {
                 }
                 /**
                  * @since 0.1.1-alpha.1.draft
                  */
-                interface AccentGrey<T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels> extends Tokens_Themes_Set_SingleMode.Levels.Set.AccentGrey<T_ExtraColourLevels> {
+                interface AccentGrey<T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels> extends Tokens_Themes_Set.SingleMode.Levels.Set.AccentGrey<T_ExtraColourLevels> {
                 }
             }
             /**
              * @since 0.1.0-alpha
              */
-            interface Data<T_ColourName extends string = Tokens_Internal.Default_ColourName, T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels, T_ThemeKeyword_Universal extends string = never, T_ThemeKeyword_Text extends string = never, T_ThemeKeyword_Background extends string = never, __T_ColourOption extends TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels> = TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>> extends Tokens_Themes_Set_SingleMode.Data<T_ColourName, T_ExtraColourLevels, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background, __T_ColourOption> {
+            interface Data<T_ColourName extends string = Tokens_Internal.Default_ColourName, T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels, T_ThemeKeyword_Universal extends string = never, T_ThemeKeyword_Text extends string = never, T_ThemeKeyword_Background extends string = never, __T_ColourOption extends TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels> = TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>> extends Tokens_Themes_Set.SingleMode.Data<T_ColourName, T_ExtraColourLevels, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background, __T_ColourOption> {
             }
             /**
              * @since 0.1.1-alpha.1.draft
@@ -1285,18 +675,18 @@ export declare namespace Tokens {
                 /**
                  * @since 0.1.0-alpha
                  */
-                interface RecursivePartial<T_ColourName extends string = Tokens_Internal.Default_ColourName, T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels, T_ThemeKeyword_Universal extends string = never, T_ThemeKeyword_Text extends string = never, T_ThemeKeyword_Background extends string = never, __T_ColourOption extends TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels> = TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>> extends Tokens_Themes_Set_SingleMode.Data.RecursivePartial<T_ColourName, T_ExtraColourLevels, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background, __T_ColourOption> {
+                interface RecursivePartial<T_ColourName extends string = Tokens_Internal.Default_ColourName, T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels, T_ThemeKeyword_Universal extends string = never, T_ThemeKeyword_Text extends string = never, T_ThemeKeyword_Background extends string = never, __T_ColourOption extends TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels> = TokenTypes.ThemeColourOption<T_ColourName, T_ExtraColourLevels>> extends Tokens_Themes_Set.SingleMode.Data.RecursivePartial<T_ColourName, T_ExtraColourLevels, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background, __T_ColourOption> {
                 }
             }
             /**
              * @since 0.1.0-alpha
              */
-            interface InputParam<T_ColourName extends string = Tokens_Internal.Default_ColourName, T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels, T_ThemeKeyword_Universal extends string = never, T_ThemeKeyword_Text extends string = never, T_ThemeKeyword_Background extends string = never> extends Tokens_Themes_Set_SingleMode.InputParam<T_ColourName, T_ExtraColourLevels, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background> {
+            interface InputParam<T_ColourName extends string = Tokens_Internal.Default_ColourName, T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels, T_ThemeKeyword_Universal extends string = never, T_ThemeKeyword_Text extends string = never, T_ThemeKeyword_Background extends string = never> extends Tokens_Themes_Set.SingleMode.InputParam<T_ColourName, T_ExtraColourLevels, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background> {
             }
             /**
              * @since 0.1.0-alpha
              */
-            interface JsonReturn<T_ColourName extends string = Tokens_Internal.Default_ColourName, T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels, T_ThemeKeyword_Universal extends string = never, T_ThemeKeyword_Text extends string = never, T_ThemeKeyword_Background extends string = never> extends Tokens_Themes_Set_SingleMode.JsonReturn<T_ColourName, T_ExtraColourLevels, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background> {
+            interface JsonReturn<T_ColourName extends string = Tokens_Internal.Default_ColourName, T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels, T_ThemeKeyword_Universal extends string = never, T_ThemeKeyword_Text extends string = never, T_ThemeKeyword_Background extends string = never> extends Tokens_Themes_Set.SingleMode.JsonReturn<T_ColourName, T_ExtraColourLevels, T_ThemeKeyword_Universal, T_ThemeKeyword_Text, T_ThemeKeyword_Background> {
             }
         }
     }

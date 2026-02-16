@@ -19,7 +19,11 @@ import { Tokens_CSS_Transition } from './CSS/CSS_Transition.js';
  * 
  * @since 0.1.0-alpha
  */
-export class Tokens_CSS extends AbstractTokens<Tokens_CSS.Data> {
+export class Tokens_CSS extends AbstractTokens<{
+    data: Tokens_CSS.Data;
+    json: Tokens_CSS.JsonReturn;
+    scss: Tokens_CSS.ScssVars;
+}> {
 
     public static get default(): Omit<Tokens_CSS.Data, 'border' | 'style' | 'transition'> {
 
@@ -63,7 +67,7 @@ export class Tokens_CSS extends AbstractTokens<Tokens_CSS.Data> {
         return this.data;
     }
 
-    public toScssVars() {
+    public toScssVars(): Tokens_CSS.ScssVars {
 
         return {
             border: this.border.toScssVars(),
@@ -113,4 +117,13 @@ export namespace Tokens_CSS {
      */
     export type JsonReturn = Data;
 
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export type ScssVars = {
+        border: Tokens_CSS_Border.ScssVars;
+        style: Tokens_CSS_Style.ScssVars;
+        transition: Tokens_CSS_Transition.ScssVars;
+        z_index: Data[ 'zIndex' ];
+    };
 }

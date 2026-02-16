@@ -9,50 +9,31 @@
  */
 
 import {
-    internal as buildUtils_internal,
-} from '@maddimathon/build-utilities';
-
-import {
     JsonToScss,
 } from '@maddimathon/utility-sass';
 
 import type { RecursiveRecord } from '../../01-utilities/@types.js';
+import { LocalErrors } from '../../01-utilities/Errors.js';
 
 
 /**
  * Base class for the classes used to manage tokens and token groups.
  *
  * @since 0.1.0-alpha
+ * @since ___PKG_VERSION___ — Converted type param to an object.
  */
-export abstract class AbstractTokens<T_DataType> {
+export abstract class AbstractTokens<T_Params extends {
+    data: any;
+    json: AbstractTokens.JsonReturn;
+    scss: AbstractTokens.ScssReturn;
+}> {
 
-    public static readonly tokenLevels = [
-        '100',
-        '200',
-        '300',
-        '400',
-        '500',
-        '600',
-        '700',
-        '800',
-        '900',
-    ] as const;
-
-    public static readonly tokenLevels_extraOptions = [
-        '150',
-        '250',
-        '350',
-        '450',
-        '550',
-        '650',
-        '750',
-        '850',
-    ] as const;
-
-    public readonly tokenLevels = AbstractTokens.tokenLevels;
-
-
-    constructor () {
+    public constructor () {
+        this.newError = this.newError.bind( this );
+        this.toJSON = this.toJSON.bind( this );
+        this.toScssVars = this.toScssVars.bind( this );
+        this.toScss = this.toScss.bind( this );
+        this.valueOf = this.valueOf.bind( this );
     }
 
     /**
@@ -60,7 +41,25 @@ export abstract class AbstractTokens<T_DataType> {
      * 
      * @since 0.1.0-alpha
      */
-    public abstract get data(): T_DataType;
+    public abstract get data(): T_Params[ 'data' ];
+
+    /**
+     * Returns a local error object.
+     * 
+     * @since ___PKG_VERSION___
+     */
+    public newError<T_CauseType extends LocalErrors.Cause>(
+        message: string,
+        context: Omit<LocalErrors.Context.Class, "class">,
+        opts?: undefined | {
+            cause?: T_CauseType;
+        },
+    ): LocalErrors.TokenBuildError<T_CauseType> {
+        return new LocalErrors.TokenBuildError( message, {
+            class: Object.getPrototypeOf( this ).constructor,
+            ...context,
+        }, opts );
+    }
 
     /**
      * Converts this token or group to a json-compatible object. NOT W3C tokens
@@ -70,14 +69,14 @@ export abstract class AbstractTokens<T_DataType> {
      * 
      * @since 0.1.0-alpha
      */
-    public abstract toJSON(): AbstractTokens.JsonReturn;
+    public abstract toJSON(): T_Params[ 'json' ];
 
     /**
      * Converts this token or group to the values used when converting to scss.
      * 
      * @since 0.1.0-alpha
      */
-    public abstract toScssVars(): AbstractTokens.ScssReturn;
+    public abstract toScssVars(): T_Params[ 'scss' ];
 
     /**
      * Uses {@link AbstractTokens.toScssVars} to convert this token to a scss
@@ -86,8 +85,79 @@ export abstract class AbstractTokens<T_DataType> {
      * @since 0.1.0-alpha
      */
     public toScss(): string {
-        const value = JsonToScss.convert( this.toScssVars() ) || '()';
-        return '$vars: ' + value;
+        return JsonToScss.convert( this.toScssVars() ) || '()';
+    }
+
+    /**
+     * If the `tryer` function has no params, then they are optional.
+     * 
+     * If the handler won't exit, then 'FAILED' is possible.
+     */
+    protected try<
+        T_Params extends never[],
+        T_Return extends unknown,
+    >(
+        tryer: () => T_Return,
+        opts: AbstractTokens.TryOpts,
+        params: never[] | undefined,
+    ): T_Return;
+
+    /**
+     * If the `tryer` function *has* params, then they are required.
+     */
+    protected try<
+        T_Params extends unknown[],
+        T_Return extends unknown,
+    >(
+        tryer: ( ...params: T_Params ) => T_Return,
+        opts: AbstractTokens.TryOpts,
+        params: NoInfer<T_Params>,
+    ): T_Return;
+
+    /**
+     * Runs a function, with parameters as applicable, and catches (& handles)
+     * anything thrown.
+     * 
+     * For the asynchronous method, see {@link AbstractStage.atry}.
+     *
+     * Overloaded for better function param typing.
+     *
+     * @category Errors
+     *
+     * @experimental
+     */
+    protected try<
+        T_Params extends unknown[] | never[],
+        T_Return extends unknown,
+    >(
+        tryer: ( () => T_Return ) | ( ( ...params: T_Params ) => T_Return ),
+        opts: AbstractTokens.TryOpts,
+        params?: NoInfer<T_Params> | undefined,
+    ): T_Return {
+
+        try {
+
+            return tryer( ...( params ?? [] as T_Params ) );
+
+        } catch ( error ) {
+
+            // throws
+            if ( error instanceof LocalErrors.Abst_Error ) {
+                throw error;
+            }
+
+            throw this.newError(
+                opts.message,
+                {
+                    class: Object.getPrototypeOf( this ).constructor,
+                    method: tryer.name,
+                    ...opts.context,
+                },
+                {
+                    cause: error as LocalErrors.Cause,
+                },
+            );
+        }
     }
 
     /**
@@ -95,7 +165,7 @@ export abstract class AbstractTokens<T_DataType> {
      * 
      * @since 0.1.0-alpha
      */
-    public valueOf(): T_DataType {
+    public valueOf(): T_Params[ 'data' ] {
         return this.data;
     }
 }
@@ -108,91 +178,44 @@ export abstract class AbstractTokens<T_DataType> {
  */
 export namespace AbstractTokens {
 
-    export type JsonReturn = undefined | null | number | string
-        | RecursiveRecord<
-            number | string,
-            any
-        >;
+    type JsonReturnBasic =
+        | undefined
+        | null
+        | boolean
+        | number
+        | string
+        | { toJSON: () => any; }
+        | JsonReturnBasic[];
 
-    export type ScssPrimitive = undefined | null | number | object | string;
+    export type JsonReturn =
+        | JsonReturnBasic
+        | RecursiveRecord<number | string, JsonReturnBasic | JsonReturn[]>
+        | JsonReturn[];
 
-    export type ScssReturn = ScssPrimitive | RecursiveRecord<number | string, ScssPrimitive>;
+    export type ScssPrimitive =
+        | undefined
+        | null
+        | boolean
+        | number
+        | string
+        | ScssPrimitive[];
 
-
-
-    /* ERRORS
-     * ====================================================================== */
-
-    /**
-     * Used to throw errors while compiling the tokens.
-     * 
-     * @since 0.1.0-alpha
-     */
-    export class Tokens_Error<
-        T_CauseType extends unknown | undefined = never,
-    > extends buildUtils_internal.AbstractError<never, Tokens_Error.Context> {
-
-        public override readonly name: string;
-
-        public constructor (
-            message: string,
-            public override readonly context: Tokens_Error.Context,
-            protected readonly opts: {
-                cause: T_CauseType;
-            },
-        ) {
-            super(
-                message,
-                null,
-                opts,
-            );
-
-            this.name = 'Tokens_Error';
-        }
-
-        /**
-         * The object shape used when converting to JSON.
-         *
-         * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#description | JSON.stringify}
-         */
-        public override toJSON() {
-
-            const json = {
-                name: this.name,
-                message: this.message,
-                context: this.context,
-                cause: this.cause,
-                stack: this.stack,
-                string: this.toString(),
-            } satisfies buildUtils_internal.AbstractError.JSON<Tokens_Error.Context>;
-
-            return json;
-        }
-    }
+    export type ScssReturn =
+        | ScssPrimitive
+        | RecursiveRecord<number | string, ScssPrimitive | ScssReturn[]>
+        | ScssReturn[];
 
     /**
-     * Utilities for the {@link AbstractTokens.Tokens_Error} class.
+     * Options for the {@link AbstractTokens.try} method.
      * 
-     * @since 0.1.0-alpha
+     * @since ___PKG_VERSION___
      */
-    export namespace Tokens_Error {
-
+    export interface TryOpts {
         /**
-         * Object used to give context for where this error was triggered.
-         * 
-         * @since 0.1.0-alpha
+         * Message for the error if it fails.
          */
-        export interface Context {
+        message: string;
 
-            /** 
-             * Name for the schema, used in error messages.
-             */
-            name: string;
-
-            /** 
-             * Location where schema is being tested.
-             */
-            location: string;
-        };
+        context?: Partial<LocalErrors.Context.Class>;
     }
 }

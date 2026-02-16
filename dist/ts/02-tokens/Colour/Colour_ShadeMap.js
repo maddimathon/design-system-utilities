@@ -8,9 +8,9 @@
  * @license MIT
  */
 import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
+import { LocalErrors } from '../../01-utilities/Errors.js';
 import { objectMap } from '../../01-utilities/objectMap.js';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
-import { Tokens_Colour_ShadeMap_Shade } from './ShadeMap/ShadeMap_Shade.js';
 /**
  * Generates a complete token object for the design system.
  *
@@ -21,12 +21,23 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
     extraLevels;
     name;
     data;
-    constructor(allNames, extraLevels, name, input) {
+    /**
+     * Allows for async building.
+     */
+    static async build(allNames, extraLevels, name, input) {
+        const errorMaker = (message, context, opts) => new LocalErrors.TokenBuildError(message, {
+            class: 'Tokens_Colour_ShadeMap',
+            method: 'build',
+            ...context,
+        }, opts);
+        return Tokens_Colour_ShadeMap.completeMap(allNames, extraLevels, name, input, errorMaker).then(data => new Tokens_Colour_ShadeMap(allNames, extraLevels, name, data));
+    }
+    constructor(allNames, extraLevels, name, data) {
         super();
         this.allNames = allNames;
         this.extraLevels = extraLevels;
         this.name = name;
-        this.data = Tokens_Colour_ShadeMap.completeMap(this.allNames, this.extraLevels, this.name, input);
+        this.data = data;
     }
     /**
      * Adds the given shade map to this map's shades' contrast results.
@@ -57,10 +68,151 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
  * @since 0.1.0-alpha
  */
 (function (Tokens_Colour_ShadeMap) {
+    /* SHADE CLASS
+     * ====================================================================== */
+    /**
+     * Generates a complete token object for the design system.
+     *
+     * @since 0.1.0-alpha
+     * @since 0.1.1-alpha.1.draft — Moved to {@link Tokens_Colour_ShadeMap} and renamed.
+     */
+    class Shade extends AbstractTokens {
+        allNames;
+        extraLevels;
+        shadeName;
+        thisLevel;
+        data;
+        /**
+         * Allows for async building.
+         */
+        static async build(allNames, extraLevels, shadeName, thisLevel, input) {
+            const errorMaker = (message, context, opts) => new LocalErrors.TokenBuildError(message, {
+                class: 'Shade',
+                method: 'build',
+                ...context,
+            }, opts);
+            return ColourUtilities.validateShade(input, errorMaker).then(data => new Shade(allNames, extraLevels, shadeName, thisLevel, data));
+        }
+        contrast = {
+            min: {},
+            max: {},
+            results: {},
+        };
+        constructor(allNames, extraLevels, shadeName, thisLevel, data) {
+            super();
+            this.allNames = allNames;
+            this.extraLevels = extraLevels;
+            this.shadeName = shadeName;
+            this.thisLevel = thisLevel;
+            this.data = data;
+        }
+        /**
+         * Adds the given shade to this shade's contrast results.
+         *
+         * @since 0.1.0-alpha
+         */
+        async addContrastTest(colourGroupName, level, testClr) {
+            if (typeof this.contrast.results[colourGroupName] === 'undefined') {
+                this.contrast.results[colourGroupName] = {};
+            }
+            const contrastTest = new ColourUtilities.ContrastTest(this.shadeValue(), testClr);
+            if (typeof this.contrast.min[colourGroupName] === 'undefined') {
+                this.contrast.min[colourGroupName] = {
+                    ui: undefined,
+                    text: undefined,
+                };
+            }
+            // SETTING MINIMUMS
+            testNameLoop: for (const testName of ['ui', 'text']) {
+                // continues
+                if (!contrastTest.aa[testName] && !contrastTest.aaa[testName]) {
+                    continue testNameLoop;
+                }
+                if (typeof this.contrast.min[colourGroupName][testName] === 'undefined') {
+                    this.contrast.min[colourGroupName][testName] = {
+                        aa: undefined,
+                        aaa: undefined,
+                    };
+                }
+                standardsLoop: for (const standard of ['aa', 'aaa']) {
+                    // if it didn't pass, ignore this
+                    if (!contrastTest[standard][testName]) {
+                        continue standardsLoop;
+                    }
+                    if (
+                    // if there's no minimum, then this is the new minimum
+                    typeof this.contrast.min[colourGroupName][testName]?.[standard] === 'undefined'
+                        // this result is less than the existing minimum
+                        || contrastTest.ratio < this.contrast.min[colourGroupName][testName]?.[standard].ratio) {
+                        this.contrast.min[colourGroupName][testName][standard] = {
+                            name: colourGroupName,
+                            level,
+                            ratio: contrastTest.ratio,
+                        };
+                    }
+                }
+            }
+            // SETTING MAXIMUM
+            if (
+            // if there's no maximum, then this is the new maximum
+            typeof this.contrast.max[colourGroupName] === 'undefined'
+                // this result is more than the existing maximum
+                || contrastTest.ratio > this.contrast.max[colourGroupName].ratio) {
+                this.contrast.max[colourGroupName] = {
+                    name: colourGroupName,
+                    level,
+                    ratio: contrastTest.ratio,
+                };
+            }
+            this.contrast.results[colourGroupName][level] = {
+                ...contrastTest.toJSON(),
+            };
+        }
+        shadeValue() {
+            return {
+                hex: this.data.hex,
+                hsl: this.data.hsl,
+                rgb: this.data.rgb,
+                lch: this.data.lch,
+            };
+        }
+        toJSON() {
+            const max = this.contrast.max;
+            const min = objectMap(this.contrast.min, ([key, testGroup]) => ({
+                ui: testGroup?.ui && {
+                    aa: testGroup.ui.aa,
+                    aaa: testGroup.ui.aaa,
+                },
+                text: testGroup?.text && {
+                    aa: testGroup.text.aa,
+                    aaa: testGroup.text.aaa,
+                },
+            }));
+            return {
+                ...this.shadeValue(),
+                contrast: {
+                    max,
+                    min,
+                    results: this.contrast.results,
+                },
+            };
+        }
+        toScssVars() {
+            return ColourUtilities.toString.hsl(this.data.hsl);
+        }
+    }
+    Tokens_Colour_ShadeMap.Shade = Shade;
+    ;
     /* FUNCTIONS
      * ====================================================================== */
+    /**
+     * Completes a shade map and converts the level values to
+     * {@link Tokens_Colour_ShadeMap.Shade} objects.
+     *
+     * @since 0.1.0-alpha
+     */
     // UPGRADE - make this work by only setting lch or hsl hue value
-    function completeMap(allNames, extraLevels, name, part, _treatShadeAsBase) {
+    async function completeMap(allNames, extraLevels, name, part, errMaker, _treatShadeAsBase) {
         const treatShadeAsBase = _treatShadeAsBase ?? (name.match(/^base(\-|\_|$)/i) !== null);
         const inputKeys = Object.keys(part);
         const bases = {
@@ -68,12 +220,10 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
             '500': { l: 50, c: 0, h: 0, },
             '900': { l: 2, c: 0, h: 0, },
         };
-        const shadeMaker = (_thisLevel, _input) => {
+        const shadeMaker = async (_thisLevel, _input) => {
             // to keep it within a reasonable spectrum (since I average lch values)
-            const hsl = ColourUtilities.toHSL((_input instanceof Tokens_Colour_ShadeMap_Shade
-                ? _input.data.lch
-                : _input), false);
-            return new Tokens_Colour_ShadeMap_Shade(allNames, extraLevels, name, _thisLevel, hsl);
+            const hsl = ColourUtilities.Async.toHSL(_input, errMaker ?? undefined, false);
+            return hsl.then(validHSL => Tokens_Colour_ShadeMap.Shade.build(allNames, extraLevels, name, _thisLevel, validHSL));
         };
         let _l_100;
         let _l_500 = undefined;
@@ -91,17 +241,17 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
             // if these core colours aren't set, we have to generate them or the
             // reset of the system will break
             if (inputKeys.length > 0) {
-                const _hue = Object.values(part).map(p => ColourUtilities.toLCH(p).h).reduce((partialSum, a) => partialSum + a, 0) / Math.max(1, inputKeys.length);
-                _l_100 = shadeMaker('100', part['100'] ?? {
+                const _hue = Promise.all(Object.values(part).map(p => ColourUtilities.Async.toLCH(p))).then(arr => arr.reduce(((partialSum, a) => partialSum + a.h), 0) / Math.max(1, inputKeys.length));
+                _l_100 = _hue.then((h) => shadeMaker('100', part['100'] ?? {
                     l: bases['100'].l,
                     c: 5,
-                    h: _hue,
-                });
-                _l_900 = shadeMaker('900', part['900'] ?? {
+                    h,
+                }));
+                _l_900 = _hue.then((h) => shadeMaker('900', part['900'] ?? {
                     l: bases['900'].l,
                     c: 4,
-                    h: _hue,
-                });
+                    h,
+                }));
             }
             else {
                 _l_100 = shadeMaker('100', part['100'] ?? bases['100']);
@@ -113,104 +263,60 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
             _l_100 = shadeMaker('100', part['100'] ?? bases['100']);
             _l_900 = shadeMaker('900', part['900'] ?? bases['900']);
         }
-        const l_100 = _l_100;
-        const l_900 = _l_900;
-        const l_500 = _l_500 ?? shadeMaker('500', ((!('500' in part) || !part['500'])
-            // we should merge it from what's available
-            ? ColourUtilities.mixColours(l_100, l_900)
-            // otherwise we can safely assume this exists
-            : part['500']));
-        const l_300 = shadeMaker('300', ((!('300' in part) || !part['300'])
-            // we should merge it from what's available
-            ? ColourUtilities.mixColours(l_100, l_500, treatShadeAsBase ? 0 : 0.375)
-            // ? ColourUtilities.mixColours( l_100, l_500 )
-            // otherwise we can safely assume this exists
-            : part['300']));
-        const l_700 = shadeMaker('700', ((!('700' in part) || !part['700'])
-            // we should merge it from what's available
-            ? ColourUtilities.mixColours(l_500, l_900, treatShadeAsBase ? 0 : 0.375)
-            // ? ColourUtilities.mixColours( l_500, l_900 )
-            // otherwise we can safely assume this exists
-            : part['700']));
-        const l_200 = shadeMaker('200', ((!('200' in part) || !part['200'])
-            // we should merge it from what's available
-            ? ColourUtilities.mixColours(l_100, l_300)
-            // otherwise we can safely assume this exists
-            : part['200']));
-        const l_400 = shadeMaker('400', ((!('400' in part) || !part['400'])
-            // we should merge it from what's available
-            ? ColourUtilities.mixColours(l_300, l_500)
-            // otherwise we can safely assume this exists
-            : part['400']));
-        const l_600 = shadeMaker('600', ((!('600' in part) || !part['600'])
-            // we should merge it from what's available
-            ? ColourUtilities.mixColours(l_500, l_700)
-            // otherwise we can safely assume this exists
-            : part['600']));
-        const l_800 = shadeMaker('800', ((!('800' in part) || !part['800'])
-            // we should merge it from what's available
-            ? ColourUtilities.mixColours(l_700, l_900)
-            // otherwise we can safely assume this exists
-            : part['800']));
-        const l_150 = shadeMaker('150', ((!('150' in part) || !part['150'])
-            // we should merge it from what's available
-            ? ColourUtilities.mixColours(l_100, l_200)
-            // otherwise we can safely assume this exists
-            : part['150']));
-        const l_250 = shadeMaker('250', ((!('250' in part) || !part['250'])
-            // we should merge it from what's available
-            ? ColourUtilities.mixColours(l_200, l_300)
-            // otherwise we can safely assume this exists
-            : part['250']));
-        const l_850 = shadeMaker('850', ((!('850' in part) || !part['850'])
-            // we should merge it from what's available
-            ? ColourUtilities.mixColours(l_800, l_900)
-            // otherwise we can safely assume this exists
-            : part['850']));
-        // const l_350 = shadeMaker(
-        //     '350',
-        //     (
-        //         ( !( '350' in part ) || !part[ '350' ] )
-        //             // we should merge it from what's available
-        //             ? ColourUtilities.mixColours( l_300, l_400 )
-        //             // otherwise we can safely assume this exists
-        //             : part[ '350' ]
-        //     )
-        // );
-        // const l_650 = shadeMaker(
-        //     '650',
-        //     (
-        //         ( !( '650' in part ) || !part[ '650' ] )
-        //             // we should merge it from what's available
-        //             ? ColourUtilities.mixColours( l_600, l_700 )
-        //             // otherwise we can safely assume this exists
-        //             : part[ '650' ]
-        //     )
-        // );
-        const l_750 = shadeMaker('750', ((!('750' in part) || !part['750'])
-            // we should merge it from what's available
-            ? ColourUtilities.mixColours(l_700, l_800)
-            // otherwise we can safely assume this exists
-            : part['750']));
+        const [l_100, l_900, l_500,] = await Promise.all([
+            _l_100,
+            _l_900,
+            Promise.resolve(_l_500).then(async (__clr) => {
+                // return
+                if (__clr) {
+                    return __clr;
+                }
+                // returns
+                if ('500' in part && part['500']) {
+                    return shadeMaker('500', part['500']);
+                }
+                return ColourUtilities.mixColours(await _l_100, await _l_900).then(mixed => shadeMaker('500', mixed));
+            }),
+        ]);
+        const shadeFetcher = async (level, lowClr, highClr, saturationMultiplier) => {
+            // returns
+            if (level in part && part[level]) {
+                return shadeMaker(level, part[level]);
+            }
+            return ColourUtilities.mixColours(lowClr, highClr, saturationMultiplier).then(clr => shadeMaker(level, clr));
+        };
+        const [l_300, l_700,] = await Promise.all([
+            shadeFetcher('300', l_100, l_500, treatShadeAsBase ? 0 : 0.375),
+            shadeFetcher('700', l_500, l_900, treatShadeAsBase ? 0 : 0.375),
+        ]);
+        const [l_200, l_400, l_600, l_800,] = await Promise.all([
+            shadeFetcher('200', l_100, l_300),
+            shadeFetcher('400', l_300, l_500),
+            shadeFetcher('600', l_500, l_700),
+            shadeFetcher('800', l_700, l_900),
+        ]);
+        const [l_150, l_250, l_750, l_850,] = await Promise.all([
+            shadeFetcher('150', l_100, l_200),
+            shadeFetcher('250', l_200, l_300),
+            shadeFetcher('750', l_700, l_800),
+            shadeFetcher('850', l_800, l_900),
+        ]);
         const defaultLevels = {
             '100': l_100,
             '150': l_150,
             '200': l_200,
             '250': l_250,
             '300': l_300,
-            // '350': l_350,
             '400': l_400,
             '500': l_500,
             '600': l_600,
-            // '650': l_650,
             '700': l_700,
             '750': l_750,
             '800': l_800,
             '850': l_850,
             '900': l_900,
         };
-        // @ts-expect-error - this will be filled
-        const completeLevels = {};
+        const completeLevels = [];
         const levelsToInclude = [
             ...Object.keys(defaultLevels),
             ...extraLevels
@@ -218,12 +324,15 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
         levelLoop: for (const level of levelsToInclude) {
             // continues
             if (level in defaultLevels) {
-                completeLevels[level] = defaultLevels[level];
+                completeLevels.push([
+                    level,
+                    defaultLevels[level],
+                ]);
                 continue levelLoop;
             }
             // continues
             if (part[level]) {
-                completeLevels[level] = shadeMaker(level, part[level]);
+                completeLevels.push(shadeMaker(level, part[level]).then(shade => [level, shade]));
                 continue levelLoop;
             }
             let lowerLevel;
@@ -247,9 +356,9 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
                     higherLevel = '700';
                     break;
             }
-            completeLevels[level] = shadeMaker(level, ColourUtilities.mixColours(defaultLevels[lowerLevel], defaultLevels[higherLevel]));
+            completeLevels.push(ColourUtilities.mixColours(defaultLevels[lowerLevel], defaultLevels[higherLevel]).then(mixed => shadeMaker(level, mixed).then(shade => [level, shade])));
         }
-        return completeLevels;
+        return Promise.all(completeLevels).then(entries => Object.fromEntries(entries));
     }
     Tokens_Colour_ShadeMap.completeMap = completeMap;
     /**

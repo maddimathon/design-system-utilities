@@ -7,24 +7,34 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
-import { internal as buildUtils_internal } from '@maddimathon/build-utilities';
 import type { RecursiveRecord } from '../../01-utilities/@types.js';
+import { LocalErrors } from '../../01-utilities/Errors.js';
 /**
  * Base class for the classes used to manage tokens and token groups.
  *
  * @since 0.1.0-alpha
+ * @since 0.1.1-alpha.1.draft — Converted type param to an object.
  */
-export declare abstract class AbstractTokens<T_DataType> {
-    static readonly tokenLevels: readonly ["100", "200", "300", "400", "500", "600", "700", "800", "900"];
-    static readonly tokenLevels_extraOptions: readonly ["150", "250", "350", "450", "550", "650", "750", "850"];
-    readonly tokenLevels: readonly ["100", "200", "300", "400", "500", "600", "700", "800", "900"];
+export declare abstract class AbstractTokens<T_Params extends {
+    data: any;
+    json: AbstractTokens.JsonReturn;
+    scss: AbstractTokens.ScssReturn;
+}> {
     constructor();
     /**
      * The value of this token.
      *
      * @since 0.1.0-alpha
      */
-    abstract get data(): T_DataType;
+    abstract get data(): T_Params['data'];
+    /**
+     * Returns a local error object.
+     *
+     * @since 0.1.1-alpha.1.draft
+     */
+    newError<T_CauseType extends LocalErrors.Cause>(message: string, context: Omit<LocalErrors.Context.Class, "class">, opts?: undefined | {
+        cause?: T_CauseType;
+    }): LocalErrors.TokenBuildError<T_CauseType>;
     /**
      * Converts this token or group to a json-compatible object. NOT W3C tokens
      * -- this is meant to be more human-readable.
@@ -33,13 +43,13 @@ export declare abstract class AbstractTokens<T_DataType> {
      *
      * @since 0.1.0-alpha
      */
-    abstract toJSON(): AbstractTokens.JsonReturn;
+    abstract toJSON(): T_Params['json'];
     /**
      * Converts this token or group to the values used when converting to scss.
      *
      * @since 0.1.0-alpha
      */
-    abstract toScssVars(): AbstractTokens.ScssReturn;
+    abstract toScssVars(): T_Params['scss'];
     /**
      * Uses {@link AbstractTokens.toScssVars} to convert this token to a scss
      * string.
@@ -48,11 +58,21 @@ export declare abstract class AbstractTokens<T_DataType> {
      */
     toScss(): string;
     /**
+     * If the `tryer` function has no params, then they are optional.
+     *
+     * If the handler won't exit, then 'FAILED' is possible.
+     */
+    protected try<T_Params extends never[], T_Return extends unknown>(tryer: () => T_Return, opts: AbstractTokens.TryOpts, params: never[] | undefined): T_Return;
+    /**
+     * If the `tryer` function *has* params, then they are required.
+     */
+    protected try<T_Params extends unknown[], T_Return extends unknown>(tryer: (...params: T_Params) => T_Return, opts: AbstractTokens.TryOpts, params: NoInfer<T_Params>): T_Return;
+    /**
      * The working value of this object.
      *
      * @since 0.1.0-alpha
      */
-    valueOf(): T_DataType;
+    valueOf(): T_Params['data'];
 }
 /**
  * Utilities for the {@link AbstractTokens} class.
@@ -60,58 +80,24 @@ export declare abstract class AbstractTokens<T_DataType> {
  * @since 0.1.0-alpha
  */
 export declare namespace AbstractTokens {
-    type JsonReturn = undefined | null | number | string | RecursiveRecord<number | string, any>;
-    type ScssPrimitive = undefined | null | number | object | string;
-    type ScssReturn = ScssPrimitive | RecursiveRecord<number | string, ScssPrimitive>;
+    type JsonReturnBasic = undefined | null | boolean | number | string | {
+        toJSON: () => any;
+    } | JsonReturnBasic[];
+    export type JsonReturn = JsonReturnBasic | RecursiveRecord<number | string, JsonReturnBasic | JsonReturn[]> | JsonReturn[];
+    export type ScssPrimitive = undefined | null | boolean | number | string | ScssPrimitive[];
+    export type ScssReturn = ScssPrimitive | RecursiveRecord<number | string, ScssPrimitive | ScssReturn[]> | ScssReturn[];
     /**
-     * Used to throw errors while compiling the tokens.
+     * Options for the {@link AbstractTokens.try} method.
      *
-     * @since 0.1.0-alpha
+     * @since 0.1.1-alpha.1.draft
      */
-    class Tokens_Error<T_CauseType extends unknown | undefined = never> extends buildUtils_internal.AbstractError<never, Tokens_Error.Context> {
-        readonly context: Tokens_Error.Context;
-        protected readonly opts: {
-            cause: T_CauseType;
-        };
-        readonly name: string;
-        constructor(message: string, context: Tokens_Error.Context, opts: {
-            cause: T_CauseType;
-        });
+    export interface TryOpts {
         /**
-         * The object shape used when converting to JSON.
-         *
-         * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#description | JSON.stringify}
+         * Message for the error if it fails.
          */
-        toJSON(): {
-            name: string;
-            message: string;
-            context: Tokens_Error.Context;
-            cause: unknown;
-            stack: string | undefined;
-            string: string;
-        };
+        message: string;
+        context?: Partial<LocalErrors.Context.Class>;
     }
-    /**
-     * Utilities for the {@link AbstractTokens.Tokens_Error} class.
-     *
-     * @since 0.1.0-alpha
-     */
-    namespace Tokens_Error {
-        /**
-         * Object used to give context for where this error was triggered.
-         *
-         * @since 0.1.0-alpha
-         */
-        interface Context {
-            /**
-             * Name for the schema, used in error messages.
-             */
-            name: string;
-            /**
-             * Location where schema is being tested.
-             */
-            location: string;
-        }
-    }
+    export {};
 }
 //# sourceMappingURL=AbstractTokens.d.ts.map

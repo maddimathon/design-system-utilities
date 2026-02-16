@@ -12,16 +12,15 @@ import { arrayUnique } from '@maddimathon/utility-typescript/functions';
 // import { VariableInspector } from '@maddimathon/utility-typescript/classes';
 
 import { ColourUtilities } from '../01-utilities/ColourUtilities.js';
-import { objectGenerator } from '../01-utilities/objectGenerator.js';
+import { objectGeneratorAsync } from '../01-utilities/objectGenerator.js';
 import { objectMap } from '../01-utilities/objectMap.js';
 
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 
 import { Tokens_Colour_ShadeMap } from './Colour/Colour_ShadeMap.js';
-import { Tokens_Colour_ShadeMap_Shade } from './Colour/ShadeMap/ShadeMap_Shade.js';
 
 import type {
-    ColourNameGeneric,
+    TokenTypes,
 } from './@types.d.ts';
 
 /**
@@ -29,57 +28,75 @@ import type {
  * 
  * @since 0.1.0-alpha
  */
-export class Tokens_Colour<
-    T_ColourName extends string,
-    T_ExtraLevels extends ColourUtilities.Levels.Optional,
-> extends AbstractTokens<Tokens_Colour.Data<T_ColourName, T_ExtraLevels>> {
+export class Tokens_Colour<T_Types extends TokenTypes.Colour.TypeParams> extends AbstractTokens<{
+    data: Tokens_Colour.Data<T_Types>;
+    json: Tokens_Colour.JsonReturn<T_Types>;
+    scss: Tokens_Colour.ScssVars<T_Types>;
+}> {
 
-    public readonly data: Tokens_Colour.Data<T_ColourName, T_ExtraLevels>;
+    /**
+     * Allows for async building.
+     */
+    public static async build<T_Types extends TokenTypes.Colour.TypeParams>(
+        allNames: readonly T_Types[ 'names' ][],
+        extraLevels: readonly T_Types[ 'extraLevels' ][],
+        input: Tokens_Colour.InputParam<T_Types>,
+    ): Promise<Tokens_Colour<T_Types>> {
 
-    protected readonly allNames: readonly ColourNameGeneric<T_ColourName>[];
-
-    public constructor (
-        allNames: readonly T_ColourName[],
-        protected readonly extraLevels: readonly T_ExtraLevels[],
-        input: Tokens_Colour.InputParam<T_ColourName, T_ExtraLevels>,
-    ) {
-        super();
-
-        this.allNames = arrayUnique(
+        const allValidatedNames: TokenTypes.Colour.GenericName<T_Types[ 'names' ]>[] = arrayUnique(
             [
                 'base',
                 ...allNames,
             ]
         );
 
-        this.data = {
+        return Promise.all( [
 
-            black: new Tokens_Colour_ShadeMap_Shade(
-                this.allNames,
-                this.extraLevels,
+            Tokens_Colour_ShadeMap.Shade.build(
+                allValidatedNames,
+                extraLevels,
                 'black',
                 'black',
                 input.black ?? Tokens_Colour_ShadeMap.Yardsticks.black,
             ),
 
-            white: new Tokens_Colour_ShadeMap_Shade(
-                this.allNames,
-                this.extraLevels,
+            Tokens_Colour_ShadeMap.Shade.build(
+                allValidatedNames,
+                extraLevels,
                 'white',
                 'white',
                 input.white ?? Tokens_Colour_ShadeMap.Yardsticks.white,
             ),
 
-            ...objectGenerator(
-                this.allNames,
-                ( name ) => new Tokens_Colour_ShadeMap(
-                    this.allNames,
-                    this.extraLevels,
+            objectGeneratorAsync(
+                allValidatedNames,
+                ( name ) => Tokens_Colour_ShadeMap.build(
+                    allNames,
+                    extraLevels,
                     name,
                     input[ name ] ?? {},
                 ),
             ),
-        };
+
+        ] ).then(
+            ( [ black, white, colourMaps ] ) => new Tokens_Colour(
+                allValidatedNames,
+                extraLevels,
+                {
+                    black,
+                    white,
+                    ...colourMaps,
+                },
+            )
+        );
+    }
+
+    protected constructor (
+        protected readonly allNames: readonly TokenTypes.Colour.GenericName<T_Types[ 'names' ]>[],
+        protected readonly extraLevels: readonly T_Types[ 'extraLevels' ][],
+        public readonly data: Tokens_Colour.Data<T_Types>,
+    ) {
+        super();
     }
 
     /**
@@ -102,18 +119,16 @@ export class Tokens_Colour<
                     continue;
                 }
 
-                if ( this.data[ colourName ] instanceof Tokens_Colour_ShadeMap_Shade ) {
+                if ( this.data[ colourName ] instanceof Tokens_Colour_ShadeMap.Shade ) {
 
                     for ( const t_testLevel in this.data[ test_colourName ].data ) {
-                        const testLevel = t_testLevel as ColourUtilities.Levels.Required | T_ExtraLevels;
+                        const testLevel = t_testLevel as ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ];
 
                         // VariableInspector.dump( { 'this.data[ test_colourName ]': this.data[ test_colourName ] }, { includeValue: false } );
 
                         promises.push(
-                            (
-                                this.data[ colourName ] as Tokens_Colour_ShadeMap_Shade<ColourNameGeneric<T_ColourName>, T_ExtraLevels>
-                            ).addContrastTest(
-                                test_colourName,
+                            this.data[ colourName ].addContrastTest(
+                                test_colourName as T_Types[ 'names' ],
                                 testLevel,
                                 this.data[ test_colourName ].data[ testLevel ].data,
                             )
@@ -134,18 +149,18 @@ export class Tokens_Colour<
         }
     }
 
-    public toJSON(): Tokens_Colour.JsonReturn<T_ColourName, T_ExtraLevels> {
+    public toJSON(): Tokens_Colour.JsonReturn<T_Types> {
         return objectMap(
             this.data,
             ( [ key, value ] ) => value.toJSON(),
-        ) as Tokens_Colour.JsonReturn<T_ColourName, T_ExtraLevels>;
+        ) as Tokens_Colour.JsonReturn<T_Types>;
     }
 
-    public toScssVars() {
+    public toScssVars(): Tokens_Colour.ScssVars<T_Types> {
         return objectMap(
             this.data,
             ( [ key, value ] ) => value.toScssVars(),
-        );
+        ) as Tokens_Colour.ScssVars<T_Types>;
     }
 }
 
@@ -159,63 +174,40 @@ export namespace Tokens_Colour {
     /**
      * @since 0.1.0-alpha
      */
-    export type Data<
-        T_ColourName extends string,
-        T_ExtraLevels extends ColourUtilities.Levels.Optional,
-    > = {
-        black: Tokens_Colour_ShadeMap_Shade<ColourNameGeneric<T_ColourName>, T_ExtraLevels>;
-        white: Tokens_Colour_ShadeMap_Shade<ColourNameGeneric<T_ColourName>, T_ExtraLevels>;
+    export type Data<T_Types extends TokenTypes.Colour.TypeParams> = {
+        black: Tokens_Colour_ShadeMap.Shade<T_Types>;
+        white: Tokens_Colour_ShadeMap.Shade<T_Types>;
     } & {
-            [ N in ColourNameGeneric<T_ColourName> ]: Tokens_Colour_ShadeMap<
-                ColourNameGeneric<T_ColourName>,
-                T_ExtraLevels
-            >;
-        };
+        [ N in TokenTypes.Colour.GenericName<T_Types[ 'names' ]> ]: Tokens_Colour_ShadeMap<T_Types>;
+    };
 
     /**
      * @since 0.1.0-alpha
      */
-    export type InputParam<
-        T_ColourName extends string,
-        T_ExtraLevels extends ColourUtilities.Levels.Optional,
-    > = {
-        black?: Tokens_Colour_ShadeMap_Shade.InputParam;
-        white?: Tokens_Colour_ShadeMap_Shade.InputParam;
+    export type InputParam<T_Types extends TokenTypes.Colour.TypeParams> = {
+        black?: Tokens_Colour_ShadeMap.Shade.InputParam;
+        white?: Tokens_Colour_ShadeMap.Shade.InputParam;
     } & {
-            [ N in ColourNameGeneric<T_ColourName> ]?: Tokens_Colour_ShadeMap.InputParam<
-                ColourNameGeneric<T_ColourName>,
-                T_ExtraLevels
-            >;
-        };
+        [ N in TokenTypes.Colour.GenericName<T_Types[ 'names' ]> ]?: Tokens_Colour_ShadeMap.InputParam<T_Types>;
+    };
 
     /**
      * @since 0.1.0-alpha
      */
-    export type JsonReturn<
-        T_ColourName extends string,
-        T_ExtraLevels extends ColourUtilities.Levels.Optional,
-    > = {
-        black: Tokens_Colour_ShadeMap_Shade.JsonReturn<ColourNameGeneric<T_ColourName>, T_ExtraLevels>;
-        white: Tokens_Colour_ShadeMap_Shade.JsonReturn<ColourNameGeneric<T_ColourName>, T_ExtraLevels>;
+    export type JsonReturn<T_Types extends TokenTypes.Colour.TypeParams> = {
+        black: Tokens_Colour_ShadeMap.Shade.JsonReturn<T_Types>;
+        white: Tokens_Colour_ShadeMap.Shade.JsonReturn<T_Types>;
     } & {
-            [ N in ColourNameGeneric<T_ColourName> ]: Tokens_Colour_ShadeMap.JsonReturn<
-                ColourNameGeneric<T_ColourName>,
-                T_ExtraLevels
-            >;
-        };
+        [ N in TokenTypes.Colour.GenericName<T_Types[ 'names' ]> ]: Tokens_Colour_ShadeMap.JsonReturn<T_Types>;
+    };
 
     /**
      * @since ___PKG_VERSION___
      */
-    export type ScssVars<
-        T_ColourName extends string,
-        T_ExtraLevels extends ColourUtilities.Levels.Optional,
-    > = {
-        black: Tokens_Colour_ShadeMap_Shade.ScssVars;
-        white: Tokens_Colour_ShadeMap_Shade.ScssVars;
+    export type ScssVars<T_Types extends TokenTypes.Colour.TypeParams> = {
+        black: Tokens_Colour_ShadeMap.Shade.ScssVars;
+        white: Tokens_Colour_ShadeMap.Shade.ScssVars;
     } & {
-            [ N in ColourNameGeneric<T_ColourName> ]: Tokens_Colour_ShadeMap.ScssVars<
-                T_ExtraLevels
-            >;
-        };
+        [ N in TokenTypes.Colour.GenericName<T_Types[ 'names' ]> ]: Tokens_Colour_ShadeMap.ScssVars<T_Types>;
+    };
 }

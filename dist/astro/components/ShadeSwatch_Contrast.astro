@@ -7,12 +7,11 @@
 
 /* import - types */
 import type { ComponentProps } from 'astro/types';
-import type { ColourContrastTest } from '../../ts/01-utilities/ColourContrastTest.js';
 import type {
     ColourNameGeneric,
 } from '../../ts/02-tokens/@types.d.ts';
 import type { Tokens, Tokens_Internal } from '../../ts/02-tokens/Tokens.js';
-import type { Tokens_Colour_ShadeMap_Shade } from '../../ts/02-tokens/Colour/ShadeMap/ShadeMap_Shade.js';
+import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
 
 /* import - functions */
 import {
@@ -48,7 +47,7 @@ export interface Props<
     thisShadeName: string | null;
     
     tokens: Tokens.JsonReturn<T_ColourName, T_ExtraLevels>;
-    values: Tokens_Colour_ShadeMap_Shade.Contrast<ColourNameGeneric<T_ColourName>, T_ExtraLevels, number>;
+    values: Tokens_Colour_ShadeMap.Shade.Contrast<ColourNameGeneric<T_ColourName>, T_ExtraLevels, number>;
     
     brightness?: string;
     isCondensed?: boolean;
@@ -69,7 +68,7 @@ const {
 /* FUNCTIONS ===================================== */
 
 type ColourSet_AllShadeLevels_Result = undefined | {
-    [ T in keyof ColourContrastTest.TestResult_Single ]: {
+    [ T in keyof ColourUtilities.ContrastTest.SingleResult ]: {
         [ S in "aa" | "aaa" ]: boolean;
     };
 };
@@ -145,7 +144,7 @@ function getShadeMapSets<
     const summarizer = (
         _v:
             | undefined
-            | Tokens_Colour_ShadeMap_Shade.Contrast.SingleMinMax<
+            | Tokens_Colour_ShadeMap.Shade.Contrast.SingleMinMax<
                 ColourNameGeneric<T_ColourName>, 
                 T_ExtraLevels, 
                 number
@@ -158,7 +157,7 @@ function getShadeMapSets<
             ratio: _v.ratio,
         };
         
-    type _StdResult = undefined|Tokens_Colour_ShadeMap_Shade.Contrast.SingleMinMax<
+    type _StdResult = undefined|Tokens_Colour_ShadeMap.Shade.Contrast.SingleMinMax<
             ColourNameGeneric<T_ColourName>, 
             T_ExtraLevels, 
             number

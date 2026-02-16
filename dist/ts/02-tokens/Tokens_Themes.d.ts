@@ -16,7 +16,11 @@ import { Tokens_Themes_Set } from './Themes/Themes_Set.js';
  *
  * @since 0.1.0-alpha
  */
-export declare class Tokens_Themes<T_ColourName extends string, T_ExtraColourLevels extends ColourUtilities.Levels.Optional, T_ThemeBrightnessMode extends string, T_ThemeContrastMode extends ThemeMode_ContrastOption, T_ThemeName extends string, T_Keyword_Universal extends string, T_Keyword_Text extends string, T_Keyword_Background extends string> extends AbstractTokens<Tokens_Themes.Data<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_Keyword_Universal, T_Keyword_Text, T_Keyword_Background>> {
+export declare class Tokens_Themes<T_ColourName extends string, T_ExtraColourLevels extends ColourUtilities.Levels.Optional, T_ThemeBrightnessMode extends string, T_ThemeContrastMode extends ThemeMode_ContrastOption, T_ThemeName extends string, T_Keyword_Universal extends string, T_Keyword_Text extends string, T_Keyword_Background extends string> extends AbstractTokens<{
+    data: Tokens_Themes.Data<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_Keyword_Universal, T_Keyword_Text, T_Keyword_Background>;
+    json: Tokens_Themes.JsonReturn<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_Keyword_Universal, T_Keyword_Text, T_Keyword_Background>;
+    scss: Tokens_Themes.ScssVars<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_Keyword_Universal, T_Keyword_Text, T_Keyword_Background>;
+}> {
     protected readonly clrNames: readonly T_ColourName[];
     protected readonly extraColourLevels: readonly T_ExtraColourLevels[];
     protected readonly brightnessModes: readonly T_ThemeBrightnessMode[];
@@ -37,9 +41,7 @@ export declare class Tokens_Themes<T_ColourName extends string, T_ExtraColourLev
         [N in T_ThemeName]: Tokens_Themes_Set<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode[], T_ThemeContrastMode[], T_ThemeName, T_Keyword_Universal, T_Keyword_Text, T_Keyword_Background>;
     });
     toJSON(): Tokens_Themes.JsonReturn<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_Keyword_Universal, T_Keyword_Text, T_Keyword_Background>;
-    toScssVars(): {
-        [K in T_ThemeName]: ReturnType<Tokens_Themes_Set<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode[], T_ThemeContrastMode[], T_ThemeName, T_Keyword_Universal, T_Keyword_Text, T_Keyword_Background>['toScssVars']>;
-    };
+    toScssVars(): Tokens_Themes.ScssVars<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode, T_ThemeContrastMode, T_ThemeName, T_Keyword_Universal, T_Keyword_Text, T_Keyword_Background>;
 }
 /**
  * Utilities for the {@link Tokens_Themes} class.
@@ -63,6 +65,12 @@ export declare namespace Tokens_Themes {
      */
     type JsonReturn<T_ColourName extends string, T_ExtraColourLevels extends ColourUtilities.Levels.Optional, T_ThemeBrightnessMode extends string, T_ThemeContrastMode extends ThemeMode_ContrastOption, T_ThemeName extends string, T_Keyword_Universal extends string, T_Keyword_Text extends string, T_Keyword_Background extends string> = {
         [N in T_ThemeName]: Tokens_Themes_Set.JsonReturn<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode[], T_ThemeContrastMode[], N, T_Keyword_Universal, T_Keyword_Text, T_Keyword_Background>;
+    };
+    /**
+     * @since 0.1.1-alpha.1.draft
+     */
+    type ScssVars<T_ColourName extends string, T_ExtraColourLevels extends ColourUtilities.Levels.Optional, T_ThemeBrightnessMode extends string, T_ThemeContrastMode extends ThemeMode_ContrastOption, T_ThemeName extends string, T_Keyword_Universal extends string, T_Keyword_Text extends string, T_Keyword_Background extends string> = {
+        [K in T_ThemeName]: Tokens_Themes_Set.ScssVars<T_ColourName, T_ExtraColourLevels, T_ThemeBrightnessMode[], T_ThemeContrastMode[], T_ThemeName, T_Keyword_Universal, T_Keyword_Text, T_Keyword_Background>;
     };
 }
 //# sourceMappingURL=Tokens_Themes.d.ts.map

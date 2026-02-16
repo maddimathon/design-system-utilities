@@ -10,32 +10,42 @@
 import { arrayUnique } from '@maddimathon/utility-typescript/functions';
 // import { VariableInspector } from '@maddimathon/utility-typescript/classes';
 import { ColourUtilities } from '../01-utilities/ColourUtilities.js';
-import { objectGenerator } from '../01-utilities/objectGenerator.js';
+import { objectGeneratorAsync } from '../01-utilities/objectGenerator.js';
 import { objectMap } from '../01-utilities/objectMap.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 import { Tokens_Colour_ShadeMap } from './Colour/Colour_ShadeMap.js';
-import { Tokens_Colour_ShadeMap_Shade } from './Colour/ShadeMap/ShadeMap_Shade.js';
 /**
  * Generates a complete token object for the design system.
  *
  * @since 0.1.0-alpha
  */
 export class Tokens_Colour extends AbstractTokens {
+    allNames;
     extraLevels;
     data;
-    allNames;
-    constructor(allNames, extraLevels, input) {
-        super();
-        this.extraLevels = extraLevels;
-        this.allNames = arrayUnique([
+    /**
+     * Allows for async building.
+     */
+    static async build(allNames, extraLevels, input) {
+        const allValidatedNames = arrayUnique([
             'base',
             ...allNames,
         ]);
-        this.data = {
-            black: new Tokens_Colour_ShadeMap_Shade(this.allNames, this.extraLevels, 'black', 'black', input.black ?? Tokens_Colour_ShadeMap.Yardsticks.black),
-            white: new Tokens_Colour_ShadeMap_Shade(this.allNames, this.extraLevels, 'white', 'white', input.white ?? Tokens_Colour_ShadeMap.Yardsticks.white),
-            ...objectGenerator(this.allNames, (name) => new Tokens_Colour_ShadeMap(this.allNames, this.extraLevels, name, input[name] ?? {})),
-        };
+        return Promise.all([
+            Tokens_Colour_ShadeMap.Shade.build(allValidatedNames, extraLevels, 'black', 'black', input.black ?? Tokens_Colour_ShadeMap.Yardsticks.black),
+            Tokens_Colour_ShadeMap.Shade.build(allValidatedNames, extraLevels, 'white', 'white', input.white ?? Tokens_Colour_ShadeMap.Yardsticks.white),
+            objectGeneratorAsync(allValidatedNames, (name) => Tokens_Colour_ShadeMap.build(allNames, extraLevels, name, input[name] ?? {})),
+        ]).then(([black, white, colourMaps]) => new Tokens_Colour(allValidatedNames, extraLevels, {
+            black,
+            white,
+            ...colourMaps,
+        }));
+    }
+    constructor(allNames, extraLevels, data) {
+        super();
+        this.allNames = allNames;
+        this.extraLevels = extraLevels;
+        this.data = data;
     }
     /**
      * Adds contrast tests to all the colour maps.
@@ -52,7 +62,7 @@ export class Tokens_Colour extends AbstractTokens {
                 if (test_colourName === 'black' || test_colourName === 'white') {
                     continue;
                 }
-                if (this.data[colourName] instanceof Tokens_Colour_ShadeMap_Shade) {
+                if (this.data[colourName] instanceof Tokens_Colour_ShadeMap.Shade) {
                     for (const t_testLevel in this.data[test_colourName].data) {
                         const testLevel = t_testLevel;
                         // VariableInspector.dump( { 'this.data[ test_colourName ]': this.data[ test_colourName ] }, { includeValue: false } );

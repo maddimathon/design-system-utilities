@@ -16,7 +16,11 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
  * 
  * @since 0.1.0-alpha
  */
-export class Tokens_CSS_Transition extends AbstractTokens<Tokens_CSS_Transition.Data> {
+export class Tokens_CSS_Transition extends AbstractTokens<{
+    data: Tokens_CSS_Transition.Data;
+    json: Tokens_CSS_Transition.JsonReturn;
+    scss: Tokens_CSS_Transition.ScssVars;
+}> {
 
     public static get default(): Tokens_CSS_Transition.Data {
 
@@ -95,9 +99,7 @@ export class Tokens_CSS_Transition extends AbstractTokens<Tokens_CSS_Transition.
         return this.data;
     }
 
-    public toScssVars(): {
-        [ K in keyof Tokens_CSS_Transition.Data ]: AbstractTokens.ScssReturn;
-    } {
+    public toScssVars(): Tokens_CSS_Transition.ScssVars {
         return {
             properties: this.data.properties,
             time: this.data.time,
@@ -187,4 +189,8 @@ export namespace Tokens_CSS_Transition {
      */
     export type JsonReturn = Data;
 
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export type ScssVars = Data;
 }

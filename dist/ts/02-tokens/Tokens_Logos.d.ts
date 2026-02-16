@@ -14,11 +14,15 @@ import { AbstractTokens } from './abstract/AbstractTokens.js';
  *
  * @since 0.1.0-alpha
  */
-export declare class Tokens_Logos<T_LogoNames extends string> extends AbstractTokens<Tokens_Logos.Data<T_LogoNames>> {
+export declare class Tokens_Logos<T_LogoNames extends string> extends AbstractTokens<{
+    data: Tokens_Logos.Data<T_LogoNames>;
+    json: Tokens_Logos.JsonReturn<T_LogoNames>;
+    scss: Tokens_Logos.ScssVars<T_LogoNames>;
+}> {
     readonly data: Tokens_Logos.Data<T_LogoNames>;
     constructor(input: Tokens_Logos.InputParam<T_LogoNames>);
     toJSON(): Tokens_Logos.JsonReturn<T_LogoNames>;
-    toScssVars(): { [K in keyof Tokens_Logos.Data<T_LogoNames>]: SvgMaker.ScssVars<K>; };
+    toScssVars(): Tokens_Logos.ScssVars<T_LogoNames>;
 }
 /**
  * Utilities for the {@link Tokens_Logos} class.
@@ -43,6 +47,12 @@ export declare namespace Tokens_Logos {
      */
     type JsonReturn<T_LogoNames extends string> = undefined | {
         [L in T_LogoNames]: SvgMaker.JsonReturn<L>;
+    };
+    /**
+     * @since 0.1.1-alpha.1.draft
+     */
+    type ScssVars<T_LogoNames extends string> = undefined | {
+        [L in T_LogoNames]: SvgMaker.ScssVars<L>;
     };
 }
 //# sourceMappingURL=Tokens_Logos.d.ts.map

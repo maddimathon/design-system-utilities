@@ -17,387 +17,20 @@ import { AbstractTokens } from './abstract/AbstractTokens.js';
  *
  * @since 0.1.0-alpha
  */
-export declare class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
+export declare class Tokens_Typography<T_FontFamilySlug extends string> extends AbstractTokens<{
+    data: Tokens_Typography.Data<T_FontFamilySlug>;
+    json: Tokens_Typography.JsonReturn<T_FontFamilySlug>;
+    scss: Tokens_Typography.ScssVars<T_FontFamilySlug>;
+}> {
     protected readonly spacing: Tokens_Spacing;
-    static get default(): Tokens_Typography.Data;
-    readonly data: Tokens_Typography.Data;
+    static get default(): Tokens_Typography.Data<never>;
+    readonly data: Tokens_Typography.Data<T_FontFamilySlug>;
     readonly familyOverrides: undefined | {
-        [key: string]: Tokens_Typography.Font.FamilyOverride;
+        [K in T_FontFamilySlug]?: Tokens_Typography.Font.FamilyOverride;
     };
-    constructor(spacing: Tokens_Spacing, input: Tokens_Typography.InputParam);
-    toJSON(): Tokens_Typography.JsonReturn;
-    toScssVars(): {
-        font: {
-            size: {
-                [key: string]: number | RecursiveRecord<string | number, number>;
-                heading: {
-                    3: number;
-                    2: number;
-                    1: number;
-                    4: number;
-                    9: number;
-                    8: number;
-                    5: number;
-                    6: number;
-                    7: number;
-                    10: number;
-                } & {
-                    [key: number]: number;
-                };
-                smaller: {
-                    [key: number]: number;
-                    1: number;
-                    2: number;
-                    3: number;
-                    4: number;
-                };
-                normal: number;
-                bigger: {
-                    [key: number]: number;
-                };
-            };
-            sizeScale: number;
-            family: {
-                [x: string]: {
-                    variable: {
-                        normal: {
-                            family: string;
-                            fallbacks: string[];
-                            src: {
-                                type: "local" | "truetype" | "woff" | "woff2";
-                                path: string;
-                            }[];
-                            style: "normal" | "italic";
-                            weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                            printFontFace: boolean;
-                            display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                            'line-gap-override'?: string;
-                            'size-adjust'?: string;
-                            'unicode-range'?: string;
-                        };
-                        italic: {
-                            family: string;
-                            fallbacks: string[];
-                            src: {
-                                type: "local" | "truetype" | "woff" | "woff2";
-                                path: string;
-                            }[];
-                            style: "normal" | "italic";
-                            weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                            printFontFace: boolean;
-                            display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                            'line-gap-override'?: string;
-                            'size-adjust'?: string;
-                            'unicode-range'?: string;
-                        };
-                    } | undefined;
-                    weights: {
-                        100?: {
-                            normal: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                            italic: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                        } | undefined;
-                        200?: {
-                            normal: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                            italic: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                        } | undefined;
-                        300?: {
-                            normal: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                            italic: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                        } | undefined;
-                        400?: {
-                            normal: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                            italic: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                        } | undefined;
-                        500?: {
-                            normal: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                            italic: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                        } | undefined;
-                        600?: {
-                            normal: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                            italic: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                        } | undefined;
-                        700?: {
-                            normal: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                            italic: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                        } | undefined;
-                        800?: {
-                            normal: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                            italic: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                        } | undefined;
-                        900?: {
-                            normal: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                            italic: {
-                                family: string;
-                                fallbacks: string[];
-                                src: {
-                                    type: "local" | "truetype" | "woff" | "woff2";
-                                    path: string;
-                                }[];
-                                style: "normal" | "italic";
-                                weight: TokenLevels | `${"000" | TokenLevels} ${TokenLevels | "1000"}`;
-                                printFontFace: boolean;
-                                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                                'line-gap-override'?: string;
-                                'size-adjust'?: string;
-                                'unicode-range'?: string;
-                            };
-                        } | undefined;
-                    };
-                };
-            } | undefined;
-            familyOverrides: {
-                [key: string]: Tokens_Typography.Font.FamilyOverride;
-            } | undefined;
-        };
-        line_height: {
-            100: number;
-            200: number;
-            300: number;
-            400: number;
-            500: number;
-            600: number;
-        } & {
-            [x: string]: number | undefined;
-        };
-    };
+    constructor(spacing: Tokens_Spacing, input: Tokens_Typography.InputParam<T_FontFamilySlug>);
+    toJSON(): Tokens_Typography.JsonReturn<T_FontFamilySlug>;
+    toScssVars(): Tokens_Typography.ScssVars<T_FontFamilySlug>;
 }
 /**
  * Utilities for the {@link Tokens_Typography} class.
@@ -409,7 +42,7 @@ export declare namespace Tokens_Typography {
     /**
      * @since 0.1.0-alpha
      */
-    export type Data<T_SizeValue = number, T_FontFamilySlug extends string = string> = {
+    export type Data<T_FontFamilySlug extends string, T_SizeValue = number> = {
         lineHeight: {
             [L in DefaultLineHeightLevels]: number;
         } & {
@@ -442,21 +75,48 @@ export declare namespace Tokens_Typography {
     /**
      * @since 0.1.0-alpha
      */
-    export type InputParam<T_FontFamilySlug extends string = string> = Partial<Omit<Data<number, T_FontFamilySlug>, 'lineHeight' | 'size'>> & {
-        lineHeight?: Partial<Data<number, T_FontFamilySlug>['lineHeight']>;
-        size?: Objects.RecursivePartial<Data<number, T_FontFamilySlug>['size']>;
+    export type InputParam<T_FontFamilySlug extends string, T_SizeValue = number> = Partial<Omit<Data<T_FontFamilySlug, T_SizeValue>, 'lineHeight' | 'size'>> & {
+        lineHeight?: Partial<Data<T_FontFamilySlug, T_SizeValue>['lineHeight']>;
+        size?: Objects.RecursivePartial<Data<T_FontFamilySlug, T_SizeValue>['size']>;
     };
     /**
      * @since 0.1.0-alpha
      */
-    export type JsonReturn<T_FontFamilySlug extends string = string> = Data<{
+    export type JsonReturn<T_FontFamilySlug extends string, T_SizeValue = {
         rem: number;
         pt: number;
         px: number;
-    }, T_FontFamilySlug> & {
-        familyOverrides: undefined | {
-            [key: string]: Tokens_Typography.Font.FamilyOverride;
+    }> = Data<T_FontFamilySlug, T_SizeValue> & {
+        familyOverrides: {
+            [K in T_FontFamilySlug]?: undefined | Tokens_Typography.Font.FamilyOverride;
         };
+    };
+    /**
+     * @since 0.1.1-alpha.1.draft
+     */
+    export type ScssVars<T_FontFamilySlug extends string> = {
+        font: {
+            family: undefined | {
+                [K in T_FontFamilySlug]?: {
+                    weights: {
+                        [K in TokenLevels]?: undefined | {
+                            normal: undefined | Tokens_Typography.Font.SingleFamilyScss;
+                            italic: undefined | Tokens_Typography.Font.SingleFamilyScss;
+                        };
+                    };
+                    variable?: undefined | {
+                        normal: undefined | Tokens_Typography.Font.SingleFamilyScss;
+                        italic: undefined | Tokens_Typography.Font.SingleFamilyScss;
+                    };
+                };
+            } & AbstractTokens.ScssReturn;
+            familyOverrides: undefined | {
+                [K in T_FontFamilySlug]?: undefined | Tokens_Typography.Font.FamilyOverride;
+            };
+            size: Tokens_Typography.Data<T_FontFamilySlug, number>['size'];
+            sizeScale: Tokens_Typography.Data<T_FontFamilySlug, number>['sizeScale'];
+        };
+        line_height: Tokens_Typography.Data<T_FontFamilySlug, number>['lineHeight'];
     };
     /**
      * @since 0.1.0-alpha
@@ -473,56 +133,60 @@ export declare namespace Tokens_Typography {
         /**
          * @since 0.1.0-alpha
          */
-        interface FontFileOptions {
+        type FontFileOptions = {
             display?: undefined | "auto" | "block" | "fallback" | "optional" | "swap";
             lineGapOverride?: undefined | string;
             sizeAdjust?: undefined | string;
             unicodeRange?: undefined | string;
-        }
+        };
         /**
          * @since 0.1.0-alpha
          */
-        interface File extends FontFileOptions {
+        type File = FontFileOptions & {
             path: {
                 [F in "local" | "ttf" | "woff" | "woff2"]?: string | string[];
             };
             style: "normal" | "italic";
             weight: TokenLevels | `${'000' | TokenLevels} ${TokenLevels | '1000'}`;
-        }
+        };
         /**
          * @since 0.1.1-alpha.0
          */
-        interface FamilyOverride {
+        type FamilyOverride = {
             label: string;
             value: string;
             contentWidthScale?: number;
             labelClass?: string;
             lineHeightScale?: number;
-        }
+        };
         /**
-         * @since 0.1.0-alpha
+         * @since 0.1.1-alpha.1.draft
          */
-        type FamilyScss = {
-            [L in TokenLevels | `${TokenLevels}i`]?: {
-                family: string;
-                fallbacks: string[];
-                src: {
-                    type: "local" | "truetype" | "woff" | "woff2";
-                    path: string;
-                }[];
-                style: "normal" | "italic";
-                weight: TokenLevels | `${'000' | TokenLevels} ${TokenLevels | '1000'}`;
-                printFontFace: boolean;
-                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                'line-gap-override'?: string;
-                'size-adjust'?: string;
-                'unicode-range'?: string;
-            };
+        type SingleFamilyScss = {
+            family: string;
+            fallbacks: string[];
+            src: {
+                type: "local" | "truetype" | "woff" | "woff2";
+                path: string;
+            }[];
+            style: "normal" | "italic";
+            weight: TokenLevels | `${'000' | TokenLevels} ${TokenLevels | '1000'}`;
+            printFontFace: boolean;
+            display?: "auto" | "block" | "fallback" | "optional" | "swap";
+            'line-gap-override'?: string;
+            'size-adjust'?: string;
+            'unicode-range'?: string;
         };
         /**
          * @since 0.1.0-alpha
          */
-        interface Family<T_Slug extends string = string> extends FontFileOptions {
+        type FamilyScss = {
+            [L in TokenLevels | `${TokenLevels}i`]?: SingleFamilyScss;
+        };
+        /**
+         * @since 0.1.0-alpha
+         */
+        type Family<T_Slug extends string = string> = FontFileOptions & {
             slug: T_Slug;
             name: string;
             fallbacks?: string[];
@@ -561,7 +225,7 @@ export declare namespace Tokens_Typography {
                 normal: File;
                 italic: File;
             };
-        }
+        };
     }
     export {};
 }

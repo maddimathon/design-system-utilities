@@ -28,9 +28,15 @@ import { AbstractTokens } from './abstract/AbstractTokens.js';
  * 
  * @since 0.1.0-alpha
  */
-export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
+export class Tokens_Typography<
+    T_FontFamilySlug extends string,
+> extends AbstractTokens<{
+    data: Tokens_Typography.Data<T_FontFamilySlug>;
+    json: Tokens_Typography.JsonReturn<T_FontFamilySlug>;
+    scss: Tokens_Typography.ScssVars<T_FontFamilySlug>;
+}> {
 
-    public static get default(): Tokens_Typography.Data {
+    public static get default(): Tokens_Typography.Data<never> {
         return {
 
             lineHeight: {
@@ -77,15 +83,15 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
         };
     }
 
-    public readonly data: Tokens_Typography.Data;
+    public readonly data: Tokens_Typography.Data<T_FontFamilySlug>;
 
     public readonly familyOverrides: undefined | {
-        [ key: string ]: Tokens_Typography.Font.FamilyOverride;
+        [ K in T_FontFamilySlug ]?: Tokens_Typography.Font.FamilyOverride;
     };
 
     public constructor (
         protected readonly spacing: Tokens_Spacing,
-        input: Tokens_Typography.InputParam,
+        input: Tokens_Typography.InputParam<T_FontFamilySlug>,
     ) {
         super();
 
@@ -93,8 +99,10 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
 
         this.familyOverrides = this.data.fonts
             ? Object.fromEntries(
-                Object.values( this.data.fonts ).map(
-                    ( font ): [ string, Tokens_Typography.Font.FamilyOverride ] | [] => {
+                (
+                    Object.values( this.data.fonts ) as Tokens_Typography.Font.Family<T_FontFamilySlug>[]
+                ).map(
+                    ( font ): [ T_FontFamilySlug, Tokens_Typography.Font.FamilyOverride ] | [] => {
                         let isOverride = font.fontOverrideOption;
 
                         if ( typeof isOverride === 'undefined' ) {
@@ -125,9 +133,9 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
             : undefined;
     }
 
-    public toJSON(): Tokens_Typography.JsonReturn {
+    public toJSON(): Tokens_Typography.JsonReturn<T_FontFamilySlug> {
 
-        type SizeJson = Tokens_Typography.JsonReturn[ 'size' ][ 'title' ];
+        type SizeJson = Tokens_Typography.JsonReturn<T_FontFamilySlug>[ 'size' ][ 'title' ];
 
         const sizeConverter = ( num: number ) => {
             const rem = roundToPixel( Math.pow( this.spacing.data.multiplier, num ) * this.data.sizeScale, 32 );
@@ -174,7 +182,7 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
 
         const size = objectMap(
             this.data.size,
-            ( [ key, value ] ): Tokens_Typography.JsonReturn[ 'size' ][ string ] => {
+            ( [ key, value ] ): Tokens_Typography.JsonReturn<T_FontFamilySlug>[ 'size' ][ string ] => {
                 // returns
                 if ( typeof value === 'object' ) {
                     return sizeMapper( value );
@@ -182,16 +190,16 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
 
                 return sizeConverter( value );
             }
-        ) as Tokens_Typography.JsonReturn[ 'size' ];
+        ) as Tokens_Typography.JsonReturn<T_FontFamilySlug>[ 'size' ];
 
         return {
             ...this.data,
             size,
-            familyOverrides: this.familyOverrides,
+            familyOverrides: this.familyOverrides ?? {},
         };
     }
 
-    public toScssVars() {
+    public toScssVars(): Tokens_Typography.ScssVars<T_FontFamilySlug> {
 
         const familyMapper = (
             family: Tokens_Typography.Font.Family,
@@ -271,11 +279,17 @@ export class Tokens_Typography extends AbstractTokens<Tokens_Typography.Data> {
                         variable: family.variable && objectMap(
                             family.variable,
                             ( [ key, value ] ) => familyMapper( family, 'variable', { key, value } )
-                        ),
+                        ) satisfies {
+                            normal: Tokens_Typography.Font.FamilyScss[ TokenLevels ];
+                            italic: Tokens_Typography.Font.FamilyScss[ TokenLevels ];
+                        },
 
                         weights: objectMap(
                             family.weights,
-                            ( [ weight, fontSet ] ) => fontSet && objectMap(
+                            ( [ weight, fontSet ] ): undefined | {
+                                normal: Tokens_Typography.Font.FamilyScss[ TokenLevels ];
+                                italic: Tokens_Typography.Font.FamilyScss[ TokenLevels ];
+                            } => fontSet && objectMap(
                                 fontSet,
                                 ( [ key, value ] ) => familyMapper( family, weight, { key, value } )
                             )
@@ -304,8 +318,8 @@ export namespace Tokens_Typography {
      * @since 0.1.0-alpha
      */
     export type Data<
+        T_FontFamilySlug extends string,
         T_SizeValue = number,
-        T_FontFamilySlug extends string = string,
     > = {
 
         lineHeight: {
@@ -350,25 +364,64 @@ export namespace Tokens_Typography {
      * @since 0.1.0-alpha
      */
     export type InputParam<
-        T_FontFamilySlug extends string = string,
-    > = Partial<Omit<Data<number, T_FontFamilySlug>, 'lineHeight' | 'size'>> & {
-        lineHeight?: Partial<Data<number, T_FontFamilySlug>[ 'lineHeight' ]>;
-        size?: Objects.RecursivePartial<Data<number, T_FontFamilySlug>[ 'size' ]>;
+        T_FontFamilySlug extends string,
+        T_SizeValue = number,
+    > = Partial<Omit<Data<T_FontFamilySlug, T_SizeValue>, 'lineHeight' | 'size'>> & {
+        lineHeight?: Partial<Data<T_FontFamilySlug, T_SizeValue>[ 'lineHeight' ]>;
+        size?: Objects.RecursivePartial<Data<T_FontFamilySlug, T_SizeValue>[ 'size' ]>;
     };
 
     /**
      * @since 0.1.0-alpha
      */
     export type JsonReturn<
-        T_FontFamilySlug extends string = string,
-    > = Data<{
-        rem: number;
-        pt: number;
-        px: number;
-    }, T_FontFamilySlug> & {
-        familyOverrides: undefined | {
-            [ key: string ]: Tokens_Typography.Font.FamilyOverride;
+        T_FontFamilySlug extends string,
+        T_SizeValue = {
+            rem: number;
+            pt: number;
+            px: number;
+        },
+    > = Data<T_FontFamilySlug, T_SizeValue> & {
+
+        familyOverrides: {
+            [ K in T_FontFamilySlug ]?: undefined | Tokens_Typography.Font.FamilyOverride;
         };
+    };
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export type ScssVars<
+        T_FontFamilySlug extends string,
+    > = {
+
+        font: {
+            family: undefined | {
+                [ K in T_FontFamilySlug ]?: {
+
+                    weights: {
+                        [ K in TokenLevels ]?: undefined | {
+                            normal: undefined | Tokens_Typography.Font.SingleFamilyScss;
+                            italic: undefined | Tokens_Typography.Font.SingleFamilyScss;
+                        };
+                    };
+
+                    variable?: undefined | {
+                        normal: undefined | Tokens_Typography.Font.SingleFamilyScss;
+                        italic: undefined | Tokens_Typography.Font.SingleFamilyScss;
+                    };
+                };
+            } & AbstractTokens.ScssReturn;
+
+            familyOverrides: undefined | {
+                [ K in T_FontFamilySlug ]?: undefined | Tokens_Typography.Font.FamilyOverride;
+            };
+
+            size: Tokens_Typography.Data<T_FontFamilySlug, number>[ 'size' ];
+            sizeScale: Tokens_Typography.Data<T_FontFamilySlug, number>[ 'sizeScale' ];
+        };
+
+        line_height: Tokens_Typography.Data<T_FontFamilySlug, number>[ 'lineHeight' ];
     };
 
     /**
@@ -415,7 +468,7 @@ export namespace Tokens_Typography {
         /**
          * @since 0.1.0-alpha
          */
-        export interface FontFileOptions {
+        export type FontFileOptions = {
             display?: undefined | "auto" | "block" | "fallback" | "optional" | "swap";
             lineGapOverride?: undefined | string;
             sizeAdjust?: undefined | string;
@@ -425,53 +478,58 @@ export namespace Tokens_Typography {
         /**
          * @since 0.1.0-alpha
          */
-        export interface File extends FontFileOptions {
+        export type File = FontFileOptions & {
             path: {
                 [ F in "local" | "ttf" | "woff" | "woff2" ]?: string | string[];
             };
             style: "normal" | "italic";
             weight: TokenLevels | `${ '000' | TokenLevels } ${ TokenLevels | '1000' }`;
-        }
+        };
 
         /**
          * @since 0.1.1-alpha.0
          */
-        export interface FamilyOverride {
+        export type FamilyOverride = {
             label: string;
             value: string;
 
             contentWidthScale?: number;
             labelClass?: string;
             lineHeightScale?: number;
-        }
+        };
 
         /**
-         * @since 0.1.0-alpha
+         * @since ___PKG_VERSION___
          */
-        export type FamilyScss = {
-            [ L in TokenLevels | `${ TokenLevels }i` ]?: {
-                family: string;
-                fallbacks: string[];
-                src: {
-                    type: "local" | "truetype" | "woff" | "woff2";
-                    path: string;
-                }[];
-                style: "normal" | "italic";
-                weight: TokenLevels | `${ '000' | TokenLevels } ${ TokenLevels | '1000' }`;
+        export type SingleFamilyScss = {
+            family: string;
+            fallbacks: string[];
+            src: {
+                type: "local" | "truetype" | "woff" | "woff2";
+                path: string;
+            }[];
+            style: "normal" | "italic";
+            weight: TokenLevels | `${ '000' | TokenLevels } ${ TokenLevels | '1000' }`;
 
-                printFontFace: boolean;
+            printFontFace: boolean;
 
-                display?: "auto" | "block" | "fallback" | "optional" | "swap";
-                'line-gap-override'?: string;
-                'size-adjust'?: string;
-                'unicode-range'?: string;
-            };
+            display?: "auto" | "block" | "fallback" | "optional" | "swap";
+            'line-gap-override'?: string;
+            'size-adjust'?: string;
+            'unicode-range'?: string;
         };
 
         /**
          * @since 0.1.0-alpha
          */
-        export interface Family<T_Slug extends string = string> extends FontFileOptions {
+        export type FamilyScss = {
+            [ L in TokenLevels | `${ TokenLevels }i` ]?: SingleFamilyScss;
+        };
+
+        /**
+         * @since 0.1.0-alpha
+         */
+        export type Family<T_Slug extends string = string> = FontFileOptions & {
 
             slug: T_Slug;
 

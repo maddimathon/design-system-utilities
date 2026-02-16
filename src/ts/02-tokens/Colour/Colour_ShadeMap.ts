@@ -9,11 +9,11 @@
  */
 
 import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
+import { LocalErrors } from '../../01-utilities/Errors.js';
 import { objectMap } from '../../01-utilities/objectMap.js';
+import type { TokenTypes } from '../@types.js';
 
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
-
-import { Tokens_Colour_ShadeMap_Shade } from './ShadeMap/ShadeMap_Shade.js';
 
 
 /**
@@ -21,27 +21,57 @@ import { Tokens_Colour_ShadeMap_Shade } from './ShadeMap/ShadeMap_Shade.js';
  * 
  * @since 0.1.0-alpha
  */
-export class Tokens_Colour_ShadeMap<
-    T_ColourName extends string,
-    T_ExtraLevels extends ColourUtilities.Levels.Optional,
-> extends AbstractTokens<Tokens_Colour_ShadeMap.Data<T_ColourName, T_ExtraLevels>> {
+export class Tokens_Colour_ShadeMap<T_Types extends TokenTypes.Colour.TypeParams> extends AbstractTokens<{
+    data: Tokens_Colour_ShadeMap.Data<T_Types>;
+    json: Tokens_Colour_ShadeMap.JsonReturn<T_Types>;
+    scss: Tokens_Colour_ShadeMap.ScssVars<T_Types>;
+}> {
 
-    public readonly data: Tokens_Colour_ShadeMap.Data<T_ColourName, T_ExtraLevels>;
+    /**
+     * Allows for async building.
+     */
+    public static async build<T_Types extends TokenTypes.Colour.TypeParams>(
+        allNames: readonly T_Types[ 'names' ][],
+        extraLevels: readonly T_Types[ 'extraLevels' ][],
+        name: T_Types[ 'names' ],
+        input: Tokens_Colour_ShadeMap.InputParam<T_Types>,
+    ): Promise<Tokens_Colour_ShadeMap<T_Types>> {
 
-    public constructor (
-        protected readonly allNames: readonly T_ColourName[],
-        protected readonly extraLevels: readonly T_ExtraLevels[],
-        protected readonly name: T_ColourName,
-        input: Tokens_Colour_ShadeMap.InputParam<T_ColourName, T_ExtraLevels>,
+        const errorMaker = (
+            message: string,
+            context: LocalErrors.Context,
+            opts?: undefined | {
+                cause?: LocalErrors.Cause;
+            },
+        ) => new LocalErrors.TokenBuildError( message, {
+            class: 'Tokens_Colour_ShadeMap',
+            method: 'build',
+            ...context,
+        }, opts );
+
+        return Tokens_Colour_ShadeMap.completeMap(
+            allNames,
+            extraLevels,
+            name,
+            input,
+            errorMaker,
+        ).then(
+            data => new Tokens_Colour_ShadeMap(
+                allNames,
+                extraLevels,
+                name,
+                data,
+            )
+        );
+    }
+
+    protected constructor (
+        protected readonly allNames: readonly T_Types[ 'names' ][],
+        protected readonly extraLevels: readonly T_Types[ 'extraLevels' ][],
+        protected readonly name: T_Types[ 'names' ],
+        public readonly data: Tokens_Colour_ShadeMap.Data<T_Types>,
     ) {
         super();
-
-        this.data = Tokens_Colour_ShadeMap.completeMap(
-            this.allNames,
-            this.extraLevels,
-            this.name,
-            input,
-        );
     }
 
     /**
@@ -50,16 +80,16 @@ export class Tokens_Colour_ShadeMap<
      * @since 0.1.0-alpha
      */
     public async addContrastTests(
-        colourGroupName: T_ColourName,
-        testMap: Tokens_Colour_ShadeMap<T_ColourName, T_ExtraLevels>,
+        colourGroupName: T_Types[ 'names' ],
+        testMap: Tokens_Colour_ShadeMap<T_Types>,
     ) {
         const promises: Promise<void>[] = [];
 
         for ( const t_thisLevel in this.data ) {
-            const thisLevel = t_thisLevel as ColourUtilities.Levels.Required | T_ExtraLevels;
+            const thisLevel = t_thisLevel as ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ];
 
             for ( const t_testLevel in testMap.data ) {
-                const testLevel = t_testLevel as ColourUtilities.Levels.Required | T_ExtraLevels;
+                const testLevel = t_testLevel as ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ];
 
                 promises.push(
                     this.data[ thisLevel ].addContrastTest(
@@ -74,7 +104,7 @@ export class Tokens_Colour_ShadeMap<
         return Promise.all( promises );
     }
 
-    public toJSON(): Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, T_ExtraLevels> {
+    public toJSON(): Tokens_Colour_ShadeMap.JsonReturn<T_Types> {
 
         return objectMap(
             this.data,
@@ -82,7 +112,7 @@ export class Tokens_Colour_ShadeMap<
         );
     }
 
-    public toScssVars(): Tokens_Colour_ShadeMap.ScssVars<T_ExtraLevels> {
+    public toScssVars(): Tokens_Colour_ShadeMap.ScssVars<T_Types> {
 
         return objectMap(
             this.data,
@@ -98,56 +128,342 @@ export class Tokens_Colour_ShadeMap<
  */
 export namespace Tokens_Colour_ShadeMap {
 
-    export type Data<
-        T_ColourName extends string,
-        T_ExtraLevels extends ColourUtilities.Levels.Optional,
-    > = {
-            [ N in ColourUtilities.Levels.Required | T_ExtraLevels ]: Tokens_Colour_ShadeMap_Shade<T_ColourName, T_ExtraLevels>;
-        };
+    export type Data<T_Types extends TokenTypes.Colour.TypeParams> = {
+        [ N in ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ] ]: Tokens_Colour_ShadeMap.Shade<T_Types>;
+    };
 
-    export type InputParam<
-        T_ColourName extends string,
-        T_ExtraLevels extends ColourUtilities.Levels.Optional,
-    > = {
-            [ N in ColourUtilities.Levels.Required | T_ExtraLevels ]?: Tokens_Colour_ShadeMap_Shade.InputParam;
-        };
+    export type InputParam<T_Types extends TokenTypes.Colour.TypeParams> = {
+        [ N in ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ] ]?: Tokens_Colour_ShadeMap.Shade.InputParam;
+    };
 
-    export type JsonReturn<
-        T_ColourName extends string,
-        T_ExtraLevels extends ColourUtilities.Levels.Optional,
-    > = {
-            [ N in ColourUtilities.Levels.Required | T_ExtraLevels ]: Tokens_Colour_ShadeMap_Shade.JsonReturn<T_ColourName, T_ExtraLevels>;
-        };
+    export type JsonReturn<T_Types extends TokenTypes.Colour.TypeParams> = {
+        [ N in ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ] ]: Tokens_Colour_ShadeMap.Shade.JsonReturn<T_Types>;
+    };
 
     /**
      * @since ___PKG_VERSION___
      */
-    export type ScssVars<
-        T_ExtraLevels extends ColourUtilities.Levels.Optional,
-    > = {
-            [ N in ColourUtilities.Levels.Required | T_ExtraLevels ]: Tokens_Colour_ShadeMap_Shade.ScssVars;
+    export type ScssVars<T_Types extends TokenTypes.Colour.TypeParams> = {
+        [ N in ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ] ]: Tokens_Colour_ShadeMap.Shade.ScssVars;
+    };
+
+
+
+    /* SHADE CLASS
+     * ====================================================================== */
+
+    /**
+     * Generates a complete token object for the design system.
+     * 
+     * @since 0.1.0-alpha
+     * @since ___PKG_VERSION___ — Moved to {@link Tokens_Colour_ShadeMap} and renamed.
+     */
+    export class Shade<T_Types extends TokenTypes.Colour.TypeParams> extends AbstractTokens<{
+        data: Shade.Data;
+        json: Shade.JsonReturn<T_Types>;
+        scss: Shade.ScssVars;
+    }> {
+
+        /**
+         * Allows for async building.
+         */
+        public static async build<T_Types extends TokenTypes.Colour.TypeParams>(
+            allNames: readonly T_Types[ 'names' ][],
+            extraLevels: readonly T_Types[ 'extraLevels' ][],
+            shadeName: "black" | "white" | T_Types[ 'names' ],
+            thisLevel: "black" | "white" | ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ],
+            input: Shade.InputParam,
+        ) {
+            const errorMaker = (
+                message: string,
+                context: LocalErrors.Context,
+                opts?: undefined | {
+                    cause?: LocalErrors.Cause;
+                },
+            ) => new LocalErrors.TokenBuildError( message, {
+                class: 'Shade',
+                method: 'build',
+                ...context,
+            }, opts );
+
+            return ColourUtilities.validateShade( input, errorMaker ).then(
+                data => new Shade(
+                    allNames,
+                    extraLevels,
+                    shadeName,
+                    thisLevel,
+                    data,
+                )
+            );
+        }
+
+        public contrast: Shade.Contrast<T_Types> = {
+            min: {},
+            max: {},
+            results: {},
         };
+
+        protected constructor (
+            protected readonly allNames: readonly T_Types[ 'names' ][],
+            protected readonly extraLevels: readonly T_Types[ 'extraLevels' ][],
+            protected readonly shadeName: "black" | "white" | T_Types[ 'names' ],
+            protected readonly thisLevel: "black" | "white" | ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ],
+            public readonly data: Shade.Data,
+        ) {
+            super();
+        }
+
+        /**
+         * Adds the given shade to this shade's contrast results.
+         * 
+         * @since 0.1.0-alpha
+         */
+        public async addContrastTest(
+            colourGroupName: T_Types[ 'names' ],
+            level: ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ],
+            testClr: ColourUtilities.SingleShade,
+        ) {
+            if ( typeof this.contrast.results[ colourGroupName ] === 'undefined' ) {
+                this.contrast.results[ colourGroupName ] = {};
+            }
+
+            const contrastTest = new ColourUtilities.ContrastTest(
+                this.shadeValue(),
+                testClr,
+            );
+
+            if ( typeof this.contrast.min[ colourGroupName ] === 'undefined' ) {
+                this.contrast.min[ colourGroupName ] = {
+                    ui: undefined,
+                    text: undefined,
+                };
+            }
+
+            // SETTING MINIMUMS
+            testNameLoop:
+            for ( const testName of ( [ 'ui', 'text' ] as const ) ) {
+                // continues
+                if ( !contrastTest.aa[ testName ] && !contrastTest.aaa[ testName ] ) {
+                    continue testNameLoop;
+                }
+
+                if ( typeof this.contrast.min[ colourGroupName ][ testName ] === 'undefined' ) {
+                    this.contrast.min[ colourGroupName ][ testName ] = {
+                        aa: undefined,
+                        aaa: undefined,
+                    };
+                }
+
+                standardsLoop:
+                for ( const standard of [ 'aa', 'aaa' ] as const ) {
+                    // if it didn't pass, ignore this
+                    if ( !contrastTest[ standard ][ testName ] ) {
+                        continue standardsLoop;
+                    }
+
+                    if (
+                        // if there's no minimum, then this is the new minimum
+                        typeof this.contrast.min[ colourGroupName ][ testName ]?.[ standard ] === 'undefined'
+
+                        // this result is less than the existing minimum
+                        || contrastTest.ratio < this.contrast.min[ colourGroupName ][ testName ]?.[ standard ].ratio
+                    ) {
+
+                        this.contrast.min[ colourGroupName ][ testName ][ standard ] = {
+                            name: colourGroupName,
+                            level,
+                            ratio: contrastTest.ratio,
+                        };
+                    }
+                }
+            }
+
+            // SETTING MAXIMUM
+            if (
+                // if there's no maximum, then this is the new maximum
+                typeof this.contrast.max[ colourGroupName ] === 'undefined'
+
+                // this result is more than the existing maximum
+                || contrastTest.ratio > this.contrast.max[ colourGroupName ].ratio
+            ) {
+
+                this.contrast.max[ colourGroupName ] = {
+                    name: colourGroupName,
+                    level,
+                    ratio: contrastTest.ratio,
+                };
+            }
+
+            this.contrast.results[ colourGroupName ][ level ] = {
+                ...contrastTest.toJSON(),
+            };
+        }
+
+        public shadeValue(): ColourUtilities.SingleShade {
+
+            return {
+                hex: this.data.hex,
+                hsl: this.data.hsl,
+                rgb: this.data.rgb,
+                lch: this.data.lch,
+            };
+        }
+
+        public toJSON(): Shade.JsonReturn<T_Types> {
+
+            const max = this.contrast.max;
+
+            const min: Shade.Contrast.Minimum<T_Types, number> = objectMap(
+                this.contrast.min,
+                ( [ key, testGroup ] ) => ( {
+
+                    ui: testGroup?.ui && {
+                        aa: testGroup.ui.aa,
+                        aaa: testGroup.ui.aaa,
+                    },
+
+                    text: testGroup?.text && {
+                        aa: testGroup.text.aa,
+                        aaa: testGroup.text.aaa,
+                    },
+                } ),
+            );
+
+            return {
+                ...this.shadeValue(),
+                contrast: {
+                    max,
+                    min,
+                    results: this.contrast.results,
+                },
+            };
+        }
+
+        public toScssVars(): Shade.ScssVars {
+            return ColourUtilities.toString.hsl( this.data.hsl );
+        }
+    };
+
+    /**
+     * Utilities for the {@link Shade} class.
+     * 
+     * @since 0.1.0-alpha
+     * @since ___PKG_VERSION___ — Moved to {@link Tokens_Colour_ShadeMap} and renamed.
+     */
+    export namespace Shade {
+
+        /**
+         * @since 0.1.0-alpha
+         */
+        export type Data = ColourUtilities.SingleShade;
+
+        /**
+         * @since 0.1.0-alpha
+         */
+        export type InputParam = ColourUtilities.SingleShade_Input;
+
+        /**
+         * @since 0.1.0-alpha
+         */
+        export type JsonReturn<T_Types extends TokenTypes.Colour.TypeParams> = ColourUtilities.Value_All & {
+            contrast: Contrast<T_Types, number>;
+        };
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        export type ScssVars = string;
+
+
+
+        /**
+         * @since 0.1.0-alpha
+         */
+        export type ContrastResults<T_Types extends TokenTypes.Colour.TypeParams> = {
+            [ N in T_Types[ 'names' ] ]?: undefined | {
+                [ K in ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ] ]?: ColourUtilities.ContrastTest.Parsed;
+            };
+        };
+
+        /**
+         * @since 0.1.0-alpha
+         */
+        export type Contrast<
+            T_Types extends TokenTypes.Colour.TypeParams,
+            T_RatioValue extends number | undefined = number,
+        > = {
+            min: Contrast.Minimum<T_Types, T_RatioValue>;
+            max: Contrast.Maximum<T_Types, T_RatioValue>;
+            results: ContrastResults<T_Types>;
+        };
+
+        /**
+         * @since 0.1.0-alpha
+         */
+        export namespace Contrast {
+
+            /**
+             * @since 0.1.0-alpha
+             */
+            export type SingleMinMax<
+                T_Types extends TokenTypes.Colour.TypeParams,
+                T_RatioValue extends number | undefined = number,
+            > = undefined | {
+                name: 'base' | T_Types[ 'names' ];
+                level: ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ];
+                ratio: T_RatioValue;
+            };
+
+            /**
+             * @since 0.1.0-alpha
+             */
+            export type Maximum<
+                T_Types extends TokenTypes.Colour.TypeParams,
+                T_RatioValue extends number | undefined = number,
+            > = {
+                    [ N in 'base' | T_Types[ 'names' ] ]?: SingleMinMax<T_Types, T_RatioValue>;
+                };
+
+            /**
+             * @since 0.1.0-alpha
+             */
+            export type Minimum<
+                T_Types extends TokenTypes.Colour.TypeParams,
+                T_RatioValue extends number | undefined = number,
+            > = {
+                    [ N in 'base' | T_Types[ 'names' ] ]?: undefined | {
+                        [ K in keyof ColourUtilities.ContrastTest.SingleResult ]?: undefined | {
+                            [ S in keyof ColourUtilities.ContrastTest.Standards ]?: SingleMinMax<T_Types, T_RatioValue>;
+                        };
+                    };
+                };
+        }
+    }
 
 
 
     /* FUNCTIONS
      * ====================================================================== */
 
+    /**
+     * Completes a shade map and converts the level values to
+     * {@link Tokens_Colour_ShadeMap.Shade} objects.
+     *
+     * @since 0.1.0-alpha
+     */
     // UPGRADE - make this work by only setting lch or hsl hue value
-    export function completeMap<
-        T_ColourName extends string,
-        T_ExtraLevels extends ColourUtilities.Levels.Optional,
-    >(
-        allNames: readonly T_ColourName[],
-        extraLevels: readonly T_ExtraLevels[],
-        name: T_ColourName,
+    export async function completeMap<T_Types extends TokenTypes.Colour.TypeParams>(
+        allNames: readonly T_Types[ 'names' ][],
+        extraLevels: readonly T_Types[ 'extraLevels' ][],
+        name: T_Types[ 'names' ],
 
-        part: InputParam<T_ColourName, T_ExtraLevels>,
+        part: InputParam<T_Types>,
 
+        errMaker: LocalErrors.ConstructorFn | null,
         _treatShadeAsBase?: boolean,
-    ): {
-            [ L in ColourUtilities.Levels.Required | T_ExtraLevels ]: Tokens_Colour_ShadeMap_Shade<T_ColourName, T_ExtraLevels>;
-        } {
+    ): Promise<{
+        [ L in ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ] ]: Tokens_Colour_ShadeMap.Shade<T_Types>;
+    }> {
 
         const treatShadeAsBase = _treatShadeAsBase ?? ( name.match( /^base(\-|\_|$)/i ) !== null );
 
@@ -159,33 +475,28 @@ export namespace Tokens_Colour_ShadeMap {
             '900': { l: 2, c: 0, h: 0, },
         };
 
-        const shadeMaker = (
-            _thisLevel: ColourUtilities.Levels.Required | T_ExtraLevels,
-            _input: Tokens_Colour_ShadeMap_Shade<T_ColourName, T_ExtraLevels> | Tokens_Colour_ShadeMap_Shade.InputParam,
-        ) => {
+        const shadeMaker = async (
+            _thisLevel: ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ],
+            _input: Tokens_Colour_ShadeMap.Shade<T_Types> | Tokens_Colour_ShadeMap.Shade.InputParam,
+        ): Promise<Tokens_Colour_ShadeMap.Shade<T_Types>> => {
 
             // to keep it within a reasonable spectrum (since I average lch values)
-            const hsl = ColourUtilities.toHSL(
-                (
-                    _input instanceof Tokens_Colour_ShadeMap_Shade
-                        ? _input.data.lch
-                        : _input
-                ),
-                false
-            );
+            const hsl = ColourUtilities.Async.toHSL( _input, errMaker ?? undefined, false );
 
-            return new Tokens_Colour_ShadeMap_Shade(
-                allNames,
-                extraLevels,
-                name,
-                _thisLevel,
-                hsl,
+            return hsl.then(
+                validHSL => Tokens_Colour_ShadeMap.Shade.build(
+                    allNames,
+                    extraLevels,
+                    name,
+                    _thisLevel,
+                    validHSL,
+                )
             );
         };
 
-        let _l_100: Tokens_Colour_ShadeMap_Shade<T_ColourName, T_ExtraLevels>;
-        let _l_500: Tokens_Colour_ShadeMap_Shade<T_ColourName, T_ExtraLevels> | undefined = undefined;
-        let _l_900: Tokens_Colour_ShadeMap_Shade<T_ColourName, T_ExtraLevels>;
+        let _l_100: Promise<Tokens_Colour_ShadeMap.Shade<T_Types>>;
+        let _l_500: Promise<Tokens_Colour_ShadeMap.Shade<T_Types>> | undefined = undefined;
+        let _l_900: Promise<Tokens_Colour_ShadeMap.Shade<T_Types>>;
 
         /*
          * Making sure the minimum required levels are present. 
@@ -200,23 +511,34 @@ export namespace Tokens_Colour_ShadeMap {
         } else if ( !( '100' in part ) && !( '900' in part ) || !( part[ '100' ] && part[ '900' ] ) ) {
             // if these core colours aren't set, we have to generate them or the
             // reset of the system will break
-
             if ( inputKeys.length > 0 ) {
 
-                const _hue = Object.values( part ).map(
-                    p => ColourUtilities.toLCH( p ).h
-                ).reduce( ( partialSum, a ) => partialSum + a, 0 ) / Math.max( 1, inputKeys.length );
+                const _hue = Promise.all(
+                    Object.values( part ).map(
+                        p => ColourUtilities.Async.toLCH( p )
+                    )
+                ).then(
+                    arr => arr.reduce(
+                        ( ( partialSum, a ) => partialSum + a.h ),
+                        0,
+                    ) / Math.max( 1, inputKeys.length )
+                );
 
-                _l_100 = shadeMaker( '100', part[ '100' ] ?? {
-                    l: bases[ '100' ].l,
-                    c: 5,
-                    h: _hue,
-                } );
-                _l_900 = shadeMaker( '900', part[ '900' ] ?? {
-                    l: bases[ '900' ].l,
-                    c: 4,
-                    h: _hue,
-                } );
+                _l_100 = _hue.then(
+                    ( h ) => shadeMaker( '100', part[ '100' ] ?? {
+                        l: bases[ '100' ].l,
+                        c: 5,
+                        h,
+                    } )
+                );
+
+                _l_900 = _hue.then(
+                    ( h ) => shadeMaker( '900', part[ '900' ] ?? {
+                        l: bases[ '900' ].l,
+                        c: 4,
+                        h,
+                    } )
+                );
             } else {
                 _l_100 = shadeMaker( '100', part[ '100' ] ?? bases[ '100' ] );
                 _l_900 = shadeMaker( '900', part[ '900' ] ?? bases[ '900' ] );
@@ -227,167 +549,94 @@ export namespace Tokens_Colour_ShadeMap {
             _l_900 = shadeMaker( '900', part[ '900' ] ?? bases[ '900' ] );
         }
 
-        const l_100 = _l_100;
-        const l_900 = _l_900;
+        const [
+            l_100,
+            l_900,
+            l_500,
+        ] = await Promise.all( [
+            _l_100,
+            _l_900,
+            Promise.resolve( _l_500 ).then(
+                async ( __clr ): Promise<Tokens_Colour_ShadeMap.Shade<T_Types>> => {
+                    // return
+                    if ( __clr ) {
+                        return __clr;
+                    }
 
-        const l_500 = _l_500 ?? shadeMaker(
-            '500',
-            (
-                ( !( '500' in part ) || !part[ '500' ] )
-                    // we should merge it from what's available
-                    ? ColourUtilities.mixColours( l_100, l_900 )
-                    // otherwise we can safely assume this exists
-                    : part[ '500' ]
-            )
-        );
+                    // returns
+                    if ( '500' in part && part[ '500' ] ) {
+                        return shadeMaker( '500', part[ '500' ] );
+                    }
 
-        const l_300 = shadeMaker(
-            '300',
-            (
-                ( !( '300' in part ) || !part[ '300' ] )
-                    // we should merge it from what's available
-                    ? ColourUtilities.mixColours( l_100, l_500, treatShadeAsBase ? 0 : 0.375 )
-                    // ? ColourUtilities.mixColours( l_100, l_500 )
-                    // otherwise we can safely assume this exists
-                    : part[ '300' ]
-            )
-        );
+                    return ColourUtilities.mixColours(
+                        await _l_100,
+                        await _l_900,
+                    ).then( mixed => shadeMaker( '500', mixed ) );
+                }
+            ),
+        ] );
 
-        const l_700 = shadeMaker(
-            '700',
-            (
-                ( !( '700' in part ) || !part[ '700' ] )
-                    // we should merge it from what's available
-                    ? ColourUtilities.mixColours( l_500, l_900, treatShadeAsBase ? 0 : 0.375 )
-                    // ? ColourUtilities.mixColours( l_500, l_900 )
-                    // otherwise we can safely assume this exists
-                    : part[ '700' ]
-            )
-        );
+        const shadeFetcher = async (
+            level: ColourUtilities.Levels.Required,
+            lowClr: Tokens_Colour_ShadeMap.Shade<T_Types>,
+            highClr: Tokens_Colour_ShadeMap.Shade<T_Types>,
+            saturationMultiplier?: number,
+        ) => {
+            // returns
+            if ( level in part && part[ level ] ) {
+                return shadeMaker( level, part[ level ] );
+            }
 
-        const l_200 = shadeMaker(
-            '200',
-            (
-                ( !( '200' in part ) || !part[ '200' ] )
-                    // we should merge it from what's available
-                    ? ColourUtilities.mixColours( l_100, l_300 )
-                    // otherwise we can safely assume this exists
-                    : part[ '200' ]
-            )
-        );
+            return ColourUtilities.mixColours(
+                lowClr,
+                highClr,
+                saturationMultiplier,
+            ).then( clr => shadeMaker( level, clr ) );
+        };
 
-        const l_400 = shadeMaker(
-            '400',
-            (
-                ( !( '400' in part ) || !part[ '400' ] )
-                    // we should merge it from what's available
-                    ? ColourUtilities.mixColours( l_300, l_500 )
-                    // otherwise we can safely assume this exists
-                    : part[ '400' ]
-            )
-        );
+        const [
+            l_300,
+            l_700,
+        ] = await Promise.all( [
+            shadeFetcher( '300', l_100, l_500, treatShadeAsBase ? 0 : 0.375 ),
+            shadeFetcher( '700', l_500, l_900, treatShadeAsBase ? 0 : 0.375 ),
+        ] );
 
-        const l_600 = shadeMaker(
-            '600',
-            (
-                ( !( '600' in part ) || !part[ '600' ] )
-                    // we should merge it from what's available
-                    ? ColourUtilities.mixColours( l_500, l_700 )
-                    // otherwise we can safely assume this exists
-                    : part[ '600' ]
-            )
-        );
+        const [
+            l_200,
+            l_400,
+            l_600,
+            l_800,
+        ] = await Promise.all( [
+            shadeFetcher( '200', l_100, l_300 ),
+            shadeFetcher( '400', l_300, l_500 ),
+            shadeFetcher( '600', l_500, l_700 ),
+            shadeFetcher( '800', l_700, l_900 ),
+        ] );
 
-        const l_800 = shadeMaker(
-            '800',
-            (
-                ( !( '800' in part ) || !part[ '800' ] )
-                    // we should merge it from what's available
-                    ? ColourUtilities.mixColours( l_700, l_900 )
-                    // otherwise we can safely assume this exists
-                    : part[ '800' ]
-            )
-        );
-
-        const l_150 = shadeMaker(
-            '150',
-            (
-                ( !( '150' in part ) || !part[ '150' ] )
-                    // we should merge it from what's available
-                    ? ColourUtilities.mixColours( l_100, l_200 )
-                    // otherwise we can safely assume this exists
-                    : part[ '150' ]
-            )
-        );
-
-        const l_250 = shadeMaker(
-            '250',
-            (
-                ( !( '250' in part ) || !part[ '250' ] )
-                    // we should merge it from what's available
-                    ? ColourUtilities.mixColours( l_200, l_300 )
-                    // otherwise we can safely assume this exists
-                    : part[ '250' ]
-            )
-        );
-
-        const l_850 = shadeMaker(
-            '850',
-            (
-                ( !( '850' in part ) || !part[ '850' ] )
-                    // we should merge it from what's available
-                    ? ColourUtilities.mixColours( l_800, l_900 )
-                    // otherwise we can safely assume this exists
-                    : part[ '850' ]
-            )
-        );
-
-        // const l_350 = shadeMaker(
-        //     '350',
-        //     (
-        //         ( !( '350' in part ) || !part[ '350' ] )
-        //             // we should merge it from what's available
-        //             ? ColourUtilities.mixColours( l_300, l_400 )
-        //             // otherwise we can safely assume this exists
-        //             : part[ '350' ]
-        //     )
-        // );
-
-        // const l_650 = shadeMaker(
-        //     '650',
-        //     (
-        //         ( !( '650' in part ) || !part[ '650' ] )
-        //             // we should merge it from what's available
-        //             ? ColourUtilities.mixColours( l_600, l_700 )
-        //             // otherwise we can safely assume this exists
-        //             : part[ '650' ]
-        //     )
-        // );
-
-        const l_750 = shadeMaker(
-            '750',
-            (
-                ( !( '750' in part ) || !part[ '750' ] )
-                    // we should merge it from what's available
-                    ? ColourUtilities.mixColours( l_700, l_800 )
-                    // otherwise we can safely assume this exists
-                    : part[ '750' ]
-            )
-        );
+        const [
+            l_150,
+            l_250,
+            l_750,
+            l_850,
+        ] = await Promise.all( [
+            shadeFetcher( '150', l_100, l_200 ),
+            shadeFetcher( '250', l_200, l_300 ),
+            shadeFetcher( '750', l_700, l_800 ),
+            shadeFetcher( '850', l_800, l_900 ),
+        ] );
 
         const defaultLevels: {
-            [ L in ColourUtilities.Levels.Required ]: Tokens_Colour_ShadeMap_Shade<T_ColourName, T_ExtraLevels>;
+            [ L in ColourUtilities.Levels.Required ]: Tokens_Colour_ShadeMap.Shade<T_Types>;
         } = {
             '100': l_100,
             '150': l_150,
             '200': l_200,
             '250': l_250,
             '300': l_300,
-            // '350': l_350,
             '400': l_400,
             '500': l_500,
             '600': l_600,
-            // '650': l_650,
             '700': l_700,
             '750': l_750,
             '800': l_800,
@@ -395,10 +644,16 @@ export namespace Tokens_Colour_ShadeMap {
             '900': l_900,
         };
 
-        // @ts-expect-error - this will be filled
-        const completeLevels: {
-            [ L in ColourUtilities.Levels.Required | T_ExtraLevels ]: Tokens_Colour_ShadeMap_Shade<T_ColourName, T_ExtraLevels>;
-        } = {};
+        const completeLevels: (
+            | [
+                ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ],
+                Tokens_Colour_ShadeMap.Shade<T_Types>,
+            ]
+            | Promise<[
+                ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ],
+                Tokens_Colour_ShadeMap.Shade<T_Types>,
+            ]>
+        )[] = [];
 
         const levelsToInclude = [
             ...Object.keys( defaultLevels ) as ( keyof typeof defaultLevels )[],
@@ -410,13 +665,20 @@ export namespace Tokens_Colour_ShadeMap {
 
             // continues
             if ( level in defaultLevels ) {
-                completeLevels[ level ] = defaultLevels[ level as ColourUtilities.Levels.Required ];
+                completeLevels.push( [
+                    level,
+                    defaultLevels[ level as ColourUtilities.Levels.Required ],
+                ] );
                 continue levelLoop;
             }
 
             // continues
             if ( part[ level ] ) {
-                completeLevels[ level ] = shadeMaker( level, part[ level ] );
+                completeLevels.push(
+                    shadeMaker( level, part[ level ] ).then(
+                        shade => [ level, shade ]
+                    )
+                );
                 continue levelLoop;
             }
 
@@ -424,7 +686,7 @@ export namespace Tokens_Colour_ShadeMap {
             let higherLevel: ColourUtilities.Levels.Required;
 
             // continues for 000, 050, and 950
-            switch ( level as T_ExtraLevels ) {
+            switch ( level as ColourUtilities.Levels.Optional ) {
 
                 case '350':
                     lowerLevel = '300';
@@ -447,16 +709,24 @@ export namespace Tokens_Colour_ShadeMap {
                     break;
             }
 
-            completeLevels[ level ] = shadeMaker(
-                level,
+            completeLevels.push(
                 ColourUtilities.mixColours(
                     defaultLevels[ lowerLevel ],
                     defaultLevels[ higherLevel ],
-                ),
+                ).then(
+                    mixed => shadeMaker(
+                        level,
+                        mixed,
+                    ).then( shade => [ level, shade ] )
+                )
             );
         }
 
-        return completeLevels;
+        return Promise.all( completeLevels ).then(
+            entries => Object.fromEntries( entries ) as {
+                [ L in ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ] ]: Tokens_Colour_ShadeMap.Shade<T_Types>;
+            }
+        );
     }
 
     /**

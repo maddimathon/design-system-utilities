@@ -17,7 +17,11 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
  * 
  * @since 0.1.0-alpha
  */
-export class Tokens_CSS_Border extends AbstractTokens<Tokens_CSS_Border.Data> {
+export class Tokens_CSS_Border extends AbstractTokens<{
+    data: Tokens_CSS_Border.Data;
+    json: Tokens_CSS_Border.JsonReturn;
+    scss: Tokens_CSS_Border.ScssVars;
+}> {
 
     public static get default(): Tokens_CSS_Border.Data {
         return {
@@ -64,9 +68,7 @@ export class Tokens_CSS_Border extends AbstractTokens<Tokens_CSS_Border.Data> {
         return this.data;
     }
 
-    public toScssVars(): {
-        [ K in keyof Tokens_CSS_Border.Data ]: AbstractTokens.ScssReturn;
-    } {
+    public toScssVars(): Tokens_CSS_Border.ScssVars {
         return {
             radius: this.data.radius,
             stroke: this.data.stroke,
@@ -124,4 +126,8 @@ export namespace Tokens_CSS_Border {
      */
     export type JsonReturn = Data;
 
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export type ScssVars = Data;
 }

@@ -18,7 +18,7 @@ import { Tokens_Icons } from './Tokens_Icons.js';
 import { Tokens_Logos } from './Tokens_Logos.js';
 import { Tokens_Spacing } from './Tokens_Spacing.js';
 import { Tokens_Themes } from './Tokens_Themes.js';
-import { Tokens_Themes_Set_SingleMode } from './Themes/Themes_Set_SingleMode.js';
+import { Tokens_Themes_Set } from './Themes/Themes_Set.js';
 import { Tokens_Typography } from './Tokens_Typography.js';
 /**
  * Generates a complete token object for the design system.
@@ -68,21 +68,25 @@ export class Tokens extends AbstractTokens {
             ...(input.themes?.contrast?.filter(c => c !== 'low' && c !== 'average' && c !== 'high' && c !== 'max')
                 ?? []),
         ];
-        const themes = await Tokens_Themes.build(allClrNames, extraColourLevels, brightnessModes, [...contrastModes], input.themes?.input ?? []);
-        const tokens = new Tokens(allClrNames, extraColourLevels, themes, input, {
-            ...config,
-            extraColourLevels: undefined,
+        return Promise.all([
+            Tokens_Colour.build(allClrNames, extraColourLevels, input.colour ?? {}),
+            Tokens_Themes.build(allClrNames, extraColourLevels, brightnessModes, [...contrastModes], input.themes?.input ?? []),
+        ]).then(async ([colour, themes]) => {
+            const tokens = new Tokens(allClrNames, extraColourLevels, { colour, themes }, input, {
+                ...config,
+                extraColourLevels: undefined,
+            });
+            return tokens.colour.addContrastTests().then(() => tokens);
         });
-        await tokens.colour.addContrastTests();
-        return tokens;
     }
-    constructor(clrNames, extraColourLevels, themes, input, config = {}) {
+    constructor(clrNames, extraColourLevels, { colour, themes }, input, config = {}) {
         super();
         this.clrNames = clrNames;
         this.extraColourLevels = extraColourLevels;
         this.input = input;
         this.config = config;
-        this.colour = new Tokens_Colour(this.clrNames, this.extraColourLevels, this.input.colour ?? {});
+        ;
+        this.colour = colour;
         this.css = new Tokens_CSS(this.input.css ?? {});
         this.icons = new Tokens_Icons(this.input.icons ?? {});
         this.logos = new Tokens_Logos(
@@ -394,13 +398,13 @@ export class Tokens extends AbstractTokens {
         /**
          * @since 0.1.0-alpha
          */
-        Themes.allHeadingLevels = Tokens_Themes_Set_SingleMode.allHeadingLevels;
+        Themes.allHeadingLevels = Tokens_Themes_Set.SingleMode.allHeadingLevels;
         /**
          * @since 0.1.0-alpha
          */
         let SingleMode;
         (function (SingleMode) {
-            SingleMode.colourOption = Tokens_Themes_Set_SingleMode.Build.colourOption;
+            SingleMode.colourOption = Tokens_Themes_Set.SingleMode.Build.colourOption;
             /**
              * @since 0.1.1-alpha.1.draft
              */
@@ -408,10 +412,10 @@ export class Tokens extends AbstractTokens {
             (function (Levels) {
                 /**
                  * @since 0.1.1-alpha.0
-                 * @since 0.1.1-alpha.1.draft — Moved to Tokens_Themes_Set_SingleMode.Levels and renamed.
+                 * @since 0.1.1-alpha.1.draft — Moved to Tokens_Themes_Set.SingleMode.Levels and renamed.
                  */
-                Levels.DEFAULT = Tokens_Themes_Set_SingleMode.Levels.DEFAULT;
-                Levels.parse = Tokens_Themes_Set_SingleMode.Levels.parse;
+                Levels.DEFAULT = Tokens_Themes_Set.SingleMode.Levels.DEFAULT;
+                Levels.parse = Tokens_Themes_Set.SingleMode.Levels.parse;
             })(Levels = SingleMode.Levels || (SingleMode.Levels = {}));
         })(SingleMode = Themes.SingleMode || (Themes.SingleMode = {}));
     })(Themes = Tokens.Themes || (Tokens.Themes = {}));

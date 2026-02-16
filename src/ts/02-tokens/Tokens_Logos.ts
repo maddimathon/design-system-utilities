@@ -19,7 +19,11 @@ import { AbstractTokens } from './abstract/AbstractTokens.js';
  */
 export class Tokens_Logos<
     T_LogoNames extends string,
-> extends AbstractTokens<Tokens_Logos.Data<T_LogoNames>> {
+> extends AbstractTokens<{
+    data: Tokens_Logos.Data<T_LogoNames>;
+    json: Tokens_Logos.JsonReturn<T_LogoNames>;
+    scss: Tokens_Logos.ScssVars<T_LogoNames>;
+}> {
 
 
     public readonly data: Tokens_Logos.Data<T_LogoNames>;
@@ -54,14 +58,12 @@ export class Tokens_Logos<
         ) as Tokens_Logos.JsonReturn<T_LogoNames>;
     }
 
-    public toScssVars() {
+    public toScssVars(): Tokens_Logos.ScssVars<T_LogoNames> {
 
         return objectMap(
             this.data,
             ( [ key, value ] ) => value.toScssVars()
-        ) as {
-                [ K in keyof Tokens_Logos.Data<T_LogoNames> ]: SvgMaker.ScssVars<K>;
-            };
+        ) as Tokens_Logos.ScssVars<T_LogoNames>;
     }
 }
 
@@ -97,5 +99,14 @@ export namespace Tokens_Logos {
         T_LogoNames extends string,
     > = undefined | {
         [ L in T_LogoNames ]: SvgMaker.JsonReturn<L>;
+    };
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export type ScssVars<
+        T_LogoNames extends string,
+    > = undefined | {
+        [ L in T_LogoNames ]: SvgMaker.ScssVars<L>;
     };
 }

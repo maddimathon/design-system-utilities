@@ -192,7 +192,7 @@ Improved theme swatches, logos.
 ### Fixed
 - Fixed theme swatch token inheritance
 - Fixed missing 'link-icon' and 'link-ui' keys in 
-  Tokens_Themes_Set_SingleMode.Data_RecursivePartial type
+  Tokens_Themes_Set.SingleMode.Data_RecursivePartial type
 
 
 ### **0.1.0-alpha.2** — 2025-11-03

@@ -13,7 +13,7 @@
 import type { ColourUtilities } from '../01-utilities/ColourUtilities.js';
 
 import type { AbstractTokens } from './abstract/AbstractTokens.js';
-import type { Tokens_Themes_Set_SingleMode } from './Themes/Themes_Set_SingleMode.ts';
+import type { Tokens_Themes_Set } from './Themes/Themes_Set.ts';
 
 /**
  * @since 0.1.0-alpha
@@ -115,15 +115,30 @@ export type ThemeMode_ContrastAtLeastOne = readonly [
 
 /**
  * @since 0.1.0-alpha
- * @since 0.1.1-alpha.0 - Switched to be set based on {@link AbstractTokens.tokenLevels} value.
  */
-export type TokenLevels = typeof AbstractTokens[ 'tokenLevels' ][ number ];
+export type TokenLevels =
+    | '100'
+    | '200'
+    | '300'
+    | '400'
+    | '500'
+    | '600'
+    | '700'
+    | '800'
+    | '900';
 
 /**
  * @since 0.1.0-alpha
- * @since 0.1.1-alpha.0 - Switched to be set based on {@link AbstractTokens.tokenLevels_extraOptions} value.
  */
-export type TokenLevels_Extended = AbstractTokens[ 'tokenLevels_extraOptions' ][ number ];
+export type TokenLevels_Extended =
+    | '150'
+    | '250'
+    | '350'
+    | '450'
+    | '550'
+    | '650'
+    | '750'
+    | '850';
 
 
 /**

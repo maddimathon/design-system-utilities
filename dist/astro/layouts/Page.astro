@@ -9,6 +9,7 @@
 import type { ComponentProps } from 'astro/types';
 import type { ArrayItem } from '@maddimathon/utility-typescript/types';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
+import type { Tokens_Typography } from '../../ts/02-tokens/Tokens_Typography.js';
 
 /* import - functions */
 import { escRegExp } from '@maddimathon/utility-typescript/functions';
@@ -138,7 +139,9 @@ if (Array.isArray(props.secondaryMenu)) {
 /* Settings ------------------ */
 
 const familyOverrideValues = inputs.tokens.typography.familyOverrides
-    ? Object.values(inputs.tokens.typography.familyOverrides).filter((v) => v)
+    ? (Object.values(inputs.tokens.typography.familyOverrides).filter(
+          (v) => v,
+      ) as Tokens_Typography.Font.FamilyOverride[])
     : [];
 
 if (familyOverrideValues.length) {
@@ -154,7 +157,7 @@ if (familyOverrideValues.length) {
             value: 'default',
             labelClass: 'font-family-override-default',
         },
-        ...familyOverrideValues,
+        ...(familyOverrideValues ?? []),
     ];
 
     props.settings.settings.custom = [

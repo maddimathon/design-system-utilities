@@ -11,7 +11,7 @@
 import type { RecursivePartial } from '@maddimathon/utility-typescript/types/objects';
 import { mergeArgs } from '@maddimathon/utility-typescript/functions';
 
-import type { RequiredHeadingLevels, ThemeMode_ContrastOption, TokenLevels } from '../@types.js';
+import type { RequiredHeadingLevels, Theme.Mode.ContrastOption, TokenLevels } from '../@types.js';
 
 import { objectGenerator } from '../../01-utilities/objectGenerator.js';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
@@ -21,7 +21,11 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
  * 
  * @since 0.1.0-alpha
  */
-export class Tokens_CSS_Style extends AbstractTokens<Tokens_CSS_Style.Data> {
+export class Tokens_CSS_Style extends AbstractTokens<{
+    data: Tokens_CSS_Style.Data;
+    json: Tokens_CSS_Style.JsonReturn;
+    scss: Tokens_CSS_Style.ScssVars;
+}> {
 
     /**
      * @since ___PKG_VERSION___
@@ -322,9 +326,7 @@ export class Tokens_CSS_Style extends AbstractTokens<Tokens_CSS_Style.Data> {
         return this.data;
     }
 
-    public toScssVars(): {
-        [ K in keyof Tokens_CSS_Style.Data ]: AbstractTokens.ScssReturn;
-    } {
+    public toScssVars(): Tokens_CSS_Style.ScssVars {
         return this.data;
     }
 }
@@ -339,7 +341,7 @@ export namespace Tokens_CSS_Style {
     /**
      * @since ___PKG_VERSION___
      */
-    export interface AlertStyles {
+    export type AlertStyles = {
 
         /**
          * This should be a theme slug.
@@ -389,9 +391,9 @@ export namespace Tokens_CSS_Style {
             block: TokenLevels;
             inline: TokenLevels;
         };
-    }
+    };
 
-    export interface ButtonStyles {
+    export type ButtonStyles = {
 
         border: {
             radius: "0" | TokenLevels;
@@ -430,19 +432,19 @@ export namespace Tokens_CSS_Style {
         };
 
         width: string;
-    }
+    };
 
-    export interface ButtonStyles_Disabled extends Omit<
+    export type ButtonStyles_Disabled = Omit<
         ButtonStyles,
         'border' | 'focus' | 'gap' | 'line-height' | 'margin' | 'padding' | 'width'
-    > {
+    > & {
         border: Omit<ButtonStyles[ 'border' ], 'width'>;
 
         'letter-spacing': string;
         'text-transform': CSS.TextTransform;
-    }
+    };
 
-    export interface HeadingStyles {
+    export type HeadingStyles = {
 
         font: {
             style: "normal" | "italic";
@@ -459,12 +461,12 @@ export namespace Tokens_CSS_Style {
                 end: TokenLevels;
             };
         };
-    }
+    };
 
     /**
      * @since 0.1.1-alpha.0
      */
-    export interface InputStyles {
+    export type InputStyles = {
 
         border: {
             radius: "0" | TokenLevels;
@@ -515,20 +517,20 @@ export namespace Tokens_CSS_Style {
                 /**
                  * Contrast modes.
                  */
-                [ C in Exclude<ThemeMode_ContrastOption, 'high' | 'max'> ]?: string;
+                [ C in Exclude<Theme.Mode.ContrastOption, 'high' | 'max'> ]?: string;
             };
         };
-    }
+    };
 
     /**
      * @since 0.1.1-alpha.0
      */
-    export interface InputStyles_Disabled extends Omit<
+    export type InputStyles_Disabled = Omit<
         InputStyles,
         'border' | 'focus' | 'label' | 'line-height' | 'margin' | 'padding' | 'placeholder'
-    > {
+    > & {
         border: Omit<InputStyles[ 'border' ], 'width'>;
-    }
+    };
 
     /**
      * CSS allowed value types.
@@ -577,7 +579,7 @@ export namespace Tokens_CSS_Style {
                     /**
                      * Contrast modes.
                      */
-                    [ C in Exclude<ThemeMode_ContrastOption, 'max'> ]?: string;
+                    [ C in Exclude<Theme.Mode.ContrastOption, 'max'> ]?: string;
                 };
             };
         };
@@ -618,7 +620,7 @@ export namespace Tokens_CSS_Style {
                     /**
                      * Contrast modes.
                      */
-                    [ C in Exclude<ThemeMode_ContrastOption, 'max'> ]?: string;
+                    [ C in Exclude<Theme.Mode.ContrastOption, 'max'> ]?: string;
                 };
             };
         };
@@ -628,4 +630,9 @@ export namespace Tokens_CSS_Style {
      * @since 0.1.0-alpha
      */
     export type JsonReturn = Data;
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export type ScssVars = Data;
 }

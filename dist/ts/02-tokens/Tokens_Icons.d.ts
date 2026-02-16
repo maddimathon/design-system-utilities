@@ -14,14 +14,18 @@ import { AbstractTokens } from './abstract/AbstractTokens.js';
  *
  * @since 0.1.0-alpha
  */
-export declare class Tokens_Icons<T_ExtraIconNames extends string> extends AbstractTokens<Tokens_Icons.Data<T_ExtraIconNames>> {
+export declare class Tokens_Icons<T_ExtraIconNames extends string> extends AbstractTokens<{
+    data: Tokens_Icons.Data<T_ExtraIconNames>;
+    json: Tokens_Icons.JsonReturn<T_ExtraIconNames>;
+    scss: Tokens_Icons.ScssVars<T_ExtraIconNames>;
+}> {
     static get default(): {
         [I in keyof Tokens_Icons.Data<never>]: SvgMaker.Data<I>;
     };
     readonly data: Tokens_Icons.Data<T_ExtraIconNames>;
     constructor(input: Tokens_Icons.InputParam<T_ExtraIconNames>);
     toJSON(): Tokens_Icons.JsonReturn<T_ExtraIconNames>;
-    toScssVars(): { [K in Tokens_Icons.DefaultIconNames | T_ExtraIconNames]: SvgMaker.ScssVars<K>; };
+    toScssVars(): Tokens_Icons.ScssVars<T_ExtraIconNames>;
 }
 /**
  * Utilities for the {@link Tokens_Icons} class.
@@ -56,6 +60,14 @@ export declare namespace Tokens_Icons {
         [I in DefaultIconNames]: SvgMaker.JsonReturn<T_ExtraIconNames>;
     } & {
         [I in T_ExtraIconNames]: SvgMaker.JsonReturn<T_ExtraIconNames>;
+    };
+    /**
+     * @since 0.1.1-alpha.1.draft
+     */
+    type ScssVars<T_ExtraIconNames extends string> = {
+        [I in DefaultIconNames]: SvgMaker.ScssVars<T_ExtraIconNames>;
+    } & {
+        [I in T_ExtraIconNames]: SvgMaker.ScssVars<T_ExtraIconNames>;
     };
 }
 //# sourceMappingURL=Tokens_Icons.d.ts.map

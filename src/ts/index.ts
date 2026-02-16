@@ -16,7 +16,6 @@
 export type * from './01-utilities/@types.d.ts';
 export type * from './02-tokens/@types.d.ts';
 
-export * from './01-utilities/ColourContrastTest.js';
 export * from './01-utilities/ColourUtilities.js';
 export * from './01-utilities/makeRelativeURL.js';
 export * from './01-utilities/objectFlatten.js';

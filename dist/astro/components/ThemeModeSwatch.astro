@@ -9,8 +9,8 @@
 import type { HTMLAttributes } from 'astro/types';
 import type { RecursiveRecord } from '../../ts/01-utilities/@types.d.ts';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
-import type { Tokens_Colour_ShadeMap_Shade } from '../../ts/02-tokens/Colour/ShadeMap/ShadeMap_Shade.js';
-import type { Tokens_Themes_Set_SingleMode } from '../../ts/02-tokens/Themes/Themes_Set_SingleMode.js';
+import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
+import type { Tokens_Themes_Set } from '../../ts/02-tokens/Themes/Themes_Set.js';
 
 /* import - functions */
 import { toTitleCase } from '@maddimathon/utility-typescript/functions';
@@ -35,11 +35,11 @@ import LoremIpsum from './LoremIpsum.astro';
 type _ButtonVariation = {
     name: string;
     states: {
-        [ K in keyof Tokens_Themes_Set_SingleMode.Data.Button<string, never>['bg'] ]: {
+        [ K in keyof Tokens_Themes_Set.SingleMode.Data.Button<string, never>['bg'] ]: {
 
-            [ K in keyof Tokens_Themes_Set_SingleMode.Data.Button<string, never> ]: undefined | {
+            [ K in keyof Tokens_Themes_Set.SingleMode.Data.Button<string, never> ]: undefined | {
                 state: null | Exclude<
-                    keyof Tokens_Themes_Set_SingleMode.Data.Button<string, never>['bg'],
+                    keyof Tokens_Themes_Set.SingleMode.Data.Button<string, never>['bg'],
                     '$'
                 >;
                 key: string;
@@ -241,8 +241,8 @@ const levelsInUseTable = theme.levelsInUse.map(
 
                 const textColor = textColorLevel( value );
 
-                let background: Tokens_Colour_ShadeMap_Shade.JsonReturn<string, ColourUtilities.Levels.Optional>;
-                let color: Tokens_Colour_ShadeMap_Shade.JsonReturn<string, ColourUtilities.Levels.Optional>;
+                let background: Tokens_Colour_ShadeMap.Shade.JsonReturn<string, ColourUtilities.Levels.Optional>;
+                let color: Tokens_Colour_ShadeMap.Shade.JsonReturn<string, ColourUtilities.Levels.Optional>;
 
                 switch ( value ) {
 

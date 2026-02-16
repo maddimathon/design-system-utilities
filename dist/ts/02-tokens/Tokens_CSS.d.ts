@@ -16,7 +16,11 @@ import { Tokens_CSS_Transition } from './CSS/CSS_Transition.js';
  *
  * @since 0.1.0-alpha
  */
-export declare class Tokens_CSS extends AbstractTokens<Tokens_CSS.Data> {
+export declare class Tokens_CSS extends AbstractTokens<{
+    data: Tokens_CSS.Data;
+    json: Tokens_CSS.JsonReturn;
+    scss: Tokens_CSS.ScssVars;
+}> {
     static get default(): Omit<Tokens_CSS.Data, 'border' | 'style' | 'transition'>;
     get data(): Tokens_CSS.Data;
     protected readonly border: Tokens_CSS_Border;
@@ -25,31 +29,7 @@ export declare class Tokens_CSS extends AbstractTokens<Tokens_CSS.Data> {
     protected readonly zIndex: Tokens_CSS.Data['zIndex'];
     constructor(input: Tokens_CSS.InputParam);
     toJSON(): Tokens_CSS.JsonReturn;
-    toScssVars(): {
-        border: {
-            radius: AbstractTokens.ScssReturn;
-            width: AbstractTokens.ScssReturn;
-            stroke: AbstractTokens.ScssReturn;
-        };
-        style: {
-            alert: AbstractTokens.ScssReturn;
-            button: AbstractTokens.ScssReturn;
-            heading: AbstractTokens.ScssReturn;
-            input: AbstractTokens.ScssReturn;
-            selection: AbstractTokens.ScssReturn;
-        };
-        transition: {
-            properties: AbstractTokens.ScssReturn;
-            time: AbstractTokens.ScssReturn;
-        };
-        z_index: {
-            [key: string]: number;
-            nav: number;
-            popup: number;
-            settings: number;
-            skipLink: number;
-        };
-    };
+    toScssVars(): Tokens_CSS.ScssVars;
 }
 /**
  * Utilities for the {@link Tokens_CSS} class.
@@ -85,5 +65,14 @@ export declare namespace Tokens_CSS {
      * @since 0.1.0-alpha
      */
     type JsonReturn = Data;
+    /**
+     * @since 0.1.1-alpha.1.draft
+     */
+    type ScssVars = {
+        border: Tokens_CSS_Border.ScssVars;
+        style: Tokens_CSS_Style.ScssVars;
+        transition: Tokens_CSS_Transition.ScssVars;
+        z_index: Data['zIndex'];
+    };
 }
 //# sourceMappingURL=Tokens_CSS.d.ts.map

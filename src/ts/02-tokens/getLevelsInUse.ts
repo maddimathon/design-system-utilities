@@ -9,7 +9,7 @@
  */
 
 import type { ColourUtilities } from '../01-utilities/ColourUtilities.js';
-import type { ThemeMode_ContrastOption } from './@types.js';
+import type { Theme.Mode.ContrastOption } from './@types.js';
 import type { Tokens_Themes } from './Tokens_Themes.js';
 import type { Tokens_Themes_Set } from './Themes/Themes_Set.js';
 
@@ -22,7 +22,7 @@ export function getLevelsInUse<
     T_ColourName extends string,
     T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
     T_ThemeBrightnessMode extends string,
-    T_ThemeContrastMode extends ThemeMode_ContrastOption,
+    T_ThemeContrastMode extends Theme.Mode.ContrastOption,
     T_ThemeName extends string,
 
     T_ThemeKeyword_Universal extends string,

@@ -7,37 +7,32 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
-import { internal as buildUtils_internal, } from '@maddimathon/build-utilities';
 import { JsonToScss, } from '@maddimathon/utility-sass';
+import { LocalErrors } from '../../01-utilities/Errors.js';
 /**
  * Base class for the classes used to manage tokens and token groups.
  *
  * @since 0.1.0-alpha
+ * @since 0.1.1-alpha.1.draft — Converted type param to an object.
  */
 export class AbstractTokens {
-    static tokenLevels = [
-        '100',
-        '200',
-        '300',
-        '400',
-        '500',
-        '600',
-        '700',
-        '800',
-        '900',
-    ];
-    static tokenLevels_extraOptions = [
-        '150',
-        '250',
-        '350',
-        '450',
-        '550',
-        '650',
-        '750',
-        '850',
-    ];
-    tokenLevels = AbstractTokens.tokenLevels;
     constructor() {
+        this.newError = this.newError.bind(this);
+        this.toJSON = this.toJSON.bind(this);
+        this.toScssVars = this.toScssVars.bind(this);
+        this.toScss = this.toScss.bind(this);
+        this.valueOf = this.valueOf.bind(this);
+    }
+    /**
+     * Returns a local error object.
+     *
+     * @since 0.1.1-alpha.1.draft
+     */
+    newError(message, context, opts) {
+        return new LocalErrors.TokenBuildError(message, {
+            class: Object.getPrototypeOf(this).constructor,
+            ...context,
+        }, opts);
     }
     /**
      * Uses {@link AbstractTokens.toScssVars} to convert this token to a scss
@@ -46,8 +41,37 @@ export class AbstractTokens {
      * @since 0.1.0-alpha
      */
     toScss() {
-        const value = JsonToScss.convert(this.toScssVars()) || '()';
-        return '$vars: ' + value;
+        return JsonToScss.convert(this.toScssVars()) || '()';
+    }
+    /**
+     * Runs a function, with parameters as applicable, and catches (& handles)
+     * anything thrown.
+     *
+     * For the asynchronous method, see {@link AbstractStage.atry}.
+     *
+     * Overloaded for better function param typing.
+     *
+     * @category Errors
+     *
+     * @experimental
+     */
+    try(tryer, opts, params) {
+        try {
+            return tryer(...(params ?? []));
+        }
+        catch (error) {
+            // throws
+            if (error instanceof LocalErrors.Abst_Error) {
+                throw error;
+            }
+            throw this.newError(opts.message, {
+                class: Object.getPrototypeOf(this).constructor,
+                method: tryer.name,
+                ...opts.context,
+            }, {
+                cause: error,
+            });
+        }
     }
     /**
      * The working value of this object.
@@ -58,53 +82,3 @@ export class AbstractTokens {
         return this.data;
     }
 }
-/**
- * Utilities for the {@link AbstractTokens} class.
- *
- * @since 0.1.0-alpha
- */
-(function (AbstractTokens) {
-    /* ERRORS
-     * ====================================================================== */
-    /**
-     * Used to throw errors while compiling the tokens.
-     *
-     * @since 0.1.0-alpha
-     */
-    class Tokens_Error extends buildUtils_internal.AbstractError {
-        context;
-        opts;
-        name;
-        constructor(message, context, opts) {
-            super(message, null, opts);
-            this.context = context;
-            this.opts = opts;
-            this.name = 'Tokens_Error';
-        }
-        /**
-         * The object shape used when converting to JSON.
-         *
-         * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#description | JSON.stringify}
-         */
-        toJSON() {
-            const json = {
-                name: this.name,
-                message: this.message,
-                context: this.context,
-                cause: this.cause,
-                stack: this.stack,
-                string: this.toString(),
-            };
-            return json;
-        }
-    }
-    AbstractTokens.Tokens_Error = Tokens_Error;
-    /**
-     * Utilities for the {@link AbstractTokens.Tokens_Error} class.
-     *
-     * @since 0.1.0-alpha
-     */
-    (function (Tokens_Error) {
-        ;
-    })(Tokens_Error = AbstractTokens.Tokens_Error || (AbstractTokens.Tokens_Error = {}));
-})(AbstractTokens || (AbstractTokens = {}));

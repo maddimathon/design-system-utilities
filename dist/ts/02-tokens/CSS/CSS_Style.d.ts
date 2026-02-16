@@ -15,7 +15,11 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
  *
  * @since 0.1.0-alpha
  */
-export declare class Tokens_CSS_Style extends AbstractTokens<Tokens_CSS_Style.Data> {
+export declare class Tokens_CSS_Style extends AbstractTokens<{
+    data: Tokens_CSS_Style.Data;
+    json: Tokens_CSS_Style.JsonReturn;
+    scss: Tokens_CSS_Style.ScssVars;
+}> {
     /**
      * @since 0.1.1-alpha.1.draft
      */
@@ -36,9 +40,7 @@ export declare class Tokens_CSS_Style extends AbstractTokens<Tokens_CSS_Style.Da
     readonly data: Tokens_CSS_Style.Data;
     constructor(input: Tokens_CSS_Style.InputParam);
     toJSON(): Tokens_CSS_Style.JsonReturn;
-    toScssVars(): {
-        [K in keyof Tokens_CSS_Style.Data]: AbstractTokens.ScssReturn;
-    };
+    toScssVars(): Tokens_CSS_Style.ScssVars;
 }
 /**
  * Utilities for the {@link Tokens_CSS_Style} class.
@@ -49,7 +51,7 @@ export declare namespace Tokens_CSS_Style {
     /**
      * @since 0.1.1-alpha.1.draft
      */
-    interface AlertStyles {
+    type AlertStyles = {
         /**
          * This should be a theme slug.
          */
@@ -89,8 +91,8 @@ export declare namespace Tokens_CSS_Style {
             block: TokenLevels;
             inline: TokenLevels;
         };
-    }
-    interface ButtonStyles {
+    };
+    type ButtonStyles = {
         border: {
             radius: "0" | TokenLevels;
             style: string;
@@ -121,13 +123,13 @@ export declare namespace Tokens_CSS_Style {
             inline: TokenLevels;
         };
         width: string;
-    }
-    interface ButtonStyles_Disabled extends Omit<ButtonStyles, 'border' | 'focus' | 'gap' | 'line-height' | 'margin' | 'padding' | 'width'> {
+    };
+    type ButtonStyles_Disabled = Omit<ButtonStyles, 'border' | 'focus' | 'gap' | 'line-height' | 'margin' | 'padding' | 'width'> & {
         border: Omit<ButtonStyles['border'], 'width'>;
         'letter-spacing': string;
         'text-transform': CSS.TextTransform;
-    }
-    interface HeadingStyles {
+    };
+    type HeadingStyles = {
         font: {
             style: "normal" | "italic";
             weight: TokenLevels;
@@ -141,11 +143,11 @@ export declare namespace Tokens_CSS_Style {
                 end: TokenLevels;
             };
         };
-    }
+    };
     /**
      * @since 0.1.1-alpha.0
      */
-    interface InputStyles {
+    type InputStyles = {
         border: {
             radius: "0" | TokenLevels;
             style: string;
@@ -187,13 +189,13 @@ export declare namespace Tokens_CSS_Style {
                 [C in Exclude<ThemeMode_ContrastOption, 'high' | 'max'>]?: string;
             };
         };
-    }
+    };
     /**
      * @since 0.1.1-alpha.0
      */
-    interface InputStyles_Disabled extends Omit<InputStyles, 'border' | 'focus' | 'label' | 'line-height' | 'margin' | 'padding' | 'placeholder'> {
+    type InputStyles_Disabled = Omit<InputStyles, 'border' | 'focus' | 'label' | 'line-height' | 'margin' | 'padding' | 'placeholder'> & {
         border: Omit<InputStyles['border'], 'width'>;
-    }
+    };
     /**
      * CSS allowed value types.
      *
@@ -273,5 +275,9 @@ export declare namespace Tokens_CSS_Style {
      * @since 0.1.0-alpha
      */
     type JsonReturn = Data;
+    /**
+     * @since 0.1.1-alpha.1.draft
+     */
+    type ScssVars = Data;
 }
 //# sourceMappingURL=CSS_Style.d.ts.map

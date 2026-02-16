@@ -9,9 +9,13 @@
  */
 
 import clrConvert from 'color-convert';
+import * as WcagContrast from 'wcag-contrast';
 
 import * as sass from 'sass-embedded';
 
+import { LocalErrors } from './Errors.js';
+import { makeNumber } from './makeNumber.js';
+import { makeNumberAsync } from './makeNumberAsync.js';
 import { roundToPixel } from './roundToPixel.js';
 
 /**
@@ -21,6 +25,14 @@ import { roundToPixel } from './roundToPixel.js';
  * @since 0.1.0-alpha
  */
 export namespace ColourUtilities {
+
+    const defaultErrorMaker: LocalErrors.ConstructorFn = (
+        message: string,
+        context: LocalErrors.Context,
+        opts?: undefined | {
+            cause?: LocalErrors.Cause;
+        },
+    ) => new LocalErrors.ColourUtilitiesError( message, context, opts );
 
     /**
      * A colour value in the Hex space.
@@ -105,18 +117,23 @@ export namespace ColourUtilities {
     /**
      * Ensures a valid shade object.
      */
-    export function validateShade( input: SingleShade_Input ): SingleShade {
+    export async function validateShade(
+        input: SingleShade_Input,
+        errMaker: LocalErrors.ConstructorFn = defaultErrorMaker,
+        round?: boolean,
+    ): Promise<SingleShade> {
+
         // returns
         if ( typeof input === 'object' && 'hex' in input ) {
             return input;
         }
 
-        return {
-            hex: toHex( input ),
-            hsl: toHSL( input ),
-            rgb: toRGB( input ),
-            lch: toLCH( input ),
-        };
+        return Promise.all( [
+            toHex( input, errMaker ),
+            toHSL( input, errMaker, round ),
+            toRGB( input, errMaker, round ),
+            toLCH( input, errMaker, round ),
+        ] ).then( ( [ hex, hsl, rgb, lch ] ) => ( { hex, hsl, rgb, lch } ) );
     }
 
 
@@ -125,13 +142,196 @@ export namespace ColourUtilities {
      * ====================================================================== */
 
     /**
+     * Validates an input hex code, throwing an error if needed.
+     */
+    function hexValidator(
+        hex: string,
+        context: LocalErrors.Context,
+        errMaker: LocalErrors.ConstructorFn,
+    ): Value_Hex {
+        const uppercaseInput = hex.toUpperCase();
+
+        // throws
+        if ( !uppercaseInput.match( /^#?[0-9|A-H]{3,6}$/i ) ) {
+            throw errMaker(
+                `Hex code '${ hex }' did not match required pattern`,
+                context,
+                { cause: hex },
+            );
+        }
+
+        return hex;
+    };
+
+    /**
+     * Validates an input HSL obj, throwing an error if needed.
+     */
+    function hslValidator(
+        hsl: Partial<Value_HSL>,
+        context: LocalErrors.Context,
+        errMaker: LocalErrors.ConstructorFn,
+    ): Value_HSL {
+        // throws
+        if ( typeof hsl !== 'object' || hsl === null ) {
+            throw errMaker(
+                `HSL input must be an object with 'h', 's', and 'l' properties (was ${ hsl === null ? 'null' : typeof hsl })`,
+                context,
+                { cause: hsl },
+            );
+        }
+
+        const hue = makeNumber( hsl.h );
+        const sat = makeNumber( hsl.s );
+        const lit = makeNumber( hsl.l );
+
+        // throws
+        if ( hue === null || sat === null || lit === null ) {
+            throw errMaker(
+                `HSL input must have values for 'h', 's', and 'l' properties`,
+                context,
+                { cause: hsl },
+            );
+        }
+
+        // throws
+        if (
+            typeof hue !== 'number'
+            || typeof sat !== 'number'
+            || typeof lit !== 'number'
+        ) {
+            throw errMaker(
+                `HSL input must have numerical values for 'h', 's', and 'l' properties`,
+                context,
+                { cause: hsl },
+            );
+        }
+
+        return {
+            h: Math.max( 0, Math.min( 360, hue ) ),
+            s: Math.max( 0, Math.min( 100, sat ) ),
+            l: Math.max( 0, Math.min( 100, lit ) ),
+        };
+    };
+
+    /**
+     * Validates an input LCH obj, throwing an error if needed.
+     */
+    function lchValidator(
+        lch: Partial<Value_LCH>,
+        context: LocalErrors.Context,
+        errMaker: LocalErrors.ConstructorFn,
+    ): Value_LCH {
+        // throws
+        if ( typeof lch !== 'object' || lch === null ) {
+            throw errMaker(
+                `LCH input must be an object with 'l', 'c', and 'h' properties (was ${ lch === null ? 'null' : typeof lch })`,
+                context,
+                { cause: lch },
+            );
+        }
+
+        const lum = makeNumber( lch.l );
+        const chr = makeNumber( lch.c );
+        const hue = makeNumber( lch.h );
+
+        // throws
+        if ( lum === null || chr === null || hue === null ) {
+            throw errMaker(
+                `LCH input must have values for 'l', 'c', and 'h' properties`,
+                context,
+                { cause: lch },
+            );
+        }
+
+        // throws
+        if (
+            typeof lum !== 'number'
+            || typeof chr !== 'number'
+            || typeof hue !== 'number'
+        ) {
+            throw errMaker(
+                `LCH input must have numerical values for 'l', 'c', and 'h' properties`,
+                context,
+                { cause: lch },
+            );
+        }
+
+        return {
+            l: Math.max( 0, Math.min( 100, lum ) ),
+            c: chr,
+            h: hue,
+        };
+    };
+
+    /**
+     * Validates an input RGB obj, throwing an error if needed.
+     */
+    function rgbValidator(
+        rgb: Partial<Value_RGB>,
+        context: LocalErrors.Context,
+        errMaker: LocalErrors.ConstructorFn,
+    ): Value_RGB {
+        // throws
+        if ( typeof rgb !== 'object' || rgb === null ) {
+            throw errMaker(
+                `RGB input must be an object with 'r', 'g', and 'b' properties (was ${ rgb === null ? 'null' : typeof rgb })`,
+                context,
+                { cause: rgb },
+            );
+        }
+
+        const red = makeNumber( rgb.r );
+        const gre = makeNumber( rgb.g );
+        const blu = makeNumber( rgb.b );
+
+        // throws
+        if ( red === null || gre === null || blu === null ) {
+            throw errMaker(
+                `RGB input must have values for 'r', 'g', and 'b' properties`,
+                context,
+                { cause: rgb },
+            );
+        }
+
+        // throws
+        if (
+            typeof red !== 'number'
+            || typeof gre !== 'number'
+            || typeof blu !== 'number'
+        ) {
+            throw errMaker(
+                `RGB input must have numerical values for 'r', 'g', and 'b' properties`,
+                context,
+                { cause: rgb },
+            );
+        }
+
+        return {
+            r: Math.max( 0, Math.min( 255, red ) ),
+            g: Math.max( 0, Math.min( 255, gre ) ),
+            b: Math.max( 0, Math.min( 255, blu ) ),
+        };
+    };
+
+    /**
      * @since 0.1.0-alpha
      */
     export function toHex(
         clr: { data: SingleShade; } | SingleShade | SingleShade_Input,
+        errMaker: LocalErrors.ConstructorFn = defaultErrorMaker,
     ): Value_Hex {
 
-        const _hexValidator = ( hex: string ) => hex.toUpperCase().replace( /^#/gi, '' );
+        const _hexFormatter = ( hex: string ) => hex.toUpperCase().replace( /^#/gi, '' );
+
+        const _hexValidator = ( hex: string ) => _hexFormatter(
+            hexValidator(
+                hex,
+                {
+                    function: 'ColourUtilities.toHex',
+                },
+                errMaker,
+            )
+        );
 
         // returns - plain
         if ( typeof clr === 'string' ) {
@@ -140,7 +340,7 @@ export namespace ColourUtilities {
 
         // returns - already built
         if ( 'data' in clr ) {
-            return clr.data.hex;
+            return _hexValidator( clr.data.hex );
         }
 
         // returns - plain
@@ -151,18 +351,18 @@ export namespace ColourUtilities {
         // returns - hsl
         if ( 's' in clr ) {
             const hex = clrConvert.hsl.hex.raw( clr.h, clr.s, clr.l );
-            return _hexValidator( hex );
+            return _hexFormatter( hex );
         }
 
         // returns - lch
         if ( 'c' in clr ) {
             const hex = clrConvert.lch.hex.raw( clr.l, clr.c, clr.h );
-            return _hexValidator( hex );
+            return _hexFormatter( hex );
         }
 
         // clr is rgb
         const hex = clrConvert.rgb.hex.raw( clr.r, clr.g, clr.b );
-        return _hexValidator( hex );
+        return _hexFormatter( hex );
     }
 
     /**
@@ -170,53 +370,80 @@ export namespace ColourUtilities {
      */
     export function toHSL(
         clr: { data: SingleShade; } | SingleShade | SingleShade_Input,
+        errMaker: LocalErrors.ConstructorFn = defaultErrorMaker,
         round: boolean = true,
     ): Value_HSL {
 
-        const _arrayToObject = ( hsl: [ number, number, number ] ) => (
-            round
-                ? {
-                    h: roundToPixel( hsl[ 0 ], 100 ),
-                    s: Math.max( 0, Math.min( 100, roundToPixel( hsl[ 1 ], 100 ) ) ),
-                    l: Math.max( 0, Math.min( 100, roundToPixel( hsl[ 2 ], 100 ) ) ),
-                }
-                : {
-                    h: hsl[ 0 ],
-                    s: hsl[ 1 ],
-                    l: hsl[ 2 ],
-                }
+        const _hslFormatter = ( hsl: Value_HSL ) => round ? {
+            h: roundToPixel( hsl.h, 100 ),
+            s: roundToPixel( hsl.s, 100 ),
+            l: roundToPixel( hsl.l, 100 ),
+        } : hsl;
+
+        const _hslValidator = ( hsl: Partial<Value_HSL> ) => _hslFormatter(
+            hslValidator(
+                hsl,
+                {
+                    function: 'ColourUtilities.toHSL',
+                },
+                errMaker,
+            )
         );
 
         // returns - converts
         if ( typeof clr === 'string' ) {
-            const hsl = clrConvert.hex.hsl.raw( clr );
-            return _arrayToObject( hsl );
+            const validHex = hexValidator(
+                clr,
+                {
+                    function: 'ColourUtilities.toHSL',
+                },
+                errMaker,
+            );
+
+            const [ h, s, l ] = clrConvert.hex.hsl.raw( validHex );
+            return _hslFormatter( { h, s, l } );
         }
 
         // returns - already built
         if ( 'data' in clr ) {
-            return clr.data.hsl;
+            return _hslValidator( clr.data.hsl );
         }
 
         // returns - plain
         if ( 'hsl' in clr ) {
-            return _arrayToObject( [ clr.hsl.h, clr.hsl.s, clr.hsl.l ] );
+            return _hslValidator( clr.hsl );
         }
 
         // returns - plain
         if ( 's' in clr ) {
-            return _arrayToObject( [ clr.h, clr.s, clr.l ] );
+            return _hslValidator( clr );
         }
 
         // returns - lch
         if ( 'c' in clr ) {
-            const hsl = clrConvert.lch.hsl.raw( clr.l, clr.c, clr.h );
-            return _arrayToObject( hsl );
+            const validLCH = lchValidator(
+                clr,
+                {
+                    function: 'ColourUtilities.toHSL',
+                },
+                errMaker,
+            );
+
+            const [ h, s, l ] = clrConvert.lch.hsl.raw( [ validLCH.l, validLCH.c, validLCH.h ] );
+            return _hslFormatter( { h, s, l } );
         }
 
         // clr is rgb
-        const hsl = clrConvert.rgb.hsl.raw( clr.r, clr.g, clr.b );
-        return _arrayToObject( hsl );
+        const validRGB = rgbValidator(
+            clr,
+            {
+                function: 'ColourUtilities.toHSL',
+            },
+            errMaker,
+        );
+
+        const [ h, s, l ] = clrConvert.rgb.hsl.raw( [ validRGB.r, validRGB.g, validRGB.b ] );
+        return _hslFormatter( { h, s, l } );
     }
 
     /**
@@ -224,44 +451,80 @@ export namespace ColourUtilities {
      */
     export function toLCH(
         clr: { data: SingleShade; } | SingleShade | SingleShade_Input,
+        errMaker: LocalErrors.ConstructorFn = defaultErrorMaker,
+        round: boolean = true,
     ): Value_LCH {
 
-        const _arrayToObject = ( lch: [ number, number, number ] ) => ( {
-            l: roundToPixel( lch[ 0 ], 1000 ),
-            c: roundToPixel( lch[ 1 ], 2000 ),
-            h: roundToPixel( lch[ 2 ], 1000 ),
-        } );
+        const _lchFormatter = ( lch: Value_LCH ) => round ? {
+            l: roundToPixel( lch.l, 1000 ),
+            c: roundToPixel( lch.c, 2000 ),
+            h: roundToPixel( lch.h, 1000 ),
+        } : lch;
+
+        const _lchValidator = ( hsl: Partial<Value_LCH> ) => _lchFormatter(
+            lchValidator(
+                hsl,
+                {
+                    function: 'ColourUtilities.toLCH',
+                },
+                errMaker,
+            )
+        );
 
         // returns - converts
         if ( typeof clr === 'string' ) {
-            const lch = clrConvert.hex.lch.raw( clr );
-            return _arrayToObject( lch );
+            const validHex = hexValidator(
+                clr,
+                {
+                    function: 'ColourUtilities.toLCH',
+                },
+                errMaker,
+            );
+
+            const [ l, c, h ] = clrConvert.hex.lch.raw( validHex );
+            return _lchFormatter( { l, c, h } );
         }
 
         // returns - already built
         if ( 'data' in clr ) {
-            return clr.data.lch;
+            return _lchValidator( clr.data.lch );
         }
 
         // returns - plain
         if ( 'lch' in clr ) {
-            return _arrayToObject( [ clr.lch.l, clr.lch.c, clr.lch.h ] );
+            return _lchValidator( clr.lch );
         }
 
         // returns - plain
         if ( 'c' in clr ) {
-            return _arrayToObject( [ clr.l, clr.c, clr.h ] );
+            return _lchValidator( clr );
         }
 
         // returns - hsl
         if ( 'h' in clr ) {
-            const lch = clrConvert.hsl.lch.raw( clr.h, clr.s, clr.l );
-            return _arrayToObject( lch );
+            const validHSL = hslValidator(
+                clr,
+                {
+                    function: 'ColourUtilities.toLCH',
+                },
+                errMaker,
+            );
+
+            const [ l, c, h ] = clrConvert.hsl.lch.raw( [ validHSL.h, validHSL.s, validHSL.l ] );
+            return _lchFormatter( { l, c, h } );
         }
 
         // clr is rgb
-        const lch = clrConvert.rgb.lch.raw( clr.r, clr.g, clr.b );
-        return _arrayToObject( lch );
+        const validRGB = rgbValidator(
+            clr,
+            {
+                function: 'ColourUtilities.toLCH',
+            },
+            errMaker,
+        );
+
+        const [ l, c, h ] = clrConvert.rgb.lch.raw( [ validRGB.r, validRGB.g, validRGB.b ] );
+        return _lchFormatter( { l, c, h } );
     }
 
     /**
@@ -269,59 +532,100 @@ export namespace ColourUtilities {
      */
     export function toRGB(
         clr: { data: SingleShade; } | SingleShade | SingleShade_Input,
+        errMaker: LocalErrors.ConstructorFn = defaultErrorMaker,
+        round: boolean = true,
     ): Value_RGB {
 
-        const _arrayToObject = ( rgb: [ number, number, number ] ) => ( {
-            r: Math.max( 0, roundToPixel( rgb[ 0 ], 100 ) ),
-            g: Math.max( 0, roundToPixel( rgb[ 1 ], 100 ) ),
-            b: Math.max( 0, roundToPixel( rgb[ 2 ], 100 ) ),
-        } );
+        const _rgbFormatter = ( rgb: Value_RGB ) => round ? {
+            r: roundToPixel( rgb.r, 100 ),
+            g: roundToPixel( rgb.g, 100 ),
+            b: roundToPixel( rgb.b, 100 ),
+        } : rgb;
+
+        const _rgbValidator = ( rgb: Partial<Value_RGB> ) => _rgbFormatter(
+            rgbValidator(
+                rgb,
+                {
+                    function: 'ColourUtilities.toRGB',
+                },
+                errMaker,
+            )
+        );
 
         // returns - converts
         if ( typeof clr === 'string' ) {
-            const rgb = clrConvert.hex.rgb.raw( clr );
-            return _arrayToObject( rgb );
+            const validHex = hexValidator(
+                clr,
+                {
+                    function: 'ColourUtilities.toRGB',
+                },
+                errMaker,
+            );
+
+            const [ r, g, b ] = clrConvert.hex.rgb.raw( validHex );
+            return _rgbFormatter( { r, g, b } );
         }
 
         // returns - already built
         if ( 'data' in clr ) {
-            return clr.data.rgb;
+            return _rgbValidator( clr.data.rgb );
         }
 
         // returns - plain
         if ( 'rgb' in clr ) {
-            return _arrayToObject( [ clr.rgb.r, clr.rgb.g, clr.rgb.b ] );
+            return _rgbValidator( clr.rgb );
         }
 
         // returns - plain
         if ( 'g' in clr ) {
-            return _arrayToObject( [ clr.r, clr.g, clr.b ] );
+            return _rgbValidator( clr );
         }
 
         // returns - lch
         if ( 'c' in clr ) {
-            const rgb = clrConvert.lch.rgb.raw( clr.l, clr.c, clr.h );
-            return _arrayToObject( rgb );
+            const validLCH = lchValidator(
+                clr,
+                {
+                    function: 'ColourUtilities.toRGB',
+                },
+                errMaker,
+            );
+
+            const [ r, g, b ] = clrConvert.lch.rgb.raw( [ validLCH.l, validLCH.c, validLCH.h ] );
+            return _rgbFormatter( { r, g, b } );
         }
 
         // clr is hsl
-        const rgb = clrConvert.hsl.rgb.raw( clr.h, clr.s, clr.l );
-        return _arrayToObject( rgb );
+        const validHSL = hslValidator(
+            clr,
+            {
+                function: 'ColourUtilities.toRGB',
+            },
+            errMaker,
+        );
+
+        const [ r, g, b ] = clrConvert.hsl.rgb.raw( [ validHSL.h, validHSL.s, validHSL.l ] );
+        return _rgbFormatter( { r, g, b } );
     }
 
     /**
      * @since 0.1.0-alpha
      */
-    export function mixColours(
+    export async function mixColours(
         _clrA: { data: SingleShade; } | SingleShade | SingleShade_Input,
         _clrB: { data: SingleShade; } | SingleShade | SingleShade_Input,
         saturationMultiplier: number = 0,
-    ): Value_LCH {
+    ): Promise<Value_LCH> {
 
-        const clrA = toLCH( _clrA );
-        const clrB = toLCH( _clrB );
+        const [
+            clrA,
+            clrB,
+        ] = await Promise.all( [
+            toLCH( _clrA ),
+            toLCH( _clrB ),
+        ] );
 
-        saturationMultiplier = ( Math.min( 1, Math.max( -1, saturationMultiplier ) ) * 100 );
+        saturationMultiplier = Math.min( 1, Math.max( -1, saturationMultiplier ) ) * 100;
 
         const clrA_str = ColourUtilities.toString.lch( clrA );
         const clrB_str = ColourUtilities.toString.lch( clrB );
@@ -330,25 +634,26 @@ export namespace ColourUtilities {
         const sass_mixed_hsl = `color.to-gamut( ${ sass_mixed }, $space: hsl, $method: local-minde )`;
         const sass_mixed_saturated = `color.scale( ${ sass_mixed_hsl }, $saturation: ${ saturationMultiplier }%, $space: hsl )`;
 
-        const sassMixed = sass.compileString(
+        return sass.compileStringAsync(
             `@use 'sass:color'; /* #{color.to-gamut( ${ sass_mixed_saturated }, $space: lch, $method: local-minde )} */`,
-        );
+        ).then( ( sassMixed: sass.CompileResult ) => {
 
-        const matches = `${ sassMixed.css }`.match( /lch\(\s*([\d\.]+)%\s+([\d\.]+)\s+([\d\.]+)deg\s*\)/is );
+            const matches = `${ sassMixed.css }`.match( /lch\(\s*([\d\.]+)%\s+([\d\.]+)\s+([\d\.]+)deg\s*\)/is );
 
-        // returns - in theory never used
-        if ( !( matches && matches[ 1 ] && matches[ 2 ] && matches[ 3 ] ) ) {
+            // returns - in theory never used
+            if ( !( matches && matches[ 1 ] && matches[ 2 ] && matches[ 3 ] ) ) {
+                return toLCH( {
+                    l: ( clrA.l + clrB.l ) / 2,
+                    c: ( ( clrA.c + clrB.c ) / 2 ) * saturationMultiplier,
+                    h: ( clrA.h + clrB.h ) / 2,
+                } );
+            }
+
             return toLCH( {
-                l: ( clrA.l + clrB.l ) / 2,
-                c: ( ( clrA.c + clrB.c ) / 2 ) * saturationMultiplier,
-                h: ( clrA.h + clrB.h ) / 2,
+                l: Number( matches[ 1 ] ),
+                c: Number( matches[ 2 ] ),
+                h: Number( matches[ 3 ] ),
             } );
-        }
-
-        return toLCH( {
-            l: Number( matches[ 1 ] ),
-            c: Number( matches[ 2 ] ),
-            h: Number( matches[ 3 ] ),
         } );
     }
 
@@ -382,10 +687,675 @@ export namespace ColourUtilities {
         }
     }
 
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export namespace Async {
+
+        /**
+         * Validates an input hex code, throwing an error if needed.
+         */
+        async function hexValidator(
+            hex: string,
+            context: LocalErrors.Context,
+            errMaker: LocalErrors.ConstructorFn,
+        ): Promise<Value_Hex> {
+            const uppercaseInput = hex.toUpperCase();
+
+            // throws
+            if ( !uppercaseInput.match( /^#?[0-9|A-H]{3,6}$/i ) ) {
+                throw errMaker(
+                    `Hex code '${ hex }' did not match required pattern`,
+                    context,
+                    { cause: hex },
+                );
+            }
+
+            return hex;
+        };
+
+        /**
+         * Validates an input HSL obj, throwing an error if needed.
+         */
+        async function hslValidator(
+            hsl: Partial<Value_HSL>,
+            context: LocalErrors.Context,
+            errMaker: LocalErrors.ConstructorFn,
+        ): Promise<Value_HSL> {
+            // throws
+            if ( typeof hsl !== 'object' || hsl === null ) {
+                throw errMaker(
+                    `HSL input must be an object with 'h', 's', and 'l' properties (was ${ hsl === null ? 'null' : typeof hsl })`,
+                    context,
+                    { cause: hsl },
+                );
+            }
+
+            return Promise.all( [
+                makeNumberAsync( hsl.h ),
+                makeNumberAsync( hsl.s ),
+                makeNumberAsync( hsl.l ),
+            ] ).then(
+                ( [ hue, sat, lit ] ) => {
+                    // throws
+                    if ( hue === null || sat === null || lit === null ) {
+                        throw errMaker(
+                            `HSL input must have values for 'h', 's', and 'l' properties`,
+                            context,
+                            { cause: hsl },
+                        );
+                    }
+
+                    // throws
+                    if (
+                        typeof hue !== 'number'
+                        || typeof sat !== 'number'
+                        || typeof lit !== 'number'
+                    ) {
+                        throw errMaker(
+                            `HSL input must have numerical values for 'h', 's', and 'l' properties`,
+                            context,
+                            { cause: hsl },
+                        );
+                    }
+
+                    return {
+                        h: Math.max( 0, Math.min( 360, hue ) ),
+                        s: Math.max( 0, Math.min( 100, sat ) ),
+                        l: Math.max( 0, Math.min( 100, lit ) ),
+                    };
+                }
+            );
+
+        };
+
+        /**
+         * Validates an input LCH obj, throwing an error if needed.
+         */
+        async function lchValidator(
+            lch: Partial<Value_LCH>,
+            context: LocalErrors.Context,
+            errMaker: LocalErrors.ConstructorFn,
+        ): Promise<Value_LCH> {
+            // throws
+            if ( typeof lch !== 'object' || lch === null ) {
+                throw errMaker(
+                    `LCH input must be an object with 'l', 'c', and 'h' properties (was ${ lch === null ? 'null' : typeof lch })`,
+                    context,
+                    { cause: lch },
+                );
+            }
+
+            return Promise.all( [
+                makeNumberAsync( lch.l ),
+                makeNumberAsync( lch.c ),
+                makeNumberAsync( lch.h ),
+            ] ).then(
+                ( [ lum, chr, hue ] ) => {
+                    // throws
+                    if ( lum === null || chr === null || hue === null ) {
+                        throw errMaker(
+                            `LCH input must have values for 'l', 'c', and 'h' properties`,
+                            context,
+                            { cause: lch },
+                        );
+                    }
+
+                    // throws
+                    if (
+                        typeof lum !== 'number'
+                        || typeof chr !== 'number'
+                        || typeof hue !== 'number'
+                    ) {
+                        throw errMaker(
+                            `LCH input must have numerical values for 'l', 'c', and 'h' properties`,
+                            context,
+                            { cause: lch },
+                        );
+                    }
+
+                    return {
+                        l: Math.max( 0, Math.min( 100, lum ) ),
+                        c: chr,
+                        h: hue,
+                    };
+                }
+            );
+
+        };
+
+        /**
+         * Validates an input RGB obj, throwing an error if needed.
+         */
+        async function rgbValidator(
+            rgb: Partial<Value_RGB>,
+            context: LocalErrors.Context,
+            errMaker: LocalErrors.ConstructorFn,
+        ): Promise<Value_RGB> {
+            // throws
+            if ( typeof rgb !== 'object' || rgb === null ) {
+                throw errMaker(
+                    `RGB input must be an object with 'r', 'g', and 'b' properties (was ${ rgb === null ? 'null' : typeof rgb })`,
+                    context,
+                    { cause: rgb },
+                );
+            }
+
+            return Promise.all( [
+                makeNumberAsync( rgb.r ),
+                makeNumberAsync( rgb.g ),
+                makeNumberAsync( rgb.b ),
+            ] ).then(
+                ( [ red, gre, blu ] ) => {
+                    // throws
+                    if ( red === null || gre === null || blu === null ) {
+                        throw errMaker(
+                            `RGB input must have values for 'r', 'g', and 'b' properties`,
+                            context,
+                            { cause: rgb },
+                        );
+                    }
+
+                    // throws
+                    if (
+                        typeof red !== 'number'
+                        || typeof gre !== 'number'
+                        || typeof blu !== 'number'
+                    ) {
+                        throw errMaker(
+                            `RGB input must have numerical values for 'r', 'g', and 'b' properties`,
+                            context,
+                            { cause: rgb },
+                        );
+                    }
+
+                    return {
+                        r: Math.max( 0, Math.min( 255, red ) ),
+                        g: Math.max( 0, Math.min( 255, gre ) ),
+                        b: Math.max( 0, Math.min( 255, blu ) ),
+                    };
+                }
+            );
+
+        };
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        export async function toHex(
+            clr: { data: SingleShade; } | SingleShade | SingleShade_Input,
+            errMaker: LocalErrors.ConstructorFn = defaultErrorMaker,
+        ): Promise<Value_Hex> {
+
+            const _hexFormatter = ( hex: string ) => hex.toUpperCase().replace( /^#/gi, '' );
+
+            const _hexValidator = ( hex: string ) => hexValidator(
+                hex,
+                {
+                    function: 'ColourUtilities.Async.toHex',
+                },
+                errMaker,
+            ).then( _hexFormatter );
+
+            // returns - plain
+            if ( typeof clr === 'string' ) {
+                return _hexValidator( clr );
+            }
+
+            // returns - already built
+            if ( 'data' in clr ) {
+                return _hexValidator( clr.data.hex );
+            }
+
+            // returns - plain
+            if ( 'hex' in clr ) {
+                return _hexValidator( clr.hex );
+            }
+
+            // returns - hsl
+            if ( 's' in clr ) {
+                const hex = clrConvert.hsl.hex.raw( clr.h, clr.s, clr.l );
+                return _hexFormatter( hex );
+            }
+
+            // returns - lch
+            if ( 'c' in clr ) {
+                const hex = clrConvert.lch.hex.raw( clr.l, clr.c, clr.h );
+                return _hexFormatter( hex );
+            }
+
+            // clr is rgb
+            const hex = clrConvert.rgb.hex.raw( clr.r, clr.g, clr.b );
+            return _hexFormatter( hex );
+        }
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        export async function toHSL(
+            clr: { data: SingleShade; } | SingleShade | SingleShade_Input,
+            errMaker: LocalErrors.ConstructorFn = defaultErrorMaker,
+            round: boolean = true,
+        ): Promise<Value_HSL> {
+
+            const _hslFormatter = ( hsl: Value_HSL ) => round ? {
+                h: roundToPixel( hsl.h, 100 ),
+                s: roundToPixel( hsl.s, 100 ),
+                l: roundToPixel( hsl.l, 100 ),
+            } : hsl;
+
+            const _hslValidator = ( hsl: Partial<Value_HSL> ) => hslValidator(
+                hsl,
+                {
+                    function: 'ColourUtilities.Async.toHSL',
+                },
+                errMaker,
+            ).then( _hslFormatter );
+
+            // returns - converts
+            if ( typeof clr === 'string' ) {
+                return hexValidator(
+                    clr,
+                    {
+                        function: 'ColourUtilities.Async.toHSL',
+                    },
+                    errMaker,
+                ).then(
+                    validHex => {
+                        const [ h, s, l ] = clrConvert.hex.hsl.raw( validHex );
+                        return _hslFormatter( { h, s, l } );
+                    }
+                );
+            }
+
+            // returns - already built
+            if ( 'data' in clr ) {
+                return _hslValidator( clr.data.hsl );
+            }
+
+            // returns - plain
+            if ( 'hsl' in clr ) {
+                return _hslValidator( clr.hsl );
+            }
+
+            // returns - plain
+            if ( 's' in clr ) {
+                return _hslValidator( clr );
+            }
+
+            // returns - lch
+            if ( 'c' in clr ) {
+                return lchValidator(
+                    clr,
+                    {
+                        function: 'ColourUtilities.Async.toHSL',
+                    },
+                    errMaker,
+                ).then(
+                    validLCH => {
+                        const [ h, s, l ] = clrConvert.lch.hsl.raw( [ validLCH.l, validLCH.c, validLCH.h ] );
+                        return _hslFormatter( { h, s, l } );
+                    }
+                );
+            }
+
+            // clr is rgb
+            return rgbValidator(
+                clr,
+                {
+                    function: 'ColourUtilities.Async.toHSL',
+                },
+                errMaker,
+            ).then(
+                validRGB => {
+                    const [ h, s, l ] = clrConvert.rgb.hsl.raw( [ validRGB.r, validRGB.g, validRGB.b ] );
+                    return _hslFormatter( { h, s, l } );
+                }
+            );
+        }
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        export async function toLCH(
+            clr: { data: SingleShade; } | SingleShade | SingleShade_Input,
+            errMaker: LocalErrors.ConstructorFn = defaultErrorMaker,
+            round: boolean = true,
+        ): Promise<Value_LCH> {
+
+            const _lchFormatter = ( lch: Value_LCH ) => round ? {
+                l: roundToPixel( lch.l, 1000 ),
+                c: roundToPixel( lch.c, 2000 ),
+                h: roundToPixel( lch.h, 1000 ),
+            } : lch;
+
+            const _lchValidator = ( hsl: Partial<Value_LCH> ) => lchValidator(
+                hsl,
+                {
+                    function: 'ColourUtilities.Async.toLCH',
+                },
+                errMaker,
+            ).then( _lchFormatter );
+
+            // returns - converts
+            if ( typeof clr === 'string' ) {
+                return hexValidator(
+                    clr,
+                    {
+                        function: 'ColourUtilities.Async.toLCH',
+                    },
+                    errMaker,
+                ).then(
+                    validHex => {
+                        const [ l, c, h ] = clrConvert.hex.lch.raw( validHex );
+                        return _lchFormatter( { l, c, h } );
+                    }
+                );
+            }
+
+            // returns - already built
+            if ( 'data' in clr ) {
+                return _lchValidator( clr.data.lch );
+            }
+
+            // returns - plain
+            if ( 'lch' in clr ) {
+                return _lchValidator( clr.lch );
+            }
+
+            // returns - plain
+            if ( 'c' in clr ) {
+                return _lchValidator( clr );
+            }
+
+            // returns - hsl
+            if ( 'h' in clr ) {
+                return hslValidator(
+                    clr,
+                    {
+                        function: 'ColourUtilities.Async.toLCH',
+                    },
+                    errMaker,
+                ).then(
+                    validHSL => {
+                        const [ l, c, h ] = clrConvert.hsl.lch.raw( [ validHSL.h, validHSL.s, validHSL.l ] );
+                        return _lchFormatter( { l, c, h } );
+                    }
+                );
+            }
+
+            // clr is rgb
+            return rgbValidator(
+                clr,
+                {
+                    function: 'ColourUtilities.Async.toLCH',
+                },
+                errMaker,
+            ).then(
+                validRGB => {
+                    const [ l, c, h ] = clrConvert.rgb.lch.raw( [ validRGB.r, validRGB.g, validRGB.b ] );
+                    return _lchFormatter( { l, c, h } );
+                }
+            );
+        }
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        export async function toRGB(
+            clr: { data: SingleShade; } | SingleShade | SingleShade_Input,
+            errMaker: LocalErrors.ConstructorFn = defaultErrorMaker,
+            round: boolean = true,
+        ): Promise<Value_RGB> {
+
+            const _rgbFormatter = ( rgb: Value_RGB ) => round ? {
+                r: roundToPixel( rgb.r, 100 ),
+                g: roundToPixel( rgb.g, 100 ),
+                b: roundToPixel( rgb.b, 100 ),
+            } : rgb;
+
+            const _rgbValidator = ( rgb: Partial<Value_RGB> ) => rgbValidator(
+                rgb,
+                {
+                    function: 'ColourUtilities.Async.toRGB',
+                },
+                errMaker,
+            ).then( _rgbFormatter );
+
+            // returns - converts
+            if ( typeof clr === 'string' ) {
+                return hexValidator(
+                    clr,
+                    {
+                        function: 'ColourUtilities.Async.toRGB',
+                    },
+                    errMaker,
+                ).then(
+                    validHex => {
+                        const [ r, g, b ] = clrConvert.hex.rgb.raw( validHex );
+                        return _rgbFormatter( { r, g, b } );
+                    }
+                );
+            }
+
+            // returns - already built
+            if ( 'data' in clr ) {
+                return _rgbValidator( clr.data.rgb );
+            }
+
+            // returns - plain
+            if ( 'rgb' in clr ) {
+                return _rgbValidator( clr.rgb );
+            }
+
+            // returns - plain
+            if ( 'g' in clr ) {
+                return _rgbValidator( clr );
+            }
+
+            // returns - lch
+            if ( 'c' in clr ) {
+                return lchValidator(
+                    clr,
+                    {
+                        function: 'ColourUtilities.Async.toRGB',
+                    },
+                    errMaker,
+                ).then(
+                    validLCH => {
+                        const [ r, g, b ] = clrConvert.lch.rgb.raw( [ validLCH.l, validLCH.c, validLCH.h ] );
+                        return _rgbFormatter( { r, g, b } );
+                    }
+                );
+            }
+
+            // clr is hsl
+            return hslValidator(
+                clr,
+                {
+                    function: 'ColourUtilities.Async.toRGB',
+                },
+                errMaker,
+            ).then(
+                validHSL => {
+                    const [ r, g, b ] = clrConvert.hsl.rgb.raw( [ validHSL.h, validHSL.s, validHSL.l ] );
+                    return _rgbFormatter( { r, g, b } );
+                }
+            );
+        }
+    }
+
 
 
     /* SHADE MAP FUNCTIONS
      * ====================================================================== */
+
+    /**
+     * Generates a single pair of contrast test results used by the
+     * {@link Tokens_Colour_ShadeMap.Shade} objects.
+     *
+     * @since 0.1.0-alpha
+     * @since ___PKG_VERSION___ — Moved to ColourUtilities and renamed.
+     * @internal
+     */
+    export class ContrastTest {
+
+        static #standards: ContrastTest.Standards;
+
+        public static set standards( val: ContrastTest.Standards ) {
+            if ( typeof this.#standards === 'undefined' ) {
+                this.#standards = val;
+            }
+        }
+
+        public static get standards(): ContrastTest.Standards {
+
+            return this.#standards ?? {
+                aa: {
+                    ui: 3,
+                    text: 4.5,
+                },
+                aaa: {
+                    ui: 4.5,
+                    text: 7,
+                },
+            };
+        }
+
+        protected static cachePath: string = '.scripts/.cache/contrast';
+
+        static #testCache: { [ key: string ]: number; } = {};
+
+        /**
+         * Gets the contrast ratio for the given colours, checking the cache for
+         * values first.
+         */
+        public static test(
+            clrA: ColourUtilities.SingleShade,
+            clrB: ColourUtilities.SingleShade,
+        ): number {
+            const cacheKey = [
+                [ clrA.rgb.r, clrA.rgb.g, clrA.rgb.b ].join( '-' ),
+                [ clrB.rgb.r, clrA.rgb.g, clrB.rgb.b ].join( '-' ),
+            ].sort().join( '_' );
+
+            // returns
+            if ( typeof this.#testCache[ cacheKey ] !== 'undefined' ) {
+                return this.#testCache[ cacheKey ];
+            }
+
+            this.#testCache[ cacheKey ] = WcagContrast.rgb(
+                [ clrA.rgb.r, clrA.rgb.g, clrA.rgb.b ],
+                [ clrB.rgb.r, clrB.rgb.g, clrB.rgb.b ],
+            );
+
+            return this.#testCache[ cacheKey ];
+        }
+
+        public readonly ratio: number;
+        public readonly aa: ContrastTest.SingleResult;
+        public readonly aaa: ContrastTest.SingleResult;
+
+        public constructor (
+            public readonly clrA: ColourUtilities.SingleShade,
+            public readonly clrB: ColourUtilities.SingleShade,
+        ) {
+            this.ratio = ContrastTest.test( clrA, clrB );
+
+            const standards = ContrastTest.standards;
+
+            // @ts-expect-error - this will be filled
+            const tmp_results: Omit<ContrastTest.Result, 'ratio'> = {};
+
+            for ( const t_standard in standards ) {
+                const standard = t_standard as keyof typeof standards;
+
+                if ( typeof tmp_results[ standard ] === 'undefined' ) {
+                    // @ts-expect-error - this will be filled
+                    tmp_results[ standard ] = {};
+                }
+
+                for ( const t_testName in standards[ standard ] ) {
+                    const testName = t_testName as keyof typeof standards[ typeof standard ];
+
+                    tmp_results[ standard ][ testName ] = this.ratio >= standards[ standard ][ testName ];
+                }
+            }
+
+            this.aa = tmp_results.aa;
+            this.aaa = tmp_results.aaa;
+        }
+
+        public toJSON(): ContrastTest.JSON {
+            return this.valueOf();
+        }
+
+        public valueOf(): ContrastTest.Parsed {
+            return {
+                ratio: this.ratio,
+                aa: this.aa,
+                aaa: this.aaa,
+            };
+        }
+    }
+
+    /**
+     * Utilities for the {@link Tokens} class.
+     * 
+     * @since 0.1.0-alpha
+     * @since ___PKG_VERSION___ — Moved to ColourUtilities and renamed.
+     * @internal
+     */
+    export namespace ContrastTest {
+
+        /**
+         * @since 0.1.0-alpha
+         */
+        export type JSON = Result;
+
+        /**
+         * @since 0.1.0-alpha
+         */
+        export type Parsed = Result;
+
+        /**
+         * The partialized version of the {@link ContrastTest.Schema} accepted as input.
+         *
+         * @since 0.1.0-alpha
+         */
+        export type Part = Partial<Parsed>;
+
+        /**
+         * @since 0.1.0-alpha
+         * @since ___PKG_VERSION___ — Renamed.
+         */
+        export type Result = {
+            ratio: number;
+            aa: SingleResult;
+            aaa: SingleResult;
+        };
+
+        /**
+         * @since 0.1.0-alpha
+         * @since ___PKG_VERSION___ — Renamed.
+         */
+        export type SingleResult = {
+            ui: boolean;
+            text: boolean;
+        };
+
+        /**
+         * An object defining the minimum contrast ratios required for a pass.
+         * 
+         * @since 0.1.0-alpha
+         * @since ___PKG_VERSION___ — Renamed.
+         */
+        export type Standards = {
+            [ T in "aa" | "aaa" ]: {
+                [ K in keyof SingleResult ]: number;
+            }
+        };
+    }
 
     /**
      * Utilities for dealing with shade level values.
@@ -489,26 +1459,6 @@ export namespace ColourUtilities {
             T_LightLevel extends "black" | "white" | Levels.Required | Levels.Optional
         >( lightLevel: T_LightLevel ): typeof converter[ T_LightLevel ] {
             return converter[ lightLevel ];
-        }
-    }
-
-    /**
-     * Utilities for working with shade maps (100-900 levels from light to dark).
-     * 
-     * @since 0.1.1-alpha.0
-     */
-    export namespace ShadeMaps {
-
-        /**
-         * @since 0.1.0-alpha
-         */
-        export function getDarkLevel<
-            T_LightLevel extends Levels.Required | Levels.Optional
-        >(
-            lightLevel: T_LightLevel,
-        ): ( typeof Levels.converter )[ T_LightLevel ] {
-
-            return Levels.converter[ lightLevel ];
         }
     }
 }

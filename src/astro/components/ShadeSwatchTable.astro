@@ -8,13 +8,12 @@
 /* import - types */
 import type { Tokens, Tokens_Internal } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Colour } from '../../ts/02-tokens/Tokens_Colour.js';
-import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
 
 /* import - functions */
 import { arrayUnique } from '@maddimathon/utility-typescript/functions';
 import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
 import { objectMap } from '../../ts/01-utilities/objectMap.js';
-import { Tokens_Colour_ShadeMap_Shade } from '../../ts/02-tokens/Colour/ShadeMap/ShadeMap_Shade.js';
+import { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
 import { colourToArray } from '../functions/colourToArray.js';
 import { 
     getBaseColourObject,
@@ -39,11 +38,11 @@ export interface Props<
 > {
     colour: Tokens_Colour.JsonReturn<T_ColourName, T_ExtraLevels> & {
         base: Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, T_ExtraLevels> & {
-        black: Tokens_Colour_ShadeMap_Shade.JsonReturn<
+        black: Tokens_Colour_ShadeMap.Shade.JsonReturn<
             T_ColourName,
             T_ExtraLevels
         >;
-        white: Tokens_Colour_ShadeMap_Shade.JsonReturn<
+        white: Tokens_Colour_ShadeMap.Shade.JsonReturn<
             T_ColourName,
             T_ExtraLevels
         >;
@@ -367,7 +366,7 @@ const includeFormats = {
 };
 
 const allTokenLevels = arrayUnique(Object.values(tokens.colour).map(
-    val => ! ( val instanceof Tokens_Colour_ShadeMap_Shade ) 
+    val => ! ( val instanceof Tokens_Colour_ShadeMap.Shade ) 
         ? [] 
         : Object.keys(val) as (ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional)[]
 ).flat());

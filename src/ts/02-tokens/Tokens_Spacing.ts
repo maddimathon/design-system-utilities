@@ -19,7 +19,11 @@ import { AbstractTokens } from './abstract/AbstractTokens.js';
  * 
  * @since 0.1.0-alpha
  */
-export class Tokens_Spacing extends AbstractTokens<Tokens_Spacing.Data> {
+export class Tokens_Spacing extends AbstractTokens<{
+    data: Tokens_Spacing.Data;
+    json: Tokens_Spacing.JsonReturn;
+    scss: Tokens_Spacing.ScssVars;
+}> {
 
     public static get default(): Tokens_Spacing.Data {
         return {
@@ -56,7 +60,7 @@ export class Tokens_Spacing extends AbstractTokens<Tokens_Spacing.Data> {
         };
     }
 
-    public toScssVars() {
+    public toScssVars(): Tokens_Spacing.ScssVars {
 
         return {
             spacing_multiplier: this.data.multiplier,
@@ -99,5 +103,12 @@ export namespace Tokens_Spacing {
     /**
      * @since 0.1.0-alpha
      */
-    export type JsonReturn = {};
+    export type JsonReturn = Data;
+
+    /**
+     * @since 0.1.0-alpha
+     */
+    export type ScssVars = Omit<Data, 'multiplier'> & {
+        spacing_multiplier: number;
+    };
 }

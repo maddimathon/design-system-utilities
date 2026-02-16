@@ -7,6 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
+import { LocalErrors } from './Errors.js';
 /**
  * Utility functions, schemas, and types for dealing with colour values in the
  * system.
@@ -84,31 +85,31 @@ export declare namespace ColourUtilities {
     /**
      * Ensures a valid shade object.
      */
-    function validateShade(input: SingleShade_Input): SingleShade;
+    function validateShade(input: SingleShade_Input, errMaker?: LocalErrors.ConstructorFn, round?: boolean): Promise<SingleShade>;
     /**
      * @since 0.1.0-alpha
      */
     function toHex(clr: {
         data: SingleShade;
-    } | SingleShade | SingleShade_Input): Value_Hex;
+    } | SingleShade | SingleShade_Input, errMaker?: LocalErrors.ConstructorFn): Value_Hex;
     /**
      * @since 0.1.0-alpha
      */
     function toHSL(clr: {
         data: SingleShade;
-    } | SingleShade | SingleShade_Input, round?: boolean): Value_HSL;
+    } | SingleShade | SingleShade_Input, errMaker?: LocalErrors.ConstructorFn, round?: boolean): Value_HSL;
     /**
      * @since 0.1.0-alpha
      */
     function toLCH(clr: {
         data: SingleShade;
-    } | SingleShade | SingleShade_Input): Value_LCH;
+    } | SingleShade | SingleShade_Input, errMaker?: LocalErrors.ConstructorFn, round?: boolean): Value_LCH;
     /**
      * @since 0.1.0-alpha
      */
     function toRGB(clr: {
         data: SingleShade;
-    } | SingleShade | SingleShade_Input): Value_RGB;
+    } | SingleShade | SingleShade_Input, errMaker?: LocalErrors.ConstructorFn, round?: boolean): Value_RGB;
     /**
      * @since 0.1.0-alpha
      */
@@ -116,7 +117,7 @@ export declare namespace ColourUtilities {
         data: SingleShade;
     } | SingleShade | SingleShade_Input, _clrB: {
         data: SingleShade;
-    } | SingleShade | SingleShade_Input, saturationMultiplier?: number): Value_LCH;
+    } | SingleShade | SingleShade_Input, saturationMultiplier?: number): Promise<Value_LCH>;
     namespace toString {
         function hex(clr: {
             data: SingleShade;
@@ -130,6 +131,113 @@ export declare namespace ColourUtilities {
         function rgb(clr: {
             data: SingleShade;
         } | SingleShade | SingleShade_Input): string;
+    }
+    /**
+     * @since 0.1.1-alpha.1.draft
+     */
+    namespace Async {
+        /**
+         * @since 0.1.1-alpha.1.draft
+         */
+        function toHex(clr: {
+            data: SingleShade;
+        } | SingleShade | SingleShade_Input, errMaker?: LocalErrors.ConstructorFn): Promise<Value_Hex>;
+        /**
+         * @since 0.1.1-alpha.1.draft
+         */
+        function toHSL(clr: {
+            data: SingleShade;
+        } | SingleShade | SingleShade_Input, errMaker?: LocalErrors.ConstructorFn, round?: boolean): Promise<Value_HSL>;
+        /**
+         * @since 0.1.1-alpha.1.draft
+         */
+        function toLCH(clr: {
+            data: SingleShade;
+        } | SingleShade | SingleShade_Input, errMaker?: LocalErrors.ConstructorFn, round?: boolean): Promise<Value_LCH>;
+        /**
+         * @since 0.1.1-alpha.1.draft
+         */
+        function toRGB(clr: {
+            data: SingleShade;
+        } | SingleShade | SingleShade_Input, errMaker?: LocalErrors.ConstructorFn, round?: boolean): Promise<Value_RGB>;
+    }
+    /**
+     * Generates a single pair of contrast test results used by the
+     * {@link Tokens_Colour_ShadeMap.Shade} objects.
+     *
+     * @since 0.1.0-alpha
+     * @since 0.1.1-alpha.1.draft — Moved to ColourUtilities and renamed.
+     * @internal
+     */
+    class ContrastTest {
+        #private;
+        readonly clrA: ColourUtilities.SingleShade;
+        readonly clrB: ColourUtilities.SingleShade;
+        static set standards(val: ContrastTest.Standards);
+        static get standards(): ContrastTest.Standards;
+        protected static cachePath: string;
+        /**
+         * Gets the contrast ratio for the given colours, checking the cache for
+         * values first.
+         */
+        static test(clrA: ColourUtilities.SingleShade, clrB: ColourUtilities.SingleShade): number;
+        readonly ratio: number;
+        readonly aa: ContrastTest.SingleResult;
+        readonly aaa: ContrastTest.SingleResult;
+        constructor(clrA: ColourUtilities.SingleShade, clrB: ColourUtilities.SingleShade);
+        toJSON(): ContrastTest.JSON;
+        valueOf(): ContrastTest.Parsed;
+    }
+    /**
+     * Utilities for the {@link Tokens} class.
+     *
+     * @since 0.1.0-alpha
+     * @since 0.1.1-alpha.1.draft — Moved to ColourUtilities and renamed.
+     * @internal
+     */
+    namespace ContrastTest {
+        /**
+         * @since 0.1.0-alpha
+         */
+        type JSON = Result;
+        /**
+         * @since 0.1.0-alpha
+         */
+        type Parsed = Result;
+        /**
+         * The partialized version of the {@link ContrastTest.Schema} accepted as input.
+         *
+         * @since 0.1.0-alpha
+         */
+        type Part = Partial<Parsed>;
+        /**
+         * @since 0.1.0-alpha
+         * @since 0.1.1-alpha.1.draft — Renamed.
+         */
+        type Result = {
+            ratio: number;
+            aa: SingleResult;
+            aaa: SingleResult;
+        };
+        /**
+         * @since 0.1.0-alpha
+         * @since 0.1.1-alpha.1.draft — Renamed.
+         */
+        type SingleResult = {
+            ui: boolean;
+            text: boolean;
+        };
+        /**
+         * An object defining the minimum contrast ratios required for a pass.
+         *
+         * @since 0.1.0-alpha
+         * @since 0.1.1-alpha.1.draft — Renamed.
+         */
+        type Standards = {
+            [T in "aa" | "aaa"]: {
+                [K in keyof SingleResult]: number;
+            };
+        };
     }
     /**
      * Utilities for dealing with shade level values.
@@ -200,17 +308,6 @@ export declare namespace ColourUtilities {
          * @since 0.1.1-alpha.0 — Moved to {@link ColourUtilities.Levels} and renamed.
          */
         function toDark<T_LightLevel extends "black" | "white" | Levels.Required | Levels.Optional>(lightLevel: T_LightLevel): typeof converter[T_LightLevel];
-    }
-    /**
-     * Utilities for working with shade maps (100-900 levels from light to dark).
-     *
-     * @since 0.1.1-alpha.0
-     */
-    namespace ShadeMaps {
-        /**
-         * @since 0.1.0-alpha
-         */
-        function getDarkLevel<T_LightLevel extends Levels.Required | Levels.Optional>(lightLevel: T_LightLevel): (typeof Levels.converter)[T_LightLevel];
     }
 }
 //# sourceMappingURL=ColourUtilities.d.ts.map
