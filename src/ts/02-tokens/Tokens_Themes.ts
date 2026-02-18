@@ -76,7 +76,7 @@ export class Tokens_Themes<
     ): Promise<Tokens_Themes<T_ColourTypes, T_ThemeTypes>[ 'sets' ]> {
 
         type CompleteArray = [
-            Tokens_Themes_Set.InputParam<T_ColourTypes, T_ThemeTypes>,
+            Tokens_Themes_Set.InputParam<T_ColourTypes, T_ThemeTypes> & { name: 'default'; },
             ...Tokens_Themes_Set.InputParam<T_ColourTypes, T_ThemeTypes>[]
         ];
 
@@ -86,10 +86,15 @@ export class Tokens_Themes<
                     input.length
                         ? input as CompleteArray
                         : [
-                            { name: 'default' satisfies Tokens_Themes.Default_ThemeName as T_ThemeTypes[ 'name' ] },
+                            { name: 'default' },
                         ] as CompleteArray
                 )
-                : [ input ];
+                : [
+                    {
+                        ...input,
+                        name: 'default',
+                    },
+                ];
 
         return Promise.all(
             arr.map(
@@ -103,9 +108,11 @@ export class Tokens_Themes<
                 )
             )
         ).then( ( objs ): {
+            default: Tokens_Themes_Set<T_ColourTypes, T_ThemeTypes>;
+        } & {
             [ N in T_ThemeTypes[ 'name' ] ]: Tokens_Themes_Set<T_ColourTypes, T_ThemeTypes>;
         } => {
-            const allThemeNames = objs.map( o => o.data.name );
+            const allThemeNames = objs.map( o => o.data.name ) as [ 'default', ...T_ThemeTypes[ 'name' ][] ];
 
             return objectGenerator(
                 allThemeNames,
@@ -129,6 +136,8 @@ export class Tokens_Themes<
         protected readonly brightnessModes: readonly TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>[],
         protected readonly contrastModes: readonly TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>[],
         protected readonly sets: {
+            default: Tokens_Themes_Set<T_ColourTypes, T_ThemeTypes>;
+        } & {
             [ N in T_ThemeTypes[ 'name' ] ]: Tokens_Themes_Set<T_ColourTypes, T_ThemeTypes>;
         },
     ) {
@@ -167,6 +176,8 @@ export namespace Tokens_Themes {
         T_ColourTypes extends TokenTypes.Colour.TypeParams,
         T_ThemeTypes extends TokenTypes.Theme.TypeParams,
     > = {
+        default: Tokens_Themes_Set.Data<T_ColourTypes, T_ThemeTypes>;
+    } & {
             [ N in T_ThemeTypes[ 'name' ] ]: Tokens_Themes_Set.Data<T_ColourTypes, T_ThemeTypes>;
         };
 
@@ -177,8 +188,12 @@ export namespace Tokens_Themes {
         T_ColourTypes extends TokenTypes.Colour.TypeParams,
         T_ThemeTypes extends TokenTypes.Theme.TypeParams,
     > =
+        | never[]
         | Tokens_Themes_Set.InputParam<T_ColourTypes, T_ThemeTypes>
-        | Tokens_Themes_Set.InputParam<T_ColourTypes, T_ThemeTypes>[];
+        | [
+            Tokens_Themes_Set.InputParam<T_ColourTypes, T_ThemeTypes, 'default'>,
+            ...Tokens_Themes_Set.InputParam<T_ColourTypes, T_ThemeTypes>[]
+        ];
 
     /**
      * @since 0.1.0-alpha
@@ -187,6 +202,8 @@ export namespace Tokens_Themes {
         T_ColourTypes extends TokenTypes.Colour.TypeParams,
         T_ThemeTypes extends TokenTypes.Theme.TypeParams,
     > = {
+        default: Tokens_Themes_Set.JsonReturn<T_ColourTypes, T_ThemeTypes>;
+    } & {
             [ N in T_ThemeTypes[ 'name' ] ]: Tokens_Themes_Set.JsonReturn<T_ColourTypes, T_ThemeTypes>;
         };
 
@@ -197,6 +214,8 @@ export namespace Tokens_Themes {
         T_ColourTypes extends TokenTypes.Colour.TypeParams,
         T_ThemeTypes extends TokenTypes.Theme.TypeParams,
     > = {
+        default: Tokens_Themes_Set.ScssVars<T_ColourTypes, T_ThemeTypes>;
+    } & {
             [ K in T_ThemeTypes[ 'name' ] ]: Tokens_Themes_Set.ScssVars<T_ColourTypes, T_ThemeTypes>;
         };
 }

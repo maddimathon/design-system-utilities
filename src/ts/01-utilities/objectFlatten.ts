@@ -31,8 +31,8 @@ export function objectFlatten<
 
     const validateKey_addPrefix = ( key: number | string ): string => [
         prefix,
-        String( key ),
-    ].filter( v => v ).join( '-' );
+        key === '$' ? '' : String( key ),
+    ].filter( v => v?.length ).join( '-' );
 
     const key_addSuffix = ( key: number | string ): string => {
         key = String( key );

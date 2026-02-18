@@ -166,11 +166,23 @@ export class Tokens_CSS_Style extends AbstractTokens {
      */
     static inputStyle() {
         const style = {
+            accent: {
+                $: 'link-outline-hover',
+                hover: 'link-outline-hover',
+                active: 'link-outline-active',
+            },
+            background: 'background-bright',
             border: {
+                color: {
+                    $: 'ui',
+                    hover: 'link-outline-hover',
+                    active: 'link-outline-active',
+                },
                 radius: '0',
                 style: 'solid',
                 width: '100',
             },
+            color: 'text',
             focus: {
                 offset: '400',
             },
@@ -194,6 +206,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 inline: '300',
             },
             placeholder: {
+                color: 'text-disabled',
                 font: {
                     style: 'italic',
                 },
@@ -203,14 +216,26 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 },
             },
         };
+        const disabled = {
+            accent: style.accent,
+            background: 'background-grey',
+            border: {
+                ...style.border,
+                radius: style.border.radius,
+                style: 'dashed',
+            },
+            color: 'text-disabled',
+        };
+        const readonly = {
+            accent: style.accent,
+            background: style.background,
+            border: style.border,
+            color: style.color,
+        };
         return {
             $: style,
-            disabled: {
-                border: {
-                    radius: style.border.radius,
-                    style: 'dashed',
-                },
-            },
+            disabled,
+            readonly,
         };
     }
     static get default() {

@@ -48,7 +48,12 @@ export class Tokens_CSS extends AbstractTokens {
         this.zIndex = mergeArgs(Tokens_CSS.default.zIndex, input.zIndex);
     }
     toJSON() {
-        return this.data;
+        return {
+            border: this.border.toJSON(),
+            style: this.style.toJSON(),
+            transition: this.transition.toJSON(),
+            zIndex: this.data.zIndex,
+        };
     }
     toScssVars() {
         return {

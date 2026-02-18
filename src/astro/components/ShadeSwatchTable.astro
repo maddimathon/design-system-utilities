@@ -734,7 +734,8 @@ const HSL_CLRS = {
                             style={`background: var(--clr-white, ${HSL_CLRS.white})`}
                         ><ShadeSwatch 
                             bases={props.colour.base}
-                            contrast={false}
+                            contrast={name === 'base' && true}
+                            contrastIsCondensed={true}
                             displayHeading={name === 'base' ? 7 : false}
                             displayValues={name === 'base'}
                             heading={heading}
@@ -778,7 +779,8 @@ const HSL_CLRS = {
                             style={`background: var(--clr-white, ${HSL_CLRS.black})`}
                         ><ShadeSwatch 
                             bases={props.colour.base}
-                            contrast={false}
+                            contrast={name === 'base' && true}
+                            contrastIsCondensed={true}
                             displayHeading={name === 'base' ? 7 : false}
                             displayValues={name === 'base'}
                             heading={heading}

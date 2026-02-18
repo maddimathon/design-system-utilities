@@ -25,6 +25,8 @@ export declare class Tokens_Themes<T_ColourTypes extends TokenTypes.Colour.TypeP
     protected readonly brightnessModes: readonly TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>[];
     protected readonly contrastModes: readonly TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>[];
     protected readonly sets: {
+        default: Tokens_Themes_Set<T_ColourTypes, T_ThemeTypes>;
+    } & {
         [N in T_ThemeTypes['name']]: Tokens_Themes_Set<T_ColourTypes, T_ThemeTypes>;
     };
     /**
@@ -37,6 +39,8 @@ export declare class Tokens_Themes<T_ColourTypes extends TokenTypes.Colour.TypeP
     protected static buildSets<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>, extraColourLevels: readonly T_ColourTypes['extraLevels'][], brightnessModes: readonly TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>[], contrastModes: readonly TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>[], input: Tokens_Themes.InputParam<T_ColourTypes, T_ThemeTypes>): Promise<Tokens_Themes<T_ColourTypes, T_ThemeTypes>['sets']>;
     get data(): Tokens_Themes.Data<T_ColourTypes, T_ThemeTypes>;
     protected constructor(clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>, extraColourLevels: readonly T_ColourTypes['extraLevels'][], brightnessModes: readonly TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>[], contrastModes: readonly TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>[], sets: {
+        default: Tokens_Themes_Set<T_ColourTypes, T_ThemeTypes>;
+    } & {
         [N in T_ThemeTypes['name']]: Tokens_Themes_Set<T_ColourTypes, T_ThemeTypes>;
     });
     toJSON(): Tokens_Themes.JsonReturn<T_ColourTypes, T_ThemeTypes>;
@@ -53,22 +57,31 @@ export declare namespace Tokens_Themes {
      * @since 0.1.0-alpha
      */
     type Data<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams> = {
+        default: Tokens_Themes_Set.Data<T_ColourTypes, T_ThemeTypes>;
+    } & {
         [N in T_ThemeTypes['name']]: Tokens_Themes_Set.Data<T_ColourTypes, T_ThemeTypes>;
     };
     /**
      * @since 0.1.0-alpha
      */
-    type InputParam<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams> = Tokens_Themes_Set.InputParam<T_ColourTypes, T_ThemeTypes> | Tokens_Themes_Set.InputParam<T_ColourTypes, T_ThemeTypes>[];
+    type InputParam<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams> = never[] | Tokens_Themes_Set.InputParam<T_ColourTypes, T_ThemeTypes> | [
+        Tokens_Themes_Set.InputParam<T_ColourTypes, T_ThemeTypes, 'default'>,
+        ...Tokens_Themes_Set.InputParam<T_ColourTypes, T_ThemeTypes>[]
+    ];
     /**
      * @since 0.1.0-alpha
      */
     type JsonReturn<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams> = {
+        default: Tokens_Themes_Set.JsonReturn<T_ColourTypes, T_ThemeTypes>;
+    } & {
         [N in T_ThemeTypes['name']]: Tokens_Themes_Set.JsonReturn<T_ColourTypes, T_ThemeTypes>;
     };
     /**
      * @since 0.1.1-alpha.1.draft
      */
     type ScssVars<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams> = {
+        default: Tokens_Themes_Set.ScssVars<T_ColourTypes, T_ThemeTypes>;
+    } & {
         [K in T_ThemeTypes['name']]: Tokens_Themes_Set.ScssVars<T_ColourTypes, T_ThemeTypes>;
     };
 }

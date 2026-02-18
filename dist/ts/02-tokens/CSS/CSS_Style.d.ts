@@ -33,8 +33,9 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
      * @since 0.1.1-alpha.0
      */
     static inputStyle(): {
-        $: Tokens_CSS_Style.InputStyles;
-        disabled: Tokens_CSS_Style.InputStyles_Disabled;
+        readonly $: Tokens_CSS_Style.InputStyles;
+        readonly disabled: Tokens_CSS_Style.InputStyles_Variation;
+        readonly readonly: Tokens_CSS_Style.InputStyles_Variation;
     };
     static get default(): Tokens_CSS_Style.Data;
     readonly data: Tokens_CSS_Style.Data;
@@ -51,7 +52,7 @@ export declare namespace Tokens_CSS_Style {
     /**
      * @since 0.1.1-alpha.1.draft
      */
-    type AlertStyles = {
+    export type AlertStyles = {
         /**
          * This should be a theme slug.
          */
@@ -92,7 +93,7 @@ export declare namespace Tokens_CSS_Style {
             inline: TokenLevels;
         };
     };
-    type ButtonStyles = {
+    export type ButtonStyles = {
         border: {
             radius: "0" | TokenLevels;
             style: string;
@@ -124,12 +125,12 @@ export declare namespace Tokens_CSS_Style {
         };
         width: string;
     };
-    type ButtonStyles_Disabled = Omit<ButtonStyles, 'border' | 'focus' | 'gap' | 'line-height' | 'margin' | 'padding' | 'width'> & {
+    export type ButtonStyles_Disabled = Omit<ButtonStyles, 'border' | 'focus' | 'gap' | 'line-height' | 'margin' | 'padding' | 'width'> & {
         border: Omit<ButtonStyles['border'], 'width'>;
         'letter-spacing': string;
         'text-transform': CSS.TextTransform;
     };
-    type HeadingStyles = {
+    export type HeadingStyles = {
         font: {
             style: "normal" | "italic";
             weight: TokenLevels;
@@ -147,12 +148,34 @@ export declare namespace Tokens_CSS_Style {
     /**
      * @since 0.1.1-alpha.0
      */
-    type InputStyles = {
+    export type InputStyles = {
+        /**
+         * This should be a theme slug.
+         *
+         * @since 0.1.1-alpha.1.draft
+         */
+        accent: InteractiveStyles<string>;
+        /**
+         * This should be a theme slug.
+         *
+         * @since 0.1.1-alpha.1.draft
+         */
+        background: string;
         border: {
+            /**
+             * This should be a theme slug.
+             */
+            color: InteractiveStyles<string>;
             radius: "0" | TokenLevels;
             style: string;
             width: TokenLevels;
         };
+        /**
+         * This should be a theme slug.
+         *
+         * @since 0.1.1-alpha.1.draft
+         */
+        color: string;
         focus: {
             offset: TokenLevels;
         };
@@ -182,6 +205,10 @@ export declare namespace Tokens_CSS_Style {
          * @since 0.1.1-alpha.1.draft
          */
         placeholder: {
+            /**
+             * This should be a theme slug.
+             */
+            color: string;
             font: {
                 style: "normal" | "italic";
             };
@@ -192,22 +219,26 @@ export declare namespace Tokens_CSS_Style {
     };
     /**
      * @since 0.1.1-alpha.0
+     * @since 0.1.1-alpha.1.draft — Renamed from InputStyles_Disabled to InputStyles_Variation.
      */
-    type InputStyles_Disabled = Omit<InputStyles, 'border' | 'focus' | 'label' | 'line-height' | 'margin' | 'padding' | 'placeholder'> & {
+    export type InputStyles_Variation = Omit<InputStyles, 'border' | 'focus' | 'label' | 'line-height' | 'margin' | 'padding' | 'placeholder'> & {
         border: Omit<InputStyles['border'], 'width'>;
+    };
+    type InteractiveStyles<T_StyleValue> = {
+        [S in "$" | "hover" | "active"]: T_StyleValue;
     };
     /**
      * CSS allowed value types.
      *
      * @since 0.1.0-alpha
      */
-    namespace CSS {
+    export namespace CSS {
         type TextTransform = "none" | "capitalize" | "uppercase" | "lowercase" | "full-width" | "full-size-kana" | "math-auto";
     }
     /**
      * @since 0.1.0-alpha
      */
-    type Data = {
+    export type Data = {
         /**
          * @since 0.1.1-alpha.1.draft
          */
@@ -226,7 +257,8 @@ export declare namespace Tokens_CSS_Style {
          */
         input: {
             $: InputStyles;
-            disabled: InputStyles_Disabled;
+            disabled: InputStyles_Variation;
+            readonly: InputStyles_Variation;
         };
         /**
          * @since 0.1.1-alpha.1.draft — Restructured object nesting.
@@ -242,7 +274,7 @@ export declare namespace Tokens_CSS_Style {
     /**
      * @since 0.1.0-alpha
      */
-    type InputParam = {
+    export type InputParam = {
         /**
          * @since 0.1.1-alpha.1.draft
          */
@@ -258,7 +290,8 @@ export declare namespace Tokens_CSS_Style {
         };
         input?: {
             $?: RecursivePartial<InputStyles>;
-            disabled?: RecursivePartial<InputStyles_Disabled>;
+            disabled?: RecursivePartial<InputStyles_Variation>;
+            readonly?: RecursivePartial<InputStyles_Variation>;
         };
         /**
          * @since 0.1.1-alpha.1.draft — Restructured object nesting.
@@ -274,10 +307,11 @@ export declare namespace Tokens_CSS_Style {
     /**
      * @since 0.1.0-alpha
      */
-    type JsonReturn = Data;
+    export type JsonReturn = Data;
     /**
      * @since 0.1.1-alpha.1.draft
      */
-    type ScssVars = Data;
+    export type ScssVars = Data;
+    export {};
 }
 //# sourceMappingURL=CSS_Style.d.ts.map

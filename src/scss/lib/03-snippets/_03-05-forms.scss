@@ -323,7 +323,7 @@
     accent-color: #{$accentClr};
 
     &::placeholder {
-        color: #{var-theme(input-placeholder)};
+        color: #{var-style(input-placeholder-color)};
     }
 
     @include hover-focus-visible-or-within {
@@ -357,53 +357,53 @@
 /// @since 0.1.1-alpha.0
 ///
 @mixin snippet-input-colours(
-    $accentClr: var-theme(input-accent),
-    $accentClr_active: var-theme(input-accent-active),
-    $accentClr_hover: var-theme(input-accent-hover),
+    $accentClr: var-style(input-accent),
+    $accentClr_active: var-style(input-accent-active),
+    $accentClr_hover: var-style(input-accent-hover),
     //
-    $background: var-theme(input-bg),
-    $background_active: var-theme(input-bg-active),
-    $background_hover: var-theme(input-bg-hover),
+    $background: var-style(input-background),
+    $background_active: var-style(input-background),
+    $background_hover: var-style(input-background),
     //
-    $borderClr: var-theme(input-border),
-    $borderClr_active: var-theme(input-border-active),
-    $borderClr_hover: var-theme(input-border-hover),
+    $borderClr: var-style(input-border-color),
+    $borderClr_active: var-style(input-border-color-active),
+    $borderClr_hover: var-style(input-border-color-hover),
     //
-    $color: var-theme(input-text),
-    $color_active: var-theme(input-text-active),
-    $color_hover: var-theme(input-text-hover),
+    $color: var-style(input-color),
+    $color_active: var-style(input-color),
+    $color_hover: var-style(input-color),
     //
-    $accentClr_disabled: var-theme(input-disabled-accent),
-    $accentClr_disabled_active: var-theme(input-disabled-accent-active),
-    $accentClr_disabled_hover: var-theme(input-disabled-accent-hover),
+    $accentClr_disabled: var-style(input-disabled-accent),
+    $accentClr_disabled_active: var-style(input-disabled-accent-active),
+    $accentClr_disabled_hover: var-style(input-disabled-accent-hover),
     //
-    $background_disabled: var-theme(input-disabled-bg),
-    $background_disabled_active: var-theme(input-disabled-bg-active),
-    $background_disabled_hover: var-theme(input-disabled-bg-hover),
+    $background_disabled: var-style(input-disabled-background),
+    $background_disabled_active: var-style(input-disabled-background),
+    $background_disabled_hover: var-style(input-disabled-background),
     //
-    $borderClr_disabled: var-theme(input-disabled-border),
-    $borderClr_disabled_active: var-theme(input-disabled-border-active),
-    $borderClr_disabled_hover: var-theme(input-disabled-border-hover),
+    $borderClr_disabled: var-style(input-disabled-border-color),
+    $borderClr_disabled_active: var-style(input-disabled-border-color-active),
+    $borderClr_disabled_hover: var-style(input-disabled-border-color-hover),
     //
-    $color_disabled: var-theme(input-disabled-text),
-    $color_disabled_active: var-theme(input-disabled-text-active),
-    $color_disabled_hover: var-theme(input-disabled-text-hover),
+    $color_disabled: var-style(input-disabled-color),
+    $color_disabled_active: var-style(input-disabled-color),
+    $color_disabled_hover: var-style(input-disabled-color),
     //
-    $accentClr_readonly: var-theme(input-readonly-accent),
-    $accentClr_readonly_active: var-theme(input-readonly-accent-active),
-    $accentClr_readonly_hover: var-theme(input-readonly-accent-hover),
+    $accentClr_readonly: var-style(input-readonly-accent),
+    $accentClr_readonly_active: var-style(input-readonly-accent-active),
+    $accentClr_readonly_hover: var-style(input-readonly-accent-hover),
     //
-    $background_readonly: var-theme(input-readonly-bg),
-    $background_readonly_active: var-theme(input-readonly-bg-active),
-    $background_readonly_hover: var-theme(input-readonly-bg-hover),
+    $background_readonly: var-style(input-readonly-background),
+    $background_readonly_active: var-style(input-readonly-background),
+    $background_readonly_hover: var-style(input-readonly-background),
     //
-    $borderClr_readonly: var-theme(input-readonly-border),
-    $borderClr_readonly_active: var-theme(input-readonly-border-active),
-    $borderClr_readonly_hover: var-theme(input-readonly-border-hover),
+    $borderClr_readonly: var-style(input-readonly-border-color),
+    $borderClr_readonly_active: var-style(input-readonly-border-color-active),
+    $borderClr_readonly_hover: var-style(input-readonly-border-color-hover),
     //
-    $color_readonly: var-theme(input-readonly-text),
-    $color_readonly_active: var-theme(input-readonly-text-active),
-    $color_readonly_hover: var-theme(input-readonly-text-hover) //
+    $color_readonly: var-style(input-readonly-color),
+    $color_readonly_active: var-style(input-readonly-color),
+    $color_readonly_hover: var-style(input-readonly-color) //
 ) {
     @include _snippet-input-colours-single(
         $accentClr: $accentClr,
@@ -565,9 +565,9 @@
         @include snippet-button-colours(disabled);
     }
 
-    $accentClr: var-theme(input-accent);
-    $accentClr_active: var-theme(input-accent-active);
-    $accentClr_hover: var-theme(input-accent-hover);
+    $accentClr: var-style(input-accent);
+    $accentClr_active: var-style(input-accent-active);
+    $accentClr_hover: var-style(input-accent-hover);
 
     &[type='checkbox'],
     &[type='radio'] {
@@ -586,9 +586,9 @@
     }
 
     &[readonly] {
-        $accentClr: var-theme(input-readonly-accent);
-        $accentClr_active: var-theme(input-readonly-accent-active);
-        $accentClr_hover: var-theme(input-readonly-accent-hover);
+        $accentClr: var-style(input-readonly-accent);
+        $accentClr_active: var-style(input-readonly-accent-active);
+        $accentClr_hover: var-style(input-readonly-accent-hover);
 
         &[type='checkbox'],
         &[type='radio'] {

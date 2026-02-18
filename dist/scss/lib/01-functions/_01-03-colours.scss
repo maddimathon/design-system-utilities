@@ -58,19 +58,13 @@ $_systemColors: map.flatten(
     {
         $level: null;
 
-        $slug: if(
-            $brightness == dark,
-            if(
-                $slug == 'white' or $slug == white,
-                'black',
-                if($slug == 'black' or $slug == black, 'white', $slug)
-            ),
-            if(
-                $slug == 'white' or $slug == white,
-                'white',
-                if($slug == 'black' or $slug == black, 'black', $slug)
-            )
-        );
+        $slug: if($slug == white, 'white', if($slug == black, 'black', $slug));
+
+        // $slug: if(
+        //     $brightness == dark,
+        //     if($slug == 'white', 'black', if($slug == 'black', 'white', $slug)),
+        //     if($slug == 'white', 'white', if($slug == 'black', 'black', $slug))
+        // );
     }
 
     $clrVarSlug: 'clr-#{$slug}';

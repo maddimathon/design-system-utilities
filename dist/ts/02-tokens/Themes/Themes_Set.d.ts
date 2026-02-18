@@ -55,8 +55,8 @@ export declare namespace Tokens_Themes_Set {
     /**
      * @since 0.1.0-alpha
      */
-    type InputParam<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams> = {
-        name: T_ThemeTypes['name'];
+    type InputParam<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams, __T_ThisThemeName extends T_ThemeTypes['name'] = T_ThemeTypes['name']> = {
+        name: __T_ThisThemeName;
         variations?: Tokens_Themes_Set.SingleMode.InputParam<T_ColourTypes, T_ThemeTypes>['variations'];
         forcedColours?: Omit<Tokens_Themes_Set.SingleMode.InputParam<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>, "levels" | "variations"> & {
             overrides?: Tokens_Themes_Set.SingleMode.Data.RecursivePartial<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>;
@@ -184,38 +184,6 @@ export declare namespace Tokens_Themes_Set {
                 [K in 'primary' | 'secondary' | 'disabled']: Data.Button<T_ColourTypes, __T_ColourOption>;
             } & {
                 [K in T_ThemeTypes['variations']['universal']]: Data.Button<T_ColourTypes, __T_ColourOption>;
-            };
-            /**
-             * @since 0.1.1-alpha.0 — Changed from field to input.
-             * @since 0.1.1-alpha.1.draft — Added placeholder colour.
-             */
-            input: {
-                [K in "$" | "disabled" | "readonly"]: {
-                    /**
-                     * Used for accent-color and focus ring colour.
-                     */
-                    accent: {
-                        $: __T_ColourOption;
-                        hover: __T_ColourOption;
-                        active: __T_ColourOption;
-                    };
-                    bg: {
-                        $: __T_ColourOption;
-                        hover: __T_ColourOption;
-                        active: __T_ColourOption;
-                    };
-                    border: {
-                        $: __T_ColourOption;
-                        hover: __T_ColourOption;
-                        active: __T_ColourOption;
-                    };
-                    placeholder: __T_ColourOption;
-                    text: {
-                        $: __T_ColourOption;
-                        hover: __T_ColourOption;
-                        active: __T_ColourOption;
-                    };
-                };
             };
             system: {
                 accent: {
@@ -387,6 +355,7 @@ export declare namespace Tokens_Themes_Set {
         interface RequiredVariations<T_ColourName extends string> {
             base: TokenTypes.Colour.GenericName<T_ColourName>;
             background: {
+                bright: TokenTypes.Colour.GenericName<T_ColourName>;
                 grey: TokenTypes.Colour.GenericName<T_ColourName>;
             };
             universal: {
@@ -434,7 +403,7 @@ export declare namespace Tokens_Themes_Set {
              * @since 0.1.1-alpha.1.draft
              */
             interface Input<T_ExtraColourLevels extends ColourUtilities.Levels.Optional> {
-                background?: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Partial<Levels.Set.AccentGrey<T_ExtraColourLevels>>;
+                background?: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Partial<Levels.Set.AccentBrightGrey<T_ExtraColourLevels>>;
                 text?: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Partial<Levels.Set.AccentMin<T_ExtraColourLevels>>;
                 ui?: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Partial<Levels.Set.AccentMin<T_ExtraColourLevels>>;
                 heading?: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | {
@@ -445,7 +414,7 @@ export declare namespace Tokens_Themes_Set {
              * @since 0.1.1-alpha.1.draft
              */
             interface Parsed<T_ExtraColourLevels extends ColourUtilities.Levels.Optional> {
-                background: Levels.Set.AccentGrey<T_ExtraColourLevels>;
+                background: Levels.Set.AccentBrightGrey<T_ExtraColourLevels>;
                 text: Levels.Set.AccentMin<T_ExtraColourLevels>;
                 ui: Levels.Set.AccentMin<T_ExtraColourLevels>;
                 heading: {
@@ -456,7 +425,7 @@ export declare namespace Tokens_Themes_Set {
              * @since 0.1.1-alpha.1.draft — Made public, moved to SingleMode.Levels and renamed.
              */
             interface Required<T_ExtraColourLevels extends ColourUtilities.Levels.Optional> {
-                background: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Levels.Set.AccentGrey<T_ExtraColourLevels>;
+                background: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Levels.Set.AccentBrightGrey<T_ExtraColourLevels>;
                 text: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Levels.Set.AccentMin<T_ExtraColourLevels>;
                 ui: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Levels.Set.AccentMin<T_ExtraColourLevels>;
                 heading: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | {
@@ -470,12 +439,13 @@ export declare namespace Tokens_Themes_Set {
              */
             namespace Set {
                 /**
-                 * @since 0.1.1-alpha.1.draft — Made public, moved to SingleMode.Levels.Sets and renamed.
+                 * @since 0.1.1-alpha.1.draft
                  */
-                interface AccentMin<T_ExtraColourLevels extends ColourUtilities.Levels.Optional> {
+                interface AccentBrightGrey<T_ExtraColourLevels extends ColourUtilities.Levels.Optional> {
                     $: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
+                    bright: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
                     accent: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
-                    min: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
+                    grey: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
                 }
                 /**
                  * @since 0.1.1-alpha.0
@@ -486,6 +456,14 @@ export declare namespace Tokens_Themes_Set {
                     accent: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
                     grey: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
                 }
+                /**
+                 * @since 0.1.1-alpha.1.draft — Made public, moved to SingleMode.Levels.Sets and renamed.
+                 */
+                interface AccentMin<T_ExtraColourLevels extends ColourUtilities.Levels.Optional> {
+                    $: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
+                    accent: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
+                    min: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
+                }
             }
             /**
              * @since 0.1.1-alpha.0
@@ -495,6 +473,7 @@ export declare namespace Tokens_Themes_Set {
                 const average: {
                     readonly background: {
                         readonly $: "150";
+                        readonly bright: "100";
                         readonly accent: "200";
                         readonly grey: "200";
                     };
@@ -524,6 +503,7 @@ export declare namespace Tokens_Themes_Set {
                 const high: {
                     readonly background: {
                         readonly $: "100";
+                        readonly bright: "white";
                         readonly accent: "150";
                         readonly grey: "150";
                     };
@@ -553,6 +533,7 @@ export declare namespace Tokens_Themes_Set {
                 const low: {
                     readonly background: {
                         readonly $: "300";
+                        readonly bright: "300";
                         readonly accent: "250";
                         readonly grey: "250";
                     };
@@ -632,7 +613,14 @@ export declare namespace Tokens_Themes_Set {
          */
         type JsonReturn<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>> = {
             description?: undefined | string;
-            data: Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption>;
+            data: Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption> & {
+                link: Data<T_ColourTypes, T_ThemeTypes>['link'] & {
+                    outline: Data<T_ColourTypes, T_ThemeTypes>['link']['outline'] & {
+                        $: __T_ColourOption;
+                        visited: __T_ColourOption;
+                    };
+                };
+            };
             levelsInUse: {
                 light: "black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional;
                 dark: "black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional;

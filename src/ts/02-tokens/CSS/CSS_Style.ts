@@ -217,18 +217,29 @@ export class Tokens_CSS_Style extends AbstractTokens<{
     /**
      * @since 0.1.1-alpha.0
      */
-    public static inputStyle(): {
-        $: Tokens_CSS_Style.InputStyles;
-        disabled: Tokens_CSS_Style.InputStyles_Disabled;
-    } {
+    public static inputStyle() {
 
         const style: Tokens_CSS_Style.InputStyles = {
+            accent: {
+                $: 'link-outline-hover',
+                hover: 'link-outline-hover',
+                active: 'link-outline-active',
+            },
+
+            background: 'background-bright',
 
             border: {
+                color: {
+                    $: 'ui',
+                    hover: 'link-outline-hover',
+                    active: 'link-outline-active',
+                },
                 radius: '0',
                 style: 'solid',
                 width: '100',
             },
+
+            color: 'text',
 
             focus: {
                 offset: '400',
@@ -260,6 +271,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
             },
 
             placeholder: {
+                color: 'text-disabled',
                 font: {
                     style: 'italic',
                 },
@@ -270,14 +282,28 @@ export class Tokens_CSS_Style extends AbstractTokens<{
             },
         };
 
+        const disabled: Tokens_CSS_Style.InputStyles_Variation = {
+            accent: style.accent,
+            background: 'background-grey',
+            border: {
+                ...style.border,
+                radius: style.border.radius,
+                style: 'dashed',
+            },
+            color: 'text-disabled',
+        };
+
+        const readonly: Tokens_CSS_Style.InputStyles_Variation = {
+            accent: style.accent,
+            background: style.background,
+            border: style.border,
+            color: style.color,
+        };
+
         return {
             $: style,
-            disabled: {
-                border: {
-                    radius: style.border.radius,
-                    style: 'dashed',
-                },
-            },
+            disabled,
+            readonly,
         } as const satisfies Tokens_CSS_Style.Data[ 'input' ];
     }
 
@@ -468,11 +494,36 @@ export namespace Tokens_CSS_Style {
      */
     export type InputStyles = {
 
+        /**
+         * This should be a theme slug.
+         * 
+         * @since ___PKG_VERSION___
+         */
+        accent: InteractiveStyles<string>;
+
+        /**
+         * This should be a theme slug.
+         * 
+         * @since ___PKG_VERSION___
+         */
+        background: string;
+
         border: {
+            /**
+             * This should be a theme slug.
+             */
+            color: InteractiveStyles<string>;
             radius: "0" | TokenLevels;
             style: string;
             width: TokenLevels;
         };
+
+        /**
+         * This should be a theme slug.
+         * 
+         * @since ___PKG_VERSION___
+         */
+        color: string;
 
         focus: {
             offset: TokenLevels;
@@ -510,9 +561,15 @@ export namespace Tokens_CSS_Style {
          * @since ___PKG_VERSION___
          */
         placeholder: {
+            /**
+             * This should be a theme slug.
+             */
+            color: string;
+
             font: {
                 style: "normal" | "italic";
             };
+
             opacity: {
                 /**
                  * Contrast modes.
@@ -524,12 +581,17 @@ export namespace Tokens_CSS_Style {
 
     /**
      * @since 0.1.1-alpha.0
+     * @since ___PKG_VERSION___ — Renamed from InputStyles_Disabled to InputStyles_Variation.
      */
-    export type InputStyles_Disabled = Omit<
+    export type InputStyles_Variation = Omit<
         InputStyles,
         'border' | 'focus' | 'label' | 'line-height' | 'margin' | 'padding' | 'placeholder'
     > & {
         border: Omit<InputStyles[ 'border' ], 'width'>;
+    };
+
+    type InteractiveStyles<T_StyleValue> = {
+        [ S in "$" | "hover" | "active" ]: T_StyleValue;
     };
 
     /**
@@ -567,7 +629,8 @@ export namespace Tokens_CSS_Style {
          */
         input: {
             $: InputStyles;
-            disabled: InputStyles_Disabled;
+            disabled: InputStyles_Variation;
+            readonly: InputStyles_Variation;
         };
 
         /**
@@ -608,7 +671,8 @@ export namespace Tokens_CSS_Style {
 
         input?: {
             $?: RecursivePartial<InputStyles>;
-            disabled?: RecursivePartial<InputStyles_Disabled>;
+            disabled?: RecursivePartial<InputStyles_Variation>;
+            readonly?: RecursivePartial<InputStyles_Variation>;
         };
 
         /**

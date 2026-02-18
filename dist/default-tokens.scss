@@ -300,11 +300,23 @@ $designSystem: map.deep-merge(
             ),
             'input': (
                 '$': (
+                    'accent': (
+                        '$': 'link-outline-hover',
+                        'hover': 'link-outline-hover',
+                        'active': 'link-outline-active',
+                    ),
+                    'background': 'background-bright',
                     'border': (
+                        'color': (
+                            '$': 'ui',
+                            'hover': 'link-outline-hover',
+                            'active': 'link-outline-active',
+                        ),
                         'radius': '0',
                         'style': 'solid',
                         'width': '100',
                     ),
+                    'color': 'text',
                     'focus': (
                         'offset': '400',
                     ),
@@ -328,6 +340,7 @@ $designSystem: map.deep-merge(
                         'inline': '300',
                     ),
                     'placeholder': (
+                        'color': 'text-disabled',
                         'font': (
                             'style': 'italic',
                         ),
@@ -338,10 +351,42 @@ $designSystem: map.deep-merge(
                     ),
                 ),
                 'disabled': (
+                    'accent': (
+                        '$': 'link-outline-hover',
+                        'hover': 'link-outline-hover',
+                        'active': 'link-outline-active',
+                    ),
+                    'background': 'background-grey',
                     'border': (
+                        'color': (
+                            '$': 'ui',
+                            'hover': 'link-outline-hover',
+                            'active': 'link-outline-active',
+                        ),
                         'radius': '0',
                         'style': 'dashed',
+                        'width': '100',
                     ),
+                    'color': 'text-disabled',
+                ),
+                'readonly': (
+                    'accent': (
+                        '$': 'link-outline-hover',
+                        'hover': 'link-outline-hover',
+                        'active': 'link-outline-active',
+                    ),
+                    'background': 'background-bright',
+                    'border': (
+                        'color': (
+                            '$': 'ui',
+                            'hover': 'link-outline-hover',
+                            'active': 'link-outline-active',
+                        ),
+                        'radius': '0',
+                        'style': 'solid',
+                        'width': '100',
+                    ),
+                    'color': 'text',
                 ),
             ),
             'selection': (
@@ -734,6 +779,7 @@ $designSystem: map.deep-merge(
                 'forced-colors': (
                     'background': (
                         '$': 'Canvas',
+                        'bright': 'Canvas',
                         'grey': 'Canvas',
                         'primary': 'Canvas',
                         'secondary': 'Canvas',
@@ -907,77 +953,6 @@ $designSystem: map.deep-merge(
                             ),
                         ),
                     ),
-                    'input': (
-                        '$': (
-                            'accent': (
-                                '$': 'ActiveText',
-                                'hover': 'ActiveText',
-                                'active': 'ActiveText',
-                            ),
-                            'bg': (
-                                '$': 'Field',
-                                'hover': 'SelectedItem',
-                                'active': 'Field',
-                            ),
-                            'border': (
-                                '$': 'FieldText',
-                                'hover': 'SelectedItem',
-                                'active': 'FieldText',
-                            ),
-                            'placeholder': 'FieldText',
-                            'text': (
-                                '$': 'FieldText',
-                                'hover': 'SelectedItemText',
-                                'active': 'FieldText',
-                            ),
-                        ),
-                        'disabled': (
-                            'accent': (
-                                '$': 'ActiveText',
-                                'hover': 'ActiveText',
-                                'active': 'ActiveText',
-                            ),
-                            'bg': (
-                                '$': 'Field',
-                                'hover': 'SelectedItem',
-                                'active': 'Field',
-                            ),
-                            'border': (
-                                '$': 'FieldText',
-                                'hover': 'SelectedItem',
-                                'active': 'FieldText',
-                            ),
-                            'placeholder': 'FieldText',
-                            'text': (
-                                '$': 'FieldText',
-                                'hover': 'SelectedItemText',
-                                'active': 'FieldText',
-                            ),
-                        ),
-                        'readonly': (
-                            'accent': (
-                                '$': 'ActiveText',
-                                'hover': 'ActiveText',
-                                'active': 'ActiveText',
-                            ),
-                            'bg': (
-                                '$': 'Field',
-                                'hover': 'SelectedItem',
-                                'active': 'Field',
-                            ),
-                            'border': (
-                                '$': 'FieldText',
-                                'hover': 'SelectedItem',
-                                'active': 'FieldText',
-                            ),
-                            'placeholder': 'FieldText',
-                            'text': (
-                                '$': 'FieldText',
-                                'hover': 'SelectedItemText',
-                                'active': 'FieldText',
-                            ),
-                        ),
-                    ),
                     'system': (
                         'accent': (
                             'bg': (
@@ -1007,6 +982,7 @@ $designSystem: map.deep-merge(
                         ),
                         'background': (
                             '$': 'Canvas',
+                            'bright': 'Canvas',
                             'grey': 'Canvas',
                             'primary': 'Canvas',
                             'secondary': 'Canvas',
@@ -1047,26 +1023,20 @@ $designSystem: map.deep-merge(
                             ),
                         ),
                         'input': (
-                            'accent': (
+                            'bg': (
+                                '$': 'Canvas',
+                                'hover': 'Canvas',
+                                'active': 'Canvas',
+                            ),
+                            'border': (
                                 '$': 'ActiveText',
                                 'hover': 'ActiveText',
                                 'active': 'ActiveText',
                             ),
-                            'bg': (
-                                '$': 'Field',
-                                'hover': 'SelectedItem',
-                                'active': 'Field',
-                            ),
-                            'border': (
-                                '$': 'FieldText',
-                                'hover': 'SelectedItem',
-                                'active': 'FieldText',
-                            ),
-                            'placeholder': 'FieldText',
                             'text': (
-                                '$': 'FieldText',
-                                'hover': 'SelectedItemText',
-                                'active': 'FieldText',
+                                '$': 'CanvasText',
+                                'hover': 'CanvasText',
+                                'active': 'CanvasText',
                             ),
                         ),
                         'link': (
@@ -1091,6 +1061,7 @@ $designSystem: map.deep-merge(
                     'low': (
                         'background': (
                             '$': 'base-300',
+                            'bright': 'base-250',
                             'grey': 'base-250',
                             'primary': 'purple-250',
                             'secondary': 'turquoise-250',
@@ -1237,77 +1208,6 @@ $designSystem: map.deep-merge(
                                 ),
                             ),
                         ),
-                        'input': (
-                            '$': (
-                                'accent': (
-                                    '$': 'purple-700',
-                                    'hover': 'turquoise-700',
-                                    'active': 'red-700',
-                                ),
-                                'bg': (
-                                    '$': 'base-300',
-                                    'hover': 'base-300',
-                                    'active': 'base-300',
-                                ),
-                                'border': (
-                                    '$': 'base-600',
-                                    'hover': 'turquoise-700',
-                                    'active': 'red-700',
-                                ),
-                                'placeholder': 'base-600',
-                                'text': (
-                                    '$': 'base-700',
-                                    'hover': 'base-700',
-                                    'active': 'base-700',
-                                ),
-                            ),
-                            'disabled': (
-                                'accent': (
-                                    '$': 'purple-700',
-                                    'hover': 'turquoise-700',
-                                    'active': 'red-700',
-                                ),
-                                'bg': (
-                                    '$': 'base-300',
-                                    'hover': 'base-300',
-                                    'active': 'base-300',
-                                ),
-                                'border': (
-                                    '$': 'base-600',
-                                    'hover': 'turquoise-700',
-                                    'active': 'red-700',
-                                ),
-                                'placeholder': 'base-600',
-                                'text': (
-                                    '$': 'base-700',
-                                    'hover': 'base-700',
-                                    'active': 'base-700',
-                                ),
-                            ),
-                            'readonly': (
-                                'accent': (
-                                    '$': 'purple-700',
-                                    'hover': 'turquoise-700',
-                                    'active': 'red-700',
-                                ),
-                                'bg': (
-                                    '$': 'base-300',
-                                    'hover': 'base-300',
-                                    'active': 'base-300',
-                                ),
-                                'border': (
-                                    '$': 'base-600',
-                                    'hover': 'turquoise-700',
-                                    'active': 'red-700',
-                                ),
-                                'placeholder': 'base-600',
-                                'text': (
-                                    '$': 'base-700',
-                                    'hover': 'base-700',
-                                    'active': 'base-700',
-                                ),
-                            ),
-                        ),
                         'system': (
                             'accent': (
                                 'bg': 'purple-700',
@@ -1323,6 +1223,7 @@ $designSystem: map.deep-merge(
                             ),
                             'background': (
                                 '$': 'base-300',
+                                'bright': 'base-250',
                                 'grey': 'base-250',
                                 'primary': 'purple-250',
                                 'secondary': 'turquoise-250',
@@ -1354,22 +1255,16 @@ $designSystem: map.deep-merge(
                                 ),
                             ),
                             'input': (
-                                'accent': (
-                                    '$': 'purple-700',
-                                    'hover': 'turquoise-700',
-                                    'active': 'red-700',
-                                ),
                                 'bg': (
                                     '$': 'base-300',
                                     'hover': 'base-300',
                                     'active': 'base-300',
                                 ),
                                 'border': (
-                                    '$': 'base-600',
+                                    '$': 'turquoise-700',
                                     'hover': 'turquoise-700',
                                     'active': 'red-700',
                                 ),
-                                'placeholder': 'base-600',
                                 'text': (
                                     '$': 'base-700',
                                     'hover': 'base-700',
@@ -1397,6 +1292,7 @@ $designSystem: map.deep-merge(
                     'average': (
                         'background': (
                             '$': 'base-150',
+                            'bright': 'base-200',
                             'grey': 'base-200',
                             'primary': 'purple-200',
                             'secondary': 'turquoise-200',
@@ -1543,77 +1439,6 @@ $designSystem: map.deep-merge(
                                 ),
                             ),
                         ),
-                        'input': (
-                            '$': (
-                                'accent': (
-                                    '$': 'purple-700',
-                                    'hover': 'turquoise-700',
-                                    'active': 'red-700',
-                                ),
-                                'bg': (
-                                    '$': 'base-150',
-                                    'hover': 'base-150',
-                                    'active': 'base-150',
-                                ),
-                                'border': (
-                                    '$': 'base-600',
-                                    'hover': 'turquoise-700',
-                                    'active': 'red-700',
-                                ),
-                                'placeholder': 'base-600',
-                                'text': (
-                                    '$': 'base-750',
-                                    'hover': 'base-750',
-                                    'active': 'base-750',
-                                ),
-                            ),
-                            'disabled': (
-                                'accent': (
-                                    '$': 'purple-700',
-                                    'hover': 'turquoise-700',
-                                    'active': 'red-700',
-                                ),
-                                'bg': (
-                                    '$': 'base-150',
-                                    'hover': 'base-150',
-                                    'active': 'base-150',
-                                ),
-                                'border': (
-                                    '$': 'base-600',
-                                    'hover': 'turquoise-700',
-                                    'active': 'red-700',
-                                ),
-                                'placeholder': 'base-600',
-                                'text': (
-                                    '$': 'base-750',
-                                    'hover': 'base-750',
-                                    'active': 'base-750',
-                                ),
-                            ),
-                            'readonly': (
-                                'accent': (
-                                    '$': 'purple-700',
-                                    'hover': 'turquoise-700',
-                                    'active': 'red-700',
-                                ),
-                                'bg': (
-                                    '$': 'base-150',
-                                    'hover': 'base-150',
-                                    'active': 'base-150',
-                                ),
-                                'border': (
-                                    '$': 'base-600',
-                                    'hover': 'turquoise-700',
-                                    'active': 'red-700',
-                                ),
-                                'placeholder': 'base-600',
-                                'text': (
-                                    '$': 'base-750',
-                                    'hover': 'base-750',
-                                    'active': 'base-750',
-                                ),
-                            ),
-                        ),
                         'system': (
                             'accent': (
                                 'bg': 'purple-700',
@@ -1629,6 +1454,7 @@ $designSystem: map.deep-merge(
                             ),
                             'background': (
                                 '$': 'base-150',
+                                'bright': 'base-200',
                                 'grey': 'base-200',
                                 'primary': 'purple-200',
                                 'secondary': 'turquoise-200',
@@ -1660,22 +1486,16 @@ $designSystem: map.deep-merge(
                                 ),
                             ),
                             'input': (
-                                'accent': (
-                                    '$': 'purple-700',
-                                    'hover': 'turquoise-700',
-                                    'active': 'red-700',
-                                ),
                                 'bg': (
                                     '$': 'base-150',
                                     'hover': 'base-150',
                                     'active': 'base-150',
                                 ),
                                 'border': (
-                                    '$': 'base-600',
+                                    '$': 'turquoise-700',
                                     'hover': 'turquoise-700',
                                     'active': 'red-700',
                                 ),
-                                'placeholder': 'base-600',
                                 'text': (
                                     '$': 'base-750',
                                     'hover': 'base-750',
@@ -1703,6 +1523,7 @@ $designSystem: map.deep-merge(
                     'high': (
                         'background': (
                             '$': 'base-100',
+                            'bright': 'base-150',
                             'grey': 'base-150',
                             'primary': 'purple-150',
                             'secondary': 'turquoise-150',
@@ -1849,77 +1670,6 @@ $designSystem: map.deep-merge(
                                 ),
                             ),
                         ),
-                        'input': (
-                            '$': (
-                                'accent': (
-                                    '$': 'purple-750',
-                                    'hover': 'turquoise-750',
-                                    'active': 'red-750',
-                                ),
-                                'bg': (
-                                    '$': 'base-100',
-                                    'hover': 'base-100',
-                                    'active': 'base-100',
-                                ),
-                                'border': (
-                                    '$': 'base-700',
-                                    'hover': 'turquoise-750',
-                                    'active': 'red-750',
-                                ),
-                                'placeholder': 'base-700',
-                                'text': (
-                                    '$': 'base-850',
-                                    'hover': 'base-850',
-                                    'active': 'base-850',
-                                ),
-                            ),
-                            'disabled': (
-                                'accent': (
-                                    '$': 'purple-750',
-                                    'hover': 'turquoise-750',
-                                    'active': 'red-750',
-                                ),
-                                'bg': (
-                                    '$': 'base-100',
-                                    'hover': 'base-100',
-                                    'active': 'base-100',
-                                ),
-                                'border': (
-                                    '$': 'base-700',
-                                    'hover': 'turquoise-750',
-                                    'active': 'red-750',
-                                ),
-                                'placeholder': 'base-700',
-                                'text': (
-                                    '$': 'base-850',
-                                    'hover': 'base-850',
-                                    'active': 'base-850',
-                                ),
-                            ),
-                            'readonly': (
-                                'accent': (
-                                    '$': 'purple-750',
-                                    'hover': 'turquoise-750',
-                                    'active': 'red-750',
-                                ),
-                                'bg': (
-                                    '$': 'base-100',
-                                    'hover': 'base-100',
-                                    'active': 'base-100',
-                                ),
-                                'border': (
-                                    '$': 'base-700',
-                                    'hover': 'turquoise-750',
-                                    'active': 'red-750',
-                                ),
-                                'placeholder': 'base-700',
-                                'text': (
-                                    '$': 'base-850',
-                                    'hover': 'base-850',
-                                    'active': 'base-850',
-                                ),
-                            ),
-                        ),
                         'system': (
                             'accent': (
                                 'bg': 'purple-750',
@@ -1935,6 +1685,7 @@ $designSystem: map.deep-merge(
                             ),
                             'background': (
                                 '$': 'base-100',
+                                'bright': 'base-150',
                                 'grey': 'base-150',
                                 'primary': 'purple-150',
                                 'secondary': 'turquoise-150',
@@ -1966,22 +1717,16 @@ $designSystem: map.deep-merge(
                                 ),
                             ),
                             'input': (
-                                'accent': (
-                                    '$': 'purple-750',
-                                    'hover': 'turquoise-750',
-                                    'active': 'red-750',
-                                ),
                                 'bg': (
                                     '$': 'base-100',
                                     'hover': 'base-100',
                                     'active': 'base-100',
                                 ),
                                 'border': (
-                                    '$': 'base-700',
+                                    '$': 'turquoise-750',
                                     'hover': 'turquoise-750',
                                     'active': 'red-750',
                                 ),
-                                'placeholder': 'base-700',
                                 'text': (
                                     '$': 'base-850',
                                     'hover': 'base-850',
@@ -2009,6 +1754,7 @@ $designSystem: map.deep-merge(
                     'max': (
                         'background': (
                             '$': 'white',
+                            'bright': 'white',
                             'grey': 'white',
                             'primary': 'white',
                             'secondary': 'white',
@@ -2155,77 +1901,6 @@ $designSystem: map.deep-merge(
                                 ),
                             ),
                         ),
-                        'input': (
-                            '$': (
-                                'accent': (
-                                    '$': 'black',
-                                    'hover': 'black',
-                                    'active': 'black',
-                                ),
-                                'bg': (
-                                    '$': 'white',
-                                    'hover': 'white',
-                                    'active': 'white',
-                                ),
-                                'border': (
-                                    '$': 'black',
-                                    'hover': 'black',
-                                    'active': 'black',
-                                ),
-                                'placeholder': 'black',
-                                'text': (
-                                    '$': 'black',
-                                    'hover': 'black',
-                                    'active': 'black',
-                                ),
-                            ),
-                            'disabled': (
-                                'accent': (
-                                    '$': 'black',
-                                    'hover': 'black',
-                                    'active': 'black',
-                                ),
-                                'bg': (
-                                    '$': 'white',
-                                    'hover': 'white',
-                                    'active': 'white',
-                                ),
-                                'border': (
-                                    '$': 'black',
-                                    'hover': 'black',
-                                    'active': 'black',
-                                ),
-                                'placeholder': 'black',
-                                'text': (
-                                    '$': 'black',
-                                    'hover': 'black',
-                                    'active': 'black',
-                                ),
-                            ),
-                            'readonly': (
-                                'accent': (
-                                    '$': 'black',
-                                    'hover': 'black',
-                                    'active': 'black',
-                                ),
-                                'bg': (
-                                    '$': 'white',
-                                    'hover': 'white',
-                                    'active': 'white',
-                                ),
-                                'border': (
-                                    '$': 'black',
-                                    'hover': 'black',
-                                    'active': 'black',
-                                ),
-                                'placeholder': 'black',
-                                'text': (
-                                    '$': 'black',
-                                    'hover': 'black',
-                                    'active': 'black',
-                                ),
-                            ),
-                        ),
                         'system': (
                             'accent': (
                                 'bg': 'black',
@@ -2241,6 +1916,7 @@ $designSystem: map.deep-merge(
                             ),
                             'background': (
                                 '$': 'white',
+                                'bright': 'white',
                                 'grey': 'white',
                                 'primary': 'white',
                                 'secondary': 'white',
@@ -2272,11 +1948,6 @@ $designSystem: map.deep-merge(
                                 ),
                             ),
                             'input': (
-                                'accent': (
-                                    '$': 'black',
-                                    'hover': 'black',
-                                    'active': 'black',
-                                ),
                                 'bg': (
                                     '$': 'white',
                                     'hover': 'white',
@@ -2287,7 +1958,6 @@ $designSystem: map.deep-merge(
                                     'hover': 'black',
                                     'active': 'black',
                                 ),
-                                'placeholder': 'black',
                                 'text': (
                                     '$': 'black',
                                     'hover': 'black',
@@ -2317,6 +1987,7 @@ $designSystem: map.deep-merge(
                     'low': (
                         'background': (
                             '$': 'base-300',
+                            'bright': 'base-250',
                             'grey': 'base-250',
                             'primary': 'purple-250',
                             'secondary': 'turquoise-250',
@@ -2463,77 +2134,6 @@ $designSystem: map.deep-merge(
                                 ),
                             ),
                         ),
-                        'input': (
-                            '$': (
-                                'accent': (
-                                    '$': 'purple-700',
-                                    'hover': 'turquoise-700',
-                                    'active': 'red-700',
-                                ),
-                                'bg': (
-                                    '$': 'base-300',
-                                    'hover': 'base-300',
-                                    'active': 'base-300',
-                                ),
-                                'border': (
-                                    '$': 'base-600',
-                                    'hover': 'turquoise-700',
-                                    'active': 'red-700',
-                                ),
-                                'placeholder': 'base-600',
-                                'text': (
-                                    '$': 'base-700',
-                                    'hover': 'base-700',
-                                    'active': 'base-700',
-                                ),
-                            ),
-                            'disabled': (
-                                'accent': (
-                                    '$': 'purple-700',
-                                    'hover': 'turquoise-700',
-                                    'active': 'red-700',
-                                ),
-                                'bg': (
-                                    '$': 'base-300',
-                                    'hover': 'base-300',
-                                    'active': 'base-300',
-                                ),
-                                'border': (
-                                    '$': 'base-600',
-                                    'hover': 'turquoise-700',
-                                    'active': 'red-700',
-                                ),
-                                'placeholder': 'base-600',
-                                'text': (
-                                    '$': 'base-700',
-                                    'hover': 'base-700',
-                                    'active': 'base-700',
-                                ),
-                            ),
-                            'readonly': (
-                                'accent': (
-                                    '$': 'purple-700',
-                                    'hover': 'turquoise-700',
-                                    'active': 'red-700',
-                                ),
-                                'bg': (
-                                    '$': 'base-300',
-                                    'hover': 'base-300',
-                                    'active': 'base-300',
-                                ),
-                                'border': (
-                                    '$': 'base-600',
-                                    'hover': 'turquoise-700',
-                                    'active': 'red-700',
-                                ),
-                                'placeholder': 'base-600',
-                                'text': (
-                                    '$': 'base-700',
-                                    'hover': 'base-700',
-                                    'active': 'base-700',
-                                ),
-                            ),
-                        ),
                         'system': (
                             'accent': (
                                 'bg': 'purple-700',
@@ -2549,6 +2149,7 @@ $designSystem: map.deep-merge(
                             ),
                             'background': (
                                 '$': 'base-300',
+                                'bright': 'base-250',
                                 'grey': 'base-250',
                                 'primary': 'purple-250',
                                 'secondary': 'turquoise-250',
@@ -2580,22 +2181,16 @@ $designSystem: map.deep-merge(
                                 ),
                             ),
                             'input': (
-                                'accent': (
-                                    '$': 'purple-700',
-                                    'hover': 'turquoise-700',
-                                    'active': 'red-700',
-                                ),
                                 'bg': (
                                     '$': 'base-300',
                                     'hover': 'base-300',
                                     'active': 'base-300',
                                 ),
                                 'border': (
-                                    '$': 'base-600',
+                                    '$': 'turquoise-700',
                                     'hover': 'turquoise-700',
                                     'active': 'red-700',
                                 ),
-                                'placeholder': 'base-600',
                                 'text': (
                                     '$': 'base-700',
                                     'hover': 'base-700',
@@ -2623,6 +2218,7 @@ $designSystem: map.deep-merge(
                     'average': (
                         'background': (
                             '$': 'base-150',
+                            'bright': 'base-200',
                             'grey': 'base-200',
                             'primary': 'purple-200',
                             'secondary': 'turquoise-200',
@@ -2769,77 +2365,6 @@ $designSystem: map.deep-merge(
                                 ),
                             ),
                         ),
-                        'input': (
-                            '$': (
-                                'accent': (
-                                    '$': 'purple-700',
-                                    'hover': 'turquoise-700',
-                                    'active': 'red-700',
-                                ),
-                                'bg': (
-                                    '$': 'base-150',
-                                    'hover': 'base-150',
-                                    'active': 'base-150',
-                                ),
-                                'border': (
-                                    '$': 'base-600',
-                                    'hover': 'turquoise-700',
-                                    'active': 'red-700',
-                                ),
-                                'placeholder': 'base-600',
-                                'text': (
-                                    '$': 'base-750',
-                                    'hover': 'base-750',
-                                    'active': 'base-750',
-                                ),
-                            ),
-                            'disabled': (
-                                'accent': (
-                                    '$': 'purple-700',
-                                    'hover': 'turquoise-700',
-                                    'active': 'red-700',
-                                ),
-                                'bg': (
-                                    '$': 'base-150',
-                                    'hover': 'base-150',
-                                    'active': 'base-150',
-                                ),
-                                'border': (
-                                    '$': 'base-600',
-                                    'hover': 'turquoise-700',
-                                    'active': 'red-700',
-                                ),
-                                'placeholder': 'base-600',
-                                'text': (
-                                    '$': 'base-750',
-                                    'hover': 'base-750',
-                                    'active': 'base-750',
-                                ),
-                            ),
-                            'readonly': (
-                                'accent': (
-                                    '$': 'purple-700',
-                                    'hover': 'turquoise-700',
-                                    'active': 'red-700',
-                                ),
-                                'bg': (
-                                    '$': 'base-150',
-                                    'hover': 'base-150',
-                                    'active': 'base-150',
-                                ),
-                                'border': (
-                                    '$': 'base-600',
-                                    'hover': 'turquoise-700',
-                                    'active': 'red-700',
-                                ),
-                                'placeholder': 'base-600',
-                                'text': (
-                                    '$': 'base-750',
-                                    'hover': 'base-750',
-                                    'active': 'base-750',
-                                ),
-                            ),
-                        ),
                         'system': (
                             'accent': (
                                 'bg': 'purple-700',
@@ -2855,6 +2380,7 @@ $designSystem: map.deep-merge(
                             ),
                             'background': (
                                 '$': 'base-150',
+                                'bright': 'base-200',
                                 'grey': 'base-200',
                                 'primary': 'purple-200',
                                 'secondary': 'turquoise-200',
@@ -2886,22 +2412,16 @@ $designSystem: map.deep-merge(
                                 ),
                             ),
                             'input': (
-                                'accent': (
-                                    '$': 'purple-700',
-                                    'hover': 'turquoise-700',
-                                    'active': 'red-700',
-                                ),
                                 'bg': (
                                     '$': 'base-150',
                                     'hover': 'base-150',
                                     'active': 'base-150',
                                 ),
                                 'border': (
-                                    '$': 'base-600',
+                                    '$': 'turquoise-700',
                                     'hover': 'turquoise-700',
                                     'active': 'red-700',
                                 ),
-                                'placeholder': 'base-600',
                                 'text': (
                                     '$': 'base-750',
                                     'hover': 'base-750',
@@ -2929,6 +2449,7 @@ $designSystem: map.deep-merge(
                     'high': (
                         'background': (
                             '$': 'base-100',
+                            'bright': 'base-150',
                             'grey': 'base-150',
                             'primary': 'purple-150',
                             'secondary': 'turquoise-150',
@@ -3075,77 +2596,6 @@ $designSystem: map.deep-merge(
                                 ),
                             ),
                         ),
-                        'input': (
-                            '$': (
-                                'accent': (
-                                    '$': 'purple-750',
-                                    'hover': 'turquoise-750',
-                                    'active': 'red-750',
-                                ),
-                                'bg': (
-                                    '$': 'base-100',
-                                    'hover': 'base-100',
-                                    'active': 'base-100',
-                                ),
-                                'border': (
-                                    '$': 'base-700',
-                                    'hover': 'turquoise-750',
-                                    'active': 'red-750',
-                                ),
-                                'placeholder': 'base-700',
-                                'text': (
-                                    '$': 'base-850',
-                                    'hover': 'base-850',
-                                    'active': 'base-850',
-                                ),
-                            ),
-                            'disabled': (
-                                'accent': (
-                                    '$': 'purple-750',
-                                    'hover': 'turquoise-750',
-                                    'active': 'red-750',
-                                ),
-                                'bg': (
-                                    '$': 'base-100',
-                                    'hover': 'base-100',
-                                    'active': 'base-100',
-                                ),
-                                'border': (
-                                    '$': 'base-700',
-                                    'hover': 'turquoise-750',
-                                    'active': 'red-750',
-                                ),
-                                'placeholder': 'base-700',
-                                'text': (
-                                    '$': 'base-850',
-                                    'hover': 'base-850',
-                                    'active': 'base-850',
-                                ),
-                            ),
-                            'readonly': (
-                                'accent': (
-                                    '$': 'purple-750',
-                                    'hover': 'turquoise-750',
-                                    'active': 'red-750',
-                                ),
-                                'bg': (
-                                    '$': 'base-100',
-                                    'hover': 'base-100',
-                                    'active': 'base-100',
-                                ),
-                                'border': (
-                                    '$': 'base-700',
-                                    'hover': 'turquoise-750',
-                                    'active': 'red-750',
-                                ),
-                                'placeholder': 'base-700',
-                                'text': (
-                                    '$': 'base-850',
-                                    'hover': 'base-850',
-                                    'active': 'base-850',
-                                ),
-                            ),
-                        ),
                         'system': (
                             'accent': (
                                 'bg': 'purple-750',
@@ -3161,6 +2611,7 @@ $designSystem: map.deep-merge(
                             ),
                             'background': (
                                 '$': 'base-100',
+                                'bright': 'base-150',
                                 'grey': 'base-150',
                                 'primary': 'purple-150',
                                 'secondary': 'turquoise-150',
@@ -3192,22 +2643,16 @@ $designSystem: map.deep-merge(
                                 ),
                             ),
                             'input': (
-                                'accent': (
-                                    '$': 'purple-750',
-                                    'hover': 'turquoise-750',
-                                    'active': 'red-750',
-                                ),
                                 'bg': (
                                     '$': 'base-100',
                                     'hover': 'base-100',
                                     'active': 'base-100',
                                 ),
                                 'border': (
-                                    '$': 'base-700',
+                                    '$': 'turquoise-750',
                                     'hover': 'turquoise-750',
                                     'active': 'red-750',
                                 ),
-                                'placeholder': 'base-700',
                                 'text': (
                                     '$': 'base-850',
                                     'hover': 'base-850',
@@ -3235,6 +2680,7 @@ $designSystem: map.deep-merge(
                     'max': (
                         'background': (
                             '$': 'white',
+                            'bright': 'white',
                             'grey': 'white',
                             'primary': 'white',
                             'secondary': 'white',
@@ -3381,77 +2827,6 @@ $designSystem: map.deep-merge(
                                 ),
                             ),
                         ),
-                        'input': (
-                            '$': (
-                                'accent': (
-                                    '$': 'black',
-                                    'hover': 'black',
-                                    'active': 'black',
-                                ),
-                                'bg': (
-                                    '$': 'white',
-                                    'hover': 'white',
-                                    'active': 'white',
-                                ),
-                                'border': (
-                                    '$': 'black',
-                                    'hover': 'black',
-                                    'active': 'black',
-                                ),
-                                'placeholder': 'black',
-                                'text': (
-                                    '$': 'black',
-                                    'hover': 'black',
-                                    'active': 'black',
-                                ),
-                            ),
-                            'disabled': (
-                                'accent': (
-                                    '$': 'black',
-                                    'hover': 'black',
-                                    'active': 'black',
-                                ),
-                                'bg': (
-                                    '$': 'white',
-                                    'hover': 'white',
-                                    'active': 'white',
-                                ),
-                                'border': (
-                                    '$': 'black',
-                                    'hover': 'black',
-                                    'active': 'black',
-                                ),
-                                'placeholder': 'black',
-                                'text': (
-                                    '$': 'black',
-                                    'hover': 'black',
-                                    'active': 'black',
-                                ),
-                            ),
-                            'readonly': (
-                                'accent': (
-                                    '$': 'black',
-                                    'hover': 'black',
-                                    'active': 'black',
-                                ),
-                                'bg': (
-                                    '$': 'white',
-                                    'hover': 'white',
-                                    'active': 'white',
-                                ),
-                                'border': (
-                                    '$': 'black',
-                                    'hover': 'black',
-                                    'active': 'black',
-                                ),
-                                'placeholder': 'black',
-                                'text': (
-                                    '$': 'black',
-                                    'hover': 'black',
-                                    'active': 'black',
-                                ),
-                            ),
-                        ),
                         'system': (
                             'accent': (
                                 'bg': 'black',
@@ -3467,6 +2842,7 @@ $designSystem: map.deep-merge(
                             ),
                             'background': (
                                 '$': 'white',
+                                'bright': 'white',
                                 'grey': 'white',
                                 'primary': 'white',
                                 'secondary': 'white',
@@ -3498,11 +2874,6 @@ $designSystem: map.deep-merge(
                                 ),
                             ),
                             'input': (
-                                'accent': (
-                                    '$': 'black',
-                                    'hover': 'black',
-                                    'active': 'black',
-                                ),
                                 'bg': (
                                     '$': 'white',
                                     'hover': 'white',
@@ -3513,7 +2884,6 @@ $designSystem: map.deep-merge(
                                     'hover': 'black',
                                     'active': 'black',
                                 ),
-                                'placeholder': 'black',
                                 'text': (
                                     '$': 'black',
                                     'hover': 'black',

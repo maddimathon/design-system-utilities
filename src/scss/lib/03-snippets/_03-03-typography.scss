@@ -249,7 +249,12 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin set-default-margins($paragraphLevel: '400', $firmStartLevel: null, $firmEndLevel: null) {
+@mixin set-default-margins(
+    $paragraphLevel: '400',
+    $smallLevel: '300',
+    $firmStartLevel: null,
+    $firmEndLevel: null
+) {
     @if $firmStartLevel == null {
         $firmStartLevel: $paragraphLevel;
     }
@@ -260,6 +265,10 @@
 
     %paragraph-margins {
         margin-block: #{var-mrg-soft($paragraphLevel)} 0;
+    }
+
+    %paragraph-small-margins {
+        margin-block: #{var-mrg-soft($smallLevel)} 0;
     }
 
     %button,

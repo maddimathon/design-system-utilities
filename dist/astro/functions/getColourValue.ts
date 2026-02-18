@@ -9,11 +9,12 @@
  */
 
 import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
+
 import type { TokenTypes } from '../../ts/02-tokens/@types.d.ts';
 import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
 
 export function getColourValue<
-    T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams,
+    T_ColourTypes extends TokenTypes.Colour.TypeParams,
 >(
     shade: null | undefined | Partial<
         | ColourUtilities.SingleShade
@@ -49,7 +50,7 @@ export function getColourValue<
 }
 
 export function getBaseColourObject<
-    T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams,
+    T_ColourTypes extends TokenTypes.Colour.TypeParams,
 >(
     baseMap: Tokens_Colour_ShadeMap.JsonReturn<T_ColourTypes> & {
         black?: Tokens_Colour_ShadeMap.Shade.JsonReturn<T_ColourTypes>;
@@ -66,7 +67,7 @@ export function getBaseColourObject<
 }
 
 export function getMapColourObject<
-    T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams,
+    T_ColourTypes extends TokenTypes.Colour.TypeParams,
 >(
     shadeMap: Tokens_Colour_ShadeMap.JsonReturn<T_ColourTypes>,
     baseMap: Tokens_Colour_ShadeMap.JsonReturn<T_ColourTypes> & {

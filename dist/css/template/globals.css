@@ -1325,10 +1325,15 @@ abbr[title] {
 /* ## Typography - Block ==================================== */
 cite,
 dt,
-li,
 p {
     margin-top: 0.8125rem;
     margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-bottom: 0;
+}
+
+li {
+    margin-top: 0.5rem;
+    margin-top: var(--mrg-soft-300, 0.5rem);
     margin-bottom: 0;
 }
 
@@ -1346,10 +1351,14 @@ blockquote {
 }
 blockquote cite,
 blockquote dt,
-blockquote li,
 blockquote p {
     margin-top: 0.5rem;
     margin-top: var(--mrg-soft-300, 0.5rem);
+    margin-bottom: 0;
+}
+blockquote li {
+    margin-top: 0.3125rem;
+    margin-top: var(--mrg-soft-200, 0.3125rem);
     margin-bottom: 0;
 }
 blockquote img,
@@ -1934,27 +1943,26 @@ label > input {
 textarea,
 select,
 input {
-    --focus-ring-outline-color: var(--theme-input-accent, ActiveText);
-    background-color: Field;
-    background-color: var(--theme-input-bg, Field);
-    border-color: FieldText;
-    border-color: var(--theme-input-border, FieldText);
-    color: FieldText;
-    color: var(--theme-input-text, FieldText);
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-accent, ActiveText);
+    --focus-ring-outline-color: link-outline-hover;
+    background-color: Canvas;
+    background-color: var(--theme-background-bright, Canvas);
+    border-color: CanvasText;
+    border-color: var(--theme-ui, CanvasText);
+    color: CanvasText;
+    color: var(--theme-text, CanvasText);
+    accent-color: link-outline-hover;
 }
 textarea::-moz-placeholder,
 select::-moz-placeholder,
 input::-moz-placeholder {
-    color: FieldText;
-    color: var(--theme-input-placeholder, FieldText);
+    color: GrayText;
+    color: var(--theme-text-disabled, GrayText);
 }
 textarea::placeholder,
 select::placeholder,
 input::placeholder {
-    color: FieldText;
-    color: var(--theme-input-placeholder, FieldText);
+    color: GrayText;
+    color: var(--theme-text-disabled, GrayText);
 }
 .no-js textarea:focus,
 .no-js select:focus,
@@ -1962,45 +1970,42 @@ input::placeholder {
 .js__no-whereSelector textarea:focus,
 .js__no-whereSelector select:focus,
 .js__no-whereSelector input:focus {
-    --focus-ring-outline-color: var(--theme-input-accent-hover, ActiveText);
-    background-color: SelectedItem;
-    background-color: var(--theme-input-bg-hover, SelectedItem);
-    border-color: SelectedItem;
-    border-color: var(--theme-input-border-hover, SelectedItem);
-    color: SelectedItemText;
-    color: var(--theme-input-text-hover, SelectedItemText);
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-accent-hover, ActiveText);
+    --focus-ring-outline-color: link-outline-hover;
+    background-color: Canvas;
+    background-color: var(--theme-background-bright, Canvas);
+    border-color: ActiveText;
+    border-color: var(--theme-link-outline-hover, ActiveText);
+    color: CanvasText;
+    color: var(--theme-text, CanvasText);
+    accent-color: link-outline-hover;
     opacity: 1;
 }
 
 :where(.js__no-focusVisible) textarea:focus,
 :where(.js__no-focusVisible) select:focus,
 :where(.js__no-focusVisible) input:focus {
-    --focus-ring-outline-color: var(--theme-input-accent-hover, ActiveText);
-    background-color: SelectedItem;
-    background-color: var(--theme-input-bg-hover, SelectedItem);
-    border-color: SelectedItem;
-    border-color: var(--theme-input-border-hover, SelectedItem);
-    color: SelectedItemText;
-    color: var(--theme-input-text-hover, SelectedItemText);
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-accent-hover, ActiveText);
+    --focus-ring-outline-color: link-outline-hover;
+    background-color: Canvas;
+    background-color: var(--theme-background-bright, Canvas);
+    border-color: ActiveText;
+    border-color: var(--theme-link-outline-hover, ActiveText);
+    color: CanvasText;
+    color: var(--theme-text, CanvasText);
+    accent-color: link-outline-hover;
     opacity: 1;
 }
 
 textarea:hover,
 select:hover,
 input:hover {
-    --focus-ring-outline-color: var(--theme-input-accent-hover, ActiveText);
-    background-color: SelectedItem;
-    background-color: var(--theme-input-bg-hover, SelectedItem);
-    border-color: SelectedItem;
-    border-color: var(--theme-input-border-hover, SelectedItem);
-    color: SelectedItemText;
-    color: var(--theme-input-text-hover, SelectedItemText);
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-accent-hover, ActiveText);
+    --focus-ring-outline-color: link-outline-hover;
+    background-color: Canvas;
+    background-color: var(--theme-background-bright, Canvas);
+    border-color: ActiveText;
+    border-color: var(--theme-link-outline-hover, ActiveText);
+    color: CanvasText;
+    color: var(--theme-text, CanvasText);
+    accent-color: link-outline-hover;
     opacity: 1;
 }
 
@@ -2010,45 +2015,42 @@ input:hover {
 .js__no-whereSelector textarea:focus-within,
 .js__no-whereSelector select:focus-within,
 .js__no-whereSelector input:focus-within {
-    --focus-ring-outline-color: var(--theme-input-accent-hover, ActiveText);
-    background-color: SelectedItem;
-    background-color: var(--theme-input-bg-hover, SelectedItem);
-    border-color: SelectedItem;
-    border-color: var(--theme-input-border-hover, SelectedItem);
-    color: SelectedItemText;
-    color: var(--theme-input-text-hover, SelectedItemText);
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-accent-hover, ActiveText);
+    --focus-ring-outline-color: link-outline-hover;
+    background-color: Canvas;
+    background-color: var(--theme-background-bright, Canvas);
+    border-color: ActiveText;
+    border-color: var(--theme-link-outline-hover, ActiveText);
+    color: CanvasText;
+    color: var(--theme-text, CanvasText);
+    accent-color: link-outline-hover;
     opacity: 1;
 }
 
 :where(.js__no-focusVisible) textarea:focus-within,
 :where(.js__no-focusVisible) select:focus-within,
 :where(.js__no-focusVisible) input:focus-within {
-    --focus-ring-outline-color: var(--theme-input-accent-hover, ActiveText);
-    background-color: SelectedItem;
-    background-color: var(--theme-input-bg-hover, SelectedItem);
-    border-color: SelectedItem;
-    border-color: var(--theme-input-border-hover, SelectedItem);
-    color: SelectedItemText;
-    color: var(--theme-input-text-hover, SelectedItemText);
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-accent-hover, ActiveText);
+    --focus-ring-outline-color: link-outline-hover;
+    background-color: Canvas;
+    background-color: var(--theme-background-bright, Canvas);
+    border-color: ActiveText;
+    border-color: var(--theme-link-outline-hover, ActiveText);
+    color: CanvasText;
+    color: var(--theme-text, CanvasText);
+    accent-color: link-outline-hover;
     opacity: 1;
 }
 
 textarea:active,
 select:active,
 input:active {
-    --focus-ring-outline-color: var(--theme-input-accent-active, ActiveText);
-    background-color: Field;
-    background-color: var(--theme-input-bg-active, Field);
-    border-color: FieldText;
-    border-color: var(--theme-input-border-active, FieldText);
-    color: FieldText;
-    color: var(--theme-input-text-active, FieldText);
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-accent-active, ActiveText);
+    --focus-ring-outline-color: link-outline-active;
+    background-color: Canvas;
+    background-color: var(--theme-background-bright, Canvas);
+    border-color: ActiveText;
+    border-color: var(--theme-link-outline-active, ActiveText);
+    color: CanvasText;
+    color: var(--theme-text, CanvasText);
+    accent-color: link-outline-active;
     opacity: 1;
 }
 textarea[aria-disabled="true"],
@@ -2057,15 +2059,14 @@ input[aria-disabled="true"],
 textarea[disabled],
 select[disabled],
 input[disabled] {
-    --focus-ring-outline-color: var(--theme-input-disabled-accent, ActiveText);
-    background-color: Field;
-    background-color: var(--theme-input-disabled-bg, Field);
-    border-color: FieldText;
-    border-color: var(--theme-input-disabled-border, FieldText);
-    color: FieldText;
-    color: var(--theme-input-disabled-text, FieldText);
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-disabled-accent, ActiveText);
+    --focus-ring-outline-color: link-outline-hover;
+    background-color: Canvas;
+    background-color: var(--theme-background-grey, Canvas);
+    border-color: CanvasText;
+    border-color: var(--theme-ui, CanvasText);
+    color: GrayText;
+    color: var(--theme-text-disabled, GrayText);
+    accent-color: link-outline-hover;
 }
 textarea[aria-disabled="true"]::-moz-placeholder,
 select[aria-disabled="true"]::-moz-placeholder,
@@ -2073,8 +2074,8 @@ input[aria-disabled="true"]::-moz-placeholder,
 textarea[disabled]::-moz-placeholder,
 select[disabled]::-moz-placeholder,
 input[disabled]::-moz-placeholder {
-    color: FieldText;
-    color: var(--theme-input-placeholder, FieldText);
+    color: GrayText;
+    color: var(--theme-text-disabled, GrayText);
 }
 textarea[aria-disabled="true"]::placeholder,
 select[aria-disabled="true"]::placeholder,
@@ -2082,8 +2083,8 @@ input[aria-disabled="true"]::placeholder,
 textarea[disabled]::placeholder,
 select[disabled]::placeholder,
 input[disabled]::placeholder {
-    color: FieldText;
-    color: var(--theme-input-placeholder, FieldText);
+    color: GrayText;
+    color: var(--theme-text-disabled, GrayText);
 }
 .no-js textarea[aria-disabled="true"]:focus,
 .no-js select[aria-disabled="true"]:focus,
@@ -2097,18 +2098,14 @@ input[disabled]::placeholder {
 .js__no-whereSelector textarea[disabled]:focus,
 .js__no-whereSelector select[disabled]:focus,
 .js__no-whereSelector input[disabled]:focus {
-    --focus-ring-outline-color: var(
-        --theme-input-disabled-accent-hover,
-        ActiveText
-    );
-    background-color: SelectedItem;
-    background-color: var(--theme-input-disabled-bg-hover, SelectedItem);
-    border-color: SelectedItem;
-    border-color: var(--theme-input-disabled-border-hover, SelectedItem);
-    color: SelectedItemText;
-    color: var(--theme-input-disabled-text-hover, SelectedItemText);
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-disabled-accent-hover, ActiveText);
+    --focus-ring-outline-color: link-outline-hover;
+    background-color: Canvas;
+    background-color: var(--theme-background-grey, Canvas);
+    border-color: ActiveText;
+    border-color: var(--theme-link-outline-hover, ActiveText);
+    color: GrayText;
+    color: var(--theme-text-disabled, GrayText);
+    accent-color: link-outline-hover;
 }
 
 :where(.js__no-focusVisible) textarea[aria-disabled="true"]:focus,
@@ -2117,18 +2114,14 @@ input[disabled]::placeholder {
 :where(.js__no-focusVisible) textarea[disabled]:focus,
 :where(.js__no-focusVisible) select[disabled]:focus,
 :where(.js__no-focusVisible) input[disabled]:focus {
-    --focus-ring-outline-color: var(
-        --theme-input-disabled-accent-hover,
-        ActiveText
-    );
-    background-color: SelectedItem;
-    background-color: var(--theme-input-disabled-bg-hover, SelectedItem);
-    border-color: SelectedItem;
-    border-color: var(--theme-input-disabled-border-hover, SelectedItem);
-    color: SelectedItemText;
-    color: var(--theme-input-disabled-text-hover, SelectedItemText);
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-disabled-accent-hover, ActiveText);
+    --focus-ring-outline-color: link-outline-hover;
+    background-color: Canvas;
+    background-color: var(--theme-background-grey, Canvas);
+    border-color: ActiveText;
+    border-color: var(--theme-link-outline-hover, ActiveText);
+    color: GrayText;
+    color: var(--theme-text-disabled, GrayText);
+    accent-color: link-outline-hover;
 }
 
 textarea[aria-disabled="true"]:hover,
@@ -2137,18 +2130,14 @@ input[aria-disabled="true"]:hover,
 textarea[disabled]:hover,
 select[disabled]:hover,
 input[disabled]:hover {
-    --focus-ring-outline-color: var(
-        --theme-input-disabled-accent-hover,
-        ActiveText
-    );
-    background-color: SelectedItem;
-    background-color: var(--theme-input-disabled-bg-hover, SelectedItem);
-    border-color: SelectedItem;
-    border-color: var(--theme-input-disabled-border-hover, SelectedItem);
-    color: SelectedItemText;
-    color: var(--theme-input-disabled-text-hover, SelectedItemText);
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-disabled-accent-hover, ActiveText);
+    --focus-ring-outline-color: link-outline-hover;
+    background-color: Canvas;
+    background-color: var(--theme-background-grey, Canvas);
+    border-color: ActiveText;
+    border-color: var(--theme-link-outline-hover, ActiveText);
+    color: GrayText;
+    color: var(--theme-text-disabled, GrayText);
+    accent-color: link-outline-hover;
 }
 
 .no-js textarea[aria-disabled="true"]:focus-within,
@@ -2163,18 +2152,14 @@ input[disabled]:hover {
 .js__no-whereSelector textarea[disabled]:focus-within,
 .js__no-whereSelector select[disabled]:focus-within,
 .js__no-whereSelector input[disabled]:focus-within {
-    --focus-ring-outline-color: var(
-        --theme-input-disabled-accent-hover,
-        ActiveText
-    );
-    background-color: SelectedItem;
-    background-color: var(--theme-input-disabled-bg-hover, SelectedItem);
-    border-color: SelectedItem;
-    border-color: var(--theme-input-disabled-border-hover, SelectedItem);
-    color: SelectedItemText;
-    color: var(--theme-input-disabled-text-hover, SelectedItemText);
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-disabled-accent-hover, ActiveText);
+    --focus-ring-outline-color: link-outline-hover;
+    background-color: Canvas;
+    background-color: var(--theme-background-grey, Canvas);
+    border-color: ActiveText;
+    border-color: var(--theme-link-outline-hover, ActiveText);
+    color: GrayText;
+    color: var(--theme-text-disabled, GrayText);
+    accent-color: link-outline-hover;
 }
 
 :where(.js__no-focusVisible) textarea[aria-disabled="true"]:focus-within,
@@ -2183,18 +2168,14 @@ input[disabled]:hover {
 :where(.js__no-focusVisible) textarea[disabled]:focus-within,
 :where(.js__no-focusVisible) select[disabled]:focus-within,
 :where(.js__no-focusVisible) input[disabled]:focus-within {
-    --focus-ring-outline-color: var(
-        --theme-input-disabled-accent-hover,
-        ActiveText
-    );
-    background-color: SelectedItem;
-    background-color: var(--theme-input-disabled-bg-hover, SelectedItem);
-    border-color: SelectedItem;
-    border-color: var(--theme-input-disabled-border-hover, SelectedItem);
-    color: SelectedItemText;
-    color: var(--theme-input-disabled-text-hover, SelectedItemText);
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-disabled-accent-hover, ActiveText);
+    --focus-ring-outline-color: link-outline-hover;
+    background-color: Canvas;
+    background-color: var(--theme-background-grey, Canvas);
+    border-color: ActiveText;
+    border-color: var(--theme-link-outline-hover, ActiveText);
+    color: GrayText;
+    color: var(--theme-text-disabled, GrayText);
+    accent-color: link-outline-hover;
 }
 
 textarea[aria-disabled="true"]:active,
@@ -2203,43 +2184,38 @@ input[aria-disabled="true"]:active,
 textarea[disabled]:active,
 select[disabled]:active,
 input[disabled]:active {
-    --focus-ring-outline-color: var(
-        --theme-input-disabled-accent-active,
-        ActiveText
-    );
-    background-color: Field;
-    background-color: var(--theme-input-disabled-bg-active, Field);
-    border-color: FieldText;
-    border-color: var(--theme-input-disabled-border-active, FieldText);
-    color: FieldText;
-    color: var(--theme-input-disabled-text-active, FieldText);
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-disabled-accent-active, ActiveText);
+    --focus-ring-outline-color: link-outline-active;
+    background-color: Canvas;
+    background-color: var(--theme-background-grey, Canvas);
+    border-color: ActiveText;
+    border-color: var(--theme-link-outline-active, ActiveText);
+    color: GrayText;
+    color: var(--theme-text-disabled, GrayText);
+    accent-color: link-outline-active;
 }
 textarea[readonly],
 select[readonly],
 input[readonly] {
-    --focus-ring-outline-color: var(--theme-input-readonly-accent, ActiveText);
-    background-color: Field;
-    background-color: var(--theme-input-readonly-bg, Field);
-    border-color: FieldText;
-    border-color: var(--theme-input-readonly-border, FieldText);
-    color: FieldText;
-    color: var(--theme-input-readonly-text, FieldText);
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-readonly-accent, ActiveText);
+    --focus-ring-outline-color: link-outline-hover;
+    background-color: Canvas;
+    background-color: var(--theme-background-bright, Canvas);
+    border-color: CanvasText;
+    border-color: var(--theme-ui, CanvasText);
+    color: CanvasText;
+    color: var(--theme-text, CanvasText);
+    accent-color: link-outline-hover;
 }
 textarea[readonly]::-moz-placeholder,
 select[readonly]::-moz-placeholder,
 input[readonly]::-moz-placeholder {
-    color: FieldText;
-    color: var(--theme-input-placeholder, FieldText);
+    color: GrayText;
+    color: var(--theme-text-disabled, GrayText);
 }
 textarea[readonly]::placeholder,
 select[readonly]::placeholder,
 input[readonly]::placeholder {
-    color: FieldText;
-    color: var(--theme-input-placeholder, FieldText);
+    color: GrayText;
+    color: var(--theme-text-disabled, GrayText);
 }
 .no-js textarea[readonly]:focus,
 .no-js select[readonly]:focus,
@@ -2247,52 +2223,40 @@ input[readonly]::placeholder {
 .js__no-whereSelector textarea[readonly]:focus,
 .js__no-whereSelector select[readonly]:focus,
 .js__no-whereSelector input[readonly]:focus {
-    --focus-ring-outline-color: var(
-        --theme-input-readonly-accent-hover,
-        ActiveText
-    );
-    background-color: SelectedItem;
-    background-color: var(--theme-input-readonly-bg-hover, SelectedItem);
-    border-color: SelectedItem;
-    border-color: var(--theme-input-readonly-border-hover, SelectedItem);
-    color: SelectedItemText;
-    color: var(--theme-input-readonly-text-hover, SelectedItemText);
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-readonly-accent-hover, ActiveText);
+    --focus-ring-outline-color: link-outline-hover;
+    background-color: Canvas;
+    background-color: var(--theme-background-bright, Canvas);
+    border-color: ActiveText;
+    border-color: var(--theme-link-outline-hover, ActiveText);
+    color: CanvasText;
+    color: var(--theme-text, CanvasText);
+    accent-color: link-outline-hover;
 }
 
 :where(.js__no-focusVisible) textarea[readonly]:focus,
 :where(.js__no-focusVisible) select[readonly]:focus,
 :where(.js__no-focusVisible) input[readonly]:focus {
-    --focus-ring-outline-color: var(
-        --theme-input-readonly-accent-hover,
-        ActiveText
-    );
-    background-color: SelectedItem;
-    background-color: var(--theme-input-readonly-bg-hover, SelectedItem);
-    border-color: SelectedItem;
-    border-color: var(--theme-input-readonly-border-hover, SelectedItem);
-    color: SelectedItemText;
-    color: var(--theme-input-readonly-text-hover, SelectedItemText);
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-readonly-accent-hover, ActiveText);
+    --focus-ring-outline-color: link-outline-hover;
+    background-color: Canvas;
+    background-color: var(--theme-background-bright, Canvas);
+    border-color: ActiveText;
+    border-color: var(--theme-link-outline-hover, ActiveText);
+    color: CanvasText;
+    color: var(--theme-text, CanvasText);
+    accent-color: link-outline-hover;
 }
 
 textarea[readonly]:hover,
 select[readonly]:hover,
 input[readonly]:hover {
-    --focus-ring-outline-color: var(
-        --theme-input-readonly-accent-hover,
-        ActiveText
-    );
-    background-color: SelectedItem;
-    background-color: var(--theme-input-readonly-bg-hover, SelectedItem);
-    border-color: SelectedItem;
-    border-color: var(--theme-input-readonly-border-hover, SelectedItem);
-    color: SelectedItemText;
-    color: var(--theme-input-readonly-text-hover, SelectedItemText);
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-readonly-accent-hover, ActiveText);
+    --focus-ring-outline-color: link-outline-hover;
+    background-color: Canvas;
+    background-color: var(--theme-background-bright, Canvas);
+    border-color: ActiveText;
+    border-color: var(--theme-link-outline-hover, ActiveText);
+    color: CanvasText;
+    color: var(--theme-text, CanvasText);
+    accent-color: link-outline-hover;
 }
 
 .no-js textarea[readonly]:focus-within,
@@ -2301,52 +2265,40 @@ input[readonly]:hover {
 .js__no-whereSelector textarea[readonly]:focus-within,
 .js__no-whereSelector select[readonly]:focus-within,
 .js__no-whereSelector input[readonly]:focus-within {
-    --focus-ring-outline-color: var(
-        --theme-input-readonly-accent-hover,
-        ActiveText
-    );
-    background-color: SelectedItem;
-    background-color: var(--theme-input-readonly-bg-hover, SelectedItem);
-    border-color: SelectedItem;
-    border-color: var(--theme-input-readonly-border-hover, SelectedItem);
-    color: SelectedItemText;
-    color: var(--theme-input-readonly-text-hover, SelectedItemText);
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-readonly-accent-hover, ActiveText);
+    --focus-ring-outline-color: link-outline-hover;
+    background-color: Canvas;
+    background-color: var(--theme-background-bright, Canvas);
+    border-color: ActiveText;
+    border-color: var(--theme-link-outline-hover, ActiveText);
+    color: CanvasText;
+    color: var(--theme-text, CanvasText);
+    accent-color: link-outline-hover;
 }
 
 :where(.js__no-focusVisible) textarea[readonly]:focus-within,
 :where(.js__no-focusVisible) select[readonly]:focus-within,
 :where(.js__no-focusVisible) input[readonly]:focus-within {
-    --focus-ring-outline-color: var(
-        --theme-input-readonly-accent-hover,
-        ActiveText
-    );
-    background-color: SelectedItem;
-    background-color: var(--theme-input-readonly-bg-hover, SelectedItem);
-    border-color: SelectedItem;
-    border-color: var(--theme-input-readonly-border-hover, SelectedItem);
-    color: SelectedItemText;
-    color: var(--theme-input-readonly-text-hover, SelectedItemText);
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-readonly-accent-hover, ActiveText);
+    --focus-ring-outline-color: link-outline-hover;
+    background-color: Canvas;
+    background-color: var(--theme-background-bright, Canvas);
+    border-color: ActiveText;
+    border-color: var(--theme-link-outline-hover, ActiveText);
+    color: CanvasText;
+    color: var(--theme-text, CanvasText);
+    accent-color: link-outline-hover;
 }
 
 textarea[readonly]:active,
 select[readonly]:active,
 input[readonly]:active {
-    --focus-ring-outline-color: var(
-        --theme-input-readonly-accent-active,
-        ActiveText
-    );
-    background-color: Field;
-    background-color: var(--theme-input-readonly-bg-active, Field);
-    border-color: FieldText;
-    border-color: var(--theme-input-readonly-border-active, FieldText);
-    color: FieldText;
-    color: var(--theme-input-readonly-text-active, FieldText);
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-readonly-accent-active, ActiveText);
+    --focus-ring-outline-color: link-outline-active;
+    background-color: Canvas;
+    background-color: var(--theme-background-bright, Canvas);
+    border-color: ActiveText;
+    border-color: var(--theme-link-outline-active, ActiveText);
+    color: CanvasText;
+    color: var(--theme-text, CanvasText);
+    accent-color: link-outline-active;
 }
 
 input[type="submit"][disabled],
@@ -2507,119 +2459,91 @@ input[type="reset"][disabled]:active {
 }
 input[type="checkbox"],
 input[type="radio"] {
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-accent, ActiveText);
-    color: ActiveText;
-    color: var(--theme-input-accent, ActiveText);
+    accent-color: link-outline-hover;
+    color: link-outline-hover;
 }
 .no-js input[type="checkbox"]:focus,
 .no-js input[type="radio"]:focus,
 .js__no-whereSelector input[type="checkbox"]:focus,
 .js__no-whereSelector input[type="radio"]:focus {
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-accent-hover, ActiveText);
-    color: ActiveText;
-    color: var(--theme-input-accent-hover, ActiveText);
+    accent-color: link-outline-hover;
+    color: link-outline-hover;
 }
 
 :where(.js__no-focusVisible) input[type="checkbox"]:focus,
 :where(.js__no-focusVisible) input[type="radio"]:focus {
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-accent-hover, ActiveText);
-    color: ActiveText;
-    color: var(--theme-input-accent-hover, ActiveText);
+    accent-color: link-outline-hover;
+    color: link-outline-hover;
 }
 
 input[type="checkbox"]:hover,
 input[type="radio"]:hover {
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-accent-hover, ActiveText);
-    color: ActiveText;
-    color: var(--theme-input-accent-hover, ActiveText);
+    accent-color: link-outline-hover;
+    color: link-outline-hover;
 }
 
 .no-js input[type="checkbox"]:focus-within,
 .no-js input[type="radio"]:focus-within,
 .js__no-whereSelector input[type="checkbox"]:focus-within,
 .js__no-whereSelector input[type="radio"]:focus-within {
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-accent-hover, ActiveText);
-    color: ActiveText;
-    color: var(--theme-input-accent-hover, ActiveText);
+    accent-color: link-outline-hover;
+    color: link-outline-hover;
 }
 
 :where(.js__no-focusVisible) input[type="checkbox"]:focus-within,
 :where(.js__no-focusVisible) input[type="radio"]:focus-within {
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-accent-hover, ActiveText);
-    color: ActiveText;
-    color: var(--theme-input-accent-hover, ActiveText);
+    accent-color: link-outline-hover;
+    color: link-outline-hover;
 }
 
 input[type="checkbox"]:active,
 input[type="radio"]:active {
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-accent-active, ActiveText);
-    color: ActiveText;
-    color: var(--theme-input-accent-active, ActiveText);
+    accent-color: link-outline-active;
+    color: link-outline-active;
 }
 input[readonly][type="checkbox"],
 input[readonly][type="radio"] {
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-readonly-accent, ActiveText);
-    color: ActiveText;
-    color: var(--theme-input-readonly-accent, ActiveText);
+    accent-color: link-outline-hover;
+    color: link-outline-hover;
 }
 .no-js input[readonly][type="checkbox"]:focus,
 .no-js input[readonly][type="radio"]:focus,
 .js__no-whereSelector input[readonly][type="checkbox"]:focus,
 .js__no-whereSelector input[readonly][type="radio"]:focus {
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-readonly-accent-hover, ActiveText);
-    color: ActiveText;
-    color: var(--theme-input-readonly-accent-hover, ActiveText);
+    accent-color: link-outline-hover;
+    color: link-outline-hover;
 }
 
 :where(.js__no-focusVisible) input[readonly][type="checkbox"]:focus,
 :where(.js__no-focusVisible) input[readonly][type="radio"]:focus {
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-readonly-accent-hover, ActiveText);
-    color: ActiveText;
-    color: var(--theme-input-readonly-accent-hover, ActiveText);
+    accent-color: link-outline-hover;
+    color: link-outline-hover;
 }
 
 input[readonly][type="checkbox"]:hover,
 input[readonly][type="radio"]:hover {
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-readonly-accent-hover, ActiveText);
-    color: ActiveText;
-    color: var(--theme-input-readonly-accent-hover, ActiveText);
+    accent-color: link-outline-hover;
+    color: link-outline-hover;
 }
 
 .no-js input[readonly][type="checkbox"]:focus-within,
 .no-js input[readonly][type="radio"]:focus-within,
 .js__no-whereSelector input[readonly][type="checkbox"]:focus-within,
 .js__no-whereSelector input[readonly][type="radio"]:focus-within {
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-readonly-accent-hover, ActiveText);
-    color: ActiveText;
-    color: var(--theme-input-readonly-accent-hover, ActiveText);
+    accent-color: link-outline-hover;
+    color: link-outline-hover;
 }
 
 :where(.js__no-focusVisible) input[readonly][type="checkbox"]:focus-within,
 :where(.js__no-focusVisible) input[readonly][type="radio"]:focus-within {
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-readonly-accent-hover, ActiveText);
-    color: ActiveText;
-    color: var(--theme-input-readonly-accent-hover, ActiveText);
+    accent-color: link-outline-hover;
+    color: link-outline-hover;
 }
 
 input[readonly][type="checkbox"]:active,
 input[readonly][type="radio"]:active {
-    accent-color: ActiveText;
-    accent-color: var(--theme-input-readonly-accent-active, ActiveText);
-    color: ActiveText;
-    color: var(--theme-input-readonly-accent-active, ActiveText);
+    accent-color: link-outline-active;
+    color: link-outline-active;
 }
 
 label {

@@ -204,7 +204,17 @@ export class Tokens_Themes_Set extends AbstractTokens {
             }));
             return {
                 description: this.description ?? undefined,
-                data: this.data,
+                data: {
+                    ...this.data,
+                    link: {
+                        ...this.data.link,
+                        outline: {
+                            $: this.data.link.outline.hover,
+                            visited: this.data.link.outline.hover,
+                            ...this.data.link.outline,
+                        },
+                    },
+                },
                 levelsInUse,
             };
         }
@@ -223,7 +233,29 @@ export class Tokens_Themes_Set extends AbstractTokens {
                     ...this.data.system,
                     background: this.data.background,
                     button: this.data.button.primary,
-                    input: this.data.input.$,
+                    input: {
+                        // accent: {
+                        //     $: this.data.link.outline.hover,
+                        //     hover: this.data.link.outline.hover,
+                        //     active: this.data.link.outline.active,
+                        // },
+                        bg: {
+                            $: this.data.background.$,
+                            hover: this.data.background.$,
+                            active: this.data.background.$,
+                        },
+                        border: {
+                            $: this.data.link.icon.hover,
+                            hover: this.data.link.icon.hover,
+                            active: this.data.link.icon.active,
+                        },
+                        // placeholder: this.data.text.disabled,
+                        text: {
+                            $: this.data.text.$,
+                            hover: this.data.text.$,
+                            active: this.data.text.$,
+                        },
+                    },
                     link: this.data.link.$,
                     selection: this.data.selection,
                     text: {
@@ -277,6 +309,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
                 DEFAULT.average = {
                     background: {
                         $: '150',
+                        bright: '100',
                         accent: '200',
                         grey: '200',
                     },
@@ -306,6 +339,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
                 DEFAULT.high = {
                     background: {
                         $: '100',
+                        bright: 'white',
                         accent: '150',
                         grey: '150',
                     },
@@ -335,6 +369,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
                 DEFAULT.low = {
                     background: {
                         $: '300',
+                        bright: '300',
                         accent: '250',
                         grey: '250',
                     },
@@ -417,6 +452,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
                         ? defaults?.background
                         : {
                             $: defaults?.background,
+                            bright: defaults?.background,
                             accent: defaults?.background,
                             grey: defaults?.background,
                         },
@@ -440,6 +476,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
                 };
                 const background = {
                     $: nomalized_input.background?.$ ?? DEFAULTS.background.$,
+                    bright: nomalized_input.background?.bright ?? nomalized_input.background?.$ ?? DEFAULTS.background.bright,
                     accent: nomalized_input.background?.accent ?? nomalized_input.background?.$ ?? DEFAULTS.background.accent,
                     grey: nomalized_input.background?.grey ?? nomalized_input.background?.$ ?? DEFAULTS.background.grey,
                 };
@@ -496,6 +533,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
                 const def = {
                     base: base,
                     background: {
+                        bright: base,
                         grey: base,
                     },
                     universal: {
@@ -644,29 +682,6 @@ export class Tokens_Themes_Set extends AbstractTokens {
                         },
                     },
                 };
-                const inputField = {
-                    accent: {
-                        $: clrOpt(variations.universal.primary, levels.ui.accent),
-                        hover: clrOpt(variations.interactive.hover, levels.ui.accent),
-                        active: clrOpt(variations.interactive.active, levels.ui.accent),
-                    },
-                    bg: {
-                        $: clrOpt(variations.base, levels.background.$),
-                        hover: clrOpt(variations.base, levels.background.$),
-                        active: clrOpt(variations.base, levels.background.$),
-                    },
-                    border: {
-                        $: clrOpt(variations.base, levels.ui.min),
-                        hover: clrOpt(variations.interactive.hover, levels.ui.accent),
-                        active: clrOpt(variations.interactive.active, levels.ui.accent),
-                    },
-                    placeholder: clrOpt(variations.base, levels.text.min),
-                    text: {
-                        $: clrOpt(variations.base, levels.text.$),
-                        hover: clrOpt(variations.base, levels.text.$),
-                        active: clrOpt(variations.base, levels.text.$),
-                    },
-                };
                 const complete = {
                     background,
                     text,
@@ -683,11 +698,6 @@ export class Tokens_Themes_Set extends AbstractTokens {
                         outline: linkOutline,
                     },
                     button,
-                    input: {
-                        $: inputField,
-                        disabled: inputField,
-                        readonly: inputField,
-                    },
                     system: {
                         accent: {
                             bg: clrOpt(variations.universal.primary, levels.text.accent),
@@ -782,29 +792,6 @@ export class Tokens_Themes_Set extends AbstractTokens {
                     ...objectMap(variations.universal, () => singleButton),
                     disabled: singleButton,
                 };
-                const inputField = {
-                    accent: {
-                        $: 'ActiveText',
-                        hover: 'ActiveText',
-                        active: 'ActiveText',
-                    },
-                    bg: {
-                        $: 'Field',
-                        hover: 'SelectedItem',
-                        active: 'Field',
-                    },
-                    border: {
-                        $: 'FieldText',
-                        hover: 'SelectedItem',
-                        active: 'FieldText',
-                    },
-                    placeholder: 'FieldText',
-                    text: {
-                        $: 'FieldText',
-                        hover: 'SelectedItemText',
-                        active: 'FieldText',
-                    },
-                };
                 const complete = {
                     background,
                     text,
@@ -821,11 +808,6 @@ export class Tokens_Themes_Set extends AbstractTokens {
                         outline: linkOutline,
                     },
                     button,
-                    input: {
-                        $: inputField,
-                        disabled: inputField,
-                        readonly: inputField,
-                    },
                     system: {
                         accent: {
                             bg: [

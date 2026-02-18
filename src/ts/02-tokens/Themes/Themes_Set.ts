@@ -249,8 +249,9 @@ export namespace Tokens_Themes_Set {
     export type InputParam<
         T_ColourTypes extends TokenTypes.Colour.TypeParams,
         T_ThemeTypes extends TokenTypes.Theme.TypeParams,
+        __T_ThisThemeName extends T_ThemeTypes[ 'name' ] = T_ThemeTypes[ 'name' ],
     > = {
-        name: T_ThemeTypes[ 'name' ];
+        name: __T_ThisThemeName;
         variations?: Tokens_Themes_Set.SingleMode.InputParam<T_ColourTypes, T_ThemeTypes>[ 'variations' ];
         forcedColours?: Omit<
             Tokens_Themes_Set.SingleMode.InputParam<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>,
@@ -525,7 +526,20 @@ export namespace Tokens_Themes_Set {
 
             return {
                 description: this.description ?? undefined,
-                data: this.data,
+                data: {
+                    ...this.data,
+
+                    link: {
+                        ...this.data.link,
+
+                        outline: {
+                            $: this.data.link.outline.hover,
+                            visited: this.data.link.outline.hover,
+
+                            ...this.data.link.outline,
+                        },
+                    },
+                },
 
                 levelsInUse,
             };
@@ -552,7 +566,36 @@ export namespace Tokens_Themes_Set {
 
                     background: this.data.background,
                     button: this.data.button.primary,
-                    input: this.data.input.$,
+
+                    input: {
+
+                        // accent: {
+                        //     $: this.data.link.outline.hover,
+                        //     hover: this.data.link.outline.hover,
+                        //     active: this.data.link.outline.active,
+                        // },
+
+                        bg: {
+                            $: this.data.background.$,
+                            hover: this.data.background.$,
+                            active: this.data.background.$,
+                        },
+
+                        border: {
+                            $: this.data.link.icon.hover,
+                            hover: this.data.link.icon.hover,
+                            active: this.data.link.icon.active,
+                        },
+
+                        // placeholder: this.data.text.disabled,
+
+                        text: {
+                            $: this.data.text.$,
+                            hover: this.data.text.$,
+                            active: this.data.text.$,
+                        },
+                    },
+
                     link: this.data.link.$,
                     selection: this.data.selection,
 
@@ -687,44 +730,6 @@ export namespace Tokens_Themes_Set {
                     T_ColourTypes,
                     __T_ColourOption
                 >;
-            },
-
-            /**
-             * @since 0.1.1-alpha.0 — Changed from field to input.
-             * @since ___PKG_VERSION___ — Added placeholder colour.
-             */
-            input: {
-                [ K in "$" | "disabled" | "readonly" ]: {
-
-                    /** 
-                     * Used for accent-color and focus ring colour.
-                     */
-                    accent: {
-                        $: __T_ColourOption,
-                        hover: __T_ColourOption,
-                        active: __T_ColourOption,
-                    },
-
-                    bg: {
-                        $: __T_ColourOption,
-                        hover: __T_ColourOption,
-                        active: __T_ColourOption,
-                    },
-
-                    border: {
-                        $: __T_ColourOption,
-                        hover: __T_ColourOption,
-                        active: __T_ColourOption,
-                    },
-
-                    placeholder: __T_ColourOption,
-
-                    text: {
-                        $: __T_ColourOption,
-                        hover: __T_ColourOption,
-                        active: __T_ColourOption,
-                    },
-                };
             },
 
             system: {
@@ -938,6 +943,7 @@ export namespace Tokens_Themes_Set {
             base: TokenTypes.Colour.GenericName<T_ColourName>;
 
             background: {
+                bright: TokenTypes.Colour.GenericName<T_ColourName>;
                 grey: TokenTypes.Colour.GenericName<T_ColourName>;
             },
 
@@ -1007,7 +1013,7 @@ export namespace Tokens_Themes_Set {
             export interface Input<
                 T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
             > {
-                background?: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Partial<Levels.Set.AccentGrey<T_ExtraColourLevels>>;
+                background?: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Partial<Levels.Set.AccentBrightGrey<T_ExtraColourLevels>>;
                 text?: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Partial<Levels.Set.AccentMin<T_ExtraColourLevels>>;
                 ui?: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Partial<Levels.Set.AccentMin<T_ExtraColourLevels>>;
 
@@ -1022,7 +1028,7 @@ export namespace Tokens_Themes_Set {
             export interface Parsed<
                 T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
             > {
-                background: Levels.Set.AccentGrey<T_ExtraColourLevels>;
+                background: Levels.Set.AccentBrightGrey<T_ExtraColourLevels>;
                 text: Levels.Set.AccentMin<T_ExtraColourLevels>;
                 ui: Levels.Set.AccentMin<T_ExtraColourLevels>;
 
@@ -1037,7 +1043,7 @@ export namespace Tokens_Themes_Set {
             export interface Required<
                 T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
             > {
-                background: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Levels.Set.AccentGrey<T_ExtraColourLevels>;
+                background: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Levels.Set.AccentBrightGrey<T_ExtraColourLevels>;
                 text: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Levels.Set.AccentMin<T_ExtraColourLevels>;
                 ui: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Levels.Set.AccentMin<T_ExtraColourLevels>;
 
@@ -1054,14 +1060,15 @@ export namespace Tokens_Themes_Set {
             export namespace Set {
 
                 /**
-                 * @since ___PKG_VERSION___ — Made public, moved to SingleMode.Levels.Sets and renamed.
+                 * @since ___PKG_VERSION___
                  */
-                export interface AccentMin<
+                export interface AccentBrightGrey<
                     T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
                 > {
                     $: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
+                    bright: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
                     accent: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
-                    min: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
+                    grey: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
                 }
 
                 /**
@@ -1075,6 +1082,17 @@ export namespace Tokens_Themes_Set {
                     accent: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
                     grey: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
                 }
+
+                /**
+                 * @since ___PKG_VERSION___ — Made public, moved to SingleMode.Levels.Sets and renamed.
+                 */
+                export interface AccentMin<
+                    T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
+                > {
+                    $: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
+                    accent: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
+                    min: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
+                }
             }
 
             /**
@@ -1086,6 +1104,7 @@ export namespace Tokens_Themes_Set {
                 export const average = {
                     background: {
                         $: '150',
+                        bright: '100',
                         accent: '200',
                         grey: '200',
                     },
@@ -1116,6 +1135,7 @@ export namespace Tokens_Themes_Set {
                 export const high = {
                     background: {
                         $: '100',
+                        bright: 'white',
                         accent: '150',
                         grey: '150',
                     },
@@ -1146,6 +1166,7 @@ export namespace Tokens_Themes_Set {
                 export const low = {
                     background: {
                         $: '300',
+                        bright: '300',
                         accent: '250',
                         grey: '250',
                     },
@@ -1243,6 +1264,7 @@ export namespace Tokens_Themes_Set {
                         ? defaults?.background
                         : {
                             $: defaults?.background,
+                            bright: defaults?.background,
                             accent: defaults?.background,
                             grey: defaults?.background,
                         },
@@ -1273,6 +1295,7 @@ export namespace Tokens_Themes_Set {
 
                 const background: Levels.Parsed<T_ExtraColourLevels>[ 'background' ] = {
                     $: nomalized_input.background?.$ ?? DEFAULTS.background.$,
+                    bright: nomalized_input.background?.bright ?? nomalized_input.background?.$ ?? DEFAULTS.background.bright,
                     accent: nomalized_input.background?.accent ?? nomalized_input.background?.$ ?? DEFAULTS.background.accent,
                     grey: nomalized_input.background?.grey ?? nomalized_input.background?.$ ?? DEFAULTS.background.grey,
                 };
@@ -1369,7 +1392,16 @@ export namespace Tokens_Themes_Set {
             __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>,
         > = {
             description?: undefined | string;
-            data: Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption>;
+
+            data: Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption> & {
+                link: Data<T_ColourTypes, T_ThemeTypes>[ 'link' ] & {
+                    outline: Data<T_ColourTypes, T_ThemeTypes>[ 'link' ][ 'outline' ] & {
+                        $: __T_ColourOption,
+                        visited: __T_ColourOption,
+                    };
+                };
+            };
+
             levelsInUse: {
                 light: "black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional;
                 dark: "black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional;
@@ -1548,6 +1580,7 @@ export namespace Tokens_Themes_Set {
                     base: base,
 
                     background: {
+                        bright: base,
                         grey: base,
                     },
 
@@ -1767,35 +1800,6 @@ export namespace Tokens_Themes_Set {
                     },
                 };
 
-                const inputField = {
-
-                    accent: {
-                        $: clrOpt( variations.universal.primary, levels.ui.accent ),
-                        hover: clrOpt( variations.interactive.hover, levels.ui.accent ),
-                        active: clrOpt( variations.interactive.active, levels.ui.accent ),
-                    },
-
-                    bg: {
-                        $: clrOpt( variations.base, levels.background.$ ),
-                        hover: clrOpt( variations.base, levels.background.$ ),
-                        active: clrOpt( variations.base, levels.background.$ ),
-                    },
-
-                    border: {
-                        $: clrOpt( variations.base, levels.ui.min ),
-                        hover: clrOpt( variations.interactive.hover, levels.ui.accent ),
-                        active: clrOpt( variations.interactive.active, levels.ui.accent ),
-                    },
-
-                    placeholder: clrOpt( variations.base, levels.text.min ),
-
-                    text: {
-                        $: clrOpt( variations.base, levels.text.$ ),
-                        hover: clrOpt( variations.base, levels.text.$ ),
-                        active: clrOpt( variations.base, levels.text.$ ),
-                    },
-                } satisfies CompleteData[ 'input' ][ '$' ];
-
                 const complete: CompleteData = {
                     background,
 
@@ -1816,12 +1820,6 @@ export namespace Tokens_Themes_Set {
                     },
 
                     button,
-
-                    input: {
-                        $: inputField,
-                        disabled: inputField,
-                        readonly: inputField,
-                    },
 
                     system: {
                         accent: {
@@ -1946,35 +1944,6 @@ export namespace Tokens_Themes_Set {
                     disabled: singleButton,
                 };
 
-                const inputField: CompleteData[ 'input' ][ '$' ] = {
-
-                    accent: {
-                        $: 'ActiveText',
-                        hover: 'ActiveText',
-                        active: 'ActiveText',
-                    },
-
-                    bg: {
-                        $: 'Field',
-                        hover: 'SelectedItem',
-                        active: 'Field',
-                    },
-
-                    border: {
-                        $: 'FieldText',
-                        hover: 'SelectedItem',
-                        active: 'FieldText',
-                    },
-
-                    placeholder: 'FieldText',
-
-                    text: {
-                        $: 'FieldText',
-                        hover: 'SelectedItemText',
-                        active: 'FieldText',
-                    },
-                };
-
                 const complete: CompleteData = {
                     background,
 
@@ -1995,12 +1964,6 @@ export namespace Tokens_Themes_Set {
                     },
 
                     button,
-
-                    input: {
-                        $: inputField,
-                        disabled: inputField,
-                        readonly: inputField,
-                    },
 
                     system: {
                         accent: {

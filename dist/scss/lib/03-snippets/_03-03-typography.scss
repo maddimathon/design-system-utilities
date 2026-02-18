@@ -269,6 +269,7 @@
 ///
 @mixin set-default-margins(
     $paragraphLevel: '400',
+    $smallLevel: '300',
     $firmStartLevel: null,
     $firmEndLevel: null
 ) {
@@ -282,6 +283,10 @@
 
     %paragraph-margins {
         margin-block: #{var-mrg-soft($paragraphLevel)} 0;
+    }
+
+    %paragraph-small-margins {
+        margin-block: #{var-mrg-soft($smallLevel)} 0;
     }
 
     %button,

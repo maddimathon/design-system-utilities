@@ -20,8 +20,8 @@
 export function objectFlatten(obj, prefix, suffix) {
     const validateKey_addPrefix = (key) => [
         prefix,
-        String(key),
-    ].filter(v => v).join('-');
+        key === '$' ? '' : String(key),
+    ].filter(v => v?.length).join('-');
     const key_addSuffix = (key) => {
         key = String(key);
         const _includeSuffix = suffix && suffix.length > 0;

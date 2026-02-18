@@ -64,11 +64,15 @@ export class Tokens_CSS extends AbstractTokens<{
     }
 
     public toJSON(): Tokens_CSS.JsonReturn {
-        return this.data;
+        return {
+            border: this.border.toJSON(),
+            style: this.style.toJSON(),
+            transition: this.transition.toJSON(),
+            zIndex: this.data.zIndex,
+        };
     }
 
     public toScssVars(): Tokens_CSS.ScssVars {
-
         return {
             border: this.border.toScssVars(),
             style: this.style.toScssVars(),
@@ -115,7 +119,11 @@ export namespace Tokens_CSS {
     /**
      * @since 0.1.0-alpha
      */
-    export type JsonReturn = Data;
+    export type JsonReturn = Omit<Data, 'border' | 'style' | 'transition'> & {
+        border: Tokens_CSS_Border.JsonReturn;
+        style: Tokens_CSS_Style.JsonReturn;
+        transition: Tokens_CSS_Transition.JsonReturn;
+    };
 
     /**
      * @since ___PKG_VERSION___

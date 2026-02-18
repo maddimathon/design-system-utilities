@@ -64,7 +64,11 @@ export declare namespace Tokens_CSS {
     /**
      * @since 0.1.0-alpha
      */
-    type JsonReturn = Data;
+    type JsonReturn = Omit<Data, 'border' | 'style' | 'transition'> & {
+        border: Tokens_CSS_Border.JsonReturn;
+        style: Tokens_CSS_Style.JsonReturn;
+        transition: Tokens_CSS_Transition.JsonReturn;
+    };
     /**
      * @since 0.1.1-alpha.1.draft
      */
