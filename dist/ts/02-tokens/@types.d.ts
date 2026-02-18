@@ -10,107 +10,377 @@
  * @license MIT
  */
 
+import type { Theme } from 'typedoc';
 import type { ColourUtilities } from '../01-utilities/ColourUtilities.js';
 
 import type { AbstractTokens } from './abstract/AbstractTokens.js';
 import type { Tokens_Themes_Set } from './Themes/Themes_Set.ts';
 
 /**
- * @since 0.1.0-alpha
+ * @since 0.1.1-alpha.1.draft
  */
-export type CssSystemColor =
-    | "transparent"
-    | "unset"
-    | "AccentColor"
-    | "AccentColorText"
-    | "ActiveText"
-    | "ButtonBorder"
-    | "ButtonFace"
-    | "ButtonText"
-    | "Canvas"
-    | "CanvasText"
-    | "Field"
-    | "FieldText"
-    | "GrayText"
-    | "Highlight"
-    | "HighlightText"
-    | "LinkText"
-    | "Mark"
-    | "MarkText"
-    | "SelectedItem"
-    | "SelectedItemText"
-    | "VisitedText"
-    | (
-        "unset"
-        | "AccentColor"
-        | "AccentColorText"
-        | "ActiveText"
-        | "ButtonBorder"
-        | "ButtonFace"
-        | "ButtonText"
-        | "Canvas"
-        | "CanvasText"
-        | "Field"
-        | "FieldText"
-        | "GrayText"
-        | "Highlight"
-        | "HighlightText"
-        | "LinkText"
-        | "Mark"
-        | "MarkText"
-        | "SelectedItem"
-        | "SelectedItemText"
-        | "VisitedText"
-    )[];
+export namespace TokenTypes {
 
-/**
- * Slugs representing the colour tokens in this system.
- * 
- * @since 0.1.0-alpha
- */
-export type ColourTokenSlug<
-    T_ColourName extends string,
-    T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
-> = `${ T_ColourName }-${ ColourUtilities.Levels.Required | T_ExtraColourLevels }`;
+    /**
+     * @since 0.1.1-alpha.1.draft
+     */
+    export namespace Colour {
 
-/**
- * Allowed options for the values of theme tokens (representing either CSS
- * System Colors or colour design tokens in this system).
- * 
- * @since 0.1.0-alpha
- */
-export type ThemeColourOption<
-    T_ColourName extends string,
-    T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
-> = CssSystemColor | "black" | "white" | ColourTokenSlug<T_ColourName, T_ExtraColourLevels>;
+        /**
+         * Enforces some shade names that are always present.
+         * 
+         * @since 0.1.0-alpha
+         * @since 0.1.1-alpha.1.draft — Moved to {@link Colour} namespace.
+         */
+        export type GenericName<T_ColourName extends string> = "base" | T_ColourName;
 
-/**
- * @since 0.1.0-alpha
- */
-export type ThemeMode_Contrast<
-    T_Extra extends readonly ThemeMode_ContrastExtraOptions[] = never[],
-> = readonly [ "low", "average", "high", "max", ...T_Extra ];
+        /**
+         * Enforces some shade names that are always present.
+         * 
+         * @since 0.1.1-alpha.1.draft
+         */
+        export type GenericNameArray<T_ColourName extends string> = readonly [ "base", ...T_ColourName[] ];
 
-/**
- * @since 0.1.0-alpha
- */
-export type ThemeMode_ContrastOption = "low" | "average" | "high" | "max";
+        /**
+         * Creates a Record-like object indexed instead colour shade levels.
+         * 
+         * @since 0.1.1-alpha.1.draft
+         * @internal
+         */
+        export type LevelRecord<
+            T_ColourTypes extends Colour.TypeParams,
+            T_Value extends any,
+        > = {
+            [ L in ColourUtilities.Levels.Required ]: T_Value;
+        } & {
+                [ L in T_ColourTypes[ 'extraLevels' ] ]: T_Value;
+            };
 
-/**
- * @since 0.1.0-alpha
- */
-export type ThemeMode_ContrastExtraOptions = Exclude<
-    ThemeMode_ContrastOption,
-    ThemeMode_Contrast[ number ]
->;
+        /**
+         * Creates a Record-like object indexed instead colour shade names.
+         * 
+         * @since 0.1.1-alpha.1.draft
+         * @internal
+         */
+        export type NameRecord<
+            T_ColourTypes extends Colour.TypeParams,
+            T_Value extends any,
+        > = {
+            base: T_Value;
+        } & {
+                [ C in T_ColourTypes[ 'names' ] ]: T_Value;
+            };
 
-/**
- * @since 0.1.0-alpha
- */
-export type ThemeMode_ContrastAtLeastOne = readonly [
-    ThemeMode_ContrastOption,
-    ...ThemeMode_ContrastOption[]
-];
+        /**
+         * Creates a partial-ized Record-like object indexed instead colour shade levels.
+         * 
+         * @since 0.1.1-alpha.1.draft
+         * @internal
+         */
+        export type PartialLevelRecord<
+            T_ColourTypes extends Colour.TypeParams,
+            T_Value extends any,
+        > = {
+            [ L in ColourUtilities.Levels.Required ]?: undefined | T_Value;
+        } & {
+                [ L in T_ColourTypes[ 'extraLevels' ] ]?: undefined | T_Value;
+            };
+
+        /**
+         * Creates a partial-ized Record-like object indexed instead colour shade names.
+         * 
+         * @since 0.1.1-alpha.1.draft
+         * @internal
+         */
+        export type PartialNameRecord<
+            T_ColourTypes extends Colour.TypeParams,
+            T_Value extends any,
+        > = {
+            base?: undefined | T_Value;
+        } & {
+                [ C in T_ColourTypes[ 'names' ] ]?: undefined | T_Value;
+            };
+
+        /**
+         * Slugs representing the colour tokens in this system.
+         * 
+         * @since 0.1.0-alpha
+         * @since 0.1.1-alpha.1.draft — Moved to {@link Colour} namespace.
+         */
+        export type TokenSlug<
+            T_ColourName extends string,
+            T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
+        > = `${ TokenTypes.Colour.GenericName<T_ColourName> }-${ ColourUtilities.Levels.Required | T_ExtraColourLevels }`;
+
+        /**
+         * Type params for colour tokens.
+         * 
+         * @since 0.1.1-alpha.1.draft
+         */
+        export type TypeParams<
+            T_ColourNames extends string = string,
+            T_ExtraColourLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional,
+        > = {
+            names: T_ColourNames;
+            extraLevels: T_ExtraColourLevels;
+        };
+    }
+
+    /**
+     * @since 0.1.1-alpha.1.draft
+     */
+    export namespace Css {
+
+        /**
+         * @since 0.1.0-alpha
+         * @since 0.1.1-alpha.1.draft — Moved to {@link Css} namespace.
+         */
+        export type SystemColor =
+            | "transparent"
+            | "unset"
+            | "AccentColor"
+            | "AccentColorText"
+            | "ActiveText"
+            | "ButtonBorder"
+            | "ButtonFace"
+            | "ButtonText"
+            | "Canvas"
+            | "CanvasText"
+            | "Field"
+            | "FieldText"
+            | "GrayText"
+            | "Highlight"
+            | "HighlightText"
+            | "LinkText"
+            | "Mark"
+            | "MarkText"
+            | "SelectedItem"
+            | "SelectedItemText"
+            | "VisitedText"
+            | (
+                "unset"
+                | "AccentColor"
+                | "AccentColorText"
+                | "ActiveText"
+                | "ButtonBorder"
+                | "ButtonFace"
+                | "ButtonText"
+                | "Canvas"
+                | "CanvasText"
+                | "Field"
+                | "FieldText"
+                | "GrayText"
+                | "Highlight"
+                | "HighlightText"
+                | "LinkText"
+                | "Mark"
+                | "MarkText"
+                | "SelectedItem"
+                | "SelectedItemText"
+                | "VisitedText"
+            )[];
+    }
+
+    /**
+     * @since 0.1.1-alpha.1.draft
+     */
+    export namespace Theme {
+
+        /**
+         * Allowed options for the values of theme tokens (representing either CSS
+         * System Colors or colour design tokens in this system).
+         * 
+         * @since 0.1.0-alpha
+         * @since 0.1.1-alpha.1.draft — Moved to {@link Theme} namespace.
+         */
+        export type ColourOption<
+            T_Types extends TokenTypes.Colour.TypeParams,
+        > = Css.SystemColor | "black" | "white" | Colour.TokenSlug<
+            T_Types[ 'names' ],
+            T_Types[ 'extraLevels' ]
+        >;
+
+        /**
+         * @since 0.1.1-alpha.1.draft
+         */
+        export type GetBrightnessKeys<
+            T_ThemeTypes extends TokenTypes.Theme.TypeParams,
+        > = "light" | "dark" | T_ThemeTypes[ 'brightness' ][ number ];
+
+        /**
+         * @since 0.1.1-alpha.1.draft
+         */
+        export type GetExtraBrightnessKeys<
+            T_ThemeTypes extends TokenTypes.Theme.TypeParams,
+        > = Exclude<T_ThemeTypes[ 'brightness' ][ number ], Mode.BrightnessRequired>;
+
+        /**
+         * @since 0.1.1-alpha.1.draft
+         */
+        export type GetContrastKeys<
+            T_ThemeTypes extends TokenTypes.Theme.TypeParams,
+        > = "low" | "average" | "high" | T_ThemeTypes[ 'contrast' ][ number ];
+
+        /**
+         * @since 0.1.1-alpha.1.draft
+         */
+        export type GetExtraContrastKeys<
+            T_ThemeTypes extends TokenTypes.Theme.TypeParams,
+        > = Exclude<T_ThemeTypes[ 'contrast' ][ number ], Mode.ContrastRequired>;
+
+        /**
+         * @since 0.1.1-alpha.1.draft
+         */
+        export namespace Mode {
+
+            /**
+             * An array of brightness mode slugs with the required slugs.
+             * 
+             * @since 0.1.1-alpha.1.draft
+             */
+            export type Brightness<
+                T_ParamValue extends BrightnessOption[] = BrightnessOption[],
+            > = readonly [ "light", "dark", ...T_ParamValue ];
+
+            /**
+             * All allowed brightness mode slugs.
+             * 
+             * @since 0.1.1-alpha.1.draft
+             */
+            export type BrightnessOption = "light" | "dark";
+
+            /**
+             * All required brightness mode slugs.
+             * 
+             * @since 0.1.1-alpha.1.draft
+             */
+            export type BrightnessRequired = "light" | "dark";
+
+            /**
+             * An array of contrast mode slugs with the required slugs.
+             * 
+             * @since 0.1.0-alpha
+             * @since 0.1.1-alpha.1.draft — Moved to {@link Theme.Mode} namespace.
+             */
+            export type Contrast<
+                T_ParamValue extends ContrastOption[] = ContrastOption[],
+            > = readonly [ "low", "average", "high", ...T_ParamValue ];
+
+            /**
+             * All allowed contrast mode slugs.
+             * 
+             * @since 0.1.0-alpha
+             * @since 0.1.1-alpha.1.draft — Moved to {@link Theme.Mode} namespace.
+             */
+            export type ContrastOption = "low" | "average" | "high" | "max";
+
+            /**
+             * Creates a Record-like object indexed instead by contrast mode values.
+             * 
+             * @since 0.1.1-alpha.1.draft
+             * @internal
+             */
+            export type ContrastRecord<
+                T_ThemeTypes extends Theme.TypeParams,
+                T_Value extends any,
+            > = {
+                [ C in ContrastRequired ]: T_Value;
+            } & {
+                    [ C in T_ThemeTypes[ 'contrast' ][ number ] ]: T_Value;
+                };
+
+            /**
+             * All required contrast mode slugs.
+             * 
+             * @since 0.1.1-alpha.1.draft
+             */
+            export type ContrastRequired = "low" | "average" | "high";
+
+            /**
+             * Creates an object of nested values indexed first by brightness mode, then by contrast mode.
+             * 
+             * @since 0.1.1-alpha.1.draft
+             * @internal
+             */
+            export type NestedObject<
+                T_ThemeTypes extends Theme.TypeParams,
+                T_NestedValue extends any,
+            > = {
+                [ B in BrightnessRequired ]: ContrastRecord<T_ThemeTypes, T_NestedValue>;
+            } & {
+                    [ B in T_ThemeTypes[ 'brightness' ] ]: ContrastRecord<T_ThemeTypes, T_NestedValue>;
+                };
+
+            /**
+             * Creates a partial-ized Record-like object indexed instead by contrast mode values.
+             * 
+             * @since 0.1.1-alpha.1.draft
+             * @internal
+             */
+            export type PartialContrastRecord<
+                T_ThemeTypes extends Theme.TypeParams,
+                T_Value extends any,
+            > = {
+                [ C in ContrastRequired ]?: undefined | T_Value;
+            } & {
+                    [ C in T_ThemeTypes[ 'contrast' ][ number ] ]?: undefined | T_Value;
+                };
+
+            /**
+             * Creates an object of nested values indexed first by brightness mode, then by contrast mode.
+             * 
+             * @since 0.1.1-alpha.1.draft
+             * @internal
+             */
+            export type PartialNestedObject<
+                T_ThemeTypes extends TokenTypes.Theme.TypeParams,
+                T_NestedValue extends any,
+            > = {
+                [ B in TokenTypes.Theme.Mode.BrightnessRequired ]?: undefined | PartialContrastRecord<T_ThemeTypes, T_NestedValue>;
+            } & {
+                    [ B in T_ThemeTypes[ 'brightness' ] ]?: undefined | PartialContrastRecord<T_ThemeTypes, T_NestedValue>;
+                };
+        }
+
+        /**
+         * Type params for theme tokens.
+         * 
+         * @since 0.1.1-alpha.1.draft
+         */
+        export type TypeParams<
+            T_ThemeName extends string = string,
+            T_ThemeBrightnessMode extends readonly TokenTypes.Theme.Mode.BrightnessOption[] = TokenTypes.Theme.Mode.Brightness,
+            T_ThemeContrastMode extends readonly TokenTypes.Theme.Mode.ContrastOption[] = TokenTypes.Theme.Mode.Contrast,
+
+            T_Keyword_Universal extends string = string,
+            T_Keyword_Text extends string = string,
+            T_Keyword_Background extends string = string,
+        > = {
+            name: T_ThemeName;
+
+            brightness: T_BrightnessMode;
+            contrast: T_ContrastMode;
+
+            variations: {
+                universal: T_Keyword_Universal;
+                text: T_Keyword_Text;
+                background: T_Keyword_Background;
+            };
+        };
+    }
+
+    export type TypeParams<
+        T_ColourTypes extends Colour.TypeParams = Colour.TypeParams,
+        T_ThemeTypes extends Theme.TypeParams = Theme.TypeParams,
+        T_ExtraIconNames extends string = string,
+        T_LogoNames extends string = string,
+    > = {
+        colour: T_ColourTypes;
+        iconNames: T_ExtraIconNames;
+        logoNames: T_LogoNames;
+        theme: T_ThemeTypes;
+    };
+}
 
 
 /**
@@ -139,14 +409,6 @@ export type TokenLevels_Extended =
     | '650'
     | '750'
     | '850';
-
-
-/**
- * Enforces some shade names that are always present.
- * 
- * @since 0.1.0-alpha
- */
-export type ColourNameGeneric<T_ColourName extends string> = "base" | T_ColourName;
 
 
 /**

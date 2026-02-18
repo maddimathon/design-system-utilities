@@ -30,6 +30,17 @@ export class Compile extends CompileStage {
         'files',
     ];
     /**
+     * @param config   Current project config.
+     * @param params   Current CLI params.
+     * @param args     Partial overrides for the default args.
+     * @param pkg      Parsed contents of the project’s package.json file.
+     * @param version  Version object for the project’s version.
+     */
+    constructor(config, params, args, pkg, version) {
+        super(config, params, args, pkg, version);
+        this.buildTokens = this.buildTokens.bind(this);
+    }
+    /**
      * Runs through the basics of a typical Compile.tokens substage.
      *
      * @category Running

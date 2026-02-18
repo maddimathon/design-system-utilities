@@ -6,8 +6,8 @@
  */
 
 /* import - types */
-import type { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
-import type { Tokens, Tokens_Internal } from '../../ts/02-tokens/Tokens.js';
+import type { TokenTypes } from '../../ts/02-tokens/@types.js';
+import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
 
 /* import - functions */
@@ -23,33 +23,26 @@ import ShadeSwatch from './ShadeSwatch.astro';
 /* PROPS ===================================== */
 
 export interface Props<
-    T_ColourName extends string = Tokens_Internal.Default_ColourName,
-    T_ExtraLevels extends ColourUtilities.Levels.Optional =
-        Tokens_Internal.Default_ExtraColourLevels,
+    T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
 > {
     name: string | null;
 
-    colour: Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, T_ExtraLevels> & {
-        black?: Tokens_Colour_ShadeMap.Shade.JsonReturn<
-            T_ColourName,
-            T_ExtraLevels
-        >;
-        white?: Tokens_Colour_ShadeMap.Shade.JsonReturn<
-            T_ColourName,
-            T_ExtraLevels
-        >;
-    };
+    colour:
+        | Tokens_Colour_ShadeMap.JsonReturn<T_Types['colour']>
+        | (Tokens_Colour_ShadeMap.JsonReturn<T_Types['colour']> & {
+              black?: Tokens_Colour_ShadeMap.Shade.JsonReturn<
+                  T_Types['colour']
+              >;
+              white?: Tokens_Colour_ShadeMap.Shade.JsonReturn<
+                  T_Types['colour']
+              >;
+          });
+
     tokens: Tokens.JsonReturn;
 
-    bases?: Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, T_ExtraLevels> & {
-        black: Tokens_Colour_ShadeMap.Shade.JsonReturn<
-            T_ColourName,
-            T_ExtraLevels
-        >;
-        white: Tokens_Colour_ShadeMap.Shade.JsonReturn<
-            T_ColourName,
-            T_ExtraLevels
-        >;
+    bases?: Tokens_Colour_ShadeMap.JsonReturn<T_Types['colour']> & {
+        black?: Tokens_Colour_ShadeMap.Shade.JsonReturn<T_Types['colour']>;
+        white?: Tokens_Colour_ShadeMap.Shade.JsonReturn<T_Types['colour']>;
     };
 
     /** Unique. */
@@ -57,7 +50,7 @@ export interface Props<
 
     shadeHeading: number;
 
-    frontmatter?: Omit<Props<T_ColourName, T_ExtraLevels>, 'frontmatter'>;
+    frontmatter?: Omit<Props<T_Types>, 'frontmatter'>;
 }
 
 const { bases, id, name, shadeHeading, tokens, ...props }: Props =
@@ -84,7 +77,7 @@ const colour = shadeMapToArray(props.colour);
                     level={level}
                     name={name}
                     tokens={tokens}
-                    values={values}
+                    values={values ?? {}}
                 />
             ))}
         </div>

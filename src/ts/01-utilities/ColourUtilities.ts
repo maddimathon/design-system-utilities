@@ -1290,7 +1290,7 @@ export namespace ColourUtilities {
             return this.valueOf();
         }
 
-        public valueOf(): ContrastTest.Parsed {
+        public valueOf(): ContrastTest.Result {
             return {
                 ratio: this.ratio,
                 aa: this.aa,
@@ -1314,16 +1314,11 @@ export namespace ColourUtilities {
         export type JSON = Result;
 
         /**
-         * @since 0.1.0-alpha
-         */
-        export type Parsed = Result;
-
-        /**
          * The partialized version of the {@link ContrastTest.Schema} accepted as input.
          *
          * @since 0.1.0-alpha
          */
-        export type Part = Partial<Parsed>;
+        export type Part = Partial<Result>;
 
         /**
          * @since 0.1.0-alpha

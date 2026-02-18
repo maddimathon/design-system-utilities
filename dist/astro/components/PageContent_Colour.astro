@@ -7,6 +7,7 @@
 
 /* import - types */
 import type { ComponentProps } from 'astro/types';
+import type { TokenTypes } from '../../ts/02-tokens/@types.js';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
 import type { LevelTargets } from './ShadeSwatchTable.astro';
@@ -24,14 +25,18 @@ import Heading from '@maddimathon/utility-astro/components/Heading';
 import TableOfContents from '@maddimathon/utility-astro/components/TableOfContents';
 import Toggle from '@maddimathon/utility-astro/components/Toggle';
 import ShadeSwatchList from './ShadeSwatchList.astro';
-import ShadeSwatchTable from './ShadeSwatchTable.astro';
+import ShadeSwatchTable, {
+    type Props as ShadeSwatchTableProps,
+} from './ShadeSwatchTable.astro';
 
 /* import - layouts */
 
 /* PROPS ===================================== */
 
-export interface Props {
-    tokens: Tokens.JsonReturn;
+export interface Props<
+    T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+> {
+    tokens: Tokens.JsonReturn<T_Types>;
 
     /**
      * Whether to include the given colour formats in the the shade swatch table.
@@ -57,15 +62,9 @@ export interface Props {
      * @since 0.1.0-alpha.4
      */
     yardstick?:
-        | Tokens_Colour_ShadeMap.JsonReturn<
-              string,
-              ColourUtilities.Levels.Optional
-          >
+        | Tokens_Colour_ShadeMap.JsonReturn<T_Types['colour']>
         | {
-              base: Tokens_Colour_ShadeMap.JsonReturn<
-                  string,
-                  ColourUtilities.Levels.Optional
-              >;
+              base: Tokens_Colour_ShadeMap.JsonReturn<T_Types['colour']>;
 
               /**
                * Colour name to use to find target contrast from base shades.
@@ -84,15 +83,14 @@ const {
 
 /* FUNCTION ===================================== */
 
-export async function makeTargetLevels<T_ColourName extends string>(
-    sampleColourName: T_ColourName,
+export async function makeTargetLevels<
+    T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+>(
+    sampleColourName: TokenTypes.Colour.GenericName<T_Types['colour']['names']>,
     targetShadeMap?:
         | undefined
-        | Tokens_Colour_ShadeMap.JsonReturn<
-              T_ColourName,
-              ColourUtilities.Levels.Optional
-          >,
-): Promise<LevelTargets | undefined> {
+        | Tokens_Colour_ShadeMap.JsonReturn<T_Types['colour']>,
+): Promise<LevelTargets<T_Types['colour']> | undefined> {
     // returns
     if (!targetShadeMap) {
         return undefined;
@@ -109,11 +107,9 @@ export async function makeTargetLevels<T_ColourName extends string>(
         ['450', '550'],
     ] as const;
 
-    const current = await objectMapAsync(
+    const current: LevelTargets<T_Types['colour']> = await objectMapAsync(
         targetShadeMap,
         async ([level, value]) => {
-            level;
-
             return {
                 min: {
                     aa: {
@@ -129,7 +125,9 @@ export async function makeTargetLevels<T_ColourName extends string>(
                     },
                 },
                 max: value.contrast.max[sampleColourName]?.level,
-            } satisfies LevelTargets[keyof typeof targetShadeMap];
+            } satisfies LevelTargets<
+                T_Types['colour']
+            >[keyof typeof targetShadeMap];
         },
     );
 
@@ -137,15 +135,15 @@ export async function makeTargetLevels<T_ColourName extends string>(
         _lvlA?:
             | undefined
             | ColourUtilities.Levels.Required
-            | ColourUtilities.Levels.Optional,
+            | T_Types['colour']['extraLevels'],
         _lvlB?:
             | undefined
             | ColourUtilities.Levels.Required
-            | ColourUtilities.Levels.Optional,
+            | T_Types['colour']['extraLevels'],
     ):
         | undefined
         | ColourUtilities.Levels.Required
-        | ColourUtilities.Levels.Optional => {
+        | T_Types['colour']['extraLevels'] => {
         // returns
         if (!_lvlA || !_lvlB) {
             return undefined;
@@ -160,15 +158,30 @@ export async function makeTargetLevels<T_ColourName extends string>(
         // if (num_A < 500 && num_B < 500) {
         //     return Math.min(num_A, num_B).toString() as
         //         | ColourUtilities.Levels.Required
-        //         | ColourUtilities.Levels.Optional;
+        //         | T_Types['colour']['extraLevels'];
         // }
 
         return Math.max(num_A, num_B).toString() as
             | ColourUtilities.Levels.Required
-            | ColourUtilities.Levels.Optional;
+            | T_Types['colour']['extraLevels'];
     };
 
-    for (const [level_a, level_b] of matchedPairs) {
+    for (const [_t_level_a, _t_level_b] of matchedPairs) {
+        // continues
+        if (
+            !current[_t_level_a as ColourUtilities.Levels.Required] ||
+            !current[_t_level_b as ColourUtilities.Levels.Required]
+        ) {
+            continue;
+        }
+
+        const level_a = _t_level_a as
+            | ColourUtilities.Levels.Required
+            | T_Types['colour']['extraLevels'];
+        const level_b = _t_level_b as
+            | ColourUtilities.Levels.Required
+            | T_Types['colour']['extraLevels'];
+
         const corrected_a = {
             min: {
                 aa: {
@@ -270,11 +283,16 @@ const shadeList_toc: ComponentProps<typeof TableOfContents>['menu'] = [
     })),
 ];
 
-const baseShades = {
-    white: tokens.colour.white,
+const baseShades: ShadeSwatchTableProps['colour']['base'] = {
     ...tokens.colour.base,
+    white: tokens.colour.white,
     black: tokens.colour.black,
 };
+
+const allColours = {
+    ...tokens.colour,
+    base: baseShades,
+} as ShadeSwatchTableProps['colour'];
 ---
 
 <TableOfContents
@@ -291,10 +309,7 @@ const baseShades = {
 <ShadeSwatchTable
     heading={3}
     id='all-colours'
-    colour={{
-        ...tokens.colour,
-        base: baseShades,
-    }}
+    colour={allColours}
     excludeLevels={excludeLevels}
     includeColourFormats={includeColourFormats}
     includeTargetLevels={includeTargetLevels}
@@ -305,6 +320,7 @@ const baseShades = {
 {
     (Object.keys(tokens.colour) as (keyof typeof tokens.colour)[]).map(
         (name) =>
+            tokens.colour[name] &&
             name !== 'black' &&
             name !== 'white' && (
                 <Toggle
@@ -318,7 +334,6 @@ const baseShades = {
                     />
                     <ShadeSwatchList
                         bases={baseShades}
-                        colour={tokens.colour[name]}
                         colour={
                             name === 'base' ? baseShades : tokens.colour[name]
                         }

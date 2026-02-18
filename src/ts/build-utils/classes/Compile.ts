@@ -9,8 +9,18 @@
  */
 
 import type {
+    Json,
+} from '@maddimathon/utility-typescript/types';
+
+import type {
+    CLI,
+    Config,
     Stage,
 } from '@maddimathon/build-utilities';
+
+import type {
+    SemVer,
+} from '@maddimathon/build-utilities/internal';
 
 import {
     CompileStage,
@@ -41,6 +51,25 @@ export class Compile extends CompileStage {
         'files',
     ];
 
+    /**
+     * @param config   Current project config.
+     * @param params   Current CLI params.
+     * @param args     Partial overrides for the default args.
+     * @param pkg      Parsed contents of the project’s package.json file.
+     * @param version  Version object for the project’s version.
+     */
+    constructor (
+        config: Config.Class,
+        params: CLI.Params,
+        args: Partial<Stage.Args.Compile>,
+        pkg?: Json.PackageJson,
+        version?: SemVer,
+    ) {
+        super( config, params, args, pkg, version );
+
+        this.buildTokens = this.buildTokens.bind( this );
+    }
+
 
     /**
      * Runs through the basics of a typical Compile.tokens substage. 
@@ -49,7 +78,7 @@ export class Compile extends CompileStage {
      */
     public async buildTokens(
         level: number,
-        tokens: Tokens.AnyInstance,
+        tokens: Tokens.Instance,
         _paths: {
 
             assets?: false | {
@@ -169,7 +198,7 @@ export class Compile extends CompileStage {
     }
 
     protected async buildTokens_writeJson(
-        tokens: Tokens.AnyInstance,
+        tokens: Tokens.Instance,
         paths: false | string[],
         level: number,
     ) {
@@ -190,7 +219,7 @@ export class Compile extends CompileStage {
     }
 
     protected async buildTokens_writeScss(
-        tokens: Tokens.AnyInstance,
+        tokens: Tokens.Instance,
         paths: false | string[],
         level: number,
     ) {
@@ -228,7 +257,7 @@ export class Compile extends CompileStage {
     }
 
     protected async buildTokens_writeIcons(
-        tokens: Tokens.AnyInstance,
+        tokens: Tokens.Instance,
         paths: false | string[],
         level: number,
     ) {
@@ -259,7 +288,7 @@ export class Compile extends CompileStage {
     }
 
     protected async buildTokens_writeLogos(
-        tokens: Tokens.AnyInstance,
+        tokens: Tokens.Instance,
         paths: false | string[],
         level: number,
     ) {

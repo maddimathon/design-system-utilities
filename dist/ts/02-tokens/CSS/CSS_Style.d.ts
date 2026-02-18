@@ -8,7 +8,7 @@
  * @license MIT
  */
 import type { RecursivePartial } from '@maddimathon/utility-typescript/types/objects';
-import type { RequiredHeadingLevels, ThemeMode_ContrastOption, TokenLevels } from '../@types.js';
+import type { RequiredHeadingLevels, TokenTypes, TokenLevels } from '../@types.js';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
@@ -186,7 +186,7 @@ export declare namespace Tokens_CSS_Style {
                 style: "normal" | "italic";
             };
             opacity: {
-                [C in Exclude<ThemeMode_ContrastOption, 'high' | 'max'>]?: string;
+                [C in Exclude<TokenTypes.Theme.Mode.ContrastOption, 'high' | 'max'>]?: string;
             };
         };
     };
@@ -234,7 +234,7 @@ export declare namespace Tokens_CSS_Style {
         selection: {
             background?: {
                 opacity?: {
-                    [C in Exclude<ThemeMode_ContrastOption, 'max'>]?: string;
+                    [C in Exclude<TokenTypes.Theme.Mode.ContrastOption, 'max'>]?: string;
                 };
             };
         };
@@ -266,7 +266,7 @@ export declare namespace Tokens_CSS_Style {
         selection?: {
             background?: {
                 opacity?: {
-                    [C in Exclude<ThemeMode_ContrastOption, 'max'>]?: string;
+                    [C in Exclude<TokenTypes.Theme.Mode.ContrastOption, 'max'>]?: string;
                 };
             };
         };

@@ -250,6 +250,22 @@ $_default_activeTheme_flat_mode: if(
         @return $value;
     }
 
+    // returns
+    @if not map.has-key($activeTheme_flat, $brightness) {
+        @if $warnOnFalse {
+            @warn "$brightness '#{$brightness}' was not a key in tokens.$themes__nestedFlat.#{$themeSlug}";
+        }
+        @return false;
+    }
+
+    // returns
+    @if not map.has-key($activeTheme_flat, $brightness, $contrast) {
+        @if $warnOnFalse {
+            @warn "$contrast '#{$contrast}' was not a key in tokens.$themes__nestedFlat.#{$themeSlug}.#{$brightness}";
+        }
+        @return false;
+    }
+
     $value: map.get($activeTheme_flat, $brightness, $contrast, $slug);
 
     // returns - no fallback

@@ -9,6 +9,7 @@
  */
 import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
 import { LocalErrors } from '../../01-utilities/Errors.js';
+import { objectGeneratorAsync } from '../../01-utilities/objectGenerator.js';
 import { objectMap } from '../../01-utilities/objectMap.js';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
 /**
@@ -82,6 +83,7 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
         shadeName;
         thisLevel;
         data;
+        contrast;
         /**
          * Allows for async building.
          */
@@ -91,20 +93,34 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
                 method: 'build',
                 ...context,
             }, opts);
-            return ColourUtilities.validateShade(input, errorMaker).then(data => new Shade(allNames, extraLevels, shadeName, thisLevel, data));
+            return Promise.all([
+                ColourUtilities.validateShade(input, errorMaker),
+                objectGeneratorAsync(allNames, async () => ({
+                    ui: {
+                        aa: undefined,
+                        aaa: undefined,
+                    },
+                    text: {
+                        aa: undefined,
+                        aaa: undefined,
+                    },
+                })),
+                objectGeneratorAsync(allNames, async () => undefined),
+                objectGeneratorAsync(allNames, async () => objectGeneratorAsync([...ColourUtilities.Levels.required, ...extraLevels], async () => undefined)),
+            ]).then(([data, contrast_min, contrast_max, contrast_results,]) => new Shade(allNames, extraLevels, shadeName, thisLevel, data, {
+                min: contrast_min,
+                max: contrast_max,
+                results: contrast_results,
+            }));
         }
-        contrast = {
-            min: {},
-            max: {},
-            results: {},
-        };
-        constructor(allNames, extraLevels, shadeName, thisLevel, data) {
+        constructor(allNames, extraLevels, shadeName, thisLevel, data, contrast) {
             super();
             this.allNames = allNames;
             this.extraLevels = extraLevels;
             this.shadeName = shadeName;
             this.thisLevel = thisLevel;
             this.data = data;
+            this.contrast = contrast;
         }
         /**
          * Adds the given shade to this shade's contrast results.
@@ -112,27 +128,15 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
          * @since 0.1.0-alpha
          */
         async addContrastTest(colourGroupName, level, testClr) {
-            if (typeof this.contrast.results[colourGroupName] === 'undefined') {
-                this.contrast.results[colourGroupName] = {};
-            }
-            const contrastTest = new ColourUtilities.ContrastTest(this.shadeValue(), testClr);
-            if (typeof this.contrast.min[colourGroupName] === 'undefined') {
-                this.contrast.min[colourGroupName] = {
-                    ui: undefined,
-                    text: undefined,
-                };
-            }
+            // const thisContrastTestResults = this.contrast.results[ colourGroupName ][ level ];
+            // let thisContrastTestMinimums = this.contrast.min[ colourGroupName ];
+            // let thisContrastTestMaximums = this.contrast.max[ colourGroupName ];
+            const contrastTest = new ColourUtilities.ContrastTest(this.data, testClr);
             // SETTING MINIMUMS
             testNameLoop: for (const testName of ['ui', 'text']) {
                 // continues
                 if (!contrastTest.aa[testName] && !contrastTest.aaa[testName]) {
                     continue testNameLoop;
-                }
-                if (typeof this.contrast.min[colourGroupName][testName] === 'undefined') {
-                    this.contrast.min[colourGroupName][testName] = {
-                        aa: undefined,
-                        aaa: undefined,
-                    };
                 }
                 standardsLoop: for (const standard of ['aa', 'aaa']) {
                     // if it didn't pass, ignore this
@@ -141,9 +145,9 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
                     }
                     if (
                     // if there's no minimum, then this is the new minimum
-                    typeof this.contrast.min[colourGroupName][testName]?.[standard] === 'undefined'
+                    typeof this.contrast.min[colourGroupName][testName][standard] === 'undefined'
                         // this result is less than the existing minimum
-                        || contrastTest.ratio < this.contrast.min[colourGroupName][testName]?.[standard].ratio) {
+                        || contrastTest.ratio < this.contrast.min[colourGroupName][testName][standard].ratio) {
                         this.contrast.min[colourGroupName][testName][standard] = {
                             name: colourGroupName,
                             level,
@@ -164,35 +168,14 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
                     ratio: contrastTest.ratio,
                 };
             }
-            this.contrast.results[colourGroupName][level] = {
-                ...contrastTest.toJSON(),
-            };
-        }
-        shadeValue() {
-            return {
-                hex: this.data.hex,
-                hsl: this.data.hsl,
-                rgb: this.data.rgb,
-                lch: this.data.lch,
-            };
+            this.contrast.results[colourGroupName][level] = contrastTest.toJSON();
         }
         toJSON() {
-            const max = this.contrast.max;
-            const min = objectMap(this.contrast.min, ([key, testGroup]) => ({
-                ui: testGroup?.ui && {
-                    aa: testGroup.ui.aa,
-                    aaa: testGroup.ui.aaa,
-                },
-                text: testGroup?.text && {
-                    aa: testGroup.text.aa,
-                    aaa: testGroup.text.aaa,
-                },
-            }));
             return {
-                ...this.shadeValue(),
+                ...this.data,
                 contrast: {
-                    max,
-                    min,
+                    max: this.contrast.max,
+                    min: this.contrast.min,
                     results: this.contrast.results,
                 },
             };

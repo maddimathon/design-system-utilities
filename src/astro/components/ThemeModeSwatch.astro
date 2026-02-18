@@ -8,6 +8,7 @@
 /* import - types */
 import type { HTMLAttributes } from 'astro/types';
 import type { RecursiveRecord } from '../../ts/01-utilities/@types.d.ts';
+import type { TokenTypes } from '../../ts/02-tokens/@types.js';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
 import type { Tokens_Themes_Set } from '../../ts/02-tokens/Themes/Themes_Set.js';
@@ -30,48 +31,13 @@ import LoremIpsum from './LoremIpsum.astro';
 
 /* import - layouts */
 
-/* TYPES ===================================== */
-
-type _ButtonVariation = {
-    name: string;
-    states: {
-        [ K in keyof Tokens_Themes_Set.SingleMode.Data.Button<string, never>['bg'] ]: {
-
-            [ K in keyof Tokens_Themes_Set.SingleMode.Data.Button<string, never> ]: undefined | {
-                state: null | Exclude<
-                    keyof Tokens_Themes_Set.SingleMode.Data.Button<string, never>['bg'],
-                    '$'
-                >;
-                key: string;
-                value: string | string[] ;
-            };
-        };
-    };
-};
-
-type _ParsedInputField = {
-    [ InputType in keyof Tokens.Themes.SingleMode.JsonReturn['data']['input'] ]: {
-        [ K in keyof Tokens.Themes.SingleMode.JsonReturn['data']['input'][InputType]['text'] ]: {
-
-            [ K in keyof Tokens.Themes.SingleMode.JsonReturn['data']['input'][InputType] ]: {
-                state: null | Exclude<
-                    keyof Tokens.Themes.SingleMode.JsonReturn['data']['input'][InputType]['text'],
-                    '$'
-                >;
-                variation: "$" | "disabled" | "readonly",
-                label: string;
-                key: string;
-                clrSlug: string | string[];
-            };
-        };
-    };
-};
-
 /* PROPS ===================================== */
 
-export interface Props extends Omit<HTMLAttributes<'div'>, 'class'> {
+export interface Props<
+    T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+> extends Omit<HTMLAttributes<'div'>, 'class'> {
     heading: number;
-    theme: Tokens.Themes.SingleMode.JsonReturn;
+    theme: Tokens_Themes_Set.SingleMode.JsonReturn<T_Types['colour'], T_Types['theme']>;
     tokens: Tokens.JsonReturn;
 
     displayMode: 'preview' | 'tokens';
@@ -98,6 +64,54 @@ const {
     tokens,
     ...attributes
 }: Props = Astro.props;
+
+/* TYPES ===================================== */
+
+type _DefClrParams<
+    T_ExtraColourLevels extends ColourUtilities.Levels.Optional = never,
+> = {
+    names: string;
+    extraLevels: T_ExtraColourLevels;
+};
+
+type SingleThemeMode_Json<
+    T_ExtraColourLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional,
+> = Tokens_Themes_Set.SingleMode.JsonReturn<_DefClrParams<T_ExtraColourLevels>, TokenTypes.Theme.TypeParams>;
+
+type _ButtonVariation = {
+    name: string;
+    states: {
+        [ K in keyof Tokens_Themes_Set.SingleMode.Data.Button<_DefClrParams>['bg'] ]: {
+
+            [ K in keyof Tokens_Themes_Set.SingleMode.Data.Button<_DefClrParams> ]: undefined | {
+                state: null | Exclude<
+                    keyof Tokens_Themes_Set.SingleMode.Data.Button<_DefClrParams>['bg'],
+                    '$'
+                >;
+                key: string;
+                value: string | string[] ;
+            };
+        };
+    };
+};
+
+type _ParsedInputField = {
+    [ InputType in keyof SingleThemeMode_Json['data']['input'] ]: {
+        [ K in keyof SingleThemeMode_Json['data']['input'][InputType]['text'] ]: {
+
+            [ K in keyof SingleThemeMode_Json['data']['input'][InputType] ]: {
+                state: null | Exclude<
+                    keyof SingleThemeMode_Json['data']['input'][InputType]['text'],
+                    '$'
+                >;
+                variation: "$" | "disabled" | "readonly",
+                label: string;
+                key: string;
+                clrSlug: string | string[];
+            };
+        };
+    };
+};
 
 /* FUNCTIONS ===================================== */
 
@@ -241,8 +255,8 @@ const levelsInUseTable = theme.levelsInUse.map(
 
                 const textColor = textColorLevel( value );
 
-                let background: Tokens_Colour_ShadeMap.Shade.JsonReturn<string, ColourUtilities.Levels.Optional>;
-                let color: Tokens_Colour_ShadeMap.Shade.JsonReturn<string, ColourUtilities.Levels.Optional>;
+                let background: Tokens_Colour_ShadeMap.Shade.JsonReturn<_DefClrParams<ColourUtilities.Levels.Optional>>;
+                let color: Tokens_Colour_ShadeMap.Shade.JsonReturn<_DefClrParams<ColourUtilities.Levels.Optional>>;
 
                 switch ( value ) {
 

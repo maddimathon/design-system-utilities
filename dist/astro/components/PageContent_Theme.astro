@@ -67,27 +67,29 @@ const parsedSets = Object.values(
                     ? false
                     :  brightness === 'forcedColours' 
                         ? false
-                        : {
-                            name: brightness,
-                            label: toTitleCase(`${key} — ${brightness} Mode`),
-                            href: `${key}-${brightness}-mode`,
-                            values: Object.values(
-                                objectMap(
-                                    theme[brightness],
-                                    ([ contrast,  theme ]): {
-                                        id: string,
-                                        brightness: "light"|"dark",
-                                        contrast: "low"|"average"|"high"|"max",
-                                        theme: typeof theme,
-                                    } => ({
-                                        id: `theme-${key}-${contrast}`,
-                                        brightness,
-                                        contrast,
-                                        theme,
-                                    })
-                                )
-                            ),
-                        }
+                        : theme[brightness]
+                            ? {
+                                name: brightness,
+                                label: toTitleCase(`${key} — ${brightness} Mode`),
+                                href: `${key}-${brightness}-mode`,
+                                values: Object.values(
+                                    objectMap(
+                                        theme[brightness],
+                                        ([ contrast,  theme ]): {
+                                            id: string,
+                                            brightness: "light"|"dark",
+                                            contrast: "low"|"average"|"high"|"max",
+                                            theme: typeof theme,
+                                        } => ({
+                                            id: `theme-${key}-${contrast}`,
+                                            brightness,
+                                            contrast,
+                                            theme,
+                                        })
+                                    )
+                                ),
+                            }
+                            : false
             )
         ).filter((v) => v !== false),
     }))

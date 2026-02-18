@@ -31,29 +31,48 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
  * 
  * @since 0.1.0-alpha
  */
-export class Tokens_Themes_Set<T_Types extends TokenTypes.Theme.TypeParams> extends AbstractTokens<{
-    data: Tokens_Themes_Set.Data<T_Types>;
-    json: Tokens_Themes_Set.JsonReturn<T_Types>;
-    scss: Tokens_Themes_Set.ScssVars<T_Types>;
+export class Tokens_Themes_Set<
+    T_ColourTypes extends TokenTypes.Colour.TypeParams,
+    T_ThemeTypes extends TokenTypes.Theme.TypeParams,
+> extends AbstractTokens<{
+    data: Tokens_Themes_Set.Data<T_ColourTypes, T_ThemeTypes>;
+    json: Tokens_Themes_Set.JsonReturn<T_ColourTypes, T_ThemeTypes>;
+    scss: Tokens_Themes_Set.ScssVars<T_ColourTypes, T_ThemeTypes>;
 }> {
 
     /**
      * Used instead of the constructor so that it can be async.
      */
-    public static async build<T_Types extends TokenTypes.Theme.TypeParams>(
-        name: T_ThemeName,
-        clrNames: readonly T_Types[ 'colour' ][ 'name' ][],
-        extraColourLevels: readonly T_ExtraColourLevels[],
-        brightnessModes: readonly T_ThemeBrightnessMode[],
-        contrastModes: readonly T_ThemeContrastMode[],
+    public static async build<
+        T_ColourTypes extends TokenTypes.Colour.TypeParams,
+        T_ThemeTypes extends TokenTypes.Theme.TypeParams,
+    >(
+        name: T_ThemeTypes[ 'name' ],
+        clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes[ 'names' ]>,
+        extraColourLevels: readonly T_ColourTypes[ 'extraLevels' ][],
+        brightnessModes: T_ThemeTypes[ 'brightness' ],
+        contrastModes: T_ThemeTypes[ 'contrast' ],
 
-        input: Tokens_Themes_Set.InputParam<T_Types>,
+        input: Tokens_Themes_Set.InputParam<T_ColourTypes, T_ThemeTypes>,
     ) {
+        const allBrightnessModes = [
+            'light',
+            'dark',
+            ...brightnessModes,
+        ] as const satisfies TokenTypes.Theme.Mode.Brightness<T_ThemeTypes[ 'brightness' ]>;
+
+        const allContrastModes = [
+            'low',
+            'average',
+            'high',
+            ...contrastModes,
+        ] as const satisfies TokenTypes.Theme.Mode.Contrast<T_ThemeTypes[ 'contrast' ]>;
 
         const forcedColours: Promise<Tokens_Themes_Set.SingleMode<
-            T_Types,
+            T_ColourTypes,
+            T_ThemeTypes,
             TokenTypes.Css.SystemColor
-        >> = Tokens_Themes_Set.SingleMode.build(
+        >> = Tokens_Themes_Set.SingleMode.build<T_ColourTypes, T_ThemeTypes>(
             'forcedColors',
             clrNames,
             {
@@ -63,18 +82,16 @@ export class Tokens_Themes_Set<T_Types extends TokenTypes.Theme.TypeParams> exte
             input.forcedColours?.overrides
         );
 
-        const modes: Promise<{
-            [ B in T_Types[ 'brightness' ] ]: {
-                [ C in T_Types[ 'contrast' ] ]:
-                Tokens_Themes_Set.SingleMode<T_Types>;
-            };
-        }> = objectGeneratorAsync(
-            brightnessModes,
-            async ( brightness: T_Types[ 'brightness' ] ) =>
+        const modes: Promise<TokenTypes.Theme.Mode.NestedObject<
+            T_ThemeTypes,
+            Tokens_Themes_Set.SingleMode<T_ColourTypes, T_ThemeTypes>
+        >> = objectGeneratorAsync(
+            allBrightnessModes,
+            async ( brightness ) =>
                 objectGeneratorAsync(
-                    contrastModes,
-                    async ( contrast: T_Types[ 'contrast' ] ) =>
-                        Tokens_Themes_Set.SingleMode.build<T_Types>(
+                    allContrastModes,
+                    async ( contrast ) =>
+                        Tokens_Themes_Set.SingleMode.build<T_ColourTypes, T_ThemeTypes>(
                             contrast,
                             clrNames,
                             {
@@ -96,7 +113,7 @@ export class Tokens_Themes_Set<T_Types extends TokenTypes.Theme.TypeParams> exte
         ] ).then( ( ( [
             forcedColours_resolved,
             modes_resolved,
-        ] ) => new Tokens_Themes_Set<T_Types>(
+        ] ) => new Tokens_Themes_Set<T_ColourTypes, T_ThemeTypes>(
             name,
             clrNames,
             extraColourLevels,
@@ -107,7 +124,7 @@ export class Tokens_Themes_Set<T_Types extends TokenTypes.Theme.TypeParams> exte
         ) ) );
     }
 
-    public get data(): Tokens_Themes_Set.Data<T_Types> {
+    public get data(): Tokens_Themes_Set.Data<T_ColourTypes, T_ThemeTypes> {
         return {
             name: this.name ?? 'default',
 
@@ -116,7 +133,10 @@ export class Tokens_Themes_Set<T_Types extends TokenTypes.Theme.TypeParams> exte
                 ( [ brightnessMode ] ) => objectMap(
                     this.modes[ brightnessMode ],
                     ( [ __key, value ] ) => value.data
-                )
+                ) as TokenTypes.Theme.Mode.ContrastRecord<
+                    T_ThemeTypes,
+                    Tokens_Themes_Set.SingleMode.Data<T_ColourTypes, T_ThemeTypes>
+                >
             ),
 
             forcedColours: this.forcedColours.data,
@@ -126,25 +146,23 @@ export class Tokens_Themes_Set<T_Types extends TokenTypes.Theme.TypeParams> exte
 
     protected constructor (
         /** Name for this shade set. */
-        protected readonly name: T_ThemeName,
-        protected readonly clrNames: readonly T_Types[ 'colour' ][ 'name' ][],
-        protected readonly extraColourLevels: readonly T_ExtraColourLevels[],
-        protected readonly brightnessModes: readonly T_ThemeBrightnessMode[ number ][],
-        protected readonly contrastModes: readonly T_ThemeContrastMode[ number ][],
+        protected readonly name: T_ThemeTypes[ 'name' ],
+        protected readonly clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes[ 'names' ]>,
+        protected readonly extraColourLevels: readonly T_ColourTypes[ 'extraLevels' ][],
+        protected readonly brightnessModes: readonly TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>[],
+        protected readonly contrastModes: readonly TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>[],
 
-        protected readonly forcedColours: Tokens_Themes_Set.SingleMode<T_Types>,
+        protected readonly forcedColours: Tokens_Themes_Set.SingleMode<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>,
 
-        protected readonly modes: {
-            [ B in T_ThemeBrightnessMode[ number ] ]: {
-                [ C in T_ThemeContrastMode[ number ] ]:
-                Tokens_Themes_Set.SingleMode<T_Types>;
-            };
-        },
+        protected readonly modes: TokenTypes.Theme.Mode.NestedObject<
+            T_ThemeTypes,
+            Tokens_Themes_Set.SingleMode<T_ColourTypes, T_ThemeTypes>
+        >,
     ) {
         super();
     }
 
-    public toJSON(): Tokens_Themes_Set.JsonReturn<T_Types> {
+    public toJSON(): Tokens_Themes_Set.JsonReturn<T_ColourTypes, T_ThemeTypes> {
 
         const allLevelsInUse = objectMap(
             this.modes,
@@ -170,22 +188,24 @@ export class Tokens_Themes_Set<T_Types extends TokenTypes.Theme.TypeParams> exte
         return {
             name: this.name ?? 'default',
 
+            forcedColours: this.forcedColours.toJSON(),
+
             ...objectMap(
                 this.modes,
                 ( [ brightnessMode ] ) => objectMap(
                     this.modes[ brightnessMode ],
                     ( [ __key, value ] ) => value.toJSON()
-                )
+                ) as TokenTypes.Theme.Mode.ContrastRecord<
+                    T_ThemeTypes,
+                    Tokens_Themes_Set.SingleMode.JsonReturn<T_ColourTypes, T_ThemeTypes>
+                >
             ),
-
-            forcedColours: this.forcedColours.toJSON(),
 
             levelsInUse: arrayUnique( levelsInUse.concat( levelsInUse_dark ) ).sort(),
         };
     }
 
-    public toScssVars(): Tokens_Themes_Set.ScssVars<T_Types> {
-
+    public toScssVars(): Tokens_Themes_Set.ScssVars<T_ColourTypes, T_ThemeTypes> {
         return {
             'forced-colors': this.forcedColours.toScssVars(),
             ...objectMap(
@@ -193,7 +213,10 @@ export class Tokens_Themes_Set<T_Types extends TokenTypes.Theme.TypeParams> exte
                 ( [ brightnessMode ] ) => objectMap(
                     this.modes[ brightnessMode ],
                     ( [ __key, value ] ) => value.toScssVars()
-                )
+                ) as TokenTypes.Theme.Mode.ContrastRecord<
+                    T_ThemeTypes,
+                    Tokens_Themes_Set.SingleMode.ScssVars<T_ColourTypes, T_ThemeTypes>
+                >
             ),
         };
     }
@@ -209,64 +232,64 @@ export namespace Tokens_Themes_Set {
     /**
      * @since 0.1.0-alpha
      */
-    export type Data<T_Types extends TokenTypes.Theme.TypeParams> = {
-        name: T_Types[ 'name' ];
-        forcedColours: Tokens_Themes_Set.SingleMode.Data<
-            T_Types,
-            TokenTypes.Css.SystemColor
-        >;
-    } & {
-        [ B in T_Types[ 'brightness' ] ]?: {
-            [ C in T_Types[ 'contrast' ] ]?: Tokens_Themes_Set.SingleMode.Data<T_Types>;
-        };
-    };
+    export type Data<
+        T_ColourTypes extends TokenTypes.Colour.TypeParams,
+        T_ThemeTypes extends TokenTypes.Theme.TypeParams,
+    > = {
+        name: T_ThemeTypes[ 'name' ];
+        forcedColours: Tokens_Themes_Set.SingleMode.Data<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>;
+    } & TokenTypes.Theme.Mode.NestedObject<
+        T_ThemeTypes,
+        Tokens_Themes_Set.SingleMode.Data<T_ColourTypes, T_ThemeTypes>
+    >;
 
     /**
      * @since 0.1.0-alpha
      */
-    export type InputParam<T_Types extends TokenTypes.Theme.TypeParams> = {
-        name: T_Types[ 'name' ];
-        variations?: Tokens_Themes_Set.SingleMode.InputParam<T_Types>[ 'variations' ];
+    export type InputParam<
+        T_ColourTypes extends TokenTypes.Colour.TypeParams,
+        T_ThemeTypes extends TokenTypes.Theme.TypeParams,
+    > = {
+        name: T_ThemeTypes[ 'name' ];
+        variations?: Tokens_Themes_Set.SingleMode.InputParam<T_ColourTypes, T_ThemeTypes>[ 'variations' ];
         forcedColours?: Omit<
-            Tokens_Themes_Set.SingleMode.InputParam<
-                T_Types,
-                TokenTypes.Css.SystemColor
-            >,
+            Tokens_Themes_Set.SingleMode.InputParam<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>,
             "levels" | "variations"
         > & {
-            overrides?: Tokens_Themes_Set.SingleMode.Data.RecursivePartial<T_Types>,
+            overrides?: Tokens_Themes_Set.SingleMode.Data.RecursivePartial<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>,
         };
-    } & {
-        [ B in T_Types[ 'brightness' ] ]?: {
-            [ C in T_Types[ 'contrast' ] ]?: Tokens_Themes_Set.SingleMode.InputParam<T_Types> & {
-                overrides?: Tokens_Themes_Set.SingleMode.Data.RecursivePartial<T_Types>,
-            };
-        };
-    };
+    } & TokenTypes.Theme.Mode.PartialNestedObject<
+        T_ThemeTypes,
+        Tokens_Themes_Set.SingleMode.InputParam<T_ColourTypes, T_ThemeTypes>
+    >;
 
     /**
      * @since 0.1.0-alpha
      */
-    export type JsonReturn<T_Types extends TokenTypes.Theme.TypeParams> = {
-        name: T_Types[ 'name' ];
+    export type JsonReturn<
+        T_ColourTypes extends TokenTypes.Colour.TypeParams,
+        T_ThemeTypes extends TokenTypes.Theme.TypeParams,
+    > = {
+        name: T_ThemeTypes[ 'name' ];
         levelsInUse: ( "black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional )[];
-        forcedColours: Tokens_Themes_Set.SingleMode.JsonReturn<T_Types, TokenTypes.Css.SystemColor>;
-    } & {
-        [ B in T_Types[ 'brightness' ] ]: {
-            [ C in T_Types[ 'contrast' ] ]: Tokens_Themes_Set.SingleMode.JsonReturn<T_Types>;
-        };
-    };
+        forcedColours: Tokens_Themes_Set.SingleMode.JsonReturn<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>;
+    } & TokenTypes.Theme.Mode.NestedObject<
+        T_ThemeTypes,
+        Tokens_Themes_Set.SingleMode.JsonReturn<T_ColourTypes, T_ThemeTypes>
+    >;
 
     /**
      * @since ___PKG_VERSION___
      */
-    export type ScssVars<T_Types extends TokenTypes.Theme.TypeParams> = {
-        'forced-colors': Tokens_Themes_Set.SingleMode.ScssVars<T_Types>;
-    } & {
-        [ B in T_Types[ 'brightness' ] ]: {
-            [ C in T_Types[ 'contrast' ] ]: Tokens_Themes_Set.SingleMode.ScssVars<T_Types>;
-        };
-    };
+    export type ScssVars<
+        T_ColourTypes extends TokenTypes.Colour.TypeParams,
+        T_ThemeTypes extends TokenTypes.Theme.TypeParams,
+    > = {
+        'forced-colors': Tokens_Themes_Set.SingleMode.ScssVars<T_ColourTypes, T_ThemeTypes>;
+    } & TokenTypes.Theme.Mode.NestedObject<
+        T_ThemeTypes,
+        Tokens_Themes_Set.SingleMode.ScssVars<T_ColourTypes, T_ThemeTypes>
+    >;
 
     /**
      * Generates a complete token object for the design system.
@@ -275,66 +298,88 @@ export namespace Tokens_Themes_Set {
      * @since ___PKG_VERSION___ — Moved to {@link Tokens_Themes_Set} and renamed.
      */
     export class SingleMode<
-        T_Types extends TokenTypes.Theme.TypeParams,
-        __T_ColourOption extends TokenTypes.Theme.ColourOption<T_Types[ 'colour' ]> = TokenTypes.Theme.ColourOption<T_Types[ 'colour' ]>,
+        T_ColourTypes extends TokenTypes.Colour.TypeParams,
+        T_ThemeTypes extends TokenTypes.Theme.TypeParams,
+        __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>,
     > extends AbstractTokens<{
-        data: SingleMode.Data<T_Types, __T_ColourOption>;
-        json: SingleMode.JsonReturn<T_Types, __T_ColourOption>;
-        scss: SingleMode.ScssVars<T_Types, __T_ColourOption>;
+        data: SingleMode.Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption>;
+        json: SingleMode.JsonReturn<T_ColourTypes, T_ThemeTypes, __T_ColourOption>;
+        scss: SingleMode.ScssVars<T_ColourTypes, T_ThemeTypes, __T_ColourOption>;
     }> {
 
-        public static async build<T_Types extends TokenTypes.Theme.TypeParams>(
+        public static async build<
+            T_ColourTypes extends TokenTypes.Colour.TypeParams,
+            T_ThemeTypes extends TokenTypes.Theme.TypeParams,
+        >(
             preset: "forcedColors",
-            clrNames: readonly T_Types[ 'colour' ][ 'name' ][],
-            input: SingleMode.InputParam<T_Types>,
+            clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes[ 'names' ]>,
 
-            overrides?: SingleMode.Data.RecursivePartial<NoInfer<T_Types>>,
-        ): Promise<
-            SingleMode<T_Types>
-        >;
+            input: SingleMode.InputParam<
+                NoInfer<T_ColourTypes>,
+                T_ThemeTypes,
+                TokenTypes.Css.SystemColor
+            >,
+            overrides?: SingleMode.Data.RecursivePartial<
+                NoInfer<T_ColourTypes>,
+                NoInfer<T_ThemeTypes>,
+                TokenTypes.Css.SystemColor
+            >,
+        ): Promise<SingleMode<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>>;
 
-        public static async build<T_Types extends TokenTypes.Theme.TypeParams>(
+        public static async build<
+            T_ColourTypes extends TokenTypes.Colour.TypeParams,
+            T_ThemeTypes extends TokenTypes.Theme.TypeParams,
+        >(
             preset: "low" | "average" | "high" | "max",
-            clrNames: readonly T_Types[ 'colour' ][ 'name' ][],
-            input: SingleMode.InputParam<T_Types>,
+            clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes[ 'names' ]>,
 
-            overrides?: SingleMode.Data.RecursivePartial<NoInfer<T_Types>>,
-        ): Promise<
-            SingleMode<T_Types>
-        >;
+            input: SingleMode.InputParam<
+                NoInfer<T_ColourTypes>,
+                T_ThemeTypes
+            >,
+            overrides?: SingleMode.Data.RecursivePartial<
+                NoInfer<T_ColourTypes>,
+                NoInfer<T_ThemeTypes>
+            >,
+        ): Promise<SingleMode<T_ColourTypes, T_ThemeTypes>>;
 
         /**
          * An easy way to generate a complete token set from limited inputs.
          * 
          * @since 0.1.0-alpha
          */
-        public static async build<T_Types extends TokenTypes.Theme.TypeParams>(
+        public static async build<
+            T_ColourTypes extends TokenTypes.Colour.TypeParams,
+            T_ThemeTypes extends TokenTypes.Theme.TypeParams,
+        >(
             preset: "low" | "average" | "high" | "max" | "forcedColors",
-            clrNames: readonly T_Types[ 'colour' ][ 'name' ][],
+            clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes[ 'names' ]>,
 
-            input: SingleMode.InputParam<T_Types>,
-
-            overrides: SingleMode.Data.RecursivePartial<T_Types> = {},
-
-        ): Promise<
-            SingleMode<T_Types>
-        > {
+            input: SingleMode.InputParam<
+                NoInfer<T_ColourTypes>,
+                T_ThemeTypes
+            >,
+            overrides: SingleMode.Data.RecursivePartial<
+                NoInfer<T_ColourTypes>,
+                NoInfer<T_ThemeTypes>
+            > = {},
+        ): Promise<SingleMode<T_ColourTypes, T_ThemeTypes>> {
             const defaultLevels: SingleMode.Levels.Required<never> = preset !== 'forcedColors'
                 ? SingleMode.Levels.DEFAULT[ preset ]
                 : SingleMode.Levels.DEFAULT.max;
 
-            const levels = SingleMode.Levels.parse<T_ExtraColourLevels>(
+            const levels = SingleMode.Levels.parse<T_ColourTypes[ 'extraLevels' ]>(
                 defaultLevels,
                 input.levels,
             );
 
-            const variations = SingleMode.Build.completeVariations<T_Types>( clrNames, input.variations );
+            const variations = SingleMode.Build.completeVariations<T_ColourTypes, T_ThemeTypes>( clrNames, input.variations );
 
             const clrOpt = SingleMode.Build.colourOption;
 
             let description: null | string = input.description ?? null;
 
-            let defaultOverrides: SingleMode.Data.RecursivePartial<NoInfer<T_Types>> = {};
+            let defaultOverrides: SingleMode.Data.RecursivePartial<T_ColourTypes, T_ThemeTypes> = {};
 
             // returns if forced colours
             switch ( preset ) {
@@ -343,8 +388,8 @@ export namespace Tokens_Themes_Set {
                     description = description ?? 'This is the default contrast mode for most users, unless they have defined a specific preference (‘low’, ‘high’, or ‘forced-colors’) in their OS or browser settings.  It meets or exceeds WCAG AAA contrast standards.';
 
                     defaultOverrides.selection = {
-                        bg: clrOpt( variations.universal.primary, '300' as T_ExtraColourLevels | ColourUtilities.Levels.Required ),
-                        text: clrOpt( variations.base, '800' as T_ExtraColourLevels | ColourUtilities.Levels.Required ),
+                        bg: clrOpt( variations.universal.primary, '300' as T_ColourTypes[ 'extraLevels' ] | ColourUtilities.Levels.Required ),
+                        text: clrOpt( variations.base, '800' as T_ColourTypes[ 'extraLevels' ] | ColourUtilities.Levels.Required ),
                     };
                     break;
 
@@ -352,8 +397,8 @@ export namespace Tokens_Themes_Set {
                     description = description ?? 'This is the low contrast mode.  This is the default for users who set ‘low’ as their preferred contrast mode in their OS or browser settings.  It mostly meets WCAG AA contrast standards, but in rare cases does not (which is acceptable in this case).';
 
                     defaultOverrides.selection = {
-                        bg: clrOpt( variations.universal.primary, '300' as T_ExtraColourLevels | ColourUtilities.Levels.Required ),
-                        text: clrOpt( variations.base, '800' as T_ExtraColourLevels | ColourUtilities.Levels.Required ),
+                        bg: clrOpt( variations.universal.primary, '300' as T_ColourTypes[ 'extraLevels' ] | ColourUtilities.Levels.Required ),
+                        text: clrOpt( variations.base, '800' as T_ColourTypes[ 'extraLevels' ] | ColourUtilities.Levels.Required ),
                     };
                     break;
 
@@ -370,8 +415,8 @@ export namespace Tokens_Themes_Set {
 
                         ...objectGenerator(
                             arrayUnique( [
-                                ...Object.keys( variations.universal ) as T_Keyword_Universal[],
-                                ...Object.keys( variations.background ) as T_Keyword_Background[],
+                                ...Object.keys( variations.universal ) as T_ThemeTypes[ 'variations' ][ 'universal' ][],
+                                ...Object.keys( variations.background ) as T_ThemeTypes[ 'variations' ][ 'background' ][],
                             ] ),
                             () => 'white'
                         ),
@@ -381,8 +426,8 @@ export namespace Tokens_Themes_Set {
 
                         ...objectGenerator(
                             arrayUnique( [
-                                ...Object.keys( variations.universal ) as T_Keyword_Universal[],
-                                ...Object.keys( variations.text ) as T_Keyword_Background[],
+                                ...Object.keys( variations.universal ) as T_ThemeTypes[ 'variations' ][ 'universal' ][],
+                                ...Object.keys( variations.text ) as T_ThemeTypes[ 'variations' ][ 'background' ][],
                             ] ),
                             () => 'black'
                         ),
@@ -392,24 +437,24 @@ export namespace Tokens_Themes_Set {
 
                         ...objectGenerator(
                             arrayUnique( [
-                                ...Object.keys( variations.universal ) as T_Keyword_Universal[],
-                                ...Object.keys( variations.text ) as T_Keyword_Background[],
+                                ...Object.keys( variations.universal ) as T_ThemeTypes[ 'variations' ][ 'universal' ][],
+                                ...Object.keys( variations.text ) as T_ThemeTypes[ 'variations' ][ 'background' ][],
                             ] ),
                             () => 'black'
                         ),
                     };
 
                     defaultOverrides.selection = {
-                        bg: clrOpt( variations.universal.primary, '850' as T_ExtraColourLevels | ColourUtilities.Levels.Required ),
-                        text: clrOpt( variations.base, '100' as T_ExtraColourLevels | ColourUtilities.Levels.Required ),
+                        bg: clrOpt( variations.universal.primary, '850' as T_ColourTypes[ 'extraLevels' ] | ColourUtilities.Levels.Required ),
+                        text: clrOpt( variations.base, '100' as T_ColourTypes[ 'extraLevels' ] | ColourUtilities.Levels.Required ),
                     };
                     break;
 
                 case 'forcedColors':
-                    const _input: SingleMode.Build.Param_ForcedColors<T_Types> = {
+                    const _input: SingleMode.Build.Param_ForcedColors<T_ColourTypes, T_ThemeTypes> = {
                         ...input,
 
-                        variations: SingleMode.Build.completeVariations<T_Types>( clrNames, input.variations ),
+                        variations: SingleMode.Build.completeVariations<T_ColourTypes, T_ThemeTypes>( clrNames, input.variations ),
                     };
 
                     return new SingleMode(
@@ -427,7 +472,7 @@ export namespace Tokens_Themes_Set {
                 ) as AnyLevel[]
             ).concat(
                 Object.values(
-                    objectFlatten( overrides as RecursiveRecord<string, TokenTypes.Theme.ColourOption<T_Types[ 'colour' ]>> )
+                    objectFlatten( overrides as RecursiveRecord<string, TokenTypes.Theme.ColourOption<T_ColourTypes>> )
                 ).map( ( val ): AnyLevel | false => {
 
                     const match = String( val ).match( /\-(\d+)$/ );
@@ -443,7 +488,7 @@ export namespace Tokens_Themes_Set {
 
             const levelsInUse = arrayUnique( allLevelsInUse ).sort();
 
-            return SingleMode.Build.data<T_Types>( {
+            return SingleMode.Build.data<T_ColourTypes, T_ThemeTypes>( {
                 levels,
                 variations,
             } ).then(
@@ -456,7 +501,7 @@ export namespace Tokens_Themes_Set {
                             defaultOverrides,
                             overrides,
                             true,
-                        ) as RecursivePartial<SingleMode.Data<T_Types>>,
+                        ) as RecursivePartial<SingleMode.Data<T_ColourTypes, T_ThemeTypes>>,
                         true,
                     ),
                 )
@@ -466,12 +511,12 @@ export namespace Tokens_Themes_Set {
         protected constructor (
             public readonly description: null | string,
             public readonly levelsInUse: ( "black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional )[],
-            public readonly data: SingleMode.Data<T_Types>,
+            public readonly data: SingleMode.Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption>,
         ) {
             super();
         }
 
-        public toJSON(): SingleMode.JsonReturn<T_Types> {
+        public toJSON(): SingleMode.JsonReturn<T_ColourTypes, T_ThemeTypes, __T_ColourOption> {
 
             const levelsInUse = this.levelsInUse.map( ( light ) => ( {
                 light,
@@ -486,89 +531,7 @@ export namespace Tokens_Themes_Set {
             };
         }
 
-        public toScssVars() {
-
-            type System = {
-
-                accent: {
-                    bg: __T_ColourOption;
-                    text: __T_ColourOption;
-                };
-
-                background: {
-                    $: __T_ColourOption;
-                };
-
-                button: {
-
-                    bg: {
-                        $: __T_ColourOption;
-                        active: __T_ColourOption;
-                        hover: __T_ColourOption;
-                    };
-
-                    border: {
-                        $: __T_ColourOption;
-                        active: __T_ColourOption;
-                        hover: __T_ColourOption;
-                    };
-
-                    text: {
-                        $: __T_ColourOption;
-                        active: __T_ColourOption;
-                        hover: __T_ColourOption;
-                    };
-                };
-
-                input: {
-
-                    bg: {
-                        $: __T_ColourOption;
-                        active: __T_ColourOption;
-                        hover: __T_ColourOption;
-                    };
-
-                    border: {
-                        $: __T_ColourOption;
-                        active: __T_ColourOption;
-                        hover: __T_ColourOption;
-                    };
-
-                    text: {
-                        $: __T_ColourOption;
-                        active: __T_ColourOption;
-                        hover: __T_ColourOption;
-                    };
-                };
-
-                link: {
-                    $: __T_ColourOption;
-                    active: __T_ColourOption;
-                    hover: __T_ColourOption;
-                    visited: __T_ColourOption;
-                };
-
-                mark: {
-                    bg: __T_ColourOption;
-                    text: __T_ColourOption;
-                };
-
-                selected: {
-                    bg: __T_ColourOption;
-                    text: __T_ColourOption;
-                };
-
-                selection: {
-                    bg: __T_ColourOption;
-                    text: __T_ColourOption;
-                };
-
-                text: {
-                    $: __T_ColourOption;
-                    active: __T_ColourOption;
-                    disabled: __T_ColourOption;
-                };
-            };
+        public toScssVars(): SingleMode.ScssVars<T_ColourTypes, T_ThemeTypes, __T_ColourOption> {
 
             return {
                 ...this.data,
@@ -598,8 +561,8 @@ export namespace Tokens_Themes_Set {
                         active: this.data.text.active,
                         disabled: this.data.text.disabled,
                     },
-                } satisfies System,
-            } satisfies SingleMode.ScssVars<T_Types>;
+                },
+            } satisfies SingleMode.ScssVars<T_ColourTypes, T_ThemeTypes, __T_ColourOption>;
         }
     }
 
@@ -628,41 +591,42 @@ export namespace Tokens_Themes_Set {
          * @since 0.1.0-alpha
          */
         export type Data<
-            T_Types extends TokenTypes.Theme.TypeParams,
-            __T_ColourOption extends TokenTypes.Theme.ColourOption<T_Types[ 'colour' ]> = TokenTypes.Theme.ColourOption<T_Types[ 'colour' ]>,
+            T_ColourTypes extends TokenTypes.Colour.TypeParams,
+            T_ThemeTypes extends TokenTypes.Theme.TypeParams,
+            __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>,
         > = {
             background: {
                 $: __T_ColourOption;
             } & {
-                [ K in keyof RequiredVariations<T_Types[ 'colour' ][ 'name' ]>[ 'background' ] ]: __T_ColourOption;
+                [ K in keyof RequiredVariations<T_ColourTypes[ 'names' ]>[ 'background' ] ]: __T_ColourOption;
             } & {
-                [ K in T_Keyword_Universal ]: __T_ColourOption;
+                [ K in T_ThemeTypes[ 'variations' ][ 'universal' ] ]: __T_ColourOption;
             } & {
-                [ K in T_Keyword_Background ]: __T_ColourOption;
+                [ K in T_ThemeTypes[ 'variations' ][ 'background' ] ]: __T_ColourOption;
             },
 
             text: {
                 $: __T_ColourOption,
             } & {
-                [ K in keyof RequiredVariations<T_Types[ 'colour' ][ 'name' ]>[ 'universal' ] ]: __T_ColourOption;
+                [ K in keyof RequiredVariations<T_ColourTypes[ 'names' ]>[ 'universal' ] ]: __T_ColourOption;
             } & {
-                [ K in keyof RequiredVariations<T_Types[ 'colour' ][ 'name' ]>[ 'text' ] ]: __T_ColourOption;
+                [ K in keyof RequiredVariations<T_ColourTypes[ 'names' ]>[ 'text' ] ]: __T_ColourOption;
             } & {
-                [ K in T_Keyword_Universal ]: __T_ColourOption;
+                [ K in T_ThemeTypes[ 'variations' ][ 'universal' ] ]: __T_ColourOption;
             } & {
-                [ K in T_Keyword_Text ]: __T_ColourOption;
+                [ K in T_ThemeTypes[ 'variations' ][ 'text' ] ]: __T_ColourOption;
             },
 
             ui: {
                 $: __T_ColourOption,
             } & {
-                [ K in keyof RequiredVariations<T_ColourName>[ 'universal' ] ]: __T_ColourOption;
+                [ K in keyof RequiredVariations<T_ColourTypes[ 'names' ]>[ 'universal' ] ]: __T_ColourOption;
             } & {
-                [ K in keyof RequiredVariations<T_ColourName>[ 'text' ] ]: __T_ColourOption;
+                [ K in keyof RequiredVariations<T_ColourTypes[ 'names' ]>[ 'text' ] ]: __T_ColourOption;
             } & {
-                [ K in T_Keyword_Universal ]: __T_ColourOption;
+                [ K in T_ThemeTypes[ 'variations' ][ 'universal' ] ]: __T_ColourOption;
             } & {
-                [ K in T_Keyword_Text ]: __T_ColourOption;
+                [ K in T_ThemeTypes[ 'variations' ][ 'text' ] ]: __T_ColourOption;
             },
 
             heading: {
@@ -683,7 +647,7 @@ export namespace Tokens_Themes_Set {
                     $: __T_ColourOption,
                     visited: __T_ColourOption,
                 } & {
-                    [ K in keyof RequiredVariations<T_ColourName>[ 'interactive' ] ]: __T_ColourOption;
+                    [ K in keyof RequiredVariations<T_ColourTypes[ 'names' ]>[ 'interactive' ] ]: __T_ColourOption;
                 },
 
                 /**
@@ -693,14 +657,14 @@ export namespace Tokens_Themes_Set {
                     $: __T_ColourOption,
                     visited: __T_ColourOption,
                 } & {
-                    [ K in keyof RequiredVariations<T_ColourName>[ 'interactive' ] ]: __T_ColourOption;
+                    [ K in keyof RequiredVariations<T_ColourTypes[ 'names' ]>[ 'interactive' ] ]: __T_ColourOption;
                 },
 
                 icon: {
                     $: __T_ColourOption,
                     visited: __T_ColourOption,
                 } & {
-                    [ K in keyof RequiredVariations<T_ColourName>[ 'interactive' ] ]: __T_ColourOption;
+                    [ K in keyof RequiredVariations<T_ColourTypes[ 'names' ]>[ 'interactive' ] ]: __T_ColourOption;
                 },
 
                 /**
@@ -709,20 +673,18 @@ export namespace Tokens_Themes_Set {
                  * @since 0.1.1-alpha.0
                  */
                 outline: {
-                    [ K in keyof RequiredVariations<T_ColourName>[ 'interactive' ] ]: __T_ColourOption;
+                    [ K in keyof RequiredVariations<T_ColourTypes[ 'names' ]>[ 'interactive' ] ]: __T_ColourOption;
                 },
             },
 
             button: {
                 [ K in 'primary' | 'secondary' | 'disabled' ]: Data.Button<
-                    T_ColourName,
-                    T_ExtraColourLevels,
+                    T_ColourTypes,
                     __T_ColourOption
                 >;
             } & {
-                [ K in T_Keyword_Universal ]: Data.Button<
-                    T_ColourName,
-                    T_ExtraColourLevels,
+                [ K in T_ThemeTypes[ 'variations' ][ 'universal' ] ]: Data.Button<
+                    T_ColourTypes,
                     __T_ColourOption
                 >;
             },
@@ -833,41 +795,42 @@ export namespace Tokens_Themes_Set {
              * @since ___PKG_VERSION___ — Moved to SingleMode.Data and renamed.
              */
             export type RecursivePartial<
-                T_Types extends TokenTypes.Theme.TypeParams,
-                __T_ColourOption extends TokenTypes.Theme.ColourOption<T_Types[ 'colour' ]> = TokenTypes.Theme.ColourOption<T_Types[ 'colour' ]>,
+                T_ColourTypes extends TokenTypes.Colour.TypeParams,
+                T_ThemeTypes extends TokenTypes.Theme.TypeParams,
+                __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>,
             > = {
                 background?: undefined | {
                     $?: undefined | __T_ColourOption,
                 } & {
-                    [ K in keyof RequiredVariations<T_ColourName>[ 'background' ] ]?: undefined | __T_ColourOption;
+                    [ K in keyof RequiredVariations<T_ColourTypes[ 'names' ]>[ 'background' ] ]?: undefined | __T_ColourOption;
                 } & {
-                    [ K in T_Keyword_Universal ]?: undefined | __T_ColourOption;
+                    [ K in T_ThemeTypes[ 'variations' ][ 'universal' ] ]?: undefined | __T_ColourOption;
                 } & {
-                    [ K in T_Keyword_Background ]?: undefined | __T_ColourOption;
+                    [ K in T_ThemeTypes[ 'variations' ][ 'background' ] ]?: undefined | __T_ColourOption;
                 },
 
                 text?: undefined | {
                     $?: undefined | __T_ColourOption,
                 } & {
-                    [ K in keyof RequiredVariations<T_ColourName>[ 'universal' ] ]?: undefined | __T_ColourOption;
+                    [ K in keyof RequiredVariations<T_ColourTypes[ 'names' ]>[ 'universal' ] ]?: undefined | __T_ColourOption;
                 } & {
-                    [ K in keyof RequiredVariations<T_ColourName>[ 'text' ] ]?: undefined | __T_ColourOption;
+                    [ K in keyof RequiredVariations<T_ColourTypes[ 'names' ]>[ 'text' ] ]?: undefined | __T_ColourOption;
                 } & {
-                    [ K in T_Keyword_Universal ]?: undefined | __T_ColourOption;
+                    [ K in T_ThemeTypes[ 'variations' ][ 'universal' ] ]?: undefined | __T_ColourOption;
                 } & {
-                    [ K in T_Keyword_Text ]?: undefined | __T_ColourOption;
+                    [ K in T_ThemeTypes[ 'variations' ][ 'text' ] ]?: undefined | __T_ColourOption;
                 },
 
                 ui?: undefined | {
                     $?: undefined | __T_ColourOption,
                 } & {
-                    [ K in keyof RequiredVariations<T_ColourName>[ 'universal' ] ]?: undefined | __T_ColourOption;
+                    [ K in keyof RequiredVariations<T_ColourTypes[ 'names' ]>[ 'universal' ] ]?: undefined | __T_ColourOption;
                 } & {
-                    [ K in keyof RequiredVariations<T_ColourName>[ 'text' ] ]?: undefined | __T_ColourOption;
+                    [ K in keyof RequiredVariations<T_ColourTypes[ 'names' ]>[ 'text' ] ]?: undefined | __T_ColourOption;
                 } & {
-                    [ K in T_Keyword_Universal ]?: undefined | __T_ColourOption;
+                    [ K in T_ThemeTypes[ 'variations' ][ 'universal' ] ]?: undefined | __T_ColourOption;
                 } & {
-                    [ K in T_Keyword_Text ]?: undefined | __T_ColourOption;
+                    [ K in T_ThemeTypes[ 'variations' ][ 'text' ] ]?: undefined | __T_ColourOption;
                 },
 
                 heading?: undefined | {
@@ -885,7 +848,7 @@ export namespace Tokens_Themes_Set {
                         $?: undefined | __T_ColourOption,
                         visited?: undefined | __T_ColourOption,
                     } & {
-                        [ K in keyof RequiredVariations<T_ColourName>[ 'interactive' ] ]?: undefined | __T_ColourOption;
+                        [ K in keyof RequiredVariations<T_ColourTypes[ 'names' ]>[ 'interactive' ] ]?: undefined | __T_ColourOption;
                     },
 
                     /**
@@ -895,31 +858,29 @@ export namespace Tokens_Themes_Set {
                         $?: undefined | __T_ColourOption,
                         visited?: undefined | __T_ColourOption,
                     } & {
-                        [ K in keyof RequiredVariations<T_ColourName>[ 'interactive' ] ]?: undefined | __T_ColourOption;
+                        [ K in keyof RequiredVariations<T_ColourTypes[ 'names' ]>[ 'interactive' ] ]?: undefined | __T_ColourOption;
                     },
 
                     icon?: undefined | {
                         $?: undefined | __T_ColourOption,
                         visited?: undefined | __T_ColourOption,
                     } & {
-                        [ K in keyof RequiredVariations<T_ColourName>[ 'interactive' ] ]?: undefined | __T_ColourOption;
+                        [ K in keyof RequiredVariations<T_ColourTypes[ 'names' ]>[ 'interactive' ] ]?: undefined | __T_ColourOption;
                     },
 
                     outline?: undefined | {
-                        [ K in keyof RequiredVariations<T_ColourName>[ 'interactive' ] ]?: undefined | __T_ColourOption;
+                        [ K in keyof RequiredVariations<T_ColourTypes[ 'names' ]>[ 'interactive' ] ]?: undefined | __T_ColourOption;
                     },
                 },
 
                 button?: undefined | {
                     [ K in 'primary' | 'secondary' | 'disabled' ]?: undefined | Data.Button<
-                        T_ColourName,
-                        T_ExtraColourLevels,
+                        T_ColourTypes,
                         __T_ColourOption
                     >;
                 } & {
-                    [ K in T_Keyword_Universal ]?: undefined | Data.Button<
-                        T_ColourName,
-                        T_ExtraColourLevels,
+                    [ K in T_ThemeTypes[ 'variations' ][ 'universal' ] ]?: undefined | Data.Button<
+                        T_ColourTypes,
                         __T_ColourOption
                     >;
                 },
@@ -974,55 +935,58 @@ export namespace Tokens_Themes_Set {
         export interface RequiredVariations<
             T_ColourName extends string,
         > {
-            base: T_ColourName;
+            base: TokenTypes.Colour.GenericName<T_ColourName>;
 
             background: {
-                grey: T_ColourName;
+                grey: TokenTypes.Colour.GenericName<T_ColourName>;
             },
 
             universal: {
-                primary: T_ColourName;
-                secondary: T_ColourName;
+                primary: TokenTypes.Colour.GenericName<T_ColourName>;
+                secondary: TokenTypes.Colour.GenericName<T_ColourName>;
             };
 
             text: {
-                active: T_ColourName;
-                disabled: T_ColourName;
-                grey: T_ColourName;
+                active: TokenTypes.Colour.GenericName<T_ColourName>;
+                disabled: TokenTypes.Colour.GenericName<T_ColourName>;
+                grey: TokenTypes.Colour.GenericName<T_ColourName>;
             };
 
             heading: {
-                [ L in RequiredHeadingLevels ]: T_ColourName;
+                [ L in RequiredHeadingLevels ]: TokenTypes.Colour.GenericName<T_ColourName>;
             };
 
             interactive: {
-                active: T_ColourName;
-                hover: T_ColourName;
-                disabled: T_ColourName;
+                active: TokenTypes.Colour.GenericName<T_ColourName>;
+                hover: TokenTypes.Colour.GenericName<T_ColourName>;
+                disabled: TokenTypes.Colour.GenericName<T_ColourName>;
             };
         };
 
         /** @internal @private */
-        export interface AllVariations<T_Types extends TokenTypes.Theme.TypeParams> {
-            base: T_ColourName;
+        export interface AllVariations<
+            T_ColourTypes extends TokenTypes.Colour.TypeParams,
+            T_ThemeTypes extends TokenTypes.Theme.TypeParams,
+        > {
+            base: TokenTypes.Colour.GenericName<T_ColourTypes[ 'names' ]>;
 
-            background: RequiredVariations<T_ColourName>[ 'background' ] & {
-                [ K in T_Keyword_Background ]: T_ColourName;
+            background: RequiredVariations<T_ColourTypes[ 'names' ]>[ 'background' ] & {
+                [ K in T_ThemeTypes[ 'variations' ][ 'background' ] ]: TokenTypes.Colour.GenericName<T_ColourTypes[ 'names' ]>;
             };
 
-            universal: RequiredVariations<T_ColourName>[ 'universal' ] & {
-                [ K in T_Keyword_Universal ]: T_ColourName;
+            universal: RequiredVariations<T_ColourTypes[ 'names' ]>[ 'universal' ] & {
+                [ K in T_ThemeTypes[ 'variations' ][ 'universal' ] ]: TokenTypes.Colour.GenericName<T_ColourTypes[ 'names' ]>;
             };
 
-            text: RequiredVariations<T_ColourName>[ 'text' ] & {
-                [ K in T_Keyword_Text ]: T_ColourName;
+            text: RequiredVariations<T_ColourTypes[ 'names' ]>[ 'text' ] & {
+                [ K in T_ThemeTypes[ 'variations' ][ 'text' ] ]: TokenTypes.Colour.GenericName<T_ColourTypes[ 'names' ]>;
             };
 
-            heading: RequiredVariations<T_ColourName>[ 'heading' ] & {
-                [ key: number ]: T_ColourName;
+            heading: RequiredVariations<T_ColourTypes[ 'names' ]>[ 'heading' ] & {
+                [ key: number ]: TokenTypes.Colour.GenericName<T_ColourTypes[ 'names' ]>;
             };
 
-            interactive: RequiredVariations<T_ColourName>[ 'interactive' ];
+            interactive: RequiredVariations<T_ColourTypes[ 'names' ]>[ 'interactive' ];
         };
 
 
@@ -1355,42 +1319,43 @@ export namespace Tokens_Themes_Set {
          * @since 0.1.0-alpha
          */
         export interface InputParam<
-            T_Types extends TokenTypes.Theme.TypeParams,
-            __T_ColourOption extends TokenTypes.Theme.ColourOption<T_Types[ 'colour' ]> = TokenTypes.Theme.ColourOption<T_Types[ 'colour' ]>,
+            T_ColourTypes extends TokenTypes.Colour.TypeParams,
+            T_ThemeTypes extends TokenTypes.Theme.TypeParams,
+            __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>,
         > {
 
             description?: null | string;
 
-            levels?: undefined | Levels.Input<T_Types[ 'colour' ][ 'extraLevels' ]>;
+            levels?: undefined | Levels.Input<T_ColourTypes[ 'extraLevels' ]>;
 
             variations?: undefined | {
 
                 background?: Partial<
-                    RequiredVariations<T_ColourName>[ 'background' ]
+                    RequiredVariations<T_ColourTypes[ 'names' ]>[ 'background' ]
                 > & {
-                    [ K in T_Keyword_Background ]: T_ColourName;
+                    [ K in T_ThemeTypes[ 'variations' ][ 'background' ] ]: TokenTypes.Colour.GenericName<T_ColourTypes[ 'names' ]>;
                 },
 
                 universal?: Partial<
-                    RequiredVariations<T_ColourName>[ 'universal' ]
+                    RequiredVariations<T_ColourTypes[ 'names' ]>[ 'universal' ]
                 > & {
-                    [ K in T_Keyword_Universal ]: T_ColourName;
+                    [ K in T_ThemeTypes[ 'variations' ][ 'universal' ] ]: TokenTypes.Colour.GenericName<T_ColourTypes[ 'names' ]>;
                 };
 
                 text?: Partial<
-                    RequiredVariations<T_ColourName>[ 'text' ]
+                    RequiredVariations<T_ColourTypes[ 'names' ]>[ 'text' ]
                 > & {
-                    [ K in T_Keyword_Text ]: T_ColourName;
+                    [ K in T_ThemeTypes[ 'variations' ][ 'text' ] ]: TokenTypes.Colour.GenericName<T_ColourTypes[ 'names' ]>;
                 };
 
                 heading?: Partial<
-                    RequiredVariations<T_ColourName>[ 'heading' ]
+                    RequiredVariations<T_ColourTypes[ 'names' ]>[ 'heading' ]
                 > & {
-                    [ key: number ]: T_ColourName;
+                    [ key: number ]: TokenTypes.Colour.GenericName<T_ColourTypes[ 'names' ]>;
                 };
 
                 interactive?: Partial<
-                    RequiredVariations<T_ColourName>[ 'interactive' ]
+                    RequiredVariations<T_ColourTypes[ 'names' ]>[ 'interactive' ]
                 >;
             };
         };
@@ -1399,11 +1364,12 @@ export namespace Tokens_Themes_Set {
          * @since 0.1.0-alpha
          */
         export type JsonReturn<
-            T_Types extends TokenTypes.Theme.TypeParams,
-            __T_ColourOption extends TokenTypes.Theme.ColourOption<T_Types[ 'colour' ]> = TokenTypes.Theme.ColourOption<T_Types[ 'colour' ]>,
+            T_ColourTypes extends TokenTypes.Colour.TypeParams,
+            T_ThemeTypes extends TokenTypes.Theme.TypeParams,
+            __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>,
         > = {
             description?: undefined | string;
-            data: Data<T_Types>;
+            data: Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption>;
             levelsInUse: {
                 light: "black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional;
                 dark: "black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional;
@@ -1414,12 +1380,13 @@ export namespace Tokens_Themes_Set {
          * @since ___PKG_VERSION___
          */
         export type ScssVars<
-            T_Types extends TokenTypes.Theme.TypeParams,
-            __T_ColourOption extends TokenTypes.Theme.ColourOption<T_Types[ 'colour' ]> = TokenTypes.Theme.ColourOption<T_Types[ 'colour' ]>,
-        > = Data<T_Types> & {
+            T_ColourTypes extends TokenTypes.Colour.TypeParams,
+            T_ThemeTypes extends TokenTypes.Theme.TypeParams,
+            __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>,
+        > = Data<T_ColourTypes, T_ThemeTypes> & {
 
-            link: Data<T_Types>[ 'link' ] & {
-                outline: Data<T_Types>[ 'link' ][ 'outline' ] & {
+            link: Data<T_ColourTypes, T_ThemeTypes>[ 'link' ] & {
+                outline: Data<T_ColourTypes, T_ThemeTypes>[ 'link' ][ 'outline' ] & {
                     $: __T_ColourOption,
                     visited: __T_ColourOption,
                 };
@@ -1525,26 +1492,29 @@ export namespace Tokens_Themes_Set {
             /**
              * @since 0.1.0-alpha
              */
-            export interface Param<T_Types extends TokenTypes.Theme.TypeParams> {
-                levels: Levels.Parsed<T_Types[ 'colour' ][ 'extraLevels' ]>;
-                variations: AllVariations<T_Types>;
+            export interface Param<
+                T_ColourTypes extends TokenTypes.Colour.TypeParams,
+                T_ThemeTypes extends TokenTypes.Theme.TypeParams,
+            > {
+                levels: Levels.Parsed<T_ColourTypes[ 'extraLevels' ]>;
+                variations: AllVariations<T_ColourTypes, T_ThemeTypes>;
             };
 
             /**
              * @since 0.1.0-alpha
              */
-            export interface Param_ForcedColors<T_Types extends TokenTypes.Theme.TypeParams> {
-                levels?: InputParam<T_Types>[ 'levels' ];
-                variations: AllVariations<T_Types>;
+            export interface Param_ForcedColors<
+                T_ColourTypes extends TokenTypes.Colour.TypeParams,
+                T_ThemeTypes extends TokenTypes.Theme.TypeParams,
+            > {
+                levels?: InputParam<T_ColourTypes, T_ThemeTypes>[ 'levels' ];
+                variations: AllVariations<T_ColourTypes, T_ThemeTypes>;
             };
 
-            export function colourOption<
-                T_ColourName extends string,
-                T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
-            >(
-                name: T_ColourName,
-                level: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels,
-            ): "black" | "white" | TokenTypes.Colour.TokenSlug<T_Types[ 'colour' ]> {
+            export function colourOption<T_ColourTypes extends TokenTypes.Colour.TypeParams>(
+                name: TokenTypes.Colour.GenericName<T_ColourTypes[ 'names' ]>,
+                level: "black" | "white" | ColourUtilities.Levels.Required | T_ColourTypes[ 'extraLevels' ],
+            ): "black" | "white" | TokenTypes.Colour.TokenSlug<T_ColourTypes[ 'names' ], T_ColourTypes[ 'extraLevels' ]> {
                 // returns
                 switch ( level ) {
 
@@ -1556,18 +1526,25 @@ export namespace Tokens_Themes_Set {
                 return `${ name }-${ level }`;
             }
 
-            export function completeVariations<T_Types extends TokenTypes.Theme.TypeParams>(
-                clrNames: readonly T_ColourName[],
-                input: InputParam<T_Types>[ 'variations' ],
-            ): AllVariations<T_Types> {
+            export function completeVariations<
+                T_ColourTypes extends TokenTypes.Colour.TypeParams,
+                T_ThemeTypes extends TokenTypes.Theme.TypeParams,
+            >(
+                clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes[ 'names' ]>,
+                input: InputParam<T_ColourTypes, T_ThemeTypes>[ 'variations' ],
+            ): AllVariations<T_ColourTypes, T_ThemeTypes> {
                 const clrNames_noBase = clrNames.filter( v => v !== 'base' );
 
-                const base = 'base' as T_ColourName;
+                const base = 'base';
                 const clr_1 = input?.universal?.primary ?? clrNames_noBase[ 0 ] ?? base;
                 const clr_2 = input?.universal?.secondary ?? clrNames_noBase[ 1 ] ?? clr_1;
                 const clr_3 = input?.text?.active ?? input?.interactive?.active ?? clrNames_noBase[ 2 ] ?? clr_2;
 
-                const def: RequiredVariations<T_ColourName> & { background: { primary?: T_ColourName; }; } = {
+                const def: RequiredVariations<T_ColourTypes[ 'names' ]> & {
+                    background: {
+                        primary?: TokenTypes.Colour.GenericName<T_ColourTypes[ 'names' ]>;
+                    };
+                } = {
                     base: base,
 
                     background: {
@@ -1601,9 +1578,9 @@ export namespace Tokens_Themes_Set {
                     def.background.primary = clr_1;
                 }
 
-                const vars: AllVariations<T_Types> = mergeArgs(
+                const vars: AllVariations<T_ColourTypes, T_ThemeTypes> = mergeArgs(
                     def,
-                    input as RecursivePartial<RequiredVariations<T_ColourName>> & InputParam<T_Types>[ 'variations' ],
+                    input as RecursivePartial<RequiredVariations<T_ColourTypes[ 'names' ]>> & InputParam<T_ColourTypes, T_ThemeTypes>[ 'variations' ],
                     true
                 );
 
@@ -1615,11 +1592,14 @@ export namespace Tokens_Themes_Set {
              * 
              * @since 0.1.0-alpha
              */
-            export async function data<T_Types extends TokenTypes.Theme.TypeParams>(
-                input: Param<T_Types>,
-            ): Promise<Data<T_Types>> {
+            export async function data<
+                T_ColourTypes extends TokenTypes.Colour.TypeParams,
+                T_ThemeTypes extends TokenTypes.Theme.TypeParams,
+            >(
+                input: Param<T_ColourTypes, T_ThemeTypes>,
+            ): Promise<Data<T_ColourTypes, T_ThemeTypes>> {
 
-                type CompleteData = Data<T_Types>;
+                type CompleteData = Data<T_ColourTypes, T_ThemeTypes>;
 
                 const clrOpt = colourOption;
 
@@ -1695,7 +1675,9 @@ export namespace Tokens_Themes_Set {
                     disabled: clrOpt( variations.text.disabled, levels.ui.min ),
                 };
 
-                const singleButtonMaker = ( _primaryClr: T_ColourName ): CompleteData[ 'button' ][ 'primary' ] => {
+                const singleButtonMaker = (
+                    _primaryClr: TokenTypes.Colour.GenericName<T_ColourTypes[ 'names' ]>
+                ): CompleteData[ 'button' ][ 'primary' ] => {
 
                     const _secondaryClr = _primaryClr ==
                         variations.universal.primary
@@ -1748,7 +1730,7 @@ export namespace Tokens_Themes_Set {
                     ...objectMap(
                         variations.universal,
                         <K extends keyof CompleteData[ 'button' ]>(
-                            [ key, clrName ]: [ K, T_ColourName ]
+                            [ key, clrName ]: [ K, TokenTypes.Colour.GenericName<T_ColourTypes[ 'names' ]> ]
                         ) => singleButtonMaker( clrName ) as CompleteData[ 'button' ][ K ],
                     ),
 
@@ -1865,10 +1847,13 @@ export namespace Tokens_Themes_Set {
              * 
              * @since 0.1.0-alpha
              */
-            export async function forcedColors<T_Types extends TokenTypes.Theme.TypeParams>(
-                input: Param_ForcedColors<T_Types>,
-            ): Promise<Data<T_Types>> {
-                type CompleteData = Data<T_Types>;
+            export async function forcedColors<
+                T_ColourTypes extends TokenTypes.Colour.TypeParams,
+                T_ThemeTypes extends TokenTypes.Theme.TypeParams,
+            >(
+                input: Param_ForcedColors<T_ColourTypes, T_ThemeTypes>,
+            ): Promise<Data<T_ColourTypes, T_ThemeTypes>> {
+                type CompleteData = Data<T_ColourTypes, T_ThemeTypes>;
 
                 const {
                     variations,

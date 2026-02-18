@@ -9,7 +9,7 @@
  */
 
 import type { ColourUtilities } from '../01-utilities/ColourUtilities.js';
-import type { Theme.Mode.ContrastOption } from './@types.js';
+import type { TokenTypes } from './@types.js';
 import type { Tokens_Themes } from './Tokens_Themes.js';
 import type { Tokens_Themes_Set } from './Themes/Themes_Set.js';
 
@@ -19,40 +19,13 @@ import type { Tokens_Themes_Set } from './Themes/Themes_Set.js';
  * @since 0.1.0-alpha.2
  */
 export function getLevelsInUse<
-    T_ColourName extends string,
-    T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
-    T_ThemeBrightnessMode extends string,
-    T_ThemeContrastMode extends Theme.Mode.ContrastOption,
-    T_ThemeName extends string,
-
-    T_ThemeKeyword_Universal extends string,
-    T_ThemeKeyword_Text extends string,
-    T_ThemeKeyword_Background extends string,
->( themes: Tokens_Themes.JsonReturn<
-    T_ColourName,
-    T_ExtraColourLevels,
-    T_ThemeBrightnessMode,
-    T_ThemeContrastMode,
-    T_ThemeName,
-
-    T_ThemeKeyword_Universal,
-    T_ThemeKeyword_Text,
-    T_ThemeKeyword_Background
-> ): Set<"black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional> {
+    T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams,
+    T_ThemeTypes extends TokenTypes.Theme.TypeParams = TokenTypes.Theme.TypeParams,
+>( themes: Tokens_Themes.JsonReturn<T_ColourTypes, T_ThemeTypes> ): Set<"black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional> {
 
     const levelsInUse = new Set<"black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional>();
 
-    const allThemeSets: Tokens_Themes_Set.JsonReturn<
-        T_ColourName,
-        T_ExtraColourLevels,
-        T_ThemeBrightnessMode[],
-        T_ThemeContrastMode[],
-        T_ThemeName,
-
-        T_ThemeKeyword_Universal,
-        T_ThemeKeyword_Text,
-        T_ThemeKeyword_Background
-    >[] = Object.values( themes );
+    const allThemeSets: Tokens_Themes_Set.JsonReturn<T_ColourTypes, T_ThemeTypes>[] = Object.values( themes );
 
     allThemeSets.forEach(
         ( theme ) => theme.levelsInUse.forEach(

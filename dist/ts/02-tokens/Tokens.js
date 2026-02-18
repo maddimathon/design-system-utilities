@@ -7,7 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
-import { slugify } from '@maddimathon/utility-typescript/functions';
+import { arrayUnique, slugify } from '@maddimathon/utility-typescript/functions';
 import { JsonToScss } from '@maddimathon/utility-sass';
 import { objectGenerator } from '../01-utilities/objectGenerator.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
@@ -20,6 +20,14 @@ import { Tokens_Spacing } from './Tokens_Spacing.js';
 import { Tokens_Themes } from './Tokens_Themes.js';
 import { Tokens_Themes_Set } from './Themes/Themes_Set.js';
 import { Tokens_Typography } from './Tokens_Typography.js';
+/**
+ * Internal utilities available for documentation but not meant to be public.
+ *
+ * @since 0.1.1-alpha.1.draft
+ * @internal
+ */
+export class Internal {
+}
 /**
  * Generates a complete token object for the design system.
  *
@@ -52,10 +60,10 @@ export class Tokens extends AbstractTokens {
      * Used instead of the constructor so that it can be async.
      */
     static async build(input, config = {}) {
-        const allClrNames = [
+        const allClrNames = arrayUnique([
             'base',
-            ...Object.keys(input.colour ?? {}),
-        ].filter(name => name !== 'black' && name !== 'white');
+            ...Object.keys(input.colour ?? {}).filter(name => name !== 'black' && name !== 'white'),
+        ]);
         const extraColourLevels = config.extraColourLevels ?? [];
         const brightnessModes = input.themes?.brightness?.length
             ? input.themes.brightness
@@ -64,13 +72,12 @@ export class Tokens extends AbstractTokens {
             'low',
             'average',
             'high',
-            'max',
-            ...(input.themes?.contrast?.filter(c => c !== 'low' && c !== 'average' && c !== 'high' && c !== 'max')
+            ...(input.themes?.contrast?.filter((c) => c !== 'low' && c !== 'average' && c !== 'high')
                 ?? []),
         ];
         return Promise.all([
             Tokens_Colour.build(allClrNames, extraColourLevels, input.colour ?? {}),
-            Tokens_Themes.build(allClrNames, extraColourLevels, brightnessModes, [...contrastModes], input.themes?.input ?? []),
+            Tokens_Themes.build(allClrNames, extraColourLevels, brightnessModes, contrastModes, input.themes?.input ?? []),
         ]).then(async ([colour, themes]) => {
             const tokens = new Tokens(allClrNames, extraColourLevels, { colour, themes }, input, {
                 ...config,
@@ -155,6 +162,9 @@ export class Tokens extends AbstractTokens {
                 red: Tokens.SampleColours.red,
                 // yardstick: Tokens.SampleColours.yardstick,
                 // 'yardstick-accent': Tokens.SampleColours[ 'yardstick-accent' ],
+            },
+            themes: {
+                contrast: ['max'],
             },
         }, { tokensAsDefault: true, });
     }

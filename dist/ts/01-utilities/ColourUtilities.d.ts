@@ -186,7 +186,7 @@ export declare namespace ColourUtilities {
         readonly aaa: ContrastTest.SingleResult;
         constructor(clrA: ColourUtilities.SingleShade, clrB: ColourUtilities.SingleShade);
         toJSON(): ContrastTest.JSON;
-        valueOf(): ContrastTest.Parsed;
+        valueOf(): ContrastTest.Result;
     }
     /**
      * Utilities for the {@link Tokens} class.
@@ -201,15 +201,11 @@ export declare namespace ColourUtilities {
          */
         type JSON = Result;
         /**
-         * @since 0.1.0-alpha
-         */
-        type Parsed = Result;
-        /**
          * The partialized version of the {@link ContrastTest.Schema} accepted as input.
          *
          * @since 0.1.0-alpha
          */
-        type Part = Partial<Parsed>;
+        type Part = Partial<Result>;
         /**
          * @since 0.1.0-alpha
          * @since 0.1.1-alpha.1.draft — Renamed.

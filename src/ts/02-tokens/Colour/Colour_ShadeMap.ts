@@ -10,7 +10,9 @@
 
 import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
 import { LocalErrors } from '../../01-utilities/Errors.js';
+import { objectGeneratorAsync } from '../../01-utilities/objectGenerator.js';
 import { objectMap } from '../../01-utilities/objectMap.js';
+
 import type { TokenTypes } from '../@types.js';
 
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
@@ -31,9 +33,9 @@ export class Tokens_Colour_ShadeMap<T_Types extends TokenTypes.Colour.TypeParams
      * Allows for async building.
      */
     public static async build<T_Types extends TokenTypes.Colour.TypeParams>(
-        allNames: readonly T_Types[ 'names' ][],
+        allNames: TokenTypes.Colour.GenericNameArray<T_Types[ 'names' ]>,
         extraLevels: readonly T_Types[ 'extraLevels' ][],
-        name: T_Types[ 'names' ],
+        name: TokenTypes.Colour.GenericName<T_Types[ 'names' ]>,
         input: Tokens_Colour_ShadeMap.InputParam<T_Types>,
     ): Promise<Tokens_Colour_ShadeMap<T_Types>> {
 
@@ -66,9 +68,9 @@ export class Tokens_Colour_ShadeMap<T_Types extends TokenTypes.Colour.TypeParams
     }
 
     protected constructor (
-        protected readonly allNames: readonly T_Types[ 'names' ][],
+        protected readonly allNames: TokenTypes.Colour.GenericNameArray<T_Types[ 'names' ]>,
         protected readonly extraLevels: readonly T_Types[ 'extraLevels' ][],
-        protected readonly name: T_Types[ 'names' ],
+        protected readonly name: TokenTypes.Colour.GenericName<T_Types[ 'names' ]>,
         public readonly data: Tokens_Colour_ShadeMap.Data<T_Types>,
     ) {
         super();
@@ -80,7 +82,7 @@ export class Tokens_Colour_ShadeMap<T_Types extends TokenTypes.Colour.TypeParams
      * @since 0.1.0-alpha
      */
     public async addContrastTests(
-        colourGroupName: T_Types[ 'names' ],
+        colourGroupName: TokenTypes.Colour.GenericName<T_Types[ 'names' ]>,
         testMap: Tokens_Colour_ShadeMap<T_Types>,
     ) {
         const promises: Promise<void>[] = [];
@@ -128,24 +130,28 @@ export class Tokens_Colour_ShadeMap<T_Types extends TokenTypes.Colour.TypeParams
  */
 export namespace Tokens_Colour_ShadeMap {
 
-    export type Data<T_Types extends TokenTypes.Colour.TypeParams> = {
-        [ N in ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ] ]: Tokens_Colour_ShadeMap.Shade<T_Types>;
-    };
+    export type Data<T_Types extends TokenTypes.Colour.TypeParams> = TokenTypes.Colour.LevelRecord<
+        T_Types,
+        Tokens_Colour_ShadeMap.Shade<T_Types>
+    >;
 
-    export type InputParam<T_Types extends TokenTypes.Colour.TypeParams> = {
-        [ N in ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ] ]?: Tokens_Colour_ShadeMap.Shade.InputParam;
-    };
+    export type InputParam<T_Types extends TokenTypes.Colour.TypeParams> = TokenTypes.Colour.PartialLevelRecord<
+        T_Types,
+        Tokens_Colour_ShadeMap.Shade.InputParam
+    >;
 
-    export type JsonReturn<T_Types extends TokenTypes.Colour.TypeParams> = {
-        [ N in ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ] ]: Tokens_Colour_ShadeMap.Shade.JsonReturn<T_Types>;
-    };
+    export type JsonReturn<T_Types extends TokenTypes.Colour.TypeParams> = TokenTypes.Colour.LevelRecord<
+        T_Types,
+        Tokens_Colour_ShadeMap.Shade.JsonReturn<T_Types>
+    >;
 
     /**
      * @since ___PKG_VERSION___
      */
-    export type ScssVars<T_Types extends TokenTypes.Colour.TypeParams> = {
-        [ N in ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ] ]: Tokens_Colour_ShadeMap.Shade.ScssVars;
-    };
+    export type ScssVars<T_Types extends TokenTypes.Colour.TypeParams> = TokenTypes.Colour.LevelRecord<
+        T_Types,
+        Tokens_Colour_ShadeMap.Shade.ScssVars
+    >;
 
 
 
@@ -168,9 +174,9 @@ export namespace Tokens_Colour_ShadeMap {
          * Allows for async building.
          */
         public static async build<T_Types extends TokenTypes.Colour.TypeParams>(
-            allNames: readonly T_Types[ 'names' ][],
+            allNames: TokenTypes.Colour.GenericNameArray<T_Types[ 'names' ]>,
             extraLevels: readonly T_Types[ 'extraLevels' ][],
-            shadeName: "black" | "white" | T_Types[ 'names' ],
+            shadeName: "black" | "white" | TokenTypes.Colour.GenericName<T_Types[ 'names' ]>,
             thisLevel: "black" | "white" | ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ],
             input: Shade.InputParam,
         ) {
@@ -186,29 +192,67 @@ export namespace Tokens_Colour_ShadeMap {
                 ...context,
             }, opts );
 
-            return ColourUtilities.validateShade( input, errorMaker ).then(
-                data => new Shade(
+            return Promise.all( [
+                ColourUtilities.validateShade( input, errorMaker ),
+
+                objectGeneratorAsync(
+                    allNames,
+                    async (): Promise<Shade.Contrast.Minimum_ShadeObj<T_Types>> => ( {
+                        ui: {
+                            aa: undefined,
+                            aaa: undefined,
+                        },
+                        text: {
+                            aa: undefined,
+                            aaa: undefined,
+                        },
+                    } ),
+                ) as Promise<Shade.Contrast.Minimum<T_Types>>,
+
+                objectGeneratorAsync(
+                    allNames,
+                    async (): Promise<undefined | Shade.Contrast.SingleMinMax<T_Types>> => undefined,
+                ) as Promise<Shade.Contrast.Maximum<T_Types>>,
+
+                objectGeneratorAsync(
+                    allNames,
+                    async (): Promise<{
+                        [ L in ColourUtilities.Levels.Required ]: undefined | ColourUtilities.ContrastTest.Result;
+                    } & {
+                        [ L in T_Types[ 'extraLevels' ] ]: undefined | ColourUtilities.ContrastTest.Result;
+                    }> => objectGeneratorAsync(
+                        [ ...ColourUtilities.Levels.required, ...extraLevels ],
+                        async () => undefined,
+                    ),
+                ) satisfies Promise<Shade.Contrast.Results<T_Types>>,
+            ] ).then(
+                ( [
+                    data,
+                    contrast_min,
+                    contrast_max,
+                    contrast_results,
+                ] ) => new Shade(
                     allNames,
                     extraLevels,
                     shadeName,
                     thisLevel,
                     data,
+                    {
+                        min: contrast_min,
+                        max: contrast_max,
+                        results: contrast_results,
+                    },
                 )
             );
         }
 
-        public contrast: Shade.Contrast<T_Types> = {
-            min: {},
-            max: {},
-            results: {},
-        };
-
         protected constructor (
-            protected readonly allNames: readonly T_Types[ 'names' ][],
+            protected readonly allNames: TokenTypes.Colour.GenericNameArray<T_Types[ 'names' ]>,
             protected readonly extraLevels: readonly T_Types[ 'extraLevels' ][],
-            protected readonly shadeName: "black" | "white" | T_Types[ 'names' ],
+            protected readonly shadeName: "black" | "white" | TokenTypes.Colour.GenericName<T_Types[ 'names' ]>,
             protected readonly thisLevel: "black" | "white" | ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ],
             public readonly data: Shade.Data,
+            public readonly contrast: Shade.Contrast<T_Types>,
         ) {
             super();
         }
@@ -218,26 +262,21 @@ export namespace Tokens_Colour_ShadeMap {
          * 
          * @since 0.1.0-alpha
          */
-        public async addContrastTest(
-            colourGroupName: T_Types[ 'names' ],
-            level: ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ],
+        public async addContrastTest<
+            T_TestColourName extends TokenTypes.Colour.GenericName<T_Types[ 'names' ]>,
+            T_TestColourLevel extends ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ],
+        >(
+            colourGroupName: T_TestColourName,
+            level: T_TestColourLevel,
             testClr: ColourUtilities.SingleShade,
         ) {
-            if ( typeof this.contrast.results[ colourGroupName ] === 'undefined' ) {
-                this.contrast.results[ colourGroupName ] = {};
-            }
+            // const thisContrastTestResults = this.contrast.results[ colourGroupName ][ level ];
 
-            const contrastTest = new ColourUtilities.ContrastTest(
-                this.shadeValue(),
-                testClr,
-            );
+            // let thisContrastTestMinimums = this.contrast.min[ colourGroupName ];
 
-            if ( typeof this.contrast.min[ colourGroupName ] === 'undefined' ) {
-                this.contrast.min[ colourGroupName ] = {
-                    ui: undefined,
-                    text: undefined,
-                };
-            }
+            // let thisContrastTestMaximums = this.contrast.max[ colourGroupName ];
+
+            const contrastTest = new ColourUtilities.ContrastTest( this.data, testClr );
 
             // SETTING MINIMUMS
             testNameLoop:
@@ -245,13 +284,6 @@ export namespace Tokens_Colour_ShadeMap {
                 // continues
                 if ( !contrastTest.aa[ testName ] && !contrastTest.aaa[ testName ] ) {
                     continue testNameLoop;
-                }
-
-                if ( typeof this.contrast.min[ colourGroupName ][ testName ] === 'undefined' ) {
-                    this.contrast.min[ colourGroupName ][ testName ] = {
-                        aa: undefined,
-                        aaa: undefined,
-                    };
                 }
 
                 standardsLoop:
@@ -263,10 +295,10 @@ export namespace Tokens_Colour_ShadeMap {
 
                     if (
                         // if there's no minimum, then this is the new minimum
-                        typeof this.contrast.min[ colourGroupName ][ testName ]?.[ standard ] === 'undefined'
+                        typeof this.contrast.min[ colourGroupName ][ testName ][ standard ] === 'undefined'
 
                         // this result is less than the existing minimum
-                        || contrastTest.ratio < this.contrast.min[ colourGroupName ][ testName ]?.[ standard ].ratio
+                        || contrastTest.ratio < this.contrast.min[ colourGroupName ][ testName ][ standard ].ratio
                     ) {
 
                         this.contrast.min[ colourGroupName ][ testName ][ standard ] = {
@@ -291,49 +323,19 @@ export namespace Tokens_Colour_ShadeMap {
                     name: colourGroupName,
                     level,
                     ratio: contrastTest.ratio,
-                };
+                } satisfies Shade.Contrast.SingleMinMax<T_Types> as unknown as Shade.Contrast.Maximum<T_Types>[ T_TestColourName ];
             }
 
-            this.contrast.results[ colourGroupName ][ level ] = {
-                ...contrastTest.toJSON(),
-            };
-        }
-
-        public shadeValue(): ColourUtilities.SingleShade {
-
-            return {
-                hex: this.data.hex,
-                hsl: this.data.hsl,
-                rgb: this.data.rgb,
-                lch: this.data.lch,
-            };
+            this.contrast.results[ colourGroupName ][ level ] = contrastTest.toJSON() as NonNullable<Shade.Contrast.Results<T_Types>[ T_TestColourName ]>[ T_TestColourLevel ];
         }
 
         public toJSON(): Shade.JsonReturn<T_Types> {
-
-            const max = this.contrast.max;
-
-            const min: Shade.Contrast.Minimum<T_Types, number> = objectMap(
-                this.contrast.min,
-                ( [ key, testGroup ] ) => ( {
-
-                    ui: testGroup?.ui && {
-                        aa: testGroup.ui.aa,
-                        aaa: testGroup.ui.aaa,
-                    },
-
-                    text: testGroup?.text && {
-                        aa: testGroup.text.aa,
-                        aaa: testGroup.text.aaa,
-                    },
-                } ),
-            );
-
             return {
-                ...this.shadeValue(),
+                ...this.data,
+
                 contrast: {
-                    max,
-                    min,
+                    max: this.contrast.max,
+                    min: this.contrast.min,
                     results: this.contrast.results,
                 },
             };
@@ -355,6 +357,79 @@ export namespace Tokens_Colour_ShadeMap {
         /**
          * @since 0.1.0-alpha
          */
+        export type Contrast<T_Types extends TokenTypes.Colour.TypeParams> = {
+            min: Contrast.Minimum<T_Types>;
+            max: Contrast.Maximum<T_Types>;
+            results: Contrast.Results<T_Types>;
+        };
+
+        /**
+         * @since 0.1.0-alpha
+         */
+        export namespace Contrast {
+
+            /**
+             * @since 0.1.0-alpha
+             */
+            export type Maximum<T_Types extends TokenTypes.Colour.TypeParams> = {
+                base: undefined | SingleMinMax<T_Types>;
+            } & {
+                [ C in T_Types[ 'names' ] ]: undefined | SingleMinMax<T_Types>;
+            };
+
+            export type Minimum_ShadeObj<T_Types extends TokenTypes.Colour.TypeParams> = {
+                [ K in keyof ColourUtilities.ContrastTest.SingleResult ]: {
+                    [ S in keyof ColourUtilities.ContrastTest.Standards ]: undefined | SingleMinMax<T_Types>;
+                };
+            };
+
+            /**
+             * @since 0.1.0-alpha
+             */
+            export type Minimum<T_Types extends TokenTypes.Colour.TypeParams> = {
+                base: Minimum_ShadeObj<T_Types>;
+            } & {
+                [ C in T_Types[ 'names' ] ]: Minimum_ShadeObj<T_Types>;
+            };
+
+            /**
+             * @since 0.1.0-alpha
+             * @since ___PKG_VERSION___ — Moved to {@link Shade.Contrast} and renamed.
+             */
+            export type Results<T_Types extends TokenTypes.Colour.TypeParams> = {
+                base: Results.LevelsMap<T_Types>;
+            } & {
+                [ C in T_Types[ 'names' ] ]: Results.LevelsMap<T_Types>;
+            };
+
+            /**
+             * @since ___PKG_VERSION___
+             */
+            export namespace Results {
+
+                /**
+                 * @since ___PKG_VERSION___
+                 */
+                export type LevelsMap<T_Types extends TokenTypes.Colour.TypeParams> = {
+                    [ L in ColourUtilities.Levels.Required ]: undefined | ColourUtilities.ContrastTest.Result;
+                } & {
+                    [ L in T_Types[ 'extraLevels' ] ]: undefined | ColourUtilities.ContrastTest.Result;
+                };
+            }
+
+            /**
+             * @since 0.1.0-alpha
+             */
+            export type SingleMinMax<T_Types extends TokenTypes.Colour.TypeParams> = {
+                name: T_Types[ 'names' ];
+                level: ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ];
+                ratio: number;
+            };
+        }
+
+        /**
+         * @since 0.1.0-alpha
+         */
         export type Data = ColourUtilities.SingleShade;
 
         /**
@@ -366,78 +441,13 @@ export namespace Tokens_Colour_ShadeMap {
          * @since 0.1.0-alpha
          */
         export type JsonReturn<T_Types extends TokenTypes.Colour.TypeParams> = ColourUtilities.Value_All & {
-            contrast: Contrast<T_Types, number>;
+            contrast: Contrast<T_Types>;
         };
 
         /**
          * @since ___PKG_VERSION___
          */
         export type ScssVars = string;
-
-
-
-        /**
-         * @since 0.1.0-alpha
-         */
-        export type ContrastResults<T_Types extends TokenTypes.Colour.TypeParams> = {
-            [ N in T_Types[ 'names' ] ]?: undefined | {
-                [ K in ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ] ]?: ColourUtilities.ContrastTest.Parsed;
-            };
-        };
-
-        /**
-         * @since 0.1.0-alpha
-         */
-        export type Contrast<
-            T_Types extends TokenTypes.Colour.TypeParams,
-            T_RatioValue extends number | undefined = number,
-        > = {
-            min: Contrast.Minimum<T_Types, T_RatioValue>;
-            max: Contrast.Maximum<T_Types, T_RatioValue>;
-            results: ContrastResults<T_Types>;
-        };
-
-        /**
-         * @since 0.1.0-alpha
-         */
-        export namespace Contrast {
-
-            /**
-             * @since 0.1.0-alpha
-             */
-            export type SingleMinMax<
-                T_Types extends TokenTypes.Colour.TypeParams,
-                T_RatioValue extends number | undefined = number,
-            > = undefined | {
-                name: 'base' | T_Types[ 'names' ];
-                level: ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ];
-                ratio: T_RatioValue;
-            };
-
-            /**
-             * @since 0.1.0-alpha
-             */
-            export type Maximum<
-                T_Types extends TokenTypes.Colour.TypeParams,
-                T_RatioValue extends number | undefined = number,
-            > = {
-                    [ N in 'base' | T_Types[ 'names' ] ]?: SingleMinMax<T_Types, T_RatioValue>;
-                };
-
-            /**
-             * @since 0.1.0-alpha
-             */
-            export type Minimum<
-                T_Types extends TokenTypes.Colour.TypeParams,
-                T_RatioValue extends number | undefined = number,
-            > = {
-                    [ N in 'base' | T_Types[ 'names' ] ]?: undefined | {
-                        [ K in keyof ColourUtilities.ContrastTest.SingleResult ]?: undefined | {
-                            [ S in keyof ColourUtilities.ContrastTest.Standards ]?: SingleMinMax<T_Types, T_RatioValue>;
-                        };
-                    };
-                };
-        }
     }
 
 
@@ -453,17 +463,18 @@ export namespace Tokens_Colour_ShadeMap {
      */
     // UPGRADE - make this work by only setting lch or hsl hue value
     export async function completeMap<T_Types extends TokenTypes.Colour.TypeParams>(
-        allNames: readonly T_Types[ 'names' ][],
+        allNames: TokenTypes.Colour.GenericNameArray<T_Types[ 'names' ]>,
         extraLevels: readonly T_Types[ 'extraLevels' ][],
-        name: T_Types[ 'names' ],
+        name: TokenTypes.Colour.GenericName<T_Types[ 'names' ]>,
 
         part: InputParam<T_Types>,
 
         errMaker: LocalErrors.ConstructorFn | null,
         _treatShadeAsBase?: boolean,
-    ): Promise<{
-        [ L in ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ] ]: Tokens_Colour_ShadeMap.Shade<T_Types>;
-    }> {
+    ): Promise<TokenTypes.Colour.LevelRecord<
+        T_Types,
+        Tokens_Colour_ShadeMap.Shade<T_Types>
+    >> {
 
         const treatShadeAsBase = _treatShadeAsBase ?? ( name.match( /^base(\-|\_|$)/i ) !== null );
 
@@ -723,9 +734,10 @@ export namespace Tokens_Colour_ShadeMap {
         }
 
         return Promise.all( completeLevels ).then(
-            entries => Object.fromEntries( entries ) as {
-                [ L in ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ] ]: Tokens_Colour_ShadeMap.Shade<T_Types>;
-            }
+            entries => Object.fromEntries( entries ) as TokenTypes.Colour.LevelRecord<
+                T_Types,
+                Tokens_Colour_ShadeMap.Shade<T_Types>
+            >
         );
     }
 

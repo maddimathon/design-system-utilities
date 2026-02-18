@@ -11,7 +11,7 @@
 import type { RecursivePartial } from '@maddimathon/utility-typescript/types/objects';
 import { mergeArgs } from '@maddimathon/utility-typescript/functions';
 
-import type { RequiredHeadingLevels, Theme.Mode.ContrastOption, TokenLevels } from '../@types.js';
+import type { RequiredHeadingLevels, TokenTypes, TokenLevels } from '../@types.js';
 
 import { objectGenerator } from '../../01-utilities/objectGenerator.js';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
@@ -517,7 +517,7 @@ export namespace Tokens_CSS_Style {
                 /**
                  * Contrast modes.
                  */
-                [ C in Exclude<Theme.Mode.ContrastOption, 'high' | 'max'> ]?: string;
+                [ C in Exclude<TokenTypes.Theme.Mode.ContrastOption, 'high' | 'max'> ]?: string;
             };
         };
     };
@@ -579,7 +579,7 @@ export namespace Tokens_CSS_Style {
                     /**
                      * Contrast modes.
                      */
-                    [ C in Exclude<Theme.Mode.ContrastOption, 'max'> ]?: string;
+                    [ C in Exclude<TokenTypes.Theme.Mode.ContrastOption, 'max'> ]?: string;
                 };
             };
         };
@@ -620,7 +620,7 @@ export namespace Tokens_CSS_Style {
                     /**
                      * Contrast modes.
                      */
-                    [ C in Exclude<Theme.Mode.ContrastOption, 'max'> ]?: string;
+                    [ C in Exclude<TokenTypes.Theme.Mode.ContrastOption, 'max'> ]?: string;
                 };
             };
         };

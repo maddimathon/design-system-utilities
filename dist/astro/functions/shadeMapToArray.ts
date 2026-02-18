@@ -8,49 +8,35 @@
  * @license MIT
  */
 
-import type { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
+import type { TokenTypes } from '../../ts/02-tokens/@types.js';
 import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
 
+/**
+ * @since 0.1.0-alpha
+ */
 export function shadeMapToArray<
-    T_ColourName extends string = string,
-    T_ExtraLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional,
-    T_Object extends Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, T_ExtraLevels> | {
-        black: Tokens_Colour_ShadeMap.Shade.JsonReturn<
-            T_ColourName,
-            T_ExtraLevels
-        >;
-        white: Tokens_Colour_ShadeMap.Shade.JsonReturn<
-            T_ColourName,
-            T_ExtraLevels
-        >;
-    } = Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, T_ExtraLevels> | {
-        black: Tokens_Colour_ShadeMap.Shade.JsonReturn<
-            T_ColourName,
-            T_ExtraLevels
-        >;
-        white: Tokens_Colour_ShadeMap.Shade.JsonReturn<
-            T_ColourName,
-            T_ExtraLevels
-        >;
-    },
+    T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams,
+    T_Object extends shadeMapToArray.ObjTypeParam<T_ColourTypes> = shadeMapToArray.ObjTypeParam<T_ColourTypes>,
 >(
     map: T_Object,
-) {
+): shadeMapToArray.ReturnItem<T_ColourTypes, T_Object>[] {
     const levels = Object.keys( map ) as ( keyof typeof map & ( number | string ) )[];
 
     return levels
-        .map( ( level ) => {
+        .map(
+            ( level ): false | shadeMapToArray.ReturnItem<T_ColourTypes, T_Object> => {
 
-            // returns
-            if ( !map[ level ] ) {
-                return false;
+                // returns
+                if ( !map[ level ] ) {
+                    return false;
+                }
+
+                return {
+                    level,
+                    values: map[ level ],
+                };
             }
-
-            return {
-                level,
-                values: map[ level ],
-            };
-        } )
+        )
         .filter( ( v ) => v !== false )
         .sort( ( a, b ) => {
 
@@ -73,3 +59,32 @@ export function shadeMapToArray<
             return 0;
         } );
 };
+
+/**
+ * @since 0.1.1-alpha.1.draft
+ */
+export namespace shadeMapToArray {
+
+    /**
+     * @since 0.1.1-alpha.1.draft
+     */
+    export type ObjTypeParam<
+        T_ColourTypes extends TokenTypes.Colour.TypeParams,
+    > =
+        | Tokens_Colour_ShadeMap.JsonReturn<T_ColourTypes>
+        | Tokens_Colour_ShadeMap.JsonReturn<T_ColourTypes> & {
+            black: Tokens_Colour_ShadeMap.Shade.JsonReturn<T_ColourTypes>;
+            white: Tokens_Colour_ShadeMap.Shade.JsonReturn<T_ColourTypes>;
+        };
+
+    /**
+     * @since 0.1.1-alpha.1.draft
+     */
+    export type ReturnItem<
+        T_ColourTypes extends TokenTypes.Colour.TypeParams,
+        T_Object extends ObjTypeParam<T_ColourTypes> = ObjTypeParam<T_ColourTypes>,
+    > = {
+        level: keyof T_Object & ( string | number );
+        values: T_Object[ keyof T_Object ];
+    };
+}

@@ -8,8 +8,8 @@
 /* import - types */
 import type { HTMLAttributes } from 'astro/types';
 import type { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
-import type { Colour.GenericName } from '../../ts/02-tokens/@types.d.ts';
-import type { Tokens, Tokens_Internal } from '../../ts/02-tokens/Tokens.js';
+import type { TokenTypes } from '../../ts/02-tokens/@types.d.ts';
+import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
 
 /* import - functions */
@@ -30,9 +30,7 @@ import ShadeSwatch_ColourValue from './ShadeSwatch_ColourValue.astro';
 /* PROPS ===================================== */
 
 export interface Props<
-    T_ColourName extends string = Tokens_Internal.Default_ColourName,
-    T_ExtraLevels extends ColourUtilities.Levels.Optional =
-        Tokens_Internal.Default_ExtraColourLevels,
+    T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
 > extends Omit<HTMLAttributes<'div'>, 'class'> {
     heading: number;
     id: string;
@@ -40,28 +38,23 @@ export interface Props<
         | 'black'
         | 'white'
         | ColourUtilities.Levels.Required
-        | Tokens_Internal.Default_ExtraColourLevels;
+        | ColourUtilities.Levels.Optional;
 
     name: string | null;
 
-    tokens: Tokens.JsonReturn<T_ColourName, T_ExtraLevels>;
-    values: Partial<
-        Tokens_Colour_ShadeMap.Shade.JsonReturn<
-            Colour.GenericName<T_ColourName>,
-            T_ExtraLevels
-        >
-    >;
+    tokens: Tokens.JsonReturn<T_Types>;
+    values: Partial<Tokens_Colour_ShadeMap.Shade.JsonReturn<T_Types['colour']>>;
 
-    bases?: Tokens_Colour_ShadeMap.JsonReturn<T_ColourName, T_ExtraLevels> & {
-        black: Tokens_Colour_ShadeMap.Shade.JsonReturn<
-            T_ColourName,
-            T_ExtraLevels
-        >;
-        white: Tokens_Colour_ShadeMap.Shade.JsonReturn<
-            T_ColourName,
-            T_ExtraLevels
-        >;
-    };
+    bases:
+        | undefined
+        | (Tokens_Colour_ShadeMap.JsonReturn<T_Types['colour']> & {
+              black?: Tokens_Colour_ShadeMap.Shade.JsonReturn<
+                  T_Types['colour']
+              >;
+              white?: Tokens_Colour_ShadeMap.Shade.JsonReturn<
+                  T_Types['colour']
+              >;
+          });
 
     contrast?: boolean;
     contrastIsCondensed?: boolean;
@@ -95,14 +88,21 @@ const {
 
 /* FUNCTIONS ===================================== */
 
+function getTextColourLevel<
+    T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+>(_vals: Props<T_Types>['values']) {
+    return (values.contrast?.min['base']?.text?.aaa?.level ??
+        values.contrast?.max['base']?.level ??
+        (textColorLevel(level) as keyof typeof bases)) as keyof NonNullable<
+        Props<T_Types>['bases']
+    >;
+}
+
 /* CONSTANTS ===================================== */
 
 const bg = getColourValue(values);
 
-const textLevel =
-    values.contrast?.min.base?.text?.aaa?.level ??
-    values.contrast?.max.base?.level ??
-    textColorLevel(level);
+const textLevel = getTextColourLevel(values);
 
 const text = bases?.[textLevel] && getColourValue(bases[textLevel]);
 

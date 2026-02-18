@@ -9,7 +9,7 @@
  */
 
 import type { Objects } from '@maddimathon/utility-typescript/types';
-import { slugify } from '@maddimathon/utility-typescript/functions';
+import { arrayUnique, slugify } from '@maddimathon/utility-typescript/functions';
 import { JsonToScss } from '@maddimathon/utility-sass';
 
 import type {
@@ -49,59 +49,11 @@ export class Internal { }
  * @since 0.1.0-alpha
  */
 export class Tokens<
-    T_ColourName extends string,
-    T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
-    T_ThemeBrightnessMode extends readonly [ string, ...string[] ],
-    T_ThemeContrastMode extends TokenTypes.Theme.Mode.ContrastAtLeastOne,
-    T_ThemeName extends string,
-    T_ExtraIconNames extends string,
-    T_LogoNames extends string,
-
-    T_ThemeKeyword_Universal extends string,
-    T_ThemeKeyword_Text extends string,
-    T_ThemeKeyword_Background extends string,
+    T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
 > extends AbstractTokens<{
-    data: Tokens_Internal.Data<
-        T_ColourName,
-        T_ExtraColourLevels,
-        T_ThemeBrightnessMode,
-        T_ThemeContrastMode,
-        T_ThemeName,
-        T_ExtraIconNames,
-        T_LogoNames,
-
-        T_ThemeKeyword_Universal,
-        T_ThemeKeyword_Text,
-        T_ThemeKeyword_Background
-    >;
-
-    json: Tokens_Internal.JsonReturn<
-        T_ColourName,
-        T_ExtraColourLevels,
-        T_ThemeBrightnessMode,
-        T_ThemeContrastMode,
-        T_ThemeName,
-        T_ExtraIconNames,
-        T_LogoNames,
-
-        T_ThemeKeyword_Universal,
-        T_ThemeKeyword_Text,
-        T_ThemeKeyword_Background
-    >;
-
-    scss: Tokens_Internal.ScssVars<
-        T_ColourName,
-        T_ExtraColourLevels,
-        T_ThemeBrightnessMode,
-        T_ThemeContrastMode,
-        T_ThemeName,
-        T_ExtraIconNames,
-        T_LogoNames,
-
-        T_ThemeKeyword_Universal,
-        T_ThemeKeyword_Text,
-        T_ThemeKeyword_Background
-    >;
+    data: Tokens_Internal.Data<T_Types>;
+    json: Tokens_Internal.JsonReturn<T_Types>;
+    scss: Tokens_Internal.ScssVars<T_Types>;
 }> {
 
     public get data() {
@@ -118,120 +70,70 @@ export class Tokens<
         };
     }
 
-    public readonly colour: Tokens_Colour<T_ColourName, T_ExtraColourLevels>;
+    public readonly colour: Tokens_Colour<T_Types[ 'colour' ]>;
     public readonly css: Tokens_CSS;
-    public readonly icons: Tokens_Icons<T_ExtraIconNames>;
-    public readonly logos: Tokens_Logos<T_LogoNames>;
+    public readonly icons: Tokens_Icons<T_Types[ 'iconNames' ]>;
+    public readonly logos: Tokens_Logos<T_Types[ 'logoNames' ]>;
     public readonly spacing: Tokens_Spacing;
-    public readonly themes: Tokens_Themes<
-        T_ColourName,
-        T_ExtraColourLevels,
-        T_ThemeBrightnessMode[ number ],
-        T_ThemeContrastMode[ number ],
-        T_ThemeName,
-        T_ThemeKeyword_Universal,
-        T_ThemeKeyword_Text,
-        T_ThemeKeyword_Background
-    >;
+    public readonly themes: Tokens_Themes<T_Types[ 'colour' ], T_Types[ 'theme' ]>;
     public readonly typography: Tokens_Typography<string>;
 
     /**
      * Used instead of the constructor so that it can be async.
      */
     public static async build<
-        T_ColourName extends string = Tokens_Internal.Default_ColourName,
-        T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels,
-        T_ThemeBrightnessMode extends readonly [ string, ...string[] ] = Tokens_Internal.Default_ThemeBrightnessMode,
-        T_ThemeContrastMode_Extra extends readonly Theme.Mode.ContrastExtraOptions[] = Tokens_Internal.Default_ThemeExtraContrastMode,
-        T_ThemeName extends string = Tokens_Themes.Default_ThemeName,
-        T_ExtraIconNames extends string = never,
-        T_LogoNames extends string = never,
-
-        T_ThemeKeyword_Universal extends string = never,
-        T_ThemeKeyword_Text extends string = never,
-        T_ThemeKeyword_Background extends string = never,
+        T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
     >(
-        input: Tokens_Internal.InputParam<
-            Tokens_Internal.Default_ColourName | T_ColourName,
-            T_ExtraColourLevels,
-            T_ThemeBrightnessMode,
-            Theme.Mode.Contrast<T_ThemeContrastMode_Extra>,
-            T_ThemeName,
-            T_ExtraIconNames,
-            T_LogoNames,
+        input: Tokens_Internal.InputParam<T_Types>,
+        config: Partial<Tokens.Config<NoInfer<T_Types[ 'colour' ][ 'extraLevels' ]>>> = {},
+    ): Promise<Tokens<T_Types>> {
 
-            T_ThemeKeyword_Universal,
-            T_ThemeKeyword_Text,
-            T_ThemeKeyword_Background
-        >,
-        config: Partial<Tokens.Config<NoInfer<T_ExtraColourLevels>>> = {},
-    ): Promise<Tokens<
-        Tokens_Internal.Default_ColourName | T_ColourName,
-        T_ExtraColourLevels,
-        T_ThemeBrightnessMode,
-        Theme.Mode.Contrast<T_ThemeContrastMode_Extra>,
-        T_ThemeName,
-        T_ExtraIconNames,
-        T_LogoNames,
-
-        T_ThemeKeyword_Universal,
-        T_ThemeKeyword_Text,
-        T_ThemeKeyword_Background
-    >> {
-
-        const allClrNames = [
-            'base' as const,
-            ...Object.keys( input.colour ?? {} ) as T_ColourName[],
-        ].filter( name => name !== 'black' && name !== 'white' );
+        const allClrNames = arrayUnique(
+            [
+                'base',
+                ...Object.keys( input.colour ?? {} ).filter(
+                    name => name !== 'black' && name !== 'white'
+                ),
+            ] satisfies TokenTypes.Colour.GenericNameArray<T_Types[ 'colour' ][ 'names' ]>
+        ) as unknown as TokenTypes.Colour.GenericNameArray<T_Types[ 'colour' ][ 'names' ]>;
 
         const extraColourLevels = config.extraColourLevels ?? [];
 
         const brightnessModes = input.themes?.brightness?.length
             ? input.themes.brightness
-            : [ 'light', 'dark' ] satisfies Tokens_Internal.Default_ThemeBrightnessMode as unknown as T_ThemeBrightnessMode;
+            : [ 'light', 'dark' ] satisfies TokenTypes.Theme.Mode.Brightness<never[]> as T_Types[ 'theme' ][ 'brightness' ];
 
         const contrastModes = [
             'low',
             'average',
             'high',
-            'max',
             ...(
-                input.themes?.contrast?.filter( c => c !== 'low' && c !== 'average' && c !== 'high' && c !== 'max' )
+                input.themes?.contrast?.filter(
+                    ( c: TokenTypes.Theme.Mode.ContrastOption ) => c !== 'low' && c !== 'average' && c !== 'high'
+                )
                 ?? []
-            ) as unknown as T_ThemeContrastMode_Extra,
-        ] as const;
+            ) satisfies TokenTypes.Theme.GetContrastKeys<T_Types[ 'theme' ]>[],
+        ] as TokenTypes.Theme.GetContrastKeys<T_Types[ 'theme' ]>[];
 
         return Promise.all( [
 
-            Tokens_Colour.build(
+            Tokens_Colour.build<T_Types[ 'colour' ]>(
                 allClrNames,
                 extraColourLevels,
                 input.colour ?? {},
             ),
 
-            Tokens_Themes.build(
+            Tokens_Themes.build<T_Types[ 'colour' ], T_Types[ 'theme' ]>(
                 allClrNames,
                 extraColourLevels,
                 brightnessModes,
-                [ ...contrastModes ],
+                contrastModes,
                 input.themes?.input ?? [],
             ),
         ] ).then(
             async ( [ colour, themes ] ) => {
 
-                const tokens = new Tokens<
-                    Tokens_Internal.Default_ColourName | T_ColourName,
-                    T_ExtraColourLevels,
-                    T_ThemeBrightnessMode,
-                    Theme.Mode.Contrast<T_ThemeContrastMode_Extra>,
-                    T_ThemeName,
-                    T_ExtraIconNames,
-                    T_LogoNames,
-
-                    T_ThemeKeyword_Universal,
-                    T_ThemeKeyword_Text,
-                    T_ThemeKeyword_Background
-                >(
+                const tokens = new Tokens<T_Types>(
                     allClrNames,
                     extraColourLevels,
                     { colour, themes },
@@ -248,45 +150,22 @@ export class Tokens<
     }
 
     protected constructor (
-        protected readonly clrNames: readonly T_ColourName[],
-        protected readonly extraColourLevels: readonly T_ExtraColourLevels[],
+        protected readonly clrNames: TokenTypes.Colour.GenericNameArray<T_Types[ 'colour' ][ 'names' ]>,
+        protected readonly extraColourLevels: readonly T_Types[ 'colour' ][ 'extraLevels' ][],
         { colour, themes }: {
-
-            colour: Tokens_Colour<T_ColourName, T_ExtraColourLevels>;
-
-            themes: Tokens_Themes<
-                NoInfer<T_ColourName>,
-                NoInfer<T_ExtraColourLevels>,
-                T_ThemeBrightnessMode[ number ],
-                T_ThemeContrastMode[ number ],
-                T_ThemeName,
-                T_ThemeKeyword_Universal,
-                T_ThemeKeyword_Text,
-                T_ThemeKeyword_Background
-            >,
+            colour: Tokens_Colour<T_Types[ 'colour' ]>;
+            themes: Tokens_Themes<NoInfer<T_Types[ 'colour' ]>, T_Types[ 'theme' ]>,
         },
-        protected readonly input: Omit<Tokens_Internal.InputParam<
-            NoInfer<T_ColourName>,
-            NoInfer<T_ExtraColourLevels>,
-            T_ThemeBrightnessMode,
-            T_ThemeContrastMode,
-            T_ThemeName,
-            T_ExtraIconNames,
-            T_LogoNames,
-
-            T_ThemeKeyword_Universal,
-            T_ThemeKeyword_Text,
-            T_ThemeKeyword_Background
-        >, "colour" | "themes">,
+        protected readonly input: Omit<Tokens_Internal.InputParam<T_Types>, "colour" | "themes">,
         protected readonly config: Tokens_Internal.Config = {},
     ) {
         super();;
 
         this.colour = colour;
         this.css = new Tokens_CSS( this.input.css ?? {} );
-        this.icons = new Tokens_Icons<T_ExtraIconNames>( this.input.icons ?? {} );
+        this.icons = new Tokens_Icons<T_Types[ 'iconNames' ]>( this.input.icons ?? {} );
 
-        this.logos = new Tokens_Logos<T_LogoNames>(
+        this.logos = new Tokens_Logos<T_Types[ 'logoNames' ]>(
             // @ts-expect-error
             this.input.logos ?? {}
         );
@@ -299,19 +178,7 @@ export class Tokens<
         );
     }
 
-    public toJSON(): Tokens_Internal.JsonReturn<
-        T_ColourName,
-        T_ExtraColourLevels,
-        T_ThemeBrightnessMode,
-        T_ThemeContrastMode,
-        T_ThemeName,
-        T_ExtraIconNames,
-        T_LogoNames,
-
-        T_ThemeKeyword_Universal,
-        T_ThemeKeyword_Text,
-        T_ThemeKeyword_Background
-    > {
+    public toJSON(): Tokens_Internal.JsonReturn<T_Types> {
 
         return {
             icons: this.icons.toJSON(),
@@ -326,19 +193,7 @@ export class Tokens<
         };
     }
 
-    public toScssVars(): Tokens_Internal.ScssVars<
-        T_ColourName,
-        T_ExtraColourLevels,
-        T_ThemeBrightnessMode,
-        T_ThemeContrastMode,
-        T_ThemeName,
-        T_ExtraIconNames,
-        T_LogoNames,
-
-        T_ThemeKeyword_Universal,
-        T_ThemeKeyword_Text,
-        T_ThemeKeyword_Background
-    > {
+    public toScssVars(): Tokens_Internal.ScssVars<T_Types> {
 
         return {
             ...this.spacing.toScssVars(),
@@ -390,144 +245,51 @@ export namespace Tokens_Internal {
         extraColourLevels?: undefined | never;
     }
 
-    export type Default_ColourName = 'base';
-
-    export type Default_ExtraColourLevels = ColourUtilities.Levels.Optional;
-
-    export type Default_ThemeBrightnessMode = [ 'light', 'dark' ];
-
-    export type Default_ThemeContrastMode = [ 'low', 'average', 'high', 'max' ];
-
-    export type Default_ThemeExtraContrastMode = [];
-
-    export type Data<
-        T_ColourName extends string,
-        T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
-        T_ThemeBrightnessMode extends readonly [ string, ...string[] ],
-        T_ThemeContrastMode extends Theme.Mode.ContrastAtLeastOne,
-        T_ThemeName extends string,
-        T_ExtraIconNames extends string,
-        T_LogoNames extends string,
-
-        T_ThemeKeyword_Universal extends string,
-        T_ThemeKeyword_Text extends string,
-        T_ThemeKeyword_Background extends string,
-    > = {
-        colour: Tokens_Colour.Data<T_ColourName, T_ExtraColourLevels>;
+    export type Data<T_Types extends TokenTypes.TypeParams> = {
+        colour: Tokens_Colour.Data<T_Types[ 'colour' ]>;
         css: Tokens_CSS.Data;
-        icons: Tokens_Icons.Data<T_ExtraIconNames>;
-        logos: Tokens_Logos.Data<T_LogoNames>;
+        icons: Tokens_Icons.Data<T_Types[ 'iconNames' ]>;
+        logos: Tokens_Logos.Data<T_Types[ 'logoNames' ]>;
         spacing: Tokens_Spacing.Data;
-        themes: Tokens_Themes.Data<
-            T_ColourName,
-            T_ExtraColourLevels,
-            T_ThemeBrightnessMode[ number ],
-            T_ThemeContrastMode[ number ],
-            T_ThemeName,
-            T_ThemeKeyword_Universal,
-            T_ThemeKeyword_Text,
-            T_ThemeKeyword_Background
-        >;
+        themes: Tokens_Themes.Data<T_Types[ 'colour' ], T_Types[ 'theme' ]>;
         typography: Tokens_Typography.Data<string>;
     };
 
-    export interface InputParam<
-        T_ColourName extends string,
-        T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
-        T_ThemeBrightnessMode extends readonly [ string, ...string[] ],
-        T_ThemeContrastMode extends Theme.Mode.ContrastAtLeastOne,
-        T_ThemeName extends string,
-        T_ExtraIconNames extends string,
-        T_LogoNames extends string,
-
-        T_ThemeKeyword_Universal extends string,
-        T_ThemeKeyword_Text extends string,
-        T_ThemeKeyword_Background extends string,
-    > {
-        colour?: undefined | Tokens_Colour.InputParam<T_ColourName, T_ExtraColourLevels>;
+    export interface InputParam<T_Types extends TokenTypes.TypeParams> {
+        colour?: undefined | Tokens_Colour.InputParam<T_Types[ 'colour' ]>;
         css?: undefined | Tokens_CSS.InputParam;
-        icons?: undefined | Tokens_Icons.InputParam<T_ExtraIconNames>;
-        logos?: undefined | Tokens_Logos.InputParam<T_LogoNames>;
+        icons?: undefined | Tokens_Icons.InputParam<T_Types[ 'iconNames' ]>;
+        logos?: undefined | Tokens_Logos.InputParam<T_Types[ 'logoNames' ]>;
         spacing?: undefined | Tokens_Spacing.InputParam;
         themes?: {
-            brightness?: T_ThemeBrightnessMode,
-            contrast?: T_ThemeContrastMode,
+            brightness?: readonly TokenTypes.Theme.GetBrightnessKeys<T_Types[ 'theme' ]>[],
+            contrast?: readonly TokenTypes.Theme.GetContrastKeys<T_Types[ 'theme' ]>[],
 
-            input?: Tokens_Themes.InputParam<
-                T_ColourName,
-                T_ExtraColourLevels,
-                T_ThemeBrightnessMode[ number ],
-                T_ThemeContrastMode[ number ],
-                T_ThemeName,
-
-                T_ThemeKeyword_Universal,
-                T_ThemeKeyword_Text,
-                T_ThemeKeyword_Background
-            >,
+            input?: Tokens_Themes.InputParam<T_Types[ 'colour' ], T_Types[ 'theme' ]>,
         };
         typography?: undefined | Tokens_Typography.InputParam<string>;
     }
 
-    export type JsonReturn<
-        T_ColourName extends string,
-        T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
-        T_ThemeBrightnessMode extends readonly [ string, ...string[] ],
-        T_ThemeContrastMode extends Theme.Mode.ContrastAtLeastOne,
-        T_ThemeName extends string,
-        T_ExtraIconNames extends string,
-        T_LogoNames extends string,
-
-        T_ThemeKeyword_Universal extends string,
-        T_ThemeKeyword_Text extends string,
-        T_ThemeKeyword_Background extends string,
-    > = {
-        colour: Tokens_Colour.JsonReturn<T_ColourName, T_ExtraColourLevels>;
+    export type JsonReturn<T_Types extends TokenTypes.TypeParams> = {
+        colour: Tokens_Colour.JsonReturn<T_Types[ 'colour' ]>;
         css: Tokens_CSS.JsonReturn;
-        icons: Tokens_Icons.JsonReturn<T_ExtraIconNames>;
-        logos: Tokens_Logos.JsonReturn<T_LogoNames>;
+        icons: Tokens_Icons.JsonReturn<T_Types[ 'iconNames' ]>;
+        logos: Tokens_Logos.JsonReturn<T_Types[ 'logoNames' ]>;
         spacing: Tokens_Spacing.JsonReturn;
-        themes: Tokens_Themes.JsonReturn<
-            T_ColourName,
-            T_ExtraColourLevels,
-            T_ThemeBrightnessMode[ number ],
-            T_ThemeContrastMode[ number ],
-            T_ThemeName,
-
-            T_ThemeKeyword_Universal,
-            T_ThemeKeyword_Text,
-            T_ThemeKeyword_Background
-        >;
+        themes: Tokens_Themes.JsonReturn<T_Types[ 'colour' ], T_Types[ 'theme' ]>;
         typography: Tokens_Typography.JsonReturn<string>;
     };
 
-    export type ScssVars<
-        T_ColourName extends string,
-        T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
-        T_ThemeBrightnessMode extends readonly [ string, ...string[] ],
-        T_ThemeContrastMode extends Theme.Mode.ContrastAtLeastOne,
-        T_ThemeName extends string,
-        T_ExtraIconNames extends string,
-        T_LogoNames extends string,
-
-        T_ThemeKeyword_Universal extends string,
-        T_ThemeKeyword_Text extends string,
-        T_ThemeKeyword_Background extends string,
-    > = Tokens_CSS.ScssVars & Tokens_Spacing.ScssVars & Tokens_Typography.ScssVars<string> & {
-        colour: Tokens_Colour.ScssVars<T_ColourName, T_ExtraColourLevels>;
-        icons: Tokens_Icons.ScssVars<T_ExtraIconNames>;
-        logos: Tokens_Logos.ScssVars<T_LogoNames>;
-        themes: Tokens_Themes.ScssVars<
-            T_ColourName,
-            T_ExtraColourLevels,
-            T_ThemeBrightnessMode[ number ],
-            T_ThemeContrastMode[ number ],
-            T_ThemeName,
-
-            T_ThemeKeyword_Universal,
-            T_ThemeKeyword_Text,
-            T_ThemeKeyword_Background
-        >;
-    };
+    export type ScssVars<T_Types extends TokenTypes.TypeParams> =
+        Tokens_CSS.ScssVars
+        & Tokens_Spacing.ScssVars
+        & Tokens_Typography.ScssVars<string>
+        & {
+            colour: Tokens_Colour.ScssVars<T_Types[ 'colour' ]>;
+            icons: Tokens_Icons.ScssVars<T_Types[ 'iconNames' ]>;
+            logos: Tokens_Logos.ScssVars<T_Types[ 'logoNames' ]>;
+            themes: Tokens_Themes.ScssVars<T_Types[ 'colour' ], T_Types[ 'theme' ]>;
+        };
 }
 
 /**
@@ -552,42 +314,13 @@ export namespace Tokens {
                     // yardstick: Tokens.SampleColours.yardstick,
                     // 'yardstick-accent': Tokens.SampleColours[ 'yardstick-accent' ],
                 },
+                themes: {
+                    contrast: [ 'max' ],
+                },
             },
             { tokensAsDefault: true, },
         );
     }
-
-    /**
-     * The shape of ANY {@link Tokens} class instance, without any
-     * required generics.
-     *
-     * @since 0.1.1-alpha.0
-     */
-    export type AnyInstance<
-        T_ColourName extends string = any,
-        T_ExtraColourLevels extends ColourUtilities.Levels.Optional = any,
-        T_ThemeBrightnessMode extends readonly [ string, ...string[] ] = any,
-        T_ThemeContrastMode extends Theme.Mode.ContrastAtLeastOne = any,
-        T_ThemeName extends string = any,
-        T_ExtraIconNames extends string = string,
-        T_LogoNames extends string = string,
-
-        T_ThemeKeyword_Universal extends string = string,
-        T_ThemeKeyword_Text extends string = string,
-        T_ThemeKeyword_Background extends string = string,
-    > = Instance<
-        T_ColourName,
-        T_ExtraColourLevels,
-        T_ThemeBrightnessMode,
-        T_ThemeContrastMode,
-        T_ThemeName,
-        T_ExtraIconNames,
-        T_LogoNames,
-
-        T_ThemeKeyword_Universal,
-        T_ThemeKeyword_Text,
-        T_ThemeKeyword_Background
-    >;
 
     /**
      * Configuration options for the {@link Tokens} class.
@@ -605,30 +338,8 @@ export namespace Tokens {
      * @since 0.1.0-alpha
      */
     export type Data<
-        T_ColourName extends string = Tokens_Internal.Default_ColourName,
-        T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels,
-        T_ThemeBrightnessMode extends readonly [ string, ...string[] ] = Tokens_Internal.Default_ThemeBrightnessMode,
-        T_ThemeContrastMode extends Theme.Mode.ContrastAtLeastOne = Tokens_Internal.Default_ThemeContrastMode,
-        T_ThemeName extends string = Tokens_Themes.Default_ThemeName,
-        T_ExtraIconNames extends string = string,
-        T_LogoNames extends string = string,
-
-        T_ThemeKeyword_Universal extends string = string,
-        T_ThemeKeyword_Text extends string = string,
-        T_ThemeKeyword_Background extends string = string,
-    > = Tokens_Internal.Data<
-        T_ColourName,
-        T_ExtraColourLevels,
-        T_ThemeBrightnessMode,
-        T_ThemeContrastMode,
-        T_ThemeName,
-        T_ExtraIconNames,
-        T_LogoNames,
-
-        T_ThemeKeyword_Universal,
-        T_ThemeKeyword_Text,
-        T_ThemeKeyword_Background
-    >;
+        T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+    > = Tokens_Internal.Data<T_Types>;
 
     /**
      * The shape of a default {@link Tokens} class instance, without any
@@ -637,88 +348,22 @@ export namespace Tokens {
      * @since 0.1.0-alpha
      */
     export type Instance<
-        T_ColourName extends string = Tokens_Internal.Default_ColourName,
-        T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels,
-        T_ThemeBrightnessMode extends readonly [ string, ...string[] ] = Tokens_Internal.Default_ThemeBrightnessMode,
-        T_ThemeContrastMode extends Theme.Mode.ContrastAtLeastOne = Tokens_Internal.Default_ThemeContrastMode,
-        T_ThemeName extends string = Tokens_Themes.Default_ThemeName,
-        T_ExtraIconNames extends string = string,
-        T_LogoNames extends string = string,
-
-        T_ThemeKeyword_Universal extends string = string,
-        T_ThemeKeyword_Text extends string = string,
-        T_ThemeKeyword_Background extends string = string,
-    > = Tokens<
-        T_ColourName,
-        T_ExtraColourLevels,
-        T_ThemeBrightnessMode,
-        T_ThemeContrastMode,
-        T_ThemeName,
-        T_ExtraIconNames,
-        T_LogoNames,
-
-        T_ThemeKeyword_Universal,
-        T_ThemeKeyword_Text,
-        T_ThemeKeyword_Background
-    >;
+        T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+    > = Tokens<T_Types>;
 
     /**
      * @since 0.1.0-alpha
      */
     export interface InputParam<
-        T_ColourName extends string = Tokens_Internal.Default_ColourName,
-        T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels,
-        T_ThemeBrightnessMode extends readonly [ string, ...string[] ] = Tokens_Internal.Default_ThemeBrightnessMode,
-        T_ThemeContrastMode extends Theme.Mode.ContrastAtLeastOne = Tokens_Internal.Default_ThemeContrastMode,
-        T_ThemeName extends string = Tokens_Themes.Default_ThemeName,
-        T_ExtraIconNames extends string = string,
-        T_LogoNames extends string = string,
-
-        T_ThemeKeyword_Universal extends string = string,
-        T_ThemeKeyword_Text extends string = string,
-        T_ThemeKeyword_Background extends string = string,
-    > extends Tokens_Internal.InputParam<
-        T_ColourName,
-        T_ExtraColourLevels,
-        T_ThemeBrightnessMode,
-        T_ThemeContrastMode,
-        T_ThemeName,
-        T_ExtraIconNames,
-        T_LogoNames,
-
-        T_ThemeKeyword_Universal,
-        T_ThemeKeyword_Text,
-        T_ThemeKeyword_Background
-    > { }
+        T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+    > extends Tokens_Internal.InputParam<T_Types> { }
 
     /**
      * @since 0.1.0-alpha
      */
     export type JsonReturn<
-        T_ColourName extends string = Tokens_Internal.Default_ColourName,
-        T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels,
-        T_ThemeBrightnessMode extends readonly [ string, ...string[] ] = Tokens_Internal.Default_ThemeBrightnessMode,
-        T_ThemeContrastMode extends Theme.Mode.ContrastAtLeastOne = Tokens_Internal.Default_ThemeContrastMode,
-        T_ThemeName extends string = Tokens_Themes.Default_ThemeName,
-        T_ExtraIconNames extends string = string,
-        T_LogoNames extends string = string,
-
-        T_ThemeKeyword_Universal extends string = string,
-        T_ThemeKeyword_Text extends string = string,
-        T_ThemeKeyword_Background extends string = string,
-    > = Tokens_Internal.JsonReturn<
-        T_ColourName,
-        T_ExtraColourLevels,
-        T_ThemeBrightnessMode,
-        T_ThemeContrastMode,
-        T_ThemeName,
-        T_ExtraIconNames,
-        T_LogoNames,
-
-        T_ThemeKeyword_Universal,
-        T_ThemeKeyword_Text,
-        T_ThemeKeyword_Background
-    >;
+        T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+    > = Tokens_Internal.JsonReturn<T_Types>;
 
     export type DefaultIconNames = Tokens_Icons.DefaultIconNames;
 
@@ -804,7 +449,10 @@ export namespace Tokens {
         black: Tokens_Colour_ShadeMap.Shade.InputParam;
         white: Tokens_Colour_ShadeMap.Shade.InputParam;
     } & {
-            [ K in SampleColourName | Tokens_Internal.Default_ColourName ]: Tokens_Colour_ShadeMap.InputParam<SampleColourName, never>
+            [ K in SampleColourName ]: Tokens_Colour_ShadeMap.InputParam<{
+                names: SampleColourName;
+                extraLevels: never;
+            }>
         };
 
     /**
@@ -1145,25 +793,22 @@ export namespace Tokens {
          * @since 0.1.0-alpha
          */
         export type AllColours<
-            T_ColourName extends string = Tokens_Internal.Default_ColourName,
-            T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels,
-        > = Tokens_Colour.InputParam<T_ColourName, T_ExtraColourLevels>;
+            T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams,
+        > = Tokens_Colour.InputParam<T_ColourTypes>;
 
         /**
          * @since 0.1.0-alpha
          */
         export type PartialMap<
-            T_ColourName extends string,
-            T_ExtraLevels extends ColourUtilities.Levels.Optional,
-        > = Tokens_Colour_ShadeMap.InputParam<T_ColourName, T_ExtraLevels>;
+            T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams,
+        > = Tokens_Colour_ShadeMap.InputParam<T_ColourTypes>;
 
         /**
          * @since 0.1.0-alpha.4
          */
         export type CompleteMap<
-            T_ColourName extends string,
-            T_ExtraLevels extends ColourUtilities.Levels.Optional,
-        > = Tokens_Colour_ShadeMap.Data<T_ColourName, T_ExtraLevels>;
+            T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams,
+        > = Tokens_Colour_ShadeMap.Data<T_ColourTypes>;
     }
 
     /**
@@ -1180,43 +825,15 @@ export namespace Tokens {
          * @since 0.1.0-alpha
          */
         export interface AllVariations<
-            T_ColourName extends string = Tokens_Internal.Default_ColourName,
-
-            T_ThemeKeyword_Universal extends string = never,
-            T_ThemeKeyword_Text extends string = never,
-            T_ThemeKeyword_Background extends string = never,
-        > extends Tokens_Themes_Set.SingleMode.AllVariations<
-            T_ColourName,
-
-            T_ThemeKeyword_Universal,
-            T_ThemeKeyword_Text,
-            T_ThemeKeyword_Background
-        > { }
+            T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+        > extends Tokens_Themes_Set.SingleMode.AllVariations<T_Types[ 'colour' ], T_Types[ 'theme' ]> { }
 
         /**
          * @since ___PKG_VERSION___
          */
         export type JsonReturn<
-            T_ColourName extends string = Tokens_Internal.Default_ColourName,
-            T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels,
-            T_ThemeBrightnessMode extends string = Tokens_Internal.Default_ThemeBrightnessMode[ number ],
-            T_ThemeContrastMode extends TokenTypes.Theme.Mode.ContrastOption = TokenTypes.Theme.Mode.ContrastOption,
-            T_ThemeName extends string = Tokens_Themes.Default_ThemeName,
-
-            T_ThemeKeyword_Universal extends string = string,
-            T_ThemeKeyword_Text extends string = string,
-            T_ThemeKeyword_Background extends string = string,
-        > = Tokens_Themes.JsonReturn<
-            T_ColourName,
-            T_ExtraColourLevels,
-            T_ThemeBrightnessMode,
-            T_ThemeContrastMode,
-            T_ThemeName,
-
-            T_ThemeKeyword_Universal,
-            T_ThemeKeyword_Text,
-            T_ThemeKeyword_Background
-        >;
+            T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+        > = Tokens_Themes.JsonReturn<T_Types[ 'colour' ], T_Types[ 'theme' ]>;
 
         /**
          * @since 0.1.0-alpha
@@ -1227,27 +844,8 @@ export namespace Tokens {
              * @since 0.1.0-alpha
              */
             export type InputParam<
-                T_ColourName extends string = Tokens_Internal.Default_ColourName,
-                T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels,
-
-                T_ThemeBrightnessMode extends readonly [ string, ...string[] ] = Tokens_Internal.Default_ThemeBrightnessMode,
-                T_ThemeContrastMode extends Theme.Mode.ContrastAtLeastOne = Tokens_Internal.Default_ThemeContrastMode,
-                T_ThemeName extends string = Tokens_Themes.Default_ThemeName,
-
-                T_ThemeKeyword_Universal extends string = never,
-                T_ThemeKeyword_Text extends string = never,
-                T_ThemeKeyword_Background extends string = never,
-            > = Tokens_Themes_Set.InputParam<
-                T_ColourName,
-                T_ExtraColourLevels,
-                T_ThemeBrightnessMode,
-                T_ThemeContrastMode,
-                T_ThemeName,
-
-                T_ThemeKeyword_Universal,
-                T_ThemeKeyword_Text,
-                T_ThemeKeyword_Background
-            >;
+                T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+            > = Tokens_Themes_Set.InputParam<T_Types[ 'colour' ], T_Types[ 'theme' ]>;
         }
 
 
@@ -1267,21 +865,21 @@ export namespace Tokens {
                  * @since ___PKG_VERSION___
                  */
                 export interface Input<
-                    T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels,
+                    T_ExtraColourLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional,
                 > extends Tokens_Themes_Set.SingleMode.Levels.Input<T_ExtraColourLevels> { }
 
                 /**
                  * @since ___PKG_VERSION___
                  */
                 export interface Parsed<
-                    T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels,
+                    T_ExtraColourLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional,
                 > extends Tokens_Themes_Set.SingleMode.Levels.Parsed<T_ExtraColourLevels> { }
 
                 /**
                  * @since ___PKG_VERSION___
                  */
                 export interface Required<
-                    T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels,
+                    T_ExtraColourLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional,
                 > extends Tokens_Themes_Set.SingleMode.Levels.Required<T_ExtraColourLevels> { }
 
                 /**
@@ -1304,14 +902,14 @@ export namespace Tokens {
                  * @since ___PKG_VERSION___
                  */
                 export interface AccentMin<
-                    T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels,
+                    T_ExtraColourLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional,
                 > extends Tokens_Themes_Set.SingleMode.Levels.Set.AccentMin<T_ExtraColourLevels> { }
 
                 /**
                  * @since ___PKG_VERSION___
                  */
                 export interface AccentGrey<
-                    T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels,
+                    T_ExtraColourLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional,
                 > extends Tokens_Themes_Set.SingleMode.Levels.Set.AccentGrey<T_ExtraColourLevels> { }
             }
 
@@ -1319,20 +917,11 @@ export namespace Tokens {
              * @since 0.1.0-alpha
              */
             export interface Data<
-                T_ColourName extends string = Tokens_Internal.Default_ColourName,
-                T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels,
-
-                T_ThemeKeyword_Universal extends string = never,
-                T_ThemeKeyword_Text extends string = never,
-                T_ThemeKeyword_Background extends string = never,
-
-                __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourName, T_ExtraColourLevels> = TokenTypes.Theme.ColourOption<T_ColourName, T_ExtraColourLevels>,
+                T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+                __T_ColourOption extends TokenTypes.Theme.ColourOption<T_Types[ 'colour' ]> = TokenTypes.Theme.ColourOption<T_Types[ 'colour' ]>,
             > extends Tokens_Themes_Set.SingleMode.Data<
-                T_ColourName,
-                T_ExtraColourLevels,
-                T_ThemeKeyword_Universal,
-                T_ThemeKeyword_Text,
-                T_ThemeKeyword_Background,
+                T_Types[ 'colour' ],
+                T_Types[ 'theme' ],
                 __T_ColourOption
             > { }
 
@@ -1342,61 +931,29 @@ export namespace Tokens {
             export namespace Data {
                 /**
                  * @since 0.1.0-alpha
+                 * @deprecated
                  */
                 export interface RecursivePartial<
-                    T_ColourName extends string = Tokens_Internal.Default_ColourName,
-                    T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels,
-
-                    T_ThemeKeyword_Universal extends string = never,
-                    T_ThemeKeyword_Text extends string = never,
-                    T_ThemeKeyword_Background extends string = never,
-
-                    __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourName, T_ExtraColourLevels> = TokenTypes.Theme.ColourOption<T_ColourName, T_ExtraColourLevels>,
-                > extends Tokens_Themes_Set.SingleMode.Data.RecursivePartial<
-                    T_ColourName,
-                    T_ExtraColourLevels,
-                    T_ThemeKeyword_Universal,
-                    T_ThemeKeyword_Text,
-                    T_ThemeKeyword_Background,
-                    __T_ColourOption
-                > { }
+                    T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+                    __T_ColourOption extends TokenTypes.Theme.ColourOption<T_Types[ 'colour' ]> = TokenTypes.Theme.ColourOption<T_Types[ 'colour' ]>,
+                > extends Tokens_Themes_Set.SingleMode.Data.RecursivePartial<T_Types[ 'colour' ], T_Types[ 'theme' ], __T_ColourOption> { }
             }
 
             /**
              * @since 0.1.0-alpha
+             * @deprecated
              */
             export interface InputParam<
-                T_ColourName extends string = Tokens_Internal.Default_ColourName,
-                T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels,
-
-                T_ThemeKeyword_Universal extends string = never,
-                T_ThemeKeyword_Text extends string = never,
-                T_ThemeKeyword_Background extends string = never,
-            > extends Tokens_Themes_Set.SingleMode.InputParam<
-                T_ColourName,
-                T_ExtraColourLevels,
-                T_ThemeKeyword_Universal,
-                T_ThemeKeyword_Text,
-                T_ThemeKeyword_Background
-            > { }
+                T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+            > extends Tokens_Themes_Set.SingleMode.InputParam<T_Types[ 'colour' ], T_Types[ 'theme' ]> { }
 
             /**
              * @since 0.1.0-alpha
+             * @deprecated
              */
             export interface JsonReturn<
-                T_ColourName extends string = Tokens_Internal.Default_ColourName,
-                T_ExtraColourLevels extends ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels,
-
-                T_ThemeKeyword_Universal extends string = never,
-                T_ThemeKeyword_Text extends string = never,
-                T_ThemeKeyword_Background extends string = never,
-            > extends Tokens_Themes_Set.SingleMode.JsonReturn<
-                T_ColourName,
-                T_ExtraColourLevels,
-                T_ThemeKeyword_Universal,
-                T_ThemeKeyword_Text,
-                T_ThemeKeyword_Background
-            > { }
+                T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+            > extends Tokens_Themes_Set.SingleMode.JsonReturn<T_Types[ 'colour' ], T_Types[ 'theme' ]> { }
         }
     }
 }

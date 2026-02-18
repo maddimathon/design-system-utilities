@@ -31,15 +31,29 @@ export class Tokens_Themes_Set extends AbstractTokens {
      * Used instead of the constructor so that it can be async.
      */
     static async build(name, clrNames, extraColourLevels, brightnessModes, contrastModes, input) {
-        const forcedColours = await Tokens_Themes_Set.SingleMode.build('forcedColors', undefined, clrNames, {
+        const allBrightnessModes = [
+            'light',
+            'dark',
+            ...brightnessModes,
+        ];
+        const allContrastModes = [
+            'low',
+            'average',
+            'high',
+            ...contrastModes,
+        ];
+        const forcedColours = Tokens_Themes_Set.SingleMode.build('forcedColors', clrNames, {
             ...input.forcedColours ?? {},
             variations: input.variations,
         }, input.forcedColours?.overrides);
-        const modes = objectGeneratorAsync(brightnessModes, (brightness) => objectGeneratorAsync(contrastModes, (contrast) => Tokens_Themes_Set.SingleMode.build(contrast, brightness, clrNames, {
+        const modes = objectGeneratorAsync(allBrightnessModes, async (brightness) => objectGeneratorAsync(allContrastModes, async (contrast) => Tokens_Themes_Set.SingleMode.build(contrast, clrNames, {
             ...input[brightness]?.[contrast] ?? {},
             variations: mergeArgs(input.variations ?? {}, input[brightness]?.[contrast]?.variations ?? {}, true),
         }, input[brightness]?.[contrast]?.overrides ?? {})));
-        return modes.then((modes_resolved => new Tokens_Themes_Set(name, clrNames, extraColourLevels, brightnessModes, contrastModes, forcedColours, modes_resolved)));
+        return Promise.all([
+            forcedColours,
+            modes,
+        ]).then((([forcedColours_resolved, modes_resolved,]) => new Tokens_Themes_Set(name, clrNames, extraColourLevels, brightnessModes, contrastModes, forcedColours_resolved, modes_resolved)));
     }
     get data() {
         return {
@@ -66,8 +80,8 @@ export class Tokens_Themes_Set extends AbstractTokens {
         const levelsInUse_dark = levelsInUse.map((light) => ColourUtilities.Levels.toDark(light));
         return {
             name: this.name ?? 'default',
-            ...objectMap(this.modes, ([brightnessMode]) => objectMap(this.modes[brightnessMode], ([__key, value]) => value.toJSON())),
             forcedColours: this.forcedColours.toJSON(),
+            ...objectMap(this.modes, ([brightnessMode]) => objectMap(this.modes[brightnessMode], ([__key, value]) => value.toJSON())),
             levelsInUse: arrayUnique(levelsInUse.concat(levelsInUse_dark)).sort(),
         };
     }
@@ -99,7 +113,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
          *
          * @since 0.1.0-alpha
          */
-        static async build(preset, brightness, clrNames, input, overrides = {}) {
+        static async build(preset, clrNames, input, overrides = {}) {
             const defaultLevels = preset !== 'forcedColors'
                 ? SingleMode.Levels.DEFAULT[preset]
                 : SingleMode.Levels.DEFAULT.max;

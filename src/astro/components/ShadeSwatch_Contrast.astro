@@ -8,9 +8,9 @@
 /* import - types */
 import type { ComponentProps } from 'astro/types';
 import type {
-    Colour,
+    TokenTypes,
 } from '../../ts/02-tokens/@types.d.ts';
-import type { Tokens, Tokens_Internal } from '../../ts/02-tokens/Tokens.js';
+import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
 
 /* import - functions */
@@ -34,9 +34,7 @@ import Heading from '@maddimathon/utility-astro/components/Heading';
 /* PROPS ===================================== */
 
 export interface Props<
-    T_ColourName extends string = Tokens_Internal.Default_ColourName,
-    T_ExtraLevels extends
-        ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels,
+    T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
 > extends Omit<
     ComponentProps<typeof Heading>,
     'frontmatter' | 'heading' | 'id'
@@ -46,8 +44,8 @@ export interface Props<
 
     thisShadeName: string | null;
     
-    tokens: Tokens.JsonReturn<T_ColourName, T_ExtraLevels>;
-    values: Tokens_Colour_ShadeMap.Shade.Contrast<Colour.GenericName<T_ColourName>, T_ExtraLevels, number>;
+    tokens: Tokens.JsonReturn<T_Types>;
+    values: Tokens_Colour_ShadeMap.Shade.Contrast<T_Types['colour']>;
     
     brightness?: string;
     isCondensed?: boolean;
@@ -74,10 +72,10 @@ type ColourSet_AllShadeLevels_Result = undefined | {
 };
 
 type ColourSet_AllShadeLevels<
-    T_ExtraLevels extends ColourUtilities.Levels.Optional,
+    T_ColourTypes extends TokenTypes.Colour.TypeParams =TokenTypes.Colour.TypeParams,
 > = undefined | {
-    [ K in ColourUtilities.Levels.Required | T_ExtraLevels ]?: {
-        level: ColourUtilities.Levels.Required | T_ExtraLevels;
+    [ K in ColourUtilities.Levels.Required | T_ColourTypes['extraLevels'] ]?: {
+        level: ColourUtilities.Levels.Required | T_ColourTypes['extraLevels'];
         ratio: number;
         result: ColourSet_AllShadeLevels_Result;
         interpretedResult: string;
@@ -86,55 +84,56 @@ type ColourSet_AllShadeLevels<
 };
 
 type ColourSet_MinMax_Single<
-    T_ExtraLevels extends ColourUtilities.Levels.Optional,
+    T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams,
 > = undefined | {
-    level: ColourUtilities.Levels.Required | T_ExtraLevels;
+    level: ColourUtilities.Levels.Required | T_ColourTypes['extraLevels'];
     ratio: number;
     shade: ColourUtilities.SingleShade;
     shadeLevelName: string;
 };
 
 type ColourSet_Minimum<
-    T_ExtraLevels extends ColourUtilities.Levels.Optional,
+    T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams,
 > = undefined | {
     [S in 'aa' | 'aaa']?: {
         colCount: number;
-        text: ColourSet_MinMax_Single<T_ExtraLevels>;
-        ui: ColourSet_MinMax_Single<T_ExtraLevels>;
+        text: ColourSet_MinMax_Single<T_ColourTypes>;
+        ui: ColourSet_MinMax_Single<T_ColourTypes>;
     };
 };
 
-type ColourSet<
-    T_ColourName extends string = Tokens_Internal.Default_ColourName,
-    T_ExtraLevels extends
-        ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels,
-> =
-    | undefined
-    | {
-        [K in T_ColourName]?: {
-            name: T_ColourName;
+type ColourSetValue<T_ColourTypes extends TokenTypes.Colour.TypeParams> = {
+            name: T_ColourTypes['names'];
             colCount: number;
             cssTextColour?: string;
             cssTextGreyColour?: string;
-            allShades: ColourSet_AllShadeLevels<T_ExtraLevels>;
-            min?: ColourSet_Minimum<T_ExtraLevels>;
-            max?: ColourSet_MinMax_Single<T_ExtraLevels>;
+            allShades: ColourSet_AllShadeLevels<T_ColourTypes>;
+            min?: ColourSet_Minimum<T_ColourTypes>;
+            max?: ColourSet_MinMax_Single<T_ColourTypes>;
         };
+
+type ColourSet<
+    T_ColourTypes extends TokenTypes.Colour.TypeParams =TokenTypes.Colour.TypeParams,
+> =
+    | undefined
+    | {
+        base: ColourSetValue<T_ColourTypes>;
+    } & {
+        [K in T_ColourTypes['names']]?: ColourSetValue<T_ColourTypes>;
     };
 
 function getShadeMapSets<
-    T_ColourName extends string = Tokens_Internal.Default_ColourName,
-    T_ExtraLevels extends
-        ColourUtilities.Levels.Optional = Tokens_Internal.Default_ExtraColourLevels,
+    T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
 >(
-    _tokens: Tokens.JsonReturn<T_ColourName, T_ExtraLevels>,
-    _values: Props<Colour.GenericName<T_ColourName>, T_ExtraLevels>['values'],
+    _tokens: Tokens.JsonReturn<T_Types>,
+    _values: Props<T_Types>['values'],
     _isCondensed: boolean,
     _thisShadeName: string|null,
-): ColourSet<Colour.GenericName<T_ColourName>, T_ExtraLevels> {
+): ColourSet<T_Types['colour']> {
+
     const allColours = arrayUnique(
-        Object.keys(_values.min ?? []).concat(Object.keys(_values.max ?? []))
-    ) as Colour.GenericName<T_ColourName>[];
+        ['base'].concat(Object.keys(_values.min ?? []).concat(Object.keys(_values.max ?? [])))
+    ) as TokenTypes.Colour.GenericName<T_Types['colour']['names']>[];
 
     // returns
     if (!allColours.length) {
@@ -144,12 +143,8 @@ function getShadeMapSets<
     const summarizer = (
         _v:
             | undefined
-            | Tokens_Colour_ShadeMap.Shade.Contrast.SingleMinMax<
-                Colour.GenericName<T_ColourName>, 
-                T_ExtraLevels, 
-                number
-            >,
-    ): ColourSet_MinMax_Single<T_ExtraLevels> =>
+            | Tokens_Colour_ShadeMap.Shade.Contrast.SingleMinMax<T_Types['colour']>,
+    ): ColourSet_MinMax_Single<T_Types['colour']> =>
         _v && {
             level: _v.level,
             shade: _tokens.colour[_v.name][_v.level],
@@ -157,16 +152,12 @@ function getShadeMapSets<
             ratio: _v.ratio,
         };
         
-    type _StdResult = undefined|Tokens_Colour_ShadeMap.Shade.Contrast.SingleMinMax<
-            Colour.GenericName<T_ColourName>, 
-            T_ExtraLevels, 
-            number
-        >;
+    type _StdResult = undefined|Tokens_Colour_ShadeMap.Shade.Contrast.SingleMinMax<T_Types['colour']>;
 
     const minMaker = <T_Std extends 'aa' | 'aaa'>(
-        _clr: Colour.GenericName<T_ColourName>,
+        _clr: TokenTypes.Colour.GenericName<T_Types['colour']['names']>,
         _std: T_Std,
-    ): NonNullable<ColourSet_Minimum<T_ExtraLevels>>[T_Std] => {
+    ): NonNullable<ColourSet_Minimum<T_Types['colour']>>[T_Std] => {
         
         const text = summarizer(
             _values.min?.[_clr]?.text?.[_std] as _StdResult
@@ -191,27 +182,27 @@ function getShadeMapSets<
     const base_min_aaa = minMaker('base', 'aaa');
     const base_max = summarizer(_values.max?.['base'] as _StdResult) || undefined;
 
-    function _generator<T_Clr extends T_ColourName>(
-        colourName: Colour.GenericName<T_Clr>,
+    function _generator<T_Clr extends T_Types['colour']['names']>(
+        colourName: TokenTypes.Colour.GenericName<T_Clr>,
     ): {
-        name: Colour.GenericName<T_Clr>;
+        name: TokenTypes.Colour.GenericName<T_Clr>;
         colCount: number;
         cssTextColour?: string;
         cssTextGreyColour?: string;
-        allShades: ColourSet_AllShadeLevels<T_ExtraLevels>;
-        min?: ColourSet_Minimum<T_ExtraLevels>;
-        max?: ColourSet_MinMax_Single<T_ExtraLevels>;
+        allShades: ColourSet_AllShadeLevels<T_Types['colour']>;
+        min?: ColourSet_Minimum<T_Types['colour']>;
+        max?: ColourSet_MinMax_Single<T_Types['colour']>;
     } {
 
         const min_aa = minMaker(colourName, 'aa');
         const min_aaa = minMaker(colourName, 'aaa');
         
-        const min: ColourSet_Minimum<T_ExtraLevels> = ( min_aa || min_aaa ) && {
+        const min: ColourSet_Minimum<T_Types['colour']> = ( min_aa || min_aaa ) && {
             aa: min_aa || undefined,
             aaa: min_aaa || undefined,
         };
 
-        const max: ColourSet_MinMax_Single<T_ExtraLevels> = summarizer(_values.max?.[colourName] as _StdResult) || undefined;
+        const max: ColourSet_MinMax_Single<T_Types['colour']> = summarizer(_values.max?.[colourName] as _StdResult) || undefined;
 
         const colCount: number =
             (max ? 1 : 0) + (min?.aa?.colCount ?? 0) + (min?.aaa?.colCount ?? 0);
@@ -226,14 +217,14 @@ function getShadeMapSets<
             base_min_aaa?.text?.level ??
             base_max?.level;
 
-        const allShades: ColourSet_AllShadeLevels<T_ExtraLevels> =
+        const allShades: ColourSet_AllShadeLevels<T_Types['colour']> =
             _isCondensed ? undefined : _values.results[ colourName ] && objectMap(
                 _values.results[ colourName ],
                 
                 ([key, value]) => {
                     
                     let __val: undefined | {
-                        level: ColourUtilities.Levels.Required | T_ExtraLevels;
+                        level: ColourUtilities.Levels.Required | T_Types['colour']['extraLevels'];
                         ratio: number;
                         result: ColourSet_AllShadeLevels_Result;
                         interpretedResult: string;
@@ -276,7 +267,7 @@ function getShadeMapSets<
                         }
 
                         __val = {
-                            level: key as ColourUtilities.Levels.Required | T_ExtraLevels,
+                            level: key as ColourUtilities.Levels.Required | T_Types['colour']['extraLevels'],
                             ratio: value?.ratio,
                             result,
                             interpretedResult: interpretedResult ?? 'Fail',
@@ -350,7 +341,7 @@ const resultGroupColCount = shadeMapSets?.base?.allShades && Math.max(
 <!-- data-brightness-mode="light" -->
     {
         shadeMapSets &&
-            Object.values(shadeMapSets).map((shadeMapSet) => (
+            Object.values(shadeMapSets).map((shadeMapSet) => shadeMapSet && (
                 <Heading
                     heading={heading + 1}
                     displayHeading={9}
@@ -504,7 +495,7 @@ const resultGroupColCount = shadeMapSets?.base?.allShades && Math.max(
                                         'shade-swatch__contrast__result-group__alert',
                                         'shade-swatch__contrast__result-group__alert--maximum',
                                     ]}
-                                    clr={tokens.colour[shadeMapSet.name][singleLevel.level]}
+                                    clr={tokens.colour[shadeMapSet.name]?.[singleLevel.level] ?? null}
                                     clrSlug={`${shadeMapSet.name}-${singleLevel.level}`}
                                     level={ singleLevel.level }
                                     title={`${shadeMapSet.name}-${singleLevel.level}: ${singleLevel.interpretedResult}` + ( import.meta.env.DEV ? ` (${singleLevel.ratio.toFixed(5)})` : '' )}
