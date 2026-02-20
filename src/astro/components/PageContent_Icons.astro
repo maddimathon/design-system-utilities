@@ -54,17 +54,19 @@ const defaultToggleToOpen = import.meta.env.DEV ? true : undefined;
         set:text='All Alert Blocks'
     />
 </Alert>
-{
-    Object.values(tokens.icons).map((icon) => (
-        <Alert icon={icon}>
-            <span
-                slot='headline'
-                set:text={icon.slug}
-            />
-            <p set:text={`label: ${icon.label}`} />
-        </Alert>
-    ))
-}
+<div class='container | tokens-demo-all-alerts'>
+    {
+        Object.values(tokens.icons).map((icon) => (
+            <Alert icon={icon}>
+                <span
+                    slot='headline'
+                    set:text={icon.slug}
+                />
+                <p set:text={`label: ${icon.label}`} />
+            </Alert>
+        ))
+    }
+</div>
 
 <Toggle
     class:list={'page-width'}

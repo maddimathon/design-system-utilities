@@ -272,7 +272,7 @@ export class Tokens_Icons extends AbstractTokens {
     constructor(input) {
         super();
         const merged = mergeArgs(Tokens_Icons.default, input, true);
-        this.data = objectMap(merged, ([key, value]) => {
+        const mapped = objectMap(merged, ([key, value]) => {
             // returns
             if (value instanceof SvgMaker) {
                 return value;
@@ -285,6 +285,16 @@ export class Tokens_Icons extends AbstractTokens {
                 'fill="currentColor"',
             ]);
         });
+        const sorted = Object.entries(mapped).sort((a, b) => {
+            if (a[1].slug > b[1].slug) {
+                return 1;
+            }
+            if (a[1].slug < b[1].slug) {
+                return -1;
+            }
+            return 0;
+        });
+        this.data = Object.fromEntries(sorted);
     }
     toJSON() {
         return objectMap(this.data, ([key, value]) => value.toJSON());

@@ -9,6 +9,7 @@
  */
 
 import type {
+    AbstractStage,
     Stage,
 } from '@maddimathon/build-utilities';
 
@@ -41,7 +42,7 @@ export class Document extends DocumentStage {
 
     protected readonly astroPublicDir = 'docs/_public/assets';
 
-    protected async scss() {
+    protected async scss( args?: Partial<AbstractStage.runCustomScssDirSubStage.Opts> ) {
         // returns - we don't need to compile this
         if (
             this.isWatchedUpdate
@@ -62,8 +63,9 @@ export class Document extends DocumentStage {
             outDir,
             {
                 postCSS: true,
+                ...args,
                 srcDir: 'src/docs/scss',
-            }
+            },
         );
 
         this.console.verbose( 'prettifying...', 2 );

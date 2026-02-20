@@ -357,7 +357,7 @@ export class Tokens_Icons<
             true
         );
 
-        this.data = objectMap(
+        const mapped = objectMap(
             merged,
             ( [ key, value ] ): undefined | SvgMaker => {
                 // returns
@@ -375,6 +375,21 @@ export class Tokens_Icons<
                 ] );
             }
         ) as Tokens_Icons.Data<T_ExtraIconNames>;
+
+        const sorted = Object.entries( mapped ).sort( ( a, b ) => {
+
+            if ( a[ 1 ].slug > b[ 1 ].slug ) {
+                return 1;
+            }
+
+            if ( a[ 1 ].slug < b[ 1 ].slug ) {
+                return -1;
+            }
+
+            return 0;
+        } );
+
+        this.data = Object.fromEntries( sorted ) as Tokens_Icons.Data<T_ExtraIconNames>;
     }
 
     public toJSON(): Tokens_Icons.JsonReturn<T_ExtraIconNames> {

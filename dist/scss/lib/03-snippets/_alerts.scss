@@ -109,6 +109,49 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
 );
 
 ///
+/// @since 0.1.1-alpha.1.draft
+///
+@mixin _snippet-support-alert-blocks--background-variant-props($variationKey) {
+    @if $variationKey !=
+        '$' and
+        $variationKey !=
+        '' and
+        $variationKey !=
+        'disabled'
+    {
+        //
+        $background: if(
+            theme-token-exists('background-#{$variationKey}'),
+            var-theme('background-#{$variationKey}'),
+            var-theme('background-grey')
+        );
+
+        $text: if(
+            theme-token-exists('text-#{$variationKey}'),
+            var-theme('text-#{$variationKey}'),
+            var-theme('text')
+        );
+
+        $ui: if(
+            theme-token-exists('ui-#{$variationKey}'),
+            var-theme('ui-#{$variationKey}'),
+            var-theme('ui')
+        );
+
+        &.alert-block--#{$variationKey},
+        &.background-#{$variationKey} {
+            @include cx-prop(icon-color, $ui);
+            border-color: #{$ui};
+            background: #{$background};
+
+            > .alert-block__headline {
+                color: #{$text};
+            }
+        }
+    }
+}
+
+///
 /// Adds support for icons, assuming the html matches that in the local astro
 /// Icon component.
 ///
@@ -138,12 +181,15 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
         > * {
             grid-column: content;
         }
+
+        @if meta.content-exists() {
+            @content ( 'alert-grid' );
+        }
     }
 
     %alert {
         @extend %_alert-grid;
         @include cx-prop(icon-color, var-style(alert-icon-color));
-        @include cx-prop(icon-size, var-style(alert-icon-size));
 
         justify-self: center;
 
@@ -162,11 +208,19 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
 
         background: #{var-style(alert-background)};
 
+        @if meta.content-exists() {
+            @content ( 'alert-block' );
+        }
+
         &.alert-block--has-heading {
             justify-content: stretch;
             justify-items: stretch;
             justify-self: stretch;
             width: auto;
+
+            @if meta.content-exists() {
+                @content ( 'alert-block--has-heading' );
+            }
 
             @each $num in token-all-heading-levels() {
                 //
@@ -198,10 +252,9 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
 
                         border-color: #{var-theme(heading-#{$num})};
 
-                        // @if $num > 3 {
-                        //     border-style: #{if($num <= 6, dashed, dotted)};
-                        //     border-width: #{var-border-width('300')};
-                        // }
+                        @if meta.content-exists() {
+                            @content ( 'alert-block--has-heading--#{$num}' );
+                        }
                     }
                 }
             }
@@ -217,6 +270,10 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
 
             color: #{var-style(alert-color)};
 
+            @if meta.content-exists() {
+                @content ( 'alert-block__headline' );
+            }
+
             &:where(header) {
                 line-height: #{var-line-height('200')};
                 font-weight: 600;
@@ -228,6 +285,12 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
             }
 
             > %icon {
+                @include cx-prop(icon-size, var-style(alert-icon-size));
+                @include cx-prop(
+                    icon-size-large,
+                    var-style(alert-icon-size-large)
+                );
+
                 grid-column: icon;
                 margin-inline-end: 0.125em;
 
@@ -236,8 +299,6 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
                 }
             }
 
-            @at-root #{selector.unify(&, $_defaultHeadingSelectors)} {
-            }
             @each $num in token-all-heading-levels() {
                 //
                 $_headingSelector: if(
@@ -253,46 +314,21 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
 
                 @at-root #{selector.unify(&, $_headingSelector)} {
                     @include _snippet-alert-headline-heading($num);
+
+                    @if meta.content-exists() {
+                        @content ( 'alert-block__headline--h#{$num}' );
+                    }
                 }
             }
         }
 
         @each $variationKey in $_activeTheme_textAndBackgroundKeys {
-            @if $variationKey !=
-                '$' and
-                $variationKey !=
-                '' and
-                $variationKey !=
-                'disabled'
-            {
-                //
-                $background: if(
-                    theme-token-exists('background-#{$variationKey}'),
-                    var-theme('background-#{$variationKey}'),
-                    var-theme('background-grey')
-                );
+            @include _snippet-support-alert-blocks--background-variant-props(
+                $variationKey
+            );
 
-                $text: if(
-                    theme-token-exists('text-#{$variationKey}'),
-                    var-theme('text-#{$variationKey}'),
-                    var-theme('text')
-                );
-
-                $ui: if(
-                    theme-token-exists('ui-#{$variationKey}'),
-                    var-theme('ui-#{$variationKey}'),
-                    var-theme('ui')
-                );
-
-                &.alert-block--#{$variationKey} {
-                    @include cx-prop(icon-color, $ui);
-                    border-color: #{$ui};
-                    background: #{$background};
-
-                    > .alert-block__headline {
-                        color: #{$text};
-                    }
-                }
+            @if meta.content-exists() {
+                @content ( 'alert-block--background-#{$variationKey}' );
             }
         }
 
@@ -300,8 +336,21 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
     }
 
     @each $slug, $map in tokens.$icons {
-        %alert {
-            &--#{$slug} {
+        %alert--icon-#{$slug} {
+            @if meta.content-exists() {
+                @content ( 'alert-block--icon-#{$slug}' );
+            }
+
+            @if list.index($_activeTheme_textAndBackgroundKeys, $slug) != null {
+                @each $variationKey in $_activeTheme_textAndBackgroundKeys {
+                    @include _snippet-support-alert-blocks--background-variant-props(
+                        $variationKey
+                    );
+
+                    @if meta.content-exists() {
+                        @content ( 'alert-block--icon-#{$slug}--background-#{$variationKey}' );
+                    }
+                }
             }
         }
     }

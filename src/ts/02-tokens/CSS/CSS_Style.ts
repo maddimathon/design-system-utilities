@@ -48,7 +48,10 @@ export class Tokens_CSS_Style extends AbstractTokens<{
 
             icon: {
                 color: 'ui-primary',
-                size: 1.25,
+                size: {
+                    $: 1.25,
+                    large: 2,
+                },
             },
 
             gap: {
@@ -404,7 +407,10 @@ export namespace Tokens_CSS_Style {
             /**
              * In ems.
              */
-            size: number;
+            size: {
+                $: number;
+                large: number;
+            };
         };
 
         'line-height': TokenLevels;

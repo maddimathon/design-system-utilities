@@ -28,7 +28,7 @@ export class Document extends DocumentStage {
         'replace',
     ];
     astroPublicDir = 'docs/_public/assets';
-    async scss() {
+    async scss(args) {
         // returns - we don't need to compile this
         if (this.isWatchedUpdate
             && this.params.building
@@ -39,6 +39,7 @@ export class Document extends DocumentStage {
         const outDir = this.getSrcDir(undefined, this.astroPublicDir.replace(/\/$/g, '') + '/css');
         const paths = await this.runCustomScssDirSubStage('', outDir, {
             postCSS: true,
+            ...args,
             srcDir: 'src/docs/scss',
         });
         this.console.verbose('prettifying...', 2);

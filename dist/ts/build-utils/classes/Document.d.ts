@@ -7,7 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
-import type { Stage } from '@maddimathon/build-utilities';
+import type { AbstractStage, Stage } from '@maddimathon/build-utilities';
 import { DocumentStage } from '@maddimathon/build-utilities';
 /**
  * Extension of the built-in one.
@@ -24,6 +24,6 @@ export declare class Document extends DocumentStage {
      */
     readonly subStages: Stage.SubStage.Document[];
     protected readonly astroPublicDir = "docs/_public/assets";
-    protected scss(): Promise<void>;
+    protected scss(args?: Partial<AbstractStage.runCustomScssDirSubStage.Opts>): Promise<void>;
     protected astro(): Promise<void>;
 }

@@ -82,7 +82,10 @@ export declare namespace Tokens_CSS_Style {
             /**
              * In ems.
              */
-            size: number;
+            size: {
+                $: number;
+                large: number;
+            };
         };
         'line-height': TokenLevels;
         margin: {

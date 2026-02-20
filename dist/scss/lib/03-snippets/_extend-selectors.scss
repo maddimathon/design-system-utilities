@@ -19,6 +19,7 @@
 
 @mixin extend-selectors-globals(
     $additional: (),
+    $additional_optional: (),
     $optional: null,
     $allHeadingLevels: token-all-heading-levels()
 ) {
@@ -67,7 +68,6 @@
     $allHeadingLevels: token-all-heading-levels()
 ) {
     //
-    $additional: list.append($additional, ('.alert-block', 'alert'));
     $additional: list.append($additional, ('p.aside', 'aside'));
     $additional: list.append($additional, ('.brand-logo', brand-logo));
     $additional: list.append($additional, ('.button-span', 'button-span'));
@@ -134,6 +134,18 @@
                     button-#{$variant}
                 )
             );
+        }
+    }
+
+    @at-root {
+        .alert-block {
+            @extend %alert !optional;
+        }
+
+        @each $key, $icon in tokens.$icons {
+            %alert-block--#{$key} {
+                @extend %alert--icon-#{$key} !optional;
+            }
         }
     }
 
