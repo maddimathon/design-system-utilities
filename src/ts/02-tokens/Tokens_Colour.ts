@@ -19,6 +19,7 @@ import { Tokens_Colour_ShadeMap } from './Colour/Colour_ShadeMap.js';
 import type {
     TokenTypes,
 } from './@types.d.ts';
+import { objectKeySort } from '../01-utilities/objectKeySort.js';
 
 /**
  * Generates a complete token object for the design system.
@@ -147,10 +148,12 @@ export class Tokens_Colour<T_Types extends TokenTypes.Colour.TypeParams> extends
     }
 
     public toScssVars(): Tokens_Colour.ScssVars<T_Types> {
-        return objectMap(
-            this.data,
-            ( [ key, value ] ) => value.toScssVars(),
-        ) as Tokens_Colour.ScssVars<T_Types>;
+        return objectKeySort(
+            objectMap(
+                this.data,
+                ( [ key, value ] ) => value.toScssVars(),
+            ) as Tokens_Colour.ScssVars<T_Types>
+        );
     }
 }
 

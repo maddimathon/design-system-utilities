@@ -7,7 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
-import { CompileStage, } from '@maddimathon/build-utilities';
+import { AbstractStage, CompileStage, } from '@maddimathon/build-utilities';
 /**
  * Extension of the built-in one.
  *
@@ -142,10 +142,11 @@ export class Compile extends CompileStage {
     async scss() {
         await this.runCustomDirCopySubStage('scss');
     }
-    async templates(sassdebugCheckpoints = false) {
+    async templates(sassDebugCheckpoints = false, args) {
         await this.runCustomScssDirSubStage('template', this.getDistDir(undefined, 'css'), {
-            maxConcurrent: sassdebugCheckpoints && (this.params.debug || this.params.verbose) ? 1 : 5,
+            maxConcurrent: sassDebugCheckpoints && (this.params.debug || this.params.verbose) ? 1 : 5,
             postCSS: true,
+            ...args,
             srcDir: 'src/scss'
         });
         if (this.params.packaging || this.params.releasing) {

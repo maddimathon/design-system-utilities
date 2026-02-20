@@ -71,10 +71,10 @@ $_flattenedSystemColors: map.flatten($_systemColors);
                         @each $value in list.unique($list) {
                             @if $i > 1 {
                                 @supports (color: #{$value}) {
-                                    @include cx-prop(sys-clr-#{$slug}, $value);
+                                    @include utils.cx-prop(sys-clr-#{$slug}, $value);
                                 }
                             } @else {
-                                @include cx-prop(sys-clr-#{$slug}, $value);
+                                @include utils.cx-prop(sys-clr-#{$slug}, $value);
                             }
 
                             $i: $i + 1;

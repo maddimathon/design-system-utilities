@@ -23,6 +23,7 @@ import type {
 } from '@maddimathon/build-utilities/internal';
 
 import {
+    AbstractStage,
     CompileStage,
 } from '@maddimathon/build-utilities';
 
@@ -327,14 +328,15 @@ export class Compile extends CompileStage {
         await this.runCustomDirCopySubStage( 'scss' );
     }
 
-    protected async templates( sassdebugCheckpoints: boolean = false ) {
+    protected async templates( sassDebugCheckpoints: boolean = false, args?: Partial<AbstractStage.runCustomScssDirSubStage.Opts> ) {
 
         await this.runCustomScssDirSubStage(
             'template',
             this.getDistDir( undefined, 'css' ),
             {
-                maxConcurrent: sassdebugCheckpoints && ( this.params.debug || this.params.verbose ) ? 1 : 5,
+                maxConcurrent: sassDebugCheckpoints && ( this.params.debug || this.params.verbose ) ? 1 : 5,
                 postCSS: true,
+                ...args,
                 srcDir: 'src/scss'
             },
         );

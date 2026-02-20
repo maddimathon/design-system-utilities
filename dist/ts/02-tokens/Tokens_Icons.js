@@ -11,6 +11,7 @@ import { mergeArgs } from '@maddimathon/utility-typescript/functions';
 import { objectMap } from '../01-utilities/objectMap.js';
 import { SvgMaker } from '../01-utilities/SvgMaker.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
+import { objectKeySort } from '../01-utilities/objectKeySort.js';
 /**
  * Generates a complete token object for the design system.
  *
@@ -285,16 +286,7 @@ export class Tokens_Icons extends AbstractTokens {
                 'fill="currentColor"',
             ]);
         });
-        const sorted = Object.entries(mapped).sort((a, b) => {
-            if (a[1].slug > b[1].slug) {
-                return 1;
-            }
-            if (a[1].slug < b[1].slug) {
-                return -1;
-            }
-            return 0;
-        });
-        this.data = Object.fromEntries(sorted);
+        this.data = objectKeySort(mapped, false);
     }
     toJSON() {
         return objectMap(this.data, ([key, value]) => value.toJSON());

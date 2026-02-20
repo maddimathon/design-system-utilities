@@ -17,7 +17,7 @@
 @use 'pkg:@maddimathon/utility-astro/03-snippets' as utils;
 
 @mixin _snippet-button-colour-single-state(
-    $bg,
+    $background,
     $border,
     $text,
     $ui,
@@ -29,7 +29,7 @@
 
     text-decoration-color: #{$ui};
     accent-color: #{$border};
-    background-color: #{$bg};
+    background-color: #{$background};
     border-color: #{$border};
     color: #{$text};
 }
@@ -44,7 +44,7 @@
 
     & {
         @include _snippet-button-colour-single-state(
-            $bg: var-theme(button-#{$variation}-bg),
+            $background: var-theme(button-#{$variation}-background),
             $border: var-theme(button-#{$variation}-border),
             $text: var-theme(button-#{$variation}-text),
             $ui: var-theme(button-#{$variation}-ui),
@@ -55,22 +55,9 @@
         }
     }
 
-    @include focus-visible-or-within {
-        @include _snippet-button-colour-single-state(
-            $bg: var-theme(button-#{$variation}-bg-hover),
-            $border: var-theme(button-#{$variation}-border-hover),
-            $text: var-theme(button-#{$variation}-text-hover),
-            $ui: var-theme(button-#{$variation}-ui-hover),
-            $focusRing: var-theme(button-#{$variation}-outline-hover)
-        );
-        @if $_content_exits {
-            @content ( $location: 'focus' );
-        }
-    }
-
     &:hover {
         @include _snippet-button-colour-single-state(
-            $bg: var-theme(button-#{$variation}-bg-hover),
+            $background: var-theme(button-#{$variation}-background-hover),
             $border: var-theme(button-#{$variation}-border-hover),
             $text: var-theme(button-#{$variation}-text-hover),
             $ui: var-theme(button-#{$variation}-ui-hover),
@@ -81,9 +68,22 @@
         }
     }
 
+    @include focus-visible-or-within {
+        @include _snippet-button-colour-single-state(
+            $background: var-theme(button-#{$variation}-background-hover),
+            $border: var-theme(button-#{$variation}-border-hover),
+            $text: var-theme(button-#{$variation}-text-hover),
+            $ui: var-theme(button-#{$variation}-ui-hover),
+            $focusRing: var-theme(button-#{$variation}-outline-hover)
+        );
+        @if $_content_exits {
+            @content ( $location: 'focus' );
+        }
+    }
+
     &:active {
         @include _snippet-button-colour-single-state(
-            $bg: var-theme(button-#{$variation}-bg-active),
+            $background: var-theme(button-#{$variation}-background-active),
             $border: var-theme(button-#{$variation}-border-active),
             $text: var-theme(button-#{$variation}-text-active),
             $ui: var-theme(button-#{$variation}-ui-active),
@@ -308,18 +308,22 @@
 @mixin _snippet-input-colours-single(
     $accentClr,
     $accentClr_active,
+    $accentClr_focus,
     $accentClr_hover,
     //
     $background,
     $background_active,
+    $background_focus,
     $background_hover,
     //
     $borderClr,
     $borderClr_active,
+    $borderClr_focus,
     $borderClr_hover,
     //
     $color,
     $color_active,
+    $color_focus,
     $color_hover,
     //
     $opacity: true
@@ -331,15 +335,39 @@
     accent-color: #{$accentClr};
 
     &::placeholder {
-        color: #{var-style(input-placeholder-color)};
+        color: #{var-theme(input-placeholder)};
     }
 
-    @include hover-focus-visible-or-within {
+    &:hover {
         @include cx-prop(focus-ring-outline-color, $accentClr_hover);
         background-color: #{$background_hover};
         border-color: #{$borderClr_hover};
         color: #{$color_hover};
         accent-color: #{$accentClr_hover};
+
+        @if $opacity {
+            opacity: 1;
+        }
+    }
+
+    &:focus {
+        @include cx-prop(focus-ring-outline-color, $accentClr_focus);
+        background-color: #{$background_focus};
+        border-color: #{$borderClr_focus};
+        color: #{$color_focus};
+        accent-color: #{$accentClr_focus};
+
+        @if $opacity {
+            opacity: 1;
+        }
+    }
+
+    &:focus-within {
+        @include cx-prop(focus-ring-outline-color, $accentClr_focus);
+        background-color: #{$background_focus};
+        border-color: #{$borderClr_focus};
+        color: #{$color_focus};
+        accent-color: #{$accentClr_focus};
 
         @if $opacity {
             opacity: 1;
@@ -365,70 +393,90 @@
 /// @since 0.1.1-alpha.0
 ///
 @mixin snippet-input-colours(
-    $accentClr: var-style(input-accent),
-    $accentClr_active: var-style(input-accent-active),
-    $accentClr_hover: var-style(input-accent-hover),
+    $accentClr: var-theme(input-accent),
+    $accentClr_active: var-theme(input-accent-active),
+    $accentClr_focus: var-theme(input-accent-focus),
+    $accentClr_hover: var-theme(input-accent-hover),
     //
-    $background: var-style(input-background),
-    $background_active: var-style(input-background),
-    $background_hover: var-style(input-background),
+    $background: var-theme(input-background),
+    $background_active: var-theme(input-background),
+    $background_focus: var-theme(input-background),
+    $background_hover: var-theme(input-background),
     //
-    $borderClr: var-style(input-border-color),
-    $borderClr_active: var-style(input-border-color-active),
-    $borderClr_hover: var-style(input-border-color-hover),
+    $borderClr: var-theme(input-border),
+    $borderClr_active: var-theme(input-border-active),
+    $borderClr_focus: var-theme(input-border-focus),
+    $borderClr_hover: var-theme(input-border-hover),
     //
-    $color: var-style(input-color),
-    $color_active: var-style(input-color),
-    $color_hover: var-style(input-color),
+    $color: var-theme(input-text),
+    $color_active: var-theme(input-text),
+    $color_focus: var-theme(input-text),
+    $color_hover: var-theme(input-text),
     //
-    $accentClr_disabled: var-style(input-disabled-accent),
-    $accentClr_disabled_active: var-style(input-disabled-accent-active),
-    $accentClr_disabled_hover: var-style(input-disabled-accent-hover),
+    $accentClr_disabled: var-theme(input-disabled-accent),
+    $accentClr_disabled_active: var-theme(input-disabled-accent-active),
+    $accentClr_disabled_focus: var-theme(input-disabled-accent-focus),
+    $accentClr_disabled_hover: var-theme(input-disabled-accent-hover),
     //
-    $background_disabled: var-style(input-disabled-background),
-    $background_disabled_active: var-style(input-disabled-background),
-    $background_disabled_hover: var-style(input-disabled-background),
+    $background_disabled: var-theme(input-disabled-background),
+    $background_disabled_active: var-theme(input-disabled-background),
+    $background_disabled_focus: var-theme(input-disabled-background),
+    $background_disabled_hover: var-theme(input-disabled-background),
     //
-    $borderClr_disabled: var-style(input-disabled-border-color),
-    $borderClr_disabled_active: var-style(input-disabled-border-color-active),
-    $borderClr_disabled_hover: var-style(input-disabled-border-color-hover),
+    $borderClr_disabled: var-theme(input-disabled-border),
+    $borderClr_disabled_active: var-theme(input-disabled-border-active),
+    $borderClr_disabled_focus: var-theme(input-disabled-border-focus),
+    $borderClr_disabled_hover: var-theme(input-disabled-border-hover),
     //
-    $color_disabled: var-style(input-disabled-color),
-    $color_disabled_active: var-style(input-disabled-color),
-    $color_disabled_hover: var-style(input-disabled-color),
+    $color_disabled: var-theme(input-disabled-text),
+    $color_disabled_active: var-theme(input-disabled-text),
+    $color_disabled_focus: var-theme(input-disabled-text),
+    $color_disabled_hover: var-theme(input-disabled-text),
     //
-    $accentClr_readonly: var-style(input-readonly-accent),
-    $accentClr_readonly_active: var-style(input-readonly-accent-active),
-    $accentClr_readonly_hover: var-style(input-readonly-accent-hover),
+    $accentClr_readonly: var-theme(input-readonly-accent),
+    $accentClr_readonly_active: var-theme(input-readonly-accent-active),
+    $accentClr_readonly_focus: var-theme(input-readonly-accent-focus),
+    $accentClr_readonly_hover: var-theme(input-readonly-accent-hover),
     //
-    $background_readonly: var-style(input-readonly-background),
-    $background_readonly_active: var-style(input-readonly-background),
-    $background_readonly_hover: var-style(input-readonly-background),
+    $background_readonly: var-theme(input-readonly-background),
+    $background_readonly_active: var-theme(input-readonly-background),
+    $background_readonly_focus: var-theme(input-readonly-background),
+    $background_readonly_hover: var-theme(input-readonly-background),
     //
-    $borderClr_readonly: var-style(input-readonly-border-color),
-    $borderClr_readonly_active: var-style(input-readonly-border-color-active),
-    $borderClr_readonly_hover: var-style(input-readonly-border-color-hover),
+    $borderClr_readonly: var-theme(input-readonly-border),
+    $borderClr_readonly_active: var-theme(input-readonly-border-active),
+    $borderClr_readonly_focus: var-theme(input-readonly-border-focus),
+    $borderClr_readonly_hover: var-theme(input-readonly-border-hover),
     //
-    $color_readonly: var-style(input-readonly-color),
-    $color_readonly_active: var-style(input-readonly-color),
-    $color_readonly_hover: var-style(input-readonly-color) //
+    $color_readonly: var-theme(input-readonly-text),
+    $color_readonly_active: var-theme(input-readonly-text),
+    $color_readonly_focus: var-theme(input-readonly-text),
+    $color_readonly_hover: var-theme(input-readonly-text),
+    //
+     //
 ) {
     @include _snippet-input-colours-single(
         $accentClr: $accentClr,
         $accentClr_active: $accentClr_active,
+        $accentClr_focus: $accentClr_focus,
         $accentClr_hover: $accentClr_hover,
         //
         $background: $background,
         $background_active: $background_active,
+        $background_focus: $background_focus,
         $background_hover: $background_hover,
         //
         $borderClr: $borderClr,
         $borderClr_active: $borderClr_active,
+        $borderClr_focus: $borderClr_focus,
         $borderClr_hover: $borderClr_hover,
         //
         $color: $color,
         $color_active: $color_active,
-        $color_hover: $color_hover
+        $color_focus: $color_focus,
+        $color_hover: $color_hover,
+        //
+         //
     );
 
     &[aria-disabled='true'],
@@ -436,18 +484,22 @@
         @include _snippet-input-colours-single(
             $accentClr: $accentClr_disabled,
             $accentClr_active: $accentClr_disabled_active,
+            $accentClr_focus: $accentClr_disabled_focus,
             $accentClr_hover: $accentClr_disabled_hover,
             //
             $background: $background_disabled,
             $background_active: $background_disabled_active,
+            $background_focus: $background_disabled_focus,
             $background_hover: $background_disabled_hover,
             //
             $borderClr: $borderClr_disabled,
             $borderClr_active: $borderClr_disabled_active,
+            $borderClr_focus: $borderClr_disabled_focus,
             $borderClr_hover: $borderClr_disabled_hover,
             //
             $color: $color_disabled,
             $color_active: $color_disabled_active,
+            $color_focus: $color_disabled_focus,
             $color_hover: $color_disabled_hover,
             //
             $opacity: false
@@ -458,18 +510,22 @@
         @include _snippet-input-colours-single(
             $accentClr: $accentClr_readonly,
             $accentClr_active: $accentClr_readonly_active,
+            $accentClr_focus: $accentClr_readonly_focus,
             $accentClr_hover: $accentClr_readonly_hover,
             //
             $background: $background_readonly,
             $background_active: $background_readonly_active,
+            $background_focus: $background_readonly_focus,
             $background_hover: $background_readonly_hover,
             //
             $borderClr: $borderClr_readonly,
             $borderClr_active: $borderClr_readonly_active,
+            $borderClr_focus: $borderClr_readonly_focus,
             $borderClr_hover: $borderClr_readonly_hover,
             //
             $color: $color_readonly,
             $color_active: $color_readonly_active,
+            $color_focus: $color_readonly_focus,
             $color_hover: $color_readonly_hover,
             //
             $opacity: false
@@ -558,6 +614,21 @@
     $includeBase: true,
     $includeUtils: true,
     //
+    $box_accentClr: var-theme(input-accent),
+    $box_accentClr_active: var-theme(input-accent-active),
+    $box_accentClr_focus: var-theme(input-accent-focus),
+    $box_accentClr_hover: var-theme(input-accent-hover),
+    //
+    $box_accentClr_disabled: var-theme(input-disabled-accent),
+    $box_accentClr_disabled_active: var-theme(input-disabled-accent-active),
+    $box_accentClr_disabled_focus: var-theme(input-disabled-accent-focus),
+    $box_accentClr_disabled_hover: var-theme(input-disabled-accent-hover),
+    //
+    $box_accentClr_readonly: var-theme(input-readonly-accent),
+    $box_accentClr_readonly_active: var-theme(input-readonly-accent-active),
+    $box_accentClr_readonly_focus: var-theme(input-readonly-accent-focus),
+    $box_accentClr_readonly_hover: var-theme(input-readonly-accent-hover),
+    //
     $args...
 ) {
     $args: meta.keywords($args);
@@ -571,49 +642,71 @@
         );
     }
 
+    &[type='submit'][aria-disabled='true'],
+    &[type='reset'][aria-disabled='true'],
     &[type='submit'][disabled],
     &[type='reset'][disabled] {
         @include snippet-button-colours(disabled);
     }
 
-    $accentClr: var-style(input-accent);
-    $accentClr_active: var-style(input-accent-active);
-    $accentClr_hover: var-style(input-accent-hover);
-
     &[type='checkbox'],
     &[type='radio'] {
-        accent-color: #{$accentClr};
-        color: #{$accentClr};
+        accent-color: #{$box_accentClr};
+        color: #{$box_accentClr};
 
-        @include hover-focus-visible-or-within {
-            accent-color: #{$accentClr_hover};
-            color: #{$accentClr_hover};
+        &:hover {
+            accent-color: #{$box_accentClr_hover};
+            color: #{$box_accentClr_hover};
+        }
+
+        @include focus-visible-or-within {
+            accent-color: #{$box_accentClr_focus};
+            color: #{$box_accentClr_focus};
         }
 
         &:active {
-            accent-color: #{$accentClr_active};
-            color: #{$accentClr_active};
+            accent-color: #{$box_accentClr_active};
+            color: #{$box_accentClr_active};
         }
-    }
 
-    &[readonly] {
-        $accentClr: var-style(input-readonly-accent);
-        $accentClr_active: var-style(input-readonly-accent-active);
-        $accentClr_hover: var-style(input-readonly-accent-hover);
+        &[aria-disabled='true'],
+        &[disabled] {
+            accent-color: #{$box_accentClr_disabled};
+            color: #{$box_accentClr_disabled};
 
-        &[type='checkbox'],
-        &[type='radio'] {
-            accent-color: #{$accentClr};
-            color: #{$accentClr};
+            &:hover {
+                accent-color: #{$box_accentClr_disabled_hover};
+                color: #{$box_accentClr_disabled_hover};
+            }
 
-            @include hover-focus-visible-or-within {
-                accent-color: #{$accentClr_hover};
-                color: #{$accentClr_hover};
+            @include focus-visible-or-within {
+                accent-color: #{$box_accentClr_disabled_focus};
+                color: #{$box_accentClr_disabled_focus};
             }
 
             &:active {
-                accent-color: #{$accentClr_active};
-                color: #{$accentClr_active};
+                accent-color: #{$box_accentClr_disabled_active};
+                color: #{$box_accentClr_disabled_active};
+            }
+        }
+
+        &[readonly] {
+            accent-color: #{$box_accentClr_readonly};
+            color: #{$box_accentClr_readonly};
+
+            &:hover {
+                accent-color: #{$box_accentClr_readonly_hover};
+                color: #{$box_accentClr_readonly_hover};
+            }
+
+            @include focus-visible-or-within {
+                accent-color: #{$box_accentClr_readonly_focus};
+                color: #{$box_accentClr_readonly_focus};
+            }
+
+            &:active {
+                accent-color: #{$box_accentClr_readonly_active};
+                color: #{$box_accentClr_readonly_active};
             }
         }
     }

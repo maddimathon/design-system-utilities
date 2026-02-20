@@ -22,6 +22,7 @@ import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
 import { objectFlatten } from '../../01-utilities/objectFlatten.js';
 import { objectGenerator } from '../../01-utilities/objectGenerator.js';
 import { objectGeneratorAsync } from '../../01-utilities/objectGenerator.js';
+import { objectKeySort } from '../../01-utilities/objectKeySort.js';
 import { objectMap } from '../../01-utilities/objectMap.js';
 
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
@@ -399,7 +400,7 @@ export namespace Tokens_Themes_Set {
                     description = description ?? 'This is the default contrast mode for most users, unless they have defined a specific preference (‘low’, ‘high’, or ‘forced-colors’) in their OS or browser settings.  It meets or exceeds WCAG AAA contrast standards.';
 
                     defaultOverrides.selection = {
-                        bg: clrOpt( variations.universal.primary, '300' as T_ColourTypes[ 'extraLevels' ] | ColourUtilities.Levels.Required ),
+                        background: clrOpt( variations.universal.primary, '300' as T_ColourTypes[ 'extraLevels' ] | ColourUtilities.Levels.Required ),
                         text: clrOpt( variations.base, '800' as T_ColourTypes[ 'extraLevels' ] | ColourUtilities.Levels.Required ),
                     };
                     break;
@@ -408,7 +409,7 @@ export namespace Tokens_Themes_Set {
                     description = description ?? 'This is the low contrast mode.  This is the default for users who set ‘low’ as their preferred contrast mode in their OS or browser settings.  It mostly meets WCAG AA contrast standards, but in rare cases does not (which is acceptable in this case).';
 
                     defaultOverrides.selection = {
-                        bg: clrOpt( variations.universal.primary, '300' as T_ColourTypes[ 'extraLevels' ] | ColourUtilities.Levels.Required ),
+                        background: clrOpt( variations.universal.primary, '300' as T_ColourTypes[ 'extraLevels' ] | ColourUtilities.Levels.Required ),
                         text: clrOpt( variations.base, '800' as T_ColourTypes[ 'extraLevels' ] | ColourUtilities.Levels.Required ),
                     };
                     break;
@@ -456,7 +457,7 @@ export namespace Tokens_Themes_Set {
                     };
 
                     defaultOverrides.selection = {
-                        bg: clrOpt( variations.universal.primary, '850' as T_ColourTypes[ 'extraLevels' ] | ColourUtilities.Levels.Required ),
+                        background: clrOpt( variations.universal.primary, '850' as T_ColourTypes[ 'extraLevels' ] | ColourUtilities.Levels.Required ),
                         text: clrOpt( variations.base, '100' as T_ColourTypes[ 'extraLevels' ] | ColourUtilities.Levels.Required ),
                     };
                     break;
@@ -502,10 +503,13 @@ export namespace Tokens_Themes_Set {
 
             const levelsInUse = arrayUnique( allLevelsInUse ).sort();
 
-            return SingleMode.Build.data<T_ColourTypes, T_ThemeTypes>( {
-                levels,
-                variations,
-            } ).then(
+            return SingleMode.Build.data<T_ColourTypes, T_ThemeTypes>(
+                {
+                    levels,
+                    variations,
+                },
+                overrides,
+            ).then(
                 ( defaultInputData ) => new SingleMode(
                     themeName,
                     brightness,
@@ -548,20 +552,35 @@ export namespace Tokens_Themes_Set {
                 brightness: this.brightness,
                 constrast: this.constrast,
                 description: this.description ?? undefined,
-                data: {
-                    ...this.data,
 
-                    link: {
-                        ...this.data.link,
+                data: objectKeySort(
+                    {
+                        ...this.data,
 
-                        outline: {
-                            $: this.data.link.outline.hover,
-                            visited: this.data.link.outline.hover,
+                        button: objectMap(
+                            this.data.button,
+                            ( [ key, value ] ) => ( {
+                                ...value,
+                                outline: {
+                                    $: value.outline.hover,
+                                    ...value.outline,
+                                },
+                            } )
+                        ),
 
-                            ...this.data.link.outline,
+                        link: {
+                            ...this.data.link,
+
+                            outline: {
+                                $: this.data.link.outline.hover,
+                                visited: this.data.link.outline.hover,
+
+                                ...this.data.link.outline,
+                            },
                         },
                     },
-                },
+                    true,
+                ),
 
                 levelsInUse,
             };
@@ -570,63 +589,59 @@ export namespace Tokens_Themes_Set {
         public toScssVars(): SingleMode.ScssVars<T_ColourTypes, T_ThemeTypes, __T_ColourOption> {
 
             return {
-                ...this.data,
+                ...this.toJSON().data,
 
-                link: {
-                    ...this.data.link,
+                system: objectKeySort(
+                    {
+                        ...this.data.system,
 
-                    outline: {
-                        $: this.data.link.outline.hover,
-                        visited: this.data.link.outline.hover,
+                        background: this.data.background,
 
-                        ...this.data.link.outline,
-                    },
-                },
-
-                system: {
-                    ...this.data.system,
-
-                    background: this.data.background,
-                    button: this.data.button.primary,
-
-                    input: {
-
-                        // accent: {
-                        //     $: this.data.link.outline.hover,
-                        //     hover: this.data.link.outline.hover,
-                        //     active: this.data.link.outline.active,
-                        // },
-
-                        bg: {
-                            $: this.data.background.$,
-                            hover: this.data.background.$,
-                            active: this.data.background.$,
+                        button: {
+                            bg: this.data.button.primary.background,
+                            border: this.data.button.primary.border,
+                            text: this.data.button.primary.text,
                         },
 
-                        border: {
-                            $: this.data.link.icon.hover,
-                            hover: this.data.link.icon.hover,
-                            active: this.data.link.icon.active,
+                        input: {
+                            bg: {
+                                $: this.data.input.$.background,
+                                hover: this.data.input.$.background,
+                                active: this.data.input.$.background,
+                            },
+
+                            border: {
+                                $: this.data.input.$.border.$,
+                                hover: this.data.input.$.border.hover,
+                                active: this.data.input.$.border.active,
+                            },
+
+                            text: {
+                                $: this.data.input.$.text,
+                                hover: this.data.input.$.text,
+                                active: this.data.input.$.text,
+                            },
                         },
 
-                        // placeholder: this.data.text.disabled,
+                        link: {
+                            $: this.data.link.$.$,
+                            active: this.data.link.$.active,
+                            hover: this.data.link.$.hover,
+                            visited: this.data.link.$.visited,
+                        },
+
+                        selection: {
+                            bg: this.data.selection.background,
+                            text: this.data.selection.text,
+                        },
 
                         text: {
                             $: this.data.text.$,
-                            hover: this.data.text.$,
-                            active: this.data.text.$,
+                            active: this.data.text.active,
+                            disabled: this.data.text.disabled,
                         },
-                    },
-
-                    link: this.data.link.$,
-                    selection: this.data.selection,
-
-                    text: {
-                        $: this.data.text.$,
-                        active: this.data.text.active,
-                        disabled: this.data.text.disabled,
-                    },
-                },
+                    } satisfies SingleMode.ScssVars<T_ColourTypes, T_ThemeTypes, __T_ColourOption>[ 'system' ]
+                ),
             } satisfies SingleMode.ScssVars<T_ColourTypes, T_ThemeTypes, __T_ColourOption>;
         }
     }
@@ -638,6 +653,14 @@ export namespace Tokens_Themes_Set {
      * @since ___PKG_VERSION___ — Moved to {@link Tokens_Themes_Set} and renamed.
      */
     export namespace SingleMode {
+
+        type InteractiveStyles<T_StyleValue> = {
+            [ S in "$" | "hover" | "active" ]: T_StyleValue;
+        };
+
+        type InteractiveStylesWithFocus<T_StyleValue> = {
+            [ S in "$" | "hover" | "focus" | "active" ]: T_StyleValue;
+        };
 
         export const allHeadingLevels = [
             1,
@@ -699,7 +722,7 @@ export namespace Tokens_Themes_Set {
             };
 
             selection: {
-                bg: __T_ColourOption,
+                background: __T_ColourOption,
                 text: __T_ColourOption,
             },
 
@@ -754,6 +777,10 @@ export namespace Tokens_Themes_Set {
                 >;
             },
 
+            input: {
+                [ K in "$" | "disabled" | "readonly" ]: Data.Input<T_ColourTypes, __T_ColourOption>;
+            },
+
             system: {
                 accent: {
                     bg: __T_ColourOption,
@@ -785,36 +812,25 @@ export namespace Tokens_Themes_Set {
                 T_ColourTypes extends TokenTypes.Colour.TypeParams,
                 __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>,
             > = {
+                background: InteractiveStyles<__T_ColourOption>,
+                border: InteractiveStyles<__T_ColourOption>,
+                outline: Omit<InteractiveStyles<__T_ColourOption>, '$'>,
+                text: InteractiveStyles<__T_ColourOption>,
+                ui: InteractiveStyles<__T_ColourOption>,
+            };
 
-                bg: {
-                    $: __T_ColourOption,
-                    hover: __T_ColourOption,
-                    active: __T_ColourOption,
-                },
-
-                border: {
-                    $: __T_ColourOption,
-                    hover: __T_ColourOption,
-                    active: __T_ColourOption,
-                },
-
-                outline: {
-                    $?: undefined | never,
-                    hover: __T_ColourOption,
-                    active: __T_ColourOption,
-                },
-
-                text: {
-                    $: __T_ColourOption,
-                    hover: __T_ColourOption,
-                    active: __T_ColourOption,
-                },
-
-                ui: {
-                    $: __T_ColourOption,
-                    hover: __T_ColourOption,
-                    active: __T_ColourOption,
-                },
+            /**
+             * @since ___PKG_VERSION___
+             */
+            export type Input<
+                T_ColourTypes extends TokenTypes.Colour.TypeParams,
+                __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>,
+            > = {
+                accent: InteractiveStylesWithFocus<__T_ColourOption>;
+                background: __T_ColourOption;
+                border: InteractiveStylesWithFocus<__T_ColourOption>;
+                placeholder: __T_ColourOption;
+                text: __T_ColourOption;
             };
 
             /**
@@ -865,7 +881,7 @@ export namespace Tokens_Themes_Set {
                 };
 
                 selection?: undefined | {
-                    bg: __T_ColourOption,
+                    background: __T_ColourOption,
                     text: __T_ColourOption,
                 },
 
@@ -901,57 +917,31 @@ export namespace Tokens_Themes_Set {
                 },
 
                 button?: undefined | {
-                    [ K in 'primary' | 'secondary' | 'disabled' ]?: undefined | Data.Button<
-                        T_ColourTypes,
-                        __T_ColourOption
-                    >;
+                    [ K in 'primary' | 'secondary' | 'disabled' ]?: undefined | Data.Button<T_ColourTypes, __T_ColourOption>;
                 } & {
-                    [ K in T_ThemeTypes[ 'variations' ][ 'universal' ] ]?: undefined | Data.Button<
-                        T_ColourTypes,
-                        __T_ColourOption
-                    >;
+                    [ K in T_ThemeTypes[ 'variations' ][ 'universal' ] ]?: undefined | Data.Button<T_ColourTypes, __T_ColourOption>;
                 },
 
                 input?: undefined | {
                     [ K in "$" | "disabled" | "readonly" ]?: {
-
-                        accent?: undefined | {
-                            $?: undefined | __T_ColourOption,
-                            hover?: undefined | __T_ColourOption,
-                            active?: undefined | __T_ColourOption,
-                        },
-
-                        bg?: undefined | {
-                            $?: undefined | __T_ColourOption,
-                            hover?: undefined | __T_ColourOption,
-                            active?: undefined | __T_ColourOption,
-                        },
-
-                        border?: undefined | {
-                            $?: undefined | __T_ColourOption,
-                            hover?: undefined | __T_ColourOption,
-                            active?: undefined | __T_ColourOption,
-                        },
-
-                        text?: undefined | {
-                            $?: undefined | __T_ColourOption,
-                            hover?: undefined | __T_ColourOption,
-                            active?: undefined | __T_ColourOption,
-                        },
+                        accent?: undefined | Data.Input<T_ColourTypes, __T_ColourOption>[ 'accent' ],
+                        background?: undefined | Data.Input<T_ColourTypes, __T_ColourOption>[ 'background' ],
+                        border?: undefined | Data.Input<T_ColourTypes, __T_ColourOption>[ 'border' ],
+                        text?: undefined | Data.Input<T_ColourTypes, __T_ColourOption>[ 'text' ],
                     };
                 },
 
                 system?: undefined | {
                     accent?: undefined | {
-                        bg?: undefined | __T_ColourOption,
+                        background?: undefined | __T_ColourOption,
                         text?: undefined | __T_ColourOption,
                     },
                     mark?: undefined | {
-                        bg?: undefined | __T_ColourOption,
+                        background?: undefined | __T_ColourOption,
                         text?: undefined | __T_ColourOption,
                     },
                     selected?: undefined | {
-                        bg?: undefined | __T_ColourOption,
+                        background?: undefined | __T_ColourOption,
                         text?: undefined | __T_ColourOption,
                     },
                 },
@@ -965,6 +955,7 @@ export namespace Tokens_Themes_Set {
             base: TokenTypes.Colour.GenericName<T_ColourName>;
 
             background: {
+                $: TokenTypes.Colour.GenericName<T_ColourName>;
                 bright: TokenTypes.Colour.GenericName<T_ColourName>;
                 grey: TokenTypes.Colour.GenericName<T_ColourName>;
             },
@@ -1419,6 +1410,16 @@ export namespace Tokens_Themes_Set {
             description?: undefined | string;
 
             data: Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption> & {
+
+                button: {
+                    [ K in keyof Data<T_ColourTypes, T_ThemeTypes>[ 'button' ] ]: Data.Button<
+                        T_ColourTypes,
+                        __T_ColourOption
+                    > & {
+                        outline: InteractiveStyles<__T_ColourOption>;
+                    };
+                };
+
                 link: Data<T_ColourTypes, T_ThemeTypes>[ 'link' ] & {
                     outline: Data<T_ColourTypes, T_ThemeTypes>[ 'link' ][ 'outline' ] & {
                         $: __T_ColourOption,
@@ -1441,6 +1442,15 @@ export namespace Tokens_Themes_Set {
             T_ThemeTypes extends TokenTypes.Theme.TypeParams,
             __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>,
         > = Data<T_ColourTypes, T_ThemeTypes> & {
+
+            button: {
+                [ K in keyof Data<T_ColourTypes, T_ThemeTypes>[ 'button' ] ]: Data.Button<
+                    T_ColourTypes,
+                    __T_ColourOption
+                > & {
+                    outline: InteractiveStyles<__T_ColourOption>;
+                };
+            };
 
             link: Data<T_ColourTypes, T_ThemeTypes>[ 'link' ] & {
                 outline: Data<T_ColourTypes, T_ThemeTypes>[ 'link' ][ 'outline' ] & {
@@ -1605,6 +1615,7 @@ export namespace Tokens_Themes_Set {
                     base: base,
 
                     background: {
+                        $: base,
                         bright: base,
                         grey: base,
                     },
@@ -1654,9 +1665,12 @@ export namespace Tokens_Themes_Set {
                 T_ColourTypes extends TokenTypes.Colour.TypeParams,
                 T_ThemeTypes extends TokenTypes.Theme.TypeParams,
             >(
-                input: Param<T_ColourTypes, T_ThemeTypes>,
+                inputParam: Param<T_ColourTypes, T_ThemeTypes>,
+                overrides: Data.RecursivePartial<
+                    NoInfer<T_ColourTypes>,
+                    NoInfer<T_ThemeTypes>
+                >,
             ): Promise<Data<T_ColourTypes, T_ThemeTypes>> {
-
                 type CompleteData = Data<T_ColourTypes, T_ThemeTypes>;
 
                 const clrOpt = colourOption;
@@ -1664,178 +1678,269 @@ export namespace Tokens_Themes_Set {
                 const {
                     levels,
                     variations,
-                } = input;
+                } = inputParam;
 
-                const background: CompleteData[ 'background' ] = {
-                    $: clrOpt( variations.base, levels.background.$ ),
+                const dataCompleter = <
+                    T_VariationKey extends "background" | "text",
+                    T_LevelsKey extends "background" | "text" | "ui" = T_VariationKey,
+                >(
+                    _variation: T_VariationKey,
+                    _levels: T_LevelsKey | null = null,
+                    _opts: ( "includeUniversal" )[] = [],
+                ): CompleteData[ T_VariationKey ] => {
 
-                    ...objectMap( variations.background, ( [ key, clrName ] ) => clrOpt( clrName, levels.background.grey ) ),
-                    ...objectMap( variations.universal, ( [ key, clrName ] ) => clrOpt( clrName, levels.background.accent ) ),
+                    const _overrides = overrides[ _variation ] ?? {};
 
-                    grey: clrOpt( variations.base, levels.background.grey ),
+                    const _variationKey = _variation in variations
+                        ? _variation as keyof typeof variations & T_VariationKey
+                        : 'universal';
+
+                    const _variationsObj = _opts.includes( 'includeUniversal' )
+                        ? {
+                            ...variations.universal,
+                            ...variations[ _variationKey ],
+                        }
+                        : variations[ _variationKey ];
+
+                    const _levelsKey = _levels && _levels in levels ? _levels : _variation;
+
+                    return objectMap(
+                        {
+                            $: variations.base,
+                            ..._variationsObj,
+                        } as typeof _variationsObj,
+                        ( [ key, clrName ] ): TokenTypes.Theme.ColourOption<T_ColourTypes> => {
+                            // returns
+                            if ( _overrides[ key as keyof typeof _overrides ] ) {
+                                return _overrides[ key as keyof typeof _overrides ];
+                            }
+
+                            let _lvl: undefined | "black" | "white" | ColourUtilities.Levels.Required | T_ColourTypes[ 'extraLevels' ] =
+                                levels[ _levelsKey ][ key as "$" ];
+
+                            if ( !_lvl && key === 'disabled' ) {
+                                _lvl = ( levels[ _levelsKey ] as Levels.Set.AccentMin<T_ColourTypes[ 'extraLevels' ]> ).min;
+                            }
+
+                            return clrOpt( clrName, _lvl ?? levels[ _levelsKey ].accent );
+                        },
+                    ) as CompleteData[ T_VariationKey ];
                 };
 
-                const text: CompleteData[ 'text' ] = {
-                    $: clrOpt( variations.base, levels.text.$ ),
+                const background = dataCompleter( 'background', null, [ 'includeUniversal' ] );
 
-                    ...objectMap( variations.universal, ( [ key, clrName ] ) => clrOpt( clrName, levels.text.accent ) ),
-                    ...objectMap( variations.text, ( [ key, clrName ] ) => clrOpt( clrName, levels.text.accent ) ),
+                const text: CompleteData[ 'text' ] = dataCompleter( 'text', null, [ 'includeUniversal' ] );
 
-                    disabled: clrOpt( variations.text.disabled, levels.text.min ),
-                    grey: clrOpt( variations.text.disabled, levels.text.accent ),
-                };
-
-                const ui: CompleteData[ 'ui' ] = {
-                    $: clrOpt( variations.base, levels.ui.$ ),
-
-                    ...objectMap( variations.universal, ( [ key, clrName ] ) => clrOpt( clrName, levels.ui.accent ) ),
-                    ...objectMap( variations.text, ( [ key, clrName ] ) => clrOpt( clrName, levels.ui.accent ) ),
-
-                    disabled: clrOpt( variations.text.disabled, levels.ui.min ),
-                    grey: clrOpt( variations.text.disabled, levels.ui.accent ),
-                };
+                const ui: CompleteData[ 'ui' ] = dataCompleter( 'text', 'ui', [ 'includeUniversal' ] );
 
                 const heading: CompleteData[ 'heading' ] = objectGenerator(
                     SingleMode.allHeadingLevels,
-                    ( hdgNum ) => clrOpt( variations.heading[ hdgNum ] ?? variations.heading[ 10 ], levels.heading[ hdgNum ] )
+                    ( hdgNum ) => overrides.heading?.[ hdgNum ] ?? clrOpt(
+                        variations.heading[ hdgNum ] ?? variations.heading[ 10 ],
+                        levels.heading[ hdgNum ],
+                    )
                 );
 
+                const link__text = overrides.link?.$?.$ ?? text.primary;
+
                 const link: CompleteData[ 'link' ][ '$' ] = {
-                    $: clrOpt( variations.universal.primary, levels.text.accent ),
-                    visited: clrOpt( variations.universal.primary, levels.text.accent ),
+                    $: link__text,
+                    visited: overrides.link?.$?.visited ?? link__text,
 
-                    ...objectMap( variations.interactive, ( [ key, clrName ] ) => clrOpt( clrName, levels.text.accent ) ),
-
-                    disabled: clrOpt( variations.text.disabled, levels.text.min ),
+                    ...objectMap(
+                        variations.interactive,
+                        ( [ key, clrName ] ) =>
+                            overrides.link?.$?.[ key ]
+                                ?? key === 'disabled'
+                                ? clrOpt( clrName, levels.text.min )
+                                : clrOpt( clrName, levels.text.accent )
+                    ),
                 };
+
+                const link_deco_text = overrides.link?.decoration?.$ ?? ui.primary;
 
                 const linkDecoration: CompleteData[ 'link' ][ 'decoration' ] = {
-                    $: clrOpt( variations.universal.primary, levels.ui.accent ),
-                    visited: clrOpt( variations.universal.primary, levels.ui.accent ),
+                    $: link_deco_text,
+                    visited: overrides.link?.decoration?.visited ?? link_deco_text,
 
-                    hover: 'transparent',
-                    active: clrOpt( variations.interactive.active, levels.ui.accent ),
-                    disabled: clrOpt( variations.text.disabled, levels.ui.min ),
+                    hover: overrides.link?.decoration?.hover ?? 'transparent',
+                    active: overrides.link?.decoration?.active ?? clrOpt( variations.interactive.active, levels.ui.accent ),
+                    disabled: overrides.link?.decoration?.disabled ?? clrOpt( variations.text.disabled, levels.ui.min ),
                 };
+
+                const link_icon_text = overrides.link?.decoration?.$ ?? ui.grey;
 
                 const linkIcon: CompleteData[ 'link' ][ 'icon' ] = {
-                    $: clrOpt( variations.base, levels.ui.accent ),
-                    visited: clrOpt( variations.base, levels.ui.accent ),
+                    $: link_icon_text,
+                    visited: overrides.link?.decoration?.visited ?? link_icon_text,
 
-                    hover: clrOpt( variations.interactive.hover, levels.ui.accent ),
-                    active: clrOpt( variations.interactive.active, levels.ui.accent ),
-                    disabled: clrOpt( variations.text.disabled, levels.ui.min ),
+                    ...objectMap(
+                        variations.interactive,
+                        ( [ key, clrName ] ) =>
+                            overrides.link?.icon?.[ key ]
+                                ?? key === 'disabled'
+                                ? clrOpt( clrName, levels.ui.min )
+                                : clrOpt( clrName, levels.ui.accent )
+                    ),
                 };
 
-                const linkOutline: CompleteData[ 'link' ][ 'outline' ] = {
-                    hover: clrOpt( variations.interactive.hover, levels.ui.accent ),
-                    active: clrOpt( variations.interactive.active, levels.ui.accent ),
-                    disabled: clrOpt( variations.text.disabled, levels.ui.min ),
-                };
+                const linkOutline: CompleteData[ 'link' ][ 'outline' ] = objectMap(
+                    variations.interactive,
+                    ( [ key, clrName ] ) =>
+                        overrides.link?.outline?.[ key ]
+                            ?? key === 'disabled'
+                            ? clrOpt( clrName, levels.ui.min )
+                            : clrOpt( clrName, levels.ui.accent )
+                );
 
                 const singleButtonMaker = (
-                    _primaryClr: TokenTypes.Colour.GenericName<T_ColourTypes[ 'names' ]>
+                    _key: keyof CompleteData[ 'button' ],
+                    _primaryClr: TokenTypes.Colour.GenericName<T_ColourTypes[ 'names' ]>,
                 ): CompleteData[ 'button' ][ 'primary' ] => {
+                    let _hoverClr: TokenTypes.Colour.GenericName<T_ColourTypes[ 'names' ]>;
+                    let _activeClr: TokenTypes.Colour.GenericName<T_ColourTypes[ 'names' ]>;
 
-                    const _secondaryClr = _primaryClr ==
-                        variations.universal.primary
-                        ? variations.universal.secondary
-                        : _primaryClr === variations.universal.secondary
-                            ? variations.text.active
-                            : variations.universal.primary;
+                    let _hoverClr_outline: TokenTypes.Colour.GenericName<T_ColourTypes[ 'names' ]>;
+                    let _activeClr_outline: TokenTypes.Colour.GenericName<T_ColourTypes[ 'names' ]>;
 
-                    const _activeClr = _primaryClr ==
-                        variations.text.active
-                        ? variations.universal.secondary
-                        : _secondaryClr == variations.text.active
+                    if ( _key === 'disabled' ) {
+                        _hoverClr = _primaryClr;
+                        _activeClr = _primaryClr;
+
+                        _hoverClr_outline = variations.interactive.hover;
+                        _activeClr_outline = variations.interactive.active;
+                    } else {
+
+                        _hoverClr = _primaryClr === variations.interactive.hover
+                            ? variations.interactive.active
+                            : variations.interactive.hover;
+
+                        _activeClr = _hoverClr === variations.interactive.active
                             ? variations.universal.primary
-                            : variations.text.active;
+                            : variations.interactive.active;
+
+                        _hoverClr_outline = _primaryClr;
+                        _activeClr_outline = _primaryClr;
+                    }
+
+                    const textOrBg_clr = clrOpt( variations.base, levels.background.$ );
+
+                    const textOrBg = {
+                        $: textOrBg_clr,
+                        hover: textOrBg_clr,
+                        active: textOrBg_clr,
+                    };
 
                     return {
-
-                        bg: {
+                        background: {
                             $: clrOpt( _primaryClr, levels.text.accent ),
-                            hover: clrOpt( _secondaryClr, levels.text.accent ),
+                            hover: clrOpt( _hoverClr, levels.text.accent ),
                             active: clrOpt( _activeClr, levels.text.accent ),
                         },
 
                         border: {
                             $: clrOpt( _primaryClr, levels.text.accent ),
-                            hover: clrOpt( _secondaryClr, levels.text.accent ),
+                            hover: clrOpt( _hoverClr, levels.text.accent ),
                             active: clrOpt( _activeClr, levels.text.accent ),
                         },
 
                         outline: {
-                            hover: clrOpt( _secondaryClr, levels.text.accent ),
-                            active: clrOpt( _activeClr, levels.text.accent ),
+                            hover: clrOpt( _hoverClr_outline, levels.text.accent ),
+                            active: clrOpt( _activeClr_outline, levels.text.accent ),
                         },
 
-                        text: {
-                            $: clrOpt( variations.base, levels.background.$ ),
-                            hover: clrOpt( variations.base, levels.background.$ ),
-                            active: clrOpt( variations.base, levels.background.$ ),
-                        },
-
-                        ui: {
-                            $: clrOpt( variations.base, levels.background.$ ),
-                            hover: clrOpt( variations.base, levels.background.$ ),
-                            active: clrOpt( variations.base, levels.background.$ ),
-                        },
+                        text: textOrBg,
+                        ui: textOrBg,
                     };
                 };
 
                 const button: CompleteData[ 'button' ] = {
                     ...objectMap(
-                        variations.universal,
+                        {
+                            ...variations.universal,
+                            disabled: variations.interactive.disabled,
+                        },
                         <K extends keyof CompleteData[ 'button' ]>(
                             [ key, clrName ]: [ K, TokenTypes.Colour.GenericName<T_ColourTypes[ 'names' ]> ]
-                        ) => singleButtonMaker( clrName ) as CompleteData[ 'button' ][ K ],
+                        ) => singleButtonMaker( key, clrName ) as CompleteData[ 'button' ][ K ],
                     ),
 
-                    disabled: {
+                    // disabled: {
 
-                        bg: {
-                            $: clrOpt( variations.base, levels.text.min ),
-                            hover: clrOpt( variations.base, levels.text.min ),
-                            active: clrOpt( variations.base, levels.text.min ),
-                        },
+                    //     background: {
+                    //         $: clrOpt( variations.base, levels.text.min ),
+                    //         hover: clrOpt( variations.base, levels.text.min ),
+                    //         active: clrOpt( variations.base, levels.text.min ),
+                    //     },
 
-                        border: {
-                            $: clrOpt( variations.base, levels.text.min ),
-                            hover: clrOpt( variations.base, levels.text.min ),
-                            active: clrOpt( variations.base, levels.text.min ),
-                        },
+                    //     border: {
+                    //         $: clrOpt( variations.base, levels.text.min ),
+                    //         hover: clrOpt( variations.base, levels.text.min ),
+                    //         active: clrOpt( variations.base, levels.text.min ),
+                    //     },
 
-                        outline: {
-                            hover: clrOpt( variations.base, levels.text.min ),
-                            active: clrOpt( variations.base, levels.text.min ),
-                        },
+                    //     outline: {
+                    //         hover: clrOpt( variations.base, levels.text.min ),
+                    //         active: clrOpt( variations.base, levels.text.min ),
+                    //     },
 
-                        text: {
-                            $: clrOpt( variations.base, levels.background.$ ),
-                            hover: clrOpt( variations.base, levels.background.$ ),
-                            active: clrOpt( variations.base, levels.background.$ ),
-                        },
+                    //     text: {
+                    //         $: clrOpt( variations.base, levels.background.$ ),
+                    //         hover: clrOpt( variations.base, levels.background.$ ),
+                    //         active: clrOpt( variations.base, levels.background.$ ),
+                    //     },
 
-                        ui: {
-                            $: clrOpt( variations.base, levels.background.$ ),
-                            hover: clrOpt( variations.base, levels.background.$ ),
-                            active: clrOpt( variations.base, levels.background.$ ),
-                        },
-                    },
+                    //     ui: {
+                    //         $: clrOpt( variations.base, levels.background.$ ),
+                    //         hover: clrOpt( variations.base, levels.background.$ ),
+                    //         active: clrOpt( variations.base, levels.background.$ ),
+                    //     },
+                    // },
                 };
 
-                const complete: CompleteData = {
-                    background,
+                const singleInputMaker = (
+                    _variation: "base" | keyof AllVariations<T_ColourTypes, T_ThemeTypes>[ 'universal' ] | keyof AllVariations<T_ColourTypes, T_ThemeTypes>[ 'text' ],
+                ): CompleteData[ 'input' ][ '$' ] => {
 
-                    text,
-                    ui,
+                    const _variationValue = _variation === 'base'
+                        ? variations.base
+                        : variations.universal[ _variation ] ?? variations.text[ _variation ] ?? 'base';
+
+                    return {
+
+                        accent: {
+                            $: clrOpt( _variationValue, levels.ui.accent ),
+                            focus: clrOpt( variations.interactive.hover, levels.ui.accent ),
+                            hover: clrOpt( variations.interactive.hover, levels.ui.accent ),
+                            active: clrOpt( variations.interactive.active, levels.ui.accent ),
+                        },
+
+                        background: clrOpt( variations.base, levels.background.$ ),
+
+                        border: {
+                            $: clrOpt( _variationValue, levels.ui.accent ),
+                            focus: clrOpt( variations.interactive.hover, levels.ui.accent ),
+                            hover: clrOpt( variations.interactive.hover, levels.ui.accent ),
+                            active: clrOpt( variations.interactive.active, levels.ui.accent ),
+                        },
+
+                        placeholder: clrOpt( variations.base, levels.text.min ),
+                        text: clrOpt( variations.base, levels.text.$ ),
+                    };
+                };
+
+                const inputField: CompleteData[ 'input' ] = {
+                    $: singleInputMaker( 'primary' ),
+                    disabled: singleInputMaker( 'disabled' ),
+                    readonly: singleInputMaker( 'readonly' ),
+                };
+
+                return {
+                    background,
+                    button,
                     heading,
 
-                    selection: {
-                        bg: clrOpt( variations.universal.primary, levels.text.accent ),
-                        text: clrOpt( variations.base, levels.background.$ ),
-                    },
+                    input: inputField,
 
                     link: {
                         $: link,
@@ -1844,7 +1949,13 @@ export namespace Tokens_Themes_Set {
                         outline: linkOutline,
                     },
 
-                    button,
+                    selection: {
+                        background: clrOpt( variations.universal.primary, levels.text.accent ),
+                        text: clrOpt( variations.base, levels.background.$ ),
+                    },
+
+                    text,
+                    ui,
 
                     system: {
                         accent: {
@@ -1861,8 +1972,6 @@ export namespace Tokens_Themes_Set {
                         },
                     },
                 };
-
-                return complete;
             }
 
             /**
@@ -1888,7 +1997,6 @@ export namespace Tokens_Themes_Set {
                 } as const;
 
                 const background: CompleteData[ 'background' ] = {
-                    $: sysclr.background,
                     ...objectMap( variations.background, () => sysclr.background ),
                     ...objectMap( variations.universal, () => sysclr.background ),
                 };
@@ -1925,7 +2033,7 @@ export namespace Tokens_Themes_Set {
 
                 const singleButton: CompleteData[ 'button' ][ 'primary' ] = {
 
-                    bg: {
+                    background: {
                         $: 'ButtonFace',
                         hover: 'SelectedItem',
                         active: 'ButtonFace',
@@ -1969,16 +2077,34 @@ export namespace Tokens_Themes_Set {
                     disabled: singleButton,
                 };
 
-                const complete: CompleteData = {
+                const inputField: CompleteData[ 'input' ][ keyof CompleteData[ 'input' ] ] = {
+                    accent: {
+                        $: 'CanvasText',
+                        focus: 'CanvasText',
+                        hover: 'CanvasText',
+                        active: 'ActiveText',
+                    },
+                    background: 'Field',
+                    border: {
+                        $: 'CanvasText',
+                        focus: 'CanvasText',
+                        hover: 'CanvasText',
+                        active: 'ActiveText',
+                    },
+                    placeholder: 'FieldText',
+                    text: 'FieldText',
+                };
+
+                return {
                     background,
 
-                    text,
-                    ui: text,
+                    button,
                     heading,
 
-                    selection: {
-                        bg: 'Highlight',
-                        text: 'HighlightText',
+                    input: {
+                        $: inputField,
+                        disabled: inputField,
+                        readonly: inputField,
                     },
 
                     link: {
@@ -1988,7 +2114,13 @@ export namespace Tokens_Themes_Set {
                         outline: linkOutline,
                     },
 
-                    button,
+                    selection: {
+                        background: 'Highlight',
+                        text: 'HighlightText',
+                    },
+
+                    text,
+                    ui: text,
 
                     system: {
                         accent: {
@@ -2019,8 +2151,6 @@ export namespace Tokens_Themes_Set {
                         },
                     },
                 };
-
-                return complete;
             }
         }
     }

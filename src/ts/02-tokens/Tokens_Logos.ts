@@ -8,6 +8,7 @@
  * @license MIT
  */
 
+import { objectKeySort } from '../01-utilities/objectKeySort.js';
 import { objectMap } from '../01-utilities/objectMap.js';
 import { SvgMaker } from '../01-utilities/SvgMaker.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
@@ -33,7 +34,7 @@ export class Tokens_Logos<
     ) {
         super();
 
-        this.data = objectMap(
+        const mapped = objectMap(
             input,
             <K extends T_LogoNames>(
                 [ key, value ]: [ K, SvgMaker.Data<K> | SvgMaker<K> ]
@@ -43,6 +44,8 @@ export class Tokens_Logos<
                     : value && new SvgMaker( value )
             )
         ) as Tokens_Logos.Data<T_LogoNames>;
+
+        this.data = objectKeySort( mapped, false );
     }
 
     public toJSON(): Tokens_Logos.JsonReturn<T_LogoNames> {

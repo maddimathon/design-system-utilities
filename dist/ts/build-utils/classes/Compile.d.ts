@@ -10,7 +10,7 @@
 import type { Json } from '@maddimathon/utility-typescript/types';
 import type { CLI, Config, Stage } from '@maddimathon/build-utilities';
 import type { SemVer } from '@maddimathon/build-utilities/internal';
-import { CompileStage } from '@maddimathon/build-utilities';
+import { AbstractStage, CompileStage } from '@maddimathon/build-utilities';
 import type { Tokens } from '../../02-tokens/Tokens.js';
 /**
  * Extension of the built-in one.
@@ -84,6 +84,6 @@ export declare class Compile extends CompileStage {
     protected buildTokens_writeLogos(tokens: Tokens.Instance, paths: false | string[], level: number): Promise<(string | false)[][] | undefined>;
     protected astro(): Promise<void>;
     protected scss(): Promise<void>;
-    protected templates(sassdebugCheckpoints?: boolean): Promise<void>;
+    protected templates(sassDebugCheckpoints?: boolean, args?: Partial<AbstractStage.runCustomScssDirSubStage.Opts>): Promise<void>;
     protected tokens(): Promise<void>;
 }

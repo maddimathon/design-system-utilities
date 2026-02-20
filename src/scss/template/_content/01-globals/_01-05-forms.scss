@@ -117,7 +117,8 @@
     }
 
     // this type of button has a special disabled selector
-    @at-root #{selector.unify('input[aria-disabled=true]', &)} {
+    @at-root #{selector.unify('input[aria-disabled=true]', &)},
+        #{selector.unify('input[disabled]', &)} {
         @include snippet-button-disabled($includePseudoIcons: false);
     }
 }

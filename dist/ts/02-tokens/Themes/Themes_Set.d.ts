@@ -106,11 +106,17 @@ export declare namespace Tokens_Themes_Set {
      * @since 0.1.1-alpha.1.draft — Moved to {@link Tokens_Themes_Set} and renamed.
      */
     namespace SingleMode {
-        const allHeadingLevels: readonly [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        type InteractiveStyles<T_StyleValue> = {
+            [S in "$" | "hover" | "active"]: T_StyleValue;
+        };
+        type InteractiveStylesWithFocus<T_StyleValue> = {
+            [S in "$" | "hover" | "focus" | "active"]: T_StyleValue;
+        };
+        export const allHeadingLevels: readonly [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
         /**
          * @since 0.1.0-alpha
          */
-        type Data<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>> = {
+        export type Data<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>> = {
             background: {
                 $: __T_ColourOption;
             } & {
@@ -146,7 +152,7 @@ export declare namespace Tokens_Themes_Set {
                 [L in RequiredHeadingLevels]: __T_ColourOption;
             };
             selection: {
-                bg: __T_ColourOption;
+                background: __T_ColourOption;
                 text: __T_ColourOption;
             };
             /**
@@ -188,6 +194,9 @@ export declare namespace Tokens_Themes_Set {
             } & {
                 [K in T_ThemeTypes['variations']['universal']]: Data.Button<T_ColourTypes, __T_ColourOption>;
             };
+            input: {
+                [K in "$" | "disabled" | "readonly"]: Data.Input<T_ColourTypes, __T_ColourOption>;
+            };
             system: {
                 accent: {
                     bg: __T_ColourOption;
@@ -208,37 +217,27 @@ export declare namespace Tokens_Themes_Set {
          *
          * @since 0.1.1-alpha.1.draft
          */
-        namespace Data {
+        export namespace Data {
             /**
              * @since 0.1.0-alpha
              * @since 0.1.1-alpha.1.draft — Moved to SingleMode.Data and renamed.
              */
             type Button<T_ColourTypes extends TokenTypes.Colour.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>> = {
-                bg: {
-                    $: __T_ColourOption;
-                    hover: __T_ColourOption;
-                    active: __T_ColourOption;
-                };
-                border: {
-                    $: __T_ColourOption;
-                    hover: __T_ColourOption;
-                    active: __T_ColourOption;
-                };
-                outline: {
-                    $?: undefined | never;
-                    hover: __T_ColourOption;
-                    active: __T_ColourOption;
-                };
-                text: {
-                    $: __T_ColourOption;
-                    hover: __T_ColourOption;
-                    active: __T_ColourOption;
-                };
-                ui: {
-                    $: __T_ColourOption;
-                    hover: __T_ColourOption;
-                    active: __T_ColourOption;
-                };
+                background: InteractiveStyles<__T_ColourOption>;
+                border: InteractiveStyles<__T_ColourOption>;
+                outline: Omit<InteractiveStyles<__T_ColourOption>, '$'>;
+                text: InteractiveStyles<__T_ColourOption>;
+                ui: InteractiveStyles<__T_ColourOption>;
+            };
+            /**
+             * @since 0.1.1-alpha.1.draft
+             */
+            type Input<T_ColourTypes extends TokenTypes.Colour.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>> = {
+                accent: InteractiveStylesWithFocus<__T_ColourOption>;
+                background: __T_ColourOption;
+                border: InteractiveStylesWithFocus<__T_ColourOption>;
+                placeholder: __T_ColourOption;
+                text: __T_ColourOption;
             };
             /**
              * @since 0.1.0-alpha
@@ -280,7 +279,7 @@ export declare namespace Tokens_Themes_Set {
                     [L in RequiredHeadingLevels]?: undefined | __T_ColourOption;
                 };
                 selection?: undefined | {
-                    bg: __T_ColourOption;
+                    background: __T_ColourOption;
                     text: __T_ColourOption;
                 };
                 link?: {
@@ -316,48 +315,33 @@ export declare namespace Tokens_Themes_Set {
                 };
                 input?: undefined | {
                     [K in "$" | "disabled" | "readonly"]?: {
-                        accent?: undefined | {
-                            $?: undefined | __T_ColourOption;
-                            hover?: undefined | __T_ColourOption;
-                            active?: undefined | __T_ColourOption;
-                        };
-                        bg?: undefined | {
-                            $?: undefined | __T_ColourOption;
-                            hover?: undefined | __T_ColourOption;
-                            active?: undefined | __T_ColourOption;
-                        };
-                        border?: undefined | {
-                            $?: undefined | __T_ColourOption;
-                            hover?: undefined | __T_ColourOption;
-                            active?: undefined | __T_ColourOption;
-                        };
-                        text?: undefined | {
-                            $?: undefined | __T_ColourOption;
-                            hover?: undefined | __T_ColourOption;
-                            active?: undefined | __T_ColourOption;
-                        };
+                        accent?: undefined | Data.Input<T_ColourTypes, __T_ColourOption>['accent'];
+                        background?: undefined | Data.Input<T_ColourTypes, __T_ColourOption>['background'];
+                        border?: undefined | Data.Input<T_ColourTypes, __T_ColourOption>['border'];
+                        text?: undefined | Data.Input<T_ColourTypes, __T_ColourOption>['text'];
                     };
                 };
                 system?: undefined | {
                     accent?: undefined | {
-                        bg?: undefined | __T_ColourOption;
+                        background?: undefined | __T_ColourOption;
                         text?: undefined | __T_ColourOption;
                     };
                     mark?: undefined | {
-                        bg?: undefined | __T_ColourOption;
+                        background?: undefined | __T_ColourOption;
                         text?: undefined | __T_ColourOption;
                     };
                     selected?: undefined | {
-                        bg?: undefined | __T_ColourOption;
+                        background?: undefined | __T_ColourOption;
                         text?: undefined | __T_ColourOption;
                     };
                 };
             };
         }
         /** @internal @private */
-        interface RequiredVariations<T_ColourName extends string> {
+        export interface RequiredVariations<T_ColourName extends string> {
             base: TokenTypes.Colour.GenericName<T_ColourName>;
             background: {
+                $: TokenTypes.Colour.GenericName<T_ColourName>;
                 bright: TokenTypes.Colour.GenericName<T_ColourName>;
                 grey: TokenTypes.Colour.GenericName<T_ColourName>;
             };
@@ -380,7 +364,7 @@ export declare namespace Tokens_Themes_Set {
             };
         }
         /** @internal @private */
-        interface AllVariations<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams> {
+        export interface AllVariations<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams> {
             base: TokenTypes.Colour.GenericName<T_ColourTypes['names']>;
             background: RequiredVariations<T_ColourTypes['names']>['background'] & {
                 [K in T_ThemeTypes['variations']['background']]: TokenTypes.Colour.GenericName<T_ColourTypes['names']>;
@@ -401,7 +385,7 @@ export declare namespace Tokens_Themes_Set {
          *
          * @since 0.1.1-alpha.1.draft
          */
-        namespace Levels {
+        export namespace Levels {
             /**
              * @since 0.1.1-alpha.1.draft
              */
@@ -592,7 +576,7 @@ export declare namespace Tokens_Themes_Set {
          *
          * @since 0.1.0-alpha
          */
-        interface InputParam<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>> {
+        export interface InputParam<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>> {
             description?: null | string;
             levels?: undefined | Levels.Input<T_ColourTypes['extraLevels']>;
             variations?: undefined | {
@@ -614,12 +598,17 @@ export declare namespace Tokens_Themes_Set {
         /**
          * @since 0.1.0-alpha
          */
-        type JsonReturn<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>> = {
+        export type JsonReturn<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>> = {
             name: "default" | T_ThemeTypes['name'];
             brightness: TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>;
             constrast: TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>;
             description?: undefined | string;
             data: Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption> & {
+                button: {
+                    [K in keyof Data<T_ColourTypes, T_ThemeTypes>['button']]: Data.Button<T_ColourTypes, __T_ColourOption> & {
+                        outline: InteractiveStyles<__T_ColourOption>;
+                    };
+                };
                 link: Data<T_ColourTypes, T_ThemeTypes>['link'] & {
                     outline: Data<T_ColourTypes, T_ThemeTypes>['link']['outline'] & {
                         $: __T_ColourOption;
@@ -635,7 +624,12 @@ export declare namespace Tokens_Themes_Set {
         /**
          * @since 0.1.1-alpha.1.draft
          */
-        type ScssVars<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>> = Data<T_ColourTypes, T_ThemeTypes> & {
+        export type ScssVars<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>> = Data<T_ColourTypes, T_ThemeTypes> & {
+            button: {
+                [K in keyof Data<T_ColourTypes, T_ThemeTypes>['button']]: Data.Button<T_ColourTypes, __T_ColourOption> & {
+                    outline: InteractiveStyles<__T_ColourOption>;
+                };
+            };
             link: Data<T_ColourTypes, T_ThemeTypes>['link'] & {
                 outline: Data<T_ColourTypes, T_ThemeTypes>['link']['outline'] & {
                     $: __T_ColourOption;
@@ -716,7 +710,7 @@ export declare namespace Tokens_Themes_Set {
          * @since 0.1.0-alpha
          * @internal
          */
-        namespace Build {
+        export namespace Build {
             /**
              * @since 0.1.0-alpha
              */
@@ -738,7 +732,7 @@ export declare namespace Tokens_Themes_Set {
              *
              * @since 0.1.0-alpha
              */
-            function data<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(input: Param<T_ColourTypes, T_ThemeTypes>): Promise<Data<T_ColourTypes, T_ThemeTypes>>;
+            function data<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(inputParam: Param<T_ColourTypes, T_ThemeTypes>, overrides: Data.RecursivePartial<NoInfer<T_ColourTypes>, NoInfer<T_ThemeTypes>>): Promise<Data<T_ColourTypes, T_ThemeTypes>>;
             /**
              * An easy way to generate a complete token set from limited inputs.
              *
@@ -746,5 +740,6 @@ export declare namespace Tokens_Themes_Set {
              */
             function forcedColors<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(input: Param_ForcedColors<T_ColourTypes, T_ThemeTypes>): Promise<Data<T_ColourTypes, T_ThemeTypes>>;
         }
+        export {};
     }
 }

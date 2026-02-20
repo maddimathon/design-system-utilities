@@ -14,6 +14,7 @@ import { mergeArgs } from '@maddimathon/utility-typescript/functions';
 import type { RequiredHeadingLevels, TokenTypes, TokenLevels } from '../@types.js';
 
 import { objectGenerator } from '../../01-utilities/objectGenerator.js';
+import { objectKeySort } from '../../01-utilities/objectKeySort.js';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
 
 /**
@@ -223,26 +224,12 @@ export class Tokens_CSS_Style extends AbstractTokens<{
     public static inputStyle() {
 
         const style: Tokens_CSS_Style.InputStyles = {
-            accent: {
-                $: 'link-outline-hover',
-                hover: 'link-outline-hover',
-                active: 'link-outline-active',
-            },
-
-            background: 'background-bright',
 
             border: {
-                color: {
-                    $: 'ui',
-                    hover: 'link-outline-hover',
-                    active: 'link-outline-active',
-                },
                 radius: '0',
                 style: 'solid',
                 width: '100',
             },
-
-            color: 'text',
 
             focus: {
                 offset: '400',
@@ -274,7 +261,6 @@ export class Tokens_CSS_Style extends AbstractTokens<{
             },
 
             placeholder: {
-                color: 'text-disabled',
                 font: {
                     style: 'italic',
                 },
@@ -286,21 +272,15 @@ export class Tokens_CSS_Style extends AbstractTokens<{
         };
 
         const disabled: Tokens_CSS_Style.InputStyles_Variation = {
-            accent: style.accent,
-            background: 'background-grey',
             border: {
                 ...style.border,
                 radius: style.border.radius,
                 style: 'dashed',
             },
-            color: 'text-disabled',
         };
 
         const readonly: Tokens_CSS_Style.InputStyles_Variation = {
-            accent: style.accent,
-            background: style.background,
             border: style.border,
-            color: style.color,
         };
 
         return {
@@ -356,7 +336,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
     }
 
     public toScssVars(): Tokens_CSS_Style.ScssVars {
-        return this.data;
+        return objectKeySort( this.data, true );
     }
 }
 
@@ -500,36 +480,11 @@ export namespace Tokens_CSS_Style {
      */
     export type InputStyles = {
 
-        /**
-         * This should be a theme slug.
-         * 
-         * @since ___PKG_VERSION___
-         */
-        accent: InteractiveStyles<string>;
-
-        /**
-         * This should be a theme slug.
-         * 
-         * @since ___PKG_VERSION___
-         */
-        background: string;
-
         border: {
-            /**
-             * This should be a theme slug.
-             */
-            color: InteractiveStyles<string>;
             radius: "0" | TokenLevels;
             style: string;
             width: TokenLevels;
         };
-
-        /**
-         * This should be a theme slug.
-         * 
-         * @since ___PKG_VERSION___
-         */
-        color: string;
 
         focus: {
             offset: TokenLevels;
@@ -567,10 +522,6 @@ export namespace Tokens_CSS_Style {
          * @since ___PKG_VERSION___
          */
         placeholder: {
-            /**
-             * This should be a theme slug.
-             */
-            color: string;
 
             font: {
                 style: "normal" | "italic";
@@ -594,10 +545,6 @@ export namespace Tokens_CSS_Style {
         'border' | 'focus' | 'label' | 'line-height' | 'margin' | 'padding' | 'placeholder'
     > & {
         border: Omit<InputStyles[ 'border' ], 'width'>;
-    };
-
-    type InteractiveStyles<T_StyleValue> = {
-        [ S in "$" | "hover" | "active" ]: T_StyleValue;
     };
 
     /**

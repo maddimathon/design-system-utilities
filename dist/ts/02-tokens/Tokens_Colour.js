@@ -12,6 +12,7 @@ import { objectGeneratorAsync } from '../01-utilities/objectGenerator.js';
 import { objectMap } from '../01-utilities/objectMap.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 import { Tokens_Colour_ShadeMap } from './Colour/Colour_ShadeMap.js';
+import { objectKeySort } from '../01-utilities/objectKeySort.js';
 /**
  * Generates a complete token object for the design system.
  *
@@ -74,6 +75,6 @@ export class Tokens_Colour extends AbstractTokens {
         return objectMap(this.data, ([key, value]) => value.toJSON());
     }
     toScssVars() {
-        return objectMap(this.data, ([key, value]) => value.toScssVars());
+        return objectKeySort(objectMap(this.data, ([key, value]) => value.toScssVars()));
     }
 }

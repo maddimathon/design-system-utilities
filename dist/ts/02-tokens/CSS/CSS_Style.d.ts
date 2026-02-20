@@ -52,7 +52,7 @@ export declare namespace Tokens_CSS_Style {
     /**
      * @since 0.1.1-alpha.1.draft
      */
-    export type AlertStyles = {
+    type AlertStyles = {
         /**
          * This should be a theme slug.
          */
@@ -96,7 +96,7 @@ export declare namespace Tokens_CSS_Style {
             inline: TokenLevels;
         };
     };
-    export type ButtonStyles = {
+    type ButtonStyles = {
         border: {
             radius: "0" | TokenLevels;
             style: string;
@@ -128,12 +128,12 @@ export declare namespace Tokens_CSS_Style {
         };
         width: string;
     };
-    export type ButtonStyles_Disabled = Omit<ButtonStyles, 'border' | 'focus' | 'gap' | 'line-height' | 'margin' | 'padding' | 'width'> & {
+    type ButtonStyles_Disabled = Omit<ButtonStyles, 'border' | 'focus' | 'gap' | 'line-height' | 'margin' | 'padding' | 'width'> & {
         border: Omit<ButtonStyles['border'], 'width'>;
         'letter-spacing': string;
         'text-transform': CSS.TextTransform;
     };
-    export type HeadingStyles = {
+    type HeadingStyles = {
         font: {
             style: "normal" | "italic";
             weight: TokenLevels;
@@ -151,34 +151,12 @@ export declare namespace Tokens_CSS_Style {
     /**
      * @since 0.1.1-alpha.0
      */
-    export type InputStyles = {
-        /**
-         * This should be a theme slug.
-         *
-         * @since 0.1.1-alpha.1.draft
-         */
-        accent: InteractiveStyles<string>;
-        /**
-         * This should be a theme slug.
-         *
-         * @since 0.1.1-alpha.1.draft
-         */
-        background: string;
+    type InputStyles = {
         border: {
-            /**
-             * This should be a theme slug.
-             */
-            color: InteractiveStyles<string>;
             radius: "0" | TokenLevels;
             style: string;
             width: TokenLevels;
         };
-        /**
-         * This should be a theme slug.
-         *
-         * @since 0.1.1-alpha.1.draft
-         */
-        color: string;
         focus: {
             offset: TokenLevels;
         };
@@ -208,10 +186,6 @@ export declare namespace Tokens_CSS_Style {
          * @since 0.1.1-alpha.1.draft
          */
         placeholder: {
-            /**
-             * This should be a theme slug.
-             */
-            color: string;
             font: {
                 style: "normal" | "italic";
             };
@@ -224,24 +198,21 @@ export declare namespace Tokens_CSS_Style {
      * @since 0.1.1-alpha.0
      * @since 0.1.1-alpha.1.draft — Renamed from InputStyles_Disabled to InputStyles_Variation.
      */
-    export type InputStyles_Variation = Omit<InputStyles, 'border' | 'focus' | 'label' | 'line-height' | 'margin' | 'padding' | 'placeholder'> & {
+    type InputStyles_Variation = Omit<InputStyles, 'border' | 'focus' | 'label' | 'line-height' | 'margin' | 'padding' | 'placeholder'> & {
         border: Omit<InputStyles['border'], 'width'>;
-    };
-    type InteractiveStyles<T_StyleValue> = {
-        [S in "$" | "hover" | "active"]: T_StyleValue;
     };
     /**
      * CSS allowed value types.
      *
      * @since 0.1.0-alpha
      */
-    export namespace CSS {
+    namespace CSS {
         type TextTransform = "none" | "capitalize" | "uppercase" | "lowercase" | "full-width" | "full-size-kana" | "math-auto";
     }
     /**
      * @since 0.1.0-alpha
      */
-    export type Data = {
+    type Data = {
         /**
          * @since 0.1.1-alpha.1.draft
          */
@@ -277,7 +248,7 @@ export declare namespace Tokens_CSS_Style {
     /**
      * @since 0.1.0-alpha
      */
-    export type InputParam = {
+    type InputParam = {
         /**
          * @since 0.1.1-alpha.1.draft
          */
@@ -310,10 +281,9 @@ export declare namespace Tokens_CSS_Style {
     /**
      * @since 0.1.0-alpha
      */
-    export type JsonReturn = Data;
+    type JsonReturn = Data;
     /**
      * @since 0.1.1-alpha.1.draft
      */
-    export type ScssVars = Data;
-    export {};
+    type ScssVars = Data;
 }

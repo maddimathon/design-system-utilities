@@ -81,7 +81,8 @@
         }
     }
 
-    &[aria-disabled='true'] {
+    &[aria-disabled='true'],
+    &[disabled] {
         &::before {
             @if config.$template_link_inlineIcons {
                 @include snippet-icon-pseudo-element(forbidden, $pseudo: before) {

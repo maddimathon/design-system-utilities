@@ -1,0 +1,106 @@
+/**
+ * @since 0.1.1-alpha.1.draft
+ *
+ * @packageDocumentation
+ */
+/*!
+ * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+ * @license MIT
+ */
+import { slugify, } from '@maddimathon/utility-typescript/functions';
+/**
+ * Gets a string of valid PHP code for wordpress defining constants for the given set of
+ * SVGs.
+ *
+ * @since 0.1.1-alpha.1.draft
+ */
+export async function getWordpressSvgConstants(setName, svgSet, textDomain) {
+    // returns
+    if (!svgSet) {
+        return;
+    }
+    const entries = Object.entries(svgSet).map(([key, value]) => [
+        slugify(key).replace(/\-/gi, '_').toLowerCase(),
+        value,
+    ]);
+    entries.sort((a, b) => {
+        if (a[0] > b[0]) {
+            return 1;
+        }
+        if (a[0] < b[0]) {
+            return -1;
+        }
+        return 0;
+    });
+    const entries_labelled = entries.map(([key, value]) => [
+        key,
+        value.svgInlineLabelled.replace(/\s*\n+\s*/g, ''),
+    ]);
+    const entries_css = entries.map(([key, value]) => [
+        key,
+        value.svgCssEmbedded.replace(/\s*\n+\s*/g, ''),
+    ]);
+    const keys = entries.map(([key]) => key);
+    keys.sort();
+    const longestKeyLength = Math.max(...keys.map((key) => key.length));
+    const name_entries = entries.map(([key, value]) => [key, value.label]);
+    name_entries.sort((a, b) => {
+        if (a[1] > b[1]) {
+            return 1;
+        }
+        if (a[1] < b[1]) {
+            return -1;
+        }
+        return 0;
+    });
+    const phpStrings = {
+        keyObjectShape: keys.map(key => `${key}: string`).join(', '),
+        names: `[${name_entries.map(([key, value]) => `\n    '${key}' ${' '.repeat(longestKeyLength - key.length)}=> _x( '${value}', '${setName} display name', '${textDomain}' ),`).join('')}${keys.length ? '\n' : ''}]`,
+        svg: `(object) [${entries_labelled.map(([key, svg]) => `\n    '${key}' ${' '.repeat(longestKeyLength - key.length)}=> '${svg.replace(/'/g, "\\'")}',`).join('')}${entries_labelled.length ? '\n' : ''}]`,
+        svgBase64: `(object) [${entries_css.map(([key, svg]) => `\n    '${key}' ${' '.repeat(longestKeyLength - key.length)}=> '${btoa(svg).replace(/'/g, "\\'")}',`).join('')}${entries_css.length ? '\n' : ''}]`,
+    };
+    const setName_UC = setName.toUpperCase();
+    return [
+        '// hooked for access to translation',
+        '\\add_action(',
+        '    \'init\',',
+        '    function () {',
+        '        // returns',
+        `        if ( \\defined( 'Boiler_Plugin\\BRAND_${setName_UC}_NAMES' ) ) {`,
+        '            return;',
+        '        }',
+        '',
+        '        /**',
+        `         * All ${setName} slugs and their labels`,
+        '         *',
+        `         * @var array{ ${phpStrings.keyObjectShape} }`,
+        '         */',
+        `        \\define(`,
+        `            'Boiler_Plugin\\BRAND_${setName_UC}_NAMES',`,
+        `            ${phpStrings.names.split('\n').join('\n            ')},`,
+        '        );',
+        '    },',
+        '    0,',
+        ');',
+        '',
+        '/**',
+        ` * All ${setName} svg values indexed by slug.`,
+        ' *',
+        ` * @var object{ ${phpStrings.keyObjectShape} }`,
+        ' */',
+        `\\define(`,
+        `    'Boiler_Plugin\\BRAND_${setName_UC}_SVG',`,
+        `    ${phpStrings.svg.split('\n').join('\n    ')},`,
+        ');',
+        '',
+        '/**',
+        ` * All ${setName} base64-encoded svgs indexed by slug.`,
+        ' *',
+        ` * @var object{ ${phpStrings.keyObjectShape} }`,
+        ' */',
+        `\\define(`,
+        `    'Boiler_Plugin\\BRAND_${setName_UC}_SVG_BASE64',`,
+        `    ${phpStrings.svgBase64.split('\n').join('\n    ')},`,
+        ');',
+    ].join('\n');
+}
