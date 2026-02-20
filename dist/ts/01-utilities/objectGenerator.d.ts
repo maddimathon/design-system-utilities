@@ -25,4 +25,3 @@ export declare function objectGenerator<T_Keys extends number | string, T_Return
 export declare function objectGeneratorAsync<T_Keys extends number | string, T_Return extends unknown>(keys: T_Keys[] | readonly T_Keys[], mapper: (key: T_Keys) => Promise<T_Return>): Promise<{
     [K in T_Keys]: T_Return;
 }>;
-//# sourceMappingURL=objectGenerator.d.ts.map

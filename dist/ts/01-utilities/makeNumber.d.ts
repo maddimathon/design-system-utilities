@@ -13,4 +13,3 @@
  * @since 0.1.1-alpha.1.draft
  */
 export declare function makeNumber(input: unknown): null | number;
-//# sourceMappingURL=makeNumber.d.ts.map

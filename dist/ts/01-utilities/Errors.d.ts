@@ -135,4 +135,3 @@ export declare namespace LocalErrors {
         readonly name: string;
     }
 }
-//# sourceMappingURL=Errors.d.ts.map

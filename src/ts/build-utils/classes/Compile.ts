@@ -327,12 +327,13 @@ export class Compile extends CompileStage {
         await this.runCustomDirCopySubStage( 'scss' );
     }
 
-    protected async templates() {
+    protected async templates( sassdebugCheckpoints: boolean = false ) {
 
         await this.runCustomScssDirSubStage(
             'template',
             this.getDistDir( undefined, 'css' ),
             {
+                maxConcurrent: sassdebugCheckpoints && ( this.params.debug || this.params.verbose ) ? 1 : 5,
                 postCSS: true,
                 srcDir: 'src/scss'
             },

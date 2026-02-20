@@ -16,4 +16,3 @@ import type { Tokens_Themes } from './Tokens_Themes.js';
  * @since 0.1.0-alpha.2
  */
 export declare function getLevelsInUse<T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams = TokenTypes.Theme.TypeParams>(themes: Tokens_Themes.JsonReturn<T_ColourTypes, T_ThemeTypes>): Set<"black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional>;
-//# sourceMappingURL=getLevelsInUse.d.ts.map

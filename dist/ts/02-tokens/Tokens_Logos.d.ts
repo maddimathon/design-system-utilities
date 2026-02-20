@@ -55,4 +55,3 @@ export declare namespace Tokens_Logos {
         [L in T_LogoNames]: SvgMaker.ScssVars<L>;
     };
 }
-//# sourceMappingURL=Tokens_Logos.d.ts.map

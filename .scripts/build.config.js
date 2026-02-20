@@ -40,7 +40,8 @@ const config = {
             },
         },
 
-        sass: sassCompilerOpts(
+        sass: ( args ) => sassCompilerOpts(
+            args,
             {
                 benchmarkCompileTime: true,
                 // pathToSassLoggingRoot: 'node_modules/@maddimathon/build-utilities/node_modules',

@@ -84,7 +84,6 @@ export declare class Compile extends CompileStage {
     protected buildTokens_writeLogos(tokens: Tokens.Instance, paths: false | string[], level: number): Promise<(string | false)[][] | undefined>;
     protected astro(): Promise<void>;
     protected scss(): Promise<void>;
-    protected templates(): Promise<void>;
+    protected templates(sassdebugCheckpoints?: boolean): Promise<void>;
     protected tokens(): Promise<void>;
 }
-//# sourceMappingURL=Compile.d.ts.map

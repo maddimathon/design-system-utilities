@@ -49,4 +49,3 @@ export declare namespace Tokens_CSS_TEMPLATE {
      */
     type ScssVars = Data;
 }
-//# sourceMappingURL=CSS_@TEMPLATE.d.ts.map

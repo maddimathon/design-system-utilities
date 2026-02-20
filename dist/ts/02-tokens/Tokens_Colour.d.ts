@@ -72,4 +72,3 @@ export declare namespace Tokens_Colour {
         white: Tokens_Colour_ShadeMap.Shade.ScssVars;
     } & TokenTypes.Colour.NameRecord<T_Types, Tokens_Colour_ShadeMap.ScssVars<T_Types>>;
 }
-//# sourceMappingURL=Tokens_Colour.d.ts.map

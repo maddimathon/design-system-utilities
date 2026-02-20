@@ -111,4 +111,3 @@ export declare namespace SvgMaker {
         embedded: string;
     };
 }
-//# sourceMappingURL=SvgMaker.d.ts.map

@@ -87,12 +87,15 @@ export declare namespace Tokens_Themes_Set {
         json: SingleMode.JsonReturn<T_ColourTypes, T_ThemeTypes, __T_ColourOption>;
         scss: SingleMode.ScssVars<T_ColourTypes, T_ThemeTypes, __T_ColourOption>;
     }> {
+        readonly name: "default" | T_ThemeTypes['name'];
+        readonly brightness: TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>;
+        readonly constrast: TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>;
         readonly description: null | string;
         readonly levelsInUse: ("black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional)[];
         readonly data: SingleMode.Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption>;
-        static build<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(preset: "forcedColors", clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>, input: SingleMode.InputParam<NoInfer<T_ColourTypes>, T_ThemeTypes, TokenTypes.Css.SystemColor>, overrides?: SingleMode.Data.RecursivePartial<NoInfer<T_ColourTypes>, NoInfer<T_ThemeTypes>, TokenTypes.Css.SystemColor>): Promise<SingleMode<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>>;
-        static build<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(preset: "low" | "average" | "high" | "max", clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>, input: SingleMode.InputParam<NoInfer<T_ColourTypes>, T_ThemeTypes>, overrides?: SingleMode.Data.RecursivePartial<NoInfer<T_ColourTypes>, NoInfer<T_ThemeTypes>>): Promise<SingleMode<T_ColourTypes, T_ThemeTypes>>;
-        protected constructor(description: null | string, levelsInUse: ("black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional)[], data: SingleMode.Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption>);
+        static build<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(themeName: "default" | T_ThemeTypes['name'], brightness: null, constrast: "forcedColors", clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>, input: SingleMode.InputParam<NoInfer<T_ColourTypes>, T_ThemeTypes, TokenTypes.Css.SystemColor>, overrides?: SingleMode.Data.RecursivePartial<NoInfer<T_ColourTypes>, NoInfer<T_ThemeTypes>, TokenTypes.Css.SystemColor>): Promise<SingleMode<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>>;
+        static build<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(themeName: "default" | T_ThemeTypes['name'], brightness: TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>, constrast: TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>, clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>, input: SingleMode.InputParam<NoInfer<T_ColourTypes>, T_ThemeTypes>, overrides?: SingleMode.Data.RecursivePartial<NoInfer<T_ColourTypes>, NoInfer<T_ThemeTypes>>): Promise<SingleMode<T_ColourTypes, T_ThemeTypes>>;
+        protected constructor(name: "default" | T_ThemeTypes['name'], brightness: TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>, constrast: TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>, description: null | string, levelsInUse: ("black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional)[], data: SingleMode.Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption>);
         toJSON(): SingleMode.JsonReturn<T_ColourTypes, T_ThemeTypes, __T_ColourOption>;
         toScssVars(): SingleMode.ScssVars<T_ColourTypes, T_ThemeTypes, __T_ColourOption>;
     }
@@ -612,6 +615,9 @@ export declare namespace Tokens_Themes_Set {
          * @since 0.1.0-alpha
          */
         type JsonReturn<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>> = {
+            name: "default" | T_ThemeTypes['name'];
+            brightness: TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>;
+            constrast: TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>;
             description?: undefined | string;
             data: Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption> & {
                 link: Data<T_ColourTypes, T_ThemeTypes>['link'] & {
@@ -742,4 +748,3 @@ export declare namespace Tokens_Themes_Set {
         }
     }
 }
-//# sourceMappingURL=Themes_Set.d.ts.map

@@ -27,4 +27,3 @@ export declare class Document extends DocumentStage {
     protected scss(): Promise<void>;
     protected astro(): Promise<void>;
 }
-//# sourceMappingURL=Document.d.ts.map

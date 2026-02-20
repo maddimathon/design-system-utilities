@@ -42,11 +42,11 @@ export class Tokens_Themes_Set extends AbstractTokens {
             'high',
             ...contrastModes,
         ];
-        const forcedColours = Tokens_Themes_Set.SingleMode.build('forcedColors', clrNames, {
+        const forcedColours = Tokens_Themes_Set.SingleMode.build(name, null, 'forcedColors', clrNames, {
             ...input.forcedColours ?? {},
             variations: input.variations,
         }, input.forcedColours?.overrides);
-        const modes = objectGeneratorAsync(allBrightnessModes, async (brightness) => objectGeneratorAsync(allContrastModes, async (contrast) => Tokens_Themes_Set.SingleMode.build(contrast, clrNames, {
+        const modes = objectGeneratorAsync(allBrightnessModes, async (brightness) => objectGeneratorAsync(allContrastModes, async (contrast) => Tokens_Themes_Set.SingleMode.build(name, brightness, contrast, clrNames, {
             ...input[brightness]?.[contrast] ?? {},
             variations: mergeArgs(input.variations ?? {}, input[brightness]?.[contrast]?.variations ?? {}, true),
         }, input[brightness]?.[contrast]?.overrides ?? {})));
@@ -105,6 +105,9 @@ export class Tokens_Themes_Set extends AbstractTokens {
      * @since 0.1.1-alpha.1.draft — Moved to {@link Tokens_Themes_Set} and renamed.
      */
     class SingleMode extends AbstractTokens {
+        name;
+        brightness;
+        constrast;
         description;
         levelsInUse;
         data;
@@ -113,9 +116,9 @@ export class Tokens_Themes_Set extends AbstractTokens {
          *
          * @since 0.1.0-alpha
          */
-        static async build(preset, clrNames, input, overrides = {}) {
-            const defaultLevels = preset !== 'forcedColors'
-                ? SingleMode.Levels.DEFAULT[preset]
+        static async build(themeName, brightness, constrast, clrNames, input, overrides = {}) {
+            const defaultLevels = constrast !== 'forcedColors'
+                ? SingleMode.Levels.DEFAULT[constrast]
                 : SingleMode.Levels.DEFAULT.max;
             const levels = SingleMode.Levels.parse(defaultLevels, input.levels);
             const variations = SingleMode.Build.completeVariations(clrNames, input.variations);
@@ -123,7 +126,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
             let description = input.description ?? null;
             let defaultOverrides = {};
             // returns if forced colours
-            switch (preset) {
+            switch (constrast) {
                 case 'average':
                     description = description ?? 'This is the default contrast mode for most users, unless they have defined a specific preference (‘low’, ‘high’, or ‘forced-colors’) in their OS or browser settings.  It meets or exceeds WCAG AAA contrast standards.';
                     defaultOverrides.selection = {
@@ -175,7 +178,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
                         ...input,
                         variations: SingleMode.Build.completeVariations(clrNames, input.variations),
                     };
-                    return new SingleMode('This is the forced colours contrast mode, which is a mode only applied for users with this accessibility featured enabled in their OS settings.  It cannot be manually selected.  This mode uses System Colour keywords, which lets users apply custom colours to websites.  This is very important for accessibility!', [], await SingleMode.Build.forcedColors(_input));
+                    return new SingleMode(themeName, brightness, constrast, 'This is the forced colours contrast mode, which is a mode only applied for users with this accessibility featured enabled in their OS settings.  It cannot be manually selected.  This mode uses System Colour keywords, which lets users apply custom colours to websites.  This is very important for accessibility!', [], await SingleMode.Build.forcedColors(_input));
             }
             const allLevelsInUse = Object.values(objectFlatten(levels)).concat(Object.values(objectFlatten(overrides)).map((val) => {
                 const match = String(val).match(/\-(\d+)$/);
@@ -189,10 +192,13 @@ export class Tokens_Themes_Set extends AbstractTokens {
             return SingleMode.Build.data({
                 levels,
                 variations,
-            }).then((defaultInputData) => new SingleMode(description, levelsInUse, mergeArgs(defaultInputData, mergeArgs(defaultOverrides, overrides, true), true)));
+            }).then((defaultInputData) => new SingleMode(themeName, brightness, constrast, description, levelsInUse, mergeArgs(defaultInputData, mergeArgs(defaultOverrides, overrides, true), true)));
         }
-        constructor(description, levelsInUse, data) {
+        constructor(name, brightness, constrast, description, levelsInUse, data) {
             super();
+            this.name = name;
+            this.brightness = brightness;
+            this.constrast = constrast;
             this.description = description;
             this.levelsInUse = levelsInUse;
             this.data = data;
@@ -203,6 +209,9 @@ export class Tokens_Themes_Set extends AbstractTokens {
                 dark: ColourUtilities.Levels.toDark(light),
             }));
             return {
+                name: this.name,
+                brightness: this.brightness,
+                constrast: this.constrast,
                 description: this.description ?? undefined,
                 data: {
                     ...this.data,

@@ -306,4 +306,3 @@ export declare namespace ColourUtilities {
         function toDark<T_LightLevel extends "black" | "white" | Levels.Required | Levels.Optional>(lightLevel: T_LightLevel): typeof converter[T_LightLevel];
     }
 }
-//# sourceMappingURL=ColourUtilities.d.ts.map

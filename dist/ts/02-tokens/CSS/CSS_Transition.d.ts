@@ -64,4 +64,3 @@ export declare namespace Tokens_CSS_Transition {
     export type ScssVars = Data;
     export {};
 }
-//# sourceMappingURL=CSS_Transition.d.ts.map

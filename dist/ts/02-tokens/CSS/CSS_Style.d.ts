@@ -314,4 +314,3 @@ export declare namespace Tokens_CSS_Style {
     export type ScssVars = Data;
     export {};
 }
-//# sourceMappingURL=CSS_Style.d.ts.map

@@ -19,4 +19,3 @@ export declare function objectMapAsync<T_Obj extends object, T_NewValue extends 
 ]) => T_NewValue | Promise<T_NewValue>): Promise<{
     [K in keyof T_Obj]: T_NewValue;
 }>;
-//# sourceMappingURL=objectMapAsync.d.ts.map

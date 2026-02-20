@@ -56,8 +56,9 @@ export function defineConfig<
         compiler: {
             ...config.compiler ?? {},
 
-            sass: sassCompilerOpts(
-                config.compiler?.sass,
+            sass: ( args ) => sassCompilerOpts(
+                args,
+                typeof config.compiler?.sass === 'function' ? config.compiler?.sass( args ) : config.compiler?.sass,
             ),
         },
 

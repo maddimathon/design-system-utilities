@@ -198,8 +198,8 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
                                                     // displayHeading={3}
                                                     <Alert
                                                         class:list={`alert-block--${backgroundSlug}`}
-                                                        icon={tokens.icons.info}
-                                                        style={`background: var(--clr-${backgroundClrName})`}
+                                                        icon={ tokens.icons[backgroundSlug] ?? tokens.icons.info }
+                                                        style={`background: var(--theme-background-${backgroundSlug}, var(--clr-${backgroundClrName}))`}
                                                     >
                                                         <span slot='headline'>Alert Block: <samp set:text={`background-${backgroundSlug}`} /></span>
                                                         <p>Lorem ipsum <a href="#">dolor sit amet</a>, consectetur adipiscing elit. Sed vel odio at nibh <abbr title="these aren’t real words">pharetra condimentum</abbr>.</p>

@@ -18,4 +18,3 @@
  * @source
  */
 export declare function roundToPixel(num: number, factor?: number): number;
-//# sourceMappingURL=roundToPixel.d.ts.map

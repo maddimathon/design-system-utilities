@@ -109,17 +109,22 @@ export function getColourSlugFromThemeSlug<
     T_Types extends TokenTypes.TypeParams,
 >(
     themeValueSlug: string,
+    themeName: "default" | T_Types[ 'theme' ][ 'name' ],
     brightness: "light" | "dark" | T_Types[ 'theme' ][ 'brightness' ],
     contrast: "low" | "average" | "high" | T_Types[ 'theme' ][ 'contrast' ],
     tokens: Tokens.JsonReturn<T_Types>,
 ) {
+    if ( !tokens.themes[ themeName ] ) {
+        themeName = 'default';
+    }
+
     // returns
-    if ( !tokens.themes.default[ brightness ]?.[ contrast ] ) {
+    if ( !tokens.themes[ themeName ][ brightness ]?.[ contrast ] ) {
         return null;
     }
 
     const flattened = objectFlatten(
-        tokens.themes.default[ brightness ][ contrast ].data as unknown as RecursiveRecord<number | string, string>
+        tokens.themes[ themeName ][ brightness ][ contrast ].data as unknown as RecursiveRecord<number | string, string>
     );
 
     // returns
@@ -134,12 +139,14 @@ export function getColourValueFromThemeSlug<
     T_Types extends TokenTypes.TypeParams,
 >(
     themeValueSlug: string,
+    themeName: "default" | T_Types[ 'theme' ][ 'name' ],
     brightness: "light" | "dark" | T_Types[ 'theme' ][ 'brightness' ],
     contrast: "low" | "average" | "high" | T_Types[ 'theme' ][ 'contrast' ],
     tokens: Tokens.JsonReturn<T_Types>,
 ): string {
-    const clrSlug = getColourSlugFromThemeSlug(
+    const clrSlug = getColourSlugFromThemeSlug<T_Types>(
         themeValueSlug,
+        themeName,
         brightness,
         contrast,
         tokens,

@@ -7,7 +7,20 @@
 
 @use '../../../lib' as *;
 
+@use '../config' as tmplConfig;
+
+@include debug-checkpoint(
+    '#{tmplConfig.$template_slug} - blocks start',
+    $level: tmplConfig.$checkpointLevel
+);
+
 @if config.$print_logos {
+    @include debug-checkpoint(
+        '#{tmplConfig.$template_slug} - blocks - logos start',
+        $level: tmplConfig.$checkpointLevel + 1,
+        $verbose: true
+    );
+
     @if config.$print_headings {
         /* # BLOCKS - LOGOS
          * ======================================================================== */
@@ -17,6 +30,12 @@
 }
 
 @if config.$print_icons {
+    @include debug-checkpoint(
+        '#{tmplConfig.$template_slug} - blocks - icons start',
+        $level: tmplConfig.$checkpointLevel + 1,
+        $verbose: true
+    );
+
     @if config.$print_headings {
         /* # BLOCKS - ICONS
          * ======================================================================== */
@@ -26,6 +45,12 @@
 }
 
 @if config.$print_alertBlocks {
+    @include debug-checkpoint(
+        '#{tmplConfig.$template_slug} - blocks - alerts start',
+        $level: tmplConfig.$checkpointLevel + 1,
+        $verbose: true
+    );
+
     @if config.$print_headings {
         /* # BLOCKS - ALERTS
          * ======================================================================== */
@@ -35,6 +60,12 @@
 }
 
 @if config.$print_astro_toggle {
+    @include debug-checkpoint(
+        '#{tmplConfig.$template_slug} - blocks - toggle start',
+        $level: tmplConfig.$checkpointLevel + 1,
+        $verbose: true
+    );
+
     @if config.$print_headings {
         /* # ASTRO COMPONENT - TOGGLE
          * ======================================================================== */
@@ -44,6 +75,12 @@
 }
 
 @if config.$print_astro_toggleNav {
+    @include debug-checkpoint(
+        '#{tmplConfig.$template_slug} - blocks - toggleNav start',
+        $level: tmplConfig.$checkpointLevel + 1,
+        $verbose: true
+    );
+
     @if config.$print_headings {
         /* # ASTRO COMPONENT - TOGGLE NAV MENU
          * ======================================================================== */
@@ -53,6 +90,12 @@
 }
 
 @if config.$print_astro_stickyToggleNav {
+    @include debug-checkpoint(
+        '#{tmplConfig.$template_slug} - blocks - stickyToggleNav start',
+        $level: tmplConfig.$checkpointLevel + 1,
+        $verbose: true
+    );
+
     @if config.$print_headings {
         /* # ASTRO SUPPORT - STICKY TOGGLE NAV
          * ======================================================================== */
@@ -62,6 +105,12 @@
 }
 
 @if config.$print_astro_settingsMenu {
+    @include debug-checkpoint(
+        '#{tmplConfig.$template_slug} - blocks - settingsMenu start',
+        $level: tmplConfig.$checkpointLevel + 1,
+        $verbose: true
+    );
+
     @if config.$print_headings {
         /* # ASTRO COMPONENT - SETTINGS MENU
          * ======================================================================== */
@@ -73,6 +122,12 @@
 @if config.$print_astro_settingsMenu_fontOverrides and
     tokens-has-font-families()
 {
+    @include debug-checkpoint(
+        '#{tmplConfig.$template_slug} - blocks - settingsMenu - font overrides start',
+        $level: tmplConfig.$checkpointLevel + 1,
+        $verbose: true
+    );
+
     @if config.$print_headings {
         /* ## Astro Component - Settings Menu - Font Overrides ==================================== */
     }

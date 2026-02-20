@@ -10,12 +10,26 @@
 
 @use '../../../lib' as *;
 
+@use '../config' as tmplConfig;
+
+@include debug-checkpoint(
+    '#{tmplConfig.$template_slug} - globals start',
+    $level: tmplConfig.$checkpointLevel
+);
+
+@include debug-checkpoint(
+    '#{tmplConfig.$template_slug} - globals - objects start',
+    $level: tmplConfig.$checkpointLevel + 1,
+    $verbose: true
+);
+
 @if config.$print_headings {
     /* # GLOBALS - OBJECTS
      * ======================================================================== */
 }
 
 %hr {
+    // UPGRADE - convert to style tokens
     border-width: #{var-border-width('200')};
     color: #{var-theme(ui-primary)};
 }

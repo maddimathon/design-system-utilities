@@ -21,4 +21,3 @@
 export declare function makeRelativeURL(config_base: string, config_build: {
     format: "preserve" | "file" | "directory";
 }, currentURL: URL, targetSubpath: string): string;
-//# sourceMappingURL=makeRelativeURL.d.ts.map

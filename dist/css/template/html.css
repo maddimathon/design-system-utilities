@@ -4,7 +4,7 @@
  */
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0-alpha.28
+ * @maddimathon/utility-sass@0.1.0-alpha.30
  * 
  * https://maddimathon.github.io/utility-sass
  */
@@ -2937,7 +2937,8 @@ hr {
     margin-top: var(--mrg-firm-600, 2.25rem);
     margin-bottom: var(--mrg-firm-600, 2.25rem);
     border: none;
-    border-bottom: currentColor solid 2px;
+    border-bottom: currentColor solid 0.125rem;
+    border-bottom: currentColor solid var(--border-width-200, 0.125rem);
 }
 
 /* # GLOBALS - Typography
@@ -7609,6 +7610,7 @@ input[aria-disabled="true"]:active::file-selector-button {
 .icon--warning,
 .icon--up,
 .icon--ui,
+.icon--success,
 .icon--star,
 .icon--settings,
 .icon--search,
@@ -7627,16 +7629,19 @@ input[aria-disabled="true"]:active::file-selector-button {
 .icon--forbidden,
 .icon--fail,
 .icon--external,
+.icon--error,
 .icon--down,
 .icon--dash,
 .icon--compass,
 .icon--clock,
-.icon--check {
+.icon--check,
+.icon--caution {
     aspect-ratio: 1/1;
 }
 .no-js .icon--warning,
 .no-js .icon--up,
 .no-js .icon--ui,
+.no-js .icon--success,
 .no-js .icon--star,
 .no-js .icon--settings,
 .no-js .icon--search,
@@ -7655,14 +7660,17 @@ input[aria-disabled="true"]:active::file-selector-button {
 .no-js .icon--forbidden,
 .no-js .icon--fail,
 .no-js .icon--external,
+.no-js .icon--error,
 .no-js .icon--down,
 .no-js .icon--dash,
 .no-js .icon--compass,
 .no-js .icon--clock,
 .no-js .icon--check,
+.no-js .icon--caution,
 .js__no-whereSelector .icon--warning,
 .js__no-whereSelector .icon--up,
 .js__no-whereSelector .icon--ui,
+.js__no-whereSelector .icon--success,
 .js__no-whereSelector .icon--star,
 .js__no-whereSelector .icon--settings,
 .js__no-whereSelector .icon--search,
@@ -7681,17 +7689,20 @@ input[aria-disabled="true"]:active::file-selector-button {
 .js__no-whereSelector .icon--forbidden,
 .js__no-whereSelector .icon--fail,
 .js__no-whereSelector .icon--external,
+.js__no-whereSelector .icon--error,
 .js__no-whereSelector .icon--down,
 .js__no-whereSelector .icon--dash,
 .js__no-whereSelector .icon--compass,
 .js__no-whereSelector .icon--clock,
-.js__no-whereSelector .icon--check {
+.js__no-whereSelector .icon--check,
+.js__no-whereSelector .icon--caution {
     /* aspect-ratio fallback */
     position: relative;
 }
 .no-js .icon--warning::before,
 .no-js .icon--up::before,
 .no-js .icon--ui::before,
+.no-js .icon--success::before,
 .no-js .icon--star::before,
 .no-js .icon--settings::before,
 .no-js .icon--search::before,
@@ -7710,14 +7721,17 @@ input[aria-disabled="true"]:active::file-selector-button {
 .no-js .icon--forbidden::before,
 .no-js .icon--fail::before,
 .no-js .icon--external::before,
+.no-js .icon--error::before,
 .no-js .icon--down::before,
 .no-js .icon--dash::before,
 .no-js .icon--compass::before,
 .no-js .icon--clock::before,
 .no-js .icon--check::before,
+.no-js .icon--caution::before,
 .js__no-whereSelector .icon--warning::before,
 .js__no-whereSelector .icon--up::before,
 .js__no-whereSelector .icon--ui::before,
+.js__no-whereSelector .icon--success::before,
 .js__no-whereSelector .icon--star::before,
 .js__no-whereSelector .icon--settings::before,
 .js__no-whereSelector .icon--search::before,
@@ -7736,11 +7750,13 @@ input[aria-disabled="true"]:active::file-selector-button {
 .js__no-whereSelector .icon--forbidden::before,
 .js__no-whereSelector .icon--fail::before,
 .js__no-whereSelector .icon--external::before,
+.js__no-whereSelector .icon--error::before,
 .js__no-whereSelector .icon--down::before,
 .js__no-whereSelector .icon--dash::before,
 .js__no-whereSelector .icon--compass::before,
 .js__no-whereSelector .icon--clock::before,
-.js__no-whereSelector .icon--check::before {
+.js__no-whereSelector .icon--check::before,
+.js__no-whereSelector .icon--caution::before {
     /* aspect-ratio fallback */
     content: "";
     float: left;
@@ -7749,6 +7765,7 @@ input[aria-disabled="true"]:active::file-selector-button {
 .no-js .icon--warning::after,
 .no-js .icon--up::after,
 .no-js .icon--ui::after,
+.no-js .icon--success::after,
 .no-js .icon--star::after,
 .no-js .icon--settings::after,
 .no-js .icon--search::after,
@@ -7767,14 +7784,17 @@ input[aria-disabled="true"]:active::file-selector-button {
 .no-js .icon--forbidden::after,
 .no-js .icon--fail::after,
 .no-js .icon--external::after,
+.no-js .icon--error::after,
 .no-js .icon--down::after,
 .no-js .icon--dash::after,
 .no-js .icon--compass::after,
 .no-js .icon--clock::after,
 .no-js .icon--check::after,
+.no-js .icon--caution::after,
 .js__no-whereSelector .icon--warning::after,
 .js__no-whereSelector .icon--up::after,
 .js__no-whereSelector .icon--ui::after,
+.js__no-whereSelector .icon--success::after,
 .js__no-whereSelector .icon--star::after,
 .js__no-whereSelector .icon--settings::after,
 .js__no-whereSelector .icon--search::after,
@@ -7793,11 +7813,13 @@ input[aria-disabled="true"]:active::file-selector-button {
 .js__no-whereSelector .icon--forbidden::after,
 .js__no-whereSelector .icon--fail::after,
 .js__no-whereSelector .icon--external::after,
+.js__no-whereSelector .icon--error::after,
 .js__no-whereSelector .icon--down::after,
 .js__no-whereSelector .icon--dash::after,
 .js__no-whereSelector .icon--compass::after,
 .js__no-whereSelector .icon--clock::after,
-.js__no-whereSelector .icon--check::after {
+.js__no-whereSelector .icon--check::after,
+.js__no-whereSelector .icon--caution::after {
     /* aspect-ratio fallback */
     content: "";
     display: block;
@@ -7807,6 +7829,7 @@ input[aria-disabled="true"]:active::file-selector-button {
 :where(.js__no-aspectRatio) .icon--warning,
 :where(.js__no-aspectRatio) .icon--up,
 :where(.js__no-aspectRatio) .icon--ui,
+:where(.js__no-aspectRatio) .icon--success,
 :where(.js__no-aspectRatio) .icon--star,
 :where(.js__no-aspectRatio) .icon--settings,
 :where(.js__no-aspectRatio) .icon--search,
@@ -7825,17 +7848,20 @@ input[aria-disabled="true"]:active::file-selector-button {
 :where(.js__no-aspectRatio) .icon--forbidden,
 :where(.js__no-aspectRatio) .icon--fail,
 :where(.js__no-aspectRatio) .icon--external,
+:where(.js__no-aspectRatio) .icon--error,
 :where(.js__no-aspectRatio) .icon--down,
 :where(.js__no-aspectRatio) .icon--dash,
 :where(.js__no-aspectRatio) .icon--compass,
 :where(.js__no-aspectRatio) .icon--clock,
-:where(.js__no-aspectRatio) .icon--check {
+:where(.js__no-aspectRatio) .icon--check,
+:where(.js__no-aspectRatio) .icon--caution {
     /* aspect-ratio fallback */
     position: relative;
 }
 :where(.js__no-aspectRatio) .icon--warning::before,
 :where(.js__no-aspectRatio) .icon--up::before,
 :where(.js__no-aspectRatio) .icon--ui::before,
+:where(.js__no-aspectRatio) .icon--success::before,
 :where(.js__no-aspectRatio) .icon--star::before,
 :where(.js__no-aspectRatio) .icon--settings::before,
 :where(.js__no-aspectRatio) .icon--search::before,
@@ -7854,11 +7880,13 @@ input[aria-disabled="true"]:active::file-selector-button {
 :where(.js__no-aspectRatio) .icon--forbidden::before,
 :where(.js__no-aspectRatio) .icon--fail::before,
 :where(.js__no-aspectRatio) .icon--external::before,
+:where(.js__no-aspectRatio) .icon--error::before,
 :where(.js__no-aspectRatio) .icon--down::before,
 :where(.js__no-aspectRatio) .icon--dash::before,
 :where(.js__no-aspectRatio) .icon--compass::before,
 :where(.js__no-aspectRatio) .icon--clock::before,
-:where(.js__no-aspectRatio) .icon--check::before {
+:where(.js__no-aspectRatio) .icon--check::before,
+:where(.js__no-aspectRatio) .icon--caution::before {
     /* aspect-ratio fallback */
     content: "";
     float: left;
@@ -7867,6 +7895,7 @@ input[aria-disabled="true"]:active::file-selector-button {
 :where(.js__no-aspectRatio) .icon--warning::after,
 :where(.js__no-aspectRatio) .icon--up::after,
 :where(.js__no-aspectRatio) .icon--ui::after,
+:where(.js__no-aspectRatio) .icon--success::after,
 :where(.js__no-aspectRatio) .icon--star::after,
 :where(.js__no-aspectRatio) .icon--settings::after,
 :where(.js__no-aspectRatio) .icon--search::after,
@@ -7885,11 +7914,13 @@ input[aria-disabled="true"]:active::file-selector-button {
 :where(.js__no-aspectRatio) .icon--forbidden::after,
 :where(.js__no-aspectRatio) .icon--fail::after,
 :where(.js__no-aspectRatio) .icon--external::after,
+:where(.js__no-aspectRatio) .icon--error::after,
 :where(.js__no-aspectRatio) .icon--down::after,
 :where(.js__no-aspectRatio) .icon--dash::after,
 :where(.js__no-aspectRatio) .icon--compass::after,
 :where(.js__no-aspectRatio) .icon--clock::after,
-:where(.js__no-aspectRatio) .icon--check::after {
+:where(.js__no-aspectRatio) .icon--check::after,
+:where(.js__no-aspectRatio) .icon--caution::after {
     /* aspect-ratio fallback */
     content: "";
     display: block;

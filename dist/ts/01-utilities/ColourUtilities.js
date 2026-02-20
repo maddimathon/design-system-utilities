@@ -829,6 +829,10 @@ export var ColourUtilities;
          * @since 0.1.1-alpha.0 — Moved to {@link ColourUtilities.Levels} and renamed.
          */
         function toDark(lightLevel) {
+            // // returns 
+            // if ( lightLevel === 'black' || lightLevel === 'white' ) {
+            //     return lightLevel as unknown as typeof converter[ T_LightLevel ];
+            // }
             return Levels.converter[lightLevel];
         }
         Levels.toDark = toDark;

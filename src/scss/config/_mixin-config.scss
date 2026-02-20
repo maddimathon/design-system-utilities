@@ -37,6 +37,15 @@ $mx_tokensTheme_includeDefaultSelectors: utils.config-valid-bool(
 ) !default;
 
 ///
+/// @since ___PKG_VERSION___
+///
+$mx_tokensTheme_includeQuery: true !default;
+$mx_tokensTheme_includeQuery: utils.config-valid-bool(
+    $mx_tokensTheme_includeQuery,
+    'mx_tokensTheme_includeQuery'
+) !default;
+
+///
 /// @since 0.1.0-alpha
 ///
 $mx_tokensTheme_unifyActiveThemeSelectors: template.$print_docs !default;
@@ -48,8 +57,7 @@ $mx_tokensTheme_unifyActiveThemeSelectors: utils.config-valid-bool(
 ///
 /// @since 0.1.0-alpha.2
 ///
-$mx_tokensTheme_nestActiveThemeSelectors: not
-    $mx_tokensTheme_unifyActiveThemeSelectors !default;
+$mx_tokensTheme_nestActiveThemeSelectors: not $mx_tokensTheme_unifyActiveThemeSelectors !default;
 $mx_tokensTheme_nestActiveThemeSelectors: utils.config-valid-bool(
     $mx_tokensTheme_nestActiveThemeSelectors,
     'mx_tokensTheme_nestActiveThemeSelectors'

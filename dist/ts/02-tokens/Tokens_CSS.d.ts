@@ -79,4 +79,3 @@ export declare namespace Tokens_CSS {
         z_index: Data['zIndex'];
     };
 }
-//# sourceMappingURL=Tokens_CSS.d.ts.map

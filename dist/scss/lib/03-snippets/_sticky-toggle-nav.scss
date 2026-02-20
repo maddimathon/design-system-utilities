@@ -4,6 +4,7 @@
 ///
 
 @use 'pkg:@maddimathon/utility-sass/feature-check';
+@use 'pkg:@maddimathon/utility-sass/selector';
 
 // @use 'pkg:@maddimathon/utility-astro/03-snippets' as lib;
 
@@ -30,8 +31,8 @@
             #{$_navHeight} + #{var-gap-block(layout)}
         );
 
-        &,
-        & body {
+        @at-root #{selector.unify(&, '%root')},
+            & body {
             @include cx-prop(height-nav-primary, $_navHeight);
 
             @include cx-prop(scroll-padding-top, $_scrollPaddingFallback);

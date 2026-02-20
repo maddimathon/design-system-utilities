@@ -14,7 +14,11 @@ $print_templateDocBlock: not config.$internal_supressCredit or
 
 $template_name: 'Default' !default;
 
-$template_isDefault: string.to-lower-case($template_name) == default;
+$template_slug: string.to-lower-case($template_name) !default;
+
+$checkpointLevel: 6 !default;
+
+$template_isDefault: $template_slug == default;
 
 $template_tokensAll: config.$print_tokens !default;
 

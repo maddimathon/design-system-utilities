@@ -10,9 +10,19 @@
 
 @use '../../lib' as *;
 
+@include debug-checkpoint(
+    'design-system-utilities/#{tmplConfig.$template_slug} - normalize start',
+    $level: tmplConfig.$checkpointLevel
+);
+
 @if config.$print_normalize {
     @include normalize;
 }
+
+@include debug-checkpoint(
+    'design-system-utilities/#{tmplConfig.$template_slug} - tokens start',
+    $level: tmplConfig.$checkpointLevel
+);
 
 @if config.$print_tokens {
     @if tmplConfig.$template_tokensAll {
@@ -21,7 +31,15 @@
              * ======================================================================== */
         }
 
-        @include tokens-all;
+        @include tokens-all(
+            $checkpointName: 'design-system-utilities/#{tmplConfig.$template_slug}',
+            $checkpointLevel: tmplConfig.$checkpointLevel + 1
+        );
+
+        @include debug-checkpoint(
+            'design-system-utilities/#{tmplConfig.$template_slug} - tokens end',
+            $level: tmplConfig.$checkpointLevel + 1
+        );
     }
 
     @if config.$print_headings {
@@ -30,4 +48,9 @@
     }
 
     @include animation-keyframes;
+
+    @include debug-checkpoint(
+        'design-system-utilities/#{tmplConfig.$template_slug} - animation keyframes end',
+        $level: tmplConfig.$checkpointLevel + 1
+    );
 }

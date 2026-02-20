@@ -73,6 +73,8 @@ export class Tokens_Themes_Set<
             T_ThemeTypes,
             TokenTypes.Css.SystemColor
         >> = Tokens_Themes_Set.SingleMode.build<T_ColourTypes, T_ThemeTypes>(
+            name,
+            null,
             'forcedColors',
             clrNames,
             {
@@ -92,6 +94,8 @@ export class Tokens_Themes_Set<
                     allContrastModes,
                     async ( contrast ) =>
                         Tokens_Themes_Set.SingleMode.build<T_ColourTypes, T_ThemeTypes>(
+                            name,
+                            brightness,
                             contrast,
                             clrNames,
                             {
@@ -312,7 +316,9 @@ export namespace Tokens_Themes_Set {
             T_ColourTypes extends TokenTypes.Colour.TypeParams,
             T_ThemeTypes extends TokenTypes.Theme.TypeParams,
         >(
-            preset: "forcedColors",
+            themeName: "default" | T_ThemeTypes[ 'name' ],
+            brightness: null,
+            constrast: "forcedColors",
             clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes[ 'names' ]>,
 
             input: SingleMode.InputParam<
@@ -331,7 +337,9 @@ export namespace Tokens_Themes_Set {
             T_ColourTypes extends TokenTypes.Colour.TypeParams,
             T_ThemeTypes extends TokenTypes.Theme.TypeParams,
         >(
-            preset: "low" | "average" | "high" | "max",
+            themeName: "default" | T_ThemeTypes[ 'name' ],
+            brightness: TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>,
+            constrast: TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>,
             clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes[ 'names' ]>,
 
             input: SingleMode.InputParam<
@@ -353,7 +361,9 @@ export namespace Tokens_Themes_Set {
             T_ColourTypes extends TokenTypes.Colour.TypeParams,
             T_ThemeTypes extends TokenTypes.Theme.TypeParams,
         >(
-            preset: "low" | "average" | "high" | "max" | "forcedColors",
+            themeName: "default" | T_ThemeTypes[ 'name' ],
+            brightness: null | TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>,
+            constrast: TokenTypes.Theme.GetContrastKeys<T_ThemeTypes> | "forcedColors",
             clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes[ 'names' ]>,
 
             input: SingleMode.InputParam<
@@ -365,8 +375,8 @@ export namespace Tokens_Themes_Set {
                 NoInfer<T_ThemeTypes>
             > = {},
         ): Promise<SingleMode<T_ColourTypes, T_ThemeTypes>> {
-            const defaultLevels: SingleMode.Levels.Required<never> = preset !== 'forcedColors'
-                ? SingleMode.Levels.DEFAULT[ preset ]
+            const defaultLevels: SingleMode.Levels.Required<never> = constrast !== 'forcedColors'
+                ? SingleMode.Levels.DEFAULT[ constrast ]
                 : SingleMode.Levels.DEFAULT.max;
 
             const levels = SingleMode.Levels.parse<T_ColourTypes[ 'extraLevels' ]>(
@@ -383,7 +393,7 @@ export namespace Tokens_Themes_Set {
             let defaultOverrides: SingleMode.Data.RecursivePartial<T_ColourTypes, T_ThemeTypes> = {};
 
             // returns if forced colours
-            switch ( preset ) {
+            switch ( constrast ) {
 
                 case 'average':
                     description = description ?? 'This is the default contrast mode for most users, unless they have defined a specific preference (‘low’, ‘high’, or ‘forced-colors’) in their OS or browser settings.  It meets or exceeds WCAG AAA contrast standards.';
@@ -459,6 +469,9 @@ export namespace Tokens_Themes_Set {
                     };
 
                     return new SingleMode(
+                        themeName,
+                        brightness,
+                        constrast,
                         'This is the forced colours contrast mode, which is a mode only applied for users with this accessibility featured enabled in their OS settings.  It cannot be manually selected.  This mode uses System Colour keywords, which lets users apply custom colours to websites.  This is very important for accessibility!',
                         [],
                         await SingleMode.Build.forcedColors( _input )
@@ -494,6 +507,9 @@ export namespace Tokens_Themes_Set {
                 variations,
             } ).then(
                 ( defaultInputData ) => new SingleMode(
+                    themeName,
+                    brightness,
+                    constrast,
                     description,
                     levelsInUse,
                     mergeArgs(
@@ -510,6 +526,9 @@ export namespace Tokens_Themes_Set {
         }
 
         protected constructor (
+            public readonly name: "default" | T_ThemeTypes[ 'name' ],
+            public readonly brightness: TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>,
+            public readonly constrast: TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>,
             public readonly description: null | string,
             public readonly levelsInUse: ( "black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional )[],
             public readonly data: SingleMode.Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption>,
@@ -525,6 +544,9 @@ export namespace Tokens_Themes_Set {
             } ) );
 
             return {
+                name: this.name,
+                brightness: this.brightness,
+                constrast: this.constrast,
                 description: this.description ?? undefined,
                 data: {
                     ...this.data,
@@ -1391,6 +1413,9 @@ export namespace Tokens_Themes_Set {
             T_ThemeTypes extends TokenTypes.Theme.TypeParams,
             __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>,
         > = {
+            name: "default" | T_ThemeTypes[ 'name' ];
+            brightness: TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>;
+            constrast: TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>;
             description?: undefined | string;
 
             data: Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption> & {

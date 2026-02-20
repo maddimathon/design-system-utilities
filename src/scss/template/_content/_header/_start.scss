@@ -7,8 +7,15 @@
 
 @use '../config';
 
+@use '../../../lib' as *;
+
+@include debug-checkpoint(
+    'design-system-utilities/#{config.$template_slug} - template start',
+    $level: config.$checkpointLevel
+);
+
 @if config.$template_isDefault {
     /*! START of @maddimathon/design-system-utilities/template */
 } @else {
-    /*! START of @maddimathon/design-system-utilities/template/#{string.to-lower-case(config.$template_name)} */
+    /*! START of @maddimathon/design-system-utilities/template/#{config.$template_slug} */
 }

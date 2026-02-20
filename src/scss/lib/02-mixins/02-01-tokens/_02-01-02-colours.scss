@@ -243,7 +243,12 @@ $_flattenedSystemColors: map.flatten($_systemColors);
 ///
 /// @since 0.1.0-alpha.5
 ///
-@mixin tokens-theme-individual($slug, $brightness, $contrast) {
+@mixin tokens-theme-individual(
+    $slug,
+    $brightness,
+    $contrast,
+    $setBaseProperties: config.$mx_tokensTheme_setBaseProperties
+) {
     $activeTheme_flat: map.get(tokens.$themes__nestedFlat, $slug);
 
     @if $activeTheme_flat == null {
@@ -324,7 +329,7 @@ $_flattenedSystemColors: map.flatten($_systemColors);
         }
     }
 
-    @if config.$mx_tokensTheme_setBaseProperties {
+    @if $setBaseProperties {
         @include tokens-theme-individual-base-properties(
             $slug: $slug,
             $brightness: $brightness,
@@ -346,19 +351,24 @@ $_themes_includeAlternatives: if(
 ///
 @mixin tokens-theme-iterator(
     $includeAlternatives: $_themes_includeAlternatives,
-    $separateQueriesAndSelectors: config.$mx_tokensTheme_separateQueriesAndSelectors
+    $separateQueriesAndSelectors: config.$mx_tokensTheme_separateQueriesAndSelectors,
+    $includeQuery: config.$mx_tokensTheme_includeQuery
 ) {
     @if $separateQueriesAndSelectors {
-        // prettier-ignore
-        @include utils.colour-mode-each(
-            $includeRegions_heading: 'Tokens - Theme - Queries - ',
-    
-            $includeDefault: not config.$include_defaultMediaQueries,
-            $includeForcedColors: false,
-            $includeQuery: true,
-            $includeSelectors: false
-        ) using ($brightness, $contrast) {
-            @content($brightness, $contrast);
+        @if $includeQuery {
+            // prettier-ignore
+            @include utils.colour-mode-each(
+                $includeRegions_heading: 'Tokens - Theme - Queries - ',
+        
+                $includeDefault: not config.$include_defaultMediaQueries,
+                $includeForcedColors: false,
+                $includeQuery: true,
+                $includeSelectors: false,
+            ) using ($brightness, $contrast) {
+                @if $contrast != max {
+                    @content($brightness, $contrast);
+                }
+            }
         }
 
         // prettier-ignore
@@ -373,6 +383,7 @@ $_themes_includeAlternatives: if(
     } @else {
         // prettier-ignore
         @include utils.colour-mode-each(
+            $includeQuery: $includeQuery,
             $includeRegions_heading: 'Tokens - Theme - ',
         ) using ($brightness, $contrast) {
             @content($brightness, $contrast);
@@ -386,9 +397,18 @@ $_themes_includeAlternatives: if(
 /// @since 0.1.0-alpha
 ///
 @mixin tokens-theme(
+    $checkpointName: false,
+    $checkpointLevel: 2,
+    //
     $includeAlternatives: $_themes_includeAlternatives,
     $separateQueriesAndSelectors: config.$mx_tokensTheme_separateQueriesAndSelectors
 ) {
+    @if $checkpointName {
+        @include debug-checkpoint(
+            '#{$checkpointName} - tokens-theme - start',
+            $level: $checkpointLevel
+        );
+    }
     // prettier-ignore
     @include tokens-theme-iterator(
         $includeAlternatives: $includeAlternatives,
@@ -397,15 +417,34 @@ $_themes_includeAlternatives: if(
         //
         @if not $includeAlternatives or $contrast == forced-colors {
             //
+            @if $checkpointName {
+                @include debug-checkpoint(
+                    '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - start',
+                    $level: $checkpointLevel + 1
+                );
+            }
             @include tokens-theme-individual(
                 tokens.$activeTheme,
                 $brightness: $brightness,
                 $contrast: $contrast
             );
+            @if $checkpointName {
+                @include debug-checkpoint(
+                    '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - content block',
+                    $level: $checkpointLevel + 2,
+                    $verbose: true,
+                );
+            }
             @content ($brightness, $contrast, $location: main);
             //
         } @else {
             //
+            @if $checkpointName {
+                @include debug-checkpoint(
+                    '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - start',
+                    $level: $checkpointLevel + 1
+                );
+            }
             // defaults first
             @if config.$mx_colourModeEach_nestModeSelectors and
                 #{&} !=
@@ -469,10 +508,24 @@ $_themes_includeAlternatives: if(
                     }
                 }
             }
-    
+            
+            @if $checkpointName {
+                @include debug-checkpoint(
+                    '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - nested themes start',
+                    $level: $checkpointLevel + 2,
+                    $verbose: true,
+                );
+            }
+
             @each $key in map.keys(tokens.$themes) {
                 @if #{$key} != #{tokens.$activeTheme} {
                     //
+                    @if $checkpointName {
+                        @include debug-checkpoint(
+                            '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - #{$key} start',
+                            $level: $checkpointLevel + 3
+                        );
+                    }
                     @if config.$mx_colourModeEach_nestModeSelectors {
                         @if config.$mx_tokensTheme_unifyActiveThemeSelectors {
                             &[data-active-theme='#{$key}'][data-active-theme],
@@ -484,6 +537,14 @@ $_themes_includeAlternatives: if(
                                     $brightness: $brightness,
                                     $contrast: $contrast
                                 );
+                                
+                                @if $checkpointName {
+                                    @include debug-checkpoint(
+                                        '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - #{$key} - content block',
+                                        $level: $checkpointLevel + 4,
+                                        $verbose: true,
+                                    );
+                                }
                                 @content ($brightness, $contrast, $location: theme-#{$key});
                             }
                         } @else {
@@ -495,6 +556,14 @@ $_themes_includeAlternatives: if(
                                     $brightness: $brightness,
                                     $contrast: $contrast
                                 );
+                                
+                                @if $checkpointName {
+                                    @include debug-checkpoint(
+                                        '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - #{$key} - content block',
+                                        $level: $checkpointLevel + 4,
+                                        $verbose: true,
+                                    );
+                                }
                                 @content ($brightness, $contrast, $location: theme-#{$key});
                             }
                         }
@@ -508,6 +577,14 @@ $_themes_includeAlternatives: if(
                                     $brightness: $brightness,
                                     $contrast: $contrast
                                 );
+                                
+                                @if $checkpointName {
+                                    @include debug-checkpoint(
+                                        '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - #{$key} - content block',
+                                        $level: $checkpointLevel + 4,
+                                        $verbose: true,
+                                    );
+                                }
                                 @content ($brightness, $contrast, $location: theme-#{$key});
                             }
                         } @else {
@@ -518,13 +595,42 @@ $_themes_includeAlternatives: if(
                                     $brightness: $brightness,
                                     $contrast: $contrast
                                 );
+                                
+                                @if $checkpointName {
+                                    @include debug-checkpoint(
+                                        '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - #{$key} - content block',
+                                        $level: $checkpointLevel + 4,
+                                        $verbose: true,
+                                    );
+                                }
                                 @content ($brightness, $contrast, $location: theme-#{$key});
                             }
                         }
                     }
+                    @if $checkpointName {
+                        @include debug-checkpoint(
+                            '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - #{$key} end',
+                            $level: $checkpointLevel + 3,
+                            $verbose: true,
+                        );
+                    }
                 }
             }
+            
+            @if $checkpointName {
+                @include debug-checkpoint(
+                    '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - nested themes end',
+                    $level: $checkpointLevel + 2
+                );
+            }
         }
+    }
+
+    @if $checkpointName {
+        @include debug-checkpoint(
+            '#{$checkpointName} - tokens-theme - high-contrast exceptions start',
+            $level: $checkpointLevel + 1
+        );
     }
 
     // for high-contrast modes
@@ -540,4 +646,12 @@ $_themes_includeAlternatives: if(
         );
     }
     /* #endregion Tokens - Theme - Exceptions - high-contrast modes */
+
+    @if $checkpointName {
+        @include debug-checkpoint(
+            '#{$checkpointName} - tokens-theme - high-contrast exceptions end',
+            $level: $checkpointLevel + 1,
+            $verbose: true
+        );
+    }
 }

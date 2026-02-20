@@ -134,7 +134,6 @@ export class Compile extends CompileStage {
             'template',
             'dist/css',
             {
-                maxConcurrent: 5,
                 postCSS: true,
                 srcDir: 'src/scss',
             },

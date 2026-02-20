@@ -10,6 +10,14 @@
 
 @use '../../../lib' as *;
 
+@use '../config' as tmplConfig;
+
+@include debug-checkpoint(
+    '#{tmplConfig.$template_slug} - globals - lists start',
+    $level: tmplConfig.$checkpointLevel + 1,
+    $verbose: true
+);
+
 @if config.$print_headings {
     /* # GLOBALS - LISTS
      * ======================================================================== */

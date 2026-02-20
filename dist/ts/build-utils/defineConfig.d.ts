@@ -24,4 +24,3 @@ export declare function defineConfig<T_Build extends typeof Build, T_Compile ext
     Compile?: T_Compile;
     Document?: T_Document;
 }): Config;
-//# sourceMappingURL=defineConfig.d.ts.map

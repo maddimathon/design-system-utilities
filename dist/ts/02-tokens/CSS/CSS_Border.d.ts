@@ -72,4 +72,3 @@ export declare namespace Tokens_CSS_Border {
     export type ScssVars = Data;
     export {};
 }
-//# sourceMappingURL=CSS_Border.d.ts.map

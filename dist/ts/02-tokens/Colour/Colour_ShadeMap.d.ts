@@ -240,4 +240,3 @@ export declare namespace Tokens_Colour_ShadeMap {
         };
     }
 }
-//# sourceMappingURL=Colour_ShadeMap.d.ts.map

@@ -26,6 +26,9 @@
 /// @since 0.1.0-alpha
 ///
 @mixin tokens-all(
+    $checkpointName: false,
+    $checkpointLevel: 2,
+    //
     $borderRadius: not config.$fn_var_replaceWithValue_borderRadius,
     $borderWidth: not config.$fn_var_replaceWithValue_borderWidth,
     $colour: not config.$fn_var_replaceWithValue_colour,
@@ -48,12 +51,26 @@
 ) {
     $args: meta.keywords($args);
 
+    @if $checkpointName {
+        @include debug-checkpoint(
+            '#{$checkpointName} - tokens-all - start',
+            $level: $checkpointLevel
+        );
+    }
+
     // typography
     @if $fontFace {
         @include tokens-font-face;
     }
     @if $fontFamily {
         @include tokens-font-family;
+    }
+
+    @if $checkpointName {
+        @include debug-checkpoint(
+            '#{$checkpointName} - tokens-all - after type',
+            $level: $checkpointLevel
+        );
     }
 
     @include utils.tokens-all(
@@ -68,6 +85,13 @@
         $width: $width,
         $args...
     );
+
+    @if $checkpointName {
+        @include debug-checkpoint(
+            '#{$checkpointName} - tokens-all - after utils',
+            $level: $checkpointLevel
+        );
+    }
 
     // decoration
     @if $borderRadius {
@@ -86,16 +110,59 @@
         @include tokens-style;
     }
 
+    @if $checkpointName {
+        @include debug-checkpoint(
+            '#{$checkpointName} - tokens-all - after decorations',
+            $level: $checkpointLevel
+        );
+    }
+
     // animation
     @if $transition {
         @include tokens-transition($trTime: $trTime);
+
+        @if $checkpointName {
+            @include debug-checkpoint(
+                '#{$checkpointName} - tokens-all - after animation',
+                $level: $checkpointLevel
+            );
+        }
     }
 
     // colours
     @if $colour {
+        @if $checkpointName {
+            @include debug-checkpoint(
+                '#{$checkpointName} - tokens-all - before colour',
+                $level: $checkpointLevel
+            );
+        }
         @include tokens-colour;
+        @if $checkpointName {
+            @include debug-checkpoint(
+                '#{$checkpointName} - tokens-all - after colour',
+                $level: $checkpointLevel + 1
+            );
+        }
     }
     @if $theme {
-        @include tokens-theme;
+        @if $checkpointName {
+            @include debug-checkpoint(
+                '#{$checkpointName} - tokens-all - before theme',
+                $level: $checkpointLevel
+            );
+        }
+
+        @include tokens-theme(
+            $checkpointName: $checkpointName,
+            $checkpointLevel: $checkpointLevel + 1
+        );
+
+        @if $checkpointName {
+            @include debug-checkpoint(
+                '#{$checkpointName} - tokens-all - after theme',
+                $level: $checkpointLevel + 1
+            );
+        }
     }
 }
