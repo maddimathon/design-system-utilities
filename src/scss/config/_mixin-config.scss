@@ -28,21 +28,21 @@ $mx_tokensAll_includeFontFace: utils.config-valid-bool(
 $mx_tokensTheme_includeAlternateThemes: null !default;
 
 ///
-/// @since 0.1.0-alpha.2
-///
-$mx_tokensTheme_includeDefaultSelectors: false !default;
-$mx_tokensTheme_includeDefaultSelectors: utils.config-valid-bool(
-    $mx_tokensTheme_includeDefaultSelectors,
-    'mx_tokensTheme_includeDefaultSelectors'
-) !default;
-
-///
 /// @since ___PKG_VERSION___
 ///
 $mx_tokensTheme_includeQuery: true !default;
 $mx_tokensTheme_includeQuery: utils.config-valid-bool(
     $mx_tokensTheme_includeQuery,
     'mx_tokensTheme_includeQuery'
+) !default;
+
+///
+/// @since 0.1.0-alpha.2
+///
+$mx_tokensTheme_includeDefaultSelectors: not $mx_tokensTheme_includeQuery !default;
+$mx_tokensTheme_includeDefaultSelectors: utils.config-valid-bool(
+    $mx_tokensTheme_includeDefaultSelectors,
+    'mx_tokensTheme_includeDefaultSelectors'
 ) !default;
 
 ///

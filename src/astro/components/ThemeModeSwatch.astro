@@ -19,7 +19,7 @@ import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
 import { objectGenerator } from '../../ts/01-utilities/objectGenerator.js';
 import { objectMap } from '../../ts/01-utilities/objectMap.js';
 import { getColourValue } from '../functions/getColourValue.js';
-import { getClrFromThemeValue } from '../functions/getClrFromThemeValue.js';
+import { colourSlugToCSS } from '../../ts/03-parsers/colourSlugToCSS.js';
 import { textColorLevel } from '../functions/textColorLevel.js';
 
 /* import - values */
@@ -280,7 +280,7 @@ const inputField: _ParsedInputField = objectGenerator(
                     label,
                     variation: inputType,
                     clrSlug: theme.data.input[inputType].accent[key],
-                    // clrSlug: getColourSlugFromThemeSlug(
+                    // clrSlug: getTokensThemeValue(
                     //     tokens.css.style.input[inputType].accent[key],
                     //     theme.name,
                     //     brightness,
@@ -294,7 +294,7 @@ const inputField: _ParsedInputField = objectGenerator(
                     label,
                     variation: inputType,
                     clrSlug: theme.data.input[inputType].background,
-                    // clrSlug: getColourSlugFromThemeSlug(
+                    // clrSlug: getTokensThemeValue(
                     //     tokens.css.style.input[inputType].background,
                     //     theme.name,
                     //     brightness,
@@ -308,7 +308,7 @@ const inputField: _ParsedInputField = objectGenerator(
                     label,
                     variation: inputType,
                     clrSlug: theme.data.input[inputType].border[key],
-                    // clrSlug: getColourSlugFromThemeSlug(
+                    // clrSlug: getTokensThemeValue(
                     //     tokens.css.style.input[inputType].border.color[key],
                     //     theme.name,
                     //     brightness,
@@ -322,7 +322,7 @@ const inputField: _ParsedInputField = objectGenerator(
                     label,
                     variation: inputType,
                     clrSlug: theme.data.input[inputType].text,
-                    // clrSlug: getColourSlugFromThemeSlug(
+                    // clrSlug: getTokensThemeValue(
                     //     tokens.css.style.input[inputType].color,
                     //     theme.name,
                     //     brightness,
@@ -336,7 +336,7 @@ const inputField: _ParsedInputField = objectGenerator(
                     label,
                     variation: inputType,
                     clrSlug: theme.data.input[inputType].placeholder,
-                    // clrSlug: getColourSlugFromThemeSlug(
+                    // clrSlug: getTokensThemeValue(
                     //     tokens.css.style.input.$.placeholder.color,
                     //     theme.name,
                     //     brightness,
@@ -387,8 +387,8 @@ const inputField: _ParsedInputField = objectGenerator(
             <p
                 class="theme-mode-swatch__sample"
                 style={ [
-                    `background: ${getClrFromThemeValue(tokens, brightness, _bgValue)}`,
-                    `color: ${getClrFromThemeValue(tokens, brightness, theme.data.text.$)}`,
+                    `background: ${colourSlugToCSS(tokens, brightness, _bgValue)}`,
+                    `color: ${colourSlugToCSS(tokens, brightness, theme.data.text.$)}`,
                 ].join(';') }
             ><code set:text={ _bgSlug === '$' ? 'theme-background': `theme-background-${_bgSlug}` } /> {equals} <code set:text={_bgValue} /></p>
         ))}
@@ -408,7 +408,7 @@ const inputField: _ParsedInputField = objectGenerator(
                 <Fragment>{ _tokens.variations ? _tokens.variations.map( ( { key, value } ) => (
                     <p
                         class="theme-mode-swatch__sample"
-                        style={ `color: ${getClrFromThemeValue(tokens, brightness, value)}` }
+                        style={ `color: ${colourSlugToCSS(tokens, brightness, value)}` }
                     ><code set:text={key} /> {equals} <code set:text={value} /></p>
                 ) ) : (
                     <VariableDump
@@ -447,9 +447,9 @@ const inputField: _ParsedInputField = objectGenerator(
                                 'theme-mode-swatch__sample--button',
                             ] }
                             style={ [
-                                state.border?.value && `border-color: ${getClrFromThemeValue(tokens, brightness, state.border.value)}`,
-                                state.background?.value && `background: ${getClrFromThemeValue(tokens, brightness, state.background.value)}`,
-                                state.text?.value && `color: ${getClrFromThemeValue(tokens, brightness, state.text.value)}`,
+                                state.border?.value && `border-color: ${colourSlugToCSS(tokens, brightness, state.border.value)}`,
+                                state.background?.value && `background: ${colourSlugToCSS(tokens, brightness, state.background.value)}`,
+                                state.text?.value && `color: ${colourSlugToCSS(tokens, brightness, state.text.value)}`,
                             ].filter( v => v ).join(';') }
                         />
                     ) ) }</div>
@@ -474,11 +474,11 @@ const inputField: _ParsedInputField = objectGenerator(
                             class="theme-mode-swatch__sample"
                             style={ [
                                 key === 'background' && state.text
-                                    ? `background: ${getClrFromThemeValue(tokens, brightness, state.text.value)}`
+                                    ? `background: ${colourSlugToCSS(tokens, brightness, state.text.value)}`
                                     : (key == 'text' || key == 'ui') && state.background
-                                        ? `background: ${getClrFromThemeValue(tokens, brightness, state.background.value)}`
+                                        ? `background: ${colourSlugToCSS(tokens, brightness, state.background.value)}`
                                         : '',
-                                `color: ${getClrFromThemeValue(tokens, brightness, state[key].value)}`,
+                                `color: ${colourSlugToCSS(tokens, brightness, state[key].value)}`,
                             ].filter( v => v ).join(';') }
                         ><code set:text={`theme-button-${variation.name}-${key}${state[key].state ? `-${state[key].state}`: '' }`} /> {equals} <code set:text={state[key].value} /></p>
                     )
@@ -505,9 +505,9 @@ const inputField: _ParsedInputField = objectGenerator(
                 placeholder={ variation === '$' ? state.background.label : '' }
                 readonly={ variation === 'readonly' ? 'true' : undefined }
                 style={ [
-                    state.border.clrSlug && `border-color: ${getClrFromThemeValue(tokens, brightness, state.border.clrSlug)}`,
-                    state.background.clrSlug && `background: ${getClrFromThemeValue(tokens, brightness, state.background.clrSlug)}`,
-                    state.text.clrSlug && `color: ${getClrFromThemeValue(tokens, brightness, state.text.clrSlug)}`,
+                    state.border.clrSlug && `border-color: ${colourSlugToCSS(tokens, brightness, state.border.clrSlug)}`,
+                    state.background.clrSlug && `background: ${colourSlugToCSS(tokens, brightness, state.background.clrSlug)}`,
+                    state.text.clrSlug && `color: ${colourSlugToCSS(tokens, brightness, state.text.clrSlug)}`,
                 ].filter( v => v ).join(';') }
                 type="text"
                 value ={ variation === '$' ? undefined : state.background.label }
@@ -531,12 +531,12 @@ const inputField: _ParsedInputField = objectGenerator(
                             class="theme-mode-swatch__sample"
                             style={ [
                                 (key == 'accent' || key == 'text') && state.background?.clrSlug 
-                                    ? `background: ${getClrFromThemeValue(tokens, brightness, state.background.clrSlug)}`
+                                    ? `background: ${colourSlugToCSS(tokens, brightness, state.background.clrSlug)}`
                                     : '',
                                 (key == 'background') && state.text?.clrSlug 
-                                    ? `background: ${getClrFromThemeValue(tokens, brightness, state.text.clrSlug)}`
+                                    ? `background: ${colourSlugToCSS(tokens, brightness, state.text.clrSlug)}`
                                     : '',
-                                state[key].clrSlug && `color: ${getClrFromThemeValue(tokens, brightness, state[key].clrSlug)}`,
+                                state[key].clrSlug && `color: ${colourSlugToCSS(tokens, brightness, state[key].clrSlug)}`,
                             ].filter( v => v ).join(';') }
                         ><code set:text={`theme-input${ variation !== '$' ? `-${variation}` : '' }-${key}${state[key].state ? `-${state[key].state}`: '' }`} /> {equals} <code set:text={state[key].clrSlug} /></p>
                     )
@@ -599,9 +599,9 @@ const inputField: _ParsedInputField = objectGenerator(
                     readonly={ variation === 'readonly' ? 'true' : undefined }
                     slot="four"
                     style={ [
-                      fieldSet.$.border.clrSlug &&   `border-color: ${getClrFromThemeValue(tokens, brightness, fieldSet.$.border.clrSlug)}`,
-                      fieldSet.$.background.clrSlug &&   `background: ${getClrFromThemeValue(tokens, brightness, fieldSet.$.background.clrSlug)}`,
-                      fieldSet.$.text.clrSlug &&   `color: ${getClrFromThemeValue(tokens, brightness, fieldSet.$.text.clrSlug)}`,
+                      fieldSet.$.border.clrSlug &&   `border-color: ${colourSlugToCSS(tokens, brightness, fieldSet.$.border.clrSlug)}`,
+                      fieldSet.$.background.clrSlug &&   `background: ${colourSlugToCSS(tokens, brightness, fieldSet.$.background.clrSlug)}`,
+                      fieldSet.$.text.clrSlug &&   `color: ${colourSlugToCSS(tokens, brightness, fieldSet.$.text.clrSlug)}`,
                     ].filter( v => v ).join(';') }
                     type="text"
                     value ={ variation === '$' ? undefined : `This is a ${variation} input.` }

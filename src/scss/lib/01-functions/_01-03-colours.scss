@@ -27,6 +27,13 @@ $_systemColors: map.flatten(
 );
 
 ///
+/// @since ___PKG_VERSION___
+///
+@function get-themes-nested-flat-as-token-values() {
+    @return $_valid_themes__nestedFlat_tokenValues;
+}
+
+///
 /// @since 0.1.0-alpha
 ///
 @function get-sys-colours() {
@@ -132,6 +139,111 @@ $_systemColors: map.flatten(
     );
 }
 
+///
+/// Gets the colour value (either system or var-clr) for the given token slug.
+///
+/// @since 0.1.0-alpha
+/// @since ___PKG_VERSION___ — Made private.
+///
+@function _var-clr-from-theme-token(
+    $tokenValue,
+    $brightness: tokens.$brightnessMode_default,
+    $version: null
+) {
+    $tokenValue: #{$tokenValue};
+
+    // returns
+    @if $tokenValue ==
+        'white' or
+        $tokenValue ==
+        white or
+        $tokenValue ==
+        'black' or
+        $tokenValue ==
+        black
+    {
+        @return var-clr($tokenValue, null, $brightness: $brightness, $version: $version);
+    }
+
+    // returns
+    @if string.length($tokenValue) > 0 and string.index($tokenValue, '-') {
+        @return var-clr(
+            string.slice($tokenValue, 1, -5),
+            string.slice($tokenValue, -3, -1),
+            $brightness: $brightness,
+            $version: $version
+        );
+    }
+
+    @return $tokenValue;
+}
+
+$_valid_themes__nestedFlat_tokenValues: tokens.$themes__nestedFlat_tokenValues;
+
+@if $_valid_themes__nestedFlat_tokenValues == null {
+    $_valid_themes__nestedFlat_tokenValues: ();
+
+    @each $themeKey, $themeMap in tokens.$themes__nestedFlat {
+        //
+        @each $brightness, $brightnessMap in $themeMap {
+            @if $brightness != forced-colors {
+                //
+                @each $contrast, $flattenedModeMap in $brightnessMap {
+                    @each $prop, $value in $flattenedModeMap {
+                        @if meta.type-of($value) == list {
+                            $value: list.nth($value, 1);
+                        }
+
+                        $flattenedModeMap: map.set(
+                            $flattenedModeMap,
+                            $prop,
+                            _var-clr-from-theme-token($value, $brightness: $brightness)
+                        );
+
+                        @if config.$print_colourValues_hsl {
+                            $flattenedModeMap: map.set(
+                                $flattenedModeMap,
+                                '#{$prop}-hsl',
+                                _var-clr-from-theme-token(
+                                    $value,
+                                    $brightness: $brightness,
+                                    $version: hsl
+                                )
+                            );
+                        }
+
+                        @if config.$print_colourValues_rgb {
+                            $flattenedModeMap: map.set(
+                                $flattenedModeMap,
+                                '#{$prop}-rgb',
+                                _var-clr-from-theme-token(
+                                    $value,
+                                    $brightness: $brightness,
+                                    $version: rgb
+                                )
+                            );
+                        }
+                    }
+
+                    $brightnessMap: map.set(
+                        $brightnessMap,
+                        $contrast,
+                        map.ksort($flattenedModeMap)
+                    );
+                }
+            }
+
+            $themeMap: map.set($themeMap, $brightness, $brightnessMap);
+        }
+
+        $_valid_themes__nestedFlat_tokenValues: map.set(
+            $_valid_themes__nestedFlat_tokenValues,
+            $themeKey,
+            $themeMap
+        );
+    }
+}
+
 /// THEME
 /// ======================================================================== ///
 
@@ -143,9 +255,9 @@ $_default_activeTheme_mode: if(
 
 $_default_activeTheme_flat_mode: if(
     tokens.$contrastMode_default == forced-colors,
-    map.get(tokens.$themes__nestedFlat, default, tokens.$contrastMode_default),
+    map.get($_valid_themes__nestedFlat_tokenValues, default, tokens.$contrastMode_default),
     map.get(
-        tokens.$themes__nestedFlat,
+        $_valid_themes__nestedFlat_tokenValues,
         default,
         tokens.$brightnessMode_default,
         tokens.$contrastMode_default
@@ -194,14 +306,14 @@ $_default_activeTheme_flat_mode: if(
         @return $_default_activeTheme_flat_mode;
     }
 
-    $activeTheme_flat: map.get(tokens.$themes__nestedFlat, default);
+    $activeTheme_flat: map.get($_valid_themes__nestedFlat_tokenValues, default);
 
     // returns
     @if $contrast == forced-colors {
-        @return map.get(tokens.$themes__nestedFlat, default, $contrast);
+        @return map.get($_valid_themes__nestedFlat_tokenValues, default, $contrast);
     }
 
-    @return map.get(tokens.$themes__nestedFlat, default, $brightness, $contrast);
+    @return map.get($_valid_themes__nestedFlat_tokenValues, default, $brightness, $contrast);
 }
 
 ///
@@ -219,15 +331,15 @@ $_default_activeTheme_flat_mode: if(
     $themeSlug: tokens.$activeTheme,
     $warnOnFalse: false
 ) {
-    $activeTheme_flat: map.get(tokens.$themes__nestedFlat, $themeSlug);
+    $activeTheme_flat: map.get($_valid_themes__nestedFlat_tokenValues, $themeSlug);
 
     @if $activeTheme_flat == null {
         @if $warnOnFalse {
-            @warn "$themeSlug '#{$themeSlug}' was not a key in tokens.$themes__nestedFlat";
+            @warn "$themeSlug '#{$themeSlug}' was not a key in tokens.$themes__nestedFlat_tokenValues";
         }
 
         $themeSlug: default;
-        $activeTheme_flat: map.get(tokens.$themes__nestedFlat, $themeSlug);
+        $activeTheme_flat: map.get($_valid_themes__nestedFlat_tokenValues, $themeSlug);
     }
 
     // returns
@@ -236,7 +348,7 @@ $_default_activeTheme_flat_mode: if(
 
         @if $value == null {
             @if $warnOnFalse {
-                @warn "$slug '#{$slug}' was not a key in tokens.$themes__nestedFlat.#{$themeSlug}.#{$contrast}";
+                @warn "$slug '#{$slug}' was not a key in tokens.$themes__nestedFlat_tokenValues.#{$themeSlug}.#{$contrast}";
             }
             @return false;
         }
@@ -247,7 +359,7 @@ $_default_activeTheme_flat_mode: if(
     // returns
     @if not map.has-key($activeTheme_flat, $brightness) {
         @if $warnOnFalse {
-            @warn "$brightness '#{$brightness}' was not a key in tokens.$themes__nestedFlat.#{$themeSlug}";
+            @warn "$brightness '#{$brightness}' was not a key in tokens.$themes__nestedFlat_tokenValues.#{$themeSlug}";
         }
         @return false;
     }
@@ -255,7 +367,7 @@ $_default_activeTheme_flat_mode: if(
     // returns
     @if not map.has-key($activeTheme_flat, $brightness, $contrast) {
         @if $warnOnFalse {
-            @warn "$contrast '#{$contrast}' was not a key in tokens.$themes__nestedFlat.#{$themeSlug}.#{$brightness}";
+            @warn "$contrast '#{$contrast}' was not a key in tokens.$themes__nestedFlat_tokenValues.#{$themeSlug}.#{$brightness}";
         }
         @return false;
     }
@@ -265,7 +377,7 @@ $_default_activeTheme_flat_mode: if(
     // returns - no fallback
     @if $value == null {
         @if $warnOnFalse {
-            @warn "$slug '#{$slug}' was not a key in tokens.$themes__nestedFlat.#{$themeSlug}.#{$brightness}.#{$contrast}";
+            @warn "$slug '#{$slug}' was not a key in tokens.$themes__nestedFlat_tokenValues.#{$themeSlug}.#{$brightness}.#{$contrast}";
         }
         @return false;
     }
@@ -299,44 +411,6 @@ $_default_activeTheme_flat_mode: if(
     }
 
     @return $value;
-}
-
-///
-/// Gets the colour value (either system or var-clr) for the given token slug.
-///
-/// @since 0.1.0-alpha
-///
-@function var-clr-from-theme-token(
-    $tokenValue,
-    $brightness: tokens.$brightnessMode_default,
-    $version: null
-) {
-    $tokenValue: #{$tokenValue};
-
-    // returns
-    @if $tokenValue ==
-        'white' or
-        $tokenValue ==
-        white or
-        $tokenValue ==
-        'black' or
-        $tokenValue ==
-        black
-    {
-        @return var-clr($tokenValue, null, $brightness: $brightness, $version: $version);
-    }
-
-    // returns
-    @if string.length($tokenValue) > 0 and string.index($tokenValue, '-') {
-        @return var-clr(
-            string.slice($tokenValue, 1, -5),
-            string.slice($tokenValue, -3, -1),
-            $brightness: $brightness,
-            $version: $version
-        );
-    }
-
-    @return $tokenValue;
 }
 
 ///
@@ -413,34 +487,31 @@ $_default_activeTheme_flat_mode: if(
     @if $opacity != null {
         //
         @if config.$print_colourValues_hsl {
-            @return hsla(
-                #{utils.do-var(
-                        theme-#{$slug}-hsl,
-                        #{var-clr-from-theme-token(
-                                $clrSlug,
-                                $brightness: $brightness,
-                                $version: hsl
-                            )}
-                    )},
-                #{$opacity}
+            $_value_hsl: theme-token-value(
+                #{$slug}-hsl,
+                $brightness: $brightness,
+                $contrast: $contrast,
+                $themeSlug: $themeSlug
             );
-        } @else if config.$print_colourValues_rgb {
-            @return rgba(
-                #{utils.do-var(
-                        theme-#{$slug}-rgb,
-                        #{var-clr-from-theme-token(
-                                $clrSlug,
-                                $brightness: $brightness,
-                                $version: rgb
-                            )}
-                    )},
-                #{$opacity}
+
+            @if list.length($_value_hsl) {
+                @return hsla(#{utils.do-var(theme-#{$slug}-hsl, $_value_hsl)}, #{$opacity});
+            }
+        }
+
+        @if config.$print_colourValues_rgb {
+            $_value_rgb: theme-token-value(
+                #{$slug}-rgb,
+                $brightness: $brightness,
+                $contrast: $contrast,
+                $themeSlug: $themeSlug
             );
+
+            @if list.length($_value_rgb) {
+                @return rgba(#{utils.do-var(theme-#{$slug}-rgb, $_value_rgb)}, #{$opacity});
+            }
         }
     }
 
-    @return utils.do-var(
-        theme-#{$slug},
-        #{var-clr-from-theme-token($clrSlug, $brightness: $brightness)}
-    );
+    @return utils.do-var(theme-#{$slug}, $clrSlug);
 }

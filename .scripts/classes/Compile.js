@@ -41,7 +41,34 @@ export class Compile extends CompileStage {
     /**
      * @protected
      */
+    async setSassCompilerFns() {
+        /** @type { undefined | typeof import( 'src/ts/build-utils/sass-functions/themeFlattenGetValues.ts' ) } */
+        // @ts-ignore
+        const { sassFn_themeFlattenGetValues } = await import( '../../dist/ts/build-utils/sass-functions/themeFlattenGetValues.js' );
+
+        // const args = {
+        //     config: this.config,
+        //     console: this.console,
+        //     params: this.params,
+        // };
+
+        const themeFlattenGetValues = sassFn_themeFlattenGetValues();
+
+        if ( this.compiler.args.sass ) {
+
+            if ( !this.compiler.args.sass.functions ) {
+                this.compiler.args.sass.functions = {};
+            }
+
+            this.compiler.args.sass.functions[ themeFlattenGetValues[ 0 ] ] = themeFlattenGetValues[ 1 ];
+        }
+    }
+
+    /**
+     * @protected
+     */
     async astro() {
+        await this.setSassCompilerFns();
         await this.runCustomDirCopySubStage( 'astro' );
     }
 
@@ -50,6 +77,7 @@ export class Compile extends CompileStage {
      * @override
      */
     async scss() {
+        await this.setSassCompilerFns();
         await this.runCustomDirCopySubStage( 'scss' );
 
         const cssPaths = await this.runCustomScssDirSubStage(

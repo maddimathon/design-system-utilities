@@ -50,6 +50,20 @@ $themes__nestedFlat: ();
     }
 }
 
+$themes__nestedFlat_tokenValues: null;
+
+@if meta.function-exists('mmdsu-global-themeFlattenGetValues') {
+    $themes__nestedFlat_tokenValues: mmdsu-global-themeFlattenGetValues(
+        $themes: system.$themes,
+        $colours: system.$colour,
+        $replaceVarClrWithValue: config.$fn_var_replaceWithValue_colour,
+        $includeHSL: config.$print_colourValues_hsl,
+        $includeRGB: config.$print_colourValues_rgb,
+    );
+} @else {
+    @warn "[tokens] global compiler function for $themes__nestedFlat_tokenValues not found (and will negatively impact performance)";
+}
+
 $brightnessMode_all: list.except(
     map.keys(map.get(system.$themes, $activeTheme)),
     'forced-colors'
@@ -67,9 +81,7 @@ $contrastMode_all: list.unique(
     list.join(
         ('average'),
         list.join(
-            map.keys(
-                map.get(system.$themes, $activeTheme, $brightnessMode_default)
-            ),
+            map.keys(map.get(system.$themes, $activeTheme, $brightnessMode_default)),
             ('forced-colors')
         )
     )

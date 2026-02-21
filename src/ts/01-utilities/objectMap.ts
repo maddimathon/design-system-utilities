@@ -23,6 +23,9 @@ export function objectMap<
     obj: T_Obj,
     callback: ( entry: [ keyof T_Obj, T_Obj[ keyof T_Obj ] ] ) => T_NewValue
 ): { [ K in keyof T_Obj ]: T_NewValue; } {
+    if ( typeof obj !== 'object' || !obj ) {
+        return obj;
+    }
 
     const entries = Object.entries( obj ) as [
         keyof T_Obj,

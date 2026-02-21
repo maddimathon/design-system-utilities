@@ -20,6 +20,7 @@ import { sassCompilerOpts } from '@maddimathon/utility-sass';
 import { Build } from './classes/Build.js';
 import { Compile } from './classes/Compile.js';
 import { Document } from './classes/Document.js';
+import { sassFn_themeFlattenGetValues } from './sass-functions/themeFlattenGetValues.js';
 
 export type { Config };
 
@@ -50,16 +51,27 @@ export function defineConfig<
         ..._classes,
     };
 
+    const themeFlattenGetValues = sassFn_themeFlattenGetValues();
+
     const merged: Config = {
         ...config,
 
         compiler: {
             ...config.compiler ?? {},
 
-            sass: ( args ) => sassCompilerOpts(
-                args,
-                typeof config.compiler?.sass === 'function' ? config.compiler?.sass( args ) : config.compiler?.sass,
-            ),
+            sass: ( args ) => {
+                const sassArgs = typeof config.compiler?.sass === 'function'
+                    ? config.compiler?.sass( args ) ?? {}
+                    : config.compiler?.sass ?? {};
+
+                if ( !sassArgs[ 'functions' ] ) {
+                    sassArgs[ 'functions' ] = {};
+                }
+
+                sassArgs[ 'functions' ][ themeFlattenGetValues[ 0 ] ] = themeFlattenGetValues[ 1 ];
+
+                return sassCompilerOpts( args, sassArgs );
+            },
         },
 
         stages: {

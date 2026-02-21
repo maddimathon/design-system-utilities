@@ -23,14 +23,19 @@ import type { Tokens } from '../02-tokens/Tokens.js';
  * @since ___PKG_VERSION___
  */
 export async function getWordpressSvgConstants<T_SetName extends "icons" | "logos">(
-    setName: T_SetName,
+    _setName: T_SetName,
     svgSet: Tokens.JsonReturn[ T_SetName ] | Tokens.Instance[ T_SetName ],
+    phpNamespace: string,
     textDomain: string,
 ) {
     // returns
     if ( !svgSet ) {
         return;
     }
+
+    phpNamespace = phpNamespace.length ? phpNamespace.replace( /\/$/gi, '' ) + '\\' : '';
+
+    const setName = _setName.replace( /s$/g, '' );
 
     const entries = Object.entries( svgSet ).map(
         ( [ key, value ] ): [ string, SvgMaker.JsonReturn ] => [
@@ -117,7 +122,7 @@ export async function getWordpressSvgConstants<T_SetName extends "icons" | "logo
         '    \'init\',',
         '    function () {',
         '        // returns',
-        `        if ( \\defined( 'Boiler_Plugin\\BRAND_${ setName_UC }_NAMES' ) ) {`,
+        `        if ( \\defined( '${ phpNamespace }BRAND_${ setName_UC }_NAMES' ) ) {`,
         '            return;',
         '        }',
         '',
@@ -127,7 +132,7 @@ export async function getWordpressSvgConstants<T_SetName extends "icons" | "logo
         `         * @var array{ ${ phpStrings.keyObjectShape } }`,
         '         */',
         `        \\define(`,
-        `            'Boiler_Plugin\\BRAND_${ setName_UC }_NAMES',`,
+        `            '${ phpNamespace }BRAND_${ setName_UC }_NAMES',`,
         `            ${ phpStrings.names.split( '\n' ).join( '\n            ' ) },`,
         '        );',
         '    },',
@@ -141,7 +146,7 @@ export async function getWordpressSvgConstants<T_SetName extends "icons" | "logo
         ` * @var object{ ${ phpStrings.keyObjectShape } }`,
         ' */',
         `\\define(`,
-        `    'Boiler_Plugin\\BRAND_${ setName_UC }_SVG',`,
+        `    '${ phpNamespace }BRAND_${ setName_UC }_SVG',`,
         `    ${ phpStrings.svg.split( '\n' ).join( '\n    ' ) },`,
         ');',
 
@@ -152,7 +157,7 @@ export async function getWordpressSvgConstants<T_SetName extends "icons" | "logo
         ` * @var object{ ${ phpStrings.keyObjectShape } }`,
         ' */',
         `\\define(`,
-        `    'Boiler_Plugin\\BRAND_${ setName_UC }_SVG_BASE64',`,
+        `    '${ phpNamespace }BRAND_${ setName_UC }_SVG_BASE64',`,
         `    ${ phpStrings.svgBase64.split( '\n' ).join( '\n    ' ) },`,
         ');',
 

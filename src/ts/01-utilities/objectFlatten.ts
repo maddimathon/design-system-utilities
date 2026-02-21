@@ -28,6 +28,9 @@ export function objectFlatten<
     prefix?: string,
     suffix?: string,
 ): { [ key: string ]: T_Values; } {
+    if ( typeof obj !== 'object' || !obj ) {
+        return obj;
+    }
 
     const validateKey_addPrefix = ( key: number | string ): string => [
         prefix,
@@ -58,7 +61,7 @@ export function objectFlatten<
         }
 
         // continues
-        if ( typeof value !== 'object' || !value ) {
+        if ( typeof value !== 'object' || !value || Array.isArray( value ) ) {
             flat[ key_addSuffix( key ) ] = value;
             continue;
         }

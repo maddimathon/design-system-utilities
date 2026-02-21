@@ -20,6 +20,12 @@
 $_systemColors: get-sys-colours();
 $_flattenedSystemColors: map.flatten($_systemColors);
 
+$_valid_themes__nestedFlat_tokenValues: tokens.$themes__nestedFlat_tokenValues;
+
+@if $_valid_themes__nestedFlat_tokenValues == null {
+    $_valid_themes__nestedFlat_tokenValues: get-themes-nested-flat-as-token-values();
+}
+
 ///
 /// Prints out the line height custom property default values based on config.
 ///
@@ -28,17 +34,17 @@ $_flattenedSystemColors: map.flatten($_systemColors);
 @mixin tokens-sys-colour($brightness: null, $contrast: null, $themeSlug: tokens.$activeTheme) {
     $map: $_systemColors;
 
-    $activeTheme_flat: map.get(tokens.$themes__nestedFlat, $themeSlug);
+    $activeTheme_flat: map.get($_valid_themes__nestedFlat_tokenValues, $themeSlug);
 
     @if $activeTheme_flat == null {
-        @warn "$themeSlug '#{$themeSlug}' was not a key in tokens.$themes__nestedFlat";
+        @warn "$themeSlug '#{$themeSlug}' was not a key in tokens.$themes__nestedFlat_tokenValues";
     } @else {
         @each $slug, $list in $map {
             // prettier-ignore
             @if $contrast == forced-colors {
                 
                 @each $value in list.unique($list) {
-                    @include utils.cx-prop( sys-clr-#{$slug}, #{$value} !important );
+                    @include utils.cx-prop(sys-clr-#{$slug}, #{$value} !important);
                 }
                 
             } @else if
@@ -56,11 +62,29 @@ $_flattenedSystemColors: map.flatten($_systemColors);
                 @if $clrSlug != null {
                     //
                     @each $_slug in list.unique($clrSlug) {
-                        @include utils.cx-prop(
-                            sys-clr-#{$slug},
-                            var-clr-from-theme-token($_slug, $brightness: $brightness),
-                            $comment: if(config.$fn_var_replaceWithValue_colour, $_slug, null)
-                        );
+                        $comment: null;
+
+                        @if config.$fn_var_replaceWithValue_colour {
+                            $comment: map.get(
+                                tokens.$themes__nestedFlat,
+                                $themeSlug,
+                                $brightness,
+                                $contrast,
+                                $slug
+                            );
+
+                            @if $comment == null {
+                                $comment: map.get(
+                                    tokens.$themes__nestedFlat,
+                                    $themeSlug,
+                                    $brightness,
+                                    $contrast,
+                                    'system-#{$slug}'
+                                );
+                            }
+                        }
+
+                        @include utils.cx-prop(sys-clr-#{$slug}, $_slug, $comment: $comment);
                     }
                 } @else {
                     $list: map.get($_systemColors, $slug);
@@ -71,10 +95,18 @@ $_flattenedSystemColors: map.flatten($_systemColors);
                         @each $value in list.unique($list) {
                             @if $i > 1 {
                                 @supports (color: #{$value}) {
-                                    @include utils.cx-prop(sys-clr-#{$slug}, $value);
+                                    @include utils.cx-prop(
+                                        sys-clr-#{$slug},
+                                        $value,
+                                        $comment: 'sys-clr'
+                                    );
                                 }
                             } @else {
-                                @include utils.cx-prop(sys-clr-#{$slug}, $value);
+                                @include utils.cx-prop(
+                                    sys-clr-#{$slug},
+                                    $value,
+                                    $comment: 'sys-clr'
+                                );
                             }
 
                             $i: $i + 1;
@@ -249,92 +281,71 @@ $_flattenedSystemColors: map.flatten($_systemColors);
     $contrast,
     $setBaseProperties: config.$mx_tokensTheme_setBaseProperties
 ) {
-    $activeTheme_flat: map.get(tokens.$themes__nestedFlat, $slug);
+    $activeTheme_flat: map.get($_valid_themes__nestedFlat_tokenValues, $slug);
 
     @if $activeTheme_flat == null {
-        @warn "$slug '#{$slug}' was not a key in tokens.$themes__nestedFlat";
-        $slug: default;
-        $activeTheme_flat: map.get(tokens.$themes__nestedFlat, default);
-    }
-
-    @if $contrast == forced-colors {
-        $flattened: map.get($activeTheme_flat, forced-colors);
-
-        @include tokens-sys-colour(
-            $brightness: tokens.$brightnessMode_default,
-            $contrast: $contrast,
-            $themeSlug: $slug
-        );
-
-        @each $prop, $value in $flattened {
-            //
-            @each $_val in $value {
-                @if string.index($prop, 'system-') != 1 {
-                    @include utils.cx-prop(
-                        theme-#{$prop},
-                        #{var-clr-from-theme-token($_val)} !important
-                    );
-                }
-            }
-        }
+        @warn "$slug '#{$slug}' was not a key in tokens.$themes__nestedFlat_tokenValues";
     } @else {
-        //
-        $flattened: map.get($activeTheme_flat, $brightness, $contrast);
+        @if $contrast == forced-colors {
+            $flattened: map.get($activeTheme_flat, forced-colors);
 
-        @if $flattened != null {
             @include tokens-sys-colour(
-                $brightness: $brightness,
+                $brightness: tokens.$brightnessMode_default,
                 $contrast: $contrast,
                 $themeSlug: $slug
             );
 
             @each $prop, $value in $flattened {
-                @if string.index($prop, 'system-') != 1 {
-                    //
-                    @each $_val in $value {
-                        @include utils.cx-prop(
-                            theme-#{$prop},
-                            var-clr-from-theme-token($_val, $brightness: $brightness),
-                            $comment: if(config.$fn_var_replaceWithValue_colour, $_val, null)
-                        );
+                //
+                @each $_val in $value {
+                    @if string.index($prop, 'system-') != 1 {
+                        @include utils.cx-prop(theme-#{$prop}, #{$_val} !important);
                     }
+                }
+            }
+        } @else {
+            //
+            $flattened: map.get($activeTheme_flat, $brightness, $contrast);
 
-                    @if config.$print_colourValues_hsl {
+            @if $flattened != null {
+                @include tokens-sys-colour(
+                    $brightness: $brightness,
+                    $contrast: $contrast,
+                    $themeSlug: $slug
+                );
+
+                @each $prop, $value in $flattened {
+                    @if string.index($prop, 'system-') != 1 {
+                        //
                         @each $_val in $value {
                             @include utils.cx-prop(
-                                theme-#{$prop}-hsl,
-                                #{var-clr-from-theme-token(
-                                        $_val,
-                                        $brightness: $brightness,
-                                        $version: hsl
-                                    )}
-                            );
-                        }
-                    }
-
-                    @if config.$print_colourValues_rgb {
-                        @each $_val in $value {
-                            @include utils.cx-prop(
-                                theme-#{$prop}-rgb,
-                                #{var-clr-from-theme-token(
-                                        $_val,
-                                        $brightness: $brightness,
-                                        $version: rgb
-                                    )}
+                                theme-#{$prop},
+                                $_val,
+                                $comment: if(
+                                        config.$fn_var_replaceWithValue_colour,
+                                        map.get(
+                                            tokens.$themes__nestedFlat,
+                                            $slug,
+                                            $brightness,
+                                            $contrast,
+                                            $prop
+                                        ),
+                                        null
+                                    )
                             );
                         }
                     }
                 }
             }
         }
-    }
 
-    @if $setBaseProperties {
-        @include tokens-theme-individual-base-properties(
-            $slug: $slug,
-            $brightness: $brightness,
-            $contrast: $contrast
-        );
+        @if $setBaseProperties {
+            @include tokens-theme-individual-base-properties(
+                $slug: $slug,
+                $brightness: $brightness,
+                $contrast: $contrast
+            );
+        }
     }
 }
 
@@ -632,20 +643,6 @@ $_themes_includeAlternatives: if(
             $level: $checkpointLevel + 1
         );
     }
-
-    // for high-contrast modes
-    /* #region Tokens - Theme - Exceptions - high-contrast modes */
-    @include utils.colour-mode((high, max, forced-colors)) {
-        @include utils.cx-prop(
-            focus-ring-outline-width,
-            clamp(
-                border-width-value('200'),
-                stroke-relative-value('600'),
-                border-width-value('400')
-            )
-        );
-    }
-    /* #endregion Tokens - Theme - Exceptions - high-contrast modes */
 
     @if $checkpointName {
         @include debug-checkpoint(

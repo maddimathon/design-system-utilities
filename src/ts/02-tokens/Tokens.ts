@@ -365,6 +365,13 @@ export namespace Tokens {
         T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
     > = Tokens_Internal.JsonReturn<T_Types>;
 
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export type ScssVars<
+        T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+    > = Tokens_Internal.ScssVars<T_Types>;
+
     export type DefaultIconNames = Tokens_Icons.DefaultIconNames;
 
     type SampleColourName =

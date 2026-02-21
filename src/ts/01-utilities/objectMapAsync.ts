@@ -25,6 +25,9 @@ export async function objectMapAsync<
         T_Obj[ keyof T_Obj ],
     ] ) => T_NewValue | Promise<T_NewValue>,
 ): Promise<{ [ K in keyof T_Obj ]: T_NewValue; }> {
+    if ( typeof obj !== 'object' || !obj ) {
+        return obj;
+    }
 
     return Promise.resolve(
         Object.entries( obj ) as [ keyof T_Obj, T_Obj[ keyof T_Obj ] ][]
