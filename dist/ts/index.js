@@ -21,4 +21,8 @@ export * from './01-utilities/objectMapAsync.js';
 export * from './01-utilities/roundToPixel.js';
 export * from './01-utilities/SvgMaker.js';
 export { Tokens } from './02-tokens/Tokens.js';
+export * from './03-parsers/colourSlugToCSS.js';
+export * from './03-parsers/getTokensDataFromClrSlug.js';
+export * from './03-parsers/getTokensThemeValue.js';
+export * from './03-parsers/themeSlugToCSS.js';
 export * as BuildUtilities from './build-utils/index.js';

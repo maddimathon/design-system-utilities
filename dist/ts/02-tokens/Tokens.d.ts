@@ -157,6 +157,10 @@ export declare namespace Tokens {
      * @since 0.1.0-alpha
      */
     type JsonReturn<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> = Tokens_Internal.JsonReturn<T_Types>;
+    /**
+     * @since 0.1.1-alpha.1.draft
+     */
+    type ScssVars<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> = Tokens_Internal.ScssVars<T_Types>;
     type DefaultIconNames = Tokens_Icons.DefaultIconNames;
     /**
      * @since 0.1.0-alpha

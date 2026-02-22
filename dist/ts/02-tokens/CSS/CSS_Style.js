@@ -9,7 +9,7 @@
  */
 import { mergeArgs } from '@maddimathon/utility-typescript/functions';
 import { objectGenerator } from '../../01-utilities/objectGenerator.js';
-import { objectKeySort } from '../../01-utilities/objectKeySort.js';
+import { objectKeySort_Tokens } from '../../01-utilities/objectKeySort_Tokens.js';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
@@ -249,6 +249,6 @@ export class Tokens_CSS_Style extends AbstractTokens {
         return this.data;
     }
     toScssVars() {
-        return objectKeySort(this.data, true);
+        return objectKeySort_Tokens(this.data, true);
     }
 }

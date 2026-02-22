@@ -47,8 +47,10 @@ export declare namespace Tokens_Colour {
      * @since 0.1.0-alpha
      */
     type Data<T_Types extends TokenTypes.Colour.TypeParams> = {
-        black: Tokens_Colour_ShadeMap.Shade<T_Types>;
-        white: Tokens_Colour_ShadeMap.Shade<T_Types>;
+        $: {
+            black: Tokens_Colour_ShadeMap.Shade<T_Types>;
+            white: Tokens_Colour_ShadeMap.Shade<T_Types>;
+        };
     } & TokenTypes.Colour.NameRecord<T_Types, Tokens_Colour_ShadeMap<T_Types>>;
     /**
      * @since 0.1.0-alpha
@@ -61,14 +63,18 @@ export declare namespace Tokens_Colour {
      * @since 0.1.0-alpha
      */
     type JsonReturn<T_Types extends TokenTypes.Colour.TypeParams> = {
-        black: Tokens_Colour_ShadeMap.Shade.JsonReturn<T_Types>;
-        white: Tokens_Colour_ShadeMap.Shade.JsonReturn<T_Types>;
+        $: {
+            black: Tokens_Colour_ShadeMap.Shade.JsonReturn<T_Types>;
+            white: Tokens_Colour_ShadeMap.Shade.JsonReturn<T_Types>;
+        };
     } & TokenTypes.Colour.NameRecord<T_Types, Tokens_Colour_ShadeMap.JsonReturn<T_Types>>;
     /**
      * @since 0.1.1-alpha.1.draft
      */
     type ScssVars<T_Types extends TokenTypes.Colour.TypeParams> = {
-        black: Tokens_Colour_ShadeMap.Shade.ScssVars;
-        white: Tokens_Colour_ShadeMap.Shade.ScssVars;
+        $: {
+            black: Tokens_Colour_ShadeMap.Shade.ScssVars;
+            white: Tokens_Colour_ShadeMap.Shade.ScssVars;
+        };
     } & TokenTypes.Colour.NameRecord<T_Types, Tokens_Colour_ShadeMap.ScssVars<T_Types>>;
 }

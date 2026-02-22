@@ -132,53 +132,22 @@ export namespace TokenTypes {
     export namespace Css {
 
         /**
+         * Any valid string value for css.
+         * 
+         * @since 0.1.1-alpha.1.draft
+         */
+        export type AnyCssColour =
+            | ColourUtilities.CssColours.Keyword
+            | ColourUtilities.CssColours.Slug
+            | SystemColor;
+
+        /**
          * @since 0.1.0-alpha
          * @since 0.1.1-alpha.1.draft — Moved to {@link Css} namespace.
          */
         export type SystemColor =
-            | "transparent"
-            | "unset"
-            | "AccentColor"
-            | "AccentColorText"
-            | "ActiveText"
-            | "ButtonBorder"
-            | "ButtonFace"
-            | "ButtonText"
-            | "Canvas"
-            | "CanvasText"
-            | "Field"
-            | "FieldText"
-            | "GrayText"
-            | "Highlight"
-            | "HighlightText"
-            | "LinkText"
-            | "Mark"
-            | "MarkText"
-            | "SelectedItem"
-            | "SelectedItemText"
-            | "VisitedText"
-            | (
-                "unset"
-                | "AccentColor"
-                | "AccentColorText"
-                | "ActiveText"
-                | "ButtonBorder"
-                | "ButtonFace"
-                | "ButtonText"
-                | "Canvas"
-                | "CanvasText"
-                | "Field"
-                | "FieldText"
-                | "GrayText"
-                | "Highlight"
-                | "HighlightText"
-                | "LinkText"
-                | "Mark"
-                | "MarkText"
-                | "SelectedItem"
-                | "SelectedItemText"
-                | "VisitedText"
-            )[];
+            | ColourUtilities.CssColours.SystemColor
+            | ColourUtilities.CssColours.SystemColor[];
     }
 
     /**
@@ -195,7 +164,7 @@ export namespace TokenTypes {
          */
         export type ColourOption<
             T_Types extends TokenTypes.Colour.TypeParams,
-        > = Css.SystemColor | "black" | "white" | Colour.TokenSlug<
+        > = Css.AnyCssColour | "black" | "white" | Colour.TokenSlug<
             T_Types[ 'names' ],
             T_Types[ 'extraLevels' ]
         >;

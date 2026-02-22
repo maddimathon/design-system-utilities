@@ -51,8 +51,6 @@ export function defineConfig<
         ..._classes,
     };
 
-    const themeFlattenGetValues = sassFn_themeFlattenGetValues();
-
     const merged: Config = {
         ...config,
 
@@ -67,6 +65,8 @@ export function defineConfig<
                 if ( !sassArgs[ 'functions' ] ) {
                     sassArgs[ 'functions' ] = {};
                 }
+
+                const themeFlattenGetValues = sassFn_themeFlattenGetValues( args );
 
                 sassArgs[ 'functions' ][ themeFlattenGetValues[ 0 ] ] = themeFlattenGetValues[ 1 ];
 

@@ -14,7 +14,7 @@ import { mergeArgs } from '@maddimathon/utility-typescript/functions';
 import type { RequiredHeadingLevels, TokenTypes, TokenLevels } from '../@types.js';
 
 import { objectGenerator } from '../../01-utilities/objectGenerator.js';
-import { objectKeySort } from '../../01-utilities/objectKeySort.js';
+import { objectKeySort_Tokens } from '../../01-utilities/objectKeySort_Tokens.js';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
 
 /**
@@ -336,7 +336,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
     }
 
     public toScssVars(): Tokens_CSS_Style.ScssVars {
-        return objectKeySort( this.data, true );
+        return objectKeySort_Tokens( this.data, true );
     }
 }
 

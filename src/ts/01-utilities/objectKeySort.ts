@@ -15,9 +15,19 @@
  */
 export function objectKeySort<T_Obj extends Record<number | string, any>>(
     obj: T_Obj,
-    recursive: boolean = false
+    recursive: boolean = false,
+    /**
+     * Takes an object key and returns the value to use when sorting it.
+     *
+     * Use this to e.g., add padding to numbers before sorting as strings or to
+     * sort 'primary', 'secondary', etc. as their numerical values.
+     */
+    sortMaker?: ( key: number | string ) => string,
 ): T_Obj {
-    let entries = Object.entries( obj );
+
+    type Entry = [ keyof T_Obj & number | string, T_Obj[ keyof T_Obj ] ];
+
+    let entries: Entry[] = Object.entries( obj );
 
     if ( recursive ) {
         entries = entries.map( ( [ key, value ] ) => {
@@ -31,12 +41,26 @@ export function objectKeySort<T_Obj extends Record<number | string, any>>(
                 return [ key, value ];
             }
 
-            return [ key, objectKeySort( value, recursive ) ];
+            return [ key, objectKeySort( value, recursive, sortMaker ) ];
         } );
     }
 
-    return Object.fromEntries(
-        entries.sort( ( a, b ) => {
+    let sortFn = sortMaker
+        ? ( a: Entry, b: Entry ) => {
+            const sort_a = sortMaker( a[ 0 ] );
+            const sort_b = sortMaker( b[ 0 ] );
+
+            if ( sort_a > sort_b ) {
+                return 1;
+            }
+
+            if ( sort_a < sort_b ) {
+                return -1;
+            }
+
+            return 0;
+        }
+        : ( a: Entry, b: Entry ) => {
 
             if ( a[ 0 ] > b[ 0 ] ) {
                 return 1;
@@ -47,6 +71,7 @@ export function objectKeySort<T_Obj extends Record<number | string, any>>(
             }
 
             return 0;
-        } )
-    ) as T_Obj;
+        };
+
+    return Object.fromEntries( entries.sort( sortFn ) ) as T_Obj;
 }

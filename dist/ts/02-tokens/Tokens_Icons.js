@@ -11,7 +11,7 @@ import { mergeArgs } from '@maddimathon/utility-typescript/functions';
 import { objectMap } from '../01-utilities/objectMap.js';
 import { SvgMaker } from '../01-utilities/SvgMaker.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
-import { objectKeySort } from '../01-utilities/objectKeySort.js';
+import { objectKeySort_Tokens } from '../01-utilities/objectKeySort_Tokens.js';
 /**
  * Generates a complete token object for the design system.
  *
@@ -286,7 +286,7 @@ export class Tokens_Icons extends AbstractTokens {
                 'fill="currentColor"',
             ]);
         });
-        this.data = objectKeySort(mapped, false);
+        this.data = objectKeySort_Tokens(mapped, false);
     }
     toJSON() {
         return objectMap(this.data, ([key, value]) => value.toJSON());

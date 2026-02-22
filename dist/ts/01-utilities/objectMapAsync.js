@@ -14,5 +14,8 @@
  * @since 0.1.0-alpha.4
  */
 export async function objectMapAsync(obj, callback) {
+    if (typeof obj !== 'object' || !obj) {
+        return obj;
+    }
     return Promise.resolve(Object.entries(obj)).then(async (entries) => Object.fromEntries(await Promise.all(entries.map(async ([key, value]) => Promise.resolve(callback([key, value])).then((newValue) => [key, newValue])))));
 }

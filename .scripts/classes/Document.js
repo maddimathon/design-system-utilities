@@ -15,6 +15,8 @@ import {
     DocumentStage,
 } from '@maddimathon/build-utilities';
 
+import { setSassCompilerFns } from '../functions/setSassCompilerFns.js';
+
 /**
  * Extension of the built-in one.
  */
@@ -96,6 +98,12 @@ export class Document extends DocumentStage {
             this.console.progress( 'skipping document css compile for astro-only update...', 1 );
             return;
         }
+
+        await setSassCompilerFns( this.compiler, {
+            config: this.config,
+            console: this.console,
+            params: this.params,
+        } );
 
         const files = await this.runCustomScssDirSubStage(
             '',

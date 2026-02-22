@@ -18,6 +18,9 @@
  * @since 0.1.0-alpha
  */
 export function objectFlatten(obj, prefix, suffix) {
+    if (typeof obj !== 'object' || !obj) {
+        return obj;
+    }
     const validateKey_addPrefix = (key) => [
         prefix,
         key === '$' ? '' : String(key),
@@ -40,7 +43,7 @@ export function objectFlatten(obj, prefix, suffix) {
             continue;
         }
         // continues
-        if (typeof value !== 'object' || !value) {
+        if (typeof value !== 'object' || !value || Array.isArray(value)) {
             flat[key_addSuffix(key)] = value;
             continue;
         }

@@ -16,6 +16,9 @@
  * @since 0.1.0-alpha
 */
 export function objectMap(obj, callback) {
+    if (typeof obj !== 'object' || !obj) {
+        return obj;
+    }
     const entries = Object.entries(obj);
     const mappedEntries = entries.map(([key, value]) => [
         key,

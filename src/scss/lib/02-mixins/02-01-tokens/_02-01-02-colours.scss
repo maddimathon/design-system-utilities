@@ -20,11 +20,12 @@
 $_systemColors: get-sys-colours();
 $_flattenedSystemColors: map.flatten($_systemColors);
 
-$_valid_themes__nestedFlat_tokenValues: tokens.$themes__nestedFlat_tokenValues;
+// $_valid_themes__nestedFlat_tokenValues: tokens.$themes__nestedFlat_tokenValues;
 
-@if $_valid_themes__nestedFlat_tokenValues == null {
-    $_valid_themes__nestedFlat_tokenValues: get-themes-nested-flat-as-token-values();
-}
+// @if $_valid_themes__nestedFlat_tokenValues == null and config.$print_tokens {
+//     //
+//     $_valid_themes__nestedFlat_tokenValues: get-themes-nested-flat-as-token-values();
+// }
 
 ///
 /// Prints out the line height custom property default values based on config.
@@ -34,7 +35,12 @@ $_valid_themes__nestedFlat_tokenValues: tokens.$themes__nestedFlat_tokenValues;
 @mixin tokens-sys-colour($brightness: null, $contrast: null, $themeSlug: tokens.$activeTheme) {
     $map: $_systemColors;
 
-    $activeTheme_flat: map.get($_valid_themes__nestedFlat_tokenValues, $themeSlug);
+    $flat_isValues: tokens.$themes__nestedFlat_tokenValues != null;
+
+    $activeTheme_flat: map.get(
+        if($flat_isValues, tokens.$themes__nestedFlat_tokenValues, tokens.$themes__nestedFlat),
+        $themeSlug
+    );
 
     @if $activeTheme_flat == null {
         @warn "$themeSlug '#{$themeSlug}' was not a key in tokens.$themes__nestedFlat_tokenValues";
@@ -61,7 +67,7 @@ $_valid_themes__nestedFlat_tokenValues: tokens.$themes__nestedFlat_tokenValues;
 
                 @if $clrSlug != null {
                     //
-                    @each $_slug in list.unique($clrSlug) {
+                    @each $_value in list.unique($clrSlug) {
                         $comment: null;
 
                         @if config.$fn_var_replaceWithValue_colour {
@@ -84,7 +90,40 @@ $_valid_themes__nestedFlat_tokenValues: tokens.$themes__nestedFlat_tokenValues;
                             }
                         }
 
-                        @include utils.cx-prop(sys-clr-#{$slug}, $_slug, $comment: $comment);
+                        @include utils.cx-prop(
+                            sys-clr-#{$slug},
+                            if(
+                                $flat_isValues,
+                                $_value,
+                                var-clr-from-theme-token($_value, $brightness: $brightness)
+                            ),
+                            $comment: $comment
+                        );
+
+                        // @if not $flat_isValues {
+                        //     //
+                        //     @if config.$print_colourValues_hsl {
+                        //         @include utils.cx-prop(
+                        //             sys-clr-#{$slug}-hsl,
+                        //             var-clr-from-theme-token(
+                        //                 $_value,
+                        //                 $brightness: $brightness,
+                        //                 $version: hsl
+                        //             )
+                        //         );
+                        //     }
+
+                        //     @if config.$print_colourValues_rgb {
+                        //         @include utils.cx-prop(
+                        //             sys-clr-#{$slug}-rgb,
+                        //             var-clr-from-theme-token(
+                        //                 $_value,
+                        //                 $brightness: $brightness,
+                        //                 $version: rgb
+                        //             )
+                        //         );
+                        //     }
+                        // }
                     }
                 } @else {
                     $list: map.get($_systemColors, $slug);
@@ -95,18 +134,10 @@ $_valid_themes__nestedFlat_tokenValues: tokens.$themes__nestedFlat_tokenValues;
                         @each $value in list.unique($list) {
                             @if $i > 1 {
                                 @supports (color: #{$value}) {
-                                    @include utils.cx-prop(
-                                        sys-clr-#{$slug},
-                                        $value,
-                                        $comment: 'sys-clr'
-                                    );
+                                    @include utils.cx-prop(sys-clr-#{$slug}, $value);
                                 }
                             } @else {
-                                @include utils.cx-prop(
-                                    sys-clr-#{$slug},
-                                    $value,
-                                    $comment: 'sys-clr'
-                                );
+                                @include utils.cx-prop(sys-clr-#{$slug}, $value);
                             }
 
                             $i: $i + 1;
@@ -126,40 +157,33 @@ $_valid_themes__nestedFlat_tokenValues: tokens.$themes__nestedFlat_tokenValues;
 @mixin tokens-colour {
     /* #region Tokens - Colour */
     @each $mode in tokens.$brightnessMode_all {
+        //
         @include utils.colour-mode($mode, $includeDefault: true) {
+            //
             @each $slug, $map in tokens.$colour {
                 //
-                @if meta.type-of($map) != 'map' {
-                    // this is probably a colour then
+                @if $slug == white {
+                    $slug: 'white';
+                } @else if $slug == black {
+                    $slug: 'black';
+                }
+
+                $_shadeNameSlug: if($slug == '$', 'clr', 'clr-#{$slug}');
+
+                @each $level, $clr in map.ksort($map) {
                     $_clrValue: if(
                         $mode == dark,
-                        map.get(
-                            tokens.$colour,
-                            if(
-                                $slug == 'white' or $slug == white,
-                                'black',
-                                if($slug == 'black' or $slug == black, 'white', $slug)
-                            )
-                        ),
-                        $map
+                        map.get($map, colour.shade-map-reverse-key($level, $map, $sort: true)),
+                        $clr
                     );
 
-                    @include utils.cx-prop(clr-#{$slug}, colour.to-hsl($_clrValue, $round: false));
+                    @include utils.cx-prop(
+                        #{$_shadeNameSlug}-#{$level},
+                        colour.to-hsl($_clrValue, $round: false)
+                    );
+                }
 
-                    @if config.$print_colourValues_hsl {
-                        @include utils.cx-prop(
-                            clr-#{$slug}-hsl,
-                            colour.to-hsl-list($_clrValue, $round: false)
-                        );
-                    }
-
-                    @if config.$print_colourValues_rgb {
-                        @include utils.cx-prop(
-                            clr-#{$slug}-rgb,
-                            colour.to-rgb-list($_clrValue, $round: true)
-                        );
-                    }
-                } @else {
+                @if config.$print_colourValues_hsl {
                     @each $level, $clr in map.ksort($map) {
                         $_clrValue: if(
                             $mode == dark,
@@ -168,45 +192,24 @@ $_valid_themes__nestedFlat_tokenValues: tokens.$themes__nestedFlat_tokenValues;
                         );
 
                         @include utils.cx-prop(
-                            clr-#{$slug}-#{$level},
-                            colour.to-hsl($_clrValue, $round: false)
+                            #{$_shadeNameSlug}-#{$level}-hsl,
+                            colour.to-hsl-list($_clrValue, $round: false)
                         );
                     }
+                }
 
-                    @if config.$print_colourValues_hsl {
-                        @each $level, $clr in map.ksort($map) {
-                            $_clrValue: if(
-                                $mode == dark,
-                                map.get(
-                                    $map,
-                                    colour.shade-map-reverse-key($level, $map, $sort: true)
-                                ),
-                                $clr
-                            );
+                @if config.$print_colourValues_rgb {
+                    @each $level, $clr in map.ksort($map) {
+                        $_clrValue: if(
+                            $mode == dark,
+                            map.get($map, colour.shade-map-reverse-key($level, $map, $sort: true)),
+                            $clr
+                        );
 
-                            @include utils.cx-prop(
-                                clr-#{$slug}-#{$level}-hsl,
-                                colour.to-hsl-list($_clrValue, $round: false)
-                            );
-                        }
-                    }
-
-                    @if config.$print_colourValues_rgb {
-                        @each $level, $clr in map.ksort($map) {
-                            $_clrValue: if(
-                                $mode == dark,
-                                map.get(
-                                    $map,
-                                    colour.shade-map-reverse-key($level, $map, $sort: true)
-                                ),
-                                $clr
-                            );
-
-                            @include utils.cx-prop(
-                                clr-#{$slug}-#{$level}-rgb,
-                                colour.to-rgb-list($_clrValue, $round: true)
-                            );
-                        }
+                        @include utils.cx-prop(
+                            #{$_shadeNameSlug}-#{$level}-rgb,
+                            colour.to-rgb-list($_clrValue, $round: true)
+                        );
                     }
                 }
             }
@@ -281,7 +284,12 @@ $_valid_themes__nestedFlat_tokenValues: tokens.$themes__nestedFlat_tokenValues;
     $contrast,
     $setBaseProperties: config.$mx_tokensTheme_setBaseProperties
 ) {
-    $activeTheme_flat: map.get($_valid_themes__nestedFlat_tokenValues, $slug);
+    $flat_isValues: tokens.$themes__nestedFlat_tokenValues != null;
+
+    $activeTheme_flat: map.get(
+        if($flat_isValues, tokens.$themes__nestedFlat_tokenValues, tokens.$themes__nestedFlat),
+        $slug
+    );
 
     @if $activeTheme_flat == null {
         @warn "$slug '#{$slug}' was not a key in tokens.$themes__nestedFlat_tokenValues";
@@ -299,7 +307,42 @@ $_valid_themes__nestedFlat_tokenValues: tokens.$themes__nestedFlat_tokenValues;
                 //
                 @each $_val in $value {
                     @if string.index($prop, 'system-') != 1 {
-                        @include utils.cx-prop(theme-#{$prop}, #{$_val} !important);
+                        @include utils.cx-prop(
+                            theme-#{$prop},
+                            if(
+                                    $flat_isValues,
+                                    $_val,
+                                    var-clr-from-theme-token($_val, $brightness: $brightness)
+                                )
+                                !important
+                        );
+
+                        @if not $flat_isValues {
+                            //
+                            @if config.$print_colourValues_hsl {
+                                @include utils.cx-prop(
+                                    theme-#{$prop}-hsl,
+                                    var-clr-from-theme-token(
+                                            $_val,
+                                            $brightness: $brightness,
+                                            $version: hsl
+                                        )
+                                        !important
+                                );
+                            }
+
+                            @if config.$print_colourValues_rgb {
+                                @include utils.cx-prop(
+                                    theme-#{$prop}-rgb,
+                                    var-clr-from-theme-token(
+                                            $_val,
+                                            $brightness: $brightness,
+                                            $version: rgb
+                                        )
+                                        !important
+                                );
+                            }
+                        }
                     }
                 }
             }
@@ -320,7 +363,11 @@ $_valid_themes__nestedFlat_tokenValues: tokens.$themes__nestedFlat_tokenValues;
                         @each $_val in $value {
                             @include utils.cx-prop(
                                 theme-#{$prop},
-                                $_val,
+                                if(
+                                    $flat_isValues,
+                                    $_val,
+                                    var-clr-from-theme-token($_val, $brightness: $brightness)
+                                ),
                                 $comment: if(
                                         config.$fn_var_replaceWithValue_colour,
                                         map.get(
@@ -333,6 +380,31 @@ $_valid_themes__nestedFlat_tokenValues: tokens.$themes__nestedFlat_tokenValues;
                                         null
                                     )
                             );
+
+                            @if not $flat_isValues {
+                                //
+                                @if config.$print_colourValues_hsl {
+                                    @include utils.cx-prop(
+                                        theme-#{$prop}-hsl,
+                                        var-clr-from-theme-token(
+                                            $_val,
+                                            $brightness: $brightness,
+                                            $version: hsl
+                                        )
+                                    );
+                                }
+
+                                @if config.$print_colourValues_rgb {
+                                    @include utils.cx-prop(
+                                        theme-#{$prop}-rgb,
+                                        var-clr-from-theme-token(
+                                            $_val,
+                                            $brightness: $brightness,
+                                            $version: rgb
+                                        )
+                                    );
+                                }
+                            }
                         }
                     }
                 }

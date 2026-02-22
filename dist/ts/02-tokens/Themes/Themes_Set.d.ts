@@ -519,8 +519,8 @@ export declare namespace Tokens_Themes_Set {
                 };
                 const low: {
                     readonly background: {
-                        readonly $: "300";
-                        readonly bright: "300";
+                        readonly $: "250";
+                        readonly bright: "200";
                         readonly accent: "250";
                         readonly grey: "250";
                     };

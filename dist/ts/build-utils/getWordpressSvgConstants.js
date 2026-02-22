@@ -14,11 +14,13 @@ import { slugify, } from '@maddimathon/utility-typescript/functions';
  *
  * @since 0.1.1-alpha.1.draft
  */
-export async function getWordpressSvgConstants(setName, svgSet, textDomain) {
+export async function getWordpressSvgConstants(_setName, svgSet, phpNamespace, textDomain) {
     // returns
     if (!svgSet) {
         return;
     }
+    phpNamespace = phpNamespace.length ? phpNamespace.replace(/\/$/gi, '') + '\\' : '';
+    const setName = _setName.replace(/s$/g, '');
     const entries = Object.entries(svgSet).map(([key, value]) => [
         slugify(key).replace(/\-/gi, '_').toLowerCase(),
         value,
@@ -66,7 +68,7 @@ export async function getWordpressSvgConstants(setName, svgSet, textDomain) {
         '    \'init\',',
         '    function () {',
         '        // returns',
-        `        if ( \\defined( 'Boiler_Plugin\\BRAND_${setName_UC}_NAMES' ) ) {`,
+        `        if ( \\defined( '${phpNamespace}BRAND_${setName_UC}_NAMES' ) ) {`,
         '            return;',
         '        }',
         '',
@@ -76,7 +78,7 @@ export async function getWordpressSvgConstants(setName, svgSet, textDomain) {
         `         * @var array{ ${phpStrings.keyObjectShape} }`,
         '         */',
         `        \\define(`,
-        `            'Boiler_Plugin\\BRAND_${setName_UC}_NAMES',`,
+        `            '${phpNamespace}BRAND_${setName_UC}_NAMES',`,
         `            ${phpStrings.names.split('\n').join('\n            ')},`,
         '        );',
         '    },',
@@ -89,7 +91,7 @@ export async function getWordpressSvgConstants(setName, svgSet, textDomain) {
         ` * @var object{ ${phpStrings.keyObjectShape} }`,
         ' */',
         `\\define(`,
-        `    'Boiler_Plugin\\BRAND_${setName_UC}_SVG',`,
+        `    '${phpNamespace}BRAND_${setName_UC}_SVG',`,
         `    ${phpStrings.svg.split('\n').join('\n    ')},`,
         ');',
         '',
@@ -99,7 +101,7 @@ export async function getWordpressSvgConstants(setName, svgSet, textDomain) {
         ` * @var object{ ${phpStrings.keyObjectShape} }`,
         ' */',
         `\\define(`,
-        `    'Boiler_Plugin\\BRAND_${setName_UC}_SVG_BASE64',`,
+        `    '${phpNamespace}BRAND_${setName_UC}_SVG_BASE64',`,
         `    ${phpStrings.svgBase64.split('\n').join('\n    ')},`,
         ');',
     ].join('\n');

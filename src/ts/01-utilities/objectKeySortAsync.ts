@@ -15,44 +15,65 @@
  */
 export async function objectKeySortAsync<T_Obj extends Record<number | string, any>>(
     obj: T_Obj,
-    recursive: boolean = false
+    recursive: boolean = false,
+    /**
+     * Takes an object key and returns the value to use when sorting it.
+     *
+     * Use this to e.g., add padding to numbers before sorting as strings or to
+     * sort 'primary', 'secondary', etc. as their numerical values.
+     */
+    sortMaker?: ( key: number | string ) => string,
 ): Promise<T_Obj> {
 
-    const entries: (
-        | [ keyof T_Obj & number | string, T_Obj[ keyof T_Obj ] ]
-        | Promise<[ keyof T_Obj & number | string, T_Obj[ keyof T_Obj ] ]>
-    )[] = recursive
-            ? Object.entries( obj ).map(
-                async ( [ key, value ] ) => {
-                    // returns
-                    if ( typeof value !== 'object' || value === null ) {
-                        return [ key, value ];
-                    }
+    type Entry = [ keyof T_Obj & number | string, T_Obj[ keyof T_Obj ] ];
 
-                    // returns
-                    if ( Array.isArray( value ) ) {
-                        return [ key, value ];
-                    }
-
-                    return objectKeySortAsync( value, recursive ).then( newValue => [ key, newValue ] );
+    const entries: ( Entry | Promise<Entry> )[] = recursive
+        ? Object.entries( obj ).map(
+            async ( [ key, value ] ) => {
+                // returns
+                if ( typeof value !== 'object' || value === null ) {
+                    return [ key, value ];
                 }
-            )
-            : Object.entries( obj );
+
+                // returns
+                if ( Array.isArray( value ) ) {
+                    return [ key, value ];
+                }
+
+                return objectKeySortAsync( value, recursive, sortMaker ).then( newValue => [ key, newValue ] );
+            }
+        )
+        : Object.entries( obj );
+
+    let sortFn = sortMaker
+        ? ( a: Entry, b: Entry ) => {
+            const sort_a = sortMaker( a[ 0 ] );
+            const sort_b = sortMaker( b[ 0 ] );
+
+            if ( sort_a > sort_b ) {
+                return 1;
+            }
+
+            if ( sort_a < sort_b ) {
+                return -1;
+            }
+
+            return 0;
+        }
+        : ( a: Entry, b: Entry ) => {
+
+            if ( a[ 0 ] > b[ 0 ] ) {
+                return 1;
+            }
+
+            if ( a[ 0 ] < b[ 0 ] ) {
+                return -1;
+            }
+
+            return 0;
+        };
 
     return Promise.all( entries ).then(
-        toSort => Object.fromEntries(
-            toSort.sort( ( a, b ) => {
-
-                if ( a[ 0 ] > b[ 0 ] ) {
-                    return 1;
-                }
-
-                if ( a[ 0 ] < b[ 0 ] ) {
-                    return -1;
-                }
-
-                return 0;
-            } )
-        ) as T_Obj
+        toSort => Object.fromEntries( toSort.sort( sortFn ) ) as T_Obj
     );
 }

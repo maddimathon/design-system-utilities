@@ -12,4 +12,11 @@
  *
  * @since 0.1.1-alpha.1.draft
  */
-export declare function objectKeySortAsync<T_Obj extends Record<number | string, any>>(obj: T_Obj, recursive?: boolean): Promise<T_Obj>;
+export declare function objectKeySortAsync<T_Obj extends Record<number | string, any>>(obj: T_Obj, recursive?: boolean, 
+/**
+ * Takes an object key and returns the value to use when sorting it.
+ *
+ * Use this to e.g., add padding to numbers before sorting as strings or to
+ * sort 'primary', 'secondary', etc. as their numerical values.
+ */
+sortMaker?: (key: number | string) => string): Promise<T_Obj>;

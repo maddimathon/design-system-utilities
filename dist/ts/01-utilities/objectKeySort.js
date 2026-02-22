@@ -12,7 +12,14 @@
  *
  * @since 0.1.1-alpha.1.draft
  */
-export function objectKeySort(obj, recursive = false) {
+export function objectKeySort(obj, recursive = false, 
+/**
+ * Takes an object key and returns the value to use when sorting it.
+ *
+ * Use this to e.g., add padding to numbers before sorting as strings or to
+ * sort 'primary', 'secondary', etc. as their numerical values.
+ */
+sortMaker) {
     let entries = Object.entries(obj);
     if (recursive) {
         entries = entries.map(([key, value]) => {
@@ -24,16 +31,35 @@ export function objectKeySort(obj, recursive = false) {
             if (Array.isArray(value)) {
                 return [key, value];
             }
-            return [key, objectKeySort(value, recursive)];
+            return [key, objectKeySort(value, recursive, sortMaker)];
         });
     }
-    return Object.fromEntries(entries.sort((a, b) => {
-        if (a[0] > b[0]) {
-            return 1;
+    let sortFn = sortMaker
+        ? (a, b) => {
+            const sort_a = sortMaker(a[0]);
+            const sort_b = sortMaker(b[0]);
+            // console.log( {
+            //     'a[ 0 ]': a[ 0 ],
+            //     'b[ 0 ]': b[ 0 ],
+            //     sort_a,
+            //     sort_b,
+            // } );
+            if (sort_a > sort_b) {
+                return 1;
+            }
+            if (sort_a < sort_b) {
+                return -1;
+            }
+            return 0;
         }
-        if (a[0] < b[0]) {
-            return -1;
-        }
-        return 0;
-    }));
+        : (a, b) => {
+            if (a[0] > b[0]) {
+                return 1;
+            }
+            if (a[0] < b[0]) {
+                return -1;
+            }
+            return 0;
+        };
+    return Object.fromEntries(entries.sort(sortFn));
 }

@@ -10,6 +10,7 @@
 
 import { ColourUtilities } from '../01-utilities/ColourUtilities.js';
 import { objectGeneratorAsync } from '../01-utilities/objectGenerator.js';
+import { objectKeySort_Tokens } from '../01-utilities/objectKeySort_Tokens.js';
 import { objectMap } from '../01-utilities/objectMap.js';
 
 import { AbstractTokens } from './abstract/AbstractTokens.js';
@@ -19,7 +20,6 @@ import { Tokens_Colour_ShadeMap } from './Colour/Colour_ShadeMap.js';
 import type {
     TokenTypes,
 } from './@types.d.ts';
-import { objectKeySort } from '../01-utilities/objectKeySort.js';
 
 /**
  * Generates a complete token object for the design system.
@@ -74,8 +74,7 @@ export class Tokens_Colour<T_Types extends TokenTypes.Colour.TypeParams> extends
                 allNames,
                 extraLevels,
                 {
-                    black,
-                    white,
+                    $: { black, white },
                     ...colourMaps,
                 },
             )
@@ -96,62 +95,98 @@ export class Tokens_Colour<T_Types extends TokenTypes.Colour.TypeParams> extends
      * @since 0.1.0-alpha
      */
     public async addContrastTests() {
+        const promises: Promise<any>[] = [];
 
-        for ( const t_colourName in this.data ) {
-            const colourName = t_colourName as keyof typeof this.data;
-
-            const promises: Promise<any>[] = [];
+        for ( const colourName of [ 'black', 'white' ] as const ) {
 
             for ( const t_test_colourName in this.data ) {
                 const test_colourName = t_test_colourName as keyof typeof this.data;
 
                 // continues
-                if ( test_colourName === 'black' || test_colourName === 'white' ) {
+                if (
+                    test_colourName === '$'
+                    || test_colourName === 'black'
+                    || test_colourName === 'white'
+                ) {
                     continue;
                 }
 
-                if ( this.data[ colourName ] instanceof Tokens_Colour_ShadeMap.Shade ) {
+                for ( const t_testLevel in this.data[ test_colourName ].data ) {
+                    const testLevel = t_testLevel as ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ];
 
-                    for ( const t_testLevel in this.data[ test_colourName ].data ) {
-                        const testLevel = t_testLevel as ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ];
-
-                        // VariableInspector.dump( { 'this.data[ test_colourName ]': this.data[ test_colourName ] }, { includeValue: false } );
-
-                        promises.push(
-                            this.data[ colourName ].addContrastTest(
-                                test_colourName,
-                                testLevel,
-                                this.data[ test_colourName ].data[ testLevel ].data,
-                            )
-                        );
-                    }
-
-                } else {
                     promises.push(
-                        this.data[ colourName ].addContrastTests(
+                        this.data.$[ colourName ].addContrastTest(
                             test_colourName,
-                            this.data[ test_colourName ],
+                            testLevel,
+                            this.data[ test_colourName ].data[ testLevel ].data,
                         )
                     );
                 }
             }
-
-            await Promise.all( promises );
         }
+
+        for ( const t_colourName in this.data ) {
+            // continues
+            if (
+                t_colourName === '$'
+                || t_colourName === 'black'
+                || t_colourName === 'white'
+            ) {
+                continue;
+            }
+
+            const colourName = t_colourName as Exclude<keyof typeof this.data, '$' | 'black' | 'white'>;
+
+            for ( const t_test_colourName in this.data ) {
+                // continues
+                if (
+                    t_test_colourName === '$'
+                    || t_test_colourName === 'black'
+                    || t_test_colourName === 'white'
+                ) {
+                    continue;
+                }
+
+                const test_colourName = t_test_colourName as Exclude<keyof typeof this.data, '$' | 'black' | 'white'>;
+
+                promises.push(
+                    this.data[ colourName ].addContrastTests(
+                        test_colourName,
+                        this.data[ test_colourName ],
+                    )
+                );
+            }
+        }
+
+        await Promise.all( promises );
     }
 
     public toJSON(): Tokens_Colour.JsonReturn<T_Types> {
+
         return objectMap(
             this.data,
-            ( [ key, value ] ) => value.toJSON(),
+            ( [ key, value ] ) =>
+                key === '$'
+                    ? objectMap(
+                        value as typeof this.data[ '$' ],
+                        ( [ _key, _val ] ) => ( _val as Tokens_Colour_ShadeMap.Shade<T_Types> ).toJSON()
+                    )
+                    : ( value as typeof this.data[ 'base' ] ).toJSON(),
         ) as Tokens_Colour.JsonReturn<T_Types>;
     }
 
     public toScssVars(): Tokens_Colour.ScssVars<T_Types> {
-        return objectKeySort(
+
+        return objectKeySort_Tokens(
             objectMap(
                 this.data,
-                ( [ key, value ] ) => value.toScssVars(),
+                ( [ key, value ] ) =>
+                    key === '$'
+                        ? objectMap(
+                            value as typeof this.data[ '$' ],
+                            ( [ _key, _val ] ) => ( _val as Tokens_Colour_ShadeMap.Shade<T_Types> ).toScssVars()
+                        )
+                        : ( value as typeof this.data[ 'base' ] ).toScssVars(),
             ) as Tokens_Colour.ScssVars<T_Types>
         );
     }
@@ -168,8 +203,10 @@ export namespace Tokens_Colour {
      * @since 0.1.0-alpha
      */
     export type Data<T_Types extends TokenTypes.Colour.TypeParams> = {
-        black: Tokens_Colour_ShadeMap.Shade<T_Types>;
-        white: Tokens_Colour_ShadeMap.Shade<T_Types>;
+        $: {
+            black: Tokens_Colour_ShadeMap.Shade<T_Types>;
+            white: Tokens_Colour_ShadeMap.Shade<T_Types>;
+        };
     } & TokenTypes.Colour.NameRecord<
         T_Types,
         Tokens_Colour_ShadeMap<T_Types>
@@ -190,8 +227,10 @@ export namespace Tokens_Colour {
      * @since 0.1.0-alpha
      */
     export type JsonReturn<T_Types extends TokenTypes.Colour.TypeParams> = {
-        black: Tokens_Colour_ShadeMap.Shade.JsonReturn<T_Types>;
-        white: Tokens_Colour_ShadeMap.Shade.JsonReturn<T_Types>;
+        $: {
+            black: Tokens_Colour_ShadeMap.Shade.JsonReturn<T_Types>;
+            white: Tokens_Colour_ShadeMap.Shade.JsonReturn<T_Types>;
+        };
     } & TokenTypes.Colour.NameRecord<
         T_Types,
         Tokens_Colour_ShadeMap.JsonReturn<T_Types>
@@ -201,8 +240,10 @@ export namespace Tokens_Colour {
      * @since ___PKG_VERSION___
      */
     export type ScssVars<T_Types extends TokenTypes.Colour.TypeParams> = {
-        black: Tokens_Colour_ShadeMap.Shade.ScssVars;
-        white: Tokens_Colour_ShadeMap.Shade.ScssVars;
+        $: {
+            black: Tokens_Colour_ShadeMap.Shade.ScssVars;
+            white: Tokens_Colour_ShadeMap.Shade.ScssVars;
+        };
     } & TokenTypes.Colour.NameRecord<
         T_Types,
         Tokens_Colour_ShadeMap.ScssVars<T_Types>

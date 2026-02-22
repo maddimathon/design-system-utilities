@@ -28,13 +28,9 @@ export function textColorLevel(
     | ColourUtilities.Levels.Required
     | ColourUtilities.Levels.Optional {
     switch ( lvl ) {
-        case 'black':
-            return 'white';
-
-        case 'white':
-            return 'black';
 
         case '100':
+        case 'white':
             return '700';
 
         case '150':
@@ -56,13 +52,13 @@ export function textColorLevel(
             return '900';
 
         case '450':
-            return '900';
+            return 'black';
 
         case '500':
-            return '100';
+            return 'white';
 
         case '550':
-            return '100';
+            return 'white';
 
         case '600':
             return '100';
@@ -83,6 +79,7 @@ export function textColorLevel(
             return '200';
 
         case '900':
+        case 'black':
             return '300';
     }
 }

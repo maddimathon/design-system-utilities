@@ -8,16 +8,15 @@
  * @license MIT
  */
 
-
 import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
 
 import type { TokenTypes } from '../../ts/02-tokens/@types.js';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
+import type { Tokens_Colour } from '../../ts/02-tokens/Tokens_Colour.js';
+import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
+import type { Tokens_Themes } from '../../ts/02-tokens/Tokens_Themes.js';
 
 import { getTokensDataFromClrSlug } from '../../ts/03-parsers/getTokensDataFromClrSlug.js';
-import type { Tokens_Colour, Tokens_Themes } from '../internal.docs.js';
-
-const _clrVarMaker = ( slug?: string ) => slug?.length ? `var(--clr-${ slug })` : String( slug ?? '' );
 
 /**
  * Takes a colour slug and returns a css-friendly colour code, if possible.
@@ -35,56 +34,67 @@ export function colourSlugToCSS<
     _clrSlug: string | string[],
     convertToVarFn: boolean = true,
 ): string {
-    const slug = Array.isArray( _clrSlug ) ? _clrSlug[ 0 ] : _clrSlug;
+    const clrSlug = Array.isArray( _clrSlug ) ? _clrSlug[ 0 ] : _clrSlug;
 
     const varMaker = convertToVarFn
-        ? _clrVarMaker
-        : ( slug?: string ) => String( slug ?? '' );
+        ? ( slug: undefined | string, value: null | string ) => slug?.length ? `var(--clr-${ slug }${ value ? `, ${ value }` : '' })` : String( value ?? slug ?? '' )
+        : ( slug: undefined | string, value: null | string ) => String( value ?? slug ?? '' );
 
     // returns
-    if ( !slug ) {
-        return varMaker( slug );
+    if ( !clrSlug ) {
+        return varMaker( clrSlug, null );
     }
 
     // returns
-    if ( slug === 'transparent' || slug === 'unset' ) {
-        return slug;
+    if (
+        ColourUtilities.CssColours.keywords.has( clrSlug as ColourUtilities.CssColours.Keyword )
+        || ColourUtilities.CssColours.systemColors.has( clrSlug as ColourUtilities.CssColours.SystemColor )
+    ) {
+        return clrSlug;
     }
 
     // returns
     if ( !tokens.colour ) {
-        return varMaker( slug );
+        return varMaker( clrSlug, null );
     }
 
-    const formatter = 'spacing' in tokens
-        ? ColourUtilities.toString.hsl
-        : ( str: any ) => String( str );
+    const formatter =
+        ( val: string | Tokens_Colour_ShadeMap.Shade.JsonReturn<T_Types[ 'colour' ]> ) =>
+            varMaker(
+                clrSlug,
+                typeof val === 'object'
+                    ? ColourUtilities.toString.hsl( val )
+                    : val.replace(
+                        /(^|,\s*)hsl\(\s*([\d\.]+)\s*[,\s]\s*([\d\.]+)%?\s*[,\s]\s*([\d\.]+)%?\s*\)(\b|\s*\)|$)/i,
+                        '$1hsl( $2, $3%, $4% )$5',
+                    ),
+            );
 
     // returns
-    if ( slug === 'black' || slug === 'white' ) {
+    if ( clrSlug === 'black' || clrSlug === 'white' ) {
 
         // returns
         if ( brightness === 'dark' ) {
             return formatter(
-                tokens.colour[ ColourUtilities.Levels.toDark( slug ) ]
+                tokens.colour.$[ ColourUtilities.Levels.toDark( clrSlug ) ],
             );
         }
 
-        return formatter( tokens.colour[ slug ] );
+        return formatter( tokens.colour.$[ clrSlug ] );
     }
 
-    const { name, level } = getTokensDataFromClrSlug( brightness, slug ) ?? {};
+    const { name, level } = getTokensDataFromClrSlug( brightness, clrSlug ) ?? {};
 
     // returns
     if ( !name || !level ) {
-        return varMaker( slug );
+        return varMaker( clrSlug, null );
     }
 
     const clr = tokens.colour[ name ]?.[ level ];
 
     // returns
     if ( !clr ) {
-        return varMaker( slug );
+        return varMaker( clrSlug, null );
     }
 
     return formatter( clr );

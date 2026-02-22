@@ -366,7 +366,7 @@ const allTokenLevels = arrayUnique(Object.values(tokens.colour).map(
 const colour = colourToArray(props);
 
 const primaryColour = tokens.colour[
-    Object.keys(tokens.colour).filter( k =>  k.match(/^(base|black|white)(\-|\_|$)/i) === null )[0] as Exclude<keyof typeof tokens.colour, "black"|"white">
+    Object.keys(tokens.colour).filter( k =>  k.match(/^(base|black|white)(\-|\_|$)/i) === null )[0] as Exclude<keyof typeof tokens.colour, "base"|"black"|"white">
 ] ?? tokens.colour.base;
 
 const targets: {

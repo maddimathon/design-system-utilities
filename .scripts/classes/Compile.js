@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 // @ts-check
+'use strict';
 /*
  * @package @maddimathon/design-system-utilities
  * @author Maddi Mathon (www.maddimathon.com)
@@ -14,6 +15,8 @@
 import {
     CompileStage,
 } from '@maddimathon/build-utilities';
+
+import { setSassCompilerFns } from '../functions/setSassCompilerFns.js';
 
 /**
  * Extension of the built-in one.
@@ -41,34 +44,7 @@ export class Compile extends CompileStage {
     /**
      * @protected
      */
-    async setSassCompilerFns() {
-        /** @type { undefined | typeof import( 'src/ts/build-utils/sass-functions/themeFlattenGetValues.ts' ) } */
-        // @ts-ignore
-        const { sassFn_themeFlattenGetValues } = await import( '../../dist/ts/build-utils/sass-functions/themeFlattenGetValues.js' );
-
-        // const args = {
-        //     config: this.config,
-        //     console: this.console,
-        //     params: this.params,
-        // };
-
-        const themeFlattenGetValues = sassFn_themeFlattenGetValues();
-
-        if ( this.compiler.args.sass ) {
-
-            if ( !this.compiler.args.sass.functions ) {
-                this.compiler.args.sass.functions = {};
-            }
-
-            this.compiler.args.sass.functions[ themeFlattenGetValues[ 0 ] ] = themeFlattenGetValues[ 1 ];
-        }
-    }
-
-    /**
-     * @protected
-     */
     async astro() {
-        await this.setSassCompilerFns();
         await this.runCustomDirCopySubStage( 'astro' );
     }
 
@@ -77,13 +53,19 @@ export class Compile extends CompileStage {
      * @override
      */
     async scss() {
-        await this.setSassCompilerFns();
         await this.runCustomDirCopySubStage( 'scss' );
+
+        await setSassCompilerFns( this.compiler, {
+            config: this.config,
+            console: this.console,
+            params: this.params,
+        } );
 
         const cssPaths = await this.runCustomScssDirSubStage(
             '',
             'src/astro/css',
             {
+                // maxConcurrent: 1,
                 postCSS: true,
                 srcDir: 'src/scss/_astro',
             },
@@ -115,53 +97,19 @@ export class Compile extends CompileStage {
 
     /**
      * @protected
-     * @override
-     */
-    async ts() {
-        await super.ts();
-
-        this.console.verbose( 'copying definitions...', 2 );
-        this.try(
-            this.fs.copy,
-            ( this.params.verbose ? 3 : 2 ),
-            [
-                '**/*.d.ts',
-                ( this.params.verbose ? 3 : 2 ),
-                this.getDistDir( undefined, 'ts' ),
-                this.getSrcDir( undefined, 'ts' ),
-                {
-                    force: true,
-                    rename: false,
-                    recursive: true,
-                },
-            ],
-        );
-
-        this.console.verbose( 'tidying up compiled files...', 2 );
-
-        this.try(
-            this.fs.delete,
-            ( this.params.verbose ? 3 : 2 ),
-            [ [
-                'dist/ts/**/*.docs.js',
-                'dist/ts/**/*.docs.js.map',
-
-                'dist/ts/**/*.docs.ts',
-                'dist/ts/**/*.docs.d.ts',
-                'dist/ts/**/*.docs.d.ts.map',
-            ], ( this.params.verbose ? 3 : 2 ) ]
-        );
-    }
-
-    /**
-     * @protected
      */
     async templates() {
+        await setSassCompilerFns( this.compiler, {
+            config: this.config,
+            console: this.console,
+            params: this.params,
+        } );
 
         await this.runCustomScssDirSubStage(
             'template',
             'dist/css',
             {
+                // maxConcurrent: 1,
                 postCSS: true,
                 srcDir: 'src/scss',
             },
@@ -214,6 +162,46 @@ export class Compile extends CompileStage {
                 tokenScss,
                 { force: true }
             ],
+        );
+    }
+
+    /**
+     * @protected
+     * @override
+     */
+    async ts() {
+        await super.ts();
+
+        this.console.verbose( 'copying definitions...', 2 );
+        this.try(
+            this.fs.copy,
+            ( this.params.verbose ? 3 : 2 ),
+            [
+                '**/*.d.ts',
+                ( this.params.verbose ? 3 : 2 ),
+                this.getDistDir( undefined, 'ts' ),
+                this.getSrcDir( undefined, 'ts' ),
+                {
+                    force: true,
+                    rename: false,
+                    recursive: true,
+                },
+            ],
+        );
+
+        this.console.verbose( 'tidying up compiled files...', 2 );
+
+        this.try(
+            this.fs.delete,
+            ( this.params.verbose ? 3 : 2 ),
+            [ [
+                'dist/ts/**/*.docs.js',
+                'dist/ts/**/*.docs.js.map',
+
+                'dist/ts/**/*.docs.ts',
+                'dist/ts/**/*.docs.d.ts',
+                'dist/ts/**/*.docs.d.ts.map',
+            ], ( this.params.verbose ? 3 : 2 ) ]
         );
     }
 }

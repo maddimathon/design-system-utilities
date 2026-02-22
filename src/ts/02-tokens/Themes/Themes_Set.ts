@@ -22,7 +22,7 @@ import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
 import { objectFlatten } from '../../01-utilities/objectFlatten.js';
 import { objectGenerator } from '../../01-utilities/objectGenerator.js';
 import { objectGeneratorAsync } from '../../01-utilities/objectGenerator.js';
-import { objectKeySort } from '../../01-utilities/objectKeySort.js';
+import { objectKeySort_Tokens } from '../../01-utilities/objectKeySort_Tokens.js';
 import { objectMap } from '../../01-utilities/objectMap.js';
 
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
@@ -553,7 +553,7 @@ export namespace Tokens_Themes_Set {
                 constrast: this.constrast,
                 description: this.description ?? undefined,
 
-                data: objectKeySort(
+                data: objectKeySort_Tokens(
                     {
                         ...this.data,
 
@@ -591,7 +591,7 @@ export namespace Tokens_Themes_Set {
             return {
                 ...this.toJSON().data,
 
-                system: objectKeySort(
+                system: objectKeySort_Tokens(
                     {
                         ...this.data.system,
 
@@ -1178,8 +1178,8 @@ export namespace Tokens_Themes_Set {
 
                 export const low = {
                     background: {
-                        $: '300',
-                        bright: '300',
+                        $: '250',
+                        bright: '200',
                         accent: '250',
                         grey: '250',
                     },

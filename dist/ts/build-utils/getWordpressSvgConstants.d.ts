@@ -14,4 +14,4 @@ import type { Tokens } from '../02-tokens/Tokens.js';
  *
  * @since 0.1.1-alpha.1.draft
  */
-export declare function getWordpressSvgConstants<T_SetName extends "icons" | "logos">(setName: T_SetName, svgSet: Tokens.JsonReturn[T_SetName] | Tokens.Instance[T_SetName], textDomain: string): Promise<string | undefined>;
+export declare function getWordpressSvgConstants<T_SetName extends "icons" | "logos">(_setName: T_SetName, svgSet: Tokens.JsonReturn[T_SetName] | Tokens.Instance[T_SetName], phpNamespace: string, textDomain: string): Promise<string | undefined>;
