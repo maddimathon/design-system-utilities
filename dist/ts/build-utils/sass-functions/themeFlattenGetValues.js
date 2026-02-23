@@ -7,12 +7,9 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
-import { jsValueToSass, 
-// jsValueToSass,
-sassAssertValueType, } from '@maddimathon/utility-sass';
+import { jsValueToSass, mapToObjectAsync, sassAssertValueType, } from '@maddimathon/utility-sass';
 import * as sass from "sass-embedded";
 import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
-import { mapToObjectRecursive } from '../../01-utilities/mapToObjectRecursive.js';
 import { objectFlatten } from '../../01-utilities/objectFlatten.js';
 import { objectGeneratorAsync } from '../../01-utilities/objectGenerator.js';
 import { objectMapAsync } from '../../01-utilities/objectMapAsync.js';
@@ -29,8 +26,8 @@ export function sassFn_themeFlattenGetValues({ console }) {
         'mmdsu-global-themeFlattenGetValues( $colours, $themes, $replaceVarClrWithValue, $includeHSL, $includeRGB )',
         async (args) => {
             const [colourTokens, themeTokens, replaceVarClrWithValue = false, includeHSL = true, includeRGB = false,] = await Promise.all([
-                sassAssertValueType('map', args[0])?.then(map => (map instanceof Map ? mapToObjectRecursive(map) : map)),
-                sassAssertValueType('map', args[1])?.then(map => (map instanceof Map ? mapToObjectRecursive(map) : map)),
+                sassAssertValueType('map', args[0])?.then(map => (map instanceof Map ? mapToObjectAsync(map) : map)),
+                sassAssertValueType('map', args[1])?.then(map => (map instanceof Map ? mapToObjectAsync(map) : map)),
                 sassAssertValueType('bool', args[2]),
                 sassAssertValueType('bool', args[3]),
                 sassAssertValueType('bool', args[4]),

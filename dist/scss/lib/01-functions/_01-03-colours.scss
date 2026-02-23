@@ -16,6 +16,7 @@
 
 $_activeTheme: map.get(tokens.$themes, tokens.$activeTheme);
 
+// TODO - switch to parse-args when utility-sass is updated
 $_systemColors: map.merge(
     $defaults: utils.get-sys-colours(),
     $inputs: map.get($_activeTheme, forced-colors, system),
@@ -180,102 +181,6 @@ $_systemColors: map.flatten(
 
     @return $tokenValue;
 }
-
-// ///
-// /// @since 0.1.1-alpha.1.draft
-// ///
-// @function _build_valid_themes__nestedFlat_tokenValues($themes__nestedFlat_tokenValues) {
-//     // returns
-//     @if $themes__nestedFlat_tokenValues != null {
-//         @return $themes__nestedFlat_tokenValues;
-//     }
-
-//     $themes__nestedFlat_tokenValues: ();
-
-//     @each $themeKey, $themeMap in tokens.$themes__nestedFlat {
-//         //
-//         @each $brightness, $brightnessMap in $themeMap {
-//             @if $brightness != forced-colors {
-//                 //
-//                 @each $contrast, $flattenedModeMap in $brightnessMap {
-//                     @each $prop, $value in $flattenedModeMap {
-//                         @if meta.type-of($value) == list {
-//                             $value: list.nth($value, 1);
-//                         }
-
-//                         $flattenedModeMap: map.set(
-//                             $flattenedModeMap,
-//                             $prop,
-//                             var-clr-from-theme-token($value, $brightness: $brightness)
-//                         );
-
-//                         @if config.$print_colourValues_hsl {
-//                             $flattenedModeMap: map.set(
-//                                 $flattenedModeMap,
-//                                 '#{$prop}-hsl',
-//                                 var-clr-from-theme-token(
-//                                     $value,
-//                                     $brightness: $brightness,
-//                                     $version: hsl
-//                                 )
-//                             );
-//                         }
-
-//                         @if config.$print_colourValues_rgb {
-//                             $flattenedModeMap: map.set(
-//                                 $flattenedModeMap,
-//                                 '#{$prop}-rgb',
-//                                 var-clr-from-theme-token(
-//                                     $value,
-//                                     $brightness: $brightness,
-//                                     $version: rgb
-//                                 )
-//                             );
-//                         }
-//                     }
-
-//                     $brightnessMap: map.set(
-//                         $brightnessMap,
-//                         $contrast,
-//                         map.ksort($flattenedModeMap)
-//                     );
-//                 }
-//             }
-
-//             $themeMap: map.set($themeMap, $brightness, $brightnessMap);
-//         }
-
-//         $themes__nestedFlat_tokenValues: map.set(
-//             $themes__nestedFlat_tokenValues,
-//             $themeKey,
-//             $themeMap
-//         );
-//     }
-
-//     @return $themes__nestedFlat_tokenValues;
-// }
-
-// $_valid_themes__nestedFlat_tokenValues: tokens.$themes__nestedFlat_tokenValues;
-
-// @if $_valid_themes__nestedFlat_tokenValues == null and config.$print_tokens {
-//     //
-//     $_valid_themes__nestedFlat_tokenValues: _build_valid_themes__nestedFlat_tokenValues(
-//         tokens.$themes__nestedFlat_tokenValues
-//     );
-// }
-
-// ///
-// /// @since 0.1.1-alpha.1.draft
-// ///
-// @function get-themes-nested-flat-as-token-values() {
-//     @if $_valid_themes__nestedFlat_tokenValues == null {
-//         $_valid_themes__nestedFlat_tokenValues: _build_valid_themes__nestedFlat_tokenValues(
-//             $_valid_themes__nestedFlat_tokenValues
-//         );
-//     }
-
-//     @return $_valid_themes__nestedFlat_tokenValues;
-// }
 
 /// THEME
 /// ======================================================================== ///

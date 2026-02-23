@@ -38,12 +38,6 @@ sortMaker) {
         ? (a, b) => {
             const sort_a = sortMaker(a[0]);
             const sort_b = sortMaker(b[0]);
-            // console.log( {
-            //     'a[ 0 ]': a[ 0 ],
-            //     'b[ 0 ]': b[ 0 ],
-            //     sort_a,
-            //     sort_b,
-            // } );
             if (sort_a > sort_b) {
                 return 1;
             }

@@ -8,7 +8,6 @@
  * @license MIT
  */
 
-
 /**
  * Makes any input a number if it makes a valid number.
  * 

@@ -9,10 +9,10 @@
  */
 
 import {
-    jsValueToSass,
     type RecursiveRecord,
 
-    // jsValueToSass,
+    jsValueToSass,
+    mapToObjectAsync,
     sassAssertValueType,
 } from '@maddimathon/utility-sass';
 
@@ -28,7 +28,6 @@ import type {
 import * as sass from "sass-embedded";
 
 import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
-import { mapToObjectRecursive } from '../../01-utilities/mapToObjectRecursive.js';
 import { objectFlatten } from '../../01-utilities/objectFlatten.js';
 import { objectGeneratorAsync } from '../../01-utilities/objectGenerator.js';
 import { objectMapAsync } from '../../01-utilities/objectMapAsync.js';
@@ -63,8 +62,8 @@ export function sassFn_themeFlattenGetValues( { console }: {
                 includeHSL = true,
                 includeRGB = false,
             ] = await Promise.all( [
-                sassAssertValueType( 'map', args[ 0 ] )?.then( map => ( map instanceof Map ? mapToObjectRecursive( map ) : map ) as undefined | Tokens_Colour.ScssVars<TokenTypes.Colour.TypeParams> ),
-                sassAssertValueType( 'map', args[ 1 ] )?.then( map => ( map instanceof Map ? mapToObjectRecursive( map ) : map ) as undefined | Tokens_Themes.ScssVars<TokenTypes.Colour.TypeParams, TokenTypes.Theme.TypeParams> ),
+                sassAssertValueType( 'map', args[ 0 ] )?.then( map => ( map instanceof Map ? mapToObjectAsync( map ) : map ) as undefined | Tokens_Colour.ScssVars<TokenTypes.Colour.TypeParams> ),
+                sassAssertValueType( 'map', args[ 1 ] )?.then( map => ( map instanceof Map ? mapToObjectAsync( map ) : map ) as undefined | Tokens_Themes.ScssVars<TokenTypes.Colour.TypeParams, TokenTypes.Theme.TypeParams> ),
                 sassAssertValueType( 'bool', args[ 2 ] ),
                 sassAssertValueType( 'bool', args[ 3 ] ),
                 sassAssertValueType( 'bool', args[ 4 ] ),
