@@ -11557,8 +11557,10 @@ body > nav[data-toggle-container] {
 html:where(.js),
 :where(.js) body {
     --height-nav-primary: 3.125rem;
-    --scroll-padding-top: get-scroll-padding-top-value();
-    scroll-padding-top: get-scroll-padding-top-value();
+    --scroll-padding-top: calc(
+        var(--height-nav-primary, 0) + var(--gap-block-layout, 5vw)
+    );
+    scroll-padding-top: calc(3.125rem + max(1.625rem, min(5svw, 3.125rem)));
     scroll-padding-top: var(
         --scroll-padding-top,
         calc(var(--height-nav-primary, 0) + var(--gap-block-layout, 5vw))
