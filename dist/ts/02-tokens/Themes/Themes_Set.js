@@ -690,64 +690,49 @@ export class Tokens_Themes_Set extends AbstractTokens {
                         ui: textOrBg,
                     };
                 };
-                const button = {
-                    ...objectMap({
-                        ...variations.universal,
-                        disabled: variations.interactive.disabled,
-                    }, ([key, clrName]) => singleButtonMaker(key, clrName)),
-                    // disabled: {
-                    //     background: {
-                    //         $: clrOpt( variations.base, levels.text.min ),
-                    //         hover: clrOpt( variations.base, levels.text.min ),
-                    //         active: clrOpt( variations.base, levels.text.min ),
-                    //     },
-                    //     border: {
-                    //         $: clrOpt( variations.base, levels.text.min ),
-                    //         hover: clrOpt( variations.base, levels.text.min ),
-                    //         active: clrOpt( variations.base, levels.text.min ),
-                    //     },
-                    //     outline: {
-                    //         hover: clrOpt( variations.base, levels.text.min ),
-                    //         active: clrOpt( variations.base, levels.text.min ),
-                    //     },
-                    //     text: {
-                    //         $: clrOpt( variations.base, levels.background.$ ),
-                    //         hover: clrOpt( variations.base, levels.background.$ ),
-                    //         active: clrOpt( variations.base, levels.background.$ ),
-                    //     },
-                    //     ui: {
-                    //         $: clrOpt( variations.base, levels.background.$ ),
-                    //         hover: clrOpt( variations.base, levels.background.$ ),
-                    //         active: clrOpt( variations.base, levels.background.$ ),
-                    //     },
-                    // },
-                };
+                const button = objectMap({
+                    ...variations.universal,
+                    disabled: variations.interactive.disabled,
+                }, ([key, clrName]) => overrides.button?.[key] ?? singleButtonMaker(key, clrName));
                 const singleInputMaker = (_variation) => {
-                    const _variationValue = _variation === 'base'
-                        ? variations.base
-                        : variations.universal[_variation] ?? variations.text[_variation] ?? 'base';
                     return {
                         accent: {
-                            $: clrOpt(_variationValue, levels.ui.accent),
+                            $: _variation !== 'readonly' ? (text[_variation] ?? text.$) : text.$,
                             focus: clrOpt(variations.interactive.hover, levels.ui.accent),
                             hover: clrOpt(variations.interactive.hover, levels.ui.accent),
                             active: clrOpt(variations.interactive.active, levels.ui.accent),
                         },
-                        background: clrOpt(variations.base, levels.background.$),
+                        background: clrOpt(variations.base, _variation === 'readonly' ? levels.background.grey : levels.background.bright),
                         border: {
-                            $: clrOpt(_variationValue, levels.ui.accent),
+                            $: _variation !== 'readonly' ? (ui[_variation] ?? ui.$) : ui.$,
                             focus: clrOpt(variations.interactive.hover, levels.ui.accent),
                             hover: clrOpt(variations.interactive.hover, levels.ui.accent),
                             active: clrOpt(variations.interactive.active, levels.ui.accent),
                         },
-                        placeholder: clrOpt(variations.base, levels.text.min),
-                        text: clrOpt(variations.base, levels.text.$),
+                        placeholder: text.disabled,
+                        text: text.$,
                     };
                 };
                 const inputField = {
-                    $: singleInputMaker('primary'),
-                    disabled: singleInputMaker('disabled'),
-                    readonly: singleInputMaker('readonly'),
+                    $: overrides.input?.$ ?? singleInputMaker('primary'),
+                    disabled: overrides.input?.disabled ?? {
+                        accent: {
+                            $: ui.disabled,
+                            focus: ui.disabled,
+                            hover: ui.disabled,
+                            active: ui.disabled,
+                        },
+                        background: clrOpt(variations.interactive.disabled, levels.background.grey),
+                        border: {
+                            $: ui.disabled,
+                            focus: ui.disabled,
+                            hover: ui.disabled,
+                            active: ui.disabled,
+                        },
+                        placeholder: text.disabled,
+                        text: text.disabled,
+                    },
+                    readonly: overrides.input?.readonly ?? singleInputMaker('readonly'),
                 };
                 return {
                     background,

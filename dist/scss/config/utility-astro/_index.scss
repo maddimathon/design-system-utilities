@@ -19,6 +19,9 @@ $internal_supressCredit: fns.config-valid-bool(
     'internal_supressCredit'
 );
 
+$print_skipLinks: lib.$print_astro or (lib.$print_utils and lib.$include_html) !default;
+$print_skipLinks: fns.config-valid-bool($print_skipLinks, 'print_skipLinks');
+
 $print_astro_settingsMenu: lib.$print_astro !default;
 $print_astro_settingsMenu: fns.config-valid-bool(
     $print_astro_settingsMenu,

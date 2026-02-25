@@ -675,7 +675,7 @@ export declare namespace Tokens {
                  * @since 0.1.0-alpha
                  * @deprecated
                  */
-                interface RecursivePartial<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_Types['colour']> = TokenTypes.Theme.ColourOption<T_Types['colour']>> extends Tokens_Themes_Set.SingleMode.Data.RecursivePartial<T_Types['colour'], T_Types['theme'], __T_ColourOption> {
+                interface RecursivePartial<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_Types['colour']> = TokenTypes.Theme.ColourOption<T_Types['colour']>> extends Tokens_Themes_Set.SingleMode.Data.Partial<T_Types['colour'], T_Types['theme'], __T_ColourOption> {
                 }
             }
             /**

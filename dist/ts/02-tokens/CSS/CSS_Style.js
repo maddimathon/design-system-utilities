@@ -62,6 +62,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 offset: '400',
             },
             font: {
+                size: 'normal',
                 style: 'normal',
                 weight: '500',
             },
@@ -92,7 +93,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
                     style: 'dashed',
                 },
                 font: {
-                    ...style.font,
+                    weight: style.font.weight,
                     style: 'italic',
                 },
                 'letter-spacing': style['letter-spacing'],

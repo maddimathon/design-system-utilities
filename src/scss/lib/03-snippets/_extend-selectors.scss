@@ -28,7 +28,7 @@
 
     $additional: list.append($additional, ((cite, dt, p), 'paragraph-margins'));
     $additional: list.append($additional, ((li), 'paragraph-small-margins'));
-    $additional: list.append($additional, ((img, figure), 'paragraph-firm-margins'));
+    $additional: list.append($additional, ((details, figure, img), 'paragraph-firm-margins'));
 
     $additional: list.append(
         $additional,
@@ -46,6 +46,16 @@
                 ('.theme-mode-swatch__sample--selection', 'selection'),
                 ('.website-settings-menu [data-settings-reset]', button-form-reset)
             ),
+            $separator: comma
+        );
+    }
+
+    @if config.$print_skipLinks {
+        // $additional: list.append($additional, ('.skip-link', 'skip-link'), $separator: comma);
+
+        $additional: list.append(
+            $additional,
+            ('.skip-link-list', 'skip-link-list'),
             $separator: comma
         );
     }
@@ -99,7 +109,7 @@
                         selector.unify(
                             (
                                 button,
-                                'a',
+                                'a[href]',
                                 "[role='button']",
                                 "input[type='button']",
                                 "input[type='submit']"

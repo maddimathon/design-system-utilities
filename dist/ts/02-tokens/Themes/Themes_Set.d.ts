@@ -59,7 +59,7 @@ export declare namespace Tokens_Themes_Set {
         name: __T_ThisThemeName;
         variations?: Tokens_Themes_Set.SingleMode.InputParam<T_ColourTypes, T_ThemeTypes>['variations'];
         forcedColours?: Omit<Tokens_Themes_Set.SingleMode.InputParam<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>, "levels" | "variations"> & {
-            overrides?: Tokens_Themes_Set.SingleMode.Data.RecursivePartial<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>;
+            overrides?: Tokens_Themes_Set.SingleMode.Data.Partial<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>;
         };
     } & TokenTypes.Theme.Mode.PartialNestedObject<T_ThemeTypes, Tokens_Themes_Set.SingleMode.InputParam<T_ColourTypes, T_ThemeTypes>>;
     /**
@@ -93,8 +93,8 @@ export declare namespace Tokens_Themes_Set {
         readonly description: null | string;
         readonly levelsInUse: ("black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional)[];
         readonly data: SingleMode.Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption>;
-        static build<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(themeName: "default" | T_ThemeTypes['name'], brightness: null, constrast: "forcedColors", clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>, input: SingleMode.InputParam<NoInfer<T_ColourTypes>, T_ThemeTypes, TokenTypes.Css.SystemColor>, overrides?: SingleMode.Data.RecursivePartial<NoInfer<T_ColourTypes>, NoInfer<T_ThemeTypes>, TokenTypes.Css.SystemColor>): Promise<SingleMode<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>>;
-        static build<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(themeName: "default" | T_ThemeTypes['name'], brightness: TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>, constrast: TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>, clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>, input: SingleMode.InputParam<NoInfer<T_ColourTypes>, T_ThemeTypes>, overrides?: SingleMode.Data.RecursivePartial<NoInfer<T_ColourTypes>, NoInfer<T_ThemeTypes>>): Promise<SingleMode<T_ColourTypes, T_ThemeTypes>>;
+        static build<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(themeName: "default" | T_ThemeTypes['name'], brightness: null, constrast: "forcedColors", clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>, input: SingleMode.InputParam<NoInfer<T_ColourTypes>, T_ThemeTypes, TokenTypes.Css.SystemColor>, overrides?: SingleMode.Data.Partial<NoInfer<T_ColourTypes>, NoInfer<T_ThemeTypes>, TokenTypes.Css.SystemColor>): Promise<SingleMode<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>>;
+        static build<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(themeName: "default" | T_ThemeTypes['name'], brightness: TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>, constrast: TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>, clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>, input: SingleMode.InputParam<NoInfer<T_ColourTypes>, T_ThemeTypes>, overrides?: SingleMode.Data.Partial<NoInfer<T_ColourTypes>, NoInfer<T_ThemeTypes>>): Promise<SingleMode<T_ColourTypes, T_ThemeTypes>>;
         protected constructor(name: "default" | T_ThemeTypes['name'], brightness: TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>, constrast: TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>, description: null | string, levelsInUse: ("black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional)[], data: SingleMode.Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption>);
         toJSON(): SingleMode.JsonReturn<T_ColourTypes, T_ThemeTypes, __T_ColourOption>;
         toScssVars(): SingleMode.ScssVars<T_ColourTypes, T_ThemeTypes, __T_ColourOption>;
@@ -243,7 +243,7 @@ export declare namespace Tokens_Themes_Set {
              * @since 0.1.0-alpha
              * @since 0.1.1-alpha.1.draft — Moved to SingleMode.Data and renamed.
              */
-            type RecursivePartial<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>> = {
+            type Partial<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>> = {
                 background?: undefined | {
                     $?: undefined | __T_ColourOption;
                 } & {
@@ -314,12 +314,7 @@ export declare namespace Tokens_Themes_Set {
                     [K in T_ThemeTypes['variations']['universal']]?: undefined | Data.Button<T_ColourTypes, __T_ColourOption>;
                 };
                 input?: undefined | {
-                    [K in "$" | "disabled" | "readonly"]?: {
-                        accent?: undefined | Data.Input<T_ColourTypes, __T_ColourOption>['accent'];
-                        background?: undefined | Data.Input<T_ColourTypes, __T_ColourOption>['background'];
-                        border?: undefined | Data.Input<T_ColourTypes, __T_ColourOption>['border'];
-                        text?: undefined | Data.Input<T_ColourTypes, __T_ColourOption>['text'];
-                    };
+                    [K in "$" | "disabled" | "readonly"]?: undefined | Data.Input<T_ColourTypes, __T_ColourOption>;
                 };
                 system?: undefined | {
                     accent?: undefined | {
@@ -732,7 +727,7 @@ export declare namespace Tokens_Themes_Set {
              *
              * @since 0.1.0-alpha
              */
-            function data<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(inputParam: Param<T_ColourTypes, T_ThemeTypes>, overrides: Data.RecursivePartial<NoInfer<T_ColourTypes>, NoInfer<T_ThemeTypes>>): Promise<Data<T_ColourTypes, T_ThemeTypes>>;
+            function data<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(inputParam: Param<T_ColourTypes, T_ThemeTypes>, overrides: Data.Partial<NoInfer<T_ColourTypes>, NoInfer<T_ThemeTypes>>): Promise<Data<T_ColourTypes, T_ThemeTypes>>;
             /**
              * An easy way to generate a complete token set from limited inputs.
              *

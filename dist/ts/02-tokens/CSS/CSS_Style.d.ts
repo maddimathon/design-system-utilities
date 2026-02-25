@@ -106,6 +106,12 @@ export declare namespace Tokens_CSS_Style {
             offset: TokenLevels;
         };
         font: {
+            /**
+             * Should be a font-size token slug.
+             *
+             * @since 0.1.1-alpha.1.draft
+             */
+            size: string;
             style: "normal" | "italic";
             weight: TokenLevels;
         };
@@ -128,8 +134,9 @@ export declare namespace Tokens_CSS_Style {
         };
         width: string;
     };
-    type ButtonStyles_Disabled = Omit<ButtonStyles, 'border' | 'focus' | 'gap' | 'line-height' | 'margin' | 'padding' | 'width'> & {
+    type ButtonStyles_Disabled = Omit<ButtonStyles, 'border' | 'focus' | 'font' | 'gap' | 'line-height' | 'margin' | 'padding' | 'width'> & {
         border: Omit<ButtonStyles['border'], 'width'>;
+        font: Omit<ButtonStyles['font'], 'size'>;
         'letter-spacing': string;
         'text-transform': CSS.TextTransform;
     };

@@ -4,7 +4,7 @@
  */
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0-alpha.32
+ * @maddimathon/utility-sass@0.1.0-alpha.34
  * 
  * https://maddimathon.github.io/utility-sass
  */
@@ -362,9 +362,9 @@ html {
 /* #region Tokens - Gap */
 html {
     --gap-block-layout: 5vw;
-    --gap-block-layout: max(1.625rem, min(5svw, 5.8125rem));
+    --gap-block-layout: max(1.625rem, min(5svw, 3.125rem));
     --gap-block-layout-half: 2.5vw;
-    --gap-block-layout-half: max(0.8125rem, min(2.5svw, 2.90625rem));
+    --gap-block-layout-half: max(0.8125rem, min(2.5svw, 1.5625rem));
     --gap-inline-indent: 9%;
     --gap-inline-indent: max(0.5rem, min(9%, 4rem));
     --gap-inline-layout: 8vw;
@@ -447,54 +447,51 @@ html {
 /* #endregion Tokens - Stroke Relative */
 /* #region Tokens - Transitions */
 html {
-    --transition: none;
+    --transition:
+        background-color 250ms ease-in-out, border-color 250ms ease-in-out,
+        box-shadow 250ms ease-in-out, color 250ms ease-in-out,
+        font-weight 250ms ease-in-out, opacity 250ms ease-in-out,
+        outline-color 250ms ease-in-out,
+        text-decoration-color 250ms ease-in-out, text-shadow 250ms ease-in-out,
+        visibility 250ms ease-in-out;
 }
 
 @media (prefers-reduced-motion: no-preference) {
     :where(.js) {
         --transition:
             background-color 250ms ease-in-out, border-color 250ms ease-in-out,
-            color 250ms ease-in-out, font-weight 250ms ease-in-out,
-            opacity 250ms ease-in-out, outline-color 250ms ease-in-out,
+            box-shadow 250ms ease-in-out, color 250ms ease-in-out,
+            font-weight 250ms ease-in-out, opacity 250ms ease-in-out,
+            outline-color 250ms ease-in-out,
             text-decoration-color 250ms ease-in-out,
-            visibility 250ms ease-in-out, aspect-ratio 250ms ease-in-out,
+            text-shadow 250ms ease-in-out, visibility 250ms ease-in-out,
+            aspect-ratio 250ms ease-in-out, border-color 250ms ease-in-out,
             bottom 250ms ease-in-out, font-weight 250ms ease-in-out,
             height 250ms ease-in-out, left 250ms ease-in-out,
-            margin 250ms ease-in-out, padding 250ms ease-in-out,
-            right 250ms ease-in-out, top 250ms ease-in-out,
-            transform 250ms ease-in-out, width 250ms ease-in-out;
+            margin 250ms ease-in-out, max-height 250ms ease-in-out,
+            max-width 250ms ease-in-out, min-height 250ms ease-in-out,
+            min-width 250ms ease-in-out, outline-color 250ms ease-in-out,
+            padding 250ms ease-in-out, right 250ms ease-in-out,
+            top 250ms ease-in-out, transform 250ms ease-in-out,
+            width 250ms ease-in-out;
     }
 }
 [data-motion="no-preference"]:where(.js) {
     --transition:
         background-color 250ms ease-in-out, border-color 250ms ease-in-out,
-        color 250ms ease-in-out, font-weight 250ms ease-in-out,
-        opacity 250ms ease-in-out, outline-color 250ms ease-in-out,
-        text-decoration-color 250ms ease-in-out, visibility 250ms ease-in-out,
-        aspect-ratio 250ms ease-in-out, bottom 250ms ease-in-out,
+        box-shadow 250ms ease-in-out, color 250ms ease-in-out,
+        font-weight 250ms ease-in-out, opacity 250ms ease-in-out,
+        outline-color 250ms ease-in-out,
+        text-decoration-color 250ms ease-in-out, text-shadow 250ms ease-in-out,
+        visibility 250ms ease-in-out, aspect-ratio 250ms ease-in-out,
+        border-color 250ms ease-in-out, bottom 250ms ease-in-out,
         font-weight 250ms ease-in-out, height 250ms ease-in-out,
         left 250ms ease-in-out, margin 250ms ease-in-out,
-        padding 250ms ease-in-out, right 250ms ease-in-out,
-        top 250ms ease-in-out, transform 250ms ease-in-out,
-        width 250ms ease-in-out;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    :where(.js) {
-        --transition:
-            background-color 250ms ease-in-out, border-color 250ms ease-in-out,
-            color 250ms ease-in-out, font-weight 250ms ease-in-out,
-            opacity 250ms ease-in-out, outline-color 250ms ease-in-out,
-            text-decoration-color 250ms ease-in-out,
-            visibility 250ms ease-in-out !important;
-    }
-}
-[data-motion="reduce"]:where(.js) {
-    --transition:
-        background-color 250ms ease-in-out, border-color 250ms ease-in-out,
-        color 250ms ease-in-out, font-weight 250ms ease-in-out,
-        opacity 250ms ease-in-out, outline-color 250ms ease-in-out,
-        text-decoration-color 250ms ease-in-out, visibility 250ms ease-in-out !important;
+        max-height 250ms ease-in-out, max-width 250ms ease-in-out,
+        min-height 250ms ease-in-out, min-width 250ms ease-in-out,
+        outline-color 250ms ease-in-out, padding 250ms ease-in-out,
+        right 250ms ease-in-out, top 250ms ease-in-out,
+        transform 250ms ease-in-out, width 250ms ease-in-out;
 }
 
 /* #endregion Tokens - Transitions */
@@ -524,9 +521,9 @@ html,
     --sys-clr-button-text: hsl(339.45, 0%, 91.26%); /* base-150 */
     --sys-clr-button-text-active: hsl(339.45, 0%, 91.26%); /* base-150 */
     --sys-clr-button-text-hover: hsl(339.45, 0%, 91.26%); /* base-150 */
-    --sys-clr-input-bg: hsl(339.45, 0%, 91.26%); /* base-150 */
-    --sys-clr-input-bg-hover: hsl(339.45, 0%, 91.26%); /* base-150 */
-    --sys-clr-input-bg-active: hsl(339.45, 0%, 91.26%); /* base-150 */
+    --sys-clr-input-bg: hsl(339.45, 0%, 96.6%); /* base-100 */
+    --sys-clr-input-bg-hover: hsl(339.45, 0%, 96.6%); /* base-100 */
+    --sys-clr-input-bg-active: hsl(339.45, 0%, 96.6%); /* base-100 */
     --sys-clr-input-border: hsl(278.16, 60.54%, 30.06%); /* purple-700 */
     --sys-clr-input-border-hover: hsl(162, 69%, 16.5%); /* turquoise-700 */
     --sys-clr-input-border-active: hsl(2.81, 72.25%, 28.09%); /* red-700 */
@@ -757,8 +754,8 @@ html,
     --theme-input-accent-focus-hsl: 162, 69%, 16.5%;
     --theme-input-accent-hover: hsl(162, 69%, 16.5%); /* turquoise-700 */
     --theme-input-accent-hover-hsl: 162, 69%, 16.5%;
-    --theme-input-background: hsl(339.45, 0%, 91.26%); /* base-150 */
-    --theme-input-background-hsl: 339.45, 0%, 91.26%;
+    --theme-input-background: hsl(339.45, 0%, 96.6%); /* base-100 */
+    --theme-input-background-hsl: 339.45, 0%, 96.6%;
     --theme-input-border: hsl(278.16, 60.54%, 30.06%); /* purple-700 */
     --theme-input-border-hsl: 278.16, 60.54%, 30.06%;
     --theme-input-border-active: hsl(2.81, 72.25%, 28.09%); /* red-700 */
@@ -771,54 +768,30 @@ html,
     --theme-input-placeholder-hsl: 339.45, 0%, 33.2%;
     --theme-input-text: hsl(339.45, 0%, 16.63%); /* base-750 */
     --theme-input-text-hsl: 339.45, 0%, 16.63%;
-    --theme-input-disabled-accent: hsl(339.45, 0%, 20.65%); /* base-700 */
-    --theme-input-disabled-accent-hsl: 339.45, 0%, 20.65%;
-    --theme-input-disabled-accent-active: hsl(
-        2.81,
-        72.25%,
-        28.09%
-    ); /* red-700 */
-    --theme-input-disabled-accent-active-hsl: 2.81, 72.25%, 28.09%;
-    --theme-input-disabled-accent-focus: hsl(
-        162,
-        69%,
-        16.5%
-    ); /* turquoise-700 */
-    --theme-input-disabled-accent-focus-hsl: 162, 69%, 16.5%;
-    --theme-input-disabled-accent-hover: hsl(
-        162,
-        69%,
-        16.5%
-    ); /* turquoise-700 */
-    --theme-input-disabled-accent-hover-hsl: 162, 69%, 16.5%;
-    --theme-input-disabled-background: hsl(339.45, 0%, 91.26%); /* base-150 */
-    --theme-input-disabled-background-hsl: 339.45, 0%, 91.26%;
-    --theme-input-disabled-border: hsl(339.45, 0%, 20.65%); /* base-700 */
-    --theme-input-disabled-border-hsl: 339.45, 0%, 20.65%;
-    --theme-input-disabled-border-active: hsl(
-        2.81,
-        72.25%,
-        28.09%
-    ); /* red-700 */
-    --theme-input-disabled-border-active-hsl: 2.81, 72.25%, 28.09%;
-    --theme-input-disabled-border-focus: hsl(
-        162,
-        69%,
-        16.5%
-    ); /* turquoise-700 */
-    --theme-input-disabled-border-focus-hsl: 162, 69%, 16.5%;
-    --theme-input-disabled-border-hover: hsl(
-        162,
-        69%,
-        16.5%
-    ); /* turquoise-700 */
-    --theme-input-disabled-border-hover-hsl: 162, 69%, 16.5%;
+    --theme-input-disabled-accent: hsl(339.45, 0%, 33.2%); /* base-600 */
+    --theme-input-disabled-accent-hsl: 339.45, 0%, 33.2%;
+    --theme-input-disabled-accent-active: hsl(339.45, 0%, 33.2%); /* base-600 */
+    --theme-input-disabled-accent-active-hsl: 339.45, 0%, 33.2%;
+    --theme-input-disabled-accent-focus: hsl(339.45, 0%, 33.2%); /* base-600 */
+    --theme-input-disabled-accent-focus-hsl: 339.45, 0%, 33.2%;
+    --theme-input-disabled-accent-hover: hsl(339.45, 0%, 33.2%); /* base-600 */
+    --theme-input-disabled-accent-hover-hsl: 339.45, 0%, 33.2%;
+    --theme-input-disabled-background: hsl(339.45, 0%, 85.99%); /* base-200 */
+    --theme-input-disabled-background-hsl: 339.45, 0%, 85.99%;
+    --theme-input-disabled-border: hsl(339.45, 0%, 33.2%); /* base-600 */
+    --theme-input-disabled-border-hsl: 339.45, 0%, 33.2%;
+    --theme-input-disabled-border-active: hsl(339.45, 0%, 33.2%); /* base-600 */
+    --theme-input-disabled-border-active-hsl: 339.45, 0%, 33.2%;
+    --theme-input-disabled-border-focus: hsl(339.45, 0%, 33.2%); /* base-600 */
+    --theme-input-disabled-border-focus-hsl: 339.45, 0%, 33.2%;
+    --theme-input-disabled-border-hover: hsl(339.45, 0%, 33.2%); /* base-600 */
+    --theme-input-disabled-border-hover-hsl: 339.45, 0%, 33.2%;
     --theme-input-disabled-placeholder: hsl(339.45, 0%, 33.2%); /* base-600 */
     --theme-input-disabled-placeholder-hsl: 339.45, 0%, 33.2%;
-    --theme-input-disabled-text: hsl(339.45, 0%, 16.63%); /* base-750 */
-    --theme-input-disabled-text-hsl: 339.45, 0%, 16.63%;
-    --theme-input-readonly-accent: hsl(339.45, 0%, 20.65%); /* base-700 */
-    --theme-input-readonly-accent-hsl: 339.45, 0%, 20.65%;
+    --theme-input-disabled-text: hsl(339.45, 0%, 33.2%); /* base-600 */
+    --theme-input-disabled-text-hsl: 339.45, 0%, 33.2%;
+    --theme-input-readonly-accent: hsl(339.45, 0%, 16.63%); /* base-750 */
+    --theme-input-readonly-accent-hsl: 339.45, 0%, 16.63%;
     --theme-input-readonly-accent-active: hsl(
         2.81,
         72.25%,
@@ -837,10 +810,10 @@ html,
         16.5%
     ); /* turquoise-700 */
     --theme-input-readonly-accent-hover-hsl: 162, 69%, 16.5%;
-    --theme-input-readonly-background: hsl(339.45, 0%, 91.26%); /* base-150 */
-    --theme-input-readonly-background-hsl: 339.45, 0%, 91.26%;
-    --theme-input-readonly-border: hsl(339.45, 0%, 20.65%); /* base-700 */
-    --theme-input-readonly-border-hsl: 339.45, 0%, 20.65%;
+    --theme-input-readonly-background: hsl(339.45, 0%, 85.99%); /* base-200 */
+    --theme-input-readonly-background-hsl: 339.45, 0%, 85.99%;
+    --theme-input-readonly-border: hsl(339.45, 0%, 16.63%); /* base-750 */
+    --theme-input-readonly-border-hsl: 339.45, 0%, 16.63%;
     --theme-input-readonly-border-active: hsl(
         2.81,
         72.25%,
@@ -968,9 +941,9 @@ html,
     --sys-clr-button-text: hsl(339.45, 0%, 80.77%); /* base-250 */
     --sys-clr-button-text-active: hsl(339.45, 0%, 80.77%); /* base-250 */
     --sys-clr-button-text-hover: hsl(339.45, 0%, 80.77%); /* base-250 */
-    --sys-clr-input-bg: hsl(339.45, 0%, 80.77%); /* base-250 */
-    --sys-clr-input-bg-hover: hsl(339.45, 0%, 80.77%); /* base-250 */
-    --sys-clr-input-bg-active: hsl(339.45, 0%, 80.77%); /* base-250 */
+    --sys-clr-input-bg: hsl(339.45, 0%, 85.99%); /* base-200 */
+    --sys-clr-input-bg-hover: hsl(339.45, 0%, 85.99%); /* base-200 */
+    --sys-clr-input-bg-active: hsl(339.45, 0%, 85.99%); /* base-200 */
     --sys-clr-input-border: hsl(278.16, 60.54%, 30.06%); /* purple-700 */
     --sys-clr-input-border-hover: hsl(162, 69%, 16.5%); /* turquoise-700 */
     --sys-clr-input-border-active: hsl(2.81, 72.25%, 28.09%); /* red-700 */
@@ -1201,8 +1174,8 @@ html,
     --theme-input-accent-focus-hsl: 162, 69%, 16.5%;
     --theme-input-accent-hover: hsl(162, 69%, 16.5%); /* turquoise-700 */
     --theme-input-accent-hover-hsl: 162, 69%, 16.5%;
-    --theme-input-background: hsl(339.45, 0%, 80.77%); /* base-250 */
-    --theme-input-background-hsl: 339.45, 0%, 80.77%;
+    --theme-input-background: hsl(339.45, 0%, 85.99%); /* base-200 */
+    --theme-input-background-hsl: 339.45, 0%, 85.99%;
     --theme-input-border: hsl(278.16, 60.54%, 30.06%); /* purple-700 */
     --theme-input-border-hsl: 278.16, 60.54%, 30.06%;
     --theme-input-border-active: hsl(2.81, 72.25%, 28.09%); /* red-700 */
@@ -1215,52 +1188,28 @@ html,
     --theme-input-placeholder-hsl: 339.45, 0%, 33.2%;
     --theme-input-text: hsl(339.45, 0%, 20.65%); /* base-700 */
     --theme-input-text-hsl: 339.45, 0%, 20.65%;
-    --theme-input-disabled-accent: hsl(339.45, 0%, 20.65%); /* base-700 */
-    --theme-input-disabled-accent-hsl: 339.45, 0%, 20.65%;
-    --theme-input-disabled-accent-active: hsl(
-        2.81,
-        72.25%,
-        28.09%
-    ); /* red-700 */
-    --theme-input-disabled-accent-active-hsl: 2.81, 72.25%, 28.09%;
-    --theme-input-disabled-accent-focus: hsl(
-        162,
-        69%,
-        16.5%
-    ); /* turquoise-700 */
-    --theme-input-disabled-accent-focus-hsl: 162, 69%, 16.5%;
-    --theme-input-disabled-accent-hover: hsl(
-        162,
-        69%,
-        16.5%
-    ); /* turquoise-700 */
-    --theme-input-disabled-accent-hover-hsl: 162, 69%, 16.5%;
+    --theme-input-disabled-accent: hsl(339.45, 0%, 33.2%); /* base-600 */
+    --theme-input-disabled-accent-hsl: 339.45, 0%, 33.2%;
+    --theme-input-disabled-accent-active: hsl(339.45, 0%, 33.2%); /* base-600 */
+    --theme-input-disabled-accent-active-hsl: 339.45, 0%, 33.2%;
+    --theme-input-disabled-accent-focus: hsl(339.45, 0%, 33.2%); /* base-600 */
+    --theme-input-disabled-accent-focus-hsl: 339.45, 0%, 33.2%;
+    --theme-input-disabled-accent-hover: hsl(339.45, 0%, 33.2%); /* base-600 */
+    --theme-input-disabled-accent-hover-hsl: 339.45, 0%, 33.2%;
     --theme-input-disabled-background: hsl(339.45, 0%, 80.77%); /* base-250 */
     --theme-input-disabled-background-hsl: 339.45, 0%, 80.77%;
-    --theme-input-disabled-border: hsl(339.45, 0%, 20.65%); /* base-700 */
-    --theme-input-disabled-border-hsl: 339.45, 0%, 20.65%;
-    --theme-input-disabled-border-active: hsl(
-        2.81,
-        72.25%,
-        28.09%
-    ); /* red-700 */
-    --theme-input-disabled-border-active-hsl: 2.81, 72.25%, 28.09%;
-    --theme-input-disabled-border-focus: hsl(
-        162,
-        69%,
-        16.5%
-    ); /* turquoise-700 */
-    --theme-input-disabled-border-focus-hsl: 162, 69%, 16.5%;
-    --theme-input-disabled-border-hover: hsl(
-        162,
-        69%,
-        16.5%
-    ); /* turquoise-700 */
-    --theme-input-disabled-border-hover-hsl: 162, 69%, 16.5%;
+    --theme-input-disabled-border: hsl(339.45, 0%, 33.2%); /* base-600 */
+    --theme-input-disabled-border-hsl: 339.45, 0%, 33.2%;
+    --theme-input-disabled-border-active: hsl(339.45, 0%, 33.2%); /* base-600 */
+    --theme-input-disabled-border-active-hsl: 339.45, 0%, 33.2%;
+    --theme-input-disabled-border-focus: hsl(339.45, 0%, 33.2%); /* base-600 */
+    --theme-input-disabled-border-focus-hsl: 339.45, 0%, 33.2%;
+    --theme-input-disabled-border-hover: hsl(339.45, 0%, 33.2%); /* base-600 */
+    --theme-input-disabled-border-hover-hsl: 339.45, 0%, 33.2%;
     --theme-input-disabled-placeholder: hsl(339.45, 0%, 33.2%); /* base-600 */
     --theme-input-disabled-placeholder-hsl: 339.45, 0%, 33.2%;
-    --theme-input-disabled-text: hsl(339.45, 0%, 20.65%); /* base-700 */
-    --theme-input-disabled-text-hsl: 339.45, 0%, 20.65%;
+    --theme-input-disabled-text: hsl(339.45, 0%, 33.2%); /* base-600 */
+    --theme-input-disabled-text-hsl: 339.45, 0%, 33.2%;
     --theme-input-readonly-accent: hsl(339.45, 0%, 20.65%); /* base-700 */
     --theme-input-readonly-accent-hsl: 339.45, 0%, 20.65%;
     --theme-input-readonly-accent-active: hsl(
@@ -1416,9 +1365,9 @@ html,
     --sys-clr-button-text: hsl(339.45, 0%, 96.6%); /* base-100 */
     --sys-clr-button-text-active: hsl(339.45, 0%, 96.6%); /* base-100 */
     --sys-clr-button-text-hover: hsl(339.45, 0%, 96.6%); /* base-100 */
-    --sys-clr-input-bg: hsl(339.45, 0%, 96.6%); /* base-100 */
-    --sys-clr-input-bg-hover: hsl(339.45, 0%, 96.6%); /* base-100 */
-    --sys-clr-input-bg-active: hsl(339.45, 0%, 96.6%); /* base-100 */
+    --sys-clr-input-bg: hsl(305.21, 100%, 100%); /* white */
+    --sys-clr-input-bg-hover: hsl(305.21, 100%, 100%); /* white */
+    --sys-clr-input-bg-active: hsl(305.21, 100%, 100%); /* white */
     --sys-clr-input-border: hsl(277.69, 56.91%, 23.79%); /* purple-750 */
     --sys-clr-input-border-hover: hsl(
         160.5,
@@ -1661,8 +1610,8 @@ html,
     --theme-input-accent-focus-hsl: 160.5, 58.43%, 13.78%;
     --theme-input-accent-hover: hsl(160.5, 58.43%, 13.78%); /* turquoise-750 */
     --theme-input-accent-hover-hsl: 160.5, 58.43%, 13.78%;
-    --theme-input-background: hsl(339.45, 0%, 96.6%); /* base-100 */
-    --theme-input-background-hsl: 339.45, 0%, 96.6%;
+    --theme-input-background: hsl(305.21, 100%, 100%); /* white */
+    --theme-input-background-hsl: 305.21, 100%, 100%;
     --theme-input-border: hsl(277.69, 56.91%, 23.79%); /* purple-750 */
     --theme-input-border-hsl: 277.69, 56.91%, 23.79%;
     --theme-input-border-active: hsl(2.73, 67.26%, 22.47%); /* red-750 */
@@ -1675,54 +1624,38 @@ html,
     --theme-input-placeholder-hsl: 339.45, 0%, 20.65%;
     --theme-input-text: hsl(339.45, 0%, 9.03%); /* base-850 */
     --theme-input-text-hsl: 339.45, 0%, 9.03%;
-    --theme-input-disabled-accent: hsl(339.45, 0%, 16.63%); /* base-750 */
-    --theme-input-disabled-accent-hsl: 339.45, 0%, 16.63%;
+    --theme-input-disabled-accent: hsl(339.45, 0%, 20.65%); /* base-700 */
+    --theme-input-disabled-accent-hsl: 339.45, 0%, 20.65%;
     --theme-input-disabled-accent-active: hsl(
-        2.73,
-        67.26%,
-        22.47%
-    ); /* red-750 */
-    --theme-input-disabled-accent-active-hsl: 2.73, 67.26%, 22.47%;
-    --theme-input-disabled-accent-focus: hsl(
-        160.5,
-        58.43%,
-        13.78%
-    ); /* turquoise-750 */
-    --theme-input-disabled-accent-focus-hsl: 160.5, 58.43%, 13.78%;
-    --theme-input-disabled-accent-hover: hsl(
-        160.5,
-        58.43%,
-        13.78%
-    ); /* turquoise-750 */
-    --theme-input-disabled-accent-hover-hsl: 160.5, 58.43%, 13.78%;
-    --theme-input-disabled-background: hsl(339.45, 0%, 96.6%); /* base-100 */
-    --theme-input-disabled-background-hsl: 339.45, 0%, 96.6%;
-    --theme-input-disabled-border: hsl(339.45, 0%, 16.63%); /* base-750 */
-    --theme-input-disabled-border-hsl: 339.45, 0%, 16.63%;
+        339.45,
+        0%,
+        20.65%
+    ); /* base-700 */
+    --theme-input-disabled-accent-active-hsl: 339.45, 0%, 20.65%;
+    --theme-input-disabled-accent-focus: hsl(339.45, 0%, 20.65%); /* base-700 */
+    --theme-input-disabled-accent-focus-hsl: 339.45, 0%, 20.65%;
+    --theme-input-disabled-accent-hover: hsl(339.45, 0%, 20.65%); /* base-700 */
+    --theme-input-disabled-accent-hover-hsl: 339.45, 0%, 20.65%;
+    --theme-input-disabled-background: hsl(339.45, 0%, 91.26%); /* base-150 */
+    --theme-input-disabled-background-hsl: 339.45, 0%, 91.26%;
+    --theme-input-disabled-border: hsl(339.45, 0%, 20.65%); /* base-700 */
+    --theme-input-disabled-border-hsl: 339.45, 0%, 20.65%;
     --theme-input-disabled-border-active: hsl(
-        2.73,
-        67.26%,
-        22.47%
-    ); /* red-750 */
-    --theme-input-disabled-border-active-hsl: 2.73, 67.26%, 22.47%;
-    --theme-input-disabled-border-focus: hsl(
-        160.5,
-        58.43%,
-        13.78%
-    ); /* turquoise-750 */
-    --theme-input-disabled-border-focus-hsl: 160.5, 58.43%, 13.78%;
-    --theme-input-disabled-border-hover: hsl(
-        160.5,
-        58.43%,
-        13.78%
-    ); /* turquoise-750 */
-    --theme-input-disabled-border-hover-hsl: 160.5, 58.43%, 13.78%;
+        339.45,
+        0%,
+        20.65%
+    ); /* base-700 */
+    --theme-input-disabled-border-active-hsl: 339.45, 0%, 20.65%;
+    --theme-input-disabled-border-focus: hsl(339.45, 0%, 20.65%); /* base-700 */
+    --theme-input-disabled-border-focus-hsl: 339.45, 0%, 20.65%;
+    --theme-input-disabled-border-hover: hsl(339.45, 0%, 20.65%); /* base-700 */
+    --theme-input-disabled-border-hover-hsl: 339.45, 0%, 20.65%;
     --theme-input-disabled-placeholder: hsl(339.45, 0%, 20.65%); /* base-700 */
     --theme-input-disabled-placeholder-hsl: 339.45, 0%, 20.65%;
-    --theme-input-disabled-text: hsl(339.45, 0%, 9.03%); /* base-850 */
-    --theme-input-disabled-text-hsl: 339.45, 0%, 9.03%;
-    --theme-input-readonly-accent: hsl(339.45, 0%, 16.63%); /* base-750 */
-    --theme-input-readonly-accent-hsl: 339.45, 0%, 16.63%;
+    --theme-input-disabled-text: hsl(339.45, 0%, 20.65%); /* base-700 */
+    --theme-input-disabled-text-hsl: 339.45, 0%, 20.65%;
+    --theme-input-readonly-accent: hsl(339.45, 0%, 9.03%); /* base-850 */
+    --theme-input-readonly-accent-hsl: 339.45, 0%, 9.03%;
     --theme-input-readonly-accent-active: hsl(
         2.73,
         67.26%,
@@ -1741,10 +1674,10 @@ html,
         13.78%
     ); /* turquoise-750 */
     --theme-input-readonly-accent-hover-hsl: 160.5, 58.43%, 13.78%;
-    --theme-input-readonly-background: hsl(339.45, 0%, 96.6%); /* base-100 */
-    --theme-input-readonly-background-hsl: 339.45, 0%, 96.6%;
-    --theme-input-readonly-border: hsl(339.45, 0%, 16.63%); /* base-750 */
-    --theme-input-readonly-border-hsl: 339.45, 0%, 16.63%;
+    --theme-input-readonly-background: hsl(339.45, 0%, 91.26%); /* base-150 */
+    --theme-input-readonly-background-hsl: 339.45, 0%, 91.26%;
+    --theme-input-readonly-border: hsl(339.45, 0%, 9.03%); /* base-850 */
+    --theme-input-readonly-border-hsl: 339.45, 0%, 9.03%;
     --theme-input-readonly-border-active: hsl(
         2.73,
         67.26%,
@@ -2179,9 +2112,9 @@ html,
     --sys-clr-button-text: hsl(339.45, 0%, 9.03%); /* base-150 */
     --sys-clr-button-text-active: hsl(339.45, 0%, 9.03%); /* base-150 */
     --sys-clr-button-text-hover: hsl(339.45, 0%, 9.03%); /* base-150 */
-    --sys-clr-input-bg: hsl(339.45, 0%, 9.03%); /* base-150 */
-    --sys-clr-input-bg-hover: hsl(339.45, 0%, 9.03%); /* base-150 */
-    --sys-clr-input-bg-active: hsl(339.45, 0%, 9.03%); /* base-150 */
+    --sys-clr-input-bg: hsl(339.45, 0%, 4.28%); /* base-100 */
+    --sys-clr-input-bg-hover: hsl(339.45, 0%, 4.28%); /* base-100 */
+    --sys-clr-input-bg-active: hsl(339.45, 0%, 4.28%); /* base-100 */
     --sys-clr-input-border: hsl(274.76, 78.57%, 78.95%); /* purple-700 */
     --sys-clr-input-border-hover: hsl(160, 45%, 60%); /* turquoise-700 */
     --sys-clr-input-border-active: hsl(4, 100%, 79.5%); /* red-700 */
@@ -2384,8 +2317,8 @@ html,
     --theme-input-accent-focus-hsl: 160, 45%, 60%;
     --theme-input-accent-hover: hsl(160, 45%, 60%); /* turquoise-700 */
     --theme-input-accent-hover-hsl: 160, 45%, 60%;
-    --theme-input-background: hsl(339.45, 0%, 9.03%); /* base-150 */
-    --theme-input-background-hsl: 339.45, 0%, 9.03%;
+    --theme-input-background: hsl(339.45, 0%, 4.28%); /* base-100 */
+    --theme-input-background-hsl: 339.45, 0%, 4.28%;
     --theme-input-border: hsl(274.76, 78.57%, 78.95%); /* purple-700 */
     --theme-input-border-hsl: 274.76, 78.57%, 78.95%;
     --theme-input-border-active: hsl(4, 100%, 79.5%); /* red-700 */
@@ -2398,40 +2331,40 @@ html,
     --theme-input-placeholder-hsl: 339.45, 0%, 60.8%;
     --theme-input-text: hsl(339.45, 0%, 80.77%); /* base-750 */
     --theme-input-text-hsl: 339.45, 0%, 80.77%;
-    --theme-input-disabled-accent: hsl(339.45, 0%, 75.61%); /* base-700 */
-    --theme-input-disabled-accent-hsl: 339.45, 0%, 75.61%;
-    --theme-input-disabled-accent-active: hsl(4, 100%, 79.5%); /* red-700 */
-    --theme-input-disabled-accent-active-hsl: 4, 100%, 79.5%;
-    --theme-input-disabled-accent-focus: hsl(160, 45%, 60%); /* turquoise-700 */
-    --theme-input-disabled-accent-focus-hsl: 160, 45%, 60%;
-    --theme-input-disabled-accent-hover: hsl(160, 45%, 60%); /* turquoise-700 */
-    --theme-input-disabled-accent-hover-hsl: 160, 45%, 60%;
-    --theme-input-disabled-background: hsl(339.45, 0%, 9.03%); /* base-150 */
-    --theme-input-disabled-background-hsl: 339.45, 0%, 9.03%;
-    --theme-input-disabled-border: hsl(339.45, 0%, 75.61%); /* base-700 */
-    --theme-input-disabled-border-hsl: 339.45, 0%, 75.61%;
-    --theme-input-disabled-border-active: hsl(4, 100%, 79.5%); /* red-700 */
-    --theme-input-disabled-border-active-hsl: 4, 100%, 79.5%;
-    --theme-input-disabled-border-focus: hsl(160, 45%, 60%); /* turquoise-700 */
-    --theme-input-disabled-border-focus-hsl: 160, 45%, 60%;
-    --theme-input-disabled-border-hover: hsl(160, 45%, 60%); /* turquoise-700 */
-    --theme-input-disabled-border-hover-hsl: 160, 45%, 60%;
+    --theme-input-disabled-accent: hsl(339.45, 0%, 60.8%); /* base-600 */
+    --theme-input-disabled-accent-hsl: 339.45, 0%, 60.8%;
+    --theme-input-disabled-accent-active: hsl(339.45, 0%, 60.8%); /* base-600 */
+    --theme-input-disabled-accent-active-hsl: 339.45, 0%, 60.8%;
+    --theme-input-disabled-accent-focus: hsl(339.45, 0%, 60.8%); /* base-600 */
+    --theme-input-disabled-accent-focus-hsl: 339.45, 0%, 60.8%;
+    --theme-input-disabled-accent-hover: hsl(339.45, 0%, 60.8%); /* base-600 */
+    --theme-input-disabled-accent-hover-hsl: 339.45, 0%, 60.8%;
+    --theme-input-disabled-background: hsl(339.45, 0%, 12.75%); /* base-200 */
+    --theme-input-disabled-background-hsl: 339.45, 0%, 12.75%;
+    --theme-input-disabled-border: hsl(339.45, 0%, 60.8%); /* base-600 */
+    --theme-input-disabled-border-hsl: 339.45, 0%, 60.8%;
+    --theme-input-disabled-border-active: hsl(339.45, 0%, 60.8%); /* base-600 */
+    --theme-input-disabled-border-active-hsl: 339.45, 0%, 60.8%;
+    --theme-input-disabled-border-focus: hsl(339.45, 0%, 60.8%); /* base-600 */
+    --theme-input-disabled-border-focus-hsl: 339.45, 0%, 60.8%;
+    --theme-input-disabled-border-hover: hsl(339.45, 0%, 60.8%); /* base-600 */
+    --theme-input-disabled-border-hover-hsl: 339.45, 0%, 60.8%;
     --theme-input-disabled-placeholder: hsl(339.45, 0%, 60.8%); /* base-600 */
     --theme-input-disabled-placeholder-hsl: 339.45, 0%, 60.8%;
-    --theme-input-disabled-text: hsl(339.45, 0%, 80.77%); /* base-750 */
-    --theme-input-disabled-text-hsl: 339.45, 0%, 80.77%;
-    --theme-input-readonly-accent: hsl(339.45, 0%, 75.61%); /* base-700 */
-    --theme-input-readonly-accent-hsl: 339.45, 0%, 75.61%;
+    --theme-input-disabled-text: hsl(339.45, 0%, 60.8%); /* base-600 */
+    --theme-input-disabled-text-hsl: 339.45, 0%, 60.8%;
+    --theme-input-readonly-accent: hsl(339.45, 0%, 80.77%); /* base-750 */
+    --theme-input-readonly-accent-hsl: 339.45, 0%, 80.77%;
     --theme-input-readonly-accent-active: hsl(4, 100%, 79.5%); /* red-700 */
     --theme-input-readonly-accent-active-hsl: 4, 100%, 79.5%;
     --theme-input-readonly-accent-focus: hsl(160, 45%, 60%); /* turquoise-700 */
     --theme-input-readonly-accent-focus-hsl: 160, 45%, 60%;
     --theme-input-readonly-accent-hover: hsl(160, 45%, 60%); /* turquoise-700 */
     --theme-input-readonly-accent-hover-hsl: 160, 45%, 60%;
-    --theme-input-readonly-background: hsl(339.45, 0%, 9.03%); /* base-150 */
-    --theme-input-readonly-background-hsl: 339.45, 0%, 9.03%;
-    --theme-input-readonly-border: hsl(339.45, 0%, 75.61%); /* base-700 */
-    --theme-input-readonly-border-hsl: 339.45, 0%, 75.61%;
+    --theme-input-readonly-background: hsl(339.45, 0%, 12.75%); /* base-200 */
+    --theme-input-readonly-background-hsl: 339.45, 0%, 12.75%;
+    --theme-input-readonly-border: hsl(339.45, 0%, 80.77%); /* base-750 */
+    --theme-input-readonly-border-hsl: 339.45, 0%, 80.77%;
     --theme-input-readonly-border-active: hsl(4, 100%, 79.5%); /* red-700 */
     --theme-input-readonly-border-active-hsl: 4, 100%, 79.5%;
     --theme-input-readonly-border-focus: hsl(160, 45%, 60%); /* turquoise-700 */
@@ -2546,9 +2479,9 @@ html,
     --sys-clr-button-text: hsl(339.45, 0%, 16.63%); /* base-250 */
     --sys-clr-button-text-active: hsl(339.45, 0%, 16.63%); /* base-250 */
     --sys-clr-button-text-hover: hsl(339.45, 0%, 16.63%); /* base-250 */
-    --sys-clr-input-bg: hsl(339.45, 0%, 16.63%); /* base-250 */
-    --sys-clr-input-bg-hover: hsl(339.45, 0%, 16.63%); /* base-250 */
-    --sys-clr-input-bg-active: hsl(339.45, 0%, 16.63%); /* base-250 */
+    --sys-clr-input-bg: hsl(339.45, 0%, 12.75%); /* base-200 */
+    --sys-clr-input-bg-hover: hsl(339.45, 0%, 12.75%); /* base-200 */
+    --sys-clr-input-bg-active: hsl(339.45, 0%, 12.75%); /* base-200 */
     --sys-clr-input-border: hsl(274.76, 78.57%, 78.95%); /* purple-700 */
     --sys-clr-input-border-hover: hsl(160, 45%, 60%); /* turquoise-700 */
     --sys-clr-input-border-active: hsl(4, 100%, 79.5%); /* red-700 */
@@ -2755,8 +2688,8 @@ html,
     --theme-input-accent-focus-hsl: 160, 45%, 60%;
     --theme-input-accent-hover: hsl(160, 45%, 60%); /* turquoise-700 */
     --theme-input-accent-hover-hsl: 160, 45%, 60%;
-    --theme-input-background: hsl(339.45, 0%, 16.63%); /* base-250 */
-    --theme-input-background-hsl: 339.45, 0%, 16.63%;
+    --theme-input-background: hsl(339.45, 0%, 12.75%); /* base-200 */
+    --theme-input-background-hsl: 339.45, 0%, 12.75%;
     --theme-input-border: hsl(274.76, 78.57%, 78.95%); /* purple-700 */
     --theme-input-border-hsl: 274.76, 78.57%, 78.95%;
     --theme-input-border-active: hsl(4, 100%, 79.5%); /* red-700 */
@@ -2769,28 +2702,28 @@ html,
     --theme-input-placeholder-hsl: 339.45, 0%, 60.8%;
     --theme-input-text: hsl(339.45, 0%, 75.61%); /* base-700 */
     --theme-input-text-hsl: 339.45, 0%, 75.61%;
-    --theme-input-disabled-accent: hsl(339.45, 0%, 75.61%); /* base-700 */
-    --theme-input-disabled-accent-hsl: 339.45, 0%, 75.61%;
-    --theme-input-disabled-accent-active: hsl(4, 100%, 79.5%); /* red-700 */
-    --theme-input-disabled-accent-active-hsl: 4, 100%, 79.5%;
-    --theme-input-disabled-accent-focus: hsl(160, 45%, 60%); /* turquoise-700 */
-    --theme-input-disabled-accent-focus-hsl: 160, 45%, 60%;
-    --theme-input-disabled-accent-hover: hsl(160, 45%, 60%); /* turquoise-700 */
-    --theme-input-disabled-accent-hover-hsl: 160, 45%, 60%;
+    --theme-input-disabled-accent: hsl(339.45, 0%, 60.8%); /* base-600 */
+    --theme-input-disabled-accent-hsl: 339.45, 0%, 60.8%;
+    --theme-input-disabled-accent-active: hsl(339.45, 0%, 60.8%); /* base-600 */
+    --theme-input-disabled-accent-active-hsl: 339.45, 0%, 60.8%;
+    --theme-input-disabled-accent-focus: hsl(339.45, 0%, 60.8%); /* base-600 */
+    --theme-input-disabled-accent-focus-hsl: 339.45, 0%, 60.8%;
+    --theme-input-disabled-accent-hover: hsl(339.45, 0%, 60.8%); /* base-600 */
+    --theme-input-disabled-accent-hover-hsl: 339.45, 0%, 60.8%;
     --theme-input-disabled-background: hsl(339.45, 0%, 16.63%); /* base-250 */
     --theme-input-disabled-background-hsl: 339.45, 0%, 16.63%;
-    --theme-input-disabled-border: hsl(339.45, 0%, 75.61%); /* base-700 */
-    --theme-input-disabled-border-hsl: 339.45, 0%, 75.61%;
-    --theme-input-disabled-border-active: hsl(4, 100%, 79.5%); /* red-700 */
-    --theme-input-disabled-border-active-hsl: 4, 100%, 79.5%;
-    --theme-input-disabled-border-focus: hsl(160, 45%, 60%); /* turquoise-700 */
-    --theme-input-disabled-border-focus-hsl: 160, 45%, 60%;
-    --theme-input-disabled-border-hover: hsl(160, 45%, 60%); /* turquoise-700 */
-    --theme-input-disabled-border-hover-hsl: 160, 45%, 60%;
+    --theme-input-disabled-border: hsl(339.45, 0%, 60.8%); /* base-600 */
+    --theme-input-disabled-border-hsl: 339.45, 0%, 60.8%;
+    --theme-input-disabled-border-active: hsl(339.45, 0%, 60.8%); /* base-600 */
+    --theme-input-disabled-border-active-hsl: 339.45, 0%, 60.8%;
+    --theme-input-disabled-border-focus: hsl(339.45, 0%, 60.8%); /* base-600 */
+    --theme-input-disabled-border-focus-hsl: 339.45, 0%, 60.8%;
+    --theme-input-disabled-border-hover: hsl(339.45, 0%, 60.8%); /* base-600 */
+    --theme-input-disabled-border-hover-hsl: 339.45, 0%, 60.8%;
     --theme-input-disabled-placeholder: hsl(339.45, 0%, 60.8%); /* base-600 */
     --theme-input-disabled-placeholder-hsl: 339.45, 0%, 60.8%;
-    --theme-input-disabled-text: hsl(339.45, 0%, 75.61%); /* base-700 */
-    --theme-input-disabled-text-hsl: 339.45, 0%, 75.61%;
+    --theme-input-disabled-text: hsl(339.45, 0%, 60.8%); /* base-600 */
+    --theme-input-disabled-text-hsl: 339.45, 0%, 60.8%;
     --theme-input-readonly-accent: hsl(339.45, 0%, 75.61%); /* base-700 */
     --theme-input-readonly-accent-hsl: 339.45, 0%, 75.61%;
     --theme-input-readonly-accent-active: hsl(4, 100%, 79.5%); /* red-700 */
@@ -2921,9 +2854,9 @@ html,
     --sys-clr-button-text: hsl(339.45, 0%, 4.28%); /* base-100 */
     --sys-clr-button-text-active: hsl(339.45, 0%, 4.28%); /* base-100 */
     --sys-clr-button-text-hover: hsl(339.45, 0%, 4.28%); /* base-100 */
-    --sys-clr-input-bg: hsl(339.45, 0%, 4.28%); /* base-100 */
-    --sys-clr-input-bg-hover: hsl(339.45, 0%, 4.28%); /* base-100 */
-    --sys-clr-input-bg-active: hsl(339.45, 0%, 4.28%); /* base-100 */
+    --sys-clr-input-bg: hsl(0, 0%, 0%); /* white */
+    --sys-clr-input-bg-hover: hsl(0, 0%, 0%); /* white */
+    --sys-clr-input-bg-active: hsl(0, 0%, 0%); /* white */
     --sys-clr-input-border: hsl(273.56, 81.34%, 84.1%); /* purple-750 */
     --sys-clr-input-border-hover: hsl(
         158.81,
@@ -3158,8 +3091,8 @@ html,
     --theme-input-accent-focus-hsl: 158.81, 45.09%, 69.63%;
     --theme-input-accent-hover: hsl(158.81, 45.09%, 69.63%); /* turquoise-750 */
     --theme-input-accent-hover-hsl: 158.81, 45.09%, 69.63%;
-    --theme-input-background: hsl(339.45, 0%, 4.28%); /* base-100 */
-    --theme-input-background-hsl: 339.45, 0%, 4.28%;
+    --theme-input-background: hsl(0, 0%, 0%); /* white */
+    --theme-input-background-hsl: 0, 0%, 0%;
     --theme-input-border: hsl(273.56, 81.34%, 84.1%); /* purple-750 */
     --theme-input-border-hsl: 273.56, 81.34%, 84.1%;
     --theme-input-border-active: hsl(4.63, 100%, 84.12%); /* red-750 */
@@ -3172,46 +3105,38 @@ html,
     --theme-input-placeholder-hsl: 339.45, 0%, 75.61%;
     --theme-input-text: hsl(339.45, 0%, 91.26%); /* base-850 */
     --theme-input-text-hsl: 339.45, 0%, 91.26%;
-    --theme-input-disabled-accent: hsl(339.45, 0%, 80.77%); /* base-750 */
-    --theme-input-disabled-accent-hsl: 339.45, 0%, 80.77%;
-    --theme-input-disabled-accent-active: hsl(4.63, 100%, 84.12%); /* red-750 */
-    --theme-input-disabled-accent-active-hsl: 4.63, 100%, 84.12%;
-    --theme-input-disabled-accent-focus: hsl(
-        158.81,
-        45.09%,
-        69.63%
-    ); /* turquoise-750 */
-    --theme-input-disabled-accent-focus-hsl: 158.81, 45.09%, 69.63%;
-    --theme-input-disabled-accent-hover: hsl(
-        158.81,
-        45.09%,
-        69.63%
-    ); /* turquoise-750 */
-    --theme-input-disabled-accent-hover-hsl: 158.81, 45.09%, 69.63%;
-    --theme-input-disabled-background: hsl(339.45, 0%, 4.28%); /* base-100 */
-    --theme-input-disabled-background-hsl: 339.45, 0%, 4.28%;
-    --theme-input-disabled-border: hsl(339.45, 0%, 80.77%); /* base-750 */
-    --theme-input-disabled-border-hsl: 339.45, 0%, 80.77%;
-    --theme-input-disabled-border-active: hsl(4.63, 100%, 84.12%); /* red-750 */
-    --theme-input-disabled-border-active-hsl: 4.63, 100%, 84.12%;
-    --theme-input-disabled-border-focus: hsl(
-        158.81,
-        45.09%,
-        69.63%
-    ); /* turquoise-750 */
-    --theme-input-disabled-border-focus-hsl: 158.81, 45.09%, 69.63%;
-    --theme-input-disabled-border-hover: hsl(
-        158.81,
-        45.09%,
-        69.63%
-    ); /* turquoise-750 */
-    --theme-input-disabled-border-hover-hsl: 158.81, 45.09%, 69.63%;
+    --theme-input-disabled-accent: hsl(339.45, 0%, 75.61%); /* base-700 */
+    --theme-input-disabled-accent-hsl: 339.45, 0%, 75.61%;
+    --theme-input-disabled-accent-active: hsl(
+        339.45,
+        0%,
+        75.61%
+    ); /* base-700 */
+    --theme-input-disabled-accent-active-hsl: 339.45, 0%, 75.61%;
+    --theme-input-disabled-accent-focus: hsl(339.45, 0%, 75.61%); /* base-700 */
+    --theme-input-disabled-accent-focus-hsl: 339.45, 0%, 75.61%;
+    --theme-input-disabled-accent-hover: hsl(339.45, 0%, 75.61%); /* base-700 */
+    --theme-input-disabled-accent-hover-hsl: 339.45, 0%, 75.61%;
+    --theme-input-disabled-background: hsl(339.45, 0%, 9.03%); /* base-150 */
+    --theme-input-disabled-background-hsl: 339.45, 0%, 9.03%;
+    --theme-input-disabled-border: hsl(339.45, 0%, 75.61%); /* base-700 */
+    --theme-input-disabled-border-hsl: 339.45, 0%, 75.61%;
+    --theme-input-disabled-border-active: hsl(
+        339.45,
+        0%,
+        75.61%
+    ); /* base-700 */
+    --theme-input-disabled-border-active-hsl: 339.45, 0%, 75.61%;
+    --theme-input-disabled-border-focus: hsl(339.45, 0%, 75.61%); /* base-700 */
+    --theme-input-disabled-border-focus-hsl: 339.45, 0%, 75.61%;
+    --theme-input-disabled-border-hover: hsl(339.45, 0%, 75.61%); /* base-700 */
+    --theme-input-disabled-border-hover-hsl: 339.45, 0%, 75.61%;
     --theme-input-disabled-placeholder: hsl(339.45, 0%, 75.61%); /* base-700 */
     --theme-input-disabled-placeholder-hsl: 339.45, 0%, 75.61%;
-    --theme-input-disabled-text: hsl(339.45, 0%, 91.26%); /* base-850 */
-    --theme-input-disabled-text-hsl: 339.45, 0%, 91.26%;
-    --theme-input-readonly-accent: hsl(339.45, 0%, 80.77%); /* base-750 */
-    --theme-input-readonly-accent-hsl: 339.45, 0%, 80.77%;
+    --theme-input-disabled-text: hsl(339.45, 0%, 75.61%); /* base-700 */
+    --theme-input-disabled-text-hsl: 339.45, 0%, 75.61%;
+    --theme-input-readonly-accent: hsl(339.45, 0%, 91.26%); /* base-850 */
+    --theme-input-readonly-accent-hsl: 339.45, 0%, 91.26%;
     --theme-input-readonly-accent-active: hsl(4.63, 100%, 84.12%); /* red-750 */
     --theme-input-readonly-accent-active-hsl: 4.63, 100%, 84.12%;
     --theme-input-readonly-accent-focus: hsl(
@@ -3226,10 +3151,10 @@ html,
         69.63%
     ); /* turquoise-750 */
     --theme-input-readonly-accent-hover-hsl: 158.81, 45.09%, 69.63%;
-    --theme-input-readonly-background: hsl(339.45, 0%, 4.28%); /* base-100 */
-    --theme-input-readonly-background-hsl: 339.45, 0%, 4.28%;
-    --theme-input-readonly-border: hsl(339.45, 0%, 80.77%); /* base-750 */
-    --theme-input-readonly-border-hsl: 339.45, 0%, 80.77%;
+    --theme-input-readonly-background: hsl(339.45, 0%, 9.03%); /* base-150 */
+    --theme-input-readonly-background-hsl: 339.45, 0%, 9.03%;
+    --theme-input-readonly-border: hsl(339.45, 0%, 91.26%); /* base-850 */
+    --theme-input-readonly-border-hsl: 339.45, 0%, 91.26%;
     --theme-input-readonly-border-active: hsl(4.63, 100%, 84.12%); /* red-750 */
     --theme-input-readonly-border-active-hsl: 4.63, 100%, 84.12%;
     --theme-input-readonly-border-focus: hsl(
@@ -4081,7 +4006,7 @@ html,
  * ======================================================================== */
 html,
 body {
-    scroll-padding-top: max(1.625rem, min(5svw, 5.8125rem));
+    scroll-padding-top: max(1.625rem, min(5svw, 3.125rem));
     scroll-padding-top: var(--gap-block-layout, 5vw);
 }
 
@@ -4090,13 +4015,13 @@ body {
     flex-direction: column;
     justify-content: start;
     align-items: center;
-    gap: max(1.625rem, min(5svw, 5.8125rem)) max(1.25rem, min(8svw, 7.125rem));
+    gap: max(1.625rem, min(5svw, 3.125rem)) max(1.25rem, min(8svw, 7.125rem));
     gap: var(--gap-block-layout, 5vw) var(--gap-inline-layout, 8vw);
-    margin-top: max(1.625rem, min(5svw, 5.8125rem));
-    margin-bottom: max(1.625rem, min(5svw, 5.8125rem));
-    margin-top: max(1.625rem, min(5svw, 5.8125rem));
+    margin-top: max(1.625rem, min(5svw, 3.125rem));
+    margin-bottom: max(1.625rem, min(5svw, 3.125rem));
+    margin-top: max(1.625rem, min(5svw, 3.125rem));
     margin-top: var(--gap-block-layout, 5vw);
-    margin-bottom: max(1.625rem, min(5svw, 5.8125rem));
+    margin-bottom: max(1.625rem, min(5svw, 3.125rem));
     margin-bottom: var(--gap-block-layout, 5vw);
     margin-left: max(1.25rem, min(8svw, 7.125rem));
     margin-right: max(1.25rem, min(8svw, 7.125rem));
@@ -4733,7 +4658,7 @@ input {
     border: 0.0625rem solid var(--sys-clr-input-border, FieldText);
     border-radius: 0;
     --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 96.6%);
     background-color: var(--sys-clr-input-bg, Field);
     color: hsl(339.45, 0%, 16.63%);
     color: var(--sys-clr-input-text, FieldText);
@@ -4747,7 +4672,7 @@ input {
 .js__no-whereSelector select:focus,
 .js__no-whereSelector input:focus {
     --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 96.6%);
     background-color: var(--sys-clr-input-bg-hover, Field);
     border-color: hsl(162, 69%, 16.5%);
     border-color: var(--sys-clr-input-border-hover, FieldText);
@@ -4761,7 +4686,7 @@ input {
 :where(.js__no-focusVisible) select:focus,
 :where(.js__no-focusVisible) input:focus {
     --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 96.6%);
     background-color: var(--sys-clr-input-bg-hover, Field);
     border-color: hsl(162, 69%, 16.5%);
     border-color: var(--sys-clr-input-border-hover, FieldText);
@@ -4775,7 +4700,7 @@ textarea:hover,
 select:hover,
 input:hover {
     --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 96.6%);
     background-color: var(--sys-clr-input-bg-hover, Field);
     border-color: hsl(162, 69%, 16.5%);
     border-color: var(--sys-clr-input-border-hover, FieldText);
@@ -4789,7 +4714,7 @@ textarea:focus-visible,
 select:focus-visible,
 input:focus-visible {
     --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 96.6%);
     background-color: var(--sys-clr-input-bg-hover, Field);
     border-color: hsl(162, 69%, 16.5%);
     border-color: var(--sys-clr-input-border-hover, FieldText);
@@ -4803,7 +4728,7 @@ textarea:focus-within,
 select:focus-within,
 input:focus-within {
     --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 96.6%);
     background-color: var(--sys-clr-input-bg-hover, Field);
     border-color: hsl(162, 69%, 16.5%);
     border-color: var(--sys-clr-input-border-hover, FieldText);
@@ -4817,7 +4742,7 @@ textarea:active,
 select:active,
 input:active {
     --focus-ring-outline-color: var(--sys-clr-text-active, ActiveText);
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 96.6%);
     background-color: var(--sys-clr-input-bg-active, Field);
     border-color: hsl(2.81, 72.25%, 28.09%);
     border-color: var(--sys-clr-input-border-active, FieldText);
@@ -5280,8 +5205,8 @@ body {
     z-index: 1;
 }
 :where(body > * + *) {
-    margin-top: max(1.625rem, min(5svw, 5.8125rem));
-    margin-top: max(1.625rem, min(5svw, 5.8125rem));
+    margin-top: max(1.625rem, min(5svw, 3.125rem));
+    margin-top: max(1.625rem, min(5svw, 3.125rem));
     margin-top: var(--gap-block-layout, 5vw);
     margin-bottom: 0;
 }
@@ -5306,11 +5231,11 @@ body pre {
 }
 
 body > footer {
-    margin-top: max(1.625rem, min(5svw, 5.8125rem));
-    margin-bottom: max(1.625rem, min(5svw, 5.8125rem));
-    margin-top: max(1.625rem, min(5svw, 5.8125rem));
+    margin-top: max(1.625rem, min(5svw, 3.125rem));
+    margin-bottom: max(1.625rem, min(5svw, 3.125rem));
+    margin-top: max(1.625rem, min(5svw, 3.125rem));
     margin-top: var(--gap-block-layout, 5vw);
-    margin-bottom: max(1.625rem, min(5svw, 5.8125rem));
+    margin-bottom: max(1.625rem, min(5svw, 3.125rem));
     margin-bottom: var(--gap-block-layout, 5vw);
 }
 body > aside > :first-child {
@@ -5336,6 +5261,11 @@ body > aside > :first-child {
 ) {
     width: auto;
     justify-self: start;
+}
+
+:where(.layout_content-only > header > *) {
+    grid-column: content-start/content-end;
+    width: auto;
 }
 
 :where(.layout_full-width > main > *) {
@@ -5488,6 +5418,165 @@ body > aside > :first-child {
 }
 
 /*! END of @maddimathon/utility-astro/template */
+/* # ACCESSIBILITY - SKIP LINKS
+ * ======================================================================== */
+.skip-link,
+.skip-link[href],
+a.skip-link[href] {
+    display: block;
+    position: fixed;
+    margin: 0;
+    top: -100%;
+    width: -moz-fit-content;
+    width: fit-content;
+    z-index: 99999;
+    --focus-ring-outline-offset: var(--stroke-relative-400, 0.125em);
+    padding: 0.3125em 0.8125em;
+    padding: var(--pad-soft-200, 0.3125em) var(--pad-firm-300, 0.8125em);
+    border-width: 0.0625rem;
+    border-width: var(--border-width-100, 0.0625rem);
+    border-radius: 0;
+    border-style: solid;
+    font-weight: 500;
+    font-style: normal;
+    font-size: var-fs("normal");
+    line-height: 1.1875;
+    line-height: var(--line-height-100, 1.1875);
+    letter-spacing: normal;
+    text-transform: none;
+    text-decoration: none;
+    text-wrap: balance;
+    transition:
+        background-color 250ms ease-in-out,
+        border-color 250ms ease-in-out,
+        box-shadow 250ms ease-in-out,
+        color 250ms ease-in-out,
+        font-weight 250ms ease-in-out,
+        opacity 250ms ease-in-out,
+        outline-color 250ms ease-in-out,
+        text-decoration-color 250ms ease-in-out,
+        text-shadow 250ms ease-in-out,
+        visibility 250ms ease-in-out;
+    transition: var(--transition);
+    opacity: 1;
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    cursor: pointer;
+    --focus-ring-outline-color: var(
+        --theme-button-primary-outline-hover,
+        SelectedItem
+    );
+    --icon-color: var(--theme-button-primary-ui-hover, SelectedItemText);
+    --theme-link-icon: var(--theme-button-primary-ui-hover, SelectedItemText);
+    text-decoration-color: hsl(339.45, 0%, 91.26%);
+    text-decoration-color: var(
+        --theme-button-primary-ui-hover,
+        SelectedItemText
+    );
+    accent-color: hsl(162, 69%, 16.5%);
+    accent-color: var(--theme-button-primary-border-hover, SelectedItem);
+    background-color: hsl(162, 69%, 16.5%);
+    background-color: var(
+        --theme-button-primary-background-hover,
+        SelectedItem
+    );
+    border-color: hsl(162, 69%, 16.5%);
+    border-color: var(--theme-button-primary-border-hover, SelectedItem);
+    color: hsl(339.45, 0%, 91.26%);
+    color: var(--theme-button-primary-text-hover, SelectedItemText);
+}
+.skip-link:focus,
+.skip-link[href]:focus,
+a.skip-link[href]:focus {
+    top: calc(0 + 1.25rem);
+    top: calc(var(--height-nav-primary, 0) + var(--mrg-firm-400, 1.25rem));
+    --focus-ring-outline-color: var(
+        --theme-button-primary-outline-hover,
+        SelectedItem
+    );
+    --icon-color: var(--theme-button-primary-ui-hover, SelectedItemText);
+    --theme-link-icon: var(--theme-button-primary-ui-hover, SelectedItemText);
+    text-decoration-color: hsl(339.45, 0%, 91.26%);
+    text-decoration-color: var(
+        --theme-button-primary-ui-hover,
+        SelectedItemText
+    );
+    accent-color: hsl(162, 69%, 16.5%);
+    accent-color: var(--theme-button-primary-border-hover, SelectedItem);
+    background-color: hsl(162, 69%, 16.5%);
+    background-color: var(
+        --theme-button-primary-background-hover,
+        SelectedItem
+    );
+    border-color: hsl(162, 69%, 16.5%);
+    border-color: var(--theme-button-primary-border-hover, SelectedItem);
+    color: hsl(339.45, 0%, 91.26%);
+    color: var(--theme-button-primary-text-hover, SelectedItemText);
+}
+
+.skip-link:focus-within,
+.skip-link[href]:focus-within,
+a.skip-link[href]:focus-within {
+    top: calc(0 + 1.25rem);
+    top: calc(var(--height-nav-primary, 0) + var(--mrg-firm-400, 1.25rem));
+    --focus-ring-outline-color: var(
+        --theme-button-primary-outline-hover,
+        SelectedItem
+    );
+    --icon-color: var(--theme-button-primary-ui-hover, SelectedItemText);
+    --theme-link-icon: var(--theme-button-primary-ui-hover, SelectedItemText);
+    text-decoration-color: hsl(339.45, 0%, 91.26%);
+    text-decoration-color: var(
+        --theme-button-primary-ui-hover,
+        SelectedItemText
+    );
+    accent-color: hsl(162, 69%, 16.5%);
+    accent-color: var(--theme-button-primary-border-hover, SelectedItem);
+    background-color: hsl(162, 69%, 16.5%);
+    background-color: var(
+        --theme-button-primary-background-hover,
+        SelectedItem
+    );
+    border-color: hsl(162, 69%, 16.5%);
+    border-color: var(--theme-button-primary-border-hover, SelectedItem);
+    color: hsl(339.45, 0%, 91.26%);
+    color: var(--theme-button-primary-text-hover, SelectedItemText);
+}
+
+.skip-link:active,
+.skip-link[href]:active,
+a.skip-link[href]:active {
+    --focus-ring-outline-color: var(
+        --theme-button-primary-outline-active,
+        ButtonFace
+    );
+    --icon-color: var(--theme-button-primary-ui-active, ButtonText);
+    --theme-link-icon: var(--theme-button-primary-ui-active, ButtonText);
+    text-decoration-color: hsl(339.45, 0%, 91.26%);
+    text-decoration-color: var(--theme-button-primary-ui-active, ButtonText);
+    accent-color: hsl(2.81, 72.25%, 28.09%);
+    accent-color: var(--theme-button-primary-border-active, ButtonFace);
+    background-color: hsl(2.81, 72.25%, 28.09%);
+    background-color: var(--theme-button-primary-background-active, ButtonFace);
+    border-color: hsl(2.81, 72.25%, 28.09%);
+    border-color: var(--theme-button-primary-border-active, ButtonFace);
+    color: hsl(339.45, 0%, 91.26%);
+    color: var(--theme-button-primary-text-active, ButtonText);
+}
+
+.skip-link-list {
+    grid-column: 1/-1;
+    grid-column: page-start/page-end;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.skip-link-list li {
+    margin: 0;
+    padding: 0;
+}
+
 /* # GLOBALS - OBJECTS
  * ======================================================================== */
 hr {
@@ -5653,7 +5742,17 @@ html {
 a[href],
 a[href]::before,
 a[href]::after {
-    transition: none;
+    transition:
+        background-color 250ms ease-in-out,
+        border-color 250ms ease-in-out,
+        box-shadow 250ms ease-in-out,
+        color 250ms ease-in-out,
+        font-weight 250ms ease-in-out,
+        opacity 250ms ease-in-out,
+        outline-color 250ms ease-in-out,
+        text-decoration-color 250ms ease-in-out,
+        text-shadow 250ms ease-in-out,
+        visibility 250ms ease-in-out;
     transition: var(--transition);
 }
 a[href] {
@@ -5924,8 +6023,9 @@ input[type="button"],
 input[type="submit"],
 a.button[href],
 a.button-secondary[href],
-img,
+details,
 figure,
+img,
 .button-span {
     margin-top: 1.25rem;
     margin-bottom: 0.4375rem;
@@ -5967,8 +6067,9 @@ blockquote input[type="button"],
 blockquote input[type="submit"],
 blockquote a.button[href],
 blockquote a.button-secondary[href],
-blockquote img,
+blockquote details,
 blockquote figure,
+blockquote img,
 blockquote .button-span {
     margin-top: 0.8125rem;
     margin-bottom: 0.3125rem;
@@ -7024,7 +7125,17 @@ input {
     border-width: var(--border-width-100, 0.0625rem);
     line-height: 1.4375;
     line-height: var(--line-height-300, 1.4375);
-    transition: none;
+    transition:
+        background-color 250ms ease-in-out,
+        border-color 250ms ease-in-out,
+        box-shadow 250ms ease-in-out,
+        color 250ms ease-in-out,
+        font-weight 250ms ease-in-out,
+        opacity 250ms ease-in-out,
+        outline-color 250ms ease-in-out,
+        text-decoration-color 250ms ease-in-out,
+        text-shadow 250ms ease-in-out,
+        visibility 250ms ease-in-out;
     transition: var(--transition);
 }
 textarea::-moz-placeholder,
@@ -7075,7 +7186,7 @@ textarea,
 select,
 input {
     --focus-ring-outline-color: var(--theme-input-accent, CanvasText);
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 96.6%);
     background-color: var(--theme-input-background, Field);
     border-color: hsl(278.16, 60.54%, 30.06%);
     border-color: var(--theme-input-border, CanvasText);
@@ -7100,7 +7211,7 @@ textarea:hover,
 select:hover,
 input:hover {
     --focus-ring-outline-color: var(--theme-input-accent-hover, CanvasText);
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 96.6%);
     background-color: var(--theme-input-background, Field);
     border-color: hsl(162, 69%, 16.5%);
     border-color: var(--theme-input-border-hover, CanvasText);
@@ -7114,7 +7225,7 @@ textarea:focus,
 select:focus,
 input:focus {
     --focus-ring-outline-color: var(--theme-input-accent-focus, CanvasText);
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 96.6%);
     background-color: var(--theme-input-background, Field);
     border-color: hsl(162, 69%, 16.5%);
     border-color: var(--theme-input-border-focus, CanvasText);
@@ -7128,7 +7239,7 @@ textarea:focus-within,
 select:focus-within,
 input:focus-within {
     --focus-ring-outline-color: var(--theme-input-accent-focus, CanvasText);
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 96.6%);
     background-color: var(--theme-input-background, Field);
     border-color: hsl(162, 69%, 16.5%);
     border-color: var(--theme-input-border-focus, CanvasText);
@@ -7142,7 +7253,7 @@ textarea:active,
 select:active,
 input:active {
     --focus-ring-outline-color: var(--theme-input-accent-active, ActiveText);
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 96.6%);
     background-color: var(--theme-input-background, Field);
     border-color: hsl(2.81, 72.25%, 28.09%);
     border-color: var(--theme-input-border-active, ActiveText);
@@ -7159,13 +7270,13 @@ textarea[disabled],
 select[disabled],
 input[disabled] {
     --focus-ring-outline-color: var(--theme-input-disabled-accent, CanvasText);
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 85.99%);
     background-color: var(--theme-input-disabled-background, Field);
-    border-color: hsl(339.45, 0%, 20.65%);
+    border-color: hsl(339.45, 0%, 33.2%);
     border-color: var(--theme-input-disabled-border, CanvasText);
-    color: hsl(339.45, 0%, 16.63%);
+    color: hsl(339.45, 0%, 33.2%);
     color: var(--theme-input-disabled-text, FieldText);
-    accent-color: hsl(339.45, 0%, 20.65%);
+    accent-color: hsl(339.45, 0%, 33.2%);
     accent-color: var(--theme-input-disabled-accent, CanvasText);
 }
 textarea[aria-disabled="true"]::-moz-placeholder,
@@ -7196,13 +7307,13 @@ input[disabled]:hover {
         --theme-input-disabled-accent-hover,
         CanvasText
     );
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 85.99%);
     background-color: var(--theme-input-disabled-background, Field);
-    border-color: hsl(162, 69%, 16.5%);
+    border-color: hsl(339.45, 0%, 33.2%);
     border-color: var(--theme-input-disabled-border-hover, CanvasText);
-    color: hsl(339.45, 0%, 16.63%);
+    color: hsl(339.45, 0%, 33.2%);
     color: var(--theme-input-disabled-text, FieldText);
-    accent-color: hsl(162, 69%, 16.5%);
+    accent-color: hsl(339.45, 0%, 33.2%);
     accent-color: var(--theme-input-disabled-accent-hover, CanvasText);
 }
 textarea[aria-disabled="true"]:focus,
@@ -7215,13 +7326,13 @@ input[disabled]:focus {
         --theme-input-disabled-accent-focus,
         CanvasText
     );
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 85.99%);
     background-color: var(--theme-input-disabled-background, Field);
-    border-color: hsl(162, 69%, 16.5%);
+    border-color: hsl(339.45, 0%, 33.2%);
     border-color: var(--theme-input-disabled-border-focus, CanvasText);
-    color: hsl(339.45, 0%, 16.63%);
+    color: hsl(339.45, 0%, 33.2%);
     color: var(--theme-input-disabled-text, FieldText);
-    accent-color: hsl(162, 69%, 16.5%);
+    accent-color: hsl(339.45, 0%, 33.2%);
     accent-color: var(--theme-input-disabled-accent-focus, CanvasText);
 }
 textarea[aria-disabled="true"]:focus-within,
@@ -7234,13 +7345,13 @@ input[disabled]:focus-within {
         --theme-input-disabled-accent-focus,
         CanvasText
     );
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 85.99%);
     background-color: var(--theme-input-disabled-background, Field);
-    border-color: hsl(162, 69%, 16.5%);
+    border-color: hsl(339.45, 0%, 33.2%);
     border-color: var(--theme-input-disabled-border-focus, CanvasText);
-    color: hsl(339.45, 0%, 16.63%);
+    color: hsl(339.45, 0%, 33.2%);
     color: var(--theme-input-disabled-text, FieldText);
-    accent-color: hsl(162, 69%, 16.5%);
+    accent-color: hsl(339.45, 0%, 33.2%);
     accent-color: var(--theme-input-disabled-accent-focus, CanvasText);
 }
 textarea[aria-disabled="true"]:active,
@@ -7253,26 +7364,26 @@ input[disabled]:active {
         --theme-input-disabled-accent-active,
         ActiveText
     );
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 85.99%);
     background-color: var(--theme-input-disabled-background, Field);
-    border-color: hsl(2.81, 72.25%, 28.09%);
+    border-color: hsl(339.45, 0%, 33.2%);
     border-color: var(--theme-input-disabled-border-active, ActiveText);
-    color: hsl(339.45, 0%, 16.63%);
+    color: hsl(339.45, 0%, 33.2%);
     color: var(--theme-input-disabled-text, FieldText);
-    accent-color: hsl(2.81, 72.25%, 28.09%);
+    accent-color: hsl(339.45, 0%, 33.2%);
     accent-color: var(--theme-input-disabled-accent-active, ActiveText);
 }
 textarea[readonly],
 select[readonly],
 input[readonly] {
     --focus-ring-outline-color: var(--theme-input-readonly-accent, CanvasText);
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 85.99%);
     background-color: var(--theme-input-readonly-background, Field);
-    border-color: hsl(339.45, 0%, 20.65%);
+    border-color: hsl(339.45, 0%, 16.63%);
     border-color: var(--theme-input-readonly-border, CanvasText);
     color: hsl(339.45, 0%, 16.63%);
     color: var(--theme-input-readonly-text, FieldText);
-    accent-color: hsl(339.45, 0%, 20.65%);
+    accent-color: hsl(339.45, 0%, 16.63%);
     accent-color: var(--theme-input-readonly-accent, CanvasText);
 }
 textarea[readonly]::-moz-placeholder,
@@ -7294,7 +7405,7 @@ input[readonly]:hover {
         --theme-input-readonly-accent-hover,
         CanvasText
     );
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 85.99%);
     background-color: var(--theme-input-readonly-background, Field);
     border-color: hsl(162, 69%, 16.5%);
     border-color: var(--theme-input-readonly-border-hover, CanvasText);
@@ -7310,7 +7421,7 @@ input[readonly]:focus {
         --theme-input-readonly-accent-focus,
         CanvasText
     );
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 85.99%);
     background-color: var(--theme-input-readonly-background, Field);
     border-color: hsl(162, 69%, 16.5%);
     border-color: var(--theme-input-readonly-border-focus, CanvasText);
@@ -7326,7 +7437,7 @@ input[readonly]:focus-within {
         --theme-input-readonly-accent-focus,
         CanvasText
     );
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 85.99%);
     background-color: var(--theme-input-readonly-background, Field);
     border-color: hsl(162, 69%, 16.5%);
     border-color: var(--theme-input-readonly-border-focus, CanvasText);
@@ -7342,7 +7453,7 @@ input[readonly]:active {
         --theme-input-readonly-accent-active,
         ActiveText
     );
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 85.99%);
     background-color: var(--theme-input-readonly-background, Field);
     border-color: hsl(2.81, 72.25%, 28.09%);
     border-color: var(--theme-input-readonly-border-active, ActiveText);
@@ -7357,7 +7468,7 @@ input[type="reset"][aria-disabled="true"],
 input[type="submit"][disabled],
 input[type="reset"][disabled] {
     --focus-ring-outline-color: var(
-        --theme-button-disabled-outline-hover,
+        --theme-button-disabled-outline,
         SelectedItem
     );
     --icon-color: var(--theme-button-disabled-ui, ButtonText);
@@ -7599,18 +7710,18 @@ input[type="checkbox"][aria-disabled="true"],
 input[type="checkbox"][disabled],
 input[type="radio"][aria-disabled="true"],
 input[type="radio"][disabled] {
-    accent-color: hsl(339.45, 0%, 20.65%);
+    accent-color: hsl(339.45, 0%, 33.2%);
     accent-color: var(--theme-input-disabled-accent, CanvasText);
-    color: hsl(339.45, 0%, 20.65%);
+    color: hsl(339.45, 0%, 33.2%);
     color: var(--theme-input-disabled-accent, CanvasText);
 }
 input[type="checkbox"][aria-disabled="true"]:hover,
 input[type="checkbox"][disabled]:hover,
 input[type="radio"][aria-disabled="true"]:hover,
 input[type="radio"][disabled]:hover {
-    accent-color: hsl(162, 69%, 16.5%);
+    accent-color: hsl(339.45, 0%, 33.2%);
     accent-color: var(--theme-input-disabled-accent-hover, CanvasText);
-    color: hsl(162, 69%, 16.5%);
+    color: hsl(339.45, 0%, 33.2%);
     color: var(--theme-input-disabled-accent-hover, CanvasText);
 }
 .no-js input[type="checkbox"][aria-disabled="true"]:focus,
@@ -7621,9 +7732,9 @@ input[type="radio"][disabled]:hover {
 .js__no-whereSelector input[type="checkbox"][disabled]:focus,
 .js__no-whereSelector input[type="radio"][aria-disabled="true"]:focus,
 .js__no-whereSelector input[type="radio"][disabled]:focus {
-    accent-color: hsl(162, 69%, 16.5%);
+    accent-color: hsl(339.45, 0%, 33.2%);
     accent-color: var(--theme-input-disabled-accent-focus, CanvasText);
-    color: hsl(162, 69%, 16.5%);
+    color: hsl(339.45, 0%, 33.2%);
     color: var(--theme-input-disabled-accent-focus, CanvasText);
 }
 
@@ -7631,9 +7742,9 @@ input[type="radio"][disabled]:hover {
 :where(.js__no-focusVisible) input[type="checkbox"][disabled]:focus,
 :where(.js__no-focusVisible) input[type="radio"][aria-disabled="true"]:focus,
 :where(.js__no-focusVisible) input[type="radio"][disabled]:focus {
-    accent-color: hsl(162, 69%, 16.5%);
+    accent-color: hsl(339.45, 0%, 33.2%);
     accent-color: var(--theme-input-disabled-accent-focus, CanvasText);
-    color: hsl(162, 69%, 16.5%);
+    color: hsl(339.45, 0%, 33.2%);
     color: var(--theme-input-disabled-accent-focus, CanvasText);
 }
 
@@ -7641,9 +7752,9 @@ input[type="checkbox"][aria-disabled="true"]:focus-visible,
 input[type="checkbox"][disabled]:focus-visible,
 input[type="radio"][aria-disabled="true"]:focus-visible,
 input[type="radio"][disabled]:focus-visible {
-    accent-color: hsl(162, 69%, 16.5%);
+    accent-color: hsl(339.45, 0%, 33.2%);
     accent-color: var(--theme-input-disabled-accent-focus, CanvasText);
-    color: hsl(162, 69%, 16.5%);
+    color: hsl(339.45, 0%, 33.2%);
     color: var(--theme-input-disabled-accent-focus, CanvasText);
 }
 
@@ -7651,9 +7762,9 @@ input[type="checkbox"][aria-disabled="true"]:focus-within,
 input[type="checkbox"][disabled]:focus-within,
 input[type="radio"][aria-disabled="true"]:focus-within,
 input[type="radio"][disabled]:focus-within {
-    accent-color: hsl(162, 69%, 16.5%);
+    accent-color: hsl(339.45, 0%, 33.2%);
     accent-color: var(--theme-input-disabled-accent-focus, CanvasText);
-    color: hsl(162, 69%, 16.5%);
+    color: hsl(339.45, 0%, 33.2%);
     color: var(--theme-input-disabled-accent-focus, CanvasText);
 }
 
@@ -7661,16 +7772,16 @@ input[type="checkbox"][aria-disabled="true"]:active,
 input[type="checkbox"][disabled]:active,
 input[type="radio"][aria-disabled="true"]:active,
 input[type="radio"][disabled]:active {
-    accent-color: hsl(2.81, 72.25%, 28.09%);
+    accent-color: hsl(339.45, 0%, 33.2%);
     accent-color: var(--theme-input-disabled-accent-active, ActiveText);
-    color: hsl(2.81, 72.25%, 28.09%);
+    color: hsl(339.45, 0%, 33.2%);
     color: var(--theme-input-disabled-accent-active, ActiveText);
 }
 input[type="checkbox"][readonly],
 input[type="radio"][readonly] {
-    accent-color: hsl(339.45, 0%, 20.65%);
+    accent-color: hsl(339.45, 0%, 16.63%);
     accent-color: var(--theme-input-readonly-accent, CanvasText);
-    color: hsl(339.45, 0%, 20.65%);
+    color: hsl(339.45, 0%, 16.63%);
     color: var(--theme-input-readonly-accent, CanvasText);
 }
 input[type="checkbox"][readonly]:hover,
@@ -7766,12 +7877,12 @@ label:has(> :where(input[type="checkbox"], input[type="radio"])) + textarea {
     gap: 0.8125rem 1.25rem;
     gap: var(--mrg-firm-300, 0.8125rem) var(--mrg-firm-400, 1.25rem);
 }
-.button-span > button,
-.button-span > [role="button"],
-.button-span > input[type="button"],
-.button-span > input[type="submit"],
-.button-span > a.button[href],
-.button-span > a.button-secondary[href] {
+.button-span button,
+.button-span [role="button"],
+.button-span input[type="button"],
+.button-span input[type="submit"],
+.button-span a.button[href],
+.button-span a.button-secondary[href] {
     margin: 0 !important;
 }
 
@@ -7791,6 +7902,7 @@ a.button-secondary[href] {
     align-items: start;
     width: -moz-fit-content;
     width: fit-content;
+    height: auto;
     margin-top: 1.25rem;
     margin-bottom: 0.4375rem;
     margin-top: var(--mrg-firm-400, 1.25rem);
@@ -7805,8 +7917,7 @@ a.button-secondary[href] {
     border-style: solid;
     font-weight: 500;
     font-style: normal;
-    font-size: 1.0625rem;
-    font-size: var(--fs-normal, 1.0625rem);
+    font-size: var-fs("normal");
     line-height: 1.1875;
     line-height: var(--line-height-100, 1.1875);
     letter-spacing: normal;
@@ -7814,7 +7925,17 @@ a.button-secondary[href] {
     text-decoration: none;
     text-wrap: balance;
     text-align: left;
-    transition: none;
+    transition:
+        background-color 250ms ease-in-out,
+        border-color 250ms ease-in-out,
+        box-shadow 250ms ease-in-out,
+        color 250ms ease-in-out,
+        font-weight 250ms ease-in-out,
+        opacity 250ms ease-in-out,
+        outline-color 250ms ease-in-out,
+        text-decoration-color 250ms ease-in-out,
+        text-shadow 250ms ease-in-out,
+        visibility 250ms ease-in-out;
     transition: var(--transition);
     opacity: 1;
     -webkit-appearance: button;
@@ -7829,7 +7950,7 @@ input[type="submit"],
 a.button[href],
 a.button-secondary[href] {
     --focus-ring-outline-color: var(
-        --theme-button-primary-outline-hover,
+        --theme-button-primary-outline,
         SelectedItem
     );
     --icon-color: var(--theme-button-primary-ui, ButtonText);
@@ -8056,7 +8177,7 @@ input[disabled][type="submit"],
 a[disabled].button[href],
 a[disabled].button-secondary[href] {
     --focus-ring-outline-color: var(
-        --theme-button-disabled-outline-hover,
+        --theme-button-disabled-outline,
         SelectedItem
     );
     --icon-color: var(--theme-button-disabled-ui, ButtonText);
@@ -8423,7 +8544,7 @@ button.button-secondary,
 input[type="button"].button-secondary,
 input[type="submit"].button-secondary {
     --focus-ring-outline-color: var(
-        --theme-button-secondary-outline-hover,
+        --theme-button-secondary-outline,
         SelectedItem
     );
     --icon-color: var(--theme-button-secondary-ui, ButtonText);
@@ -8631,7 +8752,7 @@ input[type="submit"].button-secondary:active {
 button[type="reset"],
 input[type="reset"] {
     --focus-ring-outline-color: var(
-        --theme-button-secondary-outline-hover,
+        --theme-button-secondary-outline,
         SelectedItem
     );
     --icon-color: var(--theme-button-secondary-ui, ButtonText);
@@ -8925,6 +9046,7 @@ input[type="reset"]:active {
     align-items: start;
     width: -moz-fit-content;
     width: fit-content;
+    height: auto;
     margin-top: 1.25rem;
     margin-bottom: 0.4375rem;
     margin-top: var(--mrg-firm-400, 1.25rem);
@@ -8939,8 +9061,7 @@ input[type="reset"]:active {
     border-style: solid;
     font-weight: 500;
     font-style: normal;
-    font-size: 1.0625rem;
-    font-size: var(--fs-normal, 1.0625rem);
+    font-size: var-fs("normal");
     line-height: 1.1875;
     line-height: var(--line-height-100, 1.1875);
     letter-spacing: normal;
@@ -8948,7 +9069,17 @@ input[type="reset"]:active {
     text-decoration: none;
     text-wrap: balance;
     text-align: left;
-    transition: none;
+    transition:
+        background-color 250ms ease-in-out,
+        border-color 250ms ease-in-out,
+        box-shadow 250ms ease-in-out,
+        color 250ms ease-in-out,
+        font-weight 250ms ease-in-out,
+        opacity 250ms ease-in-out,
+        outline-color 250ms ease-in-out,
+        text-decoration-color 250ms ease-in-out,
+        text-shadow 250ms ease-in-out,
+        visibility 250ms ease-in-out;
     transition: var(--transition);
     opacity: 1;
     -webkit-appearance: button;
@@ -8958,7 +9089,7 @@ input[type="reset"]:active {
 }
 ::file-selector-button {
     --focus-ring-outline-color: var(
-        --theme-button-secondary-outline-hover,
+        --theme-button-secondary-outline,
         SelectedItem
     );
     --icon-color: var(--theme-button-secondary-ui, ButtonText);
@@ -9154,7 +9285,7 @@ input[disabled]::file-selector-button {
 input[aria-disabled="true"]::file-selector-button,
 input[disabled]::file-selector-button {
     --focus-ring-outline-color: var(
-        --theme-button-disabled-outline-hover,
+        --theme-button-disabled-outline,
         SelectedItem
     );
     --icon-color: var(--theme-button-disabled-ui, ButtonText);
@@ -10117,8 +10248,9 @@ input[disabled]:active::file-selector-button {
 .alert-block input[type="submit"],
 .alert-block a.button[href],
 .alert-block a.button-secondary[href],
-.alert-block img,
+.alert-block details,
 .alert-block figure,
+.alert-block img,
 .alert-block .button-span {
     margin-top: 0.8125rem;
     margin-bottom: 0.3125rem;
@@ -10784,11 +10916,13 @@ input[disabled]:active::file-selector-button {
     transition:
         background-color 250ms ease-in-out,
         border-color 250ms ease-in-out,
+        box-shadow 250ms ease-in-out,
         color 250ms ease-in-out,
         font-weight 250ms ease-in-out,
         opacity 250ms ease-in-out,
         outline-color 250ms ease-in-out,
         text-decoration-color 250ms ease-in-out,
+        text-shadow 250ms ease-in-out,
         visibility 250ms ease-in-out;
 }
 :where(.js) .toggle-title [data-toggle-control],
@@ -10816,11 +10950,13 @@ input[disabled]:active::file-selector-button {
             border-bottom-width 1200ms ease-in-out 0ms,
             background-color 250ms ease-in-out,
             border-color 250ms ease-in-out,
+            box-shadow 250ms ease-in-out,
             color 250ms ease-in-out,
             font-weight 250ms ease-in-out,
             opacity 250ms ease-in-out,
             outline-color 250ms ease-in-out,
             text-decoration-color 250ms ease-in-out,
+            text-shadow 250ms ease-in-out,
             visibility 250ms ease-in-out;
     }
     :where(.js) [data-toggle-content] > .container {
@@ -10862,11 +10998,13 @@ input[disabled]:active::file-selector-button {
             border-bottom-width 1200ms ease-in-out 0ms,
             background-color 250ms ease-in-out,
             border-color 250ms ease-in-out,
+            box-shadow 250ms ease-in-out,
             color 250ms ease-in-out,
             font-weight 250ms ease-in-out,
             opacity 250ms ease-in-out,
             outline-color 250ms ease-in-out,
             text-decoration-color 250ms ease-in-out,
+            text-shadow 250ms ease-in-out,
             visibility 250ms ease-in-out;
     }
     :where(.js)
@@ -10887,11 +11025,13 @@ input[disabled]:active::file-selector-button {
         border-bottom-width 1200ms ease-in-out 0ms,
         background-color 250ms ease-in-out,
         border-color 250ms ease-in-out,
+        box-shadow 250ms ease-in-out,
         color 250ms ease-in-out,
         font-weight 250ms ease-in-out,
         opacity 250ms ease-in-out,
         outline-color 250ms ease-in-out,
         text-decoration-color 250ms ease-in-out,
+        text-shadow 250ms ease-in-out,
         visibility 250ms ease-in-out;
 }
 [data-motion="no-preference"]:where(.js) [data-toggle-content] > .container {
@@ -10937,11 +11077,13 @@ input[disabled]:active::file-selector-button {
         border-bottom-width 1200ms ease-in-out 0ms,
         background-color 250ms ease-in-out,
         border-color 250ms ease-in-out,
+        box-shadow 250ms ease-in-out,
         color 250ms ease-in-out,
         font-weight 250ms ease-in-out,
         opacity 250ms ease-in-out,
         outline-color 250ms ease-in-out,
         text-decoration-color 250ms ease-in-out,
+        text-shadow 250ms ease-in-out,
         visibility 250ms ease-in-out;
 }
 [data-motion="no-preference"]:where(.js)
@@ -10962,11 +11104,13 @@ input[disabled]:active::file-selector-button {
             grid-template-rows 0ms ease-in-out 1200ms,
             background-color 250ms ease-in-out,
             border-color 250ms ease-in-out,
+            box-shadow 250ms ease-in-out,
             color 250ms ease-in-out,
             font-weight 250ms ease-in-out,
             opacity 250ms ease-in-out,
             outline-color 250ms ease-in-out,
             text-decoration-color 250ms ease-in-out,
+            text-shadow 250ms ease-in-out,
             visibility 250ms ease-in-out;
     }
     :where(.js) [data-toggle-content] > .container {
@@ -11004,11 +11148,13 @@ input[disabled]:active::file-selector-button {
             border-color 500ms ease-in-out 0ms,
             background-color 250ms ease-in-out,
             border-color 250ms ease-in-out,
+            box-shadow 250ms ease-in-out,
             color 250ms ease-in-out,
             font-weight 250ms ease-in-out,
             opacity 250ms ease-in-out,
             outline-color 250ms ease-in-out,
             text-decoration-color 250ms ease-in-out,
+            text-shadow 250ms ease-in-out,
             visibility 250ms ease-in-out;
     }
     :where(.js)
@@ -11028,11 +11174,13 @@ input[disabled]:active::file-selector-button {
         grid-template-rows 0ms ease-in-out 1200ms,
         background-color 250ms ease-in-out,
         border-color 250ms ease-in-out,
+        box-shadow 250ms ease-in-out,
         color 250ms ease-in-out,
         font-weight 250ms ease-in-out,
         opacity 250ms ease-in-out,
         outline-color 250ms ease-in-out,
         text-decoration-color 250ms ease-in-out,
+        text-shadow 250ms ease-in-out,
         visibility 250ms ease-in-out;
 }
 [data-motion="reduce"]:where(.js) [data-toggle-content] > .container {
@@ -11074,11 +11222,13 @@ input[disabled]:active::file-selector-button {
         border-color 500ms ease-in-out 0ms,
         background-color 250ms ease-in-out,
         border-color 250ms ease-in-out,
+        box-shadow 250ms ease-in-out,
         color 250ms ease-in-out,
         font-weight 250ms ease-in-out,
         opacity 250ms ease-in-out,
         outline-color 250ms ease-in-out,
         text-decoration-color 250ms ease-in-out,
+        text-shadow 250ms ease-in-out,
         visibility 250ms ease-in-out;
 }
 [data-motion="reduce"]:where(.js)
@@ -11407,14 +11557,11 @@ body > nav[data-toggle-container] {
 html:where(.js),
 :where(.js) body {
     --height-nav-primary: 3.125rem;
-    --scroll-padding-top: calc(3.125rem + var(--gap-block-layout, 5vw));
-    --scroll-padding-top: calc(
-        var(--height-nav-primary, 3.125rem) + var(--gap-block-layout, 5vw)
-    );
-    scroll-padding-top: calc(3.125rem + max(1.625rem, min(5svw, 5.8125rem)));
+    --scroll-padding-top: get-scroll-padding-top-value();
+    scroll-padding-top: get-scroll-padding-top-value();
     scroll-padding-top: var(
         --scroll-padding-top,
-        calc(3.125rem + var(--gap-block-layout, 5vw))
+        calc(var(--height-nav-primary, 0) + var(--gap-block-layout, 5vw))
     );
 }
 
@@ -11425,7 +11572,7 @@ html:where(.js),
     margin: 0;
     padding: 0;
     gap: 0;
-    z-index: 9999;
+    z-index: 1000;
 }
 :where(.js) .nav-primary[data-toggle-container] > .toggle-title {
     min-height: 3.125rem;
@@ -11813,7 +11960,7 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     > [data-toggle-content] {
     max-height: 80svh;
     max-height: calc(
-        95svh - calc(2.75rem + max(0.8125rem, min(2.5svw, 2.90625rem)) * 2)
+        95svh - calc(2.75rem + max(0.8125rem, min(2.5svw, 1.5625rem)) * 2)
     );
     max-height: calc(
         95svh -
@@ -11858,7 +12005,17 @@ p.aside em em em {
 }
 
 .website-settings__content fieldset {
-    transition: none;
+    transition:
+        background-color 250ms ease-in-out,
+        border-color 250ms ease-in-out,
+        box-shadow 250ms ease-in-out,
+        color 250ms ease-in-out,
+        font-weight 250ms ease-in-out,
+        opacity 250ms ease-in-out,
+        outline-color 250ms ease-in-out,
+        text-decoration-color 250ms ease-in-out,
+        text-shadow 250ms ease-in-out,
+        visibility 250ms ease-in-out;
     transition: var(--transition);
 }
 .website-settings__content fieldset > legend {
@@ -11867,7 +12024,17 @@ p.aside em em em {
 }
 
 [data-toggle-control-backdrop] {
-    transition: none;
+    transition:
+        background-color 250ms ease-in-out,
+        border-color 250ms ease-in-out,
+        box-shadow 250ms ease-in-out,
+        color 250ms ease-in-out,
+        font-weight 250ms ease-in-out,
+        opacity 250ms ease-in-out,
+        outline-color 250ms ease-in-out,
+        text-decoration-color 250ms ease-in-out,
+        text-shadow 250ms ease-in-out,
+        visibility 250ms ease-in-out;
     transition: var(--transition);
 }
 

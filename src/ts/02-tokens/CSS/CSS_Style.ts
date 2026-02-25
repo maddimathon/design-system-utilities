@@ -89,6 +89,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
             },
 
             font: {
+                size: 'normal',
                 style: 'normal',
                 weight: '500',
             },
@@ -126,9 +127,10 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                 },
 
                 font: {
-                    ...style.font,
+                    weight: style.font.weight,
                     style: 'italic',
                 },
+
                 'letter-spacing': style[ 'letter-spacing' ],
                 'text-transform': style[ 'text-transform' ],
             },
@@ -418,6 +420,12 @@ export namespace Tokens_CSS_Style {
         };
 
         font: {
+            /**
+             * Should be a font-size token slug.
+             * 
+             * @since ___PKG_VERSION___
+             */
+            size: string;
             style: "normal" | "italic";
             weight: TokenLevels;
         };
@@ -448,10 +456,10 @@ export namespace Tokens_CSS_Style {
 
     export type ButtonStyles_Disabled = Omit<
         ButtonStyles,
-        'border' | 'focus' | 'gap' | 'line-height' | 'margin' | 'padding' | 'width'
+        'border' | 'focus' | 'font' | 'gap' | 'line-height' | 'margin' | 'padding' | 'width'
     > & {
         border: Omit<ButtonStyles[ 'border' ], 'width'>;
-
+        font: Omit<ButtonStyles[ 'font' ], 'size'>;
         'letter-spacing': string;
         'text-transform': CSS.TextTransform;
     };

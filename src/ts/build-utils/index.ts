@@ -15,4 +15,5 @@ export * from './classes/Compile.js';
 export * from './classes/Document.js';
 
 export * from './defineConfig.js';
+export * from './defineSassCompilerOpts.js';
 export * from './getWordpressSvgConstants.js';

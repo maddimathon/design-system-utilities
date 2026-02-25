@@ -27,19 +27,14 @@
 
     @include feature-check.supports(whereSelector) {
         $_navHeight: 3.125rem;
-        $_scrollPaddingFallback: calc(#{$_navHeight} + #{var-gap-block(layout)});
+        // $_scrollPaddingFallback: calc($_navHeight + var-gap-block(layout));
 
         @at-root #{selector.unify(&, '%root')},
             & body {
             @include cx-prop(height-nav-primary, $_navHeight);
+            @include cx-prop(scroll-padding-top, #{get-scroll-padding-top-value()});
 
-            @include cx-prop(scroll-padding-top, $_scrollPaddingFallback);
-            @include cx-prop(
-                scroll-padding-top,
-                calc(do-var(height-nav-primary, $_navHeight) + var-gap-block(layout))
-            );
-
-            scroll-padding-top: do-var(scroll-padding-top, $_scrollPaddingFallback);
+            scroll-padding-top: #{var-scroll-padding-top()};
         }
 
         body {
@@ -54,7 +49,7 @@
             padding: 0;
             gap: 0;
 
-            z-index: 9999;
+            z-index: #{var-z-index(nav)};
 
             > .toggle-title {
                 min-height: do-var(height-nav-primary, $_navHeight);

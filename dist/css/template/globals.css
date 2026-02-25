@@ -4,7 +4,7 @@
  */
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0-alpha.32
+ * @maddimathon/utility-sass@0.1.0-alpha.34
  * 
  * https://maddimathon.github.io/utility-sass
  */
@@ -84,9 +84,9 @@ html {
 /* #region Tokens - Gap */
 html {
     --gap-block-layout: 5vw;
-    --gap-block-layout: max(1.625rem, min(5svw, 5.8125rem));
+    --gap-block-layout: max(1.625rem, min(5svw, 3.125rem));
     --gap-block-layout-half: 2.5vw;
-    --gap-block-layout-half: max(0.8125rem, min(2.5svw, 2.90625rem));
+    --gap-block-layout-half: max(0.8125rem, min(2.5svw, 1.5625rem));
     --gap-inline-indent: 9%;
     --gap-inline-indent: max(0.5rem, min(9%, 4rem));
     --gap-inline-layout: 8vw;
@@ -112,34 +112,48 @@ html {
 }
 
 /* #endregion Tokens - Misc. */
+/* #region Tokens - Width */
+html {
+    --width-content: 36rem;
+    --width-sidebar: 16rem;
+    --width-callout: 29.25rem;
+    --width-page: 58rem;
+    --width-page: calc(
+        var(--width-content, 36rem) + var(--width-sidebar, 16rem) +
+            var(--gap-inline-layout, 8vw)
+    );
+}
+
+/* #endregion Tokens - Width */
 /* #region Tokens - Transitions */
 html {
-    --transition: none;
+    --transition:
+        background-color 250ms ease-in-out, border-color 250ms ease-in-out,
+        box-shadow 250ms ease-in-out, color 250ms ease-in-out,
+        font-weight 250ms ease-in-out, opacity 250ms ease-in-out,
+        outline-color 250ms ease-in-out,
+        text-decoration-color 250ms ease-in-out, text-shadow 250ms ease-in-out,
+        visibility 250ms ease-in-out;
 }
 
 @media (prefers-reduced-motion: no-preference) {
     :where(.js) {
         --transition:
             background-color 250ms ease-in-out, border-color 250ms ease-in-out,
-            color 250ms ease-in-out, font-weight 250ms ease-in-out,
-            opacity 250ms ease-in-out, outline-color 250ms ease-in-out,
+            box-shadow 250ms ease-in-out, color 250ms ease-in-out,
+            font-weight 250ms ease-in-out, opacity 250ms ease-in-out,
+            outline-color 250ms ease-in-out,
             text-decoration-color 250ms ease-in-out,
-            visibility 250ms ease-in-out, aspect-ratio 250ms ease-in-out,
+            text-shadow 250ms ease-in-out, visibility 250ms ease-in-out,
+            aspect-ratio 250ms ease-in-out, border-color 250ms ease-in-out,
             bottom 250ms ease-in-out, font-weight 250ms ease-in-out,
             height 250ms ease-in-out, left 250ms ease-in-out,
-            margin 250ms ease-in-out, padding 250ms ease-in-out,
-            right 250ms ease-in-out, top 250ms ease-in-out,
-            transform 250ms ease-in-out, width 250ms ease-in-out;
-    }
-}
-@media (prefers-reduced-motion: reduce) {
-    :where(.js) {
-        --transition:
-            background-color 250ms ease-in-out, border-color 250ms ease-in-out,
-            color 250ms ease-in-out, font-weight 250ms ease-in-out,
-            opacity 250ms ease-in-out, outline-color 250ms ease-in-out,
-            text-decoration-color 250ms ease-in-out,
-            visibility 250ms ease-in-out !important;
+            margin 250ms ease-in-out, max-height 250ms ease-in-out,
+            max-width 250ms ease-in-out, min-height 250ms ease-in-out,
+            min-width 250ms ease-in-out, outline-color 250ms ease-in-out,
+            padding 250ms ease-in-out, right 250ms ease-in-out,
+            top 250ms ease-in-out, transform 250ms ease-in-out,
+            width 250ms ease-in-out;
     }
 }
 /* #endregion Tokens - Transitions */
@@ -289,9 +303,9 @@ html {
     --sys-clr-button-text: var(--clr-base-150, hsl(339.45, 0%, 91.26%));
     --sys-clr-button-text-active: var(--clr-base-150, hsl(339.45, 0%, 91.26%));
     --sys-clr-button-text-hover: var(--clr-base-150, hsl(339.45, 0%, 91.26%));
-    --sys-clr-input-bg: var(--clr-base-150, hsl(339.45, 0%, 91.26%));
-    --sys-clr-input-bg-hover: var(--clr-base-150, hsl(339.45, 0%, 91.26%));
-    --sys-clr-input-bg-active: var(--clr-base-150, hsl(339.45, 0%, 91.26%));
+    --sys-clr-input-bg: var(--clr-base-100, hsl(339.45, 0%, 96.6%));
+    --sys-clr-input-bg-hover: var(--clr-base-100, hsl(339.45, 0%, 96.6%));
+    --sys-clr-input-bg-active: var(--clr-base-100, hsl(339.45, 0%, 96.6%));
     --sys-clr-input-border: var(--clr-purple-700, hsl(278.16, 60.54%, 30.06%));
     --sys-clr-input-border-hover: var(
         --clr-turquoise-700,
@@ -495,49 +509,49 @@ html {
     --theme-input-accent-active: var(--clr-red-700, hsl(2.81, 72.25%, 28.09%));
     --theme-input-accent-focus: var(--clr-turquoise-700, hsl(162, 69%, 16.5%));
     --theme-input-accent-hover: var(--clr-turquoise-700, hsl(162, 69%, 16.5%));
-    --theme-input-background: var(--clr-base-150, hsl(339.45, 0%, 91.26%));
+    --theme-input-background: var(--clr-base-100, hsl(339.45, 0%, 96.6%));
     --theme-input-border: var(--clr-purple-700, hsl(278.16, 60.54%, 30.06%));
     --theme-input-border-active: var(--clr-red-700, hsl(2.81, 72.25%, 28.09%));
     --theme-input-border-focus: var(--clr-turquoise-700, hsl(162, 69%, 16.5%));
     --theme-input-border-hover: var(--clr-turquoise-700, hsl(162, 69%, 16.5%));
     --theme-input-placeholder: var(--clr-base-600, hsl(339.45, 0%, 33.2%));
     --theme-input-text: var(--clr-base-750, hsl(339.45, 0%, 16.63%));
-    --theme-input-disabled-accent: var(--clr-base-700, hsl(339.45, 0%, 20.65%));
+    --theme-input-disabled-accent: var(--clr-base-600, hsl(339.45, 0%, 33.2%));
     --theme-input-disabled-accent-active: var(
-        --clr-red-700,
-        hsl(2.81, 72.25%, 28.09%)
+        --clr-base-600,
+        hsl(339.45, 0%, 33.2%)
     );
     --theme-input-disabled-accent-focus: var(
-        --clr-turquoise-700,
-        hsl(162, 69%, 16.5%)
+        --clr-base-600,
+        hsl(339.45, 0%, 33.2%)
     );
     --theme-input-disabled-accent-hover: var(
-        --clr-turquoise-700,
-        hsl(162, 69%, 16.5%)
+        --clr-base-600,
+        hsl(339.45, 0%, 33.2%)
     );
     --theme-input-disabled-background: var(
-        --clr-base-150,
-        hsl(339.45, 0%, 91.26%)
+        --clr-base-200,
+        hsl(339.45, 0%, 85.99%)
     );
-    --theme-input-disabled-border: var(--clr-base-700, hsl(339.45, 0%, 20.65%));
+    --theme-input-disabled-border: var(--clr-base-600, hsl(339.45, 0%, 33.2%));
     --theme-input-disabled-border-active: var(
-        --clr-red-700,
-        hsl(2.81, 72.25%, 28.09%)
+        --clr-base-600,
+        hsl(339.45, 0%, 33.2%)
     );
     --theme-input-disabled-border-focus: var(
-        --clr-turquoise-700,
-        hsl(162, 69%, 16.5%)
+        --clr-base-600,
+        hsl(339.45, 0%, 33.2%)
     );
     --theme-input-disabled-border-hover: var(
-        --clr-turquoise-700,
-        hsl(162, 69%, 16.5%)
+        --clr-base-600,
+        hsl(339.45, 0%, 33.2%)
     );
     --theme-input-disabled-placeholder: var(
         --clr-base-600,
         hsl(339.45, 0%, 33.2%)
     );
-    --theme-input-disabled-text: var(--clr-base-750, hsl(339.45, 0%, 16.63%));
-    --theme-input-readonly-accent: var(--clr-base-700, hsl(339.45, 0%, 20.65%));
+    --theme-input-disabled-text: var(--clr-base-600, hsl(339.45, 0%, 33.2%));
+    --theme-input-readonly-accent: var(--clr-base-750, hsl(339.45, 0%, 16.63%));
     --theme-input-readonly-accent-active: var(
         --clr-red-700,
         hsl(2.81, 72.25%, 28.09%)
@@ -551,10 +565,10 @@ html {
         hsl(162, 69%, 16.5%)
     );
     --theme-input-readonly-background: var(
-        --clr-base-150,
-        hsl(339.45, 0%, 91.26%)
+        --clr-base-200,
+        hsl(339.45, 0%, 85.99%)
     );
-    --theme-input-readonly-border: var(--clr-base-700, hsl(339.45, 0%, 20.65%));
+    --theme-input-readonly-border: var(--clr-base-750, hsl(339.45, 0%, 16.63%));
     --theme-input-readonly-border-active: var(
         --clr-red-700,
         hsl(2.81, 72.25%, 28.09%)
@@ -684,9 +698,9 @@ html {
             --clr-base-250,
             hsl(339.45, 0%, 80.77%)
         );
-        --sys-clr-input-bg: var(--clr-base-250, hsl(339.45, 0%, 80.77%));
-        --sys-clr-input-bg-hover: var(--clr-base-250, hsl(339.45, 0%, 80.77%));
-        --sys-clr-input-bg-active: var(--clr-base-250, hsl(339.45, 0%, 80.77%));
+        --sys-clr-input-bg: var(--clr-base-200, hsl(339.45, 0%, 85.99%));
+        --sys-clr-input-bg-hover: var(--clr-base-200, hsl(339.45, 0%, 85.99%));
+        --sys-clr-input-bg-active: var(--clr-base-200, hsl(339.45, 0%, 85.99%));
         --sys-clr-input-border: var(
             --clr-purple-700,
             hsl(278.16, 60.54%, 30.06%)
@@ -929,7 +943,7 @@ html {
             --clr-turquoise-700,
             hsl(162, 69%, 16.5%)
         );
-        --theme-input-background: var(--clr-base-250, hsl(339.45, 0%, 80.77%));
+        --theme-input-background: var(--clr-base-200, hsl(339.45, 0%, 85.99%));
         --theme-input-border: var(
             --clr-purple-700,
             hsl(278.16, 60.54%, 30.06%)
@@ -949,48 +963,48 @@ html {
         --theme-input-placeholder: var(--clr-base-600, hsl(339.45, 0%, 33.2%));
         --theme-input-text: var(--clr-base-700, hsl(339.45, 0%, 20.65%));
         --theme-input-disabled-accent: var(
-            --clr-base-700,
-            hsl(339.45, 0%, 20.65%)
+            --clr-base-600,
+            hsl(339.45, 0%, 33.2%)
         );
         --theme-input-disabled-accent-active: var(
-            --clr-red-700,
-            hsl(2.81, 72.25%, 28.09%)
+            --clr-base-600,
+            hsl(339.45, 0%, 33.2%)
         );
         --theme-input-disabled-accent-focus: var(
-            --clr-turquoise-700,
-            hsl(162, 69%, 16.5%)
+            --clr-base-600,
+            hsl(339.45, 0%, 33.2%)
         );
         --theme-input-disabled-accent-hover: var(
-            --clr-turquoise-700,
-            hsl(162, 69%, 16.5%)
+            --clr-base-600,
+            hsl(339.45, 0%, 33.2%)
         );
         --theme-input-disabled-background: var(
             --clr-base-250,
             hsl(339.45, 0%, 80.77%)
         );
         --theme-input-disabled-border: var(
-            --clr-base-700,
-            hsl(339.45, 0%, 20.65%)
+            --clr-base-600,
+            hsl(339.45, 0%, 33.2%)
         );
         --theme-input-disabled-border-active: var(
-            --clr-red-700,
-            hsl(2.81, 72.25%, 28.09%)
+            --clr-base-600,
+            hsl(339.45, 0%, 33.2%)
         );
         --theme-input-disabled-border-focus: var(
-            --clr-turquoise-700,
-            hsl(162, 69%, 16.5%)
+            --clr-base-600,
+            hsl(339.45, 0%, 33.2%)
         );
         --theme-input-disabled-border-hover: var(
-            --clr-turquoise-700,
-            hsl(162, 69%, 16.5%)
+            --clr-base-600,
+            hsl(339.45, 0%, 33.2%)
         );
         --theme-input-disabled-placeholder: var(
             --clr-base-600,
             hsl(339.45, 0%, 33.2%)
         );
         --theme-input-disabled-text: var(
-            --clr-base-700,
-            hsl(339.45, 0%, 20.65%)
+            --clr-base-600,
+            hsl(339.45, 0%, 33.2%)
         );
         --theme-input-readonly-accent: var(
             --clr-base-700,
@@ -1172,9 +1186,9 @@ html {
             --clr-base-100,
             hsl(339.45, 0%, 96.6%)
         );
-        --sys-clr-input-bg: var(--clr-base-100, hsl(339.45, 0%, 96.6%));
-        --sys-clr-input-bg-hover: var(--clr-base-100, hsl(339.45, 0%, 96.6%));
-        --sys-clr-input-bg-active: var(--clr-base-100, hsl(339.45, 0%, 96.6%));
+        --sys-clr-input-bg: var(--clr-white, hsl(305.21, 100%, 100%));
+        --sys-clr-input-bg-hover: var(--clr-white, hsl(305.21, 100%, 100%));
+        --sys-clr-input-bg-active: var(--clr-white, hsl(305.21, 100%, 100%));
         --sys-clr-input-border: var(
             --clr-purple-750,
             hsl(277.69, 56.91%, 23.79%)
@@ -1414,7 +1428,7 @@ html {
             --clr-turquoise-750,
             hsl(160.5, 58.43%, 13.78%)
         );
-        --theme-input-background: var(--clr-base-100, hsl(339.45, 0%, 96.6%));
+        --theme-input-background: var(--clr-white, hsl(305.21, 100%, 100%));
         --theme-input-border: var(
             --clr-purple-750,
             hsl(277.69, 56.91%, 23.79%)
@@ -1434,52 +1448,52 @@ html {
         --theme-input-placeholder: var(--clr-base-700, hsl(339.45, 0%, 20.65%));
         --theme-input-text: var(--clr-base-850, hsl(339.45, 0%, 9.03%));
         --theme-input-disabled-accent: var(
-            --clr-base-750,
-            hsl(339.45, 0%, 16.63%)
+            --clr-base-700,
+            hsl(339.45, 0%, 20.65%)
         );
         --theme-input-disabled-accent-active: var(
-            --clr-red-750,
-            hsl(2.73, 67.26%, 22.47%)
+            --clr-base-700,
+            hsl(339.45, 0%, 20.65%)
         );
         --theme-input-disabled-accent-focus: var(
-            --clr-turquoise-750,
-            hsl(160.5, 58.43%, 13.78%)
+            --clr-base-700,
+            hsl(339.45, 0%, 20.65%)
         );
         --theme-input-disabled-accent-hover: var(
-            --clr-turquoise-750,
-            hsl(160.5, 58.43%, 13.78%)
+            --clr-base-700,
+            hsl(339.45, 0%, 20.65%)
         );
         --theme-input-disabled-background: var(
-            --clr-base-100,
-            hsl(339.45, 0%, 96.6%)
+            --clr-base-150,
+            hsl(339.45, 0%, 91.26%)
         );
         --theme-input-disabled-border: var(
-            --clr-base-750,
-            hsl(339.45, 0%, 16.63%)
+            --clr-base-700,
+            hsl(339.45, 0%, 20.65%)
         );
         --theme-input-disabled-border-active: var(
-            --clr-red-750,
-            hsl(2.73, 67.26%, 22.47%)
+            --clr-base-700,
+            hsl(339.45, 0%, 20.65%)
         );
         --theme-input-disabled-border-focus: var(
-            --clr-turquoise-750,
-            hsl(160.5, 58.43%, 13.78%)
+            --clr-base-700,
+            hsl(339.45, 0%, 20.65%)
         );
         --theme-input-disabled-border-hover: var(
-            --clr-turquoise-750,
-            hsl(160.5, 58.43%, 13.78%)
+            --clr-base-700,
+            hsl(339.45, 0%, 20.65%)
         );
         --theme-input-disabled-placeholder: var(
             --clr-base-700,
             hsl(339.45, 0%, 20.65%)
         );
         --theme-input-disabled-text: var(
-            --clr-base-850,
-            hsl(339.45, 0%, 9.03%)
+            --clr-base-700,
+            hsl(339.45, 0%, 20.65%)
         );
         --theme-input-readonly-accent: var(
-            --clr-base-750,
-            hsl(339.45, 0%, 16.63%)
+            --clr-base-850,
+            hsl(339.45, 0%, 9.03%)
         );
         --theme-input-readonly-accent-active: var(
             --clr-red-750,
@@ -1494,12 +1508,12 @@ html {
             hsl(160.5, 58.43%, 13.78%)
         );
         --theme-input-readonly-background: var(
-            --clr-base-100,
-            hsl(339.45, 0%, 96.6%)
+            --clr-base-150,
+            hsl(339.45, 0%, 91.26%)
         );
         --theme-input-readonly-border: var(
-            --clr-base-750,
-            hsl(339.45, 0%, 16.63%)
+            --clr-base-850,
+            hsl(339.45, 0%, 9.03%)
         );
         --theme-input-readonly-border-active: var(
             --clr-red-750,
@@ -1663,9 +1677,9 @@ html {
             --clr-base-150,
             hsl(339.45, 0%, 9.03%)
         );
-        --sys-clr-input-bg: var(--clr-base-150, hsl(339.45, 0%, 9.03%));
-        --sys-clr-input-bg-hover: var(--clr-base-150, hsl(339.45, 0%, 9.03%));
-        --sys-clr-input-bg-active: var(--clr-base-150, hsl(339.45, 0%, 9.03%));
+        --sys-clr-input-bg: var(--clr-base-100, hsl(339.45, 0%, 4.28%));
+        --sys-clr-input-bg-hover: var(--clr-base-100, hsl(339.45, 0%, 4.28%));
+        --sys-clr-input-bg-active: var(--clr-base-100, hsl(339.45, 0%, 4.28%));
         --sys-clr-input-border: var(
             --clr-purple-700,
             hsl(274.76, 78.57%, 78.95%)
@@ -1899,7 +1913,7 @@ html {
             --clr-turquoise-700,
             hsl(160, 45%, 60%)
         );
-        --theme-input-background: var(--clr-base-150, hsl(339.45, 0%, 9.03%));
+        --theme-input-background: var(--clr-base-100, hsl(339.45, 0%, 4.28%));
         --theme-input-border: var(
             --clr-purple-700,
             hsl(274.76, 78.57%, 78.95%)
@@ -1916,52 +1930,52 @@ html {
         --theme-input-placeholder: var(--clr-base-600, hsl(339.45, 0%, 60.8%));
         --theme-input-text: var(--clr-base-750, hsl(339.45, 0%, 80.77%));
         --theme-input-disabled-accent: var(
-            --clr-base-700,
-            hsl(339.45, 0%, 75.61%)
+            --clr-base-600,
+            hsl(339.45, 0%, 60.8%)
         );
         --theme-input-disabled-accent-active: var(
-            --clr-red-700,
-            hsl(4, 100%, 79.5%)
+            --clr-base-600,
+            hsl(339.45, 0%, 60.8%)
         );
         --theme-input-disabled-accent-focus: var(
-            --clr-turquoise-700,
-            hsl(160, 45%, 60%)
+            --clr-base-600,
+            hsl(339.45, 0%, 60.8%)
         );
         --theme-input-disabled-accent-hover: var(
-            --clr-turquoise-700,
-            hsl(160, 45%, 60%)
+            --clr-base-600,
+            hsl(339.45, 0%, 60.8%)
         );
         --theme-input-disabled-background: var(
-            --clr-base-150,
-            hsl(339.45, 0%, 9.03%)
+            --clr-base-200,
+            hsl(339.45, 0%, 12.75%)
         );
         --theme-input-disabled-border: var(
-            --clr-base-700,
-            hsl(339.45, 0%, 75.61%)
+            --clr-base-600,
+            hsl(339.45, 0%, 60.8%)
         );
         --theme-input-disabled-border-active: var(
-            --clr-red-700,
-            hsl(4, 100%, 79.5%)
+            --clr-base-600,
+            hsl(339.45, 0%, 60.8%)
         );
         --theme-input-disabled-border-focus: var(
-            --clr-turquoise-700,
-            hsl(160, 45%, 60%)
+            --clr-base-600,
+            hsl(339.45, 0%, 60.8%)
         );
         --theme-input-disabled-border-hover: var(
-            --clr-turquoise-700,
-            hsl(160, 45%, 60%)
+            --clr-base-600,
+            hsl(339.45, 0%, 60.8%)
         );
         --theme-input-disabled-placeholder: var(
             --clr-base-600,
             hsl(339.45, 0%, 60.8%)
         );
         --theme-input-disabled-text: var(
-            --clr-base-750,
-            hsl(339.45, 0%, 80.77%)
+            --clr-base-600,
+            hsl(339.45, 0%, 60.8%)
         );
         --theme-input-readonly-accent: var(
-            --clr-base-700,
-            hsl(339.45, 0%, 75.61%)
+            --clr-base-750,
+            hsl(339.45, 0%, 80.77%)
         );
         --theme-input-readonly-accent-active: var(
             --clr-red-700,
@@ -1976,12 +1990,12 @@ html {
             hsl(160, 45%, 60%)
         );
         --theme-input-readonly-background: var(
-            --clr-base-150,
-            hsl(339.45, 0%, 9.03%)
+            --clr-base-200,
+            hsl(339.45, 0%, 12.75%)
         );
         --theme-input-readonly-border: var(
-            --clr-base-700,
-            hsl(339.45, 0%, 75.61%)
+            --clr-base-750,
+            hsl(339.45, 0%, 80.77%)
         );
         --theme-input-readonly-border-active: var(
             --clr-red-700,
@@ -2121,9 +2135,9 @@ html {
             --clr-base-250,
             hsl(339.45, 0%, 16.63%)
         );
-        --sys-clr-input-bg: var(--clr-base-250, hsl(339.45, 0%, 16.63%));
-        --sys-clr-input-bg-hover: var(--clr-base-250, hsl(339.45, 0%, 16.63%));
-        --sys-clr-input-bg-active: var(--clr-base-250, hsl(339.45, 0%, 16.63%));
+        --sys-clr-input-bg: var(--clr-base-200, hsl(339.45, 0%, 12.75%));
+        --sys-clr-input-bg-hover: var(--clr-base-200, hsl(339.45, 0%, 12.75%));
+        --sys-clr-input-bg-active: var(--clr-base-200, hsl(339.45, 0%, 12.75%));
         --sys-clr-input-border: var(
             --clr-purple-700,
             hsl(274.76, 78.57%, 78.95%)
@@ -2360,7 +2374,7 @@ html {
             --clr-turquoise-700,
             hsl(160, 45%, 60%)
         );
-        --theme-input-background: var(--clr-base-250, hsl(339.45, 0%, 16.63%));
+        --theme-input-background: var(--clr-base-200, hsl(339.45, 0%, 12.75%));
         --theme-input-border: var(
             --clr-purple-700,
             hsl(274.76, 78.57%, 78.95%)
@@ -2377,48 +2391,48 @@ html {
         --theme-input-placeholder: var(--clr-base-600, hsl(339.45, 0%, 60.8%));
         --theme-input-text: var(--clr-base-700, hsl(339.45, 0%, 75.61%));
         --theme-input-disabled-accent: var(
-            --clr-base-700,
-            hsl(339.45, 0%, 75.61%)
+            --clr-base-600,
+            hsl(339.45, 0%, 60.8%)
         );
         --theme-input-disabled-accent-active: var(
-            --clr-red-700,
-            hsl(4, 100%, 79.5%)
+            --clr-base-600,
+            hsl(339.45, 0%, 60.8%)
         );
         --theme-input-disabled-accent-focus: var(
-            --clr-turquoise-700,
-            hsl(160, 45%, 60%)
+            --clr-base-600,
+            hsl(339.45, 0%, 60.8%)
         );
         --theme-input-disabled-accent-hover: var(
-            --clr-turquoise-700,
-            hsl(160, 45%, 60%)
+            --clr-base-600,
+            hsl(339.45, 0%, 60.8%)
         );
         --theme-input-disabled-background: var(
             --clr-base-250,
             hsl(339.45, 0%, 16.63%)
         );
         --theme-input-disabled-border: var(
-            --clr-base-700,
-            hsl(339.45, 0%, 75.61%)
+            --clr-base-600,
+            hsl(339.45, 0%, 60.8%)
         );
         --theme-input-disabled-border-active: var(
-            --clr-red-700,
-            hsl(4, 100%, 79.5%)
+            --clr-base-600,
+            hsl(339.45, 0%, 60.8%)
         );
         --theme-input-disabled-border-focus: var(
-            --clr-turquoise-700,
-            hsl(160, 45%, 60%)
+            --clr-base-600,
+            hsl(339.45, 0%, 60.8%)
         );
         --theme-input-disabled-border-hover: var(
-            --clr-turquoise-700,
-            hsl(160, 45%, 60%)
+            --clr-base-600,
+            hsl(339.45, 0%, 60.8%)
         );
         --theme-input-disabled-placeholder: var(
             --clr-base-600,
             hsl(339.45, 0%, 60.8%)
         );
         --theme-input-disabled-text: var(
-            --clr-base-700,
-            hsl(339.45, 0%, 75.61%)
+            --clr-base-600,
+            hsl(339.45, 0%, 60.8%)
         );
         --theme-input-readonly-accent: var(
             --clr-base-700,
@@ -2591,9 +2605,9 @@ html {
             --clr-base-100,
             hsl(339.45, 0%, 4.28%)
         );
-        --sys-clr-input-bg: var(--clr-base-100, hsl(339.45, 0%, 4.28%));
-        --sys-clr-input-bg-hover: var(--clr-base-100, hsl(339.45, 0%, 4.28%));
-        --sys-clr-input-bg-active: var(--clr-base-100, hsl(339.45, 0%, 4.28%));
+        --sys-clr-input-bg: var(--clr-white, hsl(0, 0%, 0%));
+        --sys-clr-input-bg-hover: var(--clr-white, hsl(0, 0%, 0%));
+        --sys-clr-input-bg-active: var(--clr-white, hsl(0, 0%, 0%));
         --sys-clr-input-border: var(
             --clr-purple-750,
             hsl(273.56, 81.34%, 84.1%)
@@ -2839,7 +2853,7 @@ html {
             --clr-turquoise-750,
             hsl(158.81, 45.09%, 69.63%)
         );
-        --theme-input-background: var(--clr-base-100, hsl(339.45, 0%, 4.28%));
+        --theme-input-background: var(--clr-white, hsl(0, 0%, 0%));
         --theme-input-border: var(--clr-purple-750, hsl(273.56, 81.34%, 84.1%));
         --theme-input-border-active: var(
             --clr-red-750,
@@ -2856,52 +2870,52 @@ html {
         --theme-input-placeholder: var(--clr-base-700, hsl(339.45, 0%, 75.61%));
         --theme-input-text: var(--clr-base-850, hsl(339.45, 0%, 91.26%));
         --theme-input-disabled-accent: var(
-            --clr-base-750,
-            hsl(339.45, 0%, 80.77%)
+            --clr-base-700,
+            hsl(339.45, 0%, 75.61%)
         );
         --theme-input-disabled-accent-active: var(
-            --clr-red-750,
-            hsl(4.63, 100%, 84.12%)
+            --clr-base-700,
+            hsl(339.45, 0%, 75.61%)
         );
         --theme-input-disabled-accent-focus: var(
-            --clr-turquoise-750,
-            hsl(158.81, 45.09%, 69.63%)
+            --clr-base-700,
+            hsl(339.45, 0%, 75.61%)
         );
         --theme-input-disabled-accent-hover: var(
-            --clr-turquoise-750,
-            hsl(158.81, 45.09%, 69.63%)
+            --clr-base-700,
+            hsl(339.45, 0%, 75.61%)
         );
         --theme-input-disabled-background: var(
-            --clr-base-100,
-            hsl(339.45, 0%, 4.28%)
+            --clr-base-150,
+            hsl(339.45, 0%, 9.03%)
         );
         --theme-input-disabled-border: var(
-            --clr-base-750,
-            hsl(339.45, 0%, 80.77%)
+            --clr-base-700,
+            hsl(339.45, 0%, 75.61%)
         );
         --theme-input-disabled-border-active: var(
-            --clr-red-750,
-            hsl(4.63, 100%, 84.12%)
+            --clr-base-700,
+            hsl(339.45, 0%, 75.61%)
         );
         --theme-input-disabled-border-focus: var(
-            --clr-turquoise-750,
-            hsl(158.81, 45.09%, 69.63%)
+            --clr-base-700,
+            hsl(339.45, 0%, 75.61%)
         );
         --theme-input-disabled-border-hover: var(
-            --clr-turquoise-750,
-            hsl(158.81, 45.09%, 69.63%)
+            --clr-base-700,
+            hsl(339.45, 0%, 75.61%)
         );
         --theme-input-disabled-placeholder: var(
             --clr-base-700,
             hsl(339.45, 0%, 75.61%)
         );
         --theme-input-disabled-text: var(
-            --clr-base-850,
-            hsl(339.45, 0%, 91.26%)
+            --clr-base-700,
+            hsl(339.45, 0%, 75.61%)
         );
         --theme-input-readonly-accent: var(
-            --clr-base-750,
-            hsl(339.45, 0%, 80.77%)
+            --clr-base-850,
+            hsl(339.45, 0%, 91.26%)
         );
         --theme-input-readonly-accent-active: var(
             --clr-red-750,
@@ -2916,12 +2930,12 @@ html {
             hsl(158.81, 45.09%, 69.63%)
         );
         --theme-input-readonly-background: var(
-            --clr-base-100,
-            hsl(339.45, 0%, 4.28%)
+            --clr-base-150,
+            hsl(339.45, 0%, 9.03%)
         );
         --theme-input-readonly-border: var(
-            --clr-base-750,
-            hsl(339.45, 0%, 80.77%)
+            --clr-base-850,
+            hsl(339.45, 0%, 91.26%)
         );
         --theme-input-readonly-border-active: var(
             --clr-red-750,
@@ -3388,14 +3402,7 @@ a[href]:visited {
     color: hsl(278.16, 60.54%, 30.06%);
     color: var(--sys-clr-link-visited, VisitedText);
 }
-.no-js a[href]:focus,
-.js__no-whereSelector a[href]:focus {
-    text-decoration-color: transparent;
-    color: hsl(162, 69%, 16.5%);
-    color: var(--sys-clr-link-hover, ActiveText);
-}
-
-:where(.js__no-focusVisible) a[href]:focus {
+a[href]:focus {
     text-decoration-color: transparent;
     color: hsl(162, 69%, 16.5%);
     color: var(--sys-clr-link-hover, ActiveText);
@@ -3643,13 +3650,7 @@ fieldset {
     color: hsl(339.45, 0%, 16.63%);
     color: var(--sys-clr-text, CanvasText);
 }
-.no-js fieldset:focus,
-.js__no-whereSelector fieldset:focus {
-    border-color: hsl(2.81, 72.25%, 28.09%);
-    border-color: var(--sys-clr-text-active, ActiveText);
-}
-
-:where(.js__no-focusVisible) fieldset:focus {
+fieldset:focus {
     border-color: hsl(2.81, 72.25%, 28.09%);
     border-color: var(--sys-clr-text-active, ActiveText);
 }
@@ -3729,35 +3730,18 @@ input {
     border: 0.0625rem solid var(--sys-clr-input-border, FieldText);
     border-radius: 0;
     --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 96.6%);
     background-color: var(--sys-clr-input-bg, Field);
     color: hsl(339.45, 0%, 16.63%);
     color: var(--sys-clr-input-text, FieldText);
     accent-color: hsl(339.45, 0%, 16.63%);
     accent-color: var(--sys-clr-input-text, FieldText);
 }
-.no-js textarea:focus,
-.no-js select:focus,
-.no-js input:focus,
-.js__no-whereSelector textarea:focus,
-.js__no-whereSelector select:focus,
-.js__no-whereSelector input:focus {
+textarea:focus,
+select:focus,
+input:focus {
     --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
-    background-color: hsl(339.45, 0%, 91.26%);
-    background-color: var(--sys-clr-input-bg-hover, Field);
-    border-color: hsl(162, 69%, 16.5%);
-    border-color: var(--sys-clr-input-border-hover, FieldText);
-    color: hsl(339.45, 0%, 16.63%);
-    color: var(--sys-clr-input-text-hover, FieldText);
-    accent-color: hsl(339.45, 0%, 16.63%);
-    accent-color: var(--sys-clr-input-text, FieldText);
-}
-
-:where(.js__no-focusVisible) textarea:focus,
-:where(.js__no-focusVisible) select:focus,
-:where(.js__no-focusVisible) input:focus {
-    --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 96.6%);
     background-color: var(--sys-clr-input-bg-hover, Field);
     border-color: hsl(162, 69%, 16.5%);
     border-color: var(--sys-clr-input-border-hover, FieldText);
@@ -3771,7 +3755,7 @@ textarea:hover,
 select:hover,
 input:hover {
     --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 96.6%);
     background-color: var(--sys-clr-input-bg-hover, Field);
     border-color: hsl(162, 69%, 16.5%);
     border-color: var(--sys-clr-input-border-hover, FieldText);
@@ -3788,7 +3772,7 @@ input:hover {
 .js__no-whereSelector select:focus-within,
 .js__no-whereSelector input:focus-within {
     --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 96.6%);
     background-color: var(--sys-clr-input-bg-hover, Field);
     border-color: hsl(162, 69%, 16.5%);
     border-color: var(--sys-clr-input-border-hover, FieldText);
@@ -3802,7 +3786,7 @@ input:hover {
 :where(.js__no-focusVisible) select:focus-within,
 :where(.js__no-focusVisible) input:focus-within {
     --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 96.6%);
     background-color: var(--sys-clr-input-bg-hover, Field);
     border-color: hsl(162, 69%, 16.5%);
     border-color: var(--sys-clr-input-border-hover, FieldText);
@@ -3816,7 +3800,7 @@ textarea:active,
 select:active,
 input:active {
     --focus-ring-outline-color: var(--sys-clr-text-active, ActiveText);
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 96.6%);
     background-color: var(--sys-clr-input-bg-active, Field);
     border-color: hsl(2.81, 72.25%, 28.09%);
     border-color: var(--sys-clr-input-border-active, FieldText);
@@ -4182,7 +4166,17 @@ figure {
 a[href],
 a[href]::before,
 a[href]::after {
-    transition: none;
+    transition:
+        background-color 250ms ease-in-out,
+        border-color 250ms ease-in-out,
+        box-shadow 250ms ease-in-out,
+        color 250ms ease-in-out,
+        font-weight 250ms ease-in-out,
+        opacity 250ms ease-in-out,
+        outline-color 250ms ease-in-out,
+        text-decoration-color 250ms ease-in-out,
+        text-shadow 250ms ease-in-out,
+        visibility 250ms ease-in-out;
     transition: var(--transition);
 }
 a[href] {
@@ -4202,17 +4196,7 @@ a[href]:visited {
     color: hsl(278.16, 60.54%, 30.06%);
     color: var(--theme-link-visited, VisitedText);
 }
-.no-js a[href]:focus,
-.js__no-whereSelector a[href]:focus {
-    --focus-ring-outline-color: var(--theme-link-outline-hover, ActiveText);
-    --icon-color: var(--theme-link-icon-hover, ActiveText);
-    text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
-    color: hsl(162, 69%, 16.5%);
-    color: var(--theme-link-hover, ActiveText);
-}
-
-:where(.js__no-focusVisible) a[href]:focus {
+a[href]:focus {
     --focus-ring-outline-color: var(--theme-link-outline-hover, ActiveText);
     --icon-color: var(--theme-link-icon-hover, ActiveText);
     text-decoration-color: transparent;
@@ -4248,20 +4232,8 @@ a[disabled][href] {
     color: hsl(339.45, 0%, 33.2%);
     color: var(--theme-link-disabled, GrayText);
 }
-.no-js a[aria-disabled="true"][href]:focus,
-.no-js a[disabled][href]:focus,
-.js__no-whereSelector a[aria-disabled="true"][href]:focus,
-.js__no-whereSelector a[disabled][href]:focus {
-    --focus-ring-outline-color: var(--theme-link-outline-hover, ActiveText);
-    --icon-color: var(--theme-link-icon-hover, ActiveText);
-    text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
-    color: hsl(162, 69%, 16.5%);
-    color: var(--theme-link-hover, ActiveText);
-}
-
-:where(.js__no-focusVisible) a[aria-disabled="true"][href]:focus,
-:where(.js__no-focusVisible) a[disabled][href]:focus {
+a[aria-disabled="true"][href]:focus,
+a[disabled][href]:focus {
     --focus-ring-outline-color: var(--theme-link-outline-hover, ActiveText);
     --icon-color: var(--theme-link-icon-hover, ActiveText);
     text-decoration-color: transparent;
@@ -4312,8 +4284,9 @@ li {
     margin-bottom: 0;
 }
 
-img,
-figure {
+details,
+figure,
+img {
     margin-top: 1.25rem;
     margin-bottom: 0.4375rem;
     margin-top: var(--mrg-firm-400, 1.25rem);
@@ -4336,8 +4309,9 @@ blockquote li {
     margin-top: var(--mrg-soft-200, 0.3125rem);
     margin-bottom: 0;
 }
-blockquote img,
-blockquote figure {
+blockquote details,
+blockquote figure,
+blockquote img {
     margin-top: 0.8125rem;
     margin-bottom: 0.3125rem;
     margin-top: var(--mrg-firm-300, 0.8125rem);
@@ -4427,16 +4401,7 @@ h1 a[href]:visited {
     color: hsl(278.16, 60.54%, 30.06%);
     color: var(--theme-link-visited, VisitedText);
 }
-.no-js h1 a[href]:focus,
-.js__no-whereSelector h1 a[href]:focus {
-    --icon-color: var(--theme-link-icon-hover, ActiveText);
-    text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
-    color: hsl(162, 69%, 16.5%);
-    color: var(--theme-link-hover, ActiveText);
-}
-
-:where(.js__no-focusVisible) h1 a[href]:focus {
+h1 a[href]:focus {
     --icon-color: var(--theme-link-icon-hover, ActiveText);
     text-decoration-color: transparent;
     text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
@@ -4498,16 +4463,7 @@ h2 a[href]:visited {
     color: hsl(278.16, 60.54%, 30.06%);
     color: var(--theme-link-visited, VisitedText);
 }
-.no-js h2 a[href]:focus,
-.js__no-whereSelector h2 a[href]:focus {
-    --icon-color: var(--theme-link-icon-hover, ActiveText);
-    text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
-    color: hsl(162, 69%, 16.5%);
-    color: var(--theme-link-hover, ActiveText);
-}
-
-:where(.js__no-focusVisible) h2 a[href]:focus {
+h2 a[href]:focus {
     --icon-color: var(--theme-link-icon-hover, ActiveText);
     text-decoration-color: transparent;
     text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
@@ -4569,16 +4525,7 @@ h3 a[href]:visited {
     color: hsl(278.16, 60.54%, 30.06%);
     color: var(--theme-link-visited, VisitedText);
 }
-.no-js h3 a[href]:focus,
-.js__no-whereSelector h3 a[href]:focus {
-    --icon-color: var(--theme-link-icon-hover, ActiveText);
-    text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
-    color: hsl(162, 69%, 16.5%);
-    color: var(--theme-link-hover, ActiveText);
-}
-
-:where(.js__no-focusVisible) h3 a[href]:focus {
+h3 a[href]:focus {
     --icon-color: var(--theme-link-icon-hover, ActiveText);
     text-decoration-color: transparent;
     text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
@@ -4648,16 +4595,7 @@ h4 a[href]:visited {
     color: hsl(278.16, 60.54%, 30.06%);
     color: var(--theme-link-visited, VisitedText);
 }
-.no-js h4 a[href]:focus,
-.js__no-whereSelector h4 a[href]:focus {
-    --icon-color: var(--theme-link-icon-hover, ActiveText);
-    text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
-    color: hsl(162, 69%, 16.5%);
-    color: var(--theme-link-hover, ActiveText);
-}
-
-:where(.js__no-focusVisible) h4 a[href]:focus {
+h4 a[href]:focus {
     --icon-color: var(--theme-link-icon-hover, ActiveText);
     text-decoration-color: transparent;
     text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
@@ -4727,16 +4665,7 @@ h5 a[href]:visited {
     color: hsl(278.16, 60.54%, 30.06%);
     color: var(--theme-link-visited, VisitedText);
 }
-.no-js h5 a[href]:focus,
-.js__no-whereSelector h5 a[href]:focus {
-    --icon-color: var(--theme-link-icon-hover, ActiveText);
-    text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
-    color: hsl(162, 69%, 16.5%);
-    color: var(--theme-link-hover, ActiveText);
-}
-
-:where(.js__no-focusVisible) h5 a[href]:focus {
+h5 a[href]:focus {
     --icon-color: var(--theme-link-icon-hover, ActiveText);
     text-decoration-color: transparent;
     text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
@@ -4806,16 +4735,7 @@ h6 a[href]:visited {
     color: hsl(278.16, 60.54%, 30.06%);
     color: var(--theme-link-visited, VisitedText);
 }
-.no-js h6 a[href]:focus,
-.js__no-whereSelector h6 a[href]:focus {
-    --icon-color: var(--theme-link-icon-hover, ActiveText);
-    text-decoration-color: transparent;
-    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
-    color: hsl(162, 69%, 16.5%);
-    color: var(--theme-link-hover, ActiveText);
-}
-
-:where(.js__no-focusVisible) h6 a[href]:focus {
+h6 a[href]:focus {
     --icon-color: var(--theme-link-icon-hover, ActiveText);
     text-decoration-color: transparent;
     text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
@@ -4879,7 +4799,17 @@ input {
     border-width: 0.0625rem;
     line-height: 1.4375;
     line-height: var(--line-height-300, 1.4375);
-    transition: none;
+    transition:
+        background-color 250ms ease-in-out,
+        border-color 250ms ease-in-out,
+        box-shadow 250ms ease-in-out,
+        color 250ms ease-in-out,
+        font-weight 250ms ease-in-out,
+        opacity 250ms ease-in-out,
+        outline-color 250ms ease-in-out,
+        text-decoration-color 250ms ease-in-out,
+        text-shadow 250ms ease-in-out,
+        visibility 250ms ease-in-out;
     transition: var(--transition);
 }
 textarea::-moz-placeholder,
@@ -4919,7 +4849,7 @@ textarea,
 select,
 input {
     --focus-ring-outline-color: var(--theme-input-accent, CanvasText);
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 96.6%);
     background-color: var(--theme-input-background, Field);
     border-color: hsl(278.16, 60.54%, 30.06%);
     border-color: var(--theme-input-border, CanvasText);
@@ -4944,7 +4874,7 @@ textarea:hover,
 select:hover,
 input:hover {
     --focus-ring-outline-color: var(--theme-input-accent-hover, CanvasText);
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 96.6%);
     background-color: var(--theme-input-background, Field);
     border-color: hsl(162, 69%, 16.5%);
     border-color: var(--theme-input-border-hover, CanvasText);
@@ -4958,7 +4888,7 @@ textarea:focus,
 select:focus,
 input:focus {
     --focus-ring-outline-color: var(--theme-input-accent-focus, CanvasText);
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 96.6%);
     background-color: var(--theme-input-background, Field);
     border-color: hsl(162, 69%, 16.5%);
     border-color: var(--theme-input-border-focus, CanvasText);
@@ -4972,7 +4902,7 @@ textarea:focus-within,
 select:focus-within,
 input:focus-within {
     --focus-ring-outline-color: var(--theme-input-accent-focus, CanvasText);
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 96.6%);
     background-color: var(--theme-input-background, Field);
     border-color: hsl(162, 69%, 16.5%);
     border-color: var(--theme-input-border-focus, CanvasText);
@@ -4986,7 +4916,7 @@ textarea:active,
 select:active,
 input:active {
     --focus-ring-outline-color: var(--theme-input-accent-active, ActiveText);
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 96.6%);
     background-color: var(--theme-input-background, Field);
     border-color: hsl(2.81, 72.25%, 28.09%);
     border-color: var(--theme-input-border-active, ActiveText);
@@ -5003,13 +4933,13 @@ textarea[disabled],
 select[disabled],
 input[disabled] {
     --focus-ring-outline-color: var(--theme-input-disabled-accent, CanvasText);
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 85.99%);
     background-color: var(--theme-input-disabled-background, Field);
-    border-color: hsl(339.45, 0%, 20.65%);
+    border-color: hsl(339.45, 0%, 33.2%);
     border-color: var(--theme-input-disabled-border, CanvasText);
-    color: hsl(339.45, 0%, 16.63%);
+    color: hsl(339.45, 0%, 33.2%);
     color: var(--theme-input-disabled-text, FieldText);
-    accent-color: hsl(339.45, 0%, 20.65%);
+    accent-color: hsl(339.45, 0%, 33.2%);
     accent-color: var(--theme-input-disabled-accent, CanvasText);
 }
 textarea[aria-disabled="true"]::-moz-placeholder,
@@ -5040,13 +4970,13 @@ input[disabled]:hover {
         --theme-input-disabled-accent-hover,
         CanvasText
     );
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 85.99%);
     background-color: var(--theme-input-disabled-background, Field);
-    border-color: hsl(162, 69%, 16.5%);
+    border-color: hsl(339.45, 0%, 33.2%);
     border-color: var(--theme-input-disabled-border-hover, CanvasText);
-    color: hsl(339.45, 0%, 16.63%);
+    color: hsl(339.45, 0%, 33.2%);
     color: var(--theme-input-disabled-text, FieldText);
-    accent-color: hsl(162, 69%, 16.5%);
+    accent-color: hsl(339.45, 0%, 33.2%);
     accent-color: var(--theme-input-disabled-accent-hover, CanvasText);
 }
 textarea[aria-disabled="true"]:focus,
@@ -5059,13 +4989,13 @@ input[disabled]:focus {
         --theme-input-disabled-accent-focus,
         CanvasText
     );
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 85.99%);
     background-color: var(--theme-input-disabled-background, Field);
-    border-color: hsl(162, 69%, 16.5%);
+    border-color: hsl(339.45, 0%, 33.2%);
     border-color: var(--theme-input-disabled-border-focus, CanvasText);
-    color: hsl(339.45, 0%, 16.63%);
+    color: hsl(339.45, 0%, 33.2%);
     color: var(--theme-input-disabled-text, FieldText);
-    accent-color: hsl(162, 69%, 16.5%);
+    accent-color: hsl(339.45, 0%, 33.2%);
     accent-color: var(--theme-input-disabled-accent-focus, CanvasText);
 }
 textarea[aria-disabled="true"]:focus-within,
@@ -5078,13 +5008,13 @@ input[disabled]:focus-within {
         --theme-input-disabled-accent-focus,
         CanvasText
     );
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 85.99%);
     background-color: var(--theme-input-disabled-background, Field);
-    border-color: hsl(162, 69%, 16.5%);
+    border-color: hsl(339.45, 0%, 33.2%);
     border-color: var(--theme-input-disabled-border-focus, CanvasText);
-    color: hsl(339.45, 0%, 16.63%);
+    color: hsl(339.45, 0%, 33.2%);
     color: var(--theme-input-disabled-text, FieldText);
-    accent-color: hsl(162, 69%, 16.5%);
+    accent-color: hsl(339.45, 0%, 33.2%);
     accent-color: var(--theme-input-disabled-accent-focus, CanvasText);
 }
 textarea[aria-disabled="true"]:active,
@@ -5097,26 +5027,26 @@ input[disabled]:active {
         --theme-input-disabled-accent-active,
         ActiveText
     );
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 85.99%);
     background-color: var(--theme-input-disabled-background, Field);
-    border-color: hsl(2.81, 72.25%, 28.09%);
+    border-color: hsl(339.45, 0%, 33.2%);
     border-color: var(--theme-input-disabled-border-active, ActiveText);
-    color: hsl(339.45, 0%, 16.63%);
+    color: hsl(339.45, 0%, 33.2%);
     color: var(--theme-input-disabled-text, FieldText);
-    accent-color: hsl(2.81, 72.25%, 28.09%);
+    accent-color: hsl(339.45, 0%, 33.2%);
     accent-color: var(--theme-input-disabled-accent-active, ActiveText);
 }
 textarea[readonly],
 select[readonly],
 input[readonly] {
     --focus-ring-outline-color: var(--theme-input-readonly-accent, CanvasText);
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 85.99%);
     background-color: var(--theme-input-readonly-background, Field);
-    border-color: hsl(339.45, 0%, 20.65%);
+    border-color: hsl(339.45, 0%, 16.63%);
     border-color: var(--theme-input-readonly-border, CanvasText);
     color: hsl(339.45, 0%, 16.63%);
     color: var(--theme-input-readonly-text, FieldText);
-    accent-color: hsl(339.45, 0%, 20.65%);
+    accent-color: hsl(339.45, 0%, 16.63%);
     accent-color: var(--theme-input-readonly-accent, CanvasText);
 }
 textarea[readonly]::-moz-placeholder,
@@ -5138,7 +5068,7 @@ input[readonly]:hover {
         --theme-input-readonly-accent-hover,
         CanvasText
     );
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 85.99%);
     background-color: var(--theme-input-readonly-background, Field);
     border-color: hsl(162, 69%, 16.5%);
     border-color: var(--theme-input-readonly-border-hover, CanvasText);
@@ -5154,7 +5084,7 @@ input[readonly]:focus {
         --theme-input-readonly-accent-focus,
         CanvasText
     );
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 85.99%);
     background-color: var(--theme-input-readonly-background, Field);
     border-color: hsl(162, 69%, 16.5%);
     border-color: var(--theme-input-readonly-border-focus, CanvasText);
@@ -5170,7 +5100,7 @@ input[readonly]:focus-within {
         --theme-input-readonly-accent-focus,
         CanvasText
     );
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 85.99%);
     background-color: var(--theme-input-readonly-background, Field);
     border-color: hsl(162, 69%, 16.5%);
     border-color: var(--theme-input-readonly-border-focus, CanvasText);
@@ -5186,7 +5116,7 @@ input[readonly]:active {
         --theme-input-readonly-accent-active,
         ActiveText
     );
-    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: hsl(339.45, 0%, 85.99%);
     background-color: var(--theme-input-readonly-background, Field);
     border-color: hsl(2.81, 72.25%, 28.09%);
     border-color: var(--theme-input-readonly-border-active, ActiveText);
@@ -5201,7 +5131,7 @@ input[type="reset"][aria-disabled="true"],
 input[type="submit"][disabled],
 input[type="reset"][disabled] {
     --focus-ring-outline-color: var(
-        --theme-button-disabled-outline-hover,
+        --theme-button-disabled-outline,
         SelectedItem
     );
     --icon-color: var(--theme-button-disabled-ui, ButtonText);
@@ -5244,42 +5174,10 @@ input[type="reset"][disabled]:hover {
     color: hsl(339.45, 0%, 91.26%);
     color: var(--theme-button-disabled-text-hover, SelectedItemText);
 }
-.no-js input[type="submit"][aria-disabled="true"]:focus,
-.no-js input[type="reset"][aria-disabled="true"]:focus,
-.no-js input[type="submit"][disabled]:focus,
-.no-js input[type="reset"][disabled]:focus,
-.js__no-whereSelector input[type="submit"][aria-disabled="true"]:focus,
-.js__no-whereSelector input[type="reset"][aria-disabled="true"]:focus,
-.js__no-whereSelector input[type="submit"][disabled]:focus,
-.js__no-whereSelector input[type="reset"][disabled]:focus {
-    --focus-ring-outline-color: var(
-        --theme-button-disabled-outline-hover,
-        SelectedItem
-    );
-    --icon-color: var(--theme-button-disabled-ui-hover, SelectedItemText);
-    --theme-link-icon: var(--theme-button-disabled-ui-hover, SelectedItemText);
-    text-decoration-color: hsl(339.45, 0%, 91.26%);
-    text-decoration-color: var(
-        --theme-button-disabled-ui-hover,
-        SelectedItemText
-    );
-    accent-color: hsl(339.45, 0%, 20.65%);
-    accent-color: var(--theme-button-disabled-border-hover, SelectedItem);
-    background-color: hsl(339.45, 0%, 20.65%);
-    background-color: var(
-        --theme-button-disabled-background-hover,
-        SelectedItem
-    );
-    border-color: hsl(339.45, 0%, 20.65%);
-    border-color: var(--theme-button-disabled-border-hover, SelectedItem);
-    color: hsl(339.45, 0%, 91.26%);
-    color: var(--theme-button-disabled-text-hover, SelectedItemText);
-}
-
-:where(.js__no-focusVisible) input[type="submit"][aria-disabled="true"]:focus,
-:where(.js__no-focusVisible) input[type="reset"][aria-disabled="true"]:focus,
-:where(.js__no-focusVisible) input[type="submit"][disabled]:focus,
-:where(.js__no-focusVisible) input[type="reset"][disabled]:focus {
+input[type="submit"][aria-disabled="true"]:focus,
+input[type="reset"][aria-disabled="true"]:focus,
+input[type="submit"][disabled]:focus,
+input[type="reset"][disabled]:focus {
     --focus-ring-outline-color: var(
         --theme-button-disabled-outline-hover,
         SelectedItem
@@ -5404,18 +5302,8 @@ input[type="radio"]:hover {
     color: hsl(162, 69%, 16.5%);
     color: var(--theme-input-accent-hover, CanvasText);
 }
-.no-js input[type="checkbox"]:focus,
-.no-js input[type="radio"]:focus,
-.js__no-whereSelector input[type="checkbox"]:focus,
-.js__no-whereSelector input[type="radio"]:focus {
-    accent-color: hsl(162, 69%, 16.5%);
-    accent-color: var(--theme-input-accent-focus, CanvasText);
-    color: hsl(162, 69%, 16.5%);
-    color: var(--theme-input-accent-focus, CanvasText);
-}
-
-:where(.js__no-focusVisible) input[type="checkbox"]:focus,
-:where(.js__no-focusVisible) input[type="radio"]:focus {
+input[type="checkbox"]:focus,
+input[type="radio"]:focus {
     accent-color: hsl(162, 69%, 16.5%);
     accent-color: var(--theme-input-accent-focus, CanvasText);
     color: hsl(162, 69%, 16.5%);
@@ -5451,41 +5339,27 @@ input[type="checkbox"][aria-disabled="true"],
 input[type="checkbox"][disabled],
 input[type="radio"][aria-disabled="true"],
 input[type="radio"][disabled] {
-    accent-color: hsl(339.45, 0%, 20.65%);
+    accent-color: hsl(339.45, 0%, 33.2%);
     accent-color: var(--theme-input-disabled-accent, CanvasText);
-    color: hsl(339.45, 0%, 20.65%);
+    color: hsl(339.45, 0%, 33.2%);
     color: var(--theme-input-disabled-accent, CanvasText);
 }
 input[type="checkbox"][aria-disabled="true"]:hover,
 input[type="checkbox"][disabled]:hover,
 input[type="radio"][aria-disabled="true"]:hover,
 input[type="radio"][disabled]:hover {
-    accent-color: hsl(162, 69%, 16.5%);
+    accent-color: hsl(339.45, 0%, 33.2%);
     accent-color: var(--theme-input-disabled-accent-hover, CanvasText);
-    color: hsl(162, 69%, 16.5%);
+    color: hsl(339.45, 0%, 33.2%);
     color: var(--theme-input-disabled-accent-hover, CanvasText);
 }
-.no-js input[type="checkbox"][aria-disabled="true"]:focus,
-.no-js input[type="checkbox"][disabled]:focus,
-.no-js input[type="radio"][aria-disabled="true"]:focus,
-.no-js input[type="radio"][disabled]:focus,
-.js__no-whereSelector input[type="checkbox"][aria-disabled="true"]:focus,
-.js__no-whereSelector input[type="checkbox"][disabled]:focus,
-.js__no-whereSelector input[type="radio"][aria-disabled="true"]:focus,
-.js__no-whereSelector input[type="radio"][disabled]:focus {
-    accent-color: hsl(162, 69%, 16.5%);
+input[type="checkbox"][aria-disabled="true"]:focus,
+input[type="checkbox"][disabled]:focus,
+input[type="radio"][aria-disabled="true"]:focus,
+input[type="radio"][disabled]:focus {
+    accent-color: hsl(339.45, 0%, 33.2%);
     accent-color: var(--theme-input-disabled-accent-focus, CanvasText);
-    color: hsl(162, 69%, 16.5%);
-    color: var(--theme-input-disabled-accent-focus, CanvasText);
-}
-
-:where(.js__no-focusVisible) input[type="checkbox"][aria-disabled="true"]:focus,
-:where(.js__no-focusVisible) input[type="checkbox"][disabled]:focus,
-:where(.js__no-focusVisible) input[type="radio"][aria-disabled="true"]:focus,
-:where(.js__no-focusVisible) input[type="radio"][disabled]:focus {
-    accent-color: hsl(162, 69%, 16.5%);
-    accent-color: var(--theme-input-disabled-accent-focus, CanvasText);
-    color: hsl(162, 69%, 16.5%);
+    color: hsl(339.45, 0%, 33.2%);
     color: var(--theme-input-disabled-accent-focus, CanvasText);
 }
 
@@ -5497,9 +5371,9 @@ input[type="radio"][disabled]:hover {
 .js__no-whereSelector input[type="checkbox"][disabled]:focus-within,
 .js__no-whereSelector input[type="radio"][aria-disabled="true"]:focus-within,
 .js__no-whereSelector input[type="radio"][disabled]:focus-within {
-    accent-color: hsl(162, 69%, 16.5%);
+    accent-color: hsl(339.45, 0%, 33.2%);
     accent-color: var(--theme-input-disabled-accent-focus, CanvasText);
-    color: hsl(162, 69%, 16.5%);
+    color: hsl(339.45, 0%, 33.2%);
     color: var(--theme-input-disabled-accent-focus, CanvasText);
 }
 
@@ -5509,9 +5383,9 @@ input[type="radio"][disabled]:hover {
 :where(.js__no-focusVisible)
     input[type="radio"][aria-disabled="true"]:focus-within,
 :where(.js__no-focusVisible) input[type="radio"][disabled]:focus-within {
-    accent-color: hsl(162, 69%, 16.5%);
+    accent-color: hsl(339.45, 0%, 33.2%);
     accent-color: var(--theme-input-disabled-accent-focus, CanvasText);
-    color: hsl(162, 69%, 16.5%);
+    color: hsl(339.45, 0%, 33.2%);
     color: var(--theme-input-disabled-accent-focus, CanvasText);
 }
 
@@ -5519,16 +5393,16 @@ input[type="checkbox"][aria-disabled="true"]:active,
 input[type="checkbox"][disabled]:active,
 input[type="radio"][aria-disabled="true"]:active,
 input[type="radio"][disabled]:active {
-    accent-color: hsl(2.81, 72.25%, 28.09%);
+    accent-color: hsl(339.45, 0%, 33.2%);
     accent-color: var(--theme-input-disabled-accent-active, ActiveText);
-    color: hsl(2.81, 72.25%, 28.09%);
+    color: hsl(339.45, 0%, 33.2%);
     color: var(--theme-input-disabled-accent-active, ActiveText);
 }
 input[type="checkbox"][readonly],
 input[type="radio"][readonly] {
-    accent-color: hsl(339.45, 0%, 20.65%);
+    accent-color: hsl(339.45, 0%, 16.63%);
     accent-color: var(--theme-input-readonly-accent, CanvasText);
-    color: hsl(339.45, 0%, 20.65%);
+    color: hsl(339.45, 0%, 16.63%);
     color: var(--theme-input-readonly-accent, CanvasText);
 }
 input[type="checkbox"][readonly]:hover,
@@ -5538,18 +5412,8 @@ input[type="radio"][readonly]:hover {
     color: hsl(162, 69%, 16.5%);
     color: var(--theme-input-readonly-accent-hover, CanvasText);
 }
-.no-js input[type="checkbox"][readonly]:focus,
-.no-js input[type="radio"][readonly]:focus,
-.js__no-whereSelector input[type="checkbox"][readonly]:focus,
-.js__no-whereSelector input[type="radio"][readonly]:focus {
-    accent-color: hsl(162, 69%, 16.5%);
-    accent-color: var(--theme-input-readonly-accent-focus, CanvasText);
-    color: hsl(162, 69%, 16.5%);
-    color: var(--theme-input-readonly-accent-focus, CanvasText);
-}
-
-:where(.js__no-focusVisible) input[type="checkbox"][readonly]:focus,
-:where(.js__no-focusVisible) input[type="radio"][readonly]:focus {
+input[type="checkbox"][readonly]:focus,
+input[type="radio"][readonly]:focus {
     accent-color: hsl(162, 69%, 16.5%);
     accent-color: var(--theme-input-readonly-accent-focus, CanvasText);
     color: hsl(162, 69%, 16.5%);
@@ -5618,7 +5482,7 @@ label:has(> :where(input[type="checkbox"], input[type="radio"])) + textarea {
 button[type="reset"],
 input[type="reset"] {
     --focus-ring-outline-color: var(
-        --theme-button-secondary-outline-hover,
+        --theme-button-secondary-outline,
         SelectedItem
     );
     --icon-color: var(--theme-button-secondary-ui, ButtonText);
@@ -5659,36 +5523,8 @@ input[type="reset"]:hover {
     color: hsl(339.45, 0%, 91.26%);
     color: var(--theme-button-secondary-text-hover, SelectedItemText);
 }
-.no-js button[type="reset"]:focus,
-.no-js input[type="reset"]:focus,
-.js__no-whereSelector button[type="reset"]:focus,
-.js__no-whereSelector input[type="reset"]:focus {
-    --focus-ring-outline-color: var(
-        --theme-button-secondary-outline-hover,
-        SelectedItem
-    );
-    --icon-color: var(--theme-button-secondary-ui-hover, SelectedItemText);
-    --theme-link-icon: var(--theme-button-secondary-ui-hover, SelectedItemText);
-    text-decoration-color: hsl(339.45, 0%, 91.26%);
-    text-decoration-color: var(
-        --theme-button-secondary-ui-hover,
-        SelectedItemText
-    );
-    accent-color: hsl(2.81, 72.25%, 28.09%);
-    accent-color: var(--theme-button-secondary-border-hover, SelectedItem);
-    background-color: hsl(2.81, 72.25%, 28.09%);
-    background-color: var(
-        --theme-button-secondary-background-hover,
-        SelectedItem
-    );
-    border-color: hsl(2.81, 72.25%, 28.09%);
-    border-color: var(--theme-button-secondary-border-hover, SelectedItem);
-    color: hsl(339.45, 0%, 91.26%);
-    color: var(--theme-button-secondary-text-hover, SelectedItemText);
-}
-
-:where(.js__no-focusVisible) button[type="reset"]:focus,
-:where(.js__no-focusVisible) input[type="reset"]:focus {
+button[type="reset"]:focus,
+input[type="reset"]:focus {
     --focus-ring-outline-color: var(
         --theme-button-secondary-outline-hover,
         SelectedItem

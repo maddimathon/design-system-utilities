@@ -18,6 +18,14 @@
 
 $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
 
+@function scroll-padding-top-value($margin: utils.var-gap-block(layout)) {
+    @return calc(utils.do-var(height-nav-primary, 0) + $margin);
+}
+
+@function var-scroll-padding-top() {
+    @return utils.do-var(scroll-padding-top, scroll-padding-top-value());
+}
+
 ///
 /// Uses the (flattened) style tokens.
 ///
@@ -39,8 +47,9 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
 
     $isBorderRadius: false;
     $isBorderWidth: false;
-    $isLineHeight: false;
+    $isFontSize: false;
     $isGap: false;
+    $isLineHeight: false;
     $isMargin: false;
     $isPadding: false;
     $isStrokeRelative: false;
@@ -69,6 +78,28 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
             $isThemeToken: true;
         }
 
+        // border-radius
+        @if string.index($slug, '-border-radius') == ($_slugLength - 13) {
+            $isBorderRadius: true;
+        }
+
+        // border-width
+        @if string.index($slug, '-border-width') == ($_slugLength - 12) {
+            $isBorderWidth: true;
+        }
+
+        // font-size
+        @if string.index($slug, '-font-size-') {
+            $isFontSize: true;
+        } @else if string.index($slug, '-font-size') == ($_slugLength - 9) {
+            $isFontSize: true;
+        }
+
+        // line-height
+        @if string.index($slug, '-line-height') == ($_slugLength - 11) {
+            $isLineHeight: true;
+        }
+
         // margins
         @if $isAlertStyle and
             string.index($slug, '-margin-default') ==
@@ -95,24 +126,11 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
             }
         }
 
-        // border-radius
-        @if string.index($slug, '-border-radius') == ($_slugLength - 13) {
-            $isBorderRadius: true;
-        }
-
-        // border-width
-        @if string.index($slug, '-border-width') == ($_slugLength - 12) {
-            $isBorderWidth: true;
-        }
-
         // stroke-relative
-        @if string.index($slug, '-focus-offset') {
+        @if string.index($slug, '-focus-offset-') {
             $isStrokeRelative: true;
-        }
-
-        // line-height
-        @if string.index($slug, '-line-height') == ($_slugLength - 11) {
-            $isLineHeight: true;
+        } @else if string.index($slug, '-focus-offset') == ($_slugLength - 12) {
+            $isStrokeRelative: true;
         }
     }
 
@@ -174,6 +192,8 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
         $value: if($value == '0', $value, var-border-radius($value));
     } @else if $isBorderWidth {
         $value: var-border-width($value);
+    } @else if $isFontSize {
+        $value: var-fs($value);
     } @else if $isLineHeight {
         $value: utils.var-line-height($value);
     } @else if $isStrokeRelative {

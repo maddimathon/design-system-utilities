@@ -30,7 +30,7 @@
     $additional: list.append($additional, ((li), 'paragraph-small-margins'));
     $additional: list.append(
         $additional,
-        ((img, figure), 'paragraph-firm-margins')
+        ((details, figure, img), 'paragraph-firm-margins')
     );
 
     $additional: list.append(
@@ -52,6 +52,16 @@
                     button-form-reset
                 )
             ),
+            $separator: comma
+        );
+    }
+
+    @if config.$print_skipLinks {
+        // $additional: list.append($additional, ('.skip-link', 'skip-link'), $separator: comma);
+
+        $additional: list.append(
+            $additional,
+            ('.skip-link-list', 'skip-link-list'),
             $separator: comma
         );
     }
@@ -123,7 +133,7 @@
                         selector.unify(
                             (
                                 button,
-                                'a',
+                                'a[href]',
                                 "[role='button']",
                                 "input[type='button']",
                                 "input[type='submit']"

@@ -64,7 +64,7 @@ $_systemColors: map.flatten(
     }
 
     @if $version == 'rgb' {
-        @if config.$print_colourValues_hsl {
+        @if config.$print_colourValues_rgb {
             $clrVarSlug: '#{$clrVarSlug}-rgb';
         } @else {
             $version: null;
@@ -328,9 +328,20 @@ $_default_activeTheme_mode: if(
     $contrast: null,
     $themeSlug: tokens.$activeTheme,
     $useSystemColorFallback: null,
+    $version: null,
     $opacity: null
 ) {
     $clrIsSystemColor: false;
+
+    @if $version != null {
+        $opacity: null;
+
+        @if $useSystemColorFallback == null {
+            $useSystemColorFallback: false;
+        } @else if $useSystemColorFallback {
+            $version: null;
+        }
+    }
 
     $clrSlug: null;
 
@@ -375,23 +386,16 @@ $_default_activeTheme_mode: if(
 
     @if $clrIsSystemColor {
         $opacity: null;
+        $version: null;
     } @else if not config.$print_colourValues_hsl and not config.$print_colourValues_rgb {
         $opacity: null;
+        $version: null;
     }
 
     $clrHasMoreThanOneValue: list.length($clrSlug) > 1;
 
-    // $varDump: utils.js-var-dump($clrSlug, $name: '$clrSlug', $level: 2);
-    // $varDump: utils.js-var-dump(
-    //     $clrHasMoreThanOneValue,
-    //     $name: '$clrHasMoreThanOneValue',
-    //     $level: 3
-    // );
-
     @if $clrHasMoreThanOneValue {
         $clrSlug: list.nth($clrSlug, 1);
-
-        // $varDump: utils.js-var-dump($clrSlug, $name: 'single $clrSlug', $level: 3);
     }
 
     // returns
@@ -399,44 +403,54 @@ $_default_activeTheme_mode: if(
         @return $clrSlug;
     }
 
+    // returns
+    @if $version != null {
+        // prettier-ignore
+        @if (config.$print_colourValues_hsl and $version == hsl) or (config.$print_colourValues_rgb and $version == rgb) {
+            //
+            $_value: theme-token-exists(
+                $slug,
+                $brightness: $brightness,
+                $contrast: $contrast,
+                $themeSlug: $themeSlug,
+                $version: $version
+            );
+
+            @if $clrHasMoreThanOneValue {
+                $_value: list.nth($_value, 1);
+            }
+
+            @if $_value {
+                @return utils.do-var(theme-#{$slug}-#{$version}, $_value);
+            }
+        } @else {
+            @return utils.do-var(theme-#{$slug}-#{$version});
+        }
+    }
+
     // returns on success
     @if $opacity != null {
-        $flat_isValues: tokens.$themes__nestedFlat_tokenValues != null;
-        //
-        @if config.$print_colourValues_hsl {
-            //
-            $_value_hsl: theme-token-exists(
+        $version: if(
+            config.$print_colourValues_hsl,
+            hsl,
+            if(config.$print_colourValues_rgb, rgb, null)
+        );
+
+        @if $version {
+            $_value: theme-token-exists(
                 $slug,
                 $brightness: $brightness,
                 $contrast: $contrast,
                 $themeSlug: $themeSlug,
-                $version: hsl
+                $version: $version
             );
 
             @if $clrHasMoreThanOneValue {
-                $_value_hsl: list.nth($_value_hsl, 1);
+                $_value: list.nth($_value, 1);
             }
 
-            @if $_value_hsl {
-                @return hsla(#{utils.do-var(theme-#{$slug}-hsl, $_value_hsl)}, #{$opacity});
-            }
-        }
-
-        @if config.$print_colourValues_rgb {
-            $_value_rgb: theme-token-exists(
-                $slug,
-                $brightness: $brightness,
-                $contrast: $contrast,
-                $themeSlug: $themeSlug,
-                $version: rgb
-            );
-
-            @if $clrHasMoreThanOneValue {
-                $_value_rgb: list.nth($_value_rgb, 1);
-            }
-
-            @if $_value_rgb {
-                @return rgba(#{utils.do-var(theme-#{$slug}-rgb, $_value_rgb)}, #{$opacity});
+            @if $_value {
+                @return hsla(#{utils.do-var(theme-#{$slug}-#{$version}, $_value)}, #{$opacity});
             }
         }
     }

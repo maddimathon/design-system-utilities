@@ -262,7 +262,7 @@ export namespace Tokens_Themes_Set {
             Tokens_Themes_Set.SingleMode.InputParam<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>,
             "levels" | "variations"
         > & {
-            overrides?: Tokens_Themes_Set.SingleMode.Data.RecursivePartial<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>,
+            overrides?: Tokens_Themes_Set.SingleMode.Data.Partial<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>,
         };
     } & TokenTypes.Theme.Mode.PartialNestedObject<
         T_ThemeTypes,
@@ -327,7 +327,7 @@ export namespace Tokens_Themes_Set {
                 T_ThemeTypes,
                 TokenTypes.Css.SystemColor
             >,
-            overrides?: SingleMode.Data.RecursivePartial<
+            overrides?: SingleMode.Data.Partial<
                 NoInfer<T_ColourTypes>,
                 NoInfer<T_ThemeTypes>,
                 TokenTypes.Css.SystemColor
@@ -347,7 +347,7 @@ export namespace Tokens_Themes_Set {
                 NoInfer<T_ColourTypes>,
                 T_ThemeTypes
             >,
-            overrides?: SingleMode.Data.RecursivePartial<
+            overrides?: SingleMode.Data.Partial<
                 NoInfer<T_ColourTypes>,
                 NoInfer<T_ThemeTypes>
             >,
@@ -371,7 +371,7 @@ export namespace Tokens_Themes_Set {
                 NoInfer<T_ColourTypes>,
                 T_ThemeTypes
             >,
-            overrides: SingleMode.Data.RecursivePartial<
+            overrides: SingleMode.Data.Partial<
                 NoInfer<T_ColourTypes>,
                 NoInfer<T_ThemeTypes>
             > = {},
@@ -391,7 +391,7 @@ export namespace Tokens_Themes_Set {
 
             let description: null | string = input.description ?? null;
 
-            let defaultOverrides: SingleMode.Data.RecursivePartial<T_ColourTypes, T_ThemeTypes> = {};
+            let defaultOverrides: SingleMode.Data.Partial<T_ColourTypes, T_ThemeTypes> = {};
 
             // returns if forced colours
             switch ( constrast ) {
@@ -837,7 +837,7 @@ export namespace Tokens_Themes_Set {
              * @since 0.1.0-alpha
              * @since ___PKG_VERSION___ — Moved to SingleMode.Data and renamed.
              */
-            export type RecursivePartial<
+            export type Partial<
                 T_ColourTypes extends TokenTypes.Colour.TypeParams,
                 T_ThemeTypes extends TokenTypes.Theme.TypeParams,
                 __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>,
@@ -923,12 +923,7 @@ export namespace Tokens_Themes_Set {
                 },
 
                 input?: undefined | {
-                    [ K in "$" | "disabled" | "readonly" ]?: {
-                        accent?: undefined | Data.Input<T_ColourTypes, __T_ColourOption>[ 'accent' ],
-                        background?: undefined | Data.Input<T_ColourTypes, __T_ColourOption>[ 'background' ],
-                        border?: undefined | Data.Input<T_ColourTypes, __T_ColourOption>[ 'border' ],
-                        text?: undefined | Data.Input<T_ColourTypes, __T_ColourOption>[ 'text' ],
-                    };
+                    [ K in "$" | "disabled" | "readonly" ]?: undefined | Data.Input<T_ColourTypes, __T_ColourOption>;
                 },
 
                 system?: undefined | {
@@ -1666,7 +1661,7 @@ export namespace Tokens_Themes_Set {
                 T_ThemeTypes extends TokenTypes.Theme.TypeParams,
             >(
                 inputParam: Param<T_ColourTypes, T_ThemeTypes>,
-                overrides: Data.RecursivePartial<
+                overrides: Data.Partial<
                     NoInfer<T_ColourTypes>,
                     NoInfer<T_ThemeTypes>
                 >,
@@ -1854,85 +1849,74 @@ export namespace Tokens_Themes_Set {
                     };
                 };
 
-                const button: CompleteData[ 'button' ] = {
-                    ...objectMap(
-                        {
-                            ...variations.universal,
-                            disabled: variations.interactive.disabled,
-                        },
-                        <K extends keyof CompleteData[ 'button' ]>(
-                            [ key, clrName ]: [ K, TokenTypes.Colour.GenericName<T_ColourTypes[ 'names' ]> ]
-                        ) => singleButtonMaker( key, clrName ) as CompleteData[ 'button' ][ K ],
+                const button: CompleteData[ 'button' ] = objectMap(
+                    {
+                        ...variations.universal,
+                        disabled: variations.interactive.disabled,
+                    },
+                    <K extends keyof CompleteData[ 'button' ]>(
+                        [ key, clrName ]: [ K, TokenTypes.Colour.GenericName<T_ColourTypes[ 'names' ]> ]
+                    ) => overrides.button?.[ key ] ?? (
+                        singleButtonMaker( key, clrName ) as CompleteData[ 'button' ][ K ]
                     ),
-
-                    // disabled: {
-
-                    //     background: {
-                    //         $: clrOpt( variations.base, levels.text.min ),
-                    //         hover: clrOpt( variations.base, levels.text.min ),
-                    //         active: clrOpt( variations.base, levels.text.min ),
-                    //     },
-
-                    //     border: {
-                    //         $: clrOpt( variations.base, levels.text.min ),
-                    //         hover: clrOpt( variations.base, levels.text.min ),
-                    //         active: clrOpt( variations.base, levels.text.min ),
-                    //     },
-
-                    //     outline: {
-                    //         hover: clrOpt( variations.base, levels.text.min ),
-                    //         active: clrOpt( variations.base, levels.text.min ),
-                    //     },
-
-                    //     text: {
-                    //         $: clrOpt( variations.base, levels.background.$ ),
-                    //         hover: clrOpt( variations.base, levels.background.$ ),
-                    //         active: clrOpt( variations.base, levels.background.$ ),
-                    //     },
-
-                    //     ui: {
-                    //         $: clrOpt( variations.base, levels.background.$ ),
-                    //         hover: clrOpt( variations.base, levels.background.$ ),
-                    //         active: clrOpt( variations.base, levels.background.$ ),
-                    //     },
-                    // },
-                };
+                );
 
                 const singleInputMaker = (
-                    _variation: "base" | keyof AllVariations<T_ColourTypes, T_ThemeTypes>[ 'universal' ] | keyof AllVariations<T_ColourTypes, T_ThemeTypes>[ 'text' ],
+                    _variation: "primary" | "readonly",
                 ): CompleteData[ 'input' ][ '$' ] => {
-
-                    const _variationValue = _variation === 'base'
-                        ? variations.base
-                        : variations.universal[ _variation ] ?? variations.text[ _variation ] ?? 'base';
 
                     return {
 
                         accent: {
-                            $: clrOpt( _variationValue, levels.ui.accent ),
+                            $: _variation !== 'readonly' ? ( text[ _variation ] ?? text.$ ) : text.$,
                             focus: clrOpt( variations.interactive.hover, levels.ui.accent ),
                             hover: clrOpt( variations.interactive.hover, levels.ui.accent ),
                             active: clrOpt( variations.interactive.active, levels.ui.accent ),
                         },
 
-                        background: clrOpt( variations.base, levels.background.$ ),
+                        background: clrOpt(
+                            variations.base,
+                            _variation === 'readonly' ? levels.background.grey : levels.background.bright,
+                        ),
 
                         border: {
-                            $: clrOpt( _variationValue, levels.ui.accent ),
+                            $: _variation !== 'readonly' ? ( ui[ _variation ] ?? ui.$ ) : ui.$,
                             focus: clrOpt( variations.interactive.hover, levels.ui.accent ),
                             hover: clrOpt( variations.interactive.hover, levels.ui.accent ),
                             active: clrOpt( variations.interactive.active, levels.ui.accent ),
                         },
 
-                        placeholder: clrOpt( variations.base, levels.text.min ),
-                        text: clrOpt( variations.base, levels.text.$ ),
+                        placeholder: text.disabled,
+                        text: text.$,
                     };
                 };
 
                 const inputField: CompleteData[ 'input' ] = {
-                    $: singleInputMaker( 'primary' ),
-                    disabled: singleInputMaker( 'disabled' ),
-                    readonly: singleInputMaker( 'readonly' ),
+                    $: overrides.input?.$ ?? singleInputMaker( 'primary' ),
+
+                    disabled: overrides.input?.disabled ?? {
+
+                        accent: {
+                            $: ui.disabled,
+                            focus: ui.disabled,
+                            hover: ui.disabled,
+                            active: ui.disabled,
+                        },
+
+                        background: clrOpt( variations.interactive.disabled, levels.background.grey ),
+
+                        border: {
+                            $: ui.disabled,
+                            focus: ui.disabled,
+                            hover: ui.disabled,
+                            active: ui.disabled,
+                        },
+
+                        placeholder: text.disabled,
+                        text: text.disabled,
+                    },
+
+                    readonly: overrides.input?.readonly ?? singleInputMaker( 'readonly' ),
                 };
 
                 return {

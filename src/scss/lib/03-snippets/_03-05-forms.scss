@@ -16,16 +16,27 @@
 
 @use 'pkg:@maddimathon/utility-astro/03-snippets' as utils;
 
-@mixin _snippet-button-colour-single-state($background, $border, $text, $ui, $focusRing) {
-    @include cx-prop(focus-ring-outline-color, $focusRing);
+///
+/// @since ___PKG_VERSION___ — Made public.
+///
+@mixin snippet-button-colour-single-state($state, $variation: 'primary') {
+    $stateSlug: if($state == '$', '', '-#{$state}');
+
+    $border: var-theme(button-#{$variation}-border#{$stateSlug});
+    $ui: var-theme(button-#{$variation}-ui#{$stateSlug});
+
+    @include cx-prop(
+        focus-ring-outline-color,
+        var-theme(button-#{$variation}-outline#{$stateSlug})
+    );
     @include cx-prop(icon-color, $ui);
     @include cx-prop(theme-link-icon, $ui);
 
     text-decoration-color: #{$ui};
     accent-color: #{$border};
-    background-color: #{$background};
+    background-color: #{var-theme(button-#{$variation}-background#{$stateSlug})};
     border-color: #{$border};
-    color: #{$text};
+    color: #{var-theme(button-#{$variation}-text#{$stateSlug})};
 }
 
 ///
@@ -34,56 +45,35 @@
 /// @since 0.1.0-alpha
 ///
 @mixin snippet-button-colours($variation: 'primary') {
-    $_content_exits: meta.content-exists();
+    $_content_exists: meta.content-exists();
 
     & {
-        @include _snippet-button-colour-single-state(
-            $background: var-theme(button-#{$variation}-background),
-            $border: var-theme(button-#{$variation}-border),
-            $text: var-theme(button-#{$variation}-text),
-            $ui: var-theme(button-#{$variation}-ui),
-            $focusRing: var-theme(button-#{$variation}-outline-hover)
-        );
-        @if $_content_exits {
+        @include snippet-button-colour-single-state('$', $variation);
+
+        @if $_content_exists {
             @content ( $location: 'root' );
         }
     }
 
     &:hover {
-        @include _snippet-button-colour-single-state(
-            $background: var-theme(button-#{$variation}-background-hover),
-            $border: var-theme(button-#{$variation}-border-hover),
-            $text: var-theme(button-#{$variation}-text-hover),
-            $ui: var-theme(button-#{$variation}-ui-hover),
-            $focusRing: var-theme(button-#{$variation}-outline-hover)
-        );
-        @if $_content_exits {
+        @include snippet-button-colour-single-state('hover', $variation);
+        @if $_content_exists {
             @content ( $location: 'hover' );
         }
     }
 
     @include focus-visible-or-within {
-        @include _snippet-button-colour-single-state(
-            $background: var-theme(button-#{$variation}-background-hover),
-            $border: var-theme(button-#{$variation}-border-hover),
-            $text: var-theme(button-#{$variation}-text-hover),
-            $ui: var-theme(button-#{$variation}-ui-hover),
-            $focusRing: var-theme(button-#{$variation}-outline-hover)
-        );
-        @if $_content_exits {
+        @include snippet-button-colour-single-state('hover', $variation);
+
+        @if $_content_exists {
             @content ( $location: 'focus' );
         }
     }
 
     &:active {
-        @include _snippet-button-colour-single-state(
-            $background: var-theme(button-#{$variation}-background-active),
-            $border: var-theme(button-#{$variation}-border-active),
-            $text: var-theme(button-#{$variation}-text-active),
-            $ui: var-theme(button-#{$variation}-ui-active),
-            $focusRing: var-theme(button-#{$variation}-outline-active)
-        );
-        @if $_content_exits {
+        @include snippet-button-colour-single-state('active', $variation);
+
+        @if $_content_exists {
             @content ( $location: 'active' );
         }
     }
@@ -95,17 +85,16 @@
 /// @since 0.1.0-alpha
 ///
 @mixin snippet-button(
-    $fontWeight: var-style(button-font-weight),
-    $fontWeight_disabled: var-style(button-disabled-font-weight),
-    $fontSize: var-fs(normal),
-    $fontStyle: var-style(button-font-style),
-    $fontStyle_disabled: var-style(button-disabled-font-style),
     $includeColors: true,
     $includeDisabled: true,
     $includePseudoIcons: config.$template_button_inlineIcons,
-    $variation: 'primary'
+    //
+    $variation: 'primary',
+    //
+     //
 ) {
-    $_content_exits: meta.content-exists();
+    $fontStyle: var-style(button-font-style);
+    $_content_exists: meta.content-exists();
 
     @include cx-prop(focus-ring-outline-offset, var-style(button-focus-offset));
 
@@ -120,6 +109,7 @@
     align-items: start;
 
     width: #{var-style(button-width)};
+    height: auto;
 
     margin-block: #{var-style(button-margin-block-start)} #{var-style(button-margin-block-end)};
     padding: #{var-style(button-padding-block)} #{var-style(button-padding-inline)};
@@ -130,9 +120,9 @@
     border-radius: #{var-style(button-border-radius)};
     border-style: #{var-style(button-border-style)};
 
-    font-weight: #{$fontWeight};
+    font-weight: #{var-style(button-font-weight)};
     font-style: #{$fontStyle};
-    font-size: #{$fontSize};
+    font-size: #{var-style(button-font-size)};
     line-height: #{var-style(button-line-height)};
     letter-spacing: #{var-style(button-letter-spacing)};
 
@@ -142,7 +132,7 @@
 
     text-align: start;
 
-    transition: do-var(transition);
+    transition: #{do-var(transition)};
     opacity: 1;
 
     appearance: button;
@@ -154,25 +144,25 @@
         }
     } @else {
         & {
-            @if $_content_exits {
+            @if $_content_exists {
                 @content ( $location: 'root' );
             }
         }
 
         @include hover-focus-visible-or-within {
-            @if $_content_exits {
+            @if $_content_exists {
                 @content ( $location: 'focus' );
             }
         }
 
         &:hover {
-            @if $_content_exits {
+            @if $_content_exists {
                 @content ( $location: 'hover' );
             }
         }
 
         &:active {
-            @if $_content_exits {
+            @if $_content_exists {
                 @content ( $location: 'active' );
             }
         }
@@ -194,8 +184,8 @@
         &[aria-disabled='true'],
         &[disabled] {
             @include snippet-button-disabled(
-                    $fontWeight: $fontWeight_disabled,
-                    $fontStyle: $fontStyle_disabled,
+                    $fontWeight: var-style(button-disabled-font-weight),
+                    $fontStyle: var-style(button-disabled-font-style),
                     $includeColors: $includeColors,
                     $includePseudoIcons: $includePseudoIcons
                 )
@@ -259,7 +249,7 @@
         }
     } @else {
         & {
-            @if $_content_exits {
+            @if $_content_exists {
                 @content ( $location: 'root' );
             }
         }
@@ -267,19 +257,19 @@
         @include focus-visible-or-within {
             border-style: solid;
 
-            @if $_content_exits {
+            @if $_content_exists {
                 @content ( $location: 'focus' );
             }
         }
 
         &:hover {
-            @if $_content_exits {
+            @if $_content_exists {
                 @content ( $location: 'hover' );
             }
         }
 
         &:active {
-            @if $_content_exits {
+            @if $_content_exists {
                 @content ( $location: 'active' );
             }
         }
@@ -570,7 +560,7 @@
             line-height: #{$lineHeight};
         }
 
-        transition: do-var(transition);
+        transition: #{do-var(transition)};
 
         &::placeholder {
             font-style: #{var-style(input-placeholder-font-style)};

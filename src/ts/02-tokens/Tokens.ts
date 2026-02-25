@@ -943,7 +943,7 @@ export namespace Tokens {
                 export interface RecursivePartial<
                     T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
                     __T_ColourOption extends TokenTypes.Theme.ColourOption<T_Types[ 'colour' ]> = TokenTypes.Theme.ColourOption<T_Types[ 'colour' ]>,
-                > extends Tokens_Themes_Set.SingleMode.Data.RecursivePartial<T_Types[ 'colour' ], T_Types[ 'theme' ], __T_ColourOption> { }
+                > extends Tokens_Themes_Set.SingleMode.Data.Partial<T_Types[ 'colour' ], T_Types[ 'theme' ], __T_ColourOption> { }
             }
 
             /**

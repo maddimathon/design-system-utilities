@@ -62,7 +62,7 @@
                 }
             }
         }
-        @include utils.cx-prop(transition, none);
+        @include utils.cx-prop(transition, transition-properties-value(false));
     }
 
     @include feature-check.js {
@@ -82,10 +82,7 @@
             @if $trTime {
                 @include utils.cx-prop(tr-time-toggle-closing, 0 !important);
             }
-            @include utils.cx-prop(
-                transition,
-                #{transition-properties-value(false)} !important
-            );
+            // @include utils.cx-prop(transition, #{transition-properties-value(false)} !important);
         }
     }
     /* #endregion Tokens - Transitions */

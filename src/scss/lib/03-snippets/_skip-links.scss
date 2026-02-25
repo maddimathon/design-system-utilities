@@ -1,0 +1,95 @@
+///
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'pkg:@maddimathon/utility-sass/meta';
+
+// @use '../../config';
+// @use '../../tokens';
+
+@use '../01-functions' as *;
+@use '../02-mixins' as *;
+
+@use 'pkg:@maddimathon/utility-astro/03-snippets' as utils;
+
+@use '03-05-forms' as *;
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin snippet-support-skip-links {
+    $_content_exists: meta.content-exists();
+
+    // prettier-ignore
+    @include utils.snippet-support-astro-skip-links(
+        $focus_top: scroll-padding-top-value(var-mrg-firm('400')),
+        $zIndex: var-z-index(skipLink),
+    ) using ($location) {
+
+        @if $location == link-root {
+            $fontStyle: var-style(button-font-style);
+
+            @include cx-prop(focus-ring-outline-offset, var-style(button-focus-offset));
+            
+            // @include cx-prop(display, block);
+            // display: block;
+            padding: #{var-style(button-padding-block)} #{var-style(button-padding-inline)};
+
+            border-width: #{var-style(button-border-width)};
+            border-radius: #{var-style(button-border-radius)};
+            border-style: #{var-style(button-border-style)};
+
+            font-weight: #{var-style(button-font-weight)};
+            font-style: #{$fontStyle};
+            font-size: #{var-style(button-font-size)};
+            line-height: #{var-style(button-line-height)};
+            letter-spacing: #{var-style(button-letter-spacing)};
+
+            text-transform: #{var-style(button-text-transform)};
+            text-decoration: none;
+            text-wrap: balance;
+
+            transition: #{do-var(transition)};
+            opacity: 1;
+
+            appearance: button;
+            cursor: pointer;
+            
+            @include snippet-button-colour-single-state(hover);
+
+            @if $fontStyle == italic {
+                em {
+                    font-style: normal;
+        
+                    em {
+                        font-style: italic;
+                    }
+                }
+            }
+        }
+
+        @if $location == link-focus {
+            @include snippet-button-colour-single-state(hover);
+        }
+
+        @if $location == link-active {
+            @include snippet-button-colour-single-state(active);
+        }
+
+        @if $_content_exists {
+            @content ($location);
+        }
+    }
+
+    // %skip-link {
+    //     &,
+    //     &:focus {
+    //         @include snippet-button-colour-single-state(hover);
+    //     }
+
+    //     &:focus-within {
+    //         @include snippet-button-colour-single-state(hover);
+    //     }
+    // }
+}

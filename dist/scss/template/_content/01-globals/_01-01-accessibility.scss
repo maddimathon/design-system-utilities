@@ -1,0 +1,28 @@
+///
+/// @package @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+/// @since 0.1.1-alpha.1.draft
+///
+
+// @use 'pkg:@maddimathon/utility-sass/list';
+
+@use '../../../config';
+@use '../../../tokens';
+
+@use '../../../lib' as *;
+
+@use '../config' as tmplConfig;
+
+@if config.$print_skipLinks {
+    @include debug-checkpoint(
+        '#{tmplConfig.$template_slug} - globals - skipLinks start',
+        $level: tmplConfig.$checkpointLevel + 1,
+        $verbose: true
+    );
+
+    @if config.$print_headings {
+        /* # ACCESSIBILITY - SKIP LINKS
+         * ======================================================================== */
+    }
+
+    @include snippet-support-skip-links;
+}

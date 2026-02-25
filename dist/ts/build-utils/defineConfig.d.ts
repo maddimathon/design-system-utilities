@@ -7,7 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
-import type { Config } from '@maddimathon/build-utilities';
+import type { Config, PackageStage, TestStage } from '@maddimathon/build-utilities';
 import { Build } from './classes/Build.js';
 import { Compile } from './classes/Compile.js';
 import { Document } from './classes/Document.js';
@@ -17,10 +17,12 @@ export type { Config };
  *
  * @since 0.1.0-alpha
  */
-export declare function defineConfig<T_Build extends typeof Build, T_Compile extends typeof Compile, T_Document extends typeof Document>(config: Omit<Config, 'stages'> & {
-    stages?: undefined | Omit<Config['stages'], 'build' | 'compile' | 'document'>;
+export declare function defineConfig<T_Build extends typeof Build, T_Compile extends typeof Compile, T_Document extends typeof Document, T_Package extends typeof PackageStage, T_Test extends typeof TestStage>(config: Omit<Config, 'stages'> & {
+    stages?: undefined | Omit<Config['stages'], 'build' | 'compile' | 'document' | 'package' | 'test'>;
 }, _classes?: {
     Build?: T_Build;
     Compile?: T_Compile;
     Document?: T_Document;
+    Package?: T_Package;
+    Test?: T_Test;
 }): Config;
