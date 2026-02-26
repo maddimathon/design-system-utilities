@@ -31,7 +31,7 @@ export declare class Tokens_CSS_Transition extends AbstractTokens<{
  */
 export declare namespace Tokens_CSS_Transition {
     type TransitionTime = `${number}ms` | `${number}s`;
-    export type AllowedProperties = 'aspect-ratio' | 'background-color' | 'border-color' | 'border' | 'bottom' | 'box-shadow' | 'color' | 'font-weight' | 'font-weight' | 'font' | 'height' | 'left' | 'letter-spacing' | 'line-height' | 'margin' | 'max-height' | 'max-width' | 'min-height' | 'min-width' | 'opacity' | 'outline-color' | 'outline' | 'padding' | 'right' | 'rotate' | 'scale' | 'text-decoration-color' | 'text-indent' | 'text-shadow' | 'top' | 'transform-origin' | 'transform' | 'translate' | 'vertical-align' | 'visibility' | 'width' | 'word-spacing' | 'z-index';
+    export type AllowedProperties = 'accent-color' | 'aspect-ratio' | 'background-color' | 'border-color' | 'border' | 'bottom' | 'box-shadow' | 'color' | 'font-weight' | 'font-weight' | 'font' | 'height' | 'left' | 'letter-spacing' | 'line-height' | 'margin' | 'max-height' | 'max-width' | 'min-height' | 'min-width' | 'opacity' | 'outline-color' | 'outline' | 'padding' | 'right' | 'rotate' | 'scale' | 'text-decoration-color' | 'text-indent' | 'text-shadow' | 'top' | 'transform-origin' | 'transform' | 'translate' | 'vertical-align' | 'visibility' | 'width' | 'word-spacing' | 'z-index';
     /**
      * @since 0.1.0-alpha
      */

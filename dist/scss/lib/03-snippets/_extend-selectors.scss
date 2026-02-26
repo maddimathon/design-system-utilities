@@ -17,6 +17,15 @@
 @use '../01-functions' as *;
 // @use '../02-mixins' as *;
 
+$_activeTheme: get-active-theme();
+$_activeTheme_textAndBackgroundKeys: map.keys(
+    map.merge(
+        map.get($_activeTheme, background),
+        map.get($_activeTheme, text),
+        $recursive: true
+    )
+);
+
 ///
 /// @since 0.1.1-alpha.1.draft — Added $additional_optional param for additional selectors that are always optional.
 ///
@@ -93,6 +102,13 @@
     $additional: list.append($additional, ('.button-span', 'button-span'));
     $additional: list.append($additional, ('.icon', 'icon'));
 
+    @if config.$print_docs {
+        $additional: list.append(
+            $additional,
+            ('.site-content .button-span', 'button-span')
+        );
+    }
+
     // $additional: list.append($additional, ((), 'paragraph-margins'));
     // $additional: list.append($additional, ((), 'paragraph-small-margins'));
     $additional: list.append(
@@ -158,19 +174,30 @@
         }
     }
 
+    @each $variant in $_activeTheme_textAndBackgroundKeys {
+        @if $variant == '$' {
+            $additional_optional: list.append(
+                $additional_optional,
+                ('.background-default', background-default)
+            );
+        } @else {
+            $additional_optional: list.append(
+                $additional_optional,
+                ('.background-#{$variant}', background-#{$variant})
+            );
+        }
+    }
+
     $additional_optional: list.append(
         $additional_optional,
         ('.alert-block', alert)
     );
 
     @each $key, $icon in tokens.$icons {
-        %alert-block--#{$key} {
-            @extend %alert--icon-#{$key} !optional;
-            $additional_optional: list.append(
-                $additional_optional,
-                ('.alert-block--#{$key}', alert--icon-#{$key})
-            );
-        }
+        $additional_optional: list.append(
+            $additional_optional,
+            ('.alert-block--#{$key}', alert--icon-#{$key})
+        );
     }
 
     @include lib.extend-selectors-utils(

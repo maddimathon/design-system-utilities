@@ -18,7 +18,7 @@ import { SampleTokens_Json } from '../functions/SampleTokens.js';
 
 /* import - components */
 import LoremIpsumUtils from '@maddimathon/utility-astro/components/LoremIpsum';
-import Heading from '@maddimathon/utility-astro/components/Heading';
+// import Heading from '@maddimathon/utility-astro/components/Heading';
 import Toggle from '@maddimathon/utility-astro/components/Toggle';
 // import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
 
@@ -31,8 +31,6 @@ export interface Props
         ComponentProps<typeof LoremIpsumUtils>,
         'allHeadingLevels' | 'buttonVariations'
     > {
-    abbreviated?: boolean;
-    superAbbreviated?: boolean;
     tokens?: Tokens.JsonReturn;
 }
 
@@ -77,7 +75,7 @@ switch ( props.mode ) {
 
 const {
     fancy,
-    library,
+    // library,
     // minimum,
 } = mode;
 
@@ -92,314 +90,59 @@ const buttonVariations = tokens.themes['default']
         tokens.themes['default'].light['average'].data.button
     ).filter( v => v != 'primary' && v != 'disabled' )
     : [];
-
-const heading = props.heading ?? 2;
-const displayHeading = props.displayHeading ?? heading;
 ---
  
-{ superAbbreviated ? (    
-    <p>Lorem ipsum <a href="#">dolor sit amet</a>, consectetur adipiscing elit. Sed vel odio at nibh <abbr title="these aren’t real words">pharetra condimentum</abbr>. Mauris id sapien sodales, volutpat turpis. { import.meta.env.DEV && <Fragment set:html={'Donec mi ex, venenatis in elit vitae, <a href="#" aria-disabled="true">blandit sodales nunc</a>. '} /> } <strong><em>Nunc pellentesque</em></strong> urna sed metus vulputate, vel maximus magna consectetur. Nulla aliquet, <strong>sem id ullamcorper</strong> vehicula, ligula ante mattis nisl.</p>
-    <slot />
-    <p>Proin leo mauris, iaculis et est eget, <code>egestas tincidunt</code> metus. Quisque mattis semper semper. Suspendisse dapibus maximus leo, quis facilisis risus auctor et. Nam vitae dolor mi.</p>
-    
-    <ol id="example-list-mixed">
-        <li>Etiam ullamcorper commodo risus.
-            <ul>
-                <li>In hac habitasse platea dictumst.
-                    <ol>
-                        <li>In hac habitasse platea dictumst.
-                            <ul>
-                                <li>At feugiat odio mollis ut.
-                                    <ol>
-                                        <li>Mauris a tincidunt mauris.
-                                            <ol>
-                                                <li>Aliquam luctus fringilla nunc.
-                                                    {fancy && <ol>
-                                                        <li>Suspendisse dapibus maximus leo, quis.
-                                                            <ol>
-                                                                <li>Proin vel risus finibus.
-                                                                    <ol>
-                                                                        <li>Feugiat odio mollis ut.</li>
-                                                                        <li>Sed ultricies lorem.</li>
-                                                                    </ol>
-                                                                </li>
-                                                                <li>Convallis nisl vel.</li>
-                                                            </ol>
-                                                        </li>
-                                                        <li>Nam vitae dolor mi.</li>
-                                                    </ol>}
-                                                </li>
-                                                <li>Ut maximus arcu hendrerit in.</li>
-                                            </ol>
-                                        </li>
-                                        <li>Integer vehicula lacus ac congue ullamcorper.</li>
-                                    </ol>
-                                </li>
-                                <li>Donec vitae justo vel leo ullamcorper mattis.</li>
-                            </ul>
-                        </li>
-                        <li>Sed hendrerit vel dui in pellentesque.</li>
-                    </ol>
-                </li>
-                <li>Nunc elementum tortor quis felis pharetra faucibus.</li>
-            </ul>
-        </li>
-        <li>Fusce mattis, odio at varius pharetra.
-            <ol>
-                <li>Tellus arcu convallis erat, vel blandit nulla sem nec enim.
-                    <ul>
-                        <li>Proin gravida aliquam purus, at feugiat odio mollis ut.
-                            <ol>
-                                <li>Convallis nisl vel, ultricies lorem.
-                                    <ul>
-                                        <li>Duis hendrerit eu lacus at egestas.
-                                            <ol>
-                                                <li>Cras consequat id tortor nec dapibus.
-                                                    {fancy && <ol>
-                                                        <li>Suspendisse dapibus maximus leo, quis.
-                                                            <ol>
-                                                                <li>Proin vel risus finibus.
-                                                                    <ol>
-                                                                        <li>Feugiat odio mollis ut.</li>
-                                                                        <li>Sed ultricies lorem.</li>
-                                                                    </ol>
-                                                                </li>
-                                                                <li>Convallis nisl vel.</li>
-                                                            </ol>
-                                                        </li>
-                                                        <li>Nam vitae dolor mi.</li>
-                                                    </ol>}
-                                                </li>
-                                                <li>Ut maximus arcu hendrerit in.</li>
-                                            </ol>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>Proin vel risus finibus.</li>
-                            </ol>
-                        </li>
-                    </ul>
-                </li>
-                <li>Proin gravida aliquam purus.</li>
-            </ol>
-        </li>
-        <li>Phasellus eu nibh at ligula elementum hendrerit ac vitae quam.</li>
-    </ol>
-    <p>Maecenas facilisis sollicitudin nisi, eget pellentesque dui rhoncus condimentum. Vivamus vulputate nisl sit amet vehicula commodo. Cras neque arcu, fermentum non elementum ac, tincidunt ut nibh. Proin blandit, nisl at volutpat pulvinar, massa nisl vulputate risus.</p>
-    
-    <slot name="two" />
-    <slot name="three" />
-    <slot name="four" />
-
-) : abbreviated ? (
-    
-    <p>Lorem ipsum <a href="#">dolor sit amet</a>, consectetur adipiscing elit. Sed vel odio at nibh <abbr title="these aren’t real words">pharetra condimentum</abbr>. Mauris id sapien sodales, volutpat turpis. { import.meta.env.DEV && <Fragment set:html={'Donec mi ex, venenatis in elit vitae, <a href="#" aria-disabled="true">blandit sodales nunc</a>. '} /> } <strong><em>Nunc pellentesque</em></strong> urna sed metus vulputate, vel maximus magna consectetur. Nulla aliquet, <strong>sem id ullamcorper</strong> vehicula, ligula ante mattis nisl.</p>
-
-    <Heading
-        displayHeading={displayHeading}
-        heading={heading}
-        id="suspendisse-potenti-ex"
-    >Suspendisse Potenti <a href="#">ex</a></Heading>
-    <p>Proin leo mauris, iaculis et est eget, <code>egestas tincidunt</code> metus. Quisque mattis semper semper. Suspendisse dapibus maximus leo, quis facilisis risus auctor et. Nam vitae dolor mi.</p>
-
+<LoremIpsumUtils
+    {...props}
+    abbreviated={abbreviated}
+    allHeadingLevels={allHeadingLevels}
+    buttonVariations={buttonVariations}
+    superAbbreviated={superAbbreviated}
+>
     <slot />
 
-    <p>Etiam ornare ligula eu ipsum eleifend laoreet blandit et diam. Duis cursus eros magna, ac sagittis nibh sodales eget. Praesent condimentum erat et egestas venenatis.</p>
-    <ol id="example-list-mixed">
-        <li>Etiam ullamcorper commodo risus.
-            <ul>
-                <li>In hac habitasse platea dictumst.
-                    <ol>
-                        <li>In hac habitasse platea dictumst.
-                            <ul>
-                                <li>At feugiat odio mollis ut.
-                                    <ol>
-                                        <li>Mauris a tincidunt mauris.
-                                            <ol>
-                                                <li>Aliquam luctus fringilla nunc.
-                                                    {fancy && <ol>
-                                                        <li>Suspendisse dapibus maximus leo, quis.
-                                                            <ol>
-                                                                <li>Proin vel risus finibus.
-                                                                    <ol>
-                                                                        <li>Feugiat odio mollis ut.</li>
-                                                                        <li>Sed ultricies lorem.</li>
-                                                                    </ol>
-                                                                </li>
-                                                                <li>Convallis nisl vel.</li>
-                                                            </ol>
-                                                        </li>
-                                                        <li>Nam vitae dolor mi.</li>
-                                                    </ol>}
-                                                </li>
-                                                <li>Ut maximus arcu hendrerit in.</li>
-                                            </ol>
-                                        </li>
-                                        <li>Integer vehicula lacus ac congue ullamcorper.</li>
-                                    </ol>
-                                </li>
-                                <li>Donec vitae justo vel leo ullamcorper mattis.</li>
-                            </ul>
-                        </li>
-                        <li>Sed hendrerit vel dui in pellentesque.</li>
-                    </ol>
-                </li>
-                <li>Nunc elementum tortor quis felis pharetra faucibus.</li>
-            </ul>
-        </li>
-        <li>Fusce mattis, odio at varius pharetra.
-            <ol>
-                <li>Tellus arcu convallis erat, vel blandit nulla sem nec enim.
-                    <ul>
-                        <li>Proin gravida aliquam purus, at feugiat odio mollis ut.
-                            <ol>
-                                <li>Convallis nisl vel, ultricies lorem.
-                                    <ul>
-                                        <li>Duis hendrerit eu lacus at egestas.
-                                            <ol>
-                                                <li>Cras consequat id tortor nec dapibus.
-                                                    {fancy && <ol>
-                                                        <li>Suspendisse dapibus maximus leo, quis.
-                                                            <ol>
-                                                                <li>Proin vel risus finibus.
-                                                                    <ol>
-                                                                        <li>Feugiat odio mollis ut.</li>
-                                                                        <li>Sed ultricies lorem.</li>
-                                                                    </ol>
-                                                                </li>
-                                                                <li>Convallis nisl vel.</li>
-                                                            </ol>
-                                                        </li>
-                                                        <li>Nam vitae dolor mi.</li>
-                                                    </ol>}
-                                                </li>
-                                                <li>Ut maximus arcu hendrerit in.</li>
-                                            </ol>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>Proin vel risus finibus.</li>
-                            </ol>
-                        </li>
-                    </ul>
-                </li>
-                <li>Proin gravida aliquam purus.</li>
-            </ol>
-        </li>
-        <li>Phasellus eu nibh at ligula elementum hendrerit ac vitae quam.</li>
-    </ol>
-    <p>Maecenas facilisis sollicitudin nisi, eget pellentesque dui rhoncus condimentum. Vivamus vulputate nisl sit amet vehicula commodo.</p>
-
-    <slot name="two" />
-
-
-    <Heading
-        displayHeading={1 + displayHeading}
-        heading={ 1 + heading }
-        id="praesent-blandit-ex"
-    >Praesent Blandit <a href="#">ex</a></Heading>
-    <p id="blockquote">Turpis maximus posuere rhoncus, nunc est aliquam ligula, non ultrices felis turpis in sapien. Proin efficitur rhoncus ex auctor faucibus. Maecenas sed ornare ante, vitae consequat tellus. Aliquam eget facilisis nunc.</p>
-    
-    <div class="button-span">
-        <button type="button">This is a button</button>
-        <button aria-disabled="true" type="button">This is a disabled button</button>
+    { (!abbreviated && !superAbbreviated && fancy) ? (
+        <hr class="post-slot" />
         
-        <Fragment>{ buttonVariations.map(
-            variant => <button
-                class={`button-${variant}`}
-                set:text={`This is a ${variant} button`}
-                type="button"
+        <Toggle
+            id='toggle-ex-1'
+            heading={false}
+        >
+            <p>Boo!</p>
+            <p>Maecenas facilisis sollicitudin nisi, eget pellentesque dui rhoncus condimentum. Vivamus vulputate nisl sit amet vehicula commodo. Suspendisse pharetra varius ipsum, sed scelerisque ipsum tempor eget. Curabitur mollis lacus eu augue vestibulum semper. Praesent rutrum velit sodales ante varius convallis. Proin ut gravida sem. Nulla ac sapien odio.</p>
+        </Toggle>
+        <Toggle
+            id='toggle-ex-2'
+            heading={false}
+            defaultOpen={true}
+        >
+            <Fragment slot='button'>I am open by default</Fragment>
+            <p>Boo!</p>
+        </Toggle>
+
+        <Fragment>{ allHeadingLevels.map( heading => <Toggle
+            id={`toggle-ex-heading-${heading}`}
+            heading={heading}
+        >
+            <Fragment
+                slot='button'
+                set:text={`Toggle Heading ${heading}`}
             />
-        ) }</Fragment>
-    </div>
-
-    <Fragment>{ import.meta.env.DEV && <div class="button-span">
-        <a class="button" href="#" target="_blank">This is a link with a <code>button</code> class</a>
-        <button type="submit" set:text="This is a confirm button" />
-        <button type="reset" set:text="This is a reset button" />
-    </div> }</Fragment>
-
-    <p>Cras neque arcu, fermentum non elementum ac, tincidunt ut nibh. Proin blandit, nisl at volutpat pulvinar, massa nisl vulputate risus.</p>
-
-    <slot name="three" />
-
-
-    <Heading
-        displayHeading={2 + displayHeading}
-        heading={ 2 + heading }
-        id="nulla-facilisi-ex"
-    >Nulla Facilisi <a href="#">ex</a></Heading>
-    <p>Proin sollicitudin et nibh vitae egestas. Ut ut sapien vitae massa mollis viverra vitae sit amet ante. Donec ultrices ullamcorper facilisis. Vivamus id tincidunt libero, ac ultrices est.</p>
-
-    <slot name="four" />
-
-
-    <Heading
-        displayHeading={3 + displayHeading}
-        heading={ 3 + heading } 
-        id="pretium-purus-ex"
-    >Pretium Purus <a href="#">ex</a></Heading>
-    <p>Dolor sit amet consectetur adipisicing elit. Sapiente exercitationem rerum tenetur! Beatae quasi, nobis cumque animi, cum laudantium explicabo corporis impedit et labore tempora aliquam a?</p>
-
-    <Heading
-        displayHeading={4 + displayHeading}
-        heading={ 4 + heading }
-        id="cras-volutpat-ex"
-    >Cras Volutpat <a href="#">ex</a></Heading>
-    <p>Nulla dui, auctor fringilla neque laoreet sit amet. Mauris fringilla nisi et purus pulvinar euismod. Sed quis magna urna.</p>
-
-) : (
-    <LoremIpsumUtils
-        {...props}
-        allHeadingLevels={allHeadingLevels}
-        buttonVariations={buttonVariations}
-    >
-        <slot />
-
-        { library && (
-            <hr />
-            
-            <Toggle
-                id='toggle-ex-1'
-                heading={false}
-            >
-                <p>Boo!</p>
-                <p>Maecenas facilisis sollicitudin nisi, eget pellentesque dui rhoncus condimentum. Vivamus vulputate nisl sit amet vehicula commodo. Suspendisse pharetra varius ipsum, sed scelerisque ipsum tempor eget. Curabitur mollis lacus eu augue vestibulum semper. Praesent rutrum velit sodales ante varius convallis. Proin ut gravida sem. Nulla ac sapien odio.</p>
-            </Toggle>
-            <Toggle
-                id='toggle-ex-2'
-                heading={false}
-                defaultOpen={true}
-            >
-                <Fragment slot='button'>I am open by default</Fragment>
-                <p>Boo!</p>
-            </Toggle>
-
-            <Fragment>{ allHeadingLevels.map( heading => <Toggle
-                id={`toggle-ex-heading-${heading}`}
-                heading={heading}
-            >
-                <Fragment
-                    slot='button'
-                    set:text={`Toggle Heading ${heading}`}
-                />
-                <p>Boo!</p>
-                <p>Maecenas facilisis sollicitudin nisi, eget pellentesque dui rhoncus condimentum. Vivamus vulputate nisl sit amet vehicula commodo. Suspendisse pharetra varius ipsum, sed scelerisque ipsum tempor eget. Curabitur mollis lacus eu augue vestibulum semper. Praesent rutrum velit sodales ante varius convallis. Proin ut gravida sem. Nulla ac sapien odio.</p>
-            </Toggle> ) }</Fragment>
-        ) }
-        
-        <slot
-            name='one'
-            slot='one'
-        />
-        <slot
-            name='two'
-            slot='two'
-        />
-        <slot
-            name='three'
-            slot='three'
-        />
-    </LoremIpsumUtils>
-) }
-
+            <p>Boo!</p>
+            <p>Maecenas facilisis sollicitudin nisi, eget pellentesque dui rhoncus condimentum. Vivamus vulputate nisl sit amet vehicula commodo. Suspendisse pharetra varius ipsum, sed scelerisque ipsum tempor eget. Curabitur mollis lacus eu augue vestibulum semper. Praesent rutrum velit sodales ante varius convallis. Proin ut gravida sem. Nulla ac sapien odio.</p>
+        </Toggle> ) }</Fragment>
+    ) : '' }
+    
+    <slot
+        name='one'
+        slot='one'
+    />
+    <slot
+        name='two'
+        slot='two'
+    />
+    <slot
+        name='three'
+        slot='three'
+    />
+</LoremIpsumUtils>

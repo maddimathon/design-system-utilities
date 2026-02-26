@@ -17,13 +17,14 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
 export class Tokens_CSS_Transition extends AbstractTokens {
     static get default() {
         const always = [
+            'accent-color',
             'background-color',
             'border-color',
             'box-shadow',
             'color',
             'font-weight',
             'opacity',
-            'outline-color',
+            // 'outline-color',
             'text-decoration-color',
             'text-shadow',
             'visibility',

@@ -100,7 +100,8 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
 /// @since ___PKG_VERSION___
 ///
 @mixin _snippet-support-alert-blocks--background-variant-props($variationKey) {
-    @if $variationKey != '$' and $variationKey != '' and $variationKey != 'disabled' {
+    // prettier-ignore
+    @if $variationKey != '$' and $variationKey != '' and $variationKey != 'active' and $variationKey != 'disabled'  {
         //
         $background: if(
             theme-token-exists('background-#{$variationKey}'),
@@ -120,15 +121,12 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
             var-theme('ui')
         );
 
-        &.alert-block--#{$variationKey},
-        &.background-#{$variationKey} {
-            @include cx-prop(icon-color, $ui);
-            border-color: #{$ui};
-            background: #{$background};
+        @include cx-prop(icon-color, $ui);
+        border-color: #{$ui};
+        background: #{$background};
 
-            > .alert-block__headline {
-                color: #{$text};
-            }
+        > .alert-block__headline {
+            color: #{$text};
         }
     }
 }
@@ -291,7 +289,12 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
         }
 
         @each $variationKey in $_activeTheme_textAndBackgroundKeys {
-            @include _snippet-support-alert-blocks--background-variant-props($variationKey);
+            @if $variationKey != '$' {
+                &--icon-#{$variationKey},
+                &.background-#{$variationKey} {
+                    @include _snippet-support-alert-blocks--background-variant-props($variationKey);
+                }
+            }
 
             @if meta.content-exists() {
                 @content ( 'alert-block--background-#{$variationKey}' );
@@ -307,15 +310,23 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
                 @content ( 'alert-block--icon-#{$slug}' );
             }
 
-            @if list.index($_activeTheme_textAndBackgroundKeys, $slug) != null {
-                @each $variationKey in $_activeTheme_textAndBackgroundKeys {
-                    @include _snippet-support-alert-blocks--background-variant-props($variationKey);
-
-                    @if meta.content-exists() {
-                        @content ( 'alert-block--icon-#{$slug}--background-#{$variationKey}' );
+            @each $variationKey in $_activeTheme_textAndBackgroundKeys {
+                //
+                @if $variationKey != '$' {
+                    // @at-root #{selector.unify(&, '%alert--background-#{$variationKey}')},
+                    &.background-#{$variationKey} {
+                        @include _snippet-support-alert-blocks--background-variant-props(
+                            $variationKey
+                        );
                     }
                 }
+
+                @if meta.content-exists() {
+                    @content ( 'alert-block--icon-#{$slug}--background-#{$variationKey}' );
+                }
             }
+            // @if list.index($_activeTheme_textAndBackgroundKeys, $slug) != null {
+            // }
         }
     }
 }

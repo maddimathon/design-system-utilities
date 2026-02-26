@@ -309,7 +309,7 @@
     //
     $opacity: true
 ) {
-    @include cx-prop(focus-ring-outline-color, $accentClr);
+    @include cx-prop(focus-ring-outline-color, $accentClr_focus);
     background-color: #{$background};
     border-color: #{$borderClr};
     color: #{$color};
@@ -761,7 +761,9 @@
             }
 
             + %_input-base {
-                margin-block-start: #{$marginBlock};
+                &:not(input[type='checkbox'], input[type='radio']) {
+                    margin-block-start: #{var-style(input-margin-block-start)};
+                }
             }
         }
     }

@@ -25,13 +25,14 @@ export class Tokens_CSS_Transition extends AbstractTokens<{
     public static get default(): Tokens_CSS_Transition.Data {
 
         const always: Tokens_CSS_Transition.AllowedProperties[] = [
+            'accent-color',
             'background-color',
             'border-color',
             'box-shadow',
             'color',
             'font-weight',
             'opacity',
-            'outline-color',
+            // 'outline-color',
             'text-decoration-color',
             'text-shadow',
             'visibility',
@@ -119,6 +120,7 @@ export namespace Tokens_CSS_Transition {
     type TransitionTime = `${ number }ms` | `${ number }s`;
 
     export type AllowedProperties =
+        | 'accent-color'
         | 'aspect-ratio'
         | 'background-color'
         | 'border-color'

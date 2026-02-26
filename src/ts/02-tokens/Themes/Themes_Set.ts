@@ -1814,8 +1814,8 @@ export namespace Tokens_Themes_Set {
                             ? variations.universal.primary
                             : variations.interactive.active;
 
-                        _hoverClr_outline = _primaryClr;
-                        _activeClr_outline = _primaryClr;
+                        _hoverClr_outline = _hoverClr;
+                        _activeClr_outline = _activeClr;
                     }
 
                     const textOrBg_clr = clrOpt( variations.base, levels.background.$ );
@@ -1868,7 +1868,7 @@ export namespace Tokens_Themes_Set {
                     return {
 
                         accent: {
-                            $: _variation !== 'readonly' ? ( text[ _variation ] ?? text.$ ) : text.$,
+                            $: _variation !== 'readonly' ? ( text[ _variation ] ?? text.$ ) : text.primary,
                             focus: clrOpt( variations.interactive.hover, levels.ui.accent ),
                             hover: clrOpt( variations.interactive.hover, levels.ui.accent ),
                             active: clrOpt( variations.interactive.active, levels.ui.accent ),

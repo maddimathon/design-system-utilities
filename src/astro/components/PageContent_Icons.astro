@@ -7,9 +7,11 @@
 
 /* import - types */
 // import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
+import type { TokenTypes } from '../../ts/02-tokens/@types.d.ts';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 
 /* import - functions */
+import { arrayUnique } from '@maddimathon/utility-typescript/functions';
 
 /* import - values */
 
@@ -17,20 +19,37 @@ import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 import Toggle from '@maddimathon/utility-astro/components/Toggle';
 import Alert from './Alert.astro';
 import Icon from './Icon.astro';
+import LoremIpsum from './LoremIpsum.astro';
 
 /* import - layouts */
 
 /* PROPS ===================================== */
 
-export interface Props {
-    tokens: Tokens.JsonReturn;
+// prettier-ignore
+export interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
+    defaultIcon?: T_Types['iconNames'];
+    tokens: Tokens.JsonReturn<T_Types>;
 }
 
-const { tokens }: Props = Astro.props;
+const { defaultIcon = 'star', tokens }: Props = Astro.props;
 
 /* CONSTANTS ===================================== */
 
 const defaultToggleToOpen = import.meta.env.DEV ? true : undefined;
+
+const defaultIconSvg = tokens.icons[defaultIcon] ?? tokens.icons.star;
+
+const textAndBackgroundKeys = arrayUnique(
+    (
+        Object.keys(
+            tokens.themes.default.light.average.data.background,
+        ) as (keyof typeof tokens.themes.default.light.average.data.background)[]
+    ).concat(
+        Object.keys(
+            tokens.themes.default.light.average.data.text,
+        ) as (keyof typeof tokens.themes.default.light.average.data.text)[],
+    ),
+).filter((key) => key !== '$' && key !== 'disabled' && key !== 'active');
 ---
 
 <h2>All Icons</h2>
@@ -47,7 +66,7 @@ const defaultToggleToOpen = import.meta.env.DEV ? true : undefined;
 
 <Alert
     heading={2}
-    icon={tokens.icons.star}
+    icon={defaultIconSvg}
 >
     <span
         slot='headline'
@@ -72,7 +91,7 @@ const defaultToggleToOpen = import.meta.env.DEV ? true : undefined;
     class:list={'page-width'}
     defaultOpen={defaultToggleToOpen}
     heading={2}
-    id={`tokens-demo-icons-vardump`}
+    id={`tokens-demo-alert-headings`}
 >
     <Fragment
         set:text='All Alert Heading Levels'
@@ -84,7 +103,7 @@ const defaultToggleToOpen = import.meta.env.DEV ? true : undefined;
             .map((heading) => (
                 <Alert
                     heading={heading}
-                    icon={tokens.icons.star}
+                    icon={defaultIconSvg}
                 >
                     <span
                         slot='headline'
@@ -95,7 +114,7 @@ const defaultToggleToOpen = import.meta.env.DEV ? true : undefined;
                 </Alert>
             ))
     }
-    <Alert icon={tokens.icons.star}>
+    <Alert icon={defaultIconSvg}>
         <span
             slot='headline'
             set:text={`NO Heading Level`}
@@ -107,6 +126,38 @@ const defaultToggleToOpen = import.meta.env.DEV ? true : undefined;
             set:text='Vivamus sed commodo ligula, nec efficitur elit. Praesent condimentum diam est, sit amet venenatis sapien ullamcorper sit amet.'
         />
     </Alert>
+</Toggle>
+
+<Toggle
+    class:list={'page-width'}
+    defaultOpen={defaultToggleToOpen}
+    heading={2}
+    id={`tokens-demo-alert-colours`}
+>
+    <Fragment
+        set:text='All Colour Variations'
+        slot='button'
+    />
+    <Alert icon={defaultIconSvg}>
+        <span
+            slot='headline'
+            set:text={`Default Colour Variation`}
+        />
+        <LoremIpsum superAbbreviated={true} />
+    </Alert>
+    {
+        textAndBackgroundKeys.map((key) => (
+            <Alert
+                icon={defaultIconSvg}
+                class:list={`background-${key}`}
+            >
+                <span slot='headline'>
+                    Colour Variation: <samp set:text={key} />
+                </span>
+                <LoremIpsum superAbbreviated={true} />
+            </Alert>
+        ))
+    }
 </Toggle>
 
 <style lang='scss'>
