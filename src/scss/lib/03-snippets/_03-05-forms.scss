@@ -193,9 +193,6 @@
                 @content ($location: 'disabled-#{$location}');
             }
         }
-        &[readonly] {
-            cursor: not-allowed;
-        }
     }
 
     * {
@@ -488,7 +485,8 @@
         );
     }
 
-    &[readonly] {
+    &[readonly],
+    &:read-only {
         @include _snippet-input-colours-single(
             $accentClr: $accentClr_readonly,
             $accentClr_active: $accentClr_readonly_active,
@@ -669,7 +667,8 @@
             }
         }
 
-        &[readonly] {
+        &[readonly],
+        &:read-only {
             accent-color: #{$box_accentClr_readonly};
             color: #{$box_accentClr_readonly};
 

@@ -17,6 +17,9 @@
 @use '../01-functions' as *;
 // @use '../02-mixins' as *;
 
+///
+/// @since 0.1.1-alpha.1.draft — Added $additional_optional param for additional selectors that are always optional.
+///
 @mixin extend-selectors-globals(
     $additional: (),
     $additional_optional: (),
@@ -30,7 +33,19 @@
     $additional: list.append($additional, ((li), 'paragraph-small-margins'));
     $additional: list.append(
         $additional,
-        ((details, figure, img), 'paragraph-firm-margins')
+        (
+            (
+                button,
+                '[role="button"]',
+                'input[type="button"]',
+                // 'input[type="reset"]',
+                // 'input[type="submit"]',
+                details,
+                figure,
+                img
+            ),
+            'paragraph-firm-margins'
+        )
     );
 
     $additional: list.append(
@@ -43,8 +58,8 @@
     );
 
     @if config.$print_docs {
-        $additional: list.join(
-            $additional,
+        $additional_optional: list.join(
+            $additional_optional,
             (
                 ('.theme-mode-swatch__sample--selection', 'selection'),
                 (
@@ -56,24 +71,19 @@
         );
     }
 
-    @if config.$print_skipLinks {
-        // $additional: list.append($additional, ('.skip-link', 'skip-link'), $separator: comma);
-
-        $additional: list.append(
-            $additional,
-            ('.skip-link-list', 'skip-link-list'),
-            $separator: comma
-        );
-    }
-
     @include lib.extend-selectors-globals(
         $additional: $additional,
+        $additional_optional: $additional_optional,
         $optional: $optional
     );
 }
 
+///
+/// @since 0.1.1-alpha.1.draft — Added $additional_optional param for additional selectors that are always optional.
+///
 @mixin extend-selectors-utils(
     $additional: (),
+    $additional_optional: (),
     $optional: null,
     $allHeadingLevels: token-all-heading-levels()
 ) {
@@ -83,21 +93,23 @@
     $additional: list.append($additional, ('.button-span', 'button-span'));
     $additional: list.append($additional, ('.icon', 'icon'));
 
+    // $additional: list.append($additional, ((), 'paragraph-margins'));
+    // $additional: list.append($additional, ((), 'paragraph-small-margins'));
     $additional: list.append(
         $additional,
-        (('.button-span'), 'paragraph-firm-margins')
+        (('.button-span', 'a.button[href]'), 'paragraph-firm-margins')
     );
 
     @each $iconSlug, $iconMap in tokens.$icons {
-        $additional: list.append(
-            $additional,
+        $additional_optional: list.append(
+            $additional_optional,
             ('.icon--#{$iconSlug}', icon--#{$iconSlug})
         );
     }
 
     @each $logoSlug, $logoMap in tokens.$logos {
-        $additional: list.append(
-            $additional,
+        $additional_optional: list.append(
+            $additional_optional,
             ('.brand-logo--#{$logoSlug}', brand-logo--#{$logoSlug})
         );
     }
@@ -113,21 +125,20 @@
             )
         )
     {
-        @if $variant !=
-            primary and
-            $variant !=
-            secondary and
-            $variant !=
-            disabled
-        {
+        @if $variant != primary and $variant != disabled {
             //
-            $additional: list.append(
-                $additional,
+            $additional_optional: list.append(
+                $additional_optional,
                 ('a.button-#{$variant}[href]', button)
             );
 
             $additional: list.append(
                 $additional,
+                ('a.button-#{$variant}[href]', 'paragraph-firm-margins')
+            );
+
+            $additional_optional: list.append(
+                $additional_optional,
                 (
                     (
                         selector.unify(
@@ -147,33 +158,43 @@
         }
     }
 
-    @at-root {
-        .alert-block {
-            @extend %alert !optional;
-        }
+    $additional_optional: list.append(
+        $additional_optional,
+        ('.alert-block', alert)
+    );
 
-        @each $key, $icon in tokens.$icons {
-            %alert-block--#{$key} {
-                @extend %alert--icon-#{$key} !optional;
-            }
+    @each $key, $icon in tokens.$icons {
+        %alert-block--#{$key} {
+            @extend %alert--icon-#{$key} !optional;
+            $additional_optional: list.append(
+                $additional_optional,
+                ('.alert-block--#{$key}', alert--icon-#{$key})
+            );
         }
     }
 
     @include lib.extend-selectors-utils(
         $additional: $additional,
+        $additional_optional: $additional_optional,
         $optional: $optional
     );
 }
 
+///
+/// @since 0.1.1-alpha.1.draft — Added $additional_globals_optional, $additional_utils_optional params for additional selectors that are always optional.
+///
 @mixin extend-selectors(
     $optional: null,
     $additional_globals: (),
+    $additional_globals_optional: (),
     $additional_utils: (),
+    $additional_utils_optional: (),
     $allHeadingLevels: token-all-heading-levels()
 ) {
     @if config.$print_globals {
         @include extend-selectors-globals(
             $additional: $additional_globals,
+            $additional_optional: $additional_globals_optional,
             $optional: $optional,
             $allHeadingLevels: $allHeadingLevels
         );
@@ -182,6 +203,7 @@
     @if config.$print_utils {
         @include extend-selectors-utils(
             $additional: $additional_utils,
+            $additional_optional: $additional_utils_optional,
             $optional: $optional,
             $allHeadingLevels: $allHeadingLevels
         );

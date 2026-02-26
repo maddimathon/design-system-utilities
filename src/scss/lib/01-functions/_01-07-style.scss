@@ -18,14 +18,6 @@
 
 $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
 
-@function scroll-padding-top-value($margin: utils.var-gap-block(layout)) {
-    @return calc(utils.do-var(height-nav-primary, 0) + $margin);
-}
-
-@function var-scroll-padding-top() {
-    @return utils.do-var(scroll-padding-top, scroll-padding-top-value());
-}
-
 ///
 /// Uses the (flattened) style tokens.
 ///

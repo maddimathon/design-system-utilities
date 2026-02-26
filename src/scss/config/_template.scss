@@ -8,8 +8,20 @@
 ///
 /// @since 0.1.0-alpha
 ///
+$print_docs: false !default;
+$print_docs: utils.config-valid-bool($print_docs, 'print_docs');
+
+///
+/// @since 0.1.0-alpha
+///
 $print_alertBlocks: utils.$print_utils or utils.$print_astro !default;
 $print_alertBlocks: utils.config-valid-bool($print_alertBlocks, 'print_alertBlocks');
+
+///
+/// @since ___PKG_VERSION___
+///
+$print_widgets: $print_alertBlocks or $print_docs !default;
+$print_widgets: utils.config-valid-bool($print_widgets, 'print_widgets');
 
 ///
 /// @since 0.1.0-alpha
@@ -28,12 +40,6 @@ $print_astro_settingsMenu_fontOverrides: utils.config-valid-bool(
     $print_astro_settingsMenu_fontOverrides,
     'print_astro_settingsMenu_fontOverrides'
 );
-
-///
-/// @since 0.1.0-alpha
-///
-$print_docs: false !default;
-$print_docs: utils.config-valid-bool($print_docs, 'print_docs');
 
 ///
 /// @since 0.1.0-alpha

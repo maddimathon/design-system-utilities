@@ -269,7 +269,7 @@
 ///
 /// @since 0.1.1-alpha.1.draft
 ///
-@mixin set-default-margins(
+@mixin set-flow-margins(
     $paragraphLevel: '400',
     $smallLevel: '300',
     $firmStartLevel: null,
@@ -291,10 +291,13 @@
         margin-block: #{var-mrg-soft($smallLevel)} 0;
     }
 
-    %button,
     %paragraph-firm-margins {
         margin-block: #{var-mrg-firm($firmStartLevel)}
             #{var-mrg-half($firmEndLevel)};
+    }
+
+    %button-span {
+        gap: #{var-mrg-firm($smallLevel)} #{var-mrg-firm($firmStartLevel)};
     }
 }
 
