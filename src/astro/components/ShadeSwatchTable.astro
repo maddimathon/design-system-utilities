@@ -350,8 +350,8 @@ export const DEFAULT_LEVEL_TARGETS: LevelTargets = {
 /* CONSTANTS ===================================== */
 
 const includeFormats = {
-    hex: true,
-    hsl: import.meta.env.DEV ? true : false,
+    hex: import.meta.env.DEV ? false : true,
+    hsl: true,
     lch: import.meta.env.DEV ? true : false,
     rgb: false,
     ...includeColourFormats,
@@ -723,7 +723,7 @@ const HSL_CLRS = {
                         ].join(';') }
                     /></th>
                 </tr> }
-                {colour.map(({ name, map }) => (
+                { colour.map( ( { name, map } ) => name !== '$' ? (
                     <tr>
                         <th
                             class="screen-reader-text"
@@ -797,7 +797,7 @@ const HSL_CLRS = {
                             } : props.colour.base.black }
                         /></td>
                     </tr>
-                ))}
+                ) : '' ) }
             </table>
         </div>
     )

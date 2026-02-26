@@ -33,7 +33,7 @@ export async function setSassCompilerFns( compiler, params ) {
     // @ts-ignore
     const { sassFn_themeFlattenGetValues } = await import( '../../dist/ts/build-utils/sass-functions/themeFlattenGetValues.js' );
 
-    const themeFlattenGetValues = sassFn_themeFlattenGetValues( params );
+    const themeFlattenGetValues = sassFn_themeFlattenGetValues();
 
     compiler.args.sass.functions[ themeFlattenGetValues[ 0 ] ] = themeFlattenGetValues[ 1 ];
 }

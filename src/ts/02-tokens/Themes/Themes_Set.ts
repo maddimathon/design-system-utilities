@@ -371,7 +371,7 @@ export namespace Tokens_Themes_Set {
                 NoInfer<T_ColourTypes>,
                 T_ThemeTypes
             >,
-            overrides: SingleMode.Data.Partial<
+            inputOverrides: SingleMode.Data.Partial<
                 NoInfer<T_ColourTypes>,
                 NoInfer<T_ThemeTypes>
             > = {},
@@ -399,19 +399,25 @@ export namespace Tokens_Themes_Set {
                 case 'average':
                     description = description ?? 'This is the default contrast mode for most users, unless they have defined a specific preference (‘low’, ‘high’, or ‘forced-colors’) in their OS or browser settings.  It meets or exceeds WCAG AAA contrast standards.';
 
-                    defaultOverrides.selection = {
-                        background: clrOpt( variations.universal.primary, '300' as T_ColourTypes[ 'extraLevels' ] | ColourUtilities.Levels.Required ),
-                        text: clrOpt( variations.base, '800' as T_ColourTypes[ 'extraLevels' ] | ColourUtilities.Levels.Required ),
-                    };
+                    if ( !inputOverrides.selection ) {
+
+                        defaultOverrides.selection = {
+                            background: clrOpt( variations.universal.primary, '300' ),
+                            text: clrOpt( variations.base, '800' ),
+                        };
+                    }
                     break;
 
                 case 'low':
                     description = description ?? 'This is the low contrast mode.  This is the default for users who set ‘low’ as their preferred contrast mode in their OS or browser settings.  It mostly meets WCAG AA contrast standards, but in rare cases does not (which is acceptable in this case).';
 
-                    defaultOverrides.selection = {
-                        background: clrOpt( variations.universal.primary, '300' as T_ColourTypes[ 'extraLevels' ] | ColourUtilities.Levels.Required ),
-                        text: clrOpt( variations.base, '800' as T_ColourTypes[ 'extraLevels' ] | ColourUtilities.Levels.Required ),
-                    };
+                    if ( !inputOverrides.selection ) {
+
+                        defaultOverrides.selection = {
+                            background: clrOpt( variations.universal.primary, '300' ),
+                            text: clrOpt( variations.base, '800' ),
+                        };
+                    }
                     break;
 
                 case 'high':
@@ -420,62 +426,34 @@ export namespace Tokens_Themes_Set {
 
                 case 'max':
                     description = description ?? 'This is the maximum contrast mode.  This is an alternate option for users who want an even higher contrast than the ‘high’ mode, but without enabling ‘forced-colors’ mode.  It exceeds WCAG AAA contrast standards.';
-
-                    defaultOverrides.background = {
-                        $: 'white',
-                        grey: 'white',
-
-                        ...objectGenerator(
-                            arrayUnique( [
-                                ...Object.keys( variations.universal ) as T_ThemeTypes[ 'variations' ][ 'universal' ][],
-                                ...Object.keys( variations.background ) as T_ThemeTypes[ 'variations' ][ 'background' ][],
-                            ] ),
-                            () => 'white'
-                        ),
-                    };
-                    defaultOverrides.text = {
-                        $: 'black',
-
-                        ...objectGenerator(
-                            arrayUnique( [
-                                ...Object.keys( variations.universal ) as T_ThemeTypes[ 'variations' ][ 'universal' ][],
-                                ...Object.keys( variations.text ) as T_ThemeTypes[ 'variations' ][ 'background' ][],
-                            ] ),
-                            () => 'black'
-                        ),
-                    };
-                    defaultOverrides.ui = {
-                        $: 'black',
-
-                        ...objectGenerator(
-                            arrayUnique( [
-                                ...Object.keys( variations.universal ) as T_ThemeTypes[ 'variations' ][ 'universal' ][],
-                                ...Object.keys( variations.text ) as T_ThemeTypes[ 'variations' ][ 'background' ][],
-                            ] ),
-                            () => 'black'
-                        ),
-                    };
-
-                    defaultOverrides.selection = {
-                        background: clrOpt( variations.universal.primary, '850' as T_ColourTypes[ 'extraLevels' ] | ColourUtilities.Levels.Required ),
-                        text: clrOpt( variations.base, '100' as T_ColourTypes[ 'extraLevels' ] | ColourUtilities.Levels.Required ),
-                    };
                     break;
 
                 case 'forcedColors':
                     const _input: SingleMode.Build.Param_ForcedColors<T_ColourTypes, T_ThemeTypes> = {
                         ...input,
-
                         variations: SingleMode.Build.completeVariations<T_ColourTypes, T_ThemeTypes>( clrNames, input.variations ),
                     };
 
-                    return new SingleMode(
-                        themeName,
-                        brightness,
-                        constrast,
-                        'This is the forced colours contrast mode, which is a mode only applied for users with this accessibility featured enabled in their OS settings.  It cannot be manually selected.  This mode uses System Colour keywords, which lets users apply custom colours to websites.  This is very important for accessibility!',
-                        [],
-                        await SingleMode.Build.forcedColors( _input )
+                    return SingleMode.Build.forcedColors<T_ColourTypes, T_ThemeTypes>(
+                        _input,
+                        inputOverrides as Tokens_Themes_Set.SingleMode.Data.Partial<
+                            T_ColourTypes,
+                            T_ThemeTypes,
+                            TokenTypes.Css.SystemColor
+                        >,
+                    ).then(
+                        ( completedData ) => new SingleMode<
+                            T_ColourTypes,
+                            T_ThemeTypes,
+                            TokenTypes.Css.SystemColor
+                        >(
+                            themeName,
+                            brightness,
+                            constrast,
+                            'This is the forced colours contrast mode, which is a mode only applied for users with this accessibility featured enabled in their OS settings.  It cannot be manually selected.  This mode uses System Colour keywords, which lets users apply custom colours to websites.  This is very important for accessibility!',
+                            [],
+                            completedData,
+                        )
                     );
             }
 
@@ -487,7 +465,7 @@ export namespace Tokens_Themes_Set {
                 ) as AnyLevel[]
             ).concat(
                 Object.values(
-                    objectFlatten( overrides as RecursiveRecord<string, TokenTypes.Theme.ColourOption<T_ColourTypes>> )
+                    objectFlatten( inputOverrides as RecursiveRecord<string, TokenTypes.Theme.ColourOption<T_ColourTypes>> )
                 ).map( ( val ): AnyLevel | false => {
 
                     const match = String( val ).match( /\-(\d+)$/ );
@@ -504,27 +482,18 @@ export namespace Tokens_Themes_Set {
             const levelsInUse = arrayUnique( allLevelsInUse ).sort();
 
             return SingleMode.Build.data<T_ColourTypes, T_ThemeTypes>(
-                {
-                    levels,
-                    variations,
-                },
-                overrides,
+                { levels, variations },
+                mergeArgs( defaultOverrides, inputOverrides, true ),
             ).then(
-                ( defaultInputData ) => new SingleMode(
+                ( completedData ) => new SingleMode<T_ColourTypes, T_ThemeTypes>(
                     themeName,
                     brightness,
                     constrast,
+
                     description,
                     levelsInUse,
-                    mergeArgs(
-                        defaultInputData,
-                        mergeArgs(
-                            defaultOverrides,
-                            overrides,
-                            true,
-                        ) as RecursivePartial<SingleMode.Data<T_ColourTypes, T_ThemeTypes>>,
-                        true,
-                    ),
+
+                    completedData,
                 )
             );
         }
@@ -928,16 +897,16 @@ export namespace Tokens_Themes_Set {
 
                 system?: undefined | {
                     accent?: undefined | {
-                        background?: undefined | __T_ColourOption,
-                        text?: undefined | __T_ColourOption,
+                        bg: __T_ColourOption,
+                        text: __T_ColourOption,
                     },
                     mark?: undefined | {
-                        background?: undefined | __T_ColourOption,
-                        text?: undefined | __T_ColourOption,
+                        bg: __T_ColourOption,
+                        text: __T_ColourOption,
                     },
                     selected?: undefined | {
-                        background?: undefined | __T_ColourOption,
-                        text?: undefined | __T_ColourOption,
+                        bg: __T_ColourOption,
+                        text: __T_ColourOption,
                     },
                 },
             };
@@ -1148,20 +1117,20 @@ export namespace Tokens_Themes_Set {
                         grey: '150',
                     },
                     text: {
-                        $: '850',
+                        $: '800',
                         accent: '750',
                         min: '700',
                     },
                     ui: {
-                        $: '850',
+                        $: '800',
                         accent: '750',
                         min: '700',
                     },
                     heading: {
                         1: '800',
-                        2: '700',
-                        3: '700',
-                        4: '700',
+                        2: '750',
+                        3: '750',
+                        4: '750',
                         5: '750',
                         6: '750',
                         7: '750',
@@ -1204,8 +1173,18 @@ export namespace Tokens_Themes_Set {
 
                 export const max = {
                     background: 'white',
-                    text: 'black',
-                    ui: 'black',
+
+                    text: {
+                        $: 'black',
+                        accent: '850',
+                        min: '850',
+                    },
+                    ui: {
+                        $: 'black',
+                        accent: '850',
+                        min: '850',
+                    },
+
                     heading: {
                         1: '850',
                         2: '850',
@@ -1664,7 +1643,7 @@ export namespace Tokens_Themes_Set {
                 overrides: Data.Partial<
                     NoInfer<T_ColourTypes>,
                     NoInfer<T_ThemeTypes>
-                >,
+                > = {},
             ): Promise<Data<T_ColourTypes, T_ThemeTypes>> {
                 type CompleteData = Data<T_ColourTypes, T_ThemeTypes>;
 
@@ -1736,47 +1715,54 @@ export namespace Tokens_Themes_Set {
                     )
                 );
 
-                const link__text = overrides.link?.$?.$ ?? text.primary;
+                const linkCompleter = <
+                    T_SubKey extends "$" | "decoration" | "icon",
+                    T_LevelsKey extends "text" | "ui",
+                >(
+                    _subKey: T_SubKey,
+                    _levelsKey: T_LevelsKey,
+                ) => {
 
-                const link: CompleteData[ 'link' ][ '$' ] = {
-                    $: link__text,
-                    visited: overrides.link?.$?.visited ?? link__text,
+                    const _overrides = overrides.link?.[ _subKey ];
 
-                    ...objectMap(
-                        variations.interactive,
-                        ( [ key, clrName ] ) =>
-                            overrides.link?.$?.[ key ]
-                                ?? key === 'disabled'
-                                ? clrOpt( clrName, levels.text.min )
-                                : clrOpt( clrName, levels.text.accent )
-                    ),
-                };
+                    const _fallbackObj = _levelsKey === 'ui' ? ui : text;
 
-                const link_deco_text = overrides.link?.decoration?.$ ?? ui.primary;
+                    const _defaultClr = _overrides?.$ ?? (
+                        _subKey === 'icon'
+                            ? _fallbackObj.grey
+                            : _fallbackObj.primary
+                    );
 
-                const linkDecoration: CompleteData[ 'link' ][ 'decoration' ] = {
-                    $: link_deco_text,
-                    visited: overrides.link?.decoration?.visited ?? link_deco_text,
+                    return {
+                        $: _defaultClr,
+                        visited: _overrides?.visited ?? _defaultClr,
 
-                    hover: overrides.link?.decoration?.hover ?? 'transparent',
-                    active: overrides.link?.decoration?.active ?? clrOpt( variations.interactive.active, levels.ui.accent ),
-                    disabled: overrides.link?.decoration?.disabled ?? clrOpt( variations.text.disabled, levels.ui.min ),
-                };
+                        ...objectMap(
+                            variations.interactive,
+                            ( [ _key, _clrName ] ) => {
+                                // returns
+                                if ( _overrides?.[ _key ] ) {
+                                    return _overrides[ _key ];
+                                }
 
-                const link_icon_text = overrides.link?.decoration?.$ ?? ui.grey;
+                                // returns on match
+                                switch ( _key ) {
 
-                const linkIcon: CompleteData[ 'link' ][ 'icon' ] = {
-                    $: link_icon_text,
-                    visited: overrides.link?.decoration?.visited ?? link_icon_text,
+                                    case 'disabled':
+                                        return clrOpt( _clrName, levels[ _levelsKey ].min );
 
-                    ...objectMap(
-                        variations.interactive,
-                        ( [ key, clrName ] ) =>
-                            overrides.link?.icon?.[ key ]
-                                ?? key === 'disabled'
-                                ? clrOpt( clrName, levels.ui.min )
-                                : clrOpt( clrName, levels.ui.accent )
-                    ),
+                                    case 'hover':
+                                        // returns
+                                        if ( _subKey === 'decoration' ) {
+                                            return 'transparent';
+                                        }
+                                        break;
+                                }
+
+                                return clrOpt( _clrName, levels[ _levelsKey ].accent );
+                            },
+                        ),
+                    } satisfies CompleteData[ 'link' ][ T_SubKey ];
                 };
 
                 const linkOutline: CompleteData[ 'link' ][ 'outline' ] = objectMap(
@@ -1865,27 +1851,27 @@ export namespace Tokens_Themes_Set {
                     _variation: "primary" | "readonly",
                 ): CompleteData[ 'input' ][ '$' ] => {
 
+                    const _active_ui = clrOpt( variations.interactive.active, levels.ui.accent );
+                    const _hover_ui = clrOpt( variations.interactive.hover, levels.ui.accent );
+
+                    const _accent: CompleteData[ 'input' ][ '$' ][ 'accent' ] = {
+                        $: ui[ _variation as Exclude<typeof _variation, 'readonly'> ] ?? ui.primary,
+                        focus: _hover_ui,
+                        hover: _hover_ui,
+                        active: _active_ui,
+                    };
+
+                    const _border: CompleteData[ 'input' ][ '$' ][ 'border' ] = { ..._accent };
+
+                    if ( _variation === 'readonly' ) {
+                        _border.$ = ui.grey;
+                        _border.hover = ui.grey;
+                    }
+
                     return {
-
-                        accent: {
-                            $: _variation !== 'readonly' ? ( text[ _variation ] ?? text.$ ) : text.primary,
-                            focus: clrOpt( variations.interactive.hover, levels.ui.accent ),
-                            hover: clrOpt( variations.interactive.hover, levels.ui.accent ),
-                            active: clrOpt( variations.interactive.active, levels.ui.accent ),
-                        },
-
-                        background: clrOpt(
-                            variations.base,
-                            _variation === 'readonly' ? levels.background.grey : levels.background.bright,
-                        ),
-
-                        border: {
-                            $: _variation !== 'readonly' ? ( ui[ _variation ] ?? ui.$ ) : ui.$,
-                            focus: clrOpt( variations.interactive.hover, levels.ui.accent ),
-                            hover: clrOpt( variations.interactive.hover, levels.ui.accent ),
-                            active: clrOpt( variations.interactive.active, levels.ui.accent ),
-                        },
-
+                        accent: _accent,
+                        background: _variation === 'readonly' ? background.grey : background.bright,
+                        border: _border,
                         placeholder: text.disabled,
                         text: text.$,
                     };
@@ -1903,7 +1889,7 @@ export namespace Tokens_Themes_Set {
                             active: ui.disabled,
                         },
 
-                        background: clrOpt( variations.interactive.disabled, levels.background.grey ),
+                        background: background.grey,
 
                         border: {
                             $: ui.disabled,
@@ -1927,13 +1913,13 @@ export namespace Tokens_Themes_Set {
                     input: inputField,
 
                     link: {
-                        $: link,
-                        decoration: linkDecoration,
-                        icon: linkIcon,
+                        $: linkCompleter( '$', 'text' ),
+                        decoration: linkCompleter( 'decoration', 'ui' ),
+                        icon: linkCompleter( 'icon', 'ui' ),
                         outline: linkOutline,
                     },
 
-                    selection: {
+                    selection: overrides.selection ?? {
                         background: clrOpt( variations.universal.primary, levels.text.accent ),
                         text: clrOpt( variations.base, levels.background.$ ),
                     },
@@ -1942,15 +1928,15 @@ export namespace Tokens_Themes_Set {
                     ui,
 
                     system: {
-                        accent: {
+                        accent: overrides.system?.accent ?? {
                             bg: clrOpt( variations.universal.primary, levels.text.accent ),
                             text: clrOpt( variations.base, levels.background.$ ),
                         },
-                        mark: {
+                        mark: overrides.system?.mark ?? {
                             bg: clrOpt( variations.text.active, levels.text.accent ),
                             text: clrOpt( variations.base, levels.background.$ ),
                         },
-                        selected: {
+                        selected: overrides.system?.selected ?? {
                             bg: clrOpt( variations.interactive.hover, levels.text.accent ),
                             text: clrOpt( variations.base, levels.background.$ ),
                         },
@@ -1968,51 +1954,69 @@ export namespace Tokens_Themes_Set {
                 T_ThemeTypes extends TokenTypes.Theme.TypeParams,
             >(
                 input: Param_ForcedColors<T_ColourTypes, T_ThemeTypes>,
-            ): Promise<Data<T_ColourTypes, T_ThemeTypes>> {
-                type CompleteData = Data<T_ColourTypes, T_ThemeTypes>;
+                overrides: Data.Partial<
+                    NoInfer<T_ColourTypes>,
+                    NoInfer<T_ThemeTypes>,
+                    TokenTypes.Css.SystemColor
+                >,
+            ): Promise<Data<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>> {
+                type CompleteData = Data<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>;
 
                 const {
                     variations,
                 } = input;
 
                 const sysclr = {
-                    background: 'Canvas',
-                    text: 'CanvasText',
+                    background: overrides.background?.$ ?? 'Canvas',
+                    text: {
+                        $: overrides.text?.$ ?? 'CanvasText',
+                        active: overrides.text?.active ?? 'ActiveText',
+                        disabled: overrides.text?.disabled ?? 'GrayText',
+                        grey: overrides.text?.grey ?? 'GrayText',
+                    } as {
+                        $: TokenTypes.Css.SystemColor,
+                        active: TokenTypes.Css.SystemColor,
+                        disabled: TokenTypes.Css.SystemColor,
+                        grey: TokenTypes.Css.SystemColor,
+                        [ key: string ]: TokenTypes.Css.SystemColor,
+                    },
                 } as const;
 
                 const background: CompleteData[ 'background' ] = {
-                    ...objectMap( variations.background, () => sysclr.background ),
-                    ...objectMap( variations.universal, () => sysclr.background ),
+                    ...objectMap( variations.background, ( [ key ] ) => overrides.background?.[ key ] ?? sysclr.background ),
+                    ...objectMap( variations.universal, ( [ key ] ) => overrides.background?.[ key ] ?? sysclr.background ),
                 };
 
                 const text: CompleteData[ 'text' ] = {
-                    $: sysclr.text,
+                    $: sysclr.text.$,
 
-                    ...objectMap( variations.universal, () => sysclr.text ),
-                    ...objectMap( variations.text, () => sysclr.text ),
-
-                    active: 'ActiveText',
-                    disabled: 'GrayText',
-                    grey: 'GrayText',
+                    ...objectMap( variations.universal, ( [ key ] ) => overrides.text?.[ key ] ?? sysclr.text[ key ] ?? sysclr.text.$ ),
+                    ...objectMap( variations.text, ( [ key ] ) => overrides.text?.[ key ] ?? sysclr.text[ key ] ?? sysclr.text.$ ),
                 };
 
+                const ui: CompleteData[ 'ui' ] = mergeArgs( text, overrides.ui as Partial<CompleteData[ 'ui' ]> );
+
                 const link: CompleteData[ 'link' ][ '$' ] = {
-                    $: 'LinkText',
-                    visited: 'VisitedText',
-                    hover: 'ActiveText',
-                    active: 'ActiveText',
-                    disabled: 'GrayText',
+                    $: overrides.link?.$?.$ ?? 'LinkText',
+                    visited: overrides.link?.$?.visited ?? 'VisitedText',
+
+                    hover: overrides.link?.$?.hover ?? sysclr.text.active,
+                    active: overrides.link?.$?.active ?? sysclr.text.active,
+                    disabled: overrides.link?.$?.disabled ?? text.disabled,
                 };
 
                 const linkOutline: CompleteData[ 'link' ][ 'outline' ] = {
-                    hover: 'ActiveText',
-                    active: 'ActiveText',
-                    disabled: 'GrayText',
+                    hover: overrides.link?.outline?.hover ?? link.hover,
+                    active: overrides.link?.outline?.active ?? link.active,
+                    disabled: overrides.link?.outline?.disabled ?? link.disabled,
                 };
+
+                const linkDecoration = mergeArgs( link, overrides.link?.decoration );
+                const linkIcon = mergeArgs( link, overrides.link?.icon );
 
                 const heading: CompleteData[ 'heading' ] = objectGenerator(
                     SingleMode.allHeadingLevels,
-                    () => sysclr.text
+                    ( num ) => overrides.heading?.[ num ] ?? text.primary,
                 );
 
                 const singleButton: CompleteData[ 'button' ][ 'primary' ] = {
@@ -2057,8 +2061,8 @@ export namespace Tokens_Themes_Set {
                 };
 
                 const button: CompleteData[ 'button' ] = {
-                    ...objectMap( variations.universal, () => singleButton ),
-                    disabled: singleButton,
+                    ...objectMap( variations.universal, ( [ key ] ) => overrides.button?.[ key ] ?? singleButton ),
+                    disabled: overrides.button?.disabled ?? singleButton,
                 };
 
                 const inputField: CompleteData[ 'input' ][ keyof CompleteData[ 'input' ] ] = {
@@ -2086,27 +2090,30 @@ export namespace Tokens_Themes_Set {
                     heading,
 
                     input: {
-                        $: inputField,
-                        disabled: inputField,
-                        readonly: inputField,
+                        $: overrides.input?.$ ?? inputField,
+                        disabled: overrides.input?.disabled ?? inputField,
+                        readonly: overrides.input?.readonly ?? inputField,
                     },
 
                     link: {
                         $: link,
-                        decoration: link,
-                        icon: link,
+                        decoration: linkDecoration,
+                        icon: linkIcon,
                         outline: linkOutline,
                     },
 
-                    selection: {
+                    selection: overrides.selection ?? {
                         background: 'Highlight',
                         text: 'HighlightText',
                     },
 
                     text,
-                    ui: text,
+                    ui,
 
-                    system: {
+                    system: mergeArgs<
+                        CompleteData[ 'system' ],
+                        RecursivePartial<CompleteData[ 'system' ]>
+                    >( {
                         accent: {
                             bg: [
                                 'CanvasText',
@@ -2133,7 +2140,7 @@ export namespace Tokens_Themes_Set {
                             bg: 'SelectedItem',
                             text: 'SelectedItemText',
                         },
-                    },
+                    }, overrides.system, true ),
                 };
             }
         }

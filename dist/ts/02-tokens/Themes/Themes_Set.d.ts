@@ -318,16 +318,16 @@ export declare namespace Tokens_Themes_Set {
                 };
                 system?: undefined | {
                     accent?: undefined | {
-                        background?: undefined | __T_ColourOption;
-                        text?: undefined | __T_ColourOption;
+                        bg: __T_ColourOption;
+                        text: __T_ColourOption;
                     };
                     mark?: undefined | {
-                        background?: undefined | __T_ColourOption;
-                        text?: undefined | __T_ColourOption;
+                        bg: __T_ColourOption;
+                        text: __T_ColourOption;
                     };
                     selected?: undefined | {
-                        background?: undefined | __T_ColourOption;
-                        text?: undefined | __T_ColourOption;
+                        bg: __T_ColourOption;
+                        text: __T_ColourOption;
                     };
                 };
             };
@@ -490,20 +490,20 @@ export declare namespace Tokens_Themes_Set {
                         readonly grey: "150";
                     };
                     readonly text: {
-                        readonly $: "850";
+                        readonly $: "800";
                         readonly accent: "750";
                         readonly min: "700";
                     };
                     readonly ui: {
-                        readonly $: "850";
+                        readonly $: "800";
                         readonly accent: "750";
                         readonly min: "700";
                     };
                     readonly heading: {
                         readonly 1: "800";
-                        readonly 2: "700";
-                        readonly 3: "700";
-                        readonly 4: "700";
+                        readonly 2: "750";
+                        readonly 3: "750";
+                        readonly 4: "750";
                         readonly 5: "750";
                         readonly 6: "750";
                         readonly 7: "750";
@@ -544,8 +544,16 @@ export declare namespace Tokens_Themes_Set {
                 };
                 const max: {
                     readonly background: "white";
-                    readonly text: "black";
-                    readonly ui: "black";
+                    readonly text: {
+                        readonly $: "black";
+                        readonly accent: "850";
+                        readonly min: "850";
+                    };
+                    readonly ui: {
+                        readonly $: "black";
+                        readonly accent: "850";
+                        readonly min: "850";
+                    };
                     readonly heading: {
                         readonly 1: "850";
                         readonly 2: "850";
@@ -727,13 +735,13 @@ export declare namespace Tokens_Themes_Set {
              *
              * @since 0.1.0-alpha
              */
-            function data<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(inputParam: Param<T_ColourTypes, T_ThemeTypes>, overrides: Data.Partial<NoInfer<T_ColourTypes>, NoInfer<T_ThemeTypes>>): Promise<Data<T_ColourTypes, T_ThemeTypes>>;
+            function data<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(inputParam: Param<T_ColourTypes, T_ThemeTypes>, overrides?: Data.Partial<NoInfer<T_ColourTypes>, NoInfer<T_ThemeTypes>>): Promise<Data<T_ColourTypes, T_ThemeTypes>>;
             /**
              * An easy way to generate a complete token set from limited inputs.
              *
              * @since 0.1.0-alpha
              */
-            function forcedColors<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(input: Param_ForcedColors<T_ColourTypes, T_ThemeTypes>): Promise<Data<T_ColourTypes, T_ThemeTypes>>;
+            function forcedColors<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(input: Param_ForcedColors<T_ColourTypes, T_ThemeTypes>, overrides: Data.Partial<NoInfer<T_ColourTypes>, NoInfer<T_ThemeTypes>, TokenTypes.Css.SystemColor>): Promise<Data<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>>;
         }
         export {};
     }

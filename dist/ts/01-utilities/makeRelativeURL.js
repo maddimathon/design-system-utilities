@@ -22,6 +22,10 @@ import { trailingSlash, } from '@maddimathon/utility-astro';
  * @since 0.1.0-alpha.4 — Added a check for existing file extensions before adding '.html'.
  */
 export function makeRelativeURL(config_base, config_build, currentURL, targetSubpath) {
+    // throws
+    if (targetSubpath.match(/^\.\.?\//g)) {
+        return targetSubpath;
+    }
     const pathPrefix = config_base.replace(/(^\.?\/|\/$)/gi, '');
     const prefixRegex = new RegExp(`^\\.?\\/?${escRegExp(pathPrefix)}(?=\\/|$)`, 'gi');
     const subpaths = {
@@ -37,7 +41,7 @@ export function makeRelativeURL(config_base, config_build, currentURL, targetSub
         // returns on match
         switch (config_build.format) {
             case 'file':
-                const appendHtmlExtension = targetSubpath.match(/\.[a-z]+[a-z|0-9|\-]+$/gi) === null;
+                const appendHtmlExtension = _subpath.match(/\.[a-z]+[a-z|0-9|\-]+$/gi) === null;
                 // returns
                 if (appendHtmlExtension) {
                     return _subpath + '.html';

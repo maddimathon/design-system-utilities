@@ -32,7 +32,7 @@ const { tokens }: Props = Astro.props as Props;
 /* CONSTANTS ===================================== */
 
 const headingLevels = Object.keys(tokens.typography.size.heading).map(
-    Number
+    Number,
 ) as [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, ...number[]];
 
 const headingIDs = headingLevels.map((num) => [num, `heading-${num}`] as const);
@@ -49,7 +49,7 @@ const exampleMenuIds_entries = [
                     label: `Example Heading ${num}`,
                     id: `toggle-ex-heading-${num}`,
                 },
-            ] as const
+            ] as const,
     ),
 ] as const;
 
@@ -90,9 +90,10 @@ const tocMenu: ComponentProps<typeof TableOfContents>['menu'] = [
 ---
 
 <TableOfContents
+    convertHrefStringsToAbsolute={false}
+    defaultOpen={true}
     heading={2}
     menu={tocMenu}
-    defaultOpen={true}
 />
 
 <hr />
@@ -132,6 +133,6 @@ const tocMenu: ComponentProps<typeof TableOfContents>['menu'] = [
                     <hr />
                     <LoremIpsum superAbbreviated={true} />
                 </Toggle>
-            )
+            ),
     )
 }

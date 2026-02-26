@@ -16,7 +16,7 @@ export function defineSassCompilerOpts(args, partial) {
     const partialSassArgs = typeof partial === 'function'
         ? partial(args) ?? {}
         : partial ?? {};
-    const themeFlattenGetValues = sassFn_themeFlattenGetValues(args);
+    const themeFlattenGetValues = sassFn_themeFlattenGetValues();
     const functions = {
         [themeFlattenGetValues[0]]: themeFlattenGetValues[1],
     };

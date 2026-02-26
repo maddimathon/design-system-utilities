@@ -16,15 +16,6 @@ import {
     sassAssertValueType,
 } from '@maddimathon/utility-sass';
 
-import type {
-    CLI,
-    Config,
-} from '@maddimathon/build-utilities';
-
-import type {
-    Logger,
-} from '@maddimathon/build-utilities/internal';
-
 import * as sass from "sass-embedded";
 
 import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
@@ -45,11 +36,7 @@ import { colourSlugToCSS } from '../../03-parsers/colourSlugToCSS.js';
  *
  * @since __PKG_VERSION___
  */
-export function sassFn_themeFlattenGetValues( { console }: {
-    config: Config.Class;
-    console: Logger;
-    params: CLI.Params;
-} ): [ string, sass.CustomFunction<'async'> ] {
+export function sassFn_themeFlattenGetValues(): [ string, sass.CustomFunction<'async'> ] {
 
     return [
         'mmdsu-global-themeFlattenGetValues( $colours, $themes, $replaceVarClrWithValue, $includeHSL, $includeRGB )',

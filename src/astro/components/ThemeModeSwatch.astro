@@ -124,6 +124,10 @@ export function getCssColourForThemePreview<
     clrSlug: string | string[],
     convertToVarFn: boolean = true,
 ) {
+    if ( Array.isArray( clrSlug ) ) {
+        clrSlug = clrSlug[0] ?? String( clrSlug );
+    }
+    
     if (
         ColourUtilities.CssColours.keywords.has( clrSlug as ColourUtilities.CssColours.Keyword )
     ) {

@@ -275,14 +275,12 @@ const shadeList_toc: ComponentProps<typeof TableOfContents>['menu'] = [
         label: 'Shade Table',
         href: '#all-colours',
     },
-    {
-        label: 'Black & White Shade Details',
-        href: '#shades-black-and-white',
-    },
-    ...Object.entries(tokens.colour).map(([name]) => ({
-        label: `${toTitleCase(name)} Shade Details`,
-        href: `#shades-${name}`,
-    })),
+    ...Object.entries(tokens.colour)
+        .filter(([name]) => name !== '$')
+        .map(([name]) => ({
+            label: `${toTitleCase(name)} Shade Details`,
+            href: `#shades-${name}`,
+        })),
 ];
 
 const baseShades: ShadeSwatchTableProps['colour']['base'] = {
@@ -298,6 +296,7 @@ const allColours = {
 
 <TableOfContents
     asToggle={false}
+    convertHrefStringsToAbsolute={false}
     heading={2}
     menu={shadeList_toc}
 />
@@ -322,6 +321,7 @@ const allColours = {
     (Object.keys(tokens.colour) as (keyof typeof tokens.colour)[]).map(
         (name) =>
             tokens.colour[name] &&
+            name !== '$' &&
             name !== 'black' &&
             name !== 'white' && (
                 <Toggle

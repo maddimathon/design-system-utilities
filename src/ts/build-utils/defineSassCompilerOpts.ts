@@ -39,7 +39,7 @@ export function defineSassCompilerOpts(
         ? partial( args ) ?? {}
         : partial ?? {};
 
-    const themeFlattenGetValues = sassFn_themeFlattenGetValues( args );
+    const themeFlattenGetValues = sassFn_themeFlattenGetValues();
 
     const functions = {
         [ themeFlattenGetValues[ 0 ] ]: themeFlattenGetValues[ 1 ],

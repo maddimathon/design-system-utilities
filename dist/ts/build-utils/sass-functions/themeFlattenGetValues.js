@@ -21,7 +21,7 @@ import { colourSlugToCSS } from '../../03-parsers/colourSlugToCSS.js';
  *
  * @since __PKG_VERSION___
  */
-export function sassFn_themeFlattenGetValues({ console }) {
+export function sassFn_themeFlattenGetValues() {
     return [
         'mmdsu-global-themeFlattenGetValues( $colours, $themes, $replaceVarClrWithValue, $includeHSL, $includeRGB )',
         async (args) => {

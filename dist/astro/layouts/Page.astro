@@ -12,11 +12,9 @@ import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Typography } from '../../ts/02-tokens/Tokens_Typography.js';
 
 /* import - functions */
-import { escRegExp } from '@maddimathon/utility-typescript/functions';
 import { absoluteInternalURL } from '@maddimathon/utility-astro/astro/functions';
 
 /* import - values */
-import { base as config_base } from 'astro:config/client';
 
 /* import - components */
 
@@ -98,42 +96,31 @@ const versionSuffix = props.stylesheetVersion
     : '';
 
 const stylesheets = props.stylesheetURLs
-    ? props.stylesheetURLs.map(
-          (_str) =>
-              urlMaker(
-                  Astro.url,
-                  _str.replace(
-                      new RegExp(
-                          '^' +
-                              escRegExp(
-                                  `/${config_base.replace(/(^\/|\/$)/gi, '')}/`,
-                              ),
-                          'gi',
-                      ),
-                      '',
-                  ),
-              ).replace(/\.html$/gi, '') + versionSuffix,
+    ? [...props.stylesheetURLs].map(
+          (_str) => urlMaker(Astro.url, _str) + versionSuffix,
       )
     : [];
 
 /* Menus ------------------ */
 
 const _menuMapper = (_obj: ArrayItem<[] & UtilPage_Props['primaryMenu']>) => {
+    _obj = { ..._obj };
+
     if (typeof _obj.href === 'string') {
         _obj.href = urlMaker(Astro.url, _obj.href);
     }
     if (_obj.child?.length) {
-        _obj.child = _obj.child.map(_menuMapper);
+        _obj.child = [..._obj.child].map(_menuMapper);
     }
     return _obj;
 };
 
 if (Array.isArray(props.primaryMenu)) {
-    props.primaryMenu = props.primaryMenu.map(_menuMapper);
+    props.primaryMenu = [...props.primaryMenu].map(_menuMapper);
 }
 
 if (Array.isArray(props.secondaryMenu)) {
-    props.secondaryMenu = props.secondaryMenu.map(_menuMapper);
+    props.secondaryMenu = [...props.secondaryMenu].map(_menuMapper);
 }
 
 /* Settings ------------------ */
@@ -175,6 +162,7 @@ if (familyOverrideValues.length) {
 <UtilPage
     {...props as UtilPage_Props}
     layout={props.layout || 'content-only'}
+    convertHrefStringsToAbsolute={false}
 >
     <slot
         slot='head-open'
