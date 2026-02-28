@@ -14,7 +14,6 @@ import { objectFlatten } from '../../01-utilities/objectFlatten.js';
 import { objectGeneratorAsync } from '../../01-utilities/objectGenerator.js';
 import { objectMapAsync } from '../../01-utilities/objectMapAsync.js';
 import { colourSlugToCSS } from '../../03-parsers/colourSlugToCSS.js';
-// import { getTokensDataFromClrSlug } from '../../03-parsers/getTokensDataFromClrSlug.js';
 /**
  * A function to include in {@link sass.Options} that flattens the scss theme
  * objects and sets their values to colour values.

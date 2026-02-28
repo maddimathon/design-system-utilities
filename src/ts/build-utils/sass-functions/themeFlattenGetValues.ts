@@ -28,7 +28,6 @@ import type { Tokens_Colour } from '../../02-tokens/Tokens_Colour.js';
 import type { Tokens_Themes } from '../../02-tokens/Tokens_Themes.js';
 
 import { colourSlugToCSS } from '../../03-parsers/colourSlugToCSS.js';
-// import { getTokensDataFromClrSlug } from '../../03-parsers/getTokensDataFromClrSlug.js';
 
 /**
  * A function to include in {@link sass.Options} that flattens the scss theme
@@ -101,8 +100,8 @@ export function sassFn_themeFlattenGetValues(): [ string, sass.CustomFunction<'a
 
                 // returns
                 if (
-                    ColourUtilities.CssColours.keywords.has( clrVal as ColourUtilities.CssColours.Keyword )
-                    || ColourUtilities.CssColours.systemColors.has( clrVal as ColourUtilities.CssColours.SystemColor )
+                    ColourUtilities.CssColours.keywords.has( clrVal )
+                    || ColourUtilities.CssColours.systemColors.has( clrVal )
                 ) {
                     if ( includeHSL ) {
                         clr.hsl = clrVal;

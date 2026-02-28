@@ -16,7 +16,7 @@ import type { Tokens_Colour } from '../../ts/02-tokens/Tokens_Colour.js';
 import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
 import type { Tokens_Themes } from '../../ts/02-tokens/Tokens_Themes.js';
 
-import { getTokensDataFromClrSlug } from '../../ts/03-parsers/getTokensDataFromClrSlug.js';
+import { getDataFromClrSlug } from '../../ts/03-parsers/getDataFromClrSlug.js';
 
 /**
  * Takes a colour slug and returns a css-friendly colour code, if possible.
@@ -47,8 +47,8 @@ export function colourSlugToCSS<
 
     // returns
     if (
-        ColourUtilities.CssColours.keywords.has( clrSlug as ColourUtilities.CssColours.Keyword )
-        || ColourUtilities.CssColours.systemColors.has( clrSlug as ColourUtilities.CssColours.SystemColor )
+        ColourUtilities.CssColours.keywords.has( clrSlug )
+        || ColourUtilities.CssColours.systemColors.has( clrSlug )
     ) {
         return clrSlug;
     }
@@ -83,14 +83,31 @@ export function colourSlugToCSS<
         return formatter( tokens.colour.$[ clrSlug ] );
     }
 
-    const { name, level } = getTokensDataFromClrSlug( brightness, clrSlug ) ?? {};
+    const data = getDataFromClrSlug<T_Types>( clrSlug );
 
     // returns
-    if ( !name || !level ) {
+    if ( !data ) {
         return varMaker( clrSlug, null );
     }
 
-    const clr = tokens.colour[ name ]?.[ level ];
+    let clr: undefined
+        | Tokens_Colour_ShadeMap.Shade.JsonReturn<T_Types[ 'colour' ]>
+        | Tokens_Colour_ShadeMap.Shade.ScssVars;
+
+    if ( data.name === '$' ) {
+        const { name, level } = data;
+
+        clr = brightness === 'dark'
+            ? tokens.colour[ name ]?.[ ColourUtilities.Levels.toDark( level ) ]
+            : tokens.colour[ name ]?.[ level ];
+
+    } else {
+        const { name, level } = data;
+
+        clr = brightness === 'dark'
+            ? tokens.colour[ name ]?.[ ColourUtilities.Levels.toDark( level ) ]
+            : tokens.colour[ name ]?.[ level ];
+    }
 
     // returns
     if ( !clr ) {

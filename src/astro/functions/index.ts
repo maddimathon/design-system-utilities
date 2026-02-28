@@ -9,4 +9,9 @@
  */
 
 export * from './astroConfig.js';
+export * from './colourToArray.js';
+export * from './getColourValue.js';
+export * from './makeShadeTargetLevels.js';
+export * from './SampleTokens.js';
+export * from './shadeMapToArray.js';
 export * from './textColorLevel.js';

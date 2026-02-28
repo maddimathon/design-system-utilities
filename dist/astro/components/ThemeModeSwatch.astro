@@ -129,13 +129,13 @@ export function getCssColourForThemePreview<
     }
     
     if (
-        ColourUtilities.CssColours.keywords.has( clrSlug as ColourUtilities.CssColours.Keyword )
+        ColourUtilities.CssColours.keywords.has( clrSlug )
     ) {
         return 'inherit';
     }
 
     if (
-        ColourUtilities.CssColours.systemColors.has( clrSlug as ColourUtilities.CssColours.SystemColor )
+        ColourUtilities.CssColours.systemColors.has( clrSlug )
     ) {
         return clrSlug;
     }
@@ -557,7 +557,7 @@ const inputField: _ParsedInputField = objectGenerator(
                         state[key] && <p
                             class="theme-mode-swatch__sample"
                             style={ [
-                                (key == 'accent' || key == 'text') && state.background?.clrSlug 
+                                ( key == 'text') && state.background?.clrSlug 
                                     ? `background: ${getCssColourForThemePreview(tokens, brightness, state.background.clrSlug)}`
                                     : '',
                                 (key == 'background') && state.text?.clrSlug 
@@ -608,10 +608,22 @@ const inputField: _ParsedInputField = objectGenerator(
         <hr />
         <LoremIpsum
             abbreviated={true}
-            heading={heading}
-            tokens={tokens}
             displayHeading={displayHeading}
-            mode={import.meta.env.DEV ? 'fancy': undefined}
+            displaySettings={ {
+                blockquote: import.meta.env.DEV,
+                buttonTypes: import.meta.env.DEV,
+                buttonVariationsAll: true,
+                code: import.meta.env.DEV,
+                disabledButton: import.meta.env.DEV,
+                forms: false, 
+                listsLong: import.meta.env.DEV,
+                listsMedium: true,
+                textMedium: false,
+                textPage: false,
+            } }
+            heading={heading}
+            mode={import.meta.env.DEV ? 'fancy': 'library'}
+            tokens={tokens}
         >
             { Object.entries( inputField ).map( ( [variation, fieldSet] ) => (
                 <label set:text={fieldSet.$.background.label} />

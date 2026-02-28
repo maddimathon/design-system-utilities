@@ -358,9 +358,7 @@ const includeFormats = {
 };
 
 const allTokenLevels = arrayUnique(Object.values(tokens.colour).map(
-    val => ! ( val instanceof Tokens_Colour_ShadeMap.Shade ) 
-        ? [] 
-        : Object.keys(val) as (ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional)[]
+    val => Object.keys(val) as (ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional)[]
 ).flat());
 
 const colour = colourToArray(props);

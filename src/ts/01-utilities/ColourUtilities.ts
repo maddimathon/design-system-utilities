@@ -315,21 +315,21 @@ export namespace ColourUtilities {
          *
          * @since ___PKG_VERSION___
          */
-        export const keywords = new Set( arrays.keywords );
+        export const keywords = new Set<string>( arrays.keywords );
 
         /**
          * {@inheritDoc ColourUtilities.CssColours.Slug}
          *
          * @since ___PKG_VERSION___
          */
-        export const slugs = new Set( arrays.slugs );
+        export const slugs = new Set<string>( arrays.slugs );
 
         /**
          * {@inheritDoc ColourUtilities.CssColours.SystemColor}
          * 
          * @since ___PKG_VERSION___
          */
-        export const systemColors = new Set( arrays.systemColors );
+        export const systemColors = new Set<string>( arrays.systemColors );
     }
 
 

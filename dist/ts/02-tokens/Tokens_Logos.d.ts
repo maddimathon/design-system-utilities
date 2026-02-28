@@ -45,7 +45,7 @@ export declare namespace Tokens_Logos {
     /**
      * @since 0.1.0-alpha
      */
-    type JsonReturn<T_LogoNames extends string> = undefined | {
+    type JsonReturn<T_LogoNames extends string> = {
         [L in T_LogoNames]: SvgMaker.JsonReturn<L>;
     };
     /**

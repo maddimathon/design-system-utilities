@@ -71,19 +71,19 @@
             text-decoration-color: #{var-theme(link-decoration-disabled)};
             color: #{var-theme(link-disabled)};
 
-            $location: root;
+            $location: root-disabled;
             // prettier-ignore
             @content($location);
 
             /// STATES ///
 
             @include hover-focus-visible() {
-                @include cx-prop(focus-ring-outline-color, var-theme(link-outline-hover));
-                @include cx-prop(icon-color, var-theme(link-icon-hover));
-                text-decoration-color: #{var-theme(link-decoration-hover)};
-                color: #{var-theme(link-hover)};
+                @include cx-prop(focus-ring-outline-color, var-theme(link-outline-disabled));
+                @include cx-prop(icon-color, var-theme(link-icon-disabled));
+                text-decoration-color: #{var-theme(link-decoration-disabled)};
+                color: #{var-theme(link-disabled)};
 
-                $location: hover-focus;
+                $location: hover-focus-disabled;
                 // prettier-ignore
                 @content($location);
             }
@@ -94,7 +94,7 @@
                 text-decoration-color: #{var-theme(link-decoration-disabled)};
                 color: #{var-theme(link-disabled)};
 
-                $location: active;
+                $location: active-disabled;
                 // prettier-ignore
                 @content($location);
             }

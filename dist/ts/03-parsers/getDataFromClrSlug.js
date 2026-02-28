@@ -7,27 +7,32 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
-import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
+import { ColourUtilities } from '../01-utilities/ColourUtilities.js';
 /**
  * Gets the shade name and level of the given colour token, if applicable.
  *
  * @since 0.1.1-alpha.1.draft
  */
-export function getTokensDataFromClrSlug(brightness, clrSlug) {
+export function getDataFromClrSlug(clrSlug) {
     // returns
-    if (clrSlug === 'transparent' || clrSlug === 'unset') {
+    if (ColourUtilities.CssColours.keywords.has(clrSlug)
+        || ColourUtilities.CssColours.systemColors.has(clrSlug)) {
         return undefined;
+    }
+    // returns
+    if (clrSlug === 'black' || clrSlug === 'white') {
+        return {
+            name: '$',
+            level: clrSlug,
+        };
     }
     const matches = clrSlug?.match(/^([^\s]+)-(\d{3})$/i);
     // returns
     if (!matches) {
         return undefined;
     }
-    const level = brightness == 'dark'
-        ? ColourUtilities.Levels.toDark(matches[2])
-        : matches[2];
     return {
         name: matches[1],
-        level,
+        level: matches[2],
     };
 }

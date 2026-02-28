@@ -50,9 +50,9 @@ export class Tokens_Logos<
 
     public toJSON(): Tokens_Logos.JsonReturn<T_LogoNames> {
 
-        // returns - no logos, so we return undefined instead of an empty object
+        // returns - no logos, so we return an empty object
         if ( !Object.keys( this.data ).length ) {
-            return undefined;
+            return {} as Tokens_Logos.JsonReturn<T_LogoNames>;
         }
 
         return objectMap(
@@ -100,9 +100,9 @@ export namespace Tokens_Logos {
      */
     export type JsonReturn<
         T_LogoNames extends string,
-    > = undefined | {
-        [ L in T_LogoNames ]: SvgMaker.JsonReturn<L>;
-    };
+    > = {
+            [ L in T_LogoNames ]: SvgMaker.JsonReturn<L>;
+        };
 
     /**
      * @since ___PKG_VERSION___

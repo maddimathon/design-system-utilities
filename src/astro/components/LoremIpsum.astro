@@ -6,10 +6,8 @@
  */
 
 /* import - types */
-// import type { RecursiveRecord } from '../../ts/index.js';
 
 /* import - functions */
-// import { objectMap } from '../../ts/01-utilities/objectMap.js';
 import type { ComponentProps } from 'astro/types';
 import { Tokens } from '../../ts/02-tokens/Tokens.js';
 import { SampleTokens_Json } from '../functions/SampleTokens.js';
@@ -18,121 +16,47 @@ import { SampleTokens_Json } from '../functions/SampleTokens.js';
 
 /* import - components */
 import LoremIpsumUtils from '@maddimathon/utility-astro/components/LoremIpsum';
-// import Heading from '@maddimathon/utility-astro/components/Heading';
-import Toggle from '@maddimathon/utility-astro/components/Toggle';
-// import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
 
 /* import - layouts */
 
 /* PROPS ===================================== */
 
-export interface Props
-    extends Omit<
-        ComponentProps<typeof LoremIpsumUtils>,
-        'allHeadingLevels' | 'buttonVariations'
-    > {
+export interface Props extends Omit<
+    ComponentProps<typeof LoremIpsumUtils>,
+    'displaySettings'
+> {
+    displaySettings?: Omit<
+        ComponentProps<typeof LoremIpsumUtils>['displaySettings'],
+        'buttonVariations' | 'headingLevels'
+    >;
     tokens?: Tokens.JsonReturn;
 }
 
 const {
-    abbreviated = false,
-    superAbbreviated = false,
-    tokens = SampleTokens_Json as Tokens.JsonReturn,
-    ...props 
+    displaySettings = {},
+    tokens = SampleTokens_Json,
+    ...props
 }: Props = Astro.props;
-
-let mode: { [ K in Required<Props>['mode'] ]: boolean };
-
-switch ( props.mode ) {
-
-    case 'fancy':
-        mode = {
-            fancy: true,
-            library: false,
-            minimum: true,
-        };
-        break;
-
-    case 'library':
-        mode = {
-            fancy: true,
-            library: true,
-            minimum: true,
-        };
-        break;
-
-    case 'minimum':
-    default:
-        mode = {
-            fancy: false,
-            library: false,
-            minimum: true,
-        };
-        break;
-}
 
 /* CONSTANTS ===================================== */
 
-const {
-    fancy,
-    // library,
-    // minimum,
-} = mode;
+const headingLevels = Object.keys(tokens.typography.size.heading).map(Number);
 
-// const defaultToggleToOpen = import.meta.env.DEV ? true : undefined;
-
-const allHeadingLevels = Object.keys(tokens.typography.size.heading).map(
-    Number
-);
-
-const buttonVariations = tokens.themes['default'] 
-    ? Object.keys(
-        tokens.themes['default'].light['average'].data.button
-    ).filter( v => v != 'primary' && v != 'disabled' )
+const buttonVariations = tokens.themes['default']
+    ? Object.keys(tokens.themes['default'].light['average'].data.button)
     : [];
 ---
- 
+
 <LoremIpsumUtils
     {...props}
-    abbreviated={abbreviated}
-    allHeadingLevels={allHeadingLevels}
-    buttonVariations={buttonVariations}
-    superAbbreviated={superAbbreviated}
+    displaySettings={{
+        ...displaySettings,
+        buttonVariations,
+        headingLevels,
+    }}
 >
     <slot />
 
-    { (!abbreviated && !superAbbreviated && fancy) ? (
-        <hr class="post-slot" />
-        
-        <Toggle
-            id='toggle-ex-1'
-            heading={false}
-        >
-            <p>Boo!</p>
-            <p>Maecenas facilisis sollicitudin nisi, eget pellentesque dui rhoncus condimentum. Vivamus vulputate nisl sit amet vehicula commodo. Suspendisse pharetra varius ipsum, sed scelerisque ipsum tempor eget. Curabitur mollis lacus eu augue vestibulum semper. Praesent rutrum velit sodales ante varius convallis. Proin ut gravida sem. Nulla ac sapien odio.</p>
-        </Toggle>
-        <Toggle
-            id='toggle-ex-2'
-            heading={false}
-            defaultOpen={true}
-        >
-            <Fragment slot='button'>I am open by default</Fragment>
-            <p>Boo!</p>
-        </Toggle>
-
-        <Fragment>{ allHeadingLevels.map( heading => <Toggle
-            id={`toggle-ex-heading-${heading}`}
-            heading={heading}
-        >
-            <Fragment
-                slot='button'
-                set:text={`Toggle Heading ${heading}`}
-            />
-            <p>Boo!</p>
-            <p>Maecenas facilisis sollicitudin nisi, eget pellentesque dui rhoncus condimentum. Vivamus vulputate nisl sit amet vehicula commodo. Suspendisse pharetra varius ipsum, sed scelerisque ipsum tempor eget. Curabitur mollis lacus eu augue vestibulum semper. Praesent rutrum velit sodales ante varius convallis. Proin ut gravida sem. Nulla ac sapien odio.</p>
-        </Toggle> ) }</Fragment>
-    ) : '' }
-    
     <slot
         name='one'
         slot='one'

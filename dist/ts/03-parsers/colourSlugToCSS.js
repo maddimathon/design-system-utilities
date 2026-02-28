@@ -8,7 +8,7 @@
  * @license MIT
  */
 import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
-import { getTokensDataFromClrSlug } from '../../ts/03-parsers/getTokensDataFromClrSlug.js';
+import { getDataFromClrSlug } from '../../ts/03-parsers/getDataFromClrSlug.js';
 /**
  * Takes a colour slug and returns a css-friendly colour code, if possible.
  *
@@ -43,12 +43,24 @@ export function colourSlugToCSS(tokens, brightness, _clrSlug, convertToVarFn = t
         }
         return formatter(tokens.colour.$[clrSlug]);
     }
-    const { name, level } = getTokensDataFromClrSlug(brightness, clrSlug) ?? {};
+    const data = getDataFromClrSlug(clrSlug);
     // returns
-    if (!name || !level) {
+    if (!data) {
         return varMaker(clrSlug, null);
     }
-    const clr = tokens.colour[name]?.[level];
+    let clr;
+    if (data.name === '$') {
+        const { name, level } = data;
+        clr = brightness === 'dark'
+            ? tokens.colour[name]?.[ColourUtilities.Levels.toDark(level)]
+            : tokens.colour[name]?.[level];
+    }
+    else {
+        const { name, level } = data;
+        clr = brightness === 'dark'
+            ? tokens.colour[name]?.[ColourUtilities.Levels.toDark(level)]
+            : tokens.colour[name]?.[level];
+    }
     // returns
     if (!clr) {
         return varMaker(clrSlug, null);

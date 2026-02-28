@@ -26,9 +26,9 @@ export class Tokens_Logos extends AbstractTokens {
         this.data = objectKeySort_Tokens(mapped, false);
     }
     toJSON() {
-        // returns - no logos, so we return undefined instead of an empty object
+        // returns - no logos, so we return an empty object
         if (!Object.keys(this.data).length) {
-            return undefined;
+            return {};
         }
         return objectMap(this.data, ([key, value]) => value.toJSON());
     }
