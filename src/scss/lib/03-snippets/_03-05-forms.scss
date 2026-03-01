@@ -561,6 +561,7 @@
 /// @since 0.1.0-alpha
 ///
 @mixin snippet-input(
+    $borderRadius: var-style(input-border-radius),
     $borderWidth: var-style(input-border-width),
     $focusOffset: var-style(input-focus-offset),
     $lineHeight: var-style(input-line-height),
@@ -577,6 +578,7 @@
 
     @if $includeUtils {
         @include utils.snippet-input(
+            $borderRadius: $borderRadius,
             $borderWidth: $borderWidth,
             $focusOffset: $focusOffset,
             $lineHeight: $lineHeight,
@@ -596,6 +598,7 @@
             @include cx-prop(focus-ring-outline-offset, $focusOffset);
             margin: #{$margin};
             padding: #{$padding};
+            border-radius: #{$borderRadius};
             border-width: #{$borderWidth};
             line-height: #{$lineHeight};
         }

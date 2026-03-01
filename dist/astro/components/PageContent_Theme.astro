@@ -201,7 +201,7 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
                                                     // displayHeading={3}
                                                     <Alert
                                                         class:list={`alert-block--${backgroundSlug} background-${backgroundSlug}`}
-                                                        icon={ tokens.icons[backgroundSlug] ?? tokens.icons.info }
+                                                        icon={ tokens.icons[backgroundSlug] ?? tokens.icons.star }
                                                         style={`background: var(--theme-background-${backgroundSlug}, var(--clr-${backgroundClrName}))`}
                                                     >
                                                         <span slot='headline'>Alert Block: <samp set:text={`background-${backgroundSlug}`} /></span>
@@ -233,6 +233,7 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
                                                         <Fragment slot='subtitle'>This is the <samp set:text={toTitleCase(themeName)} /> theme</Fragment>
                                                         <LoremIpsum
                                                             displayHeading={4}
+                                                            displaySettings={{ buttons: false, buttonVariationsAll: false }}
                                                             heading={6}
                                                             mode={ import.meta.env.DEV ? 'fancy' : 'library' }
                                                             superAbbreviated={true}

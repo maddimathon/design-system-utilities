@@ -97,41 +97,6 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
 );
 
 ///
-/// @since ___PKG_VERSION___
-///
-@mixin _snippet-support-alert-blocks--background-variant-props($variationKey) {
-    // prettier-ignore
-    @if $variationKey != '$' and $variationKey != '' and $variationKey != 'active' and $variationKey != 'disabled'  {
-        //
-        $background: if(
-            theme-token-exists('background-#{$variationKey}'),
-            var-theme('background-#{$variationKey}'),
-            var-theme('background-grey')
-        );
-
-        $text: if(
-            theme-token-exists('text-#{$variationKey}'),
-            var-theme('text-#{$variationKey}'),
-            var-theme('text')
-        );
-
-        $ui: if(
-            theme-token-exists('ui-#{$variationKey}'),
-            var-theme('ui-#{$variationKey}'),
-            var-theme('ui')
-        );
-
-        border-color: #{$ui};
-        background: #{$background};
-
-        > .alert-block__headline {
-            @include cx-prop(icon-color, $ui);
-            color: #{$text};
-        }
-    }
-}
-
-///
 /// Adds support for icons, assuming the html matches that in the local astro
 /// Icon component.
 ///
@@ -174,11 +139,11 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
 
         justify-self: center;
 
-        margin-block: #{var-mrg-firm('400')} #{var-mrg-half('400')};
+        // margin-block: #{var-mrg-firm('400')} #{var-mrg-half('400')};
         margin-inline: 0;
 
         padding-block: #{var-mrg-firm($_alertPaddingBlockLevel)}
-            #{var-mrg-soft($_alertPaddingBlockLevel)};
+            #{var-mrg-firm($_alertPaddingBlockLevel)};
         padding-inline: #{var-style(alert-padding-inline)};
 
         width: fit-content;
@@ -239,7 +204,6 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
 
         > .alert-block__headline {
             @extend %_alert-grid;
-            @include cx-prop(icon-color, var-style(alert-icon-color));
             grid-template-columns: subgrid;
             grid-column: 1 / -1;
 
@@ -261,19 +225,6 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
 
             > :first-child {
                 margin-block-start: 0;
-            }
-
-            > %icon {
-                @include cx-prop(icon-size, var-style(alert-icon-size));
-                @include cx-prop(icon-size-large, var-style(alert-icon-size-large));
-
-                grid-column: icon;
-                margin-inline-end: 0.125em;
-                margin-block-end: #{var-mrg-half($_alertPaddingBlockLevel)};
-
-                + * {
-                    margin-block-start: -0.09375em;
-                }
             }
 
             @each $num in token-all-heading-levels() {
@@ -299,12 +250,74 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
             }
         }
 
+        #{selector.nest('>', selector.unify('%icon', '.alert-block__icon'))},
+        > .alert-block__headline > %icon {
+            @include cx-prop(icon-color, var-style(alert-icon-color));
+            @include cx-prop(icon-size, var-style(alert-icon-size));
+            @include cx-prop(icon-size-large, var-style(alert-icon-size-large));
+
+            grid-column: icon;
+            margin-inline-end: 0.125em;
+            margin-block-end: 0;
+            // margin-block-end: #{var-mrg-half($_alertPaddingBlockLevel)};
+
+            + * {
+                margin-block-start: -0.09375em;
+            }
+        }
+
+        &.content-width,
+        &.page-width,
+        &.sidebar-width,
+        &.site-width {
+            justify-self: stretch;
+            width: auto;
+        }
+
         @each $variationKey in $_activeTheme_textAndBackgroundKeys {
-            @if $variationKey != '$' {
+            @if $variationKey !=
+                '$' and
+                $variationKey !=
+                '' and
+                $variationKey !=
+                'active' and
+                $variationKey !=
+                'disabled'
+            {
                 &--icon-#{$variationKey},
                 &--background-#{$variationKey},
                 &.background-#{$variationKey} {
-                    @include _snippet-support-alert-blocks--background-variant-props($variationKey);
+                    // prettier-ignore
+                    //
+                    $background: if(
+                        theme-token-exists('background-#{$variationKey}'),
+                        var-theme('background-#{$variationKey}'),
+                        var-theme('background-grey')
+                    );
+
+                    $text: if(
+                        theme-token-exists('text-#{$variationKey}'),
+                        var-theme('text-#{$variationKey}'),
+                        var-theme('text')
+                    );
+
+                    $ui: if(
+                        theme-token-exists('ui-#{$variationKey}'),
+                        var-theme('ui-#{$variationKey}'),
+                        var-theme('ui')
+                    );
+
+                    border-color: #{$ui};
+                    background: #{$background};
+
+                    > .alert-block__headline {
+                        color: #{$text};
+                    }
+
+                    #{selector.nest('>', selector.unify('%icon', '.alert-block__icon'))},
+                    > .alert-block__headline > %icon {
+                        @include cx-prop(icon-color, $ui);
+                    }
                 }
             }
 

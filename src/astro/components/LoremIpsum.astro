@@ -34,6 +34,7 @@ export interface Props extends Omit<
     > & {
         alerts?: boolean;
         alertsAll?: boolean;
+        buttons?: boolean;
     };
     tokens?: Tokens.JsonReturn;
 }
@@ -57,6 +58,8 @@ const buttonVariations = tokens.themes['default']
     ? Object.keys(tokens.themes['default'].light['average'].data.button)
     : [];
 
+const includeButtons = displaySettings.buttons ?? !!buttonVariations.length;
+
 const backgroundVariations = Object.entries(
     tokens.themes.default.light.average.data.background,
 );
@@ -66,7 +69,7 @@ const backgroundVariations = Object.entries(
     {...props}
     displaySettings={{
         ...displaySettings,
-        buttonVariations,
+        buttonVariations: includeButtons ? buttonVariations : [],
         headingLevels,
     }}
 >
@@ -86,50 +89,52 @@ const backgroundVariations = Object.entries(
     />
 
     {
-        displaySettings.alerts && backgroundVariations.length > 1 && (
-            <Fragment slot='four'>
-                {backgroundVariations.map(
-                    ([backgroundSlug, backgroundClrName]) =>
-                        backgroundSlug !== '$' &&
-                        (displaySettings.alertsAll ||
-                            isFancy ||
-                            (isLibrary && !abbreviated) ||
-                            backgroundSlug === 'primary' ||
-                            backgroundSlug === 'secondary' ||
-                            backgroundSlug === 'tertiary') && (
-                            <Alert
-                                class:list={`alert-block--${backgroundSlug} background-${backgroundSlug}`}
-                                icon={
-                                    tokens.icons[backgroundSlug] ??
-                                    tokens.icons.info
-                                }
-                                style={`background: var(--theme-background-${backgroundSlug}, var(--clr-${backgroundClrName}))`}
-                            >
-                                <span slot='headline'>
-                                    Alert Block:{' '}
-                                    <samp
-                                        set:text={`background-${backgroundSlug}`}
-                                    />
-                                </span>
-                                <LoremIpsumUtils
-                                    displaySettings={{
-                                        buttonVariations,
-                                        headingLevels,
-                                    }}
-                                    displayHeading={7}
-                                    heading={5}
-                                    mode={
-                                        import.meta.env.DEV
-                                            ? 'library'
-                                            : 'minimum'
+        displaySettings.alerts &&
+            includeButtons &&
+            backgroundVariations.length > 1 && (
+                <Fragment slot='four'>
+                    {backgroundVariations.map(
+                        ([backgroundSlug, backgroundClrName]) =>
+                            backgroundSlug !== '$' &&
+                            (displaySettings.alertsAll ||
+                                isFancy ||
+                                (isLibrary && !abbreviated) ||
+                                backgroundSlug === 'primary' ||
+                                backgroundSlug === 'secondary' ||
+                                backgroundSlug === 'tertiary') && (
+                                <Alert
+                                    class:list={`alert-block--${backgroundSlug} background-${backgroundSlug}`}
+                                    icon={
+                                        tokens.icons[backgroundSlug] ??
+                                        tokens.icons.star
                                     }
-                                    superAbbreviated={true}
-                                />
-                            </Alert>
-                        ),
-                )}
-            </Fragment>
-        )
+                                    style={`background: var(--theme-background-${backgroundSlug}, var(--clr-${backgroundClrName}))`}
+                                >
+                                    <span slot='headline'>
+                                        Alert Block:{' '}
+                                        <samp
+                                            set:text={`background-${backgroundSlug}`}
+                                        />
+                                    </span>
+                                    <LoremIpsumUtils
+                                        displaySettings={{
+                                            buttonVariations,
+                                            headingLevels,
+                                        }}
+                                        displayHeading={7}
+                                        heading={5}
+                                        mode={
+                                            import.meta.env.DEV
+                                                ? 'library'
+                                                : 'minimum'
+                                        }
+                                        superAbbreviated={true}
+                                    />
+                                </Alert>
+                            ),
+                    )}
+                </Fragment>
+            )
     }
 
     <slot
