@@ -10,7 +10,7 @@
 
 import { mergeArgs } from '@maddimathon/utility-typescript/functions';
 
-import type { TokenLevels, TokenLevels_Extended } from './@types.js';
+import type { AnyTokenLevel } from './@types.js';
 
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 
@@ -88,7 +88,7 @@ export namespace Tokens_Spacing {
         margin: {
             [ L in DefaultMarginLevels ]: number;
         } & {
-            [ L in Exclude<TokenLevels, DefaultMarginLevels> | TokenLevels_Extended ]?: number;
+            [ L in Exclude<AnyTokenLevel, DefaultMarginLevels> ]?: number;
         };
     };
 

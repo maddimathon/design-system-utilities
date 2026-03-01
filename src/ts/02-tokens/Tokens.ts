@@ -13,7 +13,7 @@ import { arrayUnique, slugify } from '@maddimathon/utility-typescript/functions'
 import { JsonToScss } from '@maddimathon/utility-sass';
 
 import type {
-    TokenLevels,
+    WholeTokenLevel,
     TokenTypes,
 } from './@types.js';
 
@@ -485,7 +485,7 @@ export namespace Tokens {
             export type AllLevels<T_FontFamilySlug extends string = string> = {
                 [ K in T_FontFamilySlug ]: Omit<Tokens_Typography.Font.Family<K>, 'weights'> & {
                     weights: {
-                        [ K in TokenLevels ]: {
+                        [ K in WholeTokenLevel ]: {
                             normal: Tokens_Typography.Font.File;
                             italic: Tokens_Typography.Font.File;
                         };
@@ -536,7 +536,7 @@ export namespace Tokens {
                     includeLocalSrc?: boolean;
                 } = {},
                 weightOpts: {
-                    [ L in TokenLevels ]?: familyGenerator.FileOptions;
+                    [ L in WholeTokenLevel ]?: familyGenerator.FileOptions;
                 } = {},
             ): Tokens_Typography.Font.Family<T_Slug> & {
                 weights: Required<Tokens_Typography.Font.Family<T_Slug>[ 'weights' ]>;
@@ -588,7 +588,7 @@ export namespace Tokens {
                      */
                     includeLocalSrc?: boolean;
 
-                    pathWeight?: TokenLevels | 'variable';
+                    pathWeight?: WholeTokenLevel | 'variable';
                     pathStyle?: "normal" | "italic";
                 };
 
@@ -598,7 +598,7 @@ export namespace Tokens {
                 export function fileGenerator<T_Slug extends string>(
                     subpath: T_Slug,
                     name: string,
-                    weight: TokenLevels | `${ '000' | TokenLevels } ${ TokenLevels | '1000' }`,
+                    weight: WholeTokenLevel | `${ '000' | WholeTokenLevel } ${ WholeTokenLevel | '1000' }`,
                     style: "normal" | "italic",
                     opts: familyGenerator.FileOptions = {},
                 ): Tokens_Typography.Font.File {

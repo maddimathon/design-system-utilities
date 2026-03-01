@@ -20,8 +20,8 @@ export class Tokens_CSS_Style extends AbstractTokens {
     /**
      * @since 0.1.1-alpha.1.draft
      */
-    static alertStyle() {
-        return {
+    static alertStyle(partial = {}) {
+        return mergeArgs({
             background: 'background',
             border: {
                 color: 'ui-primary',
@@ -30,6 +30,14 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 width: '200',
             },
             color: 'text-primary',
+            headline: {
+                font: {
+                    size: 'heading-7',
+                    style: 'normal',
+                    weight: '600',
+                },
+                'line-height': '200',
+            },
             'line-height': '300',
             icon: {
                 color: 'ui-primary',
@@ -43,16 +51,23 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 inline: '300',
             },
             margin: {
-                default: '300',
+                flow: {
+                    paragraph: '300',
+                    small: '200',
+                },
             },
             padding: {
                 block: '300',
                 inline: '300',
             },
-        };
+        }, partial, true);
     }
-    static buttonStyle() {
-        const style = {
+    /**
+     * @since 0.1.0-alpha
+     * @since 0.1.1-alpha.1.draft — Added partial param.
+     */
+    static buttonStyle(partial) {
+        const style = mergeArgs({
             border: {
                 radius: '0',
                 style: 'solid',
@@ -84,10 +99,10 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 inline: '300',
             },
             width: 'fit-content',
-        };
+        }, partial?.$ ?? {}, true);
         return {
             $: style,
-            disabled: {
+            disabled: mergeArgs({
                 border: {
                     radius: style.border.radius,
                     style: 'dashed',
@@ -98,10 +113,14 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 },
                 'letter-spacing': style['letter-spacing'],
                 'text-transform': style['text-transform'],
-            },
+            }, partial?.disabled ?? {}, true),
         };
     }
-    static headingStyle(heading) {
+    /**
+     * @since 0.1.0-alpha
+     * @since 0.1.1-alpha.1.draft — Added partial param.
+     */
+    static headingStyle(heading, partial) {
         heading = heading < 1 ? 11 : heading;
         const style = {
             font: {
@@ -164,13 +183,14 @@ export class Tokens_CSS_Style extends AbstractTokens {
             style.margin.block.start = '500';
             style['line-height'] = '500';
         }
-        return style;
+        return mergeArgs(style, partial, true);
     }
     /**
      * @since 0.1.1-alpha.0
+     * @since 0.1.1-alpha.1.draft — Added partial param.
      */
-    static inputStyle() {
-        const style = {
+    static inputStyle(partial) {
+        const style = mergeArgs({
             border: {
                 radius: '0',
                 style: 'solid',
@@ -207,21 +227,79 @@ export class Tokens_CSS_Style extends AbstractTokens {
                     average: '75%',
                 },
             },
-        };
+        }, partial?.$ ?? {}, true);
         const disabled = {
+            ...partial?.disabled,
             border: {
-                ...style.border,
                 radius: style.border.radius,
                 style: 'dashed',
+                ...partial?.disabled?.border,
             },
         };
         const readonly = {
-            border: style.border,
+            ...partial?.readonly,
+            border: {
+                radius: style.border.radius,
+                style: style.border.style,
+                ...partial?.readonly?.border,
+            },
         };
         return {
             $: style,
             disabled,
             readonly,
+        };
+    }
+    /**
+     * @since 0.1.1-alpha.1.draft
+     */
+    static widgetStyle(partial) {
+        const margin = mergeArgs({
+            flow: {
+                paragraph: '300',
+                small: '200',
+            },
+        }, partial?.margin ?? {}, true);
+        return {
+            border: mergeArgs({
+                color: 'background',
+                radius: '0',
+                style: 'solid',
+                width: '200',
+            }, partial?.border ?? {}, true),
+            'button-span': {
+                gap: partial?.['button-span']?.gap ?? margin.flow.small,
+            },
+            'line-height': partial?.['line-height'] ?? '400',
+            margin,
+            padding: mergeArgs({
+                block: '300',
+                inline: '300',
+            }, partial?.padding ?? {}, true),
+        };
+    }
+    /**
+     * @since 0.1.1-alpha.1.draft
+     */
+    static mergeData(partial) {
+        return {
+            alert: Tokens_CSS_Style.alertStyle(partial.alert),
+            button: Tokens_CSS_Style.buttonStyle(partial.button),
+            heading: objectGenerator([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], (hdg) => Tokens_CSS_Style.headingStyle(hdg, partial.heading?.[hdg])),
+            input: Tokens_CSS_Style.inputStyle(partial.input),
+            selection: {
+                ...partial.selection,
+                background: {
+                    ...partial.selection?.background,
+                    opacity: {
+                        low: '65%',
+                        average: '75%',
+                        high: '95%',
+                        ...partial.selection?.background?.opacity,
+                    },
+                },
+            },
+            widget: Tokens_CSS_Style.widgetStyle(partial.widget),
         };
     }
     static get default() {
@@ -239,12 +317,13 @@ export class Tokens_CSS_Style extends AbstractTokens {
                     },
                 },
             },
+            widget: Tokens_CSS_Style.widgetStyle(),
         };
     }
     data;
     constructor(input) {
         super();
-        this.data = mergeArgs(Tokens_CSS_Style.default, input, true);
+        this.data = Tokens_CSS_Style.mergeData(input);
     }
     toJSON() {
         return this.data;

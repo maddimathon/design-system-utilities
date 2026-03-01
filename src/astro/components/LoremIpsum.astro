@@ -15,7 +15,10 @@ import { SampleTokens_Json } from '../functions/SampleTokens.js';
 /* import - values */
 
 /* import - components */
-import LoremIpsumUtils from '@maddimathon/utility-astro/components/LoremIpsum';
+import LoremIpsumUtils, {
+    type LoremIpsumProps,
+} from '@maddimathon/utility-astro/components/LoremIpsum';
+import Alert from './Alert.astro';
 
 /* import - layouts */
 
@@ -26,9 +29,12 @@ export interface Props extends Omit<
     'displaySettings'
 > {
     displaySettings?: Omit<
-        ComponentProps<typeof LoremIpsumUtils>['displaySettings'],
+        NonNullable<LoremIpsumProps['displaySettings']>,
         'buttonVariations' | 'headingLevels'
-    >;
+    > & {
+        alerts?: boolean;
+        alertsAll?: boolean;
+    };
     tokens?: Tokens.JsonReturn;
 }
 
@@ -40,11 +46,20 @@ const {
 
 /* CONSTANTS ===================================== */
 
+const abbreviated = props.abbreviated || props.superAbbreviated;
+
+const isFancy = props.mode === 'fancy';
+const isLibrary = isFancy || props.mode === 'library';
+
 const headingLevels = Object.keys(tokens.typography.size.heading).map(Number);
 
 const buttonVariations = tokens.themes['default']
     ? Object.keys(tokens.themes['default'].light['average'].data.button)
     : [];
+
+const backgroundVariations = Object.entries(
+    tokens.themes.default.light.average.data.background,
+);
 ---
 
 <LoremIpsumUtils
@@ -68,5 +83,57 @@ const buttonVariations = tokens.themes['default']
     <slot
         name='three'
         slot='three'
+    />
+
+    {
+        displaySettings.alerts && backgroundVariations.length > 1 && (
+            <Fragment slot='four'>
+                {backgroundVariations.map(
+                    ([backgroundSlug, backgroundClrName]) =>
+                        backgroundSlug !== '$' &&
+                        (displaySettings.alertsAll ||
+                            isFancy ||
+                            (isLibrary && !abbreviated) ||
+                            backgroundSlug === 'primary' ||
+                            backgroundSlug === 'secondary' ||
+                            backgroundSlug === 'tertiary') && (
+                            <Alert
+                                class:list={`alert-block--${backgroundSlug} background-${backgroundSlug}`}
+                                icon={
+                                    tokens.icons[backgroundSlug] ??
+                                    tokens.icons.info
+                                }
+                                style={`background: var(--theme-background-${backgroundSlug}, var(--clr-${backgroundClrName}))`}
+                            >
+                                <span slot='headline'>
+                                    Alert Block:{' '}
+                                    <samp
+                                        set:text={`background-${backgroundSlug}`}
+                                    />
+                                </span>
+                                <LoremIpsumUtils
+                                    displaySettings={{
+                                        buttonVariations,
+                                        headingLevels,
+                                    }}
+                                    displayHeading={7}
+                                    heading={5}
+                                    mode={
+                                        import.meta.env.DEV
+                                            ? 'library'
+                                            : 'minimum'
+                                    }
+                                    superAbbreviated={true}
+                                />
+                            </Alert>
+                        ),
+                )}
+            </Fragment>
+        )
+    }
+
+    <slot
+        name='four'
+        slot='four'
     />
 </LoremIpsumUtils>

@@ -13,9 +13,9 @@ import { arrayUnique, mergeArgs } from '@maddimathon/utility-typescript/function
 
 import type { RecursiveRecord } from '../01-utilities/@types.js';
 import type {
+    AnyTokenLevel,
     RequiredHeadingLevels,
-    TokenLevels,
-    TokenLevels_Extended,
+    WholeTokenLevel,
 } from './@types.js';
 import type { Tokens_Spacing } from './Tokens_Spacing.js';
 
@@ -203,12 +203,12 @@ export class Tokens_Typography<
 
         const familyMapper = (
             family: Tokens_Typography.Font.Family,
-            weight: TokenLevels | 'variable',
+            weight: WholeTokenLevel | 'variable',
             { value: font }: {
                 key: "italic" | "normal";
                 value: Tokens_Typography.Font.File;
             },
-        ): NonNullable<Tokens_Typography.Font.FamilyScss[ TokenLevels ]> => {
+        ): NonNullable<Tokens_Typography.Font.FamilyScss[ WholeTokenLevel ]> => {
 
             let fallbacks = family.fallbacks ?? [];
 
@@ -280,15 +280,15 @@ export class Tokens_Typography<
                             family.variable,
                             ( [ key, value ] ) => familyMapper( family, 'variable', { key, value } )
                         ) satisfies {
-                            normal: Tokens_Typography.Font.FamilyScss[ TokenLevels ];
-                            italic: Tokens_Typography.Font.FamilyScss[ TokenLevels ];
+                            normal: Tokens_Typography.Font.FamilyScss[ WholeTokenLevel ];
+                            italic: Tokens_Typography.Font.FamilyScss[ WholeTokenLevel ];
                         },
 
                         weights: objectMap(
                             family.weights,
                             ( [ weight, fontSet ] ): undefined | {
-                                normal: Tokens_Typography.Font.FamilyScss[ TokenLevels ];
-                                italic: Tokens_Typography.Font.FamilyScss[ TokenLevels ];
+                                normal: Tokens_Typography.Font.FamilyScss[ WholeTokenLevel ];
+                                italic: Tokens_Typography.Font.FamilyScss[ WholeTokenLevel ];
                             } => fontSet && objectMap(
                                 fontSet,
                                 ( [ key, value ] ) => familyMapper( family, weight, { key, value } )
@@ -325,7 +325,7 @@ export namespace Tokens_Typography {
         lineHeight: {
             [ L in DefaultLineHeightLevels ]: number;
         } & {
-            [ L in Exclude<TokenLevels, DefaultLineHeightLevels> | TokenLevels_Extended ]?: number;
+            [ L in Exclude<AnyTokenLevel, DefaultLineHeightLevels> ]?: number;
         };
 
         fonts: undefined | {
@@ -400,7 +400,7 @@ export namespace Tokens_Typography {
                 [ K in T_FontFamilySlug ]?: {
 
                     weights: {
-                        [ K in TokenLevels ]?: undefined | {
+                        [ K in WholeTokenLevel ]?: undefined | {
                             normal: undefined | Tokens_Typography.Font.SingleFamilyScss;
                             italic: undefined | Tokens_Typography.Font.SingleFamilyScss;
                         };
@@ -483,7 +483,7 @@ export namespace Tokens_Typography {
                 [ F in "local" | "ttf" | "woff" | "woff2" ]?: string | string[];
             };
             style: "normal" | "italic";
-            weight: TokenLevels | `${ '000' | TokenLevels } ${ TokenLevels | '1000' }`;
+            weight: WholeTokenLevel | `${ '000' | WholeTokenLevel } ${ WholeTokenLevel | '1000' }`;
         };
 
         /**
@@ -509,7 +509,7 @@ export namespace Tokens_Typography {
                 path: string;
             }[];
             style: "normal" | "italic";
-            weight: TokenLevels | `${ '000' | TokenLevels } ${ TokenLevels | '1000' }`;
+            weight: WholeTokenLevel | `${ '000' | WholeTokenLevel } ${ WholeTokenLevel | '1000' }`;
 
             printFontFace: boolean;
 
@@ -523,7 +523,7 @@ export namespace Tokens_Typography {
          * @since 0.1.0-alpha
          */
         export type FamilyScss = {
-            [ L in TokenLevels | `${ TokenLevels }i` ]?: SingleFamilyScss;
+            [ L in WholeTokenLevel | `${ WholeTokenLevel }i` ]?: SingleFamilyScss;
         };
 
         /**
@@ -567,7 +567,7 @@ export namespace Tokens_Typography {
             printFontFace?: boolean;
 
             weights: {
-                [ K in TokenLevels ]?: {
+                [ K in WholeTokenLevel ]?: {
                     normal: File;
                     italic: File;
                 };

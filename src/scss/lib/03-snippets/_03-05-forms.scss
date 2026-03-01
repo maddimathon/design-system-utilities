@@ -4,6 +4,7 @@
 ///
 
 @use 'pkg:@maddimathon/utility-sass/meta';
+@use 'pkg:@maddimathon/utility-sass/selector';
 
 @use '../../config';
 @use '../../tokens';
@@ -85,15 +86,30 @@
 /// @since 0.1.0-alpha
 ///
 @mixin snippet-button(
+    $variation: 'primary',
+    //
     $includeColors: true,
     $includeDisabled: true,
+    $includeEmpty: true,
+    $includeOnlyChild: true,
     $includePseudoIcons: config.$template_button_inlineIcons,
     //
-    $variation: 'primary',
+    $borderRadius: null,
+    $borderWidth: null,
+    $fontSize: null,
+    $fontStyle: null,
+    $fontWeight: null,
+    $marginBlockEnd: null,
+    $marginBlockStart: null,
+    $paddingBlock: null,
+    $paddingInline: null,
+    $width: null,
     //
      //
 ) {
-    $fontStyle: var-style(button-font-style);
+    $fontStyle: if($fontStyle, $fontStyle, var-style(button-font-style));
+    $paddingBlock: if($paddingBlock, $paddingBlock, var-style(button-padding-block));
+
     $_content_exists: meta.content-exists();
 
     @include cx-prop(focus-ring-outline-offset, var-style(button-focus-offset));
@@ -108,21 +124,28 @@
     align-content: start;
     align-items: start;
 
-    width: #{var-style(button-width)};
+    width: #{if($width, $width, var-style(button-width))};
     height: auto;
 
-    margin-block: #{var-style(button-margin-block-start)} #{var-style(button-margin-block-end)};
-    padding: #{var-style(button-padding-block)} #{var-style(button-padding-inline)};
+    margin-block-start: #{if(
+            $marginBlockStart,
+            $marginBlockStart,
+            var-style(button-margin-block-start)
+        )};
+    margin-block-end: #{if($marginBlockEnd, $marginBlockEnd, var-style(button-margin-block-end))};
+
+    padding-block: #{$paddingBlock};
+    padding-inline: #{if($paddingInline, $paddingInline, var-style(button-padding-inline))};
 
     gap: #{var-style(button-gap-block)} #{var-style(button-gap-inline)};
 
-    border-width: #{var-style(button-border-width)};
-    border-radius: #{var-style(button-border-radius)};
+    border-width: #{if($borderWidth, $borderWidth, var-style(button-border-width))};
+    border-radius: #{if($borderRadius, $borderRadius, var-style(button-border-radius))};
     border-style: #{var-style(button-border-style)};
 
-    font-weight: #{var-style(button-font-weight)};
+    font-weight: #{if($fontWeight, $fontWeight, var-style(button-font-weight))};
     font-style: #{$fontStyle};
-    font-size: #{var-style(button-font-size)};
+    font-size: #{if($fontSize, $fontSize, var-style(button-font-size))};
     line-height: #{var-style(button-line-height)};
     letter-spacing: #{var-style(button-letter-spacing)};
 
@@ -138,17 +161,15 @@
     appearance: button;
     cursor: pointer;
 
+    @if $_content_exists {
+        @content ( $location: 'root' );
+    }
+
     @if $includeColors {
         @include snippet-button-colours($variation) using ($location) {
             @content ($location);
         }
     } @else {
-        & {
-            @if $_content_exists {
-                @content ( $location: 'root' );
-            }
-        }
-
         @include hover-focus-visible-or-within {
             @if $_content_exists {
                 @content ( $location: 'focus' );
@@ -165,6 +186,19 @@
             @if $_content_exists {
                 @content ( $location: 'active' );
             }
+        }
+    }
+
+    @if $includeEmpty {
+        &:empty:not(input) {
+            padding-inline: #{$paddingBlock};
+        }
+    }
+
+    @if $includeOnlyChild {
+        &:has(> .icon:only-child),
+        &:has(> .logo:only-child) {
+            padding-inline: #{$paddingBlock};
         }
     }
 
@@ -191,6 +225,15 @@
                 )
                 using ($location) {
                 @content ($location: 'disabled-#{$location}');
+            }
+        }
+    }
+
+    @if $includePseudoIcons {
+        &.button--no-pseudo {
+            &::after,
+            &::before {
+                content: none !important;
             }
         }
     }
@@ -485,8 +528,7 @@
         );
     }
 
-    &[readonly],
-    &:read-only {
+    &[readonly] {
         @include _snippet-input-colours-single(
             $accentClr: $accentClr_readonly,
             $accentClr_active: $accentClr_readonly_active,
@@ -667,8 +709,7 @@
             }
         }
 
-        &[readonly],
-        &:read-only {
+        &[readonly] {
             accent-color: #{$box_accentClr_readonly};
             color: #{$box_accentClr_readonly};
 
@@ -739,7 +780,7 @@
 
         color: #{$color};
 
-        &:has(> :where(input[type='checkbox'], input[type='radio'])) {
+        &:has(> input:where([type='checkbox'], [type='radio'])) {
             @if not $includeUtils {
                 gap: #{$gap_checkradio};
 
@@ -755,10 +796,13 @@
                 margin-block-start: #{$marginBlock_innercheckradio};
             }
 
-            + %_input-base {
-                &:not(input[type='checkbox'], input[type='radio']) {
-                    margin-block-start: #{var-style(input-margin-block-start)};
-                }
+            + %select,
+            + %textarea {
+                margin-block-start: #{var-style(input-margin-block-start)};
+            }
+
+            + %input:not([type='checkbox'], [type='radio']) {
+                margin-block-start: #{var-style(input-margin-block-start)};
             }
         }
     }

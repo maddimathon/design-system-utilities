@@ -351,11 +351,26 @@ export namespace TokenTypes {
     };
 }
 
+/**
+ * @since ___PKG_VERSION___
+ */
+export type AnyTokenLevel =
+    | WholeTokenLevel
+    | '150'
+    | '250'
+    | '350'
+    | '450'
+    | '550'
+    | '650'
+    | '750'
+    | '850';
+
 
 /**
  * @since 0.1.0-alpha
+ * @since ___PKG_VERSION___ — Renamed.
  */
-export type TokenLevels =
+export type WholeTokenLevel =
     | '100'
     | '200'
     | '300'
@@ -365,19 +380,6 @@ export type TokenLevels =
     | '700'
     | '800'
     | '900';
-
-/**
- * @since 0.1.0-alpha
- */
-export type TokenLevels_Extended =
-    | '150'
-    | '250'
-    | '350'
-    | '450'
-    | '550'
-    | '650'
-    | '750'
-    | '850';
 
 
 /**

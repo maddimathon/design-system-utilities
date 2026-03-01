@@ -1,0 +1,131 @@
+///
+/// @package @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+/// @since 0.1.1-alpha.1.draft
+///
+@use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/meta';
+
+// @use 'pkg:@maddimathon/utility-astro/03-snippets' as lib;
+
+// @use '../../config';
+// @use '../../tokens';
+
+@use '../01-functions' as *;
+@use '../02-mixins' as *;
+
+@use '03-03-typography' as *;
+
+$_activeTheme: get-active-theme();
+$_activeTheme_textAndBackgroundKeys: map.keys(
+    map.merge(
+        map.get($_activeTheme, background),
+        map.get($_activeTheme, text),
+        $recursive: true
+    )
+);
+
+///
+/// @since 0.1.1-alpha.1.draft
+///
+@mixin snippet-widget-block {
+    @include cx-prop(display, flex);
+    display: flex;
+    flex-direction: column;
+
+    justify-content: start;
+    justify-items: start;
+    align-content: start;
+    align-items: start;
+
+    gap: 0;
+
+    padding-block: #{var-style(widget-padding-block)};
+    padding-inline: #{var-style(widget-padding-inline)};
+
+    width: fit-content;
+
+    line-height: #{var-style(widget-line-height)};
+
+    border: #{var-style(widget-border-width)} #{var-style(widget-border-style)}
+        #{var-style(widget-border-color)};
+    border-radius: #{var-style(widget-border-radius)};
+
+    background: #{var-theme(background)};
+
+    transition:
+        background ease-in-out #{var-tr-time(fast)},
+        border-color ease-in-out #{var-tr-time(fast)},
+        color ease-in-out #{var-tr-time(fast)};
+
+    @if meta.content-exists() {
+        @content ( 'root' );
+    }
+
+    %site-sidebar & {
+        width: auto;
+
+        @if meta.content-exists() {
+            @content ( 'in-sidebar' );
+        }
+    }
+
+    @each $variationKey in $_activeTheme_textAndBackgroundKeys {
+        @if $variationKey != '$' {
+            &.background-#{$variationKey} {
+                @if theme-token-exists('background-#{$variationKey}') {
+                    background: #{var-theme('background-#{$variationKey}')};
+                }
+            }
+        }
+
+        @if meta.content-exists() {
+            @content ( 'background-#{$variationKey}' );
+        }
+    }
+
+    %widget-block-content,
+    %widget-block-header,
+    %widget-block-title {
+        margin-block-start: 0;
+    }
+
+    %widget-block-content {
+        > %ul,
+        > %ol {
+            margin-inline-start: 0;
+        }
+    }
+
+    @include set-flow-margins(
+        style-value(widget-margin-flow-paragraph),
+        style-value(widget-margin-flow-small),
+        $buttonGapBlock: var-mrg-firm(
+                style-value(widget-button-span-gap, $rawValue: true)
+            ),
+        $buttonGapInline: var-mrg-firm(
+                style-value(widget-button-span-gap, $rawValue: true)
+            )
+    );
+}
+
+///
+/// @since 0.1.1-alpha.1.draft
+///
+@mixin snippet-support-sidebar-widgets {
+    %site-sidebar {
+        @include cx-prop(display, flex);
+        display: flex;
+        flex-direction: column;
+
+        justify-content: start;
+        align-content: start;
+        align-items: stretch;
+
+        gap: max(#{var-mrg-firm('400')}, #{var-gap-block(layout-half)})
+            #{var-gap-inline(layout-half)};
+    }
+
+    %widget-block {
+        @include snippet-widget-block;
+    }
+}

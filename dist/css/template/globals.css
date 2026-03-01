@@ -4,7 +4,7 @@
  */
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0-alpha.39
+ * @maddimathon/utility-sass@0.1.0-alpha.40
  * 
  * https://maddimathon.github.io/utility-sass
  */
@@ -3570,8 +3570,7 @@ ul {
     margin-left: 20%;
     padding: 0;
     padding-left: 1em;
-    line-height: 1.6875;
-    line-height: var(--line-height-400, 1.6875);
+    line-height: inherit;
 }
 ol ol,
 ol ul,
@@ -3620,6 +3619,10 @@ li::marker {
     font-weight: 500;
     font-size: 0.9375rem;
 }
+li > a:only-child {
+    display: inline-block;
+    vertical-align: top;
+}
 li li li {
     margin-top: 0.3125rem;
     margin-top: var(--mrg-soft-200, 0.3125rem);
@@ -3647,7 +3650,7 @@ fieldset {
     padding: var(--mrg-soft-300, 0.5rem) var(--mrg-firm-400, 1.25rem)
         var(--mrg-firm-300, 0.8125rem);
     border: 0.0625rem solid hsl(278.16, 60.54%, 30.06%);
-    border: 0.0625rem solid var(--sys-clr-accent-bg, CanvasText);
+    border: 0.0625rem solid var(--sys-clr-input-border, FieldText);
     border-radius: 0;
     background-color: hsl(339.45, 0%, 91.26%);
     background-color: var(--sys-clr-background, Canvas);
@@ -3655,18 +3658,18 @@ fieldset {
     color: var(--sys-clr-text, CanvasText);
 }
 fieldset:focus {
-    border-color: hsl(2.81, 72.25%, 28.09%);
-    border-color: var(--sys-clr-text-active, ActiveText);
+    border-color: hsl(162, 69%, 16.5%);
+    border-color: var(--sys-clr-input-border-hover, FieldText);
 }
 
 fieldset:focus-within {
-    border-color: hsl(2.81, 72.25%, 28.09%);
-    border-color: var(--sys-clr-text-active, ActiveText);
+    border-color: hsl(162, 69%, 16.5%);
+    border-color: var(--sys-clr-input-border-hover, FieldText);
 }
 
 fieldset:active {
-    border-color: hsl(278.16, 60.54%, 30.06%);
-    border-color: var(--sys-clr-accent-bg, CanvasText);
+    border-color: hsl(2.81, 72.25%, 28.09%);
+    border-color: var(--sys-clr-input-border-active, FieldText);
 }
 fieldset legend {
     display: block;
@@ -3991,6 +3994,7 @@ table {
 table {
     border-spacing: 0.125rem;
     font-size: 0.9375rem;
+    line-height: inherit;
 }
 
 th,
@@ -4360,8 +4364,8 @@ pre > samp {
 /* ## Typography - Headings ==================================== */
 h1 {
     margin-top: 3.125rem;
-    margin-bottom: 0.4375rem;
     margin-top: var(--mrg-soft-800, 3.125rem);
+    margin-bottom: 0.4375rem;
     margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 900;
     font-size: 2.9375rem;
@@ -4422,8 +4426,8 @@ h1 samp {
 }
 h2 {
     margin-top: 3.125rem;
-    margin-bottom: 0.4375rem;
     margin-top: var(--mrg-soft-800, 3.125rem);
+    margin-bottom: 0.4375rem;
     margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 800;
     font-size: 2.1875rem;
@@ -4484,8 +4488,8 @@ h2 samp {
 }
 h3 {
     margin-top: 3.125rem;
-    margin-bottom: 0.4375rem;
     margin-top: var(--mrg-soft-800, 3.125rem);
+    margin-bottom: 0.4375rem;
     margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 700;
     font-size: 1.90625rem;
@@ -4546,8 +4550,8 @@ h3 samp {
 }
 h4 {
     margin-top: 1.625rem;
-    margin-bottom: 0.4375rem;
     margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: 0.4375rem;
     margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 700;
     font-size: 1.625rem;
@@ -4616,8 +4620,8 @@ h4 samp {
 }
 h5 {
     margin-top: 1.625rem;
-    margin-bottom: 0.4375rem;
     margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: 0.4375rem;
     margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 600;
     font-size: 1.4375rem;
@@ -4686,8 +4690,8 @@ h5 samp {
 }
 h6 {
     margin-top: 1.625rem;
-    margin-bottom: 0.4375rem;
     margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: 0.4375rem;
     margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 500;
     font-size: 1.21875rem;
@@ -5025,28 +5029,9 @@ input[disabled]:active {
     accent-color: hsl(339.45, 0%, 33.2%);
     accent-color: var(--theme-input-disabled-accent-active, ActiveText);
 }
-textarea:-moz-read-only,
-select:-moz-read-only,
-input:-moz-read-only {
-    --focus-ring-outline-color: var(
-        --theme-input-readonly-accent-focus,
-        CanvasText
-    );
-    background-color: hsl(339.45, 0%, 85.99%);
-    background-color: var(--theme-input-readonly-background, Field);
-    border-color: hsl(339.45, 0%, 20.65%);
-    border-color: var(--theme-input-readonly-border, CanvasText);
-    color: hsl(339.45, 0%, 16.63%);
-    color: var(--theme-input-readonly-text, FieldText);
-    accent-color: hsl(278.16, 60.54%, 30.06%);
-    accent-color: var(--theme-input-readonly-accent, CanvasText);
-}
 textarea[readonly],
 select[readonly],
-input[readonly],
-textarea:read-only,
-select:read-only,
-input:read-only {
+input[readonly] {
     --focus-ring-outline-color: var(
         --theme-input-readonly-accent-focus,
         CanvasText
@@ -5062,50 +5047,19 @@ input:read-only {
 }
 textarea[readonly]::-moz-placeholder,
 select[readonly]::-moz-placeholder,
-input[readonly]::-moz-placeholder,
-textarea:read-only::-moz-placeholder,
-select:read-only::-moz-placeholder,
-input:read-only::-moz-placeholder {
-    color: hsl(339.45, 0%, 33.2%);
-    color: var(--theme-input-placeholder, FieldText);
-}
-textarea:-moz-read-only::placeholder,
-select:-moz-read-only::placeholder,
-input:-moz-read-only::placeholder {
+input[readonly]::-moz-placeholder {
     color: hsl(339.45, 0%, 33.2%);
     color: var(--theme-input-placeholder, FieldText);
 }
 textarea[readonly]::placeholder,
 select[readonly]::placeholder,
-input[readonly]::placeholder,
-textarea:read-only::placeholder,
-select:read-only::placeholder,
-input:read-only::placeholder {
+input[readonly]::placeholder {
     color: hsl(339.45, 0%, 33.2%);
     color: var(--theme-input-placeholder, FieldText);
 }
-textarea:-moz-read-only:hover,
-select:-moz-read-only:hover,
-input:-moz-read-only:hover {
-    --focus-ring-outline-color: var(
-        --theme-input-readonly-accent-hover,
-        CanvasText
-    );
-    background-color: hsl(339.45, 0%, 85.99%);
-    background-color: var(--theme-input-readonly-background, Field);
-    border-color: hsl(339.45, 0%, 20.65%);
-    border-color: var(--theme-input-readonly-border-hover, CanvasText);
-    color: hsl(339.45, 0%, 16.63%);
-    color: var(--theme-input-readonly-text, FieldText);
-    accent-color: hsl(162, 69%, 16.5%);
-    accent-color: var(--theme-input-readonly-accent-hover, CanvasText);
-}
 textarea[readonly]:hover,
 select[readonly]:hover,
-input[readonly]:hover,
-textarea:read-only:hover,
-select:read-only:hover,
-input:read-only:hover {
+input[readonly]:hover {
     --focus-ring-outline-color: var(
         --theme-input-readonly-accent-hover,
         CanvasText
@@ -5118,45 +5072,10 @@ input:read-only:hover {
     color: var(--theme-input-readonly-text, FieldText);
     accent-color: hsl(162, 69%, 16.5%);
     accent-color: var(--theme-input-readonly-accent-hover, CanvasText);
-}
-textarea:-moz-read-only:focus,
-select:-moz-read-only:focus,
-input:-moz-read-only:focus {
-    --focus-ring-outline-color: var(
-        --theme-input-readonly-accent-focus,
-        CanvasText
-    );
-    background-color: hsl(339.45, 0%, 85.99%);
-    background-color: var(--theme-input-readonly-background, Field);
-    border-color: hsl(162, 69%, 16.5%);
-    border-color: var(--theme-input-readonly-border-focus, CanvasText);
-    color: hsl(339.45, 0%, 16.63%);
-    color: var(--theme-input-readonly-text, FieldText);
-    accent-color: hsl(162, 69%, 16.5%);
-    accent-color: var(--theme-input-readonly-accent-focus, CanvasText);
 }
 textarea[readonly]:focus,
 select[readonly]:focus,
-input[readonly]:focus,
-textarea:read-only:focus,
-select:read-only:focus,
-input:read-only:focus {
-    --focus-ring-outline-color: var(
-        --theme-input-readonly-accent-focus,
-        CanvasText
-    );
-    background-color: hsl(339.45, 0%, 85.99%);
-    background-color: var(--theme-input-readonly-background, Field);
-    border-color: hsl(162, 69%, 16.5%);
-    border-color: var(--theme-input-readonly-border-focus, CanvasText);
-    color: hsl(339.45, 0%, 16.63%);
-    color: var(--theme-input-readonly-text, FieldText);
-    accent-color: hsl(162, 69%, 16.5%);
-    accent-color: var(--theme-input-readonly-accent-focus, CanvasText);
-}
-textarea:-moz-read-only:focus-within,
-select:-moz-read-only:focus-within,
-input:-moz-read-only:focus-within {
+input[readonly]:focus {
     --focus-ring-outline-color: var(
         --theme-input-readonly-accent-focus,
         CanvasText
@@ -5172,10 +5091,7 @@ input:-moz-read-only:focus-within {
 }
 textarea[readonly]:focus-within,
 select[readonly]:focus-within,
-input[readonly]:focus-within,
-textarea:read-only:focus-within,
-select:read-only:focus-within,
-input:read-only:focus-within {
+input[readonly]:focus-within {
     --focus-ring-outline-color: var(
         --theme-input-readonly-accent-focus,
         CanvasText
@@ -5189,28 +5105,9 @@ input:read-only:focus-within {
     accent-color: hsl(162, 69%, 16.5%);
     accent-color: var(--theme-input-readonly-accent-focus, CanvasText);
 }
-textarea:-moz-read-only:active,
-select:-moz-read-only:active,
-input:-moz-read-only:active {
-    --focus-ring-outline-color: var(
-        --theme-input-readonly-accent-active,
-        ActiveText
-    );
-    background-color: hsl(339.45, 0%, 85.99%);
-    background-color: var(--theme-input-readonly-background, Field);
-    border-color: hsl(2.81, 72.25%, 28.09%);
-    border-color: var(--theme-input-readonly-border-active, ActiveText);
-    color: hsl(339.45, 0%, 16.63%);
-    color: var(--theme-input-readonly-text, FieldText);
-    accent-color: hsl(2.81, 72.25%, 28.09%);
-    accent-color: var(--theme-input-readonly-accent-active, ActiveText);
-}
 textarea[readonly]:active,
 select[readonly]:active,
-input[readonly]:active,
-textarea:read-only:active,
-select:read-only:active,
-input:read-only:active {
+input[readonly]:active {
     --focus-ring-outline-color: var(
         --theme-input-readonly-accent-active,
         ActiveText
@@ -5437,57 +5334,22 @@ input[type="radio"][disabled]:active {
     color: hsl(339.45, 0%, 33.2%);
     color: var(--theme-input-disabled-accent-active, ActiveText);
 }
-input[type="checkbox"]:-moz-read-only,
-input[type="radio"]:-moz-read-only {
-    accent-color: hsl(278.16, 60.54%, 30.06%);
-    accent-color: var(--theme-input-readonly-accent, CanvasText);
-    color: hsl(278.16, 60.54%, 30.06%);
-    color: var(--theme-input-readonly-accent, CanvasText);
-}
 input[type="checkbox"][readonly],
-input[type="checkbox"]:read-only,
-input[type="radio"][readonly],
-input[type="radio"]:read-only {
+input[type="radio"][readonly] {
     accent-color: hsl(278.16, 60.54%, 30.06%);
     accent-color: var(--theme-input-readonly-accent, CanvasText);
     color: hsl(278.16, 60.54%, 30.06%);
     color: var(--theme-input-readonly-accent, CanvasText);
-}
-input[type="checkbox"]:-moz-read-only:hover,
-input[type="radio"]:-moz-read-only:hover {
-    accent-color: hsl(162, 69%, 16.5%);
-    accent-color: var(--theme-input-readonly-accent-hover, CanvasText);
-    color: hsl(162, 69%, 16.5%);
-    color: var(--theme-input-readonly-accent-hover, CanvasText);
 }
 input[type="checkbox"][readonly]:hover,
-input[type="checkbox"]:read-only:hover,
-input[type="radio"][readonly]:hover,
-input[type="radio"]:read-only:hover {
+input[type="radio"][readonly]:hover {
     accent-color: hsl(162, 69%, 16.5%);
     accent-color: var(--theme-input-readonly-accent-hover, CanvasText);
     color: hsl(162, 69%, 16.5%);
     color: var(--theme-input-readonly-accent-hover, CanvasText);
 }
-input[type="checkbox"]:-moz-read-only:focus,
-input[type="radio"]:-moz-read-only:focus {
-    accent-color: hsl(162, 69%, 16.5%);
-    accent-color: var(--theme-input-readonly-accent-focus, CanvasText);
-    color: hsl(162, 69%, 16.5%);
-    color: var(--theme-input-readonly-accent-focus, CanvasText);
-}
 input[type="checkbox"][readonly]:focus,
-input[type="checkbox"]:read-only:focus,
-input[type="radio"][readonly]:focus,
-input[type="radio"]:read-only:focus {
-    accent-color: hsl(162, 69%, 16.5%);
-    accent-color: var(--theme-input-readonly-accent-focus, CanvasText);
-    color: hsl(162, 69%, 16.5%);
-    color: var(--theme-input-readonly-accent-focus, CanvasText);
-}
-
-input[type="checkbox"]:-moz-read-only:focus-within,
-input[type="radio"]:-moz-read-only:focus-within {
+input[type="radio"][readonly]:focus {
     accent-color: hsl(162, 69%, 16.5%);
     accent-color: var(--theme-input-readonly-accent-focus, CanvasText);
     color: hsl(162, 69%, 16.5%);
@@ -5495,27 +5357,15 @@ input[type="radio"]:-moz-read-only:focus-within {
 }
 
 input[type="checkbox"][readonly]:focus-within,
-input[type="checkbox"]:read-only:focus-within,
-input[type="radio"][readonly]:focus-within,
-input[type="radio"]:read-only:focus-within {
+input[type="radio"][readonly]:focus-within {
     accent-color: hsl(162, 69%, 16.5%);
     accent-color: var(--theme-input-readonly-accent-focus, CanvasText);
     color: hsl(162, 69%, 16.5%);
     color: var(--theme-input-readonly-accent-focus, CanvasText);
 }
 
-input[type="checkbox"]:-moz-read-only:active,
-input[type="radio"]:-moz-read-only:active {
-    accent-color: hsl(2.81, 72.25%, 28.09%);
-    accent-color: var(--theme-input-readonly-accent-active, ActiveText);
-    color: hsl(2.81, 72.25%, 28.09%);
-    color: var(--theme-input-readonly-accent-active, ActiveText);
-}
-
 input[type="checkbox"][readonly]:active,
-input[type="checkbox"]:read-only:active,
-input[type="radio"][readonly]:active,
-input[type="radio"]:read-only:active {
+input[type="radio"][readonly]:active {
     accent-color: hsl(2.81, 72.25%, 28.09%);
     accent-color: var(--theme-input-readonly-accent-active, ActiveText);
     color: hsl(2.81, 72.25%, 28.09%);
@@ -5532,7 +5382,7 @@ label {
     color: hsl(278.16, 60.54%, 30.06%);
     color: var(--theme-text-primary, CanvasText);
 }
-label:has(> :where(input[type="checkbox"], input[type="radio"])) {
+label:has(> input:where([type="checkbox"], [type="radio"])) {
     gap: 0.5rem;
     gap: var(--mrg-soft-300, 0.5rem);
     font-weight: 400;
@@ -5542,17 +5392,18 @@ label:has(> :where(input[type="checkbox"], input[type="radio"])) {
     color: hsl(339.45, 0%, 16.63%);
     color: var(--theme-text, CanvasText);
 }
-label:has(> :where(input[type="checkbox"], input[type="radio"]))
-    + label:has(> :where(input[type="checkbox"], input[type="radio"])) {
+label:has(> input:where([type="checkbox"], [type="radio"]))
+    + label:has(> input:where([type="checkbox"], [type="radio"])) {
     margin-top: 0.5rem;
     margin-top: var(--mrg-firm-200, 0.5rem);
 }
-label:has(> :where(input[type="checkbox"], input[type="radio"]))
-    + input:not(input[type="checkbox"]):not(input[type="radio"]),
-label:has(> :where(input[type="checkbox"], input[type="radio"]))
-    + select:not(input[type="checkbox"]):not(input[type="radio"]),
-label:has(> :where(input[type="checkbox"], input[type="radio"]))
-    + textarea:not(input[type="checkbox"]):not(input[type="radio"]) {
+label:has(> input:where([type="checkbox"], [type="radio"])) + select,
+label:has(> input:where([type="checkbox"], [type="radio"])) + textarea {
+    margin-top: 1.25rem;
+    margin-top: var(--mrg-firm-400, 1.25rem);
+}
+label:has(> input:where([type="checkbox"], [type="radio"]))
+    + input:not([type="checkbox"]):not([type="radio"]) {
     margin-top: 1.25rem;
     margin-top: var(--mrg-firm-400, 1.25rem);
 }
@@ -5575,11 +5426,17 @@ input[type="submit"] {
     width: fit-content;
     height: auto;
     margin-top: 1.25rem;
-    margin-bottom: 0.4375rem;
     margin-top: var(--mrg-firm-400, 1.25rem);
+    margin-bottom: 0.4375rem;
     margin-bottom: var(--mrg-half-400, 0.4375rem);
-    padding: 0.3125em 0.8125em;
-    padding: var(--pad-soft-200, 0.3125em) var(--pad-firm-300, 0.8125em);
+    padding-top: 0.3125em;
+    padding-bottom: 0.3125em;
+    padding-top: var(--pad-soft-200, 0.3125em);
+    padding-bottom: var(--pad-soft-200, 0.3125em);
+    padding-left: 0.8125em;
+    padding-right: 0.8125em;
+    padding-left: var(--pad-firm-300, 0.8125em);
+    padding-right: var(--pad-firm-300, 0.8125em);
     gap: 0.5rem 0.5rem;
     gap: var(--mrg-soft-300, 0.5rem) var(--mrg-firm-200, 0.5rem);
     border-width: 0.0625rem;
@@ -5587,7 +5444,7 @@ input[type="submit"] {
     border-style: solid;
     font-weight: 500;
     font-style: normal;
-    font-size: var-fs("normal");
+    font-size: 1.0625rem;
     line-height: 1.1875;
     line-height: var(--line-height-100, 1.1875);
     letter-spacing: normal;
@@ -5742,6 +5599,31 @@ input[type="submit"]:active {
     border-color: var(--theme-button-primary-border-active, ButtonFace);
     color: hsl(339.45, 0%, 91.26%);
     color: var(--theme-button-primary-text-active, ButtonText);
+}
+button:empty:not(input),
+[role="button"]:empty:not(input),
+input[type="button"]:empty:not(input),
+input[type="reset"]:empty:not(input),
+input[type="submit"]:empty:not(input) {
+    padding-left: 0.3125em;
+    padding-right: 0.3125em;
+    padding-left: var(--pad-soft-200, 0.3125em);
+    padding-right: var(--pad-soft-200, 0.3125em);
+}
+button:has(> .icon:only-child),
+[role="button"]:has(> .icon:only-child),
+input[type="button"]:has(> .icon:only-child),
+input[type="reset"]:has(> .icon:only-child),
+input[type="submit"]:has(> .icon:only-child),
+button:has(> .logo:only-child),
+[role="button"]:has(> .logo:only-child),
+input[type="button"]:has(> .logo:only-child),
+input[type="reset"]:has(> .logo:only-child),
+input[type="submit"]:has(> .logo:only-child) {
+    padding-left: 0.3125em;
+    padding-right: 0.3125em;
+    padding-left: var(--pad-soft-200, 0.3125em);
+    padding-right: var(--pad-soft-200, 0.3125em);
 }
 button[aria-disabled="true"],
 [aria-disabled="true"][role="button"],
@@ -6080,11 +5962,17 @@ input[type="reset"]:active {
     width: fit-content;
     height: auto;
     margin-top: 1.25rem;
-    margin-bottom: 0.4375rem;
     margin-top: var(--mrg-firm-400, 1.25rem);
+    margin-bottom: 0.4375rem;
     margin-bottom: var(--mrg-half-400, 0.4375rem);
-    padding: 0.3125em 0.8125em;
-    padding: var(--pad-soft-200, 0.3125em) var(--pad-firm-300, 0.8125em);
+    padding-top: 0.3125em;
+    padding-bottom: 0.3125em;
+    padding-top: var(--pad-soft-200, 0.3125em);
+    padding-bottom: var(--pad-soft-200, 0.3125em);
+    padding-left: 0.8125em;
+    padding-right: 0.8125em;
+    padding-left: var(--pad-firm-300, 0.8125em);
+    padding-right: var(--pad-firm-300, 0.8125em);
     gap: 0.5rem 0.5rem;
     gap: var(--mrg-soft-300, 0.5rem) var(--mrg-firm-200, 0.5rem);
     border-width: 0.0625rem;
@@ -6092,7 +5980,7 @@ input[type="reset"]:active {
     border-style: solid;
     font-weight: 500;
     font-style: normal;
-    font-size: var-fs("normal");
+    font-size: 1.0625rem;
     line-height: 1.1875;
     line-height: var(--line-height-100, 1.1875);
     letter-spacing: normal;

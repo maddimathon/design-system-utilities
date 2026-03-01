@@ -48,28 +48,52 @@ const {
 
 /* CONSTANTS ===================================== */
 
-const headingHTML = (await Astro.slots.render('heading')) || false;
+const ctaButtonsHTML =
+    (await Astro.slots.render('cta-buttons'))?.trim() || false;
+const headingHTML = (await Astro.slots.render('heading'))?.trim() || false;
+const subtitleHTML = (await Astro.slots.render('subtitle'))?.trim() || false;
 ---
 
 {
-    headingHTML && (
+    (headingHTML || subtitleHTML) && (
         <section
             {...attributes}
-            class:list={['sidebar-widget', '||', classList]}
+            class:list={['widget-block', '||', classList]}
         >
             <slot name='prefix' />
-            <Heading
+
+            <header
                 class:list={[
-                    'widget-title',
+                    'widget-block__header',
                     hideHeading && 'screen-reader-text',
                 ]}
-                heading={heading}
-                displayHeading={displayHeading}
-                set:html={headingHTML}
-            />
-            <div class='widget-content'>
+            >
+                {headingHTML && (
+                    <Heading
+                        class:list='widget-block__title'
+                        displayHeading={displayHeading}
+                        heading={heading}
+                        set:html={headingHTML}
+                    />
+                )}
+                {subtitleHTML && (
+                    <p
+                        class='widget-block__subtitle'
+                        set:html={subtitleHTML}
+                    />
+                )}
+            </header>
+
+            <div class='widget-block__content'>
                 <slot />
             </div>
+
+            {ctaButtonsHTML && (
+                <div
+                    class='button-span | widget-block__button-span'
+                    set:html={ctaButtonsHTML}
+                />
+            )}
         </section>
     )
 }

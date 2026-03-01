@@ -213,16 +213,38 @@
 ///
 /// @since 0.1.0-alpha
 ///
-@mixin snippet-heading($slug: '7') {
+@mixin snippet-heading(
+    $slug: '7',
+    $includeChildren: true,
+    $color: null,
+    $fontStyle: null,
+    $lineHeight: null,
+    $marginBlockEnd: null,
+    $marginBlockStart: null,
+    //
+     //
+) {
     //
     @if $slug == title {
         $slug: '1';
     }
 
-    $fontStyle: var-style(heading-#{$slug}-font-style);
+    $fontStyle: if(
+        $fontStyle,
+        $fontStyle,
+        var-style(heading-#{$slug}-font-style)
+    );
 
-    margin-block: #{var-style(heading-#{$slug}-margin-block-start)}
-        #{var-style(heading-#{$slug}-margin-block-end)};
+    margin-block-start: #{if(
+            $marginBlockStart,
+            $marginBlockStart,
+            var-style(heading-#{$slug}-margin-block-start)
+        )};
+    margin-block-end: #{if(
+            $marginBlockEnd,
+            $marginBlockEnd,
+            var-style(heading-#{$slug}-margin-block-end)
+        )};
 
     @if font-family-exists(heading) {
         font-family: #{var-font-family(heading)};
@@ -230,7 +252,13 @@
 
     font-weight: #{var-style(heading-#{$slug}-font-weight)};
     font-size: #{var-fs(heading-#{$slug})};
-    line-height: #{var-style(heading-#{$slug}-line-height)};
+
+    line-height: #{if(
+            $lineHeight,
+            $lineHeight,
+            var-style(heading-#{$slug}-line-height)
+        )};
+
     letter-spacing: #{var-style(heading-#{$slug}-letter-spacing)};
 
     text-transform: #{var-style(heading-#{$slug}-text-transform)};
@@ -248,19 +276,21 @@
         }
     }
 
-    color: #{var-theme(heading-#{$slug})};
+    color: #{if($color, $color, var-theme(heading-#{$slug}))};
 
-    %a {
-        @include snippet-link-colors-inherit;
-        font-weight: inherit;
-    }
+    @if $includeChildren {
+        %a {
+            @include snippet-link-colors-inherit;
+            font-weight: inherit;
+        }
 
-    %code,
-    %kbd,
-    %samp {
-        font-weight: inherit;
-        font-style: inherit;
-        color: inherit;
+        %code,
+        %kbd,
+        %samp {
+            font-weight: inherit;
+            font-style: inherit;
+            color: inherit;
+        }
     }
 }
 
@@ -273,7 +303,9 @@
     $paragraphLevel: '400',
     $smallLevel: '300',
     $firmStartLevel: null,
-    $firmEndLevel: null
+    $firmEndLevel: null,
+    $buttonGapBlock: null,
+    $buttonGapInline: null
 ) {
     @if $firmStartLevel == null {
         $firmStartLevel: $paragraphLevel;
@@ -297,7 +329,8 @@
     }
 
     %button-span {
-        gap: #{var-mrg-firm($smallLevel)} #{var-mrg-firm($firmStartLevel)};
+        gap: #{if($buttonGapBlock, $buttonGapBlock, var-mrg-firm($smallLevel))}
+            #{if($buttonGapInline, $buttonGapInline, var-mrg-firm($smallLevel))};
     }
 }
 

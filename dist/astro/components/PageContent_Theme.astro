@@ -41,9 +41,17 @@ export interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypePa
 
 const { defaultToggleToOpen: _defaultToggleToOpen, tokens }: Props = Astro.props;
 
+/* FUNCTIONS ===================================== */
+
+function getButtonVariations(themeKey: keyof typeof tokens.themes) {
+    return tokens.themes[themeKey]
+        ? Object.keys(tokens.themes[themeKey].light['average'].data.button)
+        : [];
+}
+
 /* CONSTANTS ===================================== */
 
-const themeNames = Object.keys(tokens.themes) as (keyof typeof  tokens.themes )[];
+const themeNames = Object.keys(tokens.themes) as ( keyof typeof tokens.themes )[];
 
 const hasMultipleThemes = themeNames.length > 1;
 
@@ -188,7 +196,7 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
                                     />
                                     { Object.keys(set.theme.data.background).length > 1 && (
                                         <div class="theme-mode-swatch__alt-widgets" slot="preview">
-                                            <Fragment>{ Object.entries(set.theme.data.background).map(
+                                            { Object.entries(set.theme.data.background).map(
                                                 ([backgroundSlug, backgroundClrName]) => backgroundSlug !== '$' &&(
                                                     // displayHeading={3}
                                                     <Alert
@@ -206,22 +214,23 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
                                                         />
                                                     </Alert>
                                                 )
-                                            ) }</Fragment>
+                                            ) }
                                         </div>
                                     ) }
                                     { hasMultipleThemes && key == 'default' && (
-                                        <div class="theme-mode-swatch__alt-widgets" slot="preview">
-                                            <Fragment>{ themeNames.map(
+                                        <div class="site-sidebar theme-mode-swatch__alt-widgets" slot="preview">
+                                            { themeNames.map(
                                                 ( themeName ) => themeName !== key && (
                                                     <Widget
                                                         displayHeading={3}
                                                         heading={5} 
-                                                        class:list={'sidebar-widget--alt-theme'}
+                                                        class:list={'widget-block--alt-theme'}
                                                         data-active-theme={themeName}
                                                         data-brightness-mode={brightnessSet.name}
                                                         data-contrast-mode={set.contrast}
                                                     >
-                                                        <Fragment slot='heading' >Themed Widget: <samp set:text={toTitleCase(themeName)} /></Fragment>
+                                                        <Fragment slot='heading'>Theme Demo Widget</Fragment>
+                                                        <Fragment slot='subtitle'>This is the <samp set:text={toTitleCase(themeName)} /> theme</Fragment>
                                                         <LoremIpsum
                                                             displayHeading={4}
                                                             heading={6}
@@ -229,9 +238,16 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
                                                             superAbbreviated={true}
                                                             tokens={tokens}
                                                         />
+                                                        <Fragment slot="cta-buttons">{ getButtonVariations( themeName ).map(
+                                                            variant => ( variant === 'primary' || variant === 'secondary' || variant === 'tertiary' ) && <button
+                                                                class={`button-${variant}`}
+                                                                set:text={`This is a ${variant} CTA button`}
+                                                                type="button"
+                                                            />
+                                                        ) }</Fragment>
                                                     </Widget>
                                                 )
-                                            ) }</Fragment>
+                                            ) }
                                         </div>
                                     ) }
                                 </ThemeModeSwatch>

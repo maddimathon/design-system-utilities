@@ -62,6 +62,35 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
         (("button[type='submit']", "input[type='submit']"), button-form-submit)
     );
 
+    $additional_optional: list.append(
+        $additional_optional,
+        ('[data-active-theme]', active-theme--any)
+    );
+
+    @each $key, $_theme in tokens.$themes {
+        $additional_optional: list.append(
+            $additional_optional,
+            ('%active-theme-selector--#{$key}', 'active-theme--#{$key}')
+        );
+
+        $additional_optional: list.append(
+            $additional_optional,
+            ('[data-active-theme=#{$key}]', 'active-theme--#{$key}')
+        );
+        $additional_optional: list.append(
+            $additional_optional,
+            (('[data-active-theme=#{$key}]:hover'), 'active-theme-hover--#{$key}')
+        );
+        $additional_optional: list.append(
+            $additional_optional,
+            ('[data-active-theme=#{$key}]:focus-within', 'active-theme-focus-within--#{$key}')
+        );
+        $additional_optional: list.append(
+            $additional_optional,
+            ('[data-active-theme=#{$key}]:focus-visible', 'active-theme-focus-visible--#{$key}')
+        );
+    }
+
     @if config.$print_docs {
         $additional_optional: list.join(
             $additional_optional,
@@ -98,6 +127,30 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
     @if config.$print_docs {
         $additional: list.append($additional, ('.site-content .button-span', 'button-span'));
     }
+
+    $additional_optional: list.append($additional_optional, ('.site-sidebar', site-sidebar));
+    $additional_optional: list.append($additional_optional, ('.widget-block', widget-block));
+
+    $additional_optional: list.append(
+        $additional_optional,
+        ('.widget-block__button-span', widget-block-cta-buttons)
+    );
+    $additional_optional: list.append(
+        $additional_optional,
+        ('.widget-block__content', widget-block-content)
+    );
+    $additional_optional: list.append(
+        $additional_optional,
+        ('.widget-block__header', widget-block-header)
+    );
+    $additional_optional: list.append(
+        $additional_optional,
+        ('.widget-block__subtitle', widget-block-subtitle)
+    );
+    $additional_optional: list.append(
+        $additional_optional,
+        ('.widget-block__title', widget-block-title)
+    );
 
     // $additional: list.append($additional, ((), 'paragraph-margins'));
     // $additional: list.append($additional, ((), 'paragraph-small-margins'));

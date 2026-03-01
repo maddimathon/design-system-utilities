@@ -9,7 +9,7 @@
  */
 import type { Objects } from '@maddimathon/utility-typescript/types';
 import type { RecursiveRecord } from '../01-utilities/@types.js';
-import type { RequiredHeadingLevels, TokenLevels, TokenLevels_Extended } from './@types.js';
+import type { AnyTokenLevel, RequiredHeadingLevels, WholeTokenLevel } from './@types.js';
 import type { Tokens_Spacing } from './Tokens_Spacing.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 /**
@@ -46,7 +46,7 @@ export declare namespace Tokens_Typography {
         lineHeight: {
             [L in DefaultLineHeightLevels]: number;
         } & {
-            [L in Exclude<TokenLevels, DefaultLineHeightLevels> | TokenLevels_Extended]?: number;
+            [L in Exclude<AnyTokenLevel, DefaultLineHeightLevels>]?: number;
         };
         fonts: undefined | {
             [F in T_FontFamilySlug]: Font.Family<F>;
@@ -99,7 +99,7 @@ export declare namespace Tokens_Typography {
             family: undefined | {
                 [K in T_FontFamilySlug]?: {
                     weights: {
-                        [K in TokenLevels]?: undefined | {
+                        [K in WholeTokenLevel]?: undefined | {
                             normal: undefined | Tokens_Typography.Font.SingleFamilyScss;
                             italic: undefined | Tokens_Typography.Font.SingleFamilyScss;
                         };
@@ -147,7 +147,7 @@ export declare namespace Tokens_Typography {
                 [F in "local" | "ttf" | "woff" | "woff2"]?: string | string[];
             };
             style: "normal" | "italic";
-            weight: TokenLevels | `${'000' | TokenLevels} ${TokenLevels | '1000'}`;
+            weight: WholeTokenLevel | `${'000' | WholeTokenLevel} ${WholeTokenLevel | '1000'}`;
         };
         /**
          * @since 0.1.1-alpha.0
@@ -170,7 +170,7 @@ export declare namespace Tokens_Typography {
                 path: string;
             }[];
             style: "normal" | "italic";
-            weight: TokenLevels | `${'000' | TokenLevels} ${TokenLevels | '1000'}`;
+            weight: WholeTokenLevel | `${'000' | WholeTokenLevel} ${WholeTokenLevel | '1000'}`;
             printFontFace: boolean;
             display?: "auto" | "block" | "fallback" | "optional" | "swap";
             'line-gap-override'?: string;
@@ -181,7 +181,7 @@ export declare namespace Tokens_Typography {
          * @since 0.1.0-alpha
          */
         type FamilyScss = {
-            [L in TokenLevels | `${TokenLevels}i`]?: SingleFamilyScss;
+            [L in WholeTokenLevel | `${WholeTokenLevel}i`]?: SingleFamilyScss;
         };
         /**
          * @since 0.1.0-alpha
@@ -216,7 +216,7 @@ export declare namespace Tokens_Typography {
              */
             printFontFace?: boolean;
             weights: {
-                [K in TokenLevels]?: {
+                [K in WholeTokenLevel]?: {
                     normal: File;
                     italic: File;
                 };

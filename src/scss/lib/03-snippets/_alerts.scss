@@ -121,11 +121,11 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
             var-theme('ui')
         );
 
-        @include cx-prop(icon-color, $ui);
         border-color: #{$ui};
         background: #{$background};
 
         > .alert-block__headline {
+            @include cx-prop(icon-color, $ui);
             color: #{$text};
         }
     }
@@ -167,22 +167,25 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
         }
     }
 
+    $_alertPaddingBlockLevel: style-value(alert-padding-block, $rawValue: true);
+
     %alert {
         @extend %_alert-grid;
-        @include cx-prop(icon-color, var-style(alert-icon-color));
 
         justify-self: center;
 
         margin-block: #{var-mrg-firm('400')} #{var-mrg-half('400')};
         margin-inline: 0;
 
-        padding-block: #{var-style(alert-padding-block)};
+        padding-block: #{var-mrg-firm($_alertPaddingBlockLevel)}
+            #{var-mrg-soft($_alertPaddingBlockLevel)};
         padding-inline: #{var-style(alert-padding-inline)};
 
         width: fit-content;
 
         line-height: #{var-style(alert-line-height)};
-        border: #{var-style(alert-border-width)} solid #{var-style(alert-border-color)};
+        border: #{var-style(alert-border-width)} #{var-style(widget-border-style)}
+            #{var-style(alert-border-color)};
         border-radius: #{var-style(alert-border-radius)};
 
         background: #{var-style(alert-background)};
@@ -236,6 +239,7 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
 
         > .alert-block__headline {
             @extend %_alert-grid;
+            @include cx-prop(icon-color, var-style(alert-icon-color));
             grid-template-columns: subgrid;
             grid-column: 1 / -1;
 
@@ -249,9 +253,10 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
             }
 
             &:where(header) {
-                line-height: #{var-line-height('200')};
-                font-weight: 600;
-                font-size: #{var-fs(heading-7)};
+                line-height: #{var-style(alert-headline-line-height)};
+                font-weight: #{var-style(alert-headline-font-weight)};
+                font-style: #{var-style(alert-headline-font-style)};
+                font-size: #{var-style(alert-headline-font-size)};
             }
 
             > :first-child {
@@ -264,6 +269,7 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
 
                 grid-column: icon;
                 margin-inline-end: 0.125em;
+                margin-block-end: #{var-mrg-half($_alertPaddingBlockLevel)};
 
                 + * {
                     margin-block-start: -0.09375em;
@@ -296,6 +302,7 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
         @each $variationKey in $_activeTheme_textAndBackgroundKeys {
             @if $variationKey != '$' {
                 &--icon-#{$variationKey},
+                &--background-#{$variationKey},
                 &.background-#{$variationKey} {
                     @include _snippet-support-alert-blocks--background-variant-props($variationKey);
                 }
@@ -306,7 +313,10 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
             }
         }
 
-        @include set-flow-margins('300', '200');
+        @include set-flow-margins(
+            style-value(alert-margin-flow-paragraph),
+            style-value(alert-margin-flow-small)
+        );
     }
 
     @each $slug, $map in tokens.$icons {
@@ -317,12 +327,9 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
 
             @each $variationKey in $_activeTheme_textAndBackgroundKeys {
                 //
-                @if $variationKey != '$' {
-                    // @at-root #{selector.unify(&, '%alert--background-#{$variationKey}')},
+                @if $variationKey == ' ' {
                     &.background-#{$variationKey} {
-                        @include _snippet-support-alert-blocks--background-variant-props(
-                            $variationKey
-                        );
+                        @extend %alert--background-#{$variationKey};
                     }
                 }
 

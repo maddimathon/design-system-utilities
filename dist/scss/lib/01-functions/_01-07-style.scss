@@ -14,6 +14,7 @@
 @use 'pkg:@maddimathon/utility-astro/01-functions' as utils;
 
 @use '01-03-colours' as *;
+@use '01-04-typography' as *;
 @use '01-06-decoration' as *;
 
 $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
@@ -22,8 +23,9 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
 /// Uses the (flattened) style tokens.
 ///
 /// @since 0.1.0-alpha
+/// @since 0.1.1-alpha.1.draft — Added $rawValue param.
 ///
-@function style-value($slug) {
+@function style-value($slug, $rawValue: false) {
     $value: map.get($_flattenedStyles, $slug);
 
     // returns
@@ -32,10 +34,16 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
         @return $slug;
     }
 
+    // returns
+    @if $rawValue {
+        @return $value;
+    }
+
     $isAlertStyle: string.index($slug, alert-) == 1;
     $isButtonStyle: string.index($slug, button-) == 1;
     $isHeadingStyle: string.index($slug, heading-) == 1;
     $isInputStyle: string.index($slug, input-) == 1;
+    $isWidgetStyle: string.index($slug, widget-) == 1;
 
     $isBorderRadius: false;
     $isBorderWidth: false;
@@ -51,7 +59,12 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
 
     $_slugLength: string.length($slug);
 
-    @if $isAlertStyle or $isButtonStyle or $isInputStyle or $isHeadingStyle {
+    @if $isAlertStyle or
+        $isButtonStyle or
+        $isInputStyle or
+        $isHeadingStyle or
+        $isWidgetStyle
+    {
         // gap
         @if string.index($slug, -gap-) {
             $isGap: true;
@@ -93,10 +106,8 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
         }
 
         // margins
-        @if $isAlertStyle and
-            string.index($slug, '-margin-default') ==
-            ($_slugLength - 14)
-        {
+        @if string.index($slug, '-margin-flow-') {
+            @return $value;
         } @else if string.index($slug, '-margin-') {
             $isMargin: true;
         } @else if string.index($slug, '-margin') == ($_slugLength - 6) {
@@ -105,13 +116,13 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
 
         // padding
         @if string.index($slug, '-padding-') {
-            @if $isAlertStyle {
+            @if $isWidgetStyle {
                 $isMargin: true;
             } @else {
                 $isPadding: true;
             }
         } @else if string.index($slug, '-padding') == ($_slugLength - 7) {
-            @if $isAlertStyle {
+            @if $isAlertStyle or $isWidgetStyle {
                 $isMargin: true;
             } @else {
                 $isPadding: true;
@@ -135,15 +146,15 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
 
     @if $isMargin {
         //
-        @if string.index($slug, margin-block-start) {
+        @if string.index($slug, -block-start) {
             $value: if(
                 $isButtonStyle or $isInputStyle,
                 utils.var-mrg-firm($value),
                 utils.var-mrg-soft($value)
             );
-        } @else if string.index($slug, margin-block-end) {
+        } @else if string.index($slug, -block-end) {
             $value: utils.var-mrg-half($value);
-        } @else if string.index($slug, margin-block) {
+        } @else if string.index($slug, -block) {
             $value: if(
                 $isButtonStyle or $isInputStyle,
                 utils.var-mrg-firm($value),
@@ -154,14 +165,14 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
         }
     } @else if $isPadding {
         //
-        @if string.index($slug, padding-block-start) {
+        @if string.index($slug, -block-start) {
             $value: utils.var-pad-soft($value);
-        } @else if string.index($slug, padding-block-end) {
+        } @else if string.index($slug, -block-end) {
             $value: utils.var-pad-half($value);
-        } @else if string.index($slug, padding-block) {
+        } @else if string.index($slug, -block) {
             $value: if(
                 $isAlertStyle,
-                utils.var-pad-firm($value),
+                utils.var-mrg-firm($value),
                 utils.var-pad-soft($value)
             );
         } @else {

@@ -7,7 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
-import type { TokenLevels, TokenLevels_Extended } from './@types.js';
+import type { AnyTokenLevel } from './@types.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
@@ -40,7 +40,7 @@ export declare namespace Tokens_Spacing {
         margin: {
             [L in DefaultMarginLevels]: number;
         } & {
-            [L in Exclude<TokenLevels, DefaultMarginLevels> | TokenLevels_Extended]?: number;
+            [L in Exclude<AnyTokenLevel, DefaultMarginLevels>]?: number;
         };
     };
     /**

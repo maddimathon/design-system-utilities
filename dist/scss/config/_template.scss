@@ -21,12 +21,6 @@ $print_alertBlocks: utils.config-valid-bool(
 );
 
 ///
-/// @since 0.1.1-alpha.1.draft
-///
-$print_widgets: $print_alertBlocks or $print_docs !default;
-$print_widgets: utils.config-valid-bool($print_widgets, 'print_widgets');
-
-///
 /// @since 0.1.0-alpha
 ///
 $print_astro_stickyToggleNav: utils.$print_astro !default;
@@ -70,6 +64,15 @@ $print_colourValues_rgb: false !default;
 $print_logos: $print_icons or utils.$print_utils or utils.$print_astro or
     $print_alertBlocks !default;
 $print_logos: utils.config-valid-bool($print_logos, 'print_logos');
+
+///
+/// @since 0.1.1-alpha.1.draft
+///
+$print_sidebarWidgets: utils.$print_astro or $print_docs !default;
+$print_sidebarWidgets: utils.config-valid-bool(
+    $print_sidebarWidgets,
+    'print_sidebarWidgets'
+);
 
 ///
 /// @since 0.1.0-alpha

@@ -7,7 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
-import type { TokenLevels, TokenTypes } from './@types.js';
+import type { WholeTokenLevel, TokenTypes } from './@types.js';
 import type { ColourUtilities } from '../01-utilities/ColourUtilities.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 import { Tokens_Colour } from './Tokens_Colour.js';
@@ -429,7 +429,7 @@ export declare namespace Tokens {
             type AllLevels<T_FontFamilySlug extends string = string> = {
                 [K in T_FontFamilySlug]: Omit<Tokens_Typography.Font.Family<K>, 'weights'> & {
                     weights: {
-                        [K in TokenLevels]: {
+                        [K in WholeTokenLevel]: {
                             normal: Tokens_Typography.Font.File;
                             italic: Tokens_Typography.Font.File;
                         };
@@ -460,7 +460,7 @@ export declare namespace Tokens {
             function familyGenerator<T_Slug extends string>(slug: T_Slug, name: string, familyOpts?: Omit<Partial<Tokens_Typography.Font.Family<T_Slug>>, "path" | "style" | "weight"> & {
                 includeLocalSrc?: boolean;
             }, weightOpts?: {
-                [L in TokenLevels]?: familyGenerator.FileOptions;
+                [L in WholeTokenLevel]?: familyGenerator.FileOptions;
             }): Tokens_Typography.Font.Family<T_Slug> & {
                 weights: Required<Tokens_Typography.Font.Family<T_Slug>['weights']>;
             };
@@ -480,13 +480,13 @@ export declare namespace Tokens {
                      * @default true
                      */
                     includeLocalSrc?: boolean;
-                    pathWeight?: TokenLevels | 'variable';
+                    pathWeight?: WholeTokenLevel | 'variable';
                     pathStyle?: "normal" | "italic";
                 };
                 /**
                  * @since 0.1.0-alpha
                  */
-                function fileGenerator<T_Slug extends string>(subpath: T_Slug, name: string, weight: TokenLevels | `${'000' | TokenLevels} ${TokenLevels | '1000'}`, style: "normal" | "italic", opts?: familyGenerator.FileOptions): Tokens_Typography.Font.File;
+                function fileGenerator<T_Slug extends string>(subpath: T_Slug, name: string, weight: WholeTokenLevel | `${'000' | WholeTokenLevel} ${WholeTokenLevel | '1000'}`, style: "normal" | "italic", opts?: familyGenerator.FileOptions): Tokens_Typography.Font.File;
             }
             /**
              * @since 0.1.0-alpha

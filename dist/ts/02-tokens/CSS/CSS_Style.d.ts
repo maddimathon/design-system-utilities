@@ -8,7 +8,7 @@
  * @license MIT
  */
 import type { RecursivePartial } from '@maddimathon/utility-typescript/types/objects';
-import type { RequiredHeadingLevels, TokenTypes, TokenLevels } from '../@types.js';
+import type { AnyTokenLevel, RequiredHeadingLevels, TokenTypes, WholeTokenLevel } from '../@types.js';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
@@ -23,19 +23,69 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
     /**
      * @since 0.1.1-alpha.1.draft
      */
-    static alertStyle(): Tokens_CSS_Style.AlertStyles;
-    static buttonStyle(): {
+    static alertStyle(partial?: Tokens_CSS_Style.InputParam['alert']): Tokens_CSS_Style.AlertStyles;
+    /**
+     * @since 0.1.0-alpha
+     * @since 0.1.1-alpha.1.draft — Added partial param.
+     */
+    static buttonStyle(partial?: Tokens_CSS_Style.InputParam['button']): {
         $: Tokens_CSS_Style.ButtonStyles;
         disabled: Tokens_CSS_Style.ButtonStyles_Disabled;
     };
-    static headingStyle(heading: number): Tokens_CSS_Style.HeadingStyles;
+    /**
+     * @since 0.1.0-alpha
+     * @since 0.1.1-alpha.1.draft — Added partial param.
+     */
+    static headingStyle(heading: number, partial?: NonNullable<Tokens_CSS_Style.InputParam['heading']>[number]): Tokens_CSS_Style.HeadingStyles;
     /**
      * @since 0.1.1-alpha.0
+     * @since 0.1.1-alpha.1.draft — Added partial param.
      */
-    static inputStyle(): {
+    static inputStyle(partial?: Tokens_CSS_Style.InputParam['input']): {
         readonly $: Tokens_CSS_Style.InputStyles;
         readonly disabled: Tokens_CSS_Style.InputStyles_Variation;
         readonly readonly: Tokens_CSS_Style.InputStyles_Variation;
+    };
+    /**
+     * @since 0.1.1-alpha.1.draft
+     */
+    static widgetStyle(partial?: Tokens_CSS_Style.InputParam['widget']): Tokens_CSS_Style.WidgetStyles;
+    /**
+     * @since 0.1.1-alpha.1.draft
+     */
+    protected static mergeData(partial: Tokens_CSS_Style.InputParam): {
+        alert: Tokens_CSS_Style.AlertStyles;
+        button: {
+            $: Tokens_CSS_Style.ButtonStyles;
+            disabled: Tokens_CSS_Style.ButtonStyles_Disabled;
+        };
+        heading: {
+            2: Tokens_CSS_Style.HeadingStyles;
+            1: Tokens_CSS_Style.HeadingStyles;
+            3: Tokens_CSS_Style.HeadingStyles;
+            4: Tokens_CSS_Style.HeadingStyles;
+            7: Tokens_CSS_Style.HeadingStyles;
+            10: Tokens_CSS_Style.HeadingStyles;
+            5: Tokens_CSS_Style.HeadingStyles;
+            6: Tokens_CSS_Style.HeadingStyles;
+            8: Tokens_CSS_Style.HeadingStyles;
+            9: Tokens_CSS_Style.HeadingStyles;
+        };
+        input: {
+            readonly $: Tokens_CSS_Style.InputStyles;
+            readonly disabled: Tokens_CSS_Style.InputStyles_Variation;
+            readonly readonly: Tokens_CSS_Style.InputStyles_Variation;
+        };
+        selection: {
+            background: {
+                opacity: {
+                    low: string;
+                    average: string;
+                    high: string;
+                };
+            };
+        };
+        widget: Tokens_CSS_Style.WidgetStyles;
     };
     static get default(): Tokens_CSS_Style.Data;
     readonly data: Tokens_CSS_Style.Data;
@@ -62,17 +112,28 @@ export declare namespace Tokens_CSS_Style {
              * This should be a theme slug.
              */
             color: string;
-            radius: "0" | TokenLevels;
+            radius: "0" | AnyTokenLevel;
             style: string;
-            width: TokenLevels;
+            width: AnyTokenLevel;
         };
         /**
          * For the headline. This should be a theme slug.
          */
         color: string;
         gap: {
-            block: "0" | TokenLevels;
-            inline: "0" | TokenLevels;
+            block: "0" | AnyTokenLevel;
+            inline: "0" | AnyTokenLevel;
+        };
+        headline: {
+            font: {
+                /**
+                 * Should be a font-size token slug.
+                 */
+                size: string;
+                style: "normal" | "italic";
+                weight: WholeTokenLevel;
+            };
+            'line-height': AnyTokenLevel;
         };
         icon: {
             /**
@@ -87,23 +148,29 @@ export declare namespace Tokens_CSS_Style {
                 large: number;
             };
         };
-        'line-height': TokenLevels;
+        'line-height': AnyTokenLevel;
         margin: {
-            default: TokenLevels;
+            /**
+             * Values for the set-flow-margins mixin.
+             */
+            flow: {
+                paragraph: AnyTokenLevel;
+                small: AnyTokenLevel;
+            };
         };
         padding: {
-            block: TokenLevels;
-            inline: TokenLevels;
+            block: AnyTokenLevel;
+            inline: AnyTokenLevel;
         };
     };
     type ButtonStyles = {
         border: {
-            radius: "0" | TokenLevels;
+            radius: "0" | AnyTokenLevel;
             style: string;
-            width: TokenLevels;
+            width: AnyTokenLevel;
         };
         focus: {
-            offset: TokenLevels;
+            offset: AnyTokenLevel;
         };
         font: {
             /**
@@ -113,24 +180,24 @@ export declare namespace Tokens_CSS_Style {
              */
             size: string;
             style: "normal" | "italic";
-            weight: TokenLevels;
+            weight: WholeTokenLevel;
         };
         gap: {
-            block: TokenLevels;
-            inline: TokenLevels;
+            block: AnyTokenLevel;
+            inline: AnyTokenLevel;
         };
         'letter-spacing': string;
-        'line-height': TokenLevels;
+        'line-height': AnyTokenLevel;
         'text-transform': CSS.TextTransform;
         margin: {
             block: {
-                start: TokenLevels;
-                end: TokenLevels;
+                start: AnyTokenLevel;
+                end: AnyTokenLevel;
             };
         };
         padding: {
-            block: TokenLevels;
-            inline: TokenLevels;
+            block: AnyTokenLevel;
+            inline: AnyTokenLevel;
         };
         width: string;
     };
@@ -140,18 +207,26 @@ export declare namespace Tokens_CSS_Style {
         'letter-spacing': string;
         'text-transform': CSS.TextTransform;
     };
+    /**
+     * CSS allowed value types.
+     *
+     * @since 0.1.0-alpha
+     */
+    namespace CSS {
+        type TextTransform = "none" | "capitalize" | "uppercase" | "lowercase" | "full-width" | "full-size-kana" | "math-auto";
+    }
     type HeadingStyles = {
         font: {
             style: "normal" | "italic";
-            weight: TokenLevels;
+            weight: WholeTokenLevel;
         };
         'letter-spacing': string;
-        'line-height': TokenLevels;
+        'line-height': AnyTokenLevel;
         'text-transform': CSS.TextTransform;
         margin: {
             block: {
-                start: TokenLevels;
-                end: TokenLevels;
+                start: AnyTokenLevel;
+                end: AnyTokenLevel;
             };
         };
     };
@@ -160,34 +235,34 @@ export declare namespace Tokens_CSS_Style {
      */
     type InputStyles = {
         border: {
-            radius: "0" | TokenLevels;
+            radius: "0" | AnyTokenLevel;
             style: string;
-            width: TokenLevels;
+            width: AnyTokenLevel;
         };
         focus: {
-            offset: TokenLevels;
+            offset: AnyTokenLevel;
         };
         label: {
             font: {
                 style: "normal" | "italic";
-                weight: TokenLevels;
+                weight: WholeTokenLevel;
             };
-            'line-height': TokenLevels;
+            'line-height': AnyTokenLevel;
         };
-        'line-height': TokenLevels;
+        'line-height': AnyTokenLevel;
         margin: {
             block: {
-                start: TokenLevels;
-                end: TokenLevels;
+                start: AnyTokenLevel;
+                end: AnyTokenLevel;
                 /**
                  * This is the gap between a label and its input.
                  */
-                gap: TokenLevels;
+                gap: AnyTokenLevel;
             };
         };
         padding: {
-            block: TokenLevels;
-            inline: TokenLevels;
+            block: AnyTokenLevel;
+            inline: AnyTokenLevel;
         };
         /**
          * @since 0.1.1-alpha.1.draft
@@ -209,13 +284,39 @@ export declare namespace Tokens_CSS_Style {
         border: Omit<InputStyles['border'], 'width'>;
     };
     /**
-     * CSS allowed value types.
-     *
-     * @since 0.1.0-alpha
+     * @since 0.1.1-alpha.1.draft
      */
-    namespace CSS {
-        type TextTransform = "none" | "capitalize" | "uppercase" | "lowercase" | "full-width" | "full-size-kana" | "math-auto";
-    }
+    type WidgetStyles = {
+        border: {
+            /**
+             * This should be a theme slug.
+             */
+            color: string;
+            radius: "0" | AnyTokenLevel;
+            style: string;
+            width: AnyTokenLevel;
+        };
+        /**
+         * For interior button spans.
+         */
+        'button-span': {
+            gap: AnyTokenLevel;
+        };
+        'line-height': AnyTokenLevel;
+        margin: {
+            /**
+             * Values for the set-flow-margins mixin.
+             */
+            flow: {
+                paragraph: AnyTokenLevel;
+                small: AnyTokenLevel;
+            };
+        };
+        padding: {
+            block: AnyTokenLevel;
+            inline: AnyTokenLevel;
+        };
+    };
     /**
      * @since 0.1.0-alpha
      */
@@ -251,6 +352,10 @@ export declare namespace Tokens_CSS_Style {
                 };
             };
         };
+        /**
+         * @since 0.1.1-alpha.1.draft
+         */
+        widget: WidgetStyles;
     };
     /**
      * @since 0.1.0-alpha
@@ -284,6 +389,10 @@ export declare namespace Tokens_CSS_Style {
                 };
             };
         };
+        /**
+         * @since 0.1.1-alpha.1.draft
+         */
+        widget?: RecursivePartial<WidgetStyles>;
     };
     /**
      * @since 0.1.0-alpha

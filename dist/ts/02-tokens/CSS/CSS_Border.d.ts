@@ -7,7 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
-import type { TokenLevels, TokenLevels_Extended } from '../@types.js';
+import type { AnyTokenLevel } from '../@types.js';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
@@ -41,17 +41,17 @@ export declare namespace Tokens_CSS_Border {
         radius: {
             [L in DefaultRadiusLevels]: number;
         } & {
-            [L in Exclude<TokenLevels, DefaultRadiusLevels> | TokenLevels_Extended]?: number;
+            [L in Exclude<AnyTokenLevel, DefaultRadiusLevels>]?: number;
         };
         width: {
             [L in DefaultWidthLevels]: number;
         } & {
-            [L in Exclude<TokenLevels, DefaultWidthLevels> | TokenLevels_Extended]?: number;
+            [L in Exclude<AnyTokenLevel, DefaultWidthLevels>]?: number;
         };
         stroke: {
             [L in DefaultStrokeLevels]: number;
         } & {
-            [L in Exclude<TokenLevels, DefaultStrokeLevels> | TokenLevels_Extended]?: number;
+            [L in Exclude<AnyTokenLevel, DefaultStrokeLevels>]?: number;
         };
     };
     /**

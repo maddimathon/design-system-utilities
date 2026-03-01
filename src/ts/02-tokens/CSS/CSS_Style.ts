@@ -11,7 +11,12 @@
 import type { RecursivePartial } from '@maddimathon/utility-typescript/types/objects';
 import { mergeArgs } from '@maddimathon/utility-typescript/functions';
 
-import type { RequiredHeadingLevels, TokenTypes, TokenLevels } from '../@types.js';
+import type {
+    AnyTokenLevel,
+    RequiredHeadingLevels,
+    TokenTypes,
+    WholeTokenLevel,
+} from '../@types.js';
 
 import { objectGenerator } from '../../01-utilities/objectGenerator.js';
 import { objectKeySort_Tokens } from '../../01-utilities/objectKeySort_Tokens.js';
@@ -31,9 +36,9 @@ export class Tokens_CSS_Style extends AbstractTokens<{
     /**
      * @since ___PKG_VERSION___
      */
-    public static alertStyle(): Tokens_CSS_Style.AlertStyles {
+    public static alertStyle( partial: Tokens_CSS_Style.InputParam[ 'alert' ] = {} ): Tokens_CSS_Style.AlertStyles {
 
-        return {
+        return mergeArgs( {
             background: 'background',
 
             border: {
@@ -44,6 +49,15 @@ export class Tokens_CSS_Style extends AbstractTokens<{
             },
 
             color: 'text-primary',
+
+            headline: {
+                font: {
+                    size: 'heading-7',
+                    style: 'normal',
+                    weight: '600',
+                },
+                'line-height': '200',
+            },
 
             'line-height': '300',
 
@@ -61,22 +75,29 @@ export class Tokens_CSS_Style extends AbstractTokens<{
             },
 
             margin: {
-                default: '300',
+                flow: {
+                    paragraph: '300',
+                    small: '200',
+                },
             },
 
             padding: {
                 block: '300',
                 inline: '300',
             },
-        };
+        }, partial, true );
     }
 
-    public static buttonStyle(): {
+    /**
+     * @since 0.1.0-alpha
+     * @since ___PKG_VERSION___ — Added partial param.
+     */
+    public static buttonStyle( partial?: Tokens_CSS_Style.InputParam[ 'button' ] ): {
         $: Tokens_CSS_Style.ButtonStyles;
         disabled: Tokens_CSS_Style.ButtonStyles_Disabled;
     } {
 
-        const style: Tokens_CSS_Style.ButtonStyles = {
+        const style: Tokens_CSS_Style.ButtonStyles = mergeArgs( {
 
             border: {
                 radius: '0',
@@ -116,11 +137,12 @@ export class Tokens_CSS_Style extends AbstractTokens<{
             },
 
             width: 'fit-content',
-        };
+        }, partial?.$ ?? {}, true );
 
         return {
             $: style,
-            disabled: {
+
+            disabled: mergeArgs( {
                 border: {
                     radius: style.border.radius,
                     style: 'dashed',
@@ -133,11 +155,18 @@ export class Tokens_CSS_Style extends AbstractTokens<{
 
                 'letter-spacing': style[ 'letter-spacing' ],
                 'text-transform': style[ 'text-transform' ],
-            },
+            }, partial?.disabled ?? {}, true ),
         } as const satisfies Tokens_CSS_Style.Data[ 'button' ];
     }
 
-    public static headingStyle( heading: number ): Tokens_CSS_Style.HeadingStyles {
+    /**
+     * @since 0.1.0-alpha
+     * @since ___PKG_VERSION___ — Added partial param.
+     */
+    public static headingStyle(
+        heading: number,
+        partial?: NonNullable<Tokens_CSS_Style.InputParam[ 'heading' ]>[ number ],
+    ): Tokens_CSS_Style.HeadingStyles {
 
         heading = heading < 1 ? 11 : heading;
 
@@ -217,15 +246,16 @@ export class Tokens_CSS_Style extends AbstractTokens<{
             style[ 'line-height' ] = '500';
         }
 
-        return style;
+        return mergeArgs( style, partial, true );
     }
 
     /**
      * @since 0.1.1-alpha.0
+     * @since ___PKG_VERSION___ — Added partial param.
      */
-    public static inputStyle() {
+    public static inputStyle( partial?: Tokens_CSS_Style.InputParam[ 'input' ] ) {
 
-        const style: Tokens_CSS_Style.InputStyles = {
+        const style: Tokens_CSS_Style.InputStyles = mergeArgs( {
 
             border: {
                 radius: '0',
@@ -271,18 +301,28 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                     average: '75%',
                 },
             },
-        };
+        }, partial?.$ ?? {}, true );
 
         const disabled: Tokens_CSS_Style.InputStyles_Variation = {
+            ...partial?.disabled,
+
             border: {
-                ...style.border,
                 radius: style.border.radius,
                 style: 'dashed',
+
+                ...partial?.disabled?.border,
             },
         };
 
         const readonly: Tokens_CSS_Style.InputStyles_Variation = {
-            border: style.border,
+            ...partial?.readonly,
+
+            border: {
+                radius: style.border.radius,
+                style: style.border.style,
+
+                ...partial?.readonly?.border,
+            },
         };
 
         return {
@@ -290,6 +330,78 @@ export class Tokens_CSS_Style extends AbstractTokens<{
             disabled,
             readonly,
         } as const satisfies Tokens_CSS_Style.Data[ 'input' ];
+    }
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    public static widgetStyle( partial?: Tokens_CSS_Style.InputParam[ 'widget' ] ): Tokens_CSS_Style.WidgetStyles {
+
+        const margin = mergeArgs( {
+            flow: {
+                paragraph: '300' as AnyTokenLevel,
+                small: '200' as AnyTokenLevel,
+            },
+        }, partial?.margin ?? {}, true );
+
+        return {
+
+            border: mergeArgs( {
+                color: 'background',
+                radius: '0',
+                style: 'solid',
+                width: '200',
+            }, partial?.border ?? {}, true ),
+
+            'button-span': {
+                gap: partial?.[ 'button-span' ]?.gap ?? margin.flow.small,
+            },
+
+            'line-height': partial?.[ 'line-height' ] ?? '400',
+
+            margin,
+
+            padding: mergeArgs( {
+                block: '300',
+                inline: '300',
+            }, partial?.padding ?? {}, true ),
+        };
+    }
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    protected static mergeData( partial: Tokens_CSS_Style.InputParam ) {
+
+        return {
+            alert: Tokens_CSS_Style.alertStyle( partial.alert ),
+            button: Tokens_CSS_Style.buttonStyle( partial.button ),
+
+            heading: objectGenerator(
+                [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const,
+                ( hdg ) => Tokens_CSS_Style.headingStyle( hdg, partial.heading?.[ hdg ] )
+            ),
+
+            input: Tokens_CSS_Style.inputStyle( partial.input ),
+
+            selection: {
+                ...partial.selection,
+
+                background: {
+                    ...partial.selection?.background,
+
+                    opacity: {
+                        low: '65%',
+                        average: '75%',
+                        high: '95%',
+
+                        ...partial.selection?.background?.opacity,
+                    },
+                },
+            },
+
+            widget: Tokens_CSS_Style.widgetStyle( partial.widget ),
+        };
     }
 
     public static get default(): Tokens_CSS_Style.Data {
@@ -316,6 +428,8 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                     },
                 },
             },
+
+            widget: Tokens_CSS_Style.widgetStyle(),
         };
     }
 
@@ -325,12 +439,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
         input: Tokens_CSS_Style.InputParam,
     ) {
         super();
-
-        this.data = mergeArgs(
-            Tokens_CSS_Style.default,
-            input,
-            true,
-        );
+        this.data = Tokens_CSS_Style.mergeData( input );
     }
 
     public toJSON(): Tokens_CSS_Style.JsonReturn {
@@ -365,9 +474,9 @@ export namespace Tokens_CSS_Style {
              */
             color: string;
 
-            radius: "0" | TokenLevels;
+            radius: "0" | AnyTokenLevel;
             style: string;
-            width: TokenLevels;
+            width: AnyTokenLevel;
         };
 
         /**
@@ -376,8 +485,21 @@ export namespace Tokens_CSS_Style {
         color: string;
 
         gap: {
-            block: "0" | TokenLevels;
-            inline: "0" | TokenLevels;
+            block: "0" | AnyTokenLevel;
+            inline: "0" | AnyTokenLevel;
+        };
+
+        headline: {
+            font: {
+                /**
+                 * Should be a font-size token slug.
+                 */
+                size: string;
+                style: "normal" | "italic";
+                weight: WholeTokenLevel;
+            };
+
+            'line-height': AnyTokenLevel;
         };
 
         icon: {
@@ -395,28 +517,34 @@ export namespace Tokens_CSS_Style {
             };
         };
 
-        'line-height': TokenLevels;
+        'line-height': AnyTokenLevel;
 
         margin: {
-            default: TokenLevels;
+            /**
+             * Values for the set-flow-margins mixin.
+             */
+            flow: {
+                paragraph: AnyTokenLevel;
+                small: AnyTokenLevel;
+            };
         };
 
         padding: {
-            block: TokenLevels;
-            inline: TokenLevels;
+            block: AnyTokenLevel;
+            inline: AnyTokenLevel;
         };
     };
 
     export type ButtonStyles = {
 
         border: {
-            radius: "0" | TokenLevels;
+            radius: "0" | AnyTokenLevel;
             style: string;
-            width: TokenLevels;
+            width: AnyTokenLevel;
         };
 
         focus: {
-            offset: TokenLevels;
+            offset: AnyTokenLevel;
         };
 
         font: {
@@ -427,28 +555,28 @@ export namespace Tokens_CSS_Style {
              */
             size: string;
             style: "normal" | "italic";
-            weight: TokenLevels;
+            weight: WholeTokenLevel;
         };
 
         gap: {
-            block: TokenLevels;
-            inline: TokenLevels;
+            block: AnyTokenLevel;
+            inline: AnyTokenLevel;
         };
 
         'letter-spacing': string;
-        'line-height': TokenLevels;
+        'line-height': AnyTokenLevel;
         'text-transform': CSS.TextTransform;
 
         margin: {
             block: {
-                start: TokenLevels;
-                end: TokenLevels;
+                start: AnyTokenLevel;
+                end: AnyTokenLevel;
             };
         };
 
         padding: {
-            block: TokenLevels;
-            inline: TokenLevels;
+            block: AnyTokenLevel;
+            inline: AnyTokenLevel;
         };
 
         width: string;
@@ -464,21 +592,30 @@ export namespace Tokens_CSS_Style {
         'text-transform': CSS.TextTransform;
     };
 
+    /**
+     * CSS allowed value types.
+     * 
+     * @since 0.1.0-alpha
+     */
+    export namespace CSS {
+        export type TextTransform = "none" | "capitalize" | "uppercase" | "lowercase" | "full-width" | "full-size-kana" | "math-auto";
+    }
+
     export type HeadingStyles = {
 
         font: {
             style: "normal" | "italic";
-            weight: TokenLevels;
+            weight: WholeTokenLevel;
         };
 
         'letter-spacing': string;
-        'line-height': TokenLevels;
+        'line-height': AnyTokenLevel;
         'text-transform': CSS.TextTransform;
 
         margin: {
             block: {
-                start: TokenLevels;
-                end: TokenLevels;
+                start: AnyTokenLevel;
+                end: AnyTokenLevel;
             };
         };
     };
@@ -489,41 +626,41 @@ export namespace Tokens_CSS_Style {
     export type InputStyles = {
 
         border: {
-            radius: "0" | TokenLevels;
+            radius: "0" | AnyTokenLevel;
             style: string;
-            width: TokenLevels;
+            width: AnyTokenLevel;
         };
 
         focus: {
-            offset: TokenLevels;
+            offset: AnyTokenLevel;
         };
 
         label: {
             font: {
                 style: "normal" | "italic";
-                weight: TokenLevels;
+                weight: WholeTokenLevel;
             };
 
-            'line-height': TokenLevels;
+            'line-height': AnyTokenLevel;
         };
 
-        'line-height': TokenLevels;
+        'line-height': AnyTokenLevel;
 
         margin: {
             block: {
-                start: TokenLevels;
-                end: TokenLevels;
+                start: AnyTokenLevel;
+                end: AnyTokenLevel;
 
                 /**
                  * This is the gap between a label and its input.
                  */
-                gap: TokenLevels;
+                gap: AnyTokenLevel;
             };
         };
 
         padding: {
-            block: TokenLevels;
-            inline: TokenLevels;
+            block: AnyTokenLevel;
+            inline: AnyTokenLevel;
         };
 
         /**
@@ -556,13 +693,45 @@ export namespace Tokens_CSS_Style {
     };
 
     /**
-     * CSS allowed value types.
-     * 
-     * @since 0.1.0-alpha
+     * @since ___PKG_VERSION___
      */
-    export namespace CSS {
-        export type TextTransform = "none" | "capitalize" | "uppercase" | "lowercase" | "full-width" | "full-size-kana" | "math-auto";
-    }
+    export type WidgetStyles = {
+
+        border: {
+            /**
+             * This should be a theme slug.
+             */
+            color: string;
+
+            radius: "0" | AnyTokenLevel;
+            style: string;
+            width: AnyTokenLevel;
+        };
+
+        /**
+         * For interior button spans.
+         */
+        'button-span': {
+            gap: AnyTokenLevel;
+        };
+
+        'line-height': AnyTokenLevel;
+
+        margin: {
+            /**
+             * Values for the set-flow-margins mixin.
+             */
+            flow: {
+                paragraph: AnyTokenLevel;
+                small: AnyTokenLevel;
+            };
+        };
+
+        padding: {
+            block: AnyTokenLevel;
+            inline: AnyTokenLevel;
+        };
+    };
 
     /**
      * @since 0.1.0-alpha
@@ -607,6 +776,11 @@ export namespace Tokens_CSS_Style {
                 };
             };
         };
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        widget: WidgetStyles;
     };
 
     /**
@@ -649,6 +823,11 @@ export namespace Tokens_CSS_Style {
                 };
             };
         };
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        widget?: RecursivePartial<WidgetStyles>;
     };
 
     /**
