@@ -17,21 +17,24 @@ import { Tokens_Themes_Set } from './Themes/Themes_Set.js';
  * @since 0.1.0-alpha
  */
 export class Tokens_Themes extends AbstractTokens {
-    clrNames;
-    extraColourLevels;
     brightnessModes;
     contrastModes;
+    colours;
     sets;
     /**
      * Used instead of the constructor so that it can be async.
+     *
+     * @since 0.1.1-alpha.1.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
-    static async build(clrNames, extraColourLevels, brightnessModes, contrastModes, input) {
-        return Tokens_Themes.buildSets(clrNames, extraColourLevels, brightnessModes, contrastModes, input).then(sets => new Tokens_Themes(clrNames, extraColourLevels, brightnessModes, contrastModes, sets));
+    static async build(brightnessModes, contrastModes, colours, input) {
+        return Tokens_Themes.buildSets(brightnessModes, contrastModes, colours, input).then(sets => new Tokens_Themes(brightnessModes, contrastModes, colours, sets));
     }
     /**
      * Used to initialize multiple themes at once.
+     *
+     * @since 0.1.1-alpha.1.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
-    static async buildSets(clrNames, extraColourLevels, brightnessModes, contrastModes, input) {
+    static async buildSets(brightnessModes, contrastModes, colours, input) {
         const arr = Array.isArray(input)
             ? (input.length
                 ? input
@@ -44,7 +47,7 @@ export class Tokens_Themes extends AbstractTokens {
                     name: 'default',
                 },
             ];
-        return Promise.all(arr.map((set) => Tokens_Themes_Set.build(set.name, clrNames, extraColourLevels, [...brightnessModes], [...contrastModes], set))).then((objs) => {
+        return Promise.all(arr.map((set) => Tokens_Themes_Set.build(set.name, [...brightnessModes], [...contrastModes], colours, set))).then((objs) => {
             const allThemeNames = objs.map(o => o.data.name);
             return objectGenerator(allThemeNames, (name) => objs[allThemeNames.indexOf(name)]);
         });
@@ -52,12 +55,14 @@ export class Tokens_Themes extends AbstractTokens {
     get data() {
         return objectMap(this.sets, ([key, value]) => value.data);
     }
-    constructor(clrNames, extraColourLevels, brightnessModes, contrastModes, sets) {
+    /**
+     * @since 0.1.1-alpha.1.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
+     */
+    constructor(brightnessModes, contrastModes, colours, sets) {
         super();
-        this.clrNames = clrNames;
-        this.extraColourLevels = extraColourLevels;
         this.brightnessModes = brightnessModes;
         this.contrastModes = contrastModes;
+        this.colours = colours;
         this.sets = sets;
     }
     toJSON() {

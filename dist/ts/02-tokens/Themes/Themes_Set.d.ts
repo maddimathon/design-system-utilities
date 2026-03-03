@@ -22,20 +22,33 @@ export declare class Tokens_Themes_Set<T_ColourTypes extends TokenTypes.Colour.T
 }> {
     /** Name for this shade set. */
     protected readonly name: T_ThemeTypes['name'];
-    protected readonly clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>;
-    protected readonly extraColourLevels: readonly T_ColourTypes['extraLevels'][];
     protected readonly brightnessModes: readonly TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>[];
     protected readonly contrastModes: readonly TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>[];
+    protected readonly colours: {
+        names: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>;
+        allLevels: Set<ColourUtilities.Levels.Required | T_ColourTypes['extraLevels']>;
+    };
     protected readonly forcedColours: Tokens_Themes_Set.SingleMode<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>;
     protected readonly modes: TokenTypes.Theme.Mode.NestedObject<T_ThemeTypes, Tokens_Themes_Set.SingleMode<T_ColourTypes, T_ThemeTypes>>;
     /**
      * Used instead of the constructor so that it can be async.
+     *
+     * @since 0.1.1-alpha.1.draft — Changed second & third param to colours object (as fourth param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
-    static build<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(name: T_ThemeTypes['name'], clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>, extraColourLevels: readonly T_ColourTypes['extraLevels'][], brightnessModes: T_ThemeTypes['brightness'], contrastModes: T_ThemeTypes['contrast'], input: Tokens_Themes_Set.InputParam<T_ColourTypes, T_ThemeTypes>): Promise<Tokens_Themes_Set<T_ColourTypes, T_ThemeTypes>>;
+    static build<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(name: T_ThemeTypes['name'], brightnessModes: T_ThemeTypes['brightness'], contrastModes: T_ThemeTypes['contrast'], colours: {
+        names: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>;
+        allLevels: Set<ColourUtilities.Levels.Required | T_ColourTypes['extraLevels']>;
+    }, input: Tokens_Themes_Set.InputParam<T_ColourTypes, T_ThemeTypes>): Promise<Tokens_Themes_Set<T_ColourTypes, T_ThemeTypes>>;
     get data(): Tokens_Themes_Set.Data<T_ColourTypes, T_ThemeTypes>;
+    /**
+     * @since 0.1.1-alpha.1.draft — Changed second & third param to colours object (as fourth param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
+     */
     protected constructor(
     /** Name for this shade set. */
-    name: T_ThemeTypes['name'], clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>, extraColourLevels: readonly T_ColourTypes['extraLevels'][], brightnessModes: readonly TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>[], contrastModes: readonly TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>[], forcedColours: Tokens_Themes_Set.SingleMode<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>, modes: TokenTypes.Theme.Mode.NestedObject<T_ThemeTypes, Tokens_Themes_Set.SingleMode<T_ColourTypes, T_ThemeTypes>>);
+    name: T_ThemeTypes['name'], brightnessModes: readonly TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>[], contrastModes: readonly TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>[], colours: {
+        names: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>;
+        allLevels: Set<ColourUtilities.Levels.Required | T_ColourTypes['extraLevels']>;
+    }, forcedColours: Tokens_Themes_Set.SingleMode<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>, modes: TokenTypes.Theme.Mode.NestedObject<T_ThemeTypes, Tokens_Themes_Set.SingleMode<T_ColourTypes, T_ThemeTypes>>);
     toJSON(): Tokens_Themes_Set.JsonReturn<T_ColourTypes, T_ThemeTypes>;
     toScssVars(): Tokens_Themes_Set.ScssVars<T_ColourTypes, T_ThemeTypes>;
 }
@@ -93,8 +106,14 @@ export declare namespace Tokens_Themes_Set {
         readonly description: null | string;
         readonly levelsInUse: ("black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional)[];
         readonly data: SingleMode.Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption>;
-        static build<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(themeName: "default" | T_ThemeTypes['name'], brightness: null, constrast: "forcedColors", clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>, input: SingleMode.InputParam<NoInfer<T_ColourTypes>, T_ThemeTypes, TokenTypes.Css.SystemColor>, overrides?: SingleMode.Data.Partial<NoInfer<T_ColourTypes>, NoInfer<T_ThemeTypes>, TokenTypes.Css.SystemColor>): Promise<SingleMode<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>>;
-        static build<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(themeName: "default" | T_ThemeTypes['name'], brightness: TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>, constrast: TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>, clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>, input: SingleMode.InputParam<NoInfer<T_ColourTypes>, T_ThemeTypes>, overrides?: SingleMode.Data.Partial<NoInfer<T_ColourTypes>, NoInfer<T_ThemeTypes>>): Promise<SingleMode<T_ColourTypes, T_ThemeTypes>>;
+        static build<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(themeName: "default" | T_ThemeTypes['name'], brightness: null, constrast: "forcedColors", colours: {
+            names: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>;
+            allLevels: Set<ColourUtilities.Levels.Required | T_ColourTypes['extraLevels']>;
+        }, input: SingleMode.InputParam<NoInfer<T_ColourTypes>, T_ThemeTypes, TokenTypes.Css.SystemColor>, overrides?: SingleMode.Data.Partial<NoInfer<T_ColourTypes>, NoInfer<T_ThemeTypes>, TokenTypes.Css.SystemColor>): Promise<SingleMode<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>>;
+        static build<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(themeName: "default" | T_ThemeTypes['name'], brightness: TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>, constrast: TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>, colours: {
+            names: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>;
+            allLevels: Set<ColourUtilities.Levels.Required | T_ColourTypes['extraLevels']>;
+        }, input: SingleMode.InputParam<NoInfer<T_ColourTypes>, T_ThemeTypes>, overrides?: SingleMode.Data.Partial<NoInfer<T_ColourTypes>, NoInfer<T_ThemeTypes>>): Promise<SingleMode<T_ColourTypes, T_ThemeTypes>>;
         protected constructor(name: "default" | T_ThemeTypes['name'], brightness: TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>, constrast: TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>, description: null | string, levelsInUse: ("black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional)[], data: SingleMode.Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption>);
         toJSON(): SingleMode.JsonReturn<T_ColourTypes, T_ThemeTypes, __T_ColourOption>;
         toScssVars(): SingleMode.ScssVars<T_ColourTypes, T_ThemeTypes, __T_ColourOption>;
@@ -530,7 +549,7 @@ export declare namespace Tokens_Themes_Set {
                         readonly min: "600";
                     };
                     readonly heading: {
-                        readonly 1: "600";
+                        readonly 1: "700";
                         readonly 2: "700";
                         readonly 3: "700";
                         readonly 4: "700";

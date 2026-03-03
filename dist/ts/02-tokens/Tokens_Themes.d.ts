@@ -7,6 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
+import type { ColourUtilities } from '../01-utilities/ColourUtilities.js';
 import type { TokenTypes } from './@types.d.ts';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 import { Tokens_Themes_Set } from './Themes/Themes_Set.js';
@@ -20,10 +21,12 @@ export declare class Tokens_Themes<T_ColourTypes extends TokenTypes.Colour.TypeP
     json: Tokens_Themes.JsonReturn<T_ColourTypes, T_ThemeTypes>;
     scss: Tokens_Themes.ScssVars<T_ColourTypes, T_ThemeTypes>;
 }> {
-    protected readonly clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>;
-    protected readonly extraColourLevels: readonly T_ColourTypes['extraLevels'][];
     protected readonly brightnessModes: readonly TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>[];
     protected readonly contrastModes: readonly TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>[];
+    protected readonly colours: {
+        names: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>;
+        allLevels: Set<ColourUtilities.Levels.Required | T_ColourTypes['extraLevels']>;
+    };
     protected readonly sets: {
         default: Tokens_Themes_Set<T_ColourTypes, T_ThemeTypes>;
     } & {
@@ -31,14 +34,30 @@ export declare class Tokens_Themes<T_ColourTypes extends TokenTypes.Colour.TypeP
     };
     /**
      * Used instead of the constructor so that it can be async.
+     *
+     * @since 0.1.1-alpha.1.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
-    static build<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>, extraColourLevels: readonly T_ColourTypes['extraLevels'][], brightnessModes: readonly TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>[], contrastModes: readonly TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>[], input: Tokens_Themes.InputParam<T_ColourTypes, T_ThemeTypes>): Promise<Tokens_Themes<T_ColourTypes, T_ThemeTypes>>;
+    static build<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(brightnessModes: readonly TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>[], contrastModes: readonly TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>[], colours: {
+        names: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>;
+        allLevels: Set<ColourUtilities.Levels.Required | T_ColourTypes['extraLevels']>;
+    }, input: Tokens_Themes.InputParam<T_ColourTypes, T_ThemeTypes>): Promise<Tokens_Themes<T_ColourTypes, T_ThemeTypes>>;
     /**
      * Used to initialize multiple themes at once.
+     *
+     * @since 0.1.1-alpha.1.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
-    protected static buildSets<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>, extraColourLevels: readonly T_ColourTypes['extraLevels'][], brightnessModes: readonly TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>[], contrastModes: readonly TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>[], input: Tokens_Themes.InputParam<T_ColourTypes, T_ThemeTypes>): Promise<Tokens_Themes<T_ColourTypes, T_ThemeTypes>['sets']>;
+    protected static buildSets<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(brightnessModes: readonly TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>[], contrastModes: readonly TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>[], colours: {
+        names: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>;
+        allLevels: Set<ColourUtilities.Levels.Required | T_ColourTypes['extraLevels']>;
+    }, input: Tokens_Themes.InputParam<T_ColourTypes, T_ThemeTypes>): Promise<Tokens_Themes<T_ColourTypes, T_ThemeTypes>['sets']>;
     get data(): Tokens_Themes.Data<T_ColourTypes, T_ThemeTypes>;
-    protected constructor(clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>, extraColourLevels: readonly T_ColourTypes['extraLevels'][], brightnessModes: readonly TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>[], contrastModes: readonly TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>[], sets: {
+    /**
+     * @since 0.1.1-alpha.1.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
+     */
+    protected constructor(brightnessModes: readonly TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>[], contrastModes: readonly TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>[], colours: {
+        names: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>;
+        allLevels: Set<ColourUtilities.Levels.Required | T_ColourTypes['extraLevels']>;
+    }, sets: {
         default: Tokens_Themes_Set<T_ColourTypes, T_ThemeTypes>;
     } & {
         [N in T_ThemeTypes['name']]: Tokens_Themes_Set<T_ColourTypes, T_ThemeTypes>;

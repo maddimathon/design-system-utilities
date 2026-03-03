@@ -357,13 +357,13 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                 gap: partial?.[ 'button-span' ]?.gap ?? margin.flow.small,
             },
 
-            'line-height': partial?.[ 'line-height' ] ?? '400',
+            'line-height': partial?.[ 'line-height' ] ?? '300',
 
             margin,
 
             padding: mergeArgs( {
-                block: '300',
-                inline: '300',
+                block: '400',
+                inline: '400',
             }, partial?.padding ?? {}, true ),
         };
     }

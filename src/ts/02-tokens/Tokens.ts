@@ -17,7 +17,7 @@ import type {
     TokenTypes,
 } from './@types.js';
 
-import type { ColourUtilities } from '../01-utilities/ColourUtilities.js';
+import { ColourUtilities } from '../01-utilities/ColourUtilities.js';
 import { objectGenerator } from '../01-utilities/objectGenerator.js';
 
 import { AbstractTokens } from './abstract/AbstractTokens.js';
@@ -88,16 +88,24 @@ export class Tokens<
         config: Partial<Tokens.Config<NoInfer<T_Types[ 'colour' ][ 'extraLevels' ]>>> = {},
     ): Promise<Tokens<T_Types>> {
 
-        const allClrNames = arrayUnique(
-            [
-                'base',
-                ...Object.keys( input.colour ?? {} ).filter(
-                    name => name !== 'black' && name !== 'white'
-                ),
-            ] satisfies TokenTypes.Colour.GenericNameArray<T_Types[ 'colour' ][ 'names' ]>
-        ) as unknown as TokenTypes.Colour.GenericNameArray<T_Types[ 'colour' ][ 'names' ]>;
-
         const extraColourLevels = config.extraColourLevels ?? [];
+
+        const colourOpts = {
+
+            names: arrayUnique(
+                [
+                    'base',
+                    ...Object.keys( input.colour ?? {} ).filter(
+                        name => name !== 'black' && name !== 'white'
+                    ),
+                ] satisfies TokenTypes.Colour.GenericNameArray<T_Types[ 'colour' ][ 'names' ]>
+            ) as unknown as TokenTypes.Colour.GenericNameArray<T_Types[ 'colour' ][ 'names' ]>,
+
+            allLevels: new Set<ColourUtilities.Levels.Required | T_Types[ 'colour' ][ 'extraLevels' ]>( [
+                ...ColourUtilities.Levels.required,
+                ...extraColourLevels,
+            ] ),
+        };
 
         const brightnessModes = input.themes?.brightness?.length
             ? input.themes.brightness
@@ -118,24 +126,22 @@ export class Tokens<
         return Promise.all( [
 
             Tokens_Colour.build<T_Types[ 'colour' ]>(
-                allClrNames,
+                colourOpts.names,
                 extraColourLevels,
                 input.colour ?? {},
             ),
 
             Tokens_Themes.build<T_Types[ 'colour' ], T_Types[ 'theme' ]>(
-                allClrNames,
-                extraColourLevels,
                 brightnessModes,
                 contrastModes,
+                colourOpts,
                 input.themes?.input ?? [],
             ),
         ] ).then(
             async ( [ colour, themes ] ) => {
 
                 const tokens = new Tokens<T_Types>(
-                    allClrNames,
-                    extraColourLevels,
+                    colourOpts,
                     { colour, themes },
                     input,
                     {
@@ -149,9 +155,15 @@ export class Tokens<
         );
     }
 
+    /**
+     *  * @since ___PKG_VERSION___ — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
+     */
     protected constructor (
-        protected readonly clrNames: TokenTypes.Colour.GenericNameArray<T_Types[ 'colour' ][ 'names' ]>,
-        protected readonly extraColourLevels: readonly T_Types[ 'colour' ][ 'extraLevels' ][],
+        protected readonly colourOpts: {
+            names: TokenTypes.Colour.GenericNameArray<T_Types[ 'colour' ][ 'names' ]>;
+            allLevels: Set<ColourUtilities.Levels.Required | T_Types[ 'colour' ][ 'extraLevels' ]>;
+        },
+
         { colour, themes }: {
             colour: Tokens_Colour<T_Types[ 'colour' ]>;
             themes: Tokens_Themes<NoInfer<T_Types[ 'colour' ]>, T_Types[ 'theme' ]>,

@@ -8,7 +8,7 @@
  * @license MIT
  */
 import type { WholeTokenLevel, TokenTypes } from './@types.js';
-import type { ColourUtilities } from '../01-utilities/ColourUtilities.js';
+import { ColourUtilities } from '../01-utilities/ColourUtilities.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 import { Tokens_Colour } from './Tokens_Colour.js';
 import { Tokens_Colour_ShadeMap } from './Colour/Colour_ShadeMap.js';
@@ -37,8 +37,10 @@ export declare class Tokens<T_Types extends TokenTypes.TypeParams = TokenTypes.T
     json: Tokens_Internal.JsonReturn<T_Types>;
     scss: Tokens_Internal.ScssVars<T_Types>;
 }> {
-    protected readonly clrNames: TokenTypes.Colour.GenericNameArray<T_Types['colour']['names']>;
-    protected readonly extraColourLevels: readonly T_Types['colour']['extraLevels'][];
+    protected readonly colourOpts: {
+        names: TokenTypes.Colour.GenericNameArray<T_Types['colour']['names']>;
+        allLevels: Set<ColourUtilities.Levels.Required | T_Types['colour']['extraLevels']>;
+    };
     protected readonly input: Omit<Tokens_Internal.InputParam<T_Types>, "colour" | "themes">;
     protected readonly config: Tokens_Internal.Config;
     get data(): {
@@ -61,7 +63,13 @@ export declare class Tokens<T_Types extends TokenTypes.TypeParams = TokenTypes.T
      * Used instead of the constructor so that it can be async.
      */
     static build<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams>(input: Tokens_Internal.InputParam<T_Types>, config?: Partial<Tokens.Config<NoInfer<T_Types['colour']['extraLevels']>>>): Promise<Tokens<T_Types>>;
-    protected constructor(clrNames: TokenTypes.Colour.GenericNameArray<T_Types['colour']['names']>, extraColourLevels: readonly T_Types['colour']['extraLevels'][], { colour, themes }: {
+    /**
+     *  * @since 0.1.1-alpha.1.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
+     */
+    protected constructor(colourOpts: {
+        names: TokenTypes.Colour.GenericNameArray<T_Types['colour']['names']>;
+        allLevels: Set<ColourUtilities.Levels.Required | T_Types['colour']['extraLevels']>;
+    }, { colour, themes }: {
         colour: Tokens_Colour<T_Types['colour']>;
         themes: Tokens_Themes<NoInfer<T_Types['colour']>, T_Types['theme']>;
     }, input: Omit<Tokens_Internal.InputParam<T_Types>, "colour" | "themes">, config?: Tokens_Internal.Config);

@@ -1682,6 +1682,109 @@ export namespace ColourUtilities {
         export type Required = typeof required[ number ];
 
         /**
+         * Augments a single level by the given amount, creating a new valid level.
+         * 
+         * @since ___PKG_VERSION___
+         */
+        export function augmentor<T_AnyColourLevel extends Levels.Required | Levels.Optional>(
+            allColourLevels: Set<T_AnyColourLevel>,
+            level: "black" | "white" | NoInfer<T_AnyColourLevel>,
+            levelOffset: number,
+            minimum: number = 0,
+            maximum: number = 1000,
+        ): "black" | "white" | NoInfer<T_AnyColourLevel> {
+            // returns
+            if ( levelOffset === 0 && !minimum && !maximum ) {
+                return level;
+            }
+
+            levelOffset = Math.round( levelOffset / 50 ) * 50;
+
+            const validator = ( _num: number ) => Math.max(
+                minimum,
+                Math.min( _num, maximum ),
+            );
+
+            let levelAsNumber: number;
+
+            switch ( level ) {
+
+                case 'black':
+                    levelAsNumber = 950;
+                    break;
+
+                case 'white':
+                    levelAsNumber = 50;
+                    break;
+
+                default:
+                    levelAsNumber = Number( level );
+                    break;
+            }
+
+            const newLevel_num = validator( levelAsNumber + levelOffset );
+
+            // returns
+            if ( newLevel_num > 900 ) {
+                return 'black';
+            }
+
+            // returns
+            if ( newLevel_num < 100 ) {
+                return 'white';
+            }
+
+            let newLevel_valid_str = String( newLevel_num ) as T_AnyColourLevel;
+
+            const offsetStep = levelOffset < 0 ? -50 : 50;
+
+            let i = 1;
+
+            // returns if black or white levels are reached
+            while (
+                !allColourLevels.has( newLevel_valid_str )
+                && i < 100
+            ) {
+                const _thisOffsetStep = offsetStep * i;
+
+                let _testNum = newLevel_num + _thisOffsetStep;
+
+                // start by trying addition
+                newLevel_valid_str = String( _testNum ) as T_AnyColourLevel;
+
+                // returns
+                if ( _testNum > 900 ) {
+                    return 'black';
+                }
+
+                // returns
+                if ( _testNum < 100 ) {
+                    return 'white';
+                }
+
+                // now test subtracting instead
+                if ( !allColourLevels.has( newLevel_valid_str ) ) {
+                    _testNum = newLevel_num - _thisOffsetStep;
+                    newLevel_valid_str = String( _testNum ) as T_AnyColourLevel;
+                }
+
+                // returns
+                if ( _testNum > 900 ) {
+                    return 'black';
+                }
+
+                // returns
+                if ( _testNum < 100 ) {
+                    return 'white';
+                }
+
+                i++;
+            }
+
+            return newLevel_valid_str;
+        }
+
+        /**
          * Converts the given shade level to its oppposite (via
          * {@link ColourUtilities.Levels.converter}).
          * 

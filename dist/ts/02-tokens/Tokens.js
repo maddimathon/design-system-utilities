@@ -9,6 +9,7 @@
  */
 import { arrayUnique, slugify } from '@maddimathon/utility-typescript/functions';
 import { JsonToScss } from '@maddimathon/utility-sass';
+import { ColourUtilities } from '../01-utilities/ColourUtilities.js';
 import { objectGenerator } from '../01-utilities/objectGenerator.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 import { Tokens_Colour } from './Tokens_Colour.js';
@@ -34,8 +35,7 @@ export class Internal {
  * @since 0.1.0-alpha
  */
 export class Tokens extends AbstractTokens {
-    clrNames;
-    extraColourLevels;
+    colourOpts;
     input;
     config;
     get data() {
@@ -60,11 +60,17 @@ export class Tokens extends AbstractTokens {
      * Used instead of the constructor so that it can be async.
      */
     static async build(input, config = {}) {
-        const allClrNames = arrayUnique([
-            'base',
-            ...Object.keys(input.colour ?? {}).filter(name => name !== 'black' && name !== 'white'),
-        ]);
         const extraColourLevels = config.extraColourLevels ?? [];
+        const colourOpts = {
+            names: arrayUnique([
+                'base',
+                ...Object.keys(input.colour ?? {}).filter(name => name !== 'black' && name !== 'white'),
+            ]),
+            allLevels: new Set([
+                ...ColourUtilities.Levels.required,
+                ...extraColourLevels,
+            ]),
+        };
         const brightnessModes = input.themes?.brightness?.length
             ? input.themes.brightness
             : ['light', 'dark'];
@@ -76,20 +82,22 @@ export class Tokens extends AbstractTokens {
                 ?? []),
         ];
         return Promise.all([
-            Tokens_Colour.build(allClrNames, extraColourLevels, input.colour ?? {}),
-            Tokens_Themes.build(allClrNames, extraColourLevels, brightnessModes, contrastModes, input.themes?.input ?? []),
+            Tokens_Colour.build(colourOpts.names, extraColourLevels, input.colour ?? {}),
+            Tokens_Themes.build(brightnessModes, contrastModes, colourOpts, input.themes?.input ?? []),
         ]).then(async ([colour, themes]) => {
-            const tokens = new Tokens(allClrNames, extraColourLevels, { colour, themes }, input, {
+            const tokens = new Tokens(colourOpts, { colour, themes }, input, {
                 ...config,
                 extraColourLevels: undefined,
             });
             return tokens.colour.addContrastTests().then(() => tokens);
         });
     }
-    constructor(clrNames, extraColourLevels, { colour, themes }, input, config = {}) {
+    /**
+     *  * @since 0.1.1-alpha.1.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
+     */
+    constructor(colourOpts, { colour, themes }, input, config = {}) {
         super();
-        this.clrNames = clrNames;
-        this.extraColourLevels = extraColourLevels;
+        this.colourOpts = colourOpts;
         this.input = input;
         this.config = config;
         ;

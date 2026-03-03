@@ -43,16 +43,21 @@ export class Tokens_Themes_Set<
 
     /**
      * Used instead of the constructor so that it can be async.
+     * 
+     * @since ___PKG_VERSION___ — Changed second & third param to colours object (as fourth param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
     public static async build<
         T_ColourTypes extends TokenTypes.Colour.TypeParams,
         T_ThemeTypes extends TokenTypes.Theme.TypeParams,
     >(
         name: T_ThemeTypes[ 'name' ],
-        clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes[ 'names' ]>,
-        extraColourLevels: readonly T_ColourTypes[ 'extraLevels' ][],
         brightnessModes: T_ThemeTypes[ 'brightness' ],
         contrastModes: T_ThemeTypes[ 'contrast' ],
+
+        colours: {
+            names: TokenTypes.Colour.GenericNameArray<T_ColourTypes[ 'names' ]>;
+            allLevels: Set<ColourUtilities.Levels.Required | T_ColourTypes[ 'extraLevels' ]>;
+        },
 
         input: Tokens_Themes_Set.InputParam<T_ColourTypes, T_ThemeTypes>,
     ) {
@@ -77,7 +82,7 @@ export class Tokens_Themes_Set<
             name,
             null,
             'forcedColors',
-            clrNames,
+            colours,
             {
                 ...input.forcedColours ?? {},
                 variations: input.variations,
@@ -98,7 +103,7 @@ export class Tokens_Themes_Set<
                             name,
                             brightness,
                             contrast,
-                            clrNames,
+                            colours,
                             {
                                 ...input[ brightness ]?.[ contrast ] ?? {},
                                 variations: mergeArgs(
@@ -120,10 +125,9 @@ export class Tokens_Themes_Set<
             modes_resolved,
         ] ) => new Tokens_Themes_Set<T_ColourTypes, T_ThemeTypes>(
             name,
-            clrNames,
-            extraColourLevels,
             brightnessModes,
             contrastModes,
+            colours,
             forcedColours_resolved,
             modes_resolved,
         ) ) );
@@ -148,14 +152,19 @@ export class Tokens_Themes_Set<
         };
     }
 
-
+    /**
+     * @since ___PKG_VERSION___ — Changed second & third param to colours object (as fourth param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
+     */
     protected constructor (
         /** Name for this shade set. */
         protected readonly name: T_ThemeTypes[ 'name' ],
-        protected readonly clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes[ 'names' ]>,
-        protected readonly extraColourLevels: readonly T_ColourTypes[ 'extraLevels' ][],
         protected readonly brightnessModes: readonly TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>[],
         protected readonly contrastModes: readonly TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>[],
+
+        protected readonly colours: {
+            names: TokenTypes.Colour.GenericNameArray<T_ColourTypes[ 'names' ]>;
+            allLevels: Set<ColourUtilities.Levels.Required | T_ColourTypes[ 'extraLevels' ]>;
+        },
 
         protected readonly forcedColours: Tokens_Themes_Set.SingleMode<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>,
 
@@ -320,7 +329,11 @@ export namespace Tokens_Themes_Set {
             themeName: "default" | T_ThemeTypes[ 'name' ],
             brightness: null,
             constrast: "forcedColors",
-            clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes[ 'names' ]>,
+
+            colours: {
+                names: TokenTypes.Colour.GenericNameArray<T_ColourTypes[ 'names' ]>;
+                allLevels: Set<ColourUtilities.Levels.Required | T_ColourTypes[ 'extraLevels' ]>;
+            },
 
             input: SingleMode.InputParam<
                 NoInfer<T_ColourTypes>,
@@ -341,7 +354,11 @@ export namespace Tokens_Themes_Set {
             themeName: "default" | T_ThemeTypes[ 'name' ],
             brightness: TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>,
             constrast: TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>,
-            clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes[ 'names' ]>,
+
+            colours: {
+                names: TokenTypes.Colour.GenericNameArray<T_ColourTypes[ 'names' ]>;
+                allLevels: Set<ColourUtilities.Levels.Required | T_ColourTypes[ 'extraLevels' ]>;
+            },
 
             input: SingleMode.InputParam<
                 NoInfer<T_ColourTypes>,
@@ -357,6 +374,7 @@ export namespace Tokens_Themes_Set {
          * An easy way to generate a complete token set from limited inputs.
          * 
          * @since 0.1.0-alpha
+         * @since ___PKG_VERSION___ — Changed fourth param to colours object with both names and all levels set.
          */
         public static async build<
             T_ColourTypes extends TokenTypes.Colour.TypeParams,
@@ -365,7 +383,11 @@ export namespace Tokens_Themes_Set {
             themeName: "default" | T_ThemeTypes[ 'name' ],
             brightness: null | TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>,
             constrast: TokenTypes.Theme.GetContrastKeys<T_ThemeTypes> | "forcedColors",
-            clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes[ 'names' ]>,
+
+            colours: {
+                names: TokenTypes.Colour.GenericNameArray<T_ColourTypes[ 'names' ]>;
+                allLevels: Set<ColourUtilities.Levels.Required | T_ColourTypes[ 'extraLevels' ]>;
+            },
 
             input: SingleMode.InputParam<
                 NoInfer<T_ColourTypes>,
@@ -385,13 +407,23 @@ export namespace Tokens_Themes_Set {
                 input.levels,
             );
 
-            const variations = SingleMode.Build.completeVariations<T_ColourTypes, T_ThemeTypes>( clrNames, input.variations );
+            const variations = SingleMode.Build.completeVariations<T_ColourTypes, T_ThemeTypes>( colours.names, input.variations );
 
             const clrOpt = SingleMode.Build.colourOption;
 
             let description: null | string = input.description ?? null;
 
             let defaultOverrides: SingleMode.Data.Partial<T_ColourTypes, T_ThemeTypes> = {};
+
+            const levels_background_vals = Object.values( levels.background );
+
+            const level_background_max = levels_background_vals.includes( 'black' )
+                ? 'black'
+                : String(
+                    Math.max( ...levels_background_vals.map( Number ).filter(
+                        num => !Number.isNaN( num )
+                    ) )
+                ) as ColourUtilities.Levels.Required | T_ColourTypes[ 'extraLevels' ];
 
             // returns if forced colours
             switch ( constrast ) {
@@ -402,7 +434,14 @@ export namespace Tokens_Themes_Set {
                     if ( !inputOverrides.selection ) {
 
                         defaultOverrides.selection = {
-                            background: clrOpt( variations.universal.primary, '300' ),
+                            background: clrOpt(
+                                variations.interactive.hover,
+                                ColourUtilities.Levels.augmentor(
+                                    colours.allLevels,
+                                    level_background_max,
+                                    150,
+                                ),
+                            ),
                             text: clrOpt( variations.base, '800' ),
                         };
                     }
@@ -414,7 +453,14 @@ export namespace Tokens_Themes_Set {
                     if ( !inputOverrides.selection ) {
 
                         defaultOverrides.selection = {
-                            background: clrOpt( variations.universal.primary, '300' ),
+                            background: clrOpt(
+                                variations.interactive.hover,
+                                ColourUtilities.Levels.augmentor(
+                                    colours.allLevels,
+                                    level_background_max,
+                                    100,
+                                ),
+                            ),
                             text: clrOpt( variations.base, '800' ),
                         };
                     }
@@ -429,13 +475,11 @@ export namespace Tokens_Themes_Set {
                     break;
 
                 case 'forcedColors':
-                    const _input: SingleMode.Build.Param_ForcedColors<T_ColourTypes, T_ThemeTypes> = {
-                        ...input,
-                        variations: SingleMode.Build.completeVariations<T_ColourTypes, T_ThemeTypes>( clrNames, input.variations ),
-                    };
-
                     return SingleMode.Build.forcedColors<T_ColourTypes, T_ThemeTypes>(
-                        _input,
+                        {
+                            ...input,
+                            variations,
+                        },
                         inputOverrides as Tokens_Themes_Set.SingleMode.Data.Partial<
                             T_ColourTypes,
                             T_ThemeTypes,
@@ -1158,7 +1202,7 @@ export namespace Tokens_Themes_Set {
                         min: '600',
                     },
                     heading: {
-                        1: '600',
+                        1: '700',
                         2: '700',
                         3: '700',
                         4: '700',
@@ -1920,7 +1964,7 @@ export namespace Tokens_Themes_Set {
                     },
 
                     selection: overrides.selection ?? {
-                        background: clrOpt( variations.universal.primary, levels.text.accent ),
+                        background: clrOpt( variations.interactive.hover, levels.text.accent ),
                         text: clrOpt( variations.base, levels.background.$ ),
                     },
 

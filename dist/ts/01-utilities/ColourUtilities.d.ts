@@ -349,6 +349,12 @@ export declare namespace ColourUtilities {
          */
         type Required = typeof required[number];
         /**
+         * Augments a single level by the given amount, creating a new valid level.
+         *
+         * @since 0.1.1-alpha.1.draft
+         */
+        function augmentor<T_AnyColourLevel extends Levels.Required | Levels.Optional>(allColourLevels: Set<T_AnyColourLevel>, level: "black" | "white" | NoInfer<T_AnyColourLevel>, levelOffset: number, minimum?: number, maximum?: number): "black" | "white" | NoInfer<T_AnyColourLevel>;
+        /**
          * Converts the given shade level to its oppposite (via
          * {@link ColourUtilities.Levels.converter}).
          *
