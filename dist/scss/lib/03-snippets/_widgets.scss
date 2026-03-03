@@ -106,8 +106,9 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
 
     @if $includeFlowMargins {
         @include set-flow-margins(
-            style-value(widget-margin-flow-paragraph),
-            style-value(widget-margin-flow-small),
+            $defaultLevel: style-value(widget-margin-flow),
+            $largeLevel: style-value(widget-margin-flow-large),
+            $smallLevel: style-value(widget-margin-flow-small),
             $buttonGapBlock: var-mrg-firm(
                     style-value(widget-button-span-gap, $rawValue: true)
                 ),

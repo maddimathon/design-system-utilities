@@ -76,6 +76,34 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
             readonly disabled: Tokens_CSS_Style.InputStyles_Variation;
             readonly readonly: Tokens_CSS_Style.InputStyles_Variation;
         };
+        margin: {
+            /**
+             * Default values for the set-flow-margins mixin.
+             */
+            flow: {
+                $: AnyTokenLevel;
+                large: AnyTokenLevel;
+                small: AnyTokenLevel;
+            };
+        } | ({
+            /**
+             * Default values for the set-flow-margins mixin.
+             */
+            flow: {
+                $: AnyTokenLevel;
+                large: AnyTokenLevel;
+                small: AnyTokenLevel;
+            };
+        } & RecursivePartial<{
+            /**
+             * Default values for the set-flow-margins mixin.
+             */
+            flow: {
+                $: AnyTokenLevel;
+                large: AnyTokenLevel;
+                small: AnyTokenLevel;
+            };
+        }>);
         selection: {
             background: {
                 opacity: {
@@ -87,7 +115,47 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
         };
         widget: Tokens_CSS_Style.WidgetStyles;
     };
-    static get default(): Tokens_CSS_Style.Data;
+    static get default(): {
+        alert: Tokens_CSS_Style.AlertStyles;
+        button: {
+            $: Tokens_CSS_Style.ButtonStyles;
+            disabled: Tokens_CSS_Style.ButtonStyles_Disabled;
+        };
+        heading: {
+            2: Tokens_CSS_Style.HeadingStyles;
+            1: Tokens_CSS_Style.HeadingStyles;
+            3: Tokens_CSS_Style.HeadingStyles;
+            4: Tokens_CSS_Style.HeadingStyles;
+            7: Tokens_CSS_Style.HeadingStyles;
+            10: Tokens_CSS_Style.HeadingStyles;
+            5: Tokens_CSS_Style.HeadingStyles;
+            6: Tokens_CSS_Style.HeadingStyles;
+            8: Tokens_CSS_Style.HeadingStyles;
+            9: Tokens_CSS_Style.HeadingStyles;
+        };
+        input: {
+            readonly $: Tokens_CSS_Style.InputStyles;
+            readonly disabled: Tokens_CSS_Style.InputStyles_Variation;
+            readonly readonly: Tokens_CSS_Style.InputStyles_Variation;
+        };
+        margin: {
+            flow: {
+                $: "400";
+                large: "600";
+                small: "300";
+            };
+        };
+        selection: {
+            background: {
+                opacity: {
+                    low: string;
+                    average: string;
+                    high: string;
+                };
+            };
+        };
+        widget: Tokens_CSS_Style.WidgetStyles;
+    };
     readonly data: Tokens_CSS_Style.Data;
     constructor(input: Tokens_CSS_Style.InputParam);
     toJSON(): Tokens_CSS_Style.JsonReturn;
@@ -154,7 +222,8 @@ export declare namespace Tokens_CSS_Style {
              * Values for the set-flow-margins mixin.
              */
             flow: {
-                paragraph: AnyTokenLevel;
+                $: AnyTokenLevel;
+                large: AnyTokenLevel;
                 small: AnyTokenLevel;
             };
         };
@@ -308,7 +377,8 @@ export declare namespace Tokens_CSS_Style {
              * Values for the set-flow-margins mixin.
              */
             flow: {
-                paragraph: AnyTokenLevel;
+                $: AnyTokenLevel;
+                large: AnyTokenLevel;
                 small: AnyTokenLevel;
             };
         };
@@ -341,6 +411,19 @@ export declare namespace Tokens_CSS_Style {
             $: InputStyles;
             disabled: InputStyles_Variation;
             readonly: InputStyles_Variation;
+        };
+        /**
+         * @since 0.1.1-alpha.1.draft
+         */
+        margin: {
+            /**
+             * Default values for the set-flow-margins mixin.
+             */
+            flow: {
+                $: AnyTokenLevel;
+                large: AnyTokenLevel;
+                small: AnyTokenLevel;
+            };
         };
         /**
          * @since 0.1.1-alpha.1.draft — Restructured object nesting.
@@ -379,6 +462,10 @@ export declare namespace Tokens_CSS_Style {
             disabled?: RecursivePartial<InputStyles_Variation>;
             readonly?: RecursivePartial<InputStyles_Variation>;
         };
+        /**
+         * @since 0.1.1-alpha.1.draft
+         */
+        margin?: RecursivePartial<Data['margin']>;
         /**
          * @since 0.1.1-alpha.1.draft — Restructured object nesting.
          */

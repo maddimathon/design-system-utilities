@@ -76,7 +76,8 @@ export class Tokens_CSS_Style extends AbstractTokens<{
 
             margin: {
                 flow: {
-                    paragraph: '300',
+                    $: '300',
+                    large: '500',
                     small: '200',
                 },
             },
@@ -339,8 +340,9 @@ export class Tokens_CSS_Style extends AbstractTokens<{
 
         const margin = mergeArgs( {
             flow: {
-                paragraph: '300' as AnyTokenLevel,
-                small: '200' as AnyTokenLevel,
+                $: '300' satisfies AnyTokenLevel as AnyTokenLevel,
+                large: '500' satisfies AnyTokenLevel as AnyTokenLevel,
+                small: '200' satisfies AnyTokenLevel as AnyTokenLevel,
             },
         }, partial?.margin ?? {}, true );
 
@@ -372,6 +374,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
      * @since ___PKG_VERSION___
      */
     protected static mergeData( partial: Tokens_CSS_Style.InputParam ) {
+        const defaults = this.default;
 
         return {
             alert: Tokens_CSS_Style.alertStyle( partial.alert ),
@@ -384,17 +387,22 @@ export class Tokens_CSS_Style extends AbstractTokens<{
 
             input: Tokens_CSS_Style.inputStyle( partial.input ),
 
+            margin: mergeArgs(
+                defaults.margin as Tokens_CSS_Style.Data[ 'margin' ],
+                partial.margin,
+                true,
+            ),
+
             selection: {
+                ...defaults.selection,
                 ...partial.selection,
 
                 background: {
+                    ...defaults.selection.background,
                     ...partial.selection?.background,
 
                     opacity: {
-                        low: '65%',
-                        average: '75%',
-                        high: '95%',
-
+                        ...defaults.selection.background.opacity,
                         ...partial.selection?.background?.opacity,
                     },
                 },
@@ -404,7 +412,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
         };
     }
 
-    public static get default(): Tokens_CSS_Style.Data {
+    public static get default() {
 
         return {
 
@@ -419,6 +427,14 @@ export class Tokens_CSS_Style extends AbstractTokens<{
 
             input: Tokens_CSS_Style.inputStyle(),
 
+            margin: {
+                flow: {
+                    $: '400',
+                    large: '600',
+                    small: '300',
+                },
+            },
+
             selection: {
                 background: {
                     opacity: {
@@ -430,7 +446,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
             },
 
             widget: Tokens_CSS_Style.widgetStyle(),
-        };
+        } satisfies Tokens_CSS_Style.Data;
     }
 
     public readonly data: Tokens_CSS_Style.Data;
@@ -524,7 +540,8 @@ export namespace Tokens_CSS_Style {
              * Values for the set-flow-margins mixin.
              */
             flow: {
-                paragraph: AnyTokenLevel;
+                $: AnyTokenLevel;
+                large: AnyTokenLevel;
                 small: AnyTokenLevel;
             };
         };
@@ -722,7 +739,8 @@ export namespace Tokens_CSS_Style {
              * Values for the set-flow-margins mixin.
              */
             flow: {
-                paragraph: AnyTokenLevel;
+                $: AnyTokenLevel;
+                large: AnyTokenLevel;
                 small: AnyTokenLevel;
             };
         };
@@ -761,6 +779,20 @@ export namespace Tokens_CSS_Style {
             $: InputStyles;
             disabled: InputStyles_Variation;
             readonly: InputStyles_Variation;
+        };
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        margin: {
+            /**
+             * Default values for the set-flow-margins mixin.
+             */
+            flow: {
+                $: AnyTokenLevel;
+                large: AnyTokenLevel;
+                small: AnyTokenLevel;
+            };
         };
 
         /**
@@ -809,6 +841,11 @@ export namespace Tokens_CSS_Style {
             disabled?: RecursivePartial<InputStyles_Variation>;
             readonly?: RecursivePartial<InputStyles_Variation>;
         };
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        margin?: RecursivePartial<Data[ 'margin' ]>;
 
         /**
          * @since ___PKG_VERSION___ — Restructured object nesting.

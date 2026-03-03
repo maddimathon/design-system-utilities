@@ -20,6 +20,66 @@ import { absoluteInternalURL } from '@maddimathon/utility-astro/astro/functions'
 
 /* import - layouts */
 import UtilPage from '@maddimathon/utility-astro/layouts/Page';
+import type { GenericProps } from '@maddimathon/utility-astro';
+
+/* TYPES ===================================== */
+
+type Copyright_HTML = {
+    /**
+     * Escaped HTML to include after the copyright symbol.
+     *
+     * True adds default credit with link to maddimathon.com.
+     */
+    html: string | true;
+
+    owner?: undefined;
+
+    /**
+     * If undefined, this defaults to the current year. If it is greater
+     * than the current year, this is displayed as a range.
+     *
+     * *Text to be escaped, NOT html.*
+     */
+    year?: number;
+};
+
+type Copyright_PlainOwner = {
+    html?: undefined;
+
+    /**
+     * Text to follow the copyright symbol and date.
+     *
+     * *Text to be escaped, NOT html.*
+     */
+    owner: string;
+
+    /**
+     * If undefined, this defaults to the current year. If it is greater
+     * than the current year, this is displayed as a range.
+     *
+     * *Text to be escaped, NOT html.*
+     */
+    year?: number;
+};
+
+type Copyright_PlainYear = {
+    html?: undefined;
+
+    /**
+     * Text to follow the copyright symbol and date.
+     *
+     * *Text to be escaped, NOT html.*
+     */
+    owner?: string | undefined;
+
+    /**
+     * If undefined, this defaults to the current year. If it is greater
+     * than the current year, this is displayed as a range.
+     *
+     * *Text to be escaped, NOT html.*
+     */
+    year: number;
+};
 
 /* PROPS ===================================== */
 
@@ -28,22 +88,26 @@ type UtilPage_Props = Omit<ComponentProps<typeof UtilPage>, 'frontmatter'>;
 type Partial_LibProps = Partial<Omit<UtilPage_Props, 'footer' | 'settings'>> &
     Pick<UtilPage_Props, 'meta' | 'title'>;
 
-export interface Props extends Partial_LibProps {
+export interface PageProps extends Partial_LibProps {
     tokens: Tokens.JsonReturn;
 
     footer?: {
-        copyright?: Required<Required<UtilPage_Props>['footer']>['copyright'];
+        // prettier-ignore
+        copyright?: false | Copyright_HTML | Copyright_PlainOwner | Copyright_PlainYear;
         designedBy?: boolean | string;
     };
 
     stylesheetURLs?: string[];
     stylesheetVersion?: string;
+
     urlMaker?: (currentURL: URL, targetSubpath: string) => string;
 }
 
-const urlMaker = Astro.props?.urlMaker ?? absoluteInternalURL;
+export interface Props extends GenericProps<PageProps> {}
 
-const inputs: Props = Astro.props;
+const inputs: Props = Astro.props?.['frontmatter'] ?? Astro.props;
+
+const urlMaker = inputs?.urlMaker ?? absoluteInternalURL;
 
 const _settings: UtilPage_Props['settings'] = {
     settings: {
@@ -55,27 +119,55 @@ const _settings: UtilPage_Props['settings'] = {
     },
 };
 
+function parseFooterInput(_input?: Required<PageProps>['footer']['copyright']) {
+    const _useDefaultFooter =
+        _input !== false &&
+        (typeof _input === 'undefined' || _input?.html === true);
+
+    type InputFooterType_IfUseDefaultFooter = Exclude<
+        Required<PageProps>['footer']['copyright'],
+        false | Copyright_PlainOwner | Copyright_PlainYear
+    >;
+
+    // prettier-ignore
+    type InputFooterType_NotUseDefaultFooter = Extract<
+        Required<PageProps>['footer']['copyright'],
+        false | Copyright_PlainOwner | Copyright_PlainYear
+    > | (Omit<Copyright_HTML, 'html'> & { html: string });
+
+    // returns
+    if (_useDefaultFooter) {
+        const inputFooter = _input as InputFooterType_IfUseDefaultFooter;
+
+        return {
+            html:
+                typeof inputFooter?.html !== 'string'
+                    ? '<a href="https://www.maddimathon.com" target="_blank">Maddi Mathon</a>'
+                    : inputFooter?.html,
+
+            year: inputFooter?.year ?? new Date().getFullYear(),
+        };
+    }
+
+    return _input as InputFooterType_NotUseDefaultFooter satisfies NonNullable<
+        UtilPage_Props['footer']
+    >['copyright'];
+}
+
 const props = {
     dir: 'ltr',
     lang: 'en',
 
+    convertHrefStringsToAbsolute: false,
+
     ...inputs,
 
     footer: {
-        copyright: inputs.footer?.copyright ?? {
-            html:
-                'by <a href="https://www.maddimathon.com" target="_blank">Maddi Mathon</a>' +
-                ' | ' +
-                '<a href="' +
-                urlMaker(Astro.url, 'license') +
-                '">MIT license</a>',
-            // owner: 'Maddi Mathon',
-            year: new Date().getFullYear(),
-        },
+        copyright: parseFooterInput(inputs.footer?.copyright),
 
         designedBy:
             inputs.footer?.designedBy === true
-                ? `<span class="designer">Initial design and development by <a
+                ? `<span class="designer">Custom design and development by <a
                         href="https://www.maddimathon.com/web"
                         target="_blank"
                     >Maddi Mathon</a>.</span>`
@@ -157,12 +249,15 @@ if (familyOverrideValues.length) {
         ...(props.settings.settings.custom ?? []),
     ];
 }
+
+/* Slots ------------------ */
+
+const footerTextHTML = await Astro.slots.render('footer-text');
 ---
 
 <UtilPage
     {...props as UtilPage_Props}
     layout={props.layout || 'content-only'}
-    convertHrefStringsToAbsolute={false}
 >
     <slot
         slot='head-open'
@@ -292,6 +387,16 @@ if (familyOverrideValues.length) {
         slot='footer'
         name='footer'
     />
+
+    {
+        footerTextHTML && (
+            <div
+                class='site-footer__text'
+                set:html={footerTextHTML}
+                slot='footer'
+            />
+        )
+    }
 
     <slot
         slot='after-footer'

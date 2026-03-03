@@ -39,6 +39,10 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
     $additional: list.join($additional, (img, figure, svg));
 
     $additional: list.append($additional, ((cite, dt, p), 'paragraph-margins'));
+    $additional: list.append(
+        $additional,
+        ((blockquote), 'paragraph-large-margins')
+    );
     $additional: list.append($additional, ((li), 'paragraph-small-margins'));
     $additional: list.append(
         $additional,
@@ -149,6 +153,18 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
     );
     $additional: list.append(
         $additional,
+        ('.margins-flow-paragraph', paragraph-margins)
+    );
+    $additional: list.append(
+        $additional,
+        ('.margins-flow-paragraph-firm', paragraph-firm-margins)
+    );
+    $additional: list.append(
+        $additional,
+        ('.margins-flow-paragraph-small', paragraph-small-margins)
+    );
+    $additional: list.append(
+        $additional,
         ('.text-align-center', 'text-align-center')
     );
     $additional: list.append(
@@ -198,6 +214,7 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
     );
 
     // $additional: list.append($additional, ((), 'paragraph-margins'));
+    // $additional: list.append($additional, ((), 'paragraph-large-margins'));
     // $additional: list.append($additional, ((), 'paragraph-small-margins'));
     $additional: list.append(
         $additional,

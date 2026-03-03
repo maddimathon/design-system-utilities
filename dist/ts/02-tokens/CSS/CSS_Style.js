@@ -52,7 +52,8 @@ export class Tokens_CSS_Style extends AbstractTokens {
             },
             margin: {
                 flow: {
-                    paragraph: '300',
+                    $: '300',
+                    large: '500',
                     small: '200',
                 },
             },
@@ -256,7 +257,8 @@ export class Tokens_CSS_Style extends AbstractTokens {
     static widgetStyle(partial) {
         const margin = mergeArgs({
             flow: {
-                paragraph: '300',
+                $: '300',
+                large: '500',
                 small: '200',
             },
         }, partial?.margin ?? {}, true);
@@ -282,19 +284,21 @@ export class Tokens_CSS_Style extends AbstractTokens {
      * @since 0.1.1-alpha.1.draft
      */
     static mergeData(partial) {
+        const defaults = this.default;
         return {
             alert: Tokens_CSS_Style.alertStyle(partial.alert),
             button: Tokens_CSS_Style.buttonStyle(partial.button),
             heading: objectGenerator([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], (hdg) => Tokens_CSS_Style.headingStyle(hdg, partial.heading?.[hdg])),
             input: Tokens_CSS_Style.inputStyle(partial.input),
+            margin: mergeArgs(defaults.margin, partial.margin, true),
             selection: {
+                ...defaults.selection,
                 ...partial.selection,
                 background: {
+                    ...defaults.selection.background,
                     ...partial.selection?.background,
                     opacity: {
-                        low: '65%',
-                        average: '75%',
-                        high: '95%',
+                        ...defaults.selection.background.opacity,
                         ...partial.selection?.background?.opacity,
                     },
                 },
@@ -308,6 +312,13 @@ export class Tokens_CSS_Style extends AbstractTokens {
             button: Tokens_CSS_Style.buttonStyle(),
             heading: objectGenerator([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], (hdg) => Tokens_CSS_Style.headingStyle(hdg)),
             input: Tokens_CSS_Style.inputStyle(),
+            margin: {
+                flow: {
+                    $: '400',
+                    large: '600',
+                    small: '300',
+                },
+            },
             selection: {
                 background: {
                     opacity: {

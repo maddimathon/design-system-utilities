@@ -61,7 +61,6 @@ export declare namespace Tokens_Typography {
                 1: T_SizeValue;
                 2: T_SizeValue;
                 3: T_SizeValue;
-                4: T_SizeValue;
                 [key: number]: T_SizeValue;
             };
             normal: T_SizeValue;

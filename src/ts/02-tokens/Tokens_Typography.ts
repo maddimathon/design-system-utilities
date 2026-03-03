@@ -68,11 +68,11 @@ export class Tokens_Typography<
                 normal: 0,
 
                 smaller: {
-                    1: -0.75,
+                    1: -1.0,
                     2: -1.5,
                     3: -2.0,
-                    4: -2.5,
-                    // 5: -3.0,
+                    // 4: -2.375,
+                    // 5: -2.625,
                 },
 
                 bigger: {
@@ -344,7 +344,6 @@ export namespace Tokens_Typography {
                 1: T_SizeValue;
                 2: T_SizeValue;
                 3: T_SizeValue;
-                4: T_SizeValue;
                 [ key: number ]: T_SizeValue;
             };
 

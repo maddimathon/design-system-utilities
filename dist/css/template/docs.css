@@ -4,7 +4,7 @@
  */
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0-alpha.40
+ * @maddimathon/utility-sass@0.1.0-alpha.41
  * 
  * https://maddimathon.github.io/utility-sass
  */
@@ -334,7 +334,6 @@ html {
     --fs-heading-9: clamp(0.625rem, 1.125svw + 1rem, 1rem);
     --fs-heading-10: 0.8125rem;
     --fs-heading-10: clamp(0.625rem, 1.0625svw + 1rem, 0.875rem);
-    --fs-smaller-4: 0.75rem;
     --fs-smaller-3: 0.8125rem;
     --fs-smaller-2: 0.875rem;
     --fs-smaller-1: 0.9375rem;
@@ -393,11 +392,11 @@ html {
 /* #region Tokens - Width */
 html {
     --width-content: 36rem;
-    --width-sidebar: 16rem;
+    --width-sidebar: 18rem;
     --width-callout: 29.25rem;
-    --width-page: 58rem;
+    --width-page: 60rem;
     --width-page: calc(
-        var(--width-content, 36rem) + var(--width-sidebar, 16rem) +
+        var(--width-content, 36rem) + var(--width-sidebar, 18rem) +
             var(--gap-inline-layout, 8vw)
     );
 }
@@ -8595,8 +8594,8 @@ body {
     margin-right: var(--gap-inline-layout, 8vw);
 }
 :where(body > *) {
-    width: min(calc(36rem + 16rem + max(1.25rem, min(8svw, 7.125rem))), 100%);
-    width: min(var(--width-page, 58rem), 100%);
+    width: min(calc(36rem + 18rem + max(1.25rem, min(8svw, 7.125rem))), 100%);
+    width: min(var(--width-page, 60rem), 100%);
 }
 
 hr {
@@ -9505,8 +9504,8 @@ table {
     );
     background: hsl(278.16, 60.54%, 30.06%);
     background: var(--sys-clr-accent-bg, CanvasText);
-    width: min(calc(36rem + 16rem + max(1.25rem, min(8svw, 7.125rem))), 100%);
-    width: min(var(--width-page, 58rem), 100%);
+    width: min(calc(36rem + 18rem + max(1.25rem, min(8svw, 7.125rem))), 100%);
+    width: min(var(--width-page, 60rem), 100%);
 }
 
 table {
@@ -9609,11 +9608,6 @@ th {
 .font-size-heading-10 {
     font-size: clamp(0.625rem, 1.0625svw + 1rem, 0.875rem);
     font-size: var(--fs-heading-10, 0.8125rem);
-}
-
-.font-size-smaller-4 {
-    font-size: 0.75rem;
-    font-size: var(--fs-smaller-4, 0.75rem);
 }
 
 .font-size-smaller-3 {
@@ -9741,18 +9735,18 @@ body > .body-subgrid {
     width: auto;
 }
 
-@media (min-width: 54em) {
+@media (min-width: 55.5em) {
     body {
         /* prettier-ignore */
-        --grid-template-columns--page: 0 [page-start] minmax(auto, calc(var(--width-sidebar, 16rem) / 2)) var(--gap-inline-layout-half, 4vw) [sidebar-start] 0 [content-start] minmax(auto, var(--width-content, 36rem)) [content-end] 0 [sidebar-end] var(--gap-inline-layout-half, 4vw) minmax(auto, calc(var(--width-sidebar, 16rem) / 2)) [page-end] 0;
+        --grid-template-columns--page: 0 [page-start] minmax(auto, calc(var(--width-sidebar, 18rem) / 2)) var(--gap-inline-layout-half, 4vw) [sidebar-start] 0 [content-start] minmax(auto, var(--width-content, 36rem)) [content-end] 0 [sidebar-end] var(--gap-inline-layout-half, 4vw) minmax(auto, calc(var(--width-sidebar, 18rem) / 2)) [page-end] 0;
         /* prettier-ignore */
-        grid-template-columns: max(0.625rem, min(4svw, 3.5625rem)) [site-start] 1fr 0 [page-start] minmax(auto, calc(16rem / 2)) max(0.625rem, min(4svw, 3.5625rem)) [sidebar-start] 0 [content-start] minmax(auto, 36rem) [content-end] 0 [sidebar-end] max(0.625rem, min(4svw, 3.5625rem)) minmax(auto, calc(16rem / 2)) [page-end] 0 1fr [site-end] max(0.625rem, min(4svw, 3.5625rem));
+        grid-template-columns: max(0.625rem, min(4svw, 3.5625rem)) [site-start] 1fr 0 [page-start] minmax(auto, calc(18rem / 2)) max(0.625rem, min(4svw, 3.5625rem)) [sidebar-start] 0 [content-start] minmax(auto, 36rem) [content-end] 0 [sidebar-end] max(0.625rem, min(4svw, 3.5625rem)) minmax(auto, calc(18rem / 2)) [page-end] 0 1fr [site-end] max(0.625rem, min(4svw, 3.5625rem));
         grid-template-columns: var(
                 --gap-inline-layout-half,
                 4vw
             ) [site-start] 1fr 0 [page-start] minmax(
                 auto,
-                calc(var(--width-sidebar, 16rem) / 2)
+                calc(var(--width-sidebar, 18rem) / 2)
             ) var(
                 --gap-inline-layout-half,
                 4vw
@@ -9764,7 +9758,7 @@ body > .body-subgrid {
                 4vw
             ) minmax(
                 auto,
-                calc(var(--width-sidebar, 16rem) / 2)
+                calc(var(--width-sidebar, 18rem) / 2)
             ) [page-end] 0 1fr [site-end] var(--gap-inline-layout-half, 4vw);
     }
 }
@@ -9850,7 +9844,7 @@ body aside > :first-child {
     width: auto;
 }
 
-@media (min-width: 54em) {
+@media (min-width: 55.5em) {
     .layout_sidebar-left > main,
     .layout_sidebar-right > main {
         /* prettier-ignore */
@@ -9872,18 +9866,18 @@ body aside > :first-child {
     }
 }
 
-@media (min-width: 54em) {
+@media (min-width: 55.5em) {
     .layout_sidebar-left {
         /* prettier-ignore */
-        --grid-template-columns--page: 0 [page-start] 0 [sidebar-start] minmax(auto, var(--width-sidebar, 16rem)) [sidebar-end] var(--gap-inline-layout, 8vw) [content-start] minmax(auto, var(--width-content, 36rem)) [content-end] 0 [page-end] 0;
+        --grid-template-columns--page: 0 [page-start] 0 [sidebar-start] minmax(auto, var(--width-sidebar, 18rem)) [sidebar-end] var(--gap-inline-layout, 8vw) [content-start] minmax(auto, var(--width-content, 36rem)) [content-end] 0 [page-end] 0;
         /* prettier-ignore */
-        grid-template-columns: max(0.625rem, min(4svw, 3.5625rem)) [site-start] 1fr 0 [page-start] 0 [sidebar-start] minmax(auto, 16rem) [sidebar-end] max(1.25rem, min(8svw, 7.125rem)) [content-start] minmax(auto, 36rem) [content-end] 0 [page-end] 0 1fr [site-end] max(0.625rem, min(4svw, 3.5625rem));
+        grid-template-columns: max(0.625rem, min(4svw, 3.5625rem)) [site-start] 1fr 0 [page-start] 0 [sidebar-start] minmax(auto, 18rem) [sidebar-end] max(1.25rem, min(8svw, 7.125rem)) [content-start] minmax(auto, 36rem) [content-end] 0 [page-end] 0 1fr [site-end] max(0.625rem, min(4svw, 3.5625rem));
         grid-template-columns: var(
                 --gap-inline-layout-half,
                 4vw
             ) [site-start] 1fr 0 [page-start] 0 [sidebar-start] minmax(
                 auto,
-                var(--width-sidebar, 16rem)
+                var(--width-sidebar, 18rem)
             ) [sidebar-end] var(
                 --gap-inline-layout,
                 8vw
@@ -9897,12 +9891,12 @@ body aside > :first-child {
     }
 }
 
-@media (min-width: 54em) {
+@media (min-width: 55.5em) {
     .layout_sidebar-right {
         /* prettier-ignore */
-        --grid-template-columns--page: 0 [page-start] 0 [content-start] minmax(auto, var(--width-content, 36rem)) [content-end] var(--gap-inline-layout, 8vw) [sidebar-start] minmax(auto, var(--width-sidebar, 16rem)) [sidebar-end] 0 [page-end] 0;
+        --grid-template-columns--page: 0 [page-start] 0 [content-start] minmax(auto, var(--width-content, 36rem)) [content-end] var(--gap-inline-layout, 8vw) [sidebar-start] minmax(auto, var(--width-sidebar, 18rem)) [sidebar-end] 0 [page-end] 0;
         /* prettier-ignore */
-        grid-template-columns: max(0.625rem, min(4svw, 3.5625rem)) [site-start] 1fr 0 [page-start] 0 [content-start] minmax(auto, 36rem) [content-end] max(1.25rem, min(8svw, 7.125rem)) [sidebar-start] minmax(auto, 16rem) [sidebar-end] 0 [page-end] 0 1fr [site-end] max(0.625rem, min(4svw, 3.5625rem));
+        grid-template-columns: max(0.625rem, min(4svw, 3.5625rem)) [site-start] 1fr 0 [page-start] 0 [content-start] minmax(auto, 36rem) [content-end] max(1.25rem, min(8svw, 7.125rem)) [sidebar-start] minmax(auto, 18rem) [sidebar-end] 0 [page-end] 0 1fr [site-end] max(0.625rem, min(4svw, 3.5625rem));
         grid-template-columns: var(
                 --gap-inline-layout-half,
                 4vw
@@ -9914,7 +9908,7 @@ body aside > :first-child {
                 8vw
             ) [sidebar-start] minmax(
                 auto,
-                var(--width-sidebar, 16rem)
+                var(--width-sidebar, 18rem)
             ) [sidebar-end] 0 [page-end] 0 1fr [site-end] var(
                 --gap-inline-layout-half,
                 4vw
@@ -10625,13 +10619,21 @@ abbr[title] {
 /* ## Typography - Block ==================================== */
 cite,
 dt,
-p {
+p,
+.margins-flow-paragraph {
     margin-top: 0.8125rem;
     margin-top: var(--mrg-soft-400, 0.8125rem);
     margin-bottom: 0;
 }
 
-li {
+blockquote {
+    margin-top: 1.625rem;
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: 0;
+}
+
+li,
+.margins-flow-paragraph-small {
     margin-top: 0.5rem;
     margin-top: var(--mrg-soft-300, 0.5rem);
     margin-bottom: 0;
@@ -10643,6 +10645,7 @@ input[type="button"],
 details,
 figure,
 img,
+.margins-flow-paragraph-firm,
 .button-span,
 a.button[href],
 a.button-secondary[href],
@@ -10677,12 +10680,19 @@ blockquote {
 }
 blockquote cite,
 blockquote dt,
-blockquote p {
+blockquote p,
+blockquote .margins-flow-paragraph {
     margin-top: 0.5rem;
     margin-top: var(--mrg-soft-300, 0.5rem);
     margin-bottom: 0;
 }
-blockquote li {
+blockquote blockquote {
+    margin-top: 1.1875rem;
+    margin-top: var(--mrg-soft-500, 1.1875rem);
+    margin-bottom: 0;
+}
+blockquote li,
+blockquote .margins-flow-paragraph-small {
     margin-top: 0.3125rem;
     margin-top: var(--mrg-soft-200, 0.3125rem);
     margin-bottom: 0;
@@ -10693,6 +10703,7 @@ blockquote input[type="button"],
 blockquote details,
 blockquote figure,
 blockquote img,
+blockquote .margins-flow-paragraph-firm,
 blockquote .button-span,
 blockquote a.button[href],
 blockquote a.button-secondary[href],
@@ -13586,7 +13597,7 @@ input[disabled]:active::file-selector-button {
 .min-width-page {
     display: none !important;
 }
-@media (min-width: 58em) {
+@media (min-width: 60em) {
     .min-width-page {
         display: block !important;
         display: var(--display, block) !important;
@@ -13596,7 +13607,7 @@ input[disabled]:active::file-selector-button {
 .max-width-page {
     display: none !important;
 }
-@media (max-width: 57.99em) {
+@media (max-width: 59.99em) {
     .max-width-page {
         display: block !important;
         display: var(--display, block) !important;
@@ -13606,7 +13617,7 @@ input[disabled]:active::file-selector-button {
 .min-width-sidebar {
     display: none !important;
 }
-@media (min-width: 54em) {
+@media (min-width: 55.5em) {
     .min-width-sidebar {
         display: block !important;
         display: var(--display, block) !important;
@@ -13616,7 +13627,7 @@ input[disabled]:active::file-selector-button {
 .max-width-sidebar {
     display: none !important;
 }
-@media (max-width: 53.99em) {
+@media (max-width: 55.49em) {
     .max-width-sidebar {
         display: block !important;
         display: var(--display, block) !important;
@@ -14459,12 +14470,19 @@ input[disabled]:active::file-selector-button {
 }
 .alert-block cite,
 .alert-block dt,
-.alert-block p {
+.alert-block p,
+.alert-block .margins-flow-paragraph {
     margin-top: 0.5rem;
     margin-top: var(--mrg-soft-300, 0.5rem);
     margin-bottom: 0;
 }
-.alert-block li {
+.alert-block blockquote {
+    margin-top: 1.1875rem;
+    margin-top: var(--mrg-soft-500, 1.1875rem);
+    margin-bottom: 0;
+}
+.alert-block li,
+.alert-block .margins-flow-paragraph-small {
     margin-top: 0.3125rem;
     margin-top: var(--mrg-soft-200, 0.3125rem);
     margin-bottom: 0;
@@ -14475,6 +14493,7 @@ input[disabled]:active::file-selector-button {
 .alert-block details,
 .alert-block figure,
 .alert-block img,
+.alert-block .margins-flow-paragraph-firm,
 .alert-block .button-span,
 .alert-block a.button[href],
 .alert-block a.button-secondary[href],
@@ -14578,12 +14597,19 @@ input[disabled]:active::file-selector-button {
 }
 .widget-block cite,
 .widget-block dt,
-.widget-block p {
+.widget-block p,
+.widget-block .margins-flow-paragraph {
     margin-top: 0.5rem;
     margin-top: var(--mrg-soft-300, 0.5rem);
     margin-bottom: 0;
 }
-.widget-block li {
+.widget-block blockquote {
+    margin-top: 1.1875rem;
+    margin-top: var(--mrg-soft-500, 1.1875rem);
+    margin-bottom: 0;
+}
+.widget-block li,
+.widget-block .margins-flow-paragraph-small {
     margin-top: 0.3125rem;
     margin-top: var(--mrg-soft-200, 0.3125rem);
     margin-bottom: 0;
@@ -14594,6 +14620,7 @@ input[disabled]:active::file-selector-button {
 .widget-block details,
 .widget-block figure,
 .widget-block img,
+.widget-block .margins-flow-paragraph-firm,
 .widget-block .button-span,
 .widget-block a.button[href],
 .widget-block a.button-secondary[href],
@@ -15785,10 +15812,10 @@ body > nav[data-toggle-container] {
     justify-content: center;
     justify-items: stretch;
     /* prettier-ignore */
-    grid-template-columns: 1fr [site-start] 0 [page-start] 0 [content-start] 0 [sidebar-start] 0 minmax(auto, calc(36rem + 16rem + max(1.25rem, min(8svw, 7.125rem)))) 0 [sidebar-end] 0 [content-end] 0 [page-end] 0 [site-end] 1fr;
+    grid-template-columns: 1fr [site-start] 0 [page-start] 0 [content-start] 0 [sidebar-start] 0 minmax(auto, calc(36rem + 18rem + max(1.25rem, min(8svw, 7.125rem)))) 0 [sidebar-end] 0 [content-end] 0 [page-end] 0 [site-end] 1fr;
     grid-template-columns: 1fr [site-start] 0 [page-start] 0 [content-start] 0 [sidebar-start] 0 minmax(
             auto,
-            var(--width-page, 58rem)
+            var(--width-page, 60rem)
         ) 0 [sidebar-end] 0 [content-end] 0 [page-end] 0 [site-end] 1fr;
     margin-bottom: 0.0625rem;
     margin-bottom: var(--border-width-100, 0.0625rem);

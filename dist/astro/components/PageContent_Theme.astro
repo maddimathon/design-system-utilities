@@ -233,7 +233,12 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
                                                         <Fragment slot='subtitle'>This is the <samp set:text={toTitleCase(themeName)} /> theme</Fragment>
                                                         <LoremIpsum
                                                             displayHeading={4}
-                                                            displaySettings={{ buttons: false, buttonVariationsAll: false }}
+                                                            displaySettings={ { 
+                                                                buttons: false,
+                                                                buttonTypes: false,
+                                                                buttonVariationsAll: false,
+                                                                disabledButton: false,
+                                                            } }
                                                             heading={6}
                                                             mode={ import.meta.env.DEV ? 'fancy' : 'library' }
                                                             superAbbreviated={true}

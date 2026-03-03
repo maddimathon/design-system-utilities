@@ -101,7 +101,12 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
         }
 
         // margins
-        @if string.index($slug, '-margin-flow-') {
+        @if $slug ==
+            'margin-flow' or
+            string.index($slug, '-margin-flow-') or
+            string.index($slug, '-margin-flow') ==
+            ($_slugLength - 11)
+        {
             @return $value;
         } @else if string.index($slug, '-margin-') {
             $isMargin: true;

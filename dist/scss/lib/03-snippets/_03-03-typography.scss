@@ -286,23 +286,38 @@
 /// @since 0.1.1-alpha.1.draft
 ///
 @mixin set-flow-margins(
-    $paragraphLevel: '400',
-    $smallLevel: '300',
+    $defaultLevel: style-value(margin-flow),
+    $largeLevel: style-value(margin-flow-large),
+    $smallLevel: style-value(margin-flow-small),
     $firmStartLevel: null,
+    $firmStartLevel_large: null,
     $firmEndLevel: null,
+    $firmEndLevel_large: null,
     $buttonGapBlock: null,
     $buttonGapInline: null
 ) {
     @if $firmStartLevel == null {
-        $firmStartLevel: $paragraphLevel;
+        $firmStartLevel: $defaultLevel;
     }
 
     @if $firmEndLevel == null {
         $firmEndLevel: $firmStartLevel;
     }
 
+    @if $firmStartLevel_large == null {
+        $firmStartLevel_large: $largeLevel;
+    }
+
+    @if $firmEndLevel_large == null {
+        $firmEndLevel_large: $firmStartLevel_large;
+    }
+
     %paragraph-margins {
-        margin-block: #{var-mrg-soft($paragraphLevel)} 0;
+        margin-block: #{var-mrg-soft($defaultLevel)} 0;
+    }
+
+    %paragraph-large-margins {
+        margin-block: #{var-mrg-soft($largeLevel)} 0;
     }
 
     %paragraph-small-margins {
@@ -312,6 +327,11 @@
     %paragraph-firm-margins {
         margin-block: #{var-mrg-firm($firmStartLevel)}
             #{var-mrg-half($firmEndLevel)};
+    }
+
+    %paragraph-large-firm-margins {
+        margin-block: #{var-mrg-firm($firmStartLevel_large)}
+            #{var-mrg-half($firmEndLevel_large)};
     }
 
     %button-span {
