@@ -282,6 +282,9 @@ export class Tokens_Icons extends AbstractTokens {
             if (!value) {
                 return undefined;
             }
+            if (!value.ariaLabel) {
+                value.ariaLabel = `${value.label.replace(/\s+icon\s*$/g, '')} icon`;
+            }
             return new SvgMaker(value, [
                 'fill="currentColor"',
             ]);

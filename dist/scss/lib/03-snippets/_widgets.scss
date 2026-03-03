@@ -27,7 +27,11 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
 ///
 /// @since 0.1.1-alpha.1.draft
 ///
-@mixin snippet-widget-block {
+@mixin snippet-widget-block(
+    $includeBlocks: true,
+    $includeFlowMargins: true,
+    $includeExceptions: true
+) {
     @include cx-prop(display, flex);
     display: flex;
     flex-direction: column;
@@ -61,51 +65,57 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
         @content ( 'root' );
     }
 
-    %site-sidebar & {
-        width: auto;
+    @if $includeExceptions {
+        %site-sidebar & {
+            width: auto;
 
-        @if meta.content-exists() {
-            @content ( 'in-sidebar' );
-        }
-    }
-
-    @each $variationKey in $_activeTheme_textAndBackgroundKeys {
-        @if $variationKey != '$' {
-            &.background-#{$variationKey} {
-                @if theme-token-exists('background-#{$variationKey}') {
-                    background: #{var-theme('background-#{$variationKey}')};
-                }
+            @if meta.content-exists() {
+                @content ( 'in-sidebar' );
             }
         }
 
-        @if meta.content-exists() {
-            @content ( 'background-#{$variationKey}' );
+        @each $variationKey in $_activeTheme_textAndBackgroundKeys {
+            @if $variationKey != '$' {
+                &.background-#{$variationKey} {
+                    @if theme-token-exists('background-#{$variationKey}') {
+                        background: #{var-theme('background-#{$variationKey}')};
+                    }
+                }
+            }
+
+            @if meta.content-exists() {
+                @content ( 'background-#{$variationKey}' );
+            }
         }
     }
 
-    %widget-block-content,
-    %widget-block-header,
-    %widget-block-title {
-        margin-block-start: 0;
-    }
+    @if $includeBlocks {
+        %widget-block-content,
+        %widget-block-header,
+        %widget-block-title {
+            margin-block-start: 0;
+        }
 
-    %widget-block-content {
-        > %ul,
-        > %ol {
-            margin-inline-start: 0;
+        %widget-block-content {
+            > %ul,
+            > %ol {
+                margin-inline-start: 0;
+            }
         }
     }
 
-    @include set-flow-margins(
-        style-value(widget-margin-flow-paragraph),
-        style-value(widget-margin-flow-small),
-        $buttonGapBlock: var-mrg-firm(
-                style-value(widget-button-span-gap, $rawValue: true)
-            ),
-        $buttonGapInline: var-mrg-firm(
-                style-value(widget-button-span-gap, $rawValue: true)
-            )
-    );
+    @if $includeFlowMargins {
+        @include set-flow-margins(
+            style-value(widget-margin-flow-paragraph),
+            style-value(widget-margin-flow-small),
+            $buttonGapBlock: var-mrg-firm(
+                    style-value(widget-button-span-gap, $rawValue: true)
+                ),
+            $buttonGapInline: var-mrg-firm(
+                    style-value(widget-button-span-gap, $rawValue: true)
+                )
+        );
+    }
 }
 
 ///

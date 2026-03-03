@@ -77,7 +77,7 @@ export class SvgMaker {
     }
     svgCssEmbedded() {
         return `<svg ${this.svgAttrString([
-            `title="${this.ariaLabel} icon"`,
+            `title="${this.ariaLabel}"`,
         ])}>${this.innerSVG}</svg>`.replace(/\s*\n+\s*/g, '');
     }
     svgFile() {
@@ -85,7 +85,7 @@ export class SvgMaker {
             '<?xml version="1.0" encoding="UTF-8" standalone="no"?>',
             '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">',
             `<svg ${this.svgAttrString([
-                `title="${this.ariaLabel} icon"`,
+                `title="${this.ariaLabel}"`,
             ])}>${this.innerSVG}</svg>`,
         ].join('\n');
     }
@@ -93,15 +93,15 @@ export class SvgMaker {
         return `<svg ${this.svgAttrString([
             `aria-hidden="true"`,
             `focusable="false"`,
-            `title="${this.ariaLabel} icon"`,
+            `title="${this.ariaLabel}"`,
         ])}>${this.innerSVG}</svg>`;
     }
     svgInlineLabelled() {
         return `<svg ${this.svgAttrString([
-            `aria-label="${this.ariaLabel} icon"`,
+            `aria-label="${this.ariaLabel}"`,
             'focusable="false"',
             'role="img"',
-        ])}><title>${this.ariaLabel} icon</title>${this.innerSVG}</svg>`;
+        ])}><title>${this.ariaLabel}</title>${this.innerSVG}</svg>`;
     }
     toJSON() {
         return {
@@ -122,7 +122,7 @@ export class SvgMaker {
     toScssVars() {
         return {
             slug: this.slug,
-            label: this.label,
+            label: `${this.ariaLabel}`,
             height: this.height,
             width: this.width,
             aspectRatio: this.aspectRatio[0] === this.aspectRatio[1]

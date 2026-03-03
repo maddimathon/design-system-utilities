@@ -4,33 +4,9 @@
 ///
 
 // @forward '03-01-accessibility';
-// @forward '03-02-objects';
-// @forward '03-03-typography';
+@forward '03-02-layout';
+@forward '03-03-typography';
 // @forward '03-04-lists';
 // @forward '03-05-forms';
 // @forward '03-06-tables';
-
-@use 'pkg:@maddimathon/utility-sass/map';
-
-@use '../../../lib' as *;
-
-@use '../../../config';
-
-@if config.$print_headings {
-    /* # UTILITIES - THEMES
-     * ======================================================================== */
-}
-
-$_activeTheme: get-active-theme();
-
-@each $variant in map.keys(map.get($_activeTheme, background)) {
-    @if $variant == '$' {
-        %background-default {
-            background: #{var-theme(background)};
-        }
-    } @else {
-        %background-#{$variant} {
-            background: #{var-theme(background-#{$variant})};
-        }
-    }
-}
+@forward '03-07-themes';

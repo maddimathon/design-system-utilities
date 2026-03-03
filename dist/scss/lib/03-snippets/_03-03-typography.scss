@@ -23,9 +23,7 @@
     text-decoration-color: #{var-theme(link-decoration)};
     color: #{var-theme(link)};
 
-    $location: root;
-    // prettier-ignore
-    @content($location);
+    @content (root);
 
     /// STATES ///
 
@@ -38,9 +36,7 @@
         text-decoration-color: #{var-theme(link-decoration-visited)};
         color: #{var-theme(link-visited)};
 
-        $location: visited;
-        // prettier-ignore
-        @content($location);
+        @content (visited);
     }
 
     @include hover-focus-visible() {
@@ -52,9 +48,7 @@
         text-decoration-color: #{var-theme(link-decoration-hover)};
         color: #{var-theme(link-hover)};
 
-        $location: hover-focus;
-        // prettier-ignore
-        @content($location);
+        @content (hover-focus);
     }
 
     &:active {
@@ -66,9 +60,7 @@
         text-decoration-color: #{var-theme(link-decoration-active)};
         color: #{var-theme(link-active)};
 
-        $location: active;
-        // prettier-ignore
-        @content($location);
+        @content (active);
     }
 
     @if $includeDisabled {
@@ -83,9 +75,7 @@
             text-decoration-color: #{var-theme(link-decoration-disabled)};
             color: #{var-theme(link-disabled)};
 
-            $location: root-disabled;
-            // prettier-ignore
-            @content($location);
+            @content (root-disabled);
 
             /// STATES ///
 
@@ -98,9 +88,7 @@
                 text-decoration-color: #{var-theme(link-decoration-disabled)};
                 color: #{var-theme(link-disabled)};
 
-                $location: hover-focus-disabled;
-                // prettier-ignore
-                @content($location);
+                @content (hover-focus-disabled);
             }
 
             &:active {
@@ -112,9 +100,7 @@
                 text-decoration-color: #{var-theme(link-decoration-disabled)};
                 color: #{var-theme(link-disabled)};
 
-                $location: active-disabled;
-                // prettier-ignore
-                @content($location);
+                @content (active-disabled);
             }
         }
     }

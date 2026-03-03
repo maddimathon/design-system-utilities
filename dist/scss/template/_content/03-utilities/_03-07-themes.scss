@@ -1,0 +1,29 @@
+///
+/// @package @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+/// @since 0.1.1-alpha.1.draft
+///
+
+@use 'pkg:@maddimathon/utility-sass/map';
+
+@use '../../../lib' as *;
+
+@use '../../../config';
+
+@if config.$print_headings {
+    /* # UTILITIES - THEMES
+     * ======================================================================== */
+}
+
+$_activeTheme: get-active-theme();
+
+@each $variant in map.keys(map.get($_activeTheme, background)) {
+    @if $variant == '$' {
+        %background-default {
+            background: #{var-theme(background)};
+        }
+    } @else {
+        %background-#{$variant} {
+            background: #{var-theme(background-#{$variant})};
+        }
+    }
+}
