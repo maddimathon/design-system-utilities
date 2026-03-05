@@ -15,4 +15,4 @@ import type { Tokens } from '../02-tokens/Tokens.js';
  *
  * @since 0.1.1-alpha.1.draft
  */
-export declare function themeSlugToCSS<T_Types extends TokenTypes.TypeParams>(themeValueSlug: string, themeName: "default" | T_Types['theme']['name'], brightness: "light" | "dark" | T_Types['theme']['brightness'], contrast: "low" | "average" | "high" | T_Types['theme']['contrast'], tokens: Tokens.JsonReturn<T_Types>, convertColourToVarFn?: boolean): string;
+export declare function themeSlugToCSS<T_Types extends TokenTypes.TypeParams>(themeValueSlug: string, themeName: "default" | T_Types['theme']['name'], brightness: TokenTypes.Theme.GetBrightnessKeys<T_Types['theme']>, contrast: TokenTypes.Theme.GetContrastKeys<T_Types['theme']>, tokens: Tokens.JsonReturn<T_Types>, convertColourToVarFn?: boolean): string;

@@ -7,6 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
+import { CssColours } from '@maddimathon/utility-sass';
 import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
 import { getDataFromClrSlug } from '../../ts/03-parsers/getDataFromClrSlug.js';
 /**
@@ -24,8 +25,8 @@ export function colourSlugToCSS(tokens, brightness, _clrSlug, convertToVarFn = t
         return varMaker(clrSlug, null);
     }
     // returns
-    if (ColourUtilities.CssColours.keywords.has(clrSlug)
-        || ColourUtilities.CssColours.systemColors.has(clrSlug)) {
+    if (CssColours.isKeyword(clrSlug)
+        || CssColours.isSystemColor(clrSlug)) {
         return clrSlug;
     }
     // returns

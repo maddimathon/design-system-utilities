@@ -18,7 +18,7 @@ export * from './01-utilities/Errors.js';
 
 export type { Tokens_Internal } from './02-tokens/Tokens.js';
 
-export * from './02-tokens/@types.d.js';
+export * from './02-tokens/@types.js';
 
 export * from './02-tokens/abstract/AbstractTokens.js';
 

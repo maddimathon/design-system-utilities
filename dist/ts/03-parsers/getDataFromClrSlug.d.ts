@@ -7,7 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
-import { ColourUtilities } from '../01-utilities/ColourUtilities.js';
+import type { ColourUtilities } from '../01-utilities/ColourUtilities.js';
 import type { TokenTypes } from '../02-tokens/@types.js';
 /**
  * Gets the shade name and level of the given colour token, if applicable.

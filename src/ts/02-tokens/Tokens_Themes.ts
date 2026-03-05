@@ -111,8 +111,8 @@ export class Tokens_Themes<
             arr.map(
                 ( set ) => Tokens_Themes_Set.build<T_ColourTypes, T_ThemeTypes>(
                     set.name,
-                    [ ...brightnessModes ],
-                    [ ...contrastModes ],
+                    brightnessModes as T_ThemeTypes[ 'brightness' ],
+                    contrastModes as T_ThemeTypes[ 'contrast' ],
                     colours,
                     set,
                 )

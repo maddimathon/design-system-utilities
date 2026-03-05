@@ -20,13 +20,13 @@ import {
 } from '@maddimathon/utility-typescript';
 
 import {
+    CssColours,
     jsValueToSass,
     sassAssertValueType,
 } from '@maddimathon/utility-sass';
 
 import * as sass from "sass-embedded";
 
-import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
 import { objectGeneratorAsync } from '../../01-utilities/objectGenerator.js';
 
 import type { TokenTypes } from '../../02-tokens/@types.js';
@@ -106,8 +106,8 @@ export function sassFn_themeFlattenGetValues(): [ string, sass.CustomFunction<'a
 
                 // returns
                 if (
-                    ColourUtilities.CssColours.keywords.has( clrVal )
-                    || ColourUtilities.CssColours.systemColors.has( clrVal )
+                    CssColours.isKeyword( clrVal )
+                    || CssColours.isSystemColor( clrVal )
                 ) {
                     if ( includeHSL ) {
                         clr.hsl = clrVal;

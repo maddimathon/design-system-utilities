@@ -27,8 +27,8 @@ export function themeSlugToCSS<
 >(
     themeValueSlug: string,
     themeName: "default" | T_Types[ 'theme' ][ 'name' ],
-    brightness: "light" | "dark" | T_Types[ 'theme' ][ 'brightness' ],
-    contrast: "low" | "average" | "high" | T_Types[ 'theme' ][ 'contrast' ],
+    brightness: TokenTypes.Theme.GetBrightnessKeys<T_Types[ 'theme' ]>,
+    contrast: TokenTypes.Theme.GetContrastKeys<T_Types[ 'theme' ]>,
     tokens: Tokens.JsonReturn<T_Types>,
     convertColourToVarFn: boolean = true,
 ): string {

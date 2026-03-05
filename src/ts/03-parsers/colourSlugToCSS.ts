@@ -8,6 +8,8 @@
  * @license MIT
  */
 
+import { CssColours } from '@maddimathon/utility-sass';
+
 import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
 
 import type { TokenTypes } from '../../ts/02-tokens/@types.js';
@@ -30,7 +32,7 @@ export function colourSlugToCSS<
         themes: Tokens_Themes.ScssVars<T_Types[ 'colour' ], T_Types[ 'theme' ]>;
         colour: undefined | Tokens_Colour.ScssVars<T_Types[ 'colour' ]>;
     },
-    brightness: "light" | "dark" | T_Types[ 'theme' ][ 'brightness' ],
+    brightness: undefined | TokenTypes.Theme.GetBrightnessKeys<T_Types[ 'theme' ]>,
     _clrSlug: string | string[],
     convertToVarFn: boolean = true,
 ): string {
@@ -47,8 +49,8 @@ export function colourSlugToCSS<
 
     // returns
     if (
-        ColourUtilities.CssColours.keywords.has( clrSlug )
-        || ColourUtilities.CssColours.systemColors.has( clrSlug )
+        CssColours.isKeyword( clrSlug )
+        || CssColours.isSystemColor( clrSlug )
     ) {
         return clrSlug;
     }

@@ -275,11 +275,13 @@ export namespace Tokens_Themes_Set {
             Tokens_Themes_Set.SingleMode.InputParam<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>,
             "levels" | "variations"
         > & {
-            overrides?: Tokens_Themes_Set.SingleMode.Data.Partial<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>,
+            overrides?: undefined | Tokens_Themes_Set.SingleMode.Data.Partial<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>,
         };
     } & TokenTypes.Theme.Mode.PartialNestedObject<
         T_ThemeTypes,
-        Tokens_Themes_Set.SingleMode.InputParam<T_ColourTypes, T_ThemeTypes>
+        Tokens_Themes_Set.SingleMode.InputParam<T_ColourTypes, T_ThemeTypes> & {
+            overrides?: undefined | Tokens_Themes_Set.SingleMode.Data.Partial<T_ColourTypes, T_ThemeTypes>,
+        }
     >;
 
     /**
@@ -548,8 +550,8 @@ export namespace Tokens_Themes_Set {
 
         protected constructor (
             public readonly name: "default" | T_ThemeTypes[ 'name' ],
-            public readonly brightness: TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>,
-            public readonly constrast: TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>,
+            public readonly brightness: null | TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>,
+            public readonly constrast: "forcedColors" | TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>,
             public readonly description: null | string,
             public readonly levelsInUse: ( "black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional )[],
             public readonly data: SingleMode.Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption>,
@@ -1427,8 +1429,8 @@ export namespace Tokens_Themes_Set {
             __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>,
         > = {
             name: "default" | T_ThemeTypes[ 'name' ];
-            brightness: TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>;
-            constrast: TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>;
+            brightness: null | TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>;
+            constrast: "forcedColors" | TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>;
             description?: undefined | string;
 
             data: Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption> & {

@@ -10,11 +10,9 @@
  * @license MIT
  */
 
-import type { Theme } from 'typedoc';
-import type { ColourUtilities } from '../01-utilities/ColourUtilities.js';
+import type { CssColours } from '@maddimathon/utility-sass';
 
-import type { AbstractTokens } from './abstract/AbstractTokens.js';
-import type { Tokens_Themes_Set } from './Themes/Themes_Set.ts';
+import type { ColourUtilities } from '../01-utilities/ColourUtilities.ts';
 
 /**
  * @since ___PKG_VERSION___
@@ -137,8 +135,8 @@ export namespace TokenTypes {
          * @since ___PKG_VERSION___
          */
         export type AnyCssColour =
-            | ColourUtilities.CssColours.Keyword
-            | ColourUtilities.CssColours.Slug
+            | CssColours.Keyword
+            | CssColours.Slug
             | SystemColor;
 
         /**
@@ -146,8 +144,8 @@ export namespace TokenTypes {
          * @since ___PKG_VERSION___ — Moved to {@link Css} namespace.
          */
         export type SystemColor =
-            | ColourUtilities.CssColours.SystemColor
-            | ColourUtilities.CssColours.SystemColor[];
+            | CssColours.SystemColor
+            | CssColours.SystemColor[];
     }
 
     /**
@@ -208,7 +206,7 @@ export namespace TokenTypes {
              * @since ___PKG_VERSION___
              */
             export type Brightness<
-                T_ParamValue extends BrightnessOption[] = BrightnessOption[],
+                T_ParamValue extends BrightnessOption[] | readonly BrightnessOption[] = BrightnessOption[],
             > = readonly [ "light", "dark", ...T_ParamValue ];
 
             /**
@@ -232,7 +230,7 @@ export namespace TokenTypes {
              * @since ___PKG_VERSION___ — Moved to {@link Theme.Mode} namespace.
              */
             export type Contrast<
-                T_ParamValue extends ContrastOption[] = ContrastOption[],
+                T_ParamValue extends ContrastOption[] | readonly ContrastOption[] = ContrastOption[],
             > = readonly [ "low", "average", "high", ...T_ParamValue ];
 
             /**
@@ -277,7 +275,7 @@ export namespace TokenTypes {
             > = {
                 [ B in BrightnessRequired ]: ContrastRecord<T_ThemeTypes, T_NestedValue>;
             } & {
-                    [ B in T_ThemeTypes[ 'brightness' ] ]: ContrastRecord<T_ThemeTypes, T_NestedValue>;
+                    [ B in T_ThemeTypes[ 'brightness' ][ number ] ]: ContrastRecord<T_ThemeTypes, T_NestedValue>;
                 };
 
             /**
@@ -292,7 +290,7 @@ export namespace TokenTypes {
             > = {
                 [ C in ContrastRequired ]?: undefined | T_Value;
             } & {
-                    [ C in T_ThemeTypes[ 'contrast' ][ number ] ]?: undefined | T_Value;
+                    [ C in TokenTypes.Theme.GetExtraContrastKeys<T_ThemeTypes> ]?: undefined | T_Value;
                 };
 
             /**
@@ -307,7 +305,7 @@ export namespace TokenTypes {
             > = {
                 [ B in TokenTypes.Theme.Mode.BrightnessRequired ]?: undefined | PartialContrastRecord<T_ThemeTypes, T_NestedValue>;
             } & {
-                    [ B in T_ThemeTypes[ 'brightness' ] ]?: undefined | PartialContrastRecord<T_ThemeTypes, T_NestedValue>;
+                    [ B in TokenTypes.Theme.GetExtraBrightnessKeys<T_ThemeTypes> ]?: undefined | PartialContrastRecord<T_ThemeTypes, T_NestedValue>;
                 };
         }
 
@@ -318,8 +316,8 @@ export namespace TokenTypes {
          */
         export type TypeParams<
             T_ThemeName extends string = string,
-            T_ThemeBrightnessMode extends readonly TokenTypes.Theme.Mode.BrightnessOption[] = TokenTypes.Theme.Mode.Brightness,
-            T_ThemeContrastMode extends readonly TokenTypes.Theme.Mode.ContrastOption[] = TokenTypes.Theme.Mode.Contrast,
+            T_ThemeBrightnessMode extends readonly TokenTypes.Theme.Mode.BrightnessOption[] = readonly TokenTypes.Theme.Mode.BrightnessOption[],
+            T_ThemeContrastMode extends readonly TokenTypes.Theme.Mode.ContrastOption[] = readonly TokenTypes.Theme.Mode.ContrastOption[],
 
             T_Keyword_Universal extends string = string,
             T_Keyword_Text extends string = string,
@@ -327,8 +325,8 @@ export namespace TokenTypes {
         > = {
             name: T_ThemeName;
 
-            brightness: T_BrightnessMode;
-            contrast: T_ContrastMode;
+            brightness: T_ThemeBrightnessMode;
+            contrast: T_ThemeContrastMode;
 
             variations: {
                 universal: T_Keyword_Universal;

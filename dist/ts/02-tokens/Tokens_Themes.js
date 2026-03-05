@@ -47,7 +47,7 @@ export class Tokens_Themes extends AbstractTokens {
                     name: 'default',
                 },
             ];
-        return Promise.all(arr.map((set) => Tokens_Themes_Set.build(set.name, [...brightnessModes], [...contrastModes], colours, set))).then((objs) => {
+        return Promise.all(arr.map((set) => Tokens_Themes_Set.build(set.name, brightnessModes, contrastModes, colours, set))).then((objs) => {
             const allThemeNames = objs.map(o => o.data.name);
             return objectGenerator(allThemeNames, (name) => objs[allThemeNames.indexOf(name)]);
         });

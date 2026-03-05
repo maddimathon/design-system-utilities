@@ -36,7 +36,7 @@ export interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypePa
     // theme: Tokens.JsonReturn['themes'][keyof Tokens.JsonReturn['themes']];
     tokens: Tokens.JsonReturn<T_Types>;
 
-    defaultToggleToOpen?: boolean | `${"default"|T_Types['theme']['name']}-${TokenTypes.Theme.Mode.BrightnessOption | T_Types['theme']['brightness']}`[];
+    defaultToggleToOpen?: boolean | `${"default"|T_Types['theme']['name']}-${TokenTypes.Theme.GetBrightnessKeys<T_Types['theme']>}`[];
 }
 
 const { defaultToggleToOpen: _defaultToggleToOpen, tokens }: Props = Astro.props;

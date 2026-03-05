@@ -7,15 +7,12 @@
 
 @use '_pre' as pre;
 
-@use '../../tokens/system/default' as defaultTokens;
-
 @forward 'pkg:@maddimathon/utility-astro/config' with (
     $internal_supressCredit: true,
 
     $selectorType_mode: 'null' !default,
     $selectorType_motion: 'null' !default,
 
-    $fn_fontSizeValue_fontScale: map.get(defaultTokens.$designSystem, font, sizeScale) !default,
     $fn_fontSizeValue_roundToPixelFactor: 32 !default,
 
     $fn_var_replaceWithValue_lineHeight: false !default,

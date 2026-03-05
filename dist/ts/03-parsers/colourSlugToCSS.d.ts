@@ -19,4 +19,4 @@ import type { Tokens_Themes } from '../../ts/02-tokens/Tokens_Themes.js';
 export declare function colourSlugToCSS<T_Types extends TokenTypes.TypeParams>(tokens: Tokens.JsonReturn<T_Types> | {
     themes: Tokens_Themes.ScssVars<T_Types['colour'], T_Types['theme']>;
     colour: undefined | Tokens_Colour.ScssVars<T_Types['colour']>;
-}, brightness: "light" | "dark" | T_Types['theme']['brightness'], _clrSlug: string | string[], convertToVarFn?: boolean): string;
+}, brightness: undefined | TokenTypes.Theme.GetBrightnessKeys<T_Types['theme']>, _clrSlug: string | string[], convertToVarFn?: boolean): string;

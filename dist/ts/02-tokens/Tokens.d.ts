@@ -135,7 +135,7 @@ export declare namespace Tokens {
     /**
      * @since 0.1.0-alpha
      */
-    function sample(): Promise<Tokens<TokenTypes.TypeParams<TokenTypes.Colour.TypeParams<string, "350" | "450" | "550" | "650">, TokenTypes.Theme.TypeParams<string, readonly ["light", "dark", ...TokenTypes.Theme.Mode.BrightnessOption[]], readonly ["low", "average", "high", ...TokenTypes.Theme.Mode.ContrastOption[]], string, string, string>, string, string>>>;
+    function sample(): Promise<Tokens<TokenTypes.TypeParams<TokenTypes.Colour.TypeParams<string, "350" | "450" | "550" | "650">, TokenTypes.Theme.TypeParams<string, readonly TokenTypes.Theme.Mode.BrightnessOption[], readonly TokenTypes.Theme.Mode.ContrastOption[], string, string, string>, string, string>>>;
     /**
      * Configuration options for the {@link Tokens} class.
      *

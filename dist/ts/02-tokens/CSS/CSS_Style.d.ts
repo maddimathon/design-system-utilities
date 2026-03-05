@@ -62,8 +62,8 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
         heading: {
             2: Tokens_CSS_Style.HeadingStyles;
             1: Tokens_CSS_Style.HeadingStyles;
-            3: Tokens_CSS_Style.HeadingStyles;
             4: Tokens_CSS_Style.HeadingStyles;
+            3: Tokens_CSS_Style.HeadingStyles;
             7: Tokens_CSS_Style.HeadingStyles;
             10: Tokens_CSS_Style.HeadingStyles;
             5: Tokens_CSS_Style.HeadingStyles;
@@ -124,8 +124,8 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
         heading: {
             2: Tokens_CSS_Style.HeadingStyles;
             1: Tokens_CSS_Style.HeadingStyles;
-            3: Tokens_CSS_Style.HeadingStyles;
             4: Tokens_CSS_Style.HeadingStyles;
+            3: Tokens_CSS_Style.HeadingStyles;
             7: Tokens_CSS_Style.HeadingStyles;
             10: Tokens_CSS_Style.HeadingStyles;
             5: Tokens_CSS_Style.HeadingStyles;

@@ -8,9 +8,8 @@
  * @license MIT
  */
 import { mapToObjectAsync, objectFlatten, objectFlattenAsync, objectMapAsync, } from '@maddimathon/utility-typescript';
-import { jsValueToSass, sassAssertValueType, } from '@maddimathon/utility-sass';
+import { CssColours, jsValueToSass, sassAssertValueType, } from '@maddimathon/utility-sass';
 import * as sass from "sass-embedded";
-import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
 import { objectGeneratorAsync } from '../../01-utilities/objectGenerator.js';
 import { colourSlugToCSS } from '../../03-parsers/colourSlugToCSS.js';
 /**
@@ -57,8 +56,8 @@ export function sassFn_themeFlattenGetValues() {
                     $: clrVal,
                 };
                 // returns
-                if (ColourUtilities.CssColours.keywords.has(clrVal)
-                    || ColourUtilities.CssColours.systemColors.has(clrVal)) {
+                if (CssColours.isKeyword(clrVal)
+                    || CssColours.isSystemColor(clrVal)) {
                     if (includeHSL) {
                         clr.hsl = clrVal;
                     }

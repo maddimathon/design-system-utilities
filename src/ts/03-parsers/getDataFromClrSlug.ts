@@ -8,7 +8,9 @@
  * @license MIT
  */
 
-import { ColourUtilities } from '../01-utilities/ColourUtilities.js';
+import { CssColours } from '@maddimathon/utility-sass';
+
+import type { ColourUtilities } from '../01-utilities/ColourUtilities.js';
 
 import type { TokenTypes } from '../02-tokens/@types.js';
 
@@ -24,8 +26,8 @@ export function getDataFromClrSlug<
 ): undefined | getDataFromClrSlug.Result<T_Types> {
     // returns
     if (
-        ColourUtilities.CssColours.keywords.has( clrSlug )
-        || ColourUtilities.CssColours.systemColors.has( clrSlug )
+        CssColours.isKeyword( clrSlug )
+        || CssColours.isSystemColor( clrSlug )
     ) {
         return undefined;
     }
