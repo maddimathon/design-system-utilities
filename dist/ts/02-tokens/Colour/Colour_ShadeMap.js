@@ -7,10 +7,10 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
+import { objectMap } from '@maddimathon/utility-typescript';
 import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
 import { LocalErrors } from '../../01-utilities/Errors.js';
 import { objectGeneratorAsync } from '../../01-utilities/objectGenerator.js';
-import { objectMap } from '../../01-utilities/objectMap.js';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.

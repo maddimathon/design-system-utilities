@@ -8,8 +8,14 @@
  * @license MIT
  */
 
-import type { RecursivePartial } from '@maddimathon/utility-typescript/types/objects';
-import { arrayUnique, mergeArgs } from '@maddimathon/utility-typescript/functions';
+import type { RecursivePartial } from '@maddimathon/utility-typescript/types';
+
+import {
+    arrayUnique,
+    mergeArgs,
+    objectFlatten,
+    objectMap,
+} from '@maddimathon/utility-typescript';
 
 import type {
     RequiredHeadingLevels,
@@ -19,11 +25,9 @@ import type {
 import type { RecursiveRecord } from '../../01-utilities/@types.js';
 import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
 
-import { objectFlatten } from '../../01-utilities/objectFlatten.js';
 import { objectGenerator } from '../../01-utilities/objectGenerator.js';
 import { objectGeneratorAsync } from '../../01-utilities/objectGenerator.js';
 import { objectKeySort_Tokens } from '../../01-utilities/objectKeySort_Tokens.js';
-import { objectMap } from '../../01-utilities/objectMap.js';
 
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
 

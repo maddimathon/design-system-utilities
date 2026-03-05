@@ -23,9 +23,6 @@
 
     "files": [
         "./dist/**/*",
-        "!./dist/default-tokens.json",
-        "!./dist/css/template/@template.css",
-        "!./dist/css/template/@template.css.map",
         "./LICENSE.md",
         "./package-lock.json",
         "./package.json",
@@ -85,7 +82,7 @@
             "./dist/astro/*"
         ],
         
-
+        
         "./config.scss": "./dist/scss/config/index.scss",
         "./config/*.scss": [
             "./dist/scss/config/*.scss",
@@ -93,13 +90,29 @@
             "./dist/scss/config/*/index.scss",
             "./dist/scss/config/*/_index.scss"
         ],
-        
+
         "./notice.scss": "./dist/scss/_notice.scss",
         
         "./template.scss": "./dist/scss/template/default/index.scss",
+
+        "./template/config.scss": "./dist/scss/template/_content/config/_template.scss",
+        "./template/config/*.scss": [
+            "./dist/scss/template/_content/config/template/*.scss",
+            "./dist/scss/template/_content/config/template/_*.scss",
+            "./dist/scss/template/_content/config/template/*/index.scss",
+            "./dist/scss/template/_content/config/template/*/_index.scss"
+        ],
+        
+        "./template/lib.scss": "./dist/scss/template/_content/lib/_index.scss",
+
         "./template/content.scss": "./dist/scss/template/_content/_index.scss",
-        "./template/content/config.scss": "./dist/scss/template/_content/_config.scss",
         "./template/content/notice.scss": "./dist/scss/template/_content/_header/_notice.scss",
+
+        "./template/content/abstracts.scss": "./dist/scss/template/_content/_00-abstracts.scss",
+        "./template/content/blocks.scss": "./dist/scss/template/_content/04-blocks/_index.scss",
+        "./template/content/globals.scss": "./dist/scss/template/_content/01-globals/_index.scss",
+        "./template/content/layouts.scss": "./dist/scss/template/_content/02-layouts/_index.scss",
+        "./template/content/utilities.scss": "./dist/scss/template/_content/03-utilities/_index.scss",
         
         "./template/*.scss": [
             "./dist/scss/template/*.scss",
@@ -107,16 +120,10 @@
             "./dist/scss/template/*/index.scss",
             "./dist/scss/template/*/_index.scss"
         ],
-        
-        "./template/content/*.scss": [
-            "./dist/scss/template/_content/*.scss",
-            "./dist/scss/template/_content/_*.scss",
-            "./dist/scss/template/_content/*/index.scss",
-            "./dist/scss/template/_content/*/_index.scss"
-        ],
 
         "./tokens.scss": "./dist/scss/tokens/index.scss",
         "./tokens/default.scss": "./dist/scss/tokens/system/_default.scss",
+
         "./tokens/*.scss": [
             "./dist/scss/tokens/*.scss",
             "./dist/scss/tokens/_*.scss",
@@ -169,6 +176,16 @@
     },
 
     "scripts": {
+        "unlink": "run-p unlink:*",
+            "unlink:astro": "rm -r node_modules/@maddimathon/utility-astro || echo '' && mkdir -p node_modules/@maddimathon/utility-astro",
+            "unlink:sass":  "rm -r node_modules/@maddimathon/utility-sass  || echo '' && mkdir -p node_modules/@maddimathon/utility-sass",
+
+        "link": "run-p link:*",
+            "link:astro": "npm run unlink:astro && cp -R -H -f -p ../utility-astro/package.json ../utility-astro/dist ../utility-astro/jest.config.js ../utility-astro/tsconfig.json node_modules/@maddimathon/utility-astro",
+            "link:sass":  "npm run unlink:sass  && cp -R -H -f -p ../utility-sass/package.json  ../utility-sass/dist node_modules/@maddimathon/utility-sass",
+
+        "preinstall": "npm run unlink",
+
         "commit": "sh .scripts/commit.sh",
 
         "rm": "rm -r dist docs src/astro/css src/astro/scss src/scss/tokens/system/_default.scss",
@@ -216,10 +233,10 @@
     },
     
     "dependencies": {
-        "@maddimathon/build-utilities": "~0.3.0-alpha.16",
-        "@maddimathon/utility-astro": "github:maddimathon/utility-astro#0.1.0-alpha.21",
-        "@maddimathon/utility-sass": "github:maddimathon/utility-sass#0.1.0-alpha.41",
-        "@maddimathon/utility-typescript": "2.0.0-beta.1",
+        "@maddimathon/build-utilities": "~0.3.0-alpha.17",
+        "@maddimathon/utility-astro": "github:maddimathon/utility-astro#0.1.0-beta.0",
+        "@maddimathon/utility-sass": "github:maddimathon/utility-sass#0.1.0-beta.0",
+        "@maddimathon/utility-typescript": "2.0.0-beta.2",
         "astro": "^5.16.0",
         "color-convert": "^3.1.3",
         "sass-embedded": "^1.97.0",

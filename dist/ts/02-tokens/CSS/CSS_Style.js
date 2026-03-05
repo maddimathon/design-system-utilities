@@ -7,7 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
-import { mergeArgs } from '@maddimathon/utility-typescript/functions';
+import { mergeArgs } from '@maddimathon/utility-typescript';
 import { objectGenerator } from '../../01-utilities/objectGenerator.js';
 import { objectKeySort_Tokens } from '../../01-utilities/objectKeySort_Tokens.js';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';

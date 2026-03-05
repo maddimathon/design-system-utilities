@@ -9,7 +9,7 @@
  */
 
 import type {
-    Json,
+    PackageJson,
 } from '@maddimathon/utility-typescript/types';
 
 import type {
@@ -63,7 +63,7 @@ export class Compile extends CompileStage {
         config: Config.Class,
         params: CLI.Params,
         args: Partial<Stage.Args.Compile>,
-        pkg?: Json.PackageJson,
+        pkg?: PackageJson,
         version?: SemVer,
     ) {
         super( config, params, args, pkg, version );

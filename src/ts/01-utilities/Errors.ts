@@ -13,9 +13,9 @@ import type {
 } from '@maddimathon/build-utilities';
 
 import {
-    VariableInspector,
     type MessageMaker,
-} from '@maddimathon/utility-typescript/classes';
+    VariableInspector,
+} from '@maddimathon/utility-typescript';
 
 /**
  * Utilities for errors thrown within this package.

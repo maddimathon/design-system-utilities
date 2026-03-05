@@ -7,7 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
-import { slugify, } from '@maddimathon/utility-typescript/functions';
+import { slugify, } from '@maddimathon/utility-typescript';
 /**
  * Gets a string of valid PHP code for wordpress defining constants for the given set of
  * SVGs.

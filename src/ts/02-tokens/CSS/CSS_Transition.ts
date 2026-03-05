@@ -8,7 +8,7 @@
  * @license MIT
  */
 
-import { mergeArgs } from '@maddimathon/utility-typescript/functions';
+import { mergeArgs } from '@maddimathon/utility-typescript';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
 
 /**

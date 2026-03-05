@@ -8,9 +8,10 @@
  * @license MIT
  */
 
+import { objectMap } from '@maddimathon/utility-typescript';
+
 import type { ColourUtilities } from '../01-utilities/ColourUtilities.js';
 import { objectGenerator } from '../01-utilities/objectGenerator.js';
-import { objectMap } from '../01-utilities/objectMap.js';
 
 import type {
     TokenTypes,

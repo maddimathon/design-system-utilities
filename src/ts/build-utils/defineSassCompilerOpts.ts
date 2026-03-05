@@ -8,6 +8,8 @@
  * @license MIT
  */
 
+import type * as sass from 'sass-embedded';
+
 import type {
     CLI,
     Config,
@@ -45,6 +47,7 @@ export function defineSassCompilerOpts(
         [ themeFlattenGetValues[ 0 ] ]: themeFlattenGetValues[ 1 ],
     };
 
+    // @ts-ignore
     return sassCompilerOpts( args, {
         ...partialSassArgs ?? {},
 
@@ -52,5 +55,5 @@ export function defineSassCompilerOpts(
             ...partialSassArgs[ 'functions' ] ?? {},
             ...functions,
         },
-    } );
+    } ) satisfies sass.Options<'async'> as sass.Options<'async'>;
 }

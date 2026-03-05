@@ -1,0 +1,120 @@
+///
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+// @use 'pkg:@maddimathon/utility-sass/config/functions' as fns;
+@use 'sass:string';
+
+@use '../../../../config' as lib;
+
+///
+/// @since 0.1.0-alpha
+///
+$template_name: 'Default' !default;
+
+///
+/// @since 0.1.0-alpha
+///
+$template_slug: string.to-lower-case($template_name) !default;
+
+///
+/// @since ___PKG_VERSION___
+///
+$template_isDefault: $template_slug == default !default;
+
+///
+/// @since 0.1.0-alpha
+/// @since ___PKG_VERSION___ — Renamed from $print_docs to $template_print_docs and moved to template config.
+///
+$template_print_docs: false !default;
+
+///
+/// @since 0.1.0-alpha
+/// @since ___PKG_VERSION___ — Renamed from $print_astro to $template_print_astro and moved from lib to template config.
+///
+$template_print_astro: $template_print_docs !default;
+
+///
+/// Whether to include the global selectors in the output. Otherwise, all
+/// selectors are pseudo selectors.
+///
+/// @since 0.1.0-alpha
+/// @since ___PKG_VERSION___ — Renamed from $print_globals to $template_print_globals and moved from lib to template config.
+///
+$template_print_globals: $template_print_astro or $template_print_docs !default;
+
+///
+/// Whether to include the utility class selectors in the output.
+///
+/// @since 0.1.0-alpha
+/// @since ___PKG_VERSION___ — Renamed from $print_utils to $template_print_utils and moved from lib to template config.
+///
+$template_print_utils: lib.$include_html and
+    ($template_print_globals or $template_print_astro or $template_print_docs) !default;
+
+///
+/// Whether to include the custom property definitions in the output.
+///
+/// @since 0.1.0-alpha
+/// @since ___PKG_VERSION___ — Renamed from $print_tokens to $template_print_tokens and moved from lib to template config.
+///
+$template_print_tokens: $template_print_globals or $template_print_utils !default;
+
+///
+/// Whether to include the extend selectors mixin after the template content.
+///
+/// @since ___PKG_VERSION___
+///
+$template_extendSelectors: $template_print_globals or $template_print_utils !default;
+
+///
+/// @since 0.1.0-alpha
+/// @since ___PKG_VERSION___ — Renamed from $template_include_cssHeadings to $template_include_cssHeadings and moved from lib to template config.
+///
+$template_include_cssHeadings: lib.$isTemplate and
+    (
+        $template_print_astro or $template_print_docs or $template_print_globals or
+            $template_print_tokens or $template_print_utils
+    ) !default;
+
+///
+/// @since ___PKG_VERSION___
+///
+$template_print_siteSettingsMenu: $template_print_astro !default;
+
+///
+/// @since ___PKG_VERSION___
+///
+$template_print_toggleBlock: $template_print_astro !default;
+
+///
+/// @since ___PKG_VERSION___
+///
+$template_print_astro_toggleNav: $template_print_astro and $template_print_toggleBlock !default;
+
+// ///
+// /// Whether to print button styles.
+// ///
+// /// @since ___PKG_VERSION___
+// ///
+// $template_print_buttons: true !default;
+
+// ///
+// /// Whether to print heading styles.
+// ///
+// /// @since ___PKG_VERSION___
+// ///
+// $template_print_headings: true !default;
+
+///
+/// @since 0.1.0-alpha
+/// @since ___PKG_VERSION___ — Renamed from $print_normalize to $template_print_normalize and moved from lib to template config.
+///
+$template_print_normalize: lib.$include_html and lib.$isTemplate !default;
+
+///
+/// @since ___PKG_VERSION___
+///
+$template_print_skipLinks: $template_print_astro or
+    (($template_print_globals or $template_print_utils) and lib.$include_html) !default;

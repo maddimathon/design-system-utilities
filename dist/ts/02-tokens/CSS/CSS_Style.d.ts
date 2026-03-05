@@ -7,7 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
-import type { RecursivePartial } from '@maddimathon/utility-typescript/types/objects';
+import type { RecursivePartial } from '@maddimathon/utility-typescript/types';
 import type { AnyTokenLevel, RequiredHeadingLevels, TokenTypes, WholeTokenLevel } from '../@types.js';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
 /**

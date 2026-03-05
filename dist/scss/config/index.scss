@@ -3,12 +3,16 @@
 /// @since 0.1.0-alpha
 ///
 
-@forward 'utility-astro';
+@forward 'utility-astro' hide $internal_supressCredit;
 
-@forward 'function-config' hide $fn_var_replaceWithValue_borderWidth,
+// no deps on other config
+@forward 'fn-config' hide $fn_var_replaceWithValue_borderWidth,
     $fn_var_replaceWithValue_fontSize, $fn_var_replaceWithValue_strokeRelative;
-@forward 'mixin-config';
-@forward 'paths';
-@forward 'template';
 
-@use 'utility-astro' as utils;
+@forward 'paths';
+
+// deps on fn-config
+@forward 'mixin-config';
+
+// deps on internal
+@forward 'include';

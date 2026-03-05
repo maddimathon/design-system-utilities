@@ -7,7 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
-import type { Json } from '@maddimathon/utility-typescript/types';
+import type { PackageJson } from '@maddimathon/utility-typescript/types';
 import type { CLI, Config, Stage } from '@maddimathon/build-utilities';
 import type { SemVer } from '@maddimathon/build-utilities/internal';
 import { AbstractStage, CompileStage } from '@maddimathon/build-utilities';
@@ -33,7 +33,7 @@ export declare class Compile extends CompileStage {
      * @param pkg      Parsed contents of the project’s package.json file.
      * @param version  Version object for the project’s version.
      */
-    constructor(config: Config.Class, params: CLI.Params, args: Partial<Stage.Args.Compile>, pkg?: Json.PackageJson, version?: SemVer);
+    constructor(config: Config.Class, params: CLI.Params, args: Partial<Stage.Args.Compile>, pkg?: PackageJson, version?: SemVer);
     /**
      * Runs through the basics of a typical Compile.tokens substage.
      *

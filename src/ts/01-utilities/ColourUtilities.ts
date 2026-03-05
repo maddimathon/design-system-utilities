@@ -13,9 +13,9 @@ import * as WcagContrast from 'wcag-contrast';
 
 import * as sass from 'sass-embedded';
 
+import { makeNumber, makeNumberAsync } from '@maddimathon/utility-typescript';
+
 import { LocalErrors } from './Errors.js';
-import { makeNumber } from './makeNumber.js';
-import { makeNumberAsync } from './makeNumberAsync.js';
 import { roundToPixel } from './roundToPixel.js';
 
 /**

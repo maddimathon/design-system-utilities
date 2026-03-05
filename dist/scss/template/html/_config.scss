@@ -3,21 +3,15 @@
 /// @since 0.1.0-alpha
 ///
 
-@forward '../default/config' with (
+@forward '../global/config' with (
+    $template_name: 'HTML' !default,
+
     $include_html: true !default,
 
-    $internal_isTemplate: true !default,
+    $selector_root: 'html' !default,
 
-    // $print_astro: false !default,
-    // $print_docs: false !default,
-    $print_globals: true !default,
-    $print_normalize: true !default,
-    $print_tokens: true !default,
-    $print_utils: true !default,
+    $template_print_normalize: true !default,
+    $template_print_utils: true !default,
     //
      //
-);
-
-@forward '../_content/config' with (
-    $template_name: 'HTML'
 );

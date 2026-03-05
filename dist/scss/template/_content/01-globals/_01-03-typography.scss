@@ -7,20 +7,18 @@
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/selector';
 
-@use '../../../config';
+@use '../config';
 @use '../../../tokens';
 
 @use '../../../lib' as *;
 
-@use '../config' as tmplConfig;
-
 @include debug-checkpoint(
-    '#{tmplConfig.$template_slug} - globals - typography start',
-    $level: tmplConfig.$checkpointLevel + 1,
+    '#{config.$template_slug} - globals - typography start',
+    $level: config.$template_debug_checkpointsLevel + 1,
     $verbose: true
 );
 
-@if config.$print_headings {
+@if config.$template_include_cssHeadings {
     /* # GLOBALS - TYPOGRAPHY
      * ======================================================================== */
 }
@@ -50,7 +48,7 @@
     }
 }
 
-@if config.$print_headings {
+@if config.$template_include_cssHeadings {
     /* ## Typography - Inline ==================================== */
 }
 
@@ -73,7 +71,7 @@
 
     &[target='_blank'] {
         &::after {
-            @if config.$template_link_inlineIcons {
+            @if config.$include_link_inlineIcons {
                 @include snippet-icon-pseudo-element(external) {
                     align-self: center;
                 }
@@ -84,7 +82,7 @@
     &[aria-disabled='true'],
     &[disabled] {
         &::before {
-            @if config.$template_link_inlineIcons {
+            @if config.$include_link_inlineIcons {
                 @include snippet-icon-pseudo-element(
                     forbidden,
                     $pseudo: before
@@ -104,7 +102,7 @@
     }
 }
 
-@if config.$print_headings {
+@if config.$template_include_cssHeadings {
     /* ## Typography - Block ==================================== */
 }
 
@@ -189,7 +187,7 @@
     }
 }
 
-@if config.$print_headings {
+@if config.$template_include_cssHeadings {
     /* ## Typography - Headings ==================================== */
 }
 

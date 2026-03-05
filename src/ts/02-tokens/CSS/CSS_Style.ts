@@ -8,8 +8,8 @@
  * @license MIT
  */
 
-import type { RecursivePartial } from '@maddimathon/utility-typescript/types/objects';
-import { mergeArgs } from '@maddimathon/utility-typescript/functions';
+import type { RecursivePartial } from '@maddimathon/utility-typescript/types';
+import { mergeArgs } from '@maddimathon/utility-typescript';
 
 import type {
     AnyTokenLevel,

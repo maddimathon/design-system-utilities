@@ -8,12 +8,13 @@
  * @license MIT
  */
 
+import { objectMapAsync } from '@maddimathon/utility-typescript';
+
 import type { TokenTypes } from '../../ts/02-tokens/@types.js';
 import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
 import type { LevelTargets } from '../components/ShadeSwatchTable.astro';
 
 import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
-import { objectMapAsync } from '../../ts/01-utilities/objectMapAsync.js';
 
 export async function makeShadeTargetLevels<
     T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,

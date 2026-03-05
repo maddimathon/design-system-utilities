@@ -8,7 +8,7 @@
  * @license MIT
  */
 import type { internal as buildUtils_internal } from '@maddimathon/build-utilities';
-import { type MessageMaker } from '@maddimathon/utility-typescript/classes';
+import { type MessageMaker } from '@maddimathon/utility-typescript';
 /**
  * Utilities for errors thrown within this package.
  *

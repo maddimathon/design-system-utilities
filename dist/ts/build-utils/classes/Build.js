@@ -8,7 +8,6 @@
  * @license MIT
  */
 import { BuildStage, } from '@maddimathon/build-utilities';
-import {} from '@maddimathon/utility-typescript/functions';
 /**
  * Extension of the built-in one.
  *

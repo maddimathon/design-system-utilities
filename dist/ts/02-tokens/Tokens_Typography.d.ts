@@ -7,7 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
-import type { Objects } from '@maddimathon/utility-typescript/types';
+import type { RecursivePartial } from '@maddimathon/utility-typescript/types';
 import type { RecursiveRecord } from '../01-utilities/@types.js';
 import type { AnyTokenLevel, RequiredHeadingLevels, WholeTokenLevel } from './@types.js';
 import type { Tokens_Spacing } from './Tokens_Spacing.js';
@@ -76,7 +76,7 @@ export declare namespace Tokens_Typography {
      */
     export type InputParam<T_FontFamilySlug extends string, T_SizeValue = number> = Partial<Omit<Data<T_FontFamilySlug, T_SizeValue>, 'lineHeight' | 'size'>> & {
         lineHeight?: Partial<Data<T_FontFamilySlug, T_SizeValue>['lineHeight']>;
-        size?: Objects.RecursivePartial<Data<T_FontFamilySlug, T_SizeValue>['size']>;
+        size?: RecursivePartial<Data<T_FontFamilySlug, T_SizeValue>['size']>;
     };
     /**
      * @since 0.1.0-alpha

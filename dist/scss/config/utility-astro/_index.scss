@@ -4,44 +4,4 @@
 ///
 
 @forward '_pre';
-@forward 'lib' hide $include_html, $internal_supressCredit,
-    $internal_supressCredit_sass, $print_astro_settingsMenu,
-    $print_astro_toggle, $print_astro_toggleNav, $print_normalize, $print_tokens;
-
-/// OVERRIDES ///
-
-@use 'pkg:@maddimathon/utility-sass/config/functions' as fns;
-@use 'lib';
-
-$internal_supressCredit: lib.$internal_isTemplate !default;
-$internal_supressCredit: fns.config-valid-bool(
-    $internal_supressCredit,
-    'internal_supressCredit'
-);
-
-$print_skipLinks: lib.$print_astro or (lib.$print_utils and lib.$include_html) !default;
-$print_skipLinks: fns.config-valid-bool($print_skipLinks, 'print_skipLinks');
-
-$print_astro_settingsMenu: lib.$print_astro !default;
-$print_astro_settingsMenu: fns.config-valid-bool(
-    $print_astro_settingsMenu,
-    'print_astro_settingsMenu'
-);
-
-$print_astro_toggle: lib.$print_astro !default;
-$print_astro_toggle: fns.config-valid-bool(
-    $print_astro_toggle,
-    'print_astro_toggle'
-);
-
-$print_astro_toggleNav: lib.$print_astro !default;
-$print_astro_toggleNav: fns.config-valid-bool(
-    $print_astro_toggleNav,
-    'print_astro_toggleNav'
-);
-
-$print_normalize: lib.$include_html !default;
-$print_normalize: fns.config-valid-bool($print_normalize, 'print_normalize');
-
-$print_tokens: false !default;
-$print_tokens: fns.config-valid-bool($print_tokens, 'print_tokens');
+@forward 'lib';

@@ -7,7 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
-import { mergeArgs } from '@maddimathon/utility-typescript/functions';
+import { mergeArgs } from '@maddimathon/utility-typescript';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 import { Tokens_CSS_Border } from './CSS/CSS_Border.js';
 import { Tokens_CSS_Style } from './CSS/CSS_Style.js';

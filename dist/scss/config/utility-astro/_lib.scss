@@ -10,31 +10,12 @@
 @use '../../tokens/system/default' as defaultTokens;
 
 @forward 'pkg:@maddimathon/utility-astro/config' with (
-    $include_html: pre.$include_html,
-
-    $internal_isTemplate: false !default,
-    $internal_supressCredit: pre.$internal_supressCredit_sass,
-    $internal_supressCredit_sass: pre.$internal_supressCredit_sass,
-
-    $mx_extendHeadingsByRole: false !default,
-
-    $print_astro: false !default,
-    $print_astro_settingsMenu: false,
-    $print_astro_skipLinks: false,
-    $print_astro_toggle: false,
-    $print_astro_toggleNav: false,
-
-    $print_globals: false !default,
-    $print_normalize: false,
-    $print_tokens: false,
-    $print_utils: false !default,
+    $internal_supressCredit: true,
 
     $selectorType_mode: 'null' !default,
     $selectorType_motion: 'null' !default,
 
-    $selector_root: 'html' !default,
-
-    $fn_fontSizeValue_defaultFontScale: map.get(
+    $fn_fontSizeValue_fontScale: map.get(
             defaultTokens.$designSystem,
             font,
             sizeScale
@@ -42,9 +23,12 @@
         !default,
     $fn_fontSizeValue_roundToPixelFactor: 32 !default,
 
-    $fn_var_replaceWithValue_borderWidth: not pre.$include_html !default,
-    $fn_var_replaceWithValue_fontSize: not pre.$include_html !default,
-    $fn_var_replaceWithValue_strokeRelative: not pre.$include_html !default,
+    $fn_var_replaceWithValue_lineHeight: false !default,
+    $fn_var_replaceWithValue_gap: false !default,
+    $fn_var_replaceWithValue_margin: false !default,
+    $fn_var_replaceWithValue_width: false !default,
+
+    $mx_extendSelectors_headingsByRole: false !default,
     //
      //
 );

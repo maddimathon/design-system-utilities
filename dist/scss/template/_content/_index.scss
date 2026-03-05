@@ -3,14 +3,11 @@
 /// @since 0.1.0-alpha
 ///
 
-@forward 'config';
-
 @forward '_header';
 
 @forward '00-abstracts';
 
-@forward 'utility-astro' hide $print_templateDocBlock,
-    $template_internal_supressCredit, $template_isDefault, $template_name;
+@forward 'utility-astro';
 
 @forward '01-globals';
 @forward '02-layouts';
@@ -18,3 +15,17 @@
 @forward '04-blocks';
 
 @forward '_footer';
+
+/// # EXTENDING SELECTORS
+/// ======================================================================== ///
+
+// @use 'pkg:@maddimathon/utility-sass/meta';
+
+@use 'config';
+@use 'lib' as *;
+
+// @debug '[#{config.$template_slug}] config.$mx_tokensTheme_setBaseProperties = #{meta.var-dump(config.$mx_tokensTheme_setBaseProperties)}';
+
+@if config.$template_extendSelectors {
+    @include extend-selectors;
+}

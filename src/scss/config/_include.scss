@@ -1,0 +1,48 @@
+///
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since 0.1.0-alpha
+///
+
+@use 'utility-astro' as utils;
+
+///
+/// @since 0.1.0-alpha
+/// @since ___PKG_VERSION___ — Renamed from $template_button_inlineIcons to $include_button_inlineIcons and moved to template config.
+///
+$include_button_inlineIcons: utils.$include_html !default;
+
+///
+/// Whether to inlcude [x]-hsl values in colour/theme tokens.
+///
+/// @since ___PKG_VERSION___
+///
+$include_colourValues_hsl: utils.$include_html !default;
+
+///
+/// Whether to inlcude [x]-rgb values in colour/theme tokens.
+///
+/// @since ___PKG_VERSION___
+///
+$include_colourValues_rgb: false !default;
+
+///
+/// @since 0.1.0-alpha
+/// @since ___PKG_VERSION___ — Renamed from $template_link_inlineIcons to $include_button_inlineIcons and moved to template config.
+///
+$include_link_inlineIcons: utils.$include_html !default;
+
+///
+/// Set in lib so that it can be used to set $internal_supressCredit.
+///
+/// @since ___PKG_VERSION___
+///
+$template_print_docBlock: utils.$isTemplate !default;
+
+///
+/// Removes the 'these styles include design-system-utilities' comment (for use
+/// internally only).
+///
+/// @since ___PKG_VERSION___
+/// @internal
+///
+$internal_supressCredit: $template_print_docBlock;

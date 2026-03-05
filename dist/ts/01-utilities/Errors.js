@@ -7,7 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
-import { VariableInspector, } from '@maddimathon/utility-typescript/classes';
+import { VariableInspector, } from '@maddimathon/utility-typescript';
 /**
  * Utilities for errors thrown within this package.
  *

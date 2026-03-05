@@ -12,7 +12,7 @@ import NodePath from 'node:path';
 
 import {
     escRegExp,
-} from '@maddimathon/utility-typescript/functions';
+} from '@maddimathon/utility-typescript';
 
 import {
     trailingSlash,

@@ -7,8 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
-import { arrayUnique, mergeArgs } from '@maddimathon/utility-typescript/functions';
-import { objectMap } from '../01-utilities/objectMap.js';
+import { arrayUnique, mergeArgs, objectMap, } from '@maddimathon/utility-typescript';
 import { roundToPixel } from '../01-utilities/roundToPixel.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 /**

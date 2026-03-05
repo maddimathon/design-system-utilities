@@ -7,7 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
-import { objectFlatten } from '../01-utilities/objectFlatten.js';
+import { objectFlatten } from '@maddimathon/utility-typescript';
 /**
  * Gets the value of the given theme slug.
  *

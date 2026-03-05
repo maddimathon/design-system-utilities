@@ -7,8 +7,8 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
+import { objectMap } from '@maddimathon/utility-typescript';
 import { objectGenerator } from '../01-utilities/objectGenerator.js';
-import { objectMap } from '../01-utilities/objectMap.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 import { Tokens_Themes_Set } from './Themes/Themes_Set.js';
 /**

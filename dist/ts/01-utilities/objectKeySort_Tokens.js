@@ -7,7 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
-import { objectKeySort } from './objectKeySort.js';
+import { objectKeySort } from '@maddimathon/utility-typescript';
 /**
  * Sorts a record according to its keys and returns a sorted copy.
  *

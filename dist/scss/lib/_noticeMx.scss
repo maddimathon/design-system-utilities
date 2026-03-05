@@ -3,11 +3,19 @@
 /// @since 0.1.0-alpha
 ///
 
-@mixin notice {
-    /*!
-     * This stylesheet includes css generated using 
-     * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
-     * 
-     * License: MIT
-     */
+@use 'pkg:@maddimathon/utility-astro/lib/noticeMx' as lib;
+
+@use '../config';
+
+@mixin notice($incl_astro: false, $incl_sass: true) {
+    @include lib.notice($incl_astro: $incl_astro, $incl_sass: $incl_sass);
+
+    @if not config.$internal_supressCredit {
+        /*!
+         * This stylesheet includes css generated using 
+         * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+         * 
+         * https://maddimathon.github.io/design-system-utilities
+         */
+    }
 }

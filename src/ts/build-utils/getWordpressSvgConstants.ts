@@ -10,7 +10,7 @@
 
 import {
     slugify,
-} from '@maddimathon/utility-typescript/functions';
+} from '@maddimathon/utility-typescript';
 
 import type { SvgMaker } from '../01-utilities/SvgMaker.js';
 

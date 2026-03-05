@@ -8,7 +8,7 @@
  * @license MIT
  */
 import NodePath from 'node:path';
-import { escRegExp, } from '@maddimathon/utility-typescript/functions';
+import { escRegExp, } from '@maddimathon/utility-typescript';
 import { trailingSlash, } from '@maddimathon/utility-astro';
 /**
  * Makes a filenames-based relative url for offline-friendly exports.

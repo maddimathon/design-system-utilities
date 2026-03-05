@@ -8,8 +8,8 @@
  * @license MIT
  */
 
-import type { Objects } from '@maddimathon/utility-typescript/types';
-import { arrayUnique, slugify } from '@maddimathon/utility-typescript/functions';
+import type { Classify } from '@maddimathon/utility-typescript/types';
+import { arrayUnique, slugify } from '@maddimathon/utility-typescript';
 import { JsonToScss } from '@maddimathon/utility-sass';
 
 import type {
@@ -705,7 +705,7 @@ export namespace Tokens {
                             woff: `${ subpath }/woff/${ _filename }.woff`,
                             ttf: `${ subpath }/ttf/${ _filename }.ttf`,
                         },
-                    } satisfies Objects.Classify<Tokens_Typography.Font.File>;
+                    } satisfies Classify<Tokens_Typography.Font.File>;
                 }
             }
 

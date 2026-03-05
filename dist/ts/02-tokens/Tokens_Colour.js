@@ -7,10 +7,10 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
+import { objectMap } from '@maddimathon/utility-typescript';
 import { ColourUtilities } from '../01-utilities/ColourUtilities.js';
 import { objectGeneratorAsync } from '../01-utilities/objectGenerator.js';
 import { objectKeySort_Tokens } from '../01-utilities/objectKeySort_Tokens.js';
-import { objectMap } from '../01-utilities/objectMap.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 import { Tokens_Colour_ShadeMap } from './Colour/Colour_ShadeMap.js';
 /**

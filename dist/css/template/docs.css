@@ -1,10 +1,13 @@
 @charset "UTF-8";
 /**
- * Design System Utilities Template - Docs
+ * Design System Utilities - Template - Docs
+ * @maddimathon/design-system-utilities/template/docs@0.1.1-alpha.1.draft
+ * 
+ * https://maddimathon.github.io/design-system-utilities
  */
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0-alpha.41
+ * @maddimathon/utility-sass@0.1.0-beta.0.draft
  * 
  * https://maddimathon.github.io/utility-sass
  */
@@ -253,6 +256,19 @@ pre {
 /* #endregion Normalize */
 /* # TOKENS & PROPERTIES
  * ======================================================================== */
+/* #region Tokens - Width */
+html {
+    --width-content: 36rem;
+    --width-sidebar: 18rem;
+    --width-callout: 29.25rem;
+    --width-page: 60rem;
+    --width-page: calc(
+        var(--width-content, 36rem) + var(--width-sidebar, 18rem) +
+            var(--gap-inline-layout, 8vw)
+    );
+}
+
+/* #endregion Tokens - Width */
 /* #region Tokens - Margin */
 html {
     --mrg-firm-100: 0.3125rem;
@@ -389,19 +405,6 @@ html {
 }
 
 /* #endregion Tokens - Misc. */
-/* #region Tokens - Width */
-html {
-    --width-content: 36rem;
-    --width-sidebar: 18rem;
-    --width-callout: 29.25rem;
-    --width-page: 60rem;
-    --width-page: calc(
-        var(--width-content, 36rem) + var(--width-sidebar, 18rem) +
-            var(--gap-inline-layout, 8vw)
-    );
-}
-
-/* #endregion Tokens - Width */
 /* #region Tokens - Border Width */
 html {
     --border-width-100: 0.0625rem;
@@ -9646,7 +9649,7 @@ th {
 }
 
 /*! END of @maddimathon/utility-sass/template */
-/* # LAYOUT - BASICS
+/* # ASTRO LAYOUT
  * ======================================================================== */
 nav ol,
 nav ul {
@@ -9659,7 +9662,7 @@ nav ul li {
     margin-bottom: 0;
 }
 
-/* # ASTRO LAYOUT - CONTENT SUPPORT
+/* # ASTRO LAYOUT - BODY GRID SUPPORT
  * ======================================================================== */
 body .site-sidebar,
 body aside {
@@ -15982,7 +15985,7 @@ html:where(.js),
     margin-top: 0;
 }
 
-/* # ASTRO COMPONENT - SETTINGS MENU
+/* # BLOCK - SETTINGS MENU
  * ======================================================================== */
 .website-settings-menu {
     grid-column: page-start/page-end;

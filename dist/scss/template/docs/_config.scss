@@ -3,32 +3,19 @@
 /// @since 0.1.0-alpha
 ///
 
-@forward '../default/config' with (
-    $include_featureCheck: true !default,
-    $include_html: true !default,
+@forward '../astro/config' with (
+    $template_name: 'Docs' !default,
 
-    $internal_isTemplate: true !default,
-
-    $print_astro: true !default,
-    $print_docs: true !default,
-    $print_globals: true !default,
-    $print_normalize: true !default,
-    $print_tokens: true !default,
-    $print_utils: true !default,
-
-    $selectorType_mode: 'attribute' !default,
-    $selectorType_motion: 'attribute' !default,
-
-    $include_defaultMediaQueries: true !default,
+    $template_print_docs: true !default,
 
     $fn_var_replaceWithValue_colour: false !default,
-    $mx_colourMode_includeQuery_default: false !default,
-    $mx_colourModeEach_includeSelectors_forcedColors: true !default,
+    $fn_var_replaceWithValue_fontFamily: false !default,
+
+    $mx_colourMode_includeDefaultQueries: true !default,
+    $mx_colourMode_includeQuery: false !default,
+    $mx_colourModeEach_includeForcedColorsSelectors: true !default,
     $mx_tokensTheme_includeQuery: false !default,
+    $mx_tokensTheme_unifyActiveThemeSelectors: true !default,
     //
      //
-);
-
-@forward '../_content/config' with (
-    $template_name: 'Docs'
 );

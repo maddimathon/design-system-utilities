@@ -7,12 +7,11 @@
  * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
  * @license MIT
  */
-import { jsValueToSass, mapToObjectAsync, sassAssertValueType, } from '@maddimathon/utility-sass';
+import { mapToObjectAsync, objectFlatten, objectFlattenAsync, objectMapAsync, } from '@maddimathon/utility-typescript';
+import { jsValueToSass, sassAssertValueType, } from '@maddimathon/utility-sass';
 import * as sass from "sass-embedded";
 import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
-import { objectFlatten } from '../../01-utilities/objectFlatten.js';
 import { objectGeneratorAsync } from '../../01-utilities/objectGenerator.js';
-import { objectMapAsync } from '../../01-utilities/objectMapAsync.js';
 import { colourSlugToCSS } from '../../03-parsers/colourSlugToCSS.js';
 /**
  * A function to include in {@link sass.Options} that flattens the scss theme
@@ -98,7 +97,7 @@ export function sassFn_themeFlattenGetValues() {
                 }
                 const brightness_all = Object.keys(themeSetObj).filter(key => key !== 'forced-colors');
                 return Promise.all([
-                    objectMapAsync(objectFlatten(themeSetObj['forced-colors']), ([themeSlug, themeValue]) => {
+                    objectMapAsync(objectFlattenAsync(themeSetObj['forced-colors']), ([themeSlug, themeValue]) => {
                         // returns
                         if (!includeHSL && !includeRGB) {
                             return themeValue;

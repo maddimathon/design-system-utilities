@@ -6,20 +6,18 @@
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/selector';
 
-@use '../../../config';
+@use '../config';
 @use '../../../tokens';
 
 @use '../../../lib' as *;
 
-@use '../config' as tmplConfig;
-
 @include debug-checkpoint(
-    '#{tmplConfig.$template_slug} - globals - forms start',
-    $level: tmplConfig.$checkpointLevel + 1,
+    '#{config.$template_slug} - globals - forms start',
+    $level: config.$template_debug_checkpointsLevel + 1,
     $verbose: true
 );
 
-@if config.$print_headings {
+@if config.$template_include_cssHeadings {
     /* # GLOBALS - FORMS
      * ======================================================================== */
 }
@@ -45,7 +43,7 @@
     @include snippet-label($includeUtils: false);
 }
 
-@if config.$print_headings {
+@if config.$template_include_cssHeadings {
     /* ## Forms - Buttons ==================================== */
 }
 
@@ -89,7 +87,7 @@
     @include snippet-button-colours(secondary);
 
     &::before {
-        @if config.$template_button_inlineIcons {
+        @if config.$include_button_inlineIcons {
             @include snippet-icon-pseudo-element(refresh, $pseudo: before) {
                 align-self: center;
             }
@@ -99,7 +97,7 @@
 
 %button-form-submit {
     &::before {
-        @if config.$template_button_inlineIcons {
+        @if config.$include_button_inlineIcons {
             @include snippet-icon-pseudo-element(check, $pseudo: before) {
                 align-self: center;
             }

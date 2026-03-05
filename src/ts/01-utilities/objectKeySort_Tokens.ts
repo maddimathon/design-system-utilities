@@ -8,7 +8,7 @@
  * @license MIT
  */
 
-import { objectKeySort } from './objectKeySort.js';
+import { objectKeySort } from '@maddimathon/utility-typescript';
 
 /**
  * Sorts a record according to its keys and returns a sorted copy.
@@ -18,9 +18,8 @@ import { objectKeySort } from './objectKeySort.js';
 export function objectKeySort_Tokens<T_Obj extends Record<number | string, any>>(
     obj: T_Obj,
     recursive: boolean = false,
-): T_Obj {
-
-    return objectKeySort(
+) {
+    return objectKeySort<T_Obj>(
         obj,
         recursive,
         objectKeySort_Tokens.sortMaker,

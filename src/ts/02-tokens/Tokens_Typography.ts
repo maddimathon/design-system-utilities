@@ -8,8 +8,12 @@
  * @license MIT
  */
 
-import type { Objects } from '@maddimathon/utility-typescript/types';
-import { arrayUnique, mergeArgs } from '@maddimathon/utility-typescript/functions';
+import type { RecursivePartial } from '@maddimathon/utility-typescript/types';
+import {
+    arrayUnique,
+    mergeArgs,
+    objectMap,
+} from '@maddimathon/utility-typescript';
 
 import type { RecursiveRecord } from '../01-utilities/@types.js';
 import type {
@@ -19,7 +23,6 @@ import type {
 } from './@types.js';
 import type { Tokens_Spacing } from './Tokens_Spacing.js';
 
-import { objectMap } from '../01-utilities/objectMap.js';
 import { roundToPixel } from '../01-utilities/roundToPixel.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 
@@ -367,7 +370,7 @@ export namespace Tokens_Typography {
         T_SizeValue = number,
     > = Partial<Omit<Data<T_FontFamilySlug, T_SizeValue>, 'lineHeight' | 'size'>> & {
         lineHeight?: Partial<Data<T_FontFamilySlug, T_SizeValue>[ 'lineHeight' ]>;
-        size?: Objects.RecursivePartial<Data<T_FontFamilySlug, T_SizeValue>[ 'size' ]>;
+        size?: RecursivePartial<Data<T_FontFamilySlug, T_SizeValue>[ 'size' ]>;
     };
 
     /**

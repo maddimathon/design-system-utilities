@@ -8,8 +8,9 @@
  * @license MIT
  */
 
+import { objectFlatten } from '@maddimathon/utility-typescript';
+
 import type { RecursiveRecord } from '../01-utilities/@types.js';
-import { objectFlatten } from '../01-utilities/objectFlatten.js';
 
 import type { TokenTypes } from '../02-tokens/@types.js';
 import type { Tokens } from '../02-tokens/Tokens.js';

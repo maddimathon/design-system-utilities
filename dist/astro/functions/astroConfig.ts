@@ -12,7 +12,7 @@ import type { AstroUserConfig } from 'astro';
 
 import {
     mergeArgs,
-} from '@maddimathon/utility-typescript/functions';
+} from '@maddimathon/utility-typescript';
 
 import {
     type Config as BuildConfig,

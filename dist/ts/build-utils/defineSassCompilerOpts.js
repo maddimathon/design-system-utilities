@@ -20,6 +20,7 @@ export function defineSassCompilerOpts(args, partial) {
     const functions = {
         [themeFlattenGetValues[0]]: themeFlattenGetValues[1],
     };
+    // @ts-ignore
     return sassCompilerOpts(args, {
         ...partialSassArgs ?? {},
         functions: {

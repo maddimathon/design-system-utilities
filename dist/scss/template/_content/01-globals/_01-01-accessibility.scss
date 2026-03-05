@@ -5,21 +5,19 @@
 
 // @use 'pkg:@maddimathon/utility-sass/list';
 
-@use '../../../config';
+@use '../config';
 @use '../../../tokens';
 
 @use '../../../lib' as *;
 
-@use '../config' as tmplConfig;
-
-@if config.$print_skipLinks {
+@if config.$template_print_skipLinks {
     @include debug-checkpoint(
-        '#{tmplConfig.$template_slug} - globals - skipLinks start',
-        $level: tmplConfig.$checkpointLevel + 1,
+        '#{config.$template_slug} - globals - skipLinks start',
+        $level: config.$template_debug_checkpointsLevel + 1,
         $verbose: true
     );
 
-    @if config.$print_headings {
+    @if config.$template_include_cssHeadings {
         /* # ACCESSIBILITY - SKIP LINKS
          * ======================================================================== */
     }

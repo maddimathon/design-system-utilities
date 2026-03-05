@@ -8,20 +8,26 @@
  * @license MIT
  */
 
-import {
-    type RecursiveRecord,
+import type {
+    RecursiveRecord,
+} from '@maddimathon/utility-typescript/types';
 
-    jsValueToSass,
+import {
     mapToObjectAsync,
+    objectFlatten,
+    objectFlattenAsync,
+    objectMapAsync,
+} from '@maddimathon/utility-typescript';
+
+import {
+    jsValueToSass,
     sassAssertValueType,
 } from '@maddimathon/utility-sass';
 
 import * as sass from "sass-embedded";
 
 import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
-import { objectFlatten } from '../../01-utilities/objectFlatten.js';
 import { objectGeneratorAsync } from '../../01-utilities/objectGenerator.js';
-import { objectMapAsync } from '../../01-utilities/objectMapAsync.js';
 
 import type { TokenTypes } from '../../02-tokens/@types.js';
 import type { Tokens_Colour } from '../../02-tokens/Tokens_Colour.js';
@@ -173,7 +179,7 @@ export function sassFn_themeFlattenGetValues(): [ string, sass.CustomFunction<'a
                     return Promise.all( [
 
                         objectMapAsync(
-                            objectFlatten<string, string>( themeSetObj[ 'forced-colors' ] as RecursiveRecord<string, string> ),
+                            objectFlattenAsync<string, string>( themeSetObj[ 'forced-colors' ] as RecursiveRecord<string, string> ),
                             ( [ themeSlug, themeValue ] ) => {
                                 // returns
                                 if ( !includeHSL && !includeRGB ) {

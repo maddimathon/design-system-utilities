@@ -66,7 +66,7 @@ $_systemColors: map.flatten(
     }
 
     @if $version == 'hsl' {
-        @if config.$print_colourValues_hsl {
+        @if config.$include_colourValues_hsl {
             $clrVarSlug: '#{$clrVarSlug}-hsl';
         } @else {
             $version: null;
@@ -74,7 +74,7 @@ $_systemColors: map.flatten(
     }
 
     @if $version == 'rgb' {
-        @if config.$print_colourValues_rgb {
+        @if config.$include_colourValues_rgb {
             $clrVarSlug: '#{$clrVarSlug}-rgb';
         } @else {
             $version: null;
@@ -438,8 +438,8 @@ $_default_activeTheme_mode: if(
         $opacity: null;
         $version: null;
     } @else if not
-        config.$print_colourValues_hsl and not
-        config.$print_colourValues_rgb
+        config.$include_colourValues_hsl and not
+        config.$include_colourValues_rgb
     {
         $opacity: null;
         $version: null;
@@ -459,7 +459,7 @@ $_default_activeTheme_mode: if(
     // returns
     @if $version != null {
         // prettier-ignore
-        @if (config.$print_colourValues_hsl and $version == hsl) or (config.$print_colourValues_rgb and $version == rgb) {
+        @if (config.$include_colourValues_hsl and $version == hsl) or (config.$include_colourValues_rgb and $version == rgb) {
             //
             $_value: theme-token-exists(
                 $slug,
@@ -484,9 +484,9 @@ $_default_activeTheme_mode: if(
     // returns on success
     @if $opacity != null {
         $version: if(
-            config.$print_colourValues_hsl,
+            config.$include_colourValues_hsl,
             hsl,
-            if(config.$print_colourValues_rgb, rgb, null)
+            if(config.$include_colourValues_rgb, rgb, null)
         );
 
         @if $version {

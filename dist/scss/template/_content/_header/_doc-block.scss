@@ -5,14 +5,20 @@
 
 @use '../config';
 
-@if config.$print_templateDocBlock {
+@if config.$template_print_docBlock {
     @if config.$template_isDefault {
         /**
-         * Design System Utilities Template
+         * Design System Utilities - Template
+         * @maddimathon/design-system-utilities/template@0.1.1-alpha.1.draft
+         * 
+         * https://maddimathon.github.io/design-system-utilities
          */
     } @else {
         /**
-         * Design System Utilities Template - #{config.$template_name}
+         * Design System Utilities - Template - #{config.$template_name}
+         * @maddimathon/design-system-utilities/template/#{config.$template_slug}@0.1.1-alpha.1.draft
+         * 
+         * https://maddimathon.github.io/design-system-utilities
          */
     }
 }
