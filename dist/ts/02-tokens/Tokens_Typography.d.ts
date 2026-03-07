@@ -149,7 +149,7 @@ export declare namespace Tokens_Typography {
             weight: WholeTokenLevel | `${'000' | WholeTokenLevel} ${WholeTokenLevel | '1000'}`;
         };
         /**
-         * @since 0.1.0-alpha.13
+         * @since 0.1.0-beta.0.draft
          */
         type FamilyOverride = {
             label: string;

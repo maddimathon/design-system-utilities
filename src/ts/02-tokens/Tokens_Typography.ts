@@ -489,7 +489,7 @@ export namespace Tokens_Typography {
         };
 
         /**
-         * @since 0.1.0-alpha.13
+         * @since ___PKG_VERSION___
          */
         export type FamilyOverride = {
             label: string;

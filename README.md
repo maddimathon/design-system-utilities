@@ -24,7 +24,7 @@ or
 
 <!--README_INSTALL-->
 ```bash
-npm i -D github:maddimathon/design-system-utilities#0.1.0-alpha.13
+npm i -D github:maddimathon/design-system-utilities#___PKG_VERSION___
 ```
 <!--/README_INSTALL-->
 

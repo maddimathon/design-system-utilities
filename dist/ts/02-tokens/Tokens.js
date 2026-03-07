@@ -429,8 +429,7 @@ export class Tokens extends AbstractTokens {
             let Levels;
             (function (Levels) {
                 /**
-                 * @since 0.1.0-alpha.13
-                 * @since 0.1.0-beta.0.draft — Moved to Tokens_Themes_Set.SingleMode.Levels and renamed.
+                 * @since 0.1.0-beta.0.draft
                  */
                 Levels.DEFAULT = Tokens_Themes_Set.SingleMode.Levels.DEFAULT;
                 Levels.parse = Tokens_Themes_Set.SingleMode.Levels.parse;

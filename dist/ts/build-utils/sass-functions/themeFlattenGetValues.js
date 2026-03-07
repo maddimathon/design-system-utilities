@@ -10,6 +10,7 @@
 import { mapToObjectAsync, objectFlatten, objectFlattenAsync, objectMapAsync, } from '@maddimathon/utility-typescript';
 import { CssColours, jsValueToSass, sassAssertValueType, } from '@maddimathon/utility-sass';
 import * as sass from "sass-embedded";
+import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
 import { objectGeneratorAsync } from '../../01-utilities/objectGenerator.js';
 import { colourSlugToCSS } from '../../03-parsers/colourSlugToCSS.js';
 /**
@@ -43,11 +44,8 @@ export function sassFn_themeFlattenGetValues() {
             const varMaker = !replaceVarClrWithValue
                 ? (slug, value) => slug?.length ? `var(--clr-${slug}${value ? `, ${value}` : ''})` : String(value ?? slug ?? '')
                 : (slug, value) => String(value ?? slug ?? '');
-            const slugTranslator = (brightness, val) => {
+            const slugTranslator = async (brightness, val) => {
                 const clrVal = colourSlugToCSS({ themes: themeTokens, colour: colourTokens }, brightness, val, !replaceVarClrWithValue);
-                // if ( !replaceVarClrWithValue ) {
-                //     console.vi.log( { clrVal }, 2 );
-                // }
                 // returns
                 if (!includeHSL && !includeRGB) {
                     return clrVal;
@@ -66,27 +64,39 @@ export function sassFn_themeFlattenGetValues() {
                     }
                     return clr;
                 }
-                if (includeHSL) {
-                    const hslRegex = /(^|,\s*)hsl\(\s*([\d\.]+)\s*[,\s]\s*([\d\.]+)%?\s*[,\s]\s*([\d\.]+)%?\s*\)(\b|\s*\)|$)/i;
-                    const hslMatches = clr.$.match(hslRegex);
-                    if (hslMatches) {
-                        clr.hsl = varMaker(`${val}-hsl`, `${hslMatches[2]}, ${hslMatches[3]}%, ${hslMatches[4]}%`);
-                        clr.$ = clr.$.replace(hslRegex, '$1hsl( $2, $3%, $4% )$5');
-                        // if ( !replaceVarClrWithValue ) {
-                        //     console.vi.log( { hslMatches, clr }, 3 );
-                        // }
+                let clrValidate = null;
+                const hslMatches = clrVal.match(/(^|,\s*)hsl\(\s*([\d\.]+)\s*[,\s]\s*([\d\.]+)%?\s*[,\s]\s*([\d\.]+)%?\s*\)(\b|\s*\)|$)/i);
+                if (hslMatches) {
+                    clrValidate = ColourUtilities.validateShade({
+                        h: Number(hslMatches[2]),
+                        s: Number(hslMatches[3]),
+                        l: Number(hslMatches[4]),
+                    });
+                }
+                else {
+                    const rgbMatches = clrVal.match(/(^|,\s*)rgb\(\s*([\d\.]+)\s*[,\s]\s*([\d\.]+)\s*[,\s]\s*([\d\.]+)\s*\)(\b|\s*\)|$)/i);
+                    if (rgbMatches) {
+                        clrValidate = ColourUtilities.validateShade({
+                            r: Number(rgbMatches[2]),
+                            g: Number(rgbMatches[3]),
+                            b: Number(rgbMatches[4]),
+                        });
+                    }
+                    else if (clrVal.match(/^#?[0-9|A-H]{3,6}$/i)) {
+                        clrValidate = ColourUtilities.validateShade(clrVal);
                     }
                 }
+                const clrObj = await clrValidate;
+                // returns
+                if (!clrObj) {
+                    return clrVal;
+                }
+                clr.$ = varMaker(val, ColourUtilities.toString.hsl(clrObj));
+                if (includeHSL) {
+                    clr.hsl = varMaker(`${val}-hsl`, `${clrObj.hsl.h}, ${clrObj.hsl.s}%, ${clrObj.hsl.l}%`);
+                }
                 if (includeRGB) {
-                    const rgbRegex = /(^|,\s*)rgb\(\s*([\d\.]+)\s*[,\s]\s*([\d\.]+)\s*[,\s]\s*([\d\.]+)\s*\)(\b|\s*\)|$)/i;
-                    const rgbMatches = clr.$.match(rgbRegex);
-                    if (rgbMatches) {
-                        clr.rgb = varMaker(`${val}-rgb`, `${rgbMatches[2]}, ${rgbMatches[3]}, ${rgbMatches[4]}`);
-                        clr.$ = clr.$.replace(rgbRegex, '$1rgb( $2, $3, $4 )$5');
-                        // if ( !replaceVarClrWithValue ) {
-                        //     console.vi.log( { rgbMatches, clr }, 3 );
-                        // }
-                    }
+                    clr.rgb = varMaker(`${val}-rgb`, `${clrObj.rgb.r}, ${clrObj.rgb.g}, ${clrObj.rgb.b}`);
                 }
                 return clr;
             };
@@ -112,11 +122,11 @@ export function sassFn_themeFlattenGetValues() {
                         }
                         return clr;
                     }).then(themeSet => objectFlatten(themeSet)),
-                    objectGeneratorAsync(brightness_all, (brightness) => objectMapAsync(themeSetObj[brightness], ([contrast, themeSet]) => contrast && objectMapAsync(objectFlatten(themeSet), ([themeSlug, themeValue]) => {
+                    objectGeneratorAsync(brightness_all, (brightness) => objectMapAsync(themeSetObj[brightness], ([contrast, themeSet]) => contrast && objectMapAsync(objectFlatten(themeSet), async ([themeSlug, themeValue]) => {
                         themeSlug;
                         // returns
                         if (Array.isArray(themeValue)) {
-                            return themeValue.map(item => slugTranslator(brightness, item));
+                            return Promise.all(themeValue.map(item => slugTranslator(brightness, item)));
                         }
                         return slugTranslator(brightness, themeValue);
                     }).then(themeSet => objectFlatten(themeSet))))

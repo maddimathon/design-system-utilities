@@ -746,7 +746,7 @@ export namespace Tokens_Themes_Set {
             },
 
             /**
-             * @since 0.1.0-alpha.13 — Switched to a nested object instead of separate keys. 
+             * @since ___PKG_VERSION___ — Switched to a nested object instead of separate keys. 
              */
             link: {
 
@@ -758,7 +758,7 @@ export namespace Tokens_Themes_Set {
                 },
 
                 /**
-                 * @since 0.1.0-alpha.13 — Renamed from link-ui to link-decoration.
+                 * @since ___PKG_VERSION___ — Renamed from link-ui to link-decoration.
                  */
                 decoration: {
                     $: __T_ColourOption,
@@ -777,7 +777,7 @@ export namespace Tokens_Themes_Set {
                 /**
                  * Used for the focus outline and similar elements.
                  * 
-                 * @since 0.1.0-alpha.13
+                 * @since ___PKG_VERSION___
                  */
                 outline: {
                     [ K in keyof RequiredVariations<T_ColourTypes[ 'names' ]>[ 'interactive' ] ]: __T_ColourOption;
@@ -914,7 +914,7 @@ export namespace Tokens_Themes_Set {
                     },
 
                     /**
-                     * @since 0.1.0-alpha.13 — Renamed from link-ui to link-decoration.
+                     * @since ___PKG_VERSION___ — Renamed from link-ui to link-decoration.
                      */
                     decoration?: undefined | {
                         $?: undefined | __T_ColourOption,
@@ -1099,8 +1099,7 @@ export namespace Tokens_Themes_Set {
                 }
 
                 /**
-                 * @since 0.1.0-alpha.13
-                 * @since ___PKG_VERSION___ — Made public, moved to SingleMode.Levels.Sets and renamed.
+                 * @since ___PKG_VERSION___
                  */
                 export interface AccentGrey<
                     T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
@@ -1123,8 +1122,7 @@ export namespace Tokens_Themes_Set {
             }
 
             /**
-             * @since 0.1.0-alpha.13
-             * @since ___PKG_VERSION___ — Moved to SingleMode.Levels and renamed.
+             * @since ___PKG_VERSION___
              */
             export namespace DEFAULT {
 

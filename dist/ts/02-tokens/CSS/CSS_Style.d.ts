@@ -42,8 +42,7 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
      */
     static iconStyle(partial?: Tokens_CSS_Style.InputParam['icon']): Tokens_CSS_Style.IconStyles;
     /**
-     * @since 0.1.0-alpha.13
-     * @since 0.1.0-beta.0.draft — Added partial param.
+     * @since 0.1.0-beta.0.draft
      */
     static inputStyle(partial?: Tokens_CSS_Style.InputParam['input']): {
         readonly $: Tokens_CSS_Style.InputStyles;
@@ -325,7 +324,7 @@ export declare namespace Tokens_CSS_Style {
         'vertical-align': string;
     };
     /**
-     * @since 0.1.0-alpha.13
+     * @since 0.1.0-beta.0.draft
      */
     type InputStyles = {
         border: {
@@ -371,8 +370,7 @@ export declare namespace Tokens_CSS_Style {
         };
     };
     /**
-     * @since 0.1.0-alpha.13
-     * @since 0.1.0-beta.0.draft — Renamed from InputStyles_Disabled to InputStyles_Variation.
+     * @since 0.1.0-beta.0.draft
      */
     type InputStyles_Variation = Omit<InputStyles, 'border' | 'focus' | 'label' | 'line-height' | 'margin' | 'padding' | 'placeholder'> & {
         border: Omit<InputStyles['border'], 'width'>;
@@ -434,7 +432,7 @@ export declare namespace Tokens_CSS_Style {
          */
         icon: IconStyles;
         /**
-         * @since 0.1.0-alpha.13
+         * @since 0.1.0-beta.0.draft
          */
         input: {
             $: InputStyles;

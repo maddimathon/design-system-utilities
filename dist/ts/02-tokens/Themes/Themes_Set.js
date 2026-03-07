@@ -296,8 +296,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
             ;
             ;
             /**
-             * @since 0.1.0-alpha.13
-             * @since 0.1.0-beta.0.draft — Moved to SingleMode.Levels and renamed.
+             * @since 0.1.0-beta.0.draft
              */
             let DEFAULT;
             (function (DEFAULT) {

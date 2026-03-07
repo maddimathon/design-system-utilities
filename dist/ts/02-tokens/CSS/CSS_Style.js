@@ -202,8 +202,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
         }, partial, true);
     }
     /**
-     * @since 0.1.0-alpha.13
-     * @since 0.1.0-beta.0.draft — Added partial param.
+     * @since 0.1.0-beta.0.draft
      */
     static inputStyle(partial) {
         const style = mergeArgs({

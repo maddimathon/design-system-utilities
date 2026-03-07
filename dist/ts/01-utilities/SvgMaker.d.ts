@@ -104,7 +104,7 @@ export declare namespace SvgMaker {
         svgInlineLabelled: string;
     };
     /**
-     * @since 0.1.0-alpha.13
+     * @since 0.1.0-beta.0.draft
      */
     type ScssVars<T_Slug extends string = string> = Omit<JsonReturn<T_Slug>, "ariaLabel" | "aspectRatio" | "innerSVG" | "svgAttrString" | "svgFile" | "svgCssEmbedded" | "svgInlineHidden" | "svgInlineLabelled"> & {
         aspectRatio: string;

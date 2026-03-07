@@ -238,7 +238,7 @@ export declare namespace ColourUtilities {
     /**
      * Utilities for dealing with shade level values.
      *
-     * @since 0.1.0-alpha.13
+     * @since 0.1.0-beta.0.draft
      */
     namespace Levels {
         /**
@@ -246,7 +246,7 @@ export declare namespace ColourUtilities {
          * (e.g., dark to light modes).
          *
          * @since 0.1.0-alpha
-         * @since 0.1.0-alpha.13 — Moved from {@link ColourUtilities} to {@link ColourUtilities.Levels} and renamed.
+         * @since 0.1.0-beta.0.draft — Moved from {@link ColourUtilities} to {@link ColourUtilities.Levels} and renamed.
          */
         const converter: {
             readonly '100': "900";
@@ -273,13 +273,13 @@ export declare namespace ColourUtilities {
          * The shade level keys that can be optionally included in maps for this
          * system.
          *
-         * @since 0.1.0-alpha.13
+         * @since 0.1.0-beta.0.draft
          */
         const optional: readonly ["350", "450", "550", "650"];
         /**
          * The shade level keys always included in maps for this system.
          *
-         * @since 0.1.0-alpha.13
+         * @since 0.1.0-beta.0.draft
          */
         const required: readonly ["100", "150", "200", "250", "300", "400", "500", "600", "700", "750", "800", "850", "900"];
         /**
@@ -292,14 +292,14 @@ export declare namespace ColourUtilities {
          * Shade levels that can be optionally included in shade maps for this system.
          *
          * @since 0.1.0-alpha — Introduced as a global `Levels.Optional` type in `02-tokens/@types.d.ts`.
-         * @since 0.1.0-alpha.13 — Moved to {@link ColourUtilities.Levels} and renamed.
+         * @since 0.1.0-beta.0.draft — Moved to {@link ColourUtilities.Levels} and renamed.
          */
         type Optional = typeof optional[number];
         /**
          * Shade levels always included in shade maps for this system.
          *
          * @since 0.1.0-alpha — Introduced as a global `Levels.Required` type in `02-tokens/@types.d.ts`.
-         * @since 0.1.0-alpha.13 — Moved to {@link ColourUtilities.Levels} and renamed.
+         * @since 0.1.0-beta.0.draft — Moved to {@link ColourUtilities.Levels} and renamed.
          */
         type Required = typeof required[number];
         /**
@@ -313,7 +313,7 @@ export declare namespace ColourUtilities {
          * {@link ColourUtilities.Levels.converter}).
          *
          * @since 0.1.0-alpha
-         * @since 0.1.0-alpha.13 — Moved to {@link ColourUtilities.Levels} and renamed.
+         * @since 0.1.0-beta.0.draft — Moved to {@link ColourUtilities.Levels} and renamed.
          */
         function toDark<T_LightLevel extends "black" | "white" | Levels.Any>(lightLevel: T_LightLevel): typeof converter[T_LightLevel];
     }

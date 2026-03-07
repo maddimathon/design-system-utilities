@@ -3,6 +3,8 @@
 /// @since 0.1.0-alpha
 ///
 
+@use 'pkg:@maddimathon/utility-sass/map';
+
 @use 'config';
 // @use '../../tokens';
 
@@ -37,7 +39,9 @@
         'design-system-utilities/#{config.$template_slug} - tokens end',
         $level: config.$template_debug_checkpointsLevel + 1
     );
+}
 
+@if map.get(config.$template_print_styles, keyframes) {
     @if config.$template_include_cssHeadings {
         /* # ANIMATIONS
          * ======================================================================== */

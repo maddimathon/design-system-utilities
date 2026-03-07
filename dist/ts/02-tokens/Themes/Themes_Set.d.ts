@@ -177,7 +177,7 @@ export declare namespace Tokens_Themes_Set {
                 text: __T_ColourOption;
             };
             /**
-             * @since 0.1.0-alpha.13 — Switched to a nested object instead of separate keys.
+             * @since 0.1.0-beta.0.draft — Switched to a nested object instead of separate keys.
              */
             link: {
                 $: {
@@ -187,7 +187,7 @@ export declare namespace Tokens_Themes_Set {
                     [K in keyof RequiredVariations<T_ColourTypes['names']>['interactive']]: __T_ColourOption;
                 };
                 /**
-                 * @since 0.1.0-alpha.13 — Renamed from link-ui to link-decoration.
+                 * @since 0.1.0-beta.0.draft — Renamed from link-ui to link-decoration.
                  */
                 decoration: {
                     $: __T_ColourOption;
@@ -204,7 +204,7 @@ export declare namespace Tokens_Themes_Set {
                 /**
                  * Used for the focus outline and similar elements.
                  *
-                 * @since 0.1.0-alpha.13
+                 * @since 0.1.0-beta.0.draft
                  */
                 outline: {
                     [K in keyof RequiredVariations<T_ColourTypes['names']>['interactive']]: __T_ColourOption;
@@ -311,7 +311,7 @@ export declare namespace Tokens_Themes_Set {
                         [K in keyof RequiredVariations<T_ColourTypes['names']>['interactive']]?: undefined | __T_ColourOption;
                     };
                     /**
-                     * @since 0.1.0-alpha.13 — Renamed from link-ui to link-decoration.
+                     * @since 0.1.0-beta.0.draft — Renamed from link-ui to link-decoration.
                      */
                     decoration?: undefined | {
                         $?: undefined | __T_ColourOption;
@@ -451,8 +451,7 @@ export declare namespace Tokens_Themes_Set {
                     grey: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
                 }
                 /**
-                 * @since 0.1.0-alpha.13
-                 * @since 0.1.0-beta.0.draft — Made public, moved to SingleMode.Levels.Sets and renamed.
+                 * @since 0.1.0-beta.0.draft
                  */
                 interface AccentGrey<T_ExtraColourLevels extends ColourUtilities.Levels.Optional> {
                     $: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
@@ -469,8 +468,7 @@ export declare namespace Tokens_Themes_Set {
                 }
             }
             /**
-             * @since 0.1.0-alpha.13
-             * @since 0.1.0-beta.0.draft — Moved to SingleMode.Levels and renamed.
+             * @since 0.1.0-beta.0.draft
              */
             namespace DEFAULT {
                 const average: {

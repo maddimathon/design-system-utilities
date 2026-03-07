@@ -268,8 +268,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
     }
 
     /**
-     * @since 0.1.0-alpha.13
-     * @since ___PKG_VERSION___ — Added partial param.
+     * @since ___PKG_VERSION___
      */
     public static inputStyle( partial?: Tokens_CSS_Style.InputParam[ 'input' ] ) {
 
@@ -683,7 +682,7 @@ export namespace Tokens_CSS_Style {
     };
 
     /**
-     * @since 0.1.0-alpha.13
+     * @since ___PKG_VERSION___
      */
     export type InputStyles = {
 
@@ -744,8 +743,7 @@ export namespace Tokens_CSS_Style {
     };
 
     /**
-     * @since 0.1.0-alpha.13
-     * @since ___PKG_VERSION___ — Renamed from InputStyles_Disabled to InputStyles_Variation.
+     * @since ___PKG_VERSION___
      */
     export type InputStyles_Variation = Omit<
         InputStyles,
@@ -823,7 +821,7 @@ export namespace Tokens_CSS_Style {
         icon: IconStyles;
 
         /**
-         * @since 0.1.0-alpha.13
+         * @since ___PKG_VERSION___
          */
         input: {
             $: InputStyles;

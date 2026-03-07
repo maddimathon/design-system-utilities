@@ -756,7 +756,7 @@ export var ColourUtilities;
     /**
      * Utilities for dealing with shade level values.
      *
-     * @since 0.1.0-alpha.13
+     * @since 0.1.0-beta.0.draft
      */
     let Levels;
     (function (Levels) {
@@ -765,7 +765,7 @@ export var ColourUtilities;
          * (e.g., dark to light modes).
          *
          * @since 0.1.0-alpha
-         * @since 0.1.0-alpha.13 — Moved from {@link ColourUtilities} to {@link ColourUtilities.Levels} and renamed.
+         * @since 0.1.0-beta.0.draft — Moved from {@link ColourUtilities} to {@link ColourUtilities.Levels} and renamed.
          */
         Levels.converter = {
             '100': '900',
@@ -792,7 +792,7 @@ export var ColourUtilities;
          * The shade level keys that can be optionally included in maps for this
          * system.
          *
-         * @since 0.1.0-alpha.13
+         * @since 0.1.0-beta.0.draft
          */
         Levels.optional = [
             '350',
@@ -803,7 +803,7 @@ export var ColourUtilities;
         /**
          * The shade level keys always included in maps for this system.
          *
-         * @since 0.1.0-alpha.13
+         * @since 0.1.0-beta.0.draft
          */
         Levels.required = [
             '100',
@@ -894,7 +894,7 @@ export var ColourUtilities;
          * {@link ColourUtilities.Levels.converter}).
          *
          * @since 0.1.0-alpha
-         * @since 0.1.0-alpha.13 — Moved to {@link ColourUtilities.Levels} and renamed.
+         * @since 0.1.0-beta.0.draft — Moved to {@link ColourUtilities.Levels} and renamed.
          */
         function toDark(lightLevel) {
             return Levels.converter[lightLevel];

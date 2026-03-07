@@ -647,8 +647,7 @@ export declare namespace Tokens {
                 interface Required<T_ExtraColourLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional> extends Tokens_Themes_Set.SingleMode.Levels.Required<T_ExtraColourLevels> {
                 }
                 /**
-                 * @since 0.1.0-alpha.13
-                 * @since 0.1.0-beta.0.draft — Moved to Tokens_Themes_Set.SingleMode.Levels and renamed.
+                 * @since 0.1.0-beta.0.draft
                  */
                 const DEFAULT: typeof Tokens_Themes_Set.SingleMode.Levels.DEFAULT;
                 const parse: typeof Tokens_Themes_Set.SingleMode.Levels.parse;

@@ -262,7 +262,7 @@ export namespace SvgMaker {
     };
 
     /**
-     * @since 0.1.0-alpha.13
+     * @since ___PKG_VERSION___
      */
     export type ScssVars<
         T_Slug extends string = string,

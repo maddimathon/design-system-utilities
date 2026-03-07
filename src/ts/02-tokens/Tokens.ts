@@ -902,8 +902,7 @@ export namespace Tokens {
                 > extends Tokens_Themes_Set.SingleMode.Levels.Required<T_ExtraColourLevels> { }
 
                 /**
-                 * @since 0.1.0-alpha.13
-                 * @since ___PKG_VERSION___ — Moved to Tokens_Themes_Set.SingleMode.Levels and renamed.
+                 * @since ___PKG_VERSION___
                  */
                 export const DEFAULT = Tokens_Themes_Set.SingleMode.Levels.DEFAULT;
 

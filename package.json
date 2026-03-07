@@ -104,9 +104,7 @@
         ],
         
         "./template/lib.scss": "./dist/scss/template/_content/lib/_index.scss",
-
         "./template/content.scss": "./dist/scss/template/_content/_index.scss",
-        "./template/content/notice.scss": "./dist/scss/template/_content/_header/_notice.scss",
 
         "./template/content/abstracts.scss": "./dist/scss/template/_content/_00-abstracts.scss",
         "./template/content/blocks.scss": "./dist/scss/template/_content/04-blocks/_index.scss",
@@ -177,12 +175,12 @@
 
     "scripts": {
         "unlink": "run-p unlink:*",
-            "unlink:astro": "rm -r node_modules/@maddimathon/utility-astro || echo '' && mkdir -p node_modules/@maddimathon/utility-astro",
-            "unlink:sass":  "rm -r node_modules/@maddimathon/utility-sass  || echo '' && mkdir -p node_modules/@maddimathon/utility-sass",
+            "unlink:astro": "rm -r node_modules/@maddimathon/utility-astro || echo ''",
+            "unlink:sass":  "rm -r node_modules/@maddimathon/utility-sass  || echo ''",
 
         "link": "run-p link:*",
-            "link:astro": "npm run unlink:astro && cp -R -H -f -p ../utility-astro/package.json ../utility-astro/dist ../utility-astro/jest.config.js ../utility-astro/tsconfig.json node_modules/@maddimathon/utility-astro",
-            "link:sass":  "npm run unlink:sass  && cp -R -H -f -p ../utility-sass/package.json  ../utility-sass/dist node_modules/@maddimathon/utility-sass",
+            "link:astro": "npm run unlink:astro && mkdir -p node_modules/@maddimathon/utility-astro && cp -R -H -f -p ../utility-astro/package.json ../utility-astro/dist ../utility-astro/jest.config.js ../utility-astro/tsconfig.json node_modules/@maddimathon/utility-astro",
+            "link:sass":  "npm run unlink:sass  && mkdir -p node_modules/@maddimathon/utility-sass  && cp -R -H -f -p ../utility-sass/package.json  ../utility-sass/dist node_modules/@maddimathon/utility-sass",
 
         "preinstall": "npm run unlink",
 

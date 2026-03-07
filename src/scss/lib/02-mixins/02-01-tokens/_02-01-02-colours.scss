@@ -92,31 +92,6 @@ $_flattenedSystemColors: map.flatten($_systemColors);
                             ),
                             $comment: $comment
                         );
-
-                        // @if not $flat_isValues {
-                        //     //
-                        //     @if config.$include_colourValues_hsl {
-                        //         @include utils.cx-prop(
-                        //             sys-clr-#{$slug}-hsl,
-                        //             var-clr-from-theme-token(
-                        //                 $_value,
-                        //                 $brightness: $brightness,
-                        //                 $version: hsl
-                        //             )
-                        //         );
-                        //     }
-
-                        //     @if config.$include_colourValues_rgb {
-                        //         @include utils.cx-prop(
-                        //             sys-clr-#{$slug}-rgb,
-                        //             var-clr-from-theme-token(
-                        //                 $_value,
-                        //                 $brightness: $brightness,
-                        //                 $version: rgb
-                        //             )
-                        //         );
-                        //     }
-                        // }
                     }
                 } @else {
                     $list: map.get($_systemColors, $slug);
@@ -216,7 +191,7 @@ $_flattenedSystemColors: map.flatten($_systemColors);
 ///
 /// @since 0.1.0-alpha.5
 /// @since 0.1.0-alpha.9 — Made public.
-/// @since 0.1.0-alpha.13 — Allowed $slug, $brightness, and $contrast to be optional.
+/// @since ___PKG_VERSION___ — Allowed $slug, $brightness, and $contrast to be optional.
 ///
 @mixin tokens-theme-individual-base-properties(
     $slug: tokens.$activeTheme,
@@ -299,7 +274,7 @@ $_flattenedSystemColors: map.flatten($_systemColors);
     $brightness,
     $contrast,
     $setBaseProperties: config.$mx_tokensTheme_setBaseProperties,
-    $includeSystemColours: false
+    $includeSystemColours: true
 ) {
     $flat_isValues: tokens.$themes__nestedFlat_tokenValues != null;
 
@@ -505,7 +480,7 @@ $_themes_includeAlternatives: if(
     $checkpointLevel: 2,
     //
     $includeAlternatives: $_themes_includeAlternatives,
-    $includeSystemColours: false,
+    $includeSystemColours: true,
     $separateQueriesAndSelectors: config.$mx_tokensTheme_separateQueriesAndSelectors
 ) {
     @if $checkpointName {
