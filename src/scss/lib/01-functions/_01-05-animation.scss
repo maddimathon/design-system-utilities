@@ -34,11 +34,12 @@
 ///
 /// @since 0.1.0-alpha
 ///
-@function var-tr-time($level) {
-    @return if(
-        config.$fn_var_replaceWithValue_transitionTime,
-        #{transition-time-value($level)},
-        utils.do-var(tr-time-#{$level}, #{transition-time-value($level)})
+@function var-tr-time($level, $args...) {
+    @return utils.do-var(
+        tr-time-#{$level},
+        $fallback: transition-time-value($level),
+        $fallbackOnly: config.$fn_var_replaceWithValue_transitionTime,
+        $args...
     );
 }
 

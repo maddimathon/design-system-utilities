@@ -8,6 +8,8 @@
 @use '_pre' as pre;
 
 @forward 'pkg:@maddimathon/utility-astro/config' with (
+    $include_html: pre.$include_html,
+
     $internal_supressCredit: true,
 
     $selectorType_mode: 'null' !default,
@@ -15,12 +17,17 @@
 
     $fn_fontSizeValue_roundToPixelFactor: 32 !default,
 
-    $fn_var_replaceWithValue_lineHeight: false !default,
-    $fn_var_replaceWithValue_gap: false !default,
-    $fn_var_replaceWithValue_margin: false !default,
-    $fn_var_replaceWithValue_width: false !default,
+    $fn_var_replaceWithValue_borderWidth:
+        pre.$fn_var_replaceWithValue_borderWidth,
+    $fn_var_replaceWithValue_fontSize: pre.$fn_var_replaceWithValue_fontSize,
+    $fn_var_replaceWithValue_gap: not pre.$include_html !default,
+    $fn_var_replaceWithValue_lineHeight: not pre.$include_html !default,
+    $fn_var_replaceWithValue_margin: not pre.$include_html !default,
+    $fn_var_replaceWithValue_strokeRelative:
+        pre.$fn_var_replaceWithValue_strokeRelative,
+    $fn_var_replaceWithValue_width: not pre.$include_html !default,
 
-    $mx_extendSelectors_headingsByRole: false !default,
+    $mx_extendSelectors_headingsByRole: pre.$include_html !default,
     //
      //
 );

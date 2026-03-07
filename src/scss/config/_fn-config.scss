@@ -33,49 +33,20 @@ $fn_clampHighContrastBorderWidth_min: utils.config-valid-number(
     $unit: false
 );
 
-$_var_replace_default: string.length(utils.$customPropertyPrefix) < 1 and not utils.$include_html;
-
 ///
 /// @since 0.1.0-alpha
 ///
 $fn_var_replaceWithValue_borderRadius: true !default;
 
 ///
-/// NOTE: setting this to true will disabled variable line-height values for
-/// font-family overrides.
-///
 /// @since 0.1.0-alpha
-/// @since 0.1.0-alpha.8 — Only here for the notes, now set in utility-sass.
 ///
-$fn_var_replaceWithValue_borderWidth: utils.$fn_var_replaceWithValue_borderWidth;
+$fn_var_replaceWithValue_colour: true !default;
 
 ///
 /// @since 0.1.0-alpha
 ///
-$fn_var_replaceWithValue_colour: utils.$include_html !default;
-
-///
-/// @since 0.1.0-alpha
-///
-$fn_var_replaceWithValue_fontFamily: $_var_replace_default !default;
-
-///
-/// NOTE: this also disables font sizes that scale with vw, since those are only
-/// set via property to allow for clamp() fallbacks.
-///
-/// @since 0.1.0-alpha
-/// @since 0.1.0-alpha.8 — Only here for the notes, now set in utility-sass.
-///
-$fn_var_replaceWithValue_fontSize: utils.$fn_var_replaceWithValue_fontSize;
-
-///
-/// NOTE: setting this to true will disabled variable line-height values for
-/// font-family overrides.
-///
-/// @since 0.1.0-alpha
-/// @since 0.1.0-alpha.8 — Only here for the notes, now set in utility-sass.
-///
-$fn_var_replaceWithValue_strokeRelative: utils.$fn_var_replaceWithValue_strokeRelative;
+$fn_var_replaceWithValue_fontFamily: not utils.$include_html !default;
 
 ///
 /// @since 0.1.0-alpha

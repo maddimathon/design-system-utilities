@@ -221,7 +221,7 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
 /// @since 0.1.0-alpha
 /// @since ___PKG_VERSION___ — Added optional $fallback, $raw params.
 ///
-@function var-style($slug, $fallback: null, $raw: false) {
+@function var-style($slug, $fallback: null, $raw: false, $args...) {
     $isFocusRingStyle: string.index($slug, focus-ring-) == 1;
     $isIconStyle: string.index($slug, icon-) == 1;
 
@@ -229,9 +229,8 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
         $fallback: style-value($slug, $raw: $raw);
     }
 
-    @return if(
-        config.$fn_var_replaceWithValue_style and not $isFocusRingStyle and not $isIconStyle,
-        $fallback,
-        utils.do-var($slug, $fallback)
-    );
+    $fallbackOnly: config.$fn_var_replaceWithValue_style and not $isFocusRingStyle and not
+        $isIconStyle;
+
+    @return utils.do-var($slug, $fallback: $fallback, $fallbackOnly: $fallbackOnly, $args...);
 }

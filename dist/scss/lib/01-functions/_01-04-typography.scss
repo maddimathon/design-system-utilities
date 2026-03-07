@@ -59,11 +59,12 @@ $_designSystemHasFontFamilies: map.has-key(tokens.$designSystem, font, family)
 ///
 /// @since 0.1.0-alpha
 ///
-@function var-font-family($slug) {
-    @return if(
-        config.$fn_var_replaceWithValue_fontFamily,
-        font-family-list($slug),
-        utils.do-var(ff-#{$slug}, font-family-list($slug))
+@function var-font-family($slug, $args...) {
+    @return utils.do-var(
+        ff-#{$slug},
+        $fallback: font-family-list($slug),
+        $fallbackOnly: config.$fn_var_replaceWithValue_fontFamily,
+        $args...
     );
 }
 
@@ -71,15 +72,16 @@ $_designSystemHasFontFamilies: map.has-key(tokens.$designSystem, font, family)
 /// @since 0.1.0-alpha
 /// @since 0.1.0-beta.0.draft — Added $relative param.
 ///
-@function var-fs($slug, $fallback: null, $relative: false) {
-    // returns
-    @if config.$fn_var_replaceWithValue_fontSize {
-        @return if(
-            $fallback == null,
-            list.nth(utils.fs-value($slug, $relative: $relative), 1),
-            $fallback
-        );
+@function var-fs($slug, $fallback: null, $relative: false, $args...) {
+    // TODO - test if this is necessary
+    @if $fallback == null and config.$fn_var_replaceWithValue_fontSize {
+        $fallback: list.nth(utils.fs-value($slug, $relative: $relative), 1);
     }
 
-    @return utils.var-fs($slug, $fallback: $fallback, $relative: $relative);
+    @return utils.var-fs(
+        $slug,
+        $fallback: $fallback,
+        $relative: $relative,
+        $args...
+    );
 }

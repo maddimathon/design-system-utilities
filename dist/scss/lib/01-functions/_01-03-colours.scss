@@ -53,7 +53,8 @@ $_systemColors: map.flatten(
     $slug,
     $level,
     $brightness: tokens.$brightnessMode_default,
-    $version: null
+    $version: null,
+    $args...
 ) {
     $clrVarSlug: 'clr-#{$slug}';
 
@@ -86,7 +87,7 @@ $_systemColors: map.flatten(
     // returns
     @if $slugMap == null {
         @warn "$slug '#{$slug}' was not a key in tokens.$colour";
-        @return utils.do-var($clrVarSlug);
+        @return utils.do-var($clrVarSlug, $args...);
     }
 
     $_slugMapType: meta.type-of($slugMap);
@@ -94,7 +95,7 @@ $_systemColors: map.flatten(
     // returns
     @if $_slugMapType != 'map' and $_slugMapType != 'color' {
         @warn "$level '#{$level}' was not a key in tokens.$colour.#{$slug}";
-        @return utils.do-var($clrVarSlug);
+        @return utils.do-var($clrVarSlug, $args...);
     }
 
     $fallback_clr: null;
@@ -117,7 +118,7 @@ $_systemColors: map.flatten(
         // returns
         @if $fallback_clr == null {
             @warn "$level '#{$level}' was not a key in tokens.$colour.#{$slug}";
-            @return utils.do-var($clrVarSlug);
+            @return utils.do-var($clrVarSlug, $args...);
         }
     }
 
@@ -131,10 +132,11 @@ $_systemColors: map.flatten(
         $fallback: colour.to-hsl($fallback_clr, $round: false);
     }
 
-    @return if(
-        config.$fn_var_replaceWithValue_colour,
+    @return utils.do-var(
+        $clrVarSlug,
         $fallback,
-        utils.do-var($clrVarSlug, $fallback)
+        $fallbackOnly: config.$fn_var_replaceWithValue_colour,
+        $args...
     );
 }
 
@@ -143,11 +145,7 @@ $_systemColors: map.flatten(
 ///
 /// @since 0.1.0-alpha
 ///
-@function var-clr-from-theme-token(
-    $tokenValue,
-    $brightness: tokens.$brightnessMode_default,
-    $version: null
-) {
+@function var-clr-from-theme-token($tokenValue, $args...) {
     $tokenValue: #{$tokenValue};
 
     // returns
@@ -160,12 +158,7 @@ $_systemColors: map.flatten(
         $tokenValue ==
         black
     {
-        @return var-clr(
-            $tokenValue,
-            null,
-            $brightness: $brightness,
-            $version: $version
-        );
+        @return var-clr($tokenValue, null, $args...);
     }
 
     // returns
@@ -173,8 +166,7 @@ $_systemColors: map.flatten(
         @return var-clr(
             string.slice($tokenValue, 1, -5),
             string.slice($tokenValue, -3, -1),
-            $brightness: $brightness,
-            $version: $version
+            $args...
         );
     }
 
@@ -371,7 +363,8 @@ $_default_activeTheme_mode: if(
     $themeSlug: tokens.$activeTheme,
     $useSystemColorFallback: null,
     $version: null,
-    $opacity: null
+    $opacity: null,
+    $args...
 ) {
     $clrIsSystemColor: false;
 
@@ -426,7 +419,7 @@ $_default_activeTheme_mode: if(
 
     // returns
     @if not $clrSlug {
-        @return utils.do-var(theme-#{$slug});
+        @return utils.do-var(theme-#{$slug}, $args...);
     }
 
     $opacity: if($opacity != null and not $clrIsSystemColor, $opacity, null);
@@ -471,10 +464,14 @@ $_default_activeTheme_mode: if(
             }
 
             @if $_value {
-                @return utils.do-var(theme-#{$slug}-#{$version}, $_value);
+                @return utils.do-var(theme-#{$slug}-#{$version},$fallback: $_value, $args...);
             }
         } @else {
-            @return utils.do-var(theme-#{$slug}-#{$version});
+            @return utils.do-var(
+                theme-#{$slug}-#{$version},
+                $fallback: null,
+                $args...
+            );
         }
     }
 
@@ -500,10 +497,10 @@ $_default_activeTheme_mode: if(
             }
 
             @if $_value {
-                @return '#{$version}a(#{utils.do-var(theme-#{$slug}-#{$version}, $_value)}, #{$opacity})';
+                @return '#{$version}a(#{utils.do-var(theme-#{$slug}-#{$version}, $fallback: $_value, $args...)}, #{$opacity})';
             }
         }
     }
 
-    @return utils.do-var(theme-#{$slug}, $clrSlug);
+    @return utils.do-var(theme-#{$slug}, $fallback: $clrSlug, $args...);
 }
