@@ -1,10 +1,10 @@
 /**
- * @since 0.1.1-alpha.1.draft
+ * @since 0.1.0-beta.0.draft
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
 import { slugify, } from '@maddimathon/utility-typescript';
@@ -12,7 +12,7 @@ import { slugify, } from '@maddimathon/utility-typescript';
  * Gets a string of valid PHP code for wordpress defining constants for the given set of
  * SVGs.
  *
- * @since 0.1.1-alpha.1.draft
+ * @since 0.1.0-beta.0.draft
  */
 export async function getWordpressSvgConstants(_setName, svgSet, phpNamespace, textDomain) {
     // returns

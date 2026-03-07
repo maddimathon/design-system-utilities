@@ -17,16 +17,9 @@ import type { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
  * @since ___PKG_VERSION___
  */
 export function textColorLevel(
-    lvl:
-        | 'black'
-        | 'white'
-        | ColourUtilities.Levels.Required
-        | ColourUtilities.Levels.Optional,
-):
-    | 'black'
-    | 'white'
-    | ColourUtilities.Levels.Required
-    | ColourUtilities.Levels.Optional {
+    lvl: 'black' | 'white' | ColourUtilities.Levels.Any,
+): 'black' | 'white' | ColourUtilities.Levels.Any {
+
     switch ( lvl ) {
 
         case '100':

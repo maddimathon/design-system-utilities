@@ -1,10 +1,10 @@
 /**
- * @since 0.1.1-alpha.1.draft
+ * @since 0.1.0-beta.0.draft
  * 
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
 
@@ -16,13 +16,17 @@ import type { LevelTargets } from '../components/ShadeSwatchTable.astro';
 
 import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
 
+/**
+ * Takes a shade map and uses it to define target contrast levels using the
+ * map's contrast levels with the given sampleColourName.
+ *
+ * @since 0.1.0-beta.0.draft
+ */
 export async function makeShadeTargetLevels<
     T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
 >(
     sampleColourName: TokenTypes.Colour.GenericName<T_Types[ 'colour' ][ 'names' ]>,
-    targetShadeMap?:
-        | undefined
-        | Tokens_Colour_ShadeMap.JsonReturn<T_Types[ 'colour' ]>,
+    targetShadeMap: undefined | Tokens_Colour_ShadeMap.JsonReturn<T_Types[ 'colour' ]>,
 ): Promise<LevelTargets<T_Types[ 'colour' ]> | undefined> {
     // returns
     if ( !targetShadeMap ) {

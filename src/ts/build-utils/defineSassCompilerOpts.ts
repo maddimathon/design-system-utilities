@@ -24,6 +24,8 @@ import { sassFn_themeFlattenGetValues } from './sass-functions/themeFlattenGetVa
 
 /**
  * Defines on the sass compiler options part of the build-utilities config.
+ * 
+ * @since ___PKG_VERSION___
  */
 export function defineSassCompilerOpts(
     args: {

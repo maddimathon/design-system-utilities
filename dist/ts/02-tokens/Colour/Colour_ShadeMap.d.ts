@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
 import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
@@ -49,14 +49,14 @@ export declare namespace Tokens_Colour_ShadeMap {
     type InputParam<T_Types extends TokenTypes.Colour.TypeParams> = TokenTypes.Colour.PartialLevelRecord<T_Types, Tokens_Colour_ShadeMap.Shade.InputParam>;
     type JsonReturn<T_Types extends TokenTypes.Colour.TypeParams> = TokenTypes.Colour.LevelRecord<T_Types, Tokens_Colour_ShadeMap.Shade.JsonReturn<T_Types>>;
     /**
-     * @since 0.1.1-alpha.1.draft
+     * @since 0.1.0-beta.0.draft
      */
     type ScssVars<T_Types extends TokenTypes.Colour.TypeParams> = TokenTypes.Colour.LevelRecord<T_Types, Tokens_Colour_ShadeMap.Shade.ScssVars>;
     /**
      * Generates a complete token object for the design system.
      *
      * @since 0.1.0-alpha
-     * @since 0.1.1-alpha.1.draft — Moved to {@link Tokens_Colour_ShadeMap} and renamed.
+     * @since 0.1.0-beta.0.draft — Moved to {@link Tokens_Colour_ShadeMap} and renamed.
      */
     class Shade<T_Types extends TokenTypes.Colour.TypeParams> extends AbstractTokens<{
         data: Shade.Data;
@@ -87,7 +87,7 @@ export declare namespace Tokens_Colour_ShadeMap {
      * Utilities for the {@link Shade} class.
      *
      * @since 0.1.0-alpha
-     * @since 0.1.1-alpha.1.draft — Moved to {@link Tokens_Colour_ShadeMap} and renamed.
+     * @since 0.1.0-beta.0.draft — Moved to {@link Tokens_Colour_ShadeMap} and renamed.
      */
     namespace Shade {
         /**
@@ -125,7 +125,7 @@ export declare namespace Tokens_Colour_ShadeMap {
             };
             /**
              * @since 0.1.0-alpha
-             * @since 0.1.1-alpha.1.draft — Moved to {@link Shade.Contrast} and renamed.
+             * @since 0.1.0-beta.0.draft — Moved to {@link Shade.Contrast} and renamed.
              */
             type Results<T_Types extends TokenTypes.Colour.TypeParams> = {
                 base: Results.LevelsMap<T_Types>;
@@ -133,11 +133,11 @@ export declare namespace Tokens_Colour_ShadeMap {
                 [C in T_Types['names']]: Results.LevelsMap<T_Types>;
             };
             /**
-             * @since 0.1.1-alpha.1.draft
+             * @since 0.1.0-beta.0.draft
              */
             namespace Results {
                 /**
-                 * @since 0.1.1-alpha.1.draft
+                 * @since 0.1.0-beta.0.draft
                  */
                 type LevelsMap<T_Types extends TokenTypes.Colour.TypeParams> = {
                     [L in ColourUtilities.Levels.Required]: undefined | ColourUtilities.ContrastTest.Result;
@@ -169,7 +169,7 @@ export declare namespace Tokens_Colour_ShadeMap {
             contrast: Contrast<T_Types>;
         };
         /**
-         * @since 0.1.1-alpha.1.draft
+         * @since 0.1.0-beta.0.draft
          */
         type ScssVars = string;
     }

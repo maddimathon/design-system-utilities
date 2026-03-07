@@ -13,6 +13,12 @@ import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
 import type { TokenTypes } from '../../ts/02-tokens/@types.d.ts';
 import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
 
+/**
+ * Takes a colour object and returns a css-compatible string of its colour value
+ * (if possible).
+ * 
+ * @since ___PKG_VERSION___
+ */
 export function getColourValue<
     T_ColourTypes extends TokenTypes.Colour.TypeParams,
 >(
@@ -49,6 +55,12 @@ export function getColourValue<
     return null;
 }
 
+/**
+ * Takes a base shade map and a level and returns that level's colour object, if
+ * it exists.
+ * 
+ * @since ___PKG_VERSION___
+ */
 export function getBaseColourObject<
     T_ColourTypes extends TokenTypes.Colour.TypeParams,
 >(
@@ -66,6 +78,12 @@ export function getBaseColourObject<
     return baseMap[ level ];
 }
 
+/**
+ * Takes any shade map, a fallback base shade map, and a target level and
+ * returns that level's colour object, if it exists.
+ *
+ * @since ___PKG_VERSION___
+ */
 export function getMapColourObject<
     T_ColourTypes extends TokenTypes.Colour.TypeParams,
 >(
@@ -86,5 +104,5 @@ export function getMapColourObject<
         return getBaseColourObject( baseMap, level );
     }
 
-    return shadeMap[ level ] satisfies Tokens_Colour_ShadeMap.Shade.JsonReturn<T_ColourTypes>;
+    return shadeMap[ level ];
 }

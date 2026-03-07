@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
 import { AbstractTokens } from './abstract/AbstractTokens.js';
@@ -70,7 +70,7 @@ export declare namespace Tokens_CSS {
         transition: Tokens_CSS_Transition.JsonReturn;
     };
     /**
-     * @since 0.1.1-alpha.1.draft
+     * @since 0.1.0-beta.0.draft
      */
     type ScssVars = {
         border: Tokens_CSS_Border.ScssVars;

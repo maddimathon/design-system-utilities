@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.0.draft
 /// @since 0.1.0-alpha.4 — Moved from index.
 ///
 
@@ -40,8 +40,8 @@
     $lineHeight: not config.$fn_var_replaceWithValue_lineHeight,
     $margin: not config.$fn_var_replaceWithValue_margin,
     $strokeRelative: not config.$fn_var_replaceWithValue_strokeRelative,
-    $style: not config.$fn_var_replaceWithValue_style,
-    $sysColours: false,
+    $style: null,
+    $sysColours: true,
     $theme: true,
     $transition: true,
     $trTime: not config.$fn_var_replaceWithValue_transitionTime,
@@ -106,8 +106,12 @@
     @if $zIndex {
         @include tokens-z-index;
     }
-    @if $style {
-        @include tokens-style;
+    @if $style != false {
+        @if not config.$fn_var_replaceWithValue_style {
+            @include tokens-style;
+        } @else {
+            @include tokens-style($requiredOnly: true);
+        }
     }
 
     @if $checkpointName {
@@ -155,7 +159,8 @@
 
         @include tokens-theme(
             $checkpointName: $checkpointName,
-            $checkpointLevel: $checkpointLevel + 1
+            $checkpointLevel: $checkpointLevel + 1,
+            $includeSystemColours: $sysColours
         );
 
         @if $checkpointName {

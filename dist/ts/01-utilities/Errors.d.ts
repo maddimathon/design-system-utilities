@@ -1,10 +1,10 @@
 /**
- * @since 0.1.1-alpha.1.draft
+ * @since 0.1.0-beta.0.draft
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
 import type { internal as buildUtils_internal } from '@maddimathon/build-utilities';
@@ -13,38 +13,38 @@ import { type MessageMaker } from '@maddimathon/utility-typescript';
  * Utilities for errors thrown within this package.
  *
  * @since 0.1.0-alpha
- * @since 0.1.1-alpha.1.draft — Moved to global namespace and renamed.
+ * @since 0.1.0-beta.0.draft — Moved to global namespace and renamed.
  */
 export declare namespace LocalErrors {
     /**
-     * @since 0.1.1-alpha.1.draft
+     * @since 0.1.0-beta.0.draft
      */
     type Cause = buildUtils_internal.AbstractError.Input | Error;
     /**
      * Object used to give context for where this error was triggered.
      *
      * @since 0.1.0-alpha
-     * @since 0.1.1-alpha.1.draft — Changed to union of new types.
+     * @since 0.1.0-beta.0.draft — Changed to union of new types.
      */
     type Context = Context.Class | Context.Function;
     /**
-     * @since 0.1.1-alpha.1.draft
+     * @since 0.1.0-beta.0.draft
      */
     namespace Context {
         /**
-         * @since 0.1.1-alpha.1.draft
+         * @since 0.1.0-beta.0.draft
          */
         interface Basic {
             line?: string;
         }
         /**
-         * @since 0.1.1-alpha.1.draft
+         * @since 0.1.0-beta.0.draft
          */
         export interface Function extends Partial<Basic> {
             function: string;
         }
         /**
-         * @since 0.1.1-alpha.1.draft
+         * @since 0.1.0-beta.0.draft
          */
         export interface Class extends Partial<Basic> {
             class: string;
@@ -65,7 +65,7 @@ export declare namespace LocalErrors {
     /**
      * For use within the package.
      *
-     * @since 0.1.1-alpha.1.draft
+     * @since 0.1.0-beta.0.draft
      */
     abstract class Abst_Error<T_CauseType extends Cause = any> extends Error {
         readonly context: Context;
@@ -120,7 +120,7 @@ export declare namespace LocalErrors {
     /**
      * Used to throw errors while in the {@link ColourUtilities} namespace.
      *
-     * @since 0.1.1-alpha.1.draft
+     * @since 0.1.0-beta.0.draft
      */
     class ColourUtilitiesError<T_CauseType extends Cause> extends Abst_Error<T_CauseType> {
         readonly name: string;
@@ -129,7 +129,7 @@ export declare namespace LocalErrors {
      * Used to throw errors while compiling the tokens.
      *
      * @since 0.1.0-alpha
-     * @since 0.1.1-alpha.1.draft — Moved to global namespace and renamed.
+     * @since 0.1.0-beta.0.draft — Moved to global namespace and renamed.
      */
     class TokenBuildError<T_CauseType extends Cause> extends Abst_Error<T_CauseType> {
         readonly name: string;

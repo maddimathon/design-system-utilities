@@ -24,7 +24,6 @@ export function colourToArray<
 ): {
     name: TokenTypes.Colour.GenericName<T_ColourTypes[ 'names' ]>,
     map: shadeMapToArray.ReturnItem<
-        T_ColourTypes,
         Tokens_Colour_ShadeMap.JsonReturn<T_ColourTypes>
     >[],
 }[] {
@@ -37,7 +36,6 @@ export function colourToArray<
             ( name ): false | {
                 name: TokenTypes.Colour.GenericName<T_ColourTypes[ 'names' ]>,
                 map: shadeMapToArray.ReturnItem<
-                    T_ColourTypes,
                     Tokens_Colour_ShadeMap.JsonReturn<T_ColourTypes>
                 >[],
             } =>

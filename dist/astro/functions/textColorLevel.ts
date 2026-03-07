@@ -1,10 +1,10 @@
 /**
- * @since 0.1.1-alpha.1.draft
+ * @since 0.1.0-beta.0.draft
  * 
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
 
@@ -14,19 +14,12 @@ import type { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
  * Returns a default text level for the given background level. Should only be
  * used as a last-resort fallback.
  * 
- * @since 0.1.1-alpha.1.draft
+ * @since 0.1.0-beta.0.draft
  */
 export function textColorLevel(
-    lvl:
-        | 'black'
-        | 'white'
-        | ColourUtilities.Levels.Required
-        | ColourUtilities.Levels.Optional,
-):
-    | 'black'
-    | 'white'
-    | ColourUtilities.Levels.Required
-    | ColourUtilities.Levels.Optional {
+    lvl: 'black' | 'white' | ColourUtilities.Levels.Any,
+): 'black' | 'white' | ColourUtilities.Levels.Any {
+
     switch ( lvl ) {
 
         case '100':

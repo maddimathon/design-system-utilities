@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
 import { LocalErrors } from './Errors.js';
@@ -133,29 +133,29 @@ export declare namespace ColourUtilities {
         } | SingleShade | SingleShade_Input): string;
     }
     /**
-     * @since 0.1.1-alpha.1.draft
+     * @since 0.1.0-beta.0.draft
      */
     namespace Async {
         /**
-         * @since 0.1.1-alpha.1.draft
+         * @since 0.1.0-beta.0.draft
          */
         function toHex(clr: {
             data: SingleShade;
         } | SingleShade | SingleShade_Input, errMaker?: LocalErrors.ConstructorFn): Promise<Value_Hex>;
         /**
-         * @since 0.1.1-alpha.1.draft
+         * @since 0.1.0-beta.0.draft
          */
         function toHSL(clr: {
             data: SingleShade;
         } | SingleShade | SingleShade_Input, errMaker?: LocalErrors.ConstructorFn, round?: boolean): Promise<Value_HSL>;
         /**
-         * @since 0.1.1-alpha.1.draft
+         * @since 0.1.0-beta.0.draft
          */
         function toLCH(clr: {
             data: SingleShade;
         } | SingleShade | SingleShade_Input, errMaker?: LocalErrors.ConstructorFn, round?: boolean): Promise<Value_LCH>;
         /**
-         * @since 0.1.1-alpha.1.draft
+         * @since 0.1.0-beta.0.draft
          */
         function toRGB(clr: {
             data: SingleShade;
@@ -166,7 +166,7 @@ export declare namespace ColourUtilities {
      * {@link Tokens_Colour_ShadeMap.Shade} objects.
      *
      * @since 0.1.0-alpha
-     * @since 0.1.1-alpha.1.draft — Moved to ColourUtilities and renamed.
+     * @since 0.1.0-beta.0.draft — Moved to ColourUtilities and renamed.
      * @internal
      */
     class ContrastTest {
@@ -192,7 +192,7 @@ export declare namespace ColourUtilities {
      * Utilities for the {@link Tokens} class.
      *
      * @since 0.1.0-alpha
-     * @since 0.1.1-alpha.1.draft — Moved to ColourUtilities and renamed.
+     * @since 0.1.0-beta.0.draft — Moved to ColourUtilities and renamed.
      * @internal
      */
     namespace ContrastTest {
@@ -208,7 +208,7 @@ export declare namespace ColourUtilities {
         type Part = Partial<Result>;
         /**
          * @since 0.1.0-alpha
-         * @since 0.1.1-alpha.1.draft — Renamed.
+         * @since 0.1.0-beta.0.draft — Renamed.
          */
         type Result = {
             ratio: number;
@@ -217,7 +217,7 @@ export declare namespace ColourUtilities {
         };
         /**
          * @since 0.1.0-alpha
-         * @since 0.1.1-alpha.1.draft — Renamed.
+         * @since 0.1.0-beta.0.draft — Renamed.
          */
         type SingleResult = {
             ui: boolean;
@@ -227,7 +227,7 @@ export declare namespace ColourUtilities {
          * An object defining the minimum contrast ratios required for a pass.
          *
          * @since 0.1.0-alpha
-         * @since 0.1.1-alpha.1.draft — Renamed.
+         * @since 0.1.0-beta.0.draft — Renamed.
          */
         type Standards = {
             [T in "aa" | "aaa"]: {
@@ -238,7 +238,7 @@ export declare namespace ColourUtilities {
     /**
      * Utilities for dealing with shade level values.
      *
-     * @since 0.1.1-alpha.0
+     * @since 0.1.0-alpha.13
      */
     namespace Levels {
         /**
@@ -246,7 +246,7 @@ export declare namespace ColourUtilities {
          * (e.g., dark to light modes).
          *
          * @since 0.1.0-alpha
-         * @since 0.1.1-alpha.0 — Moved from {@link ColourUtilities} to {@link ColourUtilities.Levels} and renamed.
+         * @since 0.1.0-alpha.13 — Moved from {@link ColourUtilities} to {@link ColourUtilities.Levels} and renamed.
          */
         const converter: {
             readonly '100': "900";
@@ -273,42 +273,48 @@ export declare namespace ColourUtilities {
          * The shade level keys that can be optionally included in maps for this
          * system.
          *
-         * @since 0.1.1-alpha.0
+         * @since 0.1.0-alpha.13
          */
         const optional: readonly ["350", "450", "550", "650"];
         /**
          * The shade level keys always included in maps for this system.
          *
-         * @since 0.1.1-alpha.0
+         * @since 0.1.0-alpha.13
          */
         const required: readonly ["100", "150", "200", "250", "300", "400", "500", "600", "700", "750", "800", "850", "900"];
         /**
-         * Shade levels that can be optionally included in maps for this system.
+         * All possible shade levels possibly in shade maps for this system.
+         *
+         * @since 0.1.0-beta.0.draft
+         */
+        type Any = Optional | Required;
+        /**
+         * Shade levels that can be optionally included in shade maps for this system.
          *
          * @since 0.1.0-alpha — Introduced as a global `Levels.Optional` type in `02-tokens/@types.d.ts`.
-         * @since 0.1.1-alpha.0 — Moved to {@link ColourUtilities.Levels} and renamed.
+         * @since 0.1.0-alpha.13 — Moved to {@link ColourUtilities.Levels} and renamed.
          */
         type Optional = typeof optional[number];
         /**
-         * Shade levels always included in maps for this system.
+         * Shade levels always included in shade maps for this system.
          *
          * @since 0.1.0-alpha — Introduced as a global `Levels.Required` type in `02-tokens/@types.d.ts`.
-         * @since 0.1.1-alpha.0 — Moved to {@link ColourUtilities.Levels} and renamed.
+         * @since 0.1.0-alpha.13 — Moved to {@link ColourUtilities.Levels} and renamed.
          */
         type Required = typeof required[number];
         /**
          * Augments a single level by the given amount, creating a new valid level.
          *
-         * @since 0.1.1-alpha.1.draft
+         * @since 0.1.0-beta.0.draft
          */
-        function augmentor<T_AnyColourLevel extends Levels.Required | Levels.Optional>(allColourLevels: Set<T_AnyColourLevel>, level: "black" | "white" | NoInfer<T_AnyColourLevel>, levelOffset: number, minimum?: number, maximum?: number): "black" | "white" | NoInfer<T_AnyColourLevel>;
+        function augmentor<T_AnyColourLevel extends Levels.Any>(allColourLevels: Set<T_AnyColourLevel>, level: "black" | "white" | NoInfer<T_AnyColourLevel>, levelOffset: number, minimum?: number, maximum?: number): "black" | "white" | NoInfer<T_AnyColourLevel>;
         /**
          * Converts the given shade level to its oppposite (via
          * {@link ColourUtilities.Levels.converter}).
          *
          * @since 0.1.0-alpha
-         * @since 0.1.1-alpha.0 — Moved to {@link ColourUtilities.Levels} and renamed.
+         * @since 0.1.0-alpha.13 — Moved to {@link ColourUtilities.Levels} and renamed.
          */
-        function toDark<T_LightLevel extends "black" | "white" | Levels.Required | Levels.Optional>(lightLevel: T_LightLevel): typeof converter[T_LightLevel];
+        function toDark<T_LightLevel extends "black" | "white" | Levels.Any>(lightLevel: T_LightLevel): typeof converter[T_LightLevel];
     }
 }

@@ -251,7 +251,24 @@ export class Tokens_CSS_Style extends AbstractTokens<{
     }
 
     /**
-     * @since 0.1.1-alpha.0
+     * @since ___PKG_VERSION___
+     */
+    public static iconStyle( partial: Tokens_CSS_Style.InputParam[ 'icon' ] = {} ): Tokens_CSS_Style.IconStyles {
+
+        return mergeArgs( {
+            color: 'ui',
+            'inline-buffer': '0.25em',
+            size: {
+                $: '1.375em',
+                large: '2em',
+                pseudo: '1em',
+            },
+            'vertical-align': 'middle',
+        }, partial, true );
+    }
+
+    /**
+     * @since 0.1.0-alpha.13
      * @since ___PKG_VERSION___ — Added partial param.
      */
     public static inputStyle( partial?: Tokens_CSS_Style.InputParam[ 'input' ] ) {
@@ -385,6 +402,8 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                 ( hdg ) => Tokens_CSS_Style.headingStyle( hdg, partial.heading?.[ hdg ] )
             ),
 
+            icon: Tokens_CSS_Style.iconStyle( partial.icon ),
+
             input: Tokens_CSS_Style.inputStyle( partial.input ),
 
             margin: mergeArgs(
@@ -424,6 +443,8 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                 [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const,
                 ( hdg ) => Tokens_CSS_Style.headingStyle( hdg )
             ),
+
+            icon: Tokens_CSS_Style.iconStyle(),
 
             input: Tokens_CSS_Style.inputStyle(),
 
@@ -638,7 +659,31 @@ export namespace Tokens_CSS_Style {
     };
 
     /**
-     * @since 0.1.1-alpha.0
+     * @since ___PKG_VERSION___
+     */
+    export type IconStyles = {
+        /**
+         * This should be a theme slug.
+         */
+        color: string;
+
+        'inline-buffer': string;
+
+        size: {
+            $: string;
+            large: string;
+
+            /**
+             * For inline icons in before/after pseudo classes.
+             */
+            pseudo: string;
+        };
+
+        'vertical-align': string;
+    };
+
+    /**
+     * @since 0.1.0-alpha.13
      */
     export type InputStyles = {
 
@@ -699,7 +744,7 @@ export namespace Tokens_CSS_Style {
     };
 
     /**
-     * @since 0.1.1-alpha.0
+     * @since 0.1.0-alpha.13
      * @since ___PKG_VERSION___ — Renamed from InputStyles_Disabled to InputStyles_Variation.
      */
     export type InputStyles_Variation = Omit<
@@ -773,7 +818,12 @@ export namespace Tokens_CSS_Style {
         };
 
         /**
-         * @since 0.1.1-alpha.0
+         * @since ___PKG_VERSION___
+         */
+        icon: IconStyles;
+
+        /**
+         * @since 0.1.0-alpha.13
          */
         input: {
             $: InputStyles;
@@ -835,6 +885,11 @@ export namespace Tokens_CSS_Style {
         } & {
             [ key: number ]: RecursivePartial<HeadingStyles>;
         };
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        icon?: RecursivePartial<IconStyles>;
 
         input?: {
             $?: RecursivePartial<InputStyles>;

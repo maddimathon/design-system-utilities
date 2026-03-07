@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
 import type { ColourUtilities } from '../01-utilities/ColourUtilities.js';
@@ -15,4 +15,4 @@ import type { Tokens_Themes } from './Tokens_Themes.js';
  *
  * @since 0.1.0-alpha.2
  */
-export declare function getLevelsInUse<T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams = TokenTypes.Theme.TypeParams>(themes: Tokens_Themes.JsonReturn<T_ColourTypes, T_ThemeTypes>): Set<"black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional>;
+export declare function getLevelsInUse<T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams = TokenTypes.Theme.TypeParams>(themes: Tokens_Themes.JsonReturn<T_ColourTypes, T_ThemeTypes>): Set<"black" | "white" | ColourUtilities.Levels.Any>;

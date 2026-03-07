@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
 import { objectMap } from '@maddimathon/utility-typescript';
@@ -75,7 +75,7 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
      * Generates a complete token object for the design system.
      *
      * @since 0.1.0-alpha
-     * @since 0.1.1-alpha.1.draft — Moved to {@link Tokens_Colour_ShadeMap} and renamed.
+     * @since 0.1.0-beta.0.draft — Moved to {@link Tokens_Colour_ShadeMap} and renamed.
      */
     class Shade extends AbstractTokens {
         allNames;

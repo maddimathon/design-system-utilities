@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.0.draft
 /// @since 0.1.0-alpha
 ///
 
@@ -13,18 +13,20 @@
 
 @use 'pkg:@maddimathon/utility-astro/02-mixins' as utils;
 
-$_flattenedStyle: map.flatten(map.get(tokens.$designSystem, style));
-
 ///
 /// Prints out the style custom property tokens based on tokens.
 ///
 /// @since 0.1.0-alpha
 ///
-@mixin tokens-style {
+@mixin tokens-style($requiredOnly: false) {
+    $_tokensMap: map.get(tokens.$designSystem, style);
+
+    $_tokensMap: if($requiredOnly, map.pick($_tokensMap, (icon)), $_tokensMap);
+
     /* #region Tokens - Style */
     #{selector.parent-or-root()} {
-        @each $slug, $_value in $_flattenedStyle {
-            @include utils.cx-prop(style-#{$slug}, style-value($slug));
+        @each $slug, $_value in map.flatten($_tokensMap) {
+            @include utils.cx-prop($slug, style-value($slug));
         }
     }
     /* #endregion Tokens - Style */

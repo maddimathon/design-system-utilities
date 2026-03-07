@@ -1,51 +1,34 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.0.draft
 /// @since 0.1.0-alpha
 ///
 
 @use '../config';
-@use 'system';
+@use 'theme';
 
 @use 'pkg:@maddimathon/utility-sass/map';
-
-$_theme_ui_base: config.config-do-var(
-    theme-ui,
-    config.config-do-var(
-        clr-#{map.get(system.$themes, default, light, average, ui, '$')},
-        currentColor
-    )
-);
-
-$internal_customTokensDefault: () !default;
-
-$internal_customTokensDefault: map.merge(
-    (
-        focus-ring: (
-            outline-width: '400',
-            outline-offset: '400',
-            outline-color: currentColor,
-        ),
-
-        icon: (
-            color: $_theme_ui_base,
-            inline-buffer: 0.25em,
-            vertical-align: middle,
-            size: (
-                '$': 1.375em,
-                pseudo: 1em,
-                large: 2em,
-            ),
-        ),
-    ),
-    $internal_customTokensDefault,
-    $recursive: true
-);
 
 $customTokens: () !default;
 
 $customTokens: map.ksort(
     map.merge(
-        map.flatten($internal_customTokensDefault),
+        map.flatten(
+            (
+                focus-ring: (
+                    outline-width: '400',
+                    outline-offset: '400',
+                    outline-color: config.config-do-var(
+                            theme-link-outline,
+                            #{map.get(
+                                    theme.$themes__nestedFlat,
+                                    theme.$activeTheme,
+                                    forced-colors,
+                                    link-outline
+                                )}
+                        ),
+                ),
+            )
+        ),
         map.flatten($customTokens),
         $recursive: false
     )

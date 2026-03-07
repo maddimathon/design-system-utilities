@@ -1,10 +1,10 @@
 /**
- * @since 0.1.1-alpha.1.draft
+ * @since 0.1.0-beta.0.draft
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
 import { CssColours } from '@maddimathon/utility-sass';
@@ -13,7 +13,7 @@ import { getDataFromClrSlug } from '../../ts/03-parsers/getDataFromClrSlug.js';
 /**
  * Takes a colour slug and returns a css-friendly colour code, if possible.
  *
- * @since 0.1.1-alpha.1.draft
+ * @since 0.1.0-beta.0.draft
  */
 export function colourSlugToCSS(tokens, brightness, _clrSlug, convertToVarFn = true) {
     const clrSlug = Array.isArray(_clrSlug) ? _clrSlug[0] : _clrSlug;

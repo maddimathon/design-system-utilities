@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
 import type { ColourUtilities } from '../01-utilities/ColourUtilities.js';
@@ -35,7 +35,7 @@ export declare class Tokens_Themes<T_ColourTypes extends TokenTypes.Colour.TypeP
     /**
      * Used instead of the constructor so that it can be async.
      *
-     * @since 0.1.1-alpha.1.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
+     * @since 0.1.0-beta.0.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
     static build<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(brightnessModes: readonly TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>[], contrastModes: readonly TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>[], colours: {
         names: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>;
@@ -44,7 +44,7 @@ export declare class Tokens_Themes<T_ColourTypes extends TokenTypes.Colour.TypeP
     /**
      * Used to initialize multiple themes at once.
      *
-     * @since 0.1.1-alpha.1.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
+     * @since 0.1.0-beta.0.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
     protected static buildSets<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(brightnessModes: readonly TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>[], contrastModes: readonly TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>[], colours: {
         names: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>;
@@ -52,7 +52,7 @@ export declare class Tokens_Themes<T_ColourTypes extends TokenTypes.Colour.TypeP
     }, input: Tokens_Themes.InputParam<T_ColourTypes, T_ThemeTypes>): Promise<Tokens_Themes<T_ColourTypes, T_ThemeTypes>['sets']>;
     get data(): Tokens_Themes.Data<T_ColourTypes, T_ThemeTypes>;
     /**
-     * @since 0.1.1-alpha.1.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
+     * @since 0.1.0-beta.0.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
     protected constructor(brightnessModes: readonly TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>[], contrastModes: readonly TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>[], colours: {
         names: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>;
@@ -96,7 +96,7 @@ export declare namespace Tokens_Themes {
         [N in T_ThemeTypes['name']]: Tokens_Themes_Set.JsonReturn<T_ColourTypes, T_ThemeTypes>;
     };
     /**
-     * @since 0.1.1-alpha.1.draft
+     * @since 0.1.0-beta.0.draft
      */
     type ScssVars<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams> = {
         default: Tokens_Themes_Set.ScssVars<T_ColourTypes, T_ThemeTypes>;

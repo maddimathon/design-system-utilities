@@ -15,7 +15,7 @@
 @use 'pkg:@maddimathon/utility-astro/03-snippets' as utils;
 
 ///
-/// @since 0.1.1-alpha.0
+/// @since 0.1.0-alpha.13
 ///
 @mixin snippet-link-colours($includeDisabled: true) {
     @include cx-prop(focus-ring-outline-color, var-theme(link-outline-hover));
@@ -89,7 +89,7 @@
 }
 
 ///
-/// @since 0.1.1-alpha.0
+/// @since 0.1.0-alpha.13
 ///
 @mixin snippet-link-colors-inherit(
     $color: inherit,
@@ -260,9 +260,9 @@
 /// @since ___PKG_VERSION___
 ///
 @mixin set-flow-margins(
-    $defaultLevel: style-value(margin-flow),
-    $largeLevel: style-value(margin-flow-large),
-    $smallLevel: style-value(margin-flow-small),
+    $defaultLevel: var-style(margin-flow),
+    $largeLevel: var-style(margin-flow-large),
+    $smallLevel: var-style(margin-flow-small),
     $firmStartLevel: null,
     $firmStartLevel_large: null,
     $firmEndLevel: null,

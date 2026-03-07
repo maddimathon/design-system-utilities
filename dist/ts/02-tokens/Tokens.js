@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
 import { arrayUnique, slugify } from '@maddimathon/utility-typescript';
@@ -24,7 +24,7 @@ import { Tokens_Typography } from './Tokens_Typography.js';
 /**
  * Internal utilities available for documentation but not meant to be public.
  *
- * @since 0.1.1-alpha.1.draft
+ * @since 0.1.0-beta.0.draft
  * @internal
  */
 export class Internal {
@@ -93,7 +93,7 @@ export class Tokens extends AbstractTokens {
         });
     }
     /**
-     *  * @since 0.1.1-alpha.1.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
+     *  * @since 0.1.0-beta.0.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
     constructor(colourOpts, { colour, themes }, input, config = {}) {
         super();
@@ -424,13 +424,13 @@ export class Tokens extends AbstractTokens {
         (function (SingleMode) {
             SingleMode.colourOption = Tokens_Themes_Set.SingleMode.Build.colourOption;
             /**
-             * @since 0.1.1-alpha.1.draft
+             * @since 0.1.0-beta.0.draft
              */
             let Levels;
             (function (Levels) {
                 /**
-                 * @since 0.1.1-alpha.0
-                 * @since 0.1.1-alpha.1.draft — Moved to Tokens_Themes_Set.SingleMode.Levels and renamed.
+                 * @since 0.1.0-alpha.13
+                 * @since 0.1.0-beta.0.draft — Moved to Tokens_Themes_Set.SingleMode.Levels and renamed.
                  */
                 Levels.DEFAULT = Tokens_Themes_Set.SingleMode.Levels.DEFAULT;
                 Levels.parse = Tokens_Themes_Set.SingleMode.Levels.parse;

@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.0.draft
 /// @since 0.1.0-alpha
 ///
 
@@ -264,7 +264,7 @@ $_flattenedSystemColors: map.flatten($_systemColors);
 ///
 /// @since 0.1.0-alpha.5
 /// @since 0.1.0-alpha.9 — Made public.
-/// @since 0.1.1-alpha.0 — Allowed $slug, $brightness, and $contrast to be optional.
+/// @since 0.1.0-alpha.13 — Allowed $slug, $brightness, and $contrast to be optional.
 ///
 @mixin tokens-theme-individual-base-properties(
     $slug: tokens.$activeTheme,
@@ -346,7 +346,8 @@ $_flattenedSystemColors: map.flatten($_systemColors);
     $slug,
     $brightness,
     $contrast,
-    $setBaseProperties: config.$mx_tokensTheme_setBaseProperties
+    $setBaseProperties: config.$mx_tokensTheme_setBaseProperties,
+    $includeSystemColours: false
 ) {
     $flat_isValues: tokens.$themes__nestedFlat_tokenValues != null;
 
@@ -365,11 +366,13 @@ $_flattenedSystemColors: map.flatten($_systemColors);
         @if $contrast == forced-colors {
             $flattened: map.get($activeTheme_flat, forced-colors);
 
-            @include tokens-sys-colour(
-                $brightness: tokens.$brightnessMode_default,
-                $contrast: $contrast,
-                $themeSlug: $slug
-            );
+            @if $includeSystemColours {
+                @include tokens-sys-colour(
+                    $brightness: tokens.$brightnessMode_default,
+                    $contrast: $contrast,
+                    $themeSlug: $slug
+                );
+            }
 
             @each $prop, $value in $flattened {
                 //
@@ -422,11 +425,13 @@ $_flattenedSystemColors: map.flatten($_systemColors);
             $flattened: map.get($activeTheme_flat, $brightness, $contrast);
 
             @if $flattened != null {
-                @include tokens-sys-colour(
-                    $brightness: $brightness,
-                    $contrast: $contrast,
-                    $themeSlug: $slug
-                );
+                @if $includeSystemColours {
+                    @include tokens-sys-colour(
+                        $brightness: $brightness,
+                        $contrast: $contrast,
+                        $themeSlug: $slug
+                    );
+                }
 
                 @each $prop, $value in $flattened {
                     @if string.index($prop, 'system-') != 1 {
@@ -559,6 +564,7 @@ $_themes_includeAlternatives: if(
     $checkpointLevel: 2,
     //
     $includeAlternatives: $_themes_includeAlternatives,
+    $includeSystemColours: false,
     $separateQueriesAndSelectors:
         config.$mx_tokensTheme_separateQueriesAndSelectors
 ) {
@@ -585,7 +591,8 @@ $_themes_includeAlternatives: if(
             @include tokens-theme-individual(
                 tokens.$activeTheme,
                 $brightness: $brightness,
-                $contrast: $contrast
+                $contrast: $contrast,
+                $includeSystemColours: $includeSystemColours,
             );
             @if $checkpointName {
                 @include debug-checkpoint(
@@ -624,7 +631,8 @@ $_themes_includeAlternatives: if(
                         @include tokens-theme-individual(
                             tokens.$activeTheme,
                             $brightness: $brightness,
-                            $contrast: $contrast
+                            $contrast: $contrast,
+                            $includeSystemColours: $includeSystemColours,
                         );
                         @content ($brightness, $contrast, $location: main);
                     }
@@ -636,7 +644,8 @@ $_themes_includeAlternatives: if(
                         @include tokens-theme-individual(
                             tokens.$activeTheme,
                             $brightness: $brightness,
-                            $contrast: $contrast
+                            $contrast: $contrast,
+                            $includeSystemColours: $includeSystemColours,
                         );
                         @content ($brightness, $contrast, $location: main);
                     }
@@ -650,7 +659,8 @@ $_themes_includeAlternatives: if(
                         @include tokens-theme-individual(
                             tokens.$activeTheme,
                             $brightness: $brightness,
-                            $contrast: $contrast
+                            $contrast: $contrast,
+                            $includeSystemColours: $includeSystemColours,
                         );
                         @content ($brightness, $contrast, $location: main);
                     }
@@ -661,7 +671,8 @@ $_themes_includeAlternatives: if(
                         @include tokens-theme-individual(
                             tokens.$activeTheme,
                             $brightness: $brightness,
-                            $contrast: $contrast
+                            $contrast: $contrast,
+                            $includeSystemColours: $includeSystemColours,
                         );
                         @content ($brightness, $contrast, $location: main);
                     }
@@ -694,7 +705,8 @@ $_themes_includeAlternatives: if(
                                 @include tokens-theme-individual(
                                     $key,
                                     $brightness: $brightness,
-                                    $contrast: $contrast
+                                    $contrast: $contrast,
+                                    $includeSystemColours: $includeSystemColours,
                                 );
                                 
                                 @if $checkpointName {
@@ -713,7 +725,8 @@ $_themes_includeAlternatives: if(
                                 @include tokens-theme-individual(
                                     $key,
                                     $brightness: $brightness,
-                                    $contrast: $contrast
+                                    $contrast: $contrast,
+                                    $includeSystemColours: $includeSystemColours,
                                 );
                                 
                                 @if $checkpointName {
@@ -734,7 +747,8 @@ $_themes_includeAlternatives: if(
                                 @include tokens-theme-individual(
                                     $key,
                                     $brightness: $brightness,
-                                    $contrast: $contrast
+                                    $contrast: $contrast,
+                                    $includeSystemColours: $includeSystemColours,
                                 );
                                 
                                 @if $checkpointName {
@@ -752,7 +766,8 @@ $_themes_includeAlternatives: if(
                                 @include tokens-theme-individual(
                                     $key,
                                     $brightness: $brightness,
-                                    $contrast: $contrast
+                                    $contrast: $contrast,
+                                    $includeSystemColours: $includeSystemColours,
                                 );
                                 
                                 @if $checkpointName {

@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
 import type { RecursivePartial } from '@maddimathon/utility-typescript/types';
@@ -91,7 +91,7 @@ export declare namespace Tokens_Typography {
         };
     };
     /**
-     * @since 0.1.1-alpha.1.draft
+     * @since 0.1.0-beta.0.draft
      */
     export type ScssVars<T_FontFamilySlug extends string> = {
         font: {
@@ -149,7 +149,7 @@ export declare namespace Tokens_Typography {
             weight: WholeTokenLevel | `${'000' | WholeTokenLevel} ${WholeTokenLevel | '1000'}`;
         };
         /**
-         * @since 0.1.1-alpha.0
+         * @since 0.1.0-alpha.13
          */
         type FamilyOverride = {
             label: string;
@@ -159,7 +159,7 @@ export declare namespace Tokens_Typography {
             lineHeightScale?: number;
         };
         /**
-         * @since 0.1.1-alpha.1.draft
+         * @since 0.1.0-beta.0.draft
          */
         type SingleFamilyScss = {
             family: string;

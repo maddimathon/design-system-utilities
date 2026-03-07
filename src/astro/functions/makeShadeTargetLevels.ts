@@ -16,13 +16,17 @@ import type { LevelTargets } from '../components/ShadeSwatchTable.astro';
 
 import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
 
+/**
+ * Takes a shade map and uses it to define target contrast levels using the
+ * map's contrast levels with the given sampleColourName.
+ *
+ * @since ___PKG_VERSION___
+ */
 export async function makeShadeTargetLevels<
     T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
 >(
     sampleColourName: TokenTypes.Colour.GenericName<T_Types[ 'colour' ][ 'names' ]>,
-    targetShadeMap?:
-        | undefined
-        | Tokens_Colour_ShadeMap.JsonReturn<T_Types[ 'colour' ]>,
+    targetShadeMap: undefined | Tokens_Colour_ShadeMap.JsonReturn<T_Types[ 'colour' ]>,
 ): Promise<LevelTargets<T_Types[ 'colour' ]> | undefined> {
     // returns
     if ( !targetShadeMap ) {

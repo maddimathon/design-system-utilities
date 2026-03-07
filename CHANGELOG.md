@@ -19,7 +19,10 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
-## **0.1.1-alpha.0** — 2026-02-11
+## All **0.1.0-alpha** Releases — 2025-10-30 to 2026-02-11
+
+
+## **0.1.0-alpha.13** — 2026-02-11
 
 Improvements for using this kit with a variety of production sites.
 
@@ -61,9 +64,6 @@ Improvements for using this kit with a variety of production sites.
 - Fixed bug in writing logo files during included compile stage
 - Minor logo & icon token improvements
 - A couple exported build script improvements
-
-
-## All **0.1.0-alpha** Releases — 2025-10-30 to 2026-01-20
 
 
 ### **0.1.0-alpha.12** — 2026-01-20

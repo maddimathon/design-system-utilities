@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
 import type { RequiredHeadingLevels, TokenTypes } from '../@types.js';
@@ -33,7 +33,7 @@ export declare class Tokens_Themes_Set<T_ColourTypes extends TokenTypes.Colour.T
     /**
      * Used instead of the constructor so that it can be async.
      *
-     * @since 0.1.1-alpha.1.draft — Changed second & third param to colours object (as fourth param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
+     * @since 0.1.0-beta.0.draft — Changed second & third param to colours object (as fourth param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
     static build<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(name: T_ThemeTypes['name'], brightnessModes: T_ThemeTypes['brightness'], contrastModes: T_ThemeTypes['contrast'], colours: {
         names: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>;
@@ -41,7 +41,7 @@ export declare class Tokens_Themes_Set<T_ColourTypes extends TokenTypes.Colour.T
     }, input: Tokens_Themes_Set.InputParam<T_ColourTypes, T_ThemeTypes>): Promise<Tokens_Themes_Set<T_ColourTypes, T_ThemeTypes>>;
     get data(): Tokens_Themes_Set.Data<T_ColourTypes, T_ThemeTypes>;
     /**
-     * @since 0.1.1-alpha.1.draft — Changed second & third param to colours object (as fourth param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
+     * @since 0.1.0-beta.0.draft — Changed second & third param to colours object (as fourth param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
     protected constructor(
     /** Name for this shade set. */
@@ -82,11 +82,11 @@ export declare namespace Tokens_Themes_Set {
      */
     type JsonReturn<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams> = {
         name: T_ThemeTypes['name'];
-        levelsInUse: ("black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional)[];
+        levelsInUse: ("black" | "white" | ColourUtilities.Levels.Any)[];
         forcedColours: Tokens_Themes_Set.SingleMode.JsonReturn<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>;
     } & TokenTypes.Theme.Mode.NestedObject<T_ThemeTypes, Tokens_Themes_Set.SingleMode.JsonReturn<T_ColourTypes, T_ThemeTypes>>;
     /**
-     * @since 0.1.1-alpha.1.draft
+     * @since 0.1.0-beta.0.draft
      */
     type ScssVars<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams> = {
         'forced-colors': Tokens_Themes_Set.SingleMode.ScssVars<T_ColourTypes, T_ThemeTypes>;
@@ -95,7 +95,7 @@ export declare namespace Tokens_Themes_Set {
      * Generates a complete token object for the design system.
      *
      * @since 0.1.0-alpha
-     * @since 0.1.1-alpha.1.draft — Moved to {@link Tokens_Themes_Set} and renamed.
+     * @since 0.1.0-beta.0.draft — Moved to {@link Tokens_Themes_Set} and renamed.
      */
     class SingleMode<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>> extends AbstractTokens<{
         data: SingleMode.Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption>;
@@ -106,7 +106,7 @@ export declare namespace Tokens_Themes_Set {
         readonly brightness: null | TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>;
         readonly constrast: "forcedColors" | TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>;
         readonly description: null | string;
-        readonly levelsInUse: ("black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional)[];
+        readonly levelsInUse: ("black" | "white" | ColourUtilities.Levels.Any)[];
         readonly data: SingleMode.Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption>;
         static build<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(themeName: "default" | T_ThemeTypes['name'], brightness: null, constrast: "forcedColors", colours: {
             names: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>;
@@ -116,7 +116,7 @@ export declare namespace Tokens_Themes_Set {
             names: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>;
             allLevels: Set<ColourUtilities.Levels.Required | T_ColourTypes['extraLevels']>;
         }, input: SingleMode.InputParam<NoInfer<T_ColourTypes>, T_ThemeTypes>, overrides?: SingleMode.Data.Partial<NoInfer<T_ColourTypes>, NoInfer<T_ThemeTypes>>): Promise<SingleMode<T_ColourTypes, T_ThemeTypes>>;
-        protected constructor(name: "default" | T_ThemeTypes['name'], brightness: null | TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>, constrast: "forcedColors" | TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>, description: null | string, levelsInUse: ("black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional)[], data: SingleMode.Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption>);
+        protected constructor(name: "default" | T_ThemeTypes['name'], brightness: null | TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>, constrast: "forcedColors" | TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>, description: null | string, levelsInUse: ("black" | "white" | ColourUtilities.Levels.Any)[], data: SingleMode.Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption>);
         toJSON(): SingleMode.JsonReturn<T_ColourTypes, T_ThemeTypes, __T_ColourOption>;
         toScssVars(): SingleMode.ScssVars<T_ColourTypes, T_ThemeTypes, __T_ColourOption>;
     }
@@ -124,7 +124,7 @@ export declare namespace Tokens_Themes_Set {
      * Utilities for the {@link SingleMode} class.
      *
      * @since 0.1.0-alpha
-     * @since 0.1.1-alpha.1.draft — Moved to {@link Tokens_Themes_Set} and renamed.
+     * @since 0.1.0-beta.0.draft — Moved to {@link Tokens_Themes_Set} and renamed.
      */
     namespace SingleMode {
         type InteractiveStyles<T_StyleValue> = {
@@ -177,7 +177,7 @@ export declare namespace Tokens_Themes_Set {
                 text: __T_ColourOption;
             };
             /**
-             * @since 0.1.1-alpha.0 — Switched to a nested object instead of separate keys.
+             * @since 0.1.0-alpha.13 — Switched to a nested object instead of separate keys.
              */
             link: {
                 $: {
@@ -187,7 +187,7 @@ export declare namespace Tokens_Themes_Set {
                     [K in keyof RequiredVariations<T_ColourTypes['names']>['interactive']]: __T_ColourOption;
                 };
                 /**
-                 * @since 0.1.1-alpha.0 — Renamed from link-ui to link-decoration.
+                 * @since 0.1.0-alpha.13 — Renamed from link-ui to link-decoration.
                  */
                 decoration: {
                     $: __T_ColourOption;
@@ -204,7 +204,7 @@ export declare namespace Tokens_Themes_Set {
                 /**
                  * Used for the focus outline and similar elements.
                  *
-                 * @since 0.1.1-alpha.0
+                 * @since 0.1.0-alpha.13
                  */
                 outline: {
                     [K in keyof RequiredVariations<T_ColourTypes['names']>['interactive']]: __T_ColourOption;
@@ -236,12 +236,12 @@ export declare namespace Tokens_Themes_Set {
         /**
          * Utilities and types for the complete tokens theme data for a single mode.
          *
-         * @since 0.1.1-alpha.1.draft
+         * @since 0.1.0-beta.0.draft
          */
         export namespace Data {
             /**
              * @since 0.1.0-alpha
-             * @since 0.1.1-alpha.1.draft — Moved to SingleMode.Data and renamed.
+             * @since 0.1.0-beta.0.draft — Moved to SingleMode.Data and renamed.
              */
             type Button<T_ColourTypes extends TokenTypes.Colour.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>> = {
                 background: InteractiveStyles<__T_ColourOption>;
@@ -251,7 +251,7 @@ export declare namespace Tokens_Themes_Set {
                 ui: InteractiveStyles<__T_ColourOption>;
             };
             /**
-             * @since 0.1.1-alpha.1.draft
+             * @since 0.1.0-beta.0.draft
              */
             type Input<T_ColourTypes extends TokenTypes.Colour.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>> = {
                 accent: InteractiveStylesWithFocus<__T_ColourOption>;
@@ -262,7 +262,7 @@ export declare namespace Tokens_Themes_Set {
             };
             /**
              * @since 0.1.0-alpha
-             * @since 0.1.1-alpha.1.draft — Moved to SingleMode.Data and renamed.
+             * @since 0.1.0-beta.0.draft — Moved to SingleMode.Data and renamed.
              */
             type Partial<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>> = {
                 background?: undefined | {
@@ -311,7 +311,7 @@ export declare namespace Tokens_Themes_Set {
                         [K in keyof RequiredVariations<T_ColourTypes['names']>['interactive']]?: undefined | __T_ColourOption;
                     };
                     /**
-                     * @since 0.1.1-alpha.0 — Renamed from link-ui to link-decoration.
+                     * @since 0.1.0-alpha.13 — Renamed from link-ui to link-decoration.
                      */
                     decoration?: undefined | {
                         $?: undefined | __T_ColourOption;
@@ -399,11 +399,11 @@ export declare namespace Tokens_Themes_Set {
         /**
          * Utilities and types for levels.
          *
-         * @since 0.1.1-alpha.1.draft
+         * @since 0.1.0-beta.0.draft
          */
         export namespace Levels {
             /**
-             * @since 0.1.1-alpha.1.draft
+             * @since 0.1.0-beta.0.draft
              */
             interface Input<T_ExtraColourLevels extends ColourUtilities.Levels.Optional> {
                 background?: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Partial<Levels.Set.AccentBrightGrey<T_ExtraColourLevels>>;
@@ -414,7 +414,7 @@ export declare namespace Tokens_Themes_Set {
                 };
             }
             /**
-             * @since 0.1.1-alpha.1.draft
+             * @since 0.1.0-beta.0.draft
              */
             interface Parsed<T_ExtraColourLevels extends ColourUtilities.Levels.Optional> {
                 background: Levels.Set.AccentBrightGrey<T_ExtraColourLevels>;
@@ -425,7 +425,7 @@ export declare namespace Tokens_Themes_Set {
                 };
             }
             /**
-             * @since 0.1.1-alpha.1.draft — Made public, moved to SingleMode.Levels and renamed.
+             * @since 0.1.0-beta.0.draft — Made public, moved to SingleMode.Levels and renamed.
              */
             interface Required<T_ExtraColourLevels extends ColourUtilities.Levels.Optional> {
                 background: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Levels.Set.AccentBrightGrey<T_ExtraColourLevels>;
@@ -438,11 +438,11 @@ export declare namespace Tokens_Themes_Set {
             /**
              * Common object shapes used to set multiple level types.
              *
-             * @since 0.1.1-alpha.1.draft
+             * @since 0.1.0-beta.0.draft
              */
             namespace Set {
                 /**
-                 * @since 0.1.1-alpha.1.draft
+                 * @since 0.1.0-beta.0.draft
                  */
                 interface AccentBrightGrey<T_ExtraColourLevels extends ColourUtilities.Levels.Optional> {
                     $: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
@@ -451,8 +451,8 @@ export declare namespace Tokens_Themes_Set {
                     grey: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
                 }
                 /**
-                 * @since 0.1.1-alpha.0
-                 * @since 0.1.1-alpha.1.draft — Made public, moved to SingleMode.Levels.Sets and renamed.
+                 * @since 0.1.0-alpha.13
+                 * @since 0.1.0-beta.0.draft — Made public, moved to SingleMode.Levels.Sets and renamed.
                  */
                 interface AccentGrey<T_ExtraColourLevels extends ColourUtilities.Levels.Optional> {
                     $: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
@@ -460,7 +460,7 @@ export declare namespace Tokens_Themes_Set {
                     grey: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
                 }
                 /**
-                 * @since 0.1.1-alpha.1.draft — Made public, moved to SingleMode.Levels.Sets and renamed.
+                 * @since 0.1.0-beta.0.draft — Made public, moved to SingleMode.Levels.Sets and renamed.
                  */
                 interface AccentMin<T_ExtraColourLevels extends ColourUtilities.Levels.Optional> {
                     $: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
@@ -469,8 +469,8 @@ export declare namespace Tokens_Themes_Set {
                 }
             }
             /**
-             * @since 0.1.1-alpha.0
-             * @since 0.1.1-alpha.1.draft — Moved to SingleMode.Levels and renamed.
+             * @since 0.1.0-alpha.13
+             * @since 0.1.0-beta.0.draft — Moved to SingleMode.Levels and renamed.
              */
             namespace DEFAULT {
                 const average: {
@@ -591,7 +591,7 @@ export declare namespace Tokens_Themes_Set {
             }
             /**
              * @since 0.1.0-alpha
-             * @since 0.1.1-alpha.1.draft — Moved to SingleMode.Levels and renamed. Added default param and made inputs optional.
+             * @since 0.1.0-beta.0.draft — Moved to SingleMode.Levels and renamed. Added default param and made inputs optional.
              */
             function parse<T_ExtraColourLevels extends ColourUtilities.Levels.Optional>(defaults: Levels.Required<T_ExtraColourLevels>, inputs?: Levels.Input<T_ExtraColourLevels>): Levels.Parsed<T_ExtraColourLevels>;
         }
@@ -641,12 +641,12 @@ export declare namespace Tokens_Themes_Set {
                 };
             };
             levelsInUse: {
-                light: "black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional;
-                dark: "black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional;
+                light: "black" | "white" | ColourUtilities.Levels.Any;
+                dark: "black" | "white" | ColourUtilities.Levels.Any;
             }[];
         };
         /**
-         * @since 0.1.1-alpha.1.draft
+         * @since 0.1.0-beta.0.draft
          */
         export type ScssVars<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>> = Data<T_ColourTypes, T_ThemeTypes> & {
             button: {

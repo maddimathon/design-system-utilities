@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
 import { arrayUnique, mergeArgs, objectFlatten, objectMap, } from '@maddimathon/utility-typescript';
@@ -28,7 +28,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
     /**
      * Used instead of the constructor so that it can be async.
      *
-     * @since 0.1.1-alpha.1.draft — Changed second & third param to colours object (as fourth param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
+     * @since 0.1.0-beta.0.draft — Changed second & third param to colours object (as fourth param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
     static async build(name, brightnessModes, contrastModes, colours, input) {
         const allBrightnessModes = [
@@ -63,7 +63,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
         };
     }
     /**
-     * @since 0.1.1-alpha.1.draft — Changed second & third param to colours object (as fourth param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
+     * @since 0.1.0-beta.0.draft — Changed second & third param to colours object (as fourth param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
     constructor(
     /** Name for this shade set. */
@@ -104,7 +104,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
      * Generates a complete token object for the design system.
      *
      * @since 0.1.0-alpha
-     * @since 0.1.1-alpha.1.draft — Moved to {@link Tokens_Themes_Set} and renamed.
+     * @since 0.1.0-beta.0.draft — Moved to {@link Tokens_Themes_Set} and renamed.
      */
     class SingleMode extends AbstractTokens {
         name;
@@ -117,7 +117,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
          * An easy way to generate a complete token set from limited inputs.
          *
          * @since 0.1.0-alpha
-         * @since 0.1.1-alpha.1.draft — Changed fourth param to colours object with both names and all levels set.
+         * @since 0.1.0-beta.0.draft — Changed fourth param to colours object with both names and all levels set.
          */
         static async build(themeName, brightness, constrast, colours, input, inputOverrides = {}) {
             const defaultLevels = constrast !== 'forcedColors'
@@ -267,7 +267,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
      * Utilities for the {@link SingleMode} class.
      *
      * @since 0.1.0-alpha
-     * @since 0.1.1-alpha.1.draft — Moved to {@link Tokens_Themes_Set} and renamed.
+     * @since 0.1.0-beta.0.draft — Moved to {@link Tokens_Themes_Set} and renamed.
      */
     (function (SingleMode) {
         SingleMode.allHeadingLevels = [
@@ -289,15 +289,15 @@ export class Tokens_Themes_Set extends AbstractTokens {
         /**
          * Utilities and types for levels.
          *
-         * @since 0.1.1-alpha.1.draft
+         * @since 0.1.0-beta.0.draft
          */
         let Levels;
         (function (Levels) {
             ;
             ;
             /**
-             * @since 0.1.1-alpha.0
-             * @since 0.1.1-alpha.1.draft — Moved to SingleMode.Levels and renamed.
+             * @since 0.1.0-alpha.13
+             * @since 0.1.0-beta.0.draft — Moved to SingleMode.Levels and renamed.
              */
             let DEFAULT;
             (function (DEFAULT) {
@@ -419,7 +419,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
             })(DEFAULT = Levels.DEFAULT || (Levels.DEFAULT = {}));
             /**
              * @since 0.1.0-alpha
-             * @since 0.1.1-alpha.1.draft — Moved to SingleMode.Levels and renamed. Added default param and made inputs optional.
+             * @since 0.1.0-beta.0.draft — Moved to SingleMode.Levels and renamed. Added default param and made inputs optional.
              */
             function parse(defaults, inputs = {}) {
                 const nomalized_input = {

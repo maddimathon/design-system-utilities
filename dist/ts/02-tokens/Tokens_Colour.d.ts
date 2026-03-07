@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
 import { AbstractTokens } from './abstract/AbstractTokens.js';
@@ -69,7 +69,7 @@ export declare namespace Tokens_Colour {
         };
     } & TokenTypes.Colour.NameRecord<T_Types, Tokens_Colour_ShadeMap.JsonReturn<T_Types>>;
     /**
-     * @since 0.1.1-alpha.1.draft
+     * @since 0.1.0-beta.0.draft
      */
     type ScssVars<T_Types extends TokenTypes.Colour.TypeParams> = {
         $: {

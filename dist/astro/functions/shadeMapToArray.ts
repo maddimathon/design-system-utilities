@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
 
@@ -12,19 +12,22 @@ import type { TokenTypes } from '../../ts/02-tokens/@types.js';
 import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
 
 /**
+ * Converts a shade map object to an array of objects with level (key) and value
+ * properties.
+ * 
  * @since 0.1.0-alpha
  */
 export function shadeMapToArray<
-    T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams,
+    T_ColourTypes extends TokenTypes.Colour.TypeParams,
     T_Object extends shadeMapToArray.ObjTypeParam<T_ColourTypes> = shadeMapToArray.ObjTypeParam<T_ColourTypes>,
 >(
     map: T_Object,
-): shadeMapToArray.ReturnItem<T_ColourTypes, T_Object>[] {
+): shadeMapToArray.ReturnItem<T_Object>[] {
     const levels = Object.keys( map ) as ( keyof typeof map & ( number | string ) )[];
 
     return levels
         .map(
-            ( level ): false | shadeMapToArray.ReturnItem<T_ColourTypes, T_Object> => {
+            ( level ): false | shadeMapToArray.ReturnItem<T_Object> => {
 
                 // returns
                 if ( !map[ level ] ) {
@@ -33,7 +36,7 @@ export function shadeMapToArray<
 
                 return {
                     level,
-                    values: map[ level ],
+                    value: map[ level ],
                 };
             }
         )
@@ -61,12 +64,16 @@ export function shadeMapToArray<
 };
 
 /**
- * @since 0.1.1-alpha.1.draft
+ * Utilities for the {@link shadeMapToArray} function.
+ * 
+ * @since 0.1.0-beta.0.draft
  */
 export namespace shadeMapToArray {
 
     /**
-     * @since 0.1.1-alpha.1.draft
+     * Shape of the input object param for the {@link shadeMapToArray} function.
+     * 
+     * @since 0.1.0-beta.0.draft
      */
     export type ObjTypeParam<
         T_ColourTypes extends TokenTypes.Colour.TypeParams,
@@ -78,13 +85,14 @@ export namespace shadeMapToArray {
         };
 
     /**
-     * @since 0.1.1-alpha.1.draft
+     * Shape of a single item in the {@link shadeMapToArray} function's return array.
+     * 
+     * @since 0.1.0-beta.0.draft
      */
     export type ReturnItem<
-        T_ColourTypes extends TokenTypes.Colour.TypeParams,
-        T_Object extends ObjTypeParam<T_ColourTypes> = ObjTypeParam<T_ColourTypes>,
+        T_Object extends ObjTypeParam<any>,
     > = {
         level: keyof T_Object & ( string | number );
-        values: T_Object[ keyof T_Object ];
+        value: T_Object[ keyof T_Object ];
     };
 }

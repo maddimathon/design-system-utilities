@@ -21,19 +21,23 @@ const test_simpleObj = {
         'primary': true,
         'tertiary': true,
         'senary': true,
+        'grey': false,
         'two': '2',
         'octonary': true,
+        'alt': '33',
         'three': '3',
         326832: 'number key',
         'disabled': true,
         'alphabetical': true,
         'quaternary': true,
+        'gray': false,
         'secondary': true,
         'septenary': true,
         'bright': true,
     },
 
     out: {
+        'alt': '33',
         'bright': true,
         'primary': true,
         'secondary': true,
@@ -43,6 +47,9 @@ const test_simpleObj = {
         'senary': true,
         'septenary': true,
         'octonary': true,
+
+        'gray': false,
+        'grey': false,
 
         326832: 'number key',
 
@@ -68,10 +75,13 @@ const test_nestedObj = {
         'two': '2',
         'octonary': true,
         'three': '3',
+        'grey': false,
         326832: 'number key',
         'disabled': true,
+        'gray': false,
         'quaternary': true,
         'secondary': true,
+        'alt': '33',
         'septenary': true,
         'bright': true,
 
@@ -87,6 +97,7 @@ const test_nestedObj = {
     },
 
     out: {
+        'alt': '33',
         'bright': true,
         'primary': true,
         'secondary': true,
@@ -96,6 +107,9 @@ const test_nestedObj = {
         'senary': true,
         'septenary': true,
         'octonary': true,
+
+        'gray': false,
+        'grey': false,
 
         326832: 'number key',
 
@@ -118,6 +132,7 @@ const test_nestedObj = {
     },
 
     outRecursive: {
+        'alt': '33',
         'bright': true,
         'primary': true,
         'secondary': true,
@@ -127,6 +142,9 @@ const test_nestedObj = {
         'senary': true,
         'septenary': true,
         'octonary': true,
+
+        'gray': false,
+        'grey': false,
 
         326832: 'number key',
 

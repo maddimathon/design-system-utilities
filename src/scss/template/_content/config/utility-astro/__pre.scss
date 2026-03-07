@@ -4,6 +4,8 @@
 ///
 
 // @use 'pkg:@maddimathon/utility-sass/config/functions' as fns;
+
+@use 'sass:map';
 @use 'sass:string';
 
 @use '../../../../config' as lib;
@@ -93,19 +95,19 @@ $template_print_toggleBlock: $template_print_astro !default;
 ///
 $template_print_astro_toggleNav: $template_print_astro and $template_print_toggleBlock !default;
 
-// ///
-// /// Whether to print button styles.
-// ///
-// /// @since ___PKG_VERSION___
-// ///
-// $template_print_buttons: true !default;
-
-// ///
-// /// Whether to print heading styles.
-// ///
-// /// @since ___PKG_VERSION___
-// ///
-// $template_print_headings: true !default;
+///
+/// Whether to print button styles.
+///
+/// @since ___PKG_VERSION___ — Merged $template_include_buttons and $template_include_headings into this var.
+///
+$template_print_styles: () !default;
+$template_print_styles: map.merge(
+    (
+        // 'buttons': true,
+         // 'headings': true,
+    ),
+    $template_print_styles
+);
 
 ///
 /// @since 0.1.0-alpha

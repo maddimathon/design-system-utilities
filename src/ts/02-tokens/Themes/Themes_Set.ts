@@ -194,11 +194,11 @@ export class Tokens_Themes_Set<
                         | ColourUtilities.Levels.Optional
                     )[] => value.levelsInUse
                 )
-            ).flat() as ( "black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional )[]
+            ).flat() as ( "black" | "white" | ColourUtilities.Levels.Any )[]
         );
 
         const levelsInUse = arrayUnique( (
-            Object.values( allLevelsInUse ) as ( "black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional )[][]
+            Object.values( allLevelsInUse ) as ( "black" | "white" | ColourUtilities.Levels.Any )[][]
         ).flat() );
 
         const levelsInUse_dark = levelsInUse.map( ( light ) => ColourUtilities.Levels.toDark( light ) );
@@ -292,7 +292,7 @@ export namespace Tokens_Themes_Set {
         T_ThemeTypes extends TokenTypes.Theme.TypeParams,
     > = {
         name: T_ThemeTypes[ 'name' ];
-        levelsInUse: ( "black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional )[];
+        levelsInUse: ( "black" | "white" | ColourUtilities.Levels.Any )[];
         forcedColours: Tokens_Themes_Set.SingleMode.JsonReturn<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>;
     } & TokenTypes.Theme.Mode.NestedObject<
         T_ThemeTypes,
@@ -507,7 +507,7 @@ export namespace Tokens_Themes_Set {
                     );
             }
 
-            type AnyLevel = "black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional;
+            type AnyLevel = "black" | "white" | ColourUtilities.Levels.Any;
 
             const allLevelsInUse = (
                 Object.values(
@@ -553,7 +553,7 @@ export namespace Tokens_Themes_Set {
             public readonly brightness: null | TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>,
             public readonly constrast: "forcedColors" | TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>,
             public readonly description: null | string,
-            public readonly levelsInUse: ( "black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional )[],
+            public readonly levelsInUse: ( "black" | "white" | ColourUtilities.Levels.Any )[],
             public readonly data: SingleMode.Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption>,
         ) {
             super();
@@ -746,7 +746,7 @@ export namespace Tokens_Themes_Set {
             },
 
             /**
-             * @since 0.1.1-alpha.0 — Switched to a nested object instead of separate keys. 
+             * @since 0.1.0-alpha.13 — Switched to a nested object instead of separate keys. 
              */
             link: {
 
@@ -758,7 +758,7 @@ export namespace Tokens_Themes_Set {
                 },
 
                 /**
-                 * @since 0.1.1-alpha.0 — Renamed from link-ui to link-decoration.
+                 * @since 0.1.0-alpha.13 — Renamed from link-ui to link-decoration.
                  */
                 decoration: {
                     $: __T_ColourOption,
@@ -777,7 +777,7 @@ export namespace Tokens_Themes_Set {
                 /**
                  * Used for the focus outline and similar elements.
                  * 
-                 * @since 0.1.1-alpha.0
+                 * @since 0.1.0-alpha.13
                  */
                 outline: {
                     [ K in keyof RequiredVariations<T_ColourTypes[ 'names' ]>[ 'interactive' ] ]: __T_ColourOption;
@@ -914,7 +914,7 @@ export namespace Tokens_Themes_Set {
                     },
 
                     /**
-                     * @since 0.1.1-alpha.0 — Renamed from link-ui to link-decoration.
+                     * @since 0.1.0-alpha.13 — Renamed from link-ui to link-decoration.
                      */
                     decoration?: undefined | {
                         $?: undefined | __T_ColourOption,
@@ -1099,7 +1099,7 @@ export namespace Tokens_Themes_Set {
                 }
 
                 /**
-                 * @since 0.1.1-alpha.0
+                 * @since 0.1.0-alpha.13
                  * @since ___PKG_VERSION___ — Made public, moved to SingleMode.Levels.Sets and renamed.
                  */
                 export interface AccentGrey<
@@ -1123,7 +1123,7 @@ export namespace Tokens_Themes_Set {
             }
 
             /**
-             * @since 0.1.1-alpha.0
+             * @since 0.1.0-alpha.13
              * @since ___PKG_VERSION___ — Moved to SingleMode.Levels and renamed.
              */
             export namespace DEFAULT {
@@ -1453,8 +1453,8 @@ export namespace Tokens_Themes_Set {
             };
 
             levelsInUse: {
-                light: "black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional;
-                dark: "black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional;
+                light: "black" | "white" | ColourUtilities.Levels.Any;
+                dark: "black" | "white" | ColourUtilities.Levels.Any;
             }[];
         };
 

@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
 import { JsonToScss, } from '@maddimathon/utility-sass';
@@ -13,7 +13,7 @@ import { LocalErrors } from '../../01-utilities/Errors.js';
  * Base class for the classes used to manage tokens and token groups.
  *
  * @since 0.1.0-alpha
- * @since 0.1.1-alpha.1.draft — Converted type param to an object.
+ * @since 0.1.0-beta.0.draft — Converted type param to an object.
  */
 export class AbstractTokens {
     constructor() {
@@ -26,7 +26,7 @@ export class AbstractTokens {
     /**
      * Returns a local error object.
      *
-     * @since 0.1.1-alpha.1.draft
+     * @since 0.1.0-beta.0.draft
      */
     newError(message, context, opts) {
         return new LocalErrors.TokenBuildError(message, {

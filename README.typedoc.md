@@ -6,7 +6,7 @@ children:
 ---
 
 <!--README_HEADER-->
-# Design System Utilities @ 0.1.1-alpha.1.draft
+# Design System Utilities @ 0.1.0-beta.0.draft
 <!--/README_HEADER-->
 
 <!--README_DESC-->
@@ -31,7 +31,7 @@ or
 
 <!--README_INSTALL-->
 ```bash
-npm i -D github:maddimathon/design-system-utilities#0.1.1-alpha.0
+npm i -D github:maddimathon/design-system-utilities#0.1.0-alpha.13
 ```
 <!--/README_INSTALL-->
 

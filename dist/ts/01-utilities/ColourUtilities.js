@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
 import clrConvert from 'color-convert';
@@ -370,7 +370,7 @@ export var ColourUtilities;
         toString.rgb = rgb;
     })(toString = ColourUtilities.toString || (ColourUtilities.toString = {}));
     /**
-     * @since 0.1.1-alpha.1.draft
+     * @since 0.1.0-beta.0.draft
      */
     let Async;
     (function (Async) {
@@ -480,7 +480,7 @@ export var ColourUtilities;
         }
         ;
         /**
-         * @since 0.1.1-alpha.1.draft
+         * @since 0.1.0-beta.0.draft
          */
         async function toHex(clr, errMaker = defaultErrorMaker) {
             const _hexFormatter = (hex) => hex.toUpperCase().replace(/^#/gi, '');
@@ -515,7 +515,7 @@ export var ColourUtilities;
         }
         Async.toHex = toHex;
         /**
-         * @since 0.1.1-alpha.1.draft
+         * @since 0.1.0-beta.0.draft
          */
         async function toHSL(clr, errMaker = defaultErrorMaker, round = true) {
             const _hslFormatter = (hsl) => round ? {
@@ -566,7 +566,7 @@ export var ColourUtilities;
         }
         Async.toHSL = toHSL;
         /**
-         * @since 0.1.1-alpha.1.draft
+         * @since 0.1.0-beta.0.draft
          */
         async function toLCH(clr, errMaker = defaultErrorMaker, round = true) {
             const _lchFormatter = (lch) => round ? {
@@ -617,7 +617,7 @@ export var ColourUtilities;
         }
         Async.toLCH = toLCH;
         /**
-         * @since 0.1.1-alpha.1.draft
+         * @since 0.1.0-beta.0.draft
          */
         async function toRGB(clr, errMaker = defaultErrorMaker, round = true) {
             const _rgbFormatter = (rgb) => round ? {
@@ -675,7 +675,7 @@ export var ColourUtilities;
      * {@link Tokens_Colour_ShadeMap.Shade} objects.
      *
      * @since 0.1.0-alpha
-     * @since 0.1.1-alpha.1.draft — Moved to ColourUtilities and renamed.
+     * @since 0.1.0-beta.0.draft — Moved to ColourUtilities and renamed.
      * @internal
      */
     class ContrastTest {
@@ -756,7 +756,7 @@ export var ColourUtilities;
     /**
      * Utilities for dealing with shade level values.
      *
-     * @since 0.1.1-alpha.0
+     * @since 0.1.0-alpha.13
      */
     let Levels;
     (function (Levels) {
@@ -765,7 +765,7 @@ export var ColourUtilities;
          * (e.g., dark to light modes).
          *
          * @since 0.1.0-alpha
-         * @since 0.1.1-alpha.0 — Moved from {@link ColourUtilities} to {@link ColourUtilities.Levels} and renamed.
+         * @since 0.1.0-alpha.13 — Moved from {@link ColourUtilities} to {@link ColourUtilities.Levels} and renamed.
          */
         Levels.converter = {
             '100': '900',
@@ -792,7 +792,7 @@ export var ColourUtilities;
          * The shade level keys that can be optionally included in maps for this
          * system.
          *
-         * @since 0.1.1-alpha.0
+         * @since 0.1.0-alpha.13
          */
         Levels.optional = [
             '350',
@@ -803,7 +803,7 @@ export var ColourUtilities;
         /**
          * The shade level keys always included in maps for this system.
          *
-         * @since 0.1.1-alpha.0
+         * @since 0.1.0-alpha.13
          */
         Levels.required = [
             '100',
@@ -823,7 +823,7 @@ export var ColourUtilities;
         /**
          * Augments a single level by the given amount, creating a new valid level.
          *
-         * @since 0.1.1-alpha.1.draft
+         * @since 0.1.0-beta.0.draft
          */
         function augmentor(allColourLevels, level, levelOffset, minimum = 0, maximum = 1000) {
             // returns
@@ -894,7 +894,7 @@ export var ColourUtilities;
          * {@link ColourUtilities.Levels.converter}).
          *
          * @since 0.1.0-alpha
-         * @since 0.1.1-alpha.0 — Moved to {@link ColourUtilities.Levels} and renamed.
+         * @since 0.1.0-alpha.13 — Moved to {@link ColourUtilities.Levels} and renamed.
          */
         function toDark(lightLevel) {
             return Levels.converter[lightLevel];

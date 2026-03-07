@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
 import { mergeArgs } from '@maddimathon/utility-typescript';
@@ -18,7 +18,7 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
  */
 export class Tokens_CSS_Style extends AbstractTokens {
     /**
-     * @since 0.1.1-alpha.1.draft
+     * @since 0.1.0-beta.0.draft
      */
     static alertStyle(partial = {}) {
         return mergeArgs({
@@ -65,7 +65,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
     }
     /**
      * @since 0.1.0-alpha
-     * @since 0.1.1-alpha.1.draft — Added partial param.
+     * @since 0.1.0-beta.0.draft — Added partial param.
      */
     static buttonStyle(partial) {
         const style = mergeArgs({
@@ -119,7 +119,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
     }
     /**
      * @since 0.1.0-alpha
-     * @since 0.1.1-alpha.1.draft — Added partial param.
+     * @since 0.1.0-beta.0.draft — Added partial param.
      */
     static headingStyle(heading, partial) {
         heading = heading < 1 ? 11 : heading;
@@ -187,8 +187,23 @@ export class Tokens_CSS_Style extends AbstractTokens {
         return mergeArgs(style, partial, true);
     }
     /**
-     * @since 0.1.1-alpha.0
-     * @since 0.1.1-alpha.1.draft — Added partial param.
+     * @since 0.1.0-beta.0.draft
+     */
+    static iconStyle(partial = {}) {
+        return mergeArgs({
+            color: 'ui',
+            'inline-buffer': '0.25em',
+            size: {
+                $: '1.375em',
+                large: '2em',
+                pseudo: '1em',
+            },
+            'vertical-align': 'middle',
+        }, partial, true);
+    }
+    /**
+     * @since 0.1.0-alpha.13
+     * @since 0.1.0-beta.0.draft — Added partial param.
      */
     static inputStyle(partial) {
         const style = mergeArgs({
@@ -252,7 +267,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
         };
     }
     /**
-     * @since 0.1.1-alpha.1.draft
+     * @since 0.1.0-beta.0.draft
      */
     static widgetStyle(partial) {
         const margin = mergeArgs({
@@ -281,7 +296,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
         };
     }
     /**
-     * @since 0.1.1-alpha.1.draft
+     * @since 0.1.0-beta.0.draft
      */
     static mergeData(partial) {
         const defaults = this.default;
@@ -289,6 +304,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
             alert: Tokens_CSS_Style.alertStyle(partial.alert),
             button: Tokens_CSS_Style.buttonStyle(partial.button),
             heading: objectGenerator([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], (hdg) => Tokens_CSS_Style.headingStyle(hdg, partial.heading?.[hdg])),
+            icon: Tokens_CSS_Style.iconStyle(partial.icon),
             input: Tokens_CSS_Style.inputStyle(partial.input),
             margin: mergeArgs(defaults.margin, partial.margin, true),
             selection: {
@@ -311,6 +327,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
             alert: Tokens_CSS_Style.alertStyle(),
             button: Tokens_CSS_Style.buttonStyle(),
             heading: objectGenerator([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], (hdg) => Tokens_CSS_Style.headingStyle(hdg)),
+            icon: Tokens_CSS_Style.iconStyle(),
             input: Tokens_CSS_Style.inputStyle(),
             margin: {
                 flow: {

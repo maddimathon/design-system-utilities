@@ -89,7 +89,7 @@ const {
 
 /* TYPES ===================================== */
 
-type AnyColourLevel = "black" | "white" | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional;
+type AnyColourLevel = "black" | "white" | ColourUtilities.Levels.Any;
 
 export type LevelTargets<T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams> = {
     [ L in ColourUtilities.Levels.Required | T_ColourTypes['extraLevels'] ]: {
@@ -360,7 +360,7 @@ const includeFormats = {
 };
 
 const allTokenLevels = arrayUnique(Object.values(tokens.colour).map(
-    val => Object.keys(val) as (ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional)[]
+    val => Object.keys(val) as (ColourUtilities.Levels.Any)[]
 ).flat());
 
 const colour = colourToArray(props);
@@ -483,8 +483,8 @@ const HSL_CLRS = {
                     /></th>
                     <Fragment>{ (
                         Object.entries( goalLevels.base ) as [ 
-                            ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional,
-                            typeof goalLevels.base[ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional],
+                            ColourUtilities.Levels.Any,
+                            typeof goalLevels.base[ColourUtilities.Levels.Any],
                         ][]
                     ).map( ([level, set]) => set && <th> 
                         <article
@@ -751,7 +751,7 @@ const HSL_CLRS = {
                                 rgb: includeFormats.rgb ? props.colour.base.white.rgb : undefined,
                             } : props.colour.base.white }
                         /></td>
-                        {map.map(({ level, values }) => !( 
+                        {map.map(({ level, value }) => !( 
                             excludeLevels.includes( level )
                             || ( level as string ) === 'black'
                             || ( level as string ) === 'white'
@@ -766,11 +766,11 @@ const HSL_CLRS = {
                                 name={name} 
                                 tokens={tokens}
                                 values={{
-                                    ...values,
-                                    hex: includeFormats.hex ? values.hex : undefined,
-                                    hsl: includeFormats.hsl ? values.hsl : undefined,
-                                    lch: includeFormats.lch ? values.lch : undefined,
-                                    rgb: includeFormats.rgb ? values.rgb : undefined,
+                                    ...value,
+                                    hex: includeFormats.hex ? value.hex : undefined,
+                                    hsl: includeFormats.hsl ? value.hsl : undefined,
+                                    lch: includeFormats.lch ? value.lch : undefined,
+                                    rgb: includeFormats.rgb ? value.rgb : undefined,
                                 }}
                             />
                         </td> )}

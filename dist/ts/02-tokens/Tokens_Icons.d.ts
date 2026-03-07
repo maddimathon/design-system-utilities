@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
 import { SvgMaker } from '../01-utilities/SvgMaker.js';
@@ -62,7 +62,7 @@ export declare namespace Tokens_Icons {
         [I in T_ExtraIconNames]: SvgMaker.JsonReturn<T_ExtraIconNames>;
     };
     /**
-     * @since 0.1.1-alpha.1.draft
+     * @since 0.1.0-beta.0.draft
      */
     type ScssVars<T_ExtraIconNames extends string> = {
         [I in DefaultIconNames]: SvgMaker.ScssVars<T_ExtraIconNames>;

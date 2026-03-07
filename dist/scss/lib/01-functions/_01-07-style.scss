@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.0.draft
 /// @since 0.1.0-alpha
 ///
 
@@ -23,9 +23,9 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
 /// Uses the (flattened) style tokens.
 ///
 /// @since 0.1.0-alpha
-/// @since 0.1.1-alpha.1.draft — Added $rawValue param.
+/// @since 0.1.0-beta.0.draft — Added $raw param.
 ///
-@function style-value($slug, $rawValue: false) {
+@function style-value($slug, $raw: false) {
     $value: map.get($_flattenedStyles, $slug);
 
     // returns
@@ -35,13 +35,14 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
     }
 
     // returns
-    @if $rawValue {
+    @if $raw {
         @return $value;
     }
 
     $isAlertStyle: string.index($slug, alert-) == 1;
     $isButtonStyle: string.index($slug, button-) == 1;
     $isHeadingStyle: string.index($slug, heading-) == 1;
+    $isIconStyle: string.index($slug, icon-) == 1;
     $isInputStyle: string.index($slug, input-) == 1;
     $isWidgetStyle: string.index($slug, widget-) == 1;
 
@@ -61,6 +62,7 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
 
     @if $isAlertStyle or
         $isButtonStyle or
+        $isIconStyle or
         $isInputStyle or
         $isHeadingStyle or
         $isWidgetStyle
@@ -226,11 +228,20 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
 
 ///
 /// @since 0.1.0-alpha
+/// @since 0.1.0-beta.0.draft — Added optional $fallback, $raw params.
 ///
-@function var-style($slug) {
+@function var-style($slug, $fallback: null, $raw: false) {
+    $isFocusRingStyle: string.index($slug, focus-ring-) == 1;
+    $isIconStyle: string.index($slug, icon-) == 1;
+
+    @if $fallback == null {
+        $fallback: style-value($slug, $raw: $raw);
+    }
+
     @return if(
-        config.$fn_var_replaceWithValue_style,
-        style-value($slug),
-        utils.do-var(style-#{$slug}, #{style-value($slug)})
+        config.$fn_var_replaceWithValue_style and not $isFocusRingStyle and not
+            $isIconStyle,
+        $fallback,
+        utils.do-var($slug, $fallback)
     );
 }

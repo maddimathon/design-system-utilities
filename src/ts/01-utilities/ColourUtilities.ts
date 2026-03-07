@@ -1354,7 +1354,7 @@ export namespace ColourUtilities {
     /**
      * Utilities for dealing with shade level values.
      * 
-     * @since 0.1.1-alpha.0
+     * @since 0.1.0-alpha.13
      */
     export namespace Levels {
 
@@ -1363,7 +1363,7 @@ export namespace ColourUtilities {
          * (e.g., dark to light modes).
          * 
          * @since 0.1.0-alpha
-         * @since 0.1.1-alpha.0 — Moved from {@link ColourUtilities} to {@link ColourUtilities.Levels} and renamed.
+         * @since 0.1.0-alpha.13 — Moved from {@link ColourUtilities} to {@link ColourUtilities.Levels} and renamed.
          */
         export const converter = {
             '100': '900',
@@ -1396,7 +1396,7 @@ export namespace ColourUtilities {
          * The shade level keys that can be optionally included in maps for this
          * system.
          *
-         * @since 0.1.1-alpha.0
+         * @since 0.1.0-alpha.13
          */
         export const optional = [
             '350',
@@ -1408,7 +1408,7 @@ export namespace ColourUtilities {
         /**
          * The shade level keys always included in maps for this system.
          * 
-         * @since 0.1.1-alpha.0
+         * @since 0.1.0-alpha.13
          */
         export const required = [
             '100',
@@ -1427,18 +1427,25 @@ export namespace ColourUtilities {
         ] as const;
 
         /**
-         * Shade levels that can be optionally included in maps for this system.
+         * All possible shade levels possibly in shade maps for this system.
+         * 
+         * @since ___PKG_VERSION___
+         */
+        export type Any = Optional | Required;
+
+        /**
+         * Shade levels that can be optionally included in shade maps for this system.
          * 
          * @since 0.1.0-alpha — Introduced as a global `Levels.Optional` type in `02-tokens/@types.d.ts`.
-         * @since 0.1.1-alpha.0 — Moved to {@link ColourUtilities.Levels} and renamed.
+         * @since 0.1.0-alpha.13 — Moved to {@link ColourUtilities.Levels} and renamed.
          */
         export type Optional = typeof optional[ number ];
 
         /**
-         * Shade levels always included in maps for this system.
+         * Shade levels always included in shade maps for this system.
          * 
          * @since 0.1.0-alpha — Introduced as a global `Levels.Required` type in `02-tokens/@types.d.ts`.
-         * @since 0.1.1-alpha.0 — Moved to {@link ColourUtilities.Levels} and renamed.
+         * @since 0.1.0-alpha.13 — Moved to {@link ColourUtilities.Levels} and renamed.
          */
         export type Required = typeof required[ number ];
 
@@ -1447,7 +1454,7 @@ export namespace ColourUtilities {
          * 
          * @since ___PKG_VERSION___
          */
-        export function augmentor<T_AnyColourLevel extends Levels.Required | Levels.Optional>(
+        export function augmentor<T_AnyColourLevel extends Levels.Any>(
             allColourLevels: Set<T_AnyColourLevel>,
             level: "black" | "white" | NoInfer<T_AnyColourLevel>,
             levelOffset: number,
@@ -1550,10 +1557,10 @@ export namespace ColourUtilities {
          * {@link ColourUtilities.Levels.converter}).
          * 
          * @since 0.1.0-alpha
-         * @since 0.1.1-alpha.0 — Moved to {@link ColourUtilities.Levels} and renamed.
+         * @since 0.1.0-alpha.13 — Moved to {@link ColourUtilities.Levels} and renamed.
          */
         export function toDark<
-            T_LightLevel extends "black" | "white" | Levels.Required | Levels.Optional
+            T_LightLevel extends "black" | "white" | Levels.Any
         >( lightLevel: T_LightLevel ): typeof converter[ T_LightLevel ] {
             return converter[ lightLevel ];
         }

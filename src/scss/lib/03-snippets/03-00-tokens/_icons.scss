@@ -50,12 +50,12 @@ $_allUniqueIconAspectRatios: ();
     %icon {
         display: inline-block;
         position: relative;
-        vertical-align: #{var-token(icon-vertical-align, $fallback: middle)};
+        vertical-align: #{var-style(icon-vertical-align, $fallback: middle)};
 
-        height: #{var-token(icon-size)};
-        height: calc(#{var-token(icon-size)} * do-var(icon-size--font-multiplier, 1));
+        height: #{var-style(icon-size)};
+        height: calc(#{var-style(icon-size)} * do-var(icon-size--font-multiplier, 1));
 
-        color: #{var-token(icon-color)};
+        color: #{var-style(icon-color)};
 
         > svg {
             margin: 0;
@@ -89,12 +89,12 @@ $_allUniqueIconAspectRatios: ();
 
     @supports (mask-image: url('../fake.svg')) {
         display: inline-block;
-        vertical-align: #{var-token(icon-vertical-align, $fallback: sub)};
+        vertical-align: #{var-style(icon-vertical-align, $fallback: sub)};
 
         content: '';
         content: '' / '#{icon-label-value($slug)}';
 
-        background: #{var-token(icon-color)};
+        background: #{var-style(icon-color)};
 
         mask-image: #{icon-embedded-value($slug)};
         mask-clip: no-clip;
@@ -105,20 +105,20 @@ $_allUniqueIconAspectRatios: ();
         mask-size: contain;
 
         margin-block-start: do-var(icon-pseudo-element-margin-block-start, 0);
-        margin-inline-#{$_start}: #{var-token(icon-inline-buffer)};
+        margin-inline-#{$_start}: #{var-style(icon-inline-buffer)};
         margin-inline-#{$_start}: calc(
-            #{var-token(icon-inline-buffer)} *
+            #{var-style(icon-inline-buffer)} *
                 do-var(
                     icon-size-pseudo--inline-buffer-start,
                     do-var(icon-size-pseudo--font-multiplier, 1)
                 )
         );
         margin-inline-#{$_end}: calc(
-            #{var-token(icon-inline-buffer)} * do-var(icon-size-pseudo--inline-buffer-end, 0)
+            #{var-style(icon-inline-buffer)} * do-var(icon-size-pseudo--inline-buffer-end, 0)
         );
 
-        height: #{var-token(icon-size-pseudo)};
-        height: calc(#{var-token(icon-size-pseudo)} * do-var(icon-size-pseudo--font-multiplier, 1));
+        height: #{var-style(icon-size-pseudo)};
+        height: calc(#{var-style(icon-size-pseudo)} * do-var(icon-size-pseudo--font-multiplier, 1));
 
         aspect-ratio: #{icon-aspect-ratio-value($slug)};
 

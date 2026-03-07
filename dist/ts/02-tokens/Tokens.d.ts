@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
 import type { WholeTokenLevel, TokenTypes } from './@types.js';
@@ -22,7 +22,7 @@ import { Tokens_Typography } from './Tokens_Typography.js';
 /**
  * Internal utilities available for documentation but not meant to be public.
  *
- * @since 0.1.1-alpha.1.draft
+ * @since 0.1.0-beta.0.draft
  * @internal
  */
 export declare class Internal {
@@ -64,7 +64,7 @@ export declare class Tokens<T_Types extends TokenTypes.TypeParams = TokenTypes.T
      */
     static build<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams>(input: Tokens_Internal.InputParam<T_Types>, config?: Partial<Tokens.Config<NoInfer<T_Types['colour']['extraLevels']>>>): Promise<Tokens<T_Types>>;
     /**
-     *  * @since 0.1.1-alpha.1.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
+     *  * @since 0.1.0-beta.0.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
     protected constructor(colourOpts: {
         names: TokenTypes.Colour.GenericNameArray<T_Types['colour']['names']>;
@@ -166,7 +166,7 @@ export declare namespace Tokens {
      */
     type JsonReturn<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> = Tokens_Internal.JsonReturn<T_Types>;
     /**
-     * @since 0.1.1-alpha.1.draft
+     * @since 0.1.0-beta.0.draft
      */
     type ScssVars<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> = Tokens_Internal.ScssVars<T_Types>;
     type DefaultIconNames = Tokens_Icons.DefaultIconNames;
@@ -610,7 +610,7 @@ export declare namespace Tokens {
         interface AllVariations<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> extends Tokens_Themes_Set.SingleMode.AllVariations<T_Types['colour'], T_Types['theme']> {
         }
         /**
-         * @since 0.1.1-alpha.1.draft
+         * @since 0.1.0-beta.0.draft
          */
         type JsonReturn<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> = Tokens_Themes.JsonReturn<T_Types['colour'], T_Types['theme']>;
         /**
@@ -628,27 +628,27 @@ export declare namespace Tokens {
         namespace SingleMode {
             const colourOption: typeof Tokens_Themes_Set.SingleMode.Build.colourOption;
             /**
-             * @since 0.1.1-alpha.1.draft
+             * @since 0.1.0-beta.0.draft
              */
             namespace Levels {
                 /**
-                 * @since 0.1.1-alpha.1.draft
+                 * @since 0.1.0-beta.0.draft
                  */
                 interface Input<T_ExtraColourLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional> extends Tokens_Themes_Set.SingleMode.Levels.Input<T_ExtraColourLevels> {
                 }
                 /**
-                 * @since 0.1.1-alpha.1.draft
+                 * @since 0.1.0-beta.0.draft
                  */
                 interface Parsed<T_ExtraColourLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional> extends Tokens_Themes_Set.SingleMode.Levels.Parsed<T_ExtraColourLevels> {
                 }
                 /**
-                 * @since 0.1.1-alpha.1.draft
+                 * @since 0.1.0-beta.0.draft
                  */
                 interface Required<T_ExtraColourLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional> extends Tokens_Themes_Set.SingleMode.Levels.Required<T_ExtraColourLevels> {
                 }
                 /**
-                 * @since 0.1.1-alpha.0
-                 * @since 0.1.1-alpha.1.draft — Moved to Tokens_Themes_Set.SingleMode.Levels and renamed.
+                 * @since 0.1.0-alpha.13
+                 * @since 0.1.0-beta.0.draft — Moved to Tokens_Themes_Set.SingleMode.Levels and renamed.
                  */
                 const DEFAULT: typeof Tokens_Themes_Set.SingleMode.Levels.DEFAULT;
                 const parse: typeof Tokens_Themes_Set.SingleMode.Levels.parse;
@@ -656,16 +656,16 @@ export declare namespace Tokens {
             /**
              * Common object shapes used to set multiple level types.
              *
-             * @since 0.1.1-alpha.1.draft
+             * @since 0.1.0-beta.0.draft
              */
             namespace Set {
                 /**
-                 * @since 0.1.1-alpha.1.draft
+                 * @since 0.1.0-beta.0.draft
                  */
                 interface AccentMin<T_ExtraColourLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional> extends Tokens_Themes_Set.SingleMode.Levels.Set.AccentMin<T_ExtraColourLevels> {
                 }
                 /**
-                 * @since 0.1.1-alpha.1.draft
+                 * @since 0.1.0-beta.0.draft
                  */
                 interface AccentGrey<T_ExtraColourLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional> extends Tokens_Themes_Set.SingleMode.Levels.Set.AccentGrey<T_ExtraColourLevels> {
                 }
@@ -676,7 +676,7 @@ export declare namespace Tokens {
             interface Data<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_Types['colour']> = TokenTypes.Theme.ColourOption<T_Types['colour']>> extends Tokens_Themes_Set.SingleMode.Data<T_Types['colour'], T_Types['theme'], __T_ColourOption> {
             }
             /**
-             * @since 0.1.1-alpha.1.draft
+             * @since 0.1.0-beta.0.draft
              */
             namespace Data {
                 /**

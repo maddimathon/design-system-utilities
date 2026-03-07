@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.0.draft
 /// @since 0.1.0-alpha
 ///
 
@@ -142,7 +142,6 @@ $_systemColors: map.flatten(
 /// Gets the colour value (either system or var-clr) for the given token slug.
 ///
 /// @since 0.1.0-alpha
-/// @since 0.1.1-alpha.1.draft — Made private.
 ///
 @function var-clr-from-theme-token(
     $tokenValue,
@@ -201,7 +200,7 @@ $_default_activeTheme_mode: if(
 ///
 /// @return {string|false}
 ///
-/// @since 0.1.1-alpha.0
+/// @since 0.1.0-alpha.13
 ///
 @function get-active-theme(
     $brightness: tokens.$brightnessMode_default,
@@ -228,8 +227,8 @@ $_default_activeTheme_mode: if(
 ///
 /// @return {string|false}
 ///
-/// @since 0.1.1-alpha.0
-/// @since 0.1.1-alpha.1.draft — Added $version param.
+/// @since 0.1.0-alpha.13
+/// @since 0.1.0-beta.0.draft — Added $version param.
 ///
 @function theme-token-exists(
     $slug,
@@ -334,8 +333,8 @@ $_default_activeTheme_mode: if(
 /// Gets the value for the given token slug.
 ///
 /// @since 0.1.0-alpha
-/// @since 0.1.1-alpha.0 — Make $brightness and $contrast optional.
-/// @since 0.1.1-alpha.1.draft — Added $version param.
+/// @since 0.1.0-alpha.13 — Make $brightness and $contrast optional.
+/// @since 0.1.0-beta.0.draft — Added $version param.
 ///
 @function theme-token-value(
     $slug,
@@ -354,7 +353,7 @@ $_default_activeTheme_mode: if(
     );
 
     // returns
-    @if $value == null {
+    @if not $value {
         @return ();
     }
 
@@ -503,10 +502,7 @@ $_default_activeTheme_mode: if(
             }
 
             @if $_value {
-                @return hsla(
-                    #{utils.do-var(theme-#{$slug}-#{$version}, $_value)},
-                    #{$opacity}
-                );
+                @return '#{$version}a(#{utils.do-var(theme-#{$slug}-#{$version}, $_value)}, #{$opacity})';
             }
         }
     }

@@ -12,6 +12,11 @@
 
 $_default_resultGroup_colCount: 6;
 
+$_var_contrastResultGroupColumnCount: lib.do-var(
+    shade-swatch-contrast-result-group-column-count,
+    $_default_resultGroup_colCount
+);
+
 .shade-swatch {
     display: flex;
     flex-direction: column;
@@ -114,21 +119,11 @@ $_default_resultGroup_colCount: 6;
 
     :global(.shade-swatch__contrast__result-group) {
         display: grid;
-        grid-template-columns: repeat(
-            lib.do-var(
-                shade-swatch-contrast-result-group-column-count,
-                #{$_default_resultGroup_colCount}
-            ),
-            min-content
-        );
+        grid-template-columns: repeat(#{$_var_contrastResultGroupColumnCount}, min-content);
         grid-template-rows: auto auto;
 
         > :global(.shade-swatch__contrast__heading) {
-            grid-column: span
-                lib.do-var(
-                    shade-swatch-contrast-result-group-column-count,
-                    #{$_default_resultGroup_colCount}
-                );
+            grid-column: span #{$_var_contrastResultGroupColumnCount};
         }
     }
 
@@ -138,10 +133,10 @@ $_default_resultGroup_colCount: 6;
         text-align: center;
 
         @include lib.colour-mode((low, average)) {
-            color: lib.do-var(
-                shade-swatch-color-override,
-                lib.do-var(shade-swatch-contrast-result-group-heading-color)
-            );
+            color: #{lib.do-var(
+                    shade-swatch-color-override,
+                    lib.do-var(shade-swatch-contrast-result-group-heading-color)
+                )};
         }
     }
     &[data-shade-swatch-has-background='true'] {
@@ -189,11 +184,7 @@ $_default_resultGroup_colCount: 6;
     }
 
     :global(.shade-swatch__contrast__result-group__heading) {
-        grid-column: span
-            lib.do-var(
-                shade-swatch-contrast-result-group-column-count,
-                #{$_default_resultGroup_colCount}
-            );
+        grid-column: span #{$_var_contrastResultGroupColumnCount};
         margin: 0;
         font-size: #{lib.var-fs(smaller-3)};
     }

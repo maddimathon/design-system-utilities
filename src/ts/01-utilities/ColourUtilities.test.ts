@@ -87,9 +87,9 @@ const augmentor_anyLevelsAllowed = [
     [ '900', -50, '850' ],
     [ 'black', -50, '900' ],
 ] satisfies [
-    'black' | 'white' | ColourUtilities.Levels.Optional | ColourUtilities.Levels.Required,
+    'black' | 'white' | ColourUtilities.Levels.Any,
     number,
-    'black' | 'white' | ColourUtilities.Levels.Optional | ColourUtilities.Levels.Required,
+    'black' | 'white' | ColourUtilities.Levels.Any,
 ][];
 
 const augmentor_defaultLevelsAllowed = [
@@ -135,7 +135,7 @@ const augmentor_defaultLevelsAllowed = [
     [ '900', -50, '850' ],
     [ 'black', -50, '900' ],
 ] satisfies [
-    'black' | 'white' | ColourUtilities.Levels.Optional | ColourUtilities.Levels.Required,
+    'black' | 'white' | ColourUtilities.Levels.Any,
     number,
     'black' | 'white' | ColourUtilities.Levels.Required,
 ][];
@@ -183,7 +183,7 @@ const augmentor_weirdlyRestrictiveTests = [
     [ '900', -50, '900' ],
     [ 'black', -50, '900' ],
 ] satisfies [
-    'black' | 'white' | ColourUtilities.Levels.Optional | ColourUtilities.Levels.Required,
+    'black' | 'white' | ColourUtilities.Levels.Any,
     number,
     'black' | 'white' | Augmentor_WeirdlyRestrictiveLevels,
 ][];
@@ -251,7 +251,7 @@ const augmentor_wholeLevelsOnlyTests = [
     [ '900', -50, '800' ],
     [ 'black', -50, '900' ],
 ] satisfies [
-    'black' | 'white' | ColourUtilities.Levels.Optional | ColourUtilities.Levels.Required,
+    'black' | 'white' | ColourUtilities.Levels.Any,
     number,
     'black' | 'white' | WholeTokenLevel,
 ][];
@@ -306,12 +306,12 @@ describe( 'ColourUtilities.Levels.augmentor', () => {
 
                 const result = ColourUtilities.Levels.augmentor(
                     augmentor_anyLevels,
-                    input as 'black' | 'white' | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional,
+                    input as 'black' | 'white' | ColourUtilities.Levels.Any,
                     offset,
                 );
 
                 type Types = [
-                    Test.Expect<Test.Exactly<typeof result, 'black' | 'white' | ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional>>,
+                    Test.Expect<Test.Exactly<typeof result, 'black' | 'white' | ColourUtilities.Levels.Any>>,
                 ];
 
                 expect( result ).toBe( output );

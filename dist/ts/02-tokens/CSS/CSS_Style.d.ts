@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
 import type { RecursivePartial } from '@maddimathon/utility-typescript/types';
@@ -21,12 +21,12 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
     scss: Tokens_CSS_Style.ScssVars;
 }> {
     /**
-     * @since 0.1.1-alpha.1.draft
+     * @since 0.1.0-beta.0.draft
      */
     static alertStyle(partial?: Tokens_CSS_Style.InputParam['alert']): Tokens_CSS_Style.AlertStyles;
     /**
      * @since 0.1.0-alpha
-     * @since 0.1.1-alpha.1.draft — Added partial param.
+     * @since 0.1.0-beta.0.draft — Added partial param.
      */
     static buttonStyle(partial?: Tokens_CSS_Style.InputParam['button']): {
         $: Tokens_CSS_Style.ButtonStyles;
@@ -34,12 +34,16 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
     };
     /**
      * @since 0.1.0-alpha
-     * @since 0.1.1-alpha.1.draft — Added partial param.
+     * @since 0.1.0-beta.0.draft — Added partial param.
      */
     static headingStyle(heading: number, partial?: NonNullable<Tokens_CSS_Style.InputParam['heading']>[number]): Tokens_CSS_Style.HeadingStyles;
     /**
-     * @since 0.1.1-alpha.0
-     * @since 0.1.1-alpha.1.draft — Added partial param.
+     * @since 0.1.0-beta.0.draft
+     */
+    static iconStyle(partial?: Tokens_CSS_Style.InputParam['icon']): Tokens_CSS_Style.IconStyles;
+    /**
+     * @since 0.1.0-alpha.13
+     * @since 0.1.0-beta.0.draft — Added partial param.
      */
     static inputStyle(partial?: Tokens_CSS_Style.InputParam['input']): {
         readonly $: Tokens_CSS_Style.InputStyles;
@@ -47,11 +51,11 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
         readonly readonly: Tokens_CSS_Style.InputStyles_Variation;
     };
     /**
-     * @since 0.1.1-alpha.1.draft
+     * @since 0.1.0-beta.0.draft
      */
     static widgetStyle(partial?: Tokens_CSS_Style.InputParam['widget']): Tokens_CSS_Style.WidgetStyles;
     /**
-     * @since 0.1.1-alpha.1.draft
+     * @since 0.1.0-beta.0.draft
      */
     protected static mergeData(partial: Tokens_CSS_Style.InputParam): {
         alert: Tokens_CSS_Style.AlertStyles;
@@ -71,6 +75,7 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
             8: Tokens_CSS_Style.HeadingStyles;
             9: Tokens_CSS_Style.HeadingStyles;
         };
+        icon: Tokens_CSS_Style.IconStyles;
         input: {
             readonly $: Tokens_CSS_Style.InputStyles;
             readonly disabled: Tokens_CSS_Style.InputStyles_Variation;
@@ -133,6 +138,7 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
             8: Tokens_CSS_Style.HeadingStyles;
             9: Tokens_CSS_Style.HeadingStyles;
         };
+        icon: Tokens_CSS_Style.IconStyles;
         input: {
             readonly $: Tokens_CSS_Style.InputStyles;
             readonly disabled: Tokens_CSS_Style.InputStyles_Variation;
@@ -168,7 +174,7 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
  */
 export declare namespace Tokens_CSS_Style {
     /**
-     * @since 0.1.1-alpha.1.draft
+     * @since 0.1.0-beta.0.draft
      */
     type AlertStyles = {
         /**
@@ -245,7 +251,7 @@ export declare namespace Tokens_CSS_Style {
             /**
              * Should be a font-size token slug.
              *
-             * @since 0.1.1-alpha.1.draft
+             * @since 0.1.0-beta.0.draft
              */
             size: string;
             style: "normal" | "italic";
@@ -300,7 +306,26 @@ export declare namespace Tokens_CSS_Style {
         };
     };
     /**
-     * @since 0.1.1-alpha.0
+     * @since 0.1.0-beta.0.draft
+     */
+    type IconStyles = {
+        /**
+         * This should be a theme slug.
+         */
+        color: string;
+        'inline-buffer': string;
+        size: {
+            $: string;
+            large: string;
+            /**
+             * For inline icons in before/after pseudo classes.
+             */
+            pseudo: string;
+        };
+        'vertical-align': string;
+    };
+    /**
+     * @since 0.1.0-alpha.13
      */
     type InputStyles = {
         border: {
@@ -334,7 +359,7 @@ export declare namespace Tokens_CSS_Style {
             inline: AnyTokenLevel;
         };
         /**
-         * @since 0.1.1-alpha.1.draft
+         * @since 0.1.0-beta.0.draft
          */
         placeholder: {
             font: {
@@ -346,14 +371,14 @@ export declare namespace Tokens_CSS_Style {
         };
     };
     /**
-     * @since 0.1.1-alpha.0
-     * @since 0.1.1-alpha.1.draft — Renamed from InputStyles_Disabled to InputStyles_Variation.
+     * @since 0.1.0-alpha.13
+     * @since 0.1.0-beta.0.draft — Renamed from InputStyles_Disabled to InputStyles_Variation.
      */
     type InputStyles_Variation = Omit<InputStyles, 'border' | 'focus' | 'label' | 'line-height' | 'margin' | 'padding' | 'placeholder'> & {
         border: Omit<InputStyles['border'], 'width'>;
     };
     /**
-     * @since 0.1.1-alpha.1.draft
+     * @since 0.1.0-beta.0.draft
      */
     type WidgetStyles = {
         border: {
@@ -392,7 +417,7 @@ export declare namespace Tokens_CSS_Style {
      */
     type Data = {
         /**
-         * @since 0.1.1-alpha.1.draft
+         * @since 0.1.0-beta.0.draft
          */
         alert: AlertStyles;
         button: {
@@ -405,7 +430,11 @@ export declare namespace Tokens_CSS_Style {
             [key: number]: HeadingStyles;
         };
         /**
-         * @since 0.1.1-alpha.0
+         * @since 0.1.0-beta.0.draft
+         */
+        icon: IconStyles;
+        /**
+         * @since 0.1.0-alpha.13
          */
         input: {
             $: InputStyles;
@@ -413,7 +442,7 @@ export declare namespace Tokens_CSS_Style {
             readonly: InputStyles_Variation;
         };
         /**
-         * @since 0.1.1-alpha.1.draft
+         * @since 0.1.0-beta.0.draft
          */
         margin: {
             /**
@@ -426,7 +455,7 @@ export declare namespace Tokens_CSS_Style {
             };
         };
         /**
-         * @since 0.1.1-alpha.1.draft — Restructured object nesting.
+         * @since 0.1.0-beta.0.draft — Restructured object nesting.
          */
         selection: {
             background?: {
@@ -436,7 +465,7 @@ export declare namespace Tokens_CSS_Style {
             };
         };
         /**
-         * @since 0.1.1-alpha.1.draft
+         * @since 0.1.0-beta.0.draft
          */
         widget: WidgetStyles;
     };
@@ -445,7 +474,7 @@ export declare namespace Tokens_CSS_Style {
      */
     type InputParam = {
         /**
-         * @since 0.1.1-alpha.1.draft
+         * @since 0.1.0-beta.0.draft
          */
         alert?: RecursivePartial<AlertStyles>;
         button?: {
@@ -457,17 +486,21 @@ export declare namespace Tokens_CSS_Style {
         } & {
             [key: number]: RecursivePartial<HeadingStyles>;
         };
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        icon?: RecursivePartial<IconStyles>;
         input?: {
             $?: RecursivePartial<InputStyles>;
             disabled?: RecursivePartial<InputStyles_Variation>;
             readonly?: RecursivePartial<InputStyles_Variation>;
         };
         /**
-         * @since 0.1.1-alpha.1.draft
+         * @since 0.1.0-beta.0.draft
          */
         margin?: RecursivePartial<Data['margin']>;
         /**
-         * @since 0.1.1-alpha.1.draft — Restructured object nesting.
+         * @since 0.1.0-beta.0.draft — Restructured object nesting.
          */
         selection?: {
             background?: {
@@ -477,7 +510,7 @@ export declare namespace Tokens_CSS_Style {
             };
         };
         /**
-         * @since 0.1.1-alpha.1.draft
+         * @since 0.1.0-beta.0.draft
          */
         widget?: RecursivePartial<WidgetStyles>;
     };
@@ -486,7 +519,7 @@ export declare namespace Tokens_CSS_Style {
      */
     type JsonReturn = Data;
     /**
-     * @since 0.1.1-alpha.1.draft
+     * @since 0.1.0-beta.0.draft
      */
     type ScssVars = Data;
 }

@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.1-alpha.1.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
 import { objectMap } from '@maddimathon/utility-typescript';
@@ -24,7 +24,7 @@ export class Tokens_Themes extends AbstractTokens {
     /**
      * Used instead of the constructor so that it can be async.
      *
-     * @since 0.1.1-alpha.1.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
+     * @since 0.1.0-beta.0.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
     static async build(brightnessModes, contrastModes, colours, input) {
         return Tokens_Themes.buildSets(brightnessModes, contrastModes, colours, input).then(sets => new Tokens_Themes(brightnessModes, contrastModes, colours, sets));
@@ -32,7 +32,7 @@ export class Tokens_Themes extends AbstractTokens {
     /**
      * Used to initialize multiple themes at once.
      *
-     * @since 0.1.1-alpha.1.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
+     * @since 0.1.0-beta.0.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
     static async buildSets(brightnessModes, contrastModes, colours, input) {
         const arr = Array.isArray(input)
@@ -56,7 +56,7 @@ export class Tokens_Themes extends AbstractTokens {
         return objectMap(this.sets, ([key, value]) => value.data);
     }
     /**
-     * @since 0.1.1-alpha.1.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
+     * @since 0.1.0-beta.0.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
     constructor(brightnessModes, contrastModes, colours, sets) {
         super();
