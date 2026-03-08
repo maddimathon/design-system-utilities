@@ -339,7 +339,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 background: {
                     opacity: {
                         low: '65%',
-                        average: '75%',
+                        average: '85%',
                         high: '95%',
                     },
                 },

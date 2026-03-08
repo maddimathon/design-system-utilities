@@ -178,7 +178,7 @@ export namespace Tokens_Colour_ShadeMap {
             allNames: TokenTypes.Colour.GenericNameArray<T_Types[ 'names' ]>,
             extraLevels: readonly T_Types[ 'extraLevels' ][],
             shadeName: "black" | "white" | TokenTypes.Colour.GenericName<T_Types[ 'names' ]>,
-            thisLevel: "black" | "white" | ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ],
+            thisLevel: "black" | "white" | TokenTypes.Colour.AnyLevel<T_Types>,
             input: Shade.InputParam,
         ) {
             const errorMaker = (
@@ -251,7 +251,7 @@ export namespace Tokens_Colour_ShadeMap {
             protected readonly allNames: TokenTypes.Colour.GenericNameArray<T_Types[ 'names' ]>,
             protected readonly extraLevels: readonly T_Types[ 'extraLevels' ][],
             protected readonly shadeName: "black" | "white" | TokenTypes.Colour.GenericName<T_Types[ 'names' ]>,
-            protected readonly thisLevel: "black" | "white" | ColourUtilities.Levels.Required | T_Types[ 'extraLevels' ],
+            protected readonly thisLevel: "black" | "white" | TokenTypes.Colour.AnyLevel<T_Types>,
             public readonly data: Shade.Data,
             public readonly contrast: Shade.Contrast<T_Types>,
         ) {
@@ -753,8 +753,8 @@ export namespace Tokens_Colour_ShadeMap {
         export const base = {
             '100': { l: 97, c: 0, h: 0, },
             '300': { l: 78, c: 0, h: 0, },
-            '500': { l: 50, c: 0, h: 0, },
-            '700': { l: 22, c: 0, h: 0, },
+            '500': { l: 51, c: 0, h: 0, },
+            '700': { l: 24, c: 0, h: 0, },
             '900': { l: 3, c: 0, h: 0, },
         } as const;
 

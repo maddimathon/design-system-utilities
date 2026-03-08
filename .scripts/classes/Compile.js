@@ -124,45 +124,67 @@ export class Compile extends CompileStage {
 
         const Tokens = ( await import( /* @vite-ignore */ '../../dist/ts/02-tokens/Tokens.js' ) ).Tokens;
 
+        const buildTokens = ( await import( /* @vite-ignore */ '../../dist/ts/build-utils/buildTokens.js' ) ).buildTokens;
+
         const defaultTokens = await this.atry(
             Tokens.sample,
             ( this.params.verbose ? 1 : 2 ),
         );
 
-        this.console.verbose( 'writing default json tokens...', 2 );
-        this.try(
-            this.fs.write,
-            ( this.params.verbose ? 2 : 3 ),
-            [
+        await buildTokens( this, defaultTokens, 2, {
+            tokensDistSubpath: '../',
+
+            slug: 'design-system-utilities',
+
+            assets: {
+                icons: '../../src/assets/icons',
+                logos: '../../src/assets/logos',
+            },
+
+            json: [
                 this.getDistDir( undefined, 'default-tokens.json' ),
-                JSON.stringify( defaultTokens, null, 4 ),
-                { force: true }
             ],
-        );
 
-        this.console.verbose( 'writing default scss tokens...', 2 );
-
-        const tokenScss = defaultTokens.toScss();
-
-        this.try(
-            this.fs.write,
-            ( this.params.verbose ? 2 : 3 ),
-            [
+            scss: [
                 this.getDistDir( undefined, 'default-tokens.scss' ),
-                tokenScss,
-                { force: true }
-            ],
-        );
-
-        this.try(
-            this.fs.write,
-            ( this.params.verbose ? 2 : 3 ),
-            [
                 'src/scss/tokens/system/_default.scss',
-                tokenScss,
-                { force: true }
             ],
-        );
+        } );
+
+        // this.console.verbose( 'writing default json tokens...', 2 );
+        // this.try(
+        //     this.fs.write,
+        //     ( this.params.verbose ? 2 : 3 ),
+        //     [
+        //         this.getDistDir( undefined, 'default-tokens.json' ),
+        //         JSON.stringify( defaultTokens, null, 4 ),
+        //         { force: true }
+        //     ],
+        // );
+
+        // this.console.verbose( 'writing default scss tokens...', 2 );
+
+        // const tokenScss = defaultTokens.toScss();
+
+        // this.try(
+        //     this.fs.write,
+        //     ( this.params.verbose ? 2 : 3 ),
+        //     [
+        //         this.getDistDir( undefined, 'default-tokens.scss' ),
+        //         tokenScss,
+        //         { force: true }
+        //     ],
+        // );
+
+        // this.try(
+        //     this.fs.write,
+        //     ( this.params.verbose ? 2 : 3 ),
+        //     [
+        //         'src/scss/tokens/system/_default.scss',
+        //         tokenScss,
+        //         { force: true }
+        //     ],
+        // );
     }
 
     /**
@@ -201,6 +223,9 @@ export class Compile extends CompileStage {
                 'dist/ts/**/*.docs.ts',
                 'dist/ts/**/*.docs.d.ts',
                 'dist/ts/**/*.docs.d.ts.map',
+
+                'dist/ts/01-utilities/@types.js',
+                'dist/ts/02-tokens/@types.js',
             ], ( this.params.verbose ? 3 : 2 ) ]
         );
     }

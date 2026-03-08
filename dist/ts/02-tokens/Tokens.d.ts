@@ -186,12 +186,12 @@ export declare namespace Tokens {
                 readonly h: 0;
             };
             readonly '500': {
-                readonly l: 50;
+                readonly l: 51;
                 readonly c: 0;
                 readonly h: 0;
             };
             readonly '700': {
-                readonly l: 22;
+                readonly l: 24;
                 readonly c: 0;
                 readonly h: 0;
             };
@@ -240,12 +240,12 @@ export declare namespace Tokens {
                 readonly h: 0;
             };
             readonly '500': {
-                readonly l: 50;
+                readonly l: 51;
                 readonly c: 0;
                 readonly h: 0;
             };
             readonly '700': {
-                readonly l: 22;
+                readonly l: 24;
                 readonly c: 0;
                 readonly h: 0;
             };
@@ -634,17 +634,17 @@ export declare namespace Tokens {
                 /**
                  * @since 0.1.0-beta.0.draft
                  */
-                interface Input<T_ExtraColourLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional> extends Tokens_Themes_Set.SingleMode.Levels.Input<T_ExtraColourLevels> {
+                interface Input<T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams> extends Tokens_Themes_Set.SingleMode.Levels.Input<T_ColourTypes> {
                 }
                 /**
                  * @since 0.1.0-beta.0.draft
                  */
-                interface Parsed<T_ExtraColourLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional> extends Tokens_Themes_Set.SingleMode.Levels.Parsed<T_ExtraColourLevels> {
+                interface Parsed<T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams> extends Tokens_Themes_Set.SingleMode.Levels.Parsed<T_ColourTypes> {
                 }
                 /**
                  * @since 0.1.0-beta.0.draft
                  */
-                interface Required<T_ExtraColourLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional> extends Tokens_Themes_Set.SingleMode.Levels.Required<T_ExtraColourLevels> {
+                interface Required<T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams> extends Tokens_Themes_Set.SingleMode.Levels.Required<T_ColourTypes> {
                 }
                 /**
                  * @since 0.1.0-beta.0.draft
@@ -661,12 +661,12 @@ export declare namespace Tokens {
                 /**
                  * @since 0.1.0-beta.0.draft
                  */
-                interface AccentMin<T_ExtraColourLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional> extends Tokens_Themes_Set.SingleMode.Levels.Set.AccentMin<T_ExtraColourLevels> {
+                interface AccentMin<T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams> extends Tokens_Themes_Set.SingleMode.Levels.Set.AccentMin<T_ColourTypes> {
                 }
                 /**
                  * @since 0.1.0-beta.0.draft
                  */
-                interface AccentGrey<T_ExtraColourLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional> extends Tokens_Themes_Set.SingleMode.Levels.Set.AccentGrey<T_ExtraColourLevels> {
+                interface AccentGrey<T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams> extends Tokens_Themes_Set.SingleMode.Levels.Set.AccentGrey<T_ColourTypes> {
                 }
             }
             /**

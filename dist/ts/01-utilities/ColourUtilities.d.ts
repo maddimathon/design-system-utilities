@@ -309,6 +309,18 @@ export declare namespace ColourUtilities {
          */
         function augmentor<T_AnyColourLevel extends Levels.Any>(allColourLevels: Set<T_AnyColourLevel>, level: "black" | "white" | NoInfer<T_AnyColourLevel>, levelOffset: number, minimum?: number, maximum?: number): "black" | "white" | NoInfer<T_AnyColourLevel>;
         /**
+         * Gets the max level in the given array.
+         *
+         * @since 0.1.0-beta.0.draft
+         */
+        function max<T_Level extends Levels.Optional | Levels.Required>(arr: ("black" | "white" | T_Level)[]): "black" | "white" | T_Level;
+        /**
+         * Gets the max level in the given array.
+         *
+         * @since 0.1.0-beta.0.draft
+         */
+        function min<T_Level extends Levels.Optional | Levels.Required>(arr: ("black" | "white" | T_Level)[]): "black" | "white" | T_Level;
+        /**
          * Converts the given shade level to its oppposite (via
          * {@link ColourUtilities.Levels.converter}).
          *

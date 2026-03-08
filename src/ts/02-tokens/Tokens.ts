@@ -884,22 +884,22 @@ export namespace Tokens {
                  * @since ___PKG_VERSION___
                  */
                 export interface Input<
-                    T_ExtraColourLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional,
-                > extends Tokens_Themes_Set.SingleMode.Levels.Input<T_ExtraColourLevels> { }
+                    T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams,
+                > extends Tokens_Themes_Set.SingleMode.Levels.Input<T_ColourTypes> { }
 
                 /**
                  * @since ___PKG_VERSION___
                  */
                 export interface Parsed<
-                    T_ExtraColourLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional,
-                > extends Tokens_Themes_Set.SingleMode.Levels.Parsed<T_ExtraColourLevels> { }
+                    T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams,
+                > extends Tokens_Themes_Set.SingleMode.Levels.Parsed<T_ColourTypes> { }
 
                 /**
                  * @since ___PKG_VERSION___
                  */
                 export interface Required<
-                    T_ExtraColourLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional,
-                > extends Tokens_Themes_Set.SingleMode.Levels.Required<T_ExtraColourLevels> { }
+                    T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams,
+                > extends Tokens_Themes_Set.SingleMode.Levels.Required<T_ColourTypes> { }
 
                 /**
                  * @since ___PKG_VERSION___
@@ -920,15 +920,15 @@ export namespace Tokens {
                  * @since ___PKG_VERSION___
                  */
                 export interface AccentMin<
-                    T_ExtraColourLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional,
-                > extends Tokens_Themes_Set.SingleMode.Levels.Set.AccentMin<T_ExtraColourLevels> { }
+                    T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams,
+                > extends Tokens_Themes_Set.SingleMode.Levels.Set.AccentMin<T_ColourTypes> { }
 
                 /**
                  * @since ___PKG_VERSION___
                  */
                 export interface AccentGrey<
-                    T_ExtraColourLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional,
-                > extends Tokens_Themes_Set.SingleMode.Levels.Set.AccentGrey<T_ExtraColourLevels> { }
+                    T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams,
+                > extends Tokens_Themes_Set.SingleMode.Levels.Set.AccentGrey<T_ColourTypes> { }
             }
 
             /**

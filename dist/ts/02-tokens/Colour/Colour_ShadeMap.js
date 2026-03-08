@@ -354,8 +354,8 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
         Yardsticks.base = {
             '100': { l: 97, c: 0, h: 0, },
             '300': { l: 78, c: 0, h: 0, },
-            '500': { l: 50, c: 0, h: 0, },
-            '700': { l: 22, c: 0, h: 0, },
+            '500': { l: 51, c: 0, h: 0, },
+            '700': { l: 24, c: 0, h: 0, },
             '900': { l: 3, c: 0, h: 0, },
         };
         Yardsticks.accent = {

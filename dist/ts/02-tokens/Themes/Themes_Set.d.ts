@@ -82,7 +82,7 @@ export declare namespace Tokens_Themes_Set {
      */
     type JsonReturn<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams> = {
         name: T_ThemeTypes['name'];
-        levelsInUse: ("black" | "white" | ColourUtilities.Levels.Any)[];
+        levelsInUse: TokenTypes.Colour.AnyLevel<T_ColourTypes>[];
         forcedColours: Tokens_Themes_Set.SingleMode.JsonReturn<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>;
     } & TokenTypes.Theme.Mode.NestedObject<T_ThemeTypes, Tokens_Themes_Set.SingleMode.JsonReturn<T_ColourTypes, T_ThemeTypes>>;
     /**
@@ -405,34 +405,34 @@ export declare namespace Tokens_Themes_Set {
             /**
              * @since 0.1.0-beta.0.draft
              */
-            interface Input<T_ExtraColourLevels extends ColourUtilities.Levels.Optional> {
-                background?: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Partial<Levels.Set.AccentBrightGrey<T_ExtraColourLevels>>;
-                text?: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Partial<Levels.Set.AccentMin<T_ExtraColourLevels>>;
-                ui?: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Partial<Levels.Set.AccentMin<T_ExtraColourLevels>>;
-                heading?: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | {
-                    [L in RequiredHeadingLevels]?: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
+            interface Input<T_ColourTypes extends TokenTypes.Colour.TypeParams> {
+                background?: TokenTypes.Colour.AnyLevel<T_ColourTypes> | Partial<Levels.Set.AccentBrightGrey<T_ColourTypes>>;
+                text?: TokenTypes.Colour.AnyLevel<T_ColourTypes> | Partial<Levels.Set.AccentMin<T_ColourTypes>>;
+                ui?: TokenTypes.Colour.AnyLevel<T_ColourTypes> | Partial<Levels.Set.AccentMin<T_ColourTypes>>;
+                heading?: TokenTypes.Colour.AnyLevel<T_ColourTypes> | {
+                    [L in RequiredHeadingLevels]?: TokenTypes.Colour.AnyLevel<T_ColourTypes>;
                 };
             }
             /**
              * @since 0.1.0-beta.0.draft
              */
-            interface Parsed<T_ExtraColourLevels extends ColourUtilities.Levels.Optional> {
-                background: Levels.Set.AccentBrightGrey<T_ExtraColourLevels>;
-                text: Levels.Set.AccentMin<T_ExtraColourLevels>;
-                ui: Levels.Set.AccentMin<T_ExtraColourLevels>;
+            interface Parsed<T_ColourTypes extends TokenTypes.Colour.TypeParams> {
+                background: Levels.Set.AccentBrightGrey<T_ColourTypes>;
+                text: Levels.Set.AccentMin<T_ColourTypes>;
+                ui: Levels.Set.AccentMin<T_ColourTypes>;
                 heading: {
-                    [L in RequiredHeadingLevels]: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
+                    [L in RequiredHeadingLevels]: TokenTypes.Colour.AnyLevel<T_ColourTypes>;
                 };
             }
             /**
              * @since 0.1.0-beta.0.draft — Made public, moved to SingleMode.Levels and renamed.
              */
-            interface Required<T_ExtraColourLevels extends ColourUtilities.Levels.Optional> {
-                background: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Levels.Set.AccentBrightGrey<T_ExtraColourLevels>;
-                text: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Levels.Set.AccentMin<T_ExtraColourLevels>;
-                ui: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Levels.Set.AccentMin<T_ExtraColourLevels>;
-                heading: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | {
-                    [L in RequiredHeadingLevels]: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
+            interface Required<T_ColourTypes extends TokenTypes.Colour.TypeParams> {
+                background: TokenTypes.Colour.AnyLevel<T_ColourTypes> | Levels.Set.AccentBrightGrey<T_ColourTypes>;
+                text: TokenTypes.Colour.AnyLevel<T_ColourTypes> | Levels.Set.AccentMin<T_ColourTypes>;
+                ui: TokenTypes.Colour.AnyLevel<T_ColourTypes> | Levels.Set.AccentMin<T_ColourTypes>;
+                heading: TokenTypes.Colour.AnyLevel<T_ColourTypes> | {
+                    [L in RequiredHeadingLevels]: TokenTypes.Colour.AnyLevel<T_ColourTypes>;
                 };
             }
             /**
@@ -444,27 +444,27 @@ export declare namespace Tokens_Themes_Set {
                 /**
                  * @since 0.1.0-beta.0.draft
                  */
-                interface AccentBrightGrey<T_ExtraColourLevels extends ColourUtilities.Levels.Optional> {
-                    $: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
-                    bright: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
-                    accent: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
-                    grey: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
+                interface AccentBrightGrey<T_ColourTypes extends TokenTypes.Colour.TypeParams> {
+                    $: TokenTypes.Colour.AnyLevel<T_ColourTypes>;
+                    bright: TokenTypes.Colour.AnyLevel<T_ColourTypes>;
+                    accent: TokenTypes.Colour.AnyLevel<T_ColourTypes>;
+                    grey: TokenTypes.Colour.AnyLevel<T_ColourTypes>;
                 }
                 /**
                  * @since 0.1.0-beta.0.draft
                  */
-                interface AccentGrey<T_ExtraColourLevels extends ColourUtilities.Levels.Optional> {
-                    $: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
-                    accent: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
-                    grey: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
+                interface AccentGrey<T_ColourTypes extends TokenTypes.Colour.TypeParams> {
+                    $: TokenTypes.Colour.AnyLevel<T_ColourTypes>;
+                    accent: TokenTypes.Colour.AnyLevel<T_ColourTypes>;
+                    grey: TokenTypes.Colour.AnyLevel<T_ColourTypes>;
                 }
                 /**
                  * @since 0.1.0-beta.0.draft — Made public, moved to SingleMode.Levels.Sets and renamed.
                  */
-                interface AccentMin<T_ExtraColourLevels extends ColourUtilities.Levels.Optional> {
-                    $: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
-                    accent: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
-                    min: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
+                interface AccentMin<T_ColourTypes extends TokenTypes.Colour.TypeParams> {
+                    $: TokenTypes.Colour.AnyLevel<T_ColourTypes>;
+                    accent: TokenTypes.Colour.AnyLevel<T_ColourTypes>;
+                    min: TokenTypes.Colour.AnyLevel<T_ColourTypes>;
                 }
             }
             /**
@@ -591,7 +591,7 @@ export declare namespace Tokens_Themes_Set {
              * @since 0.1.0-alpha
              * @since 0.1.0-beta.0.draft — Moved to SingleMode.Levels and renamed. Added default param and made inputs optional.
              */
-            function parse<T_ExtraColourLevels extends ColourUtilities.Levels.Optional>(defaults: Levels.Required<T_ExtraColourLevels>, inputs?: Levels.Input<T_ExtraColourLevels>): Levels.Parsed<T_ExtraColourLevels>;
+            function parse<T_ColourTypes extends TokenTypes.Colour.TypeParams>(defaults: Levels.Required<T_ColourTypes>, inputs?: Levels.Input<T_ColourTypes>): Levels.Parsed<T_ColourTypes>;
         }
         /**
          * This is used by the build function, not by the constructor.
@@ -600,7 +600,7 @@ export declare namespace Tokens_Themes_Set {
          */
         export interface InputParam<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>> {
             description?: null | string;
-            levels?: undefined | Levels.Input<T_ColourTypes['extraLevels']>;
+            levels?: undefined | Levels.Input<T_ColourTypes>;
             variations?: undefined | {
                 background?: Partial<RequiredVariations<T_ColourTypes['names']>['background']> & {
                     [K in T_ThemeTypes['variations']['background']]: TokenTypes.Colour.GenericName<T_ColourTypes['names']>;
@@ -737,7 +737,7 @@ export declare namespace Tokens_Themes_Set {
              * @since 0.1.0-alpha
              */
             interface Param<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams> {
-                levels: Levels.Parsed<T_ColourTypes['extraLevels']>;
+                levels: Levels.Parsed<T_ColourTypes>;
                 variations: AllVariations<T_ColourTypes, T_ThemeTypes>;
             }
             /**
@@ -747,7 +747,7 @@ export declare namespace Tokens_Themes_Set {
                 levels?: InputParam<T_ColourTypes, T_ThemeTypes>['levels'];
                 variations: AllVariations<T_ColourTypes, T_ThemeTypes>;
             }
-            function colourOption<T_ColourTypes extends TokenTypes.Colour.TypeParams>(name: TokenTypes.Colour.GenericName<T_ColourTypes['names']>, level: "black" | "white" | ColourUtilities.Levels.Required | T_ColourTypes['extraLevels']): "black" | "white" | TokenTypes.Colour.TokenSlug<T_ColourTypes['names'], T_ColourTypes['extraLevels']>;
+            function colourOption<T_ColourTypes extends TokenTypes.Colour.TypeParams>(name: TokenTypes.Colour.GenericName<T_ColourTypes['names']>, level: TokenTypes.Colour.AnyLevel<T_ColourTypes>): TokenTypes.Theme.ColourOption<T_ColourTypes>;
             function completeVariations<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(clrNames: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>, input: InputParam<T_ColourTypes, T_ThemeTypes>['variations']): AllVariations<T_ColourTypes, T_ThemeTypes>;
             /**
              * An easy way to generate a complete token set from limited inputs.

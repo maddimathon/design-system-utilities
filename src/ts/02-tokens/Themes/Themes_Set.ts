@@ -8,7 +8,7 @@
  * @license MIT
  */
 
-import type { RecursivePartial } from '@maddimathon/utility-typescript/types';
+import type { Classify, RecursivePartial } from '@maddimathon/utility-typescript/types';
 
 import {
     arrayUnique,
@@ -292,7 +292,7 @@ export namespace Tokens_Themes_Set {
         T_ThemeTypes extends TokenTypes.Theme.TypeParams,
     > = {
         name: T_ThemeTypes[ 'name' ];
-        levelsInUse: ( "black" | "white" | ColourUtilities.Levels.Any )[];
+        levelsInUse: TokenTypes.Colour.AnyLevel<T_ColourTypes>[];
         forcedColours: Tokens_Themes_Set.SingleMode.JsonReturn<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>;
     } & TokenTypes.Theme.Mode.NestedObject<
         T_ThemeTypes,
@@ -408,7 +408,7 @@ export namespace Tokens_Themes_Set {
                 ? SingleMode.Levels.DEFAULT[ constrast ]
                 : SingleMode.Levels.DEFAULT.max;
 
-            const levels = SingleMode.Levels.parse<T_ColourTypes[ 'extraLevels' ]>(
+            const levels = SingleMode.Levels.parse<T_ColourTypes>(
                 defaultLevels,
                 input.levels,
             );
@@ -419,17 +419,7 @@ export namespace Tokens_Themes_Set {
 
             let description: null | string = input.description ?? null;
 
-            let defaultOverrides: SingleMode.Data.Partial<T_ColourTypes, T_ThemeTypes> = {};
-
-            const levels_background_vals = Object.values( levels.background );
-
-            const level_background_max = levels_background_vals.includes( 'black' )
-                ? 'black'
-                : String(
-                    Math.max( ...levels_background_vals.map( Number ).filter(
-                        num => !Number.isNaN( num )
-                    ) )
-                ) as ColourUtilities.Levels.Required | T_ColourTypes[ 'extraLevels' ];
+            const defaultOverrides: SingleMode.Data.Partial<T_ColourTypes, T_ThemeTypes> = {};
 
             // returns if forced colours
             switch ( constrast ) {
@@ -439,16 +429,26 @@ export namespace Tokens_Themes_Set {
 
                     if ( !inputOverrides.selection ) {
 
+                        const _text_levels = Object.values( levels.text ) as TokenTypes.Colour.AnyLevel<T_ColourTypes>[];
+                        const _bg_levels = Object.values( levels.background ) as TokenTypes.Colour.AnyLevel<T_ColourTypes>[];
+
                         defaultOverrides.selection = {
                             background: clrOpt(
                                 variations.interactive.hover,
                                 ColourUtilities.Levels.augmentor(
                                     colours.allLevels,
-                                    level_background_max,
+                                    ColourUtilities.Levels.max( _bg_levels ),
+                                    brightness === 'dark' ? 200 : 150,
+                                ),
+                            ),
+                            text: clrOpt(
+                                variations.base,
+                                ColourUtilities.Levels.augmentor(
+                                    colours.allLevels,
+                                    ColourUtilities.Levels.max( _text_levels ),
                                     150,
                                 ),
                             ),
-                            text: clrOpt( variations.base, '800' ),
                         };
                     }
                     break;
@@ -458,22 +458,49 @@ export namespace Tokens_Themes_Set {
 
                     if ( !inputOverrides.selection ) {
 
+                        const _text_levels = Object.values( levels.text ) as TokenTypes.Colour.AnyLevel<T_ColourTypes>[];
+                        const _bg_levels = Object.values( levels.background ) as TokenTypes.Colour.AnyLevel<T_ColourTypes>[];
+
                         defaultOverrides.selection = {
                             background: clrOpt(
                                 variations.interactive.hover,
                                 ColourUtilities.Levels.augmentor(
                                     colours.allLevels,
-                                    level_background_max,
+                                    ColourUtilities.Levels.max( _bg_levels ),
+                                    brightness === 'dark' ? 150 : 100,
+                                ),
+                            ),
+                            text: clrOpt(
+                                variations.base,
+                                ColourUtilities.Levels.augmentor(
+                                    colours.allLevels,
+                                    ColourUtilities.Levels.max( _text_levels ),
                                     100,
                                 ),
                             ),
-                            text: clrOpt( variations.base, '800' ),
                         };
                     }
                     break;
 
                 case 'high':
                     description = description ?? 'This is the high contrast mode.  This is the default for users who set ‘high’ as their preferred contrast mode in their OS or browser settings.  It exceeds WCAG AAA contrast standards.';
+
+                    if ( !inputOverrides.selection ) {
+
+                        const _text_levels = Object.values( levels.text ) as TokenTypes.Colour.AnyLevel<T_ColourTypes>[];
+                        const _bg_levels = Object.values( levels.background ) as TokenTypes.Colour.AnyLevel<T_ColourTypes>[];
+
+                        defaultOverrides.selection = {
+                            background: clrOpt(
+                                variations.interactive.hover,
+                                ColourUtilities.Levels.min( _text_levels ),
+                            ),
+                            text: clrOpt(
+                                variations.base,
+                                ColourUtilities.Levels.min( _bg_levels ),
+                            ),
+                        };
+                    }
                     break;
 
                 case 'max':
@@ -1038,14 +1065,14 @@ export namespace Tokens_Themes_Set {
              * @since ___PKG_VERSION___
              */
             export interface Input<
-                T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
+                T_ColourTypes extends TokenTypes.Colour.TypeParams,
             > {
-                background?: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Partial<Levels.Set.AccentBrightGrey<T_ExtraColourLevels>>;
-                text?: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Partial<Levels.Set.AccentMin<T_ExtraColourLevels>>;
-                ui?: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Partial<Levels.Set.AccentMin<T_ExtraColourLevels>>;
+                background?: TokenTypes.Colour.AnyLevel<T_ColourTypes> | Partial<Levels.Set.AccentBrightGrey<T_ColourTypes>>;
+                text?: TokenTypes.Colour.AnyLevel<T_ColourTypes> | Partial<Levels.Set.AccentMin<T_ColourTypes>>;
+                ui?: TokenTypes.Colour.AnyLevel<T_ColourTypes> | Partial<Levels.Set.AccentMin<T_ColourTypes>>;
 
-                heading?: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | {
-                    [ L in RequiredHeadingLevels ]?: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
+                heading?: TokenTypes.Colour.AnyLevel<T_ColourTypes> | {
+                    [ L in RequiredHeadingLevels ]?: TokenTypes.Colour.AnyLevel<T_ColourTypes>;
                 };
             }
 
@@ -1053,14 +1080,14 @@ export namespace Tokens_Themes_Set {
              * @since ___PKG_VERSION___
              */
             export interface Parsed<
-                T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
+                T_ColourTypes extends TokenTypes.Colour.TypeParams,
             > {
-                background: Levels.Set.AccentBrightGrey<T_ExtraColourLevels>;
-                text: Levels.Set.AccentMin<T_ExtraColourLevels>;
-                ui: Levels.Set.AccentMin<T_ExtraColourLevels>;
+                background: Levels.Set.AccentBrightGrey<T_ColourTypes>;
+                text: Levels.Set.AccentMin<T_ColourTypes>;
+                ui: Levels.Set.AccentMin<T_ColourTypes>;
 
                 heading: {
-                    [ L in RequiredHeadingLevels ]: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
+                    [ L in RequiredHeadingLevels ]: TokenTypes.Colour.AnyLevel<T_ColourTypes>;
                 };
             };
 
@@ -1068,14 +1095,14 @@ export namespace Tokens_Themes_Set {
              * @since ___PKG_VERSION___ — Made public, moved to SingleMode.Levels and renamed.
              */
             export interface Required<
-                T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
+                T_ColourTypes extends TokenTypes.Colour.TypeParams,
             > {
-                background: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Levels.Set.AccentBrightGrey<T_ExtraColourLevels>;
-                text: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Levels.Set.AccentMin<T_ExtraColourLevels>;
-                ui: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | Levels.Set.AccentMin<T_ExtraColourLevels>;
+                background: TokenTypes.Colour.AnyLevel<T_ColourTypes> | Levels.Set.AccentBrightGrey<T_ColourTypes>;
+                text: TokenTypes.Colour.AnyLevel<T_ColourTypes> | Levels.Set.AccentMin<T_ColourTypes>;
+                ui: TokenTypes.Colour.AnyLevel<T_ColourTypes> | Levels.Set.AccentMin<T_ColourTypes>;
 
-                heading: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels | {
-                    [ L in RequiredHeadingLevels ]: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
+                heading: TokenTypes.Colour.AnyLevel<T_ColourTypes> | {
+                    [ L in RequiredHeadingLevels ]: TokenTypes.Colour.AnyLevel<T_ColourTypes>;
                 };
             };
 
@@ -1090,34 +1117,34 @@ export namespace Tokens_Themes_Set {
                  * @since ___PKG_VERSION___
                  */
                 export interface AccentBrightGrey<
-                    T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
+                    T_ColourTypes extends TokenTypes.Colour.TypeParams,
                 > {
-                    $: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
-                    bright: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
-                    accent: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
-                    grey: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
+                    $: TokenTypes.Colour.AnyLevel<T_ColourTypes>;
+                    bright: TokenTypes.Colour.AnyLevel<T_ColourTypes>;
+                    accent: TokenTypes.Colour.AnyLevel<T_ColourTypes>;
+                    grey: TokenTypes.Colour.AnyLevel<T_ColourTypes>;
                 }
 
                 /**
                  * @since ___PKG_VERSION___
                  */
                 export interface AccentGrey<
-                    T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
+                    T_ColourTypes extends TokenTypes.Colour.TypeParams,
                 > {
-                    $: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
-                    accent: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
-                    grey: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
+                    $: TokenTypes.Colour.AnyLevel<T_ColourTypes>;
+                    accent: TokenTypes.Colour.AnyLevel<T_ColourTypes>;
+                    grey: TokenTypes.Colour.AnyLevel<T_ColourTypes>;
                 }
 
                 /**
                  * @since ___PKG_VERSION___ — Made public, moved to SingleMode.Levels.Sets and renamed.
                  */
                 export interface AccentMin<
-                    T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
+                    T_ColourTypes extends TokenTypes.Colour.TypeParams,
                 > {
-                    $: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
-                    accent: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
-                    min: "black" | "white" | ColourUtilities.Levels.Required | T_ExtraColourLevels;
+                    $: TokenTypes.Colour.AnyLevel<T_ColourTypes>;
+                    accent: TokenTypes.Colour.AnyLevel<T_ColourTypes>;
+                    min: TokenTypes.Colour.AnyLevel<T_ColourTypes>;
                 }
             }
 
@@ -1249,31 +1276,37 @@ export namespace Tokens_Themes_Set {
             }
 
             /**
-             * @since 0.1.0-alpha
-             * @since ___PKG_VERSION___ — Moved to SingleMode.Levels and renamed. Added default param and made inputs optional.
+             * @since ___PKG_VERSION___
              */
-            export function parse<T_ExtraColourLevels extends ColourUtilities.Levels.Optional>(
-                defaults: Levels.Required<T_ExtraColourLevels>,
-                inputs: Levels.Input<T_ExtraColourLevels> = {},
-            ): Levels.Parsed<T_ExtraColourLevels> {
+            function normalize<
+                T_ColourTypes extends TokenTypes.Colour.TypeParams,
+                T_InputObj extends Levels.Input<T_ColourTypes> | Levels.Required<T_ColourTypes>,
+            >(
+                inputs: T_InputObj,
+            ): Classify<{
+                background: Extract<NonNullable<T_InputObj[ 'background' ]>, object>,
+                heading: Extract<NonNullable<T_InputObj[ 'heading' ]>, object>,
+                text: Extract<NonNullable<T_InputObj[ 'text' ]>, object>,
+                ui: Extract<NonNullable<T_InputObj[ 'ui' ]>, object>,
+            }> {
 
-                const nomalized_input = {
-
+                return {
                     background: typeof inputs?.background === 'object'
                         ? inputs?.background
                         : {
                             $: inputs?.background,
                             accent: inputs?.background,
+                            bright: inputs?.background,
                             grey: inputs?.background,
-                        },
+                        } satisfies Classify<Partial<Levels.Parsed<T_ColourTypes>[ 'background' ]>>,
 
                     heading: typeof inputs?.heading === 'object'
                         ? inputs?.heading
                         : inputs?.heading
                             ? objectGenerator(
                                 SingleMode.allHeadingLevels,
-                                () => inputs?.heading as ColourUtilities.Levels.Required | T_ExtraColourLevels
-                            )
+                                () => inputs?.heading as Exclude<NonNullable<Levels.Input<T_ColourTypes>[ 'heading' ]>, object>
+                            ) satisfies Classify<Partial<Levels.Parsed<T_ColourTypes>[ 'heading' ]>>
                             : {},
 
                     text: typeof inputs?.text === 'object'
@@ -1282,7 +1315,7 @@ export namespace Tokens_Themes_Set {
                             $: inputs?.text,
                             accent: inputs?.text,
                             min: inputs?.text,
-                        },
+                        } satisfies Classify<Partial<Levels.Parsed<T_ColourTypes>[ 'text' ]>>,
 
                     ui: typeof inputs?.ui === 'object'
                         ? inputs?.ui
@@ -1290,66 +1323,47 @@ export namespace Tokens_Themes_Set {
                             $: inputs?.ui,
                             accent: inputs?.ui,
                             min: inputs?.ui,
-                        },
-                } as const;
+                        } satisfies Classify<Partial<Levels.Parsed<T_ColourTypes>[ 'ui' ]>>,
+                };
+            }
 
-                const DEFAULTS = {
+            /**
+             * @since 0.1.0-alpha
+             * @since ___PKG_VERSION___ — Moved to SingleMode.Levels and renamed. Added default param and made inputs optional.
+             */
+            export function parse<
+                T_ColourTypes extends TokenTypes.Colour.TypeParams,
+            >(
+                defaults: Levels.Required<T_ColourTypes>,
+                inputs: Levels.Input<T_ColourTypes> = {},
+            ): Levels.Parsed<T_ColourTypes> {
 
-                    background: typeof defaults?.background === 'object'
-                        ? defaults?.background
-                        : {
-                            $: defaults?.background,
-                            bright: defaults?.background,
-                            accent: defaults?.background,
-                            grey: defaults?.background,
-                        },
+                const nomalized_input = normalize( inputs );
 
-                    heading: typeof defaults?.heading === 'object'
-                        ? defaults?.heading
-                        : objectGenerator(
-                            SingleMode.allHeadingLevels,
-                            () => defaults?.heading as ColourUtilities.Levels.Required | T_ExtraColourLevels
-                        ),
+                const DEFAULTS = normalize( defaults );
 
-                    text: typeof defaults?.text === 'object'
-                        ? defaults?.text
-                        : {
-                            $: defaults?.text,
-                            accent: defaults?.text,
-                            min: defaults?.text,
-                        },
-
-                    ui: typeof defaults?.ui === 'object'
-                        ? defaults?.ui
-                        : {
-                            $: defaults?.ui,
-                            accent: defaults?.ui,
-                            min: defaults?.ui,
-                        },
-                } as const;
-
-                const background: Levels.Parsed<T_ExtraColourLevels>[ 'background' ] = {
+                const background: Levels.Parsed<T_ColourTypes>[ 'background' ] = {
                     $: nomalized_input.background?.$ ?? DEFAULTS.background.$,
                     bright: nomalized_input.background?.bright ?? nomalized_input.background?.$ ?? DEFAULTS.background.bright,
                     accent: nomalized_input.background?.accent ?? nomalized_input.background?.$ ?? DEFAULTS.background.accent,
                     grey: nomalized_input.background?.grey ?? nomalized_input.background?.$ ?? DEFAULTS.background.grey,
                 };
 
-                const text: Levels.Parsed<T_ExtraColourLevels>[ 'text' ] = {
+                const text: Levels.Parsed<T_ColourTypes>[ 'text' ] = {
                     $: nomalized_input.text?.$ ?? DEFAULTS.text.$,
                     accent: nomalized_input.text?.accent ?? nomalized_input.text?.$ ?? DEFAULTS.text.accent,
                     min: nomalized_input.text?.min ?? nomalized_input.text?.$ ?? DEFAULTS.text.min,
                 };
 
-                const ui: Levels.Parsed<T_ExtraColourLevels>[ 'ui' ] = {
+                const ui: Levels.Parsed<T_ColourTypes>[ 'ui' ] = {
                     $: nomalized_input.ui?.$ ?? nomalized_input.text?.$ ?? DEFAULTS.ui.$,
                     accent: nomalized_input.ui?.accent ?? nomalized_input.text?.accent ?? nomalized_input.ui?.$ ?? DEFAULTS.ui.accent,
                     min: nomalized_input.ui?.min ?? nomalized_input.text?.min ?? nomalized_input.ui?.$ ?? DEFAULTS.ui.min,
                 };
 
-                const heading: Levels.Parsed<T_ExtraColourLevels>[ 'heading' ] = objectGenerator(
+                const heading: Levels.Parsed<T_ColourTypes>[ 'heading' ] = objectGenerator(
                     SingleMode.allHeadingLevels,
-                    ( hdgNum ) => nomalized_input.heading?.[ hdgNum ] ?? text.accent ?? DEFAULTS.heading[ hdgNum ]
+                    ( hdgNum ) => nomalized_input.heading?.[ hdgNum ] ?? text.accent
                 );
 
                 return {
@@ -1384,7 +1398,7 @@ export namespace Tokens_Themes_Set {
 
             description?: null | string;
 
-            levels?: undefined | Levels.Input<T_ColourTypes[ 'extraLevels' ]>;
+            levels?: undefined | Levels.Input<T_ColourTypes>;
 
             variations?: undefined | {
 
@@ -1585,7 +1599,7 @@ export namespace Tokens_Themes_Set {
                 T_ColourTypes extends TokenTypes.Colour.TypeParams,
                 T_ThemeTypes extends TokenTypes.Theme.TypeParams,
             > {
-                levels: Levels.Parsed<T_ColourTypes[ 'extraLevels' ]>;
+                levels: Levels.Parsed<T_ColourTypes>;
                 variations: AllVariations<T_ColourTypes, T_ThemeTypes>;
             };
 
@@ -1602,14 +1616,22 @@ export namespace Tokens_Themes_Set {
 
             export function colourOption<T_ColourTypes extends TokenTypes.Colour.TypeParams>(
                 name: TokenTypes.Colour.GenericName<T_ColourTypes[ 'names' ]>,
-                level: "black" | "white" | ColourUtilities.Levels.Required | T_ColourTypes[ 'extraLevels' ],
-            ): "black" | "white" | TokenTypes.Colour.TokenSlug<T_ColourTypes[ 'names' ], T_ColourTypes[ 'extraLevels' ]> {
+                level: TokenTypes.Colour.AnyLevel<T_ColourTypes>,
+            ): TokenTypes.Theme.ColourOption<T_ColourTypes> {
                 // returns
                 switch ( level ) {
 
                     case 'black':
                     case 'white':
                         return level;
+                }
+
+                // returns
+                switch ( name ) {
+
+                    case 'black':
+                    case 'white':
+                        return name as 'black' | 'white';
                 }
 
                 return `${ name }-${ level }`;
@@ -1737,11 +1759,11 @@ export namespace Tokens_Themes_Set {
                                 return _overrides[ key as keyof typeof _overrides ];
                             }
 
-                            let _lvl: undefined | "black" | "white" | ColourUtilities.Levels.Required | T_ColourTypes[ 'extraLevels' ] =
+                            let _lvl: undefined | TokenTypes.Colour.AnyLevel<T_ColourTypes> =
                                 levels[ _levelsKey ][ key as "$" ];
 
                             if ( !_lvl && key === 'disabled' ) {
-                                _lvl = ( levels[ _levelsKey ] as Levels.Set.AccentMin<T_ColourTypes[ 'extraLevels' ]> ).min;
+                                _lvl = ( levels[ _levelsKey ] as Levels.Set.AccentMin<T_ColourTypes> ).min;
                             }
 
                             return clrOpt( clrName, _lvl ?? levels[ _levelsKey ].accent );
@@ -1968,8 +1990,8 @@ export namespace Tokens_Themes_Set {
                     },
 
                     selection: overrides.selection ?? {
-                        background: clrOpt( variations.interactive.hover, levels.text.accent ),
-                        text: clrOpt( variations.base, levels.background.$ ),
+                        background: clrOpt( variations.interactive.hover, levels.ui.accent ),
+                        text: clrOpt( variations.base, levels.background.bright ),
                     },
 
                     text,

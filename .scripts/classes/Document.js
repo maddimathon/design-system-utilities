@@ -50,40 +50,79 @@ export class Document extends DocumentStage {
         'replace',
     ];
 
-    // /**
-    //  * @protected
-    //  * @override
-    //  */
-    // async typeDoc() {
-    //     this.fs.delete( [
-    //         this.typeDoc_paths.json,
-    //         this.typeDoc_paths.markdown,
-    //     ], 1 );
+    /**
+     * The source globs (relative to src/assets) to copy to the docs assets dir.
+     * 
+     * @type {string[]}
+     * 
+     * @protected
+     * @readonly
+     */
+    assetSourceGlobs = [];
 
-    //     await super.typeDoc();
+    /**
+     * @type {string}
+     * 
+     * @protected
+     * @readonly
+     */
+    astroPublicDir = 'docs/_public/assets';
 
+    /**
+     * @protected
+     */
+    async assets() {
+        // returns
+        if ( !this.assetSourceGlobs.length ) {
+            this.console.progress( 'no docs assets to copy, skipping...', 1 );
+            return;
+        }
 
-    //     this.console.verbose( 'making replacements in markdown...', 2 );
-    //     const replacePaths = [
-    //         this.typeDoc_paths.json,
-    //         this.typeDoc_paths.markdown + '/**/*',
-    //     ];
+        this.console.progress( 'copying docs assets...', 1 );
+        this.try(
+            this.fs.copy,
+            ( this.params.verbose ? 3 : 2 ),
+            [
+                this.assetSourceGlobs,
+                ( this.params.verbose ? 3 : 2 ),
+                this.getSrcDir( undefined, 'assets' ),
+                this.getSrcDir( undefined, this.astroPublicDir ),
+                {
+                    force: true,
+                    rename: false,
+                    recursive: true,
+                },
+            ],
+        );
+    }
 
-    //     this.replaceInFiles( replacePaths, 'current', this.params.verbose ? 3 : 2 );
-    //     this.replaceInFiles( replacePaths, 'package', this.params.verbose ? 3 : 2 );
+    /**
+     * @protected
+     */
+    async astro() {
+        this.console.progress( 'building astro docs...', 1 );
 
-    //     this.console.verbose( 'replacing markdown paths...', 2 );
-    //     this.fs.replaceInFiles( replacePaths, [
-    //         [ /(?<=\[[^\]]+\]\([^\)]+)\.md\)/gi, '.html)' ],
-    //     ], this.params.verbose ? 3 : 2 );
+        const distDir = this.getDistDir( 'docs' ).trim().replace( /\/$/g, '' );
 
+        if ( this.fs.exists( distDir ) ) {
+            this.console.verbose( 'deleting existing files...', 2 );
+            this.fs.delete( distDir, this.params.verbose ? 3 : 2 );
+        }
 
-    //     this.console.verbose( 'tidying up...', 2 );
-    //     this.fs.delete( [
-    //         this.typeDoc_paths.markdown + '/.nojekyll',
-    //         this.typeDoc_paths.markdown + '/index.md',
-    //     ], 1 );
-    // }
+        this.console.verbose( 'checking astro types...', 2 );
+        this.try(
+            this.console.nc.cmd,
+            this.params.verbose ? 3 : 2,
+            [ 'astro check' ]
+        );
+
+        this.console.verbose( 'compiling to ' + distDir + '...', 2 );
+        this.try(
+            this.console.nc.cmd,
+            this.params.verbose ? 3 : 2,
+            [ 'astro build' ]
+        );
+    }
 
     /**
      * @protected
@@ -122,34 +161,6 @@ export class Document extends DocumentStage {
                 files,
                 'css',
             ],
-        );
-    }
-
-    /**
-     * @protected
-     */
-    async astro() {
-        this.console.progress( 'building astro docs...', 1 );
-
-        const distDir = this.getDistDir( 'docs' ).trim().replace( /\/$/g, '' );
-
-        if ( this.fs.exists( distDir ) ) {
-            this.console.verbose( 'deleting existing files...', 2 );
-            this.fs.delete( distDir, this.params.verbose ? 3 : 2 );
-        }
-
-        this.console.verbose( 'checking astro types...', 2 );
-        this.try(
-            this.console.nc.cmd,
-            this.params.verbose ? 3 : 2,
-            [ 'astro check' ]
-        );
-
-        this.console.verbose( 'compiling to ' + distDir + '...', 2 );
-        this.try(
-            this.console.nc.cmd,
-            this.params.verbose ? 3 : 2,
-            [ 'astro build' ]
         );
     }
 }

@@ -28,6 +28,7 @@ import {
 } from '@maddimathon/build-utilities';
 
 import type { Tokens } from '../../02-tokens/Tokens.js';
+import { buildTokens } from '../buildTokens.js';
 
 /**
  * Extension of the built-in one.
@@ -78,246 +79,201 @@ export class Compile extends CompileStage {
      * @category Running
      */
     public async buildTokens(
-        level: number,
         tokens: Tokens.Instance,
-        _paths: {
-
-            assets?: false | {
-
-                /**
-                 * Where to write the icon tokens, relative to `tokensDistSubpath`.
-                 * 
-                 * @default 'assets/icons'
-                 */
-                icons?: false | string | string[];
-
-                /**
-                 * Where to write the logo tokens, relative to `tokensDistSubpath`.
-                 * 
-                 * @default 'assets/logos'
-                 */
-                logos?: false | string | string[];
-            };
-
-            /**
-             * The subpath for the tokens output in the dist directory.
-             * 
-             * @default 'tokens'
-             */
-            tokensDistSubpath?: string;
-
-            /**
-             * Where to write the json tokens, relative to `tokensDistSubpath`.
-             * 
-             * @default `${slug}.json`
-             */
-            json?: false | string | string[];
-
-            /**
-             * Where to write the scss tokens, relative to project root.
-             * 
-             * @default 'src/scss/tokens/system/_tokens.scss'
-             */
-            scss?: false | string | string[];
-
-            /**
-             * The project slug, used in token file names, without any ending
-             * extensions.
-             */
-            slug: string;
-        },
+        level: number,
+        paths: buildTokens.Paths,
     ) {
-        this.console.progress( 'building token files...', 0 + level );
+        await buildTokens( this, tokens, level, paths );
 
-        this.console.verbose( 'parsing paths...', 1 + level );
+        // this.console.progress( 'building token files...', 0 + level );
 
-        const tokensDistDir = this.getDistDir(
-            undefined,
-            _paths.tokensDistSubpath ?? 'tokens',
-        );
+        // this.console.verbose( 'parsing paths...', 1 + level );
 
-        const paths_icons = _paths.assets === false
-            ? _paths.assets
-            : _paths.assets?.icons === false
-                ? _paths.assets?.icons
-                : (
-                    Array.isArray( _paths.assets?.icons )
-                        ? _paths.assets?.icons
-                        : [ _paths.assets?.icons ?? 'assets/icons' ]
-                ).map( path => this.fs.pathResolve( tokensDistDir, path ) );
+        // const tokensDistDir = this.getDistDir(
+        //     undefined,
+        //     paths.tokensDistSubpath ?? 'tokens',
+        // );
 
-        const paths_logos = _paths.assets === false
-            ? _paths.assets
-            : _paths.assets?.logos === false
-                ? _paths.assets?.logos
-                : (
-                    Array.isArray( _paths.assets?.logos )
-                        ? _paths.assets?.logos
-                        : [ _paths.assets?.logos ?? 'assets/logos' ]
-                ).map( path => this.fs.pathResolve( tokensDistDir, path ) );
+        // const paths_icons = paths.assets === false
+        //     ? paths.assets
+        //     : paths.assets?.icons === false
+        //         ? paths.assets?.icons
+        //         : (
+        //             Array.isArray( paths.assets?.icons )
+        //                 ? paths.assets?.icons
+        //                 : [ paths.assets?.icons ?? 'assets/icons' ]
+        //         ).map( path => this.fs.pathResolve( tokensDistDir, path ) );
 
-        const paths: {
-            slug: string;
-            assets: {
-                icons: false | string[];
-                logos: false | string[];
-            };
-            json: false | string[];
-            scss: false | string[];
-        } = {
+        // const paths_logos = (paths.assets && paths.assets?.logos === false)
+        //         ? paths.assets?.logos
+        //         : (
+        //             Array.isArray( paths.assets?.logos )
+        //                 ? paths.assets?.logos
+        //                 : [ paths.assets?.logos ?? 'assets/logos' ]
+        //         ).map( path => this.fs.pathResolve( tokensDistDir, path ) );
 
-            slug: _paths.slug,
+        // const paths: {
+        //     slug: string;
+        //     assets: {
+        //         icons: false | string[];
+        //         logos: false | string[];
+        //     };
+        //     json: false | string[];
+        //     scss: false | string[];
+        // } = {
 
-            assets: {
-                icons: paths_icons,
-                logos: paths_logos,
-            },
+        //     slug: _paths.slug,
 
-            json: _paths.json === false
-                ? _paths.json
-                : (
-                    Array.isArray( _paths.json )
-                        ? _paths.json
-                        : [ _paths.json ?? `${ _paths.slug }.json` ]
-                ).map(
-                    path => this.fs.pathResolve( tokensDistDir, path )
-                ),
+        //     assets: {
+        //         icons: paths_icons,
+        //         logos: paths_logos,
+        //     },
 
-            scss: _paths.scss === false
-                ? _paths.scss
-                : Array.isArray( _paths.scss )
-                    ? _paths.scss
-                    : [ _paths.scss ?? 'src/scss/tokens/system/_tokens.scss' ],
-        };
+        //     json: _paths.json === false
+        //         ? _paths.json
+        //         : (
+        //             Array.isArray( _paths.json )
+        //                 ? _paths.json
+        //                 : [ _paths.json ?? `${ _paths.slug }.json` ]
+        //         ).map(
+        //             path => this.fs.pathResolve( tokensDistDir, path )
+        //         ),
 
-        await Promise.all( [
-            this.buildTokens_writeJson( tokens, paths.json, level ),
-            this.buildTokens_writeScss( tokens, paths.scss, level ),
-            this.buildTokens_writeIcons( tokens, paths.assets.icons, level ),
-            this.buildTokens_writeLogos( tokens, paths.assets.logos, level ),
-        ] );
+        //     scss: _paths.scss === false
+        //         ? _paths.scss
+        //         : Array.isArray( _paths.scss )
+        //             ? _paths.scss
+        //             : [ _paths.scss ?? 'src/scss/tokens/system/_tokens.scss' ],
+        // };
+
+        // await Promise.all( [
+        //     this.buildTokens_writeJson( tokens, paths.json, level ),
+        //     this.buildTokens_writeScss( tokens, paths.scss, level ),
+        //     this.buildTokens_writeIcons( tokens, paths.assets.icons, level ),
+        //     this.buildTokens_writeLogos( tokens, paths.assets.logos, level ),
+        // ] );
     }
 
-    protected async buildTokens_writeJson(
-        tokens: Tokens.Instance,
-        paths: false | string[],
-        level: number,
-    ) {
-        // returns
-        if ( !paths ) {
-            return;
-        }
+    // protected async buildTokens_writeJson(
+    //     tokens: Tokens.Instance,
+    //     paths: false | string[],
+    //     level: number,
+    // ) {
+    //     // returns
+    //     if ( !paths ) {
+    //         return;
+    //     }
 
-        this.console.verbose( 'writing json tokens...', 1 + level );
+    //     this.console.verbose( 'writing json tokens...', 1 + level );
 
-        const tokenJson = JSON.stringify( tokens, null, 4 );
+    //     const tokenJson = JSON.stringify( tokens, null, 4 );
 
-        return Promise.all( paths.map( async ( path ) => this.try(
-            this.fs.write,
-            ( this.params.verbose ? 2 : 1 ) + level,
-            [ path, tokenJson, { force: true } ]
-        ) ) );
-    }
+    //     return Promise.all( paths.map( async ( path ) => this.try(
+    //         this.fs.write,
+    //         ( this.params.verbose ? 2 : 1 ) + level,
+    //         [ path, tokenJson, { force: true } ]
+    //     ) ) );
+    // }
 
-    protected async buildTokens_writeScss(
-        tokens: Tokens.Instance,
-        paths: false | string[],
-        level: number,
-    ) {
-        // returns
-        if ( !paths ) {
-            return;
-        }
+    // protected async buildTokens_writeScss(
+    //     tokens: Tokens.Instance,
+    //     paths: false | string[],
+    //     level: number,
+    // ) {
+    //     // returns
+    //     if ( !paths ) {
+    //         return;
+    //     }
 
-        this.console.verbose( 'writing scss tokens...', 1 + level );
+    //     this.console.verbose( 'writing scss tokens...', 1 + level );
 
-        const tokenScss = tokens.toScss();
+    //     const tokenScss = tokens.toScss();
 
-        return Promise.all(
-            paths.map(
-                async ( path ) => this.try(
-                    this.fs.write,
-                    ( this.params.verbose ? 2 : 1 ) + level,
-                    [
-                        path,
-                        tokenScss,
-                        { force: true }
-                    ]
-                )
-            )
-        ).then(
-            async () => this.atry(
-                this.fs.prettier,
-                ( this.params.verbose ? 2 : 1 ) + level,
-                [
-                    paths,
-                    'scss',
-                ],
-            )
-        );
-    }
+    //     return Promise.all(
+    //         paths.map(
+    //             async ( path ) => this.try(
+    //                 this.fs.write,
+    //                 ( this.params.verbose ? 2 : 1 ) + level,
+    //                 [
+    //                     path,
+    //                     tokenScss,
+    //                     { force: true }
+    //                 ]
+    //             )
+    //         )
+    //     ).then(
+    //         async () => this.atry(
+    //             this.fs.prettier,
+    //             ( this.params.verbose ? 2 : 1 ) + level,
+    //             [
+    //                 paths,
+    //                 'scss',
+    //             ],
+    //         )
+    //     );
+    // }
 
-    protected async buildTokens_writeIcons(
-        tokens: Tokens.Instance,
-        paths: false | string[],
-        level: number,
-    ) {
-        // returns
-        if ( !paths ) {
-            return;
-        }
+    // protected async buildTokens_writeIcons(
+    //     tokens: Tokens.Instance,
+    //     paths: false | string[],
+    //     level: number,
+    // ) {
+    //     // returns
+    //     if ( !paths ) {
+    //         return;
+    //     }
 
-        this.console.verbose( 'writing icon files...', 1 + level );
+    //     this.console.verbose( 'writing icon files...', 1 + level );
 
-        return Promise.all(
-            paths.map(
-                async ( path ) => Promise.all(
-                    Object.values( tokens.icons.data ).map(
-                        async ( icon ) => this.try(
-                            this.fs.write,
-                            ( this.params.verbose ? 2 : 1 ) + level,
-                            [
-                                this.fs.pathResolve( path, `${ icon.slug }.svg` ),
-                                icon.svgFile(),
-                                { force: true },
-                            ]
-                        )
-                    )
-                )
-            )
-        );
-    }
+    //     return Promise.all(
+    //         paths.map(
+    //             async ( path ) => Promise.all(
+    //                 Object.values( tokens.icons.data ).map(
+    //                     async ( icon ) => this.try(
+    //                         this.fs.write,
+    //                         ( this.params.verbose ? 2 : 1 ) + level,
+    //                         [
+    //                             this.fs.pathResolve( path, `${ icon.slug }.svg` ),
+    //                             icon.svgFile(),
+    //                             { force: true },
+    //                         ]
+    //                     )
+    //                 )
+    //             )
+    //         )
+    //     );
+    // }
 
-    protected async buildTokens_writeLogos(
-        tokens: Tokens.Instance,
-        paths: false | string[],
-        level: number,
-    ) {
-        // returns
-        if ( !paths ) {
-            return;
-        }
+    // protected async buildTokens_writeLogos(
+    //     tokens: Tokens.Instance,
+    //     paths: false | string[],
+    //     level: number,
+    // ) {
+    //     // returns
+    //     if ( !paths ) {
+    //         return;
+    //     }
 
-        this.console.verbose( 'writing logo files...', 1 + level );
+    //     this.console.verbose( 'writing logo files...', 1 + level );
 
-        return Promise.all(
-            paths.map(
-                async ( path ) => Promise.all(
-                    Object.values( tokens.logos.data ).map(
-                        async ( logo ) => this.try(
-                            this.fs.write,
-                            ( this.params.verbose ? 2 : 1 ) + level,
-                            [
-                                this.fs.pathResolve( path, `${ logo.slug }.svg` ),
-                                logo.svgFile(),
-                                { force: true },
-                            ]
-                        )
-                    )
-                )
-            )
-        );
-    }
+    //     return Promise.all(
+    //         paths.map(
+    //             async ( path ) => Promise.all(
+    //                 Object.values( tokens.logos.data ).map(
+    //                     async ( logo ) => this.try(
+    //                         this.fs.write,
+    //                         ( this.params.verbose ? 2 : 1 ) + level,
+    //                         [
+    //                             this.fs.pathResolve( path, `${ logo.slug }.svg` ),
+    //                             logo.svgFile(),
+    //                             { force: true },
+    //                         ]
+    //                     )
+    //                 )
+    //             )
+    //         )
+    //     );
+    // }
 
 
     protected async astro() {

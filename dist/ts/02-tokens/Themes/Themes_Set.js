@@ -127,33 +127,41 @@ export class Tokens_Themes_Set extends AbstractTokens {
             const variations = SingleMode.Build.completeVariations(colours.names, input.variations);
             const clrOpt = SingleMode.Build.colourOption;
             let description = input.description ?? null;
-            let defaultOverrides = {};
-            const levels_background_vals = Object.values(levels.background);
-            const level_background_max = levels_background_vals.includes('black')
-                ? 'black'
-                : String(Math.max(...levels_background_vals.map(Number).filter(num => !Number.isNaN(num))));
+            const defaultOverrides = {};
             // returns if forced colours
             switch (constrast) {
                 case 'average':
                     description = description ?? 'This is the default contrast mode for most users, unless they have defined a specific preference (‘low’, ‘high’, or ‘forced-colors’) in their OS or browser settings.  It meets or exceeds WCAG AAA contrast standards.';
                     if (!inputOverrides.selection) {
+                        const _text_levels = Object.values(levels.text);
+                        const _bg_levels = Object.values(levels.background);
                         defaultOverrides.selection = {
-                            background: clrOpt(variations.interactive.hover, ColourUtilities.Levels.augmentor(colours.allLevels, level_background_max, 150)),
-                            text: clrOpt(variations.base, '800'),
+                            background: clrOpt(variations.interactive.hover, ColourUtilities.Levels.augmentor(colours.allLevels, ColourUtilities.Levels.max(_bg_levels), brightness === 'dark' ? 200 : 150)),
+                            text: clrOpt(variations.base, ColourUtilities.Levels.augmentor(colours.allLevels, ColourUtilities.Levels.max(_text_levels), 150)),
                         };
                     }
                     break;
                 case 'low':
                     description = description ?? 'This is the low contrast mode.  This is the default for users who set ‘low’ as their preferred contrast mode in their OS or browser settings.  It mostly meets WCAG AA contrast standards, but in rare cases does not (which is acceptable in this case).';
                     if (!inputOverrides.selection) {
+                        const _text_levels = Object.values(levels.text);
+                        const _bg_levels = Object.values(levels.background);
                         defaultOverrides.selection = {
-                            background: clrOpt(variations.interactive.hover, ColourUtilities.Levels.augmentor(colours.allLevels, level_background_max, 100)),
-                            text: clrOpt(variations.base, '800'),
+                            background: clrOpt(variations.interactive.hover, ColourUtilities.Levels.augmentor(colours.allLevels, ColourUtilities.Levels.max(_bg_levels), brightness === 'dark' ? 150 : 100)),
+                            text: clrOpt(variations.base, ColourUtilities.Levels.augmentor(colours.allLevels, ColourUtilities.Levels.max(_text_levels), 100)),
                         };
                     }
                     break;
                 case 'high':
                     description = description ?? 'This is the high contrast mode.  This is the default for users who set ‘high’ as their preferred contrast mode in their OS or browser settings.  It exceeds WCAG AAA contrast standards.';
+                    if (!inputOverrides.selection) {
+                        const _text_levels = Object.values(levels.text);
+                        const _bg_levels = Object.values(levels.background);
+                        defaultOverrides.selection = {
+                            background: clrOpt(variations.interactive.hover, ColourUtilities.Levels.min(_text_levels)),
+                            text: clrOpt(variations.base, ColourUtilities.Levels.min(_bg_levels)),
+                        };
+                    }
                     break;
                 case 'max':
                     description = description ?? 'This is the maximum contrast mode.  This is an alternate option for users who want an even higher contrast than the ‘high’ mode, but without enabling ‘forced-colors’ mode.  It exceeds WCAG AAA contrast standards.';
@@ -417,16 +425,16 @@ export class Tokens_Themes_Set extends AbstractTokens {
                 };
             })(DEFAULT = Levels.DEFAULT || (Levels.DEFAULT = {}));
             /**
-             * @since 0.1.0-alpha
-             * @since 0.1.0-beta.0.draft — Moved to SingleMode.Levels and renamed. Added default param and made inputs optional.
+             * @since 0.1.0-beta.0.draft
              */
-            function parse(defaults, inputs = {}) {
-                const nomalized_input = {
+            function normalize(inputs) {
+                return {
                     background: typeof inputs?.background === 'object'
                         ? inputs?.background
                         : {
                             $: inputs?.background,
                             accent: inputs?.background,
+                            bright: inputs?.background,
                             grey: inputs?.background,
                         },
                     heading: typeof inputs?.heading === 'object'
@@ -449,33 +457,14 @@ export class Tokens_Themes_Set extends AbstractTokens {
                             min: inputs?.ui,
                         },
                 };
-                const DEFAULTS = {
-                    background: typeof defaults?.background === 'object'
-                        ? defaults?.background
-                        : {
-                            $: defaults?.background,
-                            bright: defaults?.background,
-                            accent: defaults?.background,
-                            grey: defaults?.background,
-                        },
-                    heading: typeof defaults?.heading === 'object'
-                        ? defaults?.heading
-                        : objectGenerator(SingleMode.allHeadingLevels, () => defaults?.heading),
-                    text: typeof defaults?.text === 'object'
-                        ? defaults?.text
-                        : {
-                            $: defaults?.text,
-                            accent: defaults?.text,
-                            min: defaults?.text,
-                        },
-                    ui: typeof defaults?.ui === 'object'
-                        ? defaults?.ui
-                        : {
-                            $: defaults?.ui,
-                            accent: defaults?.ui,
-                            min: defaults?.ui,
-                        },
-                };
+            }
+            /**
+             * @since 0.1.0-alpha
+             * @since 0.1.0-beta.0.draft — Moved to SingleMode.Levels and renamed. Added default param and made inputs optional.
+             */
+            function parse(defaults, inputs = {}) {
+                const nomalized_input = normalize(inputs);
+                const DEFAULTS = normalize(defaults);
                 const background = {
                     $: nomalized_input.background?.$ ?? DEFAULTS.background.$,
                     bright: nomalized_input.background?.bright ?? nomalized_input.background?.$ ?? DEFAULTS.background.bright,
@@ -492,7 +481,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
                     accent: nomalized_input.ui?.accent ?? nomalized_input.text?.accent ?? nomalized_input.ui?.$ ?? DEFAULTS.ui.accent,
                     min: nomalized_input.ui?.min ?? nomalized_input.text?.min ?? nomalized_input.ui?.$ ?? DEFAULTS.ui.min,
                 };
-                const heading = objectGenerator(SingleMode.allHeadingLevels, (hdgNum) => nomalized_input.heading?.[hdgNum] ?? text.accent ?? DEFAULTS.heading[hdgNum]);
+                const heading = objectGenerator(SingleMode.allHeadingLevels, (hdgNum) => nomalized_input.heading?.[hdgNum] ?? text.accent);
                 return {
                     background,
                     text,
@@ -522,6 +511,12 @@ export class Tokens_Themes_Set extends AbstractTokens {
                     case 'black':
                     case 'white':
                         return level;
+                }
+                // returns
+                switch (name) {
+                    case 'black':
+                    case 'white':
+                        return name;
                 }
                 return `${name}-${level}`;
             }
@@ -739,8 +734,8 @@ export class Tokens_Themes_Set extends AbstractTokens {
                         outline: linkOutline,
                     },
                     selection: overrides.selection ?? {
-                        background: clrOpt(variations.interactive.hover, levels.text.accent),
-                        text: clrOpt(variations.base, levels.background.$),
+                        background: clrOpt(variations.interactive.hover, levels.ui.accent),
+                        text: clrOpt(variations.base, levels.background.bright),
                     },
                     text,
                     ui,

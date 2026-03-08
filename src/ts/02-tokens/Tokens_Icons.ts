@@ -303,6 +303,11 @@ export class Tokens_Icons<
             },
             check,
             clock,
+            close: {
+                ...no,
+                slug: 'close',
+                label: 'Close',
+            },
             compass,
             dash,
             'double-check': doubleCheck,
@@ -418,6 +423,7 @@ export namespace Tokens_Icons {
         | "caution"
         | "check"
         | "clock"
+        | "close"
         | "compass"
         | "dash"
         | "double-check"

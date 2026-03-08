@@ -820,6 +820,14 @@ export var ColourUtilities;
             '850',
             '900',
         ];
+        const levelSets = {
+            any: new Set([
+                ...Levels.optional,
+                ...Levels.required,
+            ]),
+            optional: new Set(Levels.optional),
+            required: new Set(Levels.required),
+        };
         /**
          * Augments a single level by the given amount, creating a new valid level.
          *
@@ -889,6 +897,52 @@ export var ColourUtilities;
             return newLevel_valid_str;
         }
         Levels.augmentor = augmentor;
+        function toNumbers(arr) {
+            return arr.map(str => {
+                // returns
+                if (str === 'black' || str === 'white' || !levelSets.any.has(str)) {
+                    return false;
+                }
+                const num = Number(str);
+                return Number.isNaN(num) ? false : num;
+            }).filter(num => num !== false);
+        }
+        /**
+         * Gets the max level in the given array.
+         *
+         * @since 0.1.0-beta.0.draft
+         */
+        function max(arr) {
+            // returns
+            if (arr.includes('black')) {
+                return 'black';
+            }
+            const levelNums = toNumbers(arr);
+            // returns
+            if (!levelNums.length) {
+                return arr[0] ?? 'black';
+            }
+            return String(Math.max(...levelNums));
+        }
+        Levels.max = max;
+        /**
+         * Gets the max level in the given array.
+         *
+         * @since 0.1.0-beta.0.draft
+         */
+        function min(arr) {
+            // returns
+            if (arr.includes('white')) {
+                return 'white';
+            }
+            const levelNums = toNumbers(arr);
+            // returns
+            if (!levelNums.length) {
+                return arr[0] ?? 'white';
+            }
+            return String(Math.min(...levelNums));
+        }
+        Levels.min = min;
         /**
          * Converts the given shade level to its oppposite (via
          * {@link ColourUtilities.Levels.converter}).

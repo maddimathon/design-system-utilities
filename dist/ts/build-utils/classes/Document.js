@@ -22,11 +22,49 @@ export class Document extends DocumentStage {
      * @source
      */
     subStages = [
+        'assets',
         'scss',
         'astro',
         'replace',
     ];
+    /**
+     * The source globs (relative to src/assets) to copy to the docs assets dir.
+     */
+    assetSourceGlobs = [];
     astroPublicDir = 'docs/_public/assets';
+    async assets() {
+        // returns
+        if (!this.assetSourceGlobs.length) {
+            this.console.progress('no docs assets to copy, skipping...', 1);
+            return;
+        }
+        this.console.progress('copying docs assets...', 1);
+        this.try(this.fs.copy, (this.params.verbose ? 3 : 2), [
+            this.assetSourceGlobs,
+            (this.params.verbose ? 3 : 2),
+            this.getSrcDir(undefined, 'assets'),
+            this.getSrcDir(undefined, this.astroPublicDir),
+            {
+                force: true,
+                rename: false,
+                recursive: true,
+            },
+        ]);
+    }
+    async astro() {
+        this.console.progress('building astro docs...', 1);
+        const distDir = this.getDistDir('docs').trim().replace(/\/$/g, '');
+        if (this.fs.exists(distDir)) {
+            this.console.verbose('deleting existing files...', 2);
+            this.fs.delete(distDir, this.params.verbose ? 3 : 2);
+        }
+        this.console.verbose('checking astro types...', 2);
+        this.try(this.console.nc.cmd, this.params.verbose ? 3 : 2, ['astro check']);
+        if (!this.params.starting && !this.isWatchedUpdate) {
+            this.console.verbose('compiling to ' + distDir + '...', 2);
+            this.try(this.console.nc.cmd, this.params.verbose ? 3 : 2, ['astro build']);
+        }
+    }
     async scss(args) {
         // returns - we don't need to compile this
         if (this.isWatchedUpdate
@@ -46,19 +84,5 @@ export class Document extends DocumentStage {
             paths,
             'css',
         ]);
-    }
-    async astro() {
-        this.console.progress('building astro docs...', 1);
-        const distDir = this.getDistDir('docs').trim().replace(/\/$/g, '');
-        if (this.fs.exists(distDir)) {
-            this.console.verbose('deleting existing files...', 2);
-            this.fs.delete(distDir, this.params.verbose ? 3 : 2);
-        }
-        this.console.verbose('checking astro types...', 2);
-        this.try(this.console.nc.cmd, this.params.verbose ? 3 : 2, ['astro check']);
-        if (!this.params.starting && !this.isWatchedUpdate) {
-            this.console.verbose('compiling to ' + distDir + '...', 2);
-            this.try(this.console.nc.cmd, this.params.verbose ? 3 : 2, ['astro build']);
-        }
     }
 }

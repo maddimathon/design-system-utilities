@@ -229,6 +229,11 @@ export class Tokens_Icons extends AbstractTokens {
             },
             check,
             clock,
+            close: {
+                ...no,
+                slug: 'close',
+                label: 'Close',
+            },
             compass,
             dash,
             'double-check': doubleCheck,

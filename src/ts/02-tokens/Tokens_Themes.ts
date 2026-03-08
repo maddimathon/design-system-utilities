@@ -86,8 +86,10 @@ export class Tokens_Themes<
         input: Tokens_Themes.InputParam<T_ColourTypes, T_ThemeTypes>,
     ): Promise<Tokens_Themes<T_ColourTypes, T_ThemeTypes>[ 'sets' ]> {
 
+        type DefaultThemeInput = Tokens_Themes_Set.InputParam<T_ColourTypes, T_ThemeTypes> & { name: 'default'; };
+
         type CompleteArray = [
-            Tokens_Themes_Set.InputParam<T_ColourTypes, T_ThemeTypes> & { name: 'default'; },
+            DefaultThemeInput,
             ...Tokens_Themes_Set.InputParam<T_ColourTypes, T_ThemeTypes>[]
         ];
 
@@ -97,8 +99,8 @@ export class Tokens_Themes<
                     input.length
                         ? input as CompleteArray
                         : [
-                            { name: 'default' },
-                        ] as CompleteArray
+                            { name: 'default' } as DefaultThemeInput,
+                        ] satisfies CompleteArray
                 )
                 : [
                     {

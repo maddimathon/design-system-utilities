@@ -68,11 +68,11 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
             4: Tokens_CSS_Style.HeadingStyles;
             3: Tokens_CSS_Style.HeadingStyles;
             7: Tokens_CSS_Style.HeadingStyles;
-            10: Tokens_CSS_Style.HeadingStyles;
             5: Tokens_CSS_Style.HeadingStyles;
             6: Tokens_CSS_Style.HeadingStyles;
             8: Tokens_CSS_Style.HeadingStyles;
             9: Tokens_CSS_Style.HeadingStyles;
+            10: Tokens_CSS_Style.HeadingStyles;
         };
         icon: Tokens_CSS_Style.IconStyles;
         input: {
@@ -120,46 +120,46 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
         widget: Tokens_CSS_Style.WidgetStyles;
     };
     static get default(): {
-        alert: Tokens_CSS_Style.AlertStyles;
-        button: {
+        readonly alert: Tokens_CSS_Style.AlertStyles;
+        readonly button: {
             $: Tokens_CSS_Style.ButtonStyles;
             disabled: Tokens_CSS_Style.ButtonStyles_Disabled;
         };
-        heading: {
+        readonly heading: {
             2: Tokens_CSS_Style.HeadingStyles;
             1: Tokens_CSS_Style.HeadingStyles;
             4: Tokens_CSS_Style.HeadingStyles;
             3: Tokens_CSS_Style.HeadingStyles;
             7: Tokens_CSS_Style.HeadingStyles;
-            10: Tokens_CSS_Style.HeadingStyles;
             5: Tokens_CSS_Style.HeadingStyles;
             6: Tokens_CSS_Style.HeadingStyles;
             8: Tokens_CSS_Style.HeadingStyles;
             9: Tokens_CSS_Style.HeadingStyles;
+            10: Tokens_CSS_Style.HeadingStyles;
         };
-        icon: Tokens_CSS_Style.IconStyles;
-        input: {
+        readonly icon: Tokens_CSS_Style.IconStyles;
+        readonly input: {
             readonly $: Tokens_CSS_Style.InputStyles;
             readonly disabled: Tokens_CSS_Style.InputStyles_Variation;
             readonly readonly: Tokens_CSS_Style.InputStyles_Variation;
         };
-        margin: {
-            flow: {
-                $: "400";
-                large: "600";
-                small: "300";
+        readonly margin: {
+            readonly flow: {
+                readonly $: "400";
+                readonly large: "600";
+                readonly small: "300";
             };
         };
-        selection: {
-            background: {
-                opacity: {
-                    low: string;
-                    average: string;
-                    high: string;
+        readonly selection: {
+            readonly background: {
+                readonly opacity: {
+                    readonly low: "65%";
+                    readonly average: "85%";
+                    readonly high: "95%";
                 };
             };
         };
-        widget: Tokens_CSS_Style.WidgetStyles;
+        readonly widget: Tokens_CSS_Style.WidgetStyles;
     };
     readonly data: Tokens_CSS_Style.Data;
     constructor(input: Tokens_CSS_Style.InputParam);

@@ -12,7 +12,7 @@
 
 import type { CssColours } from '@maddimathon/utility-sass';
 
-import type { ColourUtilities } from '../01-utilities/ColourUtilities.ts';
+import type { ColourUtilities } from '../01-utilities/ColourUtilities.js';
 
 /**
  * @since ___PKG_VERSION___
@@ -23,6 +23,14 @@ export namespace TokenTypes {
      * @since ___PKG_VERSION___
      */
     export namespace Colour {
+
+        /**
+         * Takes colour params and returns any allowed level, including 'black'
+         * or 'white'.
+         *
+         * @since ___PKG_VERSION___
+         */
+        export type AnyLevel<T_ColourTypes extends Colour.TypeParams> = "black" | "white" | ColourUtilities.Levels.Required | T_ColourTypes[ 'extraLevels' ];
 
         /**
          * Enforces some shade names that are always present.
@@ -253,7 +261,7 @@ export namespace TokenTypes {
             > = {
                 [ C in ContrastRequired ]: T_Value;
             } & {
-                    [ C in T_ThemeTypes[ 'contrast' ][ number ] ]: T_Value;
+                    [ C in TokenTypes.Theme.GetContrastKeys<T_ThemeTypes> ]: T_Value;
                 };
 
             /**
@@ -275,7 +283,7 @@ export namespace TokenTypes {
             > = {
                 [ B in BrightnessRequired ]: ContrastRecord<T_ThemeTypes, T_NestedValue>;
             } & {
-                    [ B in T_ThemeTypes[ 'brightness' ][ number ] ]: ContrastRecord<T_ThemeTypes, T_NestedValue>;
+                    [ B in TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes> ]: ContrastRecord<T_ThemeTypes, T_NestedValue>;
                 };
 
             /**
@@ -290,7 +298,7 @@ export namespace TokenTypes {
             > = {
                 [ C in ContrastRequired ]?: undefined | T_Value;
             } & {
-                    [ C in TokenTypes.Theme.GetExtraContrastKeys<T_ThemeTypes> ]?: undefined | T_Value;
+                    [ C in TokenTypes.Theme.GetContrastKeys<T_ThemeTypes> ]?: undefined | T_Value;
                 };
 
             /**
@@ -305,7 +313,7 @@ export namespace TokenTypes {
             > = {
                 [ B in TokenTypes.Theme.Mode.BrightnessRequired ]?: undefined | PartialContrastRecord<T_ThemeTypes, T_NestedValue>;
             } & {
-                    [ B in TokenTypes.Theme.GetExtraBrightnessKeys<T_ThemeTypes> ]?: undefined | PartialContrastRecord<T_ThemeTypes, T_NestedValue>;
+                    [ B in TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes> ]?: undefined | PartialContrastRecord<T_ThemeTypes, T_NestedValue>;
                 };
         }
 

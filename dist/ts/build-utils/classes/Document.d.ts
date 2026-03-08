@@ -23,7 +23,12 @@ export declare class Document extends DocumentStage {
      * @source
      */
     readonly subStages: Stage.SubStage.Document[];
+    /**
+     * The source globs (relative to src/assets) to copy to the docs assets dir.
+     */
+    protected readonly assetSourceGlobs: string[];
     protected readonly astroPublicDir = "docs/_public/assets";
-    protected scss(args?: Partial<AbstractStage.runCustomScssDirSubStage.Opts>): Promise<void>;
+    protected assets(): Promise<void>;
     protected astro(): Promise<void>;
+    protected scss(args?: Partial<AbstractStage.runCustomScssDirSubStage.Opts>): Promise<void>;
 }

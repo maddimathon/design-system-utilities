@@ -1426,6 +1426,15 @@ export namespace ColourUtilities {
             '900',
         ] as const;
 
+        const levelSets = {
+            any: new Set<string>( [
+                ...optional,
+                ...required,
+            ] ),
+            optional: new Set<string>( optional ),
+            required: new Set<string>( required ),
+        } as const;
+
         /**
          * All possible shade levels possibly in shade maps for this system.
          * 
@@ -1550,6 +1559,75 @@ export namespace ColourUtilities {
             }
 
             return newLevel_valid_str;
+        }
+
+        function toNumbers<T_Level extends Levels.Optional | Levels.Required>(
+            arr: ( "black" | "white" | T_Level )[],
+        ): number[] {
+
+            return arr.map(
+                str => {
+
+                    // returns
+                    if ( str === 'black' || str === 'white' || !levelSets.any.has( str ) ) {
+                        return false;
+                    }
+
+                    const num = Number( str );
+
+                    return Number.isNaN( num ) ? false : num;
+                }
+            ).filter(
+                num => num !== false
+            );
+        }
+
+        /**
+         * Gets the max level in the given array.
+         * 
+         * @since ___PKG_VERSION___
+         */
+        export function max<T_Level extends Levels.Optional | Levels.Required>(
+            arr: ( "black" | "white" | T_Level )[],
+        ): "black" | "white" | T_Level {
+
+            // returns
+            if ( arr.includes( 'black' ) ) {
+                return 'black';
+            }
+
+            const levelNums = toNumbers( arr );
+
+            // returns
+            if ( !levelNums.length ) {
+                return arr[ 0 ] ?? 'black';
+            }
+
+            return String( Math.max( ...levelNums ) ) as T_Level;
+        }
+
+        /**
+         * Gets the max level in the given array.
+         * 
+         * @since ___PKG_VERSION___
+         */
+        export function min<T_Level extends Levels.Optional | Levels.Required>(
+            arr: ( "black" | "white" | T_Level )[],
+        ): "black" | "white" | T_Level {
+
+            // returns
+            if ( arr.includes( 'white' ) ) {
+                return 'white';
+            }
+
+            const levelNums = toNumbers( arr );
+
+            // returns
+            if ( !levelNums.length ) {
+                return arr[ 0 ] ?? 'white';
+            }
+
+            return String( Math.min( ...levelNums ) ) as T_Level;
         }
 
         /**

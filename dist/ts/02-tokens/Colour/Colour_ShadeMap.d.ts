@@ -66,14 +66,14 @@ export declare namespace Tokens_Colour_ShadeMap {
         protected readonly allNames: TokenTypes.Colour.GenericNameArray<T_Types['names']>;
         protected readonly extraLevels: readonly T_Types['extraLevels'][];
         protected readonly shadeName: "black" | "white" | TokenTypes.Colour.GenericName<T_Types['names']>;
-        protected readonly thisLevel: "black" | "white" | ColourUtilities.Levels.Required | T_Types['extraLevels'];
+        protected readonly thisLevel: "black" | "white" | TokenTypes.Colour.AnyLevel<T_Types>;
         readonly data: Shade.Data;
         readonly contrast: Shade.Contrast<T_Types>;
         /**
          * Allows for async building.
          */
-        static build<T_Types extends TokenTypes.Colour.TypeParams>(allNames: TokenTypes.Colour.GenericNameArray<T_Types['names']>, extraLevels: readonly T_Types['extraLevels'][], shadeName: "black" | "white" | TokenTypes.Colour.GenericName<T_Types['names']>, thisLevel: "black" | "white" | ColourUtilities.Levels.Required | T_Types['extraLevels'], input: Shade.InputParam): Promise<Shade<T_Types>>;
-        protected constructor(allNames: TokenTypes.Colour.GenericNameArray<T_Types['names']>, extraLevels: readonly T_Types['extraLevels'][], shadeName: "black" | "white" | TokenTypes.Colour.GenericName<T_Types['names']>, thisLevel: "black" | "white" | ColourUtilities.Levels.Required | T_Types['extraLevels'], data: Shade.Data, contrast: Shade.Contrast<T_Types>);
+        static build<T_Types extends TokenTypes.Colour.TypeParams>(allNames: TokenTypes.Colour.GenericNameArray<T_Types['names']>, extraLevels: readonly T_Types['extraLevels'][], shadeName: "black" | "white" | TokenTypes.Colour.GenericName<T_Types['names']>, thisLevel: "black" | "white" | TokenTypes.Colour.AnyLevel<T_Types>, input: Shade.InputParam): Promise<Shade<T_Types>>;
+        protected constructor(allNames: TokenTypes.Colour.GenericNameArray<T_Types['names']>, extraLevels: readonly T_Types['extraLevels'][], shadeName: "black" | "white" | TokenTypes.Colour.GenericName<T_Types['names']>, thisLevel: "black" | "white" | TokenTypes.Colour.AnyLevel<T_Types>, data: Shade.Data, contrast: Shade.Contrast<T_Types>);
         /**
          * Adds the given shade to this shade's contrast results.
          *
@@ -206,12 +206,12 @@ export declare namespace Tokens_Colour_ShadeMap {
                 readonly h: 0;
             };
             readonly '500': {
-                readonly l: 50;
+                readonly l: 51;
                 readonly c: 0;
                 readonly h: 0;
             };
             readonly '700': {
-                readonly l: 22;
+                readonly l: 24;
                 readonly c: 0;
                 readonly h: 0;
             };
