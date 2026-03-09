@@ -38,7 +38,65 @@ export class Tokens_CSS_Style extends AbstractTokens<{
      */
     public static alertStyle( partial: Tokens_CSS_Style.InputParam[ 'alert' ] = {} ): Tokens_CSS_Style.AlertStyles {
 
-        return mergeArgs( {
+        const headingMaker = ( num: number ): Tokens_CSS_Style.AlertStyles_Heading => {
+
+            const style = {
+                margin: {
+                    block: {
+                        start: -0.0625,
+                    },
+                },
+            } satisfies Tokens_CSS_Style.AlertStyles_Heading;
+
+            // switch ( num ) {
+
+            //     case 1:
+            //         style.margin.block.start = -0.0625;
+            //         break;
+
+            //     case 2:
+            //         style.margin.block.start = -0.0625;
+            //         break;
+
+            //     case 3:
+            //         style.margin.block.start = -0.0625;
+            //         break;
+            // }
+
+
+            if ( num >= 4 ) {
+                style.margin.block.start = -0.09375;
+            }
+
+            // if ( num >= 5 ) {
+            // }
+
+            // if ( num >= 6 ) {
+            // }
+
+            if ( num >= 7 ) {
+                style.margin.block.start = -0.125;
+            }
+
+            // if ( num >= 8 ) {
+            // }
+
+            // if ( num >= 9 ) {
+            // }
+
+            // if ( num >= 10 ) {
+            // }
+
+            return {
+                margin: {
+                    block: {
+                        start: partial.heading?.[ num ]?.margin?.block.start ?? style.margin.block.start,
+                    },
+                },
+            } satisfies Tokens_CSS_Style.AlertStyles_Heading;
+        };
+
+        return mergeArgs<Tokens_CSS_Style.AlertStyles, NonNullable<Tokens_CSS_Style.InputParam[ 'alert' ]>>( {
             background: 'background',
 
             border: {
@@ -49,6 +107,11 @@ export class Tokens_CSS_Style extends AbstractTokens<{
             },
 
             color: 'text-primary',
+
+            heading: objectGenerator(
+                [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const,
+                headingMaker,
+            ),
 
             headline: {
                 font: {
@@ -525,6 +588,12 @@ export namespace Tokens_CSS_Style {
             inline: "0" | AnyTokenLevel;
         };
 
+        heading: {
+            [ H in RequiredHeadingLevels ]: AlertStyles_Heading;
+        } & {
+            [ key: number ]: AlertStyles_Heading;
+        };
+
         headline: {
             font: {
                 /**
@@ -556,6 +625,7 @@ export namespace Tokens_CSS_Style {
         'line-height': AnyTokenLevel;
 
         margin: {
+
             /**
              * Values for the set-flow-margins mixin.
              */
@@ -569,6 +639,18 @@ export namespace Tokens_CSS_Style {
         padding: {
             block: AnyTokenLevel;
             inline: AnyTokenLevel;
+        };
+    };
+
+    export type AlertStyles_Heading = {
+
+        /**
+         * Values for the inner heading after an icon.
+         */
+        margin: {
+            block: {
+                start: number;
+            };
         };
     };
 
@@ -871,7 +953,13 @@ export namespace Tokens_CSS_Style {
         /**
          * @since ___PKG_VERSION___
          */
-        alert?: RecursivePartial<AlertStyles>;
+        alert?: Omit<RecursivePartial<AlertStyles>, 'heading'> & {
+            heading?: undefined | {
+                [ H in RequiredHeadingLevels ]?: undefined | Partial<AlertStyles_Heading>;
+            } & {
+                [ key: number ]: undefined | Partial<AlertStyles_Heading>;
+            };
+        };
 
         button?: {
             $?: RecursivePartial<ButtonStyles>;

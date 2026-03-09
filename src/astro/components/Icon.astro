@@ -6,7 +6,7 @@
  */
 
 /* import - types */
-import type { ComponentProps } from 'astro/types';
+import type { GenericElementProps } from '@maddimathon/utility-astro';
 import type { SvgMaker } from '../../ts/01-utilities/SvgMaker.js';
 
 /* import - functions */
@@ -14,27 +14,34 @@ import type { SvgMaker } from '../../ts/01-utilities/SvgMaker.js';
 /* import - values */
 
 /* import - components */
-import UtilsIcon from '@maddimathon/utility-astro/components/Icon';
 
 /* import - layouts */
 
 /* PROPS ===================================== */
 
-export interface Props extends Omit<
-    ComponentProps<typeof UtilsIcon>,
-    'svg' | 'svgLabel' | 'type'
-> {
+type IconProps = {
     icon: SvgMaker.JsonReturn;
-}
+};
 
-const { icon, ...attributes }: Props = Astro.props;
+export type Props = GenericElementProps<IconProps, 'span'>;
 
-/* CONSTANTS ===================================== */
+const {
+    'aria-hidden': ariaHidden = true,
+    'class': classList,
+    icon,
+    slot,
+    ...attributes
+}: Props = Astro.props?.frontmatter ?? Astro.props;
 ---
 
-<UtilsIcon
-    slug={icon.slug}
-    svg={icon.svgInlineLabelled}
-    svgLabel={icon.ariaLabel}
+<span
     {...attributes}
-/>
+    aria-hidden={!!ariaHidden}
+    class:list={['icon', `icon--${icon.slug}`, '||', classList]}
+>
+    <Fragment set:html={icon.svgInlineLabelled} />
+</span>
+
+<style lang='scss'>
+    @forward '../css/icon.css';
+</style>

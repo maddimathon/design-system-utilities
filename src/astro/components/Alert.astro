@@ -6,7 +6,9 @@
  */
 
 /* import - types */
-import type { ComponentProps } from 'astro/types';
+import type { GenericElementProps } from '@maddimathon/utility-astro';
+import type { AlertProps as UtilsAlertProps } from '@maddimathon/utility-astro/components/Alert';
+import type { AlertIconProps_Render } from '@maddimathon/utility-astro/components/Alert_Icon';
 import type { SvgMaker } from '../../ts/01-utilities/SvgMaker.js';
 
 /* import - functions */
@@ -15,18 +17,18 @@ import type { SvgMaker } from '../../ts/01-utilities/SvgMaker.js';
 
 /* import - components */
 import UtilsAlert from '@maddimathon/utility-astro/components/Alert';
+import Icon from './Icon.astro';
 // import Icon from './Icon.astro';
 
 /* import - layouts */
 
 /* PROPS ===================================== */
 
-export interface Props extends Omit<
-    ComponentProps<typeof UtilsAlert>,
-    'svg' | 'svgLabel' | 'type'
-> {
+export interface AlertProps extends UtilsAlertProps<AlertIconProps_Render> {
     icon: SvgMaker.JsonReturn;
 }
+
+export type Props = GenericElementProps<AlertProps, 'section'>;
 
 const { icon, class: classList = [], ...attributes }: Props = Astro.props;
 
@@ -35,11 +37,12 @@ const { icon, class: classList = [], ...attributes }: Props = Astro.props;
 
 <UtilsAlert
     class:list={[{ 'alert-block--has-heading': attributes.heading }, classList]}
-    slug={icon.slug}
-    svg={icon.svgInlineLabelled}
-    svgLabel={icon.label}
     {...attributes}
 >
+    <Icon
+        slot='icon'
+        icon={icon}
+    />
     <slot
         slot='headline'
         name='headline'

@@ -5,6 +5,7 @@
 
 @use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/meta';
 @use 'pkg:@maddimathon/utility-sass/selector';
 @use 'pkg:@maddimathon/utility-sass/string';
 
@@ -45,16 +46,43 @@ $_allUniqueLogoAspectRatios: ();
 ///
 /// @since 0.1.0-alpha.3
 ///
-@mixin snippet-support-logos {
+@mixin snippet-support-logos(
+    $color: var-theme(text-primary),
+    $display_svg: inline-block,
+    $display: inline-block,
+    $margin_svg: 0,
+    $marginBlock: var-mrg-firm('400') var-mrg-half('400'),
+    $padding_svg: 0,
+    $verticalAlign: middle
+) {
     %brand-logo {
-        display: block;
+        @include cx-prop(display, $display);
+        display: #{$display};
         position: relative;
-        margin-block: #{var-mrg-firm('400')} #{var-mrg-half('400')};
 
-        color: #{var-theme(text-primary)};
+        @if $marginBlock != false {
+            margin-block: #{$marginBlock};
+        }
+
+        color: #{$color};
+
+        vertical-align: #{$verticalAlign};
+
+        @if meta.content-exists() {
+            @content ('root');
+        }
 
         > svg {
+            @include cx-prop(display, $display_svg);
+            display: #{$display_svg};
+            margin: #{$margin_svg};
+            padding: #{$padding_svg};
+
             fill: currentColor;
+
+            @if meta.content-exists() {
+                @content ('svg');
+            }
         }
     }
 

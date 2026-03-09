@@ -80,7 +80,7 @@
     );
 
     @if config.$template_include_cssHeadings {
-        /* # ASTRO COMPONENT - TOGGLE
+        /* # BLOCKS - TOGGLE
          * ======================================================================== */
     }
 
@@ -127,14 +127,14 @@
     );
 
     @if config.$template_include_cssHeadings {
-        /* # BLOCK - SETTINGS MENU
+        /* # BLOCKS - SETTINGS MENU
          * ======================================================================== */
     }
 
     @include snippet-support-site-settings-menu;
 }
 
-@if config.$template_print_astro_settingsMenu_fontOverrides and tokens-has-font-families() {
+@if config.$template_print_siteSettingsMenu_fontOverrides and tokens-has-font-families() {
     @include debug-checkpoint(
         '#{config.$template_slug} - blocks - settingsMenu - font overrides start',
         $level: config.$template_debug_checkpointsLevel + 1,
@@ -142,7 +142,7 @@
     );
 
     @if config.$template_include_cssHeadings {
-        /* ## Astro Component - Settings Menu - Font Overrides ==================================== */
+        /* ## Blocks - Settings Menu - Font Overrides ==================================== */
     }
 
     @include snippet-support-site-settings-menu-font-overrides;

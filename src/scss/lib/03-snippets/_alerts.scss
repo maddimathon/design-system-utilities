@@ -19,7 +19,7 @@
 
 $_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
 
-@mixin _snippet-alert-headline-heading($slug: '7') {
+@mixin _snippet-alert-headline-heading($slug) {
     //
     $slugAsNumber: if(meta.type-of($slug) == 'number', $slug, null);
     $slug: #{$slug};
@@ -27,7 +27,6 @@ $_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
     $heading10orAbove: false;
 
     $color: null;
-    $icon_after_marginBlockStart: -0.125em;
 
     @if $slug and $slug != title {
         //
@@ -36,57 +35,24 @@ $_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
         @if $slugAsNumber >= 10 {
             $heading10orAbove: true;
         }
+    } @else if $slug == title {
+        $slug: '1';
+        $slugAsNumber: 1;
     }
 
     $color: if(theme-token-exists(heading-#{$slug}), var-theme(heading-#{$slug}), null);
-
-    @if $slug == title or $slug == '1' {
-        $color: var-theme(heading-1);
-        $icon_after_marginBlockStart: -0.0625em;
-    }
-
-    @if $slug == '2' {
-        $icon_after_marginBlockStart: -0.0625em;
-    }
-
-    @if $slug == '3' {
-        $icon_after_marginBlockStart: -0.0625em;
-    }
-
-    @if $slug == '4' {
-        $icon_after_marginBlockStart: -0.09375em;
-    }
-
-    @if $slug == '5' {
-        $icon_after_marginBlockStart: -0.09375em;
-    }
-
-    @if $slug == '6' {
-        $icon_after_marginBlockStart: -0.09375em;
-    }
-
-    @if $slug == '7' or $slug == '8' or $slug == '9' or $heading10orAbove {
-    }
-
-    @if $slug == '8' {
-    }
-
-    @if $slug == '9' {
-    }
-
-    @if $slug == '10' or $heading10orAbove {
-    }
-
-    @if $heading10orAbove {
-    }
 
     @if $color {
         color: #{$color};
     }
 
-    > %icon {
+    > .alert-block__icon {
         + * {
-            margin-block-start: #{$icon_after_marginBlockStart};
+            margin-block-start: #{var-style(
+                    alert-heading-#{$slug}-margin-block-start,
+                    $raw: true,
+                    $rawUnit: 1em
+                )};
         }
     }
 }
@@ -182,8 +148,6 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
                     in (':has( #{$_headingSelector} )', ':has( #{$_headingSelector}--where )')
                 {
                     @at-root #{selector.unify(&, $_sel)} {
-                        @include cx-prop(icon-color, var-theme(heading-#{$num}));
-
                         @if $num <= 3 {
                             margin-block-start: #{var-mrg-firm('800')};
                         } @else if $num <= 6 {
@@ -193,6 +157,11 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
                         }
 
                         border-color: #{var-theme(heading-#{$num})};
+
+                        > .alert-block__icon,
+                        > .alert-block__headline > .alert-block__icon {
+                            @include cx-prop(icon-color, var-theme(heading-#{$num}));
+                        }
 
                         @if meta.content-exists() {
                             @content ( 'alert-block--has-heading--#{$num}' );
@@ -232,12 +201,21 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
                 $_headingSelector: if(
                     $num == 1,
                     (
-                        ':where( %h#{$num} )',
-                        '%h#{$num}--where',
-                        ':where( %title )',
-                        '%title--where'
+                        // ':where( %h#{$num} )',
+                        // ':where( %title )',
+                        '%h#{$num}',
+                        '%title'
                     ),
-                    (':where( %h#{$num} )', '%h#{$num}--where')
+                    (
+                        // ':where( %h#{$num} )',
+                        '%h#{$num}'
+                    )
+                );
+
+                $_headingSelector_where: if(
+                    $num == 1,
+                    ('%h#{$num}--where', '%title--where'),
+                    ('%h#{$num}--where')
                 );
 
                 @at-root #{selector.unify(&, $_headingSelector)} {
@@ -247,19 +225,36 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
                         @content ( 'alert-block__headline--h#{$num}' );
                     }
                 }
+
+                @at-root #{selector.unify(&, $_headingSelector_where)} {
+                    @include _snippet-alert-headline-heading($num);
+
+                    @if meta.content-exists() {
+                        @content ( 'alert-block__headline--h#{$num}-where' );
+                    }
+                }
             }
         }
 
-        #{selector.nest('>', selector.unify('%icon', '.alert-block__icon'))},
-        > .alert-block__headline > %icon {
+        > .alert-block__icon,
+        > .alert-block__headline > .alert-block__icon {
             @include cx-prop(icon-color, var-style(alert-icon-color));
             @include cx-prop(icon-size, var-style(alert-icon-size));
             @include cx-prop(icon-size-large, var-style(alert-icon-size-large));
+
+            @include cx-prop(display, block);
+            display: block;
 
             grid-column: icon;
             margin-inline-end: 0.125em;
             margin-block-end: 0;
             // margin-block-end: #{var-mrg-half($_alertPaddingBlockLevel)};
+
+            @at-root #{selector.unify(&, '%icon')},
+                & > %icon {
+                @include cx-prop(display, block);
+                display: block;
+            }
 
             + * {
                 margin-block-start: -0.09375em;
@@ -314,8 +309,8 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
                         color: #{$text};
                     }
 
-                    #{selector.nest('>', selector.unify('%icon', '.alert-block__icon'))},
-                    > .alert-block__headline > %icon {
+                    > .alert-block__icon,
+                    > .alert-block__headline > .alert-block__icon {
                         @include cx-prop(icon-color, $ui);
                     }
                 }

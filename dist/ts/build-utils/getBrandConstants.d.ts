@@ -21,14 +21,12 @@ export declare namespace getBrandConstants {
      *
      * @since 0.1.0-beta.0.draft
      */
-    function getSvgConsts<T_SetName extends getSvgConsts.SetName>(_setName: T_SetName, svgSet: Tokens.JsonReturn[T_SetName] | Tokens.Instance[T_SetName], args?: getSvgConsts.Args): Promise<null | {
+    function getSvgConsts<T_SetName extends getSvgConsts.SetName, T_ReturnOptions extends getSvgConsts.ReturnOptions>(_setName: T_SetName, svgSet: Tokens.JsonReturn[T_SetName] | Tokens.Instance[T_SetName], args?: getSvgConsts.Args): Promise<null | {
         readonly setName: string;
         readonly entries: {
             readonly all: readonly [string, SvgMaker.JsonReturn<string>][];
-            readonly base64: readonly [string, string][];
-            readonly css: readonly [string, string][];
-            readonly name: readonly [string, string][];
-            readonly svg: readonly [string, string][];
+        } & {
+            readonly [K in T_ReturnOptions]: readonly [string, string][];
         };
     }>;
     /**
@@ -40,20 +38,35 @@ export declare namespace getBrandConstants {
         /**
          * @since 0.1.0-beta.0.draft
          */
-        type Args = {
+        type Args<T_ExtraReturnOptions extends string = never> = {
+            /**
+             * Optionally map entry key strings as they are built.
+             *
+             * @since 0.1.0-beta.0.draft
+             */
+            keyMappers?: {
+                [K in ReturnOptions]?: (item: string) => string;
+            };
             /**
              * Optionally map entry value strings as they are built.
              *
              * @since 0.1.0-beta.0.draft
              */
-            entryMappers?: {
-                [K in "base64" | "css" | "name" | "svg"]?: (item: string) => string;
+            valueMappers?: {
+                [K in ReturnOptions]?: (item: string) => string;
+            };
+            /**
+             * Which variables to include in the return.
+             */
+            incl?: {
+                [K in ReturnOptions | T_ExtraReturnOptions]?: boolean;
             };
         };
+        const returnOpts: readonly ["base64", "css", "names", "slugs", "svg"];
         /**
          * @since 0.1.0-beta.0.draft
          */
-        type Return = {};
+        type ReturnOptions = typeof returnOpts[number];
         /**
          * @since 0.1.0-beta.0.draft
          */
@@ -77,7 +90,7 @@ export declare namespace getBrandConstants {
              *
              * @since 0.1.0-beta.0.draft
              */
-            function getSvg<T_SetName extends getSvgConsts.SetName>(_setName: T_SetName, svgSet: Tokens.JsonReturn[T_SetName] | Tokens.Instance[T_SetName], textDomain: string, phpNamespace: string): Promise<null | string>;
+            function getSvg<T_SetName extends getSvgConsts.SetName>(_setName: T_SetName, svgSet: Tokens.JsonReturn[T_SetName] | Tokens.Instance[T_SetName], textDomain: string, phpNamespace: string, args?: Omit<getSvgConsts.Args, 'valueMappers'>): Promise<null | string>;
         }
         /**
          * Export to a TypeScript string.
@@ -85,13 +98,20 @@ export declare namespace getBrandConstants {
          * @since 0.1.0-beta.0.draft
          */
         namespace TS {
+            function entriesToArray(entries: [string, string][] | readonly [string, string][]): string;
+            function entriesToObject(entries: [string, string][] | readonly [string, string][]): string;
+            function entriesToObject_type(entries: [string, string][] | readonly [string, string][]): string;
+            function outputConstant(varName: string, content: string, args: {
+                comment?: string;
+                type?: string;
+            }): string[];
             /**
              * Gets a string of valid PHP code for wordpress defining constants for the given set of
              * SVGs.
              *
              * @since 0.1.0-beta.0.draft
              */
-            function getSvg<T_SetName extends getSvgConsts.SetName>(_setName: T_SetName, svgSet: Tokens.JsonReturn[T_SetName] | Tokens.Instance[T_SetName], textDomain: string): Promise<null | string>;
+            function getSvg<T_SetName extends getSvgConsts.SetName>(_setName: T_SetName, svgSet: Tokens.JsonReturn[T_SetName] | Tokens.Instance[T_SetName], textDomain: string, args?: Omit<getSvgConsts.Args<"react">, 'valueMappers'>): Promise<null | string>;
         }
     }
 }

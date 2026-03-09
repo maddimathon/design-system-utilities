@@ -197,6 +197,11 @@ export declare namespace Tokens_CSS_Style {
             block: "0" | AnyTokenLevel;
             inline: "0" | AnyTokenLevel;
         };
+        heading: {
+            [H in RequiredHeadingLevels]: AlertStyles_Heading;
+        } & {
+            [key: number]: AlertStyles_Heading;
+        };
         headline: {
             font: {
                 /**
@@ -235,6 +240,16 @@ export declare namespace Tokens_CSS_Style {
         padding: {
             block: AnyTokenLevel;
             inline: AnyTokenLevel;
+        };
+    };
+    type AlertStyles_Heading = {
+        /**
+         * Values for the inner heading after an icon.
+         */
+        margin: {
+            block: {
+                start: number;
+            };
         };
     };
     type ButtonStyles = {
@@ -474,7 +489,13 @@ export declare namespace Tokens_CSS_Style {
         /**
          * @since 0.1.0-beta.0.draft
          */
-        alert?: RecursivePartial<AlertStyles>;
+        alert?: Omit<RecursivePartial<AlertStyles>, 'heading'> & {
+            heading?: undefined | ({
+                [H in RequiredHeadingLevels]?: undefined | Partial<AlertStyles_Heading>;
+            } & {
+                [key: number]: undefined | Partial<AlertStyles_Heading>;
+            });
+        };
         button?: {
             $?: RecursivePartial<ButtonStyles>;
             disabled?: RecursivePartial<ButtonStyles_Disabled>;

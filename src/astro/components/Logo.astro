@@ -22,12 +22,18 @@ import type {
 
 /* PROPS ===================================== */
 
-export interface Props extends GenericElementProps<{}, 'div'> {
+type LogoProps = {
     logo: SvgMaker.JsonReturn;
     class?: ClassList;
-}
+};
 
-const { logo, class: classList = [], ...attributes }: Props = Astro.props;
+export type Props = GenericElementProps<LogoProps, 'div'>;
+
+const {
+    logo,
+    class: classList = [],
+    ...attributes
+}: Props = Astro.props?.frontmatter ?? Astro.props;
 
 /* CONSTANTS ===================================== */
 

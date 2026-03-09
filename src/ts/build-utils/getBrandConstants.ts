@@ -32,7 +32,10 @@ export namespace getBrandConstants {
      *
      * @since ___PKG_VERSION___
      */
-    export async function getSvgConsts<T_SetName extends getSvgConsts.SetName>(
+    export async function getSvgConsts<
+        T_SetName extends getSvgConsts.SetName,
+        T_ReturnOptions extends getSvgConsts.ReturnOptions,
+    >(
         _setName: T_SetName,
         svgSet: Tokens.JsonReturn[ T_SetName ] | Tokens.Instance[ T_SetName ],
         args: getSvgConsts.Args = {},
@@ -40,10 +43,8 @@ export namespace getBrandConstants {
         readonly setName: string;
         readonly entries: {
             readonly all: readonly [ string, SvgMaker.JsonReturn<string> ][];
-            readonly base64: readonly [ string, string ][];
-            readonly css: readonly [ string, string ][];
-            readonly name: readonly [ string, string ][];
-            readonly svg: readonly [ string, string ][];
+        } & {
+            readonly [ K in T_ReturnOptions ]: readonly [ string, string ][];
         };
     }> {
         // returns
@@ -51,14 +52,35 @@ export namespace getBrandConstants {
             return null;
         }
 
+        const include = {
+            base64: args.incl?.base64 ?? false,
+            css: args.incl?.css ?? false,
+            names: args.incl?.names ?? true,
+            slugs: args.incl?.slugs ?? false,
+            svg: args.incl?.svg ?? true,
+        } as const satisfies {
+            [ K in getSvgConsts.ReturnOptions ]: boolean;
+        };
+
         const setName = _setName.replace( /s$/g, '' );
 
-        const entries = Object.entries( svgSet ).map(
-            ( [ key, value ] ): [ string, SvgMaker.JsonReturn ] => [
-                slugify( key ).replace( /\-/gi, '_' ).toLowerCase(),
-                value,
-            ]
-        ).sort(
+        type EntriesReturn = {
+            all: [ string, SvgMaker.JsonReturn<string> ][];
+        } & {
+            [ K in getSvgConsts.ReturnOptions ]?: [ string, string ][];
+        };
+
+        const entries: EntriesReturn = {
+
+            all: Object.entries( svgSet ).map(
+                ( [ key, value ] ): [ string, SvgMaker.JsonReturn ] => [
+                    slugify( key ).replace( /\-/gi, '_' ).toLowerCase(),
+                    value,
+                ]
+            ) satisfies [ string, SvgMaker.JsonReturn<string> ][],
+        } as EntriesReturn;
+
+        entries.all.sort(
             ( a, b ) => {
 
                 if ( a[ 0 ] > b[ 0 ] ) {
@@ -73,101 +95,110 @@ export namespace getBrandConstants {
             }
         );
 
-        const base64Fn = args.entryMappers?.base64;
-        const cssFn = args.entryMappers?.css;
-        const nameFn = args.entryMappers?.name;
-        const svgFn = args.entryMappers?.svg;
+        type MapperFn<A extends any[] = typeof entries.all> = ( _: ArrayItem<A> ) => [ string, string ];
 
-        const mappers = {
+        const cssGetter = ( value: ArrayItem<typeof entries.all>[ 1 ] ): string =>
+            value.svgCssEmbedded.replace( /\s*\n+\s*/g, '' );
 
-            css: typeof cssFn === 'function'
-                ? (
-                    ( [ key, value ] ) => [
-                        key,
-                        cssFn( value.svgCssEmbedded.replace( /\s*\n+\s*/g, '' ) ),
-                    ]
-                )
-                : (
-                    ( [ key, value ] ) => [
-                        key,
-                        value.svgCssEmbedded.replace( /\s*\n+\s*/g, '' ),
-                    ]
-                ),
+        if ( include.base64 ) {
+            const base64Fn = args.valueMappers?.base64;
 
-            name: typeof nameFn === 'function'
-                ? (
-                    ( [ key, value ] ) => [
-                        key,
-                        nameFn( value.label ),
-                    ]
-                )
-                : (
-                    ( [ key, value ] ) => [ key, value.label ]
-                ),
+            const keyFn = args.keyMappers?.base64 ?? ( ( key: string ) => key );
 
-            svg: typeof svgFn === 'function'
-                ? (
-                    ( [ key, value ] ) => [
-                        key,
-                        svgFn( value.svgInlineLabelled.replace( /\s*\n+\s*/g, '' ) ),
-                    ]
-                )
-                : (
-                    ( [ key, value ] ) => [
-                        key,
-                        value.svgInlineLabelled.replace( /\s*\n+\s*/g, '' ),
-                    ]
-                ),
-        } satisfies {
-            [ K in "css" | "name" | "svg" ]: ( entry: ArrayItem<typeof entries> ) => [ string, string ];
-        };
+            const mapper: MapperFn = typeof base64Fn === 'function'
+                ? ( [ key, value ] ) => [ keyFn( key ), base64Fn( btoa( cssGetter( value ) ) ) ]
+                : ( [ key, value ] ) => [ keyFn( key ), btoa( cssGetter( value ) ) ];
 
-        /**
-         * Labelled SVG code for inline html use.
-         */
-        const entries_svg = entries.map( mappers.svg );
+            /**
+             * The inline CSS values base64 encoded.
+             */
+            entries.base64 = entries.all.map( mapper );
+        }
 
-        /**
-         * Values for inline CSS use.
-         */
-        const entries_css = entries.map( mappers.css );
+        if ( include.css ) {
+            const cssFn = args.valueMappers?.css;
 
-        const mapper_base64: (
-            ( entry: ArrayItem<typeof entries_css> ) => [ string, string ]
-        ) = typeof base64Fn === 'function'
-                ? ( [ key, svg ] ) => [ key, base64Fn( btoa( svg ) ) ]
-                : ( [ key, svg ] ) => [ key, btoa( svg ) ];
+            const keyFn = args.keyMappers?.css ?? ( ( key: string ) => key );
 
-        /**
-         * The inline CSS values base64 encoded.
-         */
-        const entries_base64 = entries_css.map( mapper_base64 );
+            const mapper: MapperFn = typeof cssFn === 'function'
+                ? ( [ key, value ] ) => [
+                    keyFn( key ),
+                    cssFn( cssGetter( value ) ),
+                ]
+                : ( [ key, value ] ) => [ keyFn( key ), cssGetter( value ) ];
 
-        const entries_names = entries.sort(
-            ( a, b ) => {
-                const sort_a = a[ 1 ].label;
-                const sort_b = b[ 1 ].label;
+            /**
+             * Values for inline CSS use.
+             */
+            entries.css = entries.all.map( mapper );
+        }
 
-                if ( sort_a > sort_b ) {
-                    return 1;
+        if ( include.names ) {
+            const namesFn = args.valueMappers?.names;
+
+            const keyFn = args.keyMappers?.names ?? ( ( key: string ) => key );
+
+            const mapper: MapperFn = typeof namesFn === 'function'
+                ? ( [ key, value ] ) => [ keyFn( key ), namesFn( value.label ) ]
+                : ( [ key, value ] ) => [ keyFn( key ), value.label ];
+
+            entries.names = [ ...entries.all ].sort(
+                ( a, b ) => {
+                    const sort_a = a[ 1 ].label;
+                    const sort_b = b[ 1 ].label;
+
+                    if ( sort_a > sort_b ) {
+                        return 1;
+                    }
+
+                    if ( sort_a < sort_b ) {
+                        return -1;
+                    }
+
+                    return 0;
                 }
+            ).map( mapper );
+        }
 
-                if ( sort_a < sort_b ) {
-                    return -1;
-                }
+        if ( include.slugs ) {
+            const slugsFn = args.valueMappers?.slugs;
 
-                return 0;
-            }
-        ).map( mappers.name );
+            const keyFn = args.keyMappers?.slugs ?? ( ( key: string ) => key );
+
+            const mapper: MapperFn = typeof slugsFn === 'function'
+                ? ( [ key ] ) => [ keyFn( key ), slugsFn( key ) ]
+                : ( [ key ] ) => [ keyFn( key ), key ];
+
+            entries.slugs = entries.all.map( mapper );
+        }
+
+        if ( include.svg ) {
+            const svgFn = args.valueMappers?.svg;
+
+            const keyFn = args.keyMappers?.svg ?? ( ( key: string ) => key );
+
+            const mapper: MapperFn = typeof svgFn === 'function'
+                ? ( [ key, value ] ) => [
+                    keyFn( key ),
+                    svgFn( value.svgInlineLabelled.replace( /\s*\n+\s*/g, '' ) ),
+                ]
+                : ( [ key, value ] ) => [
+                    keyFn( key ),
+                    value.svgInlineLabelled.replace( /\s*\n+\s*/g, '' ),
+                ];
+
+            /**
+             * Labelled SVG code for inline html use.
+             */
+            entries.svg = entries.all.map( mapper );
+        }
 
         return {
             setName,
-            entries: {
-                all: entries,
-                base64: entries_base64,
-                css: entries_css,
-                name: entries_names,
-                svg: entries_svg,
+            entries: entries as {
+                readonly all: readonly [ string, SvgMaker.JsonReturn<string> ][];
+            } & {
+                readonly [ K in T_ReturnOptions ]: readonly [ string, string ][];
             },
         };
     }
@@ -182,22 +213,46 @@ export namespace getBrandConstants {
         /**
          * @since ___PKG_VERSION___
          */
-        export type Args = {
+        export type Args<T_ExtraReturnOptions extends string = never> = {
+
+            /**
+             * Optionally map entry key strings as they are built.
+             * 
+             * @since ___PKG_VERSION___
+             */
+            keyMappers?: {
+                [ K in ReturnOptions ]?: ( item: string ) => string;
+            };
 
             /**
              * Optionally map entry value strings as they are built.
              * 
              * @since ___PKG_VERSION___
              */
-            entryMappers?: {
-                [ K in "base64" | "css" | "name" | "svg" ]?: ( item: string ) => string;
-            },
+            valueMappers?: {
+                [ K in ReturnOptions ]?: ( item: string ) => string;
+            };
+
+            /**
+             * Which variables to include in the return.
+             */
+            incl?: {
+                [ K in ReturnOptions | T_ExtraReturnOptions ]?: boolean;
+            };
         };
+
+        export const returnOpts = [
+            'base64',
+            'css',
+            'names',
+            'slugs',
+            'svg',
+        ] as const;
 
         /**
          * @since ___PKG_VERSION___
          */
-        export type Return = {};
+        export type ReturnOptions = typeof returnOpts[ number ];
 
         /**
          * @since ___PKG_VERSION___
@@ -213,17 +268,82 @@ export namespace getBrandConstants {
     export namespace Wordpress {
 
         /**
+         * @since ___PKG_VERSION___
+         */
+        function parseReturnOpt<T_SetName extends getSvgConsts.SetName>(
+            setName: T_SetName,
+            opt: getSvgConsts.ReturnOptions,
+        ) {
+            const commentName = setName.replace( /\Bs$/gi, '' );
+
+            let constName: undefined | string;
+            let comment: undefined | string;
+
+            switch ( opt ) {
+
+                case 'base64':
+                    comment = `All ${ commentName } base64-encoded svgs indexed by slug.`;
+                    break;
+
+                case 'css':
+                    comment = `All ${ commentName } css-ready svg values indexed by slug.`;
+                    break;
+
+                case 'names':
+                    comment = `All ${ commentName } slugs and their labels.`;
+                    break;
+
+                case 'svg':
+                    comment = `All ${ commentName } svg values indexed by slug.`;
+                    break;
+            }
+
+            return {
+                constName: constName ?? opt.toUpperCase(),
+                comment: comment ?? `Brand kit ${ setName } as ${ opt }.`,
+            } as const;
+        }
+
+        /**
          * Export to a PHP string.
          * 
          * @since ___PKG_VERSION___
          */
         export namespace PHP {
 
-            function entriesToArray( entries: [ string, string ][] | readonly [ string, string ][] ): string {
+            function entriesToArray(
+                entries: [ string, string ][] | readonly [ string, string ][],
+                associativeArray: boolean = true,
+            ): string {
+                // returns
+                if ( !entries?.length ) {
+                    return '';
+                }
+
+                // returns
+                if ( !associativeArray ) {
+                    return `[${ entries.map(
+                        ( arr ) => `\n    ${ arr[ 1 ] },`
+                    ).join( '' ) }${ entries.length ? '\n' : '' }]`;
+                }
 
                 const longestKeyLength = Math.max( ...entries.map( ( [ key ] ) => key.length ) );
 
                 return `[${ entries.map(
+                    ( [ key, value ] ) =>
+                        `\n    '${ key }' ${ ' '.repeat( longestKeyLength - key.length ) }=> ${ value },`
+                ).join( '' ) }${ entries.length ? '\n' : '' }]`;
+            }
+
+            function entriesToObject( entries: [ string, string ][] | readonly [ string, string ][] ): string {
+                // returns
+                if ( !entries?.length ) {
+                    return '';
+                }
+
+                const longestKeyLength = Math.max( ...entries.map( ( [ key ] ) => key.length ) );
+
+                return `(object) [${ entries.map(
                     ( [ key, value ] ) =>
                         `\n    '${ key }' ${ ' '.repeat( longestKeyLength - key.length ) }=> ${ value },`
                 ).join( '' ) }${ entries.length ? '\n' : '' }]`;
@@ -235,9 +355,13 @@ export namespace getBrandConstants {
                 args: {
                     comment: string,
                     type: string,
-                    insideHook?: boolean,
+                    insideHook?: undefined | boolean,
                 },
             ): string[] {
+                // returns
+                if ( !content ) {
+                    return [];
+                }
 
                 return args.insideHook ? [
                     '// hooked for access to translation',
@@ -285,6 +409,7 @@ export namespace getBrandConstants {
                 svgSet: Tokens.JsonReturn[ T_SetName ] | Tokens.Instance[ T_SetName ],
                 textDomain: string,
                 phpNamespace: string,
+                args: Omit<getSvgConsts.Args, 'valueMappers'> = {},
             ): Promise<null | string> {
 
                 const setName = _setName.replace( /s$/g, '' );
@@ -293,11 +418,14 @@ export namespace getBrandConstants {
                     _setName,
                     svgSet,
                     {
-                        entryMappers: {
+                        ...args,
+                        valueMappers: {
                             base64: ( base64 ): string => `'${ base64.replace( /'/g, "\\'" ) }'`,
-                            name: ( label ): string => `_x( '${ label }', '${ setName } display name', '${ textDomain }' )`,
+                            css: ( css ): string => `'${ css.replace( /'/g, "\\'" ) }'`,
+                            names: ( label ): string => `_x( '${ label }', '${ setName } display name', '${ textDomain }' )`,
+                            slugs: ( slug ): string => `'${ slug.replace( /'/g, "\\'" ) }'`,
                             svg: ( svg ): string => `'${ svg.replace( /'/g, "\\'" ) }'`,
-                        },
+                        } satisfies Required<Required<getSvgConsts.Args>[ 'valueMappers' ]>,
                     },
                 );
 
@@ -313,44 +441,62 @@ export namespace getBrandConstants {
 
                 phpNamespace = phpNamespace.length ? phpNamespace.replace( /\/$/gi, '' ) + '\\' : '';
 
-                const phpStrings = {
-                    keyObjectShape: keys.map( key => `${ key }: string` ).join( ', ' ),
-                    names: entriesToArray( entries.name ),
-                    svg: '(object) ' + entriesToArray( entries.svg ),
-                    svgBase64: '(object) ' + entriesToArray( entries.base64 ),
-                };
+                const keyObjectShape = keys.map( key => `${ key }: string` ).join( ', ' );
 
                 const setName_UC = setName.toUpperCase();
 
-                return [
-                    ...outputConstant(
-                        `${ phpNamespace }BRAND_${ setName_UC }_NAMES`,
-                        phpStrings.names,
-                        {
-                            comment: `All ${ setName } slugs and their labels.`,
-                            type: `array{ ${ phpStrings.keyObjectShape } }`,
-                            insideHook: true,
-                        },
-                    ),
-                    '',
-                    ...outputConstant(
-                        `${ phpNamespace }BRAND_${ setName_UC }_SVG`,
-                        phpStrings.svg,
-                        {
-                            comment: `All ${ setName } svg values indexed by slug.`,
-                            type: `object{ ${ phpStrings.keyObjectShape } }`,
-                        },
-                    ),
-                    '',
-                    ...outputConstant(
-                        `${ phpNamespace }BRAND_${ setName_UC }_SVG_BASE64`,
-                        phpStrings.svgBase64,
-                        {
-                            comment: `All ${ setName } base64-encoded svgs indexed by slug.`,
-                            type: `object{ ${ phpStrings.keyObjectShape } }`,
-                        },
-                    ),
-                ].join( '\n' );
+                const ret: string[] = [];
+
+                for ( const opt of getSvgConsts.returnOpts ) {
+
+                    let content: string;
+                    let insideHook = false;
+                    let type: string;
+
+                    switch ( opt ) {
+
+                        case 'names':
+                            content = entriesToArray( entries[ opt ], true );
+                            insideHook = true;
+                            type = `array{ ${ keyObjectShape } }`;
+                            break;
+
+                        case 'slugs':
+                            content = entriesToArray( entries[ opt ], false );
+                            type = `( ${ keys.map( key => `"${ key }"` ).join( ', ' ) } )[]`;
+                            break;
+
+                        default:
+                            content = entriesToObject( entries[ opt ] );
+                            type = `object{ ${ keyObjectShape } }`;
+                            break;
+                    }
+
+                    // continues
+                    if ( !content?.length ) {
+                        continue;
+                    }
+
+                    const {
+                        constName,
+                        comment,
+                    } = parseReturnOpt( _setName, opt );
+
+                    ret.push(
+                        ...outputConstant(
+                            `${ phpNamespace }BRAND_${ setName_UC }_${ constName }`,
+                            content,
+                            {
+                                comment,
+                                insideHook,
+                                type,
+                            },
+                        ),
+                        '',
+                    );
+                }
+
+                return ret.join( '\n' );
             }
         }
 
@@ -361,25 +507,46 @@ export namespace getBrandConstants {
          */
         export namespace TS {
 
-            function entriesToArray(
+            export function entriesToArray(
                 entries: [ string, string ][] | readonly [ string, string ][],
             ): string {
+                // returns
+                if ( !entries?.length ) {
+                    return '';
+                }
+
+                return '[' + entries.map(
+                    ( arr ) => `\n    ${ arr[ 1 ] },`
+                ).join( '' ) + ( entries.length ? '\n' : '' ) + ']';
+            }
+
+            export function entriesToObject(
+                entries: [ string, string ][] | readonly [ string, string ][],
+            ): string {
+                // returns
+                if ( !entries?.length ) {
+                    return '';
+                }
 
                 return '{' + entries.map(
                     ( [ key, value ] ) => `\n    ${ key.includes( '-' ) ? `'${ key }'` : key }: ${ value },`
                 ).join( '' ) + ( entries.length ? '\n' : '' ) + '}';
             }
 
-            function entriesToArray_type(
+            export function entriesToObject_type(
                 entries: [ string, string ][] | readonly [ string, string ][],
             ): string {
+                // returns
+                if ( !entries?.length ) {
+                    return '';
+                }
 
                 return '{' + entries.map(
                     ( [ key, value ] ) => `\n    readonly ${ key.includes( '-' ) ? `'${ key }'` : key }: ${ value };`
                 ).join( '' ) + ( entries.length ? '\n' : '' ) + '}';
             }
 
-            function outputConstant(
+            export function outputConstant(
                 varName: string,
                 content: string,
                 args: {
@@ -387,6 +554,10 @@ export namespace getBrandConstants {
                     type?: string,
                 },
             ): string[] {
+                // returns
+                if ( !content ) {
+                    return [];
+                }
 
                 const varStr = args.type?.length
                     ? `export const ${ varName }: ${ args.type } = ${ content };`
@@ -412,6 +583,7 @@ export namespace getBrandConstants {
                 _setName: T_SetName,
                 svgSet: Tokens.JsonReturn[ T_SetName ] | Tokens.Instance[ T_SetName ],
                 textDomain: string,
+                args: Omit<getSvgConsts.Args<"react">, 'valueMappers'> = {},
             ): Promise<null | string> {
 
                 const setName = _setName.replace( /s$/g, '' );
@@ -420,11 +592,14 @@ export namespace getBrandConstants {
                     _setName,
                     svgSet,
                     {
-                        entryMappers: {
+                        ...args,
+                        valueMappers: {
                             base64: ( base64 ): string => `'${ base64.replace( /'/g, "\\'" ) }'`,
-                            name: ( label ): string => `_x( '${ label }', '${ setName } display name', '${ textDomain }' )`,
+                            css: ( svg ): string => `'${ svg.replace( /'/g, "\\'" ) }'`,
+                            names: ( label ): string => `_x( '${ label }', '${ setName } display name', '${ textDomain }' )`,
+                            slugs: ( slug ): string => `'${ slug.replace( /'/g, "\\'" ) }'`,
                             svg: ( svg ): string => `'${ svg.replace( /'/g, "\\'" ) }'`,
-                        },
+                        } satisfies Required<Required<getSvgConsts.Args>[ 'valueMappers' ]>,
                     },
                 );
 
@@ -436,46 +611,54 @@ export namespace getBrandConstants {
                     entries,
                 } = SVG_CONSTANTS;
 
-                // const keys = entries.all.map( ( [ key ] ) => key ).sort();
-
-                const tsStrings = {
-                    // type: keys.map( key => `${ key }: string;` ).join( ', ' ),
-                    type: entriesToArray_type( entries.name.map( ( [ key, value ] ) => [ key, 'string' ] ) ),
-
-                    names: entriesToArray( entries.name ),
-                    svg: entriesToArray( entries.svg ),
-                    svgBase64: entriesToArray( entries.base64 ),
-                };
+                const typeString = entriesToObject_type( entries.names.map( ( [ key ] ) => [ key, 'string' ] ) );
 
                 const setName_UC = setName.toUpperCase();
 
-                return [
-                    ...outputConstant(
-                        `${ setName_UC }_NAMES`,
-                        tsStrings.names,
-                        {
-                            comment: `All ${ setName } slugs and their labels.`,
-                        },
-                    ),
-                    '',
-                    ...outputConstant(
-                        `${ setName_UC }_SVG`,
-                        tsStrings.svg,
-                        {
-                            comment: `All ${ setName } svg values indexed by slug.`,
-                            type: tsStrings.type,
-                        },
-                    ),
-                    '',
-                    ...outputConstant(
-                        `${ setName_UC }_SVG_BASE64`,
-                        tsStrings.svgBase64,
-                        {
-                            comment: `All ${ setName } base64-encoded svgs indexed by slug.`,
-                            type: tsStrings.type,
-                        },
-                    ),
-                ].join( '\n' );
+                const ret: string[] = [];
+
+                for ( const opt of getSvgConsts.returnOpts ) {
+
+                    let content: string;
+                    let type: undefined | string = undefined;
+
+                    switch ( opt ) {
+
+                        case 'names':
+                            content = entriesToObject( entries[ opt ] );
+                            break;
+
+                        case 'slugs':
+                            content = entriesToArray( entries[ opt ] );
+                            break;
+
+                        default:
+                            content = entriesToObject( entries[ opt ] );
+                            type = typeString;
+                            break;
+                    }
+
+                    // continues
+                    if ( !content?.length ) {
+                        continue;
+                    }
+
+                    const {
+                        constName,
+                        comment,
+                    } = parseReturnOpt( _setName, opt );
+
+                    ret.push(
+                        ...outputConstant(
+                            `${ setName_UC }_${ constName }`,
+                            content,
+                            { comment, type },
+                        ),
+                        '',
+                    );
+                }
+
+                return ret.join( '\n' );
             }
         }
     }

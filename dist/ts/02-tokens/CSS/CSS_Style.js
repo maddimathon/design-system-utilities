@@ -21,6 +21,49 @@ export class Tokens_CSS_Style extends AbstractTokens {
      * @since 0.1.0-beta.0.draft
      */
     static alertStyle(partial = {}) {
+        const headingMaker = (num) => {
+            const style = {
+                margin: {
+                    block: {
+                        start: -0.0625,
+                    },
+                },
+            };
+            // switch ( num ) {
+            //     case 1:
+            //         style.margin.block.start = -0.0625;
+            //         break;
+            //     case 2:
+            //         style.margin.block.start = -0.0625;
+            //         break;
+            //     case 3:
+            //         style.margin.block.start = -0.0625;
+            //         break;
+            // }
+            if (num >= 4) {
+                style.margin.block.start = -0.09375;
+            }
+            // if ( num >= 5 ) {
+            // }
+            // if ( num >= 6 ) {
+            // }
+            if (num >= 7) {
+                style.margin.block.start = -0.125;
+            }
+            // if ( num >= 8 ) {
+            // }
+            // if ( num >= 9 ) {
+            // }
+            // if ( num >= 10 ) {
+            // }
+            return {
+                margin: {
+                    block: {
+                        start: partial.heading?.[num]?.margin?.block.start ?? style.margin.block.start,
+                    },
+                },
+            };
+        };
         return mergeArgs({
             background: 'background',
             border: {
@@ -30,6 +73,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 width: '200',
             },
             color: 'text-primary',
+            heading: objectGenerator([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], headingMaker),
             headline: {
                 font: {
                     size: 'heading-7',

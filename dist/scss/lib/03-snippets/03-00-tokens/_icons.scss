@@ -9,7 +9,7 @@
 @use 'pkg:@maddimathon/utility-sass/selector';
 @use 'pkg:@maddimathon/utility-sass/string';
 
-// @use 'pkg:@maddimathon/utility-astro/03-snippets' as lib;
+@use 'pkg:@maddimathon/utility-astro/03-snippets' as lib;
 
 @use '../../../config';
 @use '../../../tokens';
@@ -46,21 +46,27 @@ $_allUniqueIconAspectRatios: ();
 ///
 /// @since 0.1.0-alpha
 ///
-@mixin snippet-support-icons {
-    %icon {
-        display: inline-block;
-        position: relative;
-        vertical-align: #{var-style(icon-vertical-align, $fallback: middle)};
-
-        height: #{var-style(icon-size)};
-        height: calc(
-            #{var-style(icon-size)} * do-var(icon-size--font-multiplier, 1)
-        );
-
-        color: #{var-style(icon-color)};
-
-        > svg {
-            margin: 0;
+@mixin snippet-support-icons(
+    $color: var-style(icon-color),
+    $display: inline-block,
+    $iconSize: var-style(icon-size),
+    $includeMinWidth: false,
+    $verticalAlign: var-style(icon-vertical-align, $fallback: middle),
+    $args...
+) {
+    @include lib.snippet-support-icons(
+            $display: $display,
+            $iconSize: $iconSize,
+            $includeMinWidth: $includeMinWidth,
+            $verticalAlign: $verticalAlign,
+            $args...
+        )
+        using ($location) {
+        @if $location == root {
+            position: relative;
+            color: #{$color};
+        } @else if $location == svg {
+            fill: currentColor;
         }
     }
 
