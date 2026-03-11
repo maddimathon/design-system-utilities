@@ -166,7 +166,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
      * @since 0.1.0-beta.0.draft — Added partial param.
      */
     static headingStyle(heading, partial) {
-        heading = heading < 1 ? 11 : heading;
+        const headingAsNum = (typeof heading === 'number' && heading >= 1) ? heading : 11;
         const style = {
             font: {
                 style: 'normal',
@@ -182,7 +182,20 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 },
             },
         };
+        // returns for 'unstyled'
         switch (heading) {
+            case 'unstyled':
+                return mergeArgs({
+                    color: 'text-primary',
+                    font: {
+                        ...style.font,
+                        family: 'body',
+                        size: 'normal',
+                    },
+                    'letter-spacing': style['letter-spacing'],
+                    'line-height': style['line-height'],
+                    'text-transform': style['text-transform'],
+                }, partial, true);
             case 1:
                 style.font.weight = '900';
                 style['line-height'] = '200';
@@ -214,17 +227,17 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 style['line-height'] = '300';
                 break;
         }
-        if (heading >= 7) {
+        if (headingAsNum >= 7) {
             style.font.weight = '500';
             style.font.style = 'normal';
             style['letter-spacing'] = '0.0625em';
             style['line-height'] = '400';
             style['text-transform'] = 'uppercase';
         }
-        if (heading >= 8) {
+        if (headingAsNum >= 8) {
             style.font.style = 'italic';
         }
-        if (heading >= 9) {
+        if (headingAsNum >= 9) {
             style.margin.block.start = '500';
             style['line-height'] = '500';
         }
@@ -346,7 +359,10 @@ export class Tokens_CSS_Style extends AbstractTokens {
         return {
             alert: Tokens_CSS_Style.alertStyle(partial.alert),
             button: Tokens_CSS_Style.buttonStyle(partial.button),
-            heading: objectGenerator([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], (hdg) => Tokens_CSS_Style.headingStyle(hdg, partial.heading?.[hdg])),
+            heading: {
+                ...objectGenerator([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], (hdg) => Tokens_CSS_Style.headingStyle(hdg, partial.heading?.[hdg])),
+                unstyled: Tokens_CSS_Style.headingStyle('unstyled', partial.heading?.unstyled),
+            },
             icon: Tokens_CSS_Style.iconStyle(partial.icon),
             input: Tokens_CSS_Style.inputStyle(partial.input),
             margin: mergeArgs(defaults.margin, partial.margin, true),
@@ -369,7 +385,10 @@ export class Tokens_CSS_Style extends AbstractTokens {
         return {
             alert: Tokens_CSS_Style.alertStyle(),
             button: Tokens_CSS_Style.buttonStyle(),
-            heading: objectGenerator([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], (hdg) => Tokens_CSS_Style.headingStyle(hdg)),
+            heading: {
+                ...objectGenerator([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], (hdg) => Tokens_CSS_Style.headingStyle(hdg)),
+                unstyled: Tokens_CSS_Style.headingStyle('unstyled'),
+            },
             icon: Tokens_CSS_Style.iconStyle(),
             input: Tokens_CSS_Style.inputStyle(),
             margin: {

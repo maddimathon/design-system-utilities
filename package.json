@@ -176,11 +176,13 @@
     "scripts": {
         "unlink": "run-p unlink:*",
             "unlink:astro": "rm -r node_modules/@maddimathon/utility-astro || echo ''",
-            "unlink:sass":  "rm -r node_modules/@maddimathon/utility-sass  || echo ''",
+            "unlink:sass":  "rm -r node_modules/@maddimathon/utility-sass || echo ''",
+            "unlink-ts":    "rm -r node_modules/@maddimathon/utility-typescript || echo ''",
 
         "link": "run-p link:*",
-            "link:astro": "npm run unlink:astro && mkdir -p node_modules/@maddimathon/utility-astro && cp -R -H -f -p ../utility-astro/package.json ../utility-astro/dist ../utility-astro/jest.config.js ../utility-astro/tsconfig.json node_modules/@maddimathon/utility-astro",
-            "link:sass":  "npm run unlink:sass  && mkdir -p node_modules/@maddimathon/utility-sass  && cp -R -H -f -p ../utility-sass/package.json  ../utility-sass/dist node_modules/@maddimathon/utility-sass",
+            "link:astro": "npm run unlink:astro && mkdir -p node_modules/@maddimathon/utility-astro       && cp -R -H -f -p ../utility-astro/package.json ../utility-astro/dist ../utility-astro/jest.config.js ../utility-astro/tsconfig.json node_modules/@maddimathon/utility-astro",
+            "link:sass":  "npm run unlink:sass  && mkdir -p node_modules/@maddimathon/utility-sass        && cp -R -H -f -p ../utility-sass/package.json  ../utility-sass/dist node_modules/@maddimathon/utility-sass",
+            "link-ts":    "npm run unlink-ts    && mkdir -p node_modules/@maddimathon/utility-typescript  && cp -R -H -f -p ../utility-typescript/package.json  ../utility-typescript/dist node_modules/@maddimathon/utility-typescript",
 
         "preinstall": "npm run unlink",
 

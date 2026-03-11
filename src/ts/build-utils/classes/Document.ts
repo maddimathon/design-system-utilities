@@ -39,11 +39,11 @@ export class Document extends DocumentStage {
     ];
 
     /**
-     * The source globs (relative to src/assets) to copy to the docs assets dir.
+     * The source globs (relative to src) to copy to the this.astroPublicDir dir.
      */
     protected readonly assetSourceGlobs: string[] = [];
 
-    protected readonly astroPublicDir = 'docs/_public/assets';
+    protected readonly astroPublicDir = 'docs/_public';
 
     protected async assets() {
         // returns
@@ -53,13 +53,14 @@ export class Document extends DocumentStage {
         }
 
         this.console.progress( 'copying docs assets...', 1 );
+
         this.try(
             this.fs.copy,
             ( this.params.verbose ? 3 : 2 ),
             [
                 this.assetSourceGlobs,
                 ( this.params.verbose ? 3 : 2 ),
-                this.getSrcDir( undefined, 'assets' ),
+                this.getSrcDir( undefined ),
                 this.getSrcDir( undefined, this.astroPublicDir ),
                 {
                     force: true,
@@ -111,13 +112,14 @@ export class Document extends DocumentStage {
 
         const outDir = this.getSrcDir(
             undefined,
-            this.astroPublicDir.replace( /\/$/g, '' ) + '/css',
+            this.astroPublicDir.replace( /\/$/g, '' ) + '/assets/css',
         );
 
         const paths = await this.runCustomScssDirSubStage(
             '',
             outDir,
             {
+                clearOutputDir: this.isWatchedUpdate ? false : this.params.building ? "complete" : "targeted",
                 postCSS: true,
                 ...args,
                 srcDir: 'src/docs/scss',

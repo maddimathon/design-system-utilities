@@ -48,6 +48,7 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
 
     $isBorderRadius: false;
     $isBorderWidth: false;
+    $isFontFamily: false;
     $isFontSize: false;
     $isGap: false;
     $isLineHeight: false;
@@ -93,6 +94,11 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
         // border-width
         @if string.index($slug, '-border-width') == ($_slugLength - 12) {
             $isBorderWidth: true;
+        }
+
+        // font-size
+        @if string.index($slug, '-font-family') == ($_slugLength - 11) {
+            $isFontFamily: true;
         }
 
         // font-size
@@ -153,7 +159,9 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
 
     @if $isMargin {
         //
-        @if string.index($slug, -block-start) {
+        @if $value == '0' {
+            $value: 0;
+        } @else if string.index($slug, -block-start) {
             $value: if(
                 $isButtonStyle or $isInputStyle,
                 utils.var-mrg-firm($value),
@@ -172,7 +180,9 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
         }
     } @else if $isPadding {
         //
-        @if string.index($slug, -block-start) {
+        @if $value == '0' {
+            $value: 0;
+        } @else if string.index($slug, -block-start) {
             $value: utils.var-pad-soft($value);
         } @else if string.index($slug, -block-end) {
             $value: utils.var-pad-half($value);
@@ -198,6 +208,8 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
         $value: if($value == '0', $value, var-border-radius($value));
     } @else if $isBorderWidth {
         $value: var-border-width($value);
+    } @else if $isFontFamily {
+        $value: if(font-family-exists($value), var-font-family($value), $value);
     } @else if $isFontSize {
         $value: var-fs($value);
     } @else if $isLineHeight {

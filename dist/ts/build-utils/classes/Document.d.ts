@@ -24,10 +24,10 @@ export declare class Document extends DocumentStage {
      */
     readonly subStages: Stage.SubStage.Document[];
     /**
-     * The source globs (relative to src/assets) to copy to the docs assets dir.
+     * The source globs (relative to src) to copy to the this.astroPublicDir dir.
      */
     protected readonly assetSourceGlobs: string[];
-    protected readonly astroPublicDir = "docs/_public/assets";
+    protected readonly astroPublicDir = "docs/_public";
     protected assets(): Promise<void>;
     protected astro(): Promise<void>;
     protected scss(args?: Partial<AbstractStage.runCustomScssDirSubStage.Opts>): Promise<void>;

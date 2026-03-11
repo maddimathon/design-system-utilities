@@ -19,6 +19,19 @@
 
 $_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
 
+@mixin _snippet-alert-block-icon($withHeadline: true) {
+    @if $withHeadline {
+        > .alert-block__icon,
+        > .alert-block__headline > .alert-block__icon {
+            @content;
+        }
+    } @else {
+        > .alert-block__icon {
+            @content;
+        }
+    }
+}
+
 @mixin _snippet-alert-headline-heading($slug) {
     //
     $slugAsNumber: if(meta.type-of($slug) == 'number', $slug, null);
@@ -54,7 +67,7 @@ $_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
         color: #{$color};
     }
 
-    > .alert-block__icon {
+    @include _snippet-alert-block-icon($withHeadline: false) {
         + * {
             margin-block-start: #{var-style(
                     alert-heading-#{$slug}-margin-block-start,
@@ -73,6 +86,27 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
         $recursive: true
     )
 );
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin snippet-alert-block-colours(
+    $background: var-style(alert-background),
+    $icon: var-style(alert-icon-color),
+    $border: var-style(alert-border-color),
+    $color: var-style(alert-color)
+) {
+    border-color: #{if($border == null, $icon, $border)};
+    background: #{$background};
+
+    > .alert-block__headline {
+        color: #{$color};
+    }
+
+    @include _snippet-alert-block-icon {
+        @include cx-prop(icon-color, $icon);
+    }
+}
 
 ///
 /// Adds support for icons, assuming the html matches that in the local astro
@@ -177,8 +211,7 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
 
                         border-color: #{var-theme(heading-#{$num})};
 
-                        > .alert-block__icon,
-                        > .alert-block__headline > .alert-block__icon {
+                        @include _snippet-alert-block-icon {
                             @include cx-prop(
                                 icon-color,
                                 var-theme(heading-#{$num})
@@ -258,8 +291,7 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
             }
         }
 
-        > .alert-block__icon,
-        > .alert-block__headline > .alert-block__icon {
+        @include _snippet-alert-block-icon {
             @include cx-prop(icon-color, var-style(alert-icon-color));
             @include cx-prop(icon-size, var-style(alert-icon-size));
             @include cx-prop(icon-size-large, var-style(alert-icon-size-large));
@@ -304,37 +336,26 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
                 &--icon-#{$variationKey},
                 &--background-#{$variationKey},
                 &.background-#{$variationKey} {
-                    // prettier-ignore
-                    //
-                    $background: if(
-                        theme-token-exists('background-#{$variationKey}'),
-                        var-theme('background-#{$variationKey}'),
-                        var-theme('background-grey')
+                    @include snippet-alert-block-colours(
+                        $background: if(
+                                theme-token-exists(
+                                    'background-#{$variationKey}'
+                                ),
+                                var-theme('background-#{$variationKey}'),
+                                var-theme('background-grey')
+                            ),
+                        $border: null,
+                        $color: if(
+                                theme-token-exists('text-#{$variationKey}'),
+                                var-theme('text-#{$variationKey}'),
+                                var-theme('text')
+                            ),
+                        $icon: if(
+                                theme-token-exists('ui-#{$variationKey}'),
+                                var-theme('ui-#{$variationKey}'),
+                                var-theme('ui')
+                            )
                     );
-
-                    $text: if(
-                        theme-token-exists('text-#{$variationKey}'),
-                        var-theme('text-#{$variationKey}'),
-                        var-theme('text')
-                    );
-
-                    $ui: if(
-                        theme-token-exists('ui-#{$variationKey}'),
-                        var-theme('ui-#{$variationKey}'),
-                        var-theme('ui')
-                    );
-
-                    border-color: #{$ui};
-                    background: #{$background};
-
-                    > .alert-block__headline {
-                        color: #{$text};
-                    }
-
-                    > .alert-block__icon,
-                    > .alert-block__headline > .alert-block__icon {
-                        @include cx-prop(icon-color, $ui);
-                    }
                 }
             }
 
@@ -354,6 +375,10 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
         %alert--icon-#{$slug} {
             @if meta.content-exists() {
                 @content ( 'alert-block--icon-#{$slug}' );
+
+                @include _snippet-alert-block-icon {
+                    @content ( 'alert-block--icon-#{$slug}--icon' );
+                }
             }
 
             @each $variationKey in $_activeTheme_textAndBackgroundKeys {
@@ -361,15 +386,17 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
                 @if $variationKey == ' ' {
                     &.background-#{$variationKey} {
                         @extend %alert--background-#{$variationKey};
+
+                        @if meta.content-exists() {
+                            @content ( 'alert-block--icon-#{$slug}--background-#{$variationKey}' );
+
+                            @include _snippet-alert-block-icon {
+                                @content ( 'alert-block--icon-#{$slug}--background-#{$variationKey}--icon' );
+                            }
+                        }
                     }
                 }
-
-                @if meta.content-exists() {
-                    @content ( 'alert-block--icon-#{$slug}--background-#{$variationKey}' );
-                }
             }
-            // @if list.index($_activeTheme_textAndBackgroundKeys, $slug) != null {
-            // }
         }
     }
 }

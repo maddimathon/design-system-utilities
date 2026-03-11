@@ -105,6 +105,12 @@
 
 @include set-flow-margins;
 
+%p {
+    &:empty {
+        display: none;
+    }
+}
+
 %aside {
     font-style: italic;
     color: #{var-theme(text-primary)};
@@ -193,6 +199,18 @@
             @include snippet-heading($num);
         }
     }
+}
+
+%unstyled-heading {
+    @include snippet-unstyled-heading;
+}
+
+%unstyled-heading--is {
+    @include snippet-unstyled-heading;
+}
+
+%unstyled-heading--where {
+    @include snippet-unstyled-heading;
 }
 
 %page-subtitle {

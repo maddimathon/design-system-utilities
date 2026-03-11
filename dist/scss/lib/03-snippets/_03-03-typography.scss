@@ -281,6 +281,61 @@
 }
 
 ///
+/// Resets heading styles to be a generic 'heading' instead of a level.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin snippet-unstyled-heading(
+    $color: var-style(heading-unstyled-color),
+    $fontFamily: var-style(heading-unstyled-font-family),
+    $fontStyle: var-style(heading-unstyled-font-style),
+    $fontWeight: var-style(heading-unstyled-font-weight),
+    $fontSize: var-style(heading-unstyled-font-size),
+    $letterSpacing: var-style(heading-unstyled-letter-spacing),
+    $lineHeight: var-style(heading-unstyled-line-height),
+    $textTransform: var-style(heading-unstyled-text-transform),
+    //
+     //
+) {
+    font-family: #{$fontFamily};
+    font-weight: #{$fontWeight};
+    font-size: #{$fontSize};
+
+    line-height: #{$lineHeight};
+
+    letter-spacing: #{$letterSpacing};
+
+    text-transform: #{$textTransform};
+    text-wrap: balance;
+
+    font-style: #{$fontStyle};
+
+    @if $fontStyle == italic {
+        em {
+            font-style: normal;
+
+            em {
+                font-style: italic;
+            }
+        }
+    } @else {
+        em {
+            font-style: italic;
+
+            em {
+                font-style: normal;
+
+                em {
+                    font-style: italic;
+                }
+            }
+        }
+    }
+
+    color: #{$color};
+}
+
+///
 /// Sets the paragraph margins using
 ///
 /// @since 0.1.0-beta.0.draft
@@ -289,12 +344,14 @@
     $defaultLevel: var-style(margin-flow),
     $largeLevel: var-style(margin-flow-large),
     $smallLevel: var-style(margin-flow-small),
+    //
+    $buttonGapBlock: null,
+    $buttonGapInline: null,
     $firmStartLevel: null,
     $firmStartLevel_large: null,
     $firmEndLevel: null,
     $firmEndLevel_large: null,
-    $buttonGapBlock: null,
-    $buttonGapInline: null
+    $unstyledHeadingLevel: null
 ) {
     @if $firmStartLevel == null {
         $firmStartLevel: $defaultLevel;
@@ -312,8 +369,24 @@
         $firmEndLevel_large: $firmStartLevel_large;
     }
 
+    @if $unstyledHeadingLevel == null {
+        $unstyledHeadingLevel: $largeLevel;
+    }
+
     %paragraph-margins {
         margin-block: #{var-mrg-soft($defaultLevel)} 0;
+    }
+
+    %unstyled-heading {
+        margin-block: #{var-mrg-soft($unstyledHeadingLevel)} 0;
+    }
+
+    %unstyled-heading--is {
+        margin-block: #{var-mrg-soft($unstyledHeadingLevel)} 0;
+    }
+
+    %unstyled-heading--where {
+        margin-block: #{var-mrg-soft($unstyledHeadingLevel)} 0;
     }
 
     %paragraph-large-margins {

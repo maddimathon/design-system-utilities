@@ -137,12 +137,12 @@ $_defaultHeadingSelectors_greaterThan6: ();
         $headingSelectors_bigOnly: $headingSelectors_bigOnly
     );
 
-    $headingSelectors_whereUnstyled: ();
+    $headingSelectors_isUnstyled: ();
 
     @each $sel in list.except($headingSelectors, '%unstyled-heading') {
-        $headingSelectors_whereUnstyled: list.append(
-            $headingSelectors_whereUnstyled,
-            (selector.nest($sel, '&:where( %unstyled-heading )')),
+        $headingSelectors_isUnstyled: list.append(
+            $headingSelectors_isUnstyled,
+            (selector.nest($sel, '&:is( %unstyled-heading )')),
             $separator: comma
         );
     }
@@ -157,7 +157,7 @@ $_defaultHeadingSelectors_greaterThan6: ();
         .toggle-title {
             &,
             & > %unstyled-heading,
-            & #{selector.nest( '>', #{$headingSelectors_whereUnstyled} )} {
+            & #{selector.nest( '>', #{$headingSelectors_isUnstyled} )} {
                 font-size: #{var-fs(heading-6)};
             }
         }

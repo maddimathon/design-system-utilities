@@ -765,6 +765,8 @@ export namespace Tokens_Themes_Set {
 
             heading: {
                 [ L in RequiredHeadingLevels ]: __T_ColourOption;
+            } & {
+                [ key: number ]: __T_ColourOption;
             };
 
             selection: {
@@ -924,6 +926,8 @@ export namespace Tokens_Themes_Set {
 
                 heading?: undefined | {
                     [ L in RequiredHeadingLevels ]?: undefined | __T_ColourOption;
+                } & {
+                    [ key: number ]: undefined | __T_ColourOption;
                 };
 
                 selection?: undefined | {
@@ -1103,6 +1107,8 @@ export namespace Tokens_Themes_Set {
 
                 heading: TokenTypes.Colour.AnyLevel<T_ColourTypes> | {
                     [ L in RequiredHeadingLevels ]: TokenTypes.Colour.AnyLevel<T_ColourTypes>;
+                } & {
+                    [ key: number ]: TokenTypes.Colour.AnyLevel<T_ColourTypes>;
                 };
             };
 

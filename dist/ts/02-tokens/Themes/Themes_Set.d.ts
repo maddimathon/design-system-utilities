@@ -171,6 +171,8 @@ export declare namespace Tokens_Themes_Set {
             };
             heading: {
                 [L in RequiredHeadingLevels]: __T_ColourOption;
+            } & {
+                [key: number]: __T_ColourOption;
             };
             selection: {
                 background: __T_ColourOption;
@@ -296,9 +298,11 @@ export declare namespace Tokens_Themes_Set {
                 } & {
                     [K in T_ThemeTypes['variations']['text']]?: undefined | __T_ColourOption;
                 };
-                heading?: undefined | {
+                heading?: undefined | ({
                     [L in RequiredHeadingLevels]?: undefined | __T_ColourOption;
-                };
+                } & {
+                    [key: number]: undefined | __T_ColourOption;
+                });
                 selection?: undefined | {
                     background: __T_ColourOption;
                     text: __T_ColourOption;
@@ -431,9 +435,11 @@ export declare namespace Tokens_Themes_Set {
                 background: TokenTypes.Colour.AnyLevel<T_ColourTypes> | Levels.Set.AccentBrightGrey<T_ColourTypes>;
                 text: TokenTypes.Colour.AnyLevel<T_ColourTypes> | Levels.Set.AccentMin<T_ColourTypes>;
                 ui: TokenTypes.Colour.AnyLevel<T_ColourTypes> | Levels.Set.AccentMin<T_ColourTypes>;
-                heading: TokenTypes.Colour.AnyLevel<T_ColourTypes> | {
+                heading: TokenTypes.Colour.AnyLevel<T_ColourTypes> | ({
                     [L in RequiredHeadingLevels]: TokenTypes.Colour.AnyLevel<T_ColourTypes>;
-                };
+                } & {
+                    [key: number]: TokenTypes.Colour.AnyLevel<T_ColourTypes>;
+                });
             }
             /**
              * Common object shapes used to set multiple level types.

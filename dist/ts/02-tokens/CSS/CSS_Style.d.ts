@@ -36,7 +36,7 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
      * @since 0.1.0-alpha
      * @since 0.1.0-beta.0.draft — Added partial param.
      */
-    static headingStyle(heading: number, partial?: NonNullable<Tokens_CSS_Style.InputParam['heading']>[number]): Tokens_CSS_Style.HeadingStyles;
+    static headingStyle<T_Key extends keyof Tokens_CSS_Style.Data['heading']>(heading: T_Key, partial?: NonNullable<Tokens_CSS_Style.InputParam['heading']>[T_Key]): Tokens_CSS_Style.HeadingStyles_Generic<T_Key>;
     /**
      * @since 0.1.0-beta.0.draft
      */
@@ -63,6 +63,7 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
             disabled: Tokens_CSS_Style.ButtonStyles_Disabled;
         };
         heading: {
+            unstyled: Tokens_CSS_Style.HeadingStyles_Unstyled;
             2: Tokens_CSS_Style.HeadingStyles;
             1: Tokens_CSS_Style.HeadingStyles;
             4: Tokens_CSS_Style.HeadingStyles;
@@ -126,16 +127,17 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
             disabled: Tokens_CSS_Style.ButtonStyles_Disabled;
         };
         readonly heading: {
-            2: Tokens_CSS_Style.HeadingStyles;
-            1: Tokens_CSS_Style.HeadingStyles;
-            4: Tokens_CSS_Style.HeadingStyles;
-            3: Tokens_CSS_Style.HeadingStyles;
-            7: Tokens_CSS_Style.HeadingStyles;
-            5: Tokens_CSS_Style.HeadingStyles;
-            6: Tokens_CSS_Style.HeadingStyles;
-            8: Tokens_CSS_Style.HeadingStyles;
-            9: Tokens_CSS_Style.HeadingStyles;
-            10: Tokens_CSS_Style.HeadingStyles;
+            readonly unstyled: Tokens_CSS_Style.HeadingStyles_Unstyled;
+            readonly 2: Tokens_CSS_Style.HeadingStyles;
+            readonly 1: Tokens_CSS_Style.HeadingStyles;
+            readonly 4: Tokens_CSS_Style.HeadingStyles;
+            readonly 3: Tokens_CSS_Style.HeadingStyles;
+            readonly 7: Tokens_CSS_Style.HeadingStyles;
+            readonly 5: Tokens_CSS_Style.HeadingStyles;
+            readonly 6: Tokens_CSS_Style.HeadingStyles;
+            readonly 8: Tokens_CSS_Style.HeadingStyles;
+            readonly 9: Tokens_CSS_Style.HeadingStyles;
+            readonly 10: Tokens_CSS_Style.HeadingStyles;
         };
         readonly icon: Tokens_CSS_Style.IconStyles;
         readonly input: {
@@ -314,9 +316,32 @@ export declare namespace Tokens_CSS_Style {
         'text-transform': CSS.TextTransform;
         margin: {
             block: {
-                start: AnyTokenLevel;
-                end: AnyTokenLevel;
+                start: "0" | AnyTokenLevel;
+                end: "0" | AnyTokenLevel;
             };
+        };
+    };
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    type HeadingStyles_Generic<T_Key extends keyof Tokens_CSS_Style.Data['heading']> = "unstyled" extends T_Key ? HeadingStyles_Unstyled : HeadingStyles;
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    type HeadingStyles_Unstyled = Omit<HeadingStyles, 'margin'> & {
+        /**
+         * This should be a theme slug.
+         */
+        color: string;
+        font: HeadingStyles['font'] & {
+            /**
+             * This should be a font family slug.
+             */
+            family: string;
+            /**
+             * This should be a font size slug.
+             */
+            size: string;
         };
     };
     /**
@@ -438,6 +463,8 @@ export declare namespace Tokens_CSS_Style {
             disabled: ButtonStyles_Disabled;
         };
         heading: {
+            unstyled: HeadingStyles_Unstyled;
+        } & {
             [L in RequiredHeadingLevels]: HeadingStyles;
         } & {
             [key: number]: HeadingStyles;
@@ -501,6 +528,8 @@ export declare namespace Tokens_CSS_Style {
             disabled?: RecursivePartial<ButtonStyles_Disabled>;
         };
         heading?: {
+            unstyled?: RecursivePartial<HeadingStyles_Unstyled>;
+        } & {
             [L in RequiredHeadingLevels]?: RecursivePartial<HeadingStyles>;
         } & {
             [key: number]: RecursivePartial<HeadingStyles>;

@@ -33,6 +33,9 @@ export type Props = GenericElementProps<AlertProps, 'section'>;
 const { icon, class: classList = [], ...attributes }: Props = Astro.props;
 
 /* CONSTANTS ===================================== */
+
+// @ts-expect-error
+attributes.slug = icon.slug;
 ---
 
 <UtilsAlert

@@ -227,12 +227,12 @@ export class Tokens_CSS_Style extends AbstractTokens<{
      * @since 0.1.0-alpha
      * @since ___PKG_VERSION___ — Added partial param.
      */
-    public static headingStyle(
-        heading: number,
-        partial?: NonNullable<Tokens_CSS_Style.InputParam[ 'heading' ]>[ number ],
-    ): Tokens_CSS_Style.HeadingStyles {
+    public static headingStyle<T_Key extends keyof Tokens_CSS_Style.Data[ 'heading' ]>(
+        heading: T_Key,
+        partial?: NonNullable<Tokens_CSS_Style.InputParam[ 'heading' ]>[ T_Key ],
+    ): Tokens_CSS_Style.HeadingStyles_Generic<T_Key> {
 
-        heading = heading < 1 ? 11 : heading;
+        const headingAsNum = ( typeof heading === 'number' && heading >= 1 ) ? heading : 11;
 
         const style: Tokens_CSS_Style.HeadingStyles = {
 
@@ -253,7 +253,28 @@ export class Tokens_CSS_Style extends AbstractTokens<{
             },
         };
 
+        // returns for 'unstyled'
         switch ( heading ) {
+
+            case 'unstyled':
+                return mergeArgs(
+                    {
+                        color: 'text-primary',
+
+                        font: {
+                            ...style.font,
+                            family: 'body',
+                            size: 'normal',
+                        },
+
+                        'letter-spacing': style[ 'letter-spacing' ],
+                        'line-height': style[ 'line-height' ],
+                        'text-transform': style[ 'text-transform' ],
+
+                    } satisfies Tokens_CSS_Style.HeadingStyles_Unstyled,
+                    partial,
+                    true,
+                ) satisfies Tokens_CSS_Style.HeadingStyles_Unstyled as Tokens_CSS_Style.HeadingStyles_Generic<T_Key>;
 
             case 1:
                 style.font.weight = '900';
@@ -292,7 +313,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                 break;
         }
 
-        if ( heading >= 7 ) {
+        if ( headingAsNum >= 7 ) {
             style.font.weight = '500';
             style.font.style = 'normal';
 
@@ -301,16 +322,16 @@ export class Tokens_CSS_Style extends AbstractTokens<{
             style[ 'text-transform' ] = 'uppercase';
         }
 
-        if ( heading >= 8 ) {
+        if ( headingAsNum >= 8 ) {
             style.font.style = 'italic';
         }
 
-        if ( heading >= 9 ) {
+        if ( headingAsNum >= 9 ) {
             style.margin.block.start = '500';
             style[ 'line-height' ] = '500';
         }
 
-        return mergeArgs( style, partial, true );
+        return mergeArgs( style, partial, true ) satisfies Tokens_CSS_Style.HeadingStyles as Tokens_CSS_Style.HeadingStyles_Generic<T_Key>;
     }
 
     /**
@@ -459,10 +480,13 @@ export class Tokens_CSS_Style extends AbstractTokens<{
             alert: Tokens_CSS_Style.alertStyle( partial.alert ),
             button: Tokens_CSS_Style.buttonStyle( partial.button ),
 
-            heading: objectGenerator(
-                [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const,
-                ( hdg ) => Tokens_CSS_Style.headingStyle( hdg, partial.heading?.[ hdg ] )
-            ),
+            heading: {
+                ...objectGenerator(
+                    [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const,
+                    ( hdg ) => Tokens_CSS_Style.headingStyle( hdg, partial.heading?.[ hdg ] )
+                ),
+                unstyled: Tokens_CSS_Style.headingStyle( 'unstyled', partial.heading?.unstyled ),
+            },
 
             icon: Tokens_CSS_Style.iconStyle( partial.icon ),
 
@@ -501,10 +525,13 @@ export class Tokens_CSS_Style extends AbstractTokens<{
 
             button: Tokens_CSS_Style.buttonStyle(),
 
-            heading: objectGenerator(
-                [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const,
-                ( hdg ) => Tokens_CSS_Style.headingStyle( hdg )
-            ),
+            heading: {
+                ...objectGenerator(
+                    [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const,
+                    ( hdg ) => Tokens_CSS_Style.headingStyle( hdg )
+                ),
+                unstyled: Tokens_CSS_Style.headingStyle( 'unstyled' ),
+            },
 
             icon: Tokens_CSS_Style.iconStyle(),
 
@@ -733,9 +760,39 @@ export namespace Tokens_CSS_Style {
 
         margin: {
             block: {
-                start: AnyTokenLevel;
-                end: AnyTokenLevel;
+                start: "0" | AnyTokenLevel;
+                end: "0" | AnyTokenLevel;
             };
+        };
+    };
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export type HeadingStyles_Generic<T_Key extends keyof Tokens_CSS_Style.Data[ 'heading' ]> =
+        "unstyled" extends T_Key
+        ? HeadingStyles_Unstyled
+        : HeadingStyles;
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export type HeadingStyles_Unstyled = Omit<HeadingStyles, 'margin'> & {
+        /**
+         * This should be a theme slug.
+         */
+        color: string;
+
+        font: HeadingStyles[ 'font' ] & {
+            /**
+             * This should be a font family slug.
+             */
+            family: string;
+
+            /**
+             * This should be a font size slug.
+             */
+            size: string;
         };
     };
 
@@ -892,6 +949,8 @@ export namespace Tokens_CSS_Style {
         };
 
         heading: {
+            unstyled: HeadingStyles_Unstyled;
+        } & {
             [ L in RequiredHeadingLevels ]: HeadingStyles;
         } & {
             [ key: number ]: HeadingStyles;
@@ -967,6 +1026,8 @@ export namespace Tokens_CSS_Style {
         };
 
         heading?: {
+            unstyled?: RecursivePartial<HeadingStyles_Unstyled>;
+        } & {
             [ L in RequiredHeadingLevels ]?: RecursivePartial<HeadingStyles>;
         } & {
             [ key: number ]: RecursivePartial<HeadingStyles>;
