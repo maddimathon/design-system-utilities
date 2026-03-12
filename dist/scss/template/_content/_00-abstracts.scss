@@ -15,17 +15,17 @@
     $level: config.$template_debug_checkpointsLevel
 );
 
-@if config.$template_print_normalize {
+@if map.get(config.$template_styles, normalize) {
     @include normalize;
 }
 
-@if config.$template_print_tokens {
+@if config.$template_tokens {
     @include debug-checkpoint(
         'design-system-utilities/#{config.$template_slug} - tokens start',
         $level: config.$template_debug_checkpointsLevel
     );
 
-    @if config.$template_include_cssHeadings {
+    @if config.$template_cssHeadings {
         /* # TOKENS & PROPERTIES
          * ======================================================================== */
     }
@@ -41,8 +41,8 @@
     );
 }
 
-@if map.get(config.$template_print_styles, keyframes) {
-    @if config.$template_include_cssHeadings {
+@if map.get(config.$template_styles, keyframes) {
+    @if config.$template_cssHeadings {
         /* # ANIMATIONS
          * ======================================================================== */
     }

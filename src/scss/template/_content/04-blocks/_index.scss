@@ -3,6 +3,8 @@
 /// @since 0.1.0-alpha
 ///
 
+@use 'sass:map';
+
 @use '../config';
 
 @use '../../../lib' as *;
@@ -12,29 +14,14 @@
     $level: config.$template_debug_checkpointsLevel
 );
 
-@if config.$template_print_logos {
-    @include debug-checkpoint(
-        '#{config.$template_slug} - blocks - logos start',
-        $level: config.$template_debug_checkpointsLevel + 1,
-        $verbose: true
-    );
-
-    @if config.$template_include_cssHeadings {
-        /* # BLOCKS - LOGOS
-         * ======================================================================== */
-    }
-
-    @include snippet-support-logos;
-}
-
-@if config.$template_print_icons {
+@if map.get(config.$template_styles, icons) {
     @include debug-checkpoint(
         '#{config.$template_slug} - blocks - icons start',
         $level: config.$template_debug_checkpointsLevel + 1,
         $verbose: true
     );
 
-    @if config.$template_include_cssHeadings {
+    @if config.$template_cssHeadings {
         /* # BLOCKS - ICONS
          * ======================================================================== */
     }
@@ -42,14 +29,29 @@
     @include snippet-support-icons;
 }
 
-@if config.$template_print_alertBlocks {
+@if map.get(config.$template_styles, logos) {
+    @include debug-checkpoint(
+        '#{config.$template_slug} - blocks - logos start',
+        $level: config.$template_debug_checkpointsLevel + 1,
+        $verbose: true
+    );
+
+    @if config.$template_cssHeadings {
+        /* # BLOCKS - LOGOS
+         * ======================================================================== */
+    }
+
+    @include snippet-support-logos;
+}
+
+@if map.get(config.$template_styles, alertBlocks) {
     @include debug-checkpoint(
         '#{config.$template_slug} - blocks - alerts start',
         $level: config.$template_debug_checkpointsLevel + 1,
         $verbose: true
     );
 
-    @if config.$template_include_cssHeadings {
+    @if config.$template_cssHeadings {
         /* # BLOCKS - ALERTS
          * ======================================================================== */
     }
@@ -57,14 +59,14 @@
     @include snippet-support-alert-blocks;
 }
 
-@if config.$template_print_sidebarWidgets {
+@if map.get(config.$template_styles, sidebarWidgets) {
     @include debug-checkpoint(
         '#{config.$template_slug} - blocks - sidebar widgets start',
         $level: config.$template_debug_checkpointsLevel + 1,
         $verbose: true
     );
 
-    @if config.$template_include_cssHeadings {
+    @if config.$template_cssHeadings {
         /* # BLOCKS - SIDEBAR & WIDGETS
          * ======================================================================== */
     }
@@ -72,14 +74,14 @@
     @include snippet-support-sidebar-widgets;
 }
 
-@if config.$template_print_toggleBlock {
+@if map.get(config.$template_styles, toggle) {
     @include debug-checkpoint(
         '#{config.$template_slug} - blocks - toggle start',
         $level: config.$template_debug_checkpointsLevel + 1,
         $verbose: true
     );
 
-    @if config.$template_include_cssHeadings {
+    @if config.$template_cssHeadings {
         /* # BLOCKS - TOGGLE
          * ======================================================================== */
     }
@@ -87,14 +89,14 @@
     @include snippet-support-toggle-block;
 }
 
-@if config.$template_print_astro_toggleNav {
+@if map.get(config.$template_styles, astro, toggleNav) {
     @include debug-checkpoint(
         '#{config.$template_slug} - blocks - toggleNav start',
         $level: config.$template_debug_checkpointsLevel + 1,
         $verbose: true
     );
 
-    @if config.$template_include_cssHeadings {
+    @if config.$template_cssHeadings {
         /* # ASTRO COMPONENT - TOGGLE NAV MENU
          * ======================================================================== */
     }
@@ -102,31 +104,31 @@
     @include snippet-support-astro-toggle-nav-menu;
 }
 
-@if config.$template_print_astro_stickyToggleNav {
+@if map.get(config.$template_styles, astro, stickyToggleNav) {
     @include debug-checkpoint(
         '#{config.$template_slug} - blocks - stickyToggleNav start',
         $level: config.$template_debug_checkpointsLevel + 1,
         $verbose: true
     );
 
-    @if config.$template_include_cssHeadings {
+    @if config.$template_cssHeadings {
         /* # ASTRO SUPPORT - STICKY TOGGLE NAV
          * ======================================================================== */
     }
 
     @include snippet-support-astro-sticky-toggle-nav(
-        $includeToggleNavSupport: not config.$template_print_astro_toggleNav
+        $includeToggleNavSupport: not map.get(config.$template_styles, astro, toggleNav)
     );
 }
 
-@if config.$template_print_siteSettingsMenu {
+@if map.get(config.$template_styles, siteSettingsMenu) {
     @include debug-checkpoint(
         '#{config.$template_slug} - blocks - settingsMenu start',
         $level: config.$template_debug_checkpointsLevel + 1,
         $verbose: true
     );
 
-    @if config.$template_include_cssHeadings {
+    @if config.$template_cssHeadings {
         /* # BLOCKS - SETTINGS MENU
          * ======================================================================== */
     }
@@ -141,7 +143,7 @@
         $verbose: true
     );
 
-    @if config.$template_include_cssHeadings {
+    @if config.$template_cssHeadings {
         /* ## Blocks - Settings Menu - Font Overrides ==================================== */
     }
 

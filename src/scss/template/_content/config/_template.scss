@@ -5,6 +5,8 @@
 
 @forward 'utility-astro';
 
+@use 'sass:map';
+
 @use 'utility-astro' as utils;
 
 ///
@@ -14,36 +16,9 @@ $template_debug_checkpointsLevel: 6 !default;
 
 ///
 /// @since 0.1.0-alpha
-/// @since ___PKG_VERSION___ — Renamed from $print_alertBlocks to $template_print_alertBlocks and moved to template config.
+/// @since ___PKG_VERSION___ — Renamed from $template_astro_settingsMenu_fontOverrides to $template_print_siteSettingsMenu_fontOverrides and moved to template config.
 ///
-$template_print_alertBlocks: utils.$template_print_utils or utils.$template_print_astro !default;
-
-///
-/// @since 0.1.0-alpha
-///
-$template_print_astro_stickyToggleNav: utils.$template_print_astro_toggleNav !default;
-
-///
-/// @since 0.1.0-alpha
-/// @since ___PKG_VERSION___ — Renamed from $template_print_astro_settingsMenu_fontOverrides to $template_print_siteSettingsMenu_fontOverrides and moved to template config.
-///
-$template_print_siteSettingsMenu_fontOverrides: utils.$template_print_siteSettingsMenu !default;
-
-///
-/// @since 0.1.0-alpha
-/// @since ___PKG_VERSION___ — Renamed from $print_icons to $template_print_icons and moved to template config.
-///
-$template_print_icons: utils.$template_print_utils or utils.$template_print_astro or
-    $template_print_alertBlocks !default;
-
-///
-/// @since 0.1.0-alpha
-/// @since ___PKG_VERSION___ — Renamed from $print_logos to $template_print_logos and moved to template config.
-///
-$template_print_logos: $template_print_icons or utils.$template_print_utils or
-    utils.$template_print_astro or $template_print_alertBlocks !default;
-
-///
-/// @since ___PKG_VERSION___
-///
-$template_print_sidebarWidgets: utils.$template_print_astro or utils.$template_print_docs !default;
+$template_print_siteSettingsMenu_fontOverrides: map.get(
+    utils.$template_styles,
+    siteSettingsMenu
+) !default;

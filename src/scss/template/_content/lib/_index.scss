@@ -92,7 +92,7 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
         );
     }
 
-    @if config.$template_print_docs {
+    @if config.$template_docs {
         $additional_optional: list.join(
             $additional_optional,
             (
@@ -136,7 +136,7 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
     $additional: list.append($additional, ('.text-align-end', 'text-align-end'));
     $additional: list.append($additional, ('.text-align-start', 'text-align-start'));
 
-    @if config.$template_print_docs {
+    @if config.$template_docs {
         $additional: list.append($additional, ('.site-content .button-span', 'button-span'));
     }
 
@@ -283,7 +283,7 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
     $add_utils_optional: (),
     $allHeadingLevels: token-all-heading-levels()
 ) {
-    @if config.$template_print_globals {
+    @if config.$template_globals {
         @include extend-selectors-globals(
             $additional: $add_globals,
             $additional_optional: $add_globals_optional,
@@ -292,7 +292,7 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
         );
     }
 
-    @if config.$template_print_utils {
+    @if config.$template_utils {
         @include extend-selectors-utils(
             $additional: $add_utils,
             $additional_optional: $add_utils_optional,

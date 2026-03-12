@@ -3,33 +3,39 @@
 /// @since 0.1.0-beta.0.draft
 ///
 
+@use 'sass:map';
+
 @use '_pre' as pre;
 
 @forward 'pkg:@maddimathon/utility-astro/template/config' with (
     $template_extendSelectors: false,
-    $template_include_cssHeadings: pre.$template_include_cssHeadings,
+    $template_cssHeadings: pre.$template_cssHeadings,
 
     $template_isDefault: true,
     $template_name: 'Default',
     $template_slug: 'default',
 
-    $template_print_docBlock: false,
-    $template_print_astro: pre.$template_print_astro,
-    $template_print_globals: pre.$template_print_globals,
-    $template_print_normalize: false,
-    $template_print_tokens: false,
-    $template_print_utils: pre.$template_print_utils,
+    $template_docBlock: false,
+    $template_astro: pre.$template_astro,
+    $template_globals: pre.$template_globals,
+    $template_tokens: false,
+    $template_utils: pre.$template_utils,
 
-    $template_print_astro_toggleNav: false,
-    $template_print_icons: false,
-    $template_print_skipLinks: false,
-    $template_print_siteSettingsMenu: false,
-    $template_print_toggleBlock: false,
-
-    $template_print_styles: (
-        'buttons': false,
-        'headings': false,
-    ),
+    $template_styles: map.deep-merge(
+            pre.$template_styles,
+            (
+                astro: (
+                    toggleNav: false,
+                ),
+                buttons: false,
+                headings: false,
+                icons: false,
+                normalize: false,
+                siteSettingsMenu: false,
+                skipLinks: false,
+                toggle: false,
+            )
+        ),
     //
      //
 );

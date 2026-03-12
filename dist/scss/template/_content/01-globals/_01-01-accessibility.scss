@@ -3,21 +3,21 @@
 /// @since 0.1.0-beta.0.draft
 ///
 
-// @use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/map';
 
 @use '../config';
 @use '../../../tokens';
 
 @use '../../../lib' as *;
 
-@if config.$template_print_skipLinks {
+@if map.get(config.$template_styles, skipLinks) {
     @include debug-checkpoint(
         '#{config.$template_slug} - globals - skipLinks start',
         $level: config.$template_debug_checkpointsLevel + 1,
         $verbose: true
     );
 
-    @if config.$template_include_cssHeadings {
+    @if config.$template_cssHeadings {
         /* # ACCESSIBILITY - SKIP LINKS
          * ======================================================================== */
     }

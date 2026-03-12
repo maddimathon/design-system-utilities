@@ -4712,7 +4712,8 @@ button,
 [role="button"],
 input[type="button"],
 input[type="reset"],
-input[type="submit"] {
+input[type="submit"],
+a.button[href] {
     --focus-ring-outline-offset: 0.125em;
     --display: flex;
     display: flex;
@@ -4765,7 +4766,8 @@ button,
 [role="button"],
 input[type="button"],
 input[type="reset"],
-input[type="submit"] {
+input[type="submit"],
+a.button[href] {
     --focus-ring-outline-color: var(
         --theme-button-primary-outline,
         SelectedItem
@@ -4787,7 +4789,8 @@ button:hover,
 [role="button"]:hover,
 input[type="button"]:hover,
 input[type="reset"]:hover,
-input[type="submit"]:hover {
+input[type="submit"]:hover,
+a.button[href]:hover {
     --focus-ring-outline-color: var(
         --theme-button-primary-outline-hover,
         SelectedItem
@@ -4815,7 +4818,8 @@ button:focus,
 [role="button"]:focus,
 input[type="button"]:focus,
 input[type="reset"]:focus,
-input[type="submit"]:focus {
+input[type="submit"]:focus,
+a.button[href]:focus {
     --focus-ring-outline-color: var(
         --theme-button-primary-outline-hover,
         SelectedItem
@@ -4844,7 +4848,8 @@ button:focus-within,
 [role="button"]:focus-within,
 input[type="button"]:focus-within,
 input[type="reset"]:focus-within,
-input[type="submit"]:focus-within {
+input[type="submit"]:focus-within,
+a.button[href]:focus-within {
     --focus-ring-outline-color: var(
         --theme-button-primary-outline-hover,
         SelectedItem
@@ -4873,7 +4878,8 @@ button:active,
 [role="button"]:active,
 input[type="button"]:active,
 input[type="reset"]:active,
-input[type="submit"]:active {
+input[type="submit"]:active,
+a.button[href]:active {
     --focus-ring-outline-color: var(
         --theme-button-primary-outline-active,
         ButtonFace
@@ -4895,7 +4901,8 @@ button:empty:not(input),
 [role="button"]:empty:not(input),
 input[type="button"]:empty:not(input),
 input[type="reset"]:empty:not(input),
-input[type="submit"]:empty:not(input) {
+input[type="submit"]:empty:not(input),
+a.button[href]:empty:not(input) {
     padding-left: 0.3125em;
     padding-right: 0.3125em;
 }
@@ -4904,11 +4911,13 @@ button:has(> .icon:only-child),
 input[type="button"]:has(> .icon:only-child),
 input[type="reset"]:has(> .icon:only-child),
 input[type="submit"]:has(> .icon:only-child),
+a.button[href]:has(> .icon:only-child),
 button:has(> .logo:only-child),
 [role="button"]:has(> .logo:only-child),
 input[type="button"]:has(> .logo:only-child),
 input[type="reset"]:has(> .logo:only-child),
-input[type="submit"]:has(> .logo:only-child) {
+input[type="submit"]:has(> .logo:only-child),
+a.button[href]:has(> .logo:only-child) {
     padding-left: 0.3125em;
     padding-right: 0.3125em;
 }
@@ -4917,11 +4926,13 @@ button[aria-disabled="true"],
 input[aria-disabled="true"][type="button"],
 input[aria-disabled="true"][type="reset"],
 input[aria-disabled="true"][type="submit"],
+a[aria-disabled="true"].button[href],
 button[disabled],
 [disabled][role="button"],
 input[disabled][type="button"],
 input[disabled][type="reset"],
-input[disabled][type="submit"] {
+input[disabled][type="submit"],
+a[disabled].button[href] {
     border-radius: 0;
     border-style: dashed;
     font-weight: 500;
@@ -4935,11 +4946,13 @@ button[aria-disabled="true"],
 input[aria-disabled="true"][type="button"],
 input[aria-disabled="true"][type="reset"],
 input[aria-disabled="true"][type="submit"],
+a[aria-disabled="true"].button[href],
 button[disabled],
 [disabled][role="button"],
 input[disabled][type="button"],
 input[disabled][type="reset"],
-input[disabled][type="submit"] {
+input[disabled][type="submit"],
+a[disabled].button[href] {
     --focus-ring-outline-color: var(
         --theme-button-disabled-outline,
         SelectedItem
@@ -4962,11 +4975,13 @@ button[aria-disabled="true"]:hover,
 input[aria-disabled="true"][type="button"]:hover,
 input[aria-disabled="true"][type="reset"]:hover,
 input[aria-disabled="true"][type="submit"]:hover,
+a[aria-disabled="true"].button[href]:hover,
 button[disabled]:hover,
 [disabled][role="button"]:hover,
 input[disabled][type="button"]:hover,
 input[disabled][type="reset"]:hover,
-input[disabled][type="submit"]:hover {
+input[disabled][type="submit"]:hover,
+a[disabled].button[href]:hover {
     --focus-ring-outline-color: var(
         --theme-button-disabled-outline-hover,
         SelectedItem
@@ -4995,11 +5010,13 @@ button[aria-disabled="true"]:focus,
 input[aria-disabled="true"][type="button"]:focus,
 input[aria-disabled="true"][type="reset"]:focus,
 input[aria-disabled="true"][type="submit"]:focus,
+a[aria-disabled="true"].button[href]:focus,
 button[disabled]:focus,
 [disabled][role="button"]:focus,
 input[disabled][type="button"]:focus,
 input[disabled][type="reset"]:focus,
-input[disabled][type="submit"]:focus {
+input[disabled][type="submit"]:focus,
+a[disabled].button[href]:focus {
     --focus-ring-outline-color: var(
         --theme-button-disabled-outline-hover,
         SelectedItem
@@ -5030,11 +5047,13 @@ button[aria-disabled="true"]:focus-within,
 input[aria-disabled="true"][type="button"]:focus-within,
 input[aria-disabled="true"][type="reset"]:focus-within,
 input[aria-disabled="true"][type="submit"]:focus-within,
+a[aria-disabled="true"].button[href]:focus-within,
 button[disabled]:focus-within,
 [disabled][role="button"]:focus-within,
 input[disabled][type="button"]:focus-within,
 input[disabled][type="reset"]:focus-within,
-input[disabled][type="submit"]:focus-within {
+input[disabled][type="submit"]:focus-within,
+a[disabled].button[href]:focus-within {
     --focus-ring-outline-color: var(
         --theme-button-disabled-outline-hover,
         SelectedItem
@@ -5065,11 +5084,13 @@ button[aria-disabled="true"]:active,
 input[aria-disabled="true"][type="button"]:active,
 input[aria-disabled="true"][type="reset"]:active,
 input[aria-disabled="true"][type="submit"]:active,
+a[aria-disabled="true"].button[href]:active,
 button[disabled]:active,
 [disabled][role="button"]:active,
 input[disabled][type="button"]:active,
 input[disabled][type="reset"]:active,
-input[disabled][type="submit"]:active {
+input[disabled][type="submit"]:active,
+a[disabled].button[href]:active {
     --focus-ring-outline-color: var(
         --theme-button-disabled-outline-active,
         ButtonFace
@@ -5094,7 +5115,8 @@ button *,
 [role="button"] *,
 input[type="button"] *,
 input[type="reset"] *,
-input[type="submit"] * {
+input[type="submit"] *,
+a.button[href] * {
     --icon-color: inherit !important;
     color: inherit !important;
 }
@@ -5103,16 +5125,19 @@ button code,
 input[type="button"] code,
 input[type="reset"] code,
 input[type="submit"] code,
+a.button[href] code,
 button kbd,
 [role="button"] kbd,
 input[type="button"] kbd,
 input[type="reset"] kbd,
 input[type="submit"] kbd,
+a.button[href] kbd,
 button samp,
 [role="button"] samp,
 input[type="button"] samp,
 input[type="reset"] samp,
-input[type="submit"] samp {
+input[type="submit"] samp,
+a.button[href] samp {
     padding: 0;
     font-weight: inherit;
     font-style: inherit;
