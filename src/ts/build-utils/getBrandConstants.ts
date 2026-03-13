@@ -98,7 +98,7 @@ export namespace getBrandConstants {
         type MapperFn<A extends any[] = typeof entries.all> = ( _: ArrayItem<A> ) => [ string, string ];
 
         const cssGetter = ( value: ArrayItem<typeof entries.all>[ 1 ] ): string =>
-            value.svgCssEmbedded.replace( /\s*\n+\s*/g, '' );
+            value.svgCssEmbedded.replace( /\s*\n+\s*/g, ' ' );
 
         if ( include.base64 ) {
             const base64Fn = args.valueMappers?.base64;
@@ -180,11 +180,11 @@ export namespace getBrandConstants {
             const mapper: MapperFn = typeof svgFn === 'function'
                 ? ( [ key, value ] ) => [
                     keyFn( key ),
-                    svgFn( value.svgInlineLabelled.replace( /\s*\n+\s*/g, '' ) ),
+                    svgFn( value.svgInlineLabelled.replace( /\s*\n+\s*/g, ' ' ) ),
                 ]
                 : ( [ key, value ] ) => [
                     keyFn( key ),
-                    value.svgInlineLabelled.replace( /\s*\n+\s*/g, '' ),
+                    value.svgInlineLabelled.replace( /\s*\n+\s*/g, ' ' ),
                 ];
 
             /**

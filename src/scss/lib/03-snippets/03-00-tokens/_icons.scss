@@ -65,6 +65,9 @@ $_allUniqueIconAspectRatios: ();
         @if $location == root {
             position: relative;
             color: #{$color};
+            transition:
+                color #{var-tr-time(fast)} ease-in-out,
+                fill #{var-tr-time(fast)} ease-in-out;
         } @else if $location == svg {
             fill: currentColor;
         }

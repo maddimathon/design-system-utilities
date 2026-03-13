@@ -5521,6 +5521,10 @@ a[disabled][href]:active {
         align-self: center;
     }
 }
+a.no-pseudo[href]::before,
+a.no-pseudo[href]::after {
+    content: none !important;
+}
 
 abbr[title] {
     -webkit-text-decoration: dotted underline 0.15625em;
@@ -9318,6 +9322,9 @@ blockquote + .margins-flow-paragraph-small,
     position: relative;
     color: hsl(339.45, 0%, 17.88%);
     color: var(--icon-color, var(--theme-ui, CanvasText));
+    transition:
+        color 250ms ease-in-out,
+        fill 250ms ease-in-out;
 }
 .icon > svg {
     --display: inline-block;
@@ -9760,6 +9767,9 @@ blockquote + .margins-flow-paragraph-small,
     color: hsl(278.16, 60.54%, 30.06%);
     color: var(--theme-text-primary, CanvasText);
     vertical-align: middle;
+    transition:
+        color 250ms ease-in-out,
+        fill 250ms ease-in-out;
 }
 .brand-logo > svg {
     --display: block;

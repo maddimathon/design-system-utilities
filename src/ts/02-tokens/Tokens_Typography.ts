@@ -8,6 +8,9 @@
  * @license MIT
  */
 
+import NodeFS from 'node:fs';
+import NodePath from 'node:path';
+
 import type { RecursivePartial } from '@maddimathon/utility-typescript/types';
 import {
     arrayUnique,
@@ -231,19 +234,40 @@ export class Tokens_Typography<
                 fallbacks = arrayUnique( fallbacks );
             }
 
+            let woffSrcPath: null | string = null;
+
             const sources = objectMap(
                 font.path,
-                ( [ type, paths ] ) => typeof paths === 'undefined'
-                    ? []
-                    : (
-                        Array.isArray( paths ) ? paths : [ paths ]
-                    ).map(
+                ( [ type, paths ] ) => {
+                    // returns
+                    if ( typeof paths === 'undefined' ) {
+                        return [];
+                    }
+
+                    const pathsArr = Array.isArray( paths ) ? paths : [ paths ];
+
+                    if ( type == 'woff' ) {
+                        woffSrcPath = pathsArr[ 0 ] ?? null;
+                    }
+
+                    return pathsArr.map(
                         ( path ) => ( {
                             type: type == 'ttf' ? 'truetype' as const : type,
                             path,
                         } )
-                    )
+                    );
+                }
             );
+
+            let base64: null | string = null;
+
+            if ( woffSrcPath ) {
+                woffSrcPath = NodePath.resolve( 'src/assets/fonts', woffSrcPath );
+
+                if ( NodeFS.existsSync( woffSrcPath ) ) {
+                    base64 = NodeFS.readFileSync( woffSrcPath, { encoding: 'base64' } );
+                }
+            }
 
             return {
 
@@ -265,6 +289,8 @@ export class Tokens_Typography<
                     truetype: sources.ttf,
                     ttf: undefined,
                 } ).flat().filter( v => typeof v !== 'undefined' ),
+
+                base64: base64 ? `url(data:font/woff;base64,${ base64 })` : undefined,
             };
         };
 
@@ -510,6 +536,12 @@ export namespace Tokens_Typography {
                 type: "local" | "truetype" | "woff" | "woff2";
                 path: string;
             }[];
+
+            /**
+             * This should be the full URL value e.g., `url(data:font/woff;base64,)`
+             */
+            base64: undefined | string;
+
             style: "normal" | "italic";
             weight: WholeTokenLevel | `${ '000' | WholeTokenLevel } ${ WholeTokenLevel | '1000' }`;
 

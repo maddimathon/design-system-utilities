@@ -62,7 +62,13 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
                     } @else if $prop == style or $prop == weight {
                         font-#{$prop}: #{$value};
                     } @else if $prop == src {
-                        src: #{_font-src-list($value, $isVariable: $isVariable)};
+                        @if not config.$mx_tokens_fontFace_asBase64 {
+                            src: #{_font-src-list($value, $isVariable: $isVariable)};
+                        }
+                    } @else if $prop == base64 {
+                        @if config.$mx_tokens_fontFace_asBase64 {
+                            src: #{$value};
+                        }
                     } @else {
                         #{$prop}: #{$value};
                     }

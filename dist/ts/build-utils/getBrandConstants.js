@@ -49,7 +49,7 @@ export var getBrandConstants;
             }
             return 0;
         });
-        const cssGetter = (value) => value.svgCssEmbedded.replace(/\s*\n+\s*/g, '');
+        const cssGetter = (value) => value.svgCssEmbedded.replace(/\s*\n+\s*/g, ' ');
         if (include.base64) {
             const base64Fn = args.valueMappers?.base64;
             const keyFn = args.keyMappers?.base64 ?? ((key) => key);
@@ -107,11 +107,11 @@ export var getBrandConstants;
             const mapper = typeof svgFn === 'function'
                 ? ([key, value]) => [
                     keyFn(key),
-                    svgFn(value.svgInlineLabelled.replace(/\s*\n+\s*/g, '')),
+                    svgFn(value.svgInlineLabelled.replace(/\s*\n+\s*/g, ' ')),
                 ]
                 : ([key, value]) => [
                     keyFn(key),
-                    value.svgInlineLabelled.replace(/\s*\n+\s*/g, ''),
+                    value.svgInlineLabelled.replace(/\s*\n+\s*/g, ' '),
                 ];
             /**
              * Labelled SVG code for inline html use.

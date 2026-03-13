@@ -109,7 +109,7 @@
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@mixin snippet-link-colors-inherit(
+@mixin snippet-link-colours-inherit(
     $color: inherit,
     $iconColor: do-var(icon-color),
     $textDecorationColor: var-theme(link-decoration),
@@ -122,22 +122,13 @@
     //
      //
 ) {
-    @include cx-prop(icon-color, $iconColor);
-    text-decoration-color: #{$textDecorationColor};
-    color: #{$color};
-
-    $location: root;
-    // prettier-ignore
-    @content($location);
-
+    &,
     &:visited {
-        @include cx-prop(icon-color, var-theme(link-icon-visited));
-        text-decoration-color: #{var-theme(link-decoration-visited)};
-        color: #{var-theme(link-visited)};
+        @include cx-prop(icon-color, $iconColor);
+        text-decoration-color: #{$textDecorationColor};
+        color: #{$color};
 
-        $location: visited;
-        // prettier-ignore
-        @content($location);
+        @content (root);
     }
 
     @include hover-focus-visible() {
@@ -145,9 +136,7 @@
         text-decoration-color: #{var-theme(link-decoration-hover)};
         color: #{var-theme(link-hover)};
 
-        $location: hover-focus;
-        // prettier-ignore
-        @content($location);
+        @content (hover-focus);
     }
 
     &:active {
@@ -155,9 +144,7 @@
         text-decoration-color: #{var-theme(link-decoration-active)};
         color: #{var-theme(link-active)};
 
-        $location: active;
-        // prettier-ignore
-        @content($location);
+        @content (active);
     }
 
     @if $includeDisabled {
@@ -167,18 +154,14 @@
             text-decoration-color: #{$textDecorationColor_disabled};
             color: #{$color_disabled};
 
-            $location: disabled-root;
-            // prettier-ignore
-            @content($location);
+            @content (disabled-root);
 
             @include hover-focus-visible() {
                 @include cx-prop(icon-color, var-theme(link-icon-hover));
                 text-decoration-color: #{var-theme(link-decoration-hover)};
                 color: #{var-theme(link-hover)};
 
-                $location: disabled-hover-focus;
-                // prettier-ignore
-                @content($location);
+                @content (disabled-hover-focus);
             }
 
             &:active {
@@ -186,9 +169,7 @@
                 text-decoration-color: #{var-theme(link-decoration-disabled)};
                 color: #{var-theme(link-disabled)};
 
-                $location: disabled-active;
-                // prettier-ignore
-                @content($location);
+                @content (disabled-active);
             }
         }
     }
@@ -266,7 +247,7 @@
 
     @if $includeChildren {
         %a {
-            // @include snippet-link-colors-inherit;
+            // @include snippet-link-colours-inherit;
             font-weight: inherit;
         }
 

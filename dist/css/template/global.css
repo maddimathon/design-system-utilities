@@ -3496,6 +3496,11 @@ a[disabled][href]:active {
     color: hsl(339.45, 0%, 34.6%);
     color: var(--theme-link-disabled, GrayText);
 }
+a.no-pseudo[href]::before,
+a.no-pseudo[href]::after {
+    content: none !important;
+}
+
 abbr[title] {
     -webkit-text-decoration: dotted underline 0.15625em;
     text-decoration: dotted underline 0.15625em;

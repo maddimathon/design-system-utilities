@@ -7,6 +7,8 @@
  * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
+import NodeFS from 'node:fs';
+import NodePath from 'node:path';
 import { arrayUnique, mergeArgs, objectMap, } from '@maddimathon/utility-typescript';
 import { roundToPixel } from '../01-utilities/roundToPixel.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
@@ -140,12 +142,28 @@ export class Tokens_Typography extends AbstractTokens {
                 }
                 fallbacks = arrayUnique(fallbacks);
             }
-            const sources = objectMap(font.path, ([type, paths]) => typeof paths === 'undefined'
-                ? []
-                : (Array.isArray(paths) ? paths : [paths]).map((path) => ({
+            let woffSrcPath = null;
+            const sources = objectMap(font.path, ([type, paths]) => {
+                // returns
+                if (typeof paths === 'undefined') {
+                    return [];
+                }
+                const pathsArr = Array.isArray(paths) ? paths : [paths];
+                if (type == 'woff') {
+                    woffSrcPath = pathsArr[0] ?? null;
+                }
+                return pathsArr.map((path) => ({
                     type: type == 'ttf' ? 'truetype' : type,
                     path,
-                })));
+                }));
+            });
+            let base64 = null;
+            if (woffSrcPath) {
+                woffSrcPath = NodePath.resolve('src/assets/fonts', woffSrcPath);
+                if (NodeFS.existsSync(woffSrcPath)) {
+                    base64 = NodeFS.readFileSync(woffSrcPath, { encoding: 'base64' });
+                }
+            }
             return {
                 family: family.name,
                 fallbacks,
@@ -161,6 +179,7 @@ export class Tokens_Typography extends AbstractTokens {
                     truetype: sources.ttf,
                     ttf: undefined,
                 }).flat().filter(v => typeof v !== 'undefined'),
+                base64: base64 ? `url(data:font/woff;base64,${base64})` : undefined,
             };
         };
         return {

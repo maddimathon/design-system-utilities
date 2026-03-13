@@ -168,6 +168,10 @@ export declare namespace Tokens_Typography {
                 type: "local" | "truetype" | "woff" | "woff2";
                 path: string;
             }[];
+            /**
+             * This should be the full URL value e.g., `url(data:font/woff;base64,)`
+             */
+            base64: undefined | string;
             style: "normal" | "italic";
             weight: WholeTokenLevel | `${'000' | WholeTokenLevel} ${WholeTokenLevel | '1000'}`;
             printFontFace: boolean;
