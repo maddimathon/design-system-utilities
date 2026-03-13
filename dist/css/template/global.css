@@ -3505,33 +3505,6 @@ abbr[title] {
 }
 
 /* ## Typography - Block ==================================== */
-cite,
-dt,
-p {
-    margin-top: 0.8125rem;
-    margin-bottom: 0;
-}
-
-blockquote {
-    margin-top: 1.625rem;
-    margin-bottom: 0;
-}
-
-li {
-    margin-top: 0.5rem;
-    margin-bottom: 0;
-}
-
-button,
-[role="button"],
-input[type="button"],
-details,
-figure,
-img {
-    margin-top: 1.25rem;
-    margin-bottom: 0.4375rem;
-}
-
 p:empty {
     display: none;
 }
@@ -3544,15 +3517,18 @@ blockquote cite,
 blockquote dt,
 blockquote p {
     margin-top: 0.5rem;
-    margin-bottom: 0;
-}
-blockquote blockquote {
-    margin-top: 1.1875rem;
-    margin-bottom: 0;
 }
 blockquote li {
     margin-top: 0.3125rem;
-    margin-bottom: 0;
+}
+blockquote blockquote {
+    margin-top: 1.1875rem;
+}
+blockquote blockquote + cite,
+blockquote blockquote + dt,
+blockquote blockquote + p,
+blockquote blockquote + li {
+    margin-top: 1.1875rem;
 }
 blockquote button,
 blockquote [role="button"],
@@ -4069,20 +4045,12 @@ h6 samp {
 
 /* # GLOBALS - LISTS
  * ======================================================================== */
+li {
+    text-wrap: balance;
+}
 li::marker {
     color: hsl(278.16, 60.54%, 30.06%);
     color: var(--theme-text-primary, CanvasText);
-}
-li li li {
-    color: hsl(278.16, 60.54%, 30.06%);
-    color: var(--theme-text-primary, CanvasText);
-}
-li li li::marker {
-    color: currentColor;
-}
-li li li li li {
-    color: hsl(162, 69%, 16.5%);
-    color: var(--theme-text-secondary, CanvasText);
 }
 
 /* # GLOBALS - FORMS
@@ -4906,21 +4874,6 @@ a.button[href]:empty:not(input) {
     padding-left: 0.3125em;
     padding-right: 0.3125em;
 }
-button:has(> .icon:only-child),
-[role="button"]:has(> .icon:only-child),
-input[type="button"]:has(> .icon:only-child),
-input[type="reset"]:has(> .icon:only-child),
-input[type="submit"]:has(> .icon:only-child),
-a.button[href]:has(> .icon:only-child),
-button:has(> .logo:only-child),
-[role="button"]:has(> .logo:only-child),
-input[type="button"]:has(> .logo:only-child),
-input[type="reset"]:has(> .logo:only-child),
-input[type="submit"]:has(> .logo:only-child),
-a.button[href]:has(> .logo:only-child) {
-    padding-left: 0.3125em;
-    padding-right: 0.3125em;
-}
 button[aria-disabled="true"],
 [aria-disabled="true"][role="button"],
 input[aria-disabled="true"][type="button"],
@@ -5509,6 +5462,38 @@ input[disabled]:active::file-selector-button {
     color: hsl(339.45, 0%, 91.26%);
     color: var(--theme-button-disabled-text-active, ButtonText);
 }
+/* # LAYOUT
+ * ======================================================================== */
+cite,
+dt,
+p {
+    margin-top: 0.8125rem;
+}
+
+li {
+    margin-top: 0.5rem;
+}
+
+blockquote {
+    margin-top: 1.625rem;
+}
+blockquote + cite,
+blockquote + dt,
+blockquote + p,
+blockquote + li {
+    margin-top: 1.625rem;
+}
+
+button,
+[role="button"],
+input[type="button"],
+details,
+figure,
+img {
+    margin-top: 1.25rem;
+    margin-bottom: 0.4375rem;
+}
+
 /* # UTILITIES - LAYOUT
  * ======================================================================== */
 /* # UTILITIES - TYPOGRAPHY

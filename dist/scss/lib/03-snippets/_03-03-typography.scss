@@ -336,6 +336,16 @@
 }
 
 ///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin _set-flow-margins--large-margin-direct-siblings {
+    + %paragraph-margins,
+    + %paragraph-small-margins {
+        @content;
+    }
+}
+
+///
 /// Sets the paragraph margins using
 ///
 /// @since 0.1.0-beta.0.draft
@@ -349,8 +359,10 @@
     $buttonGapInline: null,
     $firmStartLevel: null,
     $firmStartLevel_large: null,
+    $firmStartLevel_small: null,
     $firmEndLevel: null,
     $firmEndLevel_large: null,
+    $firmEndLevel_small: null,
     $unstyledHeadingLevel: null
 ) {
     @if $firmStartLevel == null {
@@ -369,13 +381,19 @@
         $firmEndLevel_large: $firmStartLevel_large;
     }
 
+    @if $firmStartLevel_small == null {
+        $firmStartLevel_small: $smallLevel;
+    }
+
+    @if $firmEndLevel_small == null {
+        $firmEndLevel_small: $firmStartLevel_small;
+    }
+
     @if $unstyledHeadingLevel == null {
         $unstyledHeadingLevel: $largeLevel;
     }
 
-    %paragraph-margins {
-        margin-block: #{var-mrg-soft($defaultLevel)} 0;
-    }
+    // HEADINGS
 
     %unstyled-heading {
         margin-block: #{var-mrg-soft($unstyledHeadingLevel)} 0;
@@ -389,23 +407,44 @@
         margin-block: #{var-mrg-soft($unstyledHeadingLevel)} 0;
     }
 
-    %paragraph-large-margins {
-        margin-block: #{var-mrg-soft($largeLevel)} 0;
+    %paragraph-margins {
+        margin-block-start: #{var-mrg-soft($defaultLevel)};
     }
 
     %paragraph-small-margins {
-        margin-block: #{var-mrg-soft($smallLevel)} 0;
+        margin-block-start: #{var-mrg-soft($smallLevel)};
     }
+
+    %paragraph-large-margins {
+        margin-block-start: #{var-mrg-soft($largeLevel)};
+
+        @include _set-flow-margins--large-margin-direct-siblings {
+            margin-block-start: #{var-mrg-soft($largeLevel)};
+        }
+    }
+
+    // FIRM
 
     %paragraph-firm-margins {
         margin-block: #{var-mrg-firm($firmStartLevel)}
             #{var-mrg-half($firmEndLevel)};
     }
 
-    %paragraph-large-firm-margins {
+    %paragraph-firm-small-margins {
+        margin-block: #{var-mrg-firm($firmStartLevel_small)}
+            #{var-mrg-half($firmEndLevel_small)};
+    }
+
+    %paragraph-firm-large-margins {
         margin-block: #{var-mrg-firm($firmStartLevel_large)}
             #{var-mrg-half($firmEndLevel_large)};
+
+        @include _set-flow-margins--large-margin-direct-siblings {
+            margin-block-start: #{var-mrg-soft($firmStartLevel_large)};
+        }
     }
+
+    // BUTTON SPAN
 
     %button-span {
         gap: #{if($buttonGapBlock, $buttonGapBlock, var-mrg-firm($smallLevel))}

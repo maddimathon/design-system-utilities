@@ -21,85 +21,10 @@
      * ======================================================================== */
 }
 
-%ol,
-%ul {
-    ol,
-    ul {
-        ol,
-        ul {
-        }
-    }
-}
-
-%ol {
-    // /* level 1 - ol */
-
-    /// BLOCK ///
-
-    @at-root %ol-2,
-        & ol {
-        // /* level 2 - ol ol */
-
-        @at-root %ol-3,
-            & ol {
-            // /* level 3 - ol ol ol */
-
-            @at-root %ol-4,
-                & ol {
-                // /* level 4 - ol ol ol ol */
-                @extend %ul-3;
-
-                @at-root %ol-5,
-                    & ol {
-                    // /* level 5 - ol ol ol ol ol */
-                    @extend %ul-4;
-                }
-            }
-        }
-    }
-}
-
-%ul {
-    // /* level 1 - ul */
-
-    /// BLOCK ///
-
-    @at-root %ul-2,
-        & ul {
-        // /* level 2 - ul ul */
-
-        @at-root %ul-3,
-            & ul {
-            // /* level 3 - ul ul ul */
-            // /* level 4 - ol ol ol ol */
-
-            @at-root %ul-4,
-                & ul {
-                // /* level 4 - ul ul ul ul */
-                // /* level 5 - ol ol ol ol ol */
-            }
-        }
-    }
-}
-
 %li {
+    text-wrap: balance;
+
     &::marker {
         color: #{var-theme(text-primary)};
-    }
-
-    li {
-        li {
-            color: #{var-theme(text-primary)};
-
-            &::marker {
-                color: currentColor;
-            }
-
-            li {
-                li {
-                    color: #{var-theme(text-secondary)};
-                }
-            }
-        }
     }
 }

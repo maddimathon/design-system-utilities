@@ -5,8 +5,9 @@
 
 // @use 'pkg:@maddimathon/utility-sass/config/functions' as fns;
 
-@use 'sass:map';
 @use 'sass:string';
+
+@use '../../../../config/functions' as fns;
 
 @use '../../../../config' as lib;
 
@@ -86,47 +87,13 @@ $template_extendSelectors: $template_globals or $template_utils !default;
 /// @since 0.1.0-beta.0.draft — Merged $print_alertBlocks, $print_astro_settingsMenu, $print_astro_skipLinks, $template_astro_stickyToggleNav, $print_astro_toggle into this var (from utility-sass update).
 ///
 $template_styles: () !default;
-$template_styles: map.deep-merge(
-    (
-        alertBlocks: $template_astro or $template_utils or
-            map.get($template_styles, icons),
-        //
-        astro: (
-                bodyGrid: $template_astro,
-                toggleNav: $template_astro and
-                    if(
-                        map.has-key($template_styles, toggleBlock),
-                        map.get($template_styles, toggleBlock),
-                        true
-                    ),
-                stickyToggleNav: $template_astro and
-                    if(
-                        map.has-key($template_styles, astro, toggleNav),
-                        map.get($template_styles, astro, toggleNav),
-                        true
-                    ),
-            ),
-        //
-        buttons: $template_globals,
-        headings: $template_globals,
-        icons: $template_astro or $template_utils or
-            map.get($template_styles, alertBlocks),
-        keyframes: $template_globals or $template_tokens or $template_utils,
-        //
-        logos: $template_utils or $template_astro or
-            map.get($template_styles, alertBlocks) or
-            map.get($template_styles, icons),
-        //
-        normalize: lib.$include_html and lib.$isTemplate,
-        //
-        skipLinks: (
-                $template_astro or $template_globals or $template_utils,
-            )
-            and lib.$include_html,
-        //
-        sidebarWidgets: $template_astro or $template_docs,
-        siteSettingsMenu: $template_astro,
-        toggle: $template_astro,
-    ),
-    $template_styles
+$template_styles: fns.config-get-template-styles(
+    $inputs: $template_styles,
+    $include_html: lib.$include_html,
+    $isTemplate: lib.$isTemplate,
+    $template_astro: $template_astro,
+    $template_docs: $template_docs,
+    $template_globals: $template_globals,
+    $template_tokens: $template_tokens,
+    $template_utils: $template_utils,
 );

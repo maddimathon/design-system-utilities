@@ -122,21 +122,28 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@mixin snippet-support-sidebar-widgets {
-    %site-sidebar {
-        @include cx-prop(display, flex);
-        display: flex;
-        flex-direction: column;
+@mixin snippet-support-sidebar-widgets(
+    $includeSidebar: true,
+    $includeWidget: true
+) {
+    @if $includeSidebar {
+        %site-sidebar {
+            @include cx-prop(display, flex);
+            display: flex;
+            flex-direction: column;
 
-        justify-content: start;
-        align-content: start;
-        align-items: stretch;
+            justify-content: start;
+            align-content: start;
+            align-items: stretch;
 
-        gap: max(#{var-mrg-firm('400')}, #{var-gap-block(layout-half)})
-            #{var-gap-inline(layout-half)};
+            gap: max(#{var-mrg-firm('400')}, #{var-gap-block(layout-half)})
+                #{var-gap-inline(layout-half)};
+        }
     }
 
-    %widget-block {
-        @include snippet-widget-block;
+    @if $includeWidget {
+        %widget-block {
+            @include snippet-widget-block;
+        }
     }
 }

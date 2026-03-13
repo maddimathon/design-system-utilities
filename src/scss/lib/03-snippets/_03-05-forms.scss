@@ -196,9 +196,14 @@
     }
 
     @if $includeOnlyChild {
-        &:has(> .icon:only-child),
-        &:has(> .logo:only-child) {
+        &:has(> #{selector.unify('%icon', ':only-child')}),
+        &:has(> #{selector.unify('%brand-logo', ':only-child')}) {
             padding-inline: #{$paddingBlock};
+
+            &::after,
+            &::before {
+                content: none !important;
+            }
         }
     }
 
