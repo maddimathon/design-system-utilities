@@ -40,11 +40,8 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
     $additional: list.join($additional, (img, figure, svg));
 
     $additional: list.append($additional, ((cite, dt, p), 'paragraph-margins'));
-    $additional: list.append(
-        $additional,
-        ((blockquote), 'paragraph-large-margins')
-    );
     $additional: list.append($additional, ((li), 'paragraph-small-margins'));
+
     $additional: list.append(
         $additional,
         (
@@ -60,6 +57,10 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
             ),
             'paragraph-firm-margins'
         )
+    );
+    $additional: list.append(
+        $additional,
+        ((blockquote), 'paragraph-firm-large-margins')
     );
 
     $additional: list.append(
