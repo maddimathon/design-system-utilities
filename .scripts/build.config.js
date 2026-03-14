@@ -77,7 +77,16 @@ const config = {
             },
         ],
 
-        compile: Compile,
+        compile: [
+            Compile,
+            {
+                files: {
+                    src: [
+                        'assets',
+                    ],
+                },
+            },
+        ],
 
         document: [
             Document,

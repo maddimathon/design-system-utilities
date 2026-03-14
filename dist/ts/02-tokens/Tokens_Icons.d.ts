@@ -36,7 +36,7 @@ export declare namespace Tokens_Icons {
     /**
      * @since 0.1.0-alpha
      */
-    type DefaultIconNames = "caution" | "check" | "clock" | "close" | "compass" | "dash" | "double-check" | "down" | "error" | "external" | "fail" | "forbidden" | "info" | "left" | "lightbulb" | "lightning" | "maximum" | "minimum" | "minus" | "no" | "plus" | "question" | "refresh" | "right" | "search" | "settings" | "star" | "success" | "ui" | "ui-check" | "ui-minimum" | "up" | "warning";
+    type DefaultIconNames = "caution" | "check" | "clock" | "close" | "compass" | "dash" | "draft" | "double-check" | "down" | "error" | "external" | "fail" | "forbidden" | "hidden" | "info" | "left" | "lightbulb" | "lightning" | "lock" | "maximum" | "minimum" | "minus" | "no" | "note" | "plus" | "private" | "question" | "refresh" | "right" | "search" | "settings" | "star" | "success" | "unlock" | "ui" | "ui-check" | "ui-minimum" | "up" | "warning";
     /**
      * @since 0.1.0-alpha
      */

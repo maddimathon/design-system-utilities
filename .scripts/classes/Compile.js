@@ -137,8 +137,8 @@ export class Compile extends CompileStage {
             slug: 'design-system-utilities',
 
             assets: {
-                icons: '../../src/assets/icons',
-                logos: '../../src/assets/logos',
+                icons: this.getSrcDir( undefined, 'assets/icons' ),
+                logos: this.getSrcDir( undefined, 'assets/logos' ),
             },
 
             json: [
