@@ -90,17 +90,48 @@ $_allUniqueIconAspectRatios: ();
 }
 
 ///
+/// Adds base properties for displaying an icon inside a ::before or ::after selector.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin snippet-icon-pseudo-base-properties($slug: null, $pseudo: 'after') {
+    $_start: if($pseudo == before, end, start);
+    $_end: if($pseudo == before, start, end);
+
+    @include cx-prop(display, inline-block);
+    display: inline-block;
+    vertical-align: #{var-style(icon-vertical-align, $fallback: sub)};
+
+    margin-block-start: #{do-var(icon-pseudo-element-margin-block-start, 0)};
+
+    margin-inline-#{$_start}: #{var-style(icon-inline-buffer)};
+    margin-inline-#{$_start}: calc(
+        var-style(icon-inline-buffer) *
+            do-var(
+                icon-size-pseudo--inline-buffer-start,
+                do-var(icon-size-pseudo--font-multiplier, 1)
+            )
+    );
+    margin-inline-#{$_end}: calc(
+        var-style(icon-inline-buffer) * do-var(icon-size-pseudo--inline-buffer-end, 0)
+    );
+
+    height: #{var-style(icon-size-pseudo)};
+    height: calc(var-style(icon-size-pseudo) * do-var(icon-size-pseudo--font-multiplier, 1));
+
+    @if $slug != null {
+        aspect-ratio: #{icon-aspect-ratio-value($slug)};
+    }
+}
+
+///
 /// Adds properties for displaying an icon inside a ::before or ::after selector.
 ///
 /// @since 0.1.0-alpha
 ///
 @mixin snippet-icon-pseudo-element($slug, $pseudo: 'after') {
-    $_start: if($pseudo == before, end, start);
-    $_end: if($pseudo == before, start, end);
-
     @supports (mask-image: url('../fake.svg')) {
-        display: inline-block;
-        vertical-align: #{var-style(icon-vertical-align, $fallback: sub)};
+        @include snippet-icon-pseudo-base-properties($slug: $slug, $pseudo: $pseudo);
 
         content: '';
         content: '' / '#{icon-label-value($slug)}';
@@ -114,24 +145,6 @@ $_allUniqueIconAspectRatios: ();
         mask-position: center;
         mask-repeat: no-repeat;
         mask-size: contain;
-
-        margin-block-start: do-var(icon-pseudo-element-margin-block-start, 0);
-        margin-inline-#{$_start}: #{var-style(icon-inline-buffer)};
-        margin-inline-#{$_start}: calc(
-            #{var-style(icon-inline-buffer)} *
-                do-var(
-                    icon-size-pseudo--inline-buffer-start,
-                    do-var(icon-size-pseudo--font-multiplier, 1)
-                )
-        );
-        margin-inline-#{$_end}: calc(
-            #{var-style(icon-inline-buffer)} * do-var(icon-size-pseudo--inline-buffer-end, 0)
-        );
-
-        height: #{var-style(icon-size-pseudo)};
-        height: calc(#{var-style(icon-size-pseudo)} * do-var(icon-size-pseudo--font-multiplier, 1));
-
-        aspect-ratio: #{icon-aspect-ratio-value($slug)};
 
         @content;
     }

@@ -5420,26 +5420,10 @@ a[disabled][href]:active {
     (-webkit-mask-image: url("../fake.svg")) or (mask-image: url("../fake.svg"))
 ) {
     a[target="_blank"][href]::after {
+        --display: inline-block;
         display: inline-block;
         vertical-align: middle;
         vertical-align: var(--icon-vertical-align, sub);
-        content: "";
-        content: ""/"External Link icon";
-        background: hsl(339.45, 0%, 17.88%);
-        background: var(--icon-color, var(--theme-ui, CanvasText));
-        -webkit-mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill="currentColor" title="External Link icon"><path d="M19.83,6.325l-6.503,6.502c-0.456,0.457 -1.198,0.457 -1.654,0c-0.457,-0.456 -0.457,-1.198 -0,-1.654l6.502,-6.503l-3.55,-0c-0.646,-0 -1.17,-0.524 -1.17,-1.17c0,-0.646 0.524,-1.17 1.17,-1.17l6.375,0c0.646,0 1.17,0.524 1.17,1.17l-0,6.375c-0,0.646 -0.524,1.17 -1.17,1.17c-0.646,-0 -1.17,-0.524 -1.17,-1.17l0,-3.55Zm-8.393,-1.84c0.63,-0 1.141,0.511 1.141,1.14c-0,0.629 -0.511,1.14 -1.141,1.14c-3.481,0 -6.297,2.816 -6.297,6.297c0,3.482 2.816,6.298 6.297,6.298c3.482,-0 6.298,-2.816 6.298,-6.298c-0,-0.629 0.511,-1.14 1.14,-1.14c0.629,0 1.14,0.511 1.14,1.14c0,4.743 -3.835,8.578 -8.578,8.578c-4.742,0 -8.577,-3.835 -8.577,-8.578c-0,-4.742 3.835,-8.577 8.577,-8.577Z" /></svg>');
-        mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill="currentColor" title="External Link icon"><path d="M19.83,6.325l-6.503,6.502c-0.456,0.457 -1.198,0.457 -1.654,0c-0.457,-0.456 -0.457,-1.198 -0,-1.654l6.502,-6.503l-3.55,-0c-0.646,-0 -1.17,-0.524 -1.17,-1.17c0,-0.646 0.524,-1.17 1.17,-1.17l6.375,0c0.646,0 1.17,0.524 1.17,1.17l-0,6.375c-0,0.646 -0.524,1.17 -1.17,1.17c-0.646,-0 -1.17,-0.524 -1.17,-1.17l0,-3.55Zm-8.393,-1.84c0.63,-0 1.141,0.511 1.141,1.14c-0,0.629 -0.511,1.14 -1.141,1.14c-3.481,0 -6.297,2.816 -6.297,6.297c0,3.482 2.816,6.298 6.297,6.298c3.482,-0 6.298,-2.816 6.298,-6.298c-0,-0.629 0.511,-1.14 1.14,-1.14c0.629,0 1.14,0.511 1.14,1.14c0,4.743 -3.835,8.578 -8.578,8.578c-4.742,0 -8.577,-3.835 -8.577,-8.578c-0,-4.742 3.835,-8.577 8.577,-8.577Z" /></svg>');
-        -webkit-mask-clip: no-clip;
-        mask-clip: no-clip;
-        mask-mode: alpha;
-        -webkit-mask-origin: border-box;
-        mask-origin: border-box;
-        -webkit-mask-position: center;
-        mask-position: center;
-        -webkit-mask-repeat: no-repeat;
-        mask-repeat: no-repeat;
-        -webkit-mask-size: contain;
-        mask-size: contain;
         margin-top: 0;
         margin-top: var(--icon-pseudo-element-margin-block-start, 0);
         margin-left: 0.25em;
@@ -5465,23 +5449,12 @@ a[disabled][href]:active {
                 var(--icon-size-pseudo--font-multiplier, 1)
         );
         aspect-ratio: 1;
-        align-self: center;
-    }
-}
-@supports (
-    (-webkit-mask-image: url("../fake.svg")) or (mask-image: url("../fake.svg"))
-) {
-    a[aria-disabled="true"][href]::before,
-    a[disabled][href]::before {
-        display: inline-block;
-        vertical-align: middle;
-        vertical-align: var(--icon-vertical-align, sub);
         content: "";
-        content: ""/"Forbidden icon";
+        content: ""/"External Link icon";
         background: hsl(339.45, 0%, 17.88%);
         background: var(--icon-color, var(--theme-ui, CanvasText));
-        -webkit-mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill="currentColor" title="Forbidden icon"><path d="M12,1c6.074,0 11,4.926 11,11c-0,6.074 -4.926,11 -11,11c-6.074,-0 -11,-4.926 -11,-11c0,-6.074 4.926,-11 11,-11Zm5.486,4.05c-1.508,-1.192 -3.414,-1.904 -5.486,-1.904c-4.889,-0 -8.854,3.965 -8.854,8.854c-0,1.85 0.568,3.568 1.538,4.988l12.802,-11.938Zm-10.972,13.9c1.508,1.192 3.414,1.904 5.486,1.904c4.889,0 8.854,-3.965 8.854,-8.854c0,-1.85 -0.568,-3.568 -1.538,-4.988l-12.802,11.938Z" /></svg>');
-        mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill="currentColor" title="Forbidden icon"><path d="M12,1c6.074,0 11,4.926 11,11c-0,6.074 -4.926,11 -11,11c-6.074,-0 -11,-4.926 -11,-11c0,-6.074 4.926,-11 11,-11Zm5.486,4.05c-1.508,-1.192 -3.414,-1.904 -5.486,-1.904c-4.889,-0 -8.854,3.965 -8.854,8.854c-0,1.85 0.568,3.568 1.538,4.988l12.802,-11.938Zm-10.972,13.9c1.508,1.192 3.414,1.904 5.486,1.904c4.889,0 8.854,-3.965 8.854,-8.854c0,-1.85 -0.568,-3.568 -1.538,-4.988l-12.802,11.938Z" /></svg>');
+        -webkit-mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill="currentColor" title="External Link icon"><path d="M19.83,6.325l-6.503,6.502c-0.456,0.457 -1.198,0.457 -1.654,0c-0.457,-0.456 -0.457,-1.198 -0,-1.654l6.502,-6.503l-3.55,-0c-0.646,-0 -1.17,-0.524 -1.17,-1.17c0,-0.646 0.524,-1.17 1.17,-1.17l6.375,0c0.646,0 1.17,0.524 1.17,1.17l-0,6.375c-0,0.646 -0.524,1.17 -1.17,1.17c-0.646,-0 -1.17,-0.524 -1.17,-1.17l0,-3.55Zm-8.393,-1.84c0.63,-0 1.141,0.511 1.141,1.14c-0,0.629 -0.511,1.14 -1.141,1.14c-3.481,0 -6.297,2.816 -6.297,6.297c0,3.482 2.816,6.298 6.297,6.298c3.482,-0 6.298,-2.816 6.298,-6.298c-0,-0.629 0.511,-1.14 1.14,-1.14c0.629,0 1.14,0.511 1.14,1.14c0,4.743 -3.835,8.578 -8.578,8.578c-4.742,0 -8.577,-3.835 -8.577,-8.578c-0,-4.742 3.835,-8.577 8.577,-8.577Z" /></svg>');
+        mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill="currentColor" title="External Link icon"><path d="M19.83,6.325l-6.503,6.502c-0.456,0.457 -1.198,0.457 -1.654,0c-0.457,-0.456 -0.457,-1.198 -0,-1.654l6.502,-6.503l-3.55,-0c-0.646,-0 -1.17,-0.524 -1.17,-1.17c0,-0.646 0.524,-1.17 1.17,-1.17l6.375,0c0.646,0 1.17,0.524 1.17,1.17l-0,6.375c-0,0.646 -0.524,1.17 -1.17,1.17c-0.646,-0 -1.17,-0.524 -1.17,-1.17l0,-3.55Zm-8.393,-1.84c0.63,-0 1.141,0.511 1.141,1.14c-0,0.629 -0.511,1.14 -1.141,1.14c-3.481,0 -6.297,2.816 -6.297,6.297c0,3.482 2.816,6.298 6.297,6.298c3.482,-0 6.298,-2.816 6.298,-6.298c-0,-0.629 0.511,-1.14 1.14,-1.14c0.629,0 1.14,0.511 1.14,1.14c0,4.743 -3.835,8.578 -8.578,8.578c-4.742,0 -8.577,-3.835 -8.577,-8.578c-0,-4.742 3.835,-8.577 8.577,-8.577Z" /></svg>');
         -webkit-mask-clip: no-clip;
         mask-clip: no-clip;
         mask-mode: alpha;
@@ -5493,6 +5466,18 @@ a[disabled][href]:active {
         mask-repeat: no-repeat;
         -webkit-mask-size: contain;
         mask-size: contain;
+        align-self: center;
+    }
+}
+@supports (
+    (-webkit-mask-image: url("../fake.svg")) or (mask-image: url("../fake.svg"))
+) {
+    a[aria-disabled="true"][href]::before,
+    a[disabled][href]::before {
+        --display: inline-block;
+        display: inline-block;
+        vertical-align: middle;
+        vertical-align: var(--icon-vertical-align, sub);
         margin-top: 0;
         margin-top: var(--icon-pseudo-element-margin-block-start, 0);
         margin-right: 0.25em;
@@ -5518,6 +5503,23 @@ a[disabled][href]:active {
                 var(--icon-size-pseudo--font-multiplier, 1)
         );
         aspect-ratio: 1;
+        content: "";
+        content: ""/"Forbidden icon";
+        background: hsl(339.45, 0%, 17.88%);
+        background: var(--icon-color, var(--theme-ui, CanvasText));
+        -webkit-mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill="currentColor" title="Forbidden icon"><path d="M12,1c6.074,0 11,4.926 11,11c-0,6.074 -4.926,11 -11,11c-6.074,-0 -11,-4.926 -11,-11c0,-6.074 4.926,-11 11,-11Zm5.486,4.05c-1.508,-1.192 -3.414,-1.904 -5.486,-1.904c-4.889,-0 -8.854,3.965 -8.854,8.854c-0,1.85 0.568,3.568 1.538,4.988l12.802,-11.938Zm-10.972,13.9c1.508,1.192 3.414,1.904 5.486,1.904c4.889,0 8.854,-3.965 8.854,-8.854c0,-1.85 -0.568,-3.568 -1.538,-4.988l-12.802,11.938Z" /></svg>');
+        mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill="currentColor" title="Forbidden icon"><path d="M12,1c6.074,0 11,4.926 11,11c-0,6.074 -4.926,11 -11,11c-6.074,-0 -11,-4.926 -11,-11c0,-6.074 4.926,-11 11,-11Zm5.486,4.05c-1.508,-1.192 -3.414,-1.904 -5.486,-1.904c-4.889,-0 -8.854,3.965 -8.854,8.854c-0,1.85 0.568,3.568 1.538,4.988l12.802,-11.938Zm-10.972,13.9c1.508,1.192 3.414,1.904 5.486,1.904c4.889,0 8.854,-3.965 8.854,-8.854c0,-1.85 -0.568,-3.568 -1.538,-4.988l-12.802,11.938Z" /></svg>');
+        -webkit-mask-clip: no-clip;
+        mask-clip: no-clip;
+        mask-mode: alpha;
+        -webkit-mask-origin: border-box;
+        mask-origin: border-box;
+        -webkit-mask-position: center;
+        mask-position: center;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-size: contain;
+        mask-size: contain;
         align-self: center;
     }
 }
@@ -8073,26 +8075,10 @@ a[disabled].button-secondary[href]:active {
     input[disabled][type="submit"]::before,
     a[disabled].button[href]::before,
     a[disabled].button-secondary[href]::before {
+        --display: inline-block;
         display: inline-block;
         vertical-align: middle;
         vertical-align: var(--icon-vertical-align, sub);
-        content: "";
-        content: ""/"Forbidden icon";
-        background: hsl(339.45, 0%, 17.88%);
-        background: var(--icon-color, var(--theme-ui, CanvasText));
-        -webkit-mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill="currentColor" title="Forbidden icon"><path d="M12,1c6.074,0 11,4.926 11,11c-0,6.074 -4.926,11 -11,11c-6.074,-0 -11,-4.926 -11,-11c0,-6.074 4.926,-11 11,-11Zm5.486,4.05c-1.508,-1.192 -3.414,-1.904 -5.486,-1.904c-4.889,-0 -8.854,3.965 -8.854,8.854c-0,1.85 0.568,3.568 1.538,4.988l12.802,-11.938Zm-10.972,13.9c1.508,1.192 3.414,1.904 5.486,1.904c4.889,0 8.854,-3.965 8.854,-8.854c0,-1.85 -0.568,-3.568 -1.538,-4.988l-12.802,11.938Z" /></svg>');
-        mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill="currentColor" title="Forbidden icon"><path d="M12,1c6.074,0 11,4.926 11,11c-0,6.074 -4.926,11 -11,11c-6.074,-0 -11,-4.926 -11,-11c0,-6.074 4.926,-11 11,-11Zm5.486,4.05c-1.508,-1.192 -3.414,-1.904 -5.486,-1.904c-4.889,-0 -8.854,3.965 -8.854,8.854c-0,1.85 0.568,3.568 1.538,4.988l12.802,-11.938Zm-10.972,13.9c1.508,1.192 3.414,1.904 5.486,1.904c4.889,0 8.854,-3.965 8.854,-8.854c0,-1.85 -0.568,-3.568 -1.538,-4.988l-12.802,11.938Z" /></svg>');
-        -webkit-mask-clip: no-clip;
-        mask-clip: no-clip;
-        mask-mode: alpha;
-        -webkit-mask-origin: border-box;
-        mask-origin: border-box;
-        -webkit-mask-position: center;
-        mask-position: center;
-        -webkit-mask-repeat: no-repeat;
-        mask-repeat: no-repeat;
-        -webkit-mask-size: contain;
-        mask-size: contain;
         margin-top: 0;
         margin-top: var(--icon-pseudo-element-margin-block-start, 0);
         margin-right: 0.25em;
@@ -8118,6 +8104,23 @@ a[disabled].button-secondary[href]:active {
                 var(--icon-size-pseudo--font-multiplier, 1)
         );
         aspect-ratio: 1;
+        content: "";
+        content: ""/"Forbidden icon";
+        background: hsl(339.45, 0%, 17.88%);
+        background: var(--icon-color, var(--theme-ui, CanvasText));
+        -webkit-mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill="currentColor" title="Forbidden icon"><path d="M12,1c6.074,0 11,4.926 11,11c-0,6.074 -4.926,11 -11,11c-6.074,-0 -11,-4.926 -11,-11c0,-6.074 4.926,-11 11,-11Zm5.486,4.05c-1.508,-1.192 -3.414,-1.904 -5.486,-1.904c-4.889,-0 -8.854,3.965 -8.854,8.854c-0,1.85 0.568,3.568 1.538,4.988l12.802,-11.938Zm-10.972,13.9c1.508,1.192 3.414,1.904 5.486,1.904c4.889,0 8.854,-3.965 8.854,-8.854c0,-1.85 -0.568,-3.568 -1.538,-4.988l-12.802,11.938Z" /></svg>');
+        mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill="currentColor" title="Forbidden icon"><path d="M12,1c6.074,0 11,4.926 11,11c-0,6.074 -4.926,11 -11,11c-6.074,-0 -11,-4.926 -11,-11c0,-6.074 4.926,-11 11,-11Zm5.486,4.05c-1.508,-1.192 -3.414,-1.904 -5.486,-1.904c-4.889,-0 -8.854,3.965 -8.854,8.854c-0,1.85 0.568,3.568 1.538,4.988l12.802,-11.938Zm-10.972,13.9c1.508,1.192 3.414,1.904 5.486,1.904c4.889,0 8.854,-3.965 8.854,-8.854c0,-1.85 -0.568,-3.568 -1.538,-4.988l-12.802,11.938Z" /></svg>');
+        -webkit-mask-clip: no-clip;
+        mask-clip: no-clip;
+        mask-mode: alpha;
+        -webkit-mask-origin: border-box;
+        mask-origin: border-box;
+        -webkit-mask-position: center;
+        mask-position: center;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-size: contain;
+        mask-size: contain;
         align-self: center;
     }
 }
@@ -8557,9 +8560,35 @@ input[type="reset"]:active {
 ) {
     button[type="reset"]::before,
     input[type="reset"]::before {
+        --display: inline-block;
         display: inline-block;
         vertical-align: middle;
         vertical-align: var(--icon-vertical-align, sub);
+        margin-top: 0;
+        margin-top: var(--icon-pseudo-element-margin-block-start, 0);
+        margin-right: 0.25em;
+        margin-right: var(--icon-inline-buffer, 0.25em);
+        margin-right: calc(0.25em * 1);
+        margin-right: calc(
+            var(--icon-inline-buffer, 0.25em) *
+                var(
+                    --icon-size-pseudo--inline-buffer-start,
+                    var(--icon-size-pseudo--font-multiplier, 1)
+                )
+        );
+        margin-left: calc(0.25em * 0);
+        margin-left: calc(
+            var(--icon-inline-buffer, 0.25em) *
+                var(--icon-size-pseudo--inline-buffer-end, 0)
+        );
+        height: 1em;
+        height: var(--icon-size-pseudo, 1em);
+        height: calc(1em * 1);
+        height: calc(
+            var(--icon-size-pseudo, 1em) *
+                var(--icon-size-pseudo--font-multiplier, 1)
+        );
+        aspect-ratio: 1;
         content: "";
         content: ""/"Refresh icon";
         background: hsl(339.45, 0%, 17.88%);
@@ -8577,6 +8606,19 @@ input[type="reset"]:active {
         mask-repeat: no-repeat;
         -webkit-mask-size: contain;
         mask-size: contain;
+        align-self: center;
+    }
+}
+
+@supports (
+    (-webkit-mask-image: url("../fake.svg")) or (mask-image: url("../fake.svg"))
+) {
+    button[type="submit"]::before,
+    input[type="submit"]::before {
+        --display: inline-block;
+        display: inline-block;
+        vertical-align: middle;
+        vertical-align: var(--icon-vertical-align, sub);
         margin-top: 0;
         margin-top: var(--icon-pseudo-element-margin-block-start, 0);
         margin-right: 0.25em;
@@ -8602,18 +8644,6 @@ input[type="reset"]:active {
                 var(--icon-size-pseudo--font-multiplier, 1)
         );
         aspect-ratio: 1;
-        align-self: center;
-    }
-}
-
-@supports (
-    (-webkit-mask-image: url("../fake.svg")) or (mask-image: url("../fake.svg"))
-) {
-    button[type="submit"]::before,
-    input[type="submit"]::before {
-        display: inline-block;
-        vertical-align: middle;
-        vertical-align: var(--icon-vertical-align, sub);
         content: "";
         content: ""/"Checkmark icon";
         background: hsl(339.45, 0%, 17.88%);
@@ -8631,31 +8661,6 @@ input[type="reset"]:active {
         mask-repeat: no-repeat;
         -webkit-mask-size: contain;
         mask-size: contain;
-        margin-top: 0;
-        margin-top: var(--icon-pseudo-element-margin-block-start, 0);
-        margin-right: 0.25em;
-        margin-right: var(--icon-inline-buffer, 0.25em);
-        margin-right: calc(0.25em * 1);
-        margin-right: calc(
-            var(--icon-inline-buffer, 0.25em) *
-                var(
-                    --icon-size-pseudo--inline-buffer-start,
-                    var(--icon-size-pseudo--font-multiplier, 1)
-                )
-        );
-        margin-left: calc(0.25em * 0);
-        margin-left: calc(
-            var(--icon-inline-buffer, 0.25em) *
-                var(--icon-size-pseudo--inline-buffer-end, 0)
-        );
-        height: 1em;
-        height: var(--icon-size-pseudo, 1em);
-        height: calc(1em * 1);
-        height: calc(
-            var(--icon-size-pseudo, 1em) *
-                var(--icon-size-pseudo--font-multiplier, 1)
-        );
-        aspect-ratio: 1;
         align-self: center;
     }
 }
@@ -9366,6 +9371,7 @@ blockquote + .margins-flow-paragraph-small,
 .icon--down,
 .icon--dash,
 .icon--compass,
+.icon--code,
 .icon--close,
 .icon--clock,
 .icon--check,
@@ -9404,6 +9410,7 @@ blockquote + .margins-flow-paragraph-small,
 .no-js .icon--down,
 .no-js .icon--dash,
 .no-js .icon--compass,
+.no-js .icon--code,
 .no-js .icon--close,
 .no-js .icon--clock,
 .no-js .icon--check,
@@ -9440,6 +9447,7 @@ blockquote + .margins-flow-paragraph-small,
 .js__no-whereSelector .icon--down,
 .js__no-whereSelector .icon--dash,
 .js__no-whereSelector .icon--compass,
+.js__no-whereSelector .icon--code,
 .js__no-whereSelector .icon--close,
 .js__no-whereSelector .icon--clock,
 .js__no-whereSelector .icon--check,
@@ -9479,6 +9487,7 @@ blockquote + .margins-flow-paragraph-small,
 .no-js .icon--down::before,
 .no-js .icon--dash::before,
 .no-js .icon--compass::before,
+.no-js .icon--code::before,
 .no-js .icon--close::before,
 .no-js .icon--clock::before,
 .no-js .icon--check::before,
@@ -9515,6 +9524,7 @@ blockquote + .margins-flow-paragraph-small,
 .js__no-whereSelector .icon--down::before,
 .js__no-whereSelector .icon--dash::before,
 .js__no-whereSelector .icon--compass::before,
+.js__no-whereSelector .icon--code::before,
 .js__no-whereSelector .icon--close::before,
 .js__no-whereSelector .icon--clock::before,
 .js__no-whereSelector .icon--check::before,
@@ -9556,6 +9566,7 @@ blockquote + .margins-flow-paragraph-small,
 .no-js .icon--down::after,
 .no-js .icon--dash::after,
 .no-js .icon--compass::after,
+.no-js .icon--code::after,
 .no-js .icon--close::after,
 .no-js .icon--clock::after,
 .no-js .icon--check::after,
@@ -9592,6 +9603,7 @@ blockquote + .margins-flow-paragraph-small,
 .js__no-whereSelector .icon--down::after,
 .js__no-whereSelector .icon--dash::after,
 .js__no-whereSelector .icon--compass::after,
+.js__no-whereSelector .icon--code::after,
 .js__no-whereSelector .icon--close::after,
 .js__no-whereSelector .icon--clock::after,
 .js__no-whereSelector .icon--check::after,
@@ -9634,6 +9646,7 @@ blockquote + .margins-flow-paragraph-small,
 :where(.js__no-aspectRatio) .icon--down,
 :where(.js__no-aspectRatio) .icon--dash,
 :where(.js__no-aspectRatio) .icon--compass,
+:where(.js__no-aspectRatio) .icon--code,
 :where(.js__no-aspectRatio) .icon--close,
 :where(.js__no-aspectRatio) .icon--clock,
 :where(.js__no-aspectRatio) .icon--check,
@@ -9673,6 +9686,7 @@ blockquote + .margins-flow-paragraph-small,
 :where(.js__no-aspectRatio) .icon--down::before,
 :where(.js__no-aspectRatio) .icon--dash::before,
 :where(.js__no-aspectRatio) .icon--compass::before,
+:where(.js__no-aspectRatio) .icon--code::before,
 :where(.js__no-aspectRatio) .icon--close::before,
 :where(.js__no-aspectRatio) .icon--clock::before,
 :where(.js__no-aspectRatio) .icon--check::before,
@@ -9714,6 +9728,7 @@ blockquote + .margins-flow-paragraph-small,
 :where(.js__no-aspectRatio) .icon--down::after,
 :where(.js__no-aspectRatio) .icon--dash::after,
 :where(.js__no-aspectRatio) .icon--compass::after,
+:where(.js__no-aspectRatio) .icon--code::after,
 :where(.js__no-aspectRatio) .icon--close::after,
 :where(.js__no-aspectRatio) .icon--clock::after,
 :where(.js__no-aspectRatio) .icon--check::after,
@@ -9881,9 +9896,11 @@ blockquote + .margins-flow-paragraph-small,
     width: fit-content;
     line-height: 1.4375;
     line-height: var(--line-height-300, 1.4375);
-    border: 0.125rem solid hsl(278.16, 60.54%, 30.06%);
-    border: var(--border-width-200, 0.125rem) solid
-        var(--theme-ui-primary, CanvasText);
+    border-color: hsl(278.16, 60.54%, 30.06%);
+    border-color: var(--theme-ui-primary, CanvasText);
+    border-width: 0.125rem;
+    border-width: var(--border-width-200, 0.125rem);
+    border-style: solid;
     border-radius: 0;
     background: hsl(339.45, 0%, 91.26%);
     background: var(--theme-background, Canvas);
