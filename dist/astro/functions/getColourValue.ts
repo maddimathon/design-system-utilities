@@ -64,14 +64,14 @@ export function getColourValue<
 export function getBaseColourObject<
     T_ColourTypes extends TokenTypes.Colour.TypeParams,
 >(
-    baseMap: Tokens_Colour_ShadeMap.JsonReturn<T_ColourTypes> & {
+    baseMap: undefined | Tokens_Colour_ShadeMap.JsonReturn<T_ColourTypes> & {
         black?: Tokens_Colour_ShadeMap.Shade.JsonReturn<T_ColourTypes>;
         white?: Tokens_Colour_ShadeMap.Shade.JsonReturn<T_ColourTypes>;
     },
     level: TokenTypes.Colour.AnyLevel<T_ColourTypes>,
 ): null | Tokens_Colour_ShadeMap.Shade.JsonReturn<T_ColourTypes> {
     // returns
-    if ( !( level in baseMap ) || !baseMap[ level ] ) {
+    if ( !baseMap || !( level in baseMap ) || !baseMap[ level ] ) {
         return null;
     }
 
@@ -87,13 +87,18 @@ export function getBaseColourObject<
 export function getMapColourObject<
     T_ColourTypes extends TokenTypes.Colour.TypeParams,
 >(
-    shadeMap: Tokens_Colour_ShadeMap.JsonReturn<T_ColourTypes>,
-    baseMap: Tokens_Colour_ShadeMap.JsonReturn<T_ColourTypes> & {
+    shadeMap: undefined | Tokens_Colour_ShadeMap.JsonReturn<T_ColourTypes>,
+    baseMap: undefined | Tokens_Colour_ShadeMap.JsonReturn<T_ColourTypes> & {
         black?: Tokens_Colour_ShadeMap.Shade.JsonReturn<T_ColourTypes>;
         white?: Tokens_Colour_ShadeMap.Shade.JsonReturn<T_ColourTypes>;
     },
     level: TokenTypes.Colour.AnyLevel<T_ColourTypes>,
 ): null | Tokens_Colour_ShadeMap.Shade.JsonReturn<T_ColourTypes> {
+    // returns
+    if ( !shadeMap ) {
+        return null;
+    }
+
     // returns
     if ( level === 'black' || level === 'white' ) {
         return getBaseColourObject( baseMap, level );

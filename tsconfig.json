@@ -1,26 +1,12 @@
 {
-    "extends": "@maddimathon/utility-astro/tsconfig.json",
+    "extends": "./tsconfig.base.json",
     "include": [
+        ".astro/types.d.ts",
         "./src/**/*"
     ],
     "exclude": [
-        "./.astro/**/*",
         "./.scripts/**/*",
-        "./docs-typedoc/**/*",
-        "./node_modules/**/*",
         "./src/docs/_public/**/*",
-        "./src/ts/02-tokens/**/*",
-        "./src/ts/bin/**/*"
-    ],
-    "compilerOptions": {
-        "allowUnusedLabels": true,
-        "baseUrl": "./",
-        "exactOptionalPropertyTypes": false,
-        "jsx": "preserve",
-        "module": "NodeNext",
-        "moduleResolution": "NodeNext",
-        "noUnusedParameters": false,
-        "skipLibCheck": true,
-        "verbatimModuleSyntax": true
-    }
+        "./src/ts/**/*"
+    ]
 }

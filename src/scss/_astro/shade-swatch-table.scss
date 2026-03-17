@@ -67,9 +67,14 @@ $_contrastColWidth: minmax(3.5ch, min-content);
 
     :global(.shade-swatch) {
         padding: #{lib.var-mrg-soft('100')} #{lib.var-mrg-firm('200')};
-        gap: #{lib.var-mrg-soft('100')} #{lib.var-mrg-firm('100')};
+        gap: 0 #{lib.var-mrg-firm('100')};
+
+        :global(.shade-swatch__name) {
+            margin-block-end: #{lib.var-mrg-soft('100')};
+        }
 
         :global(.shade-swatch__colour-value) {
+            padding-block: #{lib.var-stroke-relative('600')};
             font-size: #{lib.var-fs(smaller-3)};
             text-wrap: nowrap;
         }

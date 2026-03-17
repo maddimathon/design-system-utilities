@@ -9,7 +9,7 @@
  */
 import NodeFS from 'node:fs';
 import NodePath from 'node:path';
-import { arrayUnique, mergeArgs, objectMap, } from '@maddimathon/utility-typescript';
+import { arrayUnique, deleteUndefinedProps, mergeArgs, objectMap, } from '@maddimathon/utility-typescript';
 import { roundToPixel } from '../01-utilities/roundToPixel.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 /**
@@ -80,8 +80,10 @@ export class Tokens_Typography extends AbstractTokens {
                         label: font.slug === 'monospace' ? 'Monospace' : font.name,
                         value: font.slug,
                         labelClass: `font-family-override-${font.slug}`,
-                        contentWidthScale: font.contentWidthScale,
-                        lineHeightScale: font.lineHeightScale,
+                        ...deleteUndefinedProps({
+                            contentWidthScale: font.contentWidthScale,
+                            lineHeightScale: font.lineHeightScale,
+                        }),
                     },
                 ] : [];
             }))
@@ -170,10 +172,12 @@ export class Tokens_Typography extends AbstractTokens {
                 style: font.style,
                 weight: font.weight,
                 printFontFace: family.printFontFace ?? true,
-                display: font.display ?? family.display,
-                'line-gap-override': font.lineGapOverride ?? family.lineGapOverride,
-                'size-adjust': font.sizeAdjust ?? family.sizeAdjust,
-                'unicode-range': font.unicodeRange ?? family.unicodeRange,
+                ...deleteUndefinedProps({
+                    display: font.display ?? family.display,
+                    'line-gap-override': font.lineGapOverride ?? family.lineGapOverride,
+                    'size-adjust': font.sizeAdjust ?? family.sizeAdjust,
+                    'unicode-range': font.unicodeRange ?? family.unicodeRange,
+                }),
                 src: Object.values({
                     ...sources,
                     truetype: sources.ttf,

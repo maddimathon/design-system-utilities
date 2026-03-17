@@ -224,7 +224,7 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
             // if these core colours aren't set, we have to generate them or the
             // reset of the system will break
             if (inputKeys.length > 0) {
-                const _hue = Promise.all(Object.values(part).map(p => ColourUtilities.Async.toLCH(p))).then(arr => arr.reduce(((partialSum, a) => partialSum + a.h), 0) / Math.max(1, inputKeys.length));
+                const _hue = Promise.all(Object.values(part).map(p => p ? ColourUtilities.Async.toLCH(p) : false)).then(arr => arr.filter(v => v !== false).reduce(((partialSum, a) => partialSum + a.h), 0) / Math.max(1, inputKeys.length));
                 _l_100 = _hue.then((h) => shadeMaker('100', part['100'] ?? {
                     l: bases['100'].l,
                     c: 5,

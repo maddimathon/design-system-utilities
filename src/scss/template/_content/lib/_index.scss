@@ -192,11 +192,22 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
     @each $bp in map.keys(tokens.$breakpoints) {
         $additional_optional: list.append(
             $additional_optional,
-            ('.max-width-#{$bp}', max-width-#{$bp})
+            ('.breakpoint-max-width-#{$bp}', breakpoint-max-width-#{$bp})
         );
         $additional_optional: list.append(
             $additional_optional,
-            ('.min-width-#{$bp}', min-width-#{$bp})
+            ('.breakpoint-min-width-#{$bp}', breakpoint-min-width-#{$bp})
+        );
+    }
+
+    @each $slug in list.join(map.keys(tokens.$widths), (auto, fit-content, none)) {
+        $additional_optional: list.append(
+            $additional_optional,
+            ('.max-width-#{$slug}', max-width-#{$slug})
+        );
+        $additional_optional: list.append(
+            $additional_optional,
+            ('.min-width-#{$slug}', min-width-#{$slug})
         );
     }
 

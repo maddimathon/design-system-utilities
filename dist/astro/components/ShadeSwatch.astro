@@ -91,11 +91,11 @@ const {
 function getTextColourLevel<
     T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
 >(_vals: Props<T_Types>['values']) {
-    return (values.contrast?.min['base']?.text?.aaa?.level ??
+    return (
+        values.contrast?.min['base']?.text?.aaa?.level ??
         values.contrast?.max['base']?.level ??
-        (textColorLevel(level) as keyof typeof bases)) as keyof NonNullable<
-        Props<T_Types>['bases']
-    >;
+        textColorLevel(level)
+    );
 }
 
 /* CONSTANTS ===================================== */

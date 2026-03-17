@@ -143,7 +143,7 @@ export declare namespace Tokens_Typography {
          */
         type File = FontFileOptions & {
             path: {
-                [F in "local" | "ttf" | "woff" | "woff2"]?: string | string[];
+                [F in "local" | "ttf" | "woff" | "woff2"]?: undefined | string | string[];
             };
             style: "normal" | "italic";
             weight: WholeTokenLevel | `${'000' | WholeTokenLevel} ${WholeTokenLevel | '1000'}`;

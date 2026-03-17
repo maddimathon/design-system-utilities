@@ -1304,7 +1304,7 @@ export namespace Tokens_Themes_Set {
                             accent: inputs?.background,
                             bright: inputs?.background,
                             grey: inputs?.background,
-                        } satisfies Classify<Partial<Levels.Parsed<T_ColourTypes>[ 'background' ]>>,
+                        } satisfies Classify<Partial<Levels.Parsed<T_ColourTypes>[ 'background' ]>> as Partial<Levels.Parsed<T_ColourTypes>[ 'background' ]>,
 
                     heading: typeof inputs?.heading === 'object'
                         ? inputs?.heading
@@ -1321,7 +1321,7 @@ export namespace Tokens_Themes_Set {
                             $: inputs?.text,
                             accent: inputs?.text,
                             min: inputs?.text,
-                        } satisfies Classify<Partial<Levels.Parsed<T_ColourTypes>[ 'text' ]>>,
+                        } satisfies Classify<Partial<Levels.Parsed<T_ColourTypes>[ 'text' ]>> as Partial<Levels.Parsed<T_ColourTypes>[ 'text' ]>,
 
                     ui: typeof inputs?.ui === 'object'
                         ? inputs?.ui
@@ -1329,7 +1329,7 @@ export namespace Tokens_Themes_Set {
                             $: inputs?.ui,
                             accent: inputs?.ui,
                             min: inputs?.ui,
-                        } satisfies Classify<Partial<Levels.Parsed<T_ColourTypes>[ 'ui' ]>>,
+                        } satisfies Classify<Partial<Levels.Parsed<T_ColourTypes>[ 'ui' ]>> as Partial<Levels.Parsed<T_ColourTypes>[ 'ui' ]>,
                 };
             }
 
@@ -2186,10 +2186,7 @@ export namespace Tokens_Themes_Set {
                     text,
                     ui,
 
-                    system: mergeArgs<
-                        CompleteData[ 'system' ],
-                        RecursivePartial<CompleteData[ 'system' ]>
-                    >( {
+                    system: mergeArgs( {
                         accent: {
                             bg: [
                                 'CanvasText',

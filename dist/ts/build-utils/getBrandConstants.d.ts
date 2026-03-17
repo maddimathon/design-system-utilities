@@ -103,7 +103,7 @@ export declare namespace getBrandConstants {
             function entriesToObject_type(entries: [string, string][] | readonly [string, string][]): string;
             function outputConstant(varName: string, content: string, args: {
                 comment?: string;
-                type?: string;
+                type?: undefined | string;
             }): string[];
             /**
              * Gets a string of valid PHP code for wordpress defining constants for the given set of

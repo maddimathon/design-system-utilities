@@ -19,10 +19,11 @@ import { defineSassCompilerOpts } from './defineSassCompilerOpts.js';
  */
 export function defineConfig(config, _classes = {}) {
     const classes = {
-        Build,
-        Compile,
-        Document,
-        ..._classes,
+        build: _classes.Build ?? Build,
+        compile: _classes.Compile ?? Compile,
+        document: _classes.Document ?? Document,
+        package: _classes.Package,
+        test: _classes.Test ?? false,
     };
     const merged = {
         ...config,
@@ -32,11 +33,7 @@ export function defineConfig(config, _classes = {}) {
         },
         stages: {
             ...config.stages,
-            build: classes.Build,
-            compile: classes.Compile,
-            document: classes.Document,
-            package: classes.Package,
-            test: classes.Test ?? false,
+            ...classes,
         },
     };
     return merged;

@@ -60,12 +60,22 @@ label {
 .shade-swatch-table__wrapper :global(.shade-swatch) {
     padding: 0.1875rem 0.5rem;
     padding: var(--mrg-soft-100, 0.1875rem) var(--mrg-firm-200, 0.5rem);
-    gap: 0.1875rem 0.3125rem;
-    gap: var(--mrg-soft-100, 0.1875rem) var(--mrg-firm-100, 0.3125rem);
+    gap: 0 0.3125rem;
+    gap: 0 var(--mrg-firm-100, 0.3125rem);
+}
+.shade-swatch-table__wrapper
+    :global(.shade-swatch)
+    :global(.shade-swatch__name) {
+    margin-bottom: 0.1875rem;
+    margin-bottom: var(--mrg-soft-100, 0.1875rem);
 }
 .shade-swatch-table__wrapper
     :global(.shade-swatch)
     :global(.shade-swatch__colour-value) {
+    padding-top: 0.1875em;
+    padding-bottom: 0.1875em;
+    padding-top: var(--stroke-relative-600, 0.1875em);
+    padding-bottom: var(--stroke-relative-600, 0.1875em);
     font-size: 0.8125rem;
     font-size: var(--fs-smaller-3, 0.8125rem);
     text-wrap: nowrap;

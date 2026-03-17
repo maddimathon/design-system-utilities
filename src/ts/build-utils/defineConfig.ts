@@ -30,31 +30,34 @@ export type { Config };
  * 
  * @since 0.1.0-alpha
  */
-export function defineConfig<
-    T_Build extends typeof Build,
-    T_Compile extends typeof Compile,
-    T_Document extends typeof Document,
-    T_Package extends typeof PackageStage,
-    T_Test extends typeof TestStage,
->(
+export function defineConfig(
     config: Omit<Config, 'stages'> & {
         stages?: undefined | Omit<Config[ 'stages' ], 'build' | 'compile' | 'document' | 'package' | 'test'>;
     },
     _classes: {
-        Build?: T_Build,
-        Compile?: T_Compile,
-        Document?: T_Document,
-        Package?: T_Package,
-        Test?: T_Test,
+        Build?: typeof Build,
+        Compile?: typeof Compile,
+        Document?: typeof Document,
+        Package?: typeof PackageStage,
+        Test?: typeof TestStage,
     } = {},
 ): Config {
 
-    const classes = {
-        Build,
-        Compile,
-        Document,
-        ..._classes,
+    type Classes = {
+        build: boolean | typeof Build,
+        compile: boolean | typeof Compile,
+        document: boolean | typeof Document,
+        package: undefined | boolean | typeof PackageStage,
+        test: undefined | boolean | typeof TestStage,
     };
+
+    const classes = {
+        build: _classes.Build ?? Build,
+        compile: _classes.Compile ?? Compile,
+        document: _classes.Document ?? Document,
+        package: _classes.Package,
+        test: _classes.Test ?? false,
+    } satisfies Classes as Pick<NonNullable<Config[ 'stages' ]>, 'build' | 'compile' | 'document' | 'package' | 'test'>;
 
     const merged: Config = {
         ...config,
@@ -66,12 +69,7 @@ export function defineConfig<
 
         stages: {
             ...config.stages,
-
-            build: classes.Build,
-            compile: classes.Compile,
-            document: classes.Document,
-            package: classes.Package,
-            test: classes.Test ?? false,
+            ...classes,
         },
     };
 

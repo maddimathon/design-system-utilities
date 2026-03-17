@@ -3,6 +3,7 @@
 /// @since ___PKG_VERSION___
 ///
 
+@use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/map';
 
 @use '../../../lib' as *;
@@ -25,8 +26,26 @@
     max-width: 100%;
 }
 
+@each $slug in map.keys(tokens.$widths) {
+    %min-width-#{$slug} {
+        min-width: #{var-width($slug)};
+    }
+    %max-width-#{$slug} {
+        max-width: #{var-width($slug)};
+    }
+}
+
+@each $slug in (auto, fit-content, none) {
+    %min-width-#{$slug} {
+        min-width: #{$slug};
+    }
+    %max-width-#{$slug} {
+        max-width: #{$slug};
+    }
+}
+
 @each $bp in map.keys(tokens.$breakpoints) {
-    %min-width-#{$bp} {
+    %breakpoint-min-width-#{$bp} {
         display: none !important;
 
         @include min-width($bp) {
@@ -34,7 +53,7 @@
         }
     }
 
-    %max-width-#{$bp} {
+    %breakpoint-max-width-#{$bp} {
         display: none !important;
 
         @include max-width($bp) {

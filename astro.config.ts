@@ -6,15 +6,13 @@ import { astroConfig } from './src/astro/functions/astroConfig.js';
 import partialConfig from './.scripts/build.config.js';
 import pkg from './package.json';
 
-const config: AstroUserConfig = astroConfig( new URL( pkg.homepage ), partialConfig );
-
-if ( !config.experimental ) {
-    config.experimental = {};
-}
-
-config.publicDir = 'src/docs/_public';
-
-config.experimental.contentIntellisense = true;
+const config: AstroUserConfig = astroConfig(
+    new URL( pkg.homepage ),
+    partialConfig,
+    {
+        publicDir: 'src/docs/_public',
+    },
+);
 
 if ( !config.server ) {
     config.server = {};

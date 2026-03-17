@@ -1,0 +1,77 @@
+---
+/**
+ * @since ___PKG_VERSION___
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+import type { TokenTypes } from '../../ts/02-tokens/@types.js';
+import type { Tokens } from '../../ts/02-tokens/Tokens.js';
+import type { Props as ShadeSwatchTableProps } from './ShadeSwatchTable.astro';
+
+/* import - functions */
+import { toTitleCase } from '@maddimathon/utility-typescript';
+
+/* import - values */
+
+/* import - components */
+import Toggle from '@maddimathon/utility-astro/components/Toggle';
+import ShadeSwatchList from './ShadeSwatchList.astro';
+
+/* import - layouts */
+
+/* PROPS ===================================== */
+
+export interface Props<
+    T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+> {
+    tokens: Tokens.JsonReturn<T_Types>;
+}
+
+const { tokens }: Props = Astro.props;
+
+/* FUNCTION ===================================== */
+
+/* CONSTANTS ===================================== */
+
+const baseShades: ShadeSwatchTableProps['colour']['base'] = {
+    ...tokens.colour.base,
+    ...tokens.colour.$,
+};
+---
+
+{
+    (Object.keys(tokens.colour) as (keyof typeof tokens.colour)[]).map(
+        (name) =>
+            tokens.colour[name] &&
+            name !== '$' &&
+            name !== 'black' &&
+            name !== 'white' && (
+                <Toggle
+                    class='shades-list-toggle'
+                    heading={2}
+                    id={`shades-${name}`}
+                >
+                    <Fragment
+                        set:text={`All ${toTitleCase(name)} Shades`}
+                        slot='button'
+                    />
+                    <ShadeSwatchList
+                        bases={baseShades}
+                        colour={
+                            name === 'base' ? baseShades : tokens.colour[name]
+                        }
+                        id={`shades-${name}__list`}
+                        name={name}
+                        shadeHeading={3}
+                        tokens={tokens}
+                    />
+                </Toggle>
+            ),
+    )
+}
+
+<style lang='scss'>
+    @forward '../scss/shade-swatch-all-lists';
+</style>

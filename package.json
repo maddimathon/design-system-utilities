@@ -27,7 +27,8 @@
         "./package-lock.json",
         "./package.json",
         "./README.md",
-        "./tsconfig.json"
+        "./tsconfig.json",
+        "./tsconfig.base.json"
     ],
 
     "main": "./dist/ts/index.js",
@@ -49,7 +50,7 @@
 
         "./jest.config.js": "./jest.config.js",
         "./package.json": "./package.json",
-        "./tsconfig": "./tsconfig.json",
+        "./tsconfig": "./tsconfig.base.json",
 
         
         "./components/*": [
@@ -176,14 +177,16 @@
 
     "scripts": {
         "unlink": "run-p unlink:*",
+            "unlink-ts":    "rm -r node_modules/@maddimathon/utility-typescript || echo ''",
+            "unlink-build": "rm -rf node_modules/@maddimathon/build-utilities || echo ''",
             "unlink:astro": "rm -r node_modules/@maddimathon/utility-astro || echo ''",
             "unlink:sass":  "rm -r node_modules/@maddimathon/utility-sass || echo ''",
-            "unlink-ts":    "rm -r node_modules/@maddimathon/utility-typescript || echo ''",
 
         "link": "run-p link:*",
+            "link-ts":    "npm run unlink-ts    && mkdir -p node_modules/@maddimathon/utility-typescript  && cp -R -H -f -p ../utility-typescript/package.json  ../utility-typescript/dist node_modules/@maddimathon/utility-typescript",
+            "link-build": "npm run unlink-build  && mkdir -p node_modules/@maddimathon/build-utilities    && cp -R -H -f -p ../npm-build-utilities/package.json ../npm-build-utilities/tsconfig.base.json ../npm-build-utilities/dist node_modules/@maddimathon/build-utilities",
             "link:astro": "npm run unlink:astro && mkdir -p node_modules/@maddimathon/utility-astro       && cp -R -H -f -p ../utility-astro/package.json ../utility-astro/dist ../utility-astro/jest.config.js ../utility-astro/tsconfig.json node_modules/@maddimathon/utility-astro",
             "link:sass":  "npm run unlink:sass  && mkdir -p node_modules/@maddimathon/utility-sass        && cp -R -H -f -p ../utility-sass/package.json  ../utility-sass/dist node_modules/@maddimathon/utility-sass",
-            "link-ts":    "npm run unlink-ts    && mkdir -p node_modules/@maddimathon/utility-typescript  && cp -R -H -f -p ../utility-typescript/package.json  ../utility-typescript/dist node_modules/@maddimathon/utility-typescript",
 
         "preinstall": "npm run unlink",
 

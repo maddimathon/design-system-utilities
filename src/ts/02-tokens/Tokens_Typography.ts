@@ -14,6 +14,7 @@ import NodePath from 'node:path';
 import type { RecursivePartial } from '@maddimathon/utility-typescript/types';
 import {
     arrayUnique,
+    deleteUndefinedProps,
     mergeArgs,
     objectMap,
 } from '@maddimathon/utility-typescript';
@@ -129,9 +130,11 @@ export class Tokens_Typography<
                                 value: font.slug,
                                 labelClass: `font-family-override-${ font.slug }`,
 
-                                contentWidthScale: font.contentWidthScale,
-                                lineHeightScale: font.lineHeightScale,
-                            },
+                                ...deleteUndefinedProps( {
+                                    contentWidthScale: font.contentWidthScale,
+                                    lineHeightScale: font.lineHeightScale,
+                                } ),
+                            } satisfies Tokens_Typography.Font.FamilyOverride,
                         ] : [];
                     }
                 )
@@ -279,10 +282,12 @@ export class Tokens_Typography<
 
                 printFontFace: family.printFontFace ?? true,
 
-                display: font.display ?? family.display,
-                'line-gap-override': font.lineGapOverride ?? family.lineGapOverride,
-                'size-adjust': font.sizeAdjust ?? family.sizeAdjust,
-                'unicode-range': font.unicodeRange ?? family.unicodeRange,
+                ...deleteUndefinedProps( {
+                    display: font.display ?? family.display,
+                    'line-gap-override': font.lineGapOverride ?? family.lineGapOverride,
+                    'size-adjust': font.sizeAdjust ?? family.sizeAdjust,
+                    'unicode-range': font.unicodeRange ?? family.unicodeRange,
+                } ),
 
                 src: Object.values( {
                     ...sources,
@@ -508,7 +513,7 @@ export namespace Tokens_Typography {
          */
         export type File = FontFileOptions & {
             path: {
-                [ F in "local" | "ttf" | "woff" | "woff2" ]?: string | string[];
+                [ F in "local" | "ttf" | "woff" | "woff2" ]?: undefined | string | string[];
             };
             style: "normal" | "italic";
             weight: WholeTokenLevel | `${ '000' | WholeTokenLevel } ${ WholeTokenLevel | '1000' }`;

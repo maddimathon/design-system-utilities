@@ -26,6 +26,10 @@ export var ColourUtilities;
      * Ensures a valid shade object.
      */
     async function validateShade(input, errMaker = defaultErrorMaker, round) {
+        // throws
+        if (!input) {
+            throw errMaker(`Input '${input}' was falsey`, { function: 'ColourUtilities.validateShade' }, { cause: input });
+        }
         // returns
         if (typeof input === 'object' && 'hex' in input) {
             return input;
@@ -140,10 +144,15 @@ export var ColourUtilities;
      * @since 0.1.0-alpha
      */
     function toHex(clr, errMaker = defaultErrorMaker) {
-        const _hexFormatter = (hex) => hex.toUpperCase().replace(/^#/gi, '');
-        const _hexValidator = (hex) => _hexFormatter(hexValidator(hex, {
+        const errContext = {
             function: 'ColourUtilities.toHex',
-        }, errMaker));
+        };
+        // throws
+        if (!clr) {
+            throw errMaker(`Input clr '${clr}' was falsey`, errContext, { cause: clr });
+        }
+        const _hexFormatter = (hex) => hex.toUpperCase().replace(/^#/gi, '');
+        const _hexValidator = (hex) => _hexFormatter(hexValidator(hex, errContext, errMaker));
         // returns - plain
         if (typeof clr === 'string') {
             return _hexValidator(clr);
@@ -158,31 +167,33 @@ export var ColourUtilities;
         }
         // returns - hsl
         if ('s' in clr) {
-            const hex = clrConvert.hsl.hex.raw(clr.h, clr.s, clr.l);
-            return _hexFormatter(hex);
+            return _hexFormatter(clrConvert.hsl.hex.raw(clr.h, clr.s, clr.l));
         }
         // returns - lch
         if ('c' in clr) {
-            const hex = clrConvert.lch.hex.raw(clr.l, clr.c, clr.h);
-            return _hexFormatter(hex);
+            return _hexFormatter(clrConvert.lch.hex.raw(clr.l, clr.c, clr.h));
         }
         // clr is rgb
-        const hex = clrConvert.rgb.hex.raw(clr.r, clr.g, clr.b);
-        return _hexFormatter(hex);
+        return _hexFormatter(clrConvert.rgb.hex.raw(clr.r, clr.g, clr.b));
     }
     ColourUtilities.toHex = toHex;
     /**
      * @since 0.1.0-alpha
      */
     function toHSL(clr, errMaker = defaultErrorMaker, round = true) {
+        const errContext = {
+            function: 'ColourUtilities.toHSL',
+        };
+        // throws
+        if (!clr) {
+            throw errMaker(`Input clr '${clr}' was falsey`, errContext, { cause: clr });
+        }
         const _hslFormatter = (hsl) => round ? {
             h: roundToPixel(hsl.h, 100),
             s: roundToPixel(hsl.s, 100),
             l: roundToPixel(hsl.l, 100),
         } : hsl;
-        const _hslValidator = (hsl) => _hslFormatter(hslValidator(hsl, {
-            function: 'ColourUtilities.toHSL',
-        }, errMaker));
+        const _hslValidator = (hsl) => _hslFormatter(hslValidator(hsl, errContext, errMaker));
         // returns - converts
         if (typeof clr === 'string') {
             const validHex = hexValidator(clr, {
@@ -223,19 +234,22 @@ export var ColourUtilities;
      * @since 0.1.0-alpha
      */
     function toLCH(clr, errMaker = defaultErrorMaker, round = true) {
+        const errContext = {
+            function: 'ColourUtilities.toLCH',
+        };
+        // throws
+        if (!clr) {
+            throw errMaker(`Input clr '${clr}' was falsey`, errContext, { cause: clr });
+        }
         const _lchFormatter = (lch) => round ? {
             l: roundToPixel(lch.l, 1000),
             c: roundToPixel(lch.c, 2000),
             h: roundToPixel(lch.h, 1000),
         } : lch;
-        const _lchValidator = (hsl) => _lchFormatter(lchValidator(hsl, {
-            function: 'ColourUtilities.toLCH',
-        }, errMaker));
+        const _lchValidator = (hsl) => _lchFormatter(lchValidator(hsl, errContext, errMaker));
         // returns - converts
         if (typeof clr === 'string') {
-            const validHex = hexValidator(clr, {
-                function: 'ColourUtilities.toLCH',
-            }, errMaker);
+            const validHex = hexValidator(clr, errContext, errMaker);
             const [l, c, h] = clrConvert.hex.lch.raw(validHex);
             return _lchFormatter({ l, c, h });
         }
@@ -253,16 +267,12 @@ export var ColourUtilities;
         }
         // returns - hsl
         if ('h' in clr) {
-            const validHSL = hslValidator(clr, {
-                function: 'ColourUtilities.toLCH',
-            }, errMaker);
+            const validHSL = hslValidator(clr, errContext, errMaker);
             const [l, c, h] = clrConvert.hsl.lch.raw([validHSL.h, validHSL.s, validHSL.l]);
             return _lchFormatter({ l, c, h });
         }
         // clr is rgb
-        const validRGB = rgbValidator(clr, {
-            function: 'ColourUtilities.toLCH',
-        }, errMaker);
+        const validRGB = rgbValidator(clr, errContext, errMaker);
         const [l, c, h] = clrConvert.rgb.lch.raw([validRGB.r, validRGB.g, validRGB.b]);
         return _lchFormatter({ l, c, h });
     }
@@ -271,19 +281,22 @@ export var ColourUtilities;
      * @since 0.1.0-alpha
      */
     function toRGB(clr, errMaker = defaultErrorMaker, round = true) {
+        const errContext = {
+            function: 'ColourUtilities.toRGB',
+        };
+        // throws
+        if (!clr) {
+            throw errMaker(`Input clr '${clr}' was falsey`, errContext, { cause: clr });
+        }
         const _rgbFormatter = (rgb) => round ? {
             r: roundToPixel(rgb.r, 100),
             g: roundToPixel(rgb.g, 100),
             b: roundToPixel(rgb.b, 100),
         } : rgb;
-        const _rgbValidator = (rgb) => _rgbFormatter(rgbValidator(rgb, {
-            function: 'ColourUtilities.toRGB',
-        }, errMaker));
+        const _rgbValidator = (rgb) => _rgbFormatter(rgbValidator(rgb, errContext, errMaker));
         // returns - converts
         if (typeof clr === 'string') {
-            const validHex = hexValidator(clr, {
-                function: 'ColourUtilities.toRGB',
-            }, errMaker);
+            const validHex = hexValidator(clr, errContext, errMaker);
             const [r, g, b] = clrConvert.hex.rgb.raw(validHex);
             return _rgbFormatter({ r, g, b });
         }
@@ -301,16 +314,12 @@ export var ColourUtilities;
         }
         // returns - lch
         if ('c' in clr) {
-            const validLCH = lchValidator(clr, {
-                function: 'ColourUtilities.toRGB',
-            }, errMaker);
+            const validLCH = lchValidator(clr, errContext, errMaker);
             const [r, g, b] = clrConvert.lch.rgb.raw([validLCH.l, validLCH.c, validLCH.h]);
             return _rgbFormatter({ r, g, b });
         }
         // clr is hsl
-        const validHSL = hslValidator(clr, {
-            function: 'ColourUtilities.toRGB',
-        }, errMaker);
+        const validHSL = hslValidator(clr, errContext, errMaker);
         const [r, g, b] = clrConvert.hsl.rgb.raw([validHSL.h, validHSL.s, validHSL.l]);
         return _rgbFormatter({ r, g, b });
     }
@@ -330,7 +339,7 @@ export var ColourUtilities;
         const sass_mixed_hsl = `color.to-gamut( ${sass_mixed}, $space: hsl, $method: local-minde )`;
         const sass_mixed_saturated = `color.scale( ${sass_mixed_hsl}, $saturation: ${saturationMultiplier}%, $space: hsl )`;
         return sass.compileStringAsync(`@use 'sass:color'; /* #{color.to-gamut( ${sass_mixed_saturated}, $space: lch, $method: local-minde )} */`).then((sassMixed) => {
-            const matches = `${sassMixed.css}`.match(/lch\(\s*([\d\.]+)%\s+([\d\.]+)\s+([\d\.]+)deg\s*\)/is);
+            const matches = sassMixed.css.match(/lch\(\s*([\d\.]+)%\s+([\d\.]+)\s+([\d\.]+)deg\s*\)/is);
             // returns - in theory never used
             if (!(matches && matches[1] && matches[2] && matches[3])) {
                 return toLCH({
@@ -483,10 +492,15 @@ export var ColourUtilities;
          * @since 0.1.0-beta.0.draft
          */
         async function toHex(clr, errMaker = defaultErrorMaker) {
-            const _hexFormatter = (hex) => hex.toUpperCase().replace(/^#/gi, '');
-            const _hexValidator = (hex) => hexValidator(hex, {
+            const errContext = {
                 function: 'ColourUtilities.Async.toHex',
-            }, errMaker).then(_hexFormatter);
+            };
+            // throws
+            if (!clr) {
+                throw errMaker(`Input clr '${clr}' was falsey`, errContext, { cause: clr });
+            }
+            const _hexFormatter = (hex) => hex.toUpperCase().replace(/^#/gi, '');
+            const _hexValidator = async (hex) => hexValidator(await hex, errContext, errMaker).then(_hexFormatter);
             // returns - plain
             if (typeof clr === 'string') {
                 return _hexValidator(clr);
@@ -501,36 +515,36 @@ export var ColourUtilities;
             }
             // returns - hsl
             if ('s' in clr) {
-                const hex = clrConvert.hsl.hex.raw(clr.h, clr.s, clr.l);
-                return _hexFormatter(hex);
+                return _hexFormatter(clrConvert.hsl.hex.raw(clr.h, clr.s, clr.l));
             }
             // returns - lch
             if ('c' in clr) {
-                const hex = clrConvert.lch.hex.raw(clr.l, clr.c, clr.h);
-                return _hexFormatter(hex);
+                return _hexFormatter(clrConvert.lch.hex.raw(clr.l, clr.c, clr.h));
             }
             // clr is rgb
-            const hex = clrConvert.rgb.hex.raw(clr.r, clr.g, clr.b);
-            return _hexFormatter(hex);
+            return _hexFormatter(clrConvert.rgb.hex.raw(clr.r, clr.g, clr.b));
         }
         Async.toHex = toHex;
         /**
          * @since 0.1.0-beta.0.draft
          */
         async function toHSL(clr, errMaker = defaultErrorMaker, round = true) {
+            const errContext = {
+                function: 'ColourUtilities.Async.toHSL',
+            };
+            // throws
+            if (!clr) {
+                throw errMaker(`Input clr '${clr}' was falsey`, errContext, { cause: clr });
+            }
             const _hslFormatter = (hsl) => round ? {
                 h: roundToPixel(hsl.h, 100),
                 s: roundToPixel(hsl.s, 100),
                 l: roundToPixel(hsl.l, 100),
             } : hsl;
-            const _hslValidator = (hsl) => hslValidator(hsl, {
-                function: 'ColourUtilities.Async.toHSL',
-            }, errMaker).then(_hslFormatter);
+            const _hslValidator = (hsl) => hslValidator(hsl, errContext, errMaker).then(_hslFormatter);
             // returns - converts
             if (typeof clr === 'string') {
-                return hexValidator(clr, {
-                    function: 'ColourUtilities.Async.toHSL',
-                }, errMaker).then(validHex => {
+                return hexValidator(clr, errContext, errMaker).then(validHex => {
                     const [h, s, l] = clrConvert.hex.hsl.raw(validHex);
                     return _hslFormatter({ h, s, l });
                 });
@@ -549,17 +563,13 @@ export var ColourUtilities;
             }
             // returns - lch
             if ('c' in clr) {
-                return lchValidator(clr, {
-                    function: 'ColourUtilities.Async.toHSL',
-                }, errMaker).then(validLCH => {
+                return lchValidator(clr, errContext, errMaker).then(validLCH => {
                     const [h, s, l] = clrConvert.lch.hsl.raw([validLCH.l, validLCH.c, validLCH.h]);
                     return _hslFormatter({ h, s, l });
                 });
             }
             // clr is rgb
-            return rgbValidator(clr, {
-                function: 'ColourUtilities.Async.toHSL',
-            }, errMaker).then(validRGB => {
+            return rgbValidator(clr, errContext, errMaker).then(validRGB => {
                 const [h, s, l] = clrConvert.rgb.hsl.raw([validRGB.r, validRGB.g, validRGB.b]);
                 return _hslFormatter({ h, s, l });
             });
@@ -569,19 +579,22 @@ export var ColourUtilities;
          * @since 0.1.0-beta.0.draft
          */
         async function toLCH(clr, errMaker = defaultErrorMaker, round = true) {
+            const errContext = {
+                function: 'ColourUtilities.Async.toLCH',
+            };
+            // throws
+            if (!clr) {
+                throw errMaker(`Input clr '${clr}' was falsey`, errContext, { cause: clr });
+            }
             const _lchFormatter = (lch) => round ? {
                 l: roundToPixel(lch.l, 1000),
                 c: roundToPixel(lch.c, 2000),
                 h: roundToPixel(lch.h, 1000),
             } : lch;
-            const _lchValidator = (hsl) => lchValidator(hsl, {
-                function: 'ColourUtilities.Async.toLCH',
-            }, errMaker).then(_lchFormatter);
+            const _lchValidator = (hsl) => lchValidator(hsl, errContext, errMaker).then(_lchFormatter);
             // returns - converts
             if (typeof clr === 'string') {
-                return hexValidator(clr, {
-                    function: 'ColourUtilities.Async.toLCH',
-                }, errMaker).then(validHex => {
+                return hexValidator(clr, errContext, errMaker).then(validHex => {
                     const [l, c, h] = clrConvert.hex.lch.raw(validHex);
                     return _lchFormatter({ l, c, h });
                 });
@@ -600,17 +613,13 @@ export var ColourUtilities;
             }
             // returns - hsl
             if ('h' in clr) {
-                return hslValidator(clr, {
-                    function: 'ColourUtilities.Async.toLCH',
-                }, errMaker).then(validHSL => {
+                return hslValidator(clr, errContext, errMaker).then(validHSL => {
                     const [l, c, h] = clrConvert.hsl.lch.raw([validHSL.h, validHSL.s, validHSL.l]);
                     return _lchFormatter({ l, c, h });
                 });
             }
             // clr is rgb
-            return rgbValidator(clr, {
-                function: 'ColourUtilities.Async.toLCH',
-            }, errMaker).then(validRGB => {
+            return rgbValidator(clr, errContext, errMaker).then(validRGB => {
                 const [l, c, h] = clrConvert.rgb.lch.raw([validRGB.r, validRGB.g, validRGB.b]);
                 return _lchFormatter({ l, c, h });
             });
@@ -620,19 +629,22 @@ export var ColourUtilities;
          * @since 0.1.0-beta.0.draft
          */
         async function toRGB(clr, errMaker = defaultErrorMaker, round = true) {
+            const errContext = {
+                function: 'ColourUtilities.Async.toRGB',
+            };
+            // throws
+            if (!clr) {
+                throw errMaker(`Input clr '${clr}' was falsey`, errContext, { cause: clr });
+            }
             const _rgbFormatter = (rgb) => round ? {
                 r: roundToPixel(rgb.r, 100),
                 g: roundToPixel(rgb.g, 100),
                 b: roundToPixel(rgb.b, 100),
             } : rgb;
-            const _rgbValidator = (rgb) => rgbValidator(rgb, {
-                function: 'ColourUtilities.Async.toRGB',
-            }, errMaker).then(_rgbFormatter);
+            const _rgbValidator = (rgb) => rgbValidator(rgb, errContext, errMaker).then(_rgbFormatter);
             // returns - converts
             if (typeof clr === 'string') {
-                return hexValidator(clr, {
-                    function: 'ColourUtilities.Async.toRGB',
-                }, errMaker).then(validHex => {
+                return hexValidator(clr, errContext, errMaker).then(validHex => {
                     const [r, g, b] = clrConvert.hex.rgb.raw(validHex);
                     return _rgbFormatter({ r, g, b });
                 });
@@ -651,17 +663,13 @@ export var ColourUtilities;
             }
             // returns - lch
             if ('c' in clr) {
-                return lchValidator(clr, {
-                    function: 'ColourUtilities.Async.toRGB',
-                }, errMaker).then(validLCH => {
+                return lchValidator(clr, errContext, errMaker).then(validLCH => {
                     const [r, g, b] = clrConvert.lch.rgb.raw([validLCH.l, validLCH.c, validLCH.h]);
                     return _rgbFormatter({ r, g, b });
                 });
             }
             // clr is hsl
-            return hslValidator(clr, {
-                function: 'ColourUtilities.Async.toRGB',
-            }, errMaker).then(validHSL => {
+            return hslValidator(clr, errContext, errMaker).then(validHSL => {
                 const [r, g, b] = clrConvert.hsl.rgb.raw([validHSL.h, validHSL.s, validHSL.l]);
                 return _rgbFormatter({ r, g, b });
             });

@@ -47,7 +47,12 @@ export async function makeShadeTargetLevels<
     const current: LevelTargets<T_Types[ 'colour' ]> = await objectMapAsync(
         targetShadeMap,
         async ( [ level, value ] ) => {
-            level;
+
+            if ( !value.contrast ) {
+                return undefined satisfies LevelTargets<
+                    T_Types[ 'colour' ]
+                >[ Exclude<keyof typeof targetShadeMap, 'name'> ];
+            }
 
             return {
                 min: {
@@ -66,7 +71,7 @@ export async function makeShadeTargetLevels<
                 max: value.contrast.max[ sampleColourName ]?.level,
             } satisfies LevelTargets<
                 T_Types[ 'colour' ]
-            >[ keyof typeof targetShadeMap ];
+            >[ Exclude<keyof typeof targetShadeMap, 'name'> ];
         },
     );
 
@@ -99,20 +104,19 @@ export async function makeShadeTargetLevels<
     };
 
     for ( const [ _t_level_a, _t_level_b ] of matchedPairs ) {
-        // continues
-        if (
-            !current[ _t_level_a as ColourUtilities.Levels.Required ] ||
-            !current[ _t_level_b as ColourUtilities.Levels.Required ]
-        ) {
-            continue;
-        }
 
         const level_a = _t_level_a as
             | ColourUtilities.Levels.Required
             | T_Types[ 'colour' ][ 'extraLevels' ];
+
         const level_b = _t_level_b as
             | ColourUtilities.Levels.Required
             | T_Types[ 'colour' ][ 'extraLevels' ];
+
+        // continues
+        if ( !current[ level_a ] || !current[ level_b ] ) {
+            continue;
+        }
 
         const corrected_a = {
             min: {
@@ -138,7 +142,7 @@ export async function makeShadeTargetLevels<
                 },
             },
             max: getMaxLevel( current[ level_a ].max, current[ level_b ].max ),
-        } satisfies LevelTargets[ keyof typeof targetShadeMap ];
+        } satisfies LevelTargets[ Exclude<keyof typeof targetShadeMap, 'name'> ];
 
         current[ level_a ] = corrected_a;
 
@@ -164,7 +168,7 @@ export async function makeShadeTargetLevels<
             max:
                 corrected_a.max &&
                 ColourUtilities.Levels.toDark( corrected_a.max ),
-        } satisfies LevelTargets[ keyof typeof targetShadeMap ];
+        } satisfies LevelTargets[ Exclude<keyof typeof targetShadeMap, 'name'> ];
     }
 
     return current;

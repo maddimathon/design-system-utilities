@@ -527,10 +527,12 @@ export namespace Tokens_Colour_ShadeMap {
 
                 const _hue = Promise.all(
                     Object.values( part ).map(
-                        p => ColourUtilities.Async.toLCH( p )
+                        p => p ? ColourUtilities.Async.toLCH( p ) : false
                     )
                 ).then(
-                    arr => arr.reduce(
+                    arr => arr.filter(
+                        v => v !== false
+                    ).reduce(
                         ( ( partialSum, a ) => partialSum + a.h ),
                         0,
                     ) / Math.max( 1, inputKeys.length )

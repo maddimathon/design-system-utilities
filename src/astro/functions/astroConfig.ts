@@ -71,6 +71,8 @@ export function astroConfig(
 
         devToolbar: { enabled: false },
 
+        experimental: { contentIntellisense: true },
+
         markdown: {
             syntaxHighlight: 'prism',
         },
@@ -91,7 +93,8 @@ export function astroConfig(
 
         srcDir,
 
-        trailingSlash: 'always',
+        // we need this for offline internal relative paths to work (mostly) reliably
+        trailingSlash: import.meta.env.DEV ? 'ignore' : 'always',
 
         vite: {
             build: {
@@ -101,14 +104,16 @@ export function astroConfig(
         },
     };
 
-    return mergeArgs( astroDefaultConfig, {
-        ...astroConfig,
+    return mergeArgs(
+        astroDefaultConfig,
+        {
+            ...astroConfig,
 
-        // we need this for offline internal relative paths to work (mostly) reliably
-        trailingSlash: import.meta.env.DEV ? 'ignore' : 'always',
-        build: {
-            ...astroConfig?.build,
-            format: 'file',
-        },
-    }, true );
+            build: {
+                ...astroConfig?.build,
+                format: 'file',
+            },
+        } satisfies Partial<AstroUserConfig>,
+        true,
+    );
 }

@@ -551,7 +551,7 @@ export namespace getBrandConstants {
                 content: string,
                 args: {
                     comment?: string,
-                    type?: string,
+                    type?: undefined | string,
                 },
             ): string[] {
                 // returns
