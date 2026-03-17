@@ -90,10 +90,22 @@
         }
     }
 
-    &.no-pseudo {
-        &::before,
-        &::after {
-            content: none !important;
+    @if config.$include_link_inlineIcons {
+        &.no-pseudo {
+            &::before,
+            &::after {
+                content: none !important;
+            }
+        }
+
+        &:has(> #{selector.unify('%brand-logo', ':only-child')}),
+        &:has(> #{selector.unify('%icon', ':only-child')}),
+        &:has(> #{selector.unify('%img', ':only-child')}),
+        &:has(> #{selector.unify('%svg', ':only-child')}) {
+            &::before,
+            &::after {
+                content: none !important;
+            }
         }
     }
 }

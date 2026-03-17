@@ -15114,6 +15114,16 @@ a.no-pseudo[href]::before,
 a.no-pseudo[href]::after {
     content: none !important;
 }
+a[href]:has(> .brand-logo:only-child)::before,
+a[href]:has(> .brand-logo:only-child)::after,
+a[href]:has(> .icon:only-child)::before,
+a[href]:has(> .icon:only-child)::after,
+a[href]:has(> img:only-child)::before,
+a[href]:has(> img:only-child)::after,
+a[href]:has(> svg:only-child)::before,
+a[href]:has(> svg:only-child)::after {
+    content: none !important;
+}
 
 abbr[title] {
     -webkit-text-decoration: dotted underline 0.15625em;
