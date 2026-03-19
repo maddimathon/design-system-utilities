@@ -154,33 +154,23 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
         ('.overflow-inline-auto', 'overflow-inline-auto')
     );
 
-    $additional: list.append(
-        $additional,
-        ('.margins-flow-paragraph', paragraph-margins)
-    );
-    $additional: list.append(
+    $additional: list.join(
         $additional,
         (
-            ('.margins-flow-paragraph-large', '[data-toggle-container]'),
-            paragraph-large-margins
+            ('.margins-flow-paragraph', paragraph-margins),
+            ('.margins-flow-paragraph-small', paragraph-small-margins),
+            (
+                ('.margins-flow-paragraph-large', '[data-toggle-container]'),
+                paragraph-large-margins
+            ),
+            //
+            ('.margins-flow-paragraph-firm', paragraph-firm-margins),
+            (
+                '.margins-flow-paragraph-firm-small',
+                paragraph-firm-small-margins
+            ),
+            ('.margins-flow-paragraph-firm-large', paragraph-firm-large-margins)
         )
-    );
-    $additional: list.append(
-        $additional,
-        ('.margins-flow-paragraph-small', paragraph-small-margins)
-    );
-
-    $additional: list.append(
-        $additional,
-        ('.margins-flow-paragraph-firm', paragraph-firm-margins)
-    );
-    $additional: list.append(
-        $additional,
-        ('.margins-flow-paragraph-firm-large', paragraph-firm-large-margins)
-    );
-    $additional: list.append(
-        $additional,
-        ('.margins-flow-paragraph-firm-small', paragraph-firm-small-margins)
     );
 
     $additional: list.append(
@@ -238,7 +228,7 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
     // $additional: list.append($additional, ((), 'paragraph-small-margins'));
     $additional: list.append(
         $additional,
-        (('.button-span', 'a.button[href]', '%alert'), 'paragraph-firm-margins')
+        (('a.button[href]', '%alert'), 'paragraph-firm-margins')
     );
 
     @each $bp in map.keys(tokens.$breakpoints) {

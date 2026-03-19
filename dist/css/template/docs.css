@@ -13407,65 +13407,6 @@ hr + p {
     margin-top: 0;
 }
 
-blockquote {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: auto;
-    margin-left: max(0.5rem, min(9%, 4rem));
-    margin-right: max(0.5rem, min(9%, 4rem));
-    margin-left: max(0.5rem, min(9%, 4rem));
-    margin-left: var(--gap-inline-indent, 9%);
-    margin-right: max(0.5rem, min(9%, 4rem));
-    margin-right: var(--gap-inline-indent, 9%);
-}
-blockquote {
-    margin-top: 0.8125rem;
-    margin-top: var(--mrg-soft-400, 0.8125rem);
-    margin-bottom: 0;
-    margin-top: 1.625rem;
-    margin-bottom: calc(1.625rem - 0.8125rem);
-    margin-top: var(--mrg-soft-600, 1.625rem);
-    margin-bottom: calc(
-        var(--mrg-soft-600, 1.625rem) - var(--mrg-soft-400, 0.8125rem)
-    );
-    padding-left: 0.8125rem;
-    padding-left: var(--mrg-firm-300, 0.8125rem);
-    border-left: 0.125rem solid currentColor;
-    border-left: var(--border-width-200, 0.125rem) solid currentColor;
-}
-@media (min-width: 36em) {
-    blockquote {
-        margin-left: max(0.5rem, min(9%, 4rem));
-        margin-right: max(0.5rem, min(9%, 4rem));
-        margin-left: max(0.5rem, min(9%, 4rem));
-        margin-left: var(--gap-inline-indent, 9%);
-        margin-right: max(0.5rem, min(9%, 4rem));
-        margin-right: var(--gap-inline-indent, 9%);
-    }
-}
-blockquote > p:first-child {
-    margin-top: 0;
-}
-blockquote > cite {
-    display: block;
-    margin-top: 0.8125rem;
-    margin-top: var(--mrg-soft-400, 0.8125rem);
-    margin-bottom: 0;
-    text-align: right;
-}
-blockquote > cite::before {
-    content: "— "/"";
-    color: currentColor;
-}
-blockquote > cite {
-    color: color-mix(in srgb, currentColor 75%, transparent);
-}
-
-[data-contrast-mode="high"] blockquote > cite {
-    color: color-mix(in srgb, currentColor 87.5%, transparent);
-}
-
 code,
 kbd,
 pre,
@@ -13552,6 +13493,7 @@ ul ul,
 .table-of-contents > ol ul {
     margin-top: 0;
 }
+
 ol {
     list-style-type: decimal;
 }
@@ -13897,6 +13839,7 @@ input[type="time"],
 input[type="week"] {
     cursor: pointer;
 }
+
 input[type="email"],
 input[type="month"],
 input[type="number"],
@@ -13927,6 +13870,7 @@ input[type="time"],
 input[type="week"] {
     width: auto;
 }
+
 input[type="file"] {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
@@ -13939,6 +13883,7 @@ input[type="file"] {
     font-size: 0.9375rem;
     font-size: var(--fs-smaller-1, 0.9375rem);
 }
+
 input[type="range"] {
     padding: 0;
 }
@@ -15155,8 +15100,32 @@ p.aside em em {
 }
 
 blockquote {
-    border-left-color: hsl(278.16, 60.54%, 30.06%);
-    border-left-color: var(--theme-ui-primary, CanvasText);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+    margin-left: max(0.5rem, min(9%, 4rem));
+    margin-right: max(0.5rem, min(9%, 4rem));
+    margin-left: max(0.5rem, min(9%, 4rem));
+    margin-left: var(--gap-inline-indent, 9%);
+    margin-right: max(0.5rem, min(9%, 4rem));
+    margin-right: var(--gap-inline-indent, 9%);
+}
+blockquote {
+    margin-top: 0.8125rem;
+    margin-top: var(--mrg-soft-400, 0.8125rem);
+    margin-bottom: 0;
+    margin-top: 1.625rem;
+    margin-bottom: calc(1.625rem - 0.8125rem);
+    margin-top: var(--mrg-soft-600, 1.625rem);
+    margin-bottom: calc(
+        var(--mrg-soft-600, 1.625rem) - var(--mrg-soft-400, 0.8125rem)
+    );
+    padding-left: 0.8125rem;
+    padding-left: var(--mrg-firm-300, 0.8125rem);
+    border-left: 0.125rem solid hsl(278.16, 60.54%, 30.06%);
+    border-left: var(--border-width-200, 0.125rem) solid
+        var(--theme-ui-primary, CanvasText);
 }
 blockquote .unstyled-heading {
     margin-top: 1.1875rem;
@@ -15222,10 +15191,12 @@ blockquote details,
 blockquote figure,
 blockquote img,
 blockquote .margins-flow-paragraph-firm,
-blockquote .button-span,
 blockquote a.button[href],
 blockquote a.button-secondary[href],
-blockquote .alert-block {
+blockquote .alert-block,
+blockquote .button-span,
+blockquote .site-content .button-span,
+.site-content blockquote .button-span {
     margin-top: 0.8125rem;
     margin-bottom: 0.3125rem;
     margin-top: var(--mrg-firm-300, 0.8125rem);
@@ -15265,12 +15236,32 @@ blockquote .site-content .button-span,
     gap: 0.5rem 0.5rem;
     gap: var(--mrg-firm-200, 0.5rem) var(--mrg-firm-200, 0.5rem);
 }
+@media (min-width: 36em) {
+    blockquote {
+        margin-left: max(0.5rem, min(9%, 4rem));
+        margin-right: max(0.5rem, min(9%, 4rem));
+        margin-left: max(0.5rem, min(9%, 4rem));
+        margin-left: var(--gap-inline-indent, 9%);
+        margin-right: max(0.5rem, min(9%, 4rem));
+        margin-right: var(--gap-inline-indent, 9%);
+    }
+}
+blockquote > p:first-child {
+    margin-top: 0;
+}
 blockquote > cite {
+    display: block;
+    text-align: right;
     font-size: 0.9375rem;
     font-size: var(--fs-smaller-1, 0.9375rem);
     color: hsl(278.16, 60.54%, 30.06%);
     color: var(--theme-text-primary, CanvasText);
 }
+blockquote > cite::before {
+    content: "— "/"";
+    color: currentColor;
+}
+
 code,
 kbd,
 pre,
@@ -15342,6 +15333,53 @@ h1,
     color: hsl(278.16, 60.54%, 30.06%);
     color: var(--theme-heading-1, CanvasText);
 }
+h1:has(+ .button-span, + .site-content .button-span),
+.h1:has(+ .button-span, + .site-content .button-span),
+h1:has(
+    + button,
+    + [role="button"],
+    + input[type="button"],
+    + details,
+    + figure,
+    + img,
+    + .margins-flow-paragraph-firm,
+    + a.button[href],
+    + a.button-secondary[href],
+    + .alert-block
+),
+.h1:has(
+    + button,
+    + [role="button"],
+    + input[type="button"],
+    + details,
+    + figure,
+    + img,
+    + .margins-flow-paragraph-firm,
+    + a.button[href],
+    + a.button-secondary[href],
+    + .alert-block
+),
+h1:has(+ .margins-flow-paragraph-firm-small),
+.h1:has(+ .margins-flow-paragraph-firm-small),
+h1:has(+ blockquote, + .margins-flow-paragraph-firm-large),
+.h1:has(+ blockquote, + .margins-flow-paragraph-firm-large),
+.page-title:has(+ .button-span, + .site-content .button-span),
+.page-title:has(
+    + button,
+    + [role="button"],
+    + input[type="button"],
+    + details,
+    + figure,
+    + img,
+    + .margins-flow-paragraph-firm,
+    + a.button[href],
+    + a.button-secondary[href],
+    + .alert-block
+),
+.page-title:has(+ .margins-flow-paragraph-firm-small),
+.page-title:has(+ blockquote, + .margins-flow-paragraph-firm-large) {
+    margin-bottom: 0;
+}
 h1 a[href],
 .h1 a[href],
 .page-title a[href] {
@@ -15378,6 +15416,38 @@ h2,
     color: hsl(278.16, 60.54%, 30.06%);
     color: var(--theme-heading-2, CanvasText);
 }
+h2:has(+ .button-span, + .site-content .button-span),
+.h2:has(+ .button-span, + .site-content .button-span),
+h2:has(
+    + button,
+    + [role="button"],
+    + input[type="button"],
+    + details,
+    + figure,
+    + img,
+    + .margins-flow-paragraph-firm,
+    + a.button[href],
+    + a.button-secondary[href],
+    + .alert-block
+),
+.h2:has(
+    + button,
+    + [role="button"],
+    + input[type="button"],
+    + details,
+    + figure,
+    + img,
+    + .margins-flow-paragraph-firm,
+    + a.button[href],
+    + a.button-secondary[href],
+    + .alert-block
+),
+h2:has(+ .margins-flow-paragraph-firm-small),
+.h2:has(+ .margins-flow-paragraph-firm-small),
+h2:has(+ blockquote, + .margins-flow-paragraph-firm-large),
+.h2:has(+ blockquote, + .margins-flow-paragraph-firm-large) {
+    margin-bottom: 0;
+}
 h2 a[href],
 .h2 a[href] {
     font-weight: inherit;
@@ -15409,6 +15479,38 @@ h3,
     font-style: normal;
     color: hsl(278.16, 60.54%, 30.06%);
     color: var(--theme-heading-3, CanvasText);
+}
+h3:has(+ .button-span, + .site-content .button-span),
+.h3:has(+ .button-span, + .site-content .button-span),
+h3:has(
+    + button,
+    + [role="button"],
+    + input[type="button"],
+    + details,
+    + figure,
+    + img,
+    + .margins-flow-paragraph-firm,
+    + a.button[href],
+    + a.button-secondary[href],
+    + .alert-block
+),
+.h3:has(
+    + button,
+    + [role="button"],
+    + input[type="button"],
+    + details,
+    + figure,
+    + img,
+    + .margins-flow-paragraph-firm,
+    + a.button[href],
+    + a.button-secondary[href],
+    + .alert-block
+),
+h3:has(+ .margins-flow-paragraph-firm-small),
+.h3:has(+ .margins-flow-paragraph-firm-small),
+h3:has(+ blockquote, + .margins-flow-paragraph-firm-large),
+.h3:has(+ blockquote, + .margins-flow-paragraph-firm-large) {
+    margin-bottom: 0;
 }
 h3 a[href],
 .h3 a[href] {
@@ -15453,6 +15555,38 @@ h4,
     color: hsl(278.16, 60.54%, 30.06%);
     color: var(--theme-heading-4, CanvasText);
 }
+h4:has(+ .button-span, + .site-content .button-span),
+.h4:has(+ .button-span, + .site-content .button-span),
+h4:has(
+    + button,
+    + [role="button"],
+    + input[type="button"],
+    + details,
+    + figure,
+    + img,
+    + .margins-flow-paragraph-firm,
+    + a.button[href],
+    + a.button-secondary[href],
+    + .alert-block
+),
+.h4:has(
+    + button,
+    + [role="button"],
+    + input[type="button"],
+    + details,
+    + figure,
+    + img,
+    + .margins-flow-paragraph-firm,
+    + a.button[href],
+    + a.button-secondary[href],
+    + .alert-block
+),
+h4:has(+ .margins-flow-paragraph-firm-small),
+.h4:has(+ .margins-flow-paragraph-firm-small),
+h4:has(+ blockquote, + .margins-flow-paragraph-firm-large),
+.h4:has(+ blockquote, + .margins-flow-paragraph-firm-large) {
+    margin-bottom: 0;
+}
 h4 a[href],
 .h4 a[href] {
     font-weight: inherit;
@@ -15495,6 +15629,38 @@ h5,
 .h5 {
     color: hsl(278.16, 60.54%, 30.06%);
     color: var(--theme-heading-5, CanvasText);
+}
+h5:has(+ .button-span, + .site-content .button-span),
+.h5:has(+ .button-span, + .site-content .button-span),
+h5:has(
+    + button,
+    + [role="button"],
+    + input[type="button"],
+    + details,
+    + figure,
+    + img,
+    + .margins-flow-paragraph-firm,
+    + a.button[href],
+    + a.button-secondary[href],
+    + .alert-block
+),
+.h5:has(
+    + button,
+    + [role="button"],
+    + input[type="button"],
+    + details,
+    + figure,
+    + img,
+    + .margins-flow-paragraph-firm,
+    + a.button[href],
+    + a.button-secondary[href],
+    + .alert-block
+),
+h5:has(+ .margins-flow-paragraph-firm-small),
+.h5:has(+ .margins-flow-paragraph-firm-small),
+h5:has(+ blockquote, + .margins-flow-paragraph-firm-large),
+.h5:has(+ blockquote, + .margins-flow-paragraph-firm-large) {
+    margin-bottom: 0;
 }
 h5 a[href],
 .h5 a[href] {
@@ -15539,6 +15705,38 @@ h6,
     color: hsl(278.16, 60.54%, 30.06%);
     color: var(--theme-heading-6, CanvasText);
 }
+h6:has(+ .button-span, + .site-content .button-span),
+.h6:has(+ .button-span, + .site-content .button-span),
+h6:has(
+    + button,
+    + [role="button"],
+    + input[type="button"],
+    + details,
+    + figure,
+    + img,
+    + .margins-flow-paragraph-firm,
+    + a.button[href],
+    + a.button-secondary[href],
+    + .alert-block
+),
+.h6:has(
+    + button,
+    + [role="button"],
+    + input[type="button"],
+    + details,
+    + figure,
+    + img,
+    + .margins-flow-paragraph-firm,
+    + a.button[href],
+    + a.button-secondary[href],
+    + .alert-block
+),
+h6:has(+ .margins-flow-paragraph-firm-small),
+.h6:has(+ .margins-flow-paragraph-firm-small),
+h6:has(+ blockquote, + .margins-flow-paragraph-firm-large),
+.h6:has(+ blockquote, + .margins-flow-paragraph-firm-large) {
+    margin-bottom: 0;
+}
 h6 a[href],
 .h6 a[href] {
     font-weight: inherit;
@@ -15569,6 +15767,23 @@ h6 samp,
     font-style: normal;
     color: hsl(162, 69%, 16.5%);
     color: var(--theme-heading-7, CanvasText);
+}
+.h7:has(+ .button-span, + .site-content .button-span),
+.h7:has(
+    + button,
+    + [role="button"],
+    + input[type="button"],
+    + details,
+    + figure,
+    + img,
+    + .margins-flow-paragraph-firm,
+    + a.button[href],
+    + a.button-secondary[href],
+    + .alert-block
+),
+.h7:has(+ .margins-flow-paragraph-firm-small),
+.h7:has(+ blockquote, + .margins-flow-paragraph-firm-large) {
+    margin-bottom: 0;
 }
 .h7 a[href] {
     font-weight: inherit;
@@ -15605,6 +15820,23 @@ h6 samp,
     color: hsl(162, 69%, 16.5%);
     color: var(--theme-heading-8, CanvasText);
 }
+.h8:has(+ .button-span, + .site-content .button-span),
+.h8:has(
+    + button,
+    + [role="button"],
+    + input[type="button"],
+    + details,
+    + figure,
+    + img,
+    + .margins-flow-paragraph-firm,
+    + a.button[href],
+    + a.button-secondary[href],
+    + .alert-block
+),
+.h8:has(+ .margins-flow-paragraph-firm-small),
+.h8:has(+ blockquote, + .margins-flow-paragraph-firm-large) {
+    margin-bottom: 0;
+}
 .h8 a[href] {
     font-weight: inherit;
 }
@@ -15640,6 +15872,23 @@ h6 samp,
     color: hsl(339.45, 0%, 22.38%);
     color: var(--theme-heading-9, CanvasText);
 }
+.h9:has(+ .button-span, + .site-content .button-span),
+.h9:has(
+    + button,
+    + [role="button"],
+    + input[type="button"],
+    + details,
+    + figure,
+    + img,
+    + .margins-flow-paragraph-firm,
+    + a.button[href],
+    + a.button-secondary[href],
+    + .alert-block
+),
+.h9:has(+ .margins-flow-paragraph-firm-small),
+.h9:has(+ blockquote, + .margins-flow-paragraph-firm-large) {
+    margin-bottom: 0;
+}
 .h9 a[href] {
     font-weight: inherit;
 }
@@ -15674,6 +15923,23 @@ h6 samp,
 .h10 {
     color: hsl(339.45, 0%, 22.38%);
     color: var(--theme-heading-10, CanvasText);
+}
+.h10:has(+ .button-span, + .site-content .button-span),
+.h10:has(
+    + button,
+    + [role="button"],
+    + input[type="button"],
+    + details,
+    + figure,
+    + img,
+    + .margins-flow-paragraph-firm,
+    + a.button[href],
+    + a.button-secondary[href],
+    + .alert-block
+),
+.h10:has(+ .margins-flow-paragraph-firm-small),
+.h10:has(+ blockquote, + .margins-flow-paragraph-firm-large) {
+    margin-bottom: 0;
 }
 .h10 a[href] {
     font-weight: inherit;
@@ -18282,10 +18548,11 @@ details,
 figure,
 img,
 .margins-flow-paragraph-firm,
-.button-span,
 a.button[href],
 a.button-secondary[href],
-.alert-block {
+.alert-block,
+.button-span,
+.site-content .button-span {
     margin-top: 1.25rem;
     margin-bottom: 0.4375rem;
     margin-top: var(--mrg-firm-400, 1.25rem);
@@ -18613,6 +18880,9 @@ blockquote + .margins-flow-paragraph-small,
 .icon--minus,
 .icon--minimum,
 .icon--maximum,
+.icon--logo-linkedin,
+.icon--logo-instagram,
+.icon--logo-facebook,
 .icon--lock,
 .icon--lightning,
 .icon--lightbulb,
@@ -18652,6 +18922,9 @@ blockquote + .margins-flow-paragraph-small,
 .no-js .icon--minus,
 .no-js .icon--minimum,
 .no-js .icon--maximum,
+.no-js .icon--logo-linkedin,
+.no-js .icon--logo-instagram,
+.no-js .icon--logo-facebook,
 .no-js .icon--lock,
 .no-js .icon--lightning,
 .no-js .icon--lightbulb,
@@ -18689,6 +18962,9 @@ blockquote + .margins-flow-paragraph-small,
 .js__no-whereSelector .icon--minus,
 .js__no-whereSelector .icon--minimum,
 .js__no-whereSelector .icon--maximum,
+.js__no-whereSelector .icon--logo-linkedin,
+.js__no-whereSelector .icon--logo-instagram,
+.js__no-whereSelector .icon--logo-facebook,
 .js__no-whereSelector .icon--lock,
 .js__no-whereSelector .icon--lightning,
 .js__no-whereSelector .icon--lightbulb,
@@ -18729,6 +19005,9 @@ blockquote + .margins-flow-paragraph-small,
 .no-js .icon--minus::before,
 .no-js .icon--minimum::before,
 .no-js .icon--maximum::before,
+.no-js .icon--logo-linkedin::before,
+.no-js .icon--logo-instagram::before,
+.no-js .icon--logo-facebook::before,
 .no-js .icon--lock::before,
 .no-js .icon--lightning::before,
 .no-js .icon--lightbulb::before,
@@ -18766,6 +19045,9 @@ blockquote + .margins-flow-paragraph-small,
 .js__no-whereSelector .icon--minus::before,
 .js__no-whereSelector .icon--minimum::before,
 .js__no-whereSelector .icon--maximum::before,
+.js__no-whereSelector .icon--logo-linkedin::before,
+.js__no-whereSelector .icon--logo-instagram::before,
+.js__no-whereSelector .icon--logo-facebook::before,
 .js__no-whereSelector .icon--lock::before,
 .js__no-whereSelector .icon--lightning::before,
 .js__no-whereSelector .icon--lightbulb::before,
@@ -18808,6 +19090,9 @@ blockquote + .margins-flow-paragraph-small,
 .no-js .icon--minus::after,
 .no-js .icon--minimum::after,
 .no-js .icon--maximum::after,
+.no-js .icon--logo-linkedin::after,
+.no-js .icon--logo-instagram::after,
+.no-js .icon--logo-facebook::after,
 .no-js .icon--lock::after,
 .no-js .icon--lightning::after,
 .no-js .icon--lightbulb::after,
@@ -18845,6 +19130,9 @@ blockquote + .margins-flow-paragraph-small,
 .js__no-whereSelector .icon--minus::after,
 .js__no-whereSelector .icon--minimum::after,
 .js__no-whereSelector .icon--maximum::after,
+.js__no-whereSelector .icon--logo-linkedin::after,
+.js__no-whereSelector .icon--logo-instagram::after,
+.js__no-whereSelector .icon--logo-facebook::after,
 .js__no-whereSelector .icon--lock::after,
 .js__no-whereSelector .icon--lightning::after,
 .js__no-whereSelector .icon--lightbulb::after,
@@ -18888,6 +19176,9 @@ blockquote + .margins-flow-paragraph-small,
 :where(.js__no-aspectRatio) .icon--minus,
 :where(.js__no-aspectRatio) .icon--minimum,
 :where(.js__no-aspectRatio) .icon--maximum,
+:where(.js__no-aspectRatio) .icon--logo-linkedin,
+:where(.js__no-aspectRatio) .icon--logo-instagram,
+:where(.js__no-aspectRatio) .icon--logo-facebook,
 :where(.js__no-aspectRatio) .icon--lock,
 :where(.js__no-aspectRatio) .icon--lightning,
 :where(.js__no-aspectRatio) .icon--lightbulb,
@@ -18928,6 +19219,9 @@ blockquote + .margins-flow-paragraph-small,
 :where(.js__no-aspectRatio) .icon--minus::before,
 :where(.js__no-aspectRatio) .icon--minimum::before,
 :where(.js__no-aspectRatio) .icon--maximum::before,
+:where(.js__no-aspectRatio) .icon--logo-linkedin::before,
+:where(.js__no-aspectRatio) .icon--logo-instagram::before,
+:where(.js__no-aspectRatio) .icon--logo-facebook::before,
 :where(.js__no-aspectRatio) .icon--lock::before,
 :where(.js__no-aspectRatio) .icon--lightning::before,
 :where(.js__no-aspectRatio) .icon--lightbulb::before,
@@ -18970,6 +19264,9 @@ blockquote + .margins-flow-paragraph-small,
 :where(.js__no-aspectRatio) .icon--minus::after,
 :where(.js__no-aspectRatio) .icon--minimum::after,
 :where(.js__no-aspectRatio) .icon--maximum::after,
+:where(.js__no-aspectRatio) .icon--logo-linkedin::after,
+:where(.js__no-aspectRatio) .icon--logo-instagram::after,
+:where(.js__no-aspectRatio) .icon--logo-facebook::after,
 :where(.js__no-aspectRatio) .icon--lock::after,
 :where(.js__no-aspectRatio) .icon--lightning::after,
 :where(.js__no-aspectRatio) .icon--lightbulb::after,
@@ -19580,10 +19877,10 @@ blockquote + .margins-flow-paragraph-small,
 .alert-block figure,
 .alert-block img,
 .alert-block .margins-flow-paragraph-firm,
-.alert-block .button-span,
 .alert-block a.button[href],
 .alert-block a.button-secondary[href],
-.alert-block .alert-block {
+.alert-block .alert-block,
+.alert-block .button-span {
     margin-top: 0.8125rem;
     margin-bottom: 0.3125rem;
     margin-top: var(--mrg-firm-300, 0.8125rem);
@@ -19775,10 +20072,10 @@ blockquote + .margins-flow-paragraph-small,
 .widget-block figure,
 .widget-block img,
 .widget-block .margins-flow-paragraph-firm,
-.widget-block .button-span,
 .widget-block a.button[href],
 .widget-block a.button-secondary[href],
-.widget-block .alert-block {
+.widget-block .alert-block,
+.widget-block .button-span {
     margin-top: 0.8125rem;
     margin-bottom: 0.3125rem;
     margin-top: var(--mrg-firm-300, 0.8125rem);

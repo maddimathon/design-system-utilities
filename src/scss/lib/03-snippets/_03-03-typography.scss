@@ -17,6 +17,48 @@
 ///
 /// @since ___PKG_VERSION___
 ///
+@mixin snippet-blockquote {
+    @include utils.snippet-centre-callout-block($maxWidth: false);
+
+    & {
+        margin-block: #{var-mrg-soft('400')} 0;
+        margin-block: #{var-mrg-soft('600')} calc(var-mrg-soft('600') - var-mrg-soft('400'));
+
+        padding-inline-start: #{var-mrg-firm('300')};
+
+        border-inline-start: #{var-border-width('200')} solid #{var-theme(ui-primary)};
+
+        @include set-flow-margins($defaultLevel: '300', $largeLevel: '500', $smallLevel: '200');
+
+        @include min-width(content) {
+            margin-inline: #{var-gap-inline(indent)};
+        }
+    }
+
+    > p {
+        &:first-child {
+            margin-block-start: 0;
+        }
+    }
+
+    > cite {
+        display: block;
+
+        text-align: end;
+        font-size: #{var-fs(smaller-1)};
+
+        color: #{var-theme(text-primary)};
+
+        &::before {
+            content: '— ' / '';
+            color: currentColor;
+        }
+    }
+}
+
+///
+/// @since ___PKG_VERSION___
+///
 @mixin snippet-link-colours($includeDisabled: true) {
     @include cx-prop(focus-ring-outline-color, var-theme(link-outline-hover));
     @include cx-prop(icon-color, var-theme(link-icon));
@@ -227,6 +269,13 @@
 
     color: #{if($color, $color, var-theme(heading-#{$slug}))};
 
+    &:has(+ %button-span),
+    &:has(+ %paragraph-firm-margins),
+    &:has(+ %paragraph-firm-small-margins),
+    &:has(+ %paragraph-firm-large-margins) {
+        margin-block-end: 0;
+    }
+
     @if $includeChildren {
         %a {
             // @include snippet-link-colours-inherit;
@@ -388,7 +437,8 @@
 
     // FIRM
 
-    %paragraph-firm-margins {
+    %paragraph-firm-margins,
+    %button-span {
         margin-block: #{var-mrg-firm($firmStartLevel)} #{var-mrg-half($firmEndLevel)};
     }
 
