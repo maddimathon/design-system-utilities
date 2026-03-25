@@ -8,14 +8,15 @@
  * @license MIT
  */
 import { CssColours } from '@maddimathon/utility-sass';
-import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
-import { getDataFromClrSlug } from '../../ts/03-parsers/getDataFromClrSlug.js';
+import { ColourUtilities } from '../01-utilities/ColourUtilities.js';
+import { getDataFromClrSlug } from './getDataFromClrSlug.js';
 /**
  * Takes a colour slug and returns a css-friendly colour code, if possible.
+ * Optionally returns a css colour var with the colour code as fallback.
  *
  * @since 0.1.0-beta.0.draft
  */
-export function colourSlugToCSS(tokens, brightness, _clrSlug, convertToVarFn = true) {
+export function getColourCSS(tokens, brightness, _clrSlug, convertToVarFn = true) {
     const clrSlug = Array.isArray(_clrSlug) ? _clrSlug[0] : _clrSlug;
     const varMaker = convertToVarFn
         ? (slug, value) => slug?.length ? `var(--clr-${slug}${value ? `, ${value}` : ''})` : String(value ?? slug ?? '')

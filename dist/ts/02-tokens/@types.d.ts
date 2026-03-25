@@ -87,9 +87,9 @@ export declare namespace TokenTypes {
          * Slugs representing the colour tokens in this system.
          *
          * @since 0.1.0-alpha
-         * @since 0.1.0-beta.0.draft — Moved to {@link Colour} namespace.
+         * @since 0.1.0-beta.0.draft — Moved to {@link Colour} namespace. Changed param to {@link Colour.TypeParams}.
          */
-        type TokenSlug<T_ColourName extends string, T_ExtraColourLevels extends ColourUtilities.Levels.Optional> = `${TokenTypes.Colour.GenericName<T_ColourName>}-${ColourUtilities.Levels.Required | T_ExtraColourLevels}`;
+        type TokenSlug<T_ColourTypes extends Colour.TypeParams> = `${TokenTypes.Colour.GenericName<T_ColourTypes['names']>}-${ColourUtilities.Levels.Required | T_ColourTypes['extraLevels']}`;
         /**
          * Type params for colour tokens.
          *
@@ -127,7 +127,7 @@ export declare namespace TokenTypes {
          * @since 0.1.0-alpha
          * @since 0.1.0-beta.0.draft — Moved to {@link Theme} namespace.
          */
-        type ColourOption<T_Types extends TokenTypes.Colour.TypeParams> = Css.AnyCssColour | "black" | "white" | Colour.TokenSlug<T_Types['names'], T_Types['extraLevels']>;
+        type ColourOption<T_Types extends TokenTypes.Colour.TypeParams> = Css.AnyCssColour | "black" | "white" | Colour.TokenSlug<T_Types>;
         /**
          * @since 0.1.0-beta.0.draft
          */

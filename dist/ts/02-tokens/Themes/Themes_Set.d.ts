@@ -41,6 +41,10 @@ export declare class Tokens_Themes_Set<T_ColourTypes extends TokenTypes.Colour.T
     }, input: Tokens_Themes_Set.InputParam<T_ColourTypes, T_ThemeTypes>): Promise<Tokens_Themes_Set<T_ColourTypes, T_ThemeTypes>>;
     get data(): Tokens_Themes_Set.Data<T_ColourTypes, T_ThemeTypes>;
     /**
+     * @since 0.1.0-beta.0.draft
+     */
+    readonly meta: Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>;
+    /**
      * @since 0.1.0-beta.0.draft — Changed second & third param to colours object (as fourth param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
     protected constructor(
@@ -58,6 +62,24 @@ export declare class Tokens_Themes_Set<T_ColourTypes extends TokenTypes.Colour.T
  * @since 0.1.0-alpha
  */
 export declare namespace Tokens_Themes_Set {
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    type Metadata<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams> = {
+        /**
+         * Common keys for the given props in the single modes of this set.
+         */
+        keys: {
+            background: Exclude<keyof Tokens_Themes_Set.SingleMode.Data<T_ColourTypes, T_ThemeTypes>['background'], "$" | "active" | "disabled">[];
+            button: Exclude<keyof Tokens_Themes_Set.SingleMode.Data<T_ColourTypes, T_ThemeTypes>['button'], "$" | "active" | "disabled">[];
+            text: Exclude<keyof Tokens_Themes_Set.SingleMode.Data<T_ColourTypes, T_ThemeTypes>['text'], "$" | "active" | "disabled">[];
+            textAndBackground: Exclude<Extract<keyof Tokens_Themes_Set.SingleMode.Data<T_ColourTypes, T_ThemeTypes>['background'], keyof Tokens_Themes_Set.SingleMode.Data<T_ColourTypes, T_ThemeTypes>['text']>, "$" | "active" | "disabled">[];
+        };
+        /**
+         * @since 0.1.0-beta.0.draft — Moved to be a child of the new meta prop.
+         */
+        levelsInUse: TokenTypes.Colour.AnyLevel<T_ColourTypes>[];
+    };
     /**
      * @since 0.1.0-alpha
      */
@@ -81,8 +103,14 @@ export declare namespace Tokens_Themes_Set {
      * @since 0.1.0-alpha
      */
     type JsonReturn<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams> = {
-        name: T_ThemeTypes['name'];
-        levelsInUse: TokenTypes.Colour.AnyLevel<T_ColourTypes>[];
+        /**
+         * @since 0.1.0-beta.0.draft — Renamed to follow 'private' naming scheme for metadata.
+         */
+        _name: T_ThemeTypes['name'];
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        _meta: Metadata<T_ColourTypes, T_ThemeTypes>;
         forcedColours: Tokens_Themes_Set.SingleMode.JsonReturn<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>;
     } & TokenTypes.Theme.Mode.NestedObject<T_ThemeTypes, Tokens_Themes_Set.SingleMode.JsonReturn<T_ColourTypes, T_ThemeTypes>>;
     /**

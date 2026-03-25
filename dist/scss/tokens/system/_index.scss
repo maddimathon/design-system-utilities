@@ -5,6 +5,7 @@
 
 @forward 'default';
 
+@use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/map';
 
 @use 'default';
@@ -35,4 +36,28 @@ $z_index: map.ksort(map.get(default.$designSystem, z_index));
 
 $colour: map.ksort(map.get(default.$designSystem, colour), $recursive: true);
 
-$themes: map.get(default.$designSystem, themes);
+$themesMeta: map.get(default.$designSystem, themes, _meta);
+
+$themesMeta: map.set(
+    $themesMeta,
+    keys,
+    textOrBackground,
+    list.unique(
+        list.join(
+            map.get($themesMeta, keys, background),
+            map.get($themesMeta, keys, text)
+        )
+    )
+);
+
+$themes: ();
+
+@each $key
+    in list.except(map.keys(map.get(default.$designSystem, themes)), _meta)
+{
+    $themes: map.set(
+        $themes,
+        $key,
+        map.get(default.$designSystem, themes, $key)
+    );
+}

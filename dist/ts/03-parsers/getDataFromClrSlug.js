@@ -28,7 +28,7 @@ export function getDataFromClrSlug(clrSlug) {
     }
     const matches = clrSlug?.match(/^([^\s]+)-(\d{3})$/i);
     // returns
-    if (!matches) {
+    if (!matches || !matches[1] || !matches[2]) {
         return undefined;
     }
     return {

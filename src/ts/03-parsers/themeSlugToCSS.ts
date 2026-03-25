@@ -11,8 +11,8 @@
 import type { TokenTypes } from '../02-tokens/@types.js';
 import type { Tokens } from '../02-tokens/Tokens.js';
 
-import { colourSlugToCSS } from './colourSlugToCSS.js';
-import { getTokensThemeValue } from './getTokensThemeValue.js';
+import { getColourCSS } from './getColourCSS.js';
+import { getThemeTokenColourSlug } from './getThemeTokenColourSlug.js';
 
 const _themeVarMaker = ( slug?: string ) => slug?.length ? `var(--theme-${ slug })` : String( slug ?? '' );
 
@@ -32,7 +32,7 @@ export function themeSlugToCSS<
     tokens: Tokens.JsonReturn<T_Types>,
     convertColourToVarFn: boolean = true,
 ): string {
-    const clrSlug = getTokensThemeValue<T_Types>(
+    const clrSlug = getThemeTokenColourSlug<T_Types>(
         themeValueSlug,
         themeName,
         brightness,
@@ -45,7 +45,7 @@ export function themeSlugToCSS<
         return _themeVarMaker( themeValueSlug );
     }
 
-    return _themeVarMaker( colourSlugToCSS(
+    return _themeVarMaker( getColourCSS(
         tokens,
         brightness,
         clrSlug,

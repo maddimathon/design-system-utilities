@@ -12,6 +12,7 @@ import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 
 /* import - functions */
 import { arrayUnique } from '@maddimathon/utility-typescript';
+import { objectKeySort_Tokens } from '../../ts/01-utilities/objectKeySort_Tokens.js';
 
 /* import - values */
 
@@ -39,17 +40,10 @@ const defaultToggleToOpen = import.meta.env.DEV ? true : undefined;
 
 const defaultIconSvg = tokens.icons[defaultIcon] ?? tokens.icons.star;
 
-const textAndBackgroundKeys = arrayUnique(
-    (
-        Object.keys(
-            tokens.themes.default.light.average.data.background,
-        ) as (keyof typeof tokens.themes.default.light.average.data.background)[]
-    ).concat(
-        Object.keys(
-            tokens.themes.default.light.average.data.text,
-        ) as (keyof typeof tokens.themes.default.light.average.data.text)[],
-    ),
-).filter((key) => key !== '$' && key !== 'disabled' && key !== 'active');
+const textAndBackgroundKeys = arrayUnique([
+    ...tokens.themes._meta.keys.background,
+    ...tokens.themes._meta.keys.text,
+]).sort(objectKeySort_Tokens.sorter);
 ---
 
 <h2>All Icons</h2>

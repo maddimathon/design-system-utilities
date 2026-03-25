@@ -2,6 +2,7 @@
 /// @package @maddimathon/design-system-utilities@0.1.0-beta.0.draft
 /// @since 0.1.0-alpha
 ///
+
 @use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/meta';
@@ -78,14 +79,7 @@ $_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
     }
 }
 
-$_activeTheme: get-active-theme();
-$_activeTheme_textAndBackgroundKeys: map.keys(
-    map.merge(
-        map.get($_activeTheme, background),
-        map.get($_activeTheme, text),
-        $recursive: true
-    )
-);
+$_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
 
 ///
 /// @since 0.1.0-beta.0.draft
@@ -325,7 +319,7 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
             width: auto;
         }
 
-        @each $variationKey in $_activeTheme_textAndBackgroundKeys {
+        @each $variationKey in $_textAndBackgroundKeys {
             @if $variationKey !=
                 '$' and
                 $variationKey !=
@@ -383,7 +377,7 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
                 }
             }
 
-            @each $variationKey in $_activeTheme_textAndBackgroundKeys {
+            @each $variationKey in $_textAndBackgroundKeys {
                 //
                 @if $variationKey == ' ' {
                     &.background-#{$variationKey} {

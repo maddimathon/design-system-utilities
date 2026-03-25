@@ -11,6 +11,7 @@ import { objectMap } from '@maddimathon/utility-typescript';
 import { objectGenerator } from '../01-utilities/objectGenerator.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 import { Tokens_Themes_Set } from './Themes/Themes_Set.js';
+import { objectKeySort_Tokens } from '../01-utilities/objectKeySort_Tokens.js';
 /**
  * Generates a complete token object for the design system.
  *
@@ -56,6 +57,10 @@ export class Tokens_Themes extends AbstractTokens {
         return objectMap(this.sets, ([key, value]) => value.data);
     }
     /**
+     * @since 0.1.0-beta.0.draft
+     */
+    meta;
+    /**
      * @since 0.1.0-beta.0.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
     constructor(brightnessModes, contrastModes, colours, sets) {
@@ -64,11 +69,39 @@ export class Tokens_Themes extends AbstractTokens {
         this.contrastModes = contrastModes;
         this.colours = colours;
         this.sets = sets;
+        const allLevelsInUse = new Set();
+        const allThemeKeys = {
+            background: [],
+            button: [],
+            text: [],
+            textAndBackground: [],
+        };
+        for (const themeSet of Object.values(this.sets)) {
+            themeSet.meta.levelsInUse.forEach(key => allLevelsInUse.add(key));
+            allThemeKeys.background.push(new Set(themeSet.meta.keys.background));
+            allThemeKeys.button.push(new Set(themeSet.meta.keys.button));
+            allThemeKeys.text.push(new Set(themeSet.meta.keys.text));
+        }
+        const keySets = objectMap(allThemeKeys, ([key, sets]) => sets?.length
+            ? sets.reduce((previous, current) => previous.intersection(current))
+            : new Set());
+        keySets.textAndBackground = keySets.text.intersection(keySets.background);
+        const keys = objectMap(keySets, ([key, set]) => Array.from(set).sort(objectKeySort_Tokens.sorter));
+        this.meta = {
+            keys,
+            levelsInUse: Array.from(allLevelsInUse).sort(),
+        };
     }
     toJSON() {
-        return objectMap(this.sets, ([key, value]) => value.toJSON());
+        return {
+            _meta: this.meta,
+            ...objectMap(this.sets, ([key, value]) => value.toJSON()),
+        };
     }
     toScssVars() {
-        return objectMap(this.sets, ([key, value]) => value.toScssVars());
+        return {
+            _meta: this.meta,
+            ...objectMap(this.sets, ([key, value]) => value.toScssVars()),
+        };
     }
 }

@@ -111,12 +111,11 @@ export namespace TokenTypes {
          * Slugs representing the colour tokens in this system.
          * 
          * @since 0.1.0-alpha
-         * @since ___PKG_VERSION___ — Moved to {@link Colour} namespace.
+         * @since ___PKG_VERSION___ — Moved to {@link Colour} namespace. Changed param to {@link Colour.TypeParams}.
          */
         export type TokenSlug<
-            T_ColourName extends string,
-            T_ExtraColourLevels extends ColourUtilities.Levels.Optional,
-        > = `${ TokenTypes.Colour.GenericName<T_ColourName> }-${ ColourUtilities.Levels.Required | T_ExtraColourLevels }`;
+            T_ColourTypes extends Colour.TypeParams,
+        > = `${ TokenTypes.Colour.GenericName<T_ColourTypes[ 'names' ]> }-${ ColourUtilities.Levels.Required | T_ColourTypes[ 'extraLevels' ] }`;
 
         /**
          * Type params for colour tokens.
@@ -170,10 +169,7 @@ export namespace TokenTypes {
          */
         export type ColourOption<
             T_Types extends TokenTypes.Colour.TypeParams,
-        > = Css.AnyCssColour | "black" | "white" | Colour.TokenSlug<
-            T_Types[ 'names' ],
-            T_Types[ 'extraLevels' ]
-        >;
+        > = Css.AnyCssColour | "black" | "white" | Colour.TokenSlug<T_Types>;
 
         /**
          * @since ___PKG_VERSION___

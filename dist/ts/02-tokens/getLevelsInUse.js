@@ -13,8 +13,5 @@
  * @since 0.1.0-alpha.2
  */
 export function getLevelsInUse(themes) {
-    const levelsInUse = new Set();
-    const allThemeSets = Object.values(themes);
-    allThemeSets.forEach((theme) => theme.levelsInUse.forEach(level => levelsInUse.add(level)));
-    return levelsInUse;
+    return new Set(themes._meta.levelsInUse);
 }

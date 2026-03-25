@@ -8,6 +8,8 @@
  * @license MIT
  */
 
+import type { ArrayItem } from '@maddimathon/utility-typescript/types';
+
 import { objectMap } from '@maddimathon/utility-typescript';
 
 import type { ColourUtilities } from '../01-utilities/ColourUtilities.js';
@@ -19,6 +21,7 @@ import type {
 
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 import { Tokens_Themes_Set } from './Themes/Themes_Set.js';
+import { objectKeySort_Tokens } from '../01-utilities/objectKeySort_Tokens.js';
 
 /**
  * Generates a complete token object for the design system.
@@ -143,6 +146,11 @@ export class Tokens_Themes<
     }
 
     /**
+     * @since ___PKG_VERSION___
+     */
+    public readonly meta: Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>;
+
+    /**
      * @since ___PKG_VERSION___ — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
     protected constructor (
@@ -159,21 +167,82 @@ export class Tokens_Themes<
         },
     ) {
         super();
+
+        const allLevelsInUse = new Set<
+            "black" | "white" | ColourUtilities.Levels.Required | T_ColourTypes[ 'extraLevels' ]
+        >();
+
+        const allThemeKeys: {
+            [ K in keyof Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>[ 'keys' ] ]: Set<
+                ArrayItem<Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>[ 'keys' ][ K ]>
+            >[];
+        } = {
+            background: [],
+            button: [],
+            text: [],
+            textAndBackground: [],
+        };
+
+        for ( const themeSet of Object.values( this.sets ) ) {
+            themeSet.meta.levelsInUse.forEach( key => allLevelsInUse.add( key ) );
+
+            allThemeKeys.background.push( new Set( themeSet.meta.keys.background ) );
+            allThemeKeys.button.push( new Set( themeSet.meta.keys.button ) );
+            allThemeKeys.text.push( new Set( themeSet.meta.keys.text ) );
+        }
+
+        const keySets = objectMap(
+            allThemeKeys,
+            <K extends keyof Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>[ 'keys' ]>(
+                [ key, sets ]: [ K, Set<
+                    ArrayItem<Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>[ 'keys' ][ K ]>
+                >[] ]
+            ) => sets?.length
+                    ? sets.reduce(
+                        ( previous, current ) => previous.intersection( current ),
+                    )
+                    : new Set<
+                        ArrayItem<Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>[ 'keys' ][ K ]>
+                    >()
+        );
+
+        keySets.textAndBackground = keySets.text.intersection( keySets.background );
+
+        const keys = objectMap(
+            keySets,
+            <K extends keyof Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>[ 'keys' ]>(
+                [ key, set ]: [ K, Set<
+                    ArrayItem<Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>[ 'keys' ][ K ]>
+                > ]
+            ) => Array.from( set ).sort( objectKeySort_Tokens.sorter )
+        ) as Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>[ 'keys' ];
+
+        this.meta = {
+            keys,
+            levelsInUse: Array.from( allLevelsInUse ).sort(),
+        };
     }
 
     public toJSON(): Tokens_Themes.JsonReturn<T_ColourTypes, T_ThemeTypes> {
+        return {
+            _meta: this.meta,
 
-        return objectMap(
-            this.sets,
-            ( [ key, value ] ) => value.toJSON()
-        ) as Tokens_Themes.JsonReturn<T_ColourTypes, T_ThemeTypes>;
+            ...objectMap(
+                this.sets,
+                ( [ key, value ] ) => value.toJSON()
+            ),
+        };
     }
 
     public toScssVars(): Tokens_Themes.ScssVars<T_ColourTypes, T_ThemeTypes> {
-        return objectMap(
-            this.sets,
-            ( [ key, value ] ) => value.toScssVars()
-        );
+        return {
+            _meta: this.meta,
+
+            ...objectMap(
+                this.sets,
+                ( [ key, value ] ) => value.toScssVars()
+            ),
+        };
     }
 }
 
@@ -219,6 +288,11 @@ export namespace Tokens_Themes {
         T_ColourTypes extends TokenTypes.Colour.TypeParams,
         T_ThemeTypes extends TokenTypes.Theme.TypeParams,
     > = {
+        /**
+         * @since ___PKG_VERSION___
+         */
+        _meta: Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>;
+
         default: Tokens_Themes_Set.JsonReturn<T_ColourTypes, T_ThemeTypes>;
     } & {
             [ N in T_ThemeTypes[ 'name' ] ]: Tokens_Themes_Set.JsonReturn<T_ColourTypes, T_ThemeTypes>;
@@ -231,6 +305,11 @@ export namespace Tokens_Themes {
         T_ColourTypes extends TokenTypes.Colour.TypeParams,
         T_ThemeTypes extends TokenTypes.Theme.TypeParams,
     > = {
+        /**
+         * @since ___PKG_VERSION___
+         */
+        _meta: Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>;
+
         default: Tokens_Themes_Set.ScssVars<T_ColourTypes, T_ThemeTypes>;
     } & {
             [ K in T_ThemeTypes[ 'name' ] ]: Tokens_Themes_Set.ScssVars<T_ColourTypes, T_ThemeTypes>;

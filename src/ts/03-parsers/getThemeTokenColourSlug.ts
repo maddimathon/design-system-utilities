@@ -16,11 +16,11 @@ import type { TokenTypes } from '../02-tokens/@types.js';
 import type { Tokens } from '../02-tokens/Tokens.js';
 
 /**
- * Gets the value of the given theme slug.
+ * Gets the colour slug value of the given theme slug.
  * 
  * @since ___PKG_VERSION___
  */
-export function getTokensThemeValue<
+export function getThemeTokenColourSlug<
     T_Types extends TokenTypes.TypeParams,
 >(
     themeValueSlug: string,
@@ -28,7 +28,7 @@ export function getTokensThemeValue<
     brightness: TokenTypes.Theme.GetBrightnessKeys<T_Types[ 'theme' ]>,
     contrast: TokenTypes.Theme.GetContrastKeys<T_Types[ 'theme' ]>,
     tokens: Tokens.JsonReturn<T_Types>,
-) {
+): null | TokenTypes.Colour.TokenSlug<T_Types[ 'colour' ]> {
     if ( !tokens.themes[ themeName ] ) {
         themeName = 'default';
     }
@@ -47,5 +47,5 @@ export function getTokensThemeValue<
         return null;
     }
 
-    return flattened[ themeValueSlug ] as TokenTypes.Colour.TokenSlug<T_Types[ 'colour' ][ 'names' ], T_Types[ 'colour' ][ 'extraLevels' ]>;
+    return flattened[ themeValueSlug ] as TokenTypes.Colour.TokenSlug<T_Types[ 'colour' ]>;
 }

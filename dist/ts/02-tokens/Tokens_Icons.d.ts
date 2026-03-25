@@ -36,7 +36,7 @@ export declare namespace Tokens_Icons {
     /**
      * @since 0.1.0-alpha
      */
-    type DefaultIconNames = "caution" | "check" | "clock" | "close" | "code" | "compass" | "dash" | "draft" | "double-check" | "down" | "error" | "external" | "fail" | "forbidden" | "hidden" | "info" | "left" | "lightbulb" | "lightning" | "lock" | "logo-facebook" | "logo-instagram" | "logo-linkedin" | "maximum" | "minimum" | "minus" | "no" | "note" | "plus" | "private" | "question" | "refresh" | "right" | "search" | "settings" | "star" | "success" | "unlock" | "ui" | "ui-check" | "ui-minimum" | "up" | "warning";
+    type DefaultIconNames = "attachment" | "caution" | "check" | "clock" | "close" | "code" | "compass" | "dash" | "draft" | "double-check" | "down" | "download" | "error" | "external" | "fail" | "forbidden" | "hidden" | "info" | "left" | "lightbulb" | "lightning" | "lock" | "logo-facebook" | "logo-instagram" | "logo-linkedin" | "maximum" | "minimum" | "minus" | "no" | "note" | "paperclip" | "plus" | "private" | "question" | "refresh" | "right" | "search" | "settings" | "star" | "success" | "unlock" | "ui" | "ui-check" | "ui-minimum" | "up" | "warning";
     /**
      * @since 0.1.0-alpha
      */

@@ -1,31 +1,26 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-beta.0.draft
-/// @since 0.1.0-beta.0.draft
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
 ///
+
+@use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/meta';
 
 // @use 'pkg:@maddimathon/utility-astro/03-snippets' as lib;
 
 // @use '../../config';
-// @use '../../tokens';
+@use '../../tokens';
 
 @use '../01-functions' as *;
 @use '../02-mixins' as *;
 
 @use '03-03-typography' as *;
 
-$_activeTheme: get-active-theme();
-$_activeTheme_textAndBackgroundKeys: map.keys(
-    map.merge(
-        map.get($_activeTheme, background),
-        map.get($_activeTheme, text),
-        $recursive: true
-    )
-);
+$_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
 
 ///
-/// @since 0.1.0-beta.0.draft
+/// @since ___PKG_VERSION___
 ///
 @mixin snippet-widget-block(
     $includeBlocks: true,
@@ -74,7 +69,7 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
             }
         }
 
-        @each $variationKey in $_activeTheme_textAndBackgroundKeys {
+        @each $variationKey in $_textAndBackgroundKeys {
             @if $variationKey != '$' {
                 &.background-#{$variationKey} {
                     @if theme-token-exists('background-#{$variationKey}') {
@@ -109,23 +104,16 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
             $defaultLevel: style-value(widget-margin-flow),
             $largeLevel: style-value(widget-margin-flow-large),
             $smallLevel: style-value(widget-margin-flow-small),
-            $buttonGapBlock: var-mrg-firm(
-                    style-value(widget-button-span-gap, $raw: true)
-                ),
-            $buttonGapInline: var-mrg-firm(
-                    style-value(widget-button-span-gap, $raw: true)
-                )
+            $buttonGapBlock: var-mrg-firm(style-value(widget-button-span-gap, $raw: true)),
+            $buttonGapInline: var-mrg-firm(style-value(widget-button-span-gap, $raw: true))
         );
     }
 }
 
 ///
-/// @since 0.1.0-beta.0.draft
+/// @since ___PKG_VERSION___
 ///
-@mixin snippet-support-sidebar-widgets(
-    $includeSidebar: true,
-    $includeWidget: true
-) {
+@mixin snippet-support-sidebar-widgets($includeSidebar: true, $includeWidget: true) {
     @if $includeSidebar {
         %site-sidebar {
             @include cx-prop(display, flex);

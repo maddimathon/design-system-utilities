@@ -14609,10 +14609,22 @@ hr {
     color: var(--theme-ui-primary, CanvasText);
 }
 
+img {
+    height: auto;
+}
+
 img,
 figure,
 svg {
+    margin-left: 0;
+    margin-right: 0;
     max-width: 100%;
+}
+a img,
+a figure,
+a svg {
+    --display: inline-block;
+    display: inline-block;
 }
 
 img,
@@ -15004,6 +15016,59 @@ a[disabled][href]:active {
 @supports (
     (-webkit-mask-image: url("../fake.svg")) or (mask-image: url("../fake.svg"))
 ) {
+    a[download][href]::before {
+        --display: inline-block;
+        display: inline-block;
+        vertical-align: middle;
+        vertical-align: var(--icon-vertical-align, sub);
+        margin-top: 0;
+        margin-top: var(--icon-pseudo-element-margin-block-start, 0);
+        margin-right: 0.25em;
+        margin-right: var(--icon-inline-buffer, 0.25em);
+        margin-right: calc(0.25em * 1);
+        margin-right: calc(
+            var(--icon-inline-buffer, 0.25em) *
+                var(
+                    --icon-size-pseudo--inline-buffer-start,
+                    var(--icon-size-pseudo--font-multiplier, 1)
+                )
+        );
+        margin-left: calc(0.25em * 0);
+        margin-left: calc(
+            var(--icon-inline-buffer, 0.25em) *
+                var(--icon-size-pseudo--inline-buffer-end, 0)
+        );
+        height: 1em;
+        height: var(--icon-size-pseudo, 1em);
+        height: calc(1em * 1);
+        height: calc(
+            var(--icon-size-pseudo, 1em) *
+                var(--icon-size-pseudo--font-multiplier, 1)
+        );
+        aspect-ratio: 1;
+        content: "";
+        content: ""/"Download icon";
+        background: hsl(339.45, 0%, 17.88%);
+        background: var(--icon-color, var(--theme-ui, CanvasText));
+        -webkit-mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill="currentColor" title="Download icon"><path d="M13.125,14.784l5.08,-5.079c0.439,-0.44 1.151,-0.44 1.59,-0c0.44,0.439 0.44,1.151 0,1.59l-7,7c-0.439,0.44 -1.151,0.44 -1.59,0l-7,-7c-0.44,-0.439 -0.44,-1.151 -0,-1.59c0.439,-0.44 1.151,-0.44 1.59,-0l5.08,5.079l0,-11.284c0,-0.621 0.504,-1.125 1.125,-1.125c0.621,0 1.125,0.504 1.125,1.125l0,11.284Zm-10.125,6.841c-0.621,-0 -1.125,-0.504 -1.125,-1.125c0,-0.621 0.504,-1.125 1.125,-1.125l18,-0c0.621,-0 1.125,0.504 1.125,1.125c0,0.621 -0.504,1.125 -1.125,1.125l-18,-0Z" /></svg>');
+        mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill="currentColor" title="Download icon"><path d="M13.125,14.784l5.08,-5.079c0.439,-0.44 1.151,-0.44 1.59,-0c0.44,0.439 0.44,1.151 0,1.59l-7,7c-0.439,0.44 -1.151,0.44 -1.59,0l-7,-7c-0.44,-0.439 -0.44,-1.151 -0,-1.59c0.439,-0.44 1.151,-0.44 1.59,-0l5.08,5.079l0,-11.284c0,-0.621 0.504,-1.125 1.125,-1.125c0.621,0 1.125,0.504 1.125,1.125l0,11.284Zm-10.125,6.841c-0.621,-0 -1.125,-0.504 -1.125,-1.125c0,-0.621 0.504,-1.125 1.125,-1.125l18,-0c0.621,-0 1.125,0.504 1.125,1.125c0,0.621 -0.504,1.125 -1.125,1.125l-18,-0Z" /></svg>');
+        -webkit-mask-clip: no-clip;
+        mask-clip: no-clip;
+        mask-mode: alpha;
+        -webkit-mask-origin: border-box;
+        mask-origin: border-box;
+        -webkit-mask-position: center;
+        mask-position: center;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        align-self: center;
+    }
+}
+@supports (
+    (-webkit-mask-image: url("../fake.svg")) or (mask-image: url("../fake.svg"))
+) {
     a[aria-disabled="true"][href]::before,
     a[disabled][href]::before {
         --display: inline-block;
@@ -15054,6 +15119,10 @@ a[disabled][href]:active {
         mask-size: contain;
         align-self: center;
     }
+}
+a[aria-disabled="true"][href]::after,
+a[disabled][href]::after {
+    content: none !important;
 }
 a.no-pseudo[href]::before,
 a.no-pseudo[href]::after {
@@ -18875,6 +18944,7 @@ blockquote + .margins-flow-paragraph-small,
 .icon--question,
 .icon--private,
 .icon--plus,
+.icon--paperclip,
 .icon--note,
 .icon--no,
 .icon--minus,
@@ -18894,6 +18964,7 @@ blockquote + .margins-flow-paragraph-small,
 .icon--external,
 .icon--error,
 .icon--draft,
+.icon--download,
 .icon--down,
 .icon--dash,
 .icon--compass,
@@ -18901,7 +18972,8 @@ blockquote + .margins-flow-paragraph-small,
 .icon--close,
 .icon--clock,
 .icon--check,
-.icon--caution {
+.icon--caution,
+.icon--attachment {
     aspect-ratio: 1/1;
 }
 .no-js .icon--warning,
@@ -18917,6 +18989,7 @@ blockquote + .margins-flow-paragraph-small,
 .no-js .icon--question,
 .no-js .icon--private,
 .no-js .icon--plus,
+.no-js .icon--paperclip,
 .no-js .icon--note,
 .no-js .icon--no,
 .no-js .icon--minus,
@@ -18936,6 +19009,7 @@ blockquote + .margins-flow-paragraph-small,
 .no-js .icon--external,
 .no-js .icon--error,
 .no-js .icon--draft,
+.no-js .icon--download,
 .no-js .icon--down,
 .no-js .icon--dash,
 .no-js .icon--compass,
@@ -18944,6 +19018,7 @@ blockquote + .margins-flow-paragraph-small,
 .no-js .icon--clock,
 .no-js .icon--check,
 .no-js .icon--caution,
+.no-js .icon--attachment,
 .js__no-whereSelector .icon--warning,
 .js__no-whereSelector .icon--up,
 .js__no-whereSelector .icon--unlock,
@@ -18957,6 +19032,7 @@ blockquote + .margins-flow-paragraph-small,
 .js__no-whereSelector .icon--question,
 .js__no-whereSelector .icon--private,
 .js__no-whereSelector .icon--plus,
+.js__no-whereSelector .icon--paperclip,
 .js__no-whereSelector .icon--note,
 .js__no-whereSelector .icon--no,
 .js__no-whereSelector .icon--minus,
@@ -18976,6 +19052,7 @@ blockquote + .margins-flow-paragraph-small,
 .js__no-whereSelector .icon--external,
 .js__no-whereSelector .icon--error,
 .js__no-whereSelector .icon--draft,
+.js__no-whereSelector .icon--download,
 .js__no-whereSelector .icon--down,
 .js__no-whereSelector .icon--dash,
 .js__no-whereSelector .icon--compass,
@@ -18983,7 +19060,8 @@ blockquote + .margins-flow-paragraph-small,
 .js__no-whereSelector .icon--close,
 .js__no-whereSelector .icon--clock,
 .js__no-whereSelector .icon--check,
-.js__no-whereSelector .icon--caution {
+.js__no-whereSelector .icon--caution,
+.js__no-whereSelector .icon--attachment {
     /* aspect-ratio fallback */
     position: relative;
 }
@@ -19000,6 +19078,7 @@ blockquote + .margins-flow-paragraph-small,
 .no-js .icon--question::before,
 .no-js .icon--private::before,
 .no-js .icon--plus::before,
+.no-js .icon--paperclip::before,
 .no-js .icon--note::before,
 .no-js .icon--no::before,
 .no-js .icon--minus::before,
@@ -19019,6 +19098,7 @@ blockquote + .margins-flow-paragraph-small,
 .no-js .icon--external::before,
 .no-js .icon--error::before,
 .no-js .icon--draft::before,
+.no-js .icon--download::before,
 .no-js .icon--down::before,
 .no-js .icon--dash::before,
 .no-js .icon--compass::before,
@@ -19027,6 +19107,7 @@ blockquote + .margins-flow-paragraph-small,
 .no-js .icon--clock::before,
 .no-js .icon--check::before,
 .no-js .icon--caution::before,
+.no-js .icon--attachment::before,
 .js__no-whereSelector .icon--warning::before,
 .js__no-whereSelector .icon--up::before,
 .js__no-whereSelector .icon--unlock::before,
@@ -19040,6 +19121,7 @@ blockquote + .margins-flow-paragraph-small,
 .js__no-whereSelector .icon--question::before,
 .js__no-whereSelector .icon--private::before,
 .js__no-whereSelector .icon--plus::before,
+.js__no-whereSelector .icon--paperclip::before,
 .js__no-whereSelector .icon--note::before,
 .js__no-whereSelector .icon--no::before,
 .js__no-whereSelector .icon--minus::before,
@@ -19059,6 +19141,7 @@ blockquote + .margins-flow-paragraph-small,
 .js__no-whereSelector .icon--external::before,
 .js__no-whereSelector .icon--error::before,
 .js__no-whereSelector .icon--draft::before,
+.js__no-whereSelector .icon--download::before,
 .js__no-whereSelector .icon--down::before,
 .js__no-whereSelector .icon--dash::before,
 .js__no-whereSelector .icon--compass::before,
@@ -19066,7 +19149,8 @@ blockquote + .margins-flow-paragraph-small,
 .js__no-whereSelector .icon--close::before,
 .js__no-whereSelector .icon--clock::before,
 .js__no-whereSelector .icon--check::before,
-.js__no-whereSelector .icon--caution::before {
+.js__no-whereSelector .icon--caution::before,
+.js__no-whereSelector .icon--attachment::before {
     /* aspect-ratio fallback */
     content: "";
     float: left;
@@ -19085,6 +19169,7 @@ blockquote + .margins-flow-paragraph-small,
 .no-js .icon--question::after,
 .no-js .icon--private::after,
 .no-js .icon--plus::after,
+.no-js .icon--paperclip::after,
 .no-js .icon--note::after,
 .no-js .icon--no::after,
 .no-js .icon--minus::after,
@@ -19104,6 +19189,7 @@ blockquote + .margins-flow-paragraph-small,
 .no-js .icon--external::after,
 .no-js .icon--error::after,
 .no-js .icon--draft::after,
+.no-js .icon--download::after,
 .no-js .icon--down::after,
 .no-js .icon--dash::after,
 .no-js .icon--compass::after,
@@ -19112,6 +19198,7 @@ blockquote + .margins-flow-paragraph-small,
 .no-js .icon--clock::after,
 .no-js .icon--check::after,
 .no-js .icon--caution::after,
+.no-js .icon--attachment::after,
 .js__no-whereSelector .icon--warning::after,
 .js__no-whereSelector .icon--up::after,
 .js__no-whereSelector .icon--unlock::after,
@@ -19125,6 +19212,7 @@ blockquote + .margins-flow-paragraph-small,
 .js__no-whereSelector .icon--question::after,
 .js__no-whereSelector .icon--private::after,
 .js__no-whereSelector .icon--plus::after,
+.js__no-whereSelector .icon--paperclip::after,
 .js__no-whereSelector .icon--note::after,
 .js__no-whereSelector .icon--no::after,
 .js__no-whereSelector .icon--minus::after,
@@ -19144,6 +19232,7 @@ blockquote + .margins-flow-paragraph-small,
 .js__no-whereSelector .icon--external::after,
 .js__no-whereSelector .icon--error::after,
 .js__no-whereSelector .icon--draft::after,
+.js__no-whereSelector .icon--download::after,
 .js__no-whereSelector .icon--down::after,
 .js__no-whereSelector .icon--dash::after,
 .js__no-whereSelector .icon--compass::after,
@@ -19151,7 +19240,8 @@ blockquote + .margins-flow-paragraph-small,
 .js__no-whereSelector .icon--close::after,
 .js__no-whereSelector .icon--clock::after,
 .js__no-whereSelector .icon--check::after,
-.js__no-whereSelector .icon--caution::after {
+.js__no-whereSelector .icon--caution::after,
+.js__no-whereSelector .icon--attachment::after {
     /* aspect-ratio fallback */
     content: "";
     display: block;
@@ -19171,6 +19261,7 @@ blockquote + .margins-flow-paragraph-small,
 :where(.js__no-aspectRatio) .icon--question,
 :where(.js__no-aspectRatio) .icon--private,
 :where(.js__no-aspectRatio) .icon--plus,
+:where(.js__no-aspectRatio) .icon--paperclip,
 :where(.js__no-aspectRatio) .icon--note,
 :where(.js__no-aspectRatio) .icon--no,
 :where(.js__no-aspectRatio) .icon--minus,
@@ -19190,6 +19281,7 @@ blockquote + .margins-flow-paragraph-small,
 :where(.js__no-aspectRatio) .icon--external,
 :where(.js__no-aspectRatio) .icon--error,
 :where(.js__no-aspectRatio) .icon--draft,
+:where(.js__no-aspectRatio) .icon--download,
 :where(.js__no-aspectRatio) .icon--down,
 :where(.js__no-aspectRatio) .icon--dash,
 :where(.js__no-aspectRatio) .icon--compass,
@@ -19197,7 +19289,8 @@ blockquote + .margins-flow-paragraph-small,
 :where(.js__no-aspectRatio) .icon--close,
 :where(.js__no-aspectRatio) .icon--clock,
 :where(.js__no-aspectRatio) .icon--check,
-:where(.js__no-aspectRatio) .icon--caution {
+:where(.js__no-aspectRatio) .icon--caution,
+:where(.js__no-aspectRatio) .icon--attachment {
     /* aspect-ratio fallback */
     position: relative;
 }
@@ -19214,6 +19307,7 @@ blockquote + .margins-flow-paragraph-small,
 :where(.js__no-aspectRatio) .icon--question::before,
 :where(.js__no-aspectRatio) .icon--private::before,
 :where(.js__no-aspectRatio) .icon--plus::before,
+:where(.js__no-aspectRatio) .icon--paperclip::before,
 :where(.js__no-aspectRatio) .icon--note::before,
 :where(.js__no-aspectRatio) .icon--no::before,
 :where(.js__no-aspectRatio) .icon--minus::before,
@@ -19233,6 +19327,7 @@ blockquote + .margins-flow-paragraph-small,
 :where(.js__no-aspectRatio) .icon--external::before,
 :where(.js__no-aspectRatio) .icon--error::before,
 :where(.js__no-aspectRatio) .icon--draft::before,
+:where(.js__no-aspectRatio) .icon--download::before,
 :where(.js__no-aspectRatio) .icon--down::before,
 :where(.js__no-aspectRatio) .icon--dash::before,
 :where(.js__no-aspectRatio) .icon--compass::before,
@@ -19240,7 +19335,8 @@ blockquote + .margins-flow-paragraph-small,
 :where(.js__no-aspectRatio) .icon--close::before,
 :where(.js__no-aspectRatio) .icon--clock::before,
 :where(.js__no-aspectRatio) .icon--check::before,
-:where(.js__no-aspectRatio) .icon--caution::before {
+:where(.js__no-aspectRatio) .icon--caution::before,
+:where(.js__no-aspectRatio) .icon--attachment::before {
     /* aspect-ratio fallback */
     content: "";
     float: left;
@@ -19259,6 +19355,7 @@ blockquote + .margins-flow-paragraph-small,
 :where(.js__no-aspectRatio) .icon--question::after,
 :where(.js__no-aspectRatio) .icon--private::after,
 :where(.js__no-aspectRatio) .icon--plus::after,
+:where(.js__no-aspectRatio) .icon--paperclip::after,
 :where(.js__no-aspectRatio) .icon--note::after,
 :where(.js__no-aspectRatio) .icon--no::after,
 :where(.js__no-aspectRatio) .icon--minus::after,
@@ -19278,6 +19375,7 @@ blockquote + .margins-flow-paragraph-small,
 :where(.js__no-aspectRatio) .icon--external::after,
 :where(.js__no-aspectRatio) .icon--error::after,
 :where(.js__no-aspectRatio) .icon--draft::after,
+:where(.js__no-aspectRatio) .icon--download::after,
 :where(.js__no-aspectRatio) .icon--down::after,
 :where(.js__no-aspectRatio) .icon--dash::after,
 :where(.js__no-aspectRatio) .icon--compass::after,
@@ -19285,7 +19383,8 @@ blockquote + .margins-flow-paragraph-small,
 :where(.js__no-aspectRatio) .icon--close::after,
 :where(.js__no-aspectRatio) .icon--clock::after,
 :where(.js__no-aspectRatio) .icon--check::after,
-:where(.js__no-aspectRatio) .icon--caution::after {
+:where(.js__no-aspectRatio) .icon--caution::after,
+:where(.js__no-aspectRatio) .icon--attachment::after {
     /* aspect-ratio fallback */
     content: "";
     display: block;

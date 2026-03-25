@@ -13,11 +13,12 @@ import type { ArrayItem } from '@maddimathon/utility-typescript/types';
 import {
     isObjectEmpty,
     slugify,
+    toTitleCase,
 } from '@maddimathon/utility-typescript';
 
 import type { SvgMaker } from '../01-utilities/SvgMaker.js';
 
-import type { Tokens } from '../02-tokens/Tokens.js';
+import { Tokens } from '../02-tokens/Tokens.js';
 
 /**
  * Tools for build scripts to write files of brand kit values .
@@ -27,8 +28,7 @@ import type { Tokens } from '../02-tokens/Tokens.js';
 export namespace getBrandConstants {
 
     /**
-     * Gets a string of valid typescript for defining constants for the given set
-     * of SVGs.
+     * Prepares values to write files of constants for the given set of SVGs.
      *
      * @since ___PKG_VERSION___
      */
@@ -40,7 +40,7 @@ export namespace getBrandConstants {
         svgSet: Tokens.JsonReturn[ T_SetName ] | Tokens.Instance[ T_SetName ],
         args: getSvgConsts.Args = {},
     ): Promise<null | {
-        readonly setName: string;
+        readonly setName: T_SetName;
         readonly entries: {
             readonly all: readonly [ string, SvgMaker.JsonReturn<string> ][];
         } & {
@@ -62,7 +62,7 @@ export namespace getBrandConstants {
             [ K in getSvgConsts.ReturnOptions ]: boolean;
         };
 
-        const setName = _setName.replace( /s$/g, '' );
+        const setName = _setName.replace( /s$/g, '' ) as T_SetName;
 
         type EntriesReturn = {
             all: [ string, SvgMaker.JsonReturn<string> ][];
@@ -241,6 +241,9 @@ export namespace getBrandConstants {
             };
         };
 
+        /**
+         * @since ___PKG_VERSION___
+         */
         export const returnOpts = [
             'base64',
             'css',
@@ -261,6 +264,120 @@ export namespace getBrandConstants {
     }
 
     /**
+     * Prepares values to write files of token value constants.
+     *
+     * @since ___PKG_VERSION___
+     */
+    export async function getThemeConsts<
+        T_ReturnOptions extends getThemeConsts.ReturnOptions,
+    >(
+        tokens: Tokens.JsonReturn | Tokens.Instance,
+        args: getThemeConsts.Args = {},
+    ): Promise<null | {
+        readonly entries: {
+            readonly [ K in T_ReturnOptions ]: readonly [ string, string ][];
+        };
+    }> {
+
+        const include = {
+            keys: args.incl?.keys ?? true,
+            keyNames: args.incl?.keyNames ?? true,
+        } as const satisfies {
+            [ K in getThemeConsts.ReturnOptions ]: boolean;
+        };
+
+        type EntriesReturn = {
+            [ K in getThemeConsts.ReturnOptions ]?: [ string, string ][];
+        };
+
+        const themesMeta = '_meta' in tokens.themes ? tokens.themes._meta : tokens.themes.meta;
+
+        const entries: EntriesReturn = {};
+
+        const valueFn_fallback = ( key: string | string[] ) => Array.isArray( key ) ? key.join( ',' ) : key;
+
+        if ( include.keys ) {
+
+            const valueFn = args.valueMappers?.keys ?? valueFn_fallback;
+
+            const keyFn = args.keyMappers?.keys ?? ( ( key: string ) => key );
+
+            const _entries = Object.entries( themesMeta.keys ) as [ keyof typeof themesMeta.keys, typeof themesMeta.keys[ keyof typeof themesMeta.keys ] ][];
+
+            entries.keys = _entries.map( ( [ key, value ] ) => [ keyFn( key ), valueFn( value ) ] );
+        }
+
+        if ( include.keyNames ) {
+
+            const valueFn = args.valueMappers?.keyNames ?? valueFn_fallback;
+
+            const keyFn = args.keyMappers?.keyNames ?? ( ( key: string ) => key );
+
+            const _entries = Object.entries( themesMeta.keys ) as [ keyof typeof themesMeta.keys, typeof themesMeta.keys[ keyof typeof themesMeta.keys ] ][];
+
+            entries.keyNames = _entries.map( ( [ key, value ] ) => [ keyFn( key ), valueFn( value ) ] );
+        }
+
+        return {
+            entries: entries as {
+                readonly [ K in T_ReturnOptions ]: readonly [ string, string ][];
+            },
+        };
+    }
+
+    /**
+     * Utilities for the {@link getSvgConstants} function.
+     * 
+     * @since ___PKG_VERSION___
+     */
+    export namespace getThemeConsts {
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        export type Args<T_ExtraReturnOptions extends string = never> = {
+
+            /**
+             * Optionally map entry key strings as they are built.
+             * 
+             * @since ___PKG_VERSION___
+             */
+            keyMappers?: {
+                [ K in ReturnOptions ]?: ( item: string ) => string;
+            };
+
+            /**
+             * Optionally map entry value strings as they are built.
+             * 
+             * @since ___PKG_VERSION___
+             */
+            valueMappers?: {
+                [ K in ReturnOptions ]?: ( item: string[] ) => string
+            };
+
+            /**
+             * Which variables to include in the return.
+             */
+            incl?: {
+                [ K in ReturnOptions | T_ExtraReturnOptions ]?: boolean;
+            };
+        };
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        export const returnOpts = [
+            'keys',
+            'keyNames',
+        ] as const;
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        export type ReturnOptions = typeof returnOpts[ number ];
+    }
+
+    /**
      * For use in Wordpress projects (uses _x for translation).
      * 
      * @since ___PKG_VERSION___
@@ -270,9 +387,9 @@ export namespace getBrandConstants {
         /**
          * @since ___PKG_VERSION___
          */
-        function parseReturnOpt<T_SetName extends getSvgConsts.SetName>(
+        function parseReturnOpt<T_SetName extends getSvgConsts.SetName | 'theme'>(
             setName: T_SetName,
-            opt: getSvgConsts.ReturnOptions,
+            opt: getSvgConsts.ReturnOptions | getThemeConsts.ReturnOptions,
         ) {
             const commentName = setName.replace( /\Bs$/gi, '' );
 
@@ -296,11 +413,20 @@ export namespace getBrandConstants {
                 case 'svg':
                     comment = `All ${ commentName } svg values indexed by slug.`;
                     break;
+
+                case 'keys':
+                    comment = `Theme slugs included in all themes.`;
+                    break;
+
+                case 'keyNames':
+                    comment = `Translated theme slug names included in all themes, indexed by slug.`;
+                    constName = 'KEY_NAMES';
+                    break;
             }
 
             return {
                 constName: constName ?? opt.toUpperCase(),
-                comment: comment ?? `Brand kit ${ setName } as ${ opt }.`,
+                comment: comment ?? `Brand kit ${ setName } tokens as ${ opt }.`,
             } as const;
         }
 
@@ -498,6 +624,140 @@ export namespace getBrandConstants {
 
                 return ret.join( '\n' );
             }
+
+            /**
+             * Gets a string of valid PHP code for wordpress defining constants
+             * for the theme tokens.
+             *
+             * @since ___PKG_VERSION___
+             */
+            export async function getTheme(
+                tokens: Tokens.JsonReturn | Tokens.Instance,
+                textDomain: string,
+                phpNamespace: string,
+                args: Omit<getThemeConsts.Args, 'valueMappers'> = {},
+            ): Promise<null | string> {
+
+                const SVG_CONSTANTS = await getThemeConsts(
+                    tokens,
+                    {
+                        ...args,
+                        valueMappers: {
+
+                            keys: ( value ) => entriesToArray(
+                                value.map( ( v, i ) => [
+                                    i.toString(),
+                                    `'${ v.replace( /'/g, "\\'" ) }'`,
+                                ] ),
+                                false,
+                            ).split( '\n' ).join( '\n    ' ),
+
+                            keyNames: ( value ) => entriesToObject( value.map( v => [
+                                v,
+                                `_x( '${ toTitleCase( v ) }', 'colour variation name', '${ textDomain }' )`,
+                            ] ) ).split( '\n' ).join( '\n    ' ),
+                        } satisfies Required<Required<getThemeConsts.Args>[ 'valueMappers' ]>,
+                    },
+                );
+
+                if ( !SVG_CONSTANTS ) {
+                    return null;
+                }
+
+                const {
+                    entries,
+                } = SVG_CONSTANTS;
+
+                const themesMeta = '_meta' in tokens.themes ? tokens.themes._meta : tokens.themes.meta;
+
+                const keyEntries = Object.entries( themesMeta.keys ) as [ keyof typeof themesMeta.keys, typeof themesMeta.keys[ keyof typeof themesMeta.keys ] ][];
+
+                phpNamespace = phpNamespace.length ? phpNamespace.replace( /\/$/gi, '' ) + '\\' : '';
+
+                const ret: string[] = [];
+
+                for ( const opt of getThemeConsts.returnOpts ) {
+
+                    let content: string;
+                    let insideHook = false;
+                    let type: string;
+
+                    switch ( opt ) {
+
+                        case 'keys':
+                            content = entriesToObject( entries[ opt ] );
+                            type = `object{ ${ keyEntries.map( ( [ key ] ) => `${ key }: string[]` ).join( ', ' ) } }`;
+                            break;
+
+                        case 'keyNames':
+                            content = entriesToObject( entries[ opt ] );
+                            insideHook = true;
+                            type = `object{ ${ keyEntries.map(
+                                ( [ key, values ] ) => `${ key }: object{ ${ values.map( subKey => `${ subKey }: string` ).join( ', ' ) } }`
+                            ).join( ', ' ) } }`;
+                            break;
+                    }
+
+                    // continues
+                    if ( !content?.length ) {
+                        continue;
+                    }
+
+                    const {
+                        constName,
+                        comment,
+                    } = parseReturnOpt( 'theme', opt );
+
+                    ret.push(
+                        ...outputConstant(
+                            `${ phpNamespace }BRAND_THEME_${ constName }`,
+                            content,
+                            {
+                                comment,
+                                insideHook,
+                                type,
+                            },
+                        ),
+                        '',
+                    );
+                }
+
+                return ret.join( '\n' );
+            }
+
+            /**
+             * Gets a string of valid PHP code for wordpress defining constants
+             * for the theme tokens.
+             *
+             * @since ___PKG_VERSION___
+             */
+            export async function getAll(
+                tokens: Tokens.JsonReturn | Tokens.Instance,
+                textDomain: string,
+                phpNamespace: string,
+                args: {
+                    icons?: Omit<getSvgConsts.Args, 'valueMappers'>,
+                    logos?: Omit<getSvgConsts.Args, 'valueMappers'>,
+                    theme?: Omit<getThemeConsts.Args, 'valueMappers'>,
+                } = {},
+            ) {
+
+                const [
+                    icons,
+                    logos,
+                    theme,
+                ] = await Promise.all( [
+                    getSvg( 'icons', tokens.icons, textDomain, phpNamespace, args.icons ),
+                    getSvg( 'logos', tokens.logos, textDomain, phpNamespace, args.logos ),
+                    getTheme( tokens, textDomain, phpNamespace, args.theme ),
+                ] );
+
+                return [
+                    icons,
+                    logos,
+                    theme,
+                ].filter( v => v ).join( '\n\n' );
+            }
         }
 
         /**
@@ -611,7 +871,7 @@ export namespace getBrandConstants {
                     entries,
                 } = SVG_CONSTANTS;
 
-                const typeString = entriesToObject_type( entries.names.map( ( [ key ] ) => [ key, 'string' ] ) );
+                const typeString = entriesToObject_type( entries.all.map( ( [ key ] ) => [ key, 'string' ] ) );
 
                 const setName_UC = setName.toUpperCase();
 
@@ -659,6 +919,123 @@ export namespace getBrandConstants {
                 }
 
                 return ret.join( '\n' );
+            }
+
+            /**
+             * Gets a string of valid PHP code for wordpress defining constants
+             * for the theme tokens.
+             * 
+             * @since ___PKG_VERSION___
+             */
+            export async function getTheme(
+                tokens: Tokens.JsonReturn | Tokens.Instance,
+                textDomain: string,
+                args: Omit<getThemeConsts.Args<"react">, 'valueMappers'> = {},
+            ): Promise<null | string> {
+
+                const SVG_CONSTANTS = await getThemeConsts(
+                    tokens,
+                    {
+                        ...args,
+                        valueMappers: {
+
+                            keys: ( value ) => entriesToArray( value.map( ( v, i ) => [
+                                i.toString(),
+                                `'${ v.replace( /'/g, "\\'" ) }'`,
+                            ] ) ).split( '\n' ).join( '\n    ' ),
+
+                            keyNames: ( value ) => entriesToObject( value.map( ( v, i ) => [
+                                v,
+                                `_x( '${ toTitleCase( v ) }', 'colour variation name', '${ textDomain }' )`,
+                            ] ) ).split( '\n' ).join( '\n    ' ),
+                        } satisfies Required<Required<getThemeConsts.Args>[ 'valueMappers' ]>,
+                    },
+                );
+
+                if ( !SVG_CONSTANTS ) {
+                    return null;
+                }
+
+                const {
+                    entries,
+                } = SVG_CONSTANTS;
+
+                const typeString = entriesToObject_type( entries.keys.map( ( [ key ] ) => [ key, 'string[]' ] ) );
+
+                const ret: string[] = [];
+
+                for ( const opt of getThemeConsts.returnOpts ) {
+
+                    let content: string;
+                    let type: undefined | string = undefined;
+
+                    switch ( opt ) {
+
+                        case 'keys':
+                        case 'keyNames':
+                            content = entriesToObject( entries[ opt ] );
+                            break;
+
+                        default:
+                            content = entriesToObject( entries[ opt ] );
+                            type = typeString;
+                            break;
+                    }
+
+                    // continues
+                    if ( !content?.length ) {
+                        continue;
+                    }
+
+                    const {
+                        constName,
+                        comment,
+                    } = parseReturnOpt( 'theme', opt );
+
+                    ret.push(
+                        ...outputConstant(
+                            `THEME_${ constName }`,
+                            content,
+                            { comment, type },
+                        ),
+                        '',
+                    );
+                }
+
+                return ret.join( '\n' );
+            }
+
+            /**
+             * Gets a string of valid PHP code for wordpress defining constants
+             * for the theme tokens.
+             *
+             * @since ___PKG_VERSION___
+             */
+            export async function getAll(
+                tokens: Tokens.JsonReturn | Tokens.Instance,
+                textDomain: string,
+                args: {
+                    icons?: Omit<getSvgConsts.Args, 'valueMappers'>,
+                    logos?: Omit<getSvgConsts.Args, 'valueMappers'>,
+                    theme?: Omit<getThemeConsts.Args, 'valueMappers'>,
+                } = {},
+            ) {
+
+                const [
+                    icons,
+                    logos,
+                    theme,
+                ] = await Promise.all( [
+                    getSvg( 'icons', tokens.icons, textDomain, args.icons ),
+                    getSvg( 'logos', tokens.logos, textDomain, args.logos ),
+                    getTheme( tokens, textDomain, args.theme ),
+                ] );
+
+                return [
+                    icons,
+                    logos,
+                    theme,
+                ].filter( v => v?.length ).join( '\n\n' );
             }
         }
     }

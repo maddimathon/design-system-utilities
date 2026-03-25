@@ -69,20 +69,29 @@
     &.no-style {
     }
 
-    &[target='_blank'] {
-        &::after {
-            @if config.$include_link_inlineIcons {
+    @if config.$include_link_inlineIcons {
+        &[target='_blank'] {
+            &::after {
                 @include snippet-icon-pseudo-element(external) {
                     align-self: center;
                 }
             }
         }
-    }
 
-    &[aria-disabled='true'],
-    &[disabled] {
-        &::before {
-            @if config.$include_link_inlineIcons {
+        &[download] {
+            &::before {
+                @include snippet-icon-pseudo-element(
+                    download,
+                    $pseudo: before
+                ) {
+                    align-self: center;
+                }
+            }
+        }
+
+        &[aria-disabled='true'],
+        &[disabled] {
+            &::before {
                 @include snippet-icon-pseudo-element(
                     forbidden,
                     $pseudo: before
@@ -90,10 +99,11 @@
                     align-self: center;
                 }
             }
+            &::after {
+                content: none !important;
+            }
         }
-    }
 
-    @if config.$include_link_inlineIcons {
         &.no-pseudo {
             &::before,
             &::after {

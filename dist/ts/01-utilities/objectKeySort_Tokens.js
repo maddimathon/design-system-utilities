@@ -67,4 +67,19 @@ export function objectKeySort_Tokens(obj, recursive = false) {
         return lcString;
     }
     objectKeySort_Tokens.sortMaker = sortMaker;
+    /**
+     * Available for use to sort string arrays in the same order as this function.
+     */
+    function sorter(a, b) {
+        const sort_a = sortMaker(a);
+        const sort_b = sortMaker(b);
+        if (sort_a > sort_b) {
+            return 1;
+        }
+        if (sort_a < sort_b) {
+            return -1;
+        }
+        return 0;
+    }
+    objectKeySort_Tokens.sorter = sorter;
 })(objectKeySort_Tokens || (objectKeySort_Tokens = {}));

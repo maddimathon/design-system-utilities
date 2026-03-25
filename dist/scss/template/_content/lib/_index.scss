@@ -18,15 +18,6 @@
 
 @use '../../../lib' as *;
 
-$_activeTheme: get-active-theme();
-$_activeTheme_textAndBackgroundKeys: map.keys(
-    map.merge(
-        map.get($_activeTheme, background),
-        map.get($_activeTheme, text),
-        $recursive: true
-    )
-);
-
 ///
 /// @since 0.1.0-beta.0.draft — Added $additional_optional param for additional selectors that are always optional.
 ///
@@ -269,17 +260,7 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
         );
     }
 
-    @each $variant
-        in map.keys(
-            map.get(
-                tokens.$themes,
-                tokens.$activeTheme,
-                tokens.$brightnessMode_default,
-                tokens.$contrastMode_default,
-                button
-            )
-        )
-    {
+    @each $variant in map.get(tokens.$themesMeta, keys, button) {
         @if $variant != primary and $variant != disabled {
             //
             $additional_optional: list.append(
@@ -313,18 +294,16 @@ $_activeTheme_textAndBackgroundKeys: map.keys(
         }
     }
 
-    @each $variant in $_activeTheme_textAndBackgroundKeys {
-        @if $variant == '$' {
-            $additional_optional: list.append(
-                $additional_optional,
-                ('.background-default', background-default)
-            );
-        } @else {
-            $additional_optional: list.append(
-                $additional_optional,
-                ('.background-#{$variant}', background-#{$variant})
-            );
-        }
+    $additional_optional: list.append(
+        $additional_optional,
+        ('.background-default', background-default)
+    );
+
+    @each $variant in map.get(tokens.$themesMeta, keys, background) {
+        $additional_optional: list.append(
+            $additional_optional,
+            ('.background-#{$variant}', background-#{$variant})
+        );
     }
 
     $additional_optional: list.append(

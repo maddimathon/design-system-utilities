@@ -8,22 +8,19 @@
 @use '../../../lib' as *;
 
 @use '../config';
+@use '../../../tokens';
 
 @if config.$template_cssHeadings {
     /* # UTILITIES - THEMES
      * ======================================================================== */
 }
 
-$_activeTheme: get-active-theme();
+%background-default {
+    background: #{var-theme(background)};
+}
 
-@each $variant in map.keys(map.get($_activeTheme, background)) {
-    @if $variant == '$' {
-        %background-default {
-            background: #{var-theme(background)};
-        }
-    } @else {
-        %background-#{$variant} {
-            background: #{var-theme(background-#{$variant})};
-        }
+@each $variant in map.get(tokens.$themesMeta, keys, background) {
+    %background-#{$variant} {
+        background: #{var-theme(background-#{$variant})};
     }
 }

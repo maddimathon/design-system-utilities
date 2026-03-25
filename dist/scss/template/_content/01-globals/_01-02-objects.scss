@@ -32,10 +32,20 @@
     color: #{var-theme(ui-primary)};
 }
 
+%img {
+    height: auto;
+}
+
 %img,
 %figure,
 %svg {
+    margin-inline: 0;
     max-width: 100%;
+
+    a & {
+        @include cx-prop(display, inline-block);
+        display: inline-block;
+    }
 }
 
 %img,

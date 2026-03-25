@@ -9,11 +9,11 @@
  */
 import { objectFlatten } from '@maddimathon/utility-typescript';
 /**
- * Gets the value of the given theme slug.
+ * Gets the colour slug value of the given theme slug.
  *
  * @since 0.1.0-beta.0.draft
  */
-export function getTokensThemeValue(themeValueSlug, themeName, brightness, contrast, tokens) {
+export function getThemeTokenColourSlug(themeValueSlug, themeName, brightness, contrast, tokens) {
     if (!tokens.themes[themeName]) {
         themeName = 'default';
     }

@@ -12,7 +12,7 @@ import { CssColours, jsValueToSass, sassAssertValueType, } from '@maddimathon/ut
 import * as sass from "sass-embedded";
 import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
 import { objectGeneratorAsync } from '../../01-utilities/objectGenerator.js';
-import { colourSlugToCSS } from '../../03-parsers/colourSlugToCSS.js';
+import { getColourCSS } from '../../03-parsers/getColourCSS.js';
 /**
  * A function to include in {@link sass.Options} that flattens the scss theme
  * objects and sets their values to colour values.
@@ -45,7 +45,7 @@ export function sassFn_themeFlattenGetValues() {
                 ? (slug, value) => slug?.length ? `var(--clr-${slug}${value ? `, ${value}` : ''})` : String(value ?? slug ?? '')
                 : (slug, value) => String(value ?? slug ?? '');
             const slugTranslator = async (brightness, val) => {
-                const clrVal = colourSlugToCSS({ themes: themeTokens, colour: colourTokens }, brightness, val, !replaceVarClrWithValue);
+                const clrVal = getColourCSS({ themes: themeTokens, colour: colourTokens }, brightness, val, !replaceVarClrWithValue);
                 // returns
                 if (!includeHSL && !includeRGB) {
                     return clrVal;

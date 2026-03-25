@@ -63,6 +63,10 @@ export class Tokens_Themes_Set extends AbstractTokens {
         };
     }
     /**
+     * @since 0.1.0-beta.0.draft
+     */
+    meta;
+    /**
      * @since 0.1.0-beta.0.draft — Changed second & third param to colours object (as fourth param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
     constructor(
@@ -75,16 +79,42 @@ export class Tokens_Themes_Set extends AbstractTokens {
         this.colours = colours;
         this.forcedColours = forcedColours;
         this.modes = modes;
+        const allLevelsInUse = new Set();
+        const allThemeKeys = {
+            background: [],
+            button: [],
+            text: [],
+            textAndBackground: [],
+        };
+        const keyFilter = (key) => key !== '$' && key !== 'active' && key !== 'disabled';
+        for (const brightness of Object.keys(this.modes)) {
+            const _contrastEntries = Object.values(this.modes[brightness]);
+            for (const singleMode of _contrastEntries) {
+                singleMode.levelsInUse.forEach(key => allLevelsInUse.add(key));
+                allThemeKeys.background.push(new Set(Object.keys(singleMode.data.background).filter(keyFilter)));
+                allThemeKeys.button.push(new Set(Object.keys(singleMode.data.button).filter(keyFilter)));
+                allThemeKeys.text.push(new Set([
+                    ...Object.keys(singleMode.data.text),
+                    ...Object.keys(singleMode.data.ui),
+                ].filter(keyFilter)));
+            }
+        }
+        const keySets = objectMap(allThemeKeys, ([key, sets]) => sets?.length
+            ? sets.reduce((previous, current) => previous.intersection(current))
+            : new Set());
+        keySets.textAndBackground = keySets.text.intersection(keySets.background);
+        const keys = objectMap(keySets, ([key, set]) => Array.from(set).sort(objectKeySort_Tokens.sorter));
+        this.meta = {
+            keys,
+            levelsInUse: arrayUnique(Array.from(allLevelsInUse).map((light) => [light, ColourUtilities.Levels.toDark(light)]).flat()).sort(),
+        };
     }
     toJSON() {
-        const allLevelsInUse = objectMap(this.modes, ([brightnessMode]) => Object.values(objectMap(this.modes[brightnessMode], ([__key, value]) => value.levelsInUse)).flat());
-        const levelsInUse = arrayUnique(Object.values(allLevelsInUse).flat());
-        const levelsInUse_dark = levelsInUse.map((light) => ColourUtilities.Levels.toDark(light));
         return {
-            name: this.name ?? 'default',
+            _name: this.name ?? 'default',
+            _meta: this.meta,
             forcedColours: this.forcedColours.toJSON(),
             ...objectMap(this.modes, ([brightnessMode]) => objectMap(this.modes[brightnessMode], ([__key, value]) => value.toJSON())),
-            levelsInUse: arrayUnique(levelsInUse.concat(levelsInUse_dark)).sort(),
         };
     }
     toScssVars() {

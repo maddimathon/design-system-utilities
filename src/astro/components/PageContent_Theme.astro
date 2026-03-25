@@ -6,6 +6,7 @@
  */
 
 /* import - types */
+import type { ComponentProps } from 'astro/types';
 import type { TokenTypes } from '../../ts/02-tokens/@types.js';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 
@@ -23,10 +24,8 @@ import TableOfContents from '@maddimathon/utility-astro/components/TableOfConten
 import Toggle from '@maddimathon/utility-astro/components/Toggle';
 import ThemeModeSwatch from './ThemeModeSwatch.astro';
 import Widget from './Widget.astro';
-import type { ComponentProps } from 'astro/types';
 import LoremIpsum from './LoremIpsum.astro';
 import Alert from './Alert.astro';
-// import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
 
 /* import - layouts */
 
@@ -51,7 +50,9 @@ function getButtonVariations(themeKey: keyof typeof tokens.themes) {
 
 /* CONSTANTS ===================================== */
 
-const themeNames = Object.keys(tokens.themes) as ( keyof typeof tokens.themes )[];
+const themeNames = (
+    Object.keys(tokens.themes) as ( keyof typeof tokens.themes )[]
+).filter(name => name !== '_meta');
 
 const hasMultipleThemes = themeNames.length > 1;
 
@@ -59,44 +60,51 @@ const defaultToggleToOpen = Array.isArray(_defaultToggleToOpen) ? _defaultToggle
 
 const levelsInUse = getLevelsInUse(tokens.themes);
 
-const parsedSets = Object.values(
-    objectMap(tokens.themes, ([key,  theme]) => ({
+const parsedSets = (
+    Object.entries(tokens.themes) as [ keyof typeof tokens.themes, typeof tokens.themes[keyof typeof tokens.themes] ][]
+).map(
+    ([key,  theme]) => 
+    key === '_meta'
+    ? false
+    : ({
         key,
         parsed: Object.values(
-            objectMap(theme, ([brightness]) =>
-            brightness === 'name'
-                ? false
-                : brightness === 'levelsInUse'
-                    ? false
-                    :  brightness === 'forcedColours' 
+            objectMap(
+                theme,
+                ([brightness]) =>
+                    brightness === '_name'
                         ? false
-                        : theme[brightness]
-                            ? {
-                                name: brightness,
-                                label: toTitleCase(`${key} — ${brightness} Mode`),
-                                href: `${key}-${brightness}-mode`,
-                                values: Object.values(
-                                    objectMap(
-                                        theme[brightness],
-                                        ([ contrast,  theme ]): {
-                                            id: string,
-                                            brightness: "light"|"dark",
-                                            contrast: "low"|"average"|"high"|"max",
-                                            theme: typeof theme,
-                                        } => ({
-                                            id: `theme-${key}-${contrast}`,
-                                            brightness,
-                                            contrast,
-                                            theme,
-                                        })
-                                    )
-                                ),
-                            }
-                            : false
+                        : brightness === '_meta'
+                            ? false
+                            :  brightness === 'forcedColours' 
+                                ? false
+                                : theme[brightness]
+                                    ? {
+                                        name: brightness,
+                                        label: toTitleCase(`${key} — ${brightness} Mode`),
+                                        href: `${key}-${brightness}-mode`,
+                                        values: Object.values(
+                                            objectMap(
+                                                theme[brightness],
+                                                ([ contrast,  theme ]): {
+                                                    id: string,
+                                                    brightness: "light"|"dark",
+                                                    contrast: "low"|"average"|"high"|"max",
+                                                    theme: typeof theme,
+                                                } => ({
+                                                    id: `theme-${key}-${contrast}`,
+                                                    brightness,
+                                                    contrast,
+                                                    theme,
+                                                })
+                                            )
+                                        ),
+                                    }
+                                    : false
             )
         ).filter((v) => v !== false),
-    }))
-);
+    })
+).filter((v) => v !== false);
 
 const displayOptions = [
     {

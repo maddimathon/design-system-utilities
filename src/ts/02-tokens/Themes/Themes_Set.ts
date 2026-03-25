@@ -8,7 +8,11 @@
  * @license MIT
  */
 
-import type { Classify, RecursivePartial } from '@maddimathon/utility-typescript/types';
+import type {
+    ArrayItem,
+    Classify,
+    RecursivePartial,
+} from '@maddimathon/utility-typescript/types';
 
 import {
     arrayUnique,
@@ -157,6 +161,11 @@ export class Tokens_Themes_Set<
     }
 
     /**
+     * @since ___PKG_VERSION___
+     */
+    public readonly meta: Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>;
+
+    /**
      * @since ___PKG_VERSION___ — Changed second & third param to colours object (as fourth param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
     protected constructor (
@@ -178,33 +187,97 @@ export class Tokens_Themes_Set<
         >,
     ) {
         super();
+
+        const allLevelsInUse = new Set<
+            "black" | "white" | ColourUtilities.Levels.Required | T_ColourTypes[ 'extraLevels' ]
+        >();
+
+        type SingleMode = Tokens_Themes_Set.SingleMode.Data<T_ColourTypes, T_ThemeTypes>;
+
+        type ExcludeKeys = '$' | 'active' | 'disabled';
+
+        const allThemeKeys: {
+            [ K in keyof Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>[ 'keys' ] ]: Set<
+                ArrayItem<Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>[ 'keys' ][ K ]>
+            >[];
+        } = {
+            background: [],
+            button: [],
+            text: [],
+            textAndBackground: [],
+        };
+
+        const keyFilter = ( key: string ) => key !== '$' && key !== 'active' && key !== 'disabled';
+
+        for ( const brightness of ( Object.keys( this.modes ) as ( keyof typeof this.modes )[] ) ) {
+
+            const _contrastEntries = Object.values( this.modes[ brightness ] ) as (
+                typeof this.modes[ typeof brightness ][ keyof typeof this.modes[ typeof brightness ] ]
+            )[];
+
+            for ( const singleMode of _contrastEntries ) {
+
+                singleMode.levelsInUse.forEach( key => allLevelsInUse.add( key ) );
+
+                allThemeKeys.background.push( new Set(
+                    Object.keys( singleMode.data.background ).filter( keyFilter ) as Exclude<keyof SingleMode[ 'background' ], ExcludeKeys>[]
+                ) );
+
+                allThemeKeys.button.push( new Set(
+                    Object.keys( singleMode.data.button ).filter( keyFilter ) as Exclude<keyof SingleMode[ 'button' ], ExcludeKeys>[]
+                ) );
+
+                allThemeKeys.text.push( new Set(
+                    [
+                        ...Object.keys( singleMode.data.text ),
+                        ...Object.keys( singleMode.data.ui ),
+                    ].filter( keyFilter ) as Exclude<keyof SingleMode[ 'text' | 'ui' ], ExcludeKeys>[]
+                ) );
+            }
+        }
+
+        const keySets = objectMap(
+            allThemeKeys,
+            <K extends keyof Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>[ 'keys' ]>(
+                [ key, sets ]: [ K, Set<
+                    ArrayItem<Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>[ 'keys' ][ K ]>
+                >[] ]
+            ) => sets?.length
+                    ? sets.reduce(
+                        ( previous, current ) => previous.intersection( current ),
+                    )
+                    : new Set<
+                        ArrayItem<Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>[ 'keys' ][ K ]>
+                    >()
+        );
+
+        keySets.textAndBackground = keySets.text.intersection( keySets.background );
+
+        const keys = objectMap(
+            keySets,
+            <K extends keyof Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>[ 'keys' ]>(
+                [ key, set ]: [ K, Set<
+                    ArrayItem<Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>[ 'keys' ][ K ]>
+                > ]
+            ) => Array.from( set ).sort( objectKeySort_Tokens.sorter )
+        ) as Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>[ 'keys' ];
+
+        this.meta = {
+            keys,
+
+            levelsInUse: arrayUnique(
+                Array.from( allLevelsInUse ).map(
+                    ( light ) => [ light, ColourUtilities.Levels.toDark( light ) ]
+                ).flat()
+            ).sort(),
+        };
     }
 
     public toJSON(): Tokens_Themes_Set.JsonReturn<T_ColourTypes, T_ThemeTypes> {
 
-        const allLevelsInUse = objectMap(
-            this.modes,
-            ( [ brightnessMode ] ) => Object.values(
-                objectMap(
-                    this.modes[ brightnessMode ],
-                    ( [ __key, value ] ): (
-                        | "black"
-                        | "white"
-                        | ColourUtilities.Levels.Required
-                        | ColourUtilities.Levels.Optional
-                    )[] => value.levelsInUse
-                )
-            ).flat() as ( "black" | "white" | ColourUtilities.Levels.Any )[]
-        );
-
-        const levelsInUse = arrayUnique( (
-            Object.values( allLevelsInUse ) as ( "black" | "white" | ColourUtilities.Levels.Any )[][]
-        ).flat() );
-
-        const levelsInUse_dark = levelsInUse.map( ( light ) => ColourUtilities.Levels.toDark( light ) );
-
         return {
-            name: this.name ?? 'default',
+            _name: this.name ?? 'default',
+            _meta: this.meta,
 
             forcedColours: this.forcedColours.toJSON(),
 
@@ -218,14 +291,13 @@ export class Tokens_Themes_Set<
                     Tokens_Themes_Set.SingleMode.JsonReturn<T_ColourTypes, T_ThemeTypes>
                 >
             ),
-
-            levelsInUse: arrayUnique( levelsInUse.concat( levelsInUse_dark ) ).sort(),
         };
     }
 
     public toScssVars(): Tokens_Themes_Set.ScssVars<T_ColourTypes, T_ThemeTypes> {
         return {
             'forced-colors': this.forcedColours.toScssVars(),
+
             ...objectMap(
                 this.modes,
                 ( [ brightnessMode ] ) => objectMap(
@@ -246,6 +318,44 @@ export class Tokens_Themes_Set<
  * @since 0.1.0-alpha
  */
 export namespace Tokens_Themes_Set {
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export type Metadata<
+        T_ColourTypes extends TokenTypes.Colour.TypeParams,
+        T_ThemeTypes extends TokenTypes.Theme.TypeParams,
+    > = {
+        /**
+         * Common keys for the given props in the single modes of this set.
+         */
+        keys: {
+            background: Exclude<
+                keyof Tokens_Themes_Set.SingleMode.Data<T_ColourTypes, T_ThemeTypes>[ 'background' ],
+                "$" | "active" | "disabled"
+            >[];
+            button: Exclude<
+                keyof Tokens_Themes_Set.SingleMode.Data<T_ColourTypes, T_ThemeTypes>[ 'button' ],
+                "$" | "active" | "disabled"
+            >[];
+            text: Exclude<
+                keyof Tokens_Themes_Set.SingleMode.Data<T_ColourTypes, T_ThemeTypes>[ 'text' ],
+                "$" | "active" | "disabled"
+            >[];
+            textAndBackground: Exclude<
+                Extract<
+                    keyof Tokens_Themes_Set.SingleMode.Data<T_ColourTypes, T_ThemeTypes>[ 'background' ],
+                    keyof Tokens_Themes_Set.SingleMode.Data<T_ColourTypes, T_ThemeTypes>[ 'text' ]
+                >,
+                "$" | "active" | "disabled"
+            >[];
+        },
+
+        /**
+         * @since ___PKG_VERSION___ — Moved to be a child of the new meta prop.
+         */
+        levelsInUse: TokenTypes.Colour.AnyLevel<T_ColourTypes>[];
+    };
 
     /**
      * @since 0.1.0-alpha
@@ -291,9 +401,18 @@ export namespace Tokens_Themes_Set {
         T_ColourTypes extends TokenTypes.Colour.TypeParams,
         T_ThemeTypes extends TokenTypes.Theme.TypeParams,
     > = {
-        name: T_ThemeTypes[ 'name' ];
-        levelsInUse: TokenTypes.Colour.AnyLevel<T_ColourTypes>[];
+        /**
+         * @since ___PKG_VERSION___ — Renamed to follow 'private' naming scheme for metadata.
+         */
+        _name: T_ThemeTypes[ 'name' ];
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        _meta: Metadata<T_ColourTypes, T_ThemeTypes>;
+
         forcedColours: Tokens_Themes_Set.SingleMode.JsonReturn<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>;
+
     } & TokenTypes.Theme.Mode.NestedObject<
         T_ThemeTypes,
         Tokens_Themes_Set.SingleMode.JsonReturn<T_ColourTypes, T_ThemeTypes>

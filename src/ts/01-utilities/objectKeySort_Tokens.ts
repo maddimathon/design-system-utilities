@@ -95,4 +95,23 @@ export namespace objectKeySort_Tokens {
 
         return lcString;
     }
+
+    /**
+     * Available for use to sort string arrays in the same order as this function.
+     */
+    export function sorter( a: number | string, b: number | string ) {
+
+        const sort_a = sortMaker( a );
+        const sort_b = sortMaker( b );
+
+        if ( sort_a > sort_b ) {
+            return 1;
+        }
+
+        if ( sort_a < sort_b ) {
+            return -1;
+        }
+
+        return 0;
+    }
 }

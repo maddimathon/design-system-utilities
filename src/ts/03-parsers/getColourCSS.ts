@@ -10,22 +10,23 @@
 
 import { CssColours } from '@maddimathon/utility-sass';
 
-import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
+import { ColourUtilities } from '../01-utilities/ColourUtilities.js';
 
-import type { TokenTypes } from '../../ts/02-tokens/@types.js';
-import type { Tokens } from '../../ts/02-tokens/Tokens.js';
-import type { Tokens_Colour } from '../../ts/02-tokens/Tokens_Colour.js';
-import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
-import type { Tokens_Themes } from '../../ts/02-tokens/Tokens_Themes.js';
+import type { TokenTypes } from '../02-tokens/@types.js';
+import type { Tokens } from '../02-tokens/Tokens.js';
+import type { Tokens_Colour } from '../02-tokens/Tokens_Colour.js';
+import type { Tokens_Colour_ShadeMap } from '../02-tokens/Colour/Colour_ShadeMap.js';
+import type { Tokens_Themes } from '../02-tokens/Tokens_Themes.js';
 
-import { getDataFromClrSlug } from '../../ts/03-parsers/getDataFromClrSlug.js';
+import { getDataFromClrSlug } from './getDataFromClrSlug.js';
 
 /**
  * Takes a colour slug and returns a css-friendly colour code, if possible.
- * 
+ * Optionally returns a css colour var with the colour code as fallback.
+ *
  * @since ___PKG_VERSION___
  */
-export function colourSlugToCSS<
+export function getColourCSS<
     T_Types extends TokenTypes.TypeParams,
 >(
     tokens: Tokens.JsonReturn<T_Types> | {

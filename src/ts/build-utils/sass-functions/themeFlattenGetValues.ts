@@ -34,7 +34,7 @@ import type { TokenTypes } from '../../02-tokens/@types.js';
 import type { Tokens_Colour } from '../../02-tokens/Tokens_Colour.js';
 import type { Tokens_Themes } from '../../02-tokens/Tokens_Themes.js';
 
-import { colourSlugToCSS } from '../../03-parsers/colourSlugToCSS.js';
+import { getColourCSS } from '../../03-parsers/getColourCSS.js';
 
 /**
  * A function to include in {@link sass.Options} that flattens the scss theme
@@ -85,7 +85,7 @@ export function sassFn_themeFlattenGetValues(): [ string, sass.CustomFunction<'a
                 val: string,
             ): Promise<string | { $: string; hsl?: string; rgb?: string; }> => {
 
-                const clrVal = colourSlugToCSS(
+                const clrVal = getColourCSS(
                     { themes: themeTokens, colour: colourTokens },
                     brightness,
                     val,
