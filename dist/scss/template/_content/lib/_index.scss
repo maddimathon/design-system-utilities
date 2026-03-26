@@ -28,7 +28,12 @@
     $allHeadingLevels: token-all-heading-levels()
 ) {
     //
-    $additional: list.join($additional, (img, figure, svg));
+    $additional: list.join($additional, (dd, dl, dt, img, figure, svg));
+
+    $additional_optional: list.append(
+        $additional_optional,
+        ((dl), 'display-contents')
+    );
 
     $additional: list.append($additional, ((cite, dt, p), 'paragraph-margins'));
     $additional: list.append($additional, ((li), 'paragraph-small-margins'));

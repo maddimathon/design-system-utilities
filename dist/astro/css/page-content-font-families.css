@@ -15,6 +15,7 @@
 .font-family-swatch-list {
     --display: grid;
     display: grid;
+    display: var(--display, grid);
     justify-content: stretch;
     justify-items: start;
     align-items: first baseline;
@@ -49,7 +50,9 @@
     font-family: var(--font-family-swatch-family) !important;
 }
 .font-family-swatch-list .font-family-swatch > * {
-    grid-column: 1/-1;
+    --grid-column: 1 / -1;
+    grid-column: 1 / -1;
+    grid-column: var(--grid-column, 1 / -1);
 }
 .font-family-swatch-list .font-family-swatch .font-family-swatch__intro {
     margin-top: 0;
@@ -102,7 +105,9 @@
     margin-top: var(--mrg-soft-400, 0.8125rem);
 }
 .font-family-swatch-list .font-family-swatch .font-family-swatch__weight-dd {
+    --display: -webkit-inline-box;
     display: -webkit-inline-box;
+    display: var(--display, -webkit-inline-box);
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
     -webkit-line-clamp: var(--line-clamp, 3);

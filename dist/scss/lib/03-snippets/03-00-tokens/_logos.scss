@@ -56,8 +56,7 @@ $_allUniqueLogoAspectRatios: ();
     $verticalAlign: middle
 ) {
     %brand-logo {
-        @include cx-prop(display, $display);
-        display: #{$display};
+        @include prop-display($display);
         position: relative;
 
         @if $marginBlock != false {
@@ -77,8 +76,7 @@ $_allUniqueLogoAspectRatios: ();
         }
 
         > svg {
-            @include cx-prop(display, $display_svg);
-            display: #{$display_svg};
+            @include prop-display($display_svg);
             margin: #{$margin_svg};
             padding: #{$padding_svg};
 

@@ -31,7 +31,9 @@
 }
 
 .theme-mode-swatch__alt-widgets {
+    --display: flex;
     display: flex;
+    display: var(--display, flex);
     flex-direction: column;
     gap: 0;
 }
@@ -43,7 +45,9 @@
 }
 
 :global(.js) .theme-mode-preview-page__display-mode__wrapper {
+    --display: flex;
     display: flex;
+    display: var(--display, flex);
     justify-content: end;
     gap: 0.3125rem 5%;
     gap: var(--mrg-soft-200, 0.3125rem) var(--gap-inline-tab, 5%);
@@ -90,6 +94,8 @@
     > :global(.container)
     .theme-mode-toggle__list {
     --display: grid;
+    display: grid;
+    display: var(--display, grid);
     grid-template-columns: repeat(
         var(--theme-mode-swatch-list-column-count),
         minmax(16rem, 1fr)

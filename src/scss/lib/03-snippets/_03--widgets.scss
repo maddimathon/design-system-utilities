@@ -27,8 +27,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
     $includeFlowMargins: true,
     $includeExceptions: true
 ) {
-    @include cx-prop(display, flex);
-    display: flex;
+    @include prop-display(flex);
     flex-direction: column;
 
     justify-content: start;
@@ -116,8 +115,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
 @mixin snippet-support-sidebar-widgets($includeSidebar: true, $includeWidget: true) {
     @if $includeSidebar {
         %site-sidebar {
-            @include cx-prop(display, flex);
-            display: flex;
+            @include prop-display(flex);
             flex-direction: column;
 
             justify-content: start;

@@ -9,7 +9,7 @@
 /* # PAGE CONTENT - TYPE STYLES ==================================== */
 
 .typography-all-headings__sample {
-    display: -webkit-inline-box;
+    @include lib.prop-display(-webkit-inline-box);
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 4;
     line-clamp: 4;
@@ -21,7 +21,7 @@ dl {
 }
 
 .typography-all-sizes {
-    display: flex;
+    @include lib.prop-display(flex);
     flex-direction: column;
     margin-inline: 0;
     align-self: stretch;
@@ -47,7 +47,7 @@ dl {
     }
 
     .typography-all-sizes__value-list {
-        display: flex;
+        @include lib.prop-display(flex);
         flex-wrap: wrap;
         justify-content: start;
         justify-items: end;
@@ -57,7 +57,7 @@ dl {
         font-size: #{lib.var-fs(smaller-1)};
 
         .typography-all-sizes__value-list__pair {
-            display: flex;
+            @include lib.prop-display(flex);
             flex-direction: row-reverse;
             justify-content: end;
 
@@ -68,7 +68,7 @@ dl {
 
 @include lib.min-width(38) {
     .typography-all-sizes {
-        display: grid;
+        @include lib.prop-display(grid);
         grid-template-columns: fit-content(0) max-content;
         grid-auto-rows: auto;
         grid-auto-flow: row;
@@ -113,7 +113,7 @@ dl {
             > dd
                 .typography-all-sizes__value-list
                 .typography-all-sizes__value-list__pair {
-                display: grid;
+                @include lib.prop-display(grid);
                 grid-template-columns: subgrid;
                 grid-auto-rows: auto;
                 grid-auto-flow: column;
@@ -121,20 +121,20 @@ dl {
             }
 
             > dd {
-                grid-column: 2 / -1;
+                @include lib.prop-grid-column('2 / -1');
 
                 .typography-all-sizes__value-list {
-                    grid-column: 1 / -1;
+                    @include lib.prop-grid-column('1 / -1');
 
                     .typography-all-sizes__value-list__pair {
-                        grid-column: span 2;
+                        @include lib.prop-grid-column(span 2);
 
                         > dt {
-                            grid-column: 2;
+                            @include lib.prop-grid-column(2);
                         }
 
                         > dd {
-                            grid-column: 1;
+                            @include lib.prop-grid-column(1);
                             padding-inline-start: min(
                                 2vw,
                                 #{lib.var-mrg-firm('600')}

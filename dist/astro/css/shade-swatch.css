@@ -12,7 +12,9 @@
  */
 /* # COLOUR SHADE SWATCH ==================================== */
 .shade-swatch {
+    --display: flex;
     display: flex;
+    display: var(--display, flex);
     flex-direction: column;
     padding: 0.3125rem 0.8125rem;
     padding: var(--mrg-soft-200, 0.3125rem) var(--mrg-firm-300, 0.8125rem);
@@ -237,7 +239,9 @@
 }
 
 .shade-swatch :global(.shade-swatch__contrast) {
+    --display: flex;
     display: flex;
+    display: var(--display, flex);
     flex-direction: column;
     gap: 0.1875rem 0.5rem;
     gap: var(--mrg-half-200, 0.1875rem) var(--mrg-firm-200, 0.5rem);
@@ -258,7 +262,9 @@
     gap: var(--mrg-soft-200, 0.3125rem) var(--mrg-firm-300, 0.8125rem);
 }
 .shade-swatch :global(.shade-swatch__contrast__result-group) {
+    --display: grid;
     display: grid;
+    display: var(--display, grid);
     grid-template-columns: repeat(6, min-content);
     grid-template-columns: repeat(
         var(--shade-swatch-contrast-result-group-column-count, 6),
@@ -269,8 +275,13 @@
 .shade-swatch
     :global(.shade-swatch__contrast__result-group)
     > :global(.shade-swatch__contrast__heading) {
+    --grid-column: span
+        var(--shade-swatch-contrast-result-group-column-count, 6);
     grid-column: span 6;
-    grid-column: span var(--shade-swatch-contrast-result-group-column-count, 6);
+    grid-column: var(
+        --grid-column,
+        span var(--shade-swatch-contrast-result-group-column-count, 6)
+    );
 }
 .shade-swatch :global(.shade-swatch__contrast__heading),
 .shade-swatch :global(.shade-swatch__contrast__result-group__heading) {
@@ -362,8 +373,13 @@
         );
 }
 .shade-swatch :global(.shade-swatch__contrast__result-group__heading) {
+    --grid-column: span
+        var(--shade-swatch-contrast-result-group-column-count, 6);
     grid-column: span 6;
-    grid-column: span var(--shade-swatch-contrast-result-group-column-count, 6);
+    grid-column: var(
+        --grid-column,
+        span var(--shade-swatch-contrast-result-group-column-count, 6)
+    );
     margin: 0;
     font-size: 0.8125rem;
     font-size: var(--fs-smaller-3, 0.8125rem);
@@ -379,7 +395,9 @@
     grid-column: span 1;
     grid-column: span
         var(--shade-swatch-contrast-result-group-single-min-max-column-count, 1);
+    --display: grid;
     display: grid;
+    display: var(--display, grid);
     grid-template-columns: repeat(
         var(--shade-swatch-contrast-result-group-single-min-max-column-count),
         max-content

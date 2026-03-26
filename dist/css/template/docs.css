@@ -204,7 +204,9 @@ Interactive
 Add the correct display in Chrome and Safari.
 */
 summary {
+    --display: list-item;
     display: list-item;
+    display: var(--display, list-item);
 }
 
 /*! end of modern-normalize */
@@ -256,6 +258,15 @@ pre {
 /* #endregion Normalize */
 /* # TOKENS & PROPERTIES
  * ======================================================================== */
+@property --display {
+    syntax: "*";
+    inherits: false;
+}
+@property --grid-column {
+    syntax: "*";
+    inherits: true;
+    initial-value: 1 / 1;
+}
 /* #region Tokens - Width */
 html {
     --width-content: 36rem;
@@ -13216,7 +13227,9 @@ body {
 }
 
 body {
+    --display: flex;
     display: flex;
+    display: var(--display, flex);
     flex-direction: column;
     justify-content: start;
     align-items: center;
@@ -13241,7 +13254,9 @@ body {
 }
 
 hr {
+    --display: block;
     display: block;
+    display: var(--display, block);
     margin-left: auto;
     margin-right: auto;
     width: auto;
@@ -13331,7 +13346,9 @@ i em em {
 
 a[href] {
     --focus-ring-outline-offset: var(--stroke-relative-200, 0.0625em);
+    --display: inline;
     display: inline;
+    display: var(--display, inline);
     border: none;
     -webkit-text-decoration: underline 0.0625em;
     text-decoration: underline 0.0625em;
@@ -13415,7 +13432,9 @@ samp {
 }
 
 pre {
+    --display: block;
     display: block;
+    display: var(--display, block);
     margin-left: auto;
     margin-right: auto;
     width: auto;
@@ -13449,7 +13468,9 @@ pre {
     font-size: var(--fs-smaller-1, 0.9375rem);
 }
 pre > code {
+    --display: block;
     display: block;
+    display: var(--display, block);
     margin: 0;
     padding: 0;
     border: none;
@@ -13540,7 +13561,9 @@ li::marker {
     font-size: var(--fs-smaller-1, 0.9375rem);
 }
 li > a:only-child {
+    --display: inline-block;
     display: inline-block;
+    display: var(--display, inline-block);
     vertical-align: top;
 }
 li li li {
@@ -13564,7 +13587,9 @@ li li li li em em {
 /* # GLOBALS - Forms
  * ======================================================================== */
 fieldset {
+    --display: block;
     display: block;
+    display: var(--display, block);
     margin: 1.25rem 0 0.4375rem;
     margin: var(--mrg-firm-400, 1.25rem) 0 var(--mrg-half-400, 0.4375rem);
     padding: 0.5rem 1.25rem 0.8125rem;
@@ -13604,7 +13629,9 @@ fieldset:active {
     border-color: var(--sys-clr-input-border-active, FieldText);
 }
 fieldset legend {
+    --display: block;
     display: block;
+    display: var(--display, block);
 }
 fieldset > :first-child {
     margin-top: 0;
@@ -13665,7 +13692,9 @@ textarea,
 select,
 input {
     --focus-ring-outline-offset: 0.125rem;
+    --display: block;
     display: block;
+    display: var(--display, block);
     margin: 1.25rem 0 0.4375rem;
     margin: var(--mrg-firm-400, 1.25rem) 0 var(--mrg-half-400, 0.4375rem);
     padding: 0.3125rem 0.5rem;
@@ -13853,7 +13882,9 @@ input[type="week"] {
 }
 input[type="checkbox"],
 input[type="radio"] {
+    --display: inline-block;
     display: inline-block;
+    display: var(--display, inline-block);
     padding: 0;
     width: auto;
 }
@@ -13897,7 +13928,9 @@ textarea {
 }
 
 label {
+    --display: block;
     display: block;
+    display: var(--display, block);
     margin-top: 0.8125rem;
     margin-bottom: 0.4375rem;
     margin-top: var(--mrg-soft-400, 0.8125rem);
@@ -13914,6 +13947,7 @@ label {
 label:has(> :where(input[type="checkbox"], input[type="radio"])) {
     --display: grid;
     display: grid;
+    display: var(--display, grid);
     grid-template-columns: fit-content(0) 1fr;
     justify-content: end;
     align-items: baseline;
@@ -13973,7 +14007,9 @@ table {
 }
 
 .table-wrapper {
+    --display: block;
     display: block;
+    display: var(--display, block);
     overflow-x: auto;
     overscroll-behavior-x: none;
 }
@@ -14117,29 +14153,43 @@ nav ul li {
 
 /* # ASTRO LAYOUT - BODY GRID SUPPORT
  * ======================================================================== */
+dl {
+    display: contents;
+}
+
 body .site-sidebar,
 body aside {
+    --grid-column: sidebar-start/sidebar-end;
     grid-column: sidebar-start/sidebar-end;
+    grid-column: var(--grid-column, sidebar-start/sidebar-end);
     width: auto;
 }
 
 .site-width {
+    --grid-column: site-start/site-end;
     grid-column: site-start/site-end;
+    grid-column: var(--grid-column, site-start/site-end);
     width: auto;
 }
 
 .page-width {
+    --grid-column: page-start/page-end;
     grid-column: page-start/page-end;
+    grid-column: var(--grid-column, page-start/page-end);
     width: auto;
 }
 
 .content-width {
+    --grid-column: content-start/content-end;
     grid-column: content-start/content-end;
+    grid-column: var(--grid-column, content-start/content-end);
     width: auto;
 }
 
 .sidebar-width {
+    --grid-column: sidebar-start/sidebar-end;
     grid-column: sidebar-start/sidebar-end;
+    grid-column: var(--grid-column, sidebar-start/sidebar-end);
     width: auto;
 }
 
@@ -14148,10 +14198,10 @@ body > header,
 body > footer,
 body > main,
 body > nav,
-body > .subgrid,
 body > .body-subgrid {
     --display: grid;
     display: grid;
+    display: var(--display, grid);
     position: relative;
     justify-content: center;
     justify-items: stretch;
@@ -14184,10 +14234,11 @@ body > .body-subgrid {
     body > footer > *,
     body > main > *,
     body > nav > *,
-    body > .subgrid > *,
     body > .body-subgrid > *
 ) {
+    --grid-column: content-start/content-end;
     grid-column: content-start/content-end;
+    grid-column: var(--grid-column, content-start/content-end);
     width: auto;
 }
 
@@ -14235,7 +14286,6 @@ body > header,
 body > footer,
 body > main,
 body > nav,
-body > .subgrid,
 body > .body-subgrid {
     grid-column: 1/-1;
     grid-template-columns: subgrid;
@@ -14246,7 +14296,9 @@ body pre {
     width: min(120ch, 100%);
 }
 :where(body > header > *, body > footer > *, body > nav > *) {
+    --grid-column: page-start/page-end;
     grid-column: page-start/page-end;
+    grid-column: var(--grid-column, page-start/page-end);
     width: auto;
 }
 
@@ -14286,17 +14338,23 @@ body aside > :first-child {
 }
 
 :where(.layout_content-only > header > *) {
+    --grid-column: content-start/content-end;
     grid-column: content-start/content-end;
+    grid-column: var(--grid-column, content-start/content-end);
     width: auto;
 }
 
 :where(.layout_full-width > main > *) {
+    --grid-column: page-start/page-end;
     grid-column: page-start/page-end;
+    grid-column: var(--grid-column, page-start/page-end);
     width: auto;
 }
 
 :where(.layout_extra-wide > main > *) {
+    --grid-column: site-start/site-end;
     grid-column: site-start/site-end;
+    grid-column: var(--grid-column, site-start/site-end);
     width: auto;
 }
 
@@ -14313,11 +14371,15 @@ body aside > :first-child {
     .layout_sidebar-left > main .page-width,
     .layout_sidebar-right > main,
     .layout_sidebar-right > main .page-width {
+        --grid-column: content-start/content-end;
         grid-column: content-start/content-end;
+        grid-column: var(--grid-column, content-start/content-end);
         width: auto;
     }
     :where(.layout_sidebar-left > main > *, .layout_sidebar-right > main > *) {
+        --grid-column: content-start/content-end;
         grid-column: content-start/content-end;
+        grid-column: var(--grid-column, content-start/content-end);
         width: auto;
     }
 }
@@ -14445,7 +14507,9 @@ body aside > :first-child {
 .skip-link,
 .skip-link[href],
 a.skip-link[href] {
+    --display: block;
     display: block;
+    display: var(--display, block);
     position: fixed;
     margin: 0;
     top: -100%;
@@ -14625,6 +14689,7 @@ a figure,
 a svg {
     --display: inline-block;
     display: inline-block;
+    display: var(--display, inline-block);
 }
 
 img,
@@ -14966,6 +15031,7 @@ a[disabled][href]:active {
     a[target="_blank"][href]::after {
         --display: inline-block;
         display: inline-block;
+        display: var(--display, inline-block);
         vertical-align: middle;
         vertical-align: var(--icon-vertical-align, sub);
         margin-top: 0;
@@ -15019,6 +15085,7 @@ a[disabled][href]:active {
     a[download][href]::before {
         --display: inline-block;
         display: inline-block;
+        display: var(--display, inline-block);
         vertical-align: middle;
         vertical-align: var(--icon-vertical-align, sub);
         margin-top: 0;
@@ -15073,6 +15140,7 @@ a[disabled][href]:active {
     a[disabled][href]::before {
         --display: inline-block;
         display: inline-block;
+        display: var(--display, inline-block);
         vertical-align: middle;
         vertical-align: var(--icon-vertical-align, sub);
         margin-top: 0;
@@ -15169,7 +15237,9 @@ p.aside em em {
 }
 
 blockquote {
+    --display: block;
     display: block;
+    display: var(--display, block);
     margin-left: auto;
     margin-right: auto;
     width: auto;
@@ -15319,7 +15389,9 @@ blockquote > p:first-child {
     margin-top: 0;
 }
 blockquote > cite {
+    --display: block;
     display: block;
+    display: var(--display, block);
     text-align: right;
     font-size: 0.9375rem;
     font-size: var(--fs-smaller-1, 0.9375rem);
@@ -15352,7 +15424,9 @@ a[href] samp {
 code,
 kbd,
 samp {
+    --display: inline;
     display: inline;
+    display: var(--display, inline);
     margin-top: 0;
     margin-bottom: 0;
     margin-left: 0.125em;
@@ -16167,6 +16241,15 @@ li::marker {
     color: var(--theme-text-primary, CanvasText);
 }
 
+dl {
+    margin: 0;
+}
+
+dd {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
 /* # GLOBALS - FORMS
  * ======================================================================== */
 textarea,
@@ -16935,7 +17018,9 @@ label:has(> input:where([type="checkbox"], [type="radio"]))
 /* ## Forms - Buttons ==================================== */
 .button-span,
 .site-content .button-span {
+    --display: flex;
     display: flex;
+    display: var(--display, flex);
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: start;
@@ -16963,6 +17048,7 @@ a.button-secondary[href] {
     --focus-ring-outline-offset: var(--stroke-relative-400, 0.125em);
     --display: flex;
     display: flex;
+    display: var(--display, flex);
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: start;
@@ -17602,6 +17688,7 @@ a[disabled].button-secondary[href]:active {
     a[disabled].button-secondary[href]::before {
         --display: inline-block;
         display: inline-block;
+        display: var(--display, inline-block);
         vertical-align: middle;
         vertical-align: var(--icon-vertical-align, sub);
         margin-top: 0;
@@ -18101,6 +18188,7 @@ input[type="reset"]:active,
     .website-settings-menu [data-settings-reset]::before {
         --display: inline-block;
         display: inline-block;
+        display: var(--display, inline-block);
         vertical-align: middle;
         vertical-align: var(--icon-vertical-align, sub);
         margin-top: 0;
@@ -18156,6 +18244,7 @@ input[type="reset"]:active,
     input[type="submit"]::before {
         --display: inline-block;
         display: inline-block;
+        display: var(--display, inline-block);
         vertical-align: middle;
         vertical-align: var(--icon-vertical-align, sub);
         margin-top: 0;
@@ -18208,6 +18297,7 @@ input[type="reset"]:active,
     --focus-ring-outline-offset: var(--stroke-relative-400, 0.125em);
     --display: flex;
     display: flex;
+    display: var(--display, flex);
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: start;
@@ -18354,7 +18444,9 @@ input[type="reset"]:active,
     align-self: center;
 }
 ::file-selector-button {
+    --display: initial;
     display: initial;
+    display: var(--display, initial);
     margin: 0;
     margin-right: 0.8125rem;
     margin-right: var(--mrg-firm-300, 0.8125rem);
@@ -18908,6 +19000,7 @@ blockquote + .margins-flow-paragraph-small,
 .icon {
     --display: inline-block;
     display: inline-block;
+    display: var(--display, inline-block);
     height: 1.375em;
     height: var(--icon-size, 1.375em);
     height: calc(1.375em * 1);
@@ -18926,6 +19019,7 @@ blockquote + .margins-flow-paragraph-small,
 .icon > svg {
     --display: inline-block;
     display: inline-block;
+    display: var(--display, inline-block);
     margin: 0;
     padding: 0;
     fill: currentColor;
@@ -19486,6 +19580,7 @@ blockquote + .margins-flow-paragraph-small,
 .brand-logo {
     --display: block;
     display: block;
+    display: var(--display, block);
     position: relative;
     margin-top: 1.25rem;
     margin-bottom: 0.4375rem;
@@ -19501,6 +19596,7 @@ blockquote + .margins-flow-paragraph-small,
 .brand-logo > svg {
     --display: block;
     display: block;
+    display: var(--display, block);
     margin: 0;
     padding: 0;
     fill: currentColor;
@@ -19512,6 +19608,7 @@ blockquote + .margins-flow-paragraph-small,
 .alert-block {
     --display: grid;
     display: grid;
+    display: var(--display, grid);
     --grid-template-columns--alert-block: [icon] minmax(max-content, auto)
         [content] 1fr;
     grid-template-columns: [icon] minmax(max-content, auto) [content] 1fr;
@@ -19529,7 +19626,9 @@ blockquote + .margins-flow-paragraph-small,
 }
 .alert-block > .alert-block__headline > *,
 .alert-block > * {
+    --grid-column: content;
     grid-column: content;
+    grid-column: var(--grid-column, content);
 }
 
 .alert-block {
@@ -19831,7 +19930,10 @@ blockquote + .margins-flow-paragraph-small,
     --icon-size-large: 2;
     --display: block;
     display: block;
+    display: var(--display, block);
+    --grid-column: icon;
     grid-column: icon;
+    grid-column: var(--grid-column, icon);
     margin-right: 0.125em;
     margin-bottom: 0;
 }
@@ -19841,6 +19943,7 @@ blockquote + .margins-flow-paragraph-small,
 .alert-block > .alert-block__headline > .alert-block__icon > .icon {
     --display: block;
     display: block;
+    display: var(--display, block);
 }
 
 .alert-block > .alert-block__icon + *,
@@ -20025,6 +20128,7 @@ blockquote + .margins-flow-paragraph-small,
 .site-sidebar {
     --display: flex;
     display: flex;
+    display: var(--display, flex);
     flex-direction: column;
     justify-content: start;
     align-content: start;
@@ -20038,6 +20142,7 @@ blockquote + .margins-flow-paragraph-small,
 .widget-block {
     --display: flex;
     display: flex;
+    display: var(--display, flex);
     flex-direction: column;
     justify-content: start;
     justify-items: start;
@@ -20221,6 +20326,7 @@ blockquote + .margins-flow-paragraph-small,
 [data-toggle-container] {
     --display: flex;
     display: flex;
+    display: var(--display, flex);
     position: relative;
     flex-direction: column;
     justify-content: start;
@@ -20370,7 +20476,9 @@ blockquote + .margins-flow-paragraph-small,
 
 .toggle-icon {
     --icon-size: 1.125em;
+    --display: inline-block;
     display: inline-block;
+    display: var(--display, inline-block);
     vertical-align: sub;
     padding-bottom: 0.03125em;
     padding-bottom: var(--stroke-relative-100, 0.03125em);
@@ -20391,7 +20499,9 @@ blockquote + .margins-flow-paragraph-small,
 }
 
 [data-toggle-content] {
+    --display: grid;
     display: grid;
+    display: var(--display, grid);
     position: relative;
     justify-content: stretch;
     justify-items: stretch;
@@ -20423,6 +20533,7 @@ blockquote + .margins-flow-paragraph-small,
 :where(.js) [data-toggle-container] {
     --display: grid;
     display: grid;
+    display: var(--display, grid);
     --grid-template-columns--toggle: [icon] minmax(max-content, auto) [content]
         1fr;
     grid-template-columns: [icon] minmax(max-content, auto) [content] 1fr;
@@ -20582,7 +20693,9 @@ blockquote + .margins-flow-paragraph-small,
 :where(.js) [data-toggle-control][data-toggle-control-backdrop]::after {
     content: "";
     content: ""/"";
+    --display: block;
     display: block;
+    display: var(--display, block);
     position: absolute;
     top: 0;
     bottom: 0;
@@ -20646,11 +20759,15 @@ blockquote + .margins-flow-paragraph-small,
 }
 
 :where(.js) [data-toggle-control] .toggle-icon {
+    --grid-column: icon;
     grid-column: icon;
+    grid-column: var(--grid-column, icon);
 }
 :where(.js) [data-toggle-control] .toggle-icon,
 :where(.js) [data-toggle-control] .toggle-icon svg {
+    --display: block;
     display: block;
+    display: var(--display, block);
 }
 :where(.js) [data-toggle-control] .toggle-icon svg #a,
 :where(.js) [data-toggle-control] .toggle-icon svg #b {
@@ -20698,10 +20815,14 @@ blockquote + .margins-flow-paragraph-small,
     padding-bottom: 0;
 }
 :where(.js) .toggle-control-inner {
+    --grid-column: content;
     grid-column: content;
+    grid-column: var(--grid-column, content);
 }
 :where(.js) [data-toggle-content] {
-    grid-column: 1/-1;
+    --grid-column: 1 / -1;
+    grid-column: 1 / -1;
+    grid-column: var(--grid-column, 1 / -1);
     grid-row: 2/2;
     grid-template-rows: 0fr;
     margin: 0;
@@ -20715,7 +20836,10 @@ blockquote + .margins-flow-paragraph-small,
 :where(.js) [data-toggle-content] > .container {
     --display: flex;
     display: flex;
-    grid-column: 1/-1;
+    display: var(--display, flex);
+    --grid-column: 1 / -1;
+    grid-column: 1 / -1;
+    grid-column: var(--grid-column, 1 / -1);
     padding: 0 0.8125rem;
     padding: 0 var(--mrg-firm-300, 0.8125rem);
     overflow: auto;
@@ -20748,8 +20872,9 @@ blockquote + .margins-flow-paragraph-small,
 :where(.js)
     [data-toggle-container="closing"]
     [data-toggle-control][data-toggle-control-backdrop] {
+    --display: var(--display, block);
     display: block;
-    display: var(--display, block);
+    display: var(--display, var(--display, block));
 }
 :where(.js)
     [data-toggle-container="open"]
@@ -20865,8 +20990,8 @@ blockquote + .margins-flow-paragraph-small,
 :where(.js) .toggle-title > .h9:is(.unstyled-heading),
 :where(.js) .toggle-title > .h10:is(.unstyled-heading),
 :where(.js) .toggle-title > .page-title:is(.unstyled-heading) {
-    font-size: clamp(0.9375rem, 1.625svw + 1rem, 1.375rem);
-    font-size: var(--fs-heading-6, 1.21875rem);
+    font-size: 1.0625rem;
+    font-size: var(--fs-normal, 1.0625rem);
 }
 :where(.js) .toggle-title,
 :where(.js) [data-toggle-content] {
@@ -21357,7 +21482,9 @@ body:has(> nav[data-toggle-container="open"]) {
     overflow: hidden;
 }
 body > nav[data-toggle-container] {
+    --grid-column: page-start/page-end;
     grid-column: page-start/page-end;
+    grid-column: var(--grid-column, page-start/page-end);
     width: auto;
 }
 
@@ -21382,11 +21509,15 @@ body > nav[data-toggle-container] {
 }
 :where(.js) body > nav[data-toggle-container] .toggle-title,
 :where(.js) body > nav[data-toggle-container] [data-toggle-content] {
-    grid-column: 1/-1;
+    --grid-column: 1 / -1;
+    grid-column: 1 / -1;
+    grid-column: var(--grid-column, 1 / -1);
     gap: 0;
 }
 :where(.js) body > nav[data-toggle-container] [data-toggle-content] {
+    --grid-column: page-start/page-end;
     grid-column: page-start/page-end;
+    grid-column: var(--grid-column, page-start/page-end);
     position: absolute;
     top: 0;
     justify-content: center;
@@ -21427,7 +21558,9 @@ body > nav[data-toggle-container] {
     > nav[data-toggle-container]
     [data-toggle-content]
     > .container {
+    --grid-column: page-start/page-end;
     grid-column: page-start/page-end;
+    grid-column: var(--grid-column, page-start/page-end);
     width: auto;
     padding-left: 1.25rem;
     padding-right: 1.25rem;
@@ -21481,7 +21614,9 @@ body > nav[data-toggle-container] {
     > nav[data-toggle-container]
     .toggle-title
     [data-toggle-control] {
+    --grid-column: page-start/page-end;
     grid-column: page-start/page-end;
+    grid-column: var(--grid-column, page-start/page-end);
     width: auto;
     /* prettier-ignore */
     --grid-template-columns--toggle: [content] 1fr var(--gap-inline-tab, 5%) [icon] minmax(max-content, auto);
@@ -21583,7 +21718,9 @@ html:where(.js),
 /* # BLOCKS - SETTINGS MENU
  * ======================================================================== */
 .website-settings-menu {
+    --grid-column: page-start/page-end;
     grid-column: page-start/page-end;
+    grid-column: var(--grid-column, page-start/page-end);
     --display: none;
     display: none;
     display: var(--display, none);
@@ -21659,7 +21796,9 @@ html:where(.js),
     padding-right: var(--mrg-soft-200, 0.3125rem);
 }
 .website-settings__content fieldset > .container {
+    --display: flex;
     display: flex;
+    display: var(--display, flex);
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: start;
@@ -21693,6 +21832,8 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
 
 :where(.js) .website-settings-menu {
     --display: flex;
+    display: flex;
+    display: var(--display, flex);
 }
 :where(.js) .website-settings-menu .toggle-title {
     margin: 0;
@@ -21700,7 +21841,9 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
 }
 :where(.js) .website-settings-menu [data-toggle-control] {
     --focus-ring-outline-offset: 0.125rem;
+    --display: block;
     display: block;
+    display: var(--display, block);
     margin: 0;
     padding: 0.3125rem 0.3125rem;
     padding: var(--mrg-firm-100, 0.3125rem) var(--mrg-firm-100, 0.3125rem);
@@ -21820,6 +21963,7 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
 :where(.js) .website-settings-menu [data-toggle-control] {
     --display: flex;
     display: flex;
+    display: var(--display, flex);
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: start;
@@ -21925,8 +22069,9 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
 :where(.js)
     .website-settings-menu[data-toggle-container="closing"]
     [data-toggle-control-backdrop] {
+    --display: var(--display, block);
     display: block;
-    display: var(--display, block);
+    display: var(--display, var(--display, block));
 }
 :where(.js)
     .website-settings-menu[data-toggle-container="open"]

@@ -542,7 +542,7 @@ export var getBrandConstants;
                             `'${v.replace(/'/g, "\\'")}'`,
                         ])).split('\n').join('\n    '),
                         keyNames: (value) => entriesToObject(value.map((v, i) => [
-                            `'${v.replace(/'/g, "\\'")}'`,
+                            v,
                             `_x( '${toTitleCase(v)}', 'colour variation name', '${textDomain}' )`,
                         ])).split('\n').join('\n    '),
                     },

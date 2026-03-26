@@ -22,8 +22,7 @@ $_grid_rows: '[intro] auto';
 }
 
 %_grid-base {
-    @include lib.cx-prop(display, grid);
-    display: grid;
+    @include lib.prop-display(grid);
 
     justify-content: stretch;
     justify-items: start;
@@ -63,7 +62,7 @@ $_grid_rows: '[intro] auto';
         }
 
         > * {
-            grid-column: 1 / -1;
+            @include lib.prop-grid-column('1 / -1');
         }
 
         .font-family-swatch__name,
@@ -113,7 +112,7 @@ $_grid_rows: '[intro] auto';
         }
 
         .font-family-swatch__weight-dd {
-            display: -webkit-inline-box;
+            @include lib.prop-display(-webkit-inline-box);
             -webkit-box-orient: vertical;
             -webkit-line-clamp: lib.do-var(line-clamp, 3);
             line-clamp: lib.do-var(line-clamp, 3);

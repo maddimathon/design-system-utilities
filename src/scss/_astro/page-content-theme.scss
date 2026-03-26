@@ -27,7 +27,7 @@
 }
 
 .theme-mode-swatch__alt-widgets {
-    display: flex;
+    @include lib.prop-display(flex);
     flex-direction: column;
     gap: 0;
 
@@ -38,7 +38,7 @@
 
 :global(.js) {
     .theme-mode-preview-page__display-mode__wrapper {
-        display: flex;
+        @include lib.prop-display(flex);
         justify-content: end;
         gap: #{lib.var-mrg-soft('200')} #{lib.var-gap-inline(tab)};
     }
@@ -67,7 +67,7 @@
                     padding: 0;
 
                     .theme-mode-toggle__list {
-                        @include lib.cx-prop(display, grid);
+                        @include lib.prop-display(grid);
                         grid-template-columns: repeat(
                             lib.do-var(theme-mode-swatch-list-column-count),
                             minmax(16rem, 1fr)
