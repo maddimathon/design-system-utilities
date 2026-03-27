@@ -17,41 +17,41 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin snippet-blockquote {
-    @include utils.snippet-centre-callout-block($maxWidth: false);
-
-    & {
-        margin-block: #{var-mrg-soft('400')} 0;
-        margin-block: #{var-mrg-soft('600')} calc(var-mrg-soft('600') - var-mrg-soft('400'));
-
-        padding-inline-start: #{var-mrg-firm('300')};
-
-        border-inline-start: #{var-border-width('200')} solid #{var-theme(ui-primary)};
-
-        @include set-flow-margins($defaultLevel: '300', $largeLevel: '500', $smallLevel: '200');
-
-        @include min-width(content) {
-            margin-inline: #{var-gap-inline(indent)};
+@mixin snippet-blockquote(
+    $includeBorder: true,
+    $includeCite: true,
+    $includeMarginBlock: false,
+    $args...
+) {
+    @include utils.snippet-blockquote(
+            $includeBorder: false,
+            $includeCite: false,
+            $includeMarginBlock: false,
+            $args...
+        )
+        using ($location) {
+        @if $location == root {
+            @if $includeBorder {
+                border-inline-start: #{var-border-width('200')} solid #{var-theme(ui-primary)};
+            }
+            @include set-flow-margins($defaultLevel: '300', $largeLevel: '500', $smallLevel: '200');
         }
     }
 
-    > p {
-        &:first-child {
-            margin-block-start: 0;
-        }
-    }
+    @if $includeCite {
+        > cite {
+            @include prop-display(block);
 
-    > cite {
-        @include prop-display(block);
+            align-self: end;
+            text-align: end;
 
-        text-align: end;
-        font-size: #{var-fs(smaller-1)};
+            font-size: #{var-fs(smaller-1)};
 
-        color: #{var-theme(text-primary)};
+            color: #{var-theme(text-primary)};
 
-        &::before {
-            content: '— ' / '';
-            color: currentColor;
+            &::before {
+                content: '— ' / '';
+            }
         }
     }
 }

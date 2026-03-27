@@ -268,7 +268,7 @@ pre {
 html {
     --width-content: 36rem;
     --width-sidebar: 18rem;
-    --width-callout: 29.25rem;
+    --width-callout: 26.25rem;
     --width-page: 60rem;
     --width-page: calc(
         var(--width-content, 36rem) + var(--width-sidebar, 18rem) +
@@ -4062,7 +4062,7 @@ body {
     margin-right: max(1.25rem, min(8svw, 7.125rem));
     margin-right: var(--gap-inline-layout, 8vw);
 }
-:where(body > *) {
+:where(body) > :where(*) {
     width: min(calc(36rem + 18rem + max(1.25rem, min(8svw, 7.125rem))), 100%);
     width: min(var(--width-page, 60rem), 100%);
 }
@@ -4071,30 +4071,19 @@ hr {
     --display: block;
     display: block;
     display: var(--display, block);
-    margin-left: auto;
-    margin-right: auto;
-    width: auto;
+    margin-top: 2.25rem;
+    margin-bottom: 2.25rem;
+    margin-top: var(--mrg-firm-600, 2.25rem);
+    margin-bottom: var(--mrg-firm-600, 2.25rem);
     margin-left: max(0.5rem, min(9%, 4rem));
     margin-right: max(0.5rem, min(9%, 4rem));
     margin-left: max(0.5rem, min(9%, 4rem));
     margin-left: var(--gap-inline-indent, 9%);
     margin-right: max(0.5rem, min(9%, 4rem));
     margin-right: var(--gap-inline-indent, 9%);
-}
-@media (min-width: 25em) {
-    hr {
-        margin-left: auto;
-        margin-right: auto;
-        max-width: min(29.25rem, 80%);
-        max-width: min(var(--width-callout, 29.25rem), 80%);
-    }
-}
-hr {
-    width: 100%;
-    margin-top: 2.25rem;
-    margin-bottom: 2.25rem;
-    margin-top: var(--mrg-firm-600, 2.25rem);
-    margin-bottom: var(--mrg-firm-600, 2.25rem);
+    width: 72.92%;
+    max-width: 26.25rem;
+    max-width: var(--width-callout, 26.25rem);
     border: none;
     border-bottom: currentColor solid 0.125rem;
     border-bottom: currentColor solid var(--border-width-200, 0.125rem);
@@ -4123,6 +4112,11 @@ html {
     background: var(--sys-clr-background, Canvas);
     color: hsl(339.45, 0%, 17.88%);
     color: var(--sys-clr-text, CanvasText);
+}
+@media (max-width: 24.99em) {
+    html {
+        hyphens: auto;
+    }
 }
 
 body {
@@ -4244,64 +4238,6 @@ samp {
     position: relative;
 }
 
-pre {
-    --display: block;
-    display: block;
-    display: var(--display, block);
-    margin-left: auto;
-    margin-right: auto;
-    width: auto;
-    margin-left: max(0.5rem, min(9%, 4rem));
-    margin-right: max(0.5rem, min(9%, 4rem));
-    margin-left: max(0.5rem, min(9%, 4rem));
-    margin-left: var(--gap-inline-indent, 9%);
-    margin-right: max(0.5rem, min(9%, 4rem));
-    margin-right: var(--gap-inline-indent, 9%);
-}
-pre {
-    position: relative;
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 1.25rem;
-    margin-top: var(--mrg-firm-400, 1.25rem);
-    margin-bottom: 0;
-    margin-top: 2.25rem;
-    margin-bottom: calc(2.25rem - 1.25rem);
-    margin-top: var(--mrg-firm-600, 2.25rem);
-    margin-bottom: calc(
-        var(--mrg-firm-600, 2.25rem) - var(--mrg-firm-400, 1.25rem)
-    );
-    padding: 0.5rem 0.8125rem;
-    padding: var(--mrg-soft-300, 0.5rem) var(--mrg-firm-300, 0.8125rem);
-    border: 0.0625rem solid currentColor;
-    border: var(--border-width-100, 0.0625rem) solid currentColor;
-    max-width: min(120ch, 100%);
-    overflow: auto;
-    font-size: 0.9375rem;
-    font-size: var(--fs-smaller-1, 0.9375rem);
-}
-pre > code {
-    --display: block;
-    display: block;
-    display: var(--display, block);
-    margin: 0;
-    padding: 0;
-    border: none;
-    width: auto;
-    max-width: 100%;
-    white-space: normal;
-    text-wrap: auto;
-}
-pre:where(:has(> code)) {
-    white-space: normal;
-    text-wrap: auto;
-}
-pre:where(:has(> code)) > code {
-    white-space: pre;
-    text-wrap: nowrap;
-    overflow: visible;
-}
-
 /* # GLOBALS - Lists
  * ======================================================================== */
 ol,
@@ -4326,6 +4262,7 @@ ul ul,
 .table-of-contents [data-toggle-content] > .container ol ul,
 .table-of-contents > ol ul {
     margin-top: 0;
+    margin-bottom: 0;
 }
 
 ol {
@@ -4619,8 +4556,8 @@ label + input,
 label > textarea,
 label > select,
 label > input {
-    margin-top: 0.5rem;
-    margin-top: var(--mrg-firm-200, 0.5rem);
+    margin-top: 0.4375rem;
+    margin-top: var(--mrg-half-400, 0.4375rem);
 }
 textarea::-moz-placeholder,
 select::-moz-placeholder,
@@ -4693,7 +4630,6 @@ input[type="time"],
 input[type="week"] {
     cursor: pointer;
 }
-
 input[type="email"],
 input[type="month"],
 input[type="number"],
@@ -4720,7 +4656,6 @@ input[type="color"] {
 }
 input[type="date"],
 input[type="datetime-local"],
-input[type="file"],
 input[type="month"],
 input[type="time"],
 input[type="week"] {
@@ -4757,9 +4692,8 @@ label {
     display: block;
     display: var(--display, block);
     margin-top: 0.8125rem;
-    margin-bottom: 0.4375rem;
     margin-top: var(--mrg-soft-400, 0.8125rem);
-    margin-bottom: var(--mrg-half-400, 0.4375rem);
+    margin-bottom: 0;
     margin-left: 0;
     margin-right: 0;
     font-weight: 600;
@@ -4795,8 +4729,8 @@ label:has(> :where(input[type="checkbox"], input[type="radio"]))
 label:has(> :where(input[type="checkbox"], input[type="radio"])) + input,
 label:has(> :where(input[type="checkbox"], input[type="radio"])) + select,
 label:has(> :where(input[type="checkbox"], input[type="radio"])) + textarea {
-    margin-top: 0.8125rem 0.4375rem;
-    margin-top: var(--mrg-soft-400, 0.8125rem) var(--mrg-half-400, 0.4375rem);
+    margin-top: 1.25rem;
+    margin-top: var(--mrg-firm-400, 1.25rem);
 }
 label > input[type="checkbox"],
 label > input[type="radio"] {
@@ -4819,8 +4753,6 @@ table {
     );
     background: hsl(278.16, 60.54%, 30.06%);
     background: var(--sys-clr-accent-bg, CanvasText);
-    width: min(calc(36rem + 18rem + max(1.25rem, min(8svw, 7.125rem))), 100%);
-    width: min(var(--width-page, 60rem), 100%);
 }
 
 table {
@@ -4963,8 +4895,99 @@ th {
 }
 
 /*! END of @maddimathon/utility-sass/template */
-/* # ASTRO LAYOUT
+/* # ASTRO GLOBALS - Typography
  * ======================================================================== */
+pre {
+    --display: block;
+    display: block;
+    display: var(--display, block);
+    position: relative;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 1.25rem;
+    margin-top: var(--mrg-firm-400, 1.25rem);
+    margin-bottom: 0;
+    margin-top: 2.25rem;
+    margin-bottom: calc(2.25rem - 1.25rem);
+    margin-top: var(--mrg-firm-600, 2.25rem);
+    margin-bottom: calc(
+        var(--mrg-firm-600, 2.25rem) - var(--mrg-firm-400, 1.25rem)
+    );
+    padding: 0.5rem 0.8125rem;
+    padding: var(--mrg-soft-300, 0.5rem) var(--mrg-firm-300, 0.8125rem);
+    border: 0.0625rem solid currentColor;
+    border: var(--border-width-100, 0.0625rem) solid currentColor;
+    width: auto;
+    max-width: 100%;
+    font-size: 0.9375rem;
+    font-size: var(--fs-smaller-1, 0.9375rem);
+    overflow: auto;
+    justify-self: center;
+}
+pre > code {
+    --display: block;
+    display: block;
+    display: var(--display, block);
+    margin: 0;
+    padding: 0;
+    border: none;
+    width: -moz-fit-content;
+    width: fit-content;
+    max-width: none;
+    overflow: visible;
+    white-space: normal;
+    text-wrap: auto;
+}
+pre:has(> code) {
+    white-space: normal;
+    text-wrap: auto;
+}
+pre:has(> code) > code {
+    white-space: pre;
+    text-wrap: nowrap;
+}
+pre.language-wiki:has(> code),
+pre.language-context:has(> code),
+pre.language-tex:has(> code),
+pre.language-latex:has(> code),
+pre.language-text:has(> code),
+pre.language-md:has(> code),
+pre.language-markdown:has(> code),
+pre.language-hbs:has(> code),
+pre.language-mustache:has(> code),
+pre.language-handlebars:has(> code),
+pre.language-plaintext:has(> code) {
+    white-space: normal;
+    text-wrap: auto;
+    max-width: 26.25rem;
+    max-width: var(--width-callout, 26.25rem);
+}
+pre.language-wiki:has(> code) > code,
+pre.language-context:has(> code) > code,
+pre.language-tex:has(> code) > code,
+pre.language-latex:has(> code) > code,
+pre.language-text:has(> code) > code,
+pre.language-md:has(> code) > code,
+pre.language-markdown:has(> code) > code,
+pre.language-hbs:has(> code) > code,
+pre.language-mustache:has(> code) > code,
+pre.language-handlebars:has(> code) > code,
+pre.language-plaintext:has(> code) > code {
+    white-space: pre-wrap;
+    text-wrap: auto;
+}
+
+/* # ASTRO GLOBALS - Tables
+ * ======================================================================== */
+table,
+.table-wrapper {
+    justify-self: center;
+}
+
+.table-wrapper > table {
+    justify-self: start;
+}
+
 /*! END of @maddimathon/utility-astro/template */
 /* # ACCESSIBILITY - SKIP LINKS
  * ======================================================================== */
@@ -5601,28 +5624,13 @@ blockquote {
     --display: block;
     display: block;
     display: var(--display, block);
-    margin-left: auto;
-    margin-right: auto;
-    width: auto;
-    margin-left: max(0.5rem, min(9%, 4rem));
-    margin-right: max(0.5rem, min(9%, 4rem));
-    margin-left: max(0.5rem, min(9%, 4rem));
-    margin-left: var(--gap-inline-indent, 9%);
-    margin-right: max(0.5rem, min(9%, 4rem));
-    margin-right: var(--gap-inline-indent, 9%);
-}
-blockquote {
-    margin-top: 0.8125rem;
-    margin-top: var(--mrg-soft-400, 0.8125rem);
-    margin-bottom: 0;
-    margin-top: 1.625rem;
-    margin-bottom: calc(1.625rem - 0.8125rem);
-    margin-top: var(--mrg-soft-600, 1.625rem);
-    margin-bottom: calc(
-        var(--mrg-soft-600, 1.625rem) - var(--mrg-soft-400, 0.8125rem)
-    );
+    margin-left: 0;
+    margin-right: 0;
     padding-left: 0.8125rem;
     padding-left: var(--mrg-firm-300, 0.8125rem);
+    width: auto;
+    max-width: 26.25rem;
+    max-width: var(--width-callout, 26.25rem);
     border-left: 0.125rem solid hsl(278.16, 60.54%, 30.06%);
     border-left: var(--border-width-200, 0.125rem) solid
         var(--theme-ui-primary, CanvasText);
@@ -5746,23 +5754,14 @@ blockquote .button-span {
     gap: 0.5rem 0.5rem;
     gap: var(--mrg-firm-200, 0.5rem) var(--mrg-firm-200, 0.5rem);
 }
-@media (min-width: 36em) {
-    blockquote {
-        margin-left: max(0.5rem, min(9%, 4rem));
-        margin-right: max(0.5rem, min(9%, 4rem));
-        margin-left: max(0.5rem, min(9%, 4rem));
-        margin-left: var(--gap-inline-indent, 9%);
-        margin-right: max(0.5rem, min(9%, 4rem));
-        margin-right: var(--gap-inline-indent, 9%);
-    }
-}
-blockquote > p:first-child {
+blockquote > :first-child {
     margin-top: 0;
 }
 blockquote > cite {
     --display: block;
     display: block;
     display: var(--display, block);
+    align-self: end;
     text-align: right;
     font-size: 0.9375rem;
     font-size: var(--fs-smaller-1, 0.9375rem);
@@ -5771,7 +5770,6 @@ blockquote > cite {
 }
 blockquote > cite::before {
     content: "— "/"";
-    color: currentColor;
 }
 
 code,
@@ -7004,7 +7002,7 @@ h6 samp,
 }
 
 .unstyled-heading {
-    font-family: body;
+    font-family: inherit;
     font-weight: 600;
     font-size: 1.0625rem;
     font-size: var(--fs-normal, 1.0625rem);
@@ -7045,7 +7043,7 @@ h6:is(.unstyled-heading),
 .h8:is(.unstyled-heading),
 .h9:is(.unstyled-heading),
 .h10:is(.unstyled-heading) {
-    font-family: body;
+    font-family: inherit;
     font-weight: 600;
     font-size: 1.0625rem;
     font-size: var(--fs-normal, 1.0625rem);
@@ -7140,7 +7138,7 @@ h6:is(.unstyled-heading),
 :is(.unstyled-heading):where([role="heading"][aria-level="8"]),
 :is(.unstyled-heading):where([role="heading"][aria-level="9"]),
 :is(.unstyled-heading):where([role="heading"][aria-level="10"]) {
-    font-family: body;
+    font-family: inherit;
     font-weight: 600;
     font-size: 1.0625rem;
     font-size: var(--fs-normal, 1.0625rem);
@@ -9764,13 +9762,13 @@ blockquote + .margins-flow-paragraph-small,
 }
 
 .min-width-callout {
-    min-width: 29.25rem;
-    min-width: var(--width-callout, 29.25rem);
+    min-width: 26.25rem;
+    min-width: var(--width-callout, 26.25rem);
 }
 
 .max-width-callout {
-    max-width: 29.25rem;
-    max-width: var(--width-callout, 29.25rem);
+    max-width: 26.25rem;
+    max-width: var(--width-callout, 26.25rem);
 }
 
 .min-width-page {
@@ -9809,121 +9807,121 @@ blockquote + .margins-flow-paragraph-small,
     max-width: none;
 }
 
-.breakpoint-min-width-mobile {
+.if-viewport-min-width-mobile {
     display: none !important;
 }
 @media (min-width: 25em) {
-    .breakpoint-min-width-mobile {
+    .if-viewport-min-width-mobile {
         display: block !important;
         display: var(--display, block) !important;
     }
 }
 
-.breakpoint-max-width-mobile {
+.if-viewport-max-width-mobile {
     display: none !important;
 }
 @media (max-width: 24.99em) {
-    .breakpoint-max-width-mobile {
+    .if-viewport-max-width-mobile {
         display: block !important;
         display: var(--display, block) !important;
     }
 }
 
-.breakpoint-min-width-tablet {
+.if-viewport-min-width-tablet {
     display: none !important;
 }
 @media (min-width: 50em) {
-    .breakpoint-min-width-tablet {
+    .if-viewport-min-width-tablet {
         display: block !important;
         display: var(--display, block) !important;
     }
 }
 
-.breakpoint-max-width-tablet {
+.if-viewport-max-width-tablet {
     display: none !important;
 }
 @media (max-width: 49.99em) {
-    .breakpoint-max-width-tablet {
+    .if-viewport-max-width-tablet {
         display: block !important;
         display: var(--display, block) !important;
     }
 }
 
-.breakpoint-min-width-content {
+.if-viewport-min-width-content {
     display: none !important;
 }
 @media (min-width: 36em) {
-    .breakpoint-min-width-content {
+    .if-viewport-min-width-content {
         display: block !important;
         display: var(--display, block) !important;
     }
 }
 
-.breakpoint-max-width-content {
+.if-viewport-max-width-content {
     display: none !important;
 }
 @media (max-width: 35.99em) {
-    .breakpoint-max-width-content {
+    .if-viewport-max-width-content {
         display: block !important;
         display: var(--display, block) !important;
     }
 }
 
-.breakpoint-min-width-page {
+.if-viewport-min-width-page {
     display: none !important;
 }
 @media (min-width: 60em) {
-    .breakpoint-min-width-page {
+    .if-viewport-min-width-page {
         display: block !important;
         display: var(--display, block) !important;
     }
 }
 
-.breakpoint-max-width-page {
+.if-viewport-max-width-page {
     display: none !important;
 }
 @media (max-width: 59.99em) {
-    .breakpoint-max-width-page {
+    .if-viewport-max-width-page {
         display: block !important;
         display: var(--display, block) !important;
     }
 }
 
-.breakpoint-min-width-sidebar {
+.if-viewport-min-width-sidebar {
     display: none !important;
 }
 @media (min-width: 55.5em) {
-    .breakpoint-min-width-sidebar {
+    .if-viewport-min-width-sidebar {
         display: block !important;
         display: var(--display, block) !important;
     }
 }
 
-.breakpoint-max-width-sidebar {
+.if-viewport-max-width-sidebar {
     display: none !important;
 }
 @media (max-width: 55.49em) {
-    .breakpoint-max-width-sidebar {
+    .if-viewport-max-width-sidebar {
         display: block !important;
         display: var(--display, block) !important;
     }
 }
 
-.breakpoint-min-width-indent {
+.if-viewport-min-width-indent {
     display: none !important;
 }
 @media (min-width: 25em) {
-    .breakpoint-min-width-indent {
+    .if-viewport-min-width-indent {
         display: block !important;
         display: var(--display, block) !important;
     }
 }
 
-.breakpoint-max-width-indent {
+.if-viewport-max-width-indent {
     display: none !important;
 }
 @media (max-width: 24.99em) {
-    .breakpoint-max-width-indent {
+    .if-viewport-max-width-indent {
         display: block !important;
         display: var(--display, block) !important;
     }

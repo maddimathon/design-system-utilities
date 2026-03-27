@@ -45,7 +45,7 @@
 }
 
 @each $bp in map.keys(tokens.$breakpoints) {
-    %breakpoint-min-width-#{$bp} {
+    %if-viewport-min-width-#{$bp} {
         display: none !important;
 
         @include min-width($bp) {
@@ -53,7 +53,7 @@
         }
     }
 
-    %breakpoint-max-width-#{$bp} {
+    %if-viewport-max-width-#{$bp} {
         display: none !important;
 
         @include max-width($bp) {

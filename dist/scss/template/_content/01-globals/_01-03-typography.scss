@@ -156,7 +156,13 @@
 
 @if map.get(config.$template_styles, blockquote) {
     %blockquote {
-        @include snippet-blockquote;
+        @include snippet-blockquote(
+            $display: if(
+                    map.get(config.$template_styles, astro, bodyGrid),
+                    flex,
+                    block
+                )
+        );
     }
 }
 

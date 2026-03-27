@@ -2678,14 +2678,12 @@
  * ======================================================================== */
 hr {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: auto;
-}
-hr {
-    width: 100%;
     margin-top: 2.25rem;
     margin-bottom: 2.25rem;
+    margin-left: 9%;
+    margin-right: 9%;
+    width: 72.92%;
+    max-width: 26.25rem;
     border: none;
     border-bottom: currentColor solid 0.125rem;
 }
@@ -2797,46 +2795,6 @@ samp {
     position: relative;
 }
 
-pre {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: auto;
-}
-pre {
-    position: relative;
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 1.25rem;
-    margin-bottom: 0;
-    margin-top: 2.25rem;
-    margin-bottom: 1rem;
-    padding: 0.5rem 0.8125rem;
-    border: 0.0625rem solid currentColor;
-    max-width: min(120ch, 100%);
-    overflow: auto;
-    font-size: 0.9375rem;
-}
-pre > code {
-    display: block;
-    margin: 0;
-    padding: 0;
-    border: none;
-    width: auto;
-    max-width: 100%;
-    white-space: normal;
-    text-wrap: auto;
-}
-pre:where(:has(> code)) {
-    white-space: normal;
-    text-wrap: auto;
-}
-pre:where(:has(> code)) > code {
-    white-space: pre;
-    text-wrap: nowrap;
-    overflow: visible;
-}
-
 /* # GLOBALS - Lists
  * ======================================================================== */
 ol,
@@ -2852,6 +2810,7 @@ ol ul,
 ul ol,
 ul ul {
     margin-top: 0;
+    margin-bottom: 0;
 }
 
 ol {
@@ -3045,7 +3004,7 @@ label + input,
 label > textarea,
 label > select,
 label > input {
-    margin-top: 0.5rem;
+    margin-top: 0.4375rem;
 }
 textarea::-moz-placeholder,
 select::-moz-placeholder,
@@ -3118,7 +3077,6 @@ input[type="time"],
 input[type="week"] {
     cursor: pointer;
 }
-
 input[type="email"],
 input[type="month"],
 input[type="number"],
@@ -3143,7 +3101,6 @@ input[type="color"] {
 }
 input[type="date"],
 input[type="datetime-local"],
-input[type="file"],
 input[type="month"],
 input[type="time"],
 input[type="week"] {
@@ -3173,7 +3130,7 @@ textarea {
 label {
     display: block;
     margin-top: 0.8125rem;
-    margin-bottom: 0.4375rem;
+    margin-bottom: 0;
     margin-left: 0;
     margin-right: 0;
     font-weight: 600;
@@ -3202,7 +3159,7 @@ label:has(> :where(input[type="checkbox"], input[type="radio"]))
 label:has(> :where(input[type="checkbox"], input[type="radio"])) + input,
 label:has(> :where(input[type="checkbox"], input[type="radio"])) + select,
 label:has(> :where(input[type="checkbox"], input[type="radio"])) + textarea {
-    margin-top: 0.8125rem 0.4375rem;
+    margin-top: 1.25rem;
 }
 label > input[type="checkbox"],
 label > input[type="radio"] {
@@ -3258,8 +3215,81 @@ th {
  * ======================================================================== */
 /* ## Font Sizes ==================================== */
 /*! END of @maddimathon/utility-sass/template */
-/* # ASTRO LAYOUT
+/* # ASTRO GLOBALS - Typography
  * ======================================================================== */
+pre {
+    display: block;
+    position: relative;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 1.25rem;
+    margin-bottom: 0;
+    margin-top: 2.25rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem 0.8125rem;
+    border: 0.0625rem solid currentColor;
+    width: auto;
+    max-width: 100%;
+    font-size: 0.9375rem;
+    overflow: auto;
+    justify-self: center;
+}
+pre > code {
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: none;
+    width: -moz-fit-content;
+    width: fit-content;
+    max-width: none;
+    overflow: visible;
+    white-space: normal;
+    text-wrap: auto;
+}
+pre:has(> code) {
+    white-space: normal;
+    text-wrap: auto;
+}
+pre:has(> code) > code {
+    white-space: pre;
+    text-wrap: nowrap;
+}
+pre.language-wiki:has(> code),
+pre.language-context:has(> code),
+pre.language-tex:has(> code),
+pre.language-latex:has(> code),
+pre.language-text:has(> code),
+pre.language-md:has(> code),
+pre.language-markdown:has(> code),
+pre.language-hbs:has(> code),
+pre.language-mustache:has(> code),
+pre.language-handlebars:has(> code),
+pre.language-plaintext:has(> code) {
+    white-space: normal;
+    text-wrap: auto;
+    max-width: 26.25rem;
+}
+pre.language-wiki:has(> code) > code,
+pre.language-context:has(> code) > code,
+pre.language-tex:has(> code) > code,
+pre.language-latex:has(> code) > code,
+pre.language-text:has(> code) > code,
+pre.language-md:has(> code) > code,
+pre.language-markdown:has(> code) > code,
+pre.language-hbs:has(> code) > code,
+pre.language-mustache:has(> code) > code,
+pre.language-handlebars:has(> code) > code,
+pre.language-plaintext:has(> code) > code {
+    white-space: pre-wrap;
+    text-wrap: auto;
+}
+
+/* # ASTRO GLOBALS - Tables
+ * ======================================================================== */
+table {
+    justify-self: center;
+}
+
 /*! END of @maddimathon/utility-astro/template */
 /* # GLOBALS - OBJECTS
  * ======================================================================== */
@@ -3476,16 +3506,11 @@ p:empty {
 
 blockquote {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: auto;
-}
-blockquote {
-    margin-top: 0.8125rem;
-    margin-bottom: 0;
-    margin-top: 1.625rem;
-    margin-bottom: 0.8125rem;
+    margin-left: 0;
+    margin-right: 0;
     padding-left: 0.8125rem;
+    width: auto;
+    max-width: 26.25rem;
     border-left: 0.125rem solid hsl(278.16, 60.54%, 30.06%);
     border-left: 0.125rem solid var(--theme-ui-primary, CanvasText);
 }
@@ -3516,17 +3541,12 @@ blockquote blockquote + p,
 blockquote blockquote + li {
     margin-top: 1.1875rem;
 }
-@media (min-width: 36em) {
-    blockquote {
-        margin-left: 9%;
-        margin-right: 9%;
-    }
-}
-blockquote > p:first-child {
+blockquote > :first-child {
     margin-top: 0;
 }
 blockquote > cite {
     display: block;
+    align-self: end;
     text-align: right;
     font-size: 0.9375rem;
     color: hsl(278.16, 60.54%, 30.06%);
@@ -3534,7 +3554,6 @@ blockquote > cite {
 }
 blockquote > cite::before {
     content: "— "/"";
-    color: currentColor;
 }
 
 code,

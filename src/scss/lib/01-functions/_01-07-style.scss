@@ -157,73 +157,133 @@ $_flattenedStyles: map.flatten(map.get(tokens.$designSystem, style));
         }
     }
 
+    // RETURNING
+
+    // returns
     @if $isMargin {
-        //
+        // returns
         @if $value == '0' {
-            $value: 0;
-        } @else if string.index($slug, -block-start) {
-            $value: if(
+            @return 0;
+        }
+
+        // returns
+        @if string.index($slug, -block-start) {
+            @return if(
                 $isButtonStyle or $isInputStyle,
                 utils.var-mrg-firm($value),
                 utils.var-mrg-soft($value)
             );
-        } @else if string.index($slug, -block-end) {
-            $value: utils.var-mrg-half($value);
-        } @else if string.index($slug, -block) {
-            $value: if(
+        }
+
+        // returns
+        @if string.index($slug, -block-end) {
+            @return utils.var-mrg-half($value);
+        }
+
+        // returns
+        @if string.index($slug, -block) {
+            @return if(
                 $isButtonStyle or $isInputStyle,
                 utils.var-mrg-firm($value),
                 utils.var-mrg-soft($value)
             );
-        } @else {
-            $value: utils.var-mrg-firm($value);
         }
-    } @else if $isPadding {
-        //
+
+        @return utils.var-mrg-firm($value);
+    }
+
+    // returns
+    @if $isPadding {
+        // returns
         @if $value == '0' {
-            $value: 0;
-        } @else if string.index($slug, -block-start) {
-            $value: utils.var-pad-soft($value);
-        } @else if string.index($slug, -block-end) {
-            $value: utils.var-pad-half($value);
-        } @else if string.index($slug, -block) {
-            $value: if($isAlertStyle, utils.var-mrg-firm($value), utils.var-pad-soft($value));
-        } @else {
-            $value: utils.var-pad-firm($value);
+            @return 0;
         }
-    } @else if $isGap {
-        //
-        @if $value == '0' {
-            $value: 0;
-        } @else if string.index($slug, gap-block-start) {
-            $value: utils.var-mrg-soft($value);
-        } @else if string.index($slug, gap-block-end) {
-            $value: utils.var-mrg-half($value);
-        } @else if string.index($slug, gap-block) {
-            $value: utils.var-mrg-soft($value);
-        } @else {
-            $value: utils.var-mrg-firm($value);
+
+        // returns
+        @if string.index($slug, -block-start) {
+            @return utils.var-pad-soft($value);
         }
-    } @else if $isBorderRadius {
-        $value: if($value == '0', $value, var-border-radius($value));
-    } @else if $isBorderWidth {
-        $value: var-border-width($value);
-    } @else if $isFontFamily {
-        $value: if(font-family-exists($value), var-font-family($value), $value);
-    } @else if $isFontSize {
-        $value: var-fs($value);
-    } @else if $isLineHeight {
-        $value: utils.var-line-height($value);
-    } @else if $isStrokeRelative {
-        $value: utils.var-stroke-relative($value);
-    } @else if $isThemeToken {
-        $value: if(
+
+        // returns
+        @if string.index($slug, -block-end) {
+            @return utils.var-pad-half($value);
+        }
+
+        // returns
+        @if string.index($slug, -block) {
+            @return if($isAlertStyle, utils.var-mrg-firm($value), utils.var-pad-soft($value));
+        }
+
+        @return utils.var-pad-firm($value);
+    }
+
+    // returns
+    @if $isGap {
+        // returns
+        @if $value == '0' or meta.type-of($value) == number {
+            @return 0;
+        }
+
+        // returns
+        @if string.index($slug, gap-block-start) {
+            @return utils.var-mrg-soft($value);
+        }
+
+        // returns
+        @if string.index($slug, gap-block-end) {
+            @return utils.var-mrg-half($value);
+        }
+
+        // returns
+        @if string.index($slug, gap-block) {
+            @return utils.var-mrg-soft($value);
+        }
+
+        @return utils.var-mrg-firm($value);
+    }
+
+    // returns
+    @if $isBorderRadius {
+        @return if($value == '0', $value, var-border-radius($value));
+    }
+
+    // returns
+    @if $isBorderWidth {
+        @return var-border-width($value);
+    }
+
+    // returns
+    @if $isFontFamily {
+        @return if(font-family-exists($value), var-font-family($value), 'inherit');
+    }
+
+    // returns
+    @if $isFontSize {
+        @return var-fs($value);
+    }
+
+    // returns
+    @if $isLineHeight {
+        @return utils.var-line-height($value);
+    }
+
+    // returns
+    @if $isStrokeRelative {
+        @return utils.var-stroke-relative($value);
+    }
+
+    // returns
+    @if $isThemeToken {
+        @return if(
             meta.type-of($value) == 'color' or $value == white or $value == black,
             $value,
             var-theme($value)
         );
-    } @else if $isSimpleEm {
-        $value: math.add-unit($value, $unit: 1em);
+    }
+
+    // returns
+    @if $isSimpleEm {
+        @return math.add-unit($value, $unit: 1em);
     }
 
     @return $value;
