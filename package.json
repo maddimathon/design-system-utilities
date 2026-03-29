@@ -187,6 +187,15 @@
             "link-build": "npm run unlink-build  && mkdir -p node_modules/@maddimathon/build-utilities    && cp -R -H -f -p ../npm-build-utilities/package.json ../npm-build-utilities/tsconfig.base.json ../npm-build-utilities/dist node_modules/@maddimathon/build-utilities",
             "link:astro": "npm run unlink:astro && mkdir -p node_modules/@maddimathon/utility-astro       && cp -R -H -f -p ../utility-astro/package.json ../utility-astro/dist ../utility-astro/jest.config.js ../utility-astro/tsconfig.json node_modules/@maddimathon/utility-astro",
             "link:sass":  "npm run unlink:sass  && mkdir -p node_modules/@maddimathon/utility-sass        && cp -R -H -f -p ../utility-sass/package.json  ../utility-sass/dist node_modules/@maddimathon/utility-sass",
+            
+        "symlink": "run-p symlink:*",
+            "symlink:astro": "run-s symlink:astro:*",
+                "symlink:astro:a": "rm -rf node_modules/@maddimathon/utility-astro/dist/astro node_modules/@maddimathon/utility-astro/dist/scss || echo ''",
+                "symlink:astro:b": "ln -fhs ../../../../../utility-astro/dist/astro ../../../../../utility-astro/dist/scss node_modules/@maddimathon/utility-astro/dist",
+
+            "symlink:sass": "run-s symlink:sass:*",
+                "symlink:sass:a": "rm -rf node_modules/@maddimathon/utility-sass/dist/scss || echo ''",
+                "symlink:sass:b": "ln -fhs ../../../../../utility-sass/dist/scss node_modules/@maddimathon/utility-sass/dist",
 
         "preinstall": "npm run unlink",
 

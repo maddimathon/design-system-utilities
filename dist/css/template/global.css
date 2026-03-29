@@ -14,15 +14,42 @@
 /*! START of @maddimathon/design-system-utilities/template/global */
 /* # TOKENS & PROPERTIES
  * ======================================================================== */
+/* #region Tokens - @property */
 @property --display {
     syntax: "*";
     inherits: false;
+}
+@property --focus-ring-outline-color {
+    syntax: "<color>";
+    inherits: true;
+    initial-value: currentColor;
 }
 @property --grid-column {
     syntax: "*";
     inherits: true;
     initial-value: 1 / 1;
 }
+@property --height-nav-primary {
+    syntax: "<length-percentage> | <number>";
+    inherits: true;
+    initial-value: 0;
+}
+@property --icon-color {
+    syntax: "<color>";
+    inherits: true;
+    initial-value: currentColor;
+}
+@property --icon-size {
+    syntax: "<length-percentage> | <number>";
+    inherits: true;
+    initial-value: 1.375em;
+}
+@property --scroll-padding-top {
+    syntax: "<length-percentage> | <number>";
+    inherits: true;
+    initial-value: 0;
+}
+/* #endregion Tokens - @property */
 /* #region Tokens - Misc. */
 :root {
     --focus-ring-outline-color: var(--theme-link-outline, ActiveText);
@@ -3505,12 +3532,20 @@ p:empty {
 }
 
 blockquote {
-    display: block;
+    display: flex;
     margin-left: 0;
     margin-right: 0;
     padding-left: 0.8125rem;
     width: auto;
     max-width: 26.25rem;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0;
+    justify-content: center;
+    justify-items: stretch;
+    align-content: start;
+    align-items: start;
+    justify-self: center;
     border-left: 0.125rem solid hsl(278.16, 60.54%, 30.06%);
     border-left: 0.125rem solid var(--theme-ui-primary, CanvasText);
 }

@@ -160,7 +160,7 @@
             $display: if(
                     map.get(config.$template_styles, astro, bodyGrid),
                     flex,
-                    block
+                    if(map.get(config.$template_styles, bodyFlow), flex, block)
                 )
         );
     }

@@ -3,63 +3,75 @@
 /// @since 0.1.0-beta.0.draft
 ///
 
-@forward 'pkg:@maddimathon/utility-sass/config/functions';
+@forward 'pkg:@maddimathon/utility-astro/config/functions' hide
+    config-get-template-styles;
 
+@use 'pkg:@maddimathon/utility-astro/config/functions' as fns;
 @use 'sass:map';
 
 @function config-get-template-styles(
     $inputs,
     $include_html,
     $isTemplate,
-    $template_astro,
-    $template_docs,
-    $template_globals,
     $template_tokens,
-    $template_utils
+    $template_globals,
+    $template_utils,
+    $template_astro,
+    $template_docs
 ) {
-    @return map.deep-merge(
-        (
-            alerts: $template_astro or $template_utils or
-                map.get($inputs, icons),
-            //
-            astro: (
-                    bodyGrid: $template_astro,
-                    toggleNav: $template_astro and
-                        if(
-                            map.has-key($inputs, toggleBlock),
-                            map.get($inputs, toggleBlock),
-                            true
+    @return fns.config-get-template-styles(
+        $inputs: map.deep-merge(
+                (
+                    alerts: $template_astro or $template_utils or
+                        map.get($inputs, icons),
+                    //
+                    astro: (
+                            bodyGrid: $template_astro,
+                            toggleNav: $template_astro and
+                                if(
+                                    map.has-key($inputs, toggleBlock),
+                                    map.get($inputs, toggleBlock),
+                                    true
+                                ),
+                            stickyToggleNav: $template_astro and
+                                if(
+                                    map.has-key($inputs, astro, toggleNav),
+                                    map.get($inputs, astro, toggleNav),
+                                    true
+                                ),
                         ),
-                    stickyToggleNav: $template_astro and
-                        if(
-                            map.has-key($inputs, astro, toggleNav),
-                            map.get($inputs, astro, toggleNav),
-                            true
-                        ),
+                    //
+                    blockquote: $template_globals,
+                    buttons: $template_globals,
+                    headings: $template_globals,
+                    icons: $template_astro or $template_utils or
+                        map.get($inputs, alerts),
+                    keyframes: $template_globals or $template_tokens or
+                        $template_utils,
+                    //
+                    logos: $template_utils or $template_astro or
+                        map.get($inputs, alerts) or map.get($inputs, icons),
+                    //
+                    normalize: $include_html and $isTemplate,
+                    pre: $template_globals,
+                    //
+                    skipLinks: (
+                            $template_astro or $template_globals or
+                                $template_utils,
+                        )
+                        and $include_html,
+                    //
+                    sidebarWidgets: $template_astro or $template_docs,
+                    siteSettingsMenu: $template_astro,
+                    toggle: $template_astro,
                 ),
-            //
-            blockquote: $template_globals,
-            buttons: $template_globals,
-            headings: $template_globals,
-            icons: $template_astro or $template_utils or
-                map.get($inputs, alerts),
-            keyframes: $template_globals or $template_tokens or $template_utils,
-            //
-            logos: $template_utils or $template_astro or
-                map.get($inputs, alerts) or map.get($inputs, icons),
-            //
-            normalize: $include_html and $isTemplate,
-            pre: $template_globals,
-            //
-            skipLinks: (
-                    $template_astro or $template_globals or $template_utils,
-                )
-                and $include_html,
-            //
-            sidebarWidgets: $template_astro or $template_docs,
-            siteSettingsMenu: $template_astro,
-            toggle: $template_astro,
-        ),
-        $inputs
+                $inputs
+            ),
+        $include_html: $include_html,
+        $isTemplate: $isTemplate,
+        $template_tokens: $template_tokens,
+        $template_globals: $template_globals,
+        $template_utils: $template_utils,
+        $template_astro: $template_astro
     );
 }

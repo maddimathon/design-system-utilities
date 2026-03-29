@@ -3,13 +3,26 @@
 /// @since 0.1.0-alpha
 ///
 
+@forward 'pkg:@maddimathon/utility-sass/tokens/functions' hide tokens-get-at-properties;
+
+@use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/string';
+
+@use 'functions' as fns;
+
 @use '../config';
 @use 'theme';
 
-@use 'pkg:@maddimathon/utility-sass/map';
+///
+/// @since ___PKG_VERSION___
+///
+$atProperties: () !default;
+$atProperties: fns.tokens-get-at-properties($atProperties);
 
+///
+/// @since 0.1.0-alpha
+///
 $customTokens: () !default;
-
 $customTokens: map.ksort(
     map.merge(
         map.flatten(

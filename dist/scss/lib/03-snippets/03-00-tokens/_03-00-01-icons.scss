@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.0.draft
 /// @since 0.1.0-alpha
 ///
 
@@ -92,7 +92,7 @@ $_allUniqueIconAspectRatios: ();
 ///
 /// Adds base properties for displaying an icon inside a ::before or ::after selector.
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0.draft
 ///
 @mixin snippet-icon-pseudo-base-properties($slug: null, $pseudo: 'after') {
     $_start: if($pseudo == before, end, start);
@@ -103,20 +103,28 @@ $_allUniqueIconAspectRatios: ();
 
     margin-block-start: #{do-var(icon-pseudo-element-margin-block-start, 0)};
 
-    margin-inline-#{$_start}: #{var-style(icon-inline-buffer)};
     margin-inline-#{$_start}: calc(
         var-style(icon-inline-buffer) *
             do-var(
                 icon-size-pseudo--inline-buffer-start,
+                calc(do-var(icon-size-pseudo--font-multiplier, 1) / 2)
+            )
+    );
+
+    margin-inline-#{$_end}: #{var-style(icon-inline-buffer)};
+    margin-inline-#{$_end}: calc(
+        var-style(icon-inline-buffer) *
+            do-var(
+                icon-size-pseudo--inline-buffer-end,
                 do-var(icon-size-pseudo--font-multiplier, 1)
             )
     );
-    margin-inline-#{$_end}: calc(
-        var-style(icon-inline-buffer) * do-var(icon-size-pseudo--inline-buffer-end, 0)
-    );
 
     height: #{var-style(icon-size-pseudo)};
-    height: calc(var-style(icon-size-pseudo) * do-var(icon-size-pseudo--font-multiplier, 1));
+    height: calc(
+        var-style(icon-size-pseudo) *
+            do-var(icon-size-pseudo--font-multiplier, 1)
+    );
 
     @if $slug != null {
         aspect-ratio: #{icon-aspect-ratio-value($slug)};
@@ -130,12 +138,16 @@ $_allUniqueIconAspectRatios: ();
 ///
 @mixin snippet-icon-pseudo-element($slug, $pseudo: 'after') {
     @supports (mask-image: url('../fake.svg')) {
-        @include snippet-icon-pseudo-base-properties($slug: $slug, $pseudo: $pseudo);
+        @include snippet-icon-pseudo-base-properties(
+            $slug: $slug,
+            $pseudo: $pseudo
+        );
 
         content: '';
         content: '' / '#{icon-label-value($slug)}';
 
-        background: #{var-style(icon-color)};
+        background: currentColor;
+        color: #{var-style(icon-color)};
 
         mask-image: #{icon-embedded-value($slug)};
         mask-clip: no-clip;
