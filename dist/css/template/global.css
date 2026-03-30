@@ -63,6 +63,7 @@
     --icon-color: var(--theme-ui, CanvasText);
     --icon-inline-buffer: 0.25em;
     --icon-size: 1.375em;
+    --icon-size-font: 1em;
     --icon-size-large: 2em;
     --icon-size-pseudo: 1em;
     --icon-vertical-align: middle;
@@ -2442,15 +2443,16 @@
         --sys-clr-selection-text: HighlightText !important;
         --sys-clr-button-bg: ButtonFace !important;
         --sys-clr-button-bg-active: ButtonFace !important;
-        --sys-clr-button-bg-hover: SelectedItem !important;
+        --sys-clr-button-bg-hover: ButtonFace !important;
         --sys-clr-button-border: ButtonFace !important;
         --sys-clr-button-border: ButtonBorder !important;
         --sys-clr-button-border-active: ButtonFace !important;
         --sys-clr-button-border-active: ButtonBorder !important;
-        --sys-clr-button-border-hover: SelectedItem !important;
+        --sys-clr-button-border-hover: ButtonFace !important;
+        --sys-clr-button-border-hover: ButtonBorder !important;
         --sys-clr-button-text: ButtonText !important;
         --sys-clr-button-text-active: ButtonText !important;
-        --sys-clr-button-text-hover: SelectedItemText !important;
+        --sys-clr-button-text-hover: ButtonText !important;
         --sys-clr-input-bg: Field !important;
         --sys-clr-input-bg-hover: Field !important;
         --sys-clr-input-bg-active: Field !important;
@@ -2471,58 +2473,67 @@
         --theme-background-grey: Canvas !important;
         --theme-button-primary-background: ButtonFace !important;
         --theme-button-primary-background-active: ButtonFace !important;
-        --theme-button-primary-background-hover: SelectedItem !important;
+        --theme-button-primary-background-hover: ButtonFace !important;
         --theme-button-primary-border: ButtonFace !important;
         --theme-button-primary-border: ButtonBorder !important;
         --theme-button-primary-border-active: ButtonFace !important;
         --theme-button-primary-border-active: ButtonBorder !important;
-        --theme-button-primary-border-hover: SelectedItem !important;
-        --theme-button-primary-outline: SelectedItem !important;
+        --theme-button-primary-border-hover: ButtonFace !important;
+        --theme-button-primary-border-hover: ButtonBorder !important;
+        --theme-button-primary-outline: ButtonFace !important;
+        --theme-button-primary-outline: ButtonBorder !important;
         --theme-button-primary-outline-active: ButtonFace !important;
         --theme-button-primary-outline-active: ButtonBorder !important;
-        --theme-button-primary-outline-hover: SelectedItem !important;
+        --theme-button-primary-outline-hover: ButtonFace !important;
+        --theme-button-primary-outline-hover: ButtonBorder !important;
         --theme-button-primary-text: ButtonText !important;
         --theme-button-primary-text-active: ButtonText !important;
-        --theme-button-primary-text-hover: SelectedItemText !important;
+        --theme-button-primary-text-hover: ButtonText !important;
         --theme-button-primary-ui: ButtonText !important;
         --theme-button-primary-ui-active: ButtonText !important;
-        --theme-button-primary-ui-hover: SelectedItemText !important;
+        --theme-button-primary-ui-hover: ButtonText !important;
         --theme-button-secondary-background: ButtonFace !important;
         --theme-button-secondary-background-active: ButtonFace !important;
-        --theme-button-secondary-background-hover: SelectedItem !important;
+        --theme-button-secondary-background-hover: ButtonFace !important;
         --theme-button-secondary-border: ButtonFace !important;
         --theme-button-secondary-border: ButtonBorder !important;
         --theme-button-secondary-border-active: ButtonFace !important;
         --theme-button-secondary-border-active: ButtonBorder !important;
-        --theme-button-secondary-border-hover: SelectedItem !important;
-        --theme-button-secondary-outline: SelectedItem !important;
+        --theme-button-secondary-border-hover: ButtonFace !important;
+        --theme-button-secondary-border-hover: ButtonBorder !important;
+        --theme-button-secondary-outline: ButtonFace !important;
+        --theme-button-secondary-outline: ButtonBorder !important;
         --theme-button-secondary-outline-active: ButtonFace !important;
         --theme-button-secondary-outline-active: ButtonBorder !important;
-        --theme-button-secondary-outline-hover: SelectedItem !important;
+        --theme-button-secondary-outline-hover: ButtonFace !important;
+        --theme-button-secondary-outline-hover: ButtonBorder !important;
         --theme-button-secondary-text: ButtonText !important;
         --theme-button-secondary-text-active: ButtonText !important;
-        --theme-button-secondary-text-hover: SelectedItemText !important;
+        --theme-button-secondary-text-hover: ButtonText !important;
         --theme-button-secondary-ui: ButtonText !important;
         --theme-button-secondary-ui-active: ButtonText !important;
-        --theme-button-secondary-ui-hover: SelectedItemText !important;
+        --theme-button-secondary-ui-hover: ButtonText !important;
         --theme-button-disabled-background: ButtonFace !important;
         --theme-button-disabled-background-active: ButtonFace !important;
-        --theme-button-disabled-background-hover: SelectedItem !important;
+        --theme-button-disabled-background-hover: ButtonFace !important;
         --theme-button-disabled-border: ButtonFace !important;
         --theme-button-disabled-border: ButtonBorder !important;
         --theme-button-disabled-border-active: ButtonFace !important;
         --theme-button-disabled-border-active: ButtonBorder !important;
-        --theme-button-disabled-border-hover: SelectedItem !important;
-        --theme-button-disabled-outline: SelectedItem !important;
+        --theme-button-disabled-border-hover: ButtonFace !important;
+        --theme-button-disabled-border-hover: ButtonBorder !important;
+        --theme-button-disabled-outline: ButtonFace !important;
+        --theme-button-disabled-outline: ButtonBorder !important;
         --theme-button-disabled-outline-active: ButtonFace !important;
         --theme-button-disabled-outline-active: ButtonBorder !important;
-        --theme-button-disabled-outline-hover: SelectedItem !important;
+        --theme-button-disabled-outline-hover: ButtonFace !important;
+        --theme-button-disabled-outline-hover: ButtonBorder !important;
         --theme-button-disabled-text: ButtonText !important;
         --theme-button-disabled-text-active: ButtonText !important;
-        --theme-button-disabled-text-hover: SelectedItemText !important;
+        --theme-button-disabled-text-hover: ButtonText !important;
         --theme-button-disabled-ui: ButtonText !important;
         --theme-button-disabled-ui-active: ButtonText !important;
-        --theme-button-disabled-ui-hover: SelectedItemText !important;
+        --theme-button-disabled-ui-hover: ButtonText !important;
         --theme-heading-1: CanvasText !important;
         --theme-heading-2: CanvasText !important;
         --theme-heading-3: CanvasText !important;
@@ -2591,13 +2602,13 @@
         --theme-text: CanvasText !important;
         --theme-text-primary: CanvasText !important;
         --theme-text-secondary: CanvasText !important;
-        --theme-text-grey: GrayText !important;
+        --theme-text-grey: CanvasText !important;
         --theme-text-active: ActiveText !important;
         --theme-text-disabled: GrayText !important;
         --theme-ui: CanvasText !important;
         --theme-ui-primary: CanvasText !important;
         --theme-ui-secondary: CanvasText !important;
-        --theme-ui-grey: GrayText !important;
+        --theme-ui-grey: CanvasText !important;
         --theme-ui-active: ActiveText !important;
         --theme-ui-disabled: GrayText !important;
         --focus-ring-outline-color: ActiveText;
@@ -3232,6 +3243,7 @@ td > :last-child {
 th {
     padding-top: 0.3125rem;
     padding-bottom: 0.3125rem;
+    text-wrap: balance;
     background: hsl(278.16, 60.54%, 30.06%);
     background: var(--sys-clr-accent-bg, CanvasText);
     color: hsl(339.45, 0%, 91.26%);
@@ -4634,7 +4646,7 @@ input[type="submit"][disabled],
 input[type="reset"][disabled] {
     --focus-ring-outline-color: var(
         --theme-button-disabled-outline,
-        SelectedItem
+        ButtonFace
     );
     --icon-color: var(--theme-button-disabled-ui, ButtonText);
     --theme-link-icon: var(--theme-button-disabled-ui, ButtonText);
@@ -4655,26 +4667,20 @@ input[type="submit"][disabled]:hover,
 input[type="reset"][disabled]:hover {
     --focus-ring-outline-color: var(
         --theme-button-disabled-outline-hover,
-        SelectedItem
+        ButtonFace
     );
-    --icon-color: var(--theme-button-disabled-ui-hover, SelectedItemText);
-    --theme-link-icon: var(--theme-button-disabled-ui-hover, SelectedItemText);
+    --icon-color: var(--theme-button-disabled-ui-hover, ButtonText);
+    --theme-link-icon: var(--theme-button-disabled-ui-hover, ButtonText);
     text-decoration-color: hsl(339.45, 0%, 91.26%);
-    text-decoration-color: var(
-        --theme-button-disabled-ui-hover,
-        SelectedItemText
-    );
+    text-decoration-color: var(--theme-button-disabled-ui-hover, ButtonText);
     accent-color: hsl(339.45, 0%, 22.38%);
-    accent-color: var(--theme-button-disabled-border-hover, SelectedItem);
+    accent-color: var(--theme-button-disabled-border-hover, ButtonFace);
     background-color: hsl(339.45, 0%, 22.38%);
-    background-color: var(
-        --theme-button-disabled-background-hover,
-        SelectedItem
-    );
+    background-color: var(--theme-button-disabled-background-hover, ButtonFace);
     border-color: hsl(339.45, 0%, 22.38%);
-    border-color: var(--theme-button-disabled-border-hover, SelectedItem);
+    border-color: var(--theme-button-disabled-border-hover, ButtonFace);
     color: hsl(339.45, 0%, 91.26%);
-    color: var(--theme-button-disabled-text-hover, SelectedItemText);
+    color: var(--theme-button-disabled-text-hover, ButtonText);
 }
 input[type="submit"][aria-disabled="true"]:focus,
 input[type="reset"][aria-disabled="true"]:focus,
@@ -4682,26 +4688,20 @@ input[type="submit"][disabled]:focus,
 input[type="reset"][disabled]:focus {
     --focus-ring-outline-color: var(
         --theme-button-disabled-outline-hover,
-        SelectedItem
+        ButtonFace
     );
-    --icon-color: var(--theme-button-disabled-ui-hover, SelectedItemText);
-    --theme-link-icon: var(--theme-button-disabled-ui-hover, SelectedItemText);
+    --icon-color: var(--theme-button-disabled-ui-hover, ButtonText);
+    --theme-link-icon: var(--theme-button-disabled-ui-hover, ButtonText);
     text-decoration-color: hsl(339.45, 0%, 91.26%);
-    text-decoration-color: var(
-        --theme-button-disabled-ui-hover,
-        SelectedItemText
-    );
+    text-decoration-color: var(--theme-button-disabled-ui-hover, ButtonText);
     accent-color: hsl(339.45, 0%, 22.38%);
-    accent-color: var(--theme-button-disabled-border-hover, SelectedItem);
+    accent-color: var(--theme-button-disabled-border-hover, ButtonFace);
     background-color: hsl(339.45, 0%, 22.38%);
-    background-color: var(
-        --theme-button-disabled-background-hover,
-        SelectedItem
-    );
+    background-color: var(--theme-button-disabled-background-hover, ButtonFace);
     border-color: hsl(339.45, 0%, 22.38%);
-    border-color: var(--theme-button-disabled-border-hover, SelectedItem);
+    border-color: var(--theme-button-disabled-border-hover, ButtonFace);
     color: hsl(339.45, 0%, 91.26%);
-    color: var(--theme-button-disabled-text-hover, SelectedItemText);
+    color: var(--theme-button-disabled-text-hover, ButtonText);
 }
 
 input[type="submit"][aria-disabled="true"]:focus-within,
@@ -4710,26 +4710,20 @@ input[type="submit"][disabled]:focus-within,
 input[type="reset"][disabled]:focus-within {
     --focus-ring-outline-color: var(
         --theme-button-disabled-outline-hover,
-        SelectedItem
+        ButtonFace
     );
-    --icon-color: var(--theme-button-disabled-ui-hover, SelectedItemText);
-    --theme-link-icon: var(--theme-button-disabled-ui-hover, SelectedItemText);
+    --icon-color: var(--theme-button-disabled-ui-hover, ButtonText);
+    --theme-link-icon: var(--theme-button-disabled-ui-hover, ButtonText);
     text-decoration-color: hsl(339.45, 0%, 91.26%);
-    text-decoration-color: var(
-        --theme-button-disabled-ui-hover,
-        SelectedItemText
-    );
+    text-decoration-color: var(--theme-button-disabled-ui-hover, ButtonText);
     accent-color: hsl(339.45, 0%, 22.38%);
-    accent-color: var(--theme-button-disabled-border-hover, SelectedItem);
+    accent-color: var(--theme-button-disabled-border-hover, ButtonFace);
     background-color: hsl(339.45, 0%, 22.38%);
-    background-color: var(
-        --theme-button-disabled-background-hover,
-        SelectedItem
-    );
+    background-color: var(--theme-button-disabled-background-hover, ButtonFace);
     border-color: hsl(339.45, 0%, 22.38%);
-    border-color: var(--theme-button-disabled-border-hover, SelectedItem);
+    border-color: var(--theme-button-disabled-border-hover, ButtonFace);
     color: hsl(339.45, 0%, 91.26%);
-    color: var(--theme-button-disabled-text-hover, SelectedItemText);
+    color: var(--theme-button-disabled-text-hover, ButtonText);
 }
 
 input[type="submit"][aria-disabled="true"]:active,
@@ -4915,12 +4909,7 @@ input[type="reset"],
 input[type="submit"],
 a.button[href] {
     --focus-ring-outline-offset: 0.125em;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: start;
-    align-content: start;
-    align-items: start;
+    display: block;
     width: -moz-fit-content;
     width: fit-content;
     height: auto;
@@ -4967,10 +4956,7 @@ input[type="button"],
 input[type="reset"],
 input[type="submit"],
 a.button[href] {
-    --focus-ring-outline-color: var(
-        --theme-button-primary-outline,
-        SelectedItem
-    );
+    --focus-ring-outline-color: var(--theme-button-primary-outline, ButtonFace);
     --icon-color: var(--theme-button-primary-ui, ButtonText);
     --theme-link-icon: var(--theme-button-primary-ui, ButtonText);
     text-decoration-color: hsl(339.45, 0%, 91.26%);
@@ -4992,26 +4978,20 @@ input[type="submit"]:hover,
 a.button[href]:hover {
     --focus-ring-outline-color: var(
         --theme-button-primary-outline-hover,
-        SelectedItem
+        ButtonFace
     );
-    --icon-color: var(--theme-button-primary-ui-hover, SelectedItemText);
-    --theme-link-icon: var(--theme-button-primary-ui-hover, SelectedItemText);
+    --icon-color: var(--theme-button-primary-ui-hover, ButtonText);
+    --theme-link-icon: var(--theme-button-primary-ui-hover, ButtonText);
     text-decoration-color: hsl(339.45, 0%, 91.26%);
-    text-decoration-color: var(
-        --theme-button-primary-ui-hover,
-        SelectedItemText
-    );
+    text-decoration-color: var(--theme-button-primary-ui-hover, ButtonText);
     accent-color: hsl(162, 69%, 16.5%);
-    accent-color: var(--theme-button-primary-border-hover, SelectedItem);
+    accent-color: var(--theme-button-primary-border-hover, ButtonFace);
     background-color: hsl(162, 69%, 16.5%);
-    background-color: var(
-        --theme-button-primary-background-hover,
-        SelectedItem
-    );
+    background-color: var(--theme-button-primary-background-hover, ButtonFace);
     border-color: hsl(162, 69%, 16.5%);
-    border-color: var(--theme-button-primary-border-hover, SelectedItem);
+    border-color: var(--theme-button-primary-border-hover, ButtonFace);
     color: hsl(339.45, 0%, 91.26%);
-    color: var(--theme-button-primary-text-hover, SelectedItemText);
+    color: var(--theme-button-primary-text-hover, ButtonText);
 }
 button:focus,
 [role="button"]:focus,
@@ -5021,26 +5001,20 @@ input[type="submit"]:focus,
 a.button[href]:focus {
     --focus-ring-outline-color: var(
         --theme-button-primary-outline-hover,
-        SelectedItem
+        ButtonFace
     );
-    --icon-color: var(--theme-button-primary-ui-hover, SelectedItemText);
-    --theme-link-icon: var(--theme-button-primary-ui-hover, SelectedItemText);
+    --icon-color: var(--theme-button-primary-ui-hover, ButtonText);
+    --theme-link-icon: var(--theme-button-primary-ui-hover, ButtonText);
     text-decoration-color: hsl(339.45, 0%, 91.26%);
-    text-decoration-color: var(
-        --theme-button-primary-ui-hover,
-        SelectedItemText
-    );
+    text-decoration-color: var(--theme-button-primary-ui-hover, ButtonText);
     accent-color: hsl(162, 69%, 16.5%);
-    accent-color: var(--theme-button-primary-border-hover, SelectedItem);
+    accent-color: var(--theme-button-primary-border-hover, ButtonFace);
     background-color: hsl(162, 69%, 16.5%);
-    background-color: var(
-        --theme-button-primary-background-hover,
-        SelectedItem
-    );
+    background-color: var(--theme-button-primary-background-hover, ButtonFace);
     border-color: hsl(162, 69%, 16.5%);
-    border-color: var(--theme-button-primary-border-hover, SelectedItem);
+    border-color: var(--theme-button-primary-border-hover, ButtonFace);
     color: hsl(339.45, 0%, 91.26%);
-    color: var(--theme-button-primary-text-hover, SelectedItemText);
+    color: var(--theme-button-primary-text-hover, ButtonText);
 }
 
 button:focus-within,
@@ -5051,26 +5025,20 @@ input[type="submit"]:focus-within,
 a.button[href]:focus-within {
     --focus-ring-outline-color: var(
         --theme-button-primary-outline-hover,
-        SelectedItem
+        ButtonFace
     );
-    --icon-color: var(--theme-button-primary-ui-hover, SelectedItemText);
-    --theme-link-icon: var(--theme-button-primary-ui-hover, SelectedItemText);
+    --icon-color: var(--theme-button-primary-ui-hover, ButtonText);
+    --theme-link-icon: var(--theme-button-primary-ui-hover, ButtonText);
     text-decoration-color: hsl(339.45, 0%, 91.26%);
-    text-decoration-color: var(
-        --theme-button-primary-ui-hover,
-        SelectedItemText
-    );
+    text-decoration-color: var(--theme-button-primary-ui-hover, ButtonText);
     accent-color: hsl(162, 69%, 16.5%);
-    accent-color: var(--theme-button-primary-border-hover, SelectedItem);
+    accent-color: var(--theme-button-primary-border-hover, ButtonFace);
     background-color: hsl(162, 69%, 16.5%);
-    background-color: var(
-        --theme-button-primary-background-hover,
-        SelectedItem
-    );
+    background-color: var(--theme-button-primary-background-hover, ButtonFace);
     border-color: hsl(162, 69%, 16.5%);
-    border-color: var(--theme-button-primary-border-hover, SelectedItem);
+    border-color: var(--theme-button-primary-border-hover, ButtonFace);
     color: hsl(339.45, 0%, 91.26%);
-    color: var(--theme-button-primary-text-hover, SelectedItemText);
+    color: var(--theme-button-primary-text-hover, ButtonText);
 }
 
 button:active,
@@ -5139,7 +5107,7 @@ input[disabled][type="submit"],
 a[disabled].button[href] {
     --focus-ring-outline-color: var(
         --theme-button-disabled-outline,
-        SelectedItem
+        ButtonFace
     );
     --icon-color: var(--theme-button-disabled-ui, ButtonText);
     --theme-link-icon: var(--theme-button-disabled-ui, ButtonText);
@@ -5168,26 +5136,20 @@ input[disabled][type="submit"]:hover,
 a[disabled].button[href]:hover {
     --focus-ring-outline-color: var(
         --theme-button-disabled-outline-hover,
-        SelectedItem
+        ButtonFace
     );
-    --icon-color: var(--theme-button-disabled-ui-hover, SelectedItemText);
-    --theme-link-icon: var(--theme-button-disabled-ui-hover, SelectedItemText);
+    --icon-color: var(--theme-button-disabled-ui-hover, ButtonText);
+    --theme-link-icon: var(--theme-button-disabled-ui-hover, ButtonText);
     text-decoration-color: hsl(339.45, 0%, 91.26%);
-    text-decoration-color: var(
-        --theme-button-disabled-ui-hover,
-        SelectedItemText
-    );
+    text-decoration-color: var(--theme-button-disabled-ui-hover, ButtonText);
     accent-color: hsl(339.45, 0%, 22.38%);
-    accent-color: var(--theme-button-disabled-border-hover, SelectedItem);
+    accent-color: var(--theme-button-disabled-border-hover, ButtonFace);
     background-color: hsl(339.45, 0%, 22.38%);
-    background-color: var(
-        --theme-button-disabled-background-hover,
-        SelectedItem
-    );
+    background-color: var(--theme-button-disabled-background-hover, ButtonFace);
     border-color: hsl(339.45, 0%, 22.38%);
-    border-color: var(--theme-button-disabled-border-hover, SelectedItem);
+    border-color: var(--theme-button-disabled-border-hover, ButtonFace);
     color: hsl(339.45, 0%, 91.26%);
-    color: var(--theme-button-disabled-text-hover, SelectedItemText);
+    color: var(--theme-button-disabled-text-hover, ButtonText);
 }
 button[aria-disabled="true"]:focus,
 [aria-disabled="true"][role="button"]:focus,
@@ -5203,26 +5165,20 @@ input[disabled][type="submit"]:focus,
 a[disabled].button[href]:focus {
     --focus-ring-outline-color: var(
         --theme-button-disabled-outline-hover,
-        SelectedItem
+        ButtonFace
     );
-    --icon-color: var(--theme-button-disabled-ui-hover, SelectedItemText);
-    --theme-link-icon: var(--theme-button-disabled-ui-hover, SelectedItemText);
+    --icon-color: var(--theme-button-disabled-ui-hover, ButtonText);
+    --theme-link-icon: var(--theme-button-disabled-ui-hover, ButtonText);
     text-decoration-color: hsl(339.45, 0%, 91.26%);
-    text-decoration-color: var(
-        --theme-button-disabled-ui-hover,
-        SelectedItemText
-    );
+    text-decoration-color: var(--theme-button-disabled-ui-hover, ButtonText);
     accent-color: hsl(339.45, 0%, 22.38%);
-    accent-color: var(--theme-button-disabled-border-hover, SelectedItem);
+    accent-color: var(--theme-button-disabled-border-hover, ButtonFace);
     background-color: hsl(339.45, 0%, 22.38%);
-    background-color: var(
-        --theme-button-disabled-background-hover,
-        SelectedItem
-    );
+    background-color: var(--theme-button-disabled-background-hover, ButtonFace);
     border-color: hsl(339.45, 0%, 22.38%);
-    border-color: var(--theme-button-disabled-border-hover, SelectedItem);
+    border-color: var(--theme-button-disabled-border-hover, ButtonFace);
     color: hsl(339.45, 0%, 91.26%);
-    color: var(--theme-button-disabled-text-hover, SelectedItemText);
+    color: var(--theme-button-disabled-text-hover, ButtonText);
     border-style: solid;
 }
 
@@ -5240,26 +5196,20 @@ input[disabled][type="submit"]:focus-within,
 a[disabled].button[href]:focus-within {
     --focus-ring-outline-color: var(
         --theme-button-disabled-outline-hover,
-        SelectedItem
+        ButtonFace
     );
-    --icon-color: var(--theme-button-disabled-ui-hover, SelectedItemText);
-    --theme-link-icon: var(--theme-button-disabled-ui-hover, SelectedItemText);
+    --icon-color: var(--theme-button-disabled-ui-hover, ButtonText);
+    --theme-link-icon: var(--theme-button-disabled-ui-hover, ButtonText);
     text-decoration-color: hsl(339.45, 0%, 91.26%);
-    text-decoration-color: var(
-        --theme-button-disabled-ui-hover,
-        SelectedItemText
-    );
+    text-decoration-color: var(--theme-button-disabled-ui-hover, ButtonText);
     accent-color: hsl(339.45, 0%, 22.38%);
-    accent-color: var(--theme-button-disabled-border-hover, SelectedItem);
+    accent-color: var(--theme-button-disabled-border-hover, ButtonFace);
     background-color: hsl(339.45, 0%, 22.38%);
-    background-color: var(
-        --theme-button-disabled-background-hover,
-        SelectedItem
-    );
+    background-color: var(--theme-button-disabled-background-hover, ButtonFace);
     border-color: hsl(339.45, 0%, 22.38%);
-    border-color: var(--theme-button-disabled-border-hover, SelectedItem);
+    border-color: var(--theme-button-disabled-border-hover, ButtonFace);
     color: hsl(339.45, 0%, 91.26%);
-    color: var(--theme-button-disabled-text-hover, SelectedItemText);
+    color: var(--theme-button-disabled-text-hover, ButtonText);
     border-style: solid;
 }
 
@@ -5326,12 +5276,13 @@ a.button[href] samp {
     font-weight: inherit;
     font-style: inherit;
     background: transparent;
+    line-height: 1;
 }
 button[type="reset"],
 input[type="reset"] {
     --focus-ring-outline-color: var(
         --theme-button-secondary-outline,
-        SelectedItem
+        ButtonFace
     );
     --icon-color: var(--theme-button-secondary-ui, ButtonText);
     --theme-link-icon: var(--theme-button-secondary-ui, ButtonText);
@@ -5350,77 +5301,68 @@ button[type="reset"]:hover,
 input[type="reset"]:hover {
     --focus-ring-outline-color: var(
         --theme-button-secondary-outline-hover,
-        SelectedItem
+        ButtonFace
     );
-    --icon-color: var(--theme-button-secondary-ui-hover, SelectedItemText);
-    --theme-link-icon: var(--theme-button-secondary-ui-hover, SelectedItemText);
+    --icon-color: var(--theme-button-secondary-ui-hover, ButtonText);
+    --theme-link-icon: var(--theme-button-secondary-ui-hover, ButtonText);
     text-decoration-color: hsl(339.45, 0%, 91.26%);
-    text-decoration-color: var(
-        --theme-button-secondary-ui-hover,
-        SelectedItemText
-    );
+    text-decoration-color: var(--theme-button-secondary-ui-hover, ButtonText);
     accent-color: hsl(2.81, 72.25%, 28.09%);
-    accent-color: var(--theme-button-secondary-border-hover, SelectedItem);
+    accent-color: var(--theme-button-secondary-border-hover, ButtonFace);
     background-color: hsl(2.81, 72.25%, 28.09%);
     background-color: var(
         --theme-button-secondary-background-hover,
-        SelectedItem
+        ButtonFace
     );
     border-color: hsl(2.81, 72.25%, 28.09%);
-    border-color: var(--theme-button-secondary-border-hover, SelectedItem);
+    border-color: var(--theme-button-secondary-border-hover, ButtonFace);
     color: hsl(339.45, 0%, 91.26%);
-    color: var(--theme-button-secondary-text-hover, SelectedItemText);
+    color: var(--theme-button-secondary-text-hover, ButtonText);
 }
 button[type="reset"]:focus,
 input[type="reset"]:focus {
     --focus-ring-outline-color: var(
         --theme-button-secondary-outline-hover,
-        SelectedItem
+        ButtonFace
     );
-    --icon-color: var(--theme-button-secondary-ui-hover, SelectedItemText);
-    --theme-link-icon: var(--theme-button-secondary-ui-hover, SelectedItemText);
+    --icon-color: var(--theme-button-secondary-ui-hover, ButtonText);
+    --theme-link-icon: var(--theme-button-secondary-ui-hover, ButtonText);
     text-decoration-color: hsl(339.45, 0%, 91.26%);
-    text-decoration-color: var(
-        --theme-button-secondary-ui-hover,
-        SelectedItemText
-    );
+    text-decoration-color: var(--theme-button-secondary-ui-hover, ButtonText);
     accent-color: hsl(2.81, 72.25%, 28.09%);
-    accent-color: var(--theme-button-secondary-border-hover, SelectedItem);
+    accent-color: var(--theme-button-secondary-border-hover, ButtonFace);
     background-color: hsl(2.81, 72.25%, 28.09%);
     background-color: var(
         --theme-button-secondary-background-hover,
-        SelectedItem
+        ButtonFace
     );
     border-color: hsl(2.81, 72.25%, 28.09%);
-    border-color: var(--theme-button-secondary-border-hover, SelectedItem);
+    border-color: var(--theme-button-secondary-border-hover, ButtonFace);
     color: hsl(339.45, 0%, 91.26%);
-    color: var(--theme-button-secondary-text-hover, SelectedItemText);
+    color: var(--theme-button-secondary-text-hover, ButtonText);
 }
 
 button[type="reset"]:focus-within,
 input[type="reset"]:focus-within {
     --focus-ring-outline-color: var(
         --theme-button-secondary-outline-hover,
-        SelectedItem
+        ButtonFace
     );
-    --icon-color: var(--theme-button-secondary-ui-hover, SelectedItemText);
-    --theme-link-icon: var(--theme-button-secondary-ui-hover, SelectedItemText);
+    --icon-color: var(--theme-button-secondary-ui-hover, ButtonText);
+    --theme-link-icon: var(--theme-button-secondary-ui-hover, ButtonText);
     text-decoration-color: hsl(339.45, 0%, 91.26%);
-    text-decoration-color: var(
-        --theme-button-secondary-ui-hover,
-        SelectedItemText
-    );
+    text-decoration-color: var(--theme-button-secondary-ui-hover, ButtonText);
     accent-color: hsl(2.81, 72.25%, 28.09%);
-    accent-color: var(--theme-button-secondary-border-hover, SelectedItem);
+    accent-color: var(--theme-button-secondary-border-hover, ButtonFace);
     background-color: hsl(2.81, 72.25%, 28.09%);
     background-color: var(
         --theme-button-secondary-background-hover,
-        SelectedItem
+        ButtonFace
     );
     border-color: hsl(2.81, 72.25%, 28.09%);
-    border-color: var(--theme-button-secondary-border-hover, SelectedItem);
+    border-color: var(--theme-button-secondary-border-hover, ButtonFace);
     color: hsl(339.45, 0%, 91.26%);
-    color: var(--theme-button-secondary-text-hover, SelectedItemText);
+    color: var(--theme-button-secondary-text-hover, ButtonText);
 }
 
 button[type="reset"]:active,
@@ -5447,12 +5389,7 @@ input[type="reset"]:active {
 }
 ::file-selector-button {
     --focus-ring-outline-offset: 0.125em;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: start;
-    align-content: start;
-    align-items: start;
+    display: block;
     width: -moz-fit-content;
     width: fit-content;
     height: auto;
@@ -5556,6 +5493,7 @@ input[type="reset"]:active {
     font-weight: inherit;
     font-style: inherit;
     background: transparent;
+    line-height: 1;
 }
 ::file-selector-button {
     display: initial;
@@ -5576,7 +5514,7 @@ input[aria-disabled="true"]::file-selector-button,
 input[disabled]::file-selector-button {
     --focus-ring-outline-color: var(
         --theme-button-disabled-outline,
-        SelectedItem
+        ButtonFace
     );
     --icon-color: var(--theme-button-disabled-ui, ButtonText);
     --theme-link-icon: var(--theme-button-disabled-ui, ButtonText);
@@ -5595,51 +5533,39 @@ input[aria-disabled="true"]:hover::file-selector-button,
 input[disabled]:hover::file-selector-button {
     --focus-ring-outline-color: var(
         --theme-button-disabled-outline-hover,
-        SelectedItem
+        ButtonFace
     );
-    --icon-color: var(--theme-button-disabled-ui-hover, SelectedItemText);
-    --theme-link-icon: var(--theme-button-disabled-ui-hover, SelectedItemText);
+    --icon-color: var(--theme-button-disabled-ui-hover, ButtonText);
+    --theme-link-icon: var(--theme-button-disabled-ui-hover, ButtonText);
     text-decoration-color: hsl(339.45, 0%, 91.26%);
-    text-decoration-color: var(
-        --theme-button-disabled-ui-hover,
-        SelectedItemText
-    );
+    text-decoration-color: var(--theme-button-disabled-ui-hover, ButtonText);
     accent-color: hsl(339.45, 0%, 22.38%);
-    accent-color: var(--theme-button-disabled-border-hover, SelectedItem);
+    accent-color: var(--theme-button-disabled-border-hover, ButtonFace);
     background-color: hsl(339.45, 0%, 22.38%);
-    background-color: var(
-        --theme-button-disabled-background-hover,
-        SelectedItem
-    );
+    background-color: var(--theme-button-disabled-background-hover, ButtonFace);
     border-color: hsl(339.45, 0%, 22.38%);
-    border-color: var(--theme-button-disabled-border-hover, SelectedItem);
+    border-color: var(--theme-button-disabled-border-hover, ButtonFace);
     color: hsl(339.45, 0%, 91.26%);
-    color: var(--theme-button-disabled-text-hover, SelectedItemText);
+    color: var(--theme-button-disabled-text-hover, ButtonText);
 }
 input[aria-disabled="true"]:focus::file-selector-button,
 input[disabled]:focus::file-selector-button {
     --focus-ring-outline-color: var(
         --theme-button-disabled-outline-hover,
-        SelectedItem
+        ButtonFace
     );
-    --icon-color: var(--theme-button-disabled-ui-hover, SelectedItemText);
-    --theme-link-icon: var(--theme-button-disabled-ui-hover, SelectedItemText);
+    --icon-color: var(--theme-button-disabled-ui-hover, ButtonText);
+    --theme-link-icon: var(--theme-button-disabled-ui-hover, ButtonText);
     text-decoration-color: hsl(339.45, 0%, 91.26%);
-    text-decoration-color: var(
-        --theme-button-disabled-ui-hover,
-        SelectedItemText
-    );
+    text-decoration-color: var(--theme-button-disabled-ui-hover, ButtonText);
     accent-color: hsl(339.45, 0%, 22.38%);
-    accent-color: var(--theme-button-disabled-border-hover, SelectedItem);
+    accent-color: var(--theme-button-disabled-border-hover, ButtonFace);
     background-color: hsl(339.45, 0%, 22.38%);
-    background-color: var(
-        --theme-button-disabled-background-hover,
-        SelectedItem
-    );
+    background-color: var(--theme-button-disabled-background-hover, ButtonFace);
     border-color: hsl(339.45, 0%, 22.38%);
-    border-color: var(--theme-button-disabled-border-hover, SelectedItem);
+    border-color: var(--theme-button-disabled-border-hover, ButtonFace);
     color: hsl(339.45, 0%, 91.26%);
-    color: var(--theme-button-disabled-text-hover, SelectedItemText);
+    color: var(--theme-button-disabled-text-hover, ButtonText);
     border-style: solid;
 }
 
@@ -5647,26 +5573,20 @@ input[aria-disabled="true"]:focus-within::file-selector-button,
 input[disabled]:focus-within::file-selector-button {
     --focus-ring-outline-color: var(
         --theme-button-disabled-outline-hover,
-        SelectedItem
+        ButtonFace
     );
-    --icon-color: var(--theme-button-disabled-ui-hover, SelectedItemText);
-    --theme-link-icon: var(--theme-button-disabled-ui-hover, SelectedItemText);
+    --icon-color: var(--theme-button-disabled-ui-hover, ButtonText);
+    --theme-link-icon: var(--theme-button-disabled-ui-hover, ButtonText);
     text-decoration-color: hsl(339.45, 0%, 91.26%);
-    text-decoration-color: var(
-        --theme-button-disabled-ui-hover,
-        SelectedItemText
-    );
+    text-decoration-color: var(--theme-button-disabled-ui-hover, ButtonText);
     accent-color: hsl(339.45, 0%, 22.38%);
-    accent-color: var(--theme-button-disabled-border-hover, SelectedItem);
+    accent-color: var(--theme-button-disabled-border-hover, ButtonFace);
     background-color: hsl(339.45, 0%, 22.38%);
-    background-color: var(
-        --theme-button-disabled-background-hover,
-        SelectedItem
-    );
+    background-color: var(--theme-button-disabled-background-hover, ButtonFace);
     border-color: hsl(339.45, 0%, 22.38%);
-    border-color: var(--theme-button-disabled-border-hover, SelectedItem);
+    border-color: var(--theme-button-disabled-border-hover, ButtonFace);
     color: hsl(339.45, 0%, 91.26%);
-    color: var(--theme-button-disabled-text-hover, SelectedItemText);
+    color: var(--theme-button-disabled-text-hover, ButtonText);
     border-style: solid;
 }
 

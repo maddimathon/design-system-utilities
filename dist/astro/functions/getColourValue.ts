@@ -23,7 +23,7 @@ export function getColourValue<
     T_ColourTypes extends TokenTypes.Colour.TypeParams,
 >(
     shade: null | undefined | Partial<
-        | ColourUtilities.SingleShade
+        | ColourUtilities.Value_All
         | Tokens_Colour_ShadeMap.Shade.JsonReturn<T_ColourTypes>
     >,
 ): null | string {

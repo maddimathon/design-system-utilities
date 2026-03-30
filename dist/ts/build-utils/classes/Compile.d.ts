@@ -40,7 +40,7 @@ export declare class Compile extends CompileStage {
      *
      * @category Running
      */
-    buildTokens(tokens: Tokens.Instance, level: number, paths: buildTokens.Paths): Promise<void>;
+    buildTokens(tokens: Tokens.Instance, level: number, paths: buildTokens.Paths, args?: Partial<buildTokens.Args>): Promise<void>;
     protected astro(): Promise<void>;
     protected scss(): Promise<void>;
     protected templates(sassDebugCheckpoints?: boolean, args?: Partial<AbstractStage.runCustomScssDirSubStage.Opts>): Promise<void>;

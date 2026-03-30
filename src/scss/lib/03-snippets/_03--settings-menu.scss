@@ -135,7 +135,9 @@ $_closing_time: var-tr-time(toggle-closing);
         }
     }
 
-    @at-root .website-settings-menu .font-family-override-default {
-        font-family: #{var-font-family(body)} !important;
+    @if font-family-exists(body) {
+        @at-root .website-settings-menu .font-family-override-default {
+            font-family: #{var-font-family(body)} !important;
+        }
     }
 }

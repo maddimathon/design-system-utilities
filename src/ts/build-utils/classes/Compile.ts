@@ -82,8 +82,9 @@ export class Compile extends CompileStage {
         tokens: Tokens.Instance,
         level: number,
         paths: buildTokens.Paths,
+        args: Partial<buildTokens.Args> = {},
     ) {
-        await buildTokens( this, tokens, level, paths );
+        await buildTokens( this, tokens, level, paths, args );
 
         // this.console.progress( 'building token files...', 0 + level );
 

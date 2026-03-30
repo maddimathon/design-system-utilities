@@ -122,9 +122,9 @@ export class Compile extends CompileStage {
     async tokens() {
         this.console.progress( 'compiling default tokens...', 1 );
 
-        const Tokens = ( await import( /* @vite-ignore */ '../../dist/ts/02-tokens/Tokens.js' ) ).Tokens;
+        const { Tokens } = await import( /* @vite-ignore */ '../../dist/ts/02-tokens/Tokens.js' );
 
-        const buildTokens = ( await import( /* @vite-ignore */ '../../dist/ts/build-utils/buildTokens.js' ) ).buildTokens;
+        const { buildTokens } = await import( /* @vite-ignore */ '../../dist/ts/build-utils/buildTokens.js' );
 
         const defaultTokens = await this.atry(
             Tokens.sample,
@@ -137,6 +137,7 @@ export class Compile extends CompileStage {
             slug: 'design-system-utilities',
 
             assets: {
+                fonts: this.getSrcDir( undefined, 'assets/fonts' ),
                 icons: this.getSrcDir( undefined, 'assets/icons' ),
                 logos: this.getSrcDir( undefined, 'assets/logos' ),
             },
@@ -150,41 +151,6 @@ export class Compile extends CompileStage {
                 'src/scss/tokens/system/_default.scss',
             ],
         } );
-
-        // this.console.verbose( 'writing default json tokens...', 2 );
-        // this.try(
-        //     this.fs.write,
-        //     ( this.params.verbose ? 2 : 3 ),
-        //     [
-        //         this.getDistDir( undefined, 'default-tokens.json' ),
-        //         JSON.stringify( defaultTokens, null, 4 ),
-        //         { force: true }
-        //     ],
-        // );
-
-        // this.console.verbose( 'writing default scss tokens...', 2 );
-
-        // const tokenScss = defaultTokens.toScss();
-
-        // this.try(
-        //     this.fs.write,
-        //     ( this.params.verbose ? 2 : 3 ),
-        //     [
-        //         this.getDistDir( undefined, 'default-tokens.scss' ),
-        //         tokenScss,
-        //         { force: true }
-        //     ],
-        // );
-
-        // this.try(
-        //     this.fs.write,
-        //     ( this.params.verbose ? 2 : 3 ),
-        //     [
-        //         'src/scss/tokens/system/_default.scss',
-        //         tokenScss,
-        //         { force: true }
-        //     ],
-        // );
     }
 
     /**

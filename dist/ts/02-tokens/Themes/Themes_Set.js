@@ -799,7 +799,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
                         $: overrides.text?.$ ?? 'CanvasText',
                         active: overrides.text?.active ?? 'ActiveText',
                         disabled: overrides.text?.disabled ?? 'GrayText',
-                        grey: overrides.text?.grey ?? 'GrayText',
+                        grey: overrides.text?.grey ?? 'CanvasText',
                     },
                 };
                 const background = {
@@ -830,7 +830,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
                 const singleButton = {
                     background: {
                         $: 'ButtonFace',
-                        hover: 'SelectedItem',
+                        hover: 'ButtonFace',
                         active: 'ButtonFace',
                     },
                     border: {
@@ -842,23 +842,29 @@ export class Tokens_Themes_Set extends AbstractTokens {
                             'ButtonFace',
                             'ButtonBorder',
                         ],
-                        hover: 'SelectedItem',
+                        hover: [
+                            'ButtonFace',
+                            'ButtonBorder',
+                        ],
                     },
                     outline: {
                         active: [
                             'ButtonFace',
                             'ButtonBorder',
                         ],
-                        hover: 'SelectedItem',
+                        hover: [
+                            'ButtonFace',
+                            'ButtonBorder',
+                        ],
                     },
                     text: {
                         $: 'ButtonText',
-                        hover: 'SelectedItemText',
+                        hover: 'ButtonText',
                         active: 'ButtonText',
                     },
                     ui: {
                         $: 'ButtonText',
-                        hover: 'SelectedItemText',
+                        hover: 'ButtonText',
                         active: 'ButtonText',
                     },
                 };

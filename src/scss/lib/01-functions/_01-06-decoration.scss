@@ -91,7 +91,7 @@
 }
 
 ///
-/// Uses the icon tokens to return its aspect ratio.
+/// Uses the icon tokens to return its embedded svg url value.
 ///
 /// @since 0.1.0-alpha
 ///
@@ -107,6 +107,29 @@
     // returns
     @if $value == null {
         @warn "'embedded' was not a key in tokens.$icons.#{$slug}";
+        @return $slug;
+    }
+
+    @return $value;
+}
+
+///
+/// Uses the icon tokens to return its glyph.
+///
+/// @since ___PKG_VERSION___
+///
+@function icon-glyph-value($slug) {
+    // returns
+    @if not map.has-key(tokens.$icons, $slug) {
+        @warn "$slug '#{$slug}' was not a key in tokens.$icons";
+        @return $slug;
+    }
+
+    $value: map.get(tokens.$icons, $slug, fontGlyph);
+
+    // returns
+    @if $value == null {
+        @warn "'fontGlyph' was not a key in tokens.$icons.#{$slug}";
         @return $slug;
     }
 

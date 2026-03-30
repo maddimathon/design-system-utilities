@@ -7,7 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
-import { arrayUnique, slugify } from '@maddimathon/utility-typescript';
+import { arrayUnique, mergeArgs, slugify } from '@maddimathon/utility-typescript';
 import { JsonToScss } from '@maddimathon/utility-sass';
 import { ColourUtilities } from '../01-utilities/ColourUtilities.js';
 import { objectGenerator } from '../01-utilities/objectGenerator.js';
@@ -35,11 +35,13 @@ export class Internal {
  * @since 0.1.0-alpha
  */
 export class Tokens extends AbstractTokens {
+    name;
     colourOpts;
     input;
     config;
     get data() {
         return {
+            name: this.name,
             icons: this.icons.data,
             logos: this.logos.data,
             spacing: this.spacing.data,
@@ -85,7 +87,7 @@ export class Tokens extends AbstractTokens {
             Tokens_Colour.build(colourOpts.names, extraColourLevels, input.colour ?? {}),
             Tokens_Themes.build(brightnessModes, contrastModes, colourOpts, input.themes?.input ?? []),
         ]).then(async ([colour, themes]) => {
-            const tokens = new Tokens(colourOpts, { colour, themes }, input, {
+            const tokens = new Tokens(input.name, colourOpts, { colour, themes }, input, {
                 ...config,
                 extraColourLevels: undefined,
             });
@@ -95,24 +97,52 @@ export class Tokens extends AbstractTokens {
     /**
      *  * @since 0.1.0-beta.0.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
-    constructor(colourOpts, { colour, themes }, input, config = {}) {
+    constructor(name, colourOpts, { colour, themes }, input, config = {}) {
         super();
+        this.name = name;
         this.colourOpts = colourOpts;
         this.input = input;
         this.config = config;
-        ;
         this.colour = colour;
         this.css = new Tokens_CSS(this.input.css ?? {});
-        this.icons = new Tokens_Icons(this.input.icons ?? {});
-        this.logos = new Tokens_Logos(
+        this.icons = new Tokens_Icons(this.config.iconFontName ?? (this.name + ' Icons'), 
         // @ts-expect-error
-        this.input.logos ?? {});
+        this.input.icons ?? {});
+        this.logos = new Tokens_Logos(this.input.logos);
         this.spacing = new Tokens_Spacing(this.input.spacing ?? {});
         this.themes = themes;
-        this.typography = new Tokens_Typography(this.spacing, this.input.typography ?? {});
+        const typeInput = this.input.typography ?? {};
+        if (!typeInput.fonts) {
+            typeInput.fonts = {};
+        }
+        typeInput.fonts.icons = typeInput.fonts.icons === false
+            ? undefined
+            : {
+                printFontFace: true,
+                ...typeInput.fonts.icons,
+                slug: 'icons',
+                name: this.icons.fontName,
+                appendSystemFontsToFallbacks: false,
+                weights: mergeArgs({
+                    '400': {
+                        normal: Tokens.Typography.Font.familyGenerator.fileGenerator('icons', name, '100 900', 'normal', {
+                            filename: 'icons',
+                            includeLocalSrc: false,
+                            pathStyle: 'normal',
+                        }),
+                        italic: Tokens.Typography.Font.familyGenerator.fileGenerator('icons', name, '100 900', 'italic', {
+                            filename: 'icons',
+                            includeLocalSrc: false,
+                            pathStyle: 'normal',
+                        }),
+                    }
+                }, typeInput.fonts.icons?.weights, true),
+            };
+        this.typography = new Tokens_Typography(this.spacing, typeInput);
     }
     toJSON() {
         return {
+            name: this.name,
             icons: this.icons.toJSON(),
             logos: this.logos.toJSON(),
             spacing: this.spacing.toJSON(),
@@ -124,6 +154,7 @@ export class Tokens extends AbstractTokens {
     }
     toScssVars() {
         return {
+            name: this.name,
             ...this.spacing.toScssVars(),
             ...this.typography.toScssVars(),
             ...this.css.toScssVars(),
@@ -163,6 +194,7 @@ export class Tokens extends AbstractTokens {
      */
     async function sample() {
         return Tokens.build({
+            name: 'Design System Utilities (Sample Brand Kit)',
             colour: {
                 base: Tokens.SampleColours.base,
                 purple: Tokens.SampleColours.purple,
@@ -171,10 +203,14 @@ export class Tokens extends AbstractTokens {
                 // yardstick: Tokens.SampleColours.yardstick,
                 // 'yardstick-accent': Tokens.SampleColours[ 'yardstick-accent' ],
             },
+            logos: {},
             themes: {
                 contrast: ['max'],
             },
-        }, { tokensAsDefault: true, });
+        }, {
+            iconFontName: 'Design System Utilities Icons',
+            tokensAsDefault: true,
+        });
     }
     Tokens.sample = sample;
     ;
@@ -270,7 +306,7 @@ export class Tokens extends AbstractTokens {
              *
              * @since 0.1.0-alpha
              */
-            function familyGenerator(slug, name, familyOpts = {}, weightOpts = {}) {
+            function familyGenerator(slug, name, { includeLocalSrc, ...familyOpts } = {}, weightOpts = {}) {
                 return {
                     slug,
                     name,
@@ -294,7 +330,7 @@ export class Tokens extends AbstractTokens {
                  */
                 function fileGenerator(subpath, name, weight, style, opts = {}) {
                     const _slug = slugify(name);
-                    let _filename = `${_slug}-${opts.pathWeight ?? weight}`;
+                    let _filename = opts.filename ?? `${_slug}-${opts.pathWeight ?? weight}`;
                     switch (opts.pathStyle ?? style) {
                         case 'italic':
                             _filename = _filename + '-italic';

@@ -2167,7 +2167,7 @@ export namespace Tokens_Themes_Set {
                         $: overrides.text?.$ ?? 'CanvasText',
                         active: overrides.text?.active ?? 'ActiveText',
                         disabled: overrides.text?.disabled ?? 'GrayText',
-                        grey: overrides.text?.grey ?? 'GrayText',
+                        grey: overrides.text?.grey ?? 'CanvasText',
                     } as {
                         $: TokenTypes.Css.SystemColor,
                         active: TokenTypes.Css.SystemColor,
@@ -2218,7 +2218,7 @@ export namespace Tokens_Themes_Set {
 
                     background: {
                         $: 'ButtonFace',
-                        hover: 'SelectedItem',
+                        hover: 'ButtonFace',
                         active: 'ButtonFace',
                     },
 
@@ -2231,7 +2231,10 @@ export namespace Tokens_Themes_Set {
                             'ButtonFace',
                             'ButtonBorder',
                         ],
-                        hover: 'SelectedItem',
+                        hover: [
+                            'ButtonFace',
+                            'ButtonBorder',
+                        ],
                     },
 
                     outline: {
@@ -2239,18 +2242,21 @@ export namespace Tokens_Themes_Set {
                             'ButtonFace',
                             'ButtonBorder',
                         ],
-                        hover: 'SelectedItem',
+                        hover: [
+                            'ButtonFace',
+                            'ButtonBorder',
+                        ],
                     },
 
                     text: {
                         $: 'ButtonText',
-                        hover: 'SelectedItemText',
+                        hover: 'ButtonText',
                         active: 'ButtonText',
                     },
 
                     ui: {
                         $: 'ButtonText',
-                        hover: 'SelectedItemText',
+                        hover: 'ButtonText',
                         active: 'ButtonText',
                     },
                 };

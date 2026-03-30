@@ -11,8 +11,9 @@
  * The object that defines a single SVG token.
  *
  * @since 0.1.0-alpha
+ * @since 0.1.0-beta.0.draft —
  */
-export declare class SvgMaker<T_Slug extends string = string> implements SvgMaker.Data<T_Slug> {
+export declare class SvgMaker<T_Slug extends string = string, T_Metadata extends any = undefined> implements SvgMaker.Data<T_Slug, T_Metadata> {
     protected readonly svgAttrs: string[];
     /**
      * An implementation of euclid's algorithm to find the greatest common
@@ -29,14 +30,18 @@ export declare class SvgMaker<T_Slug extends string = string> implements SvgMake
     readonly width: number;
     readonly aspectRatio: [number, number];
     readonly innerSVG: string;
-    constructor(data: SvgMaker.Data<T_Slug>, svgAttrs?: string[]);
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    readonly meta: T_Metadata;
+    constructor(data: SvgMaker.Data<T_Slug, T_Metadata>, svgAttrs?: string[]);
     svgAttrString(attrs?: string[]): string;
     svgCssEmbedded(): string;
     svgFile(): string;
     svgInlineHidden(): string;
     svgInlineLabelled(): string;
-    toJSON(): SvgMaker.JsonReturn<T_Slug>;
-    toScssVars(): SvgMaker.ScssVars<T_Slug>;
+    toJSON(): SvgMaker.JsonReturn<T_Slug, T_Metadata>;
+    toScssVars(): SvgMaker.ScssVars<T_Slug, T_Metadata>;
 }
 /**
  * Utilities for the {@link SvgMaker} class.
@@ -47,7 +52,7 @@ export declare namespace SvgMaker {
     /**
      * @since 0.1.0-alpha
      */
-    interface Data<T_Slug extends string = string> {
+    interface Data<T_Slug extends string = string, T_Metadata extends any = any> {
         /**
          * The slugified name of this icon as displayed in code (e.g., props, css).
          */
@@ -73,11 +78,15 @@ export declare namespace SvgMaker {
          * The paths and shapes to be included inside a <svg> element.
          */
         innerSVG: string;
+        /**
+         * Optional additional metadata.
+         */
+        meta?: T_Metadata;
     }
     /**
      * @since 0.1.0-alpha
      */
-    type JsonReturn<T_Slug extends string = string> = Required<Data<T_Slug>> & {
+    type JsonReturn<T_Slug extends string = string, T_Metadata extends any = any> = Required<Data<T_Slug, T_Metadata>> & {
         /**
          * Aspect ratio for the SVG (simplified from the wodth & height).
          */
@@ -106,7 +115,7 @@ export declare namespace SvgMaker {
     /**
      * @since 0.1.0-beta.0.draft
      */
-    type ScssVars<T_Slug extends string = string> = Omit<JsonReturn<T_Slug>, "ariaLabel" | "aspectRatio" | "innerSVG" | "svgAttrString" | "svgFile" | "svgCssEmbedded" | "svgInlineHidden" | "svgInlineLabelled"> & {
+    type ScssVars<T_Slug extends string = string, T_Metadata extends any = any> = Omit<JsonReturn<T_Slug, T_Metadata>, "ariaLabel" | "aspectRatio" | "innerSVG" | "svgAttrString" | "svgFile" | "svgCssEmbedded" | "svgInlineHidden" | "svgInlineLabelled"> & {
         aspectRatio: string;
         embedded: string;
     };

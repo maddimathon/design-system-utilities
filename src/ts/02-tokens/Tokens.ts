@@ -9,7 +9,7 @@
  */
 
 import type { Classify } from '@maddimathon/utility-typescript/types';
-import { arrayUnique, slugify } from '@maddimathon/utility-typescript';
+import { arrayUnique, mergeArgs, slugify } from '@maddimathon/utility-typescript';
 import { JsonToScss } from '@maddimathon/utility-sass';
 
 import type {
@@ -58,6 +58,7 @@ export class Tokens<
 
     public get data() {
         return {
+            name: this.name,
             icons: this.icons.data,
             logos: this.logos.data,
             spacing: this.spacing.data,
@@ -141,6 +142,7 @@ export class Tokens<
             async ( [ colour, themes ] ) => {
 
                 const tokens = new Tokens<T_Types>(
+                    input.name,
                     colourOpts,
                     { colour, themes },
                     input,
@@ -159,6 +161,7 @@ export class Tokens<
      *  * @since ___PKG_VERSION___ — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
     protected constructor (
+        public readonly name: string,
         protected readonly colourOpts: {
             names: TokenTypes.Colour.GenericNameArray<T_Types[ 'colour' ][ 'names' ]>;
             allLevels: Set<ColourUtilities.Levels.Required | T_Types[ 'colour' ][ 'extraLevels' ]>;
@@ -171,28 +174,86 @@ export class Tokens<
         protected readonly input: Omit<Tokens_Internal.InputParam<T_Types>, "colour" | "themes">,
         protected readonly config: Tokens_Internal.Config = {},
     ) {
-        super();;
+        super();
 
         this.colour = colour;
         this.css = new Tokens_CSS( this.input.css ?? {} );
-        this.icons = new Tokens_Icons<T_Types[ 'iconNames' ]>( this.input.icons ?? {} );
 
-        this.logos = new Tokens_Logos<T_Types[ 'logoNames' ]>(
+        this.icons = new Tokens_Icons<T_Types[ 'iconNames' ]>(
+            this.config.iconFontName ?? ( this.name + ' Icons' ),
             // @ts-expect-error
-            this.input.logos ?? {}
+            this.input.icons ?? {},
         );
 
+        this.logos = new Tokens_Logos<T_Types[ 'logoNames' ]>( this.input.logos );
+
         this.spacing = new Tokens_Spacing( this.input.spacing ?? {} );
+
         this.themes = themes;
+
+        const typeInput = this.input.typography ?? {};
+
+        if ( !typeInput.fonts ) {
+            typeInput.fonts = {};
+        }
+
+        typeInput.fonts.icons = typeInput.fonts.icons === false
+            ? undefined
+            : {
+                printFontFace: true,
+
+                ...typeInput.fonts.icons,
+
+                slug: 'icons',
+                name: this.icons.fontName,
+
+                appendSystemFontsToFallbacks: false,
+
+                weights: mergeArgs(
+                    {
+                        '400': {
+
+                            normal: Tokens.Typography.Font.familyGenerator.fileGenerator(
+                                'icons',
+                                name,
+                                '100 900',
+                                'normal',
+                                {
+                                    filename: 'icons',
+                                    includeLocalSrc: false,
+                                    pathStyle: 'normal',
+                                },
+                            ),
+
+                            italic: Tokens.Typography.Font.familyGenerator.fileGenerator(
+                                'icons',
+                                name,
+                                '100 900',
+                                'italic',
+                                {
+                                    filename: 'icons',
+                                    includeLocalSrc: false,
+                                    pathStyle: 'normal',
+                                },
+                            ),
+                        }
+                    } as const,
+                    typeInput.fonts.icons?.weights,
+                    true,
+                ),
+            };
+
         this.typography = new Tokens_Typography(
             this.spacing,
-            this.input.typography ?? {},
+            typeInput,
         );
     }
 
     public toJSON(): Tokens_Internal.JsonReturn<T_Types> {
 
         return {
+            name: this.name,
+
             icons: this.icons.toJSON(),
             logos: this.logos.toJSON(),
             spacing: this.spacing.toJSON(),
@@ -208,6 +269,8 @@ export class Tokens<
     public toScssVars(): Tokens_Internal.ScssVars<T_Types> {
 
         return {
+            name: this.name,
+
             ...this.spacing.toScssVars(),
             ...this.typography.toScssVars(),
             ...this.css.toScssVars(),
@@ -258,6 +321,7 @@ export namespace Tokens_Internal {
     }
 
     export type Data<T_Types extends TokenTypes.TypeParams> = {
+        name: string;
         colour: Tokens_Colour.Data<T_Types[ 'colour' ]>;
         css: Tokens_CSS.Data;
         icons: Tokens_Icons.Data<T_Types[ 'iconNames' ]>;
@@ -268,10 +332,11 @@ export namespace Tokens_Internal {
     };
 
     export interface InputParam<T_Types extends TokenTypes.TypeParams> {
-        colour?: undefined | Tokens_Colour.InputParam<T_Types[ 'colour' ]>;
+        name: string;
+        colour: Tokens_Colour.InputParam<T_Types[ 'colour' ]>;
         css?: undefined | Tokens_CSS.InputParam;
         icons?: undefined | Tokens_Icons.InputParam<T_Types[ 'iconNames' ]>;
-        logos?: undefined | Tokens_Logos.InputParam<T_Types[ 'logoNames' ]>;
+        logos: Tokens_Logos.InputParam<T_Types[ 'logoNames' ]>;
         spacing?: undefined | Tokens_Spacing.InputParam;
         themes?: {
             brightness?: readonly TokenTypes.Theme.GetBrightnessKeys<T_Types[ 'theme' ]>[],
@@ -283,6 +348,7 @@ export namespace Tokens_Internal {
     }
 
     export type JsonReturn<T_Types extends TokenTypes.TypeParams> = {
+        name: string;
         colour: Tokens_Colour.JsonReturn<T_Types[ 'colour' ]>;
         css: Tokens_CSS.JsonReturn;
         icons: Tokens_Icons.JsonReturn<T_Types[ 'iconNames' ]>;
@@ -297,6 +363,7 @@ export namespace Tokens_Internal {
         & Tokens_Spacing.ScssVars
         & Tokens_Typography.ScssVars<string>
         & {
+            name: string;
             colour: Tokens_Colour.ScssVars<T_Types[ 'colour' ]>;
             icons: Tokens_Icons.ScssVars<T_Types[ 'iconNames' ]>;
             logos: Tokens_Logos.ScssVars<T_Types[ 'logoNames' ]>;
@@ -318,6 +385,8 @@ export namespace Tokens {
 
         return Tokens.build(
             {
+                name: 'Design System Utilities (Sample Brand Kit)',
+
                 colour: {
                     base: Tokens.SampleColours.base,
                     purple: Tokens.SampleColours.purple,
@@ -326,11 +395,17 @@ export namespace Tokens {
                     // yardstick: Tokens.SampleColours.yardstick,
                     // 'yardstick-accent': Tokens.SampleColours[ 'yardstick-accent' ],
                 },
+
+                logos: {},
+
                 themes: {
                     contrast: [ 'max' ],
                 },
             },
-            { tokensAsDefault: true, },
+            {
+                iconFontName: 'Design System Utilities Icons',
+                tokensAsDefault: true,
+            },
         );
     }
 
@@ -343,6 +418,7 @@ export namespace Tokens {
         T_ExtraColourLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional,
     > {
         extraColourLevels: readonly T_ExtraColourLevels[];
+        iconFontName: string;
         tokensAsDefault: boolean;
     };
 
@@ -483,6 +559,8 @@ export namespace Tokens {
          * @since 0.1.0-alpha
          */
         export type AllFonts<T_FontFamilySlug extends string = string> = {
+            [ F in Tokens_Typography.DefaultFontFamilies ]?: undefined | Tokens_Typography.Font.Family<F>;
+        } & {
             [ K in T_FontFamilySlug ]: Tokens_Typography.Font.Family<K>;
         };
 
@@ -544,9 +622,14 @@ export namespace Tokens {
             export function familyGenerator<T_Slug extends string>(
                 slug: T_Slug,
                 name: string,
-                familyOpts: Omit<Partial<Tokens_Typography.Font.Family<T_Slug>>, "path" | "style" | "weight"> & {
+
+                {
+                    includeLocalSrc,
+                    ...familyOpts
+                }: Omit<Partial<Tokens_Typography.Font.Family<T_Slug>>, "path" | "style" | "weight"> & {
                     includeLocalSrc?: boolean;
                 } = {},
+
                 weightOpts: {
                     [ L in WholeTokenLevel ]?: familyGenerator.FileOptions;
                 } = {},
@@ -594,6 +677,11 @@ export namespace Tokens {
                 export type FileOptions = Omit<Tokens_Typography.Font.File, "path" | "style" | "weight"> & {
 
                     /**
+                     * @since ___PKG_VERSION___
+                     */
+                    filename?: string;
+
+                    /**
                      * Whether to include local sources in the files list.
                      * 
                      * @default true
@@ -617,7 +705,7 @@ export namespace Tokens {
 
                     const _slug = slugify( name );
 
-                    let _filename = `${ _slug }-${ opts.pathWeight ?? weight }`;
+                    let _filename = opts.filename ?? `${ _slug }-${ opts.pathWeight ?? weight }`;
 
                     switch ( opts.pathStyle ?? style ) {
                         case 'italic':

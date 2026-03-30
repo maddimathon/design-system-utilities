@@ -269,7 +269,7 @@ export namespace Tokens_Colour_ShadeMap {
         >(
             colourGroupName: T_TestColourName,
             level: T_TestColourLevel,
-            testClr: ColourUtilities.SingleShade,
+            testClr: ColourUtilities.Value_All,
         ) {
             // const thisContrastTestResults = this.contrast.results[ colourGroupName ][ level ];
 
@@ -431,12 +431,12 @@ export namespace Tokens_Colour_ShadeMap {
         /**
          * @since 0.1.0-alpha
          */
-        export type Data = ColourUtilities.SingleShade;
+        export type Data = ColourUtilities.Value_All;
 
         /**
          * @since 0.1.0-alpha
          */
-        export type InputParam = ColourUtilities.SingleShade_Input;
+        export type InputParam = ColourUtilities.Value | ColourUtilities.Value_All;
 
         /**
          * @since 0.1.0-alpha
@@ -596,6 +596,7 @@ export namespace Tokens_Colour_ShadeMap {
             highClr: Tokens_Colour_ShadeMap.Shade<T_Types>,
             saturationMultiplier?: number,
         ) => {
+
             // returns
             if ( level in part && part[ level ] ) {
                 return shadeMaker( level, part[ level ] );
@@ -605,7 +606,9 @@ export namespace Tokens_Colour_ShadeMap {
                 lowClr,
                 highClr,
                 saturationMultiplier,
-            ).then( clr => shadeMaker( level, clr ) );
+            ).then( clr => {
+                return shadeMaker( level, clr );
+            } );
         };
 
         const [

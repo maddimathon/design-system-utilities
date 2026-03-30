@@ -56,7 +56,7 @@ export declare namespace ColourUtilities {
      *
      * @since 0.1.0-alpha
      */
-    type Value = Value_Hex | Value_HSL | Value_RGB | Value_LCH;
+    type Value = Value_Hex | Value_HSL | Value_LCH | Value_RGB;
     /**
      * All of the single colour values as an object.
      *
@@ -65,72 +65,68 @@ export declare namespace ColourUtilities {
     type Value_All = {
         hex: Value_Hex;
         hsl: Value_HSL;
-        rgb: Value_RGB;
         lch: Value_LCH;
+        rgb: Value_RGB;
     };
+    type Value_Generic<T_Space extends "hex" | "hsl" | "lch" | "rgb"> = T_Space extends "hex" ? string : never | T_Space extends "hsl" ? Value_HSL : never | T_Space extends "lch" ? Value_LCH : never | T_Space extends "rgb" ? Value_RGB : never;
     /**
-     * Allowed input for the {@link SingleShade} schema.
-     *
-     * @since 0.1.0-alpha
-     * @useDeclaredType
+     * Ensures a valid and complete shade object.
      */
-    type SingleShade_Input = Value | Value_All;
-    /**
-     * The parsed output of the {@link SingleShade} schema.
-     *
-     * @since 0.1.0-alpha
-     * @useDeclaredType
-     */
-    type SingleShade = Value_All;
-    /**
-     * Ensures a valid shade object.
-     */
-    function validateShade(input: SingleShade_Input, errMaker?: LocalErrors.ConstructorFn, round?: boolean): Promise<SingleShade>;
+    function validateShade(input: Value | Value_All, errMaker?: LocalErrors.ConstructorFn, round?: boolean): Promise<Value_All>;
     /**
      * @since 0.1.0-alpha
      */
-    function toHex(clr: {
-        data: SingleShade;
-    } | SingleShade | SingleShade_Input, errMaker?: LocalErrors.ConstructorFn): Value_Hex;
+    function toHex(clr: Value | Value_All | {
+        data: Value_All;
+    }, errMaker?: LocalErrors.ConstructorFn): Value_Hex;
     /**
      * @since 0.1.0-alpha
      */
-    function toHSL(clr: {
-        data: SingleShade;
-    } | SingleShade | SingleShade_Input, errMaker?: LocalErrors.ConstructorFn, round?: boolean): Value_HSL;
+    function toHSL(clr: Value | Value_All | {
+        data: Value_All;
+    }, errMaker?: LocalErrors.ConstructorFn, round?: boolean): Value_HSL;
     /**
      * @since 0.1.0-alpha
      */
-    function toLCH(clr: {
-        data: SingleShade;
-    } | SingleShade | SingleShade_Input, errMaker?: LocalErrors.ConstructorFn, round?: boolean): Value_LCH;
+    function toLCH(clr: Value | Value_All | {
+        data: Value_All;
+    }, errMaker?: LocalErrors.ConstructorFn, round?: boolean): Value_LCH;
     /**
      * @since 0.1.0-alpha
      */
-    function toRGB(clr: {
-        data: SingleShade;
-    } | SingleShade | SingleShade_Input, errMaker?: LocalErrors.ConstructorFn, round?: boolean): Value_RGB;
+    function toRGB(clr: Value | Value_All | {
+        data: Value_All;
+    }, errMaker?: LocalErrors.ConstructorFn, round?: boolean): Value_RGB;
     /**
      * @since 0.1.0-alpha
      */
-    function mixColours(_clrA: {
-        data: SingleShade;
-    } | SingleShade | SingleShade_Input, _clrB: {
-        data: SingleShade;
-    } | SingleShade | SingleShade_Input, saturationMultiplier?: number): Promise<Value_LCH>;
+    function mixColours(_clrA: Value | Value_All | {
+        data: Value_All;
+    }, _clrB: Value | Value_All | {
+        data: Value_All;
+    }, saturationMultiplier?: number): Promise<Value_LCH>;
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    function toString(clr: Value | Value_All | {
+        data: Value_All;
+    }, errContext: LocalErrors.Context, errMaker: LocalErrors.ConstructorFn, _defaultSpace?: keyof Value_All): string;
+    /**
+     * @since 0.1.0-alpha
+     */
     namespace toString {
-        function hex(clr: {
-            data: SingleShade;
-        } | SingleShade | SingleShade_Input): string;
-        function hsl(clr: {
-            data: SingleShade;
-        } | SingleShade | SingleShade_Input): string;
-        function lch(clr: {
-            data: SingleShade;
-        } | SingleShade | SingleShade_Input): string;
-        function rgb(clr: {
-            data: SingleShade;
-        } | SingleShade | SingleShade_Input): string;
+        function hex(clr: Value_Hex | Value_All | {
+            data: Value_All;
+        }): string;
+        function hsl(clr: Value_HSL | Value_All | {
+            data: Value_All;
+        }): string;
+        function lch(clr: Value_LCH | Value_All | {
+            data: Value_All;
+        }): string;
+        function rgb(clr: Value_RGB | Value_All | {
+            data: Value_All;
+        }): string;
     }
     /**
      * @since 0.1.0-beta.0.draft
@@ -139,27 +135,33 @@ export declare namespace ColourUtilities {
         /**
          * @since 0.1.0-beta.0.draft
          */
-        function toHex(clr: {
-            data: SingleShade;
-        } | SingleShade | SingleShade_Input, errMaker?: LocalErrors.ConstructorFn): Promise<Value_Hex>;
+        function toHex(clr: Value | Value_All | {
+            data: Value_All;
+        }, errMaker?: LocalErrors.ConstructorFn): Promise<Value_Hex>;
         /**
          * @since 0.1.0-beta.0.draft
          */
-        function toHSL(clr: {
-            data: SingleShade;
-        } | SingleShade | SingleShade_Input, errMaker?: LocalErrors.ConstructorFn, round?: boolean): Promise<Value_HSL>;
+        function toHSL(clr: Value | Value_All | {
+            data: Value_All;
+        }, errMaker?: LocalErrors.ConstructorFn, round?: boolean): Promise<Value_HSL>;
         /**
          * @since 0.1.0-beta.0.draft
          */
-        function toLCH(clr: {
-            data: SingleShade;
-        } | SingleShade | SingleShade_Input, errMaker?: LocalErrors.ConstructorFn, round?: boolean): Promise<Value_LCH>;
+        function toLCH(clr: Value | Value_All | {
+            data: Value_All;
+        }, errMaker?: LocalErrors.ConstructorFn, round?: boolean): Promise<Value_LCH>;
         /**
          * @since 0.1.0-beta.0.draft
          */
-        function toRGB(clr: {
-            data: SingleShade;
-        } | SingleShade | SingleShade_Input, errMaker?: LocalErrors.ConstructorFn, round?: boolean): Promise<Value_RGB>;
+        function toRGB(clr: Value | Value_All | {
+            data: Value_All;
+        }, errMaker?: LocalErrors.ConstructorFn, round?: boolean): Promise<Value_RGB>;
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        function toString(clr: Value | Value_All | {
+            data: Value_All;
+        }, errContext: LocalErrors.Context, errMaker: LocalErrors.ConstructorFn, _defaultSpace?: keyof Value_All): Promise<string>;
     }
     /**
      * Generates a single pair of contrast test results used by the
@@ -171,8 +173,8 @@ export declare namespace ColourUtilities {
      */
     class ContrastTest {
         #private;
-        readonly clrA: ColourUtilities.SingleShade;
-        readonly clrB: ColourUtilities.SingleShade;
+        readonly clrA: ColourUtilities.Value_All;
+        readonly clrB: ColourUtilities.Value_All;
         static set standards(val: ContrastTest.Standards);
         static get standards(): ContrastTest.Standards;
         protected static cachePath: string;
@@ -180,11 +182,11 @@ export declare namespace ColourUtilities {
          * Gets the contrast ratio for the given colours, checking the cache for
          * values first.
          */
-        static test(clrA: ColourUtilities.SingleShade, clrB: ColourUtilities.SingleShade): number;
+        static test(clrA: ColourUtilities.Value_All, clrB: ColourUtilities.Value_All): number;
         readonly ratio: number;
         readonly aa: ContrastTest.SingleResult;
         readonly aaa: ContrastTest.SingleResult;
-        constructor(clrA: ColourUtilities.SingleShade, clrB: ColourUtilities.SingleShade);
+        constructor(clrA: ColourUtilities.Value_All, clrB: ColourUtilities.Value_All);
         toJSON(): ContrastTest.JSON;
         valueOf(): ContrastTest.Result;
     }

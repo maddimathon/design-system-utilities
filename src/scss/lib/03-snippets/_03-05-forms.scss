@@ -114,14 +114,14 @@
 
     @include cx-prop(focus-ring-outline-offset, var-style(button-focus-offset));
 
-    @include prop-display(flex);
+    @include prop-display(block);
 
-    flex-direction: row;
-    flex-wrap: wrap;
+    // flex-direction: row;
+    // flex-wrap: wrap;
 
-    justify-content: start;
-    align-content: start;
-    align-items: start;
+    // justify-content: start;
+    // align-content: start;
+    // align-items: start;
 
     width: #{if($width, $width, var-style(button-width))};
     height: auto;
@@ -234,6 +234,20 @@
     }
 
     @if $includePseudoIcons {
+        &::after,
+        &::before {
+            @include cx-prop(icon-size-pseudo--inline-buffer-start, 2 !important);
+            @include cx-prop(icon-size-pseudo--inline-buffer-end, 0 !important);
+        }
+
+        &::after {
+            padding-inline-end: 0 !important;
+        }
+
+        &::before {
+            padding-inline-start: 0 !important;
+        }
+
         &.button--no-pseudo {
             &::after,
             &::before {
@@ -254,6 +268,7 @@
         font-weight: inherit;
         font-style: inherit;
         background: transparent;
+        line-height: 1;
     }
 
     %icon {

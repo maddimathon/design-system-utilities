@@ -55,7 +55,9 @@ export class Tokens_Typography<
                 '600': 2,
             },
 
-            fonts: undefined,
+            fonts: {
+                icons: undefined,
+            },
 
             size: {
 
@@ -93,7 +95,9 @@ export class Tokens_Typography<
     public readonly data: Tokens_Typography.Data<T_FontFamilySlug>;
 
     public readonly familyOverrides: undefined | {
-        [ K in T_FontFamilySlug ]?: Tokens_Typography.Font.FamilyOverride;
+        [ F in Tokens_Typography.DefaultFontFamilies ]?: undefined | Tokens_Typography.Font.FamilyOverride;
+    } & {
+        [ F in T_FontFamilySlug ]?: Tokens_Typography.Font.FamilyOverride;
     };
 
     public constructor (
@@ -102,14 +106,35 @@ export class Tokens_Typography<
     ) {
         super();
 
-        this.data = mergeArgs( Tokens_Typography.default, input, true );
+        this.data = mergeArgs(
+            Tokens_Typography.default as Tokens_Typography.Data<T_FontFamilySlug>,
+            {
+                ...input,
+                fonts: {
+                    ...input.fonts,
+                    icons: input.fonts?.icons === false ? undefined : input.fonts?.icons,
+                },
+            },
+            true,
+        );
 
         this.familyOverrides = this.data.fonts
             ? Object.fromEntries(
                 (
-                    Object.values( this.data.fonts ) as Tokens_Typography.Font.Family<T_FontFamilySlug>[]
+                    Object.values( this.data.fonts ) as (
+                        undefined
+                        | Tokens_Typography.Font.Family<Tokens_Typography.DefaultFontFamilies | T_FontFamilySlug>
+                    )[]
                 ).map(
-                    ( font ): [ T_FontFamilySlug, Tokens_Typography.Font.FamilyOverride ] | [] => {
+                    ( font ): [
+                        Tokens_Typography.DefaultFontFamilies | T_FontFamilySlug,
+                        Tokens_Typography.Font.FamilyOverride,
+                    ] | [] => {
+                        // returns
+                        if ( typeof font === 'undefined' ) {
+                            return [];
+                        }
+
                         let isOverride = font.fontOverrideOption;
 
                         if ( typeof isOverride === 'undefined' ) {
@@ -346,6 +371,11 @@ export class Tokens_Typography<
  */
 export namespace Tokens_Typography {
 
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export type DefaultFontFamilies = "icons";
+
     type DefaultLineHeightLevels = "100" | "200" | "300" | "400" | "500" | "600";
 
     /**
@@ -362,7 +392,9 @@ export namespace Tokens_Typography {
             [ L in Exclude<AnyTokenLevel, DefaultLineHeightLevels> ]?: number;
         };
 
-        fonts: undefined | {
+        fonts: {
+            [ F in DefaultFontFamilies ]?: undefined | Font.Family<F>;
+        } & {
             [ F in T_FontFamilySlug ]: Font.Family<F>;
         };
 
@@ -399,7 +431,14 @@ export namespace Tokens_Typography {
     export type InputParam<
         T_FontFamilySlug extends string,
         T_SizeValue = number,
-    > = Partial<Omit<Data<T_FontFamilySlug, T_SizeValue>, 'lineHeight' | 'size'>> & {
+    > = Partial<Omit<Data<T_FontFamilySlug, T_SizeValue>, 'fonts' | 'lineHeight' | 'size'>> & {
+
+        fonts?: {
+            [ F in DefaultFontFamilies ]?: undefined | false | Font.Family<F>;
+        } & {
+            [ F in T_FontFamilySlug ]?: undefined | Font.Family<F>;
+        };
+
         lineHeight?: Partial<Data<T_FontFamilySlug, T_SizeValue>[ 'lineHeight' ]>;
         size?: RecursivePartial<Data<T_FontFamilySlug, T_SizeValue>[ 'size' ]>;
     };

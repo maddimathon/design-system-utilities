@@ -357,6 +357,10 @@ export declare namespace Tokens_CSS_Style {
             $: string;
             large: string;
             /**
+             * For inline icons using the icon font.
+             */
+            font: string;
+            /**
              * For inline icons in before/after pseudo classes.
              */
             pseudo: string;

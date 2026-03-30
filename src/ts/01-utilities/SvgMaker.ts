@@ -13,10 +13,12 @@
  * The object that defines a single SVG token.
  * 
  * @since 0.1.0-alpha
+ * @since ___PKG_VERSION___ — 
  */
 export class SvgMaker<
     T_Slug extends string = string,
-> implements SvgMaker.Data<T_Slug> {
+    T_Metadata extends any = undefined,
+> implements SvgMaker.Data<T_Slug, T_Metadata> {
 
     /**
      * An implementation of euclid's algorithm to find the greatest common 
@@ -76,9 +78,14 @@ export class SvgMaker<
 
     public readonly innerSVG: string;
 
+    /**
+     * @since ___PKG_VERSION___
+     */
+    public readonly meta: T_Metadata;
+
     public constructor (
-        data: SvgMaker.Data<T_Slug>,
-        protected readonly svgAttrs: string[] = []
+        data: SvgMaker.Data<T_Slug, T_Metadata>,
+        protected readonly svgAttrs: string[] = [],
     ) {
         this.slug = data.slug;
         this.label = data.label;
@@ -88,6 +95,7 @@ export class SvgMaker<
         this.innerSVG = data.innerSVG;
 
         this.aspectRatio = SvgMaker.simplifyRatio( this.width, this.height );
+        this.meta = data.meta as T_Metadata;
     }
 
     public svgAttrString( attrs: string[] = [] ) {
@@ -139,7 +147,7 @@ export class SvgMaker<
         ] ) }><title>${ this.ariaLabel }</title>${ this.innerSVG }</svg>`;
     }
 
-    public toJSON(): SvgMaker.JsonReturn<T_Slug> {
+    public toJSON(): SvgMaker.JsonReturn<T_Slug, T_Metadata> {
 
         return {
             slug: this.slug,
@@ -157,10 +165,12 @@ export class SvgMaker<
             svgInlineHidden: this.svgInlineHidden(),
             svgInlineLabelled: this.svgInlineLabelled(),
             svgAttrString: this.svgAttrString(),
+
+            meta: this.meta,
         };
     }
 
-    public toScssVars(): SvgMaker.ScssVars<T_Slug> {
+    public toScssVars(): SvgMaker.ScssVars<T_Slug, T_Metadata> {
 
         return {
             slug: this.slug,
@@ -173,7 +183,9 @@ export class SvgMaker<
                 ? this.aspectRatio[ 0 ].toString()
                 : this.aspectRatio.join( ' / ' ),
 
-            embedded: `url( 'data:image/svg+xml;utf8,${ this.svgCssEmbedded() }' )`
+            embedded: `url( 'data:image/svg+xml;utf8,${ this.svgCssEmbedded() }' )`,
+
+            meta: this.meta,
         };
     }
 }
@@ -190,6 +202,7 @@ export namespace SvgMaker {
      */
     export interface Data<
         T_Slug extends string = string,
+        T_Metadata extends any = any,
     > {
 
         /**
@@ -222,6 +235,11 @@ export namespace SvgMaker {
          * The paths and shapes to be included inside a <svg> element.
          */
         innerSVG: string;
+
+        /**
+         * Optional additional metadata.
+         */
+        meta?: T_Metadata;
     };
 
     /**
@@ -229,7 +247,8 @@ export namespace SvgMaker {
      */
     export type JsonReturn<
         T_Slug extends string = string,
-    > = Required<Data<T_Slug>> & {
+        T_Metadata extends any = any,
+    > = Required<Data<T_Slug, T_Metadata>> & {
         /**
          * Aspect ratio for the SVG (simplified from the wodth & height).
          */
@@ -266,7 +285,11 @@ export namespace SvgMaker {
      */
     export type ScssVars<
         T_Slug extends string = string,
-    > = Omit<JsonReturn<T_Slug>, "ariaLabel" | "aspectRatio" | "innerSVG" | "svgAttrString" | "svgFile" | "svgCssEmbedded" | "svgInlineHidden" | "svgInlineLabelled"> & {
+        T_Metadata extends any = any,
+    > = Omit<
+        JsonReturn<T_Slug, T_Metadata>,
+        "ariaLabel" | "aspectRatio" | "innerSVG" | "svgAttrString" | "svgFile" | "svgCssEmbedded" | "svgInlineHidden" | "svgInlineLabelled"
+    > & {
         aspectRatio: string;
         embedded: string;
     };

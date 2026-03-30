@@ -7,7 +7,8 @@
  * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
-import { mergeArgs, objectMap, } from '@maddimathon/utility-typescript';
+import { FontAssetType, generateFonts, OtherAssetType, } from 'fantasticon';
+import { mergeArgs, objectMap, slugify, } from '@maddimathon/utility-typescript';
 import { SvgMaker } from '../01-utilities/SvgMaker.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 import { objectKeySort_Tokens } from '../01-utilities/objectKeySort_Tokens.js';
@@ -17,7 +18,56 @@ import { objectKeySort_Tokens } from '../01-utilities/objectKeySort_Tokens.js';
  * @since 0.1.0-alpha
  */
 export class Tokens_Icons extends AbstractTokens {
+    fontName;
     static get default() {
+        const codepoints = {
+            attachment: 0xf101,
+            caution: 0xf102,
+            check: 0xf103,
+            clock: 0xf104,
+            close: 0xf105,
+            code: 0xf106,
+            compass: 0xf107,
+            dash: 0xf108,
+            'double-check': 0xf109,
+            down: 0xf110,
+            download: 0xf111,
+            draft: 0xf112,
+            error: 0xf113,
+            external: 0xf114,
+            fail: 0xf115,
+            forbidden: 0xf116,
+            hidden: 0xf117,
+            info: 0xf118,
+            left: 0xf119,
+            lightbulb: 0xf120,
+            lightning: 0xf121,
+            lock: 0xf122,
+            'logo-facebook': 0xf123,
+            'logo-instagram': 0xf124,
+            'logo-linkedin': 0xf125,
+            maximum: 0xf126,
+            minimum: 0xf127,
+            minus: 0xf128,
+            no: 0xf129,
+            note: 0xf130,
+            paperclip: 0xf131,
+            plus: 0xf132,
+            private: 0xf133,
+            question: 0xf134,
+            refresh: 0xf135,
+            right: 0xf136,
+            search: 0xf137,
+            settings: 0xf138,
+            star: 0xf139,
+            success: 0xf140,
+            ui: 0xf141,
+            'ui-check': 0xf142,
+            'ui-minimum': 0xf143,
+            unlock: 0xf144,
+            up: 0xf145,
+            warning: 0xf146,
+        };
         const check = {
             slug: 'check',
             label: 'Checkmark',
@@ -263,7 +313,7 @@ export class Tokens_Icons extends AbstractTokens {
             height: 24,
             innerSVG: `<path d="M12,1c6.074,-0 11,4.926 11,11c0,6.074 -4.926,11 -11,11c-6.074,-0 -11,-4.926 -11,-11c0,-6.074 4.926,-11 11,-11Zm0,2.146c-4.889,0 -8.854,3.965 -8.854,8.854c0,4.889 3.965,8.854 8.854,8.854c4.889,-0 8.854,-3.965 8.854,-8.854c-0,-4.889 -3.965,-8.854 -8.854,-8.854Zm0,12.61c0.888,0 1.61,0.721 1.61,1.61c-0,0.888 -0.722,1.61 -1.61,1.61c-0.888,-0 -1.61,-0.722 -1.61,-1.61c0,-0.889 0.722,-1.61 1.61,-1.61Zm-1.341,-9.122c-0,-0.74 0.601,-1.341 1.341,-1.341c0.74,-0 1.341,0.601 1.341,1.341l0,5.903c0,0.74 -0.601,1.341 -1.341,1.341c-0.74,0 -1.341,-0.601 -1.341,-1.341l-0,-5.903Z" />`,
         };
-        return {
+        return objectMap({
             attachment: {
                 ...paperclip,
                 slug: 'attachment',
@@ -360,11 +410,27 @@ export class Tokens_Icons extends AbstractTokens {
             unlock,
             up,
             warning,
-        };
+        }, ([key, obj]) => ({
+            ...obj,
+            meta: {
+                codepoint: codepoints[key],
+            },
+        }));
     }
     data;
-    constructor(input) {
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    _font;
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    get font() {
+        return this._font;
+    }
+    constructor(fontName, input) {
         super();
+        this.fontName = fontName;
         const merged = mergeArgs(Tokens_Icons.default, input, true);
         const mapped = objectMap(merged, ([key, value]) => {
             // returns
@@ -384,10 +450,61 @@ export class Tokens_Icons extends AbstractTokens {
         });
         this.data = objectKeySort_Tokens(mapped, false);
     }
+    #getCodepoints = undefined;
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    getCodepoints() {
+        // returns
+        if (typeof this.#getCodepoints !== 'undefined') {
+            return this.#getCodepoints;
+        }
+        this.#getCodepoints = objectMap(this.data, ([key, value]) => value.meta?.codepoint);
+        return this.#getCodepoints;
+    }
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    async toIconFont(args) {
+        const assetTypes = args.assetTypes ?? [];
+        const fontTypes = args.fontTypes ?? [
+            FontAssetType.TTF,
+            FontAssetType.WOFF,
+            FontAssetType.WOFF2,
+        ];
+        const name = slugify(this.fontName);
+        return generateFonts({
+            codepoints: this.getCodepoints(),
+            ...args,
+            name,
+            assetTypes,
+            fontTypes,
+        }, false).then(results => {
+            this._font = results;
+            if (typeof this.#getCodepoints !== 'undefined') {
+                const entries = Object.entries(results.codepoints);
+                for (const [key, value] of entries) {
+                    this.#getCodepoints[key] = value;
+                }
+            }
+            return results;
+        });
+    }
     toJSON() {
         return objectMap(this.data, ([key, value]) => value.toJSON());
     }
     toScssVars() {
-        return objectMap(this.data, ([key, value]) => value.toScssVars());
+        return objectMap(this.data, ([key, value]) => {
+            const vars = value.toScssVars();
+            return {
+                slug: vars.slug,
+                label: vars.label,
+                height: vars.height,
+                width: vars.width,
+                aspectRatio: vars.aspectRatio,
+                embedded: vars.embedded,
+                fontGlyph: value.meta.codepoint ? `\\${value.meta.codepoint.toString(16)}` : undefined,
+            };
+        });
     }
 }

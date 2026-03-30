@@ -46,8 +46,8 @@ export class Compile extends CompileStage {
      *
      * @category Running
      */
-    async buildTokens(tokens, level, paths) {
-        await buildTokens(this, tokens, level, paths);
+    async buildTokens(tokens, level, paths, args = {}) {
+        await buildTokens(this, tokens, level, paths, args);
         // this.console.progress( 'building token files...', 0 + level );
         // this.console.verbose( 'parsing paths...', 1 + level );
         // const tokensDistDir = this.getDistDir(

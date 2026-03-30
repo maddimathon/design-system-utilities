@@ -95,8 +95,8 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
             @if $fontMap != null {
                 @include _tokens-font-face-style-printer($fontMap, $isVariable: true);
             } @else {
+                //
                 @each $weight, $styleMap in $weightMap {
-                    //
                     @include _tokens-font-face-style-printer($styleMap);
                 }
             }
@@ -115,7 +115,9 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
         /* #region Tokens - Font Families */
         #{selector.parent-or-root()} {
             @each $slug in map.keys(map.get(tokens.$designSystem, font, family)) {
-                @include utils.cx-prop(ff-#{$slug}, font-family-list($slug));
+                @if $slug != icons {
+                    @include utils.cx-prop(ff-#{$slug}, font-family-list($slug));
+                }
             }
         }
         /* #endregion Tokens - Font Families */

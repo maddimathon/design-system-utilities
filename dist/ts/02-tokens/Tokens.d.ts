@@ -37,6 +37,7 @@ export declare class Tokens<T_Types extends TokenTypes.TypeParams = TokenTypes.T
     json: Tokens_Internal.JsonReturn<T_Types>;
     scss: Tokens_Internal.ScssVars<T_Types>;
 }> {
+    readonly name: string;
     protected readonly colourOpts: {
         names: TokenTypes.Colour.GenericNameArray<T_Types['colour']['names']>;
         allLevels: Set<ColourUtilities.Levels.Required | T_Types['colour']['extraLevels']>;
@@ -44,6 +45,7 @@ export declare class Tokens<T_Types extends TokenTypes.TypeParams = TokenTypes.T
     protected readonly input: Omit<Tokens_Internal.InputParam<T_Types>, "colour" | "themes">;
     protected readonly config: Tokens_Internal.Config;
     get data(): {
+        name: string;
         icons: Tokens_Icons.Data<T_Types["iconNames"]>;
         logos: Tokens_Logos.Data<T_Types["logoNames"]>;
         spacing: Tokens_Spacing.Data;
@@ -66,7 +68,7 @@ export declare class Tokens<T_Types extends TokenTypes.TypeParams = TokenTypes.T
     /**
      *  * @since 0.1.0-beta.0.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
-    protected constructor(colourOpts: {
+    protected constructor(name: string, colourOpts: {
         names: TokenTypes.Colour.GenericNameArray<T_Types['colour']['names']>;
         allLevels: Set<ColourUtilities.Levels.Required | T_Types['colour']['extraLevels']>;
     }, { colour, themes }: {
@@ -89,6 +91,7 @@ export declare namespace Tokens_Internal {
         extraColourLevels?: undefined | never;
     }
     type Data<T_Types extends TokenTypes.TypeParams> = {
+        name: string;
         colour: Tokens_Colour.Data<T_Types['colour']>;
         css: Tokens_CSS.Data;
         icons: Tokens_Icons.Data<T_Types['iconNames']>;
@@ -98,10 +101,11 @@ export declare namespace Tokens_Internal {
         typography: Tokens_Typography.Data<string>;
     };
     interface InputParam<T_Types extends TokenTypes.TypeParams> {
-        colour?: undefined | Tokens_Colour.InputParam<T_Types['colour']>;
+        name: string;
+        colour: Tokens_Colour.InputParam<T_Types['colour']>;
         css?: undefined | Tokens_CSS.InputParam;
         icons?: undefined | Tokens_Icons.InputParam<T_Types['iconNames']>;
-        logos?: undefined | Tokens_Logos.InputParam<T_Types['logoNames']>;
+        logos: Tokens_Logos.InputParam<T_Types['logoNames']>;
         spacing?: undefined | Tokens_Spacing.InputParam;
         themes?: {
             brightness?: readonly TokenTypes.Theme.GetBrightnessKeys<T_Types['theme']>[];
@@ -111,6 +115,7 @@ export declare namespace Tokens_Internal {
         typography?: undefined | Tokens_Typography.InputParam<string>;
     }
     type JsonReturn<T_Types extends TokenTypes.TypeParams> = {
+        name: string;
         colour: Tokens_Colour.JsonReturn<T_Types['colour']>;
         css: Tokens_CSS.JsonReturn;
         icons: Tokens_Icons.JsonReturn<T_Types['iconNames']>;
@@ -120,6 +125,7 @@ export declare namespace Tokens_Internal {
         typography: Tokens_Typography.JsonReturn<string>;
     };
     type ScssVars<T_Types extends TokenTypes.TypeParams> = Tokens_CSS.ScssVars & Tokens_Spacing.ScssVars & Tokens_Typography.ScssVars<string> & {
+        name: string;
         colour: Tokens_Colour.ScssVars<T_Types['colour']>;
         icons: Tokens_Icons.ScssVars<T_Types['iconNames']>;
         logos: Tokens_Logos.ScssVars<T_Types['logoNames']>;
@@ -143,6 +149,7 @@ export declare namespace Tokens {
      */
     interface Config<T_ExtraColourLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional> {
         extraColourLevels: readonly T_ExtraColourLevels[];
+        iconFontName: string;
         tokensAsDefault: boolean;
     }
     /**
@@ -425,6 +432,8 @@ export declare namespace Tokens {
          * @since 0.1.0-alpha
          */
         type AllFonts<T_FontFamilySlug extends string = string> = {
+            [F in Tokens_Typography.DefaultFontFamilies]?: undefined | Tokens_Typography.Font.Family<F>;
+        } & {
             [K in T_FontFamilySlug]: Tokens_Typography.Font.Family<K>;
         };
         /**
@@ -465,7 +474,7 @@ export declare namespace Tokens {
              *
              * @since 0.1.0-alpha
              */
-            function familyGenerator<T_Slug extends string>(slug: T_Slug, name: string, familyOpts?: Omit<Partial<Tokens_Typography.Font.Family<T_Slug>>, "path" | "style" | "weight"> & {
+            function familyGenerator<T_Slug extends string>(slug: T_Slug, name: string, { includeLocalSrc, ...familyOpts }?: Omit<Partial<Tokens_Typography.Font.Family<T_Slug>>, "path" | "style" | "weight"> & {
                 includeLocalSrc?: boolean;
             }, weightOpts?: {
                 [L in WholeTokenLevel]?: familyGenerator.FileOptions;
@@ -482,6 +491,10 @@ export declare namespace Tokens {
                  * @since 0.1.0-alpha
                  */
                 type FileOptions = Omit<Tokens_Typography.Font.File, "path" | "style" | "weight"> & {
+                    /**
+                     * @since 0.1.0-beta.0.draft
+                     */
+                    filename?: string;
                     /**
                      * Whether to include local sources in the files list.
                      *

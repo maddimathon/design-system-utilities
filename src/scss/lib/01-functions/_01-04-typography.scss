@@ -16,8 +16,21 @@
 $_designSystemHasFontFamilies: map.has-key(tokens.$designSystem, font, family) and
     list.length(map.keys(map.get(tokens.$designSystem, font, family))) > 0;
 
+$_designSystemHasFontFamilyOverrides: $_designSystemHasFontFamilies and
+    list.length(list.except(map.keys(map.get(tokens.$designSystem, font, family)), 'icons')) > 0;
+
+///
+/// @since 0.1.0-alpha
+///
 @function tokens-has-font-families() {
     @return $_designSystemHasFontFamilies;
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@function tokens-has-font-family-overrides() {
+    @return $_designSystemHasFontFamilyOverrides;
 }
 
 ///
@@ -51,7 +64,7 @@ $_designSystemHasFontFamilies: map.has-key(tokens.$designSystem, font, family) a
     @return utils.do-var(
         ff-#{$slug},
         $fallback: font-family-list($slug),
-        $fallbackOnly: config.$fn_var_replaceWithValue_fontFamily,
+        $fallbackOnly: $slug == icons or config.$fn_var_replaceWithValue_fontFamily,
         $args...
     );
 }

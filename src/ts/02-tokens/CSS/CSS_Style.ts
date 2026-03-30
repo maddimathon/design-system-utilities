@@ -345,6 +345,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
             size: {
                 $: '1.375em',
                 large: '2em',
+                font: '1em',
                 pseudo: '1em',
             },
             'vertical-align': 'middle',
@@ -810,6 +811,11 @@ export namespace Tokens_CSS_Style {
         size: {
             $: string;
             large: string;
+
+            /**
+             * For inline icons using the icon font.
+             */
+            font: string;
 
             /**
              * For inline icons in before/after pseudo classes.

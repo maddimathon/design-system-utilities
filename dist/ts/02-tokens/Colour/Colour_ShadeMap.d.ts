@@ -79,7 +79,7 @@ export declare namespace Tokens_Colour_ShadeMap {
          *
          * @since 0.1.0-alpha
          */
-        addContrastTest<T_TestColourName extends TokenTypes.Colour.GenericName<T_Types['names']>, T_TestColourLevel extends ColourUtilities.Levels.Required | T_Types['extraLevels']>(colourGroupName: T_TestColourName, level: T_TestColourLevel, testClr: ColourUtilities.SingleShade): Promise<void>;
+        addContrastTest<T_TestColourName extends TokenTypes.Colour.GenericName<T_Types['names']>, T_TestColourLevel extends ColourUtilities.Levels.Required | T_Types['extraLevels']>(colourGroupName: T_TestColourName, level: T_TestColourLevel, testClr: ColourUtilities.Value_All): Promise<void>;
         toJSON(): Shade.JsonReturn<T_Types>;
         toScssVars(): Shade.ScssVars;
     }
@@ -157,11 +157,11 @@ export declare namespace Tokens_Colour_ShadeMap {
         /**
          * @since 0.1.0-alpha
          */
-        type Data = ColourUtilities.SingleShade;
+        type Data = ColourUtilities.Value_All;
         /**
          * @since 0.1.0-alpha
          */
-        type InputParam = ColourUtilities.SingleShade_Input;
+        type InputParam = ColourUtilities.Value | ColourUtilities.Value_All;
         /**
          * @since 0.1.0-alpha
          */

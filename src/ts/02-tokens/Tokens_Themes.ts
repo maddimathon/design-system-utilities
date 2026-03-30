@@ -56,17 +56,20 @@ export class Tokens_Themes<
 
         input: Tokens_Themes.InputParam<T_ColourTypes, T_ThemeTypes>,
     ) {
+
         return Tokens_Themes.buildSets(
             brightnessModes,
             contrastModes,
             colours,
             input,
-        ).then( sets => new Tokens_Themes(
-            brightnessModes,
-            contrastModes,
-            colours,
-            sets,
-        ) );
+        ).then(
+            sets => new Tokens_Themes(
+                brightnessModes,
+                contrastModes,
+                colours,
+                sets,
+            )
+        );
     }
 
     /**

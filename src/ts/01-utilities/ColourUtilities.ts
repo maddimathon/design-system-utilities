@@ -79,7 +79,7 @@ export namespace ColourUtilities {
      *
      * @since 0.1.0-alpha
      */
-    export type Value = Value_Hex | Value_HSL | Value_RGB | Value_LCH;
+    export type Value = Value_Hex | Value_HSL | Value_LCH | Value_RGB;
 
     /**
      * All of the single colour values as an object.
@@ -89,38 +89,28 @@ export namespace ColourUtilities {
     export type Value_All = {
         hex: Value_Hex;
         hsl: Value_HSL;
-        rgb: Value_RGB;
         lch: Value_LCH;
+        rgb: Value_RGB;
     };
+
+    export type Value_Generic<T_Space extends "hex" | "hsl" | "lch" | "rgb"> =
+        | T_Space extends "hex" ? string : never
+        | T_Space extends "hsl" ? Value_HSL : never
+        | T_Space extends "lch" ? Value_LCH : never
+        | T_Space extends "rgb" ? Value_RGB : never;
 
 
     /* SINGLE SHADES
      * ====================================================================== */
 
     /**
-     * Allowed input for the {@link SingleShade} schema.
-     *
-     * @since 0.1.0-alpha
-     * @useDeclaredType
-     */
-    export type SingleShade_Input = Value | Value_All;
-
-    /**
-     * The parsed output of the {@link SingleShade} schema.
-     *
-     * @since 0.1.0-alpha
-     * @useDeclaredType
-     */
-    export type SingleShade = Value_All;
-
-    /**
-     * Ensures a valid shade object.
+     * Ensures a valid and complete shade object.
      */
     export async function validateShade(
-        input: SingleShade_Input,
+        input: Value | Value_All,
         errMaker: LocalErrors.ConstructorFn = defaultErrorMaker,
         round?: boolean,
-    ): Promise<SingleShade> {
+    ): Promise<Value_All> {
         // throws
         if ( !input ) {
             throw errMaker(
@@ -149,6 +139,99 @@ export namespace ColourUtilities {
      * ====================================================================== */
 
     /**
+     * @since ___PKG_VERSION___
+     */
+    function isAllValues(
+        clr: Value | Value_All | { data: Value_All; },
+        spaceToCheck: keyof Value_All = 'hsl',
+    ): clr is Value_All {
+        // returns
+        if ( typeof clr !== 'object' ) {
+            return false;
+        }
+
+        return !!( ( spaceToCheck in clr ) && clr[ spaceToCheck as keyof typeof clr ] );
+    }
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    function isSingleShade(
+        clr: Value | Value_All | { data: Value_All; }
+    ): clr is { data: Value_All; } {
+        // returns
+        if ( typeof clr !== 'object' ) {
+            return false;
+        }
+
+        return !!( ( 'data' in clr ) && clr.data );
+    }
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    function validator<T_Space extends keyof Value_All>(
+        clr: { data: Value_All; } | Value_All | Value_Generic<T_Space>,
+        space: T_Space,
+        errContext: LocalErrors.Context,
+        errMaker: LocalErrors.ConstructorFn,
+    ): Value_Generic<T_Space> {
+        let validClr: Value_Generic<T_Space>;
+
+        if ( typeof clr === 'object' ) {
+
+            if ( isSingleShade( clr ) ) {
+                validClr = clr.data[ space ] as Value_Generic<T_Space>;
+            } else if ( isAllValues( clr ) ) {
+                validClr = clr[ space ] as Value_Generic<T_Space>;
+            } else {
+                validClr = clr;
+            }
+        } else {
+            validClr = clr;
+        }
+
+        // returns
+        switch ( space ) {
+
+            case 'hex':
+                return hexValidator(
+                    validClr as Value_Hex,
+                    errContext,
+                    errMaker,
+                ) as Value_Generic<T_Space>;
+
+            case 'hsl':
+                return hslValidator(
+                    validClr as Value_HSL,
+                    errContext,
+                    errMaker,
+                ) as Value_Generic<T_Space>;
+
+            case 'lch':
+                return lchValidator(
+                    validClr as Value_LCH,
+                    errContext,
+                    errMaker,
+                ) as Value_Generic<T_Space>;
+
+            // case 'oklch':
+            //     return oklchValidator(
+            //         validClr as Value_OKLCH,
+            //         errContext,
+            //         errMaker,
+            //     ) as Value_Generic<T_Space>;
+
+            case 'rgb':
+                return rgbValidator(
+                    validClr as Value_RGB,
+                    errContext,
+                    errMaker,
+                ) as Value_Generic<T_Space>;
+        }
+    }
+
+    /**
      * Validates an input hex code, throwing an error if needed.
      */
     function hexValidator(
@@ -174,7 +257,7 @@ export namespace ColourUtilities {
      * Validates an input HSL obj, throwing an error if needed.
      */
     function hslValidator(
-        hsl: Partial<Value_HSL>,
+        hsl: Value_HSL,
         context: LocalErrors.Context,
         errMaker: LocalErrors.ConstructorFn,
     ): Value_HSL {
@@ -224,7 +307,7 @@ export namespace ColourUtilities {
      * Validates an input LCH obj, throwing an error if needed.
      */
     function lchValidator(
-        lch: Partial<Value_LCH>,
+        lch: Value_LCH,
         context: LocalErrors.Context,
         errMaker: LocalErrors.ConstructorFn,
     ): Value_LCH {
@@ -274,7 +357,7 @@ export namespace ColourUtilities {
      * Validates an input RGB obj, throwing an error if needed.
      */
     function rgbValidator(
-        rgb: Partial<Value_RGB>,
+        rgb: Value_RGB,
         context: LocalErrors.Context,
         errMaker: LocalErrors.ConstructorFn,
     ): Value_RGB {
@@ -324,7 +407,7 @@ export namespace ColourUtilities {
      * @since 0.1.0-alpha
      */
     export function toHex(
-        clr: { data: SingleShade; } | SingleShade | SingleShade_Input,
+        clr: Value | Value_All | { data: Value_All; },
         errMaker: LocalErrors.ConstructorFn = defaultErrorMaker,
     ): Value_Hex {
         const errContext = {
@@ -379,7 +462,7 @@ export namespace ColourUtilities {
      * @since 0.1.0-alpha
      */
     export function toHSL(
-        clr: { data: SingleShade; } | SingleShade | SingleShade_Input,
+        clr: Value | Value_All | { data: Value_All; },
         errMaker: LocalErrors.ConstructorFn = defaultErrorMaker,
         round: boolean = true,
     ): Value_HSL {
@@ -402,7 +485,7 @@ export namespace ColourUtilities {
             l: roundToPixel( hsl.l, 100 ),
         } : hsl;
 
-        const _hslValidator = ( hsl: Partial<Value_HSL> ) => _hslFormatter(
+        const _hslValidator = ( hsl: Value_HSL ) => _hslFormatter(
             hslValidator( hsl, errContext, errMaker )
         );
 
@@ -466,7 +549,7 @@ export namespace ColourUtilities {
      * @since 0.1.0-alpha
      */
     export function toLCH(
-        clr: { data: SingleShade; } | SingleShade | SingleShade_Input,
+        clr: Value | Value_All | { data: Value_All; },
         errMaker: LocalErrors.ConstructorFn = defaultErrorMaker,
         round: boolean = true,
     ): Value_LCH {
@@ -489,8 +572,8 @@ export namespace ColourUtilities {
             h: roundToPixel( lch.h, 1000 ),
         } : lch;
 
-        const _lchValidator = ( hsl: Partial<Value_LCH> ) => _lchFormatter(
-            lchValidator( hsl, errContext, errMaker )
+        const _lchValidator = ( lch: Value_LCH ) => _lchFormatter(
+            lchValidator( lch, errContext, errMaker )
         );
 
         // returns - converts
@@ -535,7 +618,7 @@ export namespace ColourUtilities {
      * @since 0.1.0-alpha
      */
     export function toRGB(
-        clr: { data: SingleShade; } | SingleShade | SingleShade_Input,
+        clr: Value | Value_All | { data: Value_All; },
         errMaker: LocalErrors.ConstructorFn = defaultErrorMaker,
         round: boolean = true,
     ): Value_RGB {
@@ -558,7 +641,7 @@ export namespace ColourUtilities {
             b: roundToPixel( rgb.b, 100 ),
         } : rgb;
 
-        const _rgbValidator = ( rgb: Partial<Value_RGB> ) => _rgbFormatter(
+        const _rgbValidator = ( rgb: Value_RGB ) => _rgbFormatter(
             rgbValidator( rgb, errContext, errMaker )
         );
 
@@ -604,8 +687,8 @@ export namespace ColourUtilities {
      * @since 0.1.0-alpha
      */
     export async function mixColours(
-        _clrA: { data: SingleShade; } | SingleShade | SingleShade_Input,
-        _clrB: { data: SingleShade; } | SingleShade | SingleShade_Input,
+        _clrA: Value | Value_All | { data: Value_All; },
+        _clrB: Value | Value_All | { data: Value_All; },
         saturationMultiplier: number = 0,
     ): Promise<Value_LCH> {
 
@@ -649,30 +732,101 @@ export namespace ColourUtilities {
         } );
     }
 
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export function toString(
+        clr: Value | Value_All | { data: Value_All; },
+        errContext: LocalErrors.Context,
+        errMaker: LocalErrors.ConstructorFn,
+        _defaultSpace?: keyof Value_All,
+    ): string {
+        const defaultSpace = _defaultSpace ?? 'hsl';
+
+        // returns - converts
+        if ( typeof clr === 'string' ) {
+            return hexValidator( clr, errContext, errMaker );
+        }
+
+        // returns - already built
+        if ( isSingleShade( clr ) ) {
+
+            const converter = ColourUtilities.toString[ defaultSpace ] as ( clr: Value_Generic<typeof defaultSpace> ) => string;
+
+            return converter( validator(
+                clr.data[ defaultSpace ],
+                defaultSpace,
+                errContext,
+                errMaker,
+            ) );
+        }
+
+        // returns - already built
+        if ( isAllValues( clr ) ) {
+
+            const converter = ColourUtilities.toString[ defaultSpace ] as ( clr: Value_Generic<typeof defaultSpace> ) => string;
+
+            return converter( validator(
+                clr[ defaultSpace ],
+                defaultSpace,
+                errContext,
+                errMaker,
+            ) );
+        }
+
+        // returns - hsl
+        if ( 's' in clr ) {
+            return ColourUtilities.toString.hsl( hslValidator(
+                clr,
+                errContext,
+                errMaker,
+            ) );
+        }
+
+        // returns - oklch
+        if ( 'c' in clr ) {
+            return ColourUtilities.toString.lch( lchValidator(
+                clr,
+                errContext,
+                errMaker,
+            ) );
+        }
+
+        // returns - rgb
+        return ColourUtilities.toString.rgb( rgbValidator(
+            clr,
+            errContext,
+            errMaker,
+        ) );
+    }
+
+    /**
+     * @since 0.1.0-alpha
+     */
     export namespace toString {
 
         export function hex(
-            clr: { data: SingleShade; } | SingleShade | SingleShade_Input,
+            clr: Value_Hex | Value_All | { data: Value_All; },
         ): string {
             return '#' + toHex( clr );
         }
 
         export function hsl(
-            clr: { data: SingleShade; } | SingleShade | SingleShade_Input,
+            clr: Value_HSL | Value_All | { data: Value_All; },
         ): string {
             const hsl = toHSL( clr );
             return `hsl( ${ hsl.h }, ${ hsl.s }%, ${ hsl.l }% )`;
         }
 
         export function lch(
-            clr: { data: SingleShade; } | SingleShade | SingleShade_Input,
+            clr: Value_LCH | Value_All | { data: Value_All; },
         ): string {
             const lch = toLCH( clr );
             return `lch( ${ lch.l }% ${ lch.c } ${ lch.h } )`;
         }
 
         export function rgb(
-            clr: { data: SingleShade; } | SingleShade | SingleShade_Input,
+            clr: Value_RGB | Value_All | { data: Value_All; },
         ): string {
             const rgb = toRGB( clr );
             return `rgb( ${ rgb.r }, ${ rgb.g }, ${ rgb.b } )`;
@@ -683,6 +837,63 @@ export namespace ColourUtilities {
      * @since ___PKG_VERSION___
      */
     export namespace Async {
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        async function validator<T_Space extends keyof Value_All>(
+            clr: { data: Value_All; } | Value_All | Value_Generic<T_Space>,
+            space: T_Space,
+            errContext: LocalErrors.Context,
+            errMaker: LocalErrors.ConstructorFn,
+        ): Promise<Value_Generic<T_Space>> {
+            let validClr: Value_Generic<T_Space>;
+
+            if ( typeof clr === 'object' ) {
+
+                if ( isSingleShade( clr ) ) {
+                    validClr = clr.data[ space ] as Value_Generic<T_Space>;
+                } else if ( isAllValues( clr ) ) {
+                    validClr = clr[ space ] as Value_Generic<T_Space>;
+                } else {
+                    validClr = clr;
+                }
+            } else {
+                validClr = clr;
+            }
+
+            // returns
+            switch ( space ) {
+
+                case 'hex':
+                    return hexValidator(
+                        validClr as Value_Hex,
+                        errContext,
+                        errMaker,
+                    ) as Promise<Value_Generic<T_Space>>;
+
+                case 'hsl':
+                    return hslValidator(
+                        validClr as Value_HSL,
+                        errContext,
+                        errMaker,
+                    ) as Promise<Value_Generic<T_Space>>;
+
+                case 'lch':
+                    return lchValidator(
+                        validClr as Value_LCH,
+                        errContext,
+                        errMaker,
+                    ) as Promise<Value_Generic<T_Space>>;
+
+                case 'rgb':
+                    return rgbValidator(
+                        validClr as Value_RGB,
+                        errContext,
+                        errMaker,
+                    ) as Promise<Value_Generic<T_Space>>;
+            }
+        }
 
         /**
          * Validates an input hex code, throwing an error if needed.
@@ -875,7 +1086,7 @@ export namespace ColourUtilities {
          * @since ___PKG_VERSION___
          */
         export async function toHex(
-            clr: { data: SingleShade; } | SingleShade | SingleShade_Input,
+            clr: Value | Value_All | { data: Value_All; },
             errMaker: LocalErrors.ConstructorFn = defaultErrorMaker,
         ): Promise<Value_Hex> {
             const errContext = {
@@ -932,7 +1143,7 @@ export namespace ColourUtilities {
          * @since ___PKG_VERSION___
          */
         export async function toHSL(
-            clr: { data: SingleShade; } | SingleShade | SingleShade_Input,
+            clr: Value | Value_All | { data: Value_All; },
             errMaker: LocalErrors.ConstructorFn = defaultErrorMaker,
             round: boolean = true,
         ): Promise<Value_HSL> {
@@ -1009,7 +1220,7 @@ export namespace ColourUtilities {
          * @since ___PKG_VERSION___
          */
         export async function toLCH(
-            clr: { data: SingleShade; } | SingleShade | SingleShade_Input,
+            clr: Value | Value_All | { data: Value_All; },
             errMaker: LocalErrors.ConstructorFn = defaultErrorMaker,
             round: boolean = true,
         ): Promise<Value_LCH> {
@@ -1086,7 +1297,7 @@ export namespace ColourUtilities {
          * @since ___PKG_VERSION___
          */
         export async function toRGB(
-            clr: { data: SingleShade; } | SingleShade | SingleShade_Input,
+            clr: Value | Value_All | { data: Value_All; },
             errMaker: LocalErrors.ConstructorFn = defaultErrorMaker,
             round: boolean = true,
         ): Promise<Value_RGB> {
@@ -1158,6 +1369,76 @@ export namespace ColourUtilities {
                 }
             );
         }
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        export async function toString(
+            clr: Value | Value_All | { data: Value_All; },
+            errContext: LocalErrors.Context,
+            errMaker: LocalErrors.ConstructorFn,
+            _defaultSpace?: keyof Value_All,
+        ): Promise<string> {
+            const defaultSpace = _defaultSpace ?? 'hsl';
+
+            // returns - converts
+            if ( typeof clr === 'string' ) {
+                return hexValidator( clr, errContext, errMaker ).then(
+                    ColourUtilities.toString.hex
+                );
+            }
+
+            // returns - already built
+            if ( isSingleShade( clr ) ) {
+
+                return validator(
+                    clr.data[ defaultSpace ],
+                    defaultSpace,
+                    errContext,
+                    errMaker,
+                ).then(
+                    ColourUtilities.toString[ defaultSpace ] as ( clr: Value_Generic<typeof defaultSpace> ) => string
+                );
+            }
+
+            // returns - already built
+            if ( isAllValues( clr ) ) {
+
+                return validator(
+                    clr[ defaultSpace ],
+                    defaultSpace,
+                    errContext,
+                    errMaker,
+                ).then(
+                    ColourUtilities.toString[ defaultSpace ] as ( clr: Value_Generic<typeof defaultSpace> ) => string
+                );
+            }
+
+            // returns - hsl
+            if ( 's' in clr ) {
+                return hslValidator(
+                    clr,
+                    errContext,
+                    errMaker,
+                ).then( ColourUtilities.toString.hsl );
+            }
+
+            // returns - oklch
+            if ( 'c' in clr ) {
+                return lchValidator(
+                    clr,
+                    errContext,
+                    errMaker,
+                ).then( ColourUtilities.toString.lch );
+            }
+
+            // returns - rgb
+            return rgbValidator(
+                clr,
+                errContext,
+                errMaker,
+            ).then( ColourUtilities.toString.rgb );
+        }
     }
 
 
@@ -1206,8 +1487,8 @@ export namespace ColourUtilities {
          * values first.
          */
         public static test(
-            clrA: ColourUtilities.SingleShade,
-            clrB: ColourUtilities.SingleShade,
+            clrA: ColourUtilities.Value_All,
+            clrB: ColourUtilities.Value_All,
         ): number {
             const cacheKey = [
                 [ clrA.rgb.r, clrA.rgb.g, clrA.rgb.b ].join( '-' ),
@@ -1232,8 +1513,8 @@ export namespace ColourUtilities {
         public readonly aaa: ContrastTest.SingleResult;
 
         public constructor (
-            public readonly clrA: ColourUtilities.SingleShade,
-            public readonly clrB: ColourUtilities.SingleShade,
+            public readonly clrA: ColourUtilities.Value_All,
+            public readonly clrB: ColourUtilities.Value_All,
         ) {
             this.ratio = ContrastTest.test( clrA, clrB );
 

@@ -22,8 +22,10 @@ import { roundToPixel } from './roundToPixel.js';
 export var ColourUtilities;
 (function (ColourUtilities) {
     const defaultErrorMaker = (message, context, opts) => new LocalErrors.ColourUtilitiesError(message, context, opts);
+    /* SINGLE SHADES
+     * ====================================================================== */
     /**
-     * Ensures a valid shade object.
+     * Ensures a valid and complete shade object.
      */
     async function validateShade(input, errMaker = defaultErrorMaker, round) {
         // throws
@@ -44,6 +46,63 @@ export var ColourUtilities;
     ColourUtilities.validateShade = validateShade;
     /* UTILITY FUNCTIONS
      * ====================================================================== */
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    function isAllValues(clr, spaceToCheck = 'hsl') {
+        // returns
+        if (typeof clr !== 'object') {
+            return false;
+        }
+        return !!((spaceToCheck in clr) && clr[spaceToCheck]);
+    }
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    function isSingleShade(clr) {
+        // returns
+        if (typeof clr !== 'object') {
+            return false;
+        }
+        return !!(('data' in clr) && clr.data);
+    }
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    function validator(clr, space, errContext, errMaker) {
+        let validClr;
+        if (typeof clr === 'object') {
+            if (isSingleShade(clr)) {
+                validClr = clr.data[space];
+            }
+            else if (isAllValues(clr)) {
+                validClr = clr[space];
+            }
+            else {
+                validClr = clr;
+            }
+        }
+        else {
+            validClr = clr;
+        }
+        // returns
+        switch (space) {
+            case 'hex':
+                return hexValidator(validClr, errContext, errMaker);
+            case 'hsl':
+                return hslValidator(validClr, errContext, errMaker);
+            case 'lch':
+                return lchValidator(validClr, errContext, errMaker);
+            // case 'oklch':
+            //     return oklchValidator(
+            //         validClr as Value_OKLCH,
+            //         errContext,
+            //         errMaker,
+            //     ) as Value_Generic<T_Space>;
+            case 'rgb':
+                return rgbValidator(validClr, errContext, errMaker);
+        }
+    }
     /**
      * Validates an input hex code, throwing an error if needed.
      */
@@ -246,7 +305,7 @@ export var ColourUtilities;
             c: roundToPixel(lch.c, 2000),
             h: roundToPixel(lch.h, 1000),
         } : lch;
-        const _lchValidator = (hsl) => _lchFormatter(lchValidator(hsl, errContext, errMaker));
+        const _lchValidator = (lch) => _lchFormatter(lchValidator(lch, errContext, errMaker));
         // returns - converts
         if (typeof clr === 'string') {
             const validHex = hexValidator(clr, errContext, errMaker);
@@ -356,7 +415,40 @@ export var ColourUtilities;
         });
     }
     ColourUtilities.mixColours = mixColours;
-    let toString;
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    function toString(clr, errContext, errMaker, _defaultSpace) {
+        const defaultSpace = _defaultSpace ?? 'hsl';
+        // returns - converts
+        if (typeof clr === 'string') {
+            return hexValidator(clr, errContext, errMaker);
+        }
+        // returns - already built
+        if (isSingleShade(clr)) {
+            const converter = ColourUtilities.toString[defaultSpace];
+            return converter(validator(clr.data[defaultSpace], defaultSpace, errContext, errMaker));
+        }
+        // returns - already built
+        if (isAllValues(clr)) {
+            const converter = ColourUtilities.toString[defaultSpace];
+            return converter(validator(clr[defaultSpace], defaultSpace, errContext, errMaker));
+        }
+        // returns - hsl
+        if ('s' in clr) {
+            return ColourUtilities.toString.hsl(hslValidator(clr, errContext, errMaker));
+        }
+        // returns - oklch
+        if ('c' in clr) {
+            return ColourUtilities.toString.lch(lchValidator(clr, errContext, errMaker));
+        }
+        // returns - rgb
+        return ColourUtilities.toString.rgb(rgbValidator(clr, errContext, errMaker));
+    }
+    ColourUtilities.toString = toString;
+    /**
+     * @since 0.1.0-alpha
+     */
     (function (toString) {
         function hex(clr) {
             return '#' + toHex(clr);
@@ -383,6 +475,37 @@ export var ColourUtilities;
      */
     let Async;
     (function (Async) {
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        async function validator(clr, space, errContext, errMaker) {
+            let validClr;
+            if (typeof clr === 'object') {
+                if (isSingleShade(clr)) {
+                    validClr = clr.data[space];
+                }
+                else if (isAllValues(clr)) {
+                    validClr = clr[space];
+                }
+                else {
+                    validClr = clr;
+                }
+            }
+            else {
+                validClr = clr;
+            }
+            // returns
+            switch (space) {
+                case 'hex':
+                    return hexValidator(validClr, errContext, errMaker);
+                case 'hsl':
+                    return hslValidator(validClr, errContext, errMaker);
+                case 'lch':
+                    return lchValidator(validClr, errContext, errMaker);
+                case 'rgb':
+                    return rgbValidator(validClr, errContext, errMaker);
+            }
+        }
         /**
          * Validates an input hex code, throwing an error if needed.
          */
@@ -675,6 +798,35 @@ export var ColourUtilities;
             });
         }
         Async.toRGB = toRGB;
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        async function toString(clr, errContext, errMaker, _defaultSpace) {
+            const defaultSpace = _defaultSpace ?? 'hsl';
+            // returns - converts
+            if (typeof clr === 'string') {
+                return hexValidator(clr, errContext, errMaker).then(ColourUtilities.toString.hex);
+            }
+            // returns - already built
+            if (isSingleShade(clr)) {
+                return validator(clr.data[defaultSpace], defaultSpace, errContext, errMaker).then(ColourUtilities.toString[defaultSpace]);
+            }
+            // returns - already built
+            if (isAllValues(clr)) {
+                return validator(clr[defaultSpace], defaultSpace, errContext, errMaker).then(ColourUtilities.toString[defaultSpace]);
+            }
+            // returns - hsl
+            if ('s' in clr) {
+                return hslValidator(clr, errContext, errMaker).then(ColourUtilities.toString.hsl);
+            }
+            // returns - oklch
+            if ('c' in clr) {
+                return lchValidator(clr, errContext, errMaker).then(ColourUtilities.toString.lch);
+            }
+            // returns - rgb
+            return rgbValidator(clr, errContext, errMaker).then(ColourUtilities.toString.rgb);
+        }
+        Async.toString = toString;
     })(Async = ColourUtilities.Async || (ColourUtilities.Async = {}));
     /* SHADE MAP FUNCTIONS
      * ====================================================================== */

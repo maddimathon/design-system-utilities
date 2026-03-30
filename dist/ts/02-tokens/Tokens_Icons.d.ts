@@ -7,6 +7,8 @@
  * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
+import type { RunnerOptions } from 'fantasticon';
+import { FontAssetType, OtherAssetType } from 'fantasticon';
 import { SvgMaker } from '../01-utilities/SvgMaker.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 /**
@@ -19,11 +21,65 @@ export declare class Tokens_Icons<T_ExtraIconNames extends string> extends Abstr
     json: Tokens_Icons.JsonReturn<T_ExtraIconNames>;
     scss: Tokens_Icons.ScssVars<T_ExtraIconNames>;
 }> {
+    #private;
+    readonly fontName: string;
     static get default(): {
-        [I in keyof Tokens_Icons.Data<never>]: SvgMaker.Data<I>;
+        [I in Tokens_Icons.DefaultIconNames]: Tokens_Icons.Local_SvgMaker.Data<I>;
     };
     readonly data: Tokens_Icons.Data<T_ExtraIconNames>;
-    constructor(input: Tokens_Icons.InputParam<T_ExtraIconNames>);
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    protected _font: undefined | Awaited<ReturnType<typeof this.toIconFont>>;
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    get font(): {
+        options: RunnerOptions;
+        writeResults: {
+            content: string | Buffer;
+            writePath: string;
+        }[];
+        assetsIn: {
+            [key: string]: {
+                id: string;
+                absolutePath: string;
+                relativePath: string;
+            };
+        };
+        assetsOut: { [key in FontAssetType | OtherAssetType]?: string | Buffer; };
+        codepoints: {
+            [key: string]: number;
+        };
+    } | undefined;
+    constructor(fontName: string, input: Tokens_Icons.InputParam<T_ExtraIconNames>);
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    getCodepoints(): Tokens_Icons.Codepoints<T_ExtraIconNames>;
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    toIconFont(args: Omit<RunnerOptions, 'name'>): Promise<{
+        options: RunnerOptions;
+        writeResults: {
+            content: string | Buffer;
+            writePath: string;
+        }[];
+        assetsIn: {
+            [key: string]: {
+                id: string;
+                absolutePath: string;
+                relativePath: string;
+            };
+        };
+        assetsOut: {
+            [key in FontAssetType | OtherAssetType]?: string | Buffer;
+        };
+        codepoints: {
+            [key: string]: number;
+        };
+    }>;
     toJSON(): Tokens_Icons.JsonReturn<T_ExtraIconNames>;
     toScssVars(): Tokens_Icons.ScssVars<T_ExtraIconNames>;
 }
@@ -38,35 +94,72 @@ export declare namespace Tokens_Icons {
      */
     type DefaultIconNames = "attachment" | "caution" | "check" | "clock" | "close" | "code" | "compass" | "dash" | "draft" | "double-check" | "down" | "download" | "error" | "external" | "fail" | "forbidden" | "hidden" | "info" | "left" | "lightbulb" | "lightning" | "lock" | "logo-facebook" | "logo-instagram" | "logo-linkedin" | "maximum" | "minimum" | "minus" | "no" | "note" | "paperclip" | "plus" | "private" | "question" | "refresh" | "right" | "search" | "settings" | "star" | "success" | "unlock" | "ui" | "ui-check" | "ui-minimum" | "up" | "warning";
     /**
+     * @since 0.1.0-beta.0.draft
+     */
+    type Codepoints<T_ExtraIconNames extends string> = {
+        [I in DefaultIconNames]: number;
+    } & {
+        [I in T_ExtraIconNames]?: undefined | number;
+    };
+    /**
      * @since 0.1.0-alpha
      */
     type Data<T_ExtraIconNames extends string> = {
-        [I in DefaultIconNames]: SvgMaker<I>;
+        [I in DefaultIconNames]: Local_SvgMaker.Instance<I>;
     } & {
-        [I in T_ExtraIconNames]: SvgMaker<I>;
+        [I in T_ExtraIconNames]: Local_SvgMaker.Instance<I>;
     };
     /**
      * @since 0.1.0-alpha
      */
     type InputParam<T_ExtraIconNames extends string> = Partial<{
-        [I in DefaultIconNames]?: undefined | SvgMaker<I> | Partial<SvgMaker.Data<I>>;
+        [I in DefaultIconNames]?: undefined | Partial<Local_SvgMaker.Data<I>> | Local_SvgMaker.Instance<I>;
     }> & {
-        [I in T_ExtraIconNames]?: SvgMaker.Data<I> | SvgMaker<I>;
+        [I in T_ExtraIconNames]: Local_SvgMaker.Data<I> | Local_SvgMaker.Instance<I>;
     };
     /**
      * @since 0.1.0-alpha
      */
     type JsonReturn<T_ExtraIconNames extends string> = {
-        [I in DefaultIconNames]: SvgMaker.JsonReturn<T_ExtraIconNames>;
+        [I in DefaultIconNames]: Local_SvgMaker.JsonReturn<I>;
     } & {
-        [I in T_ExtraIconNames]: SvgMaker.JsonReturn<T_ExtraIconNames>;
+        [I in T_ExtraIconNames]: Local_SvgMaker.JsonReturn<I>;
     };
     /**
      * @since 0.1.0-beta.0.draft
      */
     type ScssVars<T_ExtraIconNames extends string> = {
-        [I in DefaultIconNames]: SvgMaker.ScssVars<T_ExtraIconNames>;
+        [I in DefaultIconNames]: Local_SvgMaker.ScssVars<I>;
     } & {
-        [I in T_ExtraIconNames]: SvgMaker.ScssVars<T_ExtraIconNames>;
+        [I in T_ExtraIconNames]: Local_SvgMaker.ScssVars<I>;
     };
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    namespace Local_SvgMaker {
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        type Data<T_IconName extends string> = SvgMaker.Data<T_IconName, Meta>;
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        type Instance<T_IconName extends string> = SvgMaker<T_IconName, Meta>;
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        type JsonReturn<T_IconName extends string> = SvgMaker.JsonReturn<T_IconName, Meta>;
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        type Meta = {
+            codepoint?: undefined | number;
+        };
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        type ScssVars<T_IconName extends string> = Omit<SvgMaker.ScssVars<T_IconName, Meta>, 'meta'> & {
+            fontGlyph?: undefined | string;
+        };
+    }
 }

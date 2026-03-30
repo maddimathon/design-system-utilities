@@ -29,7 +29,9 @@ export class Tokens_Typography extends AbstractTokens {
                 '500': 1,
                 '600': 2,
             },
-            fonts: undefined,
+            fonts: {
+                icons: undefined,
+            },
             size: {
                 heading: {
                     1: 7,
@@ -61,9 +63,19 @@ export class Tokens_Typography extends AbstractTokens {
     constructor(spacing, input) {
         super();
         this.spacing = spacing;
-        this.data = mergeArgs(Tokens_Typography.default, input, true);
+        this.data = mergeArgs(Tokens_Typography.default, {
+            ...input,
+            fonts: {
+                ...input.fonts,
+                icons: input.fonts?.icons === false ? undefined : input.fonts?.icons,
+            },
+        }, true);
         this.familyOverrides = this.data.fonts
             ? Object.fromEntries(Object.values(this.data.fonts).map((font) => {
+                // returns
+                if (typeof font === 'undefined') {
+                    return [];
+                }
                 let isOverride = font.fontOverrideOption;
                 if (typeof isOverride === 'undefined') {
                     switch (font.slug) {

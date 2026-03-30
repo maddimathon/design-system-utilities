@@ -11,6 +11,7 @@
  * The object that defines a single SVG token.
  *
  * @since 0.1.0-alpha
+ * @since 0.1.0-beta.0.draft —
  */
 export class SvgMaker {
     svgAttrs;
@@ -53,6 +54,10 @@ export class SvgMaker {
     width;
     aspectRatio;
     innerSVG;
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    meta;
     constructor(data, svgAttrs = []) {
         this.svgAttrs = svgAttrs;
         this.slug = data.slug;
@@ -62,6 +67,7 @@ export class SvgMaker {
         this.width = data.width;
         this.innerSVG = data.innerSVG;
         this.aspectRatio = SvgMaker.simplifyRatio(this.width, this.height);
+        this.meta = data.meta;
     }
     svgAttrString(attrs = []) {
         return [
@@ -117,6 +123,7 @@ export class SvgMaker {
             svgInlineHidden: this.svgInlineHidden(),
             svgInlineLabelled: this.svgInlineLabelled(),
             svgAttrString: this.svgAttrString(),
+            meta: this.meta,
         };
     }
     toScssVars() {
@@ -128,7 +135,8 @@ export class SvgMaker {
             aspectRatio: this.aspectRatio[0] === this.aspectRatio[1]
                 ? this.aspectRatio[0].toString()
                 : this.aspectRatio.join(' / '),
-            embedded: `url( 'data:image/svg+xml;utf8,${this.svgCssEmbedded()}' )`
+            embedded: `url( 'data:image/svg+xml;utf8,${this.svgCssEmbedded()}' )`,
+            meta: this.meta,
         };
     }
 }

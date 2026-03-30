@@ -253,6 +253,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
             size: {
                 $: '1.375em',
                 large: '2em',
+                font: '1em',
                 pseudo: '1em',
             },
             'vertical-align': 'middle',

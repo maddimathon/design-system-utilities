@@ -266,7 +266,9 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
             if (level in part && part[level]) {
                 return shadeMaker(level, part[level]);
             }
-            return ColourUtilities.mixColours(lowClr, highClr, saturationMultiplier).then(clr => shadeMaker(level, clr));
+            return ColourUtilities.mixColours(lowClr, highClr, saturationMultiplier).then(clr => {
+                return shadeMaker(level, clr);
+            });
         };
         const [l_300, l_700,] = await Promise.all([
             shadeFetcher('300', l_100, l_500, treatShadeAsBase ? 0 : 0.375),

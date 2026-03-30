@@ -26,7 +26,9 @@ export declare class Tokens_Typography<T_FontFamilySlug extends string> extends 
     static get default(): Tokens_Typography.Data<never>;
     readonly data: Tokens_Typography.Data<T_FontFamilySlug>;
     readonly familyOverrides: undefined | {
-        [K in T_FontFamilySlug]?: Tokens_Typography.Font.FamilyOverride;
+        [F in Tokens_Typography.DefaultFontFamilies]?: undefined | Tokens_Typography.Font.FamilyOverride;
+    } & {
+        [F in T_FontFamilySlug]?: Tokens_Typography.Font.FamilyOverride;
     };
     constructor(spacing: Tokens_Spacing, input: Tokens_Typography.InputParam<T_FontFamilySlug>);
     toJSON(): Tokens_Typography.JsonReturn<T_FontFamilySlug>;
@@ -38,6 +40,10 @@ export declare class Tokens_Typography<T_FontFamilySlug extends string> extends 
  * @since 0.1.0-alpha
  */
 export declare namespace Tokens_Typography {
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    export type DefaultFontFamilies = "icons";
     type DefaultLineHeightLevels = "100" | "200" | "300" | "400" | "500" | "600";
     /**
      * @since 0.1.0-alpha
@@ -48,7 +54,9 @@ export declare namespace Tokens_Typography {
         } & {
             [L in Exclude<AnyTokenLevel, DefaultLineHeightLevels>]?: number;
         };
-        fonts: undefined | {
+        fonts: {
+            [F in DefaultFontFamilies]?: undefined | Font.Family<F>;
+        } & {
             [F in T_FontFamilySlug]: Font.Family<F>;
         };
         size: {
@@ -74,7 +82,12 @@ export declare namespace Tokens_Typography {
     /**
      * @since 0.1.0-alpha
      */
-    export type InputParam<T_FontFamilySlug extends string, T_SizeValue = number> = Partial<Omit<Data<T_FontFamilySlug, T_SizeValue>, 'lineHeight' | 'size'>> & {
+    export type InputParam<T_FontFamilySlug extends string, T_SizeValue = number> = Partial<Omit<Data<T_FontFamilySlug, T_SizeValue>, 'fonts' | 'lineHeight' | 'size'>> & {
+        fonts?: {
+            [F in DefaultFontFamilies]?: undefined | false | Font.Family<F>;
+        } & {
+            [F in T_FontFamilySlug]?: undefined | Font.Family<F>;
+        };
         lineHeight?: Partial<Data<T_FontFamilySlug, T_SizeValue>['lineHeight']>;
         size?: RecursivePartial<Data<T_FontFamilySlug, T_SizeValue>['size']>;
     };
