@@ -10,6 +10,10 @@
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/string';
 
+@use '../../config';
+
+@use '../system';
+
 ///
 /// @since ___PKG_VERSION___
 ///
@@ -17,20 +21,57 @@
     @return fns.tokens-get-at-properties(
         $inputs: map.merge(
                 (
-                    grid-column: (
-                        syntax: '*',
-                        inherits: true,
-                        initial-value: string.unquote('1 / 1'),
+                    focus-ring-outline-color: (
+                        initial-value: #{system.tokens-var-theme(link-outline-hover)},
                     ),
+
                     icon-color: (
-                        syntax: '<color>',
-                        inherits: true,
-                        initial-value: currentColor,
+                        initial-value: #{system.tokens-style-value(icon-color)},
                     ),
+
                     icon-size: (
+                        initial-value: #{system.tokens-style-value(icon-size)},
+                    ),
+                    icon-size-large: (
+                        initial-value: #{system.tokens-style-value(icon-size-large)},
+                    ),
+                    icon-size-font: (
                         syntax: '<length-percentage> | <number>',
                         inherits: true,
-                        initial-value: 1.375em,
+                        initial-value: #{system.tokens-style-value(icon-size-font)},
+                    ),
+                    icon-size-pseudo: (
+                        syntax: '<length-percentage> | <number>',
+                        inherits: true,
+                        initial-value: #{system.tokens-style-value(icon-size-pseudo)},
+                    ),
+
+                    icon-inline-margin-block-start: (
+                        syntax: '<number>',
+                        inherits: true,
+                        initial-value: #{system.tokens-style-value(icon-inline-margin-block-start)},
+                    ),
+
+                    icon-size-inline--font-multiplier: (
+                        syntax: '<number>',
+                        inherits: true,
+                        initial-value: 1,
+                    ),
+                    icon-inline-buffer-start--font-override: (
+                        syntax: '<number>',
+                        inherits: true,
+                        initial-value: 1,
+                    ),
+                    icon-inline-buffer-end--font-override: (
+                        syntax: '<number>',
+                        inherits: true,
+                        initial-value: 1,
+                    ),
+
+                    icon-vertical-align: (
+                        syntax: '*',
+                        inherits: true,
+                        initial-value: #{system.tokens-style-value(icon-vertical-align)},
                     ),
                 ),
                 $inputs,

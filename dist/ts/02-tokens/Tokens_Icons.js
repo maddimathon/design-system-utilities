@@ -12,6 +12,7 @@ import { mergeArgs, objectMap, slugify, } from '@maddimathon/utility-typescript'
 import { SvgMaker } from '../01-utilities/SvgMaker.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 import { objectKeySort_Tokens } from '../01-utilities/objectKeySort_Tokens.js';
+import { objectGenerator } from '../01-utilities/objectGenerator.js';
 /**
  * Generates a complete token object for the design system.
  *
@@ -67,6 +68,7 @@ export class Tokens_Icons extends AbstractTokens {
             unlock: 0xf144,
             up: 0xf145,
             warning: 0xf146,
+            computer: 0xf147,
         };
         const check = {
             slug: 'check',
@@ -95,6 +97,13 @@ export class Tokens_Icons extends AbstractTokens {
             width: 24,
             height: 24,
             innerSVG: `<path d="M12,1c6.074,0 11,4.926 11,11c-0,6.074 -4.926,11 -11,11c-6.074,-0 -11,-4.926 -11,-11c0,-6.074 4.926,-11 11,-11Zm0,2.146c-4.889,-0 -8.854,3.965 -8.854,8.854c-0,4.889 3.965,8.854 8.854,8.854c4.889,0 8.854,-3.965 8.854,-8.854c0,-4.889 -3.965,-8.854 -8.854,-8.854Zm1.981,11.074l-6.679,3.143c-0.19,0.09 -0.417,0.05 -0.566,-0.099c-0.149,-0.149 -0.189,-0.376 -0.099,-0.567l3.143,-6.678c0.049,-0.105 0.134,-0.19 0.239,-0.239l6.679,-3.143c0.19,-0.09 0.417,-0.05 0.566,0.099c0.149,0.149 0.189,0.376 0.099,0.566l-3.143,6.679c-0.049,0.105 -0.134,0.19 -0.239,0.239Zm-1.981,-3.47c-0.69,-0 -1.25,0.56 -1.25,1.25c-0,0.69 0.56,1.25 1.25,1.25c0.69,-0 1.25,-0.56 1.25,-1.25c-0,-0.69 -0.56,-1.25 -1.25,-1.25Z" />`,
+        };
+        const computer = {
+            slug: 'computer',
+            label: 'Computer',
+            width: 24,
+            height: 24,
+            innerSVG: `<path d="M10.778,17.943l-8.556,-0c-0.675,-0 -1.222,-0.547 -1.222,-1.222l-0,-13.037c-0,-0.675 0.547,-1.223 1.222,-1.223l19.556,0c0.675,0 1.222,0.548 1.222,1.223l0,13.037c-0,0.675 -0.547,1.222 -1.222,1.222l-8.556,-0l0,1.901l4.21,0c0.675,0 1.222,0.548 1.222,1.222c0,0.675 -0.547,1.223 -1.222,1.223l-10.864,-0c-0.675,-0 -1.222,-0.548 -1.222,-1.223c-0,-0.674 0.547,-1.222 1.222,-1.222l4.21,0l-0,-1.901Zm1.222,-2.445c0,0 8.556,0 8.556,0l-0,-10.592c-0,-0 -17.112,-0 -17.112,-0l0,10.592l8.556,0Z" />`,
         };
         const dash = {
             slug: 'dash',
@@ -271,23 +280,16 @@ export class Tokens_Icons extends AbstractTokens {
             height: 24,
             innerSVG: `<path d="M10.889,2.547c0.122,-0.3 0.358,-0.536 0.658,-0.658c0.291,-0.119 0.615,-0.119 0.906,0c0.3,0.122 0.536,0.358 0.658,0.658l2.317,5.68l6.125,0.453c0.486,0.036 0.902,0.363 1.053,0.827c0.15,0.464 0.005,0.972 -0.367,1.287l-4.694,3.964l1.469,5.955c0.117,0.473 -0.065,0.971 -0.459,1.257c-0.395,0.287 -0.924,0.307 -1.338,0.05l-5.217,-3.235l-5.217,3.235c-0.414,0.257 -0.943,0.237 -1.338,-0.05c-0.394,-0.286 -0.576,-0.784 -0.459,-1.257l1.469,-5.955l-4.694,-3.964c-0.372,-0.315 -0.517,-0.823 -0.367,-1.287c0.151,-0.464 0.567,-0.791 1.053,-0.827l6.125,-0.453l2.317,-5.68Zm-2.868,15.881c0,0 3.346,-2.074 3.347,-2.074c0.387,-0.24 0.877,-0.24 1.264,-0c0.001,0 3.347,2.074 3.347,2.074l-0.943,-3.819c-0.109,-0.443 0.043,-0.909 0.391,-1.204l3.018,-2.548l-3.935,-0.292c-0.455,-0.033 -0.851,-0.321 -1.023,-0.743l-1.487,-3.645l-1.487,3.645c-0.172,0.422 -0.568,0.71 -1.023,0.743l-3.935,0.292l3.018,2.548c0.348,0.295 0.5,0.761 0.391,1.204l-0.943,3.819Z" />`,
         };
-        const ui = {
-            slug: 'ui',
-            label: 'user interface',
-            width: 24,
-            height: 24,
-            innerSVG: `<path d="M10.778,17.943l-8.556,-0c-0.675,-0 -1.222,-0.547 -1.222,-1.222l-0,-13.037c-0,-0.675 0.547,-1.223 1.222,-1.223l19.556,0c0.675,0 1.222,0.548 1.222,1.223l0,13.037c-0,0.675 -0.547,1.222 -1.222,1.222l-8.556,-0l0,1.901l4.21,0c0.675,0 1.222,0.548 1.222,1.222c0,0.675 -0.547,1.223 -1.222,1.223l-10.864,-0c-0.675,-0 -1.222,-0.548 -1.222,-1.223c-0,-0.674 0.547,-1.222 1.222,-1.222l4.21,0l-0,-1.901Zm1.222,-2.445c0,0 8.556,0 8.556,0l-0,-10.592c-0,-0 -17.112,-0 -17.112,-0l0,10.592l8.556,0Z" />`,
-        };
         const uiCheck = {
             slug: 'ui-check',
-            label: 'user interface with checkmark',
+            label: 'User Interface with Checkmark',
             width: 28,
             height: 24,
             innerSVG: `<path d="M16.89,21.354l-4.832,-4.455c-0.399,-0.367 -0.454,-0.969 -0.149,-1.401c0.027,-0.037 0.056,-0.073 0.088,-0.108c0.399,-0.433 1.075,-0.46 1.509,-0.061l3.969,3.66l7.858,-10.326c0.356,-0.469 1.027,-0.561 1.496,-0.204c0.469,0.357 0.56,1.028 0.203,1.497l-8.568,11.26c-0.182,0.239 -0.457,0.391 -0.756,0.417c-0.3,0.026 -0.596,-0.075 -0.818,-0.279Zm-6.566,-3.411l-8.102,-0c-0.675,-0 -1.222,-0.547 -1.222,-1.222l0,-13.037c-0,-0.675 0.547,-1.223 1.222,-1.223l19.556,0c0.675,0 1.222,0.548 1.222,1.223l-0,4.741l-2.444,3.213l-0,-6.732c-0,-0 -17.112,-0 -17.112,-0l0,10.592l6.344,0l-0.039,0.155l-0.032,0.586l0.079,0.581l0.192,0.561l0.303,0.525l0.033,0.037Zm4.629,4.346l-8.385,-0c-0.675,-0 -1.222,-0.548 -1.222,-1.223c-0,-0.674 0.547,-1.222 1.222,-1.222l4.21,0l-0,-1.405l4.175,3.85Z" />`,
         };
         const uiMinimum = {
             slug: 'ui-minimum',
-            label: 'user interface with minimum',
+            label: 'User Interface with Minimum',
             width: 28,
             height: 24,
             innerSVG: `<path d="M16.775,21.516l-6.38,-6.38c-0.4,-0.4 -0.4,-1.05 0,-1.45c0.4,-0.4 1.05,-0.4 1.45,0l4.63,4.63l-0,-10.285c-0,-0.566 0.459,-1.025 1.025,-1.025c0.566,-0 1.025,0.459 1.025,1.025l0,10.285l4.63,-4.63c0.4,-0.4 1.05,-0.4 1.45,0c0.4,0.4 0.4,1.05 -0,1.45l-6.38,6.38c-0.4,0.4 -1.05,0.4 -1.45,0Zm-6.402,-3.573l-8.151,-0c-0.675,-0 -1.222,-0.547 -1.222,-1.222l0,-13.037c-0,-0.675 0.547,-1.223 1.222,-1.223l19.556,0c0.675,0 1.222,0.548 1.222,1.223l0,7.847l-0.257,0.077l-0.529,0.278l-0.473,0.386l-1.185,1.185l-0,-8.551c-0,-0 -17.112,-0 -17.112,-0l0,10.592l4.858,0l0.014,0.05l0.279,0.529l0.386,0.473l1.392,1.393Zm4.346,4.346l-8.151,-0c-0.675,-0 -1.222,-0.548 -1.222,-1.223c-0,-0.674 0.547,-1.222 1.222,-1.222l4.21,0l-0,-1.497l3.941,3.942Z" />`,
@@ -318,11 +320,17 @@ export class Tokens_Icons extends AbstractTokens {
                 ...paperclip,
                 slug: 'attachment',
                 label: 'Attachment',
+                meta: {
+                    aliasOf: paperclip.slug,
+                },
             },
             caution: {
                 ...warning,
                 slug: 'caution',
                 label: 'Caution',
+                meta: {
+                    aliasOf: warning.slug,
+                },
             },
             check,
             clock,
@@ -330,9 +338,13 @@ export class Tokens_Icons extends AbstractTokens {
                 ...no,
                 slug: 'close',
                 label: 'Close',
+                meta: {
+                    aliasOf: no.slug,
+                },
             },
             code,
             compass,
+            computer,
             dash,
             'double-check': doubleCheck,
             down,
@@ -340,16 +352,25 @@ export class Tokens_Icons extends AbstractTokens {
                 ...minimum,
                 slug: 'download',
                 label: 'Download',
+                meta: {
+                    aliasOf: minimum.slug,
+                },
             },
             draft: {
                 ...note,
                 slug: 'draft',
                 label: 'Draft',
+                meta: {
+                    aliasOf: note.slug,
+                },
             },
             error: {
                 ...fail,
                 slug: 'error',
                 label: 'Error',
+                meta: {
+                    aliasOf: fail.slug,
+                },
             },
             external,
             fail,
@@ -379,7 +400,7 @@ export class Tokens_Icons extends AbstractTokens {
                 label: 'Logo - LinkedIn',
                 width: 24,
                 height: 24,
-                innerSVG: `<path d="M8.659,21.012l0,-10.001c0,-0.74 0.601,-1.34 1.341,-1.34c0.682,-0 1.246,0.51 1.33,1.17c1.036,-0.737 2.303,-1.17 3.67,-1.17c3.5,-0 6.341,2.84 6.341,6.341l-0,4.999c-0,0.741 -0.601,1.341 -1.341,1.341c-0.74,0 -1.341,-0.6 -1.341,-1.34l0,-5c0,-2.02 -1.639,-3.66 -3.659,-3.66c-2.02,0 -3.659,1.64 -3.659,3.66l-0,4.999c-0,0.741 -0.601,1.341 -1.341,1.341c-0.74,0 -1.341,-0.6 -1.341,-1.34Zm-4.659,-18.023c1.11,-0.001 2.011,0.901 2.011,2.011c0,1.11 -0.901,2.012 -2.011,2.012c-1.11,-0 -2.011,-0.902 -2.011,-2.012c-0,-1.11 0.901,-2.011 2.011,-2.011Zm-1.341,8.023c0,-0.741 0.601,-1.341 1.341,-1.341c0.74,-0 1.341,0.6 1.341,1.341l-0,10c-0,0.74 -0.601,1.34 -1.341,1.34c-0.74,0 -1.341,-0.6 -1.341,-1.34l0,-10Z" />`,
+                innerSVG: `<path d="M8.659,20.012l0,-10.001c0,-0.74 0.601,-1.34 1.341,-1.34c0.682,-0 1.246,0.51 1.33,1.17c1.036,-0.737 2.303,-1.17 3.67,-1.17c3.5,-0 6.341,2.84 6.341,6.341l-0,4.999c-0,0.741 -0.601,1.341 -1.341,1.341c-0.74,0 -1.341,-0.6 -1.341,-1.34l0,-5c0,-2.02 -1.639,-3.66 -3.659,-3.66c-2.02,0 -3.659,1.64 -3.659,3.66l-0,4.999c-0,0.741 -0.601,1.341 -1.341,1.341c-0.74,0 -1.341,-0.6 -1.341,-1.34Zm-4.659,-18.023c1.11,-0.001 2.011,0.901 2.011,2.011c0,1.11 -0.901,2.012 -2.011,2.012c-1.11,-0 -2.011,-0.902 -2.011,-2.012c-0,-1.11 0.901,-2.011 2.011,-2.011Zm-1.341,8.023c0,-0.741 0.601,-1.341 1.341,-1.341c0.74,-0 1.341,0.6 1.341,1.341l-0,10c-0,0.74 -0.601,1.34 -1.341,1.34c-0.74,0 -1.341,-0.6 -1.341,-1.34l0,-10Z" />`,
             },
             maximum,
             minimum,
@@ -392,6 +413,9 @@ export class Tokens_Icons extends AbstractTokens {
                 ...hidden,
                 slug: 'private',
                 label: 'Private',
+                meta: {
+                    aliasOf: hidden.slug,
+                },
             },
             question,
             refresh,
@@ -403,8 +427,18 @@ export class Tokens_Icons extends AbstractTokens {
                 ...check,
                 slug: 'success',
                 label: 'Success',
+                meta: {
+                    aliasOf: check.slug,
+                },
             },
-            ui,
+            ui: {
+                ...computer,
+                slug: 'ui',
+                label: 'User Interface',
+                meta: {
+                    aliasOf: computer.slug,
+                },
+            },
             'ui-check': uiCheck,
             'ui-minimum': uiMinimum,
             unlock,
@@ -413,6 +447,7 @@ export class Tokens_Icons extends AbstractTokens {
         }, ([key, obj]) => ({
             ...obj,
             meta: {
+                ...obj.meta,
                 codepoint: codepoints[key],
             },
         }));
@@ -465,7 +500,7 @@ export class Tokens_Icons extends AbstractTokens {
     /**
      * @since 0.1.0-beta.0.draft
      */
-    async toIconFont(args) {
+    async toIconFont({ formatOptionsDefault, ...args }) {
         const assetTypes = args.assetTypes ?? [];
         const fontTypes = args.fontTypes ?? [
             FontAssetType.TTF,
@@ -473,12 +508,35 @@ export class Tokens_Icons extends AbstractTokens {
             FontAssetType.WOFF2,
         ];
         const name = slugify(this.fontName);
+        formatOptionsDefault = {
+            // centerHorizontally: false,
+            // centerVertically: false,
+            // descent: 0,
+            // fontStyle: 'normal',
+            // normalize: false,
+            // preserveAspectRatio: true,
+            ...formatOptionsDefault,
+        };
+        const formatOptions = mergeArgs(objectGenerator(fontTypes, (type) => {
+            switch (type) {
+                case 'svg':
+                    return {
+                        ...args,
+                    };
+                default:
+                    return {
+                        ...args,
+                        fontWeight: '400',
+                    };
+            }
+        }), args.formatOptions, true);
         return generateFonts({
             codepoints: this.getCodepoints(),
             ...args,
             name,
             assetTypes,
             fontTypes,
+            formatOptions,
         }, false).then(results => {
             this._font = results;
             if (typeof this.#getCodepoints !== 'undefined') {
@@ -503,7 +561,7 @@ export class Tokens_Icons extends AbstractTokens {
                 width: vars.width,
                 aspectRatio: vars.aspectRatio,
                 embedded: vars.embedded,
-                fontGlyph: value.meta.codepoint ? `\\${value.meta.codepoint.toString(16)}` : undefined,
+                fontGlyph: value.meta?.codepoint ? `\\${value.meta.codepoint.toString(16)}` : undefined,
             };
         });
     }

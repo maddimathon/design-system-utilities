@@ -36,9 +36,12 @@ export class Tokens_CSS_Style extends AbstractTokens<{
     /**
      * @since ___PKG_VERSION___
      */
-    public static alertStyle( partial: Tokens_CSS_Style.InputParam[ 'alert' ] = {} ): Tokens_CSS_Style.AlertStyles {
+    public static alertStyle(
+        iconStyles: Tokens_CSS_Style.IconStyles,
+        partial: Tokens_CSS_Style.InputParam[ 'alert' ] = {},
+    ): Tokens_CSS_Style.AlertStyles {
 
-        const headingMaker = ( num: number ): Tokens_CSS_Style.AlertStyles_Heading => {
+        const headingMaker = ( num: number | 'unstyled' ): Tokens_CSS_Style.AlertStyles_Heading => {
 
             const style = {
                 margin: {
@@ -47,6 +50,11 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                     },
                 },
             } satisfies Tokens_CSS_Style.AlertStyles_Heading;
+
+            // returns
+            if ( num === 'unstyled' ) {
+                return style;
+            }
 
             // switch ( num ) {
 
@@ -96,112 +104,143 @@ export class Tokens_CSS_Style extends AbstractTokens<{
             } satisfies Tokens_CSS_Style.AlertStyles_Heading;
         };
 
-        return mergeArgs<Tokens_CSS_Style.AlertStyles, NonNullable<Tokens_CSS_Style.InputParam[ 'alert' ]>>( {
-            background: 'background',
+        return mergeArgs(
+            {
+                background: 'background',
 
-            border: {
-                color: 'ui-primary',
-                radius: '0',
-                style: 'solid',
-                width: '200',
-            },
-
-            color: 'text-primary',
-
-            heading: objectGenerator(
-                [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const,
-                headingMaker,
-            ),
-
-            headline: {
-                font: {
-                    size: 'heading-7',
-                    style: 'normal',
-                    weight: '600',
+                border: {
+                    color: 'ui-primary',
+                    radius: '0',
+                    style: 'solid',
+                    width: '200',
                 },
-                'line-height': '200',
-            },
 
-            'line-height': '300',
+                color: 'text-primary',
 
-            icon: {
-                color: 'ui-primary',
-                size: {
-                    $: 1.25,
-                    large: 2,
+                heading: objectGenerator(
+                    [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'unstyled' ] as const,
+                    headingMaker,
+                ),
+
+                headline: {
+                    font: {
+                        size: 'heading-7',
+                        style: 'normal',
+                        weight: '600',
+                    },
+                    'line-height': '200',
                 },
-            },
 
-            gap: {
-                block: '0',
-                inline: '300',
-            },
+                'line-height': '300',
 
-            margin: {
-                flow: {
-                    $: '300',
-                    large: '500',
-                    small: '200',
+                icon: {
+                    color: 'ui-primary',
+                    size: {
+                        $: iconStyles.size.$,
+                        large: iconStyles.size.large,
+                    },
                 },
-            },
 
-            padding: {
-                block: '300',
-                inline: '300',
-            },
-        }, partial, true );
+                gap: {
+                    block: '0',
+                    inline: '300',
+                },
+
+                margin: {
+                    flow: {
+                        $: '300',
+                        large: '500',
+                        small: '200',
+                    },
+                },
+
+                padding: {
+                    block: '300',
+                    inline: '300',
+                },
+            } satisfies Tokens_CSS_Style.AlertStyles,
+            partial,
+            true,
+        );
     }
 
     /**
      * @since 0.1.0-alpha
      * @since ___PKG_VERSION___ — Added partial param.
      */
-    public static buttonStyle( partial?: Tokens_CSS_Style.InputParam[ 'button' ] ): {
+    public static buttonStyle(
+        iconStyles: Tokens_CSS_Style.IconStyles,
+        partial?: Tokens_CSS_Style.InputParam[ 'button' ],
+    ): {
         $: Tokens_CSS_Style.ButtonStyles;
         disabled: Tokens_CSS_Style.ButtonStyles_Disabled;
     } {
 
-        const style: Tokens_CSS_Style.ButtonStyles = mergeArgs( {
+        const style = mergeArgs(
+            {
 
-            border: {
-                radius: '0',
-                style: 'solid',
-                width: '100',
-            },
-
-            focus: {
-                offset: '400',
-            },
-
-            font: {
-                size: 'normal',
-                style: 'normal',
-                weight: '500',
-            },
-
-            gap: {
-                block: '300',
-                inline: '200',
-            },
-
-            'letter-spacing': 'normal',
-            'line-height': '100',
-            'text-transform': 'none',
-
-            margin: {
-                block: {
-                    start: '400',
-                    end: '400',
+                border: {
+                    radius: '0',
+                    style: 'solid',
+                    width: '100',
                 },
-            },
 
-            padding: {
-                block: '200',
-                inline: '300',
-            },
+                focus: {
+                    offset: '400',
+                },
 
-            width: 'fit-content',
-        }, partial?.$ ?? {}, true );
+                font: {
+                    size: 'normal',
+                    style: 'normal',
+                    weight: '500',
+                },
+
+                gap: {
+                    block: '300',
+                    inline: '200',
+                },
+
+                icon: {
+                    buffer: {
+                        start: 2.5,
+                        end: -0.5,
+                    },
+
+                    embedded: {
+                        bottom: '0.125em',
+                    },
+
+                    size: {
+                        font: iconStyles.size.font,
+                        pseudo: iconStyles.size.pseudo,
+                    },
+
+                    'vertical-align': 'middle',
+                },
+
+                'letter-spacing': 'normal',
+                'line-height': '100',
+
+                margin: {
+                    block: {
+                        start: '400',
+                        end: '400',
+                    },
+                },
+
+                padding: {
+                    block: '200',
+                    inline: '300',
+                },
+
+                'text-transform': 'none',
+
+                width: 'fit-content',
+
+            } satisfies Tokens_CSS_Style.ButtonStyles,
+            partial?.$,
+            true,
+        );
 
         return {
             $: style,
@@ -311,7 +350,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                 style.font.style = 'italic';
                 style[ 'line-height' ] = '300';
                 break;
-        }
+        };
 
         if ( headingAsNum >= 7 ) {
             style.font.weight = '500';
@@ -340,15 +379,28 @@ export class Tokens_CSS_Style extends AbstractTokens<{
     public static iconStyle( partial: Tokens_CSS_Style.InputParam[ 'icon' ] = {} ): Tokens_CSS_Style.IconStyles {
 
         return mergeArgs( {
+
             color: 'ui',
-            'inline-buffer': '0.25em',
-            size: {
-                $: '1.375em',
-                large: '2em',
-                font: '1em',
-                pseudo: '1em',
+
+            inline: {
+                buffer: {
+                    $: '0.25em',
+                    start: 1,
+                    end: 0.125,
+                },
+
+                'margin-block-start': '0.25em',
             },
+
+            size: {
+                $: '1.25em',
+                large: '2em',
+                font: '0.9375em',
+                pseudo: '0.9375em',
+            },
+
             'vertical-align': 'middle',
+
         }, partial, true );
     }
 
@@ -477,9 +529,11 @@ export class Tokens_CSS_Style extends AbstractTokens<{
     protected static mergeData( partial: Tokens_CSS_Style.InputParam ) {
         const defaults = this.default;
 
+        const icon = Tokens_CSS_Style.iconStyle( partial.icon );
+
         return {
-            alert: Tokens_CSS_Style.alertStyle( partial.alert ),
-            button: Tokens_CSS_Style.buttonStyle( partial.button ),
+            alert: Tokens_CSS_Style.alertStyle( icon, partial.alert ),
+            button: Tokens_CSS_Style.buttonStyle( icon, partial.button ),
 
             heading: {
                 ...objectGenerator(
@@ -489,7 +543,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                 unstyled: Tokens_CSS_Style.headingStyle( 'unstyled', partial.heading?.unstyled ),
             },
 
-            icon: Tokens_CSS_Style.iconStyle( partial.icon ),
+            icon,
 
             input: Tokens_CSS_Style.inputStyle( partial.input ),
 
@@ -520,11 +574,13 @@ export class Tokens_CSS_Style extends AbstractTokens<{
 
     public static get default() {
 
+        const icon = Tokens_CSS_Style.iconStyle();
+
         return {
 
-            alert: Tokens_CSS_Style.alertStyle(),
+            alert: Tokens_CSS_Style.alertStyle( icon ),
 
-            button: Tokens_CSS_Style.buttonStyle(),
+            button: Tokens_CSS_Style.buttonStyle( icon ),
 
             heading: {
                 ...objectGenerator(
@@ -534,7 +590,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                 unstyled: Tokens_CSS_Style.headingStyle( 'unstyled' ),
             },
 
-            icon: Tokens_CSS_Style.iconStyle(),
+            icon,
 
             input: Tokens_CSS_Style.inputStyle(),
 
@@ -617,7 +673,7 @@ export namespace Tokens_CSS_Style {
         };
 
         heading: {
-            [ H in RequiredHeadingLevels ]: AlertStyles_Heading;
+            [ H in RequiredHeadingLevels | 'unstyled' ]: AlertStyles_Heading;
         } & {
             [ key: number ]: AlertStyles_Heading;
         };
@@ -642,12 +698,9 @@ export namespace Tokens_CSS_Style {
             color: string;
 
             /**
-             * In ems.
+             * With units.
              */
-            size: {
-                $: number;
-                large: number;
-            };
+            size: Omit<IconStyles[ 'size' ], 'font' | 'pseudo'>;
         };
 
         'line-height': AnyTokenLevel;
@@ -710,9 +763,29 @@ export namespace Tokens_CSS_Style {
             inline: AnyTokenLevel;
         };
 
+        icon: {
+            buffer: {
+                start: number;
+                end: number;
+            };
+
+            embedded: {
+                /**
+                 * With units.
+                 */
+                bottom: string;
+            };
+
+            /**
+             * With units.
+             */
+            size: Omit<IconStyles[ 'size' ], '$' | 'large'>;
+
+            'vertical-align': IconStyles[ 'vertical-align' ];
+        };
+
         'letter-spacing': string;
         'line-height': AnyTokenLevel;
-        'text-transform': CSS.TextTransform;
 
         margin: {
             block: {
@@ -726,12 +799,14 @@ export namespace Tokens_CSS_Style {
             inline: AnyTokenLevel;
         };
 
+        'text-transform': CSS.TextTransform;
+
         width: string;
     };
 
     export type ButtonStyles_Disabled = Omit<
         ButtonStyles,
-        'border' | 'focus' | 'font' | 'gap' | 'line-height' | 'margin' | 'padding' | 'width'
+        'border' | 'focus' | 'font' | 'gap' | 'icon' | 'line-height' | 'margin' | 'padding' | 'width'
     > & {
         border: Omit<ButtonStyles[ 'border' ], 'width'>;
         font: Omit<ButtonStyles[ 'font' ], 'size'>;
@@ -806,7 +881,15 @@ export namespace Tokens_CSS_Style {
          */
         color: string;
 
-        'inline-buffer': string;
+        inline: {
+            buffer: {
+                $: string;
+                start: number;
+                end: number;
+            },
+
+            'margin-block-start': string;
+        };
 
         size: {
             $: string;
@@ -1020,7 +1103,7 @@ export namespace Tokens_CSS_Style {
          */
         alert?: Omit<RecursivePartial<AlertStyles>, 'heading'> & {
             heading?: undefined | {
-                [ H in RequiredHeadingLevels ]?: undefined | Partial<AlertStyles_Heading>;
+                [ H in RequiredHeadingLevels | 'unstyled' ]?: undefined | Partial<AlertStyles_Heading>;
             } & {
                 [ key: number ]: undefined | Partial<AlertStyles_Heading>;
             };

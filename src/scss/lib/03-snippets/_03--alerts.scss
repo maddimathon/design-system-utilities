@@ -33,37 +33,45 @@ $_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
     }
 }
 
-@mixin _snippet-alert-headline-heading($slug) {
+@mixin _snippet-alert-headline-heading($slug: false) {
     //
-    $slugAsNumber: if(meta.type-of($slug) == 'number', $slug, null);
-    $slug: #{$slug};
+    margin-block: 0;
 
-    $heading10orAbove: false;
+    @if $slug != false {
+        $slugAsNumber: if(meta.type-of($slug) == 'number', $slug, null);
+        $slug: #{$slug};
 
-    $color: null;
+        $heading10orAbove: false;
 
-    @if $slug and $slug != title {
-        //
-        $slugAsNumber: if($slugAsNumber == null, math.num-val($slug), $slugAsNumber);
+        $color: null;
 
-        @if $slugAsNumber >= 10 {
-            $heading10orAbove: true;
+        @if $slug and $slug != title {
+            //
+            $slugAsNumber: if($slugAsNumber == null, math.num-val($slug), $slugAsNumber);
+
+            @if $slugAsNumber >= 10 {
+                $heading10orAbove: true;
+            }
+        } @else if $slug == title {
+            $slug: '1';
+            $slugAsNumber: 1;
         }
-    } @else if $slug == title {
-        $slug: '1';
-        $slugAsNumber: 1;
-    }
 
-    $color: if(theme-token-exists(heading-#{$slug}), var-theme(heading-#{$slug}), null);
+        $color: if(theme-token-exists(heading-#{$slug}), var-theme(heading-#{$slug}), null);
 
-    @if $color {
-        color: #{$color};
+        @if $color {
+            color: #{$color};
+        }
     }
 
     @include _snippet-alert-block-icon($withHeadline: false) {
         + * {
             margin-block-start: #{var-style(
-                    alert-heading-#{$slug}-margin-block-start,
+                    alert-heading-#{if(
+                            $slug == false,
+                            unstyled,
+                            if($slug == title, 1, $slug)
+                        )}-margin-block-start,
                     $raw: true,
                     $rawUnit: 1em
                 )};
@@ -265,6 +273,18 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
                         @content ( 'alert-block__headline--h#{$num}-where' );
                     }
                 }
+            }
+
+            @at-root #{selector.unify(&, '%unstyled-heading')} {
+                @include _snippet-alert-headline-heading;
+            }
+
+            @at-root #{selector.unify(&, '%unstyled-heading--is')} {
+                @include _snippet-alert-headline-heading;
+            }
+
+            @at-root #{selector.unify(&, '%unstyled-heading--where')} {
+                @include _snippet-alert-headline-heading;
             }
         }
 

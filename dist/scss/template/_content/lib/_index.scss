@@ -247,9 +247,14 @@
     }
 
     @each $iconSlug, $iconMap in tokens.$icons {
-        $additional_optional: list.append(
+        $additional_optional: list.join(
             $additional_optional,
-            ('.icon--#{$iconSlug}', icon--#{$iconSlug})
+            (
+                ('.icon--#{$iconSlug}', icon--#{$iconSlug}),
+                ('.add-#{$iconSlug}-icon', add-#{$iconSlug}-icon),
+                ('.add-#{$iconSlug}-icon-after', add-#{$iconSlug}-icon-after),
+                ('.add-#{$iconSlug}-icon-before', add-#{$iconSlug}-icon-before)
+            )
         );
     }
 

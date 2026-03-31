@@ -33,11 +33,19 @@
     @include cx-prop(icon-color, $ui);
     @include cx-prop(theme-link-icon, $ui);
 
-    text-decoration-color: #{$ui};
+    // text-decoration-color: #{$ui} !important;
     accent-color: #{$border};
     background-color: #{var-theme(button-#{$variation}-background#{$stateSlug})};
     border-color: #{$border};
     color: #{var-theme(button-#{$variation}-text#{$stateSlug})};
+
+    * {
+        @include cx-prop(icon-color, $ui);
+
+        @if $stateSlug == '' {
+            color: inherit !important;
+        }
+    }
 }
 
 ///
@@ -118,14 +126,25 @@
 
     @include cx-prop(focus-ring-outline-offset, var-style(button-focus-offset));
 
+    @include cx-prop(
+        icon-inline-buffer-start--font-override,
+        var-style(button-icon-buffer-start) !important
+    );
+    @include cx-prop(
+        icon-inline-buffer-end--font-override,
+        var-style(button-icon-buffer-end) !important
+    );
+
+    @include cx-prop(icon-size-font, var-style(button-icon-size-font));
+    @include cx-prop(icon-size-pseudo, var-style(button-icon-size-pseudo));
+
+    @include cx-prop(
+        icon-vertical-align,
+        var-style(button-icon-vertical-align) !important
+    );
+
     @include prop-display(block);
-
-    // flex-direction: row;
-    // flex-wrap: wrap;
-
-    // justify-content: start;
-    // align-content: start;
-    // align-items: start;
+    position: relative;
 
     width: #{if($width, $width, var-style(button-width))};
     height: auto;
@@ -256,11 +275,6 @@
     @if $includePseudoIcons {
         &::after,
         &::before {
-            @include cx-prop(
-                icon-size-pseudo--inline-buffer-start,
-                2 !important
-            );
-            @include cx-prop(icon-size-pseudo--inline-buffer-end, 0 !important);
         }
 
         &::after {
@@ -279,23 +293,50 @@
         }
     }
 
-    * {
-        @include cx-prop(icon-color, inherit !important);
-        color: inherit !important;
-    }
-
     %code,
     %kbd,
     %samp {
         padding: 0;
         font-weight: inherit;
         font-style: inherit;
-        background: transparent;
         line-height: 1;
+        background: transparent;
     }
 
     %icon {
+        @include prop-display(inline-block);
         align-self: center;
+        vertical-align: #{var-style(icon-vertical-align)};
+
+        &:not(.settings-menu-icon):not(.toggle-icon) {
+            margin-inline: #{snippet-icon-pseudo-margin-inline(start)};
+
+            &:not(:only-child) {
+                $_size: var-style(button-icon-size-pseudo);
+
+                @include cx-prop(icon-size, $_size);
+                @include cx-prop(
+                    icon-size,
+                    snippet-icon-pseudo-icon-size($_size)
+                );
+
+                bottom: #{var-style(button-icon-embedded-bottom)};
+            }
+
+            &:first-child {
+                margin-inline-start: 0;
+                margin-inline-end: #{snippet-icon-pseudo-margin-inline(start)};
+            }
+
+            &:last-child {
+                margin-inline-start: #{snippet-icon-pseudo-margin-inline(start)};
+                margin-inline-end: 0;
+            }
+
+            &:only-child {
+                margin-inline: 0;
+            }
+        }
     }
 }
 

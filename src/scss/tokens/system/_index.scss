@@ -3,50 +3,6 @@
 /// @since 0.1.0-alpha
 ///
 
-@forward 'default';
-
-@use 'pkg:@maddimathon/utility-sass/list';
-@use 'pkg:@maddimathon/utility-sass/map';
-
-@use 'default';
-
-$spacing_multiplier: map.get(default.$designSystem, spacing_multiplier);
-
-$margin: map.ksort(map.get(default.$designSystem, margin));
-
-$font: map.get(default.$designSystem, font);
-
-$fontSize_base: map.get(default.$designSystem, font, sizeScale);
-
-$line_height: map.ksort(map.get(default.$designSystem, line_height));
-
-$border: map.ksort(map.get(default.$designSystem, border), $recursive: true);
-
-$icons: map.ksort(map.get(default.$designSystem, icons));
-
-$logos: map.ksort(map.get(default.$designSystem, logos));
-
-@if $logos == null {
-    $logos: ();
-}
-
-$transition: map.get(default.$designSystem, transition);
-
-$z_index: map.ksort(map.get(default.$designSystem, z_index));
-
-$colour: map.ksort(map.get(default.$designSystem, colour), $recursive: true);
-
-$themesMeta: map.get(default.$designSystem, themes, _meta);
-
-$themesMeta: map.set(
-    $themesMeta,
-    keys,
-    textOrBackground,
-    list.unique(list.join(map.get($themesMeta, keys, background), map.get($themesMeta, keys, text)))
-);
-
-$themes: ();
-
-@each $key in list.except(map.keys(map.get(default.$designSystem, themes)), _meta) {
-    $themes: map.set($themes, $key, map.get(default.$designSystem, themes, $key));
-}
+@forward '00-default';
+@forward '01-breakdown';
+@forward '02-functions';

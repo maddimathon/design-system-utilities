@@ -11,26 +11,27 @@
  * https://maddimathon.github.io/design-system-utilities
  */
 /* # ICON ==================================== */
-.icon .icon {
+.icon {
     --display: inline-block;
     display: inline-block;
     display: var(--display, inline-block);
-    height: 1.375em;
-    height: var(--icon-size, 1.375em);
-    height: calc(1.375em * 1);
+    height: 1.25em;
+    height: var(--icon-size, 1.25em);
+    height: calc(1.25em * 1);
     height: calc(
-        var(--icon-size, 1.375em) * var(--icon-size--font-multiplier, 1)
+        var(--icon-size, 1.25em) * var(--icon-size--font-multiplier, 1)
     );
     vertical-align: middle;
     vertical-align: var(--icon-vertical-align, middle);
     position: relative;
+    line-height: 1;
     color: CanvasText;
     color: var(--icon-color, var(--theme-ui, CanvasText));
     transition:
         color 250ms ease-in-out,
         fill 250ms ease-in-out;
 }
-.icon .icon > svg {
+.icon > svg {
     --display: inline-block;
     display: inline-block;
     display: var(--display, inline-block);
@@ -38,552 +39,1248 @@
     padding: 0;
     fill: currentColor;
 }
-.icon .icon--warning,
-.icon .icon--up,
-.icon .icon--unlock,
-.icon .icon--ui,
-.icon .icon--success,
-.icon .icon--star,
-.icon .icon--settings,
-.icon .icon--search,
-.icon .icon--right,
-.icon .icon--refresh,
-.icon .icon--question,
-.icon .icon--private,
-.icon .icon--plus,
-.icon .icon--paperclip,
-.icon .icon--note,
-.icon .icon--no,
-.icon .icon--minus,
-.icon .icon--minimum,
-.icon .icon--maximum,
-.icon .icon--logo-linkedin,
-.icon .icon--logo-instagram,
-.icon .icon--logo-facebook,
-.icon .icon--lock,
-.icon .icon--lightning,
-.icon .icon--lightbulb,
-.icon .icon--left,
-.icon .icon--info,
-.icon .icon--hidden,
-.icon .icon--forbidden,
-.icon .icon--fail,
-.icon .icon--external,
-.icon .icon--error,
-.icon .icon--draft,
-.icon .icon--download,
-.icon .icon--down,
-.icon .icon--dash,
-.icon .icon--compass,
-.icon .icon--code,
-.icon .icon--close,
-.icon .icon--clock,
-.icon .icon--check,
-.icon .icon--caution,
-.icon .icon--attachment {
+
+.icon--warning,
+.icon--up,
+.icon--unlock,
+.icon--ui,
+.icon--success,
+.icon--star,
+.icon--settings,
+.icon--search,
+.icon--right,
+.icon--refresh,
+.icon--question,
+.icon--private,
+.icon--plus,
+.icon--paperclip,
+.icon--note,
+.icon--no,
+.icon--minus,
+.icon--minimum,
+.icon--maximum,
+.icon--logo-linkedin,
+.icon--logo-instagram,
+.icon--logo-facebook,
+.icon--lock,
+.icon--lightning,
+.icon--lightbulb,
+.icon--left,
+.icon--info,
+.icon--hidden,
+.icon--forbidden,
+.icon--fail,
+.icon--external,
+.icon--error,
+.icon--draft,
+.icon--download,
+.icon--down,
+.icon--dash,
+.icon--computer,
+.icon--compass,
+.icon--code,
+.icon--close,
+.icon--clock,
+.icon--check,
+.icon--caution,
+.icon--attachment {
     aspect-ratio: 1/1;
 }
-.no-js .icon .icon--warning,
-.no-js .icon .icon--up,
-.no-js .icon .icon--unlock,
-.no-js .icon .icon--ui,
-.no-js .icon .icon--success,
-.no-js .icon .icon--star,
-.no-js .icon .icon--settings,
-.no-js .icon .icon--search,
-.no-js .icon .icon--right,
-.no-js .icon .icon--refresh,
-.no-js .icon .icon--question,
-.no-js .icon .icon--private,
-.no-js .icon .icon--plus,
-.no-js .icon .icon--paperclip,
-.no-js .icon .icon--note,
-.no-js .icon .icon--no,
-.no-js .icon .icon--minus,
-.no-js .icon .icon--minimum,
-.no-js .icon .icon--maximum,
-.no-js .icon .icon--logo-linkedin,
-.no-js .icon .icon--logo-instagram,
-.no-js .icon .icon--logo-facebook,
-.no-js .icon .icon--lock,
-.no-js .icon .icon--lightning,
-.no-js .icon .icon--lightbulb,
-.no-js .icon .icon--left,
-.no-js .icon .icon--info,
-.no-js .icon .icon--hidden,
-.no-js .icon .icon--forbidden,
-.no-js .icon .icon--fail,
-.no-js .icon .icon--external,
-.no-js .icon .icon--error,
-.no-js .icon .icon--draft,
-.no-js .icon .icon--download,
-.no-js .icon .icon--down,
-.no-js .icon .icon--dash,
-.no-js .icon .icon--compass,
-.no-js .icon .icon--code,
-.no-js .icon .icon--close,
-.no-js .icon .icon--clock,
-.no-js .icon .icon--check,
-.no-js .icon .icon--caution,
-.no-js .icon .icon--attachment,
-.js__no-whereSelector .icon .icon--warning,
-.js__no-whereSelector .icon .icon--up,
-.js__no-whereSelector .icon .icon--unlock,
-.js__no-whereSelector .icon .icon--ui,
-.js__no-whereSelector .icon .icon--success,
-.js__no-whereSelector .icon .icon--star,
-.js__no-whereSelector .icon .icon--settings,
-.js__no-whereSelector .icon .icon--search,
-.js__no-whereSelector .icon .icon--right,
-.js__no-whereSelector .icon .icon--refresh,
-.js__no-whereSelector .icon .icon--question,
-.js__no-whereSelector .icon .icon--private,
-.js__no-whereSelector .icon .icon--plus,
-.js__no-whereSelector .icon .icon--paperclip,
-.js__no-whereSelector .icon .icon--note,
-.js__no-whereSelector .icon .icon--no,
-.js__no-whereSelector .icon .icon--minus,
-.js__no-whereSelector .icon .icon--minimum,
-.js__no-whereSelector .icon .icon--maximum,
-.js__no-whereSelector .icon .icon--logo-linkedin,
-.js__no-whereSelector .icon .icon--logo-instagram,
-.js__no-whereSelector .icon .icon--logo-facebook,
-.js__no-whereSelector .icon .icon--lock,
-.js__no-whereSelector .icon .icon--lightning,
-.js__no-whereSelector .icon .icon--lightbulb,
-.js__no-whereSelector .icon .icon--left,
-.js__no-whereSelector .icon .icon--info,
-.js__no-whereSelector .icon .icon--hidden,
-.js__no-whereSelector .icon .icon--forbidden,
-.js__no-whereSelector .icon .icon--fail,
-.js__no-whereSelector .icon .icon--external,
-.js__no-whereSelector .icon .icon--error,
-.js__no-whereSelector .icon .icon--draft,
-.js__no-whereSelector .icon .icon--download,
-.js__no-whereSelector .icon .icon--down,
-.js__no-whereSelector .icon .icon--dash,
-.js__no-whereSelector .icon .icon--compass,
-.js__no-whereSelector .icon .icon--code,
-.js__no-whereSelector .icon .icon--close,
-.js__no-whereSelector .icon .icon--clock,
-.js__no-whereSelector .icon .icon--check,
-.js__no-whereSelector .icon .icon--caution,
-.js__no-whereSelector .icon .icon--attachment {
+.no-js .icon--warning,
+.no-js .icon--up,
+.no-js .icon--unlock,
+.no-js .icon--ui,
+.no-js .icon--success,
+.no-js .icon--star,
+.no-js .icon--settings,
+.no-js .icon--search,
+.no-js .icon--right,
+.no-js .icon--refresh,
+.no-js .icon--question,
+.no-js .icon--private,
+.no-js .icon--plus,
+.no-js .icon--paperclip,
+.no-js .icon--note,
+.no-js .icon--no,
+.no-js .icon--minus,
+.no-js .icon--minimum,
+.no-js .icon--maximum,
+.no-js .icon--logo-linkedin,
+.no-js .icon--logo-instagram,
+.no-js .icon--logo-facebook,
+.no-js .icon--lock,
+.no-js .icon--lightning,
+.no-js .icon--lightbulb,
+.no-js .icon--left,
+.no-js .icon--info,
+.no-js .icon--hidden,
+.no-js .icon--forbidden,
+.no-js .icon--fail,
+.no-js .icon--external,
+.no-js .icon--error,
+.no-js .icon--draft,
+.no-js .icon--download,
+.no-js .icon--down,
+.no-js .icon--dash,
+.no-js .icon--computer,
+.no-js .icon--compass,
+.no-js .icon--code,
+.no-js .icon--close,
+.no-js .icon--clock,
+.no-js .icon--check,
+.no-js .icon--caution,
+.no-js .icon--attachment,
+.js__no-whereSelector .icon--warning,
+.js__no-whereSelector .icon--up,
+.js__no-whereSelector .icon--unlock,
+.js__no-whereSelector .icon--ui,
+.js__no-whereSelector .icon--success,
+.js__no-whereSelector .icon--star,
+.js__no-whereSelector .icon--settings,
+.js__no-whereSelector .icon--search,
+.js__no-whereSelector .icon--right,
+.js__no-whereSelector .icon--refresh,
+.js__no-whereSelector .icon--question,
+.js__no-whereSelector .icon--private,
+.js__no-whereSelector .icon--plus,
+.js__no-whereSelector .icon--paperclip,
+.js__no-whereSelector .icon--note,
+.js__no-whereSelector .icon--no,
+.js__no-whereSelector .icon--minus,
+.js__no-whereSelector .icon--minimum,
+.js__no-whereSelector .icon--maximum,
+.js__no-whereSelector .icon--logo-linkedin,
+.js__no-whereSelector .icon--logo-instagram,
+.js__no-whereSelector .icon--logo-facebook,
+.js__no-whereSelector .icon--lock,
+.js__no-whereSelector .icon--lightning,
+.js__no-whereSelector .icon--lightbulb,
+.js__no-whereSelector .icon--left,
+.js__no-whereSelector .icon--info,
+.js__no-whereSelector .icon--hidden,
+.js__no-whereSelector .icon--forbidden,
+.js__no-whereSelector .icon--fail,
+.js__no-whereSelector .icon--external,
+.js__no-whereSelector .icon--error,
+.js__no-whereSelector .icon--draft,
+.js__no-whereSelector .icon--download,
+.js__no-whereSelector .icon--down,
+.js__no-whereSelector .icon--dash,
+.js__no-whereSelector .icon--computer,
+.js__no-whereSelector .icon--compass,
+.js__no-whereSelector .icon--code,
+.js__no-whereSelector .icon--close,
+.js__no-whereSelector .icon--clock,
+.js__no-whereSelector .icon--check,
+.js__no-whereSelector .icon--caution,
+.js__no-whereSelector .icon--attachment {
     /* aspect-ratio fallback */
     position: relative;
 }
-.no-js .icon .icon--warning::before,
-.no-js .icon .icon--up::before,
-.no-js .icon .icon--unlock::before,
-.no-js .icon .icon--ui::before,
-.no-js .icon .icon--success::before,
-.no-js .icon .icon--star::before,
-.no-js .icon .icon--settings::before,
-.no-js .icon .icon--search::before,
-.no-js .icon .icon--right::before,
-.no-js .icon .icon--refresh::before,
-.no-js .icon .icon--question::before,
-.no-js .icon .icon--private::before,
-.no-js .icon .icon--plus::before,
-.no-js .icon .icon--paperclip::before,
-.no-js .icon .icon--note::before,
-.no-js .icon .icon--no::before,
-.no-js .icon .icon--minus::before,
-.no-js .icon .icon--minimum::before,
-.no-js .icon .icon--maximum::before,
-.no-js .icon .icon--logo-linkedin::before,
-.no-js .icon .icon--logo-instagram::before,
-.no-js .icon .icon--logo-facebook::before,
-.no-js .icon .icon--lock::before,
-.no-js .icon .icon--lightning::before,
-.no-js .icon .icon--lightbulb::before,
-.no-js .icon .icon--left::before,
-.no-js .icon .icon--info::before,
-.no-js .icon .icon--hidden::before,
-.no-js .icon .icon--forbidden::before,
-.no-js .icon .icon--fail::before,
-.no-js .icon .icon--external::before,
-.no-js .icon .icon--error::before,
-.no-js .icon .icon--draft::before,
-.no-js .icon .icon--download::before,
-.no-js .icon .icon--down::before,
-.no-js .icon .icon--dash::before,
-.no-js .icon .icon--compass::before,
-.no-js .icon .icon--code::before,
-.no-js .icon .icon--close::before,
-.no-js .icon .icon--clock::before,
-.no-js .icon .icon--check::before,
-.no-js .icon .icon--caution::before,
-.no-js .icon .icon--attachment::before,
-.js__no-whereSelector .icon .icon--warning::before,
-.js__no-whereSelector .icon .icon--up::before,
-.js__no-whereSelector .icon .icon--unlock::before,
-.js__no-whereSelector .icon .icon--ui::before,
-.js__no-whereSelector .icon .icon--success::before,
-.js__no-whereSelector .icon .icon--star::before,
-.js__no-whereSelector .icon .icon--settings::before,
-.js__no-whereSelector .icon .icon--search::before,
-.js__no-whereSelector .icon .icon--right::before,
-.js__no-whereSelector .icon .icon--refresh::before,
-.js__no-whereSelector .icon .icon--question::before,
-.js__no-whereSelector .icon .icon--private::before,
-.js__no-whereSelector .icon .icon--plus::before,
-.js__no-whereSelector .icon .icon--paperclip::before,
-.js__no-whereSelector .icon .icon--note::before,
-.js__no-whereSelector .icon .icon--no::before,
-.js__no-whereSelector .icon .icon--minus::before,
-.js__no-whereSelector .icon .icon--minimum::before,
-.js__no-whereSelector .icon .icon--maximum::before,
-.js__no-whereSelector .icon .icon--logo-linkedin::before,
-.js__no-whereSelector .icon .icon--logo-instagram::before,
-.js__no-whereSelector .icon .icon--logo-facebook::before,
-.js__no-whereSelector .icon .icon--lock::before,
-.js__no-whereSelector .icon .icon--lightning::before,
-.js__no-whereSelector .icon .icon--lightbulb::before,
-.js__no-whereSelector .icon .icon--left::before,
-.js__no-whereSelector .icon .icon--info::before,
-.js__no-whereSelector .icon .icon--hidden::before,
-.js__no-whereSelector .icon .icon--forbidden::before,
-.js__no-whereSelector .icon .icon--fail::before,
-.js__no-whereSelector .icon .icon--external::before,
-.js__no-whereSelector .icon .icon--error::before,
-.js__no-whereSelector .icon .icon--draft::before,
-.js__no-whereSelector .icon .icon--download::before,
-.js__no-whereSelector .icon .icon--down::before,
-.js__no-whereSelector .icon .icon--dash::before,
-.js__no-whereSelector .icon .icon--compass::before,
-.js__no-whereSelector .icon .icon--code::before,
-.js__no-whereSelector .icon .icon--close::before,
-.js__no-whereSelector .icon .icon--clock::before,
-.js__no-whereSelector .icon .icon--check::before,
-.js__no-whereSelector .icon .icon--caution::before,
-.js__no-whereSelector .icon .icon--attachment::before {
+.no-js .icon--warning::before,
+.no-js .icon--up::before,
+.no-js .icon--unlock::before,
+.no-js .icon--ui::before,
+.no-js .icon--success::before,
+.no-js .icon--star::before,
+.no-js .icon--settings::before,
+.no-js .icon--search::before,
+.no-js .icon--right::before,
+.no-js .icon--refresh::before,
+.no-js .icon--question::before,
+.no-js .icon--private::before,
+.no-js .icon--plus::before,
+.no-js .icon--paperclip::before,
+.no-js .icon--note::before,
+.no-js .icon--no::before,
+.no-js .icon--minus::before,
+.no-js .icon--minimum::before,
+.no-js .icon--maximum::before,
+.no-js .icon--logo-linkedin::before,
+.no-js .icon--logo-instagram::before,
+.no-js .icon--logo-facebook::before,
+.no-js .icon--lock::before,
+.no-js .icon--lightning::before,
+.no-js .icon--lightbulb::before,
+.no-js .icon--left::before,
+.no-js .icon--info::before,
+.no-js .icon--hidden::before,
+.no-js .icon--forbidden::before,
+.no-js .icon--fail::before,
+.no-js .icon--external::before,
+.no-js .icon--error::before,
+.no-js .icon--draft::before,
+.no-js .icon--download::before,
+.no-js .icon--down::before,
+.no-js .icon--dash::before,
+.no-js .icon--computer::before,
+.no-js .icon--compass::before,
+.no-js .icon--code::before,
+.no-js .icon--close::before,
+.no-js .icon--clock::before,
+.no-js .icon--check::before,
+.no-js .icon--caution::before,
+.no-js .icon--attachment::before,
+.js__no-whereSelector .icon--warning::before,
+.js__no-whereSelector .icon--up::before,
+.js__no-whereSelector .icon--unlock::before,
+.js__no-whereSelector .icon--ui::before,
+.js__no-whereSelector .icon--success::before,
+.js__no-whereSelector .icon--star::before,
+.js__no-whereSelector .icon--settings::before,
+.js__no-whereSelector .icon--search::before,
+.js__no-whereSelector .icon--right::before,
+.js__no-whereSelector .icon--refresh::before,
+.js__no-whereSelector .icon--question::before,
+.js__no-whereSelector .icon--private::before,
+.js__no-whereSelector .icon--plus::before,
+.js__no-whereSelector .icon--paperclip::before,
+.js__no-whereSelector .icon--note::before,
+.js__no-whereSelector .icon--no::before,
+.js__no-whereSelector .icon--minus::before,
+.js__no-whereSelector .icon--minimum::before,
+.js__no-whereSelector .icon--maximum::before,
+.js__no-whereSelector .icon--logo-linkedin::before,
+.js__no-whereSelector .icon--logo-instagram::before,
+.js__no-whereSelector .icon--logo-facebook::before,
+.js__no-whereSelector .icon--lock::before,
+.js__no-whereSelector .icon--lightning::before,
+.js__no-whereSelector .icon--lightbulb::before,
+.js__no-whereSelector .icon--left::before,
+.js__no-whereSelector .icon--info::before,
+.js__no-whereSelector .icon--hidden::before,
+.js__no-whereSelector .icon--forbidden::before,
+.js__no-whereSelector .icon--fail::before,
+.js__no-whereSelector .icon--external::before,
+.js__no-whereSelector .icon--error::before,
+.js__no-whereSelector .icon--draft::before,
+.js__no-whereSelector .icon--download::before,
+.js__no-whereSelector .icon--down::before,
+.js__no-whereSelector .icon--dash::before,
+.js__no-whereSelector .icon--computer::before,
+.js__no-whereSelector .icon--compass::before,
+.js__no-whereSelector .icon--code::before,
+.js__no-whereSelector .icon--close::before,
+.js__no-whereSelector .icon--clock::before,
+.js__no-whereSelector .icon--check::before,
+.js__no-whereSelector .icon--caution::before,
+.js__no-whereSelector .icon--attachment::before {
     /* aspect-ratio fallback */
     content: "";
     float: left;
     padding-top: 100%;
 }
-.no-js .icon .icon--warning::after,
-.no-js .icon .icon--up::after,
-.no-js .icon .icon--unlock::after,
-.no-js .icon .icon--ui::after,
-.no-js .icon .icon--success::after,
-.no-js .icon .icon--star::after,
-.no-js .icon .icon--settings::after,
-.no-js .icon .icon--search::after,
-.no-js .icon .icon--right::after,
-.no-js .icon .icon--refresh::after,
-.no-js .icon .icon--question::after,
-.no-js .icon .icon--private::after,
-.no-js .icon .icon--plus::after,
-.no-js .icon .icon--paperclip::after,
-.no-js .icon .icon--note::after,
-.no-js .icon .icon--no::after,
-.no-js .icon .icon--minus::after,
-.no-js .icon .icon--minimum::after,
-.no-js .icon .icon--maximum::after,
-.no-js .icon .icon--logo-linkedin::after,
-.no-js .icon .icon--logo-instagram::after,
-.no-js .icon .icon--logo-facebook::after,
-.no-js .icon .icon--lock::after,
-.no-js .icon .icon--lightning::after,
-.no-js .icon .icon--lightbulb::after,
-.no-js .icon .icon--left::after,
-.no-js .icon .icon--info::after,
-.no-js .icon .icon--hidden::after,
-.no-js .icon .icon--forbidden::after,
-.no-js .icon .icon--fail::after,
-.no-js .icon .icon--external::after,
-.no-js .icon .icon--error::after,
-.no-js .icon .icon--draft::after,
-.no-js .icon .icon--download::after,
-.no-js .icon .icon--down::after,
-.no-js .icon .icon--dash::after,
-.no-js .icon .icon--compass::after,
-.no-js .icon .icon--code::after,
-.no-js .icon .icon--close::after,
-.no-js .icon .icon--clock::after,
-.no-js .icon .icon--check::after,
-.no-js .icon .icon--caution::after,
-.no-js .icon .icon--attachment::after,
-.js__no-whereSelector .icon .icon--warning::after,
-.js__no-whereSelector .icon .icon--up::after,
-.js__no-whereSelector .icon .icon--unlock::after,
-.js__no-whereSelector .icon .icon--ui::after,
-.js__no-whereSelector .icon .icon--success::after,
-.js__no-whereSelector .icon .icon--star::after,
-.js__no-whereSelector .icon .icon--settings::after,
-.js__no-whereSelector .icon .icon--search::after,
-.js__no-whereSelector .icon .icon--right::after,
-.js__no-whereSelector .icon .icon--refresh::after,
-.js__no-whereSelector .icon .icon--question::after,
-.js__no-whereSelector .icon .icon--private::after,
-.js__no-whereSelector .icon .icon--plus::after,
-.js__no-whereSelector .icon .icon--paperclip::after,
-.js__no-whereSelector .icon .icon--note::after,
-.js__no-whereSelector .icon .icon--no::after,
-.js__no-whereSelector .icon .icon--minus::after,
-.js__no-whereSelector .icon .icon--minimum::after,
-.js__no-whereSelector .icon .icon--maximum::after,
-.js__no-whereSelector .icon .icon--logo-linkedin::after,
-.js__no-whereSelector .icon .icon--logo-instagram::after,
-.js__no-whereSelector .icon .icon--logo-facebook::after,
-.js__no-whereSelector .icon .icon--lock::after,
-.js__no-whereSelector .icon .icon--lightning::after,
-.js__no-whereSelector .icon .icon--lightbulb::after,
-.js__no-whereSelector .icon .icon--left::after,
-.js__no-whereSelector .icon .icon--info::after,
-.js__no-whereSelector .icon .icon--hidden::after,
-.js__no-whereSelector .icon .icon--forbidden::after,
-.js__no-whereSelector .icon .icon--fail::after,
-.js__no-whereSelector .icon .icon--external::after,
-.js__no-whereSelector .icon .icon--error::after,
-.js__no-whereSelector .icon .icon--draft::after,
-.js__no-whereSelector .icon .icon--download::after,
-.js__no-whereSelector .icon .icon--down::after,
-.js__no-whereSelector .icon .icon--dash::after,
-.js__no-whereSelector .icon .icon--compass::after,
-.js__no-whereSelector .icon .icon--code::after,
-.js__no-whereSelector .icon .icon--close::after,
-.js__no-whereSelector .icon .icon--clock::after,
-.js__no-whereSelector .icon .icon--check::after,
-.js__no-whereSelector .icon .icon--caution::after,
-.js__no-whereSelector .icon .icon--attachment::after {
+.no-js .icon--warning::after,
+.no-js .icon--up::after,
+.no-js .icon--unlock::after,
+.no-js .icon--ui::after,
+.no-js .icon--success::after,
+.no-js .icon--star::after,
+.no-js .icon--settings::after,
+.no-js .icon--search::after,
+.no-js .icon--right::after,
+.no-js .icon--refresh::after,
+.no-js .icon--question::after,
+.no-js .icon--private::after,
+.no-js .icon--plus::after,
+.no-js .icon--paperclip::after,
+.no-js .icon--note::after,
+.no-js .icon--no::after,
+.no-js .icon--minus::after,
+.no-js .icon--minimum::after,
+.no-js .icon--maximum::after,
+.no-js .icon--logo-linkedin::after,
+.no-js .icon--logo-instagram::after,
+.no-js .icon--logo-facebook::after,
+.no-js .icon--lock::after,
+.no-js .icon--lightning::after,
+.no-js .icon--lightbulb::after,
+.no-js .icon--left::after,
+.no-js .icon--info::after,
+.no-js .icon--hidden::after,
+.no-js .icon--forbidden::after,
+.no-js .icon--fail::after,
+.no-js .icon--external::after,
+.no-js .icon--error::after,
+.no-js .icon--draft::after,
+.no-js .icon--download::after,
+.no-js .icon--down::after,
+.no-js .icon--dash::after,
+.no-js .icon--computer::after,
+.no-js .icon--compass::after,
+.no-js .icon--code::after,
+.no-js .icon--close::after,
+.no-js .icon--clock::after,
+.no-js .icon--check::after,
+.no-js .icon--caution::after,
+.no-js .icon--attachment::after,
+.js__no-whereSelector .icon--warning::after,
+.js__no-whereSelector .icon--up::after,
+.js__no-whereSelector .icon--unlock::after,
+.js__no-whereSelector .icon--ui::after,
+.js__no-whereSelector .icon--success::after,
+.js__no-whereSelector .icon--star::after,
+.js__no-whereSelector .icon--settings::after,
+.js__no-whereSelector .icon--search::after,
+.js__no-whereSelector .icon--right::after,
+.js__no-whereSelector .icon--refresh::after,
+.js__no-whereSelector .icon--question::after,
+.js__no-whereSelector .icon--private::after,
+.js__no-whereSelector .icon--plus::after,
+.js__no-whereSelector .icon--paperclip::after,
+.js__no-whereSelector .icon--note::after,
+.js__no-whereSelector .icon--no::after,
+.js__no-whereSelector .icon--minus::after,
+.js__no-whereSelector .icon--minimum::after,
+.js__no-whereSelector .icon--maximum::after,
+.js__no-whereSelector .icon--logo-linkedin::after,
+.js__no-whereSelector .icon--logo-instagram::after,
+.js__no-whereSelector .icon--logo-facebook::after,
+.js__no-whereSelector .icon--lock::after,
+.js__no-whereSelector .icon--lightning::after,
+.js__no-whereSelector .icon--lightbulb::after,
+.js__no-whereSelector .icon--left::after,
+.js__no-whereSelector .icon--info::after,
+.js__no-whereSelector .icon--hidden::after,
+.js__no-whereSelector .icon--forbidden::after,
+.js__no-whereSelector .icon--fail::after,
+.js__no-whereSelector .icon--external::after,
+.js__no-whereSelector .icon--error::after,
+.js__no-whereSelector .icon--draft::after,
+.js__no-whereSelector .icon--download::after,
+.js__no-whereSelector .icon--down::after,
+.js__no-whereSelector .icon--dash::after,
+.js__no-whereSelector .icon--computer::after,
+.js__no-whereSelector .icon--compass::after,
+.js__no-whereSelector .icon--code::after,
+.js__no-whereSelector .icon--close::after,
+.js__no-whereSelector .icon--clock::after,
+.js__no-whereSelector .icon--check::after,
+.js__no-whereSelector .icon--caution::after,
+.js__no-whereSelector .icon--attachment::after {
     /* aspect-ratio fallback */
     content: "";
     display: block;
     clear: both;
 }
 
-:where(.js__no-aspectRatio) .icon .icon--warning,
-:where(.js__no-aspectRatio) .icon .icon--up,
-:where(.js__no-aspectRatio) .icon .icon--unlock,
-:where(.js__no-aspectRatio) .icon .icon--ui,
-:where(.js__no-aspectRatio) .icon .icon--success,
-:where(.js__no-aspectRatio) .icon .icon--star,
-:where(.js__no-aspectRatio) .icon .icon--settings,
-:where(.js__no-aspectRatio) .icon .icon--search,
-:where(.js__no-aspectRatio) .icon .icon--right,
-:where(.js__no-aspectRatio) .icon .icon--refresh,
-:where(.js__no-aspectRatio) .icon .icon--question,
-:where(.js__no-aspectRatio) .icon .icon--private,
-:where(.js__no-aspectRatio) .icon .icon--plus,
-:where(.js__no-aspectRatio) .icon .icon--paperclip,
-:where(.js__no-aspectRatio) .icon .icon--note,
-:where(.js__no-aspectRatio) .icon .icon--no,
-:where(.js__no-aspectRatio) .icon .icon--minus,
-:where(.js__no-aspectRatio) .icon .icon--minimum,
-:where(.js__no-aspectRatio) .icon .icon--maximum,
-:where(.js__no-aspectRatio) .icon .icon--logo-linkedin,
-:where(.js__no-aspectRatio) .icon .icon--logo-instagram,
-:where(.js__no-aspectRatio) .icon .icon--logo-facebook,
-:where(.js__no-aspectRatio) .icon .icon--lock,
-:where(.js__no-aspectRatio) .icon .icon--lightning,
-:where(.js__no-aspectRatio) .icon .icon--lightbulb,
-:where(.js__no-aspectRatio) .icon .icon--left,
-:where(.js__no-aspectRatio) .icon .icon--info,
-:where(.js__no-aspectRatio) .icon .icon--hidden,
-:where(.js__no-aspectRatio) .icon .icon--forbidden,
-:where(.js__no-aspectRatio) .icon .icon--fail,
-:where(.js__no-aspectRatio) .icon .icon--external,
-:where(.js__no-aspectRatio) .icon .icon--error,
-:where(.js__no-aspectRatio) .icon .icon--draft,
-:where(.js__no-aspectRatio) .icon .icon--download,
-:where(.js__no-aspectRatio) .icon .icon--down,
-:where(.js__no-aspectRatio) .icon .icon--dash,
-:where(.js__no-aspectRatio) .icon .icon--compass,
-:where(.js__no-aspectRatio) .icon .icon--code,
-:where(.js__no-aspectRatio) .icon .icon--close,
-:where(.js__no-aspectRatio) .icon .icon--clock,
-:where(.js__no-aspectRatio) .icon .icon--check,
-:where(.js__no-aspectRatio) .icon .icon--caution,
-:where(.js__no-aspectRatio) .icon .icon--attachment {
+:where(.js__no-aspectRatio) .icon--warning,
+:where(.js__no-aspectRatio) .icon--up,
+:where(.js__no-aspectRatio) .icon--unlock,
+:where(.js__no-aspectRatio) .icon--ui,
+:where(.js__no-aspectRatio) .icon--success,
+:where(.js__no-aspectRatio) .icon--star,
+:where(.js__no-aspectRatio) .icon--settings,
+:where(.js__no-aspectRatio) .icon--search,
+:where(.js__no-aspectRatio) .icon--right,
+:where(.js__no-aspectRatio) .icon--refresh,
+:where(.js__no-aspectRatio) .icon--question,
+:where(.js__no-aspectRatio) .icon--private,
+:where(.js__no-aspectRatio) .icon--plus,
+:where(.js__no-aspectRatio) .icon--paperclip,
+:where(.js__no-aspectRatio) .icon--note,
+:where(.js__no-aspectRatio) .icon--no,
+:where(.js__no-aspectRatio) .icon--minus,
+:where(.js__no-aspectRatio) .icon--minimum,
+:where(.js__no-aspectRatio) .icon--maximum,
+:where(.js__no-aspectRatio) .icon--logo-linkedin,
+:where(.js__no-aspectRatio) .icon--logo-instagram,
+:where(.js__no-aspectRatio) .icon--logo-facebook,
+:where(.js__no-aspectRatio) .icon--lock,
+:where(.js__no-aspectRatio) .icon--lightning,
+:where(.js__no-aspectRatio) .icon--lightbulb,
+:where(.js__no-aspectRatio) .icon--left,
+:where(.js__no-aspectRatio) .icon--info,
+:where(.js__no-aspectRatio) .icon--hidden,
+:where(.js__no-aspectRatio) .icon--forbidden,
+:where(.js__no-aspectRatio) .icon--fail,
+:where(.js__no-aspectRatio) .icon--external,
+:where(.js__no-aspectRatio) .icon--error,
+:where(.js__no-aspectRatio) .icon--draft,
+:where(.js__no-aspectRatio) .icon--download,
+:where(.js__no-aspectRatio) .icon--down,
+:where(.js__no-aspectRatio) .icon--dash,
+:where(.js__no-aspectRatio) .icon--computer,
+:where(.js__no-aspectRatio) .icon--compass,
+:where(.js__no-aspectRatio) .icon--code,
+:where(.js__no-aspectRatio) .icon--close,
+:where(.js__no-aspectRatio) .icon--clock,
+:where(.js__no-aspectRatio) .icon--check,
+:where(.js__no-aspectRatio) .icon--caution,
+:where(.js__no-aspectRatio) .icon--attachment {
     /* aspect-ratio fallback */
     position: relative;
 }
-:where(.js__no-aspectRatio) .icon .icon--warning::before,
-:where(.js__no-aspectRatio) .icon .icon--up::before,
-:where(.js__no-aspectRatio) .icon .icon--unlock::before,
-:where(.js__no-aspectRatio) .icon .icon--ui::before,
-:where(.js__no-aspectRatio) .icon .icon--success::before,
-:where(.js__no-aspectRatio) .icon .icon--star::before,
-:where(.js__no-aspectRatio) .icon .icon--settings::before,
-:where(.js__no-aspectRatio) .icon .icon--search::before,
-:where(.js__no-aspectRatio) .icon .icon--right::before,
-:where(.js__no-aspectRatio) .icon .icon--refresh::before,
-:where(.js__no-aspectRatio) .icon .icon--question::before,
-:where(.js__no-aspectRatio) .icon .icon--private::before,
-:where(.js__no-aspectRatio) .icon .icon--plus::before,
-:where(.js__no-aspectRatio) .icon .icon--paperclip::before,
-:where(.js__no-aspectRatio) .icon .icon--note::before,
-:where(.js__no-aspectRatio) .icon .icon--no::before,
-:where(.js__no-aspectRatio) .icon .icon--minus::before,
-:where(.js__no-aspectRatio) .icon .icon--minimum::before,
-:where(.js__no-aspectRatio) .icon .icon--maximum::before,
-:where(.js__no-aspectRatio) .icon .icon--logo-linkedin::before,
-:where(.js__no-aspectRatio) .icon .icon--logo-instagram::before,
-:where(.js__no-aspectRatio) .icon .icon--logo-facebook::before,
-:where(.js__no-aspectRatio) .icon .icon--lock::before,
-:where(.js__no-aspectRatio) .icon .icon--lightning::before,
-:where(.js__no-aspectRatio) .icon .icon--lightbulb::before,
-:where(.js__no-aspectRatio) .icon .icon--left::before,
-:where(.js__no-aspectRatio) .icon .icon--info::before,
-:where(.js__no-aspectRatio) .icon .icon--hidden::before,
-:where(.js__no-aspectRatio) .icon .icon--forbidden::before,
-:where(.js__no-aspectRatio) .icon .icon--fail::before,
-:where(.js__no-aspectRatio) .icon .icon--external::before,
-:where(.js__no-aspectRatio) .icon .icon--error::before,
-:where(.js__no-aspectRatio) .icon .icon--draft::before,
-:where(.js__no-aspectRatio) .icon .icon--download::before,
-:where(.js__no-aspectRatio) .icon .icon--down::before,
-:where(.js__no-aspectRatio) .icon .icon--dash::before,
-:where(.js__no-aspectRatio) .icon .icon--compass::before,
-:where(.js__no-aspectRatio) .icon .icon--code::before,
-:where(.js__no-aspectRatio) .icon .icon--close::before,
-:where(.js__no-aspectRatio) .icon .icon--clock::before,
-:where(.js__no-aspectRatio) .icon .icon--check::before,
-:where(.js__no-aspectRatio) .icon .icon--caution::before,
-:where(.js__no-aspectRatio) .icon .icon--attachment::before {
+:where(.js__no-aspectRatio) .icon--warning::before,
+:where(.js__no-aspectRatio) .icon--up::before,
+:where(.js__no-aspectRatio) .icon--unlock::before,
+:where(.js__no-aspectRatio) .icon--ui::before,
+:where(.js__no-aspectRatio) .icon--success::before,
+:where(.js__no-aspectRatio) .icon--star::before,
+:where(.js__no-aspectRatio) .icon--settings::before,
+:where(.js__no-aspectRatio) .icon--search::before,
+:where(.js__no-aspectRatio) .icon--right::before,
+:where(.js__no-aspectRatio) .icon--refresh::before,
+:where(.js__no-aspectRatio) .icon--question::before,
+:where(.js__no-aspectRatio) .icon--private::before,
+:where(.js__no-aspectRatio) .icon--plus::before,
+:where(.js__no-aspectRatio) .icon--paperclip::before,
+:where(.js__no-aspectRatio) .icon--note::before,
+:where(.js__no-aspectRatio) .icon--no::before,
+:where(.js__no-aspectRatio) .icon--minus::before,
+:where(.js__no-aspectRatio) .icon--minimum::before,
+:where(.js__no-aspectRatio) .icon--maximum::before,
+:where(.js__no-aspectRatio) .icon--logo-linkedin::before,
+:where(.js__no-aspectRatio) .icon--logo-instagram::before,
+:where(.js__no-aspectRatio) .icon--logo-facebook::before,
+:where(.js__no-aspectRatio) .icon--lock::before,
+:where(.js__no-aspectRatio) .icon--lightning::before,
+:where(.js__no-aspectRatio) .icon--lightbulb::before,
+:where(.js__no-aspectRatio) .icon--left::before,
+:where(.js__no-aspectRatio) .icon--info::before,
+:where(.js__no-aspectRatio) .icon--hidden::before,
+:where(.js__no-aspectRatio) .icon--forbidden::before,
+:where(.js__no-aspectRatio) .icon--fail::before,
+:where(.js__no-aspectRatio) .icon--external::before,
+:where(.js__no-aspectRatio) .icon--error::before,
+:where(.js__no-aspectRatio) .icon--draft::before,
+:where(.js__no-aspectRatio) .icon--download::before,
+:where(.js__no-aspectRatio) .icon--down::before,
+:where(.js__no-aspectRatio) .icon--dash::before,
+:where(.js__no-aspectRatio) .icon--computer::before,
+:where(.js__no-aspectRatio) .icon--compass::before,
+:where(.js__no-aspectRatio) .icon--code::before,
+:where(.js__no-aspectRatio) .icon--close::before,
+:where(.js__no-aspectRatio) .icon--clock::before,
+:where(.js__no-aspectRatio) .icon--check::before,
+:where(.js__no-aspectRatio) .icon--caution::before,
+:where(.js__no-aspectRatio) .icon--attachment::before {
     /* aspect-ratio fallback */
     content: "";
     float: left;
     padding-top: 100%;
 }
-:where(.js__no-aspectRatio) .icon .icon--warning::after,
-:where(.js__no-aspectRatio) .icon .icon--up::after,
-:where(.js__no-aspectRatio) .icon .icon--unlock::after,
-:where(.js__no-aspectRatio) .icon .icon--ui::after,
-:where(.js__no-aspectRatio) .icon .icon--success::after,
-:where(.js__no-aspectRatio) .icon .icon--star::after,
-:where(.js__no-aspectRatio) .icon .icon--settings::after,
-:where(.js__no-aspectRatio) .icon .icon--search::after,
-:where(.js__no-aspectRatio) .icon .icon--right::after,
-:where(.js__no-aspectRatio) .icon .icon--refresh::after,
-:where(.js__no-aspectRatio) .icon .icon--question::after,
-:where(.js__no-aspectRatio) .icon .icon--private::after,
-:where(.js__no-aspectRatio) .icon .icon--plus::after,
-:where(.js__no-aspectRatio) .icon .icon--paperclip::after,
-:where(.js__no-aspectRatio) .icon .icon--note::after,
-:where(.js__no-aspectRatio) .icon .icon--no::after,
-:where(.js__no-aspectRatio) .icon .icon--minus::after,
-:where(.js__no-aspectRatio) .icon .icon--minimum::after,
-:where(.js__no-aspectRatio) .icon .icon--maximum::after,
-:where(.js__no-aspectRatio) .icon .icon--logo-linkedin::after,
-:where(.js__no-aspectRatio) .icon .icon--logo-instagram::after,
-:where(.js__no-aspectRatio) .icon .icon--logo-facebook::after,
-:where(.js__no-aspectRatio) .icon .icon--lock::after,
-:where(.js__no-aspectRatio) .icon .icon--lightning::after,
-:where(.js__no-aspectRatio) .icon .icon--lightbulb::after,
-:where(.js__no-aspectRatio) .icon .icon--left::after,
-:where(.js__no-aspectRatio) .icon .icon--info::after,
-:where(.js__no-aspectRatio) .icon .icon--hidden::after,
-:where(.js__no-aspectRatio) .icon .icon--forbidden::after,
-:where(.js__no-aspectRatio) .icon .icon--fail::after,
-:where(.js__no-aspectRatio) .icon .icon--external::after,
-:where(.js__no-aspectRatio) .icon .icon--error::after,
-:where(.js__no-aspectRatio) .icon .icon--draft::after,
-:where(.js__no-aspectRatio) .icon .icon--download::after,
-:where(.js__no-aspectRatio) .icon .icon--down::after,
-:where(.js__no-aspectRatio) .icon .icon--dash::after,
-:where(.js__no-aspectRatio) .icon .icon--compass::after,
-:where(.js__no-aspectRatio) .icon .icon--code::after,
-:where(.js__no-aspectRatio) .icon .icon--close::after,
-:where(.js__no-aspectRatio) .icon .icon--clock::after,
-:where(.js__no-aspectRatio) .icon .icon--check::after,
-:where(.js__no-aspectRatio) .icon .icon--caution::after,
-:where(.js__no-aspectRatio) .icon .icon--attachment::after {
+:where(.js__no-aspectRatio) .icon--warning::after,
+:where(.js__no-aspectRatio) .icon--up::after,
+:where(.js__no-aspectRatio) .icon--unlock::after,
+:where(.js__no-aspectRatio) .icon--ui::after,
+:where(.js__no-aspectRatio) .icon--success::after,
+:where(.js__no-aspectRatio) .icon--star::after,
+:where(.js__no-aspectRatio) .icon--settings::after,
+:where(.js__no-aspectRatio) .icon--search::after,
+:where(.js__no-aspectRatio) .icon--right::after,
+:where(.js__no-aspectRatio) .icon--refresh::after,
+:where(.js__no-aspectRatio) .icon--question::after,
+:where(.js__no-aspectRatio) .icon--private::after,
+:where(.js__no-aspectRatio) .icon--plus::after,
+:where(.js__no-aspectRatio) .icon--paperclip::after,
+:where(.js__no-aspectRatio) .icon--note::after,
+:where(.js__no-aspectRatio) .icon--no::after,
+:where(.js__no-aspectRatio) .icon--minus::after,
+:where(.js__no-aspectRatio) .icon--minimum::after,
+:where(.js__no-aspectRatio) .icon--maximum::after,
+:where(.js__no-aspectRatio) .icon--logo-linkedin::after,
+:where(.js__no-aspectRatio) .icon--logo-instagram::after,
+:where(.js__no-aspectRatio) .icon--logo-facebook::after,
+:where(.js__no-aspectRatio) .icon--lock::after,
+:where(.js__no-aspectRatio) .icon--lightning::after,
+:where(.js__no-aspectRatio) .icon--lightbulb::after,
+:where(.js__no-aspectRatio) .icon--left::after,
+:where(.js__no-aspectRatio) .icon--info::after,
+:where(.js__no-aspectRatio) .icon--hidden::after,
+:where(.js__no-aspectRatio) .icon--forbidden::after,
+:where(.js__no-aspectRatio) .icon--fail::after,
+:where(.js__no-aspectRatio) .icon--external::after,
+:where(.js__no-aspectRatio) .icon--error::after,
+:where(.js__no-aspectRatio) .icon--draft::after,
+:where(.js__no-aspectRatio) .icon--download::after,
+:where(.js__no-aspectRatio) .icon--down::after,
+:where(.js__no-aspectRatio) .icon--dash::after,
+:where(.js__no-aspectRatio) .icon--computer::after,
+:where(.js__no-aspectRatio) .icon--compass::after,
+:where(.js__no-aspectRatio) .icon--code::after,
+:where(.js__no-aspectRatio) .icon--close::after,
+:where(.js__no-aspectRatio) .icon--clock::after,
+:where(.js__no-aspectRatio) .icon--check::after,
+:where(.js__no-aspectRatio) .icon--caution::after,
+:where(.js__no-aspectRatio) .icon--attachment::after {
     /* aspect-ratio fallback */
     content: "";
     display: block;
     clear: both;
 }
 
-.icon .icon--double-check {
+.icon--double-check {
     aspect-ratio: 4/3;
 }
-.no-js .icon .icon--double-check,
-.js__no-whereSelector .icon .icon--double-check {
+.no-js .icon--double-check,
+.js__no-whereSelector .icon--double-check {
     /* aspect-ratio fallback */
     position: relative;
 }
-.no-js .icon .icon--double-check::before,
-.js__no-whereSelector .icon .icon--double-check::before {
+.no-js .icon--double-check::before,
+.js__no-whereSelector .icon--double-check::before {
     /* aspect-ratio fallback */
     content: "";
     float: left;
     padding-top: 75%;
 }
-.no-js .icon .icon--double-check::after,
-.js__no-whereSelector .icon .icon--double-check::after {
+.no-js .icon--double-check::after,
+.js__no-whereSelector .icon--double-check::after {
     /* aspect-ratio fallback */
     content: "";
     display: block;
     clear: both;
 }
 
-:where(.js__no-aspectRatio) .icon .icon--double-check {
+:where(.js__no-aspectRatio) .icon--double-check {
     /* aspect-ratio fallback */
     position: relative;
 }
-:where(.js__no-aspectRatio) .icon .icon--double-check::before {
+:where(.js__no-aspectRatio) .icon--double-check::before {
     /* aspect-ratio fallback */
     content: "";
     float: left;
     padding-top: 75%;
 }
-:where(.js__no-aspectRatio) .icon .icon--double-check::after {
+:where(.js__no-aspectRatio) .icon--double-check::after {
     /* aspect-ratio fallback */
     content: "";
     display: block;
     clear: both;
 }
 
-.icon .icon--ui-minimum,
-.icon .icon--ui-check {
+.icon--ui-minimum,
+.icon--ui-check {
     aspect-ratio: 7/6;
 }
-.no-js .icon .icon--ui-minimum,
-.no-js .icon .icon--ui-check,
-.js__no-whereSelector .icon .icon--ui-minimum,
-.js__no-whereSelector .icon .icon--ui-check {
+.no-js .icon--ui-minimum,
+.no-js .icon--ui-check,
+.js__no-whereSelector .icon--ui-minimum,
+.js__no-whereSelector .icon--ui-check {
     /* aspect-ratio fallback */
     position: relative;
 }
-.no-js .icon .icon--ui-minimum::before,
-.no-js .icon .icon--ui-check::before,
-.js__no-whereSelector .icon .icon--ui-minimum::before,
-.js__no-whereSelector .icon .icon--ui-check::before {
+.no-js .icon--ui-minimum::before,
+.no-js .icon--ui-check::before,
+.js__no-whereSelector .icon--ui-minimum::before,
+.js__no-whereSelector .icon--ui-check::before {
     /* aspect-ratio fallback */
     content: "";
     float: left;
     padding-top: 85.7142857143%;
 }
-.no-js .icon .icon--ui-minimum::after,
-.no-js .icon .icon--ui-check::after,
-.js__no-whereSelector .icon .icon--ui-minimum::after,
-.js__no-whereSelector .icon .icon--ui-check::after {
+.no-js .icon--ui-minimum::after,
+.no-js .icon--ui-check::after,
+.js__no-whereSelector .icon--ui-minimum::after,
+.js__no-whereSelector .icon--ui-check::after {
     /* aspect-ratio fallback */
     content: "";
     display: block;
     clear: both;
 }
 
-:where(.js__no-aspectRatio) .icon .icon--ui-minimum,
-:where(.js__no-aspectRatio) .icon .icon--ui-check {
+:where(.js__no-aspectRatio) .icon--ui-minimum,
+:where(.js__no-aspectRatio) .icon--ui-check {
     /* aspect-ratio fallback */
     position: relative;
 }
-:where(.js__no-aspectRatio) .icon .icon--ui-minimum::before,
-:where(.js__no-aspectRatio) .icon .icon--ui-check::before {
+:where(.js__no-aspectRatio) .icon--ui-minimum::before,
+:where(.js__no-aspectRatio) .icon--ui-check::before {
     /* aspect-ratio fallback */
     content: "";
     float: left;
     padding-top: 85.7142857143%;
 }
-:where(.js__no-aspectRatio) .icon .icon--ui-minimum::after,
-:where(.js__no-aspectRatio) .icon .icon--ui-check::after {
+:where(.js__no-aspectRatio) .icon--ui-minimum::after,
+:where(.js__no-aspectRatio) .icon--ui-check::after {
     /* aspect-ratio fallback */
     content: "";
     display: block;
     clear: both;
+}
+
+.add-warning-icon::after,
+.add-warning-icon-after::after,
+.add-up-icon::after,
+.add-up-icon-after::after,
+.add-unlock-icon::after,
+.add-unlock-icon-after::after,
+.add-ui-minimum-icon::after,
+.add-ui-minimum-icon-after::after,
+.add-ui-check-icon::after,
+.add-ui-check-icon-after::after,
+.add-ui-icon::after,
+.add-ui-icon-after::after,
+.add-success-icon::after,
+.add-success-icon-after::after,
+.add-star-icon::after,
+.add-star-icon-after::after,
+.add-settings-icon::after,
+.add-settings-icon-after::after,
+.add-search-icon::after,
+.add-search-icon-after::after,
+.add-right-icon::after,
+.add-right-icon-after::after,
+.add-refresh-icon::after,
+.add-refresh-icon-after::after,
+.add-question-icon::after,
+.add-question-icon-after::after,
+.add-private-icon::after,
+.add-private-icon-after::after,
+.add-plus-icon::after,
+.add-plus-icon-after::after,
+.add-paperclip-icon::after,
+.add-paperclip-icon-after::after,
+.add-note-icon::after,
+.add-note-icon-after::after,
+.add-no-icon::after,
+.add-no-icon-after::after,
+.add-minus-icon::after,
+.add-minus-icon-after::after,
+.add-minimum-icon::after,
+.add-minimum-icon-after::after,
+.add-maximum-icon::after,
+.add-maximum-icon-after::after,
+.add-logo-linkedin-icon::after,
+.add-logo-linkedin-icon-after::after,
+.add-logo-instagram-icon::after,
+.add-logo-instagram-icon-after::after,
+.add-logo-facebook-icon::after,
+.add-logo-facebook-icon-after::after,
+.add-lock-icon::after,
+.add-lock-icon-after::after,
+.add-lightning-icon::after,
+.add-lightning-icon-after::after,
+.add-lightbulb-icon::after,
+.add-lightbulb-icon-after::after,
+.add-left-icon::after,
+.add-left-icon-after::after,
+.add-info-icon::after,
+.add-info-icon-after::after,
+.add-hidden-icon::after,
+.add-hidden-icon-after::after,
+.add-forbidden-icon::after,
+.add-forbidden-icon-after::after,
+.add-fail-icon::after,
+.add-fail-icon-after::after,
+.add-external-icon::after,
+.add-external-icon-after::after,
+.add-error-icon::after,
+.add-error-icon-after::after,
+.add-draft-icon::after,
+.add-draft-icon-after::after,
+.add-download-icon::after,
+.add-download-icon-after::after,
+.add-down-icon::after,
+.add-down-icon-after::after,
+.add-double-check-icon::after,
+.add-double-check-icon-after::after,
+.add-dash-icon::after,
+.add-dash-icon-after::after,
+.add-computer-icon::after,
+.add-computer-icon-after::after,
+.add-compass-icon::after,
+.add-compass-icon-after::after,
+.add-code-icon::after,
+.add-code-icon-after::after,
+.add-close-icon::after,
+.add-close-icon-after::after,
+.add-clock-icon::after,
+.add-clock-icon-after::after,
+.add-check-icon::after,
+.add-check-icon-after::after,
+.add-caution-icon::after,
+.add-caution-icon-after::after,
+.add-attachment-icon::after,
+.add-attachment-icon-after::after {
+    --display: inline-block;
+    display: inline-block;
+    display: var(--display, inline-block);
+    vertical-align: middle;
+    vertical-align: var(--icon-vertical-align, middle);
+    margin-top: 0.25em;
+    margin-top: var(--icon-inline-margin-block-start, 0.25em);
+    margin-left: 0;
+    margin-left: calc(0.25em * 1 * 1);
+    margin-left: calc(
+        var(--icon-inline-buffer, 0.25em) * var(--icon-inline-buffer-start, 1) *
+            var(--icon-inline-buffer-start--font-override, 1)
+    );
+    margin-right: 0.25em;
+    margin-right: var(--icon-inline-buffer, 0.25em);
+    margin-right: calc(0.25em * 0.125 * 1);
+    margin-right: calc(
+        var(--icon-inline-buffer, 0.25em) *
+            var(--icon-inline-buffer-end, 0.125) *
+            var(--icon-inline-buffer-end--font-override, 1)
+    );
+    line-height: 1;
+    align-self: center;
+    color: CanvasText;
+    color: var(--icon-color, var(--theme-ui, CanvasText));
+    font-family: "Design System Utilities Icons" !important;
+    font-weight: 400 !important;
+    font-size: 0.9375em !important;
+    font-size: var(--icon-size-font, 0.9375em) !important;
+    font-size: calc(0.9375em * 1 * 1) !important;
+    font-size: calc(
+        var(--icon-size-pseudo, 0.9375em) *
+            var(--icon-size-inline--multiplier, 1) *
+            var(--icon-size-inline--font-multiplier, 1)
+    ) !important;
+}
+
+.add-warning-icon-before::before,
+.add-up-icon-before::before,
+.add-unlock-icon-before::before,
+.add-ui-minimum-icon-before::before,
+.add-ui-check-icon-before::before,
+.add-ui-icon-before::before,
+.add-success-icon-before::before,
+.add-star-icon-before::before,
+.add-settings-icon-before::before,
+.add-search-icon-before::before,
+.add-right-icon-before::before,
+.add-refresh-icon-before::before,
+.add-question-icon-before::before,
+.add-private-icon-before::before,
+.add-plus-icon-before::before,
+.add-paperclip-icon-before::before,
+.add-note-icon-before::before,
+.add-no-icon-before::before,
+.add-minus-icon-before::before,
+.add-minimum-icon-before::before,
+.add-maximum-icon-before::before,
+.add-logo-linkedin-icon-before::before,
+.add-logo-instagram-icon-before::before,
+.add-logo-facebook-icon-before::before,
+.add-lock-icon-before::before,
+.add-lightning-icon-before::before,
+.add-lightbulb-icon-before::before,
+.add-left-icon-before::before,
+.add-info-icon-before::before,
+.add-hidden-icon-before::before,
+.add-forbidden-icon-before::before,
+.add-fail-icon-before::before,
+.add-external-icon-before::before,
+.add-error-icon-before::before,
+.add-draft-icon-before::before,
+.add-download-icon-before::before,
+.add-down-icon-before::before,
+.add-double-check-icon-before::before,
+.add-dash-icon-before::before,
+.add-computer-icon-before::before,
+.add-compass-icon-before::before,
+.add-code-icon-before::before,
+.add-close-icon-before::before,
+.add-clock-icon-before::before,
+.add-check-icon-before::before,
+.add-caution-icon-before::before,
+.add-attachment-icon-before::before {
+    --display: inline-block;
+    display: inline-block;
+    display: var(--display, inline-block);
+    vertical-align: middle;
+    vertical-align: var(--icon-vertical-align, middle);
+    margin-top: 0.25em;
+    margin-top: var(--icon-inline-margin-block-start, 0.25em);
+    margin-right: 0;
+    margin-right: calc(0.25em * 1 * 1);
+    margin-right: calc(
+        var(--icon-inline-buffer, 0.25em) * var(--icon-inline-buffer-start, 1) *
+            var(--icon-inline-buffer-start--font-override, 1)
+    );
+    margin-left: 0.25em;
+    margin-left: var(--icon-inline-buffer, 0.25em);
+    margin-left: calc(0.25em * 0.125 * 1);
+    margin-left: calc(
+        var(--icon-inline-buffer, 0.25em) *
+            var(--icon-inline-buffer-end, 0.125) *
+            var(--icon-inline-buffer-end--font-override, 1)
+    );
+    line-height: 1;
+    align-self: center;
+    color: CanvasText;
+    color: var(--icon-color, var(--theme-ui, CanvasText));
+    font-family: "Design System Utilities Icons" !important;
+    font-weight: 400 !important;
+    font-size: 0.9375em !important;
+    font-size: var(--icon-size-font, 0.9375em) !important;
+    font-size: calc(0.9375em * 1 * 1) !important;
+    font-size: calc(
+        var(--icon-size-pseudo, 0.9375em) *
+            var(--icon-size-inline--multiplier, 1) *
+            var(--icon-size-inline--font-multiplier, 1)
+    ) !important;
+}
+
+.add-attachment-icon::after,
+.add-attachment-icon-after::after {
+    content: "\f101";
+    content: "\f101"/"Attachment icon";
+}
+.add-attachment-icon-before::before {
+    content: "\f101";
+    content: "\f101"/"Attachment icon";
+}
+
+.add-caution-icon::after,
+.add-caution-icon-after::after {
+    content: "\f102";
+    content: "\f102"/"Caution icon";
+}
+.add-caution-icon-before::before {
+    content: "\f102";
+    content: "\f102"/"Caution icon";
+}
+
+.add-check-icon::after,
+.add-check-icon-after::after {
+    content: "\f103";
+    content: "\f103"/"Checkmark icon";
+}
+.add-check-icon-before::before {
+    content: "\f103";
+    content: "\f103"/"Checkmark icon";
+}
+
+.add-clock-icon::after,
+.add-clock-icon-after::after {
+    content: "\f104";
+    content: "\f104"/"Clock icon";
+}
+.add-clock-icon-before::before {
+    content: "\f104";
+    content: "\f104"/"Clock icon";
+}
+
+.add-close-icon::after,
+.add-close-icon-after::after {
+    content: "\f105";
+    content: "\f105"/"Close icon";
+}
+.add-close-icon-before::before {
+    content: "\f105";
+    content: "\f105"/"Close icon";
+}
+
+.add-code-icon::after,
+.add-code-icon-after::after {
+    content: "\f106";
+    content: "\f106"/"Code icon";
+}
+.add-code-icon-before::before {
+    content: "\f106";
+    content: "\f106"/"Code icon";
+}
+
+.add-compass-icon::after,
+.add-compass-icon-after::after {
+    content: "\f107";
+    content: "\f107"/"Compass icon";
+}
+.add-compass-icon-before::before {
+    content: "\f107";
+    content: "\f107"/"Compass icon";
+}
+
+.add-computer-icon::after,
+.add-computer-icon-after::after {
+    content: "\f147";
+    content: "\f147"/"Computer icon";
+}
+.add-computer-icon-before::before {
+    content: "\f147";
+    content: "\f147"/"Computer icon";
+}
+
+.add-dash-icon::after,
+.add-dash-icon-after::after {
+    content: "\f108";
+    content: "\f108"/"Dash icon";
+}
+.add-dash-icon-before::before {
+    content: "\f108";
+    content: "\f108"/"Dash icon";
+}
+
+.add-double-check-icon::after,
+.add-double-check-icon-after::after {
+    content: "\f109";
+    content: "\f109"/"Checkmark (Double) icon";
+}
+.add-double-check-icon-before::before {
+    content: "\f109";
+    content: "\f109"/"Checkmark (Double) icon";
+}
+
+.add-down-icon::after,
+.add-down-icon-after::after {
+    content: "\f110";
+    content: "\f110"/"Arrow (Down) icon";
+}
+.add-down-icon-before::before {
+    content: "\f110";
+    content: "\f110"/"Arrow (Down) icon";
+}
+
+.add-download-icon::after,
+.add-download-icon-after::after {
+    content: "\f111";
+    content: "\f111"/"Download icon";
+}
+.add-download-icon-before::before {
+    content: "\f111";
+    content: "\f111"/"Download icon";
+}
+
+.add-draft-icon::after,
+.add-draft-icon-after::after {
+    content: "\f112";
+    content: "\f112"/"Draft icon";
+}
+.add-draft-icon-before::before {
+    content: "\f112";
+    content: "\f112"/"Draft icon";
+}
+
+.add-error-icon::after,
+.add-error-icon-after::after {
+    content: "\f113";
+    content: "\f113"/"Error icon";
+}
+.add-error-icon-before::before {
+    content: "\f113";
+    content: "\f113"/"Error icon";
+}
+
+.add-external-icon::after,
+.add-external-icon-after::after {
+    content: "\f114";
+    content: "\f114"/"External Link icon";
+}
+.add-external-icon-before::before {
+    content: "\f114";
+    content: "\f114"/"External Link icon";
+}
+
+.add-fail-icon::after,
+.add-fail-icon-after::after {
+    content: "\f115";
+    content: "\f115"/"Fail icon";
+}
+.add-fail-icon-before::before {
+    content: "\f115";
+    content: "\f115"/"Fail icon";
+}
+
+.add-forbidden-icon::after,
+.add-forbidden-icon-after::after {
+    content: "\f116";
+    content: "\f116"/"Forbidden icon";
+}
+.add-forbidden-icon-before::before {
+    content: "\f116";
+    content: "\f116"/"Forbidden icon";
+}
+
+.add-hidden-icon::after,
+.add-hidden-icon-after::after {
+    content: "\f117";
+    content: "\f117"/"Hidden icon";
+}
+.add-hidden-icon-before::before {
+    content: "\f117";
+    content: "\f117"/"Hidden icon";
+}
+
+.add-info-icon::after,
+.add-info-icon-after::after {
+    content: "\f118";
+    content: "\f118"/"Info icon";
+}
+.add-info-icon-before::before {
+    content: "\f118";
+    content: "\f118"/"Info icon";
+}
+
+.add-left-icon::after,
+.add-left-icon-after::after {
+    content: "\f119";
+    content: "\f119"/"Arrow (Left) icon";
+}
+.add-left-icon-before::before {
+    content: "\f119";
+    content: "\f119"/"Arrow (Left) icon";
+}
+
+.add-lightbulb-icon::after,
+.add-lightbulb-icon-after::after {
+    content: "\f120";
+    content: "\f120"/"Lightbulb icon";
+}
+.add-lightbulb-icon-before::before {
+    content: "\f120";
+    content: "\f120"/"Lightbulb icon";
+}
+
+.add-lightning-icon::after,
+.add-lightning-icon-after::after {
+    content: "\f121";
+    content: "\f121"/"Lightning icon";
+}
+.add-lightning-icon-before::before {
+    content: "\f121";
+    content: "\f121"/"Lightning icon";
+}
+
+.add-lock-icon::after,
+.add-lock-icon-after::after {
+    content: "\f122";
+    content: "\f122"/"Lock icon";
+}
+.add-lock-icon-before::before {
+    content: "\f122";
+    content: "\f122"/"Lock icon";
+}
+
+.add-logo-facebook-icon::after,
+.add-logo-facebook-icon-after::after {
+    content: "\f123";
+    content: "\f123"/"Logo - Facebook icon";
+}
+.add-logo-facebook-icon-before::before {
+    content: "\f123";
+    content: "\f123"/"Logo - Facebook icon";
+}
+
+.add-logo-instagram-icon::after,
+.add-logo-instagram-icon-after::after {
+    content: "\f124";
+    content: "\f124"/"Logo - Instagram icon";
+}
+.add-logo-instagram-icon-before::before {
+    content: "\f124";
+    content: "\f124"/"Logo - Instagram icon";
+}
+
+.add-logo-linkedin-icon::after,
+.add-logo-linkedin-icon-after::after {
+    content: "\f125";
+    content: "\f125"/"Logo - LinkedIn icon";
+}
+.add-logo-linkedin-icon-before::before {
+    content: "\f125";
+    content: "\f125"/"Logo - LinkedIn icon";
+}
+
+.add-maximum-icon::after,
+.add-maximum-icon-after::after {
+    content: "\f126";
+    content: "\f126"/"Maximum icon";
+}
+.add-maximum-icon-before::before {
+    content: "\f126";
+    content: "\f126"/"Maximum icon";
+}
+
+.add-minimum-icon::after,
+.add-minimum-icon-after::after {
+    content: "\f127";
+    content: "\f127"/"Minimum icon";
+}
+.add-minimum-icon-before::before {
+    content: "\f127";
+    content: "\f127"/"Minimum icon";
+}
+
+.add-minus-icon::after,
+.add-minus-icon-after::after {
+    content: "\f128";
+    content: "\f128"/"Minus icon";
+}
+.add-minus-icon-before::before {
+    content: "\f128";
+    content: "\f128"/"Minus icon";
+}
+
+.add-no-icon::after,
+.add-no-icon-after::after {
+    content: "\f129";
+    content: "\f129"/"No icon";
+}
+.add-no-icon-before::before {
+    content: "\f129";
+    content: "\f129"/"No icon";
+}
+
+.add-note-icon::after,
+.add-note-icon-after::after {
+    content: "\f130";
+    content: "\f130"/"Note icon";
+}
+.add-note-icon-before::before {
+    content: "\f130";
+    content: "\f130"/"Note icon";
+}
+
+.add-paperclip-icon::after,
+.add-paperclip-icon-after::after {
+    content: "\f131";
+    content: "\f131"/"Paperclip icon";
+}
+.add-paperclip-icon-before::before {
+    content: "\f131";
+    content: "\f131"/"Paperclip icon";
+}
+
+.add-plus-icon::after,
+.add-plus-icon-after::after {
+    content: "\f132";
+    content: "\f132"/"Plus icon";
+}
+.add-plus-icon-before::before {
+    content: "\f132";
+    content: "\f132"/"Plus icon";
+}
+
+.add-private-icon::after,
+.add-private-icon-after::after {
+    content: "\f133";
+    content: "\f133"/"Private icon";
+}
+.add-private-icon-before::before {
+    content: "\f133";
+    content: "\f133"/"Private icon";
+}
+
+.add-question-icon::after,
+.add-question-icon-after::after {
+    content: "\f134";
+    content: "\f134"/"Question icon";
+}
+.add-question-icon-before::before {
+    content: "\f134";
+    content: "\f134"/"Question icon";
+}
+
+.add-refresh-icon::after,
+.add-refresh-icon-after::after {
+    content: "\f135";
+    content: "\f135"/"Refresh icon";
+}
+.add-refresh-icon-before::before {
+    content: "\f135";
+    content: "\f135"/"Refresh icon";
+}
+
+.add-right-icon::after,
+.add-right-icon-after::after {
+    content: "\f136";
+    content: "\f136"/"Arrow (Right) icon";
+}
+.add-right-icon-before::before {
+    content: "\f136";
+    content: "\f136"/"Arrow (Right) icon";
+}
+
+.add-search-icon::after,
+.add-search-icon-after::after {
+    content: "\f137";
+    content: "\f137"/"Search icon";
+}
+.add-search-icon-before::before {
+    content: "\f137";
+    content: "\f137"/"Search icon";
+}
+
+.add-settings-icon::after,
+.add-settings-icon-after::after {
+    content: "\f138";
+    content: "\f138"/"Settings icon";
+}
+.add-settings-icon-before::before {
+    content: "\f138";
+    content: "\f138"/"Settings icon";
+}
+
+.add-star-icon::after,
+.add-star-icon-after::after {
+    content: "\f139";
+    content: "\f139"/"Star icon";
+}
+.add-star-icon-before::before {
+    content: "\f139";
+    content: "\f139"/"Star icon";
+}
+
+.add-success-icon::after,
+.add-success-icon-after::after {
+    content: "\f140";
+    content: "\f140"/"Success icon";
+}
+.add-success-icon-before::before {
+    content: "\f140";
+    content: "\f140"/"Success icon";
+}
+
+.add-ui-icon::after,
+.add-ui-icon-after::after {
+    content: "\f141";
+    content: "\f141"/"User Interface icon";
+}
+.add-ui-icon-before::before {
+    content: "\f141";
+    content: "\f141"/"User Interface icon";
+}
+
+.add-ui-check-icon::after,
+.add-ui-check-icon-after::after {
+    content: "\f142";
+    content: "\f142"/"User Interface with Checkmark icon";
+}
+.add-ui-check-icon-before::before {
+    content: "\f142";
+    content: "\f142"/"User Interface with Checkmark icon";
+}
+
+.add-ui-minimum-icon::after,
+.add-ui-minimum-icon-after::after {
+    content: "\f143";
+    content: "\f143"/"User Interface with Minimum icon";
+}
+.add-ui-minimum-icon-before::before {
+    content: "\f143";
+    content: "\f143"/"User Interface with Minimum icon";
+}
+
+.add-unlock-icon::after,
+.add-unlock-icon-after::after {
+    content: "\f144";
+    content: "\f144"/"Unlock icon";
+}
+.add-unlock-icon-before::before {
+    content: "\f144";
+    content: "\f144"/"Unlock icon";
+}
+
+.add-up-icon::after,
+.add-up-icon-after::after {
+    content: "\f145";
+    content: "\f145"/"Arrow (Up) icon";
+}
+.add-up-icon-before::before {
+    content: "\f145";
+    content: "\f145"/"Arrow (Up) icon";
+}
+
+.add-warning-icon::after,
+.add-warning-icon-after::after {
+    content: "\f146";
+    content: "\f146"/"Warning icon";
+}
+.add-warning-icon-before::before {
+    content: "\f146";
+    content: "\f146"/"Warning icon";
 }

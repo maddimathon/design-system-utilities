@@ -1,0 +1,275 @@
+///
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/map';
+
+@use '../../../config';
+
+// @use '../00-default' as default;
+@use '../01-breakdown' as breakdown;
+
+// @use '02-colours' as *;
+
+///
+/// Checks whether the given slug is a tokens key. If yes, it returns the
+/// flattened value; if no, it returns false.
+///
+/// @return {string|false}
+///
+/// @since ___PKG_VERSION___
+///
+@function tokens-theme-token-exists(
+    $slug,
+    $brightness: breakdown.$brightnessMode_default,
+    $contrast: breakdown.$contrastMode_default,
+    $themeSlug: breakdown.$activeTheme,
+    $version: null,
+    $warnOnFalse: false
+) {
+    $flat_isValues: breakdown.$themes__nestedFlat_tokenValues != null;
+
+    $versionSlug: if($version != null and $flat_isValues, '-#{$version}', '');
+
+    $activeTheme_flat: map.get(
+        if($flat_isValues, breakdown.$themes__nestedFlat_tokenValues, $themes__nestedFlat),
+        $themeSlug
+    );
+
+    @if $activeTheme_flat == null {
+        @if $warnOnFalse {
+            @warn "$themeSlug '#{$themeSlug}' was not a key in tokens.$themes__nestedFlat_tokenValues";
+        }
+
+        $themeSlug: default;
+        $activeTheme_flat: map.get(
+            if($flat_isValues, breakdown.$themes__nestedFlat_tokenValues, $themes__nestedFlat),
+            default
+        );
+    }
+
+    // returns
+    @if $contrast == forced-colors {
+        $value: map.get($activeTheme_flat, $contrast, '#{$slug}#{$versionSlug}');
+
+        // returns
+        @if $value == null {
+            @if $warnOnFalse {
+                @warn "$slug '#{$slug}#{$versionSlug}' was not a key in tokens.$themes__nestedFlat_tokenValues.#{$themeSlug}.#{$contrast}";
+            }
+            @return false;
+        }
+
+        @return $value;
+    }
+
+    // returns
+    @if not map.has-key($activeTheme_flat, $brightness) {
+        @if $warnOnFalse {
+            @warn "$brightness '#{$brightness}' was not a key in tokens.$themes__nestedFlat_tokenValues.#{$themeSlug}";
+        }
+        @return false;
+    }
+
+    // returns
+    @if not map.has-key($activeTheme_flat, $brightness, $contrast) {
+        @if $warnOnFalse {
+            @warn "$contrast '#{$contrast}' was not a key in tokens.$themes__nestedFlat_tokenValues.#{$themeSlug}.#{$brightness}";
+        }
+        @return false;
+    }
+
+    $value: map.get($activeTheme_flat, $brightness, $contrast, '#{$slug}#{$versionSlug}');
+
+    // returns - no fallback
+    @if $value == null {
+        @if $warnOnFalse {
+            @warn "$slug '#{$slug}#{$versionSlug}' was not a key in tokens.$themes__nestedFlat_tokenValues.#{$themeSlug}.#{$brightness}.#{$contrast}";
+        }
+        @return false;
+    }
+
+    // returns
+    @if not $flat_isValues {
+        @return colours.tokens-var-clr-from-theme-token(
+            $value,
+            $brightness: $brightness,
+            $version: $version
+        );
+    }
+
+    @return $value;
+}
+
+///
+/// Gets the value for the given token slug.
+///
+/// @since ___PKG_VERSION___
+///
+@function tokens-theme-token-value(
+    $slug,
+    $brightness: breakdown.$brightnessMode_default,
+    $contrast: breakdown.$contrastMode_default,
+    $themeSlug: breakdown.$activeTheme,
+    $version: null
+) {
+    $value: tokens-theme-token-exists(
+        $slug: $slug,
+        $brightness: $brightness,
+        $contrast: $contrast,
+        $themeSlug: $themeSlug,
+        $version: $version,
+        $warnOnFalse: true,
+    );
+
+    // returns
+    @if not $value {
+        @return ();
+    }
+
+    @return $value;
+}
+
+///
+/// Returns the appropriate var (with fallback).
+///
+/// @since __PKG_VERSION___
+///
+@function tokens-var-theme(
+    $slug,
+    $brightness: breakdown.$brightnessMode_default,
+    $contrast: null,
+    $themeSlug: breakdown.$activeTheme,
+    $useSystemColorFallback: null,
+    $version: null,
+    $opacity: null,
+    $args...
+) {
+    $clrIsSystemColor: false;
+
+    @if $version != null {
+        $opacity: null;
+
+        @if $useSystemColorFallback == null {
+            $useSystemColorFallback: false;
+        } @else if $useSystemColorFallback {
+            $version: null;
+        }
+    }
+
+    $clrSlug: null;
+
+    @if $useSystemColorFallback == null {
+        $useSystemColorFallback: if($contrast == null and $opacity == null, true, false);
+    }
+
+    $useSystemColorFallback: $useSystemColorFallback or $contrast == forced-colors;
+
+    @if $contrast == null {
+        $contrast: breakdown.$contrastMode_default;
+    }
+
+    @if $useSystemColorFallback {
+        $clrSlug: tokens-theme-token-exists(
+            $slug,
+            $brightness: $brightness,
+            $contrast: forced-colors,
+            $themeSlug: $themeSlug,
+            $version: null
+        );
+    }
+
+    @if not $clrSlug {
+        $clrSlug: tokens-theme-token-exists(
+            $slug,
+            $brightness: $brightness,
+            $contrast: $contrast,
+            $themeSlug: $themeSlug,
+            $version: null
+        );
+    } @else if $useSystemColorFallback {
+        $clrIsSystemColor: true;
+    }
+
+    // returns
+    @if not $clrSlug {
+        @return config.config-do-var(theme-#{$slug}, $args...);
+    }
+
+    $opacity: if($opacity != null and not $clrIsSystemColor, $opacity, null);
+
+    @if $clrIsSystemColor {
+        $opacity: null;
+        $version: null;
+    } @else if not config.$include_colourValues_hsl and not config.$include_colourValues_rgb {
+        $opacity: null;
+        $version: null;
+    }
+
+    $clrHasMoreThanOneValue: list.length($clrSlug) > 1;
+
+    @if $clrHasMoreThanOneValue {
+        $clrSlug: list.nth($clrSlug, 1);
+    }
+
+    // returns
+    @if $contrast == forced-colors {
+        @return $clrSlug;
+    }
+
+    // returns
+    @if $version != null {
+        // prettier-ignore
+        @if (config.$include_colourValues_hsl and $version == hsl) or (config.$include_colourValues_rgb and $version == rgb) {
+            //
+            $_value: tokens-theme-token-exists(
+                $slug,
+                $brightness: $brightness,
+                $contrast: $contrast,
+                $themeSlug: $themeSlug,
+                $version: $version
+            );
+
+            @if $clrHasMoreThanOneValue {
+                $_value: list.nth($_value, 1);
+            }
+
+            @if $_value {
+                @return config.config-do-var(theme-#{$slug}-#{$version},$fallback: $_value, $args...);
+            }
+        } @else {
+            @return config.config-do-var(theme-#{$slug}-#{$version}, $fallback: null, $args...);
+        }
+    }
+
+    // returns on success
+    @if $opacity != null {
+        $version: if(
+            config.$include_colourValues_hsl,
+            hsl,
+            if(config.$include_colourValues_rgb, rgb, null)
+        );
+
+        @if $version {
+            $_value: tokens-theme-token-exists(
+                $slug,
+                $brightness: $brightness,
+                $contrast: $contrast,
+                $themeSlug: $themeSlug,
+                $version: $version
+            );
+
+            @if $clrHasMoreThanOneValue {
+                $_value: list.nth($_value, 1);
+            }
+
+            @if $_value {
+                @return '#{$version}a(#{config.config-do-var(theme-#{$slug}-#{$version}, $fallback: $_value, $args...)}, #{$opacity})';
+            }
+        }
+    }
+
+    @return config.config-do-var(theme-#{$slug}, $fallback: $clrSlug, $args...);
+}

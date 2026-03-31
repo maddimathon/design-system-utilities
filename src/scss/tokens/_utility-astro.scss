@@ -7,22 +7,26 @@
 
 @use 'custom';
 @use 'system';
-@use 'theme';
 
 @forward 'pkg:@maddimathon/utility-astro/tokens' with (
+    $atProperties: custom.$atProperties,
+    //
     $border_widths: map.get(system.$border, width),
     //
-    $brightnessMode_all: theme.$brightnessMode_all,
-    $brightnessMode_default: theme.$brightnessMode_default,
-    $contrastMode_all: theme.$contrastMode_all,
-    $contrastMode_default: theme.$contrastMode_default,
+    $brightnessMode_all: system.$brightnessMode_all,
+    $brightnessMode_default: system.$brightnessMode_default,
+    $contrastMode_all: system.$contrastMode_all,
+    $contrastMode_default: system.$contrastMode_default,
     //
     $customTokens: custom.$customTokens,
     //
     $font_sizes: map.get(system.$font, size),
     $fontSize_base: system.$fontSize_base,
-    $line_heights: system.$line_height,
-    $margins: system.$margin,
+    $lineHeight_base: system.$lineHeight_base,
+    $line_heights: map.get(system.$designSystem, line_height),
+    $margin_base: system.$margin_base,
+    $margin_softener: system.$margin_softener,
+    $margins: map.get(system.$designSystem, margin),
     $scaleMultiplier: system.$spacing_multiplier,
     $strokes_relative: map.get(system.$border, stroke)
 );

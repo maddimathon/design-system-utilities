@@ -42,6 +42,8 @@ export class Document extends DocumentStage {
      * @readonly
      */
     subStages = [
+        // @ts-expect-error
+        'assets',
         'typeDoc',
         // @ts-expect-error
         'scss',
@@ -51,14 +53,17 @@ export class Document extends DocumentStage {
     ];
 
     /**
-     * The source globs (relative to src/assets) to copy to the docs assets dir.
+     * The source globs (relative to src) to copy to the this.astroPublicDir dir.
      * 
      * @type {string[]}
      * 
      * @protected
      * @readonly
      */
-    assetSourceGlobs = [];
+    assetSourceGlobs = [
+        'assets/fonts',
+        'assets/icons',
+    ];
 
     /**
      * @type {string}
@@ -66,7 +71,7 @@ export class Document extends DocumentStage {
      * @protected
      * @readonly
      */
-    astroPublicDir = 'docs/_public/assets';
+    astroPublicDir = 'docs/_public';
 
     /**
      * @protected
@@ -81,13 +86,14 @@ export class Document extends DocumentStage {
         this.console.progress( 'copying docs assets...', 1 );
         this.try(
             this.fs.copy,
-            ( this.params.verbose ? 3 : 2 ),
+            this.params.verbose ? 3 : 2,
             [
                 this.assetSourceGlobs,
-                ( this.params.verbose ? 3 : 2 ),
-                this.getSrcDir( undefined, 'assets' ),
+                this.params.verbose ? 3 : 2,
                 this.getSrcDir( undefined, this.astroPublicDir ),
+                this.getSrcDir( undefined ),
                 {
+                    // verbose: true,
                     force: true,
                     rename: false,
                     recursive: true,
@@ -116,12 +122,15 @@ export class Document extends DocumentStage {
             [ 'astro check' ]
         );
 
-        this.console.verbose( 'compiling to ' + distDir + '...', 2 );
-        this.try(
-            this.console.nc.cmd,
-            this.params.verbose ? 3 : 2,
-            [ 'astro build' ]
-        );
+        if ( !this.params.starting && !this.isWatchedUpdate ) {
+
+            this.console.verbose( 'compiling to ' + distDir + '...', 2 );
+            this.try(
+                this.console.nc.cmd,
+                this.params.verbose ? 3 : 2,
+                [ 'astro build' ]
+            );
+        }
     }
 
     /**
@@ -144,13 +153,20 @@ export class Document extends DocumentStage {
             params: this.params,
         } );
 
-        const files = await this.runCustomScssDirSubStage(
+        const outDir = this.getSrcDir(
+            undefined,
+            this.astroPublicDir,
+            'assets/css',
+        );
+
+        const paths = await this.runCustomScssDirSubStage(
             '',
-            'src/docs/css',
+            outDir,
             {
+                clearOutputDir: this.isWatchedUpdate ? false : this.params.building ? "complete" : "targeted",
                 postCSS: true,
                 srcDir: 'src/docs/scss',
-            }
+            },
         );
 
         this.console.verbose( 'prettifying...', 2 );
@@ -158,7 +174,7 @@ export class Document extends DocumentStage {
             this.fs.prettier,
             this.params.verbose ? 3 : 2,
             [
-                files,
+                paths,
                 'css',
             ],
         );

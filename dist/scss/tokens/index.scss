@@ -3,13 +3,16 @@
 /// @since 0.1.0-alpha
 ///
 
-@forward 'functions';
 @forward 'system';
-@forward 'theme';
+
+@forward 'functions';
 
 // deps on theme
 @forward 'custom';
 
-@forward 'utility-astro' hide $atProperties, $brightnessMode_all,
-    $brightnessMode_default, $contrastMode_all, $contrastMode_default,
-    $customTokens, $fontSize_base, tokens-get-at-properties;
+// deps on system, theme, custom
+@forward 'utility-astro' hide $atProperties, $border_widths,
+    $brightnessMode_all, $brightnessMode_default, $contrastMode_all,
+    $contrastMode_default, $customTokens, $fontSize_base, $font_sizes,
+    $lineHeight_base, $line_heights, $margin_base, $margins, $margin_softener,
+    $strokes_relative, tokens-get-at-properties;

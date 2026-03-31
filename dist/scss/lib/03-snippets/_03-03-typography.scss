@@ -433,22 +433,24 @@
         $firmEndLevel_small: $firmStartLevel_small;
     }
 
-    @if $unstyledHeadingLevel == null {
-        $unstyledHeadingLevel: $largeLevel;
-    }
-
     // HEADINGS
 
-    %unstyled-heading {
-        margin-block: #{var-mrg-soft($unstyledHeadingLevel)} 0;
-    }
+    @if $unstyledHeadingLevel != false {
+        @if $unstyledHeadingLevel == null {
+            $unstyledHeadingLevel: $largeLevel;
+        }
 
-    %unstyled-heading--is {
-        margin-block: #{var-mrg-soft($unstyledHeadingLevel)} 0;
-    }
+        %unstyled-heading {
+            margin-block: #{var-mrg-soft($unstyledHeadingLevel)} 0;
+        }
 
-    %unstyled-heading--where {
-        margin-block: #{var-mrg-soft($unstyledHeadingLevel)} 0;
+        %unstyled-heading--is {
+            margin-block: #{var-mrg-soft($unstyledHeadingLevel)} 0;
+        }
+
+        %unstyled-heading--where {
+            margin-block: #{var-mrg-soft($unstyledHeadingLevel)} 0;
+        }
     }
 
     %paragraph-margins {

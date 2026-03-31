@@ -137,10 +137,11 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
         $label: map.get($map, label);
 
         @if $label == 'Open Dyslexic' {
+            // UPGRADE - convert this to a prop in the font family tokens
             @include utils.cx-prop(icon-size--font-multiplier, 1.1875);
-            @include utils.cx-prop(icon-size-pseudo--font-multiplier, 1.25);
-            @include utils.cx-prop(icon-size-pseudo--inline-buffer-start, 2);
-            @include utils.cx-prop(icon-size-pseudo--inline-buffer-end, 1);
+            @include utils.cx-prop(icon-size-inline--font-multiplier, 1.25);
+            @include utils.cx-prop(icon-inline-buffer-start--font-override, 2);
+            @include utils.cx-prop(icon-inline-buffer-end--font-override, 1);
         }
 
         $width_multiplier: map.get($map, contentWidthScale);

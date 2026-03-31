@@ -20,7 +20,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
     /**
      * @since 0.1.0-beta.0.draft
      */
-    static alertStyle(partial = {}) {
+    static alertStyle(iconStyles, partial = {}) {
         const headingMaker = (num) => {
             const style = {
                 margin: {
@@ -29,6 +29,10 @@ export class Tokens_CSS_Style extends AbstractTokens {
                     },
                 },
             };
+            // returns
+            if (num === 'unstyled') {
+                return style;
+            }
             // switch ( num ) {
             //     case 1:
             //         style.margin.block.start = -0.0625;
@@ -73,7 +77,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 width: '200',
             },
             color: 'text-primary',
-            heading: objectGenerator([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], headingMaker),
+            heading: objectGenerator([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'unstyled'], headingMaker),
             headline: {
                 font: {
                     size: 'heading-7',
@@ -86,8 +90,8 @@ export class Tokens_CSS_Style extends AbstractTokens {
             icon: {
                 color: 'ui-primary',
                 size: {
-                    $: 1.25,
-                    large: 2,
+                    $: iconStyles.size.$,
+                    large: iconStyles.size.large,
                 },
             },
             gap: {
@@ -111,7 +115,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
      * @since 0.1.0-alpha
      * @since 0.1.0-beta.0.draft — Added partial param.
      */
-    static buttonStyle(partial) {
+    static buttonStyle(iconStyles, partial) {
         const style = mergeArgs({
             border: {
                 radius: '0',
@@ -130,9 +134,22 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 block: '300',
                 inline: '200',
             },
+            icon: {
+                buffer: {
+                    start: 2.5,
+                    end: -0.5,
+                },
+                embedded: {
+                    bottom: '0.125em',
+                },
+                size: {
+                    font: iconStyles.size.font,
+                    pseudo: iconStyles.size.pseudo,
+                },
+                'vertical-align': 'middle',
+            },
             'letter-spacing': 'normal',
             'line-height': '100',
-            'text-transform': 'none',
             margin: {
                 block: {
                     start: '400',
@@ -143,8 +160,9 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 block: '200',
                 inline: '300',
             },
+            'text-transform': 'none',
             width: 'fit-content',
-        }, partial?.$ ?? {}, true);
+        }, partial?.$, true);
         return {
             $: style,
             disabled: mergeArgs({
@@ -227,6 +245,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 style['line-height'] = '300';
                 break;
         }
+        ;
         if (headingAsNum >= 7) {
             style.font.weight = '500';
             style.font.style = 'normal';
@@ -249,12 +268,19 @@ export class Tokens_CSS_Style extends AbstractTokens {
     static iconStyle(partial = {}) {
         return mergeArgs({
             color: 'ui',
-            'inline-buffer': '0.25em',
+            inline: {
+                buffer: {
+                    $: '0.25em',
+                    start: 1,
+                    end: 0.125,
+                },
+                'margin-block-start': '0.25em',
+            },
             size: {
-                $: '1.375em',
+                $: '1.25em',
                 large: '2em',
-                font: '1em',
-                pseudo: '1em',
+                font: '0.9375em',
+                pseudo: '0.9375em',
             },
             'vertical-align': 'middle',
         }, partial, true);
@@ -357,14 +383,15 @@ export class Tokens_CSS_Style extends AbstractTokens {
      */
     static mergeData(partial) {
         const defaults = this.default;
+        const icon = Tokens_CSS_Style.iconStyle(partial.icon);
         return {
-            alert: Tokens_CSS_Style.alertStyle(partial.alert),
-            button: Tokens_CSS_Style.buttonStyle(partial.button),
+            alert: Tokens_CSS_Style.alertStyle(icon, partial.alert),
+            button: Tokens_CSS_Style.buttonStyle(icon, partial.button),
             heading: {
                 ...objectGenerator([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], (hdg) => Tokens_CSS_Style.headingStyle(hdg, partial.heading?.[hdg])),
                 unstyled: Tokens_CSS_Style.headingStyle('unstyled', partial.heading?.unstyled),
             },
-            icon: Tokens_CSS_Style.iconStyle(partial.icon),
+            icon,
             input: Tokens_CSS_Style.inputStyle(partial.input),
             margin: mergeArgs(defaults.margin, partial.margin, true),
             selection: {
@@ -383,14 +410,15 @@ export class Tokens_CSS_Style extends AbstractTokens {
         };
     }
     static get default() {
+        const icon = Tokens_CSS_Style.iconStyle();
         return {
-            alert: Tokens_CSS_Style.alertStyle(),
-            button: Tokens_CSS_Style.buttonStyle(),
+            alert: Tokens_CSS_Style.alertStyle(icon),
+            button: Tokens_CSS_Style.buttonStyle(icon),
             heading: {
                 ...objectGenerator([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], (hdg) => Tokens_CSS_Style.headingStyle(hdg)),
                 unstyled: Tokens_CSS_Style.headingStyle('unstyled'),
             },
-            icon: Tokens_CSS_Style.iconStyle(),
+            icon,
             input: Tokens_CSS_Style.inputStyle(),
             margin: {
                 flow: {

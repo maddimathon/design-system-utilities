@@ -63,7 +63,13 @@ export async function buildTokens(stage, tokens, level, paths, args = {}) {
         buildTokens.writeIcons(stage, tokens, completePaths.assets.icons, level),
         buildTokens.writeLogos(stage, tokens, completePaths.assets.logos, level),
     ]).then(async () => {
-        await buildTokens.buildIconFont(stage, tokens, level, completePaths, args.iconFont ?? {});
+        const iconFontArgs = await buildTokens.buildIconFontArgs(stage, level, completePaths, {
+            name: tokens.name,
+            ...args.iconFont,
+        });
+        if (iconFontArgs) {
+            await tokens.icons.toIconFont(iconFontArgs);
+        }
         return Promise.all([
             buildTokens.writeJson(stage, tokens, completePaths.json, level),
             buildTokens.writeScss(stage, tokens, completePaths.scss, level),
@@ -95,13 +101,13 @@ export async function buildTokens(stage, tokens, level, paths, args = {}) {
     /**
      * @since 0.1.0-beta.0.draft
      */
-    async function buildIconFont(stage, tokens, level, paths, args) {
+    async function buildIconFontArgs(stage, level, paths, args) {
         // returns
         if (!paths?.assets
             || !paths.assets.fonts
             || !paths.assets.icons
             || !paths.assets.icons[0]) {
-            return {};
+            return false;
         }
         stage.console.verbose('building icon font...', 1 + level);
         const fullArgs = {
@@ -112,7 +118,6 @@ export async function buildTokens(stage, tokens, level, paths, args = {}) {
                 FontAssetType.WOFF,
                 FontAssetType.WOFF2,
             ],
-            name: tokens.name,
             ...args,
         };
         fullArgs.pathOptions = {
@@ -130,31 +135,9 @@ export async function buildTokens(stage, tokens, level, paths, args = {}) {
             ),
         };
         stage.fs.mkdir(fullArgs.outputDir);
-        return tokens.icons.toIconFont(fullArgs);
-        // return tokens.icons.toIconFont( fullArgs ).then( ( { codepoints, ...results } ) => {
-        //     stage.fs.write(
-        //         `.scripts/logs/buildTokens/buildIconFont-results--${ slugify( timestamp() ) }.txt`,
-        //         VariableInspector.stringify( {
-        //             'toIconFont() results': {
-        //                 codepoints,
-        //                 codepointsMapped: objectMap(
-        //                     codepoints,
-        //                     ( [ key, value ] ) => ( {
-        //                         // key,
-        //                         og: value,
-        //                         hexidecimal: value.toString( 16 ),
-        //                         scss: value.toString( 16 ),
-        //                     } )
-        //                 ),
-        //                 ...results,
-        //             }
-        //         } ),
-        //         { force: false, rename: true },
-        //     );
-        //     return { codepoints, ...results };
-        // } );
+        return fullArgs;
     }
-    buildTokens.buildIconFont = buildIconFont;
+    buildTokens.buildIconFontArgs = buildIconFontArgs;
     /**
      * @since 0.1.0-beta.0.draft
      */

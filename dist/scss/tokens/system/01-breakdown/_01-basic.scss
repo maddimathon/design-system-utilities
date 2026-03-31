@@ -1,0 +1,195 @@
+///
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@use '../../../config';
+
+@use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/math';
+@use 'pkg:@maddimathon/utility-sass/meta';
+
+@use '../00-default' as default;
+
+// has to be set early
+$spacing_multiplier: map.get(default.$designSystem, spacing_multiplier);
+
+// #region - BORDERS
+$border: map.ksort(map.get(default.$designSystem, border), $recursive: true);
+
+$border_width: map.ksort(map.get($border, width));
+
+@each $key, $size in $border_width {
+    $border_width: map.set($border_width, $key, math.round-to-pixel($size, 32));
+}
+
+$stroke_relative: map.ksort(map.get($border, stroke));
+
+@each $key, $size in $stroke_relative {
+    $stroke_relative: map.set(
+        $stroke_relative,
+        $key,
+        math.round-to-pixel($size, 32)
+    );
+}
+// #endregion - BORDERS
+
+$colour: map.ksort(map.get(default.$designSystem, colour), $recursive: true);
+
+// #region - FONTS
+$font: map.get(default.$designSystem, font);
+
+$fontSize_base: map.get(default.$designSystem, font, sizeScale);
+
+$font_sizes: map.get(default.$designSystem, font, size);
+
+@function _ksort_sizes($map, $_isFirstLevel: true) {
+    // sorts the keys
+    $ordered_keys: if(
+        $_isFirstLevel,
+        map.keys($map),
+        list.sort(
+            list.sort(map.keys($map), $sortAs: 'string'),
+            $sortAs: 'number'
+        )
+    );
+
+    $ordered_map: ();
+
+    @each $key in $ordered_keys {
+        $value: map.get($map, $key);
+
+        @if meta.type-of($value) == map {
+            $value: _ksort_sizes($value, $_isFirstLevel: false);
+        }
+
+        $ordered_map: map.set($ordered_map, $key, $value);
+    }
+
+    @return $ordered_map;
+}
+
+// sort recursively
+$font_sizes: _ksort_sizes($font_sizes);
+
+// reverse the smaller sizes
+$font_sizes: map.set(
+    $font_sizes,
+    smaller,
+    map.ksort(map.get($font_sizes, smaller), $sortAs: 'number', $reverse: true)
+);
+
+// flatten the map
+$font_sizes: map.flatten($font_sizes);
+
+// now calculating & rounding
+@each $key, $value in $font_sizes {
+    $_valueType: meta.type-of($value);
+
+    @if $_valueType == list and list.length($value) < 1 {
+        $font_sizes: map.remove($font_sizes, $key);
+    } @else if $_valueType == map and list.length(map.keys($value)) < 1 {
+        $font_sizes: map.remove($font_sizes, $key);
+    } @else {
+        $font_sizes: map.set(
+            $font_sizes,
+            $key,
+            math.round-to-pixel(
+                math.pow($spacing_multiplier, $value),
+                $factor: config.$fn_fontSizeValue_roundToPixelFactor
+            )
+        );
+    }
+}
+// #endregion - FONTS
+
+$icons: map.ksort(map.get(default.$designSystem, icons));
+
+// #region - LINE HEIGHTS
+$lineHeight_base: null !default;
+$lineHeight_base: config.config-valid-number(
+    $lineHeight_base,
+    'lineHeight_base',
+    $default: 1.6875,
+    $min: 0.05,
+    $unit: false
+);
+
+$line_height: map.ksort(map.get(default.$designSystem, line_height));
+
+@each $key, $value in $line_height {
+    $line_height: map.set(
+        $line_height,
+        $key,
+        math.round-to-pixel(
+            math.pow($spacing_multiplier, $value * 0.875) * $lineHeight_base,
+            32
+        )
+    );
+}
+// #endregion - LINE HEIGHTS
+
+$logos: map.ksort(map.get(default.$designSystem, logos));
+
+@if $logos == null {
+    $logos: ();
+}
+
+// #region - MARGINS
+$margin_base: null !default;
+$margin_base: config.config-valid-number(
+    $margin_base,
+    'margin_base',
+    $default: 1.25
+);
+
+$margin_softener: null !default;
+$margin_softener: config.config-valid-number(
+    $margin_softener,
+    'margin_softener',
+    $default: 0.625
+);
+
+$margin: map.ksort(map.get(default.$designSystem, margin));
+
+@each $key, $size in $margin {
+    $margin: map.set(
+        $margin,
+        $key,
+        math.round-to-pixel(math.pow($spacing_multiplier, $size) * $margin_base)
+    );
+}
+// #endregion - MARGINS
+
+$style: map.ksort(map.get(default.$designSystem, style));
+
+$themesMeta: map.get(default.$designSystem, themes, _meta);
+
+$themesMeta: map.set(
+    $themesMeta,
+    keys,
+    textOrBackground,
+    list.unique(
+        list.join(
+            map.get($themesMeta, keys, background),
+            map.get($themesMeta, keys, text)
+        )
+    )
+);
+
+$themes: ();
+
+@each $key
+    in list.except(map.keys(map.get(default.$designSystem, themes)), _meta)
+{
+    $themes: map.set(
+        $themes,
+        $key,
+        map.get(default.$designSystem, themes, $key)
+    );
+}
+
+$transition: map.get(default.$designSystem, transition);
+
+$z_index: map.ksort(map.get(default.$designSystem, z_index));

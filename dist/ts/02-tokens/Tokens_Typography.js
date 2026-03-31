@@ -184,12 +184,10 @@ export class Tokens_Typography extends AbstractTokens {
                 style: font.style,
                 weight: font.weight,
                 printFontFace: family.printFontFace ?? true,
-                ...deleteUndefinedProps({
-                    display: font.display ?? family.display,
-                    'line-gap-override': font.lineGapOverride ?? family.lineGapOverride,
-                    'size-adjust': font.sizeAdjust ?? family.sizeAdjust,
-                    'unicode-range': font.unicodeRange ?? family.unicodeRange,
-                }),
+                display: font.display ?? family.display,
+                'line-gap-override': font.lineGapOverride ?? family.lineGapOverride,
+                'size-adjust': font.sizeAdjust ?? family.sizeAdjust,
+                'unicode-range': font.unicodeRange ?? family.unicodeRange,
                 src: Object.values({
                     ...sources,
                     truetype: sources.ttf,

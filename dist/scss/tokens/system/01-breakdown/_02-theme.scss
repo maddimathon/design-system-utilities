@@ -1,17 +1,17 @@
 ///
-/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.0.draft
 /// @since 0.1.0-alpha
 ///
 
-@use '../config';
-
-@use 'system';
+@use '../../../config';
 
 @use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/meta';
 
-$_themeNames: map.keys(system.$themes);
+@use '01-basic' as basic;
+
+$_themeNames: map.keys(basic.$themes);
 $_defaultThemeName: list.nth($_themeNames, 1);
 
 $activeTheme: null !default;
@@ -23,7 +23,7 @@ $activeTheme: config.config-valid-string(
 );
 
 $brightnessMode_all: list.except(
-    map.keys(map.get(system.$themes, $activeTheme)),
+    map.keys(map.get(basic.$themes, $activeTheme)),
     'forced-colors'
 ) !default;
 
@@ -39,7 +39,9 @@ $contrastMode_all: list.join(
     ('average'),
     list.join(
         list.except-any(
-            map.keys(map.get(system.$themes, $activeTheme, $brightnessMode_default)),
+            map.keys(
+                map.get(basic.$themes, $activeTheme, $brightnessMode_default)
+            ),
             ('average', 'forced-colors')
         ),
         ('forced-colors')
@@ -56,7 +58,7 @@ $contrastMode_default: config.config-valid-string(
 
 $themes__nestedFlat: ();
 
-@each $themeKey, $themeMap in system.$themes {
+@each $themeKey, $themeMap in basic.$themes {
     //
     @each $brightness, $brightnessMap in $themeMap {
         @if $brightness == forced-colors {
@@ -86,8 +88,8 @@ $themes__nestedFlat_tokenValues: null;
 
 @if meta.function-exists('mmdsu-global-themeFlattenGetValues') {
     $themes__nestedFlat_tokenValues: mmdsu-global-themeFlattenGetValues(
-        $themes: system.$themes,
-        $colours: system.$colour,
+        $themes: basic.$themes,
+        $colours: basic.$colour,
         $replaceVarClrWithValue: config.$fn_var_replaceWithValue_colour,
         $includeHSL: config.$include_colourValues_hsl,
         $includeRGB: config.$include_colourValues_rgb,

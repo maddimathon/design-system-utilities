@@ -23,12 +23,12 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
     /**
      * @since 0.1.0-beta.0.draft
      */
-    static alertStyle(partial?: Tokens_CSS_Style.InputParam['alert']): Tokens_CSS_Style.AlertStyles;
+    static alertStyle(iconStyles: Tokens_CSS_Style.IconStyles, partial?: Tokens_CSS_Style.InputParam['alert']): Tokens_CSS_Style.AlertStyles;
     /**
      * @since 0.1.0-alpha
      * @since 0.1.0-beta.0.draft — Added partial param.
      */
-    static buttonStyle(partial?: Tokens_CSS_Style.InputParam['button']): {
+    static buttonStyle(iconStyles: Tokens_CSS_Style.IconStyles, partial?: Tokens_CSS_Style.InputParam['button']): {
         $: Tokens_CSS_Style.ButtonStyles;
         disabled: Tokens_CSS_Style.ButtonStyles_Disabled;
     };
@@ -200,7 +200,7 @@ export declare namespace Tokens_CSS_Style {
             inline: "0" | AnyTokenLevel;
         };
         heading: {
-            [H in RequiredHeadingLevels]: AlertStyles_Heading;
+            [H in RequiredHeadingLevels | 'unstyled']: AlertStyles_Heading;
         } & {
             [key: number]: AlertStyles_Heading;
         };
@@ -221,12 +221,9 @@ export declare namespace Tokens_CSS_Style {
              */
             color: string;
             /**
-             * In ems.
+             * With units.
              */
-            size: {
-                $: number;
-                large: number;
-            };
+            size: Omit<IconStyles['size'], 'font' | 'pseudo'>;
         };
         'line-height': AnyTokenLevel;
         margin: {
@@ -277,9 +274,25 @@ export declare namespace Tokens_CSS_Style {
             block: AnyTokenLevel;
             inline: AnyTokenLevel;
         };
+        icon: {
+            buffer: {
+                start: number;
+                end: number;
+            };
+            embedded: {
+                /**
+                 * With units.
+                 */
+                bottom: string;
+            };
+            /**
+             * With units.
+             */
+            size: Omit<IconStyles['size'], '$' | 'large'>;
+            'vertical-align': IconStyles['vertical-align'];
+        };
         'letter-spacing': string;
         'line-height': AnyTokenLevel;
-        'text-transform': CSS.TextTransform;
         margin: {
             block: {
                 start: AnyTokenLevel;
@@ -290,9 +303,10 @@ export declare namespace Tokens_CSS_Style {
             block: AnyTokenLevel;
             inline: AnyTokenLevel;
         };
+        'text-transform': CSS.TextTransform;
         width: string;
     };
-    type ButtonStyles_Disabled = Omit<ButtonStyles, 'border' | 'focus' | 'font' | 'gap' | 'line-height' | 'margin' | 'padding' | 'width'> & {
+    type ButtonStyles_Disabled = Omit<ButtonStyles, 'border' | 'focus' | 'font' | 'gap' | 'icon' | 'line-height' | 'margin' | 'padding' | 'width'> & {
         border: Omit<ButtonStyles['border'], 'width'>;
         font: Omit<ButtonStyles['font'], 'size'>;
         'letter-spacing': string;
@@ -352,7 +366,14 @@ export declare namespace Tokens_CSS_Style {
          * This should be a theme slug.
          */
         color: string;
-        'inline-buffer': string;
+        inline: {
+            buffer: {
+                $: string;
+                start: number;
+                end: number;
+            };
+            'margin-block-start': string;
+        };
         size: {
             $: string;
             large: string;
@@ -522,7 +543,7 @@ export declare namespace Tokens_CSS_Style {
          */
         alert?: Omit<RecursivePartial<AlertStyles>, 'heading'> & {
             heading?: undefined | ({
-                [H in RequiredHeadingLevels]?: undefined | Partial<AlertStyles_Heading>;
+                [H in RequiredHeadingLevels | 'unstyled']?: undefined | Partial<AlertStyles_Heading>;
             } & {
                 [key: number]: undefined | Partial<AlertStyles_Heading>;
             });

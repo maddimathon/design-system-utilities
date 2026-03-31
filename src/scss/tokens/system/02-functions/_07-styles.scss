@@ -1,0 +1,315 @@
+///
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use '../../../config';
+
+@use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/math';
+@use 'pkg:@maddimathon/utility-sass/meta';
+@use 'pkg:@maddimathon/utility-sass/string';
+
+// @use '../00-default' as default;
+@use '../01-breakdown' as breakdown;
+
+@use '01-spacing' as spacing;
+@use '03-theme' as theme;
+@use '04-typography' as typography;
+@use '05-borders' as borders;
+
+$_flattenedStyles: map.flatten(breakdown.$style);
+
+///
+/// Uses the (flattened) style tokens.
+///
+/// @since ___PKG_VERSION___
+///
+@function tokens-style-value($slug, $raw: false, $rawUnit: 1) {
+    $value: map.get($_flattenedStyles, $slug);
+
+    // returns
+    @if $value == null {
+        @warn "$slug '#{$slug}' was not a key in flattened tokens.$designSystem.style";
+        @return $slug;
+    }
+
+    // returns
+    @if $raw {
+        @return if(meta.type-of($value) == number, math.add-unit($value, $unit: $rawUnit), $value);
+    }
+
+    $isAlertStyle: string.index($slug, alert-) == 1;
+    $isButtonStyle: string.index($slug, button-) == 1;
+    $isHeadingStyle: string.index($slug, heading-) == 1;
+    $isIconStyle: string.index($slug, icon-) == 1;
+    $isInputStyle: string.index($slug, input-) == 1;
+    $isWidgetStyle: string.index($slug, widget-) == 1;
+
+    $isBorderRadius: false;
+    $isBorderWidth: false;
+    $isFontFamily: false;
+    $isFontSize: false;
+    $isGap: false;
+    $isLineHeight: false;
+    $isMargin: false;
+    $isPadding: false;
+    $isStrokeRelative: false;
+    $isThemeToken: false;
+
+    $isSimpleEm: false;
+
+    $_slugLength: string.length($slug);
+
+    @if $isAlertStyle or
+        $isButtonStyle or
+        $isIconStyle or
+        $isInputStyle or
+        $isHeadingStyle or
+        $isWidgetStyle
+    {
+        // gap
+        @if string.index($slug, -gap-) {
+            $isGap: true;
+        } @else if string.index($slug, '-gap') == ($_slugLength - 6) {
+            $isGap: true;
+        }
+
+        // theme (colour) tokens
+        @if string.index($slug, '-background-') {
+            $isThemeToken: true;
+        } @else if string.index($slug, '-color-') {
+            $isThemeToken: true;
+        } @else if string.index($slug, '-background') == ($_slugLength - 10) {
+            $isThemeToken: true;
+        } @else if string.index($slug, '-color') == ($_slugLength - 5) {
+            $isThemeToken: true;
+        }
+
+        // border-radius
+        @if string.index($slug, '-border-radius') == ($_slugLength - 13) {
+            $isBorderRadius: true;
+        }
+
+        // border-width
+        @if string.index($slug, '-border-width') == ($_slugLength - 12) {
+            $isBorderWidth: true;
+        }
+
+        // font-size
+        @if string.index($slug, '-font-family') == ($_slugLength - 11) {
+            $isFontFamily: true;
+        }
+
+        // font-size
+        @if string.index($slug, '-font-size-') {
+            $isFontSize: true;
+        } @else if string.index($slug, '-font-size') == ($_slugLength - 9) {
+            $isFontSize: true;
+        }
+
+        // line-height
+        @if string.index($slug, '-line-height') == ($_slugLength - 11) {
+            $isLineHeight: true;
+        }
+
+        // margins
+        @if not $isIconStyle {
+            @if $slug ==
+                'margin-flow' or
+                string.index($slug, '-margin-flow-') or
+                string.index($slug, '-margin-flow') ==
+                ($_slugLength - 11)
+            {
+                @return $value;
+            } @else if string.index($slug, '-margin-') {
+                $isMargin: true;
+            } @else if string.index($slug, '-margin') == ($_slugLength - 6) {
+                $isMargin: true;
+            }
+        }
+
+        // padding
+        @if string.index($slug, '-padding-') {
+            @if $isWidgetStyle {
+                $isMargin: true;
+            } @else {
+                $isPadding: true;
+            }
+        } @else if string.index($slug, '-padding') == ($_slugLength - 7) {
+            @if $isAlertStyle or $isWidgetStyle {
+                $isMargin: true;
+            } @else {
+                $isPadding: true;
+            }
+        }
+
+        // stroke-relative
+        @if string.index($slug, '-focus-offset-') {
+            $isStrokeRelative: true;
+        } @else if string.index($slug, '-focus-offset') == ($_slugLength - 12) {
+            $isStrokeRelative: true;
+        }
+    }
+
+    // RETURNING
+
+    // returns
+    @if $isMargin {
+        // returns
+        @if $value == '0' {
+            @return 0;
+        }
+
+        // returns
+        @if string.index($slug, -block-start) {
+            @return if(
+                $isButtonStyle or $isInputStyle,
+                spacing.tokens-var-mrg-firm($value),
+                spacing.tokens-var-mrg-soft($value)
+            );
+        }
+
+        // returns
+        @if string.index($slug, -block-end) {
+            @return spacing.tokens-var-mrg-half($value);
+        }
+
+        // returns
+        @if string.index($slug, -block) {
+            @return if(
+                $isButtonStyle or $isInputStyle,
+                spacing.tokens-var-mrg-firm($value),
+                spacing.tokens-var-mrg-soft($value)
+            );
+        }
+
+        @return spacing.tokens-var-mrg-firm($value);
+    }
+
+    // returns
+    @if $isPadding {
+        // returns
+        @if $value == '0' {
+            @return 0;
+        }
+
+        // returns
+        @if string.index($slug, -block-start) {
+            @return spacing.tokens-var-pad-soft($value);
+        }
+
+        // returns
+        @if string.index($slug, -block-end) {
+            @return spacing.tokens-var-pad-half($value);
+        }
+
+        // returns
+        @if string.index($slug, -block) {
+            @return if(
+                $isAlertStyle,
+                spacing.tokens-var-mrg-firm($value),
+                spacing.tokens-var-pad-soft($value)
+            );
+        }
+
+        @return spacing.tokens-var-pad-firm($value);
+    }
+
+    // returns
+    @if $isGap {
+        // returns
+        @if $value == '0' or meta.type-of($value) == number {
+            @return 0;
+        }
+
+        // returns
+        @if string.index($slug, gap-block-start) {
+            @return spacing.tokens-var-mrg-soft($value);
+        }
+
+        // returns
+        @if string.index($slug, gap-block-end) {
+            @return spacing.tokens-var-mrg-half($value);
+        }
+
+        // returns
+        @if string.index($slug, gap-block) {
+            @return spacing.tokens-var-mrg-soft($value);
+        }
+
+        @return spacing.tokens-var-mrg-firm($value);
+    }
+
+    // returns
+    @if $isBorderRadius {
+        @return if($value == '0', $value, borders.tokens-var-border-radius($value));
+    }
+
+    // returns
+    @if $isBorderWidth {
+        @return borders.tokens-var-border-width($value);
+    }
+
+    // returns
+    @if $isFontFamily {
+        @return if(
+            typography.tokens-font-family-exists($value),
+            typography.tokens-var-font-family($value),
+            'inherit'
+        );
+    }
+
+    // returns
+    @if $isFontSize {
+        @return typography.tokens-var-fs($value);
+    }
+
+    // returns
+    @if $isLineHeight {
+        @return typography.tokens-var-line-height($value);
+    }
+
+    // returns
+    @if $isStrokeRelative {
+        @return borders.tokens-var-stroke-relative($value);
+    }
+
+    // returns
+    @if $isThemeToken {
+        @return if(
+            meta.type-of($value) == 'color' or $value == white or $value == black,
+            $value,
+            theme.tokens-var-theme($value)
+        );
+    }
+
+    // returns
+    @if $isSimpleEm {
+        @return math.add-unit($value, $unit: 1em);
+    }
+
+    @return $value;
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@function tokens-var-style($slug, $fallback: null, $raw: false, $rawUnit: 1, $args...) {
+    $isFocusRingStyle: string.index($slug, focus-ring-) == 1;
+    $isIconStyle: string.index($slug, icon-) == 1;
+
+    @if $fallback == null {
+        $fallback: tokens-style-value($slug, $raw: $raw, $rawUnit: $rawUnit);
+    }
+
+    $fallbackOnly: config.$fn_var_replaceWithValue_style and not $isFocusRingStyle and not
+        $isIconStyle;
+
+    @return config.config-do-var(
+        $slug,
+        $fallback: $fallback,
+        $fallbackOnly: $fallbackOnly,
+        $args...
+    );
+}

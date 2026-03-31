@@ -10,7 +10,7 @@
 import { type RunnerOptions } from 'fantasticon';
 import { AbstractStage } from '@maddimathon/build-utilities';
 import type { Tokens } from '../02-tokens/Tokens.js';
-import type { Tokens_Icons } from '../02-tokens/Tokens_Icons.js';
+import type { RequiredPartially } from '@maddimathon/utility-typescript/types';
 /**
  * Take a token object and write its relevant files and assets to their output directories.
  *
@@ -84,7 +84,7 @@ export declare namespace buildTokens {
     /**
      * @since 0.1.0-beta.0.draft
      */
-    function buildIconFont(stage: AbstractStage<any, any>, tokens: Tokens.Instance, level: number, paths: buildTokens.Paths, args: Partial<RunnerOptions>): Promise<Partial<Awaited<ReturnType<Tokens_Icons<string>['toIconFont']>>>>;
+    function buildIconFontArgs(stage: AbstractStage<any, any>, level: number, paths: buildTokens.Paths, args: RequiredPartially<Partial<RunnerOptions>, 'name'>): Promise<false | RunnerOptions>;
     /**
      * @since 0.1.0-beta.0.draft
      */

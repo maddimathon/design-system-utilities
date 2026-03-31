@@ -46,11 +46,11 @@
     @each $_opt in (preview, tokens) {
         &:global([data-theme-mode-preview-page-display-mode='#{$_opt}']) {
             :global([data-theme-mode-preview-page-display-mode-content]) {
-                display: none;
+                display: none !important;
             }
 
             :global([data-theme-mode-preview-page-display-mode-content='#{$_opt}']) {
-                display: lib.do-var(display, grid);
+                display: lib.do-var(display, grid) !important;
             }
         }
     }

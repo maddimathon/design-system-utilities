@@ -9,7 +9,7 @@
 @use 'pkg:@maddimathon/utility-sass/selector';
 @use 'pkg:@maddimathon/utility-sass/string';
 
-@use 'pkg:@maddimathon/utility-astro/03-snippets' as lib;
+@use 'pkg:@maddimathon/utility-astro/03-snippets' as utils;
 
 @use '../../../config';
 @use '../../../tokens';
@@ -51,10 +51,10 @@ $_allUniqueIconAspectRatios: ();
     $display: inline-block,
     $iconSize: var-style(icon-size),
     $includeMinWidth: false,
-    $verticalAlign: var-style(icon-vertical-align, $fallback: middle),
+    $verticalAlign: var-style(icon-vertical-align),
     $args...
 ) {
-    @include lib.snippet-support-icons(
+    @include utils.snippet-support-icons(
             $display: $display,
             $iconSize: $iconSize,
             $includeMinWidth: $includeMinWidth,
@@ -64,7 +64,10 @@ $_allUniqueIconAspectRatios: ();
         using ($location) {
         @if $location == root {
             position: relative;
+
+            line-height: 1;
             color: #{$color};
+
             transition:
                 color #{var-tr-time(fast)} ease-in-out,
                 fill #{var-tr-time(fast)} ease-in-out;
@@ -74,19 +77,86 @@ $_allUniqueIconAspectRatios: ();
     }
 
     @each $slug, $map in $_allUniqueIconAspectRatios {
-        %icon-aspect-ratio--#{$slug} {
+        %_icon-aspect-ratio--#{$slug} {
             @include aspect-ratio(map.get($map, width), map.get($map, height));
         }
     }
 
-    @each $slug, $map in tokens.$icons {
+    %_add-icon-after {
+        &::after {
+            @include snippet-icon-pseudo-element(
+                'star',
+                after,
+                $includeBasePropsOnly: true
+            );
+        }
+    }
+
+    %_add-icon-before {
+        &::before {
+            @include snippet-icon-pseudo-element(
+                'star',
+                before,
+                $includeBasePropsOnly: true
+            );
+        }
+    }
+
+    @each $slug in list.unique(map.keys(tokens.$icons)) {
         %icon {
             &--#{$slug} {
                 $aspectRatio: icon-aspect-ratio-value($slug);
-                @extend %icon-aspect-ratio--#{string.slugify( #{$aspectRatio} )};
+                @extend %_icon-aspect-ratio--#{string.slugify( #{$aspectRatio} )};
+            }
+        }
+
+        %add-#{$slug}-icon {
+            &,
+            &-after {
+                @extend %_add-icon-after;
+
+                &::after {
+                    @include snippet-icon-pseudo-element(
+                        $slug,
+                        after,
+                        $includeBaseProps: false
+                    );
+                }
+            }
+
+            &-before {
+                @extend %_add-icon-before;
+
+                &::before {
+                    @include snippet-icon-pseudo-element(
+                        $slug,
+                        before,
+                        $includeBaseProps: false
+                    );
+                }
             }
         }
     }
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function snippet-icon-pseudo-icon-size($size: var-style(icon-size-pseudo)) {
+    @return calc(
+        $size * do-var(icon-size-inline--multiplier, 1) *
+            do-var(icon-size-inline--font-multiplier, 1)
+    );
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function snippet-icon-pseudo-margin-inline($dir: 'start') {
+    @return calc(
+        var-style(icon-inline-buffer) * var-style(icon-inline-buffer-#{$dir}) *
+            do-var(icon-inline-buffer-#{$dir}--font-override)
+    );
 }
 
 ///
@@ -107,45 +177,29 @@ $_allUniqueIconAspectRatios: ();
     $_start: if($pseudo == before, end, start);
     $_end: if($pseudo == before, start, end);
 
-    $_sizeMultiplier: calc(
-        do-var(icon-size-pseudo--multiplier, 1) *
-            do-var(icon-size-pseudo--font-multiplier, 1)
-    );
-
     @include prop-display($display);
 
     @if $verticalAlign {
-        vertical-align: #{var-style(icon-vertical-align, $fallback: sub)};
+        vertical-align: #{var-style(icon-vertical-align)};
     }
 
-    #{$spacingProp}-block-start: #{do-var(
-            icon-pseudo-element-margin-block-start,
-            0
-        )};
+    #{$spacingProp}-block-start: #{do-var(icon-inline-margin-block-start)};
 
     @if $spacing {
         #{$spacingProp}-inline-#{$_start}: 0;
-        #{$spacingProp}-inline-#{$_start}: calc(
-            var-style(icon-inline-buffer) *
-                do-var(
-                    icon-size-pseudo--inline-buffer-start,
-                    calc(($_sizeMultiplier) / 2)
-                )
-        );
+        #{$spacingProp}-inline-#{$_start}: #{snippet-icon-pseudo-margin-inline(
+                start
+            )};
 
         #{$spacingProp}-inline-#{$_end}: #{var-style(icon-inline-buffer)};
-        #{$spacingProp}-inline-#{$_end}: calc(
-            var-style(icon-inline-buffer) *
-                do-var(
-                    icon-size-pseudo--inline-buffer-end,
-                    calc($_sizeMultiplier)
-                )
-        );
+        #{$spacingProp}-inline-#{$_end}: #{snippet-icon-pseudo-margin-inline(
+                end
+            )};
     }
 
     @if $height {
         height: #{var-style(icon-size-pseudo)};
-        height: #{calc(var-style(icon-size-pseudo) * $_sizeMultiplier)};
+        height: #{snippet-icon-pseudo-icon-size()};
 
         @if $slug != null {
             aspect-ratio: #{icon-aspect-ratio-value($slug)};
@@ -153,6 +207,12 @@ $_allUniqueIconAspectRatios: ();
     }
 
     line-height: 1;
+
+    @if $display != inline {
+        align-self: center;
+    }
+
+    color: #{var-style(icon-color)};
 }
 
 ///
@@ -160,60 +220,68 @@ $_allUniqueIconAspectRatios: ();
 ///
 /// @since 0.1.0-alpha
 ///
-@mixin snippet-icon-pseudo-element($slug, $pseudo: 'after', $args...) {
+@mixin snippet-icon-pseudo-element(
+    $slug,
+    $pseudo: 'after',
+    $includeBaseProps: true,
+    $includeBasePropsOnly: false,
+    $args...
+) {
     $glyph: map.get(tokens.$icons, $slug, fontGlyph);
 
     @if config.$fn_pseudoIconsUseFont and $glyph and font-family-exists(icons) {
-        @include snippet-icon-pseudo-base-properties(
-            $slug: $slug,
-            $pseudo: $pseudo,
-            // $display: inline,
-            $height: false,
-            $spacingProp: padding,
-            $args...
-        );
-
-        $glyph: icon-glyph-value($slug);
-
-        content: $glyph;
-        content: $glyph / '#{icon-label-value($slug)}';
-
-        font-family: #{var-font-family(icons)} !important;
-        font-weight: 400 !important;
-
-        font-size: #{var-style(icon-size-font)} !important;
-        font-size: calc(
-            var-style(icon-size-font) *
-                do-var(icon-size-pseudo--multiplier, 1) *
-                do-var(icon-size-pseudo--font-multiplier, 1)
-        ) !important;
-
-        color: #{var-style(icon-color)};
-
-        @content;
-    } @else {
-        @supports (mask-image: url('../fake.svg')) {
+        @if $includeBasePropsOnly or $includeBaseProps {
             @include snippet-icon-pseudo-base-properties(
                 $slug: $slug,
                 $pseudo: $pseudo,
+                // $display: inline,
+                $height: false,
+                // $spacingProp: padding,
                 $args...
             );
 
-            content: '';
-            content: '' / '#{icon-label-value($slug)}';
+            font-family: #{var-font-family(icons)} !important;
+            font-weight: 400 !important;
 
-            mask-image: #{icon-embedded-value($slug)};
-            mask-clip: no-clip;
-            mask-mode: alpha;
-            mask-origin: border-box;
-            mask-position: center;
-            mask-repeat: no-repeat;
-            mask-size: contain;
+            font-size: #{var-style(icon-size-font)} !important;
+            font-size: #{snippet-icon-pseudo-icon-size()} !important;
+        }
 
-            background: currentColor;
-            color: #{var-style(icon-color)};
+        @if not $includeBasePropsOnly {
+            $glyph: icon-glyph-value($slug);
+
+            content: $glyph;
+            content: $glyph / '#{icon-label-value($slug)}';
 
             @content;
+        }
+    } @else {
+        @supports (mask-image: url('../fake.svg')) {
+            @if $includeBasePropsOnly or $includeBaseProps {
+                @include snippet-icon-pseudo-base-properties(
+                    $slug: $slug,
+                    $pseudo: $pseudo,
+                    $args...
+                );
+
+                mask-clip: no-clip;
+                mask-mode: alpha;
+                mask-origin: border-box;
+                mask-position: center;
+                mask-repeat: no-repeat;
+                mask-size: contain;
+
+                background: currentColor;
+            }
+
+            @if not $includeBasePropsOnly {
+                content: '';
+                content: '' / '#{icon-label-value($slug)}';
+
+                mask-image: #{icon-embedded-value($slug)};
+
+                @content;
+            }
         }
     }
 }

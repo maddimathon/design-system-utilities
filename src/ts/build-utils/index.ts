@@ -14,6 +14,7 @@ export * from './classes/Build.js';
 export * from './classes/Compile.js';
 export * from './classes/Document.js';
 
+export * from './buildTokens.js';
 export * from './defineConfig.js';
 export * from './defineSassCompilerOpts.js';
 export * from './getBrandConstants.js';

@@ -933,7 +933,7 @@ export namespace Tokens_Themes_Set {
             },
 
             button: {
-                [ K in 'primary' | 'secondary' | 'disabled' ]: Data.Button<
+                [ K in 'primary' | 'secondary' | 'grey' | 'disabled' ]: Data.Button<
                     T_ColourTypes,
                     __T_ColourOption
                 >;
@@ -1086,7 +1086,7 @@ export namespace Tokens_Themes_Set {
                 },
 
                 button?: undefined | {
-                    [ K in 'primary' | 'secondary' | 'disabled' ]?: undefined | Data.Button<T_ColourTypes, __T_ColourOption>;
+                    [ K in 'primary' | 'secondary' | 'grey' | 'disabled' ]?: undefined | Data.Button<T_ColourTypes, __T_ColourOption>;
                 } & {
                     [ K in T_ThemeTypes[ 'variations' ][ 'universal' ] ]?: undefined | Data.Button<T_ColourTypes, __T_ColourOption>;
                 },
@@ -2033,6 +2033,7 @@ export namespace Tokens_Themes_Set {
                 const button: CompleteData[ 'button' ] = objectMap(
                     {
                         ...variations.universal,
+                        grey: variations.text.grey,
                         disabled: variations.interactive.disabled,
                     },
                     <K extends keyof CompleteData[ 'button' ]>(
@@ -2263,6 +2264,7 @@ export namespace Tokens_Themes_Set {
 
                 const button: CompleteData[ 'button' ] = {
                     ...objectMap( variations.universal, ( [ key ] ) => overrides.button?.[ key ] ?? singleButton ),
+                    grey: overrides.button?.grey ?? singleButton,
                     disabled: overrides.button?.disabled ?? singleButton,
                 };
 

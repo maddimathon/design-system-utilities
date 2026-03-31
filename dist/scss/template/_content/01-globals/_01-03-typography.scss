@@ -60,7 +60,6 @@
     }
 
     & {
-        @include cx-prop(icon-vertical-align, sub);
         @include snippet-link-colours;
     }
 
@@ -72,20 +71,13 @@
     @if config.$include_link_inlineIcons {
         &[target='_blank'] {
             &::after {
-                @include snippet-icon-pseudo-element(external) {
-                    align-self: center;
-                }
+                @include snippet-icon-pseudo-element(external, $pseudo: after);
             }
         }
 
         &[download] {
             &::before {
-                @include snippet-icon-pseudo-element(
-                    download,
-                    $pseudo: before
-                ) {
-                    align-self: center;
-                }
+                @include snippet-icon-pseudo-element(download, $pseudo: before);
             }
         }
 
@@ -95,9 +87,7 @@
                 @include snippet-icon-pseudo-element(
                     forbidden,
                     $pseudo: before
-                ) {
-                    align-self: center;
-                }
+                );
             }
             &::after {
                 content: none !important;

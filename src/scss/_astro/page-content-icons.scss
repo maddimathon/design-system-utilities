@@ -13,16 +13,20 @@
     flex-wrap: wrap;
     list-style: none;
 
-    margin-block: #{lib.var-mrg-firm('300')} #{lib.var-mrg-half('300')};
+    // margin-block: #{lib.var-mrg-firm('300')} #{lib.var-mrg-half('300')};
     margin-inline: 0;
     padding: 0;
 
-    gap: #{lib.var-mrg-firm('300')};
+    // gap: #{lib.var-mrg-firm('400')};
 
     li {
         @include lib.prop-display(block);
         margin: 0;
         padding: 0;
+    }
+
+    &--basic {
+        @include lib.cx-prop(icon-size, lib.do-var(icon-size-large));
     }
 }
 
@@ -38,7 +42,49 @@
     margin-inline: 0;
     padding: 0;
 
-    gap: 0 #{lib.var-mrg-firm('300')};
+    gap: 0 #{lib.var-mrg-firm('400')};
+}
+
+.tokens-demo-all-icons-inline {
+    @include lib.cx-prop(icon-color, lib.var-style(icon-color));
+    list-style: none;
+
+    &:not(.tokens-demo-all-icons-inline--buttons) {
+        .tokens-demo-all-icons-inline--icon-list {
+        }
+    }
+
+    .tokens-demo-all-icons-inline--icon-list {
+        margin-inline: 0;
+        padding: 0;
+        justify-content: space-around;
+        align-items: center;
+
+        list-style: none;
+        text-align: center;
+
+        gap: #{lib.var-mrg-soft('200')} #{lib.var-mrg-firm('200')};
+
+        li {
+            margin: 0;
+            padding: 0;
+
+            color: #{lib.var-theme(text)} !important;
+        }
+    }
+
+    &.tokens-demo-all-icons-inline--buttons {
+        .tokens-demo-all-icons-inline--icon-list {
+            justify-content: center;
+            gap: #{lib.var-mrg-firm('300')} #{lib.var-mrg-firm('300')};
+        }
+    }
+
+    &.tokens-demo-all-icons-inline--buttons-embedded {
+        .tokens-demo-all-icons-inline--icon-list {
+            // justify-content: space-between;
+        }
+    }
 }
 
 @include lib.extend-selectors($optional: true);

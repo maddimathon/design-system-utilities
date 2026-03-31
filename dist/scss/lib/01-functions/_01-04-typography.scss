@@ -41,9 +41,10 @@ $_designSystemHasFontFamilyOverrides: $_designSystemHasFontFamilies and
 
 ///
 /// @since 0.1.0-alpha
+/// @since 0.1.0-beta.0.draft — Now defined in tokens.
 ///
 @function font-family-exists($slug) {
-    @return map.has-key(tokens.$designSystem, font, family, $slug);
+    @return tokens.tokens-font-family-exists($slug);
 }
 
 ///
@@ -76,32 +77,37 @@ $_designSystemHasFontFamilyOverrides: $_designSystemHasFontFamilies and
 }
 
 ///
-/// @since 0.1.0-alpha
+/// @since 0.1.0-beta.0.draft
 ///
-@function var-font-family($slug, $args...) {
-    @return utils.do-var(
-        ff-#{$slug},
-        $fallback: font-family-list($slug),
-        $fallbackOnly: $slug == icons or
-            config.$fn_var_replaceWithValue_fontFamily,
-        $args...
-    );
+@function font-size-value($args...) {
+    @return tokens.tokens-font-size-value($args...);
 }
 
 ///
 /// @since 0.1.0-alpha
-/// @since 0.1.0-beta.0.draft — Added $relative param.
 ///
-@function var-fs($slug, $fallback: null, $relative: false, $args...) {
-    // TODO - test if this is necessary
-    @if $fallback == null and config.$fn_var_replaceWithValue_fontSize {
-        $fallback: list.nth(utils.fs-value($slug, $relative: $relative), 1);
-    }
+@function var-font-family($args...) {
+    @return tokens.tokens-var-font-family($args...);
+}
 
-    @return utils.var-fs(
-        $slug,
-        $fallback: $fallback,
-        $relative: $relative,
-        $args...
-    );
+///
+/// @since 0.1.0-alpha
+/// @since 0.1.0-beta.0.draft — Added $relative param. Now defined in tokens.
+///
+@function var-fs($args...) {
+    @return tokens.tokens-var-fs($args...);
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function line-height-value($args...) {
+    @return tokens.tokens-line-height-value($args...);
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function var-line-height($args...) {
+    @return tokens.tokens-var-line-height($args...);
 }

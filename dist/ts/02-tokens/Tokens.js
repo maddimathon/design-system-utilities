@@ -86,8 +86,14 @@ export class Tokens extends AbstractTokens {
         return Promise.all([
             Tokens_Colour.build(colourOpts.names, extraColourLevels, input.colour ?? {}),
             Tokens_Themes.build(brightnessModes, contrastModes, colourOpts, input.themes?.input ?? []),
-        ]).then(async ([colour, themes]) => {
-            const tokens = new Tokens(input.name, colourOpts, { colour, themes }, input, {
+            new Tokens_Icons(config.iconFontName ?? (this.name + ' Icons'), 
+            // @ts-expect-error
+            input.icons),
+        ]).then(async ([colour, themes, icons]) => {
+            if (typeof config.buildIconFont === 'object') {
+                await icons.toIconFont(config.buildIconFont);
+            }
+            const tokens = new Tokens(input.name, colourOpts, { colour, icons, themes }, input, {
                 ...config,
                 extraColourLevels: undefined,
             });
@@ -97,7 +103,7 @@ export class Tokens extends AbstractTokens {
     /**
      *  * @since 0.1.0-beta.0.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
-    constructor(name, colourOpts, { colour, themes }, input, config = {}) {
+    constructor(name, colourOpts, { colour, icons, themes }, input, config = {}) {
         super();
         this.name = name;
         this.colourOpts = colourOpts;
@@ -105,9 +111,7 @@ export class Tokens extends AbstractTokens {
         this.config = config;
         this.colour = colour;
         this.css = new Tokens_CSS(this.input.css ?? {});
-        this.icons = new Tokens_Icons(this.config.iconFontName ?? (this.name + ' Icons'), 
-        // @ts-expect-error
-        this.input.icons ?? {});
+        this.icons = icons;
         this.logos = new Tokens_Logos(this.input.logos);
         this.spacing = new Tokens_Spacing(this.input.spacing ?? {});
         this.themes = themes;
@@ -115,29 +119,35 @@ export class Tokens extends AbstractTokens {
         if (!typeInput.fonts) {
             typeInput.fonts = {};
         }
-        typeInput.fonts.icons = typeInput.fonts.icons === false
-            ? undefined
-            : {
+        if (typeInput.fonts.icons === false) {
+            typeInput.fonts.icons = undefined;
+        }
+        else {
+            const unicodeRange = Object.values(this.icons.getCodepoints()).map(num => `U+${num.toString(16).toUpperCase()}`).join(', ');
+            const iconFontFamily = {
                 printFontFace: true,
                 ...typeInput.fonts.icons,
                 slug: 'icons',
                 name: this.icons.fontName,
                 appendSystemFontsToFallbacks: false,
+                unicodeRange: unicodeRange ? unicodeRange : undefined,
+            };
+            const iconFontOptions = {
+                ...iconFontFamily,
+                filename: 'icons',
+                includeLocalSrc: false,
+                pathStyle: 'normal',
+            };
+            typeInput.fonts.icons = {
+                ...iconFontFamily,
                 weights: mergeArgs({
                     '400': {
-                        normal: Tokens.Typography.Font.familyGenerator.fileGenerator('icons', name, '100 900', 'normal', {
-                            filename: 'icons',
-                            includeLocalSrc: false,
-                            pathStyle: 'normal',
-                        }),
-                        italic: Tokens.Typography.Font.familyGenerator.fileGenerator('icons', name, '100 900', 'italic', {
-                            filename: 'icons',
-                            includeLocalSrc: false,
-                            pathStyle: 'normal',
-                        }),
+                        normal: Tokens.Typography.Font.familyGenerator.fileGenerator('icons', name, '100 900', 'normal', iconFontOptions),
+                        italic: Tokens.Typography.Font.familyGenerator.fileGenerator('icons', name, '100 900', 'italic', iconFontOptions),
                     }
                 }, typeInput.fonts.icons?.weights, true),
             };
+        }
         this.typography = new Tokens_Typography(this.spacing, typeInput);
     }
     toJSON() {
@@ -165,7 +175,7 @@ export class Tokens extends AbstractTokens {
         };
     }
     toScss() {
-        const tokensString = JsonToScss.convert(this.toScssVars()) || '()';
+        const tokensString = JsonToScss.convert(this.toScssVars(), '', { convertUnitStringsToNumbers: true }) || '()';
         const varContent = this.config.tokensAsDefault
             ? [
                 '@use "sass:map";',
@@ -192,8 +202,8 @@ export class Tokens extends AbstractTokens {
     /**
      * @since 0.1.0-alpha
      */
-    async function sample() {
-        return Tokens.build({
+    async function sample(input = {}, config = {}) {
+        return Tokens.build(mergeArgs({
             name: 'Design System Utilities (Sample Brand Kit)',
             colour: {
                 base: Tokens.SampleColours.base,
@@ -207,9 +217,10 @@ export class Tokens extends AbstractTokens {
             themes: {
                 contrast: ['max'],
             },
-        }, {
-            iconFontName: 'Design System Utilities Icons',
+        }, input, true), {
             tokensAsDefault: true,
+            ...config,
+            iconFontName: 'Design System Utilities Icons',
         });
     }
     Tokens.sample = sample;
@@ -422,7 +433,8 @@ export class Tokens extends AbstractTokens {
                     fallbacks: [
                         'Verdana',
                     ],
-                    lineHeightScale: 1.035,
+                    // lineHeightScale: 1.035,
+                    lineHeightScale: 1,
                     sizeAdjust: '106.5%',
                     weights: objectGenerator(['400', '700'], (weight) => objectGenerator(["normal", "italic"], (style) => familyGenerator.fileGenerator('hyperlegible', 'Atkinson Hyperlegible', weight === '400' ? '100 400' : '500 900', style, {
                         pathWeight: weight,

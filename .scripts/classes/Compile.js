@@ -126,12 +126,10 @@ export class Compile extends CompileStage {
 
         const { buildTokens } = await import( /* @vite-ignore */ '../../dist/ts/build-utils/buildTokens.js' );
 
-        const defaultTokens = await this.atry(
-            Tokens.sample,
-            ( this.params.verbose ? 1 : 2 ),
-        );
-
-        await buildTokens( this, defaultTokens, 2, {
+        /**
+         * @satisfies {Parameters<typeof buildTokens.buildIconFontArgs>[2]}
+         */
+        const tokenBuildPaths = {
             tokensDistSubpath: '../',
 
             slug: 'design-system-utilities',
@@ -148,9 +146,34 @@ export class Compile extends CompileStage {
 
             scss: [
                 this.getDistDir( undefined, 'default-tokens.scss' ),
-                'src/scss/tokens/system/_default.scss',
+                'src/scss/tokens/system/_00-default.scss',
             ],
-        } );
+        };
+
+        const iconFontArgs = await buildTokens.buildIconFontArgs(
+            this,
+            this.params.verbose ? 1 : 2,
+            tokenBuildPaths,
+            {
+                name: 'Design System Utilities Icons',
+
+                inputDir: tokenBuildPaths.assets.icons,
+                outputDir: tokenBuildPaths.assets.fonts,
+            },
+        );
+
+        const defaultTokens = await this.atry(
+            Tokens.sample,
+            this.params.verbose ? 1 : 2,
+            [
+                {},
+                {
+                    buildIconFont: iconFontArgs,
+                },
+            ],
+        );
+
+        await buildTokens( this, defaultTokens, 2, tokenBuildPaths );
     }
 
     /**

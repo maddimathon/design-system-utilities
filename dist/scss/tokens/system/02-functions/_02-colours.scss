@@ -1,0 +1,148 @@
+///
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@use 'pkg:@maddimathon/utility-sass/colour';
+@use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/meta';
+@use 'pkg:@maddimathon/utility-sass/string';
+
+@use '../../../config';
+
+// @use '../00-default' as default;
+@use '../01-breakdown' as breakdown;
+
+///
+/// Returns the appropriate var (with fallback).
+///
+/// @param {string} $slug  Colour name.
+/// @param {string} $level  Shade level.
+/// @param {string} $brightness  Optional. Brightness mode for this value (switched in dark mode).
+/// @param {string} $version  Optional. Brightness mode for this value (switched in dark mode). Which list version of the var to fetch, if applicable. Options: null, 'hsl', 'rgb'.
+///
+/// @since __PKG_VERSION___
+///
+@function tokens-var-clr(
+    $slug,
+    $level,
+    $brightness: breakdown.$brightnessMode_default,
+    $version: null,
+    $args...
+) {
+    $clrVarSlug: 'clr-#{$slug}';
+
+    @if $slug == 'white' or $slug == white or $slug == 'black' or $slug == black
+    {
+        $level: if($slug == white, 'white', if($slug == black, 'black', $slug));
+        $slug: '$';
+    } @else if $level {
+        $clrVarSlug: '#{$clrVarSlug}-#{$level}';
+    }
+
+    @if $version == 'hsl' {
+        @if config.$include_colourValues_hsl {
+            $clrVarSlug: '#{$clrVarSlug}-hsl';
+        } @else {
+            $version: null;
+        }
+    }
+
+    @if $version == 'rgb' {
+        @if config.$include_colourValues_rgb {
+            $clrVarSlug: '#{$clrVarSlug}-rgb';
+        } @else {
+            $version: null;
+        }
+    }
+
+    $slugMap: map.get(breakdown.$colour, $slug);
+
+    // returns
+    @if $slugMap == null {
+        @warn "$slug '#{$slug}' was not a key in tokens.$colour";
+        @return config.config-do-var($clrVarSlug, $args...);
+    }
+
+    $_slugMapType: meta.type-of($slugMap);
+
+    // returns
+    @if $_slugMapType != 'map' and $_slugMapType != 'color' {
+        @warn "$level '#{$level}' was not a key in tokens.$colour.#{$slug}";
+        @return config.config-do-var($clrVarSlug, $args...);
+    }
+
+    $fallback_clr: null;
+
+    @if $_slugMapType == 'color' {
+        $fallback_clr: $slugMap;
+    } @else {
+        $level_brightnessAdjusted: $level;
+
+        @if $brightness == dark {
+            $level_brightnessAdjusted: colour.shade-map-reverse-key(
+                $level,
+                $slugMap,
+                $sort: true
+            );
+        }
+
+        $fallback_clr: map.get($slugMap, $level_brightnessAdjusted);
+
+        // returns
+        @if $fallback_clr == null {
+            @warn "$level '#{$level}' was not a key in tokens.$colour.#{$slug}";
+            @return config.config-do-var($clrVarSlug, $args...);
+        }
+    }
+
+    $fallback: $fallback_clr;
+
+    @if $version == 'hsl' {
+        $fallback: colour.to-hsl-list($fallback_clr, $round: false);
+    } @else if $version == 'rgb' {
+        $fallback: colour.to-rgb-list($fallback_clr, $round: true);
+    } @else {
+        $fallback: colour.to-hsl($fallback_clr, $round: false);
+    }
+
+    @return config.config-do-var(
+        $clrVarSlug,
+        $fallback,
+        $fallbackOnly: config.$fn_var_replaceWithValue_colour,
+        $args...
+    );
+}
+
+///
+/// Gets the colour value (either system or var-clr) for the given token slug.
+///
+/// @since __PKG_VERSION___
+///
+@function tokens-var-clr-from-theme-token($tokenValue, $args...) {
+    $tokenValue: #{$tokenValue};
+
+    // returns
+    @if $tokenValue ==
+        'white' or
+        $tokenValue ==
+        white or
+        $tokenValue ==
+        'black' or
+        $tokenValue ==
+        black
+    {
+        @return tokens-var-clr($tokenValue, null, $args...);
+    }
+
+    // returns
+    @if string.length($tokenValue) > 0 and string.index($tokenValue, '-') {
+        @return tokens-var-clr(
+            string.slice($tokenValue, 1, -5),
+            string.slice($tokenValue, -3, -1),
+            $args...
+        );
+    }
+
+    @return $tokenValue;
+}

@@ -8,8 +8,12 @@
  * @license MIT
  */
 
+import type { RunnerOptions } from 'fantasticon';
+
 import type { Classify } from '@maddimathon/utility-typescript/types';
+
 import { arrayUnique, mergeArgs, slugify } from '@maddimathon/utility-typescript';
+
 import { JsonToScss } from '@maddimathon/utility-sass';
 
 import type {
@@ -138,13 +142,23 @@ export class Tokens<
                 colourOpts,
                 input.themes?.input ?? [],
             ),
+
+            new Tokens_Icons<T_Types[ 'iconNames' ]>(
+                config.iconFontName ?? ( this.name + ' Icons' ),
+                // @ts-expect-error
+                input.icons,
+            ),
         ] ).then(
-            async ( [ colour, themes ] ) => {
+            async ( [ colour, themes, icons ] ) => {
+
+                if ( typeof config.buildIconFont === 'object' ) {
+                    await icons.toIconFont( config.buildIconFont );
+                }
 
                 const tokens = new Tokens<T_Types>(
                     input.name,
                     colourOpts,
-                    { colour, themes },
+                    { colour, icons, themes },
                     input,
                     {
                         ...config,
@@ -167,8 +181,9 @@ export class Tokens<
             allLevels: Set<ColourUtilities.Levels.Required | T_Types[ 'colour' ][ 'extraLevels' ]>;
         },
 
-        { colour, themes }: {
+        { colour, icons, themes }: {
             colour: Tokens_Colour<T_Types[ 'colour' ]>;
+            icons: Tokens_Icons<T_Types[ 'iconNames' ]>;
             themes: Tokens_Themes<NoInfer<T_Types[ 'colour' ]>, T_Types[ 'theme' ]>,
         },
         protected readonly input: Omit<Tokens_Internal.InputParam<T_Types>, "colour" | "themes">,
@@ -178,17 +193,9 @@ export class Tokens<
 
         this.colour = colour;
         this.css = new Tokens_CSS( this.input.css ?? {} );
-
-        this.icons = new Tokens_Icons<T_Types[ 'iconNames' ]>(
-            this.config.iconFontName ?? ( this.name + ' Icons' ),
-            // @ts-expect-error
-            this.input.icons ?? {},
-        );
-
+        this.icons = icons;
         this.logos = new Tokens_Logos<T_Types[ 'logoNames' ]>( this.input.logos );
-
         this.spacing = new Tokens_Spacing( this.input.spacing ?? {} );
-
         this.themes = themes;
 
         const typeInput = this.input.typography ?? {};
@@ -197,9 +204,13 @@ export class Tokens<
             typeInput.fonts = {};
         }
 
-        typeInput.fonts.icons = typeInput.fonts.icons === false
-            ? undefined
-            : {
+        if ( typeInput.fonts.icons === false ) {
+            typeInput.fonts.icons = undefined;
+        } else {
+
+            const unicodeRange = Object.values( this.icons.getCodepoints() ).map( num => `U+${ num.toString( 16 ).toUpperCase() }` ).join( ', ' );
+
+            const iconFontFamily = {
                 printFontFace: true,
 
                 ...typeInput.fonts.icons,
@@ -208,6 +219,19 @@ export class Tokens<
                 name: this.icons.fontName,
 
                 appendSystemFontsToFallbacks: false,
+                unicodeRange: unicodeRange ? unicodeRange : undefined,
+            } as const satisfies Partial<Tokens_Typography.Font.Family<'icons'>>;
+
+            const iconFontOptions = {
+                ...iconFontFamily,
+
+                filename: 'icons',
+                includeLocalSrc: false,
+                pathStyle: 'normal',
+            } as const satisfies Tokens.Typography.Font.familyGenerator.FileOptions;
+
+            typeInput.fonts.icons = {
+                ...iconFontFamily,
 
                 weights: mergeArgs(
                     {
@@ -218,11 +242,7 @@ export class Tokens<
                                 name,
                                 '100 900',
                                 'normal',
-                                {
-                                    filename: 'icons',
-                                    includeLocalSrc: false,
-                                    pathStyle: 'normal',
-                                },
+                                iconFontOptions,
                             ),
 
                             italic: Tokens.Typography.Font.familyGenerator.fileGenerator(
@@ -230,11 +250,7 @@ export class Tokens<
                                 name,
                                 '100 900',
                                 'italic',
-                                {
-                                    filename: 'icons',
-                                    includeLocalSrc: false,
-                                    pathStyle: 'normal',
-                                },
+                                iconFontOptions,
                             ),
                         }
                     } as const,
@@ -242,6 +258,7 @@ export class Tokens<
                     true,
                 ),
             };
+        }
 
         this.typography = new Tokens_Typography(
             this.spacing,
@@ -285,7 +302,11 @@ export class Tokens<
 
     public override toScss(): string {
 
-        const tokensString = JsonToScss.convert( this.toScssVars() ) || '()';
+        const tokensString = JsonToScss.convert(
+            this.toScssVars(),
+            '',
+            { convertUnitStringsToNumbers: true },
+        ) || '()';
 
         const varContent: string[] = this.config.tokensAsDefault
             ? [
@@ -381,30 +402,40 @@ export namespace Tokens {
     /**
      * @since 0.1.0-alpha
      */
-    export async function sample() {
+    export async function sample(
+
+        input: Partial<Tokens_Internal.InputParam<TokenTypes.TypeParams>> = {},
+        config: Partial<Tokens.Config<NoInfer<TokenTypes.TypeParams[ 'colour' ][ 'extraLevels' ]>>> = {},
+    ) {
 
         return Tokens.build(
+            mergeArgs(
+                {
+                    name: 'Design System Utilities (Sample Brand Kit)',
+
+                    colour: {
+                        base: Tokens.SampleColours.base,
+                        purple: Tokens.SampleColours.purple,
+                        turquoise: Tokens.SampleColours.turquoise,
+                        red: Tokens.SampleColours.red,
+                        // yardstick: Tokens.SampleColours.yardstick,
+                        // 'yardstick-accent': Tokens.SampleColours[ 'yardstick-accent' ],
+                    },
+
+                    logos: {},
+
+                    themes: {
+                        contrast: [ 'max' ],
+                    },
+                } satisfies Tokens_Internal.InputParam<TokenTypes.TypeParams>,
+                input,
+                true,
+            ),
             {
-                name: 'Design System Utilities (Sample Brand Kit)',
-
-                colour: {
-                    base: Tokens.SampleColours.base,
-                    purple: Tokens.SampleColours.purple,
-                    turquoise: Tokens.SampleColours.turquoise,
-                    red: Tokens.SampleColours.red,
-                    // yardstick: Tokens.SampleColours.yardstick,
-                    // 'yardstick-accent': Tokens.SampleColours[ 'yardstick-accent' ],
-                },
-
-                logos: {},
-
-                themes: {
-                    contrast: [ 'max' ],
-                },
-            },
-            {
-                iconFontName: 'Design System Utilities Icons',
                 tokensAsDefault: true,
+                ...config,
+
+                iconFontName: 'Design System Utilities Icons',
             },
         );
     }
@@ -417,6 +448,11 @@ export namespace Tokens {
     export interface Config<
         T_ExtraColourLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional,
     > {
+        /**
+         * Input path.
+         */
+        buildIconFont: false | RunnerOptions;
+
         extraColourLevels: readonly T_ExtraColourLevels[];
         iconFontName: string;
         tokensAsDefault: boolean;
@@ -840,7 +876,8 @@ export namespace Tokens {
                     fallbacks: [
                         'Verdana',
                     ],
-                    lineHeightScale: 1.035,
+                    // lineHeightScale: 1.035,
+                    lineHeightScale: 1,
                     sizeAdjust: '106.5%',
 
                     weights: objectGenerator(

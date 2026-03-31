@@ -7,6 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
+import type { RunnerOptions } from 'fantasticon';
 import type { WholeTokenLevel, TokenTypes } from './@types.js';
 import { ColourUtilities } from '../01-utilities/ColourUtilities.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
@@ -71,8 +72,9 @@ export declare class Tokens<T_Types extends TokenTypes.TypeParams = TokenTypes.T
     protected constructor(name: string, colourOpts: {
         names: TokenTypes.Colour.GenericNameArray<T_Types['colour']['names']>;
         allLevels: Set<ColourUtilities.Levels.Required | T_Types['colour']['extraLevels']>;
-    }, { colour, themes }: {
+    }, { colour, icons, themes }: {
         colour: Tokens_Colour<T_Types['colour']>;
+        icons: Tokens_Icons<T_Types['iconNames']>;
         themes: Tokens_Themes<NoInfer<T_Types['colour']>, T_Types['theme']>;
     }, input: Omit<Tokens_Internal.InputParam<T_Types>, "colour" | "themes">, config?: Tokens_Internal.Config);
     toJSON(): Tokens_Internal.JsonReturn<T_Types>;
@@ -141,13 +143,17 @@ export declare namespace Tokens {
     /**
      * @since 0.1.0-alpha
      */
-    function sample(): Promise<Tokens<TokenTypes.TypeParams<TokenTypes.Colour.TypeParams<string, "350" | "450" | "550" | "650">, TokenTypes.Theme.TypeParams<string, readonly TokenTypes.Theme.Mode.BrightnessOption[], readonly TokenTypes.Theme.Mode.ContrastOption[], string, string, string>, string, string>>>;
+    function sample(input?: Partial<Tokens_Internal.InputParam<TokenTypes.TypeParams>>, config?: Partial<Tokens.Config<NoInfer<TokenTypes.TypeParams['colour']['extraLevels']>>>): Promise<Tokens<TokenTypes.TypeParams<TokenTypes.Colour.TypeParams<string, "350" | "450" | "550" | "650">, TokenTypes.Theme.TypeParams<string, readonly TokenTypes.Theme.Mode.BrightnessOption[], readonly TokenTypes.Theme.Mode.ContrastOption[], string, string, string>, string, string>>>;
     /**
      * Configuration options for the {@link Tokens} class.
      *
      * @since 0.1.0-alpha
      */
     interface Config<T_ExtraColourLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional> {
+        /**
+         * Input path.
+         */
+        buildIconFont: false | RunnerOptions;
         extraColourLevels: readonly T_ExtraColourLevels[];
         iconFontName: string;
         tokensAsDefault: boolean;
@@ -520,7 +526,7 @@ export declare namespace Tokens {
                     contentWidthScale: number;
                     fallbacks: string[];
                     lineHeightScale: number;
-                    sizeAdjust: string;
+                    sizeAdjust: "95%";
                     weights: {
                         400: {
                             italic: Tokens_Typography.Font.File;
@@ -539,7 +545,7 @@ export declare namespace Tokens {
                     contentWidthScale: number;
                     fallbacks: string[];
                     lineHeightScale: number;
-                    sizeAdjust: string;
+                    sizeAdjust: "106.5%";
                     weights: {
                         400: {
                             italic: Tokens_Typography.Font.File;
@@ -557,7 +563,7 @@ export declare namespace Tokens {
                     appendSystemFontsToFallbacks: "monospace";
                     contentWidthScale: number;
                     fallbacks: string[];
-                    sizeAdjust: string;
+                    sizeAdjust: "96.5%";
                     weights: {
                         100: {
                             italic: Tokens_Typography.Font.File;

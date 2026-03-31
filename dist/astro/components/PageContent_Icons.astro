@@ -21,6 +21,7 @@ import Toggle from '@maddimathon/utility-astro/components/Toggle';
 import Alert from './Alert.astro';
 import Icon from './Icon.astro';
 import LoremIpsum from './LoremIpsum.astro';
+import Heading from '@maddimathon/utility-astro/components/Heading';
 
 /* import - layouts */
 
@@ -29,10 +30,17 @@ import LoremIpsum from './LoremIpsum.astro';
 // prettier-ignore
 export interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
     defaultIcon?: T_Types['iconNames'];
+    inlinePreviews?:boolean;
+    subheadingDisplayHeading?: number;
     tokens: Tokens.JsonReturn<T_Types>;
 }
 
-const { defaultIcon = 'star', tokens }: Props = Astro.props;
+const {
+    defaultIcon = 'star',
+    inlinePreviews = import.meta.env.DEV,
+    subheadingDisplayHeading = 6,
+    tokens,
+}: Props = Astro.props;
 
 /* CONSTANTS ===================================== */
 
@@ -44,13 +52,27 @@ const textAndBackgroundKeys = arrayUnique([
     ...tokens.themes._meta.keys.background,
     ...tokens.themes._meta.keys.text,
 ]).sort(objectKeySort_Tokens.sorter);
+
+const iconsSortedByLabel = Object.entries(tokens.icons).sort(
+    (a,b) => {
+        if ( a[1].label > b[1].label ) {
+                return 1;
+            }
+
+            if ( a[1].label < b[1].label ) {
+                return -1;
+            }
+
+            return 0;
+    }
+)
 ---
 
 <h2>All Icons</h2>
 
-<ul class='container body-subgrid | tokens-demo-all-icons'>
+<ul class='button-span | tokens-demo-all-icons tokens-demo-all-icons--basic'>
     {
-        Object.values(tokens.icons).map((icon) => (
+        iconsSortedByLabel.map(([__key,icon]) => !icon.meta?.aliasOf && (
             <li>
                 <Icon icon={icon} />
             </li>
@@ -58,33 +80,157 @@ const textAndBackgroundKeys = arrayUnique([
     }
 </ul>
 
-<Alert
+{
+    inlinePreviews && (
+        
+        <Toggle
+            defaultOpen={import.meta.env.DEV}
+            displayHeading={subheadingDisplayHeading}
+            heading={3}
+            id="pseudo-icons-preview"
+        >
+            <Fragment slot='button' set:text='Inline Icons Preview' />
+            <ul class='tokens-demo-all-icons-inline'>
+                {iconsSortedByLabel.map(([__key,icon]) => (
+                    <li>
+                        <span
+                            class='screen-reader-text'
+                            set:text={icon.slug}
+                        />
+                        <ul class='button-span tokens-demo-all-icons-inline--icon-list'>
+                            {/* <li
+                                class={`add-${icon.slug}-icon`}
+                                set:text={`${icon.label} Default`}
+                            /> */}
+                            <li
+                                class={`add-${icon.slug}-icon-before`}
+                                set:text={`${icon.label} Before`}
+                            />
+                            <li
+                                class={`add-${icon.slug}-icon-after`}
+                                set:text={`${icon.label} After`}
+                            />
+                        </ul>
+                    </li>
+                    
+                ))}
+            </ul>
+        </Toggle>
+    
+        <Toggle
+            defaultOpen={import.meta.env.DEV}
+            displayHeading={subheadingDisplayHeading}
+            heading={3}
+            id="button-inline-icons-preview"
+        >
+            <Fragment slot='button' set:text='Button Inline Icons Preview' />
+            <ul class='tokens-demo-all-icons-inline tokens-demo-all-icons-inline--buttons'>
+                {iconsSortedByLabel.map(([__key,icon]) => (
+                    <li>
+                        <span
+                            class='screen-reader-text'
+                            set:text={icon.slug}
+                        />
+                        <ul class='button-span tokens-demo-all-icons-inline--icon-list'>
+                            {/* <li>
+                                <a
+                                    class={`button | add-${icon.slug}-icon`}
+                                    href='#'
+                                    set:text={`${icon.label} Default`}
+                                />
+                            </li> */}
+
+                            <li>
+                                <a
+                                    class={`button | add-${icon.slug}-icon-before`}
+                                    href='#'
+                                    set:text={`${icon.label} Before`}
+                                />
+                            </li>
+
+                            <li>
+                                <a
+                                    class={`button | add-${icon.slug}-icon-after`}
+                                    href='#'
+                                    set:text={`${icon.label} After`}
+                                />
+                            </li>
+                        </ul>
+                    </li>
+                    
+                ))}
+            </ul>
+        </Toggle>
+    
+        <Toggle
+            defaultOpen={import.meta.env.DEV}
+            displayHeading={subheadingDisplayHeading}
+            heading={3}
+            id="button-embedded-icons-preview"
+        >
+            <Fragment slot='button' set:text='Button Embedded Icons Preview' />
+            <ul class='tokens-demo-all-icons-inline tokens-demo-all-icons-inline--buttons tokens-demo-all-icons-inline--buttons-embedded'>
+                {iconsSortedByLabel.map(([__key,icon]) => (
+                    <li>
+                        <span
+                            class='screen-reader-text'
+                            set:text={icon.slug}
+                        />
+                        <ul class='button-span tokens-demo-all-icons-inline--icon-list'>
+
+                            <li>
+                                <a
+                                    aria-label={icon.label} 
+                                    class='button'
+                                    href='#'
+                                ><Icon icon={icon} /></a>
+                            </li>
+
+                            <li>
+                                <a
+                                    class='button'
+                                    href='#'
+                                ><Icon icon={icon} /><span set:text={`${icon.label} Before`} /></a>
+                            </li>
+
+                            <li>
+                                <a
+                                    class='button'
+                                    href='#'
+                                ><span set:text={`${icon.label} After`} /><Icon icon={icon} /></a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                ))}
+            </ul>
+        </Toggle>
+    )
+}
+
+<Heading
     heading={2}
-    icon={defaultIconSvg}
->
-    <span
-        slot='headline'
-        set:text='All Alert Blocks'
-    />
-</Alert>
-<div class='container | tokens-demo-all-alerts'>
+    set:text='All Alert Blocks'
+/>
+<div class='site-width | tokens-demo-all-alerts'>
     {
-        Object.values(tokens.icons).map((icon) => (
+        iconsSortedByLabel.map(([__key,icon]) => (
             <Alert icon={icon}>
                 <span
                     slot='headline'
-                    set:text={icon.slug}
+                    set:text={icon.label}
                 />
-                <p set:text={`label: ${icon.label}`} />
+                <p>slug: <samp set:text={icon.slug} /></p>
+                { icon.meta?.aliasOf && <p class="aside">is a copy of <samp set:text={icon.meta.aliasOf} /></p> }
             </Alert>
         ))
     }
 </div>
 
 <Toggle
-    class:list={'page-width'}
     defaultOpen={defaultToggleToOpen}
-    heading={2}
+    displayHeading={subheadingDisplayHeading}
+    heading={3}
     id={`tokens-demo-alert-headings`}
 >
     <Fragment
@@ -97,6 +243,7 @@ const textAndBackgroundKeys = arrayUnique([
             .map((heading) => (
                 <Alert
                     heading={heading}
+                    minimumHeading={1}
                     icon={defaultIconSvg}
                 >
                     <span
@@ -123,9 +270,9 @@ const textAndBackgroundKeys = arrayUnique([
 </Toggle>
 
 <Toggle
-    class:list={'page-width'}
     defaultOpen={defaultToggleToOpen}
-    heading={2}
+    displayHeading={subheadingDisplayHeading}
+    heading={3}
     id={`tokens-demo-alert-colours`}
 >
     <Fragment

@@ -11,7 +11,7 @@
 import NodeFS from 'node:fs';
 import NodePath from 'node:path';
 
-import type { RecursivePartial } from '@maddimathon/utility-typescript/types';
+import type { Classify, RecursivePartial } from '@maddimathon/utility-typescript/types';
 import {
     arrayUnique,
     deleteUndefinedProps,
@@ -307,12 +307,10 @@ export class Tokens_Typography<
 
                 printFontFace: family.printFontFace ?? true,
 
-                ...deleteUndefinedProps( {
-                    display: font.display ?? family.display,
-                    'line-gap-override': font.lineGapOverride ?? family.lineGapOverride,
-                    'size-adjust': font.sizeAdjust ?? family.sizeAdjust,
-                    'unicode-range': font.unicodeRange ?? family.unicodeRange,
-                } ),
+                display: font.display ?? family.display,
+                'line-gap-override': font.lineGapOverride ?? family.lineGapOverride,
+                'size-adjust': font.sizeAdjust ?? family.sizeAdjust,
+                'unicode-range': font.unicodeRange ?? family.unicodeRange,
 
                 src: Object.values( {
                     ...sources,
@@ -473,14 +471,14 @@ export namespace Tokens_Typography {
 
                     weights: {
                         [ K in WholeTokenLevel ]?: undefined | {
-                            normal: undefined | Tokens_Typography.Font.SingleFamilyScss;
-                            italic: undefined | Tokens_Typography.Font.SingleFamilyScss;
+                            normal: undefined | Classify<Tokens_Typography.Font.SingleFamilyScss>;
+                            italic: undefined | Classify<Tokens_Typography.Font.SingleFamilyScss>;
                         };
                     };
 
                     variable?: undefined | {
-                        normal: undefined | Tokens_Typography.Font.SingleFamilyScss;
-                        italic: undefined | Tokens_Typography.Font.SingleFamilyScss;
+                        normal: undefined | Classify<Tokens_Typography.Font.SingleFamilyScss>;
+                        italic: undefined | Classify<Tokens_Typography.Font.SingleFamilyScss>;
                     };
                 };
             } & AbstractTokens.ScssReturn;
@@ -541,10 +539,26 @@ export namespace Tokens_Typography {
          * @since 0.1.0-alpha
          */
         export type FontFileOptions = {
-            display?: undefined | "auto" | "block" | "fallback" | "optional" | "swap";
-            lineGapOverride?: undefined | string;
-            sizeAdjust?: undefined | string;
-            unicodeRange?: undefined | string;
+
+            /**
+             * {@inheritDoc SingleFamilyScss['display']}
+             */
+            display?: undefined | SingleFamilyScss[ 'display' ];
+
+            /**
+             * {@inheritDoc SingleFamilyScss['line-gap-override']}
+             */
+            lineGapOverride?: undefined | SingleFamilyScss[ 'line-gap-override' ];
+
+            /**
+             * {@inheritDoc SingleFamilyScss['size-adjust']}
+             */
+            sizeAdjust?: undefined | SingleFamilyScss[ 'size-adjust' ];
+
+            /**
+             * {@inheritDoc SingleFamilyScss['unicode-range']}
+             */
+            unicodeRange?: undefined | SingleFamilyScss[ 'unicode-range' ];
         };
 
         /**
@@ -559,14 +573,28 @@ export namespace Tokens_Typography {
         };
 
         /**
+         * Used to alter various size and alignment tokens in css, typically
+         * when a font override is active (e.g., from the settings menu).
+         *
          * @since ___PKG_VERSION___
          */
         export type FamilyOverride = {
             label: string;
             value: string;
 
+            /**
+             * A factor to alter the width values for this font.
+             */
             contentWidthScale?: number;
+
+            /**
+             * A utility class value to set this font as font-family in css.
+             */
             labelClass?: string;
+
+            /**
+             * A factor to alter the line height values for this font.
+             */
             lineHeightScale?: number;
         };
 
@@ -591,9 +619,44 @@ export namespace Tokens_Typography {
 
             printFontFace: boolean;
 
+            /**
+             * CSS \@font-face 'font-display' setting.
+             *
+             * “Determines how a font face is displayed based on whether and
+             * when it is downloaded and ready to use.”
+             *
+             * @see
+             * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@font-face/font-display}
+             */
             display?: "auto" | "block" | "fallback" | "optional" | "swap";
-            'line-gap-override'?: string;
-            'size-adjust'?: string;
+
+            /**
+             * CSS \@font-face setting.
+             * 
+             * “Defines the line gap metric for the font.”
+             * 
+             * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@font-face/line-gap-override}
+             */
+            'line-gap-override'?: "normal" | `${ number }%`;
+
+            /**
+             * CSS \@font-face setting.
+             *
+             * “Defines a multiplier for glyph outlines and metrics associated
+             * with this font. This makes it easier to harmonize the designs of
+             * various fonts when rendered at the same font size.”
+             *
+             * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@font-face/size-adjust}
+             */
+            'size-adjust'?: `${ number }%`;
+
+            /**
+             * CSS \@font-face setting.
+             * 
+             * “The range of Unicode code points to be used from the font.”
+             * 
+             * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@font-face/unicode-range}
+             */
             'unicode-range'?: string;
         };
 
@@ -601,7 +664,7 @@ export namespace Tokens_Typography {
          * @since 0.1.0-alpha
          */
         export type FamilyScss = {
-            [ L in WholeTokenLevel | `${ WholeTokenLevel }i` ]?: SingleFamilyScss;
+            [ L in WholeTokenLevel | `${ WholeTokenLevel }i` ]?: Classify<SingleFamilyScss>;
         };
 
         /**

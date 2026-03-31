@@ -23,7 +23,7 @@ import {
 
 import type { Tokens } from '../02-tokens/Tokens.js';
 import { objectGenerator } from '../01-utilities/objectGenerator.js';
-import type { Tokens_Icons } from '../02-tokens/Tokens_Icons.js';
+import type { RequiredPartially } from '@maddimathon/utility-typescript/types';
 
 /**
  * Take a token object and write its relevant files and assets to their output directories.
@@ -121,13 +121,19 @@ export async function buildTokens(
     ] ).then(
         async () => {
 
-            await buildTokens.buildIconFont(
+            const iconFontArgs = await buildTokens.buildIconFontArgs(
                 stage,
-                tokens,
                 level,
                 completePaths,
-                args.iconFont ?? {},
+                {
+                    name: tokens.name,
+                    ...args.iconFont,
+                },
             );
+
+            if ( iconFontArgs ) {
+                await tokens.icons.toIconFont( iconFontArgs );
+            }
 
             return Promise.all( [
                 buildTokens.writeJson( stage, tokens, completePaths.json, level ),
@@ -246,13 +252,12 @@ export namespace buildTokens {
     /**
      * @since ___PKG_VERSION___
      */
-    export async function buildIconFont(
+    export async function buildIconFontArgs(
         stage: AbstractStage<any, any>,
-        tokens: Tokens.Instance,
         level: number,
         paths: buildTokens.Paths,
-        args: Partial<RunnerOptions>,
-    ): Promise<Partial<Awaited<ReturnType<Tokens_Icons<string>[ 'toIconFont' ]>>>> {
+        args: RequiredPartially<Partial<RunnerOptions>, 'name'>,
+    ): Promise<false | RunnerOptions> {
         // returns
         if (
             !paths?.assets
@@ -260,7 +265,7 @@ export namespace buildTokens {
             || !paths.assets.icons
             || !paths.assets.icons[ 0 ]
         ) {
-            return {};
+            return false;
         }
 
         stage.console.verbose( 'building icon font...', 1 + level );
@@ -275,10 +280,8 @@ export namespace buildTokens {
                 FontAssetType.WOFF2,
             ],
 
-            name: tokens.name,
-
             ...args,
-        };
+        } satisfies RunnerOptions;
 
         fullArgs.pathOptions = {
             ...fullArgs.pathOptions,
@@ -304,31 +307,7 @@ export namespace buildTokens {
 
         stage.fs.mkdir( fullArgs.outputDir );
 
-        return tokens.icons.toIconFont( fullArgs );
-        // return tokens.icons.toIconFont( fullArgs ).then( ( { codepoints, ...results } ) => {
-
-        //     stage.fs.write(
-        //         `.scripts/logs/buildTokens/buildIconFont-results--${ slugify( timestamp() ) }.txt`,
-        //         VariableInspector.stringify( {
-        //             'toIconFont() results': {
-        //                 codepoints,
-        //                 codepointsMapped: objectMap(
-        //                     codepoints,
-        //                     ( [ key, value ] ) => ( {
-        //                         // key,
-        //                         og: value,
-        //                         hexidecimal: value.toString( 16 ),
-        //                         scss: value.toString( 16 ),
-        //                     } )
-        //                 ),
-        //                 ...results,
-        //             }
-        //         } ),
-        //         { force: false, rename: true },
-        //     );
-
-        //     return { codepoints, ...results };
-        // } );
+        return fullArgs;
     }
 
     /**

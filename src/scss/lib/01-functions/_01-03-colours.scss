@@ -43,125 +43,20 @@ $_systemColors: map.flatten(
 /// @param {string} $version  Optional. Brightness mode for this value (switched in dark mode). Which list version of the var to fetch, if applicable. Options: null, 'hsl', 'rgb'.
 ///
 /// @since 0.1.0-alpha
-/// @since __PKG_VERSION___ — Added $version param.
+/// @since __PKG_VERSION___ — Added $version param. Now defined in tokens.
 ///
-@function var-clr(
-    $slug,
-    $level,
-    $brightness: tokens.$brightnessMode_default,
-    $version: null,
-    $args...
-) {
-    $clrVarSlug: 'clr-#{$slug}';
-
-    @if $slug == 'white' or $slug == white or $slug == 'black' or $slug == black {
-        $level: if($slug == white, 'white', if($slug == black, 'black', $slug));
-        $slug: '$';
-    } @else if $level {
-        $clrVarSlug: '#{$clrVarSlug}-#{$level}';
-    }
-
-    @if $version == 'hsl' {
-        @if config.$include_colourValues_hsl {
-            $clrVarSlug: '#{$clrVarSlug}-hsl';
-        } @else {
-            $version: null;
-        }
-    }
-
-    @if $version == 'rgb' {
-        @if config.$include_colourValues_rgb {
-            $clrVarSlug: '#{$clrVarSlug}-rgb';
-        } @else {
-            $version: null;
-        }
-    }
-
-    $slugMap: map.get(tokens.$colour, $slug);
-
-    // returns
-    @if $slugMap == null {
-        @warn "$slug '#{$slug}' was not a key in tokens.$colour";
-        @return utils.do-var($clrVarSlug, $args...);
-    }
-
-    $_slugMapType: meta.type-of($slugMap);
-
-    // returns
-    @if $_slugMapType != 'map' and $_slugMapType != 'color' {
-        @warn "$level '#{$level}' was not a key in tokens.$colour.#{$slug}";
-        @return utils.do-var($clrVarSlug, $args...);
-    }
-
-    $fallback_clr: null;
-
-    @if $_slugMapType == 'color' {
-        $fallback_clr: $slugMap;
-    } @else {
-        $level_brightnessAdjusted: $level;
-
-        @if $brightness == dark {
-            $level_brightnessAdjusted: colour.shade-map-reverse-key($level, $slugMap, $sort: true);
-        }
-
-        $fallback_clr: map.get($slugMap, $level_brightnessAdjusted);
-
-        // returns
-        @if $fallback_clr == null {
-            @warn "$level '#{$level}' was not a key in tokens.$colour.#{$slug}";
-            @return utils.do-var($clrVarSlug, $args...);
-        }
-    }
-
-    $fallback: $fallback_clr;
-
-    @if $version == 'hsl' {
-        $fallback: colour.to-hsl-list($fallback_clr, $round: false);
-    } @else if $version == 'rgb' {
-        $fallback: colour.to-rgb-list($fallback_clr, $round: true);
-    } @else {
-        $fallback: colour.to-hsl($fallback_clr, $round: false);
-    }
-
-    @return utils.do-var(
-        $clrVarSlug,
-        $fallback,
-        $fallbackOnly: config.$fn_var_replaceWithValue_colour,
-        $args...
-    );
+@function var-clr($args...) {
+    @return tokens.tokens-var-clr($args...);
 }
 
 ///
 /// Gets the colour value (either system or var-clr) for the given token slug.
 ///
 /// @since 0.1.0-alpha
+/// @since __PKG_VERSION___ — Now defined in tokens.
 ///
-@function var-clr-from-theme-token($tokenValue, $args...) {
-    $tokenValue: #{$tokenValue};
-
-    // returns
-    @if $tokenValue ==
-        'white' or
-        $tokenValue ==
-        white or
-        $tokenValue ==
-        'black' or
-        $tokenValue ==
-        black
-    {
-        @return var-clr($tokenValue, null, $args...);
-    }
-
-    // returns
-    @if string.length($tokenValue) > 0 and string.index($tokenValue, '-') {
-        @return var-clr(
-            string.slice($tokenValue, 1, -5),
-            string.slice($tokenValue, -3, -1),
-            $args...
-        );
-    }
-
-    @return $tokenValue;
+@function var-clr-from-theme-token($args...) {
+    @return tokens.tokens-var-clr-from-theme-token($args...);
 }
 
 /// THEME
@@ -207,119 +102,25 @@ $_default_activeTheme_mode: if(
 ///
 /// @since ___PKG_VERSION___
 ///
-@function theme-token-exists(
-    $slug,
-    $brightness: tokens.$brightnessMode_default,
-    $contrast: tokens.$contrastMode_default,
-    $themeSlug: tokens.$activeTheme,
-    $version: null,
-    $warnOnFalse: false
-) {
-    $flat_isValues: tokens.$themes__nestedFlat_tokenValues != null;
-
-    $versionSlug: if($version != null and $flat_isValues, '-#{$version}', '');
-
-    $activeTheme_flat: map.get(
-        if($flat_isValues, tokens.$themes__nestedFlat_tokenValues, tokens.$themes__nestedFlat),
-        $themeSlug
-    );
-
-    @if $activeTheme_flat == null {
-        @if $warnOnFalse {
-            @warn "$themeSlug '#{$themeSlug}' was not a key in tokens.$themes__nestedFlat_tokenValues";
-        }
-
-        $themeSlug: default;
-        $activeTheme_flat: map.get(
-            if($flat_isValues, tokens.$themes__nestedFlat_tokenValues, tokens.$themes__nestedFlat),
-            default
-        );
-    }
-
-    // returns
-    @if $contrast == forced-colors {
-        $value: map.get($activeTheme_flat, $contrast, '#{$slug}#{$versionSlug}');
-
-        // returns
-        @if $value == null {
-            @if $warnOnFalse {
-                @warn "$slug '#{$slug}#{$versionSlug}' was not a key in tokens.$themes__nestedFlat_tokenValues.#{$themeSlug}.#{$contrast}";
-            }
-            @return false;
-        }
-
-        @return $value;
-    }
-
-    // returns
-    @if not map.has-key($activeTheme_flat, $brightness) {
-        @if $warnOnFalse {
-            @warn "$brightness '#{$brightness}' was not a key in tokens.$themes__nestedFlat_tokenValues.#{$themeSlug}";
-        }
-        @return false;
-    }
-
-    // returns
-    @if not map.has-key($activeTheme_flat, $brightness, $contrast) {
-        @if $warnOnFalse {
-            @warn "$contrast '#{$contrast}' was not a key in tokens.$themes__nestedFlat_tokenValues.#{$themeSlug}.#{$brightness}";
-        }
-        @return false;
-    }
-
-    $value: map.get($activeTheme_flat, $brightness, $contrast, '#{$slug}#{$versionSlug}');
-
-    // returns - no fallback
-    @if $value == null {
-        @if $warnOnFalse {
-            @warn "$slug '#{$slug}#{$versionSlug}' was not a key in tokens.$themes__nestedFlat_tokenValues.#{$themeSlug}.#{$brightness}.#{$contrast}";
-        }
-        @return false;
-    }
-
-    // returns
-    @if not $flat_isValues {
-        @return var-clr-from-theme-token($value, $brightness: $brightness, $version: $version);
-    }
-
-    @return $value;
+@function theme-token-exists($args...) {
+    @return tokens.tokens-theme-token-exists($args...);
 }
 
 ///
 /// Gets the value for the given token slug.
 ///
 /// @since 0.1.0-alpha
-/// @since ___PKG_VERSION___ — Make $brightness and $contrast optional; added $version param.
+/// @since ___PKG_VERSION___ — Make $brightness and $contrast optional; added $version param. Now defined in tokens.
 ///
-@function theme-token-value(
-    $slug,
-    $brightness: tokens.$brightnessMode_default,
-    $contrast: tokens.$contrastMode_default,
-    $themeSlug: tokens.$activeTheme,
-    $version: null
-) {
-    $value: theme-token-exists(
-        $slug: $slug,
-        $brightness: $brightness,
-        $contrast: $contrast,
-        $themeSlug: $themeSlug,
-        $version: $version,
-        $warnOnFalse: true,
-    );
-
-    // returns
-    @if not $value {
-        @return ();
-    }
-
-    @return $value;
+@function theme-token-value($args...) {
+    @return tokens.tokens-theme-token-value($args...);
 }
 
 ///
 /// Returns the appropriate var (with fallback).
 ///
 /// @since 0.1.0-alpha
-/// @since __PKG_VERSION___ — Added $opacity param.
+/// @since __PKG_VERSION___ — Added $opacity param. Now defined in tokens.
 ///
 @function var-theme(
     $slug,

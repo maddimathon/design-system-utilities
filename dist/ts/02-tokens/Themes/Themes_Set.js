@@ -707,6 +707,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
                 };
                 const button = objectMap({
                     ...variations.universal,
+                    grey: variations.text.grey,
                     disabled: variations.interactive.disabled,
                 }, ([key, clrName]) => overrides.button?.[key] ?? singleButtonMaker(key, clrName));
                 const singleInputMaker = (_variation) => {
@@ -870,6 +871,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
                 };
                 const button = {
                     ...objectMap(variations.universal, ([key]) => overrides.button?.[key] ?? singleButton),
+                    grey: overrides.button?.grey ?? singleButton,
                     disabled: overrides.button?.disabled ?? singleButton,
                 };
                 const inputField = {

@@ -17,7 +17,6 @@ import {
 import { relativeURL } from '../functions/relativeURL.js';
 
 /* import - values */
-import cssUrl from '../css/main.css?url';
 import pkgJson from '../../../package.json';
 import { SampleTokens_Json } from '../../astro/functions/SampleTokens.js';
 import { SITE_TITLE } from '../constants.js';
@@ -56,11 +55,11 @@ const props = {
         copyright: {
             html:
                 'by <a href="https://www.maddimathon.com/web" target="_blank">Maddi Mathon</a>' +
-                ' | ' +
+                ' |&NoBreak; &NoBreak;' +
                 '<a href="' +
                 relativeURL(Astro.url, 'license') +
                 '">MIT license</a>' +
-                ' | ' +
+                ' |&NoBreak; &NoBreak;' +
                 'Human-built without the use of generative AI.',
 
             year: 2025,
@@ -82,6 +81,8 @@ const props = {
 } satisfies ComponentProps<typeof LibPage>;
 
 /* CONSTANTS ===================================== */
+
+const cssUrl = relativeURL(Astro.url, 'assets/css/main.css');
 
 props.primaryMenu = [
     { label: 'Home', href: '' },

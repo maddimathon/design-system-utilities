@@ -39,11 +39,11 @@ export class Document extends DocumentStage {
             return;
         }
         this.console.progress('copying docs assets...', 1);
-        this.try(this.fs.copy, (this.params.verbose ? 3 : 2), [
+        this.try(this.fs.copy, this.params.verbose ? 3 : 2, [
             this.assetSourceGlobs,
-            (this.params.verbose ? 3 : 2),
-            this.getSrcDir(undefined),
+            this.params.verbose ? 3 : 2,
             this.getSrcDir(undefined, this.astroPublicDir),
+            this.getSrcDir(undefined),
             {
                 force: true,
                 rename: false,
@@ -81,7 +81,7 @@ export class Document extends DocumentStage {
             srcDir: 'src/docs/scss',
         });
         this.console.verbose('prettifying...', 2);
-        await this.atry(this.fs.prettier, (this.params.verbose ? 2 : 1), [
+        await this.atry(this.fs.prettier, this.params.verbose ? 3 : 2, [
             paths,
             'css',
         ]);

@@ -12,7 +12,7 @@
 @use 'functions' as fns;
 
 @use '../config';
-@use 'theme';
+@use 'system';
 
 ///
 /// @since 0.1.0-beta.0.draft
@@ -31,15 +31,20 @@ $customTokens: map.ksort(
                 focus-ring: (
                     outline-width: '400',
                     outline-offset: '400',
-                    outline-color: config.config-do-var(
-                            theme-link-outline,
-                            #{map.get(
-                                    theme.$themes__nestedFlat,
-                                    theme.$activeTheme,
-                                    forced-colors,
-                                    link-outline
-                                )}
+                    outline-color: map.get(
+                            $atProperties,
+                            focus-ring-outline-color,
+                            initial-value
                         ),
+                    // outline-color: config.config-do-var(
+                    //         theme-link-outline,
+                    //         #{map.get(
+                    //                 system.$themes__nestedFlat,
+                    //                 system.$activeTheme,
+                    //                 forced-colors,
+                    //                 link-outline
+                    //             )}
+                     //     ),
                 ),
             )
         ),

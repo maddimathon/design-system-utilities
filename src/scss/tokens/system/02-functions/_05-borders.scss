@@ -1,0 +1,129 @@
+///
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/math';
+
+@use '../../../config';
+
+// @use '../00-default' as default;
+@use '../01-breakdown' as breakdown;
+
+///
+/// Uses the border radius tokens to prepare the appropriate numerical value (rem).
+///
+/// @since ___PKG_VERSION___
+///
+@function tokens-border-radius-value($level) {
+    $value: map.get(breakdown.$border, radius, #{$level});
+
+    @if $value == null {
+        @warn "$level '#{$level}' was not a key in tokens.$border['radius']";
+        $value: map.get(breakdown.$border, radius, '200');
+    }
+
+    @return calc(1rem * $value);
+}
+
+///
+/// Uses the border width tokens to prepare the appropriate numerical value (rem).
+///
+/// @since ___PKG_VERSION___
+///
+@function tokens-border-width-value($level, $multiplier: 1, $unit: 1rem) {
+    $value: map.get(breakdown.$border_width, '200');
+
+    @if not map.has-key(breakdown.$border_width, '#{$level}') {
+        @warn "$level '#{$level}' was not a key in tokens.$border_width";
+    } @else {
+        $value: map.get(breakdown.$border_width, '#{$level}');
+    }
+
+    @return math.add-unit(
+        if(
+            $multiplier == 1,
+            $value,
+            math.round-to-pixel(
+                $value * $multiplier,
+                config.$fn_borderWidthValue_roundToPixelFactor
+            )
+        ),
+        $unit
+    );
+}
+
+///
+/// Uses the stroke relative tokens to prepare the appropriate numerical value (rem).
+///
+/// @since ___PKG_VERSION___
+///
+@function tokens-stroke-relative-value($level, $multiplier: 1, $unit: 1em) {
+    $value: map.get(breakdown.$stroke_relative, '200');
+
+    @if not map.has-key(breakdown.$stroke_relative, '#{$level}') {
+        @warn "$level '#{$level}' was not a key in tokens.$stroke_relative";
+    } @else {
+        $value: map.get(breakdown.$stroke_relative, '#{$level}');
+    }
+
+    @return math.add-unit(
+        if(
+            $multiplier == 1,
+            $value,
+            math.round-to-pixel(
+                $value * $multiplier,
+                config.$fn_borderWidthValue_roundToPixelFactor
+            )
+        ),
+        $unit
+    );
+}
+
+///
+/// Uses the border-radius config tokens to print the appropriate var(...) with
+/// a fallback.
+///
+/// @since ___PKG_VERSION___
+///
+@function tokens-var-border-radius($args...) {
+    @return config.config-do-var(
+        border-radius-#{$level},
+        tokens-border-radius-value($level),
+        $fallbackOnly: config.$fn_var_replaceWithValue_borderRadius,
+        $args...
+    );
+}
+
+///
+/// Uses the border-width config tokens to print the appropriate var(...) with a
+/// fallback.
+///
+/// @since ___PKG_VERSION___
+///
+@function tokens-var-border-width($level, $args...) {
+    $fallback: tokens-border-width-value($level);
+
+    @return config.config-do-var(
+        border-width-#{$level},
+        $fallback,
+        $fallbackOnly: config.$fn_var_replaceWithValue_borderWidth,
+        $args...
+    );
+}
+
+///
+/// Uses the stroke-relative config tokens to print the appropriate var(...) with
+/// a fallback.
+///
+/// @since ___PKG_VERSION___
+///
+@function tokens-var-stroke-relative($level, $args...) {
+    @return config.config-do-var(
+        stroke-relative-#{$level},
+        tokens-stroke-relative-value($level),
+        $fallbackOnly: config.$fn_var_replaceWithValue_strokeRelative,
+        $args...
+    );
+}
