@@ -12,14 +12,12 @@
 
 .theme-mode-swatch {
     @include lib.prop-display(flex);
-    position: relative;
-    flex-direction: column;
-
-    justify-content: start;
-    align-content: start;
-    align-items: start;
-
-    gap: 0;
+    @include lib.snippet-content-flex-container(
+        (
+            justify-content: start,
+            justify-items: start,
+        )
+    );
 
     // @include set-flow-margins($defaultLevel: '300', $largeLevel: '500', $smallLevel: '200');
 
@@ -66,7 +64,7 @@
             :global(th) {
                 padding-inline: 0;
                 background: #{lib.var-theme(background)};
-                color: #{lib.var-theme(text)};
+                @include lib.theme-set-color;
             }
         }
     }

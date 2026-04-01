@@ -28,6 +28,7 @@ import { SvgMaker } from '../01-utilities/SvgMaker.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 import { objectKeySort_Tokens } from '../01-utilities/objectKeySort_Tokens.js';
 import { objectGenerator } from '../01-utilities/objectGenerator.js';
+import type { Classify } from '@maddimathon/utility-typescript/types';
 
 /**
  * Generates a complete token object for the design system.
@@ -42,10 +43,9 @@ export class Tokens_Icons<
     scss: Tokens_Icons.ScssVars<T_ExtraIconNames>;
 }> {
 
-    public static get default(): {
-        [ I in Tokens_Icons.DefaultIconNames ]: Tokens_Icons.Local_SvgMaker.Data<I, never>;
-    } {
-        const codepoints = {
+    public static get defaultCodepoints() {
+
+        return {
             attachment: 0xf101,
             caution: 0xf102,
             check: 0xf103,
@@ -96,6 +96,12 @@ export class Tokens_Icons<
         } satisfies {
             [ I in Tokens_Icons.DefaultIconNames ]: number;
         };
+    }
+
+    public static get default(): {
+        [ I in Tokens_Icons.DefaultIconNames ]: Tokens_Icons.Local_SvgMaker.Data<I, never>;
+    } {
+        const codepoints = Tokens_Icons.defaultCodepoints;
 
         type _IconType<I extends Tokens_Icons.DefaultIconNames = Tokens_Icons.DefaultIconNames> = Omit<Tokens_Icons.Local_SvgMaker.Data<I, never>, 'meta'> & {
             meta?: Omit<Tokens_Icons.Local_SvgMaker.Data<I, never>[ 'meta' ], 'codepoint'>;
@@ -571,6 +577,7 @@ export class Tokens_Icons<
                 meta: {
                     ...obj.meta,
                     codepoint: codepoints[ key ],
+                    isDefault: true,
                 },
             } satisfies Tokens_Icons.Local_SvgMaker.Data<string, never> )
         ) as {
@@ -644,13 +651,16 @@ export class Tokens_Icons<
      */
     public getCodepoints(): Tokens_Icons.Codepoints<T_ExtraIconNames> {
         // returns
-        if ( typeof this.#getCodepoints !== 'undefined' ) {
+        if ( typeof this._font !== 'undefined' && typeof this.#getCodepoints !== 'undefined' ) {
             return this.#getCodepoints;
         }
 
-        this.#getCodepoints = objectMap(
-            this.data,
-            ( [ key, value ] ) => value.meta?.codepoint
+        this.#getCodepoints = Object.fromEntries(
+            Object.entries( this.data ).map(
+                ( [ key, value ] ) => [ key, value.meta?.codepoint ] as const
+            ).filter(
+                ( [ key, value ] ) => !!value
+            )
         ) as Tokens_Icons.Codepoints<T_ExtraIconNames>;
 
         return this.#getCodepoints;
@@ -702,8 +712,8 @@ export class Tokens_Icons<
             // centerVertically: false,
             // descent: 0,
             // fontStyle: 'normal',
-            // normalize: false,
-            // preserveAspectRatio: true,
+            normalize: false,
+            preserveAspectRatio: true,
             ...formatOptionsDefault,
         } satisfies _FormatOpts[ keyof _FormatOpts ];
 
@@ -779,12 +789,17 @@ export class Tokens_Icons<
                 return {
                     slug: vars.slug,
                     label: vars.label,
+
                     height: vars.height,
                     width: vars.width,
                     aspectRatio: vars.aspectRatio,
+
                     embedded: vars.embedded,
+
                     fontGlyph: value.meta?.codepoint ? `\\${ value.meta.codepoint.toString( 16 ) }` : undefined,
-                } satisfies Tokens_Icons.Local_SvgMaker.ScssVars<string, T_ExtraIconNames>;
+                    replaceFontGlyph: value.meta?.replaceFontGlyph,
+
+                } satisfies Classify<Tokens_Icons.Local_SvgMaker.ScssVars<string, T_ExtraIconNames>>;
             }
         ) as Tokens_Icons.ScssVars<T_ExtraIconNames>;
     }
@@ -927,8 +942,10 @@ export namespace Tokens_Icons {
          * @since ___PKG_VERSION___
          */
         export type Meta<T_ExtraIconNames extends string> = {
-            aliasOf?: undefined | DefaultIconNames | T_ExtraIconNames;
+            aliasOf?: undefined | DefaultIconNames | T_ExtraIconNames | ( DefaultIconNames | T_ExtraIconNames )[];
             codepoint?: undefined | number;
+            isDefault?: undefined | true;
+            replaceFontGlyph?: undefined | DefaultIconNames | T_ExtraIconNames;
         };
 
         /**
@@ -942,6 +959,7 @@ export namespace Tokens_Icons {
             'meta'
         > & {
             fontGlyph?: undefined | string;
+            replaceFontGlyph?: Meta<T_ExtraIconNames>[ 'replaceFontGlyph' ];
         };
     }
 }

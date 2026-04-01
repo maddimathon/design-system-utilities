@@ -87,7 +87,7 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@function tokens-var-border-radius($args...) {
+@function tokens-var-border-radius($level, $args...) {
     @return config.config-do-var(
         border-radius-#{$level},
         tokens-border-radius-value($level),
@@ -103,11 +103,9 @@
 /// @since ___PKG_VERSION___
 ///
 @function tokens-var-border-width($level, $args...) {
-    $fallback: tokens-border-width-value($level);
-
     @return config.config-do-var(
         border-width-#{$level},
-        $fallback,
+        tokens-border-width-value($level),
         $fallbackOnly: config.$fn_var_replaceWithValue_borderWidth,
         $args...
     );

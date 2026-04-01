@@ -2,10 +2,12 @@
 /// @package @maddimathon/design-system-utilities@0.1.0-beta.0.draft
 /// @since 0.1.0-alpha
 ///
+
 @use 'pkg:@maddimathon/utility-sass/feature-check';
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/math';
 @use 'pkg:@maddimathon/utility-sass/meta';
+@use 'pkg:@maddimathon/utility-sass/selector';
 
 @use '../../config';
 @use '../../tokens';
@@ -53,7 +55,7 @@ $_closing_time: var-tr-time(toggle-closing);
             transition: #{do-var(transition)};
 
             > legend {
-                color: #{var-theme(text-primary)};
+                @include theme-set-color(primary);
             }
         }
     }
@@ -117,7 +119,7 @@ $_closing_time: var-tr-time(toggle-closing);
 ///
 /// @since 0.1.0-alpha
 ///
-@mixin snippet-support-site-settings-menu-font-overrides {
+@mixin snippet-support-site-settings-menu-font-overrides($args...) {
     @each $slug, $map in map.get(tokens.$designSystem, font, familyOverrides) {
         //
 
@@ -126,7 +128,15 @@ $_closing_time: var-tr-time(toggle-closing);
         $selectors: $attrSelector;
 
         @if map.has-key($map, labelClass) {
-            $selectors: '#{$selectors}, #{$attrSelector} *, .website-settings-menu .#{map.get($map, labelClass)}';
+            $_classSel: '.website-settings-menu .#{map.get($map, labelClass)}';
+
+            $selectors: (
+                $selectors,
+                selector.nest($attrSelector, '*'),
+                $_classSel
+            );
+
+            $attrSelector: ($attrSelector, $_classSel);
         }
 
         @at-root #{$selectors} {
@@ -134,7 +144,7 @@ $_closing_time: var-tr-time(toggle-closing);
         }
 
         @at-root #{$attrSelector} {
-            @include font-family-size-tokens($slug);
+            @include font-family-size-tokens($slug, $args...);
         }
     }
 

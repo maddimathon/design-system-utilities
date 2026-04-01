@@ -12,7 +12,7 @@
 
 @use 'pkg:@maddimathon/utility-astro/02-mixins' as utils;
 
-// @use '02-01-01-spacing' as *;
+@use '02-01-01-spacing' as *;
 // @use '02-01-02-modes' as *;
 @use '02-01-02-colours' as *;
 @use '02-01-03-decoration' as *;
@@ -62,24 +62,14 @@
     @if $fontFace {
         @include tokens-font-face;
     }
-    @if $fontFamily {
-        @include tokens-font-family;
-    }
-
-    @if $checkpointName {
-        @include debug-checkpoint(
-            '#{$checkpointName} - tokens-all - after type',
-            $level: $checkpointLevel
-        );
-    }
 
     @include utils.tokens-all(
         $borderWidth: false,
         $custom: $custom,
-        $fontSize: $fontSize,
+        $fontSize: false,
         $gap: $gap,
-        $lineHeight: $lineHeight,
-        $margin: $margin,
+        $lineHeight: false,
+        $margin: false,
         $strokeRelative: false,
         $sysColours: false,
         $width: $width,
@@ -89,6 +79,28 @@
     @if $checkpointName {
         @include debug-checkpoint(
             '#{$checkpointName} - tokens-all - after utils',
+            $level: $checkpointLevel
+        );
+    }
+
+    // margin
+    @if $margin {
+        @include tokens-margin;
+    }
+
+    @if $fontSize {
+        @include tokens-font-size;
+    }
+    @if $fontFamily {
+        @include tokens-font-family;
+    }
+    @if $lineHeight {
+        @include tokens-line-height;
+    }
+
+    @if $checkpointName {
+        @include debug-checkpoint(
+            '#{$checkpointName} - tokens-all - after type',
             $level: $checkpointLevel
         );
     }

@@ -9,6 +9,7 @@
 // import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
 import type { TokenTypes } from '../../ts/02-tokens/@types.d.ts';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
+import type { Tokens_Icons } from '../../ts/02-tokens/Tokens_Icons';
 
 /* import - functions */
 import { arrayUnique } from '@maddimathon/utility-typescript';
@@ -66,19 +67,44 @@ const iconsSortedByLabel = Object.entries(tokens.icons).sort(
             return 0;
     }
 )
+
+const defaultIcons:Tokens_Icons.Local_SvgMaker.JsonReturn<string, string>[] = [];
+const customicons:Tokens_Icons.Local_SvgMaker.JsonReturn<string, string>[] = [];
+
+iconsSortedByLabel.forEach(([__key, icon]) => {
+    // returns
+    if (icon.meta?.isDefault === true) {
+        defaultIcons.push(icon);
+        return;
+    }
+        
+    customicons.push(icon);
+})
 ---
 
 <h2>All Icons</h2>
 
 <ul class='button-span | tokens-demo-all-icons tokens-demo-all-icons--basic'>
     {
-        iconsSortedByLabel.map(([__key,icon]) => !icon.meta?.aliasOf && (
-            <li>
-                <Icon icon={icon} />
-            </li>
-        ))
+        defaultIcons.map(
+            (icon) => !icon.meta?.aliasOf?.length && <li><Icon icon={icon} /></li>
+        )
     }
 </ul>
+
+{ customicons.length && (
+    <Heading
+        displayHeading={subheadingDisplayHeading}
+        heading={3}
+    >Customized Icons</Heading>
+    <ul class='button-span | tokens-demo-all-icons tokens-demo-all-icons--basic'>
+        {
+            customicons.map(
+                (icon) => !icon.meta?.aliasOf?.length && <li><Icon icon={icon} /></li>
+            )
+        }
+    </ul>
+) }
 
 {
     inlinePreviews && (
@@ -90,6 +116,11 @@ const iconsSortedByLabel = Object.entries(tokens.icons).sort(
             id="pseudo-icons-preview"
         >
             <Fragment slot='button' set:text='Inline Icons Preview' />
+
+            <Alert icon={tokens.icons.info} class="background-bright">
+                <p>You can use utility classes to add inline icons to HTML text. Find the slug in the list of alerts below and choose from <samp set:text="add-[slug]-icon-before" /> or <samp set:text="add-[slug]-icon-after" />.</p>
+            </Alert>
+            
             <ul class='tokens-demo-all-icons-inline'>
                 {iconsSortedByLabel.map(([__key,icon]) => (
                     <li>
@@ -183,21 +214,21 @@ const iconsSortedByLabel = Object.entries(tokens.icons).sort(
                                     aria-label={icon.label} 
                                     class='button'
                                     href='#'
-                                ><Icon icon={icon} /></a>
+                                >{''}<Icon icon={icon} />{''}</a>
                             </li>
 
                             <li>
                                 <a
                                     class='button'
                                     href='#'
-                                ><Icon icon={icon} /><span set:text={`${icon.label} Before`} /></a>
+                                >{''}<Icon icon={icon} />{''}<span set:text={`${icon.label} Before`} />{''}</a>
                             </li>
 
                             <li>
                                 <a
                                     class='button'
                                     href='#'
-                                ><span set:text={`${icon.label} After`} /><Icon icon={icon} /></a>
+                                >{''}<span set:text={`${icon.label} After`} />{''}<Icon icon={icon} />{''}</a>
                             </li>
                         </ul>
                     </li>
@@ -222,6 +253,7 @@ const iconsSortedByLabel = Object.entries(tokens.icons).sort(
                 />
                 <p>slug: <samp set:text={icon.slug} /></p>
                 { icon.meta?.aliasOf && <p class="aside">is a copy of <samp set:text={icon.meta.aliasOf} /></p> }
+                { icon.meta?.codepoint && <p class="aside">font glyph: <samp set:text={`U+${icon.meta.codepoint.toString(16).toUpperCase()}`} /></p> }
             </Alert>
         ))
     }

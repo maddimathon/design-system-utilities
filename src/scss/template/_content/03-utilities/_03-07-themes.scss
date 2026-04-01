@@ -24,3 +24,13 @@
         background: #{var-theme(background-#{$variant})};
     }
 }
+
+%color-default {
+    background: #{var-theme(text)};
+}
+
+@each $variant in map.get(tokens.$themesMeta, keys, text) {
+    %color-#{$variant} {
+        @include theme-set-color($variant);
+    }
+}

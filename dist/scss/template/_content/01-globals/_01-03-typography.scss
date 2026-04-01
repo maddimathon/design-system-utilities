@@ -132,8 +132,9 @@
 }
 
 %aside {
+    // UPGRADE - convert to style tokens
     font-style: italic;
-    color: #{var-theme(text-primary)};
+    @include theme-set-color(primary);
 
     em {
         font-style: normal;
@@ -160,15 +161,15 @@
 %kbd,
 %pre,
 %samp {
-    @include cx-prop(icon-color, var-theme(text-primary));
-
     @if font-family-exists(monospace) {
         font-family: #{var-font-family(monospace)};
     }
 
+    // UPGRADE - convert to style tokens
     border-radius: #{var-style(button-border-radius)};
     background: #{var-theme(background-grey)};
-    color: #{var-theme(text-primary)};
+
+    @include theme-set-color(primary);
 
     %a & {
         color: inherit;
@@ -234,7 +235,8 @@
 
     %page-subtitle {
         font-size: #{var-fs(heading-5)};
-        color: #{var-theme(text-grey)};
+
+        @include theme-set-color('grey');
 
         @include colour-mode-all {
             opacity: 1;

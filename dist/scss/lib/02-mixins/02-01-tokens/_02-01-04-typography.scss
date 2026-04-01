@@ -14,6 +14,7 @@
 
 @use '../../01-functions' as *;
 
+@use '02-01-01-spacing' as *;
 @use '02-01-03-decoration' as *;
 
 @use 'pkg:@maddimathon/utility-astro/02-mixins' as utils;
@@ -88,32 +89,36 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
 ///
 @mixin tokens-font-face {
     @if $_designSystemHasFontFamilies {
-        /* #region Tokens - Font Face */
-        @each $slug, $familyMap in map.get(tokens.$designSystem, font, family) {
-            //
-            $weightMap: map.get($familyMap, weights);
-
-            $fontMap: map.get(
-                tokens.$designSystem,
-                font,
-                family,
-                $slug,
-                variable
-            );
-
-            @if $fontMap != null {
-                @include _tokens-font-face-style-printer(
-                    $fontMap,
-                    $isVariable: true
-                );
-            } @else {
+        @at-root {
+            /* #region Tokens - Font Face */
+            @each $slug,
+                $familyMap in map.get(tokens.$designSystem, font, family)
+            {
                 //
-                @each $weight, $styleMap in $weightMap {
-                    @include _tokens-font-face-style-printer($styleMap);
+                $weightMap: map.get($familyMap, weights);
+
+                $fontMap: map.get(
+                    tokens.$designSystem,
+                    font,
+                    family,
+                    $slug,
+                    variable
+                );
+
+                @if $fontMap != null {
+                    @include _tokens-font-face-style-printer(
+                        $fontMap,
+                        $isVariable: true
+                    );
+                } @else {
+                    //
+                    @each $weight, $styleMap in $weightMap {
+                        @include _tokens-font-face-style-printer($styleMap);
+                    }
                 }
             }
+            /* #endregion Tokens - Font Face */
         }
-        /* #endregion Tokens - Font Face */
     }
 }
 
@@ -124,8 +129,10 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
 ///
 @mixin tokens-font-family {
     @if $_designSystemHasFontFamilies {
-        /* #region Tokens - Font Families */
-        #{selector.parent-or-root()} {
+        @at-root {
+            /* #region Tokens - Font Families */
+        }
+        @at-root #{selector.parent-or-root()} {
             @each $slug in map.keys(map.get(tokens.$designSystem, font, family))
             {
                 @if $slug != icons {
@@ -136,7 +143,66 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
                 }
             }
         }
-        /* #endregion Tokens - Font Families */
+        @at-root {
+            /* #endregion Tokens - Font Families */
+        }
+    }
+}
+
+///
+/// Prints out the font size custom property tokens based on config.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin tokens-font-size($multiplier: 1) {
+    @at-root {
+        /* #region Tokens - Font Size */
+    }
+    @at-root #{selector.parent-or-root()} {
+        @each $slug, $_value in tokens.$font_size {
+            @each $value in fs-value($slug, $multiplier: $multiplier) {
+                @include utils.cx-prop(fs-#{$slug}, $value);
+            }
+        }
+
+        @if config.$mx_tokens_fontSize_printRelative {
+            @each $slug, $_value in tokens.$font_size {
+                @each $value
+                    in fs-value(
+                        $slug,
+                        $multiplier: $multiplier,
+                        $relative: true
+                    )
+                {
+                    @include utils.cx-prop(fs-rel-#{$slug}, $value);
+                }
+            }
+        }
+    }
+    @at-root {
+        /* #endregion Tokens - Font Size */
+    }
+}
+
+///
+/// Prints out the line height custom property tokens based on config.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin tokens-line-height($multiplier: 1) {
+    @at-root {
+        /* #region Tokens - Line Heights */
+    }
+    @at-root #{selector.parent-or-root()} {
+        @each $slug, $_value in tokens.$line_height {
+            @include utils.cx-prop(
+                line-height-#{$slug},
+                line-height-value($slug, $multiplier: $multiplier)
+            );
+        }
+    }
+    @at-root {
+        /* #endregion Tokens - Line Heights */
     }
 }
 
@@ -145,7 +211,7 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@mixin font-family-size-tokens($slug) {
+@mixin font-family-size-tokens($slug, $setProps: true) {
     //
     $map: map.get(tokens.$designSystem, font, familyOverrides, $slug);
 
@@ -154,10 +220,12 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
 
         @if $label == 'Open Dyslexic' {
             // UPGRADE - convert this to a prop in the font family tokens
-            @include utils.cx-prop(icon-size--font-multiplier, 1.1875);
+            @include utils.cx-prop(icon-size--font-multiplier, 1.0625);
             @include utils.cx-prop(icon-size-inline--font-multiplier, 1.25);
-            @include utils.cx-prop(icon-inline-buffer-start--font-override, 2);
-            @include utils.cx-prop(icon-inline-buffer-end--font-override, 1);
+            @include utils.cx-prop(
+                icon-inline-buffer-start--font-override,
+                1.5
+            );
         }
 
         $width_multiplier: map.get($map, contentWidthScale);
@@ -206,12 +274,18 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
                 // MARGINS
                 // prettier-ignore
                 @if $margin_multiplier > 0 and ($margin_multiplier < 1 or $margin_multiplier >= 1.0625) {
-                    @include utils.tokens-margin($multiplier: $margin_multiplier);
+                    @include tokens-margin($multiplier: $margin_multiplier);
                     @include utils.tokens-gap($multiplier: $margin_multiplier);
                 }
 
                 // LINE HEIGHTS
-                @include utils.tokens-line-height($multiplier: $lh_multiplier);
+                @include tokens-line-height($multiplier: $lh_multiplier);
+
+                @if $setProps {
+                    :where(&) {
+                        line-height: #{var-line-height('400')};
+                    }
+                }
 
                 // STROKE RELATIVE
                 @if $stroke_multiplier > 0 and $stroke_multiplier != 1 {

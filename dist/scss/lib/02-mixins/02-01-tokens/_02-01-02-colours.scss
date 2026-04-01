@@ -150,7 +150,9 @@ $_flattenedSystemColors: map.flatten($_systemColors);
 /// @since 0.1.0-alpha
 ///
 @mixin tokens-colour {
-    /* #region Tokens - Colour */
+    @at-root {
+        /* #region Tokens - Colour */
+    }
     @each $mode in tokens.$brightnessMode_all {
         //
         @include utils.colour-mode($mode, $includeDefault: true) {
@@ -231,7 +233,63 @@ $_flattenedSystemColors: map.flatten($_systemColors);
             }
         }
     }
-    /* #endregion Tokens - Colour */
+    @at-root {
+        /* #endregion Tokens - Colour */
+    }
+}
+
+///
+/// Sets the color and associated props to the given theme text variant.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin theme-set-color(
+    $variant: null,
+    $brightness: tokens.$brightnessMode_default,
+    $contrast: null,
+    //
+    $themeSlug: tokens.$activeTheme,
+    $color: null,
+    $iconColor: null
+) {
+    @if $variant != null and not theme-token-exists(text-#{$variant}) {
+        $variant: null;
+    }
+
+    $useSystemColorFallback: false;
+
+    @if $contrast == null {
+        $useSystemColorFallback: true;
+        $contrast: tokens.$contrastMode_default;
+    }
+
+    $variantSlug: if($variant == null, '', '-#{$variant}');
+
+    @include utils.cx-prop(
+        icon-color,
+        if(
+            $iconColor,
+            $iconColor,
+            var-theme(
+                ui#{$variantSlug},
+                $brightness: $brightness,
+                $contrast: $contrast,
+                $themeSlug: $themeSlug,
+                $useSystemColorFallback: $useSystemColorFallback
+            )
+        )
+    );
+    color: #{if(
+            $color,
+            $color,
+            var-theme(
+                text#{$variantSlug},
+                $brightness: $brightness,
+                $contrast: $contrast,
+                $themeSlug: $themeSlug,
+                $useSystemColorFallback: $useSystemColorFallback
+            )
+        )};
 }
 
 ///
@@ -274,36 +332,19 @@ $_flattenedSystemColors: map.flatten($_systemColors);
             )
         )
     );
-    @include utils.cx-prop(
-        icon-color,
-        if(
-            $iconColor,
-            $iconColor,
-            var-theme(
-                ui,
-                $brightness: $brightness,
-                $contrast: $contrast,
-                $themeSlug: $slug,
-                $useSystemColorFallback: $useSystemColorFallback
-            )
-        )
+
+    @include theme-set-color(
+        $brightness: tokens.$brightnessMode_default,
+        $contrast: $contrast,
+        $color: $color,
+        $iconColor: $iconColor
     );
+
     background: #{if(
             $background,
             $background,
             var-theme(
                 background,
-                $brightness: $brightness,
-                $contrast: $contrast,
-                $themeSlug: $slug,
-                $useSystemColorFallback: $useSystemColorFallback
-            )
-        )};
-    color: #{if(
-            $color,
-            $color,
-            var-theme(
-                text,
                 $brightness: $brightness,
                 $contrast: $contrast,
                 $themeSlug: $slug,

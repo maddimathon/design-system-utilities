@@ -38,7 +38,7 @@ $font: map.get(default.$designSystem, font);
 
 $fontSize_base: map.get(default.$designSystem, font, sizeScale);
 
-$font_sizes: map.get(default.$designSystem, font, size);
+$font_size: map.get(default.$designSystem, font, size);
 
 @function _ksort_sizes($map, $_isFirstLevel: true) {
     // sorts the keys
@@ -64,29 +64,29 @@ $font_sizes: map.get(default.$designSystem, font, size);
 }
 
 // sort recursively
-$font_sizes: _ksort_sizes($font_sizes);
+$font_size: _ksort_sizes($font_size);
 
 // reverse the smaller sizes
-$font_sizes: map.set(
-    $font_sizes,
+$font_size: map.set(
+    $font_size,
     smaller,
-    map.ksort(map.get($font_sizes, smaller), $sortAs: 'number', $reverse: true)
+    map.ksort(map.get($font_size, smaller), $sortAs: 'number', $reverse: true)
 );
 
 // flatten the map
-$font_sizes: map.flatten($font_sizes);
+$font_size: map.flatten($font_size);
 
 // now calculating & rounding
-@each $key, $value in $font_sizes {
+@each $key, $value in $font_size {
     $_valueType: meta.type-of($value);
 
     @if $_valueType == list and list.length($value) < 1 {
-        $font_sizes: map.remove($font_sizes, $key);
+        $font_size: map.remove($font_size, $key);
     } @else if $_valueType == map and list.length(map.keys($value)) < 1 {
-        $font_sizes: map.remove($font_sizes, $key);
+        $font_size: map.remove($font_size, $key);
     } @else {
-        $font_sizes: map.set(
-            $font_sizes,
+        $font_size: map.set(
+            $font_size,
             $key,
             math.round-to-pixel(
                 math.pow($spacing_multiplier, $value),

@@ -208,7 +208,9 @@ export class Tokens<
             typeInput.fonts.icons = undefined;
         } else {
 
-            const unicodeRange = Object.values( this.icons.getCodepoints() ).map( num => `U+${ num.toString( 16 ).toUpperCase() }` ).join( ', ' );
+            const unicodeRange = Object.values( this.icons.getCodepoints() ).map(
+                num => `U+${ num.toString( 16 ).toUpperCase() }`
+            ).join( ', ' );
 
             const iconFontFamily = {
                 printFontFace: true,

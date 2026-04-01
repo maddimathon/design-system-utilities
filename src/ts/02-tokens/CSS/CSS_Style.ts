@@ -47,6 +47,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                 margin: {
                     block: {
                         start: -0.0625,
+                        end: 0,
                     },
                 },
             } satisfies Tokens_CSS_Style.AlertStyles_Heading;
@@ -99,6 +100,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                 margin: {
                     block: {
                         start: partial.heading?.[ num ]?.margin?.block.start ?? style.margin.block.start,
+                        end: partial.heading?.[ num ]?.margin?.block.end ?? style.margin.block.end,
                     },
                 },
             } satisfies Tokens_CSS_Style.AlertStyles_Heading;
@@ -731,6 +733,7 @@ export namespace Tokens_CSS_Style {
         margin: {
             block: {
                 start: number;
+                end: number;
             };
         };
     };

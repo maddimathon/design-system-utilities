@@ -225,18 +225,18 @@
         
         
         "watch": "run-p --silent watch:*",
-            "watch:astro":     "watch -p 'src/astro/components/**/*' -p 'src/astro/layouts/**/*' -c 'build-utils build --only compile      --only-compile astro     --watchedWatcher \"watch:astro\"     --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
-            "watch:scss":      "watch -p 'src/scss/**/*' -p 'src/docs/scss/**/*'                 -c 'build-utils build --only compile      --only-compile scss      --watchedWatcher \"watch:scss\"      --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
-            "watch:docs-scss": "watch -p 'src/scss/**/*' -p 'src/docs/scss/**/*'                 -c 'build-utils build --only document     --only-document scss     --watchedWatcher \"watch:docs-scss\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
-            "watch:ts":        "watch -p 'src/ts/**/*'                                           -c 'build-utils build --only compile,test --only-compile ts,tokens --watchedWatcher \"watch:ts\"        --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
-            "watch:docs-ts":   "watch -p 'dist/ts/**/*'                                          -c 'build-utils build --only document     --only-document typedoc  --watchedWatcher \"watch:docs-ts\"   --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:astro":       "watch -p 'src/astro/components/**/*' -p 'src/astro/layouts/**/*' -c 'build-utils build --only compile      --only-compile astro     --watchedWatcher \"watch:astro\"     --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:scss":        "watch -p 'src/scss/**/*' -p 'src/docs/scss/**/*'                 -c 'build-utils build --only compile      --only-compile scss      --watchedWatcher \"watch:scss\"      --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "s-watch:docs-scss": "watch -p 'src/scss/**/*' -p 'src/docs/scss/**/*'                 -c 'build-utils build --only document     --only-document scss     --watchedWatcher \"watch:docs-scss\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "s-watch:ts":        "watch -p 'src/ts/**/*'                                           -c 'build-utils build --only compile,test --only-compile ts,tokens --watchedWatcher \"watch:ts\"        --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "s-watch:docs-ts":   "watch -p 'dist/ts/**/*'                                          -c 'build-utils build --only document     --only-document typedoc  --watchedWatcher \"watch:docs-ts\"   --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
         
         "build-start":       "build-utils build --starting --without minimize                             --without-document astro && npm run --silent start",
         "quick-build-start": "build-utils build --starting --without minimize --without-compile templates --without-document astro && npm run --silent start",
 
         "build-update": "npm run --silent build -- --watchedWatcher \"watch:cx\" --watchedChange --only compile,document --without-compile astro,templates,files --only-document scss --verbose",
 
-        "start": "run-p astro:start watch:scss watch:docs-scss watch:ts",
+        "start": "run-p astro:start watch:scss s-watch:*",
         
 
         "package": "build-utils package",

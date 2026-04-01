@@ -248,6 +248,7 @@ export declare namespace Tokens_CSS_Style {
         margin: {
             block: {
                 start: number;
+                end: number;
             };
         };
     };

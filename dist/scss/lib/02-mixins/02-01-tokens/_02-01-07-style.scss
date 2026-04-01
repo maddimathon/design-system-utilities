@@ -23,11 +23,15 @@
 
     $_tokensMap: if($requiredOnly, map.pick($_tokensMap, (icon)), $_tokensMap);
 
-    /* #region Tokens - Style */
-    #{selector.parent-or-root()} {
+    @at-root {
+        /* #region Tokens - Style */
+    }
+    @at-root #{selector.parent-or-root()} {
         @each $slug, $_value in map.flatten($_tokensMap) {
             @include utils.cx-prop($slug, style-value($slug));
         }
     }
-    /* #endregion Tokens - Style */
+    @at-root {
+        /* #endregion Tokens - Style */
+    }
 }

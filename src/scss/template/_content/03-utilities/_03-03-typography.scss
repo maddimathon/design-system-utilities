@@ -5,17 +5,23 @@
 
 // @use 'pkg:@maddimathon/utility-sass/map';
 
-// @use '../../../lib' as *;
+@use '../../../lib' as *;
 
 @use '../config';
+@use '../../../tokens';
 
 @if config.$template_cssHeadings {
     /* # UTILITIES - TYPOGRAPHY
      * ======================================================================== */
 }
 
+@each $slug, $_value in tokens.$font_size {
+    %font-size-#{$slug} {
+        font-size: #{var-fs($slug)};
+    }
+}
+
 %text-align-start {
-    // text-align: left;
     text-align: start;
 }
 
@@ -24,6 +30,5 @@
 }
 
 %text-align-end {
-    // text-align: right;
     text-align: end;
 }

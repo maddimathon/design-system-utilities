@@ -7,6 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
+import type { Classify } from '@maddimathon/utility-typescript/types';
 /**
  * The object that defines a single SVG token.
  *
@@ -86,7 +87,7 @@ export declare namespace SvgMaker {
     /**
      * @since 0.1.0-alpha
      */
-    type JsonReturn<T_Slug extends string = string, T_Metadata extends any = any> = Required<Data<T_Slug, T_Metadata>> & {
+    type JsonReturn<T_Slug extends string = string, T_Metadata extends any = any> = Classify<Data<T_Slug, T_Metadata>> & {
         /**
          * Aspect ratio for the SVG (simplified from the wodth & height).
          */

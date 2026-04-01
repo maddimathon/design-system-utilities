@@ -20,8 +20,10 @@
 /// @since 0.1.0-alpha
 ///
 @mixin tokens-border-radius {
-    /* #region Tokens - Border Radius */
-    #{selector.parent-or-root()} {
+    @at-root {
+        /* #region Tokens - Border Radius */
+    }
+    @at-root #{selector.parent-or-root()} {
         @each $slug, $_value in map.get(tokens.$border, radius) {
             @include utils.cx-prop(
                 border-radius-#{$slug},
@@ -29,7 +31,9 @@
             );
         }
     }
-    /* #endregion Tokens - Border Radius */
+    @at-root {
+        /* #endregion Tokens - Border Radius */
+    }
 }
 
 ///
@@ -38,8 +42,10 @@
 /// @since 0.1.0-beta.0.draft
 ///
 @mixin tokens-border-width($multiplier: 1) {
-    /* #region Tokens - Border Width */
-    #{selector.parent-or-root()} {
+    @at-root {
+        /* #region Tokens - Border Width */
+    }
+    @at-root #{selector.parent-or-root()} {
         @each $slug, $_value in map.get(tokens.$border, width) {
             @include utils.cx-prop(
                 border-width-#{$slug},
@@ -75,7 +81,9 @@
             );
         }
     }
-    /* #endregion Tokens - Border Width */
+    @at-root {
+        /* #endregion Tokens - Border Width */
+    }
 }
 
 ///
@@ -84,8 +92,10 @@
 /// @since 0.1.0-beta.0.draft
 ///
 @mixin tokens-stroke-relative($multiplier: 1) {
-    /* #region Tokens - Stroke Relative */
-    #{selector.parent-or-root()} {
+    @at-root {
+        /* #region Tokens - Stroke Relative */
+    }
+    @at-root #{selector.parent-or-root()} {
         @each $slug, $_value in tokens.$stroke_relative {
             @include utils.cx-prop(
                 stroke-relative-#{$slug},
@@ -128,7 +138,9 @@
             );
         }
     }
-    /* #endregion Tokens - Stroke Relative */
+    @at-root {
+        /* #endregion Tokens - Stroke Relative */
+    }
 }
 
 ///
@@ -137,11 +149,15 @@
 /// @since 0.1.0-alpha
 ///
 @mixin tokens-z-index {
-    /* #region Tokens - Z Index */
-    #{selector.parent-or-root()} {
+    @at-root {
+        /* #region Tokens - Z Index */
+    }
+    @at-root #{selector.parent-or-root()} {
         @each $slug, $_value in tokens.$z_index {
             @include utils.cx-prop(z-index-#{$slug}, z-index-value($slug));
         }
     }
-    /* #endregion Tokens - Z Index */
+    @at-root {
+        /* #endregion Tokens - Z Index */
+    }
 }

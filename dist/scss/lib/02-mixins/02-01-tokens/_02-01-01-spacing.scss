@@ -1,0 +1,83 @@
+///
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@use 'pkg:@maddimathon/utility-sass/selector';
+
+// @use '../../../config';
+@use '../../../tokens';
+
+@use '../../01-functions' as *;
+
+@use 'pkg:@maddimathon/utility-astro/02-mixins' as utils;
+
+///
+/// Prints out the margin custom property tokens based on config.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin tokens-margin($multiplier: 1) {
+    $selector: selector.parent-or-root();
+
+    @at-root {
+        /* #region Tokens - Margin */
+        #{$selector} {
+            @each $level, $_value in tokens.$margin {
+                @include utils.cx-prop(
+                    mrg-firm-#{$level},
+                    mrg-value-firm(
+                        $level,
+                        $unit: 1rem,
+                        $multiplier: $multiplier
+                    )
+                );
+            }
+            @each $level, $_value in tokens.$margin {
+                @include utils.cx-prop(
+                    pad-firm-#{$level},
+                    mrg-value-firm($level, $unit: 1em, $multiplier: $multiplier)
+                );
+            }
+        }
+
+        #{$selector} {
+            @each $level, $_value in tokens.$margin {
+                @include utils.cx-prop(
+                    mrg-soft-#{$level},
+                    mrg-value-soft(
+                        $level,
+                        $unit: 1rem,
+                        $multiplier: $multiplier
+                    )
+                );
+            }
+            @each $level, $_value in tokens.$margin {
+                @include utils.cx-prop(
+                    pad-soft-#{$level},
+                    mrg-value-soft($level, $unit: 1em, $multiplier: $multiplier)
+                );
+            }
+        }
+
+        #{$selector} {
+            @each $level, $_value in tokens.$margin {
+                @include utils.cx-prop(
+                    mrg-half-#{$level},
+                    mrg-value-half(
+                        $level,
+                        $unit: 1rem,
+                        $multiplier: $multiplier
+                    )
+                );
+            }
+            @each $level, $_value in tokens.$margin {
+                @include utils.cx-prop(
+                    pad-half-#{$level},
+                    mrg-value-half($level, $unit: 1em, $multiplier: $multiplier)
+                );
+            }
+        }
+        /* #endregion Tokens - Margin */
+    }
+}

@@ -11,12 +11,15 @@
 .contrast-alert {
     @include lib.cx-prop(icon-color, currentColor);
     @include lib.prop-display(flex);
-    flex-direction: column;
-    width: fit-content;
+    @include lib.snippet-content-flex-container(
+        (
+            justify-content: start,
+            align-content: center,
+            align-items: center,
+        )
+    );
 
-    justify-content: start;
-    align-content: center;
-    align-items: center;
+    width: fit-content;
 
     line-height: #{lib.var-line-height('100')};
     font-size: inherit;

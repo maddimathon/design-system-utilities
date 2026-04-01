@@ -49,8 +49,10 @@
 /// @since 0.1.0-alpha
 ///
 @mixin tokens-transition($trTime: true) {
-    /* #region Tokens - Transitions */
-    #{selector.parent-or-root()} {
+    @at-root {
+        /* #region Tokens - Transitions */
+    }
+    @at-root #{selector.parent-or-root()} {
         @if $trTime {
             @each $slug, $_value in map.get(tokens.$transition, time) {
                 @if $slug == toggle-closing {
@@ -79,5 +81,7 @@
             // @include utils.cx-prop(transition, #{transition-properties-value(false)} !important);
         }
     }
-    /* #endregion Tokens - Transitions */
+    @at-root {
+        /* #endregion Tokens - Transitions */
+    }
 }

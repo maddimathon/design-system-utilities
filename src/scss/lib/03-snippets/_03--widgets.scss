@@ -7,7 +7,7 @@
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/meta';
 
-// @use 'pkg:@maddimathon/utility-astro/03-snippets' as lib;
+@use 'pkg:@maddimathon/utility-astro/03-snippets' as utils;
 
 // @use '../../config';
 @use '../../tokens';
@@ -28,14 +28,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
     $includeExceptions: true
 ) {
     @include prop-display(flex);
-    flex-direction: column;
-
-    justify-content: start;
-    justify-items: start;
-    align-content: start;
-    align-items: start;
-
-    gap: 0;
+    @include utils.snippet-content-flex-container;
 
     padding-block: #{var-style(widget-padding-block)};
     padding-inline: #{var-style(widget-padding-inline)};
@@ -116,14 +109,15 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
     @if $includeSidebar {
         %site-sidebar {
             @include prop-display(flex);
-            flex-direction: column;
-
-            justify-content: start;
-            align-content: start;
-            align-items: stretch;
-
-            gap: max(#{var-mrg-firm('400')}, #{var-gap-block(layout-half)})
-                #{var-gap-inline(layout-half)};
+            @include utils.snippet-content-flex-container(
+                $alignment: (
+                    justify-content: start,
+                    justify-items: start,
+                    align-items: stretch,
+                ),
+                $gap: max(var-mrg-firm('400'), var-gap-block(layout-half))
+                    var-gap-inline(layout-half)
+            );
         }
     }
 

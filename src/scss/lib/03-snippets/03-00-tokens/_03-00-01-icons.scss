@@ -203,6 +203,7 @@ $_allUniqueIconAspectRatios: ();
 @mixin snippet-icon-pseudo-element(
     $slug,
     $pseudo: 'after',
+    $glyph: null,
     $includeBaseProps: true,
     $includeBasePropsOnly: false,
     $args...
@@ -224,11 +225,13 @@ $_allUniqueIconAspectRatios: ();
             font-weight: 400 !important;
 
             font-size: #{var-style(icon-size-font)} !important;
-            font-size: #{snippet-icon-pseudo-icon-size()} !important;
+            font-size: #{snippet-icon-pseudo-icon-size(
+                    $size: var-style(icon-size-font)
+                )} !important;
         }
 
         @if not $includeBasePropsOnly {
-            $glyph: icon-glyph-value($slug);
+            $glyph: if($glyph == null, null, icon-glyph-value($slug));
 
             content: $glyph;
             content: $glyph / '#{icon-label-value($slug)}';

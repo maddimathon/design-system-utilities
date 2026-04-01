@@ -75,6 +75,15 @@ $_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
                     $raw: true,
                     $rawUnit: 1em
                 )};
+            margin-block-end: #{var-style(
+                    alert-heading-#{if(
+                            $slug == false,
+                            unstyled,
+                            if($slug == title, 1, $slug)
+                        )}-margin-block-end,
+                    $raw: true,
+                    $rawUnit: 1em
+                )};
         }
     }
 }
@@ -225,7 +234,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
                 @content ( 'alert-block__headline' );
             }
 
-            &:where(header) {
+            &:where(header:not([aria-level])) {
                 line-height: #{var-style(alert-headline-line-height)};
                 font-weight: #{var-style(alert-headline-font-weight)};
                 font-style: #{var-style(alert-headline-font-style)};

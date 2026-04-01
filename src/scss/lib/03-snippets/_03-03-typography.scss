@@ -47,7 +47,7 @@
 
             font-size: #{var-fs(smaller-1)};
 
-            color: #{var-theme(text-primary)};
+            @include theme-set-color(primary);
 
             &::before {
                 content: '— ' / '';
@@ -216,6 +216,7 @@
     $slug: '7',
     $includeChildren: true,
     $color: null,
+    $iconColor: null,
     $fontStyle: null,
     $lineHeight: null,
     $marginBlockEnd: null,
@@ -267,7 +268,10 @@
         }
     }
 
-    color: #{if($color, $color, var-theme(heading-#{$slug}))};
+    $_color: if($color, $color, var-theme(heading-#{$slug}));
+
+    @include cx-prop(icon-color, if($iconColor, $iconColor, $_color));
+    color: #{$_color};
 
     &:has(+ %button-span),
     &:has(+ %paragraph-firm-margins),

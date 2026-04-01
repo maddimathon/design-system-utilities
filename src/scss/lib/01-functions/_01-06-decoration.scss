@@ -131,6 +131,17 @@
 
     $value: map.get(tokens.$icons, $slug, fontGlyph);
 
+    $replaceFontGlyph: map.get(tokens.$icons, $slug, replaceFontGlyph);
+
+    @if $replaceFontGlyph {
+        $replaceFontGlyph_map: map.get(tokens.$icons, $replaceFontGlyph);
+
+        @if $replaceFontGlyph_map and map.has-key($replaceFontGlyph_map, fontGlyph) {
+            $slug: $replaceFontGlyph;
+            $value: map.get(tokens.$icons, $slug, fontGlyph);
+        }
+    }
+
     // returns
     @if $value == null {
         @warn "'fontGlyph' was not a key in tokens.$icons.#{$slug}";

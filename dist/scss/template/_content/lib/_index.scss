@@ -222,6 +222,14 @@
         (('a.button[href]', '%alert'), 'paragraph-firm-margins')
     );
 
+    // font size utilities
+    @each $slug, $_value in tokens.$font_size {
+        $additional: list.append(
+            $additional,
+            ('.font-size-#{$slug}', font-size-#{$slug})
+        );
+    }
+
     @each $bp in map.keys(tokens.$breakpoints) {
         $additional_optional: list.append(
             $additional_optional,
@@ -308,6 +316,13 @@
         $additional_optional: list.append(
             $additional_optional,
             ('.background-#{$variant}', background-#{$variant})
+        );
+    }
+
+    @each $variant in map.get(tokens.$themesMeta, keys, text) {
+        $additional_optional: list.append(
+            $additional_optional,
+            ('.color-#{$variant}', color-#{$variant})
         );
     }
 

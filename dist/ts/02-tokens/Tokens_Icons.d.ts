@@ -23,6 +23,55 @@ export declare class Tokens_Icons<T_ExtraIconNames extends string> extends Abstr
 }> {
     #private;
     readonly fontName: string;
+    static get defaultCodepoints(): {
+        attachment: number;
+        caution: number;
+        check: number;
+        clock: number;
+        close: number;
+        code: number;
+        compass: number;
+        dash: number;
+        'double-check': number;
+        down: number;
+        download: number;
+        draft: number;
+        error: number;
+        external: number;
+        fail: number;
+        forbidden: number;
+        hidden: number;
+        info: number;
+        left: number;
+        lightbulb: number;
+        lightning: number;
+        lock: number;
+        'logo-facebook': number;
+        'logo-instagram': number;
+        'logo-linkedin': number;
+        maximum: number;
+        minimum: number;
+        minus: number;
+        no: number;
+        note: number;
+        paperclip: number;
+        plus: number;
+        private: number;
+        question: number;
+        refresh: number;
+        right: number;
+        search: number;
+        settings: number;
+        star: number;
+        success: number;
+        ui: number;
+        'ui-check': number;
+        'ui-minimum': number;
+        unlock: number;
+        up: number;
+        warning: number;
+        computer: number;
+    };
     static get default(): {
         [I in Tokens_Icons.DefaultIconNames]: Tokens_Icons.Local_SvgMaker.Data<I, never>;
     };
@@ -155,14 +204,17 @@ export declare namespace Tokens_Icons {
          * @since 0.1.0-beta.0.draft
          */
         type Meta<T_ExtraIconNames extends string> = {
-            aliasOf?: undefined | DefaultIconNames | T_ExtraIconNames;
+            aliasOf?: undefined | DefaultIconNames | T_ExtraIconNames | (DefaultIconNames | T_ExtraIconNames)[];
             codepoint?: undefined | number;
+            isDefault?: undefined | true;
+            replaceFontGlyph?: undefined | DefaultIconNames | T_ExtraIconNames;
         };
         /**
          * @since 0.1.0-beta.0.draft
          */
         type ScssVars<T_IconName extends string, T_ExtraIconNames extends string> = Omit<SvgMaker.ScssVars<T_IconName, Meta<T_ExtraIconNames>>, 'meta'> & {
             fontGlyph?: undefined | string;
+            replaceFontGlyph?: Meta<T_ExtraIconNames>['replaceFontGlyph'];
         };
     }
 }

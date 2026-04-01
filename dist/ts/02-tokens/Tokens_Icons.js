@@ -20,8 +20,8 @@ import { objectGenerator } from '../01-utilities/objectGenerator.js';
  */
 export class Tokens_Icons extends AbstractTokens {
     fontName;
-    static get default() {
-        const codepoints = {
+    static get defaultCodepoints() {
+        return {
             attachment: 0xf101,
             caution: 0xf102,
             check: 0xf103,
@@ -70,6 +70,9 @@ export class Tokens_Icons extends AbstractTokens {
             warning: 0xf146,
             computer: 0xf147,
         };
+    }
+    static get default() {
+        const codepoints = Tokens_Icons.defaultCodepoints;
         const check = {
             slug: 'check',
             label: 'Checkmark',
@@ -449,6 +452,7 @@ export class Tokens_Icons extends AbstractTokens {
             meta: {
                 ...obj.meta,
                 codepoint: codepoints[key],
+                isDefault: true,
             },
         }));
     }
@@ -491,10 +495,10 @@ export class Tokens_Icons extends AbstractTokens {
      */
     getCodepoints() {
         // returns
-        if (typeof this.#getCodepoints !== 'undefined') {
+        if (typeof this._font !== 'undefined' && typeof this.#getCodepoints !== 'undefined') {
             return this.#getCodepoints;
         }
-        this.#getCodepoints = objectMap(this.data, ([key, value]) => value.meta?.codepoint);
+        this.#getCodepoints = Object.fromEntries(Object.entries(this.data).map(([key, value]) => [key, value.meta?.codepoint]).filter(([key, value]) => !!value));
         return this.#getCodepoints;
     }
     /**
@@ -513,8 +517,8 @@ export class Tokens_Icons extends AbstractTokens {
             // centerVertically: false,
             // descent: 0,
             // fontStyle: 'normal',
-            // normalize: false,
-            // preserveAspectRatio: true,
+            normalize: false,
+            preserveAspectRatio: true,
             ...formatOptionsDefault,
         };
         const formatOptions = mergeArgs(objectGenerator(fontTypes, (type) => {
@@ -562,6 +566,7 @@ export class Tokens_Icons extends AbstractTokens {
                 aspectRatio: vars.aspectRatio,
                 embedded: vars.embedded,
                 fontGlyph: value.meta?.codepoint ? `\\${value.meta.codepoint.toString(16)}` : undefined,
+                replaceFontGlyph: value.meta?.replaceFontGlyph,
             };
         });
     }
