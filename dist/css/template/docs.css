@@ -319,12 +319,12 @@ pre {
     initial-value: hsl(339.45, 0%, 17.88%);
     initial-value: var(--theme-ui, CanvasText);
 }
-@property --icon-inline-buffer-end--font-override {
+@property --icon-inline-buffer-end--font-multiplier {
     syntax: "<number>";
     inherits: true;
     initial-value: 1;
 }
-@property --icon-inline-buffer-start--font-override {
+@property --icon-inline-buffer-start--font-multiplier {
     syntax: "<number>";
     inherits: true;
     initial-value: 1;
@@ -16757,7 +16757,7 @@ a[target="_blank"][href]::after {
     margin-left: calc(0.25em * 1 * 1);
     margin-left: calc(
         var(--icon-inline-buffer, 0.25em) * var(--icon-inline-buffer-start, 1) *
-            var(--icon-inline-buffer-start--font-override, 1)
+            var(--icon-inline-buffer-start--font-multiplier, 1)
     );
     margin-right: 0.25em;
     margin-right: var(--icon-inline-buffer, 0.25em);
@@ -16765,7 +16765,7 @@ a[target="_blank"][href]::after {
     margin-right: calc(
         var(--icon-inline-buffer, 0.25em) *
             var(--icon-inline-buffer-end, 0.125) *
-            var(--icon-inline-buffer-end--font-override, 1)
+            var(--icon-inline-buffer-end--font-multiplier, 1)
     );
     line-height: 1;
     align-self: center;
@@ -16796,7 +16796,7 @@ a[download][href]::before {
     margin-right: calc(0.25em * 1 * 1);
     margin-right: calc(
         var(--icon-inline-buffer, 0.25em) * var(--icon-inline-buffer-start, 1) *
-            var(--icon-inline-buffer-start--font-override, 1)
+            var(--icon-inline-buffer-start--font-multiplier, 1)
     );
     margin-left: 0.25em;
     margin-left: var(--icon-inline-buffer, 0.25em);
@@ -16804,7 +16804,7 @@ a[download][href]::before {
     margin-left: calc(
         var(--icon-inline-buffer, 0.25em) *
             var(--icon-inline-buffer-end, 0.125) *
-            var(--icon-inline-buffer-end--font-override, 1)
+            var(--icon-inline-buffer-end--font-multiplier, 1)
     );
     line-height: 1;
     align-self: center;
@@ -16836,7 +16836,7 @@ a[disabled][href]::before {
     margin-right: calc(0.25em * 1 * 1);
     margin-right: calc(
         var(--icon-inline-buffer, 0.25em) * var(--icon-inline-buffer-start, 1) *
-            var(--icon-inline-buffer-start--font-override, 1)
+            var(--icon-inline-buffer-start--font-multiplier, 1)
     );
     margin-left: 0.25em;
     margin-left: var(--icon-inline-buffer, 0.25em);
@@ -16844,7 +16844,7 @@ a[disabled][href]::before {
     margin-left: calc(
         var(--icon-inline-buffer, 0.25em) *
             var(--icon-inline-buffer-end, 0.125) *
-            var(--icon-inline-buffer-end--font-override, 1)
+            var(--icon-inline-buffer-end--font-multiplier, 1)
     );
     line-height: 1;
     align-self: center;
@@ -17100,7 +17100,6 @@ samp {
     vertical-align: baseline;
     align-self: baseline;
     font-weight: 500;
-    letter-spacing: -0.015em;
 }
 
 pre {
@@ -18742,8 +18741,8 @@ a.button[href],
 a.button-secondary[href],
 a.button-grey[href] {
     --focus-ring-outline-offset: var(--stroke-relative-400, 0.125em);
-    --icon-inline-buffer-start--font-override: 2.5 !important;
-    --icon-inline-buffer-end--font-override: -0.5 !important;
+    --icon-inline-buffer-start: 2.5 !important;
+    --icon-inline-buffer-end: -0.5 !important;
     --icon-size-font: 0.9375em;
     --icon-size-pseudo: 0.9375em;
     --icon-vertical-align: middle !important;
@@ -19644,7 +19643,7 @@ a[disabled].button-grey[href]::before {
     margin-right: calc(0.25em * 1 * 1);
     margin-right: calc(
         var(--icon-inline-buffer, 0.25em) * var(--icon-inline-buffer-start, 1) *
-            var(--icon-inline-buffer-start--font-override, 1)
+            var(--icon-inline-buffer-start--font-multiplier, 1)
     );
     margin-left: 0.25em;
     margin-left: var(--icon-inline-buffer, 0.25em);
@@ -19652,7 +19651,7 @@ a[disabled].button-grey[href]::before {
     margin-left: calc(
         var(--icon-inline-buffer, 0.25em) *
             var(--icon-inline-buffer-end, 0.125) *
-            var(--icon-inline-buffer-end--font-override, 1)
+            var(--icon-inline-buffer-end--font-multiplier, 1)
     );
     line-height: 1;
     align-self: center;
@@ -19767,11 +19766,11 @@ a.button-grey[href] .icon:not(.settings-menu-icon):not(.toggle-icon) {
     margin-right: calc(0.25em * 1 * 1);
     margin-left: calc(
         var(--icon-inline-buffer, 0.25em) * var(--icon-inline-buffer-start, 1) *
-            var(--icon-inline-buffer-start--font-override, 1)
+            var(--icon-inline-buffer-start--font-multiplier, 1)
     );
     margin-right: calc(
         var(--icon-inline-buffer, 0.25em) * var(--icon-inline-buffer-start, 1) *
-            var(--icon-inline-buffer-start--font-override, 1)
+            var(--icon-inline-buffer-start--font-multiplier, 1)
     );
 }
 button .icon:not(.settings-menu-icon):not(.toggle-icon):not(:only-child),
@@ -19813,7 +19812,7 @@ a.button-grey[href]
     margin-right: calc(0.25em * 1 * 1);
     margin-right: calc(
         var(--icon-inline-buffer, 0.25em) * var(--icon-inline-buffer-start, 1) *
-            var(--icon-inline-buffer-start--font-override, 1)
+            var(--icon-inline-buffer-start--font-multiplier, 1)
     );
 }
 button .icon:not(.settings-menu-icon):not(.toggle-icon):last-child,
@@ -19831,7 +19830,7 @@ a.button-grey[href]
     margin-left: calc(0.25em * 1 * 1);
     margin-left: calc(
         var(--icon-inline-buffer, 0.25em) * var(--icon-inline-buffer-start, 1) *
-            var(--icon-inline-buffer-start--font-override, 1)
+            var(--icon-inline-buffer-start--font-multiplier, 1)
     );
     margin-right: 0;
 }
@@ -20494,7 +20493,7 @@ input[type="reset"]::before,
     margin-right: calc(0.25em * 1 * 1);
     margin-right: calc(
         var(--icon-inline-buffer, 0.25em) * var(--icon-inline-buffer-start, 1) *
-            var(--icon-inline-buffer-start--font-override, 1)
+            var(--icon-inline-buffer-start--font-multiplier, 1)
     );
     margin-left: 0.25em;
     margin-left: var(--icon-inline-buffer, 0.25em);
@@ -20502,7 +20501,7 @@ input[type="reset"]::before,
     margin-left: calc(
         var(--icon-inline-buffer, 0.25em) *
             var(--icon-inline-buffer-end, 0.125) *
-            var(--icon-inline-buffer-end--font-override, 1)
+            var(--icon-inline-buffer-end--font-multiplier, 1)
     );
     line-height: 1;
     align-self: center;
@@ -20536,7 +20535,7 @@ input[type="submit"]::before {
     margin-right: calc(0.25em * 1 * 1);
     margin-right: calc(
         var(--icon-inline-buffer, 0.25em) * var(--icon-inline-buffer-start, 1) *
-            var(--icon-inline-buffer-start--font-override, 1)
+            var(--icon-inline-buffer-start--font-multiplier, 1)
     );
     margin-left: 0.25em;
     margin-left: var(--icon-inline-buffer, 0.25em);
@@ -20544,7 +20543,7 @@ input[type="submit"]::before {
     margin-left: calc(
         var(--icon-inline-buffer, 0.25em) *
             var(--icon-inline-buffer-end, 0.125) *
-            var(--icon-inline-buffer-end--font-override, 1)
+            var(--icon-inline-buffer-end--font-multiplier, 1)
     );
     line-height: 1;
     align-self: center;
@@ -20567,8 +20566,8 @@ input[type="submit"]::before {
 
 ::file-selector-button {
     --focus-ring-outline-offset: var(--stroke-relative-400, 0.125em);
-    --icon-inline-buffer-start--font-override: 2.5 !important;
-    --icon-inline-buffer-end--font-override: -0.5 !important;
+    --icon-inline-buffer-start: 2.5 !important;
+    --icon-inline-buffer-end: -0.5 !important;
     --icon-size-font: 0.9375em;
     --icon-size-pseudo: 0.9375em;
     --icon-vertical-align: middle !important;
@@ -20785,11 +20784,11 @@ input[type="submit"]::before {
     margin-right: calc(0.25em * 1 * 1);
     margin-left: calc(
         var(--icon-inline-buffer, 0.25em) * var(--icon-inline-buffer-start, 1) *
-            var(--icon-inline-buffer-start--font-override, 1)
+            var(--icon-inline-buffer-start--font-multiplier, 1)
     );
     margin-right: calc(
         var(--icon-inline-buffer, 0.25em) * var(--icon-inline-buffer-start, 1) *
-            var(--icon-inline-buffer-start--font-override, 1)
+            var(--icon-inline-buffer-start--font-multiplier, 1)
     );
 }
 ::file-selector-button
@@ -20807,7 +20806,7 @@ input[type="submit"]::before {
     margin-right: calc(0.25em * 1 * 1);
     margin-right: calc(
         var(--icon-inline-buffer, 0.25em) * var(--icon-inline-buffer-start, 1) *
-            var(--icon-inline-buffer-start--font-override, 1)
+            var(--icon-inline-buffer-start--font-multiplier, 1)
     );
 }
 ::file-selector-button
@@ -20815,7 +20814,7 @@ input[type="submit"]::before {
     margin-left: calc(0.25em * 1 * 1);
     margin-left: calc(
         var(--icon-inline-buffer, 0.25em) * var(--icon-inline-buffer-start, 1) *
-            var(--icon-inline-buffer-start--font-override, 1)
+            var(--icon-inline-buffer-start--font-multiplier, 1)
     );
     margin-right: 0;
 }
@@ -21422,6 +21421,31 @@ blockquote + .margins-flow-paragraph-small,
 
 .text-align-end {
     text-align: right;
+}
+
+.font-family-icons,
+.font-family-icons * {
+    vertical-align: middle;
+    vertical-align: var(--icon-vertical-align, middle);
+    align-self: center;
+    color: hsl(339.45, 0%, 17.88%);
+    color: var(--icon-color, var(--theme-ui, CanvasText));
+    letter-spacing: 0.1em !important;
+    font-family: "Design System Utilities Icons" !important;
+    font-weight: 400 !important;
+    font-size: 0.9375em !important;
+    font-size: var(--icon-size-font, 0.9375em) !important;
+    font-size: calc(0.9375em * 1 * 1) !important;
+    font-size: calc(
+        var(--icon-size-font, 0.9375em) *
+            var(--icon-size-inline--multiplier, 1) *
+            var(--icon-size-inline--font-multiplier, 1)
+    ) !important;
+    line-height: 1 !important;
+    color: var(
+        --icon-color,
+        var(--icon-color, var(--theme-ui, CanvasText))
+    ) !important;
 }
 
 /* # UTILITIES - THEMES
@@ -22165,7 +22189,7 @@ blockquote + .margins-flow-paragraph-small,
     margin-left: calc(0.25em * 1 * 1);
     margin-left: calc(
         var(--icon-inline-buffer, 0.25em) * var(--icon-inline-buffer-start, 1) *
-            var(--icon-inline-buffer-start--font-override, 1)
+            var(--icon-inline-buffer-start--font-multiplier, 1)
     );
     margin-right: 0.25em;
     margin-right: var(--icon-inline-buffer, 0.25em);
@@ -22173,7 +22197,7 @@ blockquote + .margins-flow-paragraph-small,
     margin-right: calc(
         var(--icon-inline-buffer, 0.25em) *
             var(--icon-inline-buffer-end, 0.125) *
-            var(--icon-inline-buffer-end--font-override, 1)
+            var(--icon-inline-buffer-end--font-multiplier, 1)
     );
     line-height: 1;
     align-self: center;
@@ -22249,7 +22273,7 @@ blockquote + .margins-flow-paragraph-small,
     margin-right: calc(0.25em * 1 * 1);
     margin-right: calc(
         var(--icon-inline-buffer, 0.25em) * var(--icon-inline-buffer-start, 1) *
-            var(--icon-inline-buffer-start--font-override, 1)
+            var(--icon-inline-buffer-start--font-multiplier, 1)
     );
     margin-left: 0.25em;
     margin-left: var(--icon-inline-buffer, 0.25em);
@@ -22257,7 +22281,7 @@ blockquote + .margins-flow-paragraph-small,
     margin-left: calc(
         var(--icon-inline-buffer, 0.25em) *
             var(--icon-inline-buffer-end, 0.125) *
-            var(--icon-inline-buffer-end--font-override, 1)
+            var(--icon-inline-buffer-end--font-multiplier, 1)
     );
     line-height: 1;
     align-self: center;

@@ -524,6 +524,19 @@ export declare namespace Tokens {
                     name: string;
                     appendSystemFontsToFallbacks: true;
                     contentWidthScale: number;
+                    css: {
+                        icon: {
+                            inline: {
+                                buffer: {
+                                    start: number;
+                                };
+                            };
+                            size: {
+                                $: number;
+                                inline: number;
+                            };
+                        };
+                    };
                     fallbacks: string[];
                     lineHeightScale: number;
                     sizeAdjust: "95%";
@@ -562,6 +575,9 @@ export declare namespace Tokens {
                     name: string;
                     appendSystemFontsToFallbacks: "monospace";
                     contentWidthScale: number;
+                    css: {
+                        letterSpacing: number;
+                    };
                     fallbacks: string[];
                     sizeAdjust: "96.5%";
                     weights: {

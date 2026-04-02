@@ -130,6 +130,9 @@ export class Tokens extends AbstractTokens {
                 slug: 'icons',
                 name: this.icons.fontName,
                 appendSystemFontsToFallbacks: false,
+                css: {
+                    letterSpacing: 0.1,
+                },
                 unicodeRange: unicodeRange ? unicodeRange : undefined,
             };
             const iconFontOptions = {
@@ -416,10 +419,23 @@ export class Tokens extends AbstractTokens {
                     name: 'Open Dyslexic',
                     appendSystemFontsToFallbacks: true,
                     contentWidthScale: 1.2,
+                    css: {
+                        icon: {
+                            inline: {
+                                buffer: {
+                                    start: 1.5,
+                                },
+                            },
+                            size: {
+                                $: 1.0625,
+                                inline: 1.25,
+                            },
+                        },
+                    },
                     fallbacks: [
                         'Verdana',
                     ],
-                    lineHeightScale: 1.2,
+                    lineHeightScale: 1.15,
                     sizeAdjust: '95%',
                     weights: objectGenerator(['400', '700'], (weight) => objectGenerator(["normal", "italic"], (style) => familyGenerator.fileGenerator('dyslexic', 'Open Dyslexic', weight == '400' ? '100 400' : '500 900', style, {
                         pathWeight: weight,
@@ -445,6 +461,9 @@ export class Tokens extends AbstractTokens {
                     name: 'IBM Plex Mono',
                     appendSystemFontsToFallbacks: 'monospace',
                     contentWidthScale: 1.125,
+                    css: {
+                        letterSpacing: -0.015,
+                    },
                     fallbacks: [
                         'Courier New',
                     ],

@@ -32,3 +32,11 @@
 %text-align-end {
     text-align: end;
 }
+
+@if config.$template_globals or config.$template_tokens or config.$template_utils {
+    @if font-family-exists(icons) {
+        @at-root %font-family-icons {
+            @include font-family-icons;
+        }
+    }
+}

@@ -122,14 +122,8 @@
 
     @include cx-prop(focus-ring-outline-offset, var-style(button-focus-offset));
 
-    @include cx-prop(
-        icon-inline-buffer-start--font-override,
-        var-style(button-icon-buffer-start) !important
-    );
-    @include cx-prop(
-        icon-inline-buffer-end--font-override,
-        var-style(button-icon-buffer-end) !important
-    );
+    @include cx-prop(icon-inline-buffer-start, var-style(button-icon-buffer-start) !important);
+    @include cx-prop(icon-inline-buffer-end, var-style(button-icon-buffer-end) !important);
 
     @include cx-prop(icon-size-font, var-style(button-icon-size-font));
     @include cx-prop(icon-size-pseudo, var-style(button-icon-size-pseudo));
@@ -286,24 +280,24 @@
         vertical-align: #{var-style(icon-vertical-align)};
 
         &:not(.settings-menu-icon):not(.toggle-icon) {
-            margin-inline: #{snippet-icon-pseudo-margin-inline(start)};
+            margin-inline: #{font-family-icons--margin-inline(start)};
 
             &:not(:only-child) {
                 $_size: var-style(button-icon-size-pseudo);
 
                 @include cx-prop(icon-size, $_size);
-                @include cx-prop(icon-size, snippet-icon-pseudo-icon-size($_size));
+                @include cx-prop(icon-size, font-family-icons--icon-size($_size));
 
                 bottom: #{var-style(button-icon-embedded-bottom)};
             }
 
             &:first-child {
                 margin-inline-start: 0;
-                margin-inline-end: #{snippet-icon-pseudo-margin-inline(start)};
+                margin-inline-end: #{font-family-icons--margin-inline(start)};
             }
 
             &:last-child {
-                margin-inline-start: #{snippet-icon-pseudo-margin-inline(start)};
+                margin-inline-start: #{font-family-icons--margin-inline(start)};
                 margin-inline-end: 0;
             }
 

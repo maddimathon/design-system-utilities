@@ -221,7 +221,13 @@ export class Tokens<
                 name: this.icons.fontName,
 
                 appendSystemFontsToFallbacks: false,
+
+                css: {
+                    letterSpacing: 0.1,
+                },
+
                 unicodeRange: unicodeRange ? unicodeRange : undefined,
+
             } as const satisfies Partial<Tokens_Typography.Font.Family<'icons'>>;
 
             const iconFontOptions = {
@@ -846,10 +852,29 @@ export namespace Tokens {
 
                     appendSystemFontsToFallbacks: true,
                     contentWidthScale: 1.2,
+
+                    css: {
+
+                        icon: {
+
+                            inline: {
+                                buffer: {
+                                    start: 1.5,
+                                },
+                            },
+
+                            size: {
+                                $: 1.0625,
+                                inline: 1.25,
+                            },
+                        },
+                    },
+
                     fallbacks: [
                         'Verdana',
                     ],
-                    lineHeightScale: 1.2,
+
+                    lineHeightScale: 1.15,
                     sizeAdjust: '95%',
 
                     weights: objectGenerator(
@@ -905,9 +930,15 @@ export namespace Tokens {
 
                     appendSystemFontsToFallbacks: 'monospace',
                     contentWidthScale: 1.125,
+
+                    css: {
+                        letterSpacing: -0.015,
+                    },
+
                     fallbacks: [
                         'Courier New',
                     ],
+
                     sizeAdjust: '96.5%',
 
                     weights: objectGenerator(

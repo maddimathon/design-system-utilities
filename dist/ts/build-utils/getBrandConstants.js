@@ -29,6 +29,7 @@ export var getBrandConstants;
         const include = {
             base64: args.incl?.base64 ?? false,
             css: args.incl?.css ?? false,
+            glyphs: args.incl?.glyphs ?? true,
             names: args.incl?.names ?? true,
             slugs: args.incl?.slugs ?? false,
             svg: args.incl?.svg ?? true,
@@ -74,6 +75,20 @@ export var getBrandConstants;
              * Values for inline CSS use.
              */
             entries.css = entries.all.map(mapper);
+        }
+        if (include.glyphs) {
+            const glyphsFn = args.valueMappers?.glyphs;
+            const keyFn = args.keyMappers?.glyphs ?? ((key) => key);
+            const mapper = typeof glyphsFn === 'function'
+                ? ([key, value]) => [
+                    keyFn(key),
+                    glyphsFn(value.meta?.codepoint),
+                ]
+                : ([key, value]) => [keyFn(key), value.meta?.codepoint?.toString(16)];
+            /**
+             * Values for inline CSS use.
+             */
+            entries.glyphs = entries.all.map(mapper);
         }
         if (include.names) {
             const namesFn = args.valueMappers?.names;
@@ -136,6 +151,7 @@ export var getBrandConstants;
         getSvgConsts.returnOpts = [
             'base64',
             'css',
+            'glyphs',
             'names',
             'slugs',
             'svg',
@@ -304,6 +320,7 @@ export var getBrandConstants;
                     valueMappers: {
                         base64: (base64) => `'${base64.replace(/'/g, "\\'")}'`,
                         css: (css) => `'${css.replace(/'/g, "\\'")}'`,
+                        glyphs: (glyph) => glyph ? `"\\u{${glyph.toString(16).replace(/'/g, "\\'")}}"` : 'null',
                         names: (label) => `_x( '${label}', '${setName} display name', '${textDomain}' )`,
                         slugs: (slug) => `'${slug.replace(/'/g, "\\'")}'`,
                         svg: (svg) => `'${svg.replace(/'/g, "\\'")}'`,
@@ -323,6 +340,10 @@ export var getBrandConstants;
                     let insideHook = false;
                     let type;
                     switch (opt) {
+                        case 'glyphs':
+                            content = entriesToObject(entries[opt]);
+                            type = `object{ ${keys.map(key => `${key}: ?string`).join(', ')} }`;
+                            break;
                         case 'names':
                             content = entriesToArray(entries[opt], true);
                             insideHook = true;
@@ -490,6 +511,7 @@ export var getBrandConstants;
                     valueMappers: {
                         base64: (base64) => `'${base64.replace(/'/g, "\\'")}'`,
                         css: (svg) => `'${svg.replace(/'/g, "\\'")}'`,
+                        glyphs: (glyph) => glyph ? `'\\${glyph.toString(16).replace(/'/g, "\\'")}'` : 'null',
                         names: (label) => `_x( '${label}', '${setName} display name', '${textDomain}' )`,
                         slugs: (slug) => `'${slug.replace(/'/g, "\\'")}'`,
                         svg: (svg) => `'${svg.replace(/'/g, "\\'")}'`,
@@ -506,6 +528,7 @@ export var getBrandConstants;
                     let content;
                     let type = undefined;
                     switch (opt) {
+                        case 'glyphs':
                         case 'names':
                             content = entriesToObject(entries[opt]);
                             break;

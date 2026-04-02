@@ -183,22 +183,184 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
 }
 
 ///
+/// @since ___PKG_VERSION___
+///
+@function font-family-icons--icon-size($size: var-style(icon-size-pseudo)) {
+    @return calc(
+        $size * do-var(icon-size-inline--multiplier, 1) *
+            do-var(icon-size-inline--font-multiplier, 1)
+    );
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@function font-family-icons--margin-inline($dir: 'start') {
+    @return calc(
+        var-style(icon-inline-buffer) * var-style(icon-inline-buffer-#{$dir}) *
+            do-var(icon-inline-buffer-#{$dir}--font-multiplier, 1)
+    );
+}
+
+///
+/// Adds base properties for displaying an icon inside a ::before or ::after selector.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin font-family-icons-base-properties(
+    $slug: null,
+    $pseudo: 'after',
+    //
+    $display: inline-block,
+    $height: true,
+    $lineHeight: 1,
+    $spacing: true,
+    $spacingBlock: true,
+    $spacingProp: margin,
+    $verticalAlign: true
+) {
+    $_start: if($pseudo == before, end, start);
+    $_end: if($pseudo == before, start, end);
+
+    @if $display != false {
+        @include utils.prop-display($display);
+    }
+
+    @if $verticalAlign {
+        vertical-align: #{var-style(icon-vertical-align)};
+    }
+
+    @if $spacingBlock {
+        #{$spacingProp}-block-start: #{do-var(icon-inline-margin-block-start)};
+    }
+
+    @if $spacing {
+        #{$spacingProp}-inline-#{$_start}: 0;
+        #{$spacingProp}-inline-#{$_start}: #{font-family-icons--margin-inline(start)};
+
+        #{$spacingProp}-inline-#{$_end}: #{var-style(icon-inline-buffer)};
+        #{$spacingProp}-inline-#{$_end}: #{font-family-icons--margin-inline(end)};
+    }
+
+    @if $height {
+        height: #{var-style(icon-size-pseudo)};
+        height: #{font-family-icons--icon-size()};
+
+        @if $slug != null {
+            aspect-ratio: #{icon-aspect-ratio-value($slug)};
+        }
+    }
+
+    @if $lineHeight != false {
+        line-height: 1;
+    }
+
+    @if $display != inline {
+        align-self: center;
+    }
+
+    color: #{var-style(icon-color)};
+}
+
+///
+/// Sets properties for using the icon font.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin font-family-icons(
+    $display: false,
+    $includeChildren: true,
+    $includeSizeTokens: false,
+    $letterSpacing: null,
+    $spacingBlock: null,
+    $spacing: null,
+    $spacingProp: margin,
+    $args...
+) {
+    @if $includeSizeTokens {
+        @include font-family-size-tokens(icons, $setLetterSpacing: false, $args...);
+    }
+
+    $letterSpacing: if(
+        $letterSpacing!=null,
+        $letterSpacing,
+        map.get(tokens.$font, family, icons, css, letterSpacing)
+    );
+
+    $sels: &;
+
+    @if $includeChildren {
+        $sels: list.append($sels, selector.nest($sels, '*'));
+    }
+
+    @at-root #{$sels} {
+        @include font-family-icons-base-properties(
+            $display: $display,
+            $height: false,
+            $lineHeight: false,
+            $spacing: false,
+            $spacingBlock: if($spacingBlock == null, $display, $spacingBlock),
+            $args...
+        );
+
+        @if if($spacing == null, $display, $spacing) {
+            #{$spacingProp}-inline: 0;
+            #{$spacingProp}-inline: #{font-family-icons--margin-inline(start)};
+        }
+
+        @if $letterSpacing {
+            letter-spacing: #{$letterSpacing}em !important;
+        }
+
+        font-family: #{var-font-family(icons)} !important;
+        font-weight: 400 !important;
+
+        font-size: #{var-style(icon-size-font)} !important;
+        font-size: #{font-family-icons--icon-size($size: var-style(icon-size-font))} !important;
+
+        line-height: 1 !important;
+
+        color: #{do-var(icon-color, var-style(icon-color))} !important;
+    }
+}
+
+///
 /// Changes varies size-related tokens to the values for the given family.
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin font-family-size-tokens($slug, $setProps: true) {
+@mixin font-family-size-tokens(
+    $slug,
+    $setProps: true,
+    $icon_display: inline-block,
+    $icon_spacingProp: null,
+    $setLetterSpacing: true
+) {
     //
-    $map: map.get(tokens.$designSystem, font, familyOverrides, $slug);
+    $map: map.get(tokens.$font, family, $slug);
 
     @if $map {
-        $label: map.get($map, label);
+        $css: map.flatten(map.get($map, css));
 
-        @if $label == 'Open Dyslexic' {
-            // UPGRADE - convert this to a prop in the font family tokens
-            @include utils.cx-prop(icon-size--font-multiplier, 1.0625);
-            @include utils.cx-prop(icon-size-inline--font-multiplier, 1.25);
-            @include utils.cx-prop(icon-inline-buffer-start--font-override, 1.5);
+        @each $_propSlug
+            in (icon-size, icon-size-inline, icon-inline-buffer-start, icon-inline-buffer-end)
+        {
+            $_propValue: map.get($css, $_propSlug);
+
+            @if $_propValue != null {
+                @include utils.cx-prop(#{$_propSlug}--font-multiplier, $_propValue);
+            }
+        }
+
+        @if $setLetterSpacing {
+            $letterSpacing: map.get($css, letterSpacing);
+
+            @if $letterSpacing != null {
+                &,
+                & :where(*) {
+                    letter-spacing: #{$letterSpacing}em !important;
+                }
+            }
         }
 
         $width_multiplier: map.get($map, contentWidthScale);

@@ -64,7 +64,7 @@ export declare namespace getBrandConstants {
         /**
          * @since 0.1.0-beta.0.draft
          */
-        const returnOpts: readonly ["base64", "css", "names", "slugs", "svg"];
+        const returnOpts: readonly ["base64", "css", "glyphs", "names", "slugs", "svg"];
         /**
          * @since 0.1.0-beta.0.draft
          */

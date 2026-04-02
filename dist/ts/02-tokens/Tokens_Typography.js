@@ -201,10 +201,13 @@ export class Tokens_Typography extends AbstractTokens {
                 // UPGRADE - make empty size objects equal to null
                 size: this.data.size,
                 sizeScale: this.data.sizeScale,
-                family: this.data.fonts && objectMap(this.data.fonts, ([__key, family]) => family && ({
+                family: this.data.fonts && objectMap(this.data.fonts, ([__key, family]) => family && {
+                    contentWidthScale: family.contentWidthScale,
+                    css: family.css,
+                    lineHeightScale: family.lineHeightScale,
                     variable: family.variable && objectMap(family.variable, ([key, value]) => familyMapper(family, 'variable', { key, value })),
                     weights: objectMap(family.weights, ([weight, fontSet]) => fontSet && objectMap(fontSet, ([key, value]) => familyMapper(family, weight, { key, value }))),
-                })),
+                }),
                 familyOverrides: this.familyOverrides,
             },
             line_height: this.data.lineHeight,

@@ -55,6 +55,7 @@ export namespace getBrandConstants {
         const include = {
             base64: args.incl?.base64 ?? false,
             css: args.incl?.css ?? false,
+            glyphs: args.incl?.glyphs ?? true,
             names: args.incl?.names ?? true,
             slugs: args.incl?.slugs ?? false,
             svg: args.incl?.svg ?? true,
@@ -131,6 +132,24 @@ export namespace getBrandConstants {
              * Values for inline CSS use.
              */
             entries.css = entries.all.map( mapper );
+        }
+
+        if ( include.glyphs ) {
+            const glyphsFn = args.valueMappers?.glyphs;
+
+            const keyFn = args.keyMappers?.glyphs ?? ( ( key: string ) => key );
+
+            const mapper: MapperFn = typeof glyphsFn === 'function'
+                ? ( [ key, value ] ) => [
+                    keyFn( key ),
+                    glyphsFn( value.meta?.codepoint ),
+                ]
+                : ( [ key, value ] ) => [ keyFn( key ), value.meta?.codepoint?.toString( 16 ) ];
+
+            /**
+             * Values for inline CSS use.
+             */
+            entries.glyphs = entries.all.map( mapper );
         }
 
         if ( include.names ) {
@@ -247,6 +266,7 @@ export namespace getBrandConstants {
         export const returnOpts = [
             'base64',
             'css',
+            'glyphs',
             'names',
             'slugs',
             'svg',
@@ -548,6 +568,7 @@ export namespace getBrandConstants {
                         valueMappers: {
                             base64: ( base64 ): string => `'${ base64.replace( /'/g, "\\'" ) }'`,
                             css: ( css ): string => `'${ css.replace( /'/g, "\\'" ) }'`,
+                            glyphs: ( glyph?: number | string ): string => glyph ? `"\\u{${ glyph.toString( 16 ).replace( /'/g, "\\'" ) }}"` : 'null',
                             names: ( label ): string => `_x( '${ label }', '${ setName } display name', '${ textDomain }' )`,
                             slugs: ( slug ): string => `'${ slug.replace( /'/g, "\\'" ) }'`,
                             svg: ( svg ): string => `'${ svg.replace( /'/g, "\\'" ) }'`,
@@ -580,6 +601,11 @@ export namespace getBrandConstants {
                     let type: string;
 
                     switch ( opt ) {
+
+                        case 'glyphs':
+                            content = entriesToObject( entries[ opt ] );
+                            type = `object{ ${ keys.map( key => `${ key }: ?string` ).join( ', ' ) } }`;
+                            break;
 
                         case 'names':
                             content = entriesToArray( entries[ opt ], true );
@@ -856,6 +882,7 @@ export namespace getBrandConstants {
                         valueMappers: {
                             base64: ( base64 ): string => `'${ base64.replace( /'/g, "\\'" ) }'`,
                             css: ( svg ): string => `'${ svg.replace( /'/g, "\\'" ) }'`,
+                            glyphs: ( glyph: number | string ): string => glyph ? `'\\${ glyph.toString( 16 ).replace( /'/g, "\\'" ) }'` : 'null',
                             names: ( label ): string => `_x( '${ label }', '${ setName } display name', '${ textDomain }' )`,
                             slugs: ( slug ): string => `'${ slug.replace( /'/g, "\\'" ) }'`,
                             svg: ( svg ): string => `'${ svg.replace( /'/g, "\\'" ) }'`,
@@ -884,6 +911,7 @@ export namespace getBrandConstants {
 
                     switch ( opt ) {
 
+                        case 'glyphs':
                         case 'names':
                             content = entriesToObject( entries[ opt ] );
                             break;

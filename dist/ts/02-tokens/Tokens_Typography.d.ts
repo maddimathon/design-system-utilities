@@ -108,20 +108,9 @@ export declare namespace Tokens_Typography {
      */
     export type ScssVars<T_FontFamilySlug extends string> = {
         font: {
-            family: undefined | {
-                [K in T_FontFamilySlug]?: {
-                    weights: {
-                        [K in WholeTokenLevel]?: undefined | {
-                            normal: undefined | Classify<Tokens_Typography.Font.SingleFamilyScss>;
-                            italic: undefined | Classify<Tokens_Typography.Font.SingleFamilyScss>;
-                        };
-                    };
-                    variable?: undefined | {
-                        normal: undefined | Classify<Tokens_Typography.Font.SingleFamilyScss>;
-                        italic: undefined | Classify<Tokens_Typography.Font.SingleFamilyScss>;
-                    };
-                };
-            } & AbstractTokens.ScssReturn;
+            family?: undefined | {
+                [F in T_FontFamilySlug]?: undefined | ScssVars.Family;
+            };
             familyOverrides: undefined | {
                 [K in T_FontFamilySlug]?: undefined | Tokens_Typography.Font.FamilyOverride;
             };
@@ -130,6 +119,20 @@ export declare namespace Tokens_Typography {
         };
         line_height: Tokens_Typography.Data<T_FontFamilySlug, number>['lineHeight'];
     };
+    export namespace ScssVars {
+        type Family = Pick<Tokens_Typography.Font.Family, 'contentWidthScale' | 'css' | 'lineHeightScale'> & {
+            weights: {
+                [K in WholeTokenLevel]?: undefined | {
+                    normal: undefined | Classify<Tokens_Typography.Font.SingleFamilyScss>;
+                    italic: undefined | Classify<Tokens_Typography.Font.SingleFamilyScss>;
+                };
+            };
+            variable?: undefined | {
+                normal: undefined | Classify<Tokens_Typography.Font.SingleFamilyScss>;
+                italic: undefined | Classify<Tokens_Typography.Font.SingleFamilyScss>;
+            };
+        };
+    }
     /**
      * @since 0.1.0-alpha
      */
@@ -268,10 +271,31 @@ export declare namespace Tokens_Typography {
              */
             appendSystemFontsToFallbacks?: boolean | "monospace";
             /**
+             * Values to use in the css.
+             */
+            css?: undefined | RecursivePartial<{
+                icon: {
+                    inline: {
+                        buffer: {
+                            start: number;
+                            end: number;
+                        };
+                    };
+                    size: {
+                        $: number;
+                        inline: number;
+                    };
+                };
+                /**
+                 * Will be used as a multiplier.
+                 */
+                letterSpacing: number;
+            }>;
+            /**
              * A multiplier for the content/page widths when this font is
              * applied as an override.
              */
-            contentWidthScale?: number;
+            contentWidthScale?: undefined | number;
             /**
              * Whether this should be an override option in website settings.
              */
@@ -280,7 +304,7 @@ export declare namespace Tokens_Typography {
              * A multiplier for the line height when this font is applied as an
              * override.
              */
-            lineHeightScale?: number;
+            lineHeightScale?: undefined | number;
             /**
              * Whether to include font-face declarations in the css.
              *

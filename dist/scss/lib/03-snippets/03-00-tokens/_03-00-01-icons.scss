@@ -140,82 +140,6 @@ $_allUniqueIconAspectRatios: ();
 }
 
 ///
-/// @since 0.1.0-beta.0.draft
-///
-@function snippet-icon-pseudo-icon-size($size: var-style(icon-size-pseudo)) {
-    @return calc(
-        $size * do-var(icon-size-inline--multiplier, 1) *
-            do-var(icon-size-inline--font-multiplier, 1)
-    );
-}
-
-///
-/// @since 0.1.0-beta.0.draft
-///
-@function snippet-icon-pseudo-margin-inline($dir: 'start') {
-    @return calc(
-        var-style(icon-inline-buffer) * var-style(icon-inline-buffer-#{$dir}) *
-            do-var(icon-inline-buffer-#{$dir}--font-override)
-    );
-}
-
-///
-/// Adds base properties for displaying an icon inside a ::before or ::after selector.
-///
-/// @since 0.1.0-beta.0.draft
-///
-@mixin snippet-icon-pseudo-base-properties(
-    $slug: null,
-    $pseudo: 'after',
-    //
-    $display: inline-block,
-    $height: true,
-    $spacing: true,
-    $spacingProp: margin,
-    $verticalAlign: true
-) {
-    $_start: if($pseudo == before, end, start);
-    $_end: if($pseudo == before, start, end);
-
-    @include prop-display($display);
-
-    @if $verticalAlign {
-        vertical-align: #{var-style(icon-vertical-align)};
-    }
-
-    #{$spacingProp}-block-start: #{do-var(icon-inline-margin-block-start)};
-
-    @if $spacing {
-        #{$spacingProp}-inline-#{$_start}: 0;
-        #{$spacingProp}-inline-#{$_start}: #{snippet-icon-pseudo-margin-inline(
-                start
-            )};
-
-        #{$spacingProp}-inline-#{$_end}: #{var-style(icon-inline-buffer)};
-        #{$spacingProp}-inline-#{$_end}: #{snippet-icon-pseudo-margin-inline(
-                end
-            )};
-    }
-
-    @if $height {
-        height: #{var-style(icon-size-pseudo)};
-        height: #{snippet-icon-pseudo-icon-size()};
-
-        @if $slug != null {
-            aspect-ratio: #{icon-aspect-ratio-value($slug)};
-        }
-    }
-
-    line-height: 1;
-
-    @if $display != inline {
-        align-self: center;
-    }
-
-    color: #{var-style(icon-color)};
-}
-
-///
 /// Adds properties for displaying an icon inside a ::before or ::after selector.
 ///
 /// @since 0.1.0-alpha
@@ -232,12 +156,10 @@ $_allUniqueIconAspectRatios: ();
 
     @if config.$fn_pseudoIconsUseFont and $glyph and font-family-exists(icons) {
         @if $includeBasePropsOnly or $includeBaseProps {
-            @include snippet-icon-pseudo-base-properties(
+            @include font-family-icons-base-properties(
                 $slug: $slug,
                 $pseudo: $pseudo,
-                // $display: inline,
                 $height: false,
-                // $spacingProp: padding,
                 $args...
             );
 
@@ -245,7 +167,7 @@ $_allUniqueIconAspectRatios: ();
             font-weight: 400 !important;
 
             font-size: #{var-style(icon-size-font)} !important;
-            font-size: #{snippet-icon-pseudo-icon-size(
+            font-size: #{font-family-icons--icon-size(
                     $size: var-style(icon-size-font)
                 )} !important;
         }
@@ -261,7 +183,7 @@ $_allUniqueIconAspectRatios: ();
     } @else {
         @supports (mask-image: url('../fake.svg')) {
             @if $includeBasePropsOnly or $includeBaseProps {
-                @include snippet-icon-pseudo-base-properties(
+                @include font-family-icons-base-properties(
                     $slug: $slug,
                     $pseudo: $pseudo,
                     $args...
