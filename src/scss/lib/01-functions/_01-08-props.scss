@@ -1,0 +1,54 @@
+///
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/map';
+
+// @use '../../config';
+@use '../../tokens';
+
+// @use 'pkg:@maddimathon/utility-astro/01-functions' as utils;
+
+///
+/// @since ___PKG_VERSION___
+///
+@function get-extend-selectors-colour-utils() {
+    $sels: ();
+
+    $sels: list.append($sels, ('.background-default', background-default));
+
+    @each $variant in map.get(tokens.$themesMeta, keys, background) {
+        $sels: list.append($sels, ('.background-#{$variant}', background-#{$variant}));
+    }
+
+    $sels: list.append($sels, ('.color-default', color-default));
+
+    @each $variant in map.get(tokens.$themesMeta, keys, text) {
+        $sels: list.append($sels, ('.color-#{$variant}', color-#{$variant}));
+    }
+
+    @return $sels;
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@function get-extend-selectors-icon-utils() {
+    $sels: ();
+
+    @each $iconSlug, $iconMap in tokens.$icons {
+        $sels: list.join(
+            $sels,
+            (
+                ('.icon--#{$iconSlug}', icon--#{$iconSlug}),
+                ('.add-#{$iconSlug}-icon', add-#{$iconSlug}-icon),
+                ('.add-#{$iconSlug}-icon-after', add-#{$iconSlug}-icon-after),
+                ('.add-#{$iconSlug}-icon-before', add-#{$iconSlug}-icon-before)
+            )
+        );
+    }
+
+    @return $sels;
+}

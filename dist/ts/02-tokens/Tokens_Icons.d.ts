@@ -71,6 +71,19 @@ export declare class Tokens_Icons<T_ExtraIconNames extends string> extends Abstr
         up: number;
         warning: number;
         computer: number;
+        alarm: number;
+        biography: number;
+        book: number;
+        contact: number;
+        discussion: number;
+        group: number;
+        link: number;
+        location: number;
+        person: number;
+        pinned: number;
+        quote: number;
+        reading: number;
+        alert: number;
     };
     static get default(): {
         [I in Tokens_Icons.DefaultIconNames]: Tokens_Icons.Local_SvgMaker.Data<I, never>;
@@ -143,7 +156,7 @@ export declare namespace Tokens_Icons {
     /**
      * @since 0.1.0-alpha
      */
-    type DefaultIconNames = "attachment" | "caution" | "check" | "clock" | "close" | "code" | "compass" | "computer" | "dash" | "draft" | "double-check" | "down" | "download" | "error" | "external" | "fail" | "forbidden" | "hidden" | "info" | "left" | "lightbulb" | "lightning" | "lock" | "logo-facebook" | "logo-instagram" | "logo-linkedin" | "maximum" | "minimum" | "minus" | "no" | "note" | "paperclip" | "plus" | "private" | "question" | "refresh" | "right" | "search" | "settings" | "star" | "success" | "unlock" | "ui" | "ui-check" | "ui-minimum" | "up" | "warning";
+    type DefaultIconNames = "alarm" | "alert" | "attachment" | "biography" | "book" | "caution" | "check" | "clock" | "close" | "code" | "compass" | "compass" | "computer" | "contact" | "dash" | "discussion" | "double-check" | "down" | "download" | "draft" | "error" | "external" | "fail" | "forbidden" | "group" | "hidden" | "info" | "left" | "lightbulb" | "lightning" | "link" | "location" | "lock" | "logo-facebook" | "logo-instagram" | "logo-linkedin" | "maximum" | "minimum" | "minus" | "no" | "note" | "paperclip" | "person" | "pinned" | "plus" | "private" | "question" | "quote" | "reading" | "refresh" | "right" | "search" | "settings" | "star" | "success" | "ui-check" | "ui-minimum" | "ui" | "unlock" | "up" | "warning";
     /**
      * @since 0.1.0-beta.0.draft
      */

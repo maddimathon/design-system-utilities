@@ -134,7 +134,7 @@ export namespace getBrandConstants {
             entries.css = entries.all.map( mapper );
         }
 
-        if ( include.glyphs ) {
+        if ( _setName === 'icons' && include.glyphs ) {
             const glyphsFn = args.valueMappers?.glyphs;
 
             const keyFn = args.keyMappers?.glyphs ?? ( ( key: string ) => key );

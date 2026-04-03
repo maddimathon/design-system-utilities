@@ -137,9 +137,14 @@
         )
     );
 
-    $additional: list.append($additional, ('.text-align-center', 'text-align-center'));
-    $additional: list.append($additional, ('.text-align-end', 'text-align-end'));
-    $additional: list.append($additional, ('.text-align-start', 'text-align-start'));
+    $additional: list.join(
+        $additional,
+        (
+            ('.text-align-center', 'text-align-center'),
+            ('.text-align-end', 'text-align-end'),
+            ('.text-align-start', 'text-align-start')
+        )
+    );
 
     @if config.$template_docs {
         $additional: list.append($additional, ('.site-content .button-span', 'button-span'));
@@ -152,26 +157,19 @@
     $additional_optional: list.append($additional_optional, ('.site-sidebar', site-sidebar));
     $additional_optional: list.append($additional_optional, ('.widget-block', widget-block));
 
-    $additional_optional: list.append(
+    $additional_optional: list.join(
         $additional_optional,
-        ('.widget-block__button-span', widget-block-cta-buttons)
+        (
+            ('.widget-block__button-span', widget-block-cta-buttons),
+            ('.widget-block__content', widget-block-content),
+            ('.widget-block__header', widget-block-header),
+            ('.widget-block__subtitle', widget-block-subtitle),
+            ('.widget-block__title', widget-block-title)
+        )
     );
-    $additional_optional: list.append(
-        $additional_optional,
-        ('.widget-block__content', widget-block-content)
-    );
-    $additional_optional: list.append(
-        $additional_optional,
-        ('.widget-block__header', widget-block-header)
-    );
-    $additional_optional: list.append(
-        $additional_optional,
-        ('.widget-block__subtitle', widget-block-subtitle)
-    );
-    $additional_optional: list.append(
-        $additional_optional,
-        ('.widget-block__title', widget-block-title)
-    );
+
+    $additional_optional: list.join($additional_optional, get-extend-selectors-colour-utils());
+    $additional_optional: list.join($additional_optional, get-extend-selectors-icon-utils());
 
     // $additional: list.append($additional, ((), 'paragraph-margins'));
     // $additional: list.append($additional, ((), 'paragraph-large-margins'));
@@ -202,18 +200,6 @@
         $additional_optional: list.append(
             $additional_optional,
             ('.min-width-#{$slug}', min-width-#{$slug})
-        );
-    }
-
-    @each $iconSlug, $iconMap in tokens.$icons {
-        $additional_optional: list.join(
-            $additional_optional,
-            (
-                ('.icon--#{$iconSlug}', icon--#{$iconSlug}),
-                ('.add-#{$iconSlug}-icon', add-#{$iconSlug}-icon),
-                ('.add-#{$iconSlug}-icon-after', add-#{$iconSlug}-icon-after),
-                ('.add-#{$iconSlug}-icon-before', add-#{$iconSlug}-icon-before)
-            )
         );
     }
 
@@ -256,25 +242,6 @@
                 )
             );
         }
-    }
-
-    $additional_optional: list.append(
-        $additional_optional,
-        ('.background-default', background-default)
-    );
-
-    @each $variant in map.get(tokens.$themesMeta, keys, background) {
-        $additional_optional: list.append(
-            $additional_optional,
-            ('.background-#{$variant}', background-#{$variant})
-        );
-    }
-
-    @each $variant in map.get(tokens.$themesMeta, keys, text) {
-        $additional_optional: list.append(
-            $additional_optional,
-            ('.color-#{$variant}', color-#{$variant})
-        );
     }
 
     $additional_optional: list.append($additional_optional, ('.alert-block', alert));

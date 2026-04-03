@@ -76,7 +76,7 @@ export var getBrandConstants;
              */
             entries.css = entries.all.map(mapper);
         }
-        if (include.glyphs) {
+        if (_setName === 'icons' && include.glyphs) {
             const glyphsFn = args.valueMappers?.glyphs;
             const keyFn = args.keyMappers?.glyphs ?? ((key) => key);
             const mapper = typeof glyphsFn === 'function'
