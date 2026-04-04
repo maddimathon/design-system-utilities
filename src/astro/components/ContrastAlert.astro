@@ -7,6 +7,7 @@
 
 /* import - types */
 import type { ComponentProps } from 'astro/types';
+import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 
 /* import - functions */
 import { getColourValue } from '../functions/getColourValue.js';
@@ -14,14 +15,15 @@ import { getColourValue } from '../functions/getColourValue.js';
 /* import - values */
 
 /* import - components */
-import AstroIcon from '@maddimathon/utility-astro/components/Icon';
+import { Icon as AstroIcon } from '@maddimathon/utility-astro/components';
 import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
+import Icon from './Icon.astro';
 
 /* import - layouts */
 
 /* PROPS ===================================== */
 
-export interface Props {
+export interface ContrastAlertProps {
     clr: null | ColourUtilities.Value_All;
     clrSlug: string;
     level: string;
@@ -29,14 +31,18 @@ export interface Props {
 
     brightness?: string;
     class?: string | string[];
+    icons?: Tokens.JsonReturn['icons'];
     title?: string;
 }
+
+type Props = ContrastAlertProps;
 
 const {
     brightness,
     class: classList,
     clr,
     clrSlug,
+    icons,
     level,
     title,
     type,
@@ -53,7 +59,7 @@ const varClr = clr && getColourValue(clr);
     style={varClr ? `--contrast-alert-color: ${varClr};` : undefined}
     title={title ?? clrSlug}
 >
-    <AstroIcon type={type} />
+    {icons?.[type] ? <Icon icon={icons[type]} /> : <AstroIcon type={type} />}
     <span
         data-brightness-mode={(brightness ?? Number(level) <= 500)
             ? 'dark'

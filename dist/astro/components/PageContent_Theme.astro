@@ -20,8 +20,11 @@ import { getLevelsInUse } from '../../ts/02-tokens/getLevelsInUse.js';
 /* import - values */
 
 /* import - components */
-import TableOfContents from '@maddimathon/utility-astro/components/TableOfContents';
-import Toggle from '@maddimathon/utility-astro/components/Toggle';
+import {
+    TableOfContents,
+    Toggle,
+} from '@maddimathon/utility-astro/components';
+
 import ThemeModeSwatch from './ThemeModeSwatch.astro';
 import Widget from './Widget.astro';
 import LoremIpsum from './LoremIpsum.astro';
@@ -31,8 +34,7 @@ import Alert from './Alert.astro';
 
 /* PROPS ===================================== */
 
-export interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
-    // theme: Tokens.JsonReturn['themes'][keyof Tokens.JsonReturn['themes']];
+interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
     tokens: Tokens.JsonReturn<T_Types>;
 
     defaultToggleToOpen?: boolean | `${"default"|T_Types['theme']['name']}-${TokenTypes.Theme.GetBrightnessKeys<T_Types['theme']>}`[];

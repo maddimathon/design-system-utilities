@@ -7,10 +7,12 @@
 
 /* import - types */
 import type { ComponentProps } from 'astro/types';
+import type { Classify } from '@maddimathon/utility-typescript/types';
+
 import type { TokenTypes } from '../../ts/02-tokens/@types.js';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
-import type { Props as ShadeSwatchTableProps } from './ShadeSwatchTable.astro';
+import type { ShadeSwatchTableProps } from './ShadeSwatchTable.astro';
 
 /* import - functions */
 import { mergeArgs, toTitleCase } from '@maddimathon/utility-typescript';
@@ -21,17 +23,19 @@ import { makeShadeTargetLevels } from '../functions/makeShadeTargetLevels.js';
 /* import - values */
 
 /* import - components */
-import Heading from '@maddimathon/utility-astro/components/Heading';
-import TableOfContents from '@maddimathon/utility-astro/components/TableOfContents';
+import {
+    Heading,
+    TableOfContents,
+} from '@maddimathon/utility-astro/components';
+
 import ShadeSwatchAllLists from './ShadeSwatchAllLists.astro';
 import ShadeSwatchTable from './ShadeSwatchTable.astro';
-import type { Classify } from '@maddimathon/utility-typescript/types';
 
 /* import - layouts */
 
 /* PROPS ===================================== */
 
-export interface Props<
+interface Props<
     T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
 > {
     tokens: Tokens.JsonReturn<T_Types>;

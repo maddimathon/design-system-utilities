@@ -7,8 +7,12 @@
 
 /* import - types */
 import type { GenericElementProps } from '@maddimathon/utility-astro';
-import type { AlertProps as UtilsAlertProps } from '@maddimathon/utility-astro/components/Alert';
-import type { AlertIconProps_Render } from '@maddimathon/utility-astro/components/Alert_Icon';
+
+import type {
+    AlertProps as UtilsAlertProps,
+    AlertIconProps_Render,
+} from '@maddimathon/utility-astro/components';
+
 import type { SvgMaker } from '../../ts/01-utilities/SvgMaker.js';
 
 /* import - functions */
@@ -16,7 +20,7 @@ import type { SvgMaker } from '../../ts/01-utilities/SvgMaker.js';
 /* import - values */
 
 /* import - components */
-import UtilsAlert from '@maddimathon/utility-astro/components/Alert';
+import { Alert as UtilsAlert } from '@maddimathon/utility-astro/components';
 import Icon from './Icon.astro';
 // import Icon from './Icon.astro';
 
@@ -28,7 +32,7 @@ export interface AlertProps extends UtilsAlertProps<AlertIconProps_Render> {
     icon: SvgMaker.JsonReturn;
 }
 
-export type Props = GenericElementProps<AlertProps, 'section'>;
+type Props = GenericElementProps<AlertProps, 'section'>;
 
 const { icon, class: classList = [], ...attributes }: Props = Astro.props;
 

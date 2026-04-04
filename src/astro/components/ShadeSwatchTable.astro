@@ -6,6 +6,7 @@
  */
 
 /* import - types */
+import type { GenericElementProps } from '@maddimathon/utility-astro';
 import type { TokenTypes } from '../../ts/02-tokens/@types.js';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Colour } from '../../ts/02-tokens/Tokens_Colour.js';
@@ -27,7 +28,8 @@ import { textColorLevel } from '../functions/textColorLevel.js';
 /* import - values */
  
 /* import - components */
-import Heading from '@maddimathon/utility-astro/components/Heading';
+import { Heading } from '@maddimathon/utility-astro/components';
+
 import ShadeSwatch from './ShadeSwatch.astro';
 import ContrastAlert from './ContrastAlert.astro';
 
@@ -35,7 +37,7 @@ import ContrastAlert from './ContrastAlert.astro';
 
 /* PROPS ===================================== */
 
-export interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
+export type ShadeSwatchTableProps<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> = {
     colour: Tokens_Colour.JsonReturn<T_Types['colour']> & {
         base: Tokens_Colour_ShadeMap.JsonReturn<T_Types['colour']> & {
             black: Tokens_Colour_ShadeMap.Shade.JsonReturn<T_Types['colour']>;
@@ -82,9 +84,9 @@ export interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypePa
         base?: undefined | Tokens_Colour_ShadeMap.JsonReturn<T_Types['colour']>;
         accent?: undefined | Tokens_Colour_ShadeMap.JsonReturn<T_Types['colour']>;
     };
-
-    frontmatter?: Omit<Props<T_Types>, 'frontmatter'>;
 };
+
+type Props = GenericElementProps<ShadeSwatchTableProps, 'table'>;
 
 const {
     excludeLevels = [],
@@ -585,6 +587,7 @@ const TARGET_HSL_CLRS = {
                                                     ]}
                                                     clr={getBaseColourObject( targetShadesMap.base, set.min[standard].ui )}
                                                     clrSlug={`base-${set.min[standard].ui}`}
+                                                    icons={tokens.icons}
                                                     level={set.min[standard].ui}
                                                     title={`${standard.toUpperCase()} UI min: ${set.min[standard].ui}`}
                                                     type='ui-minimum'
@@ -600,6 +603,7 @@ const TARGET_HSL_CLRS = {
                                                     ]}
                                                     clr={getBaseColourObject( targetShadesMap.base, set.min[standard].text )}
                                                     clrSlug={`base-${set.min[standard].text}`}
+                                                    icons={tokens.icons}
                                                     level={set.min[standard].text}
                                                     title={`${standard.toUpperCase()} text min: ${set.min[standard].text}`}
                                                     type='minimum'
@@ -633,6 +637,7 @@ const TARGET_HSL_CLRS = {
                                                 ]}
                                                 clr={getBaseColourObject( targetShadesMap.base, set.max )}
                                                 clrSlug={`base-${set.max}`}
+                                                icons={tokens.icons}
                                                 level={set.max}
                                                 title={`max: ${set.max}`}
                                                 type='maximum'
@@ -680,6 +685,7 @@ const TARGET_HSL_CLRS = {
                                                         ]}
                                                         clr={getMapColourObject( targetShadesMap.accent, targetShadesMap.base, goalLevels.accent[level].min[standard].ui )}
                                                         clrSlug={`accent-${goalLevels.accent[level].min[standard].ui}`}
+                                                        icons={tokens.icons}
                                                         level={goalLevels.accent[level].min[standard].ui}
                                                         title={`${standard.toUpperCase()} UI min: ${goalLevels.accent[level].min[standard].ui}`}
                                                         type='ui-minimum'
@@ -695,6 +701,7 @@ const TARGET_HSL_CLRS = {
                                                         ]}
                                                         clr={getMapColourObject( targetShadesMap.accent, targetShadesMap.base, goalLevels.accent[level].min[standard].text )}
                                                         clrSlug={`accent-${goalLevels.accent[level].min[standard].text}`}
+                                                        icons={tokens.icons}
                                                         level={goalLevels.accent[level].min[standard].text}
                                                         title={`${standard.toUpperCase()} text min: ${goalLevels.accent[level].min[standard].text}`}
                                                         type='minimum'
@@ -728,6 +735,7 @@ const TARGET_HSL_CLRS = {
                                                     ]}
                                                     clr={getMapColourObject( targetShadesMap.accent, targetShadesMap.base, goalLevels.accent[level].max )}
                                                     clrSlug={`accent-${goalLevels.accent[level].max}`}
+                                                    icons={tokens.icons}
                                                     level={goalLevels.accent[level].max}
                                                     title={`max: ${goalLevels.accent[level].max}`}
                                                     type='maximum'

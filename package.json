@@ -53,10 +53,8 @@
         "./tsconfig": "./tsconfig.base.json",
 
         
-        "./components/*": [
-            "./dist/astro/components/*.astro",
-            "./dist/astro/components/*"
-        ],
+        "./components": "./dist/astro/components.ts",
+        "./components/*": "./dist/astro/components/*.astro",
 
         "./css/*.scss": {
             "sass": "./dist/astro/scss/*.scss",
@@ -70,8 +68,11 @@
                 "./dist/astro/scss/*"
             ]
         },
-
+        
+        "./layouts": "./dist/astro/layouts.ts",
         "./layouts/*": "./dist/astro/layouts/*.astro",
+        
+        "./support": "./dist/astro/support.ts",
         "./support/*": "./dist/astro/support/*.astro",
 
         "./astro/functions": "./dist/astro/functions/index.ts",
@@ -228,7 +229,7 @@
             "watch:astro":       "watch -p 'src/astro/components/**/*' -p 'src/astro/layouts/**/*' -c 'build-utils build --only compile      --only-compile astro     --watchedWatcher \"watch:astro\"     --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
             "watch:scss":        "watch -p 'src/scss/**/*' -p 'src/docs/scss/**/*'                 -c 'build-utils build --only compile      --only-compile scss      --watchedWatcher \"watch:scss\"      --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
             "s-watch:docs-scss": "watch -p 'src/scss/**/*' -p 'src/docs/scss/**/*'                 -c 'build-utils build --only document     --only-document scss     --watchedWatcher \"watch:docs-scss\" --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
-            "s-watch:ts":        "watch -p 'src/ts/**/*'                                           -c 'build-utils build --only compile,test --only-compile ts,tokens --watchedWatcher \"watch:ts\"        --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
+            "watch:ts":          "watch -p 'src/ts/**/*'                                           -c 'build-utils build --only compile,test --only-compile ts,tokens --watchedWatcher \"watch:ts\"        --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
             "s-watch:docs-ts":   "watch -p 'dist/ts/**/*'                                          -c 'build-utils build --only document     --only-document typedoc  --watchedWatcher \"watch:docs-ts\"   --watchedChange --watchedFilename \"$FILENAME\" --watchedEvent \"$EVENT\"'",
         
         "build-start":       "build-utils build --starting --without minimize                             --without-document astro && npm run --silent start",

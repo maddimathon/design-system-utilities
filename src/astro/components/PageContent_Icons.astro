@@ -6,7 +6,6 @@
  */
 
 /* import - types */
-// import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
 import type { TokenTypes } from '../../ts/02-tokens/@types.d.ts';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Icons } from '../../ts/02-tokens/Tokens_Icons';
@@ -18,20 +17,25 @@ import { objectKeySort_Tokens } from '../../ts/01-utilities/objectKeySort_Tokens
 /* import - values */
 
 /* import - components */
-import Toggle from '@maddimathon/utility-astro/components/Toggle';
+import {
+    CopyToClipboardButton,
+    Heading,
+    Toggle,
+} from '@maddimathon/utility-astro/components';
+
 import Alert from './Alert.astro';
 import Icon from './Icon.astro';
+import IconFontTester from './IconFontTester.astro';
 import LoremIpsum from './LoremIpsum.astro';
-import Heading from '@maddimathon/utility-astro/components/Heading';
 
 /* import - layouts */
 
 /* PROPS ===================================== */
 
-// prettier-ignore
-export interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
+interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
     defaultIcon?: T_Types['iconNames'];
-    inlinePreviews?:boolean;
+    inlinePreviews?: boolean;
+    inlinePreviews_defaultOpen?: boolean;
     subheadingDisplayHeading?: number;
     tokens: Tokens.JsonReturn<T_Types>;
 }
@@ -39,6 +43,7 @@ export interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypePa
 const {
     defaultIcon = 'star',
     inlinePreviews = import.meta.env.DEV,
+    inlinePreviews_defaultOpen = import.meta.env.DEV,
     subheadingDisplayHeading = 6,
     tokens,
 }: Props = Astro.props;
@@ -97,7 +102,7 @@ iconsSortedByLabel.forEach(([__key, icon]) => {
         displayHeading={subheadingDisplayHeading}
         heading={3}
     >Customized Icons</Heading>
-    <ul class='button-span | tokens-demo-all-icons tokens-demo-all-icons--basic'>
+    <ul class='button-span | tokens-demo-all-icons tokens-demo-all-icons--basic tokens-demo-all-icons--custom'>
         {
             customicons.map(
                 (icon) => !icon.meta?.aliasOf?.length && <li><Icon icon={icon} /></li>
@@ -110,7 +115,7 @@ iconsSortedByLabel.forEach(([__key, icon]) => {
     inlinePreviews && (
         
         <Toggle
-            defaultOpen={import.meta.env.DEV}
+            defaultOpen={inlinePreviews_defaultOpen}
             displayHeading={subheadingDisplayHeading}
             heading={3}
             id="pseudo-icons-preview"
@@ -149,7 +154,7 @@ iconsSortedByLabel.forEach(([__key, icon]) => {
         </Toggle>
     
         <Toggle
-            defaultOpen={import.meta.env.DEV}
+            defaultOpen={inlinePreviews_defaultOpen}
             displayHeading={subheadingDisplayHeading}
             heading={3}
             id="button-inline-icons-preview"
@@ -194,7 +199,7 @@ iconsSortedByLabel.forEach(([__key, icon]) => {
         </Toggle>
     
         <Toggle
-            defaultOpen={import.meta.env.DEV}
+            defaultOpen={inlinePreviews_defaultOpen}
             displayHeading={subheadingDisplayHeading}
             heading={3}
             id="button-embedded-icons-preview"
@@ -214,21 +219,21 @@ iconsSortedByLabel.forEach(([__key, icon]) => {
                                     aria-label={icon.label} 
                                     class='button'
                                     href='#'
-                                >{''}<Icon icon={icon} />{''}</a>
+                                ><Icon icon={icon} /></a>
                             </li>
 
                             <li>
                                 <a
                                     class='button'
                                     href='#'
-                                >{''}<Icon icon={icon} />{''}<span set:text={`${icon.label} Before`} />{''}</a>
+                                ><Icon icon={icon} /><span set:text={`${icon.label} Before`} /></a>
                             </li>
 
                             <li>
                                 <a
                                     class='button'
                                     href='#'
-                                >{''}<span set:text={`${icon.label} After`} />{''}<Icon icon={icon} />{''}</a>
+                                ><span set:text={`${icon.label} After`} /><Icon icon={icon} /></a>
                             </li>
                         </ul>
                     </li>
@@ -243,9 +248,11 @@ iconsSortedByLabel.forEach(([__key, icon]) => {
     heading={2}
     set:text='All Alert Blocks'
 />
-<div class='site-width | tokens-demo-all-alerts'>
+<IconFontTester />
+
+<div class='site-width | tokens-demo-all-alerts tokens-demo-all-alerts--basic'>
     {
-        iconsSortedByLabel.map(([__key,icon]) => (
+        defaultIcons.map((icon) => (
             <Alert icon={icon}>
                 <span
                     slot='headline'
@@ -253,11 +260,44 @@ iconsSortedByLabel.forEach(([__key, icon]) => {
                 />
                 <p>slug: <samp set:text={icon.slug} /></p>
                 { icon.meta?.aliasOf && <p class="aside">is a copy of <samp set:text={icon.meta.aliasOf} /></p> }
-                { icon.meta?.codepoint && <p class="aside">font glyph: <samp set:text={`U+${icon.meta.codepoint.toString(16).toUpperCase()}`} /></p> }
+                { icon.meta?.codepoint && <p class="aside">font glyph: <samp
+                    set:text={`U+${icon.meta.codepoint.toString(16).toUpperCase()}`}
+                /><CopyToClipboardButton
+                    class:list="button--inline"
+                    toClipboard={String.fromCharCode(icon.meta.codepoint)}
+                    set:text='copy'
+                /></p> }
             </Alert>
         ))
     }
 </div>
+
+{ customicons.length && (
+    <Heading heading={3}>Alerts with Customized Icons</Heading>
+    <div class='site-width | tokens-demo-all-alerts tokens-demo-all-alerts--custom'>
+        {
+            customicons.map(
+                (icon) => (
+                    <Alert icon={icon}>
+                        <span
+                            slot='headline'
+                            set:text={icon.label}
+                        />
+                        <p>slug: <samp set:text={icon.slug} /></p>
+                        { icon.meta?.aliasOf && <p class="aside">is a copy of <samp set:text={icon.meta.aliasOf} /></p> }
+                        { icon.meta?.codepoint && <p class="aside">font glyph: <samp
+                            set:text={`U+${icon.meta.codepoint.toString(16).toUpperCase()}`}
+                        /><CopyToClipboardButton
+                            class:list="button--inline"
+                            toClipboard={String.fromCharCode(icon.meta.codepoint)}
+                            set:text='copy'
+                        /></p> }
+                    </Alert>
+                )
+            )
+        }
+    </div>
+) }
 
 <Toggle
     defaultOpen={defaultToggleToOpen}

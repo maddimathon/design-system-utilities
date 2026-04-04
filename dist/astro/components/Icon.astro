@@ -19,11 +19,11 @@ import type { SvgMaker } from '../../ts/01-utilities/SvgMaker.js';
 
 /* PROPS ===================================== */
 
-type IconProps = {
+export type IconProps = {
     icon: SvgMaker.JsonReturn;
 };
 
-export type Props = GenericElementProps<IconProps, 'span'>;
+type Props = GenericElementProps<IconProps, 'span'>;
 
 const {
     'aria-hidden': ariaHidden = true,
@@ -38,10 +38,7 @@ const {
     {...attributes}
     aria-hidden={!!ariaHidden}
     class:list={['icon', `icon--${icon.slug}`, '||', classList]}
->
-    <Fragment set:html={icon.svgInlineLabelled} />
-</span>
-
-<style lang='scss'>
+    set:html={icon.svgInlineLabelled.trim()}
+/><style lang='scss'>
     @forward '../css/icon.css';
 </style>

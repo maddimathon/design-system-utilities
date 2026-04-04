@@ -9,27 +9,27 @@
 
 /* import - functions */
 import type { ComponentProps } from 'astro/types';
+import type { LoremIpsumProps as UtilsLoremIpsumProps } from '@maddimathon/utility-astro/components';
+
 import { Tokens } from '../../ts/02-tokens/Tokens.js';
 import { SampleTokens_Json } from '../functions/SampleTokens.js';
 
 /* import - values */
 
 /* import - components */
-import LoremIpsumUtils, {
-    type LoremIpsumProps,
-} from '@maddimathon/utility-astro/components/LoremIpsum';
+import { LoremIpsum as LoremIpsumUtils } from '@maddimathon/utility-astro/components';
 import Alert from './Alert.astro';
 
 /* import - layouts */
 
 /* PROPS ===================================== */
 
-export interface Props extends Omit<
+export interface LoremIpsumProps extends Omit<
     ComponentProps<typeof LoremIpsumUtils>,
     'displaySettings'
 > {
     displaySettings?: Omit<
-        NonNullable<LoremIpsumProps['displaySettings']>,
+        NonNullable<UtilsLoremIpsumProps['displaySettings']>,
         'buttonVariations' | 'headingLevels'
     > & {
         alerts?: boolean;
@@ -38,6 +38,8 @@ export interface Props extends Omit<
     };
     tokens?: Tokens.JsonReturn;
 }
+
+type Props = LoremIpsumProps;
 
 const {
     displaySettings = {},

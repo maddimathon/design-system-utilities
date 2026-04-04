@@ -1,0 +1,44 @@
+---
+import type { ElementProps } from '@maddimathon/utility-astro';
+
+/**
+ * @since ___PKG_VERSION___
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+
+/* import - functions */
+
+/* import - values */
+
+/* import - components */
+
+/* import - layouts */
+
+/* TYPES ===================================== */
+
+/* PROPS ===================================== */
+
+type Props = ElementProps<{}, 'div'>;
+
+/* CONSTANTS ===================================== */
+
+const { class: classList = [], ...props }: Props = Astro.props;
+---
+
+<div
+    {...props}
+    class:list={['display-contents', { '||': classList }]}
+>
+    <label for='font-tester'>Test Icon Font</label>
+    <input
+        id='font-tester'
+        class='icon-font-tester font-family-icons'
+        type='text'
+    />
+    <p class='aside form-help-text'>
+        Use the field above to test icon font glyphs copied to your clipboard.
+    </p>
+</div>

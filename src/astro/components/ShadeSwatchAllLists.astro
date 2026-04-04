@@ -8,7 +8,7 @@
 /* import - types */
 import type { TokenTypes } from '../../ts/02-tokens/@types.js';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
-import type { Props as ShadeSwatchTableProps } from './ShadeSwatchTable.astro';
+import type ShadeSwatchTable from './ShadeSwatchTable.astro';
 
 /* import - functions */
 import { toTitleCase } from '@maddimathon/utility-typescript';
@@ -16,16 +16,15 @@ import { toTitleCase } from '@maddimathon/utility-typescript';
 /* import - values */
 
 /* import - components */
-import Toggle from '@maddimathon/utility-astro/components/Toggle';
+import { Toggle } from '@maddimathon/utility-astro/components';
 import ShadeSwatchList from './ShadeSwatchList.astro';
+import type { ComponentProps } from 'astro/types';
 
 /* import - layouts */
 
 /* PROPS ===================================== */
 
-export interface Props<
-    T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
-> {
+interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
     tokens: Tokens.JsonReturn<T_Types>;
 }
 
@@ -35,7 +34,7 @@ const { tokens }: Props = Astro.props;
 
 /* CONSTANTS ===================================== */
 
-const baseShades: ShadeSwatchTableProps['colour']['base'] = {
+const baseShades: ComponentProps<typeof ShadeSwatchTable>['colour']['base'] = {
     ...tokens.colour.base,
     ...tokens.colour.$,
 };

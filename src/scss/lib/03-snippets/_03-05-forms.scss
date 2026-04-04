@@ -117,6 +117,7 @@
 ) {
     $fontStyle: if($fontStyle, $fontStyle, var-style(button-font-style));
     $paddingBlock: if($paddingBlock, $paddingBlock, var-style(button-padding-block));
+    $paddingInline: if($paddingInline, $paddingInline, var-style(button-padding-inline));
 
     $_content_exists: meta.content-exists();
 
@@ -144,7 +145,7 @@
     margin-block-end: #{if($marginBlockEnd, $marginBlockEnd, var-style(button-margin-block-end))};
 
     padding-block: #{$paddingBlock};
-    padding-inline: #{if($paddingInline, $paddingInline, var-style(button-padding-inline))};
+    padding-inline: #{$paddingInline};
 
     gap: #{var-style(button-gap-block)} #{var-style(button-gap-inline)};
 
@@ -208,6 +209,7 @@
         &:has(> #{selector.unify('%icon', ':only-child')}),
         &:has(> #{selector.unify('%brand-logo', ':only-child')}) {
             padding-inline: #{$paddingBlock};
+            line-height: 1 !important;
 
             &::after,
             &::before {
@@ -302,7 +304,13 @@
             }
 
             &:only-child {
+                @include cx-prop(icon-inline-margin-block-start, 0);
+                @include cx-prop(icon-inline-buffer-start, 0);
+                @include cx-prop(icon-inline-buffer-end, 0);
+
+                margin-block-start: 0;
                 margin-inline: 0;
+                letter-spacing: normal !important;
             }
         }
     }
@@ -672,6 +680,17 @@
             label > & {
                 margin-block-start: #{$marginBlockStart_afterLabel};
             }
+        }
+
+        &.font-family-icons {
+            @include cx-prop(icon-size-font, var-style(icon-size));
+            @include cx-prop(icon-size-pseudo, var-style(icon-size));
+            @include cx-prop(icon-vertical-align, text-bottom);
+
+            padding-block-start: #{var-style(input-icons-offset-block-start)};
+            padding-block-end: #{var-style(input-icons-offset-block-end)};
+
+            letter-spacing: #{var-style(input-icons-letter-spacing)};
         }
     }
 

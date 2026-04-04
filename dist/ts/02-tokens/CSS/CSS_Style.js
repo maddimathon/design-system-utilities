@@ -300,6 +300,15 @@ export class Tokens_CSS_Style extends AbstractTokens {
             focus: {
                 offset: '400',
             },
+            icons: {
+                'letter-spacing': 'normal',
+                offset: {
+                    block: {
+                        start: '0',
+                        end: '0',
+                    },
+                },
+            },
             label: {
                 font: {
                     style: 'normal',

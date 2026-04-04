@@ -26,14 +26,13 @@ import { objectGenerator } from '../../ts/01-utilities/objectGenerator.js';
 
 /* import - components */
 import ContrastAlert from './ContrastAlert.astro';
-import Heading from '@maddimathon/utility-astro/components/Heading';
-// import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
+import { Heading } from '@maddimathon/utility-astro/components';
 
 /* import - layouts */
 
 /* PROPS ===================================== */
 
-export interface Props<
+interface Props<
     T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
 > extends Omit<
     ComponentProps<typeof Heading>,
@@ -404,6 +403,7 @@ const resultGroupColCount = shadeMapSets?.base?.allShades && Math.max(
                                             ]}
                                             clr={shadeMapSet.min[standard].ui.shade}
                                             clrSlug={shadeMapSet.min[standard].ui.shadeLevelName}
+                                            icons={tokens.icons}
                                             level={shadeMapSet.min[standard].ui.level}
                                             title={`${standard.toUpperCase()} UI min: ${shadeMapSet.min[standard].ui.shadeLevelName}`}
                                             type='ui-minimum'
@@ -420,6 +420,7 @@ const resultGroupColCount = shadeMapSets?.base?.allShades && Math.max(
                                             ]}
                                             clr={shadeMapSet.min[standard].text.shade}
                                             clrSlug={shadeMapSet.min[standard].text.shadeLevelName}
+                                            icons={tokens.icons}
                                             level={shadeMapSet.min[standard].text.level}
                                             title={`${standard.toUpperCase()} text min: ${shadeMapSet.min[standard].text.shadeLevelName}`}
                                             type='minimum'
@@ -456,6 +457,7 @@ const resultGroupColCount = shadeMapSets?.base?.allShades && Math.max(
                                 ]}
                                 clr={shadeMapSet.max.shade}
                                 clrSlug={shadeMapSet.max.shadeLevelName}
+                                icons={tokens.icons}
                                 level={shadeMapSet.max.level}
                                 title={`max: ${shadeMapSet.max.shadeLevelName}`}
                                 type='maximum'
@@ -497,6 +499,7 @@ const resultGroupColCount = shadeMapSets?.base?.allShades && Math.max(
                                     ]}
                                     clr={tokens.colour[shadeMapSet.name]?.[singleLevel.level] ?? null}
                                     clrSlug={`${shadeMapSet.name}-${singleLevel.level}`}
+                                    icons={tokens.icons}
                                     level={ singleLevel.level }
                                     title={`${shadeMapSet.name}-${singleLevel.level}: ${singleLevel.interpretedResult}` + ( import.meta.env.DEV ? ` (${singleLevel.ratio.toFixed(5)})` : '' )}
                                     type={ singleLevel.type }

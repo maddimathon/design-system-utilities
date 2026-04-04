@@ -12,14 +12,14 @@ import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Typography } from '../../ts/02-tokens/Tokens_Typography.js';
 
 /* import - functions */
-import { absoluteInternalURL } from '@maddimathon/utility-astro/astro/functions';
+import { absoluteInternalURL } from '@maddimathon/utility-astro/functions';
 
 /* import - values */
 
 /* import - components */
 
 /* import - layouts */
-import UtilPage from '@maddimathon/utility-astro/layouts/Page';
+import { Page as UtilPage } from '@maddimathon/utility-astro/layouts';
 import type { GenericProps } from '@maddimathon/utility-astro';
 
 /* TYPES ===================================== */
@@ -252,7 +252,9 @@ if (familyOverrideValues.length) {
 
 /* Slots ------------------ */
 
-const footerTextHTML = await Astro.slots.render('footer-text');
+const footerTextHTML =
+    Astro.slots.has('footer-text') &&
+    (await Astro.slots.render('footer-text'))?.trim();
 ---
 
 <UtilPage

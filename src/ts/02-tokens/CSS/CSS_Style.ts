@@ -411,7 +411,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
      */
     public static inputStyle( partial?: Tokens_CSS_Style.InputParam[ 'input' ] ) {
 
-        const style: Tokens_CSS_Style.InputStyles = mergeArgs( {
+        const style = mergeArgs( {
 
             border: {
                 radius: '0',
@@ -421,6 +421,18 @@ export class Tokens_CSS_Style extends AbstractTokens<{
 
             focus: {
                 offset: '400',
+            },
+
+            icons: {
+
+                'letter-spacing': 'normal',
+
+                offset: {
+                    block: {
+                        start: '0',
+                        end: '0',
+                    },
+                },
             },
 
             label: {
@@ -457,7 +469,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                     average: '75%',
                 },
             },
-        }, partial?.$ ?? {}, true );
+        } satisfies Tokens_CSS_Style.InputStyles, partial?.$ ?? {}, true );
 
         const disabled: Tokens_CSS_Style.InputStyles_Variation = {
             ...partial?.disabled,
@@ -927,6 +939,20 @@ export namespace Tokens_CSS_Style {
             offset: AnyTokenLevel;
         };
 
+        /**
+         * Used for input fields with the icon font family utility class.
+         */
+        icons: {
+            'letter-spacing': string;
+
+            offset: {
+                block: {
+                    start: '0' | `${ number }em`;
+                    end: '0' | `${ number }em`;
+                };
+            };
+        };
+
         label: {
             font: {
                 style: "normal" | "italic";
@@ -978,7 +1004,7 @@ export namespace Tokens_CSS_Style {
      */
     export type InputStyles_Variation = Omit<
         InputStyles,
-        'border' | 'focus' | 'label' | 'line-height' | 'margin' | 'padding' | 'placeholder'
+        'border' | 'focus' | 'icons' | 'label' | 'line-height' | 'margin' | 'padding' | 'placeholder'
     > & {
         border: Omit<InputStyles[ 'border' ], 'width'>;
     };

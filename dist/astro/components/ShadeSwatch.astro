@@ -20,8 +20,8 @@ import { textColorLevel } from '../functions/textColorLevel.js';
 /* import - values */
 
 /* import - components */
-import Heading from '@maddimathon/utility-astro/components/Heading';
-// import VariableDump from '@maddimathon/utility-astro/components/VariableDump';
+import { Heading } from '@maddimathon/utility-astro/components';
+
 import ShadeSwatch_Contrast from './ShadeSwatch_Contrast.astro';
 import ShadeSwatch_ColourValue from './ShadeSwatch_ColourValue.astro';
 
@@ -29,7 +29,7 @@ import ShadeSwatch_ColourValue from './ShadeSwatch_ColourValue.astro';
 
 /* PROPS ===================================== */
 
-export interface Props<
+interface Props<
     T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
 > extends Omit<HTMLAttributes<'div'>, 'class'> {
     heading: number;

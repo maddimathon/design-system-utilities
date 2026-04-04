@@ -45,7 +45,99 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
      * @since 0.1.0-beta.0.draft
      */
     static inputStyle(partial?: Tokens_CSS_Style.InputParam['input']): {
-        readonly $: Tokens_CSS_Style.InputStyles;
+        readonly $: {
+            border: {
+                radius: "0";
+                style: string;
+                width: "100";
+            };
+            focus: {
+                offset: "400";
+            };
+            icons: {
+                'letter-spacing': string;
+                offset: {
+                    block: {
+                        start: "0";
+                        end: "0";
+                    };
+                };
+            };
+            label: {
+                font: {
+                    style: "normal";
+                    weight: "500";
+                };
+                'line-height': "200";
+            };
+            'line-height': "300";
+            margin: {
+                block: {
+                    start: "400";
+                    end: "400";
+                    gap: "200";
+                };
+            };
+            padding: {
+                block: "200";
+                inline: "300";
+            };
+            placeholder: {
+                font: {
+                    style: "italic";
+                };
+                opacity: {
+                    low: string;
+                    average: string;
+                };
+            };
+        } | ({
+            border: {
+                radius: "0";
+                style: string;
+                width: "100";
+            };
+            focus: {
+                offset: "400";
+            };
+            icons: {
+                'letter-spacing': string;
+                offset: {
+                    block: {
+                        start: "0";
+                        end: "0";
+                    };
+                };
+            };
+            label: {
+                font: {
+                    style: "normal";
+                    weight: "500";
+                };
+                'line-height': "200";
+            };
+            'line-height': "300";
+            margin: {
+                block: {
+                    start: "400";
+                    end: "400";
+                    gap: "200";
+                };
+            };
+            padding: {
+                block: "200";
+                inline: "300";
+            };
+            placeholder: {
+                font: {
+                    style: "italic";
+                };
+                opacity: {
+                    low: string;
+                    average: string;
+                };
+            };
+        } & RecursivePartial<Tokens_CSS_Style.InputStyles>);
         readonly disabled: Tokens_CSS_Style.InputStyles_Variation;
         readonly readonly: Tokens_CSS_Style.InputStyles_Variation;
     };
@@ -77,7 +169,99 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
         };
         icon: Tokens_CSS_Style.IconStyles;
         input: {
-            readonly $: Tokens_CSS_Style.InputStyles;
+            readonly $: {
+                border: {
+                    radius: "0";
+                    style: string;
+                    width: "100";
+                };
+                focus: {
+                    offset: "400";
+                };
+                icons: {
+                    'letter-spacing': string;
+                    offset: {
+                        block: {
+                            start: "0";
+                            end: "0";
+                        };
+                    };
+                };
+                label: {
+                    font: {
+                        style: "normal";
+                        weight: "500";
+                    };
+                    'line-height': "200";
+                };
+                'line-height': "300";
+                margin: {
+                    block: {
+                        start: "400";
+                        end: "400";
+                        gap: "200";
+                    };
+                };
+                padding: {
+                    block: "200";
+                    inline: "300";
+                };
+                placeholder: {
+                    font: {
+                        style: "italic";
+                    };
+                    opacity: {
+                        low: string;
+                        average: string;
+                    };
+                };
+            } | ({
+                border: {
+                    radius: "0";
+                    style: string;
+                    width: "100";
+                };
+                focus: {
+                    offset: "400";
+                };
+                icons: {
+                    'letter-spacing': string;
+                    offset: {
+                        block: {
+                            start: "0";
+                            end: "0";
+                        };
+                    };
+                };
+                label: {
+                    font: {
+                        style: "normal";
+                        weight: "500";
+                    };
+                    'line-height': "200";
+                };
+                'line-height': "300";
+                margin: {
+                    block: {
+                        start: "400";
+                        end: "400";
+                        gap: "200";
+                    };
+                };
+                padding: {
+                    block: "200";
+                    inline: "300";
+                };
+                placeholder: {
+                    font: {
+                        style: "italic";
+                    };
+                    opacity: {
+                        low: string;
+                        average: string;
+                    };
+                };
+            } & RecursivePartial<Tokens_CSS_Style.InputStyles>);
             readonly disabled: Tokens_CSS_Style.InputStyles_Variation;
             readonly readonly: Tokens_CSS_Style.InputStyles_Variation;
         };
@@ -141,7 +325,99 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
         };
         readonly icon: Tokens_CSS_Style.IconStyles;
         readonly input: {
-            readonly $: Tokens_CSS_Style.InputStyles;
+            readonly $: {
+                border: {
+                    radius: "0";
+                    style: string;
+                    width: "100";
+                };
+                focus: {
+                    offset: "400";
+                };
+                icons: {
+                    'letter-spacing': string;
+                    offset: {
+                        block: {
+                            start: "0";
+                            end: "0";
+                        };
+                    };
+                };
+                label: {
+                    font: {
+                        style: "normal";
+                        weight: "500";
+                    };
+                    'line-height': "200";
+                };
+                'line-height': "300";
+                margin: {
+                    block: {
+                        start: "400";
+                        end: "400";
+                        gap: "200";
+                    };
+                };
+                padding: {
+                    block: "200";
+                    inline: "300";
+                };
+                placeholder: {
+                    font: {
+                        style: "italic";
+                    };
+                    opacity: {
+                        low: string;
+                        average: string;
+                    };
+                };
+            } | ({
+                border: {
+                    radius: "0";
+                    style: string;
+                    width: "100";
+                };
+                focus: {
+                    offset: "400";
+                };
+                icons: {
+                    'letter-spacing': string;
+                    offset: {
+                        block: {
+                            start: "0";
+                            end: "0";
+                        };
+                    };
+                };
+                label: {
+                    font: {
+                        style: "normal";
+                        weight: "500";
+                    };
+                    'line-height': "200";
+                };
+                'line-height': "300";
+                margin: {
+                    block: {
+                        start: "400";
+                        end: "400";
+                        gap: "200";
+                    };
+                };
+                padding: {
+                    block: "200";
+                    inline: "300";
+                };
+                placeholder: {
+                    font: {
+                        style: "italic";
+                    };
+                    opacity: {
+                        low: string;
+                        average: string;
+                    };
+                };
+            } & RecursivePartial<Tokens_CSS_Style.InputStyles>);
             readonly disabled: Tokens_CSS_Style.InputStyles_Variation;
             readonly readonly: Tokens_CSS_Style.InputStyles_Variation;
         };
@@ -401,6 +677,18 @@ export declare namespace Tokens_CSS_Style {
         focus: {
             offset: AnyTokenLevel;
         };
+        /**
+         * Used for input fields with the icon font family utility class.
+         */
+        icons: {
+            'letter-spacing': string;
+            offset: {
+                block: {
+                    start: '0' | `${number}em`;
+                    end: '0' | `${number}em`;
+                };
+            };
+        };
         label: {
             font: {
                 style: "normal" | "italic";
@@ -438,7 +726,7 @@ export declare namespace Tokens_CSS_Style {
     /**
      * @since 0.1.0-beta.0.draft
      */
-    type InputStyles_Variation = Omit<InputStyles, 'border' | 'focus' | 'label' | 'line-height' | 'margin' | 'padding' | 'placeholder'> & {
+    type InputStyles_Variation = Omit<InputStyles, 'border' | 'focus' | 'icons' | 'label' | 'line-height' | 'margin' | 'padding' | 'placeholder'> & {
         border: Omit<InputStyles['border'], 'width'>;
     };
     /**
