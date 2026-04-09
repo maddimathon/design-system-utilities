@@ -11,22 +11,28 @@
 @forward 'pkg:@maddimathon/utility-astro/tokens' with (
     $atProperties: custom.$atProperties,
     //
-    $border_widths: map.get(system.$border, width),
+    $border_width: map.get(system.$border, width),
     //
     $brightnessMode_all: system.$brightnessMode_all,
     $brightnessMode_default: system.$brightnessMode_default,
     $contrastMode_all: system.$contrastMode_all,
     $contrastMode_default: system.$contrastMode_default,
     //
-    $customTokens: custom.$customTokens,
-    //
-    $font_sizes: map.get(system.$font, size),
+    $font_size: map.get(system.$font, size),
     $fontSize_base: system.$fontSize_base,
     $lineHeight_base: system.$lineHeight_base,
-    $line_heights: map.get(system.$designSystem, line_height),
+    $lineHeight_multiplier: system.$lineHeight_multiplier,
+    $line_height: map.get(system.$designSystem, line_height),
     $margin_base: system.$margin_base,
     $margin_softener: system.$margin_softener,
-    $margins: map.get(system.$designSystem, margin),
+    $margin: map.get(system.$designSystem, margin),
     $scaleMultiplier: system.$spacing_multiplier,
-    $strokes_relative: map.get(system.$border, stroke)
+    $stroke_relative: map.get(system.$border, stroke),
+    $style: (
+        focus-ring: (
+            outline-color: map.get(custom.$atProperties, focus-ring-outline-color, initial-value),
+            outline-offset: '400',
+            outline-width: '400',
+        ),
+    )
 );

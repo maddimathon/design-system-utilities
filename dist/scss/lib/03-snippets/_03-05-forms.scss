@@ -104,6 +104,7 @@
     //
     $borderRadius: null,
     $borderWidth: null,
+    $display: null,
     $fontSize: null,
     $fontStyle: null,
     $fontWeight: null,
@@ -111,10 +112,9 @@
     $marginBlockStart: null,
     $paddingBlock: null,
     $paddingInline: null,
-    $width: null,
-    //
-     //
+    $width: null
 ) {
+    $display: if($display, $display, style-value(button-display));
     $fontStyle: if($fontStyle, $fontStyle, var-style(button-font-style));
     $paddingBlock: if(
         $paddingBlock,
@@ -148,8 +148,17 @@
         var-style(button-icon-vertical-align) !important
     );
 
-    @include prop-display(block);
+    @include prop-display($display);
     position: relative;
+
+    @if $display == flex {
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        justify-content: start;
+        align-content: start;
+        align-items: start;
+    }
 
     width: #{if($width, $width, var-style(button-width))};
     height: auto;
@@ -321,8 +330,6 @@
                     icon-size,
                     font-family-icons--icon-size($_size)
                 );
-
-                bottom: #{var-style(button-icon-embedded-bottom)};
             }
 
             &:first-child {
@@ -343,13 +350,15 @@
                 margin-block-start: 0;
                 margin-inline: 0;
                 letter-spacing: normal !important;
+
+                bottom: #{var-style(button-icon-embedded-bottom)};
             }
         }
     }
 }
 
 ///
-/// Override styles for a disabled button element (assuming snippet-button was
+/// Override styles for a disabled button (assuming snippet-button was
 /// assigned to the base element/selector).
 ///
 /// @since 0.1.0-beta.0.draft
@@ -564,9 +573,7 @@
     $color_readonly: var-theme(input-readonly-text),
     $color_readonly_active: var-theme(input-readonly-text),
     $color_readonly_focus: var-theme(input-readonly-text),
-    $color_readonly_hover: var-theme(input-readonly-text),
-    //
-     //
+    $color_readonly_hover: var-theme(input-readonly-text)
 ) {
     @include _snippet-input-colours-single(
         $accentClr: $accentClr,
@@ -650,16 +657,19 @@
 /// Base styles for an input element.
 ///
 /// @since 0.1.0-alpha
+/// @since 0.1.0-beta.0.draft — Changed $margin and $padding params to $marginBlock, $marginInline, $paddingBlock, $paddingInline.
 ///
 @mixin snippet-input(
     $borderRadius: var-style(input-border-radius),
     $borderWidth: var-style(input-border-width),
     $focusOffset: var-style(input-focus-offset),
     $lineHeight: var-style(input-line-height),
-    $margin: var-style(input-margin-block-start) 0
+    $marginBlock: var-style(input-margin-block-start)
         var-style(input-margin-block-end),
+    $marginInline: 0,
     $marginBlockStart_afterLabel: var-style(input-margin-block-gap),
-    $padding: var-style(input-padding-block) var-style(input-padding-inline),
+    $paddingBlock: var-style(input-padding-block),
+    $paddingInline: var-style(input-padding-inline),
     //
     $includeDisabled: true,
     $includeLabel: true,
@@ -674,10 +684,12 @@
             $borderWidth: $borderWidth,
             $focusOffset: $focusOffset,
             $lineHeight: $lineHeight,
-            $margin: $margin,
+            $marginBlock: $marginBlock,
+            $marginInline: $marginInline,
             $marginBlockStart_afterLabel: $marginBlockStart_afterLabel,
             $opacity_hover: 1,
-            $padding: $padding,
+            $paddingBlock: $paddingBlock,
+            $paddingInline: $paddingInline,
             //
             $includeClrs: false,
             $includePlaceholder: false,
@@ -688,8 +700,13 @@
     & {
         @if not $includeUtils {
             @include cx-prop(focus-ring-outline-offset, $focusOffset);
-            margin: #{$margin};
-            padding: #{$padding};
+
+            margin-block: #{$marginBlock};
+            margin-inline: #{$marginInline};
+
+            padding-block: #{$paddingBlock};
+            padding-inline: #{$paddingInline};
+
             border-radius: #{$borderRadius};
             border-width: #{$borderWidth};
             line-height: #{$lineHeight};
@@ -741,6 +758,9 @@
     $includeBase: true,
     $includeUtils: true,
     //
+    $file_paddingBlock: var-style(input-file-padding-block),
+    $file_paddingInline: var-style(input-file-padding-inline),
+    //
     $box_accentClr: var-theme(input-accent),
     $box_accentClr_active: var-theme(input-accent-active),
     $box_accentClr_focus: var-theme(input-accent-focus),
@@ -774,6 +794,12 @@
     &[type='submit'][disabled],
     &[type='reset'][disabled] {
         @include snippet-button-colours(disabled);
+    }
+
+    @at-root &[type='file'],
+        %input--file {
+        padding-block: #{$file_paddingBlock};
+        padding-inline: #{$file_paddingInline};
     }
 
     &[type='checkbox'],

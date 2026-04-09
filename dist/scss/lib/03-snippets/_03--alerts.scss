@@ -7,6 +7,7 @@
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/meta';
 @use 'pkg:@maddimathon/utility-sass/selector';
+@use 'pkg:@maddimathon/utility-sass/string';
 
 // @use 'pkg:@maddimathon/utility-astro/03-snippets' as lib;
 
@@ -154,18 +155,16 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
         }
     }
 
-    $_alertPaddingBlockLevel: style-value(alert-padding-block, $raw: true);
-
     %alert {
+        $_alertBlockLevel: style-value(alert-padding-block, $raw: true);
+
         @extend %_alert-grid;
 
         justify-self: center;
 
-        // margin-block: #{var-mrg-firm('400')} #{var-mrg-half('400')};
         margin-inline: 0;
 
-        padding-block: #{var-mrg-firm($_alertPaddingBlockLevel)}
-            #{var-mrg-firm($_alertPaddingBlockLevel)};
+        padding-block: #{var-mrg-soft($_alertBlockLevel)};
         padding-inline: #{var-style(alert-padding-inline)};
 
         width: fit-content;
@@ -186,6 +185,40 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
 
         @if meta.content-exists() {
             @content ( 'alert-block' );
+        }
+
+        @include _snippet-alert-block-icon {
+            @include cx-prop(icon-color, var-style(alert-icon-color));
+            @include cx-prop(icon-size, var-style(alert-icon-size));
+            @include cx-prop(icon-size-large, var-style(alert-icon-size-large));
+
+            @include prop-grid-column(icon);
+
+            margin-block: #{var-mrg-half($_alertBlockLevel)};
+            margin-inline: 0;
+
+            &:first-child {
+                margin-block: #{var-mrg-half($_alertBlockLevel)};
+            }
+
+            @at-root &,
+                #{selector.unify(&, '%icon')},
+                & > %icon {
+                @include prop-display(block);
+            }
+
+            @at-root #{selector.unify(&, '%icon')},
+                & > %icon {
+                margin: 0;
+            }
+
+            + * {
+                margin-block-start: #{var-style(
+                        alert-headline-margin-block-start,
+                        $raw: true,
+                        $rawUnit: 1em
+                    )};
+            }
         }
 
         &.alert-block--has-heading {
@@ -213,13 +246,12 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
                     )
                 {
                     @at-root #{selector.unify(&, $_sel)} {
-                        @if $num <= 3 {
-                            margin-block-start: #{var-mrg-firm('800')};
-                        } @else if $num <= 6 {
-                            margin-block-start: #{var-mrg-firm('600')};
-                        } @else {
-                            margin-block-start: #{var-mrg-firm('500')};
-                        }
+                        margin-block-start: #{var-mrg-firm(
+                                style-value(
+                                    heading-#{$num}-margin-block-start,
+                                    $raw: true
+                                )
+                            )};
 
                         border-color: #{var-theme(heading-#{$num})};
 
@@ -259,9 +291,9 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
                 font-size: #{var-style(alert-headline-font-size)};
             }
 
-            > :first-child {
-                margin-block-start: 0;
-            }
+            // > :first-child {
+            //     margin-block-start: 0;
+            // }
 
             @each $num in token-all-heading-levels() {
                 //
@@ -315,28 +347,6 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
             }
         }
 
-        @include _snippet-alert-block-icon {
-            @include cx-prop(icon-color, var-style(alert-icon-color));
-            @include cx-prop(icon-size, var-style(alert-icon-size));
-            @include cx-prop(icon-size-large, var-style(alert-icon-size-large));
-
-            @include prop-display(block);
-
-            @include prop-grid-column(icon);
-            margin-inline-end: 0.125em;
-            margin-block-end: 0;
-            // margin-block-end: #{var-mrg-half($_alertPaddingBlockLevel)};
-
-            @at-root #{selector.unify(&, '%icon')},
-                & > %icon {
-                @include prop-display(block);
-            }
-
-            + * {
-                margin-block-start: -0.09375em;
-            }
-        }
-
         &.content-width,
         &.page-width,
         &.sidebar-width,
@@ -346,38 +356,40 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
         }
 
         @each $variationKey in $_textAndBackgroundKeys {
-            @if $variationKey !=
-                '$' and
-                $variationKey !=
-                '' and
-                $variationKey !=
-                'active' and
-                $variationKey !=
-                'disabled'
-            {
-                &--icon-#{$variationKey},
-                &--background-#{$variationKey},
-                &.background-#{$variationKey} {
-                    @include snippet-alert-block-colours(
-                        $background: if(
-                                theme-token-exists(
-                                    'background-#{$variationKey}'
+            // prettier-ignore
+            @if $variationKey != 'active' and $variationKey != 'disabled' {
+
+                $_classSlug: if($variationKey == '$', default, $variationKey);
+                
+                &--icon-#{$_classSlug},
+                &--background-#{$_classSlug},
+                &.background-#{$_classSlug} {
+                    
+                    @if $_classSlug == default {
+                        @include snippet-alert-block-colours;
+                    } @else {
+
+                        $isGreyTypeVariation: string.match($variationKey, '\\b(grey|base|\\$)\\b') != null;
+
+                        @include snippet-alert-block-colours(
+                            $background: if(
+                                    theme-token-exists('background-#{$variationKey}'),
+                                    var-theme('background-#{$variationKey}'),
+                                    if($isGreyTypeVariation, null, var-theme('background-grey'))
                                 ),
-                                var-theme('background-#{$variationKey}'),
-                                var-theme('background-grey')
-                            ),
-                        $border: null,
-                        $color: if(
-                                theme-token-exists('text-#{$variationKey}'),
-                                var-theme('text-#{$variationKey}'),
-                                var-theme('text')
-                            ),
-                        $icon: if(
-                                theme-token-exists('ui-#{$variationKey}'),
-                                var-theme('ui-#{$variationKey}'),
-                                var-theme('ui')
-                            )
-                    );
+                            $border: null,
+                            $color: if(
+                                    theme-token-exists('text-#{$variationKey}'),
+                                    var-theme('text-#{$variationKey}'),
+                                    if($isGreyTypeVariation, null, var-theme('text'))
+                                ),
+                            $icon: if(
+                                    theme-token-exists('ui-#{$variationKey}'),
+                                    var-theme('ui-#{$variationKey}'),
+                                    if($isGreyTypeVariation, null, var-theme('ui'))
+                                )
+                        );
+                    }
                 }
             }
 
@@ -386,10 +398,11 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
             }
         }
 
-        @include set-flow-margins(
-            $defaultLevel: style-value(alert-margin-flow),
-            $largeLevel: style-value(alert-margin-flow-large),
-            $smallLevel: style-value(alert-margin-flow-small)
+        @include set-flow-margins-by-token(
+            $default: alert-flow-margin,
+            $large: alert-flow-margin-large,
+            $small: alert-flow-margin-small,
+            $buttonGapBlock: alert-flow-margin-button
         );
     }
 

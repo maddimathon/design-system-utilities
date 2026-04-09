@@ -42,7 +42,8 @@
 }
 
 ///
-/// Uses the widths config to prepare the appropriate numerical value (rem).
+/// Uses the font size tokens to prepare the appropriate numerical value (rem).
+///
 /// Returns a list of values since some are calculations that may require
 /// fallbacks.
 ///
@@ -62,7 +63,7 @@
     $fontScale: null,
     $multiplier: 1,
     $relative: false,
-    $roundingFactor: config.$fn_fontSizeValue_roundToPixelFactor
+    $roundingFactor: config.$math_fontSize_roundingFactor
 ) {
     // returns
     @if not map.has-key(breakdown.$font_size, $slug) {
@@ -116,7 +117,8 @@
 }
 
 ///
-/// Uses the widths config to prepare the appropriate numerical value (rem).
+/// Uses the line height tokens to prepare the appropriate numerical value.
+///
 /// Returns a list of values since some are calculations that may require
 /// fallbacks.
 ///

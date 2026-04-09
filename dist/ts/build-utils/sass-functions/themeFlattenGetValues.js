@@ -24,20 +24,12 @@ export function sassFn_themeFlattenGetValues() {
         'mmdsu-global-themeFlattenGetValues( $colours, $themes, $replaceVarClrWithValue, $includeHSL, $includeRGB )',
         async (args) => {
             const [colourTokens, themeTokens, replaceVarClrWithValue = false, includeHSL = true, includeRGB = false,] = await Promise.all([
-                sassAssertValueType('map', args[0])?.then(map => (map instanceof Map ? mapToObjectAsync(map) : map)),
-                sassAssertValueType('map', args[1])?.then(map => (map instanceof Map ? mapToObjectAsync(map) : map)),
-                sassAssertValueType('bool', args[2]),
-                sassAssertValueType('bool', args[3]),
-                sassAssertValueType('bool', args[4]),
+                sassAssertValueType('colours', 'map', args[0], true)?.then(map => (map instanceof Map ? mapToObjectAsync(map) : map)),
+                sassAssertValueType('themes', 'map', args[1], true)?.then(map => (map instanceof Map ? mapToObjectAsync(map) : map)),
+                sassAssertValueType('replaceVarClrWithValue', 'bool', args[2], true),
+                sassAssertValueType('includeHSL', 'bool', args[3], true),
+                sassAssertValueType('includeRGB', 'bool', args[4], true),
             ]);
-            // console.vi.log( {
-            //     // themeTokens: themeTokens && Object.keys( themeTokens ),
-            //     // colourTokens: colourTokens && Object.keys( colourTokens ),
-            //     replaceVarClrWithValue,
-            //     includeHSL,
-            //     includeRGB,
-            // }, 1 );
-            // return sass.sassNull;
             if (!themeTokens) {
                 return sass.sassNull;
             }

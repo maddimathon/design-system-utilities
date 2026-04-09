@@ -18,23 +18,3 @@
 ///
 $atProperties: () !default;
 $atProperties: fns.tokens-get-at-properties($atProperties);
-
-///
-/// @since 0.1.0-alpha
-///
-$customTokens: () !default;
-$customTokens: map.ksort(
-    map.merge(
-        map.flatten(
-            (
-                focus-ring: (
-                    outline-width: '400',
-                    outline-offset: '400',
-                    outline-color: map.get($atProperties, focus-ring-outline-color, initial-value),
-                ),
-            )
-        ),
-        map.flatten($customTokens),
-        $recursive: false
-    )
-);

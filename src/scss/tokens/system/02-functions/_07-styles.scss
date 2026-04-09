@@ -5,6 +5,7 @@
 
 @use '../../../config';
 
+@use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/math';
 @use 'pkg:@maddimathon/utility-sass/meta';
@@ -18,7 +19,19 @@
 @use '04-typography' as typography;
 @use '05-borders' as borders;
 
-$_flattenedStyles: map.flatten(breakdown.$style);
+///
+/// Whether the given style slug is a flow margin token.
+///
+/// @since ___PKG_VERSION___
+///
+@function tokens-style-is-flow-margin($slug, $defaultOnly: false) {
+    // returns
+    @if $defaultOnly {
+        @return $slug == 'flow-margin' or string.index($slug, 'flow-margin-') == 1;
+    }
+
+    @return string.match($slug, '(^|-)flow-margin(-|$)|^widget-button-span-gap$') != null;
+}
 
 ///
 /// Uses the (flattened) style tokens.
@@ -26,7 +39,9 @@ $_flattenedStyles: map.flatten(breakdown.$style);
 /// @since ___PKG_VERSION___
 ///
 @function tokens-style-value($slug, $raw: false, $rawUnit: 1) {
-    $value: map.get($_flattenedStyles, $slug);
+    $value: map.get(breakdown.$style_flat, $slug);
+
+    $_slugLength: string.length($slug);
 
     // returns
     @if $value == null {
@@ -39,7 +54,14 @@ $_flattenedStyles: map.flatten(breakdown.$style);
         @return if(meta.type-of($value) == number, math.add-unit($value, $unit: $rawUnit), $value);
     }
 
+    // returns - flow margins are always dealt with the same way
+    @if tokens-style-is-flow-margin($slug) {
+        @return spacing.tokens-var-mrg-soft($value);
+    }
+
     $isAlertStyle: string.index($slug, alert-) == 1;
+    $isAlertHeadingStyle: string.index($slug, alert-heading-) == 1;
+    $isAlertHeadlineStyle: string.index($slug, alert-headline-) == 1;
     $isButtonStyle: string.index($slug, button-) == 1;
     $isHeadingStyle: string.index($slug, heading-) == 1;
     $isIconStyle: string.index($slug, icon-) == 1;
@@ -58,8 +80,6 @@ $_flattenedStyles: map.flatten(breakdown.$style);
     $isThemeToken: false;
 
     $isSimpleEm: false;
-
-    $_slugLength: string.length($slug);
 
     @if $isAlertStyle or
         $isButtonStyle or
@@ -113,19 +133,15 @@ $_flattenedStyles: map.flatten(breakdown.$style);
             $isLineHeight: true;
         }
 
-        // margins
+        // margins - returns for alert headings and headlines
         @if not $isIconStyle {
-            @if $slug ==
-                'margin-flow' or
-                string.index($slug, '-margin-flow-') or
-                string.index($slug, '-margin-flow') ==
-                ($_slugLength - 11)
-            {
-                @return $value;
-            } @else if string.index($slug, '-margin-') {
-                $isMargin: true;
-            } @else if string.index($slug, '-margin') == ($_slugLength - 6) {
-                $isMargin: true;
+            // prettier-ignore
+            @if string.index($slug, '-margin-') or string.index($slug, '-margin') == ($_slugLength - 6) {
+                @if $isAlertHeadingStyle or $isAlertHeadlineStyle {
+                    @return math.add-unit($value, 1em);
+                } @else {
+                    $isMargin: true;
+                }
             }
         }
 
@@ -296,12 +312,36 @@ $_flattenedStyles: map.flatten(breakdown.$style);
 /// @since ___PKG_VERSION___
 ///
 @function tokens-var-style($slug, $fallback: null, $raw: false, $rawUnit: 1, $args...) {
-    $isFocusRingStyle: string.index($slug, focus-ring-) == 1;
-    $isIconStyle: string.index($slug, icon-) == 1;
+    // returns - flow margins are always dealt with the same way
+    $_default_tokens_match: string.match($slug, '^flow-margin(-(large|small)|$)');
+
+    @if $_default_tokens_match != null {
+        @if $fallback == null {
+            $fallback: tokens-style-value($slug, $raw: false);
+        }
+
+        $_suffix: if(
+            list.length($_default_tokens_match) > 2,
+            '--#{list.nth($_default_tokens_match, 3)}',
+            ''
+        );
+
+        @return config.config-do-var(
+            'flow-margin#{$_suffix}',
+            $fallback: $fallback,
+            $fallbackOnly: false,
+            $args...
+        );
+    }
+    // @if tokens-style-is-flow-margin($slug) {
+    // }
 
     @if $fallback == null {
         $fallback: tokens-style-value($slug, $raw: $raw, $rawUnit: $rawUnit);
     }
+
+    $isFocusRingStyle: string.index($slug, focus-ring-) == 1;
+    $isIconStyle: string.index($slug, icon-) == 1;
 
     $fallbackOnly: config.$fn_var_replaceWithValue_style and not $isFocusRingStyle and not
         $isIconStyle;

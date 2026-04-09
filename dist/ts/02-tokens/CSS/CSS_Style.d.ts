@@ -31,6 +31,7 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
     static buttonStyle(iconStyles: Tokens_CSS_Style.IconStyles, partial?: Tokens_CSS_Style.InputParam['button']): {
         $: Tokens_CSS_Style.ButtonStyles;
         disabled: Tokens_CSS_Style.ButtonStyles_Disabled;
+        inline: Tokens_CSS_Style.ButtonStyles_Inline;
     };
     /**
      * @since 0.1.0-alpha
@@ -138,6 +139,15 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
                 };
             };
         } & RecursivePartial<Tokens_CSS_Style.InputStyles>);
+        readonly file: {
+            readonly padding: {
+                block: AnyTokenLevel;
+                inline: AnyTokenLevel;
+            } | {
+                block: AnyTokenLevel;
+                inline: AnyTokenLevel;
+            };
+        };
         readonly disabled: Tokens_CSS_Style.InputStyles_Variation;
         readonly readonly: Tokens_CSS_Style.InputStyles_Variation;
     };
@@ -153,6 +163,7 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
         button: {
             $: Tokens_CSS_Style.ButtonStyles;
             disabled: Tokens_CSS_Style.ButtonStyles_Disabled;
+            inline: Tokens_CSS_Style.ButtonStyles_Inline;
         };
         heading: {
             unstyled: Tokens_CSS_Style.HeadingStyles_Unstyled;
@@ -262,37 +273,19 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
                     };
                 };
             } & RecursivePartial<Tokens_CSS_Style.InputStyles>);
+            readonly file: {
+                readonly padding: {
+                    block: AnyTokenLevel;
+                    inline: AnyTokenLevel;
+                } | {
+                    block: AnyTokenLevel;
+                    inline: AnyTokenLevel;
+                };
+            };
             readonly disabled: Tokens_CSS_Style.InputStyles_Variation;
             readonly readonly: Tokens_CSS_Style.InputStyles_Variation;
         };
-        margin: {
-            /**
-             * Default values for the set-flow-margins mixin.
-             */
-            flow: {
-                $: AnyTokenLevel;
-                large: AnyTokenLevel;
-                small: AnyTokenLevel;
-            };
-        } | ({
-            /**
-             * Default values for the set-flow-margins mixin.
-             */
-            flow: {
-                $: AnyTokenLevel;
-                large: AnyTokenLevel;
-                small: AnyTokenLevel;
-            };
-        } & RecursivePartial<{
-            /**
-             * Default values for the set-flow-margins mixin.
-             */
-            flow: {
-                $: AnyTokenLevel;
-                large: AnyTokenLevel;
-                small: AnyTokenLevel;
-            };
-        }>);
+        'flow-margin': Tokens_CSS_Style.FlowMargin | (Tokens_CSS_Style.FlowMargin & RecursivePartial<Tokens_CSS_Style.FlowMargin>);
         selection: {
             background: {
                 opacity: {
@@ -309,6 +302,7 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
         readonly button: {
             $: Tokens_CSS_Style.ButtonStyles;
             disabled: Tokens_CSS_Style.ButtonStyles_Disabled;
+            inline: Tokens_CSS_Style.ButtonStyles_Inline;
         };
         readonly heading: {
             readonly unstyled: Tokens_CSS_Style.HeadingStyles_Unstyled;
@@ -418,15 +412,23 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
                     };
                 };
             } & RecursivePartial<Tokens_CSS_Style.InputStyles>);
+            readonly file: {
+                readonly padding: {
+                    block: AnyTokenLevel;
+                    inline: AnyTokenLevel;
+                } | {
+                    block: AnyTokenLevel;
+                    inline: AnyTokenLevel;
+                };
+            };
             readonly disabled: Tokens_CSS_Style.InputStyles_Variation;
             readonly readonly: Tokens_CSS_Style.InputStyles_Variation;
         };
-        readonly margin: {
-            readonly flow: {
-                readonly $: "400";
-                readonly large: "600";
-                readonly small: "300";
-            };
+        readonly 'flow-margin': {
+            readonly $: "400";
+            readonly large: "600";
+            readonly small: "300";
+            readonly button: "300";
         };
         readonly selection: {
             readonly background: {
@@ -490,6 +492,15 @@ export declare namespace Tokens_CSS_Style {
                 weight: WholeTokenLevel;
             };
             'line-height': AnyTokenLevel;
+            /**
+             * Value for the first item after an icon (to be in em). Gets
+             * overruled if that item is a heading.
+             */
+            margin: {
+                block: {
+                    start: number;
+                };
+            };
         };
         icon: {
             /**
@@ -502,24 +513,23 @@ export declare namespace Tokens_CSS_Style {
             size: Omit<IconStyles['size'], 'font' | 'pseudo'>;
         };
         'line-height': AnyTokenLevel;
-        margin: {
-            /**
-             * Values for the set-flow-margins mixin.
-             */
-            flow: {
-                $: AnyTokenLevel;
-                large: AnyTokenLevel;
-                small: AnyTokenLevel;
-            };
+        /**
+         * Values for the set-flow-margins mixin.
+         */
+        'flow-margin': FlowMargin & {
+            self: 'margins-flow-firm' | 'margins-flow-firm-large' | 'margins-flow-firm-small';
         };
         padding: {
             block: AnyTokenLevel;
             inline: AnyTokenLevel;
         };
     };
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
     type AlertStyles_Heading = {
         /**
-         * Values for the inner heading after an icon.
+         * Values for the inner heading after an icon (to be in em).
          */
         margin: {
             block: {
@@ -528,20 +538,22 @@ export declare namespace Tokens_CSS_Style {
             };
         };
     };
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
     type ButtonStyles = {
         border: {
             radius: "0" | AnyTokenLevel;
             style: string;
             width: AnyTokenLevel;
         };
+        display: "block" | "flex";
         focus: {
             offset: AnyTokenLevel;
         };
         font: {
             /**
              * Should be a font-size token slug.
-             *
-             * @since 0.1.0-beta.0.draft
              */
             size: string;
             style: "normal" | "italic";
@@ -583,11 +595,21 @@ export declare namespace Tokens_CSS_Style {
         'text-transform': CSS.TextTransform;
         width: string;
     };
-    type ButtonStyles_Disabled = Omit<ButtonStyles, 'border' | 'focus' | 'font' | 'gap' | 'icon' | 'line-height' | 'margin' | 'padding' | 'width'> & {
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    type ButtonStyles_Disabled = Omit<ButtonStyles, 'border' | 'display' | 'focus' | 'font' | 'gap' | 'icon' | 'line-height' | 'margin' | 'padding' | 'width'> & {
         border: Omit<ButtonStyles['border'], 'width'>;
         font: Omit<ButtonStyles['font'], 'size'>;
-        'letter-spacing': string;
-        'text-transform': CSS.TextTransform;
+    };
+    /**
+     * Inline buttons are buttons meant to be inline with text (rather than in
+     * its own line(s)).
+     *
+     * @since 0.1.0-beta.0.draft
+     */
+    type ButtonStyles_Inline = Omit<ButtonStyles, 'display' | 'icon' | 'margin' | 'width'> & {
+        icon: Omit<ButtonStyles['icon'], 'vertical-align'>;
     };
     /**
      * CSS allowed value types.
@@ -597,6 +619,22 @@ export declare namespace Tokens_CSS_Style {
     namespace CSS {
         type TextTransform = "none" | "capitalize" | "uppercase" | "lowercase" | "full-width" | "full-size-kana" | "math-auto";
     }
+    /**
+     * The flow margins to be included in various other styles for the
+     * set-flow-margins mixin.
+     */
+    type FlowMargin = {
+        $: AnyTokenLevel;
+        large: AnyTokenLevel;
+        small: AnyTokenLevel;
+        /**
+         * Gap for button spans.
+         */
+        button: AnyTokenLevel;
+    };
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
     type HeadingStyles = {
         font: {
             style: "normal" | "italic";
@@ -742,23 +780,11 @@ export declare namespace Tokens_CSS_Style {
             style: string;
             width: AnyTokenLevel;
         };
-        /**
-         * For interior button spans.
-         */
-        'button-span': {
-            gap: AnyTokenLevel;
-        };
         'line-height': AnyTokenLevel;
-        margin: {
-            /**
-             * Values for the set-flow-margins mixin.
-             */
-            flow: {
-                $: AnyTokenLevel;
-                large: AnyTokenLevel;
-                small: AnyTokenLevel;
-            };
-        };
+        /**
+         * Values for the set-flow-margins mixin.
+         */
+        'flow-margin': FlowMargin;
         padding: {
             block: AnyTokenLevel;
             inline: AnyTokenLevel;
@@ -775,6 +801,7 @@ export declare namespace Tokens_CSS_Style {
         button: {
             $: ButtonStyles;
             disabled: ButtonStyles_Disabled;
+            inline: ButtonStyles_Inline;
         };
         heading: {
             unstyled: HeadingStyles_Unstyled;
@@ -792,22 +819,16 @@ export declare namespace Tokens_CSS_Style {
          */
         input: {
             $: InputStyles;
+            file: Pick<InputStyles, 'padding'>;
             disabled: InputStyles_Variation;
             readonly: InputStyles_Variation;
         };
         /**
+         * Default values for the set-flow-margins mixin.
+         *
          * @since 0.1.0-beta.0.draft
          */
-        margin: {
-            /**
-             * Default values for the set-flow-margins mixin.
-             */
-            flow: {
-                $: AnyTokenLevel;
-                large: AnyTokenLevel;
-                small: AnyTokenLevel;
-            };
-        };
+        'flow-margin': FlowMargin;
         /**
          * @since 0.1.0-beta.0.draft — Restructured object nesting.
          */
@@ -840,6 +861,7 @@ export declare namespace Tokens_CSS_Style {
         button?: {
             $?: RecursivePartial<ButtonStyles>;
             disabled?: RecursivePartial<ButtonStyles_Disabled>;
+            inline?: RecursivePartial<ButtonStyles_Inline>;
         };
         heading?: {
             unstyled?: RecursivePartial<HeadingStyles_Unstyled>;
@@ -854,13 +876,14 @@ export declare namespace Tokens_CSS_Style {
         icon?: RecursivePartial<IconStyles>;
         input?: {
             $?: RecursivePartial<InputStyles>;
+            file?: RecursivePartial<Pick<InputStyles, 'padding'>>;
             disabled?: RecursivePartial<InputStyles_Variation>;
             readonly?: RecursivePartial<InputStyles_Variation>;
         };
         /**
          * @since 0.1.0-beta.0.draft
          */
-        margin?: RecursivePartial<Data['margin']>;
+        'flow-margin'?: RecursivePartial<Data['flow-margin']>;
         /**
          * @since 0.1.0-beta.0.draft — Restructured object nesting.
          */

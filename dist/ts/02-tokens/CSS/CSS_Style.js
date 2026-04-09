@@ -7,7 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
-import { mergeArgs } from '@maddimathon/utility-typescript';
+import { deleteUndefinedProps, mergeArgs } from '@maddimathon/utility-typescript';
 import { objectGenerator } from '../../01-utilities/objectGenerator.js';
 import { objectKeySort_Tokens } from '../../01-utilities/objectKeySort_Tokens.js';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
@@ -70,6 +70,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 },
             };
         };
+        const heading = mergeArgs(objectGenerator([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'unstyled'], headingMaker), deleteUndefinedProps(partial.heading ?? {}), true);
         return mergeArgs({
             background: 'background',
             border: {
@@ -79,7 +80,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 width: '200',
             },
             color: 'text-primary',
-            heading: objectGenerator([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'unstyled'], headingMaker),
+            heading,
             headline: {
                 font: {
                     size: 'heading-7',
@@ -87,6 +88,11 @@ export class Tokens_CSS_Style extends AbstractTokens {
                     weight: '600',
                 },
                 'line-height': '200',
+                margin: {
+                    block: {
+                        start: heading.unstyled.margin.block.start,
+                    },
+                },
             },
             'line-height': '300',
             icon: {
@@ -100,12 +106,12 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 block: '0',
                 inline: '300',
             },
-            margin: {
-                flow: {
-                    $: '300',
-                    large: '500',
-                    small: '200',
-                },
+            'flow-margin': {
+                $: '300',
+                large: '500',
+                small: '200',
+                button: '200',
+                self: 'margins-flow-firm',
             },
             padding: {
                 block: '300',
@@ -124,6 +130,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 style: 'solid',
                 width: '100',
             },
+            display: 'block',
             focus: {
                 offset: '400',
             },
@@ -177,6 +184,45 @@ export class Tokens_CSS_Style extends AbstractTokens {
                     style: 'italic',
                 },
                 'letter-spacing': style['letter-spacing'],
+                'text-transform': style['text-transform'],
+            }, partial?.disabled ?? {}, true),
+            inline: mergeArgs({
+                border: {
+                    radius: style.border.radius,
+                    width: style.border.width,
+                    style: style.border.radius,
+                },
+                focus: {
+                    offset: style.focus.offset,
+                },
+                font: {
+                    weight: style.font.weight,
+                    size: style.font.size,
+                    style: style.font.style,
+                },
+                gap: {
+                    block: style.gap.block,
+                    inline: style.gap.inline,
+                },
+                icon: {
+                    buffer: {
+                        start: style.icon.buffer.start,
+                        end: style.icon.buffer.end,
+                    },
+                    embedded: {
+                        bottom: style.icon.embedded.bottom,
+                    },
+                    size: {
+                        font: style.icon.size.font,
+                        pseudo: style.icon.size.pseudo,
+                    },
+                },
+                'letter-spacing': style['letter-spacing'],
+                'line-height': style['line-height'],
+                padding: {
+                    block: style.padding.block,
+                    inline: style.padding.inline,
+                },
                 'text-transform': style['text-transform'],
             }, partial?.disabled ?? {}, true),
         };
@@ -356,6 +402,12 @@ export class Tokens_CSS_Style extends AbstractTokens {
         };
         return {
             $: style,
+            file: {
+                padding: {
+                    ...style.padding,
+                    ...partial?.file?.padding,
+                },
+            },
             disabled,
             readonly,
         };
@@ -364,13 +416,13 @@ export class Tokens_CSS_Style extends AbstractTokens {
      * @since 0.1.0-beta.0.draft
      */
     static widgetStyle(partial) {
-        const margin = mergeArgs({
-            flow: {
-                $: '300',
-                large: '500',
-                small: '200',
-            },
-        }, partial?.margin ?? {}, true);
+        const flowMargin = {
+            $: '300',
+            large: '500',
+            small: '200',
+            ...partial?.['flow-margin'] ?? {},
+            button: partial?.['flow-margin']?.button ?? '200',
+        };
         return {
             border: mergeArgs({
                 color: 'background',
@@ -378,11 +430,8 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 style: 'solid',
                 width: '200',
             }, partial?.border ?? {}, true),
-            'button-span': {
-                gap: partial?.['button-span']?.gap ?? margin.flow.small,
-            },
             'line-height': partial?.['line-height'] ?? '300',
-            margin,
+            'flow-margin': flowMargin,
             padding: mergeArgs({
                 block: '400',
                 inline: '400',
@@ -404,7 +453,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
             },
             icon,
             input: Tokens_CSS_Style.inputStyle(partial.input),
-            margin: mergeArgs(defaults.margin, partial.margin, true),
+            'flow-margin': mergeArgs(defaults['flow-margin'], partial['flow-margin'], true),
             selection: {
                 ...defaults.selection,
                 ...partial.selection,
@@ -431,12 +480,11 @@ export class Tokens_CSS_Style extends AbstractTokens {
             },
             icon,
             input: Tokens_CSS_Style.inputStyle(),
-            margin: {
-                flow: {
-                    $: '400',
-                    large: '600',
-                    small: '300',
-                },
+            'flow-margin': {
+                $: '400',
+                large: '600',
+                small: '300',
+                button: '300',
             },
             selection: {
                 background: {

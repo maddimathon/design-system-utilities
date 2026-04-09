@@ -65,7 +65,7 @@ export class Compile extends CompileStage {
             '',
             'src/astro/css',
             {
-                // maxConcurrent: 1,
+                maxConcurrent: 15,
                 postCSS: true,
                 srcDir: 'src/scss/_astro',
             },

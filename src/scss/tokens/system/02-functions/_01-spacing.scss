@@ -20,7 +20,7 @@
     $value: map.get(breakdown.$margin, '400');
 
     @if not map.has-key(breakdown.$margin, '#{$level}') {
-        @warn "$level '#{$level}' was not a key in breakdown.$margin";
+        @warn "$level '#{$level}' was not a key in tokens.$margin";
     } @else {
         $value: map.get(breakdown.$margin, '#{$level}');
     }
@@ -33,10 +33,10 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@function tokens-mrg-value-half($level, $unit: 1, $multiplier: 1) {
+@function tokens-mrg-value-half($level, $unit: 1, $multiplier: 1, $args...) {
     //
-    $firm: tokens-mrg-value-firm($level, $multiplier: $multiplier);
-    $soft: tokens-mrg-value-soft($level, $multiplier: $multiplier);
+    $firm: tokens-mrg-value-firm($level, $multiplier: $multiplier, $args...);
+    $soft: tokens-mrg-value-soft($level, $multiplier: $multiplier, $args...);
 
     @return math.add-unit($firm - $soft, $unit);
 }
@@ -49,8 +49,8 @@ $_mrgValFirm_400_softened: tokens-mrg-value-firm('400');
 ///
 /// @since ___PKG_VERSION___
 ///
-@function tokens-mrg-value-soft($level, $unit: 1, $multiplier: 1) {
-    $value: tokens-mrg-value-firm($level, $multiplier: $multiplier);
+@function tokens-mrg-value-soft($level, $unit: 1, $multiplier: 1, $args...) {
+    $value: tokens-mrg-value-firm($level, $multiplier: $multiplier, $args...);
 
     // returns - simple softening
     @if math.num-val($level) <= 400 {

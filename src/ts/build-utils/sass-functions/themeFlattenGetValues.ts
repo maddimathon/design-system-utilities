@@ -55,22 +55,19 @@ export function sassFn_themeFlattenGetValues(): [ string, sass.CustomFunction<'a
                 includeHSL = true,
                 includeRGB = false,
             ] = await Promise.all( [
-                sassAssertValueType( 'map', args[ 0 ] )?.then( map => ( map instanceof Map ? mapToObjectAsync( map ) : map ) as undefined | Tokens_Colour.ScssVars<TokenTypes.Colour.TypeParams> ),
-                sassAssertValueType( 'map', args[ 1 ] )?.then( map => ( map instanceof Map ? mapToObjectAsync( map ) : map ) as undefined | Tokens_Themes.ScssVars<TokenTypes.Colour.TypeParams, TokenTypes.Theme.TypeParams> ),
-                sassAssertValueType( 'bool', args[ 2 ] ),
-                sassAssertValueType( 'bool', args[ 3 ] ),
-                sassAssertValueType( 'bool', args[ 4 ] ),
+
+                sassAssertValueType( 'colours', 'map', args[ 0 ], true )?.then(
+                    map => ( map instanceof Map ? mapToObjectAsync( map ) : map ) as undefined | Tokens_Colour.ScssVars<TokenTypes.Colour.TypeParams>
+                ),
+
+                sassAssertValueType( 'themes', 'map', args[ 1 ], true )?.then(
+                    map => ( map instanceof Map ? mapToObjectAsync( map ) : map ) as undefined | Tokens_Themes.ScssVars<TokenTypes.Colour.TypeParams, TokenTypes.Theme.TypeParams>
+                ),
+
+                sassAssertValueType( 'replaceVarClrWithValue', 'bool', args[ 2 ], true ),
+                sassAssertValueType( 'includeHSL', 'bool', args[ 3 ], true ),
+                sassAssertValueType( 'includeRGB', 'bool', args[ 4 ], true ),
             ] );
-
-            // console.vi.log( {
-            //     // themeTokens: themeTokens && Object.keys( themeTokens ),
-            //     // colourTokens: colourTokens && Object.keys( colourTokens ),
-            //     replaceVarClrWithValue,
-            //     includeHSL,
-            //     includeRGB,
-            // }, 1 );
-
-            // return sass.sassNull;
 
             if ( !themeTokens ) {
                 return sass.sassNull;

@@ -148,47 +148,28 @@ $_flattenedSystemColors: map.flatten($_systemColors);
 /// Prints out the colour custom property tokens based on config.
 ///
 /// @since 0.1.0-alpha
+/// @since 0.1.0-beta.0.draft — Added $includeRegion param.
 ///
-@mixin tokens-colour {
+@mixin tokens-colour($includeRegion: true) {
     @at-root {
-        /* #region Tokens - Colour */
-    }
-    @each $mode in tokens.$brightnessMode_all {
-        //
-        @include utils.colour-mode($mode, $includeDefault: true) {
-            //
-            @each $slug, $map in tokens.$colour {
+        @if $includeRegion {
+            /* #region Tokens - Colour */
+        }
+
+        @each $mode in tokens.$brightnessMode_all {
+            @include utils.colour-mode($mode, $includeDefault: true) {
                 //
-                @if $slug == white {
-                    $slug: 'white';
-                } @else if $slug == black {
-                    $slug: 'black';
-                }
+                @each $slug, $map in tokens.$colour {
+                    //
+                    @if $slug == white {
+                        $slug: 'white';
+                    } @else if $slug == black {
+                        $slug: 'black';
+                    }
 
-                $_shadeNameSlug: if($slug == '$', 'clr', 'clr-#{$slug}');
+                    $_shadeNameSlug: if($slug == '$', 'clr', 'clr-#{$slug}');
 
-                @each $level, $clr in map.ksort($map) {
-                    $_clrValue: if(
-                        $mode == dark,
-                        map.get(
-                            $map,
-                            colour.shade-map-reverse-key(
-                                $level,
-                                $map,
-                                $sort: true
-                            )
-                        ),
-                        $clr
-                    );
-
-                    @include utils.cx-prop(
-                        #{$_shadeNameSlug}-#{$level},
-                        colour.to-hsl($_clrValue, $round: false)
-                    );
-                }
-
-                @if config.$include_colourValues_hsl {
-                    @each $level, $clr in map.ksort($map) {
+                    @each $level, $clr in $map {
                         $_clrValue: if(
                             $mode == dark,
                             map.get(
@@ -196,45 +177,68 @@ $_flattenedSystemColors: map.flatten($_systemColors);
                                 colour.shade-map-reverse-key(
                                     $level,
                                     $map,
-                                    $sort: true
+                                    $sort: false
                                 )
                             ),
                             $clr
                         );
 
                         @include utils.cx-prop(
-                            #{$_shadeNameSlug}-#{$level}-hsl,
-                            colour.to-hsl-list($_clrValue, $round: false)
+                            #{$_shadeNameSlug}-#{$level},
+                            colour.to-hsl($_clrValue, $round: false)
                         );
                     }
-                }
 
-                @if config.$include_colourValues_rgb {
-                    @each $level, $clr in map.ksort($map) {
-                        $_clrValue: if(
-                            $mode == dark,
-                            map.get(
-                                $map,
-                                colour.shade-map-reverse-key(
-                                    $level,
+                    @if config.$include_colourValues_hsl {
+                        @each $level, $clr in $map {
+                            $_clrValue: if(
+                                $mode == dark,
+                                map.get(
                                     $map,
-                                    $sort: true
-                                )
-                            ),
-                            $clr
-                        );
+                                    colour.shade-map-reverse-key(
+                                        $level,
+                                        $map,
+                                        $sort: false
+                                    )
+                                ),
+                                $clr
+                            );
 
-                        @include utils.cx-prop(
-                            #{$_shadeNameSlug}-#{$level}-rgb,
-                            colour.to-rgb-list($_clrValue, $round: true)
-                        );
+                            @include utils.cx-prop(
+                                #{$_shadeNameSlug}-#{$level}-hsl,
+                                colour.to-hsl-list($_clrValue, $round: false)
+                            );
+                        }
+                    }
+
+                    @if config.$include_colourValues_rgb {
+                        @each $level, $clr in $map {
+                            $_clrValue: if(
+                                $mode == dark,
+                                map.get(
+                                    $map,
+                                    colour.shade-map-reverse-key(
+                                        $level,
+                                        $map,
+                                        $sort: false
+                                    )
+                                ),
+                                $clr
+                            );
+
+                            @include utils.cx-prop(
+                                #{$_shadeNameSlug}-#{$level}-rgb,
+                                colour.to-rgb-list($_clrValue, $round: true)
+                            );
+                        }
                     }
                 }
             }
         }
-    }
-    @at-root {
-        /* #endregion Tokens - Colour */
+
+        @if $includeRegion {
+            /* #endregion Tokens - Colour */
+        }
     }
 }
 
@@ -307,9 +311,7 @@ $_flattenedSystemColors: map.flatten($_systemColors);
     $background: null,
     $color: null,
     $focusRingOutlineColor: null,
-    $iconColor: null,
-    //
-     //
+    $iconColor: null
 ) {
     $useSystemColorFallback: false;
 
@@ -526,44 +528,49 @@ $_themes_includeAlternatives: if(
 /// Handles iterating through each colour mode.
 ///
 /// @since 0.1.0-alpha.4
+/// @since 0.1.0-beta.0.draft — Added $includeRegion param.
 ///
 @mixin tokens-theme-iterator(
     $includeAlternatives: $_themes_includeAlternatives,
     $separateQueriesAndSelectors:
         config.$mx_tokensTheme_separateQueriesAndSelectors,
-    $includeQuery: config.$mx_tokensTheme_includeQuery
+    $includeQuery: config.$mx_tokensTheme_includeQuery,
+    $includeRegion: true
 ) {
     @if $separateQueriesAndSelectors {
         @if $includeQuery {
             // prettier-ignore
             @include utils.colour-mode-each(
-                $includeRegions_heading: 'Tokens - Theme - Queries - ',
+                $includeRegion_heading: 'Tokens - Theme - Queries - ',
         
                 $includeDefault: not config.$mx_colourMode_includeDefaultQueries,
                 $includeForcedColors: false,
                 $includeQuery: true,
+                $includeRegion: $includeRegion,
                 $includeSelectors: false,
-            ) using ($brightness, $contrast) {
-                @if $contrast != max {
-                    @content($brightness, $contrast);
+                ) using ($brightness, $contrast) {
+                    @if $contrast != max {
+                        @content($brightness, $contrast);
+                    }
                 }
-            }
         }
 
         // prettier-ignore
         @include utils.colour-mode-each(
-            $includeRegions_heading: 'Tokens - Theme - Selectors - ',
-    
-            $includeDefault: config.$mx_tokensTheme_includeDefaultSelectors,
-            $includeQuery: false
-        ) using ($brightness, $contrast) {
-            @content($brightness, $contrast);
-        }
+                $includeRegion_heading: 'Tokens - Theme - Selectors - ',
+                
+                $includeDefault: config.$mx_tokensTheme_includeDefaultSelectors,
+                $includeQuery: false,
+                $includeRegion: $includeRegion,
+                ) using ($brightness, $contrast) {
+                    @content($brightness, $contrast);
+                }
     } @else {
         // prettier-ignore
         @include utils.colour-mode-each(
             $includeQuery: $includeQuery,
-            $includeRegions_heading: 'Tokens - Theme - ',
+            $includeRegion: $includeRegion,
+            $includeRegion_heading: 'Tokens - Theme - ',
         ) using ($brightness, $contrast) {
             @content($brightness, $contrast);
         }
@@ -574,12 +581,14 @@ $_themes_includeAlternatives: if(
 /// Prints out the theme custom property tokens based on config.
 ///
 /// @since 0.1.0-alpha
+/// @since 0.1.0-beta.0.draft — Added $includeRegion param.
 ///
 @mixin tokens-theme(
     $checkpointName: false,
     $checkpointLevel: 2,
     //
     $includeAlternatives: $_themes_includeAlternatives,
+    $includeRegion: true,
     $includeSystemColours: true,
     $separateQueriesAndSelectors:
         config.$mx_tokensTheme_separateQueriesAndSelectors
@@ -593,6 +602,7 @@ $_themes_includeAlternatives: if(
     // prettier-ignore
     @include tokens-theme-iterator(
         $includeAlternatives: $includeAlternatives,
+        $includeRegion: $includeRegion,
         $separateQueriesAndSelectors: $separateQueriesAndSelectors,
     ) using ($brightness, $contrast) {
         //

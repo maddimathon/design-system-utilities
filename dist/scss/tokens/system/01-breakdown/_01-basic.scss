@@ -18,13 +18,13 @@ $spacing_multiplier: map.get(default.$designSystem, spacing_multiplier);
 // #region - BORDERS
 $border: map.ksort(map.get(default.$designSystem, border), $recursive: true);
 
-$border_width: map.ksort(map.get($border, width));
+$border_width: map.get($border, width);
 
 @each $key, $size in $border_width {
     $border_width: map.set($border_width, $key, math.round-to-pixel($size, 32));
 }
 
-$stroke_relative: map.ksort(map.get($border, stroke));
+$stroke_relative: map.get($border, stroke);
 
 @each $key, $size in $stroke_relative {
     $stroke_relative: map.set(
@@ -97,7 +97,7 @@ $font_size: map.flatten($font_size);
             $key,
             math.round-to-pixel(
                 math.pow($spacing_multiplier, $value),
-                $factor: config.$fn_fontSizeValue_roundToPixelFactor
+                $factor: config.$math_fontSize_roundingFactor
             )
         );
     }
@@ -107,12 +107,22 @@ $font_size: map.flatten($font_size);
 $icons: map.ksort(map.get(default.$designSystem, icons));
 
 // #region - LINE HEIGHTS
+
 $lineHeight_base: null !default;
 $lineHeight_base: config.config-valid-number(
     $lineHeight_base,
     'lineHeight_base',
     $default: 1.6875,
     $min: 0.05,
+    $unit: false
+);
+
+$lineHeight_multiplier: null !default;
+$lineHeight_multiplier: config.config-valid-number(
+    $lineHeight_multiplier,
+    'lineHeight_multiplier',
+    $default: 0.875,
+    $min: 0.01,
     $unit: false
 );
 
@@ -123,7 +133,8 @@ $line_height: map.ksort(map.get(default.$designSystem, line_height));
         $line_height,
         $key,
         math.round-to-pixel(
-            math.pow($spacing_multiplier, $value * 0.875) * $lineHeight_base,
+            math.pow($spacing_multiplier, $value * $lineHeight_multiplier) *
+                $lineHeight_base,
             32
         )
     );
@@ -162,7 +173,10 @@ $margin: map.ksort(map.get(default.$designSystem, margin));
 }
 // #endregion - MARGINS
 
-$style: map.ksort(map.get(default.$designSystem, style));
+$style: map.ksort(map.get(default.$designSystem, style), $recursive: true);
+
+$style_flat: map.flatten($style);
+$style_flat_required: map.flatten(map.pick($style, (icon)));
 
 $themesMeta: map.get(default.$designSystem, themes, _meta);
 

@@ -17,12 +17,15 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin tokens-margin($multiplier: 1) {
-    $selector: selector.parent-or-root();
+@mixin tokens-margin($multiplier: 1, $includeRegion: true) {
+    $_sel: selector.parent-or-root();
 
     @at-root {
-        /* #region Tokens - Margin */
-        #{$selector} {
+        @if $includeRegion {
+            /* #region Tokens - Margin */
+        }
+
+        #{$_sel} {
             @each $level, $_value in tokens.$margin {
                 @include utils.cx-prop(
                     mrg-firm-#{$level},
@@ -37,7 +40,7 @@
             }
         }
 
-        #{$selector} {
+        #{$_sel} {
             @each $level, $_value in tokens.$margin {
                 @include utils.cx-prop(
                     mrg-soft-#{$level},
@@ -52,7 +55,7 @@
             }
         }
 
-        #{$selector} {
+        #{$_sel} {
             @each $level, $_value in tokens.$margin {
                 @include utils.cx-prop(
                     mrg-half-#{$level},
@@ -66,6 +69,9 @@
                 );
             }
         }
-        /* #endregion Tokens - Margin */
+
+        @if $includeRegion {
+            /* #endregion Tokens - Margin */
+        }
     }
 }

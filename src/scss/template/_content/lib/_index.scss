@@ -30,8 +30,8 @@
     //
     $additional: list.join($additional, (dd, dt, img, figure, svg));
 
-    $additional: list.append($additional, ((cite, dt, p), 'paragraph-margins'));
-    $additional: list.append($additional, ((li), 'paragraph-small-margins'));
+    $additional: list.append($additional, ((cite, dt, p), 'margins-flow'));
+    $additional: list.append($additional, ((li), 'margins-flow-small'));
 
     $additional: list.append(
         $additional,
@@ -46,10 +46,10 @@
                 figure,
                 img
             ),
-            'paragraph-firm-margins'
+            'margins-flow-firm'
         )
     );
-    $additional: list.append($additional, ((blockquote), 'paragraph-firm-large-margins'));
+    $additional: list.append($additional, ((blockquote), 'margins-flow-firm-large'));
 
     $additional: list.append(
         $additional,
@@ -127,13 +127,13 @@
     $additional: list.join(
         $additional,
         (
-            ('.margins-flow-paragraph', paragraph-margins),
-            ('.margins-flow-paragraph-small', paragraph-small-margins),
-            (('.margins-flow-paragraph-large', '[data-toggle-container]'), paragraph-large-margins),
+            ('.margins-flow', margins-flow),
+            ('.margins-flow-small', margins-flow-small),
+            (('.margins-flow-large', '[data-toggle-container]'), margins-flow-large),
             //
-            ('.margins-flow-paragraph-firm', paragraph-firm-margins),
-            ('.margins-flow-paragraph-firm-small', paragraph-firm-small-margins),
-            ('.margins-flow-paragraph-firm-large', paragraph-firm-large-margins)
+            ('.margins-flow-firm', margins-flow-firm),
+            ('.margins-flow-firm-small', margins-flow-firm-small),
+            ('.margins-flow-firm-large', margins-flow-firm-large)
         )
     );
 
@@ -171,10 +171,15 @@
     $additional_optional: list.join($additional_optional, get-extend-selectors-colour-utils());
     $additional_optional: list.join($additional_optional, get-extend-selectors-icon-utils());
 
-    // $additional: list.append($additional, ((), 'paragraph-margins'));
-    // $additional: list.append($additional, ((), 'paragraph-large-margins'));
-    // $additional: list.append($additional, ((), 'paragraph-small-margins'));
-    $additional: list.append($additional, (('a.button[href]', '%alert'), 'paragraph-firm-margins'));
+    // $additional: list.append($additional, ((), 'margins-flow'));
+    // $additional: list.append($additional, ((), 'margins-flow-large'));
+    // $additional: list.append($additional, ((), 'margins-flow-small'));
+    $additional: list.append($additional, ('a.button[href]', 'margins-flow-firm'));
+
+    $additional: list.append(
+        $additional,
+        ('%alert', style-value(alert-flow-margin-self, $raw: true))
+    );
 
     // font size utilities
     @each $slug, $_value in tokens.$font_size {
@@ -192,7 +197,7 @@
         );
     }
 
-    @each $slug in list.join(map.keys(tokens.$widths), (auto, fit-content, none)) {
+    @each $slug in list.join(map.keys(tokens.$width), (auto, fit-content, none)) {
         $additional_optional: list.append(
             $additional_optional,
             ('.max-width-#{$slug}', max-width-#{$slug})
@@ -220,7 +225,7 @@
 
             $additional: list.append(
                 $additional,
-                ('a.button-#{$variant}[href]', 'paragraph-firm-margins')
+                ('a.button-#{$variant}[href]', 'margins-flow-firm')
             );
 
             $additional_optional: list.append(

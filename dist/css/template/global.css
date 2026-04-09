@@ -19,6 +19,66 @@
     syntax: "*";
     inherits: false;
 }
+@property --flow-margin {
+    syntax: "<length-percentage>";
+    inherits: true;
+    initial-value: 0.8125rem;
+}
+@property --flow-margin--button-span-block {
+    syntax: "<length-percentage>";
+    inherits: true;
+    initial-value: 0.8125rem;
+}
+@property --flow-margin--button-span-inline {
+    syntax: "<length-percentage>";
+    inherits: true;
+    initial-value: 0.8125rem;
+}
+@property --flow-margin-firm-end {
+    syntax: "<length-percentage>";
+    inherits: true;
+    initial-value: 0.4375rem;
+}
+@property --flow-margin-firm-end--large {
+    syntax: "<length-percentage>";
+    inherits: true;
+    initial-value: 0.625rem;
+}
+@property --flow-margin-firm-end--small {
+    syntax: "<length-percentage>";
+    inherits: true;
+    initial-value: 0.3125rem;
+}
+@property --flow-margin-firm-start {
+    syntax: "<length-percentage>";
+    inherits: true;
+    initial-value: 1.25rem;
+}
+@property --flow-margin-firm-start--large {
+    syntax: "<length-percentage>";
+    inherits: true;
+    initial-value: 2.25rem;
+}
+@property --flow-margin-firm-start--small {
+    syntax: "<length-percentage>";
+    inherits: true;
+    initial-value: 0.8125rem;
+}
+@property --flow-margin--heading-unstyled {
+    syntax: "<length-percentage>";
+    inherits: true;
+    initial-value: 1.625rem;
+}
+@property --flow-margin--large {
+    syntax: "<length-percentage>";
+    inherits: true;
+    initial-value: 1.625rem;
+}
+@property --flow-margin--small {
+    syntax: "<length-percentage>";
+    inherits: true;
+    initial-value: 0.5rem;
+}
 @property --focus-ring-outline-color {
     syntax: "<color>";
     inherits: true;
@@ -97,14 +157,14 @@
     initial-value: 0px;
 }
 /* #endregion Tokens - @property */
-/* #region Tokens - Misc. */
+/* #region Tokens - Style */
 :root {
     --focus-ring-outline-color: var(--theme-link-outline-hover, ActiveText);
     --focus-ring-outline-offset: 0.125em;
     --focus-ring-outline-width: max(0.125rem, min(0.125em, 0.25rem));
 }
 
-/* #endregion Tokens - Misc. */
+/* #endregion Tokens - Style */
 /* #region Tokens - Style */
 :root {
     --icon-color: var(--theme-ui, CanvasText);
@@ -131,7 +191,7 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-    :where(.js) {
+    :root {
         --transition:
             accent-color 250ms ease-in-out, background-color 250ms ease-in-out,
             border-color 250ms ease-in-out, box-shadow 250ms ease-in-out,
@@ -3188,8 +3248,14 @@ li li li li em em {
  * ======================================================================== */
 fieldset {
     display: block;
-    margin: 1.25rem 0 0.4375rem;
-    padding: 0.5rem 1.25rem 0.8125rem;
+    margin-top: 1.25rem;
+    margin-bottom: 0.4375rem;
+    margin-left: 0;
+    margin-right: 0;
+    padding-top: 0.5rem;
+    padding-bottom: 0.8125rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
     border: 0.0625rem solid hsl(278.16, 60.54%, 30.06%);
     border: 0.0625rem solid var(--sys-clr-input-border, FieldText);
     border-radius: 0;
@@ -3249,8 +3315,14 @@ select,
 input {
     --focus-ring-outline-offset: 0.125rem;
     display: block;
-    margin: 1.25rem 0 0.4375rem;
-    padding: 0.3125rem 0.5rem;
+    margin-top: 1.25rem;
+    margin-bottom: 0.4375rem;
+    margin-left: 0;
+    margin-right: 0;
+    padding-top: 0.3125rem;
+    padding-bottom: 0.3125rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
     width: 100%;
     font: inherit;
     line-height: 1.3125;
@@ -3429,13 +3501,6 @@ input[type="week"] {
     width: auto;
 }
 
-input[type="file"] {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    padding-left: 0.8125rem;
-    padding-right: 0.8125rem;
-}
-
 input[type="range"] {
     padding: 0;
 }
@@ -3528,7 +3593,10 @@ table {
 }
 th,
 td {
-    padding: 0.3125rem 0.8125rem;
+    padding-top: 0.3125rem;
+    padding-bottom: 0.3125rem;
+    padding-left: 0.8125rem;
+    padding-right: 0.8125rem;
     min-width: 10em;
     background: hsl(339.45, 0%, 91.26%);
     background: var(--sys-clr-background, Canvas);
@@ -3560,13 +3628,14 @@ th {
 pre {
     display: block;
     position: relative;
+    margin-top: 1.25rem;
+    margin-bottom: 0.4375rem;
     margin-left: 0;
     margin-right: 0;
-    margin-top: 1.25rem;
-    margin-bottom: 0;
-    margin-top: 2.25rem;
-    margin-bottom: 1rem;
-    padding: 0.5rem 0.8125rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.8125rem;
+    padding-right: 0.8125rem;
     border: 0.0625rem solid currentColor;
     width: auto;
     max-width: 100%;
@@ -3633,6 +3702,55 @@ table {
 /*! END of @maddimathon/utility-astro/template */
 /* # GLOBALS - OBJECTS
  * ======================================================================== */
+cite,
+dt,
+p {
+    margin-top: 0.8125rem;
+    margin-top: var(--flow-margin, 0.8125rem);
+    margin-bottom: 0;
+}
+
+li {
+    margin-top: 0.5rem;
+    margin-top: var(--flow-margin--small, 0.5rem);
+    margin-bottom: 0;
+}
+
+button,
+[role="button"],
+input[type="button"],
+details,
+figure,
+img {
+    margin-top: 1.25rem;
+    margin-bottom: 0.4375rem;
+    margin-top: var(--flow-margin-firm-start, 1.25rem);
+    margin-bottom: var(--flow-margin-firm-end, 0.4375rem);
+}
+
+blockquote {
+    margin-top: 2.25rem;
+    margin-bottom: 0.625rem;
+    margin-top: var(--flow-margin-firm-start--large, 2.25rem);
+    margin-bottom: var(--flow-margin-firm-end--large, 0.625rem);
+}
+blockquote + cite,
+blockquote + dt,
+blockquote + p,
+blockquote + li {
+    margin-top: 1.625rem;
+    margin-top: var(--flow-margin--large, 1.625rem);
+}
+blockquote + button,
+blockquote + [role="button"],
+blockquote + input[type="button"],
+blockquote + details,
+blockquote + figure,
+blockquote + img {
+    margin-top: 2.25rem;
+    margin-top: var(--flow-margin-firm-start--large, 2.25rem);
+}
+
 hr {
     --icon-color: currentColor;
     border-width: 0.125rem;
@@ -3863,32 +3981,19 @@ blockquote {
     border-left: 0.125rem solid hsl(278.16, 60.54%, 30.06%);
     border-left: 0.125rem solid var(--theme-ui-primary, CanvasText);
 }
-blockquote cite,
-blockquote dt,
-blockquote p {
-    margin-top: 0.5rem;
-}
-blockquote li {
-    margin-top: 0.3125rem;
-}
-blockquote button,
-blockquote [role="button"],
-blockquote input[type="button"],
-blockquote details,
-blockquote figure,
-blockquote img {
-    margin-top: 0.8125rem;
-    margin-bottom: 0.3125rem;
-}
-blockquote blockquote {
-    margin-top: 1.6875rem;
-    margin-bottom: 0.5rem;
-}
-blockquote blockquote + cite,
-blockquote blockquote + dt,
-blockquote blockquote + p,
-blockquote blockquote + li {
-    margin-top: 1.1875rem;
+blockquote * {
+    --flow-margin: 0.5rem;
+    --flow-margin--small: 0.3125rem;
+    --flow-margin--large: 1.1875rem;
+    --flow-margin-firm-start: 0.8125rem;
+    --flow-margin-firm-end: 0.3125rem;
+    --flow-margin-firm-start--small: 0.5rem;
+    --flow-margin-firm-end--small: 0.1875rem;
+    --flow-margin-firm-start--large: 1.6875rem;
+    --flow-margin-firm-end--large: 0.5rem;
+    --flow-margin--button-span-block: 0.5rem;
+    --flow-margin--button-span-inline: 0.5rem;
+    --flow-margin--heading-unstyled: 1.1875rem;
 }
 blockquote > :first-child {
     margin-top: 0;
@@ -3932,10 +4037,20 @@ samp {
     margin-bottom: 0;
     margin-left: 0.125em;
     margin-right: 0.125em;
-    padding: 0 0.1875em;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0.1875em;
+    padding-right: 0.1875em;
     vertical-align: baseline;
     align-self: baseline;
     font-weight: 500;
+}
+
+kbd,
+samp {
+    -webkit-user-select: all;
+    -moz-user-select: all;
+    user-select: all;
 }
 
 pre {
@@ -3951,6 +4066,9 @@ pre > samp {
     border-radius: 0;
     background: transparent;
     color: inherit;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    user-select: text;
 }
 
 /* ## Typography - Headings ==================================== */
@@ -4622,8 +4740,14 @@ textarea,
 select,
 input {
     --focus-ring-outline-offset: 0.125em;
-    margin: 1.25rem 0 0.4375rem;
-    padding: 0.3125em 0.8125em;
+    margin-top: 1.25rem;
+    margin-bottom: 0.4375rem;
+    margin-left: 0;
+    margin-right: 0;
+    padding-top: 0.3125em;
+    padding-bottom: 0.3125em;
+    padding-left: 0.8125em;
+    padding-right: 0.8125em;
     border-radius: 0;
     border-width: 0.0625rem;
     line-height: 1.4375;
@@ -5100,6 +5224,13 @@ input[type="submit"][disabled]:active *,
 input[type="reset"][disabled]:active * {
     --icon-color: var(--theme-button-disabled-ui-active, ButtonText);
 }
+input[type="file"] {
+    padding-top: 0.3125em;
+    padding-bottom: 0.3125em;
+    padding-left: 0.8125em;
+    padding-right: 0.8125em;
+}
+
 input[type="checkbox"],
 input[type="radio"] {
     accent-color: hsl(278.16, 60.54%, 30.06%);
@@ -6150,39 +6281,6 @@ input[aria-disabled="true"]:active::file-selector-button *,
 input[disabled]:active::file-selector-button * {
     --icon-color: var(--theme-button-disabled-ui-active, ButtonText);
 }
-/* # LAYOUT
- * ======================================================================== */
-cite,
-dt,
-p {
-    margin-top: 0.8125rem;
-}
-
-li {
-    margin-top: 0.5rem;
-}
-
-button,
-[role="button"],
-input[type="button"],
-details,
-figure,
-img {
-    margin-top: 1.25rem;
-    margin-bottom: 0.4375rem;
-}
-
-blockquote {
-    margin-top: 2.25rem;
-    margin-bottom: 0.625rem;
-}
-blockquote + cite,
-blockquote + dt,
-blockquote + p,
-blockquote + li {
-    margin-top: 1.625rem;
-}
-
 /* # UTILITIES - LAYOUT
  * ======================================================================== */
 /* # UTILITIES - TYPOGRAPHY

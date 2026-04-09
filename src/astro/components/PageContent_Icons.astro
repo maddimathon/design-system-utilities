@@ -33,6 +33,7 @@ import LoremIpsum from './LoremIpsum.astro';
 /* PROPS ===================================== */
 
 interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
+    alignmentIcon?: T_Types['iconNames'];
     defaultIcon?: T_Types['iconNames'];
     inlinePreviews?: boolean;
     inlinePreviews_defaultOpen?: boolean;
@@ -41,7 +42,8 @@ interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
 }
 
 const {
-    defaultIcon = 'star',
+    alignmentIcon,
+    defaultIcon,
     inlinePreviews = import.meta.env.DEV,
     inlinePreviews_defaultOpen = import.meta.env.DEV,
     subheadingDisplayHeading = 6,
@@ -52,7 +54,9 @@ const {
 
 const defaultToggleToOpen = import.meta.env.DEV ? true : undefined;
 
-const defaultIconSvg = tokens.icons[defaultIcon] ?? tokens.icons.star;
+const alignmentIconSvg = tokens.icons[alignmentIcon ?? 'group'] ?? tokens.icons.group;
+
+const defaultIconSvg = tokens.icons[defaultIcon ?? alignmentIcon ?? 'star'] ?? tokens.icons.group;
 
 const textAndBackgroundKeys = arrayUnique([
     ...tokens.themes._meta.keys.background,
@@ -263,7 +267,7 @@ iconsSortedByLabel.forEach(([__key, icon]) => {
                 { icon.meta?.codepoint && <p class="aside">font glyph: <samp
                     set:text={`U+${icon.meta.codepoint.toString(16).toUpperCase()}`}
                 /><CopyToClipboardButton
-                    class:list="button--inline"
+                    class:list="button-grey button--inline"
                     toClipboard={String.fromCharCode(icon.meta.codepoint)}
                     set:text='copy'
                 /></p> }
@@ -288,7 +292,7 @@ iconsSortedByLabel.forEach(([__key, icon]) => {
                         { icon.meta?.codepoint && <p class="aside">font glyph: <samp
                             set:text={`U+${icon.meta.codepoint.toString(16).toUpperCase()}`}
                         /><CopyToClipboardButton
-                            class:list="button--inline"
+                            class:list="button-grey button--inline"
                             toClipboard={String.fromCharCode(icon.meta.codepoint)}
                             set:text='copy'
                         /></p> }
@@ -316,7 +320,7 @@ iconsSortedByLabel.forEach(([__key, icon]) => {
                 <Alert
                     heading={heading}
                     minimumHeading={1}
-                    icon={defaultIconSvg}
+                    icon={alignmentIconSvg}
                 >
                     <span
                         slot='headline'
@@ -327,7 +331,7 @@ iconsSortedByLabel.forEach(([__key, icon]) => {
                 </Alert>
             ))
     }
-    <Alert icon={defaultIconSvg}>
+    <Alert icon={alignmentIconSvg}>
         <span
             slot='headline'
             set:text={`NO Heading Level`}

@@ -5,8 +5,9 @@
 
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/selector';
+@use 'pkg:@maddimathon/utility-sass/string';
 
-// @use '../../../config';
+@use '../../../config';
 @use '../../../tokens';
 
 @use '../../01-functions' as *;
@@ -17,21 +18,33 @@
 /// Prints out the style custom property tokens based on tokens.
 ///
 /// @since 0.1.0-alpha
+/// @since ___PKG_VERSION___ — Added $includeRegion param.
 ///
-@mixin tokens-style($requiredOnly: false) {
-    $_tokensMap: map.get(tokens.$designSystem, style);
+@mixin tokens-style($requiredOnly: null, $includeRegion: true) {
+    @if $requiredOnly == null {
+        $requiredOnly: config.$fn_var_replaceWithValue_style and not
+            config.$mx_tokensStyle_printAll;
+    }
 
-    $_tokensMap: if($requiredOnly, map.pick($_tokensMap, (icon)), $_tokensMap);
+    $_tokensMap: if($requiredOnly, tokens.$style_flat_required, tokens.$style_flat);
+
+    $_sel: selector.parent-or-root();
 
     @at-root {
-        /* #region Tokens - Style */
-    }
-    @at-root #{selector.parent-or-root()} {
-        @each $slug, $_value in map.flatten($_tokensMap) {
-            @include utils.cx-prop($slug, style-value($slug));
+        @if $includeRegion {
+            /* #region Tokens - Style */
         }
-    }
-    @at-root {
-        /* #endregion Tokens - Style */
+        #{$_sel} {
+            @each $slug, $_value in $_tokensMap {
+                @if style-is-flow-margin($slug) {
+                    // skip these flow-margin tokens in favour of set-flow-margins() mixin
+                } @else {
+                    @include utils.cx-prop($slug, style-value($slug));
+                }
+            }
+        }
+        @if $includeRegion {
+            /* #endregion Tokens - Style */
+        }
     }
 }

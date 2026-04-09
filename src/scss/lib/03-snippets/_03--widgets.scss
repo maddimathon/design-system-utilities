@@ -92,12 +92,11 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
     }
 
     @if $includeFlowMargins {
-        @include set-flow-margins(
-            $defaultLevel: style-value(widget-margin-flow),
-            $largeLevel: style-value(widget-margin-flow-large),
-            $smallLevel: style-value(widget-margin-flow-small),
-            $buttonGapBlock: var-mrg-firm(style-value(widget-button-span-gap, $raw: true)),
-            $buttonGapInline: var-mrg-firm(style-value(widget-button-span-gap, $raw: true))
+        @include set-flow-margins-by-token(
+            $default: widget-flow-margin,
+            $large: widget-flow-margin-large,
+            $small: widget-flow-margin-small,
+            $buttonGapBlock: widget-flow-margin-button
         );
     }
 }

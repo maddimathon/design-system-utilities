@@ -28,10 +28,10 @@
         @if font-family-exists(body) {
             font-family: var-font-family(body);
         }
-        font-size: 115%;
+        font-size: 110%;
 
         @include min-width(mobile) {
-            font-size: 110%;
+            font-size: 105%;
         }
 
         @include min-width(tablet) {
@@ -179,7 +179,8 @@
     @include prop-display(inline);
     margin-block: 0;
     margin-inline: #{var-stroke-relative('400')};
-    padding: 0 #{var-stroke-relative('600')};
+    padding-block: 0;
+    padding-inline: #{var-stroke-relative('600')};
 
     vertical-align: baseline;
     align-self: baseline;
@@ -187,6 +188,11 @@
     font-weight: 500;
 
     @include font-family-size-tokens(monospace);
+}
+
+%kbd,
+%samp {
+    user-select: all;
 }
 
 %pre {
@@ -200,6 +206,7 @@
         border-radius: 0;
         background: transparent;
         color: inherit;
+        user-select: text;
     }
 }
 

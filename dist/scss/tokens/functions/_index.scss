@@ -19,77 +19,149 @@
 /// @since 0.1.0-beta.0.draft
 ///
 @function tokens-get-at-properties($inputs) {
+    // #region - $defaults
+    $defaults: (
+        focus-ring-outline-color: (
+            initial-value: #{system.tokens-var-theme(link-outline-hover)},
+        ),
+
+        icon-color: (
+            initial-value: #{system.tokens-style-value(icon-color)},
+        ),
+
+        icon-size: (
+            initial-value: #{system.tokens-style-value(icon-size)},
+        ),
+        icon-size-large: (
+            initial-value: #{system.tokens-style-value(icon-size-large)},
+        ),
+        icon-size-font: (
+            syntax: '<length-percentage> | <number>',
+            inherits: true,
+            initial-value: #{system.tokens-style-value(icon-size-font)},
+        ),
+        icon-size-pseudo: (
+            syntax: '<length-percentage> | <number>',
+            inherits: true,
+            initial-value: #{system.tokens-style-value(icon-size-pseudo)},
+        ),
+
+        icon-inline-margin-block-start: (
+            syntax: '<number>',
+            inherits: true,
+            initial-value: #{system.tokens-style-value(
+                    icon-inline-margin-block-start
+                )},
+        ),
+
+        icon-size-inline--font-multiplier: (
+            syntax: '<number>',
+            inherits: true,
+            initial-value: 1,
+        ),
+        icon-inline-buffer-start--font-multiplier: (
+            syntax: '<number>',
+            inherits: true,
+            initial-value: 1,
+        ),
+        icon-inline-buffer-end--font-multiplier: (
+            syntax: '<number>',
+            inherits: true,
+            initial-value: 1,
+        ),
+
+        icon-vertical-align: (
+            syntax: '*',
+            inherits: true,
+            initial-value: #{system.tokens-style-value(icon-vertical-align)},
+        ),
+    );
+    // #endregion - $defaults
+
+    $val_flowMrg_raw: system.tokens-style-value(flow-margin, $raw: true);
+
+    $val_flowMrg_small_raw: system.tokens-style-value(
+        flow-margin-small,
+        $raw: true
+    );
+
+    $val_flowMrg_large: system.tokens-style-value(flow-margin-large);
+    $val_flowMrg_large_raw: system.tokens-style-value(
+        flow-margin-large,
+        $raw: true
+    );
+
+    $val_flowMrg_button_raw: system.tokens-style-value(
+        flow-margin-button,
+        $raw: true
+    );
+    $var_flowMrg_button: system.tokens-var-mrg-firm($val_flowMrg_button_raw);
+
+    $var_flowMrg_firmStart_small: system.tokens-var-mrg-firm(
+        $val_flowMrg_small_raw
+    );
+
+    $_flowMargins: (
+        flow-margin: system.tokens-style-value(flow-margin),
+        flow-margin--small: system.tokens-style-value(flow-margin-small),
+        flow-margin--large: $val_flowMrg_large,
+        //
+        flow-margin-firm-start: system.tokens-var-mrg-firm($val_flowMrg_raw),
+        flow-margin-firm-end: system.tokens-var-mrg-half($val_flowMrg_raw),
+        //
+        flow-margin-firm-start--small: $var_flowMrg_firmStart_small,
+        flow-margin-firm-end--small: system.tokens-var-mrg-half(
+                $val_flowMrg_small_raw
+            ),
+        //
+        flow-margin-firm-start--large: system.tokens-var-mrg-firm(
+                $val_flowMrg_large_raw
+            ),
+        flow-margin-firm-end--large: system.tokens-var-mrg-half(
+                $val_flowMrg_large_raw
+            ),
+        //
+        flow-margin--button-span-block: $var_flowMrg_button,
+        flow-margin--button-span-inline: $var_flowMrg_button,
+        //
+        flow-margin--heading-unstyled: $val_flowMrg_large,
+    );
+
+    @each $slug, $initial in $_flowMargins {
+        //
+        $defaults: map.set(
+            $defaults,
+            $slug,
+            (
+                syntax: '<length-percentage>',
+                inherits: true,
+                initial-value: #{$initial},
+            )
+        );
+    }
+
     @return fns.tokens-get-at-properties(
         $inputs: map.merge(
-                (
-                    focus-ring-outline-color: (
-                        initial-value: #{system.tokens-var-theme(
-                                link-outline-hover
-                            )},
-                    ),
-
-                    icon-color: (
-                        initial-value: #{system.tokens-style-value(icon-color)},
-                    ),
-
-                    icon-size: (
-                        initial-value: #{system.tokens-style-value(icon-size)},
-                    ),
-                    icon-size-large: (
-                        initial-value: #{system.tokens-style-value(
-                                icon-size-large
-                            )},
-                    ),
-                    icon-size-font: (
-                        syntax: '<length-percentage> | <number>',
-                        inherits: true,
-                        initial-value: #{system.tokens-style-value(
-                                icon-size-font
-                            )},
-                    ),
-                    icon-size-pseudo: (
-                        syntax: '<length-percentage> | <number>',
-                        inherits: true,
-                        initial-value: #{system.tokens-style-value(
-                                icon-size-pseudo
-                            )},
-                    ),
-
-                    icon-inline-margin-block-start: (
-                        syntax: '<number>',
-                        inherits: true,
-                        initial-value: #{system.tokens-style-value(
-                                icon-inline-margin-block-start
-                            )},
-                    ),
-
-                    icon-size-inline--font-multiplier: (
-                        syntax: '<number>',
-                        inherits: true,
-                        initial-value: 1,
-                    ),
-                    icon-inline-buffer-start--font-multiplier: (
-                        syntax: '<number>',
-                        inherits: true,
-                        initial-value: 1,
-                    ),
-                    icon-inline-buffer-end--font-multiplier: (
-                        syntax: '<number>',
-                        inherits: true,
-                        initial-value: 1,
-                    ),
-
-                    icon-vertical-align: (
-                        syntax: '*',
-                        inherits: true,
-                        initial-value: #{system.tokens-style-value(
-                                icon-vertical-align
-                            )},
-                    ),
-                ),
+                $defaults,
                 $inputs,
                 $recursive: true,
                 $respectUNDEFINED: true
             )
     );
 }
+
+// ///
+// /// Prepares a warning message for functions (or method) which were passed the
+// /// wrong param value type.
+// ///
+// /// @since 0.1.0-beta.0.draft
+// ///
+// @function tokens-warn-missing-key($paramName,$paramValue,$calledContext: null) {}
+
+// ///
+// /// Prepares a warning message for functions (or method) which were passed the
+// /// wrong param value type.
+// ///
+// /// @since 0.1.0-beta.0.draft
+// ///
+// @function tokens-warn-wrong-type($paramName,$paramValue,$calledContext: null) {}

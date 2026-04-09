@@ -32,7 +32,6 @@
     $borderRadius: not config.$fn_var_replaceWithValue_borderRadius,
     $borderWidth: not config.$fn_var_replaceWithValue_borderWidth,
     $colour: not config.$fn_var_replaceWithValue_colour,
-    $custom: true,
     $fontFace: config.$mx_tokensAll_includeFontFace,
     $fontFamily: not config.$fn_var_replaceWithValue_fontFamily,
     $fontSize: not config.$fn_var_replaceWithValue_fontSize,
@@ -47,6 +46,9 @@
     $trTime: not config.$fn_var_replaceWithValue_transitionTime,
     $width: not config.$fn_var_replaceWithValue_width,
     $zIndex: not config.$fn_var_replaceWithValue_zIndex,
+    //
+    $includeRegion: true,
+    //
     $args...
 ) {
     $args: meta.keywords($args);
@@ -65,14 +67,16 @@
 
     @include utils.tokens-all(
         $borderWidth: false,
-        $custom: $custom,
         $fontSize: false,
         $gap: $gap,
         $lineHeight: false,
         $margin: false,
         $strokeRelative: false,
+        // $style: false,
         $sysColours: false,
         $width: $width,
+        //
+        $includeRegion: $includeRegion,
         $args...
     );
 
@@ -85,17 +89,17 @@
 
     // margin
     @if $margin {
-        @include tokens-margin;
+        @include tokens-margin($includeRegion: $includeRegion);
     }
 
     @if $fontSize {
-        @include tokens-font-size;
+        @include tokens-font-size($includeRegion: $includeRegion);
     }
     @if $fontFamily {
-        @include tokens-font-family;
+        @include tokens-font-family($includeRegion: $includeRegion);
     }
     @if $lineHeight {
-        @include tokens-line-height;
+        @include tokens-line-height($includeRegion: $includeRegion);
     }
 
     @if $checkpointName {
@@ -107,23 +111,23 @@
 
     // decoration
     @if $borderRadius {
-        @include tokens-border-radius;
+        @include tokens-border-radius($includeRegion: $includeRegion);
     }
     @if $borderWidth {
-        @include tokens-border-width;
+        @include tokens-border-width($includeRegion: $includeRegion);
     }
     @if $strokeRelative {
-        @include tokens-stroke-relative;
+        @include tokens-stroke-relative($includeRegion: $includeRegion);
     }
     @if $zIndex {
-        @include tokens-z-index;
+        @include tokens-z-index($includeRegion: $includeRegion);
     }
+
     @if $style != false {
-        @if not config.$fn_var_replaceWithValue_style {
-            @include tokens-style;
-        } @else {
-            @include tokens-style($requiredOnly: true);
-        }
+        @include tokens-style(
+            $includeRegion: $includeRegion,
+            $requiredOnly: if($style == true, false, null)
+        );
     }
 
     @if $checkpointName {
@@ -135,7 +139,10 @@
 
     // animation
     @if $transition {
-        @include tokens-transition($trTime: $trTime);
+        @include tokens-transition(
+            $includeRegion: $includeRegion,
+            $trTime: $trTime
+        );
 
         @if $checkpointName {
             @include debug-checkpoint(
@@ -153,7 +160,7 @@
                 $level: $checkpointLevel
             );
         }
-        @include tokens-colour;
+        @include tokens-colour($includeRegion: $includeRegion);
         @if $checkpointName {
             @include debug-checkpoint(
                 '#{$checkpointName} - tokens-all - after colour',
@@ -172,6 +179,7 @@
         @include tokens-theme(
             $checkpointName: $checkpointName,
             $checkpointLevel: $checkpointLevel + 1,
+            $includeRegion: $includeRegion,
             $includeSystemColours: $sysColours
         );
 
