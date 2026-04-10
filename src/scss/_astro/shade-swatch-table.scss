@@ -36,8 +36,14 @@ $_contrastColWidth: minmax(3.5ch, min-content);
 
     grid-auto-flow: row;
 
+    justify-self: stretch;
+    min-width: 100%;
+
     overflow-x: auto;
     overscroll-behavior-x: none;
+
+    &:has(> table[data-shade-swatch-table-no-text='true']) {
+    }
 
     > :global(table) {
         width: 100%;
@@ -51,15 +57,10 @@ $_contrastColWidth: minmax(3.5ch, min-content);
         }
     }
 
-    > :global(table[data-shade-swatch-table-no-text='true']) {
-        @include lib.cx-prop(shade-swatch-color-override, transparent !important);
-        @include lib.cx-prop(shade-swatch-display-override, none !important);
-    }
-
     :global(li),
     :global(td) {
         :global(.shade-swatch) {
-            min-width: 11.5rem;
+            min-width: #{lib.do-var(shade-swatch-table-swatch-min-width, 11.5rem)};
             min-height: 6rem;
             min-height: min(6rem, 9svh);
         }
@@ -140,20 +141,17 @@ $_contrastColWidth: minmax(3.5ch, min-content);
         }
     }
 
-    // :global(.shade-swatch-table__row) {
-    //     @extend %_base-grid;
-    //     grid-template-columns: subgrid;
-    //     grid-auto-flow: column;
+    > :global(table[data-shade-swatch-table-no-text='true']) {
+        @include lib.cx-prop(shade-swatch-color-override, transparent !important);
+        @include lib.cx-prop(shade-swatch-display-override, none !important);
 
-    //     margin: 0;
-    //     padding: 0;
-
-    //     list-style: none;
-
-    //     li {
-    //         margin: 0;
-    //     }
-    // }
+        :global(li),
+        :global(td) {
+            :global(.shade-swatch) {
+                min-width: #{lib.do-var(shade-swatch-table-swatch-not-text-min-width, 1rem)};
+            }
+        }
+    }
 }
 
 .shade-swatch-table__display-control__label {

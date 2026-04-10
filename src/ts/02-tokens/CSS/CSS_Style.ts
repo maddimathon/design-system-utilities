@@ -284,7 +284,6 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                 {
                     border: {
                         radius: style.border.radius,
-                        width: style.border.width,
                         style: style.border.radius,
                     },
 
@@ -294,7 +293,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
 
                     font: {
                         weight: style.font.weight,
-                        size: style.font.size,
+                        size: 'smaller-1',
                         style: style.font.style,
                     },
 
@@ -317,6 +316,8 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                             font: style.icon.size.font,
                             pseudo: style.icon.size.pseudo,
                         },
+
+                        'vertical-align': style.icon[ 'vertical-align' ],
                     },
 
                     'letter-spacing': style[ 'letter-spacing' ],
@@ -329,8 +330,10 @@ export class Tokens_CSS_Style extends AbstractTokens<{
 
                     'text-transform': style[ 'text-transform' ],
 
+                    width: style.width,
+
                 } satisfies Tokens_CSS_Style.ButtonStyles_Inline,
-                partial?.disabled ?? {},
+                partial?.inline ?? {},
                 true,
             ),
 
@@ -862,8 +865,8 @@ export namespace Tokens_CSS_Style {
         };
 
         gap: {
-            block: AnyTokenLevel;
-            inline: AnyTokenLevel;
+            block: "0" | AnyTokenLevel;
+            inline: "0" | AnyTokenLevel;
         };
 
         icon: {
@@ -892,14 +895,14 @@ export namespace Tokens_CSS_Style {
 
         margin: {
             block: {
-                start: AnyTokenLevel;
-                end: AnyTokenLevel;
+                start: "0" | AnyTokenLevel;
+                end: "0" | AnyTokenLevel;
             };
         };
 
         padding: {
-            block: AnyTokenLevel;
-            inline: AnyTokenLevel;
+            block: "0" | AnyTokenLevel;
+            inline: "0" | AnyTokenLevel;
         };
 
         'text-transform': CSS.TextTransform;
@@ -924,8 +927,8 @@ export namespace Tokens_CSS_Style {
      * 
      * @since ___PKG_VERSION___
      */
-    export type ButtonStyles_Inline = Omit<ButtonStyles, 'display' | 'icon' | 'margin' | 'width'> & {
-        icon: Omit<ButtonStyles[ 'icon' ], 'vertical-align'>;
+    export type ButtonStyles_Inline = Omit<ButtonStyles, 'border' | 'display' | 'margin'> & {
+        border: Omit<ButtonStyles[ 'border' ], 'width'>;
     };
 
     /**

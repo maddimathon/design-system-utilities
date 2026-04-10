@@ -266,8 +266,9 @@ iconsSortedByLabel.forEach(([__key, icon]) => {
                 { icon.meta?.aliasOf && <p class="aside">is a copy of <samp set:text={icon.meta.aliasOf} /></p> }
                 { icon.meta?.codepoint && <p class="aside">font glyph: <samp
                     set:text={`U+${icon.meta.codepoint.toString(16).toUpperCase()}`}
-                /><CopyToClipboardButton
-                    class:list="button-grey button--inline"
+                />&NoBreak;&ensp;<CopyToClipboardButton
+                    class:list="button-grey display-inline"
+                    successMessage='copied!'
                     toClipboard={String.fromCharCode(icon.meta.codepoint)}
                     set:text='copy'
                 /></p> }
@@ -291,8 +292,9 @@ iconsSortedByLabel.forEach(([__key, icon]) => {
                         { icon.meta?.aliasOf && <p class="aside">is a copy of <samp set:text={icon.meta.aliasOf} /></p> }
                         { icon.meta?.codepoint && <p class="aside">font glyph: <samp
                             set:text={`U+${icon.meta.codepoint.toString(16).toUpperCase()}`}
-                        /><CopyToClipboardButton
-                            class:list="button-grey button--inline"
+                        />&NoBreak;&ensp;<CopyToClipboardButton
+                            class:list="button-grey display-inline"
+                            successMessage='copied!'
                             toClipboard={String.fromCharCode(icon.meta.codepoint)}
                             set:text='copy'
                         /></p> }

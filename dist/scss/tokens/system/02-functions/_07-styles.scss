@@ -244,8 +244,13 @@
     // returns
     @if $isGap {
         // returns
-        @if $value == '0' or meta.type-of($value) == number {
+        @if $value == '0' {
             @return 0;
+        }
+
+        // returns
+        @if meta.type-of($value) == number {
+            @return $value;
         }
 
         // returns
@@ -291,6 +296,11 @@
 
     // returns
     @if $isFontSize {
+        // returns
+        @if $slug == button-inline-font-size {
+            @return typography.tokens-var-fs($value, $relative: true);
+        }
+
         @return typography.tokens-var-fs($value);
     }
 

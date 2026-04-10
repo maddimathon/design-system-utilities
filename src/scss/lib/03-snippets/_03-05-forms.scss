@@ -20,7 +20,7 @@
 ///
 /// @since ___PKG_VERSION___ — Made public.
 ///
-@mixin snippet-button-colour-single-state($state, $variation: 'primary') {
+@mixin snippet-button-colour-single-state($state, $variation: tokens.$button_variation_default) {
     $stateSlug: if($state == '$', '', '-#{$state}');
 
     $border: var-theme(button-#{$variation}-border#{$stateSlug});
@@ -53,7 +53,7 @@
 ///
 /// @since 0.1.0-alpha
 ///
-@mixin snippet-button-colours($variation: 'primary') {
+@mixin snippet-button-colours($variation: tokens.$button_variation_default) {
     $_content_exists: meta.content-exists();
 
     & {
@@ -89,16 +89,119 @@
 }
 
 ///
+/// @since ___PKG_VERSION___
+///
+@mixin _snippet-button--icon-child(
+    $iconSize,
+    $embeddedBottom,
+    $verticalAlign,
+    //
+    $includeBaseProps: true
+) {
+    %icon {
+        @if $includeBaseProps {
+            @include prop-display(inline-block);
+            align-self: center;
+        }
+
+        vertical-align: #{$verticalAlign};
+
+        &:not(.settings-menu-icon):not(.toggle-icon) {
+            @if $includeBaseProps {
+                margin-inline: #{font-family-icons--margin-inline(start)};
+            }
+
+            &:not(:only-child) {
+                @include cx-prop(icon-size, $iconSize);
+                @include cx-prop(icon-size, font-family-icons--icon-size($iconSize));
+
+                @if $includeBaseProps {
+                    @include cx-prop(icon-inline-margin-block-start, 0);
+
+                    @include font-family-icons-base-properties(
+                        $spacing: false,
+                        $spacingBlock: false
+                    );
+
+                    margin: 0;
+                    bottom: #{$embeddedBottom};
+                }
+            }
+
+            @if $includeBaseProps {
+                &:first-child {
+                    margin-inline-start: 0;
+                    margin-inline-end: #{font-family-icons--margin-inline(start)};
+                }
+
+                &:last-child {
+                    margin-inline-start: #{font-family-icons--margin-inline(start)};
+                    margin-inline-end: 0;
+                }
+            }
+
+            &:only-child {
+                @if $includeBaseProps {
+                    @include cx-prop(icon-inline-margin-block-start, 0);
+                    @include cx-prop(icon-inline-buffer-start, 0);
+                    @include cx-prop(icon-inline-buffer-end, 0);
+
+                    margin-block-start: 0;
+                    margin-inline: 0;
+                    letter-spacing: normal !important;
+                }
+            }
+        }
+    }
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin _snippet-button-base {
+    position: relative;
+
+    height: auto;
+
+    text-decoration: none;
+    text-wrap: balance;
+
+    text-align: start;
+
+    transition: #{do-var(transition)};
+    opacity: 1;
+
+    appearance: button;
+    cursor: pointer;
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin _snippet-button-base--children {
+    %code,
+    %kbd,
+    %samp {
+        padding: 0;
+        font-weight: inherit;
+        font-style: inherit;
+        line-height: 1;
+        background: transparent;
+    }
+}
+
+///
 /// Base styles for a button element.
 ///
 /// @since 0.1.0-alpha
 ///
 @mixin snippet-button(
-    $variation: 'primary',
+    $variation: tokens.$button_variation_default,
     //
     $includeColors: true,
     $includeDisabled: true,
     $includeEmpty: true,
+    $includeInline: true,
     $includeOnlyChild: true,
     $includePseudoIcons: config.$include_button_inlineIcons,
     //
@@ -132,9 +235,9 @@
     @include cx-prop(icon-vertical-align, var-style(button-icon-vertical-align) !important);
 
     @include prop-display($display);
-    position: relative;
 
-    @if $display == flex {
+    // prettier-ignore
+    @if $display == flex or $display == inline-flex or $display == grid or $display == inline-grid {
         flex-direction: row;
         flex-wrap: wrap;
 
@@ -143,8 +246,9 @@
         align-items: start;
     }
 
+    @include _snippet-button-base;
+
     width: #{if($width, $width, var-style(button-width))};
-    height: auto;
 
     margin-block-start: #{if(
             $marginBlockStart,
@@ -169,16 +273,6 @@
     letter-spacing: #{var-style(button-letter-spacing)};
 
     text-transform: #{var-style(button-text-transform)};
-    text-decoration: none;
-    text-wrap: balance;
-
-    text-align: start;
-
-    transition: #{do-var(transition)};
-    opacity: 1;
-
-    appearance: button;
-    cursor: pointer;
 
     @if $_content_exists {
         @content ( $location: 'root' );
@@ -254,6 +348,36 @@
         }
     }
 
+    @if $includeInline {
+        @at-root #{selector.unify(&, '.display-inline')} {
+            @include snippet-button-inline($includeBaseProps: false, $includeColors: false) using
+                ($location) {
+                @content ($location: 'inline-#{$location}');
+            }
+        }
+
+        @if $includeColors and
+            tokens.$button_variation_default !=
+            tokens.$button_inline_variation_default
+        {
+            &:where(.display-inline) {
+                @include snippet-button-colours(tokens.$button_inline_variation_default) using
+                    ($location) {
+                    @content ($location: 'inline-#{$location}');
+                }
+
+                @at-root #{selector.unify(&, ('[aria-disabled=true]', '[disabled]'))} {
+                    @include snippet-button-colours(disabled) using ($location) {
+                        @if $location == focus {
+                            border-style: solid;
+                        }
+                        @content ($location: 'inline-disabled-#{$location}');
+                    }
+                }
+            }
+        }
+    }
+
     @if $includePseudoIcons {
         &::after,
         &::before {
@@ -275,59 +399,18 @@
         }
     }
 
-    %code,
-    %kbd,
-    %samp {
-        padding: 0;
-        font-weight: inherit;
-        font-style: inherit;
-        line-height: 1;
-        background: transparent;
-    }
+    @include _snippet-button-base--children;
 
-    %icon {
-        @include prop-display(inline-block);
-        align-self: center;
-        vertical-align: #{var-style(icon-vertical-align)};
-
-        &:not(.settings-menu-icon):not(.toggle-icon) {
-            margin-inline: #{font-family-icons--margin-inline(start)};
-
-            &:not(:only-child) {
-                $_size: var-style(button-icon-size-pseudo);
-
-                @include cx-prop(icon-size, $_size);
-                @include cx-prop(icon-size, font-family-icons--icon-size($_size));
-            }
-
-            &:first-child {
-                margin-inline-start: 0;
-                margin-inline-end: #{font-family-icons--margin-inline(start)};
-            }
-
-            &:last-child {
-                margin-inline-start: #{font-family-icons--margin-inline(start)};
-                margin-inline-end: 0;
-            }
-
-            &:only-child {
-                @include cx-prop(icon-inline-margin-block-start, 0);
-                @include cx-prop(icon-inline-buffer-start, 0);
-                @include cx-prop(icon-inline-buffer-end, 0);
-
-                margin-block-start: 0;
-                margin-inline: 0;
-                letter-spacing: normal !important;
-
-                bottom: #{var-style(button-icon-embedded-bottom)};
-            }
-        }
-    }
+    @include _snippet-button--icon-child(
+        $iconSize: var-style(button-icon-size-pseudo),
+        $embeddedBottom: var-style(button-icon-embedded-bottom),
+        $verticalAlign: var-style(button-icon-vertical-align)
+    );
 }
 
 ///
-/// Override styles for a disabled button (assuming snippet-button was
-/// assigned to the base element/selector).
+/// Override styles for a disabled button (assuming snippet-button was assigned
+/// to the base element/selector).
 ///
 /// @since ___PKG_VERSION___
 ///
@@ -390,6 +473,138 @@
             }
         }
     }
+}
+
+///
+/// Override styles for an inline button (assuming snippet-button was assigned
+/// to the base element/selector).
+///
+/// @since ___PKG_VERSION___
+///
+@mixin snippet-button-inline(
+    $variation: tokens.$button_inline_variation_default,
+    //
+    $includeColors: $variation != null,
+    $includeBaseProps: false,
+    //
+    $borderRadius: null,
+    $borderWidth: null,
+    $display: null,
+    $fontSize: null,
+    $fontStyle: null,
+    $fontWeight: null,
+    $marginBlockEnd: null,
+    $marginBlockStart: null,
+    $paddingBlock: null,
+    $paddingInline: null,
+    $width: null
+) {
+    $display: if($display, $display, inline-block);
+    $fontStyle: if($fontStyle, $fontStyle, var-style(button-inline-font-style));
+    $paddingBlock: if($paddingBlock, $paddingBlock, var-style(button-inline-padding-block));
+    $paddingInline: if($paddingInline, $paddingInline, var-style(button-inline-padding-inline));
+
+    $_content_exists: meta.content-exists();
+
+    @include cx-prop(focus-ring-outline-offset, var-style(button-inline-focus-offset));
+
+    @include cx-prop(
+        icon-inline-buffer-start,
+        var-style(button-inline-icon-buffer-start) !important
+    );
+    @include cx-prop(icon-inline-buffer-end, var-style(button-inline-icon-buffer-end) !important);
+
+    @include cx-prop(icon-size-font, var-style(button-inline-icon-size-font));
+    @include cx-prop(icon-size-pseudo, var-style(button-inline-icon-size-pseudo));
+
+    @include cx-prop(icon-vertical-align, var-style(button-inline-icon-vertical-align) !important);
+
+    @include prop-display($display);
+
+    // prettier-ignore
+    @if $display == flex or $display == inline-flex or $display == grid or $display == inline-grid {
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        justify-content: start;
+        align-content: start;
+        align-items: start;
+    }
+
+    @if $includeBaseProps {
+        @include _snippet-button-base;
+    }
+
+    margin-block: 0;
+
+    padding-block: #{$paddingBlock};
+    padding-inline: #{$paddingInline};
+
+    gap: #{var-style(button-inline-gap-block)} #{var-style(button-inline-gap-inline)};
+
+    border-width: #{if($borderWidth, $borderWidth, var-style(button-border-width))};
+    border-radius: #{if($borderRadius, $borderRadius, var-style(button-inline-border-radius))};
+    border-style: #{var-style(button-inline-border-style)};
+
+    font-weight: #{if($fontWeight, $fontWeight, var-style(button-inline-font-weight))};
+    font-style: #{$fontStyle};
+    font-size: #{if($fontSize, $fontSize, var-style(button-inline-font-size))};
+    line-height: #{var-style(button-inline-line-height)};
+    letter-spacing: #{var-style(button-inline-letter-spacing)};
+
+    text-transform: #{var-style(button-inline-text-transform)};
+
+    width: #{if($width, $width, var-style(button-inline-width))};
+
+    @if $_content_exists {
+        @content ( $location: 'root' );
+    }
+
+    @if $includeColors and $variation != null {
+        @include snippet-button-colours($variation) using ($location) {
+            @content ($location);
+        }
+    } @else {
+        @include hover-focus-visible-or-within {
+            @if $_content_exists {
+                @content ( $location: 'focus' );
+            }
+        }
+
+        &:hover {
+            @if $_content_exists {
+                @content ( $location: 'hover' );
+            }
+        }
+
+        &:active {
+            @if $_content_exists {
+                @content ( $location: 'active' );
+            }
+        }
+    }
+
+    /// BLOCK ///
+
+    @if $fontStyle == italic {
+        em {
+            font-style: normal;
+
+            em {
+                font-style: italic;
+            }
+        }
+    }
+
+    @if $includeBaseProps {
+        @include _snippet-button-base--children;
+    }
+
+    @include _snippet-button--icon-child(
+        $iconSize: var-style(button-icon-size-pseudo),
+        $embeddedBottom: var-style(button-icon-embedded-bottom),
+        $verticalAlign: var-style(button-icon-vertical-align)
+    );
 }
 
 ///

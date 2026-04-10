@@ -189,7 +189,6 @@ export class Tokens_CSS_Style extends AbstractTokens {
             inline: mergeArgs({
                 border: {
                     radius: style.border.radius,
-                    width: style.border.width,
                     style: style.border.radius,
                 },
                 focus: {
@@ -197,7 +196,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 },
                 font: {
                     weight: style.font.weight,
-                    size: style.font.size,
+                    size: 'smaller-1',
                     style: style.font.style,
                 },
                 gap: {
@@ -216,6 +215,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
                         font: style.icon.size.font,
                         pseudo: style.icon.size.pseudo,
                     },
+                    'vertical-align': style.icon['vertical-align'],
                 },
                 'letter-spacing': style['letter-spacing'],
                 'line-height': style['line-height'],
@@ -224,7 +224,8 @@ export class Tokens_CSS_Style extends AbstractTokens {
                     inline: style.padding.inline,
                 },
                 'text-transform': style['text-transform'],
-            }, partial?.disabled ?? {}, true),
+                width: style.width,
+            }, partial?.inline ?? {}, true),
         };
     }
     /**

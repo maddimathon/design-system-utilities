@@ -173,10 +173,7 @@ $margin: map.ksort(map.get(default.$designSystem, margin));
 }
 // #endregion - MARGINS
 
-$style: map.ksort(map.get(default.$designSystem, style), $recursive: true);
-
-$style_flat: map.flatten($style);
-$style_flat_required: map.flatten(map.pick($style, (icon)));
+// #region - THEMES
 
 $themesMeta: map.get(default.$designSystem, themes, _meta);
 
@@ -204,6 +201,50 @@ $themes: ();
     );
 }
 
+// #endregion - THEMES
+
 $transition: map.get(default.$designSystem, transition);
 
 $z_index: map.ksort(map.get(default.$designSystem, z_index));
+
+// #region - STYLES
+
+$style: map.ksort(map.get(default.$designSystem, style), $recursive: true);
+
+$style_flat: map.flatten($style);
+$style_flat_required: map.flatten(map.pick($style, (icon)));
+
+$_buttonVariations: map.get($themesMeta, keys, button);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$button_variation_default: null !default;
+$button_variation_default: config.config-valid-string(
+    $button_variation_default,
+    'button_variation_default',
+    $default: if(
+            list.index($_buttonVariations, primary),
+            primary,
+            list.nth($_buttonVariations, 1)
+        ),
+    $options: $_buttonVariations
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$button_inline_variation_default: null !default;
+$button_inline_variation_default: config.config-valid-string(
+    $button_inline_variation_default,
+    'button_inline_variation_default',
+    $default: null,
+    $options: $_buttonVariations
+);
+
+// to avoid setting duplicate defaults
+@if $button_variation_default == $button_inline_variation_default {
+    $button_inline_variation_default: null;
+}
+
+// #endregion - STYLES

@@ -560,8 +560,8 @@ export declare namespace Tokens_CSS_Style {
             weight: WholeTokenLevel;
         };
         gap: {
-            block: AnyTokenLevel;
-            inline: AnyTokenLevel;
+            block: "0" | AnyTokenLevel;
+            inline: "0" | AnyTokenLevel;
         };
         icon: {
             buffer: {
@@ -584,13 +584,13 @@ export declare namespace Tokens_CSS_Style {
         'line-height': AnyTokenLevel;
         margin: {
             block: {
-                start: AnyTokenLevel;
-                end: AnyTokenLevel;
+                start: "0" | AnyTokenLevel;
+                end: "0" | AnyTokenLevel;
             };
         };
         padding: {
-            block: AnyTokenLevel;
-            inline: AnyTokenLevel;
+            block: "0" | AnyTokenLevel;
+            inline: "0" | AnyTokenLevel;
         };
         'text-transform': CSS.TextTransform;
         width: string;
@@ -608,8 +608,8 @@ export declare namespace Tokens_CSS_Style {
      *
      * @since 0.1.0-beta.0.draft
      */
-    type ButtonStyles_Inline = Omit<ButtonStyles, 'display' | 'icon' | 'margin' | 'width'> & {
-        icon: Omit<ButtonStyles['icon'], 'vertical-align'>;
+    type ButtonStyles_Inline = Omit<ButtonStyles, 'border' | 'display' | 'margin'> & {
+        border: Omit<ButtonStyles['border'], 'width'>;
     };
     /**
      * CSS allowed value types.
