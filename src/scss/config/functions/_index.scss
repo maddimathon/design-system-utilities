@@ -18,7 +18,7 @@
     $template_astro,
     $template_docs
 ) {
-    @return fns.config-get-template-styles(
+    $merged: fns.config-get-template-styles(
         $inputs: map.deep-merge(
                 (
                     alerts: $template_astro or $template_utils or map.get($inputs, icons),
@@ -39,16 +39,20 @@
                                 ),
                         ),
                     //
+                    aside: $template_utils,
                     blockquote: $template_globals,
                     buttons: $template_globals,
+                    dl: $template_globals,
                     headings: $template_globals,
                     icons: $template_astro or $template_utils or map.get($inputs, alerts),
+                    img: $template_globals,
                     keyframes: $template_globals or $template_tokens or $template_utils,
                     //
                     logos: $template_utils or $template_astro or map.get($inputs, alerts) or
                         map.get($inputs, icons),
                     //
                     normalize: $include_html and $isTemplate,
+                    pageSubtitle: $template_utils,
                     pre: $template_globals,
                     //
                     skipLinks: (
@@ -67,6 +71,12 @@
         $template_tokens: $template_tokens,
         $template_globals: $template_globals,
         $template_utils: $template_utils,
-        $template_astro: $template_astro
+        $template_astro: $template_astro,
     );
+
+    @if map.get($merged, astro, bodyGrid) and map.has-key($merged, bodyFlow) {
+        $merged: map.set($merged, bodyFlow, false);
+    }
+
+    @return $merged;
 }

@@ -306,6 +306,11 @@
 
     // returns
     @if $isLineHeight {
+        // returns
+        @if $slug == icon-inline-line-height or $value == 1 or $value == '1' {
+            @return $value;
+        }
+
         @return typography.tokens-var-line-height($value);
     }
 

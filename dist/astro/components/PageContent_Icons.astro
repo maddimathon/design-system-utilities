@@ -96,12 +96,12 @@ iconsSortedByLabel.forEach(([__key, icon]) => {
 <ul class='button-span | tokens-demo-all-icons tokens-demo-all-icons--basic'>
     {
         defaultIcons.map(
-            (icon) => !icon.meta?.aliasOf?.length && <li><Icon icon={icon} /></li>
+            (icon) => !icon.meta?.aliasOf?.length ? <li><Icon icon={icon} /></li> : ''
         )
     }
 </ul>
 
-{ customicons.length && (
+{ customicons.length ? (
     <Heading
         displayHeading={subheadingDisplayHeading}
         heading={3}
@@ -109,16 +109,17 @@ iconsSortedByLabel.forEach(([__key, icon]) => {
     <ul class='button-span | tokens-demo-all-icons tokens-demo-all-icons--basic tokens-demo-all-icons--custom'>
         {
             customicons.map(
-                (icon) => !icon.meta?.aliasOf?.length && <li><Icon icon={icon} /></li>
+                (icon) => !icon.meta?.aliasOf?.length ? <li><Icon icon={icon} /></li> : ''
             )
         }
     </ul>
-) }
+) : '' }
 
 {
     inlinePreviews && (
         
         <Toggle
+            class:list={ import.meta.env.DEV ? 'page-width' : '' }
             defaultOpen={inlinePreviews_defaultOpen}
             displayHeading={subheadingDisplayHeading}
             heading={3}
@@ -130,7 +131,7 @@ iconsSortedByLabel.forEach(([__key, icon]) => {
                 <p>You can use utility classes to add inline icons to HTML text. Find the slug in the list of alerts below and choose from <samp set:text="add-[slug]-icon-before" /> or <samp set:text="add-[slug]-icon-after" />.</p>
             </Alert>
             
-            <ul class='tokens-demo-all-icons-inline'>
+            <ul class={'tokens-demo-all-icons-inline' + ( import.meta.env.DEV ? ' font-size-heading-5' : '' )}>
                 {iconsSortedByLabel.map(([__key,icon]) => (
                     <li>
                         <span
@@ -158,6 +159,7 @@ iconsSortedByLabel.forEach(([__key, icon]) => {
         </Toggle>
     
         <Toggle
+            class:list={ import.meta.env.DEV ? 'page-width' : '' }
             defaultOpen={inlinePreviews_defaultOpen}
             displayHeading={subheadingDisplayHeading}
             heading={3}
@@ -182,7 +184,7 @@ iconsSortedByLabel.forEach(([__key, icon]) => {
 
                             <li>
                                 <a
-                                    class={`button | add-${icon.slug}-icon-before`}
+                                    class={`button | add-${icon.slug}-icon-before` + ( import.meta.env.DEV ? ' font-size-heading-5' : '' )}
                                     href='#'
                                     set:text={`${icon.label} Before`}
                                 />
@@ -190,7 +192,7 @@ iconsSortedByLabel.forEach(([__key, icon]) => {
 
                             <li>
                                 <a
-                                    class={`button | add-${icon.slug}-icon-after`}
+                                    class={`button | add-${icon.slug}-icon-after` + ( import.meta.env.DEV ? ' font-size-heading-5' : '' )}
                                     href='#'
                                     set:text={`${icon.label} After`}
                                 />
@@ -203,6 +205,7 @@ iconsSortedByLabel.forEach(([__key, icon]) => {
         </Toggle>
     
         <Toggle
+            class:list={ import.meta.env.DEV ? 'page-width' : '' }
             defaultOpen={inlinePreviews_defaultOpen}
             displayHeading={subheadingDisplayHeading}
             heading={3}
@@ -228,14 +231,14 @@ iconsSortedByLabel.forEach(([__key, icon]) => {
 
                             <li>
                                 <a
-                                    class='button'
+                                    class={'button' + ( import.meta.env.DEV ? ' font-size-heading-5' : '' )}
                                     href='#'
                                 ><Icon icon={icon} /><span set:text={`${icon.label} Before`} /></a>
                             </li>
 
                             <li>
                                 <a
-                                    class='button'
+                                    class={'button' + ( import.meta.env.DEV ? ' font-size-heading-5' : '' )}
                                     href='#'
                                 ><span set:text={`${icon.label} After`} /><Icon icon={icon} /></a>
                             </li>
@@ -277,7 +280,7 @@ iconsSortedByLabel.forEach(([__key, icon]) => {
     }
 </div>
 
-{ customicons.length && (
+{ customicons.length ? (
     <Heading heading={3}>Alerts with Customized Icons</Heading>
     <div class='site-width | tokens-demo-all-alerts tokens-demo-all-alerts--custom'>
         {
@@ -303,7 +306,7 @@ iconsSortedByLabel.forEach(([__key, icon]) => {
             )
         }
     </div>
-) }
+) : '' }
 
 <Toggle
     defaultOpen={defaultToggleToOpen}

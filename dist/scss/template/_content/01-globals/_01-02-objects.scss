@@ -3,7 +3,7 @@
 /// @since 0.1.0-alpha.4
 ///
 
-// @use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/map';
 
 @use '../config';
 @use '../../../tokens';
@@ -15,46 +15,62 @@
     $level: config.$template_debug_checkpointsLevel
 );
 
-@include debug-checkpoint(
-    '#{config.$template_slug} - globals - objects start',
-    $level: config.$template_debug_checkpointsLevel + 1,
-    $verbose: true
-);
+$_print_hr: map.get(config.$template_styles, hr);
+$_print_img: map.get(config.$template_styles, img);
 
-@if config.$template_cssHeadings {
-    /* # GLOBALS - OBJECTS
-     * ======================================================================== */
-}
+$_print_flowMargins: map.get(config.$template_styles, bodyFlow) or
+    map.get(config.$template_styles, astro, bodyGrid);
 
-@include set-flow-margins(
-    $buttonGapBlock: style-value(flow-margin-button, $raw: true),
-    $defineChildProps: true,
-    $defineCustomProps: false
-);
+@if $_print_flowMargins or $_print_hr or $_print_img {
+    @include debug-checkpoint(
+        '#{config.$template_slug} - globals - objects start',
+        $level: config.$template_debug_checkpointsLevel + 1,
+        $verbose: true
+    );
 
-%hr {
-    // UPGRADE - convert to style tokens
-    @include cx-prop(icon-color, currentColor);
-    border-width: #{var-border-width('200')};
-    color: #{var-theme(ui-primary)};
-}
-
-%img {
-    height: auto;
-}
-
-%img,
-%figure,
-%svg {
-    margin-inline: 0;
-    max-width: 100%;
-
-    a & {
-        @include prop-display(inline-block);
+    @if config.$template_cssHeadings {
+        /* # GLOBALS - OBJECTS
+         * ======================================================================== */
     }
 }
 
-%img,
-%figure {
-    object-fit: cover;
+@if $_print_flowMargins {
+    @include set-flow-margins(
+        $buttonGapBlock: style-value(flow-margin-button, $raw: true),
+        $defineChildProps: true,
+        $defineCustomProps: false
+    );
+}
+
+@if $_print_hr {
+    %hr {
+        // UPGRADE - convert to style tokens
+        @include cx-prop(icon-color, currentColor);
+        border-width: #{var-border-width('200')};
+        color: #{var-theme(ui-primary)};
+    }
+}
+
+@if $_print_img {
+    %img {
+        @if not map.get(config.$template_styles, reset) {
+            height: auto;
+        }
+    }
+
+    %img,
+    %figure,
+    %svg {
+        margin-inline: 0;
+        max-width: 100%;
+
+        a & {
+            @include prop-display(inline-block);
+        }
+    }
+
+    %img,
+    %figure {
+        object-fit: cover;
+    }
 }

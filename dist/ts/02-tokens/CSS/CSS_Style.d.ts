@@ -59,8 +59,8 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
                 'letter-spacing': string;
                 offset: {
                     block: {
-                        start: "0";
-                        end: "0";
+                        start: "0.5em";
+                        end: "0em";
                     };
                 };
             };
@@ -105,8 +105,8 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
                 'letter-spacing': string;
                 offset: {
                     block: {
-                        start: "0";
-                        end: "0";
+                        start: "0.5em";
+                        end: "0em";
                     };
                 };
             };
@@ -193,8 +193,8 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
                     'letter-spacing': string;
                     offset: {
                         block: {
-                            start: "0";
-                            end: "0";
+                            start: "0.5em";
+                            end: "0em";
                         };
                     };
                 };
@@ -239,8 +239,8 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
                     'letter-spacing': string;
                     offset: {
                         block: {
-                            start: "0";
-                            end: "0";
+                            start: "0.5em";
+                            end: "0em";
                         };
                     };
                 };
@@ -332,8 +332,8 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
                     'letter-spacing': string;
                     offset: {
                         block: {
-                            start: "0";
-                            end: "0";
+                            start: "0.5em";
+                            end: "0em";
                         };
                     };
                 };
@@ -378,8 +378,8 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
                     'letter-spacing': string;
                     offset: {
                         block: {
-                            start: "0";
-                            end: "0";
+                            start: "0.5em";
+                            end: "0em";
                         };
                     };
                 };
@@ -687,6 +687,7 @@ export declare namespace Tokens_CSS_Style {
                 start: number;
                 end: number;
             };
+            'line-height': number | `${number}em`;
             'margin-block-start': string;
         };
         size: {
@@ -722,8 +723,8 @@ export declare namespace Tokens_CSS_Style {
             'letter-spacing': string;
             offset: {
                 block: {
-                    start: '0' | `${number}em`;
-                    end: '0' | `${number}em`;
+                    start: `${number}em`;
+                    end: `${number}em`;
                 };
             };
         };

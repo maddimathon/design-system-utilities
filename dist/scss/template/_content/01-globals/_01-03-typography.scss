@@ -12,140 +12,128 @@
 
 @use '../../../lib' as *;
 
+$_print_a: map.get(config.$template_styles, a);
+$_print_abbr: map.get(config.$template_styles, abbr);
+$_print_aside: map.get(config.$template_styles, aside);
+$_print_code: map.get(config.$template_styles, code);
+$_print_headings: map.get(config.$template_styles, headings);
+$_print_blockquote: map.get(config.$template_styles, blockquote);
+$_print_p: map.get(config.$template_styles, p);
+$_print_pageSubtitle: map.get(config.$template_styles, pageSubtitle);
+$_print_pre: map.get(config.$template_styles, pre);
+$_print_selection: map.get(config.$template_styles, selection);
+$_print_typeDefaults: map.get(config.$template_styles, typeDefaults);
+
 @include debug-checkpoint(
     '#{config.$template_slug} - globals - typography start',
     $level: config.$template_debug_checkpointsLevel + 1,
     $verbose: true
 );
 
+$_heading_blocks: false;
+$_heading_inlines: false;
+
 @if config.$template_cssHeadings {
+    // prettier-ignore
+    $_heading_blocks: $_print_aside or $_print_blockquote or $_print_code or $_print_headings or $_print_p or $_print_pageSubtitle or $_print_pre;
+
+    $_heading_inlines: $_print_a or $_print_abbr;
+}
+
+@if $_heading_blocks or $_heading_inlines {
     /* # GLOBALS - TYPOGRAPHY
      * ======================================================================== */
 }
 
-@if config.$include_html {
-    %root {
-        @if font-family-exists(body) {
-            font-family: var-font-family(body);
-        }
-        font-size: 110%;
-
-        @include min-width(mobile) {
-            font-size: 105%;
-        }
-
-        @include min-width(tablet) {
-            font-size: 100%;
-        }
-    }
-}
-
-%selection {
-    @each $mode in tokens.$contrastMode_all {
-        @include colour-mode($mode, $includeDefault: false) {
-            @include snippet-selection($mode);
-        }
-    }
-}
-
-@if config.$template_cssHeadings {
-    /* ## Typography - Inline ==================================== */
-}
-
-%a {
-    &,
-    &::before,
-    &::after {
-        transition: #{do-var(transition)};
-    }
-
-    & {
-        @include snippet-link-colours;
-    }
-
-    /// EXCEPTIONS ///
-
-    &.no-style {
-    }
-
-    @if config.$include_link_inlineIcons {
-        &[target='_blank'] {
-            &::after {
-                @include snippet-icon-pseudo-element(external, $pseudo: after);
+@if $_print_typeDefaults {
+    @if config.$include_html {
+        %root {
+            @if font-family-exists(body) {
+                font-family: var-font-family(body);
             }
-        }
+            font-weight: 400;
+            line-height: #{var-line-height('400')};
+            font-size: 110%;
 
-        &[download] {
-            &::before {
-                @include snippet-icon-pseudo-element(download, $pseudo: before);
+            @include min-width(mobile) {
+                font-size: 105%;
             }
-        }
 
-        &[aria-disabled='true'],
-        &[disabled] {
-            &::before {
-                @include snippet-icon-pseudo-element(
-                    forbidden,
-                    $pseudo: before
-                );
-            }
-            &::after {
-                content: none !important;
-            }
-        }
-
-        &.no-pseudo {
-            &::before,
-            &::after {
-                content: none !important;
-            }
-        }
-
-        &:has(> #{selector.unify('%brand-logo', ':only-child')}),
-        &:has(> #{selector.unify('%icon', ':only-child')}),
-        &:has(> #{selector.unify('%img', ':only-child')}),
-        &:has(> #{selector.unify('%svg', ':only-child')}) {
-            &::before,
-            &::after {
-                content: none !important;
+            @include min-width(tablet) {
+                font-size: 100%;
             }
         }
     }
 }
 
-%abbr {
-    &[title] {
-        text-decoration: dotted underline #{var-stroke-relative('500')};
-        text-decoration-color: #{var-theme(ui-primary)};
-        text-underline-offset: #{var-stroke-relative('600')};
+@if $_print_selection {
+    %selection {
+        @include cx-prop(icon-color, currentColor !important);
+
+        background-color: #{var-theme(selection-background)} !important;
+        color: #{var-theme(selection-text)} !important;
+
+        * {
+            color: inherit !important;
+        }
+
+        @each $mode in tokens.$contrastMode_all {
+            @include colour-mode($mode, $includeDefault: false) {
+                @include snippet-selection($mode);
+            }
+        }
     }
 }
 
-@if config.$template_cssHeadings {
-    /* ## Typography - Block ==================================== */
+@if $_heading_inlines {
+    /* ## Typography - Inlines ==================================== */
 }
 
-%p {
-    &:empty {
-        display: none;
+@if $_print_a {
+    %a {
+        @include snippet-link;
     }
 }
 
-%aside {
-    // UPGRADE - convert to style tokens
-    font-style: italic;
-    @include theme-set-color(primary);
+@if $_print_abbr {
+    %abbr {
+        &[title] {
+            text-decoration: dotted underline #{var-stroke-relative('500')};
+            text-decoration-color: #{var-theme(ui-primary)};
+            text-underline-offset: #{var-stroke-relative('600')};
+        }
+    }
+}
 
-    em {
-        font-style: normal;
+@if config.$template_cssHeadings and $_heading_blocks {
+    /* ## Typography - Blocks ==================================== */
+}
+
+@if $_print_p {
+    %p {
+        &:empty {
+            display: none;
+        }
+    }
+}
+
+@if $_print_aside {
+    %aside {
+        // UPGRADE - convert to style tokens
+        font-style: italic;
+        @include theme-set-color(primary);
 
         em {
-            font-style: italic;
+            font-style: normal;
+
+            em {
+                font-style: italic;
+            }
         }
     }
 }
 
-@if map.get(config.$template_styles, blockquote) {
+@if $_print_blockquote {
     %blockquote {
         @include snippet-blockquote(
             $display: if(
@@ -157,67 +145,63 @@
     }
 }
 
-%code,
-%kbd,
-%pre,
-%samp {
-    @if font-family-exists(monospace) {
-        font-family: #{var-font-family(monospace)};
+@if $_print_code {
+    %code,
+    %kbd,
+    %pre,
+    %samp {
+        position: relative;
+
+        @if font-family-exists(monospace) {
+            font-family: #{var-font-family(monospace)};
+        }
+
+        // UPGRADE - convert to style tokens
+        border-radius: #{var-style(button-border-radius)};
+        background: #{var-theme(background-grey)};
+
+        @include theme-set-color(primary);
+
+        %a & {
+            color: inherit;
+        }
     }
 
-    // UPGRADE - convert to style tokens
-    border-radius: #{var-style(button-border-radius)};
-    background: #{var-theme(background-grey)};
+    %code,
+    %kbd,
+    %samp {
+        @include prop-display(inline);
+        margin-block: 0;
+        margin-inline: #{var-stroke-relative('400')};
+        padding-block: 0;
+        padding-inline: #{var-stroke-relative('600')};
 
-    @include theme-set-color(primary);
+        vertical-align: baseline;
+        align-self: baseline;
 
-    %a & {
-        color: inherit;
+        font-weight: 500;
+
+        @include font-family-size-tokens(monospace);
     }
-}
 
-%code,
-%kbd,
-%samp {
-    @include prop-display(inline);
-    margin-block: 0;
-    margin-inline: #{var-stroke-relative('400')};
-    padding-block: 0;
-    padding-inline: #{var-stroke-relative('600')};
-
-    vertical-align: baseline;
-    align-self: baseline;
-
-    font-weight: 500;
-
-    @include font-family-size-tokens(monospace);
-}
-
-%kbd,
-%samp {
-    user-select: all;
-}
-
-%pre {
-    border-color: #{var-theme(ui-primary)};
-    color: #{var-theme(text)};
-
-    > %code,
-    > %kbd,
-    > %samp {
-        font-weight: 400;
-        border-radius: 0;
-        background: transparent;
-        color: inherit;
-        user-select: text;
+    %kbd,
+    %samp {
+        user-select: all;
     }
 }
 
-@if map.get(config.$template_styles, headings) {
-    @if config.$template_cssHeadings {
-        /* ## Typography - Headings ==================================== */
+@if $_print_pre {
+    %pre {
+        @include snippet-pre;
     }
+}
 
+@if config.$template_cssHeadings and ($_print_headings or $_print_pageSubtitle)
+{
+    /* ## Typography - Headings ==================================== */
+}
+
+@if $_print_headings {
     @each $num in token-all-heading-levels() {
         //
         #{if( $num == 1, ('%h#{$num}', '%title'), '%h#{$num}' )} {
@@ -240,14 +224,17 @@
     %unstyled-heading--where {
         @include snippet-unstyled-heading;
     }
+}
 
+@if $_print_pageSubtitle {
     %page-subtitle {
+        margin-block: #{var-mrg-soft('200')} 0;
+
+        font-weight: 500;
         font-size: #{var-fs(heading-5)};
+        line-height: #{var-style(heading-5-line-height)};
+        text-wrap: balance;
 
         @include theme-set-color('grey');
-
-        @include colour-mode-all {
-            opacity: 1;
-        }
     }
 }

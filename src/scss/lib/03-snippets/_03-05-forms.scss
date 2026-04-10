@@ -610,6 +610,61 @@
 ///
 /// @since ___PKG_VERSION___
 ///
+@mixin snippet-fieldset(
+    $background: var-sys-colour(background),
+    $borderClr: var-sys-colour(input-border),
+    $borderClr_hover: var-sys-colour(input-border-hover),
+    $borderClr_active: var-sys-colour(input-border-active),
+    $color: var-sys-colour(text),
+    $borderWidth: 0.0625rem,
+    $marginBlock: var-mrg-firm('400') var-mrg-half('400'),
+    $marginInline: 0,
+    $paddingBlock: var-mrg-soft('300') var-mrg-firm('300'),
+    $paddingInline: var-mrg-firm('400'),
+    //
+    $includeClrs: true
+) {
+    @include prop-display(block);
+
+    margin-block: #{$marginBlock};
+    margin-inline: #{$marginInline};
+
+    padding-block: #{$paddingBlock};
+    padding-inline: #{$paddingInline};
+
+    border: #{$borderWidth} solid #{$borderClr};
+    border-radius: 0;
+
+    @if $includeClrs {
+        background-color: #{$background};
+        color: #{$color};
+    }
+
+    > :first-child {
+        margin-block-start: 0;
+        margin-block-start: calc(#{var-mrg-soft('400')} - #{var-mrg-soft('200')});
+    }
+
+    > legend + * {
+        margin-block-start: 0;
+    }
+
+    /// STATES ///
+
+    @if $includeClrs {
+        @include focus-visible-or-within {
+            border-color: #{$borderClr_hover};
+        }
+
+        &:active {
+            border-color: #{$borderClr_active};
+        }
+    }
+}
+
+///
+/// @since ___PKG_VERSION___
+///
 @mixin _snippet-input-colours-single(
     $accentClr,
     $accentClr_active,
@@ -862,7 +917,6 @@
 
     @if $includeUtils {
         @include utils.snippet-input(
-            $borderRadius: $borderRadius,
             $borderWidth: $borderWidth,
             $focusOffset: $focusOffset,
             $lineHeight: $lineHeight,
@@ -889,10 +943,11 @@
             padding-block: #{$paddingBlock};
             padding-inline: #{$paddingInline};
 
-            border-radius: #{$borderRadius};
             border-width: #{$borderWidth};
             line-height: #{$lineHeight};
         }
+
+        border-radius: #{$borderRadius};
 
         transition: #{do-var(transition)};
 
@@ -919,8 +974,8 @@
             @include cx-prop(icon-size-pseudo, var-style(icon-size));
             @include cx-prop(icon-vertical-align, text-bottom);
 
-            padding-block-start: #{var-style(input-icons-offset-block-start)};
-            padding-block-end: #{var-style(input-icons-offset-block-end)};
+            padding-block-start: calc($paddingBlock + var-style(input-icons-offset-block-start));
+            padding-block-end: calc($paddingBlock + var-style(input-icons-offset-block-end));
 
             letter-spacing: #{var-style(input-icons-letter-spacing)};
         }
@@ -1067,6 +1122,14 @@
 ) {
     $args: meta.keywords($args);
 
+    @if not $includeUtils {
+        margin-block: #{$marginBlock};
+        font-weight: #{$fontWeight};
+        line-height: #{$lineHeight};
+    }
+
+    color: #{$color};
+
     @if $includeUtils {
         @include utils.snippet-label(
             $color: $color,
@@ -1085,39 +1148,47 @@
         );
     }
 
-    & {
+    &:has(> input:where([type='checkbox'], [type='radio'])) {
         @if not $includeUtils {
-            margin-block: #{$marginBlock};
-            font-weight: #{$fontWeight};
-            line-height: #{$lineHeight};
+            gap: #{$gap_checkradio};
+
+            font-weight: #{$fontWeight_checkradio};
+            line-height: #{$lh_checkradio};
+
+            cursor: pointer;
         }
 
-        color: #{$color};
+        color: #{$color_checkradio};
 
-        &:has(> input:where([type='checkbox'], [type='radio'])) {
-            @if not $includeUtils {
-                gap: #{$gap_checkradio};
-
-                font-weight: #{$fontWeight_checkradio};
-                line-height: #{$lh_checkradio};
-
-                cursor: pointer;
-            }
-
-            color: #{$color_checkradio};
-
-            & + & {
-                margin-block-start: #{$marginBlock_innercheckradio};
-            }
-
-            + %select,
-            + %textarea {
-                margin-block-start: #{var-style(input-margin-block-start)};
-            }
-
-            + %input:not([type='checkbox'], [type='radio']) {
-                margin-block-start: #{var-style(input-margin-block-start)};
-            }
+        & + & {
+            margin-block-start: #{$marginBlock_innercheckradio};
         }
+
+        + %select,
+        + %textarea {
+            margin-block-start: #{var-style(input-margin-block-start)};
+        }
+
+        + %input:not([type='checkbox'], [type='radio']) {
+            margin-block-start: #{var-style(input-margin-block-start)};
+        }
+    }
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin snippet-legend {
+    fieldset &,
+    fieldset &:first-child {
+        @include prop-display(block);
+        @include snippet-unstyled-heading;
+
+        margin-inline: calc(var-mrg-soft('300') * -1);
+        margin-block: 0 #{var-mrg-soft('300')};
+
+        padding-inline: #{var-mrg-soft('300')};
+
+        font-style: italic;
     }
 }

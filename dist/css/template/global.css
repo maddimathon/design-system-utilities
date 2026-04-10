@@ -22,7 +22,7 @@
 @property --flow-margin {
     syntax: "<length-percentage>";
     inherits: true;
-    initial-value: 0.8125rem;
+    initial-value: 0.9375rem;
 }
 @property --flow-margin--button-span-block {
     syntax: "<length-percentage>";
@@ -37,17 +37,17 @@
 @property --flow-margin-firm-end {
     syntax: "<length-percentage>";
     inherits: true;
-    initial-value: 0.4375rem;
+    initial-value: 0.3125rem;
 }
 @property --flow-margin-firm-end--large {
     syntax: "<length-percentage>";
     inherits: true;
-    initial-value: 0.625rem;
+    initial-value: 0.375rem;
 }
 @property --flow-margin-firm-end--small {
     syntax: "<length-percentage>";
     inherits: true;
-    initial-value: 0.3125rem;
+    initial-value: 0.1875rem;
 }
 @property --flow-margin-firm-start {
     syntax: "<length-percentage>";
@@ -67,17 +67,17 @@
 @property --flow-margin--heading-unstyled {
     syntax: "<length-percentage>";
     inherits: true;
-    initial-value: 1.625rem;
+    initial-value: 1.875rem;
 }
 @property --flow-margin--large {
     syntax: "<length-percentage>";
     inherits: true;
-    initial-value: 1.625rem;
+    initial-value: 1.875rem;
 }
 @property --flow-margin--small {
     syntax: "<length-percentage>";
     inherits: true;
-    initial-value: 0.5rem;
+    initial-value: 0.625rem;
 }
 @property --focus-ring-outline-color {
     syntax: "<color>";
@@ -114,7 +114,7 @@
 @property --icon-inline-margin-block-start {
     syntax: "<number>";
     inherits: true;
-    initial-value: 0.25em;
+    initial-value: 0.15625em;
 }
 @property --icon-size {
     syntax: "<length-percentage> | <number>";
@@ -124,7 +124,7 @@
 @property --icon-size-font {
     syntax: "<length-percentage> | <number>";
     inherits: true;
-    initial-value: 0.9375em;
+    initial-value: 1em;
 }
 @property --icon-size--font-multiplier {
     syntax: "<number>";
@@ -144,7 +144,7 @@
 @property --icon-size-pseudo {
     syntax: "<length-percentage> | <number>";
     inherits: true;
-    initial-value: 0.9375em;
+    initial-value: 1em;
 }
 @property --icon-vertical-align {
     syntax: "*";
@@ -171,11 +171,12 @@
     --icon-inline-buffer: 0.25em;
     --icon-inline-buffer-end: 0.125;
     --icon-inline-buffer-start: 1;
-    --icon-inline-margin-block-start: 0.25em;
+    --icon-inline-line-height: 0.75;
+    --icon-inline-margin-block-start: 0.15625em;
     --icon-size: 1.25em;
-    --icon-size-font: 0.9375em;
+    --icon-size-font: 1em;
     --icon-size-large: 2em;
-    --icon-size-pseudo: 0.9375em;
+    --icon-size-pseudo: 1em;
     --icon-vertical-align: middle;
 }
 
@@ -2988,7 +2989,7 @@
 /* #endregion Animations - Keyframes */
 /*! START of @maddimathon/utility-astro/template */
 /*! START of @maddimathon/utility-sass/template */
-/* # GLOBALS - Accessibility
+/* # GLOBALS - ACCESSIBILITY
  * ======================================================================== */
 .no-js :focus,
 .js__no-whereSelector :focus {
@@ -3056,7 +3057,7 @@
     overflow: hidden !important;
 }
 
-/* # GLOBALS - Objects
+/* # GLOBALS - OBJECTS
  * ======================================================================== */
 hr {
     display: block;
@@ -3070,21 +3071,8 @@ hr {
     border-bottom: currentColor solid 0.125rem;
 }
 
-/* # GLOBALS - Typography
+/* # GLOBALS - TYPOGRAPHY
  * ======================================================================== */
-::-moz-selection {
-    background-color: hsl(162.93, 42.82%, 45.66%);
-    background-color: var(--sys-clr-selection-bg, Highlight);
-    color: hsl(339.45, 0%, 4.28%);
-    color: var(--sys-clr-selection-text, HighlightText);
-}
-::selection {
-    background-color: hsl(162.93, 42.82%, 45.66%);
-    background-color: var(--sys-clr-selection-bg, Highlight);
-    color: hsl(339.45, 0%, 4.28%);
-    color: var(--sys-clr-selection-text, HighlightText);
-}
-
 /* ## Typography - Inline ==================================== */
 strong,
 b {
@@ -3112,700 +3100,16 @@ i em em {
     font-style: italic;
 }
 
-a[href] {
-    --focus-ring-outline-offset: 0.0625em;
-    display: inline;
-    border: none;
-    -webkit-text-decoration: underline 0.0625em;
-    text-decoration: underline 0.0625em;
-    text-underline-offset: 0.25em;
-    color: hsl(278.16, 60.54%, 30.06%);
-    color: var(--sys-clr-link, LinkText);
-}
-a[href]:visited {
-    color: hsl(278.16, 60.54%, 30.06%);
-    color: var(--sys-clr-link-visited, VisitedText);
-}
-a[href]:focus {
-    text-decoration-color: transparent;
-    color: hsl(162, 69%, 16.5%);
-    color: var(--sys-clr-link-hover, ActiveText);
-}
-
-a[href]:hover {
-    text-decoration-color: transparent;
-    color: hsl(162, 69%, 16.5%);
-    color: var(--sys-clr-link-hover, ActiveText);
-}
-
-a[href]:active {
-    color: hsl(2.81, 72.25%, 28.09%);
-    color: var(--sys-clr-link-active, ActiveText);
-}
-a.no-style[href] {
-    text-decoration: none;
-    font-weight: inherit;
-    color: inherit;
-}
-a[aria-disabled="true"][href] {
-    text-decoration-line: line-through;
-    color: hsl(339.45, 0%, 34.6%);
-    color: var(--sys-clr-text-disabled, GrayText);
-    opacity: 1;
-    cursor: not-allowed;
-}
-
 abbr[title] {
     -webkit-text-decoration: dotted underline 0.125em;
     text-decoration: dotted underline 0.125em;
     cursor: help;
 }
 
-/* ## Typography - Block ==================================== */
-p {
-    margin-top: 0.8125rem;
-    margin-bottom: 0;
-}
-hr + p {
-    margin-top: 0;
-}
-
-code,
-kbd,
-pre,
-samp {
-    position: relative;
-}
-
-/* # GLOBALS - Lists
- * ======================================================================== */
-ol,
-ul {
-    margin: 0;
-    margin-left: 20%;
-    padding: 0;
-    padding-left: 1em;
-    line-height: inherit;
-}
-ol ol,
-ol ul,
-ul ol,
-ul ul {
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
-ol {
-    list-style-type: decimal;
-}
-ol ol {
-    list-style-type: lower-alpha;
-}
-ol ol ol {
-    list-style-type: lower-roman;
-}
-ul {
-    list-style-type: disc;
-}
-ul ul {
-    list-style-type: circle;
-}
-ol ol ol ol,
-ul ul ul {
-    list-style-type: square; /* fallback */
-    list-style-type: "–  ";
-}
-li {
-    margin: 0;
-    margin-top: 0.5rem;
-    padding: 0;
-}
-li::marker {
-    font-weight: 500;
-    font-size: 0.9375rem;
-}
-li > a:only-child {
-    display: inline-block;
-    vertical-align: top;
-}
-li li li {
-    margin-top: 0.3125rem;
-}
-li li li::marker {
-    font-size: 0.875rem;
-}
-li li li li {
-    font-style: italic;
-}
-li li li li em {
-    font-style: normal;
-}
-li li li li em em {
-    font-style: italic;
-}
-
-/* # GLOBALS - Forms
- * ======================================================================== */
-fieldset {
-    display: block;
-    margin-top: 1.25rem;
-    margin-bottom: 0.4375rem;
-    margin-left: 0;
-    margin-right: 0;
-    padding-top: 0.5rem;
-    padding-bottom: 0.8125rem;
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-    border: 0.0625rem solid hsl(278.16, 60.54%, 30.06%);
-    border: 0.0625rem solid var(--sys-clr-input-border, FieldText);
-    border-radius: 0;
-    background-color: hsl(339.45, 0%, 91.26%);
-    background-color: var(--sys-clr-background, Canvas);
-    color: hsl(339.45, 0%, 17.88%);
-    color: var(--sys-clr-text, CanvasText);
-}
-fieldset:focus {
-    border-color: hsl(162, 69%, 16.5%);
-    border-color: var(--sys-clr-input-border-hover, FieldText);
-}
-
-fieldset:focus-within {
-    border-color: hsl(162, 69%, 16.5%);
-    border-color: var(--sys-clr-input-border-hover, FieldText);
-}
-
-fieldset:active {
-    border-color: hsl(2.81, 72.25%, 28.09%);
-    border-color: var(--sys-clr-input-border-active, FieldText);
-}
-fieldset legend {
-    display: block;
-}
-fieldset > :first-child {
-    margin-top: 0;
-    margin-top: calc(0.8125rem - 0.3125rem);
-}
-fieldset > legend + * {
-    margin-top: 0;
-}
-
-fieldset legend {
-    margin-top: 1.625rem;
-    margin-bottom: 0.4375rem;
-    font-weight: 500;
-    font-size: 1rem;
-    line-height: 1.6875;
-    letter-spacing: 0.0625em;
-    text-transform: uppercase;
-    text-wrap: balance;
-    font-style: normal;
-}
-fieldset legend {
-    margin-left: -0.5rem;
-    margin-right: -0.5rem;
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    font-style: italic;
-}
-
-textarea,
-select,
-input {
-    --focus-ring-outline-offset: 0.125rem;
-    display: block;
-    margin-top: 1.25rem;
-    margin-bottom: 0.4375rem;
-    margin-left: 0;
-    margin-right: 0;
-    padding-top: 0.3125rem;
-    padding-bottom: 0.3125rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    width: 100%;
-    font: inherit;
-    line-height: 1.3125;
-    border: 0.0625rem solid hsl(278.16, 60.54%, 30.06%);
-    border: 0.0625rem solid var(--sys-clr-input-border, FieldText);
-    border-radius: 0;
-    --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
-    background-color: hsl(339.45, 0%, 96.6%);
-    background-color: var(--sys-clr-input-bg, Field);
-    color: hsl(339.45, 0%, 17.88%);
-    color: var(--sys-clr-input-text, FieldText);
-    accent-color: hsl(339.45, 0%, 17.88%);
-    accent-color: var(--sys-clr-input-text, FieldText);
-}
-textarea:focus,
-select:focus,
-input:focus {
-    --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
-    background-color: hsl(339.45, 0%, 96.6%);
-    background-color: var(--sys-clr-input-bg-hover, Field);
-    border-color: hsl(162, 69%, 16.5%);
-    border-color: var(--sys-clr-input-border-hover, FieldText);
-    color: hsl(339.45, 0%, 17.88%);
-    color: var(--sys-clr-input-text-hover, FieldText);
-    accent-color: hsl(339.45, 0%, 17.88%);
-    accent-color: var(--sys-clr-input-text, FieldText);
-}
-
-textarea:hover,
-select:hover,
-input:hover {
-    --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
-    background-color: hsl(339.45, 0%, 96.6%);
-    background-color: var(--sys-clr-input-bg-hover, Field);
-    border-color: hsl(162, 69%, 16.5%);
-    border-color: var(--sys-clr-input-border-hover, FieldText);
-    color: hsl(339.45, 0%, 17.88%);
-    color: var(--sys-clr-input-text-hover, FieldText);
-    accent-color: hsl(339.45, 0%, 17.88%);
-    accent-color: var(--sys-clr-input-text, FieldText);
-}
-
-textarea:focus-within,
-select:focus-within,
-input:focus-within {
-    --focus-ring-outline-color: var(--sys-clr-input-text, FieldText);
-    background-color: hsl(339.45, 0%, 96.6%);
-    background-color: var(--sys-clr-input-bg-hover, Field);
-    border-color: hsl(162, 69%, 16.5%);
-    border-color: var(--sys-clr-input-border-hover, FieldText);
-    color: hsl(339.45, 0%, 17.88%);
-    color: var(--sys-clr-input-text-hover, FieldText);
-    accent-color: hsl(339.45, 0%, 17.88%);
-    accent-color: var(--sys-clr-input-text, FieldText);
-}
-
-textarea:active,
-select:active,
-input:active {
-    --focus-ring-outline-color: var(--sys-clr-text-active, ActiveText);
-    background-color: hsl(339.45, 0%, 96.6%);
-    background-color: var(--sys-clr-input-bg-active, Field);
-    border-color: hsl(2.81, 72.25%, 28.09%);
-    border-color: var(--sys-clr-input-border-active, FieldText);
-    color: hsl(339.45, 0%, 17.88%);
-    color: var(--sys-clr-input-text-active, FieldText);
-    accent-color: hsl(2.81, 72.25%, 28.09%);
-    accent-color: var(--sys-clr-text-active, ActiveText);
-}
-label + textarea,
-label + select,
-label + input,
-label > textarea,
-label > select,
-label > input {
-    margin-top: 0.4375rem;
-}
-textarea::-moz-placeholder,
-select::-moz-placeholder,
-input::-moz-placeholder {
-    opacity: 1;
-    color: currentColor;
-}
-textarea::placeholder,
-select::placeholder,
-input::placeholder {
-    opacity: 1;
-    color: currentColor;
-}
-@media (prefers-contrast: less) {
-    textarea::-moz-placeholder,
-    select::-moz-placeholder,
-    input::-moz-placeholder {
-        color: color-mix(in srgb, currentColor 75%, transparent);
-    }
-    textarea::placeholder,
-    select::placeholder,
-    input::placeholder {
-        color: color-mix(in srgb, currentColor 75%, transparent);
-    }
-}
-textarea::-moz-placeholder,
-select::-moz-placeholder,
-input::-moz-placeholder {
-    color: color-mix(in srgb, currentColor 75%, transparent);
-}
-textarea::placeholder,
-select::placeholder,
-input::placeholder {
-    color: color-mix(in srgb, currentColor 75%, transparent);
-}
-
-@media (prefers-contrast: more) {
-    textarea::-moz-placeholder,
-    select::-moz-placeholder,
-    input::-moz-placeholder {
-        color: color-mix(in srgb, currentColor 90%, transparent);
-    }
-    textarea::placeholder,
-    select::placeholder,
-    input::placeholder {
-        color: color-mix(in srgb, currentColor 90%, transparent);
-    }
-}
-textarea[aria-disabled="true"],
-select[aria-disabled="true"],
-input[aria-disabled="true"],
-textarea[disabled],
-select[disabled],
-input[disabled] {
-    cursor: not-allowed;
-}
-
-input[type="button"],
-input[type="checkbox"],
-input[type="color"],
-input[type="date"],
-input[type="datetime-local"],
-input[type="file"],
-input[type="month"],
-input[type="radio"],
-input[type="range"],
-input[type="reset"],
-input[type="submit"],
-input[type="time"],
-input[type="week"] {
-    cursor: pointer;
-}
-input[type="button"][aria-disabled="true"],
-input[type="button"][disabled],
-input[type="checkbox"][aria-disabled="true"],
-input[type="checkbox"][disabled],
-input[type="color"][aria-disabled="true"],
-input[type="color"][disabled],
-input[type="date"][aria-disabled="true"],
-input[type="date"][disabled],
-input[type="datetime-local"][aria-disabled="true"],
-input[type="datetime-local"][disabled],
-input[type="file"][aria-disabled="true"],
-input[type="file"][disabled],
-input[type="month"][aria-disabled="true"],
-input[type="month"][disabled],
-input[type="radio"][aria-disabled="true"],
-input[type="radio"][disabled],
-input[type="range"][aria-disabled="true"],
-input[type="range"][disabled],
-input[type="reset"][aria-disabled="true"],
-input[type="reset"][disabled],
-input[type="submit"][aria-disabled="true"],
-input[type="submit"][disabled],
-input[type="time"][aria-disabled="true"],
-input[type="time"][disabled],
-input[type="week"][aria-disabled="true"],
-input[type="week"][disabled] {
-    cursor: not-allowed;
-}
-input[type="email"],
-input[type="month"],
-input[type="number"],
-input[type="password"],
-input[type="search"],
-input[type="tel"],
-input[type="text"],
-input[type="url"],
-input[type="week"] {
-    cursor: text;
-}
-input[type="email"][aria-disabled="true"],
-input[type="email"][disabled],
-input[type="month"][aria-disabled="true"],
-input[type="month"][disabled],
-input[type="number"][aria-disabled="true"],
-input[type="number"][disabled],
-input[type="password"][aria-disabled="true"],
-input[type="password"][disabled],
-input[type="search"][aria-disabled="true"],
-input[type="search"][disabled],
-input[type="tel"][aria-disabled="true"],
-input[type="tel"][disabled],
-input[type="text"][aria-disabled="true"],
-input[type="text"][disabled],
-input[type="url"][aria-disabled="true"],
-input[type="url"][disabled],
-input[type="week"][aria-disabled="true"],
-input[type="week"][disabled] {
-    cursor: not-allowed;
-}
-input[type="checkbox"],
-input[type="radio"] {
-    display: inline-block;
-    padding: 0;
-    width: auto;
-}
-input[type="color"] {
-    padding: 0;
-    height: 2.25em;
-    width: 2.25em;
-}
-input[type="date"],
-input[type="datetime-local"],
-input[type="month"],
-input[type="time"],
-input[type="week"] {
-    width: auto;
-}
-
-input[type="range"] {
-    padding: 0;
-}
-
-select {
-    cursor: pointer;
-}
-
-textarea {
-    cursor: text;
-}
-
-label {
-    display: block;
-    margin-top: 0.8125rem;
-    margin-bottom: 0;
-    margin-left: 0;
-    margin-right: 0;
-    font-weight: 600;
-    line-height: 1.3125;
-    text-wrap: balance;
-    color: hsl(339.45, 0%, 17.88%);
-    color: var(--sys-clr-text, CanvasText);
-}
-label:has(> :where(input[type="checkbox"], input[type="radio"])) {
-    display: grid;
-    grid-template-columns: fit-content(0) 1fr;
-    justify-content: end;
-    align-items: baseline;
-    grid-gap: 0.5rem;
-    gap: 0.5rem;
-    font-weight: 400;
-    line-height: 1.6875;
-    color: hsl(339.45, 0%, 17.88%);
-    color: var(--sys-clr-text, CanvasText);
-    cursor: pointer;
-}
-label[aria-disabled="true"]:has(
-        > :where(input[type="checkbox"], input[type="radio"])
-    ),
-label[disabled]:has(> :where(input[type="checkbox"], input[type="radio"])) {
-    cursor: not-allowed;
-}
-
-label:has(> :where(input[type="checkbox"], input[type="radio"]))
-    + label:has(> :where(input[type="checkbox"], input[type="radio"])) {
-    margin-top: 0.5rem;
-}
-label:has(> :where(input[type="checkbox"], input[type="radio"])) + input,
-label:has(> :where(input[type="checkbox"], input[type="radio"])) + select,
-label:has(> :where(input[type="checkbox"], input[type="radio"])) + textarea {
-    margin-top: 1.25rem;
-}
-label > input[type="checkbox"],
-label > input[type="radio"] {
-    margin: 0;
-}
-
-/* # GLOBALS - Tables
- * ======================================================================== */
-table {
-    position: relative;
-    margin-top: 1.25rem;
-    margin-bottom: 0;
-    margin-top: 2.25rem;
-    margin-bottom: 0.8125rem;
-    background: hsl(278.16, 60.54%, 30.06%);
-    background: var(--sys-clr-accent-bg, CanvasText);
-}
-
-table {
-    border-spacing: 0.125rem;
-    font-size: 0.9375rem;
-    line-height: inherit;
-}
-@media (forced-colors: active), (prefers-contrast: custom) {
-    table {
-        border-spacing: 0;
-    }
-    table th,
-    table td {
-        border-bottom: 0.125rem solid hsl(339.45, 0%, 17.88%);
-        border-bottom: 0.125rem solid var(--sys-clr-text, CanvasText);
-        border-right: 0.125rem solid hsl(339.45, 0%, 17.88%);
-        border-right: 0.125rem solid var(--sys-clr-text, CanvasText);
-    }
-    table th:first-child,
-    table td:first-child {
-        border-left: 0.125rem solid hsl(339.45, 0%, 17.88%);
-        border-left: 0.125rem solid var(--sys-clr-text, CanvasText);
-    }
-    table tr:first-child th,
-    table tr:first-child td {
-        border-top: 0.125rem solid hsl(339.45, 0%, 17.88%);
-        border-top: 0.125rem solid var(--sys-clr-text, CanvasText);
-    }
-}
-th,
-td {
-    padding-top: 0.3125rem;
-    padding-bottom: 0.3125rem;
-    padding-left: 0.8125rem;
-    padding-right: 0.8125rem;
-    min-width: 10em;
-    background: hsl(339.45, 0%, 91.26%);
-    background: var(--sys-clr-background, Canvas);
-    vertical-align: top;
-    text-align: left;
-}
-th > :first-child,
-td > :first-child {
-    margin-top: 0;
-}
-th > :last-child,
-td > :last-child {
-    margin-bottom: 0;
-}
-
-th {
-    padding-top: 0.3125rem;
-    padding-bottom: 0.3125rem;
-    text-wrap: balance;
-    background: hsl(278.16, 60.54%, 30.06%);
-    background: var(--sys-clr-accent-bg, CanvasText);
-    color: hsl(339.45, 0%, 91.26%);
-    color: var(--sys-clr-accent-text, Canvas);
-}
-
 /*! END of @maddimathon/utility-sass/template */
-/* # ASTRO GLOBALS - Typography
- * ======================================================================== */
-pre {
-    display: block;
-    position: relative;
-    margin-top: 1.25rem;
-    margin-bottom: 0.4375rem;
-    margin-left: 0;
-    margin-right: 0;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    padding-left: 0.8125rem;
-    padding-right: 0.8125rem;
-    border: 0.0625rem solid currentColor;
-    width: auto;
-    max-width: 100%;
-    font-size: 0.9375rem;
-    overflow: auto;
-    justify-self: center;
-}
-pre > code {
-    display: block;
-    margin: 0;
-    padding: 0;
-    border: none;
-    width: -moz-fit-content;
-    width: fit-content;
-    max-width: none;
-    overflow: visible;
-    white-space: normal;
-    text-wrap: auto;
-}
-pre:has(> code) {
-    white-space: normal;
-    text-wrap: auto;
-}
-pre:has(> code) > code {
-    white-space: pre;
-    text-wrap: nowrap;
-}
-pre.language-wiki:has(> code),
-pre.language-context:has(> code),
-pre.language-tex:has(> code),
-pre.language-latex:has(> code),
-pre.language-text:has(> code),
-pre.language-md:has(> code),
-pre.language-markdown:has(> code),
-pre.language-hbs:has(> code),
-pre.language-mustache:has(> code),
-pre.language-handlebars:has(> code),
-pre.language-plaintext:has(> code) {
-    white-space: normal;
-    text-wrap: auto;
-    max-width: 26.25rem;
-}
-pre.language-wiki:has(> code) > code,
-pre.language-context:has(> code) > code,
-pre.language-tex:has(> code) > code,
-pre.language-latex:has(> code) > code,
-pre.language-text:has(> code) > code,
-pre.language-md:has(> code) > code,
-pre.language-markdown:has(> code) > code,
-pre.language-hbs:has(> code) > code,
-pre.language-mustache:has(> code) > code,
-pre.language-handlebars:has(> code) > code,
-pre.language-plaintext:has(> code) > code {
-    white-space: pre-wrap;
-    text-wrap: auto;
-}
-
-/* # ASTRO GLOBALS - Tables
- * ======================================================================== */
-table {
-    justify-self: center;
-}
-
 /*! END of @maddimathon/utility-astro/template */
 /* # GLOBALS - OBJECTS
  * ======================================================================== */
-cite,
-dt,
-p {
-    margin-top: 0.8125rem;
-    margin-top: var(--flow-margin, 0.8125rem);
-    margin-bottom: 0;
-}
-
-li {
-    margin-top: 0.5rem;
-    margin-top: var(--flow-margin--small, 0.5rem);
-    margin-bottom: 0;
-}
-
-button,
-[role="button"],
-input[type="button"],
-details,
-figure,
-img {
-    margin-top: 1.25rem;
-    margin-bottom: 0.4375rem;
-    margin-top: var(--flow-margin-firm-start, 1.25rem);
-    margin-bottom: var(--flow-margin-firm-end, 0.4375rem);
-}
-
-blockquote {
-    margin-top: 2.25rem;
-    margin-bottom: 0.625rem;
-    margin-top: var(--flow-margin-firm-start--large, 2.25rem);
-    margin-bottom: var(--flow-margin-firm-end--large, 0.625rem);
-}
-blockquote + cite,
-blockquote + dt,
-blockquote + p,
-blockquote + li {
-    margin-top: 1.625rem;
-    margin-top: var(--flow-margin--large, 1.625rem);
-}
-blockquote + button,
-blockquote + [role="button"],
-blockquote + input[type="button"],
-blockquote + details,
-blockquote + figure,
-blockquote + img {
-    margin-top: 2.25rem;
-    margin-top: var(--flow-margin-firm-start--large, 2.25rem);
-}
-
 hr {
     --icon-color: currentColor;
     border-width: 0.125rem;
@@ -3838,12 +3142,28 @@ figure {
 
 /* # GLOBALS - TYPOGRAPHY
  * ======================================================================== */
+::-moz-selection {
+    --icon-color: currentColor !important;
+    background-color: hsl(162.93, 42.82%, 45.66%) !important;
+    background-color: var(--theme-selection-background, Highlight) !important;
+    color: hsl(339.45, 0%, 4.28%) !important;
+    color: var(--theme-selection-text, HighlightText) !important;
+}
+::selection {
+    --icon-color: currentColor !important;
+    background-color: hsl(162.93, 42.82%, 45.66%) !important;
+    background-color: var(--theme-selection-background, Highlight) !important;
+    color: hsl(339.45, 0%, 4.28%) !important;
+    color: var(--theme-selection-text, HighlightText) !important;
+}
+::-moz-selection * {
+    color: inherit !important;
+}
+::selection * {
+    color: inherit !important;
+}
 @media (prefers-contrast: less) {
     ::-moz-selection {
-        --icon-color: var(
-            --theme-selection-text,
-            hsl(339.45, 0%, 13.55%)
-        ) !important;
         background-color: hsl(162.93, 42.82%, 45.66%) !important;
         background-color: var(
             --theme-selection-background,
@@ -3853,10 +3173,6 @@ figure {
         color: var(--theme-selection-text, hsl(339.45, 0%, 13.55%)) !important;
     }
     ::selection {
-        --icon-color: var(
-            --theme-selection-text,
-            hsl(339.45, 0%, 13.55%)
-        ) !important;
         background-color: hsl(162.93, 42.82%, 45.66%) !important;
         background-color: var(
             --theme-selection-background,
@@ -3868,10 +3184,6 @@ figure {
 }
 @media (prefers-contrast: more) {
     ::-moz-selection {
-        --icon-color: var(
-            --theme-selection-text,
-            hsl(305.21, 100%, 100%)
-        ) !important;
         background-color: hsl(162.93, 42.82%, 45.66%) !important;
         background-color: var(
             --theme-selection-background,
@@ -3881,10 +3193,6 @@ figure {
         color: var(--theme-selection-text, hsl(305.21, 100%, 100%)) !important;
     }
     ::selection {
-        --icon-color: var(
-            --theme-selection-text,
-            hsl(305.21, 100%, 100%)
-        ) !important;
         background-color: hsl(162.93, 42.82%, 45.66%) !important;
         background-color: var(
             --theme-selection-background,
@@ -3896,34 +3204,22 @@ figure {
 }
 @media (forced-colors: active), (prefers-contrast: custom) {
     ::-moz-selection {
-        --icon-color: HighlightText !important;
         background-color: Highlight !important;
         color: HighlightText !important;
     }
     ::selection {
-        --icon-color: HighlightText !important;
         background-color: Highlight !important;
         color: HighlightText !important;
     }
 }
-/* ## Typography - Inline ==================================== */
-a[href],
-a[href]::before,
-a[href]::after {
-    transition:
-        accent-color 250ms ease-in-out,
-        background-color 250ms ease-in-out,
-        border-color 250ms ease-in-out,
-        box-shadow 250ms ease-in-out,
-        color 250ms ease-in-out,
-        font-weight 250ms ease-in-out,
-        opacity 250ms ease-in-out,
-        text-decoration-color 250ms ease-in-out,
-        text-shadow 250ms ease-in-out,
-        visibility 250ms ease-in-out;
-    transition: var(--transition);
-}
+/* ## Typography - Inlines ==================================== */
 a[href] {
+    --focus-ring-outline-offset: 0.0625em;
+    display: inline;
+    border: none;
+    text-decoration: underline;
+    text-decoration-thickness: 0.0625em;
+    text-underline-offset: 0.25em;
     --focus-ring-outline-color: var(--theme-link-outline-hover, ActiveText);
     --icon-color: var(--theme-link-icon, LinkText);
     text-decoration-color: hsl(278.16, 60.54%, 30.06%);
@@ -4004,6 +3300,32 @@ a[disabled][href]:active {
     color: hsl(339.45, 0%, 34.6%);
     color: var(--theme-link-disabled, GrayText);
 }
+a[href],
+a[href]::before,
+a[href]::after {
+    transition:
+        accent-color 250ms ease-in-out,
+        background-color 250ms ease-in-out,
+        border-color 250ms ease-in-out,
+        box-shadow 250ms ease-in-out,
+        color 250ms ease-in-out,
+        font-weight 250ms ease-in-out,
+        opacity 250ms ease-in-out,
+        text-decoration-color 250ms ease-in-out,
+        text-shadow 250ms ease-in-out,
+        visibility 250ms ease-in-out;
+    transition: var(--transition);
+}
+a.no-style[href] {
+    text-decoration: none;
+    font-weight: inherit;
+    color: inherit;
+}
+a[aria-disabled="true"][href],
+a[disabled][href] {
+    opacity: 1;
+}
+
 abbr[title] {
     -webkit-text-decoration: dotted underline 0.15625em;
     text-decoration: dotted underline 0.15625em;
@@ -4012,43 +3334,34 @@ abbr[title] {
     text-underline-offset: 0.1875em;
 }
 
-/* ## Typography - Block ==================================== */
+/* ## Typography - Blocks ==================================== */
 p:empty {
     display: none;
 }
 
 blockquote {
-    display: flex;
+    display: block;
     margin-left: 0;
     margin-right: 0;
     padding-left: 0.8125rem;
     width: auto;
     max-width: 26.25rem;
-    position: relative;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    gap: 0;
-    justify-content: center;
-    justify-items: stretch;
-    align-content: start;
-    align-items: start;
-    justify-self: center;
     border-left: 0.125rem solid hsl(278.16, 60.54%, 30.06%);
     border-left: 0.125rem solid var(--theme-ui-primary, CanvasText);
 }
 blockquote * {
-    --flow-margin: 0.5rem;
-    --flow-margin--small: 0.3125rem;
-    --flow-margin--large: 1.1875rem;
+    --flow-margin: 0.625rem;
+    --flow-margin--small: 0.375rem;
+    --flow-margin--large: 1.375rem;
     --flow-margin-firm-start: 0.8125rem;
-    --flow-margin-firm-end: 0.3125rem;
+    --flow-margin-firm-end: 0.1875rem;
     --flow-margin-firm-start--small: 0.5rem;
-    --flow-margin-firm-end--small: 0.1875rem;
+    --flow-margin-firm-end--small: 0.125rem;
     --flow-margin-firm-start--large: 1.6875rem;
-    --flow-margin-firm-end--large: 0.5rem;
+    --flow-margin-firm-end--large: 0.3125rem;
     --flow-margin--button-span-block: 0.5rem;
     --flow-margin--button-span-inline: 0.5rem;
-    --flow-margin--heading-unstyled: 1.1875rem;
+    --flow-margin--heading-unstyled: 1.375rem;
 }
 blockquote > :first-child {
     margin-top: 0;
@@ -4070,6 +3383,7 @@ code,
 kbd,
 pre,
 samp {
+    position: relative;
     border-radius: 0;
     background: hsl(339.45, 0%, 85.99%);
     background: var(--theme-background-grey, Canvas);
@@ -4109,14 +3423,39 @@ samp {
 }
 
 pre {
-    border-color: hsl(278.16, 60.54%, 30.06%);
-    border-color: var(--theme-ui-primary, CanvasText);
+    display: block;
+    position: relative;
+    justify-self: center;
+    margin-top: 1.25rem;
+    margin-bottom: 0.3125rem;
+    margin-left: 0;
+    margin-right: 0;
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+    padding-left: 0.8125rem;
+    padding-right: 0.8125rem;
+    border: 0.0625rem solid hsl(278.16, 60.54%, 30.06%);
+    border: 0.0625rem solid var(--theme-ui-primary, CanvasText);
     color: hsl(339.45, 0%, 17.88%);
     color: var(--theme-text, CanvasText);
+    width: auto;
+    max-width: 100%;
+    font-size: 0.9375rem;
+    overflow: auto;
 }
 pre > code,
 pre > kbd,
 pre > samp {
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: none;
+    width: -moz-fit-content;
+    width: fit-content;
+    max-width: none;
+    overflow: visible;
+    white-space: normal;
+    text-wrap: auto;
     font-weight: 400;
     border-radius: 0;
     background: transparent;
@@ -4125,11 +3464,53 @@ pre > samp {
     -moz-user-select: text;
     user-select: text;
 }
+pre:has(> :is(code, kbd, samp)) {
+    white-space: normal;
+    text-wrap: auto;
+}
+pre:has(> :is(code, kbd, samp)) > code {
+    white-space: pre;
+    text-wrap: nowrap;
+}
+pre:has(> :is(code, kbd, samp)):is(
+        .language-wiki,
+        .language-context,
+        .language-tex,
+        .language-latex,
+        .language-text,
+        .language-md,
+        .language-markdown,
+        .language-hbs,
+        .language-mustache,
+        .language-handlebars,
+        .language-plaintext
+    ) {
+    white-space: normal;
+    text-wrap: auto;
+    max-width: 26.25rem;
+}
+pre:has(> :is(code, kbd, samp)):is(
+        .language-wiki,
+        .language-context,
+        .language-tex,
+        .language-latex,
+        .language-text,
+        .language-md,
+        .language-markdown,
+        .language-hbs,
+        .language-mustache,
+        .language-handlebars,
+        .language-plaintext
+    )
+    > code {
+    white-space: pre-wrap;
+    text-wrap: auto;
+}
 
 /* ## Typography - Headings ==================================== */
 h1 {
-    margin-top: 3.125rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 3.5rem;
+    margin-bottom: 0.3125rem;
     font-weight: 900;
     font-size: 2.9375rem;
     line-height: 1.3125;
@@ -4163,8 +3544,8 @@ h1 samp {
     color: inherit;
 }
 :where([role="heading"][aria-level="1"]) {
-    margin-top: 3.125rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 3.5rem;
+    margin-bottom: 0.3125rem;
     font-weight: 900;
     font-size: 2.9375rem;
     line-height: 1.3125;
@@ -4199,8 +3580,8 @@ h1 samp {
 }
 
 h2 {
-    margin-top: 3.125rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 3.5rem;
+    margin-bottom: 0.3125rem;
     font-weight: 800;
     font-size: 2.1875rem;
     line-height: 1.3125;
@@ -4234,8 +3615,8 @@ h2 samp {
     color: inherit;
 }
 :where([role="heading"][aria-level="2"]) {
-    margin-top: 3.125rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 3.5rem;
+    margin-bottom: 0.3125rem;
     font-weight: 800;
     font-size: 2.1875rem;
     line-height: 1.3125;
@@ -4270,8 +3651,8 @@ h2 samp {
 }
 
 h3 {
-    margin-top: 3.125rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 3.5rem;
+    margin-bottom: 0.3125rem;
     font-weight: 700;
     font-size: 1.90625rem;
     line-height: 1.3125;
@@ -4305,8 +3686,8 @@ h3 samp {
     color: inherit;
 }
 :where([role="heading"][aria-level="3"]) {
-    margin-top: 3.125rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 3.5rem;
+    margin-bottom: 0.3125rem;
     font-weight: 700;
     font-size: 1.90625rem;
     line-height: 1.3125;
@@ -4341,8 +3722,8 @@ h3 samp {
 }
 
 h4 {
-    margin-top: 1.625rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 1.875rem;
+    margin-bottom: 0.3125rem;
     font-weight: 700;
     font-size: 1.625rem;
     line-height: 1.4375;
@@ -4384,8 +3765,8 @@ h4 samp {
     color: inherit;
 }
 :where([role="heading"][aria-level="4"]) {
-    margin-top: 1.625rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 1.875rem;
+    margin-bottom: 0.3125rem;
     font-weight: 700;
     font-size: 1.625rem;
     line-height: 1.4375;
@@ -4428,8 +3809,8 @@ h4 samp {
 }
 
 h5 {
-    margin-top: 1.625rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 1.875rem;
+    margin-bottom: 0.3125rem;
     font-weight: 600;
     font-size: 1.4375rem;
     line-height: 1.4375;
@@ -4471,8 +3852,8 @@ h5 samp {
     color: inherit;
 }
 :where([role="heading"][aria-level="5"]) {
-    margin-top: 1.625rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 1.875rem;
+    margin-bottom: 0.3125rem;
     font-weight: 600;
     font-size: 1.4375rem;
     line-height: 1.4375;
@@ -4515,8 +3896,8 @@ h5 samp {
 }
 
 h6 {
-    margin-top: 1.625rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 1.875rem;
+    margin-bottom: 0.3125rem;
     font-weight: 500;
     font-size: 1.21875rem;
     line-height: 1.4375;
@@ -4558,8 +3939,8 @@ h6 samp {
     color: inherit;
 }
 :where([role="heading"][aria-level="6"]) {
-    margin-top: 1.625rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 1.875rem;
+    margin-bottom: 0.3125rem;
     font-weight: 500;
     font-size: 1.21875rem;
     line-height: 1.4375;
@@ -4602,8 +3983,8 @@ h6 samp {
 }
 
 :where([role="heading"][aria-level="7"]) {
-    margin-top: 1.625rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 1.875rem;
+    margin-bottom: 0.3125rem;
     font-weight: 500;
     font-size: 1rem;
     line-height: 1.6875;
@@ -4638,8 +4019,8 @@ h6 samp {
 }
 
 :where([role="heading"][aria-level="8"]) {
-    margin-top: 1.625rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 1.875rem;
+    margin-bottom: 0.3125rem;
     font-weight: 500;
     font-size: 0.9375rem;
     line-height: 1.6875;
@@ -4682,8 +4063,8 @@ h6 samp {
 }
 
 :where([role="heading"][aria-level="9"]) {
-    margin-top: 1.1875rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 1.375rem;
+    margin-bottom: 0.3125rem;
     font-weight: 500;
     font-size: 0.875rem;
     line-height: 1.90625;
@@ -4726,8 +4107,8 @@ h6 samp {
 }
 
 :where([role="heading"][aria-level="10"]) {
-    margin-top: 1.1875rem;
-    margin-bottom: 0.4375rem;
+    margin-top: 1.375rem;
+    margin-bottom: 0.3125rem;
     font-weight: 500;
     font-size: 0.8125rem;
     line-height: 1.90625;
@@ -4771,13 +4152,73 @@ h6 samp {
 
 /* # GLOBALS - LISTS
  * ======================================================================== */
+ol,
+ul {
+    margin: 0;
+    margin-left: 20%;
+    padding: 0;
+    padding-left: 1em;
+    line-height: inherit;
+}
+ol ol,
+ol ul,
+ul ol,
+ul ul {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+ol {
+    list-style-type: decimal;
+}
+ol ol {
+    list-style-type: lower-alpha;
+}
+ol ol ol {
+    list-style-type: lower-roman;
+}
+ul {
+    list-style-type: disc;
+}
+ul ul {
+    list-style-type: circle;
+}
+ol ol ol ol,
+ul ul ul {
+    list-style-type: square; /* fallback */
+    list-style-type: "–  ";
+}
 li {
+    margin: 0;
+    margin-top: 0.625rem;
+    padding: 0;
     text-wrap: balance;
 }
 li::marker {
     --icon-color: var(--theme-ui-primary, CanvasText);
     color: hsl(278.16, 60.54%, 30.06%);
     color: var(--theme-text-primary, CanvasText);
+    font-weight: 500;
+    font-size: 0.9375rem;
+}
+li > a:only-child {
+    display: inline-block;
+    vertical-align: top;
+}
+li li li {
+    margin-top: 0.375rem;
+}
+li li li::marker {
+    font-size: 0.875rem;
+}
+li li li li {
+    font-style: italic;
+}
+li li li li em {
+    font-style: normal;
+}
+li li li li em em {
+    font-style: italic;
 }
 
 dl {
@@ -4791,21 +4232,118 @@ dd {
 
 /* # GLOBALS - FORMS
  * ======================================================================== */
+fieldset {
+    display: block;
+    margin-top: 1.25rem;
+    margin-bottom: 0.3125rem;
+    margin-left: 0;
+    margin-right: 0;
+    padding-top: 0.625rem;
+    padding-bottom: 0.8125rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    border: 0.0625rem solid hsl(278.16, 60.54%, 30.06%);
+    border: 0.0625rem solid var(--sys-clr-input-border, FieldText);
+    border-radius: 0;
+    background-color: hsl(339.45, 0%, 91.26%);
+    background-color: var(--sys-clr-background, Canvas);
+    color: hsl(339.45, 0%, 17.88%);
+    color: var(--sys-clr-text, CanvasText);
+}
+fieldset > :first-child {
+    margin-top: 0;
+    margin-top: calc(0.9375rem - 0.375rem);
+}
+fieldset > legend + * {
+    margin-top: 0;
+}
+fieldset:focus {
+    border-color: hsl(162, 69%, 16.5%);
+    border-color: var(--sys-clr-input-border-hover, FieldText);
+}
+
+fieldset:focus-within {
+    border-color: hsl(162, 69%, 16.5%);
+    border-color: var(--sys-clr-input-border-hover, FieldText);
+}
+
+fieldset:active {
+    border-color: hsl(2.81, 72.25%, 28.09%);
+    border-color: var(--sys-clr-input-border-active, FieldText);
+}
+
+fieldset legend {
+    display: block;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 1.0625rem;
+    line-height: 1.6875;
+    letter-spacing: normal;
+    text-transform: none;
+    text-wrap: balance;
+    font-style: normal;
+}
+fieldset legend em {
+    font-style: italic;
+}
+fieldset legend em em {
+    font-style: normal;
+}
+fieldset legend em em em {
+    font-style: italic;
+}
+fieldset legend {
+    color: hsl(278.16, 60.54%, 30.06%);
+    color: var(--theme-text-primary, CanvasText);
+    margin-left: -0.625rem;
+    margin-right: -0.625rem;
+    margin-top: 0;
+    margin-bottom: 0.625rem;
+    padding-left: 0.625rem;
+    padding-right: 0.625rem;
+    font-style: italic;
+}
+
 textarea,
 select,
 input {
     --focus-ring-outline-offset: 0.125em;
+    display: block;
     margin-top: 1.25rem;
-    margin-bottom: 0.4375rem;
+    margin-bottom: 0.3125rem;
     margin-left: 0;
     margin-right: 0;
-    padding-top: 0.3125em;
-    padding-bottom: 0.3125em;
+    padding-top: 0.375em;
+    padding-bottom: 0.375em;
     padding-left: 0.8125em;
     padding-right: 0.8125em;
-    border-radius: 0;
-    border-width: 0.0625rem;
+    width: 100%;
+    font: inherit;
     line-height: 1.4375;
+    border: 0.0625rem solid hsl(278.16, 60.54%, 30.06%);
+    border: 0.0625rem solid var(--sys-clr-input-border, FieldText);
+    border-radius: 0;
+}
+label + textarea,
+label + select,
+label + input,
+label > textarea,
+label > select,
+label > input {
+    margin-top: 0.5rem;
+}
+textarea[aria-disabled="true"],
+select[aria-disabled="true"],
+input[aria-disabled="true"],
+textarea[disabled],
+select[disabled],
+input[disabled] {
+    cursor: not-allowed;
+}
+textarea,
+select,
+input {
+    border-radius: 0;
     transition:
         accent-color 250ms ease-in-out,
         background-color 250ms ease-in-out,
@@ -4843,22 +4381,14 @@ input::placeholder {
         opacity: 0.65;
     }
 }
-label + textarea,
-label + select,
-label + input,
-label > textarea,
-label > select,
-label > input {
-    margin-top: 0.5rem;
-}
 textarea.font-family-icons,
 select.font-family-icons,
 input.font-family-icons {
     --icon-size-font: var(--icon-size, 1.25em);
     --icon-size-pseudo: var(--icon-size, 1.25em);
     --icon-vertical-align: text-bottom;
-    padding-top: 0;
-    padding-bottom: 0;
+    padding-top: 0.875em;
+    padding-bottom: 0.375em;
     letter-spacing: normal;
 }
 textarea,
@@ -5148,6 +4678,102 @@ input[readonly]:active {
     accent-color: var(--theme-input-readonly-accent-active, ActiveText);
 }
 
+input[type="button"],
+input[type="checkbox"],
+input[type="color"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="file"],
+input[type="month"],
+input[type="radio"],
+input[type="range"],
+input[type="reset"],
+input[type="submit"],
+input[type="time"],
+input[type="week"] {
+    cursor: pointer;
+}
+input[type="button"][aria-disabled="true"],
+input[type="button"][disabled],
+input[type="checkbox"][aria-disabled="true"],
+input[type="checkbox"][disabled],
+input[type="color"][aria-disabled="true"],
+input[type="color"][disabled],
+input[type="date"][aria-disabled="true"],
+input[type="date"][disabled],
+input[type="datetime-local"][aria-disabled="true"],
+input[type="datetime-local"][disabled],
+input[type="file"][aria-disabled="true"],
+input[type="file"][disabled],
+input[type="month"][aria-disabled="true"],
+input[type="month"][disabled],
+input[type="radio"][aria-disabled="true"],
+input[type="radio"][disabled],
+input[type="range"][aria-disabled="true"],
+input[type="range"][disabled],
+input[type="reset"][aria-disabled="true"],
+input[type="reset"][disabled],
+input[type="submit"][aria-disabled="true"],
+input[type="submit"][disabled],
+input[type="time"][aria-disabled="true"],
+input[type="time"][disabled],
+input[type="week"][aria-disabled="true"],
+input[type="week"][disabled] {
+    cursor: not-allowed;
+}
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="url"],
+input[type="week"] {
+    cursor: text;
+}
+input[type="email"][aria-disabled="true"],
+input[type="email"][disabled],
+input[type="month"][aria-disabled="true"],
+input[type="month"][disabled],
+input[type="number"][aria-disabled="true"],
+input[type="number"][disabled],
+input[type="password"][aria-disabled="true"],
+input[type="password"][disabled],
+input[type="search"][aria-disabled="true"],
+input[type="search"][disabled],
+input[type="tel"][aria-disabled="true"],
+input[type="tel"][disabled],
+input[type="text"][aria-disabled="true"],
+input[type="text"][disabled],
+input[type="url"][aria-disabled="true"],
+input[type="url"][disabled],
+input[type="week"][aria-disabled="true"],
+input[type="week"][disabled] {
+    cursor: not-allowed;
+}
+input[type="checkbox"],
+input[type="radio"] {
+    display: inline-block;
+    padding: 0;
+    width: auto;
+}
+input[type="color"] {
+    padding: 0;
+    height: 2.25em;
+    width: 2.25em;
+}
+input[type="date"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="time"],
+input[type="week"] {
+    width: auto;
+}
+
+input[type="range"] {
+    padding: 0;
+}
 input[type="submit"][aria-disabled="true"],
 input[type="reset"][aria-disabled="true"],
 input[type="submit"][disabled],
@@ -5280,8 +4906,8 @@ input[type="reset"][disabled]:active * {
     --icon-color: var(--theme-button-disabled-ui-active, ButtonText);
 }
 input[type="file"] {
-    padding-top: 0.3125em;
-    padding-bottom: 0.3125em;
+    padding-top: 0.375em;
+    padding-bottom: 0.375em;
     padding-left: 0.8125em;
     padding-right: 0.8125em;
 }
@@ -5409,18 +5035,42 @@ input[type="radio"][readonly]:active {
 }
 
 label {
-    margin-top: 1.25rem;
-    margin-bottom: 0;
-    font-weight: 500;
-    line-height: 1.3125;
     color: hsl(278.16, 60.54%, 30.06%);
     color: var(--theme-text-primary, CanvasText);
+    display: block;
+    margin-top: 1.25rem;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: 500;
+    line-height: 1.3125;
+    text-wrap: balance;
 }
-label:has(> input:where([type="checkbox"], [type="radio"])) {
-    gap: 0.5rem;
+label:has(> :where([type="checkbox"], [type="radio"])) {
+    display: grid;
+    grid-template-columns: fit-content(0) 1fr;
+    justify-content: end;
+    align-items: baseline;
+    grid-gap: 0.625rem;
+    gap: 0.625rem;
     font-weight: 400;
     line-height: 1.6875;
     cursor: pointer;
+}
+label[aria-disabled="true"]:has(> :where([type="checkbox"], [type="radio"])),
+label[disabled]:has(> :where([type="checkbox"], [type="radio"])) {
+    cursor: not-allowed;
+}
+
+label:has(> :where([type="checkbox"], [type="radio"]))
+    + label:has(> :where([type="checkbox"], [type="radio"])) {
+    margin-top: 0.5rem;
+}
+label > input[type="checkbox"],
+label > input[type="radio"] {
+    margin: 0;
+}
+label:has(> input:where([type="checkbox"], [type="radio"])) {
     color: hsl(339.45, 0%, 17.88%);
     color: var(--theme-text, CanvasText);
 }
@@ -5447,8 +5097,8 @@ a.button[href] {
     --focus-ring-outline-offset: 0.125em;
     --icon-inline-buffer-start: 2.5 !important;
     --icon-inline-buffer-end: -0.5 !important;
-    --icon-size-font: 0.9375em;
-    --icon-size-pseudo: 0.9375em;
+    --icon-size-font: 1em;
+    --icon-size-pseudo: 1em;
     --icon-vertical-align: middle !important;
     display: block;
     position: relative;
@@ -5476,12 +5126,12 @@ a.button[href] {
     width: -moz-fit-content;
     width: fit-content;
     margin-top: 1.25rem;
-    margin-bottom: 0.4375rem;
-    padding-top: 0.3125em;
-    padding-bottom: 0.3125em;
+    margin-bottom: 0.3125rem;
+    padding-top: 0.375em;
+    padding-bottom: 0.375em;
     padding-left: 0.8125em;
     padding-right: 0.8125em;
-    gap: 0.5rem 0.5rem;
+    gap: 0.625rem 0.5rem;
     border-width: 0.0625rem;
     border-radius: 0;
     border-style: solid;
@@ -5643,8 +5293,8 @@ input[type="button"]:empty:not(input),
 input[type="reset"]:empty:not(input),
 input[type="submit"]:empty:not(input),
 a.button[href]:empty:not(input) {
-    padding-left: 0.3125em;
-    padding-right: 0.3125em;
+    padding-left: 0.375em;
+    padding-right: 0.375em;
 }
 button[aria-disabled="true"],
 [aria-disabled="true"][role="button"],
@@ -5914,17 +5564,17 @@ a.display-inline.button[href] {
     --focus-ring-outline-offset: 0.125em;
     --icon-inline-buffer-start: 2.5 !important;
     --icon-inline-buffer-end: -0.5 !important;
-    --icon-size-font: 0.9375em;
-    --icon-size-pseudo: 0.9375em;
+    --icon-size-font: 1em;
+    --icon-size-pseudo: 1em;
     --icon-vertical-align: middle !important;
     display: inline-block;
     margin-top: 0;
     margin-bottom: 0;
-    padding-top: 0.3125em;
-    padding-bottom: 0.3125em;
+    padding-top: 0.375em;
+    padding-bottom: 0.375em;
     padding-left: 0.8125em;
     padding-right: 0.8125em;
-    gap: 0.5rem 0.5rem;
+    gap: 0.625rem 0.5rem;
     border-width: 0.0625rem;
     border-radius: 0;
     border-style: 0;
@@ -6440,8 +6090,8 @@ input[type="reset"]:active * {
     --focus-ring-outline-offset: 0.125em;
     --icon-inline-buffer-start: 2.5 !important;
     --icon-inline-buffer-end: -0.5 !important;
-    --icon-size-font: 0.9375em;
-    --icon-size-pseudo: 0.9375em;
+    --icon-size-font: 1em;
+    --icon-size-pseudo: 1em;
     --icon-vertical-align: middle !important;
     display: block;
     position: relative;
@@ -6469,12 +6119,12 @@ input[type="reset"]:active * {
     width: -moz-fit-content;
     width: fit-content;
     margin-top: 1.25rem;
-    margin-bottom: 0.4375rem;
-    padding-top: 0.3125em;
-    padding-bottom: 0.3125em;
+    margin-bottom: 0.3125rem;
+    padding-top: 0.375em;
+    padding-bottom: 0.375em;
     padding-left: 0.8125em;
     padding-right: 0.8125em;
-    gap: 0.5rem 0.5rem;
+    gap: 0.625rem 0.5rem;
     border-width: 0.0625rem;
     border-radius: 0;
     border-style: solid;
@@ -6580,221 +6230,6 @@ input[type="reset"]:active * {
 :active::file-selector-button * {
     --icon-color: var(--theme-button-grey-ui-active, ButtonText);
 }
-.display-inline::file-selector-button {
-    --focus-ring-outline-offset: 0.125em;
-    --icon-inline-buffer-start: 2.5 !important;
-    --icon-inline-buffer-end: -0.5 !important;
-    --icon-size-font: 0.9375em;
-    --icon-size-pseudo: 0.9375em;
-    --icon-vertical-align: middle !important;
-    display: inline-block;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-top: 0.3125em;
-    padding-bottom: 0.3125em;
-    padding-left: 0.8125em;
-    padding-right: 0.8125em;
-    gap: 0.5rem 0.5rem;
-    border-width: 0.0625rem;
-    border-radius: 0;
-    border-style: 0;
-    font-weight: 500;
-    font-style: normal;
-    font-size: 0.875em;
-    line-height: 1.1875;
-    letter-spacing: normal;
-    text-transform: none;
-    width: -moz-fit-content;
-    width: fit-content;
-}
-:where(.display-inline)::file-selector-button {
-    --focus-ring-outline-color: var(--theme-button--outline);
-    --icon-color: var(--theme-button--ui);
-    --theme-link-icon: var(--theme-button--ui);
-    accent-color: var(--theme-button--border);
-    background-color: var(--theme-button--background);
-    border-color: var(--theme-button--border);
-    color: var(--theme-button--text);
-}
-:where(.display-inline)::file-selector-button * {
-    --icon-color: var(--theme-button--ui);
-    color: inherit !important;
-}
-:where(.display-inline):hover::file-selector-button {
-    --focus-ring-outline-color: var(--theme-button--outline-hover);
-    --icon-color: var(--theme-button--ui-hover);
-    --theme-link-icon: var(--theme-button--ui-hover);
-    accent-color: var(--theme-button--border-hover);
-    background-color: var(--theme-button--background-hover);
-    border-color: var(--theme-button--border-hover);
-    color: var(--theme-button--text-hover);
-}
-:where(.display-inline):hover::file-selector-button * {
-    --icon-color: var(--theme-button--ui-hover);
-}
-:where(.display-inline):focus::file-selector-button {
-    --focus-ring-outline-color: var(--theme-button--outline-hover);
-    --icon-color: var(--theme-button--ui-hover);
-    --theme-link-icon: var(--theme-button--ui-hover);
-    accent-color: var(--theme-button--border-hover);
-    background-color: var(--theme-button--background-hover);
-    border-color: var(--theme-button--border-hover);
-    color: var(--theme-button--text-hover);
-}
-:where(.display-inline):focus::file-selector-button * {
-    --icon-color: var(--theme-button--ui-hover);
-}
-
-:where(.display-inline):focus-within::file-selector-button {
-    --focus-ring-outline-color: var(--theme-button--outline-hover);
-    --icon-color: var(--theme-button--ui-hover);
-    --theme-link-icon: var(--theme-button--ui-hover);
-    accent-color: var(--theme-button--border-hover);
-    background-color: var(--theme-button--background-hover);
-    border-color: var(--theme-button--border-hover);
-    color: var(--theme-button--text-hover);
-}
-:where(.display-inline):focus-within::file-selector-button * {
-    --icon-color: var(--theme-button--ui-hover);
-}
-
-:where(.display-inline):active::file-selector-button {
-    --focus-ring-outline-color: var(--theme-button--outline-active);
-    --icon-color: var(--theme-button--ui-active);
-    --theme-link-icon: var(--theme-button--ui-active);
-    accent-color: var(--theme-button--border-active);
-    background-color: var(--theme-button--background-active);
-    border-color: var(--theme-button--border-active);
-    color: var(--theme-button--text-active);
-}
-:where(.display-inline):active::file-selector-button * {
-    --icon-color: var(--theme-button--ui-active);
-}
-[aria-disabled="true"]:where(.display-inline)::file-selector-button,
-[disabled]:where(.display-inline)::file-selector-button {
-    --focus-ring-outline-color: var(
-        --theme-button-disabled-outline,
-        ButtonFace
-    );
-    --icon-color: var(--theme-button-disabled-ui, ButtonText);
-    --theme-link-icon: var(--theme-button-disabled-ui, ButtonText);
-    accent-color: hsl(339.45, 0%, 22.38%);
-    accent-color: var(--theme-button-disabled-border, ButtonFace);
-    background-color: hsl(339.45, 0%, 22.38%);
-    background-color: var(--theme-button-disabled-background, ButtonFace);
-    border-color: hsl(339.45, 0%, 22.38%);
-    border-color: var(--theme-button-disabled-border, ButtonFace);
-    color: hsl(339.45, 0%, 91.26%);
-    color: var(--theme-button-disabled-text, ButtonText);
-}
-[aria-disabled="true"]:where(.display-inline)::file-selector-button *,
-[disabled]:where(.display-inline)::file-selector-button * {
-    --icon-color: var(--theme-button-disabled-ui, ButtonText);
-    color: inherit !important;
-}
-[aria-disabled="true"]:where(.display-inline):hover::file-selector-button,
-[disabled]:where(.display-inline):hover::file-selector-button {
-    --focus-ring-outline-color: var(
-        --theme-button-disabled-outline-hover,
-        ButtonFace
-    );
-    --icon-color: var(--theme-button-disabled-ui-hover, ButtonText);
-    --theme-link-icon: var(--theme-button-disabled-ui-hover, ButtonText);
-    accent-color: hsl(339.45, 0%, 22.38%);
-    accent-color: var(--theme-button-disabled-border-hover, ButtonFace);
-    background-color: hsl(339.45, 0%, 22.38%);
-    background-color: var(--theme-button-disabled-background-hover, ButtonFace);
-    border-color: hsl(339.45, 0%, 22.38%);
-    border-color: var(--theme-button-disabled-border-hover, ButtonFace);
-    color: hsl(339.45, 0%, 91.26%);
-    color: var(--theme-button-disabled-text-hover, ButtonText);
-}
-[aria-disabled="true"]:where(.display-inline):hover::file-selector-button *,
-[disabled]:where(.display-inline):hover::file-selector-button * {
-    --icon-color: var(--theme-button-disabled-ui-hover, ButtonText);
-}
-[aria-disabled="true"]:where(.display-inline):focus::file-selector-button,
-[disabled]:where(.display-inline):focus::file-selector-button {
-    --focus-ring-outline-color: var(
-        --theme-button-disabled-outline-hover,
-        ButtonFace
-    );
-    --icon-color: var(--theme-button-disabled-ui-hover, ButtonText);
-    --theme-link-icon: var(--theme-button-disabled-ui-hover, ButtonText);
-    accent-color: hsl(339.45, 0%, 22.38%);
-    accent-color: var(--theme-button-disabled-border-hover, ButtonFace);
-    background-color: hsl(339.45, 0%, 22.38%);
-    background-color: var(--theme-button-disabled-background-hover, ButtonFace);
-    border-color: hsl(339.45, 0%, 22.38%);
-    border-color: var(--theme-button-disabled-border-hover, ButtonFace);
-    color: hsl(339.45, 0%, 91.26%);
-    color: var(--theme-button-disabled-text-hover, ButtonText);
-}
-[aria-disabled="true"]:where(.display-inline):focus::file-selector-button *,
-[disabled]:where(.display-inline):focus::file-selector-button * {
-    --icon-color: var(--theme-button-disabled-ui-hover, ButtonText);
-}
-[aria-disabled="true"]:where(.display-inline):focus::file-selector-button,
-[disabled]:where(.display-inline):focus::file-selector-button {
-    border-style: solid;
-}
-
-[aria-disabled="true"]:where(
-        .display-inline
-    ):focus-within::file-selector-button,
-[disabled]:where(.display-inline):focus-within::file-selector-button {
-    --focus-ring-outline-color: var(
-        --theme-button-disabled-outline-hover,
-        ButtonFace
-    );
-    --icon-color: var(--theme-button-disabled-ui-hover, ButtonText);
-    --theme-link-icon: var(--theme-button-disabled-ui-hover, ButtonText);
-    accent-color: hsl(339.45, 0%, 22.38%);
-    accent-color: var(--theme-button-disabled-border-hover, ButtonFace);
-    background-color: hsl(339.45, 0%, 22.38%);
-    background-color: var(--theme-button-disabled-background-hover, ButtonFace);
-    border-color: hsl(339.45, 0%, 22.38%);
-    border-color: var(--theme-button-disabled-border-hover, ButtonFace);
-    color: hsl(339.45, 0%, 91.26%);
-    color: var(--theme-button-disabled-text-hover, ButtonText);
-}
-[aria-disabled="true"]:where(.display-inline):focus-within::file-selector-button
-    *,
-[disabled]:where(.display-inline):focus-within::file-selector-button * {
-    --icon-color: var(--theme-button-disabled-ui-hover, ButtonText);
-}
-[aria-disabled="true"]:where(
-        .display-inline
-    ):focus-within::file-selector-button,
-[disabled]:where(.display-inline):focus-within::file-selector-button {
-    border-style: solid;
-}
-
-[aria-disabled="true"]:where(.display-inline):active::file-selector-button,
-[disabled]:where(.display-inline):active::file-selector-button {
-    --focus-ring-outline-color: var(
-        --theme-button-disabled-outline-active,
-        ButtonFace
-    );
-    --icon-color: var(--theme-button-disabled-ui-active, ButtonText);
-    --theme-link-icon: var(--theme-button-disabled-ui-active, ButtonText);
-    accent-color: hsl(339.45, 0%, 22.38%);
-    accent-color: var(--theme-button-disabled-border-active, ButtonFace);
-    background-color: hsl(339.45, 0%, 22.38%);
-    background-color: var(
-        --theme-button-disabled-background-active,
-        ButtonFace
-    );
-    border-color: hsl(339.45, 0%, 22.38%);
-    border-color: var(--theme-button-disabled-border-active, ButtonFace);
-    color: hsl(339.45, 0%, 91.26%);
-    color: var(--theme-button-disabled-text-active, ButtonText);
-}
-[aria-disabled="true"]:where(.display-inline):active::file-selector-button *,
-[disabled]:where(.display-inline):active::file-selector-button * {
-    --icon-color: var(--theme-button-disabled-ui-active, ButtonText);
-}
-
 ::file-selector-button code,
 ::file-selector-button kbd,
 ::file-selector-button samp {
@@ -6938,6 +6373,83 @@ input[aria-disabled="true"]:active::file-selector-button *,
 input[disabled]:active::file-selector-button * {
     --icon-color: var(--theme-button-disabled-ui-active, ButtonText);
 }
+/* # GLOBALS - TABLES
+ * ======================================================================== */
+table {
+    position: relative;
+    justify-self: center;
+    margin-top: 1.25rem;
+    margin-bottom: 0;
+    margin-top: 2.25rem;
+    margin-bottom: 0.9375rem;
+    background: hsl(278.16, 60.54%, 30.06%);
+    background: var(--theme-ui-primary, CanvasText);
+}
+
+table {
+    border-spacing: 0.125rem;
+    font-size: 0.9375rem;
+    line-height: inherit;
+}
+@media (forced-colors: active), (prefers-contrast: custom) {
+    table {
+        border-spacing: 0;
+    }
+    table th,
+    table td {
+        border-bottom: 0.125rem solid hsl(339.45, 0%, 17.88%);
+        border-bottom: 0.125rem solid var(--theme-text, CanvasText);
+        border-right: 0.125rem solid hsl(339.45, 0%, 17.88%);
+        border-right: 0.125rem solid var(--theme-text, CanvasText);
+    }
+    table th:first-child,
+    table td:first-child {
+        border-left: 0.125rem solid hsl(339.45, 0%, 17.88%);
+        border-left: 0.125rem solid var(--theme-text, CanvasText);
+    }
+    table tr:first-child th,
+    table tr:first-child td {
+        border-top: 0.125rem solid hsl(339.45, 0%, 17.88%);
+        border-top: 0.125rem solid var(--theme-text, CanvasText);
+    }
+}
+th,
+td {
+    padding-top: 0.375rem;
+    padding-bottom: 0.375rem;
+    padding-left: 0.8125rem;
+    padding-right: 0.8125rem;
+    min-width: 10em;
+    background: hsl(339.45, 0%, 91.26%);
+    background: var(--theme-background, Canvas);
+    vertical-align: top;
+    text-align: left;
+}
+th > :first-child,
+td > :first-child {
+    margin-top: 0;
+}
+th > :last-child,
+td > :last-child {
+    margin-bottom: 0;
+}
+
+th {
+    padding-top: 0.375rem;
+    padding-bottom: 0.375rem;
+    text-wrap: balance;
+    background: hsl(278.16, 60.54%, 30.06%);
+    background: var(--theme-ui-primary, CanvasText);
+    color: hsl(339.45, 0%, 91.26%);
+    color: var(--theme-background, Canvas);
+}
+th[scope="row"] {
+    background: hsl(272.37, 84.47%, 89.06%);
+    background: var(--theme-background-primary, Canvas);
+    color: hsl(339.45, 0%, 17.88%);
+    color: var(--theme-text, CanvasText);
+}
+
 /* # UTILITIES - LAYOUT
  * ======================================================================== */
 /* # UTILITIES - TYPOGRAPHY

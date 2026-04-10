@@ -16,6 +16,8 @@
 
 @use 'pkg:@maddimathon/utility-astro/03-snippets' as utils;
 
+@use '03-00-tokens' as *;
+
 ///
 /// @since 0.1.0-beta.0.draft
 ///
@@ -60,6 +62,101 @@
             &::before {
                 content: '— ' / '';
             }
+        }
+    }
+}
+
+///
+/// Adds basic rules for the given heading using tokens in the system.
+///
+/// @since 0.1.0-alpha
+///
+@mixin snippet-heading(
+    $slug: '7',
+    $includeChildren: true,
+    $color: null,
+    $iconColor: null,
+    $fontStyle: null,
+    $lineHeight: null,
+    $marginBlockEnd: null,
+    $marginBlockStart: null
+) {
+    //
+    @if $slug == title {
+        $slug: '1';
+    }
+
+    $fontStyle: if(
+        $fontStyle,
+        $fontStyle,
+        var-style(heading-#{$slug}-font-style)
+    );
+
+    margin-block-start: #{if(
+            $marginBlockStart,
+            $marginBlockStart,
+            var-style(heading-#{$slug}-margin-block-start)
+        )};
+    margin-block-end: #{if(
+            $marginBlockEnd,
+            $marginBlockEnd,
+            var-style(heading-#{$slug}-margin-block-end)
+        )};
+
+    @if font-family-exists(heading) {
+        font-family: #{var-font-family(heading)};
+    }
+
+    font-weight: #{var-style(heading-#{$slug}-font-weight)};
+    font-size: #{var-fs(heading-#{$slug})};
+
+    line-height: #{if(
+            $lineHeight,
+            $lineHeight,
+            var-style(heading-#{$slug}-line-height)
+        )};
+
+    letter-spacing: #{var-style(heading-#{$slug}-letter-spacing)};
+
+    text-transform: #{var-style(heading-#{$slug}-text-transform)};
+    text-wrap: balance;
+
+    font-style: #{$fontStyle};
+
+    @if $fontStyle == italic {
+        em {
+            font-style: normal;
+
+            em {
+                font-style: italic;
+            }
+        }
+    }
+
+    $_color: if($color, $color, var-theme(heading-#{$slug}));
+
+    @include cx-prop(icon-color, if($iconColor, $iconColor, $_color));
+    color: #{$_color};
+
+    &:has(+ %button-span),
+    &:has(+ %margins-flow-firm),
+    &:has(+ %margins-flow-firm-small),
+    &:has(+ %margins-flow-firm-large) {
+        margin-block-end: 0;
+    }
+
+    @if $includeChildren {
+        %a {
+            // @include snippet-link-colours-inherit;
+            font-weight: inherit;
+        }
+
+        %code,
+        %kbd,
+        %samp {
+            font-weight: inherit;
+            font-style: inherit;
+            color: inherit;
         }
     }
 }
@@ -234,96 +331,182 @@
 }
 
 ///
-/// Adds basic rules for the given heading using tokens in the system.
+/// @since 0.1.0-beta.0.draft
 ///
-/// @since 0.1.0-alpha
-///
-@mixin snippet-heading(
-    $slug: '7',
-    $includeChildren: true,
-    $color: null,
-    $iconColor: null,
-    $fontStyle: null,
-    $lineHeight: null,
-    $marginBlockEnd: null,
-    $marginBlockStart: null
-) {
-    //
-    @if $slug == title {
-        $slug: '1';
+@mixin snippet-link {
+    @include cx-prop(focus-ring-outline-offset, var-stroke-relative('200'));
+    @include prop-display(inline);
+    border: none;
+    text-decoration: underline;
+    text-decoration-thickness: #{var-stroke-relative('200')};
+    text-underline-offset: #{var-stroke-relative('800')};
+
+    @include snippet-link-colours;
+
+    &,
+    &::before,
+    &::after {
+        transition: #{do-var(transition)};
     }
 
-    $fontStyle: if(
-        $fontStyle,
-        $fontStyle,
-        var-style(heading-#{$slug}-font-style)
-    );
+    /// EXCEPTIONS ///
 
-    margin-block-start: #{if(
-            $marginBlockStart,
-            $marginBlockStart,
-            var-style(heading-#{$slug}-margin-block-start)
-        )};
-    margin-block-end: #{if(
-            $marginBlockEnd,
-            $marginBlockEnd,
-            var-style(heading-#{$slug}-margin-block-end)
-        )};
-
-    @if font-family-exists(heading) {
-        font-family: #{var-font-family(heading)};
+    &.no-style {
+        text-decoration: none;
+        font-weight: inherit;
+        color: inherit;
     }
 
-    font-weight: #{var-style(heading-#{$slug}-font-weight)};
-    font-size: #{var-fs(heading-#{$slug})};
+    &[aria-disabled='true'],
+    &[disabled] {
+        opacity: 1;
 
-    line-height: #{if(
-            $lineHeight,
-            $lineHeight,
-            var-style(heading-#{$slug}-line-height)
-        )};
-
-    letter-spacing: #{var-style(heading-#{$slug}-letter-spacing)};
-
-    text-transform: #{var-style(heading-#{$slug}-text-transform)};
-    text-wrap: balance;
-
-    font-style: #{$fontStyle};
-
-    @if $fontStyle == italic {
-        em {
-            font-style: normal;
-
-            em {
-                font-style: italic;
+        @if config.$include_link_inlineIcons {
+            &::before {
+                @include snippet-icon-pseudo-element(
+                    forbidden,
+                    $pseudo: before
+                );
+            }
+            &::after {
+                content: none !important;
             }
         }
     }
 
-    $_color: if($color, $color, var-theme(heading-#{$slug}));
-
-    @include cx-prop(icon-color, if($iconColor, $iconColor, $_color));
-    color: #{$_color};
-
-    &:has(+ %button-span),
-    &:has(+ %margins-flow-firm),
-    &:has(+ %margins-flow-firm-small),
-    &:has(+ %margins-flow-firm-large) {
-        margin-block-end: 0;
-    }
-
-    @if $includeChildren {
-        %a {
-            // @include snippet-link-colours-inherit;
-            font-weight: inherit;
+    @if config.$include_link_inlineIcons {
+        &[target='_blank'] {
+            &::after {
+                @include snippet-icon-pseudo-element(external, $pseudo: after);
+            }
         }
 
-        %code,
-        %kbd,
-        %samp {
-            font-weight: inherit;
-            font-style: inherit;
-            color: inherit;
+        &[download] {
+            &::before {
+                @include snippet-icon-pseudo-element(download, $pseudo: before);
+            }
+        }
+
+        &.no-pseudo {
+            &::before,
+            &::after {
+                content: none !important;
+            }
+        }
+
+        &:has(> #{selector.unify('%brand-logo', ':only-child')}),
+        &:has(> #{selector.unify('%icon', ':only-child')}),
+        &:has(> #{selector.unify('%img', ':only-child')}),
+        &:has(> #{selector.unify('%svg', ':only-child')}) {
+            &::before,
+            &::after {
+                content: none !important;
+            }
+        }
+    }
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin snippet-pre(
+    $color: var-theme(text),
+    $fontSize: var-fs(smaller-1),
+    $marginBlock: var-mrg-firm('400') var-mrg-half('400'),
+    $marginInline: 0,
+    $maxWidth: 100%,
+    $paddingBlock: var-mrg-soft('300'),
+    $paddingInline: var-mrg-firm('300'),
+    $width: auto,
+    //
+    $includeBorder: true,
+    $includeMarginBlock: true,
+    $includeWidth: true
+) {
+    $_content_exists: meta.content-exists();
+
+    @include prop-display(block);
+    position: relative;
+
+    justify-self: center;
+
+    margin-block: #{$marginBlock};
+    margin-inline: #{$marginInline};
+
+    padding-block: #{$paddingBlock};
+    padding-inline: #{$paddingInline};
+
+    @if $includeBorder {
+        border: #{var-border-width('100')} solid #{var-theme(ui-primary)};
+    }
+
+    color: #{$color};
+
+    @if $includeWidth {
+        width: #{$width};
+        max-width: #{$maxWidth};
+    }
+
+    font-size: #{$fontSize};
+
+    overflow: auto;
+
+    @if $_content_exists {
+        @content (root);
+    }
+
+    > %code,
+    > %kbd,
+    > %samp {
+        @include prop-display(block);
+        margin: 0;
+        padding: 0;
+        border: none;
+
+        width: fit-content;
+        max-width: none;
+
+        overflow: visible;
+        white-space: normal;
+        text-wrap: auto;
+
+        font-weight: 400;
+        border-radius: 0;
+        background: transparent;
+        color: inherit;
+        user-select: text;
+
+        @if $_content_exists {
+            @content (code);
+        }
+    }
+
+    &:has(> :is(%code, %kbd, %samp)) {
+        white-space: normal;
+        text-wrap: auto;
+
+        > %code {
+            white-space: pre;
+            text-wrap: nowrap;
+
+            @if $_content_exists {
+                @content (has-code--code);
+            }
+        }
+
+        &:is(#{utils.snippet-pre-plaintext-selectors()}) {
+            white-space: normal;
+            text-wrap: auto;
+            max-width: #{var-width(callout)};
+
+            > %code {
+                white-space: pre-wrap;
+                text-wrap: auto;
+            }
+        }
+
+        @if $_content_exists {
+            @content (has-code);
         }
     }
 }
@@ -715,10 +898,6 @@
 ///
 @mixin snippet-selection($contrast: tokens.$contrastMode_default) {
     //
-    @include cx-prop(
-        icon-color,
-        var-theme(selection-text, $contrast: $contrast) !important
-    );
 
     $bg_opacity: if(
         $contrast == 'average' or $contrast == 'low' or $contrast == 'high',

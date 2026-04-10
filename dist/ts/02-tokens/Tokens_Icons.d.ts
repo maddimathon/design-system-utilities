@@ -84,6 +84,9 @@ export declare class Tokens_Icons<T_ExtraIconNames extends string> extends Abstr
         quote: number;
         reading: number;
         alert: number;
+        'logo-circle-facebook': number;
+        'logo-circle-instagram': number;
+        'logo-circle-linkedin': number;
     };
     static get default(): {
         [I in Tokens_Icons.DefaultIconNames]: Tokens_Icons.Local_SvgMaker.Data<I, never>;
@@ -156,7 +159,7 @@ export declare namespace Tokens_Icons {
     /**
      * @since 0.1.0-alpha
      */
-    type DefaultIconNames = "alarm" | "alert" | "attachment" | "biography" | "book" | "caution" | "check" | "clock" | "close" | "code" | "compass" | "compass" | "computer" | "contact" | "dash" | "discussion" | "double-check" | "down" | "download" | "draft" | "error" | "external" | "fail" | "forbidden" | "group" | "hidden" | "info" | "left" | "lightbulb" | "lightning" | "link" | "location" | "lock" | "logo-facebook" | "logo-instagram" | "logo-linkedin" | "maximum" | "minimum" | "minus" | "no" | "note" | "paperclip" | "person" | "pinned" | "plus" | "private" | "question" | "quote" | "reading" | "refresh" | "right" | "search" | "settings" | "star" | "success" | "ui-check" | "ui-minimum" | "ui" | "unlock" | "up" | "warning";
+    type DefaultIconNames = "alarm" | "alert" | "attachment" | "biography" | "book" | "caution" | "check" | "clock" | "close" | "code" | "compass" | "compass" | "computer" | "contact" | "dash" | "discussion" | "double-check" | "down" | "download" | "draft" | "error" | "external" | "fail" | "forbidden" | "group" | "hidden" | "info" | "left" | "lightbulb" | "lightning" | "link" | "location" | "lock" | "logo-circle-facebook" | "logo-circle-instagram" | "logo-circle-linkedin" | "logo-facebook" | "logo-instagram" | "logo-linkedin" | "maximum" | "minimum" | "minus" | "no" | "note" | "paperclip" | "person" | "pinned" | "plus" | "private" | "question" | "quote" | "reading" | "refresh" | "right" | "search" | "settings" | "star" | "success" | "ui-check" | "ui-minimum" | "ui" | "unlock" | "up" | "warning";
     /**
      * @since 0.1.0-beta.0.draft
      */

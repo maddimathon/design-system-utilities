@@ -230,6 +230,7 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
     $spacing: true,
     $spacingBlock: true,
     $spacingProp: margin,
+    $top: false,
     $verticalAlign: true
 ) {
     $_start: if($pseudo == before, end, start);
@@ -239,8 +240,14 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
         @include utils.prop-display($display);
     }
 
+    position: relative;
+
     @if $verticalAlign {
         vertical-align: #{var-style(icon-vertical-align)};
+    }
+
+    @if $top {
+        top: #{do-var(icon-inline-margin-block-start)};
     }
 
     @if $spacingBlock {
@@ -265,7 +272,7 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
     }
 
     @if $lineHeight != false {
-        line-height: 1;
+        line-height: #{$lineHeight};
     }
 
     @if $display != inline {
@@ -310,7 +317,7 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
         @include font-family-icons-base-properties(
             $display: $display,
             $height: false,
-            $lineHeight: false,
+            $lineHeight: var-style(icon-inline-line-height) !important,
             $spacing: false,
             $spacingBlock: if($spacingBlock == null, $display, $spacingBlock),
             $args...
@@ -330,8 +337,6 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
 
         font-size: #{var-style(icon-size-font)} !important;
         font-size: #{font-family-icons--icon-size($size: var-style(icon-size-font))} !important;
-
-        line-height: 1 !important;
 
         color: #{do-var(icon-color, var-style(icon-color))} !important;
     }

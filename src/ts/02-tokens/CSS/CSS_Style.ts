@@ -46,7 +46,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
             const style = {
                 margin: {
                     block: {
-                        start: -0.0625,
+                        start: 0.125,
                         end: 0,
                     },
                 },
@@ -57,41 +57,38 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                 return style;
             }
 
-            // switch ( num ) {
+            if ( num >= 1 ) {
+                style.margin.block.start = 0;
+            }
 
-            //     case 1:
-            //         style.margin.block.start = -0.0625;
-            //         break;
+            if ( num >= 2 ) {
+                style.margin.block.start = 0.0625;
+            }
 
-            //     case 2:
-            //         style.margin.block.start = -0.0625;
-            //         break;
-
-            //     case 3:
-            //         style.margin.block.start = -0.0625;
-            //         break;
+            // if ( num >= 3 ) {
             // }
 
-
             if ( num >= 4 ) {
-                style.margin.block.start = -0.09375;
+                style.margin.block.start = 0;
             }
 
             // if ( num >= 5 ) {
             // }
 
-            // if ( num >= 6 ) {
-            // }
+            if ( num >= 6 ) {
+                style.margin.block.start = 0.0625;
+            }
 
             if ( num >= 7 ) {
-                style.margin.block.start = -0.125;
+                style.margin.block.start = -0.0625;
             }
 
             // if ( num >= 8 ) {
             // }
 
-            // if ( num >= 9 ) {
-            // }
+            if ( num >= 9 ) {
+                style.margin.block.start = -0.125;
+            }
 
             // if ( num >= 10 ) {
             // }
@@ -223,7 +220,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                     },
 
                     embedded: {
-                        bottom: '0.125em',
+                        bottom: '0.0625em',
                     },
 
                     size: {
@@ -467,14 +464,16 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                     end: 0.125,
                 },
 
-                'margin-block-start': '0.25em',
+                'line-height': 0.75,
+
+                'margin-block-start': '0.15625em',
             },
 
             size: {
                 $: '1.25em',
                 large: '2em',
-                font: '0.9375em',
-                pseudo: '0.9375em',
+                font: '1em',
+                pseudo: '1em',
             },
 
             'vertical-align': 'middle',
@@ -505,8 +504,8 @@ export class Tokens_CSS_Style extends AbstractTokens<{
 
                 offset: {
                     block: {
-                        start: '0',
-                        end: '0',
+                        start: '0.5em',
+                        end: '0em',
                     },
                 },
             },
@@ -1023,6 +1022,8 @@ export namespace Tokens_CSS_Style {
                 end: number;
             },
 
+            'line-height': number | `${ number }em`;
+
             'margin-block-start': string;
         };
 
@@ -1067,8 +1068,8 @@ export namespace Tokens_CSS_Style {
 
             offset: {
                 block: {
-                    start: '0' | `${ number }em`;
-                    end: '0' | `${ number }em`;
+                    start: `${ number }em`;
+                    end: `${ number }em`;
                 };
             };
         };

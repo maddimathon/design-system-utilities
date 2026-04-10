@@ -19,12 +19,10 @@
 @use '../../../lib' as *;
 
 ///
-/// @since 0.1.0-beta.0.draft — Added $additional_optional param for additional selectors that are always optional.
+/// @since 0.1.0-beta.0.draft
 ///
 @mixin extend-selectors-globals(
     $additional: (),
-    $additional_optional: (),
-    $optional: null,
     $allHeadingLevels: token-all-heading-levels()
 ) {
     //
@@ -63,37 +61,37 @@
         (("button[type='submit']", "input[type='submit']"), button-form-submit)
     );
 
-    $additional_optional: list.append(
-        $additional_optional,
+    $additional: list.append(
+        $additional,
         ('[data-active-theme]', active-theme--any)
     );
 
     @each $key, $_theme in tokens.$themes {
-        $additional_optional: list.append(
-            $additional_optional,
+        $additional: list.append(
+            $additional,
             ('%active-theme-selector--#{$key}', 'active-theme--#{$key}')
         );
 
-        $additional_optional: list.append(
-            $additional_optional,
+        $additional: list.append(
+            $additional,
             ('[data-active-theme=#{$key}]', 'active-theme--#{$key}')
         );
-        $additional_optional: list.append(
-            $additional_optional,
+        $additional: list.append(
+            $additional,
             (
                 ('[data-active-theme=#{$key}]:hover'),
                 'active-theme-hover--#{$key}'
             )
         );
-        $additional_optional: list.append(
-            $additional_optional,
+        $additional: list.append(
+            $additional,
             (
                 '[data-active-theme=#{$key}]:focus-within',
                 'active-theme-focus-within--#{$key}'
             )
         );
-        $additional_optional: list.append(
-            $additional_optional,
+        $additional: list.append(
+            $additional,
             (
                 '[data-active-theme=#{$key}]:focus-visible',
                 'active-theme-focus-visible--#{$key}'
@@ -102,8 +100,8 @@
     }
 
     @if config.$template_docs {
-        $additional_optional: list.join(
-            $additional_optional,
+        $additional: list.join(
+            $additional,
             (
                 ('.theme-mode-swatch__sample--selection', 'selection'),
                 (
@@ -117,19 +115,15 @@
 
     @include lib.extend-selectors-globals(
         $additional: $additional,
-        $additional_optional: $additional_optional,
-        $optional: $optional,
         $allHeadingLevels: $allHeadingLevels
     );
 }
 
 ///
-/// @since 0.1.0-beta.0.draft — Added $additional_optional param for additional selectors that are always optional.
+/// @since 0.1.0-beta.0.draft
 ///
 @mixin extend-selectors-utils(
     $additional: (),
-    $additional_optional: (),
-    $optional: null,
     $allHeadingLevels: token-all-heading-levels()
 ) {
     //
@@ -166,7 +160,10 @@
         (
             ('.text-align-center', 'text-align-center'),
             ('.text-align-end', 'text-align-end'),
-            ('.text-align-start', 'text-align-start')
+            ('.text-align-start', 'text-align-start'),
+            ('.text-transform-lowercase', 'text-transform-lowercase'),
+            ('.text-transform-uppercase', 'text-transform-uppercase'),
+            ('.uppercase-emphasis', 'uppercase-emphasis')
         )
     );
 
@@ -177,21 +174,15 @@
         );
     }
 
-    $additional_optional: list.append(
-        $additional_optional,
+    $additional: list.append(
+        $additional,
         ('.font-family-icons', 'font-family-icons')
     );
-    $additional_optional: list.append(
-        $additional_optional,
-        ('.site-sidebar', site-sidebar)
-    );
-    $additional_optional: list.append(
-        $additional_optional,
-        ('.widget-block', widget-block)
-    );
+    $additional: list.append($additional, ('.site-sidebar', site-sidebar));
+    $additional: list.append($additional, ('.widget-block', widget-block));
 
-    $additional_optional: list.join(
-        $additional_optional,
+    $additional: list.join(
+        $additional,
         (
             ('.widget-block__button-span', widget-block-cta-buttons),
             ('.widget-block__content', widget-block-content),
@@ -201,14 +192,8 @@
         )
     );
 
-    $additional_optional: list.join(
-        $additional_optional,
-        get-extend-selectors-colour-utils()
-    );
-    $additional_optional: list.join(
-        $additional_optional,
-        get-extend-selectors-icon-utils()
-    );
+    $additional: list.join($additional, get-extend-selectors-colour-utils());
+    $additional: list.join($additional, get-extend-selectors-icon-utils());
 
     // $additional: list.append($additional, ((), 'margins-flow'));
     // $additional: list.append($additional, ((), 'margins-flow-large'));
@@ -232,31 +217,31 @@
     }
 
     @each $bp in map.keys(tokens.$breakpoints) {
-        $additional_optional: list.append(
-            $additional_optional,
+        $additional: list.append(
+            $additional,
             ('.if-viewport-max-width-#{$bp}', if-viewport-max-width-#{$bp})
         );
-        $additional_optional: list.append(
-            $additional_optional,
+        $additional: list.append(
+            $additional,
             ('.if-viewport-min-width-#{$bp}', if-viewport-min-width-#{$bp})
         );
     }
 
     @each $slug in list.join(map.keys(tokens.$width), (auto, fit-content, none))
     {
-        $additional_optional: list.append(
-            $additional_optional,
+        $additional: list.append(
+            $additional,
             ('.max-width-#{$slug}', max-width-#{$slug})
         );
-        $additional_optional: list.append(
-            $additional_optional,
+        $additional: list.append(
+            $additional,
             ('.min-width-#{$slug}', min-width-#{$slug})
         );
     }
 
     @each $logoSlug, $logoMap in tokens.$logos {
-        $additional_optional: list.append(
-            $additional_optional,
+        $additional: list.append(
+            $additional,
             ('.brand-logo--#{$logoSlug}', brand-logo--#{$logoSlug})
         );
     }
@@ -264,8 +249,8 @@
     @each $variant in map.get(tokens.$themesMeta, keys, button) {
         @if $variant != primary and $variant != disabled {
             //
-            $additional_optional: list.append(
-                $additional_optional,
+            $additional: list.append(
+                $additional,
                 ('a.button-#{$variant}[href]', button)
             );
 
@@ -274,8 +259,8 @@
                 ('a.button-#{$variant}[href]', 'margins-flow-firm')
             );
 
-            $additional_optional: list.append(
-                $additional_optional,
+            $additional: list.append(
+                $additional,
                 (
                     (
                         selector.unify(
@@ -295,42 +280,32 @@
         }
     }
 
-    $additional_optional: list.append(
-        $additional_optional,
-        ('.alert-block', alert)
-    );
+    $additional: list.append($additional, ('.alert-block', alert));
 
     @each $key, $icon in tokens.$icons {
-        $additional_optional: list.append(
-            $additional_optional,
+        $additional: list.append(
+            $additional,
             ('.alert-block--#{$key}', alert--icon-#{$key})
         );
     }
 
     @include lib.extend-selectors-utils(
         $additional: $additional,
-        $additional_optional: $additional_optional,
-        $optional: $optional,
         $allHeadingLevels: $allHeadingLevels
     );
 }
 
 ///
-/// @since 0.1.0-beta.0.draft — Added $add_globals_optional, $add_utils_optional params for additional selectors that are always optional.
+/// @since 0.1.0-beta.0.draft
 ///
 @mixin extend-selectors(
-    $optional: null,
     $add_globals: (),
-    $add_globals_optional: (),
     $add_utils: (),
-    $add_utils_optional: (),
     $allHeadingLevels: token-all-heading-levels()
 ) {
     @if config.$template_globals {
         @include extend-selectors-globals(
             $additional: $add_globals,
-            $additional_optional: $add_globals_optional,
-            $optional: $optional,
             $allHeadingLevels: $allHeadingLevels
         );
     }
@@ -338,8 +313,6 @@
     @if config.$template_utils {
         @include extend-selectors-utils(
             $additional: $add_utils,
-            $additional_optional: $add_utils_optional,
-            $optional: $optional,
             $allHeadingLevels: $allHeadingLevels
         );
     }

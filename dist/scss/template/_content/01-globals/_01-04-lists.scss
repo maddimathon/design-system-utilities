@@ -3,39 +3,33 @@
 /// @since 0.1.0-alpha
 ///
 
-// @use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/map';
 
 @use '../config';
 // @use '../../../tokens';
 
 @use '../../../lib' as *;
 
-@include debug-checkpoint(
-    '#{config.$template_slug} - globals - lists start',
-    $level: config.$template_debug_checkpointsLevel + 1,
-    $verbose: true
-);
+$_include_dl: map.get(config.$template_styles, dl);
+$_include_lists: map.get(config.$template_styles, lists);
 
-@if config.$template_cssHeadings {
-    /* # GLOBALS - LISTS
-     * ======================================================================== */
-}
+@if $_include_dl or $_include_lists {
+    @include debug-checkpoint(
+        '#{config.$template_slug} - globals - lists start',
+        $level: config.$template_debug_checkpointsLevel + 1,
+        $verbose: true
+    );
 
-%li {
-    text-wrap: balance;
-
-    &::marker {
-        @include theme-set-color(primary);
+    @if config.$template_cssHeadings {
+        /* # GLOBALS - LISTS
+         * ======================================================================== */
     }
 }
 
-%dl {
-    margin: 0;
+@if $_include_lists {
+    @include snippet-support-lists;
 }
 
-%dt {
-}
-
-%dd {
-    margin-block: 0;
+@if $_include_dl {
+    @include snippet-support-dl-list;
 }
