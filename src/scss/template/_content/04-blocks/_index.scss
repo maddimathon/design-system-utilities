@@ -59,6 +59,23 @@
     @include snippet-support-alert-blocks;
 }
 
+@if map.get(config.$template_styles, searchForm) {
+    @include debug-checkpoint(
+        '#{config.$template_slug} - blocks - search form start',
+        $level: config.$template_debug_checkpointsLevel + 1,
+        $verbose: true
+    );
+
+    @if config.$template_cssHeadings {
+        /* # BLOCKS - SEARCH FORM
+         * ======================================================================== */
+    }
+
+    %search-form {
+        @include snippet-search-form;
+    }
+}
+
 @if map.get(config.$template_styles, sidebarWidgets) {
     @include debug-checkpoint(
         '#{config.$template_slug} - blocks - sidebar widgets start',

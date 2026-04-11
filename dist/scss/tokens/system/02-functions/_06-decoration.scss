@@ -1,0 +1,49 @@
+///
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@use '../../../config';
+
+@use 'pkg:@maddimathon/utility-sass/map';
+
+// @use '../00-default' as default;
+@use '../01-breakdown' as breakdown;
+
+// @use '01-spacing' as spacing;
+// @use '02-colours' as colours;
+// @use '03-theme' as theme;
+// @use '04-typography' as typography;
+// @use '05-borders' as borders;
+
+///
+/// Uses the transition time tokens to prepare the appropriate numerical value
+/// (in unitless rem).
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function tokens-transition-time-value($level) {
+    $value: map.get(breakdown.$transition, time, #{$level});
+
+    @if $value == null {
+        @warn "$level '#{$level}' was not a key in tokens.$transition['time']";
+        $value: map.get(breakdown.$transition, time, normal);
+    }
+
+    @return $value;
+}
+
+///
+/// Uses the transition time tokens to print the appropriate var(...) with
+/// a fallback.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function tokens-var-tr-time($level, $args...) {
+    @return config.config-do-var(
+        tr-time-#{$level},
+        $fallback: tokens-transition-time-value($level),
+        $fallbackOnly: config.$fn_var_replaceWithValue_transitionTime,
+        $args...
+    );
+}

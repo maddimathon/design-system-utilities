@@ -49,9 +49,11 @@ export class Tokens_CSS_Transition extends AbstractTokens<{
                     'aspect-ratio',
                     // 'border',
                     'border-color',
+                    'border-width',
                     'bottom',
                     // 'font',
                     'font-weight',
+                    'gap',
                     'height',
                     'left',
                     // 'letter-spacing',
@@ -77,6 +79,53 @@ export class Tokens_CSS_Transition extends AbstractTokens<{
                     // 'word-spacing',
                     // 'z-index',
                 ],
+
+                timing: {
+                    $: 'fast',
+
+                    'accent-color': 'fast',
+                    'background-color': 'fast',
+                    'border-color': 'fast',
+                    border: 'fast',
+                    'box-shadow': 'fast',
+                    color: 'fast',
+                    'font-weight': 'fast',
+                    font: 'fast',
+                    'letter-spacing': 'fast',
+                    opacity: 'fast',
+                    'outline-color': 'fast',
+                    outline: 'fast',
+                    'text-decoration-color': 'fast',
+                    'text-indent': 'fast',
+                    'text-shadow': 'fast',
+                    'vertical-align': 'fast',
+                    visibility: 'fast',
+                    width: 'fast',
+                    'word-spacing': 'fast',
+                    'z-index': 'fast',
+
+                    'aspect-ratio': 'normal',
+                    'border-width': 'normal',
+                    bottom: 'normal',
+                    'flex-basis': 'normal',
+                    gap: 'normal',
+                    height: 'normal',
+                    left: 'normal',
+                    'line-height': 'normal',
+                    margin: 'normal',
+                    'max-height': 'normal',
+                    'max-width': 'normal',
+                    'min-height': 'normal',
+                    'min-width': 'normal',
+                    'transform-origin': 'normal',
+                    transform: 'normal',
+                    translate: 'normal',
+                    top: 'normal',
+                    padding: 'normal',
+                    right: 'normal',
+                    rotate: 'normal',
+                    scale: 'normal',
+                },
             },
 
             time: {
@@ -123,11 +172,14 @@ export namespace Tokens_CSS_Transition {
         | 'accent-color'
         | 'aspect-ratio'
         | 'background-color'
-        | 'border-color'
         | 'border'
+        | 'border-color'
+        | 'border-width'
         | 'bottom'
         | 'box-shadow'
         | 'color'
+        | 'flex-basis'
+        | 'gap'
         | 'font-weight'
         | 'font-weight'
         | 'font'
@@ -168,6 +220,18 @@ export namespace Tokens_CSS_Transition {
         properties: {
             always: AllowedProperties[];
             motion: AllowedProperties[];
+
+            timing: {
+                /**
+                 * A time key to use when motion is disabled.
+                 */
+                $: string;
+            } & {
+                /**
+                 * A time key to use for this property when motion is enabled.
+                 */
+                [ K in AllowedProperties ]: string;
+            };
         },
 
         time: {

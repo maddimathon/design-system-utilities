@@ -15,3 +15,20 @@
     $brightnessMode_default, $contrastMode_all, $contrastMode_default, $fontSize_base, $font_size,
     $line_height, $lineHeight_base, $lineHeight_multiplier, $lineHeight_roundingFactor,
     $margin_base, $margin, $margin_softener, $stroke_relative, $style, tokens-get-at-properties;
+
+@use 'pkg:@maddimathon/utility-sass/map';
+
+@use 'system';
+
+///
+/// @since ___PKG_VERSION___
+///
+$transition_property_timing: ();
+
+@each $prop, $slug in map.get(system.$transition, properties, timing) {
+    $transition_property_timing: map.set(
+        $transition_property_timing,
+        $prop,
+        system.tokens-var-tr-time($slug)
+    );
+}

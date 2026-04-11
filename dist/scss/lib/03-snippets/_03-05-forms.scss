@@ -3,6 +3,7 @@
 /// @since 0.1.0-alpha
 ///
 
+@use 'pkg:@maddimathon/utility-sass/feature-check';
 @use 'pkg:@maddimathon/utility-sass/meta';
 @use 'pkg:@maddimathon/utility-sass/selector';
 
@@ -1290,5 +1291,121 @@
         padding-inline: #{var-mrg-soft('300')};
 
         font-style: italic;
+    }
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin snippet-search-form(
+    $display: flex,
+    $flex_alignment: (
+        justify-content: stretch,
+        align-items: stretch,
+    ),
+    $flex_direction: row,
+    $flex_wrap: nowrap,
+    $marginBlockFirm: do-var(flow-margin-firm-start),
+    $marginBlockHalf: do-var(flow-margin-firm-end),
+    $trTime: var-tr-time(normal),
+    //
+    $includeAspectRatio: true
+) {
+    @include prop-display($display);
+
+    gap: #{$marginBlockFirm};
+
+    @if $display ==
+        flex or
+        $display ==
+        grid or
+        $display ==
+        inline-flex or
+        $display ==
+        inline-grid
+    {
+        @include utils.snippet-content-flex-container(
+            $alignment: $flex_alignment,
+            $gap: false,
+            $direction: $flex_direction,
+            $wrap: $flex_wrap
+        );
+    }
+
+    @if $display == grid or $display == inline-grid {
+        grid-template-columns: 1fr fit-content(0);
+        transition: grid-template-columns
+            #{$trTime}
+            #{tokens.$transition_function};
+        // overflow-inline: clip;
+        // overflow-inline: hidden;
+    }
+
+    margin-block-end: #{$marginBlockHalf};
+
+    @include feature-check.supports(focusWithin) {
+        gap: #{$marginBlockFirm} 0;
+    }
+
+    > input,
+    > [type='submit'] {
+        margin: 0;
+        margin-block-start: #{$marginBlockHalf};
+
+        @include feature-check.supports(focusWithin) {
+            // flex-basis: 100%;
+            transition-duration: #{$trTime};
+        }
+    }
+
+    > input {
+    }
+
+    > [type='submit'] {
+        @include feature-check.supports(focusWithin) {
+            margin-inline-start: #{$marginBlockFirm};
+            max-width: 30%;
+
+            *,
+            &::before,
+            &::after {
+                transition: #{do-var(transition)};
+                transition-duration: #{$trTime};
+            }
+        }
+
+        &::before,
+        &::after {
+            content: none !important;
+        }
+
+        @if $includeAspectRatio {
+            aspect-ratio: #{icon-aspect-ratio-value(search)};
+        }
+    }
+
+    &:not(:focus-within) {
+        @if $display == grid or $display == inline-grid {
+            grid-template-columns: 1fr 0;
+        }
+
+        > [type='submit'] {
+            margin-inline-start: 0;
+            padding-inline: 0;
+            max-width: 0;
+            // flex-basis: 0%;
+
+            border-inline-start-width: 0;
+            border-inline-end-width: 0;
+
+            *,
+            &::before,
+            &::after {
+                opacity: 0;
+            }
+        }
+    }
+
+    &:focus-within {
     }
 }

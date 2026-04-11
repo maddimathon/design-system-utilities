@@ -88,11 +88,11 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
     @if $_designSystemHasFontFamilies {
         @at-root {
             /* #region Tokens - Font Face */
-            @each $slug, $familyMap in map.get(tokens.$designSystem, font, family) {
+            @each $slug, $familyMap in map.get(tokens.$font, family) {
                 //
                 $weightMap: map.get($familyMap, weights);
 
-                $fontMap: map.get(tokens.$designSystem, font, family, $slug, variable);
+                $fontMap: map.get(tokens.$font, family, $slug, variable);
 
                 @if $fontMap != null {
                     @include _tokens-font-face-style-printer($fontMap, $isVariable: true);
@@ -115,7 +115,7 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
 /// @since ___PKG_VERSION___ — Added $includeRegion param.
 ///
 @mixin tokens-font-family($includeRegion: true) {
-    $_familiesList: list.except(map.keys(map.get(tokens.$designSystem, font, family)), 'icons');
+    $_familiesList: list.except(map.keys(map.get(tokens.$font, family)), 'icons');
 
     @if $_designSystemHasFontFamilies and list.length($_familiesList) > 0 {
         $_sel: selector.parent-or-root();

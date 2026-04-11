@@ -40,9 +40,9 @@ $colour: map.ksort(map.get(default.$designSystem, colour), $recursive: true);
 // #region - FONTS
 $font: map.get(default.$designSystem, font);
 
-$fontSize_base: map.get(default.$designSystem, font, baseSize);
+$fontSize_base: map.get($font, baseSize);
 
-$font_size: map.get(default.$designSystem, font, size);
+$font_size: map.get($font, size);
 
 @function _ksort_sizes($map, $_isFirstLevel: true) {
     // sorts the keys
@@ -212,7 +212,21 @@ $themes: ();
 
 // #endregion - THEMES
 
+// #region - TRANSITION
+
 $transition: map.get(default.$designSystem, transition);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$transition_function: null !default;
+$transition_function: config.config-valid-string(
+    $transition_function,
+    'transition_function',
+    $default: ease-out
+);
+
+// #endregion - TRANSITION
 
 $z_index: map.ksort(map.get(default.$designSystem, z_index));
 
