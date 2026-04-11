@@ -122,11 +122,13 @@
                 );
 
                 @if $includeBaseProps {
+                    @include cx-prop(icon-font-top, 0);
                     @include cx-prop(icon-inline-margin-block-start, 0);
 
                     @include font-family-icons-base-properties(
                         $spacing: false,
-                        $spacingBlock: false
+                        $top: false,
+                        $useIconFont: false
                     );
 
                     margin: 0;
@@ -152,6 +154,7 @@
 
             &:only-child {
                 @if $includeBaseProps {
+                    @include cx-prop(icon-font-top, 0);
                     @include cx-prop(icon-inline-margin-block-start, 0);
                     @include cx-prop(icon-inline-buffer-start, 0);
                     @include cx-prop(icon-inline-buffer-end, 0);
@@ -214,6 +217,7 @@
     $includeInline: true,
     $includeOnlyChild: true,
     $includePseudoIcons: config.$include_button_inlineIcons,
+    $useIconFont: config.$fn_pseudoIconsUseFont and font-family-exists(icons),
     //
     $borderRadius: null,
     $borderWidth: null,
@@ -375,13 +379,14 @@
     @if $includeDisabled {
         &[aria-disabled='true'],
         &[disabled] {
+            // prettier-ignore
             @include snippet-button-disabled(
-                    $fontWeight: var-style(button-disabled-font-weight),
-                    $fontStyle: var-style(button-disabled-font-style),
-                    $includeColors: $includeColors,
-                    $includePseudoIcons: $includePseudoIcons
-                )
-                using ($location) {
+                $fontWeight: var-style(button-disabled-font-weight),
+                $fontStyle: var-style(button-disabled-font-style),
+                $includeColors: $includeColors,
+                $includePseudoIcons: $includePseudoIcons,
+                $useIconFont: $useIconFont,
+            ) using ($location) {
                 @content ($location: 'disabled-#{$location}');
             }
         }
@@ -389,11 +394,12 @@
 
     @if $includeInline {
         @at-root #{selector.unify(&, '.display-inline')} {
+            // prettier-ignore
             @include snippet-button-inline(
-                    $includeBaseProps: false,
-                    $includeColors: false
-                )
-                using ($location) {
+                $includeBaseProps: false,
+                $includeColors: false,
+                $useIconFont: $useIconFont,
+            ) using ($location) {
                 @content ($location: 'inline-#{$location}');
             }
         }
@@ -415,6 +421,7 @@
                         @if $location == focus {
                             border-style: solid;
                         }
+
                         @content ($location: 'inline-disabled-#{$location}');
                     }
                 }
@@ -462,7 +469,8 @@
     $fontWeight: var-style(button-disabled-font-weight),
     $fontStyle: var-style(button-disabled-font-style),
     $includeColors: true,
-    $includePseudoIcons: config.$include_button_inlineIcons
+    $includePseudoIcons: config.$include_button_inlineIcons,
+    $useIconFont: config.$fn_pseudoIconsUseFont and font-family-exists(icons)
 ) {
     border-radius: #{var-style(button-disabled-border-radius)};
     border-style: #{var-style(button-disabled-border-style)};
@@ -480,6 +488,7 @@
             @if $location == focus {
                 border-style: solid;
             }
+
             @content ($location);
         }
     } @else {
@@ -510,9 +519,13 @@
         }
     }
 
-    &::before {
-        @if $includePseudoIcons {
-            @include snippet-icon-pseudo-element(forbidden, $pseudo: before) {
+    @if $includePseudoIcons {
+        &::before {
+            @include snippet-icon-pseudo-element(
+                forbidden,
+                before,
+                $useIconFont: $useIconFont
+            ) {
                 align-self: center;
             }
         }
@@ -530,6 +543,7 @@
     //
     $includeColors: $variation != null,
     $includeBaseProps: false,
+    $useIconFont: config.$fn_pseudoIconsUseFont and font-family-exists(icons),
     //
     $borderRadius: null,
     $borderWidth: null,
@@ -599,7 +613,7 @@
         @include _snippet-button-base;
     }
 
-    margin-block: 0;
+    margin-block-start: 0;
 
     padding-block: #{$paddingBlock};
     padding-inline: #{$paddingInline};

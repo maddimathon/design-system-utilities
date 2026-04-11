@@ -36,7 +36,7 @@ $colour: map.ksort(map.get(default.$designSystem, colour), $recursive: true);
 // #region - FONTS
 $font: map.get(default.$designSystem, font);
 
-$fontSize_base: map.get(default.$designSystem, font, sizeScale);
+$fontSize_base: map.get(default.$designSystem, font, baseSize);
 
 $font_size: map.get(default.$designSystem, font, size);
 
@@ -114,8 +114,17 @@ $lineHeight_multiplier: null !default;
 $lineHeight_multiplier: config.config-valid-number(
     $lineHeight_multiplier,
     'lineHeight_multiplier',
-    $default: 0.875,
+    $default: 0.75,
     $min: 0.01,
+    $unit: false
+);
+
+$lineHeight_roundingFactor: null !default;
+$lineHeight_roundingFactor: config.config-valid-number(
+    $lineHeight_roundingFactor,
+    'lineHeight_roundingFactor',
+    $default: 16,
+    $min: 1,
     $unit: false
 );
 
@@ -127,7 +136,7 @@ $line_height: map.ksort(map.get(default.$designSystem, line_height));
         $key,
         math.round-to-pixel(
             math.pow($spacing_multiplier, $value * $lineHeight_multiplier) * $lineHeight_base,
-            32
+            $lineHeight_roundingFactor
         )
     );
 }
@@ -144,7 +153,7 @@ $margin_base: null !default;
 $margin_base: config.config-valid-number($margin_base, 'margin_base', $default: 1.25);
 
 $margin_softener: null !default;
-$margin_softener: config.config-valid-number($margin_softener, 'margin_softener', $default: 0.75);
+$margin_softener: config.config-valid-number($margin_softener, 'margin_softener', $default: 0.625);
 
 $margin: map.ksort(map.get(default.$designSystem, margin));
 

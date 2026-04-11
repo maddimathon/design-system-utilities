@@ -17,14 +17,14 @@
 /// @since ___PKG_VERSION___
 ///
 @function tokens-font-family-exists($slug) {
-    @return map.has-key(default.$designSystem, font, family, $slug);
+    @return map.has-key(breakdown.$font, family, $slug);
 }
 
 ///
 /// @since ___PKG_VERSION___
 ///
 @function tokens-font-family-list($slug) {
-    $fontMap: map.get(default.$designSystem, font, family, $slug, weights, '400', normal);
+    $fontMap: map.get(breakdown.$font, family, $slug, weights, '400', normal);
 
     // returns
     @if $fontMap == null {

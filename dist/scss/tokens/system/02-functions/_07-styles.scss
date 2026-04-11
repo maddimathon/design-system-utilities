@@ -73,7 +73,7 @@
     $isAlertHeadlineStyle: string.index($slug, alert-headline-) == 1;
     $isButtonStyle: string.index($slug, button-) == 1;
     $isHeadingStyle: string.index($slug, heading-) == 1;
-    $isIconStyle: string.index($slug, icon-) == 1;
+    $isIconStyle: string.match($slug, '^(button-(inline-)?)?icon-') != null;
     $isInputStyle: string.index($slug, input-) == 1;
     $isWidgetStyle: string.index($slug, widget-) == 1;
 
@@ -307,7 +307,15 @@
     // returns
     @if $isLineHeight {
         // returns
-        @if $slug == icon-inline-line-height or $value == 1 or $value == '1' {
+        @if $slug ==
+            icon-inline-line-height or
+            $value ==
+            1 or
+            $value ==
+            '1' or
+            $value ==
+            'normal'
+        {
             @return $value;
         }
 

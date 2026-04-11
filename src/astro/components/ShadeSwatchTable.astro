@@ -455,8 +455,8 @@ const goalLevels = objectMap(
 
 const targetShadesMap = {
     base: {
-        black: tokens.colour.$.black,
-        white: tokens.colour.$.white,
+        black: (tokens as Tokens.JsonReturn<TokenTypes.TypeParams>).colour.$.black,
+        white: (tokens as Tokens.JsonReturn<TokenTypes.TypeParams>).colour.$.white,
         ...targetShades?.base ?? tokens.colour.base,
     },
     accent: targetShades?.accent ?? primaryColour,
@@ -477,8 +477,8 @@ const TARGET_HSL_CLRS = {
     white: ColourUtilities.toString.hsl(targetShadesMap.base.white.hsl),
     black: ColourUtilities.toString.hsl(targetShadesMap.base.black.hsl),
     
-    blackTextLevel: ColourUtilities.toString.hsl(targetShadesMap.base[ blackTextLevel ]),
-    whiteTextLevel: ColourUtilities.toString.hsl(targetShadesMap.base[ whiteTextLevel ]),
+    blackTextLevel: ColourUtilities.toString.hsl(targetShadesMap.base[ blackTextLevel as ColourUtilities.Levels.Required ]),
+    whiteTextLevel: ColourUtilities.toString.hsl(targetShadesMap.base[ whiteTextLevel as ColourUtilities.Levels.Required ]),
 };
 ---
 
@@ -526,8 +526,8 @@ const TARGET_HSL_CLRS = {
                             data-brightness-mode={ Number(set.level) <= 500 ? 'light' : 'dark' }
                             data-shade-swatch-has-background={true}
                             style={ [ 
-                                `--shade-swatch-background: ${ColourUtilities.toString.hsl(targetShadesMap.base[ set.level ])}`,
-                                `--shade-swatch-color: ${ColourUtilities.toString.hsl(targetShadesMap.base[ set.textLevel ])}`,
+                                `--shade-swatch-background: ${ColourUtilities.toString.hsl(targetShadesMap.base[ set.level as ColourUtilities.Levels.Required ])}`,
+                                `--shade-swatch-color: ${ColourUtilities.toString.hsl(targetShadesMap.base[ set.textLevel as ColourUtilities.Levels.Required ])}`,
                                 ].join(';') }
                         >
                             <Heading

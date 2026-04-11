@@ -34,17 +34,23 @@ export interface AlertProps extends UtilsAlertProps<AlertIconProps_Render> {
 
 type Props = GenericElementProps<AlertProps, 'section'>;
 
-const { icon, class: classList = [], ...attributes }: Props = Astro.props;
+const { icon, class: classList = [], ...props }: Props = Astro.props;
 
 /* CONSTANTS ===================================== */
 
 // @ts-expect-error
-attributes.slug = icon.slug;
+props.slug = icon.slug;
 ---
 
 <UtilsAlert
-    class:list={[{ 'alert-block--has-heading': attributes.heading }, classList]}
-    {...attributes}
+    class:list={[
+        {
+            'alert-block--has-heading': props.heading,
+            '||': classList,
+        },
+        classList,
+    ]}
+    {...props}
 >
     <Icon
         slot='icon'

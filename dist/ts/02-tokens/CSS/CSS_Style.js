@@ -25,7 +25,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
             const style = {
                 margin: {
                     block: {
-                        start: 0.125,
+                        start: 0.21875,
                         end: 0,
                     },
                 },
@@ -42,21 +42,18 @@ export class Tokens_CSS_Style extends AbstractTokens {
             }
             // if ( num >= 3 ) {
             // }
-            if (num >= 4) {
-                style.margin.block.start = 0;
-            }
+            // if ( num >= 4 ) {
+            // }
             // if ( num >= 5 ) {
             // }
-            if (num >= 6) {
-                style.margin.block.start = 0.0625;
-            }
-            if (num >= 7) {
-                style.margin.block.start = -0.0625;
-            }
+            // if ( num >= 6 ) {
+            // }
+            // if ( num >= 7 ) {
+            // }
             // if ( num >= 8 ) {
             // }
             if (num >= 9) {
-                style.margin.block.start = -0.125;
+                style.margin.block.start = 0;
             }
             // if ( num >= 10 ) {
             // }
@@ -89,7 +86,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 'line-height': '200',
                 margin: {
                     block: {
-                        start: heading.unstyled.margin.block.start,
+                        start: 0.0625,
                     },
                 },
             },
@@ -103,18 +100,18 @@ export class Tokens_CSS_Style extends AbstractTokens {
             },
             gap: {
                 block: '0',
-                inline: '300',
+                inline: '200',
             },
             'flow-margin': {
                 $: '300',
-                large: '500',
+                large: '400',
                 small: '200',
                 button: '200',
                 self: 'margins-flow-firm',
             },
             padding: {
-                block: '300',
-                inline: '300',
+                block: '200',
+                inline: '200',
             },
         }, partial, true);
     }
@@ -150,6 +147,9 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 embedded: {
                     bottom: '0.0625em',
                 },
+                font: iconStyles.font,
+                inline: iconStyles.inline,
+                pseudo: iconStyles.pseudo,
                 size: {
                     font: iconStyles.size.font,
                     pseudo: iconStyles.size.pseudo,
@@ -207,9 +207,10 @@ export class Tokens_CSS_Style extends AbstractTokens {
                         start: style.icon.buffer.start,
                         end: style.icon.buffer.end,
                     },
-                    embedded: {
-                        bottom: style.icon.embedded.bottom,
-                    },
+                    embedded: style.icon.embedded,
+                    font: style.icon.font,
+                    inline: style.icon.inline,
+                    pseudo: style.icon.pseudo,
                     size: {
                         font: style.icon.size.font,
                         pseudo: style.icon.size.pseudo,
@@ -280,12 +281,12 @@ export class Tokens_CSS_Style extends AbstractTokens {
             case 4:
                 style.font.weight = '700';
                 style.font.style = 'italic';
-                style['line-height'] = '300';
+                style['line-height'] = '200';
                 break;
             case 5:
                 style.font.weight = '600';
                 style.font.style = 'italic';
-                style['line-height'] = '300';
+                style['line-height'] = '200';
                 break;
             case 6:
                 style.font.weight = '500';
@@ -316,14 +317,19 @@ export class Tokens_CSS_Style extends AbstractTokens {
     static iconStyle(partial = {}) {
         return mergeArgs({
             color: 'ui',
+            font: {
+                top: '0.15625em',
+            },
             inline: {
                 buffer: {
                     $: '0.25em',
                     start: 1,
                     end: 0.125,
                 },
-                'line-height': 0.75,
-                'margin-block-start': '0.15625em',
+                'line-height': 1,
+            },
+            pseudo: {
+                top: '-0.0625em',
             },
             size: {
                 $: '1.25em',
@@ -425,8 +431,9 @@ export class Tokens_CSS_Style extends AbstractTokens {
             button: partial?.['flow-margin']?.button ?? '200',
         };
         return {
+            background: 'background-grey',
             border: mergeArgs({
-                color: 'background',
+                color: 'ui-grey',
                 radius: '0',
                 style: 'solid',
                 width: '200',

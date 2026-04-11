@@ -22,9 +22,9 @@ export class Tokens_Typography extends AbstractTokens {
     static get default() {
         return {
             lineHeight: {
-                '100': -2.75,
+                '100': -3,
                 '200': -2,
-                '300': -1.25,
+                '300': -1,
                 '400': 0,
                 '500': 1,
                 '600': 2,
@@ -55,7 +55,7 @@ export class Tokens_Typography extends AbstractTokens {
                 },
                 bigger: {},
             },
-            sizeScale: 1.0625,
+            baseSize: 1.0625,
         };
     }
     data;
@@ -103,7 +103,7 @@ export class Tokens_Typography extends AbstractTokens {
     }
     toJSON() {
         const sizeConverter = (num) => {
-            const rem = roundToPixel(Math.pow(this.spacing.data.multiplier, num) * this.data.sizeScale, 32);
+            const rem = roundToPixel(Math.pow(this.spacing.data.multiplier, num) * this.data.baseSize, 32);
             return {
                 px: roundToPixel(rem * 16, 2),
                 pt: roundToPixel(rem * 11, 2),
@@ -200,7 +200,7 @@ export class Tokens_Typography extends AbstractTokens {
             font: {
                 // UPGRADE - make empty size objects equal to null
                 size: this.data.size,
-                sizeScale: this.data.sizeScale,
+                baseSize: this.data.baseSize,
                 family: this.data.fonts && objectMap(this.data.fonts, ([__key, family]) => family && {
                     contentWidthScale: family.contentWidthScale,
                     css: family.css,

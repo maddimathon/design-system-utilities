@@ -563,7 +563,7 @@ export declare namespace Tokens_CSS_Style {
             block: "0" | AnyTokenLevel;
             inline: "0" | AnyTokenLevel;
         };
-        icon: {
+        icon: Pick<IconStyles, 'font' | 'inline' | 'pseudo' | 'vertical-align'> & {
             buffer: {
                 start: number;
                 end: number;
@@ -681,14 +681,19 @@ export declare namespace Tokens_CSS_Style {
          * This should be a theme slug.
          */
         color: string;
+        font: {
+            top: `${number}em`;
+        };
         inline: {
             buffer: {
                 $: string;
                 start: number;
                 end: number;
             };
-            'line-height': number | `${number}em`;
-            'margin-block-start': string;
+            'line-height': number | `${number}em` | 'normal';
+        };
+        pseudo: {
+            top: `${number}em`;
         };
         size: {
             $: string;
@@ -772,6 +777,10 @@ export declare namespace Tokens_CSS_Style {
      * @since 0.1.0-beta.0.draft
      */
     type WidgetStyles = {
+        /**
+         * This should be a theme slug.
+         */
+        background: string;
         border: {
             /**
              * This should be a theme slug.

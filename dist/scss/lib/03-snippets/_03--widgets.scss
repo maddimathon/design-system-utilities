@@ -25,10 +25,15 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
 @mixin snippet-widget-block(
     $includeBlocks: true,
     $includeFlowMargins: true,
-    $includeExceptions: true
+    $includeExceptions: true,
+    //
+    $marginBlockStart: do-var(flow-margin-firm-start),
+    $marginBlockEnd: do-var(flow-margin-firm-end)
 ) {
     @include prop-display(flex);
     @include utils.snippet-content-flex-container;
+
+    margin-block: #{$marginBlockStart} #{$marginBlockEnd};
 
     padding-block: #{var-style(widget-padding-block)};
     padding-inline: #{var-style(widget-padding-inline)};
@@ -41,7 +46,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
         #{var-style(widget-border-color)};
     border-radius: #{var-style(widget-border-radius)};
 
-    background: #{var-theme(background)};
+    background: #{var-style(widget-background)};
 
     transition:
         background ease-in-out #{var-tr-time(fast)},
@@ -106,7 +111,10 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
 ///
 @mixin snippet-support-sidebar-widgets(
     $includeSidebar: true,
-    $includeWidget: true
+    $includeWidget: true,
+    //
+    $widget_marginBlockStart: do-var(flow-margin-firm-start),
+    $widget_marginBlockEnd: do-var(flow-margin-firm-end)
 ) {
     @if $includeSidebar {
         %site-sidebar {
@@ -117,15 +125,21 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
                     justify-items: start,
                     align-items: stretch,
                 ),
-                $gap: max(var-mrg-firm('400'), var-gap-block(layout-half))
-                    var-gap-inline(layout-half)
+                $gap: $widget_marginBlockStart
             );
         }
     }
 
     @if $includeWidget {
         %widget-block {
-            @include snippet-widget-block;
+            @include snippet-widget-block(
+                $marginBlockStart: $widget_marginBlockStart,
+                $marginBlockEnd: $widget_marginBlockEnd
+            );
+
+            %site-sidebar > & {
+                margin-block: #{$widget_marginBlockEnd} 0;
+            }
         }
     }
 }

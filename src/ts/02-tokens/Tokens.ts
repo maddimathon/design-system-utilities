@@ -470,7 +470,7 @@ export namespace Tokens {
      * @since 0.1.0-alpha
      */
     export type Data<
-        T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+        T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams.Any,
     > = Tokens_Internal.Data<T_Types>;
 
     /**
@@ -480,28 +480,28 @@ export namespace Tokens {
      * @since 0.1.0-alpha
      */
     export type Instance<
-        T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+        T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams.Any,
     > = Tokens<T_Types>;
 
     /**
      * @since 0.1.0-alpha
      */
     export interface InputParam<
-        T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+        T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams.Any,
     > extends Tokens_Internal.InputParam<T_Types> { }
 
     /**
      * @since 0.1.0-alpha
      */
     export type JsonReturn<
-        T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+        T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams.Any,
     > = Tokens_Internal.JsonReturn<T_Types>;
 
     /**
      * @since ___PKG_VERSION___
      */
     export type ScssVars<
-        T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+        T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams.Any,
     > = Tokens_Internal.ScssVars<T_Types>;
 
     export type DefaultIconNames = Tokens_Icons.DefaultIconNames;
@@ -1009,7 +1009,7 @@ export namespace Tokens {
          * @since ___PKG_VERSION___
          */
         export type JsonReturn<
-            T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+            T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams.Any,
         > = Tokens_Themes.JsonReturn<T_Types[ 'colour' ], T_Types[ 'theme' ]>;
 
         /**
@@ -1021,7 +1021,7 @@ export namespace Tokens {
              * @since 0.1.0-alpha
              */
             export type InputParam<
-                T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+                T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams.Any,
             > = Tokens_Themes_Set.InputParam<T_Types[ 'colour' ], T_Types[ 'theme' ]>;
         }
 
@@ -1093,7 +1093,7 @@ export namespace Tokens {
              * @since 0.1.0-alpha
              */
             export interface Data<
-                T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+                T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams.Any,
                 __T_ColourOption extends TokenTypes.Theme.ColourOption<T_Types[ 'colour' ]> = TokenTypes.Theme.ColourOption<T_Types[ 'colour' ]>,
             > extends Tokens_Themes_Set.SingleMode.Data<
                 T_Types[ 'colour' ],
@@ -1110,7 +1110,7 @@ export namespace Tokens {
                  * @deprecated
                  */
                 export interface RecursivePartial<
-                    T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+                    T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams.Any,
                     __T_ColourOption extends TokenTypes.Theme.ColourOption<T_Types[ 'colour' ]> = TokenTypes.Theme.ColourOption<T_Types[ 'colour' ]>,
                 > extends Tokens_Themes_Set.SingleMode.Data.Partial<T_Types[ 'colour' ], T_Types[ 'theme' ], __T_ColourOption> { }
             }
@@ -1120,7 +1120,7 @@ export namespace Tokens {
              * @deprecated
              */
             export interface InputParam<
-                T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+                T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams.Any,
             > extends Tokens_Themes_Set.SingleMode.InputParam<T_Types[ 'colour' ], T_Types[ 'theme' ]> { }
 
             /**
@@ -1128,7 +1128,7 @@ export namespace Tokens {
              * @deprecated
              */
             export interface JsonReturn<
-                T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+                T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams.Any,
             > extends Tokens_Themes_Set.SingleMode.JsonReturn<T_Types[ 'colour' ], T_Types[ 'theme' ]> { }
         }
     }

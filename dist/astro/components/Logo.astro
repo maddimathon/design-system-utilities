@@ -42,7 +42,12 @@ const { slug, svgInlineLabelled: svg } = logo;
 
 <div
     {...attributes}
-    class:list={['brand-logo', `brand-logo--${slug}`, '||', classList]}
+    class:list={[
+        'brand-logo',
+        `brand-logo--${slug}`,
+        { '||': classList },
+        classList,
+    ]}
 >
     <Fragment set:html={svg} />
 </div>

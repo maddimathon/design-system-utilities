@@ -18,15 +18,15 @@ import { relativeURL } from '../functions/relativeURL.js';
 
 /* import - values */
 import pkgJson from '../../../package.json';
-import { SampleTokens_Json } from '../../astro/functions/SampleTokens.js';
+import { SampleTokens_Json } from '../../astro/functions/index.js';
 import { SITE_TITLE } from '../constants.js';
 
-// import { base as config_base } from 'astro:config/client';
-
 /* import - components */
+import { SearchForm, Widget } from '../../astro/components.js';
 
 /* import - layouts */
 import LibPage from '../../astro/layouts/Page.astro';
+import { Heading } from '@maddimathon/utility-astro/components';
 
 /* PROPS ===================================== */
 
@@ -206,6 +206,94 @@ props.primaryMenu = [
         name='after-site-content'
     />
 
+    <Fragment slot='sidebar'>
+        <Heading
+            heading={2}
+            class:list='screen-reader-text'
+            set:text='Main Sidebar'
+        />
+
+        <Widget
+            class:list={'widget-block--search'}
+            displayHeading={4}
+            heading={3}
+            hideHeading={true}
+        >
+            <Fragment
+                slot='heading'
+                set:text='Search Form'
+            />
+            <SearchForm tokens={SampleTokens_Json} />
+        </Widget>
+
+        <Widget
+            displayHeading={4}
+            heading={3}
+        >
+            <!--  -->
+            <Fragment
+                slot='heading'
+                set:text='Example CTA Widget'
+            />
+            <p>This is a call-to-action text widget.</p>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Vestibulum id dapibus odio.
+            </p>
+
+            <Fragment slot='cta-buttons'>
+                <a
+                    class='button'
+                    href='#'
+                    >Example CTA</a
+                >
+                <a
+                    class='button-secondary'
+                    href='#'
+                    >Example Secondary CTA</a
+                >
+            </Fragment>
+        </Widget>
+
+        <Widget
+            displayHeading={4}
+            heading={3}
+        >
+            <Fragment
+                slot='heading'
+                set:text='Related Posts'
+            />
+            <ul>
+                <li><a href='#'>Proin leo mauris, iaculis et est eget</a></li>
+                <li><a href='#'>Suspendisse dapibus maximus leo</a></li>
+                <li>
+                    <a href='#'
+                        >Praesent molestie dolor id tellus finibus, a placerat
+                        elit</a
+                    >
+                </li>
+            </ul>
+        </Widget>
+
+        <!-- <Widget
+            class:list={'widget-block--nav-menu'}
+            displayHeading={4}
+            heading={3}
+            hideHeading={true}
+        >
+            <Fragment
+                slot='heading'
+                set:text='Sample Navigation Menu Widget'
+            />
+            <MenuList
+                menu={[
+                    { label: 'Placeholder Widget Menu Item', href: '#' },
+                    { label: 'Sample Menu Item', href: '#' },
+                    { label: 'Yet Another Menu Item', href: '#' },
+                ]}
+            />
+        </Widget> -->
+    </Fragment>
     <slot
         slot='sidebar'
         name='sidebar'

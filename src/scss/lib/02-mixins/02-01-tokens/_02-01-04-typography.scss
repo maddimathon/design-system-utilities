@@ -115,7 +115,9 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
 /// @since ___PKG_VERSION___ — Added $includeRegion param.
 ///
 @mixin tokens-font-family($includeRegion: true) {
-    @if $_designSystemHasFontFamilies {
+    $_familiesList: list.except(map.keys(map.get(tokens.$designSystem, font, family)), 'icons');
+
+    @if $_designSystemHasFontFamilies and list.length($_familiesList) > 0 {
         $_sel: selector.parent-or-root();
 
         @at-root {
@@ -123,10 +125,8 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
                 /* #region Tokens - Font Families */
             }
             #{$_sel} {
-                @each $slug in map.keys(map.get(tokens.$designSystem, font, family)) {
-                    @if $slug != icons {
-                        @include utils.cx-prop(ff-#{$slug}, font-family-list($slug));
-                    }
+                @each $slug in $_familiesList {
+                    @include utils.cx-prop(ff-#{$slug}, font-family-list($slug));
                 }
             }
             @if $includeRegion {
@@ -225,16 +225,24 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
     $pseudo: 'after',
     //
     $display: inline-block,
-    $height: true,
-    $lineHeight: 1,
+    $height: null,
+    $lineHeight: null,
     $spacing: true,
-    $spacingBlock: true,
     $spacingProp: margin,
-    $top: false,
+    $top: true,
+    $useIconFont: config.$fn_pseudoIconsUseFont,
     $verticalAlign: true
 ) {
     $_start: if($pseudo == before, end, start);
     $_end: if($pseudo == before, start, end);
+
+    $height: if($height == null, not $useIconFont, $height);
+
+    $lineHeight: if(
+        $lineHeight == null,
+        if($useIconFont, var-style(icon-inline-line-height, $raw: true) !important, 1),
+        $lineHeight
+    );
 
     @if $display != false {
         @include utils.prop-display($display);
@@ -247,11 +255,11 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
     }
 
     @if $top {
-        top: #{do-var(icon-inline-margin-block-start)};
-    }
-
-    @if $spacingBlock {
-        #{$spacingProp}-block-start: #{do-var(icon-inline-margin-block-start)};
+        @if $useIconFont {
+            top: #{do-var(icon-font-top)};
+        } @else {
+            top: #{do-var(icon-pseudo-top)};
+        }
     }
 
     @if $spacing {
@@ -262,16 +270,12 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
         #{$spacingProp}-inline-#{$_end}: #{font-family-icons--margin-inline(end)};
     }
 
-    @if $height {
+    @if $height and not $useIconFont {
         height: #{var-style(icon-size-pseudo)};
         height: #{font-family-icons--icon-size()};
-
-        @if $slug != null {
-            aspect-ratio: #{icon-aspect-ratio-value($slug)};
-        }
     }
 
-    @if $lineHeight != false {
+    @if $lineHeight != false and $useIconFont {
         line-height: #{$lineHeight};
     }
 
@@ -292,7 +296,6 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
     $includeChildren: true,
     $includeSizeTokens: false,
     $letterSpacing: null,
-    $spacingBlock: null,
     $spacing: null,
     $spacingProp: margin,
     $args...
@@ -319,7 +322,7 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
             $height: false,
             $lineHeight: var-style(icon-inline-line-height) !important,
             $spacing: false,
-            $spacingBlock: if($spacingBlock == null, $display, $spacingBlock),
+            $useIconFont: config.$fn_pseudoIconsUseFont and font-family-exists(icons),
             $args...
         );
 

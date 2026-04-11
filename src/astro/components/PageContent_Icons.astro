@@ -77,18 +77,48 @@ const iconsSortedByLabel = Object.entries(tokens.icons).sort(
     }
 )
 
-const defaultIcons:Tokens_Icons.Local_SvgMaker.JsonReturn<string, string>[] = [];
-const customicons:Tokens_Icons.Local_SvgMaker.JsonReturn<string, string>[] = [];
+let _defaultIcons: Tokens_Icons.Local_SvgMaker.JsonReturn<string, string>[] = [];
+let _customicons: Tokens_Icons.Local_SvgMaker.JsonReturn<string, string>[] = [];
+let _logoIcons: Tokens_Icons.Local_SvgMaker.JsonReturn<string, string>[] = [];
 
-iconsSortedByLabel.forEach(([__key, icon]) => {
+iconsSortedByLabel.forEach( ([__key, icon]) => {
+
+    // returns
+    if (icon.slug.match(/^logo-/gi) !== null) {
+        _logoIcons.push(icon);
+        return;
+    }
+
     // returns
     if (icon.meta?.isDefault === true) {
-        defaultIcons.push(icon);
+        _defaultIcons.push(icon);
         return;
     }
         
-    customicons.push(icon);
-})
+    _customicons.push(icon);
+} );
+
+const iconSlugSorter = (
+    a: Tokens_Icons.Local_SvgMaker.JsonReturn<string, string>,
+    b: Tokens_Icons.Local_SvgMaker.JsonReturn<string, string>,
+) => {
+    const sort_a = a.slug.toLowerCase();
+    const sort_b = b.slug.toLowerCase();
+
+    if ( sort_a > sort_b ) {
+        return 1;
+    }
+
+    if ( sort_a < sort_b ) {
+        return -1;
+    }
+
+    return 0;
+}
+
+const customicons = _customicons.sort(iconSlugSorter);
+const defaultIcons = _defaultIcons.sort(iconSlugSorter);
+const logoIcons = _logoIcons.sort(iconSlugSorter);
 ---
 
 <h2>All Icons</h2>
@@ -100,6 +130,20 @@ iconsSortedByLabel.forEach(([__key, icon]) => {
         )
     }
 </ul>
+
+{ logoIcons.length ? (
+    <Heading
+        displayHeading={subheadingDisplayHeading}
+        heading={3}
+    >External Logo Icons</Heading>
+    <ul class='button-span | tokens-demo-all-icons tokens-demo-all-icons--basic tokens-demo-all-icons--logo'>
+        {
+            logoIcons.map(
+                (icon) => !icon.meta?.aliasOf?.length ? <li><Icon icon={icon} /></li> : ''
+            )
+        }
+    </ul>
+) : '' }
 
 { customicons.length ? (
     <Heading
@@ -117,6 +161,9 @@ iconsSortedByLabel.forEach(([__key, icon]) => {
 
 {
     inlinePreviews && (
+        <Alert icon={tokens.icons.info} class="background-bright">
+            <p>You can use utility classes to add inline icons to HTML text. Find the slug in the list of alerts below and choose from <samp set:text="add-[slug]-icon-before" /> or <samp set:text="add-[slug]-icon-after" />.</p>
+        </Alert>
         
         <Toggle
             class:list={ import.meta.env.DEV ? 'page-width' : '' }
@@ -126,10 +173,6 @@ iconsSortedByLabel.forEach(([__key, icon]) => {
             id="pseudo-icons-preview"
         >
             <Fragment slot='button' set:text='Inline Icons Preview' />
-
-            <Alert icon={tokens.icons.info} class="background-bright">
-                <p>You can use utility classes to add inline icons to HTML text. Find the slug in the list of alerts below and choose from <samp set:text="add-[slug]-icon-before" /> or <samp set:text="add-[slug]-icon-after" />.</p>
-            </Alert>
             
             <ul class={'tokens-demo-all-icons-inline' + ( import.meta.env.DEV ? ' font-size-heading-5' : '' )}>
                 {iconsSortedByLabel.map(([__key,icon]) => (
@@ -279,6 +322,34 @@ iconsSortedByLabel.forEach(([__key, icon]) => {
         ))
     }
 </div>
+
+{ import.meta.env.DEV && logoIcons.length ? (
+    <Heading heading={3}>Alerts with External Logo Icons</Heading>
+    <div class='site-width | tokens-demo-all-alerts tokens-demo-all-alerts--custom'>
+        {
+            logoIcons.map(
+                (icon) => (
+                    <Alert icon={icon}>
+                        <span
+                            slot='headline'
+                            set:text={icon.label}
+                        />
+                        <p>slug: <samp set:text={icon.slug} /></p>
+                        { icon.meta?.aliasOf && <p class="aside">is a copy of <samp set:text={icon.meta.aliasOf} /></p> }
+                        { icon.meta?.codepoint && <p class="aside">font glyph: <samp
+                            set:text={`U+${icon.meta.codepoint.toString(16).toUpperCase()}`}
+                        />&NoBreak;&ensp;<CopyToClipboardButton
+                            class:list="button-grey display-inline"
+                            successMessage='copied!'
+                            toClipboard={String.fromCharCode(icon.meta.codepoint)}
+                            set:text='copy'
+                        /></p> }
+                    </Alert>
+                )
+            )
+        }
+    </div>
+) : '' }
 
 { customicons.length ? (
     <Heading heading={3}>Alerts with Customized Icons</Heading>

@@ -161,27 +161,27 @@ export declare namespace Tokens {
     /**
      * @since 0.1.0-alpha
      */
-    type Data<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> = Tokens_Internal.Data<T_Types>;
+    type Data<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams.Any> = Tokens_Internal.Data<T_Types>;
     /**
      * The shape of a default {@link Tokens} class instance, without any
      * required generics.
      *
      * @since 0.1.0-alpha
      */
-    type Instance<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> = Tokens<T_Types>;
+    type Instance<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams.Any> = Tokens<T_Types>;
     /**
      * @since 0.1.0-alpha
      */
-    interface InputParam<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> extends Tokens_Internal.InputParam<T_Types> {
+    interface InputParam<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams.Any> extends Tokens_Internal.InputParam<T_Types> {
     }
     /**
      * @since 0.1.0-alpha
      */
-    type JsonReturn<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> = Tokens_Internal.JsonReturn<T_Types>;
+    type JsonReturn<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams.Any> = Tokens_Internal.JsonReturn<T_Types>;
     /**
      * @since 0.1.0-beta.0.draft
      */
-    type ScssVars<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> = Tokens_Internal.ScssVars<T_Types>;
+    type ScssVars<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams.Any> = Tokens_Internal.ScssVars<T_Types>;
     type DefaultIconNames = Tokens_Icons.DefaultIconNames;
     /**
      * @since 0.1.0-alpha
@@ -647,7 +647,7 @@ export declare namespace Tokens {
         /**
          * @since 0.1.0-beta.0.draft
          */
-        type JsonReturn<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> = Tokens_Themes.JsonReturn<T_Types['colour'], T_Types['theme']>;
+        type JsonReturn<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams.Any> = Tokens_Themes.JsonReturn<T_Types['colour'], T_Types['theme']>;
         /**
          * @since 0.1.0-alpha
          */
@@ -655,7 +655,7 @@ export declare namespace Tokens {
             /**
              * @since 0.1.0-alpha
              */
-            type InputParam<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> = Tokens_Themes_Set.InputParam<T_Types['colour'], T_Types['theme']>;
+            type InputParam<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams.Any> = Tokens_Themes_Set.InputParam<T_Types['colour'], T_Types['theme']>;
         }
         /**
          * @since 0.1.0-alpha
@@ -707,7 +707,7 @@ export declare namespace Tokens {
             /**
              * @since 0.1.0-alpha
              */
-            interface Data<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_Types['colour']> = TokenTypes.Theme.ColourOption<T_Types['colour']>> extends Tokens_Themes_Set.SingleMode.Data<T_Types['colour'], T_Types['theme'], __T_ColourOption> {
+            interface Data<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams.Any, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_Types['colour']> = TokenTypes.Theme.ColourOption<T_Types['colour']>> extends Tokens_Themes_Set.SingleMode.Data<T_Types['colour'], T_Types['theme'], __T_ColourOption> {
             }
             /**
              * @since 0.1.0-beta.0.draft
@@ -717,20 +717,20 @@ export declare namespace Tokens {
                  * @since 0.1.0-alpha
                  * @deprecated
                  */
-                interface RecursivePartial<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_Types['colour']> = TokenTypes.Theme.ColourOption<T_Types['colour']>> extends Tokens_Themes_Set.SingleMode.Data.Partial<T_Types['colour'], T_Types['theme'], __T_ColourOption> {
+                interface RecursivePartial<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams.Any, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_Types['colour']> = TokenTypes.Theme.ColourOption<T_Types['colour']>> extends Tokens_Themes_Set.SingleMode.Data.Partial<T_Types['colour'], T_Types['theme'], __T_ColourOption> {
                 }
             }
             /**
              * @since 0.1.0-alpha
              * @deprecated
              */
-            interface InputParam<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> extends Tokens_Themes_Set.SingleMode.InputParam<T_Types['colour'], T_Types['theme']> {
+            interface InputParam<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams.Any> extends Tokens_Themes_Set.SingleMode.InputParam<T_Types['colour'], T_Types['theme']> {
             }
             /**
              * @since 0.1.0-alpha
              * @deprecated
              */
-            interface JsonReturn<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> extends Tokens_Themes_Set.SingleMode.JsonReturn<T_Types['colour'], T_Types['theme']> {
+            interface JsonReturn<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams.Any> extends Tokens_Themes_Set.SingleMode.JsonReturn<T_Types['colour'], T_Types['theme']> {
             }
         }
     }

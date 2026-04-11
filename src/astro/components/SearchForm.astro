@@ -1,0 +1,83 @@
+---
+import type { ElementProps } from '@maddimathon/utility-astro';
+
+/**
+ * @since ___PKG_VERSION___
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+import { Tokens } from '../../ts/02-tokens/Tokens.js';
+
+/* import - functions */
+
+/* import - values */
+
+/* import - components */
+import Icon from './Icon.astro';
+import type { HTMLAttributes } from 'astro/types';
+
+/* import - layouts */
+
+/* TYPES ===================================== */
+
+export type SearchFormProps = {
+    buttonLabel?: string;
+
+    button?: Omit<
+        HTMLAttributes<'button'>,
+        'aria-label' | 'aria-labelledby' | 'set:html' | 'set:text' | 'type'
+    >;
+
+    inputLabel?: string;
+
+    input?: Omit<
+        HTMLAttributes<'input'>,
+        'aria-label' | 'aria-labelledby' | 'placeholder' | 'type'
+    >;
+
+    placeholder?: string;
+
+    tokens: Tokens.JsonReturn;
+};
+
+/* PROPS ===================================== */
+
+type Props = ElementProps<SearchFormProps, 'form'>;
+
+const {
+    button = {},
+    buttonLabel = 'Search',
+    class: classList,
+    inputLabel = 'Search all resources',
+    input = {},
+    placeholder = 'Search all resources…',
+    tokens,
+    ...attrs
+}: Props = Astro.props;
+
+/* CONSTANTS ===================================== */
+---
+
+<form
+    {...attrs}
+    class:list={['search-form', { '||': classList }, classList]}
+    aria-label='Search Form'
+    role='search'
+>
+    <label class='screen-reader-text'>{inputLabel}</label>
+    <input
+        name='s'
+        {...input}
+        placeholder={placeholder}
+        type='search'
+    />
+    <button
+        {...button}
+        aria-label={buttonLabel}
+        class:list={['button--no-pseudo', { '||': button.class }, button.class]}
+        type='submit'
+        ><Icon icon={tokens.icons.search} /></button
+    >
+</form>

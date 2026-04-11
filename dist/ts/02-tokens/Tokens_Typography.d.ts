@@ -77,7 +77,10 @@ export declare namespace Tokens_Typography {
             };
             [key: string]: T_SizeValue | RecursiveRecord<number | string, T_SizeValue>;
         };
-        sizeScale: number;
+        /**
+         * @since 0.1.0-beta.0.draft — Renamed from sizeScale to baseSize.
+         */
+        baseSize: number;
     };
     /**
      * @since 0.1.0-alpha
@@ -115,7 +118,7 @@ export declare namespace Tokens_Typography {
                 [K in T_FontFamilySlug]?: undefined | Tokens_Typography.Font.FamilyOverride;
             };
             size: Tokens_Typography.Data<T_FontFamilySlug, number>['size'];
-            sizeScale: Tokens_Typography.Data<T_FontFamilySlug, number>['sizeScale'];
+            baseSize: Tokens_Typography.Data<T_FontFamilySlug, number>['baseSize'];
         };
         line_height: Tokens_Typography.Data<T_FontFamilySlug, number>['lineHeight'];
     };

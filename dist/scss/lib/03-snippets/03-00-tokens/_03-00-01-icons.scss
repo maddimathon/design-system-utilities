@@ -51,6 +51,7 @@ $_allUniqueIconAspectRatios: ();
     $display: inline-block,
     $iconSize: var-style(icon-size),
     $includeMinWidth: false,
+    $useIconFont: config.$fn_pseudoIconsUseFont and font-family-exists(icons),
     $verticalAlign: var-style(icon-vertical-align),
     $args...
 ) {
@@ -85,8 +86,9 @@ $_allUniqueIconAspectRatios: ();
     %_add-icon-after {
         &::after {
             @include snippet-icon-pseudo-element(
-                'star',
+                null,
                 after,
+                $includeAspectRatio: false,
                 $includeBasePropsOnly: true
             );
         }
@@ -95,22 +97,45 @@ $_allUniqueIconAspectRatios: ();
     %_add-icon-before {
         &::before {
             @include snippet-icon-pseudo-element(
-                'star',
+                null,
                 before,
+                $includeAspectRatio: false,
                 $includeBasePropsOnly: true
             );
         }
     }
 
     @each $slug in list.unique(map.keys(tokens.$icons)) {
+        $aspectRatio: icon-aspect-ratio-value($slug);
+
         %icon {
             &--#{$slug} {
-                $aspectRatio: icon-aspect-ratio-value($slug);
                 @extend %_icon-aspect-ratio--#{string.slugify( #{$aspectRatio} )};
             }
         }
 
         %add-#{$slug}-icon {
+            @if $useIconFont {
+                $glyph: icon-glyph-value($slug);
+
+                @if $glyph {
+                    &::after,
+                    &-after::after,
+                    &-before::before {
+                        content: $glyph;
+                        content: $glyph / '#{icon-label-value($slug)}';
+                    }
+
+                    $slug: null;
+                }
+            } @else {
+                &::after,
+                &-after::after,
+                &-before::before {
+                    @extend %_icon-aspect-ratio--#{string.slugify( #{$aspectRatio} )};
+                }
+            }
+
             &,
             &-after {
                 @extend %_add-icon-after;
@@ -119,7 +144,9 @@ $_allUniqueIconAspectRatios: ();
                     @include snippet-icon-pseudo-element(
                         $slug,
                         after,
-                        $includeBaseProps: false
+                        $includeAspectRatio: false,
+                        $includeBaseProps: false,
+                        $useIconFont: $useIconFont
                     );
                 }
             }
@@ -131,7 +158,9 @@ $_allUniqueIconAspectRatios: ();
                     @include snippet-icon-pseudo-element(
                         $slug,
                         before,
-                        $includeBaseProps: false
+                        $includeAspectRatio: false,
+                        $includeBaseProps: false,
+                        $useIconFont: $useIconFont
                     );
                 }
             }
@@ -148,22 +177,24 @@ $_allUniqueIconAspectRatios: ();
     $slug,
     $pseudo: 'after',
     $glyph: null,
+    $includeAspectRatio: true,
     $includeBaseProps: true,
     $includeBasePropsOnly: false,
+    $useIconFont: config.$fn_pseudoIconsUseFont,
     $args...
 ) {
-    $glyph: map.get(tokens.$icons, $slug, fontGlyph);
+    @if $useIconFont and font-family-exists(icons) {
+        $glyph: if(
+            $glyph == null,
+            if($slug == null, $glyph, icon-glyph-value($slug)),
+            $glyph
+        );
 
-    @if config.$fn_pseudoIconsUseFont and $glyph and font-family-exists(icons) {
         @if $includeBasePropsOnly or $includeBaseProps {
             @include font-family-icons-base-properties(
                 $slug: $slug,
                 $pseudo: $pseudo,
-                $height: false,
-                $lineHeight: var-style(icon-inline-line-height, $raw: true)
-                    !important,
-                $spacingBlock: false,
-                $top: true,
+                $useIconFont: true,
                 $args...
             );
 
@@ -177,22 +208,25 @@ $_allUniqueIconAspectRatios: ();
         }
 
         @if not $includeBasePropsOnly {
-            $glyph: if($glyph == null, null, icon-glyph-value($slug));
-
-            content: $glyph;
-            content: $glyph / '#{icon-label-value($slug)}';
+            @if $glyph {
+                content: $glyph;
+                content: $glyph / '#{icon-label-value($slug)}';
+            }
 
             @content;
         }
     } @else {
+        @if $includeBasePropsOnly or $includeBaseProps {
+            @include font-family-icons-base-properties(
+                $slug: $slug,
+                $pseudo: $pseudo,
+                $useIconFont: false,
+                $args...
+            );
+        }
+
         @supports (mask-image: url('../fake.svg')) {
             @if $includeBasePropsOnly or $includeBaseProps {
-                @include font-family-icons-base-properties(
-                    $slug: $slug,
-                    $pseudo: $pseudo,
-                    $args...
-                );
-
                 mask-clip: no-clip;
                 mask-mode: alpha;
                 mask-origin: border-box;
@@ -203,9 +237,17 @@ $_allUniqueIconAspectRatios: ();
                 background: currentColor;
             }
 
-            @if not $includeBasePropsOnly {
+            @if not $includeBasePropsOnly and $slug != null {
                 content: '';
                 content: '' / '#{icon-label-value($slug)}';
+
+                @if $includeAspectRatio {
+                    @include aspect-ratio(
+                        aspect-ratio-string-to-list(
+                                icon-aspect-ratio-value($slug)
+                            )...
+                    );
+                }
 
                 mask-image: #{icon-embedded-value($slug)};
 

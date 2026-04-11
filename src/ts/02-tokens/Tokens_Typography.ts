@@ -47,9 +47,9 @@ export class Tokens_Typography<
         return {
 
             lineHeight: {
-                '100': -2.75,
+                '100': -3,
                 '200': -2,
-                '300': -1.25,
+                '300': -1,
                 '400': 0,
                 '500': 1,
                 '600': 2,
@@ -88,7 +88,7 @@ export class Tokens_Typography<
                 },
             },
 
-            sizeScale: 1.0625,
+            baseSize: 1.0625,
         };
     }
 
@@ -172,7 +172,7 @@ export class Tokens_Typography<
         type SizeJson = Tokens_Typography.JsonReturn<T_FontFamilySlug>[ 'size' ][ 'title' ];
 
         const sizeConverter = ( num: number ) => {
-            const rem = roundToPixel( Math.pow( this.spacing.data.multiplier, num ) * this.data.sizeScale, 32 );
+            const rem = roundToPixel( Math.pow( this.spacing.data.multiplier, num ) * this.data.baseSize, 32 );
 
             return {
                 px: roundToPixel( rem * 16, 2 ),
@@ -327,7 +327,7 @@ export class Tokens_Typography<
                 // UPGRADE - make empty size objects equal to null
                 size: this.data.size,
 
-                sizeScale: this.data.sizeScale,
+                baseSize: this.data.baseSize,
 
                 family: this.data.fonts && objectMap(
                     this.data.fonts,
@@ -424,7 +424,10 @@ export namespace Tokens_Typography {
             [ key: string ]: T_SizeValue | RecursiveRecord<number | string, T_SizeValue>;
         };
 
-        sizeScale: number;
+        /**
+         * @since ___PKG_VERSION___ — Renamed from sizeScale to baseSize.
+         */
+        baseSize: number;
     };
 
     /**
@@ -479,7 +482,7 @@ export namespace Tokens_Typography {
             };
 
             size: Tokens_Typography.Data<T_FontFamilySlug, number>[ 'size' ];
-            sizeScale: Tokens_Typography.Data<T_FontFamilySlug, number>[ 'sizeScale' ];
+            baseSize: Tokens_Typography.Data<T_FontFamilySlug, number>[ 'baseSize' ];
         };
 
         line_height: Tokens_Typography.Data<T_FontFamilySlug, number>[ 'lineHeight' ];

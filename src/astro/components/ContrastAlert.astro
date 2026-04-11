@@ -54,7 +54,7 @@ const varClr = clr && getColourValue(clr);
 ---
 
 <div
-    class:list={['contrast-alert', classList]}
+    class:list={['contrast-alert', { '||': classList }, classList]}
     data-brightness-mode='light'
     style={varClr ? `--contrast-alert-color: ${varClr};` : undefined}
     title={title ?? clrSlug}

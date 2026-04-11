@@ -863,7 +863,7 @@
     vertical-align: middle;
     vertical-align: var(--icon-vertical-align, middle);
     top: 0.15625em;
-    top: var(--icon-inline-margin-block-start, 0.15625em);
+    top: var(--icon-font-top, 0.15625em);
     margin-left: 0;
     margin-left: calc(0.25em * 1 * 1);
     margin-left: calc(
@@ -878,8 +878,8 @@
             var(--icon-inline-buffer-end, 0.125) *
             var(--icon-inline-buffer-end--font-multiplier, 1)
     );
-    line-height: 0.75 !important;
-    line-height: var(--icon-inline-line-height, 0.75) !important;
+    line-height: 1 !important;
+    line-height: var(--icon-inline-line-height, 1) !important;
     align-self: center;
     color: CanvasText;
     color: var(--icon-color, var(--theme-ui, CanvasText));
@@ -964,7 +964,7 @@
     vertical-align: middle;
     vertical-align: var(--icon-vertical-align, middle);
     top: 0.15625em;
-    top: var(--icon-inline-margin-block-start, 0.15625em);
+    top: var(--icon-font-top, 0.15625em);
     margin-right: 0;
     margin-right: calc(0.25em * 1 * 1);
     margin-right: calc(
@@ -979,8 +979,8 @@
             var(--icon-inline-buffer-end, 0.125) *
             var(--icon-inline-buffer-end--font-multiplier, 1)
     );
-    line-height: 0.75 !important;
-    line-height: var(--icon-inline-line-height, 0.75) !important;
+    line-height: 1 !important;
+    line-height: var(--icon-inline-line-height, 1) !important;
     align-self: center;
     color: CanvasText;
     color: var(--icon-color, var(--theme-ui, CanvasText));
@@ -996,630 +996,379 @@
 }
 
 .add-alarm-icon::after,
-.add-alarm-icon-after::after {
-    content: '\f148';
-    content: '\f148'/'Alarm icon';
-}
+.add-alarm-icon-after::after,
 .add-alarm-icon-before::before {
     content: '\f148';
     content: '\f148'/'Alarm icon';
 }
-
 .add-alert-icon::after,
-.add-alert-icon-after::after {
-    content: '\f154';
-    content: '\f154'/'Alert icon';
-}
+.add-alert-icon-after::after,
 .add-alert-icon-before::before {
     content: '\f154';
     content: '\f154'/'Alert icon';
 }
-
 .add-attachment-icon::after,
-.add-attachment-icon-after::after {
-    content: '\f101';
-    content: '\f101'/'Attachment icon';
-}
+.add-attachment-icon-after::after,
 .add-attachment-icon-before::before {
     content: '\f101';
     content: '\f101'/'Attachment icon';
 }
-
 .add-biography-icon::after,
-.add-biography-icon-after::after {
-    content: '\f149';
-    content: '\f149'/'Biography icon';
-}
+.add-biography-icon-after::after,
 .add-biography-icon-before::before {
     content: '\f149';
     content: '\f149'/'Biography icon';
 }
-
 .add-book-icon::after,
-.add-book-icon-after::after {
-    content: '\f14a';
-    content: '\f14a'/'Book icon';
-}
+.add-book-icon-after::after,
 .add-book-icon-before::before {
     content: '\f14a';
     content: '\f14a'/'Book icon';
 }
-
 .add-caution-icon::after,
-.add-caution-icon-after::after {
-    content: '\f102';
-    content: '\f102'/'Caution icon';
-}
+.add-caution-icon-after::after,
 .add-caution-icon-before::before {
     content: '\f102';
     content: '\f102'/'Caution icon';
 }
-
 .add-check-icon::after,
-.add-check-icon-after::after {
-    content: '\f103';
-    content: '\f103'/'Checkmark icon';
-}
+.add-check-icon-after::after,
 .add-check-icon-before::before {
     content: '\f103';
     content: '\f103'/'Checkmark icon';
 }
-
 .add-clock-icon::after,
-.add-clock-icon-after::after {
-    content: '\f104';
-    content: '\f104'/'Clock icon';
-}
+.add-clock-icon-after::after,
 .add-clock-icon-before::before {
     content: '\f104';
     content: '\f104'/'Clock icon';
 }
-
 .add-close-icon::after,
-.add-close-icon-after::after {
-    content: '\f105';
-    content: '\f105'/'Close icon';
-}
+.add-close-icon-after::after,
 .add-close-icon-before::before {
     content: '\f105';
     content: '\f105'/'Close icon';
 }
-
 .add-code-icon::after,
-.add-code-icon-after::after {
-    content: '\f106';
-    content: '\f106'/'Code icon';
-}
+.add-code-icon-after::after,
 .add-code-icon-before::before {
     content: '\f106';
     content: '\f106'/'Code icon';
 }
-
 .add-compass-icon::after,
-.add-compass-icon-after::after {
-    content: '\f107';
-    content: '\f107'/'Compass icon';
-}
+.add-compass-icon-after::after,
 .add-compass-icon-before::before {
     content: '\f107';
     content: '\f107'/'Compass icon';
 }
-
 .add-computer-icon::after,
-.add-computer-icon-after::after {
-    content: '\f147';
-    content: '\f147'/'Computer icon';
-}
+.add-computer-icon-after::after,
 .add-computer-icon-before::before {
     content: '\f147';
     content: '\f147'/'Computer icon';
 }
-
 .add-contact-icon::after,
-.add-contact-icon-after::after {
-    content: '\f14b';
-    content: '\f14b'/'Contact icon';
-}
+.add-contact-icon-after::after,
 .add-contact-icon-before::before {
     content: '\f14b';
     content: '\f14b'/'Contact icon';
 }
-
 .add-dash-icon::after,
-.add-dash-icon-after::after {
-    content: '\f108';
-    content: '\f108'/'Dash icon';
-}
+.add-dash-icon-after::after,
 .add-dash-icon-before::before {
     content: '\f108';
     content: '\f108'/'Dash icon';
 }
-
 .add-discussion-icon::after,
-.add-discussion-icon-after::after {
-    content: '\f14c';
-    content: '\f14c'/'Discussion icon';
-}
+.add-discussion-icon-after::after,
 .add-discussion-icon-before::before {
     content: '\f14c';
     content: '\f14c'/'Discussion icon';
 }
-
 .add-double-check-icon::after,
-.add-double-check-icon-after::after {
-    content: '\f109';
-    content: '\f109'/'Checkmark (Double) icon';
-}
+.add-double-check-icon-after::after,
 .add-double-check-icon-before::before {
     content: '\f109';
     content: '\f109'/'Checkmark (Double) icon';
 }
-
 .add-down-icon::after,
-.add-down-icon-after::after {
-    content: '\f110';
-    content: '\f110'/'Arrow (Down) icon';
-}
+.add-down-icon-after::after,
 .add-down-icon-before::before {
     content: '\f110';
     content: '\f110'/'Arrow (Down) icon';
 }
-
 .add-download-icon::after,
-.add-download-icon-after::after {
-    content: '\f111';
-    content: '\f111'/'Download icon';
-}
+.add-download-icon-after::after,
 .add-download-icon-before::before {
     content: '\f111';
     content: '\f111'/'Download icon';
 }
-
 .add-draft-icon::after,
-.add-draft-icon-after::after {
-    content: '\f112';
-    content: '\f112'/'Draft icon';
-}
+.add-draft-icon-after::after,
 .add-draft-icon-before::before {
     content: '\f112';
     content: '\f112'/'Draft icon';
 }
-
 .add-error-icon::after,
-.add-error-icon-after::after {
-    content: '\f113';
-    content: '\f113'/'Error icon';
-}
+.add-error-icon-after::after,
 .add-error-icon-before::before {
     content: '\f113';
     content: '\f113'/'Error icon';
 }
-
 .add-external-icon::after,
-.add-external-icon-after::after {
-    content: '\f114';
-    content: '\f114'/'External Link icon';
-}
+.add-external-icon-after::after,
 .add-external-icon-before::before {
     content: '\f114';
     content: '\f114'/'External Link icon';
 }
-
 .add-fail-icon::after,
-.add-fail-icon-after::after {
-    content: '\f115';
-    content: '\f115'/'Fail icon';
-}
+.add-fail-icon-after::after,
 .add-fail-icon-before::before {
     content: '\f115';
     content: '\f115'/'Fail icon';
 }
-
 .add-forbidden-icon::after,
-.add-forbidden-icon-after::after {
-    content: '\f116';
-    content: '\f116'/'Forbidden icon';
-}
+.add-forbidden-icon-after::after,
 .add-forbidden-icon-before::before {
     content: '\f116';
     content: '\f116'/'Forbidden icon';
 }
-
 .add-group-icon::after,
-.add-group-icon-after::after {
-    content: '\f14d';
-    content: '\f14d'/'Group icon';
-}
+.add-group-icon-after::after,
 .add-group-icon-before::before {
     content: '\f14d';
     content: '\f14d'/'Group icon';
 }
-
 .add-hidden-icon::after,
-.add-hidden-icon-after::after {
-    content: '\f117';
-    content: '\f117'/'Hidden icon';
-}
+.add-hidden-icon-after::after,
 .add-hidden-icon-before::before {
     content: '\f117';
     content: '\f117'/'Hidden icon';
 }
-
 .add-info-icon::after,
-.add-info-icon-after::after {
-    content: '\f118';
-    content: '\f118'/'Info icon';
-}
+.add-info-icon-after::after,
 .add-info-icon-before::before {
     content: '\f118';
     content: '\f118'/'Info icon';
 }
-
 .add-left-icon::after,
-.add-left-icon-after::after {
-    content: '\f119';
-    content: '\f119'/'Arrow (Left) icon';
-}
+.add-left-icon-after::after,
 .add-left-icon-before::before {
     content: '\f119';
     content: '\f119'/'Arrow (Left) icon';
 }
-
 .add-lightbulb-icon::after,
-.add-lightbulb-icon-after::after {
-    content: '\f120';
-    content: '\f120'/'Lightbulb icon';
-}
+.add-lightbulb-icon-after::after,
 .add-lightbulb-icon-before::before {
     content: '\f120';
     content: '\f120'/'Lightbulb icon';
 }
-
 .add-lightning-icon::after,
-.add-lightning-icon-after::after {
-    content: '\f121';
-    content: '\f121'/'Lightning icon';
-}
+.add-lightning-icon-after::after,
 .add-lightning-icon-before::before {
     content: '\f121';
     content: '\f121'/'Lightning icon';
 }
-
 .add-link-icon::after,
-.add-link-icon-after::after {
-    content: '\f14e';
-    content: '\f14e'/'Link icon';
-}
+.add-link-icon-after::after,
 .add-link-icon-before::before {
     content: '\f14e';
     content: '\f14e'/'Link icon';
 }
-
 .add-location-icon::after,
-.add-location-icon-after::after {
-    content: '\f14f';
-    content: '\f14f'/'Location icon';
-}
+.add-location-icon-after::after,
 .add-location-icon-before::before {
     content: '\f14f';
     content: '\f14f'/'Location icon';
 }
-
 .add-lock-icon::after,
-.add-lock-icon-after::after {
-    content: '\f122';
-    content: '\f122'/'Lock icon';
-}
+.add-lock-icon-after::after,
 .add-lock-icon-before::before {
     content: '\f122';
     content: '\f122'/'Lock icon';
 }
-
 .add-logo-circle-facebook-icon::after,
-.add-logo-circle-facebook-icon-after::after {
-    content: '\f155';
-    content: '\f155'/'Logo - Facebook (Circle) icon';
-}
+.add-logo-circle-facebook-icon-after::after,
 .add-logo-circle-facebook-icon-before::before {
     content: '\f155';
     content: '\f155'/'Logo - Facebook (Circle) icon';
 }
-
 .add-logo-circle-instagram-icon::after,
-.add-logo-circle-instagram-icon-after::after {
-    content: '\f156';
-    content: '\f156'/'Logo - Instagram (Circle) icon';
-}
+.add-logo-circle-instagram-icon-after::after,
 .add-logo-circle-instagram-icon-before::before {
     content: '\f156';
     content: '\f156'/'Logo - Instagram (Circle) icon';
 }
-
 .add-logo-circle-linkedin-icon::after,
-.add-logo-circle-linkedin-icon-after::after {
-    content: '\f157';
-    content: '\f157'/'Logo - LinkedIn (Circle) icon';
-}
+.add-logo-circle-linkedin-icon-after::after,
 .add-logo-circle-linkedin-icon-before::before {
     content: '\f157';
     content: '\f157'/'Logo - LinkedIn (Circle) icon';
 }
-
 .add-logo-facebook-icon::after,
-.add-logo-facebook-icon-after::after {
-    content: '\f123';
-    content: '\f123'/'Logo - Facebook icon';
-}
+.add-logo-facebook-icon-after::after,
 .add-logo-facebook-icon-before::before {
     content: '\f123';
     content: '\f123'/'Logo - Facebook icon';
 }
-
 .add-logo-instagram-icon::after,
-.add-logo-instagram-icon-after::after {
-    content: '\f124';
-    content: '\f124'/'Logo - Instagram icon';
-}
+.add-logo-instagram-icon-after::after,
 .add-logo-instagram-icon-before::before {
     content: '\f124';
     content: '\f124'/'Logo - Instagram icon';
 }
-
 .add-logo-linkedin-icon::after,
-.add-logo-linkedin-icon-after::after {
-    content: '\f125';
-    content: '\f125'/'Logo - LinkedIn icon';
-}
+.add-logo-linkedin-icon-after::after,
 .add-logo-linkedin-icon-before::before {
     content: '\f125';
     content: '\f125'/'Logo - LinkedIn icon';
 }
-
 .add-maximum-icon::after,
-.add-maximum-icon-after::after {
-    content: '\f126';
-    content: '\f126'/'Maximum icon';
-}
+.add-maximum-icon-after::after,
 .add-maximum-icon-before::before {
     content: '\f126';
     content: '\f126'/'Maximum icon';
 }
-
 .add-minimum-icon::after,
-.add-minimum-icon-after::after {
-    content: '\f127';
-    content: '\f127'/'Minimum icon';
-}
+.add-minimum-icon-after::after,
 .add-minimum-icon-before::before {
     content: '\f127';
     content: '\f127'/'Minimum icon';
 }
-
 .add-minus-icon::after,
-.add-minus-icon-after::after {
-    content: '\f128';
-    content: '\f128'/'Minus icon';
-}
+.add-minus-icon-after::after,
 .add-minus-icon-before::before {
     content: '\f128';
     content: '\f128'/'Minus icon';
 }
-
 .add-no-icon::after,
-.add-no-icon-after::after {
-    content: '\f129';
-    content: '\f129'/'No icon';
-}
+.add-no-icon-after::after,
 .add-no-icon-before::before {
     content: '\f129';
     content: '\f129'/'No icon';
 }
-
 .add-note-icon::after,
-.add-note-icon-after::after {
-    content: '\f130';
-    content: '\f130'/'Note icon';
-}
+.add-note-icon-after::after,
 .add-note-icon-before::before {
     content: '\f130';
     content: '\f130'/'Note icon';
 }
-
 .add-paperclip-icon::after,
-.add-paperclip-icon-after::after {
-    content: '\f131';
-    content: '\f131'/'Paperclip icon';
-}
+.add-paperclip-icon-after::after,
 .add-paperclip-icon-before::before {
     content: '\f131';
     content: '\f131'/'Paperclip icon';
 }
-
 .add-person-icon::after,
-.add-person-icon-after::after {
-    content: '\f150';
-    content: '\f150'/'Person icon';
-}
+.add-person-icon-after::after,
 .add-person-icon-before::before {
     content: '\f150';
     content: '\f150'/'Person icon';
 }
-
 .add-pinned-icon::after,
-.add-pinned-icon-after::after {
-    content: '\f151';
-    content: '\f151'/'Pinned icon';
-}
+.add-pinned-icon-after::after,
 .add-pinned-icon-before::before {
     content: '\f151';
     content: '\f151'/'Pinned icon';
 }
-
 .add-plus-icon::after,
-.add-plus-icon-after::after {
-    content: '\f132';
-    content: '\f132'/'Plus icon';
-}
+.add-plus-icon-after::after,
 .add-plus-icon-before::before {
     content: '\f132';
     content: '\f132'/'Plus icon';
 }
-
 .add-private-icon::after,
-.add-private-icon-after::after {
-    content: '\f133';
-    content: '\f133'/'Private icon';
-}
+.add-private-icon-after::after,
 .add-private-icon-before::before {
     content: '\f133';
     content: '\f133'/'Private icon';
 }
-
 .add-question-icon::after,
-.add-question-icon-after::after {
-    content: '\f134';
-    content: '\f134'/'Question icon';
-}
+.add-question-icon-after::after,
 .add-question-icon-before::before {
     content: '\f134';
     content: '\f134'/'Question icon';
 }
-
 .add-quote-icon::after,
-.add-quote-icon-after::after {
-    content: '\f152';
-    content: '\f152'/'Quote icon';
-}
+.add-quote-icon-after::after,
 .add-quote-icon-before::before {
     content: '\f152';
     content: '\f152'/'Quote icon';
 }
-
 .add-reading-icon::after,
-.add-reading-icon-after::after {
-    content: '\f153';
-    content: '\f153'/'Reading icon';
-}
+.add-reading-icon-after::after,
 .add-reading-icon-before::before {
     content: '\f153';
     content: '\f153'/'Reading icon';
 }
-
 .add-refresh-icon::after,
-.add-refresh-icon-after::after {
-    content: '\f135';
-    content: '\f135'/'Refresh icon';
-}
+.add-refresh-icon-after::after,
 .add-refresh-icon-before::before {
     content: '\f135';
     content: '\f135'/'Refresh icon';
 }
-
 .add-right-icon::after,
-.add-right-icon-after::after {
-    content: '\f136';
-    content: '\f136'/'Arrow (Right) icon';
-}
+.add-right-icon-after::after,
 .add-right-icon-before::before {
     content: '\f136';
     content: '\f136'/'Arrow (Right) icon';
 }
-
 .add-search-icon::after,
-.add-search-icon-after::after {
-    content: '\f137';
-    content: '\f137'/'Search icon';
-}
+.add-search-icon-after::after,
 .add-search-icon-before::before {
     content: '\f137';
     content: '\f137'/'Search icon';
 }
-
 .add-settings-icon::after,
-.add-settings-icon-after::after {
-    content: '\f138';
-    content: '\f138'/'Settings icon';
-}
+.add-settings-icon-after::after,
 .add-settings-icon-before::before {
     content: '\f138';
     content: '\f138'/'Settings icon';
 }
-
 .add-star-icon::after,
-.add-star-icon-after::after {
-    content: '\f139';
-    content: '\f139'/'Star icon';
-}
+.add-star-icon-after::after,
 .add-star-icon-before::before {
     content: '\f139';
     content: '\f139'/'Star icon';
 }
-
 .add-success-icon::after,
-.add-success-icon-after::after {
-    content: '\f140';
-    content: '\f140'/'Success icon';
-}
+.add-success-icon-after::after,
 .add-success-icon-before::before {
     content: '\f140';
     content: '\f140'/'Success icon';
 }
-
 .add-ui-icon::after,
-.add-ui-icon-after::after {
-    content: '\f141';
-    content: '\f141'/'User Interface icon';
-}
+.add-ui-icon-after::after,
 .add-ui-icon-before::before {
     content: '\f141';
     content: '\f141'/'User Interface icon';
 }
-
 .add-ui-check-icon::after,
-.add-ui-check-icon-after::after {
-    content: '\f142';
-    content: '\f142'/'User Interface with Checkmark icon';
-}
+.add-ui-check-icon-after::after,
 .add-ui-check-icon-before::before {
     content: '\f142';
     content: '\f142'/'User Interface with Checkmark icon';
 }
-
 .add-ui-minimum-icon::after,
-.add-ui-minimum-icon-after::after {
-    content: '\f143';
-    content: '\f143'/'User Interface with Minimum icon';
-}
+.add-ui-minimum-icon-after::after,
 .add-ui-minimum-icon-before::before {
     content: '\f143';
     content: '\f143'/'User Interface with Minimum icon';
 }
-
 .add-unlock-icon::after,
-.add-unlock-icon-after::after {
-    content: '\f144';
-    content: '\f144'/'Unlock icon';
-}
+.add-unlock-icon-after::after,
 .add-unlock-icon-before::before {
     content: '\f144';
     content: '\f144'/'Unlock icon';
 }
-
 .add-up-icon::after,
-.add-up-icon-after::after {
-    content: '\f145';
-    content: '\f145'/'Arrow (Up) icon';
-}
+.add-up-icon-after::after,
 .add-up-icon-before::before {
     content: '\f145';
     content: '\f145'/'Arrow (Up) icon';
 }
-
 .add-warning-icon::after,
-.add-warning-icon-after::after {
-    content: '\f146';
-    content: '\f146'/'Warning icon';
-}
+.add-warning-icon-after::after,
 .add-warning-icon-before::before {
     content: '\f146';
     content: '\f146'/'Warning icon';

@@ -46,7 +46,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
             const style = {
                 margin: {
                     block: {
-                        start: 0.125,
+                        start: 0.21875,
                         end: 0,
                     },
                 },
@@ -68,26 +68,23 @@ export class Tokens_CSS_Style extends AbstractTokens<{
             // if ( num >= 3 ) {
             // }
 
-            if ( num >= 4 ) {
-                style.margin.block.start = 0;
-            }
+            // if ( num >= 4 ) {
+            // }
 
             // if ( num >= 5 ) {
             // }
 
-            if ( num >= 6 ) {
-                style.margin.block.start = 0.0625;
-            }
+            // if ( num >= 6 ) {
+            // }
 
-            if ( num >= 7 ) {
-                style.margin.block.start = -0.0625;
-            }
+            // if ( num >= 7 ) {
+            // }
 
             // if ( num >= 8 ) {
             // }
 
             if ( num >= 9 ) {
-                style.margin.block.start = -0.125;
+                style.margin.block.start = 0;
             }
 
             // if ( num >= 10 ) {
@@ -137,7 +134,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
 
                     margin: {
                         block: {
-                            start: heading.unstyled.margin.block.start,
+                            start: 0.0625,
                         },
                     },
                 },
@@ -154,20 +151,20 @@ export class Tokens_CSS_Style extends AbstractTokens<{
 
                 gap: {
                     block: '0',
-                    inline: '300',
+                    inline: '200',
                 },
 
                 'flow-margin': {
                     $: '300',
-                    large: '500',
+                    large: '400',
                     small: '200',
                     button: '200',
                     self: 'margins-flow-firm',
                 },
 
                 padding: {
-                    block: '300',
-                    inline: '300',
+                    block: '200',
+                    inline: '200',
                 },
             } satisfies Tokens_CSS_Style.AlertStyles,
             partial,
@@ -222,6 +219,10 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                     embedded: {
                         bottom: '0.0625em',
                     },
+
+                    font: iconStyles.font,
+                    inline: iconStyles.inline,
+                    pseudo: iconStyles.pseudo,
 
                     size: {
                         font: iconStyles.size.font,
@@ -305,9 +306,10 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                             end: style.icon.buffer.end,
                         },
 
-                        embedded: {
-                            bottom: style.icon.embedded.bottom,
-                        },
+                        embedded: style.icon.embedded,
+                        font: style.icon.font,
+                        inline: style.icon.inline,
+                        pseudo: style.icon.pseudo,
 
                         size: {
                             font: style.icon.size.font,
@@ -411,13 +413,13 @@ export class Tokens_CSS_Style extends AbstractTokens<{
             case 4:
                 style.font.weight = '700';
                 style.font.style = 'italic';
-                style[ 'line-height' ] = '300';
+                style[ 'line-height' ] = '200';
                 break;
 
             case 5:
                 style.font.weight = '600';
                 style.font.style = 'italic';
-                style[ 'line-height' ] = '300';
+                style[ 'line-height' ] = '200';
                 break;
 
             case 6:
@@ -457,6 +459,10 @@ export class Tokens_CSS_Style extends AbstractTokens<{
 
             color: 'ui',
 
+            font: {
+                top: '0.15625em',
+            },
+
             inline: {
                 buffer: {
                     $: '0.25em',
@@ -464,9 +470,11 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                     end: 0.125,
                 },
 
-                'line-height': 0.75,
+                'line-height': 1,
+            },
 
-                'margin-block-start': '0.15625em',
+            pseudo: {
+                top: '-0.0625em',
             },
 
             size: {
@@ -598,8 +606,10 @@ export class Tokens_CSS_Style extends AbstractTokens<{
 
         return {
 
+            background: 'background-grey',
+
             border: mergeArgs( {
-                color: 'background',
+                color: 'ui-grey',
                 radius: '0',
                 style: 'solid',
                 width: '200',
@@ -868,7 +878,7 @@ export namespace Tokens_CSS_Style {
             inline: "0" | AnyTokenLevel;
         };
 
-        icon: {
+        icon: Pick<IconStyles, 'font' | 'inline' | 'pseudo' | 'vertical-align'> & {
             buffer: {
                 start: number;
                 end: number;
@@ -1015,6 +1025,10 @@ export namespace Tokens_CSS_Style {
          */
         color: string;
 
+        font: {
+            top: `${ number }em`;
+        };
+
         inline: {
             buffer: {
                 $: string;
@@ -1022,9 +1036,11 @@ export namespace Tokens_CSS_Style {
                 end: number;
             },
 
-            'line-height': number | `${ number }em`;
+            'line-height': number | `${ number }em` | 'normal';
+        };
 
-            'margin-block-start': string;
+        pseudo: {
+            top: `${ number }em`;
         };
 
         size: {
@@ -1134,6 +1150,11 @@ export namespace Tokens_CSS_Style {
      * @since ___PKG_VERSION___
      */
     export type WidgetStyles = {
+
+        /**
+         * This should be a theme slug.
+         */
+        background: string;
 
         border: {
             /**
