@@ -171,9 +171,9 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
         background: #{var-style(alert-background)};
 
         transition:
-            background ease-in-out #{var-tr-time(fast)},
-            border-color ease-in-out #{var-tr-time(fast)},
-            color ease-in-out #{var-tr-time(fast)};
+            background #{var-tr-time(fast)} #{tokens.$transition_function},
+            border-color #{var-tr-time(fast)} #{tokens.$transition_function},
+            color #{var-tr-time(fast)} #{tokens.$transition_function};
 
         @if meta.content-exists() {
             @content ( 'alert-block' );

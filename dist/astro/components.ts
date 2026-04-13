@@ -65,6 +65,9 @@ export type * from './components/ShadeSwatchList.astro';
 import ShadeSwatchTable from './components/ShadeSwatchTable.astro';
 export type * from './components/ShadeSwatchTable.astro';
 
+import Toggle from './components/Toggle.astro';
+export type * from './components/Toggle.astro';
+
 import ThemeModeSwatch from './components/ThemeModeSwatch.astro';
 export { getCssColourForThemePreview } from './components/ThemeModeSwatch.astro';
 export type * from './components/ThemeModeSwatch.astro';
@@ -93,5 +96,6 @@ export {
     ShadeSwatchList,
     ShadeSwatchTable,
     ThemeModeSwatch,
+    Toggle,
     Widget,
 };

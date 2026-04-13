@@ -3067,6 +3067,8 @@
  * ======================================================================== */
 hr {
     display: block;
+    justify-self: center;
+    align-self: center;
     margin-top: 2.25rem;
     margin-bottom: 2.25rem;
     margin-left: 9%;
@@ -3271,11 +3273,11 @@ a[aria-disabled="true"][href],
 a[disabled][href] {
     --focus-ring-outline-color: var(--theme-link-outline-disabled, GrayText);
     --icon-color: var(--theme-link-icon-disabled, GrayText);
-    text-decoration-line: underline;
     text-decoration-color: hsl(339.45, 0%, 34.6%);
     text-decoration-color: var(--theme-link-decoration-disabled, GrayText);
     color: hsl(339.45, 0%, 34.6%);
     color: var(--theme-link-disabled, GrayText);
+    text-decoration-line: underline;
 }
 a[aria-disabled="true"][href]:focus,
 a[disabled][href]:focus {
@@ -4250,12 +4252,12 @@ fieldset {
     padding-left: 1.25rem;
     padding-right: 1.25rem;
     border: 0.0625rem solid hsl(278.16, 60.54%, 30.06%);
-    border: 0.0625rem solid var(--sys-clr-input-border, FieldText);
+    border: 0.0625rem solid var(--theme-input-border, CanvasText);
     border-radius: 0;
     background-color: hsl(339.45, 0%, 91.26%);
-    background-color: var(--sys-clr-background, Canvas);
+    background-color: var(--theme-background, Canvas);
     color: hsl(339.45, 0%, 17.88%);
-    color: var(--sys-clr-text, CanvasText);
+    color: var(--theme-text, CanvasText);
 }
 fieldset > :first-child {
     margin-top: 0;
@@ -4266,17 +4268,17 @@ fieldset > legend + * {
 }
 fieldset:focus {
     border-color: hsl(162, 69%, 16.5%);
-    border-color: var(--sys-clr-input-border-hover, FieldText);
+    border-color: var(--theme-input-border-hover, CanvasText);
 }
 
 fieldset:focus-within {
     border-color: hsl(162, 69%, 16.5%);
-    border-color: var(--sys-clr-input-border-hover, FieldText);
+    border-color: var(--theme-input-border-hover, CanvasText);
 }
 
 fieldset:active {
     border-color: hsl(2.81, 72.25%, 28.09%);
-    border-color: var(--sys-clr-input-border-active, FieldText);
+    border-color: var(--theme-input-border-active, ActiveText);
 }
 
 fieldset legend {

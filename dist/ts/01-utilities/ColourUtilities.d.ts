@@ -250,27 +250,27 @@ export declare namespace ColourUtilities {
          * @since 0.1.0-alpha
          * @since 0.1.0-beta.0.draft — Moved from {@link ColourUtilities} to {@link ColourUtilities.Levels} and renamed.
          */
-        const converter: {
-            readonly '100': "900";
-            readonly '150': "850";
-            readonly '200': "800";
-            readonly '250': "750";
-            readonly '300': "700";
-            readonly '350': "650";
-            readonly '400': "600";
-            readonly '450': "550";
-            readonly '500': "500";
-            readonly '550': "450";
-            readonly '600': "400";
-            readonly '650': "350";
-            readonly '700': "300";
-            readonly '750': "250";
-            readonly '800': "200";
-            readonly '850': "150";
-            readonly '900': "100";
-            readonly black: "white";
-            readonly white: "black";
-        };
+        const converter: Readonly<{
+            '100': '900';
+            '150': '850';
+            '200': '800';
+            '250': '750';
+            '300': '700';
+            '350': '650';
+            '400': '600';
+            '450': '550';
+            '500': '500';
+            '550': '450';
+            '600': '400';
+            '650': '350';
+            '700': '300';
+            '750': '250';
+            '800': '200';
+            '850': '150';
+            '900': '100';
+            'black': 'white';
+            'white': 'black';
+        }>;
         /**
          * The shade level keys that can be optionally included in maps for this
          * system.

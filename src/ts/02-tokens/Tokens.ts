@@ -60,7 +60,7 @@ export class Tokens<
     scss: Tokens_Internal.ScssVars<T_Types>;
 }> {
 
-    public get data() {
+    public get data(): Tokens_Internal.Data<T_Types> {
         return {
             name: this.name,
             icons: this.icons.data,
@@ -136,6 +136,8 @@ export class Tokens<
                 input.colour ?? {},
             ),
 
+            Tokens_CSS.build( input.css ?? {} ),
+
             Tokens_Themes.build<T_Types[ 'colour' ], T_Types[ 'theme' ]>(
                 brightnessModes,
                 contrastModes,
@@ -149,7 +151,7 @@ export class Tokens<
                 input.icons,
             ),
         ] ).then(
-            async ( [ colour, themes, icons ] ) => {
+            async ( [ colour, css, themes, icons ] ) => {
 
                 if ( typeof config.buildIconFont === 'object' ) {
                     await icons.toIconFont( config.buildIconFont );
@@ -158,7 +160,7 @@ export class Tokens<
                 const tokens = new Tokens<T_Types>(
                     input.name,
                     colourOpts,
-                    { colour, icons, themes },
+                    { colour, css, icons, themes },
                     input,
                     {
                         ...config,
@@ -181,10 +183,11 @@ export class Tokens<
             allLevels: Set<ColourUtilities.Levels.Required | T_Types[ 'colour' ][ 'extraLevels' ]>;
         },
 
-        { colour, icons, themes }: {
+        { colour, css, icons, themes }: {
             colour: Tokens_Colour<T_Types[ 'colour' ]>;
+            css: Tokens_CSS;
             icons: Tokens_Icons<T_Types[ 'iconNames' ]>;
-            themes: Tokens_Themes<NoInfer<T_Types[ 'colour' ]>, T_Types[ 'theme' ]>,
+            themes: Tokens_Themes<T_Types[ 'colour' ], T_Types[ 'theme' ]>,
         },
         protected readonly input: Omit<Tokens_Internal.InputParam<T_Types>, "colour" | "themes">,
         protected readonly config: Tokens_Internal.Config = {},
@@ -192,7 +195,7 @@ export class Tokens<
         super();
 
         this.colour = colour;
-        this.css = new Tokens_CSS( this.input.css ?? {} );
+        this.css = css;
         this.icons = icons;
         this.logos = new Tokens_Logos<T_Types[ 'logoNames' ]>( this.input.logos );
         this.spacing = new Tokens_Spacing( this.input.spacing ?? {} );
@@ -411,10 +414,9 @@ export namespace Tokens {
      * @since 0.1.0-alpha
      */
     export async function sample(
-
         input: Partial<Tokens_Internal.InputParam<TokenTypes.TypeParams>> = {},
         config: Partial<Tokens.Config<NoInfer<TokenTypes.TypeParams[ 'colour' ][ 'extraLevels' ]>>> = {},
-    ) {
+    ): Promise<Tokens<TokenTypes.TypeParams>> {
 
         return Tokens.build(
             mergeArgs(
@@ -522,7 +524,15 @@ export namespace Tokens {
     /**
      * @since 0.1.0-alpha
      */
-    export const SampleColours = {
+    export const SampleColours: Readonly<{
+        black: Tokens_Colour_ShadeMap.Shade.InputParam;
+        white: Tokens_Colour_ShadeMap.Shade.InputParam;
+    } & {
+        [ K in SampleColourName ]: Tokens_Colour_ShadeMap.InputParam<{
+            names: SampleColourName;
+            extraLevels: never;
+        }>
+    }> = {
 
         yardstick: Tokens_Colour_ShadeMap.Yardsticks.base,
         'yardstick-accent': Tokens_Colour_ShadeMap.Yardsticks.accent,
@@ -584,15 +594,7 @@ export namespace Tokens {
             '500': { h: 320, s: 58, l: 51, },
             '900': { h: 322, s: 85, l: 5, },
         },
-    } as const satisfies {
-        black: Tokens_Colour_ShadeMap.Shade.InputParam;
-        white: Tokens_Colour_ShadeMap.Shade.InputParam;
-    } & {
-            [ K in SampleColourName ]: Tokens_Colour_ShadeMap.InputParam<{
-                names: SampleColourName;
-                extraLevels: never;
-            }>
-        };
+    };
 
     /**
      * @since 0.1.0-alpha
@@ -651,12 +653,12 @@ export namespace Tokens {
             /**
              * @since 0.1.0-alpha
              */
-            export const SystemMonospace = Tokens_Typography.Font.SystemMonospace;
+            export const SystemMonospace: typeof Tokens_Typography.Font.SystemMonospace = Tokens_Typography.Font.SystemMonospace;
 
             /**
              * @since 0.1.0-alpha
              */
-            export const SystemUI = Tokens_Typography.Font.SystemUI;
+            export const SystemUI: typeof Tokens_Typography.Font.SystemUI = Tokens_Typography.Font.SystemUI;
 
             /**
              * Helps to generate all the weights for a font family.
@@ -846,7 +848,7 @@ export namespace Tokens {
              */
             export namespace Family {
 
-                export const dyslexic = {
+                export const dyslexic: Readonly<Tokens_Typography.Font.Family<'dyslexic'>> = {
                     slug: 'dyslexic',
                     name: 'Open Dyslexic',
 
@@ -892,9 +894,9 @@ export namespace Tokens {
                             ),
                         )
                     ),
-                } satisfies Tokens_Typography.Font.Family<'dyslexic'>;
+                };
 
-                export const hyperlegible = {
+                export const hyperlegible: Readonly<Tokens_Typography.Font.Family<'hyperlegible'>> = {
                     slug: 'hyperlegible',
                     name: 'Atkinson Hyperlegible',
 
@@ -922,9 +924,9 @@ export namespace Tokens {
                             ),
                         )
                     ),
-                } satisfies Tokens_Typography.Font.Family<'hyperlegible'>;
+                };
 
-                export const monospace = {
+                export const monospace: Readonly<Tokens_Typography.Font.Family<'monospace'>> = {
                     slug: 'monospace',
                     name: 'IBM Plex Mono',
 
@@ -956,7 +958,7 @@ export namespace Tokens {
                             ),
                         )
                     ),
-                } satisfies Tokens_Typography.Font.Family<'monospace'>;
+                };
             }
         }
     }
@@ -996,7 +998,7 @@ export namespace Tokens {
         /**
          * @since 0.1.0-alpha
          */
-        export const allHeadingLevels = Tokens_Themes_Set.SingleMode.allHeadingLevels;
+        export const allHeadingLevels: typeof Tokens_Themes_Set.SingleMode.allHeadingLevels = Tokens_Themes_Set.SingleMode.allHeadingLevels;
 
         /**
          * @since 0.1.0-alpha
@@ -1031,7 +1033,10 @@ export namespace Tokens {
          */
         export namespace SingleMode {
 
-            export const colourOption = Tokens_Themes_Set.SingleMode.Build.colourOption;
+            /**
+             * @since 0.1.0-alpha
+             */
+            export const colourOption: typeof Tokens_Themes_Set.SingleMode.Build.colourOption = Tokens_Themes_Set.SingleMode.Build.colourOption;
 
             /**
              * @since ___PKG_VERSION___
@@ -1062,9 +1067,12 @@ export namespace Tokens {
                 /**
                  * @since ___PKG_VERSION___
                  */
-                export const DEFAULT = Tokens_Themes_Set.SingleMode.Levels.DEFAULT;
+                export const DEFAULT: typeof Tokens_Themes_Set.SingleMode.Levels.DEFAULT = Tokens_Themes_Set.SingleMode.Levels.DEFAULT;
 
-                export const parse = Tokens_Themes_Set.SingleMode.Levels.parse;
+                /**
+                 * @since ___PKG_VERSION___
+                 */
+                export const parse: typeof Tokens_Themes_Set.SingleMode.Levels.parse = Tokens_Themes_Set.SingleMode.Levels.parse;
             }
 
             /**

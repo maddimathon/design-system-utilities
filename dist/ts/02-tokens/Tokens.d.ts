@@ -45,16 +45,7 @@ export declare class Tokens<T_Types extends TokenTypes.TypeParams = TokenTypes.T
     };
     protected readonly input: Omit<Tokens_Internal.InputParam<T_Types>, "colour" | "themes">;
     protected readonly config: Tokens_Internal.Config;
-    get data(): {
-        name: string;
-        icons: Tokens_Icons.Data<T_Types["iconNames"]>;
-        logos: Tokens_Logos.Data<T_Types["logoNames"]>;
-        spacing: Tokens_Spacing.Data;
-        typography: Tokens_Typography.Data<string, number>;
-        colour: Tokens_Colour.Data<T_Types["colour"]>;
-        themes: Tokens_Themes.Data<T_Types["colour"], T_Types["theme"]>;
-        css: Tokens_CSS.Data;
-    };
+    get data(): Tokens_Internal.Data<T_Types>;
     readonly colour: Tokens_Colour<T_Types['colour']>;
     readonly css: Tokens_CSS;
     readonly icons: Tokens_Icons<T_Types['iconNames']>;
@@ -72,10 +63,11 @@ export declare class Tokens<T_Types extends TokenTypes.TypeParams = TokenTypes.T
     protected constructor(name: string, colourOpts: {
         names: TokenTypes.Colour.GenericNameArray<T_Types['colour']['names']>;
         allLevels: Set<ColourUtilities.Levels.Required | T_Types['colour']['extraLevels']>;
-    }, { colour, icons, themes }: {
+    }, { colour, css, icons, themes }: {
         colour: Tokens_Colour<T_Types['colour']>;
+        css: Tokens_CSS;
         icons: Tokens_Icons<T_Types['iconNames']>;
-        themes: Tokens_Themes<NoInfer<T_Types['colour']>, T_Types['theme']>;
+        themes: Tokens_Themes<T_Types['colour'], T_Types['theme']>;
     }, input: Omit<Tokens_Internal.InputParam<T_Types>, "colour" | "themes">, config?: Tokens_Internal.Config);
     toJSON(): Tokens_Internal.JsonReturn<T_Types>;
     toScssVars(): Tokens_Internal.ScssVars<T_Types>;
@@ -143,13 +135,13 @@ export declare namespace Tokens {
     /**
      * @since 0.1.0-alpha
      */
-    function sample(input?: Partial<Tokens_Internal.InputParam<TokenTypes.TypeParams>>, config?: Partial<Tokens.Config<NoInfer<TokenTypes.TypeParams['colour']['extraLevels']>>>): Promise<Tokens<TokenTypes.TypeParams<TokenTypes.Colour.TypeParams<string, "350" | "450" | "550" | "650">, TokenTypes.Theme.TypeParams<string, readonly TokenTypes.Theme.Mode.BrightnessOption[], readonly TokenTypes.Theme.Mode.ContrastOption[], string, string, string>, string, string>>>;
+    export function sample(input?: Partial<Tokens_Internal.InputParam<TokenTypes.TypeParams>>, config?: Partial<Tokens.Config<NoInfer<TokenTypes.TypeParams['colour']['extraLevels']>>>): Promise<Tokens<TokenTypes.TypeParams>>;
     /**
      * Configuration options for the {@link Tokens} class.
      *
      * @since 0.1.0-alpha
      */
-    interface Config<T_ExtraColourLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional> {
+    export interface Config<T_ExtraColourLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional> {
         /**
          * Input path.
          */
@@ -161,279 +153,45 @@ export declare namespace Tokens {
     /**
      * @since 0.1.0-alpha
      */
-    type Data<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams.Any> = Tokens_Internal.Data<T_Types>;
+    export type Data<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams.Any> = Tokens_Internal.Data<T_Types>;
     /**
      * The shape of a default {@link Tokens} class instance, without any
      * required generics.
      *
      * @since 0.1.0-alpha
      */
-    type Instance<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams.Any> = Tokens<T_Types>;
+    export type Instance<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams.Any> = Tokens<T_Types>;
     /**
      * @since 0.1.0-alpha
      */
-    interface InputParam<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams.Any> extends Tokens_Internal.InputParam<T_Types> {
+    export interface InputParam<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams.Any> extends Tokens_Internal.InputParam<T_Types> {
     }
     /**
      * @since 0.1.0-alpha
      */
-    type JsonReturn<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams.Any> = Tokens_Internal.JsonReturn<T_Types>;
+    export type JsonReturn<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams.Any> = Tokens_Internal.JsonReturn<T_Types>;
     /**
      * @since 0.1.0-beta.0.draft
      */
-    type ScssVars<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams.Any> = Tokens_Internal.ScssVars<T_Types>;
-    type DefaultIconNames = Tokens_Icons.DefaultIconNames;
+    export type ScssVars<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams.Any> = Tokens_Internal.ScssVars<T_Types>;
+    export type DefaultIconNames = Tokens_Icons.DefaultIconNames;
+    type SampleColourName = "yardstick" | "yardstick-accent" | "base" | "blue" | "green" | "orange" | "pink" | "purple" | "red" | "turquoise" | "yellow";
     /**
      * @since 0.1.0-alpha
      */
-    const SampleColours: {
-        readonly yardstick: {
-            readonly '100': {
-                readonly l: 97;
-                readonly c: 0;
-                readonly h: 0;
-            };
-            readonly '300': {
-                readonly l: 78;
-                readonly c: 0;
-                readonly h: 0;
-            };
-            readonly '500': {
-                readonly l: 51;
-                readonly c: 0;
-                readonly h: 0;
-            };
-            readonly '700': {
-                readonly l: 24;
-                readonly c: 0;
-                readonly h: 0;
-            };
-            readonly '900': {
-                readonly l: 3;
-                readonly c: 0;
-                readonly h: 0;
-            };
-        };
-        readonly 'yardstick-accent': {
-            readonly '100': {
-                readonly l: 97;
-                readonly c: 0;
-                readonly h: 0;
-            };
-            readonly '500': {
-                readonly l: 50.5;
-                readonly c: 0;
-                readonly h: 0;
-            };
-            readonly '900': {
-                readonly l: 4;
-                readonly c: 0;
-                readonly h: 0;
-            };
-        };
-        readonly white: {
-            readonly l: 100;
-            readonly c: 0;
-            readonly h: 0;
-        };
-        readonly black: {
-            readonly l: 0;
-            readonly c: 0;
-            readonly h: 0;
-        };
-        readonly base: {
-            readonly '100': {
-                readonly l: 97;
-                readonly c: 0;
-                readonly h: 0;
-            };
-            readonly '300': {
-                readonly l: 78;
-                readonly c: 0;
-                readonly h: 0;
-            };
-            readonly '500': {
-                readonly l: 51;
-                readonly c: 0;
-                readonly h: 0;
-            };
-            readonly '700': {
-                readonly l: 24;
-                readonly c: 0;
-                readonly h: 0;
-            };
-            readonly '900': {
-                readonly l: 3;
-                readonly c: 0;
-                readonly h: 0;
-            };
-        };
-        readonly red: {
-            readonly '100': {
-                readonly h: 5;
-                readonly s: 100;
-                readonly l: 98;
-            };
-            readonly '300': {
-                readonly h: 4;
-                readonly s: 100;
-                readonly l: 79.5;
-            };
-            readonly '500': {
-                readonly h: 3;
-                readonly s: 68;
-                readonly l: 53;
-            };
-            readonly '900': {
-                readonly h: 7;
-                readonly s: 90;
-                readonly l: 4;
-            };
-        };
-        readonly orange: {
-            readonly '100': {
-                readonly h: 35;
-                readonly s: 100;
-                readonly l: 96.5;
-            };
-            readonly '500': {
-                readonly h: 22;
-                readonly s: 75;
-                readonly l: 43;
-            };
-            readonly '900': {
-                readonly h: 19;
-                readonly s: 100;
-                readonly l: 3;
-            };
-        };
-        readonly yellow: {
-            readonly '100': {
-                readonly h: 49;
-                readonly s: 100;
-                readonly l: 94;
-            };
-            readonly '300': {
-                readonly h: 45;
-                readonly s: 70;
-                readonly l: 54;
-            };
-            readonly '500': {
-                readonly h: 35;
-                readonly s: 100;
-                readonly l: 34;
-            };
-            readonly '900': {
-                readonly h: 20;
-                readonly s: 100;
-                readonly l: 3;
-            };
-        };
-        readonly green: {
-            readonly '100': {
-                readonly h: 112;
-                readonly s: 53;
-                readonly l: 97;
-            };
-            readonly '500': {
-                readonly h: 125;
-                readonly s: 50;
-                readonly l: 35.5;
-            };
-            readonly '900': {
-                readonly h: 112;
-                readonly s: 81;
-                readonly l: 2;
-            };
-        };
-        readonly turquoise: {
-            readonly '100': {
-                readonly h: 157;
-                readonly s: 68;
-                readonly l: 96.5;
-            };
-            readonly '300': {
-                readonly h: 160;
-                readonly s: 45;
-                readonly l: 60;
-            };
-            readonly '500': {
-                readonly h: 168;
-                readonly s: 92;
-                readonly l: 27.5;
-            };
-            readonly '700': {
-                readonly h: 162;
-                readonly s: 69;
-                readonly l: 16.5;
-            };
-            readonly '900': {
-                readonly h: 153;
-                readonly s: 100;
-                readonly l: 2;
-            };
-        };
-        readonly blue: {
-            readonly '100': {
-                readonly h: 245;
-                readonly s: 100;
-                readonly l: 98.5;
-            };
-            readonly '500': {
-                readonly h: 230;
-                readonly s: 63;
-                readonly l: 60;
-            };
-            readonly '900': {
-                readonly h: 244;
-                readonly s: 41;
-                readonly l: 4;
-            };
-        };
-        readonly purple: {
-            readonly '100': {
-                readonly h: 270;
-                readonly s: 100;
-                readonly l: 98.5;
-            };
-            readonly '500': {
-                readonly h: 280;
-                readonly s: 60;
-                readonly l: 56.5;
-            };
-            readonly '900': {
-                readonly h: 285;
-                readonly s: 75;
-                readonly l: 4.5;
-            };
-        };
-        readonly pink: {
-            readonly '100': {
-                readonly h: 325;
-                readonly s: 100;
-                readonly l: 98;
-            };
-            readonly '300': {
-                readonly h: 322;
-                readonly s: 100;
-                readonly l: 79.5;
-            };
-            readonly '500': {
-                readonly h: 320;
-                readonly s: 58;
-                readonly l: 51;
-            };
-            readonly '900': {
-                readonly h: 322;
-                readonly s: 85;
-                readonly l: 5;
-            };
-        };
-    };
+    export const SampleColours: Readonly<{
+        black: Tokens_Colour_ShadeMap.Shade.InputParam;
+        white: Tokens_Colour_ShadeMap.Shade.InputParam;
+    } & {
+        [K in SampleColourName]: Tokens_Colour_ShadeMap.InputParam<{
+            names: SampleColourName;
+            extraLevels: never;
+        }>;
+    }>;
     /**
      * @since 0.1.0-alpha
      */
-    namespace Typography {
+    export namespace Typography {
         /**
          * @since 0.1.0-alpha
          */
@@ -470,11 +228,11 @@ export declare namespace Tokens {
             /**
              * @since 0.1.0-alpha
              */
-            const SystemMonospace: string[];
+            const SystemMonospace: typeof Tokens_Typography.Font.SystemMonospace;
             /**
              * @since 0.1.0-alpha
              */
-            const SystemUI: string[];
+            const SystemUI: typeof Tokens_Typography.Font.SystemUI;
             /**
              * Helps to generate all the weights for a font family.
              *
@@ -519,105 +277,16 @@ export declare namespace Tokens {
              * @since 0.1.0-alpha
              */
             namespace Family {
-                const dyslexic: {
-                    slug: "dyslexic";
-                    name: string;
-                    appendSystemFontsToFallbacks: true;
-                    contentWidthScale: number;
-                    css: {
-                        icon: {
-                            inline: {
-                                buffer: {
-                                    start: number;
-                                };
-                            };
-                            size: {
-                                $: number;
-                                inline: number;
-                            };
-                        };
-                    };
-                    fallbacks: string[];
-                    lineHeightScale: number;
-                    sizeAdjust: "95%";
-                    weights: {
-                        400: {
-                            italic: Tokens_Typography.Font.File;
-                            normal: Tokens_Typography.Font.File;
-                        };
-                        700: {
-                            italic: Tokens_Typography.Font.File;
-                            normal: Tokens_Typography.Font.File;
-                        };
-                    };
-                };
-                const hyperlegible: {
-                    slug: "hyperlegible";
-                    name: string;
-                    appendSystemFontsToFallbacks: true;
-                    contentWidthScale: number;
-                    fallbacks: string[];
-                    lineHeightScale: number;
-                    sizeAdjust: "106.5%";
-                    weights: {
-                        400: {
-                            italic: Tokens_Typography.Font.File;
-                            normal: Tokens_Typography.Font.File;
-                        };
-                        700: {
-                            italic: Tokens_Typography.Font.File;
-                            normal: Tokens_Typography.Font.File;
-                        };
-                    };
-                };
-                const monospace: {
-                    slug: "monospace";
-                    name: string;
-                    appendSystemFontsToFallbacks: "monospace";
-                    contentWidthScale: number;
-                    css: {
-                        letterSpacing: number;
-                    };
-                    fallbacks: string[];
-                    sizeAdjust: "96.5%";
-                    weights: {
-                        100: {
-                            italic: Tokens_Typography.Font.File;
-                            normal: Tokens_Typography.Font.File;
-                        };
-                        200: {
-                            italic: Tokens_Typography.Font.File;
-                            normal: Tokens_Typography.Font.File;
-                        };
-                        300: {
-                            italic: Tokens_Typography.Font.File;
-                            normal: Tokens_Typography.Font.File;
-                        };
-                        400: {
-                            italic: Tokens_Typography.Font.File;
-                            normal: Tokens_Typography.Font.File;
-                        };
-                        500: {
-                            italic: Tokens_Typography.Font.File;
-                            normal: Tokens_Typography.Font.File;
-                        };
-                        600: {
-                            italic: Tokens_Typography.Font.File;
-                            normal: Tokens_Typography.Font.File;
-                        };
-                        700: {
-                            italic: Tokens_Typography.Font.File;
-                            normal: Tokens_Typography.Font.File;
-                        };
-                    };
-                };
+                const dyslexic: Readonly<Tokens_Typography.Font.Family<'dyslexic'>>;
+                const hyperlegible: Readonly<Tokens_Typography.Font.Family<'hyperlegible'>>;
+                const monospace: Readonly<Tokens_Typography.Font.Family<'monospace'>>;
             }
         }
     }
     /**
      * @since 0.1.0-alpha
      */
-    namespace Colour {
+    export namespace Colour {
         /**
          * @since 0.1.0-alpha
          */
@@ -634,11 +303,11 @@ export declare namespace Tokens {
     /**
      * @since 0.1.0-alpha
      */
-    namespace Themes {
+    export namespace Themes {
         /**
          * @since 0.1.0-alpha
          */
-        const allHeadingLevels: readonly [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        const allHeadingLevels: typeof Tokens_Themes_Set.SingleMode.allHeadingLevels;
         /**
          * @since 0.1.0-alpha
          */
@@ -661,6 +330,9 @@ export declare namespace Tokens {
          * @since 0.1.0-alpha
          */
         namespace SingleMode {
+            /**
+             * @since 0.1.0-alpha
+             */
             const colourOption: typeof Tokens_Themes_Set.SingleMode.Build.colourOption;
             /**
              * @since 0.1.0-beta.0.draft
@@ -685,6 +357,9 @@ export declare namespace Tokens {
                  * @since 0.1.0-beta.0.draft
                  */
                 const DEFAULT: typeof Tokens_Themes_Set.SingleMode.Levels.DEFAULT;
+                /**
+                 * @since 0.1.0-beta.0.draft
+                 */
                 const parse: typeof Tokens_Themes_Set.SingleMode.Levels.parse;
             }
             /**
@@ -734,4 +409,5 @@ export declare namespace Tokens {
             }
         }
     }
+    export {};
 }

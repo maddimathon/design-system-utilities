@@ -20,429 +20,55 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
     json: Tokens_CSS_Style.JsonReturn;
     scss: Tokens_CSS_Style.ScssVars;
 }> {
+    readonly data: Tokens_CSS_Style.Data;
+    /**
+     * Builds style tokens faster.
+     *
+     * @since 0.1.0-beta.0.draft
+     */
+    static build(partial?: Tokens_CSS_Style.InputParam): Promise<Tokens_CSS_Style>;
+    /**
+     * Builds style tokens data faster.
+     *
+     * @since 0.1.0-beta.0.draft
+     */
+    static buildData(partial?: Tokens_CSS_Style.InputParam): Promise<Tokens_CSS_Style.Data>;
     /**
      * @since 0.1.0-beta.0.draft
      */
-    static alertStyle(iconStyles: Tokens_CSS_Style.IconStyles, partial?: Tokens_CSS_Style.InputParam['alert']): Tokens_CSS_Style.AlertStyles;
+    static alertStyle(iconStyles: Tokens_CSS_Style.IconStyles, partial?: Tokens_CSS_Style.InputParam['alert']): Promise<Tokens_CSS_Style.AlertStyles>;
     /**
      * @since 0.1.0-alpha
      * @since 0.1.0-beta.0.draft — Added partial param.
      */
-    static buttonStyle(iconStyles: Tokens_CSS_Style.IconStyles, partial?: Tokens_CSS_Style.InputParam['button']): {
+    static buttonStyle(iconStyles: Tokens_CSS_Style.IconStyles, partial?: Tokens_CSS_Style.InputParam['button']): Promise<{
         $: Tokens_CSS_Style.ButtonStyles;
         disabled: Tokens_CSS_Style.ButtonStyles_Disabled;
         inline: Tokens_CSS_Style.ButtonStyles_Inline;
-    };
+    }>;
     /**
      * @since 0.1.0-alpha
      * @since 0.1.0-beta.0.draft — Added partial param.
      */
-    static headingStyle<T_Key extends keyof Tokens_CSS_Style.Data['heading']>(heading: T_Key, partial?: NonNullable<Tokens_CSS_Style.InputParam['heading']>[T_Key]): Tokens_CSS_Style.HeadingStyles_Generic<T_Key>;
+    static headingStyle<T_Key extends keyof Tokens_CSS_Style.Data['heading']>(heading: T_Key, partial?: NonNullable<Tokens_CSS_Style.InputParam['heading']>[T_Key]): Promise<Tokens_CSS_Style.HeadingStyles_Generic<T_Key>>;
     /**
      * @since 0.1.0-beta.0.draft
      */
-    static iconStyle(partial?: Tokens_CSS_Style.InputParam['icon']): Tokens_CSS_Style.IconStyles;
+    static iconStyle(partial?: Tokens_CSS_Style.InputParam['icon']): Promise<Tokens_CSS_Style.IconStyles>;
     /**
      * @since 0.1.0-beta.0.draft
      */
-    static inputStyle(partial?: Tokens_CSS_Style.InputParam['input']): {
-        readonly $: {
-            border: {
-                radius: "0";
-                style: string;
-                width: "100";
-            };
-            focus: {
-                offset: "400";
-            };
-            icons: {
-                'letter-spacing': string;
-                offset: {
-                    block: {
-                        start: "0.5em";
-                        end: "0em";
-                    };
-                };
-            };
-            label: {
-                font: {
-                    style: "normal";
-                    weight: "500";
-                };
-                'line-height': "200";
-            };
-            'line-height': "300";
-            margin: {
-                block: {
-                    start: "400";
-                    end: "400";
-                    gap: "200";
-                };
-            };
-            padding: {
-                block: "200";
-                inline: "300";
-            };
-            placeholder: {
-                font: {
-                    style: "italic";
-                };
-                opacity: {
-                    low: string;
-                    average: string;
-                };
-            };
-        } | ({
-            border: {
-                radius: "0";
-                style: string;
-                width: "100";
-            };
-            focus: {
-                offset: "400";
-            };
-            icons: {
-                'letter-spacing': string;
-                offset: {
-                    block: {
-                        start: "0.5em";
-                        end: "0em";
-                    };
-                };
-            };
-            label: {
-                font: {
-                    style: "normal";
-                    weight: "500";
-                };
-                'line-height': "200";
-            };
-            'line-height': "300";
-            margin: {
-                block: {
-                    start: "400";
-                    end: "400";
-                    gap: "200";
-                };
-            };
-            padding: {
-                block: "200";
-                inline: "300";
-            };
-            placeholder: {
-                font: {
-                    style: "italic";
-                };
-                opacity: {
-                    low: string;
-                    average: string;
-                };
-            };
-        } & RecursivePartial<Tokens_CSS_Style.InputStyles>);
-        readonly file: {
-            readonly padding: {
-                block: AnyTokenLevel;
-                inline: AnyTokenLevel;
-            } | {
-                block: AnyTokenLevel;
-                inline: AnyTokenLevel;
-            };
-        };
-        readonly disabled: Tokens_CSS_Style.InputStyles_Variation;
-        readonly readonly: Tokens_CSS_Style.InputStyles_Variation;
-    };
+    static inputStyle(partial?: Tokens_CSS_Style.InputParam['input']): Promise<Tokens_CSS_Style.Data['input']>;
     /**
      * @since 0.1.0-beta.0.draft
      */
-    static widgetStyle(partial?: Tokens_CSS_Style.InputParam['widget']): Tokens_CSS_Style.WidgetStyles;
+    static toggleStyle(widgetStyles: Tokens_CSS_Style.WidgetStyles, partial?: Tokens_CSS_Style.InputParam['toggle']): Promise<Tokens_CSS_Style.ToggleStyles>;
     /**
      * @since 0.1.0-beta.0.draft
      */
-    protected static mergeData(partial: Tokens_CSS_Style.InputParam): {
-        alert: Tokens_CSS_Style.AlertStyles;
-        button: {
-            $: Tokens_CSS_Style.ButtonStyles;
-            disabled: Tokens_CSS_Style.ButtonStyles_Disabled;
-            inline: Tokens_CSS_Style.ButtonStyles_Inline;
-        };
-        heading: {
-            unstyled: Tokens_CSS_Style.HeadingStyles_Unstyled;
-            2: Tokens_CSS_Style.HeadingStyles;
-            1: Tokens_CSS_Style.HeadingStyles;
-            4: Tokens_CSS_Style.HeadingStyles;
-            3: Tokens_CSS_Style.HeadingStyles;
-            7: Tokens_CSS_Style.HeadingStyles;
-            5: Tokens_CSS_Style.HeadingStyles;
-            6: Tokens_CSS_Style.HeadingStyles;
-            8: Tokens_CSS_Style.HeadingStyles;
-            9: Tokens_CSS_Style.HeadingStyles;
-            10: Tokens_CSS_Style.HeadingStyles;
-        };
-        icon: Tokens_CSS_Style.IconStyles;
-        input: {
-            readonly $: {
-                border: {
-                    radius: "0";
-                    style: string;
-                    width: "100";
-                };
-                focus: {
-                    offset: "400";
-                };
-                icons: {
-                    'letter-spacing': string;
-                    offset: {
-                        block: {
-                            start: "0.5em";
-                            end: "0em";
-                        };
-                    };
-                };
-                label: {
-                    font: {
-                        style: "normal";
-                        weight: "500";
-                    };
-                    'line-height': "200";
-                };
-                'line-height': "300";
-                margin: {
-                    block: {
-                        start: "400";
-                        end: "400";
-                        gap: "200";
-                    };
-                };
-                padding: {
-                    block: "200";
-                    inline: "300";
-                };
-                placeholder: {
-                    font: {
-                        style: "italic";
-                    };
-                    opacity: {
-                        low: string;
-                        average: string;
-                    };
-                };
-            } | ({
-                border: {
-                    radius: "0";
-                    style: string;
-                    width: "100";
-                };
-                focus: {
-                    offset: "400";
-                };
-                icons: {
-                    'letter-spacing': string;
-                    offset: {
-                        block: {
-                            start: "0.5em";
-                            end: "0em";
-                        };
-                    };
-                };
-                label: {
-                    font: {
-                        style: "normal";
-                        weight: "500";
-                    };
-                    'line-height': "200";
-                };
-                'line-height': "300";
-                margin: {
-                    block: {
-                        start: "400";
-                        end: "400";
-                        gap: "200";
-                    };
-                };
-                padding: {
-                    block: "200";
-                    inline: "300";
-                };
-                placeholder: {
-                    font: {
-                        style: "italic";
-                    };
-                    opacity: {
-                        low: string;
-                        average: string;
-                    };
-                };
-            } & RecursivePartial<Tokens_CSS_Style.InputStyles>);
-            readonly file: {
-                readonly padding: {
-                    block: AnyTokenLevel;
-                    inline: AnyTokenLevel;
-                } | {
-                    block: AnyTokenLevel;
-                    inline: AnyTokenLevel;
-                };
-            };
-            readonly disabled: Tokens_CSS_Style.InputStyles_Variation;
-            readonly readonly: Tokens_CSS_Style.InputStyles_Variation;
-        };
-        'flow-margin': Tokens_CSS_Style.FlowMargin | (Tokens_CSS_Style.FlowMargin & RecursivePartial<Tokens_CSS_Style.FlowMargin>);
-        selection: {
-            background: {
-                opacity: {
-                    low: string;
-                    average: string;
-                    high: string;
-                };
-            };
-        };
-        widget: Tokens_CSS_Style.WidgetStyles;
-    };
-    static get default(): {
-        readonly alert: Tokens_CSS_Style.AlertStyles;
-        readonly button: {
-            $: Tokens_CSS_Style.ButtonStyles;
-            disabled: Tokens_CSS_Style.ButtonStyles_Disabled;
-            inline: Tokens_CSS_Style.ButtonStyles_Inline;
-        };
-        readonly heading: {
-            readonly unstyled: Tokens_CSS_Style.HeadingStyles_Unstyled;
-            readonly 2: Tokens_CSS_Style.HeadingStyles;
-            readonly 1: Tokens_CSS_Style.HeadingStyles;
-            readonly 4: Tokens_CSS_Style.HeadingStyles;
-            readonly 3: Tokens_CSS_Style.HeadingStyles;
-            readonly 7: Tokens_CSS_Style.HeadingStyles;
-            readonly 5: Tokens_CSS_Style.HeadingStyles;
-            readonly 6: Tokens_CSS_Style.HeadingStyles;
-            readonly 8: Tokens_CSS_Style.HeadingStyles;
-            readonly 9: Tokens_CSS_Style.HeadingStyles;
-            readonly 10: Tokens_CSS_Style.HeadingStyles;
-        };
-        readonly icon: Tokens_CSS_Style.IconStyles;
-        readonly input: {
-            readonly $: {
-                border: {
-                    radius: "0";
-                    style: string;
-                    width: "100";
-                };
-                focus: {
-                    offset: "400";
-                };
-                icons: {
-                    'letter-spacing': string;
-                    offset: {
-                        block: {
-                            start: "0.5em";
-                            end: "0em";
-                        };
-                    };
-                };
-                label: {
-                    font: {
-                        style: "normal";
-                        weight: "500";
-                    };
-                    'line-height': "200";
-                };
-                'line-height': "300";
-                margin: {
-                    block: {
-                        start: "400";
-                        end: "400";
-                        gap: "200";
-                    };
-                };
-                padding: {
-                    block: "200";
-                    inline: "300";
-                };
-                placeholder: {
-                    font: {
-                        style: "italic";
-                    };
-                    opacity: {
-                        low: string;
-                        average: string;
-                    };
-                };
-            } | ({
-                border: {
-                    radius: "0";
-                    style: string;
-                    width: "100";
-                };
-                focus: {
-                    offset: "400";
-                };
-                icons: {
-                    'letter-spacing': string;
-                    offset: {
-                        block: {
-                            start: "0.5em";
-                            end: "0em";
-                        };
-                    };
-                };
-                label: {
-                    font: {
-                        style: "normal";
-                        weight: "500";
-                    };
-                    'line-height': "200";
-                };
-                'line-height': "300";
-                margin: {
-                    block: {
-                        start: "400";
-                        end: "400";
-                        gap: "200";
-                    };
-                };
-                padding: {
-                    block: "200";
-                    inline: "300";
-                };
-                placeholder: {
-                    font: {
-                        style: "italic";
-                    };
-                    opacity: {
-                        low: string;
-                        average: string;
-                    };
-                };
-            } & RecursivePartial<Tokens_CSS_Style.InputStyles>);
-            readonly file: {
-                readonly padding: {
-                    block: AnyTokenLevel;
-                    inline: AnyTokenLevel;
-                } | {
-                    block: AnyTokenLevel;
-                    inline: AnyTokenLevel;
-                };
-            };
-            readonly disabled: Tokens_CSS_Style.InputStyles_Variation;
-            readonly readonly: Tokens_CSS_Style.InputStyles_Variation;
-        };
-        readonly 'flow-margin': {
-            readonly $: "400";
-            readonly large: "600";
-            readonly small: "300";
-            readonly button: "300";
-        };
-        readonly selection: {
-            readonly background: {
-                readonly opacity: {
-                    readonly low: "65%";
-                    readonly average: "85%";
-                    readonly high: "95%";
-                };
-            };
-        };
-        readonly widget: Tokens_CSS_Style.WidgetStyles;
-    };
-    readonly data: Tokens_CSS_Style.Data;
-    constructor(input: Tokens_CSS_Style.InputParam);
+    static widgetStyle(partial?: Tokens_CSS_Style.InputParam['widget']): Promise<Tokens_CSS_Style.WidgetStyles>;
+    static get default(): Promise<Tokens_CSS_Style.Data>;
+    protected constructor(data: Tokens_CSS_Style.Data);
     toJSON(): Tokens_CSS_Style.JsonReturn;
     toScssVars(): Tokens_CSS_Style.ScssVars;
 }
@@ -776,6 +402,42 @@ export declare namespace Tokens_CSS_Style {
     /**
      * @since 0.1.0-beta.0.draft
      */
+    type ToggleStyles = {
+        /**
+         * For the toggle control.
+         */
+        control: {
+            $: {
+                padding: {
+                    block: {
+                        end: AnyTokenLevel;
+                    };
+                };
+            };
+            heading: {
+                [H in RequiredHeadingLevels]: ToggleStyles_ControlHeading;
+            } & {
+                [key: number]: ToggleStyles_ControlHeading;
+            };
+        };
+        /**
+         * Values for the set-flow-margins mixin.
+         */
+        'flow-margin': FlowMargin;
+    };
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    type ToggleStyles_ControlHeading = {
+        padding: {
+            block: {
+                end: AnyTokenLevel;
+            };
+        };
+    };
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
     type WidgetStyles = {
         /**
          * This should be a theme slug.
@@ -840,6 +502,12 @@ export declare namespace Tokens_CSS_Style {
          */
         'flow-margin': FlowMargin;
         /**
+         * Toggle block styles.
+         *
+         * @since 0.1.0-beta.0.draft
+         */
+        toggle: ToggleStyles;
+        /**
          * @since 0.1.0-beta.0.draft — Restructured object nesting.
          */
         selection: {
@@ -894,6 +562,10 @@ export declare namespace Tokens_CSS_Style {
          * @since 0.1.0-beta.0.draft
          */
         'flow-margin'?: RecursivePartial<Data['flow-margin']>;
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        toggle?: RecursivePartial<ToggleStyles>;
         /**
          * @since 0.1.0-beta.0.draft — Restructured object nesting.
          */

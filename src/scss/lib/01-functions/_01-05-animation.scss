@@ -64,7 +64,11 @@ $_motionTransition: ();
 
     $transition: ();
     @each $prop in map.get(tokens.$transition, properties, if($withMotion, motion, always)) {
-        $transition: list.append($transition, '#{$prop} #{$time} ease-in-out', $separator: comma);
+        $transition: list.append(
+            $transition,
+            '#{$prop} #{$time} #{tokens.$transition_function}',
+            $separator: comma
+        );
     }
 
     @return $transition;

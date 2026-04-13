@@ -95,7 +95,7 @@ export class Tokens_Colour<T_Types extends TokenTypes.Colour.TypeParams> extends
      * 
      * @since 0.1.0-alpha
      */
-    public async addContrastTests() {
+    public async addContrastTests(): Promise<void> {
         const promises: Promise<any>[] = [];
 
         for ( const colourName of [ 'black', 'white' ] as const ) {

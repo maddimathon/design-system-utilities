@@ -1,12 +1,22 @@
 {
-    "extends": "./tsconfig.base.json",
+    "extends": "@maddimathon/utility-astro/tsconfig.json",
     "include": [
         ".astro/types.d.ts",
         "./src/**/*"
     ],
     "exclude": [
         "./.scripts/**/*",
-        "./src/docs/_public/**/*",
-        "./src/ts/**/*"
-    ]
+        "./src/docs/_public/**/*"
+    ],
+    "compilerOptions": {
+        "allowUmdGlobalAccess": false,
+        "allowUnusedLabels": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "exactOptionalPropertyTypes": false,
+        "lib": ["ESNext"],
+        "noUnusedParameters": false,
+        "skipLibCheck": true,
+        "verbatimModuleSyntax": true
+    }
 }

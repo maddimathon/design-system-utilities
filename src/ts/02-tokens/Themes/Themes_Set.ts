@@ -68,7 +68,7 @@ export class Tokens_Themes_Set<
         },
 
         input: Tokens_Themes_Set.InputParam<T_ColourTypes, T_ThemeTypes>,
-    ) {
+    ): Promise<Tokens_Themes_Set<T_ColourTypes, T_ThemeTypes>> {
         const allBrightnessModes = [
             'light',
             'dark',
@@ -1278,7 +1278,7 @@ export namespace Tokens_Themes_Set {
              */
             export namespace DEFAULT {
 
-                export const average = {
+                export const average: Readonly<{
                     background: {
                         $: '150',
                         bright: '100',
@@ -1307,9 +1307,38 @@ export namespace Tokens_Themes_Set {
                         9: '700',
                         10: '700',
                     },
-                } as const satisfies SingleMode.Levels.Required<never>;
+                }> = {
+                    background: {
+                        $: '150',
+                        bright: '100',
+                        accent: '200',
+                        grey: '200',
+                    },
+                    text: {
+                        $: '750',
+                        accent: '700',
+                        min: '600',
+                    },
+                    ui: {
+                        $: '750',
+                        accent: '700',
+                        min: '600',
+                    },
+                    heading: {
+                        1: '800',
+                        2: '700',
+                        3: '700',
+                        4: '700',
+                        5: '700',
+                        6: '700',
+                        7: '700',
+                        8: '700',
+                        9: '700',
+                        10: '700',
+                    },
+                } satisfies SingleMode.Levels.Required<never>;
 
-                export const high = {
+                export const high: Readonly<{
                     background: {
                         $: '100',
                         bright: 'white',
@@ -1338,9 +1367,38 @@ export namespace Tokens_Themes_Set {
                         9: '750',
                         10: '750',
                     },
-                } as const satisfies SingleMode.Levels.Required<never>;
+                }> = {
+                    background: {
+                        $: '100',
+                        bright: 'white',
+                        accent: '150',
+                        grey: '150',
+                    },
+                    text: {
+                        $: '800',
+                        accent: '750',
+                        min: '700',
+                    },
+                    ui: {
+                        $: '800',
+                        accent: '750',
+                        min: '700',
+                    },
+                    heading: {
+                        1: '800',
+                        2: '750',
+                        3: '750',
+                        4: '750',
+                        5: '750',
+                        6: '750',
+                        7: '750',
+                        8: '750',
+                        9: '750',
+                        10: '750',
+                    },
+                } satisfies SingleMode.Levels.Required<never>;
 
-                export const low = {
+                export const low: Readonly<{
                     background: {
                         $: '250',
                         bright: '200',
@@ -1369,9 +1427,38 @@ export namespace Tokens_Themes_Set {
                         9: '750',
                         10: '750',
                     },
-                } as const satisfies SingleMode.Levels.Required<never>;
+                }> = {
+                    background: {
+                        $: '250',
+                        bright: '200',
+                        accent: '250',
+                        grey: '250',
+                    },
+                    text: {
+                        $: '700',
+                        accent: '700',
+                        min: '600',
+                    },
+                    ui: {
+                        $: '700',
+                        accent: '700',
+                        min: '600',
+                    },
+                    heading: {
+                        1: '700',
+                        2: '700',
+                        3: '700',
+                        4: '700',
+                        5: '750',
+                        6: '750',
+                        7: '750',
+                        8: '750',
+                        9: '750',
+                        10: '750',
+                    },
+                } satisfies SingleMode.Levels.Required<never>;
 
-                export const max = {
+                export const max: Readonly<{
                     background: 'white',
 
                     text: {
@@ -1397,7 +1484,33 @@ export namespace Tokens_Themes_Set {
                         9: '850',
                         10: '850',
                     },
-                } as const satisfies SingleMode.Levels.Required<never>;
+                }> = {
+                    background: 'white',
+
+                    text: {
+                        $: 'black',
+                        accent: '850',
+                        min: '850',
+                    },
+                    ui: {
+                        $: 'black',
+                        accent: '850',
+                        min: '850',
+                    },
+
+                    heading: {
+                        1: '850',
+                        2: '850',
+                        3: '850',
+                        4: '850',
+                        5: '850',
+                        6: '850',
+                        7: '850',
+                        8: '850',
+                        9: '850',
+                        10: '850',
+                    },
+                } satisfies SingleMode.Levels.Required<never>;
             }
 
             /**

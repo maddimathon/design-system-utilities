@@ -14,19 +14,26 @@ import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 /* import - values */
 
 /* import - components */
-import { TableOfContents, Toggle } from '@maddimathon/utility-astro/components';
+import { TableOfContents } from '@maddimathon/utility-astro/components';
 
 import LoremIpsum from './LoremIpsum.astro';
+import Toggle from './Toggle.astro';
 
 /* import - layouts */
 
 /* PROPS ===================================== */
 
 interface Props {
+    tocDefaultOpen?: boolean;
+    tocDisplayLevel?: ComponentProps<typeof Toggle>['displayHeading'];
     tokens: Tokens.JsonReturn;
 }
 
-const { tokens }: Props = Astro.props as Props;
+const {
+    tocDefaultOpen = false,
+    tocDisplayLevel,
+    tokens,
+}: Props = Astro.props as Props;
 
 /* CONSTANTS ===================================== */
 
@@ -90,12 +97,13 @@ const tocMenu: ComponentProps<typeof TableOfContents>['menu'] = [
 
 <TableOfContents
     convertHrefStringsToAbsolute={false}
-    defaultOpen={true}
+    displayHeading={tocDisplayLevel}
+    defaultOpen={tocDefaultOpen}
     heading={2}
     menu={tocMenu}
 />
 
-<hr />
+<h2>Toggle Demos</h2>
 
 <Toggle id={exampleMenuIds.one.id}>
     <p>Boo!</p>

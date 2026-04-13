@@ -524,7 +524,7 @@ export namespace Tokens_Typography {
             'Apple Color Emoji',
             'Segoe UI Emoji',
             'Segoe UI Symbol',
-        ];
+        ] as const;
 
         /**
          * @since 0.1.0-alpha
@@ -545,7 +545,7 @@ export namespace Tokens_Typography {
             'Apple Color Emoji',
             'Segoe UI Emoji',
             'Segoe UI Symbol',
-        ];
+        ] as const;
 
         /**
          * @since 0.1.0-alpha

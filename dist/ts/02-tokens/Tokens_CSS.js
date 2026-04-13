@@ -18,6 +18,18 @@ import { Tokens_CSS_Transition } from './CSS/CSS_Transition.js';
  * @since 0.1.0-alpha
  */
 export class Tokens_CSS extends AbstractTokens {
+    border;
+    style;
+    transition;
+    zIndex;
+    /**
+     * Builds tokens faster.
+     *
+     * @since 0.1.0-beta.0.draft
+     */
+    static async build(input) {
+        return Tokens_CSS_Style.build(input.style ?? {}).then(style => new Tokens_CSS(new Tokens_CSS_Border(input.border ?? {}), style, new Tokens_CSS_Transition(input.transition ?? {}), mergeArgs(Tokens_CSS.default.zIndex, input.zIndex)));
+    }
     static get default() {
         return {
             zIndex: {
@@ -36,16 +48,12 @@ export class Tokens_CSS extends AbstractTokens {
             zIndex: this.zIndex,
         };
     }
-    border;
-    style;
-    transition;
-    zIndex;
-    constructor(input) {
+    constructor(border, style, transition, zIndex) {
         super();
-        this.border = new Tokens_CSS_Border(input.border ?? {});
-        this.style = new Tokens_CSS_Style(input.style ?? {});
-        this.transition = new Tokens_CSS_Transition(input.transition ?? {});
-        this.zIndex = mergeArgs(Tokens_CSS.default.zIndex, input.zIndex);
+        this.border = border;
+        this.style = style;
+        this.transition = transition;
+        this.zIndex = zIndex;
     }
     toJSON() {
         return {

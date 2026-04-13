@@ -766,7 +766,7 @@ export namespace getBrandConstants {
                     logos?: Omit<getSvgConsts.Args, 'valueMappers'>,
                     theme?: Omit<getThemeConsts.Args, 'valueMappers'>,
                 } = {},
-            ) {
+            ): Promise<string> {
 
                 const [
                     icons,
@@ -1047,7 +1047,7 @@ export namespace getBrandConstants {
                     logos?: Omit<getSvgConsts.Args, 'valueMappers'>,
                     theme?: Omit<getThemeConsts.Args, 'valueMappers'>,
                 } = {},
-            ) {
+            ): Promise<string> {
 
                 const [
                     icons,

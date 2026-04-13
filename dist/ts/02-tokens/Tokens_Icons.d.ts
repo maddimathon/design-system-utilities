@@ -24,69 +24,7 @@ export declare class Tokens_Icons<T_ExtraIconNames extends string> extends Abstr
     #private;
     readonly fontName: string;
     static get defaultCodepoints(): {
-        attachment: number;
-        caution: number;
-        check: number;
-        clock: number;
-        close: number;
-        code: number;
-        compass: number;
-        dash: number;
-        'double-check': number;
-        down: number;
-        download: number;
-        draft: number;
-        error: number;
-        external: number;
-        fail: number;
-        forbidden: number;
-        hidden: number;
-        info: number;
-        left: number;
-        lightbulb: number;
-        lightning: number;
-        lock: number;
-        'logo-facebook': number;
-        'logo-instagram': number;
-        'logo-linkedin': number;
-        maximum: number;
-        minimum: number;
-        minus: number;
-        no: number;
-        note: number;
-        paperclip: number;
-        plus: number;
-        private: number;
-        question: number;
-        refresh: number;
-        right: number;
-        search: number;
-        settings: number;
-        star: number;
-        success: number;
-        ui: number;
-        'ui-check': number;
-        'ui-minimum': number;
-        unlock: number;
-        up: number;
-        warning: number;
-        computer: number;
-        alarm: number;
-        biography: number;
-        book: number;
-        contact: number;
-        discussion: number;
-        group: number;
-        link: number;
-        location: number;
-        person: number;
-        pinned: number;
-        quote: number;
-        reading: number;
-        alert: number;
-        'logo-circle-facebook': number;
-        'logo-circle-instagram': number;
-        'logo-circle-linkedin': number;
+        [I in Tokens_Icons.DefaultIconNames]: number;
     };
     static get default(): {
         [I in Tokens_Icons.DefaultIconNames]: Tokens_Icons.Local_SvgMaker.Data<I, never>;
@@ -99,24 +37,7 @@ export declare class Tokens_Icons<T_ExtraIconNames extends string> extends Abstr
     /**
      * @since 0.1.0-beta.0.draft
      */
-    get font(): {
-        options: RunnerOptions;
-        writeResults: {
-            content: string | Buffer;
-            writePath: string;
-        }[];
-        assetsIn: {
-            [key: string]: {
-                id: string;
-                absolutePath: string;
-                relativePath: string;
-            };
-        };
-        assetsOut: { [key in FontAssetType | OtherAssetType]?: string | Buffer; };
-        codepoints: {
-            [key: string]: number;
-        };
-    } | undefined;
+    get font(): undefined | Awaited<ReturnType<typeof this.toIconFont>>;
     constructor(fontName: string, input: Tokens_Icons.InputParam<T_ExtraIconNames>);
     /**
      * @since 0.1.0-beta.0.draft
@@ -159,7 +80,7 @@ export declare namespace Tokens_Icons {
     /**
      * @since 0.1.0-alpha
      */
-    type DefaultIconNames = "alarm" | "alert" | "attachment" | "biography" | "book" | "caution" | "check" | "clock" | "close" | "code" | "compass" | "compass" | "computer" | "contact" | "dash" | "discussion" | "double-check" | "down" | "download" | "draft" | "error" | "external" | "fail" | "forbidden" | "group" | "hidden" | "info" | "left" | "lightbulb" | "lightning" | "link" | "location" | "lock" | "logo-circle-facebook" | "logo-circle-instagram" | "logo-circle-linkedin" | "logo-facebook" | "logo-instagram" | "logo-linkedin" | "maximum" | "minimum" | "minus" | "no" | "note" | "paperclip" | "person" | "pinned" | "plus" | "private" | "question" | "quote" | "reading" | "refresh" | "right" | "search" | "settings" | "star" | "success" | "ui-check" | "ui-minimum" | "ui" | "unlock" | "up" | "warning";
+    type DefaultIconNames = "alarm" | "alert" | "attachment" | "biography" | "book" | "caution" | "check" | "clock" | "close" | "code" | "compass" | "compass" | "computer" | "contact" | "dash" | "discussion" | "double-check" | "down" | "download" | "draft" | "error" | "external" | "fail" | "forbidden" | "group" | "hidden" | "info" | "left" | "lightbulb" | "lightning" | "link" | "location" | "lock" | "logo-circle-facebook" | "logo-circle-instagram" | "logo-circle-linkedin" | "logo-facebook" | "logo-instagram" | "logo-linkedin" | "maximum" | "minimum" | "minus" | "no" | "note" | "paperclip" | "person" | "pinned" | "plus" | "private" | "question" | "quote" | "reading" | "refresh" | "right" | "search" | "settings" | "star" | "success" | "toggle" | "ui-check" | "ui-minimum" | "ui" | "unlock" | "up" | "warning";
     /**
      * @since 0.1.0-beta.0.draft
      */

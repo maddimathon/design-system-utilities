@@ -273,7 +273,8 @@ pre {
         U+F120, U+F121, U+F14E, U+F14F, U+F122, U+F155, U+F156, U+F157, U+F123,
         U+F124, U+F125, U+F126, U+F127, U+F128, U+F129, U+F130, U+F131, U+F150,
         U+F151, U+F132, U+F133, U+F134, U+F152, U+F153, U+F135, U+F136, U+F137,
-        U+F138, U+F139, U+F140, U+F141, U+F142, U+F143, U+F144, U+F145, U+F146;
+        U+F138, U+F139, U+F140, U+F158, U+F141, U+F142, U+F143, U+F144, U+F145,
+        U+F146;
     src:
         url("../fonts/icons/woff2/icons.woff2") format("woff2"),
         url("../fonts/icons/woff/icons.woff") format("woff"),
@@ -290,7 +291,8 @@ pre {
         U+F120, U+F121, U+F14E, U+F14F, U+F122, U+F155, U+F156, U+F157, U+F123,
         U+F124, U+F125, U+F126, U+F127, U+F128, U+F129, U+F130, U+F131, U+F150,
         U+F151, U+F132, U+F133, U+F134, U+F152, U+F153, U+F135, U+F136, U+F137,
-        U+F138, U+F139, U+F140, U+F141, U+F142, U+F143, U+F144, U+F145, U+F146;
+        U+F138, U+F139, U+F140, U+F158, U+F141, U+F142, U+F143, U+F144, U+F145,
+        U+F146;
     src:
         url("../fonts/icons/woff2/icons.woff2") format("woff2"),
         url("../fonts/icons/woff/icons.woff") format("woff"),
@@ -865,6 +867,20 @@ html {
     --selection-background-opacity-average: 85%;
     --selection-background-opacity-high: 95%;
     --selection-background-opacity-low: 65%;
+    --toggle-control-padding-block-end: var(--pad-soft-200, 0.3125em);
+    --toggle-control-heading-1-padding-block-end: var(--pad-soft-200, 0.3125em);
+    --toggle-control-heading-10-padding-block-end: var(
+        --pad-soft-200,
+        0.3125em
+    );
+    --toggle-control-heading-2-padding-block-end: var(--pad-soft-200, 0.3125em);
+    --toggle-control-heading-3-padding-block-end: var(--pad-soft-200, 0.3125em);
+    --toggle-control-heading-4-padding-block-end: var(--pad-soft-200, 0.3125em);
+    --toggle-control-heading-5-padding-block-end: var(--pad-soft-200, 0.3125em);
+    --toggle-control-heading-6-padding-block-end: var(--pad-soft-200, 0.3125em);
+    --toggle-control-heading-7-padding-block-end: var(--pad-soft-200, 0.3125em);
+    --toggle-control-heading-8-padding-block-end: var(--pad-soft-200, 0.3125em);
+    --toggle-control-heading-9-padding-block-end: var(--pad-soft-200, 0.3125em);
     --widget-background: var(--theme-background-grey, Canvas);
     --widget-border-color: var(--theme-ui-grey, CanvasText);
     --widget-border-radius: 0;
@@ -15285,6 +15301,8 @@ hr {
     --display: block;
     display: block;
     display: var(--display, block);
+    justify-self: center;
+    align-self: center;
     margin-top: 2.25rem;
     margin-bottom: 2.25rem;
     margin-top: var(--mrg-firm-600, 2.25rem);
@@ -16407,11 +16425,11 @@ a[aria-disabled="true"][href],
 a[disabled][href] {
     --focus-ring-outline-color: var(--theme-link-outline-disabled, GrayText);
     --icon-color: var(--theme-link-icon-disabled, GrayText);
-    text-decoration-line: underline;
     text-decoration-color: hsl(339.45, 0%, 34.6%);
     text-decoration-color: var(--theme-link-decoration-disabled, GrayText);
     color: hsl(339.45, 0%, 34.6%);
     color: var(--theme-link-disabled, GrayText);
+    text-decoration-line: underline;
 }
 .no-js a[aria-disabled="true"][href]:focus,
 .no-js a[disabled][href]:focus,
@@ -16678,7 +16696,7 @@ blockquote {
     justify-content: center;
     justify-items: stretch;
     align-content: start;
-    align-items: start;
+    align-items: stretch;
     justify-self: center;
     border-left: 0.125rem solid hsl(278.16, 60.54%, 30.06%);
     border-left: var(--border-width-200, 0.125rem) solid
@@ -17801,12 +17819,12 @@ fieldset {
     padding-left: var(--mrg-firm-400, 1.25rem);
     padding-right: var(--mrg-firm-400, 1.25rem);
     border: 0.0625rem solid hsl(278.16, 60.54%, 30.06%);
-    border: 0.0625rem solid var(--sys-clr-input-border, FieldText);
+    border: 0.0625rem solid var(--theme-input-border, CanvasText);
     border-radius: 0;
     background-color: hsl(339.45, 0%, 91.26%);
-    background-color: var(--sys-clr-background, Canvas);
+    background-color: var(--theme-background, Canvas);
     color: hsl(339.45, 0%, 17.88%);
-    color: var(--sys-clr-text, CanvasText);
+    color: var(--theme-text, CanvasText);
 }
 fieldset > :first-child {
     margin-top: 0;
@@ -17821,27 +17839,27 @@ fieldset > legend + * {
 .no-js fieldset:focus,
 .js__no-whereSelector fieldset:focus {
     border-color: hsl(162, 69%, 16.5%);
-    border-color: var(--sys-clr-input-border-hover, FieldText);
+    border-color: var(--theme-input-border-hover, CanvasText);
 }
 
 :where(.js__no-focusVisible) fieldset:focus {
     border-color: hsl(162, 69%, 16.5%);
-    border-color: var(--sys-clr-input-border-hover, FieldText);
+    border-color: var(--theme-input-border-hover, CanvasText);
 }
 
 fieldset:focus-visible {
     border-color: hsl(162, 69%, 16.5%);
-    border-color: var(--sys-clr-input-border-hover, FieldText);
+    border-color: var(--theme-input-border-hover, CanvasText);
 }
 
 fieldset:focus-within {
     border-color: hsl(162, 69%, 16.5%);
-    border-color: var(--sys-clr-input-border-hover, FieldText);
+    border-color: var(--theme-input-border-hover, CanvasText);
 }
 
 fieldset:active {
     border-color: hsl(2.81, 72.25%, 28.09%);
-    border-color: var(--sys-clr-input-border-active, FieldText);
+    border-color: var(--theme-input-border-active, ActiveText);
 }
 
 fieldset legend {
@@ -22714,8 +22732,8 @@ th[scope="row"] {
     color: hsl(339.45, 0%, 17.88%);
     color: var(--icon-color, var(--theme-ui, CanvasText));
     transition:
-        color 250ms ease-in-out,
-        fill 250ms ease-in-out;
+        color 250ms ease-out,
+        fill 250ms ease-out;
 }
 .icon > svg {
     --display: inline-block;
@@ -22732,6 +22750,7 @@ th[scope="row"] {
 .icon--ui-minimum,
 .icon--ui-check,
 .icon--ui,
+.icon--toggle,
 .icon--success,
 .icon--star,
 .icon--settings,
@@ -22796,6 +22815,7 @@ th[scope="row"] {
 .no-js .icon--ui-minimum,
 .no-js .icon--ui-check,
 .no-js .icon--ui,
+.no-js .icon--toggle,
 .no-js .icon--success,
 .no-js .icon--star,
 .no-js .icon--settings,
@@ -22858,6 +22878,7 @@ th[scope="row"] {
 .js__no-whereSelector .icon--ui-minimum,
 .js__no-whereSelector .icon--ui-check,
 .js__no-whereSelector .icon--ui,
+.js__no-whereSelector .icon--toggle,
 .js__no-whereSelector .icon--success,
 .js__no-whereSelector .icon--star,
 .js__no-whereSelector .icon--settings,
@@ -22923,6 +22944,7 @@ th[scope="row"] {
 .no-js .icon--ui-minimum::before,
 .no-js .icon--ui-check::before,
 .no-js .icon--ui::before,
+.no-js .icon--toggle::before,
 .no-js .icon--success::before,
 .no-js .icon--star::before,
 .no-js .icon--settings::before,
@@ -22985,6 +23007,7 @@ th[scope="row"] {
 .js__no-whereSelector .icon--ui-minimum::before,
 .js__no-whereSelector .icon--ui-check::before,
 .js__no-whereSelector .icon--ui::before,
+.js__no-whereSelector .icon--toggle::before,
 .js__no-whereSelector .icon--success::before,
 .js__no-whereSelector .icon--star::before,
 .js__no-whereSelector .icon--settings::before,
@@ -23052,6 +23075,7 @@ th[scope="row"] {
 .no-js .icon--ui-minimum::after,
 .no-js .icon--ui-check::after,
 .no-js .icon--ui::after,
+.no-js .icon--toggle::after,
 .no-js .icon--success::after,
 .no-js .icon--star::after,
 .no-js .icon--settings::after,
@@ -23114,6 +23138,7 @@ th[scope="row"] {
 .js__no-whereSelector .icon--ui-minimum::after,
 .js__no-whereSelector .icon--ui-check::after,
 .js__no-whereSelector .icon--ui::after,
+.js__no-whereSelector .icon--toggle::after,
 .js__no-whereSelector .icon--success::after,
 .js__no-whereSelector .icon--star::after,
 .js__no-whereSelector .icon--settings::after,
@@ -23182,6 +23207,7 @@ th[scope="row"] {
 :where(.js__no-aspectRatio) .icon--ui-minimum,
 :where(.js__no-aspectRatio) .icon--ui-check,
 :where(.js__no-aspectRatio) .icon--ui,
+:where(.js__no-aspectRatio) .icon--toggle,
 :where(.js__no-aspectRatio) .icon--success,
 :where(.js__no-aspectRatio) .icon--star,
 :where(.js__no-aspectRatio) .icon--settings,
@@ -23247,6 +23273,7 @@ th[scope="row"] {
 :where(.js__no-aspectRatio) .icon--ui-minimum::before,
 :where(.js__no-aspectRatio) .icon--ui-check::before,
 :where(.js__no-aspectRatio) .icon--ui::before,
+:where(.js__no-aspectRatio) .icon--toggle::before,
 :where(.js__no-aspectRatio) .icon--success::before,
 :where(.js__no-aspectRatio) .icon--star::before,
 :where(.js__no-aspectRatio) .icon--settings::before,
@@ -23314,6 +23341,7 @@ th[scope="row"] {
 :where(.js__no-aspectRatio) .icon--ui-minimum::after,
 :where(.js__no-aspectRatio) .icon--ui-check::after,
 :where(.js__no-aspectRatio) .icon--ui::after,
+:where(.js__no-aspectRatio) .icon--toggle::after,
 :where(.js__no-aspectRatio) .icon--success::after,
 :where(.js__no-aspectRatio) .icon--star::after,
 :where(.js__no-aspectRatio) .icon--settings::after,
@@ -23428,6 +23456,8 @@ th[scope="row"] {
 .add-ui-check-icon-after::after,
 .add-ui-icon::after,
 .add-ui-icon-after::after,
+.add-toggle-icon::after,
+.add-toggle-icon-after::after,
 .add-success-icon::after,
 .add-success-icon-after::after,
 .add-star-icon::after,
@@ -23586,6 +23616,7 @@ th[scope="row"] {
 .add-ui-minimum-icon-before::before,
 .add-ui-check-icon-before::before,
 .add-ui-icon-before::before,
+.add-toggle-icon-before::before,
 .add-success-icon-before::before,
 .add-star-icon-before::before,
 .add-settings-icon-before::before,
@@ -24023,6 +24054,12 @@ th[scope="row"] {
     content: "\f140";
     content: "\f140"/"Success icon";
 }
+.add-toggle-icon::after,
+.add-toggle-icon-after::after,
+.add-toggle-icon-before::before {
+    content: "\f158";
+    content: "\f158"/"Toggle icon";
+}
 .add-ui-icon::after,
 .add-ui-icon-after::after,
 .add-ui-icon-before::before {
@@ -24074,8 +24111,8 @@ th[scope="row"] {
     color: var(--theme-text-primary, CanvasText);
     vertical-align: middle;
     transition:
-        color 250ms ease-in-out,
-        fill 250ms ease-in-out;
+        color 250ms ease-out,
+        fill 250ms ease-out;
 }
 .brand-logo > svg {
     --display: block;
@@ -24140,9 +24177,9 @@ th[scope="row"] {
     background: hsl(339.45, 0%, 91.26%);
     background: var(--theme-background, Canvas);
     transition:
-        background ease-in-out 250ms,
-        border-color ease-in-out 250ms,
-        color ease-in-out 250ms;
+        background 250ms ease-out,
+        border-color 250ms ease-out,
+        color 250ms ease-out;
 }
 .alert-block > .alert-block__icon,
 .alert-block > .alert-block__headline > .alert-block__icon {
@@ -24760,7 +24797,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     justify-content: center;
     justify-items: stretch;
     align-content: start;
-    align-items: start;
+    align-items: stretch;
     margin-top: 1.25rem;
     margin-bottom: 0.4375rem;
     margin-top: var(--flow-margin-firm-start, var(--mrg-firm-400, 1.25rem));
@@ -24784,9 +24821,9 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     background: hsl(339.45, 0%, 85.99%);
     background: var(--theme-background-grey, Canvas);
     transition:
-        background ease-in-out 250ms,
-        border-color ease-in-out 250ms,
-        color ease-in-out 250ms;
+        background 250ms ease-out,
+        border-color 250ms ease-out,
+        color 250ms ease-out;
 }
 .site-sidebar .widget-block {
     width: auto;
@@ -24857,13 +24894,169 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     display: var(--display, flex);
     position: relative;
     flex-direction: column;
-    justify-content: start;
+    flex-wrap: nowrap;
+    gap: 0;
+    justify-content: center;
+    justify-items: stretch;
     align-content: start;
     align-items: stretch;
+    --snippet-support-toggle-block--location: flex-contents-container;
+    display: contents;
+}
+:where(.js__displayContents) [data-toggle-content] > .container > :where(*),
+:where(.js__displayContents) [data-toggle-container] > :where(*) {
+    grid-column: content-start/content-end;
+    grid-column: var(--grid-column, content-start/content-end);
 }
 
 [data-toggle-container] {
     z-index: 999;
+    --snippet-support-toggle-block--location: toggle-container;
+}
+
+[data-toggle-control] {
+    --snippet-support-toggle-block--location: toggle-control;
+    --icon-color: var(--theme-ui, CanvasText);
+    border: none;
+    background: none;
+    color: inherit;
+    opacity: 1;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0;
+    width: 100%;
+    font: inherit;
+    text-align: inherit;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: text;
+}
+[data-toggle-control]::before,
+[data-toggle-control]::after {
+    content: none;
+}
+[data-toggle-control][aria-disabled] {
+    --snippet-support-toggle-block--location: toggle-control--disabled;
+    --icon-color: var(--theme-ui, CanvasText);
+    border: none;
+    background: none;
+    color: inherit;
+    opacity: 1;
+    cursor: text;
+}
+[data-toggle-control][aria-disabled]::before,
+[data-toggle-control][aria-disabled]::after {
+    content: none;
+}
+.no-js [data-toggle-control][aria-disabled]:focus,
+.js__no-whereSelector [data-toggle-control][aria-disabled]:focus {
+    --icon-color: var(--theme-ui, CanvasText);
+    border: none;
+    background: none;
+    color: inherit;
+    outline: none;
+    opacity: 1;
+}
+
+:where(.js__no-focusVisible) [data-toggle-control][aria-disabled]:focus {
+    --icon-color: var(--theme-ui, CanvasText);
+    border: none;
+    background: none;
+    color: inherit;
+    outline: none;
+    opacity: 1;
+}
+
+[data-toggle-control][aria-disabled]:hover,
+[data-toggle-control][aria-disabled]:active {
+    --icon-color: var(--theme-ui, CanvasText);
+    border: none;
+    background: none;
+    color: inherit;
+    outline: none;
+    opacity: 1;
+}
+
+[data-toggle-control][aria-disabled]:focus-visible {
+    --icon-color: var(--theme-ui, CanvasText);
+    border: none;
+    background: none;
+    color: inherit;
+    outline: none;
+    opacity: 1;
+}
+
+[data-toggle-control][aria-disabled]:focus-within {
+    --icon-color: var(--theme-ui, CanvasText);
+    border: none;
+    background: none;
+    color: inherit;
+    outline: none;
+    opacity: 1;
+}
+
+[data-toggle-control][aria-disabled] .toggle-icon {
+    display: none;
+    --snippet-support-toggle-block--location: toggle-control--disabled--icon;
+}
+.no-js [data-toggle-control]:focus,
+.js__no-whereSelector [data-toggle-control]:focus {
+    --snippet-support-toggle-block--location: toggle-control--hover-focus;
+    --icon-color: var(--theme-ui, CanvasText);
+    border: none;
+    background: none;
+    color: inherit;
+    opacity: 1;
+    outline: none;
+}
+
+:where(.js__no-focusVisible) [data-toggle-control]:focus {
+    --snippet-support-toggle-block--location: toggle-control--hover-focus;
+    --icon-color: var(--theme-ui, CanvasText);
+    border: none;
+    background: none;
+    color: inherit;
+    opacity: 1;
+    outline: none;
+}
+
+[data-toggle-control]:hover,
+[data-toggle-control]:active {
+    --snippet-support-toggle-block--location: toggle-control--hover-focus;
+    --icon-color: var(--theme-ui, CanvasText);
+    border: none;
+    background: none;
+    color: inherit;
+    opacity: 1;
+    outline: none;
+}
+
+[data-toggle-control]:focus-visible {
+    --snippet-support-toggle-block--location: toggle-control--hover-focus;
+    --icon-color: var(--theme-ui, CanvasText);
+    border: none;
+    background: none;
+    color: inherit;
+    opacity: 1;
+    outline: none;
+}
+
+[data-toggle-control]:focus-within {
+    --snippet-support-toggle-block--location: toggle-control--hover-focus;
+    --icon-color: var(--theme-ui, CanvasText);
+    border: none;
+    background: none;
+    color: inherit;
+    opacity: 1;
+    outline: none;
+}
+
+[data-toggle-control-backdrop] {
+    display: none;
+    position: fixed;
+    opacity: 0;
+    --snippet-support-toggle-block--location: toggle-control-backdrop;
 }
 
 .toggle-title,
@@ -24887,32 +25080,18 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 .toggle-title > .page-title {
     margin: 0;
     padding: 0;
+    --snippet-support-toggle-block--location: toggle-title-and-headings;
 }
 
 .toggle-title {
-    font-weight: 600;
+    --snippet-support-toggle-block--location: toggle-title;
+    display: contents;
 }
-.toggle-title > .unstyled-heading .toggle-icon,
-.toggle-title > h1 .toggle-icon,
-.toggle-title > .h1 .toggle-icon,
-.toggle-title > h2 .toggle-icon,
-.toggle-title > .h2 .toggle-icon,
-.toggle-title > h3 .toggle-icon,
-.toggle-title > .h3 .toggle-icon,
-.toggle-title > h4 .toggle-icon,
-.toggle-title > .h4 .toggle-icon,
-.toggle-title > h5 .toggle-icon,
-.toggle-title > .h5 .toggle-icon,
-.toggle-title > h6 .toggle-icon,
-.toggle-title > .h6 .toggle-icon,
-.toggle-title > .h7 .toggle-icon,
-.toggle-title > .h8 .toggle-icon,
-.toggle-title > .h9 .toggle-icon,
-.toggle-title > .h10 .toggle-icon,
-.toggle-title > .page-title .toggle-icon {
-    --icon-size: 1em;
-    padding-bottom: 0;
+:where(.js__displayContents) .toggle-title > :where(*) {
+    grid-column: content-start/content-end;
+    grid-column: var(--grid-column, content-start/content-end);
 }
+
 .toggle-title > .unstyled-heading [data-toggle-control],
 .toggle-title > h1 [data-toggle-control],
 .toggle-title > .h1 [data-toggle-control],
@@ -24936,97 +25115,99 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     letter-spacing: inherit;
     text-transform: inherit;
 }
-
-[data-toggle-control] {
-    --icon-color: currentColor;
-    margin: 0;
-    width: auto;
-    font: inherit;
-    text-align: inherit;
-    border: none;
-    background: none;
-    color: inherit;
+.toggle-title:has(
+    > .unstyled-heading,
+    > h1,
+    > .h1,
+    > h2,
+    > .h2,
+    > h3,
+    > .h3,
+    > h4,
+    > .h4,
+    > h5,
+    > .h5,
+    > h6,
+    > .h6,
+    > .h7,
+    > .h8,
+    > .h9,
+    > .h10,
+    > .page-title
+) {
+    --snippet-support-toggle-block--location: toggle-title--has-heading;
 }
-[data-toggle-control][aria-disabled] {
-    margin-top: 0.8125rem;
-    margin-top: var(--mrg-soft-400, 0.8125rem);
-    margin-bottom: 0;
-    margin-left: 0;
-    margin-right: 0;
-    padding: 0;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    cursor: text;
+.toggle-title > .unstyled-heading,
+.toggle-title > h1,
+.toggle-title > .h1,
+.toggle-title > h2,
+.toggle-title > .h2,
+.toggle-title > h3,
+.toggle-title > .h3,
+.toggle-title > h4,
+.toggle-title > .h4,
+.toggle-title > h5,
+.toggle-title > .h5,
+.toggle-title > h6,
+.toggle-title > .h6,
+.toggle-title > .h7,
+.toggle-title > .h8,
+.toggle-title > .h9,
+.toggle-title > .h10,
+.toggle-title > .page-title {
+    --snippet-support-toggle-block--location: toggle-title--heading;
 }
-[data-toggle-control][aria-disabled] .toggle-icon {
-    display: none;
+.toggle-title > .unstyled-heading .toggle-icon,
+.toggle-title > h1 .toggle-icon,
+.toggle-title > .h1 .toggle-icon,
+.toggle-title > h2 .toggle-icon,
+.toggle-title > .h2 .toggle-icon,
+.toggle-title > h3 .toggle-icon,
+.toggle-title > .h3 .toggle-icon,
+.toggle-title > h4 .toggle-icon,
+.toggle-title > .h4 .toggle-icon,
+.toggle-title > h5 .toggle-icon,
+.toggle-title > .h5 .toggle-icon,
+.toggle-title > h6 .toggle-icon,
+.toggle-title > .h6 .toggle-icon,
+.toggle-title > .h7 .toggle-icon,
+.toggle-title > .h8 .toggle-icon,
+.toggle-title > .h9 .toggle-icon,
+.toggle-title > .h10 .toggle-icon,
+.toggle-title > .page-title .toggle-icon {
+    --snippet-support-toggle-block--location: toggle-title--heading--icon;
+    padding-bottom: 0;
 }
-.no-js [data-toggle-control]:focus,
-.js__no-whereSelector [data-toggle-control]:focus {
-    border: none;
-    background: none;
-    opacity: 1;
-    color: inherit;
-}
-
-:where(.js__no-focusVisible) [data-toggle-control]:focus {
-    border: none;
-    background: none;
-    opacity: 1;
-    color: inherit;
-}
-
-[data-toggle-control]:hover,
-[data-toggle-control]:active {
-    border: none;
-    background: none;
-    opacity: 1;
-    color: inherit;
-}
-
-[data-toggle-control]:focus-visible {
-    border: none;
-    background: none;
-    opacity: 1;
-    color: inherit;
-}
-
-[data-toggle-control]:focus-within {
-    border: none;
-    background: none;
-    opacity: 1;
-    color: inherit;
-}
-
-[data-toggle-control-backdrop] {
-    display: none;
-    position: fixed;
-    opacity: 0;
+.toggle-title > .unstyled-heading [data-toggle-control],
+.toggle-title > h1 [data-toggle-control],
+.toggle-title > .h1 [data-toggle-control],
+.toggle-title > h2 [data-toggle-control],
+.toggle-title > .h2 [data-toggle-control],
+.toggle-title > h3 [data-toggle-control],
+.toggle-title > .h3 [data-toggle-control],
+.toggle-title > h4 [data-toggle-control],
+.toggle-title > .h4 [data-toggle-control],
+.toggle-title > h5 [data-toggle-control],
+.toggle-title > .h5 [data-toggle-control],
+.toggle-title > h6 [data-toggle-control],
+.toggle-title > .h6 [data-toggle-control],
+.toggle-title > .h7 [data-toggle-control],
+.toggle-title > .h8 [data-toggle-control],
+.toggle-title > .h9 [data-toggle-control],
+.toggle-title > .h10 [data-toggle-control],
+.toggle-title > .page-title [data-toggle-control] {
+    --snippet-support-toggle-block--location: toggle-title--heading--toggle-control;
 }
 
 .toggle-icon {
-    --icon-size: 1.125em;
-    --display: inline-block;
-    display: inline-block;
-    display: var(--display, inline-block);
-    vertical-align: sub;
-    padding-bottom: 0.03125em;
-    padding-bottom: var(--stroke-relative-100, 0.03125em);
-    padding-right: 0.125rem;
-    padding-right: var(--border-width-200, 0.125rem);
+    --snippet-support-toggle-block--location: toggle-icon;
 }
 .toggle-icon > svg {
-    stroke: currentColor;
-    stroke-width: max(1px, min(0.1875em, 0.25rem));
-    stroke-width: max(
-        1px,
-        min(
-            var(--stroke-relative-600, 0.1875em),
-            var(--border-width-400, 0.25rem)
-        )
-    );
-    fill: none;
+    --snippet-support-toggle-block--location: toggle-icon--svg;
+}
+
+.toggle-control-inner {
+    --snippet-support-toggle-block--location: toggle-control-inner;
 }
 
 [data-toggle-content] {
@@ -25038,10 +25219,15 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     justify-items: stretch;
     align-content: start;
     align-items: start;
+    --snippet-support-toggle-block--location: toggle-content;
 }
-/* With Javascript ==================================== */
+[data-toggle-content] > .container {
+    --snippet-support-toggle-block--location: toggle-content--container;
+}
+
+/* Javascript Enabled ==================================== */
+:where(.js) [data-toggle-container],
 :where(.js) [data-toggle-content],
-:where(.js) [data-toggle-control],
 :where(.js) .toggle-title,
 :where(.js) .toggle-title > .unstyled-heading,
 :where(.js) .toggle-title > h1,
@@ -25061,7 +25247,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 :where(.js) .toggle-title > .h9,
 :where(.js) .toggle-title > .h10,
 :where(.js) .toggle-title > .page-title,
-:where(.js) [data-toggle-container] {
+:where(.js) [data-toggle-control] {
     --display: grid;
     display: grid;
     display: var(--display, grid);
@@ -25075,48 +25261,14 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     justify-items: stretch;
     align-content: start;
     align-items: start;
+    --snippet-support-toggle-block--location: js--container-grid;
     grid-gap: 0 0.5rem;
     grid-gap: 0 var(--mrg-firm-200, 0.5rem);
     gap: 0 0.5rem;
     gap: 0 var(--mrg-firm-200, 0.5rem);
 }
 
-:where(.js) [data-toggle-container] {
-    margin-top: 1.25rem;
-    margin-bottom: 0.4375rem;
-    margin-top: var(--mrg-firm-400, 1.25rem);
-    margin-bottom: var(--mrg-half-400, 0.4375rem);
-    margin-left: 0;
-    margin-right: 0;
-    z-index: 1;
-}
-:where(.js) [data-toggle-container]:has(.toggle-title > .page-title) {
-    margin-top: 0;
-}
-:where(.js)
-    [data-toggle-container]:has(.toggle-title > h1, .toggle-title > .h1),
-:where(.js)
-    [data-toggle-container]:has(.toggle-title > h2, .toggle-title > .h2),
-:where(.js)
-    [data-toggle-container]:has(.toggle-title > h3, .toggle-title > .h3) {
-    margin-top: 3.125rem;
-    margin-top: var(--mrg-soft-800, 3.125rem);
-}
-:where(.js)
-    [data-toggle-container]:has(.toggle-title > h4, .toggle-title > .h4),
-:where(.js)
-    [data-toggle-container]:has(.toggle-title > h5, .toggle-title > .h5),
-:where(.js)
-    [data-toggle-container]:has(.toggle-title > h6, .toggle-title > .h6) {
-    margin-top: 1.625rem;
-    margin-top: var(--mrg-soft-600, 1.625rem);
-}
-:where(.js) [data-toggle-container]:has(.toggle-title > .h7 .h8 .h9 .h10) {
-    margin-top: 1.625rem;
-    margin-top: var(--mrg-soft-600, 1.625rem);
-}
 :where(.js) [data-toggle-content],
-:where(.js) [data-toggle-control],
 :where(.js) .toggle-title,
 :where(.js) .toggle-title > .unstyled-heading,
 :where(.js) .toggle-title > h1,
@@ -25135,72 +25287,39 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 :where(.js) .toggle-title > .h8,
 :where(.js) .toggle-title > .h9,
 :where(.js) .toggle-title > .h10,
-:where(.js) .toggle-title > .page-title {
+:where(.js) .toggle-title > .page-title,
+:where(.js) [data-toggle-control] {
     grid-template-columns: subgrid;
     grid-column: 1/-1;
     margin: 0;
     padding: 0;
+    --snippet-support-toggle-block--location: js--toggle-container-subgrid;
 }
 
-:where(.js) .toggle-title,
-:where(.js) .toggle-title > .unstyled-heading,
-:where(.js) .toggle-title > h1,
-:where(.js) .toggle-title > .h1,
-:where(.js) .toggle-title > h2,
-:where(.js) .toggle-title > .h2,
-:where(.js) .toggle-title > h3,
-:where(.js) .toggle-title > .h3,
-:where(.js) .toggle-title > h4,
-:where(.js) .toggle-title > .h4,
-:where(.js) .toggle-title > h5,
-:where(.js) .toggle-title > .h5,
-:where(.js) .toggle-title > h6,
-:where(.js) .toggle-title > .h6,
-:where(.js) .toggle-title > .h7,
-:where(.js) .toggle-title > .h8,
-:where(.js) .toggle-title > .h9,
-:where(.js) .toggle-title > .h10,
-:where(.js) .toggle-title > .page-title {
-    align-content: center;
-    align-items: center;
-    grid-row: 1/1;
-}
-:where(.js) .toggle-title {
-    z-index: 2;
-}
-:where(.js) .toggle-title > .unstyled-heading,
-:where(.js) .toggle-title > h1,
-:where(.js) .toggle-title > .h1,
-:where(.js) .toggle-title > h2,
-:where(.js) .toggle-title > .h2,
-:where(.js) .toggle-title > h3,
-:where(.js) .toggle-title > .h3,
-:where(.js) .toggle-title > h4,
-:where(.js) .toggle-title > .h4,
-:where(.js) .toggle-title > h5,
-:where(.js) .toggle-title > .h5,
-:where(.js) .toggle-title > h6,
-:where(.js) .toggle-title > .h6,
-:where(.js) .toggle-title > .h7,
-:where(.js) .toggle-title > .h8,
-:where(.js) .toggle-title > .h9,
-:where(.js) .toggle-title > .h10,
-:where(.js) .toggle-title > .page-title {
-    margin-top: 0;
-    margin-bottom: 0;
+:where(.js) [data-toggle-container] {
+    margin-left: 0;
+    margin-right: 0;
+    z-index: 1;
+    --snippet-support-toggle-block--location: js--toggle-container;
+    display: block;
+    display: var(--display, grid);
 }
 :where(.js) [data-toggle-control] {
     align-content: center;
     align-items: center;
     margin: 0;
+    --snippet-support-toggle-block--location: js--toggle-control;
     padding: 0;
-    padding-bottom: 0.3125rem;
-    padding-bottom: var(--mrg-soft-200, 0.3125rem);
-    font-weight: 600;
     -webkit-appearance: button;
     -moz-appearance: button;
     appearance: button;
     cursor: pointer;
+    --focus-ring-outline-color: var(--theme-link-outline-hover, ActiveText);
+    --icon-color: var(--theme-link-icon, LinkText);
+    text-decoration-color: hsl(278.16, 60.54%, 30.06%);
+    text-decoration-color: var(--theme-link-decoration, LinkText);
+    color: hsl(278.16, 60.54%, 30.06%);
+    color: var(--theme-link, LinkText);
 }
 :where(.js) [data-toggle-control][data-toggle-control-backdrop] {
     --display: block;
@@ -25215,14 +25334,18 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     padding: 0;
     width: auto;
     height: auto;
+    border-radius: 0;
+    z-index: -2;
+    --snippet-support-toggle-block--location: js--toggle-control-backdrop;
+    padding: 0;
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    cursor: pointer;
     -webkit-backdrop-filter: blur(1rem);
     backdrop-filter: blur(1rem);
     background: none;
     border: none;
-    border-radius: 0;
-    opacity: 1;
-    z-index: -2;
-    cursor: pointer;
 }
 :where(.js) [data-toggle-control][data-toggle-control-backdrop]::before,
 :where(.js) [data-toggle-control][data-toggle-control-backdrop]::after {
@@ -25239,12 +25362,12 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 }
 :where(.js) [data-toggle-control][data-toggle-control-backdrop]::before {
     background: hsl(339.45, 0%, 91.26%);
-    background: var(--sys-clr-background, Canvas);
+    background: var(--theme-background, Canvas);
     opacity: 0.625;
 }
 :where(.js) [data-toggle-control][data-toggle-control-backdrop]::after {
     background: hsl(278.16, 60.54%, 30.06%);
-    background: var(--sys-clr-link, LinkText);
+    background: var(--theme-link, LinkText);
     opacity: 0.1875;
 }
 .no-js :where(.js) [data-toggle-control][data-toggle-control-backdrop]:focus,
@@ -25297,16 +25420,145 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     --grid-column: icon;
     grid-column: icon;
     grid-column: var(--grid-column, icon);
+    --snippet-support-toggle-block--location: js--toggle-icon;
 }
 :where(.js) [data-toggle-control] .toggle-icon,
 :where(.js) [data-toggle-control] .toggle-icon svg {
     --display: block;
     display: block;
     display: var(--display, block);
+    --snippet-support-toggle-block--location: js--toggle-icon-and-svg;
 }
 :where(.js) [data-toggle-control] .toggle-icon svg #a,
 :where(.js) [data-toggle-control] .toggle-icon svg #b {
     transform-origin: center;
+}
+:where(.js) .toggle-control-inner {
+    --grid-column: content;
+    grid-column: content;
+    grid-column: var(--grid-column, content);
+    --snippet-support-toggle-block--location: js--toggle-control-inner;
+}
+:where(.js) .toggle-title,
+:where(.js) .toggle-title > .unstyled-heading,
+:where(.js) .toggle-title > h1,
+:where(.js) .toggle-title > .h1,
+:where(.js) .toggle-title > h2,
+:where(.js) .toggle-title > .h2,
+:where(.js) .toggle-title > h3,
+:where(.js) .toggle-title > .h3,
+:where(.js) .toggle-title > h4,
+:where(.js) .toggle-title > .h4,
+:where(.js) .toggle-title > h5,
+:where(.js) .toggle-title > .h5,
+:where(.js) .toggle-title > h6,
+:where(.js) .toggle-title > .h6,
+:where(.js) .toggle-title > .h7,
+:where(.js) .toggle-title > .h8,
+:where(.js) .toggle-title > .h9,
+:where(.js) .toggle-title > .h10,
+:where(.js) .toggle-title > .page-title {
+    align-content: center;
+    align-items: center;
+    grid-row: 1/1;
+    --snippet-support-toggle-block--location: js--toggle-title-and-headings;
+}
+:where(.js) .toggle-title {
+    z-index: 2;
+    --snippet-support-toggle-block--location: js--toggle-title;
+}
+:where(.js) .toggle-title > h1 [data-toggle-control],
+:where(.js) .toggle-title > .h1 [data-toggle-control] {
+    padding-bottom: 0.3125em;
+    padding-bottom: var(--pad-soft-200, 0.3125em);
+}
+:where(.js) .toggle-title > h2 [data-toggle-control],
+:where(.js) .toggle-title > .h2 [data-toggle-control] {
+    padding-bottom: 0.3125em;
+    padding-bottom: var(--pad-soft-200, 0.3125em);
+}
+:where(.js) .toggle-title > h3 [data-toggle-control],
+:where(.js) .toggle-title > .h3 [data-toggle-control] {
+    padding-bottom: 0.3125em;
+    padding-bottom: var(--pad-soft-200, 0.3125em);
+}
+:where(.js) .toggle-title > h4 [data-toggle-control],
+:where(.js) .toggle-title > .h4 [data-toggle-control] {
+    padding-bottom: 0.3125em;
+    padding-bottom: var(--pad-soft-200, 0.3125em);
+}
+:where(.js) .toggle-title > h5 [data-toggle-control],
+:where(.js) .toggle-title > .h5 [data-toggle-control] {
+    padding-bottom: 0.3125em;
+    padding-bottom: var(--pad-soft-200, 0.3125em);
+}
+:where(.js) .toggle-title > h6 [data-toggle-control],
+:where(.js) .toggle-title > .h6 [data-toggle-control] {
+    padding-bottom: 0.3125em;
+    padding-bottom: var(--pad-soft-200, 0.3125em);
+}
+:where(.js) .toggle-title > .h7 [data-toggle-control] {
+    padding-bottom: 0.3125em;
+    padding-bottom: var(--pad-soft-200, 0.3125em);
+}
+:where(.js) .toggle-title > .h8 [data-toggle-control] {
+    padding-bottom: 0.3125em;
+    padding-bottom: var(--pad-soft-200, 0.3125em);
+}
+:where(.js) .toggle-title > .h9 [data-toggle-control] {
+    padding-bottom: 0.3125em;
+    padding-bottom: var(--pad-soft-200, 0.3125em);
+}
+:where(.js) .toggle-title > .h10 [data-toggle-control] {
+    padding-bottom: 0.3125em;
+    padding-bottom: var(--pad-soft-200, 0.3125em);
+}
+:where(.js) .toggle-title > .unstyled-heading [data-toggle-control],
+:where(.js) .toggle-title > h1:is(.unstyled-heading) [data-toggle-control],
+:where(.js) .toggle-title > .h1:is(.unstyled-heading) [data-toggle-control],
+:where(.js) .toggle-title > h2:is(.unstyled-heading) [data-toggle-control],
+:where(.js) .toggle-title > .h2:is(.unstyled-heading) [data-toggle-control],
+:where(.js) .toggle-title > h3:is(.unstyled-heading) [data-toggle-control],
+:where(.js) .toggle-title > .h3:is(.unstyled-heading) [data-toggle-control],
+:where(.js) .toggle-title > h4:is(.unstyled-heading) [data-toggle-control],
+:where(.js) .toggle-title > .h4:is(.unstyled-heading) [data-toggle-control],
+:where(.js) .toggle-title > h5:is(.unstyled-heading) [data-toggle-control],
+:where(.js) .toggle-title > .h5:is(.unstyled-heading) [data-toggle-control],
+:where(.js) .toggle-title > h6:is(.unstyled-heading) [data-toggle-control],
+:where(.js) .toggle-title > .h6:is(.unstyled-heading) [data-toggle-control],
+:where(.js) .toggle-title > .h7:is(.unstyled-heading) [data-toggle-control],
+:where(.js) .toggle-title > .h8:is(.unstyled-heading) [data-toggle-control],
+:where(.js) .toggle-title > .h9:is(.unstyled-heading) [data-toggle-control],
+:where(.js) .toggle-title > .h10:is(.unstyled-heading) [data-toggle-control],
+:where(.js)
+    .toggle-title
+    > .page-title:is(.unstyled-heading)
+    [data-toggle-control] {
+    padding-bottom: 0.3125em;
+    padding-bottom: var(--pad-soft-200, 0.3125em);
+}
+:where(.js)
+    .toggle-title:has(
+        > .unstyled-heading,
+        > h1,
+        > .h1,
+        > h2,
+        > .h2,
+        > h3,
+        > .h3,
+        > h4,
+        > .h4,
+        > h5,
+        > .h5,
+        > h6,
+        > .h6,
+        > .h7,
+        > .h8,
+        > .h9,
+        > .h10,
+        > .page-title
+    ) {
+    --snippet-support-toggle-block--location: js--toggle-title--has-heading;
 }
 :where(.js) .toggle-title > .unstyled-heading,
 :where(.js) .toggle-title > h1,
@@ -25326,8 +25578,9 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 :where(.js) .toggle-title > .h9,
 :where(.js) .toggle-title > .h10,
 :where(.js) .toggle-title > .page-title {
-    padding-bottom: 0.125em;
-    padding-bottom: var(--stroke-relative-400, 0.125em);
+    margin-top: 0;
+    margin-bottom: 0;
+    --snippet-support-toggle-block--location: js--toggle-title--heading;
 }
 :where(.js) .toggle-title > .unstyled-heading:where(.unstyled-heading),
 :where(.js) .toggle-title > h1:where(.unstyled-heading),
@@ -25347,12 +25600,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 :where(.js) .toggle-title > .h9:where(.unstyled-heading),
 :where(.js) .toggle-title > .h10:where(.unstyled-heading),
 :where(.js) .toggle-title > .page-title:where(.unstyled-heading) {
-    padding-bottom: 0;
-}
-:where(.js) .toggle-control-inner {
-    --grid-column: content;
-    grid-column: content;
-    grid-column: var(--grid-column, content);
+    --snippet-support-toggle-block--location: js--toggle-title--heading--unstyled;
 }
 :where(.js) [data-toggle-content] {
     --grid-column: 1 / -1;
@@ -25362,11 +25610,28 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     grid-template-rows: 0fr;
     margin: 0;
     padding: 0;
+    overflow: hidden;
+    --snippet-support-toggle-block--location: js--toggle-content;
+    display: block;
+    display: var(--display, grid);
     border: 0 dotted currentColor;
     border-top-width: 0.125rem;
     border-top-width: var(--border-width-200, 0.125rem);
     border-top-style: solid;
-    overflow: hidden;
+}
+:where(.js) [data-toggle-content] * {
+    --flow-margin: var(--mrg-soft-300, 0.5rem);
+    --flow-margin--small: var(--mrg-soft-200, 0.3125rem);
+    --flow-margin--large: var(--mrg-soft-500, 1.1875rem);
+    --flow-margin-firm-start: var(--mrg-firm-300, 0.8125rem);
+    --flow-margin-firm-end: var(--mrg-half-300, 0.3125rem);
+    --flow-margin-firm-start--small: var(--mrg-firm-200, 0.5rem);
+    --flow-margin-firm-end--small: var(--mrg-half-200, 0.1875rem);
+    --flow-margin-firm-start--large: var(--mrg-firm-500, 1.6875rem);
+    --flow-margin-firm-end--large: var(--mrg-half-500, 0.5rem);
+    --flow-margin--button-span-block: var(--mrg-firm-200, 0.5rem);
+    --flow-margin--button-span-inline: var(--mrg-firm-200, 0.5rem);
+    --flow-margin--heading-unstyled: var(--mrg-soft-500, 1.1875rem);
 }
 :where(.js) [data-toggle-content] > .container {
     --display: flex;
@@ -25376,11 +25641,12 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     grid-column: 1 / -1;
     grid-column: var(--grid-column, 1 / -1);
     padding: 0 0.8125rem;
-    padding: 0 var(--mrg-firm-300, 0.8125rem);
+    padding: 0 var(--flow-margin-firm-start, var(--mrg-firm-300, 0.8125rem));
     overflow: auto;
     max-height: 100%;
     visibility: hidden;
     opacity: 0;
+    --snippet-support-toggle-block--location: js--toggle-content--container;
 }
 :where(.js) [data-toggle-content] > .container > :first-child {
     margin-top: 0;
@@ -25393,13 +25659,58 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     margin-left: 0;
     margin-right: 0;
 }
-/** Opening & Closing ------------------ **/
+
+/* Opening & Closing ==================================== */
+.no-js :where(.js) [data-toggle-container="open"] [data-toggle-control]:focus,
+.no-js :where(.js) [data-toggle-control]:focus,
+.js__no-whereSelector
+    :where(.js)
+    [data-toggle-container="open"]
+    [data-toggle-control]:focus,
+.js__no-whereSelector :where(.js) [data-toggle-control]:focus {
+    --snippet-support-toggle-block--location: js--toggle-container--default-or-open--control--hover-focus;
+}
+
+:where(.js__no-focusVisible)
+    :where(.js)
+    [data-toggle-container="open"]
+    [data-toggle-control]:focus,
+:where(.js__no-focusVisible) :where(.js) [data-toggle-control]:focus {
+    --snippet-support-toggle-block--location: js--toggle-container--default-or-open--control--hover-focus;
+}
+
+:where(.js) [data-toggle-container="open"] [data-toggle-control]:hover,
+:where(.js) [data-toggle-control]:hover {
+    --snippet-support-toggle-block--location: js--toggle-container--default-or-open--control--hover-focus;
+}
+
+:where(.js) [data-toggle-container="open"] [data-toggle-control]:focus-visible,
+:where(.js) [data-toggle-control]:focus-visible {
+    --snippet-support-toggle-block--location: js--toggle-container--default-or-open--control--hover-focus;
+}
+
+:where(.js) [data-toggle-container="closed"] {
+    --snippet-support-toggle-block--location: js--toggle-container--closed;
+}
+:where(.js) [data-toggle-container="open"],
+:where(.js) [data-toggle-container="closing"] {
+    --snippet-support-toggle-block--location: js--toggle-container--open-or-closing;
+}
+:where(.js) [data-toggle-container="open"] > [data-toggle-content],
+:where(.js) [data-toggle-container="closing"] > [data-toggle-content] {
+    --snippet-support-toggle-block--location: js--toggle-container--open-or-closing--content;
+}
 :where(.js) [data-toggle-container="open"] > [data-toggle-content] > .container,
 :where(.js)
     [data-toggle-container="closing"]
     > [data-toggle-content]
     > .container {
     visibility: visible;
+    --snippet-support-toggle-block--location: js--toggle-container--open-or-closing--content--container;
+}
+:where(.js) [data-toggle-container="open"] [data-toggle-control],
+:where(.js) [data-toggle-container="closing"] [data-toggle-control] {
+    --snippet-support-toggle-block--location: js--toggle-container--open-or-closing--control;
 }
 :where(.js)
     [data-toggle-container="open"]
@@ -25407,9 +25718,18 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 :where(.js)
     [data-toggle-container="closing"]
     [data-toggle-control][data-toggle-control-backdrop] {
-    --display: var(--display, block);
     display: block;
-    display: var(--display, var(--display, block));
+    display: var(--display, block);
+    --snippet-support-toggle-block--location: js--toggle-container--open-or-closing--control-backdrop;
+}
+:where(.js) [data-toggle-container="open"] {
+    --snippet-support-toggle-block--location: js--toggle-container--open;
+}
+:where(.js) [data-toggle-container="open"] [data-toggle-control] {
+    --snippet-support-toggle-block--location: js--toggle-container--open--control;
+}
+:where(.js) [data-toggle-container="open"] [data-toggle-control] .toggle-icon {
+    --snippet-support-toggle-block--location: js--toggle-container--open--control--icon;
 }
 :where(.js)
     [data-toggle-container="open"]
@@ -25423,15 +25743,17 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     [data-toggle-container="open"]
     [data-toggle-control][data-toggle-control-backdrop] {
     opacity: 1;
+    --snippet-support-toggle-block--location: js--toggle-container--open--control-background;
 }
 :where(.js) [data-toggle-container="open"] > [data-toggle-content] {
+    grid-template-rows: 1fr;
+    --snippet-support-toggle-block--location: js--toggle-container--open--content;
     border-left-width: 0.125rem;
     border-right-width: 0.125rem;
     border-left-width: var(--border-width-200, 0.125rem);
     border-right-width: var(--border-width-200, 0.125rem);
     border-bottom-width: 0.125rem;
     border-bottom-width: var(--border-width-200, 0.125rem);
-    grid-template-rows: 1fr;
 }
 :where(.js)
     [data-toggle-container="open"]
@@ -25439,9 +25761,22 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     > .container {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
-    padding-top: var(--mrg-soft-300, 0.5rem);
-    padding-bottom: var(--mrg-soft-300, 0.5rem);
+    padding-top: var(--flow-margin, var(--mrg-soft-300, 0.5rem));
+    padding-bottom: var(--flow-margin, var(--mrg-soft-300, 0.5rem));
     opacity: 1;
+    --snippet-support-toggle-block--location: js--toggle-container--open--content--container;
+}
+:where(.js) [data-toggle-container="closing"] {
+    --snippet-support-toggle-block--location: js--toggle-container--closing;
+}
+:where(.js) [data-toggle-container="closing"] [data-toggle-control] {
+    --snippet-support-toggle-block--location: js--toggle-container--closing--control;
+}
+:where(.js)
+    [data-toggle-container="closing"]
+    [data-toggle-control]
+    .toggle-icon {
+    --snippet-support-toggle-block--location: js--toggle-container--closing--control--icon;
 }
 :where(.js)
     [data-toggle-container="closing"]
@@ -25453,6 +25788,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 }
 :where(.js) [data-toggle-container="closing"] > [data-toggle-content] {
     grid-template-rows: 0fr;
+    --snippet-support-toggle-block--location: js--toggle-container--closing--content;
 }
 :where(.js)
     [data-toggle-container="closing"]
@@ -25460,45 +25796,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     > .container {
     opacity: 0;
     visibility: visible;
-}
-
-:where(.js) [data-toggle-container="open"] [data-toggle-control] {
-    color: hsl(2.81, 72.25%, 28.09%);
-    color: var(--sys-clr-text-active, ActiveText);
-}
-
-.no-js [data-toggle-container="open"] [data-toggle-control]:focus,
-.no-js [data-toggle-control]:focus,
-.js__no-whereSelector
-    [data-toggle-container="open"]
-    [data-toggle-control]:focus,
-.js__no-whereSelector [data-toggle-control]:focus {
-    text-decoration-color: transparent;
-    color: hsl(278.16, 60.54%, 30.06%);
-    color: var(--sys-clr-link, LinkText);
-}
-
-:where(.js__no-focusVisible)
-    [data-toggle-container="open"]
-    [data-toggle-control]:focus,
-:where(.js__no-focusVisible) [data-toggle-control]:focus {
-    text-decoration-color: transparent;
-    color: hsl(278.16, 60.54%, 30.06%);
-    color: var(--sys-clr-link, LinkText);
-}
-
-[data-toggle-container="open"] [data-toggle-control]:hover,
-[data-toggle-control]:hover {
-    text-decoration-color: transparent;
-    color: hsl(278.16, 60.54%, 30.06%);
-    color: var(--sys-clr-link, LinkText);
-}
-
-[data-toggle-container="open"] [data-toggle-control]:focus-visible,
-[data-toggle-control]:focus-visible {
-    text-decoration-color: transparent;
-    color: hsl(278.16, 60.54%, 30.06%);
-    color: var(--sys-clr-link, LinkText);
+    --snippet-support-toggle-block--location: js--toggle-container--closing--content--container;
 }
 
 /* Overrides ==================================== */
@@ -25562,9 +25860,9 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 @media (prefers-reduced-motion: no-preference) {
     :where(.js) [data-toggle-content] {
         transition:
-            border-color 500ms ease-in-out 0ms,
-            grid-template-rows 1200ms ease-in-out 0ms,
-            border-bottom-width 1200ms ease-in-out 0ms,
+            border-color 500ms ease-out 0ms,
+            grid-template-rows 1200ms ease-out 0ms,
+            border-bottom-width 1200ms ease-out 0ms,
             accent-color 250ms ease-out,
             background-color 250ms ease-out,
             border-color 250ms ease-out,
@@ -25578,8 +25876,8 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     }
     :where(.js) [data-toggle-content] > .container {
         transition:
-            opacity 1200ms ease-in-out 100ms,
-            padding 1200ms ease-in-out 0ms;
+            opacity 1200ms ease-out 100ms,
+            padding 1200ms ease-out 0ms;
     }
     :where(.js)
         [data-toggle-container="open"]
@@ -25605,14 +25903,14 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         .toggle-icon
         > svg
         #b {
-        transition: transform 1200ms ease-in-out 0ms;
+        transition: transform 1200ms ease-out 0ms;
     }
     :where(.js) [data-toggle-container="open"] > [data-toggle-content],
     :where(.js) [data-toggle-container="closing"] > [data-toggle-content] {
         transition:
-            border-color 1200ms ease-in-out 0ms,
-            grid-template-rows 1200ms ease-in-out 0ms,
-            border-bottom-width 1200ms ease-in-out 0ms,
+            border-color 1200ms ease-out 0ms,
+            grid-template-rows 1200ms ease-out 0ms,
+            border-bottom-width 1200ms ease-out 0ms,
             accent-color 250ms ease-out,
             background-color 250ms ease-out,
             border-color 250ms ease-out,
@@ -25637,9 +25935,9 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 }
 [data-motion="no-preference"]:where(.js) [data-toggle-content] {
     transition:
-        border-color 500ms ease-in-out 0ms,
-        grid-template-rows 1200ms ease-in-out 0ms,
-        border-bottom-width 1200ms ease-in-out 0ms,
+        border-color 500ms ease-out 0ms,
+        grid-template-rows 1200ms ease-out 0ms,
+        border-bottom-width 1200ms ease-out 0ms,
         accent-color 250ms ease-out,
         background-color 250ms ease-out,
         border-color 250ms ease-out,
@@ -25653,8 +25951,8 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 }
 [data-motion="no-preference"]:where(.js) [data-toggle-content] > .container {
     transition:
-        opacity 1200ms ease-in-out 100ms,
-        padding 1200ms ease-in-out 0ms;
+        opacity 1200ms ease-out 100ms,
+        padding 1200ms ease-out 0ms;
 }
 [data-motion="no-preference"]:where(.js)
     [data-toggle-container="open"]
@@ -25680,7 +25978,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     .toggle-icon
     > svg
     #b {
-    transition: transform 1200ms ease-in-out 0ms;
+    transition: transform 1200ms ease-out 0ms;
 }
 [data-motion="no-preference"]:where(.js)
     [data-toggle-container="open"]
@@ -25689,9 +25987,9 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     [data-toggle-container="closing"]
     > [data-toggle-content] {
     transition:
-        border-color 1200ms ease-in-out 0ms,
-        grid-template-rows 1200ms ease-in-out 0ms,
-        border-bottom-width 1200ms ease-in-out 0ms,
+        border-color 1200ms ease-out 0ms,
+        grid-template-rows 1200ms ease-out 0ms,
+        border-bottom-width 1200ms ease-out 0ms,
         accent-color 250ms ease-out,
         background-color 250ms ease-out,
         border-color 250ms ease-out,
@@ -25717,8 +26015,8 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 @media (prefers-reduced-motion: reduce) {
     :where(.js) [data-toggle-content] {
         transition:
-            border-color 500ms ease-in-out 0ms,
-            grid-template-rows 0ms ease-in-out 1200ms,
+            border-color 500ms ease-out 0ms,
+            grid-template-rows 0ms ease-out 1200ms,
             accent-color 250ms ease-out,
             background-color 250ms ease-out,
             border-color 250ms ease-out,
@@ -25731,7 +26029,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
             visibility 250ms ease-out;
     }
     :where(.js) [data-toggle-content] > .container {
-        transition: opacity 500ms ease-in-out 100ms;
+        transition: opacity 500ms ease-out 100ms;
     }
     :where(.js)
         [data-toggle-container="open"]
@@ -25762,7 +26060,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     :where(.js) [data-toggle-container="open"] > [data-toggle-content],
     :where(.js) [data-toggle-container="closing"] > [data-toggle-content] {
         transition:
-            border-color 500ms ease-in-out 0ms,
+            border-color 500ms ease-out 0ms,
             accent-color 250ms ease-out,
             background-color 250ms ease-out,
             border-color 250ms ease-out,
@@ -25787,8 +26085,8 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 }
 [data-motion="reduce"]:where(.js) [data-toggle-content] {
     transition:
-        border-color 500ms ease-in-out 0ms,
-        grid-template-rows 0ms ease-in-out 1200ms,
+        border-color 500ms ease-out 0ms,
+        grid-template-rows 0ms ease-out 1200ms,
         accent-color 250ms ease-out,
         background-color 250ms ease-out,
         border-color 250ms ease-out,
@@ -25801,7 +26099,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         visibility 250ms ease-out;
 }
 [data-motion="reduce"]:where(.js) [data-toggle-content] > .container {
-    transition: opacity 500ms ease-in-out 100ms;
+    transition: opacity 500ms ease-out 100ms;
 }
 [data-motion="reduce"]:where(.js)
     [data-toggle-container="open"]
@@ -25836,7 +26134,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     [data-toggle-container="closing"]
     > [data-toggle-content] {
     transition:
-        border-color 500ms ease-in-out 0ms,
+        border-color 500ms ease-out 0ms,
         accent-color 250ms ease-out,
         background-color 250ms ease-out,
         border-color 250ms ease-out,
@@ -26119,6 +26417,7 @@ body > nav[data-toggle-container] {
     > .container
     > ul {
     margin-left: 0;
+    width: 100%;
 }
 :where(.js) body > nav[data-toggle-container] .toggle-title {
     /* prettier-ignore */
@@ -26238,13 +26537,13 @@ html:where(.js),
     .nav-primary[data-toggle-container][data-toggle-container="open"]
     [data-toggle-control-backdrop] {
     opacity: 0;
-    animation: fade-in 500ms ease-in-out 10ms forwards;
+    animation: fade-in 500ms ease-out 10ms forwards;
 }
 :where(.js)
     .nav-primary[data-toggle-container][data-toggle-container="closing"]
     [data-toggle-control-backdrop] {
     opacity: 0;
-    animation: fade-out 500ms ease-in-out 0ms forwards;
+    animation: fade-out 500ms ease-out 0ms forwards;
 }
 :where(.js) .website-settings-menu {
     margin-top: 0;
@@ -26755,13 +27054,13 @@ p.aside em em em {
     .website-settings-menu[data-toggle-container="open"]
     [data-toggle-control-backdrop] {
     opacity: 0;
-    animation: fade-in 500ms ease-in-out 10ms forwards;
+    animation: fade-in 500ms ease-out 10ms forwards;
 }
 :where(.js)
     .website-settings-menu[data-toggle-container="closing"]
     [data-toggle-control-backdrop] {
     opacity: 0;
-    animation: fade-out 500ms ease-in-out 0ms forwards;
+    animation: fade-out 500ms ease-out 0ms forwards;
 }
 
 /*! END of @maddimathon/design-system-utilities/template/docs */

@@ -59,7 +59,7 @@ export async function buildTokens(stage, tokens, level, paths, args = {}) {
                 ? paths.scss
                 : [paths.scss ?? 'src/scss/tokens/system/_tokens.scss'],
     };
-    return Promise.all([
+    await Promise.all([
         buildTokens.writeIcons(stage, tokens, completePaths.assets.icons, level),
         buildTokens.writeLogos(stage, tokens, completePaths.assets.logos, level),
     ]).then(async () => {
@@ -91,7 +91,7 @@ export async function buildTokens(stage, tokens, level, paths, args = {}) {
             return;
         }
         stage.console.verbose('writing icon files...', 1 + level);
-        return Promise.all(paths.map(async (path) => Promise.all(Object.values(tokens.icons.data).map(async (icon) => stage.try(stage.fs.write, (stage.params.verbose ? 2 : 1) + level, [
+        await Promise.all(paths.map(async (path) => Promise.all(Object.values(tokens.icons.data).map(async (icon) => stage.try(stage.fs.write, (stage.params.verbose ? 2 : 1) + level, [
             stage.fs.pathResolve(path, `${icon.slug}.svg`),
             icon.svgFile(),
             { force: true },
@@ -144,7 +144,7 @@ export async function buildTokens(stage, tokens, level, paths, args = {}) {
     async function writeJson(stage, tokens, paths, level) {
         // returns
         if (!paths) {
-            return;
+            return [];
         }
         stage.console.verbose('writing json tokens...', 1 + level);
         const tokenJson = JSON.stringify(tokens, null, 4);
@@ -157,7 +157,7 @@ export async function buildTokens(stage, tokens, level, paths, args = {}) {
     async function writeLogos(stage, tokens, paths, level) {
         // returns
         if (!paths) {
-            return;
+            return [];
         }
         stage.console.verbose('writing logo files...', 1 + level);
         return Promise.all(paths.map(async (path) => Promise.all(Object.values(tokens.logos.data).map(async (logo) => stage.try(stage.fs.write, (stage.params.verbose ? 2 : 1) + level, [
@@ -173,7 +173,7 @@ export async function buildTokens(stage, tokens, level, paths, args = {}) {
     async function writeScss(stage, tokens, paths, level) {
         // returns
         if (!paths) {
-            return;
+            return [];
         }
         stage.console.verbose('writing scss tokens...', 1 + level);
         const tokenScss = tokens.toScss();

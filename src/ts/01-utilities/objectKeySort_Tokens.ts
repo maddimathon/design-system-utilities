@@ -18,7 +18,7 @@ import { objectKeySort } from '@maddimathon/utility-typescript';
 export function objectKeySort_Tokens<T_Obj extends Record<number | string, any>>(
     obj: T_Obj,
     recursive: boolean = false,
-) {
+): T_Obj {
     return objectKeySort<T_Obj>(
         obj,
         recursive,
@@ -99,7 +99,7 @@ export namespace objectKeySort_Tokens {
     /**
      * Available for use to sort string arrays in the same order as this function.
      */
-    export function sorter( a: number | string, b: number | string ) {
+    export function sorter( a: number | string, b: number | string ): number {
 
         const sort_a = sortMaker( a );
         const sort_b = sortMaker( b );

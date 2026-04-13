@@ -19,6 +19,6 @@ import type { Tokens_Themes } from './Tokens_Themes.js';
 export function getLevelsInUse<
     T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams,
     T_ThemeTypes extends TokenTypes.Theme.TypeParams = TokenTypes.Theme.TypeParams,
->( themes: Tokens_Themes.JsonReturn<T_ColourTypes, T_ThemeTypes> ) {
+>( themes: Tokens_Themes.JsonReturn<T_ColourTypes, T_ThemeTypes> ): Set<TokenTypes.Colour.AnyLevel<T_ColourTypes>> {
     return new Set( themes._meta.levelsInUse );
 }

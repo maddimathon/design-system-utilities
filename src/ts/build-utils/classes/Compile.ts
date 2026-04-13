@@ -83,20 +83,23 @@ export class Compile extends CompileStage {
         level: number,
         paths: buildTokens.Paths,
         args: Partial<buildTokens.Args> = {},
-    ) {
+    ): Promise<void> {
         await buildTokens( this, tokens, level, paths, args );
     }
 
 
-    protected async astro() {
+    protected async astro(): Promise<void> {
         await this.runCustomDirCopySubStage( 'astro' );
     }
 
-    protected override async scss() {
+    protected override async scss(): Promise<void> {
         await this.runCustomDirCopySubStage( 'scss' );
     }
 
-    protected async templates( sassDebugCheckpoints: boolean = false, args?: Partial<AbstractStage.runCustomScssDirSubStage.Opts> ) {
+    protected async templates(
+        sassDebugCheckpoints: boolean = false,
+        args?: Partial<AbstractStage.runCustomScssDirSubStage.Opts>,
+    ): Promise<void> {
 
         await this.runCustomScssDirSubStage(
             'template',
@@ -123,7 +126,7 @@ export class Compile extends CompileStage {
         }
     }
 
-    protected async tokens() {
+    protected async tokens(): Promise<void> {
         this.console.log( '🚨 Compile.tokens substage is not implemented', 1 );
     }
 }

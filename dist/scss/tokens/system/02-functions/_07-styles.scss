@@ -75,6 +75,7 @@
     $isHeadingStyle: string.index($slug, heading-) == 1;
     $isIconStyle: string.match($slug, '^(button-(inline-)?)?icon-') != null;
     $isInputStyle: string.index($slug, input-) == 1;
+    $isToggleStyle: string.index($slug, toggle-) == 1;
     $isWidgetStyle: string.index($slug, widget-) == 1;
 
     $isBorderRadius: false;
@@ -95,6 +96,7 @@
         $isIconStyle or
         $isInputStyle or
         $isHeadingStyle or
+        $isToggleStyle or
         $isWidgetStyle
     {
         // gap
@@ -220,7 +222,10 @@
         }
 
         // returns
-        @if string.index($slug, -block-start) {
+        @if string.index($slug, -block-start) or
+            string.index($slug, toggle-control-) ==
+            1
+        {
             @return spacing.tokens-var-pad-soft($value);
         }
 

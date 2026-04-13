@@ -1,0 +1,42 @@
+---
+/**
+ * @since 0.1.0-alpha
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+import type { ComponentProps } from 'astro/types';
+import type { Tokens } from '../../ts/02-tokens/Tokens.js';
+
+/* import - functions */
+
+/* import - values */
+import { SampleTokens_Json } from '../functions/index.js';
+
+/* import - components */
+import { Toggle as UtilsToggle } from '@maddimathon/utility-astro/components';
+import Icon from './Icon.astro';
+
+/* import - layouts */
+
+/* PROPS ===================================== */
+
+type Props = ComponentProps<typeof UtilsToggle> & {
+    tokens?: Tokens.JsonReturn;
+};
+
+const { tokens = SampleTokens_Json, ...props }: Props = Astro.props;
+
+/* CONSTANTS ===================================== */
+---
+
+<UtilsToggle {...props}
+    ><Icon
+        slot='icon'
+        icon={tokens.icons.toggle}
+    /><slot
+        slot='button'
+        name='button'
+    /><slot /></UtilsToggle
+>

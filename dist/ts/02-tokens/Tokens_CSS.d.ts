@@ -21,13 +21,19 @@ export declare class Tokens_CSS extends AbstractTokens<{
     json: Tokens_CSS.JsonReturn;
     scss: Tokens_CSS.ScssVars;
 }> {
-    static get default(): Omit<Tokens_CSS.Data, 'border' | 'style' | 'transition'>;
-    get data(): Tokens_CSS.Data;
     protected readonly border: Tokens_CSS_Border;
     protected readonly style: Tokens_CSS_Style;
     protected readonly transition: Tokens_CSS_Transition;
     protected readonly zIndex: Tokens_CSS.Data['zIndex'];
-    constructor(input: Tokens_CSS.InputParam);
+    /**
+     * Builds tokens faster.
+     *
+     * @since 0.1.0-beta.0.draft
+     */
+    static build(input: Tokens_CSS.InputParam): Promise<Tokens_CSS>;
+    static get default(): Omit<Tokens_CSS.Data, 'border' | 'style' | 'transition'>;
+    get data(): Tokens_CSS.Data;
+    constructor(border: Tokens_CSS_Border, style: Tokens_CSS_Style, transition: Tokens_CSS_Transition, zIndex: Tokens_CSS.Data['zIndex']);
     toJSON(): Tokens_CSS.JsonReturn;
     toScssVars(): Tokens_CSS.ScssVars;
 }

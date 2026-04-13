@@ -147,42 +147,40 @@
     }
 }
 
+@mixin snippet-link-colour-single($suffix: '') {
+    @include cx-prop(
+        focus-ring-outline-color,
+        var-theme(link-outline#{if($suffix == '', '-hover', $suffix)})
+    );
+    @include cx-prop(icon-color, var-theme(link-icon#{$suffix}));
+    text-decoration-color: #{var-theme(link-decoration#{$suffix})};
+    color: #{var-theme(link#{$suffix})};
+}
+
 ///
 /// @since ___PKG_VERSION___
 ///
 @mixin snippet-link-colours($includeDisabled: true) {
-    @include cx-prop(focus-ring-outline-color, var-theme(link-outline-hover));
-    @include cx-prop(icon-color, var-theme(link-icon));
-    text-decoration-color: #{var-theme(link-decoration)};
-    color: #{var-theme(link)};
+    @include snippet-link-colour-single;
 
     @content (root);
 
     /// STATES ///
 
     &:visited {
-        @include cx-prop(focus-ring-outline-color, var-theme(link-outline-visited));
-        @include cx-prop(icon-color, var-theme(link-icon-visited));
-        text-decoration-color: #{var-theme(link-decoration-visited)};
-        color: #{var-theme(link-visited)};
+        @include snippet-link-colour-single('-visited');
 
         @content (visited);
     }
 
     @include hover-focus-visible() {
-        @include cx-prop(focus-ring-outline-color, var-theme(link-outline-hover));
-        @include cx-prop(icon-color, var-theme(link-icon-hover));
-        text-decoration-color: #{var-theme(link-decoration-hover)};
-        color: #{var-theme(link-hover)};
+        @include snippet-link-colour-single('-hover');
 
         @content (hover-focus);
     }
 
     &:active {
-        @include cx-prop(focus-ring-outline-color, var-theme(link-outline-active));
-        @include cx-prop(icon-color, var-theme(link-icon-active));
-        text-decoration-color: #{var-theme(link-decoration-active)};
-        color: #{var-theme(link-active)};
+        @include snippet-link-colour-single('-active');
 
         @content (active);
     }
@@ -190,30 +188,21 @@
     @if $includeDisabled {
         &[aria-disabled='true'],
         &[disabled] {
-            @include cx-prop(focus-ring-outline-color, var-theme(link-outline-disabled));
-            @include cx-prop(icon-color, var-theme(link-icon-disabled));
+            @include snippet-link-colour-single('-disabled');
             text-decoration-line: underline;
-            text-decoration-color: #{var-theme(link-decoration-disabled)};
-            color: #{var-theme(link-disabled)};
 
             @content (root-disabled);
 
             /// STATES ///
 
             @include hover-focus-visible() {
-                @include cx-prop(focus-ring-outline-color, var-theme(link-outline-disabled));
-                @include cx-prop(icon-color, var-theme(link-icon-disabled));
-                text-decoration-color: #{var-theme(link-decoration-disabled)};
-                color: #{var-theme(link-disabled)};
+                @include snippet-link-colour-single('-disabled');
 
                 @content (hover-focus-disabled);
             }
 
             &:active {
-                @include cx-prop(focus-ring-outline-color, var-theme(link-outline-disabled));
-                @include cx-prop(icon-color, var-theme(link-icon-disabled));
-                text-decoration-color: #{var-theme(link-decoration-disabled)};
-                color: #{var-theme(link-disabled)};
+                @include snippet-link-colour-single('-disabled');
 
                 @content (active-disabled);
             }
@@ -247,25 +236,19 @@
     }
 
     @include focus-visible() {
-        @include cx-prop(icon-color, var-theme(link-icon-hover));
-        text-decoration-color: #{var-theme(link-decoration-hover)};
-        color: #{var-theme(link-hover)};
+        @include snippet-link-colour-single('-hover');
 
         @content (focus);
     }
 
     &:hover {
-        @include cx-prop(icon-color, var-theme(link-icon-hover));
-        text-decoration-color: #{var-theme(link-decoration-hover)};
-        color: #{var-theme(link-hover)};
+        @include snippet-link-colour-single('-hover');
 
         @content (hover);
     }
 
     &:active {
-        @include cx-prop(icon-color, var-theme(link-icon-active));
-        text-decoration-color: #{var-theme(link-decoration-active)};
-        color: #{var-theme(link-active)};
+        @include snippet-link-colour-single('-active');
 
         @content (active);
     }
@@ -273,24 +256,18 @@
     @if $includeDisabled {
         &[aria-disabled='true'],
         &[disabled] {
-            @include cx-prop(icon-color, $iconColor_disabled);
-            text-decoration-color: #{$textDecorationColor_disabled};
-            color: #{$color_disabled};
+            @include snippet-link-colour-single('-disabled');
 
             @content (disabled-root);
 
             @include hover-focus-visible() {
-                @include cx-prop(icon-color, var-theme(link-icon-hover));
-                text-decoration-color: #{var-theme(link-decoration-hover)};
-                color: #{var-theme(link-hover)};
+                @include snippet-link-colour-single('-disabled');
 
                 @content (disabled-hover-focus);
             }
 
             &:active {
-                @include cx-prop(icon-color, var-theme(link-icon-disabled));
-                text-decoration-color: #{var-theme(link-decoration-disabled)};
-                color: #{var-theme(link-disabled)};
+                @include snippet-link-colour-single('-disabled');
 
                 @content (disabled-active);
             }
@@ -587,9 +564,10 @@
     $firmEnd_large: null,
     $firmEnd_small: null,
     //
-    $unstyledHeading: null,
+    $childrenWhere: false,
     $defineChildProps: false,
-    $defineCustomProps: true
+    $defineCustomProps: true,
+    $unstyledHeading: null
 ) {
     $default: _set-flow-margins--to-margin-level($default);
     $large: _set-flow-margins--to-margin-level($large);
@@ -678,7 +656,9 @@
 
     // CUSTOM PROPS
     @if $defineCustomProps {
-        #{if(selector.parent-exists(), '*', '%root')} {
+        $_sel: if(selector.parent-exists(), '*', '%root');
+
+        #{if($childrenWhere, ':where(#{$_sel})', $_sel)} {
             @include cx-prop(flow-margin, $val_default);
             @include cx-prop(flow-margin--small, $val_small);
             @include cx-prop(flow-margin--large, $val_large);

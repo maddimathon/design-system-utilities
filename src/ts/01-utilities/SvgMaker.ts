@@ -100,7 +100,7 @@ export class SvgMaker<
         this.meta = data.meta as T_Metadata;
     }
 
-    public svgAttrString( attrs: string[] = [] ) {
+    public svgAttrString( attrs: string[] = [] ): string {
         return [
             `viewBox="0 0 ${ this.width } ${ this.height }"`,
 
@@ -116,13 +116,13 @@ export class SvgMaker<
         ].join( ' ' );
     }
 
-    public svgCssEmbedded() {
+    public svgCssEmbedded(): string {
         return `<svg ${ this.svgAttrString( [
             `title="${ this.ariaLabel }"`,
         ] ) }>${ this.innerSVG }</svg>`.replace( /\s*\n+\s*/g, '' );
     }
 
-    public svgFile() {
+    public svgFile(): string {
         return [
             '<?xml version="1.0" encoding="UTF-8" standalone="no"?>',
             '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">',

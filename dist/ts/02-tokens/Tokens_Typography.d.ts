@@ -143,11 +143,11 @@ export declare namespace Tokens_Typography {
         /**
          * @since 0.1.0-alpha
          */
-        const SystemMonospace: string[];
+        const SystemMonospace: readonly ["Menlo", "Consolas", "Monaco", "Liberation Mono", "Lucida Console", "monospace", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"];
         /**
          * @since 0.1.0-alpha
          */
-        const SystemUI: string[];
+        const SystemUI: readonly ["system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen-Sans", "Ubuntu", "Cantarell", "Helvetica Neue", "Helvetica", "Arial", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"];
         /**
          * @since 0.1.0-alpha
          */

@@ -96,7 +96,9 @@ export var LocalErrors;
          *
          * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/valueOf | Object.prototype.valueOf()}
          */
-        valueOf() { return this.toJSON(); }
+        valueOf() {
+            return this.toJSON();
+        }
     }
     LocalErrors.Abst_Error = Abst_Error;
     /**

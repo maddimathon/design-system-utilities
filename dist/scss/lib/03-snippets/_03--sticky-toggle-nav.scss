@@ -9,7 +9,7 @@
 // @use 'pkg:@maddimathon/utility-astro/03-snippets' as lib;
 
 @use '../../config';
-// @use '../../tokens';
+@use '../../tokens';
 
 @use '../01-functions' as *;
 @use '../02-mixins' as *;
@@ -62,16 +62,16 @@
             &[data-toggle-container='open'] {
                 [data-toggle-control-backdrop] {
                     opacity: 0;
-                    animation: fade-in #{var-tr-time(normal)} ease-in-out 10ms
-                        forwards;
+                    animation: fade-in #{var-tr-time(normal)}
+                        #{tokens.$transition_function} 10ms forwards;
                 }
             }
 
             &[data-toggle-container='closing'] {
                 [data-toggle-control-backdrop] {
                     opacity: 0;
-                    animation: fade-out #{var-tr-time(normal)} ease-in-out 0ms
-                        forwards;
+                    animation: fade-out #{var-tr-time(normal)}
+                        #{tokens.$transition_function} 0ms forwards;
                 }
             }
         }

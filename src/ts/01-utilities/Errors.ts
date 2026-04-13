@@ -145,7 +145,14 @@ export namespace LocalErrors {
          *
          * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#description | JSON.stringify}
          */
-        public toJSON() {
+        public toJSON(): {
+            name: string;
+            message: string;
+            context: Context;
+            cause: unknown;
+            stack: string | undefined;
+            string: string;
+        } {
 
             return {
                 name: this.name,
@@ -187,7 +194,9 @@ export namespace LocalErrors {
          *
          * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/valueOf | Object.prototype.valueOf()}
          */
-        public override valueOf() { return this.toJSON(); }
+        public override valueOf(): ReturnType<typeof this.toJSON> {
+            return this.toJSON();
+        }
     }
 
     /**

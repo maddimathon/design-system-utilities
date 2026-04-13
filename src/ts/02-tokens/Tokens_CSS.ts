@@ -26,6 +26,23 @@ export class Tokens_CSS extends AbstractTokens<{
     scss: Tokens_CSS.ScssVars;
 }> {
 
+    /**
+     * Builds tokens faster.
+     * 
+     * @since ___PKG_VERSION___
+     */
+    public static async build( input: Tokens_CSS.InputParam ): Promise<Tokens_CSS> {
+
+        return Tokens_CSS_Style.build( input.style ?? {} ).then(
+            style => new Tokens_CSS(
+                new Tokens_CSS_Border( input.border ?? {} ),
+                style,
+                new Tokens_CSS_Transition( input.transition ?? {} ),
+                mergeArgs( Tokens_CSS.default.zIndex, input.zIndex ),
+            )
+        );
+    }
+
     public static get default(): Omit<Tokens_CSS.Data, 'border' | 'style' | 'transition'> {
 
         return {
@@ -47,21 +64,13 @@ export class Tokens_CSS extends AbstractTokens<{
         };
     }
 
-    protected readonly border: Tokens_CSS_Border;
-    protected readonly style: Tokens_CSS_Style;
-    protected readonly transition: Tokens_CSS_Transition;
-    protected readonly zIndex: Tokens_CSS.Data[ 'zIndex' ];
-
     public constructor (
-        input: Tokens_CSS.InputParam,
+        protected readonly border: Tokens_CSS_Border,
+        protected readonly style: Tokens_CSS_Style,
+        protected readonly transition: Tokens_CSS_Transition,
+        protected readonly zIndex: Tokens_CSS.Data[ 'zIndex' ],
     ) {
         super();
-
-        this.border = new Tokens_CSS_Border( input.border ?? {} );
-        this.style = new Tokens_CSS_Style( input.style ?? {} );
-        this.transition = new Tokens_CSS_Transition( input.transition ?? {} );
-
-        this.zIndex = mergeArgs( Tokens_CSS.default.zIndex, input.zIndex );
     }
 
     public toJSON(): Tokens_CSS.JsonReturn {

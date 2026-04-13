@@ -270,7 +270,8 @@ pre {
         U+F120, U+F121, U+F14E, U+F14F, U+F122, U+F155, U+F156, U+F157, U+F123,
         U+F124, U+F125, U+F126, U+F127, U+F128, U+F129, U+F130, U+F131, U+F150,
         U+F151, U+F132, U+F133, U+F134, U+F152, U+F153, U+F135, U+F136, U+F137,
-        U+F138, U+F139, U+F140, U+F141, U+F142, U+F143, U+F144, U+F145, U+F146;
+        U+F138, U+F139, U+F140, U+F158, U+F141, U+F142, U+F143, U+F144, U+F145,
+        U+F146;
     src:
         url("../fonts/icons/woff2/icons.woff2") format("woff2"),
         url("../fonts/icons/woff/icons.woff") format("woff"),
@@ -287,7 +288,8 @@ pre {
         U+F120, U+F121, U+F14E, U+F14F, U+F122, U+F155, U+F156, U+F157, U+F123,
         U+F124, U+F125, U+F126, U+F127, U+F128, U+F129, U+F130, U+F131, U+F150,
         U+F151, U+F132, U+F133, U+F134, U+F152, U+F153, U+F135, U+F136, U+F137,
-        U+F138, U+F139, U+F140, U+F141, U+F142, U+F143, U+F144, U+F145, U+F146;
+        U+F138, U+F139, U+F140, U+F158, U+F141, U+F142, U+F143, U+F144, U+F145,
+        U+F146;
     src:
         url("../fonts/icons/woff2/icons.woff2") format("woff2"),
         url("../fonts/icons/woff/icons.woff") format("woff"),
@@ -4625,6 +4627,8 @@ hr {
     --display: block;
     display: block;
     display: var(--display, block);
+    justify-self: center;
+    align-self: center;
     margin-top: 2.25rem;
     margin-bottom: 2.25rem;
     margin-top: var(--mrg-firm-600, 2.25rem);
@@ -5270,11 +5274,11 @@ a[aria-disabled="true"][href],
 a[disabled][href] {
     --focus-ring-outline-color: var(--theme-link-outline-disabled, GrayText);
     --icon-color: var(--theme-link-icon-disabled, GrayText);
-    text-decoration-line: underline;
     text-decoration-color: hsl(339.45, 0%, 34.6%);
     text-decoration-color: var(--theme-link-decoration-disabled, GrayText);
     color: hsl(339.45, 0%, 34.6%);
     color: var(--theme-link-disabled, GrayText);
+    text-decoration-line: underline;
 }
 .no-js a[aria-disabled="true"][href]:focus,
 .no-js a[disabled][href]:focus,
@@ -5541,7 +5545,7 @@ blockquote {
     justify-content: center;
     justify-items: stretch;
     align-content: start;
-    align-items: start;
+    align-items: stretch;
     justify-self: center;
     border-left: 0.125rem solid hsl(278.16, 60.54%, 30.06%);
     border-left: var(--border-width-200, 0.125rem) solid
@@ -7273,12 +7277,12 @@ fieldset {
     padding-left: var(--mrg-firm-400, 1.25rem);
     padding-right: var(--mrg-firm-400, 1.25rem);
     border: 0.0625rem solid hsl(278.16, 60.54%, 30.06%);
-    border: 0.0625rem solid var(--sys-clr-input-border, FieldText);
+    border: 0.0625rem solid var(--theme-input-border, CanvasText);
     border-radius: 0;
     background-color: hsl(339.45, 0%, 91.26%);
-    background-color: var(--sys-clr-background, Canvas);
+    background-color: var(--theme-background, Canvas);
     color: hsl(339.45, 0%, 17.88%);
-    color: var(--sys-clr-text, CanvasText);
+    color: var(--theme-text, CanvasText);
 }
 fieldset > :first-child {
     margin-top: 0;
@@ -7293,27 +7297,27 @@ fieldset > legend + * {
 .no-js fieldset:focus,
 .js__no-whereSelector fieldset:focus {
     border-color: hsl(162, 69%, 16.5%);
-    border-color: var(--sys-clr-input-border-hover, FieldText);
+    border-color: var(--theme-input-border-hover, CanvasText);
 }
 
 :where(.js__no-focusVisible) fieldset:focus {
     border-color: hsl(162, 69%, 16.5%);
-    border-color: var(--sys-clr-input-border-hover, FieldText);
+    border-color: var(--theme-input-border-hover, CanvasText);
 }
 
 fieldset:focus-visible {
     border-color: hsl(162, 69%, 16.5%);
-    border-color: var(--sys-clr-input-border-hover, FieldText);
+    border-color: var(--theme-input-border-hover, CanvasText);
 }
 
 fieldset:focus-within {
     border-color: hsl(162, 69%, 16.5%);
-    border-color: var(--sys-clr-input-border-hover, FieldText);
+    border-color: var(--theme-input-border-hover, CanvasText);
 }
 
 fieldset:active {
     border-color: hsl(2.81, 72.25%, 28.09%);
-    border-color: var(--sys-clr-input-border-active, FieldText);
+    border-color: var(--theme-input-border-active, ActiveText);
 }
 
 fieldset legend {
@@ -12143,8 +12147,8 @@ th[scope="row"] {
     color: hsl(339.45, 0%, 17.88%);
     color: var(--icon-color, var(--theme-ui, CanvasText));
     transition:
-        color 250ms ease-in-out,
-        fill 250ms ease-in-out;
+        color 250ms ease-out,
+        fill 250ms ease-out;
 }
 .icon > svg {
     --display: inline-block;
@@ -12161,6 +12165,7 @@ th[scope="row"] {
 .icon--ui-minimum,
 .icon--ui-check,
 .icon--ui,
+.icon--toggle,
 .icon--success,
 .icon--star,
 .icon--settings,
@@ -12225,6 +12230,7 @@ th[scope="row"] {
 .no-js .icon--ui-minimum,
 .no-js .icon--ui-check,
 .no-js .icon--ui,
+.no-js .icon--toggle,
 .no-js .icon--success,
 .no-js .icon--star,
 .no-js .icon--settings,
@@ -12287,6 +12293,7 @@ th[scope="row"] {
 .js__no-whereSelector .icon--ui-minimum,
 .js__no-whereSelector .icon--ui-check,
 .js__no-whereSelector .icon--ui,
+.js__no-whereSelector .icon--toggle,
 .js__no-whereSelector .icon--success,
 .js__no-whereSelector .icon--star,
 .js__no-whereSelector .icon--settings,
@@ -12352,6 +12359,7 @@ th[scope="row"] {
 .no-js .icon--ui-minimum::before,
 .no-js .icon--ui-check::before,
 .no-js .icon--ui::before,
+.no-js .icon--toggle::before,
 .no-js .icon--success::before,
 .no-js .icon--star::before,
 .no-js .icon--settings::before,
@@ -12414,6 +12422,7 @@ th[scope="row"] {
 .js__no-whereSelector .icon--ui-minimum::before,
 .js__no-whereSelector .icon--ui-check::before,
 .js__no-whereSelector .icon--ui::before,
+.js__no-whereSelector .icon--toggle::before,
 .js__no-whereSelector .icon--success::before,
 .js__no-whereSelector .icon--star::before,
 .js__no-whereSelector .icon--settings::before,
@@ -12481,6 +12490,7 @@ th[scope="row"] {
 .no-js .icon--ui-minimum::after,
 .no-js .icon--ui-check::after,
 .no-js .icon--ui::after,
+.no-js .icon--toggle::after,
 .no-js .icon--success::after,
 .no-js .icon--star::after,
 .no-js .icon--settings::after,
@@ -12543,6 +12553,7 @@ th[scope="row"] {
 .js__no-whereSelector .icon--ui-minimum::after,
 .js__no-whereSelector .icon--ui-check::after,
 .js__no-whereSelector .icon--ui::after,
+.js__no-whereSelector .icon--toggle::after,
 .js__no-whereSelector .icon--success::after,
 .js__no-whereSelector .icon--star::after,
 .js__no-whereSelector .icon--settings::after,
@@ -12611,6 +12622,7 @@ th[scope="row"] {
 :where(.js__no-aspectRatio) .icon--ui-minimum,
 :where(.js__no-aspectRatio) .icon--ui-check,
 :where(.js__no-aspectRatio) .icon--ui,
+:where(.js__no-aspectRatio) .icon--toggle,
 :where(.js__no-aspectRatio) .icon--success,
 :where(.js__no-aspectRatio) .icon--star,
 :where(.js__no-aspectRatio) .icon--settings,
@@ -12676,6 +12688,7 @@ th[scope="row"] {
 :where(.js__no-aspectRatio) .icon--ui-minimum::before,
 :where(.js__no-aspectRatio) .icon--ui-check::before,
 :where(.js__no-aspectRatio) .icon--ui::before,
+:where(.js__no-aspectRatio) .icon--toggle::before,
 :where(.js__no-aspectRatio) .icon--success::before,
 :where(.js__no-aspectRatio) .icon--star::before,
 :where(.js__no-aspectRatio) .icon--settings::before,
@@ -12743,6 +12756,7 @@ th[scope="row"] {
 :where(.js__no-aspectRatio) .icon--ui-minimum::after,
 :where(.js__no-aspectRatio) .icon--ui-check::after,
 :where(.js__no-aspectRatio) .icon--ui::after,
+:where(.js__no-aspectRatio) .icon--toggle::after,
 :where(.js__no-aspectRatio) .icon--success::after,
 :where(.js__no-aspectRatio) .icon--star::after,
 :where(.js__no-aspectRatio) .icon--settings::after,
@@ -12857,6 +12871,8 @@ th[scope="row"] {
 .add-ui-check-icon-after::after,
 .add-ui-icon::after,
 .add-ui-icon-after::after,
+.add-toggle-icon::after,
+.add-toggle-icon-after::after,
 .add-success-icon::after,
 .add-success-icon-after::after,
 .add-star-icon::after,
@@ -13015,6 +13031,7 @@ th[scope="row"] {
 .add-ui-minimum-icon-before::before,
 .add-ui-check-icon-before::before,
 .add-ui-icon-before::before,
+.add-toggle-icon-before::before,
 .add-success-icon-before::before,
 .add-star-icon-before::before,
 .add-settings-icon-before::before,
@@ -13452,6 +13469,12 @@ th[scope="row"] {
     content: "\f140";
     content: "\f140"/"Success icon";
 }
+.add-toggle-icon::after,
+.add-toggle-icon-after::after,
+.add-toggle-icon-before::before {
+    content: "\f158";
+    content: "\f158"/"Toggle icon";
+}
 .add-ui-icon::after,
 .add-ui-icon-after::after,
 .add-ui-icon-before::before {
@@ -13503,8 +13526,8 @@ th[scope="row"] {
     color: var(--theme-text-primary, CanvasText);
     vertical-align: middle;
     transition:
-        color 250ms ease-in-out,
-        fill 250ms ease-in-out;
+        color 250ms ease-out,
+        fill 250ms ease-out;
 }
 .brand-logo > svg {
     --display: block;
@@ -13569,9 +13592,9 @@ th[scope="row"] {
     background: hsl(339.45, 0%, 91.26%);
     background: var(--theme-background, Canvas);
     transition:
-        background ease-in-out 250ms,
-        border-color ease-in-out 250ms,
-        color ease-in-out 250ms;
+        background 250ms ease-out,
+        border-color 250ms ease-out,
+        color 250ms ease-out;
 }
 .alert-block > .alert-block__icon,
 .alert-block > .alert-block__headline > .alert-block__icon {

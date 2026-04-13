@@ -85,15 +85,16 @@ export class Tokens extends AbstractTokens {
         ];
         return Promise.all([
             Tokens_Colour.build(colourOpts.names, extraColourLevels, input.colour ?? {}),
+            Tokens_CSS.build(input.css ?? {}),
             Tokens_Themes.build(brightnessModes, contrastModes, colourOpts, input.themes?.input ?? []),
             new Tokens_Icons(config.iconFontName ?? (this.name + ' Icons'), 
             // @ts-expect-error
             input.icons),
-        ]).then(async ([colour, themes, icons]) => {
+        ]).then(async ([colour, css, themes, icons]) => {
             if (typeof config.buildIconFont === 'object') {
                 await icons.toIconFont(config.buildIconFont);
             }
-            const tokens = new Tokens(input.name, colourOpts, { colour, icons, themes }, input, {
+            const tokens = new Tokens(input.name, colourOpts, { colour, css, icons, themes }, input, {
                 ...config,
                 extraColourLevels: undefined,
             });
@@ -103,14 +104,14 @@ export class Tokens extends AbstractTokens {
     /**
      *  * @since 0.1.0-beta.0.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
-    constructor(name, colourOpts, { colour, icons, themes }, input, config = {}) {
+    constructor(name, colourOpts, { colour, css, icons, themes }, input, config = {}) {
         super();
         this.name = name;
         this.colourOpts = colourOpts;
         this.input = input;
         this.config = config;
         this.colour = colour;
-        this.css = new Tokens_CSS(this.input.css ?? {});
+        this.css = css;
         this.icons = icons;
         this.logos = new Tokens_Logos(this.input.logos);
         this.spacing = new Tokens_Spacing(this.input.spacing ?? {});
@@ -489,6 +490,9 @@ export class Tokens extends AbstractTokens {
          */
         let SingleMode;
         (function (SingleMode) {
+            /**
+             * @since 0.1.0-alpha
+             */
             SingleMode.colourOption = Tokens_Themes_Set.SingleMode.Build.colourOption;
             /**
              * @since 0.1.0-beta.0.draft
@@ -499,6 +503,9 @@ export class Tokens extends AbstractTokens {
                  * @since 0.1.0-beta.0.draft
                  */
                 Levels.DEFAULT = Tokens_Themes_Set.SingleMode.Levels.DEFAULT;
+                /**
+                 * @since 0.1.0-beta.0.draft
+                 */
                 Levels.parse = Tokens_Themes_Set.SingleMode.Levels.parse;
             })(Levels = SingleMode.Levels || (SingleMode.Levels = {}));
         })(SingleMode = Themes.SingleMode || (Themes.SingleMode = {}));

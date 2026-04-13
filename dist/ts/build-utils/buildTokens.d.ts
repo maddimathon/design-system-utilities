@@ -16,7 +16,7 @@ import type { RequiredPartially } from '@maddimathon/utility-typescript/types';
  *
  * @since 0.1.0-beta.0.draft
  */
-export declare function buildTokens(stage: AbstractStage<any, any>, tokens: Tokens.Instance, level: number, paths: buildTokens.Paths, args?: Partial<buildTokens.Args>): Promise<[(string | false)[] | undefined, string[] | undefined]>;
+export declare function buildTokens(stage: AbstractStage<any, any>, tokens: Tokens.Instance, level: number, paths: buildTokens.Paths, args?: Partial<buildTokens.Args>): Promise<void>;
 /**
  * Utilities for the {@link buildTokens} function.
  *
@@ -80,7 +80,7 @@ export declare namespace buildTokens {
     /**
      * @since 0.1.0-beta.0.draft
      */
-    function writeIcons(stage: AbstractStage<any, any>, tokens: Tokens.Instance, paths: false | string[], level: number): Promise<(string | false)[][] | undefined>;
+    function writeIcons(stage: AbstractStage<any, any>, tokens: Tokens.Instance, paths: false | string[], level: number): Promise<void>;
     /**
      * @since 0.1.0-beta.0.draft
      */
@@ -88,13 +88,13 @@ export declare namespace buildTokens {
     /**
      * @since 0.1.0-beta.0.draft
      */
-    function writeJson(stage: AbstractStage<any, any>, tokens: Tokens.Instance, paths: false | string[], level: number): Promise<(string | false)[] | undefined>;
+    function writeJson(stage: AbstractStage<any, any>, tokens: Tokens.Instance, paths: false | string[], level: number): Promise<(string | false)[]>;
     /**
      * @since 0.1.0-beta.0.draft
      */
-    function writeLogos(stage: AbstractStage<any, any>, tokens: Tokens.Instance, paths: false | string[], level: number): Promise<(string | false)[][] | undefined>;
+    function writeLogos(stage: AbstractStage<any, any>, tokens: Tokens.Instance, paths: false | string[], level: number): Promise<(string | false)[][]>;
     /**
      * @since 0.1.0-beta.0.draft
      */
-    function writeScss(stage: AbstractStage<any, any>, tokens: Tokens.Instance, paths: false | string[], level: number): Promise<string[] | undefined>;
+    function writeScss(stage: AbstractStage<any, any>, tokens: Tokens.Instance, paths: false | string[], level: number): Promise<(string | false)[]>;
 }

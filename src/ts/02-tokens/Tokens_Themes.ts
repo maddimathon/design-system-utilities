@@ -55,7 +55,7 @@ export class Tokens_Themes<
         },
 
         input: Tokens_Themes.InputParam<T_ColourTypes, T_ThemeTypes>,
-    ) {
+    ): Promise<Tokens_Themes<T_ColourTypes, T_ThemeTypes>> {
 
         return Tokens_Themes.buildSets(
             brightnessModes,

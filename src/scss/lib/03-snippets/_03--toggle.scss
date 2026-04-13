@@ -6,11 +6,16 @@
 @use 'pkg:@maddimathon/utility-sass/feature-check';
 @use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/selector';
+@use 'pkg:@maddimathon/utility-sass/string';
+
+@use '../../tokens';
 
 @use '../01-functions' as *;
 @use '../02-mixins' as *;
 
 @use 'pkg:@maddimathon/utility-astro/03-snippets' as utils;
+
+@use '03-03-typography' as *;
 
 $_closing_time: var-tr-time(toggle-closing);
 
@@ -37,21 +42,23 @@ $_defaultHeadingSelectors_greaterThan6: ();
 
 @mixin _motion-props($bool) {
     [data-toggle-content] {
-        $_transitionList: ('border-color #{var-tr-time(normal)} ease-in-out 0ms');
+        $_transitionList: (
+            'border-color #{var-tr-time(normal)} #{tokens.$transition_function} 0ms'
+        );
 
         @if $bool {
             $_transitionList: list.join(
                 $_transitionList,
                 (
-                    'grid-template-rows #{$_closing_time} ease-in-out 0ms',
-                    'border-block-end-width #{$_closing_time} ease-in-out 0ms'
+                    'grid-template-rows #{$_closing_time} #{tokens.$transition_function} 0ms',
+                    'border-block-end-width #{$_closing_time} #{tokens.$transition_function} 0ms'
                 ),
                 $separator: comma
             );
         } @else {
             $_transitionList: list.join(
                 $_transitionList,
-                ('grid-template-rows 0ms ease-in-out #{$_closing_time}'),
+                ('grid-template-rows 0ms #{tokens.$transition_function} #{$_closing_time}'),
                 $separator: comma
             );
         }
@@ -62,13 +69,13 @@ $_defaultHeadingSelectors_greaterThan6: ();
 
         > .container {
             $_transitionList: (
-                'opacity #{if($bool, $_closing_time, var-tr-time(normal))} ease-in-out 100ms'
+                'opacity #{if($bool, $_closing_time, var-tr-time(normal))} #{tokens.$transition_function} 100ms'
             );
 
             @if $bool {
                 $_transitionList: list.join(
                     $_transitionList,
-                    ('padding #{$_closing_time} ease-in-out 0ms'),
+                    ('padding #{$_closing_time} #{tokens.$transition_function} 0ms'),
                     $separator: comma
                 );
             }
@@ -84,7 +91,7 @@ $_defaultHeadingSelectors_greaterThan6: ();
                 > svg #a,
                 > svg #b {
                     @if $bool {
-                        transition: transform #{$_closing_time} ease-in-out 0ms;
+                        transition: transform #{$_closing_time} #{tokens.$transition_function} 0ms;
                     } @else {
                         transition: none;
                     }
@@ -94,15 +101,15 @@ $_defaultHeadingSelectors_greaterThan6: ();
 
         > [data-toggle-content] {
             $_transitionList: (
-                'border-color #{if($bool, $_closing_time, var-tr-time(normal))} ease-in-out 0ms'
+                'border-color #{if($bool, $_closing_time, var-tr-time(normal))} #{tokens.$transition_function} 0ms'
             );
 
             @if $bool {
                 $_transitionList: list.join(
                     $_transitionList,
                     (
-                        'grid-template-rows #{$_closing_time} ease-in-out 0ms',
-                        'border-block-end-width #{$_closing_time} ease-in-out 0ms'
+                        'grid-template-rows #{$_closing_time} #{tokens.$transition_function} 0ms',
+                        'border-block-end-width #{$_closing_time} #{tokens.$transition_function} 0ms'
                     ),
                     $separator: comma
                 );
@@ -129,13 +136,26 @@ $_defaultHeadingSelectors_greaterThan6: ();
 /// @since 0.1.0-alpha
 ///
 @mixin snippet-support-toggle-block(
-    $headingSelectors: $_defaultHeadingSelectors,
-    $headingSelectors_bigOnly: $_defaultHeadingSelectors_bigOnly
+    $flowMargin_default: style-value(toggle-flow-margin, $raw: true),
+    $flowMargin_large: style-value(toggle-flow-margin-large, $raw: true),
+    $flowMargin_small: style-value(toggle-flow-margin-small, $raw: true),
+    $flowMargin_buttonGapBlock: style-value(toggle-flow-margin-small, $raw: true),
+    //
+    $includeBackdropControlStyles: true,
+    $includeBaseStyles: true,
+    $args...
 ) {
-    @include utils.snippet-support-toggle-block(
-        $headingSelectors: $headingSelectors,
-        $headingSelectors_bigOnly: $headingSelectors_bigOnly
+    $headingSelectors: $_defaultHeadingSelectors;
+    $headingSelectors_bigOnly: $_defaultHeadingSelectors_bigOnly;
+
+    $content_container_paddingBlock: do-var(flow-margin, var-mrg-soft($flowMargin_default));
+
+    $content_container_paddingInline: do-var(
+        flow-margin-firm-start,
+        var-mrg-firm($flowMargin_default)
     );
+
+    $control_paddingBlockEnd: var-style(toggle-control-padding-block-end);
 
     $headingSelectors_isUnstyled: ();
 
@@ -147,9 +167,336 @@ $_defaultHeadingSelectors_greaterThan6: ();
         );
     }
 
+    // prettier-ignore
+    @include utils.snippet-support-toggle-block(
+        $headingSelectors: $headingSelectors,
+        $headingSelectors_bigOnly: $headingSelectors_bigOnly,
+        // 
+        $content_container_paddingBlock: $content_container_paddingBlock,
+        $content_container_paddingInline: $content_container_paddingInline,
+        $control_heading_paddingBlockEnd: $control_paddingBlockEnd,
+        $control_heading_unstyled_paddingBlockEnd: $control_paddingBlockEnd,
+        $control_paddingBlockEnd: 0,
+        // 
+        $includeBackdropControlStyles: false,
+        $includeBaseStyles: false,
+        $includeMarginBlock: false,
+        $args...
+    ) using ($location) {
+        // /* [snippet-support-toggle-block] location: #{$location} */
+        --snippet-support-toggle-block--location: #{$location};
+        
+        // @else if $location == LOCATION {
+        // }
+        
+        /// 
+        /// CONTAINER
+        /// 
+
+        @if $location == flex-contents-container {
+            display: contents;
+            @include utils.snippet-support-astro-body-grid--display-contents;
+        }
+
+        @else if $location == js--toggle-container {
+            display: #{do-var(display, grid)};
+        }
+
+        @else if $location == js--container-grid {
+            gap: 0 #{var-mrg-firm($flowMargin_small)};
+        }
+        
+        /// 
+        /// CONTROL
+        /// 
+        
+        @else if $location == toggle-control or $location == toggle-control--disabled or $location == toggle-control--hover-focus {
+            @include cx-prop(icon-color, style-value(icon-color));
+    
+            border: none;
+            background: none;
+            color: inherit;
+            
+            opacity: 1;
+
+            @if $location == toggle-control {
+                margin-inline: 0;
+                padding: 0;
+            
+                width: 100%;
+        
+                font: inherit;
+                text-align: inherit;
+    
+                appearance: none;
+                cursor: text;
+
+                &::before,
+                &::after {
+                    content: none;
+                }
+            }
+            
+            @else if $location == toggle-control--disabled {
+                cursor: text;
+
+                &::before,
+                &::after {
+                    content: none;
+                }
+
+                @include hover-focus-visible-or-within('&:active') {
+                    @include cx-prop(icon-color, style-value(icon-color));
+    
+                    border: none;
+                    background: none;
+                    color: inherit;
+                    
+                    outline: none;
+                    opacity: 1;
+                    
+                    @content (#{$location}--hover-focus);
+                }
+            }
+            
+            @else if $location == toggle-control--hover-focus {
+                outline: none;
+            }
+        }
+        
+        @else if $location == js--toggle-control or $location == js--toggle-control-backdrop {
+            padding: 0;
+            
+            appearance: button;
+            cursor: pointer;
+
+            @if $location == js--toggle-control {
+                @include snippet-link-colour-single;
+            }
+
+            @else if $includeBackdropControlStyles and $location == js--toggle-control-backdrop {
+                backdrop-filter: blur(1rem);
+                background: none;
+                border: none;
+    
+                &::before,
+                &::after {
+                    content: '';
+                    content: '' / '';
+                    @include prop-display(block);
+                    position: absolute;
+    
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                }
+    
+                &::before {
+                    background: #{var-theme(background)};
+                    opacity: 0.625;
+                }
+    
+                &::after {
+                    background: #{var-theme(link)};
+                    opacity: 0.1875;
+                }
+    
+                @include hover-focus-visible-or-within('&:active') {
+                    border: none;
+                    background: none;
+                    color: inherit;
+                    outline: none;
+                    opacity: 1;
+                }
+
+            }
+        }
+        
+        @else if $location == js--toggle-container--open--control {
+            // @include snippet-link-colour-single('-hover');
+        }
+        
+        @else if $location == js--toggle-container--default-or-open--control--hover-focus {
+            // text-decoration-color: transparent;
+            // color: #{var-theme(link)};
+            // @include snippet-link-colour-single('-hover');
+        }
+        
+        /// 
+        /// TITLE
+        /// 
+        
+        @else if $location == toggle-title {
+            display: contents;
+            @include utils.snippet-support-astro-body-grid--display-contents;
+
+            // ALL HEADINGS
+            & > %unstyled-heading,
+            & #{selector.nest( '>', #{$headingSelectors} )} {
+                @content(#{$location}--all-headings);
+                
+                [data-toggle-control] {
+                    font: inherit;
+                    line-height: inherit;
+                    letter-spacing: inherit;
+                    text-transform: inherit;
+                    
+                    @content(#{$location}--all-headings--control);
+                }
+            }
+
+            // INDIVIDUAL HEADINGS
+            @each $level in token-all-heading-levels() {
+                > %h#{$level}  {
+                    @content(#{$location}--h#{$level});
+
+                    [data-toggle-control] {
+                        
+                        @content(#{$location}--h#{$level}--control);
+                    }
+                }
+            }
+            
+            // UNSTYLED HEADINGS
+            & > %unstyled-heading,
+            & #{selector.nest( '>', #{$headingSelectors_isUnstyled} )} {
+                @content(#{$location}--unstyled-heading);
+                
+                [data-toggle-control] {
+                    
+                    @content(#{$location}--unstyled-heading--control);
+                }
+            }
+        }
+        
+        @else if $location == toggle-title--heading--icon {
+            // @include cx-prop(icon-size, 1em);
+            padding-block-end: 0;
+        }
+        
+        @else if $location == js--toggle-title {
+            // ALL HEADINGS
+            & > %unstyled-heading,
+            & #{selector.nest( '>', #{$headingSelectors} )} {
+                @content(#{$location}--all-headings);
+                
+                [data-toggle-control] {
+                    // color: inherit;
+                    @content(#{$location}--all-headings--control);
+                }
+            }
+            
+            // INDIVIDUAL HEADINGS
+            @each $level in token-all-heading-levels() {
+                > %h#{$level}  {
+                    @content(#{$location}--h#{$level});
+
+                    [data-toggle-control] {
+                        padding-block-end: #{var-style(toggle-control-heading-#{$level}-padding-block-end)};
+                        
+                        @content(#{$location}--h#{$level}--control);
+                    }
+                }
+            }
+ 
+            // UNSTYLED HEADINGS
+            & > %unstyled-heading,
+            & #{selector.nest( '>', #{$headingSelectors_isUnstyled} )} {
+                @content(#{$location}--unstyled-heading);
+                
+                [data-toggle-control] {
+                    padding-block-end: #{$control_paddingBlockEnd};
+                    
+                    @content(#{$location}--unstyled-heading--control);
+                }
+            }
+        }
+        
+        @else if $location == js--toggle-title--heading {
+            // padding-block-end: #{$control_heading_paddingBlockEnd};
+        }
+        
+        @else if $location == js--toggle-title--heading--unstyled {
+            // padding-block-end: #{$control_paddingBlockEnd};
+        }
+        
+        /// 
+        /// ICON
+        /// 
+        
+        @else if $location == toggle-icon {
+            // @include cx-prop(icon-size, 1.125em);
+            // @include prop-display(inline-block);
+    
+            // vertical-align: sub;
+            // padding-block-end: #{var-stroke-relative('100')};
+            // padding-inline-end: #{var-border-width('200')};
+        }
+        
+        @else if $location == toggle-icon--svg {
+            // stroke: currentColor;
+            // stroke-width: clamp(1px, #{var-stroke-relative('600')}, #{var-border-width('400')});
+            // fill: none;
+        }
+        
+        // @else if $location == LOCATION {
+        // }
+        
+        /// 
+        /// CONTENT
+        /// 
+        
+        @else if $location == js--toggle-content {
+            display: #{do-var(display, grid)};
+            border: 0 dotted currentColor;
+            border-block-start-width: #{var-border-width('200')};
+            border-block-start-style: solid;
+
+            @include set-flow-margins(
+                $default: $flowMargin_default,
+                $large: $flowMargin_large,
+                $small: $flowMargin_small,
+                $buttonGapBlock: $flowMargin_buttonGapBlock,
+                // 
+                $defineChildProps: false,
+                $defineCustomProps: true,
+            );
+        }
+        
+        @else if $location == js--toggle-content--container {
+            > :first-child {
+                margin-block-start: 0;
+            }
+            > :last-child {
+                margin-block-end: 0;
+            }
+
+            > %ol,
+            > %ul {
+                &:only-child {
+                    margin-inline: 0;
+                }
+            }
+        }
+        
+        @else if $location == js--toggle-container--open--content {
+            border-inline-width: #{var-border-width('200')};
+            border-block-end-width: #{var-border-width('200')};
+        }
+        
+        // @else if $location == LOCATION {
+        // }
+
+        @if string.match($location, '^js--toggle-title--(has-heading|heading(--(toggle-control|unstyled))?)$') == null {
+            @content($location);
+        }
+    }
+
     /* Overrides ==================================== */
 
     [data-toggle-container] {
+        // /* [snippet-support-toggle-block] OVERRIDES */
         @include cx-prop(toggle-closing-time, $_closing_time);
     }
 
@@ -158,15 +505,18 @@ $_defaultHeadingSelectors_greaterThan6: ();
             &,
             & > %unstyled-heading,
             & #{selector.nest( '>', #{$headingSelectors_isUnstyled} )} {
+                // /* [snippet-support-toggle-block] OVERRIDES */
                 font-size: #{var-style(heading-unstyled-font-size)};
             }
         }
 
         .toggle-title,
         [data-toggle-content] {
+            // /* [snippet-support-toggle-block] OVERRIDES */
             transition: #{transition-properties-value(false)};
 
             [data-toggle-control] {
+                // /* [snippet-support-toggle-block] OVERRIDES */
                 color: inherit;
             }
         }
@@ -174,22 +524,26 @@ $_defaultHeadingSelectors_greaterThan6: ();
         [data-toggle-container='open'],
         [data-toggle-container='closing'] {
             > [data-toggle-content] {
+                // /* [snippet-support-toggle-block] OVERRIDES */
                 border-inline-width: #{var-border-width('300')};
             }
         }
 
         [data-toggle-container='open'] {
             > [data-toggle-content] {
+                // /* [snippet-support-toggle-block] OVERRIDES */
                 border-block-end-width: #{var-border-width('300')};
                 border-color: #{var-theme(ui-grey)};
             }
         }
 
         @include motion($nestParent: false, $unifyParent: true) {
+            // /* [snippet-support-toggle-block] OVERRIDES - motion */
             @include _motion-props(true);
         }
 
         @include no-motion($nestParent: false, $unifyParent: true) {
+            // /* [snippet-support-toggle-block] OVERRIDES - no motion */
             @include _motion-props(false);
         }
     }
@@ -197,18 +551,22 @@ $_defaultHeadingSelectors_greaterThan6: ();
     .toggle-title {
         @each $level in token-all-heading-levels() {
             &:has(> %h#{$level}) {
+                // /* [snippet-support-toggle-block] OVERRIDES */
                 color: #{var-theme(heading-#{$level})};
             }
         }
 
         #{selector.nest( '>', ( $headingSelectors ) )} {
+            // /* [snippet-support-toggle-block] OVERRIDES */
             color: inherit;
         }
 
         [data-toggle-container='open'] & {
+            // /* [snippet-support-toggle-block] OVERRIDES */
             color: #{var-theme(link-hover)};
 
             + [data-toggle-content] {
+                // /* [snippet-support-toggle-block] OVERRIDES */
                 border-color: #{var-theme(ui-grey)};
                 border-block-start-color: #{var-theme(link-outline-hover)};
             }
@@ -217,9 +575,11 @@ $_defaultHeadingSelectors_greaterThan6: ();
         &,
         [data-toggle-container='open'] & {
             @include hover-focus-visible {
+                // /* [snippet-support-toggle-block] OVERRIDES */
                 color: #{var-theme(link)};
 
                 + [data-toggle-content] {
+                    // /* [snippet-support-toggle-block] OVERRIDES */
                     border-color: #{var-theme(link-outline)};
                 }
             }
@@ -227,6 +587,7 @@ $_defaultHeadingSelectors_greaterThan6: ();
 
         [data-toggle-container='open'] & {
             #{selector.nest( '>', ( $headingSelectors ) )} {
+                // /* [snippet-support-toggle-block] OVERRIDES */
                 color: inherit;
             }
         }

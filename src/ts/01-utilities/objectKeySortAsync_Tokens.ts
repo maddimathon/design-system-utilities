@@ -20,7 +20,7 @@ import { objectKeySort_Tokens } from './objectKeySort_Tokens.js';
 export async function objectKeySortAsync_Tokens<T_Obj extends Record<number | string, any>>(
     obj: T_Obj,
     recursive: boolean = false,
-) {
+): Promise<T_Obj> {
     return objectKeySortAsync<T_Obj>(
         obj,
         recursive,

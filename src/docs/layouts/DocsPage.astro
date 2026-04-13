@@ -7,6 +7,8 @@
 
 /* import - types */
 import type { ComponentProps } from 'astro/types';
+import type { MenuItem } from '@maddimathon/utility-astro/components';
+
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 
 /* import - functions */
@@ -22,11 +24,11 @@ import { SampleTokens_Json } from '../../astro/functions/index.js';
 import { SITE_TITLE } from '../constants.js';
 
 /* import - components */
+import { Heading } from '@maddimathon/utility-astro/components';
 import { SearchForm, Widget } from '../../astro/components.js';
 
 /* import - layouts */
 import LibPage from '../../astro/layouts/Page.astro';
-import { Heading } from '@maddimathon/utility-astro/components';
 
 /* PROPS ===================================== */
 
@@ -46,7 +48,7 @@ const inputs: Props = Astro.props;
 
 const title = Array.isArray(inputs.title) ? inputs.title : [inputs.title];
 
-const props = {
+const props: ComponentProps<typeof LibPage> = {
     lang: 'en-CA',
 
     ...inputs,
@@ -78,14 +80,23 @@ const props = {
     },
 
     tokens: SampleTokens_Json as Tokens.JsonReturn,
-} satisfies ComponentProps<typeof LibPage>;
+};
 
 /* CONSTANTS ===================================== */
 
 const cssUrl = relativeURL(Astro.url, 'assets/css/main.css');
 
-props.primaryMenu = [
+const primaryMenu: MenuItem[] = [
     { label: 'Home', href: '' },
+    {
+        label: 'Components',
+        child: [
+            {
+                label: 'Toggles',
+                href: 'components/toggle',
+            },
+        ],
+    },
     {
         label: 'Tokens',
         child: [
@@ -98,7 +109,7 @@ props.primaryMenu = [
                 href: 'tokens/themes',
             },
             {
-                label: 'Icons',
+                label: 'Icons & Alerts',
                 href: 'tokens/icons',
             },
             {
@@ -124,6 +135,7 @@ props.primaryMenu = [
 <LibPage
     {...props}
     accessibilityReportEmail={undefined}
+    primaryMenu={primaryMenu}
     stylesheetVersion={pkgJson.version}
     stylesheetURLs={[cssUrl].concat(props.stylesheetURLs ?? [])}
     title={title}

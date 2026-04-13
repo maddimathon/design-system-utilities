@@ -1,0 +1,43 @@
+---
+/**
+ * @since ___PKG_VERSION___
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+
+/* import - functions */
+
+/* import - values */
+import { SampleTokens_Json } from '../../../astro/functions/index.js';
+
+/* import - components */
+import { PageContent_Toggles } from '../../../astro/components.js';
+
+/* import - layouts */
+import DocsPage from '../../layouts/DocsPage.astro';
+
+/* TYPES ===================================== */
+
+/* PROPS ===================================== */
+
+/* CONSTANTS ===================================== */
+---
+
+<DocsPage title={['Toggles', 'Components']}>
+    <p>
+        These blocks can be toggled open or closed by the user (and follow
+        accessibility guidelines). Each block also has a unique ID value that
+        can be used to link directly to that block. When someone clicks a link
+        to a toggle block, that block will open and the toggle button will be
+        highlighted with the focus ring. Use the <a href='#toc'
+            >table of contents</a
+        > below to test it out on this page!
+    </p>
+    <PageContent_Toggles
+        tocDefaultOpen={false}
+        tocDisplayLevel={0}
+        tokens={SampleTokens_Json}
+    />
+</DocsPage>

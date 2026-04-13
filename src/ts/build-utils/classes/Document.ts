@@ -45,7 +45,7 @@ export class Document extends DocumentStage {
 
     protected readonly astroPublicDir = 'docs/_public';
 
-    protected async assets() {
+    protected async assets(): Promise<void> {
         // returns
         if ( !this.assetSourceGlobs.length ) {
             this.console.progress( 'no docs assets to copy, skipping...', 1 );
@@ -71,7 +71,7 @@ export class Document extends DocumentStage {
         );
     }
 
-    protected async astro() {
+    protected async astro(): Promise<void> {
         this.console.progress( 'building astro docs...', 1 );
 
         const distDir = this.getDistDir( 'docs' ).trim().replace( /\/$/g, '' );
@@ -99,7 +99,7 @@ export class Document extends DocumentStage {
         }
     }
 
-    protected async scss( args?: Partial<AbstractStage.runCustomScssDirSubStage.Opts> ) {
+    protected async scss( args?: Partial<AbstractStage.runCustomScssDirSubStage.Opts> ): Promise<void> {
         // returns - we don't need to compile this
         if (
             this.isWatchedUpdate

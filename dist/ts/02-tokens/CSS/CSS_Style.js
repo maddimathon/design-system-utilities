@@ -8,7 +8,7 @@
  * @license MIT
  */
 import { deleteUndefinedProps, mergeArgs } from '@maddimathon/utility-typescript';
-import { objectGenerator } from '../../01-utilities/objectGenerator.js';
+import { objectGenerator, objectGeneratorAsync } from '../../01-utilities/objectGenerator.js';
 import { objectKeySort_Tokens } from '../../01-utilities/objectKeySort_Tokens.js';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
 /**
@@ -17,10 +17,67 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
  * @since 0.1.0-alpha
  */
 export class Tokens_CSS_Style extends AbstractTokens {
+    data;
+    /**
+     * Builds style tokens faster.
+     *
+     * @since 0.1.0-beta.0.draft
+     */
+    static async build(partial = {}) {
+        return Tokens_CSS_Style.buildData(partial).then((data) => new Tokens_CSS_Style(data));
+    }
+    /**
+     * Builds style tokens data faster.
+     *
+     * @since 0.1.0-beta.0.draft
+     */
+    static async buildData(partial = {}) {
+        const defaults = {
+            'flow-margin': {
+                $: '400',
+                large: '600',
+                small: '300',
+                button: '300',
+            },
+            selection: {
+                background: {
+                    opacity: {
+                        low: '65%',
+                        average: '85%',
+                        high: '95%',
+                    },
+                },
+            },
+        };
+        return Tokens_CSS_Style.iconStyle(partial.icon).then(async (icon) => {
+            const widget = await Tokens_CSS_Style.widgetStyle(partial.widget);
+            const [alert, button, heading, input, toggle,] = await Promise.all([
+                Tokens_CSS_Style.alertStyle(icon, partial.alert),
+                Tokens_CSS_Style.buttonStyle(icon, partial.button),
+                objectGeneratorAsync([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], async (hdg) => Tokens_CSS_Style.headingStyle(hdg, partial.heading?.[hdg])).then(async (hdgs) => ({
+                    ...hdgs,
+                    unstyled: await Tokens_CSS_Style.headingStyle('unstyled', partial.heading?.unstyled),
+                })),
+                Tokens_CSS_Style.inputStyle(partial.input),
+                Tokens_CSS_Style.toggleStyle(widget, partial.toggle),
+            ]);
+            return {
+                alert,
+                button,
+                heading,
+                icon,
+                input,
+                'flow-margin': mergeArgs(defaults['flow-margin'], partial['flow-margin'], true),
+                toggle,
+                selection: mergeArgs(defaults.selection, partial.selection, true),
+                widget,
+            };
+        });
+    }
     /**
      * @since 0.1.0-beta.0.draft
      */
-    static alertStyle(iconStyles, partial = {}) {
+    static async alertStyle(iconStyles, partial = {}) {
         const headingMaker = (num) => {
             const style = {
                 margin: {
@@ -32,7 +89,14 @@ export class Tokens_CSS_Style extends AbstractTokens {
             };
             // returns
             if (num === 'unstyled') {
-                return style;
+                return {
+                    margin: {
+                        block: {
+                            start: partial.heading?.[num]?.margin?.block.start ?? style.margin.block.start,
+                            end: partial.heading?.[num]?.margin?.block.end ?? style.margin.block.end,
+                        },
+                    },
+                };
             }
             if (num >= 1) {
                 style.margin.block.start = 0;
@@ -119,7 +183,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
      * @since 0.1.0-alpha
      * @since 0.1.0-beta.0.draft — Added partial param.
      */
-    static buttonStyle(iconStyles, partial) {
+    static async buttonStyle(iconStyles, partial) {
         const style = mergeArgs({
             border: {
                 radius: '0',
@@ -232,7 +296,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
      * @since 0.1.0-alpha
      * @since 0.1.0-beta.0.draft — Added partial param.
      */
-    static headingStyle(heading, partial) {
+    static async headingStyle(heading, partial) {
         const headingAsNum = (typeof heading === 'number' && heading >= 1) ? heading : 11;
         const style = {
             font: {
@@ -314,7 +378,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
     /**
      * @since 0.1.0-beta.0.draft
      */
-    static iconStyle(partial = {}) {
+    static async iconStyle(partial = {}) {
         return mergeArgs({
             color: 'ui',
             font: {
@@ -343,7 +407,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
     /**
      * @since 0.1.0-beta.0.draft
      */
-    static inputStyle(partial) {
+    static async inputStyle(partial) {
         const style = mergeArgs({
             border: {
                 radius: '0',
@@ -422,7 +486,80 @@ export class Tokens_CSS_Style extends AbstractTokens {
     /**
      * @since 0.1.0-beta.0.draft
      */
-    static widgetStyle(partial) {
+    static async toggleStyle(widgetStyles, partial = {}) {
+        const flowMargin = {
+            $: widgetStyles['flow-margin'].$,
+            large: widgetStyles['flow-margin'].large,
+            small: widgetStyles['flow-margin'].small,
+            ...partial?.['flow-margin'] ?? {},
+            button: partial?.['flow-margin']?.button ?? widgetStyles['flow-margin'].button,
+        };
+        const headingMaker = (num) => {
+            const style = {
+                padding: {
+                    block: {
+                        end: '200',
+                    },
+                },
+            };
+            // returns
+            if (num === 'unstyled') {
+                return {
+                    padding: {
+                        block: {
+                            end: partial.control?.$?.padding?.block?.end ?? style.padding.block.end,
+                        },
+                    },
+                };
+            }
+            // if ( num >= 1 ) {
+            // style.padding.block.end = 0;
+            // }
+            // if ( num >= 2 ) {
+            // }
+            // if ( num >= 3 ) {
+            // }
+            // if ( num >= 4 ) {
+            // }
+            // if ( num >= 5 ) {
+            // }
+            // if ( num >= 6 ) {
+            // }
+            // if ( num >= 7 ) {
+            // }
+            // if ( num >= 8 ) {
+            // }
+            // if ( num >= 9 ) {
+            // }
+            // if ( num >= 10 ) {
+            // }
+            return {
+                padding: {
+                    block: {
+                        end: partial.control?.heading?.[num]?.padding?.block?.end ?? style.padding.block.end,
+                    },
+                },
+            };
+        };
+        const defaultControl = headingMaker('unstyled');
+        return {
+            control: {
+                $: {
+                    padding: {
+                        block: {
+                            end: partial.control?.$?.padding?.block?.end ?? defaultControl.padding.block.end,
+                        },
+                    },
+                },
+                heading: mergeArgs(objectGenerator([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], headingMaker), deleteUndefinedProps(partial.control?.heading ?? {}), true),
+            },
+            'flow-margin': flowMargin,
+        };
+    }
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    static async widgetStyle(partial) {
         const flowMargin = {
             $: '300',
             large: '500',
@@ -446,70 +583,12 @@ export class Tokens_CSS_Style extends AbstractTokens {
             }, partial?.padding ?? {}, true),
         };
     }
-    /**
-     * @since 0.1.0-beta.0.draft
-     */
-    static mergeData(partial) {
-        const defaults = this.default;
-        const icon = Tokens_CSS_Style.iconStyle(partial.icon);
-        return {
-            alert: Tokens_CSS_Style.alertStyle(icon, partial.alert),
-            button: Tokens_CSS_Style.buttonStyle(icon, partial.button),
-            heading: {
-                ...objectGenerator([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], (hdg) => Tokens_CSS_Style.headingStyle(hdg, partial.heading?.[hdg])),
-                unstyled: Tokens_CSS_Style.headingStyle('unstyled', partial.heading?.unstyled),
-            },
-            icon,
-            input: Tokens_CSS_Style.inputStyle(partial.input),
-            'flow-margin': mergeArgs(defaults['flow-margin'], partial['flow-margin'], true),
-            selection: {
-                ...defaults.selection,
-                ...partial.selection,
-                background: {
-                    ...defaults.selection.background,
-                    ...partial.selection?.background,
-                    opacity: {
-                        ...defaults.selection.background.opacity,
-                        ...partial.selection?.background?.opacity,
-                    },
-                },
-            },
-            widget: Tokens_CSS_Style.widgetStyle(partial.widget),
-        };
-    }
     static get default() {
-        const icon = Tokens_CSS_Style.iconStyle();
-        return {
-            alert: Tokens_CSS_Style.alertStyle(icon),
-            button: Tokens_CSS_Style.buttonStyle(icon),
-            heading: {
-                ...objectGenerator([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], (hdg) => Tokens_CSS_Style.headingStyle(hdg)),
-                unstyled: Tokens_CSS_Style.headingStyle('unstyled'),
-            },
-            icon,
-            input: Tokens_CSS_Style.inputStyle(),
-            'flow-margin': {
-                $: '400',
-                large: '600',
-                small: '300',
-                button: '300',
-            },
-            selection: {
-                background: {
-                    opacity: {
-                        low: '65%',
-                        average: '85%',
-                        high: '95%',
-                    },
-                },
-            },
-            widget: Tokens_CSS_Style.widgetStyle(),
-        };
+        return Tokens_CSS_Style.buildData();
     }
-    data;
-    constructor(input) {
+    constructor(data) {
         super();
-        this.data = Tokens_CSS_Style.mergeData(input);
+        this.data = data;
     }
     toJSON() {
         return this.data;

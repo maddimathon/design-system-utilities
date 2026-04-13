@@ -18,5 +18,5 @@ export declare namespace objectKeySort_Tokens {
     /**
      * Available for use to sort string arrays in the same order as this function.
      */
-    function sorter(a: number | string, b: number | string): 0 | 1 | -1;
+    function sorter(a: number | string, b: number | string): number;
 }

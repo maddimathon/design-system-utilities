@@ -28,8 +28,8 @@
     color: CanvasText;
     color: var(--icon-color, var(--theme-ui, CanvasText));
     transition:
-        color 250ms ease-in-out,
-        fill 250ms ease-in-out;
+        color 250ms ease-out,
+        fill 250ms ease-out;
 }
 .icon > svg {
     --display: inline-block;
@@ -46,6 +46,7 @@
 .icon--ui-minimum,
 .icon--ui-check,
 .icon--ui,
+.icon--toggle,
 .icon--success,
 .icon--star,
 .icon--settings,
@@ -110,6 +111,7 @@
 .no-js .icon--ui-minimum,
 .no-js .icon--ui-check,
 .no-js .icon--ui,
+.no-js .icon--toggle,
 .no-js .icon--success,
 .no-js .icon--star,
 .no-js .icon--settings,
@@ -172,6 +174,7 @@
 .js__no-whereSelector .icon--ui-minimum,
 .js__no-whereSelector .icon--ui-check,
 .js__no-whereSelector .icon--ui,
+.js__no-whereSelector .icon--toggle,
 .js__no-whereSelector .icon--success,
 .js__no-whereSelector .icon--star,
 .js__no-whereSelector .icon--settings,
@@ -237,6 +240,7 @@
 .no-js .icon--ui-minimum::before,
 .no-js .icon--ui-check::before,
 .no-js .icon--ui::before,
+.no-js .icon--toggle::before,
 .no-js .icon--success::before,
 .no-js .icon--star::before,
 .no-js .icon--settings::before,
@@ -299,6 +303,7 @@
 .js__no-whereSelector .icon--ui-minimum::before,
 .js__no-whereSelector .icon--ui-check::before,
 .js__no-whereSelector .icon--ui::before,
+.js__no-whereSelector .icon--toggle::before,
 .js__no-whereSelector .icon--success::before,
 .js__no-whereSelector .icon--star::before,
 .js__no-whereSelector .icon--settings::before,
@@ -366,6 +371,7 @@
 .no-js .icon--ui-minimum::after,
 .no-js .icon--ui-check::after,
 .no-js .icon--ui::after,
+.no-js .icon--toggle::after,
 .no-js .icon--success::after,
 .no-js .icon--star::after,
 .no-js .icon--settings::after,
@@ -428,6 +434,7 @@
 .js__no-whereSelector .icon--ui-minimum::after,
 .js__no-whereSelector .icon--ui-check::after,
 .js__no-whereSelector .icon--ui::after,
+.js__no-whereSelector .icon--toggle::after,
 .js__no-whereSelector .icon--success::after,
 .js__no-whereSelector .icon--star::after,
 .js__no-whereSelector .icon--settings::after,
@@ -496,6 +503,7 @@
 :where(.js__no-aspectRatio) .icon--ui-minimum,
 :where(.js__no-aspectRatio) .icon--ui-check,
 :where(.js__no-aspectRatio) .icon--ui,
+:where(.js__no-aspectRatio) .icon--toggle,
 :where(.js__no-aspectRatio) .icon--success,
 :where(.js__no-aspectRatio) .icon--star,
 :where(.js__no-aspectRatio) .icon--settings,
@@ -561,6 +569,7 @@
 :where(.js__no-aspectRatio) .icon--ui-minimum::before,
 :where(.js__no-aspectRatio) .icon--ui-check::before,
 :where(.js__no-aspectRatio) .icon--ui::before,
+:where(.js__no-aspectRatio) .icon--toggle::before,
 :where(.js__no-aspectRatio) .icon--success::before,
 :where(.js__no-aspectRatio) .icon--star::before,
 :where(.js__no-aspectRatio) .icon--settings::before,
@@ -628,6 +637,7 @@
 :where(.js__no-aspectRatio) .icon--ui-minimum::after,
 :where(.js__no-aspectRatio) .icon--ui-check::after,
 :where(.js__no-aspectRatio) .icon--ui::after,
+:where(.js__no-aspectRatio) .icon--toggle::after,
 :where(.js__no-aspectRatio) .icon--success::after,
 :where(.js__no-aspectRatio) .icon--star::after,
 :where(.js__no-aspectRatio) .icon--settings::after,
@@ -742,6 +752,8 @@
 .add-ui-check-icon-after::after,
 .add-ui-icon::after,
 .add-ui-icon-after::after,
+.add-toggle-icon::after,
+.add-toggle-icon-after::after,
 .add-success-icon::after,
 .add-success-icon-after::after,
 .add-star-icon::after,
@@ -900,6 +912,7 @@
 .add-ui-minimum-icon-before::before,
 .add-ui-check-icon-before::before,
 .add-ui-icon-before::before,
+.add-toggle-icon-before::before,
 .add-success-icon-before::before,
 .add-star-icon-before::before,
 .add-settings-icon-before::before,
@@ -1336,6 +1349,12 @@
 .add-success-icon-before::before {
     content: "\f140";
     content: "\f140"/"Success icon";
+}
+.add-toggle-icon::after,
+.add-toggle-icon-after::after,
+.add-toggle-icon-before::before {
+    content: "\f158";
+    content: "\f158"/"Toggle icon";
 }
 .add-ui-icon::after,
 .add-ui-icon-after::after,

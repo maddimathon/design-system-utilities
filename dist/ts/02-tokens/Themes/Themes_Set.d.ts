@@ -505,121 +505,121 @@ export declare namespace Tokens_Themes_Set {
              * @since 0.1.0-beta.0.draft
              */
             namespace DEFAULT {
-                const average: {
-                    readonly background: {
-                        readonly $: "150";
-                        readonly bright: "100";
-                        readonly accent: "200";
-                        readonly grey: "200";
+                const average: Readonly<{
+                    background: {
+                        $: '150';
+                        bright: '100';
+                        accent: '200';
+                        grey: '200';
                     };
-                    readonly text: {
-                        readonly $: "750";
-                        readonly accent: "700";
-                        readonly min: "600";
+                    text: {
+                        $: '750';
+                        accent: '700';
+                        min: '600';
                     };
-                    readonly ui: {
-                        readonly $: "750";
-                        readonly accent: "700";
-                        readonly min: "600";
+                    ui: {
+                        $: '750';
+                        accent: '700';
+                        min: '600';
                     };
-                    readonly heading: {
-                        readonly 1: "800";
-                        readonly 2: "700";
-                        readonly 3: "700";
-                        readonly 4: "700";
-                        readonly 5: "700";
-                        readonly 6: "700";
-                        readonly 7: "700";
-                        readonly 8: "700";
-                        readonly 9: "700";
-                        readonly 10: "700";
+                    heading: {
+                        1: '800';
+                        2: '700';
+                        3: '700';
+                        4: '700';
+                        5: '700';
+                        6: '700';
+                        7: '700';
+                        8: '700';
+                        9: '700';
+                        10: '700';
                     };
-                };
-                const high: {
-                    readonly background: {
-                        readonly $: "100";
-                        readonly bright: "white";
-                        readonly accent: "150";
-                        readonly grey: "150";
+                }>;
+                const high: Readonly<{
+                    background: {
+                        $: '100';
+                        bright: 'white';
+                        accent: '150';
+                        grey: '150';
                     };
-                    readonly text: {
-                        readonly $: "800";
-                        readonly accent: "750";
-                        readonly min: "700";
+                    text: {
+                        $: '800';
+                        accent: '750';
+                        min: '700';
                     };
-                    readonly ui: {
-                        readonly $: "800";
-                        readonly accent: "750";
-                        readonly min: "700";
+                    ui: {
+                        $: '800';
+                        accent: '750';
+                        min: '700';
                     };
-                    readonly heading: {
-                        readonly 1: "800";
-                        readonly 2: "750";
-                        readonly 3: "750";
-                        readonly 4: "750";
-                        readonly 5: "750";
-                        readonly 6: "750";
-                        readonly 7: "750";
-                        readonly 8: "750";
-                        readonly 9: "750";
-                        readonly 10: "750";
+                    heading: {
+                        1: '800';
+                        2: '750';
+                        3: '750';
+                        4: '750';
+                        5: '750';
+                        6: '750';
+                        7: '750';
+                        8: '750';
+                        9: '750';
+                        10: '750';
                     };
-                };
-                const low: {
-                    readonly background: {
-                        readonly $: "250";
-                        readonly bright: "200";
-                        readonly accent: "250";
-                        readonly grey: "250";
+                }>;
+                const low: Readonly<{
+                    background: {
+                        $: '250';
+                        bright: '200';
+                        accent: '250';
+                        grey: '250';
                     };
-                    readonly text: {
-                        readonly $: "700";
-                        readonly accent: "700";
-                        readonly min: "600";
+                    text: {
+                        $: '700';
+                        accent: '700';
+                        min: '600';
                     };
-                    readonly ui: {
-                        readonly $: "700";
-                        readonly accent: "700";
-                        readonly min: "600";
+                    ui: {
+                        $: '700';
+                        accent: '700';
+                        min: '600';
                     };
-                    readonly heading: {
-                        readonly 1: "700";
-                        readonly 2: "700";
-                        readonly 3: "700";
-                        readonly 4: "700";
-                        readonly 5: "750";
-                        readonly 6: "750";
-                        readonly 7: "750";
-                        readonly 8: "750";
-                        readonly 9: "750";
-                        readonly 10: "750";
+                    heading: {
+                        1: '700';
+                        2: '700';
+                        3: '700';
+                        4: '700';
+                        5: '750';
+                        6: '750';
+                        7: '750';
+                        8: '750';
+                        9: '750';
+                        10: '750';
                     };
-                };
-                const max: {
-                    readonly background: "white";
-                    readonly text: {
-                        readonly $: "black";
-                        readonly accent: "850";
-                        readonly min: "850";
+                }>;
+                const max: Readonly<{
+                    background: 'white';
+                    text: {
+                        $: 'black';
+                        accent: '850';
+                        min: '850';
                     };
-                    readonly ui: {
-                        readonly $: "black";
-                        readonly accent: "850";
-                        readonly min: "850";
+                    ui: {
+                        $: 'black';
+                        accent: '850';
+                        min: '850';
                     };
-                    readonly heading: {
-                        readonly 1: "850";
-                        readonly 2: "850";
-                        readonly 3: "850";
-                        readonly 4: "850";
-                        readonly 5: "850";
-                        readonly 6: "850";
-                        readonly 7: "850";
-                        readonly 8: "850";
-                        readonly 9: "850";
-                        readonly 10: "850";
+                    heading: {
+                        1: '850';
+                        2: '850';
+                        3: '850';
+                        4: '850';
+                        5: '850';
+                        6: '850';
+                        7: '850';
+                        8: '850';
+                        9: '850';
+                        10: '850';
                     };
-                };
+                }>;
             }
             /**
              * @since 0.1.0-alpha

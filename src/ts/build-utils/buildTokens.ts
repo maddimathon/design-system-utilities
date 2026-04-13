@@ -36,7 +36,7 @@ export async function buildTokens(
     level: number,
     paths: buildTokens.Paths,
     args: Partial<buildTokens.Args> = {},
-) {
+): Promise<void> {
     stage.console.progress( 'building token files...', 0 + level );
 
     stage.console.verbose( 'parsing paths...', 1 + level );
@@ -115,7 +115,7 @@ export async function buildTokens(
                 : [ paths.scss ?? 'src/scss/tokens/system/_tokens.scss' ],
     };
 
-    return Promise.all( [
+    await Promise.all( [
         buildTokens.writeIcons( stage, tokens, completePaths.assets.icons, level ),
         buildTokens.writeLogos( stage, tokens, completePaths.assets.logos, level ),
     ] ).then(
@@ -222,7 +222,7 @@ export namespace buildTokens {
         tokens: Tokens.Instance,
         paths: false | string[],
         level: number,
-    ) {
+    ): Promise<void> {
         // returns
         if ( !paths ) {
             return;
@@ -230,7 +230,7 @@ export namespace buildTokens {
 
         stage.console.verbose( 'writing icon files...', 1 + level );
 
-        return Promise.all(
+        await Promise.all(
             paths.map(
                 async ( path ) => Promise.all(
                     Object.values( tokens.icons.data ).map(
@@ -318,10 +318,10 @@ export namespace buildTokens {
         tokens: Tokens.Instance,
         paths: false | string[],
         level: number,
-    ) {
+    ): Promise<( string | false )[]> {
         // returns
         if ( !paths ) {
-            return;
+            return [];
         }
 
         stage.console.verbose( 'writing json tokens...', 1 + level );
@@ -347,10 +347,10 @@ export namespace buildTokens {
         tokens: Tokens.Instance,
         paths: false | string[],
         level: number,
-    ) {
+    ): Promise<( string | false )[][]> {
         // returns
         if ( !paths ) {
-            return;
+            return [];
         }
 
         stage.console.verbose( 'writing logo files...', 1 + level );
@@ -382,10 +382,10 @@ export namespace buildTokens {
         tokens: Tokens.Instance,
         paths: false | string[],
         level: number,
-    ) {
+    ): Promise<( string | false )[]> {
         // returns
         if ( !paths ) {
-            return;
+            return [];
         }
 
         stage.console.verbose( 'writing scss tokens...', 1 + level );

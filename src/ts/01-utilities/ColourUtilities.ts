@@ -1622,7 +1622,7 @@ export namespace ColourUtilities {
          * @since 0.1.0-alpha
          * @since ___PKG_VERSION___ — Moved from {@link ColourUtilities} to {@link ColourUtilities.Levels} and renamed.
          */
-        export const converter = {
+        export const converter: Readonly<{
             '100': '900',
             '150': '850',
             '200': '800',
@@ -1643,7 +1643,28 @@ export namespace ColourUtilities {
 
             'black': 'white',
             'white': 'black',
-        } as const satisfies {
+        }> = {
+            '100': '900',
+            '150': '850',
+            '200': '800',
+            '250': '750',
+            '300': '700',
+            '350': '650',
+            '400': '600',
+            '450': '550',
+            '500': '500',
+            '550': '450',
+            '600': '400',
+            '650': '350',
+            '700': '300',
+            '750': '250',
+            '800': '200',
+            '850': '150',
+            '900': '100',
+
+            'black': 'white',
+            'white': 'black',
+        } satisfies {
             [ L in "black" | "white" | Levels.Required ]: "black" | "white" | Levels.Required;
         } & {
                 [ L in Levels.Optional ]: Levels.Optional;

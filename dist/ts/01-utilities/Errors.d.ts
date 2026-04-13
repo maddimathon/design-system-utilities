@@ -108,14 +108,7 @@ export declare namespace LocalErrors {
          *
          * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/valueOf | Object.prototype.valueOf()}
          */
-        valueOf(): {
-            name: string;
-            message: string;
-            context: Context;
-            cause: unknown;
-            stack: string | undefined;
-            string: string;
-        };
+        valueOf(): ReturnType<typeof this.toJSON>;
     }
     /**
      * Used to throw errors while in the {@link ColourUtilities} namespace.

@@ -85,7 +85,7 @@ export class Tokens_Colour_ShadeMap<T_Types extends TokenTypes.Colour.TypeParams
     public async addContrastTests(
         colourGroupName: TokenTypes.Colour.GenericName<T_Types[ 'names' ]>,
         testMap: Tokens_Colour_ShadeMap<T_Types>,
-    ) {
+    ): Promise<void[]> {
         const promises: Promise<void>[] = [];
 
         for ( const t_thisLevel in this.data ) {
@@ -180,7 +180,7 @@ export namespace Tokens_Colour_ShadeMap {
             shadeName: "black" | "white" | TokenTypes.Colour.GenericName<T_Types[ 'names' ]>,
             thisLevel: "black" | "white" | TokenTypes.Colour.AnyLevel<T_Types>,
             input: Shade.InputParam,
-        ) {
+        ): Promise<Shade<T_Types>> {
             const errorMaker = (
                 message: string,
                 context: LocalErrors.Context,
@@ -270,7 +270,7 @@ export namespace Tokens_Colour_ShadeMap {
             colourGroupName: T_TestColourName,
             level: T_TestColourLevel,
             testClr: ColourUtilities.Value_All,
-        ) {
+        ): Promise<void> {
             // const thisContrastTestResults = this.contrast.results[ colourGroupName ][ level ];
 
             // let thisContrastTestMinimums = this.contrast.min[ colourGroupName ];

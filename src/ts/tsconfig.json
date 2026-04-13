@@ -1,17 +1,15 @@
 {
-    "extends": "../../tsconfig.json",
+    "extends": "@maddimathon/build-utilities/tsconfig",
     "include": [
         "../../src/ts/**/*",
         "./src/ts/**/*"
     ],
     "exclude": [],
     "compilerOptions": {
-        "allowUnusedLabels": false,
-        "exactOptionalPropertyTypes": true,
-        "noEmit": false,
+        "declaration": true,
+        "declarationMap": false,
+        "noUnusedParameters": false,
         "outDir": "../../dist/ts/",
-        "skipLibCheck": true,
-        "sourceMap": false,
-        "verbatimModuleSyntax": true
+        "sourceMap": false
     }
 }
