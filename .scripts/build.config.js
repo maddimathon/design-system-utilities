@@ -49,7 +49,10 @@ const config = {
         ),
 
         ts: {
-            tidyGlobs: 'types/**/*.js',
+            tidyGlobs: [
+                '**/tsconfig.tsbuildinfo',
+                'types/**/*.js',
+            ],
         },
     },
 

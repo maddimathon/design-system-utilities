@@ -27,7 +27,7 @@
         "./package-lock.json",
         "./package.json",
         "./README.md",
-        "./tsconfig.json",
+        "./tsconfig.astro.json",
         "./tsconfig.base.json"
     ],
 
@@ -50,7 +50,12 @@
 
         "./jest.config.js": "./jest.config.js",
         "./package.json": "./package.json",
+
         "./tsconfig": "./tsconfig.base.json",
+        "./tsconfig.json": "./tsconfig.base.json",
+
+        "./tsconfig.astro": "./tsconfig.astro.json",
+        "./tsconfig.astro.json": "./tsconfig.astro.json",
 
         
         "./components": "./dist/astro/components.ts",
@@ -186,7 +191,7 @@
         "link": "run-p link:*",
             "link-ts":    "npm run unlink-ts    && mkdir -p node_modules/@maddimathon/utility-typescript  && cp -R -H -f -p ../utility-typescript/package.json  ../utility-typescript/dist node_modules/@maddimathon/utility-typescript",
             "link-build": "npm run unlink-build && mkdir -p node_modules/@maddimathon/build-utilities     && cp -R -H -f -p ../npm-build-utilities/package.json ../npm-build-utilities/tsconfig.base.json ../npm-build-utilities/tsconfig.scripts.json ../npm-build-utilities/dist node_modules/@maddimathon/build-utilities",
-            "link:astro": "npm run unlink:astro && mkdir -p node_modules/@maddimathon/utility-astro       && cp -R -H -f -p ../utility-astro/package.json ../utility-astro/dist ../utility-astro/jest.config.js ../utility-astro/tsconfig.json node_modules/@maddimathon/utility-astro",
+            "link:astro": "npm run unlink:astro && mkdir -p node_modules/@maddimathon/utility-astro       && cp -R -H -f -p ../utility-astro/package.json ../utility-astro/dist ../utility-astro/jest.config.js ../utility-astro/tsconfig.base.json node_modules/@maddimathon/utility-astro",
             "link:sass":  "npm run unlink:sass  && mkdir -p node_modules/@maddimathon/utility-sass        && cp -R -H -f -p ../utility-sass/package.json  ../utility-sass/dist node_modules/@maddimathon/utility-sass",
             
         "symlink": "run-p symlink:*",

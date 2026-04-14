@@ -94,7 +94,7 @@ export interface PageProps extends Partial_LibProps {
 
     footer?: {
         // prettier-ignore
-        copyright?: false | Copyright_HTML | Copyright_PlainOwner | Copyright_PlainYear;
+        copyright?: undefined | Copyright_HTML | Copyright_PlainOwner | Copyright_PlainYear;
         designedBy?: boolean | string;
     };
 
@@ -122,8 +122,7 @@ const _settings: UtilPage_Props['settings'] = {
 
 function parseFooterInput(_input?: Required<PageProps>['footer']['copyright']) {
     const _useDefaultFooter =
-        _input !== false &&
-        (typeof _input === 'undefined' || _input?.html === true);
+        typeof _input === 'undefined' || _input?.html === true;
 
     type InputFooterType_IfUseDefaultFooter = Exclude<
         Required<PageProps>['footer']['copyright'],
