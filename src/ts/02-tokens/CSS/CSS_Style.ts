@@ -71,30 +71,32 @@ export class Tokens_CSS_Style extends AbstractTokens<{
         } satisfies Pick<Tokens_CSS_Style.Data, 'flow-margin' | 'selection'>;
 
 
-        return Tokens_CSS_Style.iconStyle( partial.icon ).then(
-            async ( icon ) => {
+        return Promise.all( [
+            Tokens_CSS_Style.iconStyle( partial.icon ),
+
+            objectGeneratorAsync(
+                [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const,
+                async ( hdg ) => Tokens_CSS_Style.headingStyle( hdg, partial.heading?.[ hdg ] )
+            ).then( async ( hdgs ) => ( {
+                ...hdgs,
+                unstyled: await Tokens_CSS_Style.headingStyle( 'unstyled', partial.heading?.unstyled ),
+            } ) ),
+        ] ).then(
+            async ( [ icon, heading ] ) => {
 
                 const widget = await Tokens_CSS_Style.widgetStyle( partial.widget );
 
                 const [
                     alert,
                     button,
-                    heading,
                     input,
+                    subtitle,
                     toggle,
                 ] = await Promise.all( [
                     Tokens_CSS_Style.alertStyle( icon, partial.alert ),
                     Tokens_CSS_Style.buttonStyle( icon, partial.button ),
-
-                    objectGeneratorAsync(
-                        [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const,
-                        async ( hdg ) => Tokens_CSS_Style.headingStyle( hdg, partial.heading?.[ hdg ] )
-                    ).then( async ( hdgs ) => ( {
-                        ...hdgs,
-                        unstyled: await Tokens_CSS_Style.headingStyle( 'unstyled', partial.heading?.unstyled ),
-                    } ) ),
-
                     Tokens_CSS_Style.inputStyle( partial.input ),
+                    Tokens_CSS_Style.subtitleStyle( heading, partial.subtitle ),
                     Tokens_CSS_Style.toggleStyle( widget, partial.toggle ),
                 ] );
 
@@ -111,13 +113,14 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                         true,
                     ),
 
-                    toggle,
-
                     selection: mergeArgs(
                         defaults.selection,
                         partial.selection,
                         true,
                     ),
+
+                    subtitle,
+                    toggle,
 
                     widget,
                 };
@@ -691,6 +694,61 @@ export class Tokens_CSS_Style extends AbstractTokens<{
     /**
      * @since ___PKG_VERSION___
      */
+    public static async subtitleStyle(
+        headingStyles: Tokens_CSS_Style.Data[ 'heading' ],
+        partial: Tokens_CSS_Style.InputParam[ 'subtitle' ],
+    ): Promise<Tokens_CSS_Style.SubtitleStyles> {
+
+        const color = partial?.color ?? 'text-grey';
+        const fontSize = partial?.font?.size ?? 'heading-6';
+
+        const fontSize_headingNum_matches = fontSize.match( /^heading-(\d+)$/ ) as null | [ string, string ];
+
+        let _headingNum: number | undefined;
+
+        if ( fontSize_headingNum_matches && fontSize_headingNum_matches[ 1 ] ) {
+            _headingNum = Number( fontSize_headingNum_matches[ 1 ] );
+        } else {
+
+            const color_headingNum_matches = fontSize.match( /^heading-(\d+)$/ ) as null | [ string, string ];
+
+            if ( color_headingNum_matches && color_headingNum_matches[ 1 ] ) {
+                _headingNum = Number( color_headingNum_matches[ 1 ] );
+            }
+        }
+
+        const headingNum = _headingNum ?? 6;
+
+        return {
+            color,
+
+            font: {
+                size: fontSize,
+                style: partial?.font?.style ?? headingStyles.unstyled.font.style,
+                weight: partial?.font?.weight ?? headingStyles.unstyled.font.weight,
+            },
+
+            icon: {
+                color: partial?.icon?.color ?? partial?.color?.replace( /^text-/gi, 'ui-' ) ?? 'ui-grey',
+            },
+
+            'letter-spacing': partial?.[ 'letter-spacing' ] ?? 'normal',
+            'line-height': partial?.[ 'line-height' ] ?? headingStyles[ headingNum ]?.[ 'line-height' ] ?? headingStyles[ 6 ][ 'line-height' ],
+
+            margin: {
+                block: {
+                    start: partial?.margin?.block?.start ?? '200',
+                    end: partial?.margin?.block?.start ?? headingStyles[ headingNum ]?.margin.block.start ?? headingStyles[ 6 ].margin.block.end,
+                },
+            },
+
+            'text-transform': partial?.[ 'text-transform' ] ?? 'none',
+        };
+    }
+
+    /**
+     * @since ___PKG_VERSION___
+     */
     public static async toggleStyle(
         widgetStyles: Tokens_CSS_Style.WidgetStyles,
         partial: Tokens_CSS_Style.InputParam[ 'toggle' ] = {},
@@ -704,7 +762,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
             ...partial?.[ 'flow-margin' ] ?? {},
 
             button: partial?.[ 'flow-margin' ]?.button ?? widgetStyles[ 'flow-margin' ].button,
-        } as const;
+        } as const satisfies Tokens_CSS_Style.ToggleStyles[ 'flow-margin' ];
 
         const headingMaker = ( num: number | 'unstyled' ): Tokens_CSS_Style.ToggleStyles_ControlHeading => {
 
@@ -769,29 +827,73 @@ export class Tokens_CSS_Style extends AbstractTokens<{
 
         const defaultControl = headingMaker( 'unstyled' );
 
+        const content = {
+
+            background: partial.content?.background ?? widgetStyles.background,
+
+            border: {
+
+                radius: {
+                    $: partial.content?.border?.radius?.$ ?? widgetStyles.border.radius,
+                    top: partial.content?.border?.radius?.top ?? widgetStyles.border.radius,
+                },
+
+                style: {
+                    $: partial.content?.border?.style?.$ ?? 'dotted',
+                    top: partial.content?.border?.style?.top ?? 'solid',
+                },
+
+                width: partial.content?.border?.width ?? widgetStyles.border.width,
+            },
+
+            'line-height': partial.content?.[ 'line-height' ] ?? widgetStyles[ 'line-height' ],
+
+            padding: {
+                block: partial.content?.padding?.block ?? widgetStyles.padding.block,
+                inline: partial.content?.padding?.inline ?? widgetStyles.padding.inline,
+            },
+
+        } as const satisfies Tokens_CSS_Style.ToggleStyles[ 'content' ];
+
+        const control = {
+
+            $: {
+                padding: {
+                    block: {
+                        end: partial.control?.$?.padding?.block?.end ?? defaultControl.padding.block.end,
+                    },
+                },
+            },
+
+            heading: mergeArgs(
+                objectGenerator(
+                    [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const,
+                    headingMaker,
+                ) satisfies Tokens_CSS_Style.ToggleStyles[ 'control' ][ 'heading' ],
+                deleteUndefinedProps( partial.control?.heading ?? {} ),
+                true,
+            ),
+        } as const satisfies Tokens_CSS_Style.ToggleStyles[ 'control' ];
+
         return {
+            content,
+            control,
 
-            control: {
+            'flow-margin': flowMargin,
 
-                $: {
-                    padding: {
-                        block: {
-                            end: partial.control?.$?.padding?.block?.end ?? defaultControl.padding.block.end,
-                        },
+            nav: {
+                content: {
+                    background: partial.nav?.content?.background ?? partial.nav?.title?.background ?? 'background',
+
+                    border: {
+                        width: partial.nav?.content?.border?.width ?? content.border.width,
                     },
                 },
 
-                heading: mergeArgs(
-                    objectGenerator(
-                        [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const,
-                        headingMaker,
-                    ) satisfies Tokens_CSS_Style.ToggleStyles[ 'control' ][ 'heading' ],
-                    deleteUndefinedProps( partial.control?.heading ?? {} ),
-                    true,
-                ),
+                title: {
+                    background: partial.nav?.title?.background ?? content.background,
+                },
             },
-
-            'flow-margin': flowMargin,
         };
     }
 
@@ -1265,7 +1367,56 @@ export namespace Tokens_CSS_Style {
     /**
      * @since ___PKG_VERSION___
      */
+    export type SubtitleStyles = Omit<HeadingStyles_Unstyled, 'font'> & {
+
+        font: Omit<HeadingStyles_Unstyled[ 'font' ], 'family'>;
+
+        icon: {
+            /**
+             * This should be a theme slug.
+             */
+            color: string;
+        };
+
+        margin: HeadingStyles[ 'margin' ];
+    };
+
+    /**
+     * @since ___PKG_VERSION___
+     */
     export type ToggleStyles = {
+
+        /**
+         * For the toggle content.
+         */
+        content: {
+            /**
+             * This should be a theme slug.
+             */
+            background: string;
+
+            border: {
+
+                radius: {
+                    $: '0' | AnyTokenLevel;
+                    top: '0' | AnyTokenLevel;
+                };
+
+                style: {
+                    $: "dotted" | "solid";
+                    top: "dotted" | "solid";
+                };
+
+                width: AnyTokenLevel;
+            };
+
+            'line-height': AnyTokenLevel;
+
+            padding: {
+                block: AnyTokenLevel;
+                inline: AnyTokenLevel;
+            };
+        };
 
         /**
          * For the toggle control.
@@ -1290,6 +1441,34 @@ export namespace Tokens_CSS_Style {
          * Values for the set-flow-margins mixin.
          */
         'flow-margin': FlowMargin;
+
+        /**
+         * For the ToggleNavMenu astro component and
+         * snippet-support-astro-toggle-nav-menu mixin.
+         */
+        nav: {
+
+            /**
+             * For the toggle content.
+             */
+            content: {
+                /**
+                 * This should be a theme slug.
+                 */
+                background: string;
+
+                border: {
+                    width: AnyTokenLevel;
+                };
+            };
+
+            title: {
+                /**
+                 * This should be a theme slug.
+                 */
+                background: string;
+            };
+        };
     };
 
     /**
@@ -1407,6 +1586,11 @@ export namespace Tokens_CSS_Style {
         /**
          * @since ___PKG_VERSION___
          */
+        subtitle: SubtitleStyles;
+
+        /**
+         * @since ___PKG_VERSION___
+         */
         widget: WidgetStyles;
     };
 
@@ -1475,6 +1659,11 @@ export namespace Tokens_CSS_Style {
                 };
             };
         };
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        subtitle?: RecursivePartial<SubtitleStyles>;
 
         /**
          * @since ___PKG_VERSION___

@@ -66,14 +66,17 @@
 /// @since 0.1.0-alpha
 ///
 @mixin snippet-heading(
-    $slug: '7',
-    $includeChildren: true,
+    $slug: 'unstyled',
     $color: null,
     $iconColor: null,
     $fontStyle: null,
     $lineHeight: null,
     $marginBlockEnd: null,
-    $marginBlockStart: null
+    $marginBlockStart: null,
+    //
+    $includeChildren: true,
+    $includeColor: true,
+    $includeMargin: true
 ) {
     //
     @if $slug == title {
@@ -82,23 +85,30 @@
 
     $fontStyle: if($fontStyle, $fontStyle, var-style(heading-#{$slug}-font-style));
 
-    margin-block-start: #{if(
-            $marginBlockStart,
-            $marginBlockStart,
-            var-style(heading-#{$slug}-margin-block-start)
-        )};
-    margin-block-end: #{if(
-            $marginBlockEnd,
-            $marginBlockEnd,
-            var-style(heading-#{$slug}-margin-block-end)
-        )};
+    @if $includeMargin {
+        margin-block-start: #{if(
+                $marginBlockStart,
+                $marginBlockStart,
+                var-style(heading-#{$slug}-margin-block-start)
+            )};
+        margin-block-end: #{if(
+                $marginBlockEnd,
+                $marginBlockEnd,
+                var-style(heading-#{$slug}-margin-block-end)
+            )};
+    }
 
     @if font-family-exists(heading) {
         font-family: #{var-font-family(heading)};
     }
 
     font-weight: #{var-style(heading-#{$slug}-font-weight)};
-    font-size: #{var-fs(heading-#{$slug})};
+
+    font-size: #{if(
+            $slug == unstyled,
+            var-style(heading-unstyled-font-size),
+            var-fs(heading-#{$slug})
+        )};
 
     line-height: #{if($lineHeight, $lineHeight, var-style(heading-#{$slug}-line-height))};
 
@@ -119,16 +129,24 @@
         }
     }
 
-    $_color: if($color, $color, var-theme(heading-#{$slug}));
+    @if $includeColor {
+        $_color: if(
+            $color,
+            $color,
+            if($slug == unstyled, var-style(heading-unstyled-color), var-theme(heading-#{$slug}))
+        );
 
-    @include cx-prop(icon-color, if($iconColor, $iconColor, $_color));
-    color: #{$_color};
+        @include cx-prop(icon-color, if($iconColor, $iconColor, $_color));
+        color: #{$_color};
+    }
 
-    &:has(+ %button-span),
-    &:has(+ %margins-flow-firm),
-    &:has(+ %margins-flow-firm-small),
-    &:has(+ %margins-flow-firm-large) {
-        margin-block-end: 0;
+    @if $includeMargin {
+        &:has(+ %button-span),
+        &:has(+ %margins-flow-firm),
+        &:has(+ %margins-flow-firm-small),
+        &:has(+ %margins-flow-firm-large) {
+            margin-block-end: 0;
+        }
     }
 
     @if $includeChildren {
@@ -147,6 +165,9 @@
     }
 }
 
+///
+/// @since ___PKG_VERSION___
+///
 @mixin snippet-link-colour-single($suffix: '') {
     @include cx-prop(
         focus-ring-outline-color,
@@ -452,6 +473,51 @@
             @content (has-code);
         }
     }
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin snippet-subtitle(
+    $color: var-style(subtitle-color),
+    $fontStyle: var-style(subtitle-font-style),
+    $fontWeight: var-style(subtitle-font-weight),
+    $fontSize: var-style(subtitle-font-size),
+    $iconColor: var-style(subtitle-icon-color),
+    $letterSpacing: var-style(subtitle-letter-spacing),
+    $lineHeight: var-style(subtitle-line-height),
+    $marginBlockEnd: var-style(subtitle-margin-block-end),
+    $marginBlockStart: var-style(subtitle-margin-block-start),
+    $textTransform: var-style(subtitle-text-transform)
+) {
+    @include cx-prop(icon-color, $iconColor);
+
+    margin-block-start: #{var-style(subtitle-margin-block-start)};
+    margin-block-end: #{var-style(subtitle-margin-block-end)};
+
+    font-weight: #{$fontWeight};
+    font-size: #{$fontSize};
+
+    line-height: #{$lineHeight};
+
+    letter-spacing: #{$letterSpacing};
+
+    text-transform: #{$textTransform};
+    text-wrap: balance;
+
+    font-style: #{$fontStyle};
+
+    @if $fontStyle == italic {
+        em {
+            font-style: normal;
+
+            em {
+                font-style: italic;
+            }
+        }
+    }
+
+    color: #{$color};
 }
 
 ///

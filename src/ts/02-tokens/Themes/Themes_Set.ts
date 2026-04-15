@@ -889,9 +889,9 @@ export namespace Tokens_Themes_Set {
             };
 
             selection: {
-                background: __T_ColourOption,
-                text: __T_ColourOption,
-            },
+                background: __T_ColourOption;
+                text: __T_ColourOption;
+            };
 
             /**
              * @since ___PKG_VERSION___ — Switched to a nested object instead of separate keys. 
@@ -903,7 +903,7 @@ export namespace Tokens_Themes_Set {
                     visited: __T_ColourOption,
                 } & {
                     [ K in keyof RequiredVariations<T_ColourTypes[ 'names' ]>[ 'interactive' ] ]: __T_ColourOption;
-                },
+                };
 
                 /**
                  * @since ___PKG_VERSION___ — Renamed from link-ui to link-decoration.
@@ -913,14 +913,14 @@ export namespace Tokens_Themes_Set {
                     visited: __T_ColourOption,
                 } & {
                     [ K in keyof RequiredVariations<T_ColourTypes[ 'names' ]>[ 'interactive' ] ]: __T_ColourOption;
-                },
+                };
 
                 icon: {
                     $: __T_ColourOption,
                     visited: __T_ColourOption,
                 } & {
                     [ K in keyof RequiredVariations<T_ColourTypes[ 'names' ]>[ 'interactive' ] ]: __T_ColourOption;
-                },
+                };
 
                 /**
                  * Used for the focus outline and similar elements.
@@ -929,8 +929,21 @@ export namespace Tokens_Themes_Set {
                  */
                 outline: {
                     [ K in keyof RequiredVariations<T_ColourTypes[ 'names' ]>[ 'interactive' ] ]: __T_ColourOption;
-                },
-            },
+                };
+
+                /**
+                 * Used for borders and other decoration around links. Used
+                 * instead of decoration since decoration might be transparent.
+                 *
+                 * @since ___PKG_VERSION___
+                 */
+                ui: {
+                    $: __T_ColourOption,
+                    visited: __T_ColourOption,
+                } & {
+                    [ K in keyof RequiredVariations<T_ColourTypes[ 'names' ]>[ 'interactive' ] ]: __T_ColourOption;
+                };
+            };
 
             button: {
                 [ K in 'primary' | 'secondary' | 'grey' | 'disabled' ]: Data.Button<
@@ -942,26 +955,26 @@ export namespace Tokens_Themes_Set {
                     T_ColourTypes,
                     __T_ColourOption
                 >;
-            },
+            };
 
             input: {
                 [ K in "$" | "disabled" | "readonly" ]: Data.Input<T_ColourTypes, __T_ColourOption>;
-            },
+            };
 
             system: {
                 accent: {
-                    bg: __T_ColourOption,
-                    text: __T_ColourOption,
+                    bg: __T_ColourOption;
+                    text: __T_ColourOption;
                 },
                 mark: {
-                    bg: __T_ColourOption,
-                    text: __T_ColourOption,
+                    bg: __T_ColourOption;
+                    text: __T_ColourOption;
                 },
                 selected: {
-                    bg: __T_ColourOption,
-                    text: __T_ColourOption,
-                },
-            },
+                    bg: __T_ColourOption;
+                    text: __T_ColourOption;
+                };
+            };
         };
 
         /**
@@ -1080,7 +1093,20 @@ export namespace Tokens_Themes_Set {
                         [ K in keyof RequiredVariations<T_ColourTypes[ 'names' ]>[ 'interactive' ] ]?: undefined | __T_ColourOption;
                     },
 
+                    /**
+                     * @since ___PKG_VERSION___
+                     */
                     outline?: undefined | {
+                        [ K in keyof RequiredVariations<T_ColourTypes[ 'names' ]>[ 'interactive' ] ]?: undefined | __T_ColourOption;
+                    },
+
+                    /**
+                     * @since ___PKG_VERSION___
+                     */
+                    ui?: undefined | {
+                        $?: undefined | __T_ColourOption,
+                        visited?: undefined | __T_ColourOption,
+                    } & {
                         [ K in keyof RequiredVariations<T_ColourTypes[ 'names' ]>[ 'interactive' ] ]?: undefined | __T_ColourOption;
                     },
                 },
@@ -2024,7 +2050,7 @@ export namespace Tokens_Themes_Set {
                 );
 
                 const linkCompleter = <
-                    T_SubKey extends "$" | "decoration" | "icon",
+                    T_SubKey extends "$" | "decoration" | "icon" | "ui",
                     T_LevelsKey extends "text" | "ui",
                 >(
                     _subKey: T_SubKey,
@@ -2226,6 +2252,7 @@ export namespace Tokens_Themes_Set {
                         decoration: linkCompleter( 'decoration', 'ui' ),
                         icon: linkCompleter( 'icon', 'ui' ),
                         outline: linkOutline,
+                        ui: linkCompleter( 'ui', 'ui' ),
                     },
 
                     selection: overrides.selection ?? {
@@ -2322,6 +2349,7 @@ export namespace Tokens_Themes_Set {
 
                 const linkDecoration = mergeArgs( link, overrides.link?.decoration );
                 const linkIcon = mergeArgs( link, overrides.link?.icon );
+                const linkUI = mergeArgs( link, overrides.link?.ui );
 
                 const heading: CompleteData[ 'heading' ] = objectGenerator(
                     SingleMode.allHeadingLevels,
@@ -2416,6 +2444,7 @@ export namespace Tokens_Themes_Set {
                         decoration: linkDecoration,
                         icon: linkIcon,
                         outline: linkOutline,
+                        ui: linkUI,
                     },
 
                     selection: overrides.selection ?? {

@@ -1240,32 +1240,25 @@
     @if $display == grid or $display == inline-grid {
         grid-template-columns: 1fr fit-content(0);
         transition: grid-template-columns #{$trTime} #{tokens.$transition_function};
-        // overflow-inline: clip;
-        // overflow-inline: hidden;
     }
 
     margin-block-end: #{$marginBlockHalf};
-
-    @include feature-check.supports(focusWithin) {
-        gap: #{$marginBlockFirm} 0;
-    }
 
     > input,
     > [type='submit'] {
         margin: 0;
         margin-block-start: #{$marginBlockHalf};
+    }
 
-        @include feature-check.supports(focusWithin) {
-            // flex-basis: 100%;
+    @include feature-check.supports(focusWithin) {
+        gap: #{$marginBlockFirm} 0;
+
+        > input,
+        > [type='submit'] {
             transition-duration: #{$trTime};
         }
-    }
 
-    > input {
-    }
-
-    > [type='submit'] {
-        @include feature-check.supports(focusWithin) {
+        > [type='submit'] {
             margin-inline-start: #{$marginBlockFirm};
             max-width: 30%;
 
@@ -1276,7 +1269,9 @@
                 transition-duration: #{$trTime};
             }
         }
+    }
 
+    > [type='submit'] {
         &::before,
         &::after {
             content: none !important;
@@ -1296,7 +1291,6 @@
             margin-inline-start: 0;
             padding-inline: 0;
             max-width: 0;
-            // flex-basis: 0%;
 
             border-inline-start-width: 0;
             border-inline-end-width: 0;

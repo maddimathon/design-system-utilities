@@ -20,70 +20,80 @@
     inherits: false;
 }
 @property --flow-margin {
-    syntax: "<length-percentage>";
+    syntax: "*";
     inherits: true;
     initial-value: 0.8125rem;
 }
 @property --flow-margin--button-span-block {
-    syntax: "<length-percentage>";
+    syntax: "*";
     inherits: true;
     initial-value: 0.8125rem;
 }
 @property --flow-margin--button-span-inline {
-    syntax: "<length-percentage>";
+    syntax: "*";
     inherits: true;
     initial-value: 0.8125rem;
 }
 @property --flow-margin-firm-end {
-    syntax: "<length-percentage>";
+    syntax: "*";
     inherits: true;
     initial-value: 0.4375rem;
 }
 @property --flow-margin-firm-end--large {
-    syntax: "<length-percentage>";
+    syntax: "*";
     inherits: true;
     initial-value: 0.625rem;
 }
 @property --flow-margin-firm-end--small {
-    syntax: "<length-percentage>";
+    syntax: "*";
     inherits: true;
     initial-value: 0.3125rem;
 }
 @property --flow-margin-firm-start {
-    syntax: "<length-percentage>";
+    syntax: "*";
     inherits: true;
     initial-value: 1.25rem;
 }
 @property --flow-margin-firm-start--large {
-    syntax: "<length-percentage>";
+    syntax: "*";
     inherits: true;
     initial-value: 2.25rem;
 }
 @property --flow-margin-firm-start--small {
-    syntax: "<length-percentage>";
+    syntax: "*";
     inherits: true;
     initial-value: 0.8125rem;
 }
 @property --flow-margin--heading-unstyled {
-    syntax: "<length-percentage>";
+    syntax: "*";
     inherits: true;
     initial-value: 1.625rem;
 }
 @property --flow-margin--large {
-    syntax: "<length-percentage>";
+    syntax: "*";
     inherits: true;
     initial-value: 1.625rem;
 }
 @property --flow-margin--small {
-    syntax: "<length-percentage>";
+    syntax: "*";
     inherits: true;
     initial-value: 0.5rem;
 }
 @property --focus-ring-outline-color {
-    syntax: "<color>";
+    syntax: "*";
     inherits: true;
     initial-value: hsl(162, 69%, 16.5%);
     initial-value: var(--theme-link-outline-hover, ActiveText);
+}
+@property --focus-ring-outline-offset {
+    syntax: "*";
+    inherits: true;
+    initial-value: 0.125em;
+}
+@property --focus-ring-outline-width {
+    syntax: "*";
+    inherits: true;
+    initial-value: max(0.0625rem, min(0.125em, 0.25rem));
 }
 @property --grid-column {
     syntax: "*";
@@ -96,7 +106,7 @@
     initial-value: 0;
 }
 @property --icon-color {
-    syntax: "<color>";
+    syntax: "*";
     inherits: true;
     initial-value: hsl(339.45, 0%, 17.88%);
     initial-value: var(--theme-ui, CanvasText);
@@ -122,7 +132,7 @@
     initial-value: -0.0625em;
 }
 @property --icon-size {
-    syntax: "<length-percentage> | <number>";
+    syntax: "*";
     inherits: true;
     initial-value: 1.25em;
 }
@@ -501,6 +511,11 @@
     --theme-link-outline-hover: hsl(162, 69%, 16.5%); /* turquoise-700 */
     --theme-link-outline-visited: hsl(162, 69%, 16.5%); /* turquoise-700 */
     --theme-link-outline-disabled: hsl(339.45, 0%, 34.6%); /* base-600 */
+    --theme-link-ui: hsl(278.16, 60.54%, 30.06%); /* purple-700 */
+    --theme-link-ui-active: hsl(2.81, 72.25%, 28.09%); /* red-700 */
+    --theme-link-ui-hover: hsl(162, 69%, 16.5%); /* turquoise-700 */
+    --theme-link-ui-visited: hsl(278.16, 60.54%, 30.06%); /* purple-700 */
+    --theme-link-ui-disabled: hsl(339.45, 0%, 34.6%); /* base-600 */
     --theme-selection-background: hsl(
         162.93,
         42.82%,
@@ -944,6 +959,11 @@
         --theme-link-outline-hover: hsl(162, 69%, 16.5%); /* turquoise-700 */
         --theme-link-outline-visited: hsl(162, 69%, 16.5%); /* turquoise-700 */
         --theme-link-outline-disabled: hsl(339.45, 0%, 34.6%); /* base-600 */
+        --theme-link-ui: hsl(278.16, 60.54%, 30.06%); /* purple-700 */
+        --theme-link-ui-active: hsl(2.81, 72.25%, 28.09%); /* red-700 */
+        --theme-link-ui-hover: hsl(162, 69%, 16.5%); /* turquoise-700 */
+        --theme-link-ui-visited: hsl(278.16, 60.54%, 30.06%); /* purple-700 */
+        --theme-link-ui-disabled: hsl(339.45, 0%, 34.6%); /* base-600 */
         --theme-selection-background: hsl(
             162.93,
             42.82%,
@@ -1427,6 +1447,11 @@
             13.78%
         ); /* turquoise-750 */
         --theme-link-outline-disabled: hsl(339.45, 0%, 22.38%); /* base-700 */
+        --theme-link-ui: hsl(277.69, 56.91%, 23.79%); /* purple-750 */
+        --theme-link-ui-active: hsl(2.73, 67.26%, 22.47%); /* red-750 */
+        --theme-link-ui-hover: hsl(160.5, 58.43%, 13.78%); /* turquoise-750 */
+        --theme-link-ui-visited: hsl(277.69, 56.91%, 23.79%); /* purple-750 */
+        --theme-link-ui-disabled: hsl(339.45, 0%, 22.38%); /* base-700 */
         --theme-selection-background: hsl(162, 69%, 16.5%); /* turquoise-700 */
         --theme-selection-text: hsl(305.21, 100%, 100%); /* white */
         --theme-text: hsl(339.45, 0%, 13.55%); /* base-800 */
@@ -1830,6 +1855,11 @@
         --theme-link-outline-hover: hsl(160, 45%, 60%); /* turquoise-700 */
         --theme-link-outline-visited: hsl(160, 45%, 60%); /* turquoise-700 */
         --theme-link-outline-disabled: hsl(339.45, 0%, 61.32%); /* base-600 */
+        --theme-link-ui: hsl(274.76, 78.57%, 78.95%); /* purple-700 */
+        --theme-link-ui-active: hsl(4, 100%, 79.5%); /* red-700 */
+        --theme-link-ui-hover: hsl(160, 45%, 60%); /* turquoise-700 */
+        --theme-link-ui-visited: hsl(274.76, 78.57%, 78.95%); /* purple-700 */
+        --theme-link-ui-disabled: hsl(339.45, 0%, 61.32%); /* base-600 */
         --theme-selection-background: hsl(
             164.96,
             75.59%,
@@ -2245,6 +2275,11 @@
         --theme-link-outline-hover: hsl(160, 45%, 60%); /* turquoise-700 */
         --theme-link-outline-visited: hsl(160, 45%, 60%); /* turquoise-700 */
         --theme-link-outline-disabled: hsl(339.45, 0%, 61.32%); /* base-600 */
+        --theme-link-ui: hsl(274.76, 78.57%, 78.95%); /* purple-700 */
+        --theme-link-ui-active: hsl(4, 100%, 79.5%); /* red-700 */
+        --theme-link-ui-hover: hsl(160, 45%, 60%); /* turquoise-700 */
+        --theme-link-ui-visited: hsl(274.76, 78.57%, 78.95%); /* purple-700 */
+        --theme-link-ui-disabled: hsl(339.45, 0%, 61.32%); /* base-600 */
         --theme-selection-background: hsl(
             164.96,
             75.59%,
@@ -2724,6 +2759,11 @@
             69.63%
         ); /* turquoise-750 */
         --theme-link-outline-disabled: hsl(339.45, 0%, 75.61%); /* base-700 */
+        --theme-link-ui: hsl(273.56, 81.34%, 84.1%); /* purple-750 */
+        --theme-link-ui-active: hsl(4.63, 100%, 84.12%); /* red-750 */
+        --theme-link-ui-hover: hsl(158.81, 45.09%, 69.63%); /* turquoise-750 */
+        --theme-link-ui-visited: hsl(273.56, 81.34%, 84.1%); /* purple-750 */
+        --theme-link-ui-disabled: hsl(339.45, 0%, 75.61%); /* base-700 */
         --theme-selection-background: hsl(160, 45%, 60%); /* turquoise-700 */
         --theme-selection-text: hsl(0, 0%, 0%); /* white */
         --theme-text: hsl(339.45, 0%, 85.99%); /* base-800 */
@@ -2948,6 +2988,11 @@
         --theme-link-outline-hover: ActiveText !important;
         --theme-link-outline-visited: ActiveText !important;
         --theme-link-outline-disabled: GrayText !important;
+        --theme-link-ui: LinkText !important;
+        --theme-link-ui-active: ActiveText !important;
+        --theme-link-ui-hover: ActiveText !important;
+        --theme-link-ui-visited: VisitedText !important;
+        --theme-link-ui-disabled: GrayText !important;
         --theme-selection-background: Highlight !important;
         --theme-selection-text: HighlightText !important;
         --theme-text: CanvasText !important;
@@ -2997,62 +3042,6 @@
 /*! START of @maddimathon/utility-sass/template */
 /* # GLOBALS - ACCESSIBILITY
  * ======================================================================== */
-.no-js :focus,
-.js__no-whereSelector :focus {
-    /* %focus-ring */
-    outline: max(0.125rem, min(0.125em, 0.25rem)) dashed currentColor;
-    outline: max(0.125rem, min(0.125em, 0.25rem)) dashed currentColor;
-    outline: var(
-            --focus-ring-outline-width,
-            max(0.125rem, min(0.125em, 0.25rem))
-        )
-        dashed currentColor;
-    outline-color: hsl(162, 69%, 16.5%);
-    outline-color: var(
-        --focus-ring-outline-color,
-        var(--theme-link-outline-hover, ActiveText)
-    );
-    outline-offset: 0.125em;
-    outline-offset: var(--focus-ring-outline-offset, 0.125em);
-}
-
-:where(.js__no-focusVisible) :focus,
-:where(.js) [data-toggle-control][data-toggle-is-current-target] {
-    /* %focus-ring--where */
-    outline: max(0.125rem, min(0.125em, 0.25rem)) dashed currentColor;
-    outline: max(0.125rem, min(0.125em, 0.25rem)) dashed currentColor;
-    outline: var(
-            --focus-ring-outline-width,
-            max(0.125rem, min(0.125em, 0.25rem))
-        )
-        dashed currentColor;
-    outline-color: hsl(162, 69%, 16.5%);
-    outline-color: var(
-        --focus-ring-outline-color,
-        var(--theme-link-outline-hover, ActiveText)
-    );
-    outline-offset: 0.125em;
-    outline-offset: var(--focus-ring-outline-offset, 0.125em);
-}
-
-:focus-visible {
-    /* %focus-ring--visible */
-    outline: max(0.125rem, min(0.125em, 0.25rem)) dashed currentColor;
-    outline: max(0.125rem, min(0.125em, 0.25rem)) dashed currentColor;
-    outline: var(
-            --focus-ring-outline-width,
-            max(0.125rem, min(0.125em, 0.25rem))
-        )
-        dashed currentColor;
-    outline-color: hsl(162, 69%, 16.5%);
-    outline-color: var(
-        --focus-ring-outline-color,
-        var(--theme-link-outline-hover, ActiveText)
-    );
-    outline-offset: 0.125em;
-    outline-offset: var(--focus-ring-outline-offset, 0.125em);
-}
-
 .screen-reader-text {
     position: absolute !important;
     left: -10000px !important;
@@ -3116,6 +3105,53 @@ abbr[title] {
 
 /*! END of @maddimathon/utility-sass/template */
 /*! END of @maddimathon/utility-astro/template */
+/* # GLOBALS - ACCESSIBILITY
+ * ======================================================================== */
+/* ## Accessibility - Focus Ring ==================================== */
+.no-js :focus,
+.js__no-whereSelector :focus {
+    /* %focus-ring */
+    outline-width: max(0.125rem, min(0.125em, 0.25rem));
+    outline-width: var(--focus-ring-outline-width, 0.125em);
+    outline-style: dashed;
+    outline-color: hsl(162, 69%, 16.5%);
+    outline-color: var(
+        --focus-ring-outline-color,
+        var(--theme-link-outline-hover, ActiveText)
+    );
+    outline-offset: 0.125em;
+    outline-offset: var(--focus-ring-outline-offset, 0.125em);
+}
+
+:where(.js__no-focusVisible) :focus,
+:where(.js) [data-toggle-control][data-toggle-is-current-target] {
+    /* %focus-ring--where */
+    outline-width: max(0.125rem, min(0.125em, 0.25rem));
+    outline-width: var(--focus-ring-outline-width, 0.125em);
+    outline-style: dashed;
+    outline-color: hsl(162, 69%, 16.5%);
+    outline-color: var(
+        --focus-ring-outline-color,
+        var(--theme-link-outline-hover, ActiveText)
+    );
+    outline-offset: 0.125em;
+    outline-offset: var(--focus-ring-outline-offset, 0.125em);
+}
+
+:focus-visible {
+    /* %focus-ring--visible */
+    outline-width: max(0.125rem, min(0.125em, 0.25rem));
+    outline-width: var(--focus-ring-outline-width, 0.125em);
+    outline-style: dashed;
+    outline-color: hsl(162, 69%, 16.5%);
+    outline-color: var(
+        --focus-ring-outline-color,
+        var(--theme-link-outline-hover, ActiveText)
+    );
+    outline-offset: 0.125em;
+    outline-offset: var(--focus-ring-outline-offset, 0.125em);
+}
+
 /* # GLOBALS - OBJECTS
  * ======================================================================== */
 hr {
@@ -4329,8 +4365,8 @@ input {
     width: 100%;
     font: inherit;
     line-height: 1.5;
-    border: 0.0625rem solid hsl(278.16, 60.54%, 30.06%);
-    border: 0.0625rem solid var(--sys-clr-input-border, FieldText);
+    border-width: 0.0625rem;
+    border-style: solid;
     border-radius: 0;
 }
 label + textarea,
@@ -6437,10 +6473,6 @@ td {
 th > :first-child,
 td > :first-child {
     margin-top: 0;
-}
-th > :last-child,
-td > :last-child {
-    margin-bottom: 0;
 }
 
 th {

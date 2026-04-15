@@ -15,6 +15,7 @@
 
 @use 'pkg:@maddimathon/utility-astro/03-snippets' as utils;
 
+@use '03-01-accessibility' as *;
 @use '03-03-typography' as *;
 
 $_closing_time: var-tr-time(toggle-closing);
@@ -25,17 +26,17 @@ $_defaultHeadingSelectors_bigOnly: ('%title');
 
 $_defaultHeadingSelectors_greaterThan6: ();
 
-@each $level in token-all-heading-levels() {
-    @if $level < 7 {
+@each $slug in token-all-heading-levels() {
+    @if $slug < 7 {
         $_defaultHeadingSelectors_bigOnly: list.append(
             $_defaultHeadingSelectors_bigOnly,
-            ('%h#{$level}')
+            ('%h#{$slug}')
         );
     }
-    @if $level > 6 {
+    @if $slug > 6 {
         $_defaultHeadingSelectors_greaterThan6: list.append(
             $_defaultHeadingSelectors_greaterThan6,
-            ('%h#{$level}')
+            ('%h#{$slug}')
         );
     }
 }
@@ -141,6 +142,10 @@ $_defaultHeadingSelectors_greaterThan6: ();
     $flowMargin_small: style-value(toggle-flow-margin-small, $raw: true),
     $flowMargin_buttonGapBlock: style-value(toggle-flow-margin-small, $raw: true),
     //
+    $content_borderWidth: var-style(toggle-content-border-width),
+    $content_container_paddingBlock: var-style(toggle-content-padding-block),
+    $content_container_paddingInline: var-style(toggle-content-padding-inline),
+    //
     $includeBackdropControlStyles: true,
     $includeBaseStyles: true,
     $args...
@@ -148,20 +153,13 @@ $_defaultHeadingSelectors_greaterThan6: ();
     $headingSelectors: $_defaultHeadingSelectors;
     $headingSelectors_bigOnly: $_defaultHeadingSelectors_bigOnly;
 
-    $content_container_paddingBlock: do-var(flow-margin, var-mrg-soft($flowMargin_default));
-
-    $content_container_paddingInline: do-var(
-        flow-margin-firm-start,
-        var-mrg-firm($flowMargin_default)
-    );
-
     $control_paddingBlockEnd: var-style(toggle-control-padding-block-end);
 
-    $headingSelectors_isUnstyled: ();
+    $headingSelectors_unstyled: ();
 
     @each $sel in list.except($headingSelectors, '%unstyled-heading') {
-        $headingSelectors_isUnstyled: list.append(
-            $headingSelectors_isUnstyled,
+        $headingSelectors_unstyled: list.append(
+            $headingSelectors_unstyled,
             (selector.nest($sel, '&:is( %unstyled-heading )')),
             $separator: comma
         );
@@ -183,27 +181,63 @@ $_defaultHeadingSelectors_greaterThan6: ();
         $includeMarginBlock: false,
         $args...
     ) using ($location) {
-        // /* [snippet-support-toggle-block] location: #{$location} */
-        --snippet-support-toggle-block--location: #{$location};
-        
-        // @else if $location == LOCATION {
-        // }
         
         /// 
         /// CONTAINER
         /// 
 
         @if $location == flex-contents-container {
-            display: contents;
-            @include utils.snippet-support-astro-body-grid--display-contents;
+            @content($location);
+        }
+
+        @else if $location == toggle-container {
+            @include cx-prop(toggle-closing-time, $_closing_time);
+            @include cx-prop(toggle-border-color, var-theme(link-ui));
+
+            @content($location);
+
+            // INDIVIDUAL HEADINGS
+            @each $slug in token-all-heading-levels() {
+                &:has(.toggle-title > %h#{$slug}) {
+                    @include cx-prop(toggle-border-color, var-theme(heading-#{$slug}));
+
+                    margin-block-start: max(
+                        #{var-style(flow-margin-large)},
+                        #{var-style(heading-#{$slug}-margin-block-start)}
+                    );
+
+                    @content(#{$location}--has-h#{$slug});
+                }
+            }
+            
+            // UNSTYLED HEADINGS
+            &:has(> %unstyled-heading),
+            &:has(#{selector.nest( '>', #{$headingSelectors_unstyled} )}) {
+                @content(#{$location}--has-unstyled-heading);
+            }
+
+            // HAS BUTTON HOVER OR FOCUS
+            &:has(> .toggle-title [data-toggle-control]:focus-visible),
+            &:has(> .toggle-title [data-toggle-control]:hover) {
+                @include cx-prop(toggle-border-color, var-theme(link-ui-hover));
+            }
+
+            // HAS BUTTON ACTIVE
+            &:has(> .toggle-title [data-toggle-control]:active) {
+                @include cx-prop(toggle-border-color, var-theme(link-ui-active));
+            }
         }
 
         @else if $location == js--toggle-container {
-            display: #{do-var(display, grid)};
+            margin-block-end: #{do-var(flow-margin-firm-end--large)};
+
+            @content($location);
         }
 
         @else if $location == js--container-grid {
             gap: 0 #{var-mrg-firm($flowMargin_small)};
+
+            @content($location);
         }
         
         /// 
@@ -220,9 +254,6 @@ $_defaultHeadingSelectors_greaterThan6: ();
             opacity: 1;
 
             @if $location == toggle-control {
-                margin-inline: 0;
-                padding: 0;
-            
                 width: 100%;
         
                 font: inherit;
@@ -231,6 +262,8 @@ $_defaultHeadingSelectors_greaterThan6: ();
                 appearance: none;
                 cursor: text;
 
+                @content($location);
+
                 &::before,
                 &::after {
                     content: none;
@@ -238,7 +271,10 @@ $_defaultHeadingSelectors_greaterThan6: ();
             }
             
             @else if $location == toggle-control--disabled {
+                font: inherit;
                 cursor: text;
+
+                @content($location);
 
                 &::before,
                 &::after {
@@ -261,6 +297,8 @@ $_defaultHeadingSelectors_greaterThan6: ();
             
             @else if $location == toggle-control--hover-focus {
                 outline: none;
+
+                @content($location);
             }
         }
         
@@ -271,56 +309,100 @@ $_defaultHeadingSelectors_greaterThan6: ();
             cursor: pointer;
 
             @if $location == js--toggle-control {
-                @include snippet-link-colour-single;
+                // padding-block-start: #{do-var(flow-margin-firm-end--large)};
+                padding-block-end: #{$control_paddingBlockEnd};
+
+                @include cx-prop(
+                    focus-ring-outline-color,
+                    var-theme(link-outline-hover)
+                );
+                color: #{var-theme(link)};
+
+                @content($location);
             }
 
-            @else if $includeBackdropControlStyles and $location == js--toggle-control-backdrop {
-                backdrop-filter: blur(1rem);
-                background: none;
-                border: none;
-    
-                &::before,
-                &::after {
-                    content: '';
-                    content: '' / '';
-                    @include prop-display(block);
-                    position: absolute;
-    
-                    top: 0;
-                    bottom: 0;
-                    left: 0;
-                    right: 0;
-                }
-    
-                &::before {
-                    background: #{var-theme(background)};
-                    opacity: 0.625;
-                }
-    
-                &::after {
-                    background: #{var-theme(link)};
-                    opacity: 0.1875;
-                }
-    
-                @include hover-focus-visible-or-within('&:active') {
-                    border: none;
+            @else if $location == js--toggle-control-backdrop {
+                @if $includeBackdropControlStyles {
+                    backdrop-filter: blur(1rem);
                     background: none;
-                    color: inherit;
-                    outline: none;
-                    opacity: 1;
+                    border: none;
                 }
 
+                @content($location);
+                
+                @if $includeBackdropControlStyles {
+                    &::before,
+                    &::after {
+                        content: '';
+                        content: '' / '';
+                        @include prop-display(block);
+                        position: absolute;
+        
+                        top: 0;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                    }
+        
+                    &::before {
+                        background: #{var-theme(background)};
+                        opacity: 0.625;
+                    }
+        
+                    &::after {
+                        background: #{var-theme(link)};
+                        opacity: 0.1875;
+                    }
+        
+                    @include hover-focus-visible-or-within('&:active') {
+                        border: none;
+                        background: none;
+                        color: inherit;
+                        outline: none;
+                        opacity: 1;
+                    }
+                }
             }
+        }
+
+        @else if $location == js--toggle-control--focus-visible {
+            @include snippet-focus-ring;
+
+            @content($location);
+        }
+
+        @else if $location == js--toggle-control--hover-focus {
+            @include cx-prop(
+                focus-ring-outline-color,
+                var-theme(link-outline-hover)
+            );
+            color: #{var-theme(link-hover)};
+
+            @content($location);
+        }
+
+        @else if $location == js--toggle-control--active {
+            @include cx-prop(
+                focus-ring-outline-color,
+                var-theme(link-outline-active)
+            );
+            color: #{var-theme(link-active)};
+
+            @content($location);
         }
         
         @else if $location == js--toggle-container--open--control {
             // @include snippet-link-colour-single('-hover');
+
+            @content($location);
         }
         
         @else if $location == js--toggle-container--default-or-open--control--hover-focus {
             // text-decoration-color: transparent;
             // color: #{var-theme(link)};
             // @include snippet-link-colour-single('-hover');
+
+            @content($location);
         }
         
         /// 
@@ -328,8 +410,7 @@ $_defaultHeadingSelectors_greaterThan6: ();
         /// 
         
         @else if $location == toggle-title {
-            display: contents;
-            @include utils.snippet-support-astro-body-grid--display-contents;
+            @content($location);
 
             // ALL HEADINGS
             & > %unstyled-heading,
@@ -337,88 +418,107 @@ $_defaultHeadingSelectors_greaterThan6: ();
                 @content(#{$location}--all-headings);
                 
                 [data-toggle-control] {
-                    font: inherit;
-                    line-height: inherit;
-                    letter-spacing: inherit;
-                    text-transform: inherit;
+                    // font: inherit;
+                    // line-height: inherit;
+                    // letter-spacing: inherit;
+                    // text-transform: inherit;
                     
                     @content(#{$location}--all-headings--control);
                 }
             }
 
             // INDIVIDUAL HEADINGS
-            @each $level in token-all-heading-levels() {
-                > %h#{$level}  {
-                    @content(#{$location}--h#{$level});
+            @each $slug in token-all-heading-levels() {
+                > %h#{$slug}  {
+                    @content(#{$location}--h#{$slug});
 
                     [data-toggle-control] {
-                        
-                        @content(#{$location}--h#{$level}--control);
+                        @include snippet-heading(
+                            $slug: $slug,
+                            $includeChildren: false,
+                            $includeMargin: false,
+                        );
+
+                        @content(#{$location}--h#{$slug}--control);
                     }
                 }
             }
             
             // UNSTYLED HEADINGS
             & > %unstyled-heading,
-            & #{selector.nest( '>', #{$headingSelectors_isUnstyled} )} {
+            & #{selector.nest( '>', #{$headingSelectors_unstyled} )} {
                 @content(#{$location}--unstyled-heading);
                 
                 [data-toggle-control] {
-                    
+                    @include snippet-heading(
+                        $includeChildren: false,
+                        $includeColor: false,
+                        $includeMargin: false,
+                    );
+
                     @content(#{$location}--unstyled-heading--control);
                 }
             }
         }
         
-        @else if $location == toggle-title--heading--icon {
-            // @include cx-prop(icon-size, 1em);
-            padding-block-end: 0;
-        }
-        
         @else if $location == js--toggle-title {
+            transition: #{transition-properties-value(false)};
+
+            @content($location);
+
             // ALL HEADINGS
             & > %unstyled-heading,
             & #{selector.nest( '>', #{$headingSelectors} )} {
                 @content(#{$location}--all-headings);
                 
                 [data-toggle-control] {
-                    // color: inherit;
                     @content(#{$location}--all-headings--control);
+
+                    @include hover-focus-visible {
+                        @include cx-prop(
+                            focus-ring-outline-color,
+                            var-theme(link-outline-hover)
+                        );
+                        color: #{var-theme(link-hover)};
+                        
+                        @content(#{$location}--all-headings--control--hover-focus);
+                    }
+
+                    &:active {
+                        @include cx-prop(
+                            focus-ring-outline-color,
+                            var-theme(link-outline-active)
+                        );
+                        color: #{var-theme(link-active)};
+                        
+                        @content(#{$location}--all-headings--control--active);
+                    }
                 }
             }
             
             // INDIVIDUAL HEADINGS
-            @each $level in token-all-heading-levels() {
-                > %h#{$level}  {
-                    @content(#{$location}--h#{$level});
+            @each $slug in token-all-heading-levels() {
+                > %h#{$slug}  {
+                    @content(#{$location}--h#{$slug});
 
                     [data-toggle-control] {
-                        padding-block-end: #{var-style(toggle-control-heading-#{$level}-padding-block-end)};
+                        padding-block-end: #{var-style(toggle-control-heading-#{$slug}-padding-block-end)};
+                        color: #{var-theme(heading-#{$slug})};
                         
-                        @content(#{$location}--h#{$level}--control);
+                        @content(#{$location}--h#{$slug}--control);
                     }
                 }
             }
  
             // UNSTYLED HEADINGS
             & > %unstyled-heading,
-            & #{selector.nest( '>', #{$headingSelectors_isUnstyled} )} {
+            & #{selector.nest( '>', #{$headingSelectors_unstyled} )} {
                 @content(#{$location}--unstyled-heading);
                 
                 [data-toggle-control] {
-                    padding-block-end: #{$control_paddingBlockEnd};
-                    
                     @content(#{$location}--unstyled-heading--control);
                 }
             }
-        }
-        
-        @else if $location == js--toggle-title--heading {
-            // padding-block-end: #{$control_heading_paddingBlockEnd};
-        }
-        
-        @else if $location == js--toggle-title--heading--unstyled {
-            // padding-block-end: #{$control_paddingBlockEnd};
         }
         
         /// 
@@ -426,21 +526,13 @@ $_defaultHeadingSelectors_greaterThan6: ();
         /// 
         
         @else if $location == toggle-icon {
-            // @include cx-prop(icon-size, 1.125em);
-            // @include prop-display(inline-block);
-    
-            // vertical-align: sub;
-            // padding-block-end: #{var-stroke-relative('100')};
-            // padding-inline-end: #{var-border-width('200')};
-        }
-        
-        @else if $location == toggle-icon--svg {
-            // stroke: currentColor;
-            // stroke-width: clamp(1px, #{var-stroke-relative('600')}, #{var-border-width('400')});
-            // fill: none;
+            @include cx-prop(icon-size, style-value(icon-size));
+            
+            @content($location);
         }
         
         // @else if $location == LOCATION {
+        // @content($location);
         // }
         
         /// 
@@ -448,10 +540,26 @@ $_defaultHeadingSelectors_greaterThan6: ();
         /// 
         
         @else if $location == js--toggle-content {
-            display: #{do-var(display, grid)};
-            border: 0 dotted currentColor;
-            border-block-start-width: #{var-border-width('200')};
-            border-block-start-style: solid;
+            line-height: #{var-style(toggle-content-line-height)};
+
+            background: #{var-style(toggle-content-background)};
+
+            border-width: #{$content_borderWidth};
+            border-block-end-width: 0;
+            
+            border-radius: 0;
+            
+            border-end-end-radius: #{var-style(toggle-content-border-radius)};
+            border-end-start-radius: #{var-style(toggle-content-border-radius)};
+            
+            border-style: #{var-style(toggle-content-border-style)};
+            border-block-start-style: #{var-style(toggle-content-border-style-top)};
+            
+            border-color: #{do-var(toggle-border-color, var-theme(link-ui))};
+            
+            transition: #{transition-properties-value(false)};
+            
+            @content($location);
 
             @include set-flow-margins(
                 $default: $flowMargin_default,
@@ -465,11 +573,10 @@ $_defaultHeadingSelectors_greaterThan6: ();
         }
         
         @else if $location == js--toggle-content--container {
+            @content($location);
+
             > :first-child {
                 margin-block-start: 0;
-            }
-            > :last-child {
-                margin-block-end: 0;
             }
 
             > %ol,
@@ -481,115 +588,87 @@ $_defaultHeadingSelectors_greaterThan6: ();
         }
         
         @else if $location == js--toggle-container--open--content {
-            border-inline-width: #{var-border-width('200')};
-            border-block-end-width: #{var-border-width('200')};
+            border-block-end-width: #{$content_borderWidth};
+
+            @content($location);
+        }
+        
+        @else if $location == js--toggle-container--open-or-closing--content {
+            border-inline-width: #{$content_borderWidth};
+            
+            border-start-end-radius: #{var-style(toggle-content-border-radius-top)};
+            border-start-start-radius: #{var-style(toggle-content-border-radius-top)};
+
+            @content($location);
         }
         
         // @else if $location == LOCATION {
+        // @content($location);
         // }
 
-        @if string.match($location, '^js--toggle-title--(has-heading|heading(--(toggle-control|unstyled))?)$') == null {
+        @else if string.match($location, '^js--toggle-title--(has-heading|heading(--(toggle-control|unstyled))?)$') == null {
             @content($location);
         }
     }
 
-    /* Overrides ==================================== */
-
-    [data-toggle-container] {
-        // /* [snippet-support-toggle-block] OVERRIDES */
-        @include cx-prop(toggle-closing-time, $_closing_time);
-    }
+    /* Transition Overrides ==================================== */
 
     @include feature-check.js {
-        .toggle-title {
-            &,
-            & > %unstyled-heading,
-            & #{selector.nest( '>', #{$headingSelectors_isUnstyled} )} {
-                // /* [snippet-support-toggle-block] OVERRIDES */
-                font-size: #{var-style(heading-unstyled-font-size)};
-            }
-        }
-
-        .toggle-title,
-        [data-toggle-content] {
-            // /* [snippet-support-toggle-block] OVERRIDES */
-            transition: #{transition-properties-value(false)};
-
-            [data-toggle-control] {
-                // /* [snippet-support-toggle-block] OVERRIDES */
-                color: inherit;
-            }
-        }
-
-        [data-toggle-container='open'],
-        [data-toggle-container='closing'] {
-            > [data-toggle-content] {
-                // /* [snippet-support-toggle-block] OVERRIDES */
-                border-inline-width: #{var-border-width('300')};
-            }
-        }
-
-        [data-toggle-container='open'] {
-            > [data-toggle-content] {
-                // /* [snippet-support-toggle-block] OVERRIDES */
-                border-block-end-width: #{var-border-width('300')};
-                border-color: #{var-theme(ui-grey)};
-            }
-        }
-
         @include motion($nestParent: false, $unifyParent: true) {
-            // /* [snippet-support-toggle-block] OVERRIDES - motion */
             @include _motion-props(true);
         }
 
         @include no-motion($nestParent: false, $unifyParent: true) {
-            // /* [snippet-support-toggle-block] OVERRIDES - no motion */
             @include _motion-props(false);
         }
     }
+}
 
-    .toggle-title {
-        @each $level in token-all-heading-levels() {
-            &:has(> %h#{$level}) {
-                // /* [snippet-support-toggle-block] OVERRIDES */
-                color: #{var-theme(heading-#{$level})};
-            }
+///
+/// Supports the ToggleNavMenu astro component.
+///
+/// @since ___PKG_VERSION___
+///
+@mixin snippet-support-astro-toggle-nav-menu(
+    $title_borderWidth: var-style(toggle-nav-content-border-width),
+    //
+    $args...
+) {
+    $title_borderWidth_half: calc($title_borderWidth / 2);
+
+    // prettier-ignore
+    @include utils.snippet-support-astro-toggle-nav-menu(
+        $title_borderWidth: $title_borderWidth,
+        $title_borderWidth_half: $title_borderWidth_half,
+        //
+        $includeBaseStyles: false,
+        $args...
+    ) using ($location) {
+
+        @if $location == js--body-nav-toggle-title {
+            // margin-block-end: calc(#{$title_borderWidth} * -1);
+
+            border-block-end-width: #{$title_borderWidth};
+            border-block-end-style: #{var-style(toggle-content-border-style-top)};
+            border-block-end-color: #{do-var(toggle-border-color, var-theme(link-ui))};
+            
+            background: #{var-style(toggle-nav-title-background)};
         }
 
-        #{selector.nest( '>', ( $headingSelectors ) )} {
-            // /* [snippet-support-toggle-block] OVERRIDES */
-            color: inherit;
+        @if $location == js--nav-toggle-content {
+            // margin-block-end: #{$title_borderWidth_half};
+            border-block-start: none;
         }
 
-        [data-toggle-container='open'] & {
-            // /* [snippet-support-toggle-block] OVERRIDES */
-            color: #{var-theme(link-hover)};
-
-            + [data-toggle-content] {
-                // /* [snippet-support-toggle-block] OVERRIDES */
-                border-color: #{var-theme(ui-grey)};
-                border-block-start-color: #{var-theme(link-outline-hover)};
-            }
+        @if $location == js--nav-toggle-content--container {
+            background: #{var-style(toggle-nav-content-background)};
+            max-height: 80svh;
+            max-height: calc(90svh - #{do-var(height-nav-primary)});
         }
 
-        &,
-        [data-toggle-container='open'] & {
-            @include hover-focus-visible {
-                // /* [snippet-support-toggle-block] OVERRIDES */
-                color: #{var-theme(link)};
+        // @if $location == LOCATION {
+        // }
 
-                + [data-toggle-content] {
-                    // /* [snippet-support-toggle-block] OVERRIDES */
-                    border-color: #{var-theme(link-outline)};
-                }
-            }
-        }
-
-        [data-toggle-container='open'] & {
-            #{selector.nest( '>', ( $headingSelectors ) )} {
-                // /* [snippet-support-toggle-block] OVERRIDES */
-                color: inherit;
-            }
-        }
+        @content ($location);
     }
 }

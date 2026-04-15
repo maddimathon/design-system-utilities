@@ -21,39 +21,59 @@
     // #region - $defaults
     $defaults: (
         focus-ring-outline-color: (
-            initial-value: #{system.tokens-var-theme(link-outline-hover)},
+            syntax: '*',
+            initial-value: #{system.tokens-style-value(
+                    focus-ring-outline-color,
+                    $asInitialValue: true
+                )},
+        ),
+        focus-ring-outline-offset: (
+            syntax: '*',
+            initial-value: #{system.tokens-style-value(
+                    focus-ring-outline-offset,
+                    $asInitialValue: true
+                )},
+        ),
+        focus-ring-outline-width: (
+            syntax: '*',
+            initial-value: #{system.tokens-style-value(
+                    focus-ring-outline-width,
+                    $asInitialValue: true
+                )},
         ),
 
         icon-color: (
-            initial-value: #{system.tokens-style-value(icon-color)},
+            syntax: '*',
+            initial-value: #{system.tokens-style-value(icon-color, $asInitialValue: true)},
         ),
 
         icon-size: (
-            initial-value: #{system.tokens-style-value(icon-size)},
+            syntax: '*',
+            initial-value: #{system.tokens-style-value(icon-size, $asInitialValue: true)},
         ),
         icon-size-large: (
-            initial-value: #{system.tokens-style-value(icon-size-large)},
+            initial-value: #{system.tokens-style-value(icon-size-large, $asInitialValue: true)},
         ),
         icon-size-font: (
             syntax: '<length-percentage> | <number>',
             inherits: true,
-            initial-value: #{system.tokens-style-value(icon-size-font)},
+            initial-value: #{system.tokens-style-value(icon-size-font, $asInitialValue: true)},
         ),
         icon-size-pseudo: (
             syntax: '<length-percentage> | <number>',
             inherits: true,
-            initial-value: #{system.tokens-style-value(icon-size-pseudo)},
+            initial-value: #{system.tokens-style-value(icon-size-pseudo, $asInitialValue: true)},
         ),
 
         icon-font-top: (
             syntax: '<number>',
             inherits: true,
-            initial-value: #{system.tokens-style-value(icon-font-top)},
+            initial-value: #{system.tokens-style-value(icon-font-top, $asInitialValue: true)},
         ),
         icon-pseudo-top: (
             syntax: '<number>',
             inherits: true,
-            initial-value: #{system.tokens-style-value(icon-pseudo-top)},
+            initial-value: #{system.tokens-style-value(icon-pseudo-top, $asInitialValue: true)},
         ),
 
         icon-size-inline--font-multiplier: (
@@ -75,7 +95,7 @@
         icon-vertical-align: (
             syntax: '*',
             inherits: true,
-            initial-value: #{system.tokens-style-value(icon-vertical-align)},
+            initial-value: #{system.tokens-style-value(icon-vertical-align, $asInitialValue: true)},
         ),
     );
     // #endregion - $defaults
@@ -84,27 +104,27 @@
 
     $val_flowMrg_small_raw: system.tokens-style-value(flow-margin-small, $raw: true);
 
-    $val_flowMrg_large: system.tokens-style-value(flow-margin-large);
     $val_flowMrg_large_raw: system.tokens-style-value(flow-margin-large, $raw: true);
+    $val_flowMrg_large: system.tokens-mrg-value-soft($val_flowMrg_large_raw);
 
     $val_flowMrg_button_raw: system.tokens-style-value(flow-margin-button, $raw: true);
-    $var_flowMrg_button: system.tokens-var-mrg-firm($val_flowMrg_button_raw);
+    $var_flowMrg_button: system.tokens-mrg-value-firm($val_flowMrg_button_raw);
 
-    $var_flowMrg_firmStart_small: system.tokens-var-mrg-firm($val_flowMrg_small_raw);
+    $var_flowMrg_firmStart_small: system.tokens-mrg-value-firm($val_flowMrg_small_raw);
 
     $_flowMargins: (
-        flow-margin: system.tokens-style-value(flow-margin),
-        flow-margin--small: system.tokens-style-value(flow-margin-small),
+        flow-margin: system.tokens-mrg-value-soft($val_flowMrg_raw),
+        flow-margin--small: system.tokens-mrg-value-soft($val_flowMrg_small_raw),
         flow-margin--large: $val_flowMrg_large,
         //
-        flow-margin-firm-start: system.tokens-var-mrg-firm($val_flowMrg_raw),
-        flow-margin-firm-end: system.tokens-var-mrg-half($val_flowMrg_raw),
+        flow-margin-firm-start: system.tokens-mrg-value-firm($val_flowMrg_raw),
+        flow-margin-firm-end: system.tokens-mrg-value-half($val_flowMrg_raw),
         //
         flow-margin-firm-start--small: $var_flowMrg_firmStart_small,
-        flow-margin-firm-end--small: system.tokens-var-mrg-half($val_flowMrg_small_raw),
+        flow-margin-firm-end--small: system.tokens-mrg-value-half($val_flowMrg_small_raw),
         //
-        flow-margin-firm-start--large: system.tokens-var-mrg-firm($val_flowMrg_large_raw),
-        flow-margin-firm-end--large: system.tokens-var-mrg-half($val_flowMrg_large_raw),
+        flow-margin-firm-start--large: system.tokens-mrg-value-firm($val_flowMrg_large_raw),
+        flow-margin-firm-end--large: system.tokens-mrg-value-half($val_flowMrg_large_raw),
         //
         flow-margin--button-span-block: $var_flowMrg_button,
         flow-margin--button-span-inline: $var_flowMrg_button,
@@ -118,7 +138,7 @@
             $defaults,
             $slug,
             (
-                syntax: '<length-percentage>',
+                syntax: '*',
                 inherits: true,
                 initial-value: #{$initial},
             )
@@ -126,7 +146,9 @@
     }
 
     @return fns.tokens-get-at-properties(
-        $inputs: map.merge($defaults, $inputs, $recursive: true, $respectUNDEFINED: true)
+        $inputs: map.merge($defaults, $inputs, $recursive: true, $respectUNDEFINED: true),
+        $stroke_relative: system.$stroke_relative,
+        $style_flat: system.$style_flat
     );
 }
 

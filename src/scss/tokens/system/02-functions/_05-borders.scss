@@ -87,11 +87,11 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@function tokens-var-border-radius($level, $args...) {
+@function tokens-var-border-radius($level, $fallbackOnly: false, $args...) {
     @return config.config-do-var(
         border-radius-#{$level},
         tokens-border-radius-value($level),
-        $fallbackOnly: config.$fn_var_replaceWithValue_borderRadius,
+        $fallbackOnly: $fallbackOnly or config.$fn_var_replaceWithValue_borderRadius,
         $args...
     );
 }
@@ -102,11 +102,11 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@function tokens-var-border-width($level, $args...) {
+@function tokens-var-border-width($level, $fallbackOnly: false, $args...) {
     @return config.config-do-var(
         border-width-#{$level},
         tokens-border-width-value($level),
-        $fallbackOnly: config.$fn_var_replaceWithValue_borderWidth,
+        $fallbackOnly: $fallbackOnly or config.$fn_var_replaceWithValue_borderWidth,
         $args...
     );
 }
@@ -117,11 +117,11 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@function tokens-var-stroke-relative($level, $args...) {
+@function tokens-var-stroke-relative($level, $fallbackOnly: false, $args...) {
     @return config.config-do-var(
         stroke-relative-#{$level},
         tokens-stroke-relative-value($level),
-        $fallbackOnly: config.$fn_var_replaceWithValue_strokeRelative,
+        $fallbackOnly: $fallbackOnly or config.$fn_var_replaceWithValue_strokeRelative,
         $args...
     );
 }

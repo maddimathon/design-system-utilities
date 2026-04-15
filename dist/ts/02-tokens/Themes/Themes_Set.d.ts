@@ -239,6 +239,18 @@ export declare namespace Tokens_Themes_Set {
                 outline: {
                     [K in keyof RequiredVariations<T_ColourTypes['names']>['interactive']]: __T_ColourOption;
                 };
+                /**
+                 * Used for borders and other decoration around links. Used
+                 * instead of decoration since decoration might be transparent.
+                 *
+                 * @since 0.1.0-beta.0.draft
+                 */
+                ui: {
+                    $: __T_ColourOption;
+                    visited: __T_ColourOption;
+                } & {
+                    [K in keyof RequiredVariations<T_ColourTypes['names']>['interactive']]: __T_ColourOption;
+                };
             };
             button: {
                 [K in 'primary' | 'secondary' | 'grey' | 'disabled']: Data.Button<T_ColourTypes, __T_ColourOption>;
@@ -357,7 +369,19 @@ export declare namespace Tokens_Themes_Set {
                     } & {
                         [K in keyof RequiredVariations<T_ColourTypes['names']>['interactive']]?: undefined | __T_ColourOption;
                     };
+                    /**
+                     * @since 0.1.0-beta.0.draft
+                     */
                     outline?: undefined | {
+                        [K in keyof RequiredVariations<T_ColourTypes['names']>['interactive']]?: undefined | __T_ColourOption;
+                    };
+                    /**
+                     * @since 0.1.0-beta.0.draft
+                     */
+                    ui?: undefined | {
+                        $?: undefined | __T_ColourOption;
+                        visited?: undefined | __T_ColourOption;
+                    } & {
                         [K in keyof RequiredVariations<T_ColourTypes['names']>['interactive']]?: undefined | __T_ColourOption;
                     };
                 };

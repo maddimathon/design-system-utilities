@@ -16,7 +16,7 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@function tokens-mrg-value-firm($level, $unit: 1, $multiplier: 1) {
+@function tokens-mrg-value-firm($level, $unit: 1rem, $multiplier: 1) {
     $value: map.get(breakdown.$margin, '400');
 
     @if not map.has-key(breakdown.$margin, '#{$level}') {
@@ -33,7 +33,7 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@function tokens-mrg-value-half($level, $unit: 1, $multiplier: 1, $args...) {
+@function tokens-mrg-value-half($level, $unit: 1rem, $multiplier: 1, $args...) {
     //
     $firm: tokens-mrg-value-firm($level, $multiplier: $multiplier, $args...);
     $soft: tokens-mrg-value-soft($level, $multiplier: $multiplier, $args...);
@@ -49,7 +49,7 @@ $_mrgValFirm_400_softened: tokens-mrg-value-firm('400');
 ///
 /// @since ___PKG_VERSION___
 ///
-@function tokens-mrg-value-soft($level, $unit: 1, $multiplier: 1, $args...) {
+@function tokens-mrg-value-soft($level, $unit: 1rem, $multiplier: 1, $args...) {
     $value: tokens-mrg-value-firm($level, $multiplier: $multiplier, $args...);
 
     // returns - simple softening
@@ -83,13 +83,13 @@ $_mrgValFirm_400_softened: tokens-mrg-value-firm('400');
 ///
 /// @since ___PKG_VERSION___
 ///
-@function tokens-var-pad-firm($level, $args...) {
-    $fallback: calc(1em * tokens-mrg-value-firm($level));
+@function tokens-var-pad-firm($level, $fallbackOnly: false, $multiplier: 1, $args...) {
+    $fallback: math.add-unit(tokens-mrg-value-firm($level, $multiplier: $multiplier), 1em);
 
     @return config.config-do-var(
         pad-firm-#{$level},
         $fallback,
-        $fallbackOnly: config.$fn_var_replaceWithValue_margin,
+        $fallbackOnly: $fallbackOnly or config.$fn_var_replaceWithValue_margin,
         $args...
     );
 }
@@ -100,13 +100,13 @@ $_mrgValFirm_400_softened: tokens-mrg-value-firm('400');
 ///
 /// @since ___PKG_VERSION___
 ///
-@function tokens-var-pad-half($level, $args...) {
-    $fallback: calc(1em * tokens-mrg-value-half($level));
+@function tokens-var-pad-half($level, $fallbackOnly: false, $multiplier: 1, $args...) {
+    $fallback: math.add-unit(tokens-mrg-value-half($level, $multiplier: $multiplier), 1em);
 
     @return config.config-do-var(
         pad-half-#{$level},
         $fallback,
-        $fallbackOnly: config.$fn_var_replaceWithValue_margin,
+        $fallbackOnly: $fallbackOnly or config.$fn_var_replaceWithValue_margin,
         $args...
     );
 }
@@ -117,13 +117,13 @@ $_mrgValFirm_400_softened: tokens-mrg-value-firm('400');
 ///
 /// @since ___PKG_VERSION___
 ///
-@function tokens-var-pad-soft($level, $args...) {
-    $fallback: calc(1em * tokens-mrg-value-soft($level));
+@function tokens-var-pad-soft($level, $fallbackOnly: false, $multiplier: 1, $args...) {
+    $fallback: math.add-unit(tokens-mrg-value-soft($level, $multiplier: $multiplier), 1em);
 
     @return config.config-do-var(
         pad-soft-#{$level},
         $fallback,
-        $fallbackOnly: config.$fn_var_replaceWithValue_margin,
+        $fallbackOnly: $fallbackOnly or config.$fn_var_replaceWithValue_margin,
         $args...
     );
 }
@@ -134,13 +134,13 @@ $_mrgValFirm_400_softened: tokens-mrg-value-firm('400');
 ///
 /// @since ___PKG_VERSION___
 ///
-@function tokens-var-mrg-firm($level, $multiplier: 1, $args...) {
+@function tokens-var-mrg-firm($level, $fallbackOnly: false, $multiplier: 1, $args...) {
     $fallback: math.add-unit(tokens-mrg-value-firm($level, $multiplier: $multiplier), 1rem);
 
     @return config.config-do-var(
         mrg-firm-#{$level},
         $fallback,
-        $fallbackOnly: config.$fn_var_replaceWithValue_margin,
+        $fallbackOnly: $fallbackOnly or config.$fn_var_replaceWithValue_margin,
         $args...
     );
 }
@@ -151,13 +151,13 @@ $_mrgValFirm_400_softened: tokens-mrg-value-firm('400');
 ///
 /// @since ___PKG_VERSION___
 ///
-@function tokens-var-mrg-half($level, $multiplier: 1, $args...) {
+@function tokens-var-mrg-half($level, $fallbackOnly: false, $multiplier: 1, $args...) {
     $fallback: math.add-unit(tokens-mrg-value-half($level, $multiplier: $multiplier), 1rem);
 
     @return config.config-do-var(
         mrg-half-#{$level},
         $fallback,
-        $fallbackOnly: config.$fn_var_replaceWithValue_margin,
+        $fallbackOnly: $fallbackOnly or config.$fn_var_replaceWithValue_margin,
         $args...
     );
 }
@@ -168,13 +168,13 @@ $_mrgValFirm_400_softened: tokens-mrg-value-firm('400');
 ///
 /// @since ___PKG_VERSION___
 ///
-@function tokens-var-mrg-soft($level, $multiplier: 1, $args...) {
+@function tokens-var-mrg-soft($level, $fallbackOnly: false, $multiplier: 1, $args...) {
     $fallback: math.add-unit(tokens-mrg-value-soft($level, $multiplier: $multiplier), 1rem);
 
     @return config.config-do-var(
         mrg-soft-#{$level},
         $fallback,
-        $fallbackOnly: config.$fn_var_replaceWithValue_margin,
+        $fallbackOnly: $fallbackOnly or config.$fn_var_replaceWithValue_margin,
         $args...
     );
 }

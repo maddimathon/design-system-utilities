@@ -763,6 +763,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
                         decoration: linkCompleter('decoration', 'ui'),
                         icon: linkCompleter('icon', 'ui'),
                         outline: linkOutline,
+                        ui: linkCompleter('ui', 'ui'),
                     },
                     selection: overrides.selection ?? {
                         background: clrOpt(variations.interactive.hover, levels.ui.accent),
@@ -827,6 +828,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
                 };
                 const linkDecoration = mergeArgs(link, overrides.link?.decoration);
                 const linkIcon = mergeArgs(link, overrides.link?.icon);
+                const linkUI = mergeArgs(link, overrides.link?.ui);
                 const heading = objectGenerator(SingleMode.allHeadingLevels, (num) => overrides.heading?.[num] ?? text.primary);
                 const singleButton = {
                     background: {
@@ -905,6 +907,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
                         decoration: linkDecoration,
                         icon: linkIcon,
                         outline: linkOutline,
+                        ui: linkUI,
                     },
                     selection: overrides.selection ?? {
                         background: 'Highlight',

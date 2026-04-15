@@ -62,6 +62,10 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
     /**
      * @since 0.1.0-beta.0.draft
      */
+    static subtitleStyle(headingStyles: Tokens_CSS_Style.Data['heading'], partial: Tokens_CSS_Style.InputParam['subtitle']): Promise<Tokens_CSS_Style.SubtitleStyles>;
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
     static toggleStyle(widgetStyles: Tokens_CSS_Style.WidgetStyles, partial?: Tokens_CSS_Style.InputParam['toggle']): Promise<Tokens_CSS_Style.ToggleStyles>;
     /**
      * @since 0.1.0-beta.0.draft
@@ -402,7 +406,45 @@ export declare namespace Tokens_CSS_Style {
     /**
      * @since 0.1.0-beta.0.draft
      */
+    type SubtitleStyles = Omit<HeadingStyles_Unstyled, 'font'> & {
+        font: Omit<HeadingStyles_Unstyled['font'], 'family'>;
+        icon: {
+            /**
+             * This should be a theme slug.
+             */
+            color: string;
+        };
+        margin: HeadingStyles['margin'];
+    };
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
     type ToggleStyles = {
+        /**
+         * For the toggle content.
+         */
+        content: {
+            /**
+             * This should be a theme slug.
+             */
+            background: string;
+            border: {
+                radius: {
+                    $: '0' | AnyTokenLevel;
+                    top: '0' | AnyTokenLevel;
+                };
+                style: {
+                    $: "dotted" | "solid";
+                    top: "dotted" | "solid";
+                };
+                width: AnyTokenLevel;
+            };
+            'line-height': AnyTokenLevel;
+            padding: {
+                block: AnyTokenLevel;
+                inline: AnyTokenLevel;
+            };
+        };
         /**
          * For the toggle control.
          */
@@ -424,6 +466,30 @@ export declare namespace Tokens_CSS_Style {
          * Values for the set-flow-margins mixin.
          */
         'flow-margin': FlowMargin;
+        /**
+         * For the ToggleNavMenu astro component and
+         * snippet-support-astro-toggle-nav-menu mixin.
+         */
+        nav: {
+            /**
+             * For the toggle content.
+             */
+            content: {
+                /**
+                 * This should be a theme slug.
+                 */
+                background: string;
+                border: {
+                    width: AnyTokenLevel;
+                };
+            };
+            title: {
+                /**
+                 * This should be a theme slug.
+                 */
+                background: string;
+            };
+        };
     };
     /**
      * @since 0.1.0-beta.0.draft
@@ -520,6 +586,10 @@ export declare namespace Tokens_CSS_Style {
         /**
          * @since 0.1.0-beta.0.draft
          */
+        subtitle: SubtitleStyles;
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
         widget: WidgetStyles;
     };
     /**
@@ -576,6 +646,10 @@ export declare namespace Tokens_CSS_Style {
                 };
             };
         };
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        subtitle?: RecursivePartial<SubtitleStyles>;
         /**
          * @since 0.1.0-beta.0.draft
          */

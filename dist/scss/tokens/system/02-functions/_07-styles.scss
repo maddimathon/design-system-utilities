@@ -43,7 +43,13 @@
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@function tokens-style-value($slug, $raw: false, $rawUnit: 1) {
+@function tokens-style-value(
+    $slug,
+    $raw: false,
+    $rawUnit: 1,
+    $asFallbackValue: false,
+    $asInitialValue: false
+) {
     $value: map.get(breakdown.$style_flat, $slug);
 
     $_slugLength: string.length($slug);
@@ -68,6 +74,50 @@
         @return spacing.tokens-var-mrg-soft($value);
     }
 
+    // returns
+    @if $slug == focus-ring-outline-color {
+        @return if(
+            meta.type-of($value) == 'color' or $value == white or $value ==
+                black,
+            $value,
+            theme.tokens-var-theme($value)
+        );
+    }
+
+    // returns
+    @if $slug == focus-ring-outline-offset {
+        @return borders.tokens-var-stroke-relative(
+            $value,
+            $fallbackOnly: $asInitialValue
+        );
+    }
+
+    // returns
+    @if $slug == focus-ring-outline-width {
+        // returns
+        @if $asFallbackValue {
+            @return borders.tokens-var-stroke-relative(
+                $value,
+                $fallbackOnly: $asInitialValue
+            );
+        }
+
+        @return clamp(
+            borders.tokens-var-border-width(
+                config.$fn_focusRingOffset_min,
+                $fallbackOnly: $asInitialValue
+            ),
+            borders.tokens-var-stroke-relative(
+                $value,
+                $fallbackOnly: $asInitialValue
+            ),
+            borders.tokens-var-border-width(
+                config.$fn_focusRingOffset_max,
+                $fallbackOnly: $asInitialValue
+            )
+        );
+    }
+
     $isAlertStyle: string.index($slug, alert-) == 1;
     $isAlertHeadingStyle: string.index($slug, alert-heading-) == 1;
     $isAlertHeadlineStyle: string.index($slug, alert-headline-) == 1;
@@ -75,6 +125,7 @@
     $isHeadingStyle: string.index($slug, heading-) == 1;
     $isIconStyle: string.match($slug, '^(button-(inline-)?)?icon-') != null;
     $isInputStyle: string.index($slug, input-) == 1;
+    $isSubtitleStyle: string.index($slug, subtitle-) == 1;
     $isToggleStyle: string.index($slug, toggle-) == 1;
     $isWidgetStyle: string.index($slug, widget-) == 1;
 
@@ -96,6 +147,7 @@
         $isIconStyle or
         $isInputStyle or
         $isHeadingStyle or
+        $isSubtitleStyle or
         $isToggleStyle or
         $isWidgetStyle
     {
@@ -287,7 +339,10 @@
 
     // returns
     @if $isBorderWidth {
-        @return borders.tokens-var-border-width($value);
+        @return borders.tokens-var-border-width(
+            $value,
+            $fallbackOnly: $asInitialValue
+        );
     }
 
     // returns
@@ -329,7 +384,10 @@
 
     // returns
     @if $isStrokeRelative {
-        @return borders.tokens-var-stroke-relative($value);
+        @return borders.tokens-var-stroke-relative(
+            $value,
+            $fallbackOnly: $asInitialValue
+        );
     }
 
     // returns
@@ -361,19 +419,23 @@
     $args...
 ) {
     // returns - flow margins are always dealt with the same way
-    $_default_tokens_match: string.match(
+    $_default_flow_tokens_match: string.match(
         $slug,
         '^flow-margin(-(large|small)|$)'
     );
 
-    @if $_default_tokens_match != null {
+    @if $_default_flow_tokens_match != null {
         @if $fallback == null {
-            $fallback: tokens-style-value($slug, $raw: false);
+            $fallback: tokens-style-value(
+                $slug,
+                $raw: false,
+                $asFallbackValue: true
+            );
         }
 
         $_suffix: if(
-            list.length($_default_tokens_match) > 2,
-            '--#{list.nth($_default_tokens_match, 3)}',
+            list.length($_default_flow_tokens_match) > 2,
+            '--#{list.nth($_default_flow_tokens_match, 3)}',
             ''
         );
 
@@ -388,7 +450,12 @@
     // }
 
     @if $fallback == null {
-        $fallback: tokens-style-value($slug, $raw: $raw, $rawUnit: $rawUnit);
+        $fallback: tokens-style-value(
+            $slug,
+            $raw: $raw,
+            $rawUnit: $rawUnit,
+            $asFallbackValue: true
+        );
     }
 
     $isFocusRingStyle: string.index($slug, focus-ring-) == 1;

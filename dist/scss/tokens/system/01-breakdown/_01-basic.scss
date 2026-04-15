@@ -232,7 +232,18 @@ $z_index: map.ksort(map.get(default.$designSystem, z_index));
 
 // #region - STYLES
 
-$style: map.ksort(map.get(default.$designSystem, style), $recursive: true);
+$style: map.merge(
+    map.get(default.$designSystem, style),
+    (
+        focus-ring: (
+            outline-color: 'link-outline-hover',
+            outline-offset: '400',
+            outline-width: '400',
+        ),
+    ),
+    $recursive: true,
+    $sort: true
+);
 
 $style_flat: map.flatten($style);
 $style_flat_required: map.flatten(map.pick($style, (icon)));
