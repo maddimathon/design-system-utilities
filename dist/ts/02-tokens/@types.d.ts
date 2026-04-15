@@ -99,9 +99,6 @@ export declare namespace TokenTypes {
             names: T_ColourNames;
             extraLevels: T_ExtraColourLevels;
         };
-        namespace TypeParams {
-            type Any = TypeParams<unknown & string, unknown & ColourUtilities.Levels.Optional>;
-        }
     }
     /**
      * @since 0.1.0-beta.0.draft
@@ -249,9 +246,6 @@ export declare namespace TokenTypes {
                 background: T_Keyword_Background;
             };
         };
-        namespace TypeParams {
-            type Any = TypeParams<unknown & string, readonly (unknown & TokenTypes.Theme.Mode.BrightnessOption)[], readonly (unknown & TokenTypes.Theme.Mode.ContrastOption)[], unknown & string, unknown & string, unknown & string>;
-        }
     }
     type TypeParams<T_ColourTypes extends Colour.TypeParams = Colour.TypeParams, T_ThemeTypes extends Theme.TypeParams = Theme.TypeParams, T_ExtraIconNames extends string = string, T_LogoNames extends string = string> = {
         colour: T_ColourTypes;
@@ -259,9 +253,6 @@ export declare namespace TokenTypes {
         logoNames: T_LogoNames;
         theme: T_ThemeTypes;
     };
-    namespace TypeParams {
-        type Any = TypeParams<Colour.TypeParams.Any, Theme.TypeParams.Any, unknown & string, unknown & string>;
-    }
 }
 /**
  * @since 0.1.0-beta.0.draft

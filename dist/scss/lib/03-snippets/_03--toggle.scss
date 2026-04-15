@@ -152,6 +152,11 @@ $_defaultHeadingSelectors_greaterThan6: ();
             $raw: true
         ),
     //
+    $backdrop_backgroundClr_base: var-theme(background),
+    $backdrop_backgroundClr_colour: var-theme(link),
+    $backdrop_opacity_base: 0.625,
+    $backdrop_opacity_colour: 0.1875,
+    //
     $content_borderWidth: var-style(toggle-content-border-width),
     $content_container_paddingBlock: var-style(toggle-content-padding-block),
     $content_container_paddingInline: var-style(toggle-content-padding-inline),
@@ -352,16 +357,22 @@ $_defaultHeadingSelectors_greaterThan6: ();
                         bottom: 0;
                         left: 0;
                         right: 0;
+                        
+                        @content(#{$location}--before-or-after);
                     }
-        
+
                     &::before {
-                        background: #{var-theme(background)};
-                        opacity: 0.625;
+                        background: #{$backdrop_backgroundClr_base};
+                        opacity: #{$backdrop_opacity_base};
+                        
+                        @content(#{$location}--base);
                     }
         
                     &::after {
-                        background: #{var-theme(link)};
-                        opacity: 0.1875;
+                        background: #{$backdrop_backgroundClr_colour};
+                        opacity: #{$backdrop_opacity_colour};
+                        
+                        @content(#{$location}--colour);
                     }
         
                     @include hover-focus-visible-or-within('&:active') {
@@ -397,20 +408,6 @@ $_defaultHeadingSelectors_greaterThan6: ();
                 var-theme(link-outline-active)
             );
             color: #{var-theme(link-active)};
-
-            @content($location);
-        }
-        
-        @else if $location == js--toggle-container--open--control {
-            // @include snippet-link-colour-single('-hover');
-
-            @content($location);
-        }
-        
-        @else if $location == js--toggle-container--default-or-open--control--hover-focus {
-            // text-decoration-color: transparent;
-            // color: #{var-theme(link)};
-            // @include snippet-link-colour-single('-hover');
 
             @content($location);
         }
@@ -656,29 +653,74 @@ $_defaultHeadingSelectors_greaterThan6: ();
     ) using ($location) {
 
         @if $location == js--body-nav-toggle-title {
-            // margin-block-end: calc(#{$title_borderWidth} * -1);
-
             border-block-end-width: #{$title_borderWidth};
             border-block-end-style: #{var-style(toggle-content-border-style-top)};
             border-block-end-color: #{do-var(toggle-border-color, var-theme(link-ui))};
             
             background: #{var-style(toggle-nav-title-background)};
+            
+            @content ($location);
         }
 
-        @if $location == js--nav-toggle-content {
-            // margin-block-end: #{$title_borderWidth_half};
+        @else if $location == js--nav-toggle-content {
             border-block-start: none;
+            
+            @content ($location);
+
+            %ol,
+            %ul {
+
+                @content (#{$location}--ol-ul-1);
+
+                ol,
+                ul {
+                    @content (#{$location}--ol-ul-2);
+
+                    ol,
+                    ul {
+
+                        @content (#{$location}--ol-ul-3);
+                    }
+                }
+            }
+            
+            > %ol,
+            > %ul {
+                @content (#{$location}--ol-ul-1-direct);
+            }
+
+            %li {
+                margin-block: #{var-style(flow-margin-small)} 0;
+                
+                @content (#{$location}--li);
+            }
+            
+            > %ol,
+            > %ul {
+                
+                > %li {
+                    &:first-child {
+                        margin-block-start: 0;
+
+                        @content (#{$location}--ol-ul-1-direct--first-child);
+                    }
+                }
+            }
         }
 
-        @if $location == js--nav-toggle-content--container {
+        @else if $location == js--nav-toggle-content--container {
             background: #{var-style(toggle-nav-content-background)};
             max-height: 80svh;
             max-height: calc(90svh - #{do-var(height-nav-primary)});
+            
+            @content ($location);
         }
 
-        // @if $location == LOCATION {
+        // @else if $location == LOCATION {
         // }
 
-        @content ($location);
+        @else {
+            @content ($location);
+        }
     }
 }
