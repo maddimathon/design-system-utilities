@@ -10,13 +10,22 @@
 
 @use '../../lib' as *;
 
-@include debug-checkpoint(
-    'design-system-utilities/#{config.$template_slug} - normalize start',
-    $level: config.$template_debug_checkpointsLevel
-);
-
 @if map.get(config.$template_styles, normalize) {
+    @include debug-checkpoint(
+        'design-system-utilities/#{config.$template_slug} - normalize start',
+        $level: config.$template_debug_checkpointsLevel
+    );
+
     @include normalize;
+}
+
+@if map.get(config.$template_styles, reset) {
+    @include debug-checkpoint(
+        'design-system-utilities/#{config.$template_slug} - reset start',
+        $level: config.$template_debug_checkpointsLevel
+    );
+
+    @include reset;
 }
 
 @if config.$template_tokens {

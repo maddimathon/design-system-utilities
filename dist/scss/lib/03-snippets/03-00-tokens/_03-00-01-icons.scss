@@ -50,30 +50,42 @@ $_allUniqueIconAspectRatios: ();
     $color: var-style(icon-color),
     $display: inline-block,
     $iconSize: var-style(icon-size),
-    $includeMinWidth: false,
+    $includeMinWidth: true,
+    // $includeWidth: true,
     $useIconFont: config.$fn_pseudoIconsUseFont and font-family-exists(icons),
     $verticalAlign: var-style(icon-vertical-align),
     $args...
 ) {
+    // prettier-ignore
     @include utils.snippet-support-icons(
-            $display: $display,
-            $iconSize: $iconSize,
-            $includeMinWidth: $includeMinWidth,
-            $verticalAlign: $verticalAlign,
-            $args...
-        )
-        using ($location) {
+        $display: $display,
+        $iconSize: $iconSize,
+        $includeMinWidth: $includeMinWidth,
+        $verticalAlign: $verticalAlign,
+        $args...
+    ) using ($location) {
+
         @if $location == root {
             position: relative;
 
             line-height: 1;
-            color: #{$color};
+            color: $color;
 
             transition:
-                color #{var-tr-time(fast)} #{tokens.$transition_function},
-                fill #{var-tr-time(fast)} #{tokens.$transition_function};
-        } @else if $location == svg {
+                color tokens.$transition_function var-tr-time(fast),
+                fill tokens.$transition_function var-tr-time(fast) ;
+
+            @content($location);
+        }
+        
+        @else if $location == svg {
             fill: currentColor;
+
+            @content($location);
+        }
+
+        @else {
+            @content($location);
         }
     }
 
@@ -180,34 +192,28 @@ $_allUniqueIconAspectRatios: ();
     $includeAspectRatio: true,
     $includeBaseProps: true,
     $includeBasePropsOnly: false,
+    $letterSpacing: false,
     $useIconFont: config.$fn_pseudoIconsUseFont,
     $args...
 ) {
     @if $useIconFont and font-family-exists(icons) {
-        $glyph: if(
-            $glyph == null,
-            if($slug == null, $glyph, icon-glyph-value($slug)),
-            $glyph
-        );
-
         @if $includeBasePropsOnly or $includeBaseProps {
             @include font-family-icons-base-properties(
                 $slug: $slug,
                 $pseudo: $pseudo,
+                $letterSpacing: $letterSpacing,
                 $useIconFont: true,
                 $args...
             );
-
-            font-family: #{var-font-family(icons)} !important;
-            font-weight: 400 !important;
-
-            font-size: #{var-style(icon-size-font)} !important;
-            font-size: #{font-family-icons--icon-size(
-                    $size: var-style(icon-size-font)
-                )} !important;
         }
 
         @if not $includeBasePropsOnly {
+            $glyph: if(
+                $glyph == null,
+                if($slug == null, null, icon-glyph-value($slug)),
+                $glyph
+            );
+
             @if $glyph {
                 content: $glyph;
                 content: $glyph / '#{icon-label-value($slug)}';
@@ -220,6 +226,7 @@ $_allUniqueIconAspectRatios: ();
             @include font-family-icons-base-properties(
                 $slug: $slug,
                 $pseudo: $pseudo,
+                $letterSpacing: $letterSpacing,
                 $useIconFont: false,
                 $args...
             );

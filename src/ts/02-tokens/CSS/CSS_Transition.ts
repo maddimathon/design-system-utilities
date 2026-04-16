@@ -49,6 +49,7 @@ export class Tokens_CSS_Transition extends AbstractTokens<{
                     'aspect-ratio',
                     // 'border',
                     'border-color',
+                    'border-radius',
                     'border-width',
                     'bottom',
                     // 'font',
@@ -105,6 +106,7 @@ export class Tokens_CSS_Transition extends AbstractTokens<{
                     'z-index': 'fast',
 
                     'aspect-ratio': 'normal',
+                    'border-radius': 'normal',
                     'border-width': 'normal',
                     bottom: 'normal',
                     'flex-basis': 'normal',
@@ -174,6 +176,7 @@ export namespace Tokens_CSS_Transition {
         | 'background-color'
         | 'border'
         | 'border-color'
+        | 'border-radius'
         | 'border-width'
         | 'bottom'
         | 'box-shadow'

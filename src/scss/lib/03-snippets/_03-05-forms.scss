@@ -162,15 +162,24 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin _snippet-button-base {
-    position: relative;
+@mixin _snippet-button-base(
+    $includePosition: true,
+    $includeHeight: true,
+    $includeTextBasics: true
+) {
+    @if $includePosition {
+        position: relative;
+    }
 
-    height: auto;
+    @if $includeHeight {
+        height: auto;
+    }
 
-    text-decoration: none;
-    text-wrap: balance;
-
-    text-align: start;
+    @if $includeTextBasics {
+        text-decoration: none;
+        text-wrap: balance;
+        text-align: start;
+    }
 
     transition: #{do-var(transition)};
     opacity: 1;
@@ -206,6 +215,7 @@
     $includeDisabled: true,
     $includeEmpty: true,
     $includeInline: true,
+    $includeMarginBlock: true,
     $includeOnlyChild: true,
     $includePseudoIcons: config.$include_button_inlineIcons,
     $useIconFont: config.$fn_pseudoIconsUseFont and font-family-exists(icons),
@@ -220,7 +230,9 @@
     $marginBlockStart: null,
     $paddingBlock: null,
     $paddingInline: null,
-    $width: null
+    $width: null,
+    //
+    $args...
 ) {
     $display: if($display, $display, style-value(button-display));
     $fontStyle: if($fontStyle, $fontStyle, var-style(button-font-style));
@@ -251,16 +263,22 @@
         align-items: start;
     }
 
-    @include _snippet-button-base;
+    @include _snippet-button-base($args...);
 
     width: #{if($width, $width, var-style(button-width))};
 
-    margin-block-start: #{if(
-            $marginBlockStart,
-            $marginBlockStart,
-            var-style(button-margin-block-start)
-        )};
-    margin-block-end: #{if($marginBlockEnd, $marginBlockEnd, var-style(button-margin-block-end))};
+    @if $includeMarginBlock {
+        margin-block-start: #{if(
+                $marginBlockStart,
+                $marginBlockStart,
+                var-style(button-margin-block-start)
+            )};
+        margin-block-end: #{if(
+                $marginBlockEnd,
+                $marginBlockEnd,
+                var-style(button-margin-block-end)
+            )};
+    }
 
     padding-block: #{$paddingBlock};
     padding-inline: #{$paddingInline};
@@ -278,6 +296,8 @@
     letter-spacing: #{var-style(button-letter-spacing)};
 
     text-transform: #{var-style(button-text-transform)};
+
+    user-select: text;
 
     @if $_content_exists {
         @content ( $location: 'root' );
@@ -1193,17 +1213,16 @@
 /// @since ___PKG_VERSION___
 ///
 @mixin snippet-legend {
-    fieldset &,
-    fieldset &:first-child {
+    fieldset & {
         @include prop-display(block);
         @include snippet-unstyled-heading;
+    }
 
+    fieldset &:first-child {
         margin-inline: calc(var-mrg-soft('300') * -1);
         margin-block: 0 #{var-mrg-soft('300')};
 
         padding-inline: #{var-mrg-soft('300')};
-
-        font-style: italic;
     }
 }
 

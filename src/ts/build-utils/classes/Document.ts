@@ -104,7 +104,8 @@ export class Document extends DocumentStage {
         if (
             this.isWatchedUpdate
             && this.params.building
-            && this.params.watchedFilename?.match( /(^|\/)scss\/_astro\// )
+            && this.params.watchedFilename?.match( /(^|\/)scss\/_astro\//gi )
+            && !this.params.watchedFilename?.match( /(^|\/)node_modules/gi )
         ) {
             this.console.progress( 'skipping document css compile for astro-only update...', 1 );
             return;

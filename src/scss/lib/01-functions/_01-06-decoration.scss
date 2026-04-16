@@ -51,24 +51,29 @@
         $min_multiplier: $minmax_multiplier;
     }
 
-    @return clamp(
-        math.add-unit(
-            math.clamp(
-                config.$fn_clampHighContrastBorderWidth_min,
-                math.round-to-pixel(config.$fn_clampHighContrastBorderWidth_min * $min_multiplier),
-                0.25
-            ),
-            $unit,
-            // TODO
-             // $method: ceil,
-        ),
-        $width,
+    $min_rems: math.add-unit(
         math.clamp(
-            config.$fn_clampHighContrastBorderWidth_max,
-            math.ceil(config.$fn_clampHighContrastBorderWidth_max * $max_multiplier),
-            8px
-        )
+            config.$fn_clampHighContrastBorderWidth_min,
+            math.round-to-pixel(
+                config.$fn_clampHighContrastBorderWidth_min * $min_multiplier,
+                $factor: config.$fn_borderWidthValue_roundToPixelFactor,
+                $method: floor
+            ),
+            0.25
+        ),
+        $unit
     );
+
+    $max_px: math.clamp(
+        config.$fn_clampHighContrastBorderWidth_max,
+        math.add-unit(
+            math.ceil(config.$fn_clampHighContrastBorderWidth_max * $max_multiplier),
+            $unit: 1px
+        ),
+        8px
+    );
+
+    @return clamp($min_rems, $width, $max_px);
 }
 
 ///

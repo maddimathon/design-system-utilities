@@ -13,6 +13,8 @@
 
 // @use 'pkg:@maddimathon/utility-astro/03-snippets' as utils;
 
+@use '03-03-typography' as *;
+
 ///
 /// @since 0.1.0-beta.0.draft
 ///
@@ -27,6 +29,8 @@
             calc(var-mrg-soft('600') - var-mrg-soft('400'));
 
         background: #{var-theme(ui-primary)};
+
+        max-width: 100%;
     }
 
     %table {
@@ -73,6 +77,8 @@
             margin: 0;
             padding: 0;
             background: transparent;
+
+            max-width: none;
         }
     }
 
@@ -83,7 +89,6 @@
     %td {
         padding-block: #{var-mrg-soft('200')};
         padding-inline: #{var-mrg-firm('300')};
-        min-width: 10em;
         background: #{var-theme(background)};
 
         vertical-align: top;
@@ -97,20 +102,29 @@
     }
 
     %th {
-        padding-top: #{var-mrg-soft('200')};
-        padding-bottom: #{var-mrg-soft('200')};
+        @include cx-prop(icon-color, var-theme(background));
+        min-width: 6rem;
 
-        text-wrap: balance;
+        @include snippet-unstyled-heading(
+            $resetChildFontStyle: false,
+            $useRelativeFontSize: true,
+            $color: var-theme(background)
+        );
 
         background: #{var-theme(ui-primary)};
-        color: #{var-theme(background)};
 
         &[scope='row'] {
+            @include cx-prop(icon-color, style-value(icon-color));
             background: #{var-theme(background-primary)};
-            color: #{var-theme(text)};
+            color: #{var-style(heading-unstyled-color)};
         }
     }
 
     %td {
+        min-width: 10em;
+
+        &.min-width-none {
+            min-width: none;
+        }
     }
 }

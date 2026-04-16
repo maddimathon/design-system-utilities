@@ -216,14 +216,14 @@
             opacity 250ms ease-out, text-decoration-color 250ms ease-out,
             text-shadow 250ms ease-out, visibility 250ms ease-out,
             aspect-ratio 500ms ease-out, border-color 250ms ease-out,
-            border-width 500ms ease-out, bottom 500ms ease-out,
-            font-weight 250ms ease-out, gap 500ms ease-out,
-            height 500ms ease-out, left 500ms ease-out, margin 500ms ease-out,
-            max-height 500ms ease-out, max-width 500ms ease-out,
-            min-height 500ms ease-out, min-width 500ms ease-out,
-            outline-color 250ms ease-out, padding 500ms ease-out,
-            right 500ms ease-out, top 500ms ease-out, transform 500ms ease-out,
-            width 250ms ease-out;
+            border-radius 500ms ease-out, border-width 500ms ease-out,
+            bottom 500ms ease-out, font-weight 250ms ease-out,
+            gap 500ms ease-out, height 500ms ease-out, left 500ms ease-out,
+            margin 500ms ease-out, max-height 500ms ease-out,
+            max-width 500ms ease-out, min-height 500ms ease-out,
+            min-width 500ms ease-out, outline-color 250ms ease-out,
+            padding 500ms ease-out, right 500ms ease-out, top 500ms ease-out,
+            transform 500ms ease-out, width 250ms ease-out;
     }
 }
 /* #endregion Tokens - Transitions */
@@ -3098,8 +3098,8 @@ i em em {
 }
 
 abbr[title] {
-    -webkit-text-decoration: dotted underline 0.125em;
-    text-decoration: dotted underline 0.125em;
+    -webkit-text-decoration: dotted underline 0.1875em;
+    text-decoration: dotted underline 0.1875em;
     cursor: help;
 }
 
@@ -3258,12 +3258,12 @@ figure {
 }
 /* ## Typography - Inlines ==================================== */
 a[href] {
-    --focus-ring-outline-offset: 0.0625em;
+    --focus-ring-outline-offset: 0.125em;
     display: inline;
     border: none;
     text-decoration: underline;
     text-decoration-thickness: 0.0625em;
-    text-underline-offset: 0.25em;
+    text-underline-offset: 0.3125em;
     --focus-ring-outline-color: var(--theme-link-outline-hover, ActiveText);
     --icon-color: var(--theme-link-icon, LinkText);
     text-decoration-color: hsl(278.16, 60.54%, 30.06%);
@@ -3372,11 +3372,11 @@ a[disabled][href] {
 }
 
 abbr[title] {
-    -webkit-text-decoration: dotted underline 0.15625em;
-    text-decoration: dotted underline 0.15625em;
+    -webkit-text-decoration: dotted underline 0.1875em;
+    text-decoration: dotted underline 0.1875em;
     text-decoration-color: hsl(278.16, 60.54%, 30.06%);
     text-decoration-color: var(--theme-ui-primary, CanvasText);
-    text-underline-offset: 0.1875em;
+    text-underline-offset: 0.25em;
 }
 
 /* ## Typography - Blocks ==================================== */
@@ -3429,6 +3429,9 @@ kbd,
 pre,
 samp {
     position: relative;
+    font-family:
+        ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo,
+        monospace, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     border-radius: 0;
     background: hsl(339.45, 0%, 85.99%);
     background: var(--theme-background-grey, Canvas);
@@ -3453,8 +3456,8 @@ samp {
     margin-right: 0.125em;
     padding-top: 0;
     padding-bottom: 0;
-    padding-left: 0.1875em;
-    padding-right: 0.1875em;
+    padding-left: 0.25em;
+    padding-right: 0.25em;
     vertical-align: baseline;
     align-self: baseline;
     font-weight: 500;
@@ -3699,7 +3702,7 @@ h3 {
     margin-top: 3.125rem;
     margin-bottom: 0.4375rem;
     font-weight: 700;
-    font-size: 1.90625rem;
+    font-size: 1.9375rem;
     line-height: 1.375;
     letter-spacing: normal;
     text-transform: none;
@@ -3734,7 +3737,7 @@ h3 samp {
     margin-top: 3.125rem;
     margin-bottom: 0.4375rem;
     font-weight: 700;
-    font-size: 1.90625rem;
+    font-size: 1.9375rem;
     line-height: 1.375;
     letter-spacing: normal;
     text-transform: none;
@@ -3770,7 +3773,7 @@ h4 {
     margin-top: 1.625rem;
     margin-bottom: 0.4375rem;
     font-weight: 700;
-    font-size: 1.625rem;
+    font-size: 1.6875rem;
     line-height: 1.375;
     letter-spacing: normal;
     text-transform: none;
@@ -3813,7 +3816,7 @@ h4 samp {
     margin-top: 1.625rem;
     margin-bottom: 0.4375rem;
     font-weight: 700;
-    font-size: 1.625rem;
+    font-size: 1.6875rem;
     line-height: 1.375;
     letter-spacing: normal;
     text-transform: none;
@@ -3857,7 +3860,7 @@ h5 {
     margin-top: 1.625rem;
     margin-bottom: 0.4375rem;
     font-weight: 600;
-    font-size: 1.4375rem;
+    font-size: 1.375rem;
     line-height: 1.375;
     letter-spacing: normal;
     text-transform: none;
@@ -3900,7 +3903,7 @@ h5 samp {
     margin-top: 1.625rem;
     margin-bottom: 0.4375rem;
     font-weight: 600;
-    font-size: 1.4375rem;
+    font-size: 1.375rem;
     line-height: 1.375;
     letter-spacing: normal;
     text-transform: none;
@@ -3944,7 +3947,7 @@ h6 {
     margin-top: 1.625rem;
     margin-bottom: 0.4375rem;
     font-weight: 500;
-    font-size: 1.21875rem;
+    font-size: 1.25rem;
     line-height: 1.5;
     letter-spacing: normal;
     text-transform: none;
@@ -3987,7 +3990,7 @@ h6 samp {
     margin-top: 1.625rem;
     margin-bottom: 0.4375rem;
     font-weight: 500;
-    font-size: 1.21875rem;
+    font-size: 1.25rem;
     line-height: 1.5;
     letter-spacing: normal;
     text-transform: none;
@@ -4338,19 +4341,20 @@ fieldset legend em em em {
 fieldset legend {
     color: hsl(278.16, 60.54%, 30.06%);
     color: var(--theme-text-primary, CanvasText);
+}
+fieldset legend:first-child {
     margin-left: -0.5rem;
     margin-right: -0.5rem;
     margin-top: 0;
     margin-bottom: 0.5rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
-    font-style: italic;
 }
 
 textarea,
 select,
 input {
-    --focus-ring-outline-offset: 0.125em;
+    --focus-ring-outline-offset: 0.1875em;
     display: block;
     margin-top: 1.25rem;
     margin-bottom: 0.4375rem;
@@ -5137,7 +5141,7 @@ input[type="button"],
 input[type="reset"],
 input[type="submit"],
 a.button[href] {
-    --focus-ring-outline-offset: 0.125em;
+    --focus-ring-outline-offset: 0.1875em;
     --icon-inline-buffer-start: 2.5 !important;
     --icon-inline-buffer-end: -0.5 !important;
     --icon-size-font: 1em;
@@ -5184,6 +5188,9 @@ a.button[href] {
     line-height: 1.1875;
     letter-spacing: normal;
     text-transform: none;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    user-select: text;
 }
 button,
 [role="button"],
@@ -5604,7 +5611,7 @@ input.display-inline[type="button"],
 input.display-inline[type="reset"],
 input.display-inline[type="submit"],
 a.display-inline.button[href] {
-    --focus-ring-outline-offset: 0.125em;
+    --focus-ring-outline-offset: 0.1875em;
     --icon-inline-buffer-start: 2.5 !important;
     --icon-inline-buffer-end: -0.5 !important;
     --icon-size-font: 1em;
@@ -6129,7 +6136,7 @@ input[type="reset"]:active * {
     --icon-color: var(--theme-button-secondary-ui-active, ButtonText);
 }
 ::file-selector-button {
-    --focus-ring-outline-offset: 0.125em;
+    --focus-ring-outline-offset: 0.1875em;
     --icon-inline-buffer-start: 2.5 !important;
     --icon-inline-buffer-end: -0.5 !important;
     --icon-size-font: 1em;
@@ -6176,6 +6183,9 @@ input[type="reset"]:active * {
     line-height: 1.1875;
     letter-spacing: normal;
     text-transform: none;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    user-select: text;
 }
 ::file-selector-button {
     --focus-ring-outline-color: var(--theme-button-grey-outline, ButtonFace);
@@ -6427,6 +6437,7 @@ table {
     margin-bottom: 0.8125rem;
     background: hsl(278.16, 60.54%, 30.06%);
     background: var(--theme-ui-primary, CanvasText);
+    max-width: 100%;
 }
 
 table {
@@ -6462,7 +6473,6 @@ td {
     padding-bottom: 0.3125rem;
     padding-left: 0.8125rem;
     padding-right: 0.8125rem;
-    min-width: 10em;
     background: hsl(339.45, 0%, 91.26%);
     background: var(--theme-background, Canvas);
     vertical-align: top;
@@ -6474,19 +6484,34 @@ td > :first-child {
 }
 
 th {
-    padding-top: 0.3125rem;
-    padding-bottom: 0.3125rem;
+    --icon-color: var(--theme-background, Canvas);
+    min-width: 6rem;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 1em;
+    line-height: 1.6875;
+    letter-spacing: normal;
+    text-transform: none;
     text-wrap: balance;
-    background: hsl(278.16, 60.54%, 30.06%);
-    background: var(--theme-ui-primary, CanvasText);
+    font-style: normal;
     color: hsl(339.45, 0%, 91.26%);
     color: var(--theme-background, Canvas);
+    background: hsl(278.16, 60.54%, 30.06%);
+    background: var(--theme-ui-primary, CanvasText);
 }
 th[scope="row"] {
+    --icon-color: var(--theme-ui, CanvasText);
     background: hsl(272.37, 84.47%, 89.06%);
     background: var(--theme-background-primary, Canvas);
-    color: hsl(339.45, 0%, 17.88%);
-    color: var(--theme-text, CanvasText);
+    color: hsl(278.16, 60.54%, 30.06%);
+    color: var(--theme-text-primary, CanvasText);
+}
+
+td {
+    min-width: 10em;
+}
+td.min-width-none {
+    min-width: none;
 }
 
 /* # UTILITIES - LAYOUT

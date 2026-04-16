@@ -6,6 +6,7 @@
 @use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/math';
+@use 'pkg:@maddimathon/utility-sass/meta';
 @use 'pkg:@maddimathon/utility-sass/string';
 
 @use '../../../config';
@@ -41,6 +42,8 @@
     );
 }
 
+$_raw_font_size_flat: map.flatten(map.get(breakdown.$font, size));
+
 ///
 /// Uses the font size tokens to prepare the appropriate numerical value (rem).
 ///
@@ -63,7 +66,9 @@
     $fontScale: null,
     $multiplier: 1,
     $relative: false,
-    $roundingFactor: config.$math_fontSize_roundingFactor
+    $roundingFactor: config.$math_fontSize_roundingFactor,
+    //
+    $args...
 ) {
     // returns
     @if not map.has-key(breakdown.$font_size, $slug) {
@@ -93,26 +98,63 @@
         $fontScale: if($relative, 1, breakdown.$fontSize_base);
     }
 
-    $fontScale: $fontScale * $multiplier;
-
-    $size_unitless: $size * $fontScale;
+    $size_unitless: $size * $fontScale * $multiplier;
 
     $size_withUnit: math.add-unit(
         math.round-to-pixel($size_unitless, $factor: $roundingFactor),
         $unit
     );
 
-    @return if(
-        $clampFontSize,
-        (
-            $size_withUnit,
-            math.clamp-font-size(
-                $size_unitless,
-                $relative: $relative,
-                $roundingFactor: $roundingFactor
-            )
-        ),
-        $size_withUnit
+    // returns
+    @if not $clampFontSize {
+        @return $size_withUnit;
+    }
+
+    $max_viewport: config.$math_clampFontSize_viewport_max;
+    $min_viewport: config.$math_clampFontSize_viewport_min;
+
+    $num: map.get($_raw_font_size_flat, $slug);
+
+    $max_multi_post: config.$math_clampFontSize_multiplier_max;
+
+    $max_multi: calc(1 + (config.$math_clampFontSize_multiplier_max - 1) / 2);
+
+    $size_max: math.round-to-pixel(
+        math.pow(breakdown.$spacing_multiplier, $num * $max_multi) * $max_multi_post,
+        $factor: config.$math_fontSize_roundingFactor,
+        $method: ceil
+    );
+
+    $min_multi_post: if($num > 0, config.$math_clampFontSize_multiplier_min, 1);
+
+    $min_multi: if($num > 0, config.$math_clampFontSize_multiplier_min, 1);
+
+    $size_min: math.round-to-pixel(
+        math.pow(breakdown.$spacing_multiplier, $num * $min_multi) * $min_multi_post,
+        $factor: config.$math_fontSize_roundingFactor,
+        $method: floor
+    );
+
+    $sizeScalingSlope: calc(($size_max - $size_min) / ($max_viewport - $min_viewport));
+
+    $size_max: $size_max * $fontScale * $multiplier;
+    $size_min: $size_min * $fontScale * $multiplier;
+
+    @return (
+        $size_withUnit,
+        math.clamp-font-size(
+            $size_unitless,
+            $relative: $relative,
+            $roundingFactor: $roundingFactor,
+            //
+            $max_viewport: $max_viewport,
+            $min_viewport: $min_viewport,
+            $size_max: $size_max,
+            $size_min: $size_min,
+            //
+            $sizeScalingSlope: $sizeScalingSlope,
+            $args...
+        )
     );
 }
 
@@ -138,7 +180,10 @@
     @return if(
         $multiplier == 1,
         $value,
-        math.round-to-pixel($value * $multiplier, config.$fn_lineHeightValue_roundToPixelFactor)
+        math.round-to-pixel(
+            $value * $multiplier,
+            $factor: config.$fn_lineHeightValue_roundToPixelFactor
+        )
     );
 }
 

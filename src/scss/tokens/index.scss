@@ -13,11 +13,15 @@
 // deps on system, theme, custom
 @forward 'utility-astro' hide $atProperties, $border_width, $brightnessMode_all,
     $brightnessMode_default, $contrastMode_all, $contrastMode_default, $fontSize_base, $font_size,
-    $line_height, $lineHeight_base, $lineHeight_multiplier, $lineHeight_roundingFactor,
-    $margin_base, $margin, $margin_softener, $stroke_relative, $style, tokens-get-at-properties;
+    $line_height, $lineHeight_base, $lineHeight_multiplier, $margin_base, $margin, $margin_softener,
+    $stroke_relative, $style, tokens-get-at-properties;
+
+@use '../config';
 
 @use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/math';
 
+@use 'utility-astro' as utils;
 @use 'system';
 
 ///

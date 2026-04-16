@@ -12,15 +12,108 @@
  * https://maddimathon.github.io/utility-sass
  */
 /*! START of @maddimathon/design-system-utilities/template/html */
-/* #region Normalize */
-/*! modern-normalize v3.0.1 | MIT License | https://github.com/sindresorhus/modern-normalize */
-/*
-Document
-========
-*/
-/**
-Use a better box model (opinionated).
-*/
+/* #region Reset */
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    text-align: left; /* fallback */
+    text-align: start;
+}
+
+::-moz-placeholder {
+    margin: 0;
+    padding: 0;
+    font: inherit;
+}
+
+::placeholder,
+a,
+blockquote,
+button,
+cite,
+code,
+dd,
+dl,
+figure,
+input,
+kbd,
+ol,
+optgroup,
+pre,
+samp,
+select,
+small,
+td,
+textarea,
+th,
+ul {
+    margin: 0;
+    padding: 0;
+    font: inherit;
+}
+
+.page-title,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h7,
+.h8,
+.h9,
+.h10 {
+    margin: 0;
+    font: inherit;
+}
+
+td,
+th {
+    vertical-align: top;
+}
+
+p {
+    margin: 0;
+}
+
+embed,
+iframe,
+img,
+object,
+picture,
+svg,
+video {
+    --display: block;
+    display: block;
+    display: var(--display, block);
+    max-width: 100%;
+}
+
+img {
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+hr {
+    margin: 0;
+    border: none;
+    border-top: currentColor solid 1px;
+    border-bottom: currentColor solid 1px;
+}
+
+input,
+label,
+pre,
+pre > code {
+    --display: block;
+    display: block;
+    display: var(--display, block);
+}
+
 *,
 ::before,
 ::after {
@@ -28,192 +121,11 @@ Use a better box model (opinionated).
 }
 
 html {
-    /* Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3) */
-    /* font-family:
-      system-ui,
-      'Segoe UI',
-      Roboto,
-      Helvetica,
-      Arial,
-      sans-serif,
-      'Apple Color Emoji',
-      'Segoe UI Emoji'; */
-    line-height: 1.15; /* 1. Correct the line height in all browsers. */
-    -webkit-text-size-adjust: 100%; /* 2. Prevent adjustments of font size after orientation changes in iOS. */
-    -moz-tab-size: 4;
-    -o-tab-size: 4;
-    tab-size: 4; /* 3. Use a more readable tab size (opinionated). */
-}
-
-/*
-Sections
-========
-*/
-body {
-    margin: 0; /* Remove the margin in all browsers. */
-}
-
-/*
-Text-level semantics
-====================
-*/
-/**
-Add the correct font weight in Chrome and Safari.
-*/
-b,
-strong {
-    font-weight: bolder;
-}
-
-/**
-1. Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3)
-2. Correct the odd 'em' font sizing in all browsers.
-*/
-code,
-kbd,
-samp,
-pre {
-    /* font-family:
-      ui-monospace,
-      SFMono-Regular,
-      Consolas,
-      'Liberation Mono',
-      Menlo,
-      monospace; */ /* 1 */
-    font-size: 1em; /* 2 */
-}
-
-/**
-Add the correct font size in all browsers.
-*/
-small {
-    font-size: 80%;
-}
-
-/**
-Prevent 'sub' and 'sup' elements from affecting the line height in all browsers.
-*/
-sub,
-sup {
-    font-size: 75%;
-    line-height: 0;
-    position: relative;
-    vertical-align: baseline;
-}
-
-sub {
-    bottom: -0.25em;
-}
-
-sup {
-    top: -0.5em;
-}
-
-/*
-Tabular data
-============
-*/
-/**
-Correct table border color inheritance in Chrome and Safari. (https://issues.chromium.org/issues/40615503, https://bugs.webkit.org/show_bug.cgi?id=195016)
-*/
-table {
-    border-color: currentcolor;
-}
-
-/*
-Forms
-=====
-*/
-/**
-1. Change the font styles in all browsers.
-2. Remove the margin in Firefox and Safari.
-*/
-button,
-input,
-optgroup,
-select,
-textarea {
-    font-family: inherit; /* 1 */
-    font-size: 100%; /* 1 */
-    line-height: 1.15; /* 1 */
-    margin: 0; /* 2 */
-}
-
-/**
-Correct the inability to style clickable types in iOS and Safari.
-*/
-button,
-[type="button"],
-[type="reset"],
-[type="submit"] {
-    -webkit-appearance: button;
-    -webkit-user-select: text;
-    -moz-user-select: text;
-    user-select: text;
-}
-
-/**
-Remove the padding so developers are not caught out when they zero out 'fieldset' elements in all browsers.
-*/
-legend {
-    padding: 0;
-}
-
-/**
-Add the correct vertical alignment in Chrome and Firefox.
-*/
-progress {
-    vertical-align: baseline;
-}
-
-/**
-Correct the cursor style of increment and decrement buttons in Safari.
-*/
-::-webkit-inner-spin-button,
-::-webkit-outer-spin-button {
-    height: auto;
-}
-
-/**
-1. Correct the odd appearance in Chrome and Safari.
-2. Correct the outline style in Safari.
-*/
-[type="search"] {
-    -webkit-appearance: textfield; /* 1 */
-    outline-offset: -2px; /* 2 */
-}
-
-/**
-Remove the inner padding in Chrome and Safari on macOS.
-*/
-::-webkit-search-decoration {
-    -webkit-appearance: none;
-}
-
-/**
-1. Correct the inability to style clickable types in iOS and Safari.
-2. Change font properties to 'inherit' in Safari.
-*/
-::-webkit-file-upload-button {
-    -webkit-appearance: button; /* 1 */
-    font: inherit; /* 2 */
-}
-
-/*
-Interactive
-===========
-*/
-/*
-Add the correct display in Chrome and Safari.
-*/
-summary {
-    --display: list-item;
-    display: list-item;
-    display: var(--display, list-item);
-}
-
-/*! end of modern-normalize */
-html {
+    -moz-text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
     color-scheme: light, dark;
 }
 @media (prefers-color-scheme: dark) {
@@ -221,41 +133,7 @@ html {
         color-scheme: dark;
     }
 }
-html {
-    font-family:
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Oxygen-Sans,
-        Ubuntu,
-        Cantarell,
-        "Helvetica Neue",
-        Helvetica,
-        Arial,
-        sans-serif,
-        "Apple Color Emoji",
-        "Segoe UI Emoji",
-        "Segoe UI Symbol";
-    font-size: 115%;
-}
-@media (min-width: 50em) {
-    html {
-        font-size: 105%;
-    }
-}
-
-code,
-kbd,
-samp,
-pre {
-    font-family:
-        ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo,
-        monospace;
-}
-
-/* #endregion Normalize */
+/* #endregion Reset */
 /* # TOKENS & PROPERTIES
  * ======================================================================== */
 /* #region Tokens - Font Face */
@@ -459,7 +337,7 @@ html {
     --width-content: 36rem;
     --width-sidebar: 18rem;
     --width-callout: 26.25rem;
-    --width-page: 60rem;
+    --width-page: 58.6875rem;
     --width-page: calc(
         var(--width-content, 36rem) + var(--width-sidebar, 18rem) +
             var(--gap-inline-layout, 8vw)
@@ -487,11 +365,11 @@ html {
 /* #region Tokens - Style */
 html {
     --focus-ring-outline-color: var(--theme-link-outline-hover, ActiveText);
-    --focus-ring-outline-offset: var(--stroke-relative-400, 0.125em);
+    --focus-ring-outline-offset: var(--stroke-relative-200, 0.125em);
     --focus-ring-outline-width: max(
         var(--border-width-200, 0.125rem),
         min(
-            var(--stroke-relative-400, 0.125em),
+            var(--stroke-relative-200, 0.125em),
             var(--border-width-400, 0.25rem)
         )
     );
@@ -560,25 +438,25 @@ html {
 /* #region Tokens - Font Size */
 html {
     --fs-heading-1: 2.9375rem;
-    --fs-heading-1: clamp(2.1875rem, 3.8125svw + 1rem, 3.3125rem);
+    --fs-heading-1: clamp(2.25rem, 1.59375svw + 1.875rem, 3.875rem);
     --fs-heading-2: 2.1875rem;
-    --fs-heading-2: clamp(1.625rem, 2.875svw + 1rem, 2.4375rem);
-    --fs-heading-3: 1.90625rem;
-    --fs-heading-3: clamp(1.4375rem, 2.5svw + 1rem, 2.125rem);
-    --fs-heading-4: 1.625rem;
-    --fs-heading-4: clamp(1.25rem, 2.125svw + 1rem, 1.8125rem);
-    --fs-heading-5: 1.4375rem;
-    --fs-heading-5: clamp(1.0625rem, 1.875svw + 1rem, 1.625rem);
-    --fs-heading-6: 1.21875rem;
-    --fs-heading-6: clamp(0.9375rem, 1.625svw + 1rem, 1.375rem);
+    --fs-heading-2: clamp(1.75rem, 1.125svw + 1.4375rem, 2.875rem);
+    --fs-heading-3: 1.9375rem;
+    --fs-heading-3: clamp(1.5rem, 0.84375svw + 1.3125rem, 2.375rem);
+    --fs-heading-4: 1.6875rem;
+    --fs-heading-4: clamp(1.3125rem, 0.71875svw + 1.125rem, 2.0625rem);
+    --fs-heading-5: 1.375rem;
+    --fs-heading-5: clamp(1.1875rem, 0.59375svw + 1.0625rem, 1.8125rem);
+    --fs-heading-6: 1.25rem;
+    --fs-heading-6: clamp(1rem, 0.53125svw + 0.875rem, 1.5rem);
     --fs-heading-7: 1rem;
-    --fs-heading-7: clamp(0.75rem, 1.3125svw + 1rem, 1.125rem);
+    --fs-heading-7: clamp(0.9375rem, 0.25svw + 0.875rem, 1.1875rem);
     --fs-heading-8: 0.9375rem;
-    --fs-heading-8: clamp(0.6875rem, 1.25svw + 1rem, 1.0625rem);
+    --fs-heading-8: clamp(0.875rem, 0.25svw + 0.8125rem, 1.125rem);
     --fs-heading-9: 0.875rem;
-    --fs-heading-9: clamp(0.625rem, 1.125svw + 1rem, 1rem);
+    --fs-heading-9: clamp(0.8125rem, 0.1875svw + 0.75rem, 1rem);
     --fs-heading-10: 0.8125rem;
-    --fs-heading-10: clamp(0.625rem, 1.0625svw + 1rem, 0.875rem);
+    --fs-heading-10: clamp(0.75rem, 0.1875svw + 0.6875rem, 0.9375rem);
     --fs-normal: 1.0625rem;
     --fs-smaller-3: 0.8125rem;
     --fs-smaller-2: 0.875rem;
@@ -618,26 +496,24 @@ html {
 /* #endregion Tokens - Border Width */
 /* #region Tokens - Stroke Relative */
 html {
-    --stroke-relative-100: 0.03125em;
-    --stroke-relative-200: 0.0625em;
-    --stroke-relative-400: 0.125em;
-    --stroke-relative-500: 0.15625em;
-    --stroke-relative-600: 0.1875em;
-    --stroke-relative-800: 0.25em;
-    --stroke-relative-900: 0.375em;
+    --stroke-relative-100: 0.0625em;
+    --stroke-relative-200: 0.125em;
+    --stroke-relative-400: 0.1875em;
+    --stroke-relative-600: 0.25em;
+    --stroke-relative-700: 0.3125em;
+    --stroke-relative-800: 0.375em;
 }
 
 @media (prefers-contrast: more),
     (forced-colors: active),
     (prefers-contrast: custom) {
     html {
-        --stroke-relative-100: max(0.125em, min(0.03125em, 4px));
-        --stroke-relative-200: max(0.125em, min(0.0625em, 4px));
-        --stroke-relative-400: max(0.125em, min(0.125em, 5px));
-        --stroke-relative-500: max(0.1875em, min(0.15625em, 6px));
-        --stroke-relative-600: max(0.1875em, min(0.1875em, 7px));
-        --stroke-relative-800: max(0.25em, min(0.25em, 8px));
-        --stroke-relative-900: max(0.25em, min(0.375em, 8px));
+        --stroke-relative-100: max(0.125em, min(0.0625em, 4px));
+        --stroke-relative-200: max(0.125em, min(0.125em, 5px));
+        --stroke-relative-400: max(0.1875em, min(0.1875em, 7px));
+        --stroke-relative-600: max(0.25em, min(0.25em, 8px));
+        --stroke-relative-700: max(0.25em, min(0.3125em, 8px));
+        --stroke-relative-800: max(0.25em, min(0.375em, 8px));
     }
 }
 /* #endregion Tokens - Stroke Relative */
@@ -677,14 +553,14 @@ html {
             opacity 250ms ease-out, text-decoration-color 250ms ease-out,
             text-shadow 250ms ease-out, visibility 250ms ease-out,
             aspect-ratio 500ms ease-out, border-color 250ms ease-out,
-            border-width 500ms ease-out, bottom 500ms ease-out,
-            font-weight 250ms ease-out, gap 500ms ease-out,
-            height 500ms ease-out, left 500ms ease-out, margin 500ms ease-out,
-            max-height 500ms ease-out, max-width 500ms ease-out,
-            min-height 500ms ease-out, min-width 500ms ease-out,
-            outline-color 250ms ease-out, padding 500ms ease-out,
-            right 500ms ease-out, top 500ms ease-out, transform 500ms ease-out,
-            width 250ms ease-out;
+            border-radius 500ms ease-out, border-width 500ms ease-out,
+            bottom 500ms ease-out, font-weight 250ms ease-out,
+            gap 500ms ease-out, height 500ms ease-out, left 500ms ease-out,
+            margin 500ms ease-out, max-height 500ms ease-out,
+            max-width 500ms ease-out, min-height 500ms ease-out,
+            min-width 500ms ease-out, outline-color 250ms ease-out,
+            padding 500ms ease-out, right 500ms ease-out, top 500ms ease-out,
+            transform 500ms ease-out, width 250ms ease-out;
     }
 }
 /* #endregion Tokens - Transitions */
@@ -4605,7 +4481,7 @@ body {
 }
 :where(body) > :where(*) {
     width: min(calc(36rem + 18rem + max(1.25rem, min(8svw, 7.125rem))), 100%);
-    width: min(var(--width-page, 60rem), 100%);
+    width: min(var(--width-page, 58.6875rem), 100%);
 }
 
 hr {
@@ -4662,11 +4538,11 @@ i em em {
 }
 
 abbr[title] {
-    -webkit-text-decoration: dotted underline 0.125em;
-    text-decoration: dotted underline 0.125em;
+    -webkit-text-decoration: dotted underline 0.1875em;
+    text-decoration: dotted underline 0.1875em;
     -webkit-text-decoration: dotted underline
-        var(--stroke-relative-400, 0.125em);
-    text-decoration: dotted underline var(--stroke-relative-400, 0.125em);
+        var(--stroke-relative-400, 0.1875em);
+    text-decoration: dotted underline var(--stroke-relative-400, 0.1875em);
     cursor: help;
 }
 
@@ -4681,7 +4557,7 @@ abbr[title] {
     outline-width: max(0.125rem, min(0.125em, 0.25rem));
     outline-width: var(
         --focus-ring-outline-width,
-        var(--stroke-relative-400, 0.125em)
+        var(--stroke-relative-200, 0.125em)
     );
     outline-style: dashed;
     outline-color: hsl(162, 69%, 16.5%);
@@ -4692,7 +4568,7 @@ abbr[title] {
     outline-offset: 0.125em;
     outline-offset: var(
         --focus-ring-outline-offset,
-        var(--stroke-relative-400, 0.125em)
+        var(--stroke-relative-200, 0.125em)
     );
 }
 
@@ -4702,7 +4578,7 @@ abbr[title] {
     outline-width: max(0.125rem, min(0.125em, 0.25rem));
     outline-width: var(
         --focus-ring-outline-width,
-        var(--stroke-relative-400, 0.125em)
+        var(--stroke-relative-200, 0.125em)
     );
     outline-style: dashed;
     outline-color: hsl(162, 69%, 16.5%);
@@ -4713,7 +4589,7 @@ abbr[title] {
     outline-offset: 0.125em;
     outline-offset: var(
         --focus-ring-outline-offset,
-        var(--stroke-relative-400, 0.125em)
+        var(--stroke-relative-200, 0.125em)
     );
 }
 
@@ -4722,7 +4598,7 @@ abbr[title] {
     outline-width: max(0.125rem, min(0.125em, 0.25rem));
     outline-width: var(
         --focus-ring-outline-width,
-        var(--stroke-relative-400, 0.125em)
+        var(--stroke-relative-200, 0.125em)
     );
     outline-style: dashed;
     outline-color: hsl(162, 69%, 16.5%);
@@ -4733,7 +4609,7 @@ abbr[title] {
     outline-offset: 0.125em;
     outline-offset: var(
         --focus-ring-outline-offset,
-        var(--stroke-relative-400, 0.125em)
+        var(--stroke-relative-200, 0.125em)
     );
 }
 
@@ -4750,7 +4626,7 @@ a.skip-link[href] {
     width: -moz-fit-content;
     width: fit-content;
     z-index: 99999;
-    --focus-ring-outline-offset: var(--stroke-relative-400, 0.125em);
+    --focus-ring-outline-offset: var(--stroke-relative-400, 0.1875em);
     padding-top: 0.3125em;
     padding-bottom: 0.3125em;
     padding-top: var(--pad-soft-200, 0.3125em);
@@ -5127,10 +5003,6 @@ hr {
     color: var(--theme-ui-primary, CanvasText);
 }
 
-img {
-    height: auto;
-}
-
 img,
 figure,
 svg {
@@ -5155,6 +5027,22 @@ figure {
 /* # GLOBALS - TYPOGRAPHY
  * ======================================================================== */
 html {
+    font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Oxygen-Sans,
+        Ubuntu,
+        Cantarell,
+        "Helvetica Neue",
+        Helvetica,
+        Arial,
+        sans-serif,
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol";
     font-weight: 400;
     line-height: 1.6875;
     line-height: var(--line-height-400, 1.6875);
@@ -5249,16 +5137,16 @@ body {
 }
 /* ## Typography - Inlines ==================================== */
 a[href] {
-    --focus-ring-outline-offset: var(--stroke-relative-200, 0.0625em);
+    --focus-ring-outline-offset: var(--stroke-relative-200, 0.125em);
     --display: inline;
     display: inline;
     display: var(--display, inline);
     border: none;
     text-decoration: underline;
     text-decoration-thickness: 0.0625em;
-    text-decoration-thickness: var(--stroke-relative-200, 0.0625em);
-    text-underline-offset: 0.25em;
-    text-underline-offset: var(--stroke-relative-800, 0.25em);
+    text-decoration-thickness: var(--stroke-relative-100, 0.0625em);
+    text-underline-offset: 0.3125em;
+    text-underline-offset: var(--stroke-relative-700, 0.3125em);
     --focus-ring-outline-color: var(--theme-link-outline-hover, ActiveText);
     --icon-color: var(--theme-link-icon, LinkText);
     text-decoration-color: hsl(278.16, 60.54%, 30.06%);
@@ -5430,13 +5318,7 @@ a[disabled][href]::before {
             var(--icon-inline-buffer-end, 0.125) *
             var(--icon-inline-buffer-end--font-multiplier, 1)
     );
-    line-height: 1 !important;
-    line-height: var(--icon-inline-line-height, 1) !important;
-    align-self: center;
-    color: hsl(339.45, 0%, 17.88%);
-    color: var(--icon-color, var(--theme-ui, CanvasText));
     font-family: "Design System Utilities Icons" !important;
-    font-weight: 400 !important;
     font-size: 1em !important;
     font-size: var(--icon-size-font, 1em) !important;
     font-size: calc(1em * 1 * 1) !important;
@@ -5444,6 +5326,12 @@ a[disabled][href]::before {
         var(--icon-size-font, 1em) * var(--icon-size-inline--multiplier, 1) *
             var(--icon-size-inline--font-multiplier, 1)
     ) !important;
+    font-weight: 400 !important;
+    line-height: 1 !important;
+    line-height: var(--icon-inline-line-height, 1) !important;
+    align-self: center;
+    color: hsl(339.45, 0%, 17.88%);
+    color: var(--icon-color, var(--theme-ui, CanvasText));
     content: "\f116";
     content: "\f116"/"Forbidden icon";
 }
@@ -5474,13 +5362,7 @@ a[target="_blank"][href]::after {
             var(--icon-inline-buffer-end, 0.125) *
             var(--icon-inline-buffer-end--font-multiplier, 1)
     );
-    line-height: 1 !important;
-    line-height: var(--icon-inline-line-height, 1) !important;
-    align-self: center;
-    color: hsl(339.45, 0%, 17.88%);
-    color: var(--icon-color, var(--theme-ui, CanvasText));
     font-family: "Design System Utilities Icons" !important;
-    font-weight: 400 !important;
     font-size: 1em !important;
     font-size: var(--icon-size-font, 1em) !important;
     font-size: calc(1em * 1 * 1) !important;
@@ -5488,6 +5370,12 @@ a[target="_blank"][href]::after {
         var(--icon-size-font, 1em) * var(--icon-size-inline--multiplier, 1) *
             var(--icon-size-inline--font-multiplier, 1)
     ) !important;
+    font-weight: 400 !important;
+    line-height: 1 !important;
+    line-height: var(--icon-inline-line-height, 1) !important;
+    align-self: center;
+    color: hsl(339.45, 0%, 17.88%);
+    color: var(--icon-color, var(--theme-ui, CanvasText));
     content: "\f114";
     content: "\f114"/"External Link icon";
 }
@@ -5514,13 +5402,7 @@ a[download][href]::before {
             var(--icon-inline-buffer-end, 0.125) *
             var(--icon-inline-buffer-end--font-multiplier, 1)
     );
-    line-height: 1 !important;
-    line-height: var(--icon-inline-line-height, 1) !important;
-    align-self: center;
-    color: hsl(339.45, 0%, 17.88%);
-    color: var(--icon-color, var(--theme-ui, CanvasText));
     font-family: "Design System Utilities Icons" !important;
-    font-weight: 400 !important;
     font-size: 1em !important;
     font-size: var(--icon-size-font, 1em) !important;
     font-size: calc(1em * 1 * 1) !important;
@@ -5528,6 +5410,12 @@ a[download][href]::before {
         var(--icon-size-font, 1em) * var(--icon-size-inline--multiplier, 1) *
             var(--icon-size-inline--font-multiplier, 1)
     ) !important;
+    font-weight: 400 !important;
+    line-height: 1 !important;
+    line-height: var(--icon-inline-line-height, 1) !important;
+    align-self: center;
+    color: hsl(339.45, 0%, 17.88%);
+    color: var(--icon-color, var(--theme-ui, CanvasText));
     content: "\f111";
     content: "\f111"/"Download icon";
 }
@@ -5547,15 +5435,15 @@ a[href]:has(> svg:only-child)::after {
 }
 
 abbr[title] {
-    -webkit-text-decoration: dotted underline 0.15625em;
-    text-decoration: dotted underline 0.15625em;
+    -webkit-text-decoration: dotted underline 0.1875em;
+    text-decoration: dotted underline 0.1875em;
     -webkit-text-decoration: dotted underline
-        var(--stroke-relative-500, 0.15625em);
-    text-decoration: dotted underline var(--stroke-relative-500, 0.15625em);
+        var(--stroke-relative-400, 0.1875em);
+    text-decoration: dotted underline var(--stroke-relative-400, 0.1875em);
     text-decoration-color: hsl(278.16, 60.54%, 30.06%);
     text-decoration-color: var(--theme-ui-primary, CanvasText);
-    text-underline-offset: 0.1875em;
-    text-underline-offset: var(--stroke-relative-600, 0.1875em);
+    text-underline-offset: 0.25em;
+    text-underline-offset: var(--stroke-relative-600, 0.25em);
 }
 
 /* ## Typography - Blocks ==================================== */
@@ -5591,7 +5479,6 @@ blockquote {
     flex-direction: column;
     flex-wrap: nowrap;
     gap: 0;
-    justify-content: center;
     justify-items: stretch;
     align-content: start;
     align-items: stretch;
@@ -5638,6 +5525,9 @@ kbd,
 pre,
 samp {
     position: relative;
+    font-family:
+        ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo,
+        monospace, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     border-radius: 0;
     background: hsl(339.45, 0%, 85.99%);
     background: var(--theme-background-grey, Canvas);
@@ -5662,14 +5552,14 @@ samp {
     margin-bottom: 0;
     margin-left: 0.125em;
     margin-right: 0.125em;
-    margin-left: var(--stroke-relative-400, 0.125em);
-    margin-right: var(--stroke-relative-400, 0.125em);
+    margin-left: var(--stroke-relative-200, 0.125em);
+    margin-right: var(--stroke-relative-200, 0.125em);
     padding-top: 0;
     padding-bottom: 0;
-    padding-left: 0.1875em;
-    padding-right: 0.1875em;
-    padding-left: var(--stroke-relative-600, 0.1875em);
-    padding-right: var(--stroke-relative-600, 0.1875em);
+    padding-left: 0.25em;
+    padding-right: 0.25em;
+    padding-left: var(--stroke-relative-600, 0.25em);
+    padding-right: var(--stroke-relative-600, 0.25em);
     vertical-align: baseline;
     align-self: baseline;
     font-weight: 500;
@@ -5789,7 +5679,7 @@ h1,
     margin-bottom: 0.4375rem;
     margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 900;
-    font-size: clamp(2.1875rem, 3.8125svw + 1rem, 3.3125rem);
+    font-size: clamp(2.25rem, 1.59375svw + 1.875rem, 3.875rem);
     font-size: var(--fs-heading-1, 2.9375rem);
     line-height: 1.375;
     line-height: var(--line-height-200, 1.375);
@@ -5875,7 +5765,7 @@ h1 samp,
     margin-bottom: 0.4375rem;
     margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 900;
-    font-size: clamp(2.1875rem, 3.8125svw + 1rem, 3.3125rem);
+    font-size: clamp(2.25rem, 1.59375svw + 1.875rem, 3.875rem);
     font-size: var(--fs-heading-1, 2.9375rem);
     line-height: 1.375;
     line-height: var(--line-height-200, 1.375);
@@ -5925,7 +5815,7 @@ h2,
     margin-bottom: 0.4375rem;
     margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 800;
-    font-size: clamp(1.625rem, 2.875svw + 1rem, 2.4375rem);
+    font-size: clamp(1.75rem, 1.125svw + 1.4375rem, 2.875rem);
     font-size: var(--fs-heading-2, 2.1875rem);
     line-height: 1.375;
     line-height: var(--line-height-200, 1.375);
@@ -5991,7 +5881,7 @@ h2 samp,
     margin-bottom: 0.4375rem;
     margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 800;
-    font-size: clamp(1.625rem, 2.875svw + 1rem, 2.4375rem);
+    font-size: clamp(1.75rem, 1.125svw + 1.4375rem, 2.875rem);
     font-size: var(--fs-heading-2, 2.1875rem);
     line-height: 1.375;
     line-height: var(--line-height-200, 1.375);
@@ -6041,8 +5931,8 @@ h3,
     margin-bottom: 0.4375rem;
     margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 700;
-    font-size: clamp(1.4375rem, 2.5svw + 1rem, 2.125rem);
-    font-size: var(--fs-heading-3, 1.90625rem);
+    font-size: clamp(1.5rem, 0.84375svw + 1.3125rem, 2.375rem);
+    font-size: var(--fs-heading-3, 1.9375rem);
     line-height: 1.375;
     line-height: var(--line-height-200, 1.375);
     letter-spacing: normal;
@@ -6107,8 +5997,8 @@ h3 samp,
     margin-bottom: 0.4375rem;
     margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 700;
-    font-size: clamp(1.4375rem, 2.5svw + 1rem, 2.125rem);
-    font-size: var(--fs-heading-3, 1.90625rem);
+    font-size: clamp(1.5rem, 0.84375svw + 1.3125rem, 2.375rem);
+    font-size: var(--fs-heading-3, 1.9375rem);
     line-height: 1.375;
     line-height: var(--line-height-200, 1.375);
     letter-spacing: normal;
@@ -6157,8 +6047,8 @@ h4,
     margin-bottom: 0.4375rem;
     margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 700;
-    font-size: clamp(1.25rem, 2.125svw + 1rem, 1.8125rem);
-    font-size: var(--fs-heading-4, 1.625rem);
+    font-size: clamp(1.3125rem, 0.71875svw + 1.125rem, 2.0625rem);
+    font-size: var(--fs-heading-4, 1.6875rem);
     line-height: 1.375;
     line-height: var(--line-height-200, 1.375);
     letter-spacing: normal;
@@ -6234,8 +6124,8 @@ h4 samp,
     margin-bottom: 0.4375rem;
     margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 700;
-    font-size: clamp(1.25rem, 2.125svw + 1rem, 1.8125rem);
-    font-size: var(--fs-heading-4, 1.625rem);
+    font-size: clamp(1.3125rem, 0.71875svw + 1.125rem, 2.0625rem);
+    font-size: var(--fs-heading-4, 1.6875rem);
     line-height: 1.375;
     line-height: var(--line-height-200, 1.375);
     letter-spacing: normal;
@@ -6292,8 +6182,8 @@ h5,
     margin-bottom: 0.4375rem;
     margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 600;
-    font-size: clamp(1.0625rem, 1.875svw + 1rem, 1.625rem);
-    font-size: var(--fs-heading-5, 1.4375rem);
+    font-size: clamp(1.1875rem, 0.59375svw + 1.0625rem, 1.8125rem);
+    font-size: var(--fs-heading-5, 1.375rem);
     line-height: 1.375;
     line-height: var(--line-height-200, 1.375);
     letter-spacing: normal;
@@ -6369,8 +6259,8 @@ h5 samp,
     margin-bottom: 0.4375rem;
     margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 600;
-    font-size: clamp(1.0625rem, 1.875svw + 1rem, 1.625rem);
-    font-size: var(--fs-heading-5, 1.4375rem);
+    font-size: clamp(1.1875rem, 0.59375svw + 1.0625rem, 1.8125rem);
+    font-size: var(--fs-heading-5, 1.375rem);
     line-height: 1.375;
     line-height: var(--line-height-200, 1.375);
     letter-spacing: normal;
@@ -6427,8 +6317,8 @@ h6,
     margin-bottom: 0.4375rem;
     margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 500;
-    font-size: clamp(0.9375rem, 1.625svw + 1rem, 1.375rem);
-    font-size: var(--fs-heading-6, 1.21875rem);
+    font-size: clamp(1rem, 0.53125svw + 0.875rem, 1.5rem);
+    font-size: var(--fs-heading-6, 1.25rem);
     line-height: 1.5;
     line-height: var(--line-height-300, 1.5);
     letter-spacing: normal;
@@ -6504,8 +6394,8 @@ h6 samp,
     margin-bottom: 0.4375rem;
     margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 500;
-    font-size: clamp(0.9375rem, 1.625svw + 1rem, 1.375rem);
-    font-size: var(--fs-heading-6, 1.21875rem);
+    font-size: clamp(1rem, 0.53125svw + 0.875rem, 1.5rem);
+    font-size: var(--fs-heading-6, 1.25rem);
     line-height: 1.5;
     line-height: var(--line-height-300, 1.5);
     letter-spacing: normal;
@@ -6561,7 +6451,7 @@ h6 samp,
     margin-bottom: 0.4375rem;
     margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 500;
-    font-size: clamp(0.75rem, 1.3125svw + 1rem, 1.125rem);
+    font-size: clamp(0.9375rem, 0.25svw + 0.875rem, 1.1875rem);
     font-size: var(--fs-heading-7, 1rem);
     line-height: 1.6875;
     line-height: var(--line-height-400, 1.6875);
@@ -6607,7 +6497,7 @@ h6 samp,
     margin-bottom: 0.4375rem;
     margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 500;
-    font-size: clamp(0.75rem, 1.3125svw + 1rem, 1.125rem);
+    font-size: clamp(0.9375rem, 0.25svw + 0.875rem, 1.1875rem);
     font-size: var(--fs-heading-7, 1rem);
     line-height: 1.6875;
     line-height: var(--line-height-400, 1.6875);
@@ -6656,7 +6546,7 @@ h6 samp,
     margin-bottom: 0.4375rem;
     margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 500;
-    font-size: clamp(0.6875rem, 1.25svw + 1rem, 1.0625rem);
+    font-size: clamp(0.875rem, 0.25svw + 0.8125rem, 1.125rem);
     font-size: var(--fs-heading-8, 0.9375rem);
     line-height: 1.6875;
     line-height: var(--line-height-400, 1.6875);
@@ -6710,7 +6600,7 @@ h6 samp,
     margin-bottom: 0.4375rem;
     margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 500;
-    font-size: clamp(0.6875rem, 1.25svw + 1rem, 1.0625rem);
+    font-size: clamp(0.875rem, 0.25svw + 0.8125rem, 1.125rem);
     font-size: var(--fs-heading-8, 0.9375rem);
     line-height: 1.6875;
     line-height: var(--line-height-400, 1.6875);
@@ -6767,7 +6657,7 @@ h6 samp,
     margin-bottom: 0.4375rem;
     margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 500;
-    font-size: clamp(0.625rem, 1.125svw + 1rem, 1rem);
+    font-size: clamp(0.8125rem, 0.1875svw + 0.75rem, 1rem);
     font-size: var(--fs-heading-9, 0.875rem);
     line-height: 1.875;
     line-height: var(--line-height-500, 1.875);
@@ -6821,7 +6711,7 @@ h6 samp,
     margin-bottom: 0.4375rem;
     margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 500;
-    font-size: clamp(0.625rem, 1.125svw + 1rem, 1rem);
+    font-size: clamp(0.8125rem, 0.1875svw + 0.75rem, 1rem);
     font-size: var(--fs-heading-9, 0.875rem);
     line-height: 1.875;
     line-height: var(--line-height-500, 1.875);
@@ -6878,7 +6768,7 @@ h6 samp,
     margin-bottom: 0.4375rem;
     margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 500;
-    font-size: clamp(0.625rem, 1.0625svw + 1rem, 0.875rem);
+    font-size: clamp(0.75rem, 0.1875svw + 0.6875rem, 0.9375rem);
     font-size: var(--fs-heading-10, 0.8125rem);
     line-height: 1.875;
     line-height: var(--line-height-500, 1.875);
@@ -6932,7 +6822,7 @@ h6 samp,
     margin-bottom: 0.4375rem;
     margin-bottom: var(--mrg-half-400, 0.4375rem);
     font-weight: 500;
-    font-size: clamp(0.625rem, 1.0625svw + 1rem, 0.875rem);
+    font-size: clamp(0.75rem, 0.1875svw + 0.6875rem, 0.9375rem);
     font-size: var(--fs-heading-10, 0.8125rem);
     line-height: 1.875;
     line-height: var(--line-height-500, 1.875);
@@ -7188,8 +7078,8 @@ h6:is(.unstyled-heading),
     margin-bottom: 0.625rem;
     margin-bottom: var(--mrg-half-600, 0.625rem);
     font-weight: 600;
-    font-size: clamp(0.9375rem, 1.625svw + 1rem, 1.375rem);
-    font-size: var(--fs-heading-6, 1.21875rem);
+    font-size: clamp(1rem, 0.53125svw + 0.875rem, 1.5rem);
+    font-size: var(--fs-heading-6, 1.25rem);
     line-height: 1.5;
     line-height: var(--line-height-300, 1.5);
     letter-spacing: normal;
@@ -7396,6 +7286,8 @@ fieldset legend em em em {
 fieldset legend {
     color: hsl(278.16, 60.54%, 30.06%);
     color: var(--theme-text-primary, CanvasText);
+}
+fieldset legend:first-child {
     margin-left: calc(0.5rem * -1);
     margin-right: calc(0.5rem * -1);
     margin-left: calc(var(--mrg-soft-300, 0.5rem) * -1);
@@ -7407,13 +7299,12 @@ fieldset legend {
     padding-right: 0.5rem;
     padding-left: var(--mrg-soft-300, 0.5rem);
     padding-right: var(--mrg-soft-300, 0.5rem);
-    font-style: italic;
 }
 
 textarea,
 select,
 input {
-    --focus-ring-outline-offset: var(--stroke-relative-400, 0.125em);
+    --focus-ring-outline-offset: var(--stroke-relative-400, 0.1875em);
     --display: block;
     display: block;
     display: var(--display, block);
@@ -8375,7 +8266,7 @@ input[type="submit"],
 a.button[href],
 a.button-secondary[href],
 a.button-grey[href] {
-    --focus-ring-outline-offset: var(--stroke-relative-400, 0.125em);
+    --focus-ring-outline-offset: var(--stroke-relative-400, 0.1875em);
     --icon-inline-buffer-start: 2.5 !important;
     --icon-inline-buffer-end: -0.5 !important;
     --icon-size-font: 1em;
@@ -8434,6 +8325,9 @@ a.button-grey[href] {
     line-height: var(--line-height-100, 1.1875);
     letter-spacing: normal;
     text-transform: none;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    user-select: text;
 }
 button,
 [role="button"],
@@ -9290,13 +9184,7 @@ a[disabled].button-grey[href]::before {
             var(--icon-inline-buffer-end, 0.125) *
             var(--icon-inline-buffer-end--font-multiplier, 1)
     );
-    line-height: 1 !important;
-    line-height: var(--icon-inline-line-height, 1) !important;
-    align-self: center;
-    color: hsl(339.45, 0%, 17.88%);
-    color: var(--icon-color, var(--theme-ui, CanvasText));
     font-family: "Design System Utilities Icons" !important;
-    font-weight: 400 !important;
     font-size: 1em !important;
     font-size: var(--icon-size-font, 1em) !important;
     font-size: calc(1em * 1 * 1) !important;
@@ -9304,6 +9192,12 @@ a[disabled].button-grey[href]::before {
         var(--icon-size-font, 1em) * var(--icon-size-inline--multiplier, 1) *
             var(--icon-size-inline--font-multiplier, 1)
     ) !important;
+    font-weight: 400 !important;
+    line-height: 1 !important;
+    line-height: var(--icon-inline-line-height, 1) !important;
+    align-self: center;
+    color: hsl(339.45, 0%, 17.88%);
+    color: var(--icon-color, var(--theme-ui, CanvasText));
     content: "\f116";
     content: "\f116"/"Forbidden icon";
     align-self: center;
@@ -9316,7 +9210,7 @@ input.display-inline[type="submit"],
 a.display-inline.button[href],
 a.display-inline.button-secondary[href],
 a.display-inline.button-grey[href] {
-    --focus-ring-outline-offset: var(--stroke-relative-400, 0.125em);
+    --focus-ring-outline-offset: var(--stroke-relative-400, 0.1875em);
     --icon-inline-buffer-start: 2.5 !important;
     --icon-inline-buffer-end: -0.5 !important;
     --icon-size-font: 1em;
@@ -9417,13 +9311,13 @@ a.display-inline.button-grey[href]
     position: relative;
     vertical-align: middle;
     vertical-align: var(--icon-vertical-align, middle);
-    height: 1em;
-    height: var(--icon-size-pseudo, 1em);
-    height: calc(1em * 1 * 1);
+    height: 1em !important;
+    height: var(--icon-size-pseudo, 1em) !important;
+    height: calc(1em * 1 * 1) !important;
     height: calc(
         var(--icon-size-pseudo, 1em) * var(--icon-size-inline--multiplier, 1) *
             var(--icon-size-inline--font-multiplier, 1)
-    );
+    ) !important;
     align-self: center;
     color: hsl(339.45, 0%, 17.88%);
     color: var(--icon-color, var(--theme-ui, CanvasText));
@@ -10453,13 +10347,13 @@ a.button-grey[href]
     position: relative;
     vertical-align: middle;
     vertical-align: var(--icon-vertical-align, middle);
-    height: 1em;
-    height: var(--icon-size-pseudo, 1em);
-    height: calc(1em * 1 * 1);
+    height: 1em !important;
+    height: var(--icon-size-pseudo, 1em) !important;
+    height: calc(1em * 1 * 1) !important;
     height: calc(
         var(--icon-size-pseudo, 1em) * var(--icon-size-inline--multiplier, 1) *
             var(--icon-size-inline--font-multiplier, 1)
-    );
+    ) !important;
     align-self: center;
     color: hsl(339.45, 0%, 17.88%);
     color: var(--icon-color, var(--theme-ui, CanvasText));
@@ -11150,13 +11044,7 @@ input[type="reset"]::before {
             var(--icon-inline-buffer-end, 0.125) *
             var(--icon-inline-buffer-end--font-multiplier, 1)
     );
-    line-height: 1 !important;
-    line-height: var(--icon-inline-line-height, 1) !important;
-    align-self: center;
-    color: hsl(339.45, 0%, 17.88%);
-    color: var(--icon-color, var(--theme-ui, CanvasText));
     font-family: "Design System Utilities Icons" !important;
-    font-weight: 400 !important;
     font-size: 1em !important;
     font-size: var(--icon-size-font, 1em) !important;
     font-size: calc(1em * 1 * 1) !important;
@@ -11164,6 +11052,12 @@ input[type="reset"]::before {
         var(--icon-size-font, 1em) * var(--icon-size-inline--multiplier, 1) *
             var(--icon-size-inline--font-multiplier, 1)
     ) !important;
+    font-weight: 400 !important;
+    line-height: 1 !important;
+    line-height: var(--icon-inline-line-height, 1) !important;
+    align-self: center;
+    color: hsl(339.45, 0%, 17.88%);
+    color: var(--icon-color, var(--theme-ui, CanvasText));
     content: "\f135";
     content: "\f135"/"Refresh icon";
     align-self: center;
@@ -11193,13 +11087,7 @@ input[type="submit"]::before {
             var(--icon-inline-buffer-end, 0.125) *
             var(--icon-inline-buffer-end--font-multiplier, 1)
     );
-    line-height: 1 !important;
-    line-height: var(--icon-inline-line-height, 1) !important;
-    align-self: center;
-    color: hsl(339.45, 0%, 17.88%);
-    color: var(--icon-color, var(--theme-ui, CanvasText));
     font-family: "Design System Utilities Icons" !important;
-    font-weight: 400 !important;
     font-size: 1em !important;
     font-size: var(--icon-size-font, 1em) !important;
     font-size: calc(1em * 1 * 1) !important;
@@ -11207,13 +11095,19 @@ input[type="submit"]::before {
         var(--icon-size-font, 1em) * var(--icon-size-inline--multiplier, 1) *
             var(--icon-size-inline--font-multiplier, 1)
     ) !important;
+    font-weight: 400 !important;
+    line-height: 1 !important;
+    line-height: var(--icon-inline-line-height, 1) !important;
+    align-self: center;
+    color: hsl(339.45, 0%, 17.88%);
+    color: var(--icon-color, var(--theme-ui, CanvasText));
     content: "\f103";
     content: "\f103"/"Checkmark icon";
     align-self: center;
 }
 
 ::file-selector-button {
-    --focus-ring-outline-offset: var(--stroke-relative-400, 0.125em);
+    --focus-ring-outline-offset: var(--stroke-relative-400, 0.1875em);
     --icon-inline-buffer-start: 2.5 !important;
     --icon-inline-buffer-end: -0.5 !important;
     --icon-size-font: 1em;
@@ -11272,6 +11166,9 @@ input[type="submit"]::before {
     line-height: var(--line-height-100, 1.1875);
     letter-spacing: normal;
     text-transform: none;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    user-select: text;
 }
 ::file-selector-button {
     --focus-ring-outline-color: var(--theme-button-grey-outline, ButtonFace);
@@ -11453,13 +11350,13 @@ input[type="submit"]::before {
     position: relative;
     vertical-align: middle;
     vertical-align: var(--icon-vertical-align, middle);
-    height: 1em;
-    height: var(--icon-size-pseudo, 1em);
-    height: calc(1em * 1 * 1);
+    height: 1em !important;
+    height: var(--icon-size-pseudo, 1em) !important;
+    height: calc(1em * 1 * 1) !important;
     height: calc(
         var(--icon-size-pseudo, 1em) * var(--icon-size-inline--multiplier, 1) *
             var(--icon-size-inline--font-multiplier, 1)
-    );
+    ) !important;
     align-self: center;
     color: hsl(339.45, 0%, 17.88%);
     color: var(--icon-color, var(--theme-ui, CanvasText));
@@ -11712,6 +11609,7 @@ table {
     );
     background: hsl(278.16, 60.54%, 30.06%);
     background: var(--theme-ui-primary, CanvasText);
+    max-width: 100%;
 }
 
 table {
@@ -11759,6 +11657,7 @@ table {
     margin: 0;
     padding: 0;
     background: transparent;
+    max-width: none;
 }
 
 th,
@@ -11771,7 +11670,6 @@ td {
     padding-right: 0.8125rem;
     padding-left: var(--mrg-firm-300, 0.8125rem);
     padding-right: var(--mrg-firm-300, 0.8125rem);
-    min-width: 10em;
     background: hsl(339.45, 0%, 91.26%);
     background: var(--theme-background, Canvas);
     vertical-align: top;
@@ -11783,21 +11681,35 @@ td > :first-child {
 }
 
 th {
-    padding-top: 0.3125rem;
-    padding-top: var(--mrg-soft-200, 0.3125rem);
-    padding-bottom: 0.3125rem;
-    padding-bottom: var(--mrg-soft-200, 0.3125rem);
+    --icon-color: var(--theme-background, Canvas);
+    min-width: 6rem;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 1em;
+    line-height: 1.6875;
+    line-height: var(--line-height-400, 1.6875);
+    letter-spacing: normal;
+    text-transform: none;
     text-wrap: balance;
-    background: hsl(278.16, 60.54%, 30.06%);
-    background: var(--theme-ui-primary, CanvasText);
+    font-style: normal;
     color: hsl(339.45, 0%, 91.26%);
     color: var(--theme-background, Canvas);
+    background: hsl(278.16, 60.54%, 30.06%);
+    background: var(--theme-ui-primary, CanvasText);
 }
 th[scope="row"] {
+    --icon-color: var(--theme-ui, CanvasText);
     background: hsl(272.37, 84.47%, 89.06%);
     background: var(--theme-background-primary, Canvas);
-    color: hsl(339.45, 0%, 17.88%);
-    color: var(--theme-text, CanvasText);
+    color: hsl(278.16, 60.54%, 30.06%);
+    color: var(--theme-text-primary, CanvasText);
+}
+
+td {
+    min-width: 10em;
+}
+td.min-width-none {
+    min-width: none;
 }
 
 /* # UTILITIES - LAYOUT
@@ -11844,12 +11756,12 @@ th[scope="row"] {
 
 .min-width-page {
     min-width: calc(36rem + 18rem + max(1.25rem, min(8svw, 7.125rem)));
-    min-width: var(--width-page, 60rem);
+    min-width: var(--width-page, 58.6875rem);
 }
 
 .max-width-page {
     max-width: calc(36rem + 18rem + max(1.25rem, min(8svw, 7.125rem)));
-    max-width: var(--width-page, 60rem);
+    max-width: var(--width-page, 58.6875rem);
 }
 
 .min-width-auto {
@@ -11921,7 +11833,7 @@ th[scope="row"] {
 .if-viewport-min-width-content {
     display: none !important;
 }
-@media (min-width: 36em) {
+@media (min-width: 40.875em) {
     .if-viewport-min-width-content {
         display: block !important;
         display: var(--display, block) !important;
@@ -11931,7 +11843,7 @@ th[scope="row"] {
 .if-viewport-max-width-content {
     display: none !important;
 }
-@media (max-width: 35.99em) {
+@media (max-width: 40.865em) {
     .if-viewport-max-width-content {
         display: block !important;
         display: var(--display, block) !important;
@@ -11941,7 +11853,7 @@ th[scope="row"] {
 .if-viewport-min-width-page {
     display: none !important;
 }
-@media (min-width: 60em) {
+@media (min-width: 66.75em) {
     .if-viewport-min-width-page {
         display: block !important;
         display: var(--display, block) !important;
@@ -11951,7 +11863,7 @@ th[scope="row"] {
 .if-viewport-max-width-page {
     display: none !important;
 }
-@media (max-width: 59.99em) {
+@media (max-width: 66.74em) {
     .if-viewport-max-width-page {
         display: block !important;
         display: var(--display, block) !important;
@@ -11961,7 +11873,7 @@ th[scope="row"] {
 .if-viewport-min-width-sidebar {
     display: none !important;
 }
-@media (min-width: 55.5em) {
+@media (min-width: 55.625em) {
     .if-viewport-min-width-sidebar {
         display: block !important;
         display: var(--display, block) !important;
@@ -11971,7 +11883,7 @@ th[scope="row"] {
 .if-viewport-max-width-sidebar {
     display: none !important;
 }
-@media (max-width: 55.49em) {
+@media (max-width: 55.615em) {
     .if-viewport-max-width-sidebar {
         display: block !important;
         display: var(--display, block) !important;
@@ -11981,7 +11893,7 @@ th[scope="row"] {
 .if-viewport-min-width-indent {
     display: none !important;
 }
-@media (min-width: 31em) {
+@media (min-width: 29.875em) {
     .if-viewport-min-width-indent {
         display: block !important;
         display: var(--display, block) !important;
@@ -11991,7 +11903,7 @@ th[scope="row"] {
 .if-viewport-max-width-indent {
     display: none !important;
 }
-@media (max-width: 30.99em) {
+@media (max-width: 29.865em) {
     .if-viewport-max-width-indent {
         display: block !important;
         display: var(--display, block) !important;
@@ -12001,52 +11913,52 @@ th[scope="row"] {
 /* # UTILITIES - TYPOGRAPHY
  * ======================================================================== */
 .font-size-heading-1 {
-    font-size: clamp(2.1875rem, 3.8125svw + 1rem, 3.3125rem);
+    font-size: clamp(2.25rem, 1.59375svw + 1.875rem, 3.875rem);
     font-size: var(--fs-heading-1, 2.9375rem);
 }
 
 .font-size-heading-2 {
-    font-size: clamp(1.625rem, 2.875svw + 1rem, 2.4375rem);
+    font-size: clamp(1.75rem, 1.125svw + 1.4375rem, 2.875rem);
     font-size: var(--fs-heading-2, 2.1875rem);
 }
 
 .font-size-heading-3 {
-    font-size: clamp(1.4375rem, 2.5svw + 1rem, 2.125rem);
-    font-size: var(--fs-heading-3, 1.90625rem);
+    font-size: clamp(1.5rem, 0.84375svw + 1.3125rem, 2.375rem);
+    font-size: var(--fs-heading-3, 1.9375rem);
 }
 
 .font-size-heading-4 {
-    font-size: clamp(1.25rem, 2.125svw + 1rem, 1.8125rem);
-    font-size: var(--fs-heading-4, 1.625rem);
+    font-size: clamp(1.3125rem, 0.71875svw + 1.125rem, 2.0625rem);
+    font-size: var(--fs-heading-4, 1.6875rem);
 }
 
 .font-size-heading-5 {
-    font-size: clamp(1.0625rem, 1.875svw + 1rem, 1.625rem);
-    font-size: var(--fs-heading-5, 1.4375rem);
+    font-size: clamp(1.1875rem, 0.59375svw + 1.0625rem, 1.8125rem);
+    font-size: var(--fs-heading-5, 1.375rem);
 }
 
 .font-size-heading-6 {
-    font-size: clamp(0.9375rem, 1.625svw + 1rem, 1.375rem);
-    font-size: var(--fs-heading-6, 1.21875rem);
+    font-size: clamp(1rem, 0.53125svw + 0.875rem, 1.5rem);
+    font-size: var(--fs-heading-6, 1.25rem);
 }
 
 .font-size-heading-7 {
-    font-size: clamp(0.75rem, 1.3125svw + 1rem, 1.125rem);
+    font-size: clamp(0.9375rem, 0.25svw + 0.875rem, 1.1875rem);
     font-size: var(--fs-heading-7, 1rem);
 }
 
 .font-size-heading-8 {
-    font-size: clamp(0.6875rem, 1.25svw + 1rem, 1.0625rem);
+    font-size: clamp(0.875rem, 0.25svw + 0.8125rem, 1.125rem);
     font-size: var(--fs-heading-8, 0.9375rem);
 }
 
 .font-size-heading-9 {
-    font-size: clamp(0.625rem, 1.125svw + 1rem, 1rem);
+    font-size: clamp(0.8125rem, 0.1875svw + 0.75rem, 1rem);
     font-size: var(--fs-heading-9, 0.875rem);
 }
 
 .font-size-heading-10 {
-    font-size: clamp(0.625rem, 1.0625svw + 1rem, 0.875rem);
+    font-size: clamp(0.75rem, 0.1875svw + 0.6875rem, 0.9375rem);
     font-size: var(--fs-heading-10, 0.8125rem);
 }
 
@@ -12102,14 +12014,7 @@ th[scope="row"] {
     vertical-align: var(--icon-vertical-align, middle);
     top: 0.15625em;
     top: var(--icon-font-top, 0.15625em);
-    line-height: 1 !important;
-    line-height: var(--icon-inline-line-height, 1) !important;
-    align-self: center;
-    color: hsl(339.45, 0%, 17.88%);
-    color: var(--icon-color, var(--theme-ui, CanvasText));
-    letter-spacing: 0.1em !important;
     font-family: "Design System Utilities Icons" !important;
-    font-weight: 400 !important;
     font-size: 1em !important;
     font-size: var(--icon-size-font, 1em) !important;
     font-size: calc(1em * 1 * 1) !important;
@@ -12117,10 +12022,13 @@ th[scope="row"] {
         var(--icon-size-font, 1em) * var(--icon-size-inline--multiplier, 1) *
             var(--icon-size-inline--font-multiplier, 1)
     ) !important;
-    color: var(
-        --icon-color,
-        var(--icon-color, var(--theme-ui, CanvasText))
-    ) !important;
+    font-weight: 400 !important;
+    line-height: 1 !important;
+    line-height: var(--icon-inline-line-height, 1) !important;
+    letter-spacing: 0.1em;
+    align-self: center;
+    color: hsl(339.45, 0%, 17.88%);
+    color: var(--icon-color, var(--theme-ui, CanvasText));
 }
 
 /* # UTILITIES - THEMES
@@ -12185,6 +12093,12 @@ th[scope="row"] {
     height: calc(
         var(--icon-size, 1.25em) * var(--icon-size--font-multiplier, 1)
     );
+    min-width: 1.25em;
+    min-width: var(--icon-size, 1.25em);
+    min-width: calc(1.25em * 1);
+    min-width: calc(
+        var(--icon-size, 1.25em) * var(--icon-size--font-multiplier, 1)
+    );
     vertical-align: middle;
     vertical-align: var(--icon-vertical-align, middle);
     position: relative;
@@ -12192,8 +12106,8 @@ th[scope="row"] {
     color: hsl(339.45, 0%, 17.88%);
     color: var(--icon-color, var(--theme-ui, CanvasText));
     transition:
-        color 250ms ease-out,
-        fill 250ms ease-out;
+        color ease-out 250ms,
+        fill ease-out 250ms;
 }
 .icon > svg {
     --display: inline-block;
@@ -13054,13 +12968,7 @@ th[scope="row"] {
             var(--icon-inline-buffer-end, 0.125) *
             var(--icon-inline-buffer-end--font-multiplier, 1)
     );
-    line-height: 1 !important;
-    line-height: var(--icon-inline-line-height, 1) !important;
-    align-self: center;
-    color: hsl(339.45, 0%, 17.88%);
-    color: var(--icon-color, var(--theme-ui, CanvasText));
     font-family: "Design System Utilities Icons" !important;
-    font-weight: 400 !important;
     font-size: 1em !important;
     font-size: var(--icon-size-font, 1em) !important;
     font-size: calc(1em * 1 * 1) !important;
@@ -13068,6 +12976,12 @@ th[scope="row"] {
         var(--icon-size-font, 1em) * var(--icon-size-inline--multiplier, 1) *
             var(--icon-size-inline--font-multiplier, 1)
     ) !important;
+    font-weight: 400 !important;
+    line-height: 1 !important;
+    line-height: var(--icon-inline-line-height, 1) !important;
+    align-self: center;
+    color: hsl(339.45, 0%, 17.88%);
+    color: var(--icon-color, var(--theme-ui, CanvasText));
 }
 
 .add-warning-icon-before::before,
@@ -13156,13 +13070,7 @@ th[scope="row"] {
             var(--icon-inline-buffer-end, 0.125) *
             var(--icon-inline-buffer-end--font-multiplier, 1)
     );
-    line-height: 1 !important;
-    line-height: var(--icon-inline-line-height, 1) !important;
-    align-self: center;
-    color: hsl(339.45, 0%, 17.88%);
-    color: var(--icon-color, var(--theme-ui, CanvasText));
     font-family: "Design System Utilities Icons" !important;
-    font-weight: 400 !important;
     font-size: 1em !important;
     font-size: var(--icon-size-font, 1em) !important;
     font-size: calc(1em * 1 * 1) !important;
@@ -13170,6 +13078,12 @@ th[scope="row"] {
         var(--icon-size-font, 1em) * var(--icon-size-inline--multiplier, 1) *
             var(--icon-size-inline--font-multiplier, 1)
     ) !important;
+    font-weight: 400 !important;
+    line-height: 1 !important;
+    line-height: var(--icon-inline-line-height, 1) !important;
+    align-self: center;
+    color: hsl(339.45, 0%, 17.88%);
+    color: var(--icon-color, var(--theme-ui, CanvasText));
 }
 
 .add-alarm-icon::after,
@@ -14026,7 +13940,7 @@ th[scope="row"] {
     line-height: var(--line-height-200, 1.375);
     font-weight: 600;
     font-style: normal;
-    font-size: clamp(0.75rem, 1.3125svw + 1rem, 1.125rem);
+    font-size: clamp(0.9375rem, 0.25svw + 0.875rem, 1.1875rem);
     font-size: var(--fs-heading-7, 1rem);
 }
 .alert-block > h1.alert-block__headline,

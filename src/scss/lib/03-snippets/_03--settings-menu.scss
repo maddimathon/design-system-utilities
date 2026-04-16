@@ -15,6 +15,8 @@
 @use '../01-functions' as *;
 @use '../02-mixins' as *;
 
+@use '03-05-forms' as *;
+
 @use 'pkg:@maddimathon/utility-astro/03-snippets' as utils;
 
 $_closing_time: var-tr-time(toggle-closing);
@@ -23,26 +25,165 @@ $_closing_time: var-tr-time(toggle-closing);
 /// Supports the SettingsMenu astro component.
 ///
 /// @since 0.1.0-alpha
+/// @since ___PKG_VERSION___ — Added optional $includeAside params.
 ///
-@mixin snippet-support-site-settings-menu {
-    @include utils.snippet-support-site-settings-menu;
+@mixin snippet-support-site-settings-menu(
+    $content_borderWidth: var-style(toggle-content-border-width),
+    //
+    $fieldset_flexContainer_alignment: (),
+    $fieldset_flexContainer_direction: row,
+    $fieldset_flexContainer_gap: var-style(flow-margin-small) var-gap-inline(tab),
+    //
+    $includeAside: true,
+    $args...
+) {
+    // prettier-ignore
+    @include utils.snippet-support-site-settings-menu(
+        $includeBaseStyles: false,
+        $fieldset_flexContainer_alignment: $fieldset_flexContainer_alignment,
+        $fieldset_flexContainer_direction: $fieldset_flexContainer_direction,
+        $fieldset_flexContainer_gap: $fieldset_flexContainer_gap,
+        $args...
+    ) using ($location) {
+        
+        @if $location == settings-menu {
+            @content($location);
+        }
+        
+        @else if $location == settings-menu--container {
+            justify-content: start;
+            align-content: end;
+            align-items: end;
+            
+            @content($location);
+        }
+        
+        @else if $location == content {
+            background: #{var-theme(background)};
+            width: 100%;
+            max-width: min(#{var-width(content)}, 90vw);
 
-    %aside {
-        font-style: normal;
-        font-size: #{var-fs(smaller-1)};
+            @content($location);
+        }
+        
+        @else if $location == content--fieldset {
+            margin-block: #{var-mrg-firm('300')} #{var-mrg-half('300')};
+            margin-inline: 0;
 
-        em {
+            padding-block: #{var-mrg-firm('100')};
+            padding-inline: clamp(#{var-mrg-firm('200')}, 3vw, #{var-mrg-firm('300')});
+
+            @content($location);
+        }
+        
+        @else if $location == content--fieldset--legend {
+            margin-block: 0;
+
+            @content($location);
+        }
+        
+        @else if $location == disclaimer {
             font-style: italic;
+            font-size: #{var-fs(smaller-1)};
 
-            em {
-                font-style: normal;
-
-                em {
-                    font-style: italic;
+            @content($location);
+        }
+        
+        @else if $location == js--settings-menu--control {
+            @include snippet-button(
+                $includeDisabled: false,
+                $includeHeight: false,
+                $includeInline: false,
+                $includeMarginBlock: false,
+                $includePosition: false,
+                $includeTextBasics: false,
+                // 
+                // $gap: 0,
+                // 
+                // $marginBlockEnd: 0,
+                // $marginBlockStart: 0,
+                // 
+                // $paddingBlock: var-mrg-firm('100'),
+                // $paddingInline: var-mrg-firm('100'),
+            ) using ($location) {
+                @if $location == root {
+                    @include cx-prop(icon-size, do-var(icon-size-large));
+                    justify-self: end;
                 }
             }
+
+            @content($location);
+        }
+        
+        @else if $location == js--settings-menu--control--backdrop {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+
+            background: none;
+            border: none;
+            border-radius: 0;
+
+            opacity: 1;
+            
+            @content($location);
+        }
+        
+        @else if $location == js--settings-menu--content {
+            /* border: none; */
+            border-block-width: 0;
+            
+            @content($location);
+        }
+        
+        @else if $location == js--settings-menu--open--content {
+            max-height: 80svh;
+            max-height: calc(
+                95svh - do-var(
+                        scroll-padding-top,
+                        calc(2.75rem + (var-gap-block(layout-half) * 2))
+                    )
+            );
+
+            border-block-width: $content_borderWidth;
+
+            @content($location);
+        }
+        
+        @else if $location == js--settings-menu--open--content--container {
+            padding-block: #{var-mrg-soft('400')} #{var-mrg-firm('300')};
+
+            @content($location);
+        }
+        
+        // @else if $location == LOCATION {
+        //     @content($location);
+        // }
+
+        @else  {
+            @content($location);
         }
     }
+
+    // @if $includeAside {
+    //     %aside {
+    //         font-style: normal;
+    //         font-size: #{var-fs(smaller-1)};
+
+    //         em {
+    //             font-style: italic;
+
+    //             em {
+    //                 font-style: normal;
+
+    //                 em {
+    //                     font-style: italic;
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
 
     .website-settings-menu {
         @include no-motion {
@@ -50,50 +191,50 @@ $_closing_time: var-tr-time(toggle-closing);
         }
     }
 
-    .website-settings__content {
-        fieldset {
-            transition: #{do-var(transition)};
+    // .website-settings__content {
+    //     fieldset {
+    //         transition: #{do-var(transition)};
 
-            > legend {
-                @include theme-set-color(primary);
-            }
-        }
-    }
+    //         > legend {
+    //             @include theme-set-color(primary);
+    //         }
+    //     }
+    // }
 
-    .website-settings__disclaimer {
-    }
+    // .website-settings__disclaimer {
+    // }
 
-    [data-toggle-control-backdrop] {
-        transition: #{do-var(transition)};
-    }
+    // [data-toggle-control-backdrop] {
+    //     transition: #{do-var(transition)};
+    // }
 
     /* With Javascript ==================================== */
 
-    [data-toggle-control] {
-        .website-settings-menu &,
-        .website-settings-menu[data-toggle-container='open'] & {
-            @include cx-prop(icon-color, currentColor !important);
+    // [data-toggle-control] {
+    //     .website-settings-menu &,
+    //     .website-settings-menu[data-toggle-container='open'] & {
+    //         @include cx-prop(icon-color, currentColor !important);
 
-            border-radius: #{var-style(button-border-radius)};
+    //         border-radius: #{var-style(button-border-radius)};
 
-            @include hover-focus-visible(
-                $addSelectors: (
-                    '&:active',
-                )
-            ) {
-                color: #{var-theme(button-primary-text-hover)};
-            }
-        }
-    }
+    //         @include hover-focus-visible(
+    //             $addSelectors: (
+    //                 '&:active',
+    //             )
+    //         ) {
+    //             color: #{var-theme(button-primary-text-hover)};
+    //         }
+    //     }
+    // }
 
     @include feature-check.js {
         .website-settings-menu {
-            [data-toggle-control] {
-            }
+            // [data-toggle-control] {
+            // }
 
-            > [data-toggle-content] {
-                border-radius: #{var-style(button-border-radius)};
-            }
+            // > [data-toggle-content] {
+            //     border-radius: #{var-style(button-border-radius)};
+            // }
 
             &[data-toggle-container='open'] {
                 [data-toggle-control-backdrop] {

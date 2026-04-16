@@ -21,7 +21,14 @@ $border: map.ksort(map.get(default.$designSystem, border), $recursive: true);
 $border_width: map.get($border, width);
 
 @each $key, $size in $border_width {
-    $border_width: map.set($border_width, $key, math.round-to-pixel($size, 32));
+    $border_width: map.set(
+        $border_width,
+        $key,
+        math.round-to-pixel(
+            $size,
+            $factor: config.$fn_borderWidthValue_roundToPixelFactor
+        )
+    );
 }
 
 $stroke_relative: map.get($border, stroke);
@@ -30,7 +37,10 @@ $stroke_relative: map.get($border, stroke);
     $stroke_relative: map.set(
         $stroke_relative,
         $key,
-        math.round-to-pixel($size, 32)
+        math.round-to-pixel(
+            $size,
+            $factor: config.$fn_borderWidthValue_roundToPixelFactor
+        )
     );
 }
 // #endregion - BORDERS
@@ -126,15 +136,6 @@ $lineHeight_multiplier: config.config-valid-number(
     $unit: false
 );
 
-$lineHeight_roundingFactor: null !default;
-$lineHeight_roundingFactor: config.config-valid-number(
-    $lineHeight_roundingFactor,
-    'lineHeight_roundingFactor',
-    $default: 16,
-    $min: 1,
-    $unit: false
-);
-
 $line_height: map.ksort(map.get(default.$designSystem, line_height));
 
 @each $key, $value in $line_height {
@@ -144,7 +145,7 @@ $line_height: map.ksort(map.get(default.$designSystem, line_height));
         math.round-to-pixel(
             math.pow($spacing_multiplier, $value * $lineHeight_multiplier) *
                 $lineHeight_base,
-            $lineHeight_roundingFactor
+            $factor: config.$fn_lineHeightValue_roundToPixelFactor
         )
     );
 }
@@ -237,8 +238,8 @@ $style: map.merge(
     (
         focus-ring: (
             outline-color: 'link-outline-hover',
-            outline-offset: '400',
-            outline-width: '400',
+            outline-offset: '200',
+            outline-width: '200',
         ),
     ),
     $recursive: true,

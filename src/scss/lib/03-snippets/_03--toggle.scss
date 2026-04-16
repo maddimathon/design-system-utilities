@@ -51,8 +51,10 @@ $_defaultHeadingSelectors_greaterThan6: ();
             $_transitionList: list.join(
                 $_transitionList,
                 (
+                    'border-radius #{$_closing_time} #{tokens.$transition_function} 0ms',
+                    'border-width #{$_closing_time} #{tokens.$transition_function} 0ms',
                     'grid-template-rows #{$_closing_time} #{tokens.$transition_function} 0ms',
-                    'border-block-end-width #{$_closing_time} #{tokens.$transition_function} 0ms'
+                    'margin #{$_closing_time} #{tokens.$transition_function} 0ms'
                 ),
                 $separator: comma
             );
@@ -64,9 +66,7 @@ $_defaultHeadingSelectors_greaterThan6: ();
             );
         }
 
-        transition:
-            #{$_transitionList},
-            #{transition-properties-value(false)};
+        transition: #{$_transitionList};
 
         > .container {
             $_transitionList: (
@@ -109,16 +109,16 @@ $_defaultHeadingSelectors_greaterThan6: ();
                 $_transitionList: list.join(
                     $_transitionList,
                     (
+                        'border-radius #{$_closing_time} #{tokens.$transition_function} 0ms',
+                        'border-width #{$_closing_time} #{tokens.$transition_function} 0ms',
                         'grid-template-rows #{$_closing_time} #{tokens.$transition_function} 0ms',
-                        'border-block-end-width #{$_closing_time} #{tokens.$transition_function} 0ms'
+                        'margin #{$_closing_time} #{tokens.$transition_function} 0ms'
                     ),
                     $separator: comma
                 );
             }
 
-            transition:
-                #{$_transitionList},
-                #{transition-properties-value(false)};
+            transition: #{$_transitionList};
 
             > .container {
                 @if $bool {
@@ -142,10 +142,10 @@ $_defaultHeadingSelectors_greaterThan6: ();
     $flowMargin_small: style-value(toggle-flow-margin-small, $raw: true),
     $flowMargin_buttonGapBlock: style-value(toggle-flow-margin-small, $raw: true),
     //
-    $backdrop_backgroundClr_base: var-theme(background),
-    $backdrop_backgroundClr_colour: var-theme(link),
-    $backdrop_opacity_base: 0.625,
-    $backdrop_opacity_colour: 0.1875,
+    $backdrop_backgroundClr_before: var-theme(background),
+    $backdrop_backgroundClr_after: var-theme(link),
+    $backdrop_opacity_before: 0.625,
+    $backdrop_opacity_after: 0.1875,
     //
     $content_borderWidth: var-style(toggle-content-border-width),
     $content_container_paddingBlock: var-style(toggle-content-padding-block),
@@ -240,7 +240,7 @@ $_defaultHeadingSelectors_greaterThan6: ();
         }
 
         @else if $location == js--container-grid {
-            gap: 0 #{var-mrg-firm($flowMargin_small)};
+            gap: 0;
 
             @content($location);
         }
@@ -306,6 +306,51 @@ $_defaultHeadingSelectors_greaterThan6: ();
                 @content($location);
             }
         }
+
+        @else if $location == toggle-control-backdrop {
+            @content($location);
+
+            @if $includeBackdropControlStyles {
+                &::before,
+                &::after {
+                    content: '';
+                    content: '' / '';
+                    @include prop-display(block);
+                    position: absolute;
+    
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    
+                    @content(#{$location}--before-or-after);
+                }
+
+                &::before {
+                    background: #{$backdrop_backgroundClr_before};
+                    opacity: #{$backdrop_opacity_before};
+                    
+                    @content(#{$location}--before);
+                }
+    
+                &::after {
+                    background: #{$backdrop_backgroundClr_after};
+                    opacity: #{$backdrop_opacity_after};
+                    
+                    @content(#{$location}--after);
+                }
+    
+                @include hover-focus-visible-or-within('&:active') {
+                    border: none;
+                    background: none;
+                    color: inherit;
+                    outline: none;
+                    opacity: 1;
+
+                    @content(#{$location}--hover-focus-active);
+                }
+            }
+        }
         
         @else if $location == js--toggle-control or $location == js--toggle-control-backdrop {
             padding: 0;
@@ -314,7 +359,6 @@ $_defaultHeadingSelectors_greaterThan6: ();
             cursor: pointer;
 
             @if $location == js--toggle-control {
-                // padding-block-start: #{do-var(flow-margin-firm-end--large)};
                 padding-block-end: #{$control_paddingBlockEnd};
 
                 @include cx-prop(
@@ -334,45 +378,6 @@ $_defaultHeadingSelectors_greaterThan6: ();
                 }
 
                 @content($location);
-                
-                @if $includeBackdropControlStyles {
-                    &::before,
-                    &::after {
-                        content: '';
-                        content: '' / '';
-                        @include prop-display(block);
-                        position: absolute;
-        
-                        top: 0;
-                        bottom: 0;
-                        left: 0;
-                        right: 0;
-                        
-                        @content(#{$location}--before-or-after);
-                    }
-
-                    &::before {
-                        background: #{$backdrop_backgroundClr_base};
-                        opacity: #{$backdrop_opacity_base};
-                        
-                        @content(#{$location}--base);
-                    }
-        
-                    &::after {
-                        background: #{$backdrop_backgroundClr_colour};
-                        opacity: #{$backdrop_opacity_colour};
-                        
-                        @content(#{$location}--colour);
-                    }
-        
-                    @include hover-focus-visible-or-within('&:active') {
-                        border: none;
-                        background: none;
-                        color: inherit;
-                        outline: none;
-                        opacity: 1;
-                    }
-                }
             }
         }
 
@@ -513,6 +518,8 @@ $_defaultHeadingSelectors_greaterThan6: ();
                 @content(#{$location}--unstyled-heading);
                 
                 [data-toggle-control] {
+                    padding-block-end: #{$control_paddingBlockEnd};
+
                     @content(#{$location}--unstyled-heading--control);
                 }
             }
@@ -656,10 +663,15 @@ $_defaultHeadingSelectors_greaterThan6: ();
             border-block-start: none;
             
             @content ($location);
+        }
+
+        @else if $location == js--nav-toggle-content--container {
+            background: #{var-style(toggle-nav-content-background)};
+            max-height: 80svh;
+            max-height: calc(90svh - #{do-var(height-nav-primary)});
 
             %ol,
             %ul {
-
                 @content (#{$location}--ol-ul-1);
 
                 ol,
@@ -668,7 +680,6 @@ $_defaultHeadingSelectors_greaterThan6: ();
 
                     ol,
                     ul {
-
                         @content (#{$location}--ol-ul-3);
                     }
                 }
@@ -676,7 +687,7 @@ $_defaultHeadingSelectors_greaterThan6: ();
             
             > %ol,
             > %ul {
-                @content (#{$location}--ol-ul-1-direct);
+                @content (#{$location}--ol-ul-direct);
             }
 
             %li {
@@ -687,21 +698,22 @@ $_defaultHeadingSelectors_greaterThan6: ();
             
             > %ol,
             > %ul {
-                
-                > %li {
-                    &:first-child {
-                        margin-block-start: 0;
+                @content (#{$location}--ol-ul-direct);
 
-                        @content (#{$location}--ol-ul-1-direct--first-child);
+                &:first-child {
+                    @content (#{$location}--ol-ul-direct--first-child);
+
+                    > li {
+                        @content (#{$location}--ol-ul-direct--first-child--li);
+
+                        &:first-child {
+                            margin-block-start: 0;
+
+                            @content (#{$location}--ol-ul-direct--first-child--li--first-child);
+                        }
                     }
                 }
             }
-        }
-
-        @else if $location == js--nav-toggle-content--container {
-            background: #{var-style(toggle-nav-content-background)};
-            max-height: 80svh;
-            max-height: calc(90svh - #{do-var(height-nav-primary)});
             
             @content ($location);
         }

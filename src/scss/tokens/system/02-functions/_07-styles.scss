@@ -151,12 +151,14 @@
         }
 
         // border-radius
-        @if string.index($slug, '-border-radius') == ($_slugLength - 13) {
+        // prettier-ignore
+        @if string.index($slug, '-border-radius-') or string.index($slug, '-border-radius') == ($_slugLength - 13) {
             $isBorderRadius: true;
         }
 
         // border-width
-        @if string.index($slug, '-border-width') == ($_slugLength - 12) {
+        // prettier-ignore
+        @if string.index($slug, '-border-width-') or string.index($slug, '-border-width') == ($_slugLength - 12) {
             $isBorderWidth: true;
         }
 

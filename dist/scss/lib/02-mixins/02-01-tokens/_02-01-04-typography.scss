@@ -244,6 +244,7 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
     //
     $display: inline-block,
     $height: null,
+    $letterSpacing: null,
     $lineHeight: null,
     $spacing: true,
     $spacingProp: margin,
@@ -255,6 +256,12 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
     $_end: if($pseudo == before, start, end);
 
     $height: if($height == null, not $useIconFont, $height);
+
+    $letterSpacing: if(
+        $letterSpacing == null,
+        map.get(tokens.$font, family, icons, css, letterSpacing),
+        $letterSpacing
+    );
 
     $lineHeight: if(
         $lineHeight == null,
@@ -297,12 +304,29 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
     }
 
     @if $height and not $useIconFont {
-        height: #{var-style(icon-size-pseudo)};
-        height: #{font-family-icons--icon-size()};
+        $_size: var-style(icon-size-pseudo);
+
+        height: #{$_size} !important;
+        height: #{font-family-icons--icon-size()} !important;
     }
 
-    @if $lineHeight != false and $useIconFont {
-        line-height: #{$lineHeight};
+    @if $useIconFont {
+        $_size: var-style(icon-size-font);
+
+        font-family: #{var-font-family(icons)} !important;
+
+        font-size: #{$_size} !important;
+        font-size: #{font-family-icons--icon-size($_size)} !important;
+
+        font-weight: 400 !important;
+
+        @if $lineHeight != false {
+            line-height: #{$lineHeight};
+        }
+
+        @if $letterSpacing {
+            letter-spacing: #{$letterSpacing}em;
+        }
     }
 
     @if $display != inline {
@@ -321,9 +345,7 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
     $display: false,
     $includeChildren: true,
     $includeSizeTokens: false,
-    $letterSpacing: null,
     $spacing: null,
-    $spacingProp: margin,
     $args...
 ) {
     @if $includeSizeTokens {
@@ -334,11 +356,7 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
         );
     }
 
-    $letterSpacing: if(
-        $letterSpacing!=null,
-        $letterSpacing,
-        map.get(tokens.$font, family, icons, css, letterSpacing)
-    );
+    $spacing: if($spacing == null, $display, $spacing);
 
     $sels: &;
 
@@ -349,32 +367,10 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
     @at-root #{$sels} {
         @include font-family-icons-base-properties(
             $display: $display,
-            $height: false,
-            $lineHeight: var-style(icon-inline-line-height) !important,
-            $spacing: false,
-            $useIconFont: config.$fn_pseudoIconsUseFont and
-                font-family-exists(icons),
+            $spacing: $spacing,
+            $useIconFont: true,
             $args...
         );
-
-        @if if($spacing == null, $display, $spacing) {
-            #{$spacingProp}-inline: 0;
-            #{$spacingProp}-inline: #{font-family-icons--margin-inline(start)};
-        }
-
-        @if $letterSpacing {
-            letter-spacing: #{$letterSpacing}em !important;
-        }
-
-        font-family: #{var-font-family(icons)} !important;
-        font-weight: 400 !important;
-
-        font-size: #{var-style(icon-size-font)} !important;
-        font-size: #{font-family-icons--icon-size(
-                $size: var-style(icon-size-font)
-            )} !important;
-
-        color: #{do-var(icon-color, var-style(icon-color))} !important;
     }
 }
 

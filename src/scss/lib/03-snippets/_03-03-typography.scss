@@ -64,6 +64,7 @@
 /// Adds basic rules for the given heading using tokens in the system.
 ///
 /// @since 0.1.0-alpha
+/// @since ___PKG_VERSION___ Added optional $includeChildren, $includeColor, $includeMargin, $includeMarginSiblings, $useRelativeFontSize params.
 ///
 @mixin snippet-heading(
     $slug: 'unstyled',
@@ -76,7 +77,9 @@
     //
     $includeChildren: true,
     $includeColor: true,
-    $includeMargin: true
+    $includeMargin: true,
+    $includeMarginSiblings: $includeMargin,
+    $useRelativeFontSize: false
 ) {
     //
     @if $slug == title {
@@ -106,8 +109,11 @@
 
     font-size: #{if(
             $slug == unstyled,
-            var-style(heading-unstyled-font-size),
-            var-fs(heading-#{$slug})
+            var-fs(
+                style-value(heading-unstyled-font-size, $raw: true),
+                $relative: $useRelativeFontSize
+            ),
+            var-fs(heading-#{$slug}, $relative: $useRelativeFontSize)
         )};
 
     line-height: #{if($lineHeight, $lineHeight, var-style(heading-#{$slug}-line-height))};
@@ -129,6 +135,8 @@
         }
     }
 
+    @content ('root');
+
     @if $includeColor {
         $_color: if(
             $color,
@@ -140,19 +148,22 @@
         color: #{$_color};
     }
 
-    @if $includeMargin {
+    @if $includeMarginSiblings {
         &:has(+ %button-span),
         &:has(+ %margins-flow-firm),
         &:has(+ %margins-flow-firm-small),
         &:has(+ %margins-flow-firm-large) {
             margin-block-end: 0;
+
+            @content ('margin-siblings--firm');
         }
     }
 
     @if $includeChildren {
         %a {
-            // @include snippet-link-colours-inherit;
             font-weight: inherit;
+
+            @content ('children--a');
         }
 
         %code,
@@ -161,6 +172,8 @@
             font-weight: inherit;
             font-style: inherit;
             color: inherit;
+
+            @content ('children--code');
         }
     }
 }
@@ -236,16 +249,14 @@
 ///
 @mixin snippet-link-colours-inherit(
     $color: inherit,
-    $iconColor: do-var(icon-color),
+    $iconColor: var-style(icon-color),
     $textDecorationColor: var-theme(link-decoration),
     //
     $iconColor_disabled: var-theme(link-icon-disabled),
     $textDecorationColor_disabled: var-theme(link-decoration-disabled),
     $color_disabled: var-theme(link-disabled),
     //
-    $includeDisabled: false,
-    //
-     //
+    $includeDisabled: false
 ) {
     &,
     &:visited {
@@ -304,8 +315,8 @@
     @include prop-display(inline);
     border: none;
     text-decoration: underline;
-    text-decoration-thickness: #{var-stroke-relative('200')};
-    text-underline-offset: #{var-stroke-relative('800')};
+    text-decoration-thickness: var-stroke-relative('100');
+    text-underline-offset: var-stroke-relative('700');
 
     @include snippet-link-colours;
 
@@ -526,40 +537,46 @@
 /// @since ___PKG_VERSION___
 ///
 @mixin snippet-unstyled-heading(
+    $resetChildFontStyle: true,
+    $useRelativeFontSize: false,
+    //
     $color: var-style(heading-unstyled-color),
     $fontFamily: var-style(heading-unstyled-font-family),
     $fontStyle: var-style(heading-unstyled-font-style),
     $fontWeight: var-style(heading-unstyled-font-weight),
-    $fontSize: var-style(heading-unstyled-font-size),
+    $fontSize: var-fs(
+            style-value(heading-unstyled-font-size, $raw: true),
+            $relative: $useRelativeFontSize
+        ),
     $letterSpacing: var-style(heading-unstyled-letter-spacing),
     $lineHeight: var-style(heading-unstyled-line-height),
     $textTransform: var-style(heading-unstyled-text-transform)
 ) {
     font-family: #{$fontFamily};
     font-weight: #{$fontWeight};
-    font-size: #{$fontSize};
 
-    line-height: #{$lineHeight};
+    @if $fontSize != false {
+        font-size: #{$fontSize};
+    }
 
-    letter-spacing: #{$letterSpacing};
+    @if $lineHeight != false {
+        line-height: #{$lineHeight};
+    }
 
-    text-transform: #{$textTransform};
+    @if $letterSpacing != false {
+        letter-spacing: #{$letterSpacing};
+    }
+
+    @if $textTransform != false {
+        text-transform: #{$textTransform};
+    }
+
     text-wrap: balance;
 
-    font-style: #{$fontStyle};
+    @if $fontStyle != false {
+        font-style: #{$fontStyle};
 
-    @if $fontStyle == italic {
-        em {
-            font-style: normal;
-
-            em {
-                font-style: italic;
-            }
-        }
-    } @else {
-        em {
-            font-style: italic;
-
+        @if $fontStyle == italic {
             em {
                 font-style: normal;
 
@@ -567,10 +584,24 @@
                     font-style: italic;
                 }
             }
+        } @else if $resetChildFontStyle {
+            em {
+                font-style: italic;
+
+                em {
+                    font-style: normal;
+
+                    em {
+                        font-style: italic;
+                    }
+                }
+            }
         }
     }
 
-    color: #{$color};
+    @if $color != false {
+        color: #{$color};
+    }
 }
 
 ///
@@ -594,12 +625,12 @@
 ///
 @function _set-flow-margins--to-margin-level($input) {
     // returns
-    @if string.length($input) <= 3 {
+    @if string.length(#{$input}) <= 3 {
         @return $input;
     }
 
     @return string.regex-replace(
-        $input,
+        #{$input},
         '^(?:var\\(\\s*--(?!mrg-).+?,\\s*)*var\\(\\s*--mrg-(firm|half|soft)-(\\d{3})\\s*(,|\\)).+$',
         '$2',
         $flags: 'gs'
