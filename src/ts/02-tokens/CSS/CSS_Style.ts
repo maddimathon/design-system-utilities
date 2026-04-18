@@ -253,7 +253,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
 
                 gap: {
                     block: '0',
-                    inline: '200',
+                    inline: '300',
                 },
 
                 'flow-margin': {
@@ -265,8 +265,8 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                 },
 
                 padding: {
-                    block: '200',
-                    inline: '200',
+                    block: '300',
+                    inline: '300',
                 },
             } satisfies Tokens_CSS_Style.AlertStyles,
             partial,

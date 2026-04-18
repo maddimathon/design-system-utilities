@@ -21,6 +21,41 @@
 ///
 /// @since ___PKG_VERSION___
 ///
+@function get-extend-selectors-layout-utils() {
+    $sels: ();
+
+    $sels: list.join(
+        $sels,
+        (
+            ('.button-span', 'button-span'),
+            //
+            ('.overflow-block-auto', 'overflow-block-auto'),
+            ('.overflow-inline-auto', 'overflow-inline-auto'),
+            //
+            ('.margins-flow', margins-flow),
+            ('.margins-flow-small', margins-flow-small),
+            (('.margins-flow-large', '[data-toggle-container]'), margins-flow-large),
+            //
+            ('.margins-flow-firm', margins-flow-firm),
+            ('.margins-flow-firm-small', margins-flow-firm-small),
+            ('.margins-flow-firm-large', margins-flow-firm-large)
+        )
+    );
+
+    // $sels: list.append($sels, ((), 'margins-flow'));
+    // $sels: list.append($sels, ((), 'margins-flow-large'));
+    // $sels: list.append($sels, ((), 'margins-flow-small'));
+
+    $sels: list.append($sels, ('a.button[href]', 'margins-flow-firm'));
+
+    $sels: list.append($sels, ('%alert', style-value(alert-flow-margin-self, $raw: true)));
+
+    @return $sels;
+}
+
+///
+/// @since ___PKG_VERSION___
+///
 @mixin extend-selectors-globals($additional: (), $allHeadingLevels: token-all-heading-levels()) {
     //
     $additional: list.join($additional, (dd, dt, img, figure, svg));
@@ -105,22 +140,6 @@
     //
     $additional: list.append($additional, ('p.aside', 'aside'));
     $additional: list.append($additional, ('.brand-logo', brand-logo));
-    $additional: list.append($additional, ('.button-span', 'button-span'));
-    $additional: list.append($additional, ('.overflow-block-auto', 'overflow-block-auto'));
-    $additional: list.append($additional, ('.overflow-inline-auto', 'overflow-inline-auto'));
-
-    $additional: list.join(
-        $additional,
-        (
-            ('.margins-flow', margins-flow),
-            ('.margins-flow-small', margins-flow-small),
-            (('.margins-flow-large', '[data-toggle-container]'), margins-flow-large),
-            //
-            ('.margins-flow-firm', margins-flow-firm),
-            ('.margins-flow-firm-small', margins-flow-firm-small),
-            ('.margins-flow-firm-large', margins-flow-firm-large)
-        )
-    );
 
     $additional: list.join(
         $additional,
@@ -156,16 +175,7 @@
 
     $additional: list.join($additional, get-extend-selectors-colour-utils());
     $additional: list.join($additional, get-extend-selectors-icon-utils());
-
-    // $additional: list.append($additional, ((), 'margins-flow'));
-    // $additional: list.append($additional, ((), 'margins-flow-large'));
-    // $additional: list.append($additional, ((), 'margins-flow-small'));
-    $additional: list.append($additional, ('a.button[href]', 'margins-flow-firm'));
-
-    $additional: list.append(
-        $additional,
-        ('%alert', style-value(alert-flow-margin-self, $raw: true))
-    );
+    $additional: list.join($additional, get-extend-selectors-layout-utils());
 
     // font size utilities
     @each $slug, $_value in tokens.$font_size {

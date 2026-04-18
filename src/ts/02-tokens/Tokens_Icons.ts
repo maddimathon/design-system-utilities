@@ -18,17 +18,23 @@ import {
     OtherAssetType,
 } from 'fantasticon';
 
+import Immutable from 'immutable';
+
+import type { Classify } from '@maddimathon/utility-typescript/types';
+
 import {
+    deleteUndefinedProps,
     mergeArgs,
     objectMap,
+    objectMapAsync,
     slugify,
 } from '@maddimathon/utility-typescript';
 
 import { SvgMaker } from '../01-utilities/SvgMaker.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
-import { objectKeySort_Tokens } from '../01-utilities/objectKeySort_Tokens.js';
 import { objectGenerator } from '../01-utilities/objectGenerator.js';
-import type { Classify } from '@maddimathon/utility-typescript/types';
+import { objectKeySort_Tokens } from '../01-utilities/objectKeySort_Tokens.js';
+import { objectKeySortAsync_Tokens } from '../01-utilities/objectKeySortAsync_Tokens.js';
 
 /**
  * Generates a complete token object for the design system.
@@ -43,8 +49,76 @@ export class Tokens_Icons<
     scss: Tokens_Icons.ScssVars<T_ExtraIconNames>;
 }> {
 
+    /**
+     * @since ___PKG_VERSION___
+     */
     public static get defaultCodepoints(): {
-        [ I in Tokens_Icons.DefaultIconNames ]: number;
+        alarm: 0xf148,
+        alert: 0xf154,
+        attachment: 0xf101,
+        biography: 0xf149,
+        book: 0xf14a,
+        caution: 0xf102,
+        check: 0xf103,
+        clock: 0xf104,
+        close: 0xf105,
+        code: 0xf106,
+        compass: 0xf107,
+        computer: 0xf147,
+        contact: 0xf14b,
+        dash: 0xf108,
+        discussion: 0xf14c,
+        'double-check': 0xf109,
+        down: 0xf110,
+        download: 0xf111,
+        draft: 0xf112,
+        error: 0xf113,
+        external: 0xf114,
+        fail: 0xf115,
+        forbidden: 0xf116,
+        group: 0xf14d,
+        hidden: 0xf117,
+        info: 0xf118,
+        left: 0xf119,
+        lightbulb: 0xf120,
+        lightning: 0xf121,
+        link: 0xf14e,
+        location: 0xf14f,
+        lock: 0xf122,
+        'logo-facebook': 0xf123,
+        'logo-instagram': 0xf124,
+        'logo-linkedin': 0xf125,
+        'logo-circle-facebook': 0xf155,
+        'logo-circle-instagram': 0xf156,
+        'logo-circle-linkedin': 0xf157,
+        maximum: 0xf126,
+        minimum: 0xf127,
+        minus: 0xf128,
+        no: 0xf129,
+        note: 0xf130,
+        paperclip: 0xf131,
+        person: 0xf150,
+        pinned: 0xf151,
+        plus: 0xf132,
+        private: 0xf133,
+        question: 0xf134,
+        quote: 0xf152,
+        reading: 0xf153,
+        refresh: 0xf135,
+        right: 0xf136,
+        search: 0xf137,
+        settings: 0xf138,
+        star: 0xf139,
+        stopwatch: 0xf159,
+        success: 0xf140,
+        timer: 0xf15a,
+        toggle: 0xf158,
+        ui: 0xf141,
+        'ui-check': 0xf142,
+        'ui-minimum': 0xf143,
+        unlock: 0xf144,
+        up: 0xf145,
+        warning: 0xf146,
     } {
 
         return {
@@ -112,21 +186,34 @@ export class Tokens_Icons<
             'logo-circle-instagram': 0xf156,
             'logo-circle-linkedin': 0xf157,
             toggle: 0xf158,
+            stopwatch: 0xf159,
+            timer: 0xf15a,
+        } as const satisfies {
+            [ I in Tokens_Icons.DefaultIcon ]: number;
         };
     }
 
     public static get default(): {
-        [ I in Tokens_Icons.DefaultIconNames ]: Tokens_Icons.Local_SvgMaker.Data<I, never>;
+        [ I in Tokens_Icons.DefaultIcon ]: Tokens_Icons.Local_SvgMaker.Data<I, never>;
     } {
         const codepoints = Tokens_Icons.defaultCodepoints;
 
-        type _IconType<I extends Tokens_Icons.DefaultIconNames = Tokens_Icons.DefaultIconNames> = Omit<Tokens_Icons.Local_SvgMaker.Data<I, never>, 'meta'> & {
+        type _IconType<I extends Tokens_Icons.DefaultIcon = Tokens_Icons.DefaultIcon> = Omit<Tokens_Icons.Local_SvgMaker.Data<I, never>, 'meta'> & {
             meta?: Omit<Tokens_Icons.Local_SvgMaker.Data<I, never>[ 'meta' ], 'codepoint'>;
         };
 
         const alarm = {
             slug: 'alarm',
             label: 'Alarm',
+            width: 24,
+            height: 24,
+
+            innerSVG: `<path d="M4.331,18.863c-1.399,-1.709 -2.239,-3.893 -2.239,-6.271c-0,-5.469 4.44,-9.908 9.908,-9.908c5.468,-0 9.908,4.439 9.908,9.908c0,2.378 -0.84,4.562 -2.239,6.271l1.92,1.919c0.39,0.39 0.39,1.024 -0,1.414c-0.391,0.39 -1.024,0.39 -1.415,-0l-1.92,-1.921c-1.706,1.391 -3.884,2.225 -6.254,2.225c-2.37,0 -4.548,-0.834 -6.254,-2.225l-1.92,1.921c-0.391,0.39 -1.024,0.39 -1.415,-0c-0.39,-0.39 -0.39,-1.024 0,-1.414l1.92,-1.919Zm7.669,1.637c2.179,0 4.153,-0.883 5.584,-2.311c1.435,-1.432 2.324,-3.411 2.324,-5.597c0,-4.365 -3.543,-7.908 -7.908,-7.908c-4.365,-0 -7.908,3.543 -7.908,7.908c-0,4.364 3.543,7.908 7.908,7.908Zm1.062,-5.929c-0,0 -3.335,1.926 -3.335,1.926c-0.538,0.31 -1.227,0.126 -1.537,-0.412c-0.311,-0.538 -0.126,-1.226 0.412,-1.537l2.773,-1.601l0,-4.556c-0,-0.621 0.504,-1.125 1.125,-1.125c0.621,0 1.125,0.504 1.125,1.125c0,0 -0,5.205 -0,5.206c-0,0.402 -0.214,0.773 -0.563,0.974Zm5.518,-11.849c-0.439,-0.439 -0.439,-1.151 -0,-1.59c0.439,-0.44 1.152,-0.44 1.591,-0l2.723,2.723c0.439,0.439 0.439,1.152 0,1.591c-0.439,0.439 -1.152,0.439 -1.591,0l-2.723,-2.724Zm-15.883,2.724c-0.439,0.439 -1.152,0.439 -1.591,0c-0.439,-0.439 -0.439,-1.152 -0,-1.591l2.723,-2.723c0.439,-0.44 1.152,-0.44 1.591,-0c0.439,0.439 0.439,1.151 0,1.59l-2.723,2.724Z" />`,
+        } as const;
+
+        const alert = {
+            slug: 'alert',
+            label: 'Alert',
             width: 24,
             height: 24,
 
@@ -217,10 +304,10 @@ export class Tokens_Icons<
         const doubleCheck = {
             slug: 'double-check',
             label: 'Checkmark (Double)',
-            width: 32,
+            width: 24,
             height: 24,
 
-            innerSVG: `<path d="M10.849,14.292c-0.332,-0.523 -0.287,-1.224 0.152,-1.701c0.377,-0.408 0.941,-0.542 1.439,-0.39c0.195,0.06 0.38,0.163 0.54,0.31l1.612,1.486c1.528,1.409 3.592,3.312 3.592,3.312l10.302,-13.539c0.468,-0.615 1.347,-0.734 1.962,-0.266c0.615,0.468 0.734,1.347 0.266,1.962l-11.233,14.763c-0.239,0.314 -0.599,0.513 -0.992,0.547c-0.393,0.035 -0.782,-0.098 -1.071,-0.365l-6.336,-5.841c-0.092,-0.085 -0.169,-0.178 -0.233,-0.278Zm0.823,3.542l-1.822,2.395c-0.239,0.314 -0.599,0.513 -0.992,0.547c-0.392,0.035 -0.782,-0.098 -1.071,-0.365l-6.336,-5.841c-0.568,-0.524 -0.604,-1.411 -0.081,-1.979c0.524,-0.568 1.411,-0.604 1.979,-0.08c-0,-0 5.204,4.798 5.204,4.798l1.062,-1.395l0.111,0.126l1.946,1.794Zm2.005,-7.258l5.178,-6.806c0.468,-0.615 1.347,-0.734 1.962,-0.266c0.615,0.468 0.734,1.347 0.266,1.962l-5.275,6.933l-1.473,-1.358l-0.549,-0.413l-0.109,-0.052Z" />`,
+            innerSVG: `<path d="M12.379,19.551l-5.476,-5.049c-0.457,-0.421 -0.486,-1.133 -0.065,-1.59c0.421,-0.456 1.133,-0.485 1.59,-0.064l4.496,4.145l8.008,-12.33c0.338,-0.521 1.035,-0.669 1.556,-0.331c0.52,0.339 0.669,1.036 0.331,1.557l-8.734,13.448c-0.034,0.053 -0.073,0.103 -0.116,0.15c-0.371,0.403 -0.981,0.479 -1.44,0.181c-0.053,-0.035 -0.103,-0.074 -0.15,-0.117Zm-3.314,-1.015l-0.52,0.801c-0.035,0.053 -0.074,0.103 -0.117,0.15c-0.371,0.403 -0.981,0.479 -1.44,0.181c-0.053,-0.035 -0.103,-0.074 -0.15,-0.117l-5.476,-5.049c-0.457,-0.421 -0.485,-1.133 -0.065,-1.59c0.421,-0.456 1.134,-0.485 1.59,-0.064l4.496,4.145l0.004,-0.004l1.678,1.547Zm1.222,-6.014l5.104,-7.859c0.338,-0.521 1.035,-0.669 1.556,-0.331c0.521,0.339 0.669,1.036 0.331,1.557l-5.313,8.18l-1.678,-1.547Z" />`,
         } as const;
 
         const down = {
@@ -346,7 +433,7 @@ export class Tokens_Icons<
             width: 24,
             height: 24,
 
-            innerSVG: `<path d="M10.875,9.216l-5.08,5.079c-0.439,0.44 -1.151,0.44 -1.59,0c-0.44,-0.439 -0.44,-1.151 -0,-1.59l7,-7c0.439,-0.44 1.151,-0.44 1.59,-0l7,7c0.44,0.439 0.44,1.151 0,1.59c-0.439,0.44 -1.151,0.44 -1.59,0l-5.08,-5.079l0,11.284c-0,0.621 -0.504,1.125 -1.125,1.125c-0.621,-0 -1.125,-0.504 -1.125,-1.125l0,-11.284Zm10.125,-6.841c0.621,0 1.125,0.504 1.125,1.125c-0,0.621 -0.504,1.125 -1.125,1.125l-18,-0c-0.621,0 -1.125,-0.504 -1.125,-1.125c-0,-0.621 0.504,-1.125 1.125,-1.125l18,-0Z" />`,
+            innerSVG: `<path d="M10.875,8.277l-5.08,5.079c-0.439,0.44 -1.151,0.44 -1.59,0c-0.44,-0.439 -0.44,-1.151 -0,-1.59l7,-7c0.439,-0.44 1.151,-0.44 1.59,-0l7,7c0.44,0.439 0.44,1.151 0,1.59c-0.439,0.44 -1.151,0.44 -1.59,0l-5.08,-5.079l-0,13.162c-0,0.621 -0.504,1.125 -1.125,1.125c-0.621,-0 -1.125,-0.504 -1.125,-1.125l-0,-13.162Zm10.125,-6.841c0.621,0 1.125,0.504 1.125,1.125c-0,0.621 -0.504,1.125 -1.125,1.125l-18,0c-0.621,0 -1.125,-0.504 -1.125,-1.125c-0,-0.621 0.504,-1.125 1.125,-1.125l18,-0Z" />`,
         } as const;
 
         const minimum = {
@@ -355,7 +442,7 @@ export class Tokens_Icons<
             width: 24,
             height: 24,
 
-            innerSVG: `<path d="M13.125,14.784l5.08,-5.079c0.439,-0.44 1.151,-0.44 1.59,-0c0.44,0.439 0.44,1.151 0,1.59l-7,7c-0.439,0.44 -1.151,0.44 -1.59,0l-7,-7c-0.44,-0.439 -0.44,-1.151 -0,-1.59c0.439,-0.44 1.151,-0.44 1.59,-0l5.08,5.079l0,-11.284c0,-0.621 0.504,-1.125 1.125,-1.125c0.621,0 1.125,0.504 1.125,1.125l0,11.284Zm-10.125,6.841c-0.621,-0 -1.125,-0.504 -1.125,-1.125c0,-0.621 0.504,-1.125 1.125,-1.125l18,-0c0.621,-0 1.125,0.504 1.125,1.125c0,0.621 -0.504,1.125 -1.125,1.125l-18,-0Z" />`,
+            innerSVG: `<path d="M13.125,15.723l5.08,-5.08c0.439,-0.439 1.152,-0.439 1.591,0c0.439,0.439 0.439,1.152 -0,1.591l-7.001,7c-0.439,0.44 -1.151,0.44 -1.59,0l-7.001,-7c-0.439,-0.439 -0.439,-1.152 0,-1.591c0.439,-0.439 1.152,-0.439 1.591,0l5.08,5.08l-0,-13.162c0,-0.621 0.504,-1.125 1.125,-1.125c0.621,-0 1.125,0.504 1.125,1.125l-0,13.162Zm-10.125,6.841c-0.621,0 -1.125,-0.504 -1.125,-1.125c-0,-0.621 0.504,-1.125 1.125,-1.125l18,0c0.621,0 1.125,0.504 1.125,1.125c0,0.621 -0.504,1.125 -1.125,1.125l-18,0Z" />`,
         } as const;
 
         const minus = {
@@ -493,6 +580,15 @@ export class Tokens_Icons<
             innerSVG: `<path d="M10.122,1.649l0.3,-0.535l0.435,-0.411l0.538,-0.265l0.605,-0.093l0.605,0.093l0.538,0.265l0.435,0.411l0.3,0.535c-0,-0 2.028,5.444 2.028,5.444l5.805,0.247l0.601,0.12l0.526,0.287l0.417,0.429l0.277,0.547l0.098,0.605l-0.086,0.593l-0.256,0.541l-0.416,0.45c-0,-0 -4.552,3.612 -4.552,3.612l1.559,5.597l0.073,0.608l-0.111,0.589l-0.279,0.53l-0.435,0.431l-0.545,0.28l-0.59,0.102l-0.594,-0.076l-0.557,-0.257c0,-0 -4.841,-3.212 -4.841,-3.212l-4.841,3.212l-0.557,0.257l-0.594,0.076l-0.59,-0.102l-0.545,-0.28l-0.435,-0.431l-0.279,-0.53l-0.111,-0.589l0.073,-0.608c-0,-0 1.559,-5.597 1.559,-5.597l-4.552,-3.612l-0.416,-0.45l-0.256,-0.541l-0.086,-0.593l0.098,-0.605l0.277,-0.547l0.417,-0.429l0.526,-0.287l0.601,-0.12c-0,0 5.805,-0.247 5.805,-0.247l2.028,-5.444Zm-7.077,7.911l4.618,3.665c0.354,0.281 0.506,0.747 0.384,1.183l-1.582,5.679l4.913,-3.259c0.377,-0.25 0.867,-0.25 1.244,0l4.913,3.259l-1.582,-5.679c-0.122,-0.436 0.03,-0.902 0.384,-1.183l4.618,-3.665l-5.89,-0.25c-0.452,-0.02 -0.849,-0.308 -1.006,-0.732l-2.059,-5.524l-2.059,5.524c-0.157,0.424 -0.554,0.712 -1.006,0.732l-5.89,0.25Z" />`,
         } as const;
 
+        const stopwatch = {
+            slug: 'stopwatch',
+            label: 'Stopwatch',
+            width: 24,
+            height: 24,
+
+            innerSVG: `<path d="M19.387,8.291c1.261,1.6 2.013,3.618 2.013,5.811c0,5.188 -4.212,9.4 -9.4,9.4c-5.188,-0 -9.4,-4.212 -9.4,-9.4c-0,-4.825 3.643,-8.806 8.327,-9.339l0,-2.261l-2.34,-0c-0.592,-0 -1.072,-0.481 -1.072,-1.073c-0,-0.592 0.48,-1.073 1.072,-1.073l6.825,0c0.593,0 1.073,0.481 1.073,1.073c0,0.592 -0.48,1.073 -1.073,1.073l-2.339,-0l-0,2.261c1.769,0.201 3.39,0.894 4.722,1.939l0.88,-0.881c0.439,-0.439 1.152,-0.439 1.591,0c0.439,0.439 0.439,1.152 0,1.591l-0.879,0.879Zm-7.387,-1.443c-4.004,-0 -7.254,3.25 -7.254,7.254c-0,4.004 3.25,7.254 7.254,7.254c4.004,0 7.254,-3.25 7.254,-7.254c0,-2.005 -0.815,-3.821 -2.132,-5.135c-1.313,-1.309 -3.123,-2.119 -5.122,-2.119Zm-1.125,3.26c-0,-0.621 0.504,-1.125 1.125,-1.125c0.621,-0 1.125,0.504 1.125,1.125l0,5c-0,0.621 -0.504,1.125 -1.125,1.125c-0.621,-0 -1.125,-0.504 -1.125,-1.125l0,-5Z" />`,
+        } as const;
+
         const toggle = {
             slug: 'toggle',
             label: 'Toggle',
@@ -550,15 +646,7 @@ export class Tokens_Icons<
         return objectMap(
             {
                 alarm,
-                alert: {
-                    ...alarm,
-                    slug: 'alert',
-                    label: 'Alert',
-
-                    meta: {
-                        aliasOf: alarm.slug,
-                    },
-                },
+                alert,
                 attachment: {
                     ...paperclip,
                     slug: 'attachment',
@@ -724,6 +812,7 @@ export class Tokens_Icons<
                 search,
                 settings,
                 star,
+                stopwatch,
                 success: {
                     ...check,
                     slug: 'success',
@@ -731,6 +820,15 @@ export class Tokens_Icons<
 
                     meta: {
                         aliasOf: check.slug,
+                    },
+                },
+                timer: {
+                    ...stopwatch,
+                    slug: 'timer',
+                    label: 'Timer',
+
+                    meta: {
+                        aliasOf: stopwatch.slug,
                     },
                 },
                 toggle,
@@ -751,9 +849,9 @@ export class Tokens_Icons<
                 up,
                 warning,
             } satisfies {
-                [ I in Tokens_Icons.DefaultIconNames ]: _IconType<I>;
+                [ I in Tokens_Icons.DefaultIcon ]: _IconType<I>;
             },
-            ( [ key, obj ]: [ Tokens_Icons.DefaultIconNames, _IconType ] ) => ( {
+            ( [ key, obj ]: [ Tokens_Icons.DefaultIcon, _IconType ] ) => ( {
                 ...obj,
 
                 meta: {
@@ -763,11 +861,227 @@ export class Tokens_Icons<
                 },
             } satisfies Tokens_Icons.Local_SvgMaker.Data<string, never> )
         ) as {
-                [ I in Tokens_Icons.DefaultIconNames ]: Tokens_Icons.Local_SvgMaker.Data<I, never>;
+                [ I in Tokens_Icons.DefaultIcon ]: Tokens_Icons.Local_SvgMaker.Data<I, never>;
             };
     }
 
-    public readonly data: Tokens_Icons.Data<T_ExtraIconNames>;
+    /**
+     * @since ___PKG_VERSION___
+     */
+    protected static getCodepointCounter<T_ExtraIconNames extends string>(
+        input: Tokens_Icons.InputParam<T_ExtraIconNames> | Tokens_Icons.Data<T_ExtraIconNames>,
+    ): {
+        newCodepoint: () => number;
+    } {
+
+        const CounterClass = class {
+
+            constructor (
+                protected counter: number,
+            ) { }
+
+            public newCodepoint(): number {
+                this.counter++;
+                return this.counter;
+            }
+        };
+
+        const customCodepoints = Object.values( input ).map(
+            icon => icon && icon?.meta?.codepoint
+        ).filter(
+            ( codepoint ): codepoint is number => typeof codepoint === 'number' && !Number.isNaN( codepoint )
+        );
+
+        const customStartingCodepoint = Math.max(
+            0xf1ff, // preferred starting point that should all the defaults, but we check just in case
+
+            ...Object.values( Tokens_Icons.defaultCodepoints ),
+            ...customCodepoints,
+        );
+
+        return new CounterClass( customStartingCodepoint );
+    }
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    private static build_entryMapper<T_Key extends string, T_ExtraIconNames extends string>(
+        [ key, value ]: [
+            T_Key,
+            | false
+            | undefined
+            | Partial<Tokens_Icons.Local_SvgMaker.Data<T_Key, T_ExtraIconNames>>
+            | Tokens_Icons.Local_SvgMaker.Data<T_Key, T_ExtraIconNames>
+            | Tokens_Icons.Local_SvgMaker.Instance<T_Key, T_ExtraIconNames>
+        ],
+        codepointCounter: {
+            newCodepoint: () => number;
+        },
+        defaults?: typeof Tokens_Icons.default,
+    ): (
+            T_Key extends Tokens_Icons.OptionalIcon
+            ? undefined | Tokens_Icons.Local_SvgMaker.Instance<T_Key, T_ExtraIconNames>
+            : Tokens_Icons.Local_SvgMaker.Instance<T_Key, T_ExtraIconNames>
+        ) {
+
+        type _EntryMapperReturn = T_Key extends Tokens_Icons.OptionalIcon
+            ? undefined | Tokens_Icons.Local_SvgMaker.Instance<T_Key, T_ExtraIconNames>
+            : Tokens_Icons.Local_SvgMaker.Instance<T_Key, T_ExtraIconNames>;
+
+        // returns if its an optional icon
+        if ( value === false ) {
+
+            // returns
+            if ( Tokens_Icons.isOptionalIcon( key ) ) {
+                return undefined as _EntryMapperReturn;
+            }
+        }
+
+        // returns
+        if ( value instanceof SvgMaker ) {
+            return value as _EntryMapperReturn;
+        }
+
+        const defaultIcons = defaults ?? Tokens_Icons.default;
+
+        const _keyForDefault = key as Tokens_Icons.DefaultIcon;
+
+        let data = value
+            ? {
+                slug: key,
+
+                label: value.label ?? defaultIcons[ _keyForDefault ]?.label ?? defaultIcons.star.label,
+                ariaLabel: value.ariaLabel ?? defaultIcons[ _keyForDefault ]?.ariaLabel,
+
+                height: value.height ?? defaultIcons[ _keyForDefault ]?.height ?? defaultIcons.star.height,
+                width: value.width ?? defaultIcons[ _keyForDefault ]?.width ?? defaultIcons.star.width,
+
+                innerSVG: value.innerSVG ?? defaultIcons[ _keyForDefault ]?.innerSVG ?? defaultIcons.star.innerSVG,
+
+                meta: mergeArgs(
+                    defaultIcons[ _keyForDefault ]?.meta ?? {},
+                    value.meta ?? {},
+                    true,
+                ),
+            } satisfies Classify<Tokens_Icons.Local_SvgMaker.Data<T_Key, T_ExtraIconNames>>
+            : { // no input, so use defaults and overwrite the slug
+                ...( defaultIcons[ _keyForDefault ] ?? defaultIcons.star ),
+                slug: key,
+                label: key,
+                ariaLabel: undefined,
+
+                meta: defaultIcons[ _keyForDefault ]?.meta ?? {},
+            } satisfies Tokens_Icons.Local_SvgMaker.Data<T_Key, T_ExtraIconNames>;
+
+        data.meta.codepoint = data.meta?.codepoint ?? codepointCounter.newCodepoint();
+
+        return new SvgMaker<
+            T_Key,
+            Tokens_Icons.Local_SvgMaker.Meta<T_ExtraIconNames>
+        >(
+            data,
+            [
+                'fill="currentColor"',
+            ],
+        ) as _EntryMapperReturn;
+    }
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    public static build<T_ExtraIconNames extends string>(
+        fontName: string,
+        input: Tokens_Icons.InputParam<T_ExtraIconNames>,
+    ): Tokens_Icons<T_ExtraIconNames> {
+
+        const defaultIcons = Tokens_Icons.default;
+
+        const customCodepoint = Tokens_Icons.getCodepointCounter( input );
+
+        let mapped: Tokens_Icons.Data<T_ExtraIconNames>;
+
+        if ( input ) {
+
+            const mergedDefaults: {
+                [ I in Tokens_Icons.DefaultIcon ]: false | undefined | Partial<Tokens_Icons.Local_SvgMaker.Data<I, T_ExtraIconNames>> | Tokens_Icons.Local_SvgMaker.Data<I, T_ExtraIconNames>;
+            } & {
+                [ I in T_ExtraIconNames ]: Tokens_Icons.Local_SvgMaker.Data<I, T_ExtraIconNames> | Tokens_Icons.Local_SvgMaker.Instance<I, T_ExtraIconNames>;
+            } = {
+                ...Tokens_Icons.default,
+                ...input,
+            };
+
+            mapped = deleteUndefinedProps(
+                objectMap(
+                    mergedDefaults,
+                    entry => Tokens_Icons.build_entryMapper( entry, customCodepoint, defaultIcons )
+                )
+            ) as unknown as Tokens_Icons.Data<T_ExtraIconNames>;
+
+        } else {
+
+            mapped = objectMap(
+                defaultIcons,
+                entry => Tokens_Icons.build_entryMapper( entry, customCodepoint, defaultIcons )
+            ) as {
+                    [ I in Tokens_Icons.DefaultIcon ]: Tokens_Icons.Local_SvgMaker.Instance<I, T_ExtraIconNames>;
+                } as Tokens_Icons.Data<T_ExtraIconNames>;
+        }
+
+        return new Tokens_Icons<T_ExtraIconNames>(
+            fontName,
+            objectKeySort_Tokens( mapped, false ),
+        );
+    }
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    public static async buildAsync<T_ExtraIconNames extends string>(
+        fontName: string,
+        input: Tokens_Icons.InputParam<T_ExtraIconNames>,
+    ): Promise<Tokens_Icons<T_ExtraIconNames>> {
+
+        const defaultIcons = Tokens_Icons.default;
+
+        const customCodepoint = Tokens_Icons.getCodepointCounter( input );
+
+        let mapped_prom;
+
+        if ( input ) {
+
+            const mergedDefaults: {
+                [ I in Tokens_Icons.DefaultIcon ]: false | undefined | Partial<Tokens_Icons.Local_SvgMaker.Data<I, T_ExtraIconNames>> | Tokens_Icons.Local_SvgMaker.Data<I, T_ExtraIconNames>;
+            } & {
+                [ I in T_ExtraIconNames ]: Tokens_Icons.Local_SvgMaker.Data<I, T_ExtraIconNames> | Tokens_Icons.Local_SvgMaker.Instance<I, T_ExtraIconNames>;
+            } = {
+                ...Tokens_Icons.default,
+                ...input,
+            };
+
+            mapped_prom = objectMapAsync(
+                mergedDefaults,
+                async ( entry ) => Tokens_Icons.build_entryMapper( entry, customCodepoint, defaultIcons )
+            ).then( deleteUndefinedProps ) as Promise<Tokens_Icons.Data<T_ExtraIconNames>>;
+
+        } else {
+
+            mapped_prom = objectMapAsync(
+                defaultIcons,
+                async ( entry ) => Tokens_Icons.build_entryMapper( entry, customCodepoint, defaultIcons )
+            ) as Promise<{
+                [ I in Tokens_Icons.DefaultIcon ]: Tokens_Icons.Local_SvgMaker.Instance<I, T_ExtraIconNames>;
+            }> as Promise<Tokens_Icons.Data<T_ExtraIconNames>>;
+        }
+
+        return mapped_prom.then(
+            async ( mapped ) => new Tokens_Icons<T_ExtraIconNames>(
+                fontName,
+                await objectKeySortAsync_Tokens( mapped, false ),
+            )
+        );
+    }
+
 
     /**
      * @since ___PKG_VERSION___
@@ -781,49 +1095,17 @@ export class Tokens_Icons<
         return this._font;
     }
 
-    public constructor (
+    /**
+     * @since ___PKG_VERSION___ — Made protected. Added fontName param as first.
+     *                            Replaced input param with data. See
+     *                            {@link Tokens_Icons.build} and
+     *                            {@link Tokens_Icons.buildAsync}.
+     */
+    protected constructor (
         public readonly fontName: string,
-        input: Tokens_Icons.InputParam<T_ExtraIconNames>,
+        public readonly data: Tokens_Icons.Data<T_ExtraIconNames>,
     ) {
         super();
-
-        const merged: {
-            [ I in Tokens_Icons.DefaultIconNames ]: Tokens_Icons.Local_SvgMaker.Data<I, T_ExtraIconNames> | Tokens_Icons.Local_SvgMaker.Instance<I, T_ExtraIconNames>;
-        } & {
-            [ I in T_ExtraIconNames ]?: Tokens_Icons.Local_SvgMaker.Data<I, T_ExtraIconNames> | Tokens_Icons.Local_SvgMaker.Instance<I, T_ExtraIconNames>;
-        } = mergeArgs(
-            Tokens_Icons.default,
-            input,
-            true
-        );
-
-        const mapped = objectMap(
-            merged,
-            ( [ key, value ] ) => {
-                // returns
-                if ( value instanceof SvgMaker ) {
-                    return value as Tokens_Icons.Local_SvgMaker.Instance<Tokens_Icons.DefaultIconNames | T_ExtraIconNames, T_ExtraIconNames>;
-                }
-
-                // returns
-                if ( !value ) {
-                    return undefined;
-                }
-
-                if ( !value.ariaLabel ) {
-                    value.ariaLabel = `${ value.label.replace( /\s+icon\s*$/g, '' ) } icon`;
-                }
-
-                return new SvgMaker(
-                    value,
-                    [
-                        'fill="currentColor"',
-                    ],
-                );
-            }
-        ) as Tokens_Icons.Data<T_ExtraIconNames>;
-
-        this.data = objectKeySort_Tokens( mapped, false );
     }
 
     #getCodepoints: undefined | Tokens_Icons.Codepoints<T_ExtraIconNames> = undefined;
@@ -837,11 +1119,11 @@ export class Tokens_Icons<
             return this.#getCodepoints;
         }
 
+        const codepointCounter = Tokens_Icons.getCodepointCounter( this.data );
+
         this.#getCodepoints = Object.fromEntries(
             Object.entries( this.data ).map(
-                ( [ key, value ] ) => [ key, value.meta?.codepoint ] as const
-            ).filter(
-                ( [ key, value ] ) => !!value
+                ( [ key, value ] ) => [ key, value?.meta?.codepoint ?? codepointCounter.newCodepoint() ] as const
             )
         ) as Tokens_Icons.Codepoints<T_ExtraIconNames>;
 
@@ -934,21 +1216,6 @@ export class Tokens_Icons<
                 formatOptions,
             },
             false,
-        ).then(
-            results => {
-                this._font = results;
-
-                if ( typeof this.#getCodepoints !== 'undefined' ) {
-
-                    const entries = Object.entries( results.codepoints ) as [ Tokens_Icons.DefaultIconNames | T_ExtraIconNames, number ][];
-
-                    for ( const [ key, value ] of entries ) {
-                        this.#getCodepoints[ key ] = value as Tokens_Icons.Codepoints<T_ExtraIconNames>[ Tokens_Icons.DefaultIconNames | T_ExtraIconNames ];
-                    }
-                }
-
-                return results;
-            }
         );
     }
 
@@ -970,7 +1237,7 @@ export class Tokens_Icons<
 
                 return {
                     slug: vars.slug,
-                    label: vars.label,
+                    label: vars.label.match( /\bicon\s*$/gi ) ? vars.label : `${ vars.label } icon`,
 
                     height: vars.height,
                     width: vars.width,
@@ -995,107 +1262,169 @@ export class Tokens_Icons<
 export namespace Tokens_Icons {
 
     /**
-     * @since 0.1.0-alpha
+     * @since ___PKG_VERSION___
      */
-    export type DefaultIconNames =
-        | "alarm"
-        | "alert"
-        | "attachment"
-        | "biography"
-        | "book"
-        | "caution"
-        | "check"
-        | "clock"
-        | "close"
-        | "code"
-        | "compass"
-        | "compass"
-        | "computer"
-        | "contact"
-        | "dash"
-        | "discussion"
-        | "double-check"
-        | "down"
-        | "download"
-        | "draft"
-        | "error"
-        | "external"
-        | "fail"
-        | "forbidden"
-        | "group"
-        | "hidden"
-        | "info"
-        | "left"
-        | "lightbulb"
-        | "lightning"
-        | "link"
-        | "location"
-        | "lock"
-        | "logo-circle-facebook"
-        | "logo-circle-instagram"
-        | "logo-circle-linkedin"
-        | "logo-facebook"
-        | "logo-instagram"
-        | "logo-linkedin"
-        | "maximum"
-        | "minimum"
-        | "minus"
-        | "no"
-        | "note"
-        | "paperclip"
-        | "person"
-        | "pinned"
-        | "plus"
-        | "private"
-        | "question"
-        | "quote"
-        | "reading"
-        | "refresh"
-        | "right"
-        | "search"
-        | "settings"
-        | "star"
-        | "success"
-        | "toggle"
-        | "ui-check"
-        | "ui-minimum"
-        | "ui"
-        | "unlock"
-        | "up"
-        | "warning";
+    const optionalIconNames = [
+        'alarm',
+        'alert',
+        'attachment',
+        'biography',
+        'book',
+        'clock',
+        'close',
+        'code',
+        'compass',
+        'compass',
+        'computer',
+        'contact',
+        'dash',
+        'discussion',
+        'down',
+        'download',
+        'draft',
+        'error',
+        'external',
+        'forbidden',
+        'group',
+        'hidden',
+        'info',
+        'left',
+        'lightbulb',
+        'lightning',
+        'link',
+        'location',
+        'lock',
+        'logo-circle-facebook',
+        'logo-circle-instagram',
+        'logo-circle-linkedin',
+        'logo-facebook',
+        'logo-instagram',
+        'logo-linkedin',
+        'minus',
+        'no',
+        'note',
+        'paperclip',
+        'person',
+        'pinned',
+        'plus',
+        'private',
+        'question',
+        'quote',
+        'reading',
+        'refresh',
+        'right',
+        'settings',
+        'star',
+        'stopwatch',
+        'success',
+        'timer',
+        'unlock',
+        'up',
+        'warning',
+    ] as const;
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    const optionalIconNames_set = Immutable.Set<string>( optionalIconNames );
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export type OptionalIcon = typeof optionalIconNames[ number ];
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export function isOptionalIcon( name: string ): name is OptionalIcon {
+        return optionalIconNames_set.has( name );
+    }
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    const requiredIconNames = [
+        'caution',
+        'check',
+        'double-check',
+        'fail',
+        'maximum',
+        'minimum',
+        'search',
+        'star',
+        'toggle',
+        'ui-check',
+        'ui-minimum',
+        'ui',
+    ] as const;
+
+    /**
+     * The types are required to enable core functionality. Any others can be
+     * removed or replaced in your configuration by setting them to `undefined`.
+     * 
+     * @since ___PKG_VERSION___
+     */
+    export type RequiredIcon = typeof requiredIconNames[ number ];
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    const requiredIconNames_set = Immutable.Set<string>( requiredIconNames );
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export function isRequiredIcon( name: string ): name is RequiredIcon {
+        return requiredIconNames_set.has( name );
+    }
+
+    /**
+     * @since 0.1.0-alpha
+     * @since ___PKG_VERSION___ Renamed from DefaultIconNames to DefaultIcon.
+     */
+    export type DefaultIcon = RequiredIcon | OptionalIcon;
 
     /**
      * @since ___PKG_VERSION___
      */
     export type Codepoints<T_ExtraIconNames extends string> = {
-        [ I in DefaultIconNames ]: number;
+        [ I in DefaultIcon ]: number;
     } & {
-        [ I in T_ExtraIconNames ]?: undefined | number;
+        [ I in T_ExtraIconNames ]: number;
     };
 
     /**
      * @since 0.1.0-alpha
+     * @since ___PKG_VERSION___ — Switched to T_IconTypes type param.
      */
     export type Data<T_ExtraIconNames extends string> = {
-        [ I in DefaultIconNames ]: Local_SvgMaker.Instance<I, T_ExtraIconNames>;
+        [ I in RequiredIcon ]: Local_SvgMaker.Instance<I, T_ExtraIconNames>;
+    } & {
+        [ I in OptionalIcon ]: undefined | Local_SvgMaker.Instance<I, T_ExtraIconNames>;
     } & {
         [ I in T_ExtraIconNames ]: Local_SvgMaker.Instance<I, T_ExtraIconNames>;
     };
 
     /**
      * @since 0.1.0-alpha
+     * @since ___PKG_VERSION___ — Removed undefined as an option and replaced with false for more explicit excludion of default icons. Switched to T_IconTypes type param.
      */
     export type InputParam<T_ExtraIconNames extends string> = Partial<{
-        [ I in DefaultIconNames ]?: undefined | Partial<Local_SvgMaker.Data<I, T_ExtraIconNames>> | Local_SvgMaker.Instance<I, T_ExtraIconNames>;
+        [ I in RequiredIcon ]?: Partial<Local_SvgMaker.Data<I, T_ExtraIconNames>> | Local_SvgMaker.Instance<I, T_ExtraIconNames>;
     }> & {
+        [ I in OptionalIcon ]?: false | Partial<Local_SvgMaker.Data<I, T_ExtraIconNames>> | Local_SvgMaker.Instance<I, T_ExtraIconNames>;
+    } & {
         [ I in T_ExtraIconNames ]: Local_SvgMaker.Data<I, T_ExtraIconNames> | Local_SvgMaker.Instance<I, T_ExtraIconNames>;
     };
 
     /**
      * @since 0.1.0-alpha
+     * @since ___PKG_VERSION___ — Switched to T_IconTypes type param.
      */
     export type JsonReturn<T_ExtraIconNames extends string> = {
-        [ I in DefaultIconNames ]: Local_SvgMaker.JsonReturn<I, T_ExtraIconNames>;
+        [ I in RequiredIcon ]: Local_SvgMaker.JsonReturn<I, T_ExtraIconNames>;
+    } & {
+        [ I in OptionalIcon ]?: Local_SvgMaker.JsonReturn<I, T_ExtraIconNames>;
     } & {
         [ I in T_ExtraIconNames ]: Local_SvgMaker.JsonReturn<I, T_ExtraIconNames>;
     };
@@ -1104,7 +1433,9 @@ export namespace Tokens_Icons {
      * @since ___PKG_VERSION___
      */
     export type ScssVars<T_ExtraIconNames extends string> = {
-        [ I in DefaultIconNames ]: Local_SvgMaker.ScssVars<I, T_ExtraIconNames>;
+        [ I in RequiredIcon ]: Local_SvgMaker.ScssVars<I, T_ExtraIconNames>;
+    } & {
+        [ I in OptionalIcon ]: undefined | Local_SvgMaker.ScssVars<I, T_ExtraIconNames>;
     } & {
         [ I in T_ExtraIconNames ]: Local_SvgMaker.ScssVars<I, T_ExtraIconNames>;
     };
@@ -1119,33 +1450,33 @@ export namespace Tokens_Icons {
          */
         export type Data<
             T_IconName extends string,
-            T_ExtraIconNames extends string,
-        > = SvgMaker.Data<T_IconName, Meta<T_ExtraIconNames>>;
+            T_ExtraIcons extends string,
+        > = SvgMaker.Data<T_IconName, Meta<T_ExtraIcons>>;
 
         /**
          * @since ___PKG_VERSION___
          */
         export type Instance<
             T_IconName extends string,
-            T_ExtraIconNames extends string,
-        > = SvgMaker<T_IconName, Meta<T_ExtraIconNames>>;
+            T_ExtraIcons extends string,
+        > = SvgMaker<T_IconName, Meta<T_ExtraIcons>>;
 
         /**
          * @since ___PKG_VERSION___
          */
         export type JsonReturn<
             T_IconName extends string,
-            T_ExtraIconNames extends string,
-        > = SvgMaker.JsonReturn<T_IconName, Meta<T_ExtraIconNames>>;
+            T_ExtraIcons extends string,
+        > = SvgMaker.JsonReturn<T_IconName, Meta<T_ExtraIcons>>;
 
         /**
          * @since ___PKG_VERSION___
          */
-        export type Meta<T_ExtraIconNames extends string> = {
-            aliasOf?: undefined | DefaultIconNames | T_ExtraIconNames | ( DefaultIconNames | T_ExtraIconNames )[];
+        export type Meta<T_ExtraIcons extends string> = {
+            aliasOf?: undefined | DefaultIcon | T_ExtraIcons | ( DefaultIcon | T_ExtraIcons )[];
             codepoint?: undefined | number;
             isDefault?: undefined | true;
-            replaceFontGlyph?: undefined | DefaultIconNames | T_ExtraIconNames;
+            replaceFontGlyph?: undefined | DefaultIcon | T_ExtraIcons;
         };
 
         /**
@@ -1153,13 +1484,13 @@ export namespace Tokens_Icons {
          */
         export type ScssVars<
             T_IconName extends string,
-            T_ExtraIconNames extends string,
+            T_ExtraIcons extends string,
         > = Omit<
-            SvgMaker.ScssVars<T_IconName, Meta<T_ExtraIconNames>>,
+            SvgMaker.ScssVars<T_IconName, Meta<T_ExtraIcons>>,
             'meta'
         > & {
             fontGlyph?: undefined | string;
-            replaceFontGlyph?: Meta<T_ExtraIconNames>[ 'replaceFontGlyph' ];
+            replaceFontGlyph?: Meta<T_ExtraIcons>[ 'replaceFontGlyph' ];
         };
     }
 }

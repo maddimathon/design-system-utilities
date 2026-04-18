@@ -234,7 +234,7 @@ export namespace buildTokens {
             paths.map(
                 async ( path ) => Promise.all(
                     Object.values( tokens.icons.data ).map(
-                        async ( icon ) => stage.try(
+                        async ( icon ) => icon && stage.try(
                             stage.fs.write,
                             ( stage.params.verbose ? 2 : 1 ) + level,
                             [

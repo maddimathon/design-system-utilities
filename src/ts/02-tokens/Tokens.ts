@@ -145,9 +145,8 @@ export class Tokens<
                 input.themes?.input ?? [],
             ),
 
-            new Tokens_Icons<T_Types[ 'iconNames' ]>(
+            Tokens_Icons.buildAsync<T_Types[ 'iconNames' ]>(
                 config.iconFontName ?? ( this.name + ' Icons' ),
-                // @ts-expect-error
                 input.icons,
             ),
         ] ).then(
@@ -367,7 +366,7 @@ export namespace Tokens_Internal {
         name: string;
         colour: Tokens_Colour.InputParam<T_Types[ 'colour' ]>;
         css?: undefined | Tokens_CSS.InputParam;
-        icons?: undefined | Tokens_Icons.InputParam<T_Types[ 'iconNames' ]>;
+        icons: Tokens_Icons.InputParam<T_Types[ 'iconNames' ]>;
         logos: Tokens_Logos.InputParam<T_Types[ 'logoNames' ]>;
         spacing?: undefined | Tokens_Spacing.InputParam;
         themes?: {
@@ -432,6 +431,7 @@ export namespace Tokens {
                         // 'yardstick-accent': Tokens.SampleColours[ 'yardstick-accent' ],
                     },
 
+                    icons: {},
                     logos: {},
 
                     themes: {
@@ -506,7 +506,27 @@ export namespace Tokens {
         T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
     > = Tokens_Internal.ScssVars<T_Types>;
 
-    export type DefaultIconNames = Tokens_Icons.DefaultIconNames;
+    export type DefaultIcon = Tokens_Icons.DefaultIcon;
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export type OptionalIcon = Tokens_Icons.OptionalIcon;
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export type RequiredIcon = Tokens_Icons.RequiredIcon;
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export const isOptionalIcon: ( name: string ) => name is Tokens_Icons.OptionalIcon = Tokens_Icons.isOptionalIcon;
+
+    /**
+     * @since ___PKG_VERSION___
+    */
+    export const isRequiredIcon: ( name: string ) => name is Tokens_Icons.RequiredIcon = Tokens_Icons.isRequiredIcon;
 
     type SampleColourName =
         | "yardstick"

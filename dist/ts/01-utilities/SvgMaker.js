@@ -129,7 +129,7 @@ export class SvgMaker {
     toScssVars() {
         return {
             slug: this.slug,
-            label: `${this.ariaLabel}`,
+            label: this.ariaLabel,
             height: this.height,
             width: this.width,
             aspectRatio: this.aspectRatio[0] === this.aspectRatio[1]

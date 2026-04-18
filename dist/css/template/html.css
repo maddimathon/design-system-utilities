@@ -94,6 +94,8 @@ video {
 }
 
 img {
+    width: auto;
+    height: auto;
     -o-object-fit: cover;
     object-fit: cover;
 }
@@ -148,8 +150,8 @@ html {
         U+F120, U+F121, U+F14E, U+F14F, U+F122, U+F155, U+F156, U+F157, U+F123,
         U+F124, U+F125, U+F126, U+F127, U+F128, U+F129, U+F130, U+F131, U+F150,
         U+F151, U+F132, U+F133, U+F134, U+F152, U+F153, U+F135, U+F136, U+F137,
-        U+F138, U+F139, U+F140, U+F158, U+F141, U+F142, U+F143, U+F144, U+F145,
-        U+F146;
+        U+F138, U+F139, U+F159, U+F140, U+F15A, U+F158, U+F141, U+F142, U+F143,
+        U+F144, U+F145, U+F146;
     src:
         url("../fonts/icons/woff2/icons.woff2") format("woff2"),
         url("../fonts/icons/woff/icons.woff") format("woff"),
@@ -166,8 +168,8 @@ html {
         U+F120, U+F121, U+F14E, U+F14F, U+F122, U+F155, U+F156, U+F157, U+F123,
         U+F124, U+F125, U+F126, U+F127, U+F128, U+F129, U+F130, U+F131, U+F150,
         U+F151, U+F132, U+F133, U+F134, U+F152, U+F153, U+F135, U+F136, U+F137,
-        U+F138, U+F139, U+F140, U+F158, U+F141, U+F142, U+F143, U+F144, U+F145,
-        U+F146;
+        U+F138, U+F139, U+F159, U+F140, U+F15A, U+F158, U+F141, U+F142, U+F143,
+        U+F144, U+F145, U+F146;
     src:
         url("../fonts/icons/woff2/icons.woff2") format("woff2"),
         url("../fonts/icons/woff/icons.woff") format("woff"),
@@ -12125,7 +12127,9 @@ td.min-width-none {
 .icon--ui-check,
 .icon--ui,
 .icon--toggle,
+.icon--timer,
 .icon--success,
+.icon--stopwatch,
 .icon--star,
 .icon--settings,
 .icon--search,
@@ -12166,6 +12170,7 @@ td.min-width-none {
 .icon--draft,
 .icon--download,
 .icon--down,
+.icon--double-check,
 .icon--discussion,
 .icon--dash,
 .icon--contact,
@@ -12190,7 +12195,9 @@ td.min-width-none {
 .no-js .icon--ui-check,
 .no-js .icon--ui,
 .no-js .icon--toggle,
+.no-js .icon--timer,
 .no-js .icon--success,
+.no-js .icon--stopwatch,
 .no-js .icon--star,
 .no-js .icon--settings,
 .no-js .icon--search,
@@ -12231,6 +12238,7 @@ td.min-width-none {
 .no-js .icon--draft,
 .no-js .icon--download,
 .no-js .icon--down,
+.no-js .icon--double-check,
 .no-js .icon--discussion,
 .no-js .icon--dash,
 .no-js .icon--contact,
@@ -12253,7 +12261,9 @@ td.min-width-none {
 .js__no-whereSelector .icon--ui-check,
 .js__no-whereSelector .icon--ui,
 .js__no-whereSelector .icon--toggle,
+.js__no-whereSelector .icon--timer,
 .js__no-whereSelector .icon--success,
+.js__no-whereSelector .icon--stopwatch,
 .js__no-whereSelector .icon--star,
 .js__no-whereSelector .icon--settings,
 .js__no-whereSelector .icon--search,
@@ -12294,6 +12304,7 @@ td.min-width-none {
 .js__no-whereSelector .icon--draft,
 .js__no-whereSelector .icon--download,
 .js__no-whereSelector .icon--down,
+.js__no-whereSelector .icon--double-check,
 .js__no-whereSelector .icon--discussion,
 .js__no-whereSelector .icon--dash,
 .js__no-whereSelector .icon--contact,
@@ -12319,7 +12330,9 @@ td.min-width-none {
 .no-js .icon--ui-check::before,
 .no-js .icon--ui::before,
 .no-js .icon--toggle::before,
+.no-js .icon--timer::before,
 .no-js .icon--success::before,
+.no-js .icon--stopwatch::before,
 .no-js .icon--star::before,
 .no-js .icon--settings::before,
 .no-js .icon--search::before,
@@ -12360,6 +12373,7 @@ td.min-width-none {
 .no-js .icon--draft::before,
 .no-js .icon--download::before,
 .no-js .icon--down::before,
+.no-js .icon--double-check::before,
 .no-js .icon--discussion::before,
 .no-js .icon--dash::before,
 .no-js .icon--contact::before,
@@ -12382,7 +12396,9 @@ td.min-width-none {
 .js__no-whereSelector .icon--ui-check::before,
 .js__no-whereSelector .icon--ui::before,
 .js__no-whereSelector .icon--toggle::before,
+.js__no-whereSelector .icon--timer::before,
 .js__no-whereSelector .icon--success::before,
+.js__no-whereSelector .icon--stopwatch::before,
 .js__no-whereSelector .icon--star::before,
 .js__no-whereSelector .icon--settings::before,
 .js__no-whereSelector .icon--search::before,
@@ -12423,6 +12439,7 @@ td.min-width-none {
 .js__no-whereSelector .icon--draft::before,
 .js__no-whereSelector .icon--download::before,
 .js__no-whereSelector .icon--down::before,
+.js__no-whereSelector .icon--double-check::before,
 .js__no-whereSelector .icon--discussion::before,
 .js__no-whereSelector .icon--dash::before,
 .js__no-whereSelector .icon--contact::before,
@@ -12450,7 +12467,9 @@ td.min-width-none {
 .no-js .icon--ui-check::after,
 .no-js .icon--ui::after,
 .no-js .icon--toggle::after,
+.no-js .icon--timer::after,
 .no-js .icon--success::after,
+.no-js .icon--stopwatch::after,
 .no-js .icon--star::after,
 .no-js .icon--settings::after,
 .no-js .icon--search::after,
@@ -12491,6 +12510,7 @@ td.min-width-none {
 .no-js .icon--draft::after,
 .no-js .icon--download::after,
 .no-js .icon--down::after,
+.no-js .icon--double-check::after,
 .no-js .icon--discussion::after,
 .no-js .icon--dash::after,
 .no-js .icon--contact::after,
@@ -12513,7 +12533,9 @@ td.min-width-none {
 .js__no-whereSelector .icon--ui-check::after,
 .js__no-whereSelector .icon--ui::after,
 .js__no-whereSelector .icon--toggle::after,
+.js__no-whereSelector .icon--timer::after,
 .js__no-whereSelector .icon--success::after,
+.js__no-whereSelector .icon--stopwatch::after,
 .js__no-whereSelector .icon--star::after,
 .js__no-whereSelector .icon--settings::after,
 .js__no-whereSelector .icon--search::after,
@@ -12554,6 +12576,7 @@ td.min-width-none {
 .js__no-whereSelector .icon--draft::after,
 .js__no-whereSelector .icon--download::after,
 .js__no-whereSelector .icon--down::after,
+.js__no-whereSelector .icon--double-check::after,
 .js__no-whereSelector .icon--discussion::after,
 .js__no-whereSelector .icon--dash::after,
 .js__no-whereSelector .icon--contact::after,
@@ -12582,7 +12605,9 @@ td.min-width-none {
 :where(.js__no-aspectRatio) .icon--ui-check,
 :where(.js__no-aspectRatio) .icon--ui,
 :where(.js__no-aspectRatio) .icon--toggle,
+:where(.js__no-aspectRatio) .icon--timer,
 :where(.js__no-aspectRatio) .icon--success,
+:where(.js__no-aspectRatio) .icon--stopwatch,
 :where(.js__no-aspectRatio) .icon--star,
 :where(.js__no-aspectRatio) .icon--settings,
 :where(.js__no-aspectRatio) .icon--search,
@@ -12623,6 +12648,7 @@ td.min-width-none {
 :where(.js__no-aspectRatio) .icon--draft,
 :where(.js__no-aspectRatio) .icon--download,
 :where(.js__no-aspectRatio) .icon--down,
+:where(.js__no-aspectRatio) .icon--double-check,
 :where(.js__no-aspectRatio) .icon--discussion,
 :where(.js__no-aspectRatio) .icon--dash,
 :where(.js__no-aspectRatio) .icon--contact,
@@ -12648,7 +12674,9 @@ td.min-width-none {
 :where(.js__no-aspectRatio) .icon--ui-check::before,
 :where(.js__no-aspectRatio) .icon--ui::before,
 :where(.js__no-aspectRatio) .icon--toggle::before,
+:where(.js__no-aspectRatio) .icon--timer::before,
 :where(.js__no-aspectRatio) .icon--success::before,
+:where(.js__no-aspectRatio) .icon--stopwatch::before,
 :where(.js__no-aspectRatio) .icon--star::before,
 :where(.js__no-aspectRatio) .icon--settings::before,
 :where(.js__no-aspectRatio) .icon--search::before,
@@ -12689,6 +12717,7 @@ td.min-width-none {
 :where(.js__no-aspectRatio) .icon--draft::before,
 :where(.js__no-aspectRatio) .icon--download::before,
 :where(.js__no-aspectRatio) .icon--down::before,
+:where(.js__no-aspectRatio) .icon--double-check::before,
 :where(.js__no-aspectRatio) .icon--discussion::before,
 :where(.js__no-aspectRatio) .icon--dash::before,
 :where(.js__no-aspectRatio) .icon--contact::before,
@@ -12716,7 +12745,9 @@ td.min-width-none {
 :where(.js__no-aspectRatio) .icon--ui-check::after,
 :where(.js__no-aspectRatio) .icon--ui::after,
 :where(.js__no-aspectRatio) .icon--toggle::after,
+:where(.js__no-aspectRatio) .icon--timer::after,
 :where(.js__no-aspectRatio) .icon--success::after,
+:where(.js__no-aspectRatio) .icon--stopwatch::after,
 :where(.js__no-aspectRatio) .icon--star::after,
 :where(.js__no-aspectRatio) .icon--settings::after,
 :where(.js__no-aspectRatio) .icon--search::after,
@@ -12757,6 +12788,7 @@ td.min-width-none {
 :where(.js__no-aspectRatio) .icon--draft::after,
 :where(.js__no-aspectRatio) .icon--download::after,
 :where(.js__no-aspectRatio) .icon--down::after,
+:where(.js__no-aspectRatio) .icon--double-check::after,
 :where(.js__no-aspectRatio) .icon--discussion::after,
 :where(.js__no-aspectRatio) .icon--dash::after,
 :where(.js__no-aspectRatio) .icon--contact::after,
@@ -12778,46 +12810,6 @@ td.min-width-none {
     clear: both;
 }
 
-.icon--double-check {
-    aspect-ratio: 4/3;
-}
-.no-js .icon--double-check,
-.js__no-whereSelector .icon--double-check {
-    /* aspect-ratio fallback */
-    position: relative;
-}
-.no-js .icon--double-check::before,
-.js__no-whereSelector .icon--double-check::before {
-    /* aspect-ratio fallback */
-    content: "";
-    float: left;
-    padding-top: 75%;
-}
-.no-js .icon--double-check::after,
-.js__no-whereSelector .icon--double-check::after {
-    /* aspect-ratio fallback */
-    content: "";
-    display: block;
-    clear: both;
-}
-
-:where(.js__no-aspectRatio) .icon--double-check {
-    /* aspect-ratio fallback */
-    position: relative;
-}
-:where(.js__no-aspectRatio) .icon--double-check::before {
-    /* aspect-ratio fallback */
-    content: "";
-    float: left;
-    padding-top: 75%;
-}
-:where(.js__no-aspectRatio) .icon--double-check::after {
-    /* aspect-ratio fallback */
-    content: "";
-    display: block;
-    clear: both;
-}
-
 .add-warning-icon::after,
 .add-warning-icon-after::after,
 .add-up-icon::after,
@@ -12832,8 +12824,12 @@ td.min-width-none {
 .add-ui-icon-after::after,
 .add-toggle-icon::after,
 .add-toggle-icon-after::after,
+.add-timer-icon::after,
+.add-timer-icon-after::after,
 .add-success-icon::after,
 .add-success-icon-after::after,
+.add-stopwatch-icon::after,
+.add-stopwatch-icon-after::after,
 .add-star-icon::after,
 .add-star-icon-after::after,
 .add-settings-icon::after,
@@ -12991,7 +12987,9 @@ td.min-width-none {
 .add-ui-check-icon-before::before,
 .add-ui-icon-before::before,
 .add-toggle-icon-before::before,
+.add-timer-icon-before::before,
 .add-success-icon-before::before,
+.add-stopwatch-icon-before::before,
 .add-star-icon-before::before,
 .add-settings-icon-before::before,
 .add-search-icon-before::before,
@@ -13422,11 +13420,23 @@ td.min-width-none {
     content: "\f139";
     content: "\f139"/"Star icon";
 }
+.add-stopwatch-icon::after,
+.add-stopwatch-icon-after::after,
+.add-stopwatch-icon-before::before {
+    content: "\f159";
+    content: "\f159"/"Stopwatch icon";
+}
 .add-success-icon::after,
 .add-success-icon-after::after,
 .add-success-icon-before::before {
     content: "\f140";
     content: "\f140"/"Success icon";
+}
+.add-timer-icon::after,
+.add-timer-icon-after::after,
+.add-timer-icon-before::before {
+    content: "\f15a";
+    content: "\f15a"/"Timer icon";
 }
 .add-toggle-icon::after,
 .add-toggle-icon-after::after,
@@ -13514,10 +13524,10 @@ td.min-width-none {
     justify-items: start;
     align-content: start;
     align-items: start;
-    grid-gap: 0 0.5rem;
-    grid-gap: 0 var(--mrg-firm-200, 0.5rem);
-    gap: 0 0.5rem;
-    gap: 0 var(--mrg-firm-200, 0.5rem);
+    grid-gap: 0 0.8125rem;
+    grid-gap: 0 var(--mrg-firm-300, 0.8125rem);
+    gap: 0 0.8125rem;
+    gap: 0 var(--mrg-firm-300, 0.8125rem);
 }
 .alert-block > .alert-block__headline > *,
 .alert-block > * {
@@ -13530,14 +13540,14 @@ td.min-width-none {
     justify-self: center;
     margin-left: 0;
     margin-right: 0;
-    padding-top: 0.3125rem;
-    padding-bottom: 0.3125rem;
-    padding-top: var(--mrg-soft-200, 0.3125rem);
-    padding-bottom: var(--mrg-soft-200, 0.3125rem);
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-    padding-left: var(--pad-firm-200, 0.5em);
-    padding-right: var(--pad-firm-200, 0.5em);
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-top: var(--mrg-soft-300, 0.5rem);
+    padding-bottom: var(--mrg-soft-300, 0.5rem);
+    padding-left: 0.8125em;
+    padding-right: 0.8125em;
+    padding-left: var(--pad-firm-300, 0.8125em);
+    padding-right: var(--pad-firm-300, 0.8125em);
     width: -moz-fit-content;
     width: fit-content;
     line-height: 1.5;
@@ -13563,19 +13573,19 @@ td.min-width-none {
     --grid-column: icon;
     grid-column: icon;
     grid-column: var(--grid-column, icon);
-    margin-top: 0.1875rem;
-    margin-bottom: 0.1875rem;
-    margin-top: var(--mrg-half-200, 0.1875rem);
-    margin-bottom: var(--mrg-half-200, 0.1875rem);
+    margin-top: 0.3125rem;
+    margin-bottom: 0.3125rem;
+    margin-top: var(--mrg-half-300, 0.3125rem);
+    margin-bottom: var(--mrg-half-300, 0.3125rem);
     margin-left: 0;
     margin-right: 0;
 }
 .alert-block > .alert-block__icon:first-child,
 .alert-block > .alert-block__headline > .alert-block__icon:first-child {
-    margin-top: 0.1875rem;
-    margin-bottom: 0.1875rem;
-    margin-top: var(--mrg-half-200, 0.1875rem);
-    margin-bottom: var(--mrg-half-200, 0.1875rem);
+    margin-top: 0.3125rem;
+    margin-bottom: 0.3125rem;
+    margin-top: var(--mrg-half-300, 0.3125rem);
+    margin-bottom: var(--mrg-half-300, 0.3125rem);
 }
 .alert-block > .alert-block__icon,
 .alert-block > .alert-block__icon > .icon,

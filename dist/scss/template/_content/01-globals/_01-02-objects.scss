@@ -18,8 +18,7 @@
 $_print_hr: map.get(config.$template_styles, hr);
 $_print_img: map.get(config.$template_styles, img);
 
-$_print_flowMargins: map.get(config.$template_styles, bodyFlow) or
-    map.get(config.$template_styles, astro, bodyGrid);
+$_print_flowMargins: map.get(config.$template_styles, flowMargins);
 
 @if $_print_flowMargins or $_print_hr or $_print_img {
     @include debug-checkpoint(

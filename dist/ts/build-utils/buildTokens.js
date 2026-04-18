@@ -91,7 +91,7 @@ export async function buildTokens(stage, tokens, level, paths, args = {}) {
             return;
         }
         stage.console.verbose('writing icon files...', 1 + level);
-        await Promise.all(paths.map(async (path) => Promise.all(Object.values(tokens.icons.data).map(async (icon) => stage.try(stage.fs.write, (stage.params.verbose ? 2 : 1) + level, [
+        await Promise.all(paths.map(async (path) => Promise.all(Object.values(tokens.icons.data).map(async (icon) => icon && stage.try(stage.fs.write, (stage.params.verbose ? 2 : 1) + level, [
             stage.fs.pathResolve(path, `${icon.slug}.svg`),
             icon.svgFile(),
             { force: true },

@@ -8,11 +8,12 @@ import type { ElementProps } from '@maddimathon/utility-astro';
  */
 
 /* import - types */
-import { Tokens } from '../../ts/02-tokens/Tokens.js';
+import type { SvgMaker } from '../../ts/01-utilities/SvgMaker.js';
 
 /* import - functions */
 
 /* import - values */
+import { Tokens } from '../../ts/02-tokens/Tokens.js';
 
 /* import - components */
 import Icon from './Icon.astro';
@@ -39,6 +40,8 @@ export type SearchFormProps = {
 
     placeholder?: string;
 
+    searchIcon?: undefined | SvgMaker.JsonReturn;
+
     tokens: Tokens.JsonReturn;
 };
 
@@ -54,6 +57,7 @@ const {
     input = {},
     placeholder = 'Search the site…',
     tokens,
+    searchIcon,
     ...attrs
 }: Props = Astro.props;
 
@@ -78,6 +82,8 @@ const {
         aria-label={buttonLabel}
         class:list={['button--no-pseudo', { '||': button.class }, button.class]}
         type='submit'
-        ><Icon icon={tokens.icons.search} /></button
+        ><Icon icon={searchIcon ?? tokens.icons.search} /><slot
+            name='button'
+        /></button
     >
 </form>

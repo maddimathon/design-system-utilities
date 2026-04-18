@@ -98,7 +98,7 @@ export declare namespace Tokens_Internal {
         name: string;
         colour: Tokens_Colour.InputParam<T_Types['colour']>;
         css?: undefined | Tokens_CSS.InputParam;
-        icons?: undefined | Tokens_Icons.InputParam<T_Types['iconNames']>;
+        icons: Tokens_Icons.InputParam<T_Types['iconNames']>;
         logos: Tokens_Logos.InputParam<T_Types['logoNames']>;
         spacing?: undefined | Tokens_Spacing.InputParam;
         themes?: {
@@ -174,7 +174,23 @@ export declare namespace Tokens {
      * @since 0.1.0-beta.0.draft
      */
     export type ScssVars<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> = Tokens_Internal.ScssVars<T_Types>;
-    export type DefaultIconNames = Tokens_Icons.DefaultIconNames;
+    export type DefaultIcon = Tokens_Icons.DefaultIcon;
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    export type OptionalIcon = Tokens_Icons.OptionalIcon;
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    export type RequiredIcon = Tokens_Icons.RequiredIcon;
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    export const isOptionalIcon: (name: string) => name is Tokens_Icons.OptionalIcon;
+    /**
+     * @since 0.1.0-beta.0.draft
+    */
+    export const isRequiredIcon: (name: string) => name is Tokens_Icons.RequiredIcon;
     type SampleColourName = "yardstick" | "yardstick-accent" | "base" | "blue" | "green" | "orange" | "pink" | "purple" | "red" | "turquoise" | "yellow";
     /**
      * @since 0.1.0-alpha

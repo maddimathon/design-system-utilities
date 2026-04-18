@@ -84,16 +84,23 @@ const sizeFlattener = (
 
 const flattenedSizes = objectMap(
     sizeFlattener(tokens.typography.size),
-    ([ key, value ]) => ({
-        name: key, 
-        sizes: Object.values(objectMap(
-            value,
-            ([ type, value ]) => ({
-                type,
+    ([ key, value ]) => {
+
+        const headingMatches = String(key)?.match(/^heading-(\d+)$/i) as null | [ string, string ];
+
+        return {
+            name: key, 
+            headingClass: headingMatches?.[1] ? `h${headingMatches[1]}` : null,
+            rem: value.rem,
+            sizes: Object.values(objectMap(
                 value,
-            })
-        )),
-    })
+                ([ type, value ]) => ({
+                    type,
+                    value,
+                })
+            )),
+        };
+    }
 );
 ---
 
@@ -103,17 +110,47 @@ const flattenedSizes = objectMap(
     id='sizes'
 >
     <Fragment slot='button'>All Sizes</Fragment>
+
     <dl class="typography-all-sizes">
-        
-        { Object.values(flattenedSizes).map( ({name, sizes}) => (
+        { Object.values(flattenedSizes).map( ({name, headingClass, rem, sizes}) => (
             <dt 
-                class={`font-size-${name}`}
+                class={headingClass}
+                style={ `font-size: ${rem}rem !important` }
                 set:text={name}
             />
-            <dd><dl class="typography-all-sizes__value-list">{sizes.map( ({ type, value }) => (
-                <div class="typography-all-sizes__value-list__pair"><dt set:text={type} />
-                <dd set:text={value} /></div>
-            ) )}</dl></dd>
+            <dd>
+                <dl class="typography-all-sizes__value-list">{sizes.map( ({ type, value }) => (
+                    <div class="typography-all-sizes__value-list__pair"><dt set:text={type} />
+                    <dd set:text={value} /></div>
+                ) )}</dl>
+            </dd>
+        ) ) }
+    </dl>
+</Toggle>
+
+<Toggle
+    class:list={'site-width'}
+    defaultOpen={defaultToggleToOpen}
+    heading={3}
+    id='sizes'
+>
+    <Fragment slot='button'>Compare Dynamic Sizing</Fragment>
+
+    <dl class="typography-all-sizes typography-all-sizes--compare-dynamic">
+        { Object.values(flattenedSizes).map( ({name, headingClass, rem, sizes}) => (
+            <dt
+                class="unstyled-heading"
+                set:text={name}
+            />
+            <dd class="typography-all-sizes__value-list">
+                <p
+                    class:list={[headingClass, '|', 'typography-compare-dynamic__sample']}
+                    style={ `font-size: ${rem}rem !important` }
+                >Static. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel odio at nibh pharetra condimentum. Nam tincidunt dapibus purus, nec tempus mi tempor vitae. Mauris id sapien sodales, dignissim tortor eget, volutpat turpis.</p>
+                <p
+                    class:list={[headingClass, `font-size-${name}`, '|', 'typography-compare-dynamic__sample']}
+                >Dynamic! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel odio at nibh pharetra condimentum. Nam tincidunt dapibus purus, nec tempus mi tempor vitae. Mauris id sapien sodales, dignissim tortor eget, volutpat turpis.</p>
+            </dd>
         ) ) }
     </dl>
 </Toggle>

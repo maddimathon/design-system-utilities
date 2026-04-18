@@ -87,9 +87,7 @@ export class Tokens extends AbstractTokens {
             Tokens_Colour.build(colourOpts.names, extraColourLevels, input.colour ?? {}),
             Tokens_CSS.build(input.css ?? {}),
             Tokens_Themes.build(brightnessModes, contrastModes, colourOpts, input.themes?.input ?? []),
-            new Tokens_Icons(config.iconFontName ?? (this.name + ' Icons'), 
-            // @ts-expect-error
-            input.icons),
+            Tokens_Icons.buildAsync(config.iconFontName ?? (this.name + ' Icons'), input.icons),
         ]).then(async ([colour, css, themes, icons]) => {
             if (typeof config.buildIconFont === 'object') {
                 await icons.toIconFont(config.buildIconFont);
@@ -217,6 +215,7 @@ export class Tokens extends AbstractTokens {
                 // yardstick: Tokens.SampleColours.yardstick,
                 // 'yardstick-accent': Tokens.SampleColours[ 'yardstick-accent' ],
             },
+            icons: {},
             logos: {},
             themes: {
                 contrast: ['max'],
@@ -229,6 +228,14 @@ export class Tokens extends AbstractTokens {
     }
     Tokens.sample = sample;
     ;
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    Tokens.isOptionalIcon = Tokens_Icons.isOptionalIcon;
+    /**
+     * @since 0.1.0-beta.0.draft
+    */
+    Tokens.isRequiredIcon = Tokens_Icons.isRequiredIcon;
     /**
      * @since 0.1.0-alpha
      */

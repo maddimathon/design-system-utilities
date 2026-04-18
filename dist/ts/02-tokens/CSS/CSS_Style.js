@@ -168,7 +168,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
             },
             gap: {
                 block: '0',
-                inline: '200',
+                inline: '300',
             },
             'flow-margin': {
                 $: '300',
@@ -178,8 +178,8 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 self: 'margins-flow-firm',
             },
             padding: {
-                block: '200',
-                inline: '200',
+                block: '300',
+                inline: '300',
             },
         }, partial, true);
     }

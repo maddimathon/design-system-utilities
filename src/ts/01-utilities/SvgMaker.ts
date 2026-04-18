@@ -176,7 +176,7 @@ export class SvgMaker<
 
         return {
             slug: this.slug,
-            label: `${ this.ariaLabel }`,
+            label: this.ariaLabel,
 
             height: this.height,
             width: this.width,
@@ -221,7 +221,7 @@ export namespace SvgMaker {
         /**
          * An override for the accessible name for this logo.
          */
-        ariaLabel?: string;
+        ariaLabel?: undefined | string;
 
         /**
          * Height of the SVG viewport.
@@ -241,7 +241,7 @@ export namespace SvgMaker {
         /**
          * Optional additional metadata.
          */
-        meta?: T_Metadata;
+        meta?: undefined | T_Metadata;
     };
 
     /**

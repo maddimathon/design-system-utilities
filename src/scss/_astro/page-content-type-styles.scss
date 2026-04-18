@@ -8,12 +8,17 @@
 
 /* # PAGE CONTENT - TYPE STYLES ==================================== */
 
-.typography-all-headings__sample {
+%_clamped-lines {
     @include lib.prop-display(-webkit-inline-box);
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 4;
     line-clamp: 4;
     overflow: hidden;
+    padding-block-end: lib.var-stroke-relative('400');
+}
+
+.typography-all-headings__sample {
+    @extend %_clamped-lines;
 }
 
 dl {
@@ -31,7 +36,7 @@ dl {
     dt,
     dd {
         margin: 0;
-        line-height: #{lib.var-line-height('100')};
+        line-height: lib.var-line-height('100');
     }
 
     > dt {
@@ -44,6 +49,8 @@ dl {
     }
 
     > dd {
+        /* placeholder */
+        --placholder: 'tmp';
     }
 
     .typography-all-sizes__value-list {
@@ -66,6 +73,58 @@ dl {
     }
 }
 
+$_dynamic_grid_cols: auto repeat(2, minmax(10rem, 1fr));
+
+.typography-all-sizes--compare-dynamic {
+    /* placeholder */
+    --placholder: 'tmp';
+
+    grid-template-columns: $_dynamic_grid_cols;
+
+    dt,
+    dd {
+        /* placeholder */
+        --placholder: 'tmp';
+
+        line-height: lib.var-line-height('400');
+    }
+
+    > dt {
+        /* placeholder */
+        --placholder: 'tmp';
+    }
+
+    > dd {
+        /* placeholder */
+        --placholder: 'tmp';
+    }
+
+    .typography-all-sizes__value-list {
+        /* placeholder */
+        --placholder: 'tmp';
+
+        text-align: start;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-content: start;
+        align-items: first baseline;
+
+        .typography-all-sizes__value-list__pair {
+            /* placeholder */
+            --placholder: 'tmp';
+        }
+    }
+
+    .typography-compare-dynamic__sample {
+        @extend %_clamped-lines;
+
+        margin-block-start: 0;
+
+        /* placeholder */
+        --placholder: 'tmp';
+    }
+}
+
 @include lib.min-width(38) {
     .typography-all-sizes {
         @include lib.prop-display(grid);
@@ -84,6 +143,8 @@ dl {
 
         dt,
         dd {
+            /* placeholder */
+            --placholder: 'tmp';
         }
 
         > dt {
@@ -91,10 +152,48 @@ dl {
         }
 
         > dd {
+            /* placeholder */
+            --placholder: 'tmp';
         }
 
         .typography-all-sizes__value-list {
+            /* placeholder */
+            --placholder: 'tmp';
+
             .typography-all-sizes__value-list__pair {
+                /* placeholder */
+                --placholder: 'tmp';
+            }
+        }
+    }
+
+    .typography-all-sizes--compare-dynamic {
+        /* placeholder */
+        --placholder: 'tmp';
+
+        dt,
+        dd {
+            /* placeholder */
+            --placholder: 'tmp';
+        }
+
+        > dt {
+            /* placeholder */
+            --placholder: 'tmp';
+        }
+
+        > dd {
+            /* placeholder */
+            --placholder: 'tmp';
+        }
+
+        .typography-all-sizes__value-list {
+            /* placeholder */
+            --placholder: 'tmp';
+
+            .typography-all-sizes__value-list__pair {
+                /* placeholder */
+                --placholder: 'tmp';
             }
         }
     }
@@ -136,6 +235,44 @@ dl {
                             padding-inline-start: min(2vw, #{lib.var-mrg-firm('600')});
                         }
                     }
+                }
+            }
+        }
+
+        .typography-all-sizes--compare-dynamic {
+            /* placeholder */
+            --placholder: 'tmp';
+
+            grid-template-columns: $_dynamic_grid_cols;
+
+            dt,
+            dd {
+                /* placeholder */
+                --placholder: 'tmp';
+            }
+
+            > dt {
+                /* placeholder */
+                --placholder: 'tmp';
+            }
+
+            > dd {
+                /* placeholder */
+                --placholder: 'tmp';
+            }
+
+            .typography-all-sizes__value-list {
+                /* placeholder */
+                --placholder: 'tmp';
+
+                @include lib.prop-display(grid);
+                grid-template-columns: subgrid;
+                grid-auto-rows: auto;
+                grid-auto-flow: column;
+
+                .typography-all-sizes__value-list__pair {
+                    /* placeholder */
+                    --placholder: 'tmp';
                 }
             }
         }

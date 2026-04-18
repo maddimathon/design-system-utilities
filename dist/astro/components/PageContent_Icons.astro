@@ -37,6 +37,7 @@ interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
     defaultIcon?: T_Types['iconNames'];
     inlinePreviews?: boolean;
     inlinePreviews_defaultOpen?: boolean;
+    logoAlerts?: boolean;
     subheadingDisplayHeading?: number;
     tokens: Tokens.JsonReturn<T_Types>;
 }
@@ -46,17 +47,56 @@ const {
     defaultIcon,
     inlinePreviews = import.meta.env.DEV,
     inlinePreviews_defaultOpen = import.meta.env.DEV,
+    logoAlerts = import.meta.env.DEV,
     subheadingDisplayHeading = 6,
     tokens,
 }: Props = Astro.props;
+
+/* FUNCTIONS ===================================== */
+
+// const iconSlugSorter = (
+//     a: Tokens_Icons.Local_SvgMaker.JsonReturn<string, string>,
+//     b: Tokens_Icons.Local_SvgMaker.JsonReturn<string, string>,
+// ) => {
+//     const sort_a = a.slug.toLowerCase();
+//     const sort_b = b.slug.toLowerCase();
+
+//     if ( sort_a > sort_b ) {
+//         return 1;
+//     }
+
+//     if ( sort_a < sort_b ) {
+//         return -1;
+//     }
+
+//     return 0;
+// }
+
+const labelSlugSorter = (
+    a: Tokens_Icons.Local_SvgMaker.JsonReturn<string, string>,
+    b: Tokens_Icons.Local_SvgMaker.JsonReturn<string, string>,
+) => {
+    const sort_a = a.label.toLowerCase();
+    const sort_b = b.label.toLowerCase();
+
+    if ( sort_a > sort_b ) {
+        return 1;
+    }
+
+    if ( sort_a < sort_b ) {
+        return -1;
+    }
+
+    return 0;
+}
 
 /* CONSTANTS ===================================== */
 
 const defaultToggleToOpen = import.meta.env.DEV ? true : undefined;
 
-const alignmentIconSvg = tokens.icons[alignmentIcon ?? 'group'] ?? tokens.icons.group;
+const alignmentIconSvg = tokens.icons[alignmentIcon ?? 'group'] ?? tokens.icons.group ?? tokens.icons.fail;
 
-const defaultIconSvg = tokens.icons[defaultIcon ?? alignmentIcon ?? 'star'] ?? tokens.icons.group;
+const defaultIconSvg = tokens.icons[defaultIcon ?? alignmentIcon ?? 'star'] ?? tokens.icons.group ?? tokens.icons.star;
 
 const textAndBackgroundKeys = arrayUnique([
     ...tokens.themes._meta.keys.background,
@@ -64,17 +104,7 @@ const textAndBackgroundKeys = arrayUnique([
 ]).sort(objectKeySort_Tokens.sorter);
 
 const iconsSortedByLabel = Object.entries(tokens.icons).sort(
-    (a,b) => {
-        if ( a[1].label > b[1].label ) {
-                return 1;
-            }
-
-            if ( a[1].label < b[1].label ) {
-                return -1;
-            }
-
-            return 0;
-    }
+    ( a, b ) => labelSlugSorter( a[1], b[1] )
 )
 
 let _defaultIcons: Tokens_Icons.Local_SvgMaker.JsonReturn<string, string>[] = [];
@@ -98,27 +128,9 @@ iconsSortedByLabel.forEach( ([__key, icon]) => {
     _customicons.push(icon);
 } );
 
-const iconSlugSorter = (
-    a: Tokens_Icons.Local_SvgMaker.JsonReturn<string, string>,
-    b: Tokens_Icons.Local_SvgMaker.JsonReturn<string, string>,
-) => {
-    const sort_a = a.slug.toLowerCase();
-    const sort_b = b.slug.toLowerCase();
-
-    if ( sort_a > sort_b ) {
-        return 1;
-    }
-
-    if ( sort_a < sort_b ) {
-        return -1;
-    }
-
-    return 0;
-}
-
-const customicons = _customicons.sort(iconSlugSorter);
-const defaultIcons = _defaultIcons.sort(iconSlugSorter);
-const logoIcons = _logoIcons.sort(iconSlugSorter);
+const customicons = _customicons.sort(labelSlugSorter);
+const defaultIcons = _defaultIcons.sort(labelSlugSorter);
+const logoIcons = _logoIcons.sort(labelSlugSorter);
 ---
 
 <h2>All Icons</h2>
@@ -161,7 +173,7 @@ const logoIcons = _logoIcons.sort(iconSlugSorter);
 
 {
     inlinePreviews && (
-        <Alert icon={tokens.icons.info} class="background-bright">
+        <Alert icon={tokens.icons.info ?? tokens.icons.star} class="background-bright">
             <p>You can use utility classes to add inline icons to HTML text. Find the slug in the list of alerts below and choose from <samp set:text="add-[slug]-icon-before" /> or <samp set:text="add-[slug]-icon-after" />.</p>
         </Alert>
         
@@ -323,8 +335,11 @@ const logoIcons = _logoIcons.sort(iconSlugSorter);
     }
 </div>
 
-{ import.meta.env.DEV && logoIcons.length ? (
-    <Heading heading={3}>Alerts with External Logo Icons</Heading>
+{ logoAlerts && logoIcons.length ? (
+    <Heading
+        displayHeading={subheadingDisplayHeading}
+        heading={3}
+    >Alerts with External Logo Icons</Heading>
     <div class='site-width | tokens-demo-all-alerts tokens-demo-all-alerts--custom'>
         {
             logoIcons.map(
@@ -352,7 +367,10 @@ const logoIcons = _logoIcons.sort(iconSlugSorter);
 ) : '' }
 
 { customicons.length ? (
-    <Heading heading={3}>Alerts with Customized Icons</Heading>
+    <Heading
+        displayHeading={subheadingDisplayHeading}
+        heading={3}
+    >Alerts with Customized Icons</Heading>
     <div class='site-width | tokens-demo-all-alerts tokens-demo-all-alerts--custom'>
         {
             customicons.map(
