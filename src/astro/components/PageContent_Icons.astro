@@ -316,7 +316,7 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
     {
         defaultIcons.map((icon) => (
             <Alert icon={icon}>
-                <span
+                <Fragment
                     slot='headline'
                     set:text={icon.label}
                 />
@@ -345,7 +345,7 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
             logoIcons.map(
                 (icon) => (
                     <Alert icon={icon}>
-                        <span
+                        <Fragment
                             slot='headline'
                             set:text={icon.label}
                         />
@@ -376,7 +376,7 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
             customicons.map(
                 (icon) => (
                     <Alert icon={icon}>
-                        <span
+                        <Fragment
                             slot='headline'
                             set:text={icon.label}
                         />
@@ -416,7 +416,7 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
                     minimumHeading={1}
                     icon={alignmentIconSvg}
                 >
-                    <span
+                    <Fragment
                         slot='headline'
                         set:text={`Heading Level ${heading}`}
                     />
@@ -426,7 +426,7 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
             ))
     }
     <Alert icon={alignmentIconSvg}>
-        <span
+        <Fragment
             slot='headline'
             set:text={`NO Heading Level`}
         />
@@ -450,7 +450,7 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
         slot='button'
     />
     <Alert icon={defaultIconSvg}>
-        <span
+        <Fragment
             slot='headline'
             set:text={`Default Colour Variation`}
         />
@@ -462,9 +462,9 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
                 icon={tokens.icons[key] ?? defaultIconSvg}
                 class:list={`background-${key}`}
             >
-                <span slot='headline'>
+                <Fragment slot='headline'>
                     Colour Variation: <samp set:text={key} />
-                </span>
+                </Fragment>
                 <LoremIpsum superAbbreviated={true} />
             </Alert>
         ))

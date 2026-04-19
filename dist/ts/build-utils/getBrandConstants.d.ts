@@ -138,6 +138,42 @@ export declare namespace getBrandConstants {
          * @since 0.1.0-beta.0.draft
          */
         namespace PHP {
+            function entriesToArray(entries: [string, string][] | readonly [string, string][], associativeArray?: boolean, indent?: string): string;
+            function entriesToObject(entries: [string, string][] | readonly [string, string][], indent?: string): string;
+            /**
+             * Gets a string of valid PHP code for wordpress defining custom
+             * constants to go with the theme tokens.
+             *
+             * @since 0.1.0-beta.0.draft
+             */
+            function getCustom(
+            /**
+             * Values to print indexed by their constant name.
+             */
+            constants: getCustom.ConstantsInput[], phpNamespace: string): Promise<null | string>;
+            /**
+             * @since 0.1.0-beta.0.draft
+             */
+            namespace getCustom {
+                /**
+                 * @since 0.1.0-beta.0.draft
+                 */
+                type ConstantsInput = [
+                    string,
+                    string[] | Record<number | string, string>,
+                    Args
+                ];
+                /**
+                 * @since 0.1.0-beta.0.draft
+                 */
+                type Args = {
+                    comment?: string;
+                    insideHook?: boolean;
+                    objectAsAssociativeArray?: boolean;
+                    objectAsObject?: boolean;
+                    type: string;
+                };
+            }
             /**
              * Gets a string of valid PHP code for wordpress defining constants for the given set of
              * SVGs.

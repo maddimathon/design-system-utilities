@@ -457,9 +457,10 @@ export namespace getBrandConstants {
          */
         export namespace PHP {
 
-            function entriesToArray(
+            export function entriesToArray(
                 entries: [ string, string ][] | readonly [ string, string ][],
                 associativeArray: boolean = true,
+                indent: string = '',
             ): string {
                 // returns
                 if ( !entries?.length ) {
@@ -469,19 +470,22 @@ export namespace getBrandConstants {
                 // returns
                 if ( !associativeArray ) {
                     return `[${ entries.map(
-                        ( arr ) => `\n    ${ arr[ 1 ] },`
-                    ).join( '' ) }${ entries.length ? '\n' : '' }]`;
+                        ( arr ) => `\n${ indent }    ${ arr[ 1 ] },`
+                    ).join( '' ) }${ entries.length ? `\n${ indent }` : '' }]`;
                 }
 
                 const longestKeyLength = Math.max( ...entries.map( ( [ key ] ) => key.length ) );
 
                 return `[${ entries.map(
                     ( [ key, value ] ) =>
-                        `\n    '${ key }' ${ ' '.repeat( longestKeyLength - key.length ) }=> ${ value },`
-                ).join( '' ) }${ entries.length ? '\n' : '' }]`;
+                        `\n${ indent }    '${ key }' ${ ' '.repeat( longestKeyLength - key.length ) }=> ${ value },`
+                ).join( '' ) }${ entries.length ? `\n${ indent }` : '' }]`;
             }
 
-            function entriesToObject( entries: [ string, string ][] | readonly [ string, string ][] ): string {
+            export function entriesToObject(
+                entries: [ string, string ][] | readonly [ string, string ][],
+                indent: string = '',
+            ): string {
                 // returns
                 if ( !entries?.length ) {
                     return '';
@@ -491,8 +495,8 @@ export namespace getBrandConstants {
 
                 return `(object) [${ entries.map(
                     ( [ key, value ] ) =>
-                        `\n    '${ key }' ${ ' '.repeat( longestKeyLength - key.length ) }=> ${ value },`
-                ).join( '' ) }${ entries.length ? '\n' : '' }]`;
+                        `\n${ indent }    '${ key }' ${ ' '.repeat( longestKeyLength - key.length ) }=> ${ value },`
+                ).join( '' ) }${ entries.length ? `\n${ indent }` : '' }]`;
             }
 
             function outputConstant(
@@ -542,6 +546,99 @@ export namespace getBrandConstants {
                     `    ${ content.split( '\n' ).join( '\n    ' ) },`,
                     ');',
                 ];
+            }
+
+            /**
+             * Gets a string of valid PHP code for wordpress defining custom
+             * constants to go with the theme tokens.
+             *
+             * @since ___PKG_VERSION___
+             */
+            export async function getCustom(
+                /**
+                 * Values to print indexed by their constant name.
+                 */
+                constants: getCustom.ConstantsInput[],
+                phpNamespace: string,
+            ): Promise<null | string> {
+
+                phpNamespace = phpNamespace.length ? phpNamespace.replace( /\/$/gi, '' ) + '\\' : '';
+
+                const ret: string[] = [];
+
+                for ( const [ constName, value, args ] of constants ) {
+
+                    const {
+                        comment = `Values for ${ constName }.`,
+                        insideHook = false,
+                        objectAsAssociativeArray = true,
+                        objectAsObject = true,
+                        type,
+                    } = args;
+
+                    let content: string;
+
+                    const entries = Object.entries( value );
+
+                    if ( Array.isArray( value ) ) {
+
+                        content = entriesToArray( entries, false );
+
+                    } else {
+
+                        if ( objectAsObject ) {
+                            content = entriesToObject( entries );
+                        } else {
+                            content = entriesToArray( entries, objectAsAssociativeArray );
+                        }
+                    }
+
+                    // continues
+                    if ( !content?.length ) {
+                        continue;
+                    }
+
+                    ret.push(
+                        ...outputConstant(
+                            `${ phpNamespace }${ constName }`,
+                            content,
+                            {
+                                comment,
+                                insideHook,
+                                type,
+                            },
+                        ),
+                        '',
+                    );
+                }
+
+                return ret.join( '\n' );
+            }
+
+            /**
+             * @since ___PKG_VERSION___
+             */
+            export namespace getCustom {
+
+                /**
+                 * @since ___PKG_VERSION___
+                 */
+                export type ConstantsInput = [
+                    string,
+                    string[] | Record<number | string, string>,
+                    Args,
+                ];
+
+                /**
+                 * @since ___PKG_VERSION___
+                 */
+                export type Args = {
+                    comment?: string;
+                    insideHook?: boolean;
+                    objectAsAssociativeArray?: boolean;
+                    objectAsObject?: boolean;
+                    type: string;
+                };
             }
 
             /**
@@ -678,7 +775,7 @@ export namespace getBrandConstants {
                                 false,
                             ).split( '\n' ).join( '\n    ' ),
 
-                            keyNames: ( value ) => entriesToObject( value.map( v => [
+                            keyNames: ( value ) => entriesToArray( value.map( v => [
                                 v,
                                 `_x( '${ toTitleCase( v ) }', 'colour variation name', '${ textDomain }' )`,
                             ] ) ).split( '\n' ).join( '\n    ' ),
@@ -719,7 +816,7 @@ export namespace getBrandConstants {
                             content = entriesToObject( entries[ opt ] );
                             insideHook = true;
                             type = `object{ ${ keyEntries.map(
-                                ( [ key, values ] ) => `${ key }: object{ ${ values.map( subKey => `${ subKey }: string` ).join( ', ' ) } }`
+                                ( [ key, values ] ) => `${ key }: array{ ${ values.map( subKey => `${ subKey }: string` ).join( ', ' ) } }`
                             ).join( ', ' ) } }`;
                             break;
                     }

@@ -248,26 +248,28 @@ export var getBrandConstants;
          */
         let PHP;
         (function (PHP) {
-            function entriesToArray(entries, associativeArray = true) {
+            function entriesToArray(entries, associativeArray = true, indent = '') {
                 // returns
                 if (!entries?.length) {
                     return '';
                 }
                 // returns
                 if (!associativeArray) {
-                    return `[${entries.map((arr) => `\n    ${arr[1]},`).join('')}${entries.length ? '\n' : ''}]`;
+                    return `[${entries.map((arr) => `\n${indent}    ${arr[1]},`).join('')}${entries.length ? `\n${indent}` : ''}]`;
                 }
                 const longestKeyLength = Math.max(...entries.map(([key]) => key.length));
-                return `[${entries.map(([key, value]) => `\n    '${key}' ${' '.repeat(longestKeyLength - key.length)}=> ${value},`).join('')}${entries.length ? '\n' : ''}]`;
+                return `[${entries.map(([key, value]) => `\n${indent}    '${key}' ${' '.repeat(longestKeyLength - key.length)}=> ${value},`).join('')}${entries.length ? `\n${indent}` : ''}]`;
             }
-            function entriesToObject(entries) {
+            PHP.entriesToArray = entriesToArray;
+            function entriesToObject(entries, indent = '') {
                 // returns
                 if (!entries?.length) {
                     return '';
                 }
                 const longestKeyLength = Math.max(...entries.map(([key]) => key.length));
-                return `(object) [${entries.map(([key, value]) => `\n    '${key}' ${' '.repeat(longestKeyLength - key.length)}=> ${value},`).join('')}${entries.length ? '\n' : ''}]`;
+                return `(object) [${entries.map(([key, value]) => `\n${indent}    '${key}' ${' '.repeat(longestKeyLength - key.length)}=> ${value},`).join('')}${entries.length ? `\n${indent}` : ''}]`;
             }
+            PHP.entriesToObject = entriesToObject;
             function outputConstant(varName, content, args) {
                 // returns
                 if (!content) {
@@ -307,6 +309,47 @@ export var getBrandConstants;
                     ');',
                 ];
             }
+            /**
+             * Gets a string of valid PHP code for wordpress defining custom
+             * constants to go with the theme tokens.
+             *
+             * @since 0.1.0-beta.0.draft
+             */
+            async function getCustom(
+            /**
+             * Values to print indexed by their constant name.
+             */
+            constants, phpNamespace) {
+                phpNamespace = phpNamespace.length ? phpNamespace.replace(/\/$/gi, '') + '\\' : '';
+                const ret = [];
+                for (const [constName, value, args] of constants) {
+                    const { comment = `Values for ${constName}.`, insideHook = false, objectAsAssociativeArray = true, objectAsObject = true, type, } = args;
+                    let content;
+                    const entries = Object.entries(value);
+                    if (Array.isArray(value)) {
+                        content = entriesToArray(entries, false);
+                    }
+                    else {
+                        if (objectAsObject) {
+                            content = entriesToObject(entries);
+                        }
+                        else {
+                            content = entriesToArray(entries, objectAsAssociativeArray);
+                        }
+                    }
+                    // continues
+                    if (!content?.length) {
+                        continue;
+                    }
+                    ret.push(...outputConstant(`${phpNamespace}${constName}`, content, {
+                        comment,
+                        insideHook,
+                        type,
+                    }), '');
+                }
+                return ret.join('\n');
+            }
+            PHP.getCustom = getCustom;
             /**
              * Gets a string of valid PHP code for wordpress defining constants for the given set of
              * SVGs.
@@ -386,7 +429,7 @@ export var getBrandConstants;
                             i.toString(),
                             `'${v.replace(/'/g, "\\'")}'`,
                         ]), false).split('\n').join('\n    '),
-                        keyNames: (value) => entriesToObject(value.map(v => [
+                        keyNames: (value) => entriesToArray(value.map(v => [
                             v,
                             `_x( '${toTitleCase(v)}', 'colour variation name', '${textDomain}' )`,
                         ])).split('\n').join('\n    '),
@@ -412,7 +455,7 @@ export var getBrandConstants;
                         case 'keyNames':
                             content = entriesToObject(entries[opt]);
                             insideHook = true;
-                            type = `object{ ${keyEntries.map(([key, values]) => `${key}: object{ ${values.map(subKey => `${subKey}: string`).join(', ')} }`).join(', ')} }`;
+                            type = `object{ ${keyEntries.map(([key, values]) => `${key}: array{ ${values.map(subKey => `${subKey}: string`).join(', ')} }`).join(', ')} }`;
                             break;
                     }
                     // continues
