@@ -22,7 +22,7 @@ export function defineConfig(config, _classes = {}) {
         build: _classes.Build ?? Build,
         compile: _classes.Compile ?? Compile,
         document: _classes.Document ?? Document,
-        package: _classes.Package,
+        package: _classes.Package ?? true,
         test: _classes.Test ?? false,
     };
     const merged = {

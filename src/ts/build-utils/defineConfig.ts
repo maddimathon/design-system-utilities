@@ -55,7 +55,7 @@ export function defineConfig(
         build: _classes.Build ?? Build,
         compile: _classes.Compile ?? Compile,
         document: _classes.Document ?? Document,
-        package: _classes.Package,
+        package: _classes.Package ?? true,
         test: _classes.Test ?? false,
     } satisfies Classes as Pick<NonNullable<Config[ 'stages' ]>, 'build' | 'compile' | 'document' | 'package' | 'test'>;
 

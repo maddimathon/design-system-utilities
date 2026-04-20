@@ -464,7 +464,9 @@ export declare namespace Tokens_CSS_Style {
         /**
          * Values for the set-flow-margins mixin.
          */
-        'flow-margin': FlowMargin;
+        'flow-margin': FlowMargin & {
+            self: 'margins-flow-firm' | 'margins-flow-firm-large' | 'margins-flow-firm-small';
+        };
         icon: Pick<IconStyles, 'vertical-align'> & {
             /**
              * With units.

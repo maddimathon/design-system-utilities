@@ -761,6 +761,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
             ...partial?.[ 'flow-margin' ] ?? {},
 
             button: partial?.[ 'flow-margin' ]?.button ?? widgetStyles[ 'flow-margin' ].button,
+            self: 'margins-flow-firm',
         } as const satisfies Tokens_CSS_Style.ToggleStyles[ 'flow-margin' ];
 
         const headingMaker = ( num: number | 'unstyled' ): Tokens_CSS_Style.ToggleStyles_ControlHeading => {
@@ -1448,7 +1449,9 @@ export namespace Tokens_CSS_Style {
         /**
          * Values for the set-flow-margins mixin.
          */
-        'flow-margin': FlowMargin;
+        'flow-margin': FlowMargin & {
+            self: 'margins-flow-firm' | 'margins-flow-firm-large' | 'margins-flow-firm-small';
+        };
 
         icon: Pick<IconStyles, 'vertical-align'> & {
             /**

@@ -534,6 +534,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
             small: widgetStyles['flow-margin'].small,
             ...partial?.['flow-margin'] ?? {},
             button: partial?.['flow-margin']?.button ?? widgetStyles['flow-margin'].button,
+            self: 'margins-flow-firm',
         };
         const headingMaker = (num) => {
             const style = {
