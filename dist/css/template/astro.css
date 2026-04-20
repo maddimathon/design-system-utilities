@@ -5932,8 +5932,8 @@ a[href] {
     text-decoration: underline;
     text-decoration-thickness: 0.0625em;
     text-decoration-thickness: var(--stroke-relative-100, 0.0625em);
-    text-underline-offset: 0.3125em;
-    text-underline-offset: var(--stroke-relative-700, 0.3125em);
+    text-underline-offset: 0.25em;
+    text-underline-offset: var(--stroke-relative-600, 0.25em);
     --focus-ring-outline-color: var(--theme-link-outline-hover, ActiveText);
     --icon-color: var(--theme-link-icon, LinkText);
     text-decoration-color: hsl(278.16, 60.54%, 30.06%);
@@ -9446,6 +9446,7 @@ a.display-inline.button-grey[href] .icon {
     display: var(--display, inline-block);
     align-self: center;
     vertical-align: middle;
+    vertical-align: var(--icon-vertical-align, middle);
 }
 button.display-inline .icon:not(.settings-menu-icon):not(.toggle-icon),
 .display-inline[role="button"] .icon:not(.settings-menu-icon):not(.toggle-icon),
@@ -10488,6 +10489,7 @@ a.button-grey[href] .icon {
     display: var(--display, inline-block);
     align-self: center;
     vertical-align: middle;
+    vertical-align: var(--icon-vertical-align, middle);
 }
 button .icon:not(.settings-menu-icon):not(.toggle-icon),
 [role="button"] .icon:not(.settings-menu-icon):not(.toggle-icon),
@@ -11511,6 +11513,7 @@ input[type="submit"]::before {
     display: var(--display, inline-block);
     align-self: center;
     vertical-align: middle;
+    vertical-align: var(--icon-vertical-align, middle);
 }
 ::file-selector-button .icon:not(.settings-menu-icon):not(.toggle-icon) {
     margin-left: calc(0.25em * 1 * 1);
@@ -11869,7 +11872,6 @@ td > :first-child {
 }
 
 th {
-    --icon-color: var(--theme-background, Canvas);
     min-width: 6rem;
     font-family: inherit;
     font-weight: 600;
@@ -11880,17 +11882,37 @@ th {
     text-transform: none;
     text-wrap: balance;
     font-style: normal;
+    color: hsl(278.16, 60.54%, 30.06%);
+    color: var(--theme-text-primary, CanvasText);
+    --icon-color: var(--theme-ui-primary, CanvasText);
+    color: var(--theme-text-primary, CanvasText);
+    background: hsl(272.37, 84.47%, 89.06%);
+    background: var(--theme-background-primary, Canvas);
+}
+th[scope="row"] {
+    --icon-color: var(--theme-ui-secondary, CanvasText);
+    color: hsl(162, 69%, 16.5%);
+    color: var(--theme-text-secondary, CanvasText);
+    background: hsl(158.01, 46.2%, 78.76%);
+    background: var(--theme-background-secondary, Canvas);
+}
+[data-contrast-mode="low"] th,
+[data-contrast-mode="average"] th,
+[data-contrast-mode="high"] th {
+    --icon-color: var(--theme-background, Canvas);
     color: hsl(339.45, 0%, 91.26%);
     color: var(--theme-background, Canvas);
     background: hsl(278.16, 60.54%, 30.06%);
     background: var(--theme-ui-primary, CanvasText);
 }
-th[scope="row"] {
-    --icon-color: var(--theme-ui, CanvasText);
-    background: hsl(272.37, 84.47%, 89.06%);
-    background: var(--theme-background-primary, Canvas);
-    color: hsl(278.16, 60.54%, 30.06%);
-    color: var(--theme-text-primary, CanvasText);
+[data-contrast-mode="low"] th[scope="row"],
+[data-contrast-mode="average"] th[scope="row"],
+[data-contrast-mode="high"] th[scope="row"] {
+    --icon-color: var(--theme-ui-secondary, CanvasText);
+    color: hsl(162, 69%, 16.5%);
+    color: var(--theme-text-secondary, CanvasText);
+    background: hsl(158.01, 46.2%, 78.76%);
+    background: var(--theme-background-secondary, Canvas);
 }
 
 td {
@@ -15026,7 +15048,12 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     font-style: normal;
 }
 .toggle-icon {
-    --icon-size: 1.25em;
+    --icon-inline-buffer-start: 0 !important;
+    --icon-inline-buffer-end: 0 !important;
+    --icon-size: 1em;
+    --icon-vertical-align: middle !important;
+    margin-left: "0";
+    margin-right: 0.25em;
 }
 .toggle-icon > svg {
     width: auto;
@@ -16587,6 +16614,7 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     display: var(--display, inline-block);
     align-self: center;
     vertical-align: middle;
+    vertical-align: var(--icon-vertical-align, middle);
 }
 :where(.js)
     .website-settings-menu

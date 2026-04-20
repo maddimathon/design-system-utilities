@@ -66,7 +66,7 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
     /**
      * @since 0.1.0-beta.0.draft
      */
-    static toggleStyle(widgetStyles: Tokens_CSS_Style.WidgetStyles, partial?: Tokens_CSS_Style.InputParam['toggle']): Promise<Tokens_CSS_Style.ToggleStyles>;
+    static toggleStyle(iconStyles: Tokens_CSS_Style.IconStyles, widgetStyles: Tokens_CSS_Style.WidgetStyles, partial?: Tokens_CSS_Style.InputParam['toggle']): Promise<Tokens_CSS_Style.ToggleStyles>;
     /**
      * @since 0.1.0-beta.0.draft
      */
@@ -193,7 +193,7 @@ export declare namespace Tokens_CSS_Style {
             block: "0" | AnyTokenLevel;
             inline: "0" | AnyTokenLevel;
         };
-        icon: Pick<IconStyles, 'font' | 'inline' | 'pseudo' | 'vertical-align'> & {
+        icon: Pick<IconStyles, 'font' | 'pseudo' | 'vertical-align'> & {
             buffer: {
                 start: number;
                 end: number;
@@ -208,7 +208,6 @@ export declare namespace Tokens_CSS_Style {
              * With units.
              */
             size: Omit<IconStyles['size'], '$' | 'large'>;
-            'vertical-align': IconStyles['vertical-align'];
         };
         'letter-spacing': string;
         'line-height': AnyTokenLevel;
@@ -452,7 +451,7 @@ export declare namespace Tokens_CSS_Style {
             $: {
                 padding: {
                     block: {
-                        end: AnyTokenLevel;
+                        end: '0' | AnyTokenLevel;
                     };
                 };
             };
@@ -466,6 +465,19 @@ export declare namespace Tokens_CSS_Style {
          * Values for the set-flow-margins mixin.
          */
         'flow-margin': FlowMargin;
+        icon: Pick<IconStyles, 'vertical-align'> & {
+            /**
+             * With units.
+             */
+            buffer: {
+                start: string;
+                end: string;
+            };
+            /**
+             * With units.
+             */
+            size: IconStyles['size']['$'];
+        };
         /**
          * For the ToggleNavMenu astro component and
          * snippet-support-astro-toggle-nav-menu mixin.
@@ -497,7 +509,7 @@ export declare namespace Tokens_CSS_Style {
     type ToggleStyles_ControlHeading = {
         padding: {
             block: {
-                end: AnyTokenLevel;
+                end: '0' | AnyTokenLevel;
             };
         };
     };

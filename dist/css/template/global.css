@@ -3255,6 +3255,26 @@ figure {
 ::selection * {
     color: inherit !important;
 }
+@media (prefers-contrast: no-preference) {
+    ::-moz-selection {
+        background-color: hsl(162.93, 42.82%, 45.66%) !important;
+        background-color: var(
+            --theme-selection-background,
+            hsl(162.93, 42.82%, 45.66%)
+        ) !important;
+        color: hsl(339.45, 0%, 4.28%) !important;
+        color: var(--theme-selection-text, hsl(339.45, 0%, 4.28%)) !important;
+    }
+    ::selection {
+        background-color: hsl(162.93, 42.82%, 45.66%) !important;
+        background-color: var(
+            --theme-selection-background,
+            hsl(162.93, 42.82%, 45.66%)
+        ) !important;
+        color: hsl(339.45, 0%, 4.28%) !important;
+        color: var(--theme-selection-text, hsl(339.45, 0%, 4.28%)) !important;
+    }
+}
 @media (prefers-contrast: less) {
     ::-moz-selection {
         background-color: hsl(162.93, 42.82%, 45.66%) !important;
@@ -3312,7 +3332,7 @@ a[href] {
     border: none;
     text-decoration: underline;
     text-decoration-thickness: 0.0625em;
-    text-underline-offset: 0.3125em;
+    text-underline-offset: 0.25em;
     --focus-ring-outline-color: var(--theme-link-outline-hover, ActiveText);
     --icon-color: var(--theme-link-icon, LinkText);
     text-decoration-color: hsl(278.16, 60.54%, 30.06%);
@@ -4475,6 +4495,18 @@ input::placeholder {
     select::placeholder,
     input::placeholder {
         opacity: 0.65;
+    }
+}
+@media (prefers-contrast: no-preference) {
+    textarea::-moz-placeholder,
+    select::-moz-placeholder,
+    input::-moz-placeholder {
+        opacity: 0.75;
+    }
+    textarea::placeholder,
+    select::placeholder,
+    input::placeholder {
+        opacity: 0.75;
     }
 }
 textarea.font-family-icons,
@@ -6533,7 +6565,6 @@ td > :first-child {
 }
 
 th {
-    --icon-color: var(--theme-background, Canvas);
     min-width: 6rem;
     font-family: inherit;
     font-weight: 600;
@@ -6543,19 +6574,38 @@ th {
     text-transform: none;
     text-wrap: balance;
     font-style: normal;
-    color: hsl(339.45, 0%, 91.26%);
-    color: var(--theme-background, Canvas);
-    background: hsl(278.16, 60.54%, 30.06%);
-    background: var(--theme-ui-primary, CanvasText);
-}
-th[scope="row"] {
-    --icon-color: var(--theme-ui, CanvasText);
-    background: hsl(272.37, 84.47%, 89.06%);
-    background: var(--theme-background-primary, Canvas);
     color: hsl(278.16, 60.54%, 30.06%);
     color: var(--theme-text-primary, CanvasText);
+    --icon-color: var(--theme-ui-primary, CanvasText);
+    color: var(--theme-text-primary, CanvasText);
+    background: hsl(272.37, 84.47%, 89.06%);
+    background: var(--theme-background-primary, Canvas);
 }
-
+th[scope="row"] {
+    --icon-color: var(--theme-ui-secondary, CanvasText);
+    color: hsl(162, 69%, 16.5%);
+    color: var(--theme-text-secondary, CanvasText);
+    background: hsl(158.01, 46.2%, 78.76%);
+    background: var(--theme-background-secondary, Canvas);
+}
+@media (prefers-contrast: less),
+    (prefers-contrast: no-preference),
+    (prefers-contrast: more) {
+    th {
+        --icon-color: var(--theme-background, Canvas);
+        color: hsl(339.45, 0%, 91.26%);
+        color: var(--theme-background, Canvas);
+        background: hsl(278.16, 60.54%, 30.06%);
+        background: var(--theme-ui-primary, CanvasText);
+    }
+    th[scope="row"] {
+        --icon-color: var(--theme-ui-secondary, CanvasText);
+        color: hsl(162, 69%, 16.5%);
+        color: var(--theme-text-secondary, CanvasText);
+        background: hsl(158.01, 46.2%, 78.76%);
+        background: var(--theme-background-secondary, Canvas);
+    }
+}
 td {
     min-width: 10em;
 }

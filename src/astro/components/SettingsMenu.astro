@@ -15,13 +15,13 @@ import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 import { SampleTokens_Json } from '../functions/index.js';
 
 /* import - components */
-import { Toggle as UtilsToggle } from '@maddimathon/utility-astro/components';
+import { SettingsMenu as UtilsSettingsMenu } from '@maddimathon/utility-astro/components';
 
 /* import - layouts */
 
 /* PROPS ===================================== */
 
-type Props = ComponentProps<typeof UtilsToggle> & {
+type Props = ComponentProps<typeof UtilsSettingsMenu> & {
     tokens?: Tokens.JsonReturn;
 };
 
@@ -30,16 +30,22 @@ const { tokens = SampleTokens_Json, ...props }: Props = Astro.props;
 /* CONSTANTS ===================================== */
 
 const iconSVG =
-    '<span class="icon icon--toggle | toggle-icon">' +
-    tokens.icons.toggle.svgInlineLabelled.trim() +
+    '<span class="icon icon--settings | settings-menu-icon">' +
+    tokens.icons.settings.svgInlineLabelled.trim() +
     '</span>';
 ---
 
-<UtilsToggle
+<UtilsSettingsMenu
     {...props}
     iconSVG={iconSVG}
-    ><slot
-        slot='button'
-        name='button'
-    /><slot /></UtilsToggle
 >
+    <slot
+        name='settings-menu-open'
+        slot='settings-menu-open'
+    />
+    <slot />
+    <slot
+        name='settings-menu-close'
+        slot='settings-menu-close'
+    />
+</UtilsSettingsMenu>

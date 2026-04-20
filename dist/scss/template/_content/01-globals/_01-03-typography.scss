@@ -24,12 +24,6 @@ $_print_pre: map.get(config.$template_styles, pre);
 $_print_selection: map.get(config.$template_styles, selection);
 $_print_typeDefaults: map.get(config.$template_styles, typeDefaults);
 
-@include debug-checkpoint(
-    '#{config.$template_slug} - globals - typography start',
-    $level: config.$template_debug_checkpointsLevel + 1,
-    $verbose: true
-);
-
 $_heading_blocks: false;
 $_heading_inlines: false;
 
@@ -41,6 +35,12 @@ $_heading_inlines: false;
 }
 
 @if $_heading_blocks or $_heading_inlines {
+    @include debug-checkpoint(
+        '#{config.$template_slug} - globals - typography start',
+        $level: config.$template_debug_checkpointsLevel + 1,
+        $verbose: true
+    );
+
     /* # GLOBALS - TYPOGRAPHY
      * ======================================================================== */
 }
@@ -111,7 +111,7 @@ $_heading_inlines: false;
     }
 }
 
-@if config.$template_cssHeadings and $_heading_blocks {
+@if $_heading_blocks {
     /* ## Typography - Blocks ==================================== */
 }
 

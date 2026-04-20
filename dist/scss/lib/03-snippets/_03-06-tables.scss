@@ -87,7 +87,7 @@
 
     %th,
     %td {
-        padding-block: #{var-mrg-soft('200')};
+        padding-block: var-mrg-soft('200');
         padding-inline: #{var-mrg-firm('300')};
         background: #{var-theme(background)};
 
@@ -102,21 +102,31 @@
     }
 
     %th {
-        @include cx-prop(icon-color, var-theme(background));
         min-width: 6rem;
 
         @include snippet-unstyled-heading(
             $resetChildFontStyle: false,
-            $useRelativeFontSize: true,
-            $color: var-theme(background)
+            $useRelativeFontSize: true
         );
 
-        background: #{var-theme(ui-primary)};
+        @include theme-set-color(primary);
+        background: var-theme(background-primary);
 
         &[scope='row'] {
-            @include cx-prop(icon-color, style-value(icon-color));
-            background: #{var-theme(background-primary)};
-            color: #{var-style(heading-unstyled-color)};
+            @include theme-set-color(secondary);
+            background: var-theme(background-secondary);
+        }
+
+        // i.e., don't apply to forced colors
+        @include colour-mode((low, average, high), $includeDefault: false) {
+            @include cx-prop(icon-color, var-theme(background));
+            color: var-theme(background);
+            background: var-theme(ui-primary);
+
+            &[scope='row'] {
+                @include theme-set-color(secondary);
+                background: var-theme(background-secondary);
+            }
         }
     }
 

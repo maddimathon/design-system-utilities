@@ -19,9 +19,11 @@ import { absoluteInternalURL } from '@maddimathon/utility-astro/functions';
 /* import - values */
 
 /* import - components */
+import { ToggleNavMenu } from '../components.ts';
 
 /* import - layouts */
 import { Page as UtilPage } from '@maddimathon/utility-astro/layouts';
+import SettingsMenu from '../components/SettingsMenu.astro';
 
 /* TYPES ===================================== */
 
@@ -110,7 +112,9 @@ const inputs: Props = Astro.props?.['frontmatter'] ?? Astro.props;
 
 const urlMaker = inputs?.urlMaker ?? absoluteInternalURL;
 
-const _settings: UtilPage_Props['settings'] = {
+const _settings: UtilPage_Props['settings'] & {
+    tokens?: Tokens.JsonReturn;
+} = {
     settings: {
         brightness: true,
         contrast: {
@@ -118,6 +122,7 @@ const _settings: UtilPage_Props['settings'] = {
         },
         motion: true,
     },
+    tokens: inputs.tokens,
 };
 
 function parseFooterInput(_input?: Required<PageProps>['footer']['copyright']) {
@@ -161,6 +166,12 @@ const props = {
     convertHrefStringsToAbsolute: false,
 
     ...inputs,
+
+    components: {
+        ...inputs.components,
+        PrimaryMenu: ToggleNavMenu,
+        SettingsMenu: SettingsMenu,
+    },
 
     footer: {
         copyright: parseFooterInput(inputs.footer?.copyright),

@@ -404,7 +404,7 @@ export class Tokens_Icons extends AbstractTokens {
             label: 'Toggle',
             width: 24,
             height: 24,
-            innerSVG: `<path id="a" d="M13.5,20.5c0,0.828 -0.672,1.5 -1.5,1.5c-0.828,0 -1.5,-0.672 -1.5,-1.5l0,-17c0,-0.828 0.672,-1.5 1.5,-1.5c0.828,0 1.5,0.672 1.5,1.5l0,17Z" /><path id="b" d="M3.5,13.5c-0.828,0 -1.5,-0.672 -1.5,-1.5c-0,-0.828 0.672,-1.5 1.5,-1.5l17,0c0.828,0 1.5,0.672 1.5,1.5c-0,0.828 -0.672,1.5 -1.5,1.5l-17,0Z" />`,
+            innerSVG: `<path id="b" d="M13.5,20.5c0,0.828 -0.672,1.5 -1.5,1.5c-0.828,0 -1.5,-0.672 -1.5,-1.5l0,-17c0,-0.828 0.672,-1.5 1.5,-1.5c0.828,0 1.5,0.672 1.5,1.5l0,17Z" /><path id="a" d="M3.5,13.5c-0.828,0 -1.5,-0.672 -1.5,-1.5c-0,-0.828 0.672,-1.5 1.5,-1.5l17,0c0.828,0 1.5,0.672 1.5,1.5c-0,0.828 -0.672,1.5 -1.5,1.5l-17,0Z" />`,
         };
         const uiCheck = {
             slug: 'ui-check',
@@ -879,7 +879,6 @@ export class Tokens_Icons extends AbstractTokens {
         'reading',
         'refresh',
         'right',
-        'settings',
         'star',
         'stopwatch',
         'success',
@@ -910,6 +909,7 @@ export class Tokens_Icons extends AbstractTokens {
         'maximum',
         'minimum',
         'search',
+        'settings',
         'star',
         'toggle',
         'ui-check',

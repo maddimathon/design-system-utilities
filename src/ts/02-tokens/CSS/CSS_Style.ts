@@ -81,10 +81,10 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                 ...hdgs,
                 unstyled: await Tokens_CSS_Style.headingStyle( 'unstyled', partial.heading?.unstyled ),
             } ) ),
-        ] ).then(
-            async ( [ icon, heading ] ) => {
 
-                const widget = await Tokens_CSS_Style.widgetStyle( partial.widget );
+            Tokens_CSS_Style.widgetStyle( partial.widget ),
+        ] ).then(
+            async ( [ icon, heading, widget ] ) => {
 
                 const [
                     alert,
@@ -97,7 +97,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                     Tokens_CSS_Style.buttonStyle( icon, partial.button ),
                     Tokens_CSS_Style.inputStyle( partial.input ),
                     Tokens_CSS_Style.subtitleStyle( heading, partial.subtitle ),
-                    Tokens_CSS_Style.toggleStyle( widget, partial.toggle ),
+                    Tokens_CSS_Style.toggleStyle( icon, widget, partial.toggle ),
                 ] );
 
                 return {
@@ -323,7 +323,6 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                     },
 
                     font: iconStyles.font,
-                    inline: iconStyles.inline,
                     pseudo: iconStyles.pseudo,
 
                     size: {
@@ -410,7 +409,6 @@ export class Tokens_CSS_Style extends AbstractTokens<{
 
                         embedded: style.icon.embedded,
                         font: style.icon.font,
-                        inline: style.icon.inline,
                         pseudo: style.icon.pseudo,
 
                         size: {
@@ -750,6 +748,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
      * @since ___PKG_VERSION___
      */
     public static async toggleStyle(
+        iconStyles: Tokens_CSS_Style.IconStyles,
         widgetStyles: Tokens_CSS_Style.WidgetStyles,
         partial: Tokens_CSS_Style.InputParam[ 'toggle' ] = {},
     ): Promise<Tokens_CSS_Style.ToggleStyles> {
@@ -880,6 +879,17 @@ export class Tokens_CSS_Style extends AbstractTokens<{
             control,
 
             'flow-margin': flowMargin,
+
+            icon: {
+                buffer: {
+                    start: '0',
+                    end: '0.25em',
+                },
+
+                size: iconStyles.size.pseudo,
+
+                'vertical-align': 'middle',
+            },
 
             nav: {
                 content: {
@@ -1096,7 +1106,7 @@ export namespace Tokens_CSS_Style {
             inline: "0" | AnyTokenLevel;
         };
 
-        icon: Pick<IconStyles, 'font' | 'inline' | 'pseudo' | 'vertical-align'> & {
+        icon: Pick<IconStyles, 'font' | 'pseudo' | 'vertical-align'> & {
             buffer: {
                 start: number;
                 end: number;
@@ -1113,8 +1123,6 @@ export namespace Tokens_CSS_Style {
              * With units.
              */
             size: Omit<IconStyles[ 'size' ], '$' | 'large'>;
-
-            'vertical-align': IconStyles[ 'vertical-align' ];
         };
 
         'letter-spacing': string;
@@ -1425,7 +1433,7 @@ export namespace Tokens_CSS_Style {
             $: {
                 padding: {
                     block: {
-                        end: AnyTokenLevel;
+                        end: '0' | AnyTokenLevel;
                     };
                 };
             };
@@ -1441,6 +1449,21 @@ export namespace Tokens_CSS_Style {
          * Values for the set-flow-margins mixin.
          */
         'flow-margin': FlowMargin;
+
+        icon: Pick<IconStyles, 'vertical-align'> & {
+            /**
+             * With units.
+             */
+            buffer: {
+                start: string;
+                end: string;
+            };
+
+            /**
+             * With units.
+             */
+            size: IconStyles[ 'size' ][ '$' ];
+        };
 
         /**
          * For the ToggleNavMenu astro component and
@@ -1477,7 +1500,7 @@ export namespace Tokens_CSS_Style {
     export type ToggleStyles_ControlHeading = {
         padding: {
             block: {
-                end: AnyTokenLevel;
+                end: '0' | AnyTokenLevel;
             };
         };
     };

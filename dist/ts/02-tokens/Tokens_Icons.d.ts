@@ -172,7 +172,7 @@ export declare namespace Tokens_Icons {
     /**
      * @since 0.1.0-beta.0.draft
      */
-    const optionalIconNames: readonly ["alarm", "alert", "attachment", "biography", "book", "clock", "close", "code", "compass", "compass", "computer", "contact", "dash", "discussion", "down", "download", "draft", "error", "external", "forbidden", "group", "hidden", "info", "left", "lightbulb", "lightning", "link", "location", "lock", "logo-circle-facebook", "logo-circle-instagram", "logo-circle-linkedin", "logo-facebook", "logo-instagram", "logo-linkedin", "minus", "no", "note", "paperclip", "person", "pinned", "plus", "private", "question", "quote", "reading", "refresh", "right", "settings", "star", "stopwatch", "success", "timer", "unlock", "up", "warning"];
+    const optionalIconNames: readonly ["alarm", "alert", "attachment", "biography", "book", "clock", "close", "code", "compass", "compass", "computer", "contact", "dash", "discussion", "down", "download", "draft", "error", "external", "forbidden", "group", "hidden", "info", "left", "lightbulb", "lightning", "link", "location", "lock", "logo-circle-facebook", "logo-circle-instagram", "logo-circle-linkedin", "logo-facebook", "logo-instagram", "logo-linkedin", "minus", "no", "note", "paperclip", "person", "pinned", "plus", "private", "question", "quote", "reading", "refresh", "right", "star", "stopwatch", "success", "timer", "unlock", "up", "warning"];
     /**
      * @since 0.1.0-beta.0.draft
      */
@@ -184,7 +184,7 @@ export declare namespace Tokens_Icons {
     /**
      * @since 0.1.0-beta.0.draft
      */
-    const requiredIconNames: readonly ["caution", "check", "double-check", "fail", "maximum", "minimum", "search", "star", "toggle", "ui-check", "ui-minimum", "ui"];
+    const requiredIconNames: readonly ["caution", "check", "double-check", "fail", "maximum", "minimum", "search", "settings", "star", "toggle", "ui-check", "ui-minimum", "ui"];
     /**
      * The types are required to enable core functionality. Any others can be
      * removed or replaced in your configuration by setting them to `undefined`.

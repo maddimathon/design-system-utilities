@@ -293,14 +293,12 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
 
     @if $spacing {
         #{$spacingProp}-inline-#{$_start}: 0;
-        #{$spacingProp}-inline-#{$_start}: #{font-family-icons--margin-inline(
-                start
-            )};
+        #{$spacingProp}-inline-#{$_start}: font-family-icons--margin-inline(
+            start
+        );
 
         #{$spacingProp}-inline-#{$_end}: #{var-style(icon-inline-buffer)};
-        #{$spacingProp}-inline-#{$_end}: #{font-family-icons--margin-inline(
-                end
-            )};
+        #{$spacingProp}-inline-#{$_end}: font-family-icons--margin-inline(end);
     }
 
     @if $height and not $useIconFont {

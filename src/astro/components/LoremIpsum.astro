@@ -8,7 +8,6 @@
 /* import - types */
 
 /* import - functions */
-import type { ComponentProps } from 'astro/types';
 import type { LoremIpsumProps as UtilsLoremIpsumProps } from '@maddimathon/utility-astro/components';
 
 import { Tokens } from '../../ts/02-tokens/Tokens.js';
@@ -19,13 +18,14 @@ import { SampleTokens_Json } from '../functions/SampleTokens.js';
 /* import - components */
 import { LoremIpsum as LoremIpsumUtils } from '@maddimathon/utility-astro/components';
 import Alert from './Alert.astro';
+import Toggle from './Toggle.astro';
 
 /* import - layouts */
 
 /* PROPS ===================================== */
 
 export interface LoremIpsumProps extends Omit<
-    ComponentProps<typeof LoremIpsumUtils>,
+    UtilsLoremIpsumProps,
     'displaySettings'
 > {
     displaySettings?: Omit<
@@ -89,6 +89,8 @@ const alertVariations =
         buttonVariations: includeButtons ? buttonVariations : [],
         headingLevels,
     }}
+    ToggleComponent={Toggle}
+    toggleProps={{ tokens }}
 >
     <slot />
 

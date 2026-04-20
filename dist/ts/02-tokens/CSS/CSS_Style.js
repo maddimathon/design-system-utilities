@@ -55,14 +55,14 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 ...hdgs,
                 unstyled: await Tokens_CSS_Style.headingStyle('unstyled', partial.heading?.unstyled),
             })),
-        ]).then(async ([icon, heading]) => {
-            const widget = await Tokens_CSS_Style.widgetStyle(partial.widget);
+            Tokens_CSS_Style.widgetStyle(partial.widget),
+        ]).then(async ([icon, heading, widget]) => {
             const [alert, button, input, subtitle, toggle,] = await Promise.all([
                 Tokens_CSS_Style.alertStyle(icon, partial.alert),
                 Tokens_CSS_Style.buttonStyle(icon, partial.button),
                 Tokens_CSS_Style.inputStyle(partial.input),
                 Tokens_CSS_Style.subtitleStyle(heading, partial.subtitle),
-                Tokens_CSS_Style.toggleStyle(widget, partial.toggle),
+                Tokens_CSS_Style.toggleStyle(icon, widget, partial.toggle),
             ]);
             return {
                 alert,
@@ -216,7 +216,6 @@ export class Tokens_CSS_Style extends AbstractTokens {
                     bottom: '0.0625em',
                 },
                 font: iconStyles.font,
-                inline: iconStyles.inline,
                 pseudo: iconStyles.pseudo,
                 size: {
                     font: iconStyles.size.font,
@@ -277,7 +276,6 @@ export class Tokens_CSS_Style extends AbstractTokens {
                     },
                     embedded: style.icon.embedded,
                     font: style.icon.font,
-                    inline: style.icon.inline,
                     pseudo: style.icon.pseudo,
                     size: {
                         font: style.icon.size.font,
@@ -529,7 +527,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
     /**
      * @since 0.1.0-beta.0.draft
      */
-    static async toggleStyle(widgetStyles, partial = {}) {
+    static async toggleStyle(iconStyles, widgetStyles, partial = {}) {
         const flowMargin = {
             $: widgetStyles['flow-margin'].$,
             large: widgetStyles['flow-margin'].large,
@@ -618,6 +616,14 @@ export class Tokens_CSS_Style extends AbstractTokens {
             content,
             control,
             'flow-margin': flowMargin,
+            icon: {
+                buffer: {
+                    start: '0',
+                    end: '0.25em',
+                },
+                size: iconStyles.size.pseudo,
+                'vertical-align': 'middle',
+            },
             nav: {
                 content: {
                     background: partial.nav?.content?.background ?? partial.nav?.title?.background ?? 'background',

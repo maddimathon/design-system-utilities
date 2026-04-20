@@ -15,13 +15,13 @@ import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 import { SampleTokens_Json } from '../functions/index.js';
 
 /* import - components */
-import { Toggle as UtilsToggle } from '@maddimathon/utility-astro/components';
+import { ToggleNavMenu as UtilsToggleNavMenu } from '@maddimathon/utility-astro/components';
 
 /* import - layouts */
 
 /* PROPS ===================================== */
 
-type Props = ComponentProps<typeof UtilsToggle> & {
+type Props = ComponentProps<typeof UtilsToggleNavMenu> & {
     tokens?: Tokens.JsonReturn;
 };
 
@@ -35,11 +35,11 @@ const iconSVG =
     '</span>';
 ---
 
-<UtilsToggle
+<UtilsToggleNavMenu
     {...props}
     iconSVG={iconSVG}
     ><slot
         slot='button'
         name='button'
-    /><slot /></UtilsToggle
+    /></UtilsToggleNavMenu
 >
