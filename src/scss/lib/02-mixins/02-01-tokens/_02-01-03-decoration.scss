@@ -66,14 +66,14 @@
 
                 $_borderValue_deunit: math.deunit($_borderValue);
 
-                $_max_multi: math.div(
-                    $_borderValue_deunit * 3 * 16 * $multiplier,
-                    math.deunit(config.$fn_clampHighContrastBorderWidth_max)
+                $_max_multi: calc(
+                    ($_borderValue_deunit * 3 * 16 * $multiplier) /
+                        config.$fn_clampHighContrastBorderWidth_max
                 );
 
-                $_min_multi: math.div(
-                    $_borderValue_deunit * 2 * $multiplier,
-                    math.deunit(config.$fn_clampHighContrastBorderWidth_min)
+                $_min_multi: calc(
+                    ($_borderValue_deunit * 2 * $multiplier) /
+                        config.$fn_clampHighContrastBorderWidth_min
                 );
 
                 @include utils.cx-prop(

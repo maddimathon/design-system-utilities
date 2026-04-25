@@ -1,0 +1,29 @@
+///
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@forward '../demo-config';
+@forward '../../../tokens';
+
+@forward '../header';
+
+@use 'pkg:@maddimathon/utility-sass/meta';
+
+@use '../../../lib' as *;
+
+/* # FUNCTIONS - DECORATIONS
+ * ======================================================================== */
+
+/* ## clamp-high-contrast-border-width ==================================== */
+
+clamp-high-contrast-border-width {
+    @include meta.var-dump(
+        'clamp-high-contrast-border-width( 0.125rem )',
+        clamp-high-contrast-border-width(0.125rem)
+    );
+    @include meta.var-dump(
+        'clamp-high-contrast-border-width( 0.25rem )',
+        clamp-high-contrast-border-width(0.25rem)
+    );
+}

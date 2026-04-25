@@ -60,15 +60,8 @@ export class Compile extends CompileStage {
             maxConcurrent: sassDebugCheckpoints && (this.params.debug || this.params.verbose) ? 1 : 5,
             postCSS: true,
             ...args,
-            srcDir: 'src/scss'
+            srcDir: 'src/scss',
         });
-        if (this.params.packaging || this.params.releasing) {
-            this.console.verbose('tidying up compiled files...', 2);
-            this.try(this.fs.delete, (this.params.verbose ? 3 : 2), [[
-                    'dist/css/template/@template.css',
-                    'dist/css/template/@template.css.map'
-                ], (this.params.verbose ? 3 : 2)]);
-        }
     }
     async tokens() {
         this.console.log('🚨 Compile.tokens substage is not implemented', 1);

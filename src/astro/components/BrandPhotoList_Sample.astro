@@ -1,0 +1,174 @@
+---
+/**
+ * @since ___PKG_VERSION___
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+
+import { CopyToClipboardButton } from '@maddimathon/utility-astro/components';
+import type { TokenTypes } from '../../ts/02-tokens/@types.d.ts';
+import type { Tokens } from '../../ts/02-tokens/Tokens.js';
+
+import type { AllPhotos, AllThumbnails, BrandImageData, BrandPhotoProps, PhotoData } from './BrandPhoto.astro';
+
+/* import - functions */
+
+/* import - values */
+
+/* import - components */
+import BrandPhoto from './BrandPhoto.astro';
+import BrandPhoto_Caption from './BrandPhoto_Caption.astro';
+
+/* import - layouts */
+
+/* TYPES ===================================== */
+
+/* PROPS ===================================== */
+
+// prettier-ignore
+interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
+    defineSize: undefined | boolean;
+    displayHeading: false | number;
+    
+    data: PhotoData<T_Types['photos']['photoSlugs'] | T_Types['photos']['thumbnailSlugs']>;
+
+    includeCaption: undefined | boolean;
+    
+    photos: AllPhotos<T_Types>;
+    thumbnails: AllThumbnails<T_Types>;
+
+    spanColour: Tokens.JsonReturn<T_Types>['themes']['_meta']['keys']['text'][number];
+
+    urlMaker: (currentURL: URL, targetSubpath: string) => string;
+};
+
+const {
+    defineSize,
+    displayHeading,
+    data: { attrs, caption, filepath, image, imagesAll, meta, slug },
+    includeCaption = false, 
+    photos,
+    thumbnails,
+    spanColour,
+    urlMaker,
+}: Props = Astro.props;
+
+/* CONSTANTS ===================================== */
+
+const linkProps = attrs.src ? {
+    href: attrs.src,
+    linkAttrs: {
+        'class:list': [
+            'brand-photo-list__sample__img',
+            `brand-photo-list__sample__img--${slug}`,
+            { 'brand-photo-list__sample__img--hidden-heading': displayHeading === false },
+        ],
+        target: '_blank',
+    },
+    linkLabel: '',
+} : {};
+
+const photoProps = {
+    defineSize,
+    includeCaption,
+    photos,
+    slug,
+    thumbnails,
+    urlMaker,
+    ...linkProps,
+} as BrandPhotoProps;
+---
+
+<BrandPhoto {...photoProps} />
+
+<dl class='brand-photo-list__sample__meta'>
+
+    { displayHeading === false && meta.label && (
+        <dt set:text='Label' />
+        <dd><p set:text={meta.label} /></dd>
+    ) }
+
+    { attrs.alt && (
+        <dt set:text='Alt Text' />
+        <dd><p>{attrs.alt}<span>&NoBreak;&ensp;&NoBreak;</span><CopyToClipboardButton
+            class:list="display-inline"
+            successMessage='copied!'
+            toClipboard={attrs.alt}
+            set:text='copy'
+        /></p></dd>
+    ) }
+
+    { !includeCaption && caption && (
+        <dt set:text='Caption' />
+        <dd>
+            { meta.credit && <p><BrandPhoto_Caption meta={meta} /><span>&NoBreak;&ensp;&NoBreak;</span><CopyToClipboardButton
+                class:list="display-inline"
+                successMessage='copied!'
+                toClipboard={meta.credit}
+                set:text='copy'
+            /></p> }
+        </dd>
+    ) }
+
+    { (meta.credit || meta.attributionRequired || meta.attributionRequired === null) && (
+        <dt set:text='Credit' />
+        <dd>
+            { meta.credit && <p>{meta.credit}<!-- <span>&NoBreak;&ensp;&NoBreak;</span><CopyToClipboardButton
+                class:list="display-inline"
+                successMessage='copied!'
+                toClipboard={meta.credit}
+                set:text='copy'
+            /> --></p> }
+            { typeof meta.attributionRequired !== 'boolean' ? (
+                <p class="aside">This photo’s attribution requirements are unknown.</p>
+            ) : meta.attributionRequired && (
+                <p class="aside">This photo’s license requires attribution.</p>
+            )}
+        </dd>
+    ) }
+
+    { includeCaption && meta.source && (
+        <dt set:text='Source' />
+        <dd><p><a href={meta.source.href} set:text={meta.source.label} target="_blank" /></p></dd>
+    ) }
+
+    <dt set:text='Files' />
+    <dd class='brand-photo-list__sample__links'>
+        { imagesAll ? <dl>{ ( Object.entries(imagesAll) as [ BrandImageData['format'], BrandImageData[] ][]  ).map(
+            ([format, _images]) => (
+                <dt set:text={format} />
+                <dd><ul>{ _images.map( _img => (
+                    <li>
+                        {_img.filepath.replace(/^.*\/([^\/]+\.[a-z][a-z0-9]*)$/gi, '$1')}{' '}<span
+                            class={`color-${spanColour}`}
+                        >({_img.width}&nbsp;x&nbsp;{_img.height})</span>{''}&nbsp;{'— '}<a
+                            href={_img.filepath}
+                            set:text='download'
+                            download
+                        />{''}&nbsp;{'— '}<a
+                            href={_img.filepath}
+                            set:text='view'
+                            target='_blank'
+                        />
+                    </li>
+                ) ) }</ul></dd>
+            )
+        ) }</dl> : (
+            <ul><li>
+                { filepath.replace(/^.*\/([^\/]+\.[a-z][a-z0-9]*)$/gi, '$1') }{' '}<span
+                    class={`color-${spanColour}`}
+                >({image.width}&nbsp;x&nbsp;{image.height})</span>{''}&nbsp;{'— '}<a
+                    href={filepath}
+                    set:text='download'
+                    download
+                />{''}&nbsp;{'— '}<a
+                    href={filepath}
+                    set:text='view'
+                    target='_blank'
+                />
+            </li></ul>
+        ) }
+    </dd>
+</dl>

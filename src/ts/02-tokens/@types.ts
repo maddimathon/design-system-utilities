@@ -158,6 +158,23 @@ export namespace TokenTypes {
     /**
      * @since ___PKG_VERSION___
      */
+    export namespace Photos {
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        export type TypeParams<
+            T_PhotoSlug extends string = string,
+            T_ThumbnailSlug extends string = string,
+        > = {
+            photoSlugs: T_PhotoSlug;
+            thumbnailSlugs: T_ThumbnailSlug;
+        };
+    }
+
+    /**
+     * @since ___PKG_VERSION___
+     */
     export namespace Theme {
 
         /**
@@ -345,10 +362,12 @@ export namespace TokenTypes {
         T_ThemeTypes extends Theme.TypeParams = Theme.TypeParams,
         T_ExtraIconNames extends string = string,
         T_LogoNames extends string = string,
+        T_PhotosTypes extends Photos.TypeParams = Photos.TypeParams,
     > = {
         colour: T_ColourTypes;
         iconNames: T_ExtraIconNames;
         logoNames: T_LogoNames;
+        photos: T_PhotosTypes;
         theme: T_ThemeTypes;
     };
 }

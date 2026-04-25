@@ -213,7 +213,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
             }
 
             + * {
-                margin-block-start: #{var-style(
+                margin-block: #{var-style(
                         alert-headline-margin-block-start,
                         $raw: true,
                         $rawUnit: 1em
@@ -246,14 +246,17 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
                     )
                 {
                     @at-root #{selector.unify(&, $_sel)} {
-                        margin-block-start: #{var-mrg-firm(
-                                style-value(
-                                    heading-#{$num}-margin-block-start,
-                                    $raw: true
-                                )
-                            )};
+                        margin-block-start: var-mrg-firm(
+                            style-value(
+                                heading-#{$num}-margin-block-start,
+                                $raw: true
+                            )
+                        );
 
-                        border-color: #{var-theme(heading-#{$num})};
+                        border-color: var-theme(heading-#{$num});
+                        background: var-style(
+                            alert-heading-#{$num}-background-color
+                        );
 
                         @include _snippet-alert-block-icon {
                             @include cx-prop(

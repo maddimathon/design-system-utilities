@@ -19,8 +19,6 @@
 /// @since ___PKG_VERSION___
 ///
 @mixin snippet-support-skip-links {
-    $_content_exists: meta.content-exists();
-
     // prettier-ignore
     @include utils.snippet-support-skip-links(
         $focus_top: scroll-padding-top-value($margin: var-mrg-firm('400')),
@@ -77,9 +75,7 @@ padding-inline: #{var-style(button-padding-inline)};
             @include snippet-button-colour-single-state(active);
         }
 
-        @if $_content_exists {
-            @content ($location);
-        }
+        @content ($location);
     }
 
     // %skip-link {

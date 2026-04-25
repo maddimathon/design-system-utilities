@@ -3,7 +3,7 @@
 'use strict';
 /*
  * @package @maddimathon/design-system-utilities
- * @author Maddi Mathon (www.maddimathon.com)
+ * @author Maddi Mathon (www.maddimathon.com/web)
  * 
  * @license MIT
  */

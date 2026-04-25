@@ -5,9 +5,11 @@
 
 @use 'pkg:@maddimathon/utility-sass/feature-check';
 @use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/meta';
 @use 'pkg:@maddimathon/utility-sass/selector';
 @use 'pkg:@maddimathon/utility-sass/string';
 
+@use '../../config';
 @use '../../tokens';
 
 @use '../01-functions' as *;
@@ -161,6 +163,7 @@ $_defaultHeadingSelectors_greaterThan6: ();
     $headingSelectors: $_defaultHeadingSelectors;
     $headingSelectors_bigOnly: $_defaultHeadingSelectors_bigOnly;
 
+    $control_marginBlockEnd: var-style(toggle-control-margin-block-end);
     $control_paddingBlockEnd: var-style(toggle-control-padding-block-end);
 
     $headingSelectors_unstyled: ();
@@ -231,11 +234,35 @@ $_defaultHeadingSelectors_greaterThan6: ();
             &:has(> .toggle-title [data-toggle-control]:focus-visible),
             &:has(> .toggle-title [data-toggle-control]:hover) {
                 @include cx-prop(toggle-border-color, var-theme(link-ui-hover));
+                
+                @content(#{$location}--has-control-focus-or-hover);
             }
 
             // HAS BUTTON ACTIVE
-            &:has(> .toggle-title [data-toggle-control]:active) {
-                @include cx-prop(toggle-border-color, var-theme(link-ui-active));
+            $_has_control_active_select: (#{selector.nest(
+                '> .toggle-title ',
+                selector.unify('[data-toggle-control]', config.$mx_interactiveStates_selector_active)
+            )});
+
+            @if config.$mx_interactiveStates_selector_active_separate {
+                &:has(> .toggle-title [data-toggle-control]:active) {
+                    @include cx-prop(toggle-border-color, var-theme(link-ui-active));
+                
+                    @content(#{$location}--has-control-active);
+                }
+        
+                &:has(#{$_has_control_active_select}) {
+                    @include cx-prop(toggle-border-color, var-theme(link-ui-active));
+                
+                    @content(#{$location}--has-control-active);
+                }
+            } @else {
+                &:has(> .toggle-title [data-toggle-control]:active),
+                &:has(#{$_has_control_active_select}) {
+                    @include cx-prop(toggle-border-color, var-theme(link-ui-active));
+                
+                    @content(#{$location}--has-control-active);
+                }
             }
         }
 
@@ -292,7 +319,7 @@ $_defaultHeadingSelectors_greaterThan6: ();
                     content: none;
                 }
 
-                @include hover-focus-visible-or-within('&:active') {
+                @include hover-focus-visible-or-within($includeActive: true) {
                     @include cx-prop(icon-color, style-value(icon-color));
     
                     border: none;
@@ -346,7 +373,7 @@ $_defaultHeadingSelectors_greaterThan6: ();
                     @content(#{$location}--after);
                 }
     
-                @include hover-focus-visible-or-within('&:active') {
+                @include hover-focus-visible-or-within($includeActive: true) {
                     border: none;
                     background: none;
                     color: inherit;
@@ -365,6 +392,7 @@ $_defaultHeadingSelectors_greaterThan6: ();
             cursor: pointer;
 
             @if $location == js--toggle-control {
+                margin-block-end: #{$control_marginBlockEnd};
                 padding-block-end: #{$control_paddingBlockEnd};
 
                 @include cx-prop(
@@ -492,7 +520,7 @@ $_defaultHeadingSelectors_greaterThan6: ();
                         @content(#{$location}--all-headings--control--hover-focus);
                     }
 
-                    &:active {
+                    @include active {
                         @include cx-prop(
                             focus-ring-outline-color,
                             var-theme(link-outline-active)
@@ -510,6 +538,7 @@ $_defaultHeadingSelectors_greaterThan6: ();
                     @content(#{$location}--h#{$slug});
 
                     [data-toggle-control] {
+                        margin-block-end: #{var-style(toggle-control-heading-#{$slug}-margin-block-end)};
                         padding-block-end: #{var-style(toggle-control-heading-#{$slug}-padding-block-end)};
                         color: #{var-theme(heading-#{$slug})};
                         
@@ -524,6 +553,7 @@ $_defaultHeadingSelectors_greaterThan6: ();
                 @content(#{$location}--unstyled-heading);
                 
                 [data-toggle-control] {
+                    margin-block-end: #{$control_marginBlockEnd};
                     padding-block-end: #{$control_paddingBlockEnd};
 
                     @content(#{$location}--unstyled-heading--control);
@@ -675,6 +705,12 @@ $_defaultHeadingSelectors_greaterThan6: ();
             border-block-end-color: #{do-var(toggle-border-color, var-theme(link-ui))};
             
             background: #{var-style(toggle-nav-title-background)};
+            
+            @content ($location);
+        }
+
+        @else if $location == js--body-nav-toggle-title--control {
+            margin-block: 0;
             
             @content ($location);
         }

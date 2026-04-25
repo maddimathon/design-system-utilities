@@ -58,7 +58,7 @@
     & {
         @include snippet-button-colour-single-state('$', $variation);
 
-        @content ( 'root' );
+        @content ( 'root-colours' );
     }
 
     &:hover {
@@ -73,7 +73,7 @@
         @content ( 'focus' );
     }
 
-    &:active {
+    @include active {
         @include snippet-button-colour-single-state('active', $variation);
 
         @content ( 'active' );
@@ -336,7 +336,7 @@
             @content ('hover');
         }
 
-        &:active {
+        @include active {
             @content ('active');
         }
     }
@@ -504,29 +504,21 @@
         }
     } @else {
         & {
-            @if $_content_exists {
-                @content ( 'root' );
-            }
+            @content ( 'root' );
         }
 
         @include focus-visible-or-within {
             border-style: solid;
 
-            @if $_content_exists {
-                @content ( 'focus' );
-            }
+            @content ( 'focus' );
         }
 
         &:hover {
-            @if $_content_exists {
-                @content ( 'hover' );
-            }
+            @content ( 'hover' );
         }
 
-        &:active {
-            @if $_content_exists {
-                @content ( 'active' );
-            }
+        @include active {
+            @content ( 'active' );
         }
     }
 
@@ -546,7 +538,7 @@
 /// @since ___PKG_VERSION___
 ///
 @mixin snippet-button-inline(
-    $variation: tokens.$button_inline_variation_default,
+    $variation: null,
     //
     $includeColors: $variation != null,
     $includeBaseProps: false,
@@ -564,12 +556,17 @@
     $paddingInline: null,
     $width: null
 ) {
-    $display: if($display, $display, inline-block);
-    $fontStyle: if($fontStyle, $fontStyle, var-style(button-inline-font-style));
-    $paddingBlock: if($paddingBlock, $paddingBlock, var-style(button-inline-padding-block));
-    $paddingInline: if($paddingInline, $paddingInline, var-style(button-inline-padding-inline));
+    $display: if($display != null, $display, inline);
+    $fontStyle: if($fontStyle != null, $fontStyle, var-style(button-inline-font-style));
 
-    $_content_exists: meta.content-exists();
+    $paddingBlock: if($paddingBlock != null, $paddingBlock, var-style(button-inline-padding-block));
+    $paddingInline: if(
+        $paddingInline != null,
+        $paddingInline,
+        var-style(button-inline-padding-inline)
+    );
+
+    $variation: if($variation != null, $variation, tokens.$button_inline_variation_default);
 
     @include cx-prop(focus-ring-outline-offset, var-style(button-inline-focus-offset));
 
@@ -600,6 +597,8 @@
         @include _snippet-button-base;
     }
 
+    width: if($width, $width, var-style(button-inline-width));
+
     margin-block-start: 0;
 
     padding-block: #{$paddingBlock};
@@ -619,11 +618,9 @@
 
     text-transform: #{var-style(button-inline-text-transform)};
 
-    width: #{if($width, $width, var-style(button-inline-width))};
+    vertical-align: #{var-style(button-inline-vertical-align)};
 
-    @if $_content_exists {
-        @content ( 'root' );
-    }
+    @content ( 'root' );
 
     @if $includeColors and $variation != null {
         @include snippet-button-colours($variation) using ($location) {
@@ -631,21 +628,15 @@
         }
     } @else {
         @include hover-focus-visible-or-within {
-            @if $_content_exists {
-                @content ( 'focus' );
-            }
+            @content ( 'focus' );
         }
 
         &:hover {
-            @if $_content_exists {
-                @content ( 'hover' );
-            }
+            @content ( 'hover' );
         }
 
-        &:active {
-            @if $_content_exists {
-                @content ( 'active' );
-            }
+        @include active {
+            @content ( 'active' );
         }
     }
 
@@ -721,7 +712,7 @@
             border-color: #{$borderClr_hover};
         }
 
-        &:active {
+        @include active {
             border-color: #{$borderClr_active};
         }
     }
@@ -799,7 +790,7 @@
         }
     }
 
-    &:active {
+    @include active {
         @include cx-prop(focus-ring-outline-color, $accentClr_active);
         background-color: #{$background_active};
         border-color: #{$borderClr_active};
@@ -1117,7 +1108,7 @@
             color: #{$box_accentClr_focus};
         }
 
-        &:active {
+        @include active {
             accent-color: #{$box_accentClr_active};
             color: #{$box_accentClr_active};
         }
@@ -1137,7 +1128,7 @@
                 color: #{$box_accentClr_disabled_focus};
             }
 
-            &:active {
+            @include active {
                 accent-color: #{$box_accentClr_disabled_active};
                 color: #{$box_accentClr_disabled_active};
             }
@@ -1157,7 +1148,7 @@
                 color: #{$box_accentClr_readonly_focus};
             }
 
-            &:active {
+            @include active {
                 accent-color: #{$box_accentClr_readonly_active};
                 color: #{$box_accentClr_readonly_active};
             }

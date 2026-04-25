@@ -2,7 +2,7 @@
 // @ts-check
 /*
  * @package @maddimathon/design-system-utilities
- * @author Maddi Mathon (www.maddimathon.com)
+ * @author Maddi Mathon (www.maddimathon.com/web)
  * 
  * @license MIT
  */
@@ -52,6 +52,8 @@ const config = {
             tidyGlobs: [
                 '**/tsconfig.tsbuildinfo',
                 'types/**/*.js',
+                'dist/ts/02-tokens/_Tokens_TEMPLATE.d.ts',
+                'dist/ts/02-tokens/_Tokens_TEMPLATE.js',
             ],
         },
     },
@@ -75,6 +77,20 @@ const config = {
                         js: undefined,
                         ts: undefined,
                         yaml: undefined,
+                    };
+                },
+
+                replace: ( _stage ) => {
+
+                    const __def = _defaults.build.replace( _stage );
+
+                    return {
+                        ...__def,
+
+                        ignore: [
+                            ...( __def.ignore ?? [] ),
+                            '**/_Tokens_TEMPLATE.ts',
+                        ],
                     };
                 },
             },

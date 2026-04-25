@@ -121,7 +121,7 @@ export declare namespace Tokens_CSS_Style {
                 style: "normal" | "italic";
                 weight: WholeTokenLevel;
             };
-            'line-height': AnyTokenLevel;
+            'line-height': CSS.LineHeight;
             /**
              * Value for the first item after an icon (to be in em). Gets
              * overruled if that item is a heading.
@@ -142,7 +142,7 @@ export declare namespace Tokens_CSS_Style {
              */
             size: Omit<IconStyles['size'], 'font' | 'pseudo'>;
         };
-        'line-height': AnyTokenLevel;
+        'line-height': CSS.LineHeight;
         /**
          * Values for the set-flow-margins mixin.
          */
@@ -158,6 +158,10 @@ export declare namespace Tokens_CSS_Style {
      * @since 0.1.0-beta.0.draft
      */
     type AlertStyles_Heading = {
+        /**
+         * This should be a theme slug.
+         */
+        'background-color': string;
         /**
          * Values for the inner heading after an icon (to be in em).
          */
@@ -210,7 +214,7 @@ export declare namespace Tokens_CSS_Style {
             size: Omit<IconStyles['size'], '$' | 'large'>;
         };
         'letter-spacing': string;
-        'line-height': AnyTokenLevel;
+        'line-height': CSS.LineHeight;
         margin: {
             block: {
                 start: "0" | AnyTokenLevel;
@@ -239,6 +243,7 @@ export declare namespace Tokens_CSS_Style {
      */
     type ButtonStyles_Inline = Omit<ButtonStyles, 'border' | 'display' | 'margin'> & {
         border: Omit<ButtonStyles['border'], 'width'>;
+        'vertical-align': string;
     };
     /**
      * CSS allowed value types.
@@ -247,6 +252,10 @@ export declare namespace Tokens_CSS_Style {
      */
     namespace CSS {
         type TextTransform = "none" | "capitalize" | "uppercase" | "lowercase" | "full-width" | "full-size-kana" | "math-auto";
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        type LineHeight = number | AnyTokenLevel;
     }
     /**
      * The flow margins to be included in various other styles for the
@@ -270,7 +279,7 @@ export declare namespace Tokens_CSS_Style {
             weight: WholeTokenLevel;
         };
         'letter-spacing': string;
-        'line-height': AnyTokenLevel;
+        'line-height': CSS.LineHeight;
         'text-transform': CSS.TextTransform;
         margin: {
             block: {
@@ -319,7 +328,7 @@ export declare namespace Tokens_CSS_Style {
                 start: number;
                 end: number;
             };
-            'line-height': number | `${number}em` | 'normal';
+            'line-height': 'normal' | Exclude<CSS.LineHeight, AnyTokenLevel>;
         };
         pseudo: {
             top: `${number}em`;
@@ -367,9 +376,9 @@ export declare namespace Tokens_CSS_Style {
                 style: "normal" | "italic";
                 weight: WholeTokenLevel;
             };
-            'line-height': AnyTokenLevel;
+            'line-height': CSS.LineHeight;
         };
-        'line-height': AnyTokenLevel;
+        'line-height': CSS.LineHeight;
         margin: {
             block: {
                 start: AnyTokenLevel;
@@ -438,7 +447,7 @@ export declare namespace Tokens_CSS_Style {
                 };
                 width: AnyTokenLevel;
             };
-            'line-height': AnyTokenLevel;
+            'line-height': CSS.LineHeight;
             padding: {
                 block: AnyTokenLevel;
                 inline: AnyTokenLevel;
@@ -449,6 +458,11 @@ export declare namespace Tokens_CSS_Style {
          */
         control: {
             $: {
+                margin: {
+                    block: {
+                        end: '0' | AnyTokenLevel;
+                    };
+                };
                 padding: {
                     block: {
                         end: '0' | AnyTokenLevel;
@@ -509,6 +523,11 @@ export declare namespace Tokens_CSS_Style {
      * @since 0.1.0-beta.0.draft
      */
     type ToggleStyles_ControlHeading = {
+        margin: {
+            block: {
+                end: '0' | AnyTokenLevel;
+            };
+        };
         padding: {
             block: {
                 end: '0' | AnyTokenLevel;
@@ -532,7 +551,7 @@ export declare namespace Tokens_CSS_Style {
             style: string;
             width: AnyTokenLevel;
         };
-        'line-height': AnyTokenLevel;
+        'line-height': CSS.LineHeight;
         /**
          * Values for the set-flow-margins mixin.
          */

@@ -7,8 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
-import type { internal as buildUtils_internal } from '@maddimathon/build-utilities';
-import { type MessageMaker } from '@maddimathon/utility-typescript';
+import { AbstractError } from '@maddimathon/build-utilities/internal';
 /**
  * Utilities for errors thrown within this package.
  *
@@ -19,7 +18,7 @@ export declare namespace LocalErrors {
     /**
      * @since 0.1.0-beta.0.draft
      */
-    type Cause = buildUtils_internal.AbstractError.Input | Error;
+    type Cause = AbstractError.Input | Error;
     /**
      * Object used to give context for where this error was triggered.
      *
@@ -67,48 +66,14 @@ export declare namespace LocalErrors {
      *
      * @since 0.1.0-beta.0.draft
      */
-    abstract class Abst_Error<T_CauseType extends Cause = any> extends Error {
-        readonly context: Context;
+    abstract class Abst_Error<T_CauseType extends Cause = any> extends AbstractError {
         protected readonly opts?: undefined | {
-            cause?: T_CauseType;
+            cause?: undefined | T_CauseType;
         };
         abstract readonly name: string;
-        readonly cause?: unknown;
         constructor(message: string, context: Context, opts?: undefined | {
-            cause?: T_CauseType;
+            cause?: undefined | T_CauseType;
         });
-        /**
-         * Gets a detailed output message for error handlers.
-         */
-        getOutput(): MessageMaker.BulkMsgs;
-        /**
-         * The object shape used when converting to JSON.
-         *
-         * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#description | JSON.stringify}
-         */
-        toJSON(): {
-            name: string;
-            message: string;
-            context: Context;
-            cause: unknown;
-            stack: string | undefined;
-            string: string;
-        };
-        /**
-         * Overrides the default function to return a string representation of this
-         * object.
-         *
-         * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/toString | Object.prototype.toString()}
-         * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/toString | Error.prototype.toString()}
-         */
-        toString(): string;
-        /**
-         * Overrides the default function to return an object representation of this
-         * object.
-         *
-         * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/valueOf | Object.prototype.valueOf()}
-         */
-        valueOf(): ReturnType<typeof this.toJSON>;
     }
     /**
      * Used to throw errors while in the {@link ColourUtilities} namespace.

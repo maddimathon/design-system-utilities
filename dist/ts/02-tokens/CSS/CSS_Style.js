@@ -84,9 +84,10 @@ export class Tokens_CSS_Style extends AbstractTokens {
     static async alertStyle(iconStyles, partial = {}) {
         const headingMaker = (num) => {
             const style = {
+                'background-color': 'background-primary',
                 margin: {
                     block: {
-                        start: 0.21875,
+                        start: 0.1875,
                         end: 0,
                     },
                 },
@@ -94,6 +95,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
             // returns
             if (num === 'unstyled') {
                 return {
+                    'background-color': partial.heading?.[num]?.['background-color'] ?? style['background-color'],
                     margin: {
                         block: {
                             start: partial.heading?.[num]?.margin?.block.start ?? style.margin.block.start,
@@ -106,26 +108,34 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 style.margin.block.start = 0;
             }
             if (num >= 2) {
+                style.margin.block.start = 0.03125;
+            }
+            if (num >= 3) {
                 style.margin.block.start = 0.0625;
             }
-            // if ( num >= 3 ) {
-            // }
-            // if ( num >= 4 ) {
-            // }
+            if (num >= 4) {
+                style.margin.block.start = 0.09375;
+            }
             // if ( num >= 5 ) {
             // }
-            // if ( num >= 6 ) {
-            // }
-            // if ( num >= 7 ) {
-            // }
+            if (num >= 6) {
+                style.margin.block.start = 0.0625;
+            }
+            if (num >= 7) {
+                style.margin.block.start = 0.03125;
+                style['background-color'] = 'background-secondary';
+            }
             // if ( num >= 8 ) {
             // }
             if (num >= 9) {
                 style.margin.block.start = 0;
+                style['background-color'] = 'background-grey';
             }
-            // if ( num >= 10 ) {
-            // }
+            if (num >= 10) {
+                style.margin.block.start = 0.03125;
+            }
             return {
+                'background-color': partial.heading?.[num]?.['background-color'] ?? style['background-color'],
                 margin: {
                     block: {
                         start: partial.heading?.[num]?.margin?.block.start ?? style.margin.block.start,
@@ -136,7 +146,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
         };
         const heading = mergeArgs(objectGenerator([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'unstyled'], headingMaker), deleteUndefinedProps(partial.heading ?? {}), true);
         return mergeArgs({
-            background: 'background',
+            background: 'background-primary',
             border: {
                 color: 'ui-primary',
                 radius: '0',
@@ -154,7 +164,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 'line-height': '200',
                 margin: {
                     block: {
-                        start: 0.0625,
+                        start: 0.1875,
                     },
                 },
             },
@@ -291,6 +301,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 },
                 'text-transform': style['text-transform'],
                 width: style.width,
+                'vertical-align': 'baseline',
             }, partial?.inline ?? {}, true),
         };
     }
@@ -384,7 +395,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
         return mergeArgs({
             color: 'ui',
             font: {
-                top: '0.15625em',
+                top: '0.1875em',
             },
             inline: {
                 buffer: {
@@ -538,6 +549,11 @@ export class Tokens_CSS_Style extends AbstractTokens {
         };
         const headingMaker = (num) => {
             const style = {
+                margin: {
+                    block: {
+                        end: '0',
+                    },
+                },
                 padding: {
                     block: {
                         end: '200',
@@ -547,6 +563,11 @@ export class Tokens_CSS_Style extends AbstractTokens {
             // returns
             if (num === 'unstyled') {
                 return {
+                    margin: {
+                        block: {
+                            end: partial.control?.$?.margin?.block?.end ?? style.margin.block.end,
+                        },
+                    },
                     padding: {
                         block: {
                             end: partial.control?.$?.padding?.block?.end ?? style.padding.block.end,
@@ -576,6 +597,11 @@ export class Tokens_CSS_Style extends AbstractTokens {
             // if ( num >= 10 ) {
             // }
             return {
+                margin: {
+                    block: {
+                        end: partial.control?.heading?.[num]?.margin?.block?.end ?? style.margin.block.end,
+                    },
+                },
                 padding: {
                     block: {
                         end: partial.control?.heading?.[num]?.padding?.block?.end ?? style.padding.block.end,
@@ -605,6 +631,11 @@ export class Tokens_CSS_Style extends AbstractTokens {
         };
         const control = {
             $: {
+                margin: {
+                    block: {
+                        end: partial.control?.$?.margin?.block?.end ?? defaultControl.margin.block.end,
+                    },
+                },
                 padding: {
                     block: {
                         end: partial.control?.$?.padding?.block?.end ?? defaultControl.padding.block.end,

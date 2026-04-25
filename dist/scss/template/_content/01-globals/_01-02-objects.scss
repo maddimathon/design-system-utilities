@@ -57,8 +57,7 @@ $_print_flowMargins: map.get(config.$template_styles, flowMargins);
         }
     }
 
-    %img,
-    %figure,
+    %image,
     %svg {
         margin-inline: 0;
         max-width: 100%;
@@ -68,8 +67,11 @@ $_print_flowMargins: map.get(config.$template_styles, flowMargins);
         }
     }
 
-    %img,
-    %figure {
+    %img {
         object-fit: cover;
+    }
+
+    %figcaption {
+        font-size: var-fs(smaller-1);
     }
 }

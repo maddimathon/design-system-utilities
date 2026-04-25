@@ -38,12 +38,14 @@ interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
     inlinePreviews?: boolean;
     inlinePreviews_defaultOpen?: boolean;
     logoAlerts?: boolean;
+    buttonColour?: Tokens.JsonReturn<T_Types>['themes']['_meta']['keys']['button'][number];
     subheadingDisplayHeading?: number;
     tokens: Tokens.JsonReturn<T_Types>;
 }
 
 const {
     alignmentIcon,
+    buttonColour = 'grey',
     defaultIcon,
     inlinePreviews = import.meta.env.DEV,
     inlinePreviews_defaultOpen = import.meta.env.DEV,
@@ -193,7 +195,7 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
                             class='screen-reader-text'
                             set:text={icon.slug}
                         />
-                        <ul class='button-span tokens-demo-all-icons-inline--icon-list'>
+                        <ul class={'button-span tokens-demo-all-icons-inline--icon-list' + ( import.meta.env.DEV ? ' font-size-heading-5' : '' )}>
                             {/* <li
                                 class={`add-${icon.slug}-icon`}
                                 set:text={`${icon.label} Default`}
@@ -325,7 +327,7 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
                 { icon.meta?.codepoint && <p class="aside">font glyph: <samp
                     set:text={`U+${icon.meta.codepoint.toString(16).toUpperCase()}`}
                 />&NoBreak;&ensp;<CopyToClipboardButton
-                    class:list="button-grey display-inline"
+                    class:list={`button-${buttonColour} display-inline`}
                     successMessage='copied!'
                     toClipboard={String.fromCharCode(icon.meta.codepoint)}
                     set:text='copy'
@@ -354,7 +356,7 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
                         { icon.meta?.codepoint && <p class="aside">font glyph: <samp
                             set:text={`U+${icon.meta.codepoint.toString(16).toUpperCase()}`}
                         />&NoBreak;&ensp;<CopyToClipboardButton
-                            class:list="button-grey display-inline"
+                            class:list={`button-${buttonColour} display-inline`}
                             successMessage='copied!'
                             toClipboard={String.fromCharCode(icon.meta.codepoint)}
                             set:text='copy'
@@ -385,7 +387,7 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
                         { icon.meta?.codepoint && <p class="aside">font glyph: <samp
                             set:text={`U+${icon.meta.codepoint.toString(16).toUpperCase()}`}
                         />&NoBreak;&ensp;<CopyToClipboardButton
-                            class:list="button-grey display-inline"
+                            class:list={`button-${buttonColour} display-inline`}
                             successMessage='copied!'
                             toClipboard={String.fromCharCode(icon.meta.codepoint)}
                             set:text='copy'

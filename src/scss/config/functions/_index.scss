@@ -59,10 +59,10 @@
                     normalize: false,
                     reset: $include_html and $isTemplate,
                     searchForm: $template_utils,
-                    skipLinks: (
-                        $template_astro or $template_globals or $template_utils,
-                    )
-                    and $include_html,
+                    skipLinks: $include_html and
+                        (
+                            $template_astro or $template_globals or $template_utils,
+                        ),
                     //
                     sidebarWidgets: $template_astro or $template_docs,
                     siteSettingsMenu: $template_astro,

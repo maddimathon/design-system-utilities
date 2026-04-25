@@ -20,6 +20,7 @@ import { Tokens_Spacing } from './Tokens_Spacing.js';
 import { Tokens_Themes } from './Tokens_Themes.js';
 import { Tokens_Themes_Set } from './Themes/Themes_Set.js';
 import { Tokens_Typography } from './Tokens_Typography.js';
+import { Tokens_Photos } from './Tokens_Photos.js';
 /**
  * Internal utilities available for documentation but not meant to be public.
  *
@@ -50,6 +51,7 @@ export declare class Tokens<T_Types extends TokenTypes.TypeParams = TokenTypes.T
     readonly css: Tokens_CSS;
     readonly icons: Tokens_Icons<T_Types['iconNames']>;
     readonly logos: Tokens_Logos<T_Types['logoNames']>;
+    readonly photos: Tokens_Photos<T_Types['photos']>;
     readonly spacing: Tokens_Spacing;
     readonly themes: Tokens_Themes<T_Types['colour'], T_Types['theme']>;
     readonly typography: Tokens_Typography<string>;
@@ -63,10 +65,11 @@ export declare class Tokens<T_Types extends TokenTypes.TypeParams = TokenTypes.T
     protected constructor(name: string, colourOpts: {
         names: TokenTypes.Colour.GenericNameArray<T_Types['colour']['names']>;
         allLevels: Set<ColourUtilities.Levels.Required | T_Types['colour']['extraLevels']>;
-    }, { colour, css, icons, themes }: {
+    }, { colour, css, icons, photos, themes }: {
         colour: Tokens_Colour<T_Types['colour']>;
         css: Tokens_CSS;
         icons: Tokens_Icons<T_Types['iconNames']>;
+        photos: Tokens_Photos<T_Types['photos']>;
         themes: Tokens_Themes<T_Types['colour'], T_Types['theme']>;
     }, input: Omit<Tokens_Internal.InputParam<T_Types>, "colour" | "themes">, config?: Tokens_Internal.Config);
     toJSON(): Tokens_Internal.JsonReturn<T_Types>;
@@ -90,11 +93,12 @@ export declare namespace Tokens_Internal {
         css: Tokens_CSS.Data;
         icons: Tokens_Icons.Data<T_Types['iconNames']>;
         logos: Tokens_Logos.Data<T_Types['logoNames']>;
+        photos: Tokens_Photos.Data<T_Types['photos']>;
         spacing: Tokens_Spacing.Data;
         themes: Tokens_Themes.Data<T_Types['colour'], T_Types['theme']>;
         typography: Tokens_Typography.Data<string>;
     };
-    interface InputParam<T_Types extends TokenTypes.TypeParams> {
+    interface InputParam<T_Types extends TokenTypes.TypeParams> extends Tokens_Photos.InputParam<T_Types['photos']> {
         name: string;
         colour: Tokens_Colour.InputParam<T_Types['colour']>;
         css?: undefined | Tokens_CSS.InputParam;
@@ -117,8 +121,8 @@ export declare namespace Tokens_Internal {
         spacing: Tokens_Spacing.JsonReturn;
         themes: Tokens_Themes.JsonReturn<T_Types['colour'], T_Types['theme']>;
         typography: Tokens_Typography.JsonReturn<string>;
-    };
-    type ScssVars<T_Types extends TokenTypes.TypeParams> = Tokens_CSS.ScssVars & Tokens_Spacing.ScssVars & Tokens_Typography.ScssVars<string> & {
+    } & Tokens_Photos.JsonReturn<T_Types['photos']>;
+    type ScssVars<T_Types extends TokenTypes.TypeParams> = Tokens_CSS.ScssVars & Tokens_Spacing.ScssVars & Tokens_Photos.ScssVars<T_Types['photos']> & Tokens_Typography.ScssVars<string> & {
         name: string;
         colour: Tokens_Colour.ScssVars<T_Types['colour']>;
         icons: Tokens_Icons.ScssVars<T_Types['iconNames']>;
@@ -135,7 +139,7 @@ export declare namespace Tokens {
     /**
      * @since 0.1.0-alpha
      */
-    export function sample(input?: Partial<Tokens_Internal.InputParam<TokenTypes.TypeParams>>, config?: Partial<Tokens.Config<NoInfer<TokenTypes.TypeParams['colour']['extraLevels']>>>): Promise<Tokens<TokenTypes.TypeParams>>;
+    export function sample(input?: Partial<Tokens_Internal.InputParam<TokenTypes.TypeParams>>, config?: Partial<Tokens.Config<TokenTypes.TypeParams['colour']['extraLevels']>>): Promise<Tokens<TokenTypes.TypeParams>>;
     /**
      * Configuration options for the {@link Tokens} class.
      *

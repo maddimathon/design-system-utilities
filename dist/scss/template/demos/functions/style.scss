@@ -1,0 +1,33 @@
+///
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@forward '../demo-config';
+@forward '../../../tokens';
+
+@forward '../header';
+
+@use 'pkg:@maddimathon/utility-sass/meta';
+
+@use '../../../lib' as *;
+
+/* # FUNCTIONS - STYLE
+ * ======================================================================== */
+
+/* ## style-is-flow-margin ==================================== */
+
+style-is-flow-margin {
+    @include meta.var-dump(
+        'style-is-flow-margin( flow-margin )',
+        style-is-flow-margin(flow-margin)
+    );
+    @include meta.var-dump(
+        'style-is-flow-margin( alert-flow-margin-small )',
+        style-is-flow-margin(alert-flow-margin-small)
+    );
+    @include meta.var-dump(
+        'style-is-flow-margin( button-font-style )',
+        style-is-flow-margin(button-font-style)
+    );
+}

@@ -1,0 +1,26 @@
+///
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@forward '../demo-config';
+@forward '../../../tokens';
+
+@forward '../header';
+
+@use 'pkg:@maddimathon/utility-sass/meta';
+
+@use '../../../lib' as *;
+
+/* # FUNCTIONS - ANIMATION
+ * ======================================================================== */
+
+/* ## transition-properties-value ==================================== */
+
+transition-properties-value {
+    @include meta.var-dump('transition-properties-value()', transition-properties-value());
+    @include meta.var-dump(
+        'transition-properties-value( true )',
+        transition-properties-value(true)
+    );
+}

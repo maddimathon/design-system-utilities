@@ -1,0 +1,211 @@
+///
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'lib';
+@use 'lib/config';
+
+@use 'pkg:@maddimathon/utility-sass/math';
+@use 'pkg:@maddimathon/utility-sass/selector';
+
+/* # BRAND PHOTO LIST ==================================== */
+
+$_img_maxWidth: 20rem;
+
+$_container_blockGap: lib.var-gap-block(layout-half);
+
+$_sel_img: (
+    '.brand-photo-list__sample__img',
+    selector.unify('.brand-photo-list__sample__img', 'a[href]')
+);
+
+.brand-photo-list__container {
+    &--flex {
+        @include lib.prop-display(flex);
+        @include lib.snippet-content-flex-container(
+            $alignment: (
+                justify-content: start,
+            ),
+            $direction: row,
+            $gap: 0 lib.do-var(flow-margin-firm-start)
+        );
+    }
+}
+
+.brand-photo-list__sample-container {
+    line-height: lib.var-style(widget-line-height);
+
+    @include lib.set-flow-margins-by-token(
+        $default: widget-flow-margin,
+        $large: widget-flow-margin-large,
+        $small: widget-flow-margin-small,
+        $buttonGapBlock: widget-flow-margin-button
+    );
+
+    dt,
+    dd {
+        // margin-inline: 0;
+    }
+
+    dt {
+        @each $num in lib.token-all-heading-levels() {
+            //
+            $slug: $num;
+
+            @if $slug == title {
+                $num: 1;
+                $slug: '1';
+            }
+
+            $_sel: if($num == 1, ('%h#{$num}', '%title'), '%h#{$num}');
+
+            @at-root #{selector.unify(&, $_sel)} {
+                margin-block-start: lib.var-style(heading-#{$slug}-margin-block-start);
+                margin-block-end: lib.var-style(heading-#{$slug}-margin-block-end);
+            }
+
+            @at-root #{selector.unify(&, #{$_sel}--where)} {
+                margin-block-start: lib.var-style(heading-#{$slug}-margin-block-start);
+                margin-block-end: lib.var-style(heading-#{$slug}-margin-block-end);
+            }
+        }
+    }
+}
+
+#{$_sel_img} {
+    @include lib.prop-display(block);
+
+    margin-block: lib.do-var(flow-margin-firm-start) lib.do-var(flow-margin-firm-end--large);
+
+    width: fit-content;
+    max-width: min($_img_maxWidth, 100%);
+
+    img,
+    figure,
+    svg {
+        @include lib.prop-display(block);
+
+        margin-block: 0;
+        margin-inline: 0;
+        padding: 0;
+
+        // width: 100%;
+        // height: auto;
+        max-height: 24rem;
+
+        .brand-photo-list__sample-container--flex & {
+        }
+    }
+}
+
+#{selector.replace(#{$_sel_img}, '.brand-photo-list__sample__img', '.brand-photo-list__sample__img--hidden-heading')} {
+    margin-block-start: lib.do-var(flow-margin-firm-start--large);
+
+    img,
+    figure,
+    svg {
+    }
+}
+
+.brand-photo-list__sample__meta {
+    @include lib.prop-display(flex);
+    @include lib.snippet-content-flex-container;
+
+    dt {
+    }
+
+    > dd {
+        // margin-inline-start: lib.var-gap-inline(tab);
+        line-height: lib.var-style(alert-line-height);
+
+        @include lib.set-flow-margins-by-token(
+            $default: alert-flow-margin,
+            $large: alert-flow-margin-large,
+            $small: alert-flow-margin-small,
+            $buttonGapBlock: alert-flow-margin-button
+        );
+    }
+
+    .brand-photo-list__sample__links {
+        @include lib.prop-display(flex);
+        @include lib.snippet-content-flex-container;
+
+        // margin-block: lib.var-style(flow-margin-small) 0;
+        // margin-inline: 0;
+
+        // list-style: disc;
+
+        li {
+            // margin: 0;
+        }
+
+        > :first-child,
+        > ol > :first-child,
+        > ul > :first-child {
+            // margin-block-start: 0;
+        }
+    }
+}
+
+$_img_maxWidth_unitless: math.deunit($_img_maxWidth);
+
+@include lib.min-width($_img_maxWidth_unitless * 1.875) {
+    //
+    .brand-photo-list__container:not(.brand-photo-list__container--flex) {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax($_img_maxWidth * 0.6875, auto));
+        grid-auto-rows: auto;
+
+        @include lib.snippet-content-grid-alignment(
+            (
+                justify-content: space-between,
+            )
+        );
+
+        list-style: none;
+
+        margin-block: 0;
+        margin-inline: 0;
+
+        padding: 0;
+        gap: 0 lib.do-var(flow-margin-firm-start);
+    }
+
+    .brand-photo-list__sample-container {
+        grid-column: auto;
+
+        @include lib.prop-display(flex);
+        @include lib.snippet-content-flex-container;
+
+        > :last-child {
+            margin-block-end: 0;
+        }
+    }
+
+    #{$_sel_img} {
+        max-width: 100%;
+    }
+}
+
+.brand-photo-list__container:not(.brand-photo-list__container--flex) {
+    @include lib.min-width($_img_maxWidth_unitless * 2.5) {
+        grid-template-columns: repeat(auto-fill, minmax($_img_maxWidth * 0.9375, auto));
+
+        gap: 0 lib.var-gap-inline(tab);
+    }
+
+    @include lib.min-width($_img_maxWidth_unitless * 3.25) {
+        grid-template-columns: repeat(auto-fill, minmax($_img_maxWidth, auto));
+    }
+
+    @include lib.min-width($_img_maxWidth_unitless * 4) {
+        grid-template-columns: repeat(auto-fill, minmax(20%, auto));
+    }
+
+    @include lib.min-width($_img_maxWidth_unitless * 6.0125) {
+        grid-template-columns: repeat(auto-fill, minmax(16%, auto));
+    }
+}
+
+@include lib.extend-selectors;

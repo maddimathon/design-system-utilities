@@ -1,0 +1,43 @@
+---
+import type { PhotoData } from './BrandPhoto';
+
+/**
+ * @since 0.1.0-beta.0.draft
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+
+/* import - functions */
+
+/* import - values */
+
+/* import - components */
+
+/* import - layouts */
+
+/* TYPES ===================================== */
+
+/* PROPS ===================================== */
+
+export interface Props {
+    meta: PhotoData<string>['meta'];
+}
+
+const { meta }: Props = Astro.props;
+
+/* CONSTANTS ===================================== */
+---
+
+{meta.credit ?? ''}
+{meta.source ? (meta.credit ? ` via ` : `From `) : ''}
+{
+    meta.source && (
+        <a
+            href={meta.source.href}
+            set:text={meta.source.label}
+            target='_blank'
+        />
+    )
+}

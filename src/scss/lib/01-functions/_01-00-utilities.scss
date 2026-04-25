@@ -16,17 +16,12 @@
     $width: $str;
     $height: $str;
 
-    $splitList: string.split($str, ' / ');
+    $splitList: string.regex-split($str, '\\s*\\/\\s*');
 
-    // returns if no slash is found
+    // returns
     @if list.length($splitList) < 2 {
-        $splitList: string.split($str, '/');
-
-        // returns
-        @if list.length($splitList) < 2 {
-            $num: math.num-val($str);
-            @return ($num, $num);
-        }
+        $num: math.num-val($str);
+        @return ($num, $num);
     }
 
     $width: math.num-val(list.nth($splitList, 1));

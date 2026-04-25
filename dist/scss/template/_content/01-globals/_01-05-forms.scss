@@ -84,16 +84,14 @@ $_print_inputs: map.get(config.$template_styles, inputs);
         @include snippet-button;
     }
 
-    @each $variant in map.get(tokens.$themesMeta, keys, button) {
-        @if $variant != primary and $variant != disabled {
-            %button-#{$variant} {
-                @include snippet-button-colours($variant);
-            }
+    @each $variant in tokens.$themesMeta_buttonVariations_extra {
+        %button-#{$variant} {
+            @include snippet-button-colours($variant);
         }
     }
 
     %button-form-reset {
-        @include snippet-button-colours(secondary);
+        @include snippet-button-colours(tokens.$button_variation_secondary);
 
         &::before {
             @if config.$include_button_inlineIcons {

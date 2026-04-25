@@ -1,0 +1,47 @@
+///
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@forward '../demo-config';
+@forward '../../../tokens';
+
+@forward '../header';
+
+@use 'pkg:@maddimathon/utility-sass/meta';
+
+@use '../../../lib' as *;
+
+/* # FUNCTIONS - TYPOGRAPHY
+ * ======================================================================== */
+
+/* ## tokens-has-font-families ==================================== */
+
+tokens-has-font-families {
+    @include meta.var-dump('tokens-has-font-families()', tokens-has-font-families());
+}
+
+/* ## tokens-has-font-family-overrides ==================================== */
+
+tokens-has-font-family-overrides {
+    @include meta.var-dump(
+        'tokens-has-font-family-overrides()',
+        tokens-has-font-family-overrides()
+    );
+}
+
+/* ## font-family-exists ==================================== */
+
+font-family-exists {
+    @include meta.var-dump('font-family-exists( body )', font-family-exists(body));
+    @include meta.var-dump('font-family-exists( dyslexic )', font-family-exists(dyslexic));
+    @include meta.var-dump('font-family-exists( icons )', font-family-exists(icons));
+}
+
+/* ## font-family-list ==================================== */
+
+font-family-list {
+    @include meta.var-dump('font-family-list( body )', font-family-list(body));
+    @include meta.var-dump('font-family-list( dyslexic )', font-family-list(dyslexic));
+    @include meta.var-dump('font-family-list( icons )', font-family-list(icons));
+}

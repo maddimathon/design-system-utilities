@@ -21,6 +21,7 @@ import { Tokens_Spacing } from './Tokens_Spacing.js';
 import { Tokens_Themes } from './Tokens_Themes.js';
 import { Tokens_Themes_Set } from './Themes/Themes_Set.js';
 import { Tokens_Typography } from './Tokens_Typography.js';
+import { Tokens_Photos } from './Tokens_Photos.js';
 /**
  * Internal utilities available for documentation but not meant to be public.
  *
@@ -44,6 +45,7 @@ export class Tokens extends AbstractTokens {
             name: this.name,
             icons: this.icons.data,
             logos: this.logos.data,
+            photos: this.photos.data,
             spacing: this.spacing.data,
             typography: this.typography.data,
             colour: this.colour.data,
@@ -55,6 +57,7 @@ export class Tokens extends AbstractTokens {
     css;
     icons;
     logos;
+    photos;
     spacing;
     themes;
     typography;
@@ -88,11 +91,15 @@ export class Tokens extends AbstractTokens {
             Tokens_CSS.build(input.css ?? {}),
             Tokens_Themes.build(brightnessModes, contrastModes, colourOpts, input.themes?.input ?? []),
             Tokens_Icons.buildAsync(config.iconFontName ?? (this.name + ' Icons'), input.icons),
-        ]).then(async ([colour, css, themes, icons]) => {
+            Tokens_Photos.build({
+                photos: input.photos,
+                thumbnails: input.thumbnails,
+            }),
+        ]).then(async ([colour, css, themes, icons, photos]) => {
             if (typeof config.buildIconFont === 'object') {
                 await icons.toIconFont(config.buildIconFont);
             }
-            const tokens = new Tokens(input.name, colourOpts, { colour, css, icons, themes }, input, {
+            const tokens = new Tokens(input.name, colourOpts, { colour, css, icons, photos, themes }, input, {
                 ...config,
                 extraColourLevels: undefined,
             });
@@ -102,7 +109,7 @@ export class Tokens extends AbstractTokens {
     /**
      *  * @since 0.1.0-beta.0.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
-    constructor(name, colourOpts, { colour, css, icons, themes }, input, config = {}) {
+    constructor(name, colourOpts, { colour, css, icons, photos, themes }, input, config = {}) {
         super();
         this.name = name;
         this.colourOpts = colourOpts;
@@ -112,6 +119,7 @@ export class Tokens extends AbstractTokens {
         this.css = css;
         this.icons = icons;
         this.logos = new Tokens_Logos(this.input.logos);
+        this.photos = photos;
         this.spacing = new Tokens_Spacing(this.input.spacing ?? {});
         this.themes = themes;
         const typeInput = this.input.typography ?? {};
@@ -161,6 +169,7 @@ export class Tokens extends AbstractTokens {
             typography: this.typography.toJSON(),
             colour: this.colour.toJSON(),
             themes: this.themes.toJSON(),
+            ...this.photos.toJSON(),
             css: this.css.toJSON(),
         };
     }
@@ -172,6 +181,7 @@ export class Tokens extends AbstractTokens {
             ...this.css.toScssVars(),
             icons: this.icons.toScssVars(),
             logos: this.logos.toScssVars(),
+            ...this.photos.toScssVars(),
             colour: this.colour.toScssVars(),
             themes: this.themes.toScssVars(),
         };
@@ -209,16 +219,34 @@ export class Tokens extends AbstractTokens {
             name: 'Design System Utilities (Sample Brand Kit)',
             colour: {
                 base: Tokens.SampleColours.base,
-                purple: Tokens.SampleColours.purple,
                 turquoise: Tokens.SampleColours.turquoise,
-                red: Tokens.SampleColours.red,
+                pink: Tokens.SampleColours.pink,
+                // orange: Tokens.SampleColours.orange,
+                yellow: Tokens.SampleColours.yellow,
+                // red: Tokens.SampleColours.red,
+                // orange: Tokens.SampleColours.orange,
+                // yellow: Tokens.SampleColours.yellow,
+                // green: Tokens.SampleColours.green,
+                // turquoise: Tokens.SampleColours.turquoise,
+                // blue: Tokens.SampleColours.blue,
+                // purple: Tokens.SampleColours.purple,
+                // pink: Tokens.SampleColours.pink,
                 // yardstick: Tokens.SampleColours.yardstick,
                 // 'yardstick-accent': Tokens.SampleColours[ 'yardstick-accent' ],
             },
             icons: {},
             logos: {},
+            photos: {},
+            thumbnails: {},
             themes: {
                 contrast: ['max'],
+            },
+            typography: {
+                fonts: {
+                    hyperlegible: Typography.Font.Family.hyperlegible,
+                    dyslexic: Typography.Font.Family.dyslexic,
+                    monospace: Typography.Font.Family.monospace,
+                },
             },
         }, input, true), {
             tokensAsDefault: true,
@@ -246,49 +274,67 @@ export class Tokens extends AbstractTokens {
         black: Tokens_Colour_ShadeMap.Yardsticks.black,
         base: Tokens_Colour_ShadeMap.Yardsticks.base,
         red: {
-            '100': { h: 5, s: 100, l: 98, },
-            '300': { h: 4, s: 100, l: 79.5, },
-            '500': { h: 3, s: 68, l: 53, },
-            '900': { h: 7, s: 90, l: 4, },
+            '100': { h: 5, s: 100, l: 97, },
+            '300': { h: 6, s: 100, l: 76, },
+            '500': { h: 3, s: 64, l: 50, },
+            '700': { h: 3, s: 85, l: 28, },
+            '800': { h: 4, s: 95, l: 17, },
+            '900': { h: 7, s: 100, l: 4, },
         },
         orange: {
             '100': { h: 35, s: 100, l: 96.5, },
-            '500': { h: 22, s: 75, l: 43, },
-            '900': { h: 19, s: 100, l: 3, },
+            '300': { h: 29, s: 95, l: 65, },
+            '500': { h: 22, s: 90, l: 43, },
+            '700': { h: 13.5, s: 100, l: 25, },
+            '800': { h: 12.5, s: 100, l: 15.5, },
+            '900': { h: 10, s: 100, l: 3, },
         },
         yellow: {
             '100': { h: 49, s: 100, l: 94, },
-            '300': { h: 45, s: 70, l: 54, },
-            '500': { h: 35, s: 100, l: 34, },
-            '900': { h: 20, s: 100, l: 3, },
+            '300': { h: 36.5, s: 85, l: 63, },
+            '500': { h: 35, s: 100, l: 37, },
+            '700': { h: 29, s: 100, l: 21, },
+            '800': { h: 25, s: 100, l: 14, },
+            '900': { h: 19, s: 100, l: 3, },
         },
         green: {
-            '100': { h: 112, s: 53, l: 97, },
-            '500': { h: 125, s: 50, l: 35.5, },
-            '900': { h: 112, s: 81, l: 2, },
+            '100': { h: 112, s: 100, l: 96, },
+            '300': { h: 115, s: 38, l: 60, },
+            '500': { h: 125, s: 45, l: 35, },
+            '700': { h: 119, s: 70, l: 16, },
+            '800': { h: 114, s: 80, l: 10.5, },
+            '900': { h: 112, s: 100, l: 2, },
         },
         turquoise: {
-            '100': { h: 157, s: 68, l: 96.5, },
-            '300': { h: 160, s: 45, l: 60, },
-            '500': { h: 168, s: 92, l: 27.5, },
-            '700': { h: 162, s: 69, l: 16.5, },
+            '100': { h: 157, s: 100, l: 96, },
+            '300': { h: 160, s: 40, l: 60, },
+            '500': { h: 168, s: 90, l: 27.5, },
+            '700': { h: 162, s: 100, l: 15, },
+            '800': { h: 159, s: 100, l: 10.5, },
             '900': { h: 153, s: 100, l: 2, },
         },
         blue: {
-            '100': { h: 245, s: 100, l: 98.5, },
-            '500': { h: 230, s: 63, l: 60, },
-            '900': { h: 244, s: 41, l: 4, },
+            '100': { h: 245, s: 100, l: 97, },
+            '500': { h: 230, s: 62, l: 60, },
+            '700': { h: 223, s: 70, l: 32, },
+            '800': { h: 226, s: 65, l: 19, },
+            '900': { h: 244, s: 100, l: 4, },
         },
         purple: {
-            '100': { h: 270, s: 100, l: 98.5, },
-            '500': { h: 280, s: 60, l: 56.5, },
-            '900': { h: 285, s: 75, l: 4.5, },
+            '100': { h: 270, s: 100, l: 97, },
+            '300': { h: 275, s: 77, l: 79, },
+            '500': { h: 280, s: 60, l: 56, },
+            '700': { h: 277.5, s: 75, l: 30, },
+            '800': { h: 275.5, s: 78, l: 18.5, },
+            '900': { h: 285, s: 100, l: 4.5, },
         },
         pink: {
-            '100': { h: 325, s: 100, l: 98, },
-            '300': { h: 322, s: 100, l: 79.5, },
-            '500': { h: 320, s: 58, l: 51, },
-            '900': { h: 322, s: 85, l: 5, },
+            '100': { h: 325, s: 100, l: 97, },
+            '300': { h: 323.5, s: 70, l: 77, },
+            '500': { h: 320, s: 53, l: 51, },
+            '700': { h: 321, s: 68, l: 26, },
+            '800': { h: 322, s: 85, l: 16.5, },
+            '900': { h: 322, s: 100, l: 5, },
         },
     };
     /**

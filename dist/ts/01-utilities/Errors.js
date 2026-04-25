@@ -7,7 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
-import { VariableInspector, } from '@maddimathon/utility-typescript';
+import { AbstractError } from '@maddimathon/build-utilities/internal';
 /**
  * Utilities for errors thrown within this package.
  *
@@ -30,74 +30,11 @@ export var LocalErrors;
      *
      * @since 0.1.0-beta.0.draft
      */
-    class Abst_Error extends Error {
-        context;
+    class Abst_Error extends AbstractError {
         opts;
-        cause;
         constructor(message, context, opts) {
-            super(message);
-            this.context = context;
+            super(message, context, opts?.cause);
             this.opts = opts;
-            this.cause = opts?.cause;
-        }
-        /**
-         * Gets a detailed output message for error handlers.
-         */
-        getOutput() {
-            const msgs = [];
-            if (this.context) {
-                msgs.push([VariableInspector.stringify({ context: this.context })]);
-            }
-            if (this.cause) {
-                msgs.push([VariableInspector.stringify({ cause: this.cause })]);
-            }
-            return msgs;
-        }
-        /**
-         * The object shape used when converting to JSON.
-         *
-         * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#description | JSON.stringify}
-         */
-        toJSON() {
-            return {
-                name: this.name,
-                message: this.message,
-                context: this.context,
-                cause: this.cause,
-                stack: this.stack,
-                string: this.toString(),
-            };
-        }
-        /**
-         * Overrides the default function to return a string representation of this
-         * object.
-         *
-         * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/toString | Object.prototype.toString()}
-         * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/toString | Error.prototype.toString()}
-         */
-        toString() {
-            // returns
-            if (!this.stack) {
-                // returns
-                if (!this.name) {
-                    return this.message;
-                }
-                // returns
-                if (!this.message) {
-                    return this.name;
-                }
-                return `${this.name}: ${this.message}`;
-            }
-            return this.stack;
-        }
-        /**
-         * Overrides the default function to return an object representation of this
-         * object.
-         *
-         * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/valueOf | Object.prototype.valueOf()}
-         */
-        valueOf() {
-            return this.toJSON();
         }
     }
     LocalErrors.Abst_Error = Abst_Error;

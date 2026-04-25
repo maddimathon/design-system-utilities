@@ -97,24 +97,19 @@ $_closing_time: var-tr-time(toggle-closing);
                 $includeMarginBlock: false,
                 $includePosition: false,
                 $includeTextBasics: false,
-                // 
-                // $gap: 0,
-                // 
-                // $marginBlockEnd: 0,
-                // $marginBlockStart: 0,
-                // 
-                // $paddingBlock: var-mrg-firm('100'),
-                // $paddingInline: var-mrg-firm('100'),
-            ) using ($location) {
-                @if $location == root {
+            ) using ($_button_location) {
+                @if $_button_location == root {
                     @include cx-prop(icon-size, do-var(icon-size-large));
+                    margin-block: 0;
                     justify-self: end;
                 }
+
+                @content(#{$location}--#{$_button_location});
             }
 
             @content($location);
         }
-        
+
         @else if $location == js--settings-menu--control--backdrop {
             margin: 0;
             padding: 0;
@@ -166,76 +161,16 @@ $_closing_time: var-tr-time(toggle-closing);
         }
     }
 
-    // @if $includeAside {
-    //     %aside {
-    //         font-style: normal;
-    //         font-size: #{var-fs(smaller-1)};
-
-    //         em {
-    //             font-style: italic;
-
-    //             em {
-    //                 font-style: normal;
-
-    //                 em {
-    //                     font-style: italic;
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
-
     .website-settings-menu {
         @include no-motion {
             @include cx-prop(toggle-closing-time, var-tr-time(normal));
         }
     }
 
-    // .website-settings__content {
-    //     fieldset {
-    //         transition: #{do-var(transition)};
-
-    //         > legend {
-    //             @include theme-set-color(primary);
-    //         }
-    //     }
-    // }
-
-    // .website-settings__disclaimer {
-    // }
-
-    // [data-toggle-control-backdrop] {
-    //     transition: #{do-var(transition)};
-    // }
-
     /* With Javascript ==================================== */
-
-    // [data-toggle-control] {
-    //     .website-settings-menu &,
-    //     .website-settings-menu[data-toggle-container='open'] & {
-    //         @include cx-prop(icon-color, currentColor !important);
-
-    //         border-radius: #{var-style(button-border-radius)};
-
-    //         @include hover-focus-visible(
-    //             $addSelectors: (
-    //                 '&:active',
-    //             )
-    //         ) {
-    //             color: #{var-theme(button-primary-text-hover)};
-    //         }
-    //     }
-    // }
 
     @include feature-check.js {
         .website-settings-menu {
-            // [data-toggle-control] {
-            // }
-
-            // > [data-toggle-content] {
-            //     border-radius: #{var-style(button-border-radius)};
-            // }
-
             &[data-toggle-container='open'] {
                 [data-toggle-control-backdrop] {
                     opacity: 0;

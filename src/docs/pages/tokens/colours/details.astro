@@ -1,0 +1,35 @@
+---
+/**
+ * @since ___PKG_VERSION___
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+import type { Tokens } from '../../../../ts/02-tokens/Tokens.js';
+
+/* import - functions */
+import { SampleTokens_Json } from '../../../../astro/functions/SampleTokens.js';
+
+/* import - values */
+
+/* import - components */
+import PageContent_Colour from '../../../../astro/components/PageContent_Colour.astro';
+
+/* import - layouts */
+import DocsPage from '../../../layouts/DocsPage.astro';
+
+/* TYPES ===================================== */
+
+/* CONSTANTS ===================================== */
+---
+
+<DocsPage
+    title={['Shade Details', 'Colour', 'Sample Tokens']}
+    layout='extra-wide'
+>
+    <PageContent_Colour
+        include={{ table: false }}
+        tokens={SampleTokens_Json as Tokens.JsonReturn}
+    />
+</DocsPage>

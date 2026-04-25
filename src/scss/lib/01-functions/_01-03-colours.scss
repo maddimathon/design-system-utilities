@@ -16,15 +16,11 @@
 
 $_activeTheme: map.get(tokens.$themes, tokens.$activeTheme);
 
-// TODO - switch to parse-args when utility-sass is updated
-$_systemColors: map.merge(
-    $defaults: utils.get-sys-colours(),
-    $inputs: map.get($_activeTheme, forced-colors, system),
-    $recursive: true,
-);
-
-$_systemColors: map.flatten(
-    map.set($_systemColors, background, map.get($_systemColors, background, '$'))
+$_systemColors: map.ksort(
+    map.parse-args(
+        $defaults: map.flatten(utils.get-sys-colours()),
+        $inputs: map.flatten(map.get($_activeTheme, forced-colors, system)),
+    )
 );
 
 ///

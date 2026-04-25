@@ -1,0 +1,258 @@
+---
+/**
+ * @since 0.1.0-alpha
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+import type { Classify } from '@maddimathon/utility-typescript/types';
+
+import type { TokenTypes } from '../../ts/02-tokens/@types.d.ts';
+
+import type {
+    BrandImageData,
+    BrandPhotoProps,
+    PhotoData,
+} from './BrandPhoto.d.ts';
+
+/* import - functions */
+
+/* import - values */
+
+/* import - components */
+import BrandPhoto_Caption from './BrandPhoto_Caption.astro';
+
+/* import - layouts */
+
+/* TYPES ===================================== */
+
+export type * from './BrandPhoto.d.ts';
+
+/* PROPS ===================================== */
+
+type Props = BrandPhotoProps;
+
+const {
+    href,
+    linkAttrs = {},
+    linkLabel,
+    includeCaption,
+    ...props
+} = Astro.props;
+
+/* FUNCTIONS ===================================== */
+
+// prettier-ignore
+export async function getPhotoData<T_Types extends TokenTypes.TypeParams, T_Slug extends T_Types['photos']['photoSlugs'] | T_Types['photos']['thumbnailSlugs']>(
+    currentURL: URL,
+    {
+        defineSize,
+        photos,
+        slug,
+        thumbnails,
+        urlMaker,
+        ...attrs
+    }: Omit<BrandPhotoProps<T_Types, T_Slug>, 'href' | 'includeCaption'>,
+): Promise<null | PhotoData<T_Slug>> {
+    
+    const isThumbnail = slug in thumbnails;
+
+    const brandImageMeta  = isThumbnail ? thumbnails[slug] : photos[slug];
+
+    // returns
+    if (!brandImageMeta) {
+        return null;
+    }
+
+    const {
+        alt, 
+        attributionRequired,
+        credit,
+        label,
+        license,
+        source,
+    } = brandImageMeta;
+
+    let image: undefined | BrandImageData | BrandImageData[] = brandImageMeta.image;
+
+    const _extensions: {
+        [ K in BrandImageData['format'] ]: BrandImageData[];
+    } = {
+        avif: [],
+        gif: [],
+        jpeg: [],
+        jpg: [],
+        png: [],
+        svg: [],
+        tiff: [],
+        webp: [],
+    };
+
+    if ( Array.isArray(image) ) {
+
+        image.forEach(
+            _img =>_extensions[_img.format].push(_img)
+        );
+
+        let maximumKey: BrandImageData['format']|undefined;
+        let maximumValue: number = 0;
+
+        (Object.entries(_extensions) as [ BrandImageData['format'], BrandImageData[] ][]).forEach(
+            ([key, value]) => {
+                if (value.length > maximumValue) {
+                    maximumKey = key;
+                    maximumValue = value.length;
+                }
+            }
+        )
+
+        image = maximumKey 
+            ?  _extensions[maximumKey]?.length <= 1 ?  _extensions[maximumKey][0] : _extensions[maximumKey] 
+            : undefined;
+    }
+
+    // returns
+    if (!image) {
+        return null;
+    }
+
+    const img = Array.isArray(image) ? image[0] : image;
+
+    // returns
+    if (!img) {
+        return null;
+    }
+
+    const {    
+        filepath,
+    } = img;
+
+    const meta = { 
+        attributionRequired,
+        credit,
+        label,
+        license,
+        source,
+    } satisfies Classify<PhotoData<typeof slug>['meta']>;
+
+    let imagesArray = Array.isArray(image) && image.length ? image : undefined;
+
+    const maxPixels = imagesArray && Math.max( ...imagesArray.map(
+        _img => _img.width
+    ) );
+
+    const caption = (meta.credit ?? '')
+        + (meta.source ? (meta.credit ? ` via ` : `From `) : '')
+        + (meta.source?.label ?? '');
+        
+    return {
+        attrs: {
+            ...attrs,
+
+            alt,
+
+            height: defineSize ? img.height : undefined,
+            width: defineSize ? img.width : undefined,
+
+            src: urlMaker(currentURL, filepath),
+
+            srcset: imagesArray && imagesArray.map(
+                _img => urlMaker(currentURL, _img.filepath) + ` ${_img.width}w`
+            ).join(', '),
+
+            sizes: maxPixels ? `(max-width: ${maxPixels}px) 100vw, ${maxPixels}px` : undefined,
+        },
+
+        caption: caption ? caption : undefined,
+
+        filename: filepath.replace(/^.*\/([^\/]+\.[a-z][a-z0-9]*)$/gi, '$1'),
+        filepath,
+
+        image: img,
+        imagesAll: Array.isArray(brandImageMeta.image) && brandImageMeta.image.length 
+            ? Object.fromEntries(
+                Object.entries(_extensions).map(
+                    ([key,value]) => [key,value.sort( ( a, b ) => {
+                        const _regex = /^.*\/([^\/]+\.[a-z][a-z0-9]*)$/gi;
+
+                        if ( a.filepath.replace(_regex, '$1') > b.filepath.replace(_regex, '$1') ) {
+                            return 1;
+                        }
+
+                        if ( a.filepath.replace(_regex, '$1') < b.filepath.replace(_regex, '$1') ) {
+                            return -1;
+                        }
+
+                        if ( a.width > b.width ) {
+                            return 1;
+                        }
+
+                        if ( a.width < b.width ) {
+                            return -1;
+                        }
+
+                        return 0;
+                        } )] as const
+                ).filter(
+                    ([key, value]) => value?.length
+                )
+            )
+            : undefined,
+
+        isThumbnail,
+        meta,
+        slug,
+    };
+}
+
+/* CONSTANTS ===================================== */
+
+const {
+    attrs: { class: classList, id, ...attrs },
+    meta,
+} = (await getPhotoData(Astro.url, props)) ?? { attrs: {} };
+
+const inclCap = includeCaption ?? (meta?.credit || meta?.source);
+---
+
+{
+    attrs && inclCap && (meta?.credit || meta?.source) ? (
+        <figure
+            class={classList}
+            id={id}
+        >
+            {href ? (
+                <a
+                    {...linkAttrs}
+                    aria-label={linkLabel}
+                    href={href}
+                >
+                    <img {...attrs} />
+                </a>
+            ) : (
+                <img {...attrs} />
+            )}
+            {/* prettier-ignore */}
+            <figcaption><BrandPhoto_Caption meta={meta} /></figcaption>
+        </figure>
+    ) : href ? (
+        <a
+            {...linkAttrs}
+            aria-label={linkLabel}
+            href={href}
+        >
+            <img
+                class={classList}
+                id={id}
+                {...attrs}
+            />
+        </a>
+    ) : (
+        <img
+            class={classList}
+            id={id}
+            {...attrs}
+        />
+    )
+}

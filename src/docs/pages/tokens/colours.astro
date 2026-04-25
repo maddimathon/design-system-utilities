@@ -28,5 +28,8 @@ import DocsPage from '../../layouts/DocsPage.astro';
     title={['Colour', 'Sample Tokens']}
     layout='extra-wide'
 >
-    <PageContent_Colour tokens={SampleTokens_Json as Tokens.JsonReturn} />
+    <PageContent_Colour
+        include={{ lists: false, onlyUsedLevels: true }}
+        tokens={SampleTokens_Json as Tokens.JsonReturn}
+    />
 </DocsPage>

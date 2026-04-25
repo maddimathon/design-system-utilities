@@ -231,7 +231,7 @@
         @content (hover-focus);
     }
 
-    &:active {
+    @include active {
         @include snippet-link-colour-single('-active');
 
         @content (active);
@@ -253,7 +253,7 @@
                 @content (hover-focus-disabled);
             }
 
-            &:active {
+            @include active {
                 @include snippet-link-colour-single('-disabled');
 
                 @content (active-disabled);
@@ -297,7 +297,7 @@
         @content (hover);
     }
 
-    &:active {
+    @include active {
         @include snippet-link-colour-single('-active');
 
         @content (active);
@@ -316,7 +316,7 @@
                 @content (disabled-hover-focus);
             }
 
-            &:active {
+            @include active {
                 @include snippet-link-colour-single('-disabled');
 
                 @content (disabled-active);
@@ -336,7 +336,7 @@
     text-decoration-thickness: var-stroke-relative('100');
     text-underline-offset: var-stroke-relative('600');
 
-    @content;
+    @content ('root');
 
     @include snippet-link-colours;
 
@@ -352,6 +352,8 @@
         text-decoration: none;
         font-weight: inherit;
         color: inherit;
+
+        @content ('not-style');
     }
 
     &[aria-disabled='true'],
@@ -359,12 +361,18 @@
         opacity: 1;
         cursor: not-allowed;
 
+        @content ('disabled');
+
         @if config.$include_link_inlineIcons {
             &::before {
                 @include snippet-icon-pseudo-element(forbidden, before);
+
+                @content ('disabled-before');
             }
             &::after {
                 content: none !important;
+
+                @content ('disabled-after');
             }
         }
     }
@@ -373,12 +381,16 @@
         &[target='_blank'] {
             &::after {
                 @include snippet-icon-pseudo-element(external, after);
+
+                @content ('target-blank-icon');
             }
         }
 
         &[download] {
             &::before {
                 @include snippet-icon-pseudo-element(download, before);
+
+                @content ('download-icon');
             }
         }
 
@@ -386,17 +398,29 @@
             &::before,
             &::after {
                 content: none !important;
+
+                @content ('no-pseudo-icon');
             }
         }
 
         &:has(> #{selector.unify('%brand-logo', ':only-child')}),
         &:has(> #{selector.unify('%icon', ':only-child')}),
-        &:has(> #{selector.unify('%img', ':only-child')}),
-        &:has(> #{selector.unify('%svg', ':only-child')}) {
+        &:has(> img:only-child),
+        &:has(> figure:only-child),
+        &:has(> svg:only-child) {
+            @content ('icon-or-image-or-logo-link');
+
             &::before,
             &::after {
                 content: none !important;
+
+                @content ('icon-or-image-or-logo-link--before-and-after');
             }
+        }
+
+        &:has(> img:only-child),
+        &:has(> figure:only-child) {
+            @content ('image-link');
         }
     }
 }
@@ -418,8 +442,6 @@
     $includeMarginBlock: true,
     $includeWidth: true
 ) {
-    $_content_exists: meta.content-exists();
-
     @include prop-display(block);
     position: relative;
 
@@ -446,9 +468,7 @@
 
     overflow: auto;
 
-    @if $_content_exists {
-        @content (root);
-    }
+    @content (root);
 
     > %code,
     > %kbd,
@@ -471,9 +491,7 @@
         color: inherit;
         user-select: text;
 
-        @if $_content_exists {
-            @content (code);
-        }
+        @content (code);
     }
 
     &:has(> :is(%code, %kbd, %samp)) {
@@ -484,9 +502,7 @@
             white-space: pre;
             text-wrap: nowrap;
 
-            @if $_content_exists {
-                @content (has-code--code);
-            }
+            @content (has-code--code);
         }
 
         &:is(#{utils.snippet-pre-plaintext-selectors()}) {
@@ -500,9 +516,7 @@
             }
         }
 
-        @if $_content_exists {
-            @content (has-code);
-        }
+        @content (has-code);
     }
 }
 

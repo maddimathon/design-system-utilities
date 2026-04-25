@@ -11,6 +11,19 @@
 import Alert from './components/Alert.astro';
 export type * from './components/Alert.astro';
 
+import BrandPhoto from './components/BrandPhoto.astro';
+export type * from './components/BrandPhoto.astro';
+export type * from './components/BrandPhoto.d.ts';
+
+import BrandPhoto_Caption from './components/BrandPhoto_Caption.astro';
+export type * from './components/BrandPhoto_Caption.astro';
+
+import BrandPhotoList from './components/BrandPhotoList.astro';
+export type * from './components/BrandPhotoList.astro';
+
+import BrandPhotoList_Sample from './components/BrandPhotoList_Sample.astro';
+export type * from './components/BrandPhotoList_Sample.astro';
+
 import ContrastAlert from './components/ContrastAlert.astro';
 export type * from './components/ContrastAlert.astro';
 
@@ -80,6 +93,10 @@ export type * from './components/Widget.astro';
 
 export {
     Alert,
+    BrandPhoto,
+    BrandPhoto_Caption,
+    BrandPhotoList,
+    BrandPhotoList_Sample,
     ContrastAlert,
     Icon,
     IconFontTester,

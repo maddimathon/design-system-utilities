@@ -249,7 +249,7 @@ $style: map.merge(
 $style_flat: map.flatten($style);
 $style_flat_required: map.flatten(map.pick($style, (icon)));
 
-$_buttonVariations: map.get($themesMeta, keys, button);
+$_buttonVariationOpts: map.get($themesMeta, keys, button);
 
 ///
 /// @since 0.1.0-beta.0.draft
@@ -258,12 +258,19 @@ $button_variation_default: null !default;
 $button_variation_default: config.config-valid-string(
     $button_variation_default,
     'button_variation_default',
-    $default: if(
-            list.index($_buttonVariations, primary),
-            primary,
-            list.nth($_buttonVariations, 1)
-        ),
-    $options: $_buttonVariations
+    $default: 'primary',
+    $options: $_buttonVariationOpts
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$button_variation_secondary: null !default;
+$button_variation_secondary: config.config-valid-string(
+    $button_variation_secondary,
+    'button_variation_secondary',
+    $default: 'secondary',
+    $options: $_buttonVariationOpts
 );
 
 ///
@@ -273,8 +280,8 @@ $button_inline_variation_default: null !default;
 $button_inline_variation_default: config.config-valid-string(
     $button_inline_variation_default,
     'button_inline_variation_default',
-    $default: null,
-    $options: $_buttonVariations
+    $default: 'grey',
+    $options: $_buttonVariationOpts
 );
 
 // to avoid setting duplicate defaults
@@ -283,3 +290,23 @@ $button_inline_variation_default: config.config-valid-string(
 }
 
 // #endregion - STYLES
+
+///
+/// All valid button variations.
+///
+/// @since 0.1.0-beta.0.draft
+///
+$themesMeta_buttonVariations: list.except(
+    map.get($themesMeta, keys, button),
+    disabled
+);
+
+///
+/// Variations without $button_variation_default.
+///
+/// @since 0.1.0-beta.0.draft
+///
+$themesMeta_buttonVariations_extra: list.except(
+    $themesMeta_buttonVariations,
+    $button_variation_default
+);

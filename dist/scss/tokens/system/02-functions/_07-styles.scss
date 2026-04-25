@@ -127,6 +127,7 @@
     $isInputStyle: string.index($slug, input-) == 1;
     $isSubtitleStyle: string.index($slug, subtitle-) == 1;
     $isToggleStyle: string.index($slug, toggle-) == 1;
+    $isToggleControlStyle: string.index($slug, toggle-control-) == 1;
     $isWidgetStyle: string.index($slug, widget-) == 1;
 
     $isBorderRadius: false;
@@ -253,7 +254,11 @@
 
         // returns
         @if string.index($slug, -block-end) {
-            @return spacing.tokens-var-mrg-half($value);
+            @return if(
+                $isToggleControlStyle,
+                spacing.tokens-var-mrg-firm($value),
+                spacing.tokens-var-mrg-half($value)
+            );
         }
 
         // returns
@@ -369,15 +374,7 @@
     // returns
     @if $isLineHeight {
         // returns
-        @if $slug ==
-            icon-inline-line-height or
-            $value ==
-            1 or
-            $value ==
-            '1' or
-            $value ==
-            'normal'
-        {
+        @if $value == 'normal' or meta.type-of($value) == 'number' {
             @return $value;
         }
 

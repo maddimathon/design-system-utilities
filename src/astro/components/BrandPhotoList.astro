@@ -1,0 +1,149 @@
+---
+/**
+ * @since 0.1.0-alpha
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+import type { GenericElementProps } from '@maddimathon/utility-astro';
+
+import type { TokenTypes } from '../../ts/02-tokens/@types.d.ts';
+import type { Tokens } from '../../ts/02-tokens/Tokens.js';
+
+import type { AllPhotos, AllThumbnails } from './BrandPhoto.astro';
+
+/* import - functions */
+import { getPhotoData } from './BrandPhoto.astro';
+
+/* import - values */
+
+/* import - components */
+import {
+    Heading,
+    // VariableDump,
+} from '@maddimathon/utility-astro/components';
+
+import BrandPhotoList_Sample from './BrandPhotoList_Sample.astro';
+
+/* import - layouts */
+
+/* PROPS ===================================== */
+
+// prettier-ignore
+export interface BrandPhotoListProps<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
+    defineSize?: boolean;
+    displayHeading?: false | number;
+
+    heading: number;
+    includeCaption?: undefined | boolean;
+    
+    photos: AllPhotos<T_Types>;
+    thumbnails: AllThumbnails<T_Types>;
+
+    spanColour?: Tokens.JsonReturn<T_Types>['themes']['_meta']['keys']['text'][number];
+
+    urlMaker: (currentURL: URL, targetSubpath: string) => string;
+
+    version: "photos" | "thumbnails";
+}
+
+type Props = GenericElementProps<BrandPhotoListProps, 'dl'>;
+
+const {
+    class: classList = [],
+    defineSize,
+    displayHeading = false,
+    heading,
+    includeCaption,
+    photos,
+    spanColour = 'primary',
+    thumbnails,
+    urlMaker,
+    version,
+    ...attrs
+}: Props = Astro.props;
+
+/* FUNCTIONS ===================================== */
+
+/* CONSTANTS ===================================== */
+
+const photosData = await Promise.all(
+    Object.values(Astro.props[version]).map(
+        (photo) =>
+            photo &&
+            getPhotoData(Astro.url, {
+                defineSize,
+                photos,
+                slug: photo.slug,
+                thumbnails,
+                urlMaker,
+            }),
+    ),
+);
+
+const photosOnly = photosData
+    .filter((val) => val !== null && typeof val !== 'undefined')
+    .sort((a, b) => {
+        const sort_a =
+            (a.isThumbnail && a.slug === 'plain' ? 'zzzzzzzzzzzzzzz-' : '') +
+            (a.meta.label ?? a.slug);
+        const sort_b =
+            (b.isThumbnail && b.slug === 'plain' ? 'zzzzzzzzzzzzzzz-' : '') +
+            (b.meta.label ?? b.slug);
+
+        if (sort_a > sort_b) {
+            return 1;
+        }
+
+        if (sort_a < sort_b) {
+            return -1;
+        }
+
+        return 0;
+    });
+---
+
+{
+    photosOnly.length && (
+        <section
+            {...attrs}
+            class:list={[
+                'site-width',
+                'brand-photo-list__container',
+                classList,
+            ]}
+            aria-label='Image details, previews, and links'
+        >
+            {photosOnly.map((data) => (
+                <div class='brand-photo-list__sample-container'>
+                    <Heading
+                        class:list={{
+                            'screen-reader-text': displayHeading === false,
+                        }}
+                        displayHeading={displayHeading}
+                        fallbackTag='span'
+                        heading={heading}
+                        set:text={data.meta.label ?? data.slug}
+                    />
+                    <BrandPhotoList_Sample
+                        {...{
+                            data,
+                            defineSize,
+                            displayHeading,
+                            includeCaption,
+                            photos,
+                            spanColour,
+                            thumbnails,
+                            urlMaker,
+                        }}
+                    />
+                </div>
+            ))}
+        </section>
+    )
+}
+
+<style lang='scss' is:global>
+    @forward '../scss/brand-photo-list';
+</style>
