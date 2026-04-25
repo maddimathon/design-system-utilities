@@ -5119,8 +5119,9 @@ img {
 }
 
 figcaption {
-    font-size: 0.9375rem;
-    font-size: var(--fs-smaller-1, 0.9375rem);
+    font-size: 0.875rem;
+    font-size: var(--fs-smaller-2, 0.875rem);
+    text-align: right;
 }
 
 /* # GLOBALS - TYPOGRAPHY
@@ -5598,6 +5599,74 @@ p.aside {
     color: hsl(162, 100%, 15%);
     color: var(--theme-text-primary, CanvasText);
 }
+figcaption a[href],
+p.aside a[href] {
+    --icon-color: var(--icon-color, var(--theme-ui, CanvasText));
+    text-decoration-color: hsl(162, 100%, 15%);
+    text-decoration-color: var(--theme-ui-primary, CanvasText);
+    color: inherit;
+}
+.no-js figcaption a[href]:focus,
+.no-js p.aside a[href]:focus,
+.js__no-whereSelector figcaption a[href]:focus,
+.js__no-whereSelector p.aside a[href]:focus {
+    --focus-ring-outline-color: var(--theme-link-outline-hover, ActiveText);
+    --icon-color: var(--theme-link-icon-hover, ActiveText);
+    text-decoration-color: transparent;
+    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
+    color: hsl(321, 68%, 26%);
+    color: var(--theme-link-hover, ActiveText);
+}
+
+:where(.js__no-focusVisible) figcaption a[href]:focus,
+:where(.js__no-focusVisible) p.aside a[href]:focus {
+    --focus-ring-outline-color: var(--theme-link-outline-hover, ActiveText);
+    --icon-color: var(--theme-link-icon-hover, ActiveText);
+    text-decoration-color: transparent;
+    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
+    color: hsl(321, 68%, 26%);
+    color: var(--theme-link-hover, ActiveText);
+}
+
+figcaption a[href]:focus-visible,
+p.aside a[href]:focus-visible {
+    --focus-ring-outline-color: var(--theme-link-outline-hover, ActiveText);
+    --icon-color: var(--theme-link-icon-hover, ActiveText);
+    text-decoration-color: transparent;
+    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
+    color: hsl(321, 68%, 26%);
+    color: var(--theme-link-hover, ActiveText);
+}
+
+figcaption a[href]:hover,
+p.aside a[href]:hover {
+    --focus-ring-outline-color: var(--theme-link-outline-hover, ActiveText);
+    --icon-color: var(--theme-link-icon-hover, ActiveText);
+    text-decoration-color: transparent;
+    text-decoration-color: var(--theme-link-decoration-hover, ActiveText);
+    color: hsl(321, 68%, 26%);
+    color: var(--theme-link-hover, ActiveText);
+}
+figcaption a[href]:active,
+p.aside a[href]:active {
+    --focus-ring-outline-color: var(--theme-link-outline-active, ActiveText);
+    --icon-color: var(--theme-link-icon-active, ActiveText);
+    text-decoration-color: hsl(29, 100%, 21%);
+    text-decoration-color: var(--theme-link-decoration-active, ActiveText);
+    color: hsl(29, 100%, 21%);
+    color: var(--theme-link-active, ActiveText);
+}
+
+figcaption a[data-state-active="true"][href],
+p.aside a[data-state-active="true"][href] {
+    --focus-ring-outline-color: var(--theme-link-outline-active, ActiveText);
+    --icon-color: var(--theme-link-icon-active, ActiveText);
+    text-decoration-color: hsl(29, 100%, 21%);
+    text-decoration-color: var(--theme-link-decoration-active, ActiveText);
+    color: hsl(29, 100%, 21%);
+    color: var(--theme-link-active, ActiveText);
+}
+
 figcaption em,
 p.aside em {
     font-style: normal;

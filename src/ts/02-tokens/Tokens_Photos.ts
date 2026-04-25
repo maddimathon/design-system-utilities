@@ -302,7 +302,14 @@ export namespace Tokens_Photos {
              * Short credit for this image (probably without including the image
              * source).
              */
-            credit: undefined | string;
+            credit: undefined | string | {
+                /**
+                 * Name only. The credit will be prepended by 'Photo by ' in
+                 * most outputs.
+                 */
+                label: string;
+                href: string;
+            };
 
             /**
              * The path to this image in the source folder (which will be copied

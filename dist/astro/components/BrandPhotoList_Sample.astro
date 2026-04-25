@@ -29,12 +29,18 @@ import BrandPhoto_Caption from './BrandPhoto_Caption.astro';
 
 // prettier-ignore
 interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
+
+    copyCredit:undefined | boolean;
+    
     defineSize: undefined | boolean;
     displayHeading: false | number;
     
     data: PhotoData<T_Types['photos']['photoSlugs'] | T_Types['photos']['thumbnailSlugs']>;
 
     includeCaption: undefined | boolean;
+    includeCaptionMeta: undefined | boolean;
+    includeCredit: undefined | boolean;
+    includeSource: undefined | boolean;
     
     photos: AllPhotos<T_Types>;
     thumbnails: AllThumbnails<T_Types>;
@@ -45,10 +51,14 @@ interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
 };
 
 const {
+    copyCredit = false,
     defineSize,
     displayHeading,
     data: { attrs, caption, filepath, image, imagesAll, meta, slug },
     includeCaption = false, 
+    includeCaptionMeta = !includeCaption, 
+    includeCredit = false,
+    includeSource = includeCredit,
     photos,
     thumbnails,
     spanColour,
@@ -100,27 +110,38 @@ const photoProps = {
         /></p></dd>
     ) }
 
-    { !includeCaption && caption && (
+    { includeCaptionMeta && caption && (
         <dt set:text='Caption' />
         <dd>
-            { meta.credit && <p><BrandPhoto_Caption meta={meta} /><span>&NoBreak;&ensp;&NoBreak;</span><CopyToClipboardButton
+            { meta.credit && <p class="aside"><BrandPhoto_Caption meta={meta} /><span>&NoBreak;&ensp;&NoBreak;</span><CopyToClipboardButton
                 class:list="display-inline"
                 successMessage='copied!'
-                toClipboard={meta.credit}
+                toClipboard={(typeof meta.credit === 'object' ? `Photo by ${meta.credit.label}` : meta.credit) + (meta.source ? (meta.credit ? ` via ` : `From `) : '') + (meta.source ? meta.source.label : meta.source)}
                 set:text='copy'
             /></p> }
         </dd>
     ) }
 
-    { (meta.credit || meta.attributionRequired || meta.attributionRequired === null) && (
+    { includeCredit && (meta.credit || meta.attributionRequired !== false) && (
         <dt set:text='Credit' />
         <dd>
-            { meta.credit && <p>{meta.credit}<!-- <span>&NoBreak;&ensp;&NoBreak;</span><CopyToClipboardButton
+            { typeof meta.credit === 'object' ? (
+                <p>{'Photo by '}<a
+                    href={meta.credit.href}
+                    set:text={meta.credit.label}
+                    target='_blank'
+                />{copyCredit && (<span>&NoBreak;&ensp;&NoBreak;</span><CopyToClipboardButton
+                    class:list="display-inline"
+                    successMessage='copied!'
+                    toClipboard={meta.credit.label}
+                    set:text='copy'
+                />)}.</p>
+            ) : meta.credit && <p>{meta.credit}{copyCredit && (<span>&NoBreak;&ensp;&NoBreak;</span><CopyToClipboardButton
                 class:list="display-inline"
                 successMessage='copied!'
                 toClipboard={meta.credit}
                 set:text='copy'
-            /> --></p> }
+            />)}.</p> }
             { typeof meta.attributionRequired !== 'boolean' ? (
                 <p class="aside">This photo’s attribution requirements are unknown.</p>
             ) : meta.attributionRequired && (
@@ -129,9 +150,16 @@ const photoProps = {
         </dd>
     ) }
 
-    { includeCaption && meta.source && (
+    { includeSource && meta.source && (
         <dt set:text='Source' />
         <dd><p><a href={meta.source.href} set:text={meta.source.label} target="_blank" /></p></dd>
+    ) }
+
+    { meta.license && (
+        <dt set:text='License' />
+        <dd>{ typeof meta.license === 'object' ? (
+            <p><a href={meta.license.href} set:text={meta.license.label} target="_blank" /></p>
+        ) : <p set:text={meta.license} /> }</dd>
     ) }
 
     <dt set:text='Files' />

@@ -175,7 +175,7 @@ if ( ! import.meta.env.DEV && allFontLevels ) {
         style={tokens.typography.fonts && `--font-family-list-column-count: ${Object.keys( tokens.typography.fonts ).length}`}
     >
         {
-           sortedFonts && Object.values(sortedFonts).map((font) => (
+           sortedFonts && Object.values(sortedFonts).map((font) => font.slug !== 'icons' && (
                 <article 
                     class='font-family-swatch'
                     data-font-family-override={font.slug}

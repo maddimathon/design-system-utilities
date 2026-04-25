@@ -32,11 +32,16 @@ import BrandPhotoList_Sample from './BrandPhotoList_Sample.astro';
 
 // prettier-ignore
 export interface BrandPhotoListProps<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
+    copyCredit?:undefined | boolean;
+
     defineSize?: boolean;
     displayHeading?: false | number;
 
     heading: number;
     includeCaption?: undefined | boolean;
+    includeCaptionMeta?: undefined | boolean;
+    includeCredit?: undefined | boolean;
+    includeSource?: undefined | boolean;
     
     photos: AllPhotos<T_Types>;
     thumbnails: AllThumbnails<T_Types>;
@@ -52,10 +57,14 @@ type Props = GenericElementProps<BrandPhotoListProps, 'dl'>;
 
 const {
     class: classList = [],
+    copyCredit,
     defineSize,
     displayHeading = false,
     heading,
     includeCaption,
+    includeCaptionMeta,
+    includeCredit,
+    includeSource,
     photos,
     spanColour = 'primary',
     thumbnails,
@@ -128,10 +137,14 @@ const photosOnly = photosData
                     />
                     <BrandPhotoList_Sample
                         {...{
+                            copyCredit,
                             data,
                             defineSize,
                             displayHeading,
                             includeCaption,
+                            includeCaptionMeta,
+                            includeCredit,
+                            includeSource,
                             photos,
                             spanColour,
                             thumbnails,

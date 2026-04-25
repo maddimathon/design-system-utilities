@@ -30,7 +30,20 @@ const { meta }: Props = Astro.props;
 /* CONSTANTS ===================================== */
 ---
 
-{meta.credit ?? ''}
+{
+    typeof meta.credit === 'object' ? (
+        <Fragment>
+            {'Photo by '}
+            <a
+                href={meta.credit.href}
+                set:text={meta.credit.label}
+                target='_blank'
+            />
+        </Fragment>
+    ) : (
+        (meta.credit ?? '')
+    )
+}
 {meta.source ? (meta.credit ? ` via ` : `From `) : ''}
 {
     meta.source && (
@@ -41,3 +54,4 @@ const { meta }: Props = Astro.props;
         />
     )
 }
+{(meta.source || meta.credit) && '.'}
