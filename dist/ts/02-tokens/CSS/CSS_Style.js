@@ -149,7 +149,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
             background: 'background-primary',
             border: {
                 color: 'ui-primary',
-                radius: '0',
+                radius: 0,
                 style: 'solid',
                 width: '200',
             },
@@ -177,7 +177,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 },
             },
             gap: {
-                block: '0',
+                block: 0,
                 inline: '300',
             },
             'flow-margin': {
@@ -200,7 +200,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
     static async buttonStyle(iconStyles, partial) {
         const style = mergeArgs({
             border: {
-                radius: '0',
+                radius: 0,
                 style: 'solid',
                 width: '100',
             },
@@ -265,7 +265,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
             inline: mergeArgs({
                 border: {
                     radius: style.border.radius,
-                    style: style.border.radius,
+                    style: style.border.style,
                 },
                 focus: {
                     offset: style.focus.offset,
@@ -322,56 +322,48 @@ export class Tokens_CSS_Style extends AbstractTokens {
             margin: {
                 block: {
                     start: '600',
-                    end: '400',
+                    end: '200',
                 },
             },
         };
-        // returns for 'unstyled'
-        switch (heading) {
-            case 'unstyled':
-                return mergeArgs({
-                    color: 'text-primary',
-                    font: {
-                        ...style.font,
-                        family: 'body',
-                        size: 'normal',
-                    },
-                    'letter-spacing': style['letter-spacing'],
-                    'line-height': style['line-height'],
-                    'text-transform': style['text-transform'],
-                }, partial, true);
-            case 1:
-                style.font.weight = '900';
-                style['line-height'] = '200';
-                style.margin.block.start = '800';
-                break;
-            case 2:
-                style.font.weight = '800';
-                style['line-height'] = '200';
-                style.margin.block.start = '800';
-                break;
-            case 3:
-                style.font.weight = '700';
-                style['line-height'] = '200';
-                style.margin.block.start = '800';
-                break;
-            case 4:
-                style.font.weight = '700';
-                style.font.style = 'italic';
-                style['line-height'] = '200';
-                break;
-            case 5:
-                style.font.weight = '600';
-                style.font.style = 'italic';
-                style['line-height'] = '200';
-                break;
-            case 6:
-                style.font.weight = '500';
-                style.font.style = 'italic';
-                style['line-height'] = '300';
-                break;
+        // returns
+        if (heading === 'unstyled') {
+            return mergeArgs({
+                color: 'text-primary',
+                font: {
+                    ...style.font,
+                    family: 'body',
+                    size: 'normal',
+                },
+                'letter-spacing': style['letter-spacing'],
+                'line-height': style['line-height'],
+                'text-transform': style['text-transform'],
+            }, partial, true);
         }
-        ;
+        if (headingAsNum >= 1) {
+            style.font.weight = '900';
+            style['line-height'] = '200';
+            style.margin.block.start = '800';
+        }
+        if (headingAsNum >= 2) {
+            style.font.weight = '800';
+        }
+        if (headingAsNum >= 3) {
+            style.font.weight = '700';
+        }
+        if (headingAsNum >= 4) {
+            style.font.style = 'italic';
+            style.margin.block.start = '600';
+        }
+        if (headingAsNum >= 5) {
+            style.font.weight = '600';
+            style.font.style = 'italic';
+            style.margin.block.end = '400';
+        }
+        if (headingAsNum >= 6) {
+            style.font.weight = '500';
+            style['line-height'] = '300';
+        }
         if (headingAsNum >= 7) {
             style.font.weight = '500';
             style.font.style = 'normal';
@@ -423,7 +415,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
     static async inputStyle(partial) {
         const style = mergeArgs({
             border: {
-                radius: '0',
+                radius: 0,
                 style: 'solid',
                 width: '100',
             },
@@ -447,13 +439,13 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 'line-height': '200',
             },
             'line-height': '300',
-            margin: {
-                block: {
-                    start: '400',
-                    end: '400',
-                    gap: '200',
-                },
-            },
+            // margin: {
+            //     block: {
+            //         start: '400',
+            //         end: '400',
+            //         gap: '200',
+            //     },
+            // },
             padding: {
                 block: '200',
                 inline: '300',
@@ -551,7 +543,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
             const style = {
                 margin: {
                     block: {
-                        end: '0',
+                        end: 0,
                     },
                 },
                 padding: {
@@ -684,7 +676,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
             background: 'background-grey',
             border: mergeArgs({
                 color: 'ui-grey',
-                radius: '0',
+                radius: 0,
                 style: 'solid',
                 width: '200',
             }, partial?.border ?? {}, true),

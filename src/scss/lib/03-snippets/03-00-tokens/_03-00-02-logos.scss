@@ -60,16 +60,16 @@ $_allUniqueLogoAspectRatios: ();
         position: relative;
 
         @if $marginBlock != false {
-            margin-block: #{$marginBlock};
+            margin-block: $marginBlock;
         }
 
-        color: #{$color};
+        color: $color;
 
-        vertical-align: #{$verticalAlign};
+        vertical-align: $verticalAlign;
 
         transition:
-            color #{var-tr-time(fast)} #{tokens.$transition_function},
-            fill #{var-tr-time(fast)} #{tokens.$transition_function};
+            color var-tr-time(fast) tokens.$transition_function,
+            fill var-tr-time(fast) tokens.$transition_function;
 
         @if meta.content-exists() {
             @content ('root');
@@ -77,8 +77,8 @@ $_allUniqueLogoAspectRatios: ();
 
         > svg {
             @include prop-display($display_svg);
-            margin: #{$margin_svg};
-            padding: #{$padding_svg};
+            margin: $margin_svg;
+            padding: $padding_svg;
 
             fill: currentColor;
 

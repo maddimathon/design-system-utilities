@@ -264,7 +264,9 @@ $_default_activeTheme_mode: if(
             }
 
             @if $_value {
-                @return '#{$version}a(#{utils.do-var(theme-#{$slug}-#{$version}, $fallback: $_value, $args...)}, #{$opacity})';
+                @return string.unquote(
+                    '#{$version}a(#{utils.do-var(theme-#{$slug}-#{$version}, $fallback: $_value, $args...)}, #{$opacity})'
+                );
             }
         }
     }

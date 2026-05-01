@@ -45,8 +45,8 @@ $_print_flowMargins: map.get(config.$template_styles, flowMargins);
     %hr {
         // UPGRADE - convert to style tokens
         @include cx-prop(icon-color, currentColor);
-        border-width: #{var-border-width('200')};
-        color: #{var-theme(ui-primary)};
+        border-width: var-border-width('200');
+        color: var-theme(ui-primary);
     }
 }
 
@@ -69,6 +69,16 @@ $_print_flowMargins: map.get(config.$template_styles, flowMargins);
 
     %img {
         object-fit: cover;
+    }
+
+    %figure {
+        @include prop-display(flex);
+        @include snippet-content-flex-container;
+        margin-block-end: 0;
+
+        %img {
+            margin-block-start: 0;
+        }
     }
 
     %figcaption {

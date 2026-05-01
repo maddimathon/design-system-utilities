@@ -127,7 +127,10 @@ export function sassFn_themeFlattenGetValues() {
                     ...brightnessMaps,
                 }));
             });
-            return jsValueToSass(mapped);
+            return jsValueToSass(mapped, {
+                coloursAsStrings: true,
+                quoteStrings: false,
+            });
         },
     ];
 }

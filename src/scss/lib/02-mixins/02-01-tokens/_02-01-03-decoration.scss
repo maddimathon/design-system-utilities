@@ -29,7 +29,16 @@
         }
         #{$_sel} {
             @each $slug, $_value in map.get(tokens.$border, radius) {
-                @include utils.cx-prop(border-radius-#{$slug}, #{border-radius-value($slug)});
+                @include utils.cx-prop(border-radius-#{$slug}, border-radius-value($slug));
+            }
+
+            @if config.$mx_tokens_borderRadius_printRelative {
+                @each $slug, $_value in map.get(tokens.$border, radius) {
+                    @include utils.cx-prop(
+                        border-radius-rel-#{$slug},
+                        border-radius-value($slug, $relative: true)
+                    );
+                }
             }
         }
         @if $includeRegion {
@@ -55,7 +64,7 @@
             @each $slug, $_value in map.get(tokens.$border, width) {
                 @include utils.cx-prop(
                     border-width-#{$slug},
-                    #{border-width-value($slug, $multiplier: $multiplier)}
+                    border-width-value($slug, $multiplier: $multiplier)
                 );
             }
         }
@@ -78,12 +87,12 @@
 
                 @include utils.cx-prop(
                     border-width-#{$slug},
-                    #{clamp-high-contrast-border-width(
-                            $_borderValue,
-                            $unit: 1rem,
-                            $max_multiplier: $_max_multi,
-                            $min_multiplier: $_min_multi
-                        )}
+                    clamp-high-contrast-border-width(
+                        $_borderValue,
+                        $unit: 1rem,
+                        $max_multiplier: $_max_multi,
+                        $min_multiplier: $_min_multi
+                    )
                 );
             }
         }

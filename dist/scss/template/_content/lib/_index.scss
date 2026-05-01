@@ -28,7 +28,7 @@
         $sels,
         (
             ((cite, p), 'margins-flow'),
-            ((li, figcaption), 'margins-flow-small'),
+            ((li), 'margins-flow-small'),
             ((dt), 'margins-flow-large'),
             //
             (
@@ -180,6 +180,10 @@
         $additional: $additional,
         $allHeadingLevels: $allHeadingLevels
     );
+
+    @if map.get(config.$template_styles, astro, bodyGrid) {
+        @include snippet-support-astro-body-grid--extend-globals;
+    }
 }
 
 ///

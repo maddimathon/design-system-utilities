@@ -10,7 +10,7 @@
 
 import type { GlobOptions } from 'glob';
 
-import type { PartialPick } from '@maddimathon/utility-typescript/types';
+import type { Classify, PartialPick } from '@maddimathon/utility-typescript/types';
 
 import { globSync } from 'glob';
 
@@ -18,6 +18,7 @@ import { globSync } from 'glob';
 // import NodePath from 'node:path';
 
 import {
+    objectMap,
     objectMapAsync,
     VariableInspector,
 } from '@maddimathon/utility-typescript';
@@ -69,11 +70,33 @@ export class Tokens_Photos<T_Params extends TokenTypes.Photos.TypeParams> extend
     }
 
     public toJSON(): Tokens_Photos.JsonReturn<T_Params> {
-        return this.data satisfies Tokens_Photos.JsonReturn<T_Params>;
+        return {
+            photos: objectMap(
+                this.data.photos,
+                ( [ slug, photo ] ) => photo.toJSON(),
+            ) as {
+                    [ S in keyof typeof this.data.photos ]: Tokens_Photos.Photo.JSON<S>;
+                },
+
+            thumbnails: objectMap(
+                this.data.thumbnails,
+                ( [ slug, thumbnail ] ) => thumbnail.toJSON(),
+            ) as {
+                    [ S in keyof typeof this.data.thumbnails ]: Tokens_Photos.Thumbnail.JSON<S>;
+                },
+        } satisfies Tokens_Photos.JsonReturn<T_Params>;
     }
 
     public toScssVars(): Tokens_Photos.ScssVars<T_Params> {
-        return this.data satisfies Tokens_Photos.ScssVars<T_Params>;
+        return {
+
+            photos: objectMap(
+                this.data.photos,
+                ( [ slug, photo ] ) => photo.toScssVars(),
+            ) as {
+                    [ S in keyof typeof this.data.photos ]: Tokens_Photos.Photo.ScssVars<S>;
+                },
+        } satisfies Tokens_Photos.ScssVars<T_Params>;
     }
 }
 
@@ -272,8 +295,12 @@ export namespace Tokens_Photos {
             return this.data;
         }
 
-        public toScssVars(): Photo.JSON<T_Slug> {
-            return this.data;
+        public toScssVars(): Photo.ScssVars<T_Slug> {
+            return {
+                alt: this.data.alt,
+                filepath: Array.isArray( this.data.filepath ) ? this.data.filepath[ 0 ] as string : this.data.filepath,
+                slug: this.data.slug,
+            } satisfies Classify<Photo.ScssVars<T_Slug>>;
         }
     }
 
@@ -367,8 +394,10 @@ export namespace Tokens_Photos {
          */
         export type ScssVars<T_Slug extends string> = Omit<
             Data<T_Slug>,
-            'attributionRequired' | 'credit' | 'label' | 'license' | 'source'
-        >;
+            'attributionRequired' | 'credit' | 'filepath' | 'label' | 'license' | 'source'
+        > & {
+            filepath: string;
+        };
     }
 
     /**

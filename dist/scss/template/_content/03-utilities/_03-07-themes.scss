@@ -16,17 +16,17 @@
 }
 
 %background-default {
-    background: #{var-theme(background)};
+    background: var-theme(background);
 }
 
 @each $variant in map.get(tokens.$themesMeta, keys, background) {
     %background-#{$variant} {
-        background: #{var-theme(background-#{$variant})};
+        background: var-theme(background-#{$variant});
     }
 }
 
 %color-default {
-    background: #{var-theme(text)};
+    background: var-theme(text);
 }
 
 @each $variant in map.get(tokens.$themesMeta, keys, text) {

@@ -182,8 +182,8 @@ export class SvgMaker<
             width: this.width,
 
             aspectRatio: this.aspectRatio[ 0 ] === this.aspectRatio[ 1 ]
-                ? this.aspectRatio[ 0 ].toString()
-                : this.aspectRatio.join( ' / ' ),
+                ? this.aspectRatio[ 0 ]
+                : `${ this.aspectRatio[ 0 ] } / ${ this.aspectRatio[ 1 ] }`,
 
             embedded: `url( 'data:image/svg+xml;utf8,${ this.svgCssEmbedded() }' )`,
 
@@ -292,7 +292,7 @@ export namespace SvgMaker {
         JsonReturn<T_Slug, T_Metadata>,
         "ariaLabel" | "aspectRatio" | "innerSVG" | "svgAttrString" | "svgFile" | "svgCssEmbedded" | "svgInlineHidden" | "svgInlineLabelled"
     > & {
-        aspectRatio: string;
+        aspectRatio: number | `${ number } / ${ number }`;
         embedded: string;
     };
 }

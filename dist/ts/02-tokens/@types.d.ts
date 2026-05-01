@@ -270,7 +270,7 @@ export declare namespace TokenTypes {
 /**
  * @since 0.1.0-beta.0.draft
  */
-export type AnyTokenLevel = WholeTokenLevel | '150' | '250' | '350' | '450' | '550' | '650' | '750' | '850';
+export type AnyTokenLevel = WholeTokenLevel | '050' | '150' | '250' | '350' | '450' | '550' | '650' | '750' | '850' | '950';
 /**
  * @since 0.1.0-alpha
  * @since 0.1.0-beta.0.draft — Renamed.

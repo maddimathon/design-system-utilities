@@ -171,10 +171,10 @@ $_raw_font_size_flat: map.flatten(map.get(breakdown.$font, size));
 @function tokens-line-height-value($level, $multiplier: 1) {
     $value: map.get(breakdown.$line_height, '400');
 
-    @if not map.has-key(breakdown.$line_height, '#{$level}') {
+    @if not map.has-key(breakdown.$line_height, #{$level}) {
         @warn "$level '#{$level}' was not a key in tokens.$line_height";
     } @else {
-        $value: map.get(breakdown.$line_height, '#{$level}');
+        $value: map.get(breakdown.$line_height, #{$level});
     }
 
     @return if(
@@ -205,8 +205,16 @@ $_raw_font_size_flat: map.flatten(map.get(breakdown.$font, size));
 ///
 /// @since ___PKG_VERSION___
 ///
-@function tokens-var-fs($slug, $fallback: null, $relative: false, $args...) {
+@function tokens-var-fs($slug, $fallback: null, $relative: null, $args...) {
     //
+    @if $relative == null {
+        $relative: if(
+            string.index($slug, heading-) == 1,
+            config.$fn_tokens_fontSize_defaultRelative,
+            $relative
+        );
+    }
+
     // TODO - test if this is necessary
     @if $fallback == null and config.$fn_var_replaceWithValue_fontSize {
         $fallback: list.nth(tokens-fs-value($slug, $relative: $relative), 1);

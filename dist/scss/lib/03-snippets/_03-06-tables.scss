@@ -24,32 +24,32 @@
         position: relative;
         justify-self: center;
 
-        margin-block: #{var-mrg-firm('400')} 0;
-        margin-block: #{var-mrg-firm('600')}
+        margin-block: var-mrg-firm('400') 0;
+        margin-block: var-mrg-firm('600')
             calc(var-mrg-soft('600') - var-mrg-soft('400'));
 
-        background: #{var-theme(ui-primary)};
+        background: var-theme(ui-primary);
 
         max-width: 100%;
     }
 
     %table {
-        border-spacing: #{var-border-width('200')};
-        font-size: #{var-fs(smaller-1)};
+        border-spacing: var-border-width('200');
+        font-size: var-fs(smaller-1);
         line-height: inherit;
 
         @include forced-colors {
             border-spacing: 0;
 
-            $_border: #{var-border-width('200')} solid #{var-theme(text)};
+            $_border: var-border-width('200') solid var-theme(text);
 
             %th,
             %td {
-                border-block-end: #{$_border};
-                border-inline-end: #{$_border};
+                border-block-end: $_border;
+                border-inline-end: $_border;
 
                 &:first-child {
-                    border-inline-start: #{$_border};
+                    border-inline-start: $_border;
                 }
             }
 
@@ -57,7 +57,7 @@
                 &:first-child {
                     %th,
                     %td {
-                        border-block-start: #{$_border};
+                        border-block-start: $_border;
                     }
                 }
             }
@@ -88,8 +88,8 @@
     %th,
     %td {
         padding-block: var-mrg-soft('200');
-        padding-inline: #{var-mrg-firm('300')};
-        background: #{var-theme(background)};
+        padding-inline: var-mrg-firm('300');
+        background: var-theme(background);
 
         vertical-align: top;
         text-align: left;
@@ -105,6 +105,7 @@
         min-width: 6rem;
 
         @include snippet-unstyled-heading(
+            // $fontSize: var-fs(normal),
             $resetChildFontStyle: false,
             $useRelativeFontSize: true
         );

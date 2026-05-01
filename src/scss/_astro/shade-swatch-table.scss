@@ -48,7 +48,7 @@ $_contrastColWidth: minmax(3.5ch, min-content);
     > :global(table) {
         width: 100%;
         border-spacing: 0;
-        font-size: #{lib.var-fs(smaller-3)};
+        font-size: lib.var-fs(smaller-3);
 
         :global(th),
         :global(td) {
@@ -60,37 +60,37 @@ $_contrastColWidth: minmax(3.5ch, min-content);
     :global(li),
     :global(td) {
         :global(.shade-swatch) {
-            min-width: #{lib.do-var(shade-swatch-table-swatch-min-width, 11.5rem)};
+            min-width: lib.do-var(shade-swatch-table-swatch-min-width, 11.5rem);
             min-height: 6rem;
             min-height: min(6rem, 9svh);
         }
     }
 
     :global(.shade-swatch) {
-        padding-block: #{lib.var-mrg-soft('100')};
-        padding-inline: #{lib.var-mrg-firm('200')};
-        gap: 0 #{lib.var-mrg-firm('100')};
+        padding-block: lib.var-mrg-soft('100');
+        padding-inline: lib.var-mrg-firm('200');
+        gap: 0 lib.var-mrg-firm('100');
 
         :global(.shade-swatch__name) {
-            margin-block-end: #{lib.var-mrg-soft('100')};
+            margin-block-end: lib.var-mrg-soft('100');
         }
 
         :global(.shade-swatch__colour-value) {
             padding-block: lib.var-stroke-relative('600');
-            font-size: #{lib.var-fs(smaller-3)};
+            font-size: lib.var-fs(smaller-3);
             text-wrap: nowrap;
         }
 
         :global(.shade-swatch__contrast),
         :global(.shade-swatch__contrast__result-group),
         :global(.shade-swatch__contrast__result-group__single-min-max) {
-            gap: #{lib.var-mrg-soft('100')} #{lib.var-mrg-firm('100')};
+            gap: lib.var-mrg-soft('100') lib.var-mrg-firm('100');
         }
 
         :global(.shade-swatch__contrast) {
             display: lib.do-var(shade-swatch-display-override, grid);
-            margin-block-start: #{lib.var-mrg-firm('200')};
-            font-size: #{lib.var-fs(smaller-3)};
+            margin-block-start: lib.var-mrg-firm('200');
+            font-size: lib.var-fs(smaller-3);
         }
 
         :global(.shade-swatch__contrast__result-group),
@@ -101,7 +101,7 @@ $_contrastColWidth: minmax(3.5ch, min-content);
         }
 
         :global(.shade-swatch__contrast__result-group) {
-            grid-template-columns: repeat(5, #{$_contrastColWidth});
+            grid-template-columns: repeat(5, $_contrastColWidth);
         }
 
         :global(.shade-swatch__contrast__result-group__single-min-max) {
@@ -112,7 +112,7 @@ $_contrastColWidth: minmax(3.5ch, min-content);
         }
 
         :global(.shade-swatch__contrast__result-group__single-min-max--minimum) {
-            grid-template-columns: repeat(2, #{$_contrastColWidth});
+            grid-template-columns: repeat(2, $_contrastColWidth);
             grid-template-columns: subgrid;
 
             :global(.shade-swatch__contrast__result-group__alert--minimum--ui) {
@@ -148,17 +148,17 @@ $_contrastColWidth: minmax(3.5ch, min-content);
         :global(li),
         :global(td) {
             :global(.shade-swatch) {
-                min-width: #{lib.do-var(shade-swatch-table-swatch-not-text-min-width, 1rem)};
+                min-width: lib.do-var(shade-swatch-table-swatch-not-text-min-width, 1rem);
             }
         }
     }
 }
 
 .shade-swatch-table__display-control__label {
-    margin-block-start: #{lib.var-mrg-soft('400')};
+    margin-block-start: lib.var-mrg-soft('400');
 
     + .shade-swatch-table__wrapper {
-        margin-block-start: #{lib.var-mrg-firm('200')};
+        margin-block-start: lib.var-mrg-firm('200');
     }
 }
 

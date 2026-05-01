@@ -7,19 +7,30 @@
 @use 'lib/config';
 
 @use 'pkg:@maddimathon/utility-sass/feature-check';
+@use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/string';
 
 /* # FONT FAMILY SWATCH LIST ==================================== */
 
 $_fontWeights: ('100', '200', '300', '400', '500', '600', '700', '800', '900');
 
-$_grid_rows: '[intro] auto';
+$_grid_rows: ('[intro] auto');
 
 @each $weight in $_fontWeights {
     @each $suffix in ('', '-italic') {
-        $_grid_rows: '#{$_grid_rows} [term-#{$weight}#{$suffix}] auto';
-        $_grid_rows: '#{$_grid_rows} [def-#{$weight}#{$suffix}] auto';
+        $_grid_rows: list.join(
+            $_grid_rows,
+            (
+                '[term-#{$weight}#{$suffix}]',
+                'auto',
+                '[def-#{$weight}#{$suffix}]',
+                'auto'
+            )
+        );
     }
 }
+
+$_grid_rows: string.unquote(string.join(' ', $_grid_rows));
 
 %_grid-base {
     @include lib.prop-display(grid);
@@ -41,7 +52,7 @@ $_grid_rows: '[intro] auto';
     grid-auto-rows: auto;
     grid-auto-flow: row;
 
-    margin-block-start: #{lib.var-mrg-firm('400')};
+    margin-block-start: lib.var-mrg-firm('400');
     padding: 0;
 
     overflow-inline: auto;
@@ -49,10 +60,10 @@ $_grid_rows: '[intro] auto';
     .font-family-swatch {
         @extend %_grid-base;
         grid-template-columns: 1fr;
-        grid-template-rows: #{$_grid_rows};
+        grid-template-rows: $_grid_rows;
 
-        padding-block: #{lib.var-mrg-soft('200')};
-        padding-inline: #{lib.var-mrg-firm('300')};
+        padding-block: lib.var-mrg-soft('200');
+        padding-inline: lib.var-mrg-firm('300');
 
         min-width: 0;
         max-width: none;
@@ -83,7 +94,7 @@ $_grid_rows: '[intro] auto';
 
         .font-family-swatch__details-list {
             margin: 0;
-            margin-block-start: #{lib.var-mrg-soft('500')};
+            margin-block-start: lib.var-mrg-soft('500');
 
             > dt,
             > dd {
@@ -91,7 +102,7 @@ $_grid_rows: '[intro] auto';
             }
 
             > dt {
-                margin-block-start: #{lib.var-mrg-soft('400')};
+                margin-block-start: lib.var-mrg-soft('400');
 
                 &:first-child {
                     margin-block-start: 0;
@@ -99,7 +110,7 @@ $_grid_rows: '[intro] auto';
             }
 
             + .font-family-swatch__weight-dt {
-                margin-block-start: #{lib.var-mrg-soft('600')};
+                margin-block-start: lib.var-mrg-soft('600');
             }
         }
 
@@ -109,7 +120,7 @@ $_grid_rows: '[intro] auto';
         }
 
         .font-family-swatch__weight-dt {
-            margin-block-start: #{lib.var-mrg-soft('400')};
+            margin-block-start: lib.var-mrg-soft('400');
         }
 
         .font-family-swatch__weight-dd {
@@ -148,7 +159,7 @@ $_grid_rows: '[intro] auto';
 :global(#{feature-check.get-selector( subgrid, true )}) {
     //
     .font-family-swatch-list {
-        grid-template-rows: #{$_grid_rows};
+        grid-template-rows: $_grid_rows;
 
         .font-family-swatch {
             grid-template-rows: subgrid;

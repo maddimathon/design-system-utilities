@@ -13,10 +13,7 @@
 // @use 'pkg:@maddimathon/utility-astro/01-functions' as utils;
 
 @function aspect-ratio-string-to-list($str) {
-    $width: $str;
-    $height: $str;
-
-    $splitList: string.regex-split($str, '\\s*\\/\\s*');
+    $splitList: string.regex-split(#{$str}, '\\s*\\/\\s*');
 
     // returns
     @if list.length($splitList) < 2 {

@@ -36,7 +36,7 @@
             @include cx-prop(height-nav-primary, $_navHeight);
             @include cx-prop(scroll-padding-top, scroll-padding-top-value());
 
-            scroll-padding-top: #{var-scroll-padding-top()};
+            scroll-padding-top: var-scroll-padding-top();
         }
 
         body {
@@ -51,29 +51,29 @@
             padding: 0;
             gap: 0;
 
-            z-index: #{var-z-index(nav)};
+            z-index: var-z-index(nav);
 
             > .toggle-title {
                 min-height: do-var(height-nav-primary, $_navHeight);
 
                 [data-toggle-control] {
-                    padding-block: min(0.75vh, #{var-mrg-soft('300')});
+                    padding-block: min(0.75vh, var-mrg-soft('300'));
                 }
             }
 
             &[data-toggle-container='open'] {
                 [data-toggle-control-backdrop] {
                     opacity: 0;
-                    animation: fade-in #{var-tr-time(normal)}
-                        #{tokens.$transition_function} 10ms forwards;
+                    animation: fade-in var-tr-time(normal)
+                        tokens.$transition_function 10ms forwards;
                 }
             }
 
             &[data-toggle-container='closing'] {
                 [data-toggle-control-backdrop] {
                     opacity: 0;
-                    animation: fade-out #{var-tr-time(normal)}
-                        #{tokens.$transition_function} 0ms forwards;
+                    animation: fade-out var-tr-time(normal)
+                        tokens.$transition_function 0ms forwards;
                 }
             }
         }

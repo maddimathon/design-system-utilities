@@ -90,7 +90,7 @@ export declare namespace Tokens_Photos {
         readonly source: Photo.Data<T_Slug>['source'];
         protected constructor(data: Photo.Data<T_Slug>);
         toJSON(): Photo.JSON<T_Slug>;
-        toScssVars(): Photo.JSON<T_Slug>;
+        toScssVars(): Photo.ScssVars<T_Slug>;
     }
     /**
      * @since 0.1.0-beta.0.draft
@@ -165,7 +165,9 @@ export declare namespace Tokens_Photos {
         /**
          * @since 0.1.0-beta.0.draft
          */
-        type ScssVars<T_Slug extends string> = Omit<Data<T_Slug>, 'attributionRequired' | 'credit' | 'label' | 'license' | 'source'>;
+        type ScssVars<T_Slug extends string> = Omit<Data<T_Slug>, 'attributionRequired' | 'credit' | 'filepath' | 'label' | 'license' | 'source'> & {
+            filepath: string;
+        };
     }
     /**
      * @since 0.1.0-beta.0.draft

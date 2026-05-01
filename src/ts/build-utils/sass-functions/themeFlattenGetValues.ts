@@ -247,7 +247,10 @@ export function sassFn_themeFlattenGetValues(): [ string, sass.CustomFunction<'a
                 }
             );
 
-            return jsValueToSass( mapped );
+            return jsValueToSass( mapped, {
+                coloursAsStrings: true,
+                quoteStrings: false,
+            } );
         },
     ];
 }

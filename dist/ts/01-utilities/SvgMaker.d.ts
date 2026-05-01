@@ -117,7 +117,7 @@ export declare namespace SvgMaker {
      * @since 0.1.0-beta.0.draft
      */
     type ScssVars<T_Slug extends string = string, T_Metadata extends any = any> = Omit<JsonReturn<T_Slug, T_Metadata>, "ariaLabel" | "aspectRatio" | "innerSVG" | "svgAttrString" | "svgFile" | "svgCssEmbedded" | "svgInlineHidden" | "svgInlineLabelled"> & {
-        aspectRatio: string;
+        aspectRatio: number | `${number} / ${number}`;
         embedded: string;
     };
 }

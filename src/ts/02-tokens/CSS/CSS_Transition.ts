@@ -51,7 +51,7 @@ export class Tokens_CSS_Transition extends AbstractTokens<{
                     'border-radius',
                     'border-width',
                     'bottom',
-                    'box-shadow',
+                    // 'box-shadow',
                     // 'font',
                     'font-weight',
                     'gap',

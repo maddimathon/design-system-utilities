@@ -295,7 +295,9 @@
             }
 
             @if $_value {
-                @return '#{$version}a(#{config.config-do-var(theme-#{$slug}-#{$version}, $fallback: $_value, $args...)}, #{$opacity})';
+                @return string.unquote(
+                    '#{$version}a(#{config.config-do-var(theme-#{$slug}-#{$version}, $fallback: $_value, $args...)}, #{$opacity})'
+                );
             }
         }
     }

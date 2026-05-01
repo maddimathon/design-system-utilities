@@ -19,13 +19,16 @@
 @function tokens-mrg-value-firm($level, $unit: 1rem, $multiplier: 1) {
     $value: map.get(breakdown.$margin, '400');
 
-    @if not map.has-key(breakdown.$margin, '#{$level}') {
+    @if not map.has-key(breakdown.$margin, #{$level}) {
         @warn "$level '#{$level}' was not a key in tokens.$margin";
     } @else {
-        $value: map.get(breakdown.$margin, '#{$level}');
+        $value: map.get(breakdown.$margin, #{$level});
     }
 
-    @return math.add-unit($value * $multiplier, $unit);
+    @return math.add-unit(
+        math.round-to-pixel($value * $multiplier, config.$fn_marginValue_roundToPixelFactor),
+        $unit
+    );
 }
 
 ///
@@ -35,10 +38,10 @@
 ///
 @function tokens-mrg-value-half($level, $unit: 1rem, $multiplier: 1, $args...) {
     //
-    $firm: tokens-mrg-value-firm($level, $multiplier: $multiplier, $args...);
-    $soft: tokens-mrg-value-soft($level, $multiplier: $multiplier, $args...);
+    $firm: tokens-mrg-value-firm($level, $multiplier: $multiplier, $unit: $unit, $args...);
+    $soft: tokens-mrg-value-soft($level, $multiplier: $multiplier, $unit: $unit, $args...);
 
-    @return math.add-unit($firm - $soft, $unit);
+    @return $firm - $soft;
 }
 
 $_mrgValFirm_400: tokens-mrg-value-firm('400');
@@ -54,7 +57,13 @@ $_mrgValFirm_400_softened: tokens-mrg-value-firm('400');
 
     // returns - simple softening
     @if math.num-val($level) <= 400 {
-        @return math.add-unit(math.round-to-pixel($value * breakdown.$margin_softener), $unit);
+        @return math.add-unit(
+            math.round-to-pixel(
+                $value * breakdown.$margin_softener,
+                config.$fn_marginSoftValue_roundToPixelFactor
+            ),
+            $unit
+        );
     }
 
     $pc_soften_full: calc($_mrgValFirm_400 / $value);
@@ -72,7 +81,10 @@ $_mrgValFirm_400_softened: tokens-mrg-value-firm('400');
     $value_half_partial_soft: $value * $pc_soften_partial * $_partial_softener;
 
     @return math.add-unit(
-        math.round-to-pixel($value_half_full_soft + $value_half_partial_soft),
+        math.round-to-pixel(
+            $value_half_full_soft + $value_half_partial_soft,
+            config.$fn_marginSoftValue_roundToPixelFactor
+        ),
         $unit
     );
 }

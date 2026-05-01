@@ -54,7 +54,7 @@ $_heading_inlines: false;
                 font-family: font-family-system-ui();
             }
             font-weight: 400;
-            line-height: #{var-line-height('400')};
+            line-height: var-line-height('400');
             font-size: 110%;
 
             @include min-width(mobile) {
@@ -68,7 +68,7 @@ $_heading_inlines: false;
     }
 
     %body {
-        font-size: #{var-fs(normal)};
+        font-size: var-fs(normal);
     }
 }
 
@@ -76,8 +76,8 @@ $_heading_inlines: false;
     %selection {
         @include cx-prop(icon-color, currentColor !important);
 
-        background-color: #{var-theme(selection-background)} !important;
-        color: #{var-theme(selection-text)} !important;
+        background-color: var-theme(selection-background) !important;
+        color: var-theme(selection-text) !important;
 
         * {
             color: inherit !important;
@@ -165,14 +165,14 @@ $_heading_inlines: false;
         position: relative;
 
         @if font-family-exists(monospace) {
-            font-family: #{var-font-family(monospace)};
+            font-family: var-font-family(monospace);
         } @else {
             font-family: font-family-system-monospace();
         }
 
         // UPGRADE - convert to style tokens
-        border-radius: #{var-style(button-border-radius)};
-        background: #{var-theme(background-grey)};
+        border-radius: var-style(button-border-radius);
+        background: var-theme(background-grey);
 
         @include theme-set-color(primary);
 

@@ -60,19 +60,19 @@ $_closing_time: var-tr-time(toggle-closing);
         }
         
         @else if $location == content {
-            background: #{var-theme(background)};
+            background: var-theme(background);
             width: 100%;
-            max-width: min(#{var-width(content)}, 90vw);
+            max-width: min(var-width(content), 90vw);
 
             @content($location);
         }
         
         @else if $location == content--fieldset {
-            margin-block: #{var-mrg-firm('300')} #{var-mrg-half('300')};
+            margin-block: var-mrg-firm('300') var-mrg-half('300');
             margin-inline: 0;
 
-            padding-block: #{var-mrg-firm('100')};
-            padding-inline: clamp(#{var-mrg-firm('200')}, 3vw, #{var-mrg-firm('300')});
+            padding-block: var-mrg-firm('100');
+            padding-inline: clamp(var-mrg-firm('200'), 3vw, var-mrg-firm('300'));
 
             @content($location);
         }
@@ -85,7 +85,7 @@ $_closing_time: var-tr-time(toggle-closing);
         
         @else if $location == disclaimer {
             font-style: italic;
-            font-size: #{var-fs(smaller-1)};
+            font-size: var-fs(smaller-1);
 
             @content($location);
         }
@@ -148,7 +148,7 @@ $_closing_time: var-tr-time(toggle-closing);
         }
         
         @else if $location == js--settings-menu--open--content--container {
-            padding-block: #{var-mrg-soft('400')} #{var-mrg-firm('300')};
+            padding-block: var-mrg-soft('400') var-mrg-firm('300');
 
             @content($location);
         }
@@ -175,16 +175,16 @@ $_closing_time: var-tr-time(toggle-closing);
             &[data-toggle-container='open'] {
                 [data-toggle-control-backdrop] {
                     opacity: 0;
-                    animation: fade-in #{var-tr-time(normal)}
-                        #{tokens.$transition_function} 10ms forwards;
+                    animation: fade-in var-tr-time(normal)
+                        tokens.$transition_function 10ms forwards;
                 }
             }
 
             &[data-toggle-container='closing'] {
                 [data-toggle-control-backdrop] {
                     opacity: 0;
-                    animation: fade-out #{var-tr-time(normal)}
-                        #{tokens.$transition_function} 0ms forwards;
+                    animation: fade-out var-tr-time(normal)
+                        tokens.$transition_function 0ms forwards;
                 }
             }
         }
@@ -217,7 +217,7 @@ $_closing_time: var-tr-time(toggle-closing);
         }
 
         @at-root #{$selectors} {
-            font-family: #{var-font-family($slug)} !important;
+            font-family: var-font-family($slug) !important;
         }
 
         @at-root #{$attrSelector} {
@@ -227,7 +227,7 @@ $_closing_time: var-tr-time(toggle-closing);
 
     @if font-family-exists(body) {
         @at-root .website-settings-menu .font-family-override-default {
-            font-family: #{var-font-family(body)} !important;
+            font-family: var-font-family(body) !important;
         }
     }
 }

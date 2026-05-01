@@ -133,8 +133,8 @@ export class SvgMaker {
             height: this.height,
             width: this.width,
             aspectRatio: this.aspectRatio[0] === this.aspectRatio[1]
-                ? this.aspectRatio[0].toString()
-                : this.aspectRatio.join(' / '),
+                ? this.aspectRatio[0]
+                : `${this.aspectRatio[0]} / ${this.aspectRatio[1]}`,
             embedded: `url( 'data:image/svg+xml;utf8,${this.svgCssEmbedded()}' )`,
             meta: this.meta,
         };

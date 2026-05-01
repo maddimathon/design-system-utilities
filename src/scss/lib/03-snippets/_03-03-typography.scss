@@ -36,7 +36,7 @@
         using ($location) {
         @if $location == root {
             @if $includeBorder {
-                border-inline-start: #{var-border-width('200')} solid #{var-theme(ui-primary)};
+                border-inline-start: var-border-width('200') solid var-theme(ui-primary);
             }
             @include set-flow-margins($default: '300', $large: '500', $small: '200');
         }
@@ -49,7 +49,7 @@
             align-self: end;
             text-align: end;
 
-            font-size: #{var-fs(smaller-1)};
+            font-size: var-fs(smaller-1);
 
             @include theme-set-color(primary);
 
@@ -86,44 +86,55 @@
         $slug: '1';
     }
 
+    $marginBlockEnd: if(
+        $marginBlockEnd,
+        $marginBlockEnd,
+        if($slug == unstyled, null, var-style(heading-#{$slug}-margin-block-end))
+    );
+
     $fontStyle: if($fontStyle, $fontStyle, var-style(heading-#{$slug}-font-style));
 
     @if $includeMargin {
-        margin-block-start: #{if(
-                $marginBlockStart,
-                $marginBlockStart,
-                var-style(heading-#{$slug}-margin-block-start)
-            )};
-        margin-block-end: #{if(
-                $marginBlockEnd,
-                $marginBlockEnd,
-                var-style(heading-#{$slug}-margin-block-end)
-            )};
+        margin-block-start: if(
+            $marginBlockStart,
+            $marginBlockStart,
+            var-style(heading-#{$slug}-margin-block-start)
+        );
+
+        @if $marginBlockEnd {
+            margin-block-end: $marginBlockEnd;
+
+            padding-block-start: $marginBlockEnd;
+        } @else {
+            padding-block-start: 0;
+        }
+
+        padding-block-end: 0;
     }
 
     @if font-family-exists(heading) {
-        font-family: #{var-font-family(heading)};
+        font-family: var-font-family(heading);
     }
 
-    font-weight: #{var-style(heading-#{$slug}-font-weight)};
+    font-weight: var-style(heading-#{$slug}-font-weight);
 
-    font-size: #{if(
-            $slug == unstyled,
-            var-fs(
-                style-value(heading-unstyled-font-size, $raw: true),
-                $relative: $useRelativeFontSize
-            ),
-            var-fs(heading-#{$slug}, $relative: $useRelativeFontSize)
-        )};
+    font-size: if(
+        $slug == unstyled,
+        var-fs(
+            style-value(heading-unstyled-font-size, $raw: true),
+            $relative: $useRelativeFontSize
+        ),
+        var-fs(heading-#{$slug}, $relative: $useRelativeFontSize)
+    );
 
-    line-height: #{if($lineHeight, $lineHeight, var-style(heading-#{$slug}-line-height))};
+    line-height: if($lineHeight, $lineHeight, var-style(heading-#{$slug}-line-height));
 
-    letter-spacing: #{var-style(heading-#{$slug}-letter-spacing)};
+    letter-spacing: var-style(heading-#{$slug}-letter-spacing);
 
-    text-transform: #{var-style(heading-#{$slug}-text-transform)};
+    text-transform: var-style(heading-#{$slug}-text-transform);
     text-wrap: balance;
 
-    font-style: #{$fontStyle};
+    font-style: $fontStyle;
 
     @if $fontStyle == italic {
         em {
@@ -145,7 +156,7 @@
         );
 
         @include cx-prop(icon-color, if($iconColor, $iconColor, $_color));
-        color: #{$_color};
+        color: $_color;
     }
 
     @if $includeMarginSiblings {
@@ -187,8 +198,8 @@
         var-theme(link-outline#{if($suffix == '', '-hover', $suffix)})
     );
     @include cx-prop(icon-color, var-theme(link-icon#{$suffix}));
-    text-decoration-color: #{var-theme(link-decoration#{$suffix})};
-    color: #{var-theme(link#{$suffix})};
+    text-decoration-color: var-theme(link-decoration#{$suffix});
+    color: var-theme(link#{$suffix});
 }
 
 ///
@@ -261,8 +272,8 @@
     &,
     &:visited {
         @include cx-prop(icon-color, $iconColor);
-        text-decoration-color: #{$textDecorationColor};
-        color: #{$color};
+        text-decoration-color: $textDecorationColor;
+        color: $color;
 
         @content (root);
     }
@@ -325,7 +336,7 @@
     &,
     &::before,
     &::after {
-        transition: #{do-var(transition)};
+        transition: do-var(transition);
     }
 
     /// EXCEPTIONS ///
@@ -429,24 +440,24 @@
 
     justify-self: center;
 
-    margin-block: #{$marginBlock};
-    margin-inline: #{$marginInline};
+    margin-block: $marginBlock;
+    margin-inline: $marginInline;
 
-    padding-block: #{$paddingBlock};
-    padding-inline: #{$paddingInline};
+    padding-block: $paddingBlock;
+    padding-inline: $paddingInline;
 
     @if $includeBorder {
-        border: #{var-border-width('100')} solid #{var-theme(ui-primary)};
+        border: var-border-width('100') solid var-theme(ui-primary);
     }
 
-    color: #{$color};
+    color: $color;
 
     @if $includeWidth {
-        width: #{$width};
-        max-width: #{$maxWidth};
+        width: $width;
+        max-width: $maxWidth;
     }
 
-    font-size: #{$fontSize};
+    font-size: $fontSize;
 
     overflow: auto;
 
@@ -490,7 +501,7 @@
         &:is(#{utils.snippet-pre-plaintext-selectors()}) {
             white-space: normal;
             text-wrap: auto;
-            max-width: #{var-width(callout)};
+            max-width: var-width(callout);
 
             > %code {
                 white-space: pre-wrap;
@@ -519,20 +530,20 @@
 ) {
     @include cx-prop(icon-color, $iconColor);
 
-    margin-block-start: #{var-style(subtitle-margin-block-start)};
-    margin-block-end: #{var-style(subtitle-margin-block-end)};
+    margin-block-start: var-style(subtitle-margin-block-start);
+    margin-block-end: var-style(subtitle-margin-block-end);
 
-    font-weight: #{$fontWeight};
-    font-size: #{$fontSize};
+    font-weight: $fontWeight;
+    font-size: $fontSize;
 
-    line-height: #{$lineHeight};
+    line-height: $lineHeight;
 
-    letter-spacing: #{$letterSpacing};
+    letter-spacing: $letterSpacing;
 
-    text-transform: #{$textTransform};
+    text-transform: $textTransform;
     text-wrap: balance;
 
-    font-style: #{$fontStyle};
+    font-style: $fontStyle;
 
     @if $fontStyle == italic {
         em {
@@ -544,7 +555,7 @@
         }
     }
 
-    color: #{$color};
+    color: $color;
 }
 
 ///
@@ -554,7 +565,7 @@
 ///
 @mixin snippet-unstyled-heading(
     $resetChildFontStyle: true,
-    $useRelativeFontSize: false,
+    $useRelativeFontSize: config.$fn_tokens_fontSize_defaultRelative,
     //
     $color: var-style(heading-unstyled-color),
     $fontFamily: var-style(heading-unstyled-font-family),
@@ -568,29 +579,29 @@
     $lineHeight: var-style(heading-unstyled-line-height),
     $textTransform: var-style(heading-unstyled-text-transform)
 ) {
-    font-family: #{$fontFamily};
-    font-weight: #{$fontWeight};
+    font-family: $fontFamily;
+    font-weight: $fontWeight;
 
     @if $fontSize != false {
-        font-size: #{$fontSize};
+        font-size: $fontSize;
     }
 
     @if $lineHeight != false {
-        line-height: #{$lineHeight};
+        line-height: $lineHeight;
     }
 
     @if $letterSpacing != false {
-        letter-spacing: #{$letterSpacing};
+        letter-spacing: $letterSpacing;
     }
 
     @if $textTransform != false {
-        text-transform: #{$textTransform};
+        text-transform: $textTransform;
     }
 
     text-wrap: balance;
 
     @if $fontStyle != false {
-        font-style: #{$fontStyle};
+        font-style: $fontStyle;
 
         @if $fontStyle == italic {
             em {
@@ -616,7 +627,7 @@
     }
 
     @if $color != false {
-        color: #{$color};
+        color: $color;
     }
 }
 
@@ -626,13 +637,13 @@
 @mixin _set-flow-margins--large-margin-direct-siblings($softStart, $firmStart) {
     + %margins-flow,
     + %margins-flow-small {
-        margin-block-start: #{$softStart};
+        margin-block-start: $softStart;
     }
 
     + %button-span,
     + %margins-flow-firm,
     + %margins-flow-firm-small {
-        margin-block-start: #{$firmStart};
+        margin-block-start: $firmStart;
     }
 }
 
@@ -745,6 +756,7 @@
     $val_firm_end_small: var-mrg-half($firmEnd_small);
 
     $var_firm_start_small: do-var(flow-margin-firm-start--small, $val_firm_start_small);
+    $var_firm_end_small: do-var(flow-margin-firm-end--small, $val_firm_end_small);
 
     $val_firm_start_large: var-mrg-firm($firmStart_large);
     $val_firm_end_large: var-mrg-half($firmEnd_large);
@@ -802,28 +814,28 @@
             $_var_unstyledHeading: do-var(flow-margin--heading-unstyled, $val_unstyledHeading) 0;
 
             %unstyled-heading {
-                margin-block: #{$_var_unstyledHeading};
+                margin-block: $_var_unstyledHeading;
             }
 
             %unstyled-heading--is {
-                margin-block: #{$_var_unstyledHeading};
+                margin-block: $_var_unstyledHeading;
             }
 
             %unstyled-heading--where {
-                margin-block: #{$_var_unstyledHeading};
+                margin-block: $_var_unstyledHeading;
             }
         }
 
         %margins-flow {
-            margin-block: #{do-var(flow-margin, $val_default)} 0;
+            margin-block: do-var(flow-margin, $val_default) 0;
         }
 
         %margins-flow-small {
-            margin-block: #{$var_small} 0;
+            margin-block: $var_small 0;
         }
 
         %margins-flow-large {
-            margin-block: #{$var_large} 0;
+            margin-block: $var_large 0;
 
             @include _set-flow-margins--large-margin-direct-siblings(
                 $softStart: $var_large,
@@ -835,18 +847,31 @@
 
         %button-span,
         %margins-flow-firm {
-            margin-block: #{do-var(flow-margin-firm-start, $val_firm_start)}
-                #{do-var(flow-margin-firm-end, $val_firm_end)};
+            margin-block: do-var(flow-margin-firm-start, $val_firm_start)
+                do-var(flow-margin-firm-end, $val_firm_end);
+        }
+
+        %button {
+            // %button-span {
+            + %button {
+                // + %button-span {
+                // margin-block-start: $var_firm_start_small;
+                margin-block-start: do-var(flow-margin--button-span-block, $val_buttonSpan_block);
+            }
+
+            &:has(+ %button) {
+                // &:has(+ %button-span) {
+                margin-block-end: 0;
+            }
         }
 
         %margins-flow-firm-small {
-            margin-block: #{$var_firm_start_small}
-                #{do-var(flow-margin-firm-end--small, $val_firm_end_small)};
+            margin-block: $var_firm_start_small $var_firm_end_small;
         }
 
         %margins-flow-firm-large {
-            margin-block: #{$var_firm_start_large}
-                #{do-var(flow-margin-firm-end--large, $val_firm_end_large)};
+            margin-block: $var_firm_start_large
+                do-var(flow-margin-firm-end--large, $val_firm_end_large);
 
             @include _set-flow-margins--large-margin-direct-siblings(
                 $softStart: $var_large,
@@ -857,8 +882,8 @@
         // BUTTON SPAN
 
         %button-span {
-            gap: #{do-var(flow-margin--button-span-block, $val_buttonSpan_block)}
-                #{do-var(flow-margin--button-span-inline, $val_buttonSpan_inline)};
+            gap: do-var(flow-margin--button-span-block, $val_buttonSpan_block)
+                do-var(flow-margin--button-span-inline, $val_buttonSpan_inline);
         }
     }
 }
@@ -923,10 +948,10 @@
         null
     );
 
-    background-color: #{var-theme(
-            selection-background,
-            $contrast: $contrast,
-            $opacity: $bg_opacity
-        )} !important;
-    color: #{var-theme(selection-text, $contrast: $contrast)} !important;
+    background-color: var-theme(
+        selection-background,
+        $contrast: $contrast,
+        $opacity: $bg_opacity
+    ) !important;
+    color: var-theme(selection-text, $contrast: $contrast) !important;
 }

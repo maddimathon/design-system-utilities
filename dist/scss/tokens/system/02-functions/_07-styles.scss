@@ -127,6 +127,7 @@
     $isInputStyle: string.index($slug, input-) == 1;
     $isSubtitleStyle: string.index($slug, subtitle-) == 1;
     $isToggleStyle: string.index($slug, toggle-) == 1;
+    $isToggleContentStyle: string.index($slug, toggle-content-) == 1;
     $isToggleControlStyle: string.index($slug, toggle-control-) == 1;
     $isWidgetStyle: string.index($slug, widget-) == 1;
 
@@ -229,7 +230,7 @@
         // stroke-relative
         @if string.index($slug, '-focus-offset-') {
             $isStrokeRelative: true;
-        } @else if string.index($slug, '-focus-offset') == ($_slugLength - 12) {
+        } @else if string.index($slug, -focus-offset) == ($_slugLength - 12) {
             $isStrokeRelative: true;
         }
     }
@@ -239,8 +240,27 @@
     // returns
     @if $isMargin {
         // returns
-        @if $value == '0' {
-            @return 0;
+        @if meta.type-of($value) == number {
+            @return $value;
+        }
+
+        // returns if a block margin
+        @if $isHeadingStyle {
+            // returns
+            @if string.index($slug, -margin-block-start) == ($_slugLength - 18)
+            {
+                // // returns
+                // @if string.index($slug, heading-unstyled-) == 1 {
+                //     @return spacing.tokens-var-mrg-soft($value);
+                // }
+
+                @return spacing.tokens-var-mrg-soft($value);
+            }
+
+            // returns
+            @if string.index($slug, -margin-block-end) == ($_slugLength - 16) {
+                @return spacing.tokens-var-mrg-half($value);
+            }
         }
 
         // returns
@@ -276,15 +296,28 @@
     // returns
     @if $isPadding {
         // returns
-        @if $value == '0' {
-            @return 0;
+        @if meta.type-of($value) == number {
+            @return $value;
         }
 
         // returns
-        @if string.index($slug, -block-start) or
-            string.index($slug, toggle-control-) ==
-            1
-        {
+        @if $isToggleContentStyle {
+            @return if(
+                string.index($slug, -block-start) or
+                    string.index($slug, -block-end) or
+                    string.index($slug, -block),
+                spacing.tokens-var-mrg-soft($value),
+                spacing.tokens-var-mrg-firm($value)
+            );
+        }
+
+        // returns
+        @if string.index($slug, input-file-padding-) == 1 {
+            @return spacing.tokens-var-pad-firm($value);
+        }
+
+        // returns
+        @if string.index($slug, -block-start) or $isToggleControlStyle {
             @return spacing.tokens-var-pad-soft($value);
         }
 
@@ -308,8 +341,8 @@
     // returns
     @if $isGap {
         // returns
-        @if $value == '0' {
-            @return 0;
+        @if meta.type-of($value) == number {
+            @return $value;
         }
 
         // returns
@@ -338,9 +371,9 @@
     // returns
     @if $isBorderRadius {
         @return if(
-            $value == '0',
+            meta.type-of($value) == number,
             $value,
-            borders.tokens-var-border-radius($value)
+            borders.tokens-var-border-radius($value, $relative: $isButtonStyle)
         );
     }
 
@@ -357,14 +390,14 @@
         @return if(
             typography.tokens-font-family-exists($value),
             typography.tokens-var-font-family($value),
-            'inherit'
+            inherit
         );
     }
 
     // returns
     @if $isFontSize {
         // returns
-        @if $slug == button-inline-font-size {
+        @if $isButtonStyle {
             @return typography.tokens-var-fs($value, $relative: true);
         }
 

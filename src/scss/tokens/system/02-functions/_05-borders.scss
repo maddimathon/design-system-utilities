@@ -16,7 +16,7 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@function tokens-border-radius-value($level) {
+@function tokens-border-radius-value($level, $relative: false) {
     $value: map.get(breakdown.$border, radius, #{$level});
 
     @if $value == null {
@@ -24,7 +24,11 @@
         $value: map.get(breakdown.$border, radius, '200');
     }
 
-    @return calc(1rem * $value);
+    @if $relative {
+        $value: math.round-to-pixel($value * breakdown.$fontSize_base);
+    }
+
+    @return math.add-unit($value, if($relative, 1em, 1rem));
 }
 
 ///
@@ -35,10 +39,10 @@
 @function tokens-border-width-value($level, $multiplier: 1, $unit: 1rem) {
     $value: map.get(breakdown.$border_width, '200');
 
-    @if not map.has-key(breakdown.$border_width, '#{$level}') {
+    @if not map.has-key(breakdown.$border_width, #{$level}) {
         @warn "$level '#{$level}' was not a key in tokens.$border_width";
     } @else {
-        $value: map.get(breakdown.$border_width, '#{$level}');
+        $value: map.get(breakdown.$border_width, #{$level});
     }
 
     @return math.add-unit(
@@ -62,10 +66,10 @@
 @function tokens-stroke-relative-value($level, $multiplier: 1, $unit: 1em) {
     $value: map.get(breakdown.$stroke_relative, '200');
 
-    @if not map.has-key(breakdown.$stroke_relative, '#{$level}') {
+    @if not map.has-key(breakdown.$stroke_relative, #{$level}) {
         @warn "$level '#{$level}' was not a key in tokens.$stroke_relative";
     } @else {
-        $value: map.get(breakdown.$stroke_relative, '#{$level}');
+        $value: map.get(breakdown.$stroke_relative, #{$level});
     }
 
     @return math.add-unit(
@@ -87,10 +91,10 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@function tokens-var-border-radius($level, $fallbackOnly: false, $args...) {
+@function tokens-var-border-radius($level, $fallbackOnly: false, $relative: false, $args...) {
     @return config.config-do-var(
-        border-radius-#{$level},
-        tokens-border-radius-value($level),
+        if($relative, border-radius-rel-#{$level}, border-radius-#{$level}),
+        tokens-border-radius-value($level, $relative: $relative),
         $fallbackOnly: $fallbackOnly or config.$fn_var_replaceWithValue_borderRadius,
         $args...
     );

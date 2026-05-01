@@ -28,19 +28,19 @@
 
 @each $slug in map.keys(tokens.$width) {
     %min-width-#{$slug} {
-        min-width: #{var-width($slug)};
+        min-width: var-width($slug);
     }
     %max-width-#{$slug} {
-        max-width: #{var-width($slug)};
+        max-width: var-width($slug);
     }
 }
 
 @each $slug in (auto, fit-content, none) {
     %min-width-#{$slug} {
-        min-width: #{$slug};
+        min-width: $slug;
     }
     %max-width-#{$slug} {
-        max-width: #{$slug};
+        max-width: $slug;
     }
 }
 
@@ -49,7 +49,7 @@
         display: none !important;
 
         @include min-width($bp) {
-            display: #{do-var(display, block)} !important;
+            display: do-var(display, block) !important;
         }
     }
 
@@ -57,7 +57,7 @@
         display: none !important;
 
         @include max-width($bp) {
-            display: #{do-var(display, block)} !important;
+            display: do-var(display, block) !important;
         }
     }
 }

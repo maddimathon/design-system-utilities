@@ -95,7 +95,7 @@ export declare namespace Tokens_CSS_Style {
              * This should be a theme slug.
              */
             color: string;
-            radius: "0" | AnyTokenLevel;
+            radius: 0 | AnyTokenLevel;
             style: string;
             width: AnyTokenLevel;
         };
@@ -104,8 +104,8 @@ export declare namespace Tokens_CSS_Style {
          */
         color: string;
         gap: {
-            block: "0" | AnyTokenLevel;
-            inline: "0" | AnyTokenLevel;
+            block: 0 | AnyTokenLevel;
+            inline: 0 | AnyTokenLevel;
         };
         heading: {
             [H in RequiredHeadingLevels | 'unstyled']: AlertStyles_Heading;
@@ -137,9 +137,6 @@ export declare namespace Tokens_CSS_Style {
              * This should be a theme slug.
              */
             color: string;
-            /**
-             * With units.
-             */
             size: Omit<IconStyles['size'], 'font' | 'pseudo'>;
         };
         'line-height': CSS.LineHeight;
@@ -177,7 +174,7 @@ export declare namespace Tokens_CSS_Style {
      */
     type ButtonStyles = {
         border: {
-            radius: "0" | AnyTokenLevel;
+            radius: 0 | AnyTokenLevel;
             style: string;
             width: AnyTokenLevel;
         };
@@ -194,8 +191,8 @@ export declare namespace Tokens_CSS_Style {
             weight: WholeTokenLevel;
         };
         gap: {
-            block: "0" | AnyTokenLevel;
-            inline: "0" | AnyTokenLevel;
+            block: 0 | AnyTokenLevel;
+            inline: 0 | AnyTokenLevel;
         };
         icon: Pick<IconStyles, 'font' | 'pseudo' | 'vertical-align'> & {
             buffer: {
@@ -203,27 +200,21 @@ export declare namespace Tokens_CSS_Style {
                 end: number;
             };
             embedded: {
-                /**
-                 * With units.
-                 */
-                bottom: string;
+                bottom: CSS.EmNumber;
             };
-            /**
-             * With units.
-             */
             size: Omit<IconStyles['size'], '$' | 'large'>;
         };
         'letter-spacing': string;
         'line-height': CSS.LineHeight;
         margin: {
             block: {
-                start: "0" | AnyTokenLevel;
-                end: "0" | AnyTokenLevel;
+                start: 0 | AnyTokenLevel;
+                end: 0 | AnyTokenLevel;
             };
         };
         padding: {
-            block: "0" | AnyTokenLevel;
-            inline: "0" | AnyTokenLevel;
+            block: 0 | AnyTokenLevel;
+            inline: 0 | AnyTokenLevel;
         };
         'text-transform': CSS.TextTransform;
         width: string;
@@ -251,11 +242,20 @@ export declare namespace Tokens_CSS_Style {
      * @since 0.1.0-alpha
      */
     namespace CSS {
-        type TextTransform = "none" | "capitalize" | "uppercase" | "lowercase" | "full-width" | "full-size-kana" | "math-auto";
+        /**
+         * A number with em units.
+         *
+         * @since 0.1.0-beta.0.draft
+         */
+        type EmNumber = 0 | '0' | `${number}em`;
         /**
          * @since 0.1.0-beta.0.draft
          */
         type LineHeight = number | AnyTokenLevel;
+        /**
+         * @since 0.1.0-alpha
+         */
+        type TextTransform = "none" | "capitalize" | "uppercase" | "lowercase" | "full-width" | "full-size-kana" | "math-auto";
     }
     /**
      * The flow margins to be included in various other styles for the
@@ -283,8 +283,8 @@ export declare namespace Tokens_CSS_Style {
         'text-transform': CSS.TextTransform;
         margin: {
             block: {
-                start: "0" | AnyTokenLevel;
-                end: "0" | AnyTokenLevel;
+                start: 0 | AnyTokenLevel;
+                end: 0 | AnyTokenLevel;
             };
         };
     };
@@ -320,30 +320,30 @@ export declare namespace Tokens_CSS_Style {
          */
         color: string;
         font: {
-            top: `${number}em`;
+            top: CSS.EmNumber;
         };
         inline: {
             buffer: {
-                $: string;
+                $: CSS.EmNumber;
                 start: number;
                 end: number;
             };
             'line-height': 'normal' | Exclude<CSS.LineHeight, AnyTokenLevel>;
         };
         pseudo: {
-            top: `${number}em`;
+            top: CSS.EmNumber;
         };
         size: {
-            $: string;
-            large: string;
+            $: CSS.EmNumber;
+            large: CSS.EmNumber;
             /**
              * For inline icons using the icon font.
              */
-            font: string;
+            font: CSS.EmNumber;
             /**
              * For inline icons in before/after pseudo classes.
              */
-            pseudo: string;
+            pseudo: CSS.EmNumber;
         };
         'vertical-align': string;
     };
@@ -352,7 +352,7 @@ export declare namespace Tokens_CSS_Style {
      */
     type InputStyles = {
         border: {
-            radius: "0" | AnyTokenLevel;
+            radius: 0 | AnyTokenLevel;
             style: string;
             width: AnyTokenLevel;
         };
@@ -366,8 +366,8 @@ export declare namespace Tokens_CSS_Style {
             'letter-spacing': string;
             offset: {
                 block: {
-                    start: `${number}em`;
-                    end: `${number}em`;
+                    start: CSS.EmNumber;
+                    end: CSS.EmNumber;
                 };
             };
         };
@@ -379,16 +379,6 @@ export declare namespace Tokens_CSS_Style {
             'line-height': CSS.LineHeight;
         };
         'line-height': CSS.LineHeight;
-        margin: {
-            block: {
-                start: AnyTokenLevel;
-                end: AnyTokenLevel;
-                /**
-                 * This is the gap between a label and its input.
-                 */
-                gap: AnyTokenLevel;
-            };
-        };
         padding: {
             block: AnyTokenLevel;
             inline: AnyTokenLevel;
@@ -438,8 +428,8 @@ export declare namespace Tokens_CSS_Style {
             background: string;
             border: {
                 radius: {
-                    $: '0' | AnyTokenLevel;
-                    top: '0' | AnyTokenLevel;
+                    $: 0 | AnyTokenLevel;
+                    top: 0 | AnyTokenLevel;
                 };
                 style: {
                     $: "dotted" | "solid";
@@ -460,12 +450,12 @@ export declare namespace Tokens_CSS_Style {
             $: {
                 margin: {
                     block: {
-                        end: '0' | AnyTokenLevel;
+                        end: 0 | AnyTokenLevel;
                     };
                 };
                 padding: {
                     block: {
-                        end: '0' | AnyTokenLevel;
+                        end: 0 | AnyTokenLevel;
                     };
                 };
             };
@@ -482,16 +472,10 @@ export declare namespace Tokens_CSS_Style {
             self: 'margins-flow-firm' | 'margins-flow-firm-large' | 'margins-flow-firm-small';
         };
         icon: Pick<IconStyles, 'vertical-align'> & {
-            /**
-             * With units.
-             */
             buffer: {
-                start: string;
-                end: string;
+                start: CSS.EmNumber;
+                end: CSS.EmNumber;
             };
-            /**
-             * With units.
-             */
             size: IconStyles['size']['$'];
         };
         /**
@@ -525,12 +509,12 @@ export declare namespace Tokens_CSS_Style {
     type ToggleStyles_ControlHeading = {
         margin: {
             block: {
-                end: '0' | AnyTokenLevel;
+                end: 0 | AnyTokenLevel;
             };
         };
         padding: {
             block: {
-                end: '0' | AnyTokenLevel;
+                end: 0 | AnyTokenLevel;
             };
         };
     };
@@ -547,7 +531,7 @@ export declare namespace Tokens_CSS_Style {
              * This should be a theme slug.
              */
             color: string;
-            radius: "0" | AnyTokenLevel;
+            radius: 0 | AnyTokenLevel;
             style: string;
             width: AnyTokenLevel;
         };

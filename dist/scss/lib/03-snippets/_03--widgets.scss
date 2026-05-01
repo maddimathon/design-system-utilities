@@ -33,25 +33,25 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
     @include prop-display(flex);
     @include utils.snippet-content-flex-container;
 
-    margin-block: #{$marginBlockStart} #{$marginBlockEnd};
+    margin-block: $marginBlockStart $marginBlockEnd;
 
-    padding-block: #{var-style(widget-padding-block)};
-    padding-inline: #{var-style(widget-padding-inline)};
+    padding-block: var-style(widget-padding-block);
+    padding-inline: var-style(widget-padding-inline);
 
     width: fit-content;
 
-    line-height: #{var-style(widget-line-height)};
+    line-height: var-style(widget-line-height);
 
-    border: #{var-style(widget-border-width)} #{var-style(widget-border-style)}
-        #{var-style(widget-border-color)};
-    border-radius: #{var-style(widget-border-radius)};
+    border: var-style(widget-border-width) var-style(widget-border-style)
+        var-style(widget-border-color);
+    border-radius: var-style(widget-border-radius);
 
-    background: #{var-style(widget-background)};
+    background: var-style(widget-background);
 
     transition:
-        background #{var-tr-time(fast)} #{tokens.$transition_function},
-        border-color #{var-tr-time(fast)} #{tokens.$transition_function},
-        color #{var-tr-time(fast)} #{tokens.$transition_function};
+        background var-tr-time(fast) tokens.$transition_function,
+        border-color var-tr-time(fast) tokens.$transition_function,
+        color var-tr-time(fast) tokens.$transition_function;
 
     @if meta.content-exists() {
         @content ( 'root' );
@@ -69,8 +69,8 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
         @each $variationKey in $_textAndBackgroundKeys {
             @if $variationKey != '$' {
                 &.background-#{$variationKey} {
-                    @if theme-token-exists('background-#{$variationKey}') {
-                        background: #{var-theme('background-#{$variationKey}')};
+                    @if theme-token-exists(background-#{$variationKey}) {
+                        background: var-theme(background-#{$variationKey});
                     }
                 }
             }
@@ -138,7 +138,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
             );
 
             %site-sidebar > & {
-                margin-block: #{$widget_marginBlockEnd} 0;
+                margin-block: $widget_marginBlockEnd 0;
             }
         }
     }

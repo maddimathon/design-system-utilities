@@ -3,20 +3,50 @@
 /// @since ___PKG_VERSION___
 ///
 
-// @use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/map';
 
-// @use '../config';
+@use '../config';
 // @use '../../../tokens';
 
-// @use '../../../lib' as *;
+@use '../../../lib' as *;
 
-// @include debug-checkpoint(
-//     '#{config.$template_slug} - layout - start',
-//     $level: config.$template_debug_checkpointsLevel + 1,
-//     $verbose: true
-// );
+$_sels_allHeadings: selector-all-headings();
 
-// @if config.$template_cssHeadings {
-//     /* # LAYOUT
-//      * ======================================================================== */
-// }
+@if map.get(config.$template_styles, astro, bodyGrid) {
+    @include debug-checkpoint(
+        '#{config.$template_slug} - layout - start',
+        $level: config.$template_debug_checkpointsLevel + 1,
+        $verbose: true
+    );
+
+    @if config.$template_cssHeadings {
+        /* # LAYOUT - BODY GRID
+         * ======================================================================== */
+    }
+
+    @include snippet-support-astro-body-grid($includeGlobals: false);
+
+    %content-header {
+        &,
+        > hgroup {
+            > :first-child {
+                margin-block-start: 0;
+            }
+        }
+
+        > :where(#{$_sels_allHeadings}),
+        > hgroup {
+        }
+
+        > :where(#{$_sels_allHeadings}),
+        hgroup > :where(#{$_sels_allHeadings}) {
+            margin-block-start: 0;
+        }
+
+        + :where(*) {
+            margin-block-start: var-style(flow-margin-large);
+        }
+    }
+
+    @include snippet-support-astro-body-grid--extend-globals($localOnly: true);
+}

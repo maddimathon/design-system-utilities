@@ -99,8 +99,8 @@ $_defaultHeadingSelectors_greaterThan6: ();
                 > svg #{$svg_sel_moving} {
                     @if $bool {
                         transition: transform
-                            #{$_closing_time}
-                            #{tokens.$transition_function}
+                            $_closing_time
+                            tokens.$transition_function
                             0ms;
                     } @else {
                         transition: none;
@@ -226,8 +226,8 @@ $_defaultHeadingSelectors_greaterThan6: ();
                     @include cx-prop(toggle-border-color, var-theme(heading-#{$slug}));
 
                     margin-block-start: max(
-                        #{var-style(flow-margin-large)},
-                        #{var-style(heading-#{$slug}-margin-block-start)}
+                        var-style(flow-margin-large),
+                        var-style(heading-#{$slug}-margin-block-start)
                     );
 
                     @content(#{$location}--has-h#{$slug});
@@ -277,7 +277,7 @@ $_defaultHeadingSelectors_greaterThan6: ();
         }
 
         @else if $location == js--toggle-container {
-            margin-block-end: #{do-var(flow-margin-firm-end--large)};
+            margin-block-end: do-var(flow-margin-firm-end--large);
 
             @content($location);
         }
@@ -370,15 +370,15 @@ $_defaultHeadingSelectors_greaterThan6: ();
                 }
 
                 &::before {
-                    background: #{$backdrop_backgroundClr_before};
-                    opacity: #{$backdrop_opacity_before};
+                    background: $backdrop_backgroundClr_before;
+                    opacity: $backdrop_opacity_before;
                     
                     @content(#{$location}--before);
                 }
     
                 &::after {
-                    background: #{$backdrop_backgroundClr_after};
-                    opacity: #{$backdrop_opacity_after};
+                    background: $backdrop_backgroundClr_after;
+                    opacity: $backdrop_opacity_after;
                     
                     @content(#{$location}--after);
                 }
@@ -402,14 +402,14 @@ $_defaultHeadingSelectors_greaterThan6: ();
             cursor: pointer;
 
             @if $location == js--toggle-control {
-                margin-block-end: #{$control_marginBlockEnd};
-                padding-block-end: #{$control_paddingBlockEnd};
+                margin-block-end: $control_marginBlockEnd;
+                padding-block-end: $control_paddingBlockEnd;
 
                 @include cx-prop(
                     focus-ring-outline-color,
                     var-theme(link-outline-hover)
                 );
-                color: #{var-theme(link)};
+                color: var-theme(link);
 
                 @content($location);
             }
@@ -436,7 +436,7 @@ $_defaultHeadingSelectors_greaterThan6: ();
                 focus-ring-outline-color,
                 var-theme(link-outline-hover)
             );
-            color: #{var-theme(link-hover)};
+            color: var-theme(link-hover);
 
             @content($location);
         }
@@ -446,7 +446,7 @@ $_defaultHeadingSelectors_greaterThan6: ();
                 focus-ring-outline-color,
                 var-theme(link-outline-active)
             );
-            color: #{var-theme(link-active)};
+            color: var-theme(link-active);
 
             @content($location);
         }
@@ -460,7 +460,7 @@ $_defaultHeadingSelectors_greaterThan6: ();
 
             // ALL HEADINGS
             & > %unstyled-heading,
-            & #{selector.nest( '>', #{$headingSelectors} )} {
+            & #{selector.nest( '>', $headingSelectors )} {
                 @content(#{$location}--all-headings);
                 
                 [data-toggle-control] {
@@ -508,13 +508,13 @@ $_defaultHeadingSelectors_greaterThan6: ();
         }
         
         @else if $location == js--toggle-title {
-            transition: #{transition-properties-value(false)};
+            transition: transition-properties-value(false);
 
             @content($location);
 
             // ALL HEADINGS
             & > %unstyled-heading,
-            & #{selector.nest( '>', #{$headingSelectors} )} {
+            & #{selector.nest( '>', $headingSelectors )} {
                 @content(#{$location}--all-headings);
                 
                 [data-toggle-control] {
@@ -525,7 +525,7 @@ $_defaultHeadingSelectors_greaterThan6: ();
                             focus-ring-outline-color,
                             var-theme(link-outline-hover)
                         );
-                        color: #{var-theme(link-hover)};
+                        color: var-theme(link-hover);
                         
                         @content(#{$location}--all-headings--control--hover-focus);
                     }
@@ -535,7 +535,7 @@ $_defaultHeadingSelectors_greaterThan6: ();
                             focus-ring-outline-color,
                             var-theme(link-outline-active)
                         );
-                        color: #{var-theme(link-active)};
+                        color: var-theme(link-active);
                         
                         @content(#{$location}--all-headings--control--active);
                     }
@@ -548,9 +548,9 @@ $_defaultHeadingSelectors_greaterThan6: ();
                     @content(#{$location}--h#{$slug});
 
                     [data-toggle-control] {
-                        margin-block-end: #{var-style(toggle-control-heading-#{$slug}-margin-block-end)};
-                        padding-block-end: #{var-style(toggle-control-heading-#{$slug}-padding-block-end)};
-                        color: #{var-theme(heading-#{$slug})};
+                        margin-block-end: var-style(toggle-control-heading-#{$slug}-margin-block-end);
+                        padding-block-end: var-style(toggle-control-heading-#{$slug}-padding-block-end);
+                        color: var-theme(heading-#{$slug});
                         
                         @content(#{$location}--h#{$slug}--control);
                     }
@@ -563,8 +563,8 @@ $_defaultHeadingSelectors_greaterThan6: ();
                 @content(#{$location}--unstyled-heading);
                 
                 [data-toggle-control] {
-                    margin-block-end: #{$control_marginBlockEnd};
-                    padding-block-end: #{$control_paddingBlockEnd};
+                    margin-block-end: $control_marginBlockEnd;
+                    padding-block-end: $control_paddingBlockEnd;
 
                     @content(#{$location}--unstyled-heading--control);
                 }
@@ -596,24 +596,24 @@ $_defaultHeadingSelectors_greaterThan6: ();
         /// 
         
         @else if $location == js--toggle-content {
-            line-height: #{var-style(toggle-content-line-height)};
+            line-height: var-style(toggle-content-line-height);
 
-            background: #{var-style(toggle-content-background)};
+            background: var-style(toggle-content-background);
 
-            border-width: #{$content_borderWidth};
+            border-width: $content_borderWidth;
             border-block-end-width: 0;
             
             border-radius: 0;
             
-            border-end-end-radius: #{var-style(toggle-content-border-radius)};
-            border-end-start-radius: #{var-style(toggle-content-border-radius)};
+            border-end-end-radius: var-style(toggle-content-border-radius);
+            border-end-start-radius: var-style(toggle-content-border-radius);
             
-            border-style: #{var-style(toggle-content-border-style)};
-            border-block-start-style: #{var-style(toggle-content-border-style-top)};
+            border-style: var-style(toggle-content-border-style);
+            border-block-start-style: var-style(toggle-content-border-style-top);
             
-            border-color: #{do-var(toggle-border-color, var-theme(link-ui))};
+            border-color: do-var(toggle-border-color, var-theme(link-ui));
             
-            transition: #{transition-properties-value(false)};
+            transition: transition-properties-value(false);
             
             @content($location);
 
@@ -632,7 +632,21 @@ $_defaultHeadingSelectors_greaterThan6: ();
             @content($location);
 
             > :first-child {
-                margin-block-start: 0;
+                &:not(%margins-flow-firm, %margins-flow-firm-small, %margins-flow-firm-large, %button-span) {
+                    margin-block-start: 0;
+                }
+
+                &:where(%margins-flow-firm, %button-span) {
+                    margin-block-start: do-var(flow-margin-firm-end);
+                }
+
+                &:where(%margins-flow-firm-small) {
+                    margin-block-start: do-var(flow-margin-firm-end--small);
+                }
+
+                &:where(%margins-flow-firm-large) {
+                    margin-block-start: do-var(flow-margin-firm-end--large);
+                }
             }
 
             > %ol,
@@ -644,16 +658,16 @@ $_defaultHeadingSelectors_greaterThan6: ();
         }
         
         @else if $location == js--toggle-container--open--content {
-            border-block-end-width: #{$content_borderWidth};
+            border-block-end-width: $content_borderWidth;
 
             @content($location);
         }
         
         @else if $location == js--toggle-container--open-or-closing--content {
-            border-inline-width: #{$content_borderWidth};
+            border-inline-width: $content_borderWidth;
             
-            border-start-end-radius: #{var-style(toggle-content-border-radius-top)};
-            border-start-start-radius: #{var-style(toggle-content-border-radius-top)};
+            border-start-end-radius: var-style(toggle-content-border-radius-top);
+            border-start-start-radius: var-style(toggle-content-border-radius-top);
 
             @content($location);
         }
@@ -710,11 +724,11 @@ $_defaultHeadingSelectors_greaterThan6: ();
     ) using ($location) {
 
         @if $location == js--body-nav-toggle-title {
-            border-block-end-width: #{$title_borderWidth};
-            border-block-end-style: #{var-style(toggle-content-border-style-top)};
-            border-block-end-color: #{do-var(toggle-border-color, var-theme(link-ui))};
+            border-block-end-width: $title_borderWidth;
+            border-block-end-style: var-style(toggle-content-border-style-top);
+            border-block-end-color: do-var(toggle-border-color, var-theme(link-ui));
             
-            background: #{var-style(toggle-nav-title-background)};
+            background: var-style(toggle-nav-title-background);
             
             @content ($location);
         }
@@ -734,9 +748,9 @@ $_defaultHeadingSelectors_greaterThan6: ();
         }
 
         @else if $location == js--nav-toggle-content--container {
-            background: #{var-style(toggle-nav-content-background)};
+            background: var-style(toggle-nav-content-background);
             max-height: 80svh;
-            max-height: calc(90svh - #{do-var(height-nav-primary)});
+            max-height: calc(90svh - do-var(height-nav-primary));
 
             %ol,
             %ul {
@@ -759,7 +773,7 @@ $_defaultHeadingSelectors_greaterThan6: ();
             }
 
             %li {
-                margin-block: #{var-style(flow-margin-small)} 0;
+                margin-block: var-style(flow-margin-small) 0;
                 
                 @content (#{$location}--li);
             }

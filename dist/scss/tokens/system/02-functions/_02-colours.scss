@@ -30,19 +30,19 @@
     $version: null,
     $args...
 ) {
-    $clrVarSlug: 'clr-#{$slug}';
+    $clrVarSlug: clr-#{$slug};
 
     @if $slug == 'white' or $slug == white or $slug == 'black' or $slug == black
     {
         $level: if($slug == white, 'white', if($slug == black, 'black', $slug));
         $slug: '$';
     } @else if $level {
-        $clrVarSlug: '#{$clrVarSlug}-#{$level}';
+        $clrVarSlug: #{$clrVarSlug}-#{$level};
     }
 
     @if $version == 'hsl' {
         @if config.$include_colourValues_hsl {
-            $clrVarSlug: '#{$clrVarSlug}-hsl';
+            $clrVarSlug: #{$clrVarSlug}-hsl;
         } @else {
             $version: null;
         }
@@ -50,7 +50,7 @@
 
     @if $version == 'rgb' {
         @if config.$include_colourValues_rgb {
-            $clrVarSlug: '#{$clrVarSlug}-rgb';
+            $clrVarSlug: #{$clrVarSlug}-rgb;
         } @else {
             $version: null;
         }

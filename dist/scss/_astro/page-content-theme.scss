@@ -10,7 +10,7 @@
 
 .theme-mode-preview-page__display-mode__wrapper {
     display: none;
-    margin-block-start: #{lib.var-mrg-soft('400')};
+    margin-block-start: lib.var-mrg-soft('400');
 
     input,
     label {
@@ -32,7 +32,7 @@
     gap: 0;
 
     .widget-block {
-        margin-block: #{lib.var-mrg-firm('600')} #{lib.var-mrg-half('600')};
+        margin-block: lib.var-mrg-firm('600') lib.var-mrg-half('600');
     }
 }
 
@@ -40,7 +40,7 @@
     .theme-mode-preview-page__display-mode__wrapper {
         @include lib.prop-display(flex);
         justify-content: end;
-        gap: #{lib.var-mrg-soft('200')} #{lib.var-gap-inline(tab)};
+        gap: lib.var-mrg-soft('200') lib.var-gap-inline(tab);
     }
 
     @each $_opt in (preview, tokens) {
@@ -87,8 +87,8 @@
                         overflow-inline: auto;
 
                         :global(.theme-mode-swatch) {
-                            padding-block: #{lib.var-mrg-soft('400')};
-                            padding-inline: #{lib.var-mrg-firm('400')};
+                            padding-block: lib.var-mrg-soft('400');
+                            padding-inline: lib.var-mrg-firm('400');
 
                             min-width: 0;
                             max-width: none;
@@ -102,7 +102,7 @@
 
 :global(:where(.js)) {
     :global(.table-of-contents) {
-        max-width: #{lib.var-width(content)};
+        max-width: lib.var-width(content);
     }
 }
 

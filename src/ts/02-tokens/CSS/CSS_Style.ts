@@ -230,7 +230,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
 
                 border: {
                     color: 'ui-primary',
-                    radius: '0',
+                    radius: 0,
                     style: 'solid',
                     width: '200',
                 },
@@ -266,7 +266,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                 },
 
                 gap: {
-                    block: '0',
+                    block: 0,
                     inline: '300',
                 },
 
@@ -304,7 +304,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
         const style = mergeArgs(
             {
                 border: {
-                    radius: '0',
+                    radius: 0,
                     style: 'solid',
                     width: '100',
                 },
@@ -397,7 +397,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                 {
                     border: {
                         radius: style.border.radius,
-                        style: style.border.radius,
+                        style: style.border.style,
                     },
 
                     focus: {
@@ -480,70 +480,62 @@ export class Tokens_CSS_Style extends AbstractTokens<{
             margin: {
                 block: {
                     start: '600',
-                    end: '400',
+                    end: '200',
                 },
             },
         };
 
-        // returns for 'unstyled'
-        switch ( heading ) {
+        // returns
+        if ( heading === 'unstyled' ) {
+            return mergeArgs(
+                {
+                    color: 'text-primary',
 
-            case 'unstyled':
-                return mergeArgs(
-                    {
-                        color: 'text-primary',
+                    font: {
+                        ...style.font,
+                        family: 'body',
+                        size: 'normal',
+                    },
 
-                        font: {
-                            ...style.font,
-                            family: 'body',
-                            size: 'normal',
-                        },
+                    'letter-spacing': style[ 'letter-spacing' ],
+                    'line-height': style[ 'line-height' ],
+                    'text-transform': style[ 'text-transform' ],
 
-                        'letter-spacing': style[ 'letter-spacing' ],
-                        'line-height': style[ 'line-height' ],
-                        'text-transform': style[ 'text-transform' ],
+                } satisfies Tokens_CSS_Style.HeadingStyles_Unstyled,
+                partial,
+                true,
+            ) satisfies Tokens_CSS_Style.HeadingStyles_Unstyled as Tokens_CSS_Style.HeadingStyles_Generic<T_Key>;
+        }
 
-                    } satisfies Tokens_CSS_Style.HeadingStyles_Unstyled,
-                    partial,
-                    true,
-                ) satisfies Tokens_CSS_Style.HeadingStyles_Unstyled as Tokens_CSS_Style.HeadingStyles_Generic<T_Key>;
+        if ( headingAsNum >= 1 ) {
+            style.font.weight = '900';
+            style[ 'line-height' ] = '200';
+            style.margin.block.start = '800';
+        }
 
-            case 1:
-                style.font.weight = '900';
-                style[ 'line-height' ] = '200';
-                style.margin.block.start = '800';
-                break;
+        if ( headingAsNum >= 2 ) {
+            style.font.weight = '800';
+        }
 
-            case 2:
-                style.font.weight = '800';
-                style[ 'line-height' ] = '200';
-                style.margin.block.start = '800';
-                break;
+        if ( headingAsNum >= 3 ) {
+            style.font.weight = '700';
+        }
 
-            case 3:
-                style.font.weight = '700';
-                style[ 'line-height' ] = '200';
-                style.margin.block.start = '800';
-                break;
+        if ( headingAsNum >= 4 ) {
+            style.font.style = 'italic';
+            style.margin.block.start = '600';
+        }
 
-            case 4:
-                style.font.weight = '700';
-                style.font.style = 'italic';
-                style[ 'line-height' ] = '200';
-                break;
+        if ( headingAsNum >= 5 ) {
+            style.font.weight = '600';
+            style.font.style = 'italic';
+            style.margin.block.end = '400';
+        }
 
-            case 5:
-                style.font.weight = '600';
-                style.font.style = 'italic';
-                style[ 'line-height' ] = '200';
-                break;
-
-            case 6:
-                style.font.weight = '500';
-                style.font.style = 'italic';
-                style[ 'line-height' ] = '300';
-                break;
-        };
+        if ( headingAsNum >= 6 ) {
+            style.font.weight = '500';
+            style[ 'line-height' ] = '300';
+        }
 
         if ( headingAsNum >= 7 ) {
             style.font.weight = '500';
@@ -551,6 +543,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
 
             style[ 'letter-spacing' ] = '0.0625em';
             style[ 'line-height' ] = '400';
+
             style[ 'text-transform' ] = 'uppercase';
         }
 
@@ -613,7 +606,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
         const style = mergeArgs( {
 
             border: {
-                radius: '0',
+                radius: 0,
                 style: 'solid',
                 width: '100',
             },
@@ -646,13 +639,13 @@ export class Tokens_CSS_Style extends AbstractTokens<{
 
             'line-height': '300',
 
-            margin: {
-                block: {
-                    start: '400',
-                    end: '400',
-                    gap: '200',
-                },
-            },
+            // margin: {
+            //     block: {
+            //         start: '400',
+            //         end: '400',
+            //         gap: '200',
+            //     },
+            // },
 
             padding: {
                 block: '200',
@@ -785,7 +778,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
             const style = {
                 margin: {
                     block: {
-                        end: '0',
+                        end: 0,
                     },
                 },
 
@@ -969,7 +962,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
 
             border: mergeArgs( {
                 color: 'ui-grey',
-                radius: '0',
+                radius: 0,
                 style: 'solid',
                 width: '200',
             }, partial?.border ?? {}, true ),
@@ -1028,7 +1021,7 @@ export namespace Tokens_CSS_Style {
              */
             color: string;
 
-            radius: "0" | AnyTokenLevel;
+            radius: 0 | AnyTokenLevel;
             style: string;
             width: AnyTokenLevel;
         };
@@ -1039,8 +1032,8 @@ export namespace Tokens_CSS_Style {
         color: string;
 
         gap: {
-            block: "0" | AnyTokenLevel;
-            inline: "0" | AnyTokenLevel;
+            block: 0 | AnyTokenLevel;
+            inline: 0 | AnyTokenLevel;
         };
 
         heading: {
@@ -1078,9 +1071,6 @@ export namespace Tokens_CSS_Style {
              */
             color: string;
 
-            /**
-             * With units.
-             */
             size: Omit<IconStyles[ 'size' ], 'font' | 'pseudo'>;
         };
 
@@ -1125,7 +1115,7 @@ export namespace Tokens_CSS_Style {
     export type ButtonStyles = {
 
         border: {
-            radius: "0" | AnyTokenLevel;
+            radius: 0 | AnyTokenLevel;
             style: string;
             width: AnyTokenLevel;
         };
@@ -1147,8 +1137,8 @@ export namespace Tokens_CSS_Style {
         };
 
         gap: {
-            block: "0" | AnyTokenLevel;
-            inline: "0" | AnyTokenLevel;
+            block: 0 | AnyTokenLevel;
+            inline: 0 | AnyTokenLevel;
         };
 
         icon: Pick<IconStyles, 'font' | 'pseudo' | 'vertical-align'> & {
@@ -1158,15 +1148,9 @@ export namespace Tokens_CSS_Style {
             };
 
             embedded: {
-                /**
-                 * With units.
-                 */
-                bottom: string;
+                bottom: CSS.EmNumber;
             };
 
-            /**
-             * With units.
-             */
             size: Omit<IconStyles[ 'size' ], '$' | 'large'>;
         };
 
@@ -1175,14 +1159,14 @@ export namespace Tokens_CSS_Style {
 
         margin: {
             block: {
-                start: "0" | AnyTokenLevel;
-                end: "0" | AnyTokenLevel;
+                start: 0 | AnyTokenLevel;
+                end: 0 | AnyTokenLevel;
             };
         };
 
         padding: {
-            block: "0" | AnyTokenLevel;
-            inline: "0" | AnyTokenLevel;
+            block: 0 | AnyTokenLevel;
+            inline: 0 | AnyTokenLevel;
         };
 
         'text-transform': CSS.TextTransform;
@@ -1219,12 +1203,22 @@ export namespace Tokens_CSS_Style {
      */
     export namespace CSS {
 
-        export type TextTransform = "none" | "capitalize" | "uppercase" | "lowercase" | "full-width" | "full-size-kana" | "math-auto";
+        /**
+         * A number with em units.
+         * 
+         * @since ___PKG_VERSION___
+         */
+        export type EmNumber = 0 | '0' | `${ number }em`;
 
         /**
          * @since ___PKG_VERSION___
          */
         export type LineHeight = number | AnyTokenLevel;
+
+        /**
+         * @since 0.1.0-alpha
+         */
+        export type TextTransform = "none" | "capitalize" | "uppercase" | "lowercase" | "full-width" | "full-size-kana" | "math-auto";
     }
 
     /**
@@ -1258,8 +1252,8 @@ export namespace Tokens_CSS_Style {
 
         margin: {
             block: {
-                start: "0" | AnyTokenLevel;
-                end: "0" | AnyTokenLevel;
+                start: 0 | AnyTokenLevel;
+                end: 0 | AnyTokenLevel;
             };
         };
     };
@@ -1304,12 +1298,12 @@ export namespace Tokens_CSS_Style {
         color: string;
 
         font: {
-            top: `${ number }em`;
+            top: CSS.EmNumber;
         };
 
         inline: {
             buffer: {
-                $: string;
+                $: CSS.EmNumber;
                 start: number;
                 end: number;
             },
@@ -1318,22 +1312,22 @@ export namespace Tokens_CSS_Style {
         };
 
         pseudo: {
-            top: `${ number }em`;
+            top: CSS.EmNumber;
         };
 
         size: {
-            $: string;
-            large: string;
+            $: CSS.EmNumber;
+            large: CSS.EmNumber;
 
             /**
              * For inline icons using the icon font.
              */
-            font: string;
+            font: CSS.EmNumber;
 
             /**
              * For inline icons in before/after pseudo classes.
              */
-            pseudo: string;
+            pseudo: CSS.EmNumber;
         };
 
         'vertical-align': string;
@@ -1345,7 +1339,7 @@ export namespace Tokens_CSS_Style {
     export type InputStyles = {
 
         border: {
-            radius: "0" | AnyTokenLevel;
+            radius: 0 | AnyTokenLevel;
             style: string;
             width: AnyTokenLevel;
         };
@@ -1362,8 +1356,8 @@ export namespace Tokens_CSS_Style {
 
             offset: {
                 block: {
-                    start: `${ number }em`;
-                    end: `${ number }em`;
+                    start: CSS.EmNumber;
+                    end: CSS.EmNumber;
                 };
             };
         };
@@ -1379,17 +1373,17 @@ export namespace Tokens_CSS_Style {
 
         'line-height': CSS.LineHeight;
 
-        margin: {
-            block: {
-                start: AnyTokenLevel;
-                end: AnyTokenLevel;
+        // margin: {
+        //     block: {
+        //         start: AnyTokenLevel;
+        //         end: AnyTokenLevel;
 
-                /**
-                 * This is the gap between a label and its input.
-                 */
-                gap: AnyTokenLevel;
-            };
-        };
+        //         /**
+        //          * This is the gap between a label and its input.
+        //          */
+        //         gap: AnyTokenLevel;
+        //     };
+        // };
 
         padding: {
             block: AnyTokenLevel;
@@ -1458,8 +1452,8 @@ export namespace Tokens_CSS_Style {
             border: {
 
                 radius: {
-                    $: '0' | AnyTokenLevel;
-                    top: '0' | AnyTokenLevel;
+                    $: 0 | AnyTokenLevel;
+                    top: 0 | AnyTokenLevel;
                 };
 
                 style: {
@@ -1485,13 +1479,13 @@ export namespace Tokens_CSS_Style {
             $: {
                 margin: {
                     block: {
-                        end: '0' | AnyTokenLevel;
+                        end: 0 | AnyTokenLevel;
                     };
                 };
 
                 padding: {
                     block: {
-                        end: '0' | AnyTokenLevel;
+                        end: 0 | AnyTokenLevel;
                     };
                 };
             };
@@ -1511,17 +1505,11 @@ export namespace Tokens_CSS_Style {
         };
 
         icon: Pick<IconStyles, 'vertical-align'> & {
-            /**
-             * With units.
-             */
             buffer: {
-                start: string;
-                end: string;
+                start: CSS.EmNumber;
+                end: CSS.EmNumber;
             };
 
-            /**
-             * With units.
-             */
             size: IconStyles[ 'size' ][ '$' ];
         };
 
@@ -1560,13 +1548,13 @@ export namespace Tokens_CSS_Style {
     export type ToggleStyles_ControlHeading = {
         margin: {
             block: {
-                end: '0' | AnyTokenLevel;
+                end: 0 | AnyTokenLevel;
             };
         };
 
         padding: {
             block: {
-                end: '0' | AnyTokenLevel;
+                end: 0 | AnyTokenLevel;
             };
         };
     };
@@ -1587,7 +1575,7 @@ export namespace Tokens_CSS_Style {
              */
             color: string;
 
-            radius: "0" | AnyTokenLevel;
+            radius: 0 | AnyTokenLevel;
             style: string;
             width: AnyTokenLevel;
         };

@@ -377,6 +377,7 @@ export namespace TokenTypes {
  */
 export type AnyTokenLevel =
     | WholeTokenLevel
+    | '050'
     | '150'
     | '250'
     | '350'
@@ -384,7 +385,8 @@ export type AnyTokenLevel =
     | '550'
     | '650'
     | '750'
-    | '850';
+    | '850'
+    | '950';
 
 
 /**

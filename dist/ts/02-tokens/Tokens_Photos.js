@@ -10,7 +10,7 @@
 import { globSync } from 'glob';
 // import NodeFS from 'node:fs';
 // import NodePath from 'node:path';
-import { objectMapAsync, VariableInspector, } from '@maddimathon/utility-typescript';
+import { objectMap, objectMapAsync, VariableInspector, } from '@maddimathon/utility-typescript';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 import { LocalErrors } from '../01-utilities/Errors.js';
 /**
@@ -31,10 +31,15 @@ export class Tokens_Photos extends AbstractTokens {
         this.data = data;
     }
     toJSON() {
-        return this.data;
+        return {
+            photos: objectMap(this.data.photos, ([slug, photo]) => photo.toJSON()),
+            thumbnails: objectMap(this.data.thumbnails, ([slug, thumbnail]) => thumbnail.toJSON()),
+        };
     }
     toScssVars() {
-        return this.data;
+        return {
+            photos: objectMap(this.data.photos, ([slug, photo]) => photo.toScssVars()),
+        };
     }
 }
 /**
@@ -138,7 +143,11 @@ export class Tokens_Photos extends AbstractTokens {
             return this.data;
         }
         toScssVars() {
-            return this.data;
+            return {
+                alt: this.data.alt,
+                filepath: Array.isArray(this.data.filepath) ? this.data.filepath[0] : this.data.filepath,
+                slug: this.data.slug,
+            };
         }
     }
     Tokens_Photos.Photo = Photo;

@@ -31,7 +31,7 @@ dl {
     margin-inline: 0;
     align-self: stretch;
 
-    gap: #{lib.var-mrg-soft('200')} #{lib.var-mrg-firm('200')};
+    gap: lib.var-mrg-soft('200') lib.var-mrg-firm('200');
 
     dt,
     dd {
@@ -40,7 +40,7 @@ dl {
     }
 
     > dt {
-        margin-block-start: #{lib.var-mrg-soft('300')};
+        margin-block-start: lib.var-mrg-soft('300');
         line-height: 1;
 
         &:first-child {
@@ -59,16 +59,16 @@ dl {
         justify-content: start;
         justify-items: end;
 
-        gap: #{lib.var-mrg-soft('300')} #{lib.var-mrg-firm('300')};
+        gap: lib.var-mrg-soft('300') lib.var-mrg-firm('300');
 
-        font-size: #{lib.var-fs(smaller-1)};
+        font-size: lib.var-fs(smaller-1);
 
         .typography-all-sizes__value-list__pair {
             @include lib.prop-display(flex);
             flex-direction: row-reverse;
             justify-content: end;
 
-            gap: #{lib.var-mrg-firm('100')};
+            gap: lib.var-mrg-firm('100');
         }
     }
 }
@@ -139,7 +139,7 @@ $_dynamic_grid_cols: auto repeat(2, minmax(10rem, 1fr));
         align-items: baseline;
         align-items: first baseline;
 
-        gap: #{lib.var-mrg-soft('400')} #{lib.var-mrg-firm('400')};
+        gap: lib.var-mrg-soft('400') lib.var-mrg-firm('400');
 
         dt,
         dd {
@@ -232,7 +232,7 @@ $_dynamic_grid_cols: auto repeat(2, minmax(10rem, 1fr));
 
                         > dd {
                             @include lib.prop-grid-column(1);
-                            padding-inline-start: min(2vw, #{lib.var-mrg-firm('600')});
+                            padding-inline-start: min(2vw, lib.var-mrg-firm('600'));
                         }
                     }
                 }
@@ -286,8 +286,8 @@ $_dynamic_grid_cols: auto repeat(2, minmax(10rem, 1fr));
         &[data-toggle-container='open'] {
             > :global([data-toggle-content]) {
                 > :global(.container) {
-                    padding-block: #{lib.var-mrg-soft('400')};
-                    padding-inline: #{lib.var-mrg-firm('400')};
+                    padding-block: lib.var-mrg-soft('400');
+                    padding-inline: lib.var-mrg-firm('400');
                 }
             }
         }
@@ -298,10 +298,10 @@ $_dynamic_grid_cols: auto repeat(2, minmax(10rem, 1fr));
         &[data-toggle-container='open'] {
             > :global([data-toggle-content]) {
                 > :global(.container) {
-                    margin-block: #{lib.var-mrg-soft('400')};
-                    margin-inline: #{lib.var-mrg-firm('400')};
+                    margin-block: lib.var-mrg-soft('400');
+                    margin-inline: lib.var-mrg-firm('400');
                     padding: 0;
-                    max-width: #{lib.var-width(content)};
+                    max-width: lib.var-width(content);
                     justify-self: center;
                 }
             }
