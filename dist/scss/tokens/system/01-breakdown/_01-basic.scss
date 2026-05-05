@@ -39,7 +39,7 @@ $stroke_relative: map.get($border, stroke);
         $key,
         math.round-to-pixel(
             $size,
-            $factor: config.$fn_borderWidthValue_roundToPixelFactor
+            $factor: config.$fn_strokeRelativeValue_roundToPixelFactor
         )
     );
 }
@@ -59,10 +59,7 @@ $font_size: map.get($font, size);
     $ordered_keys: if(
         $_isFirstLevel,
         map.keys($map),
-        list.sort(
-            list.sort(map.keys($map), $sortAs: 'string'),
-            $sortAs: 'number'
-        )
+        list.sort(list.sort(map.keys($map), $sortAs: string), $sortAs: number)
     );
 
     $ordered_map: ();
@@ -87,7 +84,7 @@ $font_size: _ksort_sizes($font_size);
 $font_size: map.set(
     $font_size,
     smaller,
-    map.ksort(map.get($font_size, smaller), $sortAs: 'number', $reverse: true)
+    map.ksort(map.get($font_size, smaller), $sortAs: number, $reverse: true)
 );
 
 // flatten the map
@@ -280,6 +277,17 @@ $button_inline_variation_default: null !default;
 $button_inline_variation_default: config.config-valid-string(
     $button_inline_variation_default,
     'button_inline_variation_default',
+    $default: 'grey',
+    $options: $_buttonVariationOpts
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$button_fileSelector_variation_default: null !default;
+$button_fileSelector_variation_default: config.config-valid-string(
+    $button_fileSelector_variation_default,
+    'button_fileSelector_variation_default',
     $default: 'grey',
     $options: $_buttonVariationOpts
 );

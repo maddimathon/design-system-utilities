@@ -59,6 +59,18 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                 button: '300',
             },
 
+            hr: {
+                border: {
+                    width: '200',
+                },
+
+                color: 'ui-primary',
+
+                'flow-margin': {
+                    self: 'margins-flow-firm',
+                },
+            },
+
             selection: {
                 background: {
                     opacity: {
@@ -68,7 +80,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                     },
                 },
             },
-        } satisfies Pick<Tokens_CSS_Style.Data, 'flow-margin' | 'selection'>;
+        } satisfies Pick<Tokens_CSS_Style.Data, 'flow-margin' | 'hr' | 'selection'>;
 
 
         return Promise.all( [
@@ -103,15 +115,23 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                 return {
                     alert,
                     button,
-                    heading,
-                    icon,
-                    input,
 
                     'flow-margin': mergeArgs(
                         defaults[ 'flow-margin' ],
                         partial[ 'flow-margin' ],
                         true,
                     ),
+
+                    heading,
+
+                    hr: mergeArgs(
+                        defaults.hr,
+                        partial.hr,
+                        true,
+                    ),
+
+                    icon,
+                    input,
 
                     selection: mergeArgs(
                         defaults.selection,
@@ -311,6 +331,10 @@ export class Tokens_CSS_Style extends AbstractTokens<{
 
                 display: 'block',
 
+                'flow-margin': {
+                    self: 'margins-flow-firm',
+                },
+
                 focus: {
                     offset: '400',
                 },
@@ -321,10 +345,10 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                     weight: '500',
                 },
 
-                gap: {
-                    block: '300',
-                    inline: '200',
-                },
+                // gap: {
+                //     block: '300',
+                //     inline: '200',
+                // },
 
                 icon: {
                     buffer: {
@@ -410,10 +434,10 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                         style: style.font.style,
                     },
 
-                    gap: {
-                        block: style.gap.block,
-                        inline: style.gap.inline,
-                    },
+                    // gap: {
+                    //     block: style.gap.block,
+                    //     inline: style.gap.inline,
+                    // },
 
                     icon: {
                         buffer: {
@@ -1122,6 +1146,13 @@ export namespace Tokens_CSS_Style {
 
         display: "block" | "flex";
 
+        /**
+         * Values for the set-flow-margins mixin.
+         */
+        'flow-margin': {
+            self: 'margins-flow-firm' | 'margins-flow-firm-large' | 'margins-flow-firm-small';
+        };
+
         focus: {
             offset: AnyTokenLevel;
         };
@@ -1136,10 +1167,10 @@ export namespace Tokens_CSS_Style {
             weight: WholeTokenLevel;
         };
 
-        gap: {
-            block: 0 | AnyTokenLevel;
-            inline: 0 | AnyTokenLevel;
-        };
+        // gap: {
+        //     block: 0 | AnyTokenLevel;
+        //     inline: 0 | AnyTokenLevel;
+        // };
 
         icon: Pick<IconStyles, 'font' | 'pseudo' | 'vertical-align'> & {
             buffer: {
@@ -1179,7 +1210,7 @@ export namespace Tokens_CSS_Style {
      */
     export type ButtonStyles_Disabled = Omit<
         ButtonStyles,
-        'border' | 'display' | 'focus' | 'font' | 'gap' | 'icon' | 'line-height' | 'margin' | 'padding' | 'width'
+        'border' | 'display' | 'flow-margin' | 'focus' | 'font' | 'gap' | 'icon' | 'line-height' | 'margin' | 'padding' | 'width'
     > & {
         border: Omit<ButtonStyles[ 'border' ], 'width'>;
         font: Omit<ButtonStyles[ 'font' ], 'size'>;
@@ -1191,7 +1222,7 @@ export namespace Tokens_CSS_Style {
      * 
      * @since ___PKG_VERSION___
      */
-    export type ButtonStyles_Inline = Omit<ButtonStyles, 'border' | 'display' | 'margin'> & {
+    export type ButtonStyles_Inline = Omit<ButtonStyles, 'border' | 'display' | 'flow-margin' | 'margin'> & {
         border: Omit<ButtonStyles[ 'border' ], 'width'>;
         'vertical-align': string;
     };
@@ -1563,7 +1594,6 @@ export namespace Tokens_CSS_Style {
      * @since ___PKG_VERSION___
      */
     export type WidgetStyles = {
-
         /**
          * This should be a theme slug.
          */
@@ -1615,6 +1645,24 @@ export namespace Tokens_CSS_Style {
             [ L in RequiredHeadingLevels ]: HeadingStyles;
         } & {
             [ key: number ]: HeadingStyles;
+        };
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        hr: {
+            border: {
+                width: AnyTokenLevel;
+            },
+
+            /**
+             * This should be a theme slug.
+             */
+            color: string;
+
+            'flow-margin': {
+                self: 'margins-flow-firm' | 'margins-flow-firm-small' | 'margins-flow-firm-large',
+            },
         };
 
         /**
@@ -1700,6 +1748,11 @@ export namespace Tokens_CSS_Style {
         } & {
             [ key: number ]: RecursivePartial<HeadingStyles>;
         };
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        hr?: RecursivePartial<Data[ 'hr' ]>;
 
         /**
          * @since ___PKG_VERSION___

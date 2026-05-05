@@ -16,6 +16,7 @@ import { sassCompilerOpts } from '@maddimathon/utility-sass';
 import { Build } from './classes/Build.js';
 import { Compile } from './classes/Compile.js';
 import { Document } from './classes/Document.js';
+import { Test } from './classes/Test.js';
 
 const _defaults = {
     build: Build.prototype.ARGS_DEFAULT,
@@ -129,7 +130,7 @@ const config = {
             },
         ],
 
-        test: true,
+        test: Test,
     },
 };
 

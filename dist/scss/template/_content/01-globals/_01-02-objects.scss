@@ -43,10 +43,10 @@ $_print_flowMargins: map.get(config.$template_styles, flowMargins);
 
 @if $_print_hr {
     %hr {
-        // UPGRADE - convert to style tokens
-        @include cx-prop(icon-color, currentColor);
-        border-width: var-border-width('200');
-        color: var-theme(ui-primary);
+        @include cx-prop(icon-color, currentColor !important);
+        border-color: currentColor;
+        border-width: var-style(hr-border-width);
+        color: var-style(hr-color);
     }
 }
 

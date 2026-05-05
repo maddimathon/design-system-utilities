@@ -6,9 +6,14 @@
  */
 
 /* import - types */
+import type { PartialExcept } from '@maddimathon/utility-typescript/types';
+import type { ToggleProps } from '@maddimathon/utility-astro/components';
+
 import type { TokenTypes } from '../../ts/02-tokens/@types.d.ts';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Icons } from '../../ts/02-tokens/Tokens_Icons';
+
+import type  { LoremIpsumProps } from './LoremIpsum.astro';
 
 /* import - functions */
 import { arrayUnique } from '@maddimathon/utility-typescript';
@@ -41,6 +46,16 @@ interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
     buttonColour?: Tokens.JsonReturn<T_Types>['themes']['_meta']['keys']['button'][number];
     subheadingDisplayHeading?: number;
     tokens: Tokens.JsonReturn<T_Types>;
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    LoremIpsumComponent?: ( props: Partial<LoremIpsumProps> ) => any;
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    ToggleComponent?: ( props: PartialExcept<ToggleProps,  'children'|'id' > ) => any;
 }
 
 const {
@@ -52,6 +67,9 @@ const {
     logoAlerts = import.meta.env.DEV,
     subheadingDisplayHeading = 6,
     tokens,
+
+    LoremIpsumComponent = LoremIpsum,
+    ToggleComponent = Toggle,
 }: Props = Astro.props;
 
 /* FUNCTIONS ===================================== */
@@ -179,7 +197,7 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
             <p>You can use utility classes to add inline icons to HTML text. Find the slug in the list of alerts below and choose from <samp set:text="add-[slug]-icon-before" /> or <samp set:text="add-[slug]-icon-after" />.</p>
         </Alert>
         
-        <Toggle
+        <ToggleComponent
             class:list={ import.meta.env.DEV ? 'page-width' : '' }
             defaultOpen={inlinePreviews_defaultOpen}
             displayHeading={subheadingDisplayHeading}
@@ -213,9 +231,9 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
                     
                 ))}
             </ul>
-        </Toggle>
+        </ToggleComponent>
     
-        <Toggle
+        <ToggleComponent
             class:list={ import.meta.env.DEV ? 'page-width' : '' }
             defaultOpen={inlinePreviews_defaultOpen}
             displayHeading={subheadingDisplayHeading}
@@ -259,9 +277,9 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
                     
                 ))}
             </ul>
-        </Toggle>
+        </ToggleComponent>
     
-        <Toggle
+        <ToggleComponent
             class:list={ import.meta.env.DEV ? 'page-width' : '' }
             defaultOpen={inlinePreviews_defaultOpen}
             displayHeading={subheadingDisplayHeading}
@@ -304,7 +322,7 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
                     
                 ))}
             </ul>
-        </Toggle>
+        </ToggleComponent>
     )
 }
 
@@ -399,7 +417,7 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
     </div>
 ) : '' }
 
-<Toggle
+<ToggleComponent
     defaultOpen={defaultToggleToOpen}
     displayHeading={subheadingDisplayHeading}
     heading={3}
@@ -439,9 +457,9 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
             set:text='Vivamus sed commodo ligula, nec efficitur elit. Praesent condimentum diam est, sit amet venenatis sapien ullamcorper sit amet.'
         />
     </Alert>
-</Toggle>
+</ToggleComponent>
 
-<Toggle
+<ToggleComponent
     defaultOpen={defaultToggleToOpen}
     displayHeading={subheadingDisplayHeading}
     heading={3}
@@ -456,7 +474,7 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
             slot='headline'
             set:text={`Default Colour Variation`}
         />
-        <LoremIpsum superAbbreviated={true} />
+        <LoremIpsumComponent superAbbreviated={true} />
     </Alert>
     {
         textAndBackgroundKeys.map((key) => (
@@ -467,11 +485,11 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
                 <Fragment slot='headline'>
                     Colour Variation: <samp set:text={key} />
                 </Fragment>
-                <LoremIpsum superAbbreviated={true} />
+                <LoremIpsumComponent superAbbreviated={true} />
             </Alert>
         ))
     }
-</Toggle>
+</ToggleComponent>
 
 <style lang='scss'>
     @forward '../scss/page-content-icons';

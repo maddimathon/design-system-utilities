@@ -395,7 +395,7 @@ $_flattenedSystemColors: map.flatten($_systemColors);
             @each $prop, $value in $flattened {
                 //
                 @each $_val in $value {
-                    @if string.index($prop, 'system-') != 1 {
+                    @if string.index($prop, system-) != 1 {
                         @include utils.cx-prop(
                             theme-#{$prop},
                             if(
@@ -452,7 +452,7 @@ $_flattenedSystemColors: map.flatten($_systemColors);
                 }
 
                 @each $prop, $value in $flattened {
-                    @if string.index($prop, 'system-') != 1 {
+                    @if string.index($prop, system-) != 1 {
                         //
                         @each $_val in $value {
                             @include utils.cx-prop(

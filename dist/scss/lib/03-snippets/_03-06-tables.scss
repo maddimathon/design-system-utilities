@@ -18,46 +18,83 @@
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@mixin snippet-support-tables {
+@mixin snippet-support-tables(
+    $th_variation_primary: primary,
+    $th_variation_secondary: secondary,
+    //
+    $background: var-theme(background),
+    $borderColor: var-theme(ui-#{$th_variation_primary}),
+    $borderWidth: var-border-width('200'),
+    $paddingBlock: var-style(flow-margin-small),
+    $paddingInline: do-var(
+            flow-margin-firm-start--small,
+            var-mrg-firm(style-value(flow-margin-small, $raw: true))
+        ),
+    $th_fontSize: var-fs(normal, $relative: true),
+    $th_lineHeight: null,
+    //
+    $includeBaseStyles: true
+) {
     %table-wrapper,
     %table {
         position: relative;
         justify-self: center;
 
-        margin-block: var-mrg-firm('400') 0;
-        margin-block: var-mrg-firm('600')
-            calc(var-mrg-soft('600') - var-mrg-soft('400'));
-
-        background: var-theme(ui-primary);
+        @if $includeBaseStyles {
+            background: $borderColor;
+        }
 
         max-width: 100%;
+
+        @content (table-and-wrapper);
     }
 
     %table {
-        border-spacing: var-border-width('200');
-        font-size: var-fs(smaller-1);
-        line-height: inherit;
+        @if $includeBaseStyles {
+            border-spacing: $borderWidth;
+            line-height: inherit;
+        }
+
+        @content (table);
 
         @include forced-colors {
             border-spacing: 0;
 
-            $_border: var-border-width('200') solid var-theme(text);
+            @content (table--forced-colors);
+
+            $_border: $borderWidth solid var-theme(text);
 
             %th,
             %td {
-                border-block-end: $_border;
-                border-inline-end: $_border;
+                @if $includeBaseStyles {
+                    border-block-end: $_border;
+                    border-inline-end: $_border;
+                }
+
+                @content (table--th-or-td--forced-colors);
 
                 &:first-child {
-                    border-inline-start: $_border;
+                    @if $includeBaseStyles {
+                        border-inline-start: $_border;
+                    }
+
+                    @content (table--th-or-td--first-child--forced-colors);
                 }
             }
 
             %tr {
+                @content (table--tr--forced-colors);
+
                 &:first-child {
+                    @content (table--tr--first-child--forced-colors);
+
                     %th,
                     %td {
-                        border-block-start: $_border;
+                        @if $includeBaseStyles {
+                            border-block-start: $_border;
+                        }
+
+                        @content (table--tr--first-child--th-or-td--forced-colors);
                     }
                 }
             }
@@ -69,6 +106,8 @@
         overflow-x: auto;
         overscroll-behavior-x: none;
 
+        @content (table-wrapper);
+
         /// BLOCK ///
 
         > %table {
@@ -79,60 +118,90 @@
             background: transparent;
 
             max-width: none;
+
+            @content (table-wrapper--table-direct);
         }
     }
 
     %tr {
+        @content (tr);
     }
 
     %th,
     %td {
-        padding-block: var-mrg-soft('200');
-        padding-inline: var-mrg-firm('300');
-        background: var-theme(background);
+        padding-block: $paddingBlock;
+        padding-inline: $paddingInline;
 
-        vertical-align: top;
+        @if $includeBaseStyles {
+            background: $background;
+        }
+
         text-align: left;
+
+        @content (th-or-td);
 
         /// BLOCK ///
 
         > :first-child {
             margin-top: 0;
+
+            @content (th-or-td--first-child-direct);
         }
     }
 
     %th {
         min-width: 6rem;
 
-        @include snippet-unstyled-heading(
-            // $fontSize: var-fs(normal),
-            $resetChildFontStyle: false,
-            $useRelativeFontSize: true
-        );
+        @if $includeBaseStyles {
+            @include snippet-unstyled-heading(
+                $fontSize: $th_fontSize,
+                $lineHeight: $th_lineHeight,
+                $resetChildFontStyle: false,
+                $useRelativeFontSize: true
+            );
 
-        @include theme-set-color(primary);
-        background: var-theme(background-primary);
+            @include theme-set-color($th_variation_primary);
+            background: var-theme(background-#{$th_variation_primary});
+        }
+
+        @content (th);
 
         &[scope='row'] {
-            @include theme-set-color(secondary);
-            background: var-theme(background-secondary);
+            @if $includeBaseStyles {
+                @include theme-set-color($th_variation_secondary);
+                background: var-theme(background-#{$th_variation_secondary});
+            }
+
+            @content (th--scope-row);
         }
 
         // i.e., don't apply to forced colors
         @include colour-mode((low, average, high), $includeDefault: false) {
-            @include cx-prop(icon-color, var-theme(background));
-            color: var-theme(background);
-            background: var-theme(ui-primary);
+            @if $includeBaseStyles {
+                @include cx-prop(icon-color, $background);
+                color: $background;
+                background: $borderColor;
+            }
+
+            @content (th--low-average-high-contrast);
 
             &[scope='row'] {
-                @include theme-set-color(secondary);
-                background: var-theme(background-secondary);
+                @if $includeBaseStyles {
+                    @include theme-set-color($th_variation_secondary);
+                    background: var-theme(
+                        background-#{$th_variation_secondary}
+                    );
+                }
+
+                @content (th--low-average-high-contrast--scope-row);
             }
         }
     }
 
     %td {
         min-width: 10em;
+
+        @content (td);
 
         &.min-width-none {
             min-width: none;

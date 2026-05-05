@@ -34,7 +34,7 @@ $stroke_relative: map.get($border, stroke);
     $stroke_relative: map.set(
         $stroke_relative,
         $key,
-        math.round-to-pixel($size, $factor: config.$fn_borderWidthValue_roundToPixelFactor)
+        math.round-to-pixel($size, $factor: config.$fn_strokeRelativeValue_roundToPixelFactor)
     );
 }
 // #endregion - BORDERS
@@ -53,7 +53,7 @@ $font_size: map.get($font, size);
     $ordered_keys: if(
         $_isFirstLevel,
         map.keys($map),
-        list.sort(list.sort(map.keys($map), $sortAs: 'string'), $sortAs: 'number')
+        list.sort(list.sort(map.keys($map), $sortAs: string), $sortAs: number)
     );
 
     $ordered_map: ();
@@ -78,7 +78,7 @@ $font_size: _ksort_sizes($font_size);
 $font_size: map.set(
     $font_size,
     smaller,
-    map.ksort(map.get($font_size, smaller), $sortAs: 'number', $reverse: true)
+    map.ksort(map.get($font_size, smaller), $sortAs: number, $reverse: true)
 );
 
 // flatten the map
@@ -251,6 +251,17 @@ $button_inline_variation_default: null !default;
 $button_inline_variation_default: config.config-valid-string(
     $button_inline_variation_default,
     'button_inline_variation_default',
+    $default: 'grey',
+    $options: $_buttonVariationOpts
+);
+
+///
+/// @since ___PKG_VERSION___
+///
+$button_fileSelector_variation_default: null !default;
+$button_fileSelector_variation_default: config.config-valid-string(
+    $button_fileSelector_variation_default,
+    'button_fileSelector_variation_default',
     $default: 'grey',
     $options: $_buttonVariationOpts
 );

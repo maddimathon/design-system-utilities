@@ -4,6 +4,7 @@
 ///
 
 @use 'pkg:@maddimathon/utility-sass/feature-check';
+@use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/meta';
 @use 'pkg:@maddimathon/utility-sass/selector';
 
@@ -57,29 +58,34 @@
 ///
 /// @since 0.1.0-alpha
 ///
-@mixin snippet-button-colours($variation: tokens.$button_variation_default) {
-    & {
-        @include snippet-button-colour-single-state('$', $variation);
+@mixin snippet-button-colours(
+    $variation: tokens.$button_variation_default,
+    //
+    $focusWithin: false,
+    $focus_fallbacksOnly: config.$mx_focusVisible_fallbacksOnly,
+    $focus_includeFallbacks: config.$mx_focusVisible_includeFallbacks
+) {
+    @include snippet-button-colour-single-state('$', $variation);
 
-        @content ( 'root-colours' );
-    }
+    @content (root-colours);
 
-    &:hover {
-        @include snippet-button-colour-single-state('hover', $variation);
+    @include apply-interactive-mixin(
+        $focus: true,
+        $focusWithin: $focusWithin,
+        $hover: true,
+        //
+        $fallbacksOnly: $focus_fallbacksOnly,
+        $includeFallbacks: $focus_includeFallbacks
+    ) {
+        @include snippet-button-colour-single-state(hover, $variation);
 
-        @content ( 'hover' );
-    }
-
-    @include focus-visible-or-within {
-        @include snippet-button-colour-single-state('hover', $variation);
-
-        @content ( 'focus' );
+        @content (hover-focus);
     }
 
     @include active {
-        @include snippet-button-colour-single-state('active', $variation);
+        @include snippet-button-colour-single-state(active, $variation);
 
-        @content ( 'active' );
+        @content (active);
     }
 }
 
@@ -101,14 +107,14 @@
 
         vertical-align: do-var(icon-vertical-align, $verticalAlign);
 
-        @content ('icon');
+        @content (icon);
 
         &:not(.settings-menu-icon):not(.toggle-icon) {
             @if $includeBaseProps {
                 margin-inline: font-family-icons--margin-inline(start);
             }
 
-            @content ('icon--not-settings-or-toggle');
+            @content (icon--not-settings-or-toggle);
 
             &:not(:only-child) {
                 @include cx-prop(icon-size, $iconSize);
@@ -131,7 +137,7 @@
                     bottom: $embeddedBottom;
                 }
 
-                @content ('icon--not-only-child');
+                @content (icon--not-only-child);
             }
 
             @if $includeBaseProps {
@@ -139,7 +145,7 @@
                     margin-inline-start: 0;
                     margin-inline-end: font-family-icons--margin-inline(start);
 
-                    @content ('icon--is-first-child');
+                    @content (icon--is-first-child);
                 }
 
                 &:last-child {
@@ -148,7 +154,7 @@
                     );
                     margin-inline-end: 0;
 
-                    @content ('icon--is-last-child');
+                    @content (icon--is-last-child);
                 }
             }
 
@@ -164,7 +170,7 @@
                     letter-spacing: normal !important;
                 }
 
-                @content ('icon--is-only-child');
+                @content (icon--is-only-child);
             }
         }
     }
@@ -212,7 +218,7 @@
         line-height: 1;
         background: transparent;
 
-        @content ('code-kbd-samp');
+        @content (code-kbd-samp);
     }
 }
 
@@ -224,41 +230,57 @@
 @mixin snippet-button(
     $variation: tokens.$button_variation_default,
     //
+    $includeChildren: true,
     $includeColours: true,
     $includeDisabled: true,
     $includeEmpty: true,
     $useIconFont: config.$fn_pseudoIconsUseFont and font-family-exists(icons),
     $includeInline: true,
     $includeMarginBlock: true,
-    $includeOnlyChild: true,
+    $includeOnlyChild: $includeChildren,
     $includePadding: true,
     $includePseudoIcons: config.$include_button_inlineIcons,
     $includeTextBasics: true,
     //
     $borderRadius: null,
+    $borderStyle: null,
     $borderWidth: null,
     $display: null,
     $fontSize: null,
     $fontStyle: null,
     $fontWeight: null,
-    $gap: var-style(button-gap-block) var-style(button-gap-inline),
+    // $gap: var-style(button-gap-block) var-style(button-gap-inline),
+    $gap: false,
     $marginBlockEnd: null,
     $marginBlockStart: null,
     $paddingBlock: null,
     $paddingInline: null,
     $width: null,
     //
+    $focusWithin: false,
+    $focus_fallbacksOnly: config.$mx_focusVisible_fallbacksOnly,
+    $focus_includeFallbacks: config.$mx_focusVisible_includeFallbacks,
+    //
     $args...
 ) {
-    $display: if($display, $display, style-value(button-display));
-    $fontStyle: if($fontStyle, $fontStyle, var-style(button-font-style));
+    $borderStyle: if(
+        $borderStyle != null,
+        $borderStyle,
+        var-style(button-border-style)
+    );
+    $display: if($display != null, $display, style-value(button-display));
+    $fontStyle: if(
+        $fontStyle != null,
+        $fontStyle,
+        var-style(button-font-style)
+    );
     $paddingBlock: if(
-        $paddingBlock,
+        $paddingBlock != null,
         $paddingBlock,
         var-style(button-padding-block)
     );
     $paddingInline: if(
-        $paddingInline,
+        $paddingInline != null,
         $paddingInline,
         var-style(button-padding-inline)
     );
@@ -297,17 +319,17 @@
     @include _snippet-button-base($args...);
 
     @if $width != false {
-        width: if($width, $width, var-style(button-width));
+        width: if($width != null, $width, var-style(button-width));
     }
 
     @if $includeMarginBlock {
         margin-block-start: if(
-            $marginBlockStart,
+            $marginBlockStart != null,
             $marginBlockStart,
             var-style(button-margin-block-start)
         );
         margin-block-end: if(
-            $marginBlockEnd,
+            $marginBlockEnd != null,
             $marginBlockEnd,
             var-style(button-margin-block-end)
         );
@@ -323,24 +345,24 @@
     }
 
     border-width: if(
-        $borderWidth,
+        $borderWidth != null,
         $borderWidth,
         var-style(button-border-width)
     );
 
     @if $borderRadius != false {
         border-radius: if(
-            $borderRadius,
+            $borderRadius != null,
             $borderRadius,
             var-style(button-border-radius)
         );
     }
 
-    border-style: var-style(button-border-style);
+    border-style: $borderStyle;
 
     @if $includeTextBasics {
         font-weight: if(
-            $fontWeight,
+            $fontWeight != null,
             $fontWeight,
             var-style(button-font-weight)
         );
@@ -349,7 +371,11 @@
             font-style: $fontStyle;
         }
 
-        font-size: if($fontSize, $fontSize, var-style(button-font-size));
+        font-size: if(
+            $fontSize != null,
+            $fontSize,
+            var-style(button-font-size)
+        );
         line-height: var-style(button-line-height);
         letter-spacing: var-style(button-letter-spacing);
 
@@ -358,23 +384,40 @@
 
     user-select: text;
 
-    @content ('root');
+    @content (root);
 
     @if $includeColours {
-        @include snippet-button-colours($variation) using ($location) {
+        @include snippet-button-colours(
+                $variation,
+                $focusWithin: $focusWithin,
+                $focus_fallbacksOnly: $focus_fallbacksOnly,
+                $focus_includeFallbacks: $focus_includeFallbacks
+            )
+            using ($location) {
+            @if $location == focus and $borderStyle != solid {
+                border-style: solid;
+            }
+
             @content ($location);
         }
     } @else {
-        @include hover-focus-visible-or-within {
-            @content ('focus');
-        }
+        @include apply-interactive-mixin(
+            $focus: true,
+            $focusWithin: $focusWithin,
+            $hover: true,
+            //
+            $fallbacksOnly: $focus_fallbacksOnly,
+            $includeFallbacks: $focus_includeFallbacks
+        ) {
+            @if $borderStyle != solid {
+                border-style: solid;
+            }
 
-        &:hover {
-            @content ('hover');
+            @content (hover-focus);
         }
 
         @include active {
-            @content ('active');
+            @content (active);
         }
     }
 
@@ -382,17 +425,24 @@
         &:empty:not(input) {
             padding-inline: $paddingBlock;
 
-            @content ('empty');
+            @content (empty);
         }
     }
 
     @if $includeOnlyChild {
-        &:has(> #{selector.unify('%icon', ':only-child')}),
-        &:has(> #{selector.unify('%brand-logo', ':only-child')}) {
+        @include selector.has(
+            list.join(
+                selector.unify('%icon', ':only-child'),
+                selector.unify('%brand-logo', ':only-child'),
+                $separator: comma
+            ),
+            $direct: true,
+            $unifyParent: true
+        ) {
             padding-inline: $paddingBlock;
             line-height: 1 !important;
 
-            @content ('has-logo-or-icon-only-child');
+            @content (has-logo-or-icon-only-child);
 
             &::after,
             &::before {
@@ -400,12 +450,20 @@
             }
         }
 
-        &:has(> #{selector.unify('%icon', ':only-child')}) {
-            @content ('has-icon-only-child');
+        @include selector.has(
+            selector.unify('%icon', ':only-child'),
+            $direct: true,
+            $unifyParent: true
+        ) {
+            @content (has-icon-only-child);
         }
 
-        &:has(> #{selector.unify('%brand-logo', ':only-child')}) {
-            @content ('has-logo-only-child');
+        @include selector.has(
+            selector.unify('%brand-logo', ':only-child'),
+            $direct: true,
+            $unifyParent: true
+        ) {
+            @content (has-logo-only-child);
         }
     }
 
@@ -432,7 +490,7 @@
                 $includePseudoIcons: $includePseudoIcons,
                 $useIconFont: $useIconFont,
             ) using ($location) {
-                @content ('disabled-#{$location}');
+                @content(disabled-#{$location});
             }
         }
     }
@@ -445,7 +503,7 @@
                 $includeColours: false,
                 $useIconFont: $useIconFont,
             ) using ($location) {
-                @content ('inline-#{$location}');
+                @content(inline-#{$location});
             }
         }
 
@@ -453,21 +511,22 @@
             tokens.$button_variation_default !=
             tokens.$button_inline_variation_default
         {
-            &:where(.display-inline) {
+            @at-root :is(&):where(.display-inline) {
                 @include snippet-button-colours(
                         tokens.$button_inline_variation_default
                     )
                     using ($location) {
-                    @content ('inline-#{$location}');
+                    @content (inline--colours--#{$location});
                 }
 
-                @at-root #{selector.unify(&, ('[aria-disabled=true]', '[disabled]'))} {
-                    @include snippet-button-colours(disabled) using ($location) {
-                        @if $location == focus {
-                            border-style: solid;
-                        }
+                @if $includeDisabled {
+                    @at-root #{selector.unify(&, ('[aria-disabled=true]', '[disabled]'))} {
+                        @content (inline--colours--disabled);
 
-                        @content ('inline-disabled-#{$location}');
+                        @include snippet-button-colours(disabled) using
+                            ($location) {
+                            @content (inline--colours--disabled-#{$location});
+                        }
                     }
                 }
             }
@@ -495,17 +554,19 @@
         }
     }
 
-    @include _snippet-button-base--children using ($location) {
-        @content ('child--#{$location}');
-    }
+    @if $includeChildren {
+        @include _snippet-button-base--children using ($location) {
+            @content (child--#{$location});
+        }
 
-    @include _snippet-button--icon-child(
-            $iconSize: var-style(button-icon-size-pseudo),
-            $embeddedBottom: var-style(button-icon-embedded-bottom),
-            $verticalAlign: var-style(button-icon-vertical-align)
-        )
-        using ($location) {
-        @content ('icon-child--#{$location}');
+        @include _snippet-button--icon-child(
+                $iconSize: var-style(button-icon-size-pseudo),
+                $embeddedBottom: var-style(button-icon-embedded-bottom),
+                $verticalAlign: var-style(button-icon-vertical-align)
+            )
+            using ($location) {
+            @content (child--icon--#{$location});
+        }
     }
 }
 
@@ -516,14 +577,21 @@
 /// @since 0.1.0-beta.0.draft
 ///
 @mixin snippet-button-disabled(
+    $borderStyle: null,
     $fontWeight: var-style(button-disabled-font-weight),
     $fontStyle: var-style(button-disabled-font-style),
     $includeColours: true,
     $includePseudoIcons: config.$include_button_inlineIcons,
     $useIconFont: config.$fn_pseudoIconsUseFont and font-family-exists(icons)
 ) {
+    $borderStyle: if(
+        $borderStyle != null,
+        $borderStyle,
+        var-style(button-disabled-border-style)
+    );
+
     border-radius: var-style(button-disabled-border-radius);
-    border-style: var-style(button-disabled-border-style);
+    border-style: $borderStyle;
 
     font-weight: $fontWeight;
     font-style: $fontStyle;
@@ -533,31 +601,27 @@
 
     cursor: not-allowed;
 
+    @content (root);
+
     @if $includeColours {
         @include snippet-button-colours(disabled) using ($location) {
-            @if $location == focus {
+            @if $location == focus and $borderStyle != solid {
                 border-style: solid;
             }
 
             @content ($location);
         }
     } @else {
-        & {
-            @content ( 'root' );
-        }
+        @include hover-focus-visible-or-within {
+            @if $borderStyle != solid {
+                border-style: solid;
+            }
 
-        @include focus-visible-or-within {
-            border-style: solid;
-
-            @content ( 'focus' );
-        }
-
-        &:hover {
-            @content ( 'hover' );
+            @content (hover-focus);
         }
 
         @include active {
-            @content ( 'active' );
+            @content (active);
         }
     }
 
@@ -588,6 +652,7 @@
     $useIconFont: config.$fn_pseudoIconsUseFont and font-family-exists(icons),
     //
     $borderRadius: null,
+    $borderStyle: null,
     $borderWidth: null,
     $display: null,
     $fontSize: null,
@@ -599,6 +664,11 @@
     $paddingInline: null,
     $width: null
 ) {
+    $borderStyle: if(
+        $borderStyle != null,
+        $borderStyle,
+        var-style(button-inline-border-style)
+    );
     $display: if($display != null, $display, inline);
     $fontStyle: if(
         $fontStyle != null,
@@ -671,7 +741,7 @@
     padding-block: $paddingBlock;
     padding-inline: $paddingInline;
 
-    gap: var-style(button-inline-gap-block) var-style(button-inline-gap-inline);
+    // gap: var-style(button-inline-gap-block) var-style(button-inline-gap-inline);
 
     border-width: if(
         $borderWidth,
@@ -683,7 +753,7 @@
         $borderRadius,
         var-style(button-inline-border-radius)
     );
-    border-style: var-style(button-inline-border-style);
+    border-style: $borderStyle;
 
     font-weight: if(
         $fontWeight,
@@ -699,23 +769,27 @@
 
     vertical-align: var-style(button-inline-vertical-align);
 
-    @content ( 'root' );
+    @content (root);
 
     @if $includeColours and $variation != null {
         @include snippet-button-colours($variation) using ($location) {
+            @if $location == focus and $borderStyle != solid {
+                border-style: solid;
+            }
+
             @content ($location);
         }
     } @else {
         @include hover-focus-visible-or-within {
-            @content ( 'focus' );
-        }
+            @if $borderStyle != solid {
+                border-style: solid;
+            }
 
-        &:hover {
-            @content ( 'hover' );
+            @content (hover-focus);
         }
 
         @include active {
-            @content ( 'active' );
+            @content (active);
         }
     }
 
@@ -743,6 +817,129 @@
 }
 
 ///
+/// Base styles for the `::file-selector-button` selector.
+///
+/// If you nest this mixin, its parent should be an `input` selector.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin snippet-add-pseudo-file-selector-button(
+    $variation: tokens.$button_fileSelector_variation_default,
+    //
+    $display: false,
+    $fontSize: 1em,
+    $marginBlockEnd: 0,
+    $marginBlockStart: 0,
+    $marginInline: 0 var-mrg-firm('300'),
+    $width: false,
+    //
+    $includeColours: true,
+    $selector: '%file-selector-button',
+    //
+    $args...
+) {
+    $_parent_exists: selector.parent-exists();
+
+    $selector_root: if(
+        $_parent_exists,
+        selector.unify(&, $selector),
+        $selector
+    );
+
+    $selector_hover: if($_parent_exists, selector.unify(&, ':hover'), ':hover');
+
+    $selector_disabled: ('[aria-disabled=true]', '[disabled]');
+
+    $selector_disabled: if(
+        $_parent_exists,
+        selector.unify(&, $selector_disabled),
+        $selector_disabled
+    );
+
+    @at-root #{$selector_root} {
+        @include snippet-button(
+                $display: $display,
+                $fontSize: $fontSize,
+                $marginBlockEnd: $marginBlockEnd,
+                $marginBlockStart: $marginBlockStart,
+                $width: $width,
+                //
+                $includeChildren: false,
+                $includeColours: false,
+                $includeDisabled: false,
+                $includeEmpty: false,
+                $includeInline: false,
+                $includeOnlyChild: false,
+                $includePseudoIcons: false,
+                //
+                $args...
+            )
+            using ($location) {
+            @if $location == root {
+                margin-inline: $marginInline;
+
+                @content (root);
+
+                @if $includeColours {
+                    @include snippet-button-colour-single-state(
+                        '$',
+                        $variation
+                    );
+                    @content (root-colours);
+                }
+            }
+
+            @content (button-#{$location});
+        }
+    }
+
+    /// STATES ///
+
+    @at-root #{$selector_hover} {
+        @at-root #{selector.unify(&, $selector)} {
+            @if $includeColours {
+                @include snippet-button-colour-single-state(hover, $variation);
+            }
+
+            @content (hover);
+        }
+    }
+
+    @include focus-visible-or-within {
+        @at-root #{selector.unify(&, $selector)} {
+            @if $includeColours {
+                @include snippet-button-colour-single-state(hover, $variation);
+            }
+
+            @content (focus-visible-or-within);
+        }
+    }
+
+    @include active {
+        @at-root #{selector.unify(&, $selector)} {
+            @if $includeColours {
+                @include snippet-button-colour-single-state(active, $variation);
+            }
+
+            @content (active);
+        }
+    }
+
+    /// BLOCK ///
+
+    @at-root #{$selector_disabled} {
+        @at-root #{selector.unify(&, $selector)} {
+            @if $includeColours {
+                @include snippet-button-disabled($includePseudoIcons: false)
+                    using ($location) {
+                    @content (disabled-#{$location});
+                }
+            }
+        }
+    }
+}
+
+///
 /// @since 0.1.0-beta.0.draft
 ///
 @mixin snippet-fieldset(
@@ -761,7 +958,7 @@
     //
     $flex_args: (),
     //
-    $includeClrs: config.$mx_fieldset_includeClrs,
+    $includeColours: config.$mx_fieldset_includeClrs,
     $includeChildren: true
 ) {
     @include prop-display($display);
@@ -779,7 +976,7 @@
     border: $borderWidth solid currentColor;
     border-radius: $borderRadius;
 
-    @if $includeClrs {
+    @if $includeColours {
         border-color: $borderClr;
         background-color: $background;
         color: $color;
@@ -811,7 +1008,7 @@
 
     /// STATES ///
 
-    @if $includeClrs {
+    @if $includeColours {
         @include focus-visible-or-within {
             border-color: $borderClr_hover;
         }
@@ -874,7 +1071,7 @@
         }
     }
 
-    &:focus {
+    @include focus {
         @include cx-prop(focus-ring-outline-color, $accentClr_focus);
         background-color: $background_focus;
         border-color: $borderClr_focus;
@@ -886,7 +1083,7 @@
         }
     }
 
-    &:focus-within {
+    @include focus-within {
         @include cx-prop(focus-ring-outline-color, $accentClr_focus);
         background-color: $background_focus;
         border-color: $borderClr_focus;
@@ -1137,11 +1334,10 @@
             $marginBlock: $marginBlock,
             $marginInline: $marginInline,
             $marginBlockStart_afterLabel: $marginBlockStart_afterLabel,
-            $opacity_hover: 1,
             $paddingBlock: $paddingBlock,
             $paddingInline: $paddingInline,
             //
-            $includeClrs: false,
+            $includeColours: false,
             $includePlaceholder: false,
             $args...
         ) using ($location) {
@@ -1152,12 +1348,7 @@
                 }
             }
 
-            @else if $location == focus-visible-or-within {
-                
-                @content($location);
-            }
-
-            @else if $location == hover {
+            @else if $location == hover-focus-visible-or-within {
                 
                 @content($location);
             }
@@ -1196,12 +1387,8 @@
             @content ($root_location);
         }
 
-        @include focus-visible-or-within {
-            @content (focus-visible-or-within);
-        }
-
-        &:hover {
-            @content (hover);
+        @include hover-focus-visible-or-within {
+            @content (hover-focus-visible-or-within);
         }
 
         @include active {
@@ -1359,7 +1546,7 @@
         // prettier-ignore
         @include utils.snippet-input-types(
             $includeBase: $includeBase,
-            $includeClrs: false,
+            $includeColours: false,
             //
             $args...
         ) using ($location) {
@@ -1476,7 +1663,7 @@
             $marginBlock: $marginBlock,
             $marginBlock_innercheckradio: $marginBlock_innercheckradio,
             //
-            $includeClrs: false,
+            $includeColours: false,
             $args...
         );
     }
@@ -1502,8 +1689,19 @@
             margin-block-start: do-var(flow-margin-firm-start);
         }
 
-        + %input:not([type='checkbox'], [type='radio']) {
-            margin-block-start: do-var(flow-margin-firm-start);
+        + %input {
+            @include selector.not(
+                (
+                    '[type=button]',
+                    '[type=checkbox]',
+                    '[type=radio]',
+                    '[type=reset]',
+                    '[type=submit]'
+                ),
+                $unifyParent: true
+            ) {
+                margin-block-start: do-var(flow-margin-firm-start);
+            }
         }
     }
 }
@@ -1622,8 +1820,10 @@
 
     @if $supportSubmitButtonIcon {
         > [type='submit'] {
-            &:has(
-                #{selector.nest('>', selector.unify('%icon', ':only-child'))}
+            @include selector.has(
+                selector.unify('%icon', ':only-child'),
+                $direct: true,
+                $unifyParent: true
             ) {
                 &::before,
                 &::after {

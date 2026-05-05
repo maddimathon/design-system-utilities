@@ -9,6 +9,7 @@
 @use 'pkg:@maddimathon/utility-sass/feature-check';
 @use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/meta';
 @use 'pkg:@maddimathon/utility-sass/selector';
 
 @use 'pkg:@maddimathon/utility-astro/template/lib' as lib;
@@ -27,9 +28,9 @@
     $sels: list.join(
         $sels,
         (
-            ((cite, p), 'margins-flow'),
-            ((li), 'margins-flow-small'),
-            ((dt), 'margins-flow-large'),
+            ((cite, p), margins-flow),
+            ((li), margins-flow-small),
+            ((dt), margins-flow-large),
             //
             (
                     (
@@ -39,11 +40,13 @@
                         // 'input[type="reset"]',
                         // 'input[type="submit"]',
                         details,
+                        table,
+                        '%table-wrapper',
                         '%image'
                     ),
-                    'margins-flow-firm'
+                    margins-flow-firm
                 ),
-            ((blockquote), 'margins-flow-firm-large')
+            ((blockquote), margins-flow-firm-large)
         )
     );
 
@@ -59,10 +62,10 @@
     $sels: list.join(
         $sels,
         (
-            ('.button-span', 'button-span'),
+            ('.button-span', button-span),
             //
-            ('.overflow-block-auto', 'overflow-block-auto'),
-            ('.overflow-inline-auto', 'overflow-inline-auto'),
+            ('.overflow-block-auto', overflow-block-auto),
+            ('.overflow-inline-auto', overflow-inline-auto),
             //
             ('.margins-flow', margins-flow),
             ('.margins-flow-small', margins-flow-small),
@@ -76,7 +79,10 @@
             ('.margins-flow-firm-small', margins-flow-firm-small),
             ('.margins-flow-firm-large', margins-flow-firm-large),
             //
-            ('a.button[href]', 'margins-flow-firm'),
+            (
+                    selector.unify(config.$selector_a, '.button'),
+                    style-value(button-flow-margin-self, $raw: true)
+                ),
             ('%alert', style-value(alert-flow-margin-self, $raw: true))
         )
     );
@@ -84,7 +90,10 @@
     @each $variant in tokens.$themesMeta_buttonVariations_extra {
         $sels: list.append(
             $sels,
-            ('a.button-#{$variant}[href]', 'margins-flow-firm')
+            (
+                selector.unify(config.$selector_a, '.button-#{$variant}'),
+                style-value(button-flow-margin-self, $raw: true)
+            )
         );
     }
 
@@ -139,34 +148,13 @@
             $additional,
             ('[data-active-theme=#{$key}]', 'active-theme--#{$key}')
         );
-        $additional: list.append(
-            $additional,
-            (
-                ('[data-active-theme=#{$key}]:hover'),
-                'active-theme-hover--#{$key}'
-            )
-        );
-        $additional: list.append(
-            $additional,
-            (
-                '[data-active-theme=#{$key}]:focus-within',
-                'active-theme-focus-within--#{$key}'
-            )
-        );
-        $additional: list.append(
-            $additional,
-            (
-                '[data-active-theme=#{$key}]:focus-visible',
-                'active-theme-focus-visible--#{$key}'
-            )
-        );
     }
 
     @if config.$template_docs {
         $additional: list.join(
             $additional,
             (
-                ('.theme-mode-swatch__sample--selection', 'selection'),
+                ('.theme-mode-swatch__sample--selection', selection),
                 (
                     '.website-settings-menu [data-settings-reset]',
                     button-form-reset
@@ -194,31 +182,31 @@
     $allHeadingLevels: token-all-heading-levels()
 ) {
     //
-    $additional: list.append($additional, ('p.aside', 'aside'));
+    $additional: list.append($additional, ('p.aside', aside));
     $additional: list.append($additional, ('.brand-logo', brand-logo));
 
     $additional: list.join(
         $additional,
         (
-            ('.text-align-center', 'text-align-center'),
-            ('.text-align-end', 'text-align-end'),
-            ('.text-align-start', 'text-align-start'),
-            ('.text-transform-lowercase', 'text-transform-lowercase'),
-            ('.text-transform-uppercase', 'text-transform-uppercase'),
-            ('.uppercase-emphasis', 'uppercase-emphasis')
+            ('.text-align-center', text-align-center),
+            ('.text-align-end', text-align-end),
+            ('.text-align-start', text-align-start),
+            ('.text-transform-lowercase', text-transform-lowercase),
+            ('.text-transform-uppercase', text-transform-uppercase),
+            ('.uppercase-emphasis', uppercase-emphasis)
         )
     );
 
     @if config.$template_docs {
         $additional: list.append(
             $additional,
-            ('.site-content .button-span', 'button-span')
+            ('.site-content .button-span', button-span)
         );
     }
 
     $additional: list.append(
         $additional,
-        ('.font-family-icons', 'font-family-icons')
+        ('.font-family-icons', font-family-icons)
     );
     $additional: list.append($additional, ('form.search-form', search-form));
     $additional: list.append($additional, ('.site-sidebar', site-sidebar));
@@ -277,28 +265,26 @@
         );
     }
 
+    $_buttonSelectorsBase: list.join(
+        config.$selector_a,
+        list.except(
+            selector-buttons-basic(),
+            selector.unify(config.$selector_a, '.button')
+        ),
+        $separator: comma
+    );
+
     @each $variant in tokens.$themesMeta_buttonVariations_extra {
         //
         $additional: list.append(
             $additional,
-            ('a.button-#{$variant}[href]', button)
+            (selector.unify(config.$selector_a, '.button-#{$variant}'), button)
         );
 
         $additional: list.append(
             $additional,
             (
-                (
-                    selector.unify(
-                        (
-                            button,
-                            'a[href]',
-                            '[role=button]',
-                            'input[type=button]',
-                            'input[type=submit]'
-                        ),
-                        '.button-#{$variant}'
-                    )
-                ),
+                (selector.unify($_buttonSelectorsBase, '.button-#{$variant}')),
                 button-#{$variant}
             )
         );

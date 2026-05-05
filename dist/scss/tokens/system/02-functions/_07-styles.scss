@@ -27,8 +27,7 @@
 @function tokens-style-is-flow-margin($slug, $defaultOnly: false) {
     // returns
     @if $defaultOnly {
-        @return $slug == 'flow-margin' or string.index($slug, 'flow-margin-') ==
-            1;
+        @return $slug == flow-margin or string.index($slug, flow-margin-) == 1;
     }
 
     @return string.match(
@@ -77,8 +76,7 @@
     // returns
     @if $slug == focus-ring-outline-color {
         @return if(
-            meta.type-of($value) == 'color' or $value == white or $value ==
-                black,
+            meta.type-of($value) == color or $value == white or $value == black,
             $value,
             theme.tokens-var-theme($value)
         );
@@ -123,6 +121,7 @@
     $isAlertHeadlineStyle: string.index($slug, alert-headline-) == 1;
     $isButtonStyle: string.index($slug, button-) == 1;
     $isHeadingStyle: string.index($slug, heading-) == 1;
+    $isHr: string.index($slug, hr-) == 1;
     $isIconStyle: string.match($slug, '^(button-(inline-)?)?icon-') != null;
     $isInputStyle: string.index($slug, input-) == 1;
     $isSubtitleStyle: string.index($slug, subtitle-) == 1;
@@ -149,6 +148,7 @@
         $isIconStyle or
         $isInputStyle or
         $isHeadingStyle or
+        $isHr or
         $isSubtitleStyle or
         $isToggleStyle or
         $isWidgetStyle
@@ -156,54 +156,54 @@
         // gap
         @if string.index($slug, -gap-) {
             $isGap: true;
-        } @else if string.index($slug, '-gap') == ($_slugLength - 6) {
+        } @else if string.index($slug, -gap) == ($_slugLength - 6) {
             $isGap: true;
         }
 
         // theme (colour) tokens
-        @if string.index($slug, '-background-') {
+        @if string.index($slug, -background-) {
             $isThemeToken: true;
-        } @else if string.index($slug, '-color-') {
+        } @else if string.index($slug, -color-) {
             $isThemeToken: true;
-        } @else if string.index($slug, '-background') == ($_slugLength - 10) {
+        } @else if string.index($slug, -background) == ($_slugLength - 10) {
             $isThemeToken: true;
-        } @else if string.index($slug, '-color') == ($_slugLength - 5) {
+        } @else if string.index($slug, -color) == ($_slugLength - 5) {
             $isThemeToken: true;
         }
 
         // border-radius
         // prettier-ignore
-        @if string.index($slug, '-border-radius-') or string.index($slug, '-border-radius') == ($_slugLength - 13) {
+        @if string.index($slug, -border-radius-) or string.index($slug, -border-radius) == ($_slugLength - 13) {
             $isBorderRadius: true;
         }
 
         // border-width
         // prettier-ignore
-        @if string.index($slug, '-border-width-') or string.index($slug, '-border-width') == ($_slugLength - 12) {
+        @if string.index($slug, -border-width-) or string.index($slug, -border-width) == ($_slugLength - 12) {
             $isBorderWidth: true;
         }
 
         // font-size
-        @if string.index($slug, '-font-family') == ($_slugLength - 11) {
+        @if string.index($slug, -font-family) == ($_slugLength - 11) {
             $isFontFamily: true;
         }
 
         // font-size
-        @if string.index($slug, '-font-size-') {
+        @if string.index($slug, -font-size-) {
             $isFontSize: true;
-        } @else if string.index($slug, '-font-size') == ($_slugLength - 9) {
+        } @else if string.index($slug, -font-size) == ($_slugLength - 9) {
             $isFontSize: true;
         }
 
         // line-height
-        @if string.index($slug, '-line-height') == ($_slugLength - 11) {
+        @if string.index($slug, -line-height) == ($_slugLength - 11) {
             $isLineHeight: true;
         }
 
         // margins - returns for alert headings and headlines
         @if not $isIconStyle {
             // prettier-ignore
-            @if string.index($slug, '-margin-') or string.index($slug, '-margin') == ($_slugLength - 6) {
+            @if string.index($slug, -margin-) or string.index($slug, -margin) == ($_slugLength - 6) {
                 @if $isAlertHeadingStyle or $isAlertHeadlineStyle {
                     @return math.add-unit($value, 1em);
                 } @else {
@@ -213,13 +213,13 @@
         }
 
         // padding
-        @if string.index($slug, '-padding-') {
+        @if string.index($slug, -padding-) {
             @if $isWidgetStyle {
                 $isMargin: true;
             } @else {
                 $isPadding: true;
             }
-        } @else if string.index($slug, '-padding') == ($_slugLength - 7) {
+        } @else if string.index($slug, -padding) == ($_slugLength - 7) {
             @if $isAlertStyle or $isWidgetStyle {
                 $isMargin: true;
             } @else {
@@ -228,7 +228,7 @@
         }
 
         // stroke-relative
-        @if string.index($slug, '-focus-offset-') {
+        @if string.index($slug, -focus-offset-) {
             $isStrokeRelative: true;
         } @else if string.index($slug, -focus-offset) == ($_slugLength - 12) {
             $isStrokeRelative: true;
@@ -266,9 +266,13 @@
         // returns
         @if string.index($slug, -block-start) {
             @return if(
-                $isButtonStyle or $isInputStyle,
-                spacing.tokens-var-mrg-firm($value),
-                spacing.tokens-var-mrg-soft($value)
+                $isToggleControlStyle,
+                spacing.tokens-var-pad-firm($value),
+                if(
+                    $isButtonStyle or $isInputStyle,
+                    spacing.tokens-var-mrg-firm($value),
+                    spacing.tokens-var-mrg-soft($value)
+                )
             );
         }
 
@@ -276,7 +280,7 @@
         @if string.index($slug, -block-end) {
             @return if(
                 $isToggleControlStyle,
-                spacing.tokens-var-mrg-firm($value),
+                spacing.tokens-var-pad-firm($value),
                 spacing.tokens-var-mrg-half($value)
             );
         }
@@ -407,7 +411,7 @@
     // returns
     @if $isLineHeight {
         // returns
-        @if $value == 'normal' or meta.type-of($value) == 'number' {
+        @if $value == normal or meta.type-of($value) == number {
             @return $value;
         }
 
@@ -425,8 +429,7 @@
     // returns
     @if $isThemeToken {
         @return if(
-            meta.type-of($value) == 'color' or $value == white or $value ==
-                black,
+            meta.type-of($value) == color or $value == white or $value == black,
             $value,
             theme.tokens-var-theme($value)
         );

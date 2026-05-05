@@ -3,6 +3,7 @@
 /// @since 0.1.0-alpha
 ///
 
+@use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/math';
 @use 'pkg:@maddimathon/utility-sass/meta';
 @use 'pkg:@maddimathon/utility-sass/selector';
@@ -64,14 +65,19 @@
 /// Adds basic rules for the given heading using tokens in the system.
 ///
 /// @since 0.1.0-alpha
-/// @since ___PKG_VERSION___ Added optional $includeChildren, $includeColor, $includeMargin, $includeMarginSiblings, $useRelativeFontSize params.
+/// @since ___PKG_VERSION___ — Added optional $fontWeight, $fontWeight_strong, $link_decorationThickness, $link_focusOutlineOffset, $link_underlineOffset, $includeChildren, $includeColor, $includeMargin, $includeMarginSiblings, $useRelativeFontSize params.
 ///
 @mixin snippet-heading(
     $slug: 'unstyled',
     $color: null,
     $iconColor: null,
+    $fontWeight: null,
+    $fontWeight_strong: null,
     $fontStyle: null,
     $lineHeight: null,
+    $link_decorationThickness: null,
+    $link_focusOutlineOffset: 0,
+    $link_underlineOffset: null,
     $marginBlockEnd: null,
     $marginBlockStart: null,
     //
@@ -93,6 +99,8 @@
     );
 
     $fontStyle: if($fontStyle, $fontStyle, var-style(heading-#{$slug}-font-style));
+
+    @include cx-prop(focus-ring-outline-offset, $link_focusOutlineOffset);
 
     @if $includeMargin {
         margin-block-start: if(
@@ -116,7 +124,7 @@
         font-family: var-font-family(heading);
     }
 
-    font-weight: var-style(heading-#{$slug}-font-weight);
+    font-weight: if($fontWeight, $fontWeight, var-style(heading-#{$slug}-font-weight));
 
     font-size: if(
         $slug == unstyled,
@@ -146,7 +154,7 @@
         }
     }
 
-    @content ('root');
+    @content (root);
 
     @if $includeColor {
         $_color: if(
@@ -166,15 +174,33 @@
         &:has(+ %margins-flow-firm-large) {
             margin-block-end: 0;
 
-            @content ('margin-siblings--firm');
+            @content (margin-siblings--firm);
         }
     }
 
     @if $includeChildren {
+        @if $fontWeight_strong {
+            %strong {
+                font-weight: $fontWeight_strong;
+
+                @content (children--strong);
+            }
+        }
+
         %a {
+            @include cx-prop(focus-ring-outline-offset, $link_focusOutlineOffset);
+
+            @if $link_decorationThickness != null {
+                text-decoration-thickness: $link_decorationThickness;
+            }
+
+            @if $link_underlineOffset != null {
+                text-underline-offset: $link_underlineOffset;
+            }
+
             font-weight: inherit;
 
-            @content ('children--a');
+            @content (children--a);
         }
 
         %code,
@@ -184,7 +210,7 @@
             font-style: inherit;
             color: inherit;
 
-            @content ('children--code');
+            @content (children--code);
         }
     }
 }
@@ -205,7 +231,7 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin snippet-link-colours($includeDisabled: true) {
+@mixin snippet-link-colours($includeDisabled: true, $args...) {
     @include snippet-link-colour-single;
 
     @content (root);
@@ -213,19 +239,19 @@
     /// STATES ///
 
     &:visited {
-        @include snippet-link-colour-single('-visited');
+        @include snippet-link-colour-single(-visited);
 
         @content (visited);
     }
 
-    @include hover-focus-visible() {
-        @include snippet-link-colour-single('-hover');
+    @include hover-focus-visible-or-within($args...) {
+        @include snippet-link-colour-single(-hover);
 
         @content (hover-focus);
     }
 
     @include active {
-        @include snippet-link-colour-single('-active');
+        @include snippet-link-colour-single(-active);
 
         @content (active);
     }
@@ -233,21 +259,21 @@
     @if $includeDisabled {
         &[aria-disabled='true'],
         &[disabled] {
-            @include snippet-link-colour-single('-disabled');
+            @include snippet-link-colour-single(-disabled);
             text-decoration-line: underline;
 
             @content (root-disabled);
 
             /// STATES ///
 
-            @include hover-focus-visible() {
-                @include snippet-link-colour-single('-disabled');
+            @include hover-focus-visible-or-within($args...) {
+                @include snippet-link-colour-single(-disabled);
 
                 @content (hover-focus-disabled);
             }
 
             @include active {
-                @include snippet-link-colour-single('-disabled');
+                @include snippet-link-colour-single(-disabled);
 
                 @content (active-disabled);
             }
@@ -267,7 +293,8 @@
     $textDecorationColor_disabled: var-theme(link-decoration-disabled),
     $color_disabled: var-theme(link-disabled),
     //
-    $includeDisabled: false
+    $includeDisabled: false,
+    $args...
 ) {
     &,
     &:visited {
@@ -278,20 +305,14 @@
         @content (root);
     }
 
-    @include focus-visible() {
-        @include snippet-link-colour-single('-hover');
+    @include hover-focus-visible-or-within($args...) {
+        @include snippet-link-colour-single(-hover);
 
-        @content (focus);
-    }
-
-    &:hover {
-        @include snippet-link-colour-single('-hover');
-
-        @content (hover);
+        @content (hover-focus);
     }
 
     @include active {
-        @include snippet-link-colour-single('-active');
+        @include snippet-link-colour-single(-active);
 
         @content (active);
     }
@@ -299,18 +320,18 @@
     @if $includeDisabled {
         &[aria-disabled='true'],
         &[disabled] {
-            @include snippet-link-colour-single('-disabled');
+            @include snippet-link-colour-single(-disabled);
 
             @content (disabled-root);
 
-            @include hover-focus-visible() {
-                @include snippet-link-colour-single('-disabled');
+            @include hover-focus-visible-or-within($args...) {
+                @include snippet-link-colour-single(-disabled);
 
                 @content (disabled-hover-focus);
             }
 
             @include active {
-                @include snippet-link-colour-single('-disabled');
+                @include snippet-link-colour-single(-disabled);
 
                 @content (disabled-active);
             }
@@ -321,17 +342,24 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin snippet-link {
-    @include cx-prop(focus-ring-outline-offset, var-stroke-relative('200'));
+@mixin snippet-link(
+    $focusRingOutlineOffset: var-stroke-relative('200'),
+    $textDecorationThickness: var-stroke-relative('100'),
+    $textUnderlineOffset: var-stroke-relative('600')
+) {
+    @include cx-prop(focus-ring-outline-offset, $focusRingOutlineOffset);
     @include prop-display(inline);
     border: none;
+
     text-decoration: underline;
-    text-decoration-thickness: var-stroke-relative('100');
-    text-underline-offset: var-stroke-relative('600');
+    text-decoration-thickness: $textDecorationThickness;
+    text-underline-offset: $textUnderlineOffset;
 
-    @content ('root');
+    @content (root);
 
-    @include snippet-link-colours;
+    @include snippet-link-colours using ($location) {
+        @content (colours-#{$location});
+    }
 
     &,
     &::before,
@@ -341,12 +369,16 @@
 
     /// EXCEPTIONS ///
 
+    &:empty {
+        display: none;
+    }
+
     &.no-style {
         text-decoration: none;
         font-weight: inherit;
         color: inherit;
 
-        @content ('not-style');
+        @content (no-style);
     }
 
     &[aria-disabled='true'],
@@ -354,18 +386,18 @@
         opacity: 1;
         cursor: not-allowed;
 
-        @content ('disabled');
+        @content (disabled);
 
         @if config.$include_link_inlineIcons {
             &::before {
                 @include snippet-icon-pseudo-element(forbidden, before);
 
-                @content ('disabled-before');
+                @content (disabled-before);
             }
             &::after {
                 content: none !important;
 
-                @content ('disabled-after');
+                @content (disabled-after);
             }
         }
     }
@@ -375,7 +407,7 @@
             &::after {
                 @include snippet-icon-pseudo-element(external, after);
 
-                @content ('target-blank-icon');
+                @content (target-blank-icon);
             }
         }
 
@@ -383,7 +415,7 @@
             &::before {
                 @include snippet-icon-pseudo-element(download, before);
 
-                @content ('download-icon');
+                @content (download-icon);
             }
         }
 
@@ -392,28 +424,39 @@
             &::after {
                 content: none !important;
 
-                @content ('no-pseudo-icon');
+                @content (no-pseudo-icon);
             }
         }
 
-        &:has(> #{selector.unify('%brand-logo', ':only-child')}),
-        &:has(> #{selector.unify('%icon', ':only-child')}),
-        &:has(> img:only-child),
-        &:has(> figure:only-child),
-        &:has(> svg:only-child) {
-            @content ('icon-or-image-or-logo-link');
+        @include selector.has(
+            list.join(
+                list.join(
+                    selector.unify('%brand-logo', ':only-child'),
+                    selector.unify('%icon', ':only-child'),
+                    $separator: comma
+                ),
+                ('figure:only-child', 'img:only-child', 'svg:only-child'),
+                $separator: comma
+            ),
+            $direct: true,
+            $unifyParent: true
+        ) {
+            @content (icon-or-image-or-logo-link);
 
             &::before,
             &::after {
                 content: none !important;
 
-                @content ('icon-or-image-or-logo-link--before-and-after');
+                @content (icon-or-image-or-logo-link--before-and-after);
             }
         }
 
-        &:has(> img:only-child),
-        &:has(> figure:only-child) {
-            @content ('image-link');
+        @include selector.has(
+            ('figure:only-child', 'img:only-child'),
+            $direct: true,
+            $unifyParent: true
+        ) {
+            @content (image-link);
         }
     }
 }
@@ -487,9 +530,13 @@
         @content (code);
     }
 
-    &:has(> :is(%code, %kbd, %samp)) {
+    &:has(> %code),
+    &:has(> %kbd),
+    &:has(> %samp) {
         white-space: normal;
         text-wrap: auto;
+
+        @content (has-code);
 
         > %code {
             white-space: pre;
@@ -498,18 +545,20 @@
             @content (has-code--code);
         }
 
-        &:is(#{utils.snippet-pre-plaintext-selectors()}) {
+        @at-root #{selector.unify(&, utils.snippet-pre-plaintext-selectors())} {
             white-space: normal;
             text-wrap: auto;
             max-width: var-width(callout);
 
+            @content (has-code--plaintext);
+
             > %code {
                 white-space: pre-wrap;
                 text-wrap: auto;
+
+                @content (has-code--plaintext--code);
             }
         }
-
-        @content (has-code);
     }
 }
 
@@ -576,9 +625,11 @@
             $relative: $useRelativeFontSize
         ),
     $letterSpacing: var-style(heading-unstyled-letter-spacing),
-    $lineHeight: var-style(heading-unstyled-line-height),
+    $lineHeight: null,
     $textTransform: var-style(heading-unstyled-text-transform)
 ) {
+    $lineHeight: if($lineHeight == null, var-style(heading-unstyled-line-height), $lineHeight);
+
     font-family: $fontFamily;
     font-weight: $fontWeight;
 
@@ -781,7 +832,7 @@
 
     // CUSTOM PROPS
     @if $defineCustomProps {
-        $_sel: if(selector.parent-exists(), '*', '%root');
+        $_sel: if(selector.parent-exists(), '*', config.$selector_root);
 
         #{if($childrenWhere, ':where(#{$_sel})', $_sel)} {
             @include cx-prop(flow-margin, $val_default);
@@ -851,16 +902,15 @@
                 do-var(flow-margin-firm-end, $val_firm_end);
         }
 
-        %button {
+        :is(%button) {
             // %button-span {
-            + %button {
+            + :is(%button) {
                 // + %button-span {
                 // margin-block-start: $var_firm_start_small;
                 margin-block-start: do-var(flow-margin--button-span-block, $val_buttonSpan_block);
             }
 
             &:has(+ %button) {
-                // &:has(+ %button-span) {
                 margin-block-end: 0;
             }
         }
@@ -943,7 +993,7 @@
     //
 
     $bg_opacity: if(
-        $contrast == 'average' or $contrast == 'low' or $contrast == 'high',
+        $contrast == average or $contrast == low or $contrast == high,
         do-var(selection-background-opacity, var-style(selection-background-opacity-#{$contrast})),
         null
     );

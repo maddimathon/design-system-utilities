@@ -81,7 +81,9 @@ $_print_inputs: map.get(config.$template_styles, inputs);
     }
 
     %button {
-        @include snippet-button;
+        @include snippet-button using ($location) {
+            // --button-loc: #{$location};
+        }
     }
 
     @each $variant in tokens.$themesMeta_buttonVariations_extra {
@@ -112,25 +114,6 @@ $_print_inputs: map.get(config.$template_styles, inputs);
         }
     }
 
-    %file-selector-button {
-        @include snippet-button(
-            $variation: 'grey',
-            $includeDisabled: false,
-            $includeEmpty: false,
-            $includeInline: false,
-            $includeOnlyChild: false
-        );
-
-        & {
-            @include prop-display(initial);
-            margin-block: 0;
-            margin-inline: 0 var-mrg-firm('300');
-        }
-
-        // this type of button has a special disabled selector
-        @at-root #{selector.unify('input[aria-disabled=true]', &)},
-            #{selector.unify('input[disabled]', &)} {
-            @include snippet-button-disabled($includePseudoIcons: false);
-        }
-    }
+    // file-selector-button
+    @include snippet-add-pseudo-file-selector-button;
 }

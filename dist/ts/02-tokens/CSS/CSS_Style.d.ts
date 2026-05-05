@@ -179,6 +179,12 @@ export declare namespace Tokens_CSS_Style {
             width: AnyTokenLevel;
         };
         display: "block" | "flex";
+        /**
+         * Values for the set-flow-margins mixin.
+         */
+        'flow-margin': {
+            self: 'margins-flow-firm' | 'margins-flow-firm-large' | 'margins-flow-firm-small';
+        };
         focus: {
             offset: AnyTokenLevel;
         };
@@ -189,10 +195,6 @@ export declare namespace Tokens_CSS_Style {
             size: string;
             style: "normal" | "italic";
             weight: WholeTokenLevel;
-        };
-        gap: {
-            block: 0 | AnyTokenLevel;
-            inline: 0 | AnyTokenLevel;
         };
         icon: Pick<IconStyles, 'font' | 'pseudo' | 'vertical-align'> & {
             buffer: {
@@ -222,7 +224,7 @@ export declare namespace Tokens_CSS_Style {
     /**
      * @since 0.1.0-beta.0.draft
      */
-    type ButtonStyles_Disabled = Omit<ButtonStyles, 'border' | 'display' | 'focus' | 'font' | 'gap' | 'icon' | 'line-height' | 'margin' | 'padding' | 'width'> & {
+    type ButtonStyles_Disabled = Omit<ButtonStyles, 'border' | 'display' | 'flow-margin' | 'focus' | 'font' | 'gap' | 'icon' | 'line-height' | 'margin' | 'padding' | 'width'> & {
         border: Omit<ButtonStyles['border'], 'width'>;
         font: Omit<ButtonStyles['font'], 'size'>;
     };
@@ -232,7 +234,7 @@ export declare namespace Tokens_CSS_Style {
      *
      * @since 0.1.0-beta.0.draft
      */
-    type ButtonStyles_Inline = Omit<ButtonStyles, 'border' | 'display' | 'margin'> & {
+    type ButtonStyles_Inline = Omit<ButtonStyles, 'border' | 'display' | 'flow-margin' | 'margin'> & {
         border: Omit<ButtonStyles['border'], 'width'>;
         'vertical-align': string;
     };
@@ -568,6 +570,21 @@ export declare namespace Tokens_CSS_Style {
         /**
          * @since 0.1.0-beta.0.draft
          */
+        hr: {
+            border: {
+                width: AnyTokenLevel;
+            };
+            /**
+             * This should be a theme slug.
+             */
+            color: string;
+            'flow-margin': {
+                self: 'margins-flow-firm' | 'margins-flow-firm-small' | 'margins-flow-firm-large';
+            };
+        };
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
         icon: IconStyles;
         /**
          * @since 0.1.0-beta.0.draft
@@ -635,6 +652,10 @@ export declare namespace Tokens_CSS_Style {
         } & {
             [key: number]: RecursivePartial<HeadingStyles>;
         };
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        hr?: RecursivePartial<Data['hr']>;
         /**
          * @since 0.1.0-beta.0.draft
          */

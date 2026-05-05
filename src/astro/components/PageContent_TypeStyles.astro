@@ -6,6 +6,9 @@
  */
 
 /* import - types */
+import type { PartialExcept } from '@maddimathon/utility-typescript/types';
+import type { ToggleProps } from '@maddimathon/utility-astro/components';
+
 import type { RecursiveRecord } from '../../ts/index.js';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 
@@ -23,9 +26,14 @@ import Toggle from './Toggle.astro';
 
 interface Props {
     tokens: Tokens.JsonReturn;
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    ToggleComponent?: ( props: PartialExcept<ToggleProps,  'children'|'id' > ) => any;
 }
 
-const { tokens }: Props = Astro.props;
+const { tokens, ToggleComponent = Toggle }: Props = Astro.props;
 
 /* CONSTANTS ===================================== */
 
@@ -104,7 +112,7 @@ const flattenedSizes = objectMap(
 );
 ---
 
-<Toggle
+<ToggleComponent
     defaultOpen={defaultToggleToOpen}
     heading={2}
     id='sizes'
@@ -126,9 +134,9 @@ const flattenedSizes = objectMap(
             </dd>
         ) ) }
     </dl>
-</Toggle>
+</ToggleComponent>
 
-<Toggle
+<ToggleComponent
     class:list={'site-width'}
     defaultOpen={defaultToggleToOpen}
     heading={3}
@@ -153,9 +161,9 @@ const flattenedSizes = objectMap(
             </dd>
         ) ) }
     </dl>
-</Toggle>
+</ToggleComponent>
 
-<Toggle
+<ToggleComponent
     defaultOpen={defaultToggleToOpen}
     heading={2}
     id='heading-styles'
@@ -174,7 +182,7 @@ const flattenedSizes = objectMap(
             >Heading {num} – Maecenas Facilisis <a href="#">Sollicitudin Nisi</a>, Eget Pellentesque Dui Rhoncus Condimentum; Aenean Lacinia Urna Sed Lacus Interdum Faucibus; Donec Quam Erat, Sagittis id Diam a, Hendrerit Viverra Ligula; Proin Efficitur Rhoncus ex Auctor Faucibus</p>
         ))
     }
-</Toggle>
+</ToggleComponent>
 
 
 <style lang='scss'>

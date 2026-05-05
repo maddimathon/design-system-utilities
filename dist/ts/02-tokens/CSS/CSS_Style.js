@@ -39,6 +39,15 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 small: '300',
                 button: '300',
             },
+            hr: {
+                border: {
+                    width: '200',
+                },
+                color: 'ui-primary',
+                'flow-margin': {
+                    self: 'margins-flow-firm',
+                },
+            },
             selection: {
                 background: {
                     opacity: {
@@ -67,10 +76,11 @@ export class Tokens_CSS_Style extends AbstractTokens {
             return {
                 alert,
                 button,
+                'flow-margin': mergeArgs(defaults['flow-margin'], partial['flow-margin'], true),
                 heading,
+                hr: mergeArgs(defaults.hr, partial.hr, true),
                 icon,
                 input,
-                'flow-margin': mergeArgs(defaults['flow-margin'], partial['flow-margin'], true),
                 selection: mergeArgs(defaults.selection, partial.selection, true),
                 subtitle,
                 toggle,
@@ -205,6 +215,9 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 width: '100',
             },
             display: 'block',
+            'flow-margin': {
+                self: 'margins-flow-firm',
+            },
             focus: {
                 offset: '400',
             },
@@ -213,10 +226,10 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 style: 'normal',
                 weight: '500',
             },
-            gap: {
-                block: '300',
-                inline: '200',
-            },
+            // gap: {
+            //     block: '300',
+            //     inline: '200',
+            // },
             icon: {
                 buffer: {
                     start: 2.5,
@@ -275,10 +288,10 @@ export class Tokens_CSS_Style extends AbstractTokens {
                     size: 'smaller-1',
                     style: style.font.style,
                 },
-                gap: {
-                    block: style.gap.block,
-                    inline: style.gap.inline,
-                },
+                // gap: {
+                //     block: style.gap.block,
+                //     inline: style.gap.inline,
+                // },
                 icon: {
                     buffer: {
                         start: style.icon.buffer.start,

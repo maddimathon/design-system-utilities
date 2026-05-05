@@ -1,16 +1,16 @@
 ///
-/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
-/// @since ___PKG_VERSION___
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
 ///
 
 @forward '../demo-config';
-@forward '../../../tokens';
+@forward '../../tokens';
 
 @forward '../header';
 
 @use 'pkg:@maddimathon/utility-sass/meta';
 
-@use '../../../lib' as *;
+@use '../../lib' as *;
 
 /* # FUNCTIONS - UTILITIES
  * ======================================================================== */
@@ -22,7 +22,10 @@ aspect-ratio-string-to-list {
         'aspect-ratio-string-to-list( "1 / 2" )',
         aspect-ratio-string-to-list('1 / 2')
     );
-    @include meta.var-dump('aspect-ratio-string-to-list( "1" )', aspect-ratio-string-to-list('1'));
+    @include meta.var-dump(
+        'aspect-ratio-string-to-list( "1" )',
+        aspect-ratio-string-to-list('1')
+    );
     @include meta.var-dump(
         'aspect-ratio-string-to-list( "7/8" )',
         aspect-ratio-string-to-list('7/8')

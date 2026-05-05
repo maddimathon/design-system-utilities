@@ -44,6 +44,7 @@ type Props = LoremIpsumProps;
 const {
     displaySettings = {},
     tokens = SampleTokens_Json,
+    ToggleComponent = Toggle,
     ...props
 }: Props = Astro.props;
 
@@ -80,67 +81,122 @@ const alertVariations =
                       backgroundSlug === 'tertiary',
               )
         : [];
+
+const tocExtraItems = Array.isArray(displaySettings.tocExtraItems)
+    ? {
+          $: displaySettings.tocExtraItems,
+      }
+    : (displaySettings.tocExtraItems ?? {});
+
+const disclaimerHTML = (await Astro.slots.render('disclaimer'))?.trim();
 ---
 
-<LoremIpsumUtils
-    {...props}
-    displaySettings={{
-        ...displaySettings,
-        buttonVariations: includeButtons ? buttonVariations : [],
-        headingLevels,
-    }}
-    ToggleComponent={Toggle}
-    toggleProps={{ tokens }}
+<section
+    class='display-contents'
+    aria-label='Visual styles preview'
 >
-    <slot />
+    <LoremIpsumUtils
+        {...props}
+        displaySettings={{
+            ...displaySettings,
 
-    <slot
-        name='one'
-        slot='one'
-    />
-    <slot
-        name='two'
-        slot='two'
-    />
-    <slot
-        name='three'
-        slot='three'
-    />
+            buttonVariations: includeButtons ? buttonVariations : [],
+            headingLevels,
 
-    {
-        alertVariations.length > 1 && (
-            <Fragment slot='four'>
-                {alertVariations.map(([backgroundSlug, backgroundClrName]) => (
-                    <Alert
-                        class:list={`alert-block--${backgroundSlug} background-${backgroundSlug}`}
-                        icon={tokens.icons[backgroundSlug] ?? tokens.icons.star}
-                        style={
-                            backgroundSlug !== 'default' &&
-                            `background: var(--theme-background-${backgroundSlug}, var(--clr-${backgroundClrName}))`
-                        }
-                    >
-                        <Fragment slot='headline'>
-                            Alert Block:{' '}
-                            <samp set:text={`background-${backgroundSlug}`} />
-                        </Fragment>
-                        <LoremIpsumUtils
-                            displaySettings={{
-                                buttonVariations,
-                                headingLevels,
-                            }}
-                            displayHeading={7}
-                            heading={5}
-                            mode={import.meta.env.DEV ? 'library' : 'minimum'}
-                            superAbbreviated={true}
-                        />
-                    </Alert>
-                ))}
-            </Fragment>
-        )
-    }
+            tocExtraItems: {
+                ...tocExtraItems,
 
-    <slot
-        name='four'
-        slot='four'
-    />
-</LoremIpsumUtils>
+                four: [
+                    { label: 'Alert Blocks', id: 'alerts' },
+                    ...(tocExtraItems?.four ?? []),
+                ],
+            },
+        }}
+        ToggleComponent={ToggleComponent}
+        toggleProps={{ tokens }}
+    >
+        {
+            !disclaimerHTML && (
+                <p
+                    slot='disclaimer'
+                    class='screen-reader-text'
+                >
+                    The content of this section is likely only useful for users
+                    navigating visually. Most of the text is nonsense (it is a
+                    type of placeholder text called Lorem Ipsum, meant to look
+                    like fake latin) and exits only to demonstrate the visual
+                    styling of the page. None of the visual styles are described
+                    in this section.
+                </p>
+            )
+        }
+        <Fragment
+            slot='disclaimer'
+            set:html={disclaimerHTML}
+        />
+
+        <slot />
+
+        <slot
+            name='one'
+            slot='one'
+        />
+        <slot
+            name='two'
+            slot='two'
+        />
+        <slot
+            name='three'
+            slot='three'
+        />
+
+        {
+            alertVariations.length > 1 && (
+                <Fragment slot='four'>
+                    <a name='alerts' />
+                    {alertVariations.map(
+                        ([backgroundSlug, backgroundClrName]) => (
+                            <Alert
+                                class:list={`alert-block--${backgroundSlug} background-${backgroundSlug}`}
+                                icon={
+                                    tokens.icons[backgroundSlug] ??
+                                    tokens.icons.star
+                                }
+                                style={
+                                    backgroundSlug !== 'default' &&
+                                    `background: var(--theme-background-${backgroundSlug}, var(--clr-${backgroundClrName}))`
+                                }
+                            >
+                                <Fragment slot='headline'>
+                                    Alert Block:{' '}
+                                    <samp
+                                        set:text={`background-${backgroundSlug}`}
+                                    />
+                                </Fragment>
+                                <LoremIpsumUtils
+                                    displaySettings={{
+                                        buttonVariations,
+                                        headingLevels,
+                                    }}
+                                    displayHeading={7}
+                                    heading={5}
+                                    mode={
+                                        import.meta.env.DEV
+                                            ? 'library'
+                                            : 'minimum'
+                                    }
+                                    superAbbreviated={true}
+                                />
+                            </Alert>
+                        ),
+                    )}
+                </Fragment>
+            )
+        }
+
+        <slot
+            name='four'
+            slot='four'
+        />
+    </LoremIpsumUtils>
+</section>

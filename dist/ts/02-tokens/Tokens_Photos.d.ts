@@ -157,7 +157,11 @@ export declare namespace Tokens_Photos {
         /**
          * @since 0.1.0-beta.0.draft
          */
-        type Input<T_Slug extends string> = PartialPick<Omit<Data<T_Slug>, 'slug'>, 'attributionRequired' | 'credit' | 'filepath' | 'label' | 'license' | 'source'>;
+        type Input_Keys = 'attributionRequired' | 'credit' | 'filepath' | 'label' | 'license' | 'source';
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        type Input<T_Slug extends string> = PartialPick<Omit<Data<T_Slug>, 'slug'>, Input_Keys>;
         /**
          * @since 0.1.0-beta.0.draft
          */
@@ -188,7 +192,11 @@ export declare namespace Tokens_Photos {
         /**
          * @since 0.1.0-beta.0.draft
          */
-        type Input<T_Slug extends string> = Photo.Input<T_Slug> & PartialPick<Omit<Data<T_Slug>, keyof Photo.Data<T_Slug>>, never>;
+        type Input_Keys = Photo.Input_Keys;
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        type Input<T_Slug extends string> = PartialPick<Omit<Data<T_Slug>, 'slug'>, Input_Keys>;
         /**
          * @since 0.1.0-beta.0.draft
          */

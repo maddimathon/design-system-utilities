@@ -103,7 +103,9 @@
          * ======================================================================== */
     }
 
-    @include snippet-support-toggle-block;
+    @include snippet-support-toggle-block using ($location) {
+        // --toggle-loc: #{$location};
+    }
 }
 
 @if map.get(config.$template_styles, astro, toggleNav) {

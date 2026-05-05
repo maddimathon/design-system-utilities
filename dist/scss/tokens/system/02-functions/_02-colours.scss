@@ -40,7 +40,7 @@
         $clrVarSlug: #{$clrVarSlug}-#{$level};
     }
 
-    @if $version == 'hsl' {
+    @if $version == hsl {
         @if config.$include_colourValues_hsl {
             $clrVarSlug: #{$clrVarSlug}-hsl;
         } @else {
@@ -48,7 +48,7 @@
         }
     }
 
-    @if $version == 'rgb' {
+    @if $version == rgb {
         @if config.$include_colourValues_rgb {
             $clrVarSlug: #{$clrVarSlug}-rgb;
         } @else {
@@ -67,14 +67,14 @@
     $_slugMapType: meta.type-of($slugMap);
 
     // returns
-    @if $_slugMapType != 'map' and $_slugMapType != 'color' {
+    @if $_slugMapType != map and $_slugMapType != color {
         @warn "$level '#{$level}' was not a key in tokens.$colour.#{$slug}";
         @return config.config-do-var($clrVarSlug, $args...);
     }
 
     $fallback_clr: null;
 
-    @if $_slugMapType == 'color' {
+    @if $_slugMapType == color {
         $fallback_clr: $slugMap;
     } @else {
         $level_brightnessAdjusted: $level;
@@ -98,9 +98,9 @@
 
     $fallback: $fallback_clr;
 
-    @if $version == 'hsl' {
+    @if $version == hsl {
         $fallback: colour.to-hsl-list($fallback_clr, $round: false);
-    } @else if $version == 'rgb' {
+    } @else if $version == rgb {
         $fallback: colour.to-rgb-list($fallback_clr, $round: true);
     } @else {
         $fallback: colour.to-hsl($fallback_clr, $round: false);

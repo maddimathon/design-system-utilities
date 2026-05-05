@@ -126,10 +126,7 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
 /// @since 0.1.0-beta.0.draft — Added $includeRegion param.
 ///
 @mixin tokens-font-family($includeRegion: true) {
-    $_familiesList: list.except(
-        map.keys(map.get(tokens.$font, family)),
-        'icons'
-    );
+    $_familiesList: list.except(map.keys(map.get(tokens.$font, family)), icons);
 
     @if $_designSystemHasFontFamilies and list.length($_familiesList) > 0 {
         $_sel: selector.parent-or-root();
@@ -231,7 +228,7 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@function font-family-icons--margin-inline($dir: 'start') {
+@function font-family-icons--margin-inline($dir: start) {
     @return calc(
         var-style(icon-inline-buffer) * var-style(icon-inline-buffer-#{$dir}) *
             do-var(icon-inline-buffer-#{$dir}--font-multiplier, 1)
@@ -245,7 +242,7 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
 ///
 @mixin font-family-icons-base-properties(
     $slug: null,
-    $pseudo: 'after',
+    $pseudo: after,
     //
     $display: inline-block,
     $height: null,
@@ -476,7 +473,7 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
             @include tokens-line-height($multiplier: $lh_multiplier, $includeRegion: false);
 
             @if $setProps {
-                :where(&) {
+                @at-root #{selector.where-list(&)} {
                     line-height: var-line-height('400');
                 }
             }

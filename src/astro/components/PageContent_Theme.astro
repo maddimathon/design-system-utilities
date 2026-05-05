@@ -7,14 +7,20 @@
 
 /* import - types */
 import type { ComponentProps } from 'astro/types';
+import type { PartialExcept } from '@maddimathon/utility-typescript/types';
+import type {ToggleProps} from '@maddimathon/utility-astro/components';
+
 import type { TokenTypes } from '../../ts/02-tokens/@types.js';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
+
+import type  { LoremIpsumProps } from './LoremIpsum.astro';
 
 /* import - functions */
 import {
     objectMap,
     toTitleCase,
 } from '@maddimathon/utility-typescript';
+
 import { getLevelsInUse } from '../../ts/02-tokens/getLevelsInUse.js';
 
 /* import - values */
@@ -38,9 +44,25 @@ interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
     tokens: Tokens.JsonReturn<T_Types>;
 
     defaultToggleToOpen?: boolean | `${"default"|T_Types['theme']['name']}-${TokenTypes.Theme.GetBrightnessKeys<T_Types['theme']>}`[];
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    LoremIpsumComponent?: ( props: Partial<LoremIpsumProps> ) => any;
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    ToggleComponent?: ( props: PartialExcept<ToggleProps,  'children'|'id' > ) => any;
 }
 
-const { defaultToggleToOpen: _defaultToggleToOpen, tokens }: Props = Astro.props;
+const {
+    defaultToggleToOpen: _defaultToggleToOpen,
+    tokens,
+    
+    LoremIpsumComponent = LoremIpsum,
+    ToggleComponent = Toggle,
+}: Props = Astro.props;
 
 /* FUNCTIONS ===================================== */
 
@@ -160,7 +182,7 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
     convertHrefStringsToAbsolute={false}
     heading={2}
     menu={themes_toc}
-    ToggleComponent={Toggle}
+    ToggleComponent={ToggleComponent}
     toggleProps={{ tokens }}
 />
 
@@ -172,7 +194,7 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
         />
         <Fragment>
             {parsed.map((brightnessSet) => ( 
-                <Toggle
+                <ToggleComponent
                     class='theme-mode-toggle'
                     defaultOpen={defaultToggleToOpen === true || defaultToggleToOpen?.includes( `${key}-${brightnessSet.name}` )} 
                     displayHeading={2}
@@ -194,13 +216,17 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
                             { brightnessSet.values.map((set) => (
                                 <ThemeModeSwatch
                                     {...set}
+                                    {...{
+                                        LoremIpsumComponent,
+                                        ToggleComponent,
+                                        tokens,
+                                    }}
                                     brightness={brightnessSet.name}
                                     data-active-theme={key == 'default' ? undefined : key}
                                     displayHeading={3}
                                     displayMode={opt.value}
                                     heading={4}
                                     id={`${set.id}-swatch`}
-                                    tokens={tokens}
                                 >
                                     <Fragment
                                         slot='heading'
@@ -217,12 +243,13 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
                                                         style={`background: var(--theme-background-${backgroundSlug}, var(--clr-${backgroundClrName}))`}
                                                     >
                                                         <Fragment slot='headline'>Alert Block: <samp set:text={`background-${backgroundSlug}`} /></Fragment>
-                                                        <LoremIpsum
+                                                        <LoremIpsumComponent
                                                             displayHeading={7}
                                                             heading={5}
                                                             mode={ import.meta.env.DEV ? 'library' : 'minimum' }
                                                             superAbbreviated={true}
                                                             tokens={tokens}
+                                                            ToggleComponent={ToggleComponent}
                                                         />
                                                     </Alert>
                                                 )
@@ -243,7 +270,7 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
                                                     >
                                                         <Fragment slot='heading'>Theme Demo Widget</Fragment>
                                                         <Fragment slot='subtitle'>This is the <samp set:text={toTitleCase(themeName)} /> theme</Fragment>
-                                                        <LoremIpsum
+                                                        <LoremIpsumComponent
                                                             displayHeading={4}
                                                             displaySettings={ { 
                                                                 buttons: false,
@@ -255,6 +282,7 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
                                                             mode={ import.meta.env.DEV ? 'fancy' : 'library' }
                                                             superAbbreviated={true}
                                                             tokens={tokens}
+                                                            ToggleComponent={ToggleComponent}
                                                         />
                                                         <Fragment slot="cta-buttons">{ getButtonVariations( themeName ).map(
                                                             variant => ( variant === 'primary' || variant === 'secondary' || variant === 'tertiary' ) && <button
@@ -272,7 +300,7 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
                             )) }
                         </div>
                     ) ) }
-                </Toggle>
+                </ToggleComponent>
             ))}
         </Fragment>
     ))

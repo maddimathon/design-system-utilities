@@ -39,7 +39,7 @@ $_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
     margin-block: 0;
 
     @if $slug != false {
-        $slugAsNumber: if(meta.type-of($slug) == 'number', $slug, null);
+        $slugAsNumber: if(meta.type-of($slug) == number, $slug, null);
         $slug: #{$slug};
 
         $heading10orAbove: false;
@@ -151,7 +151,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
         }
 
         @if meta.content-exists() {
-            @content ( 'alert-grid' );
+            @content (alert-grid);
         }
     }
 
@@ -184,7 +184,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
             color var-tr-time(fast) tokens.$transition_function;
 
         @if meta.content-exists() {
-            @content ( 'alert-block' );
+            @content (alert-block);
         }
 
         @include _snippet-alert-block-icon {
@@ -228,7 +228,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
             width: auto;
 
             @if meta.content-exists() {
-                @content ( 'alert-block--has-heading' );
+                @content (alert-block--has-heading);
             }
 
             @each $num in token-all-heading-levels() {
@@ -266,7 +266,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
                         }
 
                         @if meta.content-exists() {
-                            @content ( 'alert-block--has-heading--#{$num}' );
+                            @content (alert-block--has-heading--#{$num});
                         }
                     }
                 }
@@ -285,7 +285,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
             color: var-style(alert-color);
 
             @if meta.content-exists() {
-                @content ( 'alert-block__headline' );
+                @content (alert-block__headline);
             }
 
             &:where(header:not([aria-level])) {
@@ -303,16 +303,8 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
                 //
                 $_headingSelector: if(
                     $num == 1,
-                    (
-                        // ':where( %h#{$num} )',
-                        // ':where( %title )',
-                        '%h#{$num}',
-                        '%title'
-                    ),
-                    (
-                        // ':where( %h#{$num} )',
-                        '%h#{$num}'
-                    )
+                    ('%h#{$num}', '%title'),
+                    ('%h#{$num}')
                 );
 
                 $_headingSelector_where: if(
@@ -325,7 +317,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
                     @include _snippet-alert-headline-heading($num);
 
                     @if meta.content-exists() {
-                        @content ( 'alert-block__headline--h#{$num}' );
+                        @content (alert-block__headline--h#{$num});
                     }
                 }
 
@@ -333,7 +325,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
                     @include _snippet-alert-headline-heading($num);
 
                     @if meta.content-exists() {
-                        @content ( 'alert-block__headline--h#{$num}-where' );
+                        @content (alert-block__headline--h#{$num}-where);
                     }
                 }
             }
@@ -361,7 +353,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
 
         @each $variationKey in $_textAndBackgroundKeys {
             // prettier-ignore
-            @if $variationKey != 'active' and $variationKey != 'disabled' {
+            @if $variationKey != active and $variationKey != disabled {
 
                 $_classSlug: if($variationKey == '$', default, $variationKey);
                 
@@ -398,7 +390,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
             }
 
             @if meta.content-exists() {
-                @content ( 'alert-block--background-#{$variationKey}' );
+                @content (alert-block--background-#{$variationKey});
             }
         }
 
@@ -413,10 +405,10 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
     @each $slug, $map in tokens.$icons {
         %alert--icon-#{$slug} {
             @if meta.content-exists() {
-                @content ( 'alert-block--icon-#{$slug}' );
+                @content (alert-block--icon-#{$slug});
 
                 @include _snippet-alert-block-icon {
-                    @content ( 'alert-block--icon-#{$slug}--icon' );
+                    @content (alert-block--icon-#{$slug}--icon);
                 }
             }
 
@@ -427,10 +419,10 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
                         @extend %alert--background-#{$variationKey};
 
                         @if meta.content-exists() {
-                            @content ( 'alert-block--icon-#{$slug}--background-#{$variationKey}' );
+                            @content (alert-block--icon-#{$slug}--background-#{$variationKey});
 
                             @include _snippet-alert-block-icon {
-                                @content ( 'alert-block--icon-#{$slug}--background-#{$variationKey}--icon' );
+                                @content (alert-block--icon-#{$slug}--background-#{$variationKey}--icon);
                             }
                         }
                     }

@@ -38,13 +38,13 @@ $brightnessMode_default: config.config-valid-string(
 );
 
 $contrastMode_all: list.join(
-    ('average'),
+    (average),
     list.join(
         list.except-any(
             map.keys(map.get(basic.$themes, $activeTheme, $brightnessMode_default)),
-            ('average', 'forced-colors')
+            (average, forced-colors)
         ),
-        ('forced-colors')
+        (forced-colors)
     )
 ) !default;
 

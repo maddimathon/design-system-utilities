@@ -41,7 +41,12 @@
     $unit: 1rem,
     $max_multiplier: null,
     $min_multiplier: null,
-    $minmax_multiplier: 1
+    $minmax_multiplier: 1,
+    $roundToPixelFactor: if(
+            math.unit($unit) == 'em',
+            config.$fn_strokeRelativeValue_roundToPixelFactor,
+            config.$fn_borderWidthValue_roundToPixelFactor
+        )
 ) {
     @if $max_multiplier == null {
         $max_multiplier: $minmax_multiplier;
@@ -56,7 +61,7 @@
             config.$fn_clampHighContrastBorderWidth_min,
             math.round-to-pixel(
                 config.$fn_clampHighContrastBorderWidth_min * $min_multiplier,
-                $factor: config.$fn_borderWidthValue_roundToPixelFactor,
+                $factor: $roundToPixelFactor,
                 $method: floor
             ),
             0.25

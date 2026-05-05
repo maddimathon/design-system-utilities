@@ -32,7 +32,7 @@
             
             // @include prop-display( block );
             padding-block: var-style(button-padding-block);
-padding-inline: var-style(button-padding-inline);
+            padding-inline: var-style(button-padding-inline);
 
             border-width: var-style(button-border-width);
             border-radius: var-style(button-border-radius);
@@ -67,25 +67,24 @@ padding-inline: var-style(button-padding-inline);
             }
         }
 
-        @if $location == link-focus {
+        @else if $location == link-focus {
             @include snippet-button-colour-single-state(hover);
         }
 
-        @if $location == link-active {
+        @else if $location == link-active {
             @include snippet-button-colour-single-state(active);
         }
 
         @content ($location);
     }
 
-    // %skip-link {
-    //     &,
-    //     &:focus {
-    //         @include snippet-button-colour-single-state(hover);
-    //     }
+    %skip-link {
+        @include focus($addSelectors: &) {
+            @include snippet-button-colour-single-state(hover);
+        }
 
-    //     &:focus-within {
-    //         @include snippet-button-colour-single-state(hover);
-    //     }
-    // }
+        @include focus-within {
+            @include snippet-button-colour-single-state(hover);
+        }
+    }
 }

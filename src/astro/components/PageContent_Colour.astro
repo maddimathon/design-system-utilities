@@ -7,7 +7,8 @@
 
 /* import - types */
 import type { ComponentProps } from 'astro/types';
-import type { Classify } from '@maddimathon/utility-typescript/types';
+import type { Classify, PartialExcept } from '@maddimathon/utility-typescript/types';
+import type { ToggleProps } from '@maddimathon/utility-astro/components';
 
 import type { TokenTypes } from '../../ts/02-tokens/@types.js';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
@@ -93,12 +94,20 @@ interface Props<
                */
               accent?: string | Tokens_Colour_ShadeMap.JsonReturn<T_Types['colour']>;
           };
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    ToggleComponent?: (
+        props: PartialExcept<ToggleProps, 'children' | 'id'>,
+    ) => any;
 }
 
 const {
     include: _include,
     tokens,
     yardstick,
+    ToggleComponent = Toggle,
 }: Props = Astro.props;
 
 const include = mergeArgs(
@@ -188,7 +197,7 @@ const allColours = {
             convertHrefStringsToAbsolute={false}
             heading={2}
             menu={shadeList_toc}
-            ToggleComponent={Toggle}
+            ToggleComponent={ToggleComponent}
             toggleProps={{ tokens }}
         />
     )
@@ -201,19 +210,21 @@ const allColours = {
         set:text='contrast targets'
     />
     <ShadeSwatchTable
+        {...{
+            colour: allColours,
+            excludeLevels,
+            includeColourFormats: include.colourFormats,
+            includeTargetLevels: include.targetLevels,
+            tokens,
+        }}
         heading={3}
         id='all-colours'
-        colour={allColours}
-        excludeLevels={excludeLevels}
-        includeColourFormats={include.colourFormats}
-        includeTargetLevels={include.targetLevels}
         targets={levelTargets}
         targetShades={yardsticks && {
             base: yardsticks?.base,
             accent: typeof yardsticks?.accent === 'object' ? yardsticks.accent : (tokens.colour[ yardsticks.accent ?? 'base' ] ?? yardsticks.base),
         }}
-        tokens={tokens}
     />
 )}
 
-{include.lists && <ShadeSwatchAllLists tokens={tokens} />}
+{include.lists && <ShadeSwatchAllLists {...{ ToggleComponent, tokens }} />}
