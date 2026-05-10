@@ -482,42 +482,46 @@ $_themes_includeAlternatives: if(
     $includeAlternatives: $_themes_includeAlternatives,
     $separateQueriesAndSelectors: config.$mx_tokensTheme_separateQueriesAndSelectors,
     $includeQuery: config.$mx_tokensTheme_includeQuery,
-    $includeRegion: true
+    $includeRegion: true,
+    $args...
 ) {
     @if $separateQueriesAndSelectors {
         @if $includeQuery {
             // prettier-ignore
             @include utils.colour-mode-each(
-                $includeRegion_heading: 'Tokens - Theme - Queries - ',
+                $includeRegion_heading: 'Tokens - Theme - Queries',
         
-                $includeDefault: not config.$mx_colourMode_includeLightModeQuery,
+                $includeDefault: not config.$mx_tokensTheme_includeDefaultSelectors,
                 $includeForcedColors: false,
                 $includeQuery: true,
                 $includeRegion: $includeRegion,
                 $includeSelectors: false,
-                ) using ($brightness, $contrast) {
-                    @if $contrast != max {
-                        @content($brightness, $contrast);
-                    }
+                $args...
+            ) using ($brightness, $contrast) {
+                @if $contrast != max {
+                    @content($brightness, $contrast);
                 }
+            }
         }
 
         // prettier-ignore
         @include utils.colour-mode-each(
-                $includeRegion_heading: 'Tokens - Theme - Selectors - ',
-                
-                $includeDefault: config.$mx_tokensTheme_includeDefaultSelectors,
-                $includeQuery: false,
-                $includeRegion: $includeRegion,
-                ) using ($brightness, $contrast) {
-                    @content($brightness, $contrast);
-                }
+            $includeRegion_heading: 'Tokens - Theme - Selectors',
+            
+            $includeDefault: config.$mx_tokensTheme_includeDefaultSelectors,
+            $includeQuery: false,
+            $includeRegion: $includeRegion,
+            $args...
+        ) using ($brightness, $contrast) {
+            @content($brightness, $contrast);
+        }
     } @else {
         // prettier-ignore
         @include utils.colour-mode-each(
             $includeQuery: $includeQuery,
             $includeRegion: $includeRegion,
-            $includeRegion_heading: 'Tokens - Theme - ',
+            $includeRegion_heading: 'Tokens - Theme',
+            $args...
         ) using ($brightness, $contrast) {
             @content($brightness, $contrast);
         }
@@ -535,9 +539,8 @@ $_themes_includeAlternatives: if(
     $checkpointLevel: 2,
     //
     $includeAlternatives: $_themes_includeAlternatives,
-    $includeRegion: true,
     $includeSystemColours: true,
-    $separateQueriesAndSelectors: config.$mx_tokensTheme_separateQueriesAndSelectors
+    $args...
 ) {
     @if $checkpointName {
         @include debug-checkpoint(
@@ -548,8 +551,7 @@ $_themes_includeAlternatives: if(
     // prettier-ignore
     @include tokens-theme-iterator(
         $includeAlternatives: $includeAlternatives,
-        $includeRegion: $includeRegion,
-        $separateQueriesAndSelectors: $separateQueriesAndSelectors,
+        $args...
     ) using ($brightness, $contrast) {
         //
         @if not $includeAlternatives {
@@ -584,7 +586,7 @@ $_themes_includeAlternatives: if(
                 );
             }
             // defaults first
-            @if config.$mx_colourModeEach_nestModeSelectors and
+            @if config.$fn_colourMode_selectorsAsChildren and
                 not selector.is-body(#{&}) and
                 not selector.is-root(#{&})
             {
@@ -662,7 +664,7 @@ $_themes_includeAlternatives: if(
                             $level: $checkpointLevel + 3
                         );
                     }
-                    @if config.$mx_colourModeEach_nestModeSelectors {
+                    @if config.$fn_colourMode_selectorsAsChildren {
                         @if config.$mx_tokensTheme_unifyActiveThemeSelectors {
                             &[data-active-theme=#{$key}][data-active-theme],
                             & [data-active-theme=#{$key}],

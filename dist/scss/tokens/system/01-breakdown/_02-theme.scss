@@ -86,16 +86,28 @@ $themes__nestedFlat: ();
     }
 }
 
-$themes__nestedFlat_tokenValues: null;
+$themes__nestedFlat_tokenValues: meta.call-global-compiler-fn(
+    'mmdsu-global-themeFlattenGetValues',
+    $warnMsg:
+        '[tokens] global compiler function for $themes__nestedFlat_tokenValues not found (and will significantly slow compile)',
+    $includeWarning: config.$themes__nestedFlat_tokenValues_warnIfNoFunction,
+    //
+    // fn params
+    $themes: basic.$themes,
+    $colours: basic.$colour,
+    $replaceVarClrWithValue: config.$fn_var_replaceWithValue_colour,
+    $includeHSL: config.$include_colourValues_hsl,
+    $includeRGB: config.$include_colourValues_rgb
+);
 
-@if meta.function-exists('mmdsu-global-themeFlattenGetValues') {
-    $themes__nestedFlat_tokenValues: mmdsu-global-themeFlattenGetValues(
-        $themes: basic.$themes,
-        $colours: basic.$colour,
-        $replaceVarClrWithValue: config.$fn_var_replaceWithValue_colour,
-        $includeHSL: config.$include_colourValues_hsl,
-        $includeRGB: config.$include_colourValues_rgb,
-    );
-} @else if config.$themes__nestedFlat_tokenValues_warnIfNoFunction {
-    @warn "[tokens] global compiler function for $themes__nestedFlat_tokenValues not found (and will significantly slow compile)";
-}
+// @if meta.function-exists('mmdsu-global-themeFlattenGetValues') {
+//     $themes__nestedFlat_tokenValues: mmdsu-global-themeFlattenGetValues(
+//         $themes: basic.$themes,
+//         $colours: basic.$colour,
+//         $replaceVarClrWithValue: config.$fn_var_replaceWithValue_colour,
+//         $includeHSL: config.$include_colourValues_hsl,
+//         $includeRGB: config.$include_colourValues_rgb,
+//     );
+// } @else if config.$themes__nestedFlat_tokenValues_warnIfNoFunction {
+//     @warn "[tokens] global compiler function for $themes__nestedFlat_tokenValues not found (and will significantly slow compile)";
+// }

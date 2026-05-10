@@ -153,67 +153,64 @@
         $isToggleStyle or
         $isWidgetStyle
     {
-        // gap
-        @if string.index($slug, -gap-) {
-            $isGap: true;
-        } @else if string.index($slug, -gap) == ($_slugLength - 6) {
-            $isGap: true;
-        }
-
-        // theme (colour) tokens
-        @if string.index($slug, -background-) {
-            $isThemeToken: true;
-        } @else if string.index($slug, -color-) {
-            $isThemeToken: true;
-        } @else if string.index($slug, -background) == ($_slugLength - 10) {
-            $isThemeToken: true;
-        } @else if string.index($slug, -color) == ($_slugLength - 5) {
-            $isThemeToken: true;
-        }
-
-        // border-radius
+        // GAP
         // prettier-ignore
-        @if string.index($slug, -border-radius-) or string.index($slug, -border-radius) == ($_slugLength - 13) {
+        @if string.index($slug, -gap-) or string.index($slug, -gap) == ($_slugLength - 6) {
+            $isGap: true;
+        }
+
+        // THEME (colour) tokens
+        // prettier-ignore
+        @else if string.index($slug, -background-) or string.index($slug, -background) == ($_slugLength - 10) {
+            $isThemeToken: true;
+        } @else if
+            string.index($slug, -color-) or
+            string.index($slug, -color) ==
+            ($_slugLength - 5)
+        {
+            $isThemeToken: true;
+        }
+
+        // BORDER RADIUS
+        // prettier-ignore
+        @else if string.index($slug, -border-radius-) or string.index($slug, -border-radius) == ($_slugLength - 13) {
             $isBorderRadius: true;
         }
 
-        // border-width
+        // BORDER WIDTH
         // prettier-ignore
-        @if string.index($slug, -border-width-) or string.index($slug, -border-width) == ($_slugLength - 12) {
+        @else if string.index($slug, -border-width-) or string.index($slug, -border-width) == ($_slugLength - 12) {
             $isBorderWidth: true;
         }
 
-        // font-size
-        @if string.index($slug, -font-family) == ($_slugLength - 11) {
+        // FONT SIZE
+        @else if string.index($slug, -font-family) == ($_slugLength - 11) {
             $isFontFamily: true;
         }
 
-        // font-size
-        @if string.index($slug, -font-size-) {
-            $isFontSize: true;
-        } @else if string.index($slug, -font-size) == ($_slugLength - 9) {
+        // FONT SIZE
+        // prettier-ignore
+        @else if string.index($slug, -font-size-) or string.index($slug, -font-size) == ($_slugLength - 9) {
             $isFontSize: true;
         }
 
-        // line-height
-        @if string.index($slug, -line-height) == ($_slugLength - 11) {
+        // LINE HEIGHT
+        @else if string.index($slug, -line-height) == ($_slugLength - 11) {
             $isLineHeight: true;
         }
 
-        // margins - returns for alert headings and headlines
-        @if not $isIconStyle {
-            // prettier-ignore
-            @if string.index($slug, -margin-) or string.index($slug, -margin) == ($_slugLength - 6) {
+        // MARGINS - returns for alert headings and headlines
+        // prettier-ignore
+        @else if not $isIconStyle and (string.index($slug, -margin-) or string.index($slug, -margin) == ($_slugLength - 6)) {
                 @if $isAlertHeadingStyle or $isAlertHeadlineStyle {
                     @return math.add-unit($value, 1em);
                 } @else {
                     $isMargin: true;
                 }
             }
-        }
 
-        // padding
-        @if string.index($slug, -padding-) {
+        // PADDING
+        @else if string.index($slug, -padding-) {
             @if $isWidgetStyle {
                 $isMargin: true;
             } @else {
@@ -228,14 +225,15 @@
         }
 
         // stroke-relative
-        @if string.index($slug, -focus-offset-) {
-            $isStrokeRelative: true;
-        } @else if string.index($slug, -focus-offset) == ($_slugLength - 12) {
+        // prettier-ignore
+        @else if string.index($slug, -focus-offset-) or string.index($slug, -focus-offset) == ($_slugLength - 12) {
             $isStrokeRelative: true;
         }
     }
 
     // RETURNING
+
+    $_globalKeyword_regex: '^\\s*(inherit|initial|revert|revert-layer|unset)\\s*$';
 
     // returns
     @if $isMargin {
@@ -410,8 +408,15 @@
 
     // returns
     @if $isLineHeight {
+        $_typeOf: meta.type-of($value);
+
         // returns
-        @if $value == normal or meta.type-of($value) == number {
+        @if $value == normal or $_typeOf == number {
+            @return $value;
+        }
+
+        // returns
+        @if $_typeOf == string and string.match($value, $_globalKeyword_regex) {
             @return $value;
         }
 

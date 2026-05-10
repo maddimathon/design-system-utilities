@@ -95,9 +95,9 @@ export declare namespace Tokens_CSS_Style {
              * This should be a theme slug.
              */
             color: string;
-            radius: 0 | AnyTokenLevel;
+            radius: CSS.BorderRadius;
             style: string;
-            width: AnyTokenLevel;
+            width: CSS.BorderWidth;
         };
         /**
          * For the headline. This should be a theme slug.
@@ -174,9 +174,9 @@ export declare namespace Tokens_CSS_Style {
      */
     type ButtonStyles = {
         border: {
-            radius: 0 | AnyTokenLevel;
+            radius: CSS.BorderRadius;
             style: string;
-            width: AnyTokenLevel;
+            width: CSS.BorderWidth;
         };
         display: "block" | "flex";
         /**
@@ -202,11 +202,11 @@ export declare namespace Tokens_CSS_Style {
                 end: number;
             };
             embedded: {
-                bottom: CSS.EmNumber;
+                bottom: CSS.Number.Em;
             };
             size: Omit<IconStyles['size'], '$' | 'large'>;
         };
-        'letter-spacing': string;
+        'letter-spacing': CSS.LetterSpacing;
         'line-height': CSS.LineHeight;
         margin: {
             block: {
@@ -245,15 +245,44 @@ export declare namespace Tokens_CSS_Style {
      */
     namespace CSS {
         /**
-         * A number with em units.
-         *
          * @since 0.1.0-beta.0.draft
          */
-        type EmNumber = 0 | '0' | `${number}em`;
+        type BorderRadius = 0 | AnyTokenLevel;
         /**
          * @since 0.1.0-beta.0.draft
          */
-        type LineHeight = number | AnyTokenLevel;
+        type BorderWidth = 0 | AnyTokenLevel;
+        /**
+         * Global keywords available for most properties.
+         *
+         * @since 0.1.0-beta.0.draft
+         */
+        type GlobalKeywords = 'inherit' | 'initial' | 'revert' | 'revert-layer' | 'unset';
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        type LetterSpacing = 'normal' | number | Number.Em | Number.Percent | 'inherit';
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        type LineHeight = 'normal' | number | Number.Em | Number.Percent | AnyTokenLevel | GlobalKeywords;
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        namespace Number {
+            /**
+             * A number with em units.
+             *
+             * @since 0.1.0-beta.0.draft
+             */
+            type Em = 0 | `${number}em`;
+            /**
+             * A number with % units.
+             *
+             * @since 0.1.0-beta.0.draft
+             */
+            type Percent = 0 | `${number}%`;
+        }
         /**
          * @since 0.1.0-alpha
          */
@@ -322,30 +351,30 @@ export declare namespace Tokens_CSS_Style {
          */
         color: string;
         font: {
-            top: CSS.EmNumber;
+            top: CSS.Number.Em;
         };
         inline: {
             buffer: {
-                $: CSS.EmNumber;
+                $: CSS.Number.Em;
                 start: number;
                 end: number;
             };
             'line-height': 'normal' | Exclude<CSS.LineHeight, AnyTokenLevel>;
         };
         pseudo: {
-            top: CSS.EmNumber;
+            top: CSS.Number.Em;
         };
         size: {
-            $: CSS.EmNumber;
-            large: CSS.EmNumber;
+            $: CSS.Number.Em;
+            large: CSS.Number.Em;
             /**
              * For inline icons using the icon font.
              */
-            font: CSS.EmNumber;
+            font: CSS.Number.Em;
             /**
              * For inline icons in before/after pseudo classes.
              */
-            pseudo: CSS.EmNumber;
+            pseudo: CSS.Number.Em;
         };
         'vertical-align': string;
     };
@@ -354,9 +383,9 @@ export declare namespace Tokens_CSS_Style {
      */
     type InputStyles = {
         border: {
-            radius: 0 | AnyTokenLevel;
+            radius: CSS.BorderRadius;
             style: string;
-            width: AnyTokenLevel;
+            width: CSS.BorderWidth;
         };
         focus: {
             offset: AnyTokenLevel;
@@ -368,8 +397,8 @@ export declare namespace Tokens_CSS_Style {
             'letter-spacing': string;
             offset: {
                 block: {
-                    start: CSS.EmNumber;
-                    end: CSS.EmNumber;
+                    start: CSS.Number.Em;
+                    end: CSS.Number.Em;
                 };
             };
         };
@@ -430,14 +459,14 @@ export declare namespace Tokens_CSS_Style {
             background: string;
             border: {
                 radius: {
-                    $: 0 | AnyTokenLevel;
-                    top: 0 | AnyTokenLevel;
+                    $: CSS.BorderRadius;
+                    top: CSS.BorderRadius;
                 };
                 style: {
                     $: "dotted" | "solid";
                     top: "dotted" | "solid";
                 };
-                width: AnyTokenLevel;
+                width: CSS.BorderWidth;
             };
             'line-height': CSS.LineHeight;
             padding: {
@@ -475,8 +504,8 @@ export declare namespace Tokens_CSS_Style {
         };
         icon: Pick<IconStyles, 'vertical-align'> & {
             buffer: {
-                start: CSS.EmNumber;
-                end: CSS.EmNumber;
+                start: CSS.Number.Em;
+                end: CSS.Number.Em;
             };
             size: IconStyles['size']['$'];
         };
@@ -494,7 +523,7 @@ export declare namespace Tokens_CSS_Style {
                  */
                 background: string;
                 border: {
-                    width: AnyTokenLevel;
+                    width: CSS.BorderWidth;
                 };
             };
             title: {
@@ -533,9 +562,9 @@ export declare namespace Tokens_CSS_Style {
              * This should be a theme slug.
              */
             color: string;
-            radius: 0 | AnyTokenLevel;
+            radius: CSS.BorderRadius;
             style: string;
-            width: AnyTokenLevel;
+            width: CSS.BorderWidth;
         };
         'line-height': CSS.LineHeight;
         /**
@@ -572,7 +601,7 @@ export declare namespace Tokens_CSS_Style {
          */
         hr: {
             border: {
-                width: AnyTokenLevel;
+                width: CSS.BorderWidth;
             };
             /**
              * This should be a theme slug.

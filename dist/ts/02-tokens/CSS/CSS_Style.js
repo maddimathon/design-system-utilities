@@ -655,7 +655,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
             'flow-margin': flowMargin,
             icon: {
                 buffer: {
-                    start: '0',
+                    start: 0,
                     end: '0.25em',
                 },
                 size: iconStyles.size.pseudo,

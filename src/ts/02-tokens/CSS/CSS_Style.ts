@@ -940,7 +940,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
 
             icon: {
                 buffer: {
-                    start: '0',
+                    start: 0,
                     end: '0.25em',
                 },
 
@@ -1045,9 +1045,9 @@ export namespace Tokens_CSS_Style {
              */
             color: string;
 
-            radius: 0 | AnyTokenLevel;
+            radius: CSS.BorderRadius;
             style: string;
-            width: AnyTokenLevel;
+            width: CSS.BorderWidth;
         };
 
         /**
@@ -1139,9 +1139,9 @@ export namespace Tokens_CSS_Style {
     export type ButtonStyles = {
 
         border: {
-            radius: 0 | AnyTokenLevel;
+            radius: CSS.BorderRadius;
             style: string;
-            width: AnyTokenLevel;
+            width: CSS.BorderWidth;
         };
 
         display: "block" | "flex";
@@ -1167,11 +1167,6 @@ export namespace Tokens_CSS_Style {
             weight: WholeTokenLevel;
         };
 
-        // gap: {
-        //     block: 0 | AnyTokenLevel;
-        //     inline: 0 | AnyTokenLevel;
-        // };
-
         icon: Pick<IconStyles, 'font' | 'pseudo' | 'vertical-align'> & {
             buffer: {
                 start: number;
@@ -1179,13 +1174,13 @@ export namespace Tokens_CSS_Style {
             };
 
             embedded: {
-                bottom: CSS.EmNumber;
+                bottom: CSS.Number.Em;
             };
 
             size: Omit<IconStyles[ 'size' ], '$' | 'large'>;
         };
 
-        'letter-spacing': string;
+        'letter-spacing': CSS.LetterSpacing;
         'line-height': CSS.LineHeight;
 
         margin: {
@@ -1235,16 +1230,51 @@ export namespace Tokens_CSS_Style {
     export namespace CSS {
 
         /**
-         * A number with em units.
-         * 
          * @since ___PKG_VERSION___
          */
-        export type EmNumber = 0 | '0' | `${ number }em`;
+        export type BorderRadius = 0 | AnyTokenLevel;
 
         /**
          * @since ___PKG_VERSION___
          */
-        export type LineHeight = number | AnyTokenLevel;
+        export type BorderWidth = 0 | AnyTokenLevel;
+
+        /**
+         * Global keywords available for most properties.
+         * 
+         * @since ___PKG_VERSION___
+         */
+        export type GlobalKeywords = 'inherit' | 'initial' | 'revert' | 'revert-layer' | 'unset';
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        export type LetterSpacing = 'normal' | number | Number.Em | Number.Percent | 'inherit';
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        export type LineHeight = 'normal' | number | Number.Em | Number.Percent | AnyTokenLevel | GlobalKeywords;
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        export namespace Number {
+
+            /**
+             * A number with em units.
+             * 
+             * @since ___PKG_VERSION___
+             */
+            export type Em = 0 | `${ number }em`;
+
+            /**
+             * A number with % units.
+             * 
+             * @since ___PKG_VERSION___
+             */
+            export type Percent = 0 | `${ number }%`;
+        }
 
         /**
          * @since 0.1.0-alpha
@@ -1329,12 +1359,12 @@ export namespace Tokens_CSS_Style {
         color: string;
 
         font: {
-            top: CSS.EmNumber;
+            top: CSS.Number.Em;
         };
 
         inline: {
             buffer: {
-                $: CSS.EmNumber;
+                $: CSS.Number.Em;
                 start: number;
                 end: number;
             },
@@ -1343,22 +1373,22 @@ export namespace Tokens_CSS_Style {
         };
 
         pseudo: {
-            top: CSS.EmNumber;
+            top: CSS.Number.Em;
         };
 
         size: {
-            $: CSS.EmNumber;
-            large: CSS.EmNumber;
+            $: CSS.Number.Em;
+            large: CSS.Number.Em;
 
             /**
              * For inline icons using the icon font.
              */
-            font: CSS.EmNumber;
+            font: CSS.Number.Em;
 
             /**
              * For inline icons in before/after pseudo classes.
              */
-            pseudo: CSS.EmNumber;
+            pseudo: CSS.Number.Em;
         };
 
         'vertical-align': string;
@@ -1370,9 +1400,9 @@ export namespace Tokens_CSS_Style {
     export type InputStyles = {
 
         border: {
-            radius: 0 | AnyTokenLevel;
+            radius: CSS.BorderRadius;
             style: string;
-            width: AnyTokenLevel;
+            width: CSS.BorderWidth;
         };
 
         focus: {
@@ -1387,8 +1417,8 @@ export namespace Tokens_CSS_Style {
 
             offset: {
                 block: {
-                    start: CSS.EmNumber;
-                    end: CSS.EmNumber;
+                    start: CSS.Number.Em;
+                    end: CSS.Number.Em;
                 };
             };
         };
@@ -1483,8 +1513,8 @@ export namespace Tokens_CSS_Style {
             border: {
 
                 radius: {
-                    $: 0 | AnyTokenLevel;
-                    top: 0 | AnyTokenLevel;
+                    $: CSS.BorderRadius;
+                    top: CSS.BorderRadius;
                 };
 
                 style: {
@@ -1492,7 +1522,7 @@ export namespace Tokens_CSS_Style {
                     top: "dotted" | "solid";
                 };
 
-                width: AnyTokenLevel;
+                width: CSS.BorderWidth;
             };
 
             'line-height': CSS.LineHeight;
@@ -1537,8 +1567,8 @@ export namespace Tokens_CSS_Style {
 
         icon: Pick<IconStyles, 'vertical-align'> & {
             buffer: {
-                start: CSS.EmNumber;
-                end: CSS.EmNumber;
+                start: CSS.Number.Em;
+                end: CSS.Number.Em;
             };
 
             size: IconStyles[ 'size' ][ '$' ];
@@ -1560,7 +1590,7 @@ export namespace Tokens_CSS_Style {
                 background: string;
 
                 border: {
-                    width: AnyTokenLevel;
+                    width: CSS.BorderWidth;
                 };
             };
 
@@ -1605,9 +1635,9 @@ export namespace Tokens_CSS_Style {
              */
             color: string;
 
-            radius: 0 | AnyTokenLevel;
+            radius: CSS.BorderRadius;
             style: string;
-            width: AnyTokenLevel;
+            width: CSS.BorderWidth;
         };
 
         'line-height': CSS.LineHeight;
@@ -1652,7 +1682,7 @@ export namespace Tokens_CSS_Style {
          */
         hr: {
             border: {
-                width: AnyTokenLevel;
+                width: CSS.BorderWidth;
             },
 
             /**
