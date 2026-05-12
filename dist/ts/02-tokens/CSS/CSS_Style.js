@@ -232,8 +232,9 @@ export class Tokens_CSS_Style extends AbstractTokens {
             // },
             icon: {
                 buffer: {
-                    start: 2.5,
-                    end: -0.5,
+                    $: iconStyles.inline.buffer.$,
+                    start: 2,
+                    end: 0,
                 },
                 embedded: {
                     bottom: '0.0625em',
@@ -294,6 +295,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 // },
                 icon: {
                     buffer: {
+                        $: style.icon.buffer.$,
                         start: style.icon.buffer.start,
                         end: style.icon.buffer.end,
                     },

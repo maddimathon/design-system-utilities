@@ -4,7 +4,7 @@
 config-vars {
     /* accessed via `@use 'pkg:@maddimathon/utility-sass/config'` */
     /* 
-      meta.module-variables(config) is a map:
+      default vars is a map:
    */
     /* "brightnessMode-options": <()> ( <S> "light", <S> "dark" ) */
     /* "config-validTokenLevels": <()> ( <S> "100", <S> "150", <S> "200", <S> "250", <S> "300", <S> "350", <S> "400", <S> "450", <S> "500", <S> "550", <S> "600", <S> "650", <S> "700", <S> "750", <S> "800", <S> "850", <S> "900" ) */
@@ -100,6 +100,7 @@ config-vars {
     /* "mx-tokensAll-includeFontFace": </> false */
     /* "mx-tokensStyle-printAll": </> false */
     /* "mx-tokensTheme-includeAlternateThemes": <-> null */
+    /* "mx-tokensTheme-includeDefault": </> true */
     /* "mx-tokensTheme-includeDefaultSelectors": </> false */
     /* "mx-tokensTheme-includeQuery": </> true */
     /* "mx-tokensTheme-separateQueriesAndSelectors": </> false */
@@ -117,16 +118,159 @@ config-vars {
     /* "selectors-skipLinks-extra": <()> ( () ) */
     /* "selectorType-mode": <S> "null" */
     /* "selectorType-motion": <S> "null" */
+    /* "template-astro": </> false */
+    /* "template-cssHeadings": </> false */
+    /* "template-debug-checkpointsLevel": <#> 6 */
     /* "template-docBlock": </> false */
+    /* "template-docs": </> false */
+    /* "template-extendSelectors": </> false */
+    /* "template-globals": </> false */
+    /* "template-isDefault": </> true */
+    /* "template-name": <S> "Default" */
+    /* "template-print-siteSettingsMenu-fontOverrides": </> false */
+    /* "template-slug": <S> "default" */
+    /* "template-styles": <:> ( "a": </> false, "abbr": </> false, "blockquote": </> false, "bodyFlow": </> false, "buttons": </> false, "code": </> false, "em": </> false, "fieldset": </> false, "focusRing": </> false, "headings": </> false, "hr": </> false, "inputs": </> false, "lists": </> false, "normalize": </> false, "p": </> false, "pre": </> false, "selection": </> false, "screenReaderText": </> false, "scrollPadding": </> false, "strong": </> false, "table": </> false, "typeDefaults": </> false, "astro": <:> ( "bodyGrid": </> false, "toggleNav": </> false, "stickyToggleNav": </> false ), "icons": <-> null, "pageSubtitle": </> false, "siteSettingsMenu": </> false, "skipLinks": </> false, "toggle": </> false, "alerts": <-> null, "aside": </> false, "dl": </> false, "flowMargins": </> false, "images": </> false, "keyframes": </> false, "logos": <-> null, "reset": </> false, "searchForm": </> false, "sidebarWidgets": </> false ) */
+    /* "template-tokens": </> false */
+    /* "template-utils": </> false */
     /* "themes--nestedFlat-tokenValues-warnIfNoFunction": </> true */
     /* "warnOnMissingCompilerFunctions": </> true */
 }
 
-template-config-vars {
-    /* accessed via `@use 'pkg:@maddimathon/utility-sass/template/config'` */
+modules.config-vars {
+    /* accessed via `@use 'pkg:@maddimathon/utility-sass/config/modules'` */
     /* 
-      meta.module-variables(tmplConfig) is a map:
+      default vars is a map:
    */
+    /* "config-validTokenLevels": <()> ( <S> "100", <S> "150", <S> "200", <S> "250", <S> "300", <S> "350", <S> "400", <S> "450", <S> "500", <S> "550", <S> "600", <S> "650", <S> "700", <S> "750", <S> "800", <S> "850", <S> "900" ) */
+    /* "featureCheck-aspectRatio-includeNoWhereSelectorFallback": </> true */
+    /* "featureCheck-defaultToJS": <:> ( "whereSelector": </> true ) */
+    /* "featureCheck-defaultToJS-supports": <:> ( "whereSelector": </> true ) */
+    /* "featureCheck-defaultToJS-supports-not": <:> ( "whereSelector": </> true, "aspectRatio": </> true, "focusVisible": </> true ) */
+    /* "featureCheck-jsOnlyAsNeeded": </> true */
+    /* "featureCheck-neverUseJS": </> false */
+    /* "featureCheck-supports": <()> ( <S> aspectRatio, <S> atProperty, <S> backgroundFixed, <S> calc, <S> displayContents, <S> focusWithin, <S> focusVisible, <S> hasSelector, <S> subgrid, <S> whereSelector ) */
+    /* "featureCheck-supportsQueries": <:> ( "aspectRatio": <S> "aspect-ratio: 1 / 2", "backgroundFixed": <S> "background-attachment: fixed", "calc": <S> "width: calc( 0.25em + 10% )", "displayContents": <S> "display: contents", "focusWithin": <S> "selector( a:focus-within )", "focusVisible": <S> "selector( a:focus-visible )", "hasSelector": <S> "selector( :has( a ) )", "subgrid": <S> "grid-template-columns: subgrid", "whereSelector": <S> "selector( :where( a ) )" ) */
+    /* "math-clampFontSize-baseRem": <#> 1 */
+    /* "math-clampFontSize-multiplier-max": <#> 1.1875 */
+    /* "math-clampFontSize-multiplier-min": <#> 0.875 */
+    /* "math-clampFontSize-viewport-max": <#> 120 */
+    /* "math-clampFontSize-viewport-min": <#> 25 */
+    /* "math-fontSize-roundingFactor": <#> 16 */
+    /* "selector-body": <S> body */
+    /* "selector-body-aliases": <-> null */
+    /* "selector-null": <S> %null */
+    /* "selector-root": <S> :root */
+    /* "selector-root-aliases": <()> ( <S> ".js", <S> ".no-js", <S> ".js__aspectRatio", <S> ".js__no-aspectRatio", <S> ".js__atProperty", <S> ".js__no-atProperty", <S> ".js__backgroundFixed", <S> ".js__no-backgroundFixed", <S> ".js__calc", <S> ".js__no-calc", <S> ".js__displayContents", <S> ".js__no-displayContents", <S> ".js__focusWithin", <S> ".js__no-focusWithin", <S> ".js__focusVisible", <S> ".js__no-focusVisible", <S> ".js__hasSelector", <S> ".js__no-hasSelector", <S> ".js__subgrid", <S> ".js__no-subgrid", <S> ".js__whereSelector", <S> ".js__no-whereSelector" ) */
+    /* "selectors-skipLinks-extra": <()> ( () ) */
+    /* "warnOnMissingCompilerFunctions": </> true */
+}
+
+lib.config-vars {
+    /* accessed via `@use 'pkg:@maddimathon/utility-sass/config/lib'` */
+    /* 
+      default vars is a map:
+   */
+    /* "config-validTokenLevels": <()> ( <S> "100", <S> "150", <S> "200", <S> "250", <S> "300", <S> "350", <S> "400", <S> "450", <S> "500", <S> "550", <S> "600", <S> "650", <S> "700", <S> "750", <S> "800", <S> "850", <S> "900" ) */
+    /* "debug-checkpoints": </> false */
+    /* "debug-checkpoints-verbose": </> false */
+    /* "include-button-inlineIcons": </> false */
+    /* "include-colourValues-hsl": </> false */
+    /* "include-colourValues-rgb": </> false */
+    /* "include-featureCheck": </> false */
+    /* "include-html": </> false */
+    /* "include-link-inlineIcons": </> false */
+    /* "internal-supressCredit": </> false */
+    /* "isTemplate": </> false */
+    /* "path-fonts": <S> "../fonts/" */
+    /* "selector-a": <S> a[href] */
+    /* "selectorType-mode": <S> "null" */
+    /* "selectorType-motion": <S> "null" */
+    /* "template-docBlock": </> false */
+}
+
+template.config-vars {
+    /* accessed via `@use 'pkg:@maddimathon/utility-sass/config/template'` */
+    /* 
+      default vars is a map:
+   */
+    /* "brightnessMode-options": <()> ( <S> "light", <S> "dark" ) */
+    /* "config-validTokenLevels": <()> ( <S> "100", <S> "150", <S> "200", <S> "250", <S> "300", <S> "350", <S> "400", <S> "450", <S> "500", <S> "550", <S> "600", <S> "650", <S> "700", <S> "750", <S> "800", <S> "850", <S> "900" ) */
+    /* "contrastMode-options": <()> ( <S> "average", <S> "low", <S> "high", <S> "max", <S> "forced-colors" ) */
+    /* "customPropertyPrefix": <S> "" */
+    /* "customPropertyPrefix-fallback": <S> "" */
+    /* "fn-borderWidthValue-roundToPixelFactor": <#> 16 */
+    /* "fn-breakpoints-gapDoubler": <#> 1.5 */
+    /* "fn-breakpoints-sidebarMultiplier": <#> 0.75 */
+    /* "fn-breakpointValue-roundToPixelFactor": <#> 8 */
+    /* "fn-clampHighContrastBorderWidth-max": <#> 4px */
+    /* "fn-clampHighContrastBorderWidth-min": <#> 0.125 */
+    /* "fn-colourMode-selectorsAsChildren": </> false */
+    /* "fn-focusRingOffset-max": <S> "400" */
+    /* "fn-focusRingOffset-min": <S> "100" */
+    /* "fn-gapValue-block-layout-high": <S> "800" */
+    /* "fn-gapValue-block-layout-low": <S> "600" */
+    /* "fn-gapValue-inline-indent-high": <S> "800" */
+    /* "fn-gapValue-inline-indent-low": <S> "200" */
+    /* "fn-gapValue-inline-layout-high": <S> "900" */
+    /* "fn-gapValue-inline-layout-low": <S> "400" */
+    /* "fn-gapValue-inline-tab-high": <S> "600" */
+    /* "fn-gapValue-inline-tab-low": <S> "100" */
+    /* "fn-gapValue-useMarginValue": </> true */
+    /* "fn-lineHeightValue-roundToPixelFactor": <#> 16 */
+    /* "fn-marginSoftValue-roundToPixelFactor": <#> 32 */
+    /* "fn-marginValue-roundToPixelFactor": <#> 16 */
+    /* "fn-pseudoIconsUseFont": </> true */
+    /* "fn-strokeRelativeValue-roundToPixelFactor": <#> 16 */
+    /* "fn-tokens-fontSize-defaultRelative": </> false */
+    /* "fn-var-replaceWithValue-borderRadius": </> true */
+    /* "fn-var-replaceWithValue-borderWidth": </> true */
+    /* "fn-var-replaceWithValue-colour": </> true */
+    /* "fn-var-replaceWithValue-fontFamily": </> true */
+    /* "fn-var-replaceWithValue-fontSize": </> true */
+    /* "fn-var-replaceWithValue-gap": </> true */
+    /* "fn-var-replaceWithValue-lineHeight": </> true */
+    /* "fn-var-replaceWithValue-margin": </> true */
+    /* "fn-var-replaceWithValue-resist": </> false */
+    /* "fn-var-replaceWithValue-strokeRelative": </> true */
+    /* "fn-var-replaceWithValue-style": </> true */
+    /* "fn-var-replaceWithValue-transitionTime": </> true */
+    /* "fn-var-replaceWithValue-width": </> true */
+    /* "fn-var-replaceWithValue-zIndex": </> true */
+    /* "mx-aspectRatio-includeFallback": </> false */
+    /* "mx-colourMode-includeLightModeQuery": </> false */
+    /* "mx-colourMode-includeNoPreferenceQueries": </> false */
+    /* "mx-colourMode-includeQuery": </> true */
+    /* "mx-colourMode-includeSelectors": </> true */
+    /* "mx-colourModeCombo-includeForcedColorsSelectors": </> false */
+    /* "mx-colourModeEach-includeForcedColorsSelectors": </> false */
+    /* "mx-extendSelectors-headingsByRole": </> false */
+    /* "mx-fieldset-includeClrs": </> true */
+    /* "mx-focusVisible-fallbacksOnly": </> false */
+    /* "mx-focusVisible-includeFallbacks": </> true */
+    /* "mx-interactive-isolateSelector-active": </> false */
+    /* "mx-interactive-isolateSelector-focus": </> false */
+    /* "mx-interactiveStates-featureCheck-viaQuery": </> false */
+    /* "mx-normalizeOrReset-codeFontFamily-usePseudo": </> false */
+    /* "mx-normalizeOrReset-includeColorScheme": </> true */
+    /* "mx-normalizeOrReset-includeFontSmoothing": </> true */
+    /* "mx-prop-useCustom-display": </> false */
+    /* "mx-prop-useCustom-gridColumn": </> false */
+    /* "mx-prop-useCustom-never": </> false */
+    /* "mx-reset-doUniversalBoxSizing": </> true */
+    /* "mx-tokens-borderRadius-printRelative": </> true */
+    /* "mx-tokens-fontFace-asBase64": </> false */
+    /* "mx-tokens-fontSize-printRelative": </> true */
+    /* "mx-tokensAll-includeFontFace": </> false */
+    /* "mx-tokensStyle-printAll": </> false */
+    /* "mx-tokensTheme-includeAlternateThemes": <-> null */
+    /* "mx-tokensTheme-includeDefault": </> true */
+    /* "mx-tokensTheme-includeDefaultSelectors": </> false */
+    /* "mx-tokensTheme-includeQuery": </> true */
+    /* "mx-tokensTheme-separateQueriesAndSelectors": </> false */
+    /* "mx-tokensTheme-setBaseProperties": </> false */
+    /* "mx-tokensTheme-unifyActiveThemeSelectors": </> false */
+    /* "selector-interactiveState-active": <S> [data-state-active=true] */
+    /* "selector-interactiveState-focus": <S> [data-state-focus=true] */
     /* "template-astro": </> false */
     /* "template-cssHeadings": </> false */
     /* "template-debug-checkpointsLevel": <#> 6 */
@@ -137,7 +281,8 @@ template-config-vars {
     /* "template-name": <S> "Default" */
     /* "template-print-siteSettingsMenu-fontOverrides": </> false */
     /* "template-slug": <S> "default" */
-    /* "template-styles": <:> ( "a": </> false, "abbr": </> false, "blockquote": </> false, "bodyFlow": </> false, "buttons": </> false, "code": </> false, "em": </> false, "fieldset": </> false, "focusRing": </> false, "headings": </> false, "hr": </> false, "inputs": </> false, "lists": </> false, "normalize": </> false, "p": </> false, "pre": </> false, "selection": </> false, "screenReaderText": </> false, "scrollPadding": </> false, "strong": </> false, "table": </> false, "typeDefaults": </> false, "astro": <:> ( "bodyGrid": </> false, "toggleNav": </> false, "stickyToggleNav": </> false ), "icons": <-> null, "pageSubtitle": </> false, "siteSettingsMenu": </> false, "skipLinks": </> false, "toggle": </> false, "alerts": <-> null, "aside": </> false, "dl": </> false, "flowMargins": </> false, "img": </> false, "keyframes": </> false, "logos": <-> null, "reset": </> false, "searchForm": </> false, "sidebarWidgets": </> false ) */
+    /* "template-styles": <:> ( "a": </> false, "abbr": </> false, "blockquote": </> false, "bodyFlow": </> false, "buttons": </> false, "code": </> false, "em": </> false, "fieldset": </> false, "focusRing": </> false, "headings": </> false, "hr": </> false, "inputs": </> false, "lists": </> false, "normalize": </> false, "p": </> false, "pre": </> false, "selection": </> false, "screenReaderText": </> false, "scrollPadding": </> false, "strong": </> false, "table": </> false, "typeDefaults": </> false, "astro": <:> ( "bodyGrid": </> false, "toggleNav": </> false, "stickyToggleNav": </> false ), "icons": <-> null, "pageSubtitle": </> false, "siteSettingsMenu": </> false, "skipLinks": </> false, "toggle": </> false, "alerts": <-> null, "aside": </> false, "dl": </> false, "flowMargins": </> false, "images": </> false, "keyframes": </> false, "logos": <-> null, "reset": </> false, "searchForm": </> false, "sidebarWidgets": </> false ) */
     /* "template-tokens": </> false */
     /* "template-utils": </> false */
+    /* "themes--nestedFlat-tokenValues-warnIfNoFunction": </> true */
 }

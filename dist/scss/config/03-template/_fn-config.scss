@@ -1,0 +1,119 @@
+///
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+/// @since 0.1.0-alpha
+///
+
+@use 'functions' as *;
+
+@use 'utility-astro' as utils;
+
+///
+/// Should be in pixels.
+///
+/// @since 0.1.0-beta.0.draft
+///
+$fn_clampHighContrastBorderWidth_max: null !default;
+$fn_clampHighContrastBorderWidth_max: config-valid-number(
+    $fn_clampHighContrastBorderWidth_max,
+    'fn_clampHighContrastBorderWidth_max',
+    $default: 4,
+    $unit: 1px
+);
+
+///
+/// A value used as either em or rem.
+///
+/// @since 0.1.0-beta.0.draft
+///
+$fn_clampHighContrastBorderWidth_min: null !default;
+$fn_clampHighContrastBorderWidth_min: config-valid-number(
+    $fn_clampHighContrastBorderWidth_min,
+    'fn_clampHighContrastBorderWidth_min',
+    $default: 0.125,
+    $unit: false
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$fn_marginValue_roundToPixelFactor: null !default;
+$fn_marginValue_roundToPixelFactor: config-valid-number(
+    $fn_marginValue_roundToPixelFactor,
+    'fn_marginValue_roundToPixelFactor',
+    $default: 16,
+    $unit: false
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$fn_marginSoftValue_roundToPixelFactor: null !default;
+$fn_marginSoftValue_roundToPixelFactor: config-valid-number(
+    $fn_marginSoftValue_roundToPixelFactor,
+    'fn_marginSoftValue_roundToPixelFactor',
+    $default: 32,
+    $unit: false
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$fn_focusRingOffset_max: '400' !default;
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$fn_focusRingOffset_min: '100' !default;
+
+///
+/// Required for proper forced-colors icon support.
+///
+/// @since 0.1.0-beta.0.draft
+///
+$fn_pseudoIconsUseFont: true !default;
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$fn_tokens_fontSize_defaultRelative: false !default;
+
+///
+/// @since 0.1.0-alpha
+///
+$fn_var_replaceWithValue_borderRadius: true and not
+    utils.$fn_var_replaceWithValue_resist !default;
+
+///
+/// @since 0.1.0-alpha
+///
+$fn_var_replaceWithValue_colour: true and not
+    utils.$fn_var_replaceWithValue_resist !default;
+
+///
+/// @since 0.1.0-alpha
+///
+$fn_var_replaceWithValue_fontFamily: true and not
+    utils.$fn_var_replaceWithValue_resist !default;
+
+///
+/// @since 0.1.0-alpha
+///
+$fn_var_replaceWithValue_style: true and not
+    utils.$fn_var_replaceWithValue_resist !default;
+
+///
+/// @since 0.1.0-alpha
+///
+$fn_var_replaceWithValue_transitionTime: true and not
+    utils.$fn_var_replaceWithValue_resist !default;
+
+///
+/// @since 0.1.0-alpha
+///
+$fn_var_replaceWithValue_zIndex: true and not
+    utils.$fn_var_replaceWithValue_resist !default;
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$themes__nestedFlat_tokenValues_warnIfNoFunction: true !default;

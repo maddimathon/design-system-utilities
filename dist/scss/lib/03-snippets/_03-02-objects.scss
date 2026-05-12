@@ -1,0 +1,100 @@
+///
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/meta';
+@use 'pkg:@maddimathon/utility-sass/selector';
+
+@use '../../config';
+// @use '../../tokens';
+
+@use '../01-functions' as *;
+@use '../02-mixins' as *;
+
+@use 'pkg:@maddimathon/utility-astro/03-snippets' as utils;
+
+// @use '03-00-tokens' as *;
+// @use '03-01-accessbility' as *;
+
+///
+/// Outputs selectors and rules for img, figure, figcaption, and similar styles.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin snippet-support-images(
+    $includeReset: not map.get(config.$template_styles, reset),
+    //
+    $figure_display: flex,
+    $figure_flex_alignment: (),
+    $figure_flex_gap: 0,
+    $figure_flex_direction: column,
+    $figure_flex_wrap: nowrap,
+    $figure_flex_position: relative,
+    //
+    $figcaption_fontSize: var-fs(smaller-2),
+    $figcaption_textAlign: end
+) {
+    %image,
+    %svg {
+        margin-inline: 0;
+        max-width: 100%;
+
+        @content (image-or-svg);
+
+        @include selector.extend-simple-selector(
+            ('%image', '%svg'),
+            config.$selector_a,
+            $self: false,
+            $replace: false,
+            $wrap: true
+        ) {
+            @include prop-display(inline-block);
+
+            @content (image-or-svg--in-link);
+        }
+    }
+
+    %img {
+        @if $includeReset {
+            height: auto;
+            object-fit: cover;
+        }
+
+        @content (img);
+    }
+
+    %figcaption {
+        font-size: $figcaption_fontSize;
+        text-align: $figcaption_textAlign;
+
+        @content (figcaption);
+    }
+
+    %figure {
+        @include prop-display($figure_display);
+
+        @if $figure_display == flex or $figure_display == inline-flex {
+            @include utils.snippet-content-flex-container(
+                $alignment: $figure_flex_alignment,
+                $gap: $figure_flex_gap,
+                $direction: $figure_flex_direction,
+                $wrap: $figure_flex_wrap,
+                $position: $figure_flex_position
+            );
+        }
+
+        margin-block-end: 0;
+
+        @content (figure);
+
+        %img,
+        %svg {
+            margin-block-start: 0;
+
+            @content (figure--img-or-svg);
+        }
+    }
+}

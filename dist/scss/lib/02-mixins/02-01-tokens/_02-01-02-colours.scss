@@ -534,8 +534,10 @@ $_themes_includeAlternatives: if(
     $includeAlternatives: $_themes_includeAlternatives,
     $separateQueriesAndSelectors:
         config.$mx_tokensTheme_separateQueriesAndSelectors,
-    $includeQuery: config.$mx_tokensTheme_includeQuery,
-    $includeRegion: true,
+    $includeDefault: config.$mx_tokensTheme_includeDefault,
+    $includeDefaultSelectors: config.$mx_tokensTheme_includeDefaultSelectors,
+    $includeQuery: config.$mx_colourMode_includeQuery,
+    $includeSelectors: config.$mx_colourMode_includeSelectors,
     $args...
 ) {
     @if $separateQueriesAndSelectors {
@@ -544,10 +546,9 @@ $_themes_includeAlternatives: if(
             @include utils.colour-mode-each(
                 $includeRegion_heading: 'Tokens - Theme - Queries',
         
-                $includeDefault: not config.$mx_tokensTheme_includeDefaultSelectors,
-                $includeForcedColors: false,
-                $includeQuery: true,
-                $includeRegion: $includeRegion,
+                $includeDefault: $includeDefault and (not $includeSelectors or not $includeDefaultSelectors),
+                $includeForcedColors: not $includeSelectors,
+                $includeQuery: $includeQuery,
                 $includeSelectors: false,
                 $args...
             ) using ($brightness, $contrast) {
@@ -557,23 +558,29 @@ $_themes_includeAlternatives: if(
             }
         }
 
-        // prettier-ignore
-        @include utils.colour-mode-each(
-            $includeRegion_heading: 'Tokens - Theme - Selectors',
-            
-            $includeDefault: config.$mx_tokensTheme_includeDefaultSelectors,
-            $includeQuery: false,
-            $includeRegion: $includeRegion,
-            $args...
-        ) using ($brightness, $contrast) {
-            @content($brightness, $contrast);
+        @if $includeSelectors {
+            // prettier-ignore
+            @include utils.colour-mode-each(
+                $includeRegion_heading: 'Tokens - Theme - Selectors',
+                
+                $includeDefault: $includeDefaultSelectors,
+                $includeForcedColors: true,
+                $includeQuery: false,
+                $includeSelectors: $includeSelectors,
+                $args...
+            ) using ($brightness, $contrast) {
+                @content($brightness, $contrast);
+            }
         }
     } @else {
         // prettier-ignore
         @include utils.colour-mode-each(
-            $includeQuery: $includeQuery,
-            $includeRegion: $includeRegion,
             $includeRegion_heading: 'Tokens - Theme',
+            
+            $includeDefault: $includeDefault,
+            $includeForcedColors: true,
+            $includeQuery: $includeQuery,
+            $includeSelectors: $includeSelectors,
             $args...
         ) using ($brightness, $contrast) {
             @content($brightness, $contrast);

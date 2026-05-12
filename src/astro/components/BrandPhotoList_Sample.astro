@@ -152,13 +152,13 @@ const photoProps = {
 
     { includeSource && meta.source && (
         <dt set:text='Source' />
-        <dd><p><a href={meta.source.href} set:text={meta.source.label} target="_blank" /></p></dd>
+        <dd><p><a href={meta.source.href} set:text={meta.source.label} target="_blank" rel="noreferrer noopener" /></p></dd>
     ) }
 
     { meta.license && (
         <dt set:text='License' />
         <dd>{ typeof meta.license === 'object' ? (
-            <p><a href={meta.license.href} set:text={meta.license.label} target="_blank" /></p>
+            <p><a href={meta.license.href} set:text={meta.license.label} target="_blank" rel="noreferrer noopener" /></p>
         ) : <p set:text={meta.license} /> }</dd>
     ) }
 

@@ -16,7 +16,7 @@
 );
 
 $_print_hr: map.get(config.$template_styles, hr);
-$_print_img: map.get(config.$template_styles, img);
+$_print_img: map.get(config.$template_styles, images);
 
 $_print_flowMargins: map.get(config.$template_styles, flowMargins);
 
@@ -51,38 +51,5 @@ $_print_flowMargins: map.get(config.$template_styles, flowMargins);
 }
 
 @if $_print_img {
-    %img {
-        @if not map.get(config.$template_styles, reset) {
-            height: auto;
-        }
-    }
-
-    %image,
-    %svg {
-        margin-inline: 0;
-        max-width: 100%;
-
-        a & {
-            @include prop-display(inline-block);
-        }
-    }
-
-    %img {
-        object-fit: cover;
-    }
-
-    %figure {
-        @include prop-display(flex);
-        @include snippet-content-flex-container;
-        margin-block-end: 0;
-
-        %img {
-            margin-block-start: 0;
-        }
-    }
-
-    %figcaption {
-        font-size: var-fs(smaller-2);
-        text-align: end;
-    }
+    @include snippet-support-images;
 }

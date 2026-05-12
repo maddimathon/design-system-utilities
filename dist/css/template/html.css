@@ -6258,17 +6258,18 @@ svg {
     margin-right: 0;
     max-width: 100%;
 }
-a figure,
-a img,
-a svg {
+a[href] figure,
+a[href] img,
+a[href] svg {
     --display: inline-block;
     display: inline-block;
     display: var(--display, inline-block);
 }
 
-img {
-    -o-object-fit: cover;
-    object-fit: cover;
+figcaption {
+    font-size: 0.875rem;
+    font-size: var(--fs-smaller-2, 0.875rem);
+    text-align: right;
 }
 
 figure {
@@ -6284,14 +6285,9 @@ figure {
     align-items: stretch;
     margin-bottom: 0;
 }
-figure img {
+figure img,
+figure svg {
     margin-top: 0;
-}
-
-figcaption {
-    font-size: 0.875rem;
-    font-size: var(--fs-smaller-2, 0.875rem);
-    text-align: right;
 }
 
 /* # GLOBALS - TYPOGRAPHY
@@ -10063,8 +10059,11 @@ a[href].button,
 a[href].button-secondary,
 a[href].button-grey {
     --focus-ring-outline-offset: var(--stroke-relative-400, 0.1875em);
-    --icon-inline-buffer-start: 2.5 !important;
-    --icon-inline-buffer-end: -0.5 !important;
+    --icon-inline-buffer: 0.25em !important;
+    --icon-inline-buffer-start: 2 !important;
+    --icon-inline-buffer-end: 0 !important;
+    --icon-font-top: 0.1875em;
+    --icon-pseudo-top: -0.0625em;
     --icon-size-font: 1em;
     --icon-size-pseudo: 1em;
     --icon-vertical-align: middle !important;
@@ -10373,10 +10372,14 @@ input[type="submit"]:has(> .brand-logo:only-child),
 a[href].button:has(> .brand-logo:only-child),
 a[href].button-secondary:has(> .brand-logo:only-child),
 a[href].button-grey:has(> .brand-logo:only-child) {
-    padding-left: 0.3125em;
-    padding-right: 0.3125em;
-    padding-left: var(--pad-soft-200, 0.3125em);
-    padding-right: var(--pad-soft-200, 0.3125em);
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-top: var(--mrg-firm-200, 0.5rem);
+    padding-bottom: var(--mrg-firm-200, 0.5rem);
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-left: var(--mrg-firm-200, 0.5rem);
+    padding-right: var(--mrg-firm-200, 0.5rem);
     line-height: 1 !important;
 }
 button:has(> .icon:only-child)::after,
@@ -10871,8 +10874,9 @@ a.display-inline[href].button,
 a.display-inline[href].button-secondary,
 a.display-inline[href].button-grey {
     --focus-ring-outline-offset: var(--stroke-relative-400, 0.1875em);
-    --icon-inline-buffer-start: 2.5 !important;
-    --icon-inline-buffer-end: -0.5 !important;
+    --icon-inline-buffer: 0.25em !important;
+    --icon-inline-buffer-start: 2 !important;
+    --icon-inline-buffer-end: 0 !important;
     --icon-size-font: 1em;
     --icon-size-pseudo: 1em;
     --icon-vertical-align: middle !important;
@@ -10964,7 +10968,6 @@ a.display-inline[href].button-grey
         1em * var(--icon-size-inline--multiplier, 1) *
             var(--icon-size-inline--font-multiplier, 1)
     );
-    --icon-font-top: 0;
     --icon-inline-margin-block-start: 0;
     --display: inline-block;
     display: inline-block;
@@ -11047,7 +11050,6 @@ a.display-inline[href].button-secondary
     .icon:not(.settings-menu-icon):not(.toggle-icon):only-child,
 a.display-inline[href].button-grey
     .icon:not(.settings-menu-icon):not(.toggle-icon):only-child {
-    --icon-font-top: 0;
     --icon-inline-margin-block-start: 0;
     --icon-inline-buffer-start: 0;
     --icon-inline-buffer-end: 0;
@@ -11946,7 +11948,6 @@ a[href].button-grey
         1em * var(--icon-size-inline--multiplier, 1) *
             var(--icon-size-inline--font-multiplier, 1)
     );
-    --icon-font-top: 0;
     --icon-inline-margin-block-start: 0;
     --display: inline-block;
     display: inline-block;
@@ -12018,7 +12019,6 @@ a[href].button-secondary
     .icon:not(.settings-menu-icon):not(.toggle-icon):only-child,
 a[href].button-grey
     .icon:not(.settings-menu-icon):not(.toggle-icon):only-child {
-    --icon-font-top: 0;
     --icon-inline-margin-block-start: 0;
     --icon-inline-buffer-start: 0;
     --icon-inline-buffer-end: 0;
@@ -12662,8 +12662,11 @@ input[type="submit"]::before {
 
 ::file-selector-button {
     --focus-ring-outline-offset: var(--stroke-relative-400, 0.1875em);
-    --icon-inline-buffer-start: 2.5 !important;
-    --icon-inline-buffer-end: -0.5 !important;
+    --icon-inline-buffer: 0.25em !important;
+    --icon-inline-buffer-start: 2 !important;
+    --icon-inline-buffer-end: 0 !important;
+    --icon-font-top: 0.1875em;
+    --icon-pseudo-top: -0.0625em;
     --icon-size-font: 1em;
     --icon-size-pseudo: 1em;
     --icon-vertical-align: middle !important;

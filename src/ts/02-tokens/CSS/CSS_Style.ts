@@ -352,16 +352,21 @@ export class Tokens_CSS_Style extends AbstractTokens<{
 
                 icon: {
                     buffer: {
-                        start: 2.5,
-                        end: -0.5,
+                        $: iconStyles.inline.buffer.$,
+                        start: 2,
+                        end: 0,
                     },
 
                     embedded: {
                         bottom: '0.0625em',
                     },
 
-                    font: iconStyles.font,
-                    pseudo: iconStyles.pseudo,
+                    font: {
+                        top: iconStyles.font.top,
+                    },
+                    pseudo: {
+                        top: iconStyles.pseudo.top,
+                    },
 
                     size: {
                         font: iconStyles.size.font,
@@ -441,6 +446,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
 
                     icon: {
                         buffer: {
+                            $: style.icon.buffer.$,
                             start: style.icon.buffer.start,
                             end: style.icon.buffer.end,
                         },
@@ -1168,14 +1174,14 @@ export namespace Tokens_CSS_Style {
         };
 
         icon: Pick<IconStyles, 'font' | 'pseudo' | 'vertical-align'> & {
-            buffer: {
-                start: number;
-                end: number;
-            };
+            buffer: IconStyles[ 'inline' ][ 'buffer' ];
 
             embedded: {
                 bottom: CSS.Number.Em;
             };
+
+            font: Pick<IconStyles[ 'font' ], 'top'>;
+            pseudo: Pick<IconStyles[ 'pseudo' ], 'top'>;
 
             size: Omit<IconStyles[ 'size' ], '$' | 'large'>;
         };
@@ -1546,7 +1552,7 @@ export namespace Tokens_CSS_Style {
 
                 padding: {
                     block: {
-                        end: 0 | AnyTokenLevel;
+                        end: 0 | CSS.Number.Em | AnyTokenLevel;
                     };
                 };
             };
@@ -1615,7 +1621,7 @@ export namespace Tokens_CSS_Style {
 
         padding: {
             block: {
-                end: 0 | AnyTokenLevel;
+                end: 0 | CSS.Number.Em | AnyTokenLevel;
             };
         };
     };

@@ -898,8 +898,9 @@ html {
     --button-font-size: 1em;
     --button-font-style: normal;
     --button-font-weight: 500;
-    --button-icon-buffer-end: -0.5;
-    --button-icon-buffer-start: 2.5;
+    --button-icon-buffer: 0.25em;
+    --button-icon-buffer-end: 0;
+    --button-icon-buffer-start: 2;
     --button-icon-embedded-bottom: 0.0625em;
     --button-icon-font-top: 0.1875em;
     --button-icon-pseudo-top: -0.0625em;
@@ -926,8 +927,9 @@ html {
     --button-inline-font-size: var(--fs-rel-smaller-1, 0.875em);
     --button-inline-font-style: normal;
     --button-inline-font-weight: 500;
-    --button-inline-icon-buffer-end: -0.5;
-    --button-inline-icon-buffer-start: 2.5;
+    --button-inline-icon-buffer: 0.25em;
+    --button-inline-icon-buffer-end: 0;
+    --button-inline-icon-buffer-start: 2;
     --button-inline-icon-embedded-bottom: 0.0625em;
     --button-inline-icon-font-top: 0.1875em;
     --button-inline-icon-pseudo-top: -0.0625em;
@@ -15953,17 +15955,18 @@ svg {
     margin-right: 0;
     max-width: 100%;
 }
-a figure,
-a img,
-a svg {
+a[href] figure,
+a[href] img,
+a[href] svg {
     --display: inline-block;
     display: inline-block;
     display: var(--display, inline-block);
 }
 
-img {
-    -o-object-fit: cover;
-    object-fit: cover;
+figcaption {
+    font-size: 0.875rem;
+    font-size: var(--fs-smaller-2, 0.875rem);
+    text-align: right;
 }
 
 figure {
@@ -15979,14 +15982,9 @@ figure {
     align-items: stretch;
     margin-bottom: 0;
 }
-figure img {
+figure img,
+figure svg {
     margin-top: 0;
-}
-
-figcaption {
-    font-size: 0.875rem;
-    font-size: var(--fs-smaller-2, 0.875rem);
-    text-align: right;
 }
 
 /* # GLOBALS - TYPOGRAPHY
@@ -19155,8 +19153,11 @@ a[href].button,
 a[href].button-secondary,
 a[href].button-grey {
     --focus-ring-outline-offset: var(--stroke-relative-400, 0.1875em);
-    --icon-inline-buffer-start: 2.5 !important;
-    --icon-inline-buffer-end: -0.5 !important;
+    --icon-inline-buffer: 0.25em !important;
+    --icon-inline-buffer-start: 2 !important;
+    --icon-inline-buffer-end: 0 !important;
+    --icon-font-top: 0.1875em;
+    --icon-pseudo-top: -0.0625em;
     --icon-size-font: 1em;
     --icon-size-pseudo: 1em;
     --icon-vertical-align: middle !important;
@@ -19465,10 +19466,14 @@ input[type="submit"]:has(> .brand-logo:only-child),
 a[href].button:has(> .brand-logo:only-child),
 a[href].button-secondary:has(> .brand-logo:only-child),
 a[href].button-grey:has(> .brand-logo:only-child) {
-    padding-left: 0.3125em;
-    padding-right: 0.3125em;
-    padding-left: var(--pad-soft-200, 0.3125em);
-    padding-right: var(--pad-soft-200, 0.3125em);
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-top: var(--mrg-firm-200, 0.5rem);
+    padding-bottom: var(--mrg-firm-200, 0.5rem);
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-left: var(--mrg-firm-200, 0.5rem);
+    padding-right: var(--mrg-firm-200, 0.5rem);
     line-height: 1 !important;
 }
 button:has(> .icon:only-child)::after,
@@ -19963,8 +19968,9 @@ a.display-inline[href].button,
 a.display-inline[href].button-secondary,
 a.display-inline[href].button-grey {
     --focus-ring-outline-offset: var(--stroke-relative-400, 0.1875em);
-    --icon-inline-buffer-start: 2.5 !important;
-    --icon-inline-buffer-end: -0.5 !important;
+    --icon-inline-buffer: 0.25em !important;
+    --icon-inline-buffer-start: 2 !important;
+    --icon-inline-buffer-end: 0 !important;
     --icon-size-font: 1em;
     --icon-size-pseudo: 1em;
     --icon-vertical-align: middle !important;
@@ -20056,7 +20062,6 @@ a.display-inline[href].button-grey
         1em * var(--icon-size-inline--multiplier, 1) *
             var(--icon-size-inline--font-multiplier, 1)
     );
-    --icon-font-top: 0;
     --icon-inline-margin-block-start: 0;
     --display: inline-block;
     display: inline-block;
@@ -20139,7 +20144,6 @@ a.display-inline[href].button-secondary
     .icon:not(.settings-menu-icon):not(.toggle-icon):only-child,
 a.display-inline[href].button-grey
     .icon:not(.settings-menu-icon):not(.toggle-icon):only-child {
-    --icon-font-top: 0;
     --icon-inline-margin-block-start: 0;
     --icon-inline-buffer-start: 0;
     --icon-inline-buffer-end: 0;
@@ -21038,7 +21042,6 @@ a[href].button-grey
         1em * var(--icon-size-inline--multiplier, 1) *
             var(--icon-size-inline--font-multiplier, 1)
     );
-    --icon-font-top: 0;
     --icon-inline-margin-block-start: 0;
     --display: inline-block;
     display: inline-block;
@@ -21110,7 +21113,6 @@ a[href].button-secondary
     .icon:not(.settings-menu-icon):not(.toggle-icon):only-child,
 a[href].button-grey
     .icon:not(.settings-menu-icon):not(.toggle-icon):only-child {
-    --icon-font-top: 0;
     --icon-inline-margin-block-start: 0;
     --icon-inline-buffer-start: 0;
     --icon-inline-buffer-end: 0;
@@ -21787,8 +21789,11 @@ input[type="submit"]::before {
 
 ::file-selector-button {
     --focus-ring-outline-offset: var(--stroke-relative-400, 0.1875em);
-    --icon-inline-buffer-start: 2.5 !important;
-    --icon-inline-buffer-end: -0.5 !important;
+    --icon-inline-buffer: 0.25em !important;
+    --icon-inline-buffer-start: 2 !important;
+    --icon-inline-buffer-end: 0 !important;
+    --icon-font-top: 0.1875em;
+    --icon-pseudo-top: -0.0625em;
     --icon-size-font: 1em;
     --icon-size-pseudo: 1em;
     --icon-vertical-align: middle !important;
@@ -25550,28 +25555,38 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 [data-toggle-control][data-state-focus="true"],
 .no-js [data-toggle-control]:focus,
 .js__no-whereSelector [data-toggle-control]:focus {
+    background: transparent;
     box-shadow: none;
     outline: none;
 }
 
 :where(.js__no-focusVisible) [data-toggle-control]:focus {
+    background: transparent;
     box-shadow: none;
     outline: none;
 }
 
 [data-toggle-control]:focus-visible {
+    background: transparent;
     box-shadow: none;
     outline: none;
 }
 
 [data-toggle-control]:focus-within {
+    background: transparent;
     box-shadow: none;
     outline: none;
 }
 
 [data-toggle-control]:has([data-state-focus="true"]) {
+    background: transparent;
     box-shadow: none;
     outline: none;
+}
+
+[data-toggle-control]:active,
+[data-toggle-control][data-state-active="true"] {
+    background: transparent;
 }
 
 [data-toggle-control-backdrop] {
@@ -27108,11 +27123,6 @@ html:where(.js),
         min(3vw, var(--mrg-firm-300, 0.8125rem))
     );
 }
-.website-settings__content fieldset > legend,
-.website-settings__content fieldset > legend:first-child {
-    margin-top: 0;
-    margin-bottom: 0;
-}
 .website-settings__content fieldset > .container {
     --display: flex;
     display: flex;
@@ -27153,8 +27163,11 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
 }
 :where(.js) .website-settings-menu [data-toggle-control] {
     --focus-ring-outline-offset: var(--stroke-relative-400, 0.1875em);
-    --icon-inline-buffer-start: 2.5 !important;
-    --icon-inline-buffer-end: -0.5 !important;
+    --icon-inline-buffer: 0.25em !important;
+    --icon-inline-buffer-start: 2 !important;
+    --icon-inline-buffer-end: 0 !important;
+    --icon-font-top: 0.1875em;
+    --icon-pseudo-top: -0.0625em;
     --icon-size-font: 1em;
     --icon-size-pseudo: 1em;
     --icon-vertical-align: middle !important;
@@ -27304,10 +27317,14 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
 :where(.js)
     .website-settings-menu
     [data-toggle-control]:has(> .brand-logo:only-child) {
-    padding-left: 0.3125em;
-    padding-right: 0.3125em;
-    padding-left: var(--pad-soft-200, 0.3125em);
-    padding-right: var(--pad-soft-200, 0.3125em);
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-top: var(--mrg-firm-200, 0.5rem);
+    padding-bottom: var(--mrg-firm-200, 0.5rem);
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-left: var(--mrg-firm-200, 0.5rem);
+    padding-right: var(--mrg-firm-200, 0.5rem);
     line-height: 1 !important;
 }
 :where(.js)
@@ -27380,7 +27397,6 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
         1em * var(--icon-size-inline--multiplier, 1) *
             var(--icon-size-inline--font-multiplier, 1)
     );
-    --icon-font-top: 0;
     --icon-inline-margin-block-start: 0;
     --display: inline-block;
     display: inline-block;
@@ -27427,7 +27443,6 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     .website-settings-menu
     [data-toggle-control]
     .icon:not(.settings-menu-icon):not(.toggle-icon):only-child {
-    --icon-font-top: 0;
     --icon-inline-margin-block-start: 0;
     --icon-inline-buffer-start: 0;
     --icon-inline-buffer-end: 0;
@@ -27498,9 +27513,9 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     > [data-toggle-content]
     > .container {
     padding-top: 0.78125rem;
-    padding-bottom: 0.8125rem;
+    padding-bottom: 0.78125rem;
     padding-top: var(--mrg-soft-400, 0.78125rem);
-    padding-bottom: var(--mrg-firm-300, 0.8125rem);
+    padding-bottom: var(--mrg-soft-400, 0.78125rem);
 }
 
 @media (prefers-reduced-motion: reduce) {

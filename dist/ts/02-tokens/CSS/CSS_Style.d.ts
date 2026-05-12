@@ -197,13 +197,12 @@ export declare namespace Tokens_CSS_Style {
             weight: WholeTokenLevel;
         };
         icon: Pick<IconStyles, 'font' | 'pseudo' | 'vertical-align'> & {
-            buffer: {
-                start: number;
-                end: number;
-            };
+            buffer: IconStyles['inline']['buffer'];
             embedded: {
                 bottom: CSS.Number.Em;
             };
+            font: Pick<IconStyles['font'], 'top'>;
+            pseudo: Pick<IconStyles['pseudo'], 'top'>;
             size: Omit<IconStyles['size'], '$' | 'large'>;
         };
         'letter-spacing': CSS.LetterSpacing;
@@ -486,7 +485,7 @@ export declare namespace Tokens_CSS_Style {
                 };
                 padding: {
                     block: {
-                        end: 0 | AnyTokenLevel;
+                        end: 0 | CSS.Number.Em | AnyTokenLevel;
                     };
                 };
             };
@@ -545,7 +544,7 @@ export declare namespace Tokens_CSS_Style {
         };
         padding: {
             block: {
-                end: 0 | AnyTokenLevel;
+                end: 0 | CSS.Number.Em | AnyTokenLevel;
             };
         };
     };

@@ -1,0 +1,94 @@
+///
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@forward '../../02-lib/functions';
+
+@forward 'pkg:@maddimathon/utility-astro/config/template/functions' hide
+    config-get-template-styles;
+
+@use 'pkg:@maddimathon/utility-astro/config/template/functions' as utils;
+@use 'sass:map';
+
+@function config-get-template-styles(
+    $inputs,
+    $include_html,
+    $isTemplate,
+    $template_tokens,
+    $template_globals,
+    $template_utils,
+    $template_astro,
+    $template_docs
+) {
+    $merged: utils.config-get-template-styles(
+        $inputs: map.deep-merge(
+                (
+                    alerts: $template_astro or $template_utils or
+                        map.get($inputs, icons),
+                    //
+                    astro: (
+                            bodyGrid: $template_astro,
+                            toggleNav: $template_astro and
+                                if(
+                                    map.has-key($inputs, toggleBlock),
+                                    map.get($inputs, toggleBlock),
+                                    true
+                                ),
+                            stickyToggleNav: $template_astro and
+                                if(
+                                    map.has-key($inputs, astro, toggleNav),
+                                    map.get($inputs, astro, toggleNav),
+                                    true
+                                ),
+                        ),
+                    //
+                    aside: $template_utils,
+                    blockquote: $template_globals,
+                    buttons: $template_globals,
+                    dl: $template_globals,
+                    flowMargins: $template_globals,
+                    focusRing: $template_globals or $template_utils or
+                        $include_html,
+                    headings: $template_globals,
+                    icons: $template_astro or $template_utils or
+                        map.get($inputs, alerts),
+                    images: $template_globals,
+                    keyframes: $template_globals or $template_tokens or
+                        $template_utils,
+                    //
+                    logos: $template_utils or $template_astro or
+                        map.get($inputs, alerts) or map.get($inputs, icons),
+                    //
+                    pageSubtitle: $template_utils,
+                    pre: $template_globals,
+                    //
+                    normalize: false,
+                    reset: $include_html and $isTemplate,
+                    searchForm: $template_utils,
+                    skipLinks: $include_html and
+                        (
+                            $template_astro or $template_globals or
+                                $template_utils,
+                        ),
+                    //
+                    sidebarWidgets: $template_astro or $template_docs,
+                    siteSettingsMenu: $template_astro,
+                    toggle: $template_astro,
+                ),
+                $inputs
+            ),
+        $include_html: $include_html,
+        $isTemplate: $isTemplate,
+        $template_tokens: $template_tokens,
+        $template_globals: $template_globals,
+        $template_utils: $template_utils,
+        $template_astro: $template_astro,
+    );
+
+    @if map.get($merged, astro, bodyGrid) and map.has-key($merged, bodyFlow) {
+        $merged: map.set($merged, bodyFlow, false);
+    }
+
+    @return $merged;
+}

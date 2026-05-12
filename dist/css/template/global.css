@@ -3854,10 +3854,6 @@ hr {
     color: var(--theme-ui-primary, CanvasText);
 }
 
-img {
-    height: auto;
-}
-
 figure,
 img,
 svg {
@@ -3865,15 +3861,21 @@ svg {
     margin-right: 0;
     max-width: 100%;
 }
-a figure,
-a img,
-a svg {
+a[href] figure,
+a[href] img,
+a[href] svg {
     display: inline-block;
 }
 
 img {
+    height: auto;
     -o-object-fit: cover;
     object-fit: cover;
+}
+
+figcaption {
+    font-size: 0.875rem;
+    text-align: right;
 }
 
 figure {
@@ -3887,13 +3889,9 @@ figure {
     align-items: stretch;
     margin-bottom: 0;
 }
-figure img {
+figure img,
+figure svg {
     margin-top: 0;
-}
-
-figcaption {
-    font-size: 0.875rem;
-    text-align: right;
 }
 
 /* # GLOBALS - TYPOGRAPHY
@@ -6378,8 +6376,11 @@ input[type="reset"],
 input[type="submit"],
 a[href].button {
     --focus-ring-outline-offset: 0.1875em;
-    --icon-inline-buffer-start: 2.5 !important;
-    --icon-inline-buffer-end: -0.5 !important;
+    --icon-inline-buffer: 0.25em !important;
+    --icon-inline-buffer-start: 2 !important;
+    --icon-inline-buffer-end: 0 !important;
+    --icon-font-top: 0.1875em;
+    --icon-pseudo-top: -0.0625em;
     --icon-size-font: 1em;
     --icon-size-pseudo: 1em;
     --icon-vertical-align: middle !important;
@@ -6948,8 +6949,9 @@ input.display-inline[type="reset"],
 input.display-inline[type="submit"],
 a.display-inline[href].button {
     --focus-ring-outline-offset: 0.1875em;
-    --icon-inline-buffer-start: 2.5 !important;
-    --icon-inline-buffer-end: -0.5 !important;
+    --icon-inline-buffer: 0.25em !important;
+    --icon-inline-buffer-start: 2 !important;
+    --icon-inline-buffer-end: 0 !important;
     --icon-size-font: 1em;
     --icon-size-pseudo: 1em;
     --icon-vertical-align: middle !important;
@@ -7798,8 +7800,11 @@ input[data-state-active="true"][type="reset"] * {
 
 ::file-selector-button {
     --focus-ring-outline-offset: 0.1875em;
-    --icon-inline-buffer-start: 2.5 !important;
-    --icon-inline-buffer-end: -0.5 !important;
+    --icon-inline-buffer: 0.25em !important;
+    --icon-inline-buffer-start: 2 !important;
+    --icon-inline-buffer-end: 0 !important;
+    --icon-font-top: 0.1875em;
+    --icon-pseudo-top: -0.0625em;
     --icon-size-font: 1em;
     --icon-size-pseudo: 1em;
     --icon-vertical-align: middle !important;

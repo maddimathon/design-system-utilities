@@ -1,0 +1,29 @@
+///
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@forward 'functions';
+
+@forward 'utility-astro';
+
+@forward 'fn-config';
+@forward 'mixin-config';
+
+@use 'sass:map';
+
+@use 'utility-astro' as utils;
+
+///
+/// @since ___PKG_VERSION___
+///
+$template_debug_checkpointsLevel: 6 !default;
+
+///
+/// @since 0.1.0-alpha
+/// @since ___PKG_VERSION___ — Renamed from $template_astro_settingsMenu_fontOverrides to $template_print_siteSettingsMenu_fontOverrides and moved to template config.
+///
+$template_print_siteSettingsMenu_fontOverrides: map.get(
+    utils.$template_styles,
+    siteSettingsMenu
+) !default;
