@@ -1024,7 +1024,14 @@ export class Tokens_CSS_Style extends AbstractTokens<{
     }
 
     public toScssVars(): Tokens_CSS_Style.ScssVars {
-        return objectKeySort_Tokens( this.data, true );
+        return objectKeySort_Tokens( {
+            ...this.data,
+            presetOpacities: [
+                this.data.selection.background.opacity.low,
+                this.data.selection.background.opacity.average,
+                this.data.selection.background.opacity.high,
+            ],
+        }, true );
     }
 }
 
@@ -1272,14 +1279,14 @@ export namespace Tokens_CSS_Style {
              * 
              * @since ___PKG_VERSION___
              */
-            export type Em = 0 | `${ number }em`;
+            export type Em = 0 | `${ number }em` | `-${ number }em`;
 
             /**
              * A number with % units.
              * 
              * @since ___PKG_VERSION___
              */
-            export type Percent = 0 | `${ number }%`;
+            export type Percent = 0 | `${ number }%` | `-${ number }%`;
         }
 
         /**
@@ -1734,12 +1741,12 @@ export namespace Tokens_CSS_Style {
          * @since ___PKG_VERSION___ — Restructured object nesting.
          */
         selection: {
-            background?: {
-                opacity?: {
+            background: {
+                opacity: {
                     /**
                      * Contrast modes.
                      */
-                    [ C in Exclude<TokenTypes.Theme.Mode.ContrastOption, 'max'> ]?: string;
+                    [ C in Exclude<TokenTypes.Theme.Mode.ContrastOption, 'max'> ]: CSS.Number.Percent;
                 };
             };
         };
@@ -1845,5 +1852,10 @@ export namespace Tokens_CSS_Style {
     /**
      * @since ___PKG_VERSION___
      */
-    export type ScssVars = Data;
+    export type ScssVars = Data & {
+        /**
+         * Opacity levels to print as colour tokens.
+         */
+        presetOpacities: CSS.Number.Percent[];
+    };
 }

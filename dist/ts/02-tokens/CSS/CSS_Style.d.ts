@@ -274,13 +274,13 @@ export declare namespace Tokens_CSS_Style {
              *
              * @since 0.1.0-beta.0.draft
              */
-            type Em = 0 | `${number}em`;
+            type Em = 0 | `${number}em` | `-${number}em`;
             /**
              * A number with % units.
              *
              * @since 0.1.0-beta.0.draft
              */
-            type Percent = 0 | `${number}%`;
+            type Percent = 0 | `${number}%` | `-${number}%`;
         }
         /**
          * @since 0.1.0-alpha
@@ -639,9 +639,9 @@ export declare namespace Tokens_CSS_Style {
          * @since 0.1.0-beta.0.draft — Restructured object nesting.
          */
         selection: {
-            background?: {
-                opacity?: {
-                    [C in Exclude<TokenTypes.Theme.Mode.ContrastOption, 'max'>]?: string;
+            background: {
+                opacity: {
+                    [C in Exclude<TokenTypes.Theme.Mode.ContrastOption, 'max'>]: CSS.Number.Percent;
                 };
             };
         };
@@ -728,5 +728,10 @@ export declare namespace Tokens_CSS_Style {
     /**
      * @since 0.1.0-beta.0.draft
      */
-    type ScssVars = Data;
+    type ScssVars = Data & {
+        /**
+         * Opacity levels to print as colour tokens.
+         */
+        presetOpacities: CSS.Number.Percent[];
+    };
 }

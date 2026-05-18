@@ -990,18 +990,15 @@
 /// @since 0.1.0-alpha
 ///
 @mixin snippet-selection($contrast: tokens.$contrastMode_default) {
-    //
-
-    $bg_opacity: if(
-        $contrast == average or $contrast == low or $contrast == high,
-        do-var(selection-background-opacity, var-style(selection-background-opacity-#{$contrast})),
-        null
-    );
-
     background-color: var-theme(
         selection-background,
         $contrast: $contrast,
-        $opacity: $bg_opacity
+        $opacity: if(
+                $contrast == average or $contrast == low or $contrast == high,
+                var-style(selection-background-opacity-#{$contrast}),
+                null
+            )
     ) !important;
+
     color: var-theme(selection-text, $contrast: $contrast) !important;
 }

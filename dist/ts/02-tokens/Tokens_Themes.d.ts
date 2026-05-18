@@ -54,7 +54,7 @@ export declare class Tokens_Themes<T_ColourTypes extends TokenTypes.Colour.TypeP
     /**
      * @since 0.1.0-beta.0.draft
      */
-    readonly meta: Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>;
+    readonly meta: Omit<Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>, 'brightness' | 'contrast'>;
     /**
      * @since 0.1.0-beta.0.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */

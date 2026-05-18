@@ -13,7 +13,7 @@
 
 @use '01-basic' as basic;
 
-$_themeNames: map.keys(basic.$themes);
+$_themeNames: list.except(map.keys(basic.$themes), '_meta');
 $_defaultThemeName: list.nth($_themeNames, 1);
 
 $activeTheme: null !default;
@@ -24,10 +24,56 @@ $activeTheme: config.config-valid-string(
     $options: $_themeNames
 );
 
-$brightnessMode_all: list.except(
-    map.keys(map.get(basic.$themes, $activeTheme)),
-    'forced-colors'
-) !default;
+$brightnessMode_options: list.join(
+    (),
+    map.get(basic.$themesMeta, brightness),
+    $separator: space
+);
+
+$contrastMode_options: list.join(
+    (average),
+    list.join(
+        list.except-any(
+            map.get(basic.$themesMeta, contrast),
+            (average, forced-colors)
+        ),
+        (forced-colors),
+        $separator: space
+    ),
+    $separator: space
+);
+
+$brightnessMode_all: null !default;
+$brightnessMode_all: config.config-valid-list-strings(
+    $brightnessMode_all,
+    'brightnessMode_all',
+    $default: $brightnessMode_options,
+    $options: $brightnessMode_options,
+    $allowEmptyList: false,
+    $separator: space,
+    $unquote: true
+);
+
+$contrastMode_all: null !default;
+$contrastMode_all: config.config-valid-list-strings(
+    $contrastMode_all,
+    'contrastMode_all',
+    $default: $contrastMode_options,
+    $options: $contrastMode_options,
+    $allowEmptyList: true,
+    $separator: space,
+    $unquote: true
+);
+
+$contrastMode_all: list.join(
+    (average),
+    list.join(
+        list.except-any($contrastMode_all, (average, forced-colors)),
+        (forced-colors),
+        $separator: space
+    ),
+    $separator: space
+);
 
 $brightnessMode_default: null !default;
 $brightnessMode_default: config.config-valid-string(
@@ -36,19 +82,6 @@ $brightnessMode_default: config.config-valid-string(
     $default: list.nth($brightnessMode_all, 1),
     $options: $brightnessMode_all,
 );
-
-$contrastMode_all: list.join(
-    (average),
-    list.join(
-        list.except-any(
-            map.keys(
-                map.get(basic.$themes, $activeTheme, $brightnessMode_default)
-            ),
-            (average, forced-colors)
-        ),
-        (forced-colors)
-    )
-) !default;
 
 $contrastMode_default: null !default;
 $contrastMode_default: config.config-valid-string(
@@ -86,6 +119,7 @@ $themes__nestedFlat: ();
     }
 }
 
+// UPGRADE - add better fallback than null
 $themes__nestedFlat_tokenValues: meta.call-global-compiler-fn(
     'mmdsu-global-themeFlattenGetValues',
     $warnMsg:
@@ -97,17 +131,6 @@ $themes__nestedFlat_tokenValues: meta.call-global-compiler-fn(
     $colours: basic.$colour,
     $replaceVarClrWithValue: config.$fn_var_replaceWithValue_colour,
     $includeHSL: config.$include_colourValues_hsl,
-    $includeRGB: config.$include_colourValues_rgb
+    $includeRGB: config.$include_colourValues_rgb,
+    $presetOpacities: basic.$colour_presetOpacities
 );
-
-// @if meta.function-exists('mmdsu-global-themeFlattenGetValues') {
-//     $themes__nestedFlat_tokenValues: mmdsu-global-themeFlattenGetValues(
-//         $themes: basic.$themes,
-//         $colours: basic.$colour,
-//         $replaceVarClrWithValue: config.$fn_var_replaceWithValue_colour,
-//         $includeHSL: config.$include_colourValues_hsl,
-//         $includeRGB: config.$include_colourValues_rgb,
-//     );
-// } @else if config.$themes__nestedFlat_tokenValues_warnIfNoFunction {
-//     @warn "[tokens] global compiler function for $themes__nestedFlat_tokenValues not found (and will significantly slow compile)";
-// }

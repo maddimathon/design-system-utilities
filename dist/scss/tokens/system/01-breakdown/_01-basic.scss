@@ -182,7 +182,7 @@ $margin: map.ksort(map.get(default.$designSystem, margin));
 
 // #region - THEMES
 
-$themesMeta: map.get(default.$designSystem, themes, _meta);
+$themesMeta: map.get(default.$designSystem, themes, '_meta');
 
 $themesMeta: map.set(
     $themesMeta,
@@ -199,7 +199,7 @@ $themesMeta: map.set(
 $themes: ();
 
 @each $key
-    in list.except(map.keys(map.get(default.$designSystem, themes)), _meta)
+    in list.except(map.keys(map.get(default.$designSystem, themes)), '_meta')
 {
     $themes: map.set(
         $themes,
@@ -300,6 +300,56 @@ $button_fileSelector_variation_default: config.config-valid-string(
 // #endregion - STYLES
 
 ///
+/// Opacity levels to print as colour tokens. Requires one of the colour
+/// breakdown configs to be true.
+///
+/// @since 0.1.0-beta.0.draft
+///
+$colour_presetOpacities: null !default;
+$colour_presetOpacities: config.config-valid-list-number(
+    $colour_presetOpacities,
+    'colour_presetOpacities',
+    $default: ()
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$colour_presetOpacities_includeFromTheme: null !default;
+$colour_presetOpacities_includeFromTheme: config.config-valid-bool(
+    $colour_presetOpacities_includeFromTheme,
+    'colour_presetOpacities_includeFromTheme',
+    $default: true
+);
+
+// joins the lists
+@if $colour_presetOpacities_includeFromTheme {
+    $_list: map.get(default.$designSystem, style, presetOpacities);
+
+    @if $_list != null {
+        $colour_presetOpacities: list.join($colour_presetOpacities, $_list);
+    }
+}
+
+// looping through to create a new list of all percentages, then making it unique
+@if list.length($colour_presetOpacities) > 0 {
+    $_filtered_list: ();
+
+    @each $num in $colour_presetOpacities {
+        $_filtered_list: list.append(
+            $_filtered_list,
+            math.to-percent($num),
+            $separator: comma
+        );
+    }
+
+    $colour_presetOpacities: list.sort(
+        list.unique($_filtered_list),
+        $sortAs: number
+    );
+}
+
+///
 /// All valid button variations.
 ///
 /// @since 0.1.0-beta.0.draft
@@ -318,3 +368,7 @@ $themesMeta_buttonVariations_extra: list.except(
     $themesMeta_buttonVariations,
     $button_variation_default
 );
+
+$style: map.remove($style, presetOpacities);
+$style_flat: map.remove($style_flat, presetOpacities);
+$style_flat_required: map.remove($style_flat_required, presetOpacities);

@@ -5,13 +5,16 @@
 
 @use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/math';
+@use 'pkg:@maddimathon/utility-sass/meta';
+@use 'pkg:@maddimathon/utility-sass/string';
 
 @use '../../../config';
 
 // @use '../00-default' as default;
 @use '../01-breakdown' as breakdown;
 
-// @use '02-colours' as *;
+@use '02-colours' as colours;
 
 ///
 /// Checks whether the given slug is a tokens key. If yes, it returns the
@@ -26,18 +29,53 @@
     $brightness: breakdown.$brightnessMode_default,
     $contrast: breakdown.$contrastMode_default,
     $themeSlug: breakdown.$activeTheme,
+    $opacity: null,
     $version: null,
     $warnOnFalse: false
 ) {
     $flat_isValues: breakdown.$themes__nestedFlat_tokenValues != null;
 
-    $versionSlug: if($version != null and $flat_isValues, '-#{$version}', '');
+    @if meta.type-of($opacity) == number {
+        $opacity: math.to-percent($opacity);
+
+        @if $opacity == 100% {
+            $opacity: null;
+        }
+    }
+
+    // confirming these props
+    @if not
+        config.$include_colourValues_hsl and not
+        config.$include_colourValues_rgb
+    {
+        $opacity: null;
+        $version: null;
+    } @else if $opacity != null {
+        $version: if(
+            $version == null,
+            if(config.$include_colourValues_hsl, hsl, rgb),
+            $version
+        );
+    }
+
+    $opacityIsPreset: $opacity != null and
+        list.index(breakdown.$colour_presetOpacities, $opacity) != null;
+
+    $suffixSlug: if(
+        $flat_isValues,
+        if(
+            $opacity != null and $opacityIsPreset,
+            '--#{math.deunit($opacity)}',
+            if($version != null, '-#{$version}', '')
+        ),
+        ''
+    );
 
     $activeTheme_flat: map.get(
         if(
             $flat_isValues,
             breakdown.$themes__nestedFlat_tokenValues,
-            $themes__nestedFlat
+            breakdown.$themes__nestedFlat
         ),
         $themeSlug
     );
@@ -52,7 +90,7 @@
             if(
                 $flat_isValues,
                 breakdown.$themes__nestedFlat_tokenValues,
-                $themes__nestedFlat
+                breakdown.$themes__nestedFlat
             ),
             default
         );
@@ -60,16 +98,12 @@
 
     // returns
     @if $contrast == forced-colors {
-        $value: map.get(
-            $activeTheme_flat,
-            $contrast,
-            '#{$slug}#{$versionSlug}'
-        );
+        $value: map.get($activeTheme_flat, $contrast, '#{$slug}#{$suffixSlug}');
 
         // returns
         @if $value == null {
             @if $warnOnFalse {
-                @warn "$slug '#{$slug}#{$versionSlug}' was not a key in tokens.$themes__nestedFlat_tokenValues.#{$themeSlug}.#{$contrast}";
+                @warn "$slug '#{$slug}#{$suffixSlug}' was not a key in tokens.$themes__nestedFlat_tokenValues.#{$themeSlug}.#{$contrast}";
             }
             @return false;
         }
@@ -97,13 +131,13 @@
         $activeTheme_flat,
         $brightness,
         $contrast,
-        '#{$slug}#{$versionSlug}'
+        '#{$slug}#{$suffixSlug}'
     );
 
     // returns - no fallback
     @if $value == null {
         @if $warnOnFalse {
-            @warn "$slug '#{$slug}#{$versionSlug}' was not a key in tokens.$themes__nestedFlat_tokenValues.#{$themeSlug}.#{$brightness}.#{$contrast}";
+            @warn "$slug '#{$slug}#{$suffixSlug}' was not a key in tokens.$themes__nestedFlat_tokenValues.#{$themeSlug}.#{$brightness}.#{$contrast}";
         }
         @return false;
     }
@@ -113,6 +147,7 @@
         @return colours.tokens-var-clr-from-theme-token(
             $value,
             $brightness: $brightness,
+            $opacity: $opacity,
             $version: $version
         );
     }
@@ -166,17 +201,23 @@
 ) {
     $clrIsSystemColor: false;
 
-    @if $version != null {
-        $opacity: null;
+    $themeVarSlug: theme-#{$slug};
 
+    @if meta.type-of($opacity) == number {
+        $opacity: math.to-percent($opacity);
+
+        @if $opacity == 100% {
+            $opacity: null;
+        }
+    }
+
+    @if $opacity == null and $version != null {
         @if $useSystemColorFallback == null {
             $useSystemColorFallback: false;
         } @else if $useSystemColorFallback {
             $version: null;
         }
     }
-
-    $clrSlug: null;
 
     @if $useSystemColorFallback == null {
         $useSystemColorFallback: if(
@@ -193,6 +234,12 @@
         $contrast: breakdown.$contrastMode_default;
     }
 
+    $opacityIsPreset: $opacity != null and
+        list.index(breakdown.$colour_presetOpacities, $opacity) != null;
+
+    $clrSlug: null;
+
+    // get system colour
     @if $useSystemColorFallback {
         $clrSlug: tokens-theme-token-exists(
             $slug,
@@ -203,6 +250,7 @@
         );
     }
 
+    // get non-system colour
     @if not $clrSlug {
         $clrSlug: tokens-theme-token-exists(
             $slug,
@@ -215,22 +263,37 @@
         $clrIsSystemColor: true;
     }
 
-    // returns
-    @if not $clrSlug {
-        @return config.config-do-var(theme-#{$slug}, $args...);
-    }
+    $opacity: if(
+        $opacity != null and (not $clrIsSystemColor or $opacityIsPreset),
+        $opacity,
+        null
+    );
 
-    $opacity: if($opacity != null and not $clrIsSystemColor, $opacity, null);
-
-    @if $clrIsSystemColor {
-        $opacity: null;
-        $version: null;
-    } @else if not
+    // confirming these props
+    @if not
         config.$include_colourValues_hsl and not
         config.$include_colourValues_rgb
     {
         $opacity: null;
         $version: null;
+    } @else if $opacity != null {
+        $version: if(
+            $version == null,
+            if(config.$include_colourValues_hsl, hsl, rgb),
+            $version
+        );
+    }
+
+    // updated var slug
+    @if $opacity != null and $opacityIsPreset {
+        $themeVarSlug: #{$themeVarSlug}--#{math.deunit($opacity)};
+    } @else if $version != null {
+        $themeVarSlug: #{$themeVarSlug}-#{$version};
+    }
+
+    // returns
+    @if not $clrSlug {
+        @return config.config-do-var($themeVarSlug, $args...);
     }
 
     $clrHasMoreThanOneValue: list.length($clrSlug) > 1;
@@ -244,63 +307,59 @@
         @return $clrSlug;
     }
 
+    // returns on success
+    @if $opacity != null {
+        $_value: tokens-theme-token-exists(
+            $slug,
+            $brightness: $brightness,
+            $contrast: $contrast,
+            $themeSlug: $themeSlug,
+            $opacity: $opacity,
+            $version: $version
+        );
+
+        @if $clrHasMoreThanOneValue {
+            $_value: list.nth($_value, 1);
+        }
+
+        @if $_value {
+            // returns
+            @if $opacityIsPreset {
+                @return config.config-do-var(
+                    $themeVarSlug,
+                    $fallback: $_value,
+                    $args...
+                );
+            }
+
+            @return string.unquote(
+                '#{$version}a(#{config.config-do-var($themeVarSlug, $fallback: $_value, $args...)}, #{$opacity})'
+            );
+        }
+    }
+
     // returns
     @if $version != null {
-        // prettier-ignore
-        @if (config.$include_colourValues_hsl and $version == hsl) or (config.$include_colourValues_rgb and $version == rgb) {
-            //
-            $_value: tokens-theme-token-exists(
-                $slug,
-                $brightness: $brightness,
-                $contrast: $contrast,
-                $themeSlug: $themeSlug,
-                $version: $version
-            );
+        $_value: tokens-theme-token-exists(
+            $slug,
+            $brightness: $brightness,
+            $contrast: $contrast,
+            $themeSlug: $themeSlug,
+            $version: $version
+        );
 
-            @if $clrHasMoreThanOneValue {
-                $_value: list.nth($_value, 1);
-            }
+        @if $clrHasMoreThanOneValue {
+            $_value: list.nth($_value, 1);
+        }
 
-            @if $_value {
-                @return config.config-do-var(theme-#{$slug}-#{$version},$fallback: $_value, $args...);
-            }
-        } @else {
+        @if $_value {
             @return config.config-do-var(
-                theme-#{$slug}-#{$version},
-                $fallback: null,
+                $themeVarSlug,
+                $fallback: $_value,
                 $args...
             );
         }
     }
 
-    // returns on success
-    @if $opacity != null {
-        $version: if(
-            config.$include_colourValues_hsl,
-            hsl,
-            if(config.$include_colourValues_rgb, rgb, null)
-        );
-
-        @if $version {
-            $_value: tokens-theme-token-exists(
-                $slug,
-                $brightness: $brightness,
-                $contrast: $contrast,
-                $themeSlug: $themeSlug,
-                $version: $version
-            );
-
-            @if $clrHasMoreThanOneValue {
-                $_value: list.nth($_value, 1);
-            }
-
-            @if $_value {
-                @return string.unquote(
-                    '#{$version}a(#{config.config-do-var(theme-#{$slug}-#{$version}, $fallback: $_value, $args...)}, #{$opacity})'
-                );
-            }
-        }
-    }
-
-    @return config.config-do-var(theme-#{$slug}, $fallback: $clrSlug, $args...);
+    @return config.config-do-var($themeVarSlug, $fallback: $clrSlug, $args...);
 }

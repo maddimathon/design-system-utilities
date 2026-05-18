@@ -21,14 +21,15 @@ import { getColourCSS } from '../../03-parsers/getColourCSS.js';
  */
 export function sassFn_themeFlattenGetValues() {
     return [
-        'mmdsu-global-themeFlattenGetValues( $colours, $themes, $replaceVarClrWithValue, $includeHSL, $includeRGB )',
+        'mmdsu-global-themeFlattenGetValues( $colours, $themes, $replaceVarClrWithValue, $includeHSL, $includeRGB, $presetOpacities )',
         async (args) => {
-            const [colourTokens, themeTokens, replaceVarClrWithValue = false, includeHSL = true, includeRGB = false,] = await Promise.all([
+            const [colourTokens, themeTokens, replaceVarClrWithValue = false, includeHSL = true, includeRGB = false, presetOpacities = [],] = await Promise.all([
                 sassAssertValueType('colours', 'map', args[0], true)?.then(map => (map instanceof Map ? mapToObjectAsync(map) : map)),
                 sassAssertValueType('themes', 'map', args[1], true)?.then(map => (map instanceof Map ? mapToObjectAsync(map) : map)),
                 sassAssertValueType('replaceVarClrWithValue', 'bool', args[2], true),
                 sassAssertValueType('includeHSL', 'bool', args[3], true),
                 sassAssertValueType('includeRGB', 'bool', args[4], true),
+                sassAssertValueType('presetOpacities', 'list', args[5], true),
             ]);
             if (!themeTokens) {
                 return sass.sassNull;
@@ -53,6 +54,11 @@ export function sassFn_themeFlattenGetValues() {
                     }
                     if (includeRGB) {
                         clr.rgb = clrVal;
+                    }
+                    if (includeHSL || includeRGB) {
+                        for (const opacity of presetOpacities) {
+                            clr[`-${opacity}`] = clrVal;
+                        }
                     }
                     return clr;
                 }
@@ -85,10 +91,17 @@ export function sassFn_themeFlattenGetValues() {
                 }
                 clr.$ = varMaker(val, ColourUtilities.toString.hsl(clrObj));
                 if (includeHSL) {
-                    clr.hsl = varMaker(`${val}-hsl`, `${clrObj.hsl.h}, ${clrObj.hsl.s}%, ${clrObj.hsl.l}%`);
+                    clr.hsl = varMaker(`${val}-hsl`, ColourUtilities.toList.hsl(clrObj));
                 }
                 if (includeRGB) {
-                    clr.rgb = varMaker(`${val}-rgb`, `${clrObj.rgb.r}, ${clrObj.rgb.g}, ${clrObj.rgb.b}`);
+                    clr.rgb = varMaker(`${val}-rgb`, ColourUtilities.toList.rgb(clrObj));
+                }
+                if (includeHSL || includeRGB) {
+                    for (const opacity of presetOpacities) {
+                        clr[`-${opacity}`] = varMaker(`${val}--${opacity}`, includeHSL
+                            ? `hsla( ${ColourUtilities.toList.hsl(clrObj)}, ${opacity}% )`
+                            : `rgba( ${ColourUtilities.toList.rgb(clrObj)}, ${opacity}% )`);
+                    }
                 }
                 return clr;
             };
@@ -111,6 +124,11 @@ export function sassFn_themeFlattenGetValues() {
                         }
                         if (includeRGB) {
                             clr.rgb = themeValue;
+                        }
+                        if (includeHSL || includeRGB) {
+                            for (const opacity of presetOpacities) {
+                                clr[`-${opacity}`] = themeValue;
+                            }
                         }
                         return clr;
                     }).then(themeSet => objectFlatten(themeSet)),

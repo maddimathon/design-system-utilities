@@ -239,8 +239,12 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 embedded: {
                     bottom: '0.0625em',
                 },
-                font: iconStyles.font,
-                pseudo: iconStyles.pseudo,
+                font: {
+                    top: iconStyles.font.top,
+                },
+                pseudo: {
+                    top: iconStyles.pseudo.top,
+                },
                 size: {
                     font: iconStyles.size.font,
                     pseudo: iconStyles.size.pseudo,
@@ -714,6 +718,13 @@ export class Tokens_CSS_Style extends AbstractTokens {
         return this.data;
     }
     toScssVars() {
-        return objectKeySort_Tokens(this.data, true);
+        return objectKeySort_Tokens({
+            ...this.data,
+            presetOpacities: [
+                this.data.selection.background.opacity.low,
+                this.data.selection.background.opacity.average,
+                this.data.selection.background.opacity.high,
+            ],
+        }, true);
     }
 }

@@ -735,6 +735,101 @@ export namespace ColourUtilities {
     /**
      * @since ___PKG_VERSION___
      */
+    export function toList(
+        clr: Exclude<Value, Value_Hex> | Value_All | { data: Value_All; },
+        errContext: LocalErrors.Context,
+        errMaker: LocalErrors.ConstructorFn,
+        _defaultSpace?: Exclude<keyof Value_All, 'hex'>,
+    ): string {
+        const defaultSpace = _defaultSpace ?? 'hsl';
+
+        // returns - converts
+        if ( typeof clr === 'string' ) {
+            return hexValidator( clr, errContext, errMaker );
+        }
+
+        // returns - already built
+        if ( isSingleShade( clr ) ) {
+
+            const converter = ColourUtilities.toList[ defaultSpace ] as ( clr: Value_Generic<typeof defaultSpace> ) => string;
+
+            return converter( validator(
+                clr.data[ defaultSpace ],
+                defaultSpace,
+                errContext,
+                errMaker,
+            ) );
+        }
+
+        // returns - already built
+        if ( isAllValues( clr ) ) {
+
+            const converter = ColourUtilities.toList[ defaultSpace ] as ( clr: Value_Generic<typeof defaultSpace> ) => string;
+
+            return converter( validator(
+                clr[ defaultSpace ],
+                defaultSpace,
+                errContext,
+                errMaker,
+            ) );
+        }
+
+        // returns - hsl
+        if ( 's' in clr ) {
+            return ColourUtilities.toList.hsl( hslValidator(
+                clr,
+                errContext,
+                errMaker,
+            ) );
+        }
+
+        // returns - oklch
+        if ( 'c' in clr ) {
+            return ColourUtilities.toList.lch( lchValidator(
+                clr,
+                errContext,
+                errMaker,
+            ) );
+        }
+
+        // returns - rgb
+        return ColourUtilities.toList.rgb( rgbValidator(
+            clr,
+            errContext,
+            errMaker,
+        ) );
+    }
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export namespace toList {
+
+        export function hsl(
+            clr: Value_HSL | Value_All | { data: Value_All; },
+        ): string {
+            const hsl = toHSL( clr );
+            return `${ hsl.h }, ${ hsl.s }%, ${ hsl.l }%`;
+        }
+
+        export function lch(
+            clr: Value_LCH | Value_All | { data: Value_All; },
+        ): string {
+            const lch = toLCH( clr );
+            return `${ lch.l }% ${ lch.c } ${ lch.h }`;
+        }
+
+        export function rgb(
+            clr: Value_RGB | Value_All | { data: Value_All; },
+        ): string {
+            const rgb = toRGB( clr );
+            return `${ rgb.r }, ${ rgb.g }, ${ rgb.b }`;
+        }
+    }
+
+    /**
+     * @since ___PKG_VERSION___
+     */
     export function toString(
         clr: Value | Value_All | { data: Value_All; },
         errContext: LocalErrors.Context,
@@ -814,22 +909,19 @@ export namespace ColourUtilities {
         export function hsl(
             clr: Value_HSL | Value_All | { data: Value_All; },
         ): string {
-            const hsl = toHSL( clr );
-            return `hsl( ${ hsl.h }, ${ hsl.s }%, ${ hsl.l }% )`;
+            return `hsl( ${ toList.hsl( clr ) } )`;
         }
 
         export function lch(
             clr: Value_LCH | Value_All | { data: Value_All; },
         ): string {
-            const lch = toLCH( clr );
-            return `lch( ${ lch.l }% ${ lch.c } ${ lch.h } )`;
+            return `lch( ${ toList.lch( clr ) } )`;
         }
 
         export function rgb(
             clr: Value_RGB | Value_All | { data: Value_All; },
         ): string {
-            const rgb = toRGB( clr );
-            return `rgb( ${ rgb.r }, ${ rgb.g }, ${ rgb.b } )`;
+            return `rgb( ${ toList.rgb( clr ) } )`;
         }
     }
 

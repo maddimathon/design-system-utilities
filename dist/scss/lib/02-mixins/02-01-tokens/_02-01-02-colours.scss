@@ -6,6 +6,7 @@
 @use 'pkg:@maddimathon/utility-sass/colour';
 @use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/math';
 @use 'pkg:@maddimathon/utility-sass/meta';
 @use 'pkg:@maddimathon/utility-sass/selector';
 @use 'pkg:@maddimathon/utility-sass/string';
@@ -158,7 +159,6 @@ $_flattenedSystemColors: map.flatten($_systemColors);
 
         @each $mode in tokens.$brightnessMode_all {
             @include utils.colour-mode($mode, $includeDefault: true) {
-                //
                 @each $slug, $map in tokens.$colour {
                     //
                     @if $slug == white {
@@ -189,7 +189,9 @@ $_flattenedSystemColors: map.flatten($_systemColors);
                         );
                     }
 
-                    @if config.$include_colourValues_hsl {
+                    @if config.$include_colourValues_hsl or
+                        config.$include_colourValues_rgb
+                    {
                         @each $level, $clr in $map {
                             $_clrValue: if(
                                 $mode == dark,
@@ -204,32 +206,46 @@ $_flattenedSystemColors: map.flatten($_systemColors);
                                 $clr
                             );
 
-                            @include utils.cx-prop(
-                                #{$_shadeNameSlug}-#{$level}-hsl,
-                                colour.to-hsl-list($_clrValue, $round: false)
-                            );
-                        }
-                    }
-
-                    @if config.$include_colourValues_rgb {
-                        @each $level, $clr in $map {
-                            $_clrValue: if(
-                                $mode == dark,
-                                map.get(
-                                    $map,
-                                    colour.shade-map-reverse-key(
-                                        $level,
-                                        $map,
-                                        $sort: false
+                            @if config.$include_colourValues_hsl {
+                                @include utils.cx-prop(
+                                    #{$_shadeNameSlug}-#{$level}-hsl,
+                                    colour.to-hsl-list(
+                                        $_clrValue,
+                                        $round: false
                                     )
-                                ),
-                                $clr
-                            );
+                                );
+                            }
 
-                            @include utils.cx-prop(
-                                #{$_shadeNameSlug}-#{$level}-rgb,
-                                colour.to-rgb-list($_clrValue, $round: true)
-                            );
+                            @if config.$include_colourValues_rgb {
+                                @include utils.cx-prop(
+                                    #{$_shadeNameSlug}-#{$level}-rgb,
+                                    colour.to-rgb-list($_clrValue, $round: true)
+                                );
+                            }
+
+                            @each $opacity in tokens.$colour_presetOpacities {
+                                $_opacity_clrValue: $_clrValue;
+
+                                @if config.$include_colourValues_hsl {
+                                    $_opacity_clrValue: colour.to-hsl(
+                                        $_clrValue,
+                                        $opacity: $opacity,
+                                        $round: false
+                                    );
+                                } @else if config.$include_colourValues_rgb {
+                                    $_opacity_clrValue: colour.to-rgb(
+                                        $_clrValue,
+                                        $opacity: $opacity
+                                    );
+                                }
+
+                                @include utils.cx-prop(
+                                    #{$_shadeNameSlug}-#{$level}--#{math.deunit(
+                                            $opacity
+                                        )},
+                                    $_opacity_clrValue
+                                );
+                            }
                         }
                     }
                 }
@@ -249,12 +265,11 @@ $_flattenedSystemColors: map.flatten($_systemColors);
 ///
 @mixin theme-set-color(
     $variant: null,
-    $brightness: tokens.$brightnessMode_default,
     $contrast: null,
     //
-    $themeSlug: tokens.$activeTheme,
     $color: null,
-    $iconColor: null
+    $iconColor: null,
+    $args...
 ) {
     @if $variant != null and not theme-token-exists(text-#{$variant}) {
         $variant: null;
@@ -276,10 +291,9 @@ $_flattenedSystemColors: map.flatten($_systemColors);
             $iconColor,
             var-theme(
                 ui#{$variantSlug},
-                $brightness: $brightness,
                 $contrast: $contrast,
-                $themeSlug: $themeSlug,
-                $useSystemColorFallback: $useSystemColorFallback
+                $useSystemColorFallback: $useSystemColorFallback,
+                $args...
             )
         )
     );
@@ -288,10 +302,9 @@ $_flattenedSystemColors: map.flatten($_systemColors);
         $color,
         var-theme(
             text#{$variantSlug},
-            $brightness: $brightness,
             $contrast: $contrast,
-            $themeSlug: $themeSlug,
-            $useSystemColorFallback: $useSystemColorFallback
+            $useSystemColorFallback: $useSystemColorFallback,
+            $args...
         )
     );
 }
@@ -356,6 +369,113 @@ $_flattenedSystemColors: map.flatten($_systemColors);
 }
 
 ///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin _tokens-theme-individual--inner(
+    $slug,
+    $brightness,
+    $contrast,
+    $includeSystemColours,
+    $flat_isValues,
+    $flattened,
+    $flattened_raw
+) {
+    @if $includeSystemColours {
+        @include tokens-sys-colour(
+            $brightness: $brightness,
+            $contrast: $contrast,
+            $themeSlug: $slug
+        );
+    }
+
+    $importantSuffix: if($contrast == forced-colors, ' !important', '');
+
+    @each $prop, $value in $flattened {
+        @if string.index($prop, system-) != 1 {
+            @each $_val in $value {
+                @include utils.cx-prop(
+                    theme-#{$prop},
+                    if(
+                            $flat_isValues,
+                            $_val,
+                            var-clr-from-theme-token(
+                                $_val,
+                                $brightness: $brightness
+                            )
+                        )
+                        #{$importantSuffix},
+                    $comment: if(
+                            $contrast != forced-colors and
+                                config.$fn_var_replaceWithValue_colour,
+                            map.get(
+                                tokens.$themes__nestedFlat,
+                                $slug,
+                                $brightness,
+                                $contrast,
+                                $prop
+                            ),
+                            null
+                        )
+                );
+            }
+
+            @if (not $flat_isValues) and
+                (
+                    config.$include_colourValues_hsl or
+                        config.$include_colourValues_rgb
+                )
+            {
+                // hsl & rgb values
+                @if not $flat_isValues {
+                    @if config.$include_colourValues_hsl {
+                        @each $_val in $value {
+                            @include utils.cx-prop(
+                                theme-#{$prop}-hsl,
+                                var-clr-from-theme-token(
+                                        $_val,
+                                        $brightness: $brightness,
+                                        $version: hsl
+                                    )
+                                    #{$importantSuffix}
+                            );
+                        }
+                    }
+
+                    @if config.$include_colourValues_rgb {
+                        @each $_val in $value {
+                            @include utils.cx-prop(
+                                theme-#{$prop}-rgb,
+                                var-clr-from-theme-token(
+                                        $_val,
+                                        $brightness: $brightness,
+                                        $version: rgb
+                                    )
+                                    #{$importantSuffix}
+                            );
+                        }
+                    }
+                }
+
+                // preset opacities
+                @each $opacity in tokens.$colour_presetOpacities {
+                    @each $_val in $value {
+                        @include utils.cx-prop(
+                            theme-#{$prop}--#{math.deunit($opacity)},
+                            var-clr-from-theme-token(
+                                    $_val,
+                                    $brightness: $brightness,
+                                    $opacity: $opacity
+                                )
+                                #{$importantSuffix}
+                        );
+                    }
+                }
+            }
+        }
+    }
+}
+
+///
 /// Prints a single theme's properties.
 ///
 /// @since 0.1.0-alpha.5
@@ -378,133 +498,43 @@ $_flattenedSystemColors: map.flatten($_systemColors);
         $slug
     );
 
+    $activeTheme_flat_raw: map.get(tokens.$themes__nestedFlat, $slug);
+
     @if $activeTheme_flat == null {
         @warn "$slug '#{$slug}' was not a key in tokens.$themes__nestedFlat_tokenValues";
     } @else {
         @if $contrast == forced-colors {
             $flattened: map.get($activeTheme_flat, forced-colors);
+            $flattened_raw: map.get($activeTheme_flat_raw, forced-colors);
 
-            @if $includeSystemColours {
-                @include tokens-sys-colour(
-                    $brightness: tokens.$brightnessMode_default,
-                    $contrast: $contrast,
-                    $themeSlug: $slug
-                );
-            }
-
-            @each $prop, $value in $flattened {
-                //
-                @each $_val in $value {
-                    @if string.index($prop, system-) != 1 {
-                        @include utils.cx-prop(
-                            theme-#{$prop},
-                            if(
-                                    $flat_isValues,
-                                    $_val,
-                                    var-clr-from-theme-token(
-                                        $_val,
-                                        $brightness: $brightness
-                                    )
-                                )
-                                !important
-                        );
-
-                        @if not $flat_isValues {
-                            //
-                            @if config.$include_colourValues_hsl {
-                                @include utils.cx-prop(
-                                    theme-#{$prop}-hsl,
-                                    var-clr-from-theme-token(
-                                            $_val,
-                                            $brightness: $brightness,
-                                            $version: hsl
-                                        )
-                                        !important
-                                );
-                            }
-
-                            @if config.$include_colourValues_rgb {
-                                @include utils.cx-prop(
-                                    theme-#{$prop}-rgb,
-                                    var-clr-from-theme-token(
-                                            $_val,
-                                            $brightness: $brightness,
-                                            $version: rgb
-                                        )
-                                        !important
-                                );
-                            }
-                        }
-                    }
-                }
-            }
+            @include _tokens-theme-individual--inner(
+                $slug: $slug,
+                $brightness: $brightness,
+                $contrast: $contrast,
+                $includeSystemColours: $includeSystemColours,
+                $flat_isValues: $flat_isValues,
+                $flattened: $flattened,
+                $flattened_raw: $flattened_raw
+            );
         } @else {
             //
             $flattened: map.get($activeTheme_flat, $brightness, $contrast);
+            $flattened_raw: map.get(
+                $activeTheme_flat_raw,
+                $brightness,
+                $contrast
+            );
 
             @if $flattened != null {
-                @if $includeSystemColours {
-                    @include tokens-sys-colour(
-                        $brightness: $brightness,
-                        $contrast: $contrast,
-                        $themeSlug: $slug
-                    );
-                }
-
-                @each $prop, $value in $flattened {
-                    @if string.index($prop, system-) != 1 {
-                        //
-                        @each $_val in $value {
-                            @include utils.cx-prop(
-                                theme-#{$prop},
-                                if(
-                                    $flat_isValues,
-                                    $_val,
-                                    var-clr-from-theme-token(
-                                        $_val,
-                                        $brightness: $brightness
-                                    )
-                                ),
-                                $comment: if(
-                                        config.$fn_var_replaceWithValue_colour,
-                                        map.get(
-                                            tokens.$themes__nestedFlat,
-                                            $slug,
-                                            $brightness,
-                                            $contrast,
-                                            $prop
-                                        ),
-                                        null
-                                    )
-                            );
-
-                            @if not $flat_isValues {
-                                //
-                                @if config.$include_colourValues_hsl {
-                                    @include utils.cx-prop(
-                                        theme-#{$prop}-hsl,
-                                        var-clr-from-theme-token(
-                                            $_val,
-                                            $brightness: $brightness,
-                                            $version: hsl
-                                        )
-                                    );
-                                }
-
-                                @if config.$include_colourValues_rgb {
-                                    @include utils.cx-prop(
-                                        theme-#{$prop}-rgb,
-                                        var-clr-from-theme-token(
-                                            $_val,
-                                            $brightness: $brightness,
-                                            $version: rgb
-                                        )
-                                    );
-                                }
-                            }
-                        }
-                    }
-                }
+                @include _tokens-theme-individual--inner(
+                    $slug: $slug,
+                    $brightness: $brightness,
+                    $contrast: $contrast,
+                    $includeSystemColours: $includeSystemColours,
+                    $flat_isValues: $flat_isValues,
+                    $flattened: $flattened,
+                    $flattened_raw: $flattened_raw
+                );
             }
         }
 
@@ -552,9 +582,7 @@ $_themes_includeAlternatives: if(
                 $includeSelectors: false,
                 $args...
             ) using ($brightness, $contrast) {
-                @if $contrast != max {
-                    @content($brightness, $contrast);
-                }
+                @content($brightness, $contrast);
             }
         }
 

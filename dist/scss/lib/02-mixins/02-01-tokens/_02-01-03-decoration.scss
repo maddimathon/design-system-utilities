@@ -72,7 +72,7 @@
             }
         }
 
-        @include utils.colour-mode((high, max, forced-colors)) {
+        @include utils.colour-mode((high, 'max', forced-colors)) {
             @each $slug, $_value in map.get(tokens.$border, width) {
                 $_borderValue: border-width-value(
                     $slug,
@@ -131,7 +131,7 @@
             }
         }
 
-        @include utils.colour-mode((high, max, forced-colors)) {
+        @include utils.colour-mode((high, 'max', forced-colors)) {
             @each $slug, $_value in tokens.$stroke_relative {
                 $_strokeValue: stroke-relative-value(
                     $slug,

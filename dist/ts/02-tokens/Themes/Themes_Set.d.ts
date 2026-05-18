@@ -43,7 +43,7 @@ export declare class Tokens_Themes_Set<T_ColourTypes extends TokenTypes.Colour.T
     /**
      * @since 0.1.0-beta.0.draft
      */
-    readonly meta: Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>;
+    readonly meta: Omit<Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>, 'brightness' | 'contrast'>;
     /**
      * @since 0.1.0-beta.0.draft — Changed second & third param to colours object (as fourth param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
@@ -66,6 +66,8 @@ export declare namespace Tokens_Themes_Set {
      * @since 0.1.0-beta.0.draft
      */
     type Metadata<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams> = {
+        brightness: readonly TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>[];
+        contrast: readonly (TokenTypes.Theme.GetContrastKeys<T_ThemeTypes> | "forced-colors")[];
         /**
          * Common keys for the given props in the single modes of this set.
          */

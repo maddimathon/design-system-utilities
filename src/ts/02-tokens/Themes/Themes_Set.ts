@@ -163,7 +163,7 @@ export class Tokens_Themes_Set<
     /**
      * @since ___PKG_VERSION___
      */
-    public readonly meta: Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>;
+    public readonly meta: Omit<Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>, 'brightness' | 'contrast'>;
 
     /**
      * @since ___PKG_VERSION___ — Changed second & third param to colours object (as fourth param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
@@ -277,7 +277,15 @@ export class Tokens_Themes_Set<
 
         return {
             _name: this.name ?? 'default',
-            _meta: this.meta,
+            _meta: {
+                brightness: this.brightnessModes,
+                contrast: [
+                    ...this.contrastModes,
+                    'forced-colors',
+                ],
+
+                ...this.meta
+            },
 
             forcedColours: this.forcedColours.toJSON(),
 
@@ -326,6 +334,9 @@ export namespace Tokens_Themes_Set {
         T_ColourTypes extends TokenTypes.Colour.TypeParams,
         T_ThemeTypes extends TokenTypes.Theme.TypeParams,
     > = {
+        brightness: readonly TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>[];
+        contrast: readonly ( TokenTypes.Theme.GetContrastKeys<T_ThemeTypes> | "forced-colors" )[];
+
         /**
          * Common keys for the given props in the single modes of this set.
          */

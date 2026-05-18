@@ -418,6 +418,57 @@ export var ColourUtilities;
     /**
      * @since 0.1.0-beta.0.draft
      */
+    function toList(clr, errContext, errMaker, _defaultSpace) {
+        const defaultSpace = _defaultSpace ?? 'hsl';
+        // returns - converts
+        if (typeof clr === 'string') {
+            return hexValidator(clr, errContext, errMaker);
+        }
+        // returns - already built
+        if (isSingleShade(clr)) {
+            const converter = ColourUtilities.toList[defaultSpace];
+            return converter(validator(clr.data[defaultSpace], defaultSpace, errContext, errMaker));
+        }
+        // returns - already built
+        if (isAllValues(clr)) {
+            const converter = ColourUtilities.toList[defaultSpace];
+            return converter(validator(clr[defaultSpace], defaultSpace, errContext, errMaker));
+        }
+        // returns - hsl
+        if ('s' in clr) {
+            return ColourUtilities.toList.hsl(hslValidator(clr, errContext, errMaker));
+        }
+        // returns - oklch
+        if ('c' in clr) {
+            return ColourUtilities.toList.lch(lchValidator(clr, errContext, errMaker));
+        }
+        // returns - rgb
+        return ColourUtilities.toList.rgb(rgbValidator(clr, errContext, errMaker));
+    }
+    ColourUtilities.toList = toList;
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    (function (toList) {
+        function hsl(clr) {
+            const hsl = toHSL(clr);
+            return `${hsl.h}, ${hsl.s}%, ${hsl.l}%`;
+        }
+        toList.hsl = hsl;
+        function lch(clr) {
+            const lch = toLCH(clr);
+            return `${lch.l}% ${lch.c} ${lch.h}`;
+        }
+        toList.lch = lch;
+        function rgb(clr) {
+            const rgb = toRGB(clr);
+            return `${rgb.r}, ${rgb.g}, ${rgb.b}`;
+        }
+        toList.rgb = rgb;
+    })(toList = ColourUtilities.toList || (ColourUtilities.toList = {}));
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
     function toString(clr, errContext, errMaker, _defaultSpace) {
         const defaultSpace = _defaultSpace ?? 'hsl';
         // returns - converts
@@ -455,18 +506,15 @@ export var ColourUtilities;
         }
         toString.hex = hex;
         function hsl(clr) {
-            const hsl = toHSL(clr);
-            return `hsl( ${hsl.h}, ${hsl.s}%, ${hsl.l}% )`;
+            return `hsl( ${toList.hsl(clr)} )`;
         }
         toString.hsl = hsl;
         function lch(clr) {
-            const lch = toLCH(clr);
-            return `lch( ${lch.l}% ${lch.c} ${lch.h} )`;
+            return `lch( ${toList.lch(clr)} )`;
         }
         toString.lch = lch;
         function rgb(clr) {
-            const rgb = toRGB(clr);
-            return `rgb( ${rgb.r}, ${rgb.g}, ${rgb.b} )`;
+            return `rgb( ${toList.rgb(clr)} )`;
         }
         toString.rgb = rgb;
     })(toString = ColourUtilities.toString || (ColourUtilities.toString = {}));

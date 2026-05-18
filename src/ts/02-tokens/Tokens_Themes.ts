@@ -151,7 +151,7 @@ export class Tokens_Themes<
     /**
      * @since ___PKG_VERSION___
      */
-    public readonly meta: Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>;
+    public readonly meta: Omit<Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>, 'brightness' | 'contrast'>;
 
     /**
      * @since ___PKG_VERSION___ — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
@@ -228,7 +228,15 @@ export class Tokens_Themes<
 
     public toJSON(): Tokens_Themes.JsonReturn<T_ColourTypes, T_ThemeTypes> {
         return {
-            _meta: this.meta,
+            _meta: {
+                brightness: this.brightnessModes,
+                contrast: [
+                    ...this.contrastModes,
+                    'forced-colors',
+                ],
+
+                ...this.meta
+            },
 
             ...objectMap(
                 this.sets,
@@ -239,7 +247,15 @@ export class Tokens_Themes<
 
     public toScssVars(): Tokens_Themes.ScssVars<T_ColourTypes, T_ThemeTypes> {
         return {
-            _meta: this.meta,
+            _meta: {
+                brightness: this.brightnessModes,
+                contrast: [
+                    ...this.contrastModes,
+                    'forced-colors',
+                ],
+
+                ...this.meta
+            },
 
             ...objectMap(
                 this.sets,

@@ -112,7 +112,14 @@ export class Tokens_Themes_Set extends AbstractTokens {
     toJSON() {
         return {
             _name: this.name ?? 'default',
-            _meta: this.meta,
+            _meta: {
+                brightness: this.brightnessModes,
+                contrast: [
+                    ...this.contrastModes,
+                    'forced-colors',
+                ],
+                ...this.meta
+            },
             forcedColours: this.forcedColours.toJSON(),
             ...objectMap(this.modes, ([brightnessMode]) => objectMap(this.modes[brightnessMode], ([__key, value]) => value.toJSON())),
         };

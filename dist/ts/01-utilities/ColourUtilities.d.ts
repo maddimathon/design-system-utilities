@@ -108,6 +108,26 @@ export declare namespace ColourUtilities {
     /**
      * @since 0.1.0-beta.0.draft
      */
+    function toList(clr: Exclude<Value, Value_Hex> | Value_All | {
+        data: Value_All;
+    }, errContext: LocalErrors.Context, errMaker: LocalErrors.ConstructorFn, _defaultSpace?: Exclude<keyof Value_All, 'hex'>): string;
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    namespace toList {
+        function hsl(clr: Value_HSL | Value_All | {
+            data: Value_All;
+        }): string;
+        function lch(clr: Value_LCH | Value_All | {
+            data: Value_All;
+        }): string;
+        function rgb(clr: Value_RGB | Value_All | {
+            data: Value_All;
+        }): string;
+    }
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
     function toString(clr: Value | Value_All | {
         data: Value_All;
     }, errContext: LocalErrors.Context, errMaker: LocalErrors.ConstructorFn, _defaultSpace?: keyof Value_All): string;

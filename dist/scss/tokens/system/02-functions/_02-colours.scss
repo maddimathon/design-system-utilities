@@ -4,7 +4,9 @@
 ///
 
 @use 'pkg:@maddimathon/utility-sass/colour';
+@use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/math';
 @use 'pkg:@maddimathon/utility-sass/meta';
 @use 'pkg:@maddimathon/utility-sass/string';
 
@@ -27,6 +29,7 @@
     $slug,
     $level,
     $brightness: breakdown.$brightnessMode_default,
+    $opacity: null,
     $version: null,
     $args...
 ) {
@@ -40,20 +43,32 @@
         $clrVarSlug: #{$clrVarSlug}-#{$level};
     }
 
-    @if $version == hsl {
-        @if config.$include_colourValues_hsl {
-            $clrVarSlug: #{$clrVarSlug}-hsl;
-        } @else {
-            $version: null;
+    @if meta.type-of($opacity) == number {
+        $opacity: math.to-percent($opacity);
+
+        @if $opacity == 100% {
+            $opacity: null;
         }
     }
 
-    @if $version == rgb {
-        @if config.$include_colourValues_rgb {
-            $clrVarSlug: #{$clrVarSlug}-rgb;
-        } @else {
-            $version: null;
+    @if $opacity == null {
+        @if $version == hsl {
+            @if config.$include_colourValues_hsl {
+                $clrVarSlug: #{$clrVarSlug}-hsl;
+            } @else {
+                $version: null;
+            }
         }
+
+        @if $version == rgb {
+            @if config.$include_colourValues_rgb {
+                $clrVarSlug: #{$clrVarSlug}-rgb;
+            } @else {
+                $version: null;
+            }
+        }
+    } @else {
+        $version: null;
     }
 
     $slugMap: map.get(breakdown.$colour, $slug);
@@ -98,7 +113,46 @@
 
     $fallback: $fallback_clr;
 
-    @if $version == hsl {
+    // opacity returns if not a preset
+    @if $opacity != null {
+        @if list.index(breakdown.$colour_presetOpacities, $opacity) != null {
+            $clrVarSlug: #{$clrVarSlug}--#{math.deunit($opacity)};
+
+            @if $version == rgb {
+                $fallback: colour.to-rgb(
+                    $fallback_clr,
+                    $round: true,
+                    $opacity: $opacity
+                );
+            } @else {
+                $fallback: colour.to-hsl(
+                    $fallback_clr,
+                    $round: false,
+                    $opacity: $opacity
+                );
+            }
+        } @else {
+            @if $version == rgb {
+                $_var: config.config-do-var(
+                    $clrVarSlug,
+                    $fallback: colour.to-rgb-list($fallback_clr, $round: true),
+                    $fallbackOnly: config.$fn_var_replaceWithValue_colour,
+                    $args...
+                );
+
+                @return string.unquote('rgba( #{$_var}, #{$opacity} )');
+            } @else {
+                $_var: config.config-do-var(
+                    $clrVarSlug,
+                    $fallback: colour.to-hsl-list($fallback_clr, $round: false),
+                    $fallbackOnly: config.$fn_var_replaceWithValue_colour,
+                    $args...
+                );
+
+                @return string.unquote('hsla( #{$_var}, #{$opacity} )');
+            }
+        }
+    } @else if $version == hsl {
         $fallback: colour.to-hsl-list($fallback_clr, $round: false);
     } @else if $version == rgb {
         $fallback: colour.to-rgb-list($fallback_clr, $round: true);
@@ -143,6 +197,8 @@
             $args...
         );
     }
+
+    $args: meta.keywords($args);
 
     @return $tokenValue;
 }

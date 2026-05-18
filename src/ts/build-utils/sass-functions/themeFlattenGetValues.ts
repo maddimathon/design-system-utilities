@@ -45,7 +45,7 @@ import { getColourCSS } from '../../03-parsers/getColourCSS.js';
 export function sassFn_themeFlattenGetValues(): [ string, sass.CustomFunction<'async'> ] {
 
     return [
-        'mmdsu-global-themeFlattenGetValues( $colours, $themes, $replaceVarClrWithValue, $includeHSL, $includeRGB )',
+        'mmdsu-global-themeFlattenGetValues( $colours, $themes, $replaceVarClrWithValue, $includeHSL, $includeRGB, $presetOpacities )',
         async ( args: sass.Value[] ) => {
 
             const [
@@ -54,6 +54,7 @@ export function sassFn_themeFlattenGetValues(): [ string, sass.CustomFunction<'a
                 replaceVarClrWithValue = false,
                 includeHSL = true,
                 includeRGB = false,
+                presetOpacities = [],
             ] = await Promise.all( [
 
                 sassAssertValueType( 'colours', 'map', args[ 0 ], true )?.then(
@@ -67,6 +68,8 @@ export function sassFn_themeFlattenGetValues(): [ string, sass.CustomFunction<'a
                 sassAssertValueType( 'replaceVarClrWithValue', 'bool', args[ 2 ], true ),
                 sassAssertValueType( 'includeHSL', 'bool', args[ 3 ], true ),
                 sassAssertValueType( 'includeRGB', 'bool', args[ 4 ], true ),
+
+                sassAssertValueType( 'presetOpacities', 'list', args[ 5 ], true ) as Promise<number[] | undefined>,
             ] );
 
             if ( !themeTokens ) {
@@ -94,7 +97,13 @@ export function sassFn_themeFlattenGetValues(): [ string, sass.CustomFunction<'a
                     return clrVal;
                 }
 
-                const clr: { $: string; hsl?: string; rgb?: string; } = {
+                const clr: {
+                    $: string;
+                    hsl?: string;
+                    rgb?: string;
+                } & {
+                    [ K in `-${ number }` ]?: string;
+                } = {
                     $: clrVal,
                 };
 
@@ -106,9 +115,17 @@ export function sassFn_themeFlattenGetValues(): [ string, sass.CustomFunction<'a
                     if ( includeHSL ) {
                         clr.hsl = clrVal;
                     }
+
                     if ( includeRGB ) {
                         clr.rgb = clrVal;
                     }
+
+                    if ( includeHSL || includeRGB ) {
+                        for ( const opacity of presetOpacities ) {
+                            clr[ `-${ opacity }` ] = clrVal;
+                        }
+                    }
+
                     return clr;
                 }
 
@@ -156,15 +173,26 @@ export function sassFn_themeFlattenGetValues(): [ string, sass.CustomFunction<'a
                 if ( includeHSL ) {
                     clr.hsl = varMaker(
                         `${ val }-hsl`,
-                        `${ clrObj.hsl.h }, ${ clrObj.hsl.s }%, ${ clrObj.hsl.l }%`,
+                        ColourUtilities.toList.hsl( clrObj ),
                     );
                 }
 
                 if ( includeRGB ) {
                     clr.rgb = varMaker(
                         `${ val }-rgb`,
-                        `${ clrObj.rgb.r }, ${ clrObj.rgb.g }, ${ clrObj.rgb.b }`,
+                        ColourUtilities.toList.rgb( clrObj ),
                     );
+                }
+
+                if ( includeHSL || includeRGB ) {
+                    for ( const opacity of presetOpacities ) {
+                        clr[ `-${ opacity }` ] = varMaker(
+                            `${ val }--${ opacity }`,
+                            includeHSL
+                                ? `hsla( ${ ColourUtilities.toList.hsl( clrObj ) }, ${ opacity }% )`
+                                : `rgba( ${ ColourUtilities.toList.rgb( clrObj ) }, ${ opacity }% )`,
+                        );
+                    }
                 }
 
                 return clr;
@@ -191,7 +219,13 @@ export function sassFn_themeFlattenGetValues(): [ string, sass.CustomFunction<'a
                                     return themeValue;
                                 }
 
-                                const clr: { $: string; hsl?: string; rgb?: string; } = {
+                                const clr: {
+                                    $: string;
+                                    hsl?: string;
+                                    rgb?: string;
+                                } & {
+                                    [ K in `-${ number }` ]?: string;
+                                } = {
                                     $: themeValue,
                                 };
 
@@ -200,6 +234,12 @@ export function sassFn_themeFlattenGetValues(): [ string, sass.CustomFunction<'a
                                 }
                                 if ( includeRGB ) {
                                     clr.rgb = themeValue;
+                                }
+
+                                if ( includeHSL || includeRGB ) {
+                                    for ( const opacity of presetOpacities ) {
+                                        clr[ `-${ opacity }` ] = themeValue;
+                                    }
                                 }
 
                                 return clr;

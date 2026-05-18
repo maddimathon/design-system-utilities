@@ -94,13 +94,27 @@ export class Tokens_Themes extends AbstractTokens {
     }
     toJSON() {
         return {
-            _meta: this.meta,
+            _meta: {
+                brightness: this.brightnessModes,
+                contrast: [
+                    ...this.contrastModes,
+                    'forced-colors',
+                ],
+                ...this.meta
+            },
             ...objectMap(this.sets, ([key, value]) => value.toJSON()),
         };
     }
     toScssVars() {
         return {
-            _meta: this.meta,
+            _meta: {
+                brightness: this.brightnessModes,
+                contrast: [
+                    ...this.contrastModes,
+                    'forced-colors',
+                ],
+                ...this.meta
+            },
             ...objectMap(this.sets, ([key, value]) => value.toScssVars()),
         };
     }
