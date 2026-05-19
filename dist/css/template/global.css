@@ -5370,6 +5370,7 @@ dt + li {
     margin-top: 1.65625rem;
     margin-top: var(--flow-margin--large, 1.65625rem);
 }
+dt + hr,
 dt + button,
 dt + [role="button"],
 dt + input[type="button"],
@@ -5381,6 +5382,7 @@ dt + img {
     margin-top: var(--flow-margin-firm-start--large, 2.25rem);
 }
 
+hr,
 button,
 [role="button"],
 input[type="button"],
@@ -5443,6 +5445,7 @@ blockquote + li {
     margin-top: 1.65625rem;
     margin-top: var(--flow-margin--large, 1.65625rem);
 }
+blockquote + hr,
 blockquote + button,
 blockquote + [role="button"],
 blockquote + input[type="button"],
@@ -6066,6 +6069,7 @@ h1 {
     color: var(--theme-heading-1, CanvasText);
 }
 h1:has(
+    + hr,
     + button,
     + [role="button"],
     + input[type="button"],
@@ -6106,6 +6110,7 @@ h1 samp {
     color: var(--theme-heading-1, CanvasText);
 }
 :has(
+    + hr,
     + button,
     + [role="button"],
     + input[type="button"],
@@ -6147,6 +6152,7 @@ h2 {
     color: var(--theme-heading-2, CanvasText);
 }
 h2:has(
+    + hr,
     + button,
     + [role="button"],
     + input[type="button"],
@@ -6187,6 +6193,7 @@ h2 samp {
     color: var(--theme-heading-2, CanvasText);
 }
 :has(
+    + hr,
     + button,
     + [role="button"],
     + input[type="button"],
@@ -6228,6 +6235,7 @@ h3 {
     color: var(--theme-heading-3, CanvasText);
 }
 h3:has(
+    + hr,
     + button,
     + [role="button"],
     + input[type="button"],
@@ -6268,6 +6276,7 @@ h3 samp {
     color: var(--theme-heading-3, CanvasText);
 }
 :has(
+    + hr,
     + button,
     + [role="button"],
     + input[type="button"],
@@ -6317,6 +6326,7 @@ h4 {
     color: var(--theme-heading-4, CanvasText);
 }
 h4:has(
+    + hr,
     + button,
     + [role="button"],
     + input[type="button"],
@@ -6365,6 +6375,7 @@ h4 samp {
     color: var(--theme-heading-4, CanvasText);
 }
 :has(
+    + hr,
     + button,
     + [role="button"],
     + input[type="button"],
@@ -6414,6 +6425,7 @@ h5 {
     color: var(--theme-heading-5, CanvasText);
 }
 h5:has(
+    + hr,
     + button,
     + [role="button"],
     + input[type="button"],
@@ -6462,6 +6474,7 @@ h5 samp {
     color: var(--theme-heading-5, CanvasText);
 }
 :has(
+    + hr,
     + button,
     + [role="button"],
     + input[type="button"],
@@ -6511,6 +6524,7 @@ h6 {
     color: var(--theme-heading-6, CanvasText);
 }
 h6:has(
+    + hr,
     + button,
     + [role="button"],
     + input[type="button"],
@@ -6559,6 +6573,7 @@ h6 samp {
     color: var(--theme-heading-6, CanvasText);
 }
 :has(
+    + hr,
     + button,
     + [role="button"],
     + input[type="button"],
@@ -6600,6 +6615,7 @@ h6 samp {
     color: var(--theme-heading-7, CanvasText);
 }
 :has(
+    + hr,
     + button,
     + [role="button"],
     + input[type="button"],
@@ -6649,6 +6665,7 @@ h6 samp {
     color: var(--theme-heading-8, CanvasText);
 }
 :has(
+    + hr,
     + button,
     + [role="button"],
     + input[type="button"],
@@ -6698,6 +6715,7 @@ h6 samp {
     color: var(--theme-heading-9, CanvasText);
 }
 :has(
+    + hr,
     + button,
     + [role="button"],
     + input[type="button"],
@@ -6747,6 +6765,7 @@ h6 samp {
     color: var(--theme-heading-10, CanvasText);
 }
 :has(
+    + hr,
     + button,
     + [role="button"],
     + input[type="button"],
@@ -7092,12 +7111,12 @@ input:hover {
     accent-color: var(--theme-input-accent-hover, CanvasText);
     opacity: 1;
 }
-textarea[data-state-focus="true"],
-select[data-state-focus="true"],
-input[data-state-focus="true"],
 textarea:focus,
 select:focus,
-input:focus {
+input:focus,
+textarea[data-state-focus="true"],
+select[data-state-focus="true"],
+input[data-state-focus="true"] {
     --focus-ring-outline-color: var(--theme-input-accent-focus, CanvasText);
     background-color: hsl(339.45, 0%, 96.6%);
     background-color: var(--theme-input-background, Field);
@@ -7214,18 +7233,18 @@ input[disabled]:hover {
     accent-color: hsl(339.45, 0%, 34.6%);
     accent-color: var(--theme-input-disabled-accent-hover, CanvasText);
 }
-textarea[aria-disabled="true"][data-state-focus="true"],
-select[aria-disabled="true"][data-state-focus="true"],
-input[aria-disabled="true"][data-state-focus="true"],
-textarea[disabled][data-state-focus="true"],
-select[disabled][data-state-focus="true"],
-input[disabled][data-state-focus="true"],
 textarea[aria-disabled="true"]:focus,
 select[aria-disabled="true"]:focus,
 input[aria-disabled="true"]:focus,
 textarea[disabled]:focus,
 select[disabled]:focus,
-input[disabled]:focus {
+input[disabled]:focus,
+textarea[aria-disabled="true"][data-state-focus="true"],
+select[aria-disabled="true"][data-state-focus="true"],
+input[aria-disabled="true"][data-state-focus="true"],
+textarea[disabled][data-state-focus="true"],
+select[disabled][data-state-focus="true"],
+input[disabled][data-state-focus="true"] {
     --focus-ring-outline-color: var(
         --theme-input-disabled-accent-focus,
         CanvasText
@@ -7350,12 +7369,12 @@ input[readonly]:hover {
     accent-color: hsl(321, 68%, 26%);
     accent-color: var(--theme-input-readonly-accent-hover, CanvasText);
 }
-textarea[readonly][data-state-focus="true"],
-select[readonly][data-state-focus="true"],
-input[readonly][data-state-focus="true"],
 textarea[readonly]:focus,
 select[readonly]:focus,
-input[readonly]:focus {
+input[readonly]:focus,
+textarea[readonly][data-state-focus="true"],
+select[readonly][data-state-focus="true"],
+input[readonly][data-state-focus="true"] {
     --focus-ring-outline-color: var(
         --theme-input-readonly-accent-focus,
         CanvasText
@@ -7769,7 +7788,6 @@ input[type="reset"][disabled] * {
     --icon-color: var(--theme-button-disabled-ui, ButtonText);
     color: inherit !important;
 }
-/* if 8 */
 input[type="submit"][aria-disabled="true"]:hover,
 input[type="reset"][aria-disabled="true"]:hover,
 input[type="submit"][disabled]:hover,
@@ -8055,7 +8073,6 @@ a[href].button * {
     --icon-color: var(--theme-button-primary-ui, ButtonText);
     color: inherit !important;
 }
-/* if 8 */
 button:hover,
 [role="button"]:hover,
 input[type="button"]:hover,
@@ -8282,7 +8299,6 @@ a[disabled][href].button * {
     --icon-color: var(--theme-button-disabled-ui, ButtonText);
     color: inherit !important;
 }
-/* if 8 */
 button[aria-disabled="true"]:hover,
 [aria-disabled="true"][role="button"]:hover,
 input[aria-disabled="true"][type="button"]:hover,
@@ -8614,7 +8630,6 @@ a.display-inline[href].button {
     --icon-color: var(--theme-button-grey-ui, ButtonText);
     color: inherit !important;
 }
-/* if 8 */
 :is(
         button,
         [role="button"],
@@ -8881,7 +8896,6 @@ a.display-inline[href].button {
     --icon-color: var(--theme-button-disabled-ui, ButtonText);
     color: inherit !important;
 }
-/* if 8 */
 [aria-disabled="true"]:is(
         button,
         [role="button"],
@@ -9264,9 +9278,8 @@ a[href].button samp {
     font-style: inherit;
     line-height: 1;
     background: transparent;
+    border: none;
 }
-/* if 8 */
-/* if 8 */
 button[type="reset"],
 input[type="reset"] {
     --focus-ring-outline-color: var(
@@ -9289,7 +9302,6 @@ input[type="reset"] * {
     --icon-color: var(--theme-button-secondary-ui, ButtonText);
     color: inherit !important;
 }
-/* if 8 */
 button[type="reset"]:hover,
 input[type="reset"]:hover,
 button[data-state-focus="true"][type="reset"],
@@ -9474,7 +9486,6 @@ input[data-state-active="true"][type="reset"] * {
     --icon-color: var(--theme-button-grey-ui, ButtonText);
     color: inherit !important;
 }
-/* if 8 */
 :hover::file-selector-button {
     --focus-ring-outline-color: var(
         --theme-button-grey-outline-hover,
@@ -9650,7 +9661,6 @@ input[data-state-active="true"][type="reset"] * {
     --icon-color: var(--theme-button-disabled-ui, ButtonText);
     color: inherit !important;
 }
-/* if 8 */
 [aria-disabled="true"]:hover::file-selector-button,
 [disabled]:hover::file-selector-button,
 [aria-disabled="true"][data-state-focus="true"]::file-selector-button,

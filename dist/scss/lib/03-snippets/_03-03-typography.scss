@@ -79,6 +79,7 @@
     $iconColor: null,
     $fontWeight: null,
     $fontWeight_strong: null,
+    $fontSize: null,
     $fontStyle: null,
     $lineHeight: null,
     $link_decorationThickness: null,
@@ -105,6 +106,19 @@
             $slug == unstyled,
             null,
             var-style(heading-#{$slug}-margin-block-end)
+        )
+    );
+
+    $fontSize: if(
+        $fontSize,
+        $fontSize,
+        if(
+            $slug == unstyled,
+            var-fs(
+                style-value(heading-unstyled-font-size, $raw: true),
+                $relative: $useRelativeFontSize
+            ),
+            var-fs(heading-#{$slug}, $relative: $useRelativeFontSize)
         )
     );
 
@@ -143,15 +157,7 @@
         $fontWeight,
         var-style(heading-#{$slug}-font-weight)
     );
-
-    font-size: if(
-        $slug == unstyled,
-        var-fs(
-            style-value(heading-unstyled-font-size, $raw: true),
-            $relative: $useRelativeFontSize
-        ),
-        var-fs(heading-#{$slug}, $relative: $useRelativeFontSize)
-    );
+    font-size: $fontSize;
 
     line-height: if(
         $lineHeight,

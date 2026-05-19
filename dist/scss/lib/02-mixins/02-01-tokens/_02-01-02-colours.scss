@@ -517,7 +517,6 @@ $_flattenedSystemColors: map.flatten($_systemColors);
                 $flattened_raw: $flattened_raw
             );
         } @else {
-            //
             $flattened: map.get($activeTheme_flat, $brightness, $contrast);
             $flattened_raw: map.get(
                 $activeTheme_flat_raw,
@@ -546,6 +545,8 @@ $_flattenedSystemColors: map.flatten($_systemColors);
             );
         }
     }
+
+    @content;
 }
 
 $_themes_includeAlternatives: if(
@@ -663,7 +664,7 @@ $_themes_includeAlternatives: if(
                     $verbose: true,
                 );
             }
-            @content ($brightness, $contrast, $location: main);
+            @content ($brightness, $contrast, main);
             //
         } @else {
             //
@@ -690,7 +691,7 @@ $_themes_includeAlternatives: if(
                             $contrast: $contrast,
                             $includeSystemColours: $includeSystemColours,
                         );
-                        @content ($brightness, $contrast, $location: main);
+                        @content ($brightness, $contrast, main);
                     }
                 } @else {
                     &,
@@ -703,7 +704,7 @@ $_themes_includeAlternatives: if(
                             $contrast: $contrast,
                             $includeSystemColours: $includeSystemColours,
                         );
-                        @content ($brightness, $contrast, $location: main);
+                        @content ($brightness, $contrast, main);
                     }
                 }
             } @else {
@@ -718,7 +719,7 @@ $_themes_includeAlternatives: if(
                             $contrast: $contrast,
                             $includeSystemColours: $includeSystemColours,
                         );
-                        @content ($brightness, $contrast, $location: main);
+                        @content ($brightness, $contrast, main);
                     }
                 } @else {
                     &,
@@ -730,7 +731,7 @@ $_themes_includeAlternatives: if(
                             $contrast: $contrast,
                             $includeSystemColours: $includeSystemColours,
                         );
-                        @content ($brightness, $contrast, $location: main);
+                        @content ($brightness, $contrast, main);
                     }
                 }
             }
@@ -752,6 +753,7 @@ $_themes_includeAlternatives: if(
                             $level: $checkpointLevel + 3
                         );
                     }
+
                     @if config.$fn_colourMode_selectorsAsChildren {
                         @if config.$mx_tokensTheme_unifyActiveThemeSelectors {
                             &[data-active-theme=#{$key}][data-active-theme],
@@ -772,7 +774,7 @@ $_themes_includeAlternatives: if(
                                         $verbose: true,
                                     );
                                 }
-                                @content ($brightness, $contrast, $location: theme-#{$key});
+                                @content ($brightness, $contrast, theme-#{$key});
                             }
                         } @else {
                             & [data-active-theme=#{$key}],
@@ -792,7 +794,7 @@ $_themes_includeAlternatives: if(
                                         $verbose: true,
                                     );
                                 }
-                                @content ($brightness, $contrast, $location: theme-#{$key});
+                                @content ($brightness, $contrast, theme-#{$key});
                             }
                         }
                     } @else {
@@ -814,7 +816,7 @@ $_themes_includeAlternatives: if(
                                         $verbose: true,
                                     );
                                 }
-                                @content ($brightness, $contrast, $location: theme-#{$key});
+                                @content ($brightness, $contrast, theme-#{$key});
                             }
                         } @else {
                             [data-active-theme=#{$key}],
@@ -833,7 +835,7 @@ $_themes_includeAlternatives: if(
                                         $verbose: true,
                                     );
                                 }
-                                @content ($brightness, $contrast, $location: theme-#{$key});
+                                @content ($brightness, $contrast, theme-#{$key});
                             }
                         }
                     }

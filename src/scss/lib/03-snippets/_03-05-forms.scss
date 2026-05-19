@@ -207,6 +207,7 @@
         font-style: inherit;
         line-height: 1;
         background: transparent;
+        border: none;
 
         @content (code-kbd-samp);
     }
@@ -543,8 +544,11 @@
     $fontStyle: var-style(button-disabled-font-style),
     $includeColours: true,
     $includePseudoIcons: config.$include_button_inlineIcons,
-    $useIconFont: config.$fn_pseudoIconsUseFont and font-family-exists(icons)
+    $useIconFont: config.$fn_pseudoIconsUseFont and font-family-exists(icons),
+    $args...
 ) {
+    $args: meta.keywords($args);
+
     $borderStyle: if($borderStyle != null, $borderStyle, var-style(button-disabled-border-style));
 
     border-radius: var-style(button-disabled-border-radius);
@@ -975,19 +979,7 @@
         }
     }
 
-    @include focus {
-        @include cx-prop(focus-ring-outline-color, $accentClr_focus);
-        background-color: $background_focus;
-        border-color: $borderClr_focus;
-        color: $color_focus;
-        accent-color: $accentClr_focus;
-
-        @if $opacity {
-            opacity: 1;
-        }
-    }
-
-    @include focus-within {
+    @include apply-interactive-mixin($focus: true, $focusWithin: true, $fallbacksOnly: true) {
         @include cx-prop(focus-ring-outline-color, $accentClr_focus);
         background-color: $background_focus;
         border-color: $borderClr_focus;
@@ -1660,20 +1652,20 @@
 
     @content (root);
 
-    > input,
-    > [type='submit'] {
+    input,
+    [type='submit'] {
         margin: 0;
         margin-block-start: $marginBlockHalf;
 
-        @content (direct-input-or-submit);
+        @content (input-or-submit);
     }
 
-    > input {
-        @content (direct-input);
+    input {
+        @content (input);
     }
 
-    > [type='submit'] {
-        @content (direct-submit);
+    [type='submit'] {
+        @content (submit);
     }
 
     @if $includeFocusWithinTransition {

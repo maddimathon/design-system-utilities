@@ -650,15 +650,17 @@ $_defaultHeadingSelectors_greaterThan6: ();
             
             @content($location);
 
-            @include set-flow-margins(
-                $default: $flowMargin_default,
-                $large: $flowMargin_large,
-                $small: $flowMargin_small,
-                $buttonGapBlock: $flowMargin_buttonGapBlock,
-                // 
-                $defineChildProps: false,
-                $defineCustomProps: true,
-            );
+            @at-root #{selector.replace(&, '[data-toggle-content]', ':where( [data-toggle-content] )')} {
+                @include set-flow-margins(
+                    $default: $flowMargin_default,
+                    $large: $flowMargin_large,
+                    $small: $flowMargin_small,
+                    $buttonGapBlock: $flowMargin_buttonGapBlock,
+                    // 
+                    $defineChildProps: false,
+                    $defineCustomProps: true,
+                );
+            }
         }
         
         @else if $location == js--toggle-content--container {
