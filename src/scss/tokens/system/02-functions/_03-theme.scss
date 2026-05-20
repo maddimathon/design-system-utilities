@@ -156,6 +156,7 @@
     $useSystemColorFallback: null,
     $version: null,
     $opacity: null,
+    $returnAsList: false,
     $returnAsVar: false,
     $args...
 ) {
@@ -237,12 +238,20 @@
 
     // returns
     @if not $clrSlug {
-        @return if($returnAsVar, config.config-do-var($themeVarSlug, $args...), false);
+        @return if(
+            $returnAsVar,
+            config.config-do-var($themeVarSlug, $args...),
+            if($returnAsList, (), false)
+        );
+    }
+
+    @if $returnAsVar {
+        $returnAsList: false;
     }
 
     $clrHasMoreThanOneValue: list.length($clrSlug) > 1;
 
-    @if $clrHasMoreThanOneValue {
+    @if $clrHasMoreThanOneValue and not $returnAsList {
         $clrSlug: list.nth($clrSlug, 1);
     }
 
@@ -262,7 +271,7 @@
             $version: $version
         );
 
-        @if $clrHasMoreThanOneValue {
+        @if not $returnAsList and list.length($_value) > 1 {
             $_value: list.nth($_value, 1);
         }
 
@@ -282,6 +291,20 @@
                 $_value
             );
 
+            // returns
+            @if list.length($_value) > 1 {
+                $_valueList: ();
+
+                @each $_val in $_value {
+                    $_valueList: list.append(
+                        $_valueList,
+                        string.unquote('#{$version}a(#{$_val}, #{$opacity})')
+                    );
+                }
+
+                @return $_valueList;
+            }
+
             @return string.unquote('#{$version}a(#{$_value}, #{$opacity})');
         }
     }
@@ -296,7 +319,7 @@
             $version: $version
         );
 
-        @if $clrHasMoreThanOneValue {
+        @if not $returnAsList and list.length($_value) > 1 {
             $_value: list.nth($_value, 1);
         }
 

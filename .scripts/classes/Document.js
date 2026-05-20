@@ -86,10 +86,10 @@ export class Document extends DocumentStage {
         this.console.progress( 'copying docs assets...', 1 );
         this.try(
             this.fs.copy,
-            this.params.verbose ? 3 : 2,
+            2,
             [
                 this.assetSourceGlobs,
-                this.params.verbose ? 3 : 2,
+                2,
                 this.getSrcDir( undefined, this.astroPublicDir ),
                 this.getSrcDir( undefined ),
                 {

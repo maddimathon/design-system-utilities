@@ -23,12 +23,21 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
 /// @since 0.1.0-beta.0.draft
 ///
 @mixin snippet-widget-block(
+    $background: var-style(widget-background),
+    $borderColor: var-style(widget-border-color),
+    $lineHeight: var-style(widget-line-height),
+    $marginBlockStart: do-var(flow-margin-firm-start),
+    $marginBlockEnd: do-var(flow-margin-firm-end),
+    //
     $includeBlocks: true,
     $includeFlowMargins: true,
     $includeExceptions: true,
     //
-    $marginBlockStart: do-var(flow-margin-firm-start),
-    $marginBlockEnd: do-var(flow-margin-firm-end)
+    $selector_content: '%widget-block-content',
+    $selector_header: '%widget-block-header',
+    $selector_sidebar: '%site-sidebar',
+    $selector_subtitle: '%widget-block-subtitle',
+    $selector_title: '%widget-block-title'
 ) {
     @include prop-display(flex);
     @include utils.snippet-content-flex-container;
@@ -40,30 +49,26 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
 
     width: fit-content;
 
-    line-height: var-style(widget-line-height);
+    line-height: $lineHeight;
 
     border: var-style(widget-border-width) var-style(widget-border-style)
-        var-style(widget-border-color);
+        $borderColor;
     border-radius: var-style(widget-border-radius);
 
-    background: var-style(widget-background);
+    background: $background;
 
     transition:
         background var-tr-time(fast) tokens.$transition_function,
         border-color var-tr-time(fast) tokens.$transition_function,
         color var-tr-time(fast) tokens.$transition_function;
 
-    @if meta.content-exists() {
-        @content (root);
-    }
+    @content (root);
 
     @if $includeExceptions {
-        %site-sidebar & {
+        #{$selector_sidebar} & {
             width: auto;
 
-            @if meta.content-exists() {
-                @content (in-sidebar);
-            }
+            @content (in-sidebar);
         }
 
         @each $variationKey in $_textAndBackgroundKeys {
@@ -75,20 +80,18 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
                 }
             }
 
-            @if meta.content-exists() {
-                @content (background-#{$variationKey});
-            }
+            @content (background-#{$variationKey});
         }
     }
 
     @if $includeBlocks {
-        %widget-block-content,
-        %widget-block-header,
-        %widget-block-title {
+        #{$selector_content},
+        #{$selector_header},
+        #{$selector_title} {
             margin-block-start: 0;
         }
 
-        %widget-block-content {
+        #{$selector_content} {
             > %ul,
             > %ol {
                 margin-inline-start: 0;
@@ -125,7 +128,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
                     justify-items: start,
                     align-items: stretch,
                 ),
-                $gap: $widget_marginBlockStart
+                $gap: 0
             );
         }
     }

@@ -1,4 +1,5 @@
 ---
+import { escapeHTML } from 'astro/runtime/server/escape.js';
 import type { PhotoData } from './BrandPhoto';
 
 /**
@@ -19,39 +20,49 @@ import type { PhotoData } from './BrandPhoto';
 
 /* TYPES ===================================== */
 
+/* FUNCTIONS ===================================== */
+
+export function captionFormatting({ meta }: Props, asHTML: boolean): string {
+    let html = '';
+
+    if (typeof meta.credit === 'object') {
+        html += 'Photo by ';
+        html += asHTML
+            ? `<a href="${meta.credit.href}" target="_blank" rel="noreferrer noopener">${escapeHTML(meta.credit.label)}</a>`
+            : meta.credit.label;
+    } else {
+        html += asHTML ? escapeHTML(meta.credit ?? '') : (meta.credit ?? '');
+    }
+
+    if (meta.source) {
+        html += meta.credit ? ' via ' : 'From ';
+        html += asHTML
+            ? `<a href="${meta.source.href}" target="_blank" rel="noreferrer noopener">${escapeHTML(meta.source.label)}</a>`
+            : meta.source.label;
+    }
+
+    if (meta.source || meta.credit) {
+        html += '.';
+    }
+
+    return html;
+}
+
+export function captionHTML(props: Props): string {
+    return captionFormatting(props, true);
+}
+
+export function captionText(props: Props): string {
+    return captionFormatting(props, false);
+}
+
 /* PROPS ===================================== */
 
 export interface Props {
     meta: PhotoData<string>['meta'];
 }
 
-const { meta }: Props = Astro.props;
-
 /* CONSTANTS ===================================== */
 ---
 
-{
-    typeof meta.credit === 'object' ? (
-        <Fragment>
-            {'Photo by '}
-            <a
-                href={meta.credit.href}
-                set:text={meta.credit.label}
-                target='_blank'
-            />
-        </Fragment>
-    ) : (
-        (meta.credit ?? '')
-    )
-}
-{meta.source ? (meta.credit ? ` via ` : `From `) : ''}
-{
-    meta.source && (
-        <a
-            href={meta.source.href}
-            set:text={meta.source.label}
-            target='_blank'
-        />
-    )
-}
-{(meta.source || meta.credit) && '.'}
+<Fragment set:html={captionHTML(Astro.props)} />

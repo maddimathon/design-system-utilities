@@ -43,14 +43,11 @@
         max-width: 100%;
 
         @content (image-or-svg);
+    }
 
-        @include selector.extend-simple-selector(
-            ('%image', '%svg'),
-            config.$selector_a,
-            $self: false,
-            $replace: false,
-            $wrap: true
-        ) {
+    %a {
+        %image,
+        %svg {
             @include prop-display(inline-block);
 
             @content (image-or-svg--in-link);

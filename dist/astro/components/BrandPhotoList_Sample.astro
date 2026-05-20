@@ -11,7 +11,13 @@ import { CopyToClipboardButton } from '@maddimathon/utility-astro/components';
 import type { TokenTypes } from '../../ts/02-tokens/@types.d.ts';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 
-import type { AllPhotos, AllThumbnails, BrandImageData, BrandPhotoProps, PhotoData } from './BrandPhoto.astro';
+import type {
+    AllPhotos,
+    AllThumbnails,
+    BrandImageData,
+    BrandPhotoProps,
+    PhotoData,
+} from './BrandPhoto.astro';
 
 /* import - functions */
 
@@ -19,7 +25,7 @@ import type { AllPhotos, AllThumbnails, BrandImageData, BrandPhotoProps, PhotoDa
 
 /* import - components */
 import BrandPhoto from './BrandPhoto.astro';
-import BrandPhoto_Caption from './BrandPhoto_Caption.astro';
+import BrandPhoto_Caption, { captionHTML, captionText } from './BrandPhoto_Caption.astro';
 
 /* import - layouts */
 
@@ -89,20 +95,25 @@ const photoProps = {
     urlMaker,
     ...linkProps,
 } as BrandPhotoProps;
+
+const buttonSpacer = '<span class="brand-photo-list__sample__spacer">&NoBreak;&ensp;&NoBreak;</span>';
 ---
 
 <BrandPhoto {...photoProps} />
 
 <dl class='brand-photo-list__sample__meta'>
 
-    { displayHeading === false && meta.label && (
+    { displayHeading === false && meta.label ? (
         <dt set:text='Label' />
         <dd><p set:text={meta.label} /></dd>
+    ) : slug && (
+        <dt set:text='Slug' />
+        <dd><p><samp class="display-inline" set:text={slug} /></p></dd>
     ) }
 
     { attrs.alt && (
         <dt set:text='Alt Text' />
-        <dd><p>{attrs.alt}<span>&NoBreak;&ensp;&NoBreak;</span><CopyToClipboardButton
+        <dd><p><samp set:text={attrs.alt} /><Fragment set:html={buttonSpacer} /><CopyToClipboardButton
             class:list="display-inline"
             successMessage='copied!'
             toClipboard={attrs.alt}
@@ -113,11 +124,18 @@ const photoProps = {
     { includeCaptionMeta && caption && (
         <dt set:text='Caption' />
         <dd>
-            { meta.credit && <p class="aside"><BrandPhoto_Caption meta={meta} /><span>&NoBreak;&ensp;&NoBreak;</span><CopyToClipboardButton
+            { meta.credit && <p><samp><BrandPhoto_Caption
+                meta={meta}
+            /></samp><Fragment set:html={buttonSpacer} /><CopyToClipboardButton
                 class:list="display-inline"
                 successMessage='copied!'
-                toClipboard={(typeof meta.credit === 'object' ? `Photo by ${meta.credit.label}` : meta.credit) + (meta.source ? (meta.credit ? ` via ` : `From `) : '') + (meta.source ? meta.source.label : meta.source)}
+                toClipboard={captionText({meta})}
                 set:text='copy'
+            /><Fragment set:html={buttonSpacer} /><CopyToClipboardButton
+                class:list="display-inline"
+                successMessage='copied! (HTML)'
+                toClipboard={captionHTML({meta})}
+                set:text='copy (HTML)'
             /></p> }
         </dd>
     ) }
@@ -125,23 +143,21 @@ const photoProps = {
     { includeCredit && (meta.credit || meta.attributionRequired !== false) && (
         <dt set:text='Credit' />
         <dd>
-            { typeof meta.credit === 'object' ? (
-                <p>{'Photo by '}<a
-                    href={meta.credit.href}
-                    set:text={meta.credit.label}
-                    target='_blank'
-                />{copyCredit && (<span>&NoBreak;&ensp;&NoBreak;</span><CopyToClipboardButton
+            <p><samp><BrandPhoto_Caption 
+                meta={{...meta, source: undefined}}
+            /></samp>{
+                copyCredit && ( <Fragment set:html={buttonSpacer} /><CopyToClipboardButton
                     class:list="display-inline"
                     successMessage='copied!'
-                    toClipboard={meta.credit.label}
+                    toClipboard={captionText({ meta: {...meta, source: undefined} })}
                     set:text='copy'
-                />)}.</p>
-            ) : meta.credit && <p>{meta.credit}{copyCredit && (<span>&NoBreak;&ensp;&NoBreak;</span><CopyToClipboardButton
-                class:list="display-inline"
-                successMessage='copied!'
-                toClipboard={meta.credit}
-                set:text='copy'
-            />)}.</p> }
+                /><Fragment set:html={buttonSpacer} /><CopyToClipboardButton
+                    class:list="display-inline"
+                    successMessage='copied! (HTML)'
+                    toClipboard={captionHTML({ meta: {...meta, source: undefined} })}
+                    set:text='copy (HTML)'
+                /> )
+            }</p>
             { typeof meta.attributionRequired !== 'boolean' ? (
                 <p class="aside">This photo’s attribution requirements are unknown.</p>
             ) : meta.attributionRequired && (
