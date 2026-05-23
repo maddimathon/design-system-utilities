@@ -633,20 +633,6 @@ html {
 }
 
 /* #endregion Tokens - Gap */
-/* #region Tokens - Style */
-html {
-    --focus-ring-outline-color: var(--theme-link-outline-hover, ActiveText);
-    --focus-ring-outline-offset: var(--stroke-relative-200, 0.125em);
-    --focus-ring-outline-width: max(
-        var(--border-width-200, 0.125rem),
-        min(
-            var(--stroke-relative-200, 0.125em),
-            var(--border-width-400, 0.25rem)
-        )
-    );
-}
-
-/* #endregion Tokens - Style */
 /* #region Tokens - Margin */
 html {
     --mrg-firm-100: 0.3125rem;
@@ -15469,7 +15455,7 @@ abbr[title] {
 .no-js :focus,
 .js__no-whereSelector :focus {
     /* %focus-ring--fallback */
-    outline-width: max(0.125rem, min(0.125em, 0.25rem));
+    outline-width: 0.125em;
     outline-width: var(
         --focus-ring-outline-width,
         var(--stroke-relative-200, 0.125em)
@@ -15489,7 +15475,7 @@ abbr[title] {
 
 :where(.js__no-focusVisible) :focus {
     /* %focus-ring--where */
-    outline-width: max(0.125rem, min(0.125em, 0.25rem));
+    outline-width: 0.125em;
     outline-width: var(
         --focus-ring-outline-width,
         var(--stroke-relative-200, 0.125em)
@@ -15509,7 +15495,7 @@ abbr[title] {
 
 :focus-visible {
     /* %focus-ring--visible */
-    outline-width: max(0.125rem, min(0.125em, 0.25rem));
+    outline-width: 0.125em;
     outline-width: var(
         --focus-ring-outline-width,
         var(--stroke-relative-200, 0.125em)
@@ -19871,10 +19857,6 @@ a[href].button-grey {
     cursor: pointer;
     width: -moz-fit-content;
     width: fit-content;
-    margin-top: 1.25rem;
-    margin-top: var(--mrg-firm-400, 1.25rem);
-    margin-bottom: 0.46875rem;
-    margin-bottom: var(--mrg-half-400, 0.46875rem);
     padding-top: 0.3125em;
     padding-bottom: 0.3125em;
     padding-top: var(--pad-soft-200, 0.3125em);
@@ -22466,8 +22448,6 @@ input[type="submit"]::before {
     -moz-appearance: button;
     appearance: button;
     cursor: pointer;
-    margin-top: 0;
-    margin-bottom: 0;
     padding-top: 0.3125em;
     padding-bottom: 0.3125em;
     padding-top: var(--pad-soft-200, 0.3125em);

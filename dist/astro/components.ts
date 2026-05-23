@@ -60,6 +60,9 @@ export type * from './components/PageContent_TypeStyles.astro';
 import SearchForm from './components/SearchForm.astro';
 export type * from './components/SearchForm.astro';
 
+import SettingsMenu from './components/SettingsMenu.astro';
+export type * from './components/SettingsMenu.astro';
+
 import ShadeSwatch_ColourValue from './components/ShadeSwatch_ColourValue.astro';
 export type * from './components/ShadeSwatch_ColourValue.astro';
 
@@ -109,6 +112,7 @@ export {
     PageContent_Toggles,
     PageContent_TypeStyles,
     SearchForm,
+    SettingsMenu,
     ShadeSwatch_ColourValue,
     ShadeSwatch_Contrast,
     ShadeSwatch,

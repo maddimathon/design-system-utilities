@@ -8,6 +8,13 @@
  * @license MIT
  */
 
+import {
+    escRegExp,
+    escRegExpReplace,
+    slugify,
+    timestamp,
+} from '@maddimathon/utility-typescript';
+
 import type {
     AbstractStage,
     Stage,
@@ -45,7 +52,9 @@ export class Document extends DocumentStage {
 
     protected readonly astroPublicDir = 'docs/_public';
 
-    protected async assets(): Promise<void> {
+    protected async assets(
+        extraEnvVars: [ string, string ][] = [],
+    ): Promise<void> {
         // returns
         if ( !this.assetSourceGlobs.length ) {
             this.console.progress( 'no docs assets to copy, skipping...', 1 );
@@ -66,6 +75,47 @@ export class Document extends DocumentStage {
                     force: true,
                     rename: false,
                     recursive: true,
+                },
+            ],
+        );
+
+        this.console.progress( 'writing .env file...', 1 );
+
+        let currentContents = this.try(
+            this.fs.readFile,
+            2,
+            [ '.env' ],
+        );
+
+        const version = this.version.toString( this.isDraftVersion );
+
+        for ( const [ name, value ] of [
+            [ 'BRAND_KIT_VERSION', version ],
+            [
+                'BRAND_KIT_VERSION_STYLESHEET',
+                version + ( this.isDraftVersion ? '+' + slugify( timestamp( null, { date: true, time: true } ) ) : '' ),
+            ],
+            ...extraEnvVars,
+        ] as const ) {
+
+            const versionVar = `${ name }="` + value + '"';
+
+            const versionVar_regex = new RegExp( '^' + escRegExp( name ) + '=([^\\n]*)$', 'gm' );
+
+            currentContents = currentContents.match( versionVar_regex )
+                ? currentContents.replace( versionVar_regex, escRegExpReplace( versionVar ) )
+                : currentContents ? ( currentContents + '\n' + versionVar ) : versionVar;
+        }
+
+        this.try(
+            this.fs.write,
+            2,
+            [
+                '.env',
+                currentContents,
+                {
+                    force: true,
+                    rename: false,
                 },
             ],
         );

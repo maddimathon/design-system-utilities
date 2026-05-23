@@ -174,14 +174,6 @@
 /* #endregion Tokens - @property */
 /* #region Tokens - Style */
 :root {
-    --focus-ring-outline-color: var(--theme-link-outline-hover, ActiveText);
-    --focus-ring-outline-offset: 0.125em;
-    --focus-ring-outline-width: max(0.125rem, min(0.125em, 0.25rem));
-}
-
-/* #endregion Tokens - Style */
-/* #region Tokens - Style */
-:root {
     --icon-color: var(--theme-ui, CanvasText);
     --icon-font-top: 0.1875em;
     --icon-inline-buffer: 0.25em;
@@ -5304,7 +5296,7 @@ abbr[title] {
 .no-js :focus,
 .js__no-whereSelector :focus {
     /* %focus-ring--fallback */
-    outline-width: max(0.125rem, min(0.125em, 0.25rem));
+    outline-width: 0.125em;
     outline-width: var(--focus-ring-outline-width, 0.125em);
     outline-style: dashed;
     outline-color: hsl(321, 68%, 26%);
@@ -5318,7 +5310,7 @@ abbr[title] {
 
 :where(.js__no-focusVisible) :focus {
     /* %focus-ring--where */
-    outline-width: max(0.125rem, min(0.125em, 0.25rem));
+    outline-width: 0.125em;
     outline-width: var(--focus-ring-outline-width, 0.125em);
     outline-style: dashed;
     outline-color: hsl(321, 68%, 26%);
@@ -5332,7 +5324,7 @@ abbr[title] {
 
 :focus-visible {
     /* %focus-ring--visible */
-    outline-width: max(0.125rem, min(0.125em, 0.25rem));
+    outline-width: 0.125em;
     outline-width: var(--focus-ring-outline-width, 0.125em);
     outline-style: dashed;
     outline-color: hsl(321, 68%, 26%);
@@ -8035,8 +8027,6 @@ a[href].button {
     cursor: pointer;
     width: -moz-fit-content;
     width: fit-content;
-    margin-top: 1.25rem;
-    margin-bottom: 0.46875rem;
     padding-top: 0.3125em;
     padding-bottom: 0.3125em;
     padding-left: 0.8125em;
@@ -9451,8 +9441,6 @@ input[data-state-active="true"][type="reset"] * {
     -moz-appearance: button;
     appearance: button;
     cursor: pointer;
-    margin-top: 0;
-    margin-bottom: 0;
     padding-top: 0.3125em;
     padding-bottom: 0.3125em;
     padding-left: 0.8125em;

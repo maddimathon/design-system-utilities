@@ -11,6 +11,8 @@
  * @import { Stage } from '@maddimathon/build-utilities';
  */
 
+import { slugify, timestamp } from '@maddimathon/utility-typescript';
+
 import {
     DocumentStage,
 } from '@maddimathon/build-utilities';
@@ -97,6 +99,25 @@ export class Document extends DocumentStage {
                     force: true,
                     rename: false,
                     recursive: true,
+                },
+            ],
+        );
+
+        this.console.progress( 'writing .env file...', 1 );
+
+        const version = this.version.toString( this.isDraftVersion );
+
+        this.try(
+            this.fs.write,
+            2,
+            [
+                '.env',
+                [
+                    'BRAND_KIT_VERSION="' + version + '"',
+                    'BRAND_KIT_VERSION_STYLESHEET="' + version + ( this.isDraftVersion ? '+' + slugify( timestamp( null, { date: true, time: true } ) ) : '' ) + '"',
+                ].join( '\n' ),
+                {
+                    force: true,
                 },
             ],
         );

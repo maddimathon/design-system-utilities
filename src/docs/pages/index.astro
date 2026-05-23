@@ -22,7 +22,9 @@ import DocsPage from '../layouts/DocsPage.astro';
 
 /* CONSTANTS ===================================== */
 
-const title = `Design System Utilities @ ${pkg.version}`;
+const title =
+    `Design System Utilities @ ` +
+    (import.meta.env.BRAND_KIT_VERSION ?? pkg.version);
 ---
 
 <DocsPage title={title}>

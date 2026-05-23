@@ -19,11 +19,10 @@ import { absoluteInternalURL } from '@maddimathon/utility-astro/functions';
 /* import - values */
 
 /* import - components */
-import { ToggleNavMenu } from '../components.ts';
+import { SettingsMenu, ToggleNavMenu } from '../components.ts';
 
 /* import - layouts */
 import { Page as UtilPage } from '@maddimathon/utility-astro/layouts';
-import SettingsMenu from '../components/SettingsMenu.astro';
 
 /* TYPES ===================================== */
 
@@ -100,6 +99,13 @@ export interface PageProps extends Partial_LibProps {
         designedBy?: boolean | string;
     };
 
+    /**
+     * @default true
+     *
+     * @since ___PKG_VERSION___
+     */
+    stylesheetPreload?: boolean;
+
     stylesheetURLs?: string[];
     stylesheetVersion?: string;
 
@@ -108,7 +114,11 @@ export interface PageProps extends Partial_LibProps {
 
 export interface Props extends GenericProps<PageProps> {}
 
-const inputs: Props = Astro.props?.['frontmatter'] ?? Astro.props;
+const { stylesheetPreload = true, ...inputs }: Props =
+    Astro.props?.['frontmatter'] ?? Astro.props;
+
+const stylesheetVersion =
+    inputs.stylesheetVersion ?? import.meta.env.BRAND_KIT_VERSION_STYLESHEET;
 
 const urlMaker = inputs?.urlMaker ?? absoluteInternalURL;
 
@@ -194,9 +204,7 @@ const props = {
 
 /* Stylesheets ------------------ */
 
-const versionSuffix = props.stylesheetVersion
-    ? `?v=${props.stylesheetVersion}`
-    : '';
+const versionSuffix = stylesheetVersion ? `?v=${stylesheetVersion}` : '';
 
 const stylesheets = props.stylesheetURLs
     ? [...props.stylesheetURLs].map(
@@ -278,14 +286,15 @@ const footerTextHTML =
     />
 
     {
-        stylesheets.map((url) => (
-            <link
-                slot='head-open'
-                rel='preload'
-                href={url}
-                as='style'
-            />
-        ))
+        stylesheetPreload &&
+            stylesheets.map((url) => (
+                <link
+                    slot='head-open'
+                    rel='preload'
+                    href={url}
+                    as='style'
+                />
+            ))
     }
     {
         stylesheets.map((url) => (

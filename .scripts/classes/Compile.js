@@ -30,6 +30,8 @@ export class Compile extends CompileStage {
      * @readonly
      */
     subStages = [
+        // @ts-expect-error
+        'tsconfig',
         'ts',
         // @ts-expect-error
         'tokens',
@@ -217,5 +219,62 @@ export class Compile extends CompileStage {
                 'dist/ts/02-tokens/@types.js',
             ], ( this.params.verbose ? 3 : 2 ) ]
         );
+    }
+
+    /**
+     * @protected
+     */
+    async tsconfig() {
+        this.console.progress( 'writing tsconfig files...', 1 );
+
+        await this.atry( this.writeTsConfig, 2, [
+            'tsconfig.json',
+            2,
+            {
+                extends: './tsconfig.astro.json',
+
+                include: [
+                    './.astro/types.d.ts',
+                    './src/**/*',
+                ],
+                exclude: [
+                    './.scripts/**/*',
+                    './src/docs/_public/**/*',
+                ],
+
+                compilerOptions: {
+                    allowUmdGlobalAccess: false,
+                    allowUnusedLabels: true,
+                    allowSyntheticDefaultImports: true,
+                    esModuleInterop: true,
+                    exactOptionalPropertyTypes: false,
+                    lib: [ "ESNext" ],
+                    noUnusedParameters: false,
+                    skipLibCheck: false,
+                    verbatimModuleSyntax: true,
+                },
+            },
+        ] );
+
+        await this.atry( this.writeTsConfig, 2, [
+            'src/ts/tsconfig.json',
+            2,
+            {
+                extends: '../../tsconfig.base.json',
+
+                include: [
+                    '../../src/ts/**/*',
+                    './src/ts/**/*',
+                ],
+                exclude: [],
+
+                compilerOptions: {
+                    declaration: true,
+                    declarationMap: false,
+                    noUnusedParameters: false,
+                    outDir: '../../dist/ts/',
+                },
+            },
+        ] );
     }
 }
