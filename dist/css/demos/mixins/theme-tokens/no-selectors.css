@@ -8862,10 +8862,19 @@
         --theme-ui-disabled--65: GrayText !important;
         --theme-ui-disabled--85: GrayText !important;
         --theme-ui-disabled--95: GrayText !important;
-        --focus-ring-outline-color: ActiveText;
         --icon-color: CanvasText;
         color: CanvasText;
         background: Canvas;
+    }
+    :root:where(:root, body),
+    [data-brightness-mode="light"]:where(:root, body),
+    [data-brightness-mode="dark"]:where(:root, body) {
+        --focus-ring-outline-color: ActiveText;
+    }
+    :root > *,
+    [data-brightness-mode="light"] > *,
+    [data-brightness-mode="dark"] > * {
+        --focus-ring-outline-color: ActiveText;
     }
 }
 /* #endregion Tokens - Theme - Queries - light/dark mode + forced-colors contrast */

@@ -291,7 +291,7 @@ export namespace getBrandConstants {
     export async function getThemeConsts<
         T_ReturnOptions extends getThemeConsts.ReturnOptions,
     >(
-        tokens: Tokens.JsonReturn | Tokens.Instance,
+        tokens: Tokens.JsonReturn,
         args: getThemeConsts.Args = {},
     ): Promise<null | {
         readonly entries: {
@@ -300,8 +300,10 @@ export namespace getBrandConstants {
     }> {
 
         const include = {
-            keys: args.incl?.keys ?? true,
-            keyNames: args.incl?.keyNames ?? true,
+            themes: args.incl?.themes ?? true,
+            themeNames: args.incl?.themeNames ?? true,
+            tokenSlugs: args.incl?.tokenSlugs ?? true,
+            tokenSlugNames: args.incl?.tokenSlugNames ?? true,
         } as const satisfies {
             [ K in getThemeConsts.ReturnOptions ]: boolean;
         };
@@ -310,32 +312,52 @@ export namespace getBrandConstants {
             [ K in getThemeConsts.ReturnOptions ]?: [ string, string ][];
         };
 
-        const themesMeta = '_meta' in tokens.themes ? tokens.themes._meta : tokens.themes.meta;
+        const themesMeta = tokens.themes._meta;
+
+        const themeSlugs = Object.keys( tokens.themes ).filter( key => key !== '_meta' );
 
         const entries: EntriesReturn = {};
 
         const valueFn_fallback = ( key: string | string[] ) => Array.isArray( key ) ? key.join( ',' ) : key;
 
-        if ( include.keys ) {
+        if ( include.themes ) {
 
-            const valueFn = args.valueMappers?.keys ?? valueFn_fallback;
+            const valueFn = args.valueMappers?.themes ?? valueFn_fallback;
 
-            const keyFn = args.keyMappers?.keys ?? ( ( key: string ) => key );
+            const keyFn = args.keyMappers?.themes ?? ( ( key: string ) => key );
 
-            const _entries = Object.entries( themesMeta.keys ) as [ keyof typeof themesMeta.keys, typeof themesMeta.keys[ keyof typeof themesMeta.keys ] ][];
-
-            entries.keys = _entries.map( ( [ key, value ] ) => [ keyFn( key ), valueFn( value ) ] );
+            entries.themes = themeSlugs.map( ( key ) => [ keyFn( key ), valueFn( key ) ] );
         }
 
-        if ( include.keyNames ) {
+        if ( include.themeNames ) {
 
-            const valueFn = args.valueMappers?.keyNames ?? valueFn_fallback;
+            const valueFn = args.valueMappers?.themeNames ?? valueFn_fallback;
 
-            const keyFn = args.keyMappers?.keyNames ?? ( ( key: string ) => key );
+            const keyFn = args.keyMappers?.themeNames ?? ( ( key: string ) => key );
+
+            entries.themeNames = themeSlugs.map( ( key ) => [ keyFn( key ), valueFn( tokens.themes[ key ]?._name ?? key ) ] );
+        }
+
+        if ( include.tokenSlugs ) {
+
+            const valueFn = args.valueMappers?.tokenSlugs ?? valueFn_fallback;
+
+            const keyFn = args.keyMappers?.tokenSlugs ?? ( ( key: string ) => key );
 
             const _entries = Object.entries( themesMeta.keys ) as [ keyof typeof themesMeta.keys, typeof themesMeta.keys[ keyof typeof themesMeta.keys ] ][];
 
-            entries.keyNames = _entries.map( ( [ key, value ] ) => [ keyFn( key ), valueFn( value ) ] );
+            entries.tokenSlugs = _entries.map( ( [ key, value ] ) => [ keyFn( key ), valueFn( value ) ] );
+        }
+
+        if ( include.tokenSlugNames ) {
+
+            const valueFn = args.valueMappers?.tokenSlugNames ?? valueFn_fallback;
+
+            const keyFn = args.keyMappers?.tokenSlugNames ?? ( ( key: string ) => key );
+
+            const _entries = Object.entries( themesMeta.keys ) as [ keyof typeof themesMeta.keys, typeof themesMeta.keys[ keyof typeof themesMeta.keys ] ][];
+
+            entries.tokenSlugNames = _entries.map( ( [ key, value ] ) => [ keyFn( key ), valueFn( value ) ] );
         }
 
         return {
@@ -372,7 +394,9 @@ export namespace getBrandConstants {
              * @since ___PKG_VERSION___
              */
             valueMappers?: {
-                [ K in ReturnOptions ]?: ( item: string[] ) => string
+                [ K in Extract<ReturnOptions, 'themes' | 'themeNames'> ]?: ( item: string ) => string
+            } & {
+                [ K in Exclude<ReturnOptions, 'themes' | 'themeNames'> ]?: ( item: string[] ) => string
             };
 
             /**
@@ -387,8 +411,10 @@ export namespace getBrandConstants {
          * @since ___PKG_VERSION___
          */
         export const returnOpts = [
-            'keys',
-            'keyNames',
+            'themes',
+            'themeNames',
+            'tokenSlugs',
+            'tokenSlugNames',
         ] as const;
 
         /**
@@ -434,13 +460,24 @@ export namespace getBrandConstants {
                     comment = `All ${ commentName } svg values indexed by slug.`;
                     break;
 
-                case 'keys':
-                    comment = `Theme slugs included in all themes.`;
+                case 'themes':
+                    comment = `Theme slugs.`;
+                    constName = 'SLUGS';
                     break;
 
-                case 'keyNames':
-                    comment = `Translated theme slug names included in all themes, indexed by slug.`;
-                    constName = 'KEY_NAMES';
+                case 'themeNames':
+                    comment = `Translated theme slug names, indexed by slug.`;
+                    constName = 'SLUG_NAMES';
+                    break;
+
+                case 'tokenSlugs':
+                    comment = `Token slugs included in all themes.`;
+                    constName = 'TOKEN_SLUGS';
+                    break;
+
+                case 'tokenSlugNames':
+                    comment = `Translated token slug names included in all themes, indexed by slug.`;
+                    constName = 'TOKEN_SLUG_NAMES';
                     break;
             }
 
@@ -755,7 +792,7 @@ export namespace getBrandConstants {
              * @since ___PKG_VERSION___
              */
             export async function getTheme(
-                tokens: Tokens.JsonReturn | Tokens.Instance,
+                tokens: Tokens.JsonReturn,
                 textDomain: string,
                 phpNamespace: string,
                 args: Omit<getThemeConsts.Args, 'valueMappers'> = {},
@@ -767,7 +804,11 @@ export namespace getBrandConstants {
                         ...args,
                         valueMappers: {
 
-                            keys: ( value ) => entriesToArray(
+                            themes: ( value ) => `'${ value.replace( /'/g, "\\'" ) }'`,
+
+                            themeNames: ( value ) => `_x( '${ toTitleCase( value ) }', 'colour theme name', '${ textDomain }' )`,
+
+                            tokenSlugs: ( value ) => entriesToArray(
                                 value.map( ( v, i ) => [
                                     i.toString(),
                                     `'${ v.replace( /'/g, "\\'" ) }'`,
@@ -775,7 +816,7 @@ export namespace getBrandConstants {
                                 false,
                             ).split( '\n' ).join( '\n    ' ),
 
-                            keyNames: ( value ) => entriesToArray( value.map( v => [
+                            tokenSlugNames: ( value ) => entriesToArray( value.map( v => [
                                 v,
                                 `_x( '${ toTitleCase( v ) }', 'colour variation name', '${ textDomain }' )`,
                             ] ) ).split( '\n' ).join( '\n    ' ),
@@ -791,9 +832,11 @@ export namespace getBrandConstants {
                     entries,
                 } = SVG_CONSTANTS;
 
-                const themesMeta = '_meta' in tokens.themes ? tokens.themes._meta : tokens.themes.meta;
+                const themesMeta = tokens.themes._meta;
 
-                const keyEntries = Object.entries( themesMeta.keys ) as [ keyof typeof themesMeta.keys, typeof themesMeta.keys[ keyof typeof themesMeta.keys ] ][];
+                const tokenKeyEntries = Object.entries( themesMeta.keys ) as [ keyof typeof themesMeta.keys, typeof themesMeta.keys[ keyof typeof themesMeta.keys ] ][];
+
+                const themeSlugs = Object.keys( tokens.themes ).filter( key => key !== '_meta' );
 
                 phpNamespace = phpNamespace.length ? phpNamespace.replace( /\/$/gi, '' ) + '\\' : '';
 
@@ -807,15 +850,26 @@ export namespace getBrandConstants {
 
                     switch ( opt ) {
 
-                        case 'keys':
-                            content = entriesToObject( entries[ opt ] );
-                            type = `object{ ${ keyEntries.map( ( [ key ] ) => `${ key }: string[]` ).join( ', ' ) } }`;
+                        case 'themes':
+                            content = entriesToArray( entries[ opt ], false );
+                            type = `( ${ themeSlugs.map( key => `"${ key }"` ).join( '|' ) } )[]`;
                             break;
 
-                        case 'keyNames':
+                        case 'themeNames':
                             content = entriesToObject( entries[ opt ] );
                             insideHook = true;
-                            type = `object{ ${ keyEntries.map(
+                            type = `object{ ${ themeSlugs.map( key => `${ key }: string` ).join( ', ' ) } }`;
+                            break;
+
+                        case 'tokenSlugs':
+                            content = entriesToObject( entries[ opt ] );
+                            type = `object{ ${ tokenKeyEntries.map( ( [ key ] ) => `${ key }: string[]` ).join( ', ' ) } }`;
+                            break;
+
+                        case 'tokenSlugNames':
+                            content = entriesToObject( entries[ opt ] );
+                            insideHook = true;
+                            type = `object{ ${ tokenKeyEntries.map(
                                 ( [ key, values ] ) => `${ key }: array{ ${ values.map( subKey => `${ subKey }: string` ).join( ', ' ) } }`
                             ).join( ', ' ) } }`;
                             break;
@@ -855,7 +909,7 @@ export namespace getBrandConstants {
              * @since ___PKG_VERSION___
              */
             export async function getAll(
-                tokens: Tokens.JsonReturn | Tokens.Instance,
+                tokens: Tokens.JsonReturn,
                 textDomain: string,
                 phpNamespace: string,
                 args: {
@@ -1053,7 +1107,7 @@ export namespace getBrandConstants {
              * @since ___PKG_VERSION___
              */
             export async function getTheme(
-                tokens: Tokens.JsonReturn | Tokens.Instance,
+                tokens: Tokens.JsonReturn,
                 textDomain: string,
                 args: Omit<getThemeConsts.Args<"react">, 'valueMappers'> = {},
             ): Promise<null | string> {
@@ -1064,12 +1118,16 @@ export namespace getBrandConstants {
                         ...args,
                         valueMappers: {
 
-                            keys: ( value ) => entriesToArray( value.map( ( v, i ) => [
+                            themes: ( value ) => `'${ value.replace( /'/g, "\\'" ) }'`,
+
+                            themeNames: ( value ) => `_x( '${ toTitleCase( value ) }', 'colour theme name', '${ textDomain }' )`,
+
+                            tokenSlugs: ( value ) => entriesToArray( value.map( ( v, i ) => [
                                 i.toString(),
                                 `'${ v.replace( /'/g, "\\'" ) }'`,
                             ] ) ).split( '\n' ).join( '\n    ' ),
 
-                            keyNames: ( value ) => entriesToObject( value.map( ( v, i ) => [
+                            tokenSlugNames: ( value ) => entriesToObject( value.map( ( v, i ) => [
                                 v,
                                 `_x( '${ toTitleCase( v ) }', 'colour variation name', '${ textDomain }' )`,
                             ] ) ).split( '\n' ).join( '\n    ' ),
@@ -1085,7 +1143,7 @@ export namespace getBrandConstants {
                     entries,
                 } = SVG_CONSTANTS;
 
-                const typeString = entriesToObject_type( entries.keys.map( ( [ key ] ) => [ key, 'string[]' ] ) );
+                const typeString = entriesToObject_type( entries.tokenSlugs.map( ( [ key ] ) => [ key, 'string[]' ] ) );
 
                 const ret: string[] = [];
 
@@ -1096,8 +1154,13 @@ export namespace getBrandConstants {
 
                     switch ( opt ) {
 
-                        case 'keys':
-                        case 'keyNames':
+                        case 'themes':
+                            content = entriesToArray( entries[ opt ] );
+                            break;
+
+                        case 'themeNames':
+                        case 'tokenSlugs':
+                        case 'tokenSlugNames':
                             content = entriesToObject( entries[ opt ] );
                             break;
 
@@ -1137,7 +1200,7 @@ export namespace getBrandConstants {
              * @since ___PKG_VERSION___
              */
             export async function getAll(
-                tokens: Tokens.JsonReturn | Tokens.Instance,
+                tokens: Tokens.JsonReturn,
                 textDomain: string,
                 args: {
                     icons?: Omit<getSvgConsts.Args, 'valueMappers'>,

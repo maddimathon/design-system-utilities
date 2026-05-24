@@ -3,6 +3,7 @@
 /// @since 0.1.0-alpha
 ///
 
+@use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/map';
 
 @use '../../config';
@@ -19,11 +20,34 @@ $_systemColors: map.ksort(
     )
 );
 
+$_allSelectors_background: ();
+
+$_allSelectors_background: list.append(
+    $_allSelectors_background,
+    '.background-default',
+    $separator: comma
+);
+
+@each $variant in map.get(tokens.$themesMeta, keys, background) {
+    $_allSelectors_background: list.append(
+        $_allSelectors_background,
+        '.background-#{$variant}',
+        $separator: comma
+    );
+}
+
 ///
 /// @since 0.1.0-alpha
 ///
 @function get-sys-colours() {
     @return $_systemColors;
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function selector-all-background-variations() {
+    @return $_allSelectors_background;
 }
 
 ///

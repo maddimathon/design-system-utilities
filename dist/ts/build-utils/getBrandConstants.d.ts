@@ -79,7 +79,7 @@ export declare namespace getBrandConstants {
      *
      * @since 0.1.0-beta.0.draft
      */
-    function getThemeConsts<T_ReturnOptions extends getThemeConsts.ReturnOptions>(tokens: Tokens.JsonReturn | Tokens.Instance, args?: getThemeConsts.Args): Promise<null | {
+    function getThemeConsts<T_ReturnOptions extends getThemeConsts.ReturnOptions>(tokens: Tokens.JsonReturn, args?: getThemeConsts.Args): Promise<null | {
         readonly entries: {
             readonly [K in T_ReturnOptions]: readonly [string, string][];
         };
@@ -108,7 +108,9 @@ export declare namespace getBrandConstants {
              * @since 0.1.0-beta.0.draft
              */
             valueMappers?: {
-                [K in ReturnOptions]?: (item: string[]) => string;
+                [K in Extract<ReturnOptions, 'themes' | 'themeNames'>]?: (item: string) => string;
+            } & {
+                [K in Exclude<ReturnOptions, 'themes' | 'themeNames'>]?: (item: string[]) => string;
             };
             /**
              * Which variables to include in the return.
@@ -120,7 +122,7 @@ export declare namespace getBrandConstants {
         /**
          * @since 0.1.0-beta.0.draft
          */
-        const returnOpts: readonly ["keys", "keyNames"];
+        const returnOpts: readonly ["themes", "themeNames", "tokenSlugs", "tokenSlugNames"];
         /**
          * @since 0.1.0-beta.0.draft
          */
@@ -187,14 +189,14 @@ export declare namespace getBrandConstants {
              *
              * @since 0.1.0-beta.0.draft
              */
-            function getTheme(tokens: Tokens.JsonReturn | Tokens.Instance, textDomain: string, phpNamespace: string, args?: Omit<getThemeConsts.Args, 'valueMappers'>): Promise<null | string>;
+            function getTheme(tokens: Tokens.JsonReturn, textDomain: string, phpNamespace: string, args?: Omit<getThemeConsts.Args, 'valueMappers'>): Promise<null | string>;
             /**
              * Gets a string of valid PHP code for wordpress defining constants
              * for the theme tokens.
              *
              * @since 0.1.0-beta.0.draft
              */
-            function getAll(tokens: Tokens.JsonReturn | Tokens.Instance, textDomain: string, phpNamespace: string, args?: {
+            function getAll(tokens: Tokens.JsonReturn, textDomain: string, phpNamespace: string, args?: {
                 icons?: Omit<getSvgConsts.Args, 'valueMappers'>;
                 logos?: Omit<getSvgConsts.Args, 'valueMappers'>;
                 theme?: Omit<getThemeConsts.Args, 'valueMappers'>;
@@ -226,14 +228,14 @@ export declare namespace getBrandConstants {
              *
              * @since 0.1.0-beta.0.draft
              */
-            function getTheme(tokens: Tokens.JsonReturn | Tokens.Instance, textDomain: string, args?: Omit<getThemeConsts.Args<"react">, 'valueMappers'>): Promise<null | string>;
+            function getTheme(tokens: Tokens.JsonReturn, textDomain: string, args?: Omit<getThemeConsts.Args<"react">, 'valueMappers'>): Promise<null | string>;
             /**
              * Gets a string of valid PHP code for wordpress defining constants
              * for the theme tokens.
              *
              * @since 0.1.0-beta.0.draft
              */
-            function getAll(tokens: Tokens.JsonReturn | Tokens.Instance, textDomain: string, args?: {
+            function getAll(tokens: Tokens.JsonReturn, textDomain: string, args?: {
                 icons?: Omit<getSvgConsts.Args, 'valueMappers'>;
                 logos?: Omit<getSvgConsts.Args, 'valueMappers'>;
                 theme?: Omit<getThemeConsts.Args, 'valueMappers'>;

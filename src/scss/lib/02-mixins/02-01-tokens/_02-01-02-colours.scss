@@ -21,6 +21,8 @@
 $_systemColors: get-sys-colours();
 $_flattenedSystemColors: map.flatten($_systemColors);
 
+$_allSelectors_background: selector-all-background-variations();
+
 ///
 /// Prints out the line height custom property default values based on config.
 ///
@@ -279,7 +281,9 @@ $_flattenedSystemColors: map.flatten($_systemColors);
     $background: null,
     $color: null,
     $focusRingOutlineColor: null,
-    $iconColor: null
+    $iconColor: null,
+    //
+    $focusRing_childrenOnly: null
 ) {
     $useSystemColorFallback: false;
 
@@ -288,20 +292,34 @@ $_flattenedSystemColors: map.flatten($_systemColors);
         $contrast: tokens.$contrastMode_default;
     }
 
-    @include utils.cx-prop(
-        focus-ring-outline-color,
-        if(
-            $focusRingOutlineColor,
-            $focusRingOutlineColor,
-            var-theme(
-                link-outline-hover,
-                $brightness: $brightness,
-                $contrast: $contrast,
-                $themeSlug: $slug,
-                $useSystemColorFallback: $useSystemColorFallback
+    $_parentSel: list.except(selector.parse(#{&}), #{config.$selector_null});
+
+    @if list.length($_parentSel) < 1 {
+        $_parentSel: config.$selector_null;
+    }
+
+    @if $focusRing_childrenOnly == null {
+        $focusRing_childrenOnly: not
+            selector.is-body($_parentSel) and not
+            selector.is-root($_parentSel);
+    }
+
+    @if not $focusRing_childrenOnly {
+        @include utils.cx-prop(
+            focus-ring-outline-color,
+            if(
+                $focusRingOutlineColor,
+                $focusRingOutlineColor,
+                var-theme(
+                    link-outline-hover,
+                    $brightness: $brightness,
+                    $contrast: $contrast,
+                    $themeSlug: $slug,
+                    $useSystemColorFallback: $useSystemColorFallback
+                )
             )
-        )
-    );
+        );
+    }
 
     @include theme-set-color(
         $brightness: tokens.$brightnessMode_default,
@@ -321,6 +339,63 @@ $_flattenedSystemColors: map.flatten($_systemColors);
             $useSystemColorFallback: $useSystemColorFallback
         )
     );
+
+    @if $focusRing_childrenOnly {
+        $_val: if(
+            $focusRingOutlineColor,
+            $focusRingOutlineColor,
+            var-theme(
+                link-outline-hover,
+                $brightness: $brightness,
+                $contrast: $contrast,
+                $themeSlug: $slug,
+                $useSystemColorFallback: $useSystemColorFallback
+            )
+        );
+
+        // a single selector (no comma-separated selectors) that is the root or
+        // body takes it directly anyway
+        @if list.length($_parentSel) <
+            2 and
+            (selector.is-root($_parentSel) or selector.is-body($_parentSel))
+        {
+            @include utils.cx-prop(focus-ring-outline-color, $_val);
+        } @else {
+            $_whereSels: ();
+
+            @if list.length($_parentSel) > 0 {
+                @if not selector.is-root($_parentSel) {
+                    $_whereSels: list.append($_whereSels, '%root', $separator: comma);
+
+                    @if not selector.is-body($_parentSel) {
+                        $_whereSels: list.append($_whereSels, '%body', $separator: comma);
+                    }
+                }
+            } @else {
+                @if not selector.has-root($_parentSel) {
+                    $_whereSels: list.append($_whereSels, '%root', $separator: comma);
+                }
+
+                @if not selector.has-body($_parentSel) and not selector.is-root($_parentSel) {
+                    $_whereSels: list.append($_whereSels, '%body', $separator: comma);
+                }
+            }
+
+            @if list.length($_whereSels) > 0 {
+                @at-root #{selector.unify($_parentSel, ':where(#{$_whereSels})')} {
+                    @include utils.cx-prop(focus-ring-outline-color, $_val);
+                }
+            }
+
+            > * {
+                @include utils.cx-prop(focus-ring-outline-color, $_val);
+            }
+        }
+    }
+
+    // UPGRADE: consider adding this in
+    // @if $includeBackgroundExceptions {
+    // }
 }
 
 ///
@@ -433,7 +508,9 @@ $_flattenedSystemColors: map.flatten($_systemColors);
     $brightness,
     $contrast,
     $setBaseProperties: config.$mx_tokensTheme_setBaseProperties,
-    $includeSystemColours: true
+    $includeSystemColours: true,
+    //
+    $base_focusRing_childrenOnly: null
 ) {
     $flat_isValues: tokens.$themes__nestedFlat_tokenValues != null;
 
@@ -481,7 +558,8 @@ $_flattenedSystemColors: map.flatten($_systemColors);
             @include tokens-theme-individual-base-properties(
                 $slug: $slug,
                 $brightness: $brightness,
-                $contrast: $contrast
+                $contrast: $contrast,
+                $focusRing_childrenOnly: $base_focusRing_childrenOnly
             );
         }
     }
@@ -576,11 +654,14 @@ $_themes_includeAlternatives: if(
             $level: $checkpointLevel
         );
     }
+
     // prettier-ignore
     @include tokens-theme-iterator(
         $includeAlternatives: $includeAlternatives,
         $args...
     ) using ($brightness, $contrast) {
+        $_parentIsBodyOrRoot: selector.parent-is-body() or selector.parent-is-root();
+
         //
         @if not $includeAlternatives {
             //
@@ -613,22 +694,22 @@ $_themes_includeAlternatives: if(
                     $level: $checkpointLevel + 1
                 );
             }
+            
             // defaults first
             @if config.$fn_colourMode_selectorsAsChildren and
-                not selector.is-body(#{&}) and
-                not selector.is-root(#{&})
+                not $_parentIsBodyOrRoot
             {
                 @if config.$mx_tokensTheme_unifyActiveThemeSelectors {
                     &,
                     &[data-active-theme='#{tokens.$activeTheme}'][data-active-theme],
                     & [data-active-theme='#{tokens.$activeTheme}'],
                     %active-theme-selector--#{tokens.$activeTheme} {
-                        //
                         @include tokens-theme-individual(
                             tokens.$activeTheme,
                             $brightness: $brightness,
                             $contrast: $contrast,
                             $includeSystemColours: $includeSystemColours,
+                            $setBaseProperties: true,
                         );
                         @content ($brightness, $contrast, main);
                     }
@@ -636,12 +717,12 @@ $_themes_includeAlternatives: if(
                     &,
                     & [data-active-theme='#{tokens.$activeTheme}'],
                     %active-theme-selector--#{tokens.$activeTheme} {
-                        //
                         @include tokens-theme-individual(
                             tokens.$activeTheme,
                             $brightness: $brightness,
                             $contrast: $contrast,
                             $includeSystemColours: $includeSystemColours,
+                            $setBaseProperties: true,
                         );
                         @content ($brightness, $contrast, main);
                     }
@@ -651,7 +732,6 @@ $_themes_includeAlternatives: if(
                     &,
                     &[data-active-theme='#{tokens.$activeTheme}'][data-active-theme],
                     %active-theme-selector--#{tokens.$activeTheme} {
-                        //
                         @include tokens-theme-individual(
                             tokens.$activeTheme,
                             $brightness: $brightness,
@@ -660,10 +740,21 @@ $_themes_includeAlternatives: if(
                         );
                         @content ($brightness, $contrast, main);
                     }
+
+                    @if not config.$mx_tokensTheme_setBaseProperties {
+                        &[data-active-theme='#{tokens.$activeTheme}'][data-active-theme],
+                        %active-theme-selector--#{tokens.$activeTheme} {
+                            @include tokens-theme-individual-base-properties(
+                                $slug: tokens.$activeTheme,
+                                $brightness: $brightness,
+                                $contrast: $contrast,
+                            );
+                            @content ($brightness, $contrast, main--base-props);
+                        }
+                    }
                 } @else {
                     &,
                     %active-theme-selector--#{tokens.$activeTheme} {
-                        //
                         @include tokens-theme-individual(
                             tokens.$activeTheme,
                             $brightness: $brightness,
@@ -671,6 +762,17 @@ $_themes_includeAlternatives: if(
                             $includeSystemColours: $includeSystemColours,
                         );
                         @content ($brightness, $contrast, main);
+                    }
+
+                    @if not config.$mx_tokensTheme_setBaseProperties {
+                        %active-theme-selector--#{tokens.$activeTheme} {
+                            @include tokens-theme-individual-base-properties(
+                                $slug: tokens.$activeTheme,
+                                $brightness: $brightness,
+                                $contrast: $contrast,
+                            );
+                            @content ($brightness, $contrast, main--base-props);
+                        }
                     }
                 }
             }
@@ -704,6 +806,7 @@ $_themes_includeAlternatives: if(
                                     $brightness: $brightness,
                                     $contrast: $contrast,
                                     $includeSystemColours: $includeSystemColours,
+                                    $setBaseProperties: true,
                                 );
                                 
                                 @if $checkpointName {
@@ -724,6 +827,7 @@ $_themes_includeAlternatives: if(
                                     $brightness: $brightness,
                                     $contrast: $contrast,
                                     $includeSystemColours: $includeSystemColours,
+                                    $setBaseProperties: true,
                                 );
                                 
                                 @if $checkpointName {
@@ -746,6 +850,7 @@ $_themes_includeAlternatives: if(
                                     $brightness: $brightness,
                                     $contrast: $contrast,
                                     $includeSystemColours: $includeSystemColours,
+                                    $setBaseProperties: true,
                                 );
                                 
                                 @if $checkpointName {
@@ -765,6 +870,7 @@ $_themes_includeAlternatives: if(
                                     $brightness: $brightness,
                                     $contrast: $contrast,
                                     $includeSystemColours: $includeSystemColours,
+                                    $setBaseProperties: true,
                                 );
                                 
                                 @if $checkpointName {

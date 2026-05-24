@@ -164,23 +164,36 @@ export var getBrandConstants;
      */
     async function getThemeConsts(tokens, args = {}) {
         const include = {
-            keys: args.incl?.keys ?? true,
-            keyNames: args.incl?.keyNames ?? true,
+            themes: args.incl?.themes ?? true,
+            themeNames: args.incl?.themeNames ?? true,
+            tokenSlugs: args.incl?.tokenSlugs ?? true,
+            tokenSlugNames: args.incl?.tokenSlugNames ?? true,
         };
-        const themesMeta = '_meta' in tokens.themes ? tokens.themes._meta : tokens.themes.meta;
+        const themesMeta = tokens.themes._meta;
+        const themeSlugs = Object.keys(tokens.themes).filter(key => key !== '_meta');
         const entries = {};
         const valueFn_fallback = (key) => Array.isArray(key) ? key.join(',') : key;
-        if (include.keys) {
-            const valueFn = args.valueMappers?.keys ?? valueFn_fallback;
-            const keyFn = args.keyMappers?.keys ?? ((key) => key);
-            const _entries = Object.entries(themesMeta.keys);
-            entries.keys = _entries.map(([key, value]) => [keyFn(key), valueFn(value)]);
+        if (include.themes) {
+            const valueFn = args.valueMappers?.themes ?? valueFn_fallback;
+            const keyFn = args.keyMappers?.themes ?? ((key) => key);
+            entries.themes = themeSlugs.map((key) => [keyFn(key), valueFn(key)]);
         }
-        if (include.keyNames) {
-            const valueFn = args.valueMappers?.keyNames ?? valueFn_fallback;
-            const keyFn = args.keyMappers?.keyNames ?? ((key) => key);
+        if (include.themeNames) {
+            const valueFn = args.valueMappers?.themeNames ?? valueFn_fallback;
+            const keyFn = args.keyMappers?.themeNames ?? ((key) => key);
+            entries.themeNames = themeSlugs.map((key) => [keyFn(key), valueFn(tokens.themes[key]?._name ?? key)]);
+        }
+        if (include.tokenSlugs) {
+            const valueFn = args.valueMappers?.tokenSlugs ?? valueFn_fallback;
+            const keyFn = args.keyMappers?.tokenSlugs ?? ((key) => key);
             const _entries = Object.entries(themesMeta.keys);
-            entries.keyNames = _entries.map(([key, value]) => [keyFn(key), valueFn(value)]);
+            entries.tokenSlugs = _entries.map(([key, value]) => [keyFn(key), valueFn(value)]);
+        }
+        if (include.tokenSlugNames) {
+            const valueFn = args.valueMappers?.tokenSlugNames ?? valueFn_fallback;
+            const keyFn = args.keyMappers?.tokenSlugNames ?? ((key) => key);
+            const _entries = Object.entries(themesMeta.keys);
+            entries.tokenSlugNames = _entries.map(([key, value]) => [keyFn(key), valueFn(value)]);
         }
         return {
             entries: entries,
@@ -197,8 +210,10 @@ export var getBrandConstants;
          * @since 0.1.0-beta.0.draft
          */
         getThemeConsts.returnOpts = [
-            'keys',
-            'keyNames',
+            'themes',
+            'themeNames',
+            'tokenSlugs',
+            'tokenSlugNames',
         ];
     })(getThemeConsts = getBrandConstants.getThemeConsts || (getBrandConstants.getThemeConsts = {}));
     /**
@@ -228,12 +243,21 @@ export var getBrandConstants;
                 case 'svg':
                     comment = `All ${commentName} svg values indexed by slug.`;
                     break;
-                case 'keys':
-                    comment = `Theme slugs included in all themes.`;
+                case 'themes':
+                    comment = `Theme slugs.`;
+                    constName = 'SLUGS';
                     break;
-                case 'keyNames':
-                    comment = `Translated theme slug names included in all themes, indexed by slug.`;
-                    constName = 'KEY_NAMES';
+                case 'themeNames':
+                    comment = `Translated theme slug names, indexed by slug.`;
+                    constName = 'SLUG_NAMES';
+                    break;
+                case 'tokenSlugs':
+                    comment = `Token slugs included in all themes.`;
+                    constName = 'TOKEN_SLUGS';
+                    break;
+                case 'tokenSlugNames':
+                    comment = `Translated token slug names included in all themes, indexed by slug.`;
+                    constName = 'TOKEN_SLUG_NAMES';
                     break;
             }
             return {
@@ -425,11 +449,13 @@ export var getBrandConstants;
                 const SVG_CONSTANTS = await getThemeConsts(tokens, {
                     ...args,
                     valueMappers: {
-                        keys: (value) => entriesToArray(value.map((v, i) => [
+                        themes: (value) => `'${value.replace(/'/g, "\\'")}'`,
+                        themeNames: (value) => `_x( '${toTitleCase(value)}', 'colour theme name', '${textDomain}' )`,
+                        tokenSlugs: (value) => entriesToArray(value.map((v, i) => [
                             i.toString(),
                             `'${v.replace(/'/g, "\\'")}'`,
                         ]), false).split('\n').join('\n    '),
-                        keyNames: (value) => entriesToArray(value.map(v => [
+                        tokenSlugNames: (value) => entriesToArray(value.map(v => [
                             v,
                             `_x( '${toTitleCase(v)}', 'colour variation name', '${textDomain}' )`,
                         ])).split('\n').join('\n    '),
@@ -439,8 +465,9 @@ export var getBrandConstants;
                     return null;
                 }
                 const { entries, } = SVG_CONSTANTS;
-                const themesMeta = '_meta' in tokens.themes ? tokens.themes._meta : tokens.themes.meta;
-                const keyEntries = Object.entries(themesMeta.keys);
+                const themesMeta = tokens.themes._meta;
+                const tokenKeyEntries = Object.entries(themesMeta.keys);
+                const themeSlugs = Object.keys(tokens.themes).filter(key => key !== '_meta');
                 phpNamespace = phpNamespace.length ? phpNamespace.replace(/\/$/gi, '') + '\\' : '';
                 const ret = [];
                 for (const opt of getThemeConsts.returnOpts) {
@@ -448,14 +475,23 @@ export var getBrandConstants;
                     let insideHook = false;
                     let type;
                     switch (opt) {
-                        case 'keys':
-                            content = entriesToObject(entries[opt]);
-                            type = `object{ ${keyEntries.map(([key]) => `${key}: string[]`).join(', ')} }`;
+                        case 'themes':
+                            content = entriesToArray(entries[opt], false);
+                            type = `( ${themeSlugs.map(key => `"${key}"`).join('|')} )[]`;
                             break;
-                        case 'keyNames':
+                        case 'themeNames':
                             content = entriesToObject(entries[opt]);
                             insideHook = true;
-                            type = `object{ ${keyEntries.map(([key, values]) => `${key}: array{ ${values.map(subKey => `${subKey}: string`).join(', ')} }`).join(', ')} }`;
+                            type = `object{ ${themeSlugs.map(key => `${key}: string`).join(', ')} }`;
+                            break;
+                        case 'tokenSlugs':
+                            content = entriesToObject(entries[opt]);
+                            type = `object{ ${tokenKeyEntries.map(([key]) => `${key}: string[]`).join(', ')} }`;
+                            break;
+                        case 'tokenSlugNames':
+                            content = entriesToObject(entries[opt]);
+                            insideHook = true;
+                            type = `object{ ${tokenKeyEntries.map(([key, values]) => `${key}: array{ ${values.map(subKey => `${subKey}: string`).join(', ')} }`).join(', ')} }`;
                             break;
                     }
                     // continues
@@ -603,11 +639,13 @@ export var getBrandConstants;
                 const SVG_CONSTANTS = await getThemeConsts(tokens, {
                     ...args,
                     valueMappers: {
-                        keys: (value) => entriesToArray(value.map((v, i) => [
+                        themes: (value) => `'${value.replace(/'/g, "\\'")}'`,
+                        themeNames: (value) => `_x( '${toTitleCase(value)}', 'colour theme name', '${textDomain}' )`,
+                        tokenSlugs: (value) => entriesToArray(value.map((v, i) => [
                             i.toString(),
                             `'${v.replace(/'/g, "\\'")}'`,
                         ])).split('\n').join('\n    '),
-                        keyNames: (value) => entriesToObject(value.map((v, i) => [
+                        tokenSlugNames: (value) => entriesToObject(value.map((v, i) => [
                             v,
                             `_x( '${toTitleCase(v)}', 'colour variation name', '${textDomain}' )`,
                         ])).split('\n').join('\n    '),
@@ -617,14 +655,18 @@ export var getBrandConstants;
                     return null;
                 }
                 const { entries, } = SVG_CONSTANTS;
-                const typeString = entriesToObject_type(entries.keys.map(([key]) => [key, 'string[]']));
+                const typeString = entriesToObject_type(entries.tokenSlugs.map(([key]) => [key, 'string[]']));
                 const ret = [];
                 for (const opt of getThemeConsts.returnOpts) {
                     let content;
                     let type = undefined;
                     switch (opt) {
-                        case 'keys':
-                        case 'keyNames':
+                        case 'themes':
+                            content = entriesToArray(entries[opt]);
+                            break;
+                        case 'themeNames':
+                        case 'tokenSlugs':
+                        case 'tokenSlugNames':
                             content = entriesToObject(entries[opt]);
                             break;
                         default:
