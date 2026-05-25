@@ -83,11 +83,13 @@ export declare class Tokens_Icons<T_ExtraIconNames extends string> extends Abstr
         right: 0xf136;
         search: 0xf137;
         settings: 0xf138;
+        singlecolumn: 0xf15b;
         star: 0xf139;
         stopwatch: 0xf159;
         success: 0xf140;
         timer: 0xf15a;
         toggle: 0xf158;
+        twocolumns: 0xf15c;
         ui: 0xf141;
         'ui-check': 0xf142;
         'ui-minimum': 0xf143;
@@ -172,7 +174,7 @@ export declare namespace Tokens_Icons {
     /**
      * @since 0.1.0-beta.0.draft
      */
-    const optionalIconNames: readonly ["alarm", "alert", "attachment", "biography", "book", "clock", "close", "code", "compass", "compass", "computer", "contact", "dash", "discussion", "down", "download", "draft", "error", "external", "forbidden", "group", "hidden", "info", "left", "lightbulb", "lightning", "link", "location", "lock", "logo-circle-facebook", "logo-circle-instagram", "logo-circle-linkedin", "logo-facebook", "logo-instagram", "logo-linkedin", "minus", "no", "note", "paperclip", "person", "pinned", "plus", "private", "question", "quote", "reading", "refresh", "right", "star", "stopwatch", "success", "timer", "unlock", "up", "warning"];
+    const optionalIconNames: readonly ["alarm", "alert", "attachment", "biography", "book", "clock", "close", "code", "compass", "compass", "computer", "contact", "dash", "discussion", "down", "download", "draft", "error", "external", "forbidden", "group", "hidden", "info", "left", "lightbulb", "lightning", "link", "location", "lock", "logo-circle-facebook", "logo-circle-instagram", "logo-circle-linkedin", "logo-facebook", "logo-instagram", "logo-linkedin", "minus", "no", "note", "paperclip", "person", "pinned", "plus", "private", "question", "quote", "reading", "refresh", "right", "singlecolumn", "star", "stopwatch", "success", "timer", "twocolumns", "unlock", "up", "warning"];
     /**
      * @since 0.1.0-beta.0.draft
      */
