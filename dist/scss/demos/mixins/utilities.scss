@@ -1,0 +1,83 @@
+///
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@forward '../demo-config';
+@forward '../../tokens';
+
+@forward '../header';
+
+@use 'pkg:@maddimathon/utility-sass/meta';
+
+@use '../../lib' as *;
+@use '../../template/_content/lib' as *;
+
+/* # MIXINS - UTILITIES
+ * ======================================================================== */
+
+@mixin _snippet-no-top-or-bottom-margin--tester(
+    $mixin,
+    $module: null,
+    $args...
+) {
+    @include meta.mixin-demo(
+        "#{if($module == null, '', '#{$module}.')}#{$mixin}",
+        meta.get-mixin($mixin, $module),
+        $args...
+    ) {
+        @content;
+    }
+}
+
+$_paramPermutations: (
+    default: (),
+    not-important: (
+        asImportant: false,
+    ),
+    children-as-blocks: (
+        useNotInsteadOfChildren: false,
+    ),
+    no-children: (
+        includeChildren: false,
+    ),
+    not-important-children-as-blocks: (
+        asImportant: false,
+        useNotInsteadOfChildren: false,
+    ),
+    children-not-is: (
+        childrenInIs: false,
+        useNotInsteadOfChildren: false,
+    ),
+    not-important-children-not-is-as-blocks: (
+        asImportant: false,
+        childrenInIs: false,
+        useNotInsteadOfChildren: false,
+    ),
+);
+
+@each $mixin,
+    $selector
+        in (
+            'snippet-first-child-no-top-margin': ':first-child',
+            'snippet-last-child-no-bottom-margin': ':last-child'
+        )
+{
+    /* ## #{$mixin} ==================================== */
+
+    parent {
+        @each $slug, $map in $_paramPermutations {
+            @media #{$mixin} {
+                > #{$selector} {
+                    @include meta.mixin-demo(
+                        $mixin,
+                        meta.get-mixin($mixin),
+                        $map...
+                    );
+                }
+            }
+        }
+    }
+}
+
+@include extend-selectors;

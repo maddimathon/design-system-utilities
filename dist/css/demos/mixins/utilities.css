@@ -1,0 +1,348 @@
+/*!
+ * Design System Utilities - Demo
+ *
+ * This stylesheet demonstrates the output of functions and mixins included in
+ * this library.
+ *
+ * https://maddimathon.github.io/design-system-utilities
+ *
+ * Author: Maddi Mathon (www.maddimathon.com/web)
+ * License: MIT
+ */
+/*!
+ * This stylesheet includes css generated using 
+ * @maddimathon/utility-sass@0.1.0-beta.0.draft
+ * 
+ * https://maddimathon.github.io/utility-sass
+ */
+/*!
+ * This stylesheet includes css generated using 
+ * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+ * 
+ * https://maddimathon.github.io/design-system-utilities
+ */
+/* # MIXINS - UTILITIES
+ * ======================================================================== */
+/* ## snippet-first-child-no-top-margin ==================================== */
+@media snippet-first-child-no-top-margin {
+    /* @include snippet-first-child-no-top-margin() */
+    parent
+        > :first-child:not(.button-span):not(a[href].button-grey):not(
+            a[href].button-secondary
+        ):not(a[href].button):not(.brand-logo):not(.alert-block):not(
+            .margins-flow-firm
+        ):not([data-toggle-container]):not(button):not([role="button"]):not(
+            input[type="button"]
+        ):not(details):not(table):not(.table-wrapper):not(img):not(figure):not(
+            hr
+        ):not(.margins-flow-firm-small):not(.margins-flow-firm-large):not(
+            blockquote
+        ) {
+        margin-block-start: 0 !important;
+    }
+}
+@media snippet-first-child-no-top-margin {
+    /* @include snippet-first-child-no-top-margin( $asImportant: false ) */
+    parent
+        > :first-child:not(.button-span):not(a[href].button-grey):not(
+            a[href].button-secondary
+        ):not(a[href].button):not(.brand-logo):not(.alert-block):not(
+            .margins-flow-firm
+        ):not([data-toggle-container]):not(button):not([role="button"]):not(
+            input[type="button"]
+        ):not(details):not(table):not(.table-wrapper):not(img):not(figure):not(
+            hr
+        ):not(.margins-flow-firm-small):not(.margins-flow-firm-large):not(
+            blockquote
+        ) {
+        margin-block-start: 0;
+    }
+}
+@media snippet-first-child-no-top-margin {
+    /* @include snippet-first-child-no-top-margin( $useNotInsteadOfChildren: false ) */
+    parent > :first-child {
+        margin-block-start: 0 !important;
+    }
+    parent
+        > :first-child:is(
+            .button-span,
+            .site-content .button-span,
+            a[href].button-grey,
+            a[href].button-secondary,
+            a[href].button,
+            .brand-logo,
+            .alert-block,
+            .margins-flow-firm,
+            [data-toggle-container],
+            button,
+            [role="button"],
+            input[type="button"],
+            details,
+            table,
+            .table-wrapper,
+            img,
+            figure,
+            hr,
+            .margins-flow-firm-small,
+            .margins-flow-firm-large,
+            blockquote
+        ) {
+        margin-block-start: var(--flow-margin-firm-end, 0.46875rem) !important;
+    }
+}
+@media snippet-first-child-no-top-margin {
+    /* @include snippet-first-child-no-top-margin( $includeChildren: false ) */
+    parent > :first-child {
+        margin-block-start: 0 !important;
+    }
+}
+@media snippet-first-child-no-top-margin {
+    /* @include snippet-first-child-no-top-margin( $asImportant: false, $useNotInsteadOfChildren: false ) */
+    parent > :first-child {
+        margin-block-start: 0;
+    }
+    parent
+        > :first-child:is(
+            .button-span,
+            .site-content .button-span,
+            a[href].button-grey,
+            a[href].button-secondary,
+            a[href].button,
+            .brand-logo,
+            .alert-block,
+            .margins-flow-firm,
+            [data-toggle-container],
+            button,
+            [role="button"],
+            input[type="button"],
+            details,
+            table,
+            .table-wrapper,
+            img,
+            figure,
+            hr,
+            .margins-flow-firm-small,
+            .margins-flow-firm-large,
+            blockquote
+        ) {
+        margin-block-start: var(--flow-margin-firm-end, 0.46875rem);
+    }
+}
+@media snippet-first-child-no-top-margin {
+    /* @include snippet-first-child-no-top-margin( $childrenInIs: false, $useNotInsteadOfChildren: false ) */
+    parent > :first-child {
+        margin-block-start: 0 !important;
+    }
+    parent > .button-span:first-child,
+    parent > a[href].button-grey:first-child,
+    parent > a[href].button-secondary:first-child,
+    parent > a[href].button:first-child,
+    parent > .brand-logo:first-child,
+    parent > .alert-block:first-child,
+    parent > .margins-flow-firm:first-child,
+    parent > [data-toggle-container]:first-child,
+    parent > button:first-child,
+    parent > [role="button"]:first-child,
+    parent > input[type="button"]:first-child,
+    parent > details:first-child,
+    parent > table:first-child,
+    parent > .table-wrapper:first-child,
+    parent > img:first-child,
+    parent > figure:first-child,
+    parent > hr:first-child,
+    parent > .margins-flow-firm-small:first-child,
+    parent > .margins-flow-firm-large:first-child,
+    parent > blockquote:first-child {
+        margin-block-start: var(--flow-margin-firm-end, 0.46875rem) !important;
+    }
+}
+@media snippet-first-child-no-top-margin {
+    /* @include snippet-first-child-no-top-margin( $asImportant: false, $childrenInIs: false, $useNotInsteadOfChildren: false ) */
+    parent > :first-child {
+        margin-block-start: 0;
+    }
+    parent > .button-span:first-child,
+    parent > a[href].button-grey:first-child,
+    parent > a[href].button-secondary:first-child,
+    parent > a[href].button:first-child,
+    parent > .brand-logo:first-child,
+    parent > .alert-block:first-child,
+    parent > .margins-flow-firm:first-child,
+    parent > [data-toggle-container]:first-child,
+    parent > button:first-child,
+    parent > [role="button"]:first-child,
+    parent > input[type="button"]:first-child,
+    parent > details:first-child,
+    parent > table:first-child,
+    parent > .table-wrapper:first-child,
+    parent > img:first-child,
+    parent > figure:first-child,
+    parent > hr:first-child,
+    parent > .margins-flow-firm-small:first-child,
+    parent > .margins-flow-firm-large:first-child,
+    parent > blockquote:first-child {
+        margin-block-start: var(--flow-margin-firm-end, 0.46875rem);
+    }
+}
+
+/* ## snippet-last-child-no-bottom-margin ==================================== */
+@media snippet-last-child-no-bottom-margin {
+    /* @include snippet-last-child-no-bottom-margin() */
+    parent
+        > :last-child:not(.button-span):not(a[href].button-grey):not(
+            a[href].button-secondary
+        ):not(a[href].button):not(.brand-logo):not(.alert-block):not(
+            .margins-flow-firm
+        ):not([data-toggle-container]):not(button):not([role="button"]):not(
+            input[type="button"]
+        ):not(details):not(table):not(.table-wrapper):not(img):not(figure):not(
+            hr
+        ):not(.margins-flow-firm-small):not(.margins-flow-firm-large):not(
+            blockquote
+        ) {
+        margin-block-end: 0 !important;
+    }
+}
+@media snippet-last-child-no-bottom-margin {
+    /* @include snippet-last-child-no-bottom-margin( $asImportant: false ) */
+    parent
+        > :last-child:not(.button-span):not(a[href].button-grey):not(
+            a[href].button-secondary
+        ):not(a[href].button):not(.brand-logo):not(.alert-block):not(
+            .margins-flow-firm
+        ):not([data-toggle-container]):not(button):not([role="button"]):not(
+            input[type="button"]
+        ):not(details):not(table):not(.table-wrapper):not(img):not(figure):not(
+            hr
+        ):not(.margins-flow-firm-small):not(.margins-flow-firm-large):not(
+            blockquote
+        ) {
+        margin-block-end: 0;
+    }
+}
+@media snippet-last-child-no-bottom-margin {
+    /* @include snippet-last-child-no-bottom-margin( $useNotInsteadOfChildren: false ) */
+    parent > :last-child {
+        margin-block-end: 0 !important;
+    }
+    parent
+        > :last-child:is(
+            .button-span,
+            .site-content .button-span,
+            a[href].button-grey,
+            a[href].button-secondary,
+            a[href].button,
+            .brand-logo,
+            .alert-block,
+            .margins-flow-firm,
+            [data-toggle-container],
+            button,
+            [role="button"],
+            input[type="button"],
+            details,
+            table,
+            .table-wrapper,
+            img,
+            figure,
+            hr,
+            .margins-flow-firm-small,
+            .margins-flow-firm-large,
+            blockquote
+        ) {
+        margin-block-end: var(--flow-margin-firm-end, 0.46875rem) !important;
+    }
+}
+@media snippet-last-child-no-bottom-margin {
+    /* @include snippet-last-child-no-bottom-margin( $includeChildren: false ) */
+    parent > :last-child {
+        margin-block-end: 0 !important;
+    }
+}
+@media snippet-last-child-no-bottom-margin {
+    /* @include snippet-last-child-no-bottom-margin( $asImportant: false, $useNotInsteadOfChildren: false ) */
+    parent > :last-child {
+        margin-block-end: 0;
+    }
+    parent
+        > :last-child:is(
+            .button-span,
+            .site-content .button-span,
+            a[href].button-grey,
+            a[href].button-secondary,
+            a[href].button,
+            .brand-logo,
+            .alert-block,
+            .margins-flow-firm,
+            [data-toggle-container],
+            button,
+            [role="button"],
+            input[type="button"],
+            details,
+            table,
+            .table-wrapper,
+            img,
+            figure,
+            hr,
+            .margins-flow-firm-small,
+            .margins-flow-firm-large,
+            blockquote
+        ) {
+        margin-block-end: var(--flow-margin-firm-end, 0.46875rem);
+    }
+}
+@media snippet-last-child-no-bottom-margin {
+    /* @include snippet-last-child-no-bottom-margin( $childrenInIs: false, $useNotInsteadOfChildren: false ) */
+    parent > :last-child {
+        margin-block-end: 0 !important;
+    }
+    parent > .button-span:last-child,
+    parent > a[href].button-grey:last-child,
+    parent > a[href].button-secondary:last-child,
+    parent > a[href].button:last-child,
+    parent > .brand-logo:last-child,
+    parent > .alert-block:last-child,
+    parent > .margins-flow-firm:last-child,
+    parent > [data-toggle-container]:last-child,
+    parent > button:last-child,
+    parent > [role="button"]:last-child,
+    parent > input[type="button"]:last-child,
+    parent > details:last-child,
+    parent > table:last-child,
+    parent > .table-wrapper:last-child,
+    parent > img:last-child,
+    parent > figure:last-child,
+    parent > hr:last-child,
+    parent > .margins-flow-firm-small:last-child,
+    parent > .margins-flow-firm-large:last-child,
+    parent > blockquote:last-child {
+        margin-block-end: var(--flow-margin-firm-end, 0.46875rem) !important;
+    }
+}
+@media snippet-last-child-no-bottom-margin {
+    /* @include snippet-last-child-no-bottom-margin( $asImportant: false, $childrenInIs: false, $useNotInsteadOfChildren: false ) */
+    parent > :last-child {
+        margin-block-end: 0;
+    }
+    parent > .button-span:last-child,
+    parent > a[href].button-grey:last-child,
+    parent > a[href].button-secondary:last-child,
+    parent > a[href].button:last-child,
+    parent > .brand-logo:last-child,
+    parent > .alert-block:last-child,
+    parent > .margins-flow-firm:last-child,
+    parent > [data-toggle-container]:last-child,
+    parent > button:last-child,
+    parent > [role="button"]:last-child,
+    parent > input[type="button"]:last-child,
+    parent > details:last-child,
+    parent > table:last-child,
+    parent > .table-wrapper:last-child,
+    parent > img:last-child,
+    parent > figure:last-child,
+    parent > hr:last-child,
+    parent > .margins-flow-firm-small:last-child,
+    parent > .margins-flow-firm-large:last-child,
+    parent > blockquote:last-child {
+        margin-block-end: var(--flow-margin-firm-end, 0.46875rem);
+    }
+}

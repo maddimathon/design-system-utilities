@@ -124,6 +124,7 @@
     $isHr: string.index($slug, hr-) == 1;
     $isIconStyle: string.match($slug, '^(button-(inline-)?)?icon-') != null;
     $isInputStyle: string.index($slug, input-) == 1;
+    $isLogoStyle: string.index($slug, logo-) == 1;
     $isSubtitleStyle: string.index($slug, subtitle-) == 1;
     $isToggleStyle: string.index($slug, toggle-) == 1;
     $isToggleContentStyle: string.index($slug, toggle-content-) == 1;
@@ -149,6 +150,7 @@
         $isInputStyle or
         $isHeadingStyle or
         $isHr or
+        $isLogoStyle or
         $isSubtitleStyle or
         $isToggleStyle or
         $isWidgetStyle
@@ -473,11 +475,9 @@
             );
         }
 
-        $_suffix: if(
-            list.length($_default_flow_tokens_match) > 2,
-            '--#{list.nth($_default_flow_tokens_match, 3)}',
-            ''
-        );
+        $_suffix: list.nth($_default_flow_tokens_match, 3);
+
+        $_suffix: if($_suffix, '--#{$_suffix}', '');
 
         @return config.config-do-var(
             'flow-margin#{$_suffix}',

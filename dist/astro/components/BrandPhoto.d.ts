@@ -93,12 +93,20 @@ export type BrandPhotoProps_Base<
     linkLabel?: undefined,
 };
 
+export type BrandPhotoProps_Default<
+    T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+    T_Slug extends T_Types[ 'photos' ][ 'photoSlugs' ] | T_Types[ 'photos' ][ 'thumbnailSlugs' ] = T_Types[ 'photos' ][ 'photoSlugs' ] | T_Types[ 'photos' ][ 'thumbnailSlugs' ],
+> = GenericElementProps<BrandPhotoProps_Base<T_Types, T_Slug>, 'img', Image_ExcludedProps>;
+
+export type BrandPhotoProps_Linked<
+    T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+    T_Slug extends T_Types[ 'photos' ][ 'photoSlugs' ] | T_Types[ 'photos' ][ 'thumbnailSlugs' ] = T_Types[ 'photos' ][ 'photoSlugs' ] | T_Types[ 'photos' ][ 'thumbnailSlugs' ],
+> = GenericElementProps<Omit<BrandPhotoProps_Base<T_Types, T_Slug>, 'href' | 'linkLabel'> & {
+    href: string;
+    linkLabel: string,
+}, 'img', Image_ExcludedProps>;
+
 export type BrandPhotoProps<
     T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
     T_Slug extends T_Types[ 'photos' ][ 'photoSlugs' ] | T_Types[ 'photos' ][ 'thumbnailSlugs' ] = T_Types[ 'photos' ][ 'photoSlugs' ] | T_Types[ 'photos' ][ 'thumbnailSlugs' ],
-> =
-    | GenericElementProps<BrandPhotoProps_Base<T_Types, T_Slug>, 'img', Image_ExcludedProps>
-    | GenericElementProps<Omit<BrandPhotoProps_Base<T_Types, T_Slug>, 'href' | 'label'> & {
-        href: string;
-        linkLabel: string,
-    }, 'img', Image_ExcludedProps>;
+> = BrandPhotoProps_Default<T_Types, T_Slug> | BrandPhotoProps_Linked<T_Types, T_Slug>;

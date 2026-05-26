@@ -16,6 +16,7 @@ import type {
     AllThumbnails,
     BrandImageData,
     BrandPhotoProps,
+    BrandPhotoProps_Linked,
     PhotoData,
 } from './BrandPhoto.astro';
 
@@ -83,8 +84,8 @@ const linkProps = attrs.src ? {
         ],
         target: '_blank',
     },
-    linkLabel: '',
-} : {};
+    linkLabel: 'open image in new tab',
+} satisfies Pick<BrandPhotoProps_Linked, 'href'|'linkAttrs'|'linkLabel'> : {};
 
 const photoProps = {
     defineSize,
@@ -94,7 +95,11 @@ const photoProps = {
     thumbnails,
     urlMaker,
     ...linkProps,
-} as BrandPhotoProps;
+
+    linkAttrs: {
+        ...linkProps.linkAttrs,
+    },
+} satisfies BrandPhotoProps;
 
 const buttonSpacer = '<span class="brand-photo-list__sample__spacer">&NoBreak;&ensp;&NoBreak;</span>';
 ---

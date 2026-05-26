@@ -48,6 +48,12 @@ export class Tokens_CSS_Style extends AbstractTokens {
                     self: 'margins-flow-firm',
                 },
             },
+            logo: {
+                color: 'text-primary',
+                'flow-margin': {
+                    self: 'margins-flow-firm',
+                },
+            },
             selection: {
                 background: {
                     opacity: {
@@ -81,6 +87,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 hr: mergeArgs(defaults.hr, partial.hr, true),
                 icon,
                 input,
+                logo: mergeArgs(defaults.logo, partial.logo, true),
                 selection: mergeArgs(defaults.selection, partial.selection, true),
                 subtitle,
                 toggle,

@@ -71,6 +71,14 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                 },
             },
 
+            logo: {
+                color: 'text-primary',
+
+                'flow-margin': {
+                    self: 'margins-flow-firm',
+                },
+            },
+
             selection: {
                 background: {
                     opacity: {
@@ -80,7 +88,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                     },
                 },
             },
-        } satisfies Pick<Tokens_CSS_Style.Data, 'flow-margin' | 'hr' | 'selection'>;
+        } satisfies Pick<Tokens_CSS_Style.Data, 'flow-margin' | 'hr' | 'logo' | 'selection'>;
 
 
         return Promise.all( [
@@ -132,6 +140,12 @@ export class Tokens_CSS_Style extends AbstractTokens<{
 
                     icon,
                     input,
+
+                    logo: mergeArgs(
+                        defaults.logo,
+                        partial.logo,
+                        true,
+                    ),
 
                     selection: mergeArgs(
                         defaults.selection,
@@ -1117,7 +1131,7 @@ export namespace Tokens_CSS_Style {
          * Values for the set-flow-margins mixin.
          */
         'flow-margin': FlowMargin & {
-            self: 'margins-flow-firm' | 'margins-flow-firm-large' | 'margins-flow-firm-small';
+            self: FlowMargin.Self;
         };
 
         padding: {
@@ -1163,7 +1177,7 @@ export namespace Tokens_CSS_Style {
          * Values for the set-flow-margins mixin.
          */
         'flow-margin': {
-            self: 'margins-flow-firm' | 'margins-flow-firm-large' | 'margins-flow-firm-small';
+            self: FlowMargin.Self;
         };
 
         focus: {
@@ -1309,6 +1323,17 @@ export namespace Tokens_CSS_Style {
          */
         button: AnyTokenLevel;
     };
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export namespace FlowMargin {
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        export type Self = 'margins-flow-firm' | 'margins-flow-firm-small' | 'margins-flow-firm-large';
+    }
 
     /**
      * @since ___PKG_VERSION___
@@ -1575,7 +1600,7 @@ export namespace Tokens_CSS_Style {
          * Values for the set-flow-margins mixin.
          */
         'flow-margin': FlowMargin & {
-            self: 'margins-flow-firm' | 'margins-flow-firm-large' | 'margins-flow-firm-small';
+            self: FlowMargin.Self;
         };
 
         icon: Pick<IconStyles, 'vertical-align'> & {
@@ -1682,6 +1707,13 @@ export namespace Tokens_CSS_Style {
             inline: ButtonStyles_Inline;
         };
 
+        /**
+         * Default values for the set-flow-margins mixin.
+         * 
+         * @since ___PKG_VERSION___
+         */
+        'flow-margin': FlowMargin;
+
         heading: {
             unstyled: HeadingStyles_Unstyled;
         } & {
@@ -1704,7 +1736,7 @@ export namespace Tokens_CSS_Style {
             color: string;
 
             'flow-margin': {
-                self: 'margins-flow-firm' | 'margins-flow-firm-small' | 'margins-flow-firm-large',
+                self: FlowMargin.Self,
             },
         };
 
@@ -1724,11 +1756,18 @@ export namespace Tokens_CSS_Style {
         };
 
         /**
-         * Default values for the set-flow-margins mixin.
-         * 
          * @since ___PKG_VERSION___
          */
-        'flow-margin': FlowMargin;
+        logo: {
+            /**
+             * This should be a theme slug.
+             */
+            color: string;
+
+            'flow-margin': {
+                self: FlowMargin.Self,
+            },
+        };
 
         /**
          * Toggle block styles.
@@ -1813,6 +1852,11 @@ export namespace Tokens_CSS_Style {
          * @since ___PKG_VERSION___
          */
         'flow-margin'?: RecursivePartial<Data[ 'flow-margin' ]>;
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        logo?: RecursivePartial<Data[ 'logo' ]>;
 
         /**
          * @since ___PKG_VERSION___

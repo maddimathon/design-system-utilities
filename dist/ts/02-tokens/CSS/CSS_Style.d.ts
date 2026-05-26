@@ -144,7 +144,7 @@ export declare namespace Tokens_CSS_Style {
          * Values for the set-flow-margins mixin.
          */
         'flow-margin': FlowMargin & {
-            self: 'margins-flow-firm' | 'margins-flow-firm-large' | 'margins-flow-firm-small';
+            self: FlowMargin.Self;
         };
         padding: {
             block: AnyTokenLevel;
@@ -183,7 +183,7 @@ export declare namespace Tokens_CSS_Style {
          * Values for the set-flow-margins mixin.
          */
         'flow-margin': {
-            self: 'margins-flow-firm' | 'margins-flow-firm-large' | 'margins-flow-firm-small';
+            self: FlowMargin.Self;
         };
         focus: {
             offset: AnyTokenLevel;
@@ -300,6 +300,15 @@ export declare namespace Tokens_CSS_Style {
          */
         button: AnyTokenLevel;
     };
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    namespace FlowMargin {
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        type Self = 'margins-flow-firm' | 'margins-flow-firm-small' | 'margins-flow-firm-large';
+    }
     /**
      * @since 0.1.0-beta.0.draft
      */
@@ -499,7 +508,7 @@ export declare namespace Tokens_CSS_Style {
          * Values for the set-flow-margins mixin.
          */
         'flow-margin': FlowMargin & {
-            self: 'margins-flow-firm' | 'margins-flow-firm-large' | 'margins-flow-firm-small';
+            self: FlowMargin.Self;
         };
         icon: Pick<IconStyles, 'vertical-align'> & {
             buffer: {
@@ -588,6 +597,12 @@ export declare namespace Tokens_CSS_Style {
             disabled: ButtonStyles_Disabled;
             inline: ButtonStyles_Inline;
         };
+        /**
+         * Default values for the set-flow-margins mixin.
+         *
+         * @since 0.1.0-beta.0.draft
+         */
+        'flow-margin': FlowMargin;
         heading: {
             unstyled: HeadingStyles_Unstyled;
         } & {
@@ -607,7 +622,7 @@ export declare namespace Tokens_CSS_Style {
              */
             color: string;
             'flow-margin': {
-                self: 'margins-flow-firm' | 'margins-flow-firm-small' | 'margins-flow-firm-large';
+                self: FlowMargin.Self;
             };
         };
         /**
@@ -624,11 +639,17 @@ export declare namespace Tokens_CSS_Style {
             readonly: InputStyles_Variation;
         };
         /**
-         * Default values for the set-flow-margins mixin.
-         *
          * @since 0.1.0-beta.0.draft
          */
-        'flow-margin': FlowMargin;
+        logo: {
+            /**
+             * This should be a theme slug.
+             */
+            color: string;
+            'flow-margin': {
+                self: FlowMargin.Self;
+            };
+        };
         /**
          * Toggle block styles.
          *
@@ -698,6 +719,10 @@ export declare namespace Tokens_CSS_Style {
          * @since 0.1.0-beta.0.draft
          */
         'flow-margin'?: RecursivePartial<Data['flow-margin']>;
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        logo?: RecursivePartial<Data['logo']>;
         /**
          * @since 0.1.0-beta.0.draft
          */

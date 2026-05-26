@@ -1060,6 +1060,7 @@ html {
     --input-file-padding-inline: var(--pad-firm-300, 0.8125em);
     --input-readonly-border-radius: 0;
     --input-readonly-border-style: solid;
+    --logo-color: var(--theme-text-primary, CanvasText);
     --selection-background-opacity-average: 85%;
     --selection-background-opacity-high: 95%;
     --selection-background-opacity-low: 65%;
@@ -25393,6 +25394,8 @@ dt + [data-toggle-container],
 .margins-flow-large + [data-toggle-container],
 dt + .margins-flow-firm,
 .margins-flow-large + .margins-flow-firm,
+dt + .brand-logo,
+.margins-flow-large + .brand-logo,
 dt + a[href].button,
 .margins-flow-large + a[href].button,
 dt + a[href].button-secondary,
@@ -25423,6 +25426,7 @@ figure,
 .table-wrapper,
 [data-toggle-container],
 .margins-flow-firm,
+.brand-logo,
 a[href].button,
 a[href].button-secondary,
 a[href].button-grey,
@@ -25545,6 +25549,8 @@ blockquote + [data-toggle-container],
 .margins-flow-firm-large + [data-toggle-container],
 blockquote + .margins-flow-firm,
 .margins-flow-firm-large + .margins-flow-firm,
+blockquote + .brand-logo,
+.margins-flow-firm-large + .brand-logo,
 blockquote + a[href].button,
 .margins-flow-firm-large + a[href].button,
 blockquote + a[href].button-secondary,
@@ -26587,6 +26593,7 @@ h1:has(
     + .table-wrapper,
     + [data-toggle-container],
     + .margins-flow-firm,
+    + .brand-logo,
     + a[href].button,
     + a[href].button-secondary,
     + a[href].button-grey,
@@ -26604,6 +26611,7 @@ h1:has(
     + .table-wrapper,
     + [data-toggle-container],
     + .margins-flow-firm,
+    + .brand-logo,
     + a[href].button,
     + a[href].button-secondary,
     + a[href].button-grey,
@@ -26626,6 +26634,7 @@ h1:has(+ blockquote, + .margins-flow-firm-large),
     + .table-wrapper,
     + [data-toggle-container],
     + .margins-flow-firm,
+    + .brand-logo,
     + a[href].button,
     + a[href].button-secondary,
     + a[href].button-grey,
@@ -26691,6 +26700,7 @@ h2:has(
     + .table-wrapper,
     + [data-toggle-container],
     + .margins-flow-firm,
+    + .brand-logo,
     + a[href].button,
     + a[href].button-secondary,
     + a[href].button-grey,
@@ -26708,6 +26718,7 @@ h2:has(
     + .table-wrapper,
     + [data-toggle-container],
     + .margins-flow-firm,
+    + .brand-logo,
     + a[href].button,
     + a[href].button-secondary,
     + a[href].button-grey,
@@ -26771,6 +26782,7 @@ h3:has(
     + .table-wrapper,
     + [data-toggle-container],
     + .margins-flow-firm,
+    + .brand-logo,
     + a[href].button,
     + a[href].button-secondary,
     + a[href].button-grey,
@@ -26788,6 +26800,7 @@ h3:has(
     + .table-wrapper,
     + [data-toggle-container],
     + .margins-flow-firm,
+    + .brand-logo,
     + a[href].button,
     + a[href].button-secondary,
     + a[href].button-grey,
@@ -26862,6 +26875,7 @@ h4:has(
     + .table-wrapper,
     + [data-toggle-container],
     + .margins-flow-firm,
+    + .brand-logo,
     + a[href].button,
     + a[href].button-secondary,
     + a[href].button-grey,
@@ -26879,6 +26893,7 @@ h4:has(
     + .table-wrapper,
     + [data-toggle-container],
     + .margins-flow-firm,
+    + .brand-logo,
     + a[href].button,
     + a[href].button-secondary,
     + a[href].button-grey,
@@ -26953,6 +26968,7 @@ h5:has(
     + .table-wrapper,
     + [data-toggle-container],
     + .margins-flow-firm,
+    + .brand-logo,
     + a[href].button,
     + a[href].button-secondary,
     + a[href].button-grey,
@@ -26970,6 +26986,7 @@ h5:has(
     + .table-wrapper,
     + [data-toggle-container],
     + .margins-flow-firm,
+    + .brand-logo,
     + a[href].button,
     + a[href].button-secondary,
     + a[href].button-grey,
@@ -27044,6 +27061,7 @@ h6:has(
     + .table-wrapper,
     + [data-toggle-container],
     + .margins-flow-firm,
+    + .brand-logo,
     + a[href].button,
     + a[href].button-secondary,
     + a[href].button-grey,
@@ -27061,6 +27079,7 @@ h6:has(
     + .table-wrapper,
     + [data-toggle-container],
     + .margins-flow-firm,
+    + .brand-logo,
     + a[href].button,
     + a[href].button-secondary,
     + a[href].button-grey,
@@ -27122,6 +27141,7 @@ h6 samp,
     + .table-wrapper,
     + [data-toggle-container],
     + .margins-flow-firm,
+    + .brand-logo,
     + a[href].button,
     + a[href].button-secondary,
     + a[href].button-grey,
@@ -27185,6 +27205,7 @@ h6 samp,
     + .table-wrapper,
     + [data-toggle-container],
     + .margins-flow-firm,
+    + .brand-logo,
     + a[href].button,
     + a[href].button-secondary,
     + a[href].button-grey,
@@ -27248,6 +27269,7 @@ h6 samp,
     + .table-wrapper,
     + [data-toggle-container],
     + .margins-flow-firm,
+    + .brand-logo,
     + a[href].button,
     + a[href].button-secondary,
     + a[href].button-grey,
@@ -27311,6 +27333,7 @@ h6 samp,
     + .table-wrapper,
     + [data-toggle-container],
     + .margins-flow-firm,
+    + .brand-logo,
     + a[href].button,
     + a[href].button-secondary,
     + a[href].button-grey,
@@ -31958,10 +31981,10 @@ html {
 }
 
 body,
-body > .body-subgrid,
-body > .body-subgrid > .body-subgrid,
+body > :is(.body-subgrid),
+body > :is(.body-subgrid) > :is(.body-subgrid),
 body > :where(main, nav, header, footer),
-body > :where(main, nav, header, footer) > .body-subgrid {
+body > :where(main, nav, header, footer) > :is(.body-subgrid) {
     --display: grid;
     display: grid;
     display: var(--display, grid);
@@ -31993,10 +32016,10 @@ body > :where(main, nav, header, footer) > .body-subgrid {
 }
 :where(
         body,
-        body > .body-subgrid,
-        body > .body-subgrid > .body-subgrid,
+        body > :is(.body-subgrid),
+        body > :is(.body-subgrid) > :is(.body-subgrid),
         body > :where(main, nav, header, footer),
-        body > :where(main, nav, header, footer) > .body-subgrid
+        body > :where(main, nav, header, footer) > :is(.body-subgrid)
     )
     > :where(*) {
     --grid-column: content-start/content-end;
@@ -32006,18 +32029,18 @@ body > :where(main, nav, header, footer) > .body-subgrid {
 }
 :where(
         body,
-        body > .body-subgrid,
-        body > .body-subgrid > .body-subgrid,
+        body > :is(.body-subgrid),
+        body > :is(.body-subgrid) > :is(.body-subgrid),
         body > :where(main, nav, header, footer),
-        body > :where(main, nav, header, footer) > .body-subgrid
+        body > :where(main, nav, header, footer) > :is(.body-subgrid)
     )
     > :where(form, dl),
 :where(
         body,
-        body > .body-subgrid,
-        body > .body-subgrid > .body-subgrid,
+        body > :is(.body-subgrid),
+        body > :is(.body-subgrid) > :is(.body-subgrid),
         body > :where(main, nav, header, footer),
-        body > :where(main, nav, header, footer) > .body-subgrid
+        body > :where(main, nav, header, footer) > :is(.body-subgrid)
     )
     > .display-contents {
     display: contents;
@@ -32025,19 +32048,19 @@ body > :where(main, nav, header, footer) > .body-subgrid {
 @supports (display: contents) {
     :where(
             body,
-            body > .body-subgrid,
-            body > .body-subgrid > .body-subgrid,
+            body > :is(.body-subgrid),
+            body > :is(.body-subgrid) > :is(.body-subgrid),
             body > :where(main, nav, header, footer),
-            body > :where(main, nav, header, footer) > .body-subgrid
+            body > :where(main, nav, header, footer) > :is(.body-subgrid)
         )
         > :where(form, dl)
         > :where(*),
     :where(
             body,
-            body > .body-subgrid,
-            body > .body-subgrid > .body-subgrid,
+            body > :is(.body-subgrid),
+            body > :is(.body-subgrid) > :is(.body-subgrid),
             body > :where(main, nav, header, footer),
-            body > :where(main, nav, header, footer) > .body-subgrid
+            body > :where(main, nav, header, footer) > :is(.body-subgrid)
         )
         > .display-contents
         > :where(*) {
@@ -32047,10 +32070,10 @@ body > :where(main, nav, header, footer) > .body-subgrid {
 }
 :where(
         body,
-        body > .body-subgrid,
-        body > .body-subgrid > .body-subgrid,
+        body > :is(.body-subgrid),
+        body > :is(.body-subgrid) > :is(.body-subgrid),
         body > :where(main, nav, header, footer),
-        body > :where(main, nav, header, footer) > .body-subgrid
+        body > :where(main, nav, header, footer) > :is(.body-subgrid)
     )
     > :where(table) {
     --grid-column: content-start/content-end;
@@ -32061,10 +32084,10 @@ body > :where(main, nav, header, footer) > .body-subgrid {
 @media (min-width: 40.875em) {
     :where(
             body,
-            body > .body-subgrid,
-            body > .body-subgrid > .body-subgrid,
+            body > :is(.body-subgrid),
+            body > :is(.body-subgrid) > :is(.body-subgrid),
             body > :where(main, nav, header, footer),
-            body > :where(main, nav, header, footer) > .body-subgrid
+            body > :where(main, nav, header, footer) > :is(.body-subgrid)
         )
         > :where(table) {
         --grid-column: page-start/page-end;
@@ -32075,10 +32098,10 @@ body > :where(main, nav, header, footer) > .body-subgrid {
 }
 :where(
         body,
-        body > .body-subgrid,
-        body > .body-subgrid > .body-subgrid,
+        body > :is(.body-subgrid),
+        body > :is(.body-subgrid) > :is(.body-subgrid),
         body > :where(main, nav, header, footer),
-        body > :where(main, nav, header, footer) > .body-subgrid
+        body > :where(main, nav, header, footer) > :is(.body-subgrid)
     )
     :where(.table-wrapper) {
     --grid-column: content-start/content-end;
@@ -32087,10 +32110,10 @@ body > :where(main, nav, header, footer) > .body-subgrid {
 @media (min-width: 40.875em) {
     :where(
             body,
-            body > .body-subgrid,
-            body > .body-subgrid > .body-subgrid,
+            body > :is(.body-subgrid),
+            body > :is(.body-subgrid) > :is(.body-subgrid),
             body > :where(main, nav, header, footer),
-            body > :where(main, nav, header, footer) > .body-subgrid
+            body > :where(main, nav, header, footer) > :is(.body-subgrid)
         )
         :where(.table-wrapper) {
         --grid-column: page-start/page-end;
@@ -32099,10 +32122,10 @@ body > :where(main, nav, header, footer) > .body-subgrid {
 }
 :where(
         body,
-        body > .body-subgrid,
-        body > .body-subgrid > .body-subgrid,
+        body > :is(.body-subgrid),
+        body > :is(.body-subgrid) > :is(.body-subgrid),
         body > :where(main, nav, header, footer),
-        body > :where(main, nav, header, footer) > .body-subgrid
+        body > :where(main, nav, header, footer) > :is(.body-subgrid)
     )
     :where(.table-wrapper)
     > :where(table) {
@@ -32136,7 +32159,6 @@ body > :where(main, nav, header, footer) > .body-subgrid {
             ) [page-end] 0 1fr [site-end] var(--gap-inline-layout-half, 4vw);
     }
 }
-
 body {
     margin: 0;
     padding: 0;
@@ -32157,10 +32179,10 @@ body {
     margin-bottom: var(--gap-block-layout, 5vw);
 }
 
-body > .body-subgrid,
-body > .body-subgrid > .body-subgrid,
+body > :is(.body-subgrid),
+body > :is(.body-subgrid) > :is(.body-subgrid),
 body > :where(main, nav, header, footer),
-body > :where(main, nav, header, footer) > .body-subgrid {
+body > :where(main, nav, header, footer) > :is(.body-subgrid) {
     grid-column: 1/-1;
     grid-template-columns: subgrid;
     margin-left: 0;
@@ -34164,10 +34186,6 @@ body > :where(.site-sidebar) > :first-child {
     display: block;
     display: var(--display, block);
     position: relative;
-    margin-top: 1.25rem;
-    margin-bottom: 0.46875rem;
-    margin-top: var(--mrg-firm-400, 1.25rem);
-    margin-bottom: var(--mrg-half-400, 0.46875rem);
     color: hsl(162, 100%, 15%);
     color: var(--theme-text-primary, CanvasText);
     vertical-align: middle;
@@ -36185,7 +36203,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         input[type="button"]
     ):not(details):not(table):not(img):not(figure):not(.table-wrapper):not(
         [data-toggle-container]
-    ):not(.margins-flow-firm):not(a[href].button):not(
+    ):not(.margins-flow-firm):not(.brand-logo):not(a[href].button):not(
         a[href].button-secondary
     ):not(a[href].button-grey):not(.alert-block):not(
         .margins-flow-firm-small
@@ -36207,6 +36225,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         .table-wrapper,
         [data-toggle-container],
         .margins-flow-firm,
+        .brand-logo,
         a[href].button,
         a[href].button-secondary,
         a[href].button-grey,

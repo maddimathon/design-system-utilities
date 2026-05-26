@@ -225,7 +225,7 @@ const inclCap = includeCaption ?? (meta?.credit || meta?.source);
             {href ? (
                 <a
                     {...linkAttrs}
-                    aria-label={linkLabel}
+                    aria-label={linkLabel ? linkLabel : undefined}
                     href={href}
                 >
                     <img {...attrs} />
@@ -239,7 +239,7 @@ const inclCap = includeCaption ?? (meta?.credit || meta?.source);
     ) : href ? (
         <a
             {...linkAttrs}
-            aria-label={linkLabel}
+            aria-label={linkLabel ? linkLabel : undefined}
             href={href}
         >
             <img

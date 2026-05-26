@@ -26,8 +26,8 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
     $background: var-style(widget-background),
     $borderColor: var-style(widget-border-color),
     $lineHeight: var-style(widget-line-height),
-    $marginBlockStart: do-var(flow-margin-firm-start),
-    $marginBlockEnd: do-var(flow-margin-firm-end),
+    $marginBlock: do-var(flow-margin-firm-start) do-var(flow-margin-firm-end),
+    $width: fit-content,
     //
     $includeBlocks: true,
     $includeFlowMargins: true,
@@ -42,12 +42,16 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
     @include prop-display(flex);
     @include utils.snippet-content-flex-container;
 
-    margin-block: $marginBlockStart $marginBlockEnd;
+    @if $marginBlock != false {
+        margin-block: $marginBlock;
+    }
 
     padding-block: var-style(widget-padding-block);
     padding-inline: var-style(widget-padding-inline);
 
-    width: fit-content;
+    @if $width != false {
+        width: $width;
+    }
 
     line-height: $lineHeight;
 
@@ -135,8 +139,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
     @if $includeWidget {
         %widget-block {
             @include snippet-widget-block(
-                $marginBlockStart: $widget_marginBlockStart,
-                $marginBlockEnd: $widget_marginBlockEnd
+                $marginBlock: $widget_marginBlockStart $widget_marginBlockEnd
             );
 
             %site-sidebar > & {
