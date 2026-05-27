@@ -4,7 +4,8 @@
 ///
 
 @forward 'pkg:@maddimathon/utility-astro/template/lib' hide extend-selectors,
-    extend-selectors-globals, extend-selectors-utils;
+    extend-selectors-globals, extend-selectors-utils,
+    get-extend-selectors-all-buttons;
 
 @use 'pkg:@maddimathon/utility-sass/feature-check';
 @use 'pkg:@maddimathon/utility-sass/list';
@@ -12,7 +13,7 @@
 @use 'pkg:@maddimathon/utility-sass/meta';
 @use 'pkg:@maddimathon/utility-sass/selector';
 
-@use 'pkg:@maddimathon/utility-astro/template/lib' as lib;
+@use 'pkg:@maddimathon/utility-astro/template/lib' as utils;
 
 @use '../config';
 @use '../../../tokens';
@@ -37,7 +38,7 @@
                     (
                         button,
                         '[role=button]',
-                        'input[type=button]',
+                        // 'input[type=button]',
                         // 'input[type=reset]',
                         // 'input[type=submit]',
                         details,
@@ -105,6 +106,72 @@
 ///
 /// @since 0.1.0-beta.0.draft
 ///
+@function _get-extend-selectors-all-buttons--additions() {
+    $all: ();
+
+    $_buttonSelectorsBase: list.join(
+        config.$selector_a,
+        list.except(
+            selector-buttons-basic(),
+            selector.unify(config.$selector_a, '.button')
+        ),
+        $separator: comma
+    );
+
+    @each $variant in tokens.$themesMeta_buttonVariations_extra {
+        //
+        $_aVariant: selector.unify(config.$selector_a, '.button-#{$variant}');
+
+        $_buttonVariant: selector.unify(
+            $_buttonSelectorsBase,
+            '.button-#{$variant}'
+        );
+        // $_buttonVariant_visited: selector.unify(
+        //     selector.except($_buttonVariant, (button, input)),
+        //     ':visited'
+        // );
+
+        $all: list.join(
+            $all,
+            list.join(
+                utils.get-extend-selectors-button($_aVariant),
+                utils.get-extend-selectors-button(
+                    $_buttonVariant,
+                    $variant: $variant
+                )
+            )
+        );
+
+        // $all: list.join(
+        //     $all,
+        //     (
+        //         ($_buttonVariant, button-#{$variant}),
+        //         ($_buttonVariant_visited, button-visited),
+        //         ($_buttonVariant_visited, button-#{$variant}),
+        //         (
+        //             selector.unify($_buttonVariant_visited, ('[aria-disabled=true]', '[disabled]')),
+        //             'button-disabled-visited'
+        //         )
+        //     )
+        // );
+    }
+
+    @return $all;
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function get-extend-selectors-all-buttons() {
+    @return list.join(
+        utils.get-extend-selectors-all-buttons(),
+        _get-extend-selectors-all-buttons--additions()
+    );
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
 @mixin extend-selectors-globals(
     $additional: (),
     $allHeadingLevels: token-all-heading-levels()
@@ -112,16 +179,7 @@
     //
     $additional: list.join(
         $additional,
-        (
-            (('%figure', '%img'), image),
-            dd,
-            dt,
-            img,
-            figure,
-            figcaption,
-            (figcaption, aside),
-            svg
-        )
+        ((('%figure', '%img'), image), dd, dt, img, figure, figcaption, svg)
     );
 
     $additional: list.join($additional, get-extend-selectors-layout-globals());
@@ -166,7 +224,7 @@
         );
     }
 
-    @include lib.extend-selectors-globals(
+    @include utils.extend-selectors-globals(
         $additional: $additional,
         $allHeadingLevels: $allHeadingLevels
     );
@@ -267,30 +325,10 @@
         );
     }
 
-    $_buttonSelectorsBase: list.join(
-        config.$selector_a,
-        list.except(
-            selector-buttons-basic(),
-            selector.unify(config.$selector_a, '.button')
-        ),
-        $separator: comma
+    $additional: list.join(
+        $additional,
+        _get-extend-selectors-all-buttons--additions()
     );
-
-    @each $variant in tokens.$themesMeta_buttonVariations_extra {
-        //
-        $additional: list.append(
-            $additional,
-            (selector.unify(config.$selector_a, '.button-#{$variant}'), button)
-        );
-
-        $additional: list.append(
-            $additional,
-            (
-                (selector.unify($_buttonSelectorsBase, '.button-#{$variant}')),
-                button-#{$variant}
-            )
-        );
-    }
 
     $additional: list.append($additional, ('.alert-block', alert));
 
@@ -301,7 +339,7 @@
         );
     }
 
-    @include lib.extend-selectors-utils(
+    @include utils.extend-selectors-utils(
         $additional: $additional,
         $allHeadingLevels: $allHeadingLevels
     );

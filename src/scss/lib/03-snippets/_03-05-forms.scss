@@ -22,9 +22,7 @@
 ///
 /// @since ___PKG_VERSION___ — Made public.
 ///
-@mixin snippet-button-colour-single-state($state, $variation: tokens.$button_variation_default) {
-    $stateSlug: if($state == '$', '', '-#{$state}');
-
+@mixin _snippet-button-colour-single-state--inner($stateSlug, $variation) {
     $border: var-theme(button-#{$variation}-border#{$stateSlug});
     $ui: var-theme(button-#{$variation}-ui#{$stateSlug});
 
@@ -41,11 +39,45 @@
     border-color: $border;
     color: var-theme(button-#{$variation}-text#{$stateSlug});
 
+    @content;
+
     * {
         @include cx-prop(icon-color, $ui);
 
         @if $stateSlug == '' {
             color: inherit !important;
+        }
+    }
+}
+
+///
+/// @since ___PKG_VERSION___ — Made public.
+///
+@mixin snippet-button-colour-single-state(
+    $state,
+    $variation: tokens.$button_variation_default,
+    $includeVisited: true,
+    $args...
+) {
+    $stateSlug: if($state == '$', '', '-#{$state}');
+
+    @if $includeVisited and $stateSlug == '' {
+        @include visited {
+            @include _snippet-button-colour-single-state--inner(
+                $stateSlug: $stateSlug,
+                $variation: $variation,
+                $args...
+            ) {
+                @content;
+            }
+        }
+    } @else {
+        @include _snippet-button-colour-single-state--inner(
+            $stateSlug: $stateSlug,
+            $variation: $variation,
+            $args...
+        ) {
+            @content;
         }
     }
 }
@@ -60,29 +92,60 @@
     //
     $focusWithin: false,
     $focus_fallbacksOnly: config.$mx_focusVisible_fallbacksOnly,
-    $focus_includeFallbacks: config.$mx_focusVisible_includeFallbacks
+    $focus_includeFallbacks: config.$mx_focusVisible_includeFallbacks,
+    //
+    $includeActive: true,
+    $includeFocusHover: true,
+    $includeRoot: true,
+    $includeVisited: true,
+    //
+    $args...
 ) {
-    @include snippet-button-colour-single-state('$', $variation);
+    @if $includeRoot {
+        @if $includeVisited {
+            @include visited {
+                @include snippet-button-colour-single-state(
+                    '$',
+                    $variation: $variation,
+                    $includeVisited: false,
+                    $args...
+                );
 
-    @content (root-colours);
+                @content (root-colours);
+            }
+        } @else {
+            @include snippet-button-colour-single-state(
+                '$',
+                $variation: $variation,
+                $includeVisited: $includeVisited,
+                $args...
+            );
 
-    @include apply-interactive-mixin(
-        $focus: true,
-        $focusWithin: $focusWithin,
-        $hover: true,
-        //
-        $fallbacksOnly: $focus_fallbacksOnly,
-        $includeFallbacks: $focus_includeFallbacks
-    ) {
-        @include snippet-button-colour-single-state(hover, $variation);
-
-        @content (hover-focus);
+            @content (root-colours);
+        }
     }
 
-    @include active {
-        @include snippet-button-colour-single-state(active, $variation);
+    @if $includeFocusHover {
+        @include apply-interactive-mixin(
+            $focus: true,
+            $focusWithin: $focusWithin,
+            $hover: true,
+            //
+            $fallbacksOnly: $focus_fallbacksOnly,
+            $includeFallbacks: $focus_includeFallbacks
+        ) {
+            @include snippet-button-colour-single-state(hover, $variation: $variation, $args...);
 
-        @content (active);
+            @content (hover-focus);
+        }
+    }
+
+    @if $includeActive {
+        @include active {
+            @include snippet-button-colour-single-state(active, $variation: $variation, $args...);
+
+            @content (active);
+        }
     }
 }
 
@@ -232,6 +295,7 @@
     $includePadding: true,
     $includePseudoIcons: config.$include_button_inlineIcons,
     $includeTextBasics: true,
+    $includeVisited: true,
     //
     $borderRadius: null,
     $borderStyle: null,
@@ -358,7 +422,8 @@
                 $variation,
                 $focusWithin: $focusWithin,
                 $focus_fallbacksOnly: $focus_fallbacksOnly,
-                $focus_includeFallbacks: $focus_includeFallbacks
+                $focus_includeFallbacks: $focus_includeFallbacks,
+                $includeVisited: $includeVisited
             )
             using ($location) {
             @if $location == focus and $borderStyle != solid {
@@ -432,7 +497,7 @@
         }
     }
 
-    /// BLOCK ///
+    /// EXCEPTIONS ///
 
     @if $fontStyle != false and $fontStyle == italic {
         em {
@@ -451,6 +516,11 @@
             @include snippet-button-disabled(
                 $fontWeight: var-style(button-disabled-font-weight),
                 $fontStyle: var-style(button-disabled-font-style),
+
+                $focusWithin: $focusWithin,
+                $focus_fallbacksOnly: $focus_fallbacksOnly,
+                $focus_includeFallbacks: $focus_includeFallbacks,
+
                 $includeColours: $includeColours,
                 $includePseudoIcons: $includePseudoIcons,
                 $useIconFont: $useIconFont,
@@ -476,9 +546,15 @@
             tokens.$button_variation_default !=
             tokens.$button_inline_variation_default
         {
-            @at-root :is(&):where(.display-inline) {
-                @include snippet-button-colours(tokens.$button_inline_variation_default) using
-                    ($location) {
+            &:where(.display-inline) {
+                @include snippet-button-colours(
+                        tokens.$button_inline_variation_default,
+                        $focusWithin: $focusWithin,
+                        $focus_fallbacksOnly: $focus_fallbacksOnly,
+                        $focus_includeFallbacks: $focus_includeFallbacks,
+                        $includeVisited: $includeVisited
+                    )
+                    using ($location) {
                     @content (inline--colours--#{$location});
                 }
 
@@ -486,7 +562,14 @@
                     @at-root #{selector.unify(&, ('[aria-disabled=true]', '[disabled]'))} {
                         @content (inline--colours--disabled);
 
-                        @include snippet-button-colours(disabled) using ($location) {
+                        @include snippet-button-colours(
+                                disabled,
+                                $focusWithin: $focusWithin,
+                                $focus_fallbacksOnly: $focus_fallbacksOnly,
+                                $focus_includeFallbacks: $focus_includeFallbacks,
+                                $includeVisited: $includeVisited
+                            )
+                            using ($location) {
                             @content (inline--colours--disabled-#{$location});
                         }
                     }
@@ -494,6 +577,8 @@
             }
         }
     }
+
+    /// BLOCK ///
 
     @if $includePseudoIcons {
         &::after,
@@ -542,9 +627,15 @@
     $borderStyle: null,
     $fontWeight: var-style(button-disabled-font-weight),
     $fontStyle: var-style(button-disabled-font-style),
+    //
+    $focusWithin: false,
+    $focus_fallbacksOnly: config.$mx_focusVisible_fallbacksOnly,
+    $focus_includeFallbacks: config.$mx_focusVisible_includeFallbacks,
+    //
     $includeColours: true,
     $includePseudoIcons: config.$include_button_inlineIcons,
     $useIconFont: config.$fn_pseudoIconsUseFont and font-family-exists(icons),
+    $includeVisited: true,
     $args...
 ) {
     $args: meta.keywords($args);
@@ -565,12 +656,24 @@
     @content (root);
 
     @if $includeColours {
-        @include snippet-button-colours(disabled) using ($location) {
+        @include snippet-button-colours(
+                disabled,
+                $focusWithin: $focusWithin,
+                $focus_fallbacksOnly: $focus_fallbacksOnly,
+                $focus_includeFallbacks: $focus_includeFallbacks,
+                $includeVisited: $includeVisited
+            )
+            using ($location) {
+            //
             @if $location == focus and $borderStyle != solid {
                 border-style: solid;
-            }
 
-            @content ($location);
+                @content ($location);
+            }
+            //
+            @else {
+                @content ($location);
+            }
         }
     } @else {
         @include hover-focus-visible-or-within {
@@ -603,6 +706,10 @@
 ///
 @mixin snippet-button-inline(
     $variation: null,
+    //
+    $focusWithin: false,
+    $focus_fallbacksOnly: config.$mx_focusVisible_fallbacksOnly,
+    $focus_includeFallbacks: config.$mx_focusVisible_includeFallbacks,
     //
     $includeColours: $variation != null,
     $includeBaseProps: false,
@@ -690,7 +797,13 @@
     @content (root);
 
     @if $includeColours and $variation != null {
-        @include snippet-button-colours($variation) using ($location) {
+        @include snippet-button-colours(
+                $variation,
+                $focusWithin: $focusWithin,
+                $focus_fallbacksOnly: $focus_fallbacksOnly,
+                $focus_includeFallbacks: $focus_includeFallbacks
+            )
+            using ($location) {
             @if $location == focus and $borderStyle != solid {
                 border-style: solid;
             }
@@ -795,7 +908,11 @@
                 @content (root);
 
                 @if $includeColours {
-                    @include snippet-button-colour-single-state('$', $variation);
+                    @include snippet-button-colour-single-state(
+                        '$',
+                        $variation,
+                        $includeVisited: false
+                    );
                     @content (root-colours);
                 }
             }
@@ -841,7 +958,8 @@
     @at-root #{$selector_disabled} {
         @at-root #{selector.unify(&, $selector)} {
             @if $includeColours {
-                @include snippet-button-disabled($includePseudoIcons: false) using ($location) {
+                @include snippet-button-disabled($includePseudoIcons: false, $includeVisited: false)
+                    using ($location) {
                     @content (disabled-#{$location});
                 }
             }
@@ -1409,6 +1527,9 @@
     $includeBase: true,
     $includeUtils: true,
     //
+    $focus_fallbacksOnly: config.$mx_focusVisible_fallbacksOnly,
+    $focus_includeFallbacks: config.$mx_focusVisible_includeFallbacks,
+    //
     $file_paddingBlock: var-style(input-file-padding-block),
     $file_paddingInline: var-style(input-file-padding-inline),
     //
@@ -1491,12 +1612,24 @@
         }
     }
 
-    &[type='submit'][aria-disabled='true'],
-    &[type='reset'][aria-disabled='true'],
-    &[type='submit'][disabled],
-    &[type='reset'][disabled] {
-        @include snippet-button-colours(disabled) using ($clr_location) {
-            @content (disabled-colours--#{$clr_location});
+    &[type='submit'],
+    &[type='reset'] {
+        @content (button);
+
+        &[aria-disabled='true'],
+        &[disabled] {
+            @content (button-disabled);
+
+            @include snippet-button-colours(
+                    disabled,
+                    $focusWithin: false,
+                    $focus_fallbacksOnly: $focus_fallbacksOnly,
+                    $focus_includeFallbacks: $focus_includeFallbacks,
+                    $includeVisited: false
+                )
+                using ($clr_location) {
+                @content (button-disabled--#{$clr_location});
+            }
         }
     }
 

@@ -5,6 +5,7 @@
 
 @use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/string';
 
 @use '../../config';
 @use '../../tokens';
@@ -21,17 +22,22 @@ $_systemColors: map.ksort(
 );
 
 $_allSelectors_background: ();
+$_allSelectors_background_noDefault: ();
 
 $_allSelectors_background: list.append(
     $_allSelectors_background,
-    '.background-default',
+    string.unquote('.background-default'),
     $separator: comma
 );
 
 @each $variant in map.get(tokens.$themesMeta, keys, background) {
-    $_allSelectors_background: list.append(
-        $_allSelectors_background,
-        '.background-#{$variant}',
+    $_sel: string.unquote('.background-#{$variant}');
+
+    $_allSelectors_background: list.append($_allSelectors_background, $_sel, $separator: comma);
+
+    $_allSelectors_background_noDefault: list.append(
+        $_allSelectors_background_noDefault,
+        $_sel,
         $separator: comma
     );
 }
@@ -46,8 +52,8 @@ $_allSelectors_background: list.append(
 ///
 /// @since ___PKG_VERSION___
 ///
-@function selector-all-background-variations() {
-    @return $_allSelectors_background;
+@function selector-all-background-variations($withDefault: true) {
+    @return if($withDefault, $_allSelectors_background, $_allSelectors_background_noDefault);
 }
 
 ///

@@ -3,7 +3,7 @@
 /// @since 0.1.0-beta.0.draft
 ///
 
-@use 'pkg:@maddimathon/utility-sass/meta';
+@use 'pkg:@maddimathon/utility-sass/selector';
 
 // @use '../../config';
 // @use '../../tokens';
@@ -54,7 +54,13 @@
             appearance: button;
             cursor: pointer;
             
-            @include snippet-button-colour-single-state(hover);
+            @content ($location);
+            
+            @include visited {
+                @include snippet-button-colour-single-state(hover) {
+                    @content (#{$location}--colours);
+                }
+            }
 
             @if $fontStyle == italic {
                 em {
@@ -68,23 +74,22 @@
         }
 
         @else if $location == link-focus {
-            @include snippet-button-colour-single-state(hover);
+            @include snippet-button-colour-single-state(hover){
+                @content ($location);
+            }
         }
 
         @else if $location == link-active {
-            @include snippet-button-colour-single-state(active);
+            @include snippet-button-colour-single-state(active){
+                @content ($location);
+            }
         }
 
-        @content ($location);
+        @else {
+            @content ($location);
+        }
     }
 
     %skip-link {
-        @include focus($addSelectors: &) {
-            @include snippet-button-colour-single-state(hover);
-        }
-
-        @include focus-within {
-            @include snippet-button-colour-single-state(hover);
-        }
     }
 }

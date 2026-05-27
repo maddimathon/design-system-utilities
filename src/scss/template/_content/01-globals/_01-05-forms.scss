@@ -81,19 +81,11 @@ $_print_inputs: map.get(config.$template_styles, inputs);
     }
 
     %button {
-        @include snippet-button using ($location) {
-            // --button-loc: #{$location};
-        }
-    }
-
-    @each $variant in tokens.$themesMeta_buttonVariations_extra {
-        %button-#{$variant} {
-            @include snippet-button-colours($variant);
-        }
+        @include snippet-button;
     }
 
     %button-form-reset {
-        @include snippet-button-colours(tokens.$button_variation_secondary);
+        @include snippet-button-colours(tokens.$button_variation_secondary, $includeVisited: false);
 
         &::before {
             @if config.$include_button_inlineIcons {
@@ -111,6 +103,12 @@ $_print_inputs: map.get(config.$template_styles, inputs);
                     align-self: center;
                 }
             }
+        }
+    }
+
+    @each $variant in tokens.$themesMeta_buttonVariations {
+        %button-#{$variant} {
+            @include snippet-button-colours($variant, $includeVisited: false);
         }
     }
 

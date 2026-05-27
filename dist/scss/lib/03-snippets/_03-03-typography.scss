@@ -273,7 +273,7 @@
 
     /// STATES ///
 
-    &:visited {
+    @include visited($appendToSelector: false) {
         @include snippet-link-colour-single(-visited);
 
         @content (visited);
@@ -331,8 +331,7 @@
     $includeDisabled: false,
     $args...
 ) {
-    &,
-    &:visited {
+    @include visited {
         @include cx-prop(icon-color, $iconColor);
         text-decoration-color: $textDecorationColor;
         color: $color;
