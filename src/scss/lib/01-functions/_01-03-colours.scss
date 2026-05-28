@@ -24,9 +24,9 @@ $_systemColors: map.ksort(
 $_allSelectors_background: ();
 $_allSelectors_background_noDefault: ();
 
-$_allSelectors_background: list.append(
+$_allSelectors_background: list.join(
     $_allSelectors_background,
-    string.unquote('.background-default'),
+    (string.unquote('.background-default'), string.unquote('.background-transparent')),
     $separator: comma
 );
 

@@ -3,23 +3,20 @@
 /// @since 0.1.0-alpha
 ///
 
-@use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/meta';
 @use 'pkg:@maddimathon/utility-sass/selector';
 @use 'pkg:@maddimathon/utility-sass/string';
 
-// @use 'pkg:@maddimathon/utility-astro/03-snippets' as lib;
+@use 'pkg:@maddimathon/utility-astro/03-snippets' as utils;
 
-@use '../../config';
+// @use '../../config';
 @use '../../tokens';
 
 @use '../01-functions' as *;
 @use '../02-mixins' as *;
 
 @use '03-03-typography' as *;
-
-$_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
 
 @mixin _snippet-alert-block-icon($withHeadline: true) {
     @if $withHeadline {
@@ -35,7 +32,6 @@ $_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
 }
 
 @mixin _snippet-alert-headline-heading($slug: false) {
-    //
     margin-block: 0;
 
     @if $slug != false {
@@ -128,31 +124,28 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
 ///
 @mixin snippet-support-alert-blocks {
     %_alert-grid {
-        @include prop-display(grid);
+        $_templateCols: [icon] minmax(max-content, auto) [content] 1fr;
 
-        @include cx-prop(
+        @include cx-prop(grid-template-columns--alert-block, $_templateCols);
+        grid-template-columns: do-var(
             grid-template-columns--alert-block,
-            ([icon] minmax(max-content, auto) [content] 1fr)
+            $_templateCols
         );
-        grid-template-columns: do-var(grid-template-columns--alert-block);
 
-        grid-auto-rows: auto;
-        grid-auto-flow: row;
-
-        justify-content: start;
-        justify-items: start;
-        align-content: start;
-        align-items: start;
-
-        gap: var-style(alert-gap-block) var-style(alert-gap-inline);
+        @include utils.snippet-support-astro-body-grid--base-grid(
+            $autoFlow: row,
+            $alignment: (
+                justify-content: start,
+                justify-items: start,
+            ),
+            $gap: var-style(alert-gap-block) var-style(alert-gap-inline)
+        );
 
         > * {
             @include prop-grid-column(content);
         }
 
-        @if meta.content-exists() {
-            @content (alert-grid);
-        }
+        @content (alert-grid);
     }
 
     %alert {
@@ -164,7 +157,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
 
         margin-inline: 0;
 
-        padding-block: var-mrg-soft($_alertBlockLevel);
+        padding-block: var-style(alert-padding-block);
         padding-inline: var-style(alert-padding-inline);
 
         width: fit-content;
@@ -183,9 +176,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
             border-color var-tr-time(fast) tokens.$transition_function,
             color var-tr-time(fast) tokens.$transition_function;
 
-        @if meta.content-exists() {
-            @content (alert-block);
-        }
+        @content (alert-block);
 
         @include _snippet-alert-block-icon {
             @include cx-prop(icon-color, var-style(alert-icon-color));
@@ -227,9 +218,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
             justify-self: stretch;
             width: auto;
 
-            @if meta.content-exists() {
-                @content (alert-block--has-heading);
-            }
+            @content (alert-block--has-heading);
 
             @each $num in token-all-heading-levels() {
                 //
@@ -265,9 +254,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
                             );
                         }
 
-                        @if meta.content-exists() {
-                            @content (alert-block--has-heading--#{$num});
-                        }
+                        @content (alert-block--has-heading--#{$num});
                     }
                 }
             }
@@ -284,9 +271,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
 
             color: var-style(alert-color);
 
-            @if meta.content-exists() {
-                @content (alert-block__headline);
-            }
+            @content (alert-block__headline);
 
             &:where(header:not([aria-level])) {
                 line-height: var-style(alert-headline-line-height);
@@ -294,10 +279,6 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
                 font-style: var-style(alert-headline-font-style);
                 font-size: var-style(alert-headline-font-size);
             }
-
-            // > :first-child {
-            //     margin-block-start: 0;
-            // }
 
             @each $num in token-all-heading-levels() {
                 //
@@ -316,17 +297,13 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
                 @at-root #{selector.unify(&, $_headingSelector)} {
                     @include _snippet-alert-headline-heading($num);
 
-                    @if meta.content-exists() {
-                        @content (alert-block__headline--h#{$num});
-                    }
+                    @content (alert-block__headline--h#{$num});
                 }
 
                 @at-root #{selector.unify(&, $_headingSelector_where)} {
                     @include _snippet-alert-headline-heading($num);
 
-                    @if meta.content-exists() {
-                        @content (alert-block__headline--h#{$num}-where);
-                    }
+                    @content (alert-block__headline--h#{$num}-where);
                 }
             }
 
@@ -365,33 +342,31 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
                         @include snippet-alert-block-colours;
                     } @else {
 
-                        $isGreyTypeVariation: string.match($variationKey, '\\b(grey|base|\\$)\\b') != null;
+                        $isGreyTypeVariation: string.match($variationKey, '\\b(grey|bright|base)\\b') != null;
 
                         @include snippet-alert-block-colours(
                             $background: if(
                                     theme-token-exists(background-#{$variationKey}),
                                     var-theme(background-#{$variationKey}),
-                                    if($isGreyTypeVariation, null, var-theme(background-grey))
+                                    if($isGreyTypeVariation, var-style(alert-background), var-theme(background-grey))
                                 ),
                             $border: null,
                             $color: if(
                                     theme-token-exists(text-#{$variationKey}),
                                     var-theme(text-#{$variationKey}),
-                                    if($isGreyTypeVariation, null, var-theme(text))
+                                    if($isGreyTypeVariation, var-style(alert-color), var-theme(text))
                                 ),
                             $icon: if(
                                     theme-token-exists(ui-#{$variationKey}),
                                     var-theme(ui-#{$variationKey}),
-                                    if($isGreyTypeVariation, null, var-theme(ui))
+                                    if($isGreyTypeVariation, var-style(alert-icon-color), var-theme(ui))
                                 )
                         );
                     }
                 }
             }
 
-            @if meta.content-exists() {
-                @content (alert-block--background-#{$variationKey});
-            }
+            @content (alert-block--background-#{$variationKey});
         }
 
         @include set-flow-margins-by-token(
@@ -404,29 +379,10 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
 
     @each $slug, $map in tokens.$icons {
         %alert--icon-#{$slug} {
-            @if meta.content-exists() {
-                @content (alert-block--icon-#{$slug});
+            @content (alert-block--icon-#{$slug});
 
-                @include _snippet-alert-block-icon {
-                    @content (alert-block--icon-#{$slug}--icon);
-                }
-            }
-
-            @each $variationKey in $_textAndBackgroundKeys {
-                //
-                @if $variationKey == ' ' {
-                    &.background-#{$variationKey} {
-                        @extend %alert--background-#{$variationKey};
-
-                        @if meta.content-exists() {
-                            @content (alert-block--icon-#{$slug}--background-#{$variationKey});
-
-                            @include _snippet-alert-block-icon {
-                                @content (alert-block--icon-#{$slug}--background-#{$variationKey}--icon);
-                            }
-                        }
-                    }
-                }
+            @include _snippet-alert-block-icon {
+                @content (alert-block--icon-#{$slug}--icon);
             }
         }
     }

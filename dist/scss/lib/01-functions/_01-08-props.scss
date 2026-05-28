@@ -17,7 +17,13 @@
 @function get-extend-selectors-colour-utils() {
     $sels: ();
 
-    $sels: list.append($sels, ('.background-default', background-default));
+    $sels: list.join(
+        $sels,
+        (
+            ('.background-default', background-default),
+            ('.background-transparent', background-transparent)
+        )
+    );
 
     @each $variant in map.get(tokens.$themesMeta, keys, background) {
         $sels: list.append(
