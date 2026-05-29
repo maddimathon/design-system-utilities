@@ -119,41 +119,21 @@
     );
 
     @each $variant in tokens.$themesMeta_buttonVariations_extra {
-        //
-        $_aVariant: selector.unify(config.$selector_a, '.button-#{$variant}');
-
-        $_buttonVariant: selector.unify(
-            $_buttonSelectorsBase,
-            '.button-#{$variant}'
-        );
-        // $_buttonVariant_visited: selector.unify(
-        //     selector.except($_buttonVariant, (button, input)),
-        //     ':visited'
-        // );
-
         $all: list.join(
             $all,
             list.join(
-                utils.get-extend-selectors-button($_aVariant),
                 utils.get-extend-selectors-button(
-                    $_buttonVariant,
+                    selector.unify(config.$selector_a, '.button-#{$variant}')
+                ),
+                utils.get-extend-selectors-button(
+                    selector.unify(
+                        $_buttonSelectorsBase,
+                        '.button-#{$variant}'
+                    ),
                     $variant: $variant
                 )
             )
         );
-
-        // $all: list.join(
-        //     $all,
-        //     (
-        //         ($_buttonVariant, button-#{$variant}),
-        //         ($_buttonVariant_visited, button-visited),
-        //         ($_buttonVariant_visited, button-#{$variant}),
-        //         (
-        //             selector.unify($_buttonVariant_visited, ('[aria-disabled=true]', '[disabled]')),
-        //             'button-disabled-visited'
-        //         )
-        //     )
-        // );
     }
 
     @return $all;
@@ -201,12 +181,12 @@
     @each $key, $_theme in tokens.$themes {
         $additional: list.append(
             $additional,
-            ('%active-theme-selector--#{$key}', 'active-theme--#{$key}')
+            ('%active-theme-selector--#{$key}', 'active-theme--any')
         );
 
         $additional: list.append(
             $additional,
-            ('[data-active-theme=#{$key}]', 'active-theme--#{$key}')
+            ('[data-active-theme=#{$key}]', 'active-theme--any')
         );
     }
 

@@ -24,6 +24,178 @@ $_flattenedSystemColors: map.flatten($_systemColors);
 $_allSelectors_background: selector-all-background-variations();
 
 ///
+/// Returns simple selectors for the given themes.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function active-theme-simple-selectors(
+    $keys: tokens.$activeTheme,
+    $includeAttributeSelector: true,
+    $includePseudoSelector: false
+) {
+    $keys: if(meta.type-of($keys) == 'list', $keys, ($keys));
+
+    $_sels: ();
+
+    @if $includePseudoSelector {
+        @each $_key in $keys {
+            $_sels: list.append(
+                $_sels,
+                '%active-theme-selector--#{$_key}',
+                $separator: comma
+            );
+        }
+    }
+
+    @if $includeAttributeSelector {
+        @each $_key in $keys {
+            $_sels: list.append(
+                $_sels,
+                '[data-active-theme=#{$_key}]',
+                $separator: comma
+            );
+        }
+    }
+
+    @return $_sels;
+}
+
+///
+/// Add selectors for selecting an active theme with the appropriate nesting.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin active-theme(
+    $keys: tokens.$activeTheme,
+    $additionalSelectors: (),
+    $nest: true,
+    $unify: config.$mx_tokensTheme_nestActiveTheme or
+        (
+            config.$mx_tokensTheme_unifyActiveTheme and
+                (
+                    #{$keys} != #{tokens.$activeTheme} or not
+                        parent-is-body-or-root()
+                ),
+        ),
+    $wrap: config.$mx_tokensTheme_nestActiveTheme,
+    //
+    $includeDefault: false,
+    $includePseudoSelector: false,
+    $unifyExtraSpecific: false,
+    $args...
+) {
+    $_parentExists: selector.parent-exists();
+
+    $keys: if(meta.type-of($keys) == 'list', $keys, ($keys));
+
+    $_parent_exceptRootOrBody: if(
+        $_parentExists,
+        selector.except-superselector(
+            &,
+            list.join(
+                ('%root', '%body'),
+                list.join(
+                    config.$selector_root,
+                    config.$selector_body,
+                    $separator: comma
+                ),
+                $separator: comma
+            )
+        ),
+        config.$selector_null
+    );
+
+    $_sels_pseudo: if(
+        $includePseudoSelector,
+        active-theme-simple-selectors(
+            $keys,
+            $includeAttributeSelector: false,
+            $includePseudoSelector: true,
+            $args...
+        ),
+        ()
+    );
+
+    $_sels_select: active-theme-simple-selectors(
+        $keys,
+        $includeAttributeSelector: true,
+        $includePseudoSelector: false,
+        $args...
+    );
+
+    $_sels: list.join(
+        $additionalSelectors,
+        list.join($_sels_pseudo, $_sels_select, $separator: comma),
+        $separator: comma
+    );
+
+    @if $_parentExists {
+        @if $nest {
+            $_sels: selector.nest(&, $_sels);
+        } @else {
+            $_sels: list.join(
+                $additionalSelectors,
+                $_sels_pseudo,
+                $separator: comma
+            );
+        }
+
+        @if $wrap {
+            $_sels: list.join(
+                $_sels,
+                selector.nest(
+                    list.join(
+                        $additionalSelectors,
+                        $_sels_select,
+                        $separator: comma
+                    ),
+                    if(
+                        config.$fn_colourMode_selectorsAsChildren,
+                        $_parent_exceptRootOrBody,
+                        selector.except-superselector(
+                            $_parent_exceptRootOrBody,
+                            simple-selectors-colour-mode-all()
+                        )
+                    )
+                ),
+                $separator: comma
+            );
+        }
+
+        @if $unify {
+            $_sels: list.join(
+                $_sels,
+                selector.unify(
+                    $_parent_exceptRootOrBody,
+                    if(
+                        $unifyExtraSpecific,
+                        selector.unify($_sels_select, '[data-active-theme]'),
+                        $_sels_select
+                    )
+                ),
+                $separator: comma
+            );
+        }
+    }
+
+    @if $includeDefault and list.index($keys, #{tokens.$activeTheme}) != null {
+        $_sels: list.join((&), $_sels, $separator: comma);
+    }
+
+    $_sels: list.unique(selector.parse(#{$_sels}));
+
+    @if $_parentExists {
+        @at-root #{$_sels} {
+            @content;
+        }
+    } @else {
+        #{$_sels} {
+            @content;
+        }
+    }
+}
+
+///
 /// Prints out the line height custom property default values based on config.
 ///
 /// @since 0.1.0-alpha
@@ -447,6 +619,8 @@ $_allSelectors_background: selector-all-background-variations();
 
             @if list.length($_whereSels) > 0 {
                 @at-root #{selector.unify($_parentSel, ':where(#{$_whereSels})')} {
+                    // /* $_parentSel = #{meta.var-dump($_parentSel)} */
+                    // /* & = #{meta.var-dump(&)} */
                     @include utils.cx-prop(focus-ring-outline-color, $_val);
                 }
             }
@@ -660,12 +834,15 @@ $_themes_includeAlternatives: if(
 ///
 @mixin tokens-theme-iterator(
     $includeAlternatives: $_themes_includeAlternatives,
-    $separateQueriesAndSelectors:
-        config.$mx_tokensTheme_separateQueriesAndSelectors,
+
     $includeDefault: config.$mx_tokensTheme_includeDefault,
     $includeDefaultSelectors: config.$mx_tokensTheme_includeDefaultSelectors,
+
     $includeQuery: config.$mx_colourMode_includeQuery,
     $includeSelectors: config.$mx_colourMode_includeSelectors,
+
+    $separateQueriesAndSelectors:
+        config.$mx_tokensTheme_separateQueriesAndSelectors,
     $args...
 ) {
     @if $separateQueriesAndSelectors {
@@ -735,28 +912,34 @@ $_themes_includeAlternatives: if(
         );
     }
 
+    $_themeKeys: map.keys(tokens.$themes);
+
+    @if list.length($_themeKeys) < 2 {
+        $includeAlternatives: false;
+    }
+
     // prettier-ignore
     @include tokens-theme-iterator(
         $includeAlternatives: $includeAlternatives,
         $args...
     ) using ($brightness, $contrast) {
-        $_parentIsBodyOrRoot: selector.parent-is-body() or selector.parent-is-root();
+        $_parentExists: selector.parent-exists();
 
-        //
         @if not $includeAlternatives {
-            //
             @if $checkpointName {
                 @include debug-checkpoint(
                     '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - start',
-                    $level: $checkpointLevel + 1
+                    $level: $checkpointLevel + 1,
                 );
             }
+
             @include tokens-theme-individual(
                 tokens.$activeTheme,
                 $brightness: $brightness,
                 $contrast: $contrast,
                 $includeSystemColours: $includeSystemColours,
             );
+
             @if $checkpointName {
                 @include debug-checkpoint(
                     '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - content block',
@@ -764,99 +947,10 @@ $_themes_includeAlternatives: if(
                     $verbose: true,
                 );
             }
+
             @content ($brightness, $contrast, main);
-            //
+            
         } @else {
-            //
-            @if $checkpointName {
-                @include debug-checkpoint(
-                    '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - start',
-                    $level: $checkpointLevel + 1
-                );
-            }
-            
-            // defaults first
-            @if config.$fn_colourMode_selectorsAsChildren and
-                not $_parentIsBodyOrRoot
-            {
-                @if config.$mx_tokensTheme_unifyActiveThemeSelectors {
-                    &,
-                    &[data-active-theme='#{tokens.$activeTheme}'][data-active-theme],
-                    & [data-active-theme='#{tokens.$activeTheme}'],
-                    %active-theme-selector--#{tokens.$activeTheme} {
-                        @include tokens-theme-individual(
-                            tokens.$activeTheme,
-                            $brightness: $brightness,
-                            $contrast: $contrast,
-                            $includeSystemColours: $includeSystemColours,
-                            $setBaseProperties: true,
-                        );
-                        @content ($brightness, $contrast, main);
-                    }
-                } @else {
-                    &,
-                    & [data-active-theme='#{tokens.$activeTheme}'],
-                    %active-theme-selector--#{tokens.$activeTheme} {
-                        @include tokens-theme-individual(
-                            tokens.$activeTheme,
-                            $brightness: $brightness,
-                            $contrast: $contrast,
-                            $includeSystemColours: $includeSystemColours,
-                            $setBaseProperties: true,
-                        );
-                        @content ($brightness, $contrast, main);
-                    }
-                }
-            } @else {
-                @if config.$mx_tokensTheme_unifyActiveThemeSelectors {
-                    &,
-                    &[data-active-theme='#{tokens.$activeTheme}'][data-active-theme],
-                    %active-theme-selector--#{tokens.$activeTheme} {
-                        @include tokens-theme-individual(
-                            tokens.$activeTheme,
-                            $brightness: $brightness,
-                            $contrast: $contrast,
-                            $includeSystemColours: $includeSystemColours,
-                        );
-                        @content ($brightness, $contrast, main);
-                    }
-
-                    @if not config.$mx_tokensTheme_setBaseProperties {
-                        &[data-active-theme='#{tokens.$activeTheme}'][data-active-theme],
-                        %active-theme-selector--#{tokens.$activeTheme} {
-                            @include tokens-theme-individual-base-properties(
-                                $slug: tokens.$activeTheme,
-                                $brightness: $brightness,
-                                $contrast: $contrast,
-                            );
-                            @content ($brightness, $contrast, main--base-props);
-                        }
-                    }
-                } @else {
-                    &,
-                    %active-theme-selector--#{tokens.$activeTheme} {
-                        @include tokens-theme-individual(
-                            tokens.$activeTheme,
-                            $brightness: $brightness,
-                            $contrast: $contrast,
-                            $includeSystemColours: $includeSystemColours,
-                        );
-                        @content ($brightness, $contrast, main);
-                    }
-
-                    @if not config.$mx_tokensTheme_setBaseProperties {
-                        %active-theme-selector--#{tokens.$activeTheme} {
-                            @include tokens-theme-individual-base-properties(
-                                $slug: tokens.$activeTheme,
-                                $brightness: $brightness,
-                                $contrast: $contrast,
-                            );
-                            @content ($brightness, $contrast, main--base-props);
-                        }
-                    }
-                }
-            }
-            
             @if $checkpointName {
                 @include debug-checkpoint(
                     '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - nested themes start',
@@ -865,119 +959,56 @@ $_themes_includeAlternatives: if(
                 );
             }
 
-            @each $key in map.keys(tokens.$themes) {
-                @if #{$key} != #{tokens.$activeTheme} {
-                    //
+            @each $key in list.unique(list.join(tokens.$activeTheme, $_themeKeys)) {
+                @if $checkpointName {
+                    @include debug-checkpoint(
+                        '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - #{$key} start',
+                        $level: $checkpointLevel + 3,
+                    );
+                }
+                
+                @include active-theme(
+                    $key,
+                    $includeDefault: true,
+                    $includePseudoSelector: true,
+                    $unifyExtraSpecific: true,
+                ) {
+                    @include tokens-theme-individual(
+                        $key,
+                        $brightness: $brightness,
+                        $contrast: $contrast,
+                        $includeSystemColours: $includeSystemColours,
+                        $setBaseProperties: if(
+                            #{$key} == #{tokens.$activeTheme},
+                            config.$mx_tokensTheme_setBaseProperties,
+                            true
+                        ),
+                    );
+                    
                     @if $checkpointName {
                         @include debug-checkpoint(
-                            '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - #{$key} start',
-                            $level: $checkpointLevel + 3
-                        );
-                    }
-
-                    @if config.$fn_colourMode_selectorsAsChildren {
-                        @if config.$mx_tokensTheme_unifyActiveThemeSelectors {
-                            &[data-active-theme=#{$key}][data-active-theme],
-                            & [data-active-theme=#{$key}],
-                            [data-active-theme=#{$key}] &,
-                            %active-theme-selector--#{$key} {
-                                @include tokens-theme-individual(
-                                    $key,
-                                    $brightness: $brightness,
-                                    $contrast: $contrast,
-                                    $includeSystemColours: $includeSystemColours,
-                                    $setBaseProperties: true,
-                                );
-                                
-                                @if $checkpointName {
-                                    @include debug-checkpoint(
-                                        '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - #{$key} - content block',
-                                        $level: $checkpointLevel + 4,
-                                        $verbose: true,
-                                    );
-                                }
-                                @content ($brightness, $contrast, theme-#{$key});
-                            }
-                        } @else {
-                            & [data-active-theme=#{$key}],
-                            [data-active-theme=#{$key}] &,
-                            %active-theme-selector--#{$key} {
-                                @include tokens-theme-individual(
-                                    $key,
-                                    $brightness: $brightness,
-                                    $contrast: $contrast,
-                                    $includeSystemColours: $includeSystemColours,
-                                    $setBaseProperties: true,
-                                );
-                                
-                                @if $checkpointName {
-                                    @include debug-checkpoint(
-                                        '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - #{$key} - content block',
-                                        $level: $checkpointLevel + 4,
-                                        $verbose: true,
-                                    );
-                                }
-                                @content ($brightness, $contrast, theme-#{$key});
-                            }
-                        }
-                    } @else {
-                        @if config.$mx_tokensTheme_unifyActiveThemeSelectors {
-                            &[data-active-theme=#{$key}][data-active-theme],
-                            & [data-active-theme=#{$key}],
-                            %active-theme-selector--#{$key} {
-                                @include tokens-theme-individual(
-                                    $key,
-                                    $brightness: $brightness,
-                                    $contrast: $contrast,
-                                    $includeSystemColours: $includeSystemColours,
-                                    $setBaseProperties: true,
-                                );
-                                
-                                @if $checkpointName {
-                                    @include debug-checkpoint(
-                                        '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - #{$key} - content block',
-                                        $level: $checkpointLevel + 4,
-                                        $verbose: true,
-                                    );
-                                }
-                                @content ($brightness, $contrast, theme-#{$key});
-                            }
-                        } @else {
-                            [data-active-theme=#{$key}],
-                            %active-theme-selector--#{$key} {
-                                @include tokens-theme-individual(
-                                    $key,
-                                    $brightness: $brightness,
-                                    $contrast: $contrast,
-                                    $includeSystemColours: $includeSystemColours,
-                                    $setBaseProperties: true,
-                                );
-                                
-                                @if $checkpointName {
-                                    @include debug-checkpoint(
-                                        '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - #{$key} - content block',
-                                        $level: $checkpointLevel + 4,
-                                        $verbose: true,
-                                    );
-                                }
-                                @content ($brightness, $contrast, theme-#{$key});
-                            }
-                        }
-                    }
-                    @if $checkpointName {
-                        @include debug-checkpoint(
-                            '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - #{$key} end',
-                            $level: $checkpointLevel + 3,
+                            '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - #{$key} - content block',
+                            $level: $checkpointLevel + 4,
                             $verbose: true,
                         );
                     }
+
+                    @content ($brightness, $contrast, theme-#{$key});
+                }
+
+                @if $checkpointName {
+                    @include debug-checkpoint(
+                        '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - #{$key} end',
+                        $level: $checkpointLevel + 3,
+                        $verbose: true,
+                    );
                 }
             }
             
             @if $checkpointName {
                 @include debug-checkpoint(
                     '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - nested themes end',
-                    $level: $checkpointLevel + 2
+                    $level: $checkpointLevel + 2,
                 );
             }
         }

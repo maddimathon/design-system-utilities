@@ -132,22 +132,24 @@ $_var_contrastResultGroupColumnCount: lib.do-var(
     :global(.shade-swatch__contrast__result-group__heading) {
         line-height: lib.var-line-height('100');
         text-align: center;
+    }
 
-        @include lib.colour-mode((low, average)) {
+    @include lib.colour-mode((low, average), $unifySelectors: false) {
+        :global(.shade-swatch__contrast__heading),
+        :global(.shade-swatch__contrast__result-group__heading) {
             color: lib.do-var(
                 shade-swatch-color-override,
                 lib.do-var(shade-swatch-contrast-result-group-heading-color)
             );
         }
-    }
-    &[data-shade-swatch-has-background='true'] {
-        :global(
-            .shade-swatch__contrast__heading[data-contrast-result-group-has-heading-color='true']
-        ),
-        :global(
-            .shade-swatch__contrast__result-group__heading[data-contrast-result-group-has-heading-color='true']
-        ) {
-            @include lib.colour-mode((low, average)) {
+
+        &[data-shade-swatch-has-background='true'] {
+            :global(
+                .shade-swatch__contrast__heading[data-contrast-result-group-has-heading-color='true']
+            ),
+            :global(
+                .shade-swatch__contrast__result-group__heading[data-contrast-result-group-has-heading-color='true']
+            ) {
                 margin-block: lib.var-mrg-firm('300') lib.var-mrg-half('300');
                 padding: lib.var-stroke-relative('200');
 

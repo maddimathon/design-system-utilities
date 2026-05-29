@@ -10,12 +10,22 @@
 ///
 /// @since 0.1.0-alpha.3
 ///
-$mx_aspectRatio_includeFallback: lib.$include_featureCheck !default;
+$mx_aspectRatio_includeFallback: null !default;
+$mx_aspectRatio_includeFallback: utils.config-valid-bool(
+    $mx_aspectRatio_includeFallback,
+    'mx_aspectRatio_includeFallback',
+    $default: lib.$include_featureCheck
+);
 
 ///
 /// @since ___PKG_VERSION___
 ///
-$mx_fieldset_includeClrs: true !default;
+$mx_fieldset_includeClrs: null !default;
+$mx_fieldset_includeClrs: utils.config-valid-bool(
+    $mx_fieldset_includeClrs,
+    'mx_fieldset_includeClrs',
+    $default: true
+);
 
 ///
 /// Whether border-radius tokens should also print --border-radius-rel-[...]
@@ -23,54 +33,120 @@ $mx_fieldset_includeClrs: true !default;
 ///
 /// @since ___PKG_VERSION___
 ///
-$mx_tokens_borderRadius_printRelative: true !default;
+$mx_tokens_borderRadius_printRelative: null !default;
+$mx_tokens_borderRadius_printRelative: utils.config-valid-bool(
+    $mx_tokens_borderRadius_printRelative,
+    'mx_tokens_borderRadius_printRelative',
+    $default: true
+);
 
 ///
 /// @since ___PKG_VERSION___
 ///
-$mx_tokens_fontFace_asBase64: false !default;
+$mx_tokens_fontFace_asBase64: null !default;
+$mx_tokens_fontFace_asBase64: utils.config-valid-bool(
+    $mx_tokens_fontFace_asBase64,
+    'mx_tokens_fontFace_asBase64',
+    $default: false
+);
 
 ///
 /// @since 0.1.0-alpha.6
 ///
-$mx_tokensAll_includeFontFace: lib.$include_html !default;
+$mx_tokensAll_includeFontFace: null !default;
+$mx_tokensAll_includeFontFace: utils.config-valid-bool(
+    $mx_tokensAll_includeFontFace,
+    'mx_tokensAll_includeFontFace',
+    $default: lib.$include_html
+);
 
 ///
 /// @since ___PKG_VERSION___
 ///
-$mx_tokensStyle_printAll: false !default;
+$mx_tokensStyle_printAll: null !default;
+$mx_tokensStyle_printAll: utils.config-valid-bool(
+    $mx_tokensStyle_printAll,
+    'mx_tokensStyle_printAll',
+    $default: false
+);
 
 ///
 /// @since 0.1.0-alpha.2
 ///
 $mx_tokensTheme_includeAlternateThemes: null !default;
+$mx_tokensTheme_includeAlternateThemes: utils.config-valid-bool(
+    $mx_tokensTheme_includeAlternateThemes,
+    'mx_tokensTheme_includeAlternateThemes',
+    $default: null
+);
 
 ///
 /// @since ___PKG_VERSION___
 ///
-$mx_tokensTheme_includeDefault: true !default;
+$mx_tokensTheme_includeDefault: null !default;
+$mx_tokensTheme_includeDefault: utils.config-valid-bool(
+    $mx_tokensTheme_includeDefault,
+    'mx_tokensTheme_includeDefault',
+    $default: true
+);
 
 ///
 /// @since ___PKG_VERSION___
 ///
-$mx_tokensTheme_includeQuery: true !default;
+$mx_tokensTheme_includeQuery: null !default;
+$mx_tokensTheme_includeQuery: utils.config-valid-bool(
+    $mx_tokensTheme_includeQuery,
+    'mx_tokensTheme_includeQuery',
+    $default: true
+);
 
 ///
 /// @since 0.1.0-alpha.2
 ///
-$mx_tokensTheme_includeDefaultSelectors: not $mx_tokensTheme_includeQuery !default;
+$mx_tokensTheme_includeDefaultSelectors: null !default;
+$mx_tokensTheme_includeDefaultSelectors: utils.config-valid-bool(
+    $mx_tokensTheme_includeDefaultSelectors,
+    'mx_tokensTheme_includeDefaultSelectors',
+    $default: not $mx_tokensTheme_includeQuery
+);
+
+///
+/// @since ___PKG_VERSION___
+///
+$mx_tokensTheme_nestActiveTheme: null !default;
+$mx_tokensTheme_nestActiveTheme: utils.config-valid-bool(
+    $mx_tokensTheme_nestActiveTheme,
+    'mx_tokensTheme_nestActiveTheme',
+    $default: lib.$include_html or utils.$template_utils
+);
+
+///
+/// @since 0.1.0-alpha.2
+///
+$mx_tokensTheme_separateQueriesAndSelectors: null !default;
+$mx_tokensTheme_separateQueriesAndSelectors: utils.config-valid-bool(
+    $mx_tokensTheme_separateQueriesAndSelectors,
+    'mx_tokensTheme_separateQueriesAndSelectors',
+    $default: lib.$selectorType_mode != 'null'
+);
+
+///
+/// @since 0.1.0-alpha.2
+///
+$mx_tokensTheme_setBaseProperties: null !default;
+$mx_tokensTheme_setBaseProperties: utils.config-valid-bool(
+    $mx_tokensTheme_setBaseProperties,
+    'mx_tokensTheme_setBaseProperties',
+    $default: lib.$include_html
+);
 
 ///
 /// @since 0.1.0-alpha
+/// @since ___PKG_VERSION___ — Renamed from $mx_tokensTheme_unifyActiveThemeSelectors to $mx_tokensTheme_unifyActiveTheme.
 ///
-$mx_tokensTheme_unifyActiveThemeSelectors: false !default;
-
-///
-/// @since 0.1.0-alpha.2
-///
-$mx_tokensTheme_separateQueriesAndSelectors: lib.$selectorType_mode != 'null' !default;
-
-///
-/// @since 0.1.0-alpha.2
-///
-$mx_tokensTheme_setBaseProperties: lib.$include_html !default;
+$mx_tokensTheme_unifyActiveTheme: null !default;
+$mx_tokensTheme_unifyActiveTheme: utils.config-valid-bool(
+    $mx_tokensTheme_unifyActiveTheme,
+    'mx_tokensTheme_unifyActiveTheme',
+    $default: utils.$template_docs
+);

@@ -64,7 +64,7 @@ export function defineConfig(
 
         compiler: {
             ...config.compiler ?? {},
-            sass: ( args ) => defineSassCompilerOpts( args, config.compiler?.sass ),
+            sass: ( stage ) => defineSassCompilerOpts( stage, config.compiler?.sass ),
         },
 
         stages: {

@@ -14,16 +14,15 @@ import { sassFn_themeFlattenGetValues } from './sass-functions/themeFlattenGetVa
  *
  * @since 0.1.0-beta.0.draft
  */
-export function defineSassCompilerOpts(args, partial) {
+export function defineSassCompilerOpts(stage, partial) {
     const partialSassArgs = typeof partial === 'function'
-        ? partial(args) ?? {}
+        ? partial(stage) ?? {}
         : partial ?? {};
     const themeFlattenGetValues = sassFn_themeFlattenGetValues();
     const functions = {
         [themeFlattenGetValues[0]]: themeFlattenGetValues[1],
     };
-    // @ts-ignore
-    return sassCompilerOpts(args, {
+    return sassCompilerOpts(stage, {
         ...partialSassArgs ?? {},
         functions: {
             ...partialSassArgs['functions'] ?? {},

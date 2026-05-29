@@ -11,12 +11,8 @@
 import type * as sass from 'sass-embedded';
 
 import type {
-    CLI,
-    Config,
     Stage,
 } from '@maddimathon/build-utilities';
-
-import type { Logger } from '@maddimathon/build-utilities/internal';
 
 import { sassCompilerOpts } from '@maddimathon/utility-sass';
 
@@ -28,19 +24,11 @@ import { sassFn_themeFlattenGetValues } from './sass-functions/themeFlattenGetVa
  * @since ___PKG_VERSION___
  */
 export function defineSassCompilerOpts(
-    args: {
-        config: Config.Class;
-        console: Logger;
-        params: CLI.Params;
-    },
-    partial?: Partial<Stage.Compiler.Args.Sass> | Stage.Compiler.Args.Sass | ( ( args: {
-        config: Config.Class;
-        console: Logger;
-        params: CLI.Params;
-    } ) => Partial<Stage.Compiler.Args.Sass> ),
+    stage: Stage,
+    partial?: Partial<Stage.Compiler.Args.Sass> | Stage.Compiler.Args.Sass | ( ( stage: Stage ) => Partial<Stage.Compiler.Args.Sass> ),
 ) {
     const partialSassArgs = typeof partial === 'function'
-        ? partial( args ) ?? {}
+        ? partial( stage ) ?? {}
         : partial ?? {};
 
     const themeFlattenGetValues = sassFn_themeFlattenGetValues();
@@ -49,8 +37,7 @@ export function defineSassCompilerOpts(
         [ themeFlattenGetValues[ 0 ] ]: themeFlattenGetValues[ 1 ],
     };
 
-    // @ts-ignore
-    return sassCompilerOpts( args, {
+    return sassCompilerOpts( stage, {
         ...partialSassArgs ?? {},
 
         functions: {
