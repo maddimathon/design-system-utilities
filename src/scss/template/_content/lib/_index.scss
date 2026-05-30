@@ -160,16 +160,17 @@
         (('button[type=submit]', 'input[type=submit]'), button-form-submit)
     );
 
-    $additional: list.append($additional, ('[data-active-theme]', active-theme--any));
-
-    @each $key, $_theme in tokens.$themes {
-        $additional: list.append(
-            $additional,
-            ('%active-theme-selector--#{$key}', 'active-theme--any')
-        );
-
-        $additional: list.append($additional, ('[data-active-theme=#{$key}]', 'active-theme--any'));
-    }
+    $additional: list.append(
+        $additional,
+        (
+            active-theme-simple-selectors(
+                map.keys(tokens.$themes),
+                $includeAttributeSelector: true,
+                $includePseudoSelector: true
+            ),
+            'active-theme--any'
+        )
+    );
 
     @if config.$template_docs {
         $additional: list.join(

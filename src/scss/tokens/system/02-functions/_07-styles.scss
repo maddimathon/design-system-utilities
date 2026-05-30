@@ -313,11 +313,7 @@
 
         // returns
         @if string.index($slug, -block) {
-            @return if(
-                $isAlertStyle,
-                spacing.tokens-var-mrg-soft($value),
-                spacing.tokens-var-pad-soft($value)
-            );
+            @return spacing.tokens-var-pad-soft($value);
         }
 
         @return spacing.tokens-var-pad-firm($value);

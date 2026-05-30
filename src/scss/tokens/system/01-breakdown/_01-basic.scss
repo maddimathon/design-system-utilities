@@ -188,9 +188,19 @@ $themesMeta: map.set(
     list.unique(list.join(map.get($themesMeta, keys, background), map.get($themesMeta, keys, text)))
 );
 
+$_themeNames: list.except(map.keys(map.get(default.$designSystem, themes)), '_meta');
+
+$activeTheme: null !default;
+$activeTheme: config.config-valid-string(
+    $activeTheme,
+    'activeTheme',
+    $default: list.nth($_themeNames, 1),
+    $options: $_themeNames
+);
+
 $themes: ();
 
-@each $key in list.except(map.keys(map.get(default.$designSystem, themes)), '_meta') {
+@each $key in list.unique(list.join(($activeTheme), $_themeNames, $separator: comma)) {
     $themes: map.set($themes, $key, map.get(default.$designSystem, themes, $key));
 }
 

@@ -13,17 +13,6 @@
 
 @use '01-basic' as basic;
 
-$_themeNames: list.except(map.keys(basic.$themes), '_meta');
-$_defaultThemeName: list.nth($_themeNames, 1);
-
-$activeTheme: null !default;
-$activeTheme: config.config-valid-string(
-    $activeTheme,
-    'activeTheme',
-    $default: $_defaultThemeName,
-    $options: $_themeNames
-);
-
 $brightnessMode_options: list.join(
     (),
     map.get(basic.$themesMeta, brightness),

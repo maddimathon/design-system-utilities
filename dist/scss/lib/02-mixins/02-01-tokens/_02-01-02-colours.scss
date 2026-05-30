@@ -61,6 +61,15 @@ $_allSelectors_background: selector-all-background-variations();
 }
 
 ///
+/// Returns simple selectors for the all themes.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function active-theme-simple-selectors-all($args...) {
+    @return active-theme-simple-selectors(map.keys(tokens.$themes), $args...);
+}
+
+///
 /// Add selectors for selecting an active theme with the appropriate nesting.
 ///
 /// @since 0.1.0-beta.0.draft
@@ -74,7 +83,7 @@ $_allSelectors_background: selector-all-background-variations();
             config.$mx_tokensTheme_unifyActiveTheme and
                 (
                     #{$keys} != #{tokens.$activeTheme} or not
-                        parent-is-body-or-root()
+                        parent-is-root-or-body()
                 ),
         ),
     $wrap: config.$mx_tokensTheme_nestActiveTheme,
@@ -484,11 +493,90 @@ $_allSelectors_background: selector-all-background-variations();
 }
 
 ///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin _tokens-theme-individual-selectors--root-body-or-direct-child(
+    $parsedParentSelector: null
+) {
+    @if $parsedParentSelector == null {
+        $parsedParentSelector: selector.parse(#{&});
+    }
+
+    $parsedParentSelector: selector.except(
+        $parsedParentSelector,
+        config.$selector_null
+    );
+
+    // less than one selector should display nothing
+    @if list.length($parsedParentSelector) < 1 {
+        #{config.$selector_null} {
+            @content;
+        }
+    }
+
+    // a single selector (no comma-separated selectors) that is the root or
+    // body takes it directly anyway
+    @else if selector.is-root-or-body($parsedParentSelector) {
+        @content;
+    }
+
+    // use :where(%root, %body)
+    @else {
+        $_rootSels: ();
+        $_whereSels: ();
+
+        // if every selector has root or body but none ARE root or body,
+        // then they are all children of root/body
+        @if selector.has-root-or-body($parsedParentSelector) and
+            (not selector.is-any-root-or-body($parsedParentSelector))
+        {
+            // doing nothing
+        } @else {
+            @if not selector.is-body($parsedParentSelector) {
+                $_whereSels: list.append(
+                    $_whereSels,
+                    '%root',
+                    $separator: comma
+                );
+            }
+
+            @if not selector.is-root($parsedParentSelector) {
+                $_whereSels: list.append(
+                    $_whereSels,
+                    '%body',
+                    $separator: comma
+                );
+            }
+        }
+
+        $_togetherSels: list.join(
+            $_rootSels,
+            if(
+                list.length($_whereSels) > 0,
+                selector.unify($parsedParentSelector, ':where(#{$_whereSels})'),
+                ()
+            ),
+            $separator: comma
+        );
+
+        @if list.length($_togetherSels) > 0 {
+            @at-root #{$_togetherSels} {
+                @content;
+            }
+        }
+
+        > * {
+            @content;
+        }
+    }
+}
+
+///
 /// Prints a single theme's properties.
 ///
 /// @since 0.1.0-alpha.5
 /// @since 0.1.0-alpha.9 — Made public.
-/// @since 0.1.0-beta.0.draft — Allowed $slug, $brightness, and $contrast to be optional.
+/// @since 0.1.0-beta.0.draft — Allowed $slug, $brightness, and $contrast to be optional. Added optional $focusRing_setChildrenOnly, $multipleContentBlocks params.
 ///
 @mixin tokens-theme-individual-base-properties(
     $slug: tokens.$activeTheme,
@@ -500,7 +588,8 @@ $_allSelectors_background: selector-all-background-variations();
     $focusRingOutlineColor: null,
     $iconColor: null,
     //
-    $focusRing_childrenOnly: null
+    $focusRing_setChildrenOnly: null,
+    $multipleContentBlocks: false
 ) {
     $useSystemColorFallback: false;
 
@@ -509,19 +598,19 @@ $_allSelectors_background: selector-all-background-variations();
         $contrast: tokens.$contrastMode_default;
     }
 
-    $_parentSel: list.except(selector.parse(#{&}), #{config.$selector_null});
+    $_parentSel: selector.except(&, config.$selector_null);
 
-    @if list.length($_parentSel) < 1 {
-        $_parentSel: config.$selector_null;
+    @if list.length($_parentSel) > 0 {
+        @if $focusRing_setChildrenOnly == null {
+            $focusRing_setChildrenOnly: not
+                selector.is-body($_parentSel) and not
+                selector.is-root($_parentSel);
+        }
+    } @else if $focusRing_setChildrenOnly == null {
+        $focusRing_setChildrenOnly: true;
     }
 
-    @if $focusRing_childrenOnly == null {
-        $focusRing_childrenOnly: not
-            selector.is-body($_parentSel) and not
-            selector.is-root($_parentSel);
-    }
-
-    @if not $focusRing_childrenOnly {
+    @if not $focusRing_setChildrenOnly {
         @include utils.cx-prop(
             focus-ring-outline-color,
             if(
@@ -557,7 +646,13 @@ $_allSelectors_background: selector-all-background-variations();
         )
     );
 
-    @if $focusRing_childrenOnly {
+    @if $multipleContentBlocks {
+        @content ('root');
+    } @else {
+        @content;
+    }
+
+    @if $focusRing_setChildrenOnly {
         $_val: if(
             $focusRingOutlineColor,
             $focusRingOutlineColor,
@@ -570,70 +665,16 @@ $_allSelectors_background: selector-all-background-variations();
             )
         );
 
-        // a single selector (no comma-separated selectors) that is the root or
-        // body takes it directly anyway
-        @if list.length($_parentSel) <
-            2 and
-            (selector.is-root($_parentSel) or selector.is-body($_parentSel))
-        {
+        @include _tokens-theme-individual-selectors--root-body-or-direct-child(
+            $_parentSel
+        ) {
             @include utils.cx-prop(focus-ring-outline-color, $_val);
-        } @else {
-            $_whereSels: ();
 
-            @if list.length($_parentSel) > 0 {
-                @if not selector.is-root($_parentSel) {
-                    $_whereSels: list.append(
-                        $_whereSels,
-                        '%root',
-                        $separator: comma
-                    );
-
-                    @if not selector.is-body($_parentSel) {
-                        $_whereSels: list.append(
-                            $_whereSels,
-                            '%body',
-                            $separator: comma
-                        );
-                    }
-                }
-            } @else {
-                @if not selector.has-root($_parentSel) {
-                    $_whereSels: list.append(
-                        $_whereSels,
-                        '%root',
-                        $separator: comma
-                    );
-                }
-
-                @if not
-                    selector.has-body($_parentSel) and not
-                    selector.is-root($_parentSel)
-                {
-                    $_whereSels: list.append(
-                        $_whereSels,
-                        '%body',
-                        $separator: comma
-                    );
-                }
-            }
-
-            @if list.length($_whereSels) > 0 {
-                @at-root #{selector.unify($_parentSel, ':where(#{$_whereSels})')} {
-                    // /* $_parentSel = #{meta.var-dump($_parentSel)} */
-                    // /* & = #{meta.var-dump(&)} */
-                    @include utils.cx-prop(focus-ring-outline-color, $_val);
-                }
-            }
-
-            > * {
-                @include utils.cx-prop(focus-ring-outline-color, $_val);
+            @if $multipleContentBlocks {
+                @content ('root-body-or-direct-child');
             }
         }
     }
-
-    // UPGRADE: consider adding this in
-    // @if $includeBackgroundExceptions {
-    // }
 }
 
 ///
@@ -755,7 +796,8 @@ $_allSelectors_background: selector-all-background-variations();
     $setBaseProperties: config.$mx_tokensTheme_setBaseProperties,
     $includeSystemColours: true,
     //
-    $base_focusRing_childrenOnly: null
+    $base_focusRing_childrenOnly: null,
+    $multipleContentBlocks: false
 ) {
     $flat_isValues: tokens.$themes__nestedFlat_tokenValues != null;
 
@@ -772,6 +814,14 @@ $_allSelectors_background: selector-all-background-variations();
 
     @if $activeTheme_flat == null {
         @warn "$slug '#{$slug}' was not a key in tokens.$themes__nestedFlat_tokenValues";
+
+        #{config.$selector_null} {
+            @if $multipleContentBlocks {
+                @content (null);
+            } @else {
+                @content;
+            }
+        }
     } @else {
         @if $contrast == forced-colors {
             $flattened: map.get($activeTheme_flat, forced-colors);
@@ -807,17 +857,37 @@ $_allSelectors_background: selector-all-background-variations();
             }
         }
 
+        @if $multipleContentBlocks {
+            @content (root);
+        }
+
         @if $setBaseProperties {
             @include tokens-theme-individual-base-properties(
-                $slug: $slug,
-                $brightness: $brightness,
-                $contrast: $contrast,
-                $focusRing_childrenOnly: $base_focusRing_childrenOnly
-            );
+                    $slug: $slug,
+                    $brightness: $brightness,
+                    $contrast: $contrast,
+                    $focusRing_setChildrenOnly: $base_focusRing_childrenOnly,
+                    $multipleContentBlocks: true
+                )
+                using ($location) {
+                @if $multipleContentBlocks {
+                    @content (base--#{$location});
+                } @else if $location == root {
+                    @content;
+                }
+            }
+        } @else {
+            @if $multipleContentBlocks {
+                @content (base--root);
+
+                @include _tokens-theme-individual-selectors--root-body-or-direct-child {
+                    @content ('base--root-body-or-direct-child');
+                }
+            } @else {
+                @content;
+            }
         }
     }
-
-    @content;
 }
 
 $_themes_includeAlternatives: if(
@@ -891,18 +961,23 @@ $_themes_includeAlternatives: if(
     }
 }
 
+$_mixinIndividual: meta.get-mixin('tokens-theme-individual');
+
 ///
 /// Prints out the theme custom property tokens based on config.
 ///
 /// @since 0.1.0-alpha
-/// @since 0.1.0-beta.0.draft — Added $includeRegion param.
+/// @since 0.1.0-beta.0.draft — Added optional $includeRegion, $mixin_individual params.
 ///
 @mixin tokens-theme(
     $checkpointName: false,
     $checkpointLevel: 2,
     //
     $includeAlternatives: $_themes_includeAlternatives,
+    $includeForcedColorAlternatives:
+        config.$mx_tokensTheme_includeForcedColorAlternatives,
     $includeSystemColours: true,
+    $mixin_individual: null,
     $args...
 ) {
     @if $checkpointName {
@@ -910,6 +985,12 @@ $_themes_includeAlternatives: if(
             '#{$checkpointName} - tokens-theme - start',
             $level: $checkpointLevel
         );
+    }
+
+    @if $mixin_individual == null {
+        $mixin_individual: $_mixinIndividual;
+    } @else if meta.type-of($mixin_individual) != mixin {
+        $mixin_individual: $_mixinIndividual;
     }
 
     $_themeKeys: map.keys(tokens.$themes);
@@ -933,23 +1014,27 @@ $_themes_includeAlternatives: if(
                 );
             }
 
-            @include tokens-theme-individual(
+            @include meta.apply(
+                $mixin_individual,
                 tokens.$activeTheme,
                 $brightness: $brightness,
                 $contrast: $contrast,
                 $includeSystemColours: $includeSystemColours,
-            );
-
-            @if $checkpointName {
-                @include debug-checkpoint(
-                    '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - content block',
-                    $level: $checkpointLevel + 2,
-                    $verbose: true,
-                );
+                $multipleContentBlocks: true,
+            ) using ( $location ) {
+                @if $checkpointName {
+                    @include debug-checkpoint(
+                        '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - content block',
+                        $level: $checkpointLevel + 2,
+                        $verbose: true,
+                    );
+                }
+    
+                @content ($brightness, $contrast, main);
             }
-
-            @content ($brightness, $contrast, main);
             
+        
+
         } @else {
             @if $checkpointName {
                 @include debug-checkpoint(
@@ -959,51 +1044,95 @@ $_themes_includeAlternatives: if(
                 );
             }
 
-            @each $key in list.unique(list.join(tokens.$activeTheme, $_themeKeys)) {
-                @if $checkpointName {
-                    @include debug-checkpoint(
-                        '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - #{$key} start',
-                        $level: $checkpointLevel + 3,
-                    );
-                }
+            @if $contrast == forced-colors and not $includeForcedColorAlternatives {
+                
+                $key: tokens.$activeTheme;
                 
                 @include active-theme(
-                    $key,
+                    map.keys(tokens.$themes),
                     $includeDefault: true,
                     $includePseudoSelector: true,
                     $unifyExtraSpecific: true,
                 ) {
-                    @include tokens-theme-individual(
+                    @include meta.apply(
+                        $mixin_individual,
                         $key,
                         $brightness: $brightness,
                         $contrast: $contrast,
                         $includeSystemColours: $includeSystemColours,
-                        $setBaseProperties: if(
-                            #{$key} == #{tokens.$activeTheme},
-                            config.$mx_tokensTheme_setBaseProperties,
-                            true
-                        ),
-                    );
-                    
+                        $multipleContentBlocks: true,
+                        $setBaseProperties: config.$mx_tokensTheme_setBaseProperties,
+                    ) using ( $location ) {
+                        @if $checkpointName {
+                            @include debug-checkpoint(
+                                '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - #{$key} - content block',
+                                $level: $checkpointLevel + 3,
+                                $verbose: true,
+                            );
+                        }
+    
+                        @if $location == root {
+                            @content ($brightness, $contrast, theme-#{$key});
+                        } @else {
+                            @content ($brightness, $contrast, theme-#{$key}--#{$location});
+                        }
+                    }
+                }
+            } @else {
+                
+                @each $key in $_themeKeys {
                     @if $checkpointName {
                         @include debug-checkpoint(
-                            '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - #{$key} - content block',
-                            $level: $checkpointLevel + 4,
+                            '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - #{$key} start',
+                            $level: $checkpointLevel + 3,
+                        );
+                    }
+                    
+                    @include active-theme(
+                        $key,
+                        $includeDefault: true,
+                        $includePseudoSelector: true,
+                        $unifyExtraSpecific: true,
+                    ) {
+                        @include meta.apply(
+                            $mixin_individual,
+                            $key,
+                            $brightness: $brightness,
+                            $contrast: $contrast,
+                            $includeSystemColours: $includeSystemColours,
+                            $multipleContentBlocks: true,
+                            $setBaseProperties: if(
+                                #{$key} == #{tokens.$activeTheme},
+                                config.$mx_tokensTheme_setBaseProperties,
+                                true
+                            ),
+                        ) using ( $location ) {
+                            @if $checkpointName {
+                                @include debug-checkpoint(
+                                    '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - #{$key} - content block',
+                                    $level: $checkpointLevel + 4,
+                                    $verbose: true,
+                                );
+                            }
+        
+                            @if $location == root {
+                                @content ($brightness, $contrast, theme-#{$key});
+                            } @else {
+                                @content ($brightness, $contrast, theme-#{$key}--#{$location});
+                            }
+                        }
+                    }
+    
+                    @if $checkpointName {
+                        @include debug-checkpoint(
+                            '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - #{$key} end',
+                            $level: $checkpointLevel + 3,
                             $verbose: true,
                         );
                     }
-
-                    @content ($brightness, $contrast, theme-#{$key});
-                }
-
-                @if $checkpointName {
-                    @include debug-checkpoint(
-                        '#{$checkpointName} - tokens-theme - #{$brightness}.#{$contrast} - #{$key} end',
-                        $level: $checkpointLevel + 3,
-                        $verbose: true,
-                    );
                 }
             }
+
             
             @if $checkpointName {
                 @include debug-checkpoint(
@@ -1012,20 +1141,5 @@ $_themes_includeAlternatives: if(
                 );
             }
         }
-    }
-
-    @if $checkpointName {
-        @include debug-checkpoint(
-            '#{$checkpointName} - tokens-theme - high-contrast exceptions start',
-            $level: $checkpointLevel + 1
-        );
-    }
-
-    @if $checkpointName {
-        @include debug-checkpoint(
-            '#{$checkpointName} - tokens-theme - high-contrast exceptions end',
-            $level: $checkpointLevel + 1,
-            $verbose: true
-        );
     }
 }

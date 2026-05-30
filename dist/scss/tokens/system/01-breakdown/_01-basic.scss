@@ -209,10 +209,23 @@ $themesMeta: map.set(
     )
 );
 
+$_themeNames: list.except(
+    map.keys(map.get(default.$designSystem, themes)),
+    '_meta'
+);
+
+$activeTheme: null !default;
+$activeTheme: config.config-valid-string(
+    $activeTheme,
+    'activeTheme',
+    $default: list.nth($_themeNames, 1),
+    $options: $_themeNames
+);
+
 $themes: ();
 
 @each $key
-    in list.except(map.keys(map.get(default.$designSystem, themes)), '_meta')
+    in list.unique(list.join(($activeTheme), $_themeNames, $separator: comma))
 {
     $themes: map.set(
         $themes,
