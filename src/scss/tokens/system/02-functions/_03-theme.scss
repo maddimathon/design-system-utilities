@@ -156,8 +156,10 @@
     $useSystemColorFallback: null,
     $version: null,
     $opacity: null,
+    $fallbackSlug: null,
     $returnAsList: false,
     $returnAsVar: false,
+    $warnOnFalse: false,
     $args...
 ) {
     $clrIsSystemColor: false;
@@ -202,7 +204,8 @@
             $brightness: $brightness,
             $contrast: forced-colors,
             $themeSlug: $themeSlug,
-            $version: null
+            $version: null,
+            $warnOnFalse: $warnOnFalse
         );
     }
 
@@ -213,7 +216,8 @@
             $brightness: $brightness,
             $contrast: $contrast,
             $themeSlug: $themeSlug,
-            $version: null
+            $version: null,
+            $warnOnFalse: $warnOnFalse
         );
     } @else if $useSystemColorFallback {
         $clrIsSystemColor: true;
@@ -239,9 +243,25 @@
     // returns
     @if not $clrSlug {
         @return if(
-            $returnAsVar,
-            config.config-do-var($themeVarSlug, $args...),
-            if($returnAsList, (), false)
+            $fallbackSlug,
+            tokens-theme-token-value(
+                $fallbackSlug,
+                $brightness: $brightness,
+                $contrast: $contrast,
+                $themeSlug: $themeSlug,
+                $useSystemColorFallback: $useSystemColorFallback,
+                $version: $version,
+                $opacity: $opacity,
+                $returnAsList: $returnAsList,
+                $returnAsVar: $returnAsVar,
+                $warnOnFalse: $warnOnFalse,
+                $args...
+            ),
+            if(
+                $returnAsVar,
+                config.config-do-var($themeVarSlug, $args...),
+                if($returnAsList, (), false)
+            )
         );
     }
 
@@ -268,7 +288,8 @@
             $contrast: $contrast,
             $themeSlug: $themeSlug,
             $opacity: $opacity,
-            $version: $version
+            $version: $version,
+            $warnOnFalse: $warnOnFalse
         );
 
         @if not $returnAsList and list.length($_value) > 1 {
@@ -316,7 +337,8 @@
             $brightness: $brightness,
             $contrast: $contrast,
             $themeSlug: $themeSlug,
-            $version: $version
+            $version: $version,
+            $warnOnFalse: $warnOnFalse
         );
 
         @if not $returnAsList and list.length($_value) > 1 {

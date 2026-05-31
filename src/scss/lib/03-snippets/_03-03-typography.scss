@@ -299,27 +299,36 @@
     $textDecorationColor_disabled: var-theme(link-decoration-disabled),
     $color_disabled: var-theme(link-disabled),
     //
+    $includeActive: true,
     $includeDisabled: false,
+    $includeHoverFocus: true,
+    $includeRoot: true,
     $args...
 ) {
-    @include visited {
-        @include cx-prop(icon-color, $iconColor);
-        text-decoration-color: $textDecorationColor;
-        color: $color;
+    @if $includeRoot {
+        @include visited {
+            @include cx-prop(icon-color, $iconColor);
+            text-decoration-color: $textDecorationColor;
+            color: $color;
 
-        @content (root);
+            @content (root);
+        }
     }
 
-    @include hover-focus-visible-or-within($args...) {
-        @include snippet-link-colour-single(-hover);
+    @if $includeHoverFocus {
+        @include hover-focus-visible-or-within($args...) {
+            @include snippet-link-colour-single(-hover);
 
-        @content (hover-focus);
+            @content (hover-focus);
+        }
     }
 
-    @include active {
-        @include snippet-link-colour-single(-active);
+    @if $includeActive {
+        @include active {
+            @include snippet-link-colour-single(-active);
 
-        @content (active);
+            @content (active);
+        }
     }
 
     @if $includeDisabled {

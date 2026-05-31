@@ -148,11 +148,10 @@
         // prettier-ignore
         @else if string.index($slug, -background-) or string.index($slug, -background) == ($_slugLength - 10) {
             $isThemeToken: true;
-        } @else if
-            string.index($slug, -color-) or
-            string.index($slug, -color) ==
-            ($_slugLength - 5)
-        {
+        }
+
+        // prettier-ignore
+        @else if string.index($slug, -color-) or string.index($slug, -color) == ($_slugLength - 5) {
             $isThemeToken: true;
         }
 
@@ -187,21 +186,17 @@
         // MARGINS - returns for alert headings and headlines
         // prettier-ignore
         @else if not $isIconStyle and (string.index($slug, -margin-) or string.index($slug, -margin) == ($_slugLength - 6)) {
-                @if $isAlertHeadingStyle or $isAlertHeadlineStyle {
-                    @return math.add-unit($value, 1em);
-                } @else {
-                    $isMargin: true;
-                }
+            // returns
+            @if $isAlertHeadingStyle or $isAlertHeadlineStyle {
+                @return math.add-unit($value, 1em);
             }
 
+            $isMargin: true;
+        }
+
         // PADDING
-        @else if string.index($slug, -padding-) {
-            @if $isWidgetStyle {
-                $isMargin: true;
-            } @else {
-                $isPadding: true;
-            }
-        } @else if string.index($slug, -padding) == ($_slugLength - 7) {
+        // prettier-ignore
+        @else if string.index($slug, -padding-) or string.index($slug, -padding) == ($_slugLength - 7) {
             @if $isAlertStyle or $isWidgetStyle {
                 $isMargin: true;
             } @else {

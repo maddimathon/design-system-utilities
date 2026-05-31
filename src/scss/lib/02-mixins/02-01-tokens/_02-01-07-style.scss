@@ -39,7 +39,7 @@
                 @if style-is-flow-margin($slug) {
                     // skip these flow-margin tokens in favour of set-flow-margins() mixin
                 } @else {
-                    @include utils.cx-prop($slug, style-value($slug));
+                    @include utils.cx-prop($slug, style-value($slug), $allPrefixes: false);
                 }
             }
 

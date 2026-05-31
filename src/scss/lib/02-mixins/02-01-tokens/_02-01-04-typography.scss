@@ -129,7 +129,11 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
             }
             #{$_sel} {
                 @each $slug in $_familiesList {
-                    @include utils.cx-prop(ff-#{$slug}, font-family-list($slug));
+                    @include utils.cx-prop(
+                        ff-#{$slug},
+                        font-family-list($slug),
+                        $allPrefixes: false
+                    );
                 }
             }
             @if $includeRegion {
@@ -154,14 +158,14 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
         #{$_sel} {
             @each $slug, $_value in tokens.$font_size {
                 @each $value in fs-value($slug, $multiplier: $multiplier) {
-                    @include utils.cx-prop(fs-#{$slug}, $value);
+                    @include utils.cx-prop(fs-#{$slug}, $value, $allPrefixes: false);
                 }
             }
 
             @if config.$mx_tokens_fontSize_printRelative {
                 @each $slug, $_value in tokens.$font_size {
                     @each $value in fs-value($slug, $multiplier: $multiplier, $relative: true) {
-                        @include utils.cx-prop(fs-rel-#{$slug}, $value);
+                        @include utils.cx-prop(fs-rel-#{$slug}, $value, $allPrefixes: false);
                     }
                 }
             }
@@ -188,7 +192,8 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
             @each $slug, $_value in tokens.$line_height {
                 @include utils.cx-prop(
                     line-height-#{$slug},
-                    line-height-value($slug, $multiplier: $multiplier)
+                    line-height-value($slug, $multiplier: $multiplier),
+                    $allPrefixes: false
                 );
             }
         }

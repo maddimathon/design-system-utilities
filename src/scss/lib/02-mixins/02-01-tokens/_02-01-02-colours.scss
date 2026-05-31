@@ -23,6 +23,14 @@ $_flattenedSystemColors: map.flatten($_systemColors);
 
 $_allSelectors_background: selector-all-background-variations();
 
+$_allModeOptions_simpleSelectors: simple-selectors-colour-mode-all();
+
+$_rootAliasesWithAllModeOptions: list.join(
+    config.$selector_root_aliases,
+    $_allModeOptions_simpleSelectors,
+    $separator: comma
+);
+
 ///
 /// Returns simple selectors for the given themes.
 ///
@@ -35,22 +43,41 @@ $_allSelectors_background: selector-all-background-variations();
 ) {
     $keys: if(meta.type-of($keys) == 'list', $keys, ($keys));
 
-    $_sels: ();
-
-    @if $includePseudoSelector {
-        @each $_key in $keys {
-            $_sels: list.append($_sels, '%active-theme-selector--#{$_key}', $separator: comma);
-        }
+    // returns
+    @if list.length($keys) < 1 {
+        @return ();
     }
+
+    $_sels: ();
 
     @if $includeAttributeSelector {
         @each $_key in $keys {
             $_sels: list.append($_sels, '[data-active-theme=#{$_key}]', $separator: comma);
         }
+
+        @if list.length(config.$mx_activeTheme_containers) > 0 {
+            $_sels: list.join(
+                $_sels,
+                selector.unify(config.$mx_activeTheme_containers, '[data-active-theme=#{$_key}]'),
+                $separator: comma
+            );
+        }
+    }
+
+    @if $includePseudoSelector {
+        @each $_key in list.reverse($keys) {
+            $_newSels: map.get(config.$mx_activeTheme_extraSelectors, $_key);
+
+            @if $_newSels {
+                $_sels: list.join($_newSels, $_sels, $separator: comma);
+            }
+        }
     }
 
     @return $_sels;
 }
+
+$_allThemeSlugs: map.keys(tokens.$themes);
 
 ///
 /// Returns simple selectors for the all themes.
@@ -58,8 +85,13 @@ $_allSelectors_background: selector-all-background-variations();
 /// @since ___PKG_VERSION___
 ///
 @function active-theme-simple-selectors-all($args...) {
-    @return active-theme-simple-selectors(map.keys(tokens.$themes), $args...);
+    @return active-theme-simple-selectors($_allThemeSlugs, $args...);
 }
+
+$_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
+    $includeAttributeSelector: true,
+    $includePseudoSelector: true,
+);
 
 ///
 /// Add selectors for selecting an active theme with the appropriate nesting.
@@ -79,12 +111,13 @@ $_allSelectors_background: selector-all-background-variations();
     //
     $includeDefault: false,
     $includePseudoSelector: false,
+    $nestExtraSpecific: false,
     $unifyExtraSpecific: false,
     $args...
 ) {
     $_parentExists: selector.parent-exists();
 
-    $keys: if(meta.type-of($keys) == 'list', $keys, ($keys));
+    $keys: list.only-any(if(meta.type-of($keys) == 'list', $keys, ($keys)), $_allThemeSlugs);
 
     $_parent_exceptRootOrBody: if(
         $_parentExists,
@@ -117,6 +150,39 @@ $_allSelectors_background: selector-all-background-variations();
         $args...
     );
 
+    $_sels_select_nested: $_sels_select;
+
+    @if $nestExtraSpecific {
+        $_extraSpecificNester: if(
+            list.length($keys) == list.length($_allThemeSlugs),
+            $_allActiveThemeSimpleSelectors,
+            list.join(
+                active-theme-simple-selectors(
+                    $_allThemeSlugs,
+                    $includeAttributeSelector: false,
+                    $includePseudoSelector: true
+                ),
+                active-theme-simple-selectors(
+                    list.except-any($_allThemeSlugs, $keys),
+                    $includeAttributeSelector: true,
+                    $includePseudoSelector: false
+                ),
+                $separator: comma
+            )
+        );
+
+        @if list.length($_extraSpecificNester) > 0 {
+            $_sels_select_nested: list.join(
+                $_sels_select_nested,
+                selector.nest(
+                    $_extraSpecificNester,
+                    selector.except-has-root-or-body($_sels_select_nested)
+                ),
+                $separator: comma
+            );
+        }
+    }
+
     $_sels: list.join(
         $additionalSelectors,
         list.join($_sels_pseudo, $_sels_select, $separator: comma),
@@ -125,7 +191,14 @@ $_allSelectors_background: selector-all-background-variations();
 
     @if $_parentExists {
         @if $nest {
-            $_sels: selector.nest(&, $_sels);
+            $_sels: selector.nest(
+                &,
+                list.join(
+                    $additionalSelectors,
+                    list.join($_sels_pseudo, $_sels_select_nested, $separator: comma),
+                    $separator: comma
+                )
+            );
         } @else {
             $_sels: list.join($additionalSelectors, $_sels_pseudo, $separator: comma);
         }
@@ -134,7 +207,7 @@ $_allSelectors_background: selector-all-background-variations();
             $_sels: list.join(
                 $_sels,
                 selector.nest(
-                    list.join($additionalSelectors, $_sels_select, $separator: comma),
+                    list.join($additionalSelectors, $_sels_select_nested, $separator: comma),
                     if(
                         config.$fn_colourMode_selectorsAsChildren,
                         $_parent_exceptRootOrBody,
@@ -168,7 +241,7 @@ $_allSelectors_background: selector-all-background-variations();
         $_sels: list.join((&), $_sels, $separator: comma);
     }
 
-    $_sels: list.unique(selector.parse(#{$_sels}));
+    $_sels: list.unique(selector.except($_sels, config.$selector_null));
 
     @if $_parentExists {
         @at-root #{$_sels} {
@@ -204,7 +277,7 @@ $_allSelectors_background: selector-all-background-variations();
             @if $contrast == forced-colors {
                 
                 @each $value in list.unique($list) {
-                    @include utils.cx-prop(sys-clr-#{$slug}, $value !important);
+                    @include utils.cx-prop(sys-clr-#{$slug}, $value !important, $allPrefixes: false);
                 }
                 
             } @else if
@@ -251,6 +324,7 @@ $_allSelectors_background: selector-all-background-variations();
                                 $_value,
                                 var-clr-from-theme-token($_value, $brightness: $brightness)
                             ),
+                            $allPrefixes: false,
                             $comment: $comment
                         );
                     }
@@ -263,10 +337,18 @@ $_allSelectors_background: selector-all-background-variations();
                         @each $value in list.unique($list) {
                             @if $i > 1 {
                                 @supports (color: $value) {
-                                    @include utils.cx-prop(sys-clr-#{$slug}, $value);
+                                    @include utils.cx-prop(
+                                        sys-clr-#{$slug},
+                                        $value,
+                                        $allPrefixes: false
+                                    );
                                 }
                             } @else {
-                                @include utils.cx-prop(sys-clr-#{$slug}, $value);
+                                @include utils.cx-prop(
+                                    sys-clr-#{$slug},
+                                    $value,
+                                    $allPrefixes: false
+                                );
                             }
 
                             $i: $i + 1;
@@ -311,7 +393,8 @@ $_allSelectors_background: selector-all-background-variations();
 
                         @include utils.cx-prop(
                             #{$_shadeNameSlug}-#{$level},
-                            colour.to-hsl($_clrValue, $round: false)
+                            colour.to-hsl($_clrValue, $round: false),
+                            $allPrefixes: false
                         );
                     }
 
@@ -329,14 +412,16 @@ $_allSelectors_background: selector-all-background-variations();
                             @if config.$include_colourValues_hsl {
                                 @include utils.cx-prop(
                                     #{$_shadeNameSlug}-#{$level}-hsl,
-                                    colour.to-hsl-list($_clrValue, $round: false)
+                                    colour.to-hsl-list($_clrValue, $round: false),
+                                    $allPrefixes: false
                                 );
                             }
 
                             @if config.$include_colourValues_rgb {
                                 @include utils.cx-prop(
                                     #{$_shadeNameSlug}-#{$level}-rgb,
-                                    colour.to-rgb-list($_clrValue, $round: true)
+                                    colour.to-rgb-list($_clrValue, $round: true),
+                                    $allPrefixes: false
                                 );
                             }
 
@@ -358,7 +443,8 @@ $_allSelectors_background: selector-all-background-variations();
 
                                 @include utils.cx-prop(
                                     #{$_shadeNameSlug}-#{$level}--#{math.deunit($opacity)},
-                                    $_opacity_clrValue
+                                    $_opacity_clrValue,
+                                    $allPrefixes: false
                                 );
                             }
                         }
@@ -380,6 +466,7 @@ $_allSelectors_background: selector-all-background-variations();
 ///
 @mixin theme-set-color(
     $variant: null,
+    $brightness: null,
     $contrast: null,
     //
     $color: null,
@@ -390,13 +477,6 @@ $_allSelectors_background: selector-all-background-variations();
         $variant: null;
     }
 
-    $useSystemColorFallback: false;
-
-    @if $contrast == null {
-        $useSystemColorFallback: true;
-        $contrast: tokens.$contrastMode_default;
-    }
-
     $variantSlug: if($variant == null, '', '-#{$variant}');
 
     @include utils.cx-prop(
@@ -404,24 +484,35 @@ $_allSelectors_background: selector-all-background-variations();
         if(
             $iconColor,
             $iconColor,
-            var-theme(
-                ui#{$variantSlug},
-                $contrast: $contrast,
-                $useSystemColorFallback: $useSystemColorFallback,
-                $args...
+            if(
+                $variant == null,
+                var-theme(
+                    style-value(icon-color, $raw: true),
+                    $fallbackSlug: ui,
+                    $brightness: $brightness,
+                    $contrast: $contrast,
+                    $warnOnFalse: false,
+                    $args...
+                ),
+                var-theme(
+                    ui#{$variantSlug},
+                    $fallbackSlug: text#{$variantSlug},
+                    $brightness: $brightness,
+                    $contrast: $contrast,
+                    $warnOnFalse: false,
+                    $args...
+                )
             )
         )
     );
+
     color: if(
         $color,
         $color,
-        var-theme(
-            text#{$variantSlug},
-            $contrast: $contrast,
-            $useSystemColorFallback: $useSystemColorFallback,
-            $args...
-        )
+        var-theme(text#{$variantSlug}, $brightness: $brightness, $contrast: $contrast, $args...)
     );
+
+    $args: meta.keywords($args);
 }
 
 ///
@@ -452,18 +543,50 @@ $_allSelectors_background: selector-all-background-variations();
         $_rootSels: ();
         $_whereSels: ();
 
-        // if every selector has root or body but none ARE root or body,
-        // then they are all children of root/body
-        @if selector.has-root-or-body($parsedParentSelector) and
-            (not selector.is-any-root-or-body($parsedParentSelector))
+        $_root_aliases: if(
+            config.$fn_colourMode_selectorsAsChildren,
+            (),
+            $_rootAliasesWithAllModeOptions
+        );
+
+        // if every selector has body but none ARE root or body, then they are
+        // all children of root/body --- but if root and body are not present at
+        // all, then we also treat them as simple children of root/body
+        @if (
+                not
+                    selector.has-any-root-or-body(
+                        $parsedParentSelector,
+                        $root_aliases: $_root_aliases
+                    )
+            ) or
+            (
+                selector.has-body($parsedParentSelector, $aliases: $_root_aliases) and
+                    (
+                        not
+                            selector.is-any-root-or-body(
+                                $parsedParentSelector,
+                                $root_aliases: $_root_aliases
+                            )
+                    )
+            )
         {
             // doing nothing
         } @else {
-            @if not selector.is-body($parsedParentSelector) {
+            $_hasBody: selector.has-body($parsedParentSelector, $aliases: $_root_aliases);
+            $_isBody: selector.is-body($parsedParentSelector);
+            $_isAnyBody: selector.is-any-body($parsedParentSelector, $aliases: $_root_aliases);
+
+            $_hasRoot: selector.has-root($parsedParentSelector, $aliases: $_root_aliases);
+            $_isRoot: selector.is-root($parsedParentSelector);
+            $_isAnyRoot: selector.is-any-root($parsedParentSelector, $aliases: $_root_aliases);
+
+            // if the selectors are body selectors or all contain root selectors
+            // (but aren't root selectors), then :where(%root) would never apply
+            @if (not $_isBody) and ((not $_hasRoot) or $_isAnyRoot) {
                 $_whereSels: list.append($_whereSels, '%root', $separator: comma);
             }
 
-            @if not selector.is-root($parsedParentSelector) {
+            @if (not $_isRoot) and ((not $_hasBody) or $_isAnyBody) {
                 $_whereSels: list.append($_whereSels, '%body', $separator: comma);
             }
         }
@@ -507,6 +630,7 @@ $_allSelectors_background: selector-all-background-variations();
     $focusRingOutlineColor: null,
     $iconColor: null,
     //
+    $asVar: true,
     $focusRing_setChildrenOnly: null,
     $multipleContentBlocks: false
 ) {
@@ -521,49 +645,54 @@ $_allSelectors_background: selector-all-background-variations();
 
     @if list.length($_parentSel) > 0 {
         @if $focusRing_setChildrenOnly == null {
-            $focusRing_setChildrenOnly: not
-                selector.is-body($_parentSel) and not
-                selector.is-root($_parentSel);
+            $focusRing_setChildrenOnly: (not $asVar) and
+                (not selector.is-body($_parentSel)) and
+                (not selector.is-root($_parentSel));
         }
     } @else if $focusRing_setChildrenOnly == null {
-        $focusRing_setChildrenOnly: true;
+        $focusRing_setChildrenOnly: not $asVar;
     }
 
-    @if not $focusRing_setChildrenOnly {
+    $themeTokenArgs: (
+        brightness: $brightness,
+        contrast: $contrast,
+        themeSlug: $slug,
+        useSystemColorFallback: $useSystemColorFallback,
+    );
+
+    $focusRingOutlineColor: if(
+        $focusRingOutlineColor,
+        $focusRingOutlineColor,
+        theme-token-value(link-outline-hover, $returnAsVar: $asVar, $themeTokenArgs...)
+    );
+
+    @if $focusRingOutlineColor != false and not $focusRing_setChildrenOnly {
         @include utils.cx-prop(
             focus-ring-outline-color,
-            if(
-                $focusRingOutlineColor,
-                $focusRingOutlineColor,
-                var-theme(
-                    link-outline-hover,
-                    $brightness: $brightness,
-                    $contrast: $contrast,
-                    $themeSlug: $slug,
-                    $useSystemColorFallback: $useSystemColorFallback
-                )
-            )
+            $focusRingOutlineColor,
+            $allPrefixes: false
         );
     }
 
     @include theme-set-color(
-        $brightness: tokens.$brightnessMode_default,
-        $contrast: $contrast,
-        $color: $color,
-        $iconColor: $iconColor
+        $color: if($color, $color, var-theme(text, $themeTokenArgs...)),
+        $iconColor: if(
+                $iconColor,
+                $iconColor,
+                theme-token-value(
+                    style-value(icon-color, $raw: true),
+                    $fallbackSlug: ui,
+                    $returnAsVar: $asVar,
+                    $themeTokenArgs...
+                )
+            ),
+        $returnAsVar: $asVar,
+        $themeTokenArgs...
     );
 
-    background: if(
-        $background,
-        $background,
-        var-theme(
-            background,
-            $brightness: $brightness,
-            $contrast: $contrast,
-            $themeSlug: $slug,
-            $useSystemColorFallback: $useSystemColorFallback
-        )
-    );
+    @if $background != false {
+        background: if($background, $background, var-theme(background, $themeTokenArgs...));
+    }
 
     @if $multipleContentBlocks {
         @content ('root');
@@ -572,20 +701,14 @@ $_allSelectors_background: selector-all-background-variations();
     }
 
     @if $focusRing_setChildrenOnly {
-        $_val: if(
-            $focusRingOutlineColor,
-            $focusRingOutlineColor,
-            var-theme(
-                link-outline-hover,
-                $brightness: $brightness,
-                $contrast: $contrast,
-                $themeSlug: $slug,
-                $useSystemColorFallback: $useSystemColorFallback
-            )
-        );
-
         @include _tokens-theme-individual-selectors--root-body-or-direct-child($_parentSel) {
-            @include utils.cx-prop(focus-ring-outline-color, $_val);
+            @if $focusRingOutlineColor != false {
+                @include utils.cx-prop(
+                    focus-ring-outline-color,
+                    $focusRingOutlineColor,
+                    $allPrefixes: false
+                );
+            }
 
             @if $multipleContentBlocks {
                 @content ('root-body-or-direct-child');
@@ -706,6 +829,7 @@ $_allSelectors_background: selector-all-background-variations();
     $setBaseProperties: config.$mx_tokensTheme_setBaseProperties,
     $includeSystemColours: true,
     //
+    $base_focusRing: null,
     $base_focusRing_childrenOnly: null,
     $multipleContentBlocks: false
 ) {
@@ -768,6 +892,8 @@ $_allSelectors_background: selector-all-background-variations();
                     $slug: $slug,
                     $brightness: $brightness,
                     $contrast: $contrast,
+                    $asVar: false,
+                    $focusRingOutlineColor: $base_focusRing,
                     $focusRing_setChildrenOnly: $base_focusRing_childrenOnly,
                     $multipleContentBlocks: true
                 )
@@ -945,13 +1071,13 @@ $_mixinIndividual: meta.get-mixin('tokens-theme-individual');
             }
 
             @if $contrast == forced-colors and not $includeForcedColorAlternatives {
-                
                 $key: tokens.$activeTheme;
                 
                 @include active-theme(
-                    map.keys(tokens.$themes),
+                    $_themeKeys,
                     $includeDefault: true,
                     $includePseudoSelector: true,
+                    $nestExtraSpecific: config.$mx_tokensTheme_activeTheme_nestExtraSpecific,
                     $unifyExtraSpecific: true,
                 ) {
                     @include meta.apply(
@@ -992,6 +1118,7 @@ $_mixinIndividual: meta.get-mixin('tokens-theme-individual');
                         $key,
                         $includeDefault: true,
                         $includePseudoSelector: true,
+                        $nestExtraSpecific: config.$mx_tokensTheme_activeTheme_nestExtraSpecific,
                         $unifyExtraSpecific: true,
                     ) {
                         @include meta.apply(
@@ -1032,7 +1159,6 @@ $_mixinIndividual: meta.get-mixin('tokens-theme-individual');
                     }
                 }
             }
-
             
             @if $checkpointName {
                 @include debug-checkpoint(

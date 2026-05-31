@@ -29,13 +29,19 @@
             @each $level, $_value in tokens.$margin {
                 @include utils.cx-prop(
                     mrg-firm-#{$level},
-                    mrg-value-firm($level, $multiplier: $multiplier)
+                    mrg-value-firm($level, $multiplier: $multiplier),
+                    $allPrefixes: false
                 );
             }
             @each $level, $_value in tokens.$margin {
                 @include utils.cx-prop(
                     pad-firm-#{$level},
-                    mrg-value-firm($level, $unit: 1em, $multiplier: $multiplier)
+                    mrg-value-firm(
+                        $level,
+                        $unit: 1em,
+                        $multiplier: $multiplier
+                    ),
+                    $allPrefixes: false
                 );
             }
         }
@@ -44,13 +50,19 @@
             @each $level, $_value in tokens.$margin {
                 @include utils.cx-prop(
                     mrg-soft-#{$level},
-                    mrg-value-soft($level, $multiplier: $multiplier)
+                    mrg-value-soft($level, $multiplier: $multiplier),
+                    $allPrefixes: false
                 );
             }
             @each $level, $_value in tokens.$margin {
                 @include utils.cx-prop(
                     pad-soft-#{$level},
-                    mrg-value-soft($level, $unit: 1em, $multiplier: $multiplier)
+                    mrg-value-soft(
+                        $level,
+                        $unit: 1em,
+                        $multiplier: $multiplier
+                    ),
+                    $allPrefixes: false
                 );
             }
         }
@@ -59,13 +71,19 @@
             @each $level, $_value in tokens.$margin {
                 @include utils.cx-prop(
                     mrg-half-#{$level},
-                    mrg-value-half($level, $multiplier: $multiplier)
+                    mrg-value-half($level, $multiplier: $multiplier),
+                    $allPrefixes: false
                 );
             }
             @each $level, $_value in tokens.$margin {
                 @include utils.cx-prop(
                     pad-half-#{$level},
-                    mrg-value-half($level, $unit: 1em, $multiplier: $multiplier)
+                    mrg-value-half(
+                        $level,
+                        $unit: 1em,
+                        $multiplier: $multiplier
+                    ),
+                    $allPrefixes: false
                 );
             }
         }

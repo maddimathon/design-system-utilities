@@ -29,14 +29,19 @@
         }
         #{$_sel} {
             @each $slug, $_value in map.get(tokens.$border, radius) {
-                @include utils.cx-prop(border-radius-#{$slug}, border-radius-value($slug));
+                @include utils.cx-prop(
+                    border-radius-#{$slug},
+                    border-radius-value($slug),
+                    $allPrefixes: false
+                );
             }
 
             @if config.$mx_tokens_borderRadius_printRelative {
                 @each $slug, $_value in map.get(tokens.$border, radius) {
                     @include utils.cx-prop(
                         border-radius-rel-#{$slug},
-                        border-radius-value($slug, $relative: true)
+                        border-radius-value($slug, $relative: true),
+                        $allPrefixes: false
                     );
                 }
             }
@@ -64,7 +69,8 @@
             @each $slug, $_value in map.get(tokens.$border, width) {
                 @include utils.cx-prop(
                     border-width-#{$slug},
-                    border-width-value($slug, $multiplier: $multiplier)
+                    border-width-value($slug, $multiplier: $multiplier),
+                    $allPrefixes: false
                 );
             }
         }
@@ -92,7 +98,8 @@
                         $unit: 1rem,
                         $max_multiplier: $_max_multi,
                         $min_multiplier: $_min_multi
-                    )
+                    ),
+                    $allPrefixes: false
                 );
             }
         }
@@ -120,7 +127,8 @@
             @each $slug, $_value in tokens.$stroke_relative {
                 @include utils.cx-prop(
                     stroke-relative-#{$slug},
-                    stroke-relative-value($slug, $multiplier: $multiplier)
+                    stroke-relative-value($slug, $multiplier: $multiplier),
+                    $allPrefixes: false
                 );
             }
         }
@@ -152,7 +160,8 @@
                         $unit: 1em,
                         $max_multiplier: $_max_multi,
                         $min_multiplier: $_min_multi
-                    )
+                    ),
+                    $allPrefixes: false
                 );
             }
         }
@@ -178,7 +187,7 @@
         }
         #{$_sel} {
             @each $slug, $_value in tokens.$z_index {
-                @include utils.cx-prop(z-index-#{$slug}, z-index-value($slug));
+                @include utils.cx-prop(z-index-#{$slug}, z-index-value($slug), $allPrefixes: false);
             }
         }
         @if $includeRegion {

@@ -46,3 +46,13 @@ $template_docBlock: utils.$isTemplate !default;
 /// @internal
 ///
 $internal_supressCredit: $template_docBlock;
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$regex_themeTokenVariations: null !default;
+$regex_themeTokenVariations: utils.config-valid-string(
+    $regex_themeTokenVariations,
+    'regex_themeTokenVariations',
+    $default: '\\b(grey|bright|base)\\b'
+);

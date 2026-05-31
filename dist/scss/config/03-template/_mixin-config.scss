@@ -3,9 +3,48 @@
 /// @since 0.1.0-alpha.2
 ///
 
+@use 'sass:map';
+@use 'sass:meta';
+
 @use 'utility-astro' as utils;
 
 @use '../02-lib' as lib;
+
+///
+/// Extra selectors that get merged with [data-active-theme=""] selectors.
+///
+/// @since 0.1.0-beta.0.draft
+///
+$mx_activeTheme_containers: null !default;
+$mx_activeTheme_containers: utils.config-valid-selector(
+    $mx_activeTheme_containers,
+    'mx_activeTheme_containers',
+    $default: (),
+    $allowEmpty: true
+);
+
+///
+/// Extra selectors indexed by theme slug.
+///
+/// @since 0.1.0-beta.0.draft
+///
+$mx_activeTheme_extraSelectors: () !default;
+
+@if meta.type-of($mx_activeTheme_extraSelectors) == map {
+    @each $themeSlug, $selectors in $mx_activeTheme_extraSelectors {
+        $mx_activeTheme_extraSelectors: map.set(
+            $mx_activeTheme_extraSelectors,
+            $themeSlug,
+            utils.config-valid-selector(
+                $selectors,
+                'mx_activeTheme_extraSelectors.#{$themeSlug}',
+                $default: ()
+            )
+        );
+    }
+} @else {
+    $mx_activeTheme_extraSelectors: ();
+}
 
 ///
 /// @since 0.1.0-alpha.3
@@ -68,6 +107,16 @@ $mx_tokensStyle_printAll: utils.config-valid-bool(
     $mx_tokensStyle_printAll,
     'mx_tokensStyle_printAll',
     $default: false
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$mx_tokensTheme_activeTheme_nestExtraSpecific: null !default;
+$mx_tokensTheme_activeTheme_nestExtraSpecific: utils.config-valid-bool(
+    $mx_tokensTheme_activeTheme_nestExtraSpecific,
+    'mx_tokensTheme_activeTheme_nestExtraSpecific',
+    $default: lib.$include_html
 );
 
 ///

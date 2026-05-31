@@ -10,7 +10,7 @@
 
 @use 'pkg:@maddimathon/utility-astro/03-snippets' as utils;
 
-// @use '../../config';
+@use '../../config';
 @use '../../tokens';
 
 @use '../01-functions' as *;
@@ -342,7 +342,10 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
                         @include snippet-alert-block-colours;
                     } @else {
 
-                        $isGreyTypeVariation: string.match($variationKey, '\\b(grey|bright|base)\\b') != null;
+                        $isGreyTypeVariation: string.match(
+                            $variationKey,
+                            config.$regex_themeTokenVariations,
+                        ) != null;
 
                         @include snippet-alert-block-colours(
                             $background: if(

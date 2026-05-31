@@ -64,14 +64,16 @@
                     } @else {
                         @include utils.cx-prop(
                             tr-time-#{$slug},
-                            transition-time-value($slug)
+                            transition-time-value($slug),
+                            $allPrefixes: false
                         );
                     }
                 }
             }
             @include utils.cx-prop(
                 transition,
-                transition-properties-value(false)
+                transition-properties-value(false),
+                $allPrefixes: false
             );
         }
 
@@ -79,17 +81,23 @@
             @if $trTime {
                 @include utils.cx-prop(
                     tr-time-toggle-closing,
-                    transition-time-value(toggle-closing)
+                    transition-time-value(toggle-closing),
+                    $allPrefixes: false
                 );
             }
             @include utils.cx-prop(
                 transition,
-                transition-properties-value(true)
+                transition-properties-value(true),
+                $allPrefixes: false
             );
         }
         @include utils.no-motion($nestParent: false, $unifyParent: true) {
             @if $trTime {
-                @include utils.cx-prop(tr-time-toggle-closing, 0 !important);
+                @include utils.cx-prop(
+                    tr-time-toggle-closing,
+                    0 !important,
+                    $allPrefixes: false
+                );
             }
         }
 

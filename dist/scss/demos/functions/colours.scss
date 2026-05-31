@@ -32,4 +32,23 @@ selector-all-background-variations {
         'selector-all-background-variations( false )',
         selector-all-background-variations(false)
     );
+    @include meta.var-dump(
+        'selector-all-background-variations( $withTransparent: true )',
+        selector-all-background-variations($withTransparent: true)
+    );
+    @include meta.var-dump(
+        'selector-all-background-variations( $withDefault: false )',
+        selector-all-background-variations($withDefault: false)
+    );
+    @include meta.var-dump(
+        'selector-all-background-variations( $withTransparent: false )',
+        selector-all-background-variations($withTransparent: false)
+    );
+    @include meta.var-dump(
+        'selector-all-background-variations( $withDefault: false, $withTransparent: false )',
+        selector-all-background-variations(
+            $withDefault: false,
+            $withTransparent: false
+        )
+    );
 }

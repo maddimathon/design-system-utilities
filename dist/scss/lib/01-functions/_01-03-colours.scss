@@ -21,33 +21,33 @@ $_systemColors: map.ksort(
     )
 );
 
-$_allSelectors_background: ();
-$_allSelectors_background_noDefault: ();
-
-$_allSelectors_background: list.join(
-    $_allSelectors_background,
-    (
-        string.unquote('.background-default'),
-        string.unquote('.background-transparent')
-    ),
-    $separator: comma
-);
+$_allSelectors_background_accentsOnly: ();
 
 @each $variant in map.get(tokens.$themesMeta, keys, background) {
-    $_sel: string.unquote('.background-#{$variant}');
-
-    $_allSelectors_background: list.append(
-        $_allSelectors_background,
-        $_sel,
-        $separator: comma
-    );
-
-    $_allSelectors_background_noDefault: list.append(
-        $_allSelectors_background_noDefault,
-        $_sel,
+    $_allSelectors_background_accentsOnly: list.append(
+        $_allSelectors_background_accentsOnly,
+        string.unquote('.background-#{$variant}'),
         $separator: comma
     );
 }
+
+$_allSelectors_background_withDefault: list.join(
+    (string.unquote('.background-default')),
+    $_allSelectors_background_accentsOnly,
+    $separator: comma
+);
+
+$_allSelectors_background_withTransparent: list.join(
+    (string.unquote('.background-transparent')),
+    $_allSelectors_background_accentsOnly,
+    $separator: comma
+);
+
+$_allSelectors_background_all: list.join(
+    (string.unquote('.background-transparent')),
+    $_allSelectors_background_withDefault,
+    $separator: comma
+);
 
 ///
 /// @since 0.1.0-alpha
@@ -59,11 +59,22 @@ $_allSelectors_background: list.join(
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@function selector-all-background-variations($withDefault: true) {
+@function selector-all-background-variations(
+    $withDefault: true,
+    $withTransparent: $withDefault
+) {
     @return if(
         $withDefault,
-        $_allSelectors_background,
-        $_allSelectors_background_noDefault
+        if(
+            $withTransparent,
+            $_allSelectors_background_all,
+            $_allSelectors_background_withDefault
+        ),
+        if(
+            $withTransparent,
+            $_allSelectors_background_withTransparent,
+            $_allSelectors_background_accentsOnly
+        )
     );
 }
 

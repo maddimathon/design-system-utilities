@@ -72,6 +72,8 @@ config-vars {
     /* "math-clampFontSize-viewport-max": <#> 120 */
     /* "math-clampFontSize-viewport-min": <#> 25 */
     /* "math-fontSize-roundingFactor": <#> 16 */
+    /* "mx-activeTheme-containers": <()> ( () ) */
+    /* "mx-activeTheme-extraSelectors": <()> ( () ) */
     /* "mx-aspectRatio-includeFallback": </> false */
     /* "mx-colourMode-includeLightModeQuery": </> true */
     /* "mx-colourMode-includeNoPreferenceQueries": </> false */
@@ -79,6 +81,7 @@ config-vars {
     /* "mx-colourMode-includeSelectors": </> true */
     /* "mx-colourModeCombo-includeForcedColorsSelectors": </> false */
     /* "mx-colourModeEach-includeForcedColorsSelectors": </> false */
+    /* "mx-customProperty-allPrefixesSlugs": <()> ( <S> "display", <S> "focus-ring-outline-color", <S> "grid-column", <S> "icon-color" ) */
     /* "mx-extendSelectors-headingsByRole": </> false */
     /* "mx-fieldset-includeClrs": </> true */
     /* "mx-focusVisible-fallbacksOnly": </> false */
@@ -92,6 +95,7 @@ config-vars {
     /* "mx-prop-useCustom-display": </> false */
     /* "mx-prop-useCustom-gridColumn": </> false */
     /* "mx-prop-useCustom-never": </> false */
+    /* "mx-propDisplay-allPrefixes": </> true */
     /* "mx-propDisplay-onlyFallbackPrefix": </> true */
     /* "mx-propGridColumn-onlyFallbackPrefix": </> true */
     /* "mx-reset-doUniversalBoxSizing": </> true */
@@ -100,6 +104,7 @@ config-vars {
     /* "mx-tokens-fontSize-printRelative": </> true */
     /* "mx-tokensAll-includeFontFace": </> false */
     /* "mx-tokensStyle-printAll": </> false */
+    /* "mx-tokensTheme-activeTheme-nestExtraSpecific": </> false */
     /* "mx-tokensTheme-includeAlternateThemes": <-> null */
     /* "mx-tokensTheme-includeDefault": </> true */
     /* "mx-tokensTheme-includeDefaultSelectors": </> false */
@@ -110,11 +115,12 @@ config-vars {
     /* "mx-tokensTheme-setBaseProperties": </> false */
     /* "mx-tokensTheme-unifyActiveTheme": </> false */
     /* "path-fonts": <S> "../fonts/" */
+    /* "regex-themeTokenVariations": <S> "\\b(grey|bright|base)\\b" */
     /* "selector-a": <S> a[href] */
     /* "selector-body": <S> body */
     /* "selector-body-aliases": <-> null */
-    /* "selector-interactiveState-active": <S> [data-state-active=true] */
-    /* "selector-interactiveState-focus": <S> [data-state-focus=true] */
+    /* "selector-interactiveState-active": <()> ( <()> ( <S> [data-state-active=true] ) ) */
+    /* "selector-interactiveState-focus": <()> ( <()> ( <S> [data-state-focus=true] ) ) */
     /* "selector-null": <S> %null */
     /* "selector-root": <S> :root */
     /* "selector-root-aliases": <()> ( <S> ".js", <S> ".no-js", <S> ".js__aspectRatio", <S> ".js__no-aspectRatio", <S> ".js__atProperty", <S> ".js__no-atProperty", <S> ".js__backgroundFixed", <S> ".js__no-backgroundFixed", <S> ".js__calc", <S> ".js__no-calc", <S> ".js__displayContents", <S> ".js__no-displayContents", <S> ".js__focusWithin", <S> ".js__no-focusWithin", <S> ".js__focusVisible", <S> ".js__no-focusVisible", <S> ".js__hasSelector", <S> ".js__no-hasSelector", <S> ".js__subgrid", <S> ".js__no-subgrid", <S> ".js__whereSelector", <S> ".js__no-whereSelector" ) */
@@ -185,9 +191,11 @@ lib.config-vars {
     /* "include-linkVisitedState": </> true */
     /* "internal-supressCredit": </> false */
     /* "isTemplate": </> false */
+    /* "mx-propDisplay-allPrefixes": </> true */
     /* "mx-propDisplay-onlyFallbackPrefix": </> true */
     /* "mx-propGridColumn-onlyFallbackPrefix": </> true */
     /* "path-fonts": <S> "../fonts/" */
+    /* "regex-themeTokenVariations": <S> "\\b(grey|bright|base)\\b" */
     /* "selector-a": <S> a[href] */
     /* "selectorType-mode": <S> "null" */
     /* "selectorType-motion": <S> "null" */
@@ -240,6 +248,8 @@ template.config-vars {
     /* "fn-var-replaceWithValue-transitionTime": </> true */
     /* "fn-var-replaceWithValue-width": </> true */
     /* "fn-var-replaceWithValue-zIndex": </> true */
+    /* "mx-activeTheme-containers": <()> ( () ) */
+    /* "mx-activeTheme-extraSelectors": <()> ( () ) */
     /* "mx-aspectRatio-includeFallback": </> false */
     /* "mx-colourMode-includeLightModeQuery": </> true */
     /* "mx-colourMode-includeNoPreferenceQueries": </> false */
@@ -247,6 +257,7 @@ template.config-vars {
     /* "mx-colourMode-includeSelectors": </> true */
     /* "mx-colourModeCombo-includeForcedColorsSelectors": </> false */
     /* "mx-colourModeEach-includeForcedColorsSelectors": </> false */
+    /* "mx-customProperty-allPrefixesSlugs": <()> ( <S> "display", <S> "focus-ring-outline-color", <S> "grid-column", <S> "icon-color" ) */
     /* "mx-extendSelectors-headingsByRole": </> false */
     /* "mx-fieldset-includeClrs": </> true */
     /* "mx-focusVisible-fallbacksOnly": </> false */
@@ -266,6 +277,7 @@ template.config-vars {
     /* "mx-tokens-fontSize-printRelative": </> true */
     /* "mx-tokensAll-includeFontFace": </> false */
     /* "mx-tokensStyle-printAll": </> false */
+    /* "mx-tokensTheme-activeTheme-nestExtraSpecific": </> false */
     /* "mx-tokensTheme-includeAlternateThemes": <-> null */
     /* "mx-tokensTheme-includeDefault": </> true */
     /* "mx-tokensTheme-includeDefaultSelectors": </> false */
@@ -275,8 +287,8 @@ template.config-vars {
     /* "mx-tokensTheme-separateQueriesAndSelectors": </> false */
     /* "mx-tokensTheme-setBaseProperties": </> false */
     /* "mx-tokensTheme-unifyActiveTheme": </> false */
-    /* "selector-interactiveState-active": <S> [data-state-active=true] */
-    /* "selector-interactiveState-focus": <S> [data-state-focus=true] */
+    /* "selector-interactiveState-active": <()> ( <()> ( <S> [data-state-active=true] ) ) */
+    /* "selector-interactiveState-focus": <()> ( <()> ( <S> [data-state-focus=true] ) ) */
     /* "template-astro": </> false */
     /* "template-cssHeadings": </> false */
     /* "template-debug-checkpointsLevel": <#> 6 */
