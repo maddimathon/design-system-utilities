@@ -39,7 +39,8 @@ $_rootAliasesWithAllModeOptions: list.join(
 @function active-theme-simple-selectors(
     $keys: tokens.$activeTheme,
     $includeAttributeSelector: true,
-    $includePseudoSelector: false
+    $includeExtraSelectors: false,
+    $includePseudoSelector: $includeExtraSelectors
 ) {
     $keys: if(meta.type-of($keys) == 'list', $keys, ($keys));
 
@@ -64,13 +65,19 @@ $_rootAliasesWithAllModeOptions: list.join(
         }
     }
 
-    @if $includePseudoSelector {
+    @if $includeExtraSelectors {
         @each $_key in list.reverse($keys) {
             $_newSels: map.get(config.$mx_activeTheme_extraSelectors, $_key);
 
             @if $_newSels {
                 $_sels: list.join($_newSels, $_sels, $separator: comma);
             }
+        }
+    }
+
+    @if $includePseudoSelector {
+        @each $_key in $keys {
+            $_sels: list.append($_sels, '%active-theme--#{$_key}', $separator: comma);
         }
     }
 
@@ -90,7 +97,8 @@ $_allThemeSlugs: map.keys(tokens.$themes);
 
 $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
     $includeAttributeSelector: true,
-    $includePseudoSelector: true,
+    $includeExtraSelectors: true,
+    $includePseudoSelector: config.$mx_activeTheme_nestExtraSpecific_includePseudoSelector,
 );
 
 ///
@@ -110,7 +118,8 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
     $wrap: config.$mx_tokensTheme_nestActiveTheme,
     //
     $includeDefault: false,
-    $includePseudoSelector: false,
+    $includeExtraSelectors: false,
+    $includePseudoSelector: $includeExtraSelectors,
     $nestExtraSpecific: false,
     $unifyExtraSpecific: false,
     $args...
@@ -133,11 +142,12 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
     );
 
     $_sels_pseudo: if(
-        $includePseudoSelector,
+        $includeExtraSelectors,
         active-theme-simple-selectors(
             $keys,
             $includeAttributeSelector: false,
-            $includePseudoSelector: true,
+            $includeExtraSelectors: true,
+            $includePseudoSelector: false,
             $args...
         ),
         ()
@@ -146,7 +156,8 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
     $_sels_select: active-theme-simple-selectors(
         $keys,
         $includeAttributeSelector: true,
-        $includePseudoSelector: false,
+        $includeExtraSelectors: false,
+        $includePseudoSelector: $includePseudoSelector,
         $args...
     );
 
@@ -160,12 +171,27 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
                 active-theme-simple-selectors(
                     $_allThemeSlugs,
                     $includeAttributeSelector: false,
-                    $includePseudoSelector: true
-                ),
-                active-theme-simple-selectors(
-                    list.except-any($_allThemeSlugs, $keys),
-                    $includeAttributeSelector: true,
+                    $includeExtraSelectors: true,
                     $includePseudoSelector: false
+                ),
+                list.join(
+                    active-theme-simple-selectors(
+                        list.except-any($_allThemeSlugs, $keys),
+                        $includeAttributeSelector: true,
+                        $includeExtraSelectors: false,
+                        $includePseudoSelector: false
+                    ),
+                    if(
+                        config.$mx_activeTheme_nestExtraSpecific_includePseudoSelector,
+                        active-theme-simple-selectors(
+                            $_allThemeSlugs,
+                            $includeAttributeSelector: false,
+                            $includeExtraSelectors: false,
+                            $includePseudoSelector: true
+                        ),
+                        ()
+                    ),
+                    $separator: comma
                 ),
                 $separator: comma
             )
@@ -518,9 +544,16 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin _tokens-theme-individual-selectors--root-body-or-direct-child($parsedParentSelector: null) {
+@mixin _tokens-theme-individual-selectors--root-body-or-direct-child(
+    $parsedParentSelector: null,
+    $noWhereRootOrBody: false
+) {
     @if $parsedParentSelector == null {
-        $parsedParentSelector: selector.parse(#{&});
+        $parsedParentSelector: if(
+            selector.parent-exists(),
+            selector.except(&, config.$selector_null),
+            selector.parent-or-root()
+        );
     }
 
     $parsedParentSelector: selector.except($parsedParentSelector, config.$selector_null);
@@ -552,7 +585,8 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
         // if every selector has body but none ARE root or body, then they are
         // all children of root/body --- but if root and body are not present at
         // all, then we also treat them as simple children of root/body
-        @if (
+        @if $noWhereRootOrBody or
+            (
                 not
                     selector.has-any-root-or-body(
                         $parsedParentSelector,
@@ -631,11 +665,12 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
     $iconColor: null,
     //
     $asVar: true,
+    $focusRing_allPrefixes: null,
     $focusRing_setChildrenOnly: null,
-    $multipleContentBlocks: false
+    $multipleContentBlocks: false,
+    $noWhereRootOrBody: false,
+    $useSystemColorFallback: false
 ) {
-    $useSystemColorFallback: false;
-
     @if $contrast == null {
         $useSystemColorFallback: true;
         $contrast: tokens.$contrastMode_default;
@@ -643,14 +678,16 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
 
     $_parentSel: selector.except(&, config.$selector_null);
 
-    @if list.length($_parentSel) > 0 {
-        @if $focusRing_setChildrenOnly == null {
-            $focusRing_setChildrenOnly: (not $asVar) and
-                (not selector.is-body($_parentSel)) and
-                (not selector.is-root($_parentSel));
+    @if $focusRing_setChildrenOnly == null {
+        @if list.length($_parentSel) > 0 {
+            $focusRing_setChildrenOnly: not $asVar and not selector.is-root-or-body($_parentSel);
+        } @else {
+            $focusRing_setChildrenOnly: not $asVar;
         }
-    } @else if $focusRing_setChildrenOnly == null {
-        $focusRing_setChildrenOnly: not $asVar;
+    }
+
+    @if $focusRing_allPrefixes == null {
+        $focusRing_allPrefixes: $asVar;
     }
 
     $themeTokenArgs: (
@@ -661,17 +698,23 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
     );
 
     $focusRingOutlineColor: if(
-        $focusRingOutlineColor,
-        $focusRingOutlineColor,
-        theme-token-value(link-outline-hover, $returnAsVar: $asVar, $themeTokenArgs...)
+        $focusRingOutlineColor == null,
+        theme-token-value(link-outline-hover, $returnAsVar: $asVar, $themeTokenArgs...),
+        $focusRingOutlineColor
     );
 
-    @if $focusRingOutlineColor != false and not $focusRing_setChildrenOnly {
-        @include utils.cx-prop(
-            focus-ring-outline-color,
-            $focusRingOutlineColor,
-            $allPrefixes: false
-        );
+    @if not $focusRing_setChildrenOnly {
+        @if $focusRingOutlineColor != false {
+            @include utils.cx-prop(
+                focus-ring-outline-color,
+                $focusRingOutlineColor,
+                $allPrefixes: $focusRing_allPrefixes
+            );
+        }
+
+        @if $multipleContentBlocks {
+            @content ('root-body-or-direct-child');
+        }
     }
 
     @include theme-set-color(
@@ -701,12 +744,15 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
     }
 
     @if $focusRing_setChildrenOnly {
-        @include _tokens-theme-individual-selectors--root-body-or-direct-child($_parentSel) {
+        @include _tokens-theme-individual-selectors--root-body-or-direct-child(
+            $_parentSel,
+            $noWhereRootOrBody: $noWhereRootOrBody
+        ) {
             @if $focusRingOutlineColor != false {
                 @include utils.cx-prop(
                     focus-ring-outline-color,
                     $focusRingOutlineColor,
-                    $allPrefixes: false
+                    $allPrefixes: $focusRing_allPrefixes
                 );
             }
 
@@ -829,9 +875,9 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
     $setBaseProperties: config.$mx_tokensTheme_setBaseProperties,
     $includeSystemColours: true,
     //
-    $base_focusRing: null,
-    $base_focusRing_childrenOnly: null,
-    $multipleContentBlocks: false
+    $focusRing_setChildrenOnly: null,
+    $multipleContentBlocks: false,
+    $noWhereRootOrBody: false
 ) {
     $flat_isValues: tokens.$themes__nestedFlat_tokenValues != null;
 
@@ -853,35 +899,66 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
             }
         }
     } @else {
+        $flattened: ();
+        $flattened_raw: ();
+
         @if $contrast == forced-colors {
             $flattened: map.get($activeTheme_flat, forced-colors);
             $flattened_raw: map.get($activeTheme_flat_raw, forced-colors);
-
-            @include _tokens-theme-individual--inner(
-                $slug: $slug,
-                $brightness: $brightness,
-                $contrast: $contrast,
-                $includeSystemColours: $includeSystemColours,
-                $flat_isValues: $flat_isValues,
-                $flattened: $flattened,
-                $flattened_raw: $flattened_raw
-            );
         } @else {
             $flattened: map.get($activeTheme_flat, $brightness, $contrast);
             $flattened_raw: map.get($activeTheme_flat_raw, $brightness, $contrast);
-
-            @if $flattened != null {
-                @include _tokens-theme-individual--inner(
-                    $slug: $slug,
-                    $brightness: $brightness,
-                    $contrast: $contrast,
-                    $includeSystemColours: $includeSystemColours,
-                    $flat_isValues: $flat_isValues,
-                    $flattened: $flattened,
-                    $flattened_raw: $flattened_raw
-                );
-            }
         }
+
+        @if $flattened == null {
+            $flattened: ();
+        }
+
+        @if $flattened_raw == null {
+            $flattened_raw: ();
+        }
+
+        $flattened_divided: if(
+            $focusRing_setChildrenOnly == false,
+            (
+                fail: $flattened,
+                pass: (),
+            ),
+            map.regex-divide(
+                $flattened,
+                config.$regex_themeTokenSetChildrenOnly,
+                $flags: config.$regex_themeTokenSetChildrenOnly_flags
+            )
+        );
+
+        $flattened_raw_divided: if(
+            $focusRing_setChildrenOnly == false,
+            (
+                fail: $flattened_raw,
+                pass: (),
+            ),
+            map.regex-divide(
+                $flattened_raw,
+                config.$regex_themeTokenSetChildrenOnly,
+                $flags: config.$regex_themeTokenSetChildrenOnly_flags
+            )
+        );
+
+        $flattened_root: map.get($flattened_divided, fail);
+        $flattened_raw_root: map.get($flattened_raw_divided, fail);
+
+        $flattened_childrenOnly: map.get($flattened_divided, pass);
+        $flattened_raw_childrenOnly: map.get($flattened_raw_divided, pass);
+
+        @include _tokens-theme-individual--inner(
+            $slug: $slug,
+            $brightness: $brightness,
+            $contrast: $contrast,
+            $includeSystemColours: $includeSystemColours,
+            $flat_isValues: $flat_isValues,
+            $flattened: $flattened_root,
+            $flattened_raw: $flattened_raw_root
+        );
 
         @if $multipleContentBlocks {
             @content (root);
@@ -893,11 +970,22 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
                     $brightness: $brightness,
                     $contrast: $contrast,
                     $asVar: false,
-                    $focusRingOutlineColor: $base_focusRing,
-                    $focusRing_setChildrenOnly: $base_focusRing_childrenOnly,
+                    $focusRing_setChildrenOnly: $focusRing_setChildrenOnly,
                     $multipleContentBlocks: true
                 )
                 using ($location) {
+                @if $location == root-body-or-direct-child {
+                    @include _tokens-theme-individual--inner(
+                        $slug: $slug,
+                        $brightness: $brightness,
+                        $contrast: $contrast,
+                        $includeSystemColours: false,
+                        $flat_isValues: $flat_isValues,
+                        $flattened: $flattened_childrenOnly,
+                        $flattened_raw: $flattened_raw_childrenOnly
+                    );
+                }
+
                 @if $multipleContentBlocks {
                     @content (base--#{$location});
                 } @else if $location == root {
@@ -907,11 +995,38 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
         } @else {
             @if $multipleContentBlocks {
                 @content (base--root);
+            }
 
-                @include _tokens-theme-individual-selectors--root-body-or-direct-child {
+            @include _tokens-theme-individual-selectors--root-body-or-direct-child(
+                $noWhereRootOrBody: $noWhereRootOrBody
+            ) {
+                @include utils.cx-prop(
+                    focus-ring-outline-color,
+                    theme-token-value(
+                        link-outline-hover,
+                        $returnAsVar: false,
+                        $brightness: $brightness,
+                        $contrast: $contrast,
+                        $themeSlug: $slug
+                    ),
+                    $allPrefixes: false
+                );
+                @include _tokens-theme-individual--inner(
+                    $slug: $slug,
+                    $brightness: $brightness,
+                    $contrast: $contrast,
+                    $includeSystemColours: false,
+                    $flat_isValues: $flat_isValues,
+                    $flattened: $flattened_childrenOnly,
+                    $flattened_raw: $flattened_raw_childrenOnly
+                );
+
+                @if $multipleContentBlocks {
                     @content ('base--root-body-or-direct-child');
                 }
-            } @else {
+            }
+
+            @if not $multipleContentBlocks {
                 @content;
             }
         }
@@ -1032,6 +1147,13 @@ $_mixinIndividual: meta.get-mixin('tokens-theme-individual');
     ) using ($brightness, $contrast) {
         $_parentExists: selector.parent-exists();
 
+        $_mixin_individual_args: (
+            brightness: $brightness,
+            contrast: $contrast,
+            includeSystemColours: $includeSystemColours,
+            multipleContentBlocks: true,
+        );
+
         @if not $includeAlternatives {
             @if $checkpointName {
                 @include debug-checkpoint(
@@ -1043,10 +1165,13 @@ $_mixinIndividual: meta.get-mixin('tokens-theme-individual');
             @include meta.apply(
                 $mixin_individual,
                 tokens.$activeTheme,
-                $brightness: $brightness,
-                $contrast: $contrast,
-                $includeSystemColours: $includeSystemColours,
-                $multipleContentBlocks: true,
+                $focusRing_setChildrenOnly: if(
+                    $contrast == forced-colors and not $includeForcedColorAlternatives,
+                    false,
+                    null
+                ),
+                $setBaseProperties: config.$mx_tokensTheme_setBaseProperties,
+                $_mixin_individual_args...
             ) using ( $location ) {
                 @if $checkpointName {
                     @include debug-checkpoint(
@@ -1058,9 +1183,6 @@ $_mixinIndividual: meta.get-mixin('tokens-theme-individual');
     
                 @content ($brightness, $contrast, main);
             }
-            
-        
-
         } @else {
             @if $checkpointName {
                 @include debug-checkpoint(
@@ -1070,24 +1192,23 @@ $_mixinIndividual: meta.get-mixin('tokens-theme-individual');
                 );
             }
 
+            $_active_theme_args: (
+                includeDefault: true,
+                includeExtraSelectors: true,
+                nestExtraSpecific: config.$mx_tokensTheme_activeTheme_nestExtraSpecific,
+                unifyExtraSpecific: true,
+            );
+
             @if $contrast == forced-colors and not $includeForcedColorAlternatives {
                 $key: tokens.$activeTheme;
                 
-                @include active-theme(
-                    $_themeKeys,
-                    $includeDefault: true,
-                    $includePseudoSelector: true,
-                    $nestExtraSpecific: config.$mx_tokensTheme_activeTheme_nestExtraSpecific,
-                    $unifyExtraSpecific: true,
-                ) {
+                @include active-theme( $_themeKeys, $_active_theme_args... ) {
                     @include meta.apply(
                         $mixin_individual,
                         $key,
-                        $brightness: $brightness,
-                        $contrast: $contrast,
-                        $includeSystemColours: $includeSystemColours,
-                        $multipleContentBlocks: true,
+                        $focusRing_setChildrenOnly: false,
                         $setBaseProperties: config.$mx_tokensTheme_setBaseProperties,
+                        $_mixin_individual_args...
                     ) using ( $location ) {
                         @if $checkpointName {
                             @include debug-checkpoint(
@@ -1105,7 +1226,6 @@ $_mixinIndividual: meta.get-mixin('tokens-theme-individual');
                     }
                 }
             } @else {
-                
                 @each $key in $_themeKeys {
                     @if $checkpointName {
                         @include debug-checkpoint(
@@ -1114,25 +1234,16 @@ $_mixinIndividual: meta.get-mixin('tokens-theme-individual');
                         );
                     }
                     
-                    @include active-theme(
-                        $key,
-                        $includeDefault: true,
-                        $includePseudoSelector: true,
-                        $nestExtraSpecific: config.$mx_tokensTheme_activeTheme_nestExtraSpecific,
-                        $unifyExtraSpecific: true,
-                    ) {
+                    @include active-theme( $key, $_active_theme_args... ) {
                         @include meta.apply(
                             $mixin_individual,
                             $key,
-                            $brightness: $brightness,
-                            $contrast: $contrast,
-                            $includeSystemColours: $includeSystemColours,
-                            $multipleContentBlocks: true,
                             $setBaseProperties: if(
                                 #{$key} == #{tokens.$activeTheme},
                                 config.$mx_tokensTheme_setBaseProperties,
                                 true
                             ),
+                            $_mixin_individual_args...
                         ) using ( $location ) {
                             @if $checkpointName {
                                 @include debug-checkpoint(

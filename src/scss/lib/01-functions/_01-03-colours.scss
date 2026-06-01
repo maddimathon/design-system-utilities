@@ -132,6 +132,20 @@ $_default_activeTheme_mode: if(
 }
 
 ///
+/// Uses config.$regex_themeTokenGreyVariations and string.match().
+///
+/// @since ___PKG_VERSION___
+///
+@function theme-token-is-grey-variation($variation) {
+    @return string.match(
+            $variation,
+            config.$regex_themeTokenGreyVariations,
+            $flags: config.$regex_themeTokenGreyVariations_flags
+        )
+        != null;
+}
+
+///
 /// Checks whether the given slug is a tokens key. If yes, it returns the
 /// flattened value; if no, it returns false.
 ///

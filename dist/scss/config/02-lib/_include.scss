@@ -50,9 +50,42 @@ $internal_supressCredit: $template_docBlock;
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-$regex_themeTokenVariations: null !default;
-$regex_themeTokenVariations: utils.config-valid-string(
-    $regex_themeTokenVariations,
-    'regex_themeTokenVariations',
+$regex_themeTokenGreyVariations: null !default;
+$regex_themeTokenGreyVariations: utils.config-valid-string(
+    $regex_themeTokenGreyVariations,
+    'regex_themeTokenGreyVariations',
     $default: '\\b(grey|bright|base)\\b'
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$regex_themeTokenGreyVariations_flags: null !default;
+$regex_themeTokenGreyVariations_flags: utils.config-valid-string(
+    $regex_themeTokenGreyVariations_flags,
+    'regex_themeTokenGreyVariations_flags',
+    $default: 'gi'
+);
+
+///
+/// The regex for theme keys to set for children only.
+///
+/// @since 0.1.0-beta.0.draft
+///
+$regex_themeTokenSetChildrenOnly: null !default;
+$regex_themeTokenSetChildrenOnly: utils.config-valid-string(
+    $regex_themeTokenSetChildrenOnly,
+    'regex_themeTokenSetChildrenOnly',
+    $default:
+        '^((button-([a-z]+)|link)-outline(-(active|disabled|hover|visited))?)(-(hsl|rgb|-\\d+))?$'
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$regex_themeTokenSetChildrenOnly_flags: null !default;
+$regex_themeTokenSetChildrenOnly_flags: utils.config-valid-string(
+    $regex_themeTokenSetChildrenOnly_flags,
+    'regex_themeTokenSetChildrenOnly_flags',
+    $default: 'gi'
 );
