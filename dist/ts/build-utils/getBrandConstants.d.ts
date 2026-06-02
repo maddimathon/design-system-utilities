@@ -148,31 +148,35 @@ export declare namespace getBrandConstants {
              *
              * @since 0.1.0-beta.0.draft
              */
-            function getCustom(
-            /**
-             * Values to print indexed by their constant name.
-             */
-            constants: getCustom.ConstantsInput[], phpNamespace: string): Promise<null | string>;
+            function getCustom<T_ConstName extends string, T_Value extends getCustom.Value>(constants: getCustom.Input<T_ConstName, T_Value>[], phpNamespace: string): Promise<null | string>;
             /**
              * @since 0.1.0-beta.0.draft
              */
             namespace getCustom {
                 /**
+                 * Accepted values for custom constants.
+                 *
                  * @since 0.1.0-beta.0.draft
                  */
-                type ConstantsInput = [
-                    string,
-                    string[] | Record<number | string, string>,
-                    Args
-                ];
+                type Value = string[] | Record<number | string, string>;
                 /**
+                 * @template T_ConstName Constant name.
+                 * @template T_Value Constant value in JS.
+                 *
+                 * @since 0.1.0-beta.0.draft
+                 */
+                type Input<T_ConstName extends string = string, T_Value extends Value = Value> = [T_ConstName, T_Value, Args];
+                /**
+                 * Configure how to output a custom constant’s definition.
+                 *
                  * @since 0.1.0-beta.0.draft
                  */
                 type Args = {
-                    comment?: string;
-                    insideHook?: boolean;
-                    objectAsAssociativeArray?: boolean;
-                    objectAsObject?: boolean;
+                    comment?: undefined | string;
+                    insideDefine?: undefined | boolean;
+                    insideHook?: undefined | boolean;
+                    objectAsAssociativeArray?: undefined | boolean;
+                    objectAsObject?: undefined | boolean;
                     type: string;
                 };
             }
@@ -197,6 +201,7 @@ export declare namespace getBrandConstants {
              * @since 0.1.0-beta.0.draft
              */
             function getAll(tokens: Tokens.JsonReturn, textDomain: string, phpNamespace: string, args?: {
+                custom?: getCustom.Input[];
                 icons?: Omit<getSvgConsts.Args, 'valueMappers'>;
                 logos?: Omit<getSvgConsts.Args, 'valueMappers'>;
                 theme?: Omit<getThemeConsts.Args, 'valueMappers'>;
@@ -216,26 +221,65 @@ export declare namespace getBrandConstants {
                 type?: undefined | string;
             }): string[];
             /**
-             * Gets a string of valid PHP code for wordpress defining constants for the given set of
-             * SVGs.
+             * Gets a string of valid TypeScript code for wordpress defining
+             * custom constants to go with the theme tokens.
+             *
+             * @since 0.1.0-beta.0.draft
+             */
+            function getCustom<T_ConstName extends string, T_Value extends getCustom.Value>(
+            /**
+             * Values to print indexed by their constant name.
+             */
+            constants: getCustom.Input<T_ConstName, T_Value>[]): Promise<null | string>;
+            /**
+             * @since 0.1.0-beta.0.draft
+             */
+            namespace getCustom {
+                /**
+                 * Accepted values for custom constants.
+                 *
+                 * @since 0.1.0-beta.0.draft
+                 */
+                type Value = string[] | Record<number | string, string>;
+                /**
+                 * @template T_ConstName Constant name.
+                 * @template T_Value Constant value in JS.
+                 *
+                 * @since 0.1.0-beta.0.draft
+                 */
+                type Input<T_ConstName extends string = string, T_Value extends Value = Value> = [T_ConstName, T_Value] | [T_ConstName, T_Value, Args];
+                /**
+                 * Configure how to output a custom constant’s definition.
+                 *
+                 * @since 0.1.0-beta.0.draft
+                 */
+                type Args = {
+                    comment?: string;
+                    type?: undefined | string;
+                };
+            }
+            /**
+             * Gets a string of valid TypeScript code for wordpress defining
+             * constants for the given set of SVGs.
              *
              * @since 0.1.0-beta.0.draft
              */
             function getSvg<T_SetName extends getSvgConsts.SetName>(_setName: T_SetName, svgSet: Tokens.JsonReturn[T_SetName] | Tokens.Instance[T_SetName], textDomain: string, args?: Omit<getSvgConsts.Args<"react">, 'valueMappers'>): Promise<null | string>;
             /**
-             * Gets a string of valid PHP code for wordpress defining constants
-             * for the theme tokens.
+             * Gets a string of valid TypeScript code for wordpress defining
+             * constants for the theme tokens.
              *
              * @since 0.1.0-beta.0.draft
              */
             function getTheme(tokens: Tokens.JsonReturn, textDomain: string, args?: Omit<getThemeConsts.Args<"react">, 'valueMappers'>): Promise<null | string>;
             /**
-             * Gets a string of valid PHP code for wordpress defining constants
-             * for the theme tokens.
+             * Gets a string of valid TypeScript code for wordpress defining
+             * constants for the theme tokens.
              *
              * @since 0.1.0-beta.0.draft
              */
             function getAll(tokens: Tokens.JsonReturn, textDomain: string, args?: {
+                custom?: getCustom.Input[];
                 icons?: Omit<getSvgConsts.Args, 'valueMappers'>;
                 logos?: Omit<getSvgConsts.Args, 'valueMappers'>;
                 theme?: Omit<getThemeConsts.Args, 'valueMappers'>;

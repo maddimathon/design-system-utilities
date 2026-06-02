@@ -294,18 +294,19 @@ export var getBrandConstants;
                 return `(object) [${entries.map(([key, value]) => `\n${indent}    '${key}' ${' '.repeat(longestKeyLength - key.length)}=> ${value},`).join('')}${entries.length ? `\n${indent}` : ''}]`;
             }
             PHP.entriesToObject = entriesToObject;
-            function outputConstant(varName, content, args) {
+            function outputConstant(phpNamespace, varName, content, args) {
                 // returns
                 if (!content) {
                     return [];
                 }
+                phpNamespace = phpNamespace.length ? phpNamespace.replace(/[\/|\\]+$/gi, '') + '\\' : '';
                 return args.insideHook ? [
                     '// hooked for access to translation',
                     '\\add_action(',
                     '    \'init\',',
                     '    function () {',
                     '        // returns',
-                    `        if ( \\defined( '${varName}' ) ) {`,
+                    `        if ( \\defined( '${phpNamespace}${varName}' ) ) {`,
                     '            return;',
                     '        }',
                     '',
@@ -315,11 +316,21 @@ export var getBrandConstants;
                     `         * @var ${args.type}`,
                     '         */',
                     `        \\define(`,
-                    `            '${varName}',`,
+                    `            '${phpNamespace}${varName}',`,
                     `            ${content.split('\n').join('\n            ')},`,
                     '        );',
                     '    },',
                     '    0,',
+                    ');',
+                ] : args.insideDefine !== false ? [
+                    '/**',
+                    ` * ${args.comment}`,
+                    ' *',
+                    ` * @var ${args.type}`,
+                    ' */',
+                    `\\define(`,
+                    `    '${phpNamespace}${varName}',`,
+                    `    ${content.split('\n').join('\n    ')},`,
                     ');',
                 ] : [
                     '/**',
@@ -327,10 +338,7 @@ export var getBrandConstants;
                     ' *',
                     ` * @var ${args.type}`,
                     ' */',
-                    `\\define(`,
-                    `    '${varName}',`,
-                    `    ${content.split('\n').join('\n    ')},`,
-                    ');',
+                    `const ${varName} = ${content};`,
                 ];
             }
             /**
@@ -339,34 +347,30 @@ export var getBrandConstants;
              *
              * @since 0.1.0-beta.0.draft
              */
-            async function getCustom(
-            /**
-             * Values to print indexed by their constant name.
-             */
-            constants, phpNamespace) {
-                phpNamespace = phpNamespace.length ? phpNamespace.replace(/\/$/gi, '') + '\\' : '';
+            async function getCustom(constants, phpNamespace) {
                 const ret = [];
                 for (const [constName, value, args] of constants) {
-                    const { comment = `Values for ${constName}.`, insideHook = false, objectAsAssociativeArray = true, objectAsObject = true, type, } = args;
+                    const { comment = `Values for ${constName}.`, insideHook = false, objectAsAssociativeArray = true, objectAsObject = true, type, 
+                    // 
+                    insideDefine = !objectAsObject, } = args;
                     let content;
                     const entries = Object.entries(value);
                     if (Array.isArray(value)) {
                         content = entriesToArray(entries, false);
                     }
+                    else if (objectAsObject) {
+                        content = entriesToObject(entries);
+                    }
                     else {
-                        if (objectAsObject) {
-                            content = entriesToObject(entries);
-                        }
-                        else {
-                            content = entriesToArray(entries, objectAsAssociativeArray);
-                        }
+                        content = entriesToArray(entries, objectAsAssociativeArray);
                     }
                     // continues
                     if (!content?.length) {
                         continue;
                     }
-                    ret.push(...outputConstant(`${phpNamespace}${constName}`, content, {
+                    ret.push(...outputConstant(phpNamespace, constName, content, {
                         comment,
+                        insideDefine,
                         insideHook,
                         type,
                     }), '');
@@ -398,12 +402,12 @@ export var getBrandConstants;
                 }
                 const { entries, } = SVG_CONSTANTS;
                 const keys = entries.all.map(([key]) => key).sort();
-                phpNamespace = phpNamespace.length ? phpNamespace.replace(/\/$/gi, '') + '\\' : '';
                 const keyObjectShape = keys.map(key => `${key}: string`).join(', ');
                 const setName_UC = setName.toUpperCase();
                 const ret = [];
                 for (const opt of getSvgConsts.returnOpts) {
                     let content;
+                    let insideDefine = true;
                     let insideHook = false;
                     let type;
                     switch (opt) {
@@ -418,6 +422,7 @@ export var getBrandConstants;
                             break;
                         case 'slugs':
                             content = entriesToArray(entries[opt], false);
+                            insideDefine = false;
                             type = `( ${keys.map(key => `"${key}"`).join(', ')} )[]`;
                             break;
                         default:
@@ -430,8 +435,9 @@ export var getBrandConstants;
                         continue;
                     }
                     const { constName, comment, } = parseReturnOpt(_setName, opt);
-                    ret.push(...outputConstant(`${phpNamespace}BRAND_${setName_UC}_${constName}`, content, {
+                    ret.push(...outputConstant(phpNamespace, `BRAND_${setName_UC}_${constName}`, content, {
                         comment,
+                        insideDefine,
                         insideHook,
                         type,
                     }), '');
@@ -468,15 +474,16 @@ export var getBrandConstants;
                 const themesMeta = tokens.themes._meta;
                 const tokenKeyEntries = Object.entries(themesMeta.keys);
                 const themeSlugs = Object.keys(tokens.themes).filter(key => key !== '_meta');
-                phpNamespace = phpNamespace.length ? phpNamespace.replace(/\/$/gi, '') + '\\' : '';
                 const ret = [];
                 for (const opt of getThemeConsts.returnOpts) {
                     let content;
+                    let insideDefine = true;
                     let insideHook = false;
                     let type;
                     switch (opt) {
                         case 'themes':
                             content = entriesToArray(entries[opt], false);
+                            insideDefine = false;
                             type = `( ${themeSlugs.map(key => `"${key}"`).join('|')} )[]`;
                             break;
                         case 'themeNames':
@@ -499,8 +506,9 @@ export var getBrandConstants;
                         continue;
                     }
                     const { constName, comment, } = parseReturnOpt('theme', opt);
-                    ret.push(...outputConstant(`${phpNamespace}BRAND_THEME_${constName}`, content, {
+                    ret.push(...outputConstant(phpNamespace, `BRAND_THEME_${constName}`, content, {
                         comment,
+                        insideDefine,
                         insideHook,
                         type,
                     }), '');
@@ -515,16 +523,17 @@ export var getBrandConstants;
              * @since 0.1.0-beta.0.draft
              */
             async function getAll(tokens, textDomain, phpNamespace, args = {}) {
-                const [icons, logos, theme,] = await Promise.all([
+                return Promise.all([
                     getSvg('icons', tokens.icons, textDomain, phpNamespace, args.icons),
                     getSvg('logos', tokens.logos, textDomain, phpNamespace, args.logos),
                     getTheme(tokens, textDomain, phpNamespace, args.theme),
-                ]);
-                return [
+                    getCustom(args.custom ?? [], phpNamespace),
+                ]).then(([icons, logos, theme, custom,]) => [
                     icons,
                     logos,
                     theme,
-                ].filter(v => v).join('\n\n');
+                    custom,
+                ].filter(v => v?.length).join('\n\n'));
             }
             PHP.getAll = getAll;
         })(PHP = Wordpress.PHP || (Wordpress.PHP = {}));
@@ -578,8 +587,42 @@ export var getBrandConstants;
             }
             TS.outputConstant = outputConstant;
             /**
-             * Gets a string of valid PHP code for wordpress defining constants for the given set of
-             * SVGs.
+             * Gets a string of valid TypeScript code for wordpress defining
+             * custom constants to go with the theme tokens.
+             *
+             * @since 0.1.0-beta.0.draft
+             */
+            async function getCustom(
+            /**
+             * Values to print indexed by their constant name.
+             */
+            constants) {
+                const ret = [];
+                for (const [constName, value, args] of constants) {
+                    const { comment = `Values for ${constName}.`, type, } = args ?? {};
+                    let content;
+                    const entries = Object.entries(value);
+                    if (Array.isArray(value)) {
+                        content = entriesToArray(entries);
+                    }
+                    else {
+                        content = entriesToObject(entries);
+                    }
+                    // continues
+                    if (!content?.length) {
+                        continue;
+                    }
+                    ret.push(...outputConstant(constName, content, {
+                        comment,
+                        type,
+                    }), '');
+                }
+                return ret.join('\n');
+            }
+            TS.getCustom = getCustom;
+            /**
+             * Gets a string of valid TypeScript code for wordpress defining
+             * constants for the given set of SVGs.
              *
              * @since 0.1.0-beta.0.draft
              */
@@ -630,8 +673,8 @@ export var getBrandConstants;
             }
             TS.getSvg = getSvg;
             /**
-             * Gets a string of valid PHP code for wordpress defining constants
-             * for the theme tokens.
+             * Gets a string of valid TypeScript code for wordpress defining
+             * constants for the theme tokens.
              *
              * @since 0.1.0-beta.0.draft
              */
@@ -685,22 +728,23 @@ export var getBrandConstants;
             }
             TS.getTheme = getTheme;
             /**
-             * Gets a string of valid PHP code for wordpress defining constants
-             * for the theme tokens.
+             * Gets a string of valid TypeScript code for wordpress defining
+             * constants for the theme tokens.
              *
              * @since 0.1.0-beta.0.draft
              */
             async function getAll(tokens, textDomain, args = {}) {
-                const [icons, logos, theme,] = await Promise.all([
+                return Promise.all([
                     getSvg('icons', tokens.icons, textDomain, args.icons),
                     getSvg('logos', tokens.logos, textDomain, args.logos),
                     getTheme(tokens, textDomain, args.theme),
-                ]);
-                return [
+                    getCustom(args.custom ?? []),
+                ]).then(([icons, logos, theme, custom,]) => [
                     icons,
                     logos,
                     theme,
-                ].filter(v => v?.length).join('\n\n');
+                    custom,
+                ].filter(v => v?.length).join('\n\n'));
             }
             TS.getAll = getAll;
         })(TS = Wordpress.TS || (Wordpress.TS = {}));

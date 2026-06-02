@@ -30,11 +30,12 @@
         @return $slug == flow-margin or string.index($slug, flow-margin-) == 1;
     }
 
+    // prettier-ignore
     @return string.match(
-            $slug,
-            '(^|-)flow-margin(-|$)|^widget-button-span-gap$'
-        )
-        != null;
+        $slug,
+        config.$regex_tokenFlowMargins,
+        $flags: config.$regex_tokenFlowMargins_flags,
+    ) != null;
 }
 
 ///

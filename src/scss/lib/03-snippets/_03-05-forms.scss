@@ -93,6 +93,7 @@
     $focusWithin: false,
     $focus_fallbacksOnly: config.$mx_focusVisible_fallbacksOnly,
     $focus_includeFallbacks: config.$mx_focusVisible_includeFallbacks,
+    $focus_includeNoWhereSelectorFallback: config.$mx_focusVisible_includeNoWhereSelectorFallback,
     //
     $includeActive: true,
     $includeFocusHover: true,
@@ -132,7 +133,8 @@
             $hover: true,
             //
             $fallbacksOnly: $focus_fallbacksOnly,
-            $includeFallbacks: $focus_includeFallbacks
+            $includeFallbacks: $focus_includeFallbacks,
+            $includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback
         ) {
             @include snippet-button-colour-single-state(hover, $variation: $variation, $args...);
 
@@ -287,7 +289,6 @@
     $includeColours: true,
     $includeDisabled: true,
     $includeEmpty: true,
-    $useIconFont: config.$fn_pseudoIconsUseFont and font-family-exists(icons),
     $includeInline: true,
     $includeMarginBlock: false,
     $includeOnlyChild: $includeChildren,
@@ -295,26 +296,30 @@
     $includePseudoIcons: config.$include_button_inlineIcons,
     $includeTextBasics: true,
     $includeVisited: true,
+    $useIconFont: config.$fn_pseudoIconsUseFont and font-family-exists(icons),
     //
     $borderRadius: null,
     $borderStyle: null,
     $borderWidth: null,
     $display: null,
-    $fontSize: null,
-    $fontStyle: null,
+    $fontSize: if($includeTextBasics == false, false, null),
+    $fontStyle: if($includeTextBasics == false, false, null),
     $fontWeight: null,
     $gap: false,
+    $letterSpacing: if($includeTextBasics == false, false, null),
     $marginBlockEnd: null,
     $marginBlockStart: null,
     $paddingBlock: null,
     $paddingInline: null,
     $paddingBlock_hasIconOnlyChild: null,
     $paddingInline_hasIconOnlyChild: null,
+    $textTransform: if($includeTextBasics == false, false, null),
     $width: null,
     //
     $focusWithin: false,
     $focus_fallbacksOnly: config.$mx_focusVisible_fallbacksOnly,
     $focus_includeFallbacks: config.$mx_focusVisible_includeFallbacks,
+    $focus_includeNoWhereSelectorFallback: config.$mx_focusVisible_includeNoWhereSelectorFallback,
     //
     $args...
 ) {
@@ -372,12 +377,12 @@
         margin-block-start: if(
             $marginBlockStart != null,
             $marginBlockStart,
-            var-style(button-margin-block-start)
+            var-flow-margin-from-token(button-flow-margin-self, start)
         );
         margin-block-end: if(
             $marginBlockEnd != null,
             $marginBlockEnd,
-            var-style(button-margin-block-end)
+            var-flow-margin-from-token(button-flow-margin-self, end)
         );
     }
 
@@ -398,18 +403,28 @@
 
     border-style: $borderStyle;
 
-    @if $includeTextBasics {
+    @if $includeTextBasics != false {
         font-weight: if($fontWeight != null, $fontWeight, var-style(button-font-weight));
+    }
 
-        @if $fontStyle != false {
-            font-style: $fontStyle;
-        }
+    @if $fontStyle != false {
+        font-style: $fontStyle;
+    }
 
+    @if $fontSize != false {
         font-size: if($fontSize != null, $fontSize, var-style(button-font-size));
-        line-height: var-style(button-line-height);
-        letter-spacing: var-style(button-letter-spacing);
+    }
 
-        text-transform: var-style(button-text-transform);
+    @if $includeTextBasics != false {
+        line-height: var-style(button-line-height);
+    }
+
+    @if $letterSpacing != false {
+        letter-spacing: if($letterSpacing, $letterSpacing, var-style(button-letter-spacing));
+    }
+
+    @if $textTransform != false {
+        text-transform: if($textTransform, $textTransform, var-style(button-text-transform));
     }
 
     user-select: text;
@@ -422,6 +437,7 @@
                 $focusWithin: $focusWithin,
                 $focus_fallbacksOnly: $focus_fallbacksOnly,
                 $focus_includeFallbacks: $focus_includeFallbacks,
+                $focus_includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback,
                 $includeVisited: $includeVisited
             )
             using ($location) {
@@ -438,7 +454,8 @@
             $hover: true,
             //
             $fallbacksOnly: $focus_fallbacksOnly,
-            $includeFallbacks: $focus_includeFallbacks
+            $includeFallbacks: $focus_includeFallbacks,
+            $includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback
         ) {
             @if $borderStyle != solid {
                 border-style: solid;
@@ -630,6 +647,7 @@
     $focusWithin: false,
     $focus_fallbacksOnly: config.$mx_focusVisible_fallbacksOnly,
     $focus_includeFallbacks: config.$mx_focusVisible_includeFallbacks,
+    $focus_includeNoWhereSelectorFallback: config.$mx_focusVisible_includeNoWhereSelectorFallback,
     //
     $includeColours: true,
     $includePseudoIcons: config.$include_button_inlineIcons,
@@ -660,6 +678,7 @@
                 $focusWithin: $focusWithin,
                 $focus_fallbacksOnly: $focus_fallbacksOnly,
                 $focus_includeFallbacks: $focus_includeFallbacks,
+                $focus_includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback,
                 $includeVisited: $includeVisited
             )
             using ($location) {
@@ -675,7 +694,15 @@
             }
         }
     } @else {
-        @include hover-focus-visible-or-within {
+        @include apply-interactive-mixin(
+            $focus: true,
+            $focusWithin: $focusWithin,
+            $hover: true,
+            //
+            $fallbacksOnly: $focus_fallbacksOnly,
+            $includeFallbacks: $focus_includeFallbacks,
+            $includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback
+        ) {
             @if $borderStyle != solid {
                 border-style: solid;
             }
@@ -706,10 +733,7 @@
 @mixin snippet-button-inline(
     $variation: null,
     //
-    $focusWithin: false,
-    $focus_fallbacksOnly: config.$mx_focusVisible_fallbacksOnly,
-    $focus_includeFallbacks: config.$mx_focusVisible_includeFallbacks,
-    //
+    $includeChildren: true,
     $includeColours: $variation != null,
     $includeBaseProps: false,
     $useIconFont: config.$fn_pseudoIconsUseFont and font-family-exists(icons),
@@ -721,11 +745,18 @@
     $fontSize: null,
     $fontStyle: null,
     $fontWeight: null,
+    $letterSpacing: null,
     $marginBlockEnd: null,
     $marginBlockStart: null,
     $paddingBlock: null,
     $paddingInline: null,
-    $width: null
+    $textTransform: null,
+    $width: null,
+    //
+    $focusWithin: false,
+    $focus_fallbacksOnly: config.$mx_focusVisible_fallbacksOnly,
+    $focus_includeFallbacks: config.$mx_focusVisible_includeFallbacks,
+    $focus_includeNoWhereSelectorFallback: config.$mx_focusVisible_includeNoWhereSelectorFallback
 ) {
     $borderStyle: if($borderStyle != null, $borderStyle, var-style(button-inline-border-style));
     $display: if($display != null, $display, inline);
@@ -785,11 +816,20 @@
 
     font-weight: if($fontWeight, $fontWeight, var-style(button-inline-font-weight));
     font-style: $fontStyle;
-    font-size: if($fontSize, $fontSize, var-style(button-inline-font-size));
-    line-height: var-style(button-inline-line-height);
-    letter-spacing: var-style(button-inline-letter-spacing);
 
-    text-transform: var-style(button-inline-text-transform);
+    @if $fontSize != false {
+        font-size: if($fontSize, $fontSize, var-style(button-inline-font-size));
+    }
+
+    line-height: var-style(button-inline-line-height);
+
+    @if $letterSpacing != false {
+        letter-spacing: if($letterSpacing, $letterSpacing, var-style(button-inline-letter-spacing));
+    }
+
+    @if $textTransform != false {
+        text-transform: if($textTransform, $textTransform, var-style(button-inline-text-transform));
+    }
 
     vertical-align: var-style(button-inline-vertical-align);
 
@@ -800,7 +840,8 @@
                 $variation,
                 $focusWithin: $focusWithin,
                 $focus_fallbacksOnly: $focus_fallbacksOnly,
-                $focus_includeFallbacks: $focus_includeFallbacks
+                $focus_includeFallbacks: $focus_includeFallbacks,
+                $focus_includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback
             )
             using ($location) {
             @if $location == focus and $borderStyle != solid {
@@ -810,7 +851,15 @@
             @content ($location);
         }
     } @else {
-        @include hover-focus-visible-or-within {
+        @include apply-interactive-mixin(
+            $focus: true,
+            $focusWithin: $focusWithin,
+            $hover: true,
+            //
+            $fallbacksOnly: $focus_fallbacksOnly,
+            $includeFallbacks: $focus_includeFallbacks,
+            $includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback
+        ) {
             @if $borderStyle != solid {
                 border-style: solid;
             }
@@ -835,15 +884,17 @@
         }
     }
 
-    @if $includeBaseProps {
-        @include _snippet-button-base--children;
-    }
+    @if $includeChildren {
+        @if $includeBaseProps {
+            @include _snippet-button-base--children;
+        }
 
-    @include _snippet-button--icon-child(
-        $iconSize: var-style(button-icon-size-pseudo),
-        $embeddedBottom: var-style(button-icon-embedded-bottom),
-        $verticalAlign: var-style(button-icon-vertical-align)
-    );
+        @include _snippet-button--icon-child(
+            $iconSize: var-style(button-icon-size-pseudo),
+            $embeddedBottom: var-style(button-icon-embedded-bottom),
+            $verticalAlign: var-style(button-icon-vertical-align)
+        );
+    }
 }
 
 ///
@@ -971,19 +1022,18 @@
 ///
 @mixin snippet-fieldset(
     $background: var-theme(background),
-    $borderClr: var-theme(input-border),
-    $borderClr_hover: var-theme(input-border-hover),
     $borderClr_active: var-theme(input-border-active),
+    $borderClr_hover: var-theme(input-border-hover),
+    $borderClr: var-theme(input-border),
     $borderRadius: var-style(widget-border-radius),
     $borderWidth: var-style(widget-border-width),
     $color: var-theme(text),
     $display: flex,
+    $flex_args: (),
     $marginBlock: do-var(flow-margin-firm-start) do-var(flow-margin-firm-end),
     $marginInline: 0,
     $paddingBlock: var-style(widget-padding-block),
     $paddingInline: var-style(widget-padding-inline),
-    //
-    $flex_args: (),
     //
     $includeColours: config.$mx_fieldset_includeClrs,
     $includeChildren: true
@@ -1068,7 +1118,11 @@
     $color_focus,
     $color_hover,
     //
-    $opacity: true
+    $opacity: true,
+    //
+    $focusWithin: false,
+    $focus_fallbacksOnly: true,
+    $focus_includeNoWhereSelectorFallback: config.$mx_focusVisible_includeNoWhereSelectorFallback
 ) {
     @include cx-prop(focus-ring-outline-color, $accentClr_focus);
     background-color: $background;
@@ -1096,7 +1150,13 @@
         }
     }
 
-    @include apply-interactive-mixin($focus: true, $focusWithin: true, $fallbacksOnly: true) {
+    @include apply-interactive-mixin(
+        $focus: true,
+        $focusWithin: $focusWithin,
+        //
+        $fallbacksOnly: $focus_fallbacksOnly,
+        $includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback
+    ) {
         @include cx-prop(focus-ring-outline-color, $accentClr_focus);
         background-color: $background_focus;
         border-color: $borderClr_focus;
@@ -1185,33 +1245,35 @@
     $color_readonly: var-theme(input-readonly-text),
     $color_readonly_active: var-theme(input-readonly-text),
     $color_readonly_focus: var-theme(input-readonly-text),
-    $color_readonly_hover: var-theme(input-readonly-text)
+    $color_readonly_hover: var-theme(input-readonly-text),
+    //
+    $args...
 ) {
     @include _snippet-input-colours-single(
             $accentClr: $accentClr,
             $accentClr_active: $accentClr_active,
             $accentClr_focus: $accentClr_focus,
             $accentClr_hover: $accentClr_hover,
-            //
+
             $background: $background,
             $background_active: $background_active,
             $background_focus: $background_focus,
             $background_hover: $background_hover,
-            //
+
             $borderClr: $borderClr,
             $borderClr_active: $borderClr_active,
             $borderClr_focus: $borderClr_focus,
             $borderClr_hover: $borderClr_hover,
-            //
+
             $color: $color,
             $color_active: $color_active,
             $color_focus: $color_focus,
             $color_hover: $color_hover,
-            //
-             //
+
+            $args...
         )
         using ($location) {
-        @content (root--#{$location});
+        @content ($location);
     }
 
     &[aria-disabled='true'],
@@ -1221,23 +1283,25 @@
                 $accentClr_active: $accentClr_disabled_active,
                 $accentClr_focus: $accentClr_disabled_focus,
                 $accentClr_hover: $accentClr_disabled_hover,
-                //
+
                 $background: $background_disabled,
                 $background_active: $background_disabled_active,
                 $background_focus: $background_disabled_focus,
                 $background_hover: $background_disabled_hover,
-                //
+
                 $borderClr: $borderClr_disabled,
                 $borderClr_active: $borderClr_disabled_active,
                 $borderClr_focus: $borderClr_disabled_focus,
                 $borderClr_hover: $borderClr_disabled_hover,
-                //
+
                 $color: $color_disabled,
                 $color_active: $color_disabled_active,
                 $color_focus: $color_disabled_focus,
                 $color_hover: $color_disabled_hover,
-                //
-                $opacity: false
+
+                $opacity: false,
+
+                $args...
             )
             using ($location) {
             @content (disabled--#{$location});
@@ -1250,23 +1314,25 @@
                 $accentClr_active: $accentClr_readonly_active,
                 $accentClr_focus: $accentClr_readonly_focus,
                 $accentClr_hover: $accentClr_readonly_hover,
-                //
+
                 $background: $background_readonly,
                 $background_active: $background_readonly_active,
                 $background_focus: $background_readonly_focus,
                 $background_hover: $background_readonly_hover,
-                //
+
                 $borderClr: $borderClr_readonly,
                 $borderClr_active: $borderClr_readonly_active,
                 $borderClr_focus: $borderClr_readonly_focus,
                 $borderClr_hover: $borderClr_readonly_hover,
-                //
+
                 $color: $color_readonly,
                 $color_active: $color_readonly_active,
                 $color_focus: $color_readonly_focus,
                 $color_hover: $color_readonly_hover,
-                //
-                $opacity: false
+
+                $opacity: false,
+
+                $args...
             )
             using ($location) {
             @content (readonly--#{$location});
@@ -1329,6 +1395,12 @@
     $paddingBlock: var-style(input-padding-block),
     $paddingInline: var-style(input-padding-inline),
     //
+    $focusWithin: true,
+    $focus_fallbacksOnly: config.$mx_focusVisible_fallbacksOnly,
+    $focus_includeFallbacks: config.$mx_focusVisible_includeFallbacks,
+    $focus_includeNoWhereSelectorFallback: config.$mx_focusVisible_includeNoWhereSelectorFallback,
+    //
+    $includeColours: true,
     $includeDisabled: true,
     $includeLabel: true,
     $includeUtils: true,
@@ -1393,8 +1465,19 @@
             @content ($root_location);
         }
 
-        @include hover-focus-visible-or-within {
-            @content (hover-focus-visible-or-within);
+        &:hover {
+            @content (hover);
+        }
+
+        @include apply-interactive-mixin(
+            $focus: true,
+            $focusWithin: $focusWithin,
+            //
+            $fallbacksOnly: $focus_fallbacksOnly,
+            $includeFallbacks: $focus_includeFallbacks,
+            $includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback
+        ) {
+            @content (focus-visible-or-within);
         }
 
         @include active {
@@ -1411,8 +1494,12 @@
         }
     }
 
-    @include snippet-input-colours($args...) using ($clr_location) {
-        @content (colour--#{$clr_location});
+    @if $includeColours {
+        @include snippet-input-colours($args...) using ($clr_location) {
+            @content (colour--#{$clr_location});
+        }
+    } @else {
+        $args: meta.keywords($args);
     }
 }
 

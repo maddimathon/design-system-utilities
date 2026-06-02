@@ -182,6 +182,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 margin: {
                     block: {
                         start: 0.1875,
+                        end: 0,
                     },
                 },
             },
@@ -260,12 +261,6 @@ export class Tokens_CSS_Style extends AbstractTokens {
             },
             'letter-spacing': 'normal',
             'line-height': '100',
-            margin: {
-                block: {
-                    start: '400',
-                    end: '400',
-                },
-            },
             padding: {
                 block: '200',
                 inline: '300',
@@ -368,11 +363,12 @@ export class Tokens_CSS_Style extends AbstractTokens {
         }
         if (headingAsNum >= 1) {
             style.font.weight = '900';
-            style['line-height'] = '200';
+            style['line-height'] = '100';
             style.margin.block.start = '800';
         }
         if (headingAsNum >= 2) {
             style.font.weight = '800';
+            style['line-height'] = '200';
         }
         if (headingAsNum >= 3) {
             style.font.weight = '700';

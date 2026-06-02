@@ -537,11 +537,13 @@ export namespace getBrandConstants {
             }
 
             function outputConstant(
+                phpNamespace: string,
                 varName: string,
                 content: string,
                 args: {
                     comment: string,
                     type: string,
+                    insideDefine?: undefined | boolean,
                     insideHook?: undefined | boolean,
                 },
             ): string[] {
@@ -550,13 +552,15 @@ export namespace getBrandConstants {
                     return [];
                 }
 
+                phpNamespace = phpNamespace.length ? phpNamespace.replace( /[\/|\\]+$/gi, '' ) + '\\' : '';
+
                 return args.insideHook ? [
                     '// hooked for access to translation',
                     '\\add_action(',
                     '    \'init\',',
                     '    function () {',
                     '        // returns',
-                    `        if ( \\defined( '${ varName }' ) ) {`,
+                    `        if ( \\defined( '${ phpNamespace }${ varName }' ) ) {`,
                     '            return;',
                     '        }',
                     '',
@@ -566,11 +570,21 @@ export namespace getBrandConstants {
                     `         * @var ${ args.type }`,
                     '         */',
                     `        \\define(`,
-                    `            '${ varName }',`,
+                    `            '${ phpNamespace }${ varName }',`,
                     `            ${ content.split( '\n' ).join( '\n            ' ) },`,
                     '        );',
                     '    },',
                     '    0,',
+                    ');',
+                ] : args.insideDefine !== false ? [
+                    '/**',
+                    ` * ${ args.comment }`,
+                    ' *',
+                    ` * @var ${ args.type }`,
+                    ' */',
+                    `\\define(`,
+                    `    '${ phpNamespace }${ varName }',`,
+                    `    ${ content.split( '\n' ).join( '\n    ' ) },`,
                     ');',
                 ] : [
                     '/**',
@@ -578,10 +592,7 @@ export namespace getBrandConstants {
                     ' *',
                     ` * @var ${ args.type }`,
                     ' */',
-                    `\\define(`,
-                    `    '${ varName }',`,
-                    `    ${ content.split( '\n' ).join( '\n    ' ) },`,
-                    ');',
+                    `const ${ varName } = ${ content };`,
                 ];
             }
 
@@ -591,15 +602,13 @@ export namespace getBrandConstants {
              *
              * @since ___PKG_VERSION___
              */
-            export async function getCustom(
-                /**
-                 * Values to print indexed by their constant name.
-                 */
-                constants: getCustom.ConstantsInput[],
+            export async function getCustom<
+                T_ConstName extends string,
+                T_Value extends getCustom.Value,
+            >(
+                constants: getCustom.Input<T_ConstName, T_Value>[],
                 phpNamespace: string,
             ): Promise<null | string> {
-
-                phpNamespace = phpNamespace.length ? phpNamespace.replace( /\/$/gi, '' ) + '\\' : '';
 
                 const ret: string[] = [];
 
@@ -611,6 +620,8 @@ export namespace getBrandConstants {
                         objectAsAssociativeArray = true,
                         objectAsObject = true,
                         type,
+                        // 
+                        insideDefine = !objectAsObject,
                     } = args;
 
                     let content: string;
@@ -618,16 +629,11 @@ export namespace getBrandConstants {
                     const entries = Object.entries( value );
 
                     if ( Array.isArray( value ) ) {
-
                         content = entriesToArray( entries, false );
-
+                    } else if ( objectAsObject ) {
+                        content = entriesToObject( entries );
                     } else {
-
-                        if ( objectAsObject ) {
-                            content = entriesToObject( entries );
-                        } else {
-                            content = entriesToArray( entries, objectAsAssociativeArray );
-                        }
+                        content = entriesToArray( entries, objectAsAssociativeArray );
                     }
 
                     // continues
@@ -637,10 +643,12 @@ export namespace getBrandConstants {
 
                     ret.push(
                         ...outputConstant(
-                            `${ phpNamespace }${ constName }`,
+                            phpNamespace,
+                            constName,
                             content,
                             {
                                 comment,
+                                insideDefine,
                                 insideHook,
                                 type,
                             },
@@ -658,22 +666,34 @@ export namespace getBrandConstants {
             export namespace getCustom {
 
                 /**
+                 * Accepted values for custom constants.
+                 * 
                  * @since ___PKG_VERSION___
                  */
-                export type ConstantsInput = [
-                    string,
-                    string[] | Record<number | string, string>,
-                    Args,
-                ];
+                export type Value = string[] | Record<number | string, string>;
 
                 /**
+                 * @template T_ConstName Constant name.
+                 * @template T_Value Constant value in JS.
+                 * 
+                 * @since ___PKG_VERSION___
+                 */
+                export type Input<
+                    T_ConstName extends string = string,
+                    T_Value extends Value = Value,
+                > = [ T_ConstName, T_Value, Args ];
+
+                /**
+                 * Configure how to output a custom constant’s definition.
+                 * 
                  * @since ___PKG_VERSION___
                  */
                 export type Args = {
-                    comment?: string;
-                    insideHook?: boolean;
-                    objectAsAssociativeArray?: boolean;
-                    objectAsObject?: boolean;
+                    comment?: undefined | string;
+                    insideDefine?: undefined | boolean;
+                    insideHook?: undefined | boolean;
+                    objectAsAssociativeArray?: undefined | boolean;
+                    objectAsObject?: undefined | boolean;
                     type: string;
                 };
             }
@@ -720,8 +740,6 @@ export namespace getBrandConstants {
 
                 const keys = entries.all.map( ( [ key ] ) => key ).sort();
 
-                phpNamespace = phpNamespace.length ? phpNamespace.replace( /\/$/gi, '' ) + '\\' : '';
-
                 const keyObjectShape = keys.map( key => `${ key }: string` ).join( ', ' );
 
                 const setName_UC = setName.toUpperCase();
@@ -731,6 +749,7 @@ export namespace getBrandConstants {
                 for ( const opt of getSvgConsts.returnOpts ) {
 
                     let content: string;
+                    let insideDefine = true;
                     let insideHook = false;
                     let type: string;
 
@@ -749,6 +768,7 @@ export namespace getBrandConstants {
 
                         case 'slugs':
                             content = entriesToArray( entries[ opt ], false );
+                            insideDefine = false;
                             type = `( ${ keys.map( key => `"${ key }"` ).join( ', ' ) } )[]`;
                             break;
 
@@ -770,10 +790,12 @@ export namespace getBrandConstants {
 
                     ret.push(
                         ...outputConstant(
-                            `${ phpNamespace }BRAND_${ setName_UC }_${ constName }`,
+                            phpNamespace,
+                            `BRAND_${ setName_UC }_${ constName }`,
                             content,
                             {
                                 comment,
+                                insideDefine,
                                 insideHook,
                                 type,
                             },
@@ -838,13 +860,12 @@ export namespace getBrandConstants {
 
                 const themeSlugs = Object.keys( tokens.themes ).filter( key => key !== '_meta' );
 
-                phpNamespace = phpNamespace.length ? phpNamespace.replace( /\/$/gi, '' ) + '\\' : '';
-
                 const ret: string[] = [];
 
                 for ( const opt of getThemeConsts.returnOpts ) {
 
                     let content: string;
+                    let insideDefine = true;
                     let insideHook = false;
                     let type: string;
 
@@ -852,6 +873,7 @@ export namespace getBrandConstants {
 
                         case 'themes':
                             content = entriesToArray( entries[ opt ], false );
+                            insideDefine = false;
                             type = `( ${ themeSlugs.map( key => `"${ key }"` ).join( '|' ) } )[]`;
                             break;
 
@@ -887,10 +909,12 @@ export namespace getBrandConstants {
 
                     ret.push(
                         ...outputConstant(
-                            `${ phpNamespace }BRAND_THEME_${ constName }`,
+                            phpNamespace,
+                            `BRAND_THEME_${ constName }`,
                             content,
                             {
                                 comment,
+                                insideDefine,
                                 insideHook,
                                 type,
                             },
@@ -913,27 +937,31 @@ export namespace getBrandConstants {
                 textDomain: string,
                 phpNamespace: string,
                 args: {
+                    custom?: getCustom.Input[],
                     icons?: Omit<getSvgConsts.Args, 'valueMappers'>,
                     logos?: Omit<getSvgConsts.Args, 'valueMappers'>,
                     theme?: Omit<getThemeConsts.Args, 'valueMappers'>,
                 } = {},
             ): Promise<string> {
 
-                const [
-                    icons,
-                    logos,
-                    theme,
-                ] = await Promise.all( [
+                return Promise.all( [
                     getSvg( 'icons', tokens.icons, textDomain, phpNamespace, args.icons ),
                     getSvg( 'logos', tokens.logos, textDomain, phpNamespace, args.logos ),
                     getTheme( tokens, textDomain, phpNamespace, args.theme ),
-                ] );
-
-                return [
-                    icons,
-                    logos,
-                    theme,
-                ].filter( v => v ).join( '\n\n' );
+                    getCustom( args.custom ?? [], phpNamespace ),
+                ] ).then(
+                    ( [
+                        icons,
+                        logos,
+                        theme,
+                        custom,
+                    ] ) => [
+                        icons,
+                        logos,
+                        theme,
+                        custom,
+                    ].filter( v => v?.length ).join( '\n\n' )
+                );
             }
         }
 
@@ -1011,8 +1039,98 @@ export namespace getBrandConstants {
             }
 
             /**
-             * Gets a string of valid PHP code for wordpress defining constants for the given set of
-             * SVGs.
+             * Gets a string of valid TypeScript code for wordpress defining
+             * custom constants to go with the theme tokens.
+             *
+             * @since ___PKG_VERSION___
+             */
+            export async function getCustom<
+                T_ConstName extends string,
+                T_Value extends getCustom.Value,
+            >(
+                /**
+                 * Values to print indexed by their constant name.
+                 */
+                constants: getCustom.Input<T_ConstName, T_Value>[],
+            ): Promise<null | string> {
+
+                const ret: string[] = [];
+
+                for ( const [ constName, value, args ] of constants ) {
+
+                    const {
+                        comment = `Values for ${ constName }.`,
+                        type,
+                    } = args ?? {};
+
+                    let content: string;
+
+                    const entries = Object.entries( value );
+
+                    if ( Array.isArray( value ) ) {
+                        content = entriesToArray( entries );
+                    } else {
+                        content = entriesToObject( entries );
+                    }
+
+                    // continues
+                    if ( !content?.length ) {
+                        continue;
+                    }
+
+                    ret.push(
+                        ...outputConstant(
+                            constName,
+                            content,
+                            {
+                                comment,
+                                type,
+                            },
+                        ),
+                        '',
+                    );
+                }
+
+                return ret.join( '\n' );
+            }
+
+            /**
+             * @since ___PKG_VERSION___
+             */
+            export namespace getCustom {
+
+                /**
+                 * Accepted values for custom constants.
+                 * 
+                 * @since ___PKG_VERSION___
+                 */
+                export type Value = string[] | Record<number | string, string>;
+
+                /**
+                 * @template T_ConstName Constant name.
+                 * @template T_Value Constant value in JS.
+                 * 
+                 * @since ___PKG_VERSION___
+                 */
+                export type Input<
+                    T_ConstName extends string = string,
+                    T_Value extends Value = Value,
+                > = [ T_ConstName, T_Value ] | [ T_ConstName, T_Value, Args ];
+
+                /**
+                 * Configure how to output a custom constant’s definition.
+                 * 
+                 * @since ___PKG_VERSION___
+                 */
+                export type Args = {
+                    comment?: string;
+                    type?: undefined | string;
+                };
+            }
+
+            /**
+             * Gets a string of valid TypeScript code for wordpress defining
+             * constants for the given set of SVGs.
              * 
              * @since ___PKG_VERSION___
              */
@@ -1101,9 +1219,9 @@ export namespace getBrandConstants {
             }
 
             /**
-             * Gets a string of valid PHP code for wordpress defining constants
-             * for the theme tokens.
-             * 
+             * Gets a string of valid TypeScript code for wordpress defining
+             * constants for the theme tokens.
+             *
              * @since ___PKG_VERSION___
              */
             export async function getTheme(
@@ -1194,8 +1312,8 @@ export namespace getBrandConstants {
             }
 
             /**
-             * Gets a string of valid PHP code for wordpress defining constants
-             * for the theme tokens.
+             * Gets a string of valid TypeScript code for wordpress defining
+             * constants for the theme tokens.
              *
              * @since ___PKG_VERSION___
              */
@@ -1203,27 +1321,31 @@ export namespace getBrandConstants {
                 tokens: Tokens.JsonReturn,
                 textDomain: string,
                 args: {
+                    custom?: getCustom.Input[],
                     icons?: Omit<getSvgConsts.Args, 'valueMappers'>,
                     logos?: Omit<getSvgConsts.Args, 'valueMappers'>,
                     theme?: Omit<getThemeConsts.Args, 'valueMappers'>,
                 } = {},
             ): Promise<string> {
 
-                const [
-                    icons,
-                    logos,
-                    theme,
-                ] = await Promise.all( [
+                return Promise.all( [
                     getSvg( 'icons', tokens.icons, textDomain, args.icons ),
                     getSvg( 'logos', tokens.logos, textDomain, args.logos ),
                     getTheme( tokens, textDomain, args.theme ),
-                ] );
-
-                return [
-                    icons,
-                    logos,
-                    theme,
-                ].filter( v => v?.length ).join( '\n\n' );
+                    getCustom( args.custom ?? [] ),
+                ] ).then(
+                    ( [
+                        icons,
+                        logos,
+                        theme,
+                        custom,
+                    ] ) => [
+                        icons,
+                        logos,
+                        theme,
+                        custom,
+                    ].filter( v => v?.length ).join( '\n\n' )
+                );
             }
         }
     }

@@ -129,6 +129,7 @@ export declare namespace Tokens_CSS_Style {
             margin: {
                 block: {
                     start: number;
+                    end: number;
                 };
             };
         };
@@ -144,7 +145,7 @@ export declare namespace Tokens_CSS_Style {
          * Values for the set-flow-margins mixin.
          */
         'flow-margin': FlowMargin & {
-            self: FlowMargin.Self;
+            self: FlowMargin.SelfFirm;
         };
         padding: {
             block: AnyTokenLevel;
@@ -183,7 +184,7 @@ export declare namespace Tokens_CSS_Style {
          * Values for the set-flow-margins mixin.
          */
         'flow-margin': {
-            self: FlowMargin.Self;
+            self: FlowMargin.SelfFirm;
         };
         focus: {
             offset: AnyTokenLevel;
@@ -207,12 +208,6 @@ export declare namespace Tokens_CSS_Style {
         };
         'letter-spacing': CSS.LetterSpacing;
         'line-height': CSS.LineHeight;
-        margin: {
-            block: {
-                start: 0 | AnyTokenLevel;
-                end: 0 | AnyTokenLevel;
-            };
-        };
         padding: {
             block: 0 | AnyTokenLevel;
             inline: 0 | AnyTokenLevel;
@@ -307,7 +302,11 @@ export declare namespace Tokens_CSS_Style {
         /**
          * @since 0.1.0-beta.0.draft
          */
-        type Self = 'margins-flow-firm' | 'margins-flow-firm-small' | 'margins-flow-firm-large';
+        type Self = 'margins-flow' | 'margins-flow-small' | 'margins-flow-large';
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        type SelfFirm = 'margins-flow-firm' | 'margins-flow-firm-small' | 'margins-flow-firm-large';
     }
     /**
      * @since 0.1.0-beta.0.draft
@@ -508,7 +507,7 @@ export declare namespace Tokens_CSS_Style {
          * Values for the set-flow-margins mixin.
          */
         'flow-margin': FlowMargin & {
-            self: FlowMargin.Self;
+            self: FlowMargin.SelfFirm;
         };
         icon: Pick<IconStyles, 'vertical-align'> & {
             buffer: {
@@ -622,7 +621,7 @@ export declare namespace Tokens_CSS_Style {
              */
             color: string;
             'flow-margin': {
-                self: FlowMargin.Self;
+                self: FlowMargin.SelfFirm;
             };
         };
         /**
@@ -647,7 +646,7 @@ export declare namespace Tokens_CSS_Style {
              */
             color: string;
             'flow-margin': {
-                self: FlowMargin.Self;
+                self: FlowMargin.SelfFirm;
             };
         };
         /**

@@ -285,6 +285,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                     margin: {
                         block: {
                             start: 0.1875,
+                            end: 0,
                         },
                     },
                 },
@@ -392,13 +393,6 @@ export class Tokens_CSS_Style extends AbstractTokens<{
 
                 'letter-spacing': 'normal',
                 'line-height': '100',
-
-                margin: {
-                    block: {
-                        start: '400',
-                        end: '400',
-                    },
-                },
 
                 padding: {
                     block: '200',
@@ -553,12 +547,13 @@ export class Tokens_CSS_Style extends AbstractTokens<{
 
         if ( headingAsNum >= 1 ) {
             style.font.weight = '900';
-            style[ 'line-height' ] = '200';
+            style[ 'line-height' ] = '100';
             style.margin.block.start = '800';
         }
 
         if ( headingAsNum >= 2 ) {
             style.font.weight = '800';
+            style[ 'line-height' ] = '200';
         }
 
         if ( headingAsNum >= 3 ) {
@@ -1112,6 +1107,7 @@ export namespace Tokens_CSS_Style {
             margin: {
                 block: {
                     start: number;
+                    end: number;
                 };
             };
         };
@@ -1131,7 +1127,7 @@ export namespace Tokens_CSS_Style {
          * Values for the set-flow-margins mixin.
          */
         'flow-margin': FlowMargin & {
-            self: FlowMargin.Self;
+            self: FlowMargin.SelfFirm;
         };
 
         padding: {
@@ -1177,7 +1173,7 @@ export namespace Tokens_CSS_Style {
          * Values for the set-flow-margins mixin.
          */
         'flow-margin': {
-            self: FlowMargin.Self;
+            self: FlowMargin.SelfFirm;
         };
 
         focus: {
@@ -1209,13 +1205,6 @@ export namespace Tokens_CSS_Style {
 
         'letter-spacing': CSS.LetterSpacing;
         'line-height': CSS.LineHeight;
-
-        margin: {
-            block: {
-                start: 0 | AnyTokenLevel;
-                end: 0 | AnyTokenLevel;
-            };
-        };
 
         padding: {
             block: 0 | AnyTokenLevel;
@@ -1332,7 +1321,12 @@ export namespace Tokens_CSS_Style {
         /**
          * @since ___PKG_VERSION___
          */
-        export type Self = 'margins-flow-firm' | 'margins-flow-firm-small' | 'margins-flow-firm-large';
+        export type Self = 'margins-flow' | 'margins-flow-small' | 'margins-flow-large';
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        export type SelfFirm = 'margins-flow-firm' | 'margins-flow-firm-small' | 'margins-flow-firm-large';
     }
 
     /**
@@ -1600,7 +1594,7 @@ export namespace Tokens_CSS_Style {
          * Values for the set-flow-margins mixin.
          */
         'flow-margin': FlowMargin & {
-            self: FlowMargin.Self;
+            self: FlowMargin.SelfFirm;
         };
 
         icon: Pick<IconStyles, 'vertical-align'> & {
@@ -1736,7 +1730,7 @@ export namespace Tokens_CSS_Style {
             color: string;
 
             'flow-margin': {
-                self: FlowMargin.Self,
+                self: FlowMargin.SelfFirm,
             },
         };
 
@@ -1765,7 +1759,7 @@ export namespace Tokens_CSS_Style {
             color: string;
 
             'flow-margin': {
-                self: FlowMargin.Self,
+                self: FlowMargin.SelfFirm,
             },
         };
 

@@ -6,7 +6,81 @@
 // @use '../../config';
 @use '../../tokens';
 
-// @use 'pkg:@maddimathon/utility-astro/01-functions' as utils;
+@use 'pkg:@maddimathon/utility-astro/01-functions' as utils;
+
+///
+/// Takes a margins-flow-[...] class name and returns the appropriate token slug.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function flow-margin-class-to-token($className, $firmSide: 'start') {
+    // returns
+    @if $className == margins-flow {
+        @return 'flow-margin';
+    }
+
+    // returns
+    @if $className == margins-flow-large {
+        @return 'flow-margin--large';
+    }
+
+    // returns
+    @if $className == margins-flow-small {
+        @return 'flow-margin--small';
+    }
+
+    // returns
+    @if $className == margins-flow-firm {
+        @return 'flow-margin-firm-#{$firmSide}';
+    }
+
+    // returns
+    @if $className == margins-flow-firm-large {
+        @return 'flow-margin-firm-#{$firmSide}--large';
+    }
+
+    // returns
+    @if $className == margins-flow-firm-small {
+        @return 'flow-margin-firm-#{$firmSide}--small';
+    }
+
+    @warn "$className did not match any know flow margin class name (was #{meta.var-dump($className)})";
+
+    @return 'flow-margin';
+}
+
+///
+/// Takes a margins-flow-[...] class name and returns the appropriate token
+/// var([...]).
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function var-flow-margin-from-class($className, $firmSide: 'start', $args...) {
+    @return utils.do-var(
+        flow-margin-class-to-token($className, $firmSide: $firmSide),
+        $args...
+    );
+}
+
+///
+/// Takes a token (whose raw value should be a margins-flow-[...] class name)
+/// and returns the appropriate token var([...]).
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function var-flow-margin-from-token($tokenSlug, $firmSide: 'start', $args...) {
+    // returns
+    @if tokens.tokens-style-is-flow-margin($tokenSlug) {
+        @return var-flow-margin-from-class(
+            tokens.tokens-style-value($tokenSlug, $raw: true),
+            $firmSide: $firmSide,
+            $args...
+        );
+    }
+
+    @warn '$tokenSlug was not a known flow margin token slug (was #{meta.var-dump($tokenSlug)})';
+    @return utils.do-var(flow-margin, $args...);
+}
 
 ///
 /// Uses the margin config to prepare the appropriate numerical value (rem).
