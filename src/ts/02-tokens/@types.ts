@@ -175,6 +175,21 @@ export namespace TokenTypes {
     /**
      * @since ___PKG_VERSION___
      */
+    export namespace Style {
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        export type TypeParams<
+            T_IconExtraSize extends string = string,
+        > = {
+            iconSizes: T_IconExtraSize;
+        };
+    }
+
+    /**
+     * @since ___PKG_VERSION___
+     */
     export namespace Theme {
 
         /**
@@ -363,11 +378,13 @@ export namespace TokenTypes {
         T_ExtraIconNames extends string = string,
         T_LogoNames extends string = string,
         T_PhotosTypes extends Photos.TypeParams = Photos.TypeParams,
+        T_StyleTypes extends Style.TypeParams = Style.TypeParams,
     > = {
         colour: T_ColourTypes;
         iconNames: T_ExtraIconNames;
         logoNames: T_LogoNames;
         photos: T_PhotosTypes;
+        style: T_StyleTypes;
         theme: T_ThemeTypes;
     };
 }

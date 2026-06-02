@@ -27,10 +27,10 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
  * 
  * @since 0.1.0-alpha
  */
-export class Tokens_CSS_Style extends AbstractTokens<{
-    data: Tokens_CSS_Style.Data;
-    json: Tokens_CSS_Style.JsonReturn;
-    scss: Tokens_CSS_Style.ScssVars;
+export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> extends AbstractTokens<{
+    data: Tokens_CSS_Style.Data<T_Params>;
+    json: Tokens_CSS_Style.JsonReturn<T_Params>;
+    scss: Tokens_CSS_Style.ScssVars<T_Params>;
 }> {
 
     /**
@@ -38,7 +38,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
      * 
      * @since ___PKG_VERSION___
      */
-    public static async build( partial: Tokens_CSS_Style.InputParam = {} ): Promise<Tokens_CSS_Style> {
+    public static async build<T_Params extends TokenTypes.Style.TypeParams>( partial: Tokens_CSS_Style.InputParam<T_Params> = {} ): Promise<Tokens_CSS_Style<T_Params>> {
 
         return Tokens_CSS_Style.buildData( partial ).then(
             ( data ) => new Tokens_CSS_Style( data )
@@ -50,7 +50,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
      * 
      * @since ___PKG_VERSION___
      */
-    public static async buildData( partial: Tokens_CSS_Style.InputParam = {} ): Promise<Tokens_CSS_Style.Data> {
+    public static async buildData<T_Params extends TokenTypes.Style.TypeParams>( partial: Tokens_CSS_Style.InputParam<T_Params> = {} ): Promise<Tokens_CSS_Style.Data<T_Params>> {
         const defaults = {
             'flow-margin': {
                 $: '400',
@@ -88,21 +88,21 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                     },
                 },
             },
-        } satisfies Pick<Tokens_CSS_Style.Data, 'flow-margin' | 'hr' | 'logo' | 'selection'>;
+        } satisfies Pick<Tokens_CSS_Style.Data<T_Params>, 'flow-margin' | 'hr' | 'logo' | 'selection'>;
 
 
         return Promise.all( [
-            Tokens_CSS_Style.iconStyle( partial.icon ),
+            Tokens_CSS_Style.iconStyle<T_Params>( partial.icon ),
 
             objectGeneratorAsync(
                 [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const,
-                async ( hdg ) => Tokens_CSS_Style.headingStyle( hdg, partial.heading?.[ hdg ] )
+                async ( hdg ) => Tokens_CSS_Style.headingStyle<T_Params, typeof hdg>( hdg, partial.heading?.[ hdg ] )
             ).then( async ( hdgs ) => ( {
                 ...hdgs,
-                unstyled: await Tokens_CSS_Style.headingStyle( 'unstyled', partial.heading?.unstyled ),
+                unstyled: await Tokens_CSS_Style.headingStyle<T_Params, 'unstyled'>( 'unstyled', partial.heading?.unstyled ),
             } ) ),
 
-            Tokens_CSS_Style.widgetStyle( partial.widget ),
+            Tokens_CSS_Style.widgetStyle<T_Params>( partial.widget ),
         ] ).then(
             async ( [ icon, heading, widget ] ) => {
 
@@ -113,11 +113,11 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                     subtitle,
                     toggle,
                 ] = await Promise.all( [
-                    Tokens_CSS_Style.alertStyle( icon, partial.alert ),
-                    Tokens_CSS_Style.buttonStyle( icon, partial.button ),
-                    Tokens_CSS_Style.inputStyle( partial.input ),
-                    Tokens_CSS_Style.subtitleStyle( heading, partial.subtitle ),
-                    Tokens_CSS_Style.toggleStyle( icon, widget, partial.toggle ),
+                    Tokens_CSS_Style.alertStyle<T_Params>( icon, partial.alert ),
+                    Tokens_CSS_Style.buttonStyle<T_Params>( icon, partial.button ),
+                    Tokens_CSS_Style.inputStyle<T_Params>( partial.input ),
+                    Tokens_CSS_Style.subtitleStyle<T_Params>( heading, partial.subtitle ),
+                    Tokens_CSS_Style.toggleStyle<T_Params>( icon, widget, partial.toggle ),
                 ] );
 
                 return {
@@ -157,7 +157,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                     toggle,
 
                     widget,
-                };
+                } satisfies Tokens_CSS_Style.Data<T_Params>;
             }
         );
     }
@@ -165,9 +165,9 @@ export class Tokens_CSS_Style extends AbstractTokens<{
     /**
      * @since ___PKG_VERSION___
      */
-    public static async alertStyle(
-        iconStyles: Tokens_CSS_Style.IconStyles,
-        partial: Tokens_CSS_Style.InputParam[ 'alert' ] = {},
+    public static async alertStyle<T_Params extends TokenTypes.Style.TypeParams>(
+        iconStyles: Tokens_CSS_Style.IconStyles<never>,
+        partial: Tokens_CSS_Style.InputParam<T_Params>[ 'alert' ] = {},
     ): Promise<Tokens_CSS_Style.AlertStyles> {
 
         const headingMaker = ( num: number | 'unstyled' ): Tokens_CSS_Style.AlertStyles_Heading => {
@@ -249,7 +249,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
             } satisfies Tokens_CSS_Style.AlertStyles_Heading;
         };
 
-        const heading = mergeArgs(
+        const heading: Tokens_CSS_Style.AlertStyles[ 'heading' ] = mergeArgs(
             objectGenerator(
                 [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'unstyled' ] as const,
                 headingMaker,
@@ -318,7 +318,10 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                     inline: '300',
                 },
             } satisfies Tokens_CSS_Style.AlertStyles,
-            partial,
+            {
+                ...partial,
+                heading,
+            },
             true,
         );
     }
@@ -327,9 +330,9 @@ export class Tokens_CSS_Style extends AbstractTokens<{
      * @since 0.1.0-alpha
      * @since ___PKG_VERSION___ — Added partial param.
      */
-    public static async buttonStyle(
-        iconStyles: Tokens_CSS_Style.IconStyles,
-        partial?: Tokens_CSS_Style.InputParam[ 'button' ],
+    public static async buttonStyle<T_Params extends TokenTypes.Style.TypeParams>(
+        iconStyles: Tokens_CSS_Style.IconStyles<never>,
+        partial?: Tokens_CSS_Style.InputParam<T_Params>[ 'button' ],
     ): Promise<{
         $: Tokens_CSS_Style.ButtonStyles;
         disabled: Tokens_CSS_Style.ButtonStyles_Disabled;
@@ -490,16 +493,19 @@ export class Tokens_CSS_Style extends AbstractTokens<{
                 true,
             ),
 
-        } as const satisfies Tokens_CSS_Style.Data[ 'button' ];
+        } as const satisfies Tokens_CSS_Style.Data<T_Params>[ 'button' ];
     }
 
     /**
      * @since 0.1.0-alpha
      * @since ___PKG_VERSION___ — Added partial param.
      */
-    public static async headingStyle<T_Key extends keyof Tokens_CSS_Style.Data[ 'heading' ]>(
+    public static async headingStyle<
+        T_Params extends TokenTypes.Style.TypeParams,
+        T_Key extends keyof Tokens_CSS_Style.Data<T_Params>[ 'heading' ],
+    >(
         heading: T_Key,
-        partial?: NonNullable<Tokens_CSS_Style.InputParam[ 'heading' ]>[ T_Key ],
+        partial?: NonNullable<Tokens_CSS_Style.InputParam<T_Params>[ 'heading' ]>[ T_Key ],
     ): Promise<Tokens_CSS_Style.HeadingStyles_Generic<T_Key>> {
 
         const headingAsNum = ( typeof heading === 'number' && heading >= 1 ) ? heading : 11;
@@ -601,46 +607,52 @@ export class Tokens_CSS_Style extends AbstractTokens<{
     /**
      * @since ___PKG_VERSION___
      */
-    public static async iconStyle( partial: Tokens_CSS_Style.InputParam[ 'icon' ] = {} ): Promise<Tokens_CSS_Style.IconStyles> {
+    public static async iconStyle<T_Params extends TokenTypes.Style.TypeParams>(
+        partial?: Tokens_CSS_Style.InputParam<T_Params>[ 'icon' ],
+    ): Promise<Tokens_CSS_Style.IconStyles<T_Params>> {
 
-        return mergeArgs( {
+        return mergeArgs(
+            {
 
-            color: 'ui',
+                color: 'ui',
 
-            font: {
-                top: '0.1875em',
-            },
-
-            inline: {
-                buffer: {
-                    $: '0.25em',
-                    start: 1,
-                    end: 0.125,
+                font: {
+                    top: '0.1875em',
                 },
 
-                'line-height': 1,
-            },
+                inline: {
+                    buffer: {
+                        $: '0.25em',
+                        start: 1,
+                        end: 0.125,
+                    },
 
-            pseudo: {
-                top: '-0.0625em',
-            },
+                    'line-height': 1,
+                },
 
-            size: {
-                $: '1.25em',
-                large: '2em',
-                font: '1em',
-                pseudo: '1em',
-            },
+                pseudo: {
+                    top: '-0.0625em',
+                },
 
-            'vertical-align': 'middle',
+                size: {
+                    $: '1.25em',
+                    large: '2em',
+                    font: '1em',
+                    pseudo: '1em',
+                },
 
-        }, partial, true );
+                'vertical-align': 'middle',
+
+            } satisfies Tokens_CSS_Style.IconStyles<T_Params & { iconSizes: never; }>,
+            partial,
+            true,
+        ) as Tokens_CSS_Style.IconStyles<T_Params>;
     }
 
     /**
      * @since ___PKG_VERSION___
      */
-    public static async inputStyle( partial?: Tokens_CSS_Style.InputParam[ 'input' ] ): Promise<Tokens_CSS_Style.Data[ 'input' ]> {
+    public static async inputStyle<T_Params extends TokenTypes.Style.TypeParams>( partial?: Tokens_CSS_Style.InputParam<T_Params>[ 'input' ] ): Promise<Tokens_CSS_Style.Data<T_Params>[ 'input' ]> {
 
         const style = mergeArgs( {
 
@@ -740,9 +752,9 @@ export class Tokens_CSS_Style extends AbstractTokens<{
     /**
      * @since ___PKG_VERSION___
      */
-    public static async subtitleStyle(
-        headingStyles: Tokens_CSS_Style.Data[ 'heading' ],
-        partial: Tokens_CSS_Style.InputParam[ 'subtitle' ],
+    public static async subtitleStyle<T_Params extends TokenTypes.Style.TypeParams>(
+        headingStyles: Tokens_CSS_Style.Data<T_Params>[ 'heading' ],
+        partial: Tokens_CSS_Style.InputParam<T_Params>[ 'subtitle' ],
     ): Promise<Tokens_CSS_Style.SubtitleStyles> {
 
         const color = partial?.color ?? 'text-grey';
@@ -795,10 +807,10 @@ export class Tokens_CSS_Style extends AbstractTokens<{
     /**
      * @since ___PKG_VERSION___
      */
-    public static async toggleStyle(
-        iconStyles: Tokens_CSS_Style.IconStyles,
+    public static async toggleStyle<T_Params extends TokenTypes.Style.TypeParams>(
+        iconStyles: Tokens_CSS_Style.IconStyles<never>,
         widgetStyles: Tokens_CSS_Style.WidgetStyles,
-        partial: Tokens_CSS_Style.InputParam[ 'toggle' ] = {},
+        partial: Tokens_CSS_Style.InputParam<T_Params>[ 'toggle' ] = {},
     ): Promise<Tokens_CSS_Style.ToggleStyles> {
 
         const flowMargin = {
@@ -983,7 +995,7 @@ export class Tokens_CSS_Style extends AbstractTokens<{
     /**
      * @since ___PKG_VERSION___
      */
-    public static async widgetStyle( partial?: Tokens_CSS_Style.InputParam[ 'widget' ] ): Promise<Tokens_CSS_Style.WidgetStyles> {
+    public static async widgetStyle<T_Params extends TokenTypes.Style.TypeParams>( partial?: Tokens_CSS_Style.InputParam<T_Params>[ 'widget' ] ): Promise<Tokens_CSS_Style.WidgetStyles> {
 
         const flowMargin = {
             $: '300' satisfies AnyTokenLevel,
@@ -1017,22 +1029,21 @@ export class Tokens_CSS_Style extends AbstractTokens<{
         };
     }
 
-    public static get default(): Promise<Tokens_CSS_Style.Data> {
-
+    public static get default(): Promise<Tokens_CSS_Style.Data<{ iconSizes: never; }>> {
         return Tokens_CSS_Style.buildData();
     }
 
     protected constructor (
-        public readonly data: Tokens_CSS_Style.Data,
+        public readonly data: Tokens_CSS_Style.Data<T_Params>,
     ) {
         super();
     }
 
-    public toJSON(): Tokens_CSS_Style.JsonReturn {
+    public toJSON(): Tokens_CSS_Style.JsonReturn<T_Params> {
         return this.data;
     }
 
-    public toScssVars(): Tokens_CSS_Style.ScssVars {
+    public toScssVars(): Tokens_CSS_Style.ScssVars<T_Params> {
         return objectKeySort_Tokens( {
             ...this.data,
             presetOpacities: [
@@ -1118,7 +1129,7 @@ export namespace Tokens_CSS_Style {
              */
             color: string;
 
-            size: Omit<IconStyles[ 'size' ], 'font' | 'pseudo'>;
+            size: Omit<IconStyles<never>[ 'size' ], 'font' | 'pseudo'>;
         };
 
         'line-height': CSS.LineHeight;
@@ -1190,17 +1201,17 @@ export namespace Tokens_CSS_Style {
             weight: WholeTokenLevel;
         };
 
-        icon: Pick<IconStyles, 'font' | 'pseudo' | 'vertical-align'> & {
-            buffer: IconStyles[ 'inline' ][ 'buffer' ];
+        icon: Pick<IconStyles<never>, 'vertical-align'> & {
+            buffer: IconStyles<never>[ 'inline' ][ 'buffer' ];
 
             embedded: {
                 bottom: CSS.Number.Em;
             };
 
-            font: Pick<IconStyles[ 'font' ], 'top'>;
-            pseudo: Pick<IconStyles[ 'pseudo' ], 'top'>;
+            font: Pick<IconStyles<never>[ 'font' ], 'top'>;
+            pseudo: Pick<IconStyles<never>[ 'pseudo' ], 'top'>;
 
-            size: Omit<IconStyles[ 'size' ], '$' | 'large'>;
+            size: Omit<IconStyles<never>[ 'size' ], '$' | 'large'>;
         };
 
         'letter-spacing': CSS.LetterSpacing;
@@ -1354,7 +1365,7 @@ export namespace Tokens_CSS_Style {
     /**
      * @since ___PKG_VERSION___
      */
-    export type HeadingStyles_Generic<T_Key extends keyof Tokens_CSS_Style.Data[ 'heading' ]> =
+    export type HeadingStyles_Generic<T_Key extends keyof Tokens_CSS_Style.Data<TokenTypes.Style.TypeParams>[ 'heading' ]> =
         "unstyled" extends T_Key
         ? HeadingStyles_Unstyled
         : HeadingStyles;
@@ -1384,7 +1395,7 @@ export namespace Tokens_CSS_Style {
     /**
      * @since ___PKG_VERSION___
      */
-    export type IconStyles = {
+    export type IconStyles<T_Params extends TokenTypes.Style.TypeParams> = {
         /**
          * This should be a theme slug.
          */
@@ -1421,6 +1432,8 @@ export namespace Tokens_CSS_Style {
              * For inline icons in before/after pseudo classes.
              */
             pseudo: CSS.Number.Em;
+        } & {
+            [ K in T_Params[ 'iconSizes' ] ]: CSS.Number.Em;
         };
 
         'vertical-align': string;
@@ -1597,13 +1610,13 @@ export namespace Tokens_CSS_Style {
             self: FlowMargin.SelfFirm;
         };
 
-        icon: Pick<IconStyles, 'vertical-align'> & {
+        icon: Pick<IconStyles<never>, 'vertical-align'> & {
             buffer: {
                 start: CSS.Number.Em;
                 end: CSS.Number.Em;
             };
 
-            size: IconStyles[ 'size' ][ '$' ];
+            size: IconStyles<never>[ 'size' ][ '$' ];
         };
 
         /**
@@ -1688,7 +1701,7 @@ export namespace Tokens_CSS_Style {
     /**
      * @since 0.1.0-alpha
      */
-    export type Data = {
+    export type Data<T_Params extends TokenTypes.Style.TypeParams> = {
 
         /**
          * @since ___PKG_VERSION___
@@ -1737,7 +1750,7 @@ export namespace Tokens_CSS_Style {
         /**
          * @since ___PKG_VERSION___
          */
-        icon: IconStyles;
+        icon: IconStyles<T_Params>;
 
         /**
          * @since ___PKG_VERSION___
@@ -1798,7 +1811,7 @@ export namespace Tokens_CSS_Style {
     /**
      * @since 0.1.0-alpha
      */
-    export type InputParam = {
+    export type InputParam<T_Params extends TokenTypes.Style.TypeParams> = {
 
         /**
          * @since ___PKG_VERSION___
@@ -1828,12 +1841,16 @@ export namespace Tokens_CSS_Style {
         /**
          * @since ___PKG_VERSION___
          */
-        hr?: RecursivePartial<Data[ 'hr' ]>;
+        hr?: RecursivePartial<Data<T_Params>[ 'hr' ]>;
 
         /**
          * @since ___PKG_VERSION___
          */
-        icon?: RecursivePartial<IconStyles>;
+        icon?: RecursivePartial<Omit<IconStyles<T_Params>, 'size'>> & {
+            size: Partial<IconStyles<T_Params>[ 'size' ]> & {
+                [ K in T_Params[ 'iconSizes' ] ]: CSS.Number.Em;
+            };
+        };
 
         input?: {
             $?: RecursivePartial<InputStyles>;
@@ -1845,12 +1862,12 @@ export namespace Tokens_CSS_Style {
         /**
          * @since ___PKG_VERSION___
          */
-        'flow-margin'?: RecursivePartial<Data[ 'flow-margin' ]>;
+        'flow-margin'?: RecursivePartial<Data<T_Params>[ 'flow-margin' ]>;
 
         /**
          * @since ___PKG_VERSION___
          */
-        logo?: RecursivePartial<Data[ 'logo' ]>;
+        logo?: RecursivePartial<Data<T_Params>[ 'logo' ]>;
 
         /**
          * @since ___PKG_VERSION___
@@ -1885,12 +1902,12 @@ export namespace Tokens_CSS_Style {
     /**
      * @since 0.1.0-alpha
      */
-    export type JsonReturn = Data;
+    export type JsonReturn<T_Params extends TokenTypes.Style.TypeParams> = Data<T_Params>;
 
     /**
      * @since ___PKG_VERSION___
      */
-    export type ScssVars = Data & {
+    export type ScssVars<T_Params extends TokenTypes.Style.TypeParams> = Data<T_Params> & {
         /**
          * Opacity levels to print as colour tokens.
          */

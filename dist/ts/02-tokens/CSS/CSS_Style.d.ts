@@ -15,33 +15,33 @@ import { AbstractTokens } from '../abstract/AbstractTokens.js';
  *
  * @since 0.1.0-alpha
  */
-export declare class Tokens_CSS_Style extends AbstractTokens<{
-    data: Tokens_CSS_Style.Data;
-    json: Tokens_CSS_Style.JsonReturn;
-    scss: Tokens_CSS_Style.ScssVars;
+export declare class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> extends AbstractTokens<{
+    data: Tokens_CSS_Style.Data<T_Params>;
+    json: Tokens_CSS_Style.JsonReturn<T_Params>;
+    scss: Tokens_CSS_Style.ScssVars<T_Params>;
 }> {
-    readonly data: Tokens_CSS_Style.Data;
+    readonly data: Tokens_CSS_Style.Data<T_Params>;
     /**
      * Builds style tokens faster.
      *
      * @since 0.1.0-beta.0.draft
      */
-    static build(partial?: Tokens_CSS_Style.InputParam): Promise<Tokens_CSS_Style>;
+    static build<T_Params extends TokenTypes.Style.TypeParams>(partial?: Tokens_CSS_Style.InputParam<T_Params>): Promise<Tokens_CSS_Style<T_Params>>;
     /**
      * Builds style tokens data faster.
      *
      * @since 0.1.0-beta.0.draft
      */
-    static buildData(partial?: Tokens_CSS_Style.InputParam): Promise<Tokens_CSS_Style.Data>;
+    static buildData<T_Params extends TokenTypes.Style.TypeParams>(partial?: Tokens_CSS_Style.InputParam<T_Params>): Promise<Tokens_CSS_Style.Data<T_Params>>;
     /**
      * @since 0.1.0-beta.0.draft
      */
-    static alertStyle(iconStyles: Tokens_CSS_Style.IconStyles, partial?: Tokens_CSS_Style.InputParam['alert']): Promise<Tokens_CSS_Style.AlertStyles>;
+    static alertStyle<T_Params extends TokenTypes.Style.TypeParams>(iconStyles: Tokens_CSS_Style.IconStyles<never>, partial?: Tokens_CSS_Style.InputParam<T_Params>['alert']): Promise<Tokens_CSS_Style.AlertStyles>;
     /**
      * @since 0.1.0-alpha
      * @since 0.1.0-beta.0.draft — Added partial param.
      */
-    static buttonStyle(iconStyles: Tokens_CSS_Style.IconStyles, partial?: Tokens_CSS_Style.InputParam['button']): Promise<{
+    static buttonStyle<T_Params extends TokenTypes.Style.TypeParams>(iconStyles: Tokens_CSS_Style.IconStyles<never>, partial?: Tokens_CSS_Style.InputParam<T_Params>['button']): Promise<{
         $: Tokens_CSS_Style.ButtonStyles;
         disabled: Tokens_CSS_Style.ButtonStyles_Disabled;
         inline: Tokens_CSS_Style.ButtonStyles_Inline;
@@ -50,31 +50,33 @@ export declare class Tokens_CSS_Style extends AbstractTokens<{
      * @since 0.1.0-alpha
      * @since 0.1.0-beta.0.draft — Added partial param.
      */
-    static headingStyle<T_Key extends keyof Tokens_CSS_Style.Data['heading']>(heading: T_Key, partial?: NonNullable<Tokens_CSS_Style.InputParam['heading']>[T_Key]): Promise<Tokens_CSS_Style.HeadingStyles_Generic<T_Key>>;
+    static headingStyle<T_Params extends TokenTypes.Style.TypeParams, T_Key extends keyof Tokens_CSS_Style.Data<T_Params>['heading']>(heading: T_Key, partial?: NonNullable<Tokens_CSS_Style.InputParam<T_Params>['heading']>[T_Key]): Promise<Tokens_CSS_Style.HeadingStyles_Generic<T_Key>>;
     /**
      * @since 0.1.0-beta.0.draft
      */
-    static iconStyle(partial?: Tokens_CSS_Style.InputParam['icon']): Promise<Tokens_CSS_Style.IconStyles>;
+    static iconStyle<T_Params extends TokenTypes.Style.TypeParams>(partial?: Tokens_CSS_Style.InputParam<T_Params>['icon']): Promise<Tokens_CSS_Style.IconStyles<T_Params>>;
     /**
      * @since 0.1.0-beta.0.draft
      */
-    static inputStyle(partial?: Tokens_CSS_Style.InputParam['input']): Promise<Tokens_CSS_Style.Data['input']>;
+    static inputStyle<T_Params extends TokenTypes.Style.TypeParams>(partial?: Tokens_CSS_Style.InputParam<T_Params>['input']): Promise<Tokens_CSS_Style.Data<T_Params>['input']>;
     /**
      * @since 0.1.0-beta.0.draft
      */
-    static subtitleStyle(headingStyles: Tokens_CSS_Style.Data['heading'], partial: Tokens_CSS_Style.InputParam['subtitle']): Promise<Tokens_CSS_Style.SubtitleStyles>;
+    static subtitleStyle<T_Params extends TokenTypes.Style.TypeParams>(headingStyles: Tokens_CSS_Style.Data<T_Params>['heading'], partial: Tokens_CSS_Style.InputParam<T_Params>['subtitle']): Promise<Tokens_CSS_Style.SubtitleStyles>;
     /**
      * @since 0.1.0-beta.0.draft
      */
-    static toggleStyle(iconStyles: Tokens_CSS_Style.IconStyles, widgetStyles: Tokens_CSS_Style.WidgetStyles, partial?: Tokens_CSS_Style.InputParam['toggle']): Promise<Tokens_CSS_Style.ToggleStyles>;
+    static toggleStyle<T_Params extends TokenTypes.Style.TypeParams>(iconStyles: Tokens_CSS_Style.IconStyles<never>, widgetStyles: Tokens_CSS_Style.WidgetStyles, partial?: Tokens_CSS_Style.InputParam<T_Params>['toggle']): Promise<Tokens_CSS_Style.ToggleStyles>;
     /**
      * @since 0.1.0-beta.0.draft
      */
-    static widgetStyle(partial?: Tokens_CSS_Style.InputParam['widget']): Promise<Tokens_CSS_Style.WidgetStyles>;
-    static get default(): Promise<Tokens_CSS_Style.Data>;
-    protected constructor(data: Tokens_CSS_Style.Data);
-    toJSON(): Tokens_CSS_Style.JsonReturn;
-    toScssVars(): Tokens_CSS_Style.ScssVars;
+    static widgetStyle<T_Params extends TokenTypes.Style.TypeParams>(partial?: Tokens_CSS_Style.InputParam<T_Params>['widget']): Promise<Tokens_CSS_Style.WidgetStyles>;
+    static get default(): Promise<Tokens_CSS_Style.Data<{
+        iconSizes: never;
+    }>>;
+    protected constructor(data: Tokens_CSS_Style.Data<T_Params>);
+    toJSON(): Tokens_CSS_Style.JsonReturn<T_Params>;
+    toScssVars(): Tokens_CSS_Style.ScssVars<T_Params>;
 }
 /**
  * Utilities for the {@link Tokens_CSS_Style} class.
@@ -138,7 +140,7 @@ export declare namespace Tokens_CSS_Style {
              * This should be a theme slug.
              */
             color: string;
-            size: Omit<IconStyles['size'], 'font' | 'pseudo'>;
+            size: Omit<IconStyles<never>['size'], 'font' | 'pseudo'>;
         };
         'line-height': CSS.LineHeight;
         /**
@@ -197,14 +199,14 @@ export declare namespace Tokens_CSS_Style {
             style: "normal" | "italic";
             weight: WholeTokenLevel;
         };
-        icon: Pick<IconStyles, 'font' | 'pseudo' | 'vertical-align'> & {
-            buffer: IconStyles['inline']['buffer'];
+        icon: Pick<IconStyles<never>, 'vertical-align'> & {
+            buffer: IconStyles<never>['inline']['buffer'];
             embedded: {
                 bottom: CSS.Number.Em;
             };
-            font: Pick<IconStyles['font'], 'top'>;
-            pseudo: Pick<IconStyles['pseudo'], 'top'>;
-            size: Omit<IconStyles['size'], '$' | 'large'>;
+            font: Pick<IconStyles<never>['font'], 'top'>;
+            pseudo: Pick<IconStyles<never>['pseudo'], 'top'>;
+            size: Omit<IconStyles<never>['size'], '$' | 'large'>;
         };
         'letter-spacing': CSS.LetterSpacing;
         'line-height': CSS.LineHeight;
@@ -329,7 +331,7 @@ export declare namespace Tokens_CSS_Style {
     /**
      * @since 0.1.0-beta.0.draft
      */
-    type HeadingStyles_Generic<T_Key extends keyof Tokens_CSS_Style.Data['heading']> = "unstyled" extends T_Key ? HeadingStyles_Unstyled : HeadingStyles;
+    type HeadingStyles_Generic<T_Key extends keyof Tokens_CSS_Style.Data<TokenTypes.Style.TypeParams>['heading']> = "unstyled" extends T_Key ? HeadingStyles_Unstyled : HeadingStyles;
     /**
      * @since 0.1.0-beta.0.draft
      */
@@ -352,7 +354,7 @@ export declare namespace Tokens_CSS_Style {
     /**
      * @since 0.1.0-beta.0.draft
      */
-    type IconStyles = {
+    type IconStyles<T_Params extends TokenTypes.Style.TypeParams> = {
         /**
          * This should be a theme slug.
          */
@@ -382,6 +384,8 @@ export declare namespace Tokens_CSS_Style {
              * For inline icons in before/after pseudo classes.
              */
             pseudo: CSS.Number.Em;
+        } & {
+            [K in T_Params['iconSizes']]: CSS.Number.Em;
         };
         'vertical-align': string;
     };
@@ -509,12 +513,12 @@ export declare namespace Tokens_CSS_Style {
         'flow-margin': FlowMargin & {
             self: FlowMargin.SelfFirm;
         };
-        icon: Pick<IconStyles, 'vertical-align'> & {
+        icon: Pick<IconStyles<never>, 'vertical-align'> & {
             buffer: {
                 start: CSS.Number.Em;
                 end: CSS.Number.Em;
             };
-            size: IconStyles['size']['$'];
+            size: IconStyles<never>['size']['$'];
         };
         /**
          * For the ToggleNavMenu astro component and
@@ -586,7 +590,7 @@ export declare namespace Tokens_CSS_Style {
     /**
      * @since 0.1.0-alpha
      */
-    type Data = {
+    type Data<T_Params extends TokenTypes.Style.TypeParams> = {
         /**
          * @since 0.1.0-beta.0.draft
          */
@@ -627,7 +631,7 @@ export declare namespace Tokens_CSS_Style {
         /**
          * @since 0.1.0-beta.0.draft
          */
-        icon: IconStyles;
+        icon: IconStyles<T_Params>;
         /**
          * @since 0.1.0-beta.0.draft
          */
@@ -677,7 +681,7 @@ export declare namespace Tokens_CSS_Style {
     /**
      * @since 0.1.0-alpha
      */
-    type InputParam = {
+    type InputParam<T_Params extends TokenTypes.Style.TypeParams> = {
         /**
          * @since 0.1.0-beta.0.draft
          */
@@ -703,11 +707,15 @@ export declare namespace Tokens_CSS_Style {
         /**
          * @since 0.1.0-beta.0.draft
          */
-        hr?: RecursivePartial<Data['hr']>;
+        hr?: RecursivePartial<Data<T_Params>['hr']>;
         /**
          * @since 0.1.0-beta.0.draft
          */
-        icon?: RecursivePartial<IconStyles>;
+        icon?: RecursivePartial<Omit<IconStyles<T_Params>, 'size'>> & {
+            size: Partial<IconStyles<T_Params>['size']> & {
+                [K in T_Params['iconSizes']]: CSS.Number.Em;
+            };
+        };
         input?: {
             $?: RecursivePartial<InputStyles>;
             file?: RecursivePartial<Pick<InputStyles, 'padding'>>;
@@ -717,11 +725,11 @@ export declare namespace Tokens_CSS_Style {
         /**
          * @since 0.1.0-beta.0.draft
          */
-        'flow-margin'?: RecursivePartial<Data['flow-margin']>;
+        'flow-margin'?: RecursivePartial<Data<T_Params>['flow-margin']>;
         /**
          * @since 0.1.0-beta.0.draft
          */
-        logo?: RecursivePartial<Data['logo']>;
+        logo?: RecursivePartial<Data<T_Params>['logo']>;
         /**
          * @since 0.1.0-beta.0.draft
          */
@@ -748,11 +756,11 @@ export declare namespace Tokens_CSS_Style {
     /**
      * @since 0.1.0-alpha
      */
-    type JsonReturn = Data;
+    type JsonReturn<T_Params extends TokenTypes.Style.TypeParams> = Data<T_Params>;
     /**
      * @since 0.1.0-beta.0.draft
      */
-    type ScssVars = Data & {
+    type ScssVars<T_Params extends TokenTypes.Style.TypeParams> = Data<T_Params> & {
         /**
          * Opacity levels to print as colour tokens.
          */

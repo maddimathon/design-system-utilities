@@ -131,6 +131,17 @@ export declare namespace TokenTypes {
     /**
      * @since 0.1.0-beta.0.draft
      */
+    namespace Style {
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        type TypeParams<T_IconExtraSize extends string = string> = {
+            iconSizes: T_IconExtraSize;
+        };
+    }
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
     namespace Theme {
         /**
          * Allowed options for the values of theme tokens (representing either CSS
@@ -259,11 +270,12 @@ export declare namespace TokenTypes {
             };
         };
     }
-    type TypeParams<T_ColourTypes extends Colour.TypeParams = Colour.TypeParams, T_ThemeTypes extends Theme.TypeParams = Theme.TypeParams, T_ExtraIconNames extends string = string, T_LogoNames extends string = string, T_PhotosTypes extends Photos.TypeParams = Photos.TypeParams> = {
+    type TypeParams<T_ColourTypes extends Colour.TypeParams = Colour.TypeParams, T_ThemeTypes extends Theme.TypeParams = Theme.TypeParams, T_ExtraIconNames extends string = string, T_LogoNames extends string = string, T_PhotosTypes extends Photos.TypeParams = Photos.TypeParams, T_StyleTypes extends Style.TypeParams = Style.TypeParams> = {
         colour: T_ColourTypes;
         iconNames: T_ExtraIconNames;
         logoNames: T_LogoNames;
         photos: T_PhotosTypes;
+        style: T_StyleTypes;
         theme: T_ThemeTypes;
     };
 }

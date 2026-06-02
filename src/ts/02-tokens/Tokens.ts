@@ -54,14 +54,14 @@ export class Internal { }
  * @since 0.1.0-alpha
  */
 export class Tokens<
-    T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+    T_Params extends TokenTypes.TypeParams = TokenTypes.TypeParams,
 > extends AbstractTokens<{
-    data: Tokens_Internal.Data<T_Types>;
-    json: Tokens_Internal.JsonReturn<T_Types>;
-    scss: Tokens_Internal.ScssVars<T_Types>;
+    data: Tokens_Internal.Data<T_Params>;
+    json: Tokens_Internal.JsonReturn<T_Params>;
+    scss: Tokens_Internal.ScssVars<T_Params>;
 }> {
 
-    public get data(): Tokens_Internal.Data<T_Types> {
+    public get data(): Tokens_Internal.Data<T_Params> {
         return {
             name: this.name,
             icons: this.icons.data,
@@ -77,24 +77,24 @@ export class Tokens<
         };
     }
 
-    public readonly colour: Tokens_Colour<T_Types[ 'colour' ]>;
-    public readonly css: Tokens_CSS;
-    public readonly icons: Tokens_Icons<T_Types[ 'iconNames' ]>;
-    public readonly logos: Tokens_Logos<T_Types[ 'logoNames' ]>;
-    public readonly photos: Tokens_Photos<T_Types[ 'photos' ]>;
+    public readonly colour: Tokens_Colour<T_Params[ 'colour' ]>;
+    public readonly css: Tokens_CSS<T_Params[ 'style' ]>;
+    public readonly icons: Tokens_Icons<T_Params[ 'iconNames' ]>;
+    public readonly logos: Tokens_Logos<T_Params[ 'logoNames' ]>;
+    public readonly photos: Tokens_Photos<T_Params[ 'photos' ]>;
     public readonly spacing: Tokens_Spacing;
-    public readonly themes: Tokens_Themes<T_Types[ 'colour' ], T_Types[ 'theme' ]>;
+    public readonly themes: Tokens_Themes<T_Params[ 'colour' ], T_Params[ 'theme' ]>;
     public readonly typography: Tokens_Typography<string>;
 
     /**
      * Used instead of the constructor so that it can be async.
      */
     public static async build<
-        T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+        T_Params extends TokenTypes.TypeParams = TokenTypes.TypeParams,
     >(
-        input: Tokens_Internal.InputParam<T_Types>,
-        config: Partial<Tokens.Config<NoInfer<T_Types[ 'colour' ][ 'extraLevels' ]>>> = {},
-    ): Promise<Tokens<T_Types>> {
+        input: Tokens_Internal.InputParam<T_Params>,
+        config: Partial<Tokens.Config<NoInfer<T_Params[ 'colour' ][ 'extraLevels' ]>>> = {},
+    ): Promise<Tokens<T_Params>> {
 
         const extraColourLevels = config.extraColourLevels ?? [];
 
@@ -106,10 +106,10 @@ export class Tokens<
                     ...Object.keys( input.colour ?? {} ).filter(
                         name => name !== 'black' && name !== 'white'
                     ),
-                ] satisfies TokenTypes.Colour.GenericNameArray<T_Types[ 'colour' ][ 'names' ]>
-            ) as unknown as TokenTypes.Colour.GenericNameArray<T_Types[ 'colour' ][ 'names' ]>,
+                ] satisfies TokenTypes.Colour.GenericNameArray<T_Params[ 'colour' ][ 'names' ]>
+            ) as unknown as TokenTypes.Colour.GenericNameArray<T_Params[ 'colour' ][ 'names' ]>,
 
-            allLevels: new Set<ColourUtilities.Levels.Required | T_Types[ 'colour' ][ 'extraLevels' ]>( [
+            allLevels: new Set<ColourUtilities.Levels.Required | T_Params[ 'colour' ][ 'extraLevels' ]>( [
                 ...ColourUtilities.Levels.required,
                 ...extraColourLevels,
             ] ),
@@ -117,7 +117,7 @@ export class Tokens<
 
         const brightnessModes = input.themes?.brightness?.length
             ? input.themes.brightness
-            : [ 'light', 'dark' ] satisfies TokenTypes.Theme.Mode.Brightness<never[]> as T_Types[ 'theme' ][ 'brightness' ];
+            : [ 'light', 'dark' ] satisfies TokenTypes.Theme.Mode.Brightness<never[]> as T_Params[ 'theme' ][ 'brightness' ];
 
         const contrastModes = [
             'low',
@@ -128,12 +128,12 @@ export class Tokens<
                     ( c: TokenTypes.Theme.Mode.ContrastOption ) => c !== 'low' && c !== 'average' && c !== 'high'
                 )
                 ?? []
-            ) satisfies TokenTypes.Theme.GetContrastKeys<T_Types[ 'theme' ]>[],
-        ] as TokenTypes.Theme.GetContrastKeys<T_Types[ 'theme' ]>[];
+            ) satisfies TokenTypes.Theme.GetContrastKeys<T_Params[ 'theme' ]>[],
+        ] as TokenTypes.Theme.GetContrastKeys<T_Params[ 'theme' ]>[];
 
         return Promise.all( [
 
-            Tokens_Colour.build<T_Types[ 'colour' ]>(
+            Tokens_Colour.build<T_Params[ 'colour' ]>(
                 colourOpts.names,
                 extraColourLevels,
                 input.colour ?? {},
@@ -141,19 +141,19 @@ export class Tokens<
 
             Tokens_CSS.build( input.css ?? {} ),
 
-            Tokens_Themes.build<T_Types[ 'colour' ], T_Types[ 'theme' ]>(
+            Tokens_Themes.build<T_Params[ 'colour' ], T_Params[ 'theme' ]>(
                 brightnessModes,
                 contrastModes,
                 colourOpts,
                 input.themes?.input ?? [],
             ),
 
-            Tokens_Icons.buildAsync<T_Types[ 'iconNames' ]>(
+            Tokens_Icons.buildAsync<T_Params[ 'iconNames' ]>(
                 config.iconFontName ?? ( this.name + ' Icons' ),
                 input.icons,
             ),
 
-            Tokens_Photos.build<T_Types[ 'photos' ]>(
+            Tokens_Photos.build<T_Params[ 'photos' ]>(
                 {
                     photos: input.photos,
                     thumbnails: input.thumbnails,
@@ -166,7 +166,7 @@ export class Tokens<
                     await icons.toIconFont( config.buildIconFont );
                 }
 
-                const tokens = new Tokens<T_Types>(
+                const tokens = new Tokens<T_Params>(
                     input.name,
                     colourOpts,
                     { colour, css, icons, photos, themes },
@@ -188,18 +188,18 @@ export class Tokens<
     protected constructor (
         public readonly name: string,
         protected readonly colourOpts: {
-            names: TokenTypes.Colour.GenericNameArray<T_Types[ 'colour' ][ 'names' ]>;
-            allLevels: Set<ColourUtilities.Levels.Required | T_Types[ 'colour' ][ 'extraLevels' ]>;
+            names: TokenTypes.Colour.GenericNameArray<T_Params[ 'colour' ][ 'names' ]>;
+            allLevels: Set<ColourUtilities.Levels.Required | T_Params[ 'colour' ][ 'extraLevels' ]>;
         },
 
         { colour, css, icons, photos, themes }: {
-            colour: Tokens_Colour<T_Types[ 'colour' ]>;
-            css: Tokens_CSS;
-            icons: Tokens_Icons<T_Types[ 'iconNames' ]>;
-            photos: Tokens_Photos<T_Types[ 'photos' ]>;
-            themes: Tokens_Themes<T_Types[ 'colour' ], T_Types[ 'theme' ]>,
+            colour: Tokens_Colour<T_Params[ 'colour' ]>;
+            css: Tokens_CSS<T_Params[ 'style' ]>;
+            icons: Tokens_Icons<T_Params[ 'iconNames' ]>;
+            photos: Tokens_Photos<T_Params[ 'photos' ]>;
+            themes: Tokens_Themes<T_Params[ 'colour' ], T_Params[ 'theme' ]>,
         },
-        protected readonly input: Omit<Tokens_Internal.InputParam<T_Types>, "colour" | "themes">,
+        protected readonly input: Omit<Tokens_Internal.InputParam<T_Params>, "colour" | "themes">,
         protected readonly config: Tokens_Internal.Config = {},
     ) {
         super();
@@ -207,7 +207,7 @@ export class Tokens<
         this.colour = colour;
         this.css = css;
         this.icons = icons;
-        this.logos = new Tokens_Logos<T_Types[ 'logoNames' ]>( this.input.logos );
+        this.logos = new Tokens_Logos<T_Params[ 'logoNames' ]>( this.input.logos );
         this.photos = photos;
         this.spacing = new Tokens_Spacing( this.input.spacing ?? {} );
         this.themes = themes;
@@ -288,7 +288,7 @@ export class Tokens<
         );
     }
 
-    public toJSON(): Tokens_Internal.JsonReturn<T_Types> {
+    public toJSON(): Tokens_Internal.JsonReturn<T_Params> {
 
         return {
             name: this.name,
@@ -307,7 +307,7 @@ export class Tokens<
         };
     }
 
-    public toScssVars(): Tokens_Internal.ScssVars<T_Types> {
+    public toScssVars(): Tokens_Internal.ScssVars<T_Params> {
 
         return {
             name: this.name,
@@ -385,56 +385,56 @@ export namespace Tokens_Internal {
         extraColourLevels?: undefined | never;
     }
 
-    export type Data<T_Types extends TokenTypes.TypeParams> = {
+    export type Data<T_Params extends TokenTypes.TypeParams> = {
         name: string;
-        colour: Tokens_Colour.Data<T_Types[ 'colour' ]>;
-        css: Tokens_CSS.Data;
-        icons: Tokens_Icons.Data<T_Types[ 'iconNames' ]>;
-        logos: Tokens_Logos.Data<T_Types[ 'logoNames' ]>;
-        photos: Tokens_Photos.Data<T_Types[ 'photos' ]>;
+        colour: Tokens_Colour.Data<T_Params[ 'colour' ]>;
+        css: Tokens_CSS.Data<T_Params[ 'style' ]>;
+        icons: Tokens_Icons.Data<T_Params[ 'iconNames' ]>;
+        logos: Tokens_Logos.Data<T_Params[ 'logoNames' ]>;
+        photos: Tokens_Photos.Data<T_Params[ 'photos' ]>;
         spacing: Tokens_Spacing.Data;
-        themes: Tokens_Themes.Data<T_Types[ 'colour' ], T_Types[ 'theme' ]>;
+        themes: Tokens_Themes.Data<T_Params[ 'colour' ], T_Params[ 'theme' ]>;
         typography: Tokens_Typography.Data<string>;
     };
 
-    export interface InputParam<T_Types extends TokenTypes.TypeParams> extends Tokens_Photos.InputParam<T_Types[ 'photos' ]> {
+    export interface InputParam<T_Params extends TokenTypes.TypeParams> extends Tokens_Photos.InputParam<T_Params[ 'photos' ]> {
         name: string;
-        colour: Tokens_Colour.InputParam<T_Types[ 'colour' ]>;
-        css?: undefined | Tokens_CSS.InputParam;
-        icons: Tokens_Icons.InputParam<T_Types[ 'iconNames' ]>;
-        logos: Tokens_Logos.InputParam<T_Types[ 'logoNames' ]>;
+        colour: Tokens_Colour.InputParam<T_Params[ 'colour' ]>;
+        css?: undefined | Tokens_CSS.InputParam<T_Params[ 'style' ]>;
+        icons: Tokens_Icons.InputParam<T_Params[ 'iconNames' ]>;
+        logos: Tokens_Logos.InputParam<T_Params[ 'logoNames' ]>;
         spacing?: undefined | Tokens_Spacing.InputParam;
         themes?: {
-            brightness?: readonly TokenTypes.Theme.GetBrightnessKeys<T_Types[ 'theme' ]>[],
-            contrast?: readonly TokenTypes.Theme.GetContrastKeys<T_Types[ 'theme' ]>[],
+            brightness?: readonly TokenTypes.Theme.GetBrightnessKeys<T_Params[ 'theme' ]>[],
+            contrast?: readonly TokenTypes.Theme.GetContrastKeys<T_Params[ 'theme' ]>[],
 
-            input?: Tokens_Themes.InputParam<T_Types[ 'colour' ], T_Types[ 'theme' ]>,
+            input?: Tokens_Themes.InputParam<T_Params[ 'colour' ], T_Params[ 'theme' ]>,
         };
         typography?: undefined | Tokens_Typography.InputParam<string>;
     }
 
-    export type JsonReturn<T_Types extends TokenTypes.TypeParams> = {
+    export type JsonReturn<T_Params extends TokenTypes.TypeParams> = {
         name: string;
-        colour: Tokens_Colour.JsonReturn<T_Types[ 'colour' ]>;
-        css: Tokens_CSS.JsonReturn;
-        icons: Tokens_Icons.JsonReturn<T_Types[ 'iconNames' ]>;
-        logos: Tokens_Logos.JsonReturn<T_Types[ 'logoNames' ]>;
+        colour: Tokens_Colour.JsonReturn<T_Params[ 'colour' ]>;
+        css: Tokens_CSS.JsonReturn<T_Params[ 'style' ]>;
+        icons: Tokens_Icons.JsonReturn<T_Params[ 'iconNames' ]>;
+        logos: Tokens_Logos.JsonReturn<T_Params[ 'logoNames' ]>;
         spacing: Tokens_Spacing.JsonReturn;
-        themes: Tokens_Themes.JsonReturn<T_Types[ 'colour' ], T_Types[ 'theme' ]>;
+        themes: Tokens_Themes.JsonReturn<T_Params[ 'colour' ], T_Params[ 'theme' ]>;
         typography: Tokens_Typography.JsonReturn<string>;
-    } & Tokens_Photos.JsonReturn<T_Types[ 'photos' ]>;
+    } & Tokens_Photos.JsonReturn<T_Params[ 'photos' ]>;
 
-    export type ScssVars<T_Types extends TokenTypes.TypeParams> =
-        Tokens_CSS.ScssVars
+    export type ScssVars<T_Params extends TokenTypes.TypeParams> =
+        Tokens_CSS.ScssVars<T_Params[ 'style' ]>
         & Tokens_Spacing.ScssVars
-        & Tokens_Photos.ScssVars<T_Types[ 'photos' ]>
+        & Tokens_Photos.ScssVars<T_Params[ 'photos' ]>
         & Tokens_Typography.ScssVars<string>
         & {
             name: string;
-            colour: Tokens_Colour.ScssVars<T_Types[ 'colour' ]>;
-            icons: Tokens_Icons.ScssVars<T_Types[ 'iconNames' ]>;
-            logos: Tokens_Logos.ScssVars<T_Types[ 'logoNames' ]>;
-            themes: Tokens_Themes.ScssVars<T_Types[ 'colour' ], T_Types[ 'theme' ]>;
+            colour: Tokens_Colour.ScssVars<T_Params[ 'colour' ]>;
+            icons: Tokens_Icons.ScssVars<T_Params[ 'iconNames' ]>;
+            logos: Tokens_Logos.ScssVars<T_Params[ 'logoNames' ]>;
+            themes: Tokens_Themes.ScssVars<T_Params[ 'colour' ], T_Params[ 'theme' ]>;
         };
 }
 
@@ -529,8 +529,8 @@ export namespace Tokens {
      * @since 0.1.0-alpha
      */
     export type Data<
-        T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
-    > = Tokens_Internal.Data<T_Types>;
+        T_Params extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+    > = Tokens_Internal.Data<T_Params>;
 
     /**
      * The shape of a default {@link Tokens} class instance, without any
@@ -539,29 +539,29 @@ export namespace Tokens {
      * @since 0.1.0-alpha
      */
     export type Instance<
-        T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
-    > = Tokens<T_Types>;
+        T_Params extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+    > = Tokens<T_Params>;
 
     /**
      * @since 0.1.0-alpha
      */
     export interface InputParam<
-        T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
-    > extends Tokens_Internal.InputParam<T_Types> { }
+        T_Params extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+    > extends Tokens_Internal.InputParam<T_Params> { }
 
     /**
      * @since 0.1.0-alpha
      */
     export type JsonReturn<
-        T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
-    > = Tokens_Internal.JsonReturn<T_Types>;
+        T_Params extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+    > = Tokens_Internal.JsonReturn<T_Params>;
 
     /**
      * @since ___PKG_VERSION___
      */
     export type ScssVars<
-        T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
-    > = Tokens_Internal.ScssVars<T_Types>;
+        T_Params extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+    > = Tokens_Internal.ScssVars<T_Params>;
 
     export type DefaultIcon = Tokens_Icons.DefaultIcon;
 
@@ -1115,15 +1115,15 @@ export namespace Tokens {
          * @since 0.1.0-alpha
          */
         export interface AllVariations<
-            T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
-        > extends Tokens_Themes_Set.SingleMode.AllVariations<T_Types[ 'colour' ], T_Types[ 'theme' ]> { }
+            T_Params extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+        > extends Tokens_Themes_Set.SingleMode.AllVariations<T_Params[ 'colour' ], T_Params[ 'theme' ]> { }
 
         /**
          * @since ___PKG_VERSION___
          */
         export type JsonReturn<
-            T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
-        > = Tokens_Themes.JsonReturn<T_Types[ 'colour' ], T_Types[ 'theme' ]>;
+            T_Params extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+        > = Tokens_Themes.JsonReturn<T_Params[ 'colour' ], T_Params[ 'theme' ]>;
 
         /**
          * @since 0.1.0-alpha
@@ -1134,8 +1134,8 @@ export namespace Tokens {
              * @since 0.1.0-alpha
              */
             export type InputParam<
-                T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
-            > = Tokens_Themes_Set.InputParam<T_Types[ 'colour' ], T_Types[ 'theme' ]>;
+                T_Params extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+            > = Tokens_Themes_Set.InputParam<T_Params[ 'colour' ], T_Params[ 'theme' ]>;
         }
 
 
@@ -1212,11 +1212,11 @@ export namespace Tokens {
              * @since 0.1.0-alpha
              */
             export interface Data<
-                T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
-                __T_ColourOption extends TokenTypes.Theme.ColourOption<T_Types[ 'colour' ]> = TokenTypes.Theme.ColourOption<T_Types[ 'colour' ]>,
+                T_Params extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+                __T_ColourOption extends TokenTypes.Theme.ColourOption<T_Params[ 'colour' ]> = TokenTypes.Theme.ColourOption<T_Params[ 'colour' ]>,
             > extends Tokens_Themes_Set.SingleMode.Data<
-                T_Types[ 'colour' ],
-                T_Types[ 'theme' ],
+                T_Params[ 'colour' ],
+                T_Params[ 'theme' ],
                 __T_ColourOption
             > { }
 
@@ -1229,9 +1229,9 @@ export namespace Tokens {
                  * @deprecated
                  */
                 export interface RecursivePartial<
-                    T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
-                    __T_ColourOption extends TokenTypes.Theme.ColourOption<T_Types[ 'colour' ]> = TokenTypes.Theme.ColourOption<T_Types[ 'colour' ]>,
-                > extends Tokens_Themes_Set.SingleMode.Data.Partial<T_Types[ 'colour' ], T_Types[ 'theme' ], __T_ColourOption> { }
+                    T_Params extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+                    __T_ColourOption extends TokenTypes.Theme.ColourOption<T_Params[ 'colour' ]> = TokenTypes.Theme.ColourOption<T_Params[ 'colour' ]>,
+                > extends Tokens_Themes_Set.SingleMode.Data.Partial<T_Params[ 'colour' ], T_Params[ 'theme' ], __T_ColourOption> { }
             }
 
             /**
@@ -1239,16 +1239,16 @@ export namespace Tokens {
              * @deprecated
              */
             export interface InputParam<
-                T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
-            > extends Tokens_Themes_Set.SingleMode.InputParam<T_Types[ 'colour' ], T_Types[ 'theme' ]> { }
+                T_Params extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+            > extends Tokens_Themes_Set.SingleMode.InputParam<T_Params[ 'colour' ], T_Params[ 'theme' ]> { }
 
             /**
              * @since 0.1.0-alpha
              * @deprecated
              */
             export interface JsonReturn<
-                T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
-            > extends Tokens_Themes_Set.SingleMode.JsonReturn<T_Types[ 'colour' ], T_Types[ 'theme' ]> { }
+                T_Params extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+            > extends Tokens_Themes_Set.SingleMode.JsonReturn<T_Params[ 'colour' ], T_Params[ 'theme' ]> { }
         }
     }
 }

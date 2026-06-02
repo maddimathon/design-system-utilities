@@ -209,7 +209,10 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 block: '300',
                 inline: '300',
             },
-        }, partial, true);
+        }, {
+            ...partial,
+            heading,
+        }, true);
     }
     /**
      * @since 0.1.0-alpha
@@ -405,7 +408,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
     /**
      * @since 0.1.0-beta.0.draft
      */
-    static async iconStyle(partial = {}) {
+    static async iconStyle(partial) {
         return mergeArgs({
             color: 'ui',
             font: {
