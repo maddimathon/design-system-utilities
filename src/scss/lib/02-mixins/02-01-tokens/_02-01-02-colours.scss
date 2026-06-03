@@ -97,7 +97,7 @@ $_allThemeSlugs: map.keys(tokens.$themes);
 
 $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
     $includeAttributeSelector: true,
-    $includeExtraSelectors: true,
+    $includeExtraSelectors: config.$mx_activeTheme_nestExtraSpecific_includeExtraSelectors,
     $includePseudoSelector: config.$mx_activeTheme_nestExtraSpecific_includePseudoSelector,
 );
 
@@ -168,11 +168,15 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
             list.length($keys) == list.length($_allThemeSlugs),
             $_allActiveThemeSimpleSelectors,
             list.join(
-                active-theme-simple-selectors(
-                    $_allThemeSlugs,
-                    $includeAttributeSelector: false,
-                    $includeExtraSelectors: true,
-                    $includePseudoSelector: false
+                if(
+                    config.$mx_activeTheme_nestExtraSpecific_includeExtraSelectors,
+                    active-theme-simple-selectors(
+                        $_allThemeSlugs,
+                        $includeAttributeSelector: false,
+                        $includeExtraSelectors: true,
+                        $includePseudoSelector: false
+                    ),
+                    ()
                 ),
                 list.join(
                     active-theme-simple-selectors(

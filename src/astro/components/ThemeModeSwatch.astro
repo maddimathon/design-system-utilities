@@ -104,10 +104,6 @@ type _DefClrParams<
     extraLevels: T_ExtraColourLevels;
 };
 
-// type SingleThemeMode_Json<
-//     T_ExtraColourLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional,
-// > = Tokens_Themes_Set.SingleMode.JsonReturn<_DefClrParams<T_ExtraColourLevels>, TokenTypes.Theme.TypeParams>;
-
 type _ButtonVariation = {
     name: string;
     states: {
@@ -332,13 +328,6 @@ const inputField: _ParsedInputField = objectGenerator(
                     label,
                     variation: inputType,
                     clrSlug: theme.data.input[inputType].accent[key],
-                    // clrSlug: getThemeTokenColourSlug(
-                    //     tokens.css.style.input[inputType].accent[key],
-                    //     theme.name,
-                    //     brightness,
-                    //     contrast,
-                    //     tokens,
-                    // ),
                 },
                 background: {
                     key: `input${keyInputSuffix}-background${keySuffix}`,
@@ -346,13 +335,6 @@ const inputField: _ParsedInputField = objectGenerator(
                     label,
                     variation: inputType,
                     clrSlug: theme.data.input[inputType].background,
-                    // clrSlug: getThemeTokenColourSlug(
-                    //     tokens.css.style.input[inputType].background,
-                    //     theme.name,
-                    //     brightness,
-                    //     contrast,
-                    //     tokens,
-                    // ),
                 },
                 border: {
                     key: `input${keyInputSuffix}-border${keySuffix}`,
@@ -360,13 +342,6 @@ const inputField: _ParsedInputField = objectGenerator(
                     label,
                     variation: inputType,
                     clrSlug: theme.data.input[inputType].border[key],
-                    // clrSlug: getThemeTokenColourSlug(
-                    //     tokens.css.style.input[inputType].border.color[key],
-                    //     theme.name,
-                    //     brightness,
-                    //     contrast,
-                    //     tokens,
-                    // ),
                 },
                 text: {
                     key: `input${keyInputSuffix}-color${keySuffix}`,
@@ -374,13 +349,6 @@ const inputField: _ParsedInputField = objectGenerator(
                     label,
                     variation: inputType,
                     clrSlug: theme.data.input[inputType].text,
-                    // clrSlug: getThemeTokenColourSlug(
-                    //     tokens.css.style.input[inputType].color,
-                    //     theme.name,
-                    //     brightness,
-                    //     contrast,
-                    //     tokens,
-                    // ),
                 },
                 placeholder: {
                     key: `input${keyInputSuffix}-placeholder${keySuffix}`,
@@ -388,13 +356,6 @@ const inputField: _ParsedInputField = objectGenerator(
                     label,
                     variation: inputType,
                     clrSlug: theme.data.input[inputType].placeholder,
-                    // clrSlug: getThemeTokenColourSlug(
-                    //     tokens.css.style.input.$.placeholder.color,
-                    //     theme.name,
-                    //     brightness,
-                    //     contrast,
-                    //     tokens,
-                    // ),
                 },
             } satisfies _ParsedInputField_Single['$'|'active'|'hover'];
         }
@@ -407,12 +368,7 @@ const inputField: _ParsedInputField = objectGenerator(
     {...attributes}
     data-brightness-mode={brightness}
     data-contrast-mode={contrast}
-    style={ [
-        `--theme-background: var(--clr-${theme.data.background.$})`,
-        `--theme-text: var(--clr-${theme.data.text.$})`,
-        `background: var(--clr-${theme.data.background.$})`,
-        `color: var(--clr-${theme.data.text.$})`,
-    ].join(';') }
+    data-active-theme={theme.name}
 >
     {
         headingHTML && (

@@ -125,14 +125,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
     @if $includeSidebar {
         %site-sidebar {
             @include prop-display(flex);
-            @include utils.snippet-content-flex-container(
-                $alignment: (
-                    justify-content: start,
-                    justify-items: start,
-                    align-items: stretch,
-                ),
-                $gap: 0
-            );
+            @include utils.snippet-content-flex-container($gap: 0);
         }
     }
 
