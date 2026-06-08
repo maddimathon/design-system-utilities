@@ -48,11 +48,12 @@
     $raw: false,
     $rawUnit: 1,
     $asFallbackValue: false,
-    $asInitialValue: false
+    $asInitialValue: false,
+    $args...
 ) {
     $value: map.get(breakdown.$style_flat, $slug);
 
-    $_slugLength: string.length($slug);
+    $args: meta.keywords($args);
 
     // returns
     @if $value == null {
@@ -69,9 +70,25 @@
         );
     }
 
+    @if $asInitialValue {
+        @if map.get($args, fallbackOnly) == null {
+            $args: map.set($args, fallbackOnly, true);
+        }
+
+        @if map.get($args, onlyFallbackPrefix) == null {
+            $args: map.set(
+                $args,
+                onlyFallbackPrefix,
+                map.get($args, fallbackOnly)
+            );
+        }
+    }
+
+    $_slugLength: string.length($slug);
+
     // returns - flow margins are always dealt with the same way
     @if tokens-style-is-flow-margin($slug) {
-        @return spacing.tokens-var-mrg-soft($value);
+        @return spacing.tokens-var-mrg-soft($value, $args...);
     }
 
     // returns
@@ -79,40 +96,31 @@
         @return if(
             meta.type-of($value) == color or $value == white or $value == black,
             $value,
-            theme.tokens-var-theme($value)
+            theme.tokens-var-theme($value, $args...)
         );
     }
 
     // returns
     @if $slug == focus-ring-outline-offset {
-        @return borders.tokens-var-stroke-relative(
-            $value,
-            $fallbackOnly: $asInitialValue
-        );
+        @return borders.tokens-var-stroke-relative($value, $args...);
     }
 
     // returns
     @if $slug == focus-ring-outline-width {
         // returns
         @if $asFallbackValue {
-            @return borders.tokens-var-stroke-relative(
-                $value,
-                $fallbackOnly: $asInitialValue
-            );
+            @return borders.tokens-var-stroke-relative($value, $args...);
         }
 
         @return clamp(
             borders.tokens-var-border-width(
                 config.$fn_focusRingOffset_min,
-                $fallbackOnly: $asInitialValue
+                $args...
             ),
-            borders.tokens-var-stroke-relative(
-                $value,
-                $fallbackOnly: $asInitialValue
-            ),
+            borders.tokens-var-stroke-relative($value, $args...),
             borders.tokens-var-border-width(
                 config.$fn_focusRingOffset_max,
-                $fallbackOnly: $asInitialValue
+                $args...
             )
         );
     }
@@ -250,12 +258,12 @@
                 //     @return spacing.tokens-var-mrg-soft($value);
                 // }
 
-                @return spacing.tokens-var-mrg-soft($value);
+                @return spacing.tokens-var-mrg-soft($value, $args...);
             }
 
             // returns
             @if string.index($slug, -margin-block-end) == ($_slugLength - 16) {
-                @return spacing.tokens-var-mrg-half($value);
+                @return spacing.tokens-var-mrg-half($value, $args...);
             }
         }
 
@@ -263,11 +271,11 @@
         @if string.index($slug, -block-start) {
             @return if(
                 $isToggleControlStyle,
-                spacing.tokens-var-pad-firm($value),
+                spacing.tokens-var-pad-firm($value, $args...),
                 if(
                     $isButtonStyle or $isInputStyle,
-                    spacing.tokens-var-mrg-firm($value),
-                    spacing.tokens-var-mrg-soft($value)
+                    spacing.tokens-var-mrg-firm($value, $args...),
+                    spacing.tokens-var-mrg-soft($value, $args...)
                 )
             );
         }
@@ -276,8 +284,8 @@
         @if string.index($slug, -block-end) {
             @return if(
                 $isToggleControlStyle,
-                spacing.tokens-var-pad-firm($value),
-                spacing.tokens-var-mrg-half($value)
+                spacing.tokens-var-pad-firm($value, $args...),
+                spacing.tokens-var-mrg-half($value, $args...)
             );
         }
 
@@ -285,12 +293,12 @@
         @if string.index($slug, -block) {
             @return if(
                 $isButtonStyle or $isInputStyle,
-                spacing.tokens-var-mrg-firm($value),
-                spacing.tokens-var-mrg-soft($value)
+                spacing.tokens-var-mrg-firm($value, $args...),
+                spacing.tokens-var-mrg-soft($value, $args...)
             );
         }
 
-        @return spacing.tokens-var-mrg-firm($value);
+        @return spacing.tokens-var-mrg-firm($value, $args...);
     }
 
     // returns
@@ -306,32 +314,32 @@
                 string.index($slug, -block-start) or
                     string.index($slug, -block-end) or
                     string.index($slug, -block),
-                spacing.tokens-var-mrg-soft($value),
-                spacing.tokens-var-mrg-firm($value)
+                spacing.tokens-var-mrg-soft($value, $args...),
+                spacing.tokens-var-mrg-firm($value, $args...)
             );
         }
 
         // returns
         @if string.index($slug, input-file-padding-) == 1 {
-            @return spacing.tokens-var-pad-firm($value);
+            @return spacing.tokens-var-pad-firm($value, $args...);
         }
 
         // returns
         @if string.index($slug, -block-start) or $isToggleControlStyle {
-            @return spacing.tokens-var-pad-soft($value);
+            @return spacing.tokens-var-pad-soft($value, $args...);
         }
 
         // returns
         @if string.index($slug, -block-end) {
-            @return spacing.tokens-var-pad-half($value);
+            @return spacing.tokens-var-pad-half($value, $args...);
         }
 
         // returns
         @if string.index($slug, -block) {
-            @return spacing.tokens-var-pad-soft($value);
+            @return spacing.tokens-var-pad-soft($value, $args...);
         }
 
-        @return spacing.tokens-var-pad-firm($value);
+        @return spacing.tokens-var-pad-firm($value, $args...);
     }
 
     // returns
@@ -342,26 +350,16 @@
         }
 
         // returns
-        @if meta.type-of($value) == number {
-            @return $value;
-        }
-
-        // returns
-        @if string.index($slug, gap-block-start) {
-            @return spacing.tokens-var-mrg-soft($value);
-        }
-
-        // returns
         @if string.index($slug, gap-block-end) {
-            @return spacing.tokens-var-mrg-half($value);
+            @return spacing.tokens-var-mrg-half($value, $args...);
         }
 
         // returns
-        @if string.index($slug, gap-block) {
-            @return spacing.tokens-var-mrg-soft($value);
+        @if string.index($slug, gap-block-) == 1 {
+            @return spacing.tokens-var-mrg-soft($value, $args...);
         }
 
-        @return spacing.tokens-var-mrg-firm($value);
+        @return spacing.tokens-var-mrg-firm($value, $args...);
     }
 
     // returns
@@ -369,23 +367,24 @@
         @return if(
             meta.type-of($value) == number,
             $value,
-            borders.tokens-var-border-radius($value, $relative: $isButtonStyle)
+            borders.tokens-var-border-radius(
+                $value,
+                $relative: $isButtonStyle,
+                $args...
+            )
         );
     }
 
     // returns
     @if $isBorderWidth {
-        @return borders.tokens-var-border-width(
-            $value,
-            $fallbackOnly: $asInitialValue
-        );
+        @return borders.tokens-var-border-width($value, $args...);
     }
 
     // returns
     @if $isFontFamily {
         @return if(
             typography.tokens-font-family-exists($value),
-            typography.tokens-var-font-family($value),
+            typography.tokens-var-font-family($value, $args...),
             inherit
         );
     }
@@ -394,10 +393,10 @@
     @if $isFontSize {
         // returns
         @if $isButtonStyle {
-            @return typography.tokens-var-fs($value, $relative: true);
+            @return typography.tokens-var-fs($value, $relative: true, $args...);
         }
 
-        @return typography.tokens-var-fs($value);
+        @return typography.tokens-var-fs($value, $args...);
     }
 
     // returns
@@ -414,15 +413,12 @@
             @return $value;
         }
 
-        @return typography.tokens-var-line-height($value);
+        @return typography.tokens-var-line-height($value, $args...);
     }
 
     // returns
     @if $isStrokeRelative {
-        @return borders.tokens-var-stroke-relative(
-            $value,
-            $fallbackOnly: $asInitialValue
-        );
+        @return borders.tokens-var-stroke-relative($value, $args...);
     }
 
     // returns
@@ -430,7 +426,7 @@
         @return if(
             meta.type-of($value) == color or $value == white or $value == black,
             $value,
-            theme.tokens-var-theme($value)
+            theme.tokens-var-theme($value, $args...)
         );
     }
 
@@ -448,6 +444,7 @@
 @function tokens-var-style(
     $slug,
     $fallback: null,
+    $fallbackOnly: false,
     $raw: false,
     $rawUnit: 1,
     $args...
@@ -463,6 +460,7 @@
             $fallback: tokens-style-value(
                 $slug,
                 $raw: false,
+                $rawUnit: $rawUnit,
                 $asFallbackValue: true
             );
         }
@@ -478,8 +476,6 @@
             $args...
         );
     }
-    // @if tokens-style-is-flow-margin($slug) {
-    // }
 
     @if $fallback == null {
         $fallback: tokens-style-value(
@@ -490,16 +486,19 @@
         );
     }
 
-    $isFocusRingStyle: string.index($slug, focus-ring-) == 1;
-    $isIconStyle: string.index($slug, icon-) == 1;
+    $neverReplaceWithValue: false;
 
-    $fallbackOnly: config.$fn_var_replaceWithValue_style and not
-        $isFocusRingStyle and not $isIconStyle;
+    @if string.index($slug, focus-ring-) == 1 {
+        $neverReplaceWithValue: true;
+    } @else if string.index($slug, icon-) == 1 {
+        $neverReplaceWithValue: true;
+    }
 
     @return config.config-do-var(
         $slug,
         $fallback: $fallback,
-        $fallbackOnly: $fallbackOnly,
+        $fallbackOnly: ($fallbackOnly or config.$fn_var_replaceWithValue_style)
+        and (not $neverReplaceWithValue),
         $args...
     );
 }

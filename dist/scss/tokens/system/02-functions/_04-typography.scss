@@ -198,11 +198,11 @@ $_raw_font_size_flat: map.flatten(map.get(breakdown.$font, size));
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@function tokens-var-font-family($slug, $args...) {
+@function tokens-var-font-family($slug, $fallbackOnly: false, $args...) {
     @return config.config-do-var(
         ff-#{$slug},
         $fallback: tokens-font-family-list($slug),
-        $fallbackOnly: $slug == icons or
+        $fallbackOnly: $fallbackOnly or $slug == icons or
             config.$fn_var_replaceWithValue_fontFamily,
         $args...
     );
@@ -214,7 +214,13 @@ $_raw_font_size_flat: map.flatten(map.get(breakdown.$font, size));
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@function tokens-var-fs($slug, $fallback: null, $relative: null, $args...) {
+@function tokens-var-fs(
+    $slug,
+    $fallback: null,
+    $relative: null,
+    $fallbackOnly: false,
+    $args...
+) {
     //
     @if $relative == null {
         $relative: if(
@@ -244,7 +250,8 @@ $_raw_font_size_flat: map.flatten(map.get(breakdown.$font, size));
         $fallback: list.nth($fallback, 1);
     }
 
-    $returnFallbackOnly: config.$fn_var_replaceWithValue_fontSize;
+    $returnFallbackOnly: $fallbackOnly or
+        config.$fn_var_replaceWithValue_fontSize;
 
     @if $relative {
         // prettier-ignore
@@ -267,13 +274,14 @@ $_raw_font_size_flat: map.flatten(map.get(breakdown.$font, size));
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@function tokens-var-line-height($slug, $args...) {
+@function tokens-var-line-height($slug, $fallbackOnly: false, $args...) {
     $fallback: tokens-line-height-value($slug);
 
     @return config.config-do-var(
         line-height-#{$slug},
         $fallback,
-        $fallbackOnly: config.$fn_var_replaceWithValue_lineHeight,
+        $fallbackOnly: $fallbackOnly or
+            config.$fn_var_replaceWithValue_lineHeight,
         $args...
     );
 }

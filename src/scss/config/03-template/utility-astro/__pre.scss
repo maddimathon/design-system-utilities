@@ -5,8 +5,8 @@
 /// @since ___PKG_VERSION___
 ///
 
-@use 'sass:list';
-@use 'sass:string';
+@use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/string';
 
 @use '../functions' as *;
 
@@ -57,6 +57,26 @@ $mx_customProperty_allPrefixesSlugs: config-valid-list-strings(
 $mx_customProperty_allPrefixesSlugs: list.join(
     ('display', 'focus-ring-outline-color', 'grid-column', 'icon-color'),
     $mx_customProperty_allPrefixesSlugs,
+    $separator: comma
+);
+
+///
+/// List of slugs that should be excluded from the default
+/// $mx_customProperty_allPrefixesSlugs list.
+///
+/// @since ___PKG_VERSION___
+///
+$mx_customProperty_allPrefixesSlugs_except: null !default;
+$mx_customProperty_allPrefixesSlugs_except: config-valid-list-strings(
+    $mx_customProperty_allPrefixesSlugs_except,
+    'mx_customProperty_allPrefixesSlugs_except',
+    $default: (),
+    $allowEmptyList: true
+);
+
+$mx_customProperty_allPrefixesSlugs: list.except-any(
+    $mx_customProperty_allPrefixesSlugs,
+    $mx_customProperty_allPrefixesSlugs_except,
     $separator: comma
 );
 

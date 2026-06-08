@@ -39,11 +39,11 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@function tokens-var-tr-time($level, $args...) {
+@function tokens-var-tr-time($level, $fallbackOnly: false, $args...) {
     @return config.config-do-var(
         tr-time-#{$level},
         $fallback: tokens-transition-time-value($level),
-        $fallbackOnly: config.$fn_var_replaceWithValue_transitionTime,
+        $fallbackOnly: $fallbackOnly or config.$fn_var_replaceWithValue_transitionTime,
         $args...
     );
 }

@@ -5,20 +5,44 @@
 
 @use '../config';
 
+@use 'sass:string';
+
 @if config.$template_docBlock {
     @if config.$template_isDefault {
-        /**
-         * Design System Utilities - Template
-         * @maddimathon/design-system-utilities/template@0.1.0-beta.0.draft
-         * 
-         * https://maddimathon.github.io/design-system-utilities
-         */
+        @if string.length(#{config.$template_description}) > 0 {
+            /**
+             * Design System Utilities - Template
+             * @maddimathon/design-system-utilities/template@0.1.0-beta.0.draft
+             * 
+             * #{config.$template_description}
+             * 
+             * https://maddimathon.github.io/design-system-utilities
+             */
+        } @else {
+            /**
+             * Design System Utilities - Template
+             * @maddimathon/design-system-utilities/template@0.1.0-beta.0.draft
+             * 
+             * https://maddimathon.github.io/design-system-utilities
+             */
+        }
     } @else {
-        /**
-         * Design System Utilities - Template - #{config.$template_name}
-         * @maddimathon/design-system-utilities/template/#{config.$template_slug}@0.1.0-beta.0.draft
-         * 
-         * https://maddimathon.github.io/design-system-utilities
-         */
+        @if string.length(#{config.$template_description}) > 0 {
+            /**
+             * Design System Utilities - Template - #{config.$template_name}
+             * @maddimathon/design-system-utilities/template/#{config.$template_slug}@0.1.0-beta.0.draft
+             * 
+             * #{config.$template_description}
+             * 
+             * https://maddimathon.github.io/design-system-utilities
+             */
+        } @else {
+            /**
+             * Design System Utilities - Template - #{config.$template_name}
+             * @maddimathon/design-system-utilities/template/#{config.$template_slug}@0.1.0-beta.0.draft
+             * 
+             * https://maddimathon.github.io/design-system-utilities
+             */
+        }
     }
 }

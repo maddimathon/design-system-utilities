@@ -306,11 +306,11 @@
 ///
 /// @since 0.1.0-alpha
 ///
-@function var-z-index($level, $args...) {
+@function var-z-index($level, $fallbackOnly: false, $args...) {
     @return utils.do-var(
         z-index-#{$level},
         z-index-value($level),
-        $fallbackOnly: config.$fn_var_replaceWithValue_zIndex,
+        $fallbackOnly: $fallbackOnly or config.$fn_var_replaceWithValue_zIndex,
         $args...
     );
 }

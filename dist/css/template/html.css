@@ -513,8 +513,7 @@ html {
 @property --focus-ring-outline-color {
     syntax: "*";
     inherits: true;
-    initial-value: hsl(321, 68%, 26%);
-    initial-value: var(--theme-link-outline-hover, ActiveText);
+    initial-value: ActiveText;
 }
 @property --focus-ring-outline-offset {
     syntax: "*";
@@ -539,8 +538,7 @@ html {
 @property --icon-color {
     syntax: "*";
     inherits: true;
-    initial-value: hsl(339.45, 0%, 17.88%);
-    initial-value: var(--theme-ui, CanvasText);
+    initial-value: CanvasText;
 }
 @property --icon-font-top {
     syntax: "<number>";
@@ -800,7 +798,6 @@ html {
 /* #endregion Tokens - Stroke Relative */
 /* #region Tokens - Style */
 html {
-    --icon-color: var(--theme-ui, CanvasText);
     --icon-font-top: 0.1875em;
     --icon-inline-buffer: 0.25em;
     --icon-inline-buffer-end: 0.125;
@@ -16523,7 +16520,7 @@ p.aside {
     color: var(--theme-text-primary, CanvasText);
 }
 p.aside a[href] {
-    --icon-color: var(--icon-color, var(--theme-ui, CanvasText));
+    --icon-color: var(--theme-ui, CanvasText);
     text-decoration-color: hsl(162, 100%, 15%);
     text-decoration-color: var(--theme-ui-primary, CanvasText);
     color: inherit;
@@ -16715,7 +16712,7 @@ samp {
     --width-page: 66rem;
     --width-page: calc(
         var(--width-content, 40.5rem) + var(--width-sidebar, 20.25rem) +
-            var(--gap-inline-layout, 8vw)
+            var(--gap-inline-layout, 9vw)
     );
 }
 
@@ -16914,66 +16911,75 @@ h1,
     color: hsl(162, 100%, 15%);
     color: var(--theme-heading-1, CanvasText);
 }
-h1:has(+ .button-span),
-.h1:has(+ .button-span),
 h1:has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure,
-    + .table-wrapper,
-    + [data-toggle-container],
-    + .margins-flow-firm,
-    + .brand-logo,
-    + a[href].button,
-    + a[href].button-secondary,
-    + a[href].button-grey,
-    + .alert-block
+    + :is(
+        .button-span,
+        hr,
+        button,
+        [role="button"],
+        details,
+        table,
+        img,
+        figure,
+        .table-wrapper,
+        [data-toggle-container],
+        .margins-flow-firm,
+        .brand-logo,
+        a[href].button,
+        a[href].button-secondary,
+        a[href].button-grey,
+        .alert-block,
+        .margins-flow-firm-small,
+        blockquote,
+        .margins-flow-firm-large
+    )
 ),
 .h1:has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure,
-    + .table-wrapper,
-    + [data-toggle-container],
-    + .margins-flow-firm,
-    + .brand-logo,
-    + a[href].button,
-    + a[href].button-secondary,
-    + a[href].button-grey,
-    + .alert-block
+    + :is(
+        .button-span,
+        hr,
+        button,
+        [role="button"],
+        details,
+        table,
+        img,
+        figure,
+        .table-wrapper,
+        [data-toggle-container],
+        .margins-flow-firm,
+        .brand-logo,
+        a[href].button,
+        a[href].button-secondary,
+        a[href].button-grey,
+        .alert-block,
+        .margins-flow-firm-small,
+        blockquote,
+        .margins-flow-firm-large
+    )
 ),
-h1:has(+ .margins-flow-firm-small),
-.h1:has(+ .margins-flow-firm-small),
-h1:has(+ blockquote, + .margins-flow-firm-large),
-.h1:has(+ blockquote, + .margins-flow-firm-large),
-.page-title:has(+ .button-span),
 .page-title:has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure,
-    + .table-wrapper,
-    + [data-toggle-container],
-    + .margins-flow-firm,
-    + .brand-logo,
-    + a[href].button,
-    + a[href].button-secondary,
-    + a[href].button-grey,
-    + .alert-block
-),
-.page-title:has(+ .margins-flow-firm-small),
-.page-title:has(+ blockquote, + .margins-flow-firm-large) {
+    + :is(
+        .button-span,
+        hr,
+        button,
+        [role="button"],
+        details,
+        table,
+        img,
+        figure,
+        .table-wrapper,
+        [data-toggle-container],
+        .margins-flow-firm,
+        .brand-logo,
+        a[href].button,
+        a[href].button-secondary,
+        a[href].button-grey,
+        .alert-block,
+        .margins-flow-firm-small,
+        blockquote,
+        .margins-flow-firm-large
+    )
+) {
     margin-bottom: 0;
 }
 h1 a[href],
@@ -17017,28 +17023,29 @@ h1 samp,
     color: hsl(162, 100%, 15%);
     color: var(--theme-heading-1, CanvasText);
 }
-:has(+ .button-span):where([role="heading"][aria-level="1"]),
 :has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure,
-    + .table-wrapper,
-    + [data-toggle-container],
-    + .margins-flow-firm,
-    + .brand-logo,
-    + a[href].button,
-    + a[href].button-secondary,
-    + a[href].button-grey,
-    + .alert-block
-):where([role="heading"][aria-level="1"]),
-:has(+ .margins-flow-firm-small):where([role="heading"][aria-level="1"]),
-:has(+ blockquote, + .margins-flow-firm-large):where(
-    [role="heading"][aria-level="1"]
-) {
+    + :is(
+        .button-span,
+        hr,
+        button,
+        [role="button"],
+        details,
+        table,
+        img,
+        figure,
+        .table-wrapper,
+        [data-toggle-container],
+        .margins-flow-firm,
+        .brand-logo,
+        a[href].button,
+        a[href].button-secondary,
+        a[href].button-grey,
+        .alert-block,
+        .margins-flow-firm-small,
+        blockquote,
+        .margins-flow-firm-large
+    )
+):where([role="heading"][aria-level="1"]) {
     margin-bottom: 0;
 }
 :where([role="heading"][aria-level="1"]) a[href] {
@@ -17076,46 +17083,52 @@ h2,
     color: hsl(162, 100%, 15%);
     color: var(--theme-heading-2, CanvasText);
 }
-h2:has(+ .button-span),
-.h2:has(+ .button-span),
 h2:has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure,
-    + .table-wrapper,
-    + [data-toggle-container],
-    + .margins-flow-firm,
-    + .brand-logo,
-    + a[href].button,
-    + a[href].button-secondary,
-    + a[href].button-grey,
-    + .alert-block
+    + :is(
+        .button-span,
+        hr,
+        button,
+        [role="button"],
+        details,
+        table,
+        img,
+        figure,
+        .table-wrapper,
+        [data-toggle-container],
+        .margins-flow-firm,
+        .brand-logo,
+        a[href].button,
+        a[href].button-secondary,
+        a[href].button-grey,
+        .alert-block,
+        .margins-flow-firm-small,
+        blockquote,
+        .margins-flow-firm-large
+    )
 ),
 .h2:has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure,
-    + .table-wrapper,
-    + [data-toggle-container],
-    + .margins-flow-firm,
-    + .brand-logo,
-    + a[href].button,
-    + a[href].button-secondary,
-    + a[href].button-grey,
-    + .alert-block
-),
-h2:has(+ .margins-flow-firm-small),
-.h2:has(+ .margins-flow-firm-small),
-h2:has(+ blockquote, + .margins-flow-firm-large),
-.h2:has(+ blockquote, + .margins-flow-firm-large) {
+    + :is(
+        .button-span,
+        hr,
+        button,
+        [role="button"],
+        details,
+        table,
+        img,
+        figure,
+        .table-wrapper,
+        [data-toggle-container],
+        .margins-flow-firm,
+        .brand-logo,
+        a[href].button,
+        a[href].button-secondary,
+        a[href].button-grey,
+        .alert-block,
+        .margins-flow-firm-small,
+        blockquote,
+        .margins-flow-firm-large
+    )
+) {
     margin-bottom: 0;
 }
 h2 a[href],
@@ -17155,28 +17168,29 @@ h2 samp,
     color: hsl(162, 100%, 15%);
     color: var(--theme-heading-2, CanvasText);
 }
-:has(+ .button-span):where([role="heading"][aria-level="2"]),
 :has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure,
-    + .table-wrapper,
-    + [data-toggle-container],
-    + .margins-flow-firm,
-    + .brand-logo,
-    + a[href].button,
-    + a[href].button-secondary,
-    + a[href].button-grey,
-    + .alert-block
-):where([role="heading"][aria-level="2"]),
-:has(+ .margins-flow-firm-small):where([role="heading"][aria-level="2"]),
-:has(+ blockquote, + .margins-flow-firm-large):where(
-    [role="heading"][aria-level="2"]
-) {
+    + :is(
+        .button-span,
+        hr,
+        button,
+        [role="button"],
+        details,
+        table,
+        img,
+        figure,
+        .table-wrapper,
+        [data-toggle-container],
+        .margins-flow-firm,
+        .brand-logo,
+        a[href].button,
+        a[href].button-secondary,
+        a[href].button-grey,
+        .alert-block,
+        .margins-flow-firm-small,
+        blockquote,
+        .margins-flow-firm-large
+    )
+):where([role="heading"][aria-level="2"]) {
     margin-bottom: 0;
 }
 :where([role="heading"][aria-level="2"]) a[href] {
@@ -17214,46 +17228,52 @@ h3,
     color: hsl(162, 100%, 15%);
     color: var(--theme-heading-3, CanvasText);
 }
-h3:has(+ .button-span),
-.h3:has(+ .button-span),
 h3:has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure,
-    + .table-wrapper,
-    + [data-toggle-container],
-    + .margins-flow-firm,
-    + .brand-logo,
-    + a[href].button,
-    + a[href].button-secondary,
-    + a[href].button-grey,
-    + .alert-block
+    + :is(
+        .button-span,
+        hr,
+        button,
+        [role="button"],
+        details,
+        table,
+        img,
+        figure,
+        .table-wrapper,
+        [data-toggle-container],
+        .margins-flow-firm,
+        .brand-logo,
+        a[href].button,
+        a[href].button-secondary,
+        a[href].button-grey,
+        .alert-block,
+        .margins-flow-firm-small,
+        blockquote,
+        .margins-flow-firm-large
+    )
 ),
 .h3:has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure,
-    + .table-wrapper,
-    + [data-toggle-container],
-    + .margins-flow-firm,
-    + .brand-logo,
-    + a[href].button,
-    + a[href].button-secondary,
-    + a[href].button-grey,
-    + .alert-block
-),
-h3:has(+ .margins-flow-firm-small),
-.h3:has(+ .margins-flow-firm-small),
-h3:has(+ blockquote, + .margins-flow-firm-large),
-.h3:has(+ blockquote, + .margins-flow-firm-large) {
+    + :is(
+        .button-span,
+        hr,
+        button,
+        [role="button"],
+        details,
+        table,
+        img,
+        figure,
+        .table-wrapper,
+        [data-toggle-container],
+        .margins-flow-firm,
+        .brand-logo,
+        a[href].button,
+        a[href].button-secondary,
+        a[href].button-grey,
+        .alert-block,
+        .margins-flow-firm-small,
+        blockquote,
+        .margins-flow-firm-large
+    )
+) {
     margin-bottom: 0;
 }
 h3 a[href],
@@ -17293,28 +17313,29 @@ h3 samp,
     color: hsl(162, 100%, 15%);
     color: var(--theme-heading-3, CanvasText);
 }
-:has(+ .button-span):where([role="heading"][aria-level="3"]),
 :has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure,
-    + .table-wrapper,
-    + [data-toggle-container],
-    + .margins-flow-firm,
-    + .brand-logo,
-    + a[href].button,
-    + a[href].button-secondary,
-    + a[href].button-grey,
-    + .alert-block
-):where([role="heading"][aria-level="3"]),
-:has(+ .margins-flow-firm-small):where([role="heading"][aria-level="3"]),
-:has(+ blockquote, + .margins-flow-firm-large):where(
-    [role="heading"][aria-level="3"]
-) {
+    + :is(
+        .button-span,
+        hr,
+        button,
+        [role="button"],
+        details,
+        table,
+        img,
+        figure,
+        .table-wrapper,
+        [data-toggle-container],
+        .margins-flow-firm,
+        .brand-logo,
+        a[href].button,
+        a[href].button-secondary,
+        a[href].button-grey,
+        .alert-block,
+        .margins-flow-firm-small,
+        blockquote,
+        .margins-flow-firm-large
+    )
+):where([role="heading"][aria-level="3"]) {
     margin-bottom: 0;
 }
 :where([role="heading"][aria-level="3"]) a[href] {
@@ -17363,46 +17384,52 @@ h4,
     color: hsl(162, 100%, 15%);
     color: var(--theme-heading-4, CanvasText);
 }
-h4:has(+ .button-span),
-.h4:has(+ .button-span),
 h4:has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure,
-    + .table-wrapper,
-    + [data-toggle-container],
-    + .margins-flow-firm,
-    + .brand-logo,
-    + a[href].button,
-    + a[href].button-secondary,
-    + a[href].button-grey,
-    + .alert-block
+    + :is(
+        .button-span,
+        hr,
+        button,
+        [role="button"],
+        details,
+        table,
+        img,
+        figure,
+        .table-wrapper,
+        [data-toggle-container],
+        .margins-flow-firm,
+        .brand-logo,
+        a[href].button,
+        a[href].button-secondary,
+        a[href].button-grey,
+        .alert-block,
+        .margins-flow-firm-small,
+        blockquote,
+        .margins-flow-firm-large
+    )
 ),
 .h4:has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure,
-    + .table-wrapper,
-    + [data-toggle-container],
-    + .margins-flow-firm,
-    + .brand-logo,
-    + a[href].button,
-    + a[href].button-secondary,
-    + a[href].button-grey,
-    + .alert-block
-),
-h4:has(+ .margins-flow-firm-small),
-.h4:has(+ .margins-flow-firm-small),
-h4:has(+ blockquote, + .margins-flow-firm-large),
-.h4:has(+ blockquote, + .margins-flow-firm-large) {
+    + :is(
+        .button-span,
+        hr,
+        button,
+        [role="button"],
+        details,
+        table,
+        img,
+        figure,
+        .table-wrapper,
+        [data-toggle-container],
+        .margins-flow-firm,
+        .brand-logo,
+        a[href].button,
+        a[href].button-secondary,
+        a[href].button-grey,
+        .alert-block,
+        .margins-flow-firm-small,
+        blockquote,
+        .margins-flow-firm-large
+    )
+) {
     margin-bottom: 0;
 }
 h4 a[href],
@@ -17450,28 +17477,29 @@ h4 samp,
     color: hsl(162, 100%, 15%);
     color: var(--theme-heading-4, CanvasText);
 }
-:has(+ .button-span):where([role="heading"][aria-level="4"]),
 :has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure,
-    + .table-wrapper,
-    + [data-toggle-container],
-    + .margins-flow-firm,
-    + .brand-logo,
-    + a[href].button,
-    + a[href].button-secondary,
-    + a[href].button-grey,
-    + .alert-block
-):where([role="heading"][aria-level="4"]),
-:has(+ .margins-flow-firm-small):where([role="heading"][aria-level="4"]),
-:has(+ blockquote, + .margins-flow-firm-large):where(
-    [role="heading"][aria-level="4"]
-) {
+    + :is(
+        .button-span,
+        hr,
+        button,
+        [role="button"],
+        details,
+        table,
+        img,
+        figure,
+        .table-wrapper,
+        [data-toggle-container],
+        .margins-flow-firm,
+        .brand-logo,
+        a[href].button,
+        a[href].button-secondary,
+        a[href].button-grey,
+        .alert-block,
+        .margins-flow-firm-small,
+        blockquote,
+        .margins-flow-firm-large
+    )
+):where([role="heading"][aria-level="4"]) {
     margin-bottom: 0;
 }
 :where([role="heading"][aria-level="4"]) a[href] {
@@ -17520,46 +17548,52 @@ h5,
     color: hsl(162, 100%, 15%);
     color: var(--theme-heading-5, CanvasText);
 }
-h5:has(+ .button-span),
-.h5:has(+ .button-span),
 h5:has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure,
-    + .table-wrapper,
-    + [data-toggle-container],
-    + .margins-flow-firm,
-    + .brand-logo,
-    + a[href].button,
-    + a[href].button-secondary,
-    + a[href].button-grey,
-    + .alert-block
+    + :is(
+        .button-span,
+        hr,
+        button,
+        [role="button"],
+        details,
+        table,
+        img,
+        figure,
+        .table-wrapper,
+        [data-toggle-container],
+        .margins-flow-firm,
+        .brand-logo,
+        a[href].button,
+        a[href].button-secondary,
+        a[href].button-grey,
+        .alert-block,
+        .margins-flow-firm-small,
+        blockquote,
+        .margins-flow-firm-large
+    )
 ),
 .h5:has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure,
-    + .table-wrapper,
-    + [data-toggle-container],
-    + .margins-flow-firm,
-    + .brand-logo,
-    + a[href].button,
-    + a[href].button-secondary,
-    + a[href].button-grey,
-    + .alert-block
-),
-h5:has(+ .margins-flow-firm-small),
-.h5:has(+ .margins-flow-firm-small),
-h5:has(+ blockquote, + .margins-flow-firm-large),
-.h5:has(+ blockquote, + .margins-flow-firm-large) {
+    + :is(
+        .button-span,
+        hr,
+        button,
+        [role="button"],
+        details,
+        table,
+        img,
+        figure,
+        .table-wrapper,
+        [data-toggle-container],
+        .margins-flow-firm,
+        .brand-logo,
+        a[href].button,
+        a[href].button-secondary,
+        a[href].button-grey,
+        .alert-block,
+        .margins-flow-firm-small,
+        blockquote,
+        .margins-flow-firm-large
+    )
+) {
     margin-bottom: 0;
 }
 h5 a[href],
@@ -17607,28 +17641,29 @@ h5 samp,
     color: hsl(162, 100%, 15%);
     color: var(--theme-heading-5, CanvasText);
 }
-:has(+ .button-span):where([role="heading"][aria-level="5"]),
 :has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure,
-    + .table-wrapper,
-    + [data-toggle-container],
-    + .margins-flow-firm,
-    + .brand-logo,
-    + a[href].button,
-    + a[href].button-secondary,
-    + a[href].button-grey,
-    + .alert-block
-):where([role="heading"][aria-level="5"]),
-:has(+ .margins-flow-firm-small):where([role="heading"][aria-level="5"]),
-:has(+ blockquote, + .margins-flow-firm-large):where(
-    [role="heading"][aria-level="5"]
-) {
+    + :is(
+        .button-span,
+        hr,
+        button,
+        [role="button"],
+        details,
+        table,
+        img,
+        figure,
+        .table-wrapper,
+        [data-toggle-container],
+        .margins-flow-firm,
+        .brand-logo,
+        a[href].button,
+        a[href].button-secondary,
+        a[href].button-grey,
+        .alert-block,
+        .margins-flow-firm-small,
+        blockquote,
+        .margins-flow-firm-large
+    )
+):where([role="heading"][aria-level="5"]) {
     margin-bottom: 0;
 }
 :where([role="heading"][aria-level="5"]) a[href] {
@@ -17677,46 +17712,52 @@ h6,
     color: hsl(162, 100%, 15%);
     color: var(--theme-heading-6, CanvasText);
 }
-h6:has(+ .button-span),
-.h6:has(+ .button-span),
 h6:has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure,
-    + .table-wrapper,
-    + [data-toggle-container],
-    + .margins-flow-firm,
-    + .brand-logo,
-    + a[href].button,
-    + a[href].button-secondary,
-    + a[href].button-grey,
-    + .alert-block
+    + :is(
+        .button-span,
+        hr,
+        button,
+        [role="button"],
+        details,
+        table,
+        img,
+        figure,
+        .table-wrapper,
+        [data-toggle-container],
+        .margins-flow-firm,
+        .brand-logo,
+        a[href].button,
+        a[href].button-secondary,
+        a[href].button-grey,
+        .alert-block,
+        .margins-flow-firm-small,
+        blockquote,
+        .margins-flow-firm-large
+    )
 ),
 .h6:has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure,
-    + .table-wrapper,
-    + [data-toggle-container],
-    + .margins-flow-firm,
-    + .brand-logo,
-    + a[href].button,
-    + a[href].button-secondary,
-    + a[href].button-grey,
-    + .alert-block
-),
-h6:has(+ .margins-flow-firm-small),
-.h6:has(+ .margins-flow-firm-small),
-h6:has(+ blockquote, + .margins-flow-firm-large),
-.h6:has(+ blockquote, + .margins-flow-firm-large) {
+    + :is(
+        .button-span,
+        hr,
+        button,
+        [role="button"],
+        details,
+        table,
+        img,
+        figure,
+        .table-wrapper,
+        [data-toggle-container],
+        .margins-flow-firm,
+        .brand-logo,
+        a[href].button,
+        a[href].button-secondary,
+        a[href].button-grey,
+        .alert-block,
+        .margins-flow-firm-small,
+        blockquote,
+        .margins-flow-firm-large
+    )
+) {
     margin-bottom: 0;
 }
 h6 a[href],
@@ -17764,28 +17805,29 @@ h6 samp,
     color: hsl(162, 100%, 15%);
     color: var(--theme-heading-6, CanvasText);
 }
-:has(+ .button-span):where([role="heading"][aria-level="6"]),
 :has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure,
-    + .table-wrapper,
-    + [data-toggle-container],
-    + .margins-flow-firm,
-    + .brand-logo,
-    + a[href].button,
-    + a[href].button-secondary,
-    + a[href].button-grey,
-    + .alert-block
-):where([role="heading"][aria-level="6"]),
-:has(+ .margins-flow-firm-small):where([role="heading"][aria-level="6"]),
-:has(+ blockquote, + .margins-flow-firm-large):where(
-    [role="heading"][aria-level="6"]
-) {
+    + :is(
+        .button-span,
+        hr,
+        button,
+        [role="button"],
+        details,
+        table,
+        img,
+        figure,
+        .table-wrapper,
+        [data-toggle-container],
+        .margins-flow-firm,
+        .brand-logo,
+        a[href].button,
+        a[href].button-secondary,
+        a[href].button-grey,
+        .alert-block,
+        .margins-flow-firm-small,
+        blockquote,
+        .margins-flow-firm-large
+    )
+):where([role="heading"][aria-level="6"]) {
     margin-bottom: 0;
 }
 :where([role="heading"][aria-level="6"]) a[href] {
@@ -17822,26 +17864,29 @@ h6 samp,
     color: hsl(321, 68%, 26%);
     color: var(--theme-heading-7, CanvasText);
 }
-.h7:has(+ .button-span),
 .h7:has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure,
-    + .table-wrapper,
-    + [data-toggle-container],
-    + .margins-flow-firm,
-    + .brand-logo,
-    + a[href].button,
-    + a[href].button-secondary,
-    + a[href].button-grey,
-    + .alert-block
-),
-.h7:has(+ .margins-flow-firm-small),
-.h7:has(+ blockquote, + .margins-flow-firm-large) {
+    + :is(
+        .button-span,
+        hr,
+        button,
+        [role="button"],
+        details,
+        table,
+        img,
+        figure,
+        .table-wrapper,
+        [data-toggle-container],
+        .margins-flow-firm,
+        .brand-logo,
+        a[href].button,
+        a[href].button-secondary,
+        a[href].button-grey,
+        .alert-block,
+        .margins-flow-firm-small,
+        blockquote,
+        .margins-flow-firm-large
+    )
+) {
     margin-bottom: 0;
 }
 .h7 a[href] {
@@ -17877,28 +17922,29 @@ h6 samp,
     color: hsl(321, 68%, 26%);
     color: var(--theme-heading-7, CanvasText);
 }
-:has(+ .button-span):where([role="heading"][aria-level="7"]),
 :has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure,
-    + .table-wrapper,
-    + [data-toggle-container],
-    + .margins-flow-firm,
-    + .brand-logo,
-    + a[href].button,
-    + a[href].button-secondary,
-    + a[href].button-grey,
-    + .alert-block
-):where([role="heading"][aria-level="7"]),
-:has(+ .margins-flow-firm-small):where([role="heading"][aria-level="7"]),
-:has(+ blockquote, + .margins-flow-firm-large):where(
-    [role="heading"][aria-level="7"]
-) {
+    + :is(
+        .button-span,
+        hr,
+        button,
+        [role="button"],
+        details,
+        table,
+        img,
+        figure,
+        .table-wrapper,
+        [data-toggle-container],
+        .margins-flow-firm,
+        .brand-logo,
+        a[href].button,
+        a[href].button-secondary,
+        a[href].button-grey,
+        .alert-block,
+        .margins-flow-firm-small,
+        blockquote,
+        .margins-flow-firm-large
+    )
+):where([role="heading"][aria-level="7"]) {
     margin-bottom: 0;
 }
 :where([role="heading"][aria-level="7"]) a[href] {
@@ -17943,26 +17989,29 @@ h6 samp,
     color: hsl(321, 68%, 26%);
     color: var(--theme-heading-8, CanvasText);
 }
-.h8:has(+ .button-span),
 .h8:has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure,
-    + .table-wrapper,
-    + [data-toggle-container],
-    + .margins-flow-firm,
-    + .brand-logo,
-    + a[href].button,
-    + a[href].button-secondary,
-    + a[href].button-grey,
-    + .alert-block
-),
-.h8:has(+ .margins-flow-firm-small),
-.h8:has(+ blockquote, + .margins-flow-firm-large) {
+    + :is(
+        .button-span,
+        hr,
+        button,
+        [role="button"],
+        details,
+        table,
+        img,
+        figure,
+        .table-wrapper,
+        [data-toggle-container],
+        .margins-flow-firm,
+        .brand-logo,
+        a[href].button,
+        a[href].button-secondary,
+        a[href].button-grey,
+        .alert-block,
+        .margins-flow-firm-small,
+        blockquote,
+        .margins-flow-firm-large
+    )
+) {
     margin-bottom: 0;
 }
 .h8 a[href] {
@@ -18006,28 +18055,29 @@ h6 samp,
     color: hsl(321, 68%, 26%);
     color: var(--theme-heading-8, CanvasText);
 }
-:has(+ .button-span):where([role="heading"][aria-level="8"]),
 :has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure,
-    + .table-wrapper,
-    + [data-toggle-container],
-    + .margins-flow-firm,
-    + .brand-logo,
-    + a[href].button,
-    + a[href].button-secondary,
-    + a[href].button-grey,
-    + .alert-block
-):where([role="heading"][aria-level="8"]),
-:has(+ .margins-flow-firm-small):where([role="heading"][aria-level="8"]),
-:has(+ blockquote, + .margins-flow-firm-large):where(
-    [role="heading"][aria-level="8"]
-) {
+    + :is(
+        .button-span,
+        hr,
+        button,
+        [role="button"],
+        details,
+        table,
+        img,
+        figure,
+        .table-wrapper,
+        [data-toggle-container],
+        .margins-flow-firm,
+        .brand-logo,
+        a[href].button,
+        a[href].button-secondary,
+        a[href].button-grey,
+        .alert-block,
+        .margins-flow-firm-small,
+        blockquote,
+        .margins-flow-firm-large
+    )
+):where([role="heading"][aria-level="8"]) {
     margin-bottom: 0;
 }
 :where([role="heading"][aria-level="8"]) a[href] {
@@ -18072,26 +18122,29 @@ h6 samp,
     color: hsl(339.45, 0%, 22.38%);
     color: var(--theme-heading-9, CanvasText);
 }
-.h9:has(+ .button-span),
 .h9:has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure,
-    + .table-wrapper,
-    + [data-toggle-container],
-    + .margins-flow-firm,
-    + .brand-logo,
-    + a[href].button,
-    + a[href].button-secondary,
-    + a[href].button-grey,
-    + .alert-block
-),
-.h9:has(+ .margins-flow-firm-small),
-.h9:has(+ blockquote, + .margins-flow-firm-large) {
+    + :is(
+        .button-span,
+        hr,
+        button,
+        [role="button"],
+        details,
+        table,
+        img,
+        figure,
+        .table-wrapper,
+        [data-toggle-container],
+        .margins-flow-firm,
+        .brand-logo,
+        a[href].button,
+        a[href].button-secondary,
+        a[href].button-grey,
+        .alert-block,
+        .margins-flow-firm-small,
+        blockquote,
+        .margins-flow-firm-large
+    )
+) {
     margin-bottom: 0;
 }
 .h9 a[href] {
@@ -18135,28 +18188,29 @@ h6 samp,
     color: hsl(339.45, 0%, 22.38%);
     color: var(--theme-heading-9, CanvasText);
 }
-:has(+ .button-span):where([role="heading"][aria-level="9"]),
 :has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure,
-    + .table-wrapper,
-    + [data-toggle-container],
-    + .margins-flow-firm,
-    + .brand-logo,
-    + a[href].button,
-    + a[href].button-secondary,
-    + a[href].button-grey,
-    + .alert-block
-):where([role="heading"][aria-level="9"]),
-:has(+ .margins-flow-firm-small):where([role="heading"][aria-level="9"]),
-:has(+ blockquote, + .margins-flow-firm-large):where(
-    [role="heading"][aria-level="9"]
-) {
+    + :is(
+        .button-span,
+        hr,
+        button,
+        [role="button"],
+        details,
+        table,
+        img,
+        figure,
+        .table-wrapper,
+        [data-toggle-container],
+        .margins-flow-firm,
+        .brand-logo,
+        a[href].button,
+        a[href].button-secondary,
+        a[href].button-grey,
+        .alert-block,
+        .margins-flow-firm-small,
+        blockquote,
+        .margins-flow-firm-large
+    )
+):where([role="heading"][aria-level="9"]) {
     margin-bottom: 0;
 }
 :where([role="heading"][aria-level="9"]) a[href] {
@@ -18201,26 +18255,29 @@ h6 samp,
     color: hsl(339.45, 0%, 22.38%);
     color: var(--theme-heading-10, CanvasText);
 }
-.h10:has(+ .button-span),
 .h10:has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure,
-    + .table-wrapper,
-    + [data-toggle-container],
-    + .margins-flow-firm,
-    + .brand-logo,
-    + a[href].button,
-    + a[href].button-secondary,
-    + a[href].button-grey,
-    + .alert-block
-),
-.h10:has(+ .margins-flow-firm-small),
-.h10:has(+ blockquote, + .margins-flow-firm-large) {
+    + :is(
+        .button-span,
+        hr,
+        button,
+        [role="button"],
+        details,
+        table,
+        img,
+        figure,
+        .table-wrapper,
+        [data-toggle-container],
+        .margins-flow-firm,
+        .brand-logo,
+        a[href].button,
+        a[href].button-secondary,
+        a[href].button-grey,
+        .alert-block,
+        .margins-flow-firm-small,
+        blockquote,
+        .margins-flow-firm-large
+    )
+) {
     margin-bottom: 0;
 }
 .h10 a[href] {
@@ -18264,28 +18321,29 @@ h6 samp,
     color: hsl(339.45, 0%, 22.38%);
     color: var(--theme-heading-10, CanvasText);
 }
-:has(+ .button-span):where([role="heading"][aria-level="10"]),
 :has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure,
-    + .table-wrapper,
-    + [data-toggle-container],
-    + .margins-flow-firm,
-    + .brand-logo,
-    + a[href].button,
-    + a[href].button-secondary,
-    + a[href].button-grey,
-    + .alert-block
-):where([role="heading"][aria-level="10"]),
-:has(+ .margins-flow-firm-small):where([role="heading"][aria-level="10"]),
-:has(+ blockquote, + .margins-flow-firm-large):where(
-    [role="heading"][aria-level="10"]
-) {
+    + :is(
+        .button-span,
+        hr,
+        button,
+        [role="button"],
+        details,
+        table,
+        img,
+        figure,
+        .table-wrapper,
+        [data-toggle-container],
+        .margins-flow-firm,
+        .brand-logo,
+        a[href].button,
+        a[href].button-secondary,
+        a[href].button-grey,
+        .alert-block,
+        .margins-flow-firm-small,
+        blockquote,
+        .margins-flow-firm-large
+    )
+):where([role="heading"][aria-level="10"]) {
     margin-bottom: 0;
 }
 :where([role="heading"][aria-level="10"]) a[href] {

@@ -82,8 +82,7 @@
 @property --focus-ring-outline-color {
     syntax: "*";
     inherits: true;
-    initial-value: hsl(321, 68%, 26%);
-    initial-value: var(--theme-link-outline-hover, ActiveText);
+    initial-value: ActiveText;
 }
 @property --focus-ring-outline-offset {
     syntax: "*";
@@ -108,8 +107,7 @@
 @property --icon-color {
     syntax: "*";
     inherits: true;
-    initial-value: hsl(339.45, 0%, 17.88%);
-    initial-value: var(--theme-ui, CanvasText);
+    initial-value: CanvasText;
 }
 @property --icon-font-top {
     syntax: "<number>";
@@ -174,7 +172,6 @@
 /* #endregion Tokens - @property */
 /* #region Tokens - Style */
 :root {
-    --icon-color: var(--theme-ui, CanvasText);
     --icon-font-top: 0.1875em;
     --icon-inline-buffer: 0.25em;
     --icon-inline-buffer-end: 0.125;
@@ -6026,8 +6023,9 @@ h1 {
     color: hsl(162, 100%, 15%);
     color: var(--theme-heading-1, CanvasText);
 }
-h1:has(+ hr, + button, + [role="button"], + details, + table, + img, + figure),
-h1:has(+ blockquote) {
+h1:has(
+    + :is(hr, button, [role="button"], details, table, img, figure, blockquote)
+) {
     margin-bottom: 0;
 }
 h1 a[href] {
@@ -6059,15 +6057,8 @@ h1 samp {
     color: var(--theme-heading-1, CanvasText);
 }
 :has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure
-):where([role="heading"][aria-level="1"]),
-:has(+ blockquote):where([role="heading"][aria-level="1"]) {
+    + :is(hr, button, [role="button"], details, table, img, figure, blockquote)
+):where([role="heading"][aria-level="1"]) {
     margin-bottom: 0;
 }
 :where([role="heading"][aria-level="1"]) a[href] {
@@ -6099,8 +6090,9 @@ h2 {
     color: hsl(162, 100%, 15%);
     color: var(--theme-heading-2, CanvasText);
 }
-h2:has(+ hr, + button, + [role="button"], + details, + table, + img, + figure),
-h2:has(+ blockquote) {
+h2:has(
+    + :is(hr, button, [role="button"], details, table, img, figure, blockquote)
+) {
     margin-bottom: 0;
 }
 h2 a[href] {
@@ -6132,15 +6124,8 @@ h2 samp {
     color: var(--theme-heading-2, CanvasText);
 }
 :has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure
-):where([role="heading"][aria-level="2"]),
-:has(+ blockquote):where([role="heading"][aria-level="2"]) {
+    + :is(hr, button, [role="button"], details, table, img, figure, blockquote)
+):where([role="heading"][aria-level="2"]) {
     margin-bottom: 0;
 }
 :where([role="heading"][aria-level="2"]) a[href] {
@@ -6172,8 +6157,9 @@ h3 {
     color: hsl(162, 100%, 15%);
     color: var(--theme-heading-3, CanvasText);
 }
-h3:has(+ hr, + button, + [role="button"], + details, + table, + img, + figure),
-h3:has(+ blockquote) {
+h3:has(
+    + :is(hr, button, [role="button"], details, table, img, figure, blockquote)
+) {
     margin-bottom: 0;
 }
 h3 a[href] {
@@ -6205,15 +6191,8 @@ h3 samp {
     color: var(--theme-heading-3, CanvasText);
 }
 :has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure
-):where([role="heading"][aria-level="3"]),
-:has(+ blockquote):where([role="heading"][aria-level="3"]) {
+    + :is(hr, button, [role="button"], details, table, img, figure, blockquote)
+):where([role="heading"][aria-level="3"]) {
     margin-bottom: 0;
 }
 :where([role="heading"][aria-level="3"]) a[href] {
@@ -6253,8 +6232,9 @@ h4 {
     color: hsl(162, 100%, 15%);
     color: var(--theme-heading-4, CanvasText);
 }
-h4:has(+ hr, + button, + [role="button"], + details, + table, + img, + figure),
-h4:has(+ blockquote) {
+h4:has(
+    + :is(hr, button, [role="button"], details, table, img, figure, blockquote)
+) {
     margin-bottom: 0;
 }
 h4 a[href] {
@@ -6294,15 +6274,8 @@ h4 samp {
     color: var(--theme-heading-4, CanvasText);
 }
 :has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure
-):where([role="heading"][aria-level="4"]),
-:has(+ blockquote):where([role="heading"][aria-level="4"]) {
+    + :is(hr, button, [role="button"], details, table, img, figure, blockquote)
+):where([role="heading"][aria-level="4"]) {
     margin-bottom: 0;
 }
 :where([role="heading"][aria-level="4"]) a[href] {
@@ -6342,8 +6315,9 @@ h5 {
     color: hsl(162, 100%, 15%);
     color: var(--theme-heading-5, CanvasText);
 }
-h5:has(+ hr, + button, + [role="button"], + details, + table, + img, + figure),
-h5:has(+ blockquote) {
+h5:has(
+    + :is(hr, button, [role="button"], details, table, img, figure, blockquote)
+) {
     margin-bottom: 0;
 }
 h5 a[href] {
@@ -6383,15 +6357,8 @@ h5 samp {
     color: var(--theme-heading-5, CanvasText);
 }
 :has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure
-):where([role="heading"][aria-level="5"]),
-:has(+ blockquote):where([role="heading"][aria-level="5"]) {
+    + :is(hr, button, [role="button"], details, table, img, figure, blockquote)
+):where([role="heading"][aria-level="5"]) {
     margin-bottom: 0;
 }
 :where([role="heading"][aria-level="5"]) a[href] {
@@ -6431,8 +6398,9 @@ h6 {
     color: hsl(162, 100%, 15%);
     color: var(--theme-heading-6, CanvasText);
 }
-h6:has(+ hr, + button, + [role="button"], + details, + table, + img, + figure),
-h6:has(+ blockquote) {
+h6:has(
+    + :is(hr, button, [role="button"], details, table, img, figure, blockquote)
+) {
     margin-bottom: 0;
 }
 h6 a[href] {
@@ -6472,15 +6440,8 @@ h6 samp {
     color: var(--theme-heading-6, CanvasText);
 }
 :has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure
-):where([role="heading"][aria-level="6"]),
-:has(+ blockquote):where([role="heading"][aria-level="6"]) {
+    + :is(hr, button, [role="button"], details, table, img, figure, blockquote)
+):where([role="heading"][aria-level="6"]) {
     margin-bottom: 0;
 }
 :where([role="heading"][aria-level="6"]) a[href] {
@@ -6513,15 +6474,8 @@ h6 samp {
     color: var(--theme-heading-7, CanvasText);
 }
 :has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure
-):where([role="heading"][aria-level="7"]),
-:has(+ blockquote):where([role="heading"][aria-level="7"]) {
+    + :is(hr, button, [role="button"], details, table, img, figure, blockquote)
+):where([role="heading"][aria-level="7"]) {
     margin-bottom: 0;
 }
 :where([role="heading"][aria-level="7"]) a[href] {
@@ -6562,15 +6516,8 @@ h6 samp {
     color: var(--theme-heading-8, CanvasText);
 }
 :has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure
-):where([role="heading"][aria-level="8"]),
-:has(+ blockquote):where([role="heading"][aria-level="8"]) {
+    + :is(hr, button, [role="button"], details, table, img, figure, blockquote)
+):where([role="heading"][aria-level="8"]) {
     margin-bottom: 0;
 }
 :where([role="heading"][aria-level="8"]) a[href] {
@@ -6611,15 +6558,8 @@ h6 samp {
     color: var(--theme-heading-9, CanvasText);
 }
 :has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure
-):where([role="heading"][aria-level="9"]),
-:has(+ blockquote):where([role="heading"][aria-level="9"]) {
+    + :is(hr, button, [role="button"], details, table, img, figure, blockquote)
+):where([role="heading"][aria-level="9"]) {
     margin-bottom: 0;
 }
 :where([role="heading"][aria-level="9"]) a[href] {
@@ -6660,15 +6600,8 @@ h6 samp {
     color: var(--theme-heading-10, CanvasText);
 }
 :has(
-    + hr,
-    + button,
-    + [role="button"],
-    + details,
-    + table,
-    + img,
-    + figure
-):where([role="heading"][aria-level="10"]),
-:has(+ blockquote):where([role="heading"][aria-level="10"]) {
+    + :is(hr, button, [role="button"], details, table, img, figure, blockquote)
+):where([role="heading"][aria-level="10"]) {
     margin-bottom: 0;
 }
 :where([role="heading"][aria-level="10"]) a[href] {

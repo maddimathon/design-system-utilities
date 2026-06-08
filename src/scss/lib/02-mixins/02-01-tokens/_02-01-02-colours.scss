@@ -499,6 +499,8 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
     $brightness: null,
     $contrast: null,
     //
+    $allPrefixes: null,
+    $onlyFallbackPrefix: null,
     $color: null,
     $iconColor: null,
     $args...
@@ -533,13 +535,25 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
                     $args...
                 )
             )
-        )
+        ),
+        $allPrefixes: $allPrefixes
     );
 
     color: if(
         $color,
         $color,
-        var-theme(text#{$variantSlug}, $brightness: $brightness, $contrast: $contrast, $args...)
+        var-theme(
+            text#{$variantSlug},
+            $brightness: $brightness,
+            $contrast: $contrast,
+            $debug: $onlyFallbackPrefix and
+                (
+                    (config.$customPropertyPrefix != config.$customPropertyPrefix_fallback) and
+                        string.length(#{config.$customPropertyPrefix_fallback}) > 0
+                ),
+            $onlyFallbackPrefix: $onlyFallbackPrefix,
+            $args...
+        )
     );
 
     $args: meta.keywords($args);
@@ -733,6 +747,8 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
                     $themeTokenArgs...
                 )
             ),
+        $allPrefixes: $asVar,
+        $onlyFallbackPrefix: not $asVar,
         $returnAsVar: $asVar,
         $themeTokenArgs...
     );
@@ -975,7 +991,8 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
                     $contrast: $contrast,
                     $asVar: false,
                     $focusRing_setChildrenOnly: $focusRing_setChildrenOnly,
-                    $multipleContentBlocks: true
+                    $multipleContentBlocks: true,
+                    $noWhereRootOrBody: $noWhereRootOrBody
                 )
                 using ($location) {
                 @if $location == root-body-or-direct-child {

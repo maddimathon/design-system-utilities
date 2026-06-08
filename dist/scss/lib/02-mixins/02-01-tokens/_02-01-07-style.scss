@@ -40,12 +40,12 @@
         }
         #{$_sel} {
             @each $slug, $_value in $_tokensMap {
-                @if style-is-flow-margin($slug) {
+                @if style-is-flow-margin($slug) or $slug == icon-color {
                     // skip these flow-margin tokens in favour of set-flow-margins() mixin
                 } @else {
                     @include utils.cx-prop(
                         $slug,
-                        style-value($slug),
+                        style-value($slug, $onlyFallbackPrefix: true),
                         $allPrefixes: false
                     );
                 }

@@ -201,10 +201,14 @@
     }
 
     @if $includeMarginSiblings {
-        &:has(+ %button-span),
-        &:has(+ %margins-flow-firm),
-        &:has(+ %margins-flow-firm-small),
-        &:has(+ %margins-flow-firm-large) {
+        &:has(
+            + :is(
+                %button-span,
+                %margins-flow-firm,
+                %margins-flow-firm-small,
+                %margins-flow-firm-large
+            )
+        ) {
             margin-block-end: 0;
 
             @content (margin-siblings--firm);
@@ -322,12 +326,12 @@
 ///
 @mixin snippet-link-colours-inherit(
     $color: inherit,
-    $iconColor: var-style(icon-color),
+    $iconColor: style-value(icon-color),
     $textDecorationColor: var-theme(link-decoration),
     //
+    $color_disabled: var-theme(link-disabled),
     $iconColor_disabled: var-theme(link-icon-disabled),
     $textDecorationColor_disabled: var-theme(link-decoration-disabled),
-    $color_disabled: var-theme(link-disabled),
     //
     $includeActive: true,
     $includeDisabled: false,

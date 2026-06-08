@@ -1954,15 +1954,12 @@
         }
 
         + %input {
-            @include selector.not(
-                (
-                    '[type=button]',
-                    '[type=checkbox]',
-                    '[type=radio]',
-                    '[type=reset]',
-                    '[type=submit]'
-                ),
-                $unifyParent: true
+            &:not(
+                [type='button'],
+                [type='checkbox'],
+                [type='radio'],
+                [type='reset'],
+                [type='submit']
             ) {
                 margin-block-start: do-var(flow-margin-firm-start);
             }

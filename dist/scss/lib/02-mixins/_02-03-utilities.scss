@@ -3,6 +3,7 @@
 /// @since 0.1.0-beta.0.draft
 ///
 
+@use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/meta';
 @use 'pkg:@maddimathon/utility-sass/selector';
 
@@ -26,15 +27,29 @@ $_firmFlowMarginChildren: (
 @mixin _snippet-no-top-or-bottom-margin(
     $marginSide,
     //
+    $additionalFirmFlowMarginChildren: (),
     $asImportant: true,
     $childrenInIs: true,
+    $firmFlowMarginValue: do-var(flow-margin-firm-end),
     $includeChildren: true,
     $useNotInsteadOfChildren: true
 ) {
     $importantSuffix: if($asImportant, ' !important', '');
 
+    $firmFlowMarginChildren: list.join(
+        $_firmFlowMarginChildren,
+        $additionalFirmFlowMarginChildren,
+        $separator: comma
+    );
+
+    $firmFlowMarginChildren: if(
+        $childrenInIs,
+        ':is( #{$firmFlowMarginChildren} )',
+        $firmFlowMarginChildren
+    );
+
     @if $includeChildren and $useNotInsteadOfChildren {
-        @include selector.not($_firmFlowMarginChildren, $unifyParent: true) {
+        &:not(#{$firmFlowMarginChildren}) {
             margin-block-#{$marginSide}: 0 #{$importantSuffix};
         }
     } @else {
@@ -42,8 +57,8 @@ $_firmFlowMarginChildren: (
     }
 
     @if $includeChildren and not $useNotInsteadOfChildren {
-        @at-root #{selector.unify(&, if( $childrenInIs, ':is( #{$_firmFlowMarginChildren} )', $_firmFlowMarginChildren ))} {
-            margin-block-#{$marginSide}: do-var(flow-margin-firm-end)
+        @at-root #{selector.unify(&, $firmFlowMarginChildren)} {
+            margin-block-#{$marginSide}: $firmFlowMarginValue
                 #{$importantSuffix};
         }
     }

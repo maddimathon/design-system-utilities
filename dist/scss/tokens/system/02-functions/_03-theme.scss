@@ -165,16 +165,24 @@
     $brightness: breakdown.$brightnessMode_default,
     $contrast: null,
     $themeSlug: breakdown.$activeTheme,
-    $useSystemColorFallback: null,
     $version: null,
     $opacity: null,
+    //
+    $fallbackOnly: false,
     $fallbackSlug: null,
     $returnAsList: false,
     $returnAsVar: false,
+    $useSystemColorFallback: null,
     $warnOnFalse: false,
     $args...
 ) {
     $clrIsSystemColor: false;
+
+    $args: map.set(
+        meta.keywords($args),
+        fallbackOnly,
+        $fallbackOnly or not $returnAsVar
+    );
 
     $themeVarSlug: theme-#{$slug};
 
@@ -285,11 +293,7 @@
                 $warnOnFalse: $warnOnFalse,
                 $args...
             ),
-            if(
-                $returnAsVar,
-                config.config-do-var($themeVarSlug, $args...),
-                if($returnAsList, (), false)
-            )
+            config.config-do-var($themeVarSlug, $args...)
         );
     }
 
@@ -327,25 +331,17 @@
         @if $_value {
             // returns
             @if $opacityIsPreset {
-                @return if(
-                    $returnAsVar,
-                    config.config-do-var(
-                        $themeVarSlug,
-                        $fallback: $_value,
-                        $args...
-                    ),
-                    $_value
-                );
-            }
-
-            $_value: if(
-                $returnAsVar,
-                config.config-do-var(
+                @return config.config-do-var(
                     $themeVarSlug,
                     $fallback: $_value,
                     $args...
-                ),
-                $_value
+                );
+            }
+
+            $_value: config.config-do-var(
+                $themeVarSlug,
+                $fallback: $_value,
+                $args...
             );
 
             // returns
@@ -382,23 +378,15 @@
         }
 
         @if $_value {
-            @return if(
-                $returnAsVar,
-                config.config-do-var(
-                    $themeVarSlug,
-                    $fallback: $_value,
-                    $args...
-                ),
-                $_value
+            @return config.config-do-var(
+                $themeVarSlug,
+                $fallback: $_value,
+                $args...
             );
         }
     }
 
-    @return if(
-        $returnAsVar,
-        config.config-do-var($themeVarSlug, $fallback: $clrSlug, $args...),
-        $clrSlug
-    );
+    @return config.config-do-var($themeVarSlug, $fallback: $clrSlug, $args...);
 }
 
 ///

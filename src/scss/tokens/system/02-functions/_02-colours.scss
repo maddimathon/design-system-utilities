@@ -31,6 +31,7 @@
     $brightness: breakdown.$brightnessMode_default,
     $opacity: null,
     $version: null,
+    $fallbackOnly: false,
     $args...
 ) {
     $clrVarSlug: clr-#{$slug};
@@ -123,7 +124,7 @@
                 $_var: config.config-do-var(
                     $clrVarSlug,
                     $fallback: colour.to-rgb-list($fallback_clr, $round: true),
-                    $fallbackOnly: config.$fn_var_replaceWithValue_colour,
+                    $fallbackOnly: $fallbackOnly or config.$fn_var_replaceWithValue_colour,
                     $args...
                 );
 
@@ -132,7 +133,7 @@
                 $_var: config.config-do-var(
                     $clrVarSlug,
                     $fallback: colour.to-hsl-list($fallback_clr, $round: false),
-                    $fallbackOnly: config.$fn_var_replaceWithValue_colour,
+                    $fallbackOnly: $fallbackOnly or config.$fn_var_replaceWithValue_colour,
                     $args...
                 );
 
@@ -150,7 +151,7 @@
     @return config.config-do-var(
         $clrVarSlug,
         $fallback,
-        $fallbackOnly: config.$fn_var_replaceWithValue_colour,
+        $fallbackOnly: $fallbackOnly or config.$fn_var_replaceWithValue_colour,
         $args...
     );
 }
