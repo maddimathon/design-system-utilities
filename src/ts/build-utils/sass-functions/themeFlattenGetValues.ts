@@ -42,10 +42,13 @@ import { getColourCSS } from '../../03-parsers/getColourCSS.js';
  *
  * @since __PKG_VERSION___
  */
-export function sassFn_themeFlattenGetValues(): [ string, sass.CustomFunction<'async'> ] {
+export function sassFn_themeFlattenGetValues(): [
+    'mmdsu-global-themeFlattenGetValues( $colours, $themes, $replaceVarClrWithValue, $includeHSL, $includeRGB, $presetOpacities, $presetOpacities_includeClrs )',
+    sass.CustomFunction<'async'>,
+] {
 
     return [
-        'mmdsu-global-themeFlattenGetValues( $colours, $themes, $replaceVarClrWithValue, $includeHSL, $includeRGB, $presetOpacities )',
+        'mmdsu-global-themeFlattenGetValues( $colours, $themes, $replaceVarClrWithValue, $includeHSL, $includeRGB, $presetOpacities, $presetOpacities_includeClrs )',
         async ( args: sass.Value[] ) => {
 
             const [
@@ -55,6 +58,7 @@ export function sassFn_themeFlattenGetValues(): [ string, sass.CustomFunction<'a
                 includeHSL = true,
                 includeRGB = false,
                 presetOpacities = [],
+                presetOpacities_includeClrs = false,
             ] = await Promise.all( [
 
                 sassAssertValueType( 'colours', 'map', args[ 0 ], true )?.then(
@@ -70,6 +74,7 @@ export function sassFn_themeFlattenGetValues(): [ string, sass.CustomFunction<'a
                 sassAssertValueType( 'includeRGB', 'bool', args[ 4 ], true ),
 
                 sassAssertValueType( 'presetOpacities', 'list', args[ 5 ], true ) as Promise<number[] | undefined>,
+                sassAssertValueType( 'presetOpacities_includeClrs', 'bool', args[ 6 ], true ),
             ] );
 
             if ( !themeTokens ) {
@@ -187,7 +192,7 @@ export function sassFn_themeFlattenGetValues(): [ string, sass.CustomFunction<'a
                 if ( includeHSL || includeRGB ) {
                     for ( const opacity of presetOpacities ) {
                         clr[ `-${ opacity }` ] = varMaker(
-                            `${ val }--${ opacity }`,
+                            presetOpacities_includeClrs ? `${ val }--${ opacity }` : undefined,
                             includeHSL
                                 ? `hsla( ${ ColourUtilities.toList.hsl( clrObj ) }, ${ opacity }% )`
                                 : `rgba( ${ ColourUtilities.toList.rgb( clrObj ) }, ${ opacity }% )`,

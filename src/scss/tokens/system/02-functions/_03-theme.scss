@@ -51,8 +51,8 @@
         $version: if($version == null, if(config.$include_colourValues_hsl, hsl, rgb), $version);
     }
 
-    $opacityIsPreset: $opacity != null and list.index(breakdown.$colour_presetOpacities, $opacity)
-        != null;
+    $opacityIsPreset: ($opacity != null) and
+        (list.index(breakdown.$colour_presetOpacities, $opacity) != null);
 
     $suffixSlug: if(
         $flat_isValues,
@@ -196,8 +196,8 @@
         $contrast: breakdown.$contrastMode_default;
     }
 
-    $opacityIsPreset: $opacity != null and list.index(breakdown.$colour_presetOpacities, $opacity)
-        != null;
+    $opacityIsPreset: ($opacity != null) and
+        (list.index(breakdown.$colour_presetOpacities, $opacity) != null);
 
     $clrSlug: null;
 

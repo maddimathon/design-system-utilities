@@ -455,27 +455,29 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
                                 );
                             }
 
-                            @each $opacity in tokens.$colour_presetOpacities {
-                                $_opacity_clrValue: $_clrValue;
+                            @if config.$mx_tokensColour_presetOpacities_include {
+                                @each $opacity in tokens.$colour_presetOpacities {
+                                    $_opacity_clrValue: $_clrValue;
 
-                                @if config.$include_colourValues_hsl {
-                                    $_opacity_clrValue: colour.to-hsl(
-                                        $_clrValue,
-                                        $opacity: $opacity,
-                                        $round: false
-                                    );
-                                } @else if config.$include_colourValues_rgb {
-                                    $_opacity_clrValue: colour.to-rgb(
-                                        $_clrValue,
-                                        $opacity: $opacity
+                                    @if config.$include_colourValues_hsl {
+                                        $_opacity_clrValue: colour.to-hsl(
+                                            $_clrValue,
+                                            $opacity: $opacity,
+                                            $round: false
+                                        );
+                                    } @else if config.$include_colourValues_rgb {
+                                        $_opacity_clrValue: colour.to-rgb(
+                                            $_clrValue,
+                                            $opacity: $opacity
+                                        );
+                                    }
+
+                                    @include utils.cx-prop(
+                                        #{$_shadeNameSlug}-#{$level}--#{math.deunit($opacity)},
+                                        $_opacity_clrValue,
+                                        $allPrefixes: false
                                     );
                                 }
-
-                                @include utils.cx-prop(
-                                    #{$_shadeNameSlug}-#{$level}--#{math.deunit($opacity)},
-                                    $_opacity_clrValue,
-                                    $allPrefixes: false
-                                );
                             }
                         }
                     }
@@ -887,6 +889,7 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
 /// Prints a single theme's properties.
 ///
 /// @since 0.1.0-alpha.5
+/// @since ___PKG_VERSION___ — Added optional $extra_tokens, $focusRing_setChildrenOnly, $includeDefault, $multipleContentBlocks, $noWhereRootOrBody params.
 ///
 @mixin tokens-theme-individual(
     $slug,
@@ -895,7 +898,10 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
     $setBaseProperties: config.$mx_tokensTheme_setBaseProperties,
     $includeSystemColours: true,
     //
+    $extra_tokens: (),
+    $extra_tokens_children: (),
     $focusRing_setChildrenOnly: null,
+    $includeDefault: true,
     $multipleContentBlocks: false,
     $noWhereRootOrBody: false
 ) {
@@ -937,6 +943,44 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
         @if $flattened_raw == null {
             $flattened_raw: ();
         }
+
+        $_themeTokenValueProps: (
+            brightness: $brightness,
+            contrast: $contrast,
+            themeSlug: $slug,
+            returnAsList: true,
+        );
+
+        @if $includeDefault {
+            @if style-token-exists(input-placeholder-opacity-#{$contrast}) {
+                $extra_tokens: map.set(
+                    $extra_tokens,
+                    input-placeholder-opacity,
+                    var-style(input-placeholder-opacity-#{$contrast})
+                );
+            }
+        }
+
+        $extra_tokens: map.set(
+            $extra_tokens,
+            selection-background,
+            if(
+                style-token-exists(selection-background-opacity-#{$contrast}),
+                theme-token-value(
+                    selection-background,
+                    $opacity: var-style(selection-background-opacity-#{$contrast}),
+                    $_themeTokenValueProps...
+                ),
+                if(
+                    $flat_isValues,
+                    map.get($flattened, selection-background),
+                    var-clr-from-theme-token(
+                        map.get($flattened, selection-background),
+                        $brightness: $brightness
+                    )
+                )
+            )
+        );
 
         $flattened_divided: if(
             $focusRing_setChildrenOnly == false,
@@ -980,6 +1024,14 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
             $flattened_raw: $flattened_raw_root
         );
 
+        $_importantSuffix: if($contrast == forced-colors, ' !important', '');
+
+        @each $prop, $value in map.ksort(map.flatten($extra_tokens)) {
+            @each $_val in $value {
+                @include utils.cx-prop(#{$prop}, $_val $_importantSuffix);
+            }
+        }
+
         @if $multipleContentBlocks {
             @content (root);
         }
@@ -1005,6 +1057,12 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
                         $flattened: $flattened_childrenOnly,
                         $flattened_raw: $flattened_raw_childrenOnly
                     );
+
+                    @each $prop, $value in map.ksort(map.flatten($extra_tokens_children)) {
+                        @each $_val in $value {
+                            @include utils.cx-prop(#{$prop}, $_val $_importantSuffix);
+                        }
+                    }
                 }
 
                 @if $multipleContentBlocks {
@@ -1041,6 +1099,12 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
                     $flattened: $flattened_childrenOnly,
                     $flattened_raw: $flattened_raw_childrenOnly
                 );
+
+                @each $prop, $value in map.ksort(map.flatten($extra_tokens_children)) {
+                    @each $_val in $value {
+                        @include utils.cx-prop(#{$prop}, $_val $_importantSuffix);
+                    }
+                }
 
                 @if $multipleContentBlocks {
                     @content ('base--root-body-or-direct-child');
@@ -1124,7 +1188,7 @@ $_themes_includeAlternatives: if(
     }
 }
 
-$_mixinIndividual: meta.get-mixin('tokens-theme-individual');
+$_mixin_individual: meta.get-mixin('tokens-theme-individual');
 
 ///
 /// Prints out the theme custom property tokens based on config.
@@ -1150,9 +1214,9 @@ $_mixinIndividual: meta.get-mixin('tokens-theme-individual');
     }
 
     @if $mixin_individual == null {
-        $mixin_individual: $_mixinIndividual;
+        $mixin_individual: $_mixin_individual;
     } @else if meta.type-of($mixin_individual) != mixin {
-        $mixin_individual: $_mixinIndividual;
+        $mixin_individual: $_mixin_individual;
     }
 
     $_themeKeys: map.keys(tokens.$themes);
@@ -1192,6 +1256,7 @@ $_mixinIndividual: meta.get-mixin('tokens-theme-individual');
                     null
                 ),
                 $setBaseProperties: config.$mx_tokensTheme_setBaseProperties,
+                $includeDefault: true,
                 $_mixin_individual_args...
             ) using ( $location ) {
                 @if $checkpointName {
@@ -1229,6 +1294,7 @@ $_mixinIndividual: meta.get-mixin('tokens-theme-individual');
                         $key,
                         $focusRing_setChildrenOnly: false,
                         $setBaseProperties: config.$mx_tokensTheme_setBaseProperties,
+                        $includeDefault: true,
                         $_mixin_individual_args...
                     ) using ( $location ) {
                         @if $checkpointName {
@@ -1254,16 +1320,19 @@ $_mixinIndividual: meta.get-mixin('tokens-theme-individual');
                             $level: $checkpointLevel + 3,
                         );
                     }
+
+                    $_isDefaultTheme: #{$key} == #{tokens.$activeTheme};
                     
                     @include active-theme( $key, $_active_theme_args... ) {
                         @include meta.apply(
                             $mixin_individual,
                             $key,
                             $setBaseProperties: if(
-                                #{$key} == #{tokens.$activeTheme},
+                                $_isDefaultTheme,
                                 config.$mx_tokensTheme_setBaseProperties,
                                 true
                             ),
+                            $includeDefault: $_isDefaultTheme,
                             $_mixin_individual_args...
                         ) using ( $location ) {
                             @if $checkpointName {

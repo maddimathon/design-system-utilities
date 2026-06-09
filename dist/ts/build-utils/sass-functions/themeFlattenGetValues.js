@@ -21,15 +21,16 @@ import { getColourCSS } from '../../03-parsers/getColourCSS.js';
  */
 export function sassFn_themeFlattenGetValues() {
     return [
-        'mmdsu-global-themeFlattenGetValues( $colours, $themes, $replaceVarClrWithValue, $includeHSL, $includeRGB, $presetOpacities )',
+        'mmdsu-global-themeFlattenGetValues( $colours, $themes, $replaceVarClrWithValue, $includeHSL, $includeRGB, $presetOpacities, $presetOpacities_includeClrs )',
         async (args) => {
-            const [colourTokens, themeTokens, replaceVarClrWithValue = false, includeHSL = true, includeRGB = false, presetOpacities = [],] = await Promise.all([
+            const [colourTokens, themeTokens, replaceVarClrWithValue = false, includeHSL = true, includeRGB = false, presetOpacities = [], presetOpacities_includeClrs = false,] = await Promise.all([
                 sassAssertValueType('colours', 'map', args[0], true)?.then(map => (map instanceof Map ? mapToObjectAsync(map) : map)),
                 sassAssertValueType('themes', 'map', args[1], true)?.then(map => (map instanceof Map ? mapToObjectAsync(map) : map)),
                 sassAssertValueType('replaceVarClrWithValue', 'bool', args[2], true),
                 sassAssertValueType('includeHSL', 'bool', args[3], true),
                 sassAssertValueType('includeRGB', 'bool', args[4], true),
                 sassAssertValueType('presetOpacities', 'list', args[5], true),
+                sassAssertValueType('presetOpacities_includeClrs', 'bool', args[6], true),
             ]);
             if (!themeTokens) {
                 return sass.sassNull;
@@ -98,7 +99,7 @@ export function sassFn_themeFlattenGetValues() {
                 }
                 if (includeHSL || includeRGB) {
                     for (const opacity of presetOpacities) {
-                        clr[`-${opacity}`] = varMaker(`${val}--${opacity}`, includeHSL
+                        clr[`-${opacity}`] = varMaker(presetOpacities_includeClrs ? `${val}--${opacity}` : undefined, includeHSL
                             ? `hsla( ${ColourUtilities.toList.hsl(clrObj)}, ${opacity}% )`
                             : `rgba( ${ColourUtilities.toList.rgb(clrObj)}, ${opacity}% )`);
                     }

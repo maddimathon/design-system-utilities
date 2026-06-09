@@ -14,4 +14,7 @@ import * as sass from "sass-embedded";
  *
  * @since __PKG_VERSION___
  */
-export declare function sassFn_themeFlattenGetValues(): [string, sass.CustomFunction<'async'>];
+export declare function sassFn_themeFlattenGetValues(): [
+    'mmdsu-global-themeFlattenGetValues( $colours, $themes, $replaceVarClrWithValue, $includeHSL, $includeRGB, $presetOpacities, $presetOpacities_includeClrs )',
+    sass.CustomFunction<'async'>
+];

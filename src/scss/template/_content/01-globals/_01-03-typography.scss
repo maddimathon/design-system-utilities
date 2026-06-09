@@ -76,17 +76,10 @@ $_heading_inlines: false;
     %selection {
         @include cx-prop(icon-color, currentColor !important);
 
-        background-color: var-theme(selection-background) !important;
-        color: var-theme(selection-text) !important;
+        @include snippet-selection;
 
         * {
             color: inherit !important;
-        }
-
-        @each $mode in tokens.$contrastMode_all {
-            @include colour-mode($mode, $includeDefault: false) {
-                @include snippet-selection($mode);
-            }
         }
     }
 }

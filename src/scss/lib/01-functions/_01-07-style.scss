@@ -30,6 +30,18 @@
 }
 
 ///
+/// Tries to fetch a raw style-value() to check for the existance of a style
+/// token.
+///
+/// @since ___PKG_VERSION___
+///
+@function style-token-exists($slug, $args...) {
+    $raw: style-value($slug, $raw: true, $failureReturn: null, $warnOnFail: false, $args...);
+
+    @return $raw != null;
+}
+
+///
 /// @since 0.1.0-alpha
 /// @since ___PKG_VERSION___ — Added optional $fallback, $raw params. Now defined in tokens.
 ///

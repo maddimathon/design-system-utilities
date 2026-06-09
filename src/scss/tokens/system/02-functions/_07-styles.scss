@@ -47,8 +47,11 @@
     $slug,
     $raw: false,
     $rawUnit: 1,
+    //
     $asFallbackValue: false,
     $asInitialValue: false,
+    $failureReturn: $slug,
+    $warnOnFail: true,
     $args...
 ) {
     $value: map.get(breakdown.$style_flat, $slug);
@@ -57,8 +60,11 @@
 
     // returns
     @if $value == null {
-        @warn "$slug '#{$slug}' was not a key in flattened tokens.$designSystem.style";
-        @return $slug;
+        @if $warnOnFail {
+            @warn "$slug '#{$slug}' was not a key in flattened tokens.$designSystem.style";
+        }
+
+        @return $failureReturn;
     }
 
     // returns

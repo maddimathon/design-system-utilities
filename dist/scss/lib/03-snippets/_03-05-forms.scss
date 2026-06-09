@@ -269,7 +269,6 @@
     }
 
     transition: do-var(transition);
-    opacity: 1;
 
     appearance: button;
     cursor: pointer;
@@ -630,8 +629,10 @@
         }
 
         @if $includeColours and
-            tokens.$button_variation_default !=
-            tokens.$button_inline_variation_default
+            (
+                tokens.$button_variation_default !=
+                    tokens.$button_inline_variation_default
+            )
         {
             &:where(.display-inline) {
                 @include snippet-button-colours(
@@ -1264,18 +1265,27 @@
     $color_focus,
     $color_hover,
     //
-    $opacity: true,
+    $opacity: false,
+    $opacity_active: $opacity,
+    $opacity_hover: null,
+    $opacity_focus: $opacity_hover,
     //
     $focusWithin: false,
     $focus_fallbacksOnly: true,
     $focus_includeNoWhereSelectorFallback:
         config.$mx_focusVisible_includeNoWhereSelectorFallback
 ) {
+    $opacity: if($opacity == null, 1, $opacity);
+
     @include cx-prop(focus-ring-outline-color, $accentClr_focus);
     background-color: $background;
     border-color: $borderClr;
     color: $color;
     accent-color: $accentClr;
+
+    @if $opacity != false {
+        opacity: $opacity;
+    }
 
     @content (root);
 
@@ -1292,8 +1302,8 @@
         color: $color_hover;
         accent-color: $accentClr_hover;
 
-        @if $opacity {
-            opacity: 1;
+        @if $opacity_hover != false {
+            opacity: $opacity_hover;
         }
     }
 
@@ -1310,8 +1320,8 @@
         color: $color_focus;
         accent-color: $accentClr_focus;
 
-        @if $opacity {
-            opacity: 1;
+        @if $opacity_focus != false {
+            opacity: $opacity_focus;
         }
     }
 
@@ -1322,8 +1332,8 @@
         color: $color_active;
         accent-color: $accentClr_active;
 
-        @if $opacity {
-            opacity: 1;
+        @if $opacity_active != false {
+            opacity: $opacity_active;
         }
     }
 }
@@ -1490,7 +1500,11 @@
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@mixin _snippet-input--root($borderRadius, $paddingBlock) {
+@mixin _snippet-input--root(
+    $borderRadius,
+    $paddingBlock,
+    $placeholder_opacity
+) {
     border-radius: $borderRadius;
     transition: do-var(transition);
 
@@ -1498,17 +1512,9 @@
 
     &::placeholder {
         font-style: var-style(input-placeholder-font-style);
-        opacity: 1;
+        opacity: $placeholder_opacity;
 
         @content (placeholder);
-
-        @each $contrast in (low, average) {
-            @include colour-mode($contrast, $includeDefault: false) {
-                opacity: var-style(input-placeholder-opacity-#{$contrast});
-
-                @content (placeholder--#{$contrast});
-            }
-        }
     }
 
     &.font-family-icons {
@@ -1552,6 +1558,8 @@
     $focus_includeNoWhereSelectorFallback:
         config.$mx_focusVisible_includeNoWhereSelectorFallback,
     //
+    $placeholder_opacity: do-var(input-placeholder-opacity, 1),
+    //
     $includeColours: true,
     $includeDisabled: true,
     $includeLabel: true,
@@ -1576,7 +1584,11 @@
         ) using ($location) {
 
             @if $location == root {
-                @include _snippet-input--root($borderRadius:$borderRadius, $paddingBlock:$paddingBlock) using ($root_location) {
+                @include _snippet-input--root(
+                    $borderRadius: $borderRadius,
+                    $paddingBlock: $paddingBlock,
+                    $placeholder_opacity: $placeholder_opacity,
+                ) using ($root_location) {
                     @content ($root_location);
                 }
             }
@@ -1614,7 +1626,8 @@
 
         @include _snippet-input--root(
                 $borderRadius: $borderRadius,
-                $paddingBlock: $paddingBlock
+                $paddingBlock: $paddingBlock,
+                $placeholder_opacity: $placeholder_opacity
             )
             using ($root_location) {
             @content ($root_location);

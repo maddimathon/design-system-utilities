@@ -117,16 +117,18 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
 /// @since 0.1.0-beta.0.draft
 ///
 @mixin snippet-support-sidebar-widgets(
+    $gap: do-var(flow-margin--large) do-var(flow-margin-firm-start--large),
+    //
     $includeSidebar: true,
     $includeWidget: true,
     //
-    $widget_marginBlockStart: do-var(flow-margin-firm-start),
-    $widget_marginBlockEnd: do-var(flow-margin-firm-end)
+    $widget_marginBlockStart: do-var(flow-margin-firm-start--large),
+    $widget_marginBlockEnd: do-var(flow-margin-firm-end--large)
 ) {
     @if $includeSidebar {
         %site-sidebar {
             @include prop-display(flex);
-            @include utils.snippet-content-flex-container($gap: 0);
+            @include utils.snippet-content-flex-container($gap: $gap);
         }
     }
 

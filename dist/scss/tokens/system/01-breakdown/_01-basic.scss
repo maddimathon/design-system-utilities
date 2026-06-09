@@ -299,6 +299,17 @@ $button_variation_secondary: config.config-valid-string(
 ///
 /// @since 0.1.0-beta.0.draft
 ///
+$button_variation_siteSettings: null !default;
+$button_variation_siteSettings: config.config-valid-string(
+    $button_variation_siteSettings,
+    'button_variation_siteSettings',
+    $default: 'primary',
+    $options: $_buttonVariationOpts
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
 $button_inline_variation_default: null !default;
 $button_inline_variation_default: config.config-valid-string(
     $button_inline_variation_default,
@@ -345,7 +356,7 @@ $colour_presetOpacities_includeFromTheme: null !default;
 $colour_presetOpacities_includeFromTheme: config.config-valid-bool(
     $colour_presetOpacities_includeFromTheme,
     'colour_presetOpacities_includeFromTheme',
-    $default: true
+    $default: false
 );
 
 // joins the lists

@@ -116,7 +116,9 @@
 
     // opacity returns if not a preset
     @if $opacity != null {
-        @if list.index(breakdown.$colour_presetOpacities, $opacity) != null {
+        @if config.$mx_tokensColour_presetOpacities_include and
+            (list.index(breakdown.$colour_presetOpacities, $opacity) != null)
+        {
             $clrVarSlug: #{$clrVarSlug}--#{math.deunit($opacity)};
 
             @if $version == rgb {
