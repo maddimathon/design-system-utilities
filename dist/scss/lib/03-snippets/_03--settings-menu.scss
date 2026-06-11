@@ -37,13 +37,14 @@ $_closing_time: var-tr-time(toggle-closing);
     $fieldset_flexContainer_direction: row,
     $fieldset_flexContainer_gap: var-style(flow-margin-small)
         var-gap-inline(tab),
-    $fieldset_marginBlock: var-mrg-firm('300') var-mrg-half('300'),
+    $fieldset_marginBlock: do-var(flow-margin-firm-start--small)
+        do-var(flow-margin-firm-end--small),
     $fieldset_marginInline: 0,
     $fieldset_paddingBlock: var-mrg-firm('100'),
     $fieldset_paddingInline: clamp(
             var-mrg-firm('200'),
             3vw,
-            var-mrg-firm('300')
+            do-var(flow-margin-firm-start--small)
         ),
     //
     $includeAside: true,

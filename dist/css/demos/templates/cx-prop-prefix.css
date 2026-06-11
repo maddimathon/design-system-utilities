@@ -10447,7 +10447,7 @@ a.skip-link[href]:focus,
 a.skip-link[href][data-state-focus="true"] {
     top: calc(
         var(--prefix-height-nav-primary, 0) +
-            var(--prefix-mrg-firm-400, 1.25rem)
+            var(--prefix-flow-margin, 0.78125rem)
     );
     --prefix-focus-ring-outline-color: var(
         --prefix-theme-button-primary-outline-hover,
@@ -10483,7 +10483,7 @@ a.skip-link[href][data-state-focus="true"] * {
 a.skip-link[href]:focus-within {
     top: calc(
         var(--prefix-height-nav-primary, 0) +
-            var(--prefix-mrg-firm-400, 1.25rem)
+            var(--prefix-flow-margin, 0.78125rem)
     );
     --prefix-focus-ring-outline-color: var(
         --prefix-theme-button-primary-outline-hover,
@@ -10517,7 +10517,7 @@ a.skip-link[href]:focus-within * {
 a.skip-link[href]:has([data-state-focus="true"]) {
     top: calc(
         var(--prefix-height-nav-primary, 0) +
-            var(--prefix-mrg-firm-400, 1.25rem)
+            var(--prefix-flow-margin, 0.78125rem)
     );
     --prefix-focus-ring-outline-color: var(
         --prefix-theme-button-primary-outline-hover,
@@ -10553,7 +10553,7 @@ a.skip-link[href]:active,
 a.skip-link[href][data-state-active="true"] {
     top: calc(
         var(--prefix-height-nav-primary, 0) +
-            var(--prefix-mrg-firm-400, 1.25rem)
+            var(--prefix-flow-margin, 0.78125rem)
     );
     --prefix-focus-ring-outline-color: var(
         --prefix-theme-button-primary-outline-active,
@@ -10591,7 +10591,7 @@ a.skip-link[href]:has(:active),
 a.skip-link[href]:has([data-state-active="true"]) {
     top: calc(
         var(--prefix-height-nav-primary, 0) +
-            var(--prefix-mrg-firm-400, 1.25rem)
+            var(--prefix-flow-margin, 0.78125rem)
     );
     --prefix-focus-ring-outline-color: var(
         --prefix-theme-button-primary-outline-active,
@@ -10737,6 +10737,8 @@ dt + [role="button"],
 .margins-flow-large + [role="button"],
 dt + details,
 .margins-flow-large + details,
+dt + pre,
+.margins-flow-large + pre,
 dt + table,
 .margins-flow-large + table,
 dt + img,
@@ -10772,6 +10774,7 @@ hr,
 button,
 [role="button"],
 details,
+pre,
 table,
 img,
 figure,
@@ -10887,6 +10890,8 @@ blockquote + [role="button"],
 .margins-flow-firm-large + [role="button"],
 blockquote + details,
 .margins-flow-firm-large + details,
+blockquote + pre,
+.margins-flow-firm-large + pre,
 blockquote + table,
 .margins-flow-firm-large + table,
 blockquote + img,
@@ -11648,8 +11653,6 @@ pre {
     position: relative;
     align-self: center;
     justify-self: center;
-    margin-block: var(--prefix-mrg-firm-400, 1.25rem)
-        var(--prefix-mrg-half-400, 0.46875rem);
     margin-inline: 0;
     padding-block: var(--prefix-mrg-soft-300, 0.5rem);
     padding-inline: var(--prefix-mrg-firm-300, 0.8125rem);
@@ -11792,6 +11795,7 @@ h1:has(
         button,
         [role="button"],
         details,
+        pre,
         table,
         img,
         figure,
@@ -11815,6 +11819,7 @@ h1:has(
         button,
         [role="button"],
         details,
+        pre,
         table,
         img,
         figure,
@@ -11838,6 +11843,7 @@ h1:has(
         button,
         [role="button"],
         details,
+        pre,
         table,
         img,
         figure,
@@ -11898,6 +11904,7 @@ h1 samp,
         button,
         [role="button"],
         details,
+        pre,
         table,
         img,
         figure,
@@ -11952,6 +11959,7 @@ h2:has(
         button,
         [role="button"],
         details,
+        pre,
         table,
         img,
         figure,
@@ -11975,6 +11983,7 @@ h2:has(
         button,
         [role="button"],
         details,
+        pre,
         table,
         img,
         figure,
@@ -12031,6 +12040,7 @@ h2 samp,
         button,
         [role="button"],
         details,
+        pre,
         table,
         img,
         figure,
@@ -12085,6 +12095,7 @@ h3:has(
         button,
         [role="button"],
         details,
+        pre,
         table,
         img,
         figure,
@@ -12108,6 +12119,7 @@ h3:has(
         button,
         [role="button"],
         details,
+        pre,
         table,
         img,
         figure,
@@ -12164,6 +12176,7 @@ h3 samp,
         button,
         [role="button"],
         details,
+        pre,
         table,
         img,
         figure,
@@ -12229,6 +12242,7 @@ h4:has(
         button,
         [role="button"],
         details,
+        pre,
         table,
         img,
         figure,
@@ -12252,6 +12266,7 @@ h4:has(
         button,
         [role="button"],
         details,
+        pre,
         table,
         img,
         figure,
@@ -12316,6 +12331,7 @@ h4 samp,
         button,
         [role="button"],
         details,
+        pre,
         table,
         img,
         figure,
@@ -12381,6 +12397,7 @@ h5:has(
         button,
         [role="button"],
         details,
+        pre,
         table,
         img,
         figure,
@@ -12404,6 +12421,7 @@ h5:has(
         button,
         [role="button"],
         details,
+        pre,
         table,
         img,
         figure,
@@ -12468,6 +12486,7 @@ h5 samp,
         button,
         [role="button"],
         details,
+        pre,
         table,
         img,
         figure,
@@ -12533,6 +12552,7 @@ h6:has(
         button,
         [role="button"],
         details,
+        pre,
         table,
         img,
         figure,
@@ -12556,6 +12576,7 @@ h6:has(
         button,
         [role="button"],
         details,
+        pre,
         table,
         img,
         figure,
@@ -12620,6 +12641,7 @@ h6 samp,
         button,
         [role="button"],
         details,
+        pre,
         table,
         img,
         figure,
@@ -12673,6 +12695,7 @@ h6 samp,
         button,
         [role="button"],
         details,
+        pre,
         table,
         img,
         figure,
@@ -12725,6 +12748,7 @@ h6 samp,
         button,
         [role="button"],
         details,
+        pre,
         table,
         img,
         figure,
@@ -12786,6 +12810,7 @@ h6 samp,
         button,
         [role="button"],
         details,
+        pre,
         table,
         img,
         figure,
@@ -12846,6 +12871,7 @@ h6 samp,
         button,
         [role="button"],
         details,
+        pre,
         table,
         img,
         figure,
@@ -12907,6 +12933,7 @@ h6 samp,
         button,
         [role="button"],
         details,
+        pre,
         table,
         img,
         figure,
@@ -12967,6 +12994,7 @@ h6 samp,
         button,
         [role="button"],
         details,
+        pre,
         table,
         img,
         figure,
@@ -13028,6 +13056,7 @@ h6 samp,
         button,
         [role="button"],
         details,
+        pre,
         table,
         img,
         figure,
@@ -13088,6 +13117,7 @@ h6 samp,
         button,
         [role="button"],
         details,
+        pre,
         table,
         img,
         figure,
@@ -13503,9 +13533,9 @@ fieldset legend {
     color: var(--prefix-theme-text-primary, CanvasText);
 }
 fieldset legend:first-child {
-    margin-inline: calc(var(--prefix-mrg-soft-300, 0.5rem) * -1);
-    margin-block: 0 var(--prefix-mrg-soft-300, 0.5rem);
-    padding-inline: var(--prefix-mrg-soft-300, 0.5rem);
+    margin-inline: calc(var(--prefix-flow-margin--small, 0.5rem) * -1);
+    margin-block: 0 var(--prefix-flow-margin--small, 0.5rem);
+    padding-inline: var(--prefix-flow-margin--small, 0.5rem);
 }
 
 textarea,
@@ -14257,7 +14287,7 @@ label:has(> :where([type="checkbox"], [type="radio"])) {
     grid-template-columns: fit-content(0) 1fr;
     justify-content: end;
     align-items: baseline;
-    gap: var(--prefix-mrg-soft-300, 0.5rem);
+    gap: var(--prefix-flow-margin--small, 0.5rem);
     font-weight: 400;
     line-height: var(--prefix-line-height-400, 1.6875);
     cursor: pointer;
@@ -17196,7 +17226,7 @@ input[data-state-active="true"][type="submit"].button-grey * {
     letter-spacing: normal;
     text-transform: none;
     user-select: text;
-    margin-inline: 0 var(--prefix-mrg-firm-300, 0.8125rem);
+    margin-inline: 0 var(--prefix-flow-margin-firm-start--small, 0.8125rem);
     --prefix-focus-ring-outline-color: var(
         --prefix-theme-button-grey-outline,
         ButtonFace

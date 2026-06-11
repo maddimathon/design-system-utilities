@@ -7,18 +7,22 @@
 @use 'pkg:@maddimathon/utility-sass/meta';
 @use 'pkg:@maddimathon/utility-sass/selector';
 
-// @use '../../config';
+@use '../../config';
 // @use '../../tokens';
 
 @use '../01-functions' as *;
 
-$_firmFlowMarginChildren: (
-    '%icon',
-    '%svg',
-    '%button-span',
-    '%margins-flow-firm',
-    '%margins-flow-firm-small',
-    '%margins-flow-firm-large'
+$_firmFlowMarginChildren: list.join(
+    (
+        '%icon',
+        '%svg',
+        '%button-span',
+        '%margins-flow-firm',
+        '%margins-flow-firm-small',
+        '%margins-flow-firm-large'
+    ),
+    config.$fn_firstLastChildMargin_additionalFirmChildren,
+    $separator: comma
 );
 
 ///
@@ -26,19 +30,21 @@ $_firmFlowMarginChildren: (
 ///
 @mixin _snippet-no-top-or-bottom-margin(
     $marginSide,
+    $firmFlowMarginValue: do-var(flow-margin-firm-end),
+    $softFlowMarginValue: 0,
     //
-    $additionalFirmFlowMarginChildren: (),
+    $additionalFirmChildren: (),
     $asImportant: true,
     $childrenInIs: true,
-    $firmFlowMarginValue: do-var(flow-margin-firm-end),
     $includeChildren: true,
-    $useNotInsteadOfChildren: true
+    $useNotInsteadOfChildren:
+        config.$fn_firstLastChildMargin_useNotInsteadOfChildren
 ) {
     $importantSuffix: if($asImportant, ' !important', '');
 
     $firmFlowMarginChildren: list.join(
         $_firmFlowMarginChildren,
-        $additionalFirmFlowMarginChildren,
+        $additionalFirmChildren,
         $separator: comma
     );
 
@@ -50,10 +56,11 @@ $_firmFlowMarginChildren: (
 
     @if $includeChildren and $useNotInsteadOfChildren {
         &:not(#{$firmFlowMarginChildren}) {
-            margin-block-#{$marginSide}: 0 #{$importantSuffix};
+            margin-block-#{$marginSide}: $softFlowMarginValue
+                #{$importantSuffix};
         }
     } @else {
-        margin-block-#{$marginSide}: 0 #{$importantSuffix};
+        margin-block-#{$marginSide}: $softFlowMarginValue #{$importantSuffix};
     }
 
     @if $includeChildren and not $useNotInsteadOfChildren {

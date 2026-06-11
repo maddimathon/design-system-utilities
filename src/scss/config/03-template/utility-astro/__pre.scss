@@ -12,10 +12,19 @@
 
 @use '../../02-lib' as lib;
 
+$_doVar_allPrefixesSlugs: ('focus-ring-outline-color', 'icon-size');
+
+$_customProperty_allPrefixesSlugs: ('display', 'grid-column', 'icon-color');
+
 ///
 /// @since ___PKG_VERSION___
 ///
-$fn_var_replaceWithValue_resist: false !default;
+$fn_var_replaceWithValue_resist: null !default;
+$fn_var_replaceWithValue_resist: config-valid-bool(
+    $fn_var_replaceWithValue_resist,
+    'fn_var_replaceWithValue_resist',
+    $default: false
+);
 
 ///
 /// NOTE: setting this to true will disabled variable line-height values for
@@ -23,7 +32,12 @@ $fn_var_replaceWithValue_resist: false !default;
 ///
 /// @since 0.1.0-alpha
 ///
-$fn_var_replaceWithValue_borderWidth: not lib.$include_html and not $fn_var_replaceWithValue_resist !default;
+$fn_var_replaceWithValue_borderWidth: null !default;
+$fn_var_replaceWithValue_borderWidth: config-valid-bool(
+    $fn_var_replaceWithValue_borderWidth,
+    'fn_var_replaceWithValue_borderWidth',
+    $default: not lib.$include_html and not $fn_var_replaceWithValue_resist
+);
 
 ///
 /// NOTE: this also disables font sizes that scale with vw, since those are only
@@ -31,7 +45,12 @@ $fn_var_replaceWithValue_borderWidth: not lib.$include_html and not $fn_var_repl
 ///
 /// @since 0.1.0-alpha
 ///
-$fn_var_replaceWithValue_fontSize: not lib.$include_html and not $fn_var_replaceWithValue_resist !default;
+$fn_var_replaceWithValue_fontSize: null !default;
+$fn_var_replaceWithValue_fontSize: config-valid-bool(
+    $fn_var_replaceWithValue_fontSize,
+    'fn_var_replaceWithValue_fontSize',
+    $default: not lib.$include_html and not $fn_var_replaceWithValue_resist
+);
 
 ///
 /// NOTE: setting this to true will disabled variable line-height values for
@@ -41,6 +60,25 @@ $fn_var_replaceWithValue_fontSize: not lib.$include_html and not $fn_var_replace
 ///
 $fn_var_replaceWithValue_strokeRelative: not lib.$include_html and not
     $fn_var_replaceWithValue_resist !default;
+
+///
+/// List of slugs that should default to $allPrefixes: true in the
+/// do-var function.
+///
+/// @since ___PKG_VERSION___
+///
+$fn_doVar_allPrefixesSlugs: null !default;
+$fn_doVar_allPrefixesSlugs: config-valid-list-strings(
+    $fn_doVar_allPrefixesSlugs,
+    'fn_doVar_allPrefixesSlugs',
+    $default: ()
+);
+
+$fn_doVar_allPrefixesSlugs: list.join(
+    $_doVar_allPrefixesSlugs,
+    $fn_doVar_allPrefixesSlugs,
+    $separator: comma
+);
 
 ///
 /// List of slugs that should default to $allPrefixes: true in the custom-property mixin.
@@ -55,7 +93,7 @@ $mx_customProperty_allPrefixesSlugs: config-valid-list-strings(
 );
 
 $mx_customProperty_allPrefixesSlugs: list.join(
-    ('display', 'focus-ring-outline-color', 'grid-column', 'icon-color'),
+    list.join($fn_doVar_allPrefixesSlugs, $_customProperty_allPrefixesSlugs, $separator: comma),
     $mx_customProperty_allPrefixesSlugs,
     $separator: comma
 );

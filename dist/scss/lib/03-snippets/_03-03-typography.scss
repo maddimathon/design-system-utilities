@@ -515,15 +515,15 @@
 @mixin snippet-pre(
     $color: var-theme(text),
     $fontSize: var-fs(smaller-1),
-    $marginBlock: var-mrg-firm('400') var-mrg-half('400'),
+    $marginBlock: do-var(flow-margin-firm-start) do-var(flow-margin-firm-end),
     $marginInline: 0,
     $maxWidth: 100%,
-    $paddingBlock: var-mrg-soft('300'),
-    $paddingInline: var-mrg-firm('300'),
+    $paddingBlock: var-style(alert-padding-block),
+    $paddingInline: var-style(alert-padding-inline),
     $width: auto,
     //
     $includeBorder: true,
-    $includeMarginBlock: true,
+    $includeMarginBlock: false,
     $includeWidth: true
 ) {
     @include prop-display(block);
@@ -532,7 +532,10 @@
     align-self: center;
     justify-self: center;
 
-    margin-block: $marginBlock;
+    @if $includeMarginBlock {
+        margin-block: $marginBlock;
+    }
+
     margin-inline: $marginInline;
 
     padding-block: $paddingBlock;

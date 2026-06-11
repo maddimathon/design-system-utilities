@@ -23,7 +23,7 @@ $_var_contrastResultGroupColumnCount: lib.do-var(
 
     padding-block: lib.var-mrg-soft('200');
     padding-inline: lib.var-mrg-firm('300');
-    gap: lib.var-mrg-soft('300') lib.var-mrg-firm('200');
+    gap: lib.do-var(flow-margin--small) lib.var-mrg-firm('200');
 
     font-size: lib.var-fs(smaller-1);
 
@@ -163,7 +163,9 @@ $_var_contrastResultGroupColumnCount: lib.do-var(
             :global(
                 .shade-swatch__contrast__result-group__heading[data-contrast-result-group-has-heading-color='true']
             ) {
-                margin-block: lib.var-mrg-firm('300') lib.var-mrg-half('300');
+                margin-block: lib.do-var(flow-margin-firm-start--small)
+                    lib.do-var(flow-margin-firm-end--small);
+
                 padding: lib.var-stroke-relative('200');
 
                 font-weight: 500;
@@ -184,7 +186,7 @@ $_var_contrastResultGroupColumnCount: lib.do-var(
     }
 
     :global(.shade-swatch__contrast__heading) {
-        margin-block-start: lib.var-mrg-firm('300');
+        margin-block-start: lib.do-var(flow-margin-firm-start--small);
         font-size: lib.var-fs(smaller-2);
 
         + :global(.shade-swatch__contrast__result-group) {

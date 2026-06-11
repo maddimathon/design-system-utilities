@@ -41,7 +41,7 @@ dl {
     }
 
     > dt {
-        margin-block-start: lib.var-mrg-soft('300');
+        margin-block-start: lib.do-var(flow-margin--small);
         line-height: 1;
 
         &:first-child {
@@ -58,7 +58,8 @@ dl {
         justify-content: start;
         justify-items: end;
 
-        gap: lib.var-mrg-soft('300') lib.var-mrg-firm('300');
+        gap: lib.do-var(flow-margin--small)
+            lib.do-var(flow-margin-firm-start--small);
 
         font-size: lib.var-fs(smaller-1);
 
@@ -117,7 +118,7 @@ $_dynamic_grid_cols: auto repeat(2, minmax(10rem, 1fr));
         align-items: baseline;
         align-items: first baseline;
 
-        gap: lib.var-mrg-soft('400') lib.var-mrg-firm('400');
+        gap: lib.do-var(flow-margin) lib.do-var(flow-margin-firm-start);
 
         dt,
         dd {
@@ -169,7 +170,7 @@ $_dynamic_grid_cols: auto repeat(2, minmax(10rem, 1fr));
                             @include lib.prop-grid-column(1);
                             padding-inline-start: min(
                                 2vw,
-                                lib.var-mrg-firm('600')
+                                lib.do-var(flow-margin-firm-start--large)
                             );
                         }
                     }
@@ -197,8 +198,8 @@ $_dynamic_grid_cols: auto repeat(2, minmax(10rem, 1fr));
         &[data-toggle-container='open'] {
             > :global([data-toggle-content]) {
                 > :global(.container) {
-                    padding-block: lib.var-mrg-soft('400');
-                    padding-inline: lib.var-mrg-firm('400');
+                    padding-block: lib.do-var(flow-margin);
+                    padding-inline: lib.do-var(flow-margin-firm-start);
                 }
             }
         }
@@ -209,8 +210,8 @@ $_dynamic_grid_cols: auto repeat(2, minmax(10rem, 1fr));
         &[data-toggle-container='open'] {
             > :global([data-toggle-content]) {
                 > :global(.container) {
-                    margin-block: lib.var-mrg-soft('400');
-                    margin-inline: lib.var-mrg-firm('400');
+                    margin-block: lib.do-var(flow-margin);
+                    margin-inline: lib.do-var(flow-margin-firm-start);
                     padding: 0;
                     max-width: lib.var-width(content);
                     align-self: center;

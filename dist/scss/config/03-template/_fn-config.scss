@@ -36,6 +36,27 @@ $fn_clampHighContrastBorderWidth_min: config-valid-number(
 ///
 /// @since 0.1.0-beta.0.draft
 ///
+$fn_firstLastChildMargin_useNotInsteadOfChildren: null !default;
+$fn_firstLastChildMargin_useNotInsteadOfChildren: config-valid-bool(
+    $fn_firstLastChildMargin_useNotInsteadOfChildren,
+    'fn_firstLastChildMargin_useNotInsteadOfChildren',
+    $default: false
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$fn_firstLastChildMargin_additionalFirmChildren: null !default;
+$fn_firstLastChildMargin_additionalFirmChildren: config-valid-selector(
+    $fn_firstLastChildMargin_additionalFirmChildren,
+    'fn_firstLastChildMargin_additionalFirmChildren',
+    $default: (),
+    $allowEmpty: true
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
 $fn_marginValue_roundToPixelFactor: null !default;
 $fn_marginValue_roundToPixelFactor: config-valid-number(
     $fn_marginValue_roundToPixelFactor,
