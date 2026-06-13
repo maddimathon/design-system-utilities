@@ -23,90 +23,6 @@
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@function get-extend-selectors-layout-globals() {
-    $sels: ();
-
-    $sels: list.join(
-        $sels,
-        (
-            ((cite, p), margins-flow),
-            ((li), margins-flow-small),
-            ((dt), margins-flow-large),
-            (hr, style-value(hr-flow-margin-self, $raw: true)),
-            //
-            (
-                    (
-                        button,
-                        '[role=button]',
-                        // 'input[type=button]',
-                        // 'input[type=reset]',
-                        // 'input[type=submit]',
-                        details,
-                        pre,
-                        table,
-                        '%table-wrapper',
-                        '%image'
-                    ),
-                    margins-flow-firm
-                ),
-            ((blockquote), margins-flow-firm-large)
-        )
-    );
-
-    @return $sels;
-}
-
-///
-/// @since 0.1.0-beta.0.draft
-///
-@function get-extend-selectors-layout-utils() {
-    $sels: ();
-
-    $sels: list.join(
-        $sels,
-        (
-            ('.button-span', button-span),
-            //
-            ('.overflow-block-auto', overflow-block-auto),
-            ('.overflow-inline-auto', overflow-inline-auto),
-            //
-            ('.margins-flow', margins-flow),
-            ('.margins-flow-small', margins-flow-small),
-            ('.margins-flow-large', margins-flow-large),
-            (
-                '[data-toggle-container]',
-                style-value(toggle-flow-margin-self, $raw: true)
-            ),
-            //
-            ('.margins-flow-firm', margins-flow-firm),
-            ('.margins-flow-firm-small', margins-flow-firm-small),
-            ('.margins-flow-firm-large', margins-flow-firm-large),
-            //
-            ('%alert', style-value(alert-flow-margin-self, $raw: true)),
-            ('%brand-logo', style-value(logo-flow-margin-self, $raw: true)),
-            (
-                selector.unify(config.$selector_a, '.button'),
-                style-value(button-flow-margin-self, $raw: true)
-            )
-        )
-    );
-
-    @each $variant in tokens.$themesMeta_buttonVariations_extra {
-        $sels: list.append(
-            $sels,
-            (
-                selector.unify(config.$selector_a, '.button-#{$variant}'),
-                style-value(button-flow-margin-self, $raw: true)
-            )
-        );
-    }
-
-    @return $sels;
-}
-
-///
-/// @since 0.1.0-beta.0.draft
-///
 @function _get-extend-selectors-all-buttons--additions() {
     $all: ();
 
@@ -219,8 +135,12 @@
     $allHeadingLevels: token-all-heading-levels()
 ) {
     //
+    $additional: list.join(
+        $additional,
+        get-extend-selectors-brand-logo-utils()
+    );
+
     $additional: list.append($additional, ('p.aside', aside));
-    $additional: list.append($additional, ('.brand-logo', brand-logo));
 
     $additional: list.join(
         $additional,
@@ -258,46 +178,10 @@
     );
 
     $additional: list.join($additional, get-extend-selectors-colour-utils());
+    $additional: list.join($additional, get-extend-selectors-font-size-utils());
     $additional: list.join($additional, get-extend-selectors-icon-utils());
     $additional: list.join($additional, get-extend-selectors-layout-utils());
-
-    // font size utilities
-    @each $slug, $_value in tokens.$font_size {
-        $additional: list.append(
-            $additional,
-            ('.font-size-#{$slug}', font-size-#{$slug})
-        );
-    }
-
-    @each $bp in map.keys(tokens.$breakpoints) {
-        $additional: list.append(
-            $additional,
-            ('.if-viewport-max-width-#{$bp}', if-viewport-max-width-#{$bp})
-        );
-        $additional: list.append(
-            $additional,
-            ('.if-viewport-min-width-#{$bp}', if-viewport-min-width-#{$bp})
-        );
-    }
-
-    @each $slug in list.join(map.keys(tokens.$width), (auto, fit-content, none))
-    {
-        $additional: list.append(
-            $additional,
-            ('.max-width-#{$slug}', max-width-#{$slug})
-        );
-        $additional: list.append(
-            $additional,
-            ('.min-width-#{$slug}', min-width-#{$slug})
-        );
-    }
-
-    @each $logoSlug, $logoMap in tokens.$logos {
-        $additional: list.append(
-            $additional,
-            ('.brand-logo--#{$logoSlug}', brand-logo--#{$logoSlug})
-        );
-    }
+    $additional: list.join($additional, get-extend-selectors-width-utils());
 
     $additional: list.join(
         $additional,

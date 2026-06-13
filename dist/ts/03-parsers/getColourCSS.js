@@ -35,7 +35,7 @@ export function getColourCSS(tokens, brightness, _clrSlug, convertToVarFn = true
         return varMaker(clrSlug, null);
     }
     const formatter = (val) => varMaker(clrSlug, typeof val === 'object'
-        ? ColourUtilities.toString.hsl(val)
+        ? ColourUtilities.toString.hsl(val, 'comma')
         : val.replace(/(^|,\s*)hsl\(\s*([\d\.]+)\s*[,\s]\s*([\d\.]+)%?\s*[,\s]\s*([\d\.]+)%?\s*\)(\b|\s*\)|$)/i, '$1hsl( $2, $3%, $4% )$5'));
     // returns
     if (clrSlug === 'black' || clrSlug === 'white') {

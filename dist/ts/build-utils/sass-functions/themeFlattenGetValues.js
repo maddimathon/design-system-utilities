@@ -21,9 +21,9 @@ import { getColourCSS } from '../../03-parsers/getColourCSS.js';
  */
 export function sassFn_themeFlattenGetValues() {
     return [
-        'mmdsu-global-themeFlattenGetValues( $colours, $themes, $replaceVarClrWithValue, $includeHSL, $includeRGB, $presetOpacities, $presetOpacities_includeClrs )',
+        'mmdsu-global-themeFlattenGetValues( $colours, $themes, $replaceVarClrWithValue, $includeHSL, $includeRGB, $presetOpacities, $presetOpacities_includeClrs, $allowModernOpacitySyntax )',
         async (args) => {
-            const [colourTokens, themeTokens, replaceVarClrWithValue = false, includeHSL = true, includeRGB = false, presetOpacities = [], presetOpacities_includeClrs = false,] = await Promise.all([
+            const [colourTokens, themeTokens, replaceVarClrWithValue = false, includeHSL = true, includeRGB = false, presetOpacities = [], presetOpacities_includeClrs = false, allowModernOpacitySyntax = true,] = await Promise.all([
                 sassAssertValueType('colours', 'map', args[0], true)?.then(map => (map instanceof Map ? mapToObjectAsync(map) : map)),
                 sassAssertValueType('themes', 'map', args[1], true)?.then(map => (map instanceof Map ? mapToObjectAsync(map) : map)),
                 sassAssertValueType('replaceVarClrWithValue', 'bool', args[2], true),
@@ -31,13 +31,16 @@ export function sassFn_themeFlattenGetValues() {
                 sassAssertValueType('includeRGB', 'bool', args[4], true),
                 sassAssertValueType('presetOpacities', 'list', args[5], true),
                 sassAssertValueType('presetOpacities_includeClrs', 'bool', args[6], true),
+                sassAssertValueType('colour_allowModernOpacitySyntax', 'bool', args[7], true),
             ]);
             if (!themeTokens) {
                 return sass.sassNull;
             }
-            const varMaker = !replaceVarClrWithValue
-                ? (slug, value) => slug?.length ? `var(--clr-${slug}${value ? `, ${value}` : ''})` : String(value ?? slug ?? '')
-                : (slug, value) => String(value ?? slug ?? '');
+            const varMaker = (!replaceVarClrWithValue
+                ? (slug, value) => (slug?.length
+                    ? `var(--clr-${slug}${value ? `, ${value}` : ''})`
+                    : (value ?? slug ?? ''))
+                : (slug, value) => (value ?? slug ?? ''));
             const slugTranslator = async (brightness, val) => {
                 const clrVal = getColourCSS({ themes: themeTokens, colour: colourTokens }, brightness, val, !replaceVarClrWithValue);
                 // returns
@@ -90,18 +93,20 @@ export function sassFn_themeFlattenGetValues() {
                 if (!clrObj) {
                     return clrVal;
                 }
-                clr.$ = varMaker(val, ColourUtilities.toString.hsl(clrObj));
+                clr.$ = varMaker(val, ColourUtilities.toString.hsl(clrObj, 'comma'));
+                const listSeparator = allowModernOpacitySyntax ? 'space' : 'comma';
                 if (includeHSL) {
-                    clr.hsl = varMaker(`${val}-hsl`, ColourUtilities.toList.hsl(clrObj));
+                    clr.hsl = varMaker(`${val}-hsl`, ColourUtilities.toList.hsl(clrObj, listSeparator));
                 }
                 if (includeRGB) {
-                    clr.rgb = varMaker(`${val}-rgb`, ColourUtilities.toList.rgb(clrObj));
+                    clr.rgb = varMaker(`${val}-rgb`, ColourUtilities.toList.rgb(clrObj, listSeparator));
                 }
                 if (includeHSL || includeRGB) {
+                    const opacitySeparator = allowModernOpacitySyntax ? ' / ' : ', ';
                     for (const opacity of presetOpacities) {
                         clr[`-${opacity}`] = varMaker(presetOpacities_includeClrs ? `${val}--${opacity}` : undefined, includeHSL
-                            ? `hsla( ${ColourUtilities.toList.hsl(clrObj)}, ${opacity}% )`
-                            : `rgba( ${ColourUtilities.toList.rgb(clrObj)}, ${opacity}% )`);
+                            ? `hsla( ${ColourUtilities.toList.hsl(clrObj, listSeparator)}${opacitySeparator}${opacity}% )`
+                            : `rgba( ${ColourUtilities.toList.rgb(clrObj, listSeparator)}${opacitySeparator}${opacity}% )`);
                     }
                 }
                 return clr;

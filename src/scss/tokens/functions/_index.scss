@@ -107,8 +107,10 @@
     $val_flowMrg_large_raw: system.tokens-style-value(flow-margin-large, $raw: true);
     $val_flowMrg_large: system.tokens-mrg-value-soft($val_flowMrg_large_raw);
 
-    $val_flowMrg_button_raw: system.tokens-style-value(flow-margin-button, $raw: true);
-    $var_flowMrg_button: system.tokens-mrg-value-firm($val_flowMrg_button_raw);
+    $var_flowMrg_button: system.tokens-mrg-value-firm(
+        system.tokens-style-value(flow-margin-button, $raw: true),
+        $unit: 1em
+    );
 
     $var_flowMrg_firmStart_small: system.tokens-mrg-value-firm($val_flowMrg_small_raw);
 

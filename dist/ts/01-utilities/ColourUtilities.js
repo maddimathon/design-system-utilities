@@ -418,7 +418,7 @@ export var ColourUtilities;
     /**
      * @since 0.1.0-beta.0.draft
      */
-    function toList(clr, errContext, errMaker, _defaultSpace) {
+    function toList(clr, separator, errContext, errMaker, _defaultSpace) {
         const defaultSpace = _defaultSpace ?? 'hsl';
         // returns - converts
         if (typeof clr === 'string') {
@@ -436,23 +436,24 @@ export var ColourUtilities;
         }
         // returns - hsl
         if ('s' in clr) {
-            return ColourUtilities.toList.hsl(hslValidator(clr, errContext, errMaker));
+            return ColourUtilities.toList.hsl(hslValidator(clr, errContext, errMaker), separator);
         }
         // returns - oklch
         if ('c' in clr) {
             return ColourUtilities.toList.lch(lchValidator(clr, errContext, errMaker));
         }
         // returns - rgb
-        return ColourUtilities.toList.rgb(rgbValidator(clr, errContext, errMaker));
+        return ColourUtilities.toList.rgb(rgbValidator(clr, errContext, errMaker), separator);
     }
     ColourUtilities.toList = toList;
     /**
      * @since 0.1.0-beta.0.draft
      */
     (function (toList) {
-        function hsl(clr) {
+        function hsl(clr, separator = 'space') {
             const hsl = toHSL(clr);
-            return `${hsl.h}, ${hsl.s}%, ${hsl.l}%`;
+            const sep = separator === 'space' ? ' ' : ', ';
+            return `${hsl.h}${sep}${hsl.s}%${sep}${hsl.l}%`;
         }
         toList.hsl = hsl;
         function lch(clr) {
@@ -460,16 +461,17 @@ export var ColourUtilities;
             return `${lch.l}% ${lch.c} ${lch.h}`;
         }
         toList.lch = lch;
-        function rgb(clr) {
+        function rgb(clr, separator = 'space') {
             const rgb = toRGB(clr);
-            return `${rgb.r}, ${rgb.g}, ${rgb.b}`;
+            const sep = separator === 'space' ? ' ' : ', ';
+            return `${rgb.r}${sep}${rgb.g}${sep}${rgb.b}`;
         }
         toList.rgb = rgb;
     })(toList = ColourUtilities.toList || (ColourUtilities.toList = {}));
     /**
      * @since 0.1.0-beta.0.draft
      */
-    function toString(clr, errContext, errMaker, _defaultSpace) {
+    function toString(clr, separator, errContext, errMaker, _defaultSpace) {
         const defaultSpace = _defaultSpace ?? 'hsl';
         // returns - converts
         if (typeof clr === 'string') {
@@ -487,14 +489,14 @@ export var ColourUtilities;
         }
         // returns - hsl
         if ('s' in clr) {
-            return ColourUtilities.toString.hsl(hslValidator(clr, errContext, errMaker));
+            return ColourUtilities.toString.hsl(hslValidator(clr, errContext, errMaker), separator);
         }
         // returns - oklch
         if ('c' in clr) {
             return ColourUtilities.toString.lch(lchValidator(clr, errContext, errMaker));
         }
         // returns - rgb
-        return ColourUtilities.toString.rgb(rgbValidator(clr, errContext, errMaker));
+        return ColourUtilities.toString.rgb(rgbValidator(clr, errContext, errMaker), separator);
     }
     ColourUtilities.toString = toString;
     /**
@@ -505,16 +507,16 @@ export var ColourUtilities;
             return '#' + toHex(clr);
         }
         toString.hex = hex;
-        function hsl(clr) {
-            return `hsl( ${toList.hsl(clr)} )`;
+        function hsl(clr, separator = 'comma') {
+            return `hsl( ${toList.hsl(clr, separator)} )`;
         }
         toString.hsl = hsl;
         function lch(clr) {
             return `lch( ${toList.lch(clr)} )`;
         }
         toString.lch = lch;
-        function rgb(clr) {
-            return `rgb( ${toList.rgb(clr)} )`;
+        function rgb(clr, separator = 'comma') {
+            return `rgb( ${toList.rgb(clr, separator)} )`;
         }
         toString.rgb = rgb;
     })(toString = ColourUtilities.toString || (ColourUtilities.toString = {}));
@@ -849,7 +851,7 @@ export var ColourUtilities;
         /**
          * @since 0.1.0-beta.0.draft
          */
-        async function toString(clr, errContext, errMaker, _defaultSpace) {
+        async function toString(clr, separator, errContext, errMaker, _defaultSpace) {
             const defaultSpace = _defaultSpace ?? 'hsl';
             // returns - converts
             if (typeof clr === 'string') {
@@ -865,14 +867,14 @@ export var ColourUtilities;
             }
             // returns - hsl
             if ('s' in clr) {
-                return hslValidator(clr, errContext, errMaker).then(ColourUtilities.toString.hsl);
+                return hslValidator(clr, errContext, errMaker).then(str => ColourUtilities.toString.hsl(str, separator));
             }
             // returns - oklch
             if ('c' in clr) {
                 return lchValidator(clr, errContext, errMaker).then(ColourUtilities.toString.lch);
             }
             // returns - rgb
-            return rgbValidator(clr, errContext, errMaker).then(ColourUtilities.toString.rgb);
+            return rgbValidator(clr, errContext, errMaker).then(str => ColourUtilities.toString.rgb(str, separator));
         }
         Async.toString = toString;
     })(Async = ColourUtilities.Async || (ColourUtilities.Async = {}));

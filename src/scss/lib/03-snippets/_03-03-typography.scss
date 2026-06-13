@@ -674,8 +674,14 @@
 
     text-wrap: balance;
 
+    @if $color != false {
+        color: $color;
+    }
+
     @if $fontStyle != false {
         font-style: $fontStyle;
+
+        @content;
 
         @if $fontStyle == italic {
             em {
@@ -698,10 +704,8 @@
                 }
             }
         }
-    }
-
-    @if $color != false {
-        color: $color;
+    } @else {
+        @content;
     }
 }
 
@@ -839,17 +843,17 @@
 
     $val_buttonSpan_block: if(
         $buttonGapBlock,
-        var-mrg-firm(_set-flow-margins--to-margin-level($buttonGapBlock)),
+        var-pad-firm(_set-flow-margins--to-margin-level($buttonGapBlock)),
         if(
             $buttonGapInline,
-            var-mrg-firm(_set-flow-margins--to-margin-level($buttonGapInline)),
+            var-pad-firm(_set-flow-margins--to-margin-level($buttonGapInline)),
             $val_firm_start_small
         )
     );
 
     $val_buttonSpan_inline: if(
         $buttonGapInline,
-        var-mrg-firm(_set-flow-margins--to-margin-level($buttonGapInline)),
+        var-pad-firm(_set-flow-margins--to-margin-level($buttonGapInline)),
         $val_buttonSpan_block
     );
 
@@ -926,10 +930,7 @@
         }
 
         :is(%button) {
-            // %button-span {
             + :is(%button) {
-                // + %button-span {
-                // margin-block-start: $var_firm_start_small;
                 margin-block-start: do-var(flow-margin--button-span-block, $val_buttonSpan_block);
             }
 

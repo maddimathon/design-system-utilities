@@ -581,17 +581,35 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
     $brightness: null,
     $contrast: null,
     //
-    $allPrefixes: null,
-    $onlyFallbackPrefix: null,
     $color: null,
     $iconColor: null,
+    //
+    $allPrefixes: null,
+    $onlyFallbackPrefix: null,
+    $useSystemColorFallback: null,
     $args...
 ) {
     @if $variant != null and not theme-token-exists(text-#{$variant}) {
         $variant: null;
     }
 
+    $useSystemColorFallback: if(
+        $useSystemColorFallback == null,
+        if($contrast == null, true, null),
+        $useSystemColorFallback
+    );
+
     $variantSlug: if($variant == null, '', '-#{$variant}');
+
+    $args: map.merge(
+        meta.keywords($args),
+        (
+            brightness: $brightness,
+            contrast: $contrast,
+            useSystemColorFallback: $useSystemColorFallback,
+            warnOnFalse: false,
+        )
+    );
 
     @include utils.cx-prop(
         icon-color,
@@ -603,17 +621,11 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
                 var-theme(
                     style-value(icon-color, $raw: true),
                     $fallbackSlug: ui,
-                    $brightness: $brightness,
-                    $contrast: $contrast,
-                    $warnOnFalse: false,
                     $args...
                 ),
                 var-theme(
                     ui#{$variantSlug},
                     $fallbackSlug: text#{$variantSlug},
-                    $brightness: $brightness,
-                    $contrast: $contrast,
-                    $warnOnFalse: false,
                     $args...
                 )
             )
@@ -626,24 +638,12 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
         $color,
         var-theme(
             text#{$variantSlug},
-            $brightness: $brightness,
-            $contrast: $contrast,
-            $debug: $onlyFallbackPrefix and
-                (
-                    (
-                            config.$customPropertyPrefix !=
-                                config.$customPropertyPrefix_fallback
-                        )
-                        and
-                        string.length(#{config.$customPropertyPrefix_fallback})
-                        > 0
-                ),
             $onlyFallbackPrefix: $onlyFallbackPrefix,
             $args...
         )
     );
 
-    $args: meta.keywords($args);
+    @content;
 }
 
 ///

@@ -181,7 +181,7 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
             };
         }
         toScssVars() {
-            return ColourUtilities.toString.hsl(this.data.hsl);
+            return ColourUtilities.toString.hsl(this.data.hsl, 'comma');
         }
     }
     Tokens_Colour_ShadeMap.Shade = Shade;

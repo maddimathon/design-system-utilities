@@ -10,6 +10,8 @@
 
 @use '../02-lib' as lib;
 
+@use 'fn-config';
+
 ///
 /// Extra selectors that get merged with [data-active-theme=""] selectors.
 ///
@@ -90,13 +92,89 @@ $mx_tokens_fontFace_asBase64: utils.config-valid-bool(
 );
 
 ///
-/// @since 0.1.0-alpha.6
+/// @since 0.1.0-beta.0.draft
 ///
-$mx_tokensAll_includeFontFace: null !default;
-$mx_tokensAll_includeFontFace: utils.config-valid-bool(
-    $mx_tokensAll_includeFontFace,
-    'mx_tokensAll_includeFontFace',
-    $default: lib.$include_html
+$mx_tokens_print_borderRadius: null !default;
+$mx_tokens_print_borderRadius: utils.config-valid-bool(
+    $mx_tokens_print_borderRadius,
+    'mx_tokens_print_borderRadius',
+    $default: utils.$mx_tokens_printAll or not
+        fn-config.$fn_var_replaceWithValue_borderRadius
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$mx_tokens_print_colour: null !default;
+$mx_tokens_print_colour: utils.config-valid-bool(
+    $mx_tokens_print_colour,
+    'mx_tokens_print_colour',
+    $default: utils.$mx_tokens_printAll or not
+        fn-config.$fn_var_replaceWithValue_colour
+);
+
+///
+/// @since 0.1.0-alpha.6
+/// @since 0.1.0-beta.0.draft — Renamed from $mx_tokensAll_includeFontFace to $mx_tokens_print_fontFace.
+///
+$mx_tokens_print_fontFace: null !default;
+$mx_tokens_print_fontFace: utils.config-valid-bool(
+    $mx_tokens_print_fontFace,
+    'mx_tokens_print_fontFace',
+    $default: utils.$mx_tokens_printAll or lib.$include_html
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$mx_tokens_print_fontFamily: null !default;
+$mx_tokens_print_fontFamily: utils.config-valid-bool(
+    $mx_tokens_print_fontFamily,
+    'mx_tokens_print_fontFamily',
+    $default: utils.$mx_tokens_printAll or not
+        fn-config.$fn_var_replaceWithValue_fontFamily
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$mx_tokens_print_theme: null !default;
+$mx_tokens_print_theme: utils.config-valid-bool(
+    $mx_tokens_print_theme,
+    'mx_tokens_print_theme',
+    $default: true
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$mx_tokens_print_transition: null !default;
+$mx_tokens_print_transition: utils.config-valid-bool(
+    $mx_tokens_print_transition,
+    'mx_tokens_print_transition',
+    $default: true
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$mx_tokens_print_trTime: null !default;
+$mx_tokens_print_trTime: utils.config-valid-bool(
+    $mx_tokens_print_trTime,
+    'mx_tokens_print_trTime',
+    $default: utils.$mx_tokens_printAll or not
+        fn-config.$fn_var_replaceWithValue_transitionTime
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$mx_tokens_print_zIndex: null !default;
+$mx_tokens_print_zIndex: utils.config-valid-bool(
+    $mx_tokens_print_zIndex,
+    'mx_tokens_print_zIndex',
+    $default: utils.$mx_tokens_printAll or not
+        fn-config.$fn_var_replaceWithValue_zIndex
 );
 
 ///

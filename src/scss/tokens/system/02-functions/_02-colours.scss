@@ -167,14 +167,10 @@
     $tokenValue: #{$tokenValue};
 
     // returns
-    @if $tokenValue ==
-        'white' or
-        $tokenValue ==
-        white or
-        $tokenValue ==
-        'black' or
-        $tokenValue ==
-        black
+    @if ($tokenValue == 'white') or
+        ($tokenValue == white) or
+        ($tokenValue == 'black') or
+        ($tokenValue == black)
     {
         @return tokens-var-clr($tokenValue, null, $args...);
     }

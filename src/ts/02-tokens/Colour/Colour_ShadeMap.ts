@@ -343,7 +343,7 @@ export namespace Tokens_Colour_ShadeMap {
         }
 
         public toScssVars(): Shade.ScssVars {
-            return ColourUtilities.toString.hsl( this.data.hsl );
+            return ColourUtilities.toString.hsl( this.data.hsl, 'comma' );
         }
     };
 

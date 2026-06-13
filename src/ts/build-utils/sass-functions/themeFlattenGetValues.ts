@@ -36,6 +36,9 @@ import type { Tokens_Themes } from '../../02-tokens/Tokens_Themes.js';
 
 import { getColourCSS } from '../../03-parsers/getColourCSS.js';
 
+
+type VarMaker = ( slug: undefined | string, value: null | string ) => string;
+
 /**
  * A function to include in {@link sass.Options} that flattens the scss theme
  * objects and sets their values to colour values.
@@ -43,12 +46,12 @@ import { getColourCSS } from '../../03-parsers/getColourCSS.js';
  * @since __PKG_VERSION___
  */
 export function sassFn_themeFlattenGetValues(): [
-    'mmdsu-global-themeFlattenGetValues( $colours, $themes, $replaceVarClrWithValue, $includeHSL, $includeRGB, $presetOpacities, $presetOpacities_includeClrs )',
+    'mmdsu-global-themeFlattenGetValues( $colours, $themes, $replaceVarClrWithValue, $includeHSL, $includeRGB, $presetOpacities, $presetOpacities_includeClrs, $allowModernOpacitySyntax )',
     sass.CustomFunction<'async'>,
 ] {
 
     return [
-        'mmdsu-global-themeFlattenGetValues( $colours, $themes, $replaceVarClrWithValue, $includeHSL, $includeRGB, $presetOpacities, $presetOpacities_includeClrs )',
+        'mmdsu-global-themeFlattenGetValues( $colours, $themes, $replaceVarClrWithValue, $includeHSL, $includeRGB, $presetOpacities, $presetOpacities_includeClrs, $allowModernOpacitySyntax )',
         async ( args: sass.Value[] ) => {
 
             const [
@@ -59,6 +62,7 @@ export function sassFn_themeFlattenGetValues(): [
                 includeRGB = false,
                 presetOpacities = [],
                 presetOpacities_includeClrs = false,
+                allowModernOpacitySyntax = true,
             ] = await Promise.all( [
 
                 sassAssertValueType( 'colours', 'map', args[ 0 ], true )?.then(
@@ -75,20 +79,28 @@ export function sassFn_themeFlattenGetValues(): [
 
                 sassAssertValueType( 'presetOpacities', 'list', args[ 5 ], true ) as Promise<number[] | undefined>,
                 sassAssertValueType( 'presetOpacities_includeClrs', 'bool', args[ 6 ], true ),
+
+                sassAssertValueType( 'colour_allowModernOpacitySyntax', 'bool', args[ 7 ], true ),
             ] );
 
             if ( !themeTokens ) {
                 return sass.sassNull;
             }
 
-            const varMaker = !replaceVarClrWithValue
-                ? ( slug: undefined | string, value: null | string ) => slug?.length ? `var(--clr-${ slug }${ value ? `, ${ value }` : '' })` : String( value ?? slug ?? '' )
-                : ( slug: undefined | string, value: null | string ) => String( value ?? slug ?? '' );
+            const varMaker = (
+                !replaceVarClrWithValue
+                    ? ( slug, value ) => (
+                        slug?.length
+                            ? `var(--clr-${ slug }${ value ? `, ${ value }` : '' })`
+                            : ( value ?? slug ?? '' )
+                    )
+                    : ( slug, value ) => ( value ?? slug ?? '' )
+            ) as VarMaker;
 
             const slugTranslator = async (
                 brightness: TokenTypes.Theme.Mode.BrightnessOption,
                 val: string,
-            ): Promise<string | { $: string; hsl?: string; rgb?: string; }> => {
+            ): Promise<string | { $: string; hsl?: string | string[]; rgb?: string | string[]; }> => {
 
                 const clrVal = getColourCSS(
                     { themes: themeTokens, colour: colourTokens },
@@ -104,8 +116,8 @@ export function sassFn_themeFlattenGetValues(): [
 
                 const clr: {
                     $: string;
-                    hsl?: string;
-                    rgb?: string;
+                    hsl?: string | string[];
+                    rgb?: string | string[];
                 } & {
                     [ K in `-${ number }` ]?: string;
                 } = {
@@ -172,30 +184,34 @@ export function sassFn_themeFlattenGetValues(): [
 
                 clr.$ = varMaker(
                     val,
-                    ColourUtilities.toString.hsl( clrObj ),
+                    ColourUtilities.toString.hsl( clrObj, 'comma' ),
                 );
+
+                const listSeparator = allowModernOpacitySyntax ? 'space' : 'comma' as const;
 
                 if ( includeHSL ) {
                     clr.hsl = varMaker(
                         `${ val }-hsl`,
-                        ColourUtilities.toList.hsl( clrObj ),
+                        ColourUtilities.toList.hsl( clrObj, listSeparator ),
                     );
                 }
 
                 if ( includeRGB ) {
                     clr.rgb = varMaker(
                         `${ val }-rgb`,
-                        ColourUtilities.toList.rgb( clrObj ),
+                        ColourUtilities.toList.rgb( clrObj, listSeparator ),
                     );
                 }
 
                 if ( includeHSL || includeRGB ) {
+                    const opacitySeparator = allowModernOpacitySyntax ? ' / ' : ', ' as const;
+
                     for ( const opacity of presetOpacities ) {
                         clr[ `-${ opacity }` ] = varMaker(
                             presetOpacities_includeClrs ? `${ val }--${ opacity }` : undefined,
                             includeHSL
-                                ? `hsla( ${ ColourUtilities.toList.hsl( clrObj ) }, ${ opacity }% )`
-                                : `rgba( ${ ColourUtilities.toList.rgb( clrObj ) }, ${ opacity }% )`,
+                                ? `hsla( ${ ColourUtilities.toList.hsl( clrObj, listSeparator ) }${ opacitySeparator }${ opacity }% )`
+                                : `rgba( ${ ColourUtilities.toList.rgb( clrObj, listSeparator ) }${ opacitySeparator }${ opacity }% )`,
                         );
                     }
                 }

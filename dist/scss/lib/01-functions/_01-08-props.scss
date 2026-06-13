@@ -5,11 +5,39 @@
 
 @use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/selector';
 
-// @use '../../config';
+@use '../../config';
 @use '../../tokens';
 
 // @use 'pkg:@maddimathon/utility-astro/01-functions' as utils;
+
+// @use '01-00-utilities' as *;
+// @use '01-01-spacing' as *;
+// @use '01-02-modes' as *;
+// @use '01-03-colours' as *;
+// @use '01-04-typography' as *;
+// @use '01-05-animation' as *;
+// @use '01-06-decoration' as *;
+@use '01-07-style' as *;
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function get-extend-selectors-brand-logo-utils() {
+    $sels: ();
+
+    $sels: list.append($sels, ('.brand-logo', brand-logo));
+
+    @each $logoSlug, $logoMap in tokens.$logos {
+        $sels: list.append(
+            $sels,
+            ('.brand-logo--#{$logoSlug}', brand-logo--#{$logoSlug})
+        );
+    }
+
+    @return $sels;
+}
 
 ///
 /// @since 0.1.0-beta.0.draft
@@ -44,6 +72,25 @@
 ///
 /// @since 0.1.0-beta.0.draft
 ///
+@function get-extend-selectors-font-size-utils() {
+    $sels: ();
+
+    $sels: list.append(
+        $sels,
+        ('.font-size-heading-unstyled', font-size-heading-unstyled)
+    );
+
+    // font size utilities
+    @each $slug, $_value in tokens.$font_size {
+        $sels: list.append($sels, ('.font-size-#{$slug}', font-size-#{$slug}));
+    }
+
+    @return $sels;
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
 @function get-extend-selectors-icon-utils() {
     $sels: ();
 
@@ -57,6 +104,116 @@
                 ('.add-#{$iconSlug}-icon-before', add-#{$iconSlug}-icon-before)
             )
         );
+    }
+
+    @return $sels;
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function get-extend-selectors-layout-globals() {
+    $sels: ();
+
+    $sels: list.join(
+        $sels,
+        (
+            ((cite, p), margins-flow),
+            ((li), margins-flow-small),
+            ((dt), margins-flow-large),
+            (hr, style-value(hr-flow-margin-self, $raw: true)),
+            //
+            (
+                    (
+                        button,
+                        '[role=button]',
+                        // 'input[type=button]',
+                        // 'input[type=reset]',
+                        // 'input[type=submit]',
+                        details,
+                        pre,
+                        table,
+                        '%table-wrapper',
+                        '%image'
+                    ),
+                    margins-flow-firm
+                ),
+            ((blockquote), margins-flow-firm-large)
+        )
+    );
+
+    @return $sels;
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function get-extend-selectors-layout-utils() {
+    $sels: ();
+
+    $sels: list.join(
+        $sels,
+        (
+            ('.button-span', button-span),
+            //
+            ('.overflow-block-auto', overflow-block-auto),
+            ('.overflow-inline-auto', overflow-inline-auto),
+            //
+            ('.margins-flow', margins-flow),
+            ('.margins-flow-small', margins-flow-small),
+            ('.margins-flow-large', margins-flow-large),
+            (
+                '[data-toggle-container]',
+                style-value(toggle-flow-margin-self, $raw: true)
+            ),
+            //
+            ('.margins-flow-firm', margins-flow-firm),
+            ('.margins-flow-firm-small', margins-flow-firm-small),
+            ('.margins-flow-firm-large', margins-flow-firm-large),
+            //
+            ('%alert', style-value(alert-flow-margin-self, $raw: true)),
+            ('%brand-logo', style-value(logo-flow-margin-self, $raw: true)),
+            (
+                selector.unify(config.$selector_a, '.button'),
+                style-value(button-flow-margin-self, $raw: true)
+            )
+        )
+    );
+
+    @each $variant in tokens.$themesMeta_buttonVariations_extra {
+        $sels: list.append(
+            $sels,
+            (
+                selector.unify(config.$selector_a, '.button-#{$variant}'),
+                style-value(button-flow-margin-self, $raw: true)
+            )
+        );
+    }
+
+    @return $sels;
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function get-extend-selectors-width-utils() {
+    $sels: ();
+
+    @each $bp in map.keys(tokens.$breakpoints) {
+        $sels: list.append(
+            $sels,
+            ('.if-viewport-max-width-#{$bp}', if-viewport-max-width-#{$bp})
+        );
+        $sels: list.append(
+            $sels,
+            ('.if-viewport-min-width-#{$bp}', if-viewport-min-width-#{$bp})
+        );
+    }
+
+    @each $slug in list.join(map.keys(tokens.$width), (auto, fit-content, none))
+    {
+        $sels: list.append($sels, ('.max-width-#{$slug}', max-width-#{$slug}));
+        $sels: list.append($sels, ('.min-width-#{$slug}', min-width-#{$slug}));
     }
 
     @return $sels;

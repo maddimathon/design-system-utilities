@@ -156,6 +156,7 @@
     $version: null,
     $opacity: null,
     //
+    $allPrefixes: null,
     $fallbackOnly: false,
     $fallbackSlug: null,
     $returnAsList: false,
@@ -166,7 +167,14 @@
 ) {
     $clrIsSystemColor: false;
 
-    $args: map.set(meta.keywords($args), fallbackOnly, $fallbackOnly or not $returnAsVar);
+    // $fallbackOnly: $fallbackOnly or not $returnAsVar;
+    $args: map.merge(
+        meta.keywords($args),
+        (
+            allPrefixes: $allPrefixes,
+            fallbackOnly: $fallbackOnly or not $returnAsVar,
+        )
+    );
 
     $themeVarSlug: theme-#{$slug};
 
@@ -178,12 +186,20 @@
         }
     }
 
-    @if $opacity == null and $version != null {
-        @if $useSystemColorFallback == null {
-            $useSystemColorFallback: false;
-        } @else if $useSystemColorFallback {
-            $version: null;
-        }
+    // confirming these props
+    @if not config.$include_colourValues_hsl and not config.$include_colourValues_rgb {
+        $opacity: null;
+        $version: null;
+    } @else if $opacity != null {
+        $version: if($version == null, if(config.$include_colourValues_hsl, hsl, rgb), $version);
+    }
+
+    @if $useSystemColorFallback == null {
+        $useSystemColorFallback: $contrast == null and ($opacity == null and $version == null);
+    }
+
+    @if $useSystemColorFallback {
+        $version: null;
     }
 
     @if $useSystemColorFallback == null {
@@ -228,14 +244,6 @@
     }
 
     $opacity: if($opacity != null and (not $clrIsSystemColor or $opacityIsPreset), $opacity, null);
-
-    // confirming these props
-    @if not config.$include_colourValues_hsl and not config.$include_colourValues_rgb {
-        $opacity: null;
-        $version: null;
-    } @else if $opacity != null {
-        $version: if($version == null, if(config.$include_colourValues_hsl, hsl, rgb), $version);
-    }
 
     // updated var slug
     @if $opacity != null and $opacityIsPreset {
@@ -292,30 +300,74 @@
             $warnOnFalse: $warnOnFalse
         );
 
-        @if not $returnAsList and list.length($_value) > 1 {
-            $_value: list.nth($_value, 1);
-        }
-
         @if $_value {
+            @if not $returnAsList and list.length($_value) > 1 {
+                $_value: list.nth($_value, 1);
+            }
+
             // returns
             @if $opacityIsPreset {
+                // returns
+                @if list.length($_value) > 1 {
+                    $_valueList: ();
+
+                    @each $_val in $_value {
+                        $_valueList: list.append(
+                            $_valueList,
+                            config.config-do-var($themeVarSlug, $fallback: $_val, $args...)
+                        );
+                    }
+
+                    @return $_valueList;
+                }
+
                 @return config.config-do-var($themeVarSlug, $fallback: $_value, $args...);
             }
 
-            $_value: config.config-do-var($themeVarSlug, $fallback: $_value, $args...);
+            // prettier-ignore
+            $modernOpacitySyntax: (config.$colour_channelLists_separator == space) and
+                (
+                    $useSystemColorFallback or
+                    $returnAsVar or
+                    config.custom-property-prefix-all-exists() or
+                    (not ($fallbackOnly or config.$fn_var_replaceWithValue_colour))
+                );
+
+            $split_regex: '(?<=\\d%?)[,\\s]\\s*(?=\\d)';
 
             // returns
             @if list.length($_value) > 1 {
                 $_valueList: ();
 
                 @each $_val in $_value {
+                    @if not $modernOpacitySyntax {
+                        $_val: string.join(', ', string.regex-split($_val, $split_regex));
+                    }
+
+                    $_val: config.config-do-var($themeVarSlug, $fallback: $_val, $args...);
+
                     $_valueList: list.append(
                         $_valueList,
-                        string.unquote('#{$version}a(#{$_val}, #{$opacity})')
+                        if(
+                            $modernOpacitySyntax,
+                            string.unquote('#{$version}a(#{$_val} / #{$opacity})'),
+                            string.unquote('#{$version}a(#{$_val}, #{$opacity})')
+                        )
                     );
                 }
 
                 @return $_valueList;
+            }
+
+            @if not $modernOpacitySyntax {
+                $_value: string.join(', ', string.regex-split($_value, $split_regex));
+            }
+
+            $_value: config.config-do-var($themeVarSlug, $fallback: $_value, $args...);
+
+            // returns
+            @if $modernOpacitySyntax {
+                @return string.unquote('#{$version}a(#{$_value} / #{$opacity})');
             }
 
             @return string.unquote('#{$version}a(#{$_value}, #{$opacity})');

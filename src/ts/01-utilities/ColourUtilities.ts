@@ -737,6 +737,7 @@ export namespace ColourUtilities {
      */
     export function toList(
         clr: Exclude<Value, Value_Hex> | Value_All | { data: Value_All; },
+        separator: "comma" | "space",
         errContext: LocalErrors.Context,
         errMaker: LocalErrors.ConstructorFn,
         _defaultSpace?: Exclude<keyof Value_All, 'hex'>,
@@ -780,7 +781,7 @@ export namespace ColourUtilities {
                 clr,
                 errContext,
                 errMaker,
-            ) );
+            ), separator );
         }
 
         // returns - oklch
@@ -797,7 +798,7 @@ export namespace ColourUtilities {
             clr,
             errContext,
             errMaker,
-        ) );
+        ), separator );
     }
 
     /**
@@ -807,9 +808,11 @@ export namespace ColourUtilities {
 
         export function hsl(
             clr: Value_HSL | Value_All | { data: Value_All; },
+            separator: "comma" | "space" = 'space',
         ): string {
             const hsl = toHSL( clr );
-            return `${ hsl.h }, ${ hsl.s }%, ${ hsl.l }%`;
+            const sep = separator === 'space' ? ' ' : ', ';
+            return `${ hsl.h }${ sep }${ hsl.s }%${ sep }${ hsl.l }%`;
         }
 
         export function lch(
@@ -821,9 +824,11 @@ export namespace ColourUtilities {
 
         export function rgb(
             clr: Value_RGB | Value_All | { data: Value_All; },
+            separator: "comma" | "space" = 'space',
         ): string {
             const rgb = toRGB( clr );
-            return `${ rgb.r }, ${ rgb.g }, ${ rgb.b }`;
+            const sep = separator === 'space' ? ' ' : ', ';
+            return `${ rgb.r }${ sep }${ rgb.g }${ sep }${ rgb.b }`;
         }
     }
 
@@ -832,6 +837,7 @@ export namespace ColourUtilities {
      */
     export function toString(
         clr: Value | Value_All | { data: Value_All; },
+        separator: "comma" | "space",
         errContext: LocalErrors.Context,
         errMaker: LocalErrors.ConstructorFn,
         _defaultSpace?: keyof Value_All,
@@ -875,7 +881,7 @@ export namespace ColourUtilities {
                 clr,
                 errContext,
                 errMaker,
-            ) );
+            ), separator );
         }
 
         // returns - oklch
@@ -892,7 +898,7 @@ export namespace ColourUtilities {
             clr,
             errContext,
             errMaker,
-        ) );
+        ), separator );
     }
 
     /**
@@ -908,8 +914,9 @@ export namespace ColourUtilities {
 
         export function hsl(
             clr: Value_HSL | Value_All | { data: Value_All; },
+            separator: "comma" | "space" = 'comma',
         ): string {
-            return `hsl( ${ toList.hsl( clr ) } )`;
+            return `hsl( ${ toList.hsl( clr, separator ) } )`;
         }
 
         export function lch(
@@ -920,8 +927,9 @@ export namespace ColourUtilities {
 
         export function rgb(
             clr: Value_RGB | Value_All | { data: Value_All; },
+            separator: "comma" | "space" = 'comma',
         ): string {
-            return `rgb( ${ toList.rgb( clr ) } )`;
+            return `rgb( ${ toList.rgb( clr, separator ) } )`;
         }
     }
 
@@ -1467,6 +1475,7 @@ export namespace ColourUtilities {
          */
         export async function toString(
             clr: Value | Value_All | { data: Value_All; },
+            separator: "comma" | "space",
             errContext: LocalErrors.Context,
             errMaker: LocalErrors.ConstructorFn,
             _defaultSpace?: keyof Value_All,
@@ -1512,7 +1521,7 @@ export namespace ColourUtilities {
                     clr,
                     errContext,
                     errMaker,
-                ).then( ColourUtilities.toString.hsl );
+                ).then( str => ColourUtilities.toString.hsl( str, separator ) );
             }
 
             // returns - oklch
@@ -1529,7 +1538,7 @@ export namespace ColourUtilities {
                 clr,
                 errContext,
                 errMaker,
-            ).then( ColourUtilities.toString.rgb );
+            ).then( str => ColourUtilities.toString.rgb( str, separator ) );
         }
     }
 

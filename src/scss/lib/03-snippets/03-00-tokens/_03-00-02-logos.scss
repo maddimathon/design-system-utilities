@@ -53,7 +53,9 @@ $_allUniqueLogoAspectRatios: ();
     $margin_svg: 0,
     $marginBlock: false,
     $padding_svg: 0,
-    $verticalAlign: middle
+    $verticalAlign: middle,
+    //
+    $multipleContentBlocks: false
 ) {
     %brand-logo {
         @include prop-display($display);
@@ -71,7 +73,11 @@ $_allUniqueLogoAspectRatios: ();
             color var-tr-time(fast) tokens.$transition_function,
             fill var-tr-time(fast) tokens.$transition_function;
 
-        @content (root);
+        @if $multipleContentBlocks {
+            @content (root);
+        } @else {
+            @content;
+        }
 
         > svg {
             @include prop-display($display_svg);
@@ -80,13 +86,19 @@ $_allUniqueLogoAspectRatios: ();
 
             fill: currentColor;
 
-            @content (svg);
+            @if $multipleContentBlocks {
+                @content (svg);
+            }
         }
     }
 
     @each $slug, $map in $_allUniqueLogoAspectRatios {
         %brand-logo-aspect-ratio--#{$slug} {
             @include aspect-ratio(map.get($map, width), map.get($map, height));
+
+            @if $multipleContentBlocks {
+                @content (aspect-ratio--#{$slug});
+            }
         }
     }
 
@@ -95,6 +107,10 @@ $_allUniqueLogoAspectRatios: ();
             &--#{$slug} {
                 $aspectRatio: logo-aspect-ratio-value($slug);
                 @extend %brand-logo-aspect-ratio--#{string.slugify( #{$aspectRatio} )};
+
+                @if $multipleContentBlocks {
+                    @content (logo--#{$slug});
+                }
             }
         }
     }

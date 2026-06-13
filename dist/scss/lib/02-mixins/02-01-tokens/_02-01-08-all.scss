@@ -29,30 +29,35 @@
     $checkpointName: false,
     $checkpointLevel: 2,
     //
-    $borderRadius: not config.$fn_var_replaceWithValue_borderRadius,
-    $borderWidth: not config.$fn_var_replaceWithValue_borderWidth,
-    $colour: not config.$fn_var_replaceWithValue_colour,
-    $fontFace: config.$mx_tokensAll_includeFontFace,
-    $fontFamily: not config.$fn_var_replaceWithValue_fontFamily,
-    $fontSize: not config.$fn_var_replaceWithValue_fontSize,
-    $gap: not config.$fn_var_replaceWithValue_gap,
-    $lineHeight: not config.$fn_var_replaceWithValue_lineHeight,
-    $margin: not config.$fn_var_replaceWithValue_margin,
-    $strokeRelative: not config.$fn_var_replaceWithValue_strokeRelative,
-    $style: null,
-    $sysColours: true,
-    $theme: true,
-    $transition: true,
-    $trTime: not config.$fn_var_replaceWithValue_transitionTime,
-    $width: not config.$fn_var_replaceWithValue_width,
-    $zIndex: not config.$fn_var_replaceWithValue_zIndex,
+    $atProperty: config.$mx_tokens_print_atProperty,
+    $borderRadius: config.$mx_tokens_print_borderRadius,
+    $borderWidth: config.$mx_tokens_print_borderWidth,
+    $colour: config.$mx_tokens_print_colour,
+    $fontFace: config.$mx_tokens_print_fontFace,
+    $fontFamily: config.$mx_tokens_print_fontFamily,
+    $fontSize: config.$mx_tokens_print_fontSize,
+    $gap: config.$mx_tokens_print_gap,
+    $lineHeight: config.$mx_tokens_print_lineHeight,
+    $margin: config.$mx_tokens_print_margin,
+    $strokeRelative: config.$mx_tokens_print_strokeRelative,
+    $style: config.$mx_tokens_print_style,
+    $sysColours: config.$mx_tokens_print_sysColours,
+    $theme: config.$mx_tokens_print_theme,
+    $transition: config.$mx_tokens_print_transition,
+    $trTime: config.$mx_tokens_print_trTime,
+    $width: config.$mx_tokens_print_width,
+    $zIndex: config.$mx_tokens_print_zIndex,
     //
-    $includeRegion: true,
+    $multiplier_borderWidth: 1,
+    $multiplier_fontSize: 1,
+    $multiplier_gap: 1,
+    $multiplier_lineHeight: 1,
+    $multiplier_margin: 1,
+    $multiplier_strokeRelative: 1,
+    $multiplier_width: 1,
     //
-    $args...
+    $includeRegion: true
 ) {
-    $args: meta.keywords($args);
-
     @if $checkpointName {
         @include debug-checkpoint(
             '#{$checkpointName} - tokens-all - start',
@@ -76,8 +81,15 @@
         $sysColours: false,
         $width: $width,
         //
-        $includeRegion: $includeRegion,
-        $args...
+        $multiplier_borderWidth: $multiplier_borderWidth,
+        $multiplier_fontSize: $multiplier_fontSize,
+        $multiplier_gap: $multiplier_gap,
+        $multiplier_lineHeight: $multiplier_lineHeight,
+        $multiplier_margin: $multiplier_margin,
+        $multiplier_strokeRelative: $multiplier_strokeRelative,
+        $multiplier_width: $multiplier_width,
+        //
+        $includeRegion: $includeRegion
     );
 
     @if $checkpointName {
