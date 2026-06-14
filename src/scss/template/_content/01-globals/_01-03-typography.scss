@@ -148,58 +148,8 @@ $_heading_inlines: false;
     }
 }
 
-@if $_print_code {
-    %code,
-    %kbd,
-    %pre,
-    %samp {
-        position: relative;
-
-        @if font-family-exists(monospace) {
-            font-family: var-font-family(monospace);
-        } @else {
-            font-family: font-family-system-monospace();
-        }
-
-        // UPGRADE - convert to style tokens
-        border-radius: var-style(button-border-radius);
-        background: var-theme(background-grey);
-
-        @include theme-set-color(primary);
-
-        %a & {
-            color: inherit;
-        }
-    }
-
-    %code,
-    %kbd,
-    %samp {
-        @include prop-display(inline);
-        margin-block: 0;
-        margin-inline: var-stroke-relative('200');
-        padding-block: 0;
-        padding-inline: var-stroke-relative('600');
-
-        vertical-align: baseline;
-        align-self: baseline;
-        justify-self: baseline;
-
-        font-weight: 500;
-
-        @include font-family-size-tokens(monospace);
-    }
-
-    %kbd,
-    %samp {
-        user-select: all;
-    }
-}
-
-@if $_print_pre {
-    %pre {
-        @include snippet-pre;
-    }
+@if $_print_code or $_print_pre {
+    @include snippet-support-code($includeBase: $_print_code, $includePre: $_print_pre);
 }
 
 @if config.$template_cssHeadings and ($_print_headings or $_print_pageSubtitle) {

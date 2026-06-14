@@ -140,6 +140,16 @@ export declare namespace getBrandConstants {
          * @since 0.1.0-beta.0.draft
          */
         namespace PHP {
+            /**
+             * Tries its best to recursively format a value.
+             *
+             * @since 0.1.0-beta.0.draft
+             */
+            function prepareConstant([key, value]: [string, unknown], { indent, keyFilter, valueFilter, }?: {
+                indent?: string | undefined;
+                keyFilter?: ((str: string) => string) | undefined;
+                valueFilter?: ((str: string) => string) | undefined;
+            }): [string, string];
             function entriesToArray(entries: [string, string][] | readonly [string, string][], associativeArray?: boolean, indent?: string): string;
             function entriesToObject(entries: [string, string][] | readonly [string, string][], indent?: string): string;
             /**

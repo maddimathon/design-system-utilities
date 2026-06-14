@@ -513,6 +513,9 @@
 /// @since 0.1.0-beta.0.draft
 ///
 @mixin snippet-pre(
+    $borderColor: var-theme(ui-primary),
+    $borderRadius: var-style(alert-border-radius),
+    $borderWidth: var-style(alert-border-width),
     $color: var-theme(text),
     $fontSize: var-fs(smaller-1),
     $marginBlock: do-var(flow-margin-firm-start) do-var(flow-margin-firm-end),
@@ -542,8 +545,9 @@
     padding-inline: $paddingInline;
 
     @if $includeBorder {
-        border: var-border-width('100') solid var-theme(ui-primary);
+        border: $borderWidth solid $borderColor;
     }
+    border-radius: $borderRadius;
 
     color: $color;
 
@@ -558,9 +562,9 @@
 
     @content (root);
 
-    > %code,
-    > %kbd,
-    > %samp {
+    > code,
+    > kbd,
+    > samp {
         @include prop-display(block);
         margin: 0;
         padding: 0;
@@ -582,15 +586,15 @@
         @content (code);
     }
 
-    &:has(> %code),
-    &:has(> %kbd),
-    &:has(> %samp) {
+    &:has(> code),
+    &:has(> kbd),
+    &:has(> samp) {
         white-space: normal;
         text-wrap: auto;
 
         @content (has-code);
 
-        > %code {
+        > code {
             white-space: pre;
             text-wrap: nowrap;
 
@@ -604,7 +608,7 @@
 
             @content (has-code--plaintext);
 
-            > %code {
+            > code {
                 white-space: pre-wrap;
                 text-wrap: auto;
 
@@ -1106,4 +1110,122 @@
     ) !important;
 
     color: var-theme(selection-text, $contrast: $contrast, $args...) !important;
+}
+
+$_mixin_pre: meta.get-mixin('snippet-pre');
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin snippet-support-code(
+    $background: var-theme(background-grey),
+    $borderRadius: var-style(button-border-radius),
+    $color: primary,
+    $fontWeight: 500,
+    $marginBlock: 0,
+    $marginInline: var-stroke-relative('200'),
+    $paddingBlock: 0,
+    $paddingInline: var-stroke-relative('600'),
+    //
+    $includeBase: true,
+    $includeInlines: $includeBase,
+    $includePre: true,
+    //
+    $selector_code: '%code',
+    $selector_kbd: '%kbd',
+    $selector_pre: '%pre',
+    $selector_samp: '%samp',
+    //
+    $mixin_pre: null,
+    $mixin_pre_args: ()
+) {
+    @if $includeBase {
+        #{$selector_code},
+        #{$selector_kbd},
+        #{$selector_pre},
+        #{$selector_samp} {
+            position: relative;
+
+            @if font-family-exists(monospace) {
+                font-family: var-font-family(monospace);
+            } @else {
+                font-family: font-family-system-monospace();
+            }
+
+            // UPGRADE - convert to style tokens
+            border-radius: $borderRadius;
+            background: $background;
+
+            @include theme-set-color($color) {
+                @content (all);
+            }
+        }
+    }
+
+    @if $includeInlines {
+        #{$selector_code},
+        #{$selector_kbd},
+        #{$selector_samp} {
+            @include prop-display(inline);
+
+            margin-block: $marginBlock;
+            margin-inline: $marginInline;
+
+            padding-block: $paddingBlock;
+            padding-inline: $paddingInline;
+
+            vertical-align: baseline;
+            align-self: baseline;
+            justify-self: baseline;
+
+            font-weight: $fontWeight;
+
+            @content (inlines);
+
+            @include font-family-size-tokens(monospace);
+
+            /// EXCEPTIONS ///
+
+            %a & {
+                color: inherit;
+
+                @content (inlines--in-link);
+            }
+        }
+
+        #{$selector_kbd},
+        #{$selector_samp} {
+            user-select: all;
+
+            @content (kbd-or-samp);
+        }
+
+        #{$selector_code} {
+            @content (code);
+        }
+
+        #{$selector_kbd} {
+            @content (kbd);
+        }
+
+        #{$selector_samp} {
+            @content (samp);
+        }
+    }
+
+    @if $includePre {
+        $mixin_pre: config.config-valid-mixin(
+            $mixin_pre,
+            '$mixin_pre',
+            $default: $_mixin_pre,
+            $prefix: '[snippet-support-code] '
+        );
+
+        #{$selector_pre} {
+            @include meta.apply($mixin_pre, $mixin_pre_args...) using
+                ($location) {
+                @content (pre-#{$location});
+            }
+        }
+    }
 }

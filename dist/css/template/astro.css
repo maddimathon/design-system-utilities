@@ -6508,12 +6508,6 @@ samp {
     color: hsl(162, 100%, 15%);
     color: var(--theme-text-primary, CanvasText);
 }
-a[href] code,
-a[href] kbd,
-a[href] pre,
-a[href] samp {
-    color: inherit;
-}
 
 code,
 kbd,
@@ -6583,6 +6577,12 @@ samp {
     --border-width-400: max(0.25rem, min(0.3125rem, 8px));
 }
 
+a[href] code,
+a[href] kbd,
+a[href] samp {
+    color: inherit;
+}
+
 kbd,
 samp {
     -webkit-user-select: all;
@@ -6607,9 +6607,10 @@ pre {
     padding-right: 0.8125rem;
     padding-left: var(--mrg-firm-300, 0.8125rem);
     padding-right: var(--mrg-firm-300, 0.8125rem);
-    border: 0.0625rem solid hsl(162, 100%, 15%);
-    border: var(--border-width-100, 0.0625rem) solid
+    border: 0.125rem solid hsl(162, 100%, 15%);
+    border: var(--border-width-200, 0.125rem) solid
         var(--theme-ui-primary, CanvasText);
+    border-radius: 0;
     color: hsl(339.45, 0%, 17.88%);
     color: var(--theme-text, CanvasText);
     width: auto;
@@ -16993,20 +16994,14 @@ html:where(.js),
     margin-bottom: var(--flow-margin-firm-end--small, 0.3125rem);
     margin-left: 0;
     margin-right: 0;
-    padding-top: 0.3125rem;
-    padding-bottom: 0.3125rem;
-    padding-top: var(--mrg-firm-100, 0.3125rem);
-    padding-bottom: var(--mrg-firm-100, 0.3125rem);
-    padding-left: max(0.5rem, min(3vw, 0.8125rem));
-    padding-right: max(0.5rem, min(3vw, 0.8125rem));
-    padding-left: max(
-        var(--mrg-firm-200, 0.5rem),
-        min(3vw, var(--flow-margin-firm-start--small, 0.8125rem))
-    );
-    padding-right: max(
-        var(--mrg-firm-200, 0.5rem),
-        min(3vw, var(--flow-margin-firm-start--small, 0.8125rem))
-    );
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-top: var(--flow-margin--small, 0.5rem);
+    padding-bottom: var(--flow-margin--small, 0.5rem);
+    padding-left: 0.8125rem;
+    padding-right: 0.8125rem;
+    padding-left: var(--flow-margin-firm-start--small, 0.8125rem);
+    padding-right: var(--flow-margin-firm-start--small, 0.8125rem);
 }
 .website-settings__content fieldset > .container {
     --display: flex;

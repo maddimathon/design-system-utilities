@@ -1363,11 +1363,12 @@ $_mixin_individual: meta.get-mixin('tokens-theme-individual');
         );
     }
 
-    @if $mixin_individual == null {
-        $mixin_individual: $_mixin_individual;
-    } @else if meta.type-of($mixin_individual) != mixin {
-        $mixin_individual: $_mixin_individual;
-    }
+    $mixin_individual: config.config-valid-mixin(
+        $mixin_individual,
+        '$mixin_individual',
+        $default: $_mixin_individual,
+        $prefix: '[tokens-theme] '
+    );
 
     $_themeKeys: map.keys(tokens.$themes);
 

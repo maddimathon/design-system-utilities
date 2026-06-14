@@ -12201,12 +12201,6 @@ samp {
         var(--fallback-theme-text-primary, CanvasText)
     );
 }
-a[href] code,
-a[href] kbd,
-a[href] pre,
-a[href] samp {
-    color: inherit;
-}
 
 code,
 kbd,
@@ -12272,6 +12266,12 @@ samp {
         --fallback-border-width-400: clamp(0.25rem, 0.3125rem, 8px);
     }
 }
+a[href] code,
+a[href] kbd,
+a[href] samp {
+    color: inherit;
+}
+
 kbd,
 samp {
     user-select: all;
@@ -12293,9 +12293,13 @@ pre {
         --alert-padding-inline,
         var(--mrg-firm-300, var(--fallback-mrg-firm-300, 0.8125rem))
     );
-    border: var(--border-width-100, var(--fallback-border-width-100, 0.0625rem))
+    border: var(
+            --alert-border-width,
+            var(--border-width-200, var(--fallback-border-width-200, 0.125rem))
+        )
         solid
         var(--theme-ui-primary, var(--fallback-theme-ui-primary, CanvasText));
+    border-radius: var(--alert-border-radius, 0);
     color: var(--theme-text, var(--fallback-theme-text, CanvasText));
     width: auto;
     max-width: 100%;

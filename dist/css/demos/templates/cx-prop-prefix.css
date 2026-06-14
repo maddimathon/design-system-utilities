@@ -10627,12 +10627,6 @@ samp {
     --prefix-icon-color: var(--prefix-theme-ui-primary, CanvasText);
     color: var(--prefix-theme-text-primary, CanvasText);
 }
-a[href] code,
-a[href] kbd,
-a[href] pre,
-a[href] samp {
-    color: inherit;
-}
 
 code,
 kbd,
@@ -10691,6 +10685,12 @@ samp {
         --prefix-border-width-400: clamp(0.25rem, 0.3125rem, 8px);
     }
 }
+a[href] code,
+a[href] kbd,
+a[href] samp {
+    color: inherit;
+}
+
 kbd,
 samp {
     user-select: all;
@@ -10705,8 +10705,9 @@ pre {
     margin-inline: 0;
     padding-block: var(--prefix-mrg-soft-300, 0.5rem);
     padding-inline: var(--prefix-mrg-firm-300, 0.8125rem);
-    border: var(--prefix-border-width-100, 0.0625rem) solid
+    border: var(--prefix-border-width-200, 0.125rem) solid
         var(--prefix-theme-ui-primary, CanvasText);
+    border-radius: 0;
     color: var(--prefix-theme-text, CanvasText);
     width: auto;
     max-width: 100%;

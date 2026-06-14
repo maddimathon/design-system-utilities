@@ -272,10 +272,57 @@ export var getBrandConstants;
          */
         let PHP;
         (function (PHP) {
+            /**
+             * Tries its best to recursively format a value.
+             *
+             * @since 0.1.0-beta.0.draft
+             */
+            function prepareConstant([key, value], { indent = '', keyFilter, valueFilter, } = {}) {
+                let ret;
+                // returns
+                switch (typeof value) {
+                    case 'boolean':
+                        ret = [key, value ? 'true' : 'false'];
+                        break;
+                    case 'bigint':
+                    case 'number':
+                        ret = [key, value.toString()];
+                        break;
+                    case 'undefined':
+                        ret = [key, 'null'];
+                        break;
+                    case 'object':
+                        // returns
+                        if (value === null) {
+                            ret = [key, 'null'];
+                            break;
+                        }
+                        ret = [
+                            key,
+                            entriesToArray(Object.entries(value).map(entry => prepareConstant(entry, {
+                                indent: '    ' + indent,
+                                keyFilter,
+                                valueFilter,
+                            })), !Array.isArray(value), indent),
+                        ];
+                        break;
+                    default:
+                        ret = [key, `'${String(value).replace(/'/, "\\'")}'`];
+                        break;
+                }
+                if (keyFilter) {
+                    ret[0] = keyFilter(ret[0]);
+                }
+                if (valueFilter) {
+                    ret[1] = valueFilter(ret[1]);
+                }
+                return ret;
+            }
+            PHP.prepareConstant = prepareConstant;
             function entriesToArray(entries, associativeArray = true, indent = '') {
                 // returns
                 if (!entries?.length) {
-                    return '';
+                    return '[]';
                 }
                 // returns
                 if (!associativeArray) {
@@ -288,7 +335,7 @@ export var getBrandConstants;
             function entriesToObject(entries, indent = '') {
                 // returns
                 if (!entries?.length) {
-                    return '';
+                    return '(object) []';
                 }
                 const longestKeyLength = Math.max(...entries.map(([key]) => key.length));
                 return `(object) [${entries.map(([key, value]) => `\n${indent}    '${key}' ${' '.repeat(longestKeyLength - key.length)}=> ${value},`).join('')}${entries.length ? `\n${indent}` : ''}]`;

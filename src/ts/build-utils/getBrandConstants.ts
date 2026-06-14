@@ -494,6 +494,79 @@ export namespace getBrandConstants {
          */
         export namespace PHP {
 
+            /**
+             * Tries its best to recursively format a value.
+             * 
+             * @since ___PKG_VERSION___
+             */
+            export function prepareConstant(
+                [ key, value ]: [ string, unknown ],
+                {
+                    indent = '',
+                    keyFilter,
+                    valueFilter,
+                }: {
+                    indent?: string | undefined,
+                    keyFilter?: ( ( str: string ) => string ) | undefined,
+                    valueFilter?: ( ( str: string ) => string ) | undefined,
+                } = {}
+            ): [ string, string ] {
+
+                let ret: [ string, string ];
+
+                // returns
+                switch ( typeof value ) {
+
+                    case 'boolean':
+                        ret = [ key, value ? 'true' : 'false' ];
+                        break;
+
+                    case 'bigint':
+                    case 'number':
+                        ret = [ key, value.toString() ];
+                        break;
+
+                    case 'undefined':
+                        ret = [ key, 'null' ];
+                        break;
+
+                    case 'object':
+                        // returns
+                        if ( value === null ) {
+                            ret = [ key, 'null' ];
+                            break;
+                        }
+
+                        ret = [
+                            key,
+                            entriesToArray(
+                                Object.entries( value ).map( entry => prepareConstant( entry, {
+                                    indent: '    ' + indent,
+                                    keyFilter,
+                                    valueFilter,
+                                } ) ),
+                                !Array.isArray( value ),
+                                indent,
+                            ),
+                        ];
+                        break;
+
+                    default:
+                        ret = [ key, `'${ String( value ).replace( /'/, "\\'" ) }'` ];
+                        break;
+                }
+
+                if ( keyFilter ) {
+                    ret[ 0 ] = keyFilter( ret[ 0 ] );
+                }
+
+                if ( valueFilter ) {
+                    ret[ 1 ] = valueFilter( ret[ 1 ] );
+                }
+
+                return ret;
+            }
+
             export function entriesToArray(
                 entries: [ string, string ][] | readonly [ string, string ][],
                 associativeArray: boolean = true,
@@ -501,7 +574,7 @@ export namespace getBrandConstants {
             ): string {
                 // returns
                 if ( !entries?.length ) {
-                    return '';
+                    return '[]';
                 }
 
                 // returns
@@ -525,7 +598,7 @@ export namespace getBrandConstants {
             ): string {
                 // returns
                 if ( !entries?.length ) {
-                    return '';
+                    return '(object) []';
                 }
 
                 const longestKeyLength = Math.max( ...entries.map( ( [ key ] ) => key.length ) );
