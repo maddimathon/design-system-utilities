@@ -99,7 +99,6 @@ export class SvgMaker {
         return `<svg ${this.svgAttrString([
             `aria-hidden="true"`,
             `focusable="false"`,
-            `title="${this.ariaLabel}"`,
         ])}>${this.innerSVG}</svg>`;
     }
     svgInlineLabelled() {

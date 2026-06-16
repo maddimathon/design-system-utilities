@@ -28,11 +28,12 @@ export var getBrandConstants;
         }
         const include = {
             base64: args.incl?.base64 ?? false,
-            css: args.incl?.css ?? false,
-            glyphs: args.incl?.glyphs ?? true,
+            css: args.incl?.css ?? args.incl?.svgHidden ?? args.incl?.svg ?? false,
+            glyphs: (args.incl?.glyphs ?? true) && _setName === 'icons',
             names: args.incl?.names ?? true,
             slugs: args.incl?.slugs ?? false,
             svg: args.incl?.svg ?? true,
+            svgHidden: args.incl?.svgHidden ?? args.incl?.svg ?? true,
         };
         const setName = _setName.replace(/s$/g, '');
         const entries = {
@@ -133,6 +134,23 @@ export var getBrandConstants;
              */
             entries.svg = entries.all.map(mapper);
         }
+        if (include.svgHidden) {
+            const svgFn = args.valueMappers?.svgHidden;
+            const keyFn = args.keyMappers?.svgHidden ?? ((key) => key);
+            const mapper = typeof svgFn === 'function'
+                ? ([key, value]) => [
+                    keyFn(key),
+                    svgFn(value.svgInlineHidden.replace(/\s*\n+\s*/g, ' ')),
+                ]
+                : ([key, value]) => [
+                    keyFn(key),
+                    value.svgInlineHidden.replace(/\s*\n+\s*/g, ' '),
+                ];
+            /**
+             * SR-hidden SVG code for inline html use.
+             */
+            entries.svgHidden = entries.all.map(mapper);
+        }
         return {
             setName,
             entries: entries,
@@ -155,6 +173,7 @@ export var getBrandConstants;
             'names',
             'slugs',
             'svg',
+            'svgHidden',
         ];
     })(getSvgConsts = getBrandConstants.getSvgConsts || (getBrandConstants.getSvgConsts = {}));
     /**
@@ -232,16 +251,20 @@ export var getBrandConstants;
             let comment;
             switch (opt) {
                 case 'base64':
-                    comment = `All ${commentName} base64-encoded svgs indexed by slug.`;
+                    comment = `All ${setName} as base64-encoded svgs, indexed by slug.`;
                     break;
                 case 'css':
-                    comment = `All ${commentName} css-ready svg values indexed by slug.`;
+                    comment = `All ${setName} as css-ready svg values, indexed by slug.`;
                     break;
                 case 'names':
                     comment = `All ${commentName} slugs and their labels.`;
                     break;
                 case 'svg':
-                    comment = `All ${commentName} svg values indexed by slug.`;
+                    comment = `All ${setName} as svg values (visible to screen-readers), indexed by slug.`;
+                    break;
+                case 'svgHidden':
+                    comment = `All ${setName} as svg values (hidden from screen-readers), indexed by slug.`;
+                    constName = 'SVG_HIDDEN';
                     break;
                 case 'themes':
                     comment = `Theme slugs.`;
@@ -252,11 +275,11 @@ export var getBrandConstants;
                     constName = 'SLUG_NAMES';
                     break;
                 case 'tokenSlugs':
-                    comment = `Token slugs included in all themes.`;
+                    comment = `Token theme slugs included in all themes.`;
                     constName = 'TOKEN_SLUGS';
                     break;
                 case 'tokenSlugNames':
-                    comment = `Translated token slug names included in all themes, indexed by slug.`;
+                    comment = `Translated token theme slug names included in all themes, indexed by slug.`;
                     constName = 'TOKEN_SLUG_NAMES';
                     break;
             }
@@ -433,15 +456,19 @@ export var getBrandConstants;
              */
             async function getSvg(_setName, svgSet, textDomain, phpNamespace, args = {}) {
                 const setName = _setName.replace(/s$/g, '');
+                const _valueMappers = {
+                    simpleStrings: (str) => `'${str.replace(/'/g, "\\'")}'`
+                };
                 const SVG_CONSTANTS = await getSvgConsts(_setName, svgSet, {
                     ...args,
                     valueMappers: {
-                        base64: (base64) => `'${base64.replace(/'/g, "\\'")}'`,
-                        css: (css) => `'${css.replace(/'/g, "\\'")}'`,
+                        base64: _valueMappers.simpleStrings,
+                        css: _valueMappers.simpleStrings,
                         glyphs: (glyph) => glyph ? `"\\u{${glyph.toString(16).replace(/'/g, "\\'")}}"` : 'null',
                         names: (label) => `_x( '${label}', '${setName} display name', '${textDomain}' )`,
-                        slugs: (slug) => `'${slug.replace(/'/g, "\\'")}'`,
-                        svg: (svg) => `'${svg.replace(/'/g, "\\'")}'`,
+                        slugs: _valueMappers.simpleStrings,
+                        svg: _valueMappers.simpleStrings,
+                        svgHidden: _valueMappers.simpleStrings,
                     },
                 });
                 if (!SVG_CONSTANTS) {
@@ -453,6 +480,10 @@ export var getBrandConstants;
                 const setName_UC = setName.toUpperCase();
                 const ret = [];
                 for (const opt of getSvgConsts.returnOpts) {
+                    // continues
+                    if (typeof entries[opt] === 'undefined') {
+                        continue;
+                    }
                     let content;
                     let insideDefine = true;
                     let insideHook = false;
@@ -470,7 +501,7 @@ export var getBrandConstants;
                         case 'slugs':
                             content = entriesToArray(entries[opt], false);
                             insideDefine = false;
-                            type = `( ${keys.map(key => `"${key}"`).join(', ')} )[]`;
+                            type = `( ${keys.map(key => `"${key}"`).join('|')} )[]`;
                             break;
                         default:
                             content = entriesToObject(entries[opt]);
@@ -675,15 +706,19 @@ export var getBrandConstants;
              */
             async function getSvg(_setName, svgSet, textDomain, args = {}) {
                 const setName = _setName.replace(/s$/g, '');
+                const _valueMappers = {
+                    simpleStrings: (str) => `'${str.replace(/'/g, "\\'")}'`
+                };
                 const SVG_CONSTANTS = await getSvgConsts(_setName, svgSet, {
                     ...args,
                     valueMappers: {
-                        base64: (base64) => `'${base64.replace(/'/g, "\\'")}'`,
-                        css: (svg) => `'${svg.replace(/'/g, "\\'")}'`,
+                        base64: _valueMappers.simpleStrings,
+                        css: _valueMappers.simpleStrings,
                         glyphs: (glyph) => glyph ? `'\\${glyph.toString(16).replace(/'/g, "\\'")}'` : 'null',
                         names: (label) => `_x( '${label}', '${setName} display name', '${textDomain}' )`,
-                        slugs: (slug) => `'${slug.replace(/'/g, "\\'")}'`,
-                        svg: (svg) => `'${svg.replace(/'/g, "\\'")}'`,
+                        slugs: _valueMappers.simpleStrings,
+                        svg: _valueMappers.simpleStrings,
+                        svgHidden: _valueMappers.simpleStrings,
                     },
                 });
                 if (!SVG_CONSTANTS) {

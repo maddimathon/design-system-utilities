@@ -505,6 +505,7 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
     $iconColor: null,
     //
     $allPrefixes: null,
+    $important: false,
     $onlyFallbackPrefix: null,
     $useSystemColorFallback: null,
     $args...
@@ -521,6 +522,8 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
 
     $variantSlug: if($variant == null, '', '-#{$variant}');
 
+    $important: if($important, ' !important', '');
+
     $args: map.merge(
         meta.keywords($args),
         (
@@ -534,22 +537,24 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
     @include utils.cx-prop(
         icon-color,
         if(
-            $iconColor,
-            $iconColor,
-            if(
-                $variant == null,
-                var-theme(style-value(icon-color, $raw: true), $fallbackSlug: ui, $args...),
-                var-theme(ui#{$variantSlug}, $fallbackSlug: text#{$variantSlug}, $args...)
+                $iconColor,
+                $iconColor,
+                if(
+                    $variant == null,
+                    var-theme(style-value(icon-color, $raw: true), $fallbackSlug: ui, $args...),
+                    var-theme(ui#{$variantSlug}, $fallbackSlug: text#{$variantSlug}, $args...)
+                )
             )
-        ),
+            #{$important},
         $allPrefixes: $allPrefixes
     );
 
     color: if(
-        $color,
-        $color,
-        var-theme(text#{$variantSlug}, $onlyFallbackPrefix: $onlyFallbackPrefix, $args...)
-    );
+            $color,
+            $color,
+            var-theme(text#{$variantSlug}, $onlyFallbackPrefix: $onlyFallbackPrefix, $args...)
+        )
+        #{$important};
 
     @content;
 }
