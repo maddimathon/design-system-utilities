@@ -39,6 +39,11 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 small: '300',
                 button: '300',
             },
+            form: {
+                'flow-margin': {
+                    self: 'margins-flow-firm-large',
+                },
+            },
             hr: {
                 border: {
                     width: '200',
@@ -63,6 +68,11 @@ export class Tokens_CSS_Style extends AbstractTokens {
                     },
                 },
             },
+            table: {
+                'flow-margin': {
+                    self: 'margins-flow-firm-large',
+                },
+            },
         };
         return Promise.all([
             Tokens_CSS_Style.iconStyle(partial.icon),
@@ -83,6 +93,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 alert,
                 button,
                 'flow-margin': mergeArgs(defaults['flow-margin'], partial['flow-margin'], true),
+                form: mergeArgs(defaults.form, partial.form, true),
                 heading,
                 hr: mergeArgs(defaults.hr, partial.hr, true),
                 icon,
@@ -90,6 +101,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 logo: mergeArgs(defaults.logo, partial.logo, true),
                 selection: mergeArgs(defaults.selection, partial.selection, true),
                 subtitle,
+                table: mergeArgs(defaults.table, partial.table, true),
                 toggle,
                 widget,
             };

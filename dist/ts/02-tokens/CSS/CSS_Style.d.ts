@@ -606,6 +606,14 @@ export declare namespace Tokens_CSS_Style {
          * @since 0.1.0-beta.0.draft
          */
         'flow-margin': FlowMargin;
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        form: {
+            'flow-margin': {
+                self: FlowMargin.SelfFirm;
+            };
+        };
         heading: {
             unstyled: HeadingStyles_Unstyled;
         } & {
@@ -654,12 +662,6 @@ export declare namespace Tokens_CSS_Style {
             };
         };
         /**
-         * Toggle block styles.
-         *
-         * @since 0.1.0-beta.0.draft
-         */
-        toggle: ToggleStyles;
-        /**
          * @since 0.1.0-beta.0.draft — Restructured object nesting.
          */
         selection: {
@@ -673,6 +675,20 @@ export declare namespace Tokens_CSS_Style {
          * @since 0.1.0-beta.0.draft
          */
         subtitle: SubtitleStyles;
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        table: {
+            'flow-margin': {
+                self: FlowMargin.SelfFirm;
+            };
+        };
+        /**
+         * Toggle block styles.
+         *
+         * @since 0.1.0-beta.0.draft
+         */
+        toggle: ToggleStyles;
         /**
          * @since 0.1.0-beta.0.draft
          */
@@ -697,6 +713,14 @@ export declare namespace Tokens_CSS_Style {
             disabled?: RecursivePartial<ButtonStyles_Disabled>;
             inline?: RecursivePartial<ButtonStyles_Inline>;
         };
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        'flow-margin'?: RecursivePartial<Data<T_Params>['flow-margin']>;
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        form?: RecursivePartial<Data<T_Params>['table']>;
         heading?: {
             unstyled?: RecursivePartial<HeadingStyles_Unstyled>;
         } & {
@@ -725,15 +749,7 @@ export declare namespace Tokens_CSS_Style {
         /**
          * @since 0.1.0-beta.0.draft
          */
-        'flow-margin'?: RecursivePartial<Data<T_Params>['flow-margin']>;
-        /**
-         * @since 0.1.0-beta.0.draft
-         */
         logo?: RecursivePartial<Data<T_Params>['logo']>;
-        /**
-         * @since 0.1.0-beta.0.draft
-         */
-        toggle?: RecursivePartial<ToggleStyles>;
         /**
          * @since 0.1.0-beta.0.draft — Restructured object nesting.
          */
@@ -748,6 +764,14 @@ export declare namespace Tokens_CSS_Style {
          * @since 0.1.0-beta.0.draft
          */
         subtitle?: RecursivePartial<SubtitleStyles>;
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        table?: RecursivePartial<Data<T_Params>['table']>;
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        toggle?: RecursivePartial<ToggleStyles>;
         /**
          * @since 0.1.0-beta.0.draft
          */

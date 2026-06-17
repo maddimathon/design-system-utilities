@@ -59,6 +59,12 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
                 button: '300',
             },
 
+            form: {
+                'flow-margin': {
+                    self: 'margins-flow-firm-large',
+                },
+            },
+
             hr: {
                 border: {
                     width: '200',
@@ -88,7 +94,13 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
                     },
                 },
             },
-        } satisfies Pick<Tokens_CSS_Style.Data<T_Params>, 'flow-margin' | 'hr' | 'logo' | 'selection'>;
+
+            table: {
+                'flow-margin': {
+                    self: 'margins-flow-firm-large',
+                },
+            },
+        } satisfies Pick<Tokens_CSS_Style.Data<T_Params>, 'flow-margin' | 'form' | 'hr' | 'logo' | 'selection' | 'table'>;
 
 
         return Promise.all( [
@@ -127,35 +139,19 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
                     'flow-margin': mergeArgs(
                         defaults[ 'flow-margin' ],
                         partial[ 'flow-margin' ],
-                        true,
+                        true
                     ),
 
+                    form: mergeArgs( defaults.form, partial.form, true ),
                     heading,
-
-                    hr: mergeArgs(
-                        defaults.hr,
-                        partial.hr,
-                        true,
-                    ),
-
+                    hr: mergeArgs( defaults.hr, partial.hr, true ),
                     icon,
                     input,
-
-                    logo: mergeArgs(
-                        defaults.logo,
-                        partial.logo,
-                        true,
-                    ),
-
-                    selection: mergeArgs(
-                        defaults.selection,
-                        partial.selection,
-                        true,
-                    ),
-
+                    logo: mergeArgs( defaults.logo, partial.logo, true ),
+                    selection: mergeArgs( defaults.selection, partial.selection, true ),
                     subtitle,
+                    table: mergeArgs( defaults.table, partial.table, true ),
                     toggle,
-
                     widget,
                 } satisfies Tokens_CSS_Style.Data<T_Params>;
             }
@@ -1721,6 +1717,15 @@ export namespace Tokens_CSS_Style {
          */
         'flow-margin': FlowMargin;
 
+        /**
+         * @since ___PKG_VERSION___
+         */
+        form: {
+            'flow-margin': {
+                self: FlowMargin.SelfFirm,
+            },
+        };
+
         heading: {
             unstyled: HeadingStyles_Unstyled;
         } & {
@@ -1777,13 +1782,6 @@ export namespace Tokens_CSS_Style {
         };
 
         /**
-         * Toggle block styles.
-         * 
-         * @since ___PKG_VERSION___
-         */
-        toggle: ToggleStyles;
-
-        /**
          * @since ___PKG_VERSION___ — Restructured object nesting.
          */
         selection: {
@@ -1801,6 +1799,22 @@ export namespace Tokens_CSS_Style {
          * @since ___PKG_VERSION___
          */
         subtitle: SubtitleStyles;
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        table: {
+            'flow-margin': {
+                self: FlowMargin.SelfFirm,
+            },
+        };
+
+        /**
+         * Toggle block styles.
+         * 
+         * @since ___PKG_VERSION___
+         */
+        toggle: ToggleStyles;
 
         /**
          * @since ___PKG_VERSION___
@@ -1829,6 +1843,16 @@ export namespace Tokens_CSS_Style {
             disabled?: RecursivePartial<ButtonStyles_Disabled>;
             inline?: RecursivePartial<ButtonStyles_Inline>;
         };
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        'flow-margin'?: RecursivePartial<Data<T_Params>[ 'flow-margin' ]>;
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        form?: RecursivePartial<Data<T_Params>[ 'table' ]>;
 
         heading?: {
             unstyled?: RecursivePartial<HeadingStyles_Unstyled>;
@@ -1862,17 +1886,7 @@ export namespace Tokens_CSS_Style {
         /**
          * @since ___PKG_VERSION___
          */
-        'flow-margin'?: RecursivePartial<Data<T_Params>[ 'flow-margin' ]>;
-
-        /**
-         * @since ___PKG_VERSION___
-         */
         logo?: RecursivePartial<Data<T_Params>[ 'logo' ]>;
-
-        /**
-         * @since ___PKG_VERSION___
-         */
-        toggle?: RecursivePartial<ToggleStyles>;
 
         /**
          * @since ___PKG_VERSION___ — Restructured object nesting.
@@ -1892,6 +1906,16 @@ export namespace Tokens_CSS_Style {
          * @since ___PKG_VERSION___
          */
         subtitle?: RecursivePartial<SubtitleStyles>;
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        table?: RecursivePartial<Data<T_Params>[ 'table' ]>;
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        toggle?: RecursivePartial<ToggleStyles>;
 
         /**
          * @since ___PKG_VERSION___

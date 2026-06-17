@@ -9182,8 +9182,11 @@ a.skip-link[href]:visited * {
 a.skip-link[href]:focus,
 .skip-link[data-state-focus="true"],
 a.skip-link[href][data-state-focus="true"] {
-    top: calc(0 + 0.78125rem);
-    top: calc(var(--height-nav-primary, 0) + var(--flow-margin, 0.78125rem));
+    top: calc(0 + max(1.625rem, min(5svw, 3.125rem)));
+    top: var(
+        --scroll-padding-top,
+        calc(var(--height-nav-primary, 0) + var(--gap-block-layout, 5vw))
+    );
     --focus-ring-outline-color: var(
         --theme-button-primary-outline-hover,
         ButtonFace
@@ -9208,8 +9211,11 @@ a.skip-link[href][data-state-focus="true"] * {
 
 .skip-link:focus-within,
 a.skip-link[href]:focus-within {
-    top: calc(0 + 0.78125rem);
-    top: calc(var(--height-nav-primary, 0) + var(--flow-margin, 0.78125rem));
+    top: calc(0 + max(1.625rem, min(5svw, 3.125rem)));
+    top: var(
+        --scroll-padding-top,
+        calc(var(--height-nav-primary, 0) + var(--gap-block-layout, 5vw))
+    );
     --focus-ring-outline-color: var(
         --theme-button-primary-outline-hover,
         ButtonFace
@@ -9232,8 +9238,11 @@ a.skip-link[href]:focus-within * {
 
 .skip-link:has([data-state-focus="true"]),
 a.skip-link[href]:has([data-state-focus="true"]) {
-    top: calc(0 + 0.78125rem);
-    top: calc(var(--height-nav-primary, 0) + var(--flow-margin, 0.78125rem));
+    top: calc(0 + max(1.625rem, min(5svw, 3.125rem)));
+    top: var(
+        --scroll-padding-top,
+        calc(var(--height-nav-primary, 0) + var(--gap-block-layout, 5vw))
+    );
     --focus-ring-outline-color: var(
         --theme-button-primary-outline-hover,
         ButtonFace
@@ -9258,8 +9267,11 @@ a.skip-link[href]:has([data-state-focus="true"]) * {
 a.skip-link[href]:active,
 .skip-link[data-state-active="true"],
 a.skip-link[href][data-state-active="true"] {
-    top: calc(0 + 0.78125rem);
-    top: calc(var(--height-nav-primary, 0) + var(--flow-margin, 0.78125rem));
+    top: calc(0 + max(1.625rem, min(5svw, 3.125rem)));
+    top: var(
+        --scroll-padding-top,
+        calc(var(--height-nav-primary, 0) + var(--gap-block-layout, 5vw))
+    );
     --focus-ring-outline-color: var(
         --theme-button-primary-outline-active,
         ButtonFace
@@ -9286,8 +9298,11 @@ a.skip-link[href][data-state-active="true"] * {
 a.skip-link[href]:has(:active),
 .skip-link:has([data-state-active="true"]),
 a.skip-link[href]:has([data-state-active="true"]) {
-    top: calc(0 + 0.78125rem);
-    top: calc(var(--height-nav-primary, 0) + var(--flow-margin, 0.78125rem));
+    top: calc(0 + max(1.625rem, min(5svw, 3.125rem)));
+    top: var(
+        --scroll-padding-top,
+        calc(var(--height-nav-primary, 0) + var(--gap-block-layout, 5vw))
+    );
     --focus-ring-outline-color: var(
         --theme-button-primary-outline-active,
         ButtonFace
@@ -9403,8 +9418,6 @@ dt + details,
 .margins-flow-large + details,
 dt + pre,
 .margins-flow-large + pre,
-dt + table,
-.margins-flow-large + table,
 dt + img,
 .margins-flow-large + img,
 dt + figure,
@@ -9440,7 +9453,6 @@ button,
 [role="button"],
 details,
 pre,
-table,
 img,
 figure,
 .table-wrapper,
@@ -9518,7 +9530,10 @@ a[href].button-grey,
     );
 }
 
+form,
+table,
 blockquote,
+form.search-form,
 .margins-flow-firm-large {
     margin-top: 2.25rem;
     margin-bottom: 0.40625rem;
@@ -9531,54 +9546,116 @@ blockquote,
         var(--mrg-half-600, 0.40625rem)
     );
 }
+form + cite,
+table + cite,
 blockquote + cite,
+form.search-form + cite,
 .margins-flow-firm-large + cite,
+form + p,
+table + p,
 blockquote + p,
+form.search-form + p,
 .margins-flow-firm-large + p,
+form + .margins-flow,
+table + .margins-flow,
 blockquote + .margins-flow,
 .margins-flow-firm-large + .margins-flow,
+form + li,
+table + li,
 blockquote + li,
+form.search-form + li,
 .margins-flow-firm-large + li,
+form + .margins-flow-small,
+table + .margins-flow-small,
 blockquote + .margins-flow-small,
 .margins-flow-firm-large + .margins-flow-small {
     margin-top: 1.84375rem;
     margin-top: var(--flow-margin--large, var(--mrg-soft-600, 1.84375rem));
 }
+form + .button-span,
+table + .button-span,
 blockquote + .button-span,
+form.search-form + .button-span,
 .margins-flow-firm-large + .button-span,
+form + hr,
+table + hr,
 blockquote + hr,
+form.search-form + hr,
 .margins-flow-firm-large + hr,
+form + button,
+table + button,
 blockquote + button,
+form.search-form + button,
 .margins-flow-firm-large + button,
+form + [role="button"],
+table + [role="button"],
 blockquote + [role="button"],
+form.search-form + [role="button"],
 .margins-flow-firm-large + [role="button"],
+form + details,
+table + details,
 blockquote + details,
+form.search-form + details,
 .margins-flow-firm-large + details,
+form + pre,
+table + pre,
 blockquote + pre,
+form.search-form + pre,
 .margins-flow-firm-large + pre,
-blockquote + table,
-.margins-flow-firm-large + table,
+form + img,
+table + img,
 blockquote + img,
+form.search-form + img,
 .margins-flow-firm-large + img,
+form + figure,
+table + figure,
 blockquote + figure,
+form.search-form + figure,
 .margins-flow-firm-large + figure,
+form + .table-wrapper,
+table + .table-wrapper,
 blockquote + .table-wrapper,
+form.search-form + .table-wrapper,
 .margins-flow-firm-large + .table-wrapper,
+form + [data-toggle-container],
+table + [data-toggle-container],
 blockquote + [data-toggle-container],
+form.search-form + [data-toggle-container],
 .margins-flow-firm-large + [data-toggle-container],
+form + .margins-flow-firm,
+table + .margins-flow-firm,
 blockquote + .margins-flow-firm,
+form.search-form + .margins-flow-firm,
 .margins-flow-firm-large + .margins-flow-firm,
+form + .brand-logo,
+table + .brand-logo,
 blockquote + .brand-logo,
+form.search-form + .brand-logo,
 .margins-flow-firm-large + .brand-logo,
+form + a[href].button,
+table + a[href].button,
 blockquote + a[href].button,
+form.search-form + a[href].button,
 .margins-flow-firm-large + a[href].button,
+form + a[href].button-secondary,
+table + a[href].button-secondary,
 blockquote + a[href].button-secondary,
+form.search-form + a[href].button-secondary,
 .margins-flow-firm-large + a[href].button-secondary,
+form + a[href].button-grey,
+table + a[href].button-grey,
 blockquote + a[href].button-grey,
+form.search-form + a[href].button-grey,
 .margins-flow-firm-large + a[href].button-grey,
+form + .alert-block,
+table + .alert-block,
 blockquote + .alert-block,
+form.search-form + .alert-block,
 .margins-flow-firm-large + .alert-block,
+form + .margins-flow-firm-small,
+table + .margins-flow-firm-small,
 blockquote + .margins-flow-firm-small,
+form.search-form + .margins-flow-firm-small,
 .margins-flow-firm-large + .margins-flow-firm-small {
     margin-top: 2.25rem;
     margin-top: var(
@@ -9943,7 +10020,7 @@ a[disabled][href]::before {
     color: hsl(339.45, 0%, 17.88%);
     color: var(--icon-color, var(--theme-ui, CanvasText));
     content: "\f116";
-    content: "\f116"/"Forbidden icon";
+    content: "\f116"/"";
 }
 a[aria-disabled="true"][href]::after,
 a[disabled][href]::after {
@@ -9988,7 +10065,7 @@ a[target="_blank"][href]::after {
     color: hsl(339.45, 0%, 17.88%);
     color: var(--icon-color, var(--theme-ui, CanvasText));
     content: "\f114";
-    content: "\f114"/"External Link icon";
+    content: "\f114"/"";
 }
 a[download][href]::before {
     --display: inline-block;
@@ -10029,7 +10106,7 @@ a[download][href]::before {
     color: hsl(339.45, 0%, 17.88%);
     color: var(--icon-color, var(--theme-ui, CanvasText));
     content: "\f111";
-    content: "\f111"/"Download icon";
+    content: "\f111"/"";
 }
 a.no-pseudo[href]::before,
 a.no-pseudo[href]::after {
@@ -10485,7 +10562,6 @@ h1:has(
         [role="button"],
         details,
         pre,
-        table,
         img,
         figure,
         .table-wrapper,
@@ -10497,7 +10573,10 @@ h1:has(
         a[href].button-grey,
         .alert-block,
         .margins-flow-firm-small,
+        form,
+        table,
         blockquote,
+        form.search-form,
         .margins-flow-firm-large
     )
 ),
@@ -10509,7 +10588,6 @@ h1:has(
         [role="button"],
         details,
         pre,
-        table,
         img,
         figure,
         .table-wrapper,
@@ -10521,7 +10599,10 @@ h1:has(
         a[href].button-grey,
         .alert-block,
         .margins-flow-firm-small,
+        form,
+        table,
         blockquote,
+        form.search-form,
         .margins-flow-firm-large
     )
 ),
@@ -10533,7 +10614,6 @@ h1:has(
         [role="button"],
         details,
         pre,
-        table,
         img,
         figure,
         .table-wrapper,
@@ -10545,7 +10625,10 @@ h1:has(
         a[href].button-grey,
         .alert-block,
         .margins-flow-firm-small,
+        form,
+        table,
         blockquote,
+        form.search-form,
         .margins-flow-firm-large
     )
 ) {
@@ -10601,7 +10684,6 @@ h2:has(
         [role="button"],
         details,
         pre,
-        table,
         img,
         figure,
         .table-wrapper,
@@ -10613,7 +10695,10 @@ h2:has(
         a[href].button-grey,
         .alert-block,
         .margins-flow-firm-small,
+        form,
+        table,
         blockquote,
+        form.search-form,
         .margins-flow-firm-large
     )
 ),
@@ -10625,7 +10710,6 @@ h2:has(
         [role="button"],
         details,
         pre,
-        table,
         img,
         figure,
         .table-wrapper,
@@ -10637,7 +10721,10 @@ h2:has(
         a[href].button-grey,
         .alert-block,
         .margins-flow-firm-small,
+        form,
+        table,
         blockquote,
+        form.search-form,
         .margins-flow-firm-large
     )
 ) {
@@ -10689,7 +10776,6 @@ h3:has(
         [role="button"],
         details,
         pre,
-        table,
         img,
         figure,
         .table-wrapper,
@@ -10701,7 +10787,10 @@ h3:has(
         a[href].button-grey,
         .alert-block,
         .margins-flow-firm-small,
+        form,
+        table,
         blockquote,
+        form.search-form,
         .margins-flow-firm-large
     )
 ),
@@ -10713,7 +10802,6 @@ h3:has(
         [role="button"],
         details,
         pre,
-        table,
         img,
         figure,
         .table-wrapper,
@@ -10725,7 +10813,10 @@ h3:has(
         a[href].button-grey,
         .alert-block,
         .margins-flow-firm-small,
+        form,
+        table,
         blockquote,
+        form.search-form,
         .margins-flow-firm-large
     )
 ) {
@@ -10788,7 +10879,6 @@ h4:has(
         [role="button"],
         details,
         pre,
-        table,
         img,
         figure,
         .table-wrapper,
@@ -10800,7 +10890,10 @@ h4:has(
         a[href].button-grey,
         .alert-block,
         .margins-flow-firm-small,
+        form,
+        table,
         blockquote,
+        form.search-form,
         .margins-flow-firm-large
     )
 ),
@@ -10812,7 +10905,6 @@ h4:has(
         [role="button"],
         details,
         pre,
-        table,
         img,
         figure,
         .table-wrapper,
@@ -10824,7 +10916,10 @@ h4:has(
         a[href].button-grey,
         .alert-block,
         .margins-flow-firm-small,
+        form,
+        table,
         blockquote,
+        form.search-form,
         .margins-flow-firm-large
     )
 ) {
@@ -10887,7 +10982,6 @@ h5:has(
         [role="button"],
         details,
         pre,
-        table,
         img,
         figure,
         .table-wrapper,
@@ -10899,7 +10993,10 @@ h5:has(
         a[href].button-grey,
         .alert-block,
         .margins-flow-firm-small,
+        form,
+        table,
         blockquote,
+        form.search-form,
         .margins-flow-firm-large
     )
 ),
@@ -10911,7 +11008,6 @@ h5:has(
         [role="button"],
         details,
         pre,
-        table,
         img,
         figure,
         .table-wrapper,
@@ -10923,7 +11019,10 @@ h5:has(
         a[href].button-grey,
         .alert-block,
         .margins-flow-firm-small,
+        form,
+        table,
         blockquote,
+        form.search-form,
         .margins-flow-firm-large
     )
 ) {
@@ -10986,7 +11085,6 @@ h6:has(
         [role="button"],
         details,
         pre,
-        table,
         img,
         figure,
         .table-wrapper,
@@ -10998,7 +11096,10 @@ h6:has(
         a[href].button-grey,
         .alert-block,
         .margins-flow-firm-small,
+        form,
+        table,
         blockquote,
+        form.search-form,
         .margins-flow-firm-large
     )
 ),
@@ -11010,7 +11111,6 @@ h6:has(
         [role="button"],
         details,
         pre,
-        table,
         img,
         figure,
         .table-wrapper,
@@ -11022,7 +11122,10 @@ h6:has(
         a[href].button-grey,
         .alert-block,
         .margins-flow-firm-small,
+        form,
+        table,
         blockquote,
+        form.search-form,
         .margins-flow-firm-large
     )
 ) {
@@ -11073,7 +11176,6 @@ h6 samp,
         [role="button"],
         details,
         pre,
-        table,
         img,
         figure,
         .table-wrapper,
@@ -11085,7 +11187,10 @@ h6 samp,
         a[href].button-grey,
         .alert-block,
         .margins-flow-firm-small,
+        form,
+        table,
         blockquote,
+        form.search-form,
         .margins-flow-firm-large
     )
 ) {
@@ -11140,7 +11245,6 @@ h6 samp,
         [role="button"],
         details,
         pre,
-        table,
         img,
         figure,
         .table-wrapper,
@@ -11152,7 +11256,10 @@ h6 samp,
         a[href].button-grey,
         .alert-block,
         .margins-flow-firm-small,
+        form,
+        table,
         blockquote,
+        form.search-form,
         .margins-flow-firm-large
     )
 ) {
@@ -11207,7 +11314,6 @@ h6 samp,
         [role="button"],
         details,
         pre,
-        table,
         img,
         figure,
         .table-wrapper,
@@ -11219,7 +11325,10 @@ h6 samp,
         a[href].button-grey,
         .alert-block,
         .margins-flow-firm-small,
+        form,
+        table,
         blockquote,
+        form.search-form,
         .margins-flow-firm-large
     )
 ) {
@@ -11274,7 +11383,6 @@ h6 samp,
         [role="button"],
         details,
         pre,
-        table,
         img,
         figure,
         .table-wrapper,
@@ -11286,7 +11394,10 @@ h6 samp,
         a[href].button-grey,
         .alert-block,
         .margins-flow-firm-small,
+        form,
+        table,
         blockquote,
+        form.search-form,
         .margins-flow-firm-large
     )
 ) {
@@ -13476,7 +13587,7 @@ a[disabled][href].button-grey::before {
     color: hsl(339.45, 0%, 17.88%);
     color: var(--icon-color, var(--theme-ui, CanvasText));
     content: "\f116";
-    content: "\f116"/"Forbidden icon";
+    content: "\f116"/"";
     align-self: center;
     justify-self: center;
 }
@@ -14944,7 +15055,7 @@ input[type="reset"]::before,
     color: hsl(339.45, 0%, 17.88%);
     color: var(--icon-color, var(--theme-ui, CanvasText));
     content: "\f135";
-    content: "\f135"/"Refresh icon";
+    content: "\f135"/"";
     align-self: center;
     justify-self: center;
 }
@@ -14989,7 +15100,7 @@ input[type="submit"]::before {
     color: hsl(339.45, 0%, 17.88%);
     color: var(--icon-color, var(--theme-ui, CanvasText));
     content: "\f103";
-    content: "\f103"/"Checkmark icon";
+    content: "\f103"/"";
     align-self: center;
     justify-self: center;
 }
@@ -15973,7 +16084,7 @@ body > :where(main, nav, header, footer) > :is(.body-subgrid) {
     align-content: start;
     align-items: start;
     grid-auto-rows: auto;
-    grid-auto-flow: column;
+    grid-auto-flow: row;
     grid-gap: 0;
     gap: 0;
     /* prettier-ignore */
@@ -16188,9 +16299,6 @@ body > :where(aside, .site-sidebar) {
     grid-column: sidebar-start/sidebar-end;
     grid-column: var(--grid-column, sidebar-start/sidebar-end);
     width: auto;
-}
-body > :where(aside, .site-sidebar) > :first-child {
-    margin-top: 0;
 }
 
 :where(.layout_content-only) > :where(header) > :where(*) {
@@ -20171,13 +20279,13 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     > .container
     > :first-child:not(hr):not(button):not([role="button"]):not(details):not(
         pre
-    ):not(table):not(img):not(figure):not(.table-wrapper):not(
-        [data-toggle-container]
-    ):not(.margins-flow-firm):not(.brand-logo):not(a[href].button):not(
-        a[href].button-secondary
-    ):not(a[href].button-grey):not(.alert-block):not(
-        .margins-flow-firm-small
-    ):not(blockquote):not(.margins-flow-firm-large):not(.button-span) {
+    ):not(img):not(figure):not(.table-wrapper):not([data-toggle-container]):not(
+        .margins-flow-firm
+    ):not(.brand-logo):not(a[href].button):not(a[href].button-secondary):not(
+        a[href].button-grey
+    ):not(.alert-block):not(.margins-flow-firm-small):not(form):not(table):not(
+        blockquote
+    ):not(form.search-form):not(.margins-flow-firm-large):not(.button-span) {
     margin-top: 0;
 }
 :where(.js)
@@ -20189,7 +20297,6 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         [role="button"],
         details,
         pre,
-        table,
         img,
         figure,
         .table-wrapper,
@@ -20218,7 +20325,13 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 :where(.js)
     [data-toggle-content]
     > .container
-    > :first-child:where(blockquote, .margins-flow-firm-large) {
+    > :first-child:where(
+        form,
+        table,
+        blockquote,
+        form.search-form,
+        .margins-flow-firm-large
+    ) {
     margin-top: 0.40625rem;
     margin-top: var(--flow-margin-firm-end--large, 0.40625rem);
 }

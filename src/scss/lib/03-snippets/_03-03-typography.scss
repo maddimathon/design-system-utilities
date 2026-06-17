@@ -230,14 +230,18 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin snippet-link-colour-single($suffix: '') {
-    @include cx-prop(
-        focus-ring-outline-color,
-        var-theme(link-outline#{if($suffix == '', '-hover', $suffix)})
-    );
-    @include cx-prop(icon-color, var-theme(link-icon#{$suffix}));
-    text-decoration-color: var-theme(link-decoration#{$suffix});
-    color: var-theme(link#{$suffix});
+@mixin snippet-link-colour-single(
+    $suffix: '',
+    //
+    $color: var-theme(link#{$suffix}),
+    $focusRingOutlineColor: var-theme(link-outline#{if($suffix == '', '-hover', $suffix)}),
+    $iconColor: var-theme(link-icon#{$suffix}),
+    $textDecorationColor: var-theme(link-decoration#{$suffix})
+) {
+    @include cx-prop(focus-ring-outline-color, $focusRingOutlineColor);
+    @include cx-prop(icon-color, $iconColor);
+    text-decoration-color: $textDecorationColor;
+    color: $color;
 }
 
 ///

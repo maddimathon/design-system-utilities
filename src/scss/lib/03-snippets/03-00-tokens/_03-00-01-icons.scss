@@ -184,11 +184,13 @@ $_allUniqueIconAspectRatios: ();
 /// Adds properties for displaying an icon inside a ::before or ::after selector.
 ///
 /// @since 0.1.0-alpha
+/// @since ___PKG_VERSION___ — Added optional $includeAltText param.
 ///
 @mixin snippet-icon-pseudo-element(
     $slug,
     $pseudo: after,
     $glyph: null,
+    $includeAltText: false,
     $includeAspectRatio: true,
     $includeBaseProps: true,
     $includeBasePropsOnly: false,
@@ -212,7 +214,7 @@ $_allUniqueIconAspectRatios: ();
 
             @if $glyph {
                 content: $glyph;
-                content: $glyph / '#{icon-label-value($slug)}';
+                content: $glyph / '#{if($includeAltText, icon-label-value($slug), '')}';
             }
 
             @content;
@@ -242,7 +244,7 @@ $_allUniqueIconAspectRatios: ();
 
             @if not $includeBasePropsOnly and $slug != null {
                 content: '';
-                content: '' / '#{icon-label-value($slug)}';
+                content: '' / '#{if($includeAltText, icon-label-value($slug), '')}';
 
                 @if $includeAspectRatio {
                     @include aspect-ratio(
