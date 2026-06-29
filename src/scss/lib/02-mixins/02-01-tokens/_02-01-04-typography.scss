@@ -223,6 +223,17 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
     );
 }
 
+@mixin _font-family-icons-base-properties--selector($includeChildren) {
+    @if $includeChildren {
+        @at-root &,
+            #{selector.nest(&, '*')} {
+            @content;
+        }
+    } @else {
+        @content;
+    }
+}
+
 ///
 /// Adds base properties for displaying an icon inside a ::before or ::after selector.
 ///
@@ -240,7 +251,9 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
     $spacingProp: margin,
     $top: true,
     $useIconFont: config.$fn_pseudoIconsUseFont,
-    $verticalAlign: true
+    $verticalAlign: true,
+    //
+    $includeChildren: false
 ) {
     $_start: if($pseudo == before, end, start);
     $_end: if($pseudo == before, start, end);
@@ -265,10 +278,6 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
 
     position: relative;
 
-    @if $verticalAlign {
-        vertical-align: var-style(icon-vertical-align);
-    }
-
     @if $top {
         @if $useIconFont {
             top: do-var(icon-font-top);
@@ -292,31 +301,41 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
         height: font-family-icons--icon-size() !important;
     }
 
-    @if $useIconFont {
-        $_size: var-style(icon-size-font);
+    $_fontSize: var-style(icon-size-font);
 
-        font-family: var-font-family(icons) !important;
-
-        font-size: $_size !important;
-        font-size: font-family-icons--icon-size($_size) !important;
-
-        font-weight: 400 !important;
-
-        @if $lineHeight != false {
-            line-height: $lineHeight;
-        }
-
-        @if $letterSpacing {
-            letter-spacing: math.add-unit($letterSpacing, 1em);
-        }
-    }
+    font-size: $_fontSize !important;
+    font-size: font-family-icons--icon-size($_fontSize) !important;
 
     @if $display != inline {
         align-self: center;
         justify-self: center;
     }
 
-    color: var-style(icon-color);
+    @include _font-family-icons-base-properties--selector($includeChildren) {
+        @if $verticalAlign {
+            vertical-align: var-style(icon-vertical-align);
+        }
+
+        @if $useIconFont {
+            font-family: var-font-family(icons) !important;
+
+            @if $includeChildren {
+                font-size: 1em !important;
+            }
+
+            font-weight: 400 !important;
+
+            @if $lineHeight != false {
+                line-height: $lineHeight;
+            }
+
+            @if $letterSpacing {
+                letter-spacing: math.add-unit($letterSpacing, 1em);
+            }
+        }
+
+        color: var-style(icon-color);
+    }
 }
 
 ///
@@ -326,31 +345,22 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
 ///
 @mixin font-family-icons(
     $display: false,
-    $includeChildren: true,
     $includeSizeTokens: false,
     $spacing: null,
+    $includeChildren: true,
     $args...
 ) {
     @if $includeSizeTokens {
         @include font-family-size-tokens(icons, $setLetterSpacing: false, $args...);
     }
 
-    $spacing: if($spacing == null, $display, $spacing);
-
-    $sels: &;
-
-    @if $includeChildren {
-        $sels: list.append($sels, selector.nest($sels, '*'));
-    }
-
-    @at-root #{$sels} {
-        @include font-family-icons-base-properties(
-            $display: $display,
-            $spacing: $spacing,
-            $useIconFont: true,
-            $args...
-        );
-    }
+    @include font-family-icons-base-properties(
+        $display: $display,
+        $spacing: if($spacing == null, $display, $spacing),
+        $useIconFont: true,
+        $includeChildren: $includeChildren,
+        $args...
+    );
 }
 
 ///
