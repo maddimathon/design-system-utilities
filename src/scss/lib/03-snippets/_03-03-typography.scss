@@ -73,6 +73,7 @@
     $slug: 'unstyled',
     $color: null,
     $iconColor: null,
+    $fontFamily: null,
     $fontWeight: null,
     $fontWeight_strong: null,
     $fontSize: null,
@@ -84,87 +85,118 @@
     $marginBlockEnd: null,
     $marginBlockStart: null,
     //
+    $includeBase: true,
     $includeChildren: true,
     $includeColor: true,
     $includeMargin: true,
     $includeMarginSiblings: $includeMargin,
-    $useRelativeFontSize: false
+    $includePadding: $includeBase,
+    $useRelativeFontSize: config.$fn_tokens_fontSize_defaultRelative
 ) {
     //
     @if $slug == title {
         $slug: '1';
     }
 
-    $marginBlockEnd: if(
-        $marginBlockEnd,
-        $marginBlockEnd,
-        if($slug == unstyled, null, var-style(heading-#{$slug}-margin-block-end))
-    );
-
-    $fontSize: if(
-        $fontSize,
-        $fontSize,
-        if(
-            $slug == unstyled,
-            var-fs(
-                style-value(heading-unstyled-font-size, $raw: true),
-                $relative: $useRelativeFontSize
-            ),
-            var-fs(heading-#{$slug}, $relative: $useRelativeFontSize)
-        )
-    );
-
-    $fontStyle: if($fontStyle, $fontStyle, var-style(heading-#{$slug}-font-style));
-
-    @include cx-prop(focus-ring-outline-offset, $link_focusOutlineOffset);
+    @if $includeBase {
+        @include cx-prop(focus-ring-outline-offset, $link_focusOutlineOffset);
+    }
 
     @if $includeMargin {
-        margin-block-start: if(
+        $marginBlockStart: if(
+            $marginBlockStart != null,
             $marginBlockStart,
-            $marginBlockStart,
-            var-style(heading-#{$slug}-margin-block-start)
+            if(
+                $slug == unstyled or not $slug,
+                false,
+                var-style(heading-#{$slug}-margin-block-start)
+            )
         );
 
-        @if $marginBlockEnd {
+        $marginBlockEnd: if(
+            $marginBlockEnd != null,
+            $marginBlockEnd,
+            if($slug == unstyled or not $slug, false, var-style(heading-#{$slug}-margin-block-end))
+        );
+
+        @if $marginBlockStart != false {
+            margin-block-start: $marginBlockStart;
+        }
+
+        @if $marginBlockEnd != false {
             margin-block-end: $marginBlockEnd;
 
-            padding-block-start: $marginBlockEnd;
-        } @else {
+            @if $includePadding {
+                padding-block-start: $marginBlockEnd;
+            }
+        } @else if $includePadding {
             padding-block-start: 0;
         }
 
-        padding-block-end: 0;
+        @if $includePadding {
+            padding-block-end: 0;
+        }
     }
 
-    @if font-family-exists(heading) {
-        font-family: var-font-family(heading);
-    }
-
-    font-weight: if($fontWeight, $fontWeight, var-style(heading-#{$slug}-font-weight));
-    font-size: $fontSize;
-
-    line-height: if($lineHeight, $lineHeight, var-style(heading-#{$slug}-line-height));
-
-    letter-spacing: var-style(heading-#{$slug}-letter-spacing);
-
-    text-transform: var-style(heading-#{$slug}-text-transform);
-    text-wrap: balance;
-
-    font-style: $fontStyle;
-
-    @if $fontStyle == italic {
-        em {
-            font-style: normal;
-
-            em {
-                font-style: italic;
+    @if $includeBase and $fontFamily != false {
+        @if $fontFamily {
+            font-family: $fontFamily;
+        } @else {
+            @if font-family-exists(heading) {
+                font-family: var-font-family(heading);
             }
         }
     }
 
-    @content (root);
+    @if $slug {
+        $fontSize: if(
+            $fontSize != null,
+            $fontSize,
+            if(
+                $slug == unstyled,
+                var-fs(
+                    style-value(heading-unstyled-font-size, $raw: true),
+                    $relative: $useRelativeFontSize
+                ),
+                var-fs(heading-#{$slug}, $relative: $useRelativeFontSize)
+            )
+        );
 
-    @if $includeColor {
+        $fontWeight: if($fontWeight != null, $fontWeight, var-style(heading-#{$slug}-font-weight));
+
+        $lineHeight: if($lineHeight != null, $lineHeight, var-style(heading-#{$slug}-line-height));
+
+        @if $fontWeight != false {
+            font-weight: $fontWeight;
+        }
+
+        @if $fontSize {
+            font-size: $fontSize;
+        }
+
+        @if $lineHeight != false {
+            line-height: $lineHeight;
+        }
+
+        letter-spacing: var-style(heading-#{$slug}-letter-spacing);
+        text-transform: var-style(heading-#{$slug}-text-transform);
+    }
+
+    @if $includeBase {
+        text-wrap: balance;
+    }
+
+    @if $slug and $fontStyle != false {
+        $fontStyle: if($fontStyle != null, $fontStyle, var-style(heading-#{$slug}-font-style));
+
+        font-style: $fontStyle;
+
+        @content (root);
+    } @else {
+        @content (root);
+    }
+
+    @if $includeColor and $slug {
         $_color: if(
             $color,
             $color,
@@ -175,15 +207,27 @@
         color: $_color;
     }
 
-    @if $includeMarginSiblings {
-        &:has(
-            + :is(
-                %button-span,
-                %margins-flow-firm,
-                %margins-flow-firm-small,
-                %margins-flow-firm-large
-            )
-        ) {
+    @if $slug and $fontStyle == italic {
+        em {
+            font-style: normal;
+
+            em {
+                font-style: italic;
+            }
+        }
+    }
+
+    @content (children);
+
+    @if $includeBase and $includeMarginSiblings {
+        @at-root #{if( $slug, &, ':is(#{&})' )}:has(
+                    + :is(
+                        %button-span,
+                        %margins-flow-firm,
+                        %margins-flow-firm-small,
+                        %margins-flow-firm-large
+                    )
+                ) {
             margin-block-end: 0;
 
             @content (margin-siblings--firm);
@@ -191,16 +235,18 @@
     }
 
     @if $includeChildren {
-        @if $fontWeight_strong {
-            %strong {
+        %strong {
+            @if $fontWeight_strong {
                 font-weight: $fontWeight_strong;
-
-                @content (children--strong);
             }
+
+            @content (children--strong);
         }
 
         %a {
-            @include cx-prop(focus-ring-outline-offset, $link_focusOutlineOffset);
+            @if $includeBase {
+                @include cx-prop(focus-ring-outline-offset, $link_focusOutlineOffset);
+            }
 
             @if $link_decorationThickness != null {
                 text-decoration-thickness: $link_decorationThickness;
@@ -210,7 +256,9 @@
                 text-underline-offset: $link_underlineOffset;
             }
 
-            font-weight: inherit;
+            @if $includeBase {
+                font-weight: inherit;
+            }
 
             @content (children--a);
         }
@@ -218,9 +266,11 @@
         %code,
         %kbd,
         %samp {
-            font-weight: inherit;
-            font-style: inherit;
-            color: inherit;
+            @if $includeBase {
+                font-weight: inherit;
+                font-style: inherit;
+                color: inherit;
+            }
 
             @content (children--code);
         }
@@ -645,75 +695,44 @@
 ///
 @mixin snippet-unstyled-heading(
     $resetChildFontStyle: true,
-    $useRelativeFontSize: config.$fn_tokens_fontSize_defaultRelative,
-    //
-    $color: var-style(heading-unstyled-color),
     $fontFamily: var-style(heading-unstyled-font-family),
     $fontStyle: var-style(heading-unstyled-font-style),
-    $fontWeight: var-style(heading-unstyled-font-weight),
-    $fontSize: var-fs(
-            style-value(heading-unstyled-font-size, $raw: true),
-            $relative: $useRelativeFontSize
-        ),
-    $letterSpacing: var-style(heading-unstyled-letter-spacing),
-    $lineHeight: null,
-    $textTransform: var-style(heading-unstyled-text-transform)
+    $multipleContentBlocks: false,
+    $args...
 ) {
-    $lineHeight: if($lineHeight == null, var-style(heading-unstyled-line-height), $lineHeight);
-
-    font-family: $fontFamily;
-    font-weight: $fontWeight;
-
-    @if $fontSize != false {
-        font-size: $fontSize;
-    }
-
-    @if $lineHeight != false {
-        line-height: $lineHeight;
-    }
-
-    @if $letterSpacing != false {
-        letter-spacing: $letterSpacing;
-    }
-
-    @if $textTransform != false {
-        text-transform: $textTransform;
-    }
-
-    text-wrap: balance;
-
-    @if $color != false {
-        color: $color;
-    }
-
-    @if $fontStyle != false {
-        font-style: $fontStyle;
-
-        @content;
-
-        @if $fontStyle == italic {
-            em {
-                font-style: normal;
-
+    @include snippet-heading('unstyled', $fontFamily: $fontFamily, $fontStyle: $fontStyle, $args...)
+        using ($location) {
+        @if $location == children {
+            @if $fontStyle != false and $fontStyle != italic and $resetChildFontStyle {
                 em {
                     font-style: italic;
-                }
-            }
-        } @else if $resetChildFontStyle {
-            em {
-                font-style: italic;
-
-                em {
-                    font-style: normal;
 
                     em {
-                        font-style: italic;
+                        font-style: normal;
+
+                        em {
+                            font-style: italic;
+                        }
                     }
                 }
             }
+
+            @if $multipleContentBlocks {
+                @content ($location);
+            }
         }
-    } @else {
-        @content;
+        //
+        @else if $location == root {
+            @if $multipleContentBlocks {
+                @content ($location);
+            } @else {
+                @content;
+            }
+        }
+        //
+        @else if $multipleContentBlocks {
+            @content ($location);
+        }
     }
 }
 

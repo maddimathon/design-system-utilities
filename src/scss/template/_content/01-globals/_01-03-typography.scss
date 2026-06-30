@@ -156,28 +156,40 @@ $_heading_inlines: false;
     /* ## Typography - Headings ==================================== */
 }
 
+#{selector-all-headings()} {
+    @include snippet-heading(null);
+
+    &--where {
+        @include snippet-heading(null);
+    }
+
+    &--is {
+        @include snippet-heading(null);
+    }
+}
+
 @if $_print_headings {
     @each $num in token-all-heading-levels() {
         //
         #{if( $num == 1, ('%h#{$num}', '%title'), '%h#{$num}' )} {
-            @include snippet-heading($num);
+            @include snippet-heading($num, $includeBase: false);
 
             &--where {
-                @include snippet-heading($num);
+                @include snippet-heading($num, $includeBase: false);
             }
         }
     }
 
     %unstyled-heading {
-        @include snippet-unstyled-heading;
+        @include snippet-unstyled-heading($includeBase: false);
     }
 
     %unstyled-heading--is {
-        @include snippet-unstyled-heading;
+        @include snippet-unstyled-heading($includeBase: false);
     }
 
     %unstyled-heading--where {
-        @include snippet-unstyled-heading;
+        @include snippet-unstyled-heading($includeBase: false);
     }
 }
 

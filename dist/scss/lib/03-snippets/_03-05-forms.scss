@@ -59,7 +59,7 @@
     $includeVisited: true,
     $args...
 ) {
-    $stateSlug: if($state == '$', '', '-#{$state}');
+    $stateSlug: if($state == '$' or not $state, '', '-#{$state}');
 
     @if $includeVisited and $stateSlug == '' {
         @include visited {
@@ -1983,10 +1983,16 @@
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@mixin snippet-legend {
+@mixin snippet-legend($fontFamily: inherit) {
     fieldset & {
         @include prop-display(block);
-        @include snippet-unstyled-heading($useRelativeFontSize: true);
+        @include snippet-unstyled-heading(
+            $fontFamily: $fontFamily,
+            $includeMargin: false,
+            $includeMarginSiblings: false,
+            $includePadding: false,
+            $useRelativeFontSize: true
+        );
     }
 
     fieldset &:first-child {

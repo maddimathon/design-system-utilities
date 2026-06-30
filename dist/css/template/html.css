@@ -8875,83 +8875,49 @@ pre.language-plaintext:has(> samp) > code {
 }
 
 /* ## Typography - Headings ==================================== */
+.unstyled-heading,
+.page-title,
 h1,
 .h1,
-.page-title {
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6,
+.h7,
+.h8,
+.h9,
+.h10 {
     --focus-ring-outline-offset: 0;
-    margin-top: 3.34375rem;
-    margin-top: var(--mrg-soft-800, 3.34375rem);
-    margin-bottom: 0.1875rem;
-    margin-bottom: var(--mrg-half-200, 0.1875rem);
-    padding-top: 0.1875rem;
-    padding-top: var(--mrg-half-200, 0.1875rem);
+    padding-top: 0;
     padding-bottom: 0;
-    font-weight: 900;
-    font-size: clamp(2.25rem, 1.59375svw + 1.875rem, 3.875rem);
-    font-size: var(--fs-heading-1, 2.9375rem);
-    line-height: 1.1875;
-    line-height: var(--line-height-100, 1.1875);
-    letter-spacing: normal;
-    text-transform: none;
     text-wrap: balance;
-    font-style: normal;
-    --icon-color: var(--theme-heading-1, CanvasText);
-    color: hsl(162, 100%, 15%);
-    color: var(--theme-heading-1, CanvasText);
 }
-h1:has(
-    + :is(
-        .button-span,
-        hr,
-        button,
-        [role="button"],
-        details,
-        pre,
-        img,
-        figure,
-        .table-wrapper,
-        [data-toggle-container],
-        .margins-flow-firm,
-        .brand-logo,
-        a[href].button,
-        a[href].button-secondary,
-        a[href].button-grey,
-        .alert-block,
-        .margins-flow-firm-small,
-        form,
-        table,
-        blockquote,
-        form.search-form,
-        .margins-flow-firm-large
-    )
-),
-.h1:has(
-    + :is(
-        .button-span,
-        hr,
-        button,
-        [role="button"],
-        details,
-        pre,
-        img,
-        figure,
-        .table-wrapper,
-        [data-toggle-container],
-        .margins-flow-firm,
-        .brand-logo,
-        a[href].button,
-        a[href].button-secondary,
-        a[href].button-grey,
-        .alert-block,
-        .margins-flow-firm-small,
-        form,
-        table,
-        blockquote,
-        form.search-form,
-        .margins-flow-firm-large
-    )
-),
-.page-title:has(
+:is(
+    .unstyled-heading,
+    .page-title,
+    h1,
+    .h1,
+    h2,
+    .h2,
+    h3,
+    .h3,
+    h4,
+    .h4,
+    h5,
+    .h5,
+    h6,
+    .h6,
+    .h7,
+    .h8,
+    .h9,
+    .h10
+):has(
     + :is(
         .button-span,
         hr,
@@ -8979,1377 +8945,79 @@ h1:has(
 ) {
     margin-bottom: 0;
 }
+
+.unstyled-heading a[href],
+.page-title a[href],
 h1 a[href],
 .h1 a[href],
-.page-title a[href] {
+h2 a[href],
+.h2 a[href],
+h3 a[href],
+.h3 a[href],
+h4 a[href],
+.h4 a[href],
+h5 a[href],
+.h5 a[href],
+h6 a[href],
+.h6 a[href],
+.h7 a[href],
+.h8 a[href],
+.h9 a[href],
+.h10 a[href] {
     --focus-ring-outline-offset: 0;
     font-weight: inherit;
 }
+.unstyled-heading code,
+.unstyled-heading kbd,
+.unstyled-heading samp,
+.page-title code,
+.page-title kbd,
+.page-title samp,
 h1 code,
 .h1 code,
 h1 kbd,
 .h1 kbd,
 h1 samp,
 .h1 samp,
-.page-title code,
-.page-title kbd,
-.page-title samp {
-    font-weight: inherit;
-    font-style: inherit;
-    color: inherit;
-}
-:where([role="heading"][aria-level="1"]) {
-    --focus-ring-outline-offset: 0;
-    margin-top: 3.34375rem;
-    margin-top: var(--mrg-soft-800, 3.34375rem);
-    margin-bottom: 0.1875rem;
-    margin-bottom: var(--mrg-half-200, 0.1875rem);
-    padding-top: 0.1875rem;
-    padding-top: var(--mrg-half-200, 0.1875rem);
-    padding-bottom: 0;
-    font-weight: 900;
-    font-size: clamp(2.25rem, 1.59375svw + 1.875rem, 3.875rem);
-    font-size: var(--fs-heading-1, 2.9375rem);
-    line-height: 1.1875;
-    line-height: var(--line-height-100, 1.1875);
-    letter-spacing: normal;
-    text-transform: none;
-    text-wrap: balance;
-    font-style: normal;
-    --icon-color: var(--theme-heading-1, CanvasText);
-    color: hsl(162, 100%, 15%);
-    color: var(--theme-heading-1, CanvasText);
-}
-:has(
-    + :is(
-        .button-span,
-        hr,
-        button,
-        [role="button"],
-        details,
-        pre,
-        img,
-        figure,
-        .table-wrapper,
-        [data-toggle-container],
-        .margins-flow-firm,
-        .brand-logo,
-        a[href].button,
-        a[href].button-secondary,
-        a[href].button-grey,
-        .alert-block,
-        .margins-flow-firm-small,
-        form,
-        table,
-        blockquote,
-        form.search-form,
-        .margins-flow-firm-large
-    )
-):where([role="heading"][aria-level="1"]) {
-    margin-bottom: 0;
-}
-:where([role="heading"][aria-level="1"]) a[href] {
-    --focus-ring-outline-offset: 0;
-    font-weight: inherit;
-}
-:where([role="heading"][aria-level="1"]) code,
-:where([role="heading"][aria-level="1"]) kbd,
-:where([role="heading"][aria-level="1"]) samp {
-    font-weight: inherit;
-    font-style: inherit;
-    color: inherit;
-}
-
-h2,
-.h2 {
-    --focus-ring-outline-offset: 0;
-    margin-top: 3.34375rem;
-    margin-top: var(--mrg-soft-800, 3.34375rem);
-    margin-bottom: 0.1875rem;
-    margin-bottom: var(--mrg-half-200, 0.1875rem);
-    padding-top: 0.1875rem;
-    padding-top: var(--mrg-half-200, 0.1875rem);
-    padding-bottom: 0;
-    font-weight: 800;
-    font-size: clamp(1.75rem, 1.125svw + 1.4375rem, 2.875rem);
-    font-size: var(--fs-heading-2, 2.1875rem);
-    line-height: 1.375;
-    line-height: var(--line-height-200, 1.375);
-    letter-spacing: normal;
-    text-transform: none;
-    text-wrap: balance;
-    font-style: normal;
-    --icon-color: var(--theme-heading-2, CanvasText);
-    color: hsl(162, 100%, 15%);
-    color: var(--theme-heading-2, CanvasText);
-}
-h2:has(
-    + :is(
-        .button-span,
-        hr,
-        button,
-        [role="button"],
-        details,
-        pre,
-        img,
-        figure,
-        .table-wrapper,
-        [data-toggle-container],
-        .margins-flow-firm,
-        .brand-logo,
-        a[href].button,
-        a[href].button-secondary,
-        a[href].button-grey,
-        .alert-block,
-        .margins-flow-firm-small,
-        form,
-        table,
-        blockquote,
-        form.search-form,
-        .margins-flow-firm-large
-    )
-),
-.h2:has(
-    + :is(
-        .button-span,
-        hr,
-        button,
-        [role="button"],
-        details,
-        pre,
-        img,
-        figure,
-        .table-wrapper,
-        [data-toggle-container],
-        .margins-flow-firm,
-        .brand-logo,
-        a[href].button,
-        a[href].button-secondary,
-        a[href].button-grey,
-        .alert-block,
-        .margins-flow-firm-small,
-        form,
-        table,
-        blockquote,
-        form.search-form,
-        .margins-flow-firm-large
-    )
-) {
-    margin-bottom: 0;
-}
-h2 a[href],
-.h2 a[href] {
-    --focus-ring-outline-offset: 0;
-    font-weight: inherit;
-}
 h2 code,
 .h2 code,
 h2 kbd,
 .h2 kbd,
 h2 samp,
-.h2 samp {
-    font-weight: inherit;
-    font-style: inherit;
-    color: inherit;
-}
-:where([role="heading"][aria-level="2"]) {
-    --focus-ring-outline-offset: 0;
-    margin-top: 3.34375rem;
-    margin-top: var(--mrg-soft-800, 3.34375rem);
-    margin-bottom: 0.1875rem;
-    margin-bottom: var(--mrg-half-200, 0.1875rem);
-    padding-top: 0.1875rem;
-    padding-top: var(--mrg-half-200, 0.1875rem);
-    padding-bottom: 0;
-    font-weight: 800;
-    font-size: clamp(1.75rem, 1.125svw + 1.4375rem, 2.875rem);
-    font-size: var(--fs-heading-2, 2.1875rem);
-    line-height: 1.375;
-    line-height: var(--line-height-200, 1.375);
-    letter-spacing: normal;
-    text-transform: none;
-    text-wrap: balance;
-    font-style: normal;
-    --icon-color: var(--theme-heading-2, CanvasText);
-    color: hsl(162, 100%, 15%);
-    color: var(--theme-heading-2, CanvasText);
-}
-:has(
-    + :is(
-        .button-span,
-        hr,
-        button,
-        [role="button"],
-        details,
-        pre,
-        img,
-        figure,
-        .table-wrapper,
-        [data-toggle-container],
-        .margins-flow-firm,
-        .brand-logo,
-        a[href].button,
-        a[href].button-secondary,
-        a[href].button-grey,
-        .alert-block,
-        .margins-flow-firm-small,
-        form,
-        table,
-        blockquote,
-        form.search-form,
-        .margins-flow-firm-large
-    )
-):where([role="heading"][aria-level="2"]) {
-    margin-bottom: 0;
-}
-:where([role="heading"][aria-level="2"]) a[href] {
-    --focus-ring-outline-offset: 0;
-    font-weight: inherit;
-}
-:where([role="heading"][aria-level="2"]) code,
-:where([role="heading"][aria-level="2"]) kbd,
-:where([role="heading"][aria-level="2"]) samp {
-    font-weight: inherit;
-    font-style: inherit;
-    color: inherit;
-}
-
-h3,
-.h3 {
-    --focus-ring-outline-offset: 0;
-    margin-top: 3.34375rem;
-    margin-top: var(--mrg-soft-800, 3.34375rem);
-    margin-bottom: 0.1875rem;
-    margin-bottom: var(--mrg-half-200, 0.1875rem);
-    padding-top: 0.1875rem;
-    padding-top: var(--mrg-half-200, 0.1875rem);
-    padding-bottom: 0;
-    font-weight: 700;
-    font-size: clamp(1.5rem, 0.84375svw + 1.3125rem, 2.375rem);
-    font-size: var(--fs-heading-3, 1.9375rem);
-    line-height: 1.375;
-    line-height: var(--line-height-200, 1.375);
-    letter-spacing: normal;
-    text-transform: none;
-    text-wrap: balance;
-    font-style: normal;
-    --icon-color: var(--theme-heading-3, CanvasText);
-    color: hsl(162, 100%, 15%);
-    color: var(--theme-heading-3, CanvasText);
-}
-h3:has(
-    + :is(
-        .button-span,
-        hr,
-        button,
-        [role="button"],
-        details,
-        pre,
-        img,
-        figure,
-        .table-wrapper,
-        [data-toggle-container],
-        .margins-flow-firm,
-        .brand-logo,
-        a[href].button,
-        a[href].button-secondary,
-        a[href].button-grey,
-        .alert-block,
-        .margins-flow-firm-small,
-        form,
-        table,
-        blockquote,
-        form.search-form,
-        .margins-flow-firm-large
-    )
-),
-.h3:has(
-    + :is(
-        .button-span,
-        hr,
-        button,
-        [role="button"],
-        details,
-        pre,
-        img,
-        figure,
-        .table-wrapper,
-        [data-toggle-container],
-        .margins-flow-firm,
-        .brand-logo,
-        a[href].button,
-        a[href].button-secondary,
-        a[href].button-grey,
-        .alert-block,
-        .margins-flow-firm-small,
-        form,
-        table,
-        blockquote,
-        form.search-form,
-        .margins-flow-firm-large
-    )
-) {
-    margin-bottom: 0;
-}
-h3 a[href],
-.h3 a[href] {
-    --focus-ring-outline-offset: 0;
-    font-weight: inherit;
-}
+.h2 samp,
 h3 code,
 .h3 code,
 h3 kbd,
 .h3 kbd,
 h3 samp,
-.h3 samp {
-    font-weight: inherit;
-    font-style: inherit;
-    color: inherit;
-}
-:where([role="heading"][aria-level="3"]) {
-    --focus-ring-outline-offset: 0;
-    margin-top: 3.34375rem;
-    margin-top: var(--mrg-soft-800, 3.34375rem);
-    margin-bottom: 0.1875rem;
-    margin-bottom: var(--mrg-half-200, 0.1875rem);
-    padding-top: 0.1875rem;
-    padding-top: var(--mrg-half-200, 0.1875rem);
-    padding-bottom: 0;
-    font-weight: 700;
-    font-size: clamp(1.5rem, 0.84375svw + 1.3125rem, 2.375rem);
-    font-size: var(--fs-heading-3, 1.9375rem);
-    line-height: 1.375;
-    line-height: var(--line-height-200, 1.375);
-    letter-spacing: normal;
-    text-transform: none;
-    text-wrap: balance;
-    font-style: normal;
-    --icon-color: var(--theme-heading-3, CanvasText);
-    color: hsl(162, 100%, 15%);
-    color: var(--theme-heading-3, CanvasText);
-}
-:has(
-    + :is(
-        .button-span,
-        hr,
-        button,
-        [role="button"],
-        details,
-        pre,
-        img,
-        figure,
-        .table-wrapper,
-        [data-toggle-container],
-        .margins-flow-firm,
-        .brand-logo,
-        a[href].button,
-        a[href].button-secondary,
-        a[href].button-grey,
-        .alert-block,
-        .margins-flow-firm-small,
-        form,
-        table,
-        blockquote,
-        form.search-form,
-        .margins-flow-firm-large
-    )
-):where([role="heading"][aria-level="3"]) {
-    margin-bottom: 0;
-}
-:where([role="heading"][aria-level="3"]) a[href] {
-    --focus-ring-outline-offset: 0;
-    font-weight: inherit;
-}
-:where([role="heading"][aria-level="3"]) code,
-:where([role="heading"][aria-level="3"]) kbd,
-:where([role="heading"][aria-level="3"]) samp {
-    font-weight: inherit;
-    font-style: inherit;
-    color: inherit;
-}
-
-h4,
-.h4 {
-    --focus-ring-outline-offset: 0;
-    margin-top: 1.84375rem;
-    margin-top: var(--mrg-soft-600, 1.84375rem);
-    margin-bottom: 0.1875rem;
-    margin-bottom: var(--mrg-half-200, 0.1875rem);
-    padding-top: 0.1875rem;
-    padding-top: var(--mrg-half-200, 0.1875rem);
-    padding-bottom: 0;
-    font-weight: 700;
-    font-size: clamp(1.3125rem, 0.71875svw + 1.125rem, 2.0625rem);
-    font-size: var(--fs-heading-4, 1.6875rem);
-    line-height: 1.375;
-    line-height: var(--line-height-200, 1.375);
-    letter-spacing: normal;
-    text-transform: none;
-    text-wrap: balance;
-    font-style: italic;
-}
-h4 em,
-.h4 em {
-    font-style: normal;
-}
-h4 em em,
-.h4 em em {
-    font-style: italic;
-}
-h4,
-.h4 {
-    --icon-color: var(--theme-heading-4, CanvasText);
-    color: hsl(162, 100%, 15%);
-    color: var(--theme-heading-4, CanvasText);
-}
-h4:has(
-    + :is(
-        .button-span,
-        hr,
-        button,
-        [role="button"],
-        details,
-        pre,
-        img,
-        figure,
-        .table-wrapper,
-        [data-toggle-container],
-        .margins-flow-firm,
-        .brand-logo,
-        a[href].button,
-        a[href].button-secondary,
-        a[href].button-grey,
-        .alert-block,
-        .margins-flow-firm-small,
-        form,
-        table,
-        blockquote,
-        form.search-form,
-        .margins-flow-firm-large
-    )
-),
-.h4:has(
-    + :is(
-        .button-span,
-        hr,
-        button,
-        [role="button"],
-        details,
-        pre,
-        img,
-        figure,
-        .table-wrapper,
-        [data-toggle-container],
-        .margins-flow-firm,
-        .brand-logo,
-        a[href].button,
-        a[href].button-secondary,
-        a[href].button-grey,
-        .alert-block,
-        .margins-flow-firm-small,
-        form,
-        table,
-        blockquote,
-        form.search-form,
-        .margins-flow-firm-large
-    )
-) {
-    margin-bottom: 0;
-}
-h4 a[href],
-.h4 a[href] {
-    --focus-ring-outline-offset: 0;
-    font-weight: inherit;
-}
+.h3 samp,
 h4 code,
 .h4 code,
 h4 kbd,
 .h4 kbd,
 h4 samp,
-.h4 samp {
-    font-weight: inherit;
-    font-style: inherit;
-    color: inherit;
-}
-:where([role="heading"][aria-level="4"]) {
-    --focus-ring-outline-offset: 0;
-    margin-top: 1.84375rem;
-    margin-top: var(--mrg-soft-600, 1.84375rem);
-    margin-bottom: 0.1875rem;
-    margin-bottom: var(--mrg-half-200, 0.1875rem);
-    padding-top: 0.1875rem;
-    padding-top: var(--mrg-half-200, 0.1875rem);
-    padding-bottom: 0;
-    font-weight: 700;
-    font-size: clamp(1.3125rem, 0.71875svw + 1.125rem, 2.0625rem);
-    font-size: var(--fs-heading-4, 1.6875rem);
-    line-height: 1.375;
-    line-height: var(--line-height-200, 1.375);
-    letter-spacing: normal;
-    text-transform: none;
-    text-wrap: balance;
-    font-style: italic;
-}
-:where([role="heading"][aria-level="4"]) em {
-    font-style: normal;
-}
-:where([role="heading"][aria-level="4"]) em em {
-    font-style: italic;
-}
-:where([role="heading"][aria-level="4"]) {
-    --icon-color: var(--theme-heading-4, CanvasText);
-    color: hsl(162, 100%, 15%);
-    color: var(--theme-heading-4, CanvasText);
-}
-:has(
-    + :is(
-        .button-span,
-        hr,
-        button,
-        [role="button"],
-        details,
-        pre,
-        img,
-        figure,
-        .table-wrapper,
-        [data-toggle-container],
-        .margins-flow-firm,
-        .brand-logo,
-        a[href].button,
-        a[href].button-secondary,
-        a[href].button-grey,
-        .alert-block,
-        .margins-flow-firm-small,
-        form,
-        table,
-        blockquote,
-        form.search-form,
-        .margins-flow-firm-large
-    )
-):where([role="heading"][aria-level="4"]) {
-    margin-bottom: 0;
-}
-:where([role="heading"][aria-level="4"]) a[href] {
-    --focus-ring-outline-offset: 0;
-    font-weight: inherit;
-}
-:where([role="heading"][aria-level="4"]) code,
-:where([role="heading"][aria-level="4"]) kbd,
-:where([role="heading"][aria-level="4"]) samp {
-    font-weight: inherit;
-    font-style: inherit;
-    color: inherit;
-}
-
-h5,
-.h5 {
-    --focus-ring-outline-offset: 0;
-    margin-top: 1.84375rem;
-    margin-top: var(--mrg-soft-600, 1.84375rem);
-    margin-bottom: 0.46875rem;
-    margin-bottom: var(--mrg-half-400, 0.46875rem);
-    padding-top: 0.46875rem;
-    padding-top: var(--mrg-half-400, 0.46875rem);
-    padding-bottom: 0;
-    font-weight: 600;
-    font-size: clamp(1.1875rem, 0.59375svw + 1.0625rem, 1.8125rem);
-    font-size: var(--fs-heading-5, 1.375rem);
-    line-height: 1.375;
-    line-height: var(--line-height-200, 1.375);
-    letter-spacing: normal;
-    text-transform: none;
-    text-wrap: balance;
-    font-style: italic;
-}
-h5 em,
-.h5 em {
-    font-style: normal;
-}
-h5 em em,
-.h5 em em {
-    font-style: italic;
-}
-h5,
-.h5 {
-    --icon-color: var(--theme-heading-5, CanvasText);
-    color: hsl(162, 100%, 15%);
-    color: var(--theme-heading-5, CanvasText);
-}
-h5:has(
-    + :is(
-        .button-span,
-        hr,
-        button,
-        [role="button"],
-        details,
-        pre,
-        img,
-        figure,
-        .table-wrapper,
-        [data-toggle-container],
-        .margins-flow-firm,
-        .brand-logo,
-        a[href].button,
-        a[href].button-secondary,
-        a[href].button-grey,
-        .alert-block,
-        .margins-flow-firm-small,
-        form,
-        table,
-        blockquote,
-        form.search-form,
-        .margins-flow-firm-large
-    )
-),
-.h5:has(
-    + :is(
-        .button-span,
-        hr,
-        button,
-        [role="button"],
-        details,
-        pre,
-        img,
-        figure,
-        .table-wrapper,
-        [data-toggle-container],
-        .margins-flow-firm,
-        .brand-logo,
-        a[href].button,
-        a[href].button-secondary,
-        a[href].button-grey,
-        .alert-block,
-        .margins-flow-firm-small,
-        form,
-        table,
-        blockquote,
-        form.search-form,
-        .margins-flow-firm-large
-    )
-) {
-    margin-bottom: 0;
-}
-h5 a[href],
-.h5 a[href] {
-    --focus-ring-outline-offset: 0;
-    font-weight: inherit;
-}
+.h4 samp,
 h5 code,
 .h5 code,
 h5 kbd,
 .h5 kbd,
 h5 samp,
-.h5 samp {
-    font-weight: inherit;
-    font-style: inherit;
-    color: inherit;
-}
-:where([role="heading"][aria-level="5"]) {
-    --focus-ring-outline-offset: 0;
-    margin-top: 1.84375rem;
-    margin-top: var(--mrg-soft-600, 1.84375rem);
-    margin-bottom: 0.46875rem;
-    margin-bottom: var(--mrg-half-400, 0.46875rem);
-    padding-top: 0.46875rem;
-    padding-top: var(--mrg-half-400, 0.46875rem);
-    padding-bottom: 0;
-    font-weight: 600;
-    font-size: clamp(1.1875rem, 0.59375svw + 1.0625rem, 1.8125rem);
-    font-size: var(--fs-heading-5, 1.375rem);
-    line-height: 1.375;
-    line-height: var(--line-height-200, 1.375);
-    letter-spacing: normal;
-    text-transform: none;
-    text-wrap: balance;
-    font-style: italic;
-}
-:where([role="heading"][aria-level="5"]) em {
-    font-style: normal;
-}
-:where([role="heading"][aria-level="5"]) em em {
-    font-style: italic;
-}
-:where([role="heading"][aria-level="5"]) {
-    --icon-color: var(--theme-heading-5, CanvasText);
-    color: hsl(162, 100%, 15%);
-    color: var(--theme-heading-5, CanvasText);
-}
-:has(
-    + :is(
-        .button-span,
-        hr,
-        button,
-        [role="button"],
-        details,
-        pre,
-        img,
-        figure,
-        .table-wrapper,
-        [data-toggle-container],
-        .margins-flow-firm,
-        .brand-logo,
-        a[href].button,
-        a[href].button-secondary,
-        a[href].button-grey,
-        .alert-block,
-        .margins-flow-firm-small,
-        form,
-        table,
-        blockquote,
-        form.search-form,
-        .margins-flow-firm-large
-    )
-):where([role="heading"][aria-level="5"]) {
-    margin-bottom: 0;
-}
-:where([role="heading"][aria-level="5"]) a[href] {
-    --focus-ring-outline-offset: 0;
-    font-weight: inherit;
-}
-:where([role="heading"][aria-level="5"]) code,
-:where([role="heading"][aria-level="5"]) kbd,
-:where([role="heading"][aria-level="5"]) samp {
-    font-weight: inherit;
-    font-style: inherit;
-    color: inherit;
-}
-
-h6,
-.h6 {
-    --focus-ring-outline-offset: 0;
-    margin-top: 1.84375rem;
-    margin-top: var(--mrg-soft-600, 1.84375rem);
-    margin-bottom: 0.46875rem;
-    margin-bottom: var(--mrg-half-400, 0.46875rem);
-    padding-top: 0.46875rem;
-    padding-top: var(--mrg-half-400, 0.46875rem);
-    padding-bottom: 0;
-    font-weight: 500;
-    font-size: clamp(1rem, 0.53125svw + 0.875rem, 1.5rem);
-    font-size: var(--fs-heading-6, 1.25rem);
-    line-height: 1.5;
-    line-height: var(--line-height-300, 1.5);
-    letter-spacing: normal;
-    text-transform: none;
-    text-wrap: balance;
-    font-style: italic;
-}
-h6 em,
-.h6 em {
-    font-style: normal;
-}
-h6 em em,
-.h6 em em {
-    font-style: italic;
-}
-h6,
-.h6 {
-    --icon-color: var(--theme-heading-6, CanvasText);
-    color: hsl(162, 100%, 15%);
-    color: var(--theme-heading-6, CanvasText);
-}
-h6:has(
-    + :is(
-        .button-span,
-        hr,
-        button,
-        [role="button"],
-        details,
-        pre,
-        img,
-        figure,
-        .table-wrapper,
-        [data-toggle-container],
-        .margins-flow-firm,
-        .brand-logo,
-        a[href].button,
-        a[href].button-secondary,
-        a[href].button-grey,
-        .alert-block,
-        .margins-flow-firm-small,
-        form,
-        table,
-        blockquote,
-        form.search-form,
-        .margins-flow-firm-large
-    )
-),
-.h6:has(
-    + :is(
-        .button-span,
-        hr,
-        button,
-        [role="button"],
-        details,
-        pre,
-        img,
-        figure,
-        .table-wrapper,
-        [data-toggle-container],
-        .margins-flow-firm,
-        .brand-logo,
-        a[href].button,
-        a[href].button-secondary,
-        a[href].button-grey,
-        .alert-block,
-        .margins-flow-firm-small,
-        form,
-        table,
-        blockquote,
-        form.search-form,
-        .margins-flow-firm-large
-    )
-) {
-    margin-bottom: 0;
-}
-h6 a[href],
-.h6 a[href] {
-    --focus-ring-outline-offset: 0;
-    font-weight: inherit;
-}
+.h5 samp,
 h6 code,
 .h6 code,
 h6 kbd,
 .h6 kbd,
 h6 samp,
-.h6 samp {
-    font-weight: inherit;
-    font-style: inherit;
-    color: inherit;
-}
-:where([role="heading"][aria-level="6"]) {
-    --focus-ring-outline-offset: 0;
-    margin-top: 1.84375rem;
-    margin-top: var(--mrg-soft-600, 1.84375rem);
-    margin-bottom: 0.46875rem;
-    margin-bottom: var(--mrg-half-400, 0.46875rem);
-    padding-top: 0.46875rem;
-    padding-top: var(--mrg-half-400, 0.46875rem);
-    padding-bottom: 0;
-    font-weight: 500;
-    font-size: clamp(1rem, 0.53125svw + 0.875rem, 1.5rem);
-    font-size: var(--fs-heading-6, 1.25rem);
-    line-height: 1.5;
-    line-height: var(--line-height-300, 1.5);
-    letter-spacing: normal;
-    text-transform: none;
-    text-wrap: balance;
-    font-style: italic;
-}
-:where([role="heading"][aria-level="6"]) em {
-    font-style: normal;
-}
-:where([role="heading"][aria-level="6"]) em em {
-    font-style: italic;
-}
-:where([role="heading"][aria-level="6"]) {
-    --icon-color: var(--theme-heading-6, CanvasText);
-    color: hsl(162, 100%, 15%);
-    color: var(--theme-heading-6, CanvasText);
-}
-:has(
-    + :is(
-        .button-span,
-        hr,
-        button,
-        [role="button"],
-        details,
-        pre,
-        img,
-        figure,
-        .table-wrapper,
-        [data-toggle-container],
-        .margins-flow-firm,
-        .brand-logo,
-        a[href].button,
-        a[href].button-secondary,
-        a[href].button-grey,
-        .alert-block,
-        .margins-flow-firm-small,
-        form,
-        table,
-        blockquote,
-        form.search-form,
-        .margins-flow-firm-large
-    )
-):where([role="heading"][aria-level="6"]) {
-    margin-bottom: 0;
-}
-:where([role="heading"][aria-level="6"]) a[href] {
-    --focus-ring-outline-offset: 0;
-    font-weight: inherit;
-}
-:where([role="heading"][aria-level="6"]) code,
-:where([role="heading"][aria-level="6"]) kbd,
-:where([role="heading"][aria-level="6"]) samp {
-    font-weight: inherit;
-    font-style: inherit;
-    color: inherit;
-}
-
-.h7 {
-    --focus-ring-outline-offset: 0;
-    margin-top: 1.84375rem;
-    margin-top: var(--mrg-soft-600, 1.84375rem);
-    margin-bottom: 0.46875rem;
-    margin-bottom: var(--mrg-half-400, 0.46875rem);
-    padding-top: 0.46875rem;
-    padding-top: var(--mrg-half-400, 0.46875rem);
-    padding-bottom: 0;
-    font-weight: 500;
-    font-size: clamp(0.9375rem, 0.25svw + 0.875rem, 1.1875rem);
-    font-size: var(--fs-heading-7, 1rem);
-    line-height: 1.6875;
-    line-height: var(--line-height-400, 1.6875);
-    letter-spacing: 0.0625em;
-    text-transform: uppercase;
-    text-wrap: balance;
-    font-style: normal;
-    --icon-color: var(--theme-heading-7, CanvasText);
-    color: hsl(321, 68%, 26%);
-    color: var(--theme-heading-7, CanvasText);
-}
-.h7:has(
-    + :is(
-        .button-span,
-        hr,
-        button,
-        [role="button"],
-        details,
-        pre,
-        img,
-        figure,
-        .table-wrapper,
-        [data-toggle-container],
-        .margins-flow-firm,
-        .brand-logo,
-        a[href].button,
-        a[href].button-secondary,
-        a[href].button-grey,
-        .alert-block,
-        .margins-flow-firm-small,
-        form,
-        table,
-        blockquote,
-        form.search-form,
-        .margins-flow-firm-large
-    )
-) {
-    margin-bottom: 0;
-}
-.h7 a[href] {
-    --focus-ring-outline-offset: 0;
-    font-weight: inherit;
-}
+.h6 samp,
 .h7 code,
 .h7 kbd,
-.h7 samp {
-    font-weight: inherit;
-    font-style: inherit;
-    color: inherit;
-}
-:where([role="heading"][aria-level="7"]) {
-    --focus-ring-outline-offset: 0;
-    margin-top: 1.84375rem;
-    margin-top: var(--mrg-soft-600, 1.84375rem);
-    margin-bottom: 0.46875rem;
-    margin-bottom: var(--mrg-half-400, 0.46875rem);
-    padding-top: 0.46875rem;
-    padding-top: var(--mrg-half-400, 0.46875rem);
-    padding-bottom: 0;
-    font-weight: 500;
-    font-size: clamp(0.9375rem, 0.25svw + 0.875rem, 1.1875rem);
-    font-size: var(--fs-heading-7, 1rem);
-    line-height: 1.6875;
-    line-height: var(--line-height-400, 1.6875);
-    letter-spacing: 0.0625em;
-    text-transform: uppercase;
-    text-wrap: balance;
-    font-style: normal;
-    --icon-color: var(--theme-heading-7, CanvasText);
-    color: hsl(321, 68%, 26%);
-    color: var(--theme-heading-7, CanvasText);
-}
-:has(
-    + :is(
-        .button-span,
-        hr,
-        button,
-        [role="button"],
-        details,
-        pre,
-        img,
-        figure,
-        .table-wrapper,
-        [data-toggle-container],
-        .margins-flow-firm,
-        .brand-logo,
-        a[href].button,
-        a[href].button-secondary,
-        a[href].button-grey,
-        .alert-block,
-        .margins-flow-firm-small,
-        form,
-        table,
-        blockquote,
-        form.search-form,
-        .margins-flow-firm-large
-    )
-):where([role="heading"][aria-level="7"]) {
-    margin-bottom: 0;
-}
-:where([role="heading"][aria-level="7"]) a[href] {
-    --focus-ring-outline-offset: 0;
-    font-weight: inherit;
-}
-:where([role="heading"][aria-level="7"]) code,
-:where([role="heading"][aria-level="7"]) kbd,
-:where([role="heading"][aria-level="7"]) samp {
-    font-weight: inherit;
-    font-style: inherit;
-    color: inherit;
-}
-
-.h8 {
-    --focus-ring-outline-offset: 0;
-    margin-top: 1.84375rem;
-    margin-top: var(--mrg-soft-600, 1.84375rem);
-    margin-bottom: 0.46875rem;
-    margin-bottom: var(--mrg-half-400, 0.46875rem);
-    padding-top: 0.46875rem;
-    padding-top: var(--mrg-half-400, 0.46875rem);
-    padding-bottom: 0;
-    font-weight: 500;
-    font-size: clamp(0.875rem, 0.25svw + 0.8125rem, 1.125rem);
-    font-size: var(--fs-heading-8, 0.9375rem);
-    line-height: 1.6875;
-    line-height: var(--line-height-400, 1.6875);
-    letter-spacing: 0.0625em;
-    text-transform: uppercase;
-    text-wrap: balance;
-    font-style: italic;
-}
-.h8 em {
-    font-style: normal;
-}
-.h8 em em {
-    font-style: italic;
-}
-.h8 {
-    --icon-color: var(--theme-heading-8, CanvasText);
-    color: hsl(321, 68%, 26%);
-    color: var(--theme-heading-8, CanvasText);
-}
-.h8:has(
-    + :is(
-        .button-span,
-        hr,
-        button,
-        [role="button"],
-        details,
-        pre,
-        img,
-        figure,
-        .table-wrapper,
-        [data-toggle-container],
-        .margins-flow-firm,
-        .brand-logo,
-        a[href].button,
-        a[href].button-secondary,
-        a[href].button-grey,
-        .alert-block,
-        .margins-flow-firm-small,
-        form,
-        table,
-        blockquote,
-        form.search-form,
-        .margins-flow-firm-large
-    )
-) {
-    margin-bottom: 0;
-}
-.h8 a[href] {
-    --focus-ring-outline-offset: 0;
-    font-weight: inherit;
-}
+.h7 samp,
 .h8 code,
 .h8 kbd,
-.h8 samp {
-    font-weight: inherit;
-    font-style: inherit;
-    color: inherit;
-}
-:where([role="heading"][aria-level="8"]) {
-    --focus-ring-outline-offset: 0;
-    margin-top: 1.84375rem;
-    margin-top: var(--mrg-soft-600, 1.84375rem);
-    margin-bottom: 0.46875rem;
-    margin-bottom: var(--mrg-half-400, 0.46875rem);
-    padding-top: 0.46875rem;
-    padding-top: var(--mrg-half-400, 0.46875rem);
-    padding-bottom: 0;
-    font-weight: 500;
-    font-size: clamp(0.875rem, 0.25svw + 0.8125rem, 1.125rem);
-    font-size: var(--fs-heading-8, 0.9375rem);
-    line-height: 1.6875;
-    line-height: var(--line-height-400, 1.6875);
-    letter-spacing: 0.0625em;
-    text-transform: uppercase;
-    text-wrap: balance;
-    font-style: italic;
-}
-:where([role="heading"][aria-level="8"]) em {
-    font-style: normal;
-}
-:where([role="heading"][aria-level="8"]) em em {
-    font-style: italic;
-}
-:where([role="heading"][aria-level="8"]) {
-    --icon-color: var(--theme-heading-8, CanvasText);
-    color: hsl(321, 68%, 26%);
-    color: var(--theme-heading-8, CanvasText);
-}
-:has(
-    + :is(
-        .button-span,
-        hr,
-        button,
-        [role="button"],
-        details,
-        pre,
-        img,
-        figure,
-        .table-wrapper,
-        [data-toggle-container],
-        .margins-flow-firm,
-        .brand-logo,
-        a[href].button,
-        a[href].button-secondary,
-        a[href].button-grey,
-        .alert-block,
-        .margins-flow-firm-small,
-        form,
-        table,
-        blockquote,
-        form.search-form,
-        .margins-flow-firm-large
-    )
-):where([role="heading"][aria-level="8"]) {
-    margin-bottom: 0;
-}
-:where([role="heading"][aria-level="8"]) a[href] {
-    --focus-ring-outline-offset: 0;
-    font-weight: inherit;
-}
-:where([role="heading"][aria-level="8"]) code,
-:where([role="heading"][aria-level="8"]) kbd,
-:where([role="heading"][aria-level="8"]) samp {
-    font-weight: inherit;
-    font-style: inherit;
-    color: inherit;
-}
-
-.h9 {
-    --focus-ring-outline-offset: 0;
-    margin-top: 1.34375rem;
-    margin-top: var(--mrg-soft-500, 1.34375rem);
-    margin-bottom: 0.46875rem;
-    margin-bottom: var(--mrg-half-400, 0.46875rem);
-    padding-top: 0.46875rem;
-    padding-top: var(--mrg-half-400, 0.46875rem);
-    padding-bottom: 0;
-    font-weight: 500;
-    font-size: clamp(0.8125rem, 0.1875svw + 0.75rem, 1rem);
-    font-size: var(--fs-heading-9, 0.875rem);
-    line-height: 1.875;
-    line-height: var(--line-height-500, 1.875);
-    letter-spacing: 0.0625em;
-    text-transform: uppercase;
-    text-wrap: balance;
-    font-style: italic;
-}
-.h9 em {
-    font-style: normal;
-}
-.h9 em em {
-    font-style: italic;
-}
-.h9 {
-    --icon-color: var(--theme-heading-9, CanvasText);
-    color: hsl(339.45, 0%, 22.38%);
-    color: var(--theme-heading-9, CanvasText);
-}
-.h9:has(
-    + :is(
-        .button-span,
-        hr,
-        button,
-        [role="button"],
-        details,
-        pre,
-        img,
-        figure,
-        .table-wrapper,
-        [data-toggle-container],
-        .margins-flow-firm,
-        .brand-logo,
-        a[href].button,
-        a[href].button-secondary,
-        a[href].button-grey,
-        .alert-block,
-        .margins-flow-firm-small,
-        form,
-        table,
-        blockquote,
-        form.search-form,
-        .margins-flow-firm-large
-    )
-) {
-    margin-bottom: 0;
-}
-.h9 a[href] {
-    --focus-ring-outline-offset: 0;
-    font-weight: inherit;
-}
+.h8 samp,
 .h9 code,
 .h9 kbd,
-.h9 samp {
-    font-weight: inherit;
-    font-style: inherit;
-    color: inherit;
-}
-:where([role="heading"][aria-level="9"]) {
-    --focus-ring-outline-offset: 0;
-    margin-top: 1.34375rem;
-    margin-top: var(--mrg-soft-500, 1.34375rem);
-    margin-bottom: 0.46875rem;
-    margin-bottom: var(--mrg-half-400, 0.46875rem);
-    padding-top: 0.46875rem;
-    padding-top: var(--mrg-half-400, 0.46875rem);
-    padding-bottom: 0;
-    font-weight: 500;
-    font-size: clamp(0.8125rem, 0.1875svw + 0.75rem, 1rem);
-    font-size: var(--fs-heading-9, 0.875rem);
-    line-height: 1.875;
-    line-height: var(--line-height-500, 1.875);
-    letter-spacing: 0.0625em;
-    text-transform: uppercase;
-    text-wrap: balance;
-    font-style: italic;
-}
-:where([role="heading"][aria-level="9"]) em {
-    font-style: normal;
-}
-:where([role="heading"][aria-level="9"]) em em {
-    font-style: italic;
-}
-:where([role="heading"][aria-level="9"]) {
-    --icon-color: var(--theme-heading-9, CanvasText);
-    color: hsl(339.45, 0%, 22.38%);
-    color: var(--theme-heading-9, CanvasText);
-}
-:has(
-    + :is(
-        .button-span,
-        hr,
-        button,
-        [role="button"],
-        details,
-        pre,
-        img,
-        figure,
-        .table-wrapper,
-        [data-toggle-container],
-        .margins-flow-firm,
-        .brand-logo,
-        a[href].button,
-        a[href].button-secondary,
-        a[href].button-grey,
-        .alert-block,
-        .margins-flow-firm-small,
-        form,
-        table,
-        blockquote,
-        form.search-form,
-        .margins-flow-firm-large
-    )
-):where([role="heading"][aria-level="9"]) {
-    margin-bottom: 0;
-}
-:where([role="heading"][aria-level="9"]) a[href] {
-    --focus-ring-outline-offset: 0;
-    font-weight: inherit;
-}
-:where([role="heading"][aria-level="9"]) code,
-:where([role="heading"][aria-level="9"]) kbd,
-:where([role="heading"][aria-level="9"]) samp {
-    font-weight: inherit;
-    font-style: inherit;
-    color: inherit;
-}
-
-.h10 {
-    --focus-ring-outline-offset: 0;
-    margin-top: 1.34375rem;
-    margin-top: var(--mrg-soft-500, 1.34375rem);
-    margin-bottom: 0.46875rem;
-    margin-bottom: var(--mrg-half-400, 0.46875rem);
-    padding-top: 0.46875rem;
-    padding-top: var(--mrg-half-400, 0.46875rem);
-    padding-bottom: 0;
-    font-weight: 500;
-    font-size: clamp(0.75rem, 0.1875svw + 0.6875rem, 0.9375rem);
-    font-size: var(--fs-heading-10, 0.8125rem);
-    line-height: 1.875;
-    line-height: var(--line-height-500, 1.875);
-    letter-spacing: 0.0625em;
-    text-transform: uppercase;
-    text-wrap: balance;
-    font-style: italic;
-}
-.h10 em {
-    font-style: normal;
-}
-.h10 em em {
-    font-style: italic;
-}
-.h10 {
-    --icon-color: var(--theme-heading-10, CanvasText);
-    color: hsl(339.45, 0%, 22.38%);
-    color: var(--theme-heading-10, CanvasText);
-}
-.h10:has(
-    + :is(
-        .button-span,
-        hr,
-        button,
-        [role="button"],
-        details,
-        pre,
-        img,
-        figure,
-        .table-wrapper,
-        [data-toggle-container],
-        .margins-flow-firm,
-        .brand-logo,
-        a[href].button,
-        a[href].button-secondary,
-        a[href].button-grey,
-        .alert-block,
-        .margins-flow-firm-small,
-        form,
-        table,
-        blockquote,
-        form.search-form,
-        .margins-flow-firm-large
-    )
-) {
-    margin-bottom: 0;
-}
-.h10 a[href] {
-    --focus-ring-outline-offset: 0;
-    font-weight: inherit;
-}
+.h9 samp,
 .h10 code,
 .h10 kbd,
 .h10 samp {
@@ -10357,37 +9025,43 @@ h6 samp,
     font-style: inherit;
     color: inherit;
 }
+:is(.unstyled-heading):where([role="heading"][aria-level="1"]),
+:is(.unstyled-heading):where([role="heading"][aria-level="2"]),
+:is(.unstyled-heading):where([role="heading"][aria-level="3"]),
+:is(.unstyled-heading):where([role="heading"][aria-level="4"]),
+:is(.unstyled-heading):where([role="heading"][aria-level="5"]),
+:is(.unstyled-heading):where([role="heading"][aria-level="6"]),
+:is(.unstyled-heading):where([role="heading"][aria-level="7"]),
+:is(.unstyled-heading):where([role="heading"][aria-level="8"]),
+:is(.unstyled-heading):where([role="heading"][aria-level="9"]),
+:is(.unstyled-heading):where([role="heading"][aria-level="10"]),
+:where([role="heading"][aria-level="1"]),
+:where([role="heading"][aria-level="2"]),
+:where([role="heading"][aria-level="3"]),
+:where([role="heading"][aria-level="4"]),
+:where([role="heading"][aria-level="5"]),
+:where([role="heading"][aria-level="6"]),
+:where([role="heading"][aria-level="7"]),
+:where([role="heading"][aria-level="8"]),
+:where([role="heading"][aria-level="9"]),
 :where([role="heading"][aria-level="10"]) {
     --focus-ring-outline-offset: 0;
-    margin-top: 1.34375rem;
-    margin-top: var(--mrg-soft-500, 1.34375rem);
-    margin-bottom: 0.46875rem;
-    margin-bottom: var(--mrg-half-400, 0.46875rem);
-    padding-top: 0.46875rem;
-    padding-top: var(--mrg-half-400, 0.46875rem);
+    padding-top: 0;
     padding-bottom: 0;
-    font-weight: 500;
-    font-size: clamp(0.75rem, 0.1875svw + 0.6875rem, 0.9375rem);
-    font-size: var(--fs-heading-10, 0.8125rem);
-    line-height: 1.875;
-    line-height: var(--line-height-500, 1.875);
-    letter-spacing: 0.0625em;
-    text-transform: uppercase;
     text-wrap: balance;
-    font-style: italic;
 }
-:where([role="heading"][aria-level="10"]) em {
-    font-style: normal;
-}
-:where([role="heading"][aria-level="10"]) em em {
-    font-style: italic;
-}
-:where([role="heading"][aria-level="10"]) {
-    --icon-color: var(--theme-heading-10, CanvasText);
-    color: hsl(339.45, 0%, 22.38%);
-    color: var(--theme-heading-10, CanvasText);
-}
-:has(
+:is(
+    :is(.unstyled-heading):where([role="heading"][aria-level="1"]),
+    :is(.unstyled-heading):where([role="heading"][aria-level="2"]),
+    :is(.unstyled-heading):where([role="heading"][aria-level="3"]),
+    :is(.unstyled-heading):where([role="heading"][aria-level="4"]),
+    :is(.unstyled-heading):where([role="heading"][aria-level="5"]),
+    :is(.unstyled-heading):where([role="heading"][aria-level="6"]),
+    :is(.unstyled-heading):where([role="heading"][aria-level="7"]),
+    :is(.unstyled-heading):where([role="heading"][aria-level="8"]),
+    :is(.unstyled-heading):where([role="heading"][aria-level="9"]),
+    :is(.unstyled-heading):where([role="heading"][aria-level="10"])
+):has(
     + :is(
         .button-span,
         hr,
@@ -10412,13 +9086,90 @@ h6 samp,
         form.search-form,
         .margins-flow-firm-large
     )
-):where([role="heading"][aria-level="10"]) {
+) {
     margin-bottom: 0;
 }
+
+:is(.unstyled-heading):where([role="heading"][aria-level="1"]) a[href],
+:is(.unstyled-heading):where([role="heading"][aria-level="2"]) a[href],
+:is(.unstyled-heading):where([role="heading"][aria-level="3"]) a[href],
+:is(.unstyled-heading):where([role="heading"][aria-level="4"]) a[href],
+:is(.unstyled-heading):where([role="heading"][aria-level="5"]) a[href],
+:is(.unstyled-heading):where([role="heading"][aria-level="6"]) a[href],
+:is(.unstyled-heading):where([role="heading"][aria-level="7"]) a[href],
+:is(.unstyled-heading):where([role="heading"][aria-level="8"]) a[href],
+:is(.unstyled-heading):where([role="heading"][aria-level="9"]) a[href],
+:is(.unstyled-heading):where([role="heading"][aria-level="10"]) a[href],
+:where([role="heading"][aria-level="1"]) a[href],
+:where([role="heading"][aria-level="2"]) a[href],
+:where([role="heading"][aria-level="3"]) a[href],
+:where([role="heading"][aria-level="4"]) a[href],
+:where([role="heading"][aria-level="5"]) a[href],
+:where([role="heading"][aria-level="6"]) a[href],
+:where([role="heading"][aria-level="7"]) a[href],
+:where([role="heading"][aria-level="8"]) a[href],
+:where([role="heading"][aria-level="9"]) a[href],
 :where([role="heading"][aria-level="10"]) a[href] {
     --focus-ring-outline-offset: 0;
     font-weight: inherit;
 }
+:is(.unstyled-heading):where([role="heading"][aria-level="1"]) code,
+:is(.unstyled-heading):where([role="heading"][aria-level="2"]) code,
+:is(.unstyled-heading):where([role="heading"][aria-level="3"]) code,
+:is(.unstyled-heading):where([role="heading"][aria-level="4"]) code,
+:is(.unstyled-heading):where([role="heading"][aria-level="5"]) code,
+:is(.unstyled-heading):where([role="heading"][aria-level="6"]) code,
+:is(.unstyled-heading):where([role="heading"][aria-level="7"]) code,
+:is(.unstyled-heading):where([role="heading"][aria-level="8"]) code,
+:is(.unstyled-heading):where([role="heading"][aria-level="9"]) code,
+:is(.unstyled-heading):where([role="heading"][aria-level="10"]) code,
+:is(.unstyled-heading):where([role="heading"][aria-level="1"]) kbd,
+:is(.unstyled-heading):where([role="heading"][aria-level="2"]) kbd,
+:is(.unstyled-heading):where([role="heading"][aria-level="3"]) kbd,
+:is(.unstyled-heading):where([role="heading"][aria-level="4"]) kbd,
+:is(.unstyled-heading):where([role="heading"][aria-level="5"]) kbd,
+:is(.unstyled-heading):where([role="heading"][aria-level="6"]) kbd,
+:is(.unstyled-heading):where([role="heading"][aria-level="7"]) kbd,
+:is(.unstyled-heading):where([role="heading"][aria-level="8"]) kbd,
+:is(.unstyled-heading):where([role="heading"][aria-level="9"]) kbd,
+:is(.unstyled-heading):where([role="heading"][aria-level="10"]) kbd,
+:is(.unstyled-heading):where([role="heading"][aria-level="1"]) samp,
+:is(.unstyled-heading):where([role="heading"][aria-level="2"]) samp,
+:is(.unstyled-heading):where([role="heading"][aria-level="3"]) samp,
+:is(.unstyled-heading):where([role="heading"][aria-level="4"]) samp,
+:is(.unstyled-heading):where([role="heading"][aria-level="5"]) samp,
+:is(.unstyled-heading):where([role="heading"][aria-level="6"]) samp,
+:is(.unstyled-heading):where([role="heading"][aria-level="7"]) samp,
+:is(.unstyled-heading):where([role="heading"][aria-level="8"]) samp,
+:is(.unstyled-heading):where([role="heading"][aria-level="9"]) samp,
+:is(.unstyled-heading):where([role="heading"][aria-level="10"]) samp,
+:where([role="heading"][aria-level="1"]) code,
+:where([role="heading"][aria-level="1"]) kbd,
+:where([role="heading"][aria-level="1"]) samp,
+:where([role="heading"][aria-level="2"]) code,
+:where([role="heading"][aria-level="2"]) kbd,
+:where([role="heading"][aria-level="2"]) samp,
+:where([role="heading"][aria-level="3"]) code,
+:where([role="heading"][aria-level="3"]) kbd,
+:where([role="heading"][aria-level="3"]) samp,
+:where([role="heading"][aria-level="4"]) code,
+:where([role="heading"][aria-level="4"]) kbd,
+:where([role="heading"][aria-level="4"]) samp,
+:where([role="heading"][aria-level="5"]) code,
+:where([role="heading"][aria-level="5"]) kbd,
+:where([role="heading"][aria-level="5"]) samp,
+:where([role="heading"][aria-level="6"]) code,
+:where([role="heading"][aria-level="6"]) kbd,
+:where([role="heading"][aria-level="6"]) samp,
+:where([role="heading"][aria-level="7"]) code,
+:where([role="heading"][aria-level="7"]) kbd,
+:where([role="heading"][aria-level="7"]) samp,
+:where([role="heading"][aria-level="8"]) code,
+:where([role="heading"][aria-level="8"]) kbd,
+:where([role="heading"][aria-level="8"]) samp,
+:where([role="heading"][aria-level="9"]) code,
+:where([role="heading"][aria-level="9"]) kbd,
+:where([role="heading"][aria-level="9"]) samp,
 :where([role="heading"][aria-level="10"]) code,
 :where([role="heading"][aria-level="10"]) kbd,
 :where([role="heading"][aria-level="10"]) samp {
@@ -10426,31 +9177,6 @@ h6 samp,
     font-style: inherit;
     color: inherit;
 }
-
-.unstyled-heading {
-    font-family: inherit;
-    font-weight: 600;
-    font-size: 1.0625rem;
-    font-size: var(--fs-normal, 1.0625rem);
-    line-height: 1.6875;
-    line-height: var(--line-height-400, 1.6875);
-    letter-spacing: normal;
-    text-transform: none;
-    text-wrap: balance;
-    color: hsl(162, 100%, 15%);
-    color: var(--theme-text-primary, CanvasText);
-    font-style: normal;
-}
-.unstyled-heading em {
-    font-style: italic;
-}
-.unstyled-heading em em {
-    font-style: normal;
-}
-.unstyled-heading em em em {
-    font-style: italic;
-}
-
 h1:is(.unstyled-heading),
 .h1:is(.unstyled-heading),
 h2:is(.unstyled-heading),
@@ -10467,7 +9193,555 @@ h6:is(.unstyled-heading),
 .h8:is(.unstyled-heading),
 .h9:is(.unstyled-heading),
 .h10:is(.unstyled-heading) {
-    font-family: inherit;
+    --focus-ring-outline-offset: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    text-wrap: balance;
+}
+:is(
+    h1:is(.unstyled-heading),
+    .h1:is(.unstyled-heading),
+    h2:is(.unstyled-heading),
+    .h2:is(.unstyled-heading),
+    h3:is(.unstyled-heading),
+    .h3:is(.unstyled-heading),
+    h4:is(.unstyled-heading),
+    .h4:is(.unstyled-heading),
+    h5:is(.unstyled-heading),
+    .h5:is(.unstyled-heading),
+    h6:is(.unstyled-heading),
+    .h6:is(.unstyled-heading),
+    .h7:is(.unstyled-heading),
+    .h8:is(.unstyled-heading),
+    .h9:is(.unstyled-heading),
+    .h10:is(.unstyled-heading)
+):has(
+    + :is(
+        .button-span,
+        hr,
+        button,
+        [role="button"],
+        details,
+        pre,
+        img,
+        figure,
+        .table-wrapper,
+        [data-toggle-container],
+        .margins-flow-firm,
+        .brand-logo,
+        a[href].button,
+        a[href].button-secondary,
+        a[href].button-grey,
+        .alert-block,
+        .margins-flow-firm-small,
+        form,
+        table,
+        blockquote,
+        form.search-form,
+        .margins-flow-firm-large
+    )
+) {
+    margin-bottom: 0;
+}
+
+h1:is(.unstyled-heading) a[href],
+.h1:is(.unstyled-heading) a[href],
+h2:is(.unstyled-heading) a[href],
+.h2:is(.unstyled-heading) a[href],
+h3:is(.unstyled-heading) a[href],
+.h3:is(.unstyled-heading) a[href],
+h4:is(.unstyled-heading) a[href],
+.h4:is(.unstyled-heading) a[href],
+h5:is(.unstyled-heading) a[href],
+.h5:is(.unstyled-heading) a[href],
+h6:is(.unstyled-heading) a[href],
+.h6:is(.unstyled-heading) a[href],
+.h7:is(.unstyled-heading) a[href],
+.h8:is(.unstyled-heading) a[href],
+.h9:is(.unstyled-heading) a[href],
+.h10:is(.unstyled-heading) a[href] {
+    --focus-ring-outline-offset: 0;
+    font-weight: inherit;
+}
+h1:is(.unstyled-heading) code,
+.h1:is(.unstyled-heading) code,
+h2:is(.unstyled-heading) code,
+.h2:is(.unstyled-heading) code,
+h3:is(.unstyled-heading) code,
+.h3:is(.unstyled-heading) code,
+h4:is(.unstyled-heading) code,
+.h4:is(.unstyled-heading) code,
+h5:is(.unstyled-heading) code,
+.h5:is(.unstyled-heading) code,
+h6:is(.unstyled-heading) code,
+.h6:is(.unstyled-heading) code,
+.h7:is(.unstyled-heading) code,
+.h8:is(.unstyled-heading) code,
+.h9:is(.unstyled-heading) code,
+.h10:is(.unstyled-heading) code,
+h1:is(.unstyled-heading) kbd,
+.h1:is(.unstyled-heading) kbd,
+h2:is(.unstyled-heading) kbd,
+.h2:is(.unstyled-heading) kbd,
+h3:is(.unstyled-heading) kbd,
+.h3:is(.unstyled-heading) kbd,
+h4:is(.unstyled-heading) kbd,
+.h4:is(.unstyled-heading) kbd,
+h5:is(.unstyled-heading) kbd,
+.h5:is(.unstyled-heading) kbd,
+h6:is(.unstyled-heading) kbd,
+.h6:is(.unstyled-heading) kbd,
+.h7:is(.unstyled-heading) kbd,
+.h8:is(.unstyled-heading) kbd,
+.h9:is(.unstyled-heading) kbd,
+.h10:is(.unstyled-heading) kbd,
+h1:is(.unstyled-heading) samp,
+.h1:is(.unstyled-heading) samp,
+h2:is(.unstyled-heading) samp,
+.h2:is(.unstyled-heading) samp,
+h3:is(.unstyled-heading) samp,
+.h3:is(.unstyled-heading) samp,
+h4:is(.unstyled-heading) samp,
+.h4:is(.unstyled-heading) samp,
+h5:is(.unstyled-heading) samp,
+.h5:is(.unstyled-heading) samp,
+h6:is(.unstyled-heading) samp,
+.h6:is(.unstyled-heading) samp,
+.h7:is(.unstyled-heading) samp,
+.h8:is(.unstyled-heading) samp,
+.h9:is(.unstyled-heading) samp,
+.h10:is(.unstyled-heading) samp {
+    font-weight: inherit;
+    font-style: inherit;
+    color: inherit;
+}
+
+h1,
+.h1,
+.page-title {
+    margin-top: 3.34375rem;
+    margin-top: var(--mrg-soft-800, 3.34375rem);
+    margin-bottom: 0.1875rem;
+    margin-bottom: var(--mrg-half-200, 0.1875rem);
+    font-weight: 900;
+    font-size: clamp(2.25rem, 1.59375svw + 1.875rem, 3.875rem);
+    font-size: var(--fs-heading-1, 2.9375rem);
+    line-height: 1.1875;
+    line-height: var(--line-height-100, 1.1875);
+    letter-spacing: normal;
+    text-transform: none;
+    font-style: normal;
+    --icon-color: var(--theme-heading-1, CanvasText);
+    color: hsl(162, 100%, 15%);
+    color: var(--theme-heading-1, CanvasText);
+}
+:where([role="heading"][aria-level="1"]) {
+    margin-top: 3.34375rem;
+    margin-top: var(--mrg-soft-800, 3.34375rem);
+    margin-bottom: 0.1875rem;
+    margin-bottom: var(--mrg-half-200, 0.1875rem);
+    font-weight: 900;
+    font-size: clamp(2.25rem, 1.59375svw + 1.875rem, 3.875rem);
+    font-size: var(--fs-heading-1, 2.9375rem);
+    line-height: 1.1875;
+    line-height: var(--line-height-100, 1.1875);
+    letter-spacing: normal;
+    text-transform: none;
+    font-style: normal;
+    --icon-color: var(--theme-heading-1, CanvasText);
+    color: hsl(162, 100%, 15%);
+    color: var(--theme-heading-1, CanvasText);
+}
+h2,
+.h2 {
+    margin-top: 3.34375rem;
+    margin-top: var(--mrg-soft-800, 3.34375rem);
+    margin-bottom: 0.1875rem;
+    margin-bottom: var(--mrg-half-200, 0.1875rem);
+    font-weight: 800;
+    font-size: clamp(1.75rem, 1.125svw + 1.4375rem, 2.875rem);
+    font-size: var(--fs-heading-2, 2.1875rem);
+    line-height: 1.375;
+    line-height: var(--line-height-200, 1.375);
+    letter-spacing: normal;
+    text-transform: none;
+    font-style: normal;
+    --icon-color: var(--theme-heading-2, CanvasText);
+    color: hsl(162, 100%, 15%);
+    color: var(--theme-heading-2, CanvasText);
+}
+:where([role="heading"][aria-level="2"]) {
+    margin-top: 3.34375rem;
+    margin-top: var(--mrg-soft-800, 3.34375rem);
+    margin-bottom: 0.1875rem;
+    margin-bottom: var(--mrg-half-200, 0.1875rem);
+    font-weight: 800;
+    font-size: clamp(1.75rem, 1.125svw + 1.4375rem, 2.875rem);
+    font-size: var(--fs-heading-2, 2.1875rem);
+    line-height: 1.375;
+    line-height: var(--line-height-200, 1.375);
+    letter-spacing: normal;
+    text-transform: none;
+    font-style: normal;
+    --icon-color: var(--theme-heading-2, CanvasText);
+    color: hsl(162, 100%, 15%);
+    color: var(--theme-heading-2, CanvasText);
+}
+h3,
+.h3 {
+    margin-top: 3.34375rem;
+    margin-top: var(--mrg-soft-800, 3.34375rem);
+    margin-bottom: 0.1875rem;
+    margin-bottom: var(--mrg-half-200, 0.1875rem);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 0.84375svw + 1.3125rem, 2.375rem);
+    font-size: var(--fs-heading-3, 1.9375rem);
+    line-height: 1.375;
+    line-height: var(--line-height-200, 1.375);
+    letter-spacing: normal;
+    text-transform: none;
+    font-style: normal;
+    --icon-color: var(--theme-heading-3, CanvasText);
+    color: hsl(162, 100%, 15%);
+    color: var(--theme-heading-3, CanvasText);
+}
+:where([role="heading"][aria-level="3"]) {
+    margin-top: 3.34375rem;
+    margin-top: var(--mrg-soft-800, 3.34375rem);
+    margin-bottom: 0.1875rem;
+    margin-bottom: var(--mrg-half-200, 0.1875rem);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 0.84375svw + 1.3125rem, 2.375rem);
+    font-size: var(--fs-heading-3, 1.9375rem);
+    line-height: 1.375;
+    line-height: var(--line-height-200, 1.375);
+    letter-spacing: normal;
+    text-transform: none;
+    font-style: normal;
+    --icon-color: var(--theme-heading-3, CanvasText);
+    color: hsl(162, 100%, 15%);
+    color: var(--theme-heading-3, CanvasText);
+}
+h4,
+.h4 {
+    margin-top: 1.84375rem;
+    margin-top: var(--mrg-soft-600, 1.84375rem);
+    margin-bottom: 0.1875rem;
+    margin-bottom: var(--mrg-half-200, 0.1875rem);
+    font-weight: 700;
+    font-size: clamp(1.3125rem, 0.71875svw + 1.125rem, 2.0625rem);
+    font-size: var(--fs-heading-4, 1.6875rem);
+    line-height: 1.375;
+    line-height: var(--line-height-200, 1.375);
+    letter-spacing: normal;
+    text-transform: none;
+    font-style: italic;
+    --icon-color: var(--theme-heading-4, CanvasText);
+    color: hsl(162, 100%, 15%);
+    color: var(--theme-heading-4, CanvasText);
+}
+h4 em,
+.h4 em {
+    font-style: normal;
+}
+h4 em em,
+.h4 em em {
+    font-style: italic;
+}
+:where([role="heading"][aria-level="4"]) {
+    margin-top: 1.84375rem;
+    margin-top: var(--mrg-soft-600, 1.84375rem);
+    margin-bottom: 0.1875rem;
+    margin-bottom: var(--mrg-half-200, 0.1875rem);
+    font-weight: 700;
+    font-size: clamp(1.3125rem, 0.71875svw + 1.125rem, 2.0625rem);
+    font-size: var(--fs-heading-4, 1.6875rem);
+    line-height: 1.375;
+    line-height: var(--line-height-200, 1.375);
+    letter-spacing: normal;
+    text-transform: none;
+    font-style: italic;
+    --icon-color: var(--theme-heading-4, CanvasText);
+    color: hsl(162, 100%, 15%);
+    color: var(--theme-heading-4, CanvasText);
+}
+:where([role="heading"][aria-level="4"]) em {
+    font-style: normal;
+}
+:where([role="heading"][aria-level="4"]) em em {
+    font-style: italic;
+}
+h5,
+.h5 {
+    margin-top: 1.84375rem;
+    margin-top: var(--mrg-soft-600, 1.84375rem);
+    margin-bottom: 0.46875rem;
+    margin-bottom: var(--mrg-half-400, 0.46875rem);
+    font-weight: 600;
+    font-size: clamp(1.1875rem, 0.59375svw + 1.0625rem, 1.8125rem);
+    font-size: var(--fs-heading-5, 1.375rem);
+    line-height: 1.375;
+    line-height: var(--line-height-200, 1.375);
+    letter-spacing: normal;
+    text-transform: none;
+    font-style: italic;
+    --icon-color: var(--theme-heading-5, CanvasText);
+    color: hsl(162, 100%, 15%);
+    color: var(--theme-heading-5, CanvasText);
+}
+h5 em,
+.h5 em {
+    font-style: normal;
+}
+h5 em em,
+.h5 em em {
+    font-style: italic;
+}
+:where([role="heading"][aria-level="5"]) {
+    margin-top: 1.84375rem;
+    margin-top: var(--mrg-soft-600, 1.84375rem);
+    margin-bottom: 0.46875rem;
+    margin-bottom: var(--mrg-half-400, 0.46875rem);
+    font-weight: 600;
+    font-size: clamp(1.1875rem, 0.59375svw + 1.0625rem, 1.8125rem);
+    font-size: var(--fs-heading-5, 1.375rem);
+    line-height: 1.375;
+    line-height: var(--line-height-200, 1.375);
+    letter-spacing: normal;
+    text-transform: none;
+    font-style: italic;
+    --icon-color: var(--theme-heading-5, CanvasText);
+    color: hsl(162, 100%, 15%);
+    color: var(--theme-heading-5, CanvasText);
+}
+:where([role="heading"][aria-level="5"]) em {
+    font-style: normal;
+}
+:where([role="heading"][aria-level="5"]) em em {
+    font-style: italic;
+}
+h6,
+.h6 {
+    margin-top: 1.84375rem;
+    margin-top: var(--mrg-soft-600, 1.84375rem);
+    margin-bottom: 0.46875rem;
+    margin-bottom: var(--mrg-half-400, 0.46875rem);
+    font-weight: 500;
+    font-size: clamp(1rem, 0.53125svw + 0.875rem, 1.5rem);
+    font-size: var(--fs-heading-6, 1.25rem);
+    line-height: 1.5;
+    line-height: var(--line-height-300, 1.5);
+    letter-spacing: normal;
+    text-transform: none;
+    font-style: italic;
+    --icon-color: var(--theme-heading-6, CanvasText);
+    color: hsl(162, 100%, 15%);
+    color: var(--theme-heading-6, CanvasText);
+}
+h6 em,
+.h6 em {
+    font-style: normal;
+}
+h6 em em,
+.h6 em em {
+    font-style: italic;
+}
+:where([role="heading"][aria-level="6"]) {
+    margin-top: 1.84375rem;
+    margin-top: var(--mrg-soft-600, 1.84375rem);
+    margin-bottom: 0.46875rem;
+    margin-bottom: var(--mrg-half-400, 0.46875rem);
+    font-weight: 500;
+    font-size: clamp(1rem, 0.53125svw + 0.875rem, 1.5rem);
+    font-size: var(--fs-heading-6, 1.25rem);
+    line-height: 1.5;
+    line-height: var(--line-height-300, 1.5);
+    letter-spacing: normal;
+    text-transform: none;
+    font-style: italic;
+    --icon-color: var(--theme-heading-6, CanvasText);
+    color: hsl(162, 100%, 15%);
+    color: var(--theme-heading-6, CanvasText);
+}
+:where([role="heading"][aria-level="6"]) em {
+    font-style: normal;
+}
+:where([role="heading"][aria-level="6"]) em em {
+    font-style: italic;
+}
+.h7 {
+    margin-top: 1.84375rem;
+    margin-top: var(--mrg-soft-600, 1.84375rem);
+    margin-bottom: 0.46875rem;
+    margin-bottom: var(--mrg-half-400, 0.46875rem);
+    font-weight: 500;
+    font-size: clamp(0.9375rem, 0.25svw + 0.875rem, 1.1875rem);
+    font-size: var(--fs-heading-7, 1rem);
+    line-height: 1.6875;
+    line-height: var(--line-height-400, 1.6875);
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+    font-style: normal;
+    --icon-color: var(--theme-heading-7, CanvasText);
+    color: hsl(321, 68%, 26%);
+    color: var(--theme-heading-7, CanvasText);
+}
+:where([role="heading"][aria-level="7"]) {
+    margin-top: 1.84375rem;
+    margin-top: var(--mrg-soft-600, 1.84375rem);
+    margin-bottom: 0.46875rem;
+    margin-bottom: var(--mrg-half-400, 0.46875rem);
+    font-weight: 500;
+    font-size: clamp(0.9375rem, 0.25svw + 0.875rem, 1.1875rem);
+    font-size: var(--fs-heading-7, 1rem);
+    line-height: 1.6875;
+    line-height: var(--line-height-400, 1.6875);
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+    font-style: normal;
+    --icon-color: var(--theme-heading-7, CanvasText);
+    color: hsl(321, 68%, 26%);
+    color: var(--theme-heading-7, CanvasText);
+}
+.h8 {
+    margin-top: 1.84375rem;
+    margin-top: var(--mrg-soft-600, 1.84375rem);
+    margin-bottom: 0.46875rem;
+    margin-bottom: var(--mrg-half-400, 0.46875rem);
+    font-weight: 500;
+    font-size: clamp(0.875rem, 0.25svw + 0.8125rem, 1.125rem);
+    font-size: var(--fs-heading-8, 0.9375rem);
+    line-height: 1.6875;
+    line-height: var(--line-height-400, 1.6875);
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+    font-style: italic;
+    --icon-color: var(--theme-heading-8, CanvasText);
+    color: hsl(321, 68%, 26%);
+    color: var(--theme-heading-8, CanvasText);
+}
+.h8 em {
+    font-style: normal;
+}
+.h8 em em {
+    font-style: italic;
+}
+:where([role="heading"][aria-level="8"]) {
+    margin-top: 1.84375rem;
+    margin-top: var(--mrg-soft-600, 1.84375rem);
+    margin-bottom: 0.46875rem;
+    margin-bottom: var(--mrg-half-400, 0.46875rem);
+    font-weight: 500;
+    font-size: clamp(0.875rem, 0.25svw + 0.8125rem, 1.125rem);
+    font-size: var(--fs-heading-8, 0.9375rem);
+    line-height: 1.6875;
+    line-height: var(--line-height-400, 1.6875);
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+    font-style: italic;
+    --icon-color: var(--theme-heading-8, CanvasText);
+    color: hsl(321, 68%, 26%);
+    color: var(--theme-heading-8, CanvasText);
+}
+:where([role="heading"][aria-level="8"]) em {
+    font-style: normal;
+}
+:where([role="heading"][aria-level="8"]) em em {
+    font-style: italic;
+}
+.h9 {
+    margin-top: 1.34375rem;
+    margin-top: var(--mrg-soft-500, 1.34375rem);
+    margin-bottom: 0.46875rem;
+    margin-bottom: var(--mrg-half-400, 0.46875rem);
+    font-weight: 500;
+    font-size: clamp(0.8125rem, 0.1875svw + 0.75rem, 1rem);
+    font-size: var(--fs-heading-9, 0.875rem);
+    line-height: 1.875;
+    line-height: var(--line-height-500, 1.875);
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+    font-style: italic;
+    --icon-color: var(--theme-heading-9, CanvasText);
+    color: hsl(339.45, 0%, 22.38%);
+    color: var(--theme-heading-9, CanvasText);
+}
+.h9 em {
+    font-style: normal;
+}
+.h9 em em {
+    font-style: italic;
+}
+:where([role="heading"][aria-level="9"]) {
+    margin-top: 1.34375rem;
+    margin-top: var(--mrg-soft-500, 1.34375rem);
+    margin-bottom: 0.46875rem;
+    margin-bottom: var(--mrg-half-400, 0.46875rem);
+    font-weight: 500;
+    font-size: clamp(0.8125rem, 0.1875svw + 0.75rem, 1rem);
+    font-size: var(--fs-heading-9, 0.875rem);
+    line-height: 1.875;
+    line-height: var(--line-height-500, 1.875);
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+    font-style: italic;
+    --icon-color: var(--theme-heading-9, CanvasText);
+    color: hsl(339.45, 0%, 22.38%);
+    color: var(--theme-heading-9, CanvasText);
+}
+:where([role="heading"][aria-level="9"]) em {
+    font-style: normal;
+}
+:where([role="heading"][aria-level="9"]) em em {
+    font-style: italic;
+}
+.h10 {
+    margin-top: 1.34375rem;
+    margin-top: var(--mrg-soft-500, 1.34375rem);
+    margin-bottom: 0.46875rem;
+    margin-bottom: var(--mrg-half-400, 0.46875rem);
+    font-weight: 500;
+    font-size: clamp(0.75rem, 0.1875svw + 0.6875rem, 0.9375rem);
+    font-size: var(--fs-heading-10, 0.8125rem);
+    line-height: 1.875;
+    line-height: var(--line-height-500, 1.875);
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+    font-style: italic;
+    --icon-color: var(--theme-heading-10, CanvasText);
+    color: hsl(339.45, 0%, 22.38%);
+    color: var(--theme-heading-10, CanvasText);
+}
+.h10 em {
+    font-style: normal;
+}
+.h10 em em {
+    font-style: italic;
+}
+:where([role="heading"][aria-level="10"]) {
+    margin-top: 1.34375rem;
+    margin-top: var(--mrg-soft-500, 1.34375rem);
+    margin-bottom: 0.46875rem;
+    margin-bottom: var(--mrg-half-400, 0.46875rem);
+    font-weight: 500;
+    font-size: clamp(0.75rem, 0.1875svw + 0.6875rem, 0.9375rem);
+    font-size: var(--fs-heading-10, 0.8125rem);
+    line-height: 1.875;
+    line-height: var(--line-height-500, 1.875);
+    letter-spacing: 0.0625em;
+    text-transform: uppercase;
+    font-style: italic;
+    --icon-color: var(--theme-heading-10, CanvasText);
+    color: hsl(339.45, 0%, 22.38%);
+    color: var(--theme-heading-10, CanvasText);
+}
+:where([role="heading"][aria-level="10"]) em {
+    font-style: normal;
+}
+:where([role="heading"][aria-level="10"]) em em {
+    font-style: italic;
+}
+.unstyled-heading {
     font-weight: 600;
     font-size: 1.0625rem;
     font-size: var(--fs-normal, 1.0625rem);
@@ -10475,10 +9749,47 @@ h6:is(.unstyled-heading),
     line-height: var(--line-height-400, 1.6875);
     letter-spacing: normal;
     text-transform: none;
-    text-wrap: balance;
+    font-style: normal;
+    --icon-color: var(--theme-text-primary, CanvasText);
     color: hsl(162, 100%, 15%);
     color: var(--theme-text-primary, CanvasText);
+}
+.unstyled-heading em {
+    font-style: italic;
+}
+.unstyled-heading em em {
     font-style: normal;
+}
+.unstyled-heading em em em {
+    font-style: italic;
+}
+h1:is(.unstyled-heading),
+.h1:is(.unstyled-heading),
+h2:is(.unstyled-heading),
+.h2:is(.unstyled-heading),
+h3:is(.unstyled-heading),
+.h3:is(.unstyled-heading),
+h4:is(.unstyled-heading),
+.h4:is(.unstyled-heading),
+h5:is(.unstyled-heading),
+.h5:is(.unstyled-heading),
+h6:is(.unstyled-heading),
+.h6:is(.unstyled-heading),
+.h7:is(.unstyled-heading),
+.h8:is(.unstyled-heading),
+.h9:is(.unstyled-heading),
+.h10:is(.unstyled-heading) {
+    font-weight: 600;
+    font-size: 1.0625rem;
+    font-size: var(--fs-normal, 1.0625rem);
+    line-height: 1.6875;
+    line-height: var(--line-height-400, 1.6875);
+    letter-spacing: normal;
+    text-transform: none;
+    font-style: normal;
+    --icon-color: var(--theme-text-primary, CanvasText);
+    color: hsl(162, 100%, 15%);
+    color: var(--theme-text-primary, CanvasText);
 }
 h1:is(.unstyled-heading) em,
 .h1:is(.unstyled-heading) em,
@@ -10534,7 +9845,6 @@ h6:is(.unstyled-heading) em em em,
 .h10:is(.unstyled-heading) em em em {
     font-style: italic;
 }
-
 :is(.unstyled-heading):where([role="heading"][aria-level="1"]),
 :is(.unstyled-heading):where([role="heading"][aria-level="2"]),
 :is(.unstyled-heading):where([role="heading"][aria-level="3"]),
@@ -10545,7 +9855,6 @@ h6:is(.unstyled-heading) em em em,
 :is(.unstyled-heading):where([role="heading"][aria-level="8"]),
 :is(.unstyled-heading):where([role="heading"][aria-level="9"]),
 :is(.unstyled-heading):where([role="heading"][aria-level="10"]) {
-    font-family: inherit;
     font-weight: 600;
     font-size: 1.0625rem;
     font-size: var(--fs-normal, 1.0625rem);
@@ -10553,10 +9862,10 @@ h6:is(.unstyled-heading) em em em,
     line-height: var(--line-height-400, 1.6875);
     letter-spacing: normal;
     text-transform: none;
-    text-wrap: balance;
+    font-style: normal;
+    --icon-color: var(--theme-text-primary, CanvasText);
     color: hsl(162, 100%, 15%);
     color: var(--theme-text-primary, CanvasText);
-    font-style: normal;
 }
 :is(.unstyled-heading):where([role="heading"][aria-level="1"]) em,
 :is(.unstyled-heading):where([role="heading"][aria-level="2"]) em,
@@ -10594,7 +9903,6 @@ h6:is(.unstyled-heading) em em em,
 :is(.unstyled-heading):where([role="heading"][aria-level="10"]) em em em {
     font-style: italic;
 }
-
 .page-subtitle {
     --icon-color: var(--theme-ui-grey, CanvasText);
     margin-top: 0.3125rem;
@@ -10819,6 +10127,7 @@ fieldset legend {
     --display: block;
     display: block;
     display: var(--display, block);
+    --focus-ring-outline-offset: 0;
     font-family: inherit;
     font-weight: 600;
     font-size: 1em;
@@ -10827,9 +10136,10 @@ fieldset legend {
     letter-spacing: normal;
     text-transform: none;
     text-wrap: balance;
+    font-style: normal;
+    --icon-color: var(--theme-text-primary, CanvasText);
     color: hsl(162, 100%, 15%);
     color: var(--theme-text-primary, CanvasText);
-    font-style: normal;
 }
 fieldset legend em {
     font-style: italic;
@@ -10839,6 +10149,17 @@ fieldset legend em em {
 }
 fieldset legend em em em {
     font-style: italic;
+}
+fieldset legend a[href] {
+    --focus-ring-outline-offset: 0;
+    font-weight: inherit;
+}
+fieldset legend code,
+fieldset legend kbd,
+fieldset legend samp {
+    font-weight: inherit;
+    font-style: inherit;
+    color: inherit;
 }
 fieldset legend:first-child {
     margin-left: calc(0.5rem * -1);
@@ -15015,6 +14336,7 @@ td > :first-child {
 
 th {
     min-width: 6rem;
+    --focus-ring-outline-offset: 0;
     font-family: inherit;
     font-weight: 600;
     font-size: 1em;
@@ -15023,10 +14345,22 @@ th {
     letter-spacing: normal;
     text-transform: none;
     text-wrap: balance;
-    color: hsl(162, 100%, 15%);
-    color: var(--theme-text-primary, CanvasText);
     font-style: normal;
+}
+th a[href] {
+    --focus-ring-outline-offset: 0;
+    font-weight: inherit;
+}
+th code,
+th kbd,
+th samp {
+    font-weight: inherit;
+    font-style: inherit;
+    color: inherit;
+}
+th {
     --icon-color: var(--theme-ui-primary, CanvasText);
+    color: hsl(162, 100%, 15%);
     color: var(--theme-text-primary, CanvasText);
     background: hsl(158.13, 44.92%, 78.23%);
     background: var(--theme-background-primary, Canvas);

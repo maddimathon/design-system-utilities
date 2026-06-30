@@ -5,13 +5,16 @@
 
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/math';
+@use 'pkg:@maddimathon/utility-sass/meta';
 
 @use '../../../config';
 
 // @use '../00-default' as default;
 @use '../01-breakdown' as breakdown;
 
-$_marginRelativizer: calc(1 / 1.0625);
+$_marginRelativizer: calc(
+    1 / (map.get(breakdown.$font_size, normal) * breakdown.$fontSize_base)
+);
 $_marginRelativizer_method: if($_marginRelativizer >= 1, null, 'ceil');
 
 ///
