@@ -847,6 +847,17 @@ export namespace Tokens {
 
                     pathWeight?: WholeTokenLevel | 'variable';
                     pathStyle?: "normal" | "italic";
+
+                    /**
+                     * File formats to include.
+                     * 
+                     * @since ___PKG_VERSION___
+                     */
+                    formats?: Partial<{
+                        ttf?: boolean;
+                        woff?: boolean;
+                        woff2?: boolean;
+                    }>;
                 };
 
                 /**
@@ -871,7 +882,7 @@ export namespace Tokens {
                     }
 
                     const paths: {
-                        local?: undefined | string[];
+                        [ key: string ]: undefined | string | string[];
                     } = {};
 
                     if ( opts.includeLocalSrc ) {
@@ -921,7 +932,7 @@ export namespace Tokens {
                                 break;
                         }
 
-                        paths.local = [
+                        paths[ 'local' ] = [
 
                             name + weightSuffix + styleSuffix,
 
@@ -931,6 +942,18 @@ export namespace Tokens {
                                     : name.replace( /\s+/g, '' )
                             ),
                         ];
+                    }
+
+                    if ( opts.formats?.woff2 ?? true ) {
+                        paths[ 'woff2' ] = `${ subpath }/woff2/${ _filename }.woff2`;
+                    }
+
+                    if ( opts.formats?.woff ?? true ) {
+                        paths[ 'woff' ] = `${ subpath }/woff/${ _filename }.woff`;
+                    }
+
+                    if ( opts.formats?.ttf ?? true ) {
+                        paths[ 'ttf' ] = `${ subpath }/ttf/${ _filename }.ttf`;
                     }
 
                     return {
@@ -945,10 +968,6 @@ export namespace Tokens {
 
                         path: {
                             ...paths,
-
-                            woff2: `${ subpath }/woff2/${ _filename }.woff2`,
-                            woff: `${ subpath }/woff/${ _filename }.woff`,
-                            ttf: `${ subpath }/ttf/${ _filename }.ttf`,
                         },
                     } satisfies Classify<Tokens_Typography.Font.File>;
                 }

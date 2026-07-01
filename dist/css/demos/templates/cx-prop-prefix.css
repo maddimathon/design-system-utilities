@@ -10920,6 +10920,155 @@ h6,
     padding-block-end: 0;
     text-wrap: balance;
 }
+.unstyled-heading__hgroup,
+.h1__hgroup,
+.h2__hgroup,
+.h3__hgroup,
+.h4__hgroup,
+.h5__hgroup,
+.h6__hgroup,
+.h7__hgroup,
+.h8__hgroup,
+.h9__hgroup,
+.h10__hgroup {
+    --prefix-display: flex;
+    display: var(--prefix-display, flex);
+    position: relative;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0;
+    justify-content: start;
+    align-content: center;
+    align-items: stretch;
+}
+.unstyled-heading__hgroup > :first-child,
+.h1__hgroup > :first-child,
+.h2__hgroup > :first-child,
+.h3__hgroup > :first-child,
+.h4__hgroup > :first-child,
+.h5__hgroup > :first-child,
+.h6__hgroup > :first-child,
+.h7__hgroup > :first-child,
+.h8__hgroup > :first-child,
+.h9__hgroup > :first-child,
+.h10__hgroup > :first-child {
+    margin-block-start: 0 !important;
+}
+:is(
+        .unstyled-heading__hgroup,
+        .h1__hgroup,
+        .h2__hgroup,
+        .h3__hgroup,
+        .h4__hgroup,
+        .h5__hgroup,
+        .h6__hgroup,
+        .h7__hgroup,
+        .h8__hgroup,
+        .h9__hgroup,
+        .h10__hgroup
+    )
+    > :first-child:is(
+        .icon,
+        svg,
+        .button-span,
+        hr,
+        button,
+        [role="button"],
+        details,
+        pre,
+        img,
+        figure,
+        .table-wrapper,
+        [data-toggle-container],
+        .margins-flow-firm,
+        .brand-logo,
+        a[href].button,
+        a[href].button-secondary,
+        a[href].button-grey,
+        .alert-block,
+        .margins-flow-firm-small,
+        form,
+        table,
+        blockquote,
+        form.search-form,
+        .margins-flow-firm-large
+    ) {
+    margin-block-start: var(
+        --prefix-flow-margin-firm-end,
+        0.46875rem
+    ) !important;
+}
+
+.unstyled-heading__hgroup > :last-child,
+.h1__hgroup > :last-child,
+.h2__hgroup > :last-child,
+.h3__hgroup > :last-child,
+.h4__hgroup > :last-child,
+.h5__hgroup > :last-child,
+.h6__hgroup > :last-child,
+.h7__hgroup > :last-child,
+.h8__hgroup > :last-child,
+.h9__hgroup > :last-child,
+.h10__hgroup > :last-child {
+    margin-block-end: 0 !important;
+}
+:is(
+        .unstyled-heading__hgroup,
+        .h1__hgroup,
+        .h2__hgroup,
+        .h3__hgroup,
+        .h4__hgroup,
+        .h5__hgroup,
+        .h6__hgroup,
+        .h7__hgroup,
+        .h8__hgroup,
+        .h9__hgroup,
+        .h10__hgroup
+    )
+    > :last-child:is(
+        .icon,
+        svg,
+        .button-span,
+        hr,
+        button,
+        [role="button"],
+        details,
+        pre,
+        img,
+        figure,
+        .table-wrapper,
+        [data-toggle-container],
+        .margins-flow-firm,
+        .brand-logo,
+        a[href].button,
+        a[href].button-secondary,
+        a[href].button-grey,
+        .alert-block,
+        .margins-flow-firm-small,
+        form,
+        table,
+        blockquote,
+        form.search-form,
+        .margins-flow-firm-large
+    ) {
+    margin-block-end: var(--prefix-flow-margin-firm-end, 0.46875rem) !important;
+}
+
+.unstyled-heading__subheading,
+.page-title__subheading,
+.h1__subheading,
+.h2__subheading,
+.h3__subheading,
+.h4__subheading,
+.h5__subheading,
+.h6__subheading,
+.h7__subheading,
+.h8__subheading,
+.h9__subheading,
+.h10__subheading {
+    margin-block-start: 0;
+    text-wrap: balance;
+}
 :is(
     .unstyled-heading,
     .page-title,
@@ -11352,6 +11501,30 @@ h1,
     --prefix-icon-color: var(--prefix-theme-heading-1, CanvasText);
     color: var(--prefix-theme-heading-1, CanvasText);
 }
+.h1__hgroup {
+    margin-block-start: var(--prefix-mrg-soft-800, 3.34375rem);
+}
+.h1__subheading,
+.page-title__subheading {
+    --prefix-icon-color: var(--prefix-theme-ui-grey, CanvasText);
+    margin-block-start: var(--prefix-mrg-soft-200, 0.3125rem);
+    margin-block-end: var(--prefix-mrg-half-400, 0.46875rem);
+    font-weight: 600;
+    font-size: var(--prefix-fs-heading-6, 1.25rem);
+    line-height: var(--prefix-line-height-300, 1.5);
+    letter-spacing: normal;
+    text-transform: none;
+    font-style: italic;
+    color: var(--prefix-theme-text-grey, CanvasText);
+}
+.h1__subheading em,
+.page-title__subheading em {
+    font-style: normal;
+}
+.h1__subheading em em,
+.page-title__subheading em em {
+    font-style: italic;
+}
 :where([role="heading"][aria-level="1"]) {
     margin-block-start: var(--prefix-mrg-soft-800, 3.34375rem);
     margin-block-end: var(--prefix-mrg-half-200, 0.1875rem);
@@ -11377,6 +11550,23 @@ h2,
     --prefix-icon-color: var(--prefix-theme-heading-2, CanvasText);
     color: var(--prefix-theme-heading-2, CanvasText);
 }
+.h2__hgroup {
+    margin-block-start: var(--prefix-mrg-soft-800, 3.34375rem);
+}
+.h2__subheading {
+    --prefix-icon-color: var(--prefix-theme-ui-grey, CanvasText);
+    font-size: var(--prefix-fs-normal, 1.0625rem);
+    letter-spacing: normal;
+    text-transform: none;
+    font-style: italic;
+    color: var(--prefix-theme-text-grey, CanvasText);
+}
+.h2__subheading em {
+    font-style: normal;
+}
+.h2__subheading em em {
+    font-style: italic;
+}
 :where([role="heading"][aria-level="2"]) {
     margin-block-start: var(--prefix-mrg-soft-800, 3.34375rem);
     margin-block-end: var(--prefix-mrg-half-200, 0.1875rem);
@@ -11401,6 +11591,23 @@ h3,
     font-style: normal;
     --prefix-icon-color: var(--prefix-theme-heading-3, CanvasText);
     color: var(--prefix-theme-heading-3, CanvasText);
+}
+.h3__hgroup {
+    margin-block-start: var(--prefix-mrg-soft-800, 3.34375rem);
+}
+.h3__subheading {
+    --prefix-icon-color: var(--prefix-theme-ui-grey, CanvasText);
+    font-size: var(--prefix-fs-normal, 1.0625rem);
+    letter-spacing: normal;
+    text-transform: none;
+    font-style: italic;
+    color: var(--prefix-theme-text-grey, CanvasText);
+}
+.h3__subheading em {
+    font-style: normal;
+}
+.h3__subheading em em {
+    font-style: italic;
 }
 :where([role="heading"][aria-level="3"]) {
     margin-block-start: var(--prefix-mrg-soft-800, 3.34375rem);
@@ -11433,6 +11640,23 @@ h4 em,
 }
 h4 em em,
 .h4 em em {
+    font-style: italic;
+}
+.h4__hgroup {
+    margin-block-start: var(--prefix-mrg-soft-600, 1.84375rem);
+}
+.h4__subheading {
+    --prefix-icon-color: var(--prefix-theme-ui-grey, CanvasText);
+    font-size: var(--prefix-fs-normal, 1.0625rem);
+    letter-spacing: normal;
+    text-transform: none;
+    font-style: italic;
+    color: var(--prefix-theme-text-grey, CanvasText);
+}
+.h4__subheading em {
+    font-style: normal;
+}
+.h4__subheading em em {
     font-style: italic;
 }
 :where([role="heading"][aria-level="4"]) {
@@ -11474,6 +11698,23 @@ h5 em em,
 .h5 em em {
     font-style: italic;
 }
+.h5__hgroup {
+    margin-block-start: var(--prefix-mrg-soft-600, 1.84375rem);
+}
+.h5__subheading {
+    --prefix-icon-color: var(--prefix-theme-ui-grey, CanvasText);
+    font-size: var(--prefix-fs-normal, 1.0625rem);
+    letter-spacing: normal;
+    text-transform: none;
+    font-style: italic;
+    color: var(--prefix-theme-text-grey, CanvasText);
+}
+.h5__subheading em {
+    font-style: normal;
+}
+.h5__subheading em em {
+    font-style: italic;
+}
 :where([role="heading"][aria-level="5"]) {
     margin-block-start: var(--prefix-mrg-soft-600, 1.84375rem);
     margin-block-end: var(--prefix-mrg-half-400, 0.46875rem);
@@ -11513,6 +11754,23 @@ h6 em em,
 .h6 em em {
     font-style: italic;
 }
+.h6__hgroup {
+    margin-block-start: var(--prefix-mrg-soft-600, 1.84375rem);
+}
+.h6__subheading {
+    --prefix-icon-color: var(--prefix-theme-ui-grey, CanvasText);
+    font-size: var(--prefix-fs-normal, 1.0625rem);
+    letter-spacing: normal;
+    text-transform: none;
+    font-style: italic;
+    color: var(--prefix-theme-text-grey, CanvasText);
+}
+.h6__subheading em {
+    font-style: normal;
+}
+.h6__subheading em em {
+    font-style: italic;
+}
 :where([role="heading"][aria-level="6"]) {
     margin-block-start: var(--prefix-mrg-soft-600, 1.84375rem);
     margin-block-end: var(--prefix-mrg-half-400, 0.46875rem);
@@ -11543,6 +11801,23 @@ h6 em em,
     --prefix-icon-color: var(--prefix-theme-heading-7, CanvasText);
     color: var(--prefix-theme-heading-7, CanvasText);
 }
+.h7__hgroup {
+    margin-block-start: var(--prefix-mrg-soft-600, 1.84375rem);
+}
+.h7__subheading {
+    --prefix-icon-color: var(--prefix-theme-ui-grey, CanvasText);
+    font-size: var(--prefix-fs-smaller-1, 0.9375rem);
+    letter-spacing: normal;
+    text-transform: none;
+    font-style: italic;
+    color: var(--prefix-theme-text-grey, CanvasText);
+}
+.h7__subheading em {
+    font-style: normal;
+}
+.h7__subheading em em {
+    font-style: italic;
+}
 :where([role="heading"][aria-level="7"]) {
     margin-block-start: var(--prefix-mrg-soft-600, 1.84375rem);
     margin-block-end: var(--prefix-mrg-half-400, 0.46875rem);
@@ -11571,6 +11846,23 @@ h6 em em,
     font-style: normal;
 }
 .h8 em em {
+    font-style: italic;
+}
+.h8__hgroup {
+    margin-block-start: var(--prefix-mrg-soft-600, 1.84375rem);
+}
+.h8__subheading {
+    --prefix-icon-color: var(--prefix-theme-ui-grey, CanvasText);
+    font-size: var(--prefix-fs-smaller-1, 0.9375rem);
+    letter-spacing: normal;
+    text-transform: none;
+    font-style: italic;
+    color: var(--prefix-theme-text-grey, CanvasText);
+}
+.h8__subheading em {
+    font-style: normal;
+}
+.h8__subheading em em {
     font-style: italic;
 }
 :where([role="heading"][aria-level="8"]) {
@@ -11609,6 +11901,23 @@ h6 em em,
 .h9 em em {
     font-style: italic;
 }
+.h9__hgroup {
+    margin-block-start: var(--prefix-mrg-soft-500, 1.34375rem);
+}
+.h9__subheading {
+    --prefix-icon-color: var(--prefix-theme-ui-grey, CanvasText);
+    font-size: var(--prefix-fs-smaller-1, 0.9375rem);
+    letter-spacing: normal;
+    text-transform: none;
+    font-style: italic;
+    color: var(--prefix-theme-text-grey, CanvasText);
+}
+.h9__subheading em {
+    font-style: normal;
+}
+.h9__subheading em em {
+    font-style: italic;
+}
 :where([role="heading"][aria-level="9"]) {
     margin-block-start: var(--prefix-mrg-soft-500, 1.34375rem);
     margin-block-end: var(--prefix-mrg-half-400, 0.46875rem);
@@ -11645,6 +11954,23 @@ h6 em em,
 .h10 em em {
     font-style: italic;
 }
+.h10__hgroup {
+    margin-block-start: var(--prefix-mrg-soft-500, 1.34375rem);
+}
+.h10__subheading {
+    --prefix-icon-color: var(--prefix-theme-ui-grey, CanvasText);
+    font-size: var(--prefix-fs-smaller-1, 0.9375rem);
+    letter-spacing: normal;
+    text-transform: none;
+    font-style: italic;
+    color: var(--prefix-theme-text-grey, CanvasText);
+}
+.h10__subheading em {
+    font-style: normal;
+}
+.h10__subheading em em {
+    font-style: italic;
+}
 :where([role="heading"][aria-level="10"]) {
     margin-block-start: var(--prefix-mrg-soft-500, 1.34375rem);
     margin-block-end: var(--prefix-mrg-half-400, 0.46875rem);
@@ -11664,6 +11990,7 @@ h6 em em,
     font-style: italic;
 }
 .unstyled-heading {
+    font-family: inherit;
     font-weight: 600;
     font-size: var(--prefix-fs-normal, 1.0625rem);
     line-height: var(--prefix-line-height-400, 1.6875);
@@ -11698,6 +12025,7 @@ h6:is(.unstyled-heading),
 .h8:is(.unstyled-heading),
 .h9:is(.unstyled-heading),
 .h10:is(.unstyled-heading) {
+    font-family: inherit;
     font-weight: 600;
     font-size: var(--prefix-fs-normal, 1.0625rem);
     line-height: var(--prefix-line-height-400, 1.6875);
@@ -11771,6 +12099,7 @@ h6:is(.unstyled-heading) em em em,
 :is(.unstyled-heading):where([role="heading"][aria-level="8"]),
 :is(.unstyled-heading):where([role="heading"][aria-level="9"]),
 :is(.unstyled-heading):where([role="heading"][aria-level="10"]) {
+    font-family: inherit;
     font-weight: 600;
     font-size: var(--prefix-fs-normal, 1.0625rem);
     line-height: var(--prefix-line-height-400, 1.6875);
@@ -11816,20 +12145,6 @@ h6:is(.unstyled-heading) em em em,
 :is(.unstyled-heading):where([role="heading"][aria-level="10"]) em em em {
     font-style: italic;
 }
-.page-subtitle {
-    --prefix-icon-color: var(--prefix-theme-ui-grey, CanvasText);
-    margin-block-start: var(--prefix-mrg-soft-200, 0.3125rem);
-    margin-block-end: var(--prefix-mrg-half-600, 0.40625rem);
-    font-weight: 600;
-    font-size: var(--prefix-fs-heading-6, 1.25rem);
-    line-height: var(--prefix-line-height-300, 1.5);
-    letter-spacing: normal;
-    text-transform: none;
-    text-wrap: balance;
-    font-style: normal;
-    color: var(--prefix-theme-text-grey, CanvasText);
-}
-
 /* # GLOBALS - LISTS
  * ======================================================================== */
 ol,
@@ -16565,8 +16880,8 @@ td.min-width-none {
         fill ease-out 250ms;
 }
 .icon > svg {
-    --prefix-display: inline-block;
-    display: var(--prefix-display, inline-block);
+    --prefix-display: block;
+    display: var(--prefix-display, block);
     margin: 0;
     padding: 0;
     fill: currentColor;

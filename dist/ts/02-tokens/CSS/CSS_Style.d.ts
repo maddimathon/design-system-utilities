@@ -50,7 +50,11 @@ export declare class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypePara
      * @since 0.1.0-alpha
      * @since 0.1.0-beta.0.draft — Added partial param.
      */
-    static headingStyle<T_Params extends TokenTypes.Style.TypeParams, T_Key extends keyof Tokens_CSS_Style.Data<T_Params>['heading']>(heading: T_Key, partial?: NonNullable<Tokens_CSS_Style.InputParam<T_Params>['heading']>[T_Key]): Promise<Tokens_CSS_Style.HeadingStyles_Generic<T_Key>>;
+    static headingStyle<T_Params extends TokenTypes.Style.TypeParams, T_Key extends keyof Tokens_CSS_Style.Data<T_Params>['heading']>(heading: T_Key, partial?: RecursivePartial<Tokens_CSS_Style.HeadingStyles_Generic<T_Key>>): Promise<Tokens_CSS_Style.HeadingStyles_Generic<T_Key>>;
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    static subheadingStyle<T_Params extends TokenTypes.Style.TypeParams, T_Key extends keyof Tokens_CSS_Style.Data<T_Params>['subheading']>(subheading: T_Key, headingStyles: Tokens_CSS_Style.Data<T_Params>['heading'], partial?: RecursivePartial<Tokens_CSS_Style.SubheadingStyles>): Promise<RecursivePartial<Tokens_CSS_Style.SubheadingStyles>>;
     /**
      * @since 0.1.0-beta.0.draft
      */
@@ -59,10 +63,6 @@ export declare class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypePara
      * @since 0.1.0-beta.0.draft
      */
     static inputStyle<T_Params extends TokenTypes.Style.TypeParams>(partial?: Tokens_CSS_Style.InputParam<T_Params>['input']): Promise<Tokens_CSS_Style.Data<T_Params>['input']>;
-    /**
-     * @since 0.1.0-beta.0.draft
-     */
-    static subtitleStyle<T_Params extends TokenTypes.Style.TypeParams>(headingStyles: Tokens_CSS_Style.Data<T_Params>['heading'], partial: Tokens_CSS_Style.InputParam<T_Params>['subtitle']): Promise<Tokens_CSS_Style.SubtitleStyles>;
     /**
      * @since 0.1.0-beta.0.draft
      */
@@ -446,7 +446,11 @@ export declare namespace Tokens_CSS_Style {
     /**
      * @since 0.1.0-beta.0.draft
      */
-    type SubtitleStyles = Omit<HeadingStyles_Unstyled, 'font'> & {
+    type SubheadingStyles = Omit<HeadingStyles_Unstyled, 'font' | 'subheading'> & {
+        /**
+         * Should be a theme slug.
+         */
+        color: string;
         font: Omit<HeadingStyles_Unstyled['font'], 'family'>;
         icon: {
             /**
@@ -674,7 +678,11 @@ export declare namespace Tokens_CSS_Style {
         /**
          * @since 0.1.0-beta.0.draft
          */
-        subtitle: SubtitleStyles;
+        subheading: {
+            [L in RequiredHeadingLevels]: RecursivePartial<SubheadingStyles>;
+        } & {
+            [key: number]: RecursivePartial<SubheadingStyles>;
+        };
         /**
          * @since 0.1.0-beta.0.draft
          */
@@ -763,7 +771,11 @@ export declare namespace Tokens_CSS_Style {
         /**
          * @since 0.1.0-beta.0.draft
          */
-        subtitle?: RecursivePartial<SubtitleStyles>;
+        subheading?: {
+            [L in RequiredHeadingLevels]: RecursivePartial<SubheadingStyles>;
+        } & {
+            [key: number]: RecursivePartial<SubheadingStyles>;
+        };
         /**
          * @since 0.1.0-beta.0.draft
          */

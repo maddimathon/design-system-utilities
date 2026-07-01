@@ -19,7 +19,6 @@ $_print_code: map.get(config.$template_styles, code);
 $_print_headings: map.get(config.$template_styles, headings);
 $_print_blockquote: map.get(config.$template_styles, blockquote);
 $_print_p: map.get(config.$template_styles, p);
-$_print_pageSubtitle: map.get(config.$template_styles, pageSubtitle);
 $_print_pre: map.get(config.$template_styles, pre);
 $_print_selection: map.get(config.$template_styles, selection);
 $_print_typeDefaults: map.get(config.$template_styles, typeDefaults);
@@ -157,50 +156,10 @@ $_heading_inlines: false;
     );
 }
 
-@if config.$template_cssHeadings and ($_print_headings or $_print_pageSubtitle)
-{
-    /* ## Typography - Headings ==================================== */
-}
-
-#{selector-all-headings()} {
-    @include snippet-heading(null);
-
-    &--where {
-        @include snippet-heading(null);
-    }
-
-    &--is {
-        @include snippet-heading(null);
-    }
-}
-
 @if $_print_headings {
-    @each $num in token-all-heading-levels() {
-        //
-        #{if( $num == 1, ('%h#{$num}', '%title'), '%h#{$num}' )} {
-            @include snippet-heading($num, $includeBase: false);
-
-            &--where {
-                @include snippet-heading($num, $includeBase: false);
-            }
-        }
+    @if config.$template_cssHeadings {
+        /* ## Typography - Headings ==================================== */
     }
 
-    %unstyled-heading {
-        @include snippet-unstyled-heading($includeBase: false);
-    }
-
-    %unstyled-heading--is {
-        @include snippet-unstyled-heading($includeBase: false);
-    }
-
-    %unstyled-heading--where {
-        @include snippet-unstyled-heading($includeBase: false);
-    }
-}
-
-@if $_print_pageSubtitle {
-    %page-subtitle {
-        @include snippet-subtitle;
-    }
+    @include snippet-support-all-headings;
 }

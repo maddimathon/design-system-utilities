@@ -37,6 +37,7 @@ $_firmFlowMarginChildren: list.join(
     $asImportant: true,
     $childrenInIs: true,
     $includeChildren: true,
+    $includeRoot: true,
     $useNotInsteadOfChildren: config.$fn_firstLastChildMargin_useNotInsteadOfChildren
 ) {
     $importantSuffix: if($asImportant, ' !important', '');
@@ -57,7 +58,7 @@ $_firmFlowMarginChildren: list.join(
         &:not(#{$firmFlowMarginChildren}) {
             margin-block-#{$marginSide}: $softFlowMarginValue #{$importantSuffix};
         }
-    } @else {
+    } @else if $includeRoot {
         margin-block-#{$marginSide}: $softFlowMarginValue #{$importantSuffix};
     }
 

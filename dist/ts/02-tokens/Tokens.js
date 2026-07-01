@@ -453,12 +453,21 @@ export class Tokens extends AbstractTokens {
                                 styleSuffix = ' Italic';
                                 break;
                         }
-                        paths.local = [
+                        paths['local'] = [
                             name + weightSuffix + styleSuffix,
                             ((weightSuffix || styleSuffix)
                                 ? `${name}-${weightSuffix}${styleSuffix}`.replace(/\s+/g, '')
                                 : name.replace(/\s+/g, '')),
                         ];
+                    }
+                    if (opts.formats?.woff2 ?? true) {
+                        paths['woff2'] = `${subpath}/woff2/${_filename}.woff2`;
+                    }
+                    if (opts.formats?.woff ?? true) {
+                        paths['woff'] = `${subpath}/woff/${_filename}.woff`;
+                    }
+                    if (opts.formats?.ttf ?? true) {
+                        paths['ttf'] = `${subpath}/ttf/${_filename}.ttf`;
                     }
                     return {
                         weight: weight,
@@ -469,9 +478,6 @@ export class Tokens extends AbstractTokens {
                         unicodeRange: opts.unicodeRange,
                         path: {
                             ...paths,
-                            woff2: `${subpath}/woff2/${_filename}.woff2`,
-                            woff: `${subpath}/woff/${_filename}.woff`,
-                            ttf: `${subpath}/ttf/${_filename}.ttf`,
                         },
                     };
                 }

@@ -68,30 +68,30 @@ const subtitleHTML =
         >
             <slot name='prefix' />
 
-            <header
-                class:list={[
-                    'widget-block__header',
-                    hideHeading && 'screen-reader-text',
-                ]}
-            >
-                {headingHTML && (
+            {headingHTML && (
+                <header
+                    class:list={[
+                        'widget-block__header',
+                        hideHeading && 'screen-reader-text',
+                    ]}
+                >
                     <Heading
+                        attrs={{
+                            hgroup: { class: 'widget-block__hgroup' },
+                            subheading: { class: 'widget-block__subtitle' },
+                        }}
                         class:list='widget-block__title'
                         displayHeading={displayHeading}
                         heading={heading}
                         set:html={headingHTML}
-                    />
-                )}
-                {subtitleHTML && (
-                    <p
-                        aria-roledescription={
-                            headingHTML ? 'subtitle' : undefined
-                        }
-                        class='widget-block__subtitle'
-                        set:html={subtitleHTML}
-                    />
-                )}
-            </header>
+                    >
+                        <Fragment
+                            slot='subheading'
+                            set:html={subtitleHTML}
+                        />
+                    </Heading>
+                </header>
+            )}
 
             <div class='widget-block__content'>
                 <slot />

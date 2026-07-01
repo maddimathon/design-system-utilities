@@ -122,26 +122,25 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
                     alert,
                     button,
                     input,
-                    subtitle,
+                    subheading,
                     toggle,
                 ] = await Promise.all( [
                     Tokens_CSS_Style.alertStyle<T_Params>( icon, partial.alert ),
                     Tokens_CSS_Style.buttonStyle<T_Params>( icon, partial.button ),
                     Tokens_CSS_Style.inputStyle<T_Params>( partial.input ),
-                    Tokens_CSS_Style.subtitleStyle<T_Params>( heading, partial.subtitle ),
+
+                    objectGeneratorAsync(
+                        [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const,
+                        async ( hdg ) => Tokens_CSS_Style.subheadingStyle<T_Params, typeof hdg>( hdg, heading, partial.subheading?.[ hdg ] )
+                    ),
+
                     Tokens_CSS_Style.toggleStyle<T_Params>( icon, widget, partial.toggle ),
                 ] );
 
                 return {
                     alert,
                     button,
-
-                    'flow-margin': mergeArgs(
-                        defaults[ 'flow-margin' ],
-                        partial[ 'flow-margin' ],
-                        true
-                    ),
-
+                    'flow-margin': mergeArgs( defaults[ 'flow-margin' ], partial[ 'flow-margin' ], true ),
                     form: mergeArgs( defaults.form, partial.form, true ),
                     heading,
                     hr: mergeArgs( defaults.hr, partial.hr, true ),
@@ -149,7 +148,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
                     input,
                     logo: mergeArgs( defaults.logo, partial.logo, true ),
                     selection: mergeArgs( defaults.selection, partial.selection, true ),
-                    subtitle,
+                    subheading,
                     table: mergeArgs( defaults.table, partial.table, true ),
                     toggle,
                     widget,
@@ -501,7 +500,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
         T_Key extends keyof Tokens_CSS_Style.Data<T_Params>[ 'heading' ],
     >(
         heading: T_Key,
-        partial?: NonNullable<Tokens_CSS_Style.InputParam<T_Params>[ 'heading' ]>[ T_Key ],
+        partial?: RecursivePartial<Tokens_CSS_Style.HeadingStyles_Generic<T_Key>>,
     ): Promise<Tokens_CSS_Style.HeadingStyles_Generic<T_Key>> {
 
         const headingAsNum = ( typeof heading === 'number' && heading >= 1 ) ? heading : 11;
@@ -598,6 +597,57 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
         }
 
         return mergeArgs( style, partial, true ) satisfies Tokens_CSS_Style.HeadingStyles as Tokens_CSS_Style.HeadingStyles_Generic<T_Key>;
+    }
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    public static async subheadingStyle<
+        T_Params extends TokenTypes.Style.TypeParams,
+        T_Key extends keyof Tokens_CSS_Style.Data<T_Params>[ 'subheading' ],
+    >(
+        subheading: T_Key,
+        headingStyles: Tokens_CSS_Style.Data<T_Params>[ 'heading' ],
+        partial?: RecursivePartial<Tokens_CSS_Style.SubheadingStyles>,
+    ): Promise<RecursivePartial<Tokens_CSS_Style.SubheadingStyles>> {
+
+        const subheadingAsNum = ( typeof subheading === 'number' && subheading >= 1 ) ? subheading : 11;
+
+        const style: RecursivePartial<Tokens_CSS_Style.SubheadingStyles> = {
+            color: 'text-grey',
+
+            font: {
+                size: subheadingAsNum > 6 ? 'smaller-1' : 'normal',
+                style: 'italic',
+            },
+
+            icon: {
+                color: 'ui-grey',
+            },
+
+            'letter-spacing': 'normal',
+            'text-transform': 'none',
+        };
+
+        if ( subheadingAsNum === 1 ) {
+
+            style.font = {
+                ...style.font,
+                size: 'heading-6',
+                weight: headingStyles.unstyled.font.weight,
+            };
+
+            style[ 'line-height' ] = headingStyles[ 6 ][ 'line-height' ];
+
+            style.margin = {
+                block: {
+                    start: '200',
+                    end: headingStyles[ 6 ].margin.block.end,
+                },
+            };
+        }
+
+        return mergeArgs( style, partial, true ) satisfies RecursivePartial<Tokens_CSS_Style.SubheadingStyles>;
     }
 
     /**
@@ -742,61 +792,6 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
             },
             disabled,
             readonly,
-        };
-    }
-
-    /**
-     * @since ___PKG_VERSION___
-     */
-    public static async subtitleStyle<T_Params extends TokenTypes.Style.TypeParams>(
-        headingStyles: Tokens_CSS_Style.Data<T_Params>[ 'heading' ],
-        partial: Tokens_CSS_Style.InputParam<T_Params>[ 'subtitle' ],
-    ): Promise<Tokens_CSS_Style.SubtitleStyles> {
-
-        const color = partial?.color ?? 'text-grey';
-        const fontSize = partial?.font?.size ?? 'heading-6';
-
-        const fontSize_headingNum_matches = fontSize.match( /^heading-(\d+)$/ ) as null | [ string, string ];
-
-        let _headingNum: number | undefined;
-
-        if ( fontSize_headingNum_matches && fontSize_headingNum_matches[ 1 ] ) {
-            _headingNum = Number( fontSize_headingNum_matches[ 1 ] );
-        } else {
-
-            const color_headingNum_matches = fontSize.match( /^heading-(\d+)$/ ) as null | [ string, string ];
-
-            if ( color_headingNum_matches && color_headingNum_matches[ 1 ] ) {
-                _headingNum = Number( color_headingNum_matches[ 1 ] );
-            }
-        }
-
-        const headingNum = _headingNum ?? 6;
-
-        return {
-            color,
-
-            font: {
-                size: fontSize,
-                style: partial?.font?.style ?? headingStyles.unstyled.font.style,
-                weight: partial?.font?.weight ?? headingStyles.unstyled.font.weight,
-            },
-
-            icon: {
-                color: partial?.icon?.color ?? partial?.color?.replace( /^text-/gi, 'ui-' ) ?? 'ui-grey',
-            },
-
-            'letter-spacing': partial?.[ 'letter-spacing' ] ?? 'normal',
-            'line-height': partial?.[ 'line-height' ] ?? headingStyles[ headingNum ]?.[ 'line-height' ] ?? headingStyles[ 6 ][ 'line-height' ],
-
-            margin: {
-                block: {
-                    start: partial?.margin?.block?.start ?? '200',
-                    end: partial?.margin?.block?.start ?? headingStyles[ headingNum ]?.margin.block.start ?? headingStyles[ 6 ].margin.block.end,
-                },
-            },
-
-            'text-transform': partial?.[ 'text-transform' ] ?? 'none',
         };
     }
 
@@ -1523,7 +1518,11 @@ export namespace Tokens_CSS_Style {
     /**
      * @since ___PKG_VERSION___
      */
-    export type SubtitleStyles = Omit<HeadingStyles_Unstyled, 'font'> & {
+    export type SubheadingStyles = Omit<HeadingStyles_Unstyled, 'font' | 'subheading'> & {
+        /**
+         * Should be a theme slug.
+         */
+        color: string;
 
         font: Omit<HeadingStyles_Unstyled[ 'font' ], 'family'>;
 
@@ -1798,7 +1797,11 @@ export namespace Tokens_CSS_Style {
         /**
          * @since ___PKG_VERSION___
          */
-        subtitle: SubtitleStyles;
+        subheading: {
+            [ L in RequiredHeadingLevels ]: RecursivePartial<SubheadingStyles>;
+        } & {
+            [ key: number ]: RecursivePartial<SubheadingStyles>;
+        };
 
         /**
          * @since ___PKG_VERSION___
@@ -1905,7 +1908,11 @@ export namespace Tokens_CSS_Style {
         /**
          * @since ___PKG_VERSION___
          */
-        subtitle?: RecursivePartial<SubtitleStyles>;
+        subheading?: {
+            [ L in RequiredHeadingLevels ]: RecursivePartial<SubheadingStyles>;
+        } & {
+            [ key: number ]: RecursivePartial<SubheadingStyles>;
+        };
 
         /**
          * @since ___PKG_VERSION___

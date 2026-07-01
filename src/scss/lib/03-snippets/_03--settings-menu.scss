@@ -71,6 +71,13 @@ $_closing_time: var-tr-time(toggle-closing);
             max-width: min(var-width(content), 90vw);
 
             @content($location);
+
+            > :first-child {
+                @include snippet-first-child-no-top-margin;
+            }
+            > :last-child {
+                @include snippet-last-child-no-bottom-margin;
+            }
         }
         
         @else if $location == content--fieldset {

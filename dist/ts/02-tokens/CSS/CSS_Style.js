@@ -82,11 +82,11 @@ export class Tokens_CSS_Style extends AbstractTokens {
             })),
             Tokens_CSS_Style.widgetStyle(partial.widget),
         ]).then(async ([icon, heading, widget]) => {
-            const [alert, button, input, subtitle, toggle,] = await Promise.all([
+            const [alert, button, input, subheading, toggle,] = await Promise.all([
                 Tokens_CSS_Style.alertStyle(icon, partial.alert),
                 Tokens_CSS_Style.buttonStyle(icon, partial.button),
                 Tokens_CSS_Style.inputStyle(partial.input),
-                Tokens_CSS_Style.subtitleStyle(heading, partial.subtitle),
+                objectGeneratorAsync([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], async (hdg) => Tokens_CSS_Style.subheadingStyle(hdg, heading, partial.subheading?.[hdg])),
                 Tokens_CSS_Style.toggleStyle(icon, widget, partial.toggle),
             ]);
             return {
@@ -100,7 +100,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 input,
                 logo: mergeArgs(defaults.logo, partial.logo, true),
                 selection: mergeArgs(defaults.selection, partial.selection, true),
-                subtitle,
+                subheading,
                 table: mergeArgs(defaults.table, partial.table, true),
                 toggle,
                 widget,
@@ -420,6 +420,39 @@ export class Tokens_CSS_Style extends AbstractTokens {
     /**
      * @since 0.1.0-beta.0.draft
      */
+    static async subheadingStyle(subheading, headingStyles, partial) {
+        const subheadingAsNum = (typeof subheading === 'number' && subheading >= 1) ? subheading : 11;
+        const style = {
+            color: 'text-grey',
+            font: {
+                size: subheadingAsNum > 6 ? 'smaller-1' : 'normal',
+                style: 'italic',
+            },
+            icon: {
+                color: 'ui-grey',
+            },
+            'letter-spacing': 'normal',
+            'text-transform': 'none',
+        };
+        if (subheadingAsNum === 1) {
+            style.font = {
+                ...style.font,
+                size: 'heading-6',
+                weight: headingStyles.unstyled.font.weight,
+            };
+            style['line-height'] = headingStyles[6]['line-height'];
+            style.margin = {
+                block: {
+                    start: '200',
+                    end: headingStyles[6].margin.block.end,
+                },
+            };
+        }
+        return mergeArgs(style, partial, true);
+    }
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
     static async iconStyle(partial) {
         return mergeArgs({
             color: 'ui',
@@ -523,45 +556,6 @@ export class Tokens_CSS_Style extends AbstractTokens {
             },
             disabled,
             readonly,
-        };
-    }
-    /**
-     * @since 0.1.0-beta.0.draft
-     */
-    static async subtitleStyle(headingStyles, partial) {
-        const color = partial?.color ?? 'text-grey';
-        const fontSize = partial?.font?.size ?? 'heading-6';
-        const fontSize_headingNum_matches = fontSize.match(/^heading-(\d+)$/);
-        let _headingNum;
-        if (fontSize_headingNum_matches && fontSize_headingNum_matches[1]) {
-            _headingNum = Number(fontSize_headingNum_matches[1]);
-        }
-        else {
-            const color_headingNum_matches = fontSize.match(/^heading-(\d+)$/);
-            if (color_headingNum_matches && color_headingNum_matches[1]) {
-                _headingNum = Number(color_headingNum_matches[1]);
-            }
-        }
-        const headingNum = _headingNum ?? 6;
-        return {
-            color,
-            font: {
-                size: fontSize,
-                style: partial?.font?.style ?? headingStyles.unstyled.font.style,
-                weight: partial?.font?.weight ?? headingStyles.unstyled.font.weight,
-            },
-            icon: {
-                color: partial?.icon?.color ?? partial?.color?.replace(/^text-/gi, 'ui-') ?? 'ui-grey',
-            },
-            'letter-spacing': partial?.['letter-spacing'] ?? 'normal',
-            'line-height': partial?.['line-height'] ?? headingStyles[headingNum]?.['line-height'] ?? headingStyles[6]['line-height'],
-            margin: {
-                block: {
-                    start: partial?.margin?.block?.start ?? '200',
-                    end: partial?.margin?.block?.start ?? headingStyles[headingNum]?.margin.block.start ?? headingStyles[6].margin.block.end,
-                },
-            },
-            'text-transform': partial?.['text-transform'] ?? 'none',
         };
     }
     /**

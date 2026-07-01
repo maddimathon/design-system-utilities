@@ -25,26 +25,30 @@
 
     $_srcSuffix: if($isVariable, ' tech(variations)', '');
 
-    @each $map in $list {
+    @each $map in if(meta.type-of($list) == map, ($list, ()), $list) {
         $type: map.get($map, type);
         $paths: map.get($map, path);
 
-        @if meta.type-of($paths) != list {
+        @if meta.type-of($paths) != list and $paths {
             $paths: ($paths);
         }
 
-        @each $path in $paths {
-            $_list: list.append(
-                $_list,
-                if(
-                    $type == local,
-                    local('#{$path}') #{$_srcSuffix},
-                    url('#{config.$path_fonts}#{$path}')
-                        format('#{$type}')
-                        #{$_srcSuffix}
-                ),
-                $separator: comma
-            );
+        @if string.length(#{$type}) > 0 {
+            @each $path in $paths {
+                @if string.length(#{$path}) > 0 {
+                    $_list: list.append(
+                        $_list,
+                        if(
+                            $type == local,
+                            local('#{$path}') #{$_srcSuffix},
+                            url('#{config.$path_fonts}#{$path}')
+                                format('#{$type}')
+                                #{$_srcSuffix}
+                        ),
+                        $separator: comma
+                    );
+                }
+            }
         }
     }
 
@@ -102,16 +106,15 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
 
                 $fontMap: map.get(tokens.$font, family, $slug, variable);
 
+                @each $weight, $styleMap in $weightMap {
+                    @include _tokens-font-face-style-printer($styleMap);
+                }
+
                 @if $fontMap != null {
                     @include _tokens-font-face-style-printer(
                         $fontMap,
                         $isVariable: true
                     );
-                } @else {
-                    //
-                    @each $weight, $styleMap in $weightMap {
-                        @include _tokens-font-face-style-printer($styleMap);
-                    }
                 }
             }
             /* #endregion Tokens - Font Face */

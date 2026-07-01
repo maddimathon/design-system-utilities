@@ -287,6 +287,16 @@ export declare namespace Tokens {
                     includeLocalSrc?: boolean;
                     pathWeight?: WholeTokenLevel | 'variable';
                     pathStyle?: "normal" | "italic";
+                    /**
+                     * File formats to include.
+                     *
+                     * @since 0.1.0-beta.0.draft
+                     */
+                    formats?: Partial<{
+                        ttf?: boolean;
+                        woff?: boolean;
+                        woff2?: boolean;
+                    }>;
                 };
                 /**
                  * @since 0.1.0-alpha

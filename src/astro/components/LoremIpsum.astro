@@ -16,7 +16,10 @@ import { SampleTokens_Json } from '../functions/SampleTokens.js';
 /* import - values */
 
 /* import - components */
-import { LoremIpsum as LoremIpsumUtils } from '@maddimathon/utility-astro/components';
+import {
+    Heading,
+    LoremIpsum as LoremIpsumUtils,
+} from '@maddimathon/utility-astro/components';
 import Alert from './Alert.astro';
 import Toggle from './Toggle.astro';
 
@@ -97,6 +100,7 @@ const disclaimerHTML = (await Astro.slots.render('disclaimer'))?.trim();
 >
     <LoremIpsumUtils
         {...props}
+        asSection={false}
         displaySettings={{
             ...displaySettings,
 
@@ -117,7 +121,8 @@ const disclaimerHTML = (await Astro.slots.render('disclaimer'))?.trim();
     >
         {
             !disclaimerHTML && (
-                <p
+                <Heading
+                    heading={2}
                     slot='disclaimer'
                     class='screen-reader-text'
                 >
@@ -127,7 +132,7 @@ const disclaimerHTML = (await Astro.slots.render('disclaimer'))?.trim();
                     like fake latin) and exits only to demonstrate the visual
                     styling of the page. None of the visual styles are described
                     in this section.
-                </p>
+                </Heading>
             )
         }
         <Fragment
