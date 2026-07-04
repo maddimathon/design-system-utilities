@@ -42,6 +42,7 @@ export declare class Tokens_Icons<T_ExtraIconNames extends string> extends Abstr
         computer: 0xf147;
         contact: 0xf14b;
         dash: 0xf108;
+        disabled: 0xf15d;
         discussion: 0xf14c;
         'double-check': 0xf109;
         down: 0xf110;
@@ -80,12 +81,14 @@ export declare class Tokens_Icons<T_ExtraIconNames extends string> extends Abstr
         quote: 0xf152;
         reading: 0xf153;
         refresh: 0xf135;
+        reset: 0xf15e;
         right: 0xf136;
         search: 0xf137;
         settings: 0xf138;
         singlecolumn: 0xf15b;
         star: 0xf139;
         stopwatch: 0xf159;
+        submit: 0xf15f;
         success: 0xf140;
         timer: 0xf15a;
         toggle: 0xf158;
@@ -174,7 +177,7 @@ export declare namespace Tokens_Icons {
     /**
      * @since 0.1.0-beta.0.draft
      */
-    const optionalIconNames: readonly ["alarm", "alert", "attachment", "biography", "book", "clock", "close", "code", "compass", "compass", "computer", "contact", "dash", "discussion", "down", "download", "draft", "error", "external", "forbidden", "group", "hidden", "info", "left", "lightbulb", "lightning", "link", "location", "lock", "logo-circle-facebook", "logo-circle-instagram", "logo-circle-linkedin", "logo-facebook", "logo-instagram", "logo-linkedin", "minus", "no", "note", "paperclip", "person", "pinned", "plus", "private", "question", "quote", "reading", "refresh", "right", "singlecolumn", "star", "stopwatch", "success", "timer", "twocolumns", "unlock", "up", "warning"];
+    const optionalIconNames: readonly ["alarm", "alert", "attachment", "biography", "book", "clock", "code", "compass", "compass", "computer", "contact", "dash", "discussion", "down", "draft", "error", "forbidden", "group", "hidden", "info", "left", "lightbulb", "lightning", "link", "location", "lock", "logo-circle-facebook", "logo-circle-instagram", "logo-circle-linkedin", "logo-facebook", "logo-instagram", "logo-linkedin", "minus", "no", "note", "paperclip", "person", "pinned", "plus", "private", "question", "quote", "reading", "refresh", "right", "singlecolumn", "star", "stopwatch", "success", "timer", "twocolumns", "unlock", "up", "warning"];
     /**
      * @since 0.1.0-beta.0.draft
      */
@@ -186,7 +189,7 @@ export declare namespace Tokens_Icons {
     /**
      * @since 0.1.0-beta.0.draft
      */
-    const requiredIconNames: readonly ["caution", "check", "double-check", "fail", "maximum", "minimum", "search", "settings", "star", "toggle", "ui-check", "ui-minimum", "ui"];
+    const requiredIconNames: readonly ["caution", "check", "close", "disabled", "double-check", "download", "external", "fail", "maximum", "minimum", "reset", "search", "settings", "star", "submit", "toggle", "ui-check", "ui-minimum", "ui"];
     /**
      * The types are required to enable core functionality. Any others can be
      * removed or replaced in your configuration by setting them to `undefined`.

@@ -10,11 +10,11 @@
 import { FontAssetType, generateFonts, OtherAssetType, } from 'fantasticon';
 import Immutable from 'immutable';
 import { deleteUndefinedProps, mergeArgs, objectMap, objectMapAsync, slugify, } from '@maddimathon/utility-typescript';
-import { SvgMaker } from '../01-utilities/SvgMaker.js';
-import { AbstractTokens } from './abstract/AbstractTokens.js';
 import { objectGenerator } from '../01-utilities/objectGenerator.js';
 import { objectKeySort_Tokens } from '../01-utilities/objectKeySort_Tokens.js';
 import { objectKeySortAsync_Tokens } from '../01-utilities/objectKeySortAsync_Tokens.js';
+import { SvgMaker } from '../01-utilities/SvgMaker.js';
+import { AbstractTokens } from './abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *
@@ -96,6 +96,9 @@ export class Tokens_Icons extends AbstractTokens {
             timer: 0xf15a,
             singlecolumn: 0xf15b,
             twocolumns: 0xf15c,
+            disabled: 0xf15d,
+            reset: 0xf15e,
+            submit: 0xf15f,
         };
     }
     static get default() {
@@ -500,6 +503,14 @@ export class Tokens_Icons extends AbstractTokens {
                 },
             },
             dash,
+            disabled: {
+                ...forbidden,
+                slug: 'disabled',
+                label: 'Disabled',
+                meta: {
+                    aliasOf: forbidden.slug,
+                },
+            },
             discussion,
             'double-check': doubleCheck,
             down,
@@ -602,12 +613,28 @@ export class Tokens_Icons extends AbstractTokens {
             quote,
             reading,
             refresh,
+            reset: {
+                ...refresh,
+                slug: 'reset',
+                label: 'Reset',
+                meta: {
+                    aliasOf: refresh.slug,
+                },
+            },
             right,
             search,
             settings,
             singlecolumn,
             star,
             stopwatch,
+            submit: {
+                ...check,
+                slug: 'submit',
+                label: 'Submit',
+                meta: {
+                    aliasOf: check.slug,
+                },
+            },
             success: {
                 ...check,
                 slug: 'success',
@@ -855,7 +882,6 @@ export class Tokens_Icons extends AbstractTokens {
         'biography',
         'book',
         'clock',
-        'close',
         'code',
         'compass',
         'compass',
@@ -864,10 +890,8 @@ export class Tokens_Icons extends AbstractTokens {
         'dash',
         'discussion',
         'down',
-        'download',
         'draft',
         'error',
-        'external',
         'forbidden',
         'group',
         'hidden',
@@ -924,13 +948,19 @@ export class Tokens_Icons extends AbstractTokens {
     const requiredIconNames = [
         'caution',
         'check',
+        'close',
+        'disabled',
         'double-check',
+        'download',
+        'external',
         'fail',
         'maximum',
         'minimum',
+        'reset',
         'search',
         'settings',
         'star',
+        'submit',
         'toggle',
         'ui-check',
         'ui-minimum',

@@ -30,11 +30,12 @@ import {
     slugify,
 } from '@maddimathon/utility-typescript';
 
-import { SvgMaker } from '../01-utilities/SvgMaker.js';
-import { AbstractTokens } from './abstract/AbstractTokens.js';
 import { objectGenerator } from '../01-utilities/objectGenerator.js';
 import { objectKeySort_Tokens } from '../01-utilities/objectKeySort_Tokens.js';
 import { objectKeySortAsync_Tokens } from '../01-utilities/objectKeySortAsync_Tokens.js';
+import { SvgMaker } from '../01-utilities/SvgMaker.js';
+
+import { AbstractTokens } from './abstract/AbstractTokens.js';
 
 /**
  * Generates a complete token object for the design system.
@@ -67,6 +68,7 @@ export class Tokens_Icons<
         computer: 0xf147,
         contact: 0xf14b,
         dash: 0xf108,
+        disabled: 0xf15d,
         discussion: 0xf14c,
         'double-check': 0xf109,
         down: 0xf110,
@@ -105,12 +107,14 @@ export class Tokens_Icons<
         quote: 0xf152,
         reading: 0xf153,
         refresh: 0xf135,
+        reset: 0xf15e,
         right: 0xf136,
         search: 0xf137,
         settings: 0xf138,
         singlecolumn: 0xf15b,
         star: 0xf139,
         stopwatch: 0xf159,
+        submit: 0xf15f,
         success: 0xf140,
         timer: 0xf15a,
         toggle: 0xf158,
@@ -122,7 +126,6 @@ export class Tokens_Icons<
         up: 0xf145,
         warning: 0xf146,
     } {
-
         return {
             attachment: 0xf101,
             caution: 0xf102,
@@ -192,6 +195,9 @@ export class Tokens_Icons<
             timer: 0xf15a,
             singlecolumn: 0xf15b,
             twocolumns: 0xf15c,
+            disabled: 0xf15d,
+            reset: 0xf15e,
+            submit: 0xf15f,
         } as const satisfies {
             [ I in Tokens_Icons.DefaultIcon ]: number;
         };
@@ -715,6 +721,15 @@ export class Tokens_Icons<
                 },
 
                 dash,
+                disabled: {
+                    ...forbidden,
+                    slug: 'disabled',
+                    label: 'Disabled',
+
+                    meta: {
+                        aliasOf: forbidden.slug,
+                    },
+                },
                 discussion,
                 'double-check': doubleCheck,
                 down,
@@ -828,14 +843,38 @@ export class Tokens_Icons<
                 },
                 question,
                 quote,
+
                 reading,
                 refresh,
+
+                reset: {
+                    ...refresh,
+                    slug: 'reset',
+                    label: 'Reset',
+
+                    meta: {
+                        aliasOf: refresh.slug,
+                    },
+                },
+
                 right,
+
                 search,
                 settings,
                 singlecolumn,
                 star,
                 stopwatch,
+
+                submit: {
+                    ...check,
+                    slug: 'submit',
+                    label: 'Submit',
+
+                    meta: {
+                        aliasOf: check.slug,
+                    },
+                },
+
                 success: {
                     ...check,
                     slug: 'success',
@@ -845,6 +884,7 @@ export class Tokens_Icons<
                         aliasOf: check.slug,
                     },
                 },
+
                 timer: {
                     ...stopwatch,
                     slug: 'timer',
@@ -1295,7 +1335,6 @@ export namespace Tokens_Icons {
         'biography',
         'book',
         'clock',
-        'close',
         'code',
         'compass',
         'compass',
@@ -1304,10 +1343,8 @@ export namespace Tokens_Icons {
         'dash',
         'discussion',
         'down',
-        'download',
         'draft',
         'error',
-        'external',
         'forbidden',
         'group',
         'hidden',
@@ -1371,13 +1408,19 @@ export namespace Tokens_Icons {
     const requiredIconNames = [
         'caution',
         'check',
+        'close',
+        'disabled',
         'double-check',
+        'download',
+        'external',
         'fail',
         'maximum',
         'minimum',
+        'reset',
         'search',
         'settings',
         'star',
+        'submit',
         'toggle',
         'ui-check',
         'ui-minimum',
