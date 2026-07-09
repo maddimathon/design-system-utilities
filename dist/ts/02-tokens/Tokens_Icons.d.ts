@@ -41,6 +41,7 @@ export declare class Tokens_Icons<T_ExtraIconNames extends string> extends Abstr
         compass: 0xf107;
         computer: 0xf147;
         contact: 0xf14b;
+        continue: 0xf160;
         dash: 0xf108;
         disabled: 0xf15d;
         discussion: 0xf14c;
@@ -189,7 +190,7 @@ export declare namespace Tokens_Icons {
     /**
      * @since 0.1.0-beta.0.draft
      */
-    const requiredIconNames: readonly ["caution", "check", "close", "disabled", "double-check", "download", "external", "fail", "maximum", "minimum", "reset", "search", "settings", "star", "submit", "toggle", "ui-check", "ui-minimum", "ui"];
+    const requiredIconNames: readonly ["caution", "check", "close", "continue", "disabled", "double-check", "download", "external", "fail", "maximum", "minimum", "reset", "search", "settings", "star", "submit", "toggle", "ui-check", "ui-minimum", "ui"];
     /**
      * The types are required to enable core functionality. Any others can be
      * removed or replaced in your configuration by setting them to `undefined`.

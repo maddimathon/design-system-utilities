@@ -67,6 +67,7 @@ export class Tokens_Icons<
         compass: 0xf107,
         computer: 0xf147,
         contact: 0xf14b,
+        continue: 0xf160,
         dash: 0xf108,
         disabled: 0xf15d,
         discussion: 0xf14c,
@@ -198,6 +199,7 @@ export class Tokens_Icons<
             disabled: 0xf15d,
             reset: 0xf15e,
             submit: 0xf15f,
+            continue: 0xf160,
         } as const satisfies {
             [ I in Tokens_Icons.DefaultIcon ]: number;
         };
@@ -717,6 +719,16 @@ export class Tokens_Icons<
 
                     meta: {
                         aliasOf: location.slug,
+                    },
+                },
+
+                continue: {
+                    ...right,
+                    slug: 'continue',
+                    label: 'Continue',
+
+                    meta: {
+                        aliasOf: right.slug,
                     },
                 },
 
@@ -1409,6 +1421,7 @@ export namespace Tokens_Icons {
         'caution',
         'check',
         'close',
+        'continue',
         'disabled',
         'double-check',
         'download',

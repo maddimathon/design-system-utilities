@@ -655,11 +655,33 @@ export namespace getBrandConstants {
 
                 phpNamespace = phpNamespace.length ? phpNamespace.replace( /[\/|\\]+$/gi, '' ) + '\\' : '';
 
-                return args.insideHook ? [
+                // returns
+                if ( !args.insideHook ) {
+                    return args.insideDefine !== false ? [
+                        '/**',
+                        ` * ${ args.comment }`,
+                        ' *',
+                        ` * @var ${ args.type }`,
+                        ' */',
+                        `\\define(`,
+                        `    '${ phpNamespace }${ varName }',`,
+                        `    ${ content.split( '\n' ).join( '\n    ' ) },`,
+                        ');',
+                    ] : [
+                        '/**',
+                        ` * ${ args.comment }`,
+                        ' *',
+                        ` * @var ${ args.type }`,
+                        ' */',
+                        `const ${ varName } = ${ content };`,
+                    ];
+                }
+
+                return [
                     '// hooked for access to translation',
-                    '\\add_action(',
-                    '    \'init\',',
-                    '    function () {',
+                    `\\add_action(`,
+                    `    \'init\',`,
+                    `    function () {`,
                     '        // returns',
                     `        if ( \\defined( '${ phpNamespace }${ varName }' ) ) {`,
                     '            return;',
@@ -675,25 +697,8 @@ export namespace getBrandConstants {
                     `            ${ content.split( '\n' ).join( '\n            ' ) },`,
                     '        );',
                     '    },',
-                    '    0,',
-                    ');',
-                ] : args.insideDefine !== false ? [
-                    '/**',
-                    ` * ${ args.comment }`,
-                    ' *',
-                    ` * @var ${ args.type }`,
-                    ' */',
-                    `\\define(`,
-                    `    '${ phpNamespace }${ varName }',`,
-                    `    ${ content.split( '\n' ).join( '\n    ' ) },`,
-                    ');',
-                ] : [
-                    '/**',
-                    ` * ${ args.comment }`,
-                    ' *',
-                    ` * @var ${ args.type }`,
-                    ' */',
-                    `const ${ varName } = ${ content };`,
+                    `    0,`,
+                    `);`,
                 ];
             }
 

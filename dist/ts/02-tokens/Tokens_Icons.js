@@ -99,6 +99,7 @@ export class Tokens_Icons extends AbstractTokens {
             disabled: 0xf15d,
             reset: 0xf15e,
             submit: 0xf15f,
+            continue: 0xf160,
         };
     }
     static get default() {
@@ -500,6 +501,14 @@ export class Tokens_Icons extends AbstractTokens {
                 label: 'Contact',
                 meta: {
                     aliasOf: location.slug,
+                },
+            },
+            continue: {
+                ...right,
+                slug: 'continue',
+                label: 'Continue',
+                meta: {
+                    aliasOf: right.slug,
                 },
             },
             dash,
@@ -949,6 +958,7 @@ export class Tokens_Icons extends AbstractTokens {
         'caution',
         'check',
         'close',
+        'continue',
         'disabled',
         'double-check',
         'download',

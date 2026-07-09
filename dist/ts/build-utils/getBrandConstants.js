@@ -370,11 +370,33 @@ export var getBrandConstants;
                     return [];
                 }
                 phpNamespace = phpNamespace.length ? phpNamespace.replace(/[\/|\\]+$/gi, '') + '\\' : '';
-                return args.insideHook ? [
+                // returns
+                if (!args.insideHook) {
+                    return args.insideDefine !== false ? [
+                        '/**',
+                        ` * ${args.comment}`,
+                        ' *',
+                        ` * @var ${args.type}`,
+                        ' */',
+                        `\\define(`,
+                        `    '${phpNamespace}${varName}',`,
+                        `    ${content.split('\n').join('\n    ')},`,
+                        ');',
+                    ] : [
+                        '/**',
+                        ` * ${args.comment}`,
+                        ' *',
+                        ` * @var ${args.type}`,
+                        ' */',
+                        `const ${varName} = ${content};`,
+                    ];
+                }
+                // const functionName = `define_${ slugify( varName ).replace( /-/g, '_' ) }`;
+                return [
                     '// hooked for access to translation',
-                    '\\add_action(',
-                    '    \'init\',',
-                    '    function () {',
+                    `\\add_action(`,
+                    `    \'init\',`,
+                    `    function () {`,
                     '        // returns',
                     `        if ( \\defined( '${phpNamespace}${varName}' ) ) {`,
                     '            return;',
@@ -390,26 +412,31 @@ export var getBrandConstants;
                     `            ${content.split('\n').join('\n            ')},`,
                     '        );',
                     '    },',
-                    '    0,',
-                    ');',
-                ] : args.insideDefine !== false ? [
-                    '/**',
-                    ` * ${args.comment}`,
-                    ' *',
-                    ` * @var ${args.type}`,
-                    ' */',
-                    `\\define(`,
-                    `    '${phpNamespace}${varName}',`,
-                    `    ${content.split('\n').join('\n    ')},`,
-                    ');',
-                ] : [
-                    '/**',
-                    ` * ${args.comment}`,
-                    ' *',
-                    ` * @var ${args.type}`,
-                    ' */',
-                    `const ${varName} = ${content};`,
+                    `    0,`,
+                    `);`,
                 ];
+                // return [
+                //     '/**',
+                //     ' * Defines brand values. Hooked for access to translation.',
+                //     ' */',
+                //     `function ${ functionName }(): void {`,
+                //     '    // returns',
+                //     `    if ( \\defined( '${ phpNamespace }${ varName }' ) ) {`,
+                //     '        return;',
+                //     '    }',
+                //     '',
+                //     '    /**',
+                //     `     * ${ args.comment }`,
+                //     '     *',
+                //     `     * @var ${ args.type }`,
+                //     '     */',
+                //     `    \\define(`,
+                //     `        '${ phpNamespace }${ varName }',`,
+                //     `        ${ content.split( '\n' ).join( '\n        ' ) },`,
+                //     '    );',
+                //     '}',
+                //     `\\add_action( \'init\', \'${ phpNamespace }${ functionName }\', 0 );`,
+                // ];
             }
             /**
              * Gets a string of valid PHP code for wordpress defining custom
