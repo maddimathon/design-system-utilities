@@ -1,0 +1,211 @@
+///
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/meta';
+
+@use 'pkg:@maddimathon/utility-astro/lib/templates' as utils;
+
+@use '../../config';
+// @use '../../tokens';
+
+@use '../01-functions' as *;
+// @use '../02-mixins' as *;
+@use '../03-snippets' as *;
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-content-blocks(
+    $print_alerts: map.get(config.$template_styles, alerts),
+    $print_icons: map.get(config.$template_styles, icons),
+    $print_logos: map.get(config.$template_styles, logos),
+    $print_searchForm: map.get(config.$template_styles, searchForm),
+    $print_sidebarWidgets: map.get(config.$template_styles, sidebarWidgets),
+    $print_siteSettingsMenu: map.get(config.$template_styles, siteSettingsMenu),
+    $print_siteSettingsMenu_fontOverrides: config.$template_print_siteSettingsMenu_fontOverrides,
+    $print_stickyToggleNav: map.get(config.$template_styles, astro, stickyToggleNav),
+    $print_toggle: map.get(config.$template_styles, toggle),
+    $print_toggleNav: map.get(config.$template_styles, astro, toggleNav),
+    //
+    $css_headings: null,
+    $args...
+) {
+    @if $css_headings == null {
+        $css_headings: config.$template_cssHeadings;
+    }
+
+    @include debug-checkpoint(
+        '#{config.$template_slug} - blocks start',
+        $level: config.$template_debug_checkpointsLevel
+    );
+
+    @include utils.template-content-blocks(
+            $print_icons: false,
+            $print_toggle: false,
+            $print_toggleNav: false,
+            $print_siteSettingsMenu: false,
+            $css_headings: $css_headings,
+            $args...
+        )
+        using ($location) {
+        @content ($location);
+    }
+
+    @if $print_icons {
+        @include debug-checkpoint(
+            '#{config.$template_slug} - blocks - icons start',
+            $level: config.$template_debug_checkpointsLevel + 1,
+            $verbose: true
+        );
+
+        @if $css_headings {
+            /* # BLOCKS - ICONS
+             * ======================================================================== */
+        }
+
+        @include snippet-support-icons;
+    }
+
+    @if $print_logos {
+        @include debug-checkpoint(
+            '#{config.$template_slug} - blocks - logos start',
+            $level: config.$template_debug_checkpointsLevel + 1,
+            $verbose: true
+        );
+
+        @if $css_headings {
+            /* # BLOCKS - LOGOS
+             * ======================================================================== */
+        }
+
+        @include snippet-support-logos;
+    }
+
+    @if $print_alerts {
+        @include debug-checkpoint(
+            '#{config.$template_slug} - blocks - alerts start',
+            $level: config.$template_debug_checkpointsLevel + 1,
+            $verbose: true
+        );
+
+        @if $css_headings {
+            /* # BLOCKS - ALERTS
+             * ======================================================================== */
+        }
+
+        @include snippet-support-alert-blocks;
+    }
+
+    @if $print_searchForm {
+        @include debug-checkpoint(
+            '#{config.$template_slug} - blocks - search form start',
+            $level: config.$template_debug_checkpointsLevel + 1,
+            $verbose: true
+        );
+
+        @if $css_headings {
+            /* # BLOCKS - SEARCH FORM
+             * ======================================================================== */
+        }
+
+        %search-form {
+            @include snippet-search-form;
+        }
+    }
+
+    @if $print_sidebarWidgets {
+        @include debug-checkpoint(
+            '#{config.$template_slug} - blocks - sidebar widgets start',
+            $level: config.$template_debug_checkpointsLevel + 1,
+            $verbose: true
+        );
+
+        @if $css_headings {
+            /* # BLOCKS - SIDEBAR & WIDGETS
+             * ======================================================================== */
+        }
+
+        @include snippet-support-sidebar-widgets;
+    }
+
+    @if $print_toggle {
+        @include debug-checkpoint(
+            '#{config.$template_slug} - blocks - toggle start',
+            $level: config.$template_debug_checkpointsLevel + 1,
+            $verbose: true
+        );
+
+        @if $css_headings {
+            /* # BLOCKS - TOGGLE
+             * ======================================================================== */
+        }
+
+        @include snippet-support-toggle-block using ($location) {
+            // --toggle-loc: #{$location};
+        }
+    }
+
+    @if $print_toggleNav {
+        @include debug-checkpoint(
+            '#{config.$template_slug} - blocks - toggleNav start',
+            $level: config.$template_debug_checkpointsLevel + 1,
+            $verbose: true
+        );
+
+        @if $css_headings {
+            /* # ASTRO COMPONENT - TOGGLE NAV MENU
+             * ======================================================================== */
+        }
+
+        @include snippet-support-astro-toggle-nav-menu;
+    }
+
+    @if $print_stickyToggleNav {
+        @include debug-checkpoint(
+            '#{config.$template_slug} - blocks - stickyToggleNav start',
+            $level: config.$template_debug_checkpointsLevel + 1,
+            $verbose: true
+        );
+
+        @if $css_headings {
+            /* # ASTRO SUPPORT - STICKY TOGGLE NAV
+             * ======================================================================== */
+        }
+
+        @include snippet-support-astro-sticky-toggle-nav(
+            $includeToggleNavSupport: not $print_toggleNav
+        );
+    }
+
+    @if $print_siteSettingsMenu {
+        @include debug-checkpoint(
+            '#{config.$template_slug} - blocks - settingsMenu start',
+            $level: config.$template_debug_checkpointsLevel + 1,
+            $verbose: true
+        );
+
+        @if $css_headings {
+            /* # BLOCKS - SETTINGS MENU
+             * ======================================================================== */
+        }
+
+        @include snippet-support-site-settings-menu;
+    }
+
+    @if $print_siteSettingsMenu_fontOverrides and tokens-has-font-family-overrides() {
+        @include debug-checkpoint(
+            '#{config.$template_slug} - blocks - settingsMenu - font overrides start',
+            $level: config.$template_debug_checkpointsLevel + 1,
+            $verbose: true
+        );
+
+        @if $css_headings {
+            /* ## Blocks - Settings Menu - Font Overrides ==================================== */
+        }
+
+        @include snippet-support-site-settings-menu-font-overrides;
+    }
+}

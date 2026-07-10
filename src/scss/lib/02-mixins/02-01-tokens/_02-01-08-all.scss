@@ -12,6 +12,7 @@
 
 @use 'pkg:@maddimathon/utility-astro/02-mixins' as utils;
 
+@use '../02-00-meta' as *;
 @use '02-01-01-spacing' as *;
 // @use '02-01-02-modes' as *;
 @use '02-01-02-colours' as *;
@@ -67,7 +68,9 @@
 
     // typography
     @if $fontFace {
-        @include tokens-font-face;
+        @include template-design-system {
+            @include tokens-font-face;
+        }
     }
 
     @include utils.tokens-all(
@@ -99,104 +102,106 @@
         );
     }
 
-    // margin
-    @if $margin {
-        @include tokens-margin($includeRegion: $includeRegion);
-    }
-
-    @if $fontSize {
-        @include tokens-font-size($includeRegion: $includeRegion);
-    }
-    @if $fontFamily {
-        @include tokens-font-family($includeRegion: $includeRegion);
-    }
-    @if $lineHeight {
-        @include tokens-line-height($includeRegion: $includeRegion);
-    }
-
-    @if $checkpointName {
-        @include debug-checkpoint(
-            '#{$checkpointName} - tokens-all - after type',
-            $level: $checkpointLevel
-        );
-    }
-
-    // decoration
-    @if $borderRadius {
-        @include tokens-border-radius($includeRegion: $includeRegion);
-    }
-    @if $borderWidth {
-        @include tokens-border-width($includeRegion: $includeRegion);
-    }
-    @if $strokeRelative {
-        @include tokens-stroke-relative($includeRegion: $includeRegion);
-    }
-    @if $zIndex {
-        @include tokens-z-index($includeRegion: $includeRegion);
-    }
-
-    @if $style != false {
-        @include tokens-style(
-            $includeRegion: $includeRegion,
-            $requiredOnly: if($style == true, false, null)
-        );
-    }
-
-    @if $checkpointName {
-        @include debug-checkpoint(
-            '#{$checkpointName} - tokens-all - after decorations',
-            $level: $checkpointLevel
-        );
-    }
-
-    // animation
-    @if $transition {
-        @include tokens-transition($includeRegion: $includeRegion, $trTime: $trTime);
-
-        @if $checkpointName {
-            @include debug-checkpoint(
-                '#{$checkpointName} - tokens-all - after animation',
-                $level: $checkpointLevel
-            );
+    @include template-design-system {
+        // margin
+        @if $margin {
+            @include tokens-margin($includeRegion: $includeRegion);
         }
-    }
 
-    // colours
-    @if $colour {
-        @if $checkpointName {
-            @include debug-checkpoint(
-                '#{$checkpointName} - tokens-all - before colour',
-                $level: $checkpointLevel
-            );
+        @if $fontSize {
+            @include tokens-font-size($includeRegion: $includeRegion);
         }
-        @include tokens-colour($includeRegion: $includeRegion);
-        @if $checkpointName {
-            @include debug-checkpoint(
-                '#{$checkpointName} - tokens-all - after colour',
-                $level: $checkpointLevel + 1
-            );
+        @if $fontFamily {
+            @include tokens-font-family($includeRegion: $includeRegion);
         }
-    }
-    @if $theme {
+        @if $lineHeight {
+            @include tokens-line-height($includeRegion: $includeRegion);
+        }
+
         @if $checkpointName {
             @include debug-checkpoint(
-                '#{$checkpointName} - tokens-all - before theme',
+                '#{$checkpointName} - tokens-all - after type',
                 $level: $checkpointLevel
             );
         }
 
-        @include tokens-theme(
-            $checkpointName: $checkpointName,
-            $checkpointLevel: $checkpointLevel + 1,
-            $includeRegion: $includeRegion,
-            $includeSystemColours: $sysColours
-        );
+        // decoration
+        @if $borderRadius {
+            @include tokens-border-radius($includeRegion: $includeRegion);
+        }
+        @if $borderWidth {
+            @include tokens-border-width($includeRegion: $includeRegion);
+        }
+        @if $strokeRelative {
+            @include tokens-stroke-relative($includeRegion: $includeRegion);
+        }
+        @if $zIndex {
+            @include tokens-z-index($includeRegion: $includeRegion);
+        }
+
+        @if $style != false {
+            @include tokens-style(
+                $includeRegion: $includeRegion,
+                $requiredOnly: if($style == true, false, null)
+            );
+        }
 
         @if $checkpointName {
             @include debug-checkpoint(
-                '#{$checkpointName} - tokens-all - after theme',
-                $level: $checkpointLevel + 1
+                '#{$checkpointName} - tokens-all - after decorations',
+                $level: $checkpointLevel
             );
+        }
+
+        // animation
+        @if $transition {
+            @include tokens-transition($includeRegion: $includeRegion, $trTime: $trTime);
+
+            @if $checkpointName {
+                @include debug-checkpoint(
+                    '#{$checkpointName} - tokens-all - after animation',
+                    $level: $checkpointLevel
+                );
+            }
+        }
+
+        // colours
+        @if $colour {
+            @if $checkpointName {
+                @include debug-checkpoint(
+                    '#{$checkpointName} - tokens-all - before colour',
+                    $level: $checkpointLevel
+                );
+            }
+            @include tokens-colour($includeRegion: $includeRegion);
+            @if $checkpointName {
+                @include debug-checkpoint(
+                    '#{$checkpointName} - tokens-all - after colour',
+                    $level: $checkpointLevel + 1
+                );
+            }
+        }
+        @if $theme {
+            @if $checkpointName {
+                @include debug-checkpoint(
+                    '#{$checkpointName} - tokens-all - before theme',
+                    $level: $checkpointLevel
+                );
+            }
+
+            @include tokens-theme(
+                $checkpointName: $checkpointName,
+                $checkpointLevel: $checkpointLevel + 1,
+                $includeRegion: $includeRegion,
+                $includeSystemColours: $sysColours
+            );
+
+            @if $checkpointName {
+                @include debug-checkpoint(
+                    '#{$checkpointName} - tokens-all - after theme',
+                    $level: $checkpointLevel + 1
+                );
+            }
         }
     }
 }

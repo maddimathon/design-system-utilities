@@ -1,19 +1,19 @@
 @charset "UTF-8";
-/**
- * Design System Utilities - Template - Global
- * @maddimathon/design-system-utilities/template/global@0.1.0-beta.0.draft
- * 
- * https://maddimathon.github.io/design-system-utilities
- */
 /*!
  * This stylesheet includes css generated using 
  * @maddimathon/utility-sass@0.1.0-beta.0.draft
  * 
  * https://maddimathon.github.io/utility-sass
  */
-/*! START of @maddimathon/design-system-utilities/template/global */
+/**
+ * Design System Utilities - Template - Global
+ * @maddimathon/design-system-utilities/template/global@0.1.0-beta.0.draft
+ * 
+ * https://maddimathon.github.io/design-system-utilities
+ */
 /* # TOKENS & PROPERTIES
  * ======================================================================== */
+/*! START of @maddimathon/utility-sass/template */
 /* #region Tokens - @property */
 @property --display {
     syntax: "*";
@@ -170,6 +170,8 @@
     initial-value: 0px;
 }
 /* #endregion Tokens - @property */
+/*! END of @maddimathon/utility-sass/template */
+/*! START of @maddimathon/design-system-utilities/template/global */
 /* #region Tokens - Style */
 :root {
     --icon-font-top: 0.1875em;
@@ -4678,6 +4680,7 @@
     }
 }
 /* #endregion Tokens - Theme - light/dark mode + forced-colors contrast */
+/*! END of @maddimathon/design-system-utilities/template/global */
 /* # ANIMATIONS
  * ======================================================================== */
 /* #region Animations - Keyframes */
@@ -4702,10 +4705,9 @@
     }
 }
 /* #endregion Animations - Keyframes */
-/*! START of @maddimathon/utility-astro/template */
-/*! START of @maddimathon/utility-sass/template */
 /* # GLOBALS - ACCESSIBILITY
  * ======================================================================== */
+/*! START of @maddimathon/utility-sass/template */
 .screen-reader-text {
     position: absolute !important;
     left: -10000px !important;
@@ -4716,62 +4718,9 @@
     overflow: hidden !important;
 }
 
-/* # GLOBALS - OBJECTS
- * ======================================================================== */
-hr {
-    display: block;
-    align-self: center;
-    justify-self: center;
-    margin-top: 2.25rem;
-    margin-bottom: 2.25rem;
-    margin-left: 9%;
-    margin-right: 9%;
-    width: 72.92%;
-    max-width: 26.25rem;
-    border: none;
-    border-bottom: currentColor solid 0.125rem;
-}
-
-/* # GLOBALS - TYPOGRAPHY
- * ======================================================================== */
-/* ## Typography - Inline ==================================== */
-strong,
-b {
-    font-weight: 700;
-}
-strong strong,
-b strong {
-    font-weight: 800;
-}
-strong strong strong,
-b strong strong {
-    font-weight: 900;
-}
-
-em,
-i {
-    font-style: italic;
-}
-em em,
-i em {
-    font-style: normal;
-}
-em em em,
-i em em {
-    font-style: italic;
-}
-
-abbr[title] {
-    -webkit-text-decoration: dotted underline 0.1875em;
-    text-decoration: dotted underline 0.1875em;
-    cursor: help;
-}
-
 /*! END of @maddimathon/utility-sass/template */
-/*! END of @maddimathon/utility-astro/template */
-/* # GLOBALS - ACCESSIBILITY
- * ======================================================================== */
 /* ## Accessibility - Focus Ring ==================================== */
+/*! START of @maddimathon/design-system-utilities/template/global */
 [data-state-focus="true"],
 .no-js :focus,
 .js__no-whereSelector :focus {
@@ -4816,8 +4765,10 @@ abbr[title] {
     outline-offset: var(--focus-ring-outline-offset, 0.125em);
 }
 
-/* # GLOBALS - OBJECTS
+/*! END of @maddimathon/design-system-utilities/template/global */
+/* # GLOBALS - FLOW MARGINS
  * ======================================================================== */
+/*! START of @maddimathon/design-system-utilities/template/global */
 cite,
 p {
     margin-top: 0.78125rem;
@@ -4842,24 +4793,24 @@ dt + li {
     margin-top: 1.84375rem;
     margin-top: var(--flow-margin--large, 1.84375rem);
 }
-dt + hr,
 dt + button,
 dt + [role="button"],
 dt + details,
 dt + pre,
 dt + img,
-dt + figure {
+dt + figure,
+dt + hr {
     margin-top: 2.25rem;
     margin-top: var(--flow-margin-firm-start--large, 2.25rem);
 }
 
-hr,
 button,
 [role="button"],
 details,
 pre,
 img,
-figure {
+figure,
+hr {
     margin-top: 1.25rem;
     margin-bottom: 0.46875rem;
     margin-top: var(--flow-margin-firm-start, 1.25rem);
@@ -4903,51 +4854,71 @@ figure {
     margin-bottom: 0;
 }
 
-form,
+blockquote,
 table,
-blockquote {
+form {
     margin-top: 2.25rem;
     margin-bottom: 0.40625rem;
     margin-top: var(--flow-margin-firm-start--large, 2.25rem);
     margin-bottom: var(--flow-margin-firm-end--large, 0.40625rem);
 }
-form + cite,
-table + cite,
 blockquote + cite,
-form + p,
-table + p,
+table + cite,
+form + cite,
 blockquote + p,
-form + li,
+table + p,
+form + p,
+blockquote + li,
 table + li,
-blockquote + li {
+form + li {
     margin-top: 1.84375rem;
     margin-top: var(--flow-margin--large, 1.84375rem);
 }
-form + hr,
-table + hr,
-blockquote + hr,
-form + button,
-table + button,
 blockquote + button,
-form + [role="button"],
-table + [role="button"],
 blockquote + [role="button"],
-form + details,
-table + details,
 blockquote + details,
-form + pre,
-table + pre,
 blockquote + pre,
-form + img,
-table + img,
 blockquote + img,
-form + figure,
+blockquote + figure,
+table + button,
+table + [role="button"],
+table + details,
+table + pre,
+table + img,
 table + figure,
-blockquote + figure {
+blockquote + hr,
+table + hr,
+form + button,
+form + [role="button"],
+form + details,
+form + pre,
+form + img,
+form + figure,
+form + hr {
     margin-top: 2.25rem;
     margin-top: var(--flow-margin-firm-start--large, 2.25rem);
 }
 
+/*! END of @maddimathon/design-system-utilities/template/global */
+/* # GLOBALS - OBJECTS
+ * ======================================================================== */
+/*! START of @maddimathon/utility-sass/template */
+hr {
+    display: block;
+    align-self: center;
+    justify-self: center;
+    margin-top: 2.25rem;
+    margin-bottom: 2.25rem;
+    margin-left: 9%;
+    margin-right: 9%;
+    width: 72.92%;
+    max-width: 26.25rem;
+    border: none;
+    border-bottom: currentColor solid 0.125rem;
+}
+
+/*! END of @maddimathon/utility-sass/template */
+/*! START of @maddimathon/design-system-utilities/template/global */
 hr {
     --icon-color: currentColor !important;
     border-color: currentColor;
@@ -4956,16 +4927,16 @@ hr {
     color: var(--theme-ui-primary, CanvasText);
 }
 
-img,
 figure,
+img,
 svg {
     margin-left: 0;
     margin-right: 0;
     max-width: 100%;
 }
 
-a[href] img,
 a[href] figure,
+a[href] img,
 a[href] svg {
     display: inline-block;
 }
@@ -4997,8 +4968,10 @@ figure svg {
     margin-top: 0;
 }
 
+/*! END of @maddimathon/design-system-utilities/template/global */
 /* # GLOBALS - TYPOGRAPHY
  * ======================================================================== */
+/*! START of @maddimathon/design-system-utilities/template/global */
 ::-moz-selection {
     --icon-color: currentColor !important;
     background-color: hsl(322.17, 58.42%, 64.6%) !important;
@@ -5026,7 +4999,37 @@ figure svg {
     color: inherit !important;
 }
 
+/*! END of @maddimathon/design-system-utilities/template/global */
 /* ## Typography - Inlines ==================================== */
+/*! START of @maddimathon/utility-sass/template */
+strong,
+b {
+    font-weight: 700;
+}
+strong strong,
+b strong {
+    font-weight: 800;
+}
+strong strong strong,
+b strong strong {
+    font-weight: 900;
+}
+
+em,
+i {
+    font-style: italic;
+}
+em em,
+i em {
+    font-style: normal;
+}
+em em em,
+i em em {
+    font-style: italic;
+}
+
+/*! END of @maddimathon/utility-sass/template */
+/*! START of @maddimathon/design-system-utilities/template/global */
 a[href] {
     --focus-ring-outline-offset: 0.125em;
     display: inline;
@@ -5222,7 +5225,9 @@ abbr[title] {
     text-underline-offset: 0.25em;
 }
 
+/*! END of @maddimathon/design-system-utilities/template/global */
 /* ## Typography - Blocks ==================================== */
+/*! START of @maddimathon/design-system-utilities/template/global */
 p:empty {
     display: none;
 }
@@ -5481,6 +5486,7 @@ pre.language-plaintext:has(> samp) > code {
     text-wrap: auto;
 }
 
+/*! END of @maddimathon/design-system-utilities/template/global */
 /* ## Typography - Headings ==================================== */
 h1,
 h2,
@@ -5495,16 +5501,16 @@ h6 {
 }
 :is(h1, h2, h3, h4, h5, h6):has(
     + :is(
-        hr,
         button,
         [role="button"],
         details,
         pre,
         img,
         figure,
-        form,
+        hr,
+        blockquote,
         table,
-        blockquote
+        form
     )
 ) {
     margin-bottom: 0;
@@ -5955,6 +5961,7 @@ dd {
 
 /* # GLOBALS - FORMS
  * ======================================================================== */
+/*! START of @maddimathon/design-system-utilities/template/global */
 fieldset {
     display: flex;
     position: relative;
@@ -6076,6 +6083,7 @@ fieldset legend:first-child {
     padding-right: var(--flow-margin--small, 0.5rem);
 }
 
+/*! END of @maddimathon/design-system-utilities/template/global */
 textarea,
 select,
 input {
@@ -8880,6 +8888,5 @@ td.min-width-none {
  * ======================================================================== */
 /* # UTILITIES - TYPOGRAPHY
  * ======================================================================== */
-/* # UTILITIES - THEMES
+/* # UTILITIES - THEMES & COLOURS
  * ======================================================================== */
-/*! END of @maddimathon/design-system-utilities/template/global */

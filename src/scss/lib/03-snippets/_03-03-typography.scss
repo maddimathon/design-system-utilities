@@ -563,10 +563,13 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
         $slug: '1';
     }
 
+    $slug_is_truthy: meta.is-truthy($slug);
+    $slug_is_number: $slug != unstyled and $slug_is_truthy;
+
     $marginBlockStart: if(
         $marginBlockStart != null,
         $marginBlockStart,
-        if($slug == unstyled or not $slug, false, var-style(heading-#{$slug}-margin-block-start))
+        if(not $slug_is_number, false, var-style(heading-#{$slug}-margin-block-start))
     );
 
     @if $includeBase {
@@ -577,7 +580,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
         $marginBlockEnd: if(
             $marginBlockEnd != null,
             $marginBlockEnd,
-            if($slug == unstyled or not $slug, false, var-style(heading-#{$slug}-margin-block-end))
+            if(not $slug_is_number, false, var-style(heading-#{$slug}-margin-block-end))
         );
 
         @if $marginBlockStart != false {
@@ -602,7 +605,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     @if $fontFamily != false {
         @if $fontFamily {
             font-family: $fontFamily;
-        } @else if $slug == 'unstyled' {
+        } @else if $slug == unstyled {
             font-family: var-style(heading-unstyled-font-family);
         } @else if $includeBase {
             @if font-family-exists(heading) {
@@ -611,7 +614,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
         }
     }
 
-    @if $slug {
+    @if $slug_is_truthy {
         $fontSize: if(
             $fontSize != null,
             $fontSize,
@@ -649,7 +652,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
         text-wrap: balance;
     }
 
-    @if $slug and $fontStyle != false {
+    @if $slug_is_truthy and $fontStyle != false {
         $fontStyle: if($fontStyle != null, $fontStyle, var-style(heading-#{$slug}-font-style));
 
         font-style: $fontStyle;
@@ -663,7 +666,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
         @content (root);
     }
 
-    @if $includeColor and $slug {
+    @if $slug_is_truthy and $includeColor {
         $_color: if(
             $color,
             $color,
@@ -674,7 +677,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
         color: $_color;
     }
 
-    @if $slug and $fontStyle == italic {
+    @if $slug_is_truthy and $fontStyle == italic {
         em {
             font-style: normal;
 
@@ -689,7 +692,17 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     }
 
     @if $includeHGroup {
+        &--hgroup {
+            // /* this heading in an hgroup */
+
+            @if $includeBase {
+                margin-block-start: 0;
+            }
+        }
+
         &__hgroup {
+            // /* hgroup wrapper */
+
             @if $includeBase {
                 @include prop-display(flex);
                 @include utils.snippet-content-flex-container;
@@ -712,19 +725,6 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
                 }
                 :is(&) > :first-child {
                     @include snippet-first-child-no-top-margin(
-                        $includeChildren: true,
-                        $includeRoot: false
-                    );
-                }
-
-                > :last-child {
-                    @include snippet-last-child-no-bottom-margin(
-                        $includeChildren: false,
-                        $includeRoot: true
-                    );
-                }
-                :is(&) > :last-child {
-                    @include snippet-last-child-no-bottom-margin(
                         $includeChildren: true,
                         $includeRoot: false
                     );

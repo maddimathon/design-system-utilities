@@ -1,0 +1,724 @@
+///
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/meta';
+@use 'pkg:@maddimathon/utility-sass/selector';
+
+@use 'pkg:@maddimathon/utility-astro/lib/templates' as utils;
+
+@use '../../config';
+@use '../../tokens';
+
+@use '../01-functions' as *;
+@use '../02-mixins' as *;
+@use '../03-snippets' as *;
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-content-abstracts(
+    $print_keyframes: map.get(config.$template_styles, keyframes),
+    $print_tokens: config.$template_tokens,
+    //
+    $css_headings: null,
+    $args...
+) {
+    $_print_any: $print_keyframes or $print_tokens;
+
+    @if $css_headings == null {
+        $css_headings: if(config.$template_cssHeadings and $_print_any, true, null);
+    }
+
+    @include utils.template-content-abstracts(
+            $print_tokens: false,
+            $css_headings: $css_headings,
+            $args...
+        )
+        using ($location) {
+        @if $location == tokens and $print_tokens {
+            @if $css_headings {
+                /* # TOKENS & PROPERTIES
+                 * ======================================================================== */
+            }
+
+            @include debug-checkpoint(
+                'design-system-utilities/#{config.$template_slug} - tokens start',
+                $level: config.$template_debug_checkpointsLevel
+            );
+
+            @include tokens-all(
+                $checkpointName: 'design-system-utilities/#{config.$template_slug}',
+                $checkpointLevel: config.$template_debug_checkpointsLevel + 1
+            );
+
+            @include debug-checkpoint(
+                'design-system-utilities/#{config.$template_slug} - tokens end',
+                $level: config.$template_debug_checkpointsLevel + 1
+            );
+
+            @content ($location);
+        } @else {
+            @content ($location);
+        }
+    }
+
+    @if $print_keyframes {
+        @if $css_headings {
+            /* # ANIMATIONS
+             * ======================================================================== */
+        }
+
+        @include animation-keyframes;
+
+        @include debug-checkpoint(
+            'design-system-utilities/#{config.$template_slug} - animation keyframes end',
+            $level: config.$template_debug_checkpointsLevel + 1
+        );
+    }
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-content-globals-accessibility(
+    $print_focusRing: map.get(config.$template_styles, focusRing),
+    $print_skipLinks: map.get(config.$template_styles, skipLinks),
+    //
+    $css_headings: null,
+    $content_exists: null,
+    $args...
+) {
+    $_print_any: $print_focusRing or $print_skipLinks;
+
+    @if $content_exists == null {
+        $content_exists: meta.content-exists();
+    }
+
+    @if $css_headings == null {
+        $css_headings: if(
+            config.$template_cssHeadings and ($content_exists or $_print_any),
+            true,
+            null
+        );
+    }
+
+    @include utils.template-content-globals-accessibility(
+            $print_focusRing: false,
+            $print_skipLinks: false,
+            $css_headings: $css_headings,
+            $content_exists: $content_exists,
+            $args...
+        )
+        using ($location) {
+        @if $location != focusRing and $location != skipLinks {
+            @content ($location);
+        }
+    }
+
+    @include debug-checkpoint(
+        '#{config.$template_slug} - globals - accessibility start',
+        $level: config.$template_debug_checkpointsLevel + 1,
+        $verbose: true
+    );
+
+    @if $print_focusRing {
+        @if $css_headings {
+            /* ## Accessibility - Focus Ring ==================================== */
+        }
+
+        @include template-design-system {
+            @include snippet-support-focus-ring;
+        }
+    }
+    @content (focusRing);
+
+    @if $print_skipLinks {
+        @if $css_headings {
+            /* ## Accessibility - Skip Links ==================================== */
+        }
+
+        @include template-design-system {
+            @include snippet-support-skip-links;
+        }
+    }
+    @content (skipLinks);
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-content-globals-forms(
+    $print_buttons: map.get(config.$template_styles, buttons),
+    $print_fieldset: map.get(config.$template_styles, fieldset),
+    $print_inputs: map.get(config.$template_styles, inputs),
+    //
+    $css_headings: null,
+    $content_exists: null,
+    $args...
+) {
+    $_print_any: $print_buttons or $print_fieldset or $print_inputs;
+
+    @if $content_exists == null {
+        $content_exists: meta.content-exists();
+    }
+
+    @if $css_headings == null {
+        $css_headings: if(
+            config.$template_cssHeadings and ($content_exists or $_print_any),
+            true,
+            null
+        );
+    }
+
+    @include debug-checkpoint(
+        '#{config.$template_slug} - globals - forms start',
+        $level: config.$template_debug_checkpointsLevel + 1,
+        $verbose: true
+    );
+
+    @include utils.template-content-globals-forms(
+            $print_buttons: false,
+            $print_fieldset: false,
+            $print_inputs: false,
+
+            $css_headings: $css_headings,
+            $content_exists: $content_exists,
+            $args...
+        )
+        using ($location) {
+        @if $location != buttons and $location != fieldset and $location != inputs {
+            @content ($location);
+        }
+    }
+
+    @if $print_fieldset {
+        @include template-design-system {
+            %fieldset {
+                @include snippet-fieldset;
+            }
+
+            %legend {
+                @include snippet-legend;
+            }
+        }
+    }
+    @content (fieldset);
+
+    @if $print_inputs {
+        @include snippet-support-form-inputs;
+    }
+    @content (inputs);
+
+    @if $print_buttons {
+        @if $css_headings {
+            /* ## Forms - Buttons ==================================== */
+        }
+
+        @include snippet-support-all-buttons;
+    }
+    @content (buttons);
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-content-globals-lists(
+    $print_dl: map.get(config.$template_styles, dl),
+    $print_lists: map.get(config.$template_styles, lists),
+    //
+    $css_headings: null,
+    $content_exists: null,
+    $args...
+) {
+    $_print_any: $print_dl or $print_lists;
+
+    @if $content_exists == null {
+        $content_exists: meta.content-exists();
+    }
+
+    @if $css_headings == null {
+        $css_headings: if(
+            config.$template_cssHeadings and ($content_exists or $_print_any),
+            true,
+            null
+        );
+    }
+
+    @include debug-checkpoint(
+        '#{config.$template_slug} - globals - lists start',
+        $level: config.$template_debug_checkpointsLevel + 1,
+        $verbose: true
+    );
+
+    @include utils.template-content-globals-lists(
+            $print_lists: false,
+            $css_headings: $css_headings,
+            $content_exists: $content_exists,
+            $args...
+        )
+        using ($location) {
+        @if $location == lists and $print_lists {
+            @include snippet-support-lists;
+            @content ($location);
+        }
+        //
+        @else {
+            @content ($location);
+        }
+    }
+
+    @if $print_dl {
+        @include snippet-support-dl-list;
+    }
+    @content (dl);
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-content-globals-objects(
+    $print_flowMargins: map.get(config.$template_styles, flowMargins),
+    $print_hr: map.get(config.$template_styles, hr),
+    $print_images: map.get(config.$template_styles, images),
+    //
+    $css_headings: null,
+    $content_exists: null,
+    $args...
+) {
+    $_print_any: $print_flowMargins or $print_hr or $print_images;
+
+    @if $content_exists == null {
+        $content_exists: meta.content-exists();
+    }
+
+    @if $css_headings == null {
+        $css_headings: if(
+            config.$template_cssHeadings and ($content_exists or $_print_any),
+            true,
+            null
+        );
+    }
+
+    @include debug-checkpoint(
+        '#{config.$template_slug} - globals - objects start',
+        $level: config.$template_debug_checkpointsLevel + 1,
+        $verbose: true
+    );
+
+    @if $print_flowMargins {
+        @if $css_headings {
+            /* # GLOBALS - FLOW MARGINS
+             * ======================================================================== */
+        }
+
+        @include template-design-system {
+            @include set-flow-margins(
+                $buttonGapBlock: style-value(flow-margin-button, $raw: true),
+                $defineChildProps: true,
+                $defineCustomProps: false
+            );
+        }
+    }
+    @content (flowMargins);
+
+    @include utils.template-content-globals-objects(
+            $print_hr: $print_hr,
+            $css_headings: $css_headings,
+            $content_exists: $content_exists,
+            $args...
+        )
+        using ($location) {
+        @if $location != hr {
+            @content ($location);
+        }
+    }
+
+    @if $print_hr or $print_images {
+        @include template-design-system {
+            @if $print_hr {
+                %hr {
+                    @include cx-prop(icon-color, currentColor !important);
+                    border-color: currentColor;
+                    border-width: var-style(hr-border-width);
+                    color: var-style(hr-color);
+                }
+            }
+            @content (hr);
+
+            @if $print_images {
+                @include snippet-support-images;
+            }
+            @content (img);
+        }
+    } @else {
+        @content (hr);
+        @content (img);
+    }
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-content-globals-tables(
+    $print_table: map.get(config.$template_styles, table),
+    //
+    $css_headings: null,
+    $content_exists: null,
+    $args...
+) {
+    $_print_any: $print_table;
+
+    @if $content_exists == null {
+        $content_exists: meta.content-exists();
+    }
+
+    @if $css_headings == null {
+        $css_headings: if(
+            config.$template_cssHeadings and ($content_exists or $_print_any),
+            true,
+            null
+        );
+    }
+
+    @include debug-checkpoint(
+        '#{config.$template_slug} - globals - tables start',
+        $level: config.$template_debug_checkpointsLevel + 1,
+        $verbose: true
+    );
+
+    @include utils.template-content-globals-tables(
+            $print_table: false,
+            $css_headings: $css_headings,
+            $content_exists: $content_exists,
+            $args...
+        )
+        using ($location) {
+        @if $location != table {
+            @content ($location);
+        }
+    }
+
+    @if $print_table {
+        @include snippet-support-tables;
+    }
+    @content (table);
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-content-globals-typography(
+    $print_a: map.get(config.$template_styles, a),
+    $print_abbr: map.get(config.$template_styles, abbr),
+    $print_aside: map.get(config.$template_styles, aside),
+    $print_code: map.get(config.$template_styles, code),
+    $print_headings: map.get(config.$template_styles, headings),
+    $print_blockquote: map.get(config.$template_styles, blockquote),
+    $print_p: map.get(config.$template_styles, p),
+    $print_pre: map.get(config.$template_styles, pre),
+    $print_selection: map.get(config.$template_styles, selection),
+    $print_typeDefaults: map.get(config.$template_styles, typeDefaults),
+    //
+    $css_headings: null,
+    $css_headings_blocks: null,
+    $css_headings_inlines: null,
+    $content_exists: null,
+    $args...
+) {
+    $_print_blocks_any: $print_aside or $print_blockquote or $print_code or $print_headings or
+        $print_p or $print_pre;
+    $_print_inlines_any: $print_a or $print_abbr;
+
+    $_print_any: $print_headings or $print_selection or $print_typeDefaults or $_print_blocks_any or
+        $_print_inlines_any;
+
+    @if $content_exists == null {
+        $content_exists: meta.content-exists();
+    }
+
+    @if $css_headings == null {
+        $css_headings: if(
+            config.$template_cssHeadings and ($content_exists or $_print_any),
+            true,
+            null
+        );
+    }
+
+    @if $css_headings_blocks == null {
+        $css_headings_blocks: if(
+            $css_headings != false and ($content_exists or $_print_blocks_any),
+            true,
+            null
+        );
+    }
+
+    @if $css_headings_inlines == null {
+        $css_headings_inlines: if(
+            $css_headings != false and ($content_exists or $_print_inlines_any),
+            true,
+            null
+        );
+    }
+
+    @include debug-checkpoint(
+        '#{config.$template_slug} - globals - typography start',
+        $level: config.$template_debug_checkpointsLevel + 1,
+        $verbose: true
+    );
+
+    @include utils.template-content-globals-typography(
+            $print_a: false,
+            $print_abbr: false,
+            $print_code: false,
+            $print_headings: false,
+            $print_blockquote: false,
+            $print_p: false,
+            $print_pre: false,
+            $print_selection: false,
+            $print_typeDefaults: false,
+            //
+            $css_headings: $css_headings,
+            $css_headings_blocks: $css_headings_blocks,
+            $css_headings_inlines: $css_headings_inlines,
+            $content_exists: $content_exists,
+            $args...
+        )
+        using ($location) {
+        //
+        @if $location == start-end {
+            @if $print_selection or $print_selection {
+                @include template-design-system {
+                    @if $print_selection {
+                        %selection {
+                            @include cx-prop(icon-color, currentColor !important);
+
+                            @include snippet-selection;
+
+                            * {
+                                color: inherit !important;
+                            }
+                        }
+                    }
+                    @content (selection);
+
+                    @if $print_typeDefaults {
+                        @if config.$include_html {
+                            %root {
+                                @if font-family-exists(body) {
+                                    font-family: var-font-family(body);
+                                } @else {
+                                    font-family: font-family-system-ui();
+                                }
+                                font-weight: 400;
+                                line-height: var-line-height('400');
+                                font-size: 110%;
+
+                                @include min-width(mobile) {
+                                    font-size: 105%;
+                                }
+
+                                @include min-width(tablet) {
+                                    font-size: 100%;
+                                }
+                            }
+                        }
+
+                        %body {
+                            font-size: var-fs(normal);
+                        }
+                    }
+                    @content (typeDefaults);
+                }
+            } @else {
+                @content (selection);
+                @content (typeDefaults);
+            }
+
+            @content ($location);
+        }
+        //
+        @else if $location == end-inlines {
+            @if $print_a or $print_abbr {
+                @include template-design-system {
+                    @if $print_a {
+                        %a {
+                            @include snippet-link;
+                        }
+                    }
+                    @content (a);
+
+                    @if $print_abbr {
+                        %abbr {
+                            &[title] {
+                                text-decoration: dotted underline var-stroke-relative('400');
+                                text-decoration-color: var-theme(ui-primary);
+                                text-underline-offset: var-stroke-relative('600');
+                            }
+                        }
+                    }
+                    @content (abbr);
+                }
+            } @else {
+                @content (a);
+                @content (abbr);
+            }
+
+            @content ($location);
+        }
+        //
+        @else if $location == end-blocks {
+            @if $print_p or $print_blockquote or $print_code or $print_pre or $print_aside {
+                @include template-design-system {
+                    @if $print_p {
+                        %p {
+                            &:empty {
+                                display: none;
+                            }
+                        }
+                    }
+                    @content (p);
+
+                    @if $print_blockquote {
+                        %blockquote {
+                            @include snippet-blockquote(
+                                $display: if(
+                                        map.get(config.$template_styles, astro, bodyGrid),
+                                        flex,
+                                        if(map.get(config.$template_styles, bodyFlow), flex, block)
+                                    )
+                            );
+                        }
+                    }
+                    @content (blockquote);
+
+                    @if $print_code or $print_pre {
+                        @include snippet-support-code(
+                            $includeBase: $print_code,
+                            $includePre: $print_pre
+                        );
+                    }
+                    @content (code-and-pre);
+
+                    @if $print_aside {
+                        %aside {
+                            // UPGRADE - convert to style tokens
+                            font-style: italic;
+                            @include theme-set-color(primary);
+
+                            %a {
+                                @include snippet-link-colours-inherit(
+                                    $textDecorationColor: var-theme(ui-primary)
+                                );
+                            }
+
+                            em {
+                                font-style: normal;
+
+                                em {
+                                    font-style: italic;
+                                }
+                            }
+                        }
+                    }
+                    @content (aside);
+                }
+            } @else {
+                @content (blockquote);
+                @content (code);
+                @content (pre);
+                @content (aside);
+            }
+
+            @content ($location);
+        }
+        //
+        @else if
+            (not $location == a) and
+            (not $location == abbr) and
+            (not $location == aside) and
+            (not $location == blockquote) and
+            (not $location == code) and
+            (not $location == headings) and
+            (not $location == p) and
+            (not $location == pre) and
+            (not $location == selection) and
+            (not $location == typeDefaults)
+        {
+            @content ($location);
+        }
+    }
+
+    @if $print_headings {
+        @if $css_headings {
+            /* ## Typography - Headings ==================================== */
+        }
+
+        @include snippet-support-all-headings;
+    }
+    @content (headings);
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-content-globals(
+    $print_accessibility: true,
+    $print_forms: true,
+    $print_lists: true,
+    $print_objects: true,
+    $print_tables: true,
+    $print_typography: true,
+    //
+    $css_headings: null,
+    $args...
+) {
+    @include utils.template-content-globals(
+            $print_accessibility: false,
+            $print_forms: false,
+            $print_lists: false,
+            $print_objects: false,
+            $print_tables: false,
+            $print_typography: false,
+            $css_headings: $css_headings,
+            $args...
+        )
+        using ($location) {
+        @if $location == accessibility and $print_accessibility {
+            @include template-content-globals-accessibility($css_headings: $css_headings);
+            @content ($location);
+        }
+        //
+        @else if $location == forms and $print_forms {
+            @include template-content-globals-forms($css_headings: $css_headings);
+            @content ($location);
+        }
+        //
+        @else if $location == lists and $print_lists {
+            @include template-content-globals-lists($css_headings: $css_headings);
+            @content ($location);
+        }
+        //
+        @else if $location == objects and $print_objects {
+            @include template-content-globals-objects($css_headings: $css_headings);
+            @content ($location);
+        }
+        //
+        @else if $location == tables and $print_tables {
+            @include template-content-globals-tables($css_headings: $css_headings);
+            @content ($location);
+        }
+        //
+        @else if $location == typography and $print_typography {
+            @include template-content-globals-typography($css_headings: $css_headings);
+            @content ($location);
+        }
+        //
+        @else {
+            @content ($location);
+        }
+    }
+}

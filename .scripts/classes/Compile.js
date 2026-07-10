@@ -35,12 +35,12 @@ export class Compile extends CompileStage {
         'ts',
         // @ts-expect-error
         'tokens',
+        // @ts-expect-error
+        'templates',
         'scss',
         // @ts-expect-error
         'astro',
         'files',
-        // @ts-expect-error
-        'templates',
     ];
 
     /**

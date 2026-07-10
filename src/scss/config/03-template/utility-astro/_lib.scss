@@ -46,40 +46,15 @@
     $template_name: 'Default',
     $template_slug: 'default',
 
+    $template_packagePath: if(
+            pre.$template_isDefault,
+            '@maddimathon/design-system-utilities/template',
+            '@maddimathon/design-system-utilities/template/#{pre.$template_slug}'
+        ),
     $template_docBlock: false,
     $template_astro: pre.$template_astro,
     $template_globals: pre.$template_globals,
-    $template_tokens: false,
-    $template_utils: pre.$template_utils,
-
-    $template_styles: map.deep-merge(
-            pre.$template_styles,
-            (
-                a: false,
-                astro: (
-                    bodyGrid: false,
-                    toggleNav: false,
-                ),
-                blockquote: false,
-                buttons: false,
-                code: false,
-                fieldset: false,
-                focusRing: false,
-                headings: false,
-                icons: false,
-                inputs: false,
-                lists: false,
-                normalize: false,
-                reset: false,
-                p: false,
-                pageSubtitle: false,
-                pre: false,
-                selection: false,
-                siteSettingsMenu: false,
-                skipLinks: false,
-                table: false,
-                toggle: false,
-                typeDefaults: false,
-            )
-        )
+    $template_styles: pre.$template_styles,
+    $template_tokens: pre.$template_tokens,
+    $template_utils: pre.$template_utils
 );

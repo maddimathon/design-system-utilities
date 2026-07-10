@@ -391,7 +391,6 @@ export var getBrandConstants;
                         `const ${varName} = ${content};`,
                     ];
                 }
-                // const functionName = `define_${ slugify( varName ).replace( /-/g, '_' ) }`;
                 return [
                     '// hooked for access to translation',
                     `\\add_action(`,
@@ -415,28 +414,6 @@ export var getBrandConstants;
                     `    0,`,
                     `);`,
                 ];
-                // return [
-                //     '/**',
-                //     ' * Defines brand values. Hooked for access to translation.',
-                //     ' */',
-                //     `function ${ functionName }(): void {`,
-                //     '    // returns',
-                //     `    if ( \\defined( '${ phpNamespace }${ varName }' ) ) {`,
-                //     '        return;',
-                //     '    }',
-                //     '',
-                //     '    /**',
-                //     `     * ${ args.comment }`,
-                //     '     *',
-                //     `     * @var ${ args.type }`,
-                //     '     */',
-                //     `    \\define(`,
-                //     `        '${ phpNamespace }${ varName }',`,
-                //     `        ${ content.split( '\n' ).join( '\n        ' ) },`,
-                //     '    );',
-                //     '}',
-                //     `\\add_action( \'init\', \'${ phpNamespace }${ functionName }\', 0 );`,
-                // ];
             }
             /**
              * Gets a string of valid PHP code for wordpress defining custom

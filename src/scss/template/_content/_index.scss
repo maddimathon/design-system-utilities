@@ -4,23 +4,16 @@
 ///
 
 @forward '_header';
+@forward '../../notice';
 
-@forward '00-abstracts';
+@use '../../config';
+@use '../../lib' as *;
 
-@forward 'utility-astro';
-
-@forward '01-globals';
-@forward '02-layouts';
-@forward '03-utilities';
-@forward '04-blocks';
-
-@forward '_footer';
-
-/// # EXTENDING SELECTORS
-/// ======================================================================== ///
-
-@use 'config';
-@use 'lib' as *;
+@include template-content-abstracts;
+@include template-content-globals;
+@include template-content-layouts;
+@include template-content-utilities;
+@include template-content-blocks;
 
 @if config.$template_extendSelectors {
     @include extend-selectors;

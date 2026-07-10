@@ -1,0 +1,134 @@
+///
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/meta';
+
+@use 'pkg:@maddimathon/utility-astro/lib/templates' as utils;
+
+@use '../../config';
+// @use '../../tokens';
+
+@use '../01-functions' as *;
+@use '../02-mixins' as *;
+@use '../03-snippets' as *;
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-content-layouts-body-grid($css_headings: null) {
+    @if $css_headings == null {
+        $css_headings: config.$template_cssHeadings;
+    }
+
+    @if $css_headings {
+        /* # LAYOUTS - BODY GRID
+         * ======================================================================== */
+    }
+
+    @content (start);
+
+    @include template-design-system {
+        @include snippet-support-astro-body-grid($includeGlobals: false);
+    }
+
+    @include snippet-support-astro-body-grid--extend-globals($localOnly: true);
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-content-layouts-content-header(
+    $print_contentHeader: map.get(config.$template_styles, astro, contentHeader),
+    //
+    $css_headings: null,
+    $content_exists: null
+) {
+    $_print_any: $print_contentHeader;
+
+    @if $css_headings == null {
+        @if $content_exists == null {
+            $content_exists: meta.content-exists();
+        }
+
+        $css_headings: config.$template_cssHeadings and ($content_exists or $_print_any);
+    }
+
+    @if $css_headings {
+        /* # LAYOUTS - CONTENT HEADER
+         * ======================================================================== */
+    }
+
+    @content (start);
+
+    @if $_print_any {
+        @include template-design-system {
+            @if $print_contentHeader {
+                %content-header {
+                    &,
+                    > hgroup {
+                        > :first-child {
+                            @include snippet-first-child-no-top-margin;
+                        }
+                    }
+
+                    + :where(*) {
+                        margin-block-start: var-style(flow-margin-large);
+                    }
+                }
+            }
+            @content (contentHeader);
+        }
+    } @else {
+        @content (contentHeader);
+    }
+
+    @content (pageSubtitle);
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-content-layouts(
+    $print_bodyGrid: map.get(config.$template_styles, astro, bodyGrid),
+    $print_contentHeader: true,
+    //
+    $css_headings: null,
+    $args...
+) {
+    @include debug-checkpoint(
+        '#{config.$template_slug} - layout - start',
+        $level: config.$template_debug_checkpointsLevel + 1,
+        $verbose: true
+    );
+
+    @include utils.template-content-layouts(
+            $print_bodyGrid: false,
+            $print_contentHeader: false,
+            $css_headings: $css_headings,
+            $args...
+        )
+        using ($location) {
+        @if $location == body {
+            @if $print_bodyGrid {
+                @include template-content-layouts-body-grid($css_headings: $css_headings);
+            }
+
+            @content ($location);
+        }
+        //
+        @else if $location == contentHeader {
+            @if $print_contentHeader {
+                @include template-content-layouts-content-header($css_headings: $css_headings);
+            }
+
+            @content ($location);
+        }
+        //
+        @else {
+            @content ($location);
+        }
+    }
+}

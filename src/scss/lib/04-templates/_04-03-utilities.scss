@@ -1,0 +1,272 @@
+///
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/meta';
+
+// @use 'pkg:@maddimathon/utility-astro/lib/templates' as utils;
+
+@use '../../config';
+@use '../../tokens';
+
+@use '../01-functions' as *;
+@use '../02-mixins' as *;
+// @use '../03-snippets' as *;
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-content-utilities-layout(
+    $print_breakpoints: true,
+    $print_overflow: true,
+    $print_width: true,
+    //
+    $css_headings: null,
+    $content_exists: null,
+    $args...
+) {
+    $_print_any: $print_breakpoints or $print_overflow or $print_width;
+
+    @if $content_exists == null {
+        $content_exists: meta.content-exists();
+    }
+
+    @if $css_headings == null {
+        $css_headings: if(
+            config.$template_cssHeadings and ($content_exists or $_print_any),
+            true,
+            null
+        );
+    }
+
+    @if $css_headings {
+        /* # UTILITIES - LAYOUT
+         * ======================================================================== */
+    }
+
+    @if $print_overflow {
+        %overflow-inline-auto {
+            overflow-inline: auto;
+            max-width: 100%;
+        }
+
+        %overflow-block-auto {
+            overflow-block: auto;
+            max-width: 100%;
+        }
+    }
+    @content (overflow);
+
+    @if $print_width {
+        @each $slug in map.keys(tokens.$width) {
+            %min-width-#{$slug} {
+                min-width: var-width($slug);
+            }
+            %max-width-#{$slug} {
+                max-width: var-width($slug);
+            }
+        }
+
+        @each $slug in (auto, fit-content, none) {
+            %min-width-#{$slug} {
+                min-width: $slug;
+            }
+            %max-width-#{$slug} {
+                max-width: $slug;
+            }
+        }
+    }
+    @content (width);
+
+    @if $print_breakpoints {
+        @each $bp in map.keys(tokens.$breakpoints) {
+            %if-viewport-min-width-#{$bp} {
+                display: none !important;
+
+                @include min-width($bp) {
+                    display: do-var(display, block) !important;
+                }
+            }
+
+            %if-viewport-max-width-#{$bp} {
+                display: none !important;
+
+                @include max-width($bp) {
+                    display: do-var(display, block) !important;
+                }
+            }
+        }
+    }
+    @content (breakpoints);
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-content-utilities-typography(
+    $print_fontFamily: true,
+    $print_fontSize: true,
+    $print_textAlign: true,
+    $print_textTransform: true,
+    //
+    $css_headings: null,
+    $content_exists: null,
+    $args...
+) {
+    $_print_any: $print_fontFamily or $print_fontSize or $print_textAlign or $print_textTransform;
+
+    @if $content_exists == null {
+        $content_exists: meta.content-exists();
+    }
+
+    @if $css_headings == null {
+        $css_headings: if(
+            config.$template_cssHeadings and ($content_exists or $_print_any),
+            true,
+            null
+        );
+    }
+
+    @if $css_headings {
+        /* # UTILITIES - TYPOGRAPHY
+         * ======================================================================== */
+    }
+
+    @if $print_fontSize {
+        @each $slug, $_value in tokens.$font_size {
+            %font-size-#{$slug} {
+                font-size: var-fs($slug);
+            }
+        }
+
+        %font-size-heading-unstyled {
+            // @extend %font-size-#{style-value(heading-unstyled-font-size, $raw: true)};
+            font-size: var-style(heading-unstyled-font-size);
+        }
+    }
+
+    @if $print_textTransform {
+        %text-transform-lowercase {
+            text-transform: lowercase;
+        }
+
+        %text-transform-uppercase {
+            text-transform: uppercase;
+        }
+
+        %uppercase-emphasis {
+            text-transform: uppercase;
+            font-weight: inherit;
+        }
+    }
+
+    @if $print_textAlign {
+        %text-align-start {
+            text-align: start;
+        }
+
+        %text-align-center {
+            text-align: center;
+        }
+
+        %text-align-end {
+            text-align: end;
+        }
+    }
+
+    @if $print_fontFamily {
+        @if font-family-exists(icons) {
+            %font-family-icons {
+                @include font-family-icons;
+            }
+        }
+    }
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-content-utilities-theme(
+    $print_background: true,
+    $print_color: true,
+    //
+    $css_headings: null,
+    $content_exists: null,
+    $args...
+) {
+    $_print_any: $print_background or $print_background;
+
+    @if $content_exists == null {
+        $content_exists: meta.content-exists();
+    }
+
+    @if $css_headings == null {
+        $css_headings: if(
+            config.$template_cssHeadings and ($content_exists or $_print_any),
+            true,
+            null
+        );
+    }
+
+    @if $css_headings {
+        /* # UTILITIES - THEMES & COLOURS
+         * ======================================================================== */
+    }
+
+    @if $print_background {
+        %background-default {
+            background: var-theme(background) !important;
+        }
+
+        @each $variant in map.get(tokens.$themesMeta, keys, background) {
+            %background-#{$variant} {
+                background: var-theme(background-#{$variant}) !important;
+            }
+        }
+
+        %background-transparent {
+            background: transparent !important;
+        }
+    }
+
+    @if $print_color {
+        %color-default {
+            background: var-theme(text) !important;
+        }
+
+        @each $variant in map.get(tokens.$themesMeta, keys, text) {
+            %color-#{$variant} {
+                @include theme-set-color($variant, $important: true);
+            }
+        }
+    }
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-content-utilities(
+    $print_layout: true,
+    $print_theme: true,
+    $print_typography: true,
+    //
+    $css_headings: null
+) {
+    @if $print_layout {
+        @include template-content-utilities-layout($css_headings: $css_headings);
+    }
+    @content (layout);
+
+    @if $print_typography {
+        @include template-content-utilities-typography($css_headings: $css_headings);
+    }
+    @content (typography);
+
+    @if $print_theme {
+        @include template-content-utilities-theme($css_headings: $css_headings);
+    }
+    @content (theme);
+}
